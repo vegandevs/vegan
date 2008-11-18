@@ -1,0 +1,5 @@
+"radfit" <-
+    function (...)
+{
+    UseMethod("radfit")
+}

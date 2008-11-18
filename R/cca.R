@@ -1,0 +1,5 @@
+"cca" <-
+function (...) 
+{
+   UseMethod("cca")
+}

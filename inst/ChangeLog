@@ -1,0 +1,810 @@
+$Date$
+
+VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
+
+Version 1.16-4 (opened November 1, 2008)
+
+	* vignettes: Figures with narrower margins. Vignetted
+	"diversity-vegan" adds functional diversity ('treedive'), 'beals'
+	and 'radfit' graphics updated to current vegan. Still missing
+	pieces: nestedness & null models, quantitative null models,
+	additive diversity partioninng, Tsallis entropy.
+
+	* radlattice: a new function to display each radfit model in a
+	separate panel together with their AIC or BIC values. I wanter to
+	have this for a manuscript.
+
+	* plot.cca: takes care that plotted items have non-NULL names that
+	plot neatly.  This was already take care of with formula
+	interface, but now it should work also in other cases in
+	plots. Reported by Daniel Borcard.
+	
+	* permatwsap: quasiswap method is implemented for count data based
+	on the idea of Carsten Dormann in the swap.web::bipartite
+	function. This takes a random matrix first with same row and
+	column sums as the original (via r2dtable), and than restores the
+	original matrix fill through steps of swaping 2x2 submatrices. The
+	current R code is slow.
+
+	* permatfull: when both cells and individuals are shuffled, the
+	matrix fill remains constant.
+
+	* nesteddisc: replaced with a new function that orders tied
+	columns to minimize the discrepancy statistic. If there are <=7
+	tied columns, all upto 5040 permutations are inspected, and if
+	there are >7 tied columns, 5000 random permutations are
+	inspected. The ties are inspected only if they could change order
+	of columns within range of row sums (species richness). A warning
+	with results is only printed if there were >7 tied columns that
+	could influence the statistic, because in other cases the solution
+	is certainly correct. The new function may be slow, and a more
+	clever solution should be found (or nesteddisc dropped from
+	vegan).  With this code, the discrepancy statistic of the 'sipoo'
+	data is 50 (cf. notes on 1.16-3) instead of the original 55.
+
+Version 1.16-3 (closed November 1, 2008)
+
+	* spantree: saves labels of points, and 'cophenetic' and 'plot'
+	use these labels. Function 'plot' uses 'ordilabel' for text
+	labels.
+
+	* orditkplot: added option to copy the current graph to a TIFF
+	file. The capabilities("tiff") check was added in R-2.8.0, but the
+	test works in R < 2.8.0 as well.
+
+	* nesteddisc: Carsten Dormann (UFZ, Leipzig, Germany) turned my
+	attention to the sensitivity of discrepancy to ties in column
+	frequencies. These are not handled by any way (yet), but the users
+	are warned now about ties. For instance, the example matrix 'A' on
+	page 259 of Brualdi & Sanderson (Oecologia 119, 256-264; 1999) can
+	be ordered to give discrepancy value = 2 instead of value = 3
+	reported in the paper with a different ordering of columns.
+	Different random reorderings of species in the 'sipoo' data in
+	vegan can give discrepancy values 51 to 58 (and the original
+	arbitrary ordering gives 55). This means that discrepancy values
+	are not very reliable, but ties should be handled better or the
+	function withdrawn from vegan. 
+
+	* ordisurf: returns x, y and z used by contour() following a query
+	"[R-sig-eco] output from ordisurf" on Oct 23, 2008.
+	
+Version 1.16-2 (closed October 27, 2008) --- for Annukka
+
+	* beals: replaced old beals.R with the new code by Miquel de
+	Caceres with new methods described in De Caceres & Legendre
+	(Oecologia 156, 657-669; 2008). This also implements the
+	cross-validatory Beals of Munzbergova & Herben (Oikos 104,
+	408-414; 2004) plus many new options of unbiasing estimates. 
+
+	* permatfull: bug of row/col margins is fixed, shuffle argument is
+	added to enable individual and sample based randomisation of count
+	data (or both) when not all the margins are fixed.
+
+	* anosim: API and documentation made similar to mrpp to combine
+	their documentation. Now anosim can take data frame input and find
+	the dissimilarities internally.
+	
+Version 1.16-1 (closed October 10, 2008)
+
+	* dispindmorisita: function to calculate Morisita's index of
+	dispersion, and its standardized version. Uses the correct way of
+	standardizing, see Note section in help.
+
+	* radfit: Should work with empty sites (no species) or when the
+	number of species is less or equal the number of parameters
+	estimated (like may happen in sweeping analysis of data frames or
+	simulations). Takes care that input data frames have row names
+	which are necessary for displaying results.
+	
+	* head.summary.cca & tail.summary.cca: shortcuts to
+	print(summary(x, ...), head, tail) for nicer Sweave tutorials.
+	
+Version 1.16-0 (closed on September 30, 2008)
+
+	* New devel version after branching the release version
+	1.15-0. Identical to the release version, but includes MOStest and
+	adipart functions that were removed from 1.15-0.
+	
+Version 1.14-12 (closed September 26, 2008)
+
+	* add1.cca, drop1.cca: new functions that also implement
+	permutation tests with argument test = "permutation", but only use
+	default methods with test = "none". Function drop1.cca uses
+	anova.cca(..., by = "margin"), and add1.cca implements a new type of
+	analysis for single term additions. The immediate reason for
+	implementing these tests was that I found out that step(..., test
+	= "Chisq") worked(!) producing parametric likelihood ratio tests,
+	and this hole had to be closed before users notice this.
+
+	* anova.cca: improved treatment of models where constrained or
+	unconstrained models are NULL so that permutation tests are
+	impossible. These used to stop with error, but now they return a
+	zeroed result so that things like anova(..., by = "term") and
+	drop1() work. Added function anova.ccanull to handle these cases.
+
+	* anova.cca(..., by = "margin") was handling wrongly 'x' in ~
+	Condition(x) + x + z, or model formulae where same variables were
+	used both as Conditions and (aliased) constraints. 
+
+	* anova.cca(..., by = "margin") or function anova.ccabymargin
+	gained a 'scope' argument which is used in drop.scope(). 
+
+	* orditkplot & ordipointlabel: improved interface allows passing
+	font type from ordipointlabel to orditkplot. 
+
+	* copied to version 1.15-0 at rev506.
+	
+Version 1.14-11 (closed September 10, 2008)
+
+	* anova.cca/permutest.cca: default permutation model changed from
+	"direct" to "reduced" after Pierre Legendre's simulation test
+	demonstrated slightly better Type I error for "reduced" models in
+	by = "axis" and other partial models. This is also consistent with
+	CANOCO (but permutation of CCA residuals differs from CANOCO). For
+	compatibility with old versions of vegan, you must set model =
+	"direct" explicitly.
+
+	* ordiplot: did not use partial match for "sites" and "species".
+	
+Version 1.14-10 (closed September 5, 2008)
+
+	* treedive: tries to match 'comm' and 'tree' names if forced (by
+	an arg), or when sizes do not match. Output vector has names. Docs
+	discuss estimating signifcance using oecosimu().
+
+	* oecosimu: accepts now a vector of statistics and plain
+	statistics instead of the list item statistics, and the user can
+	define the name of the statistic in the function call. This means
+	that things like functional diversity (treedive) for sites can be
+	analysed with approprite simulation model.
+
+	* nestedtemp & oecosimu documentations split. 
+	
+	* ordiParseFormula: formula of the partial terms has the same
+	environment as the general formula. Cures some tricky issues when
+	the partial term of cca/rda/capscale model is updated within a
+	function. (The environment() drives me crazy, says J.O.)
+
+	* ordiParseFormula gains new argument 'envdepth' to define the
+	depth where the community data (dependent data) is evaluated. Most
+	functions evaluate community data in the parent environment of the
+	calling function, but capscale() creates new dependent data and
+	needs evaluate the community within calling function. (The
+	environment() drives me absolutely crazy, says J.O.)
+
+	* specaccum: empty (all zeros) species removed from input
+	data. These confused method = "exact" which gave sd = NA.
+
+	* permutest.cca: tells whether the test was for all eigenvalues or
+	for the first (this is implicit in anova.cca).
+
+	* vegan-internal.Rd: brief documentation of internal functions for
+	developers with some guidelines of good practices.
+	
+Version 1.14-9 (closed August 20, 2008)
+
+	* closed concurrently with the release of vegan 1.13-2: changes up
+	to this version may have been there.
+
+	* adipart: new function to perform additive diversity partitioning
+	with corresponding S3 methods.
+
+	* tsallis: new function to calculate Tsallis-entropy, a scalable
+	diversity index family
+
+	* treedive: new functions for estimating functional diversity
+	defined as the height of a dendrogram of species properties for a
+	site (Petchey & Gaston). Still very preliminary.
+
+	* plot.procrustes: could fail if two solutions were *exactly*
+	*exactly* identical (noticed by Peter Solymos with wcmdscale
+	example). 
+	
+Version 1.14-8 (closed August 10, 2008)
+
+	* wcmdscale: new function to perform metric scaling
+	(a.k.a. principal coordinates analysis) with weights for points.
+
+	* ordiArgAbsorber: now knows about 'choices' and 'display' args
+	of scores(). Reported by Michael Denslow.
+
+	* orditkplot: plotting text labels was broken in the default case.
+	Zooming works again. Plotting character (pch) is now better
+	centred on the canvas, and the code was simplified.
+	
+Version 1.14-7 (closed July 30, 2008)
+
+	* orditkplot: imitates now plotting character (argument
+	pch). Zooming maintains graphical parameters (such as mar). Label
+	selection shown by a rectangle, since label may already be
+	red. Label family, size and font can be vectors.
+	
+	* permat.R, swapcount.R: summary method was modified according to
+	standard R ways, ylab argument was deleted from plot method.  The
+	R version of swapcount was deleted and replaced by the C
+	version. Help file was modified accordingly.
+
+	* ordilabel: new function for cluttered ordination plots -- text
+	is written on a non-transparent label. Similar to s.label()
+	function in ade4.
+
+	* ordipointlabel: new function for cluttered ordination plots --
+	points are in fixed positions, but their text label is located to
+	avoid overlap. The optimization is based on optim(..., method =
+	"SANN"). Similar to pointLabel function in maptools. Returns an
+	"orditkplot" object, but orditkplot cannot yet completely handle
+	this (and this feature is undocumented).
+
+	* permutations: permuted.index2 and associated functions now allow
+	for restricted permutations of strata (i.e. restricted shuffling
+	of the blocks). This changes the acceptable 'type' options and adds
+	a new argument 'permute.strata' to permControl(), to control how
+	and what is permuted.
+
+Version 1.14-6 (closed July 5, 2008)
+
+	* permatswap (nestedness.c): translated Peter Solymos's
+	swapcount.R to C. This is still experimental code, and the user
+	interface is undocumented, except here: use method = "Cswap" in
+	permatswap.
+
+	* permatswap: was not updating swap matrix but using the same
+	starting matrix after burnin for every swap.
+	
+	* swapcount.R:  was advancing 'thin' counter even when a swap was
+	rejected so that fewer than requesed 'thins' were done.
+
+	* permat.R, swapcount.R: genereal cleanup, most importantly
+	replacing vector operators & and | with logical operators && and
+	||. 
+
+	* commsimulator: "quasiswap" written in C and *much* faster
+	now. Times are for MacBook Intel 1.86 GHz and 100 matrices:
+	"sipoo" from 7 min to 4 sec, "BCI" from 2+ hrs to 45
+	sec. Actually, quasiswap is now much faster than ordinary swap
+	which also should be written in C. "Backtracking" is so much more
+	complicated code that it could probably never reach "quasiswap"
+	even if written in C, and it may be dropped in the future. 
+
+	* commsimulator: "swap" and "tswap" written in C, and clearly
+	faster now. In MacBook, 100 swaps with "sipoo" went from 8 sec to
+	0.5 sec, and thinning hardly influenced timing (it used to
+	thin-fold times).
+
+	* oecosimu: takes care that original statistic is found from
+	binary data.
+	
+Version 1.14-5 (closed June 19, 2008)
+
+	* scores.rda: scaling = 0 returns now unmodified scores from the
+	object (like documented) without multiplying by the scaling
+	constant. Gains argument 'const' for user-settable general scaling
+	constant of the scores. The default 'const' is found internally to
+	giv a biplot scaling so that species and site scores together
+	approximate the original data. The value of 'const' is returned as
+	an attribute of 'scores'.
+
+	* summary.cca: prints the value of general scaling constant used
+	in 'rda' or 'capscale'.
+
+	* summary.cca: prints 'capscale' like 'rda' (used to have some
+	'cca' style output, like calling site scores "weighted averages"
+	instead of "weigthed sums").
+
+	* permutest.cca: estimates now residual df as number-of-rows -
+	rank-of-constraints-and-conditions - 1 so that df and pseudo-F are
+	equal to those reported by lm() for single response variables in
+	rda. anova(..., by = "ax") needs rethinking though: it only had
+	one df.  Because the test was based on permutation and order
+	statistics the change of df does not change the significances:
+	the observed pseudo-F and permuted pseudo-F's are influenced
+	similarly by the change of df, and order statistic does not
+	change. 
+
+	* varpart: long formulae were cut off in printoutwith a cryptic
+	warning. 
+	
+Version 1.14-4 (closed June 12, 2008)
+
+        * permatfull, permatswap and swapcount: functions to generate 
+        unrestricted and restricted null model community data matrices
+        under diferent constraints (preserving row/columnsums, 
+        or incidence pattern), with print, plot and summary methods.
+        (submitted by PS)
+
+	* adonis: speed-up and doc updates.
+        
+Version 1.14-3 (closed June 9, 2008)
+
+        * rda.default, cca.default: vegan naively used only the rank of
+        the ordination, but indeed, there are three cases of ranks: rank
+        of the ordination or number of axes (returned as rank like
+        before), rank of the constraints after conditions (now returned as
+        qrank), rank of conditions + constraints (returned in QR$rank).
+        When only 'rank' was used, vegan for instance aliased terms beyond
+        rank of ordination axes, extractAIC did not get df right when
+        going beyond rank of ordination, anova(..., by="t") gave zero df
+        for constraints beyond rank of ordination, and calibrate.cca
+        ignored those extra variables (now stops). In addition predict.cca
+        and predict.rda(..., type="lc", newdata=somedata) gave wrong
+        results in partial model.  The following changes were made if
+        necessary to cca/rda support functions:
+
+	* alias.cca: QR$rank
+	* anova.ccabyaxis: OK 
+	* bstick.cca: OK 
+	* calibrate.cca: stop with error if qrank > rank
+	* extractAIC: qrank
+	* mso: OK (HW confirms)
+	* msoplot: OK (HW cofirms)
+	* permutest.cca: qrank, also fixes anova.ccabyterm
+	* predict.cca/rda: QR$rank with type = "lc" & newdata
+	* summary.cca/rda: OK
+	* scores.cca/rda: OK
+	
+Version 1.14-2 (closed June 5, 2008)
+
+	* Helene Wagner joined the vegan team.
+
+	* mso: automatically collapses distance classes larger than half
+	the maximum distance into a single distance class.
+
+	* mso: plot.mso renamed to msoplot so that plot.cca also works,
+	and the example uses now Oribatid mite data set. 
+
+	* mso: gained a print method that also shows the variogram
+	(Helene, please check this!), and mso knows about its own call. 
+
+	* lines.spantree: did not pass graphical arguments to lines
+	(broken in 1.12-15).
+
+	* ade2vegancca: a new function which tries to change an ade4:::cca
+	object to vegan:::cca object (and manages partially). This is used
+	internally in print.cca, scores.cca and summary.cca so that vegan
+	can display some information from ade4:::cca (with a warning).
+	Since scores.cca works for ade4, so do plot, orditkplot etc which
+	rely on scores.
+	
+Version 1.14-1 (closed May 29, 2008)
+
+	* plot.mso: passes extra arguments (...) to graphical functions.
+
+	* mite.xy: new data set with spatial coordinates for the Oribatid
+	mite data. From Pierre Legendre's web page.
+
+	* weights failed in several ordination utilities, because
+	weights.default in R 2.7.0 (stats) could not cope with objects
+	that do not have weights. R 2.6.2 still returned NULL for those
+	objects, but now weights.default gives an error. As a workaround
+	several vegan functions define internally 
+	       weights.default <- function(object, ...) NULL 
+	to get back the old behaviour. Concerns orglspider, ordicluster,
+	ordispider, ordiellipse, ordisurf, factorfit, vectorfit.
+
+	* inertcomp and intersetcor only work with objects inheriting from
+	"cca", but they did not check that the object was of the correct
+	type and so could end up with calling weights.default or give
+	obscure error messages.
+
+	* permutest.betadisper: Could give the wrong pair-wise permutation
+	p-values. Reported by Daniel O'Shea.
+	
+Version 1.14-0 (closed May 21, 2008)
+
+	* The base of the release version 1.13-0.
+
+Version 1.12-15 (closed May 14, 2008)
+
+	* closed the revision and made it as the base of release branch
+	1.13-0 at rev353.
+
+	* capscale: prints info on possible metaMDS transformations, and
+	uses metaMDSdist transformed data for getting species scores
+	(similarly as metaMDS recently does).
+
+	* ordiTerminfo: does not give superfluous warnings if constrained
+	ordination called without constraints and without data=, like
+	capscale(x ~ 1).
+
+	* graphical functions: Graphical functions that also pass '...' to
+	non-graphical functions (such as scores) now accept non-graphical
+	arguments without issuing an warning. These warnings were harmless
+	but it is neater to stop them happening in the first place. This
+	is facilitated by the new internal function ordiArgAbsorber().
+
+	* MOStest: added fieller.MOStest for approximate confidence
+	intervals of the location of the hump or pit. The method is based
+	on Fieller's theorem following ter Braak & Looman (Vegatatio 65,
+	3-11; 1986) and profile based condifence limits following Oksanen
+	et al. (Ecology 82, 1191-1197; 2001).  Both are based on the code
+	from the ESA Ecological Archives accompanying Oksanen et
+	al. (Ecology 82, 1191-1197; 2001) and published in package optgrad
+	(http://www.esapubs.org/archive/ecol/E082/015/default.htm), but
+	profile methods heavily borrow from the MASS package.
+
+Version 1.12-14 (closed May 9, 2008)
+
+	* mso: added Helene Wagner's mso function for direct multi-scale
+	ordination or spatial partioning of 'cca' and 'rda'
+	results (Ecology 85, 342-351; 2004). Thanks to Helene Wagner for
+	allowing the inclusion of the code.
+
+	* MOStest: new function to implement Mitchell-Olds & Shaw test for
+	the location of quadratic extreme in a defined interval.
+
+	* capscale: accepts now other dissimilarity function than vegdist,
+	and optionally uses metaMDSdist to manipulate dissimilarities
+	similarly as metaMDS. This provides now a one-shot unconstrained
+	principal coordinates analysis ("metaPCoA"), optionally with
+	extended (flexible shortest path) dissimilarities. Incidentally
+	this also implements a "new" possibly unpublished ordination
+	method: extended distance based redundancy analysis.
+
+	* metaMDSdist: argument 'add' gained new alternative "ignore" to
+	do nothing with zero distances. This can only and should be used
+	with metric scaling (cmdscale(), capscale()). 
+
+	* ordispantree: removed after being deprecated and defunct for a
+	long time. Use lines.spantree instead.
+	
+Version 1.12-13 (closed May 7, 2008)
+
+	* orditkplot: labels can be edited with double clicking, and
+	shift-mouse allows zooming into smaller are in the plot.
+	
+Version 1.12-12 (closed May 1, 2008)
+
+	* adonis: added calculation of coefficients both for the species
+	(when data matrix was given) and for sites (both with the data
+	matrices and dissimilarities).
+
+	* betadisper: was not calculating distance to centroid correctly
+	for observations where the imaginary distance to centroid was
+	greater than the real distance (resulting in negative distance) 
+	which resulted in NaN when we took the square root. betadisper() 
+	now takes the absolute value of the combined distance before taking
+	the square root. This is in-line with Marti Anderson's PERMDISP2.
+
+Version 1.12-11 (closed April 23, 2008)
+
+	* adonis: permutation tests fixed. The permutation statistics were
+	wrongly calculated. The results will now be different than in
+	older version, including the example(adonis). Basically, the
+	reported statitistic used SS improvement compared to the residual
+	of the complete model, but permutations used SS accumulation
+	compared to the residual after the current model.
+
+	* specaccum: returns item "individuals" or the average number of
+	accumulated individuals with method = "rarefaction". A user
+	request. 
+
+	* rarefy: accepts now a vector of sample sizes, and then returns a
+	matrix with a column for each sample size. If also 'se = TRUE',
+	returns two rows for each case, one for rarefied richness, and
+	after than one for its standard error. This was a recurrent user
+	request. 
+
+	* zzz: vegan got package startup message.
+	
+Version 1.12-10 (closed April 19, 2008)
+
+	* adonis: the fix for the unused factor levels (r312) revealed
+	that adonis did not handle properly aliased variables and
+	pivoting. Results need checking.
+
+	* designdist: gained argument 'abcd = FALSE' to use the 2x2
+	contingency table notation instead of the more tangible default
+	notation. 
+	
+Version 1.12-9 (closed April 13, 2008)
+
+	* ordiArrowMul: added function 'ordiArrowMul' to improve automatic
+	scaling of biplot arrows (in plot.cca, text.cca, points.cca) and
+	fitted vectors (in plot.envfit). Reversed axes 'xlim=c(1,-1)' work
+	now, and shifted origin 'at = c(1,1)' taken into account in
+	plot.envfit. 
+
+	* plot.cca: scaling used for biplot arrows is returned as an
+	attribute to the 'biplot' item in the 'ordiplot' object (but this
+	attribute is not used for anything useful yet).
+
+	* summary.cca: contributions of eigenvalues accumulated for
+	constrained and unconstrained axes, and separately (new) for
+	constrained axes. 
+
+	* allPerms: Now accepts a vector from which number of observations 
+	can be deduced. This was the intended behaviour but allPerms failed
+	in such cases.
+
+	* adonis: Was not dropping empty levels of factors, which was
+	leading to incorrect results (d.f. was inflated).  Reported by
+	Tyler Smith.
+	
+Version 1.12-8 (closed April 6, 2008)
+
+	* permute: New high-level untility function for facilitating
+	the production of permutation tests using the new permutation
+	designs allowed by permuted.index2(). An example of the new
+	API is shown in ?permute.
+
+	* permutest.betadisper: Pairwise t test function made more
+	computationally stable.
+	
+Version 1.12-7 (closed Mar 30, 2008)
+
+	* permuplot: New function, produces a graphical representation
+	of a permutation design given a number of observations and a
+	object returned by permControl(). The function handles all the
+	permutation designs currently handled by permuted.index2().
+
+	* permuted.index2: was not returning correct sample indices
+	for grid designs within strata. Also, was not consitently 
+	mirroring series and grid designs when 'constant = TRUE' (i.e. 
+	mirroring was not applied the same way within each level of 
+	strata).
+
+	* permCheck: Now includes several sanity checks for balance
+	in permutation designs ('grid' & 'strata') and when using
+	same permutation in each level of 'strata' (constant = TRUE).
+	Also works if object is a (numeric or integer) vector of length 
+	1, by expanding it to seq(from = 1, to = object). This is now
+	in-line with the way numPerms works.
+
+	New argument 'make.all' in permCheck() allows greater control
+	over the checking process. Allows user to check a permutation
+	design without generating the matrix of all possible permutations.
+	Used in allPerms() to allow that function to check permutation 
+	designs without getting stuck in infinite recursion, as permCheck()
+	calls allPerms() if complete = TRUE. This change allows allPerms()
+	to be called by a user without having to make sure the supplied
+	design makes sense - the design is checked using 
+	'make.all = FALSE'.
+
+	* screeplot: functions return now invisibly the xy.coords of
+	bars or points for eigenvalues. They used to return
+	invisibly the input data ('x'). Concerns screeplot methods for
+	'decorana', 'cca', 'princomp' and 'prcomp' objects in vegan.
+	
+	* varpart4: result could be wrong if 'varpart' was bypassed and
+	'varpart4' was called directly, because 'Y' was not centred before
+	calculating sum of squares in 'varpart4' ('varpart2' and
+	'varpart3' were OK). Reported by Guillaume Blanchet, Uni Alberta.
+	
+	* permutest: Now a generic function. permutest.cca is now the
+	'cca' method.
+
+	* permDisper: This function has been renamed to permutest.betadisper
+	and documentation updated.
+
+	* TukeyHSD.betadisper: Function is now documented with betadisper.
+	
+Version 1.12-6 (closed Mar 25, 2008)
+
+	* metaMDS: WA scores for species are now based on the same
+	transformations and standardization (like wisconsin(sqrt())) as
+	the dissimilarities. They used to be based on the original data
+	even when the data were transformed for the ordination. The change
+	is minimal: data are evaluated similarly as in metaMDSdist if
+	wascores are requested. An alternative would have been to split
+	data manipulation function into an independent function from
+	metaMDSdist, but I try this first. For compatibility reasons, the
+	previous behaviour can be re-established using argument old.wa =
+	TRUE.
+
+	* allPerms: Now allows unbalanced designs for "series" or "free"
+	permutations within levels of strata only (i.e. allows different
+	number of observations per level of strata). Unbalanced "grid" 
+	designs are not supported (and are unlikely to be so in the near
+	future). permuted.index2 has allowed these cases from the
+	beginning.
+
+	* allPerms, numPerms: Corrected for situations where type = "series",
+	mirror = TRUE with only 2 observations. In this case, mirroring
+	does not double the number of permutations.
+	
+Version 1.12-5 (closed Mar 24, 2008)
+
+	* plot.procrustes: could fail if compared configurations were
+	numerically identical.
+
+	* allPerms: New function to enumerate all possible permutations
+	for a given permutation scheme and number of samples. Has 'print'
+	and 'summary' methods.
+
+	* numPerms: Now accepts a numeric or integer vector of length 1
+	as the first argument 'object'. If supplied it is expanded to
+	seq(from = 1, to = object). This change allows you to state the
+	number of observations rather than pass an object from which the 
+	number of observations is deduced. Updated and clarified 
+	documentation in this regard.
+	
+Version 1.12-4 (closed Mar 20, 2008)
+	
+	* permDisper: Added pairwise comparisons of group dispersions 
+	via a classical t test and via permutation test, accessed via
+	new argument 'pairwise = TRUE'. 'permDisper' is now documented
+	seperately from 'betadisper'.
+
+	* TukeyHSD.betadisper: A method for 'TukeyHSD' to calculate
+	Tukey's Honest Significant Differences for the grouping factor
+	in 'betadisper'.
+
+	* numPerms: Was incorrectly calculating the number of permutations
+	when permuting levels of strata was performed. numPerms was also
+	incorrectly reporting too many permutations in the particular
+	case of type="grid" and mirror=TRUE with ncol=2.
+
+	* permuted.index2: When permuting levels of 'strata'
+	(type = "strata"), permuted.index2 was shuffling both the levels 
+	of strata *and* shuffling the samples within levels. The latter 
+	was incorrect and is now fixed.
+	
+Version 1.12-3 (closed Mar 9, 2008)
+
+	* betadiver: a new function that implements all indices of beta
+	diversity reviewed by Koleff et al. (J. Anim. Ecol., 72, 367-382;
+	2003), with a plot function to produce triangular plots.
+	
+	* isomap: added dynamic, spinnable 3D graphics using rgl
+	(rgl.isomap). 
+	
+Version 1.12-2 (closed Mar 7, 2008)
+
+	* nestedtemp: Rodriguez-Girones & Santamaria (J. Biogeogr. 33,
+	924-935; 2006) have had a look inside the original temperature
+	calculator code and give a more explicit description of the
+	method. Following their paper, I implemented an iterative
+	procedure to alternately pack columns and rows for ones and
+	zeros. The fill line is still a parabola, but this seems to be
+	very similar to the R-G & S fill line with fills 0.2...0.8 and I
+	don't hurry with this. There still are differences in many aspects
+	of implementation. The iterative procedure gives slightly
+	different results between runs, but here tests: Rocky mountain
+	mammals 3.87 (A&P 3.81, was 3.59 in 1.12-1), Baja
+	birds (Bajabs.txt) 10.17 (A&P 7.25, was 7.75), Queen Charlotte
+	birds 14.78 (A&P 15.87, was 14.51). Some results are indeed more
+	different than they used to be...
+
+	* nestedtemp (2): After previous entry implemented the fill line
+	of Rodriguez-Girones & Santamaria. This means almost complete
+	rewrite of the function from 1.12-1. New test results: mammals
+	4.48, Baja birds 10.16, Queen Charlotte birds 15.85. Baja is the
+	most different. Atmar & Patterson have five Baja bird data sets
+	with these test results: Bajaball 6.33, Bajabl 14.43, Bajabn
+	5.98, Bajabo 11.18, Bajabs 10.13. Smaller change is that packing
+	is based on indices s and t directly instead of their ranks.
+
+	* vignettes: added discussion on nestedtemp and backtracking in
+	"Design decisions and implementation".
+	
+Version 1.12-1 (closed Mar 2, 2008)
+
+	* biplot.rda: gained argument col to select colours for sites and
+	species. 
+
+	* bstick.princomp: used a wrong number of sticks (PCs). Reported
+	by Guy Yollin. 
+	
+	* nestedtemp:  Returns row and column coordinates,
+	optionally labels plot.
+
+	* merged last doc fixes from branches/1.11-0/ after release.
+	
+Version 1.12-0 (Feb 15, 2008)
+
+	* Made a release branch (1.11-0) based on the the rev. 204, and
+	relabelled this devel branch to 1.12-0.
+
+Version 1.10-13 (closed Feb 15, 2008)
+
+	* preparing for a release and trying to close open threads.
+
+	* nestedtemp: implemented smooth fill line. The kind of the fill
+	line was not specified in the original paper, but I used parabola
+	which is "as smooth as possible" in the sense that its second
+	derivative is constant. Needs checking, though.
+
+Version 1.10-12 (closed Feb 12, 2008)
+
+	* nestedtemp: new try with smooth fill line.
+
+	* anova.cca: by = "margin" stops with informative error message if
+	some terms are completely aliased (used to stop with an
+	uninformative error message). Type III effects really do not make
+	sense with aliased variables.
+	
+	* calibrate.cca: does correct pivoting of aliased models.
+
+	* orditkplot: Set up all basic features, and added points, text,
+	and scores methods. Features that should be added include zooming
+	to a rectangle drawn with a mouse, and adding env variables. The
+	latter would be trivial in a simple way, but the user should be
+	able to move the bunch of arrows to another place, and scale the
+	length of arrows with a mouse.
+	
+Version 1.10-11 (closed Feb 3, 2008)
+
+	* bgdispersal: New, more powerful test statistic (in terms of Type
+	1 error rate) for the McNemar test (Pierre Legendre).
+
+	* CCorA: internal functions embedded in CCorA().
+
+	* orditkplot: More resilient against user errors. New output file
+	types (bmp, xfig), jpeg uses 100% quality. more aware of operating
+	system and capabilities. Accepts graphical par in the function
+	call. Gains arguments xlim, ylim. Arguments col, bg, cex renamed
+	to pcol, pb, pcex so that the do not shadow par().
+	
+	* permuted.index2: fixed a bug in permutations with strata.
+
+	* summary.prc: honours now argument 'axis'. Reported by Francois
+	Gillet, Lausanne.
+
+	* Documentation: added documentation for permuted.index2,
+	permControl, permCheck and helper functions. FAQ and intro know
+	now about orditkplot, anova.cca(..., by="margin") and
+	permuted.index2. FAQ gained new sections on using different
+	plotting symbols and handling congested plots in ordination
+	graphics.
+
+Version 1.10-10 (closed Jan 27, 2008)
+
+	* DESCRIPTION: suggests tcltk.
+
+	* orditkplot: new function for ordination plots based on Tcl/Tk:
+	you can edit graph by moving labels using a mouse and save the
+	edited graph as an eps file, or export via R plot function to
+	eps, pdf, png or jpeg, or to dump to R session for further
+	processing. 
+
+	* CCorA: removed partial analysis (which needs more work and may
+	reappear later).
+	
+Version 1.10-9 (closed Jan 16, 2008)
+
+	* anova.cca: new option by = "margin" to perform separate tests
+	for each marginal effect in a model with all other terms. This is
+	similar to Type III tests, but will only work with marginal terms,
+	and will exclude main effects when corresponding interactions are
+	in the model.  P-value is now assessed in the true blue way as
+	(hits+1)/(permutations+1) in all anova.cca methods. Permutations
+	should be able to handle now rank deficit cases with pivoting in
+	the QR decomposition (permutest.cca).
+	
+	* permuted.index2: New version of permuted.index() that now allows
+	restricted permutations. Can produce permutations for time-series
+	or line transects and for spatial grids. These can also be nested
+	within 'strata'. permuted.series() and permuted.grid() are the 
+	relevant workhorse functions. Permutation options are set by new 
+	function permControl(). Plan to migrate vegan functions to 
+	permuted.index2() in the devel version, and will eventually replace
+	the current permuted.index().
+
+	* permCheck: New function for checking permutation schemes under
+	permuted.index2. Uses new function numPerms() to generate the 
+	number of possible permutations. permCheck() has print, summary
+	and print.summary methods.
+	
+Version 1.10-8 (closed Dec 14 2007, at Rev. 133)
+
+	* metaMDS: gains argument wascores (defaults TRUE) to suppress
+	calculation of species scores.
+
+	* wascores: return now NA for missing (all zero) species instead
+	of failing.
+
+	* ordiplot: ignore missing scores in plotting and printing.
+
+	* betadisper: new functions for Marti Anderson's analysis of
+	homogeneity of multivariate dispersions.
+
+	* nestedtemp: handles now tied frequencies using ties.method =
+	"average" in rank(). Function is still preliminary, and may be
+	dropped from the release.
+	
+	* taxa2dist: issues now a warning if called with 'check = FALSE'
+	and there are zero distances, typically meaning that basal taxa
+	(species) were not coded. Also explained in the help.
+
+	* varpart: failed if there were unused levels in factors (reported
+	by Cl
