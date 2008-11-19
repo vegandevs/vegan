@@ -2,6 +2,7 @@
 \name{permat}
 \alias{permatfull}
 \alias{permatswap}
+\alias{permat.control}
 \alias{plot.permat}
 \alias{print.permat}
 \alias{summary.permat}
@@ -23,6 +24,9 @@ permatfull(m, fixedmar = "both", shuffle = "ind", reg = NULL,
 hab = NULL, mtype = "count", times = 100)
 permatswap(m, method = "quasiswap", reg = NULL, hab = NULL, 
 mtype = "count", times = 100, burnin = 10000, thin = 1000)
+permat.control(ptype = "full", mtype = "count", method = "quasiswap",
+fixedmar = "both", shuffle = "ind", reg = NULL, hab = NULL,
+burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, ylab="Bray-Curtis dissimilarity", 
 xlab="Runs", col=c(2,4), lty=c(1,2), plot=TRUE, text=TRUE, ...)
 \method{summary}{permat}(object, ...)
@@ -33,6 +37,7 @@ xlab="Runs", col=c(2,4), lty=c(1,2), plot=TRUE, text=TRUE, ...)
   \item{fixedmar}{character, stating which of the row/column sums should be preserved (\code{"none", "rows", "columns", "both"}).}
   \item{reg}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata (regions) for restricted permutations. Unique values or levels are used.}
   \item{hab}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata (habitat classes) for restricted permutations. Unique values or levels are used.}
+  \item{ptype}{type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
   \item{mtype}{matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
   \item{times}{number of permuted matrices.}
   \item{method}{character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"} and \code{"swap"} methods are available (see details).}
@@ -81,6 +86,8 @@ as is for restricted permutations. If both are given, interaction is
 used for restricted permutations. Each strata should contain at least 2 rows
 in order to perform randomization (in case of low row numbers, swap algorithms
 can be rather slow).
+
+The function \code{permat.control} will be used to set up quantitative matrix permutations in other functions.
 }
 
 \value{
