@@ -41,8 +41,8 @@ nestFactor <- function(stra) {
         else out[,i] <- interaction(out[,(i-1)], stra[,(i+1)], drop=TRUE)
         levels(out[,i]) <- 1:nlevels(out[,i])}
     out <- out[,c(nc:1)]
-    colnames(out) <- NULL
-    rownames(out) <- NULL
+    colnames(out) <- paste("x", 1:ncol(out), sep="")
+    rownames(out) <- 1:nrow(out)
     return(out)}
 ## internal !!!f <- nestFactor(x)
 adpTrad <- function(y, f, index, weights="unif", serr=TRUE){
