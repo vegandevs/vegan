@@ -40,7 +40,7 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
   Function \code{ordisurf} fits a smooth surface using thinplate splines
   in \code{\link[mgcv]{gam}}, and uses \code{\link[mgcv]{predict.gam}}
   to find fitted values in a regular grid.
-  Function plots the fitted contours with convex hull of data poitns 
+  Function plots the fitted contours with convex hull of data points 
   either over an existing ordination diagram or draws a new plot
   The function uses
   \code{\link{scores}} to extract ordination scores, and \code{x} can be
