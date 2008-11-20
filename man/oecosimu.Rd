@@ -16,7 +16,7 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic",  ...)
+   statistic = "statistic", control, ...)
 commsimulator(x, method, thin=1)
 }
 
@@ -36,6 +36,9 @@ commsimulator(x, method, thin=1)
   \code{"swap"} and \code{"tswap"}.}
   \item{statistic}{The name of the statistic returned by
     \code{nestedfun}} 
+  \item{control}{a list of arguments passed to quantitative
+    permutation algorithms. If missing, the function 
+    \code{permat.control} is used.}
   \item{\dots}{Other arguments to functions.}
 }
 
@@ -120,6 +123,14 @@ commsimulator(x, method, thin=1)
   backtracking is done so may times that all incidences will be filled
   into matrix. The \code{quasiswap} method is not sequential, but it produces
   a random incidence matrix with given marginal totals. 
+
+  As a result of method \code{permat} in \code{oecosimu}, quantitative
+  community null models are used to evaluate the statistic. Through the \code{control}
+  argument, further options can be set via the function \code{\link{permat.control}}.
+  A full description of these settings can be found on the help pages of the
+  functions \code{\link{permatfull}} and \code{\link{permatswap}}. Note, that
+  \code{burnin} and \code{thin} arguments given in the \code{oecosimu} function call
+  overwrite the respective ones specified by \code{permat.control}.
 }
 
 \value{
@@ -195,6 +206,17 @@ out <- oecosimu(sipoo, caeval, "swap", burnin=100, thin=10)
 out
 ## Inspect the swap sequence
 matplot(t(out$oecosimu$simulated), type="l")
+## Use quantitative null models to compare
+## mean Bray-Curtis dissimilarities
+data(dune)
+meandist <- function(x) mean(vegdist(x, "bray"))
+out.mbc <- oecosimu(dune, meandist, "permat")
+out.mbc
+## Use the quantitative swap algorithm
+## to compare Shannon diversities by samples
+contr <- permat.control(ptype="swap", method="swap")
+out.div <- oecosimu(dune, diversity, "permat", burnin=100, thin=10, control=contr)
+out.div
 }
 \keyword{ multivariate }
 

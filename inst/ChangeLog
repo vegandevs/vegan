@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-4 (opened November 1, 2008)
 
+    * oecosimu: got a new control argument for quantitative null
+    model analyses, and this is available if method = "permat".
+    The print method and help file modified accordingly.
+
 	* vignettes: Figures with narrower margins. Vignetted
 	"diversity-vegan" adds functional diversity ('treedive'), 'beals'
 	and 'radfit' graphics updated to current vegan. Still missing
@@ -11,7 +15,7 @@ Version 1.16-4 (opened November 1, 2008)
 	additive diversity partioninng, Tsallis entropy.
 
 	* radlattice: a new function to display each radfit model in a
-	separate panel together with their AIC or BIC values. I wanter to
+	separate panel together with their AIC or BIC values. I wanted to
 	have this for a manuscript.
 
 	* plot.cca: takes care that plotted items have non-NULL names that
@@ -20,7 +24,7 @@ Version 1.16-4 (opened November 1, 2008)
 	plots. Reported by Daniel Borcard.
 	
 	* permatwsap: quasiswap method is implemented for count data based
-	on the idea of Carsten Dormann in the swap.web::bipartite
+	on the idea of Carsten Dormann in the bipartite::swap.web
 	function. This takes a random matrix first with same row and
 	column sums as the original (via r2dtable), and than restores the
 	original matrix fill through steps of swaping 2x2 submatrices. The
