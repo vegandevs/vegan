@@ -220,9 +220,9 @@ testAdp <- function(obs, perm, f, method, results, type=c(1,2), id=NULL, burnin=
                     perm.i <- permatfull(matr, times=1, ...)$perm[[1]]
                 if (permtype == "swap") {
                     if (i == 1) {
-                        perm.i <- permatswap(matr, times=1, burnin=burnin, ...)$perm[[1]]
+                        perm.i <- permatswap(matr, times=1, burnin=burnin, method="swap", ...)$perm[[1]]
                         } else {
-                        perm.i <- permatswap(perm.i, times=1, burnin=0, ...)$perm[[1]]
+                        perm.i <- permatswap(perm.i, times=1, burnin=0, method="swap", ...)$perm[[1]]
                 }}}
         if (method == "trad")
             adp.perm <- adpTrad(perm.i[id,], f[id,], index, weights, serr=FALSE)
