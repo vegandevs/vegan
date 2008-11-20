@@ -6,7 +6,7 @@
     nestfun <- match.fun(nestfun)
     method <- match.arg(method, c("r00", "r0", "r1", "r2", "c0",
                                   "swap", "tswap", "backtrack",
-                                  "quasiswap", "permat")) # "permat" method added
+                                  "quasiswap", "permat"))   # "permat" method added
     ## eveluate according to method
     if (method == "permat") {
         quant <- TRUE
@@ -27,7 +27,7 @@
     n <- length(indstat)
     simind <- matrix(0, nrow=n, ncol=nsimul)
 
-    ## conditional on quant value quant = FALSE
+    ## quant = FALSE
     if (!quant) {
         if (method %in% c("swap", "tswap")){
             checkbrd <- 1
@@ -63,14 +63,16 @@
                     simind[,i] <- tmp
             }
         }
-        ## this is new addition for quantitative null model simulations
-    } else {                            # quant = TRUE
+    ## this is new addition for quantitative null model simulations
+    ## quant = TRUE
+    } else {
+        ## permatfull
         if (pfull) {
             for (i in 1:nsimul) {
                 x <- permatfull(comm, fixedmar=control$fixedmar,
-                                shuffle=control$shuffle,
-                                reg=control$reg, hab=control$hab,
-                                mtype=control$mtype, times=1)
+                    shuffle=control$shuffle,
+                    reg=control$reg, hab=control$hab,
+                    mtype=control$mtype, times=1)
                 tmp <- nestfun(x$perm[[1]])
                 if (is.list(tmp)) {
                     simind[, i] <- tmp[[statistic]]
@@ -78,27 +80,28 @@
             }
             attr(simind, "thin") <- NULL
             attr(simind, "burnin") <- NULL
+        ## permatswap
         } else {
             if (control$method %in% c("swap", "tswap")) {
-                if (burnin > 0) {
-                    m <- permatswap(comm, method=control$method,
-                                    reg=control$reg, hab=control$hab,
-                                    mtype=control$mtype, times=1, 
-                                    burnin=control$burnin, thin=0)$perm[[1]]
+            if (burnin > 0) {
+                m <- permatswap(comm, method=control$method,
+                    reg=control$reg, hab=control$hab,
+                    mtype=control$mtype, times=1, 
+                    burnin=burnin, thin=0)$perm[[1]]
                 } else m <- comm
             }
             for (i in 1:nsimul) {
                 x <- permatswap(m, method=control$method,
-                                reg=control$reg, hab=control$hab,
-                                mtype=control$mtype, times=1, 
-                                burnin=0, thin=thin)
+                    reg=control$reg, hab=control$hab,
+                    mtype=control$mtype, times=1, 
+                    burnin=0, thin=thin)
                 tmp <- nestfun(x$perm[[1]], ...)
                 if (is.list(tmp))
                     simind[, i] <- tmp[[statistic]]
                 else simind[, i] <- tmp
             }
-            attr(simind, "thin") <- control$thin
-            attr(simind, "burnin") <- control$burnin
+            attr(simind, "thin") <- thin
+            attr(simind, "burnin") <- burnin
         }
     }
     ## end of addition
@@ -107,8 +110,8 @@
     p <- 2*pmin(rowSums(indstat > simind), rowSums(indstat < simind))
     p <- (p + 1)/(nsimul + 1)
 
-    ## ADDITION: if z is NA then it is not correct to calculate p
-    ## values try e.g. oecosimu(dune, sum, "permat")
+    ## ADDITION: if z is NA then it is not correct to calculate p values
+    ## try e.g. oecosimu(dune, sum, "permat")
     if (any(is.na(z)))
         p[is.na(z)] <- NA
 
