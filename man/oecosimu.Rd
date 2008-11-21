@@ -36,7 +36,7 @@ commsimulator(x, method, thin=1)
   \code{"swap"} and \code{"tswap"}.}
   \item{statistic}{The name of the statistic returned by
     \code{nestedfun}} 
-  \item{control}{a list of arguments passed to quantitative
+  \item{control}{A list of arguments passed to quantitative
     permutation algorithms. If missing, the function 
     \code{permat.control} is used.}
   \item{\dots}{Other arguments to functions.}
@@ -46,13 +46,14 @@ commsimulator(x, method, thin=1)
   
   Function \code{oecosimu} is a wrapper that evaluates a nestedness
   statistic using function given by \code{nestfun}, and then simulates a
-  series of null models using \code{commsimulator}, and evaluates the
+  series of null models using \code{commsimulator} or 
+  \code{permatfull}/\code{permatswap} (depending on method), and evaluates the
   statistic on these null models. The \pkg{vegan} packages contains some
   nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},
   \code{\link{nestedn0}}, \code{\link{nestedtemp}}), but many other
   functions can be used as long as they are meaningful with binary
-  community models. An applicable function must return either the
+  or quantitative community models. An applicable function must return either the
   statistic as a plain number, or as a list element \code{"statistic"}
   (like \code{\link{chisq.test}}), or in an item whose name is given in
   the argument \code{statistic}.  The statistic can be a single number
@@ -60,8 +61,9 @@ commsimulator(x, method, thin=1)
   vector indices can be used to analyse site (row) or species (column)
   properties, see \code{\link{treedive}} for an example.
 
-  Function \code{commsimulator} implements null models for community
-  composition. The implemented models are \code{r00} which maintains the
+  Function \code{commsimulator} implements binary (presence/absence) 
+  null models for community composition.
+  The implemented models are \code{r00} which maintains the
   number of presences but fills these anywhere so that neither species
   (column) nor site (row) totals are preserved. Methods \code{r0},
   \code{r1} and \code{r2} maintain the site (row) frequencies. Method \code{r0}
