@@ -23,20 +23,37 @@
     centroids <- apply(vectors, 2, function(x) tapply(x, group, mean))
     ## for each of the groups, calculate distance to centroid for
     ## observation in the group
-    dist.pos <- vectors[, pos, drop=FALSE] - centroids[group, pos, drop=FALSE]
-    dist.pos <- rowSums(dist.pos^2)
-    if (any(!pos)) {
-        dist.neg <- vectors[, !pos, drop=FALSE] -
-            centroids[group, !pos, drop=FALSE]
-        dist.neg <- rowSums(dist.neg^2)
+    if(is.matrix(centroids)) {
+        dist.pos <- vectors[, pos, drop=FALSE] -
+            centroids[group, pos, drop=FALSE]
+        dist.pos <- rowSums(dist.pos^2)
+        if (any(!pos)) {
+            dist.neg <- vectors[, !pos, drop=FALSE] -
+                centroids[group, !pos, drop=FALSE]
+            dist.neg <- rowSums(dist.neg^2)
+        } else {
+            dist.neg <- 0
+        }
     } else {
-        dist.neg <- 0
+        dist.pos <- vectors[, pos, drop=FALSE] -
+            centroids[pos]
+        dist.pos <- rowSums(dist.pos^2)
+        if (any(!pos)) {
+            dist.neg <- vectors[, !pos, drop=FALSE] -
+                centroids[!pos]
+            dist.neg <- rowSums(dist.neg^2)
+        } else {
+            dist.neg <- 0
+        }
     }
     ## zij are the distances of each point to its group centroid
     zij <- sqrt(abs(dist.pos - dist.neg))
     ## add in correct labels
-    colnames(vectors) <- colnames(centroids) <- names(eig) <-
-        paste("PCoA", 1:n, sep = "")
+    colnames(vectors) <- names(eig) <- paste("PCoA", 1:n, sep = "")
+    if(is.matrix(centroids))
+        colnames(centroids) <- names(eig)
+    else
+        names(centroids) <- names(eig)
     rownames(vectors) <- names(zij) <- attr(d, "Labels")
     retval <- list(eig = eig, vectors = vectors, distances = zij,
                    group = group, centroids = centroids, call = match.call())

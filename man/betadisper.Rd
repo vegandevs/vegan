@@ -47,7 +47,8 @@ betadisper(d, group, type = c("centroid", "median"))
     \code{\link{vegdist}}.}
   \item{group}{vector describing the group structure, usually a factor
     or an object that can be coerced to a factor using
-    \code{\link[base]{as.factor}}.}
+    \code{\link[base]{as.factor}}. Can consist of a factor with a single
+    level (i.e.~one group).}
   \item{type}{the type of analysis to perform. Only \code{type =
       "centroid"} is currently supported.}
   \item{display}{character; partial match to access scores for
@@ -164,6 +165,11 @@ betadisper(d, group, type = c("centroid", "median"))
   \item{centroids}{matrix; the locations of the group centroids on the
     principal coordinates.}
   \item{call}{the matched function call.}
+}
+\note{
+  If \code{group} consists of a single level or group, then the
+  \code{anova} and \code{permutest} methods are not appropriate and if
+  used on such data will stop with an error.
 }
 \references{
   Anderson, M.J. (2006) Distance-based tests for homogeneity of

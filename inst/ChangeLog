@@ -4,9 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-4 (opened November 1, 2008)
 
-    * oecosimu: got a new control argument for quantitative null
-    model analyses, and this is available if method = "permat".
-    The print method and help file modified accordingly.
+	* oecosimu: got a new control argument for quantitative null
+	model analyses, and this is available if method = "permat".
+	The print method and help file modified accordingly.
 
 	* vignettes: Figures with narrower margins. Vignetted
 	"diversity-vegan" adds functional diversity ('treedive'), 'beals'
@@ -45,6 +45,12 @@ Version 1.16-4 (opened November 1, 2008)
 	clever solution should be found (or nesteddisc dropped from
 	vegan).  With this code, the discrepancy statistic of the 'sipoo'
 	data is 50 (cf. notes on 1.16-3) instead of the original 55.
+
+	* betadisper: now works for cases where there is only a single 
+	group. 'scores', 'plot' and 'boxplot' methods updated to work in
+	such cases. 'anova' and 'permutest' methods stop with an error if
+	used for such cases as they implement tests that do not make sense
+	for a single group.
 
 Version 1.16-3 (closed November 1, 2008)
 

@@ -14,20 +14,37 @@
         ylab <- paste("PCoA", axes[2])
     g <- scores(x, choices = axes)
     plot(g$sites, asp = 1, type = "n", axes = FALSE, ann = FALSE, ...)
-    for(i in levels(x$group)) {
-        j <- which(levels(x$group) == i)
-        segments(g$centroids[j, axes[1]],
-                 g$centroids[j, axes[2]],
-                 g$sites[x$group == i, axes[1]],
-                 g$sites[x$group == i, axes[2]], col = "blue", ...)
-        if(hull) {
-            ch <- chull(g$sites[x$group == i, axes])
-            ch <- c(ch, ch[1])
-            lines(x$vectors[x$group == i, axes][ch, ],
-                       col = "black", lty = "dashed", ...)
+    ## if more than 1 group level
+    if(is.matrix(g$centroids)) {
+        for(i in levels(x$group)) {
+            j <- which(levels(x$group) == i)
+            segments(g$centroids[j, axes[1]],
+                     g$centroids[j, axes[2]],
+                     g$sites[x$group == i, axes[1]],
+                     g$sites[x$group == i, axes[2]], col = "blue", ...)
+            if(hull) {
+                ch <- chull(g$sites[x$group == i, axes])
+                ch <- c(ch, ch[1])
+                lines(x$vectors[x$group == i, axes][ch, ],
+                      col = "black", lty = "dashed", ...)
+            }
         }
+        points(g$centroids, pch = 16, cex = 1, col = "red", ...)
+    } else {
+        ## single group
+        segments(g$centroids[axes[1]],
+                     g$centroids[axes[2]],
+                     g$sites[, axes[1]],
+                     g$sites[, axes[2]], col = "blue", ...)
+            if(hull) {
+                ch <- chull(g$sites[, axes])
+                ch <- c(ch, ch[1])
+                lines(x$vectors[, axes][ch, ],
+                      col = "black", lty = "dashed", ...)
+            }
+        points(g$centroids[axes[1]], g$centroids[axes[1]],
+               pch = 16, cex = 1, col = "red", ...)
     }
-    points(g$centroids, pch = 16, cex = 1, col = "red", ...)
     points(g$sites, pch = as.numeric(x$group),
            cex = cex, ...)
     localTitle(main = main, xlab = xlab, ylab = ylab, sub = sub, ...)

@@ -13,6 +13,8 @@
     }
     if(!inherits(x, "betadisper"))
         stop("Only for class \"betadisper\"")
+    ## will issue error if only a single group
+    mod.aov <- anova(x)
     nobs <- length(x$distances)
     mod <- lm(x$distances ~ x$group)
     mod.Q <- mod$qr
@@ -62,7 +64,6 @@
     } else {
         pairwise <- NULL
     }
-    mod.aov <- anova(x)
     retval <- cbind(mod.aov[, 1:4], c(control$nperm, NA), c(pval, NA))
     dimnames(retval) <- list(c("Groups", "Residuals"),
                              c("Df", "Sum Sq", "Mean Sq", "F", "N.Perm",
