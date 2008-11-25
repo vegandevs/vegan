@@ -9,7 +9,8 @@
 \usage{
 ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
-     w = weights(x), main, nlevels = 10, levels, labcex = 0.6,  ...)
+     w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
+     bubble = FALSE, cex = 1, ...)
 }
 
 \arguments{
@@ -34,6 +35,13 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
     \code{nlevels} if \code{levels} are not supplied.}
   \item{labcex}{Label size in contours.  Setting this zero will suppress
     labels.}
+  \item{bubble}{Use \dQuote{bubble plot} for points, or vary the point
+    diameter by the value of the plotted variable. If \code{bubble} is
+    numeric, its value is used for the maximum symbol size (as in
+    \code{cex}), or if \code{bubble = TRUE}, the value of \code{cex} gives
+    the maximum. The minimum size will always be \code{cex = 0.4}.  The
+    option only has an effect if \code{add = FALSE}.}
+  \item{cex}{Character expansion of plotting symbols.}
   \item{\dots}{ Other graphical parameters. }
 }
 \details{
@@ -89,7 +97,7 @@ data(varechem)
 library(MASS)
 vare.dist <- vegdist(varespec)
 vare.mds <- isoMDS(vare.dist)
-with(varechem, ordisurf(vare.mds, Baresoil))
+with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 ## Cover of Cladina arbuscula
 with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 }
