@@ -8,6 +8,7 @@ function (x, method, thin = 1)
         x <- ifelse(x > 0, 1, 0)
     nr <- nrow(x)
     nc <- ncol(x)
+    at <- attributes(x)
     if (method %in% c("r0", "r1", "r2")) {
         rs <- rowSums(x)
         if (method == "r0")
@@ -94,6 +95,6 @@ function (x, method, thin = 1)
                 out <- oldout
         }
     }
+    attributes(out) <- at
     out
 }
-
