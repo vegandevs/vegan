@@ -3,7 +3,7 @@
               origin = TRUE, select, ...)
 {
     localText <- function(..., shrink, origin, scaling, triangular)
-        segments(...)
+        text(...)
     display <- match.arg(display)
     x <- scores(x, display = display, choices = choices, origin = origin,
                 ...)

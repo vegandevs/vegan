@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-5
 
+	* text.decorana: failed (bug introduced in rev344, on May 9,
+	2008). 
+
 	* commsimulator: simulated null models have same column and row
 	names as the original input (as.)matrix. There was a problem
 	report by a user who tried to use column names during evaluation
