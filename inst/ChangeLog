@@ -2,7 +2,10 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-5
+Version 1.16-5 (opened Nov 25, 2008)
+
+	* mite.rda: Oribatid mites got species names (from Pierre
+	Legendre's web pages).
 
 	* text.decorana: failed (bug introduced in rev344, on May 9,
 	2008). 
