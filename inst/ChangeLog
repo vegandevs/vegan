@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-5 (opened Nov 25, 2008)
 
+    * plot.nestedtemp: label argument accepts a vector of length 2
+    with elements for row and column labels, respectively.
+
 	* mite.rda: Oribatid mites got species names (from Pierre
 	Legendre's web pages).
 
