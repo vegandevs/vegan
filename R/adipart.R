@@ -52,13 +52,14 @@ function(matr, strata, index=c("richness", "shannon", "simpson"),
             wt <- lapply(1:nl, function(i) apply(tmp[[i]], 1, function(z) sum(z) / sum(matr)))
             else wt <- lapply(1:nl, function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
         a <- sapply(1:nl, function(i) sum(divfun(tmp[[i]]) * wt[[i]]))
-        names(a) <- c(paste("alpha", 1:(nl-1), sep="."), "gamma")
         b <- sapply(2:nl, function(i) a[i] - a[(i-1)])
-        names(b) <- paste("beta", 1:(nl-1), sep=".")
         c(a, b)
     }
     sim <- oecosimu(matr, wdivfun, method = "permat", nsimul=nsimul,
         burnin=control$burnin, thin=control$thin, control=control)
+    nam <- c(paste("alpha", 1:(nl-1), sep="."), "gamma",
+        paste("beta", 1:(nl-1), sep="."))
+    names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
     attr(sim, "index") <- index
     attr(sim, "weights") <- weights
     attr(sim, "n.levels") <- nl
