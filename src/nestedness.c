@@ -249,5 +249,65 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
     PutRNGstate();
 }
 
+/* rswapcount for "reducing swap of count data" is a minor variant of
+ * swapcount, but it tries to change the fill: you first make a matrix
+ * with correct marginal totals, but possibly wrong fill and then you
+ * run this to change the fill while maintaining the totals. The idea
+ * is similar as quasiswap for presence/absence data.
+ */
+
+void rswapcount(double *m, int *nr, int *nc, int *mfill)
+{
+   int row[2], col[2], i, k, ij[4], n, change, cfill,
+       pm[4] = {1, -1, -1, 1} ;
+    double sm[4], ev;
+
+    /* Get the current fill 'cfill' */
+    n = (*nr) * (*nc);
+    for (i = 0, cfill=0; i < n; i++) {
+	if (m[i] > 0) 
+	    cfill++;
+    }
+ 
+    GetRNGstate();
+
+    /* Loop while fills differ */
+    while (cfill != *mfill) {
+	/* Select a random 2x2 matrix*/
+	i2rand(row, *nr - 1);
+	i2rand(col, *nc - 1);
+	ij[0] = INDX(row[0], col[0], *nr);
+	ij[1] = INDX(row[1], col[0], *nr);
+	ij[2] = INDX(row[0], col[1], *nr);
+	ij[3] = INDX(row[1], col[1], *nr);
+	for (k = 0; k < 4; k ++)
+	    sm[k] = m[ij[k]];
+	/* The largest value that can be swapped */
+	ev = isDiag(sm);
+	if (ev != 0) {
+	    /* Check the change in fills */
+	    for (k = 0, change=0; k < 4; k++) {
+		if(sm[k] > 0)
+		    change--;
+		if (sm[k] + pm[k]*ev > 0)
+		    change++;
+	    }
+	    /* Fill does not change, but swap to bail out from
+	     * non-swappable configurations */
+	    if (change == 0) {
+		for (k = 0; k < 4; k++)
+		    m[ij[k]] += pm[k]*ev;
+	    } 
+	    else if ((change < 0 && *mfill < cfill) ||
+		     (change > 0 && *mfill > cfill)) {
+		for (k = 0; k < 4; k++)
+		    m[ij[k]] += pm[k]*ev;
+		cfill += change;
+	    } 
+	}
+    }
+    PutRNGstate();
+}
+
 #undef IRAND
 #undef INDX
