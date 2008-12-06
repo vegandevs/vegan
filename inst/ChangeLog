@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-6
 
+    * permatfull: Jari Oksanen made the C port for the quantitative
+    quasiswap algorithm. So the permat* null model family is now
+    can be used for a wide array of null model analyses and is
+    quick enough to make reliable testing. The permatswap function
+    and help page were modified accordingly.
+
 	* plot.rad: gained argument log = "y", allowing log = "xy" so that
 	Zipf model is a straight line, or log = "" with arithmetic
 	scales.  Not (yet) implemented for Lattice alternatives.
