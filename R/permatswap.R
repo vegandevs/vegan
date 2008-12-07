@@ -11,6 +11,7 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
     } else {method <- match.arg(method, c("swap", "quasiswap", "tswap", "backtracking"))}
 
     m <- as.matrix(m)
+    att <- attributes(m)
     n.row <- nrow(m)
     n.col <- ncol(m)
     if (mtype == "prab") m <- ifelse(m > 0, 1, 0)
@@ -62,14 +63,13 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
                     if (sum(perm[[i]][id,] > 0) != sum(m[id,] > 0)) {
                         tmp <- .C("rswapcount",
                                     m = as.double(perm[[i]][id,]),
-                                    as.integer(nrow(perm[[i]][id,])),
-                                    as.integer(ncol(perm[[i]][id,])),
+                                    as.integer(n.row),
+                                    as.integer(n.col),
                                     as.integer(sum(m[id,] > 0)),
                                     PACKAGE="vegan")$m
-                        perm[[i]][id,] <- matrix(tmp, nrow(perm[[i]][id,]), ncol(perm[[i]][id,]))
+                        attributes(perm[[i]][id,]) <- att
                 } else perm[[i]][id,] <- commsimulator(temp, method=method)
             }
-            thin <- burnin <- 0
         }
     } # for j end
     specs <- list(reg=reg, hab=hab, burnin=burnin, thin=thin)
