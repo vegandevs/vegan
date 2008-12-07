@@ -14,16 +14,15 @@
 presence-absence data) based null models can be generated for
 community level simulations. Options for preserving characteristics of
 the original matrix (rows/columns sums, matrix fill) and
-restricted permutations (within strata based on spatial units, habitat
-classes or both) are discussed in the Details section.}
+restricted permutations (based on strata) are discussed in the Details section.}
 
 \usage{
-permatfull(m, fixedmar = "both", shuffle = "ind", reg = NULL, 
-hab = NULL, mtype = "count", times = 100)
-permatswap(m, method = "quasiswap", reg = NULL, hab = NULL, 
+permatfull(m, fixedmar = "both", shuffle = "ind", strata = NULL, 
+mtype = "count", times = 100)
+permatswap(m, method = "quasiswap", strata = NULL,
 mtype = "count", times = 100, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
-fixedmar = "both", shuffle = "ind", reg = NULL, hab = NULL,
+fixedmar = "both", shuffle = "ind", strata = NULL, 
 burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, ylab="Bray-Curtis dissimilarity", 
 xlab="Runs", col=c(2,4), lty=c(1,2), plot=TRUE, text=TRUE, ...)
@@ -33,8 +32,7 @@ xlab="Runs", col=c(2,4), lty=c(1,2), plot=TRUE, text=TRUE, ...)
 \arguments{
   \item{m}{a community data matrix with plots (samples) as rows and species (taxa) as columns.}
   \item{fixedmar}{character, stating which of the row/column sums should be preserved (\code{"none", "rows", "columns", "both"}).}
-  \item{reg}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata (regions) for restricted permutations. Unique values or levels are used.}
-  \item{hab}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata (habitat classes) for restricted permutations. Unique values or levels are used.}
+  \item{strata}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata for restricted permutations. Unique values or levels are used.}
   \item{ptype}{type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
   \item{mtype}{matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
   \item{times}{number of permuted matrices.}
@@ -77,16 +75,15 @@ visually testing the randomness of the permuted matrices, especially for the
 sequential swap algorithms. If there are any tendency in the graph, higher \code{burnin} and 
 \code{thin} values can help.
 
-Unrestricted and restricted permutations: if both
-\code{reg} and \code{hab} are \code{NULL}, functions perform
-unrestricted permutations. If either of the two is given, it is used
-as is for restricted permutations. If both are given, interaction is
-used for restricted permutations. Each strata should contain at least 2 rows
+Unrestricted and restricted permutations:
+if \code{strata} is \code{NULL}, functions perform
+unrestricted permutations. Otherwise, it is used
+ for restricted permutations. Each strata should contain at least 2 rows
 in order to perform randomization (in case of low row numbers, swap algorithms
-can be rather slow). If the design given by \code{reg} and \code{hab} is not vell balanced
+can be rather slow). If the design is not well balanced
 (i.e. same number of observations within each stratum), permutad matrices may be biased
 because same constraints are forced on submatrices of different dimensions. This
-often means, that the munber of potential permutations will decrease with dimensions.
+often means, that the munber of potential permutations will decrease with their dimensions.
 So the more constraints we put, the less randomness can be expected.
 
 The function \code{permat.control} is used to set up quantitative matrix permutations in other functions
@@ -98,16 +95,16 @@ Functions \code{permatfull} and \code{permatswap} return an object of class \cod
   \item{call}{the function call.}
   \item{orig}{the original data matrix used for permutations.}
   \item{perm}{a list of permuted matrices with length \code{times}.}
-  \item{specs}{a list of other specifications (variable in length, depending on the function used): \code{reg}, \code{hab}, \code{burnin}, \code{thin}.}
 
 The \code{summary} method returns a list containing mean
-Bray-Curtis dissimilarities calculated pairvise among original and
-permuted matrices, and check results of the constraints.  
+Bray-Curtis dissimilarities calculated pairwise among original and
+permuted matrices, and check results of the constraints.  Note that when
+\code{strata} is used, calculation may take several seconds. 
 
 The \code{plot} method also returns the Bray-Curtis dissimilarities invisibly.
 }
 \references{
-Original references for presence-absence swap methods are given on help
+Original references for presence-absence algorithms are given on help
 page of \code{\link{commsimulator}}.
 
 Patefield, W. M. (1981) Algorithm AS159. An efficient method of generating r x c tables with given row and column totals. 
@@ -146,7 +143,7 @@ x3$orig  ## note: original matrix is binarized!
 summary(x3)
 ## Restricted permutation,
 ## check sums within strata:
-x4 <- permatfull(m, reg=c(1,1,2,2))
+x4 <- permatfull(m, strata=c(1,1,2,2))
 summary(x4)
 }
 
