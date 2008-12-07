@@ -1,6 +1,6 @@
 ## permatfull function
 `permatfull` <-
-function(m, fixedmar="both", shuffle="ind", reg=NULL, hab=NULL, mtype="count", times=100)
+function(m, fixedmar="both", shuffle="ind", strata=NULL, mtype="count", times=99)
 {
 ## internal function
 indshuffle <- function(x)
@@ -33,10 +33,11 @@ bothshuffle <- function(x, y=1)
     n.row <- nrow(m)
     n.col <- ncol(m)
     if (mtype == "prab") m <- ifelse(m > 0, 1, 0)
-    if (is.null(reg) && is.null(hab)) str <- as.factor(rep(1, n.row))
-    if (!is.null(reg) && is.null(hab)) str <- as.factor(reg)
-    if (is.null(reg) && !is.null(hab)) str <- as.factor(hab)
-    if (!is.null(reg) && !is.null(hab)) str <- interaction(reg, hab, drop=TRUE)
+
+    if (is.null(strata))
+        str <- as.factor(rep(1, n.row))
+        else str <- as.factor(strata)[drop = TRUE]
+
     levels(str) <- 1:length(unique(str))
     str <- as.numeric(str)
     nstr <- length(unique(str))
@@ -67,14 +68,17 @@ bothshuffle <- function(x, y=1)
         }
     if (fixedmar == "both")
         shuffle <- NA
-    specs <- list(reg=reg, hab=hab)
-    out <- list(call=match.call(), orig=m, perm=perm, specs=specs)
+    out <- list(call=match.call(), orig=m, perm=perm)
     attr(out, "mtype") <- mtype
     attr(out, "ptype") <- "full"
     attr(out, "method") <- NA
     attr(out, "fixedmar") <- fixedmar
     attr(out, "times") <- times
     attr(out, "shuffle") <- shuffle
+    attr(out, "is.strat") <- !is.null(strata)
+    attr(out, "strata") <- str
+    attr(out, "burnin") <- NA
+    attr(out, "thin") <- NA
     class(out) <- c("permat", "list")
     return(out)
 }

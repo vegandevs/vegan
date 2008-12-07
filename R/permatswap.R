@@ -1,6 +1,6 @@
 ## permatswap function
 `permatswap` <-
-function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, burnin = 10000, thin = 1000)
+function(m, method="quasiswap", strata=NULL, mtype="count", times=99, burnin = 10000, thin = 1000)
 {
     if (!identical(all.equal(m, round(m)), TRUE))
        stop("function accepts only integers (counts)")
@@ -15,10 +15,11 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
     n.row <- nrow(m)
     n.col <- ncol(m)
     if (mtype == "prab") m <- ifelse(m > 0, 1, 0)
-    if (is.null(reg) && is.null(hab)) str <- as.factor(rep(1, n.row))
-    if (!is.null(reg) && is.null(hab)) str <- as.factor(reg)
-    if (is.null(reg) && !is.null(hab)) str <- as.factor(hab)
-    if (!is.null(reg) && !is.null(hab)) str <- interaction(reg, hab, drop=TRUE)
+
+    if (is.null(strata))
+        str <- as.factor(rep(1, n.row))
+        else str <- as.factor(strata)[drop = TRUE]
+
     levels(str) <- 1:length(unique(str))
     str <- as.numeric(str)
     nstr <- length(unique(str))
@@ -75,14 +76,17 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
             thin <- burnin <- 0
         }
     } # for j end
-    specs <- list(reg=reg, hab=hab, burnin=burnin, thin=thin)
-    out <- list(call=match.call(), orig=m, perm=perm, specs=specs)
+    out <- list(call=match.call(), orig=m, perm=perm)
     attr(out, "mtype") <- mtype
     attr(out, "ptype") <- "swap"
     attr(out, "method") <- method
     attr(out, "fixedmar") <- "both"
     attr(out, "times") <- times
     attr(out, "shuffle") <- NA
+    attr(out, "is.strat") <- !is.null(strata)
+    attr(out, "strata") <- str
+    attr(out, "burnin") <- burnin
+    attr(out, "thin") <- thin
     class(out) <- c("permat", "list")
     return(out)
 }
