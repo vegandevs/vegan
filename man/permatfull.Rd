@@ -18,9 +18,9 @@ restricted permutations (based on strata) are discussed in the Details section.}
 
 \usage{
 permatfull(m, fixedmar = "both", shuffle = "ind", strata = NULL, 
-mtype = "count", times = 100)
+mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", strata = NULL,
-mtype = "count", times = 100, burnin = 10000, thin = 1000)
+mtype = "count", times = 99, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
 fixedmar = "both", shuffle = "ind", strata = NULL, 
 burnin = 10000, thin = 1000)

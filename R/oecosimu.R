@@ -71,7 +71,7 @@
             for (i in 1:nsimul) {
                 x <- permatfull(comm, fixedmar=control$fixedmar,
                     shuffle=control$shuffle,
-                    reg=control$reg, hab=control$hab,
+                    strata=control$strata,
                     mtype=control$mtype, times=1)
                 tmp <- nestfun(x$perm[[1]])
                 if (is.list(tmp)) {
@@ -85,14 +85,14 @@
             if (control$method %in% c("swap", "tswap")) {
             if (burnin > 0) {
                 m <- permatswap(comm, method=control$method,
-                    reg=control$reg, hab=control$hab,
+                    strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=burnin, thin=0)$perm[[1]]
                 } else m <- comm
             }
             for (i in 1:nsimul) {
                 x <- permatswap(m, method=control$method,
-                    reg=control$reg, hab=control$hab,
+                    strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=0, thin=thin)
                 tmp <- nestfun(x$perm[[1]], ...)

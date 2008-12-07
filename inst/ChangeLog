@@ -2,7 +2,15 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-6
+Version 1.16-7
+
+Version 1.16-6 (closeed Dec 7, 2008)
+
+    * permat*: functions were rationalised, strata argument is
+    used instead of reg and hab, and returned object got several
+    new arguments. The tide of changes affected methods as well,
+    and some other function (adipart, oecosimu). Stratification
+    was tested and corrected.
 
     * permatfull: Jari Oksanen made the C port for the quantitative
     quasiswap algorithm. So the permat* null model family is now

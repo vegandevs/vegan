@@ -87,7 +87,7 @@ set.seed(4321)
 matr <- r2dtable(1, c(3,4,3,7,4,8,7,6), 3:9)[[1]]
 strata <- cbind(1:8, rep(1:4,each=2), rep(1,8))
 ## restricted permutation within habitat classes
-contr <- permat.control(hab = c("a","a","a","b","a","b","b","b"))
+contr <- permat.control(strata = c("a","a","a","b","a","b","b","b"))
 ## Additive diversity partitioning ('oneway')
 x1 <- adipart(matr, strata, index="shannon", nsimul=25, control=contr)
 x1
