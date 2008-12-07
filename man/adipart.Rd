@@ -8,7 +8,7 @@ In additive diversity partitioning, mean values of alpha diversity at lower leve
 }
 \usage{
 adipart(matr, strata, index=c("richness", "shannon", "simpson"),
-weights=c("unif", "prop"), nsimul=99, control, ...)
+weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 \method{print}{adipart}(x, ...)
 }
 \arguments{
@@ -16,6 +16,7 @@ weights=c("unif", "prop"), nsimul=99, control, ...)
   \item{strata}{A matrix or data frame containing levels of sampling hierarchy as columns, columns from right to left will be treated as nested (first column is the lowest, last is the highest level).}
   \item{index}{Character, the diversity index to be calculated, one of  \code{c("richness", "shannon", "simpson")}.}
   \item{weights}{Character, \code{"unif"} for uniform weights, \code{"prop"} for weighting proportional to sample abundances to use in weighted averaging of individual alpha values within strata of a given level of the sampling hierarchy.}
+  \item{relative}{Logical, if \code{TRUE} then alpha and beta diversity values are given relative to the value of gamma. This can be useful when comparing different indices.}
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.}
   \item{control}{A list of arguments passed to quantitative permutation
           algorithms. If missing, the function  'permat.control' is used.}

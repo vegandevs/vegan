@@ -1,6 +1,6 @@
 adipart <-
 function(matr, strata, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), nsimul=99, control, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 {
 
     ## internal function, maybe later gets out
@@ -52,6 +52,8 @@ function(matr, strata, index=c("richness", "shannon", "simpson"),
             wt <- lapply(1:nl, function(i) apply(tmp[[i]], 1, function(z) sum(z) / sum(matr)))
             else wt <- lapply(1:nl, function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
         a <- sapply(1:nl, function(i) sum(divfun(tmp[[i]]) * wt[[i]]))
+        if (relative)
+            a <- a / a[length(a)]
         b <- sapply(2:nl, function(i) a[i] - a[(i-1)])
         c(a, b)
     }
