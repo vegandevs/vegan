@@ -43,8 +43,9 @@ bothshuffle <- function(x, y=1)
     if (any(tapply(str,list(str),length) == 1))
         stop("strata should contain at least 2 observations")
     perm <- list()
+    perm[[1]] <- matrix(0, n.row, n.col)
     for (k in 1:times)
-        perm[[k]] <- matrix(0, n.row, n.col)
+        perm[[k]] <- perm[[1]]
     for (j in 1:nstr) {
     id <- which(str == j)
         if (fixedmar == "none")
