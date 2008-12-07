@@ -70,6 +70,7 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
                         attributes(perm[[i]][id,]) <- att
                 } else perm[[i]][id,] <- commsimulator(temp, method=method)
             }
+            thin <- burnin <- 0
         }
     } # for j end
     specs <- list(reg=reg, hab=hab, burnin=burnin, thin=thin)
