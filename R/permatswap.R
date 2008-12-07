@@ -25,50 +25,52 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
     if (any(tapply(str,list(str),length) == 1))
         stop("strata should contain at least 2 observations")
 
-    if (method != "quasiswap") {
-        perm <- list()
-        for (i in 1:times)
-            perm[[i]] <- matrix(0, n.row, n.col)
-    } else {
-        perm <- r2dtable(times, apply(m, 1, sum), apply(m, 2, sum))
-    }
+    perm <- list()
+    perm[[1]] <- matrix(0, n.row, n.col)
+    for (i in 2:times)
+        perm[[i]] <- perm[[1]]
 
     for (j in 1:nstr) {
         id <- which(str == j)
         temp <- m[id,]
+        nn.row <- nrow(m[id,])
+        nn.col <- ncol(m[id,])
         if (method != "quasiswap") {
-            if (count)
+            if (count) {
                 for (k in 1:burnin)
                     temp <- .C("swapcount", m = as.double(temp),
-                            as.integer(n.row), as.integer(n.col),
+                            as.integer(nn.row), as.integer(nn.col),
                             as.integer(1), PACKAGE = "vegan")$m
-            else
+            } else
                 for (k in 1:burnin)
                     temp <- commsimulator(temp, method=method)
             for (i in 1:times) {
-                if (count)
+                if (count) {
                     perm[[i]][id,] <- .C("swapcount",
                                     m = as.double(temp),
-                                    as.integer(n.row),
-                                    as.integer(n.col),
+                                    as.integer(nn.row),
+                                    as.integer(nn.col),
                                     as.integer(thin),
                                     PACKAGE = "vegan")$m
-	        else perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
+	           } else perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
             temp <- perm[[i]][id,]
             } # for i end
         } else {
             for (i in 1:times) {
-                if (count)
-                     ## if fills are equal, no need to do it quasiswap
-                    if (sum(perm[[i]][id,] > 0) != sum(m[id,] > 0)) {
+                if (count) {
+                    ms <- sum(m[id,] > 0)
+                    tmp <- r2dtable(1, apply(m[id,], 1, sum), apply(m[id,], 2, sum))[[1]]
+                    ## if fills are equal, no need to do it quasiswap
+                    if (sum(tmp > 0) != ms) {
                         tmp <- .C("rswapcount",
-                                    m = as.double(perm[[i]][id,]),
-                                    as.integer(nrow(perm[[i]][id,])),
-                                    as.integer(ncol(perm[[i]][id,])),
-                                    as.integer(sum(m[id,] > 0)),
+                                    m = as.double(tmp),
+                                    as.integer(nn.row),
+                                    as.integer(nn.col),
+                                    as.integer(ms),
                                     PACKAGE="vegan")$m
                         perm[[i]][id,] <- matrix(tmp, nrow(perm[[i]][id,]), ncol(perm[[i]][id,]))
-                } else perm[[i]][id,] <- commsimulator(temp, method=method)
+                    } else perm[[i]][id,] <- commsimulator(temp, method=method)
+                }
             }
             thin <- burnin <- 0
         }
