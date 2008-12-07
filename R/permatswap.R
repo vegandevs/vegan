@@ -61,11 +61,11 @@ function(m, method="quasiswap", reg=NULL, hab=NULL, mtype="count", times=100, bu
                      ## if fills are equal, no need to do it quasiswap
                     if (sum(perm[[i]][id,] > 0) != sum(m[id,] > 0)) {
                         tmp <- .C("rswapcount",
-                                    as.double(perm[[i]][id,]),
+                                    m = as.double(perm[[i]][id,]),
                                     as.integer(nrow(perm[[i]][id,])),
                                     as.integer(ncol(perm[[i]][id,])),
                                     as.integer(sum(m[id,] > 0)),
-                                    PACKAGE="vegan")[[1]]
+                                    PACKAGE="vegan")$m
                         perm[[i]][id,] <- matrix(tmp, nrow(perm[[i]][id,]), ncol(perm[[i]][id,]))
                 } else perm[[i]][id,] <- commsimulator(temp, method=method)
             }
