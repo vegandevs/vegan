@@ -57,10 +57,11 @@ function(m, method="quasiswap", strata=NULL, mtype="count", times=99, burnin = 1
             temp <- perm[[i]][id,]
             } # for i end
         } else {
+            r2tabs <- r2dtable(times, rowSums(m[id,]), colSums(m[id,]))
             for (i in 1:times) {
                 if (count) {
                     ms <- sum(m[id,] > 0)
-                    tmp <- r2dtable(1, rowSums(m[id,]), colSums(m[id,]))[[1]]
+                    tmp <- r2tabs[[i]]
                     ## if fills are equal, no need to do it quasiswap
                     if (sum(tmp > 0) != ms) {
                         tmp <- .C("rswapcount",
