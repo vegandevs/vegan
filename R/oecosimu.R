@@ -91,7 +91,7 @@
                 } else m <- comm
             }
             for (i in 1:nsimul) {
-                x <- permatswap(m, method=control$method,
+                x <- permatswap(comm, method=control$method,
                     strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=0, thin=thin)
