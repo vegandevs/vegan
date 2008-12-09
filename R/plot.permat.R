@@ -5,7 +5,8 @@ function(x, ylab="Bray-Curtis dissimilarity", xlab="Runs", col=c(2,4), lty=c(1,2
     n <- attr(x, "times")
     bray <- numeric(n)
 #    for (i in 1:n) bray[i] <- sum(abs(x$orig-x$perm[[i]]))/sum(x$orig+x$perm[[i]])
-    bray <- sapply(x$perm, function(z) sum(abs(x$orig - z)) / sum(x$orig + z))
+#    bray <- sapply(x$perm, function(z) sum(abs(x$orig - z)) / sum(x$orig + z))
+    bray <- summary(x)$bray
     if (plot) {
         plot(bray,type="n",ylab=ylab,xlab=xlab, ...)
         lines(bray,col=col[1], lty=lty[1])

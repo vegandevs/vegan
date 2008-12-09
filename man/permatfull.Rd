@@ -4,6 +4,7 @@
 \alias{permatswap}
 \alias{permat.control}
 \alias{plot.permat}
+\alias{lines.permat}
 \alias{print.permat}
 \alias{summary.permat}
 \alias{print.summary.permat}
@@ -26,6 +27,7 @@ fixedmar = "both", shuffle = "ind", strata = NULL,
 burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, ylab="Bray-Curtis dissimilarity", 
 xlab="Runs", col=c(2,4), lty=c(1,2), plot=TRUE, text=TRUE, ...)
+\method{lines}{permat}(x, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
 }
@@ -73,7 +75,8 @@ Constraints on row/colum sums, matrix fill, total sum and sums within
 strata can be checked by the \code{summary} method. \code{plot} method is for
 visually testing the randomness of the permuted matrices, especially for the
 sequential swap algorithms. If there are any tendency in the graph, higher \code{burnin} and 
-\code{thin} values can help.
+\code{thin} values can help for sequential methods.
+New lines can be added to existing plot with the \code{lines} method.
 
 Unrestricted and restricted permutations:
 if \code{strata} is \code{NULL}, functions perform
