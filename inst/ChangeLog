@@ -6,6 +6,11 @@ Version 1.16-7
 
 Version 1.16-6 (closeed Dec 7, 2008)
 
+    * adipart: got a formula interface, and aggregate() was
+    replaced by matrix multiplication. Now it 10 times faster.
+    The formula interface has some consequences on the 
+    specification of the sampling design.
+
     * permat*: functions were rationalised, strata argument is
     used instead of reg and hab, and returned object got several
     new arguments. The tide of changes affected methods as well,

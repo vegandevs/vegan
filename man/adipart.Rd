@@ -7,13 +7,13 @@
 In additive diversity partitioning, mean values of alpha diversity at lower levels of a sampling hierarchy are compared to the total number of species in the entire data set (gamma diversity) in the form: gamma = mean(alpha) + beta. Thus beta = gamma - mean(alpha).
 }
 \usage{
-adipart(matr, strata, index=c("richness", "shannon", "simpson"),
+adipart(formula, data, index=c("richness", "shannon", "simpson"),
 weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 \method{print}{adipart}(x, ...)
 }
 \arguments{
-  \item{matr}{A community data matrix with samples as rows and species as column.}
-  \item{strata}{A matrix or data frame containing levels of sampling hierarchy as columns, columns from right to left will be treated as nested (first column is the lowest, last is the highest level).}
+  \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} is the community data matrix with samples as rows and species as column. Right hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, terms from right to left will be treated as nested (first column is the lowest, last is the highest level). These variables must be factors in order to unambiguous handling. Interaction terms are not allowed.}
+  \item{data}{A data frame where to look for variables defined in the right hand side of \code{formula}. If missing, variables are looked in the global environment.}
   \item{index}{Character, the diversity index to be calculated, one of  \code{c("richness", "shannon", "simpson")}.}
   \item{weights}{Character, \code{"unif"} for uniform weights, \code{"prop"} for weighting proportional to sample abundances to use in weighted averaging of individual alpha values within strata of a given level of the sampling hierarchy.}
   \item{relative}{Logical, if \code{TRUE} then alpha and beta diversity values are given relative to the value of gamma. This can be useful when comparing different indices.}
@@ -66,10 +66,10 @@ cutter <- function (x, cut = seq(0, 10, by = 2.5)) {
     out <- rep(1, length(x))
     for (i in 2:(length(cut) - 1))
         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-    return(out)}
+    return(as.factor(out))}
 ## The hierarchy of sample aggregation
 levsm <- data.frame(
-    l1=1:nrow(mite),
+    l1=as.factor(1:nrow(mite)),
     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
@@ -80,16 +80,16 @@ plot(mite.xy, main="l2", col=levsm$l2+1)
 plot(mite.xy, main="l3", col=levsm$l3+1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
-adpMite <- adipart(mite, levsm, index="richness", nsimul=20)
+adpMite <- adipart(mite ~., levsm, index="richness", nsimul=20)
 adpMite
 ## Simple artificial example
 set.seed(4321)
 matr <- r2dtable(1, c(3,4,3,7,4,8,7,6), 3:9)[[1]]
-strata <- cbind(1:8, rep(1:4,each=2), rep(1,8))
+strata <- data.frame(letters[1:8], rep(letters[1:4],each=2), rep("a",8))
 ## restricted permutation within habitat classes
 contr <- permat.control(strata = c("a","a","a","b","a","b","b","b"))
 ## Additive diversity partitioning ('oneway')
-x1 <- adipart(matr, strata, index="shannon", nsimul=25, control=contr)
+x1 <- adipart(matr ~ ., strata, index="shannon", nsimul=25, control=contr)
 x1
 }
 \keyword{multivariate}
