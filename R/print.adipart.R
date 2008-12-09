@@ -4,7 +4,7 @@ function(x, ...)
     cat("adipart with", ncol(x$oecosimu$simulated), "simulations\n")
     att <- attributes(x)
     att$names <- att$class <- att$n.levels <- att$terms <- att$model <- NULL
-    cat(" with", paste(names(att), att, collapse=", "))
+    cat("with", paste(names(att), att, collapse=", "))
 
     cat("\n\n")
     cl <- class(x)
