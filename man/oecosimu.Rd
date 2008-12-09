@@ -214,10 +214,10 @@ data(dune)
 meandist <- function(x) mean(vegdist(x, "bray"))
 out.mbc <- oecosimu(dune, meandist, "permat")
 out.mbc
-## Use the quantitative swap algorithm
+## Use the quantitative quasiswap algorithm
 ## to compare Shannon diversities by samples
-contr <- permat.control(ptype="swap", method="swap")
-out.div <- oecosimu(dune, diversity, "permat", burnin=100, thin=10, control=contr)
+contr <- permat.control(ptype="swap", method="quasiswap")
+out.div <- oecosimu(dune, diversity, "permat", control=contr)
 out.div
 }
 \keyword{ multivariate }

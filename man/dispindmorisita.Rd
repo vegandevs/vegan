@@ -11,7 +11,7 @@ dispindmorisita(x, unique.rm = FALSE, crit = 0.05)
 \arguments{
   \item{x}{community data matrix, with sites (samples) as rows and species as columns.}
   \item{unique.rm}{logical, if \code{TRUE}, unique species (occurring in only one sample) are removed from the result.}
-  \item{crit}{two-sided p-value to use calculating critical Chi-squared values.}
+  \item{crit}{two-sided p-value used to calculate critical Chi-squared values.}
 }
 \details{
 The Morisita index of dispersion is defined as (Morisita 1959, 1962):
@@ -55,10 +55,9 @@ Krebs, C. J. 1999. \emph{Ecological Methodology}. 2nd ed. Benjamin Cummings Publ
 }
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 \note{
-A common error found in several papers is that when standardizing as in the case (b), the denominator is given as \code{Muni - 1}. This reult in a hiatus in the [0, 0.5] interval of the standardized index. The roort of this typo is the book of Krebs (1999), see the Errata for the book (Page 217, \url{http://www.zoology.ubc.ca/~krebs/downloads/errors_2nd_printing.pdf}).
+A common error found in several papers is that when standardizing as in the case (b), the denominator is given as \code{Muni - 1}. This reult in a hiatus in the [0, 0.5] interval of the standardized index. The root of this typo is the book of Krebs (1999), see the Errata for the book (Page 217, \url{http://www.zoology.ubc.ca/~krebs/downloads/errors_2nd_printing.pdf}).
 }
 \examples{
-library(vegan)
 data(dune)
 x <- dispindmorisita(dune)
 x
