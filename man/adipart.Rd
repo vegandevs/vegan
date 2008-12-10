@@ -48,7 +48,7 @@ The implementation of additive diversity partitioning follows Crist et al. 2003.
 The expected diversity components are calculated \code{nsimul} times by individual based randomisation of the community data matrix. This is done by the \code{\link{permatfull}} and \code{\link{permatswap}} functions, and properties of the null model can be set by the \code{control} argument (see \code{\link{permat.control}}). The null matrics then evaluated via the function \code{\link{oecosimu}}.
 }
 \value{
-An object of class 'adipart' with same structure as 'oecosimu' objects
+An object of class 'adipart' with same structure as 'oecosimu' objects.
 }
 \references{
 Lande, R. 1996. Statistics and partitioning of species diversity, and similarity among multiple communities. \emph{Oikos}, 76, 5-13.
