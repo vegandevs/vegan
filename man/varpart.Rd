@@ -71,13 +71,13 @@ table. }
   \code{\link{rda}}), and if \code{Y} is a single variable, the
   partitioning is based on linear regression.   A simplified, fast
   version of RDA is used (function \code{simpleRDA2}).  The actual
-  calculations are done in fucntions \code{varpart2} to \code{varpart4},
+  calculations are done in functions \code{varpart2} to \code{varpart4},
   but these are not intended to be called directly by the user. 
 
   The function primarily uses adjusted R squares to assess the partitions
   explained by the explanatory tables and their combinations, because
   this is the only unbiased method (Peres-Neto
-  et al., submitted). The raw R squares for basic fractions are also
+  et al., 2006). The raw R squares for basic fractions are also
   displayed, but these are biased estimates of variation explained by
   the explanatory table.
 
