@@ -75,9 +75,9 @@ levsm <- data.frame(
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 ## Let's see in a map
 par(mfrow=c(1,3))
-plot(mite.xy, main="l1", col=levsm$l1+1)
-plot(mite.xy, main="l2", col=levsm$l2+1)
-plot(mite.xy, main="l3", col=levsm$l3+1)
+plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1)
+plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1)
+plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
 adpMite <- adipart(mite ~., levsm, index="richness", nsimul=20)
