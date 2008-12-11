@@ -25,7 +25,8 @@ mtype = "count", times = 99, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
 fixedmar = "both", shuffle = "ind", strata = NULL, 
 burnin = 10000, thin = 1000)
-\method{plot}{permat}(x, ylab, xlab, col, lty, plot=TRUE, text=TRUE, ...)
+\method{plot}{permat}(x, ylab, xlab, col, lty,
+lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
@@ -44,7 +45,7 @@ burnin = 10000, thin = 1000)
   \item{x, object}{object of class \code{"permat"}}
   \item{digits}{number of digits used for rounding.}
   \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
-  \item{plot, text}{logical arguments for the \code{plot} method, whether a plot should be drawn, and statistic values should be printed on the plot.}
+  \item{lowess, plot, text}{logical arguments for the \code{plot} method, whether a lowess curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
   \item{\dots}{other arguments passed to methods.}
 } 
 

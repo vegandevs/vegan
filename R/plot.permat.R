@@ -1,6 +1,6 @@
 ## S3 plot method for permat
 `plot.permat` <-
-function(x, ylab, xlab, col, lty, plot=TRUE, text=TRUE, ...)
+function(x, ylab, xlab, col, lty, lowess=TRUE, plot=TRUE, text=TRUE, ...)
 {
     if (missing(ylab))
         ylab <- "Bray-Curtis dissimilarity"
@@ -16,7 +16,8 @@ function(x, ylab, xlab, col, lty, plot=TRUE, text=TRUE, ...)
     if (plot) {
         plot(bray,type="n",ylab=ylab,xlab=xlab, ...)
         lines(bray,col=col[1], lty=lty[1])
-        lines(lowess(bray),col=col[2], lty=lty[2])
+        if (lowess)
+            lines(lowess(bray),col=col[2], lty=lty[2])
         if (text) title(sub=paste("(mean = ", substitute(z, list(z=round(mean(bray),3))), 
             ", min = ", substitute(z, list(z=round(min(bray),3))),
             ", max = ", substitute(z, list(z=round(max(bray),3))), ")", sep=""))
