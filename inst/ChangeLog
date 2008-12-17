@@ -2,26 +2,36 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-7
+Version 1.16-8 (opened Dec 17, 2008)
 
-Version 1.16-6 (closeed Dec 7, 2008)
+	* nestedness: added nestendess index based on overlap and
+	decreasing fill (Almeida-Neto et al., Oikos 117, 1227-1239;
+	2008).  Not all properties of the Oikos paper are not yet
+	implemented, and the UI needs work (print, plot methods).  Coding
+	by Gustavo Carvalho as a part of R-Forge Feature Request #265.
+	Documented with nestedtemp.
+	
+Version 1.16-7 (closed Dec 17, 2008)
 
-    * adipart: got a formula interface, and aggregate() was
-    replaced by matrix multiplication. Now it 10 times faster.
-    The formula interface has some consequences on the 
-    specification of the sampling design.
+	* permat*: functions were rationalised, strata argument is used
+	instead of reg and hab, and returned object got several new
+	arguments. The tide of changes affected methods as well, and some
+	other function (adipart, oecosimu). Stratification was tested and
+	corrected.
+	
+Version 1.16-6 (closed Dec 7, 2008)
 
-    * permat*: functions were rationalised, strata argument is
-    used instead of reg and hab, and returned object got several
-    new arguments. The tide of changes affected methods as well,
-    and some other function (adipart, oecosimu). Stratification
-    was tested and corrected.
+	* adipart: got a formula interface, and aggregate() was replaced
+	by matrix multiplication. Now it 10 times faster.  The formula
+	interface has some consequences on the specification of the
+	sampling design.
 
-    * permatfull: Jari Oksanen made the C port for the quantitative
-    quasiswap algorithm. So the permat* null model family is now
-    can be used for a wide array of null model analyses and is
-    quick enough to make reliable testing. The permatswap function
-    and help page were modified accordingly.
+
+	* permatfull: Jari Oksanen made the C port for the quantitative
+	quasiswap algorithm. So the permat* null model family is now can
+	be used for a wide array of null model analyses and is quick
+	enough to make reliable testing. The permatswap function and help
+	page were modified accordingly.
 
 	* plot.rad: gained argument log = "y", allowing log = "xy" so that
 	Zipf model is a straight line, or log = "" with arithmetic

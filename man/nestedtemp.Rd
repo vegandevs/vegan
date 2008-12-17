@@ -4,6 +4,7 @@
 \alias{nestedchecker}
 \alias{nestedn0}
 \alias{nesteddisc}
+\alias{nestednodf}
 \alias{print.nestedchecker}
 \alias{print.nestedn0}
 \alias{print.nesteddisc}
@@ -24,6 +25,7 @@ nestedchecker(comm)
 nestedn0(comm)
 nesteddisc(comm)
 nestedtemp(comm, ...)
+nestednodf(comm)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidendce"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
 }
@@ -46,19 +48,27 @@ nestedtemp(comm, ...)
   
   Function \code{netstedchecker} gives the number of checkerboard units,
   or 2x2 submatrices where both species occur once but on different
-  sites (Stone & Roberts 1990).  Function \code{nestedn0} implements
+  sites (Stone & Roberts 1990).
+
+  Function \code{nestedn0} implements
   nestedness measure N0 which is the number of absences from the sites
   which are richer than the most pauperate site species occurs
-  (Patterson & Atmar 1986).  Function \code{nesteddisc} implements
+  (Patterson & Atmar 1986).
+
+  Function \code{nesteddisc} implements
   discrepancy index which is the number of ones that should be shifted
   to fill a row with ones in a table arranged by species frequencies
   (Brualdi & Sanderson 1999). The original definition arranges species
   (columns) by their frequencies, but did not have any method of
-  handling tied frequencies. The \code{nesteddisc} function tries to
+  handling tied frequencies.
+
+  The \code{nesteddisc} function tries to
   order tied columns to minimize the discrepancy statistic but this is
   rather slow, and with a large number of tied columns there is no
   guarantee that the best ordering was found. In that case a warning
-  of tied columns will be issued. Function \code{nestedtemp} finds the
+  of tied columns will be issued.
+
+  Function \code{nestedtemp} finds the
   matrix temperature which is defined as the sum of \dQuote{surprises}
   in arranged matrix.  In arranged unsurprising matrix all species
   within proportion given by matrix fill are in the upper left corner of
@@ -77,7 +87,15 @@ nestedtemp(comm, ...)
   cautious in interpreting the results. The details of calculations
   are explained in the \code{\link{vignette}} \emph{Design decisions
   and implementation} that you can read using functions
-  \code{\link{vignette}} or \code{\link{vegandocs}}. 
+  \code{\link{vignette}} or \code{\link{vegandocs}}.
+
+  Function \code{nestednodf} implements a nestedness metric based on
+  overlap and decreasing fill (Almeida-Neto et al., 2008). Two basic
+  properties are required for a matrix to have the maximum degree of
+  nestedness according to this metric: (1) complete overlap of 1's from
+  right to left columns and from down to up rows, and (2) decreasing
+  marginal totals between all pairs of columns and all pairs of
+  rows
 }
 
 \value{
@@ -88,6 +106,12 @@ nestedtemp(comm, ...)
 }
 
 \references{
+  
+  Almeida-Neto, M., \enc{Gumarães}{Gumaraes}, P.,
+  \enc{Gumarães}{Gumaraes}, P.R., Loyola, R.D. & Ulrich, W. (2008). A
+  consistent metric for nestedness analysis in ecological systems:
+  reconciling concept and measurement. \emph{Oikos} 117, 1227--1239.
+  
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
   disorder in the distribution of species in fragmented
   habitat. \emph{Oecologia} 96, 373--382.
@@ -110,7 +134,7 @@ nestedtemp(comm, ...)
   W. (1998). A comparative analysis of nested subset patterns of species
   composition. \emph{Oecologia} 113, 1--20.
   }
-\author{ Jari Oksanen }
+\author{ Jari Oksanen and Gustavo Carvalho (\code{nestednodf}. }
 
 \seealso{
   In general, the functions should be used with \code{\link{oecosimu}}
