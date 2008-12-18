@@ -106,23 +106,34 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
   correspond to the groups of "judges" defined in vector "group". When
   function \code{Kendall.post} is used, there are as many tables as
   the number of predefined groups.
-  
+
   \item{W }{Kendall's coefficient of concordance, W. }
-  
-  \item{Chi2 }{Friedman's chi-square statistic used to test W. }
-  
-  \item{Prob }{Permutational probability, uncorrected. }
-  
-  \item{Corrected prob }{Probabilities corrected using the method
-  selected in parameter "mult". Shown only if there are more than one
-  group. } 
+
+  \item{F }{F statistic. F = W*(m-1)/(1-W) where m is the number of
+  judges. }
+
+  \item{Prob.F }{Probability associated with the F statistic, computed
+  from the F distribution with nu1 = n-1-(2/m) and nu2 = nu1*(m-1); n is
+  the number of objects. }
+
+  \item{Corrected prob.F }{Probabilities associated with F, corrected
+  using the method selected in parameter \code{mult}. Shown only if
+  there are more than one group. }
+
+  \item{Chi2 }{Friedman's chi-square statistic (Friedman 1937) used in
+  the permutation test of W. }
+
+  \item{Prob.perm }{Permutational probabilities, uncorrected. }
+
+  \item{Corrected prob.perm }{Permutational probabilities corrected
+  using the method selected in parameter \code{mult}. Shown only if
+  there are more than one group. }
 
   \item{Spearman.mean }{Mean of the Spearman correlations between the
   judge under test and all the other judges in the same group. }
-  
+
   \item{W.per.species }{Contribution of the judge under test to the
   overall concordance statistic for that group. }
-
 }
 \references{ 
 
@@ -143,17 +154,14 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
 \examples{
 data(mite)
 mite.hel <- decostand(mite, "hel")
-
-## Reproduce the results shown in Table 2 of Legendre (2005), a single group
 mite.small <- mite.hel[c(4,9,14,22,31,34,45,53,61,69),c(13:15,23)]
-out1 <- kendall.global(mite.small)
-out2 <- kendall.post(mite.small, mult="holm")
+kendall.global(mite.small)
+kendall.post(mite.small, mult="holm")
 
-## Reproduce the results shown in Tables 3 and 4 of Legendre (2005), 2 groups
+# Reproduce the results shown in Tables 3 and 4 of Legendre (2005), 2 groups
 group <-c(1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,2,1,1,1,1,1,2,2,2,2,2)
-out3 <- kendall.global(mite.hel, group=group)
-out4 <- kendall.post(mite.hel, group=group, mult="holm", nperm=99)
-
+kendall.global(mite.hel, group=group)
+kendall.post(mite.hel, group=group, mult="holm", nperm=99)
 }
 
 \keyword{ multivariate }
