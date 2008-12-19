@@ -25,9 +25,10 @@ kendall.global(Y, group, nperm = 999, mult = "holm")
 kendall.post(Y, group, nperm = 999, mult = "holm")
 }
 \arguments{
-  \item{Y}{ Data file (data frame or matrix) containing quantitative
-    data. Rows are objects and columns are judges (variables). In
-    community ecology, that table is often a site-by-species table. }
+  \item{Y}{ Data file (data frame or matrix) containing quantitative or
+    semiquantitative data. Rows are objects and columns are judges
+    (variables). In community ecology, that table is often a
+    site-by-species table. }
   \item{group}{ A vector defining how judges should be divided into
     groups. See example below. If groups are not explicitly defined,
     all judges in the data file will be considered as forming a single
@@ -137,15 +138,26 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
 }
 \references{ 
 
-  Legendre, P. 2005. Species associations: the Kendall coefficient of
-  concordance revisited. Journal of Agricultural, Biological, and
-  Environmental Statistics 10: 226-245.
+Friedman, M. 1937. The use of ranks to avoid the assumption of normality
+implicit in the analysis of variance. Journal of the American
+Statistical Association 32: 675-701.
 
-  Siegel, S. and N. J. Castellan, Jr. 1988. Nonparametric statistics for the beh  avioral sciences. 2nd edition. McGraw-Hill, New York.
+Kendall, M. G. and B. Babington Smith. 1939. The problem of m
+rankings. Annals of Mathematical Statistics 10: 275-287.
+
+Legendre, P. 2005. Species associations: the Kendall coefficient of
+concordance revisited. Journal of Agricultural, Biological, and
+Environmental Statistics 10: 226-245.
+
+Legendre, P. 2008. Coefficient of concordance. In: Encyclopedia of
+Research Design. SAGE Publications (in press).
+
+Siegel, S. and N. J. Castellan, Jr. 1988. Nonparametric statistics for
+the behavioral sciences. 2nd edition. McGraw-Hill, New York.
 }
 
-\seealso{\code{\link{cor}}, \code{\link{hclust}},
-\code{\link{cutree}}, \code{\link{kmeans}},
+\seealso{\code{\link{cor}}, \code{\link{friedman.test}},
+\code{\link{hclust}}, \code{\link{cutree}}, \code{\link{kmeans}},
 \code{\link[vegan]{cascadeKM}}, \code{\link[labdsv]{duleg}}}
 
 \author{ F. Guillaume Blanchet, University of Alberta, and Pierre
@@ -154,6 +166,8 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
 \examples{
 data(mite)
 mite.hel <- decostand(mite, "hel")
+
+# Reproduce the results shown in Table 2 of Legendre (2005), a single group
 mite.small <- mite.hel[c(4,9,14,22,31,34,45,53,61,69),c(13:15,23)]
 kendall.global(mite.small)
 kendall.post(mite.small, mult="holm")
