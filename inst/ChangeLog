@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-8 (opened Dec 17, 2008)
 
+	* Fixed unescaped $-signs in documentation files after Ripley told
+	to do so ("[Rd] Misuse of $<matn expressions>$ in Rd files",
+	https://stat.ethz.ch/pipermail/r-devel/2008-December/051634.html) 
+
 	* kendall.global & kendall.post: new functions to analyse the
 	Kendall's coefficient of concordance  --- use in ecology: to
 	identify significant species associations. See P. Legendre,
