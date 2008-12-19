@@ -50,11 +50,17 @@ The expected diversity components are calculated \code{nsimul} times by individu
 \value{
 An object of class 'adipart' with same structure as 'oecosimu' objects.
 }
-\references{
-Lande, R. 1996. Statistics and partitioning of species diversity, and similarity among multiple communities. \emph{Oikos}, 76, 5-13.
 
-Crist, T.O., Veech, J.A., Gering, J.C. and Summerville, K.S. 2003. Partitioning species diversity across landscapes and regions: a hierarchical analysis of $\alpha$, $\beta$, and $\gamma$-diversity. \emph{Am. Nat.}, 162, 734-743.
-}
+\references{
+  Lande, R. 1996. Statistics and partitioning of species
+diversity, and similarity among multiple communities. \emph{Oikos}, 76,
+5-13.
+
+Crist, T.O., Veech, J.A., Gering, J.C. and Summerville,
+K.S. 2003. Partitioning species diversity across landscapes and regions:
+a hierarchical analysis of \eqn{\alpha}, \eqn{\beta}, and
+\eqn{\gamma}-diversity. \emph{Am. Nat.}, 162, 734-743.  }
+
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 \seealso{See \code{\link{permatfull}}, \code{\link{permatswap}} and \code{\link{permat.control}} for permutation settings, and \code{\link{oecosimu}} for calculating confidence levels.}
 \examples{

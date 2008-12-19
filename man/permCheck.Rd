@@ -102,12 +102,12 @@ permuplot(n, control = permControl(), col = par("col"),
   the number of observations and the permutation design. In such cases,
   \code{nperm} is reduced to equal the number of possible permutations,
   and complete enumeration of all permutations is turned on
-  (\code{control$complete} is set to \code{TRUE}). 
+  (\code{control\$complete} is set to \code{TRUE}). 
 
   Alternatively, if the number of possible permutations is low, and less
-  than \code{control$minperm}, it is better to enumerate all possible
+  than \code{control\$minperm}, it is better to enumerate all possible
   permutations, and as such complete enumeration of all permutations is
-  turned  on (\code{control$complete} is set to \code{TRUE}).
+  turned  on (\code{control\$complete} is set to \code{TRUE}).
 
   Function \code{numPerms} returns the number of permutations for the
   passed \code{object} and the selected permutation
