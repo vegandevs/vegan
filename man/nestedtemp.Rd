@@ -9,6 +9,7 @@
 \alias{print.nestedn0}
 \alias{print.nesteddisc}
 \alias{print.nestedtemp}
+\alias{print.nestednodf}
 \alias{plot.nestedtemp}
 
 \title{ Nestedness Indices for Communities of Islands or Patches }
