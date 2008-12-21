@@ -96,7 +96,9 @@ nestednodf(comm)
   nestedness according to this metric: (1) complete overlap of 1's from
   right to left columns and from down to up rows, and (2) decreasing
   marginal totals between all pairs of columns and all pairs of
-  rows
+  rows. The nestedness statistic is evaluated separately for columns
+  (\code{N columns}) for rows (\code{N rows}) and combined for the
+  whole matrix (\code{NODF}). 
 }
 
 \value{
