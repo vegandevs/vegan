@@ -26,7 +26,7 @@ nestedchecker(comm)
 nestedn0(comm)
 nesteddisc(comm)
 nestedtemp(comm, ...)
-nestednodf(comm)
+nestednodf(comm, order = TRUE)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidendce"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
 }
@@ -37,7 +37,9 @@ nestednodf(comm)
   \item{col}{Colour scheme for matrix temperatures.}
   \item{kind}{The kind of plot produced.}
   \item{names}{Label columns and rows in the plot using names in \code{comm}.
-    If it is a logical vector of length 2, row and column labels are returned accordingly.}
+    If it is a logical vector of length 2, row and column labels are
+    returned accordingly.}
+  \item[order}{Order rows and columns by frequencies.}
   \item{\dots}{Other arguments to functions.}
 }
 
@@ -97,8 +99,11 @@ nestednodf(comm)
   right to left columns and from down to up rows, and (2) decreasing
   marginal totals between all pairs of columns and all pairs of
   rows. The nestedness statistic is evaluated separately for columns
-  (\code{N columns}) for rows (\code{N rows}) and combined for the
-  whole matrix (\code{NODF}). 
+  (\code{N columns}) for rows (\code{N rows}) and combined for the whole
+  matrix (\code{NODF}).  If you set \code{order = FALSE}, the statistic
+  is evaluated with the current matrix ordering allowing tests of other
+  meaningful hypothesis of matrix structure than ordering by row and
+  column totals (see Almeida-Neto et al. 2008).
 }
 
 \value{

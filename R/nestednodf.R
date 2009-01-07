@@ -1,10 +1,11 @@
 `nestednodf` <- 
-    function(comm)
+    function(comm, order = TRUE)
 {
     comm <- ifelse(comm > 0, 1, 0)
     ## Order rows and columns
-    comm <- comm[order(rowSums(comm), decreasing=TRUE),
-                 order(colSums(comm), decreasing=TRUE)]    
+    if (order)
+        comm <- comm[order(rowSums(comm), decreasing=TRUE),
+                     order(colSums(comm), decreasing=TRUE)]    
     dimensions <- dim(comm)
     fill <- sum(comm)/length(comm)
     N.paired <- 0
