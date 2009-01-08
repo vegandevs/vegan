@@ -7,6 +7,9 @@ Version 1.16-9 (opened Jan 7, 2009)
 	* nestednodf: gained argument 'order = TRUE' allowing tests for
 	other orderings than using marginal frequencies (default)
 	following suggestion by Almeida-Neto et al. (2008).
+
+	* summary.cca:  cumulative "accounted for" statistics failed in
+	unconstrained models. 
 	
 Version 1.16-8 (closed Jan 7, 2009)
 
