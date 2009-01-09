@@ -39,7 +39,7 @@ nestednodf(comm, order = TRUE)
   \item{names}{Label columns and rows in the plot using names in \code{comm}.
     If it is a logical vector of length 2, row and column labels are
     returned accordingly.}
-  \item[order}{Order rows and columns by frequencies.}
+  \item{order}{Order rows and columns by frequencies.}
   \item{\dots}{Other arguments to functions.}
 }
 
