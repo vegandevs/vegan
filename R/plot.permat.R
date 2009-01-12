@@ -1,9 +1,8 @@
 ## S3 plot method for permat
 `plot.permat` <-
-function(x, ylab, xlab, col, lty, lowess=TRUE, plot=TRUE, text=TRUE, ...)
+function(x, type = "bray", ylab, xlab, col, lty, lowess=TRUE, plot=TRUE, text=TRUE, ...)
 {
-    if (missing(ylab))
-        ylab <- "Bray-Curtis dissimilarity"
+    type <- match.arg(type, c("bray", "chisq"))
     if (missing(xlab))
         xlab <- "Runs"
     if (missing(col))
@@ -11,16 +10,25 @@ function(x, ylab, xlab, col, lty, lowess=TRUE, plot=TRUE, text=TRUE, ...)
     if (missing(lty))
         lty <- c(1,2)
     n <- attr(x, "times")
-    bray <- numeric(n)
-    bray <- summary(x)$bray
-    if (plot) {
-        plot(bray,type="n",ylab=ylab,xlab=xlab, ...)
-        lines(bray,col=col[1], lty=lty[1])
-        if (lowess)
-            lines(lowess(bray),col=col[2], lty=lty[2])
-        if (text) title(sub=paste("(mean = ", substitute(z, list(z=round(mean(bray),3))), 
-            ", min = ", substitute(z, list(z=round(min(bray),3))),
-            ", max = ", substitute(z, list(z=round(max(bray),3))), ")", sep=""))
+    toplot <- numeric(n)
+    if (type == "bray") {
+        toplot <- summary(x)$bray
+        if (missing(ylab))
+            ylab <- "Bray-Curtis dissimilarity"
     }
-    invisible(bray)
+    if (type == "chisq") {
+        toplot <- summary(x)$chisq$chisq.perm
+        if (missing(ylab))
+            ylab <- "Chi-squared"
+    }
+    if (plot) {
+        plot(toplot,type="n",ylab=ylab,xlab=xlab, ...)
+        lines(toplot,col=col[1], lty=lty[1])
+        if (lowess)
+            lines(lowess(toplot),col=col[2], lty=lty[2])
+        if (text) title(sub=paste("(mean = ", substitute(z, list(z=round(mean(toplot),3))), 
+            ", min = ", substitute(z, list(z=round(min(toplot),3))),
+            ", max = ", substitute(z, list(z=round(max(toplot),3))), ")", sep=""))
+    }
+    invisible(toplot)
 }
