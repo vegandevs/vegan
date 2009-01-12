@@ -28,10 +28,15 @@ function(x, digits=2, ...)
     cat("\nMatrix fill retained:", round(100 * sum(x$fill) / n, digits), "%")
     cat("\nRow sums retained:   ", round(100 * sum(x$rowsums) / n, digits), "%")
     cat("\nColumn sums retained:", round(100 * sum(x$colsums) / n, digits), "%")
+    cat("\nRow incidences retained:   ", round(100 * sum(x$browsums) / n, digits), "%")
+    cat("\nColumn incidences retained:", round(100 * sum(x$bcolsums) / n, digits), "%")
     if (!is.null(x$strsum))
         cat("\nSums within strata retained:", round(100 * sum(x$strsum) / n, digits), "%")
     cat("\n\nBray-Curtis dissimilarities among original and permuted matrices:\n")
     print(summary(x$bray))
-invisible(NULL)
+    cat("\nChi-squared for original matrix: ", round(x$chisq$chisq.orig, digits),
+        " (df = ", x$chisq$df, ")\n", sep = "")
+    cat("Chi-squared values among expected and permuted matrices:\n")
+    print(summary(x$chisq$chisq.perm))
+invisible(x)
 }
-
