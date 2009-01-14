@@ -92,7 +92,7 @@
                       MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA),
                       F.Model = c(F.Mod, NA,NA),
                       R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)],
-                      P = c(rowSums(t(f.perms) > F.Mod)/permutations, NA, NA))
+                      P = c((rowSums(t(f.perms)+1) > F.Mod)/(permutations+1), NA, NA))
     rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"
