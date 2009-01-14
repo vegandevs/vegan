@@ -28,10 +28,12 @@
     ev.account <- summ$tot.chi
     if (!is.null(object$pCCA)) 
         ev.account <- ev.account - summ$partial.chi
-    summ$ev.con.account <- cumsum(summ$ev.con)/ev.account
+    if (!is.null(object$CCA))
+        summ$ev.con.account <- cumsum(summ$ev.con)/ev.account
     summ$ev.uncon.account <-
         (max(summ$constr.chi, 0) + cumsum(summ$ev.uncon))/ev.account
-    summ$cca.acc <- cumsum(summ$ev.con)/summ$constr.chi
+    if (!is.null(object$CCA))
+        summ$cca.acc <- cumsum(summ$ev.con)/summ$constr.chi
     summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[1:axes]
     summ$scaling <- scaling
     summ$digits <- digits
