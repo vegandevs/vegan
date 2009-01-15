@@ -7,7 +7,12 @@
     ## frame or a matrix, and A, B, and C may be factors or continuous
     ## variables.  data is the data frame from which A, B, and C would
     ## be drawn.
-  TOL <- 1e-7
+    TOL <- 1e-7
+    ## Set no. of permutations to x-1 if x is an even hudred
+    if (permutations %% 100 == 0) {
+        permutations <- permutations - 1
+        warning("Setting no. of permutations to ", permutations)
+    }
     lhs <- formula[[2]]
     lhs <- eval(lhs, data, parent.frame()) # to force evaluation 
     formula[[2]] <- NULL                # to remove the lhs
@@ -92,7 +97,7 @@
                       MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA),
                       F.Model = c(F.Mod, NA,NA),
                       R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)],
-                      P = c((rowSums(t(f.perms)+1) > F.Mod)/(permutations+1), NA, NA))
+                      P = c((rowSums(t(f.perms) > F.Mod)+1)/(permutations+1), NA, NA))
     rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"
