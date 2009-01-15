@@ -59,8 +59,8 @@ msoplot(x, alpha = 0.05, explained = FALSE, ...)
 \value{
   The function \code{mso} returns an amended \code{cca} or \code{rda}
   object with the additional attributes \code{grain}, \code{H},
-  \code{H.test} and \code{vario}.  
-  \item{grain }{ The grain attribute defines the interval size of the
+  \code{H.test} and \code{vario}.
+  \item{grain}{The grain attribute defines the interval size of the
     distance classes .} 
   \item{H }{ H is an object of class 'dist' and contains the geographic
     distances between observations.} 
@@ -69,27 +69,30 @@ msoplot(x, alpha = 0.05, explained = FALSE, ...)
     which distance class (columns). } 
   \item{vario }{ The vario attribute is a data frame that contains some
     or all of the following components for the rda case (cca case in
-    brackets): 
-    \item{H }{ Distance class as multiples of grain.}
-    \item{Dist }{ Average distance of pairs of observations in distance class H.}
-    \item{n }{ Number of unique pairs of observations in distance class
-      H.} 
-    \item{All }{ Empirical (chi-square) variogram of total variance
-      (inertia).} 
-    \item{Sum }{ Sum of empirical (chi-square) variograms of explained
-      and residual variance (inertia).} 
-    \item{CA }{ Empirical (chi-square) variogram of residual variance
-      (inertia).} 
-    \item{CCA }{ Empirical (chi-square) variogram of explained variance
-      (inertia).} 
-    \item{pCCA }{ Empirical (chi-square) variogram of conditioned
-      variance (inertia).} 
-    \item{se }{ Standard error of the empirical (chi-square) variogram
-      of total variance (inertia).} 
-    \item{CA.signif }{P-value of permutation test for spatial
-      independence of residual variance (inertia).} 
+      brackets):
+    \describe{
+      \item{\code{H}}{Distance class as multiples of grain.}
+      \item{\code{Dist}}{ Average distance of pairs of observations in distance class H.}
+      \item{n }{ Number of unique pairs of observations in distance class
+	H.} 
+      \item{\code{All}}{ Empirical (chi-square) variogram of total variance
+	(inertia).} 
+      \item{\code{Sum}}{ Sum of empirical (chi-square) variograms of explained
+	and residual variance (inertia).} 
+      \item{\code{CA}}{ Empirical (chi-square) variogram of residual variance
+	(inertia).} 
+      \item{\code{CCA}}{ Empirical (chi-square) variogram of explained variance
+	(inertia).} 
+      \item{\code{pCCA}}{ Empirical (chi-square) variogram of conditioned
+	variance (inertia).} 
+      \item{\code{se}}{ Standard error of the empirical (chi-square) variogram
+	of total variance (inertia).} 
+      \item{\code{CA.signif}}{P-value of permutation test for spatial
+	independence of residual variance (inertia).} 
+    }
   }
 }
+  
 \references{ Wagner, H.H. 2004. Direct multi-scale ordination with
   canonical correspondence analysis. \emph{Ecology} 85: 342--351. } 
 \author{ The responsible author was Helene Wagner.} 

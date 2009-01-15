@@ -75,18 +75,18 @@ cIndexKM(y, x, index = "all")
   literally when the groups are not equal in size. Type \code{"all"} to
   obtain  both indices. The indices are defined as: 
   \describe{
-    \item \bold{calinski}:
+    \item{calinski:}{
     \eqn{(SSB/(K-1))/(SSW/(n-K))}, where \eqn{n} is the
     number of data points and \eqn{K} is the number of clusters.
     \eqn{SSW} is the sum of squares within the clusters while
     \eqn{SSB} is the sum of squares among the clusters. This index
-    is simply an \eqn{F} (ANOVA) statistic.
+    is simply an \eqn{F} (ANOVA) statistic.}
  
-    \item \bold{ssi}:
+    \item{ssi:}{
     the \dQuote{Simple Structure Index} multiplicatively combines
     several elements which influence the interpretability of a
     partitioning solution. The best partition is indicated by the
-    highest SSI value.
+    highest SSI value.}
   }
 
   In a simulation study, Milligan and Cooper (1985) found

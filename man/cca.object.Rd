@@ -42,12 +42,13 @@
     component.
     Items \code{pCCA}, \code{CCA} and \code{CA} have similar
     structure, and contain following items:
+    \describe{
     \item{\code{alias}}{The names of the aliased constraints or conditions.
       Function \code{\link{alias.cca}} does not access this item
       directly, but it finds the aliased variables and their defining
       equations from the \code{QR} item.}
     \item{\code{biplot}}{Biplot scores of constraints.  Only in \code{CCA}.}
-    \item{centroids}{(Weighted) centroids of factor levels of
+    \item{\code{centroids}}{(Weighted) centroids of factor levels of
       constraints. Only in \code{CCA}. Missing if the ordination was not
     called with \code{formula}.}
     \item{\code{eig}}{Eigenvalues of axes. In \code{CCA} and \code{CA}.}
@@ -104,7 +105,7 @@
       after both \code{pCCA} and \code{CCA}. In \code{\link{cca}} the
       standardization is Chi-square, and in \code{\link{rda}} centring
       and optional scaling by species standard deviations using function
-      \code{\link{scale}}. }
+      \code{\link{scale}}.} }
   }
 }
   
