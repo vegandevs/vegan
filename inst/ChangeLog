@@ -10,7 +10,8 @@ Version 1.16-9 (opened Jan 7, 2009)
 	2.9.0-ready. 
 
 	* adonis: uses now canonical (hits+1)/(tries+1) for P-values
-	instead of hits/tries.
+	instead of hits/tries. Default number of permutations increased
+	from 5 to 999.
 
 	* permatswap: new algorithm "swsh" is added to keep row/column
 	incidences (but not sums) constant. The name refers to the two

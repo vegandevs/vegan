@@ -1,5 +1,5 @@
 `adonis` <-
-    function(formula, data=NULL, permutations=5, method="bray", strata=NULL,
+    function(formula, data=NULL, permutations=999, method="bray", strata=NULL,
              contr.unordered="contr.sum", contr.ordered="contr.poly",
              ...)
 {
@@ -8,7 +8,7 @@
     ## variables.  data is the data frame from which A, B, and C would
     ## be drawn.
     TOL <- 1e-7
-    ## Set no. of permutations to x-1 if x is an even hudred
+    ## Set no. of permutations to x-1 if x is an even hundred
     if (permutations %% 100 == 0) {
         permutations <- permutations - 1
         warning("Setting no. of permutations to ", permutations)

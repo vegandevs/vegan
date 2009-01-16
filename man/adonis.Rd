@@ -11,7 +11,7 @@
   matrices; uses a permutation test with pseudo-F ratios.}
 
 \usage{
-adonis(formula, data, permutations = 5, method = "bray",
+adonis(formula, data, permutations = 999, method = "bray",
        strata = NULL, contr.unordered = "contr.sum",
        contr.ordered = "contr.poly", ...)
 }
@@ -158,7 +158,7 @@ Sciences, USA}, \strong{103}:19430--19435.
 \examples{
 data(dune)
 data(dune.env)
-adonis(dune ~ Management*A1, data=dune.env, permutations=100)
+adonis(dune ~ Management*A1, data=dune.env, permutations=99)
 }
 
 \keyword{multivariate }
