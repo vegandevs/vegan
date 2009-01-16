@@ -13,6 +13,7 @@
         permutations <- permutations - 1
         warning("Setting no. of permutations to ", permutations)
     }
+    Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
     lhs <- eval(lhs, data, parent.frame()) # to force evaluation 
     formula[[2]] <- NULL                # to remove the lhs
@@ -103,7 +104,7 @@
     colnames(tab)[ncol(tab)] <- "Pr(>F)"
     out <- list(aov.tab = tab, call = match.call(), 
                 coefficients = beta.spp, coef.sites = beta.sites,
-                f.perms = f.perms, design.matrix = rhs)
+                f.perms = f.perms, model.matrix = rhs, terms = Terms)
     class(out) <- "adonis"
     out
 }

@@ -11,7 +11,9 @@ Version 1.16-9 (opened Jan 7, 2009)
 
 	* adonis: uses now canonical (hits+1)/(tries+1) for P-values
 	instead of hits/tries. Default number of permutations increased
-	from 5 to 999.
+	from 5 to 999. Added terms component so that things like update()
+	and drop.scope() magically started to work. Renamed design.matrix
+	into model.matrix (and documented the item). 
 
 	* permatswap: new algorithm "swsh" is added to keep row/column
 	incidences (but not sums) constant. The name refers to the two

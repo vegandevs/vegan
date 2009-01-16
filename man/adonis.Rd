@@ -123,6 +123,9 @@ overview of rules.
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
     statistics for each source of variation  based on \eqn{N}
     permutations of the data.}
+  \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
+    side of the formula.}
+  \item{terms}{The \code{\link{terms}} component of the model.}
 }
 \references{
 Anderson, M.J. 2001. A new method for non-parametric multivariate
