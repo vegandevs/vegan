@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-9 (opened Jan 7, 2009)
 
+	* kendall.post: added one line that was accidentally lost in
+	editing. 
+
 	* Checked with R version 2.9.0 Under development (unstable) 
 	(2009-01-13 r47593) having experimental strict Rd parser, and
 	corrected the reported problems in Rd files so that vegan is R
