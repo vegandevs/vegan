@@ -125,7 +125,8 @@
             table[[i]] <- rbind(spear.gr[[i]], W.gr[[i]], counter[[i]], vec.gr[[i]])
             rownames(table[[i]]) <- c("Spearman.mean", "W.per.species", "Prob", "Corrected prob")
             ## PL: Next line had been lost
-            colnames(table) <- colnames(table,do.NULL = FALSE, prefix = "Spec")
+            colnames(table[[i]]) <- colnames(table[[i]], do.NULL = FALSE,
+                                             prefix = "Spec")
         }
     }
     if(ngr == 1) {
