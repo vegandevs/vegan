@@ -6,8 +6,8 @@
 ###
 ### copyleft - Guillaume Blanchet and Pierre Legendre, October 2008
 ################################################################################
-	
-    mult <- match.arg(mult, c("sidak", "holm", "bonferroni"))
+
+    mult <- match.arg(mult, c("sidak", p.adjust.methods))
 	
     ##CC# Make sure Y is a matrix and find number of rows and columns of Y
     Y <- as.matrix(Y)
@@ -102,9 +102,9 @@
         vec.corr = NA
         for(i in 1:p) vec.corr = c(vec.corr, (1-(1-vec[i])^p))
         vec.corr <- vec.corr[-1]
+    } else {
+        vec.corr <- p.adjust(vec, method=mult)
     }
-    if(mult == "holm") vec.corr <- p.adjust(vec, method="holm")
-    if(mult == "bonferroni") vec.corr <- p.adjust(vec, method="bonferroni")
 
     if(ngr > 1) {
         vec.gr <- vector("list",ngr)

@@ -35,10 +35,11 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
     group. }
   \item{nperm}{ Number of permutations to be performed. Default is
     999. }
-  \item{mult}{ Correct P-values for multiple testing. The methods are
-    "holm", "sidak", and "bonferroni". The Bonferroni correction is
-    overly conservative; it is not recommended. It is included to
-    allow comparisons with the other methods. }
+  \item{mult}{Correct P-values for multiple testing using the
+    alternatives described in \code{\link{p.adjust}} and in addition
+    \code{"sidak"} (see Details). The Bonferroni correction is overly
+    conservative; it is not recommended. It is included to allow
+    comparisons with the other methods.}
 }
 \details{
   \code{Y} must contain quantitative data. They will be transformed to
@@ -81,25 +82,11 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
   The corrections used for multiple testing are applied to the list of
   P-values (P); they take into account the number of tests (k) carried
   out simulatenously (number of groups in \code{kendall.global}, or
-  number of species in \code{kendall.post}).
-
-  The Holm correction is computed after ordering the P-values in a
-  list with the smallest value to the left. Compute adjusted P-values
-  as:
-    \eqn{P_{corr} = (k-i+1) P}{P_corr = (k-i+1)*P}
-
-  where i is the position in the ordered list. Final step: from left
-  to right, if an adjusted \eqn{P_corr} in the ordered list is smaller
-  than the one occurring at its left, make the smallest one equal to
-  the largest one.
-
-  The \enc{Šidák}{Sidak} correction is:
-
-     \eqn{P_{corr} = 1 - (1 - P)^k}
-
-  The Bonferonni correction is:
-
-   \eqn{P_{corr} = k P}{P_corr = k*P}
+  number of species in \code{kendall.post}). The corrections are
+  performed using funtion \code{\link{p.adjust}}; see that function
+  for the describtion of the correction methods. In addition, there is
+  \enc{Šidák}{Sidak} correction which defined as 
+  \eqn{P_{corr} = 1 -(1 - P)^k}.
 }
 \value{
 

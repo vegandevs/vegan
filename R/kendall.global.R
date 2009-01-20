@@ -7,7 +7,7 @@
 ### copyleft - Guillaume Blanchet and Pierre Legendre, October 2008
 ################################################################################
 	
-    mult <- match.arg(mult, c("sidak", "holm", "bonferroni"))
+    mult <- match.arg(mult, c("sidak", p.adjust.methods))
 	
     ##CC# Make sure Y is a matrix and find number of rows and columns of Y
     Y <- as.matrix(Y)
@@ -85,14 +85,9 @@
             prob.F.corr <- NA
             for(i in 1:ngr) prob.F.corr = c(prob.F.corr, (1-(1-prob.F.gr[i])^ngr))
             prob.F.corr <- prob.F.corr[-1]
-        }
-        if(mult == "holm") {
-            perm.corr <- p.adjust(prob.perm.gr, method="holm")
-            prob.F.corr <- p.adjust(prob.F.gr, method="holm")
-        }
-        if(mult == "bonferroni") {
-            perm.corr <- p.adjust(prob.perm.gr, method="bonferroni")
-            prob.F.corr <- p.adjust(prob.F.gr, method="bonferroni")
+        } else {
+            perm.corr <- p.adjust(prob.perm.gr, method=mult)
+            prob.F.corr <- p.adjust(prob.F.gr, method=mult)
         }
     }
     ## Create a data frame containing the results
