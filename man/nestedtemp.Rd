@@ -142,7 +142,7 @@ nestednodf(comm, order = TRUE)
   W. (1998). A comparative analysis of nested subset patterns of species
   composition. \emph{Oecologia} 113, 1--20.
   }
-\author{ Jari Oksanen and Gustavo Carvalho (\code{nestednodf}. }
+\author{ Jari Oksanen and Gustavo Carvalho (\code{nestednodf}). }
 
 \seealso{
   In general, the functions should be used with \code{\link{oecosimu}}

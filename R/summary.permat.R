@@ -28,10 +28,9 @@ function(object, ...)
     } else ssum <- NULL
     ## Chisq
     E <- rs %o% cs / ss
-    chisq <- list(
-        chisq.orig = sum((x$orig - E)^2 / E),
-        df = (nr - 1) * (nc - 1),
-        chisq.perm = sapply(x$perm, function(z) sum((z - E)^2 / E)))
+    chisq <- sapply(x$perm, function(z) sum((z - E)^2 / E))
+    attr(chisq, "chisq.orig") <- sum((x$orig - E)^2 / E)
+    attr(chisq, "df") <- (nr - 1) * (nc - 1)
     x$perm <- NULL
     out <- list(x=x, bray=bray, chisq=chisq, sum=psum, fill=pfill, rowsums=vrow, colsums=vcol,
         browsums=brow, bcolsums=bcol, strsum=ssum)

@@ -104,10 +104,10 @@ Functions \code{permatfull} and \code{permatswap} return an object of class \cod
 
 The \code{summary} method returns a list containing mean
 Bray-Curtis dissimilarities calculated pairwise among original and
-permuted matrices, and check results of the constraints.  Note that when
-\code{strata} is used, calculation may take several seconds. 
+permuted matrices, Chi-square statistics, and check results of the constraints.  Note that when
+\code{strata} is used, calculation may take longer.
 
-The \code{plot} method also returns the Bray-Curtis dissimilarities invisibly.
+The \code{plot} method also returns the plotted values invisibly.
 }
 \references{
 Original references for presence-absence algorithms are given on help

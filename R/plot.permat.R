@@ -17,7 +17,7 @@ function(x, type = "bray", ylab, xlab, col, lty, lowess=TRUE, plot=TRUE, text=TR
             ylab <- "Bray-Curtis dissimilarity"
     }
     if (type == "chisq") {
-        toplot <- summary(x)$chisq$chisq.perm
+        toplot <- summary(x)$chisq
         if (missing(ylab))
             ylab <- "Chi-squared"
     }

@@ -34,9 +34,9 @@ function(x, digits=2, ...)
         cat("\nSums within strata retained:", round(100 * sum(x$strsum) / n, digits), "%")
     cat("\n\nBray-Curtis dissimilarities among original and permuted matrices:\n")
     print(summary(x$bray))
-    cat("\nChi-squared for original matrix: ", round(x$chisq$chisq.orig, digits),
-        " (df = ", x$chisq$df, ")\n", sep = "")
+    cat("\nChi-squared for original matrix: ", round(attr(x$chisq, "chisq.orig"), digits),
+        " (df = ", attr(x$chisq, "df"), ")\n", sep = "")
     cat("Chi-squared values among expected and permuted matrices:\n")
-    print(summary(x$chisq$chisq.perm))
+    print(summary(x$chisq))
 invisible(x)
 }
