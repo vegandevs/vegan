@@ -2,7 +2,7 @@
     function (object, text, display = "sites", choices = 1:3, justify = "center",  
               adj = 0.5, ...) 
 {
-    oldpak <- compareVersion(packageDescription("rgl", field="Version"), "0.65") == -1
+    oldpak <- compareVersion(packageDescription("rgl", field="Version"), "0.65") == 1
     x <- scores(object, display = display, choices = choices, 
                 ...)
     if (missing(text)) 

@@ -15,8 +15,8 @@
     else if (type == "t") {
         if (missing(text)) 
             text <- rownames(x)
-        rgl.texts(x[, 1], x[, 2], x[, 3], text, justify = "center", 
-                  ...)
+        rgl.texts(x[, 1], x[, 2], x[, 3], text, ...,
+                  if (oldpak) justify = "center" else adj = 0.5)
     }
     rgl.lines(range(x[, 1]), c(0, 0), c(0, 0), col = ax.col)
     rgl.lines(c(0, 0), range(x[, 2]), c(0, 0), col = ax.col)
