@@ -73,9 +73,9 @@
       min(x[ij],x[ik])/(sum x[ik]))}
     \cr
     \code{morisita}
-    \tab \eqn{d_{jk} = \frac{2 \sum_i x_{ij} x_{ik}}{(\lambda_j +
+    \tab \eqn{d_{jk} =  1 - \frac{2 \sum_i x_{ij} x_{ik}}{(\lambda_j +
 	  \lambda_k) \sum_i x_{ij} \sum_i
-	  x_{ik}}}{d[jk] = 2*sum(x[ij]*x[ik])/((lambda[j]+lambda[k]) *
+	  x_{ik}}}{d[jk] =  1 - 2*sum(x[ij]*x[ik])/((lambda[j]+lambda[k]) *
 	sum(x[ij])*sum(x[ik]))}  
     \cr
     \tab where \eqn{\lambda_j = \frac{\sum_i x_{ij} (x_{ij} - 1)}{\sum_i
