@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.6-10 (openen Jan 20, 2009)
+Version 1.6-11 (opened Jan 28, 2009)
+
+	* ordirgl & orgltext: removed work arounds for very old versions
+	(pre-0.65) of the rgl package.
+
+Version 1.6-10 (closed Jan 28, 2009)
 
 	* commsimulator: failed if input data (x) were a data.frame.
 
