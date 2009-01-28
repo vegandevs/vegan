@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.6-10 (openen Jan 20, 2009)
 
+	* commsimulator: failed if input data (x) were a data.frame.
+
 	* metaMDS: really do not evaluate no.shared() if set
 	noshare=0. Triggered by a problem report with missing data. 
 
