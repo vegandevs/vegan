@@ -35,8 +35,8 @@
         }
         else {
             sol <- rbind(sol[1:(i-1),], as.matrix(tmp[1,]), sol[i,])
-            assign(".Random.seed", seed, envir = .GlobalEnv)
         }
+        assign(".Random.seed", seed, envir = .GlobalEnv)
     }
     ## Put RNG at the end of the longest simulation
     assign(".Random.seed", bigseed, envir = .GlobalEnv)

@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.6-11 (opened Jan 28, 2009)
 
+	* anova.cca: used different random number sequence for the second
+	term with by = "margin". 
+
 	* ordirgl & orgltext: removed work arounds for very old versions
 	(pre-0.65) of the rgl package.
 
