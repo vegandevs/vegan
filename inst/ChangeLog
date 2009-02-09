@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.6-11 (opened Jan 28, 2009)
+Version 1.6-12 (opened Feb 9, 2009)
+
+	* contribdiv: new functions for contribution diversity as an
+	alternative to simple additive diversity following Lu, Wagner &
+	Chen, Basic and Applied Ecology 8, 1-12 (2007).
+	
+Version 1.6-11 (closed Feb 9, 2009)
 
 	* anova.cca: used different random number sequence for the second
 	term with by = "margin". 
