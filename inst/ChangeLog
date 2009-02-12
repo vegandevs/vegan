@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.6-12 (opened Feb 9, 2009)
 
+	* anova.ccabyaxis: gained keyword 'cutoff' (defaults 1) to break
+	from permutation tests after exceeding the P-value given in the
+	argument. The keyword was introduced because rda and cca are
+	occasionally used with a huge number of constraints (like PCNM
+	vectors) where tests take a very long time, although only a couple
+	of first axes are significant. The keyword is still undocumented,
+	and will remain so because this change is still experimental. 
+	
 	* contribdiv: new functions for contribution diversity as an
 	alternative to simple additive diversity following Lu, Wagner &
 	Chen, Basic and Applied Ecology 8, 1-12 (2007).

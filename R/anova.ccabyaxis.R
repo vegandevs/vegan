@@ -1,6 +1,7 @@
 "anova.ccabyaxis" <-
-function (object, ...) 
+function (object, cutoff = 1,  ...) 
 {
+    cutoff <- cutoff + sqrt(.Machine$double.eps)
     rnk <- object$CCA$rank
     if (!max(rnk, 0)) 
         stop("Needs a constrained ordination")
@@ -11,9 +12,9 @@ function (object, ...)
     axnam <- colnames(lc)
     df <- c(rep(1, rnk), object$CA$rank)
     chi <- c(object$CCA$eig, Residual = object$CA$tot.chi)
-    Fval <- c(numeric(rnk), NA)
+    Fval <- c(chi[1:rnk]/df[1:rnk]/chi[rnk+1]*df[rnk+1], NA)
     nperm <- c(numeric(rnk), NA)
-    Pval <- c(numeric(rnk), NA)
+    Pval <- rep(NA, rnk+1)
     out <- data.frame(df, chi, Fval, nperm, Pval)
     sol <- anova(object, first = TRUE, ...)
     out[c(1, rnk + 1), ] <- sol
@@ -38,6 +39,8 @@ function (object, ...)
                 bigseed <- get(".Random.seed", envir = .GlobalEnv, 
                   inherits = FALSE)
             }
+            if (out[i, "Pr(>F)"] > cutoff)
+                break
         }
     }
     assign(".Random.seed", bigseed, envir = .GlobalEnv)
