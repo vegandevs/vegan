@@ -2,7 +2,21 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.6-12 (opened Feb 9, 2009)
+Version 1.6-13 (opened Feb 15, 2009)
+
+	* simulate.rda: new method to simulate responses with random error
+	for an rda() result object. The function uses Normal error, and
+	estimates the sd separately for each species from their rda
+	residuals. Normal error is justified by least squares fitting in
+	rda. This could be made to use permutations of residuals. Not yet
+	implemented for cca or capscale results. For cca we -- at least --
+	need to handle weights, and the capscale result would be rda
+	result, since the method cannot be directly implemented for
+	dissimilarities. The function was triggered by Ben Bolker's email
+	to R-devel mainling list
+	https://stat.ethz.ch/pipermail/r-devel/2009-February/052116.html
+	
+Version 1.6-12 (closed Feb 15, 2009)
 
 	* anova.ccabyaxis: gained keyword 'cutoff' (defaults 1) to break
 	from permutation tests after exceeding the P-value given in the
