@@ -221,4 +221,6 @@ out.div <- oecosimu(dune, diversity, "permat", control=contr)
 out.div
 }
 \keyword{ multivariate }
+\keyword{ datagen }
+
 

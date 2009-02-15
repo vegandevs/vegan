@@ -155,3 +155,5 @@ summary(x4)
 }
 
 \keyword{multivariate}
+\keyword{datagen}
+

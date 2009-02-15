@@ -206,3 +206,4 @@ t.test(dat ~ grp, var.equal = TRUE)
 }
 \keyword{ htest }
 \keyword{ design }
+\keyword{ datagen }

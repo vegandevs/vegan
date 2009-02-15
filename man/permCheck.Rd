@@ -356,3 +356,4 @@ permuplot(150, control = control, cex = 0.8)
 \keyword{ utilities }
 \keyword{ design }
 \keyword{ methods }
+\keyword{ datagen }
