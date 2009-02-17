@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.6-13 (opened Feb 15, 2009)
 
+	* rad.null: failed with family = gaussian and Gamma.
+
 	* simulate.rda: new method to simulate responses with random error
 	for an rda() result object. The function uses Normal error, and
 	estimates the sd separately for each species from their rda

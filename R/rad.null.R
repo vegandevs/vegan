@@ -9,14 +9,16 @@
     wt <- rep(1, nsp)
     if (nsp > 0) { 
         fit <- rev(cumsum(1/nsp:1)/nsp) * sum(x)
+        res <- dev.resids(x, fit, wt)
+        deviance <- sum(res)
         aic <- aicfun(x, nsp, fit, wt, deviance)
     }
     else {
         fit <- NA
         aic <- NA
+        res <- NA
+        deviance <- NA
     }
-    res <- dev.resids(x, fit, wt)
-    deviance <- sum(res)
     residuals <- x - fit
     rdf <- nsp
     p <- NA
