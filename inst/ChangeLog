@@ -2,7 +2,7 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.6-13 (opened Feb 15, 2009)
+Version 1.16-13 (opened Feb 15, 2009)
 
 	* rad.null: failed with family = gaussian and Gamma.
 
@@ -18,7 +18,7 @@ Version 1.6-13 (opened Feb 15, 2009)
 	to R-devel mainling list
 	https://stat.ethz.ch/pipermail/r-devel/2009-February/052116.html
 	
-Version 1.6-12 (closed Feb 15, 2009)
+Version 1.16-12 (closed Feb 15, 2009)
 
 	* anova.ccabyaxis: gained keyword 'cutoff' (defaults 1) to break
 	from permutation tests after exceeding the P-value given in the
@@ -32,7 +32,7 @@ Version 1.6-12 (closed Feb 15, 2009)
 	alternative to simple additive diversity following Lu, Wagner &
 	Chen, Basic and Applied Ecology 8, 1-12 (2007).
 	
-Version 1.6-11 (closed Feb 9, 2009)
+Version 1.16-11 (closed Feb 9, 2009)
 
 	* anova.cca: used different random number sequence for the second
 	term with by = "margin". 
@@ -40,7 +40,7 @@ Version 1.6-11 (closed Feb 9, 2009)
 	* ordirgl & orgltext: removed work arounds for very old versions
 	(pre-0.65) of the rgl package.
 
-Version 1.6-10 (closed Jan 28, 2009)
+Version 1.16-10 (closed Jan 28, 2009)
 
 	* commsimulator: failed if input data (x) were a data.frame.
 
