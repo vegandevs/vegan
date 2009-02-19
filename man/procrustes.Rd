@@ -5,6 +5,7 @@
 \alias{print.summary.procrustes}
 \alias{plot.procrustes}
 \alias{points.procrustes}
+\alias{text.procrustes}
 \alias{lines.procrustes}
 \alias{residuals.procrustes}
 \alias{fitted.procrustes}
@@ -23,6 +24,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{plot}{procrustes}(x, kind=1, choices=c(1,2), xlab, ylab, main,
      ar.col = "blue", len=0.05, ...)
 \method{points}{procrustes}(x, display = c("target", "rotated"), ...)
+\method{text}{procrustes}(x, display = c("target", "rotated"), labels, ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
@@ -61,6 +63,8 @@ protest(X, Y, scores = "sites", permutations = 1000, strata, ...)
     specified strata.}
   \item{ar.col}{Arrow colour.}
   \item{len}{Width of the arrow head.}
+  \item{labels}{Character vector of text labels. Rownames of the result 
+    object are used as default.}
   \item{...}{Other parameters passed to functions. In \code{procrustes}
     and \code{protest} parameters are passed to \code{\link{scores}}, in
     graphical functions to underlying graphical functions.}

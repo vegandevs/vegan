@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-13 (opened Feb 15, 2009)
 
+	* text.procrustes: added text() function for procrustes() result plots.
+
 	* rad.null: failed with family = gaussian and Gamma.
 
 	* simulate.rda: new method to simulate responses with random error
