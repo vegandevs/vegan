@@ -40,7 +40,11 @@ permutest(x, ...)
     setting \code{by = "margin"} will assess the marginal effects of the
     terms (each marginal term analysed in a model with all other
     variables).}
-    \item{\dots}{Parameters to \code{permutest.cca}. }
+  \item{\dots}{Parameters passed to other functions. 
+    \code{anova.cca} passes all arguments to
+    \code{permutest.cca}. In \code{anova} with \code{by = "axis"} you
+    can use argument \code{cutoff} (defaults \code{1}) which stops
+    permutations after exceeding the given level. }
   \item{permutations}{Number of permutations for assessing significance
     of constraints.}
   \item{model}{Permutation model (partial match).}
@@ -99,29 +103,33 @@ permutest(x, ...)
   Setting \code{first = TRUE} will perform a test for the first
   constrained eigenvalue.  Argument \code{first} can be set either in
   \code{anova.cca} or in \code{permutest.cca}.  It is also possible to
-  perform significance tests for each axis or for each term (constraining
-  variable) using argument \code{by} in \code{anova.cca}. 
-  Setting \code{by = "axis"} will perform separate significance tests
-  for each constrained axis.  All previous constrained axes will be used
-  as conditions (\dQuote{partialled out}) and a test for the first
-  constrained eigenvalues is performed. Setting \code{by = "terms"} will
+  perform significance tests for each axis or for each term
+  (constraining variable) using argument \code{by} in
+  \code{anova.cca}.  Setting \code{by = "axis"} will perform separate
+  significance tests for each constrained axis.  All previous
+  constrained axes will be used as conditions (\dQuote{partialled
+  out}) and a test for the first constrained eigenvalues is
+  performed. You can stop permutation tests after exceeding a given
+  signficance level with argument \code{cutoff} to speed up
+  calculations in large models. Setting \code{by = "terms"} will
   perform separate significance test for each term (constraining
-  variable). The terms are assessed sequentially from first to last, and
-  the order of the terms will influence their significances. Setting
-  \code{by = "margin"} will perform separate significance test for each
-  marginal term in a model with all other terms. The marginal test
-  also accepts a \code{scope} argument for the
-  \code{\link{drop.scope}} which can be a character vector
-  of term labels that are analysed, or a fitted model of lower scope. 
-  The marginal effects are also known as
-  \dQuote{Type III} effects, but the current function only evaluates
-  marginal terms. It will, for instance, ignore main effects that are
-  included in interaction terms. In calculating pseudo-\eqn{F}, all
-  terms are compared to the same residual of the full
-  model. Permutations for all axes or terms will start from the same
-  \code{\link{.Random.seed}}, and the seed will be advanced to the value
-  after the longest permutation at the exit from the function.
+  variable). The terms are assessed sequentially from first to last,
+  and the order of the terms will influence their
+  significances. Setting \code{by = "margin"} will perform separate
+  significance test for each marginal term in a model with all other
+  terms. The marginal test also accepts a \code{scope} argument for
+  the \code{\link{drop.scope}} which can be a character vector of term
+  labels that are analysed, or a fitted model of lower scope.  The
+  marginal effects are also known as \dQuote{Type III} effects, but
+  the current function only evaluates marginal terms. It will, for
+  instance, ignore main effects that are included in interaction
+  terms. In calculating pseudo-\eqn{F}, all terms are compared to the
+  same residual of the full model. Permutations for all axes or terms
+  will start from the same \code{\link{.Random.seed}}, and the seed
+  will be advanced to the value after the longest permutation at the
+  exit from the function.  
 }
+
 \value{
   Function \code{permutest.cca} returns an object of class
   \code{"permutest.cca"}, which has its own \code{print} method.  The
@@ -133,6 +141,9 @@ permutest(x, ...)
   \code{"reduced"} in \pkg{vegan} version 1.14-11 (release version
   1.15-0), and you must explicitly set \code{model = "direct"} for
   compatibility with the old version.
+
+  Tests \code{by = "terms"} and \code{by = "margin"} are consistent
+  only when \code{model = "direct"}.  
 }
 \references{
   Legendre, P. and Legendre, L. (1998). \emph{Numerical Ecology}. 2nd English
@@ -144,7 +155,7 @@ permutest(x, ...)
   \code{anova.cca} with \code{by = "margin"}, and
   \code{\link{add1.cca}} an analysis for single terms additions, which
   can be used in automatic or semiautomatic model building (see
-  \code{\link{deviance.cca}}. }
+  \code{\link{deviance.cca}}). }
 
 \examples{
 data(varespec)
