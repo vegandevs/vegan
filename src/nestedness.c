@@ -354,14 +354,14 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
     /* Swap */
     if (ev == 1) {
         /* fixed column sums */
-        if (direct == 0) {
+        if (*direct == 0) {
             m[ij[0]] = sm[1];
             m[ij[1]] = sm[0];
             m[ij[2]] = sm[3];
             m[ij[3]] = sm[2];
         }
         /* fixed row sums */
-        if (direct == 1) {
+        if (*direct == 1) {
         for (k = 0; k < 4; k++)
             m[ij[0]] = sm[2];
             m[ij[1]] = sm[3];
