@@ -5,6 +5,7 @@
 \alias{permat.control}
 \alias{plot.permat}
 \alias{lines.permat}
+\alias{lag.plot.permat}
 \alias{print.permat}
 \alias{summary.permat}
 \alias{print.summary.permat}
@@ -28,6 +29,7 @@ burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
 lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
+lag.plot.permat(x, type = "bray", ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
 }
@@ -142,6 +144,9 @@ m <- matrix(c(
 x1 <- permatswap(m, "swap", burnin = 1000, thin = 100)
 summary(x1)
 plot(x1)
+## The lag plot is useful to diagnose independence
+## of successive simulations for sequential algorithms
+lag.plot.permat(x1)
 ## Unrestricted permutation retaining
 ## row/columns sums but not matrix fill:
 x2 <- permatfull(m)
