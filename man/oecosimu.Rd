@@ -47,7 +47,7 @@ commsimulator(x, method, thin=1)
   Function \code{oecosimu} is a wrapper that evaluates a nestedness
   statistic using function given by \code{nestfun}, and then simulates a
   series of null models using \code{commsimulator} or 
-  \code{permatfull}/\code{permatswap} (depending on method), and evaluates the
+  \code{permatfull} / \code{permatswap} (depending on method), and evaluates the
   statistic on these null models. The \pkg{vegan} packages contains some
   nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},

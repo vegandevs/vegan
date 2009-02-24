@@ -85,6 +85,8 @@
             if (control$method %in% c("swap", "tswap")) {
             if (burnin > 0) {
                 m <- permatswap(comm, method=control$method,
+                    fixedmar=control$fixedmar,
+                    shuffle=control$shuffle,
                     strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=burnin, thin=0)$perm[[1]]
@@ -92,6 +94,8 @@
             }
             for (i in 1:nsimul) {
                 x <- permatswap(comm, method=control$method,
+                    fixedmar=control$fixedmar,
+                    shuffle=control$shuffle,
                     strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=0, thin=thin)

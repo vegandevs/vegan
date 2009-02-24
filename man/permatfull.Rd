@@ -75,6 +75,7 @@ The 'swapcount' algorithm (\code{method="swap"} and \code{mtype="count"}) tries 
 The algorithm \code{"swsh"} in the function \code{permatswap} is a hybrid algorithm. First, it makes binary quasiswaps to keep row and column incidences constant, then non-zero values are modified according to the \code{shuffle} argument (only \code{"samp"} and \code{"both"} are available in this case, because it is applied only on non-zero values).
 
 The algorithm \code{"abuswap"} produces two kinds of null models (based on \code{fixedmar="columns"} or \code{fixedmar="rows"}) as described in Hardy (2008; randomization sheme 2x and 3x, respectively).
+These preserve column and row occurrences, and column or row sums at the same time.
 
 Constraints on row/colum sums, matrix fill, total sum and sums within
 strata can be checked by the \code{summary} method. \code{plot} method is for
