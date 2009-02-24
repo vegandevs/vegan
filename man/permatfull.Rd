@@ -122,7 +122,7 @@ Applied Statistics 30, 91-97.
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
 
 \seealso{
-\code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web},
+\code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}},
 \code{\link{oecosimu}}, \code{\link{adipart}}}
 }
 \examples{
