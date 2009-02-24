@@ -5,7 +5,8 @@
 \alias{permat.control}
 \alias{plot.permat}
 \alias{lines.permat}
-\alias{lag.plot.permat}
+\alias{lagplot.permat}
+\alias{lagplot}
 \alias{print.permat}
 \alias{summary.permat}
 \alias{print.summary.permat}
@@ -29,7 +30,8 @@ burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
 lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
-\method{lag.plot}{permat}(x, type = "bray", sub=NULL, ...)
+lagplot(x, ...)
+\method{lagplot}{permat}(x, type = "bray", ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
 }
@@ -47,7 +49,6 @@ lowess = TRUE, plot = TRUE, text = TRUE, ...)
   \item{x, object}{object of class \code{"permat"}}
   \item{digits}{number of digits used for rounding.}
   \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
-  \item{sub}{a sub title for the plot, if this is \code{NULL} for the \code{lag.plot.permat} function, the results of the Ljung-Box test is plotted as sub title.}
   \item{type}{character, type of plot to be displayed: \code{"bray"} for Bray-Curtis dissimilarities, \code{"chisq"} for Chi-squared values.}
   \item{lowess, plot, text}{logical arguments for the \code{plot} method, whether a lowess curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
   \item{\dots}{other arguments passed to methods.}
@@ -131,11 +132,11 @@ Applied Statistics 30, 91--97.
 For other functions to permute matrices:
 
 \code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}},
-\code{\link{oecosimu}}, \code{\link{adipart}}}
+\code{\link{oecosimu}}, \code{\link{adipart}}
 
 For time-series diagnostics:
 
-\code{\link{Box.test}}, \code{\link{lag.plot}}
+\code{\link{Box.test}}, \code{\link{lag.plot}}, \code{\link{tsdiag}}
 }
 \examples{
 ## A simple artificial community data matrix.
@@ -145,15 +146,12 @@ m <- matrix(c(
    0,0,1,2,0,3,
    0,0,0,1,4,3
    ), 4, 6, byrow=TRUE)
-## Using the swap algorithm to create a 
+## Using the quasiswap algorithm to create a 
 ## list of permuted matrices, where
 ## row/columns sums and matrix fill are preserved:
-x1 <- permatswap(m, "swap", burnin = 1000, thin = 100)
+x1 <- permatswap(m, "quasiswap")
 summary(x1)
 plot(x1)
-## The lag plot is useful to diagnose independence
-## of successive simulations for sequential algorithms
-lag.plot.permat(x1)
 ## Unrestricted permutation retaining
 ## row/columns sums but not matrix fill:
 x2 <- permatfull(m)
@@ -169,6 +167,15 @@ summary(x3)
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
 summary(x4)
+## The lagplot is useful to diagnose independence
+## of successive simulations for sequential algorithms
+data(BCI)
+x5 <- permatswap(BCI, "swap", burnin=0, thin=100, times=50)
+lagplot.permat(x5)
+## For more time series diagnostics, use e.g.
+a0 <- arima(summary(x5)$bray, order=c(0,0,0))
+tsdiag(a0)
+Box.test(a0$resid, type="Ljung-Box")
 }
 
 \keyword{multivariate}
