@@ -4,12 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-14 (opened Feb 24, 2009)
 
-    * permatswap: two new methods (under "abuswap") added based on the paper of
-    Hardy 2008 (J Ecol 96, 914-926). These preserve row *and* colunm occurrences,
-    and row *or* column sums at the same time. Thus these complement the methods
-    available in vegan. C code is added, but does not work. So now the
-    much slower R internal function is used. Needs some more work, and
-    documentation (examples and reference in Rd file).
+	* permatswap: two new methods (under "abuswap") added based on the
+	paper of Hardy 2008 (J Ecol 96, 914-926). These preserve row *and*
+	colunm occurrences, and row *or* column sums at the same
+	time. Thus these complement the methods available in vegan. Uses C
+	coce (not thoroughly tested yet). So now the much slower R
+	internal function is used. Needs some more work, and
+	documentation (examples and reference in Rd file).
 
 Version 1.16-13 (closed Feb 24, 2009)
 

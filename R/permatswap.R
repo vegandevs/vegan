@@ -122,10 +122,10 @@ function(m, fixedmar, thin = 1)
                             as.integer(nn.row), as.integer(nn.col),
                             as.integer(1), PACKAGE = "vegan")$m
                     if (method == "abuswap")
-#                        temp <- .C("abuswap", m = as.double(temp),
-#                            as.integer(nn.row), as.integer(nn.col),
-#                            as.integer(1), as.integer(direct), PACKAGE = "vegan")$m
-                        temp <- abuswap(temp, fixedmar, thin=1)
+                       temp <- .C("abuswap", m = as.double(temp),
+                            as.integer(nn.row), as.integer(nn.col),
+                            as.integer(1), as.integer(direct), PACKAGE = "vegan")$m
+#                        temp <- abuswap(temp, fixedmar, thin=1)
             } else
                 for (k in 1:burnin)
                     temp <- commsimulator(temp, method=method)
@@ -139,14 +139,14 @@ function(m, fixedmar, thin = 1)
                                     as.integer(thin),
                                     PACKAGE = "vegan")$m
                     if (method == "abuswap")
-#                        perm[[i]][id,] <- .C("abuswap",
-#                                    m = as.double(temp),
-#                                    as.integer(nn.row),
-#                                    as.integer(nn.col),
-#                                    as.integer(thin),
-#                                    as.integer(direct),
-#                                    PACKAGE = "vegan")$m
-                        perm[[i]][id,] <- abuswap(temp, fixedmar, thin)
+                        perm[[i]][id,] <- .C("abuswap",
+                                    m = as.double(temp),
+                                    as.integer(nn.row),
+                                    as.integer(nn.col),
+                                    as.integer(thin),
+                                    as.integer(direct),
+                                    PACKAGE = "vegan")$m
+#                        perm[[i]][id,] <- abuswap(temp, fixedmar, thin)
 	           } else perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
             temp <- perm[[i]][id,]
             } # for i end
