@@ -38,7 +38,7 @@ lowess = TRUE, plot = TRUE, text = TRUE, ...)
   \item{ptype}{type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
   \item{mtype}{matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
   \item{times}{number of permuted matrices.}
-  \item{method}{character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"} and \code{"swap"} methods are available (see details).}
+  \item{method}{character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"}, \code{"swap"}, \code{"swsh"} and \code{"abuswap"} methods are available (see details).}
   \item{shuffle}{character, indicating whether individuals (\code{"ind"}), samples (\code{"samp"}) or both (\code{"both"}) should be shuffled, see details.}
   \item{burnin}{number of null communities discarded before proper analysis in sequential (\code{"swap", "tswap"}) methods.}
   \item{thin}{number of discarded permuted matrices between two evaluations in sequential (\code{"swap", "tswap"}) methods.}
@@ -74,7 +74,7 @@ The 'swapcount' algorithm (\code{method="swap"} and \code{mtype="count"}) tries 
 
 The algorithm \code{"swsh"} in the function \code{permatswap} is a hybrid algorithm. First, it makes binary quasiswaps to keep row and column incidences constant, then non-zero values are modified according to the \code{shuffle} argument (only \code{"samp"} and \code{"both"} are available in this case, because it is applied only on non-zero values).
 
-FIXME! The algorithm \code{"abuswap"} need documentation here once done.
+The algorithm \code{"abuswap"} produces two kinds of null models (based on \code{fixedmar="columns"} or \code{fixedmar="rows"}) as described in Hardy (2008; randomization sheme 2x and 3x, respectively).
 
 Constraints on row/colum sums, matrix fill, total sum and sums within
 strata can be checked by the \code{summary} method. \code{plot} method is for
@@ -115,8 +115,10 @@ The \code{plot} method also returns the plotted values invisibly.
 Original references for presence-absence algorithms are given on help
 page of \code{\link{commsimulator}}.
 
+Hardy, O. J. (2008) Testing the spatial phylogenetic structure of local communities: statistical performances of different null models and test statistics on a locally neutral community. Journal of Ecology 96, 914--926.
+
 Patefield, W. M. (1981) Algorithm AS159. An efficient method of generating r x c tables with given row and column totals. 
-Applied Statistics 30, 91-97.
+Applied Statistics 30, 91--97.
 }
 
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
