@@ -2,7 +2,7 @@
 `print.permat` <-
 function(x, digits=3, ...)
 {
-    cat("Object of class 'permat'\n")
+    cat("Object of class 'permat' with ", attr(x, "times"), " simulations\n", sep="")
     cat("\nMatrix type:", attr(x, "mtype"), "\nPermutation type:", attr(x, "ptype"))
     if (attr(x, "ptype") == "swap") {
         cat("\nMethod: ", attr(x, "method"), sep = "")

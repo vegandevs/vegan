@@ -1,6 +1,6 @@
 ## permatswap function
 `permatswap` <-
-function(m, method="quasiswap", shuffle="both", strata=NULL, mtype="count", times=99, burnin = 10000, thin = 1000)
+function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=99, burnin = 10000, thin = 1000)
 {
 ## internal function
 indshuffle <- function(x)
@@ -19,19 +19,70 @@ bothshuffle <- function(x, y=1)
     x[x!=0] <- indshuffle(x[x!=0] - y) + y
     return(sample(x))
 }
+isDiagSimple <- function(x) {
+        x<- as.vector(x)
+        X <- as.numeric(x>0)
+        ## sX: number of non-zero cells
+        sX <- sum(X)
+        ## Either choose could be returned, but RNG is not needed,
+        ## because submatrix already is in random order, and we always return choose[0]
+        if (sX == 4) return(1) else 
+            if (identical(X, c(0,1,1,0)) || identical(X, c(1,0,0,1)))
+                return(1) else return(0)
+}
+abuswap <-
+function(m, fixedmar, thin = 1)
+{
+    x <- as.matrix(m)
+    n.col <- ncol(x)
+    n.row <- nrow(x)
+    changed <- 0
+    while(changed < thin) {
+        ran.row <- sample(n.row, 2)
+        ran.col <- sample(n.col, 2)
+        ev <- isDiagSimple(x[ran.row, ran.col])
+        if (ev == 1) {
+            ## Swap
+            if (fixedmar == "columns")
+                x[ran.row, ran.col] <- x[rev(ran.row), ran.col]
+            if (fixedmar == "rows")
+                x[ran.row, ran.col] <- x[ran.row, rev(ran.col)]
+
+                changed <- changed + 1
+            }
+        }
+    return(x)
+}
     if (!identical(all.equal(m, round(m)), TRUE))
        stop("function accepts only integers (counts)")
     mtype <- match.arg(mtype, c("prab", "count"))
+    fixedmar <- match.arg(fixedmar, c("rows", "columns", "both"))
     shuffle <- match.arg(shuffle, c("samp", "both"))
     count <- mtype == "count"
     if (count) {
-        method <- match.arg(method, c("swap", "quasiswap", "swsh"))
+        method <- match.arg(method, c("swap", "quasiswap", "swsh", "abuswap"))
         ## warning if swapcount is to be used
         if (method == "swap") {
             warning("quantitative swap method may not yield random null models, use only to study its properties")
             isSeq <- TRUE
-        } else isSeq <- FALSE
+            if (fixedmar != "both")
+                stop("if 'method=\"swap\"', 'fixedmar' must be \"both\"")
+        } else {
+            if (method == "abuswap") {
+                if (fixedmar == "both")
+                    stop("if 'method=\"abuswap\"', 'fixedmar' must not be \"both\"")
+                direct <- if (fixedmar == "columns")
+                    0 else 1
+                isSeq <- TRUE
+            } else {
+                isSeq <- FALSE
+                if (fixedmar != "both")
+                    stop("'fixedmar' must be \"both\"")
+            }
+        }
     } else {
+        if (fixedmar != "both")
+            stop("if 'mtype=\"prab\"', 'fixedmar' must be \"both\"")
         method <- match.arg(method, c("swap", "quasiswap", "tswap", "backtracking"))
         isSeq <- method != "quasiswap"
         }
@@ -54,8 +105,9 @@ bothshuffle <- function(x, y=1)
 
     perm <- list()
     perm[[1]] <- matrix(0, n.row, n.col)
-    for (i in 2:times)
-        perm[[i]] <- perm[[1]]
+    if (times > 1)
+        for (i in 2:times)
+            perm[[i]] <- perm[[1]]
 
     for (j in 1:nstr) {
         id <- which(str == j)
@@ -65,20 +117,36 @@ bothshuffle <- function(x, y=1)
         if (isSeq) {
             if (count) {
                 for (k in 1:burnin)
-                    temp <- .C("swapcount", m = as.double(temp),
+                    if (method == "swap")
+                        temp <- .C("swapcount", m = as.double(temp),
                             as.integer(nn.row), as.integer(nn.col),
                             as.integer(1), PACKAGE = "vegan")$m
+                    if (method == "abuswap")
+#                        temp <- .C("abuswap", m = as.double(temp),
+#                            as.integer(nn.row), as.integer(nn.col),
+#                            as.integer(1), as.integer(direct), PACKAGE = "vegan")$m
+                        temp <- abuswap(temp, fixedmar, thin=1)
             } else
                 for (k in 1:burnin)
                     temp <- commsimulator(temp, method=method)
             for (i in 1:times) {
                 if (count) {
-                    perm[[i]][id,] <- .C("swapcount",
+                    if (method == "swap")
+                        perm[[i]][id,] <- .C("swapcount",
                                     m = as.double(temp),
                                     as.integer(nn.row),
                                     as.integer(nn.col),
                                     as.integer(thin),
                                     PACKAGE = "vegan")$m
+                    if (method == "abuswap")
+#                        perm[[i]][id,] <- .C("abuswap",
+#                                    m = as.double(temp),
+#                                    as.integer(nn.row),
+#                                    as.integer(nn.col),
+#                                    as.integer(thin),
+#                                    as.integer(direct),
+#                                    PACKAGE = "vegan")$m
+                        perm[[i]][id,] <- abuswap(temp, fixedmar, thin)
 	           } else perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
             temp <- perm[[i]][id,]
             } # for i end
@@ -117,7 +185,7 @@ bothshuffle <- function(x, y=1)
     attr(out, "mtype") <- mtype
     attr(out, "ptype") <- "swap"
     attr(out, "method") <- method
-    attr(out, "fixedmar") <- if (method == "swsh") "none" else "both"
+    attr(out, "fixedmar") <- if (method == "swsh") "none" else fixedmar
     attr(out, "times") <- times
     attr(out, "shuffle") <- if (method == "swsh") shuffle else NA
     attr(out, "is.strat") <- !is.null(strata)
