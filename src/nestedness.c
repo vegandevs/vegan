@@ -361,8 +361,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
             m[ij[3]] = sm[2];
         }
         /* fixed row sums */
-        if (*direct == 1) {
-        for (k = 0; k < 4; k++)
+        else {
             m[ij[0]] = sm[2];
             m[ij[1]] = sm[3];
             m[ij[2]] = sm[0];
