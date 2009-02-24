@@ -1,6 +1,6 @@
 ## permatfull function
 `permatfull` <-
-function(m, fixedmar="both", shuffle="ind", strata=NULL, mtype="count", times=99)
+function(m, fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=99)
 {
 ## internal function
 indshuffle <- function(x)

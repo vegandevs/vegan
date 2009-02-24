@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-14 (opened Feb 24, 2009)
 
+    * lag.plot.permat: lag plot for permat simulations to graphically
+    diagnose independence when using sequential algorithms. Ljung-Box
+    test is also performed and returned in the sub title.
+
 	* permatswap: two new methods (under "abuswap") added based on the
 	paper of Hardy 2008 (J Ecol 96, 914-926). These preserve row *and*
 	colunm occurrences, and row *or* column sums at the same

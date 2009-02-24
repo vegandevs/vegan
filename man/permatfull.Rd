@@ -19,17 +19,17 @@ the original matrix (rows/columns sums, matrix fill) and
 restricted permutations (based on strata) are discussed in the Details section.}
 
 \usage{
-permatfull(m, fixedmar = "both", shuffle = "ind", strata = NULL, 
+permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL, 
 mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 strata = NULL, mtype = "count", times = 99, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
-fixedmar = "both", shuffle = "ind", strata = NULL, 
+fixedmar = "both", shuffle = "both", strata = NULL, 
 burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
 lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
-lag.plot.permat(x, type = "bray", sub=NULL, ...)
+\method{lag.plot}{permat}(x, type = "bray", sub=NULL, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
 }
@@ -47,7 +47,7 @@ lag.plot.permat(x, type = "bray", sub=NULL, ...)
   \item{x, object}{object of class \code{"permat"}}
   \item{digits}{number of digits used for rounding.}
   \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
-  \item{sub}{a sub title for the plot, if this is \code{NULL} for the \code{lag.plot.permat} function, the results of the Box-Pierce test is plotted as sub title.}
+  \item{sub}{a sub title for the plot, if this is \code{NULL} for the \code{lag.plot.permat} function, the results of the Ljung-Box test is plotted as sub title.}
   \item{type}{character, type of plot to be displayed: \code{"bray"} for Bray-Curtis dissimilarities, \code{"chisq"} for Chi-squared values.}
   \item{lowess, plot, text}{logical arguments for the \code{plot} method, whether a lowess curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
   \item{\dots}{other arguments passed to methods.}
@@ -128,8 +128,14 @@ Applied Statistics 30, 91--97.
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
 
 \seealso{
+For other functions to permute matrices:
+
 \code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}},
 \code{\link{oecosimu}}, \code{\link{adipart}}}
+
+For time-series diagnostics:
+
+\code{\link{Box.test}}, \code{\link{lag.plot}}
 }
 \examples{
 ## A simple artificial community data matrix.
