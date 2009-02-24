@@ -309,5 +309,71 @@ void rswapcount(double *m, int *nr, int *nc, int *mfill)
     PutRNGstate();
 }
 
+/* 'isDiagSimple' needed for 'abuswap' */
+
+double isDiagSimple(double *sm)
+{
+    int i, sX;
+
+    /* sX: number of non-zero cells */
+    for (i = 0, sX = 0; i++; i < 4)
+        if (sm[i] > 0)
+            sX++;
+
+    if (sX == 4) {
+        return 1;
+    }
+    if ((sm[0] == 0 && sm[1] > 0 && sm[2] > 0 && sm[3] == 0) ||
+    (sm[0] > 0 && sm[1] == 0 && sm[2] == 0 && sm[3] > 0))
+        return 1;
+    else
+     return 0;
+}
+
+/* 'abuswap' to do Hardy 2008 J Ecol 96: 914-926 */
+
+void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
+{
+    int row[2], col[2], k, ij[4], changed, ev ;
+    double sm[4];
+
+    GetRNGstate();
+
+    changed = 0;
+    while (changed < *thin) {
+    /* Select a random 2x2 matrix*/
+    i2rand(row, *nr - 1);
+    i2rand(col, *nc - 1);
+    ij[0] = INDX(row[0], col[0], *nr);
+    ij[1] = INDX(row[1], col[0], *nr);
+    ij[2] = INDX(row[0], col[1], *nr);
+    ij[3] = INDX(row[1], col[1], *nr);
+    for (k = 0; k < 4; k ++)
+        sm[k] = m[ij[k]];
+    ev = isDiagSimple(sm);
+    /* Swap */
+    if (ev == 1) {
+        /* fixed column sums */
+        if (direct == 0) {
+            m[ij[0]] = sm[1];
+            m[ij[1]] = sm[0];
+            m[ij[2]] = sm[3];
+            m[ij[3]] = sm[2];
+        }
+        /* fixed row sums */
+        if (direct == 1) {
+        for (k = 0; k < 4; k++)
+            m[ij[0]] = sm[2];
+            m[ij[1]] = sm[3];
+            m[ij[2]] = sm[0];
+            m[ij[3]] = sm[1];
+        }
+        changed++;
+    }
+    }
+
+    PutRNGstate();
+}
+
 #undef IRAND
 #undef INDX
