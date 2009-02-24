@@ -29,7 +29,7 @@ burnin = 10000, thin = 1000)
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
 lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
-lag.plot.permat(x, type = "bray", ...)
+lag.plot.permat(x, type = "bray", sub=NULL, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
 }
@@ -47,6 +47,7 @@ lag.plot.permat(x, type = "bray", ...)
   \item{x, object}{object of class \code{"permat"}}
   \item{digits}{number of digits used for rounding.}
   \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
+  \item{sub}{a sub title for the plot, if this is \code{NULL} for the \code{lag.plot.permat} function, the results of the Box-Pierce test is plotted as sub title.}
   \item{type}{character, type of plot to be displayed: \code{"bray"} for Bray-Curtis dissimilarities, \code{"chisq"} for Chi-squared values.}
   \item{lowess, plot, text}{logical arguments for the \code{plot} method, whether a lowess curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
   \item{\dots}{other arguments passed to methods.}
