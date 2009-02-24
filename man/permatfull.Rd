@@ -20,8 +20,8 @@ restricted permutations (based on strata) are discussed in the Details section.}
 \usage{
 permatfull(m, fixedmar = "both", shuffle = "ind", strata = NULL, 
 mtype = "count", times = 99)
-permatswap(m, method = "quasiswap", shuffle = "both", strata = NULL,
-mtype = "count", times = 99, burnin = 10000, thin = 1000)
+permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
+strata = NULL, mtype = "count", times = 99, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
 fixedmar = "both", shuffle = "ind", strata = NULL, 
 burnin = 10000, thin = 1000)
@@ -73,6 +73,8 @@ The 'quasiswapcount' algorithm (\code{method="quasiswap"} and \code{mtype="count
 The 'swapcount' algorithm (\code{method="swap"} and \code{mtype="count"}) tries to find 2x2 submatrices (identified by 2 random row and 2 random column indices), that can be swapped in order to leave column and row totals and fill unchanged. First, the algorithm finds the largest value in the submatrix that can be swapped (\eqn{d}) and whether in diagonal or antidiagonal way. Submatrices that contain values larger than zero in either diagonal or antidiagonal position can be swapped. Swap means that the values in diagonal or antidiagonal positions are decreased by \eqn{d}, while remaining cells are increased by \eqn{d}. A swap is made only if fill doesn't change. This algorithm is sequential, subsequent matrices are not independent, because swaps modify little if the matrix is large. In these cases many burnin steps and thinning is needed to get independent random matrices. Although this algorithm is implemented in C, large burmin and thin values can slow it down considerably. WARNING: according to simulations, this algorithm seems to be biased and non random, thus its use should be avoided!
 
 The algorithm \code{"swsh"} in the function \code{permatswap} is a hybrid algorithm. First, it makes binary quasiswaps to keep row and column incidences constant, then non-zero values are modified according to the \code{shuffle} argument (only \code{"samp"} and \code{"both"} are available in this case, because it is applied only on non-zero values).
+
+FIXME! The algorithm \code{"abuswap"} need documentation here once done.
 
 Constraints on row/colum sums, matrix fill, total sum and sums within
 strata can be checked by the \code{summary} method. \code{plot} method is for
