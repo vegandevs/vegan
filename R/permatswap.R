@@ -82,7 +82,7 @@ bothshuffle <- function(x, y=1)
         nn.col <- ncol(m[id,])
         if (isSeq) {
             if (count) {
-                for (k in 1:burnin)
+                for (k in 1:burnin) {
                     if (method == "swap")
                         temp <- .C("swapcount", m = as.double(temp),
                             as.integer(nn.row), as.integer(nn.col),
@@ -91,9 +91,11 @@ bothshuffle <- function(x, y=1)
                        temp <- .C("abuswap", m = as.double(temp),
                             as.integer(nn.row), as.integer(nn.col),
                             as.integer(1), as.integer(direct), PACKAGE = "vegan")$m
-            } else
+                }
+            } else {
                 for (k in 1:burnin)
                     temp <- commsimulator(temp, method=method)
+            }
             for (i in 1:times) {
                 if (count) {
                     if (method == "swap")
@@ -111,13 +113,17 @@ bothshuffle <- function(x, y=1)
                                     as.integer(thin),
                                     as.integer(direct),
                                     PACKAGE = "vegan")$m
-	           } else perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
+	            } else {
+                    perm[[i]][id,] <- commsimulator(temp, method=method, thin=thin)
+                }
             temp <- perm[[i]][id,]
             } # for i end
         } else {
             if (method != "swsh") {
                 r2tabs <- r2dtable(times, rowSums(m[id,]), colSums(m[id,]))
-                } else tempPos <- temp[temp > 0]
+            } else {
+                tempPos <- temp[temp > 0]
+            }
             for (i in 1:times) {
                 if (count) {
                     if (method != "swsh") {
@@ -137,7 +143,9 @@ bothshuffle <- function(x, y=1)
                         tmp <- commsimulator(temp, method="quasiswap")
                         if (shuffle == "samp") {
                             tmp[tmp > 0] <- sample(tempPos)
-                        } else tmp[tmp > 0] <- bothshuffle(tempPos)
+                        } else {
+                            tmp[tmp > 0] <- bothshuffle(tempPos)
+                        }
                         perm[[i]][id,] <- tmp
                     }
                 } else perm[[i]][id,] <- commsimulator(temp, method=method)
