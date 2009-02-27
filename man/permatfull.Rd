@@ -181,7 +181,7 @@ data(BCI)
 x5 <- permatswap(BCI, "swap", burnin=0, thin=100, times=50)
 lagplot.permat(x5)
 ## Time series diagnostics
-tsd <- permat.tsdiag(x.s)
+tsd <- permat.tsdiag(x5)
 tsd
 }
 
