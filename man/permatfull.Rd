@@ -8,6 +8,8 @@
 \alias{lagplot.permat}
 \alias{lagplot}
 \alias{print.permat}
+\alias{permat.tsdiag}
+\alias{print.permat.tsdiag}
 \alias{summary.permat}
 \alias{print.summary.permat}
 
@@ -32,8 +34,11 @@ lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
 lagplot(x, ...)
 \method{lagplot}{permat}(x, type = "bray", ...)
+\method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
+permat.tsdiag(x, type = "bray")
+\method{print}{permat.tsdiag}(x, ...)
 }
 \arguments{
   \item{m}{a community data matrix with plots (samples) as rows and species (taxa) as columns.}
@@ -101,6 +106,9 @@ So the more constraints we put, the less randomness can be expected.
 
 The function \code{permat.control} is used to set up quantitative matrix permutations in other functions
 (e.g. \code{\link{oecosimu}} and \code{\link{adipart}}).
+
+The functions \code{lagplot} \code{permat.tsdiag} are useful for testing independence of permuted matrices
+when using sequential algorithms.
 }
 
 \value{
@@ -172,10 +180,9 @@ summary(x4)
 data(BCI)
 x5 <- permatswap(BCI, "swap", burnin=0, thin=100, times=50)
 lagplot.permat(x5)
-## For more time series diagnostics, use e.g.
-a0 <- arima(summary(x5)$bray, order=c(0,0,0))
-tsdiag(a0)
-Box.test(a0$resid, type="Ljung-Box")
+## Time series diagnostics
+tsd <- permat.tsdiag(x.s)
+tsd
 }
 
 \keyword{multivariate}
