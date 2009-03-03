@@ -3,15 +3,9 @@
 \alias{permatfull}
 \alias{permatswap}
 \alias{permat.control}
-\alias{plot.permat}
-\alias{lines.permat}
-\alias{lagplot.permat}
-\alias{lagplot}
-\alias{print.permat}
-\alias{permat.tsdiag}
-\alias{print.permat.tsdiag}
 \alias{summary.permat}
 \alias{print.summary.permat}
+\alias{print.permat}
 
 \title{Matrix Permutation Algorithms for Presence-Absence and Count Data}
 
@@ -29,35 +23,25 @@ strata = NULL, mtype = "count", times = 99, burnin = 10000, thin = 1000)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
 fixedmar = "both", shuffle = "both", strata = NULL, 
 burnin = 10000, thin = 1000)
-\method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
-lowess = TRUE, plot = TRUE, text = TRUE, ...)
-\method{lines}{permat}(x, type = "bray", ...)
-lagplot(x, ...)
-\method{lagplot}{permat}(x, type = "bray", ...)
 \method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
-permat.tsdiag(x, type = "bray")
-\method{print}{permat.tsdiag}(x, ...)
 }
 \arguments{
-  \item{m}{a community data matrix with plots (samples) as rows and species (taxa) as columns.}
+  \item{m}{A community data matrix with plots (samples) as rows and species (taxa) as columns.}
   \item{fixedmar}{character, stating which of the row/column sums should be preserved (\code{"none", "rows", "columns", "both"}).}
-  \item{strata}{numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata for restricted permutations. Unique values or levels are used.}
-  \item{ptype}{type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
-  \item{mtype}{matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
-  \item{times}{number of permuted matrices.}
-  \item{method}{character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"}, \code{"swap"}, \code{"swsh"} and \code{"abuswap"} methods are available (see details).}
-  \item{shuffle}{character, indicating whether individuals (\code{"ind"}), samples (\code{"samp"}) or both (\code{"both"}) should be shuffled, see details.}
-  \item{burnin}{number of null communities discarded before proper analysis in sequential (\code{"swap", "tswap"}) methods.}
-  \item{thin}{number of discarded permuted matrices between two evaluations in sequential (\code{"swap", "tswap"}) methods.}
-  \item{x, object}{object of class \code{"permat"}}
-  \item{digits}{number of digits used for rounding.}
-  \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
-  \item{type}{character, type of plot to be displayed: \code{"bray"} for Bray-Curtis dissimilarities, \code{"chisq"} for Chi-squared values.}
-  \item{lowess, plot, text}{logical arguments for the \code{plot} method, whether a lowess curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
-  \item{\dots}{other arguments passed to methods.}
-} 
+  \item{strata}{Numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata for restricted permutations. Unique values or levels are used.}
+  \item{ptype}{Type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
+  \item{mtype}{Matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
+  \item{times}{Number of permuted matrices.}
+  \item{method}{Character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"}, \code{"swap"}, \code{"swsh"} and \code{"abuswap"} methods are available (see details).}
+  \item{shuffle}{Character, indicating whether individuals (\code{"ind"}), samples (\code{"samp"}) or both (\code{"both"}) should be shuffled, see details.}
+  \item{burnin}{Number of null communities discarded before proper analysis in sequential (\code{"swap", "tswap"}) methods.}
+  \item{thin}{Number of discarded permuted matrices between two evaluations in sequential (\code{"swap", "tswap"}) methods.}
+  \item{x, object}{Object of class \code{"permat"}}
+  \item{digits}{Number of digits used for rounding.}
+  \item{\dots}{Other arguments passed to methods.}
+}
 
 \details{
 The function \code{permatfull} is useful when matrix fill is allowed to vary, and matrix type is \code{count}.
@@ -106,23 +90,12 @@ So the more constraints we put, the less randomness can be expected.
 
 The function \code{permat.control} is used to set up quantitative matrix permutations in other functions
 (e.g. \code{\link{oecosimu}} and \code{\link{adipart}}).
-
-The functions \code{lagplot} \code{permat.tsdiag} are useful for testing independence of permuted matrices
-when using sequential algorithms.
 }
 
 \value{
-Functions \code{permatfull} and \code{permatswap} return an object of class \code{"permat"}.
-  \item{call}{the function call.}
-  \item{orig}{the original data matrix used for permutations.}
-  \item{perm}{a list of permuted matrices with length \code{times}.}
+Functions \code{permatfull} and \code{permatswap} return an object of class \code{"permat"} containing the the function call (\code{call}), the original data matrix used for permutations (\code{orig}) and a list of permuted matrices with length \code{times} (\code{perm}).
 
-The \code{summary} method returns a list containing mean
-Bray-Curtis dissimilarities calculated pairwise among original and
-permuted matrices, Chi-square statistics, and check results of the constraints.  Note that when
-\code{strata} is used, calculation may take longer.
-
-The \code{plot} method also returns the plotted values invisibly.
+The \code{summary} method returns various statistics as a list (including mean Bray-Curtis dissimilarities calculated pairwise among original and permuted matrices, Chi-square statistics, and check results of the constraints; see Examples). Note that when \code{strata} is used in the original call, summary calculation may take longer.
 }
 \references{
 Original references for presence-absence algorithms are given on help
@@ -137,14 +110,11 @@ Applied Statistics 30, 91--97.
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
 
 \seealso{
-For other functions to permute matrices:
+For other functions to permute matrices: \code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}}.
 
-\code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}},
-\code{\link{oecosimu}}, \code{\link{adipart}}
+For the use of these permutation algorithms: \code{\link{oecosimu}}, \code{\link{adipart}}.
 
-For time-series diagnostics:
-
-\code{\link{Box.test}}, \code{\link{lag.plot}}, \code{\link{tsdiag}}
+For time-series diagnostics and plotting: \code{\link{lagplot.permat}}, \code{\link{permat.tsdiag}}, \code{\link{plot.permat}}, \code{\link{lines.permat}}.
 }
 \examples{
 ## A simple artificial community data matrix.
@@ -159,13 +129,10 @@ m <- matrix(c(
 ## row/columns sums and matrix fill are preserved:
 x1 <- permatswap(m, "quasiswap")
 summary(x1)
-plot(x1)
 ## Unrestricted permutation retaining
 ## row/columns sums but not matrix fill:
 x2 <- permatfull(m)
 summary(x2)
-plot(x2)
-plot(x2, "chisq")
 ## Unrestricted permutation of presence-absence type
 ## not retaining row/columns sums:
 x3 <- permatfull(m, "none", mtype="prab")
@@ -175,14 +142,6 @@ summary(x3)
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
 summary(x4)
-## The lagplot is useful to diagnose independence
-## of successive simulations for sequential algorithms
-data(BCI)
-x5 <- permatswap(BCI, "swap", burnin=0, thin=100, times=50)
-lagplot.permat(x5)
-## Time series diagnostics
-tsd <- permat.tsdiag(x5)
-tsd
 }
 
 \keyword{multivariate}
