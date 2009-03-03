@@ -4,15 +4,18 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-14 (opened Feb 24, 2009)
 
-    * permat.tsdiag: time series diagnostics for permat objects.
-    Performs a first order ARIMA model and Ljung-Box test for the
-    independence of the residuals. This function is useful to
-    diagnose independence for sequential algorithms.
+	* metaMDSrotate: a new function to rotate metaMDS configuration so
+	that the first axis is parallel with a continuous site variable.
+	
+	* permat.tsdiag: time series diagnostics for permat objects.
+	Performs a first order ARIMA model and Ljung-Box test for the
+	independence of the residuals. This function is useful to diagnose
+	independence for sequential algorithms.
 
-    * lagplot.permat: lagplot for permat simulations to graphically
-    diagnose independence when using sequential algorithms.
-    Reworked examples on the help page shows time series related
-    diagnostics for permat objects.
+	* lagplot.permat: lagplot for permat simulations to graphically
+	diagnose independence when using sequential algorithms.  Reworked
+	examples on the help page shows time series related diagnostics
+	for permat objects.
 
 	* permatswap: two new methods (under "abuswap") added based on the
 	paper of Hardy 2008 (J Ecol 96, 914-926). These preserve row *and*

@@ -10,6 +10,7 @@
 \alias{points.metaMDS}
 \alias{text.metaMDS}
 \alias{scores.metaMDS}
+\alias{metaMDSrotate}
 
 \title{Nonmetric Multidimensional Scaling with Stable Solution from
   Random Starts, Axis Scaling and Species Scores}
@@ -42,6 +43,7 @@ initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange=TRUE, threshold=0.8,
         nthreshold=10, plot=FALSE, ...)
 metaMDSredist(object, ...)
+metaMDSrotate(object, vec, choices, ...)
 }
 
 \arguments{
@@ -98,6 +100,7 @@ metaMDSredist(object, ...)
   \item{threshold}{Largest dissimilarity used in half-change scaling. }
   \item{nthreshold}{ Minimum number of points in half-change scaling. }
   \item{object}{A result object from \code{metaMDS}.}
+  \item{vec}{A continuous site variable (vector).}
   \item{...}{Other parameters passed to functions.}
 }
 \details{
@@ -170,7 +173,10 @@ metaMDSredist(object, ...)
     Centring moves the origin to the
     average of the axes.  Principal components rotate the configuration
     so that the variance of points is maximized on first
-    dimension. Half-change scaling scales the configuration so that one 
+    dimension (with function \code{metaMDSrotate} you can alternatively 
+    rotate the configuration so that the first axis is parallel to an 
+    environmental variable). 
+    Half-change scaling scales the configuration so that one 
     unit means halving of community similarity from replicate similarity.
     Half-change scaling is
     based on closer dissimilarities where the relation between ordination
