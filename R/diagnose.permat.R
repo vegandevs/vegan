@@ -1,5 +1,5 @@
 diagnose.permat <-
-function(x, type = "bray") {
+function(x, type = "bray", ...) {
     tsVec <- ts(summary(x)[[type]])
     ARmod <- arima(tsVec, order = c(1, 0, 0))
     ARmod$call <- match.call()

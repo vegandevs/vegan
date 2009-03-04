@@ -14,12 +14,12 @@
 
 \usage{
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
-lowess = TRUE, plot = TRUE, text = TRUE, ...)
+    lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
 lagplot(x, ...)
 \method{lagplot}{permat}(x, type = "bray", ...)
 diagnose(x, ...)
-\method{diagnose}{permat}(x, type = "bray")
+\method{diagnose}{permat}(x, type = "bray", ...)
 \method{print}{diagnose.permat}(x, ...)
 }
 \arguments{
