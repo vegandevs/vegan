@@ -30,7 +30,7 @@ function(object, ...)
     E <- rs %o% cs / ss
     chisq <- sapply(x$perm, function(z) sum((z - E)^2 / E))
     attr(chisq, "chisq.orig") <- sum((x$orig - E)^2 / E)
-    attr(chisq, "df") <- (nr - 1) * (nc - 1)
+#    attr(chisq, "df") <- (nr - 1) * (nc - 1)
     x$perm <- NULL
     out <- list(x=x, bray=bray, chisq=chisq, sum=psum, fill=pfill, rowsums=vrow, colsums=vcol,
         browsums=brow, bcolsums=bcol, strsum=ssum)
