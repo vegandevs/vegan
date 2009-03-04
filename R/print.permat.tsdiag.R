@@ -1,4 +1,4 @@
-print.permat.tsdiag <-
+print.diagnose.permat <-
 function(x, ...) {
     cat("First order autoregressive model\n")
     print(x$arima)

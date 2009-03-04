@@ -1,4 +1,4 @@
-permat.tsdiag <-
+diagnose.permat <-
 function(x, type = "bray") {
     tsVec <- ts(summary(x)[[type]])
     ARmod <- arima(tsVec, order = c(1, 0, 0))
@@ -13,6 +13,6 @@ function(x, type = "bray") {
     x$perm <- NULL
     out <- list(call=match.call(), x=x, ts=tsVec,
         arima=ARmod, box.ts=BOX.tsVec, box.resid=BOX.ARresid)
-    class(out) <- "permat.tsdiag"
+    class(out) <- "diagnose.permat"
     out
 }

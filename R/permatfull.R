@@ -79,6 +79,6 @@ bothshuffle <- function(x, y=1)
     attr(out, "strata") <- str
     attr(out, "burnin") <- NA
     attr(out, "thin") <- NA
-    class(out) <- c("permat", "list")
+    class(out) <- c("permatfull", "permat")
     return(out)
 }
