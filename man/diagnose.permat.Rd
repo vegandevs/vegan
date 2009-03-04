@@ -1,11 +1,12 @@
 \encoding{UTF-8}
-\name{permat.tsdiag}
+\name{diagnose.permat}
 \alias{plot.permat}
 \alias{lines.permat}
 \alias{lagplot.permat}
 \alias{lagplot}
-\alias{permat.tsdiag}
-\alias{print.permat.tsdiag}
+\alias{diagnose.permat}
+\alias{print.diagnose.permat}
+\alias{diagnose}
 
 \title{Diagnostic Tool for Matrix Permutation Algorithms}
 
@@ -17,8 +18,9 @@ lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
 lagplot(x, ...)
 \method{lagplot}{permat}(x, type = "bray", ...)
-permat.tsdiag(x, type = "bray")
-\method{print}{permat.tsdiag}(x, ...)
+diagnose(x, ...)
+\method{diagnose}{permat}(x, type = "bray")
+\method{print}{diagnose.permat}(x, ...)
 }
 \arguments{
   \item{x}{Object of class \code{"permat"} created by the functions \code{\link{permatfull}} and \code{\link{permatswap}}.}
@@ -30,13 +32,13 @@ permat.tsdiag(x, type = "bray")
 
 \details{
 
-The functions \code{lagplot} \code{permat.tsdiag} are useful for testing independence of permuted matrices
+The functions \code{lagplot} \code{diagnose} methods are useful for testing independence of permuted matrices
 when using sequential algorithms.
 
 }
 
 \value{
-The \code{permat.tsdiag} returns a list including first order autoregressive model and Ljung-Box test results to diagnose independence of the statistics (Bray-Curtis, Chi-square) derived from successive permuted matrices.
+The \code{diagnose} returns a list including first order autoregressive model and Ljung-Box test results to diagnose independence of the statistics (Bray-Curtis, Chi-square) derived from successive permuted matrices.
 }
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
 
@@ -63,10 +65,8 @@ par(opar)
 lagplot.permat(a, main="Not sequential") # independent
 lagplot.permat(b, main="Not sequential") # highly non-independent
 ## Time series diagnostics
-permat.tsdiag(a)
-permat.tsdiag(b)
+diagnose(a)
+diagnose(b)
 }
 
 \keyword{multivariate}
-\keyword{datagen}
-

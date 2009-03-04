@@ -114,7 +114,7 @@ For other functions to permute matrices: \code{\link{commsimulator}}, \code{\lin
 
 For the use of these permutation algorithms: \code{\link{oecosimu}}, \code{\link{adipart}}.
 
-For time-series diagnostics and plotting: \code{\link{lagplot.permat}}, \code{\link{permat.tsdiag}}, \code{\link{plot.permat}}, \code{\link{lines.permat}}.
+For time-series diagnostics and plotting: \code{\link{lagplot.permat}}, \code{\link{diagnose.permat}}, \code{\link{plot.permat}}, \code{\link{lines.permat}}.
 }
 \examples{
 ## A simple artificial community data matrix.
