@@ -150,7 +150,8 @@ bothshuffle <- function(x, y=1)
                     }
                 } else perm[[i]][id,] <- commsimulator(temp, method=method)
             }
-            thin <- burnin <- 0
+            burnin <- 0
+            thin <- 0
         }
     } # for j end
     out <- list(call=match.call(), orig=m, perm=perm)

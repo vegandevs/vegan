@@ -1,6 +1,8 @@
 diagnose.permat <-
 function(x, type = "bray", ...) {
-    tsVec <- ts(summary(x)[[type]])
+    tsVec <- summary(x)[[type]]
+    if (!is.ts(tsVec))
+        stop("'diagnose' method available only for sequential methods")
     ARmod <- arima(tsVec, order = c(1, 0, 0))
     ARmod$call <- match.call()
     ARresid <- ARmod$residuals

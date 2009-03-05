@@ -5,14 +5,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.16-14 (opened Feb 24, 2009)
 
 	* as.ts.oecosimu: new function for applying time series methods
-	for sequential null models ("swap", "tswap").  The method was
-	implemented to study a lighter alternative to permat.tsdiag and
-	lagplot functions of "permat" objects.
+	for sequential null models ("swap", "tswap", "abuswap").  The method was
+	implemented to study a lighter alternative to diagnose and
+	lagplot methods of "permat" objects.
 
 	* metaMDSrotate: a new function to rotate metaMDS configuration so
 	that the first axis is parallel with a continuous site variable.
 	
-	* permat.tsdiag: time series diagnostics for permat objects.
+	* diagnose.permat: time series diagnostics for permat objects.
 	Performs a first order ARIMA model and Ljung-Box test for the
 	independence of the residuals. This function is useful to diagnose
 	independence for sequential algorithms.

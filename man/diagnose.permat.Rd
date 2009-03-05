@@ -33,7 +33,7 @@ diagnose(x, ...)
 \details{
 
 The functions \code{lagplot} \code{diagnose} methods are useful for testing independence of permuted matrices
-when using sequential algorithms.
+when using sequential algorithms (\code{"swap", "tswap", "abuswap"}).
 
 }
 
@@ -62,10 +62,8 @@ plot(b, "chisq")
 par(opar)
 ## The lagplot is useful to diagnose independence
 ## of successive simulations for sequential algorithms
-lagplot.permat(a, main="Not sequential") # independent
-lagplot.permat(b, main="Not sequential") # highly non-independent
+lagplot.permat(b) # highly non-independent
 ## Time series diagnostics
-diagnose(a)
 diagnose(b)
 }
 

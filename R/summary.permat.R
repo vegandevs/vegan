@@ -31,6 +31,14 @@ function(object, ...)
     chisq <- sapply(x$perm, function(z) sum((z - E)^2 / E))
     attr(chisq, "chisq.orig") <- sum((x$orig - E)^2 / E)
 #    attr(chisq, "df") <- (nr - 1) * (nc - 1)
+    ## ts if sequential
+    seqmethods <- c("swap", "tswap", "abuswap")
+    if (attr(x, "method") %in% seqmethods) {
+        startval <- attr(x, "burnin") + 1 
+        dtime <- max(1, attr(x, "thin"))
+        bray <- ts(bray, start = startval, deltat = dtime)
+        chisq <- ts(chisq, start = startval, deltat = dtime)
+    }
     x$perm <- NULL
     out <- list(x=x, bray=bray, chisq=chisq, sum=psum, fill=pfill, rowsums=vrow, colsums=vcol,
         browsums=brow, bcolsums=bcol, strsum=ssum)

@@ -82,22 +82,20 @@
             attr(simind, "burnin") <- NULL
         ## permatswap
         } else {
-            if (control$method %in% c("swap", "tswap")) {
-            if (burnin > 0) {
+            if (control$method %in% c("swap", "tswap", "abuswap") && burnin > 0) {
                 m <- permatswap(comm, method=control$method,
                     fixedmar=control$fixedmar,
                     shuffle=control$shuffle,
                     strata=control$strata,
                     mtype=control$mtype, times=1, 
                     burnin=burnin, thin=0)$perm[[1]]
-                } else m <- comm
-            }
+            }  else m <- comm
             for (i in 1:nsimul) {
-                x <- permatswap(comm, method=control$method,
+                x <- permatswap(m, method=control$method,
                     fixedmar=control$fixedmar,
                     shuffle=control$shuffle,
                     strata=control$strata,
-                    mtype=control$mtype, times=1, 
+                    mtype=control$mtype, times=1,
                     burnin=0, thin=thin)
                 tmp <- nestfun(x$perm[[1]], ...)
                 if (is.list(tmp))
@@ -118,6 +116,9 @@
     ## try e.g. oecosimu(dune, sum, "permat")
     if (any(is.na(z)))
         p[is.na(z)] <- NA
+    ## collapse method with control$method
+    if (method == "permat")
+        method <- paste("permat", control$method, sep=".")
 
     if (is.null(names(indstat)))
         names(indstat) <- statistic
