@@ -3,6 +3,7 @@
 \alias{oecosimu}
 \alias{commsimulator}
 \alias{print.oecosimu}
+\alias{as.ts.oecosimu}
 
 \title{ Null Models for Biological Communities }
 
@@ -18,10 +19,13 @@
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", control, ...)
 commsimulator(x, method, thin=1)
+\method{as.ts}{oecosimu}(x, ...)
 }
 
 \arguments{
-  \item{comm, x}{Community data. }
+  \item{comm}{Community data.}
+  \item{x}{Community data for \code{commsimulator}, or an \code{oecosimu}
+    result object for \code{as.ts}.}
   \item{nestfun}{Function to analyse nestedness. Some functions are
   provided in \pkg{vegan}, but any function can be used if it accepts the
   community as the first argument, and returns either a plain number or
@@ -126,13 +130,20 @@ commsimulator(x, method, thin=1)
   into matrix. The \code{quasiswap} method is not sequential, but it produces
   a random incidence matrix with given marginal totals. 
 
+  Function \code{as.ts} transforms the simulated results of sequential
+  methods into a time series or a \code{\link{ts}} object. This allows
+  using analytic tools for time series in studying the sequences (see
+  examples).
+
   As a result of method \code{permat} in \code{oecosimu}, quantitative
-  community null models are used to evaluate the statistic. Through the \code{control}
-  argument, further options can be set via the function \code{\link{permat.control}}.
-  A full description of these settings can be found on the help pages of the
-  functions \code{\link{permatfull}} and \code{\link{permatswap}}. Note, that
-  \code{burnin} and \code{thin} arguments given in the \code{oecosimu} function call
-  overwrite the respective ones specified by \code{permat.control}.
+  community null models are used to evaluate the statistic. Through
+  the \code{control} argument, further options can be set via the
+  function \code{\link{permat.control}}.  A full description of these
+  settings can be found on the help pages of the functions
+  \code{\link{permatfull}} and \code{\link{permatswap}}. Note, that
+  \code{burnin} and \code{thin} arguments given in the \code{oecosimu}
+  function call overwrite the respective ones specified by
+  \code{permat.control}.  
 }
 
 \value{
@@ -206,8 +217,9 @@ data(sipoo)
 caeval <- function(x) decorana(x, ira=1)$evals
 out <- oecosimu(sipoo, caeval, "swap", burnin=100, thin=10)
 out
-## Inspect the swap sequence
-matplot(t(out$oecosimu$simulated), type="l")
+## Inspect the swap sequence as a time series object
+plot(as.ts(out))
+lag.plot(as.ts(out))
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)
