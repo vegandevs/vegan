@@ -233,8 +233,7 @@ commsimulator(x, method, thin=1)
 ## Use the first eigenvalue of correspondence analysis as an index
 ## of structure: a model for making your own functions.
 data(sipoo)
-caeval <- function(x) decorana(x, ira=1)$evals
-out <- oecosimu(sipoo, caeval, "swap", burnin=100, thin=10)
+out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, statistic="evals")
 out
 ## Inspect the swap sequence as a time series object
 plot(as.ts(out))
