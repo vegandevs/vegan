@@ -47,6 +47,8 @@ commsimulator(x, method, thin=1)
   \item{control}{A list of arguments passed to quantitative
     permutation algorithms. If missing, the function 
     \code{permat.control} is used.}
+  \item{data}{Ignored argument of the generic function.}
+  \item{xlab}{Label of the x-axis.}
   \item{\dots}{Other arguments to functions.}
 }
 
