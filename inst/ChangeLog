@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-14 (opened Feb 24, 2009)
 
+	* density and densityplot: new methods for "oecosimu" objects.
+
 	* as.ts.oecosimu: new function for applying time series methods
 	for sequential null models ("swap", "tswap", "abuswap").
 
@@ -11,7 +13,7 @@ Version 1.16-14 (opened Feb 24, 2009)
 	that the first axis is parallel with a continuous site variable.
 	
 	* as.ts.permat: extracts summary statistics from 'permat' objects
-    as time series, to use for time series diagnostics.
+	as time series, to use for time series diagnostics.
 
 	* permatswap: two new methods (under "abuswap") added based on the
 	paper of Hardy 2008 (J Ecol 96, 914-926). These preserve row *and*
