@@ -2,25 +2,17 @@
 \name{diagnose.permat}
 \alias{plot.permat}
 \alias{lines.permat}
-\alias{lagplot.permat}
-\alias{lagplot}
-\alias{diagnose.permat}
-\alias{print.diagnose.permat}
-\alias{diagnose}
+\alias{as.ts.permat}
 
-\title{Diagnostic Tool for Matrix Permutation Algorithms}
+\title{Plotting Methods for Matrix Permutation Algorithms}
 
-\description{ Plotting and diagnostic methods for 'permat' objects, that are useful in evaluating the performance of different null model settings, especially that of the sequential algorithms.}
+\description{ Plotting and time series extraction methods for 'permat' objects, that are useful in evaluating the performance of different null model settings, especially that of the sequential algorithms.}
 
 \usage{
 \method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
     lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
-lagplot(x, ...)
-\method{lagplot}{permat}(x, type = "bray", ...)
-diagnose(x, ...)
-\method{diagnose}{permat}(x, type = "bray", ...)
-\method{print}{diagnose.permat}(x, ...)
+\method{as.ts}{permat}(x, type = "bray", ...)
 }
 \arguments{
   \item{x}{Object of class \code{"permat"} created by the functions \code{\link{permatfull}} and \code{\link{permatswap}}.}
@@ -32,20 +24,23 @@ diagnose(x, ...)
 
 \details{
 
-The functions \code{lagplot} \code{diagnose} methods are useful for testing independence of permuted matrices
-when using sequential algorithms (\code{"swap", "tswap", "abuswap"}).
+The \code{plot} method is useful for graphically testing for trend and independence of permuted matrices. This is especially important when using sequential algorithms (\code{"swap", "tswap", "abuswap"}).
 
+
+The \code{as.ts} method can be used to extract Bray-Curtis dissimilarities or Chi-squared values as time series. This can further used in testing independence (see Examples).
 }
 
 \value{
-The \code{diagnose} returns a list including first order autoregressive model and Ljung-Box test results to diagnose independence of the statistics (Bray-Curtis, Chi-square) derived from successive permuted matrices.
+The \code{plot} creates aplor as a side effect.
+
+The \code{as.ts} method returns an object of class 'ts'.
 }
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca} and Jari Oksanen}
+\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 
 \seealso{
 For functions to create 'permat' objects: \code{\link{permatfull}}, \code{\link{permatswap}}
 
-For time-series diagnostics: \code{\link{Box.test}}, \code{\link{lag.plot}}, \code{\link{tsdiag}}
+For time-series diagnostics: \code{\link{Box.test}}, \code{\link{lag.plot}}, \code{\link{tsdiag}}, \code{\link{ar}}, \code{\link{arima}}
 }
 \examples{
 data(BCI)
@@ -60,11 +55,18 @@ plot(b, main="Sequential")
 plot(a, "chisq")
 plot(b, "chisq")
 par(opar)
-## The lagplot is useful to diagnose independence
-## of successive simulations for sequential algorithms
-lagplot.permat(b) # highly non-independent
-## Time series diagnostics
-diagnose(b)
+## Extract Bray-Curtis dissimilarities
+## as time series
+bc <- as.ts(b)
+## Lag plot
+lag.plot(bc)
+## First order autoregressive model
+mar <- arima(bc, c(1,0,0))
+mar
+## Ljung-Box test of residuals
+Box.test(mar$residuals)
+## Graphical diagnostics
+tsdiag(mar)
 }
 
 \keyword{multivariate}
