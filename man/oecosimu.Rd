@@ -4,6 +4,8 @@
 \alias{commsimulator}
 \alias{print.oecosimu}
 \alias{as.ts.oecosimu}
+\alias{density.oecosimu}
+\alias{densityplot.oecosimu}
 
 \title{ Null Models for Biological Communities }
 
@@ -20,12 +22,14 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", control, ...)
 commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
+\method{density}{oecosimu}(x, ...)
+\method{densityplot}{oecosimu}(x, data, xlab = "Simulated", ...)
 }
 
 \arguments{
   \item{comm}{Community data.}
   \item{x}{Community data for \code{commsimulator}, or an \code{oecosimu}
-    result object for \code{as.ts}.}
+    result object for \code{as.ts}, \code{density} and \code{densityplot}.}
   \item{nestfun}{Function to analyse nestedness. Some functions are
   provided in \pkg{vegan}, but any function can be used if it accepts the
   community as the first argument, and returns either a plain number or
@@ -133,7 +137,20 @@ commsimulator(x, method, thin=1)
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
-  examples).
+  examples). Function \code{density} provides an interface to the
+  standard \code{\link{density}} function for the simulated
+  values. Function \code{\link{densityplot}} is an interface the
+  \code{\link[lattice]{densityplot}} function of the \pkg{lattice}
+  package. The \code{density} can be used meaningfully only for single
+  statistics and must be plotted separately. The \code{densityplot}
+  function can handle multiple statistics, and it plots the results
+  directly. In addition to the density, the \code{densityplot} also
+  shows the observed value of the statistic (provided it is within the
+  graph limits). The \code{densityplot} function is defined as a
+  generic function in the \pkg{lattice} package and you must either
+  load the \pkg{lattice} library before calling \code{densityplot}, or
+  use the longer form \code{densityplot.oecosimu} when you first time
+  call the function.
 
   As a result of method \code{permat} in \code{oecosimu}, quantitative
   community null models are used to evaluate the statistic. Through
@@ -220,6 +237,10 @@ out
 ## Inspect the swap sequence as a time series object
 plot(as.ts(out))
 lag.plot(as.ts(out))
+acf(as.ts(out))
+## Density plot: needs lattice
+require(lattice)
+densityplot(out, as.table = TRUE)
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)
