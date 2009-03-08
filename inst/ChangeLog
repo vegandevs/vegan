@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-14 (opened Feb 24, 2009)
 
+	* as.mcmc.oecosimu: a new function to translate sequential null
+	models to "mcmc" object of the coda package. The coda package
+	provides a wealthy source of the analysis of things like
+	stationarity, adequate sample size, autocorrelation, length of
+	needed burnin-in etc.
+
 	* density and densityplot: new methods for "oecosimu" objects.
 
 	* as.ts.oecosimu: new function for applying time series methods

@@ -4,6 +4,7 @@
 \alias{commsimulator}
 \alias{print.oecosimu}
 \alias{as.ts.oecosimu}
+\alias{as.mcmc.oecosimu}
 \alias{density.oecosimu}
 \alias{densityplot.oecosimu}
 
@@ -22,6 +23,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", control, ...)
 commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
+\method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
 \method{densityplot}{oecosimu}(x, data, xlab = "Simulated", ...)
 }
@@ -29,7 +31,8 @@ commsimulator(x, method, thin=1)
 \arguments{
   \item{comm}{Community data.}
   \item{x}{Community data for \code{commsimulator}, or an \code{oecosimu}
-    result object for \code{as.ts}, \code{density} and \code{densityplot}.}
+    result object for \code{as.ts}, \code{as.mcmc}, \code{density} and 
+    \code{densityplot}.}
   \item{nestfun}{Function to analyse nestedness. Some functions are
   provided in \pkg{vegan}, but any function can be used if it accepts the
   community as the first argument, and returns either a plain number or
@@ -139,7 +142,14 @@ commsimulator(x, method, thin=1)
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
-  examples). Function \code{density} provides an interface to the
+  examples). Function \code{as.mcmc} transformts teh simulated results
+  of sequential mehots into an \code{\link[coda]{mcmc}} object of the
+  \pkg{coda} package. The \pkg{coda} package provides functions for
+  the analysis of stationarity, adequacy of sample size,
+  autocorrelation, need of burn-in and much more for sequential
+  methods. Please consult the documentation of \pkg{coda} package.
+
+  Function \code{density} provides an interface to the
   standard \code{\link{density}} function for the simulated
   values. Function \code{\link{densityplot}} is an interface the
   \code{\link[lattice]{densityplot}} function of the \pkg{lattice}
