@@ -1,6 +1,6 @@
 ### Rotates metaMDS result so that axis one is parallel to vector 'x'
 `metaMDSrotate` <-
-function(object, vec, choices = 1:2, ...) 
+    function(object, vec, choices = 1:2, ...) 
 {
     if (!inherits(object, "metaMDS"))
         stop("function works only with 'metaMDS' results")
@@ -8,7 +8,7 @@ function(object, vec, choices = 1:2, ...)
         stop("function can be only used with 2dim plots")
     vec <- drop(vec)
     if (length(dim(vec)) > 1)
-        stop("function can be only with one dimensional 'x'")
+        stop("function works only with univariate 'x'")
     ## envfit finds the direction cosine
     rot <- envfit(object, vec, choices = choices, ...)$vectors$arrows
     rot <- drop(rot)
