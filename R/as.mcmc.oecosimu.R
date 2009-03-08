@@ -1,7 +1,7 @@
 `as.mcmc.oecosimu` <-
     function(x) 
 {
-    x <- as.ts(out)
+    x <- as.ts(x)
     mcpar <- attr(x, "tsp")
     mcpar[3] <- round(1/mcpar[3])
     attr(x, "mcpar") <- mcpar
