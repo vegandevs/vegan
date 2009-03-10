@@ -40,7 +40,8 @@
     if (noshare > 0 && sum(tmp <- no.shared(comm))/length(dis) > noshare) {
         if (trace) 
             cat("Using step-across dissimilarities:\n")
-        dis <- stepacross(dis, trace = trace, ...)
+        is.na(dis) <- tmp
+        dis <- stepacross(dis, trace = trace, toolong=0, ...)
         if (length(unique(distconnected(tmp, trace = trace > 1))) > 1) 
             warning("Data are disconnected, results may be meaningless")
     }
