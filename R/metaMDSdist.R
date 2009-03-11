@@ -40,6 +40,10 @@
     if (noshare > 0 && sum(tmp <- no.shared(comm))/length(dis) > noshare) {
         if (trace) 
             cat("Using step-across dissimilarities:\n")
+        rn <- range(dis[tmp])
+        if (rn[2]/rn[1] > 1.01)
+            warning("non-constant distances between points with nothing shared\n",
+                    "  stepacross may be meaningless: consider argument 'noshare=0'")
         is.na(dis) <- tmp
         dis <- stepacross(dis, trace = trace, toolong=0, ...)
         if (length(unique(distconnected(tmp, trace = trace > 1))) > 1) 
