@@ -26,9 +26,13 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     rval[[1]] <- as.factor(rhs[,nlevs])
     rval[[1]] <- rval[[1]][drop = TRUE]
     nCol <- nlevs - 1
-    for (i in 2:nlevs) {
-        rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
-        nCol <- nCol - 1
+    if (nlevs == 0)
+        stop("too few levels in the hierarchy")
+    if (nlevs > 1) {
+        for (i in 2:nlevs) {
+            rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
+            nCol <- nCol - 1
+        }
     }
     rval <- as.data.frame(rval[rev(1:length(rval))])
     l2 <- sapply(rval, function(z) length(unique(z)))
@@ -80,6 +84,7 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
         paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
+    attr(sim, "call") <- match.call()
     attr(sim, "index") <- index
     attr(sim, "weights") <- weights
     attr(sim, "n.levels") <- nlevs
@@ -88,3 +93,4 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     class(sim) <- c("adipart", "list")
     sim
 }
+
