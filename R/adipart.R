@@ -11,6 +11,8 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     rhs <- model.frame(formula, data, drop.unused.levels = TRUE)
     tlab <- attr(attr(rhs, "terms"), "term.labels")
     nlevs <- length(tlab)
+    if (nlevs < 2)
+        stop("provide at least two level hierarchy")
 
     ## part check proper design of the model frame
     noint <- attr(attr(attr(rhs, "terms"), "factors"), "dimnames")[[1]]
@@ -26,13 +28,9 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     rval[[1]] <- as.factor(rhs[,nlevs])
     rval[[1]] <- rval[[1]][drop = TRUE]
     nCol <- nlevs - 1
-    if (nlevs == 0)
-        stop("too few levels in the hierarchy")
-    if (nlevs > 1) {
-        for (i in 2:nlevs) {
-            rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
-            nCol <- nCol - 1
-        }
+    for (i in 2:nlevs) {
+        rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
+        nCol <- nCol - 1
     }
     rval <- as.data.frame(rval[rev(1:length(rval))])
     l2 <- sapply(rval, function(z) length(unique(z)))
