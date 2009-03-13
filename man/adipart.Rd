@@ -2,14 +2,21 @@
 \name{adipart}
 \alias{adipart}
 \alias{print.adipart}
-\title{Additive Diversity Partitioning}
+\alias{hiersimu}
+\alias{print.hiersimu}
+\title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
 In additive diversity partitioning, mean values of alpha diversity at lower levels of a sampling hierarchy are compared to the total number of species in the entire data set (gamma diversity) in the form: gamma = mean(alpha) + beta. Thus beta = gamma - mean(alpha).
+
+In hierarchical null model testing, a statistic returned by a function is evaluated according to a nested hierarchical sampling design.
 }
 \usage{
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
 weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 \method{print}{adipart}(x, ...)
+hiersimu(formula, data, FUN, location = c("mean", "median"),
+relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
+\method{print}{hiersimu}(x, ...)
 }
 \arguments{
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} is the community data matrix with samples as rows and species as column. Right hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, terms from right to left will be treated as nested (first column is the lowest, last is the highest level). These variables must be factors in order to unambiguous handling. Interaction terms are not allowed.}
@@ -20,6 +27,9 @@ weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.}
   \item{control}{A list of arguments passed to quantitative permutation
           algorithms. If missing, the function  'permat.control' is used.}
+  \item{FUN}{A function to be used by \code{hiersimu}.}
+  \item{location}{Character, identifies which function (mean or median) is used to calculate location of the samples.}
+  \item{drop.highest}{Logical, to drop the highest level or not. When \code{FUN} evaluates only arrays with at least 2 dimensions, highest level should be dropped, or not selected at all.}
   \item{x}{An object of class 'adipart'.}
   \item{\dots}{Other arguments passed to functions, e.g. base of logarithm for Shannon diversity (see \code{\link{diversity}}).}
 }
@@ -46,9 +56,11 @@ where \eqn{D_{ij}} is the diversity index and \eqn{w_{ij}} is the weight calcula
 The implementation of additive diversity partitioning follows Crist et al. 2003. It is based on species richness (\eqn{S}, not \eqn{S-1}), Shannon's and Simpson's diversity indices.
 
 The expected diversity components are calculated \code{nsimul} times by individual based randomisation of the community data matrix. This is done by the \code{\link{permatfull}} and \code{\link{permatswap}} functions, and properties of the null model can be set by the \code{control} argument (see \code{\link{permat.control}}). The null matrics then evaluated via the function \code{\link{oecosimu}}.
+
+\code{hiersimu} works almost the same as \code{adipart}, but without comparing the actual statistic values returned by \code{FUN} to the highest possible value (cf. gamma diversity). This is so, because in most of the cases, it is difficult to ensure additive properties of the mean statistic values along the hierarchy.
 }
 \value{
-An object of class 'adipart' with same structure as 'oecosimu' objects.
+An object of class 'adipart' or 'hiersimu' with same structure as 'oecosimu' objects.
 }
 
 \references{
@@ -92,10 +104,16 @@ adpMite
 set.seed(4321)
 matr <- r2dtable(1, c(3,4,3,7,4,8,7,6), 3:9)[[1]]
 strata <- data.frame(letters[1:8], rep(letters[1:4],each=2), rep("a",8))
-## restricted permutation within habitat classes
+## Restricted permutation within habitat classes
 contr <- permat.control(strata = c("a","a","a","b","a","b","b","b"))
-## Additive diversity partitioning ('oneway')
+## Additive diversity partitioning
 x1 <- adipart(matr ~ ., strata, index="shannon", nsimul=25, control=contr)
 x1
+## Hierarchical null model testing
+## diversity analysis (similar to adipart)
+hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=25)
+## Hierarchical testing with the Morisita index
+morfun <- function(x) dispindmorisita(x)$imst
+hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=25)
 }
 \keyword{multivariate}
