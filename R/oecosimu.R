@@ -13,6 +13,12 @@
         if (missing(control))
             control <- permat.control()
         pfull <- control$ptype == "full"
+        if (control$method %in% c("swap", "tswap", "abuswap")) {
+            if (thin != control$thin)
+                warning("'thin' and 'control$thin' not equal")
+            if (burnin != control$burnin)
+                warning("'burnin' and 'control$burnin' not equal")
+        }
     } else quant <- FALSE
 
     ## conditional on quant value
