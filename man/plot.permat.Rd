@@ -29,7 +29,7 @@
 The \code{plot} method is useful for graphically testing for trend and independence of permuted matrices. This is especially important when using sequential algorithms (\code{"swap", "tswap", "abuswap"}).
 
 
-The \code{as.ts} method can be used to extract Bray-Curtis dissimilarities or Chi-squared values as time series. This can further used in testing independence (see Examples). The method \code{as.mcmc} is useful for accessing diagnostic tool available in the 'code' package.
+The \code{as.ts} method can be used to extract Bray-Curtis dissimilarities or Chi-squared values as time series. This can further used in testing independence (see Examples). The method \code{as.mcmc} is useful for accessing diagnostic tools available in the 'coda' package.
 }
 
 \value{

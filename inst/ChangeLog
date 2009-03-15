@@ -4,7 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-15 (opened Mar 10, 2009)
 
-    * as.mcmc.permat: provides same same functionality for permat
+    * as.mcmc.permat: provides same functionality for permat
     objects as as.mcmc.oecosimu for oecosimu objects.
 
     * burnin and thin in permatswap: same default values (0 and 1,
