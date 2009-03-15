@@ -1,6 +1,6 @@
 ## permatswap function
 `permatswap` <-
-function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=99, burnin = 10000, thin = 1000)
+function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=99, burnin = 0, thin = 1)
 {
 ## internal function
 indshuffle <- function(x)

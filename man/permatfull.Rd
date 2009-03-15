@@ -19,10 +19,10 @@ restricted permutations (based on strata) are discussed in the Details section.}
 permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL, 
 mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
-strata = NULL, mtype = "count", times = 99, burnin = 10000, thin = 1000)
+strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
 permat.control(ptype = "full", mtype = "count", method = "quasiswap",
 fixedmar = "both", shuffle = "both", strata = NULL, 
-burnin = 10000, thin = 1000)
+burnin = 0, thin = 1)
 \method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
