@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-15 (opened Mar 10, 2009)
 
+    * as.mcmc.permat: provides same same functionality for permat
+    objects as as.mcmc.oecosimu for oecosimu objects.
+
+    * burnin and thin in permatswap: same default values (0 and 1,
+    respectively) are set for permatswap and oecosimu functions.
+    Previous defaults for permatswap were in conflict with oecosimu
+    when called by permat.control.
+
     * hiersimu: new function to evaluate a statistic value at different
     levels of a nested hierarchical sampling design. Based on oecosimu
     and null model testing, but with evaluation process similar to adipart.
