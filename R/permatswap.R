@@ -1,6 +1,7 @@
 ## permatswap function
 `permatswap` <-
-function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=99, burnin = 0, thin = 1)
+function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
+         mtype="count", times=99, burnin = 0, thin = 1)
 {
 ## internal function
 indshuffle <- function(x)
@@ -82,19 +83,19 @@ bothshuffle <- function(x, y=1)
         nn.col <- ncol(m[id,])
         if (isSeq) {
             if (count) {
-                for (k in 1:burnin) {
+                if (burnin > 0) {
                     if (method == "swap")
                         temp <- .C("swapcount", m = as.double(temp),
                             as.integer(nn.row), as.integer(nn.col),
-                            as.integer(1), PACKAGE = "vegan")$m
+                            as.integer(burnin), PACKAGE = "vegan")$m
                     if (method == "abuswap")
                        temp <- .C("abuswap", m = as.double(temp),
                             as.integer(nn.row), as.integer(nn.col),
-                            as.integer(1), as.integer(direct), PACKAGE = "vegan")$m
+                            as.integer(burnin), as.integer(direct), PACKAGE = "vegan")$m
                 }
             } else {
-                for (k in 1:burnin)
-                    temp <- commsimulator(temp, method=method)
+                if (burnin > 0)
+                    temp <- commsimulator(temp, method=method, thin = burnin)
             }
             for (i in 1:times) {
                 if (count) {

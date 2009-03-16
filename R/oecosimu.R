@@ -48,8 +48,7 @@
             attr(simind, "burnin") <- burnin
             x <- comm
             if (burnin > 0)
-                for(i in 1:burnin)
-                    x <- commsimulator(x, method= method, thin = round(checkbrd))
+                x <- commsimulator(x, method= method, thin = round(checkbrd) * burnin)
             for(i in 1:nsimul) {
                 x <- commsimulator(x, method = method, thin = thin)
                 tmp <- nestfun(x, ...)
