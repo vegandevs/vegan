@@ -151,7 +151,7 @@ commsimulator(x, method, thin=1)
 
   Function \code{density} provides an interface to the
   standard \code{\link{density}} function for the simulated
-  values. Function \code{\link{densityplot}} is an interface the
+  values. Function \code{densityplot} is an interface to the
   \code{\link[lattice]{densityplot}} function of the \pkg{lattice}
   package. The \code{density} can be used meaningfully only for single
   statistics and must be plotted separately. The \code{densityplot}
