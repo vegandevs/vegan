@@ -122,7 +122,7 @@
     if (any(is.na(z)))
         p[is.na(z)] <- NA
     ## collapse method with control$method
-    if (method == "permat")
+    if (method == "permat" && control$ptype == "swap")
         method <- paste("permat", control$method, sep=".")
 
     if (is.null(names(indstat)))
