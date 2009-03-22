@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-15 (opened Mar 10, 2009)
 
+	* envfit help page: explains the automatic scaling and 'arrow.mul'
+	argument. 
+
 	* add1/drop1 help: better example after a query of usage in R
 	mailing list. 
 

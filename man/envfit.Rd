@@ -105,6 +105,12 @@ factorfit(X, P, permutations = 0, strata, choices=c(1,2),
   similarity between fitted vectors and biplot arrows, you should set
   \code{display = "lc"} (and possibly \code{scaling = 2}).
 
+  The lengths of arrows for fitted vectors are automatically adjusted
+  for the physical size of the plot, and the arrow lengths cannot be
+  compared across plots. For similar scaling of arrows, you must
+  explicitly set the \code{arrow.mul} argument in the \code{plot}
+  command.
+
   The results can be accessed with \code{scores.envfit} function which
   returns either the fitted vectors scaled by correlation coefficient or
   the centroids of the fitted environmental variables.
