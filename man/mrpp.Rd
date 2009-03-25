@@ -82,7 +82,7 @@ The function returns a list of class mrpp with following items:
   \item{call }{	Function call.}
   \item{delta }{The overall weighted mean of group mean distances.}
   \item{E.delta}{expected delta, under the null hypothesis of no group
-    structure. This is the mean of the permuted deltas.}
+    structure. This is the mean of original dissimilarities.}
   \item{CS}{Classification strength (Van Sickle 1997) with
     \code{weight.type = 3} and \code{NA} with other weights.}
   \item{n}{Number of observations in each class.}
