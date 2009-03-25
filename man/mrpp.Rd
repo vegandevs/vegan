@@ -63,6 +63,13 @@ change-corrected within-group agreement
 \eqn{A = 1 -\delta/E(\delta)}, where \eqn{E(\delta)} is the expected
 \eqn{\delta} assessed as the average of permutations.
 
+With \code{weight.type = 3}, the function also calculates classification
+strength (Van Sickle 1997) which is defined as the difference between
+average between group dissimilarities and within group
+dissimilarities. With \code{weight.type = 3} the classification strength
+is a simple transformation of \eqn{\delta}, and has the same permutation
+significance.
+
 If the first argument \code{dat} can be interpreted as dissimilarities,
 they will be used directly. In other cases the function treats
 \code{dat} as observations, and uses \code{\link{vegdist}} to find 
@@ -76,6 +83,12 @@ The function returns a list of class mrpp with following items:
   \item{delta }{The overall weighted mean of group mean distances.}
   \item{E.delta}{expected delta, under the null hypothesis of no group
     structure. This is the mean of the permuted deltas.}
+  \item{CS}{Classification strength (Van Sickle 1997) with
+    \code{weight.type = 3} and \code{NA} with other weights.}
+  \item{n}{Number of observations in each class.}
+  \item{classdelta}{Mean dissimilarities within classes. The overall
+    \eqn{\delta} is the weighted average of these values with given
+    \code{weight.type}}. 
   \item{Pvalue}{Significance of the test.}
   \item{A}{A chance-corrected estimate of the proportion of the distances
     explained by group identity; a value analogous to a coefficient of 
@@ -88,12 +101,17 @@ The function returns a list of class mrpp with following items:
   \item{permutations}{The number of permutations used.}
 }
 \references{
- P. W. Mielke and K. J. Berry. 2001. \emph{Permutation Methods: A
-   Distance  Function Approach.} Springer Series in
- Statistics. Springer.  
+  B. McCune and J. B. Grace. 2002. \emph{Analysis of Ecological
+  Communities.} MjM  Software Design, Gleneden Beach, Oregon, USA.
 
-B. McCune and J. B. Grace. 2002. \emph{Analysis of Ecological
-  Communities.} MjM  Software Design, Gleneden Beach, Oregon, USA. 
+
+  P. W. Mielke and K. J. Berry. 2001. \emph{Permutation Methods: A
+  Distance  Function Approach.} Springer Series in
+  Statistics. Springer.  
+
+  J. Van Sickle 1997. Using mean similarity dendrograms to evaluate
+  classifications. \emph{Journal of Agricultural, Biological, and Environmental
+  Statistics} 2:370-388.
 
 }
 \author{

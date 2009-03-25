@@ -2,9 +2,13 @@
 function (dat, grouping, permutations = 1000, distance = "euclidean", 
     weight.type = 1, strata) 
 {
+    classmean <- function(ind, dmat, indls) {
+        sapply(indls, function(x)
+               mean(c(dmat[ind == x, ind == x]),
+                    na.rm = TRUE))
+    }
     mrpp.perms <- function(ind, dmat, indls, w) {
-        weighted.mean(sapply(indls, function(x) mean(c(dmat[ind == 
-            x, ind == x]), na.rm = TRUE)), w = w, na.rm = TRUE)
+        weighted.mean(classmean(ind, dmat, indls), w = w, na.rm = TRUE)
     }
     if (inherits(dat, "dist")) 
         dmat <- dat
@@ -20,9 +24,17 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     N <- nrow(dmat)
     ind <- as.numeric(grouping)
     indls <- unique(ind)
-    w <- sapply(indls, function(x) sum(ind == x))
-    w <- switch(weight.type, w, w - 1, w * (w - 1)/2)
-    del <- mrpp.perms(ind, dmat, indls, w)
+    ncl <- sapply(indls, function(x) sum(ind == x))
+    w <- switch(weight.type, ncl, ncl - 1, ncl * (ncl - 1)/2)
+    classdel <- classmean(ind, dmat, indls)
+    names(classdel) <- names(ncl) <- levels(grouping)[indls]
+    del <- weighted.mean(classdel, w = w, na.rm = TRUE)
+    ## 'Classification strength' if weight.type == 3
+    if (weight.type == 3) {
+        CS <- N*(N-1)/2*(mean(dmat, na.rm = TRUE) - del)/(N*(N-1)/2 - sum(w))
+    } else {
+        CS <- NA
+    }
     if (missing(strata)) 
         strata <- NULL
     perms <- sapply(1:permutations, function(x) ind[permuted.index(N, 
@@ -33,7 +45,8 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     E.del <- mean(m.ds)
     p <- (1 + sum(del >= m.ds))/(permutations + 1)
     r2 <- 1 - del/E.del
-    out <- list(call = match.call(), delta = del, E.delta = E.del, 
+    out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
+        n = ncl, classdelta = classdel,
         Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
         boot.deltas = m.ds, permutations = permutations)
     if (!is.null(strata)) {
@@ -43,4 +56,3 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     class(out) <- "mrpp"
     out
 }
-

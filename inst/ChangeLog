@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-15 (opened Mar 10, 2009)
+Version 1.16-16 (openen Mar 25, 2009)
+
+	* mrpp: reports now "classification strength" when weight.type =
+	3 or weights n*(n-1) are used. Returns mean dissimilarities and
+	counts for classes. 
+
+Version 1.16-15 (closed Mar 25, 2009)
 
 	* envfit help page: explains the automatic scaling and 'arrow.mul'
 	argument. 
@@ -12,7 +18,7 @@ Version 1.16-15 (opened Mar 10, 2009)
 
 	* oecosimu & permatswap: much faster 'burnin' implemented through
 	'thin', and hence using a single C loop instead of multiple calls
-	and allocations to an R object.
+	and assignments to an R object.
 
 	* as.mcmc.permat: provides same functionality for permat objects
 	as as.mcmc.oecosimu for oecosimu objects.
