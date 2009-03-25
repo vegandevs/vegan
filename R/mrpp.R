@@ -22,6 +22,7 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     dmat <- as.matrix(dmat)
     diag(dmat) <- NA
     N <- nrow(dmat)
+    grouping <- as.factor(grouping)
     ind <- as.numeric(grouping)
     indls <- unique(ind)
     ncl <- sapply(indls, function(x) sum(ind == x))
