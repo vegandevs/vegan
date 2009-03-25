@@ -29,9 +29,10 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     classdel <- classmean(ind, dmat, indls)
     names(classdel) <- names(ncl) <- levels(grouping)[indls]
     del <- weighted.mean(classdel, w = w, na.rm = TRUE)
+    E.del <- mean(dmat, na.rm = TRUE)
     ## 'Classification strength' if weight.type == 3
     if (weight.type == 3) {
-        CS <- N*(N-1)/2*(mean(dmat, na.rm = TRUE) - del)/(N*(N-1)/2 - sum(w))
+        CS <- N*(N-1)/2*(E.del - del)/(N*(N-1)/2 - sum(w))
     } else {
         CS <- NA
     }
@@ -42,7 +43,6 @@ function (dat, grouping, permutations = 1000, distance = "euclidean",
     m.ds <- numeric(permutations)
     m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, 
         w))
-    E.del <- mean(m.ds)
     p <- (1 + sum(del >= m.ds))/(permutations + 1)
     r2 <- 1 - del/E.del
     out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
