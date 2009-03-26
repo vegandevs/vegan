@@ -27,6 +27,9 @@
             hc <- (1 - k[1])/2/k[2]
             x <- x/hc
         }
+    } else {
+        scl <- max(dist)/max(vegdist(x, "euclidean"))
+        x <- x*scl
     }
     if (plot && halfchange) {
         cross.lim <- 45
