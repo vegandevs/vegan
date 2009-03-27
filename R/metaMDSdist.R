@@ -36,7 +36,12 @@
             warning("Zero dissimilarities changed into ", zero)
         }
     }
-    maxdis <- max(dis)
+    ## We actually used maxdis to decide whether index has a closed
+    ## upper limit, but simple maximum does not give that info.
+    ## Therefore we see if an arbitrary matrix with no shared species
+    ## has distance = 1.
+    maxdis <- abs(distfun(matrix(c(7,0,0,3), 2, 2),
+                      method = distance, ...) - 1) < 1e-4
     if (noshare > 0 && sum(tmp <- no.shared(comm))/length(dis) > noshare) {
         if (trace) 
             cat("Using step-across dissimilarities:\n")

@@ -4,9 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-16 (openen Mar 25, 2009)
 
-	* metaMDS: scale ordination scores to the same max distance as
+	* metaMDS: scale ordination scores to the same range as
 	input dissimilarities if halfchange = FALSE (not yet documented,
-	still experimental).
+	still experimental). Better heuristics to decide whether to use
+	halfchange scaling: the old heuristics failed if Euclidean or
+	other open-ended dissimilarities were small (max < 1), like after
+	wisconsin() in metaMDSdist. This changes an undocumented internal
+	'maxdis' argument to logical in metaMDSdist.
 
 	* mrpp: reports now "classification strength" when weight.type = 3
 	or weights n*(n-1) are used. Returns mean dissimilarities and
