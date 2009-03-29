@@ -1,5 +1,5 @@
 "postMDS" <-
-    function (X, dist, pc = TRUE, center = TRUE, halfchange = TRUE, 
+    function (X, dist, pc = TRUE, center = TRUE, halfchange, 
               threshold = 0.8, nthreshold = 10, plot = FALSE, ...) 
 {
     Size <- attributes(dist)$Size
@@ -12,6 +12,16 @@
         dn <- dimnames(x)
         x <- prcomp(x, center = center)$x
         dimnames(x) <- dn
+    }
+    ## Check halfchange scaling, if not explicitly defined
+    if (missing(halfchange)) {
+        maxdis <- attr(dist, "maxdis")
+        ## play safe: if 'maxdis' is missing or FALSE, skip halfchange
+        ## scaling ('maxdis' is set in metaMDSdist).
+        if (!is.null(maxdis) && maxdis)
+            halfchange <- TRUE
+        else
+            halfchange <- FALSE
     }
     if (halfchange) {
         dist <- as.vector(dist)
@@ -27,7 +37,8 @@
             hc <- (1 - k[1])/2/k[2]
             x <- x/hc
         }
-    } else {
+    }
+    if (!halfchange) {
         scl <- max(dist)/max(vegdist(x, "euclidean"))
         x <- x*scl
     }

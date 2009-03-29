@@ -4,13 +4,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-16 (openen Mar 25, 2009)
 
-	* metaMDS: scale ordination scores to the same range as
-	input dissimilarities if halfchange = FALSE (not yet documented,
-	still experimental). Better heuristics to decide whether to use
-	halfchange scaling: the old heuristics failed if Euclidean or
-	other open-ended dissimilarities were small (max < 1), like after
-	wisconsin() in metaMDSdist. This changes an undocumented internal
-	'maxdis' argument to logical in metaMDSdist.
+	* metaMDS: scales ordination scores to the same range as input
+	dissimilarities if halfchange = FALSE. Better heuristics to decide
+	whether to use halfchange scaling: the old heuristics failed if
+	Euclidean or other open-ended dissimilarities were small (max <
+	1), like after wisconsin() in metaMDSdist.  The heuristics are now
+	in postMDS instead of metaMDS wrapper, and this changed the
+	default of internal argument 'halfchage' in postMDS, and now the
+	user can set the 'halfchange' argument in metaMDS. The
+	undocumented internal 'maxdis' argument is changed to logical in
+	metaMDSdist (TRUE if maximum dissimilarity = 1 for a pair of sites
+	with nothin shared).
 
 	* mrpp: reports now "classification strength" when weight.type = 3
 	or weights n*(n-1) are used. Returns mean dissimilarities and

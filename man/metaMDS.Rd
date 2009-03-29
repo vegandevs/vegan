@@ -40,7 +40,7 @@ metaMDSdist(comm, distance = "bray", autotransform = TRUE, noshare = 0.1,
 metaMDSiter(dist, k = 2, trymax = 20, trace = 1, plot = FALSE, previous.best, 
     ...)   
 initMDS(x, k=2)
-postMDS(X, dist, pc=TRUE, center=TRUE, halfchange=TRUE, threshold=0.8,
+postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
         nthreshold=10, plot=FALSE, ...)
 metaMDSredist(object, ...)
 metaMDSrotate(object, vec, choices, ...)
@@ -96,12 +96,16 @@ metaMDSrotate(object, vec, choices, ...)
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
   \item{pc}{Rotate to principal components. }
   \item{center}{Centre the configuration. }
-  \item{halfchange}{Scale axes to half-change units.}
-  \item{threshold}{Largest dissimilarity used in half-change scaling. }
-  \item{nthreshold}{ Minimum number of points in half-change scaling. }
-  \item{object}{A result object from \code{metaMDS}.}
-  \item{vec}{A continuous site variable (vector).}
-  \item{...}{Other parameters passed to functions.}
+ \item{halfchange}{Scale axes to half-change units. This defaults
+  \code{TRUE} when dissimilarities were evaluated within
+  \code{metaMDS} and the dissimilarity index has an upper limit of
+  \eqn{1}. If \code{FALSE}, the ordination dissimilarities are scaled
+  to the same range as the input dissimilarities.}
+ \item{threshold}{Largest dissimilarity used in half-change scaling. }
+ \item{nthreshold}{ Minimum number of points in half-change scaling. }
+ \item{object}{A result object from \code{metaMDS}.}
+ \item{vec}{A continuous site variable (vector).}
+ \item{...}{Other parameters passed to functions.}
 }
 \details{
   Non-metric Multidimensional Scaling (NMDS) is commonly regarded as the
@@ -166,29 +170,29 @@ metaMDSrotate(object, vec, choices, ...)
     monitor the final stresses, and \code{plot = TRUE} will display
     Procrustes overlay plots from each comparison.
 
-    \item Scaling of the results: \code{metaMDS} will run \code{postMDS}
-    for the final result. Function \code{postMDS} provides the following
-    ways of ``fixing'' the
-    indeterminacy of scaling and orientation of axes in NMDS:
-    Centring moves the origin to the
-    average of the axes.  Principal components rotate the configuration
-    so that the variance of points is maximized on first
-    dimension (with function \code{metaMDSrotate} you can alternatively 
-    rotate the configuration so that the first axis is parallel to an 
-    environmental variable). 
-    Half-change scaling scales the configuration so that one 
-    unit means halving of community similarity from replicate similarity.
-    Half-change scaling is
-    based on closer dissimilarities where the relation between ordination
-    distance and community dissimilarity is rather linear; the limit is
-    controlled by parameter \code{threshold}.  If there are enough points
-    below this threshold (controlled by the parameter
-    \code{nthreshold}), dissimilarities are regressed on distances.
-    The intercept of this regression is taken as the replicate
-    dissimilarity, and half-change is the distance where similarity
-    halves according to linear regression.  Obviously the method is
-    applicable only for dissimilarity indices scaled to \eqn{0 \ldots 1},
-    such as Kulczynski, Bray-Curtis and Canberra indices.
+    \item Scaling of the results: \code{metaMDS} will run
+    \code{postMDS} for the final result. Function \code{postMDS}
+    provides the following ways of ``fixing'' the indeterminacy of
+    scaling and orientation of axes in NMDS: Centring moves the origin
+    to the average of the axes.  Principal components rotate the
+    configuration so that the variance of points is maximized on first
+    dimension (with function \code{metaMDSrotate} you can
+    alternatively rotate the configuration so that the first axis is
+    parallel to an environmental variable).  Half-change scaling
+    scales the configuration so that one unit means halving of
+    community similarity from replicate similarity.  Half-change
+    scaling is based on closer dissimilarities where the relation
+    between ordination distance and community dissimilarity is rather
+    linear; the limit is controlled by parameter \code{threshold}.  If
+    there are enough points below this threshold (controlled by the
+    parameter \code{nthreshold}), dissimilarities are regressed on
+    distances.  The intercept of this regression is taken as the
+    replicate dissimilarity, and half-change is the distance where
+    similarity halves according to linear regression.  Obviously the
+    method is applicable only for dissimilarity indices scaled to
+    \eqn{0 \ldots 1}, such as Kulczynski, Bray-Curtis and Canberra
+    indices. If half-change scaling is not used, the ordination is
+    scaled to the same range as the original dissimilarities.
 
     \item Species scores: Function adds the species scores to the final
     solution as weighted averages using function
