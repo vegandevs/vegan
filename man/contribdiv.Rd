@@ -8,7 +8,7 @@ The contribution diversity approach is based in the differentiation of within-un
 }
 \usage{
 contribdiv(comm, index = c("richness", "simpson"),
-relative = FALSE, scaled = TRUE, drop.zero = FALSE)
+     relative = FALSE, scaled = TRUE, drop.zero = FALSE)
 \method{plot}{contribdiv}(x, sub, xlab, ylab, ylim, col, ...)
 }
 \arguments{
@@ -26,7 +26,7 @@ This approach was proposed by Lu et al. (2007). Additive diversity partitioning 
 
 Species distinctiveness of species \eqn{j} can be defined as the number of sites where it occurs (\eqn{n_j}), or the sum of its relative frequencies (\eqn{p_j}). Relative frequencies are computed sitewise and \eqn{sum_j{p_ij}}s at site \eqn{i} sum up to \eqn{1}.
 
-The contribution of site \eqn{i} to the total diversity is given by \eqn{alpha_i = sum_j(1 / n_ij)} when dealing with richness and \eqn{alpha_i = sum(p_ij * (1 - p_ij))} for the Simpson index.
+The contribution of site \eqn{i} to the total diversity is given by \eqn{alpha_i = sum_j(1 / n_ij)} when dealing with richness and \eqn{alpha_i = sum(p_{ij} * (1 - p_{ij}))} for the Simpson index.
 
 The unit distinctiveness of site \eqn{i} is the average of the species distinctiveness, averaging only those species which occur at site \eqn{i}. For species richness: \eqn{alpha_i = mean(n_i)} (in the paper, the second equation contains a typo, \eqn{n} is without index). For the Simpson index: \eqn{alpha_i = mean(n_i)}.
 

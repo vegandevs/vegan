@@ -12,11 +12,9 @@ In hierarchical null model testing, a statistic returned by a function is evalua
 }
 \usage{
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
-weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
-\method{print}{adipart}(x, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 hiersimu(formula, data, FUN, location = c("mean", "median"),
-relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
-\method{print}{hiersimu}(x, ...)
+    relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
 }
 \arguments{
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} is the community data matrix with samples as rows and species as column. Right hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, terms from right to left will be treated as nested (first column is the lowest, last is the highest level). These variables must be factors in order to unambiguous handling. Interaction terms are not allowed.}
@@ -37,20 +35,14 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
 Additive diversity partitioning means that mean alpha and beta diversity adds up to gamma diversity, thus beta diversity is measured in the same dimensions as alpha and gamma (Lande 1996). This additive procedure is than extended across multiple scales in a hierarchical sampling design with \eqn{i = 1, 2, 3, \ldots, m} levels of sampling (Crist et al. 2003). Samples in lower hierarchical levels are nested within higher level units, thus from \eqn{i=1} to \eqn{i=m} grain size is increasing under constant survey extent. At each level \eqn{i}, \eqn{\alpha_i} denotes average diversity found within samples.
 
 At the highest sampling level, the diversity components are calculated as 
-
 \deqn{\beta_m = \gamma - \alpha_m}{beta_m = gamma - alpha_m} 
-
 For each lower sampling level as
 \deqn{\beta_i = \alpha_{i+1} - \alpha_i}{beta_i = alpha_i+1 - alpha_i}
-
 Then, the additive partition of diversity is 
-
 \deqn{\gamma = \alpha_1 + \sum_{i=1}^m \beta_i}{gamma = alpha_1 + sum(beta_i)}
 
 Average alpha components can be weighted uniformly (\code{weight="unif"}) to calculate it as simple average, or proportionally to sample abundances (\code{weight="prop"}) to calculate it as weighted average as follows
-
 \deqn{\alpha_i = \sum_{j=1}^{n_i} D_{ij} w_{ij}}{alpha_i = sum(D_ij*w_ij)}
-
 where \eqn{D_{ij}} is the diversity index and \eqn{w_{ij}} is the weight calculated for the \eqn{j}th sample at the \eqn{i}th sampling level.
 
 The implementation of additive diversity partitioning follows Crist et al. 2003. It is based on species richness (\eqn{S}, not \eqn{S-1}), Shannon's and Simpson's diversity indices.
