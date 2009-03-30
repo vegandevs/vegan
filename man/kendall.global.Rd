@@ -136,7 +136,7 @@ Legendre, P. 2005. Species associations: the Kendall coefficient of
 concordance revisited. Journal of Agricultural, Biological, and
 Environmental Statistics 10: 226-245.
 
-Legendre, P. 2008. Coefficient of concordance. In: Encyclopedia of
+Legendre, P. 2009. Coefficient of concordance. In: Encyclopedia of
 Research Design. SAGE Publications (in press).
 
 Siegel, S. and N. J. Castellan, Jr. 1988. Nonparametric statistics for
