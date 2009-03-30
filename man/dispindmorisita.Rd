@@ -3,7 +3,7 @@
 \alias{dispindmorisita}
 \title{Morisita index of intraspecific aggregation}
 \description{
-Caltulates the Morisita index of dispersion, standardized index values, and the so called clumpedness and uniform indices.
+Calculates the Morisita index of dispersion, standardized index values, and the so called clumpedness and uniform indices.
 }
 \usage{
 dispindmorisita(x, unique.rm = FALSE, crit = 0.05)
@@ -21,27 +21,27 @@ The Morisita index of dispersion is defined as (Morisita 1959, 1962):
 where \eqn{xi} is the count of individuals in sample \eqn{i}, and \eqn{n} is the
 number of samples (\eqn{i = 1, 2, \ldots, n}). \eqn{Imor} has values from 0 to
 \eqn{n}. In uniform (hyperdispersed) patterns its value falls between 0 and
-1, in clumped patterns it falls between 1 and \eqn{n}. For incresing sample
+1, in clumped patterns it falls between 1 and \eqn{n}. For increasing sample
 sizes (i.e. joining neighbouring quadrats), \eqn{Imor} goes to \eqn{n} as the
 quadrat size approaches clump size. For random patterns, \eqn{Imor = 1} and
 counts in the samples follow Poisson frequency distribution.
 
-The deviation from this random expectation can be tested based on
-critical values of the Chi-squared distribution with degrees of freedom
-\eqn{n-1}. Confidence interval around 1 can be calculated by the clumped
-\eqn{Mclu} and uniform \eqn{Muni}indices (Hairston et al. 1971, Krebs 1999)
-(Chi2Lower and Chi2Upper refers to e.g. 0.025 and 0.975 quantile values
-of the Chi-squared distribution with \eqn{n-1} degrees of freedom,
-respectively, for \code{alpha = 0.05}):
+The deviation from random expectation can be tested using critical
+values of the Chi-squared distribution with \eqn{n-1} degrees of
+freedom. Confidence interval around 1 can be calculated by the clumped
+\eqn{Mclu} and uniform \eqn{Muni} indices (Hairston et al. 1971, Krebs
+1999) (Chi2Lower and Chi2Upper refers to e.g. 0.025 and 0.975 quantile
+values of the Chi-squared distribution with \eqn{n-1} degrees of
+freedom, respectively, for \code{alpha = 0.05}):
 
 \code{Mclu = (Chi2Upper - n + sum(xi)) / (sum(xi) - 1)}
 
 \code{Muni = (Chi2Lower - n + sum(xi)) / (sum(xi) - 1)}
 
-Smith-Gill (1975) proposed the standardization of the Morisita index to
-rescale the [0, n] interval into [-1, 1], and setting up -0.5 and 0.5
-values as confidence limits around random distribution with rescaled
-value 0. To rescale the Morisita index, one of the following four apply
+Smith-Gill (1975) proposed scaling of Morisita index from [0, n]
+interval into [-1, 1], and setting up -0.5 and 0.5 values as
+confidence limits around random distribution with rescaled value 0. To
+rescale the Morisita index, one of the following four equations apply
 to calculate the standardized index \eqn{Imst}:
 
 (a) \code{Imor >= Mclu > 1}: \code{Imst = 0.5 + 0.5 (Imor - Mclu) / (n - Mclu)},
@@ -55,7 +55,7 @@ to calculate the standardized index \eqn{Imst}:
 
 \value{ Returns a data frame with as many rows as the number of columns
 in the input data, and with four columns. Columns are: \code{imor}
-unstandardized Morisita index, \code{mclu} the cumpedness index,
+unstandardized Morisita index, \code{mclu} the clumpedness index,
 \code{muni} the uniform index, \code{imst} standardized Morisita index.
 }
 
@@ -84,7 +84,7 @@ Cummings Publishers.  }
 
 \note{ A common error found in several papers is that when standardizing
 as in the case (b), the denominator is given as \code{Muni - 1}. This
-reult in a hiatus in the [0, 0.5] interval of the standardized
+results in a hiatus in the [0, 0.5] interval of the standardized
 index. The root of this typo is the book of Krebs (1999), see the Errata
 for the book (Page 217,
 \url{http://www.zoology.ubc.ca/~krebs/downloads/errors_2nd_printing.pdf}).
