@@ -1,6 +1,10 @@
 \name{mrpp}
 \alias{mrpp}
 \alias{print.mrpp}
+\alias{meandist}
+\alias{summary.meandist}
+\alias{print.summary.meandist}
+\alias{plot.meandist}
 
 \title{ Multi Response Permutation Procedure of Within- versus
   Among-Group Dissimilarities}
@@ -12,6 +16,9 @@ groups of sampling units.  }
 \usage{
 mrpp(dat, grouping, permutations = 1000, distance = "euclidean",
      weight.type = 1, strata)
+meandist(dist, grouping, ...)
+\method{summary}{meandist}(object, ...)
+\method{plot}{meandist}(x, cluster = "average", ...)
 }
 
 \arguments{
@@ -29,6 +36,12 @@ mrpp(dat, grouping, permutations = 1000, distance = "euclidean",
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+  \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
+    produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
+    \code{\link{designdist}}.}.
+  \item{cluster}{A clustering method for the \code{\link{hclust}}
+    function. Any \code{hclust} method can be used, but perhaps only
+    \code{"average"} and \code{"single"} make sense.}
 }
 
 \details{ Multiple Response Permutation Procedure (MRPP) provides a test
@@ -75,7 +88,22 @@ they will be used directly. In other cases the function treats
 \code{dat} as observations, and uses \code{\link{vegdist}} to find 
 the dissimilarities.  The default \code{distance} is Euclidean as in the
 traditional use of the method, but other dissimilarities in
-\code{\link{vegdist}} also are available. }
+\code{\link{vegdist}} also are available. 
+
+Function \code{meandist} calculates a matrix of mean within-cluster
+dissimilarities (diagonal) and between-cluster dissimilarites
+(off-diagonal elements), and an attribute \code{n} of \code{grouping
+counts}. Function \code{summary} finds the within-class, between-class
+and overall means of these dissimilarities, and the MRPP statistics
+with all \code{weight.type} options and the classification
+strength. The function does not allow significance tests for these
+statistics, but you must use \code{mrpp} with appropriate
+\code{weight.type}. Function \code{plot} draws a dendrogram of the
+result matrix with given \code{cluster} method (see
+\code{\link{hclust}}). The terminal segments hang to within-cluster
+dissimilarity. If some of the clusters is more heterogeneous than the
+combined class, the leaf segment is reversed.  
+}
 
 \value{
 The function returns a list of class mrpp with following items:
@@ -154,6 +182,11 @@ with(dune.mrpp, {
      expression(bold(delta)), cex=1.5 )  }
 )
 par(def.par)
+## meandist
+dune.md <- meandist(vegdist(dune), dune.env$Management)
+dune.md
+summary(dune.md)
+plot(dune.md)
 }
 \keyword{ multivariate }
 \keyword{ nonparametric }
