@@ -22,9 +22,9 @@ contribdiv(comm, index = c("richness", "simpson"),
   \item{\dots}{Other arguments passed to plot.}
 }
 \details{
-This approach was proposed by Lu et al. (2007). Additive diversity partitioning (see \code{\link{adipart}} for more references) deals with the relation of mean alpha and the total (gamma) diversity. Although alpha diversity values are often vary considerably. Thus, contributions of the sites to the total diversity are uneven. This site specific contribution is measured by contribution diversity components. A unit that has e.g. many unique species will contribute more to the higher level (gamma) diversity than another unit with the same number of species, but all of which common.
+This approach was proposed by Lu et al. (2007). Additive diversity partitioning (see \code{\link{adipart}} for more references) deals with the relation of mean alpha and the total (gamma) diversity. Although alpha diversity values often vary considerably. Thus, contributions of the sites to the total diversity are uneven. This site specific contribution is measured by contribution diversity components. A unit that has e.g. many unique species will contribute more to the higher level (gamma) diversity than another unit with the same number of species, but all of which common.
 
-Species distinctiveness of species \eqn{j} can be defined as the number of sites where it occurs (\eqn{n_j}), or the sum of its relative frequencies (\eqn{p_j}). Relative frequencies are computed sitewise and \eqn{sum_j{p_ij}}s at site \eqn{i} sum up to \eqn{1}.
+Distinctiveness of species \eqn{j} can be defined as the number of sites where it occurs (\eqn{n_j}), or the sum of its relative frequencies (\eqn{p_j}). Relative frequencies are computed sitewise and \eqn{sum_j{p_ij}}s at site \eqn{i} sum up to \eqn{1}.
 
 The contribution of site \eqn{i} to the total diversity is given by \eqn{alpha_i = sum_j(1 / n_ij)} when dealing with richness and \eqn{alpha_i = sum(p_{ij} * (1 - p_{ij}))} for the Simpson index.
 
