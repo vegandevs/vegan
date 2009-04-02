@@ -92,8 +92,8 @@ traditional use of the method, but other dissimilarities in
 
 Function \code{meandist} calculates a matrix of mean within-cluster
 dissimilarities (diagonal) and between-cluster dissimilarites
-(off-diagonal elements), and an attribute \code{n} of \code{grouping
-counts}. Function \code{summary} finds the within-class, between-class
+(off-diagonal elements), and an attribute \code{n} of \code{grouping}
+counts. Function \code{summary} finds the within-class, between-class
 and overall means of these dissimilarities, and the MRPP statistics
 with all \code{weight.type} options and the classification
 strength. The function does not allow significance tests for these
