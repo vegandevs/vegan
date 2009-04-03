@@ -15,7 +15,7 @@
     x[row(x) > col(x)] <- d^2
     x <- x + t(x)
     storage.mode(x) <- "double"
-    .C(stats:::R_dblcen, x, as.integer(n), DUP = FALSE)
+    .C("dblcen", x, as.integer(n), DUP = FALSE, PACKAGE="stats")
     e <- eigen(-x/2, symmetric = TRUE)
     vectors <- e$vectors
     eig <- e$values
