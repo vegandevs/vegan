@@ -14,9 +14,8 @@ Version 1.16-17
 
 	* betadisper: Fix bug corrects the way distance to centroid is
 	computed when only one group is present in the data. betadisper 
-	can now also detect if 'd' is Euclidean up to a tolerance that 
-	can be set using new argument 'tol'. Bug report and suggested
-	improvements provided by Etienne Laliberté.
+	can now also detect if 'd' is Euclidean, zapping zero Eigenvalues. 
+	Bug report and suggested improvements provided by Etienne Laliberté.
 	
 Version 1.16-16 (closed April 2, 2009)
 
