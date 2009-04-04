@@ -25,7 +25,7 @@
   Tukey's 'Honest Significant Difference' method.
 }
 \usage{
-betadisper(d, group, type = c("centroid", "median"), tol = 1e-07)
+betadisper(d, group, type = c("centroid", "median"))
 
 \method{anova}{betadisper}(object, \dots)
 
@@ -51,7 +51,6 @@ betadisper(d, group, type = c("centroid", "median"), tol = 1e-07)
     level (i.e.~one group).}
   \item{type}{the type of analysis to perform. Only \code{type =
       "centroid"} is currently supported.}
-  \item{tol}{tolerance for checking if \code{d} is Euclidean.}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a

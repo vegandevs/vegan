@@ -1,6 +1,8 @@
 `betadisper` <-
-    function(d, group, type = c("centroid","median"), tol = 1e-07)
+    function(d, group, type = c("centroid","median"))
 {
+    ## Tolerance for zero Eigenvalues
+    TOL <- 1e-7
     ## uses code from stats:::cmdscale by R Core Development Team
     if(!inherits(d, "dist"))
         stop("distances 'd' must be a 'dist' object")
@@ -19,14 +21,9 @@
     e <- eigen(-x/2, symmetric = TRUE)
     vectors <- e$vectors
     eig <- e$values
-    ## check d is Euclidean
-    w0 <- eig[n] / eig[1]
-    if(w0 > -tol)
-        r <- sum(eig > (eig[1] * tol))
-    else
-        r <- length(eig)
-    ## truncate eig if d is Euclidean
-    eig <- eig[(rs <- seq_len(r))]
+    ## Remove zero eigenvalues
+    eig <- eig[abs(eig/eig[1]) > TOL]
+    rs <- seq_along(eig)
     ## scale Eigenvectors
     vectors <- vectors[, rs, drop = FALSE] %*% diag(sqrt(abs(eig)))
     ## store which are the positive eigenvalues
