@@ -15,6 +15,28 @@
     n <- attr(d, "Size")
     x <- matrix(0, ncol = n, nrow = n)
     x[row(x) > col(x)] <- d^2
+    ## site labels
+    labs <- attr(d, "Labels")
+    ## remove NAs in group
+    if(any(gr.na <- is.na(group))) {
+        group <- group[!gr.na]
+        x <- x[!gr.na, !gr.na]
+        ## update n otherwise C call crashes
+        n <- n - sum(gr.na)
+        ## update labels
+        labs <- labs[!gr.na]
+        warning("Missing observations due to 'group' removed.")
+    }
+    ## remove NA's in d
+    if(any(x.na <- apply(x, 1, function(x) any(is.na(x))))) {
+        x <- x[!x.na, !x.na]
+        group <- group[!x.na]
+        ## update n otherwise C call crashes
+        n <- n - sum(x.na)
+        ## update labels
+        labs <- labs[!x.na]
+        warning("Missing observations due to 'd' removed.")
+    }
     x <- x + t(x)
     storage.mode(x) <- "double"
     .C("dblcen", x, as.integer(n), DUP = FALSE, PACKAGE="stats")
@@ -63,7 +85,7 @@
         colnames(centroids) <- names(eig)
     else
         names(centroids) <- names(eig)
-    rownames(vectors) <- names(zij) <- attr(d, "Labels")
+    rownames(vectors) <- names(zij) <- labs
     retval <- list(eig = eig, vectors = vectors, distances = zij,
                    group = group, centroids = centroids, call = match.call())
     class(retval) <- "betadisper"

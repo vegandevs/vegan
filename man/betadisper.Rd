@@ -170,6 +170,9 @@ betadisper(d, group, type = c("centroid", "median"))
   If \code{group} consists of a single level or group, then the
   \code{anova} and \code{permutest} methods are not appropriate and if
   used on such data will stop with an error.
+
+  Missing values in either \code{d} or \code{group} will be removed
+  prior to performing the analysis.
 }
 \references{
   Anderson, M.J. (2006) Distance-based tests for homogeneity of
@@ -213,6 +216,17 @@ plot(mod)
 
 ## Draw a boxplot of the distances to centroid for each group
 boxplot(mod)
+
+## simulate missing values in 'd' and 'group'
+groups[c(2,20)] <- NA
+dis[c(2, 20)] <- NA
+mod2 <- betadisper(dis, groups) ## warnings
+mod2
+permutest(mod, control = permControl(nperm = 100))
+anova(mod2)
+plot(mod2)
+boxplot(mod2)
+plot(TukeyHSD(mod2))
 }
 \keyword{methods}
 \keyword{multivariate}
