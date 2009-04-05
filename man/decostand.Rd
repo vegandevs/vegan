@@ -8,7 +8,7 @@ The function provides some popular (and effective) standardization
 methods for community ecologists.
 }
 \usage{
-decostand(x, method, MARGIN, range.global, na.rm=FALSE)
+decostand(x, method, MARGIN, range.global, na.rm=FALSE, ...)
 
 wisconsin(x)
 }
@@ -23,6 +23,7 @@ wisconsin(x)
     subsets of data.  The dimensions of \code{MARGIN} must match with
     \code{x}. }
   \item{na.rm}{Ignore missing values in row or column standardizations.}
+  \item{\dots}{Other arguments to the function (ignored).}
 }
 \details{
   The function offers following standardization methods for community

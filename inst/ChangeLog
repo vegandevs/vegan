@@ -15,7 +15,14 @@ Version 1.16-17
 	* betadisper: Fix bug corrects the way distance to centroid is
 	computed when only one group is present in the data. betadisper 
 	can now also detect if 'd' is Euclidean, zapping zero Eigenvalues. 
-	Bug report and suggested improvements provided by Etienne Laliberté.
+	Bug report and suggested improvements provided by Etienne
+	Laliberté.
+
+	* decostand: added dots to the argument list to pass (ignored)
+	arguments to decostand(). This was done to to fix
+	stressplot(metaMDS(x, dist="gower", trymax=40)), which failed
+	because metaMDSdist/vegdist were passing 'trymax' to decostand()
+	while evaluating "gower" dissimilarity.
 	
 Version 1.16-16 (closed April 2, 2009)
 

@@ -1,5 +1,5 @@
 "decostand" <-
-    function (x, method, MARGIN, range.global, na.rm = FALSE) 
+    function (x, method, MARGIN, range.global, na.rm = FALSE, ...) 
 {
     wasDataFrame <- is.data.frame(x)
     x <- as.matrix(x)
