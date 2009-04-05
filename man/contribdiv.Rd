@@ -17,7 +17,7 @@ contribdiv(comm, index = c("richness", "simpson"),
   \item{relative}{Logical, if \code{TRUE} then contribution diversity values are expressed as their signed deviation from their mean. See details.}
   \item{scaled}{Logical, if \code{TRUE} then relative contribution diversity values are scaled by the sum of gamma values (if \code{index = "richness"}) or by sum of gamma values times the number of rowx in \code{comm} (if \code{index = "simpson"}). See details.}
   \item{drop.zero}{Logical, should empty rows dropped from the result? If empty rows are not dropped, their corresponding results will be \code{NA}s.}
-  \item{x}{An object of class 'contribdiv'.}
+  \item{x}{An object of class \code{"contribdiv"}.}
   \item{sub, xlab, ylab, ylim, col}{Graphical arguments passed to plot.}
   \item{\dots}{Other arguments passed to plot.}
 }
@@ -33,7 +33,7 @@ The unit distinctiveness of site \eqn{i} is the average of the species distincti
 The Lu et al. (2007) gives an in-depth description of the different indices.
 }
 \value{
-An object of class 'contribdiv'.
+An object of class \code{"contribdiv"}.
 }
 \references{
 Lu, H. P., Wagner, H. H. and Chen, X. Y. 2007. A contribution diversity approach to evaluate species diversity.
