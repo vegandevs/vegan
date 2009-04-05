@@ -18,6 +18,9 @@ Version 1.16-17
 	Bug report and suggested improvements provided by Etienne
 	Laliberté.
 
+	betadisper now also handles missing observations in either the
+	dissimilarity matrix or the grouping variable.
+
 	* decostand: added dots to the argument list to pass (ignored)
 	arguments to decostand(). This was done to to fix
 	stressplot(metaMDS(x, dist="gower", trymax=40)), which failed
