@@ -28,7 +28,6 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
   \item{FUN}{A function to be used by \code{hiersimu}.}
   \item{location}{Character, identifies which function (mean or median) is used to calculate location of the samples.}
   \item{drop.highest}{Logical, to drop the highest level or not. When \code{FUN} evaluates only arrays with at least 2 dimensions, highest level should be dropped, or not selected at all.}
-  \item{x}{An object of class 'adipart'.}
   \item{\dots}{Other arguments passed to functions, e.g. base of logarithm for Shannon diversity (see \code{\link{diversity}}).}
 }
 \details{

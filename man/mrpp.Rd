@@ -39,9 +39,11 @@ meandist(dist, grouping, ...)
   \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.
+  \item{object, x}{A \code{meandist} result object.}
   \item{cluster}{A clustering method for the \code{\link{hclust}}
     function. Any \code{hclust} method can be used, but perhaps only
     \code{"average"} and \code{"single"} make sense.}
+  \item{\dots}{Further arguments passed to functions.}
 }
 
 \details{ Multiple Response Permutation Procedure (MRPP) provides a test
