@@ -19,7 +19,8 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
   \item{y}{ Variable to be plotted. }
   \item{choices}{Ordination axes. }
   \item{knots}{Number of initial knots in \code{\link[mgcv]{gam}} (one
-    more than degrees of freedom). }
+    more than degrees of freedom). If \code{knots = 0}, the function
+    will fit a linear trend surface instead of a smooth surface. }
   \item{family}{ Error distribution in  \code{\link[mgcv]{gam}}. }
   \item{col}{ Colour of contours. }
   \item{thinplate}{Use thinplate splines in \code{\link[mgcv]{gam}}.}

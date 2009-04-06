@@ -26,6 +26,8 @@ Version 1.16-17
 	stressplot(metaMDS(x, dist="gower", trymax=40)), which failed
 	because metaMDSdist/vegdist were passing 'trymax' to decostand()
 	while evaluating "gower" dissimilarity.
+
+	* ordisurf: will fit a linear trend surface if knots = 0.
 	
 Version 1.16-16 (closed April 2, 2009)
 

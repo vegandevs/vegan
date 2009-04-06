@@ -14,7 +14,9 @@
     X <- scores(x, choices = choices, display = display, ...)
     x1 <- X[, 1]
     x2 <- X[, 2]
-    if (thinplate) 
+    if (knots <= 0)
+        mod <- gam(y ~ x1 + x2, family = family, weights = w)
+    else if (thinplate) 
         mod <- gam(y ~ s(x1, x2, k = knots), family = family, 
                    weights = w)
     else mod <- gam(y ~ s(x1, k = knots) + s(x2, k = knots), 
