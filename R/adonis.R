@@ -80,15 +80,13 @@
     ## Permutations
     if (missing(strata)) 
         strata <- NULL
-    G.p <- lapply(1:permutations, function(x) {
-        permutes <- permuted.index(n, strata = strata)
-        G[permutes, permutes]
-    } )
+    p <- sapply(1:permutations,
+                function(x) permuted.index(n, strata=strata))
     
-    ## SS.s <- sapply(G.p, function(Gs) { SS.perms(H, Gs, I) } )
+    ## Apply permutations for each term
     f.perms <- sapply(1:nterms, function(i) {
         sapply(1:permutations, function(j) {
-            f.test(H.s[[i]], G.p[[j]], I, df.Exp[i], df.Res, H.snterm)
+            f.test(H.s[[i]], G[p[,j],p[,j]], I, df.Exp[i], df.Res, H.snterm)
         } )
     })
   
