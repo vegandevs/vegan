@@ -60,6 +60,10 @@ variance, Excoffier, Smouse, and Quattro, 1992;
 \code{\link[ade4]{amova}} in the \pkg{ade4} package) for both crossed
 and nested factors.
 
+
+If the experimental design has nestedness, then use \code{strata} to test hypotheses. For instance, imagine we are testing the whether a plant community is influenced by nitrate amendments, and we have two replicate plots at each of two levels of nitrate (0, 10 ppm). We have replicated the experiment in three fields with (perhaps) different average productivity. In this design, we would need to specify \code{strata = field} so that randomizations occur only \emph{within each field} and not across all fields . See example below.
+
+
 Like AMOVA (Excoffier et al. 1992), \code{adonis} relies on a
 long-understood phenomenon that allows one to partition sums of squared
 deviations from a centroid in two different ways (McArdle and Anderson
@@ -162,6 +166,35 @@ Sciences, USA}, \strong{103}:19430--19435.
 data(dune)
 data(dune.env)
 adonis(dune ~ Management*A1, data=dune.env, permutations=99)
+
+
+### Example of use with strata, for nested (e.g., block) designs.
+
+dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
+dat
+Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
+Schizachyrium <- with(dat, as.numeric(field) - as.numeric(NO3)+2) +rnorm(12)/2
+total <- Agropyron + Schizachyrium
+library(lattice)
+dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
+        type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
+
+Y <- data.frame(Agropyron, Schizachyrium)
+mod <- metaMDS(Y)
+plot(mod)
+### Hulls show treatment
+ordihull(mod, group=dat$NO3, show="0")
+ordihull(mod, group=dat$NO3, show="10", col=3)
+### Spider shows fields
+ordispider(mod, group=dat$field, lty=3, col="red")
+
+### Correct hypothesis test (with strata)
+adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
+
+### Incorrect (no strata)
+adonis(Y ~ NO3, data=dat, perm=1e3)
+
+
 }
 
 \keyword{multivariate }
