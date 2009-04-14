@@ -15,7 +15,7 @@ Version 1.16-17
 	dissimilarities. Its summary function returns the overall averages
 	of those distances, and all three variants of MRPP A statistic,
 	and classification strength. The plot method draws a dendrogram
-	based on the mean dissimilarity matrix, with leafs hanging to
+	based on the mean dissimilarity matrix, with leaves hanging to
 	within-group dissimilarity.
 
 	* betadisper: Fix bug corrects the way distance to centroid is
@@ -33,7 +33,10 @@ Version 1.16-17
 	because metaMDSdist/vegdist were passing 'trymax' to decostand()
 	while evaluating "gower" dissimilarity.
 
-	* ordisurf: will fit a linear trend surface if knots = 0.
+	* ordisurf: will fit a linear trend surface if knots = 0 or knots
+	= 1, and a quadratic trend surface if knots = 2. All these are
+	below the lowest permissible values of 'gam' smoothers and free
+	for creative reuse.
 	
 Version 1.16-16 (closed April 2, 2009)
 

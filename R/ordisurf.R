@@ -16,6 +16,12 @@
     x2 <- X[, 2]
     if (knots <= 0)
         mod <- gam(y ~ x1 + x2, family = family, weights = w)
+    else if (knots == 1)
+        mod <- gam(y ~ poly(x1, 1) + poly(x2, 1),
+                   family = family, weights = w)
+    else if (knots == 2)
+        mod <- gam(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1),
+                   family = family, weights = w)
     else if (thinplate) 
         mod <- gam(y ~ s(x1, x2, k = knots), family = family, 
                    weights = w)
