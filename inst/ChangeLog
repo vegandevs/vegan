@@ -8,7 +8,8 @@ Version 1.16-17
 	problems (number of rows, number of iterations). The change
 	concerns only internal data structures, and the permutation
 	results should be identical with old and new code when the same
-	random number seed is used. 
+	random number seed is used. The Rd file got an example of using
+	'strata' in permutations.
 
 	* meandist: a new sister function for mrpp. Function meandist
 	calculates a matrix of mean within and between group
