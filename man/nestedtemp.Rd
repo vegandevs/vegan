@@ -71,26 +71,28 @@ nestednodf(comm, order = TRUE)
   guarantee that the best ordering was found. In that case a warning
   of tied columns will be issued.
 
-  Function \code{nestedtemp} finds the
-  matrix temperature which is defined as the sum of \dQuote{surprises}
-  in arranged matrix.  In arranged unsurprising matrix all species
-  within proportion given by matrix fill are in the upper left corner of
-  the matrix, and the surprise of the absence or presences is the
-  diagonal distance from the fill line (Atmar & Patterson
-  1993). Function tries to pack species and sites to a low
-  temperature (\enc{Rodríguez-Gironés}{Rodriguez-Girones} & Santamaria
-  2006), but this is an iterative procedure, and the temperatures
-  usually vary among runs.  Function \code{nestedtemp} also has a
-  \code{plot} method which can display either incidences or temperatures
-  of the surprises. Matrix temperature was rather vaguely described
-  (Atmar & Patterson 1993), but
+  Function \code{nestedtemp} finds the matrix temperature which is
+  defined as the sum of \dQuote{surprises} in arranged matrix.  In
+  arranged unsurprising matrix all species within proportion given by
+  matrix fill are in the upper left corner of the matrix, and the
+  surprise of the absence or presences is the diagonal distance from the
+  fill line (Atmar & Patterson 1993). Function tries to pack species and
+  sites to a low temperature (\enc{Rodríguez-Gironés}{Rodriguez-Girones}
+  & Santamaria 2006), but this is an iterative procedure, and the
+  temperatures usually vary among runs.  Function \code{nestedtemp} also
+  has a \code{plot} method which can display either incidences or
+  temperatures of the surprises. Matrix temperature was rather vaguely
+  described (Atmar & Patterson 1993), but
   \enc{Rodríguez-Gironés}{Rodriguez-Girones} & Santamaria (2006) are
   more explicit and their description is used here. However, the results
   probably differ from other implementations, and users should be
-  cautious in interpreting the results. The details of calculations
-  are explained in the \code{\link{vignette}} \emph{Design decisions
-  and implementation} that you can read using functions
-  \code{\link{vignette}} or \code{\link{vegandocs}}.
+  cautious in interpreting the results. The details of calculations are
+  explained in the \code{\link{vignette}} \emph{Design decisions and
+  implementation} that you can read using functions
+  \code{\link{vignette}} or \code{\link{vegandocs}}. Function
+  \code{\link[bipartite]{nestedness}} in the \pkg{bipartite} package is
+  a direct port of the BINMATNEST programme of
+  \enc{Rodríguez-Gironés}{Rodriguez-Girones} & Santamaria (2006).
 
   Function \code{nestednodf} implements a nestedness metric based on
   overlap and decreasing fill (Almeida-Neto et al., 2008). Two basic

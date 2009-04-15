@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-17
 
+	* nestedtemp: docs tell that Carsten Dormann's bipartite package
+	has a direct port of BINMATNEST programme of Rodriquez-Girones &
+	Santamaria. 
+
 	* anosim: uses much less memory allowing analysis of larger
 	problems (number of rows, number of iterations). The change
 	concerns only internal data structures, and the permutation
