@@ -115,9 +115,9 @@ data(dune)
 dis <- vegdist(dune)
 tr <- spantree(dis)
 ## Add tree to a metric scaling 
-plot(tr, cmdscale(dis))
+plot(tr, cmdscale(dis), type = "t")
 ## Find a configuration to display the tree neatly
-plot(tr)
+plot(tr, type = "t")
 }
 \keyword{ multivariate}
 
