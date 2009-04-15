@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-17
+Version 1.16-18
+	
+Version 1.16-17 (closed April 15, 2009)
+
+	* closed concurrently with the release of vegan 1.15-2.
 
 	* spantree.Rd: example plots use type = "t" to demonstrate the use
 	of ordilabel(). 
