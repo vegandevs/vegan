@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-18
+Version 1.16-18 (opened April 21, 2009)
+
+	* RsquareAdj: defined as generic function. The old RsquareAdj is
+	now the "default" method, and there are specific methods for
+	"rda", "cca" (= NA), "lm" and "glm" objects. Not yet documented,
+	but functions are listed as aliases in varpart.Rd. On Pierre
+	Legendre's request.
 	
 Version 1.16-17 (closed April 15, 2009)
 

@@ -9,7 +9,14 @@
 \alias{plot.varpart234}
 \alias{plot.varpart}
 \alias{plot.varpart234}
+% The RsquareAdj's should probably be documented in another file
 \alias{RsquareAdj}
+\alias{RsquareAdj.default}
+\alias{RsquareAdj.rda}
+\alias{RsquareAdj.cca}
+\alias{RsquareAdj.lm}
+\alias{RsquareAdj.glm}
+% End RsquareAdj's (to be moved away from here)
 \alias{simpleRDA2}
 
 \title{Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices }
