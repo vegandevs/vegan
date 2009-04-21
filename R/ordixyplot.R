@@ -15,6 +15,8 @@
       formula <- as.formula(paste(v[2], "~", v[1]))
     }
   if ("biplot" %in% type && (!is.null(x$CCA) || !missing(envfit))) {
+    if (missing(envfit))
+      envfit <- NULL
     env <- localOrdilattice.getEnvfit(formula, x, envfit, choices, ...)
     if (!is.null(env$arrows)) {
       mul <- apply(p[,colnames(env$arrows)], 2, range)/apply(env$arrows, 2, range)

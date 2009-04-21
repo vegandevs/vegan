@@ -1,7 +1,7 @@
 `ordilattice.getEnvfit` <-
     function(formula, object, envfit, choices = 1:3,  ...)
 {
-    if (!missing(envfit))
+    if (!missing(envfit) && !is.null(envfit))
         object <- envfit
     bp <- scores(object, display = "bp", choices = choices)
     cn <- scores(object, display = "cn",  choices = choices)
