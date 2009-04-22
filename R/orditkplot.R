@@ -323,9 +323,9 @@
     labfnt <- labfnt[take]
     ## Ranges and pretty values for axes
     if (missing(xlim))
-        xlim <- range(sco[,1])
+        xlim <- range(sco[,1], na.rm = TRUE)
     if (missing(ylim))
-        ylim <- range(sco[,2])
+        ylim <- range(sco[,2], na.rm = TRUE)
     xpretty <- pretty(xlim)
     ypretty <- pretty(ylim)
     ## Extend ranges by 4% 

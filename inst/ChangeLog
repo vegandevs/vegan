@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-18 (opened April 21, 2009)
 
+	* orditkplot: copes with missing or NaN scores (omits them).
+
 	* ordixyplot: failed in constrained ordination (cca, rda,
 	capscale). Was broken in rev108 on Nov 7, 2007(!). 
 
