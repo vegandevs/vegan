@@ -3,6 +3,7 @@
 \alias{ordisplom}
 \alias{ordicloud}
 \alias{panel.ordi}
+\alias{panel.ordiarrows}
 \alias{panel.ordi3d}
 \alias{prepanel.ordi3d}
 \alias{ordilattice.getEnvfit}
@@ -48,9 +49,16 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
     as \code{ordixyplot}.}
   \item{type}{The type of plot. This knows the same alternatives as
     \code{\link[lattice]{panel.xyplot}}. In addition \code{ordixyplot}
-    has alternative \code{"biplot"} which displays fitted vectors and
+    has alternatives \code{"biplot"} and \code{"arrows"}. The first
+    displays fitted vectors and 
     factor centroids of \code{envfit}, or in constrained ordination, the
-    biplot arrows and factor centroids if \code{envfit} is not given.}
+    biplot arrows and factor centroids if \code{envfit} is not
+    given. The second (\code{type = "arrows"} is a trellis variant of
+    \code{\link{ordiarrows}} and draws arrows by \code{groups}. The
+    line parameters are controlled by
+    \code{\link[lattice]{trellis.par.set}} for \code{superpose.line}},
+    and the user can set \code{length}, \code{angle} and \code{ends}
+    parameters of \code{\link[trellis]{panel.arrows}}.}
   \item{\dots}{ Arguments passed to \code{\link{scores}} methods or
     \pkg{lattice} functions.}
 }

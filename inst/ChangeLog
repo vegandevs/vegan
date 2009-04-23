@@ -8,7 +8,10 @@ Version 1.16-18 (opened April 21, 2009)
 
 	* ordixyplot: failed in constrained ordination (cca, rda,
 	capscale). Was broken in rev108 on Nov 7, 2007(!). The biplot was
-	rotated 90 degrees: it seems that lattice calls x y and y x...
+	rotated 90 degrees: it seems that lattice calls x y and y x. 
+
+	* ordixyplot & ordisplom: Gained a new type = "arrows" that is a
+	Lattice version of ordiarrows.
 
 	* RsquareAdj: defined as generic function. The old RsquareAdj is
 	now the "default" method, and there are specific methods for
