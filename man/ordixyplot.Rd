@@ -53,10 +53,10 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
     displays fitted vectors and 
     factor centroids of \code{envfit}, or in constrained ordination, the
     biplot arrows and factor centroids if \code{envfit} is not
-    given. The second (\code{type = "arrows"} is a trellis variant of
+    given. The second (\code{type = "arrows"}) is a trellis variant of
     \code{\link{ordiarrows}} and draws arrows by \code{groups}. The
     line parameters are controlled by
-    \code{\link[lattice]{trellis.par.set}} for \code{superpose.line}},
+    \code{\link[lattice]{trellis.par.set}} for \code{superpose.line},
     and the user can set \code{length}, \code{angle} and \code{ends}
     parameters of \code{\link[trellis]{panel.arrows}}.}
   \item{\dots}{ Arguments passed to \code{\link{scores}} methods or
