@@ -26,20 +26,20 @@ function (object, cutoff = 1,  ...)
     bigperm <- out$N.Perm[1]
     environment(object$terms) <- environment()
     if (rnk > 1) {
-        for (i in 2:rnk) {
-            zz <- paste(paste("Condition(", axnam[1:(i - 1)], 
+        for (.ITRM in 2:rnk) {
+            zz <- paste(paste("Condition(", axnam[1:(.ITRM - 1)], 
                 ")"), collapse = "+")
             fla <- update(formula(object), paste(". ~ . +", zz))
             sol <- update(object, fla, data = newdata)
             assign(".Random.seed", seed, envir = .GlobalEnv)
-            out[i, ] <- as.matrix(anova(sol, first = TRUE, ...))[1, 
+            out[.ITRM, ] <- as.matrix(anova(sol, first = TRUE, ...))[1, 
                 ]
-            if (out[i, "N.Perm"] > bigperm) {
-                bigperm <- out[i, "N.Perm"]
+            if (out[.ITRM, "N.Perm"] > bigperm) {
+                bigperm <- out[.ITRM, "N.Perm"]
                 bigseed <- get(".Random.seed", envir = .GlobalEnv, 
                   inherits = FALSE)
             }
-            if (out[i, "Pr(>F)"] > cutoff)
+            if (out[.ITRM, "Pr(>F)"] > cutoff)
                 break
         }
     }

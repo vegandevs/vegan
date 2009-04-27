@@ -21,21 +21,21 @@
     pchi[ntrm, ] <- sim$num
     df[ntrm:(ntrm + 1)] <- sim$df
     chi[ntrm:(ntrm + 1)] <- sim$chi
-    for (i in ntrm:2) {
+    for (.ITRM in ntrm:2) {
         if (ntrm < 2) 
             break
         assign(".Random.seed", sim$Random.seed, envir = .GlobalEnv)
-        fla <- as.formula(paste(" . ~ . -", trmlab[i]))
+        fla <- as.formula(paste(" . ~ . -", trmlab[.ITRM]))
         object <- update(object, fla)
         if (is.null(object$CCA)) 
             break
         sim <- permutest.cca(object, permutations = step, ...)
-        pchi[i, ] <- pchi[i, ] - sim$num
-        chi[i] <- chi[i] - sim$chi[1]
-        df[i] <- df[i] - sim$df[1]
-        pchi[i - 1, ] <- sim$num
-        chi[i - 1] <- sim$chi[1]
-        df[i - 1] <- sim$df[1]
+        pchi[.ITRM, ] <- pchi[.ITRM, ] - sim$num
+        chi[.ITRM] <- chi[.ITRM] - sim$chi[1]
+        df[.ITRM] <- df[.ITRM] - sim$df[1]
+        pchi[.ITRM - 1, ] <- sim$num
+        chi[.ITRM - 1] <- sim$chi[1]
+        df[.ITRM - 1] <- sim$df[1]
     }
     Fval <- chi/df/(chi[ntrm + 1]/df[ntrm + 1])
     Fval[ntrm + 1] <- NA

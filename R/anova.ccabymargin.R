@@ -10,12 +10,12 @@
     trms <- trms[keep]
     ntrms <- length(trms)
     bigperm <- 0
-    for (i in 1:ntrms) {
+    for (.ITRM in 1:ntrms) {
         fla <- formula(object)
         ## Put all trms except current into Condition() and update
         ## formula
         if (length(alltrms) > 1) {
-            keeptrms <- alltrms[!(alltrms==trms[i])]
+            keeptrms <- alltrms[!(alltrms==trms[.ITRM])]
             updfla <- paste("Condition(",paste(keeptrms, collapse="+"), ")")
             fla <- update(fla, paste(". ~ . + ", updfla))
         }
@@ -29,12 +29,12 @@
             bigseed <- get(".Random.seed", envir = .GlobalEnv,
                            inherits = FALSE)
         }
-        if (i == 1) {
+        if (.ITRM == 1) {
             seed <- attr(tmp, "Random.seed")
             sol <- tmp
         }
         else {
-            sol <- rbind(sol[1:(i-1),], as.matrix(tmp[1,]), sol[i,])
+            sol <- rbind(sol[1:(.ITRM-1),], as.matrix(tmp[1,]), sol[.ITRM,])
         }
         assign(".Random.seed", seed, envir = .GlobalEnv)
     }

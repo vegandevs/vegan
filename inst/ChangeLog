@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-18 (opened April 21, 2009)
 
+	* anova.cca: there was a name clash and failure in
+	anova.ccabymargin, anova.ccabyaxis and anova.ccabyterm if data
+	were indexed with 'i' in the fitted model. Now the internal
+	indexing uses less likely name (.ITRM) to avoid name clashes.
+
 	* orditkplot: copes with missing or NaN scores (omits them).
 
 	* ordixyplot: failed in constrained ordination (cca, rda,
