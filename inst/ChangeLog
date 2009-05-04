@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-18 (opened April 21, 2009)
 
+	* twostagechao: function that calculates multiple-community
+	similarity based on Chao et al. 2008 (Biometrics 64, 1178-86).
+	Some debugging is needed since it cannot reproduce the numbers
+	in Table 3 exactly (lower estimates and SEs). The Rd file
+	also needs more details.
+
 	* anova.cca: there was a name clash and failure in
 	anova.ccabymargin, anova.ccabyaxis and anova.ccabyterm if data
 	were indexed with 'i' in the fitted model. Now the internal
