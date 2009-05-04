@@ -12,7 +12,6 @@ extending the traditional pairwise comparisons of sites.
 \usage{
 twostagechao(x, order = 2, N = nrow(x), m = 1, nboot = 200, subset)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
 A community matrix with rows as sites and columns as species.
@@ -33,7 +32,7 @@ Number of bootstrap samples to use for calculating standard error of the estimat
 If \code{nboot = 0}, standard error is not computed.
 }
   \item{subset}{
-Optional vactor defining the subset of sites to use in the calculations.
+Optional vector defining the subset of sites to use in the calculations.
 If this argument is provided, its length should equal \code{N}.
 }
 }
@@ -93,8 +92,8 @@ lep1 <- structure(c(7L, 48L, 17L, 0L, 38L, 14L, 31L, 37L, 121L, 6L, 30L,
 2L, 0L, 0L, 2L, 0L, 0L, 1L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 2L, 0L, 
 0L, 1L, 0L, 0L, 1L, 0L, 0L, 1L), .Dim = c(3L, 120L), .Dimnames = list(
     c("Tree", "Sapling", "Seedling"), NULL))
-## compare walues in Table 3 of Chao et al. 2008
-## (4nd column, last 6 rows)
+## compare values in Table 3 of Chao et al. 2008
+## (4th column, last 6 rows)
 ## results are different!
 Order <- rep(2:3, 3)
 m <- c(1, 1, 5, 5, 10, 10)
