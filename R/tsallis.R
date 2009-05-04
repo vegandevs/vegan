@@ -1,6 +1,8 @@
 tsallis <-
-function (x, scales = seq(0, 2, 0.2), norm=FALSE)
+function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
 {
+    if (norm && hill)
+        stop("'norm = TRUE' and 'hill = TRUE' should not be used at the same time")
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
@@ -25,6 +27,9 @@ function (x, scales = seq(0, 2, 0.2), norm=FALSE)
             ST <- apply(x > 0, 1, sum)
             if (scales[a] == 1) result[, a] <- result[, a] / log(ST)
             else result[, a] <- result[, a] / ((ST^(1-scales[a]) - 1) / (1 - scales[a]))
+        }
+        if (hill) {
+            result[, a] <- (1 - (scales[a] - 1) * result[, a])^(1/(1-scales[a]))
         }
     }
     result <- as.data.frame(result)

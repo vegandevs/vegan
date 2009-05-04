@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-18 (opened April 21, 2009)
 
+	* tsallis: got new argument 'hill' similar that of renyi.
+
 	* twostagechao: function that calculates multiple-community
 	similarity based on Chao et al. 2008 (Biometrics 64, 1178-86).
 	Some debugging is needed since it cannot reproduce the numbers
