@@ -1,6 +1,6 @@
 multipart <-
 function(formula, data, index=c("renyi", "tsallis"), scales = 1,
-    nsimul=99, control, ...)
+    global = TRUE, nsimul=99, control, ...)
 {
     if (length(scales) > 1)
         stop("length of 'scales' must be 1")
@@ -42,8 +42,8 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
     ## aggregate response matrix
     fullgamma <-if (nlevels(rhs[,nlevs]) == 1)
         TRUE else FALSE
-    if (!fullgamma)
-        warning("gamma diversity value might be meaningless (untested feature)")
+    if (!fullgamma && !global)
+        warning("gamma diversity value might be meaningless")
     ftmp <- vector("list", nlevs)
     for (i in 1:nlevs) {
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
@@ -57,18 +57,50 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
         "renyi" = function(x) renyi(x, scales=scales, hill = TRUE),
         "tsallis" = function(x) tsallis(x, scales=scales, hill = TRUE))
 
+    ## cluster membership determination
+    nrhs <- rhs
+    nrhs <- sapply(nrhs, as.numeric)
+    idcluster <- function(h,l) {
+        sapply(unique(l), function(i) h[l==i][1])
+    }
+    idcl <- function(i) {
+        h <- nrhs[,i]
+        l <- nrhs[,(i-1)]
+        sapply(unique(l), function(i) h[l==i][1])
+    }
+    id <- lapply(2:nlevs, idcl)
+
     ## this is the function passed to oecosimu
-    wdivfun <- function(x) {
-        if (fullgamma) {
-            tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
-            tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
-        } else {
-            tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+    if (global) {
+        wdivfun <- function(x) {
+            if (fullgamma) {
+                tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+            } else {
+                tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+            }
+            a <- sapply(1:nlevs, function(i) mean(divfun(tmp[[i]]), na.rm=TRUE))
+            G <- a[nlevs]
+            b <- sapply(1:(nlevs-1), function(i) G / a[i])
+            c(a, b)
         }
-        a <- sapply(1:nlevs, function(i) mean(divfun(tmp[[i]]), na.rm=TRUE))
-        G <- a[nlevs]
-        b <- sapply(1:(nlevs-1), function(i) G / a[i])
-        c(a, b)
+    } else {
+        wdivfun <- function(x) {
+            if (fullgamma) {
+                tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+            } else {
+                tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+            }
+            a <- sapply(1:nlevs, function(i) divfun(tmp[[i]]))
+            am <- lapply(1:(nlevs-1), function(i) {
+                    sapply(1:length(unique(id[[i]])), function(ii) {
+                        mean(a[[i]][id[[i]]==ii])
+                    })
+                })
+            b <- sapply(1:(nlevs-1), function(i) mean(a[[(i+1)]] / am[[i]]))
+            c(sapply(a, mean), b)
+        }
     }
     sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
         burnin=control$burnin, thin=control$thin, control=control)
