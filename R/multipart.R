@@ -60,9 +60,6 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
     ## cluster membership determination
     nrhs <- rhs
     nrhs <- sapply(nrhs, as.numeric)
-    idcluster <- function(h,l) {
-        sapply(unique(l), function(i) h[l==i][1])
-    }
     idcl <- function(i) {
         h <- nrhs[,i]
         l <- nrhs[,(i-1)]
