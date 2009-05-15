@@ -29,7 +29,11 @@ function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
             else result[, a] <- result[, a] / ((ST^(1-scales[a]) - 1) / (1 - scales[a]))
         }
         if (hill) {
-            result[, a] <- (1 - (scales[a] - 1) * result[, a])^(1/(1-scales[a]))
+            result[, a] <- if (scales[a] == 1) {
+                exp(result[, a])
+            } else {
+                (1 - (scales[a] - 1) * result[, a])^(1/(1-scales[a]))
+            }
         }
     }
     result <- as.data.frame(result)
