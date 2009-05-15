@@ -4,6 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-19 (opened May 14, 2009)
 
+	* tsallis: division by zero occurred with hill=TRUE, scale=1,
+	this bug has been fixes to give exp(x) as scales goes to 1.
+
+	* multipart: a sequel to adipart, but implements multiplicative
+	diversity partitioning based on Hill numbers (Jost 2007,
+	Ecology, 88, 2427-2439.)
+
 	* eigenvals: new function to extract eigenvalues of cca, rda,
 	capscale (constrained & unconstrained), wcmdscale, prcomp,
 	princomp, eigen and svd. For svd returns squares of singular
