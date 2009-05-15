@@ -18,7 +18,7 @@ according to a nested hierarchical sampling design (\code{hiersimu}).
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
-    nsimul=99, control, ...)
+    global = TRUE, nsimul=99, control, ...)
 hiersimu(formula, data, FUN, location = c("mean", "median"),
     relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
 \method{print}{adipart}(x, ...)
@@ -42,6 +42,7 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
     relative to the value of gamma. This can be useful when comparing different indices.}
   \item{scales}{Numeroc, of length 1, the order of the generalized diversity index 
     to be used.}
+  \item{global}{Logical, indicates the calculation of beta values, see Details.}
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.}
   \item{control}{A list of arguments passed to quantitative permutation
           algorithms. If missing, the function  'permat.control' is used.}
@@ -95,9 +96,15 @@ runs, because it adds extra dimensionality to the implementation, which has not 
 efficiently.
 
 Alpha diversities are then the averages of these Hill numbers for each hierarchy levels, 
-gamma diversity is the alpha value calculated for the highest hierarchy level. 
-Beta is defined as
+the global gamma diversity is the alpha value calculated for the highest hierarchy level. 
+When \code{global = TRUE], beta is calculated relative to the global gamma value:
 \deqn{\beta_i = \gamma / \alpha_{i}}{beta_i = gamma / alpha_i}
+when \code{global = FALSE], beta is calculated relative to local gamma values (local gamma
+means the diversity the calculated for a particular cluster based on the pooled abundance vector):
+\deqn{\beta_ij = \alpha_{(i+1)j} / mean(\alpha_{ij})}{beta_ij = alpha_(i+1)j / mean(alpha_i)}
+where \eqn{j} is a particular cluster at hierarchy level \eqn{i}. Then beta diversity value for
+level \eqn{i} is the mean of the beta values of the clusters at that level,
+\eqn{\beta_{i} = mean(\beta_{ij})}.
 
 The expected diversity components are calculated \code{nsimul} times by individual based 
 randomisation of the community data matrix. This is done by the \code{\link{permatfull}} 

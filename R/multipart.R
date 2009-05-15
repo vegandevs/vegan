@@ -78,6 +78,7 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
     attr(sim, "call") <- match.call()
     attr(sim, "index") <- index
     attr(sim, "scales") <- scales
+    attr(sim, "global") <- TRUE
     attr(sim, "n.levels") <- nlevs
     attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs

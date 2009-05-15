@@ -5,7 +5,6 @@ function(x, ...)
     att <- attributes(x)
     att$names <- att$call <- att$class <- att$n.levels <- att$terms <- att$model <- NULL
     cat("with", paste(names(att), att, collapse=", "))
-
     cat("\n\n")
     cl <- class(x)
     if (length(cl) > 1 && cl[2] != "list") {
