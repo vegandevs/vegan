@@ -37,7 +37,7 @@
             warning("Labels are wrong: needed ", nrow(x), " got ", length(labels))
         attr(out, "Labels") <- as.character(labels)
     }
-    if (!check && any(out) <= 0)
+    if (!check && any(out <= 0))
         warning("you used 'check=FALSE' and some distances are zero -- was this intended?")
     out
 }
