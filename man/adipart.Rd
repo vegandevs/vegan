@@ -18,7 +18,7 @@ according to a nested hierarchical sampling design (\code{hiersimu}).
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
 multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
-    global = TRUE, nsimul=99, control, ...)
+    global = FALSE, relative = FALSE, nsimul=99, control, ...)
 hiersimu(formula, data, FUN, location = c("mean", "median"),
     relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
 \method{print}{adipart}(x, ...)
@@ -39,11 +39,14 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
     weighting proportional to sample abundances to use in weighted averaging of individual 
     alpha values within strata of a given level of the sampling hierarchy.}
   \item{relative}{Logical, if \code{TRUE} then alpha and beta diversity values are given 
-    relative to the value of gamma. This can be useful when comparing different indices.}
+    relative to the value of gamma for function \code{adipart}. For function \code{multipart},
+    it sets the standardization of the beta diversity value with its maximum (see Details).}
   \item{scales}{Numeroc, of length 1, the order of the generalized diversity index 
     to be used.}
   \item{global}{Logical, indicates the calculation of beta values, see Details.}
-  \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.}
+  \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.
+    If \code{nsimul = 0}, only the \code{FUN} argument is evaluated. It is thus possible
+    to reuse the statistic values without using a null model.}
   \item{control}{A list of arguments passed to quantitative permutation
           algorithms. If missing, the function  'permat.control' is used.}
   \item{FUN}{A function to be used by \code{hiersimu}.}
@@ -105,6 +108,10 @@ means the diversity the calculated for a particular cluster based on the pooled 
 where \eqn{j} is a particular cluster at hierarchy level \eqn{i}. Then beta diversity value for
 level \eqn{i} is the mean of the beta values of the clusters at that level,
 \eqn{\beta_{i} = mean(\beta_{ij})}.
+
+If \code{relative = TRUE} for \code{multipart}, the respective beta diversity values are
+standardized by their maximum expected values (\eqn{mean(\beta_{ij}) / \beta_{max,ij}})
+given as \eqn{\beta_{max,ij} = n_{j}} (the number of lower level units in a given cluster \eqn{j}).
 
 The expected diversity components are calculated \code{nsimul} times by individual based 
 randomisation of the community data matrix. This is done by the \code{\link{permatfull}} 

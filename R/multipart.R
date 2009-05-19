@@ -1,6 +1,6 @@
 multipart <-
 function(formula, data, index=c("renyi", "tsallis"), scales = 1,
-    global = TRUE, nsimul=99, control, ...)
+    global = FALSE, relative = FALSE, nsimul=99, control, ...)
 {
     if (length(scales) > 1)
         stop("length of 'scales' must be 1")
@@ -15,6 +15,10 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
     nlevs <- length(tlab)
     if (nlevs < 2)
         stop("provide at least two level hierarchy")
+    if (any(rowSums(lhs) == 0))
+        stop("data matrix contains empty rows")
+    if (any(lhs < 0))
+        stop("data matrix contains negative entries")
 
     ## part check proper design of the model frame
     noint <- attr(attr(attr(rhs, "terms"), "factors"), "dimnames")[[1]]
@@ -76,9 +80,12 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
             } else {
                 tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
             }
-            a <- sapply(1:nlevs, function(i) mean(divfun(tmp[[i]]), na.rm=TRUE))
+            raw <- sapply(1:nlevs, function(i) divfun(tmp[[i]]))
+            a <- sapply(raw, mean)
             G <- a[nlevs]
             b <- sapply(1:(nlevs-1), function(i) G / a[i])
+            if (relative)
+                b <- b / sapply(raw[1:(nlevs-1)], length)
             c(a, b)
         }
     } else {
@@ -95,12 +102,22 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
                         mean(a[[i]][id[[i]]==ii])
                     })
                 })
-            b <- sapply(1:(nlevs-1), function(i) mean(a[[(i+1)]] / am[[i]]))
-            c(sapply(a, mean), b)
+            b <- lapply(1:(nlevs-1), function(i) a[[(i+1)]] / am[[i]])
+            bmax <- lapply(id, function(i) table(i))
+            if (relative)
+                b <- lapply(1:(nlevs-1), function(i) b[[i]] / bmax[[i]])
+            c(sapply(a, mean), sapply(b, mean))
         }
     }
-    sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
-        burnin=control$burnin, thin=control$thin, control=control)
+    if (nsimul > 0) {
+            sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
+                burnin=control$burnin, thin=control$thin, control=control)
+        } else {
+            sim <- wdivfun(lhs)
+            tmp <- rep(NA, length(sim))
+            sim <- list(statistic = sim,
+                oecosimu = list(z = tmp, pval = tmp, method = NA, statistic = sim))
+        }
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
         paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam

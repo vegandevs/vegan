@@ -13,6 +13,10 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     nlevs <- length(tlab)
     if (nlevs < 2)
         stop("provide at least two level hierarchy")
+    if (any(rowSums(lhs) == 0))
+        stop("data matrix contains empty rows")
+    if (any(lhs < 0))
+        stop("data matrix contains negative entries")
 
     ## part check proper design of the model frame
     noint <- attr(attr(attr(rhs, "terms"), "factors"), "dimnames")[[1]]
@@ -77,8 +81,15 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
         b <- sapply(2:nlevs, function(i) a[i] - a[(i-1)])
         c(a, b)
     }
-    sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
-        burnin=control$burnin, thin=control$thin, control=control)
+    if (nsimul > 0) {
+        sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
+            burnin=control$burnin, thin=control$thin, control=control)
+        } else {
+            sim <- wdivfun(lhs)
+            tmp <- rep(NA, length(sim))
+            sim <- list(statistic = sim,
+                oecosimu = list(z = tmp, pval = tmp, method = NA, statistic = sim))
+        }
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
         paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
