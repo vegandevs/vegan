@@ -47,7 +47,8 @@
         p.i <- n.per.gr[i]
         if(p.i < 2) stop("There is a single variable in group ",gr.lev[i])
         ##CC# Correction factors for tied ranks (eq. 3.3)
-        t.ranks <- apply(R[,gr[[i]]], 2, function(x) summary(as.factor(x)))
+        t.ranks <- apply(R[,gr[[i]]], 2,
+                         function(x) summary(as.factor(x), maxsum=n))
         T. <- sum(unlist(lapply(t.ranks, function(x) sum((x^3)-x))))
 	
         ##CC# Compute the Sum of squares of the uncentred ranks (S) (eq. 3.1)
