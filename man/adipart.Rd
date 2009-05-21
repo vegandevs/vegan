@@ -102,7 +102,7 @@ Alpha diversities are then the averages of these Hill numbers for each hierarchy
 the global gamma diversity is the alpha value calculated for the highest hierarchy level. 
 When \code{global = TRUE}, beta is calculated relative to the global gamma value:
 \deqn{\beta_i = \gamma / \alpha_{i}}{beta_i = gamma / alpha_i}
-when \code{global = FALSE], beta is calculated relative to local gamma values (local gamma
+when \code{global = FALSE}, beta is calculated relative to local gamma values (local gamma
 means the diversity the calculated for a particular cluster based on the pooled abundance vector):
 \deqn{\beta_ij = \alpha_{(i+1)j} / mean(\alpha_{ij})}{beta_ij = alpha_(i+1)j / mean(alpha_i)}
 where \eqn{j} is a particular cluster at hierarchy level \eqn{i}. Then beta diversity value for
