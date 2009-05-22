@@ -6,11 +6,11 @@
 \alias{print.multipart}
 \alias{hiersimu}
 \alias{print.hiersimu}
-\title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
+\title{Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
 In diversity partitioning, mean values of alpha diversity at lower levels of a sampling 
 hierarchy are compared to the total diversity in the entire data set (gamma diversity). 
-The prtitioning can be additive (\code{adipart}) or multiplicative (\code{multipart}). 
+The partitioning can be additive (\code{adipart}) or multiplicative (\code{multipart}). 
 In hierarchical null model testing, a statistic returned by a function is evaluated 
 according to a nested hierarchical sampling design (\code{hiersimu}).
 }
