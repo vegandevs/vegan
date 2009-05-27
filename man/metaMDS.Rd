@@ -227,8 +227,8 @@ metaMDSrotate(object, vec, choices, ...)
   distance. \emph{Vegetatio} 69, 57--68.
 
   Minchin, P.R. (1987)  An evaluation of relative robustness
-  of techniques for ecological ordinations. \emph{Vegetatio} 71,
-  145-156.
+  of techniques for ecological ordinations. \emph{Vegetatio} 69,
+  89--107.
 }
 
 \author{ Jari Oksanen }
