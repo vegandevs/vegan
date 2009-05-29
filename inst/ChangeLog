@@ -19,6 +19,10 @@ Version 1.16-19 (opened May 14, 2009)
 	princomp, eigen and svd. For svd returns squares of singular
 	values, and for prcomp and princomp squares of 'sdev'.
 
+	* protest: observed value of test statistic is now considered as
+	one of the permutations. Default N.perm decreased to 999 to account
+	for this.
+
 Version 1.16-18 (closed May 14, 2009)
 
 	* tsallis: got new argument 'hill' similar to that of renyi.

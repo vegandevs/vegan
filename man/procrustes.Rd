@@ -28,7 +28,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
-protest(X, Y, scores = "sites", permutations = 1000, strata, ...)
+protest(X, Y, scores = "sites", permutations = 999, strata, ...)
 }
 
 \arguments{

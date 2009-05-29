@@ -1,5 +1,5 @@
 "protest" <-
-    function (X, Y, scores = "sites", permutations = 1000, strata, ...) 
+    function (X, Y, scores = "sites", permutations = 999, strata, ...)
 {
     X <- scores(X, display = scores, ...)
     Y <- scores(Y, display = scores, ...)
@@ -12,6 +12,8 @@
         tmp <- procrustes(X, Y[take, ], symmetric = TRUE)$ss
         perm[i] <- sqrt(1 - tmp)
     }
+    perm <- c(sol$t0, perm)
+    permutations <- permutations + 1
     Pval <- sum(perm >= sol$t0)/permutations
     if (!missing(strata)) {
         strata <- deparse(substitute(strata))
