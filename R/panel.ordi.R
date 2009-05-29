@@ -11,8 +11,8 @@ function(x, y, biplot, type = type,  ...)
     }
     if ("biplot" %in% type && !is.null(biplot$centres)) {
         panel.xyplot(biplot$centres[,2], biplot$centres[,1],
-                     col = ps$col, 
-                     pch = "+", cex = 3*tps$cex, lwd=2,
+                     col = ps$col,
+                     pch = "+", cex = 3*ps$cex, lwd=2,
                      ...)
     }
     if ("arrows" %in% type) {
@@ -24,13 +24,13 @@ function(x, y, biplot, type = type,  ...)
 
 ## needed for "arrows" %in% type
 panel.ordiarrows <-
-function(x, y, subscripts, 
-         ends = "last", type = "open", length = 0.25, angle = 30, ...) 
+function(x, y, subscripts,
+         ends = "last", type = "open", length = 0.25, angle = 30, ...)
 {
     n <- length(x)
     panel.arrows(x[-n], y[-n], x[-1], y[-1], ends = ends, type = "open",
-                 length = length, angle = angle, code = code, 
+                 length = length, angle = angle, code = code,
                  col = trellis.par.get("superpose.line")$col,
-                 lwd = trellis.par.get("superpose.line")$lwd, 
-                 ) 
+                 lwd = trellis.par.get("superpose.line")$lwd,
+                 )
 }
