@@ -8,7 +8,7 @@
     cat(formatC(x$statistic, digits = digits), "\n")
     nperm <- x$permutations
     if (nperm) {
-        cat("      Significance:", format.pval(x$signif, eps = 1/nperm), 
+        cat("      Significance:", format.pval(x$signif), 
             "\n\n")
         cat("Based on ", nperm, " permutations")
     }

@@ -29,6 +29,9 @@ Version 1.16-19 (opened May 14, 2009)
 	* mantel, mantel.partial: observed value of test statistic is now
 	considered as one of the permutations.
 
+	* anosim: observed value of test statistic is now considered as
+	one of the permutatons.
+
 Version 1.16-18 (closed May 14, 2009)
 
 	* tsallis: got new argument 'hill' similar to that of renyi.

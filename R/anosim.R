@@ -1,5 +1,5 @@
 "anosim" <-
-    function (dat, grouping, permutations = 1000,
+    function (dat, grouping, permutations = 999,
               distance = "bray", strata) 
 {
     if (inherits(dat, "dist")) 
@@ -28,6 +28,8 @@
     cl.vec[within] <- levels(grouping)[grouping[take]]
     cl.vec <- factor(cl.vec, levels = c("Between", levels(grouping)))
     if (permutations) {
+        if (permutations %% 100 == 0)
+            permutations <- permutations - 1
         perm <- rep(0, permutations)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)
@@ -36,7 +38,7 @@
             tmp.ave <- tapply(x.rank, tmp.within, mean)
             perm[i] <- -diff(tmp.ave)/div
         }
-        p.val <- sum(perm >= statistic)/permutations
+        p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
         sol$signif <- p.val
         sol$perm <- perm
     }
