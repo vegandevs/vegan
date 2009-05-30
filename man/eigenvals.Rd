@@ -1,6 +1,11 @@
 \name{eigenvals}
 \Rdversion{1.1}
 \alias{eigenvals}
+\alias{eigenvals.default}
+\alias{eigenvals.prcomp}
+\alias{eigenvals.princomp}
+\alias{eigenvals.cca}
+\alias{eigenvals.wcmdscale}
 
 \title{
   Extract Eigenvalues from an Ordination Object
