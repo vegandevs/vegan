@@ -14,8 +14,8 @@
 
 }
 \usage{
-mantel(xdis, ydis, method="pearson", permutations=1000, strata)
-mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 1000, 
+mantel(xdis, ydis, method="pearson", permutations=999, strata)
+mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
     strata)
 }
 

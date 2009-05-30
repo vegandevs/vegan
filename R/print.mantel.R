@@ -11,7 +11,7 @@
   cat(formatC(x$statistic, digits = digits), "\n")
   nperm <- x$permutations
   if (nperm) {
-    cat("      Significance:", format.pval(x$signif, eps = 1/nperm), 
+    cat("      Significance:", format.pval(x$signif), 
         "\n\n")
     out <- quantile(x$perm, c(0.9, 0.95, 0.975, 0.99))
     cat("Empirical upper confidence limits of r:\n")

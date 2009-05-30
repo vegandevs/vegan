@@ -26,6 +26,9 @@ Version 1.16-19 (opened May 14, 2009)
 	* envfit (vectorfit, factorfit): observed value of test statistic
 	is now considered as one of the permutations.
 
+	* mantel, mantel.partial: observed value of test statistic is now
+	considered as one of the permutations.
+
 Version 1.16-18 (closed May 14, 2009)
 
 	* tsallis: got new argument 'hill' similar to that of renyi.
