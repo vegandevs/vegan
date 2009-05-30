@@ -29,6 +29,8 @@
         colnames(heads) <- paste("Dim", 1:nc, sep = "")
     else colnames(heads) <- colnames(X)
     if (permutations) {
+        if (permutations %% 100 == 0)
+            permutations <- permutations - 1
         nr <- nrow(X)
         permstore <- matrix(nrow = permutations, ncol = ncol(P))
         for (i in 1:permutations) {
@@ -42,7 +44,7 @@
             permstore[i, ] <- diag(cor(Hperm, take))^2
         }
         permstore <- sweep(permstore, 2, r, ">")
-        pvals <- apply(permstore, 2, sum)/permutations
+        pvals <- (apply(permstore, 2, sum) + 1)/(permutations + 1)
     }
     else pvals <- NULL
     sol <- list(arrows = heads, r = r, permutations = permutations, 

@@ -23,6 +23,9 @@ Version 1.16-19 (opened May 14, 2009)
 	one of the permutations. Default N.perm decreased to 999 to account
 	for this.
 
+	* envfit (vectorfit, factorfit): observed value of test statistic
+	is now considered as one of the permutations.
+
 Version 1.16-18 (closed May 14, 2009)
 
 	* tsallis: got new argument 'hill' similar to that of renyi.
