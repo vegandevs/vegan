@@ -160,7 +160,7 @@ data(varespec)
 data(varechem)
 library(MASS)
 ord <- metaMDS(varespec)
-(fit <- envfit(ord, varechem, perm = 1000))
+(fit <- envfit(ord, varechem, perm = 999))
 scores(fit, "vectors")
 plot(ord)
 plot(fit)
@@ -169,7 +169,7 @@ plot(fit, p.max = 0.05, col = "red")
 ## that arrows are scaled similarly in cca and envfit plots
 ord <- cca(varespec ~ Al + P + K, varechem)
 plot(ord, type="p")
-fit <- envfit(ord, varechem, perm = 1000, display = "lc")
+fit <- envfit(ord, varechem, perm = 999, display = "lc")
 plot(fit, p.max = 0.05, col = "red")
 ## Class variables, formula interface, and displaying the
 ## inter-class variability with `ordispider'
