@@ -6,6 +6,8 @@
 \alias{eigenvals.princomp}
 \alias{eigenvals.cca}
 \alias{eigenvals.wcmdscale}
+\alias{print.eigenvals}
+\alias{summary.eigenvals}
 
 \title{
   Extract Eigenvalues from an Ordination Object
@@ -16,12 +18,16 @@
 }
 \usage{
 eigenvals(x)
+\method{summary}{eigenvals}(object, ...)
 }
 
 \arguments{
   \item{x}{
     An object from which to extract eigenvalues.
 }
+  \item{object}{
+    An \code{eigenvals} result object.
+}	
 }
 
 \details{
@@ -39,10 +45,13 @@ eigenvals(x)
   \code{\link{capscale}} the function returns the both constrained and
   unconstrained eigenvalues concatenated in one vector, but the partial
   component will be ignored.
+
+  The \code{summary} of \code{eigenvals} result returns eigenvalues,
+  proportion explained and cumulative proportion explained.
 }
 
 \value{
-  Vector of eigenvalues.
+  An object of class \code{"eigenvals"} which is a vector of eigenvalues.
 }
 
 \author{
@@ -61,7 +70,7 @@ data(varechem)
 mod <- cca(varespec ~ Al + P + K, varechem)
 ev <- eigenvals(mod)
 ev
-ev/sum(ev)
+summary(ev)
 }
 \keyword{ multivariate }
 

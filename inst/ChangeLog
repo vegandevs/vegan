@@ -17,7 +17,9 @@ Version 1.16-19 (opened May 14, 2009)
 	* eigenvals: new function to extract eigenvalues of cca, rda,
 	capscale (constrained & unconstrained), wcmdscale, prcomp,
 	princomp, eigen and svd. For svd returns squares of singular
-	values, and for prcomp and princomp squares of 'sdev'.
+	values, and for prcomp and princomp squares of 'sdev'. The
+	'summary' of eigenvals() retrurn eigenvalues with the proportion
+	explained and cumulatitive proportion explained.
 
 	* protest: observed value of test statistic is now considered as
 	one of the permutations. Default N.perm decreased to 999 to account
