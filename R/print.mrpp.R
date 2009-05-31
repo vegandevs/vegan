@@ -22,7 +22,7 @@ function (x, digits = max(3, getOption("digits") - 3), ...)
         formatC(x$E.delta),"\n\n")
     nperm <- x$permutations
     if (nperm) {
-        cat("Significance of delta:", format.pval(x$Pvalue, eps = 1/nperm), 
+        cat("Significance of delta:", format.pval(x$Pvalue), 
             "\n")
         cat("Based on ", nperm, " permutations")
     }

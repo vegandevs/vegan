@@ -1,5 +1,5 @@
 "mrpp" <-
-function (dat, grouping, permutations = 1000, distance = "euclidean", 
+function (dat, grouping, permutations = 999, distance = "euclidean", 
     weight.type = 1, strata) 
 {
     classmean <- function(ind, dmat, indls) {

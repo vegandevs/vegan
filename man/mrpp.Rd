@@ -14,7 +14,7 @@ test of whether there is a significant difference between two or more
 groups of sampling units.  }
 
 \usage{
-mrpp(dat, grouping, permutations = 1000, distance = "euclidean",
+mrpp(dat, grouping, permutations = 999, distance = "euclidean",
      weight.type = 1, strata)
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)

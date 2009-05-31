@@ -32,6 +32,9 @@ Version 1.16-19 (opened May 14, 2009)
 	* anosim: observed value of test statistic is now considered as
 	one of the permutatons.
 
+	* mrpp: argument defaults and printing adated for having test
+	statistic among permutations (like the function always had).
+
 Version 1.16-18 (closed May 14, 2009)
 
 	* tsallis: got new argument 'hill' similar to that of renyi.
