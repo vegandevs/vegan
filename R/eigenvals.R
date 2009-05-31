@@ -51,7 +51,8 @@
        out <- x$CCA$eig
    else
        out <- c(x$CCA$eig, x$CA$eig)
-   class(out) <- c("eigenvals")
+   if (!is.null(out))
+       class(out) <- c("eigenvals")
    out
 }
 
