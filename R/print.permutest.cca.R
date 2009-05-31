@@ -10,7 +10,7 @@
     else
         cat("all constrained eigenvalues\n")
     cat("Pseudo-F:\t", x$F.0, "\n")
-    cat("Significance:\t", format.pval(Pval, eps = 1/x$nperm), 
+    cat("Significance:\t", format.pval(Pval), 
         "\n")
     cat("Based on", x$nperm, "permutations under", x$model, "model")
     if (!is.null(x$strata)) 

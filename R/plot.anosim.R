@@ -5,7 +5,7 @@ function (x, title=NULL, ...)
            ...)
    title(title)
    if (x$permutations) {
-     pval <- format.pval(x$signif, eps=1/x$permutations)
+     pval <- format.pval(x$signif)
    } else {
      pval <- "not assessed"
    }
