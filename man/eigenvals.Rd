@@ -17,7 +17,8 @@
   multivariate methods return such objects. 
 }
 \usage{
-eigenvals(x)
+eigenvals(x, ...)
+\method{eigenvals}{cca}(x, constrained = FALSE, ...)
 \method{summary}{eigenvals}(object, ...)
 }
 
@@ -27,7 +28,13 @@ eigenvals(x)
 }
   \item{object}{
     An \code{eigenvals} result object.
-}	
+}
+   \item{constrained}{
+    Return only constrained eigenvalues.
+}
+   \item{\dots}{
+    Other arguments to the functions (usually ignored)
+}
 }
 
 \details{
@@ -44,7 +51,8 @@ eigenvals(x)
   methods \code{\link{cca}}, \code{\link{rda}} and
   \code{\link{capscale}} the function returns the both constrained and
   unconstrained eigenvalues concatenated in one vector, but the partial
-  component will be ignored.
+  component will be ignored. However, with argument 
+  \code{constrained = TRUE} only constrained eigenvalues are returned. 
 
   The \code{summary} of \code{eigenvals} result returns eigenvalues,
   proportion explained and cumulative proportion explained.

@@ -1,13 +1,13 @@
 # Extract eigenvalues from an object that has them
 
 `eigenvals` <-
-    function(x)
+    function(x, ...)
 {
     UseMethod("eigenvals")
 }
 
 `eigenvals.default`<-
-    function(x)
+    function(x, ...)
 {
     ## svd and eigen return unspecified 'list', see if this could be
     ## either of them
@@ -26,7 +26,7 @@
 
 ## squares of sdev 
 `eigenvals.prcomp` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$sdev^2
     names(out) <- colnames(x$rotation)
@@ -36,7 +36,7 @@
 
 ## squares of sdev
 `eigenvals.princomp` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$sdev^2
     class(out) <- "eigenvals"
@@ -45,16 +45,19 @@
 
 ## concatenate constrained and unconstrained eigenvalues in cca, rda
 ## and capscale (vegan) -- ignore pCCA component
-`eigenvals.cca` <- function(x)
+`eigenvals.cca` <- function(x, constrained = FALSE, ...)
 {
-   out <- c(x$CCA$eig, x$CA$eig)
+   if (constrained)
+       out <- x$CCA$eig
+   else
+       out <- c(x$CCA$eig, x$CA$eig)
    class(out) <- c("eigenvals")
    out
 }
 
 ## wcmdscale (in vegan)
 `eigenvals.wcmdscale` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$eig
     class(out) <-"eigenvals"
