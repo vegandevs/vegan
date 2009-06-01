@@ -8,11 +8,6 @@
     ## variables.  data is the data frame from which A, B, and C would
     ## be drawn.
     TOL <- 1e-7
-    ## Set no. of permutations to x-1 if x is an even hundred
-    if (permutations %% 100 == 0) {
-        permutations <- permutations - 1
-        warning("Setting no. of permutations to ", permutations)
-    }
     Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
     lhs <- eval(lhs, data, parent.frame()) # to force evaluation 
