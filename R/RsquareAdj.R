@@ -29,7 +29,11 @@
 RsquareAdj.cca <-
     function(x, ...)
 {
-    NA
+    R2 <- x$CCA$tot.chi/x$tot.chi
+    m <- x$CCA$rank
+    n <- 1 + m + x$CA$rank + ifelse(is.null(x$pCCA), 0, x$pCCA$rank)
+    radj <- NA
+    list(r.squared = R2, adj.r.squared = radj)
 }
 
 ## Linear model: take the result from the summary
@@ -48,4 +52,3 @@ RsquareAdj.glm <-
     else
         NA
 }
-
