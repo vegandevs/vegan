@@ -23,6 +23,11 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     m <- t(weight.centre(t(m), w))
     m <- m * sqrt(w) %o% sqrt(w)
     e <- eigen(-m/2, symmetric = TRUE)
+    ## Remove zero eigenvalues, keep negative
+    keep <- abs(e$values) > ZERO
+    e$values <- e$values[keep]
+    e$vectors <- e$vectors[, keep]
+    ## Get number of positive eigenvalues
     if (missing(k))
         k <- sum(e$values > ZERO)
     ev <- e$values[1:k]
@@ -30,7 +35,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     points <- sweep(points, 2, sqrt(ev), "*")
     rownames(points) <- rownames(m)
     if (eig || x.ret || add) {
-        out <- list(points = points, eig = if (eig) e$values[-n],
+        out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = NA, GOF = NA, weights = w)
         class(out) <- "wcmdscale"
     }
