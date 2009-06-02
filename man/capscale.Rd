@@ -149,12 +149,15 @@ capscale(formula, data, distance = "euclidean", comm = NULL,
   Edition. Elsevier
 }
 \author{ Jari Oksanen }
-\note{
-  Warnings of negative eigenvalues are issued with most dissimilarity
-  indices.  These are harmless, and negative eigenvalues will be ignored
-  in the analysis.  If the warnings are disturbing, you can use argument
-  \code{add = TRUE} passed to \code{\link{cmdscale}}, or, preferably, a
-  distance measure that does not cause these warnings.  In
+
+\note{ The function produces negative eigenvalues with many
+  dissimilarity indices. The negative eigenvalues are listed after
+  positive unconstrained eigenvalues with prefix \code{NEG}.  The total
+  inertia and total unconstrained inertia are sums of all eigenvalues,
+  including negative ones. No ordination scores are given for negative
+  eigenvalues.  If the negative eigenvalues are disturbing, you can use
+  argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
+  preferably, a distance measure that does not cause these warnings.  In
   \code{\link{vegdist}}, \code{method = "jaccard"} gives such an index.
   Alternatively, after square root transformation many indices do not
   cause warnings.
