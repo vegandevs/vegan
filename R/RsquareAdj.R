@@ -20,7 +20,7 @@
 {
     R2 <- x$CCA$tot.chi/x$tot.chi
     m <- x$CCA$rank
-    n <- 1 + m + x$CA$rank + ifelse(is.null(x$pCCA), 0, x$pCCA$rank)
+    n <- nrow(x$CCA$u)
     radj <- RsquareAdj(R2, n, m)
     list(r.squared = R2, adj.r.squared = radj)
 }
@@ -31,7 +31,7 @@ RsquareAdj.cca <-
 {
     R2 <- x$CCA$tot.chi/x$tot.chi
     m <- x$CCA$rank
-    n <- 1 + m + x$CA$rank + ifelse(is.null(x$pCCA), 0, x$pCCA$rank)
+    n <- nrow(x$CCA$u)
     radj <- NA
     list(r.squared = R2, adj.r.squared = radj)
 }
