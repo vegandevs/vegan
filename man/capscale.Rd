@@ -19,8 +19,9 @@
   optionally using extended dissimilarities.
 }
 \usage{
-capscale(formula, data, distance = "euclidean", comm = NULL,
-         add = FALSE,  dfun = vegdist, metaMDSdist = FALSE, ...)
+capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
+    comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
+    ...)
 }
 
 \arguments{
@@ -43,6 +44,8 @@ capscale(formula, data, distance = "euclidean", comm = NULL,
   \item{distance}{Dissimilarity (or distance) index  in
     \code{\link{vegdist}} used if the LHS of the \code{formula} is a
     data frame instead of dissimilarity matrix. }
+  \item{sqrt.dist}{Take square roots of dissimilarities. See section
+  \code{Notes} below.}
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
@@ -157,22 +160,27 @@ capscale(formula, data, distance = "euclidean", comm = NULL,
   including negative ones. No ordination scores are given for negative
   eigenvalues.  If the negative eigenvalues are disturbing, you can use
   argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
-  preferably, a distance measure that does not cause these warnings.  In
-  \code{\link{vegdist}}, \code{method = "jaccard"} gives such an index.
-  Alternatively, after square root transformation many indices do not
-  cause warnings.
-  
-  Function \code{\link{rda}} usually divides the ordination scores by
-  number of sites minus one. In this way, the inertia is variance
-  instead of sum of squares, and the eigenvalues sum up to
-  variance. Many dissimilarity measures are in the range 0 to 1, so they
-  have already made a similar division. If the largest original
+  preferably, a distance measure that does not cause these warnings.
+  Alternatively, after square root transformation of distances (argument
+  \code{sqrt.dist = TRUE}) many indices do not produce negative
+  eignevalues. 
+
+  The inertia is named after the dissimilarity index as defined in the
+  dissimilairty matrix, or as \code{unknown} distance if such an
+  information is missing.  Function \code{\link{rda}} usually divides
+  the ordination scores by number of sites minus one. In this way, the
+  inertia is variance instead of sum of squares, and the eigenvalues sum
+  up to variance. Many dissimilarity measures are in the range 0 to 1,
+  so they have already made a similar division. If the largest original
   dissimilarity is less than or equal to 4 (allowing for
   \code{\link{stepacross}}), this division is undone in \code{capscale}
-  and original dissimilarities are used. The inertia is named
-  \code{squared dissimilarity} (as defined in the dissimilarity matrix),
-  but keyword \code{mean} is added to the inertia in cases where
-  division was made, e.g. in Euclidean and Manhattan distances.
+  and original dissimilarities are used. Keyword \code{mean} is added to
+  the inertia in cases where division was made, e.g. in Euclidean and
+  Manhattan distances.  Inertia is based on squared index, and keyword
+  \code{squared} is added to the name of distance, unless data were
+  square root transformed (argument \code{sqrt.dist = TRUE}). If an
+  additive constant was used, keyword \code{euclidified} is added to the
+  the name of inertia (argument \code{add = TRUE}).
 }
 
 
@@ -182,11 +190,18 @@ capscale(formula, data, distance = "euclidean", comm = NULL,
 \examples{
 data(varespec)
 data(varechem)
+## Basic Analysis
 vare.cap <- capscale(varespec ~ N + P + K + Condition(Al), varechem,
                      dist="bray")
 vare.cap
 plot(vare.cap)
 anova(vare.cap)
+## Avoid negative eigenvalues with additive constant
+capscale(varespec ~ N + P + K + Condition(Al), varechem,
+                     dist="bray", add =TRUE)
+## Avoid negative eigenvalues wusing square roots of dissimilarities
+capscale(varespec ~ N + P + K + Condition(Al), varechem,
+                     dist = "bray", sqrt.dist= TRUE)
 ## Principal coordinates analysis with extended dissimilarities
 capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
 }

@@ -1,6 +1,7 @@
 `capscale` <-
-    function (formula, data, distance = "euclidean", comm = NULL, 
-              add = FALSE, dfun = vegdist, metaMDSdist = FALSE, ...) 
+    function (formula, data, distance = "euclidean", sqrt.dist = FALSE,
+              comm = NULL, add = FALSE, dfun = vegdist,
+              metaMDSdist = FALSE, ...) 
 {
     EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula")) 
@@ -27,12 +28,16 @@
             X <- dfun(X, distance)
         }
     }
+    if (sqrt.dist)
+        X <- sqrt(X)
     inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
     inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
                                                             2, 256), sep = "")
-    inertia <- paste("squared", inertia, "distance")
+    inertia <- paste(inertia, "distance")
+    if (!sqrt.dist)
+        inertia <- paste("squared", inertia)
     if (add) 
         inertia <- paste(inertia, "(euclidified)")
     k <- attr(X, "Size") - 1 
