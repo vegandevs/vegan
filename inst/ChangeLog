@@ -21,7 +21,8 @@ Version 1.16-19 (opened May 14, 2009)
 	* wcmdscale: remove zero eigenvalues, keep negative, and do not
 	assume that the last eigenvalue is zero. 
 
-	* RsquareAdj.cca: returns R2, but no adjusted R2 (which is NA). 
+	* RsquareAdj: 'cca' returns R2, but no adjusted R2 (which is
+	NA). The adjusted R2 is always NA for partial models. 
 
 	* kendall.global: fixed a bug that caused incorrect counts of ties
 	in large data sets.
