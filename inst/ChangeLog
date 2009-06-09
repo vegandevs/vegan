@@ -12,7 +12,11 @@ Version 1.16-19 (opened May 14, 2009)
 	eigenvalues, but no scores are given for them. The total inertia
 	and the total unconstrained inertia are now sums of all
 	eigenvalues, including the negative ones. The rank includes
-	negative axes.
+	negative axes. New argument 'sqrt.dist' makes square root
+	transformation of dissimilarities, producing metric indices in
+	many cases (e.g., Bray-Curtis, Jaccard). Help page and examples
+	now show all these, and therefore the entry on negative
+	eigenvalues was dropped from FAQ-vegan.texi.
 
 	* wcmdscale: remove zero eigenvalues, keep negative, and do not
 	assume that the last eigenvalue is zero. 
