@@ -79,6 +79,7 @@
             names(negax) <- paste("NEG", seq_along(negax), sep="")
             sol$CA$eig <- c(sol$CA$eig, negax)
             sol$CA$tot.chi <- abs(sum(sol$CA$eig))
+            sol$CA$rank <- length(sol$CA$eig)
         }
     }
     if (!is.null(comm)) {

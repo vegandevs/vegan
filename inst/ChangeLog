@@ -11,7 +11,8 @@ Version 1.16-19 (opened May 14, 2009)
 	negative eigenvalues are listed after positive unconstrained
 	eigenvalues, but no scores are given for them. The total inertia
 	and the total unconstrained inertia are now sums of all
-	eigenvalues, including the negative ones.
+	eigenvalues, including the negative ones. The rank includes
+	negative axes.
 
 	* wcmdscale: remove zero eigenvalues, keep negative, and do not
 	assume that the last eigenvalue is zero. 
