@@ -41,9 +41,9 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     or \code{\link{cca}}. This allows the use of partial CAP.}
   \item{data}{ Data frame containing the variables on the right hand side of
     the model formula. }
-  \item{distance}{Dissimilarity (or distance) index  in
-    \code{\link{vegdist}} used if the LHS of the \code{formula} is a
-    data frame instead of dissimilarity matrix. }
+  \item{distance}{The name of the dissimilarity (or distance) index if
+    the LHS of the \code{formula} is a data frame instead of
+    dissimilarity matrix.}
   \item{sqrt.dist}{Take square roots of dissimilarities. See section
   \code{Notes} below.}
   \item{comm}{ Community data frame which will be used for finding
@@ -166,7 +166,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   eignevalues. 
 
   The inertia is named after the dissimilarity index as defined in the
-  dissimilairty matrix, or as \code{unknown} distance if such an
+  dissimilarity data, or as \code{unknown distance} if such an
   information is missing.  Function \code{\link{rda}} usually divides
   the ordination scores by number of sites minus one. In this way, the
   inertia is variance instead of sum of squares, and the eigenvalues sum
@@ -199,7 +199,7 @@ anova(vare.cap)
 ## Avoid negative eigenvalues with additive constant
 capscale(varespec ~ N + P + K + Condition(Al), varechem,
                      dist="bray", add =TRUE)
-## Avoid negative eigenvalues wusing square roots of dissimilarities
+## Avoid negative eigenvalues by taking square roots of dissimilarities
 capscale(varespec ~ N + P + K + Condition(Al), varechem,
                      dist = "bray", sqrt.dist= TRUE)
 ## Principal coordinates analysis with extended dissimilarities
