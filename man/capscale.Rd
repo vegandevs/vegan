@@ -144,6 +144,9 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   coordinates: a useful method of constrained ordination for
   ecology. \emph{Ecology} 84, 511--525.
 
+  Gower, J.C. (1985). Properties of Euclidean and non-Euclidean
+  distance matrices. \emph{Linear Algebra and its Applications} 67, 81--97.
+
   Legendre, P. & Anderson, M. J. (1999). Distance-based redundancy
   analysis: testing multispecies responses in multifactorial ecological
   experiments. \emph{Ecological Monographs} 69, 1--24.
@@ -155,15 +158,16 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 \note{ The function produces negative eigenvalues with many
   dissimilarity indices. The negative eigenvalues are listed after
-  positive unconstrained eigenvalues with prefix \code{NEG}.  The total
-  inertia and total unconstrained inertia are sums of all eigenvalues,
-  including negative ones. No ordination scores are given for negative
-  eigenvalues.  If the negative eigenvalues are disturbing, you can use
-  argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
-  preferably, a distance measure that does not cause these warnings.
-  Alternatively, after square root transformation of distances (argument
-  \code{sqrt.dist = TRUE}) many indices do not produce negative
-  eignevalues. 
+  positive unconstrained eigenvalues with prefix \code{NEG}.
+  The total inertia and total unconstrained inertia are sums of all
+  eigenvalues, including negative ones, and the rank is the number of 
+  all nonzero eigenvalues (Gower 1985). No ordination scores are given
+  for negative eigenvalues.  If the negative eigenvalues are
+  disturbing, you can use argument \code{add = TRUE} passed to
+  \code{\link{cmdscale}}, or, preferably, a distance measure that does
+  not cause these warnings.  Alternatively, after square root
+  transformation of distances (argument \code{sqrt.dist = TRUE}) many
+  indices do not produce negative eigenvalues.
 
   The inertia is named after the dissimilarity index as defined in the
   dissimilarity data, or as \code{unknown distance} if such an
