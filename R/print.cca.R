@@ -7,14 +7,15 @@
     }
     writeLines(strwrap(pasteCall(x$call)))
     cat("\n")
-    chi <- rbind(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi)
-    rnk <- rbind(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank)
-    tbl <- cbind(chi, rnk)
+    chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi,
+             x$CA$imaginary.chi)
+    rnk <- c(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank, x$CA$imaginary.rank)
     tbl <- cbind(chi, rnk)
     colnames(tbl) <- c("Inertia", "Rank")
-    rn <- c("Total", "Conditional", "Constrained", "Unconstrained")
+    rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
+            "Imaginary")
     rownames(tbl) <- rn[c(TRUE, !is.null(x$pCCA), !is.null(x$CCA), 
-                          !is.null(x$CA))]
+                          !is.null(x$CA), !is.null(x$CA$imaginary.chi))]
     printCoefmat(tbl, digits = digits, na.print = "")
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
