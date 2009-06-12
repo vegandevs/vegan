@@ -46,7 +46,7 @@
         adjust <- 1
     }
     else {
-        adjust <- k
+        adjust <- sqrt(k)
     }
     nm <- attr(X, "Labels")
     ## cmdscale is only used if 'add = TRUE': it cannot properly
@@ -62,8 +62,6 @@
     X$points <- adjust * X$points
     if (adjust == 1)
         X$eig <- X$eig/k
-    else
-        X$eig <- adjust * X$eig
     neig <- min(which(X$eig < 0) - 1, sum(X$eig > EPS))
     sol <- X$points[, 1:neig]
     fla <- update(formula, sol ~ .)
