@@ -76,6 +76,10 @@
      \code{CCA} components. Only in \code{CCA}.}
     \item{\code{tot.chi}}{Total inertia or the sum of all eigenvalues of the
       component.}
+    \item{\code{imaginary.chi}, \code{imaginary.rank}}{The sum and
+     rank (number) of negative eigenvalues in
+     \code{\link{capscale}}. Only in \code{CA} and only if negative
+     eigenvalues were found in \code{\link{capscale}}.}
     \item{\code{u}}{(Weighted) orthonormal site scores.  Please note that
       scaled scores are not stored in the \code{cca} object, but they
       are made when the object is accessed with functions like
