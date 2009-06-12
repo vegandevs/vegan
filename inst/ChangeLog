@@ -10,13 +10,16 @@ Version 1.16-19 (opened May 14, 2009)
 	specified (and then negative eigenvalues are not produced). The
 	negative eigenvalues are listed after positive unconstrained
 	eigenvalues, but no scores are given for them. The total inertia
-	and the total unconstrained inertia are now sums of all
-	eigenvalues, including the negative ones. The rank includes
-	negative axes. New argument 'sqrt.dist' makes square root
-	transformation of dissimilarities, producing metric indices in
-	many cases (e.g., Bray-Curtis, Jaccard). Help page and examples
-	now show all these, and therefore the entry on negative
-	eigenvalues was dropped from FAQ-vegan.texi.
+	is now the sum of all eigenvalues, including the negative ones,
+	and inertia components adds item 'Imaginary' for negative
+	eigenvalues after 'Uncostrained'. New argument 'sqrt.dist' makes
+	square root transformation of dissimilarities, producing metric
+	indices in many cases (e.g., Bray-Curtis, Jaccard). Help page and
+	examples now show all these, and therefore the entry on negative
+	eigenvalues was dropped from FAQ-vegan.texi. The closed (max 1)
+	indices are now correctly adjusted for 'rda' and hence the
+	eigenvalues and inertia components are now sqrt(n-1) smaller and
+	similar as in 'cmdscale' and 'wcmdscale'.
 
 	* wcmdscale: remove zero eigenvalues, keep negative, and do not
 	assume that the last eigenvalue is zero. 
