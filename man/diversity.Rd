@@ -2,8 +2,10 @@
 \name{diversity}
 \alias{diversity}
 \alias{rarefy}
+\alias[rrarefy}
 \alias{fisher.alpha}
 \alias{specnumber}
+
 
 \title{ Ecological Diversity Indices and Rarefaction Species Richness }
 
@@ -14,6 +16,8 @@ and rarefied species richness for community ecologists.  }
 diversity(x, index = "shannon", MARGIN = 1, base = exp(1))
 
 rarefy(x, sample, se = FALSE, MARGIN = 1)
+
+rrarefy(x, sample)
 
 fisher.alpha(x, MARGIN = 1, se = FALSE, ...)
 
@@ -52,7 +56,14 @@ specnumber(x, MARGIN = 1)
   size separately.
   Rarefaction can be performed only with genuine counts of individuals.
   The function \code{rarefy} is based on Hurlbert's (1971) formulation,
-  and the standard errors on Heck et al. (1975).  
+  and the standard errors on Heck et al. (1975).
+
+  Function \code{rrarefy} generates one randomly rarefied community data
+  frame or vector of given \code{sample} size. The \code{sample} can be
+  a vector, and its values must be less or equal to observed number of
+  individuals. The random rarefaction is made without replacement so
+  that the variance of rarefied communities is rather related to
+  rarefaction proportion than to to the size of the \code{sample}.  
 
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
