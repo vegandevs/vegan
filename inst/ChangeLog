@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-19 (opened May 14, 2009)
+Versin 1.16-20 (opened June 17, 2009)
+
+	* new version opened concurrently with the release of vegan 1.15-3
+	on June 17, 2009.
+	
+Version 1.16-19 (closed June 17, 2009)
 
 	* capscale: handles now negative eigenvalues with semimetric
 	indices. These cause no more warnings. The MDS engine is now
