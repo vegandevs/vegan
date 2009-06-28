@@ -2,10 +2,9 @@
 \name{diversity}
 \alias{diversity}
 \alias{rarefy}
-\alias[rrarefy}
+\alias{rrarefy}
 \alias{fisher.alpha}
 \alias{specnumber}
-
 
 \title{ Ecological Diversity Indices and Rarefaction Species Richness }
 
