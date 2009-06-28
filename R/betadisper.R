@@ -45,7 +45,6 @@
     eig <- e$values
     ## Remove zero eigenvalues
     eig <- eig[(want <- abs(eig/eig[1]) > TOL)]
-    ##rs <- seq_along(eig)
     ## scale Eigenvectors
     vectors <- vectors[, want, drop = FALSE] %*% diag(sqrt(abs(eig)))
     ## store which are the positive eigenvalues
