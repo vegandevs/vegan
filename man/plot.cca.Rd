@@ -21,9 +21,9 @@
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
          scaling = 2, type, xlim, ylim, const, ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, ...)
+    arrow.mul, head.arrow = 0.05, select, const, ...)
 \method{points}{cca}(x, display = "sites", choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, ...)
+    arrow.mul, head.arrow = 0.05, select, const, ...)
 \method{scores}{cca}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, ...)
 \method{scores}{rda}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, 
     const, ...)
