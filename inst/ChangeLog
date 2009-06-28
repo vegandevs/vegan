@@ -8,7 +8,9 @@ Versin 1.16-20 (opened June 17, 2009)
 	on June 17, 2009.
 
 	* rrarefy: a new function to generate randomly rarefied
-	communities. 
+	communities.
+
+	* betadisper: fix bug in removal of (effectively) zero Eigenvalues.
 	
 Version 1.16-19 (closed June 17, 2009)
 

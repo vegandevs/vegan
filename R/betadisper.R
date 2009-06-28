@@ -44,10 +44,10 @@
     vectors <- e$vectors
     eig <- e$values
     ## Remove zero eigenvalues
-    eig <- eig[abs(eig/eig[1]) > TOL]
-    rs <- seq_along(eig)
+    eig <- eig[(want <- abs(eig/eig[1]) > TOL)]
+    ##rs <- seq_along(eig)
     ## scale Eigenvectors
-    vectors <- vectors[, rs, drop = FALSE] %*% diag(sqrt(abs(eig)))
+    vectors <- vectors[, want, drop = FALSE] %*% diag(sqrt(abs(eig)))
     ## store which are the positive eigenvalues
     pos <- eig > 0
     ## group centroids in PCoA space
@@ -80,7 +80,7 @@
     ## zij are the distances of each point to its group centroid
     zij <- sqrt(abs(dist.pos - dist.neg))
     ## add in correct labels
-    colnames(vectors) <- names(eig) <- paste("PCoA", rs, sep = "")
+    colnames(vectors) <- names(eig) <- paste("PCoA", seq_along(eig), sep = "")
     if(is.matrix(centroids))
         colnames(centroids) <- names(eig)
     else
