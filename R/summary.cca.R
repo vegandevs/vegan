@@ -18,13 +18,20 @@
         summ <- list(summ)
         names(summ) <- nms[display]
     }
+    if (length(display) > 0) {
+        for (i in 1:length(summ)) {
+            rownames(summ[[i]]) <- rownames(summ[[i]], do.NULL = FALSE,
+                                            prefix = substr(names(summ)[i], 1, 3))
+        }
+    }
     summ$call <- object$call
     summ$tot.chi <- object$tot.chi
     summ$partial.chi <- object$pCCA$tot.chi
     summ$constr.chi <- object$CCA$tot.chi
     summ$unconst.chi <- object$CA$tot.chi
     summ$cont <- summary(eigenvals(object))
-    summ$concont <- summary(eigenvals(object, constrained = TRUE))
+    if (!is.null(object$CCA))
+        summ$concont <- summary(eigenvals(object, constrained = TRUE))
     summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[1:axes]
     summ$scaling <- scaling
     summ$digits <- digits

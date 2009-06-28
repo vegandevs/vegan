@@ -2,7 +2,9 @@
     function(x, display, labels, choices = c(1,2), priority,
              cex = 0.8, fill = "white", border = NULL,  ...)
 {
-    x <- scores(x, display = display, choices = choices, ...)
+    if (missing(display))
+        display <- "sites"
+    x <- scores(x, choices = choices, display = display, ...)
     if (missing(labels))
         labels <- rownames(x)
     if (!missing(priority)) {

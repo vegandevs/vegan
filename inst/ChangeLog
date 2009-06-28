@@ -11,6 +11,24 @@ Versin 1.16-20 (opened June 17, 2009)
 	communities.
 
 	* betadisper: fix bug in removal of (effectively) zero Eigenvalues.
+
+	* summary.cca: takes care that all scores have rownames --
+	head/tail fail without names. No  ugly printing for constrained
+	eigenvalues when these do not exist in unconstrained models.
+
+	* biplot.rda: honour args to scores ('scaling', 'const').
+
+	* points/text for cca: accept 'const' argument for rda scores.
+
+	* ordilabel: no superfluous warnigns when args ('scaling',
+	'const') are given to scores.
+
+	* ordiplot3d: honour args to scores ('scaling', 'const') and
+	without warnings.
+
+	* ordixyplot: honour ags to scores ('scaling', 'const'). 
+
+	* spantree: plot honours args to scores ('scaling', 'const'). 
 	
 Version 1.16-19 (closed June 17, 2009)
 

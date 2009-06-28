@@ -7,7 +7,8 @@
 }
 \usage{
 \method{biplot}{rda}(x, choices = c(1, 2), scaling = 2,
-       display = c("sites", "species"), type, xlim, ylim, col = c(1,2), ...)
+       display = c("sites", "species"), type, xlim, ylim, col = c(1,2), 
+       const, ...)
 }
 
 \arguments{
@@ -34,6 +35,7 @@
   \item{xlim, ylim}{the x and y limits (min, max) of the plot.}
   \item{col}{Colours used for sites and species (in this order). If only
     one colour is given, it is used for both.}
+  \item{dots}{General scaling constant for \code{\link{scores.rda}}.}
   \item{\dots}{Other parameters for plotting functions.}
 }
 \details{

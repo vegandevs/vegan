@@ -3,8 +3,8 @@
 {
     if (!missing(envfit) && !is.null(envfit))
         object <- envfit
-    bp <- scores(object, display = "bp", choices = choices)
-    cn <- scores(object, display = "cn",  choices = choices)
+    bp <- scores(object, display = "bp", choices = choices, ...)
+    cn <- scores(object, display = "cn",  choices = choices, ...)
     bp <- bp[!(rownames(bp) %in% rownames(cn)),, drop=FALSE]
     left <- as.character(formula[[2]])
     right <- formula[[3]]

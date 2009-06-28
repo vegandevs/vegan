@@ -4,8 +4,6 @@
              type = c("p", "biplot"),  ...)
 {
   localXyplot <- function(..., shrink, origin, scaling) xyplot(...)
-  localOrdilattice.getEnvfit <-
-    function(..., shrink, origin, scaling) ordilattice.getEnvfit(...)
   require(lattice) || stop("requires package 'lattice'")
   p <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (!is.null(data))
@@ -17,7 +15,7 @@
   if ("biplot" %in% type && (!is.null(x$CCA) || !missing(envfit))) {
     if (missing(envfit))
       envfit <- NULL
-    env <- localOrdilattice.getEnvfit(formula, x, envfit, choices, ...)
+    env <- ordilattice.getEnvfit(formula, x, envfit, choices, ...)
     if (!is.null(env$arrows)) {
       mul <- apply(p[,colnames(env$arrows)], 2, range)/apply(env$arrows, 2, range)
       mul <- min(mul[is.finite(mul) & mul > 0])

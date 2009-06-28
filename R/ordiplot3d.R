@@ -3,12 +3,14 @@
               arr.len = 0.1, arr.col = 4, envfit, xlab, ylab, zlab, ...) 
 {
     require(scatterplot3d) || stop("Requires package 'scatterplot3d'")
-    x <- scores(object, display = display, choices = choices)
+    local
+    x <- scores(object, display = display, choices = choices, ...)
     if (missing(xlab)) xlab <- colnames(x)[1]
     if (missing(ylab)) ylab <- colnames(x)[2]
     if (missing(zlab)) zlab <- colnames(x)[3]
-    pl <- scatterplot3d(x[, 1], x[, 2], x[, 3],  
-                        xlab = xlab, ylab = ylab, zlab = zlab, ...)
+    pl <- ordiArgAbsorber(x[, 1], x[, 2], x[, 3],  
+                        xlab = xlab, ylab = ylab, zlab = zlab,
+                          FUN = "scatterplot3d", ...)
     pl$points3d(range(x[, 1]), c(0, 0), c(0, 0), type = "l", 
                 col = ax.col)
     pl$points3d(c(0, 0), range(x[, 2]), c(0, 0), type = "l", 
@@ -18,8 +20,8 @@
     if (!missing(envfit) || !is.null(object$CCA)) {
         if (!missing(envfit)) 
             object <- envfit
-        bp <- scores(object, dis = "bp", choices = choices)
-        cn <- scores(object, dis = "cn", choices = choices)
+        bp <- scores(object, dis = "bp", choices = choices, ...)
+        cn <- scores(object, dis = "cn", choices = choices, ...)
         if (!is.null(cn) && !any(is.na(cn))) {
             bp <- bp[!(rownames(bp) %in% rownames(cn)), , drop = FALSE]
             cn.xyz <- pl$xyz.convert(cn)

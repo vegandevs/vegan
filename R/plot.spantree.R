@@ -19,15 +19,16 @@
             y[dup, ] <- y[dup,] + runif(2*sum(dup), -0.01, 0.01) 
         ord <- FUN(d, y)
     }
-    ord <- scores(ord, display = "sites")
-    plot(ord, asp = 1, type = "n", ...)
+    ord <- scores(ord, display = "sites", ...)
+    ordiArgAbsorber(ord, asp = 1, type = "n", FUN = "plot", ...)
     lines(x, ord)
     if (type == "p" || type == "b") 
-        points(ord, cex = cex, ...)
+        ordiArgAbsorber(ord, cex = cex, FUN = "points", ...)
     else if (type == "t") {
         if (missing(labels)) 
             labels <- x$labels
-        ordilabel(ord, display = "sites", labels = labels, cex = cex, ...)
+        x <- scores(ord, display = "sites", ...)
+        ordiArgAbsorber(x, labels = labels, cex = cex, FUN = "ordilabel", ...)
     }
     ord <- list(sites = ord)
     class(ord) <- "ordiplot"

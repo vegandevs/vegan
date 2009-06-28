@@ -5,7 +5,7 @@
 
 biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
                        display = c("sites", "species"),
-                       type, xlim, ylim, col = c(1,2), ...) {
+                       type, xlim, ylim, col = c(1,2), const, ...) {
   if(!inherits(x, "rda"))
       stop("'biplot.rda' is only for objects of class 'rda'")
   if(!is.null(x$CCA))
@@ -15,7 +15,7 @@ biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
   if (length(col) == 1)
       col <- c(col,col)
   g <- scores(x, choices = choices, display = display,
-              scaling = scaling)
+              scaling = scaling, const)
   if (!is.list(g)) {
       g <- list(default = g)
       names(g) <- display
