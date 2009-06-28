@@ -25,7 +25,8 @@ function(x, y, biplot, type = type,  ...)
 ## needed for "arrows" %in% type
 panel.ordiarrows <-
 function(x, y, subscripts,
-         ends = "last", type = "open", length = 0.25, angle = 30, ...)
+         ends = "last", type = "open", length = 0.25, angle = 30, code = 2,
+         ...)
 {
     n <- length(x)
     panel.arrows(x[-n], y[-n], x[-1], y[-1], ends = ends, type = "open",
