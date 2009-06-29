@@ -12,8 +12,8 @@
         labels <- rownames(x)
     if (missing(priority))
         priority <- rowSums((scale(x)^2))
-    w <- strwidth(labels, cex = cex)/2 * air
-    h <- strheight(labels, cex = cex)/2 * air
+    w <- abs(strwidth(labels, cex = cex))/2 * air
+    h <- abs(strheight(labels, cex = cex))/2 * air
     xx <- cbind(x[, 1] - w, x[, 1] + w, x[, 2] - h, x[, 2] +
                 h)
     is.na(priority) <- w == 0
