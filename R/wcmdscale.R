@@ -34,7 +34,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     ## If 'k' not given, find it as the number of positive
     ## eigenvalues, and also save negative eigenvalues
     negaxes <- NULL
-    if (missing(k) || k > sum(e$) {
+    if (missing(k) || k > sum(e$value > ZERO)) {
         k <- sum(e$values > ZERO)
         if (any(e$values < 0))
             negaxes <- points[, e$values < 0, drop = FALSE]

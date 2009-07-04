@@ -81,5 +81,12 @@ ca$CA$eig - ord$eig
 ## eigenvalues in CA
 procrustes(ord, ca, choices=1:19, scaling = 1)
 plot(procrustes(ord, ca, choices=1:2, scaling=1))
+## Reconstruction of non-Euclidean distances with negative eigenvalues
+d <- vegdist(dune)
+ord <- wcmdscale(d, eig = TRUE)
+## Only positive eigenvalues:
+cor(d, dist(ord$points))
+## Correction with negative eigenvalues:
+cor(d, sqrt(dist(ord$points)^2 - dist(ord$negaxes)^2))
 }
 \keyword{multivariate}
