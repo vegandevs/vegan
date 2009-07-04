@@ -48,6 +48,9 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     \code{eig} is true.}
   \item{x}{the doubly centred and weighted distance matrix if \code{x.ret} is true.}
   \item{weights}{Weights.}
+  \item{negaxes}{A matrix of scores for axes with negative eigenvalues scaled 
+     by the absolute eigenvalues similarly as \code{points}. This is \code{NULL}
+     if there are no negative eigenvalues or \code{k} was specified, and would not     include negative eigenvalues.}
 }
 \references{
   Gower, J. C. (1966)  

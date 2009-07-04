@@ -27,16 +27,23 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     keep <- abs(e$values) > ZERO
     e$values <- e$values[keep]
     e$vectors <- e$vectors[, keep]
-    ## Get number of positive eigenvalues
-    if (missing(k))
-        k <- sum(e$values > ZERO)
-    ev <- e$values[1:k]
-    points <- sweep(e$vectors[, 1:k, drop=FALSE], 1, sqrt(w), "/")
-    points <- sweep(points, 2, sqrt(ev), "*")
+    ## Deweight and scale axes -- also negative
+    points <- sweep(e$vectors, 1, sqrt(w), "/")
+    points <- sweep(points, 2, sqrt(abs(e$values)), "*")
     rownames(points) <- rownames(m)
+    ## If 'k' not given, find it as the number of positive
+    ## eigenvalues, and also save negative eigenvalues
+    negaxes <- NULL
+    if (missing(k) || k > sum(e$values > ZERO)) {
+        k <- sum(e$values > ZERO)
+        if (any(e$values < 0))
+            negaxes <- points[, e$values < 0, drop = FALSE]
+    }
+    points <- points[, 1:k, drop=FALSE]
     if (eig || x.ret || add) {
         out <- list(points = points, eig = if (eig) e$values,
-                    x = if (x.ret) m, ac = NA, GOF = NA, weights = w)
+                    x = if (x.ret) m, ac = NA, GOF = NA, weights = w,
+                    negaxes = negaxes)
         class(out) <- "wcmdscale"
     }
     else out <- points
