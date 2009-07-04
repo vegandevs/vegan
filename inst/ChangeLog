@@ -13,6 +13,8 @@ Version 1.16-20 (closed July 4, 2009)
 	* new version opened concurrently with the release of vegan 1.15-3
 	on June 17, 2009.
 
+	* orditorp: works now when axes are reversed like xlim = c(1,-1).
+
 	* rrarefy: a new function to generate randomly rarefied
 	communities.
 
