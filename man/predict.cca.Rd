@@ -1,6 +1,7 @@
 \name{predict.cca}
 \alias{fitted.cca}
 \alias{fitted.rda}
+\alias{fitted.capscale}
 \alias{residuals.cca}
 \alias{residuals.rda}
 \alias{predict.cca}
@@ -19,6 +20,9 @@
 \usage{
 \method{fitted}{cca}(object, model = c("CCA", "CA"),
     type =  c("response", "working"), ...)
+\method{fitted}{capscale}(object, model = c("CCA", "CA", "Imaginary"),
+    type = c("response", "working"), ...)
+\method{residuals}{cca}(object, ...)
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc"),
     rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...)
 calibrate.cca(object, newdata, rank = "full", ...)
@@ -31,7 +35,8 @@ calibrate.cca(object, newdata, rank = "full", ...)
   \item{object}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
-    (\code{"CA"}) results. }
+    (\code{"CA"}) results. For \code{\link{capscale}} this can also be 
+    \code{"Imaginary"} for imaginary components with negative eigenvalues. }
   \item{newdata}{New data frame to be used in
     prediction of species and site scores or for calibration.  Usually
     this a new community data frame, but for \code{predict.cca}
@@ -41,12 +46,15 @@ calibrate.cca(object, newdata, rank = "full", ...)
     \code{fitted} and \code{residuals}, \code{"response"} scales results so
     that the same ordination gives the same results, and \code{"working"}
     gives the values used internally, that is after Chi-square
-    standardization in \code{cca} and scaling and centring in \code{rda}.
+    standardization in \code{\link{cca}} and scaling and centring in 
+    \code{\link{rda}}. In \code{\link{capscale}} the \code{"response"} gives
+    the dissimilarities, and \code{"working"} the scaled scores that produce
+    the dissimlarities as Euclidean distances.
     In \code{predict} \code{"response"} 
-    gives an approximation of the original data matrix, \code{"wa"} the
-    site scores as weighted averages of the community data, \code{"lc"}
-    the site scores as linear combinations of environmental data, and
-    \code{"sp"} the species scores.  In \code{predict.decorana} the
+    gives an approximation of the original data matrix or dissimilarities, 
+    \code{"wa"} the site scores as weighted averages of the community data, 
+    \code{"lc"} the site scores as linear combinations of environmental data, 
+    and \code{"sp"} the species scores. In \code{predict.decorana} the
     alternatives are scores for \code{"sites"} or \code{"species"}.} 
   \item{rank}{The rank or the number of axes used in the approximation.
     The default is to use all axes (full rank) of the \code{"model"} or
@@ -58,22 +66,29 @@ calibrate.cca(object, newdata, rank = "full", ...)
 }
 \details{
   Function \code{fitted} gives the approximation of the original data
-  matrix from the ordination result either in the scale of the response
+  matrix or dissimilarities from the ordination result either in the 
+  scale of the response
   or as scaled internally by the function.  Function \code{residuals} gives
   the approximation of the original data from the unconstrained
   ordination.  With argument \code{type = "response"} the
   \code{fitted.cca} and \code{residuals.cca} function 
   both give the same marginal totals as the original data matrix, and
-  their entries do not add up to the original data. They are defined so
+  their entries do not add up to the original data. 
+  Functions \code{fitted.capscale} and \code{residuals.capscale} give the
+  dissimilarities with \code{type = "response"}, but these are not additive,
+  but the \code{"working"} scores are additive. 
+  All variants of \code{fitted} and \code{residuals} are defined so
   that for model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal
   to constrained ordination, and \code{cca(residuals(mod))} is equal to
   unconstrained part of the ordination.
 
   Function \code{predict} can find the estimate of the original data
-  matrix (\code{type = "response"}) with any rank. With \code{rank =
-    "full"} it is identical to \code{fitted}.  In addition, the function
+  matrix or dissimilarites (\code{type = "response"}) with any rank. 
+  With \code{rank = "full"} it is identical to \code{fitted}.
+  In addition, the function
   can find the species scores or site scores from the community data
-  matrix.  The function can be used with new data, and it can be used to
+  matrix for \code{\link{cca}} or \code{\link{rda}}.  
+  The function can be used with new data, and it can be used to
   add new species or site scores to existing ordinations.  The function
   returns (weighted) orthonormal scores by default, and you must
   specify explicit \code{scaling} to
@@ -122,7 +137,7 @@ calibrate.cca(object, newdata, rank = "full", ...)
 }
 
 \value{
-  The functions return matrices or vectors as is appropriate.
+  The functions return matrices, vectors or dissimilarities as is appropriate.
 }
 \references{
   Greenacre, M. J. (1984). Theory and applications of correspondence

@@ -85,6 +85,7 @@
             sol$CA$imaginary.chi <- sum(negax)
             sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
             sol$CA$imaginary.rank <- length(negax)
+            sol$CA$imaginary.u.eig <- X$negaxes
         }
     }
     if (!is.null(comm)) {

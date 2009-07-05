@@ -26,7 +26,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     ## Remove zero eigenvalues, keep negative
     keep <- abs(e$values) > ZERO
     e$values <- e$values[keep]
-    e$vectors <- e$vectors[, keep]
+    e$vectors <- e$vectors[, keep, drop = FALSE]
     ## Deweight and scale axes -- also negative
     points <- sweep(e$vectors, 1, sqrt(w), "/")
     points <- sweep(points, 2, sqrt(abs(e$values)), "*")

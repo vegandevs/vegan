@@ -23,15 +23,18 @@
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
     if (type == "response") {
-        if (inherits(object, "capscale")) 
-            stop("Prediction of 'response' not available in capscale")
         if (!is.null(object$pCCA)) 
             warning("Conditional ('partial') component ignored")
-        if (take > 0) 
-            out <- u %*% slam %*% t(v)
-        if (!is.null(scal)) 
-            out <- sweep(out, 2, scal, "*")
-        out <- sweep(out, 2, cent, "+")
+        if (inherits(object, "capscale")) {
+            if (take > 0)
+                out <- dist(u %*% slam/sqrt(nr))
+        } else {
+            if (take > 0) 
+                out <- u %*% slam %*% t(v)
+            if (!is.null(scal)) 
+                out <- sweep(out, 2, scal, "*")
+            out <- sweep(out, 2, cent, "+")
+        }
     }
     else if (type == "lc") {
         if (model == "CA") 

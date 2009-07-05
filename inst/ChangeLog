@@ -4,6 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-21 (opened July 4, 2009)
 
+	* capscale: has now 'fitted' method (and hence, 'residuals'), and
+	'predict' works with 'type = "response"'. These give
+	dissimilarities that produce same ordination as original data, or
+	their low-rank approximations. Function 'fitted' has 'model =
+	"Imaginary"' that returns correction distances of complex
+	eigenvectors with negative eigenvalues.  The dissimilarities are
+	not additive, and the "Imaginary" component is not used in
+	estimating the unconstrained component.
+
 	* wcmdscale: returns negative eigevalues scaled by
 	sqrt(abs(eigenvalues)) if 'k' is not given or 'k' would include
 	any negative eigenvalue.
