@@ -13,6 +13,9 @@ Version 1.16-21 (opened July 4, 2009)
 	not additive, and the "Imaginary" component is not used in
 	estimating the unconstrained component.
 
+	* capscale: really works now either with argument 'dfun' or
+	'metaMDSdist' (but not with both!).
+
 	* wcmdscale: returns negative eigevalues scaled by
 	sqrt(abs(eigenvalues)) if 'k' is not given or 'k' would include
 	any negative eigenvalue.
