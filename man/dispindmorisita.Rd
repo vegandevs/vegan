@@ -34,9 +34,9 @@ freedom. Confidence interval around 1 can be calculated by the clumped
 values of the Chi-squared distribution with \eqn{n-1} degrees of
 freedom, respectively, for \code{alpha = 0.05}):
 
-\code{Mclu = (Chi2Upper - n + sum(xi)) / (sum(xi) - 1)}
+\code{Mclu = (Chi2Lower - n + sum(xi)) / (sum(xi) - 1)}
 
-\code{Muni = (Chi2Lower - n + sum(xi)) / (sum(xi) - 1)}
+\code{Muni = (Chi2Upper - n + sum(xi)) / (sum(xi) - 1)}
 
 Smith-Gill (1975) proposed scaling of Morisita index from [0, n]
 interval into [-1, 1], and setting up -0.5 and 0.5 values as
