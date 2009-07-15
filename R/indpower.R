@@ -1,7 +1,8 @@
 indpower <-
 function(x, type=0)
 {
-    x <- as.matrix(ifelse(x > 0, 1, 0))
+    x <- as.matrix(x)
+    x <- ifelse(x > 0, 1, 0)
     if (NCOL(x) < 2)
         stop("provide at least 2 columns for 'x'")
     if (!(type %in% 0:2))
