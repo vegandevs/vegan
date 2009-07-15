@@ -2,6 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 1.16-22 (opened July 15, 2009)
+	* mantel.correlog, print.mantel.correlog & plot.mantel.correlog: 
+	new functions to construct multivariate mantel correlograms --- 
+	use in ecology: to describe the spatial structure of species
+	assemblages. See Legendre and Legendre, Numerical ecology; 1998,
+	section 13.13.1.5. Written by Pierre Legendre.
+
 Version 1.16-21 (opened July 4, 2009)
 
 	* capscale: has now 'fitted' method (and hence, 'residuals'), and
