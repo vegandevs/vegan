@@ -16,7 +16,7 @@ function(x, type=0)
         "0" = ip,
         "1" = ip1,
         "2" = ip2)
-    colnames(out) <- paste("i", colnames(out), sep=".")
-    rownames(out) <- paste("t", rownames(out), sep=".")
+    colnames(out) <- paste("t", colnames(out), sep=".")
+    rownames(out) <- paste("i", rownames(out), sep=".")
     out
 }

@@ -93,15 +93,16 @@ indpower(x, type = 0)
   return. \code{type = 0} returns \code{IP_I}, \code{type = 1} returns 
   \code{a}, \code{type = 2} returns \code{b}.
   Total indicator power (TIP) of an indicator species is the column mean
-  (see examples).  In the paper, one can find how to calculate confidence
+  (without its own value, see examples).  
+  In the paper, one can find how to calculate confidence
   intervals for these statistics.
 }
 \value{
   The function returns a transformed data matrix or a vector in case of 
   asking Beals smoothing for a single species.
 
-  \code{indpower} returns a matrix indicator species as columns and
-  target species as rows (this is indicated by the first letters of the
+  \code{indpower} returns a matrix with indicator species as rows and
+  target species as columns (this is indicated by the first letters of the
   row/column names).
 }
 \references{
@@ -155,7 +156,8 @@ beals(dune, species=1, include=TRUE)
 ## calculating IP values
 ip <- indpower(dune)
 ## and TIP values
-colMeans(ip)
+diag(ip) <- NA
+rowMeans(ip, na.rm=TRUE)
 }
 \keyword{ manip }
 \keyword{ smooth }
