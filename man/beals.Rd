@@ -2,23 +2,27 @@
 \name{beals}
 \alias{beals}
 \alias{swan}
+\alias{indpower}
 
-\title{Beals Smoothing and Degree of Absence }
+\title{Beals Smoothing, Degree of Absence and Indicator Power}
 \description{
   Beals smoothing replaces each entry in the community data with a
   probability of target species occurring in that particular site, based
   on the joint occurrences of target species with the species that
   actually occur in the site.  Swan's (1970) degree of absence applies
   Beals smoothing to zero items so long that all zeros are replaced
-  with smoothed values. 
+  with smoothed values. Indicator power calculation of Halme et al.
+  (2009) scales up the conguence between indicator and target species.
 }
 \usage{
 beals(x, species = NA, reference = x, type = 0, include = TRUE)
 swan(x)
+indpower(x, type = 0)
 }
 \arguments{
-  \item{x}{Community data frame or matrix }
-  \item{species}{ Column index used to compute Beals function for a single species. The default (\code{NA}) indicates that the function will be computed for all species.} 
+  \item{x}{Community data frame or matrix. }
+  \item{species}{ Column index used to compute Beals function for a single species. 
+  The default (\code{NA}) indicates that the function will be computed for all species.} 
   \item{reference}{ Community data frame or matrix to be used to compute
   joint occurrences. By default, \code{x} is used as reference to
   compute the joint occurrences.} 
@@ -34,6 +38,8 @@ swan(x)
   original Beals (1984) definition is equivalent to \code{include=TRUE},
   while the formulation of \enc{Münzbergová}{Munzbergova} and Herben is
   equal to \code{include=FALSE}. }  
+  \item{type}{Numeric, in \code{c(0, 1, 2)} referring to the statistic to be returned.
+  See details.}
 }
 \details{
 
@@ -74,9 +80,27 @@ swan(x)
   there are no zeros left in the data. This is actually very similar to
   extended dissimilarities (implemented in function
   \code{\link{stepacross}}), but very rarely used. 
+
+  Halme et al. (2009) described an index of indicator power defined as
+  \code{IP_I = sqrt(a * b)}, where \code{a = S / O_I} and
+  \code{a = 1 - (O_T - S) / (N - O_I)}. \code{N} is the number of sites,
+  \code{S} is the number of shared occurrences of the indicator (\code{I})
+  and the target (\code{T}) species. \code{O_I} and \code{O_T} are number
+  of occurrences of the indicator and target species. The \code{type}
+  argument in the function call enables to choose which statistic to
+  return. \code{type = 0} returns \code{IP_I}, \code{type = 1} returns 
+  \code{a}, \code{type = 2} returns \code{b}.
+  Total indicator power (TIP) of an indicator species is the column mean
+  (see examples).  In the paper, one can find how to calculate confidence
+  intervals for these statistics.
 }
 \value{
-  The function returns a transformed data matrix or a vector in case of asking Beals smoothing for a single species.
+  The function returns a transformed data matrix or a vector in case of 
+  asking Beals smoothing for a single species.
+
+  \code{indpower} returns a matrix indicator species as columns and
+  target species as rows (this is indicated by the first letters of the
+  row/column names).
 }
 \references{
   
@@ -86,9 +110,13 @@ analysis of multivariate ecological data.  \emph{Adv. Ecol. Res.} 14:
 
 De \enc{Cáceres}{Caceres}, M. & Legendre, P. 2008. Beals smoothing
 revisited. \emph{Oecologia} 156: 657--669.
-  
+
 Ewald, J. 2002. A probabilistic approach to estimating species pools
 from large compositional matrices. \emph{J. Veg. Sci.} 13: 191--198.
+
+Halme, P., \enc{Monkonnen}{Monkonnen}, M., Kotiaho, J. S, 
+\enc{Ylisirnio}{Ylisirnio}, A-L. 2009. Quantifying the indicator power
+of an indicator species. \emph{Conservation Biology} 23: 1008--1016.
 
 McCune, B. 1994. Improving community ordination with the Beals smoothing
 function. \emph{Ecoscience} 1: 82--86.
@@ -102,7 +130,7 @@ Swan, J.M.A. (1970) An examination of some ordination problems by use of
 simulated vegetational data. \emph{Ecology} 51, 89--102. 
 
 }
-\author{Miquel De \enc{Cáceres}{Caceres} and Jari Oksanen}
+\author{Miquel De \enc{Cáceres}{Caceres}, Jari Oksanen and Peter Solymos}
 
 \seealso{\code{\link{decostand}} for proper standardization methods,
   \code{\link{specpool}} for an attempt to assess the size of species
@@ -122,6 +150,10 @@ beals(dune, type =3, include = FALSE)
 ## Vector with beals smoothing values corresponding to the first species
 ## in dune.
 beals(dune, species=1, include=TRUE) 
+## calculating IP values
+ip <- indpower(dune)
+## and TIP values
+colMeans(ip)
 }
 \keyword{ manip }
 \keyword{ smooth }

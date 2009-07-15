@@ -3,6 +3,10 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-22 (opened July 15, 2009)
+
+    * indpower: new function to calculate indicator power for a species
+    (Halme et al. 2009, Cons. Biol. 23: 1008-1016)
+
 	* mantel.correlog, print.mantel.correlog & plot.mantel.correlog: 
 	new functions to construct multivariate mantel correlograms --- 
 	use in ecology: to describe the spatial structure of species
@@ -26,7 +30,7 @@ Version 1.16-21 (opened July 4, 2009)
 	* wcmdscale: returns negative eigevalues scaled by
 	sqrt(abs(eigenvalues)) if 'k' is not given or 'k' would include
 	any negative eigenvalue.
-	
+
 Version 1.16-20 (closed July 4, 2009)
 
 	* new version opened concurrently with the release of vegan 1.15-3
