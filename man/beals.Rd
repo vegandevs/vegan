@@ -26,20 +26,14 @@ indpower(x, type = 0)
   \item{reference}{ Community data frame or matrix to be used to compute
   joint occurrences. By default, \code{x} is used as reference to
   compute the joint occurrences.} 
-  \item{type}{Specifies if and how abundance values have to be
-  used. \code{type = 0} presence/absence mode. \code{type = 1}
-  abundances in \code{reference} (or \code{x}) are used to compute
-  conditioned probabilities. \code{type = 2} abundances in \code{x} are
-  used to compute weighted average of conditioned
-  probabilities. \code{type = 3} abundances are used to compute both
-  conditioned probabilities and the weighted average.}  
+  \item{type}{Numeric. For function \code{beals} it specifies if and how abundance 
+  values have to be used. For function \code{indpower} it specifies the type of
+  statistic to be returned. See details for more explanation.}  
   \item{include}{This logical flag indicates whether the target species has to be
   included when computing the mean of the conditioned probabilities. The
   original Beals (1984) definition is equivalent to \code{include=TRUE},
   while the formulation of \enc{Münzbergová}{Munzbergova} and Herben is
   equal to \code{include=FALSE}. }  
-  \item{type}{Numeric, in \code{c(0, 1, 2)} referring to the statistic to be returned.
-  See details.}
 }
 \details{
 
@@ -57,6 +51,14 @@ indpower(x, type = 0)
   \enc{Cáceres}{Caceres} & Legendre 2008).  The currrent function is
   generalized to abundance values (De \enc{Cáceres}{Caceres} & Legendre
   2008).
+  
+  The \code{type} argument specifies if and how abundance values have to be
+  used. \code{type = 0} presence/absence mode. \code{type = 1}
+  abundances in \code{reference} (or \code{x}) are used to compute
+  conditioned probabilities. \code{type = 2} abundances in \code{x} are
+  used to compute weighted average of conditioned
+  probabilities. \code{type = 3} abundances are used to compute both
+  conditioned probabilities and the weighted average.
 
   Beals smoothing was originally suggested as a method of data
   transformation to remove excessive zeros (Beals 1984, McCune
