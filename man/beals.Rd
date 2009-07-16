@@ -117,8 +117,8 @@ revisited. \emph{Oecologia} 156: 657--669.
 Ewald, J. 2002. A probabilistic approach to estimating species pools
 from large compositional matrices. \emph{J. Veg. Sci.} 13: 191--198.
 
-Halme, P., \enc{Monkonnen}{Monkonnen}, M., Kotiaho, J. S, 
-\enc{Ylisirnio}{Ylisirnio}, A-L. 2009. Quantifying the indicator power
+Halme, P., \enc{Mönkkönen}{Monkkonen}, M., Kotiaho, J. S, 
+\enc{Ylisirniö}{Ylisirnio}, A-L. 2009. Quantifying the indicator power
 of an indicator species. \emph{Conservation Biology} 23: 1008--1016.
 
 McCune, B. 1994. Improving community ordination with the Beals smoothing
