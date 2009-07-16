@@ -6,15 +6,15 @@
 
 \description{ Indicator power calculation of Halme et al.  (2009)
   scales up the congruence between indicator and target species.  
-
+}
 
 \usage{
 indpower(x, type = 0)
 }
 \arguments{
   \item{x}{Community data frame or matrix. }
-  \item{type}{Thehe type of
-  statistic to be returned. See details for more explanation.}  
+  \item{type}{The type of
+  statistic to be returned. See Details for explanation.}  
 }
 \details{
 
