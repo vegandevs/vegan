@@ -11,7 +11,7 @@ Version 1.16-22 (opened July 15, 2009)
 	new functions to construct multivariate mantel correlograms --- 
 	use in ecology: to describe the spatial structure of species
 	assemblages. See Legendre and Legendre, Numerical ecology; 1998,
-	section 13.13.1.5. Written by Pierre Legendre.
+	section 13.1.5. Written by Pierre Legendre.
 
 Version 1.16-21 (opened July 4, 2009)
 

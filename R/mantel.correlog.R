@@ -1,7 +1,10 @@
 'mantel.correlog' <- 
-	function(D.eco, D.geo=NULL, XY=NULL, n.class=0, break.pts=NULL, cutoff=TRUE, r.type="pearson", nperm=999)
+	function(D.eco, D.geo=NULL, XY=NULL, n.class=0, break.pts=NULL, cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 {
 require(vegan)
+
+r.type <- match.arg(r.type, c("pearson", "spearman", "kendall"))
+mult   <- match.arg(mult, c("sidak", p.adjust.methods))
 
 epsilon <- .Machine$double.eps
 D.eco = as.matrix(D.eco)
@@ -79,7 +82,7 @@ for(k in 1:n.class) {
 		# check.sums[k,1] = length(which(row.sums == 0))
 		if((cutoff==FALSE) | !(cutoff==TRUE & k>half.cl & any(row.sums == 0))) {
 			temp = mantel(mat.D2, D.eco, method=r.type, permutations=nperm)
-			mantel.r = c(mantel.r, temp$statistic)
+			mantel.r = c(mantel.r, -temp$statistic)
 			temp.p = temp$signif
 			if(temp$statistic >= 0) {
 				temp.p = ((temp.p*nperm)+1)/(nperm+1)
@@ -95,12 +98,42 @@ for(k in 1:n.class) {
 	}
 
 mantel.res = cbind(class.index, n.dist, mantel.r, mantel.p)
-mantel.res=mantel.res[-1,]
-rownames(mantel.res) = rownames(mantel.res,do.NULL = FALSE, prefix = "D.class.")
-colnames(mantel.res) = c("class.index", "n.dist", "Mantel.r", "Pr(Mantel)")
+mantel.res = mantel.res[-1,]
+
+## Note: vector 'mantel.p' starts with a NA value
+mantel.p = mantel.p[-1]
+n.tests = length(which(mantel.p != "NA"))
+
+if(mult=="none") {
+	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.r", "Pr(Mantel)")
+	} else {	
+	## Correct P-values for multiple testing
+		if(progressive) {
+			p.corr = mantel.p[1]
+	        if(mult == "sidak") {
+	            for(j in 2:n.tests) { p.corr = c(p.corr, 1-(1-mantel.p[j])^j) }
+	        	} else {
+	        	for(j in 2:n.tests) {
+	        		temp = p.adjust(mantel.p[1:j], method=mult)
+	            	p.corr = c(p.corr, temp[j])
+	            	}
+	        	}
+			} else {
+			## Correct all p-values for 'n.tests' simultaneous tests
+	        if(mult == "sidak") {
+	            p.corr = 1-(1-mantel.p[1:n.tests])^n.tests
+	        	} else {
+	            p.corr = p.adjust(mantel.p[1:n.tests], method=mult)
+	        	}
+	    	}
+	temp = c(p.corr, rep(NA,(n.class-n.tests)))
+	mantel.res = cbind(mantel.res, temp)
+	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.r", "Pr(Mantel)", "Pr(corrected)")
+	}
+rownames(mantel.res) = rownames(mantel.res,do.NULL = FALSE, prefix = "D.cl.")
 
 # Output the results
-res = list(mantel.res=mantel.res, n.class=n.class, break.pts=break.pts, call=match.call() )
+res = list(mantel.res=mantel.res, n.class=n.class, break.pts=break.pts, mult=mult, n.tests=n.tests, call=match.call() )
 class(res) = "mantel.correlog"
 res
 }
