@@ -10,7 +10,7 @@ Function \code{mantel.correlog} computes a multivariate Mantel correlogram. Prop
 mantel.correlog(D.eco, D.geo=NULL, XY=NULL, n.class=0, break.pts=NULL, 
 cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 
-\method{plot}{mantel.correlog}(x, ...)
+\method{plot}{mantel.correlog}(x, alpha=0.05, ...)
 }
 
 \arguments{
@@ -25,6 +25,7 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   \item{mult}{ Correct P-values for multiple testing. The correction methods are \code{"holm"} (default), \code{"hochberg"}, \code{"sidak"}, and other methods available in the \code{\link{p.adjust}} function: \code{"bonferroni"} (best known, but not recommended because it is overly conservative), \code{"hommel"}, \code{"BH"}, \code{"BY"}, \code{"fdr"}, and \code{"none"}. }  
   \item{progressive}{ Default: \code{progressive=TRUE} for progressive correction of multiple-testing, as described in Legendre and Legendre (1998, p. 721). Test of the first distance class: no correction; second distance class: correct for 2 simultaneous tests; distance class k: correct for k simultaneous tests. \code{progressive=FALSE}: correct all tests for \code{n.class} simultaneous tests. }
   \item{x}{ Output of \code{mantel.correlog}. }
+  \item{alpha}{ Significance level for the points drawn with black symbols in the correlogram. Default: \code{alpha=0.05}. }
   \item{...}{ Other parameters passed from other functions. }
 }
 
