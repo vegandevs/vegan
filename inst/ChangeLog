@@ -4,8 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-22 (opened July 15, 2009)
 
-    * indpower: new function to calculate indicator power for a species
-    (Halme et al. 2009, Cons. Biol. 23: 1008-1016)
+	* summary.cca: fix in 1.16-20 failed if all variables were
+	continuous and there were no centroids of factor levels.
+	
+	* indpower: new function to calculate indicator power for a
+	species (Halme et al. 2009, Cons. Biol. 23: 1008-1016)
 
 	* mantel.correlog, print.mantel.correlog & plot.mantel.correlog: 
 	new functions to construct multivariate mantel correlograms --- 

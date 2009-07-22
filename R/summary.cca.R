@@ -20,8 +20,10 @@
     }
     if (length(display) > 0) {
         for (i in 1:length(summ)) {
-            rownames(summ[[i]]) <- rownames(summ[[i]], do.NULL = FALSE,
-                                            prefix = substr(names(summ)[i], 1, 3))
+            if (is.matrix(summ[[i]]))
+                rownames(summ[[i]]) <-
+                    rownames(summ[[i]], do.NULL = FALSE,
+                             prefix = substr(names(summ)[i], 1, 3))
         }
     }
     summ$call <- object$call
