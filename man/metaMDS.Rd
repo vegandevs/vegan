@@ -47,7 +47,10 @@ metaMDSrotate(object, vec, choices, ...)
 }
 
 \arguments{
-  \item{comm}{Community data.}
+  \item{comm}{Community data. Alternatively, dissimilarities either as
+    a \code{\link{dist}} structure or as a symmetric square matrix. 
+    In the latter case, species scores are not calculated and
+    \code{\link{stepacross}} is not used. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions in \code{\link[MASS]{isoMDS}}.}
   \item{trymax}{Maximum number of random starts in search of stable
@@ -114,7 +117,7 @@ metaMDSrotate(object, vec, choices, ...)
   other functions are intended to 
   help run NMDS wit \code{\link[MASS]{isoMDS}} like recommended by
   Minchin (1987).  Function \code{metaMDS} combines all recommendations
-  into one command for a shotgun style analysis. The steps in
+  into one command for a shotgun style analysis. The complete steps in
   \code{metaMDS} are:
   \enumerate{
     \item Transformation: If the data values are larger than common
@@ -202,6 +205,8 @@ metaMDSrotate(object, vec, choices, ...)
     calculation of species scores can be suppressed with \code{wascores
     = FALSE}. 
   }
+  Only steps 4 and 5 are performed if dissimilarities were suppied
+  instead of the community data.  
 }
 
 \value{
