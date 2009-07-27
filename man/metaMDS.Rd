@@ -49,8 +49,8 @@ metaMDSrotate(object, vec, choices, ...)
 \arguments{
   \item{comm}{Community data. Alternatively, dissimilarities either as
     a \code{\link{dist}} structure or as a symmetric square matrix. 
-    In the latter case, species scores are not calculated and
-    \code{\link{stepacross}} is not used. }
+    In the latter case all other stages are skipped except random 
+    starts. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions in \code{\link[MASS]{isoMDS}}.}
   \item{trymax}{Maximum number of random starts in search of stable
@@ -171,7 +171,8 @@ metaMDSrotate(object, vec, choices, ...)
     may have found good and relatively stable solutions although the
     function is not yet satisfied. Setting \code{trace = TRUE} will
     monitor the final stresses, and \code{plot = TRUE} will display
-    Procrustes overlay plots from each comparison.
+    Procrustes overlay plots from each comparison. This is the only
+    step performed if input data (\code{comm}) were dissimilarities. 
 
     \item Scaling of the results: \code{metaMDS} will run
     \code{postMDS} for the final result. Function \code{postMDS}
@@ -205,8 +206,6 @@ metaMDSrotate(object, vec, choices, ...)
     calculation of species scores can be suppressed with \code{wascores
     = FALSE}. 
   }
-  Only steps 4 and 5 are performed if dissimilarities were suppied
-  instead of the community data.  
 }
 
 \value{

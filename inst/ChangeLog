@@ -5,7 +5,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.16-22 (opened July 15, 2009)
 
 	* metaMDS: accepts now user supplied dissimilarities either as a
-	"dist" structure or as symmetric square matrix (on Susan Letcher's
+	"dist" structure or as symmetric square matrix (Susan Letcher's
 	wish). As a side effect, dissimilarity matrices are now correctly
 	detected and will not be wrongly treated as raw data.
 
