@@ -6,7 +6,7 @@
         stop("function accepts only integers (counts)")
     if (missing(sample)) {
         sample <- min(apply(x, MARGIN, sum))
-        info <- paste("The size of `sample' must be given --\nHint: Smallest site maximum", 
+        info <- paste("The size of 'sample' must be given --\nHint: Smallest site maximum", 
                       sample)
         stop(info)
     }
