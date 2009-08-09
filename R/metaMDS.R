@@ -11,7 +11,7 @@
         wascores <- FALSE
     } else if (length(dim(comm) == 2) && ncol(comm) == nrow(comm) &&
                 all(comm == t(comm))) {
-        dis <- as.dist(m)
+        dis <- as.dist(comm)
         attr(dis, "method") <- "user supplied"
         wascores <- FALSE
     } else {
