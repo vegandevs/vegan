@@ -50,7 +50,7 @@ metaMDSrotate(object, vec, choices, ...)
   \item{comm}{Community data. Alternatively, dissimilarities either as
     a \code{\link{dist}} structure or as a symmetric square matrix. 
     In the latter case all other stages are skipped except random 
-    starts. }
+    starts and centring and pc rotation of axes. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions in \code{\link[MASS]{isoMDS}}.}
   \item{trymax}{Maximum number of random starts in search of stable
