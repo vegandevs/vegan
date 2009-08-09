@@ -3,6 +3,11 @@
               trace = 1, commname, zerodist = "fail", distfun = vegdist, 
               ...) 
 {
+    ## metaMDSdist should get a raw data matrix, but if it gets a
+    ## 'dist' object return that unchanged and quit silently.
+    if (inherits(comm, "dist")  || ncol(comm) == nrow(comm) &&
+        all(comm == t(comm)))
+        return(comm)
     distname <- deparse(substitute(distfun))
     distfun <- match.fun(distfun)
     zerodist <- match.arg(zerodist, c("fail", "add", "ignore"))
