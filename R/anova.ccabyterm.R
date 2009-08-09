@@ -56,7 +56,7 @@
     head <- paste("Permutation test for", sim$method, "under", 
                   sim$model, "model\nTerms added sequentially (first to last)\n")
     if (!is.null(sim$strata)) 
-        head <- paste(head, "Permutations stratified within `", 
+        head <- paste(head, "Permutations stratified within '", 
                       sim$strata, "'\n", sep = "")
     structure(out, heading = c(head, call), Random.seed = sim$Random.seed, 
               class = c("anova.cca", "anova", "data.frame"))

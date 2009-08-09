@@ -53,7 +53,7 @@
     head <- paste("Permutation test for", tst$method, "under", 
                   tst$model, "model\n")
     if (!is.null(tst$strata)) 
-        head <- paste(head, "Permutations stratified within `", 
+        head <- paste(head, "Permutations stratified within '", 
                       tst$strata, "'\n", sep = "")
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed, 

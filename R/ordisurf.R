@@ -9,8 +9,7 @@
     w <- eval(w)
     if (!is.null(w) && length(w) == 1) 
         w <- NULL
-    if (!require(mgcv)) 
-        stop("Requires package `mgcv'")
+    require(mgcv)  || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
     x1 <- X[, 1]
     x2 <- X[, 2]

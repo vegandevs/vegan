@@ -3,8 +3,7 @@
               conf, draw = c("lines", "polygon"), w = weights(ord, display),
               show.groups, ...)
 {
-    if (!require(ellipse))
-        stop("Requires package `ellipse' (from CRAN)")
+    require(ellipse) || stop("Requires package 'ellipse' (from CRAN)")
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     draw <- match.arg(draw)

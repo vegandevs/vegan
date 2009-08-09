@@ -3,7 +3,7 @@
             force = FALSE) 
 {
   if (!force) {
-    stop("R may crash: if you want to try, save your session and use `force=T'")
+    stop("R may crash: if you want to try, save your session and use 'force=TRUE'")
   }
   if (is.loaded("_gfortran_ioparm"))
       warning("It seems that you have used gfortran: the input may be corrupted\n")
