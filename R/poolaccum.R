@@ -20,7 +20,7 @@
         boot[,i] <- 2*S[,i] - m + rowSums(exp(sweep(log1p(-sweep(tmp, 1, N, "/")), 1, N, "*") ))
         a1 <- rowSums(tmp == 1)
         a2 <- rowSums(tmp == 2)
-        chao[, i] <- S[,i] + a1*a1/2/a2
+        chao[, i] <- S[,i] + ifelse(a2 > 0, a1*a1/2/a2, 0)
         jack1[,i] <- S[,i] + a1 * (N-1)/N
         jack2[,i] <- S[,i] + a1*(2*N-3)/N - a2*(N-2)^2/N/(N-1)
     }
