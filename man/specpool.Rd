@@ -1,6 +1,8 @@
 \name{specpool}
 \alias{specpool}
 \alias{specpool2vect}
+\alias{poolaccum}
+\alias{print.poolaccum}
 \alias{estimateR}
 \alias{estimateR.default}
 \alias{estimateR.matrix}
@@ -16,6 +18,7 @@
 \usage{
 specpool(x, pool)
 specpool2vect(X, index = c("Jack.1","Jack.2", "Chao", "Boot","Species"))
+poolaccum(x, permutations = 100, minsize = 3)
 estimateR(x, ...)
 }
 
@@ -25,6 +28,8 @@ estimateR(x, ...)
     the species data. If missing, all sites are pooled together.}
   \item{X}{A \code{specpool} result object.}
   \item{index}{The selected index of extrapolated richness.}
+  \item{permutations}{Number of permutations of sampling order of sites.}
+  \item{minsize}{Smallest number of sampling units reported.}
   \item{...}{Other parameters (not used).}
 }
 \details{
@@ -57,6 +62,10 @@ estimateR(x, ...)
     \tab \eqn{S_P = S_0 + \sum_{i=1}^{S_0} (1 - p_i)^N}{S_P = S_0 + Sum
       (1-p_i)^N}
     }
+
+  Function \code{poolaccum} is similar to \code{\link{specaccum}}, but
+  it estimates all extrapolated richness values of \code{specpool} in
+  addition to number of species for random ordering of sampling units.
 
     The abundance-based estimates in \code{estimateR} use counts (frequencies) of
     species in a single site. If called for a matrix or data frame, the
@@ -105,13 +114,17 @@ estimateR(x, ...)
     
 }
 \value{
+
   Function \code{specpool} returns a data frame with entries for
- observed richness
-  and each of the indices for each class in \code{pool} vector.  The
-  utility function \code{specpool2vect} maps the pooled values into
-  a vector giving the value of selected \code{index} for each original
-  site. Function \code{estimateR} returns the estimates and their
-  standard errors for each site. 
+  observed richness and each of the indices for each class in
+  \code{pool} vector.  The utility function \code{specpool2vect} maps
+  the pooled values into a vector giving the value of selected
+  \code{index} for each original site.  Function \code{poolaccum}
+  returns matrices of permutation results for each richness estimator,
+  the vector of sample sizes and a table of \code{means} of
+  permutations for each estimator.  Function \code{estimateR} returns
+  the estimates and their standard errors for each site.
+ 
 }
 \references{
   Chao, A. (1987). Estimating the population size for capture-recapture
@@ -137,7 +150,8 @@ estimateR(x, ...)
   See \url{http://viceroy.eeb.uconn.edu/EstimateS} for a more complete
   (and positive) discussion and alternative software for some platforms.
 }
-\seealso{\code{\link{veiledspec}}, \code{\link{diversity}}, \code{\link{beals}}. }
+\seealso{\code{\link{veiledspec}}, \code{\link{diversity}}, \code{\link{beals}},
+ \code{\link{specaccum}}. }
 \examples{
 data(dune)
 data(dune.env)

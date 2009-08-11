@@ -136,10 +136,14 @@ specaccum(comm, method = "exact", permutations = 100,
   without replacement.  Further, its standard deviation does not take
   into account species correlations, and is generally too low. }
 
-\seealso{\code{\link{rarefy}} and \code{\link{renyiaccum}}.
-  Underlying graphical functions are
-  \code{\link{boxplot}}, \code{\link{matlines}}, \code{\link{segments}}
-    and \code{\link{polygon}}. }
+\seealso{\code{\link{rarefy}} and \code{\link{rrarefy}} are related
+  individual based models. Other accumulation models are
+  \code{\link{poolaccum}} for extrapoltated richenss, and
+  \code{\link{renyiaccum}} and \code{\link{tsallisaccum}} for
+  diversity indices.  Underlying graphical functions are
+  \code{\link{boxplot}}, \code{\link{matlines}},
+  \code{\link{segments}} and \code{\link{polygon}}.
+}
 \examples{
 data(BCI)
 sp1 <- specaccum(BCI)
