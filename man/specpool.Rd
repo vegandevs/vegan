@@ -4,6 +4,7 @@
 \alias{poolaccum}
 \alias{print.poolaccum}
 \alias{summary.poolaccum}
+\alias{plot.poolaccum}
 \alias{estimateR}
 \alias{estimateR.default}
 \alias{estimateR.matrix}
@@ -18,19 +19,26 @@
 }
 \usage{
 specpool(x, pool)
+estimateR(x, ...)
 specpool2vect(X, index = c("Jack.1","Jack.2", "Chao", "Boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
-estimateR(x, ...)
+\method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
+\method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
 }
 
 \arguments{
-  \item{x}{Data frame or matrix with species data.}
+  \item{x}{Data frame or matrix with species data or the analysis result 
+    for \code{plot} function.}
   \item{pool}{A vector giving a classification for pooling the sites in
     the species data. If missing, all sites are pooled together.}
-  \item{X}{A \code{specpool} result object.}
+  \item{X, object}{A \code{specpool} result object.}
   \item{index}{The selected index of extrapolated richness.}
   \item{permutations}{Number of permutations of sampling order of sites.}
   \item{minsize}{Smallest number of sampling units reported.}
+  \item{display}{Indices to be displayed.}
+  \item{alpha}{Level of quantiles shown. This proportion will be left outside
+    symmetric limits.}
+  \item{type}{Type of graph produced in \code{\link[lattice]{xyplot}}.}
   \item{...}{Other parameters (not used).}
 }
 \details{
@@ -67,6 +75,13 @@ estimateR(x, ...)
   Function \code{poolaccum} is similar to \code{\link{specaccum}}, but
   it estimates all extrapolated richness values of \code{specpool} in
   addition to number of species for random ordering of sampling units.
+  The function has \code{summary} and \code{plot} methods. The
+  \code{summary} returns quantile envilopes of permutations
+  corresponding the given level of \code{alpha} and standard deviation
+  of permutations for each sample size. The \code{plot} function shows
+  the mean and envelope of permutations with given \code{alpha} for
+  models. The selection of models can be restricted and order changes
+  using the \code{display} argument in \code{summary} or \code{plot}.
 
     The abundance-based estimates in \code{estimateR} use counts (frequencies) of
     species in a single site. If called for a matrix or data frame, the
@@ -166,6 +181,11 @@ boxplot(specnumber(dune)/specpool2vect(pool) ~ Management, col="hotpink",
  border="cyan3", notch=TRUE)
 par(op)
 data(BCI)
+## Accumulation model
+pool <- poolaccum(BCI)
+summary(pool, display = "chao")
+plot(pool)
+## Quantitative model
 estimateR(BCI[1:5,])
 }
 \keyword{ univar }
