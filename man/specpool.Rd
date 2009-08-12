@@ -9,6 +9,8 @@
 \alias{estimateR.default}
 \alias{estimateR.matrix}
 \alias{estimateR.data.frame}
+\alias{estaccum}
+
 \title{ Extrapolated Species Richness in a Species Pool}
 \description{
   The functions estimate the extrapolated species richness in a species
