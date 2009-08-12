@@ -48,9 +48,9 @@
         Zp <- (crossprod(X == 0)/n)^n - outer(pn, pn, "*")
         var.boot[is] <- sum(pn * (1 - pn)) + 2 * sum(Zp[lower.tri(Zp)])
     }
-    out <- list(Species = S, Chao = chao,  Chao.SE = sqrt(var.chao), 
-                Jack.1 = jack.1, Jack1.SE = sqrt(var.jack1), Jack.2 = jack.2, 
-                Boot = bootS, Boot.SE = sqrt(var.boot), n = as.vector(groups))
+    out <- list(Species = S, chao = chao,  chao.se = sqrt(var.chao), 
+                jack1 = jack.1, jack1.se = sqrt(var.jack1), jack2 = jack.2, 
+                boot = bootS, boot.se = sqrt(var.boot), n = as.vector(groups))
     out <- as.data.frame(out)
     attr(out, "pool") <- pool
     out

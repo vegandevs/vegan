@@ -1,6 +1,6 @@
 `specaccum` <-
     function (comm, method = "exact", permutations = 100, conditioned=TRUE,
-              gamma="Jack.1", ...)
+              gamma="jack1", ...)
 {
     x <- comm
     x <- as.matrix(x)

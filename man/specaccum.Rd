@@ -13,7 +13,7 @@
 }
 \usage{
 specaccum(comm, method = "exact", permutations = 100,
-          conditioned =TRUE, gamma = "Jack.1",  ...)
+          conditioned =TRUE, gamma = "jack1",  ...)
 \method{plot}{specaccum}(x, add = FALSE, ci = 2, ci.type = c("bar", "line", "polygon"), 
     col = par("fg"), ci.col = col, ci.lty = 1, xlab = "Sites", 
     ylab = x$method, ylim, ...)

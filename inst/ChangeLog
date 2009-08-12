@@ -6,8 +6,10 @@ Version 1.16-23 (opened August 11, 2009)
 
 	* poolaccum: new function to find the extrapolated richness
 	values (or specpool() estimates) for random accumulation of
-	sites (with summary and plot methods). Arguments (indices) still
-	need consistent naming.
+	sites (with summary and plot methods). 
+
+	* specaccum, specpool, specpool2vect and friends: index names are
+	now all lower-case.
 	
 Version 1.16-22 (closed August 11, 2009)
 

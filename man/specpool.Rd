@@ -20,7 +20,7 @@
 \usage{
 specpool(x, pool)
 estimateR(x, ...)
-specpool2vect(X, index = c("Jack.1","Jack.2", "Chao", "Boot","Species"))
+specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
 \method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
 \method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
