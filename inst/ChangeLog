@@ -13,8 +13,8 @@ Version 1.16-23 (opened August 11, 2009)
 
 	* estaccum: new function similar to 'poolaccum', but uses
 	'estimateR' for individual (count) based estimates of extrapolated
-	richness. Inherits from 'poolaccum', but only 'print' works
-	recently. Still undocumented.
+	richness. Inherits from 'poolaccum' and uses its print, summary
+	and plot methods. Still undocumented.
 	
 Version 1.16-22 (closed August 11, 2009)
 

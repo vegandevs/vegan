@@ -2,7 +2,10 @@
     function(object, display, alpha = 0.05, ...)
 {
     probs <- c(alpha/2, 1-alpha/2)
-    dislabels <- c("S", "chao", "jack1", "jack2", "boot")
+    if (inherits(object, "estaccumR"))
+        dislabels <- c("S", "chao", "ace")
+    else
+        dislabels <- c("S", "chao", "jack1", "jack2", "boot")
     disnames <- colnames(object$means[,-1])
     names(disnames) <- dislabels
     if (missing(display))
