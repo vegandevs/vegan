@@ -3,6 +3,7 @@
 \alias{specpool2vect}
 \alias{poolaccum}
 \alias{print.poolaccum}
+\alias{summary.poolaccum}
 \alias{estimateR}
 \alias{estimateR.default}
 \alias{estimateR.matrix}
