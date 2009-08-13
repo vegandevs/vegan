@@ -9,7 +9,7 @@
 \alias{estimateR.default}
 \alias{estimateR.matrix}
 \alias{estimateR.data.frame}
-\alias{estaccum}
+\alias{estaccumR}
 
 \title{ Extrapolated Species Richness in a Species Pool}
 \description{
@@ -24,6 +24,7 @@ specpool(x, pool)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
+estaccumR(x, permutations = 100)
 \method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
 \method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
 }
@@ -74,17 +75,6 @@ poolaccum(x, permutations = 100, minsize = 3)
       (1-p_i)^N}
     }
 
-  Function \code{poolaccum} is similar to \code{\link{specaccum}}, but
-  it estimates all extrapolated richness values of \code{specpool} in
-  addition to number of species for random ordering of sampling units.
-  The function has \code{summary} and \code{plot} methods. The
-  \code{summary} returns quantile envilopes of permutations
-  corresponding the given level of \code{alpha} and standard deviation
-  of permutations for each sample size. The \code{plot} function shows
-  the mean and envelope of permutations with given \code{alpha} for
-  models. The selection of models can be restricted and order changes
-  using the \code{display} argument in \code{summary} or \code{plot}.
-
     The abundance-based estimates in \code{estimateR} use counts (frequencies) of
     species in a single site. If called for a matrix or data frame, the
     function will give separate estimates for each site.  The two
@@ -129,21 +119,36 @@ poolaccum(x, permutations = 100, minsize = 3)
     still missing). 
     The variance estimator of \eqn{S_{ace}}{S_ace} was
     developed by Bob O'Hara (unpublished).
-    
-}
-\value{
 
+  Functions \code{poolaccum} and \code{estaccumR} are similar to
+  \code{\link{specaccum}}, but estimateextrapolated richness indices
+  of \code{specpool} or \code{estimateR} in addition to number of
+  species for random ordering of sampling units. Function
+  \code{specpool} uses presence data and \code{estaccumR} count
+  data. The functions share \code{summary} and \code{plot}
+  methods. The \code{summary} returns quantile envilopes of
+  permutations corresponding the given level of \code{alpha} and
+  standard deviation of permutations for each sample size. The
+  \code{plot} function shows the mean and envelope of permutations
+  with given \code{alpha} for models. The selection of models can be
+  restricted and order changes using the \code{display} argument in
+  \code{summary} or \code{plot}. For configuration of \code{plot}
+  command, see \code{\link[lattice]{xyplot}}
+}
+
+\value{
   Function \code{specpool} returns a data frame with entries for
   observed richness and each of the indices for each class in
   \code{pool} vector.  The utility function \code{specpool2vect} maps
   the pooled values into a vector giving the value of selected
-  \code{index} for each original site.  Function \code{poolaccum}
-  returns matrices of permutation results for each richness estimator,
-  the vector of sample sizes and a table of \code{means} of
-  permutations for each estimator.  Function \code{estimateR} returns
-  the estimates and their standard errors for each site.
- 
+  \code{index} for each original site. Function \code{estimateR}
+  returns the estimates and their standard errors for each
+  site. Functions \code{poolaccum} and \code{estimateR} return
+  matrices of permutation results for each richness estimator, the
+  vector of sample sizes and a table of \code{means} of permutations
+  for each estimator.
 }
+
 \references{
   Chao, A. (1987). Estimating the population size for capture-recapture
   data with unequal catchability. \emph{Biometrics} 43, 783--791.
@@ -158,7 +163,7 @@ poolaccum(x, permutations = 100, minsize = 3)
   Smith, E.P & van Belle, G. (1984). Nonparametric estimation of
   species richness. \emph{Biometrics} 40, 119--129.
 }
-\author{Bob O'Hara (\code{estimateR}) and Jari Oksanen (\code{specpool}).}
+\author{Bob O'Hara (\code{estimateR}) and Jari Oksanen.}
 \note{
   The functions are based on assumption that there is a species pool:
   The community is closed so that there is a fixed pool size \eqn{S_P}.
