@@ -31,7 +31,7 @@ twostagechao <- function(x, order=2, N=nrow(x), m=1, nboot=200, subset)
     } else BOOTC <- NA
 
     ESTIMATE <- FUN(x)
-    SE <- sd(BOOTC) / sqrt(nboot)
+    SE <- sd(BOOTC)
     STATISTIC <- c(ESTIMATE, SE)
     names(STATISTIC) <- c("Estimate", "Std. Error")
     PARAMETER <- c(order, N)
