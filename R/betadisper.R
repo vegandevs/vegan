@@ -51,7 +51,6 @@
     pos <- eig > 0
     ## group centroids in PCoA space
     centroids <- apply(vectors, 2, function(x) tapply(x, group, mean))
-    m <- table(group)[group]
     ## for each of the groups, calculate distance to centroid for
     ## observation in the group
     if(is.matrix(centroids)) {
@@ -78,7 +77,7 @@
         }
     }
     ## zij are the distances of each point to its group centroid
-    zij <- sqrt(abs(dist.pos - dist.neg)*m/(m-1))
+    zij <- sqrt(abs(dist.pos - dist.neg))
     ## add in correct labels
     colnames(vectors) <- names(eig) <- paste("PCoA", seq_along(eig), sep = "")
     if(is.matrix(centroids))
@@ -86,7 +85,7 @@
     else
         names(centroids) <- names(eig)
     rownames(vectors) <- names(zij) <- labs
-    retval <- list(eig = eig, vectors = vectors, distances = zij*zij,
+    retval <- list(eig = eig, vectors = vectors, distances = zij,
                    group = group, centroids = centroids, call = match.call())
     class(retval) <- "betadisper"
     attr(retval, "method") <- attr(d, "method")
