@@ -11,7 +11,7 @@
   above the threshold or \code{NA}.  
 }
 \usage{
-spantree(dis, toolong = 0)
+spantree(d, toolong = 0)
 \method{cophenetic}{spantree}(x)
 \method{plot}{spantree}(x, ord, cex = 0.7, type = "p", labels, dlim,
      FUN = sammon,  ...)
@@ -19,7 +19,7 @@ spantree(dis, toolong = 0)
 }
 
 \arguments{
-  \item{dis}{Dissimilarity data inheriting from class \code{dist} or
+  \item{d}{Dissimilarity data inheriting from class \code{dist} or
     a an object, such as a matrix, that can be converted to a
     dissimilarity matrix. Functions \code{\link{vegdist}} and
     \code{\link{dist}} are some functions producing suitable
@@ -89,6 +89,7 @@ spantree(dis, toolong = 0)
   \item{dist }{Corresponding distance. If \code{kid = NA}, then
     \code{dist = 0}.}
   \item{labels }{Names of nodes as found from the input dissimilarities.} 
+  \item{call}{The function call.}
 }
 \references{
  Sedgewick, R. (1990). \emph{Algorithms in C}. Addison Wesley. 

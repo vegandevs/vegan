@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-23 (opened August 11, 2009)
+Version 1.16-24 (opened August 17, 2009)
+
+	* spantree: first argument 'd' like in hclust()instead of 'dis'.
+	Got a 'call' item so that update() works.
+	
+Version 1.16-23 (closed August 17, 2009)
 
 	* poolaccum: new function to find the extrapolated richness
 	values (or specpool() estimates) for random accumulation of
