@@ -1,6 +1,7 @@
 \name{treedive}
 \alias{treedive}
 \alias{treeheight}
+\alias{treedist}  ## Undocumented!! 
 
 \title{ Functional Diversity estimated from a Species Dendrogram}
 \description{

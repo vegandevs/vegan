@@ -1,6 +1,8 @@
 `treeheight` <-
     function(tree)
 {
+    if (inherits(tree, "spantree"))
+        return(sum(tree$dist))
     tree <- as.hclust(tree)
     m <- tree$merge
     h <- tree$height

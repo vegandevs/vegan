@@ -6,6 +6,20 @@ Version 1.16-24 (opened August 17, 2009)
 
 	* spantree: first argument 'd' like in hclust()instead of 'dis'.
 	Got a 'call' item so that update() works.
+
+	* treedive & treeheight: accept 'spantree' objects. EXPERIMENTAL
+	CHANGE THAT MAY BE CANCELLED.
+
+	* treedist: average distance of species trees for two
+	sites. Generalization of treedive(): builds a species tree of two
+	sites and sees how much of the tree is shared between two sites,
+	and how much is unique to the combination. The measure is similar
+	to Jaccard index: the proportion of unique (unshared) tree of the
+	combined tree. In principle, this is similar to UniFrac metric
+	(C. Lozupone & R. Knight, Appl. Environ. Microbiol. 71:8225-8235;
+	2005), but numerically and computationally different (and the
+	current implementation may specify a new unpublished method). AN
+	EXPERIMENTAL CHANGE THAT MAY BE CANCELLED.
 	
 Version 1.16-23 (closed August 17, 2009)
 

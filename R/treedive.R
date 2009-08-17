@@ -1,11 +1,11 @@
 `treedive` <-
     function(comm, tree, match.force = FALSE)
 {
-    if (!inherits(tree, "hclust"))
-        stop("'clus' must be an 'hclust' result object")
+    if (!inherits(tree, c("hclust", "spantree")))
+        stop("'clus' must be an 'hclust' or 'spantree' result object")
     m <- as.matrix(cophenetic(tree))
     ## Check tree/comm match by names
-    if (match.force || ncol(comm) != length(tree$order)) {
+    if (match.force || ncol(comm) != ncol(m)) {
         if (match.force)
             message("Forced matching of 'tree' labels and 'comm' names")
         else
