@@ -104,12 +104,11 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   connects each `WA' scores to the correspoding `LC' score.
 
   Function \code{ordiellipse} draws \code{\link{lines}} or
-  \code{\link{polygon}}s for dispersion
-  \code{\link[ellipse]{ellipse}} using either standard deviation of
-  point scores or standard error of the (weighted) average of
-  scores, and the (weighted) correlation defines the direction of the
-  principal axis of the ellipse. The function requires package
-  \pkg{ellipse}. An ellipsoid hull can be drawn with function
+  \code{\link{polygon}}s for dispersion \code{\link[ellipse]{ellipse}}
+  using either standard deviation of point scores or standard error of
+  the (weighted) average of scores, and the (weighted) correlation
+  defines the direction of the principal axis of the ellipse. An
+  ellipsoid hull can be drawn with function
   \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
 
   Function \code{ordicluster} overlays a cluster dendrogram onto
@@ -130,26 +129,25 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   you may wish to change the default values in \code{\link{arrows}},
   \code{\link{lines}}, \code{\link{segments}} and
   \code{\link{polygon}}. You can pass
-  parameters to \code{\link{scores}} as well. Other underlying functions
-  are \code{\link{chull}} and \code{\link[ellipse]{ellipse}}.
+  parameters to \code{\link{scores}} as well. Umderlying function for
+  \code{ordihull} is \code{\link{chull}}.
 }
 
 
 \examples{
 data(dune)
 data(dune.env)
-mod <- cca(dune ~ Moisture, dune.env)
+mod <- cca(dune ~ Management, dune.env)
 attach(dune.env)
 ## pass non-graphical arguments without warnings
 plot(mod, type="n", scaling = 3)
-ordihull(mod, Moisture, scaling = 3)
+ordihull(mod, Management, scaling = 3)
 ordispider(mod, col="red", scaling = 3)
 plot(mod, type = "p", display="sites")
 ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
-# The following is not executed automatically because it needs
-# a non-standard library `ellipse'. 
-\dontrun{
-ordiellipse(mod, Moisture, kind="se", conf=0.95, lwd=2, col="blue")}
+plot(mod, type="n", display = "sites")
+text(mod, display="sites", labels = as.character(Management))
+ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
 }
 \keyword{aplot }
 
