@@ -3,7 +3,9 @@
               conf, draw = c("lines", "polygon"), w = weights(ord, display),
               show.groups, ...)
 {
-    require(ellipse) || stop("Requires package 'ellipse' (from CRAN)")
+    ## Define Circle for an ellipse: taken from the 'car' package
+    theta <- (0:51) * 2 * pi/51
+    Circle <- cbind(cos(theta), sin(theta))
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     draw <- match.arg(draw)
@@ -32,15 +34,11 @@
             if (missing(conf))
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
+            xy <- t(mat$center + t * t(Circle %*% chol(mat$cov)))
             if (draw == "lines")
-                ordiArgAbsorber(ellipse(mat$cov, centre = mat$center, t = t),
-                      FUN = lines, ...)
-            else {
-                xy <- ellipse(mat$cov, center = mat$center, t = t)
-                ordiArgAbsorber(xy[, 1] + mat$center[1],
-                                xy[, 2] + mat$center[2],
-                                FUN = polygon, ...)
-            }
+                ordiArgAbsorber(xy, FUN = lines, ...)
+            else 
+                ordiArgAbsorber(xy[, 1], xy[, 2], FUN = polygon, ...)
         }
     }
     invisible()
