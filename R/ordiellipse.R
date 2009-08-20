@@ -1,7 +1,7 @@
 "ordiellipse" <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
               conf, draw = c("lines", "polygon"), w = weights(ord, display),
-              show.groups, ...)
+              show.groups, label = FALSE,  ...)
 {
     ## Define Circle for an ellipse: taken from the 'car' package
     theta <- (0:51) * 2 * pi/51
@@ -23,6 +23,7 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    res <- list()
     for (is in inds) {
         gr <- out[groups == is]
         if (length(gr) > 2) {
@@ -39,7 +40,12 @@
                 ordiArgAbsorber(xy, FUN = lines, ...)
             else 
                 ordiArgAbsorber(xy[, 1], xy[, 2], FUN = polygon, ...)
+            if (label)
+                ordiArgAbsorber(mat$center[1], mat$center[2], labels=is,
+                               FUN = text, ...)
+            res[[is]] <- mat
         }
     }
-    invisible()
+    class(res) <- "ordiellipse"
+    invisible(res)
 }

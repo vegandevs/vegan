@@ -1,6 +1,6 @@
 "ordihull" <-
     function (ord, groups, display = "sites", draw = c("lines", "polygon"),
-              show.groups, ...)
+              show.groups, label = FALSE, ...)
 {
     draw <- match.arg(draw)
     pts <- scores(ord, display = display, ...)
@@ -11,6 +11,7 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    res <- list()
     for (is in inds) {
         gr <- out[groups == is]
         if (length(gr) > 1) {
@@ -20,7 +21,14 @@
             if (draw == "lines")
                 ordiArgAbsorber(X[hpts, ], FUN = lines, ...)
             else ordiArgAbsorber(X[hpts,], FUN = polygon, ...)
+            if (label) {
+                cntr <- colMeans(X[hpts[-1],])
+                ordiArgAbsorber(cntr[1], cntr[2], labels = is,
+                                FUN = text, ...)
+            }
+            res[[is]] <- X[hpts,]
         }
     }
-    invisible()
+    class(res) <- "ordihull"
+    invisible(res)
 }

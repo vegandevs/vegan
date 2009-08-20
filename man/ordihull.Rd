@@ -21,17 +21,17 @@
 }
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon"),
+         show.groups, label = FALSE,  ...)
+ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
+         draw = c("lines","polygon"), w = weights(ord, display),
+         show.groups, label = FALSE, ...)
+ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, ...)
 ordiarrows(ord, groups, levels, replicates, display = "sites",
          show.groups, startmark, ...)
 ordisegments(ord, groups, levels, replicates, display = "sites",
          show.groups, ...)
 ordigrid(ord, levels, replicates, display = "sites",  ...)
-ordispider(ord, groups, display="sites", w = weights(ord, display),
-         show.groups, ...)
-ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
-         draw = c("lines","polygon"), w = weights(ord, display),
-         show.groups, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)
 }
@@ -55,6 +55,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     \code{TRUE}. This argument makes it possible to use different
     colours and line types for groups. The default is to show all
     groups. }
+  \item{label}{Label the centroid of the hull or the ellipse with the
+    group name.}
   \item{startmark}{plotting characer used to mark the first
     item. The default is to use no mark, and for instance, 
     \code{startmark = 1} will draw a circle.  For other plotting characters,
@@ -85,7 +87,15 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   Function \code{ordihull} draws \code{\link{lines}} or
   \code{\link{polygon}}s for the convex
   hulls found by function \code{\link{chull}} encircling
-  the items in the groups.
+  the items in the groups. 
+  
+  Function \code{ordiellipse} draws \code{\link{lines}} or
+  \code{\link{polygon}}s for dispersion \code{\link[ellipse]{ellipse}}
+  using either standard deviation of point scores or standard error of
+  the (weighted) average of scores, and the (weighted) correlation
+  defines the direction of the principal axis of the ellipse. 
+  An ellipsoid hull can be drawn with function
+  \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
 
   Function \code{ordiarrows} draws
   \code{\link{arrows}} and \code{ordisegments} draws line
@@ -102,14 +112,6 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   call. If \code{ordispider} is called with \code{\link{cca}} or
   \code{\link{rda}} result without \code{groups} argument, the function
   connects each `WA' scores to the correspoding `LC' score.
-
-  Function \code{ordiellipse} draws \code{\link{lines}} or
-  \code{\link{polygon}}s for dispersion \code{\link[ellipse]{ellipse}}
-  using either standard deviation of point scores or standard error of
-  the (weighted) average of scores, and the (weighted) correlation
-  defines the direction of the principal axis of the ellipse. An
-  ellipsoid hull can be drawn with function
-  \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
 
   Function \code{ordicluster} overlays a cluster dendrogram onto
   ordination. It needs the result from a hierarchic clustering such as
@@ -141,7 +143,7 @@ mod <- cca(dune ~ Management, dune.env)
 attach(dune.env)
 ## pass non-graphical arguments without warnings
 plot(mod, type="n", scaling = 3)
-ordihull(mod, Management, scaling = 3)
+ordihull(mod, Management, scaling = 3, label = TRUE)
 ordispider(mod, col="red", scaling = 3)
 plot(mod, type = "p", display="sites")
 ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
