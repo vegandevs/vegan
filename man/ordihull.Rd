@@ -9,6 +9,8 @@
 \alias{weights.cca}
 \alias{weights.rda}
 \alias{weights.decorana}
+\alias{summary.ordihull}
+\alias{summary.ordiellipse}
 
 \title{Add Graphical Items to Ordination Diagrams}
 \description{
@@ -97,6 +99,14 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   An ellipsoid hull can be drawn with function
   \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
 
+  Functions \code{ordihull} and \code{ordiellipse} return the
+  \code{\link{invisible}} plotting structure. In \code{ordihull} this
+  is a list of coordinates of the hull and in \code{ordiellipse} a
+  list of covariance matrices and scales used in drawing the
+  ellipses. These result objects have a summary method that returns
+  the coordinates of the centroids of the ellipses or hulls and their
+  surface areas in user units.
+
   Function \code{ordiarrows} draws
   \code{\link{arrows}} and \code{ordisegments} draws line
   \code{\link{segments}} between successive items in the
@@ -143,13 +153,17 @@ mod <- cca(dune ~ Management, dune.env)
 attach(dune.env)
 ## pass non-graphical arguments without warnings
 plot(mod, type="n", scaling = 3)
-ordihull(mod, Management, scaling = 3, label = TRUE)
+## Catch the invisible result of ordihull...
+pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
+## ... and find centres and areas of the hulls
+summary(pl)
 ordispider(mod, col="red", scaling = 3)
 plot(mod, type = "p", display="sites")
 ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
 plot(mod, type="n", display = "sites")
 text(mod, display="sites", labels = as.character(Management))
-ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
+pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
+summary(pl)
 }
 \keyword{aplot }
 

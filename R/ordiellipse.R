@@ -43,6 +43,7 @@
             if (label)
                 ordiArgAbsorber(mat$center[1], mat$center[2], labels=is,
                                FUN = text, ...)
+            mat$scale <- t
             res[[is]] <- mat
         }
     }

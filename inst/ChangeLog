@@ -8,10 +8,9 @@ Version 1.16-24 (opened August 17, 2009)
 	name of the group in the centre of the ellipse or the hull. The
 	functions now return invisibly data on their plots for each
 	plotted item: ordiellipse() the covariance matrix (cov.wt()
-	result), and ordihull() the coordinates of the hull
-	vertices. Nothing is done with these yet, but the intention is to
-	write a summary() method to give the coordinates of the centres
-	and surface areas of the plotted hulls or ellipses.
+	result), and ordihull() the coordinates of the hull vertices.
+	These inivisible results have a summary() method that displays the
+	centres of the hulls or ellipses and their surface areas.
 
 	* ordiellipse: does not depend on the 'ellipse' package, but finds
 	the coordinates of ellipse using the equation taken from the 'car'
