@@ -3,7 +3,6 @@
               arr.len = 0.1, arr.col = 4, envfit, xlab, ylab, zlab, ...) 
 {
     require(scatterplot3d) || stop("Requires package 'scatterplot3d'")
-    local
     x <- scores(object, display = display, choices = choices, ...)
     if (missing(xlab)) xlab <- colnames(x)[1]
     if (missing(ylab)) ylab <- colnames(x)[2]
