@@ -57,8 +57,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     \code{TRUE}. This argument makes it possible to use different
     colours and line types for groups. The default is to show all
     groups. }
-  \item{label}{Label the centroid of the hull or the ellipse with the
-    group name.}
+  \item{label}{Label the centre of the points in hull or the ellipse with 
+    the group name.}
   \item{startmark}{plotting characer used to mark the first
     item. The default is to use no mark, and for instance, 
     \code{startmark = 1} will draw a circle.  For other plotting characters,
@@ -104,8 +104,10 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   is a list of coordinates of the hull and in \code{ordiellipse} a
   list of covariance matrices and scales used in drawing the
   ellipses. These result objects have a summary method that returns
-  the coordinates of the centroids of the ellipses or hulls and their
-  surface areas in user units.
+  the coordinates of the centres of the ellipses or hulls and their
+  surface areas in user units. The centres of the hulls may differ
+  from the location of the \code{label} which is the centre of the
+  points instead of the centre of the polygon.
 
   Function \code{ordiarrows} draws
   \code{\link{arrows}} and \code{ordisegments} draws line

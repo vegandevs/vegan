@@ -22,7 +22,7 @@
                 ordiArgAbsorber(X[hpts, ], FUN = lines, ...)
             else ordiArgAbsorber(X[hpts,], FUN = polygon, ...)
             if (label) {
-                cntr <- colMeans(X[hpts[-1],])
+                cntr <- colMeans(X)
                 ordiArgAbsorber(cntr[1], cntr[2], labels = is,
                                 FUN = text, ...)
             }

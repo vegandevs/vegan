@@ -9,7 +9,18 @@
         else
             abs(sum(x[-n,1]*x[-1,2] - x[-1,1]*x[-n,2]))/2
     }
+    polycentre <- function(x) {
+        n <- nrow(x)
+        if (n < 4)
+            return(colMeans(x[-n,]))
+        xy <- x[-n,1]*x[-1,2] - x[-1,1]*x[-n,2]
+        A <- sum(xy)/2
+        xc <- sum((x[-n,1] + x[-1,1]) * xy)/A/6
+        yc <- sum((x[-n,2] + x[-1,2]) * xy)/A/6
+        structure(c(xc, yc), names = colnames(x))
+    }
     areas <- sapply(object, function(x) polyarea(x))
     cnts <- sapply(object, function(x) colMeans(x[-1,]))
-    rbind(cnts, `Area` = areas)
+    altcnts <- sapply(object, function(x) polycentre(x))
+    rbind(cnts, altcnts, `Area` = areas)
 }
