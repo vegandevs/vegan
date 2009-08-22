@@ -20,7 +20,6 @@
         structure(c(xc, yc), names = colnames(x))
     }
     areas <- sapply(object, function(x) polyarea(x))
-    cnts <- sapply(object, function(x) colMeans(x[-1,]))
-    altcnts <- sapply(object, function(x) polycentre(x))
-    rbind(cnts, altcnts, `Area` = areas)
+    cnts <- sapply(object, function(x) polycentre(x))
+    rbind(cnts, `Area` = areas)
 }
