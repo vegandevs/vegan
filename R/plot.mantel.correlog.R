@@ -1,7 +1,7 @@
 'plot.mantel.correlog' <- function(x, alpha=0.05, ...)
 {
 lim = max(x$n.tests)
-plot(x$mantel.res[1:lim,1],x$mantel.res[1:lim,3], xlab="Distance class index", ylab="Mantel r", pch=22)
+plot(x$mantel.res[1:lim,1],x$mantel.res[1:lim,3], xlab="Distance class index", ylab="Mantel correlation", pch=22)
 if(x$mult=="none") {
 	signif = which((x$mantel.res[1:lim,4] <= alpha))
 	} else {

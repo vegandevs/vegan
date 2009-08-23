@@ -47,7 +47,8 @@ if(n.class > 0) {
 	}
 half.cl = n.class %/% 2
 
-# Move the first breakpoint a little bit to the leftepsilon <- .Machine$double.eps
+# Move the first breakpoint a little bit to the left
+epsilon <- .Machine$double.eps
 break.pts[1] = break.pts[1] - epsilon   
 
 # Find the break points and the class indices
@@ -105,7 +106,7 @@ mantel.p = mantel.p[-1]
 n.tests = length(which(mantel.p != "NA"))
 
 if(mult=="none") {
-	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.r", "Pr(Mantel)")
+	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.cor", "Pr(Mantel)")
 	} else {	
 	## Correct P-values for multiple testing
 		if(progressive) {
@@ -128,7 +129,7 @@ if(mult=="none") {
 	    	}
 	temp = c(p.corr, rep(NA,(n.class-n.tests)))
 	mantel.res = cbind(mantel.res, temp)
-	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.r", "Pr(Mantel)", "Pr(corrected)")
+	colnames(mantel.res) = c("class.index", "n.dist", "Mantel.cor", "Pr(Mantel)", "Pr(corrected)")
 	}
 rownames(mantel.res) = rownames(mantel.res,do.NULL = FALSE, prefix = "D.cl.")
 
