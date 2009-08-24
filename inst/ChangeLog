@@ -7,6 +7,8 @@ Version 1.16-25 (opened August 23, 2009)
 	* mantel.correlog: updated to the version 1.4 of Pierre Legendre's
 	package. 
 
+	*  RsquareAdj documented.
+
 Version 1.16-24 (opened August 17, 2009)
 
 	* ordiellipse & ordihull: gained new argument 'label' to put the
