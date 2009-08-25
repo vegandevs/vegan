@@ -135,7 +135,7 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 data(mite)        
 data(mite.xy)  
 mite.hel <- decostand(mite, "hellinger")
-mite.hel. <- dist(mite.hel)
+mite.hel.D <- dist(mite.hel)
 
 mite.correlog <- mantel.correlog(mite.hel.D, XY=mite.xy, nperm=99)
 summary(mite.correlog)
