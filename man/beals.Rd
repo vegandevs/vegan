@@ -111,7 +111,8 @@ simulated vegetational data. \emph{Ecology} 51, 89--102.
 
 \seealso{\code{\link{decostand}} for proper standardization methods,
   \code{\link{specpool}} for an attempt to assess the size of species
-  pool. }
+  pool. Function \code{\link{indpower}} assesses the power of each species
+  to estimate the probabilities predicted by \code{beals}. }
 \examples{
 data(dune)
 ## Default
