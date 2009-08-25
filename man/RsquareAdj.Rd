@@ -23,28 +23,30 @@ Adjusted R-square
 \arguments{
 
   \item{x}{ Unadjusted R-squared or an object from which the terms for
-  evaluation or adjusted R-squared can be found.  }
+  evaluation or adjusted R-squared can be found.}
   
-  \item{n, m}{Number of observations and number of degree of freedom
-  in the fitted model}
+  \item{n, m}{Number of observations and number of degrees of freedom
+  in the fitted model.}
 
-  \item{\dots}{ Other arguments (ignored).  } }
+  \item{\dots}{ Other arguments (ignored).} 
+}
 
-\details{ The default method of the function finds the adjusted
+\details{ The default method finds the adjusted
   R-squared from the unadjusted R-squared, number of observations, and
-  number of degree of freedom in the fitted model. The specific
-  methods can found this information from the fitted result
-  object. There are specific methods fro \code{\link{rda}},
+  number of degrees of freedom in the fitted model. The specific
+  methods find this information from the fitted result
+  object. There are specific methods for \code{\link{rda}},
   \code{\link{cca}}, \code{\link{lm}} and \code{\link{glm}}. Adjusted,
   or even unandjusted, R-squared may not be available in some cases,
   and then the functions will return \code{NA}. There is no adjusted
-  R-squared in \code{\link{cca}}, neither in partial \code{\link{rda}}, and
+  R-squared in \code{\link{cca}}, in partial \code{\link{rda}}, and
   R-squared values are available only for \code{\link{gaussian}}
   models in \code{\link{glm}}. 
 }
 
 \value{ The functions return a list of items \code{r.squared} and
-\code{adj.r.squared}.  }
+\code{adj.r.squared}.  
+}
 
 \references{ 
   Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation
