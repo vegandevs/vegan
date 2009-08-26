@@ -1,6 +1,7 @@
 "ordiellipse" <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
-              conf, draw = c("lines", "polygon"), w = weights(ord, display),
+              conf, draw = c("lines", "polygon", "none"),
+              w = weights(ord, display),
               show.groups, label = FALSE,  ...)
 {
     ## Define Circle for an ellipse: taken from the 'car' package
@@ -38,9 +39,9 @@
             xy <- t(mat$center + t * t(Circle %*% chol(mat$cov)))
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines, ...)
-            else 
+            else if (draw == "polygon") 
                 ordiArgAbsorber(xy[, 1], xy[, 2], FUN = polygon, ...)
-            if (label)
+            if (label && draw != "none")
                 ordiArgAbsorber(mat$center[1], mat$center[2], labels=is,
                                FUN = text, ...)
             mat$scale <- t

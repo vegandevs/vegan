@@ -22,10 +22,10 @@
   \code{\link{ordiplot}}.
 }
 \usage{
-ordihull(ord, groups, display = "sites", draw = c("lines","polygon"),
+ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
          show.groups, label = FALSE,  ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
-         draw = c("lines","polygon"), w = weights(ord, display),
+         draw = c("lines","polygon", "none"), w = weights(ord, display),
          show.groups, label = FALSE, ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, ...)
@@ -51,7 +51,9 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   \item{draw}{Use either \code{\link{lines}} or \code{\link{polygon}} to
     draw the
     line. Graphical parameters are passed to both. The main difference
-    is that \code{polygon}s may be filled and non-transparent.}
+    is that \code{polygon}s may be filled and non-transparent. With \code{none}
+    nothing is drawn, but the function returns the \code{\link{invisible}}
+    plotting data.}
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is
     \code{TRUE}. This argument makes it possible to use different
@@ -107,7 +109,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   the coordinates of the centres of the ellipses or hulls and their
   surface areas in user units. The centres of the hulls may differ
   from the location of the \code{label} which is the centre of the
-  points instead of the centre of the polygon.
+  points instead of the centre of the polygon. With \code{draw = "none"}
+  only the result object is returned and nothing is drawn.
 
   Function \code{ordiarrows} draws
   \code{\link{arrows}} and \code{ordisegments} draws line

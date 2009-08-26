@@ -7,7 +7,12 @@ Version 1.16-25 (opened August 23, 2009)
 	* mantel.correlog: updated to the version 1.4 of Pierre Legendre's
 	package. 
 
-	*  RsquareAdj documented.
+	*  RsquareAdj: documented.
+
+	* ordiellipse & ordihull: argument 'draw' got a new alternative
+	"none". With this, nothing is drawn but the invisible plotting
+	structure is returned. This was added so that it is easier to
+	develop permutation tests for hulls and ellipses.
 
 Version 1.16-24 (opened August 17, 2009)
 

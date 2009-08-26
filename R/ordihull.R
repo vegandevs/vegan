@@ -1,5 +1,6 @@
 "ordihull" <-
-    function (ord, groups, display = "sites", draw = c("lines", "polygon"),
+    function (ord, groups, display = "sites",
+              draw = c("lines", "polygon", "none"),
               show.groups, label = FALSE, ...)
 {
     draw <- match.arg(draw)
@@ -20,8 +21,9 @@
             hpts <- c(hpts, hpts[1])
             if (draw == "lines")
                 ordiArgAbsorber(X[hpts, ], FUN = lines, ...)
-            else ordiArgAbsorber(X[hpts,], FUN = polygon, ...)
-            if (label) {
+            else if (draw == "polygon")
+                ordiArgAbsorber(X[hpts,], FUN = polygon, ...)
+            if (label && draw != "none") {
                 cntr <- colMeans(X)
                 ordiArgAbsorber(cntr[1], cntr[2], labels = is,
                                 FUN = text, ...)
