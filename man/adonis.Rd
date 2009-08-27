@@ -60,9 +60,14 @@ variance, Excoffier, Smouse, and Quattro, 1992;
 \code{\link[ade4]{amova}} in the \pkg{ade4} package) for both crossed
 and nested factors.
 
-
-If the experimental design has nestedness, then use \code{strata} to test hypotheses. For instance, imagine we are testing the whether a plant community is influenced by nitrate amendments, and we have two replicate plots at each of two levels of nitrate (0, 10 ppm). We have replicated the experiment in three fields with (perhaps) different average productivity. In this design, we would need to specify \code{strata = field} so that randomizations occur only \emph{within each field} and not across all fields . See example below.
-
+If the experimental design has nestedness, then use \code{strata} to
+test hypotheses. For instance, imagine we are testing the whether a
+plant community is influenced by nitrate amendments, and we have two
+replicate plots at each of two levels of nitrate (0, 10 ppm). We have
+replicated the experiment in three fields with (perhaps) different
+average productivity. In this design, we would need to specify
+\code{strata = field} so that randomizations occur only \emph{within
+each field} and not across all fields . See example below.
 
 Like AMOVA (Excoffier et al. 1992), \code{adonis} relies on a
 long-understood phenomenon that allows one to partition sums of squared
@@ -193,8 +198,6 @@ adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
 
 ### Incorrect (no strata)
 adonis(Y ~ NO3, data=dat, perm=1e3)
-
-
 }
 
 \keyword{multivariate }
