@@ -24,7 +24,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata)
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations . See \code{\link{vegdist}} for
     options.  This will be used if \code{dat} was not a dissimilarity
-    structure of a symmetric square matrix.}  
+    structure or a symmetric square matrix.}  
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
