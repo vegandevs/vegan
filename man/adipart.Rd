@@ -16,11 +16,11 @@ according to a nested hierarchical sampling design (\code{hiersimu}).
 }
 \usage{
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
 multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
-    global = FALSE, relative = FALSE, nsimul=99, control, ...)
+    global = FALSE, relative = FALSE, nsimul=99, ...)
 hiersimu(formula, data, FUN, location = c("mean", "median"),
-    relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
+    relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
 \method{print}{adipart}(x, ...)
 \method{print}{multipart}(x, ...)
 \method{print}{hiersimu}(x, ...)
@@ -47,9 +47,8 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.
     If \code{nsimul = 0}, only the \code{FUN} argument is evaluated. It is thus possible
     to reuse the statistic values without using a null model.}
-  \item{control}{A list of arguments passed to quantitative permutation
-          algorithms. If missing, the function  'permat.control' is used.}
-  \item{FUN}{A function to be used by \code{hiersimu}.}
+  \item{FUN}{A function to be used by \code{hiersimu}. This must be fully specified,
+    because currently other arguments cannot be passed to this function via \code{\dots}.}
   \item{location}{Character, identifies which function (mean or median) is used to 
     calculate location of the samples.}
   \item{drop.highest}{Logical, to drop the highest level or not. When \code{FUN} 
@@ -57,7 +56,8 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
     or not selected at all.}
   \item{x}{An object to print.}
   \item{\dots}{Other arguments passed to functions, e.g. base of logarithm for 
-    Shannon diversity (see \code{\link{diversity}}).}
+    Shannon diversity, or \code{method}, \code{thin} or \code{burnin} arguments for
+    \code{\link{oecosimu}}.}
 }
 \details{
 Additive diversity partitioning means that mean alpha and beta diversity adds up to gamma 
@@ -88,7 +88,7 @@ Simpson's diversity indices states as argument \code{index}.
 
 Multiplicative diversity partitioning is based on Whittaker's (1972) ideas, that has 
 recently been generalised to one parametric diversity families (i.e. \enc{R\'enyi}{Renyi} 
-and Tsallis) by Jost (2006, 2007). Jost recomments to use the numbers equivalents 
+and Tsallis) by Jost (2006, 2007). Jost recommends to use the numbers equivalents 
 (Hill numbers), instead of pure diversities, and proofs, that this satisfies the 
 multiplicative partitioning requirements.
 
@@ -114,10 +114,8 @@ standardized by their maximum expected values (\eqn{mean(\beta_{ij}) / \beta_{ma
 given as \eqn{\beta_{max,ij} = n_{j}} (the number of lower level units in a given cluster \eqn{j}).
 
 The expected diversity components are calculated \code{nsimul} times by individual based 
-randomisation of the community data matrix. This is done by the \code{\link{permatfull}} 
-and \code{\link{permatswap}} functions, and properties of the null model can be set by 
-the \code{control} argument (see \code{\link{permat.control}}). The null matrics then 
-evaluated via the function \code{\link{oecosimu}}.
+randomisation of the community data matrix. This is done by the \code{"r2dtable"} method
+in \code{\link{oecosimu}} by default.
 
 \code{hiersimu} works almost the same as \code{adipart}, but without comparing the actual 
 statistic values returned by \code{FUN} to the highest possible value (cf. gamma diversity). 

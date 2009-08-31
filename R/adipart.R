@@ -1,6 +1,6 @@
 adipart <-
 function(formula, data, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99, control, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
 {
     ## evaluate formula
     lhs <- formula[[2]]
@@ -49,16 +49,24 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
+    ## is there a method/burnin/thin in ... ?
+    method <- if (is.null(list(...)$method))
+        "r2dtable" else list(...)$method
+    burnin <- if (is.null(list(...)$burnin))
+        0 else list(...)$burnin
+    thin <- if (is.null(list(...)$thin))
+        1 else list(...)$thin
+    base <- if (is.null(list(...)$base))
+        exp(1) else list(...)$base
+
     ## evaluate other arguments
     index <- match.arg(index)
     weights <- match.arg(weights)
-    if (missing(control))
-        control <- permat.control()
     switch(index,
         "richness" = {
             divfun <- function(x) apply(x > 0, 1, sum)},
         "shannon" = {
-            divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, ...)},
+            divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
         "simpson" = {
             divfun <- function(x) diversity(x, index = "simpson", MARGIN = 1)})
     sumMatr <- sum(lhs)
@@ -82,8 +90,8 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
         c(a, b)
     }
     if (nsimul > 0) {
-        sim <- oecosimu(lhs, wdivfun, method = "permat", nsimul=nsimul,
-            burnin=control$burnin, thin=control$thin, control=control)
+        sim <- oecosimu(lhs, wdivfun, method = method, nsimul=nsimul,
+            burnin=burnin, thin=thin)
         } else {
             sim <- wdivfun(lhs)
             tmp <- rep(NA, length(sim))

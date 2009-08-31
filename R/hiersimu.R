@@ -1,6 +1,6 @@
 hiersimu <-
 function(formula, data, FUN, location = c("mean", "median"),
-relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
+relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
 {
     ## evaluate formula
     lhs <- formula[[2]]
@@ -49,9 +49,15 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
+    ## is there a method/burnin/thin in ... ?
+    method <- if (is.null(list(...)$method))
+        "r2dtable" else list(...)$method
+    burnin <- if (is.null(list(...)$burnin))
+        0 else list(...)$burnin
+    thin <- if (is.null(list(...)$thin))
+        1 else list(...)$thin
+
     ## evaluate other arguments
-    if (missing(control))
-        control <- permat.control()
     if (!is.function(FUN))
         stop("'FUN' must be a function")
     location <- match.arg(location)
@@ -67,15 +73,15 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, control, ...)
         } else {
             tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
         }
-        a <- sapply(1:nlevs, function(i) aggrFUN(FUN(tmp[[i]], ...)))
+        a <- sapply(1:nlevs, function(i) aggrFUN(FUN(tmp[[i]]))) # dots removed from FUN
         if (relative)
             a <- a / a[length(a)]
         a
     }
 
     ## processing oecosimu results
-    sim <- oecosimu(lhs, evalFUN, method = "permat", nsimul=nsimul,
-        burnin=control$burnin, thin=control$thin, control=control)
+    sim <- oecosimu(lhs, evalFUN, method = method, nsimul=nsimul,
+        burnin=burnin, thin=thin)
 #    nam <- paste("level", 1:nlevs, sep=".")
 #    names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- tlab[1:nlevs]

@@ -1,6 +1,7 @@
 `print.oecosimu` <-
     function(x, ...)
 {
+    attr(x$oecosimu$method, "permfun") <- NULL
     cat("oecosimu with", ncol(x$oecosimu$simulated), "simulations\n")
     cat("simulation method", x$oecosimu$method)
     ## dim attribute is always there, but print all others

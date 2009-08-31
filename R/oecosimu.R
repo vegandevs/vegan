@@ -10,7 +10,7 @@
                                   "r2dtable"))   # "permat" method added
         if (method == "r2dtable") {
             nr <- rowSums(comm)
-            nc <- rowSums(comm)
+            nc <- colSums(comm)
             permfun <- function(z) r2dtable(1, nr, nc)[[1]]
         }
     } else {
