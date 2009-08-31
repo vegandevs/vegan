@@ -41,7 +41,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
                 "...", sep = "")
             flush.console()
         }
-        sets <- ripley.subs(i, 1:n)
+        sets <- t(combn(1:n, i))
         if (!is.matrix(sets)) 
             sets <- as.matrix(t(sets))
         est <- numeric(nrow(sets))

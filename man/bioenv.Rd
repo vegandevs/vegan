@@ -5,8 +5,6 @@
 \alias{print.bioenv}
 \alias{summary.bioenv}
 \alias{print.summary.bioenv}
-\alias{ripley.subsets}
-\alias{ripley.subs}
 
 \title{Best Subset of Environmental Variables with
   Maximum (Rank) Correlation with Community Dissimilarities }
@@ -80,8 +78,7 @@
   community structure to environmental variables. \emph{Marine Ecology
     Progress Series}, 92, 205--219.
 }
-\author{ Jari Oksanen. The code for selecting all possible subsets was
-  posted to the R mailing list by Prof. B. D. Ripley in 1999. }
+\author{ Jari Oksanen }
 
 \note{
   If you want to study the \sQuote{significance} of \code{bioenv}
