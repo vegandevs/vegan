@@ -4,16 +4,10 @@
     cat("oecosimu with", ncol(x$oecosimu$simulated), "simulations\n")
     cat("simulation method", x$oecosimu$method)
     ## dim attribute is always there, but print all others
-
-    ## addition starts here to evaluate type of nullmodel
-    isThinned <- !is.null(attr(x$oecosimu$simulated, "thin"))
-    if (isThinned)
-    ## end of addition
-
-        if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
-            att$dim <- NULL
-            cat(" with", paste(names(att), att, collapse=", "))
-        }
+    if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
+        att$dim <- NULL
+        cat(" with", paste(names(att), att, collapse=", "))
+    }
     cat("\n\n")
     cl <- class(x)
     if (length(cl) > 1 && cl[2] != "list") {

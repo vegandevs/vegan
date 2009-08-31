@@ -20,7 +20,7 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", control, ...)
+   statistic = "statistic", ...)
 commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
@@ -47,9 +47,6 @@ commsimulator(x, method, thin=1)
   \code{"swap"} and \code{"tswap"}.}
   \item{statistic}{The name of the statistic returned by
     \code{nestedfun}} 
-  \item{control}{A list of arguments passed to quantitative
-    permutation algorithms. If missing, the function 
-    \code{permat.control} is used.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
   \item{\dots}{Other arguments to functions.}
@@ -60,7 +57,7 @@ commsimulator(x, method, thin=1)
   Function \code{oecosimu} is a wrapper that evaluates a nestedness
   statistic using function given by \code{nestfun}, and then simulates a
   series of null models using \code{commsimulator} or 
-  \code{permatfull} / \code{permatswap} (depending on method), and evaluates the
+  other functions (depending on method argument), and evaluates the
   statistic on these null models. The \pkg{vegan} packages contains some
   nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},
@@ -164,15 +161,17 @@ commsimulator(x, method, thin=1)
   use the longer form \code{densityplot.oecosimu} when you first time
   call the function.
 
-  As a result of method \code{permat} in \code{oecosimu}, quantitative
-  community null models are used to evaluate the statistic. Through
-  the \code{control} argument, further options can be set via the
-  function \code{\link{permat.control}}.  A full description of these
-  settings can be found on the help pages of the functions
-  \code{\link{permatfull}} and \code{\link{permatswap}}. Note, that
-  \code{burnin} and \code{thin} arguments given in the \code{oecosimu}
-  function call overwrite the respective ones specified by
-  \code{permat.control}.  
+  As a result of \code{method = "r2dtable"} in \code{oecosimu}, quantitative
+  community null models are used to evaluate the statistic. This setting uses
+  the \code{\link{r2dtable}} function to generate random matrices with fixed
+  row and column totals (hypergeometric distribution). This null model is
+  used in diversity partitioning function (see \code{\link{adipart}}).
+
+  The \code{method} argument can be a function with first argument taking the 
+  community matrix, and optionally with \code{burnin} and \code{thin} argument.
+  The function must return a matrix-like object with same dimensions.
+  But be careful, blindly applying permuted matrices for null model testing
+  can be dangerous.
 }
 
 \value{
@@ -256,13 +255,15 @@ densityplot(out, as.table = TRUE)
 ## mean Bray-Curtis dissimilarities
 data(dune)
 meandist <- function(x) mean(vegdist(x, "bray"))
-out.mbc <- oecosimu(dune, meandist, "permat")
-out.mbc
-## Use the quantitative quasiswap algorithm
-## to compare Shannon diversities by samples
-contr <- permat.control(ptype="swap", method="quasiswap")
-out.div <- oecosimu(dune, diversity, "permat", control=contr)
-out.div
+mbc1 <- oecosimu(dune, meandist, "r2dtable")
+mbc1
+## Define a custom function that shuffles
+## cells in each rows
+f <- function(x) {
+    apply(x, 2, function(z) sample(z, length(z)))
+}
+mbc2 <- oecosimu(as.matrix(dune), meandist, f)
+mbc2
 }
 \keyword{ multivariate }
 \keyword{ datagen }

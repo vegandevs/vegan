@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-26 (opened August 31,2009)
 
+	* oecosimu: does not depend on permatfull/permatswap, but method
+	can be a function. The r2dtable method implemented also
+	to be used with adipart and related functions.
+
 	* bioenv: uses standard R function combn() and removes
 	ripley.subs() and ripley.subsets() from vegan. The result should
 	be unchanged.
