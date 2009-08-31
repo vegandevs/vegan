@@ -15,7 +15,7 @@
 }
 \usage{
 ordiGetData(call, env)
-ordiParseFormula(formula, data, xlev = NULL, envdepth = 2)
+ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
 ordiTerminfo(d, data)
 ordiArrowMul(x, at = c(0,0), fill = 0.75)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
@@ -37,7 +37,7 @@ pasteCall(call, prefix = "Call:")
   conditions, possibly \code{NULL}) needed in constrained
   ordination. Argument \code{xlev} is passed to
   \code{\link{model.frame}} and argument \code{envdepth} specifies the
-  depth at which the community data (dependent data) is evaluated;
+  depth at which the community data (dependent data) are evaluated;
   default \code{envdepth = 2} evaluates that in the environment of the
   parent of the calling function, and \code{envdepth = 1} within the
   calling function (see \code{\link{eval.parent}}). \code{ordiTermInfo}

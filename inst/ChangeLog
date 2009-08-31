@@ -8,6 +8,10 @@ Version 1.16-26 (opened August 31,2009)
 	ripley.subs() and ripley.subsets() from vegan. The result should
 	be unchanged.
 
+	* ordiParseFormula: handles missing values with na.action. The
+	calling functions (cca, rda, capscale) won't use this
+	yet (working...).
+
 Version 1.16-25 (closed August 31, 2009)
 
 	* mantel.correlog: updated to the version 1.4 of Pierre Legendre's

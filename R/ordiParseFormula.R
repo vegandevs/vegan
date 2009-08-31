@@ -1,5 +1,5 @@
 "ordiParseFormula" <-
-function (formula, data, xlev = NULL, envdepth = 2) 
+function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail) 
 {
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
@@ -8,13 +8,20 @@ function (formula, data, xlev = NULL, envdepth = 2)
     X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
     mf <- Z <- NULL
+    ## Get na.action attribute
+    formula[[2]] <- NULL
+    mf <- get_all_vars(formula, data)
+    if (NCOL(mf) > 0)
+        nas <- attr(model.frame(mf, na.action = na.action), "na.action")
+    else
+        nas <- NULL
     if (!is.null(indPartial)) {
         partterm <- attr(Terms, "variables")[1 + indPartial]
         Pterm <- sapply(partterm, function(x) deparse(x[[2]], width.cutoff=500))
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
-        mf <- model.frame(P.formula, data, na.action = na.fail, 
+        mf <- model.frame(P.formula, data, na.action = na.pass, 
             xlev = zlev)
         Z <- model.matrix(P.formula, mf)
         if (any(colnames(Z) == "(Intercept)")) {
@@ -22,23 +29,32 @@ function (formula, data, xlev = NULL, envdepth = 2)
             Z <- Z[, -xint, drop = FALSE]
         }
         partterm <- sapply(partterm, function(x) deparse(x, width.cutoff=500))
-        formula <- update(formula, paste(".~.-", paste(partterm, 
+        formula <- update(formula, paste("~.-", paste(partterm, 
             collapse = "-")))
-        flapart <- update(formula, paste(". ~ . +", Pterm))
+        flapart <- update(formula, paste(" ~ . +", Pterm))
     }
-    formula[[2]] <- NULL
     if (formula[[2]] == "1" || formula[[2]] == "0") 
         Y <- NULL
     else {
         if (exists("Pterm")) 
             xlev <- xlev[!(names(xlev) %in% Pterm)]
-        mf <- model.frame(formula, data, na.action = na.fail, 
+        mf <- model.frame(formula, data, na.action = na.pass, 
             xlev = xlev)
         Y <- model.matrix(formula, mf)
         if (any(colnames(Y) == "(Intercept)")) {
             xint <- which(colnames(Y) == "(Intercept)")
             Y <- Y[, -xint, drop = FALSE]
         }
+    }
+    ## Check and remove NA
+    if (!is.null(nas)) {
+        X <- X[-nas,, drop=FALSE]
+        if (!is.null(Y)) {
+            Y <- Y[-nas,, drop=FALSE]
+            mf <- mf[-nas,, drop=FALSE]
+        }
+        if (!is.null(Z))
+            Z <- Z[-nas,, drop=FALSE]
     }
     rownames(X) <- rownames(X, do.NULL = FALSE)
     colnames(X) <- colnames(X, do.NULL = FALSE)
@@ -51,5 +67,6 @@ function (formula, data, xlev = NULL, envdepth = 2)
         colnames(Z) <- colnames(Z, do.NULL = FALSE)
     }
     list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500), 
-        terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf)
+        terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
+         na.action = nas)
 }
