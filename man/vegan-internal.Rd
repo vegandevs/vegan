@@ -1,6 +1,7 @@
 \name{vegan-internal}
 \alias{ordiGetData}
 \alias{ordiParseFormula}
+\alias{ordiNAexclude}
 \alias{permuted.index}
 \alias{centroids.cca}
 \alias{ordiTerminfo}
@@ -17,6 +18,7 @@
 ordiGetData(call, env)
 ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
 ordiTerminfo(d, data)
+ordiNAexclude(object, newdata)
 ordiArrowMul(x, at = c(0,0), fill = 0.75)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)
@@ -30,19 +32,23 @@ pasteCall(call, prefix = "Call:")
   these functions are not intended for users, but they only should be
   used within functions
   
-  \code{ordiGetData} finds the model frame of constraints and conditions
-  in constrained ordination in the defined \code{env}ironment.
-  \code{ordiParseFormula} returns a list of three matrices (dependent
-  variables, and \code{\link{model.matrix}} of constraints and
-  conditions, possibly \code{NULL}) needed in constrained
-  ordination. Argument \code{xlev} is passed to
+  \code{ordiGetData} finds the model frame of constraints and
+  conditions in constrained ordination in the defined
+  \code{env}ironment.  \code{ordiParseFormula} returns a list of three
+  matrices (dependent variables, and \code{\link{model.matrix}} of
+  constraints and conditions, possibly \code{NULL}) needed in
+  constrained ordination. Argument \code{xlev} is passed to
   \code{\link{model.frame}} and argument \code{envdepth} specifies the
   depth at which the community data (dependent data) are evaluated;
   default \code{envdepth = 2} evaluates that in the environment of the
   parent of the calling function, and \code{envdepth = 1} within the
-  calling function (see \code{\link{eval.parent}}). \code{ordiTermInfo}
-  finds the term information for constrained ordination as described in
-  \code{\link{cca.object}}.
+  calling function (see
+  \code{\link{eval.parent}}). \code{ordiTermInfo} finds the term
+  information for constrained ordination as described in
+  \code{\link{cca.object}}. \code{ordiNAexclude} implements
+  \code{na.action = na.exclude} for constrained ordination finding WA
+  scores of CCA components and site scores of unconstrained component
+  from \code{newdata} of excluded observations.
 
   \code{ordiArgAbsorber} absorbs arguments of \code{\link{scores}}
   function of \pkg{vegan} so that these do not cause superfluous

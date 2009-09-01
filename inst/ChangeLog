@@ -12,6 +12,15 @@ Version 1.16-26 (opened August 31,2009)
 	ripley.subs() and ripley.subsets() from vegan. The result should
 	be unchanged.
 
+	* ordiNAexclude: internal infrastructure to implement na.action =
+	na.exclude for cca and rda (and capscale?). The option returns
+	scores where the excluded sites get NA results and are not
+	omitted. In constrained ordination, LC scores will NA, but WA
+	scores are found from the community data, and the current function
+	uses predict.cca/predict.rda with 'newdata' of removed
+	observations to estimate WA scores of excluded observation. The
+	calling functions won't use this yet (working...).
+	
 	* ordiParseFormula: handles missing values with na.action. The
 	calling functions (cca, rda, capscale) won't use this
 	yet (working...).
