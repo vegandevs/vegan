@@ -48,8 +48,8 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
     }
     ## Check and remove NA
     if (!is.null(nas)) {
-        X <- X[-nas,, drop=FALSE]
         excluded <- X[nas, , drop = FALSE]
+        X <- X[-nas,, drop=FALSE]
         if (!is.null(Y)) {
             Y <- Y[-nas,, drop=FALSE]
             mf <- mf[-nas,, drop=FALSE]
