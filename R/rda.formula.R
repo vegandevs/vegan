@@ -1,12 +1,12 @@
 "rda.formula" <-
-function (formula, data, scale = FALSE, ...) 
+function (formula, data, scale = FALSE, na.action = na.fail, ...) 
 {
     if (missing(data)) {
         data <- parent.frame()
     } else {
         data <- ordiGetData(match.call(), environment(formula))
     }
-    d <- ordiParseFormula(formula, data)
+    d <- ordiParseFormula(formula, data, na.action = na.action)
     sol <- rda.default(d$X, d$Y, d$Z, scale)
     if (!is.null(sol$CCA)) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
@@ -19,8 +19,11 @@ function (formula, data, scale = FALSE, ...)
     }
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
+    sol$na.action <- d$na.action
     sol$call <- match.call()
     sol$call[[1]] <- as.name("rda")
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
+    if (!is.null(sol$na.action) && inherits(sol$na.action, "exclude"))
+        sol <- ordiNAexclude(sol, d$excluded)
     sol
 }

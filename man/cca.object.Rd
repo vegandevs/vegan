@@ -36,7 +36,13 @@
     \code{\link{predict.cca}} with \code{newdata}.  This is missing if
     the ordination was not called with \code{formula}.}
   \item{tot.chi}{Total inertia or the sum of all eigenvalues.}
-  \item{pCCA, CCA, CA}{Actual ordination results for conditioned
+  \item{na.action}{The result of \code{\link{na.action}} if missing
+    values in constraints were handled by \code{\link{na.omit}} or
+    \code{\link{na.exclude}} (or \code{NULL} if there were no missing
+    values). This is a vector of indices of missing value rows in the
+    original data and a class of the action, usually either
+    \code{"omit"} or \code{"exclude"}.}
+\item{pCCA, CCA, CA}{Actual ordination results for conditioned
     (partial), constrained and unconstrained components of the
     model. Any of these can be \code{NULL} if there is no corresponding
     component.

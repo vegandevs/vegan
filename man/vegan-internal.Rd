@@ -18,7 +18,7 @@
 ordiGetData(call, env)
 ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
 ordiTerminfo(d, data)
-ordiNAexclude(object, exluded)
+ordiNAexclude(object, excluded)
 ordiArrowMul(x, at = c(0,0), fill = 0.75)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)

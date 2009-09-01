@@ -19,9 +19,9 @@
   These are all very popular ordination techniques in community ecology.
 }
 \usage{
-\method{cca}{formula}(formula, data, ...)
+\method{cca}{formula}(formula, data, na.action = na.fail, ...)
 \method{cca}{default}(X, Y, Z, ...)
-\method{rda}{formula}(formula, data, scale=FALSE, ...)
+\method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
 }
 
@@ -38,6 +38,14 @@
   \item{Z}{ Conditioning matrix, the effect of which is removed
     (`partialled out') before next step. Can be missing.}
   \item{scale}{Scale species to unit variance (like correlations).}
+  \item{na.action}{Handling of missing values in constraints or
+    conditions. The default (\code{\link{na.fail}}) is to stop with
+    missing value. Choice \code{\link{na.omit}} removes all rows with
+    missing values. Choice \code{\link{na.exclude}} keeps all
+    observations but gives \code{NA} for results that cannot be
+    calculated. The WA scores of rows may be found also for missing
+    values in constraints. Missing values are never allowed in
+    dependent community data. }
   \item{...}{Other arguments for \code{print} or \code{plot} functions
     (ignored in other functions).}
 }
