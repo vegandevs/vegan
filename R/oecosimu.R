@@ -6,7 +6,7 @@
     nestfun <- match.fun(nestfun)
     if (!is.function(method)) {
         method <- match.arg(method, c("r00", "r0", "r1", "r2", "c0",
-                                  "swap", "tswap", "backtrack",
+                                  "swap", "tswap", "backtrack", "quasiswap",
                                   "r2dtable"))   # "permat" method added
         if (method == "r2dtable") {
             nr <- rowSums(comm)
@@ -17,8 +17,7 @@
         permfun <- match.fun(method)
         method <- "custom"
     }
-    quant <- if (method %in% c("r2dtable", "custom"))
-        TRUE else FALSE
+    quant <- method %in% c("r2dtable", "custom")
 
     ind <- nestfun(comm, ...)
     if (is.list(ind))
