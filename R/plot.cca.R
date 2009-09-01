@@ -32,11 +32,11 @@
     }
     else type <- match.arg(type, TYPES)
     if (missing(xlim))
-        xlim <- range(g$spe[, 1], g$sit[, 1], g$con[, 1], g$default[, 
-                                                                    1])
+        xlim <- range(g$spe[, 1], g$sit[, 1], g$con[, 1], g$default[,1],
+                      na.rm = TRUE)
     if (missing(ylim))
-        ylim <- range(g$spe[, 2], g$sit[, 2], g$con[, 2], g$default[, 
-                                                                    2])
+        ylim <- range(g$spe[, 2], g$sit[, 2], g$con[, 2], g$default[,2],
+                      na.rm = TRUE)
     plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1, 
          ...)
     abline(h = 0, lty = 3)

@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-26 (opened August 31,2009)
+Version 1.16-27 (opened September 1, 2009)
+
+	* plot.cca: works with na.action = na.exclude.
+	
+Version 1.16-26 (closed September 1, 2009)
 
 	* cca and rda: can now handle missing values in constraints or
 	conditions. With 'na.action = na.omit', the rows with missing
