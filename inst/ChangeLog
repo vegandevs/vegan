@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-27 (opened September 1, 2009)
 
+	* permutest.cca and all anova.cca(..., by=) cases work with
+	na.action = na.exclude.
+
 	* plot.cca: works with na.action = na.exclude.
 	
 Version 1.16-26 (closed September 1, 2009)
