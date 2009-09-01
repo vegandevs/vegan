@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-27 (opened September 1, 2009)
 
+	* as.mlm.cca and as.mlm.rda work with na.action = na.exclude.
+
 	* permutest.cca and all anova.cca(..., by=) cases work with
 	na.action = na.exclude.
 
