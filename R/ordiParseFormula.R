@@ -49,12 +49,15 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
     ## Check and remove NA
     if (!is.null(nas)) {
         X <- X[-nas,, drop=FALSE]
+        excluded <- X[nas, , drop = FALSE]
         if (!is.null(Y)) {
             Y <- Y[-nas,, drop=FALSE]
             mf <- mf[-nas,, drop=FALSE]
         }
         if (!is.null(Z))
             Z <- Z[-nas,, drop=FALSE]
+    } else {
+        excluded <-  NULL
     }
     rownames(X) <- rownames(X, do.NULL = FALSE)
     colnames(X) <- colnames(X, do.NULL = FALSE)
@@ -67,6 +70,6 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
         colnames(Z) <- colnames(Z, do.NULL = FALSE)
     }
     list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500), 
-        terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
-         na.action = nas)
+         terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
+         na.action = nas, excluded = excluded)
 }

@@ -2,10 +2,13 @@
 ### in constrained ordination WA scores can be found for observations
 ### with NA values in constraints.
 `ordiNAexclude` <-
-    function(object, newdata)
+    function(object, excluded)
 {
-    ## Embed NA for excluded cases
+    ## Check that there is a na.action of class "exclude"
     nas <- object$na.action
+    if (is.null(nas) || !inherits(nas, "exclude"))
+        return(object)
+    ## Embed NA for excluded cases
     object$rowsum <- napredict(nas, object$rowsum)
     object$CCA$u <- napredict(nas, object$CCA$u)
     object$CCA$u.eig <- napredict(nas, object$CCA$u.eig)
@@ -14,14 +17,26 @@
     object$CA$u <- napredict(nas, object$CA$u)
     object$CA$u.eig <- napredict(nas, object$CA$u.eig)
     ## Estimate WA scores for NA cases with newdata of excluded
-    ## obseravations
-    wa <- predict(object, newdata = newdata, type = "wa", model = "CCA")
+    ## observations
+    wa <- predict(object, newdata = excluded, type = "wa", model = "CCA")
     wa.eig <- sweep(wa, 2, sqrt(object$CCA$eig), "*")
     object$CCA$wa[nas,] <- wa
     object$CCA$wa.eig[nas,] <- wa.eig
-    wa <- predict(object, newdata = newdata, type = "wa", model = "CA")
+    wa <- predict(object, newdata = excluded, type = "wa", model = "CA")
     wa.eig <- sweep(wa, 2, sqrt(object$CA$eig), "*")
     object$CA$u[nas,] <- wa
     object$CA$u.eig[nas,] <- wa.eig
+    ## Use NA also for excluded species with this option
+    nap <- if (!is.null(object$CCA))
+        attr(object$CCA$v, "na.action")
+    else
+        attr(object$CA$v, "na.action")
+    if (!is.null(nap)) {
+        object$colsum <- napredict(nap, object$colsum)
+        object$CCA$v <- napredict(nap, object$CCA$v)
+        object$CCA$v.eig <- napredict(nap, object$CCA$v.eig)
+        object$CA$v <- napredict(nap, object$CA$v)
+        object$CA$v.eig <- napredict(nap, object$CA$v.eig)
+    }
     object
 }
