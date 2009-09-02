@@ -17,18 +17,15 @@
     object$CA$u <- napredict(nas, object$CA$u)
     object$CA$u.eig <- napredict(nas, object$CA$u.eig)
     ## Estimate WA scores for NA cases with newdata of excluded
-    ## observations. At the moment, WA scores are available only for
-    ## non-partial models.
-    if (is.null(object$pCCA)) {
-        wa <- predict(object, newdata = excluded, type = "wa", model = "CCA")
-        wa.eig <- sweep(wa, 2, sqrt(object$CCA$eig), "*")
-        object$CCA$wa[nas,] <- wa
-        object$CCA$wa.eig[nas,] <- wa.eig
-        wa <- predict(object, newdata = excluded, type = "wa", model = "CA")
-        wa.eig <- sweep(wa, 2, sqrt(object$CA$eig), "*")
-        object$CA$u[nas,] <- wa
-        object$CA$u.eig[nas,] <- wa.eig
-    }
+    ## observations
+    wa <- predict(object, newdata = excluded, type = "wa", model = "CCA")
+    wa.eig <- sweep(wa, 2, sqrt(object$CCA$eig), "*")
+    object$CCA$wa[nas,] <- wa
+    object$CCA$wa.eig[nas,] <- wa.eig
+    wa <- predict(object, newdata = excluded, type = "wa", model = "CA")
+    wa.eig <- sweep(wa, 2, sqrt(object$CA$eig), "*")
+    object$CA$u[nas,] <- wa
+    object$CA$u.eig[nas,] <- wa.eig
     ## Use NA also for excluded species with this option
     nap <- if (!is.null(object$CCA))
         attr(object$CCA$v, "na.action")

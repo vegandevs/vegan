@@ -4,14 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-27 (opened September 1, 2009)
 
-	* coef.cca and coef.rda work with na.action = na.exclude.
-
-	* as.mlm.cca and as.mlm.rda work with na.action = na.exclude.
-
-	* permutest.cca and all anova.cca(..., by=) cases work with
-	na.action = na.exclude.
-
-	* plot.cca: works with na.action = na.exclude.
+	* plot.cca: works with when there are NA values in scores.
 	
 Version 1.16-26 (closed September 1, 2009)
 

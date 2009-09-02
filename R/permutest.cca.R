@@ -35,8 +35,6 @@ permutest.default <- function(x, ...)
     Q <- x$CCA$QR
     if (isCCA) {
         w <- weights(x, "sites")
-        ## remove possible missing values
-        w <- w[!is.na(w)]
         X <- qr.X(Q, ncol=length(Q$pivot))
         X <- sweep(X, 1, sqrt(w), "/")
     }
