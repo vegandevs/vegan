@@ -109,6 +109,9 @@
     \item{\code{wa.eig}}{The direct result of weighted avaraging or weighted
       summation  (matrix multiplication)
       with the resulting eigenvalue inflation.}
+    \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
+      \code{na.action = na.exclude} in \code{CCA} and \code{CA}
+      components if these could be calculated.}
     \item{\code{Xbar}}{The standardized data matrix after previous stages of
       analysis. In \code{CCA} this is after possible \code{pCCA} or
       after partialling out the effects of conditions, and in \code{CA}

@@ -2,6 +2,10 @@
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"), 
               scaling = 2, const, ...) 
 {
+    ## Check the na.action, and pad the result with NA or WA if class
+    ## "exclude"
+    if (!is.null(x$na.action) && inherits(x$na.action, "exclude"))
+        x <- ordiNApredict(x$na.action, x)
     tabula <- c("species", "sites", "constraints", "biplot", 
                 "centroids")
     names(tabula) <- c("sp", "wa", "lc", "bp", "cn")

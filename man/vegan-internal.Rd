@@ -2,6 +2,7 @@
 \alias{ordiGetData}
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
+\alias{ordiNApredict}
 \alias{permuted.index}
 \alias{centroids.cca}
 \alias{ordiTerminfo}
@@ -18,7 +19,8 @@
 ordiGetData(call, env)
 ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
 ordiTerminfo(d, data)
-ordiNAexclude(object, excluded)
+ordiNAexclude(x, excluded)
+ordiNApredict(omit, x)
 ordiArrowMul(x, at = c(0,0), fill = 0.75)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)
@@ -48,7 +50,9 @@ pasteCall(call, prefix = "Call:")
   \code{\link{cca.object}}. \code{ordiNAexclude} implements
   \code{na.action = na.exclude} for constrained ordination finding WA
   scores of CCA components and site scores of unconstrained component
-  from \code{excluded} rows of observations.
+  from \code{excluded} rows of observations. Function
+  \code{ordiNApredict} puts pads the result object with these or with
+  WA scores similary as \code{\link{napredict}}.
 
   \code{ordiArgAbsorber} absorbs arguments of \code{\link{scores}}
   function of \pkg{vegan} so that these do not cause superfluous
