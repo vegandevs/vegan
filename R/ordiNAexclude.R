@@ -26,17 +26,5 @@
     wa.eig <- sweep(wa, 2, sqrt(object$CA$eig), "*")
     object$CA$u[nas,] <- wa
     object$CA$u.eig[nas,] <- wa.eig
-    ## Use NA also for excluded species with this option
-    nap <- if (!is.null(object$CCA))
-        attr(object$CCA$v, "na.action")
-    else
-        attr(object$CA$v, "na.action")
-    if (!is.null(nap)) {
-        object$colsum <- napredict(nap, object$colsum)
-        object$CCA$v <- napredict(nap, object$CCA$v)
-        object$CCA$v.eig <- napredict(nap, object$CCA$v.eig)
-        object$CA$v <- napredict(nap, object$CA$v)
-        object$CA$v.eig <- napredict(nap, object$CA$v.eig)
-    }
     object
 }
