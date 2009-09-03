@@ -111,7 +111,7 @@
   as constraints.  However, such exploratory problems are better
   analysed with
   unconstrained methods such as correspondence analysis
-  (\code{\link{decorana}}, \code{\link[MASS]{ca}}) or non-metric
+  (\code{\link{decorana}}, \code{\link[MASS]{corresp}}) or non-metric
   multidimensional scaling (\code{\link[MASS]{isoMDS}}) and
   environmental interpretation after analysis
   (\code{\link{envfit}}, \code{\link{ordisurf}}).

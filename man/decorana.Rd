@@ -169,9 +169,9 @@ downweight(veg, fraction = 5)
   For unconstrained ordination, non-metric multidimensional scaling in
   \code{\link[MASS]{isoMDS}} may be more robust (see also
   \code{\link{metaMDS}}).  Constrained (or
-  `canonical') correspondence analysis can be made with
+  \sQuote{canonical) correspondence analysis can be made with
   \code{\link{cca}}.  Orthogonal correspondence analysis can be
-  made with \code{\link[multiv]{ca}}, or with \code{decorana} or
+  made with \code{\link[MASS]{corresp}}, or with \code{decorana} or
   \code{\link{cca}}, but the scaling of results vary (and the one in
   \code{decorana} correspondes to \code{scaling = -1} in
   \code{\link{cca}}.).

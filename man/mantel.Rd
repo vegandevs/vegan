@@ -52,7 +52,7 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   components: 
   \item{Call }{Function call.}
   \item{method }{Correlation method used, as returned by
-    \code{\link[ctest]{cor.test}}.}
+    \code{\link{cor.test}}.}
   \item{statistic}{The Mantel statistic.}
   \item{signif}{Empirical significance level from permutations.}
   \item{perm}{A vector of permuted values.}

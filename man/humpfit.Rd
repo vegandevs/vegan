@@ -80,8 +80,8 @@ humpfit(mass, spno, family = poisson, start)
   fails with non-Poisson families, and function \code{profile} should be
   used to inspect the fitted models. If you have loaded \code{package}
   \pkg{MASS}, you can use functions
-  \code{\link[MASS]{plot.profile.glm}},
-  \code{\link[MASS]{pairs.profile.glm}} for graphical inspection of the
+  \code{\link[MASS]{plot.profile}},
+  \code{\link[MASS]{pairs.profile}} for graphical inspection of the
   profiles, and \code{\link[MASS]{confint.profile.glm}} for the profile
   based confidence intervals. 
 

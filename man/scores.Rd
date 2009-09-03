@@ -33,8 +33,7 @@
   columns of that matrix, ignoring whether species or sites were
   requested (do not regard this as a bug but as a feature, please).
   Currently the function seems to work at least for \code{\link[MASS]{isoMDS}},
-  \code{\link{prcomp}}, \code{\link{princomp}},
-  \code{\link[multiv]{ca}}, \code{\link[multiv]{pca}}.  It may work in
+  \code{\link{prcomp}}, \code{\link{princomp}}. It may work in
   other cases or fail mysteriously.
 }
 \value{

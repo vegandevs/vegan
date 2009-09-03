@@ -58,7 +58,7 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
     line parameters are controlled by
     \code{\link[lattice]{trellis.par.set}} for \code{superpose.line},
     and the user can set \code{length}, \code{angle} and \code{ends}
-    parameters of \code{\link[trellis]{panel.arrows}}.}
+    parameters of \code{\link[lattice]{panel.arrows}}.}
   \item{\dots}{ Arguments passed to \code{\link{scores}} methods or
     \pkg{lattice} functions.}
 }

@@ -29,7 +29,7 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
   should have a high rank-order similarity with gradient separation.
   The function compares most indices in \code{\link{vegdist}} against
   gradient separation using rank correlation coefficients in
-  \code{\link[ctest]{cor.test}}.  The gradient separation between each
+  \code{\link{cor.test}}. The gradient separation between each
   point is assessed as Euclidean distance for continuous variables, and
   as Gower metric for mixed data using function
   \code{\link[cluster]{daisy}} when \code{grad} has factors.
@@ -47,7 +47,7 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
   separation values are derived from just \eqn{n} observations.
   Due to floating point arithmetics, many tied values differ by
   machine epsilon and are arbitrarily ranked differently by
-  \code{\link{rank}} used in \code{\link[ctest]{cor.test}}.  Two indices
+  \code{\link{rank}} used in \code{\link{cor.test}}.  Two indices
   which are identical with certain
   transformation or standardization may differ slightly
   (magnitude \eqn{10^{-15}}) and this may lead into third or fourth decimal
