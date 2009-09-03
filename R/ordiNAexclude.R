@@ -35,7 +35,11 @@
     ## Only do this if omit is of class "exclude"
     if (!inherits(omit, "exclude"))
         return(x)
-    x$rowsum <- napredict(omit, x$rowsum) # or zero here
+    if (!inherits(x, "rda")) {
+        x$rowsum <- napredict(omit, x$rowsum)
+        if (inhertis(omit, "exclude"))
+            x$rowsum[omit] <- x$rowsum.excluded
+    }
     if (!is.null(x$CCA)) {
         x$CCA$u <- napredict(omit, x$CCA$u)
         x$CCA$wa <- napredict(omit, x$CCA$wa)
