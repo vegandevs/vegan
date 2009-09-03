@@ -16,9 +16,13 @@
 \value{
   A \code{cca} object has the following elements:
   \item{call }{the function call.}
-  \item{colsum, rowsum }{Column and row sums in \code{cca}.  In
-    \code{rda}, item \code{colsum} contains standard deviations of
-    species and \code{rowsum} is \code{NA}.}
+  \item{colsum, rowsum, rowsum.excluded }{Column and row sums in
+    \code{cca}.  In \code{rda}, item \code{colsum} contains standard
+    deviations of species and \code{rowsum} is \code{NA}. If some data
+    were removed in \code{\link{na.action}}, the row sums of excluded
+    observations are in item \code{rowsum.excluded} in \code{cca} (but
+    not in \code{rda}). The \code{rowsum.excluded} add to the total
+    (one) of \code{rowsum}. }
   \item{grand.total}{Grand total of community data in \code{cca} and
     \code{NA} in \code{rda}.}
   \item{inertia}{Text used as the name of inertia.}
