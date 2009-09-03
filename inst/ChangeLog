@@ -12,7 +12,12 @@ Version 1.16-27 (opened September 1, 2009)
 	but functions accessing the result with scores will get the NA
 	data.  
 	
-	* plot.cca: works with when there are NA values in scores.
+	* plot.cca: works when there are NA values in scores.
+
+	* anova.cca(.., by = "axis") works when there are omitted or
+	excluded observations due to missing values. However, the way the
+	missing values are handled in simulations should be checked in all
+	anova.cca models: are the missing rows permuted or not?
 	
 Version 1.16-26 (closed September 1, 2009)
 
