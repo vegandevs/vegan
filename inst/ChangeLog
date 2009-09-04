@@ -10,7 +10,9 @@ Version 1.16-27 (opened September 1, 2009)
 	and scores.rda pads the results with these excluded data. In this
 	way the internal structure of the cca object remains unchanged,
 	but functions accessing the result with scores will get the NA
-	data.  
+	data. 
+
+	* weights.cca and weights.rda know na.action.
 	
 	* plot.cca: works when there are NA values in scores.
 

@@ -13,7 +13,7 @@
         return(x)
     ## rowsums for CA (in RDA/PCA rowsum = NA)
     if (!inherits(x, "rda"))
-        x$rowsum.exclude <- rowSums(excluded)/x$grand.total
+        x$rowsum.excluded <- rowSums(excluded)/x$grand.total
     ## Estimate WA scores for NA cases with newdata of excluded
     ## observations
     if (is.null(x$pCCA)) {
@@ -37,7 +37,7 @@
         return(x)
     if (!inherits(x, "rda")) {
         x$rowsum <- napredict(omit, x$rowsum)
-        if (inhertis(omit, "exclude"))
+        if (inherits(omit, "exclude"))
             x$rowsum[omit] <- x$rowsum.excluded
     }
     if (!is.null(x$CCA)) {
