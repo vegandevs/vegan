@@ -1,7 +1,7 @@
 `as.mlm.cca` <-
     function (x) 
 {
-    w <- weights(x)
+    w <- x$rowsum
     wa <- x$CCA$wa
     wa <- sweep(wa, 1, sqrt(w), "*")
     X <- qr.X(x$CCA$QR)

@@ -34,7 +34,7 @@ permutest.default <- function(x, ...)
     den <- numeric(permutations)
     Q <- x$CCA$QR
     if (isCCA) {
-        w <- weights(x, "sites")
+        w <- x$rowsum # works with any na.action, weights(x) won't
         X <- qr.X(Q, ncol=length(Q$pivot))
         X <- sweep(X, 1, sqrt(w), "/")
     }
