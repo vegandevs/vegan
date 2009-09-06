@@ -13,6 +13,12 @@ Version 1.16-27 (opened September 1, 2009)
 	data. 
 
 	* weights.cca and weights.rda know na.action.
+
+	* Fixing cca/rda functions for changes in weights(). The rule is
+	that if you can match scores() and weights(), but if you have
+	internal cca object stuctures (like x$CCA$u), you should have
+	internal weights x$rowsum. Concerns as.mlm.cca, goodness.cca,
+	permutest.cca, spenvcor.
 	
 	* plot.cca: works when there are NA values in scores.
 
