@@ -5,7 +5,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.16-27 (opened September 1, 2009)
 
 	* cca & rda: New way of handling na.action. Function ordiNAexclude
-	in adds items CCA$wa.excluded or CA$u.excluded for NA rows into
+	adds items CCA$wa.excluded or CA$u.excluded for NA rows into
 	ordination result, and function ordiNApredict called in scores.cca
 	and scores.rda pads the results with these excluded data. In this
 	way the internal structure of the cca object remains unchanged,
@@ -15,10 +15,11 @@ Version 1.16-27 (opened September 1, 2009)
 	* weights.cca and weights.rda know na.action.
 
 	* Fixing cca/rda functions for changes in weights(). The rule is
-	that if you can match scores() and weights(), but if you have
+	that if you can mix scores() and weights(), but if you have
 	internal cca object stuctures (like x$CCA$u), you should have
 	internal weights x$rowsum. Concerns as.mlm.cca, goodness.cca,
-	permutest.cca, spenvcor.
+	permutest.cca, spenvcor, inertcomp and intersetcor. (The inertcomp
+	solution is a kluge.)
 	
 	* plot.cca: works when there are NA values in scores.
 

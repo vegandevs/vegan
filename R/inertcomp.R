@@ -40,6 +40,10 @@
     out <- cbind(pCCA, CCA, CA)
     if (statistic == "distance" && !proportional) {
         w <- weights(object, display = display)
+        if (display == "sites" &&
+            !is.null(object$na.action) &&
+            inherits(object$na.action, "exclude"))
+            w <- w[-object$na.action]
         out <- sweep(out, 1, w, "/")
     }
     if (proportional) 
