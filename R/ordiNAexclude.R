@@ -11,12 +11,16 @@
     nas <- x$na.action
     if (is.null(nas))
         return(x)
+    ## add a 'residuals' item, because step, add1.default and
+    ## drop1.default use this to check that number of observations
+    ## does not change in sequential fits.
+    x$residuals.zombie <- rep(TRUE, max(0, nrow(x$CA$u)))
     ## rowsums for CA (in RDA/PCA rowsum = NA)
     if (!inherits(x, "rda"))
         x$rowsum.excluded <- rowSums(excluded)/x$grand.total
     ## Estimate WA scores for NA cases with newdata of excluded
     ## observations
-    if (is.null(x$pCCA)) {
+    if (is.null(x$pCCA) && inherits(nas, "exclude")) {
         if (!is.null(x$CCA))
             x$CCA$wa.excluded <- predict(x, newdata = excluded,
                                          type = "wa", model = "CCA")

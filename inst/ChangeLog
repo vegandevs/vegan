@@ -13,21 +13,16 @@ Version 1.16-27 (opened September 1, 2009)
 	but functions accessing the result with scores will get the NA
 	data. 
 
-	* anova.cca(..., by = "term") refuses the analysis if there are
-	missing data. With current implementation, the number of rows can
-	change during analysis and different terms cannot be
-	compared. Needs FIXME.
-
-	* FIXME: step/add1/drop1 are unsafe with missing data in
-	cca/rda. The number of rows can change during stepping and this is
-	not detected. There is no clean way of detecting this. Standard
-	functions step, add1.default and drop1.default detect this by the
-	length of object$residuals which is not present in vegan cca/rda
-	objects (and meaningfully cannot be present), and the only safe
-	way to detect this is to make drop1.default and add1.default do
-	the job, since drop1.cca and add1.cca are only involved if test =
-	"permutation". Probably need to add residuals.dummy to the
-	objects?
+	* anova.cca(..., by = "term") and step() did not work correctly
+	with na.exclude or na.omit. These fitted sequential models, and
+	due to missing value removal the data set could change in the
+	sequence. The problem case was step() which relies on standard
+	stats functions add1.default and drop1.default. They detect the
+	change in data by length(object$residuals). Therefore
+	ordiNAexclude adds item 'residuals.zombie' to the ordination
+	result so that step() works. The same mechanism is also used in
+	anova.ccabyterm (not all NA deletions change the numbers of
+	observations).
 
 	* weights.cca and weights.rda know na.action.
 

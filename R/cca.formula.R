@@ -24,7 +24,7 @@
     sol$call <- match.call()
     sol$call[[1]] <- as.name("cca")
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
-    if (!is.null(sol$na.action) && inherits(sol$na.action, "exclude"))
+    if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
     sol
 }

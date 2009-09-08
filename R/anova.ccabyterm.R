@@ -2,9 +2,9 @@
     function (object, step = 100, ...) 
 {
     ## Data set size may change during iteration if there are missing
-    ## values: bail out.
-    if (!is.null(object$na.action))
-        stop("anova by = 'term' is unavailable with missing data")
+    ## values: use length(object$residual) to check this like step,
+    ## drop1.default, add1.default do.
+    n0 <- length(object$residuals)
     trm <- terms(object)
     call <- paste("Model:", c(object$call))
     trmlab <- attr(trm, "term.labels")
@@ -31,6 +31,9 @@
         assign(".Random.seed", sim$Random.seed, envir = .GlobalEnv)
         fla <- as.formula(paste(" . ~ . -", trmlab[.ITRM]))
         object <- update(object, fla)
+        ## Change in data set due to missing values?
+        if (length(object$residuals) != n0)
+            stop("number of rows has changed: remove missing values?")
         if (is.null(object$CCA)) 
             break
         sim <- permutest.cca(object, permutations = step, ...)
