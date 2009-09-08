@@ -4,6 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-27 (opened September 1, 2009)
 
+
 	* cca & rda: New way of handling na.action. Function ordiNAexclude
 	adds items CCA$wa.excluded or CA$u.excluded for NA rows into
 	ordination result, and function ordiNApredict called in scores.cca
@@ -12,12 +13,28 @@ Version 1.16-27 (opened September 1, 2009)
 	but functions accessing the result with scores will get the NA
 	data. 
 
+	* anova.cca(..., by = "term") refuses the analysis if there are
+	missing data. With current implementation, the number of rows can
+	change during analysis and different terms cannot be
+	compared. Needs FIXME.
+
+	* FIXME: step/add1/drop1 are unsafe with missing data in
+	cca/rda. The number of rows can change during stepping and this is
+	not detected. There is no clean way of detecting this. Standard
+	functions step, add1.default and drop1.default detect this by the
+	length of object$residuals which is not present in vegan cca/rda
+	objects (and meaningfully cannot be present), and the only safe
+	way to detect this is to make drop1.default and add1.default do
+	the job, since drop1.cca and add1.cca are only involved if test =
+	"permutation". Probably need to add residuals.dummy to the
+	objects?
+
 	* weights.cca and weights.rda know na.action.
 
 	* Fixing cca/rda functions for changes in weights(). The rule is
-	that if you can mix scores() and weights(), but if you have
-	internal cca object stuctures (like x$CCA$u), you should have
-	internal weights x$rowsum. Concerns as.mlm.cca, goodness.cca,
+	that you can mix scores() and weights(), but if you have internal
+	cca object stuctures (like x$CCA$u), you should have internal
+	weights x$rowsum. Concerns as.mlm.cca, goodness.cca,
 	permutest.cca, spenvcor, inertcomp and intersetcor. (The inertcomp
 	solution is a kluge.)
 	

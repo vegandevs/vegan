@@ -1,6 +1,10 @@
 `anova.ccabyterm` <-
     function (object, step = 100, ...) 
 {
+    ## Data set size may change during iteration if there are missing
+    ## values: bail out.
+    if (!is.null(object$na.action))
+        stop("anova by = 'term' is unavailable with missing data")
     trm <- terms(object)
     call <- paste("Model:", c(object$call))
     trmlab <- attr(trm, "term.labels")
