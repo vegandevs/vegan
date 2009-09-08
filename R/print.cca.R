@@ -20,6 +20,8 @@
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
+    if (!is.null(x$na.action))
+        cat(naprint(x$na.action), "\n")
     if (!is.null(x$CCA)) {
         cat("\nEigenvalues for constrained axes:\n")
         print(x$CCA$eig, digits = digits, ...)
