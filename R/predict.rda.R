@@ -70,8 +70,10 @@
                 stop("No 'wa' scores available (yet) in partial RDA")
             Xbar <- as.matrix(newdata)
             Xbar <- sweep(Xbar, 2, cent, "-")
-            if (!is.null(scal)) 
-                Xbar <- sweep(Xbar, 2, scal, "/")
+            if (!is.null(scal)) {
+                nz <- scal > 0
+                Xbar[,nz] <- sweep(Xbar[,nz], 2, scal[nz], "/")
+            }
             w <- Xbar %*% v
             w <- sweep(w, 2, diag(slam), "/")
         }
