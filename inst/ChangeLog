@@ -3,6 +3,9 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-27 (opened September 1, 2009)
+
+	* cca & print.cca: no warning on removed species in cca.default,
+	but print information on their number.
 	
 	* predict.rda: failed when rda was based on correlations (scale =
 	TRUE), and there were missing data (0/0 division in scaling).

@@ -20,7 +20,6 @@
         names(exclude.spec) <- colnames(X)[tmp]
         class(exclude.spec) <- "exclude"
         X <- X[, !tmp, drop = FALSE]
-        warning("Some species were removed because they were missing in the data")
     }
     gran.tot <- sum(X)
     X <- X/gran.tot

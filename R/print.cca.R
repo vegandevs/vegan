@@ -20,8 +20,15 @@
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
+    ## Report removed observations and species
     if (!is.null(x$na.action))
         cat(naprint(x$na.action), "\n")
+    sp.na <- if (is.null(x$CCA)) attr(x$CA$v, "na.action")
+    else attr(x$CCA$v, "na.action")
+    if (!is.null(sp.na))
+        cat(length(sp.na), "species",
+            ifelse(length(sp.na)==1, "(variable)", "(variables)"),
+            "deleted due to missingness\n")
     if (!is.null(x$CCA)) {
         cat("\nEigenvalues for constrained axes:\n")
         print(x$CCA$eig, digits = digits, ...)
