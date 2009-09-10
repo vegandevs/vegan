@@ -49,6 +49,11 @@
         adjust <- sqrt(k)
     }
     nm <- attr(X, "Labels")
+    ## evaluate formula
+    fla <- update(formula, X ~ .)
+    environment(fla) <- environment()
+    d <- ordiParseFormula(fla, data, envdepth = 1)
+    X <- as.dist(d$X)
     ## cmdscale is only used if 'add = TRUE': it cannot properly
     ## handle negative eigenvalues and therefore we normally use
     ## wcmdscale. If we have 'add = TRUE' there will be no negative
@@ -64,10 +69,7 @@
         X$eig <- X$eig/k
     neig <- min(which(X$eig < 0) - 1, sum(X$eig > EPS))
     sol <- X$points[, 1:neig]
-    fla <- update(formula, sol ~ .)
-    environment(fla) <- environment()
-    d <- ordiParseFormula(fla, data, envdepth = 1)
-    sol <- rda.default(d$X, d$Y, d$Z, ...)
+    sol <- rda.default(sol, d$Y, d$Z, ...)
     if (!is.null(sol$CCA)) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
