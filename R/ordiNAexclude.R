@@ -20,7 +20,8 @@
         x$rowsum.excluded <- rowSums(excluded)/x$grand.total
     ## Estimate WA scores for NA cases with newdata of excluded
     ## observations
-    if (is.null(x$pCCA) && inherits(nas, "exclude")) {
+    if (is.null(x$pCCA) && inherits(nas, "exclude") &&
+        !inherits(x, "capscale")) {
         if (!is.null(x$CCA))
             x$CCA$wa.excluded <- predict(x, newdata = excluded,
                                          type = "wa", model = "CCA")

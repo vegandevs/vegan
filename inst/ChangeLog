@@ -4,9 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-28 (opened September 10, 200)
 
-	* capscale: internal changes in the function to make it possible
-	to have na.action. The results should be identical to the previous
-	version, and the user should see no change (hope so).
+	* capscale: implemented na.action. The WA scores are always NA for
+	missing observations in capscale.
 	
 Version 1.16-27 (closed September 10, 2009)
 

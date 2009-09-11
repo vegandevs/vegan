@@ -1,7 +1,7 @@
 `capscale` <-
     function (formula, data, distance = "euclidean", sqrt.dist = FALSE,
               comm = NULL, add = FALSE, dfun = vegdist,
-              metaMDSdist = FALSE, ...) 
+              metaMDSdist = FALSE, na.action = na.fail, ...) 
 {
     EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula")) 
@@ -28,8 +28,6 @@
             X <- dfun(X, distance)
         }
     }
-    if (sqrt.dist)
-        X <- sqrt(X)
     inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
@@ -40,7 +38,23 @@
         inertia <- paste("squared", inertia)
     if (add) 
         inertia <- paste(inertia, "(euclidified)")
-    k <- attr(X, "Size") - 1 
+
+    ## evaluate formula: ordiParseFormula will return dissimilarities
+    ## as a symmetric square matrix (except that some rows may be
+    ## deleted due to missing values)
+    fla <- update(formula, X ~ .)
+    environment(fla) <- environment()
+    d <- ordiParseFormula(fla, data, envdepth = 1, na.action = na.action)
+    ## Delete columns if rows were deleted due to missing values
+    if (!is.null(d$na.action)) {
+        d$X <- d$X[, -d$na.action, drop = FALSE]
+        if (!is.null(comm))
+            comm <- comm[-d$na.action,,drop=FALSE]
+    }
+    X <- as.dist(d$X)
+    k <- attr(X, "Size") - 1
+    if (sqrt.dist)
+        X <- sqrt(X)
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
         adjust <- 1
@@ -48,12 +62,7 @@
     else {
         adjust <- sqrt(k)
     }
-    nm <- attr(X, "Labels")
-    ## evaluate formula
-    fla <- update(formula, X ~ .)
-    environment(fla) <- environment()
-    d <- ordiParseFormula(fla, data, envdepth = 1)
-    X <- as.dist(d$X)
+    nm <- attr(X, "Labels")    
     ## cmdscale is only used if 'add = TRUE': it cannot properly
     ## handle negative eigenvalues and therefore we normally use
     ## wcmdscale. If we have 'add = TRUE' there will be no negative
@@ -125,6 +134,9 @@
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname
+    sol$na.action <- d$na.action
     class(sol) <- c("capscale", class(sol))
+    if (!is.null(sol$na.action))
+        sol <- ordiNAexclude(sol, d$excluded)
     sol
 }
