@@ -40,6 +40,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
             negaxes <- points[, e$values < 0, drop = FALSE]
     }
     points <- points[, 1:k, drop=FALSE]
+    points[!is.finite(points)] <- NA
     if (eig || x.ret || add) {
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = NA, GOF = NA, weights = w,
