@@ -9,6 +9,8 @@
     cat("\n***FACTORS:\n\n")
     print(x$factors)
   }
+  if (!is.null(x$na.action))
+      cat("\n", naprint(x$na.action), "\n", sep="")
   invisible(x)
 }
 

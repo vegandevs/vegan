@@ -1,18 +1,13 @@
 "factorfit" <-
-    function (X, P, permutations = 0, strata, choices = c(1, 2),
-              display = c("sites","lc"), w = weights(X),  ...) 
+    function (X, P, permutations = 0, strata, w,  ...) 
 {
-    weights.default <- function(object, ...) NULL
-    display <- match.arg(display)
-    w <- eval(w)
     P <- as.data.frame(P)
     if (any(!sapply(P, is.factor))) 
         stop("All fitted variables must be factors")
-    X <- scores(X, display = display, choices, ...)
     NR <- nrow(X)
     NC <- ncol(X)
     NF <- ncol(P)
-    if (is.null(w))
+    if (missing(w) || is.null(w))
         w <- 1
     if (length(w) == 1)
         w <- rep(w, NR)

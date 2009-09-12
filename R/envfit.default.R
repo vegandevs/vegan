@@ -1,15 +1,26 @@
 "envfit.default" <-
-    function (X, P, permutations = 0, strata, choices = c(1, 2), 
-              ...) 
+    function (ord, env, permutations = 0, strata, choices = c(1, 2), 
+             display = "sites", w = weights(ord), na.rm = FALSE, ...) 
 {
+    weights.default <- function(object, ...) NULL
+    w < eval(w)
     vectors <- NULL
     factors <- NULL
     seed <- NULL
-    if (is.data.frame(P)) {
-        facts <- unlist(lapply(P, is.factor))
+    X <- scores(ord, display = display, choices = choices, ...)
+    keep <- complete.cases(X) & complete.cases(env)
+    if (any(!keep)) {
+        if (!na.rm)
+            stop("missing values in data: consider na.rm = TRUE")
+        X <- X[keep,]
+        env <- env[keep,]
+        na.action <- structure(seq_along(keep)[!keep], class="omit")
+    }
+    if (is.data.frame(env)) {
+        facts <- unlist(lapply(env, is.factor))
         if (sum(facts)) {
-            Pfac <- P[, facts, drop = FALSE]
-            P <- P[, !facts, drop = FALSE]
+            Pfac <- env[, facts, drop = FALSE]
+            P <- env[, !facts, drop = FALSE]
             if (length(P)) {
                 if (permutations) {
                     if (!exists(".Random.seed", envir = .GlobalEnv, 
@@ -20,20 +31,21 @@
                                 inherits = FALSE)
                 }
                 vectors <- vectorfit(X, P, permutations, strata, 
-                                     choices, ...)
+                                     choices, w = w, ...)
             }
             if (!is.null(seed)) {
                 assign(".Random.seed", seed, envir = .GlobalEnv)
             }
-            factors <- factorfit(X, Pfac, permutations, strata, 
-                                 choices, ...)
+            factors <- factorfit(X, Pfac, permutations, strata,  ...)
             sol <- list(vector = vectors, factors = factors)
         }
-        else vectors <- vectorfit(X, P, permutations, strata, 
-                                  choices, ...)
+        else vectors <- vectorfit(X, env, permutations, strata, 
+                                  choices, w = w, ...)
     }
-    else vectors <- vectorfit(X, P, permutations, strata, choices)
+    else vectors <- vectorfit(X, env, permutations, strata, ...)
     sol <- list(vectors = vectors, factors = factors)
+    if (!is.null(na.action))
+        sol$na.action <- na.action
     class(sol) <- "envfit"
     sol
 }

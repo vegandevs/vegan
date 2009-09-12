@@ -18,23 +18,32 @@
   the factors show the averages of factor levels.
 }
 \usage{
-\method{envfit}{default}(X, P, permutations = 0, strata, choices=c(1,2), ...)
+\method{envfit}{default}(ord, env, permutations = 0, strata, choices=c(1,2), 
+   display = "sites", w  = weights(ord), na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), arrow.mul, at = c(0,0), axis = FALSE, 
     p.max = NULL, col = "blue", add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, ...)
-vectorfit(X, P, permutations = 0, strata, choices=c(1,2),
-      display = c("sites", "lc"), w = weights(X), ...)
-factorfit(X, P, permutations = 0, strata, choices=c(1,2),
-      display = c("sites", "lc"), w = weights(X), ...)
+vectorfit(X, P, permutations = 0, strata, w, ...)
+factorfit(X, P, permutations = 0, strata, w, ...)
 }
 
 \arguments{
-  \item{X}{ Ordination configuration.}
-  \item{P}{ Matrix or vector of environmental variable(s). }
+  \item{ord}{An ordination object or other structure from which the
+    ordination \code{\link{scores}} can be extracted (including a data
+    frame or matrix of scores)}.
+  \item{env}{Data frame, matrix or vector of environmental
+    variables. The variables can be of mixed type (factors, continuous
+    variables) in data frames.}
+  \item{X}{Matrix or data frame of ordination scores.}
+  \item{P}{Data frame, matrix or vector of environmental
+    variable(s). These must be continuous for \code{vectorfit} and
+    factors or characters for \code{factorfit}. }
   \item{permutations}{ Number of permutations for assessing significance
     of vectors or factors.}
   \item{formula, data}{Model  \code{\link{formula}} and data.  }
+  \item{na.rm}{Remove points with missing values in ordination scores or 
+    environmental variables}.
   \item{x}{A result object from \code{envfit}.}
   \item{choices}{Axes to plotted.}
   \item{arrow.mul}{Multiplier for vector lengths. The arrows are

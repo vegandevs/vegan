@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-28 (opened September 10, 200)
 
+	* envfit: handles missing values in ordination scores or in
+	environmental variables using na.rm argument.  This also changes
+	the user interface so that 'vectorfit' and 'factorfit' clearly
+	become low level functions which only accept scores (no ordination
+	objects), and all processing is done in envfit.default. 
+
 	* wcmdscale: scores (points) with zero weights (w = 0) and other
 	non-finite entries will be NA.
 

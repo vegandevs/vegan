@@ -1,12 +1,7 @@
 "vectorfit" <-
-    function (X, P, permutations = 0, strata, choices = c(1, 2), 
-              display = c("sites", "lc"), w = weights(X), ...) 
+    function (X, P, permutations = 0, strata, w, ...) 
 {
-    weights.default <- function(object, ...) NULL
-    display <- match.arg(display)
-    w <- eval(w)
-    X <- scores(X, display = display, choices, ...)
-    if (is.null(w)) 
+    if (missing(w) || is.null(w)) 
         w <- 1
     if (length(w) == 1) 
         w <- rep(w, nrow(X))
