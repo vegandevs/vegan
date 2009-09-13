@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-28 (opened September 10, 200)
 
+	* drop1.cca: 'scope' given as a formula was not recognized and
+	permutation tests were not run. Only character vectors of names
+	worked.  Needs testing.
+
 	* envfit: handles missing values in ordination scores or in
 	environmental variables using na.rm argument.  This also changes
 	the user interface so that 'vectorfit' and 'factorfit' clearly

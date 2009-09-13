@@ -9,6 +9,8 @@
         rn <- rownames(out)[-1]
         if (missing(scope))
             scope <- rn
+        else if (!is.character(scope))
+            scope <- drop.scope(scope)
         adds <- anova(object, by = "margin", step = pstep,
                       perm.max = perm.max, scope = scope, ...)
         nr <- nrow(adds)
