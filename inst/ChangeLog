@@ -2,11 +2,25 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-28 (opened September 10, 200)
+Version 1.16-29 (opened September 15, 2009)
+
+	* cca & rda (but not (yet?) capscale) gained argument 'subset' to
+	select rows for analysis. A 'subset' can be a logical vector (TRUE
+	for kept rows), or a logical expression which can contain
+	variables in 'data' or species (variable) names of the dependent
+	data. Some valid examples are:
+	cca(dune ~ A1 + Moisture, dune.env, 
+	    subset = Management %in% c("HF","BF"))
+	cca(dune ~ Moisture, dune.env,
+	    subset = Lolper > 0 & Management != "SF")
+	S <- specnumber(dune)
+	cca(dune ~ 1, subset = S > 9)
+	
+Version 1.16-28 (closed September 15, 2009)
 
 	* drop1.cca: 'scope' given as a formula was not recognized and
 	permutation tests were not run. Only character vectors of names
-	worked.  Needs testing.
+	worked.  
 
 	* envfit: handles missing values in ordination scores or in
 	environmental variables using na.rm argument.  This also changes

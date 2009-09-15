@@ -1,16 +1,25 @@
 "ordiParseFormula" <-
-function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail) 
+function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
+          subset = NULL) 
 {
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     specdata <- formula[[2]]
     X <- eval.parent(specdata, n = envdepth)
-    X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
     mf <- Z <- NULL
-    ## Get na.action attribute
     formula[[2]] <- NULL
     mf <- get_all_vars(formula, data)
+    ## Select a subset of data and species
+    if (!is.null(subset)) {
+        subset <- eval(subset,
+                       if (inherits(data, "data.frame")) cbind(data, X) else X,
+                       parent.frame())
+        X <- X[subset, , drop = FALSE]
+        if (NROW(mf) > 0)
+            mf <- mf[subset, , drop = FALSE]
+    }
+    ## Get na.action attribute
     if (NCOL(mf) > 0)
         nas <- attr(model.frame(mf, na.action = na.action), "na.action")
     else
@@ -21,7 +30,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
-        mf <- model.frame(P.formula, data, na.action = na.pass, 
+        mf <- model.frame(P.formula, mf, na.action = na.pass, 
             xlev = zlev)
         Z <- model.matrix(P.formula, mf)
         if (any(colnames(Z) == "(Intercept)")) {
@@ -38,7 +47,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
     else {
         if (exists("Pterm")) 
             xlev <- xlev[!(names(xlev) %in% Pterm)]
-        mf <- model.frame(formula, data, na.action = na.pass, 
+        mf <- model.frame(formula, mf, na.action = na.pass, 
             xlev = xlev)
         Y <- model.matrix(formula, mf)
         if (any(colnames(Y) == "(Intercept)")) {
@@ -59,6 +68,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
     } else {
         excluded <-  NULL
     }
+    X <- as.matrix(X)
     rownames(X) <- rownames(X, do.NULL = FALSE)
     colnames(X) <- colnames(X, do.NULL = FALSE)
     if (!is.null(Y)) {

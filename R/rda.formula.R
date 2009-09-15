@@ -1,12 +1,14 @@
 "rda.formula" <-
-function (formula, data, scale = FALSE, na.action = na.fail, ...) 
+function (formula, data, scale = FALSE, na.action = na.fail,
+          subset = NULL, ...) 
 {
     if (missing(data)) {
         data <- parent.frame()
     } else {
         data <- ordiGetData(match.call(), environment(formula))
     }
-    d <- ordiParseFormula(formula, data, na.action = na.action)
+    d <- ordiParseFormula(formula, data, na.action = na.action,
+                          subset = substitute(subset))
     sol <- rda.default(d$X, d$Y, d$Z, scale)
     if (!is.null(sol$CCA)) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)

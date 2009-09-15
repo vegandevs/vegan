@@ -19,9 +19,11 @@
   These are all very popular ordination techniques in community ecology.
 }
 \usage{
-\method{cca}{formula}(formula, data, na.action = na.fail, ...)
+\method{cca}{formula}(formula, data, na.action = na.fail, subset = NULL,
+  ...)
 \method{cca}{default}(X, Y, Z, ...)
-\method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail, ...)
+\method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail,
+  subset = NULL, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
 }
 
@@ -46,6 +48,10 @@
     calculated. The WA scores of rows may be found also for missing
     values in constraints. Missing values are never allowed in
     dependent community data. }
+  \item{subset}{Subset of data rows. This can be a logical vector which
+    is \code{TRUE} for kept observations, or a logical expression which
+    can contain variables in the working environment, \code{data} or
+    species names of the community data.}
   \item{...}{Other arguments for \code{print} or \code{plot} functions
     (ignored in other functions).}
 }
