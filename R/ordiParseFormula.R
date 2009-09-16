@@ -30,9 +30,9 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
-        mf <- model.frame(P.formula, mf, na.action = na.pass, 
+        zmf <- model.frame(P.formula, mf, na.action = na.pass, 
             xlev = zlev)
-        Z <- model.matrix(P.formula, mf)
+        Z <- model.matrix(P.formula, zmf)
         if (any(colnames(Z) == "(Intercept)")) {
             xint <- which(colnames(Z) == "(Intercept)")
             Z <- Z[, -xint, drop = FALSE]
