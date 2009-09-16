@@ -1,5 +1,5 @@
 `plot.meandist` <-
-    function(x, cluster = "average",  ...) 
+    function(x, cluster = "average", ylim, ...) 
 {
     n <- attr(x, "n")
     cl <- hclust(as.dist(x), method = cluster, members = n)
@@ -7,7 +7,9 @@
     w <- diag(x)[labels(cl)]
     tr <- unlist(dendrapply(cl, function(n) attr(n, "height")))
     root <- attr(cl, "height")
-    plot(cl, ylim = range(c(w, tr, root), na.rm = TRUE), leaflab = "none", ...)
+    if (missing(ylim))
+        ylim <- range(c(w, tr, root), na.rm = TRUE)
+    plot(cl, ylim = ylim, leaflab = "none", ...)
     for (i in 1:length(w)) segments(i, tr[i], i, w[i])
     pos <- ifelse(w < tr, 1, 3)
     pos[is.na(pos)] <- 1

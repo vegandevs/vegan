@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-29 (opened September 15, 2009)
 
+	* meandist: plot got an 'ylim' argument. This is practical when
+	users want to display several plots side by side, and requested by
+	Heli Suurkuukka.
+
 	* WARNING OF A BUG in cca, rda & capscale: all versions have
 	failed since rev 972 (Sep 1, 2009) if an argument in a model was a
 	matrix. Now these things work so that tess pass, but results are

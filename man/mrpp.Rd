@@ -18,7 +18,7 @@ mrpp(dat, grouping, permutations = 999, distance = "euclidean",
      weight.type = 1, strata)
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
-\method{plot}{meandist}(x, cluster = "average", ...)
+\method{plot}{meandist}(x, cluster = "average", ylim, ...)
 }
 
 \arguments{
@@ -43,6 +43,7 @@ meandist(dist, grouping, ...)
   \item{cluster}{A clustering method for the \code{\link{hclust}}
     function. Any \code{hclust} method can be used, but perhaps only
     \code{"average"} and \code{"single"} make sense.}
+  \item{ylim}{Limits for vertical axes (optional).}
   \item{\dots}{Further arguments passed to functions.}
 }
 
