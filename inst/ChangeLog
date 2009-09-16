@@ -4,6 +4,21 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-29 (opened September 15, 2009)
 
+	* WARNING OF A BUG in cca, rda & capscale: all versions have
+	failed since rev 972 (Sep 1, 2009) if an argument in a model was a
+	matrix. Now these things work so that tess pass, but results are
+	wrong , because get_all_vars() does not get names right for matrix
+	columns in the model frame. This is manifest in the example of
+	varpart() that uses matrix items (such as mite.pcnm). It can be
+	also seen with this:
+	p <- poly(dune.env$A1, 3)
+	cca(dune ~  p + Management, dune.env)
+	The following seems to work:
+	cca(dune ~  poly(A1, 3) + Management, dune.env)
+	
+	* cca, rda etc. drop unused levels of factors. This became actual
+	with 'subset' and 'na.action'.
+	
 	* cca & rda (but not (yet?) capscale) gained argument 'subset' to
 	select rows for analysis. A 'subset' can be a logical vector (TRUE
 	for kept rows), or a logical expression which can contain
@@ -15,7 +30,7 @@ Version 1.16-29 (opened September 15, 2009)
 	    subset = Lolper > 0 & Management != "SF")
 	S <- specnumber(dune)
 	cca(dune ~ 1, subset = S > 9)
-	
+
 Version 1.16-28 (closed September 15, 2009)
 
 	* drop1.cca: 'scope' given as a formula was not recognized and

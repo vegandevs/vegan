@@ -19,9 +19,12 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         if (NROW(mf) > 0)
             mf <- mf[subset, , drop = FALSE]
     }
-    ## Get na.action attribute
-    if (NCOL(mf) > 0)
-        nas <- attr(model.frame(mf, na.action = na.action), "na.action")
+    ## Get na.action attribute, remove NA and drop unused levels
+    if (NCOL(mf) > 0) {
+        mf <- model.frame(formula(mf), mf,
+                          na.action = na.action, drop.unused.levels = TRUE)
+        nas <- attr(mf, "na.action")
+    }
     else
         nas <- NULL
     if (!is.null(indPartial)) {
@@ -47,24 +50,18 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     else {
         if (exists("Pterm")) 
             xlev <- xlev[!(names(xlev) %in% Pterm)]
-        mf <- model.frame(formula, mf, na.action = na.pass, 
+        ymf <- model.frame(formula, mf, na.action = na.pass, 
             xlev = xlev)
-        Y <- model.matrix(formula, mf)
+        Y <- model.matrix(formula, ymf)
         if (any(colnames(Y) == "(Intercept)")) {
             xint <- which(colnames(Y) == "(Intercept)")
             Y <- Y[, -xint, drop = FALSE]
         }
     }
-    ## Check and remove NA
+    ## Check and remove NA in dependent data
     if (!is.null(nas)) {
         excluded <- X[nas, , drop = FALSE]
         X <- X[-nas,, drop=FALSE]
-        if (!is.null(Y)) {
-            Y <- Y[-nas,, drop=FALSE]
-            mf <- mf[-nas,, drop=FALSE]
-        }
-        if (!is.null(Z))
-            Z <- Z[-nas,, drop=FALSE]
     } else {
         excluded <-  NULL
     }

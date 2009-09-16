@@ -17,7 +17,8 @@
 }
 \usage{
 ordiGetData(call, env)
-ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, na.action = na.fail)
+ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, 
+   na.action = na.fail, subset = NULL)
 ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)

@@ -20,7 +20,7 @@ function (formula, data, scale = FALSE, na.action = na.fail,
             drop = FALSE]
     }
     sol$terms <- d$terms
-    sol$terminfo <- ordiTerminfo(d, data)
+    sol$terminfo <- ordiTerminfo(d, d$modelframe)
     sol$na.action <- d$na.action
     sol$call <- match.call()
     sol$call[[1]] <- as.name("rda")
