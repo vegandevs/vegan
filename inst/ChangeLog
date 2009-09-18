@@ -4,14 +4,24 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
-	FIX BUGin cca, rda & capscale interpretation of
-	formulas. This was introduced in rev 972 (Sep 1, 2009), and closed
-	in rev 1010 (Sep 18, 2009). Basically, all evaluation of 'subset'
+	* FIXED BUG in cca, rda & capscale interpretation of
+	formulae. This was introduced in rev 972 (Sep 1, 2009), and fixed
+	in rev 1011 (Sep 18, 2009). Basically, all evaluation of 'subset'
 	and 'na.action' is done after extracting the model frames with
 	proven methods so that the first half of 'ordiParseFormula' is
 	more similar to pre-972 versions. Function 'ordiParseFormula'
 	could be re-written more elegantly, but deliberately breaking it
-	twice instead of breaking it once is just now too much.
+	twice instead of breaking it once is just too much.
+
+	* cca/rda/capscale: cca(dune ~ poly(A1, 2), dune.env)
+	failed. Internal changes in 'ordiTerminfo' which now always looks
+	at the model frame returned by 'ordiParseFormula' instead of
+	looking at the 'data' (and the 'data' arg is now unused in
+	'ordiTerminfo'). 
+
+	* FIXME: cca(dune ~ Management, dune.env, subset = Management ==
+	"SF") fails in 'contrasts()' called from 'model.matrix()' because
+	there is only one level in Management.
 	
 Version 1.16-29 (closed September 18, 2009)
 
@@ -103,9 +113,7 @@ Version 1.16-27 (closed September 10, 2009)
 	* plot.cca: works when there are NA values in scores.
 
 	* anova.cca(.., by = "axis") works when there are omitted or
-	excluded observations due to missing values. However, the way the
-	missing values are handled in simulations should be checked in all
-	anova.cca models: are the missing rows permuted or not?
+	excluded observations due to missing values. 
 	
 Version 1.16-26 (closed September 1, 2009)
 
@@ -130,7 +138,7 @@ Version 1.16-26 (closed September 1, 2009)
 	* ordiNAexclude: internal infrastructure to implement na.action =
 	na.exclude for cca and rda (and capscale?). The option returns
 	scores where the excluded sites get NA results and are not
-	omitted. In constrained ordination, LC scores will NA, but WA
+	omitted. In constrained ordination, LC scores will be NA, but WA
 	scores are found from the community data, and the current function
 	uses predict.cca/predict.rda with 'newdata' of removed
 	observations to estimate WA scores of excluded observation.

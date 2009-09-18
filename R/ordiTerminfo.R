@@ -5,7 +5,7 @@
     if (length(attr(Terms, "term.labels")) == 0)
         mf <- data.frame(NULL)
     else
-        mf <- model.frame(formula(Terms), data)
+        mf <- d$modelframe
     xlev <- .getXlevels(Terms, mf)
     ordered <- sapply(mf, is.ordered)
     list(terms = Terms, xlev = xlev, ordered = ordered)
