@@ -2,7 +2,18 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-29 (opened September 15, 2009)
+Version 1.16-30 (opened September 18, 2009) 
+
+	FIX BUGin cca, rda & capscale interpretation of
+	formulas. This was introduced in rev 972 (Sep 1, 2009), and closed
+	in rev 1010 (Sep 18, 2009). Basically, all evaluation of 'subset'
+	and 'na.action' is done after extracting the model frames with
+	proven methods so that the first half of 'ordiParseFormula' is
+	more similar to pre-972 versions. Function 'ordiParseFormula'
+	could be re-written more elegantly, but deliberately breaking it
+	twice instead of breaking it once is just now too much.
+	
+Version 1.16-29 (closed September 18, 2009)
 
 	* meandist: plot got an 'ylim' argument. This is practical when
 	users want to display several plots side by side, and requested by
@@ -10,7 +21,7 @@ Version 1.16-29 (opened September 15, 2009)
 
 	* WARNING OF A BUG in cca, rda & capscale: all versions have
 	failed since rev 972 (Sep 1, 2009) if an argument in a model was a
-	matrix. Now these things work so that tess pass, but results are
+	matrix. Now these things work so that tests pass, but results are
 	wrong , because get_all_vars() does not get names right for matrix
 	columns in the model frame. This is manifest in the example of
 	varpart() that uses matrix items (such as mite.pcnm). It can be
