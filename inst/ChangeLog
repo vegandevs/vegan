@@ -19,9 +19,11 @@ Version 1.16-30 (opened September 18, 2009)
 	looking at the 'data' (and the 'data' arg is now unused in
 	'ordiTerminfo'). 
 
-	* FIXME: cca(dune ~ Management, dune.env, subset = Management ==
-	"SF") fails in 'contrasts()' called from 'model.matrix()' because
-	there is only one level in Management.
+	* FIXED (minor): cca(dune ~ Management, dune.env, subset =
+	Management == "SF") failed in 'contrasts()' called from
+	'model.matrix()' because there is only one level in Management.
+	Now 'ordiParseFormula' changes one-level factors into numeric() so
+	that they are cleanly(?) aliased.
 	
 Version 1.16-29 (closed September 18, 2009)
 

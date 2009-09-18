@@ -52,6 +52,10 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         mf <- model.frame(formula(mf), mf, xlev = xlev,
                           na.action = na.action, drop.unused.levels = TRUE)
         nas <- attr(mf, "na.action")
+        ## Check if there are one-level factors after subset and na.action
+        for (i in 1:ncol(mf))
+            if (is.factor(mf[[i]]) && length(levels(mf[[i]])) <= 1)
+                mf[[i]] <- as.numeric(mf[[i]])
     } else {
         nas <- NULL
     }
