@@ -10,6 +10,7 @@
 \alias{coef.cca}
 \alias{coef.rda}
 \alias{calibrate.cca}
+\alias{calibrate}
 
 \title{Prediction Tools for [Constrained] Ordination (CCA,
   RDA, DCA, CA, PCA) }
@@ -25,7 +26,7 @@
 \method{residuals}{cca}(object, ...)
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc"),
     rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...)
-calibrate.cca(object, newdata, rank = "full", ...)
+\method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
@@ -166,7 +167,7 @@ predict(mod, type="sp", newdata=dune[, freq==1], scaling=2)
 predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
 # Calibration and residual plot
 mod <- cca(dune ~ A1 + Moisture, dune.env)
-pred <- calibrate.cca(mod)
+pred <- calibrate(mod)
 pred
 with(dune.env, plot(A1, pred[,"A1"] - A1, ylab="Prediction Error"))
 abline(h=0)

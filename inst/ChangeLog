@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
+	* calibrate: is now a a generic function and has a new method for
+	the 'ordisurf' object in addition to the old 'cca' method.
+
 	* FIXED BUG in cca, rda & capscale interpretation of
 	formulae. This was introduced in rev 972 (Sep 1, 2009), and fixed
 	in rev 1011 (Sep 18, 2009). Basically, all evaluation of 'subset'

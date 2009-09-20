@@ -1,5 +1,6 @@
 \name{ordisurf}
 \alias{ordisurf}
+\alias{calibrate.ordisurf}
 
 \title{ Fit and Plot Smooth Surfaces of Variables on Ordination. }
 \description{
@@ -11,6 +12,7 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
      w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
      bubble = FALSE, cex = 1, ...)
+\method{calibrate}{ordisurf}(object, newdata, ...)
 }
 
 \arguments{
@@ -45,6 +47,8 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
     the maximum. The minimum size will always be \code{cex = 0.4}.  The
     option only has an effect if \code{add = FALSE}.}
   \item{cex}{Character expansion of plotting symbols.}
+  \item{object}{An \code{ordisurf} result object.}
+  \item{newdata}{Coordinates in two-dimensional ordination for new points.}
   \item{\dots}{ Other graphical parameters. }
 }
 \details{
@@ -66,6 +70,12 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
   behaviour is consistent with \code{\link{envfit}}. For complete
   accordance with constrained \code{\link{cca}}, you should set
   \code{display = "lc"} (and possibly \code{scaling = 2}).
+
+  Function \code{calibrate} returns the fitted values of the response
+  variable. The \code{newdata} must be coordinates of points for which
+  the fitted values are desired. The function is based on
+  \code{\link[mgcv]{predict.gam}} and will pass extra arguments to
+  that function.
 }
 
 \value{
@@ -102,7 +112,9 @@ vare.dist <- vegdist(varespec)
 vare.mds <- isoMDS(vare.dist)
 with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 ## Cover of Cladina arbuscula
-with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
+fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
+## Get fitted values
+calibrate(fit)
 }
 \keyword{ multivariate }
 \keyword{ aplot }
