@@ -22,8 +22,10 @@ Version 1.16-30 (opened September 18, 2009)
 	* FIXED (minor): cca(dune ~ Management, dune.env, subset =
 	Management == "SF") failed in 'contrasts()' called from
 	'model.matrix()' because there is only one level in Management.
-	Now 'ordiParseFormula' changes one-level factors into numeric() so
-	that they are cleanly(?) aliased.
+	Now 'ordiParseFormula' adds a level with an unlikely name of
+	.ThisVarHasOnly1Level, so that model.matrix works, but
+	predict.cca(..., newdata=, type = "lc") rejects unknown factor
+	levels.
 	
 Version 1.16-29 (closed September 18, 2009)
 
