@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
+	* densitplot.oecosimu: panels keep the order of statistics. The
+	panels were ordered alphabetically, but the vertical line for the
+	observed statistic was in the original order (and thus often in
+	the wrong panel).
+
 	* calibrate: is now a a generic function and has a new method for
 	the 'ordisurf' object in addition to the old 'cca' method.
 
