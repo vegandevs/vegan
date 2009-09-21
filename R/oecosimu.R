@@ -93,8 +93,11 @@
         }
     }
     ## end of addition
-
-    z <- (indstat - rowMeans(simind))/apply(simind, 1, sd)
+    
+    sd <- apply(simind, 1, sd)
+    z <- (indstat - rowMeans(simind))/sd
+    if (any(sd < sqrt(.Machine$double.eps)))
+        z[sd < sqrt(.Machine$double.eps)] <- 0
     p <- 2*pmin(rowSums(indstat > simind), rowSums(indstat < simind))
     p <- (p + 1)/(nsimul + 1)
 
