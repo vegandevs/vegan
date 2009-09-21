@@ -20,7 +20,8 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", ...)
+   statistic = "statistic", alternative = c("two.sided", "less", "greater"),
+   ...)
 commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
@@ -47,6 +48,9 @@ commsimulator(x, method, thin=1)
   \code{"swap"} and \code{"tswap"}.}
   \item{statistic}{The name of the statistic returned by
     \code{nestedfun}} 
+  \item{alternative}{a character string specifying the alternative
+    hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
+    or \code{"less"}. You can specify just the initial letter.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
   \item{\dots}{Other arguments to functions.}

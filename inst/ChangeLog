@@ -4,6 +4,16 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
+	* oecosimu: gained new keyword 'alternative' for "two.sided",
+	"less" and "greater" one-sided tests.
+	
+	* oecosimu: tied values in simulations and observed statistics
+	treated more correctly. 
+	
+	* oecosimu: if all simulations were constant, their sd became
+	zero, and z became NaN. Now z = 0 for these cases. A response to
+	the query of Martin Kopecky at the vegan-help forum in R-Forge.
+
 	* densitplot.oecosimu: panels keep the order of statistics. The
 	panels were ordered alphabetically, but the vertical line for the
 	observed statistic was in the original order (and thus often in

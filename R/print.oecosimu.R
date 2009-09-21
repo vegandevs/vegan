@@ -4,11 +4,17 @@
     attr(x$oecosimu$method, "permfun") <- NULL
     cat("oecosimu with", ncol(x$oecosimu$simulated), "simulations\n")
     cat("simulation method", x$oecosimu$method)
-    ## dim attribute is always there, but print all others
     if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
         att$dim <- NULL
         cat(" with", paste(names(att), att, collapse=", "))
     }
+    alt.char <- switch(x$oecosimu$alternative,
+                       two.sided = "not equal to",
+                       less = "less than",
+                       greater = "greater than")
+    cat("\nalternative hypothesis: true mean is", alt.char, "the statistic")
+    ## dim attribute is always there, but print all others
+
     cat("\n\n")
     cl <- class(x)
     if (length(cl) > 1 && cl[2] != "list") {

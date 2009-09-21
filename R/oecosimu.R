@@ -1,8 +1,10 @@
 `oecosimu` <-
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
+             alternative = c("two.sided", "less", "greater"),
              ...)
 {
+    alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
     if (!is.function(method)) {
         method <- match.arg(method, c("r00", "r0", "r1", "r2", "c0",
@@ -93,13 +95,17 @@
         }
     }
     ## end of addition
-    
     sd <- apply(simind, 1, sd)
     z <- (indstat - rowMeans(simind))/sd
     if (any(sd < sqrt(.Machine$double.eps)))
         z[sd < sqrt(.Machine$double.eps)] <- 0
-    p <- 2*pmin(rowSums(indstat > simind), rowSums(indstat < simind))
-    p <- (p + 1)/(nsimul + 1)
+    pless <- rowSums(indstat <= simind)
+    pmore <- rowSums(indstat >= simind)
+    p <- switch(alternative,
+                two.sided = 2*pmin(pless, pmore),
+                less = pless,
+                greater = pmore)
+    p <- pmin(1, (p + 1)/(nsimul + 1))
 
     ## ADDITION: if z is NA then it is not correct to calculate p values
     ## try e.g. oecosimu(dune, sum, "permat")
@@ -113,7 +119,7 @@
     if (method == "custom")
         attr(method, "permfun") <- permfun
     ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=method,
-                         statistic = indstat)
+                         statistic = indstat, alternative = alternative)
     class(ind) <- c("oecosimu", class(ind))
     ind
 }
