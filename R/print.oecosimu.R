@@ -21,7 +21,11 @@
         NextMethod("print", x)
         cat("\n")
     }
-    qu <- apply(x$oecosimu$simulated, 1, quantile, probs=c(0.025, 0.5, 0.975))
+    probs <- switch(x$oecosimu$alternative,
+                    two.sided = c(0.025, 0.5, 0.975),
+                    less = c(0, 0.5, 0.95),
+                    greater = c(0.05, 0.5, 1))
+    qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs)
     m <- cbind("statistic" = x$oecosimu$statistic,
                "z" = x$oecosimu$z, t(qu),
                "Pr(sim.)"=x$oecosimu$pval)
