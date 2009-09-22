@@ -37,7 +37,7 @@ vif.cca(object)
   \item{choices}{Axes shown. Default is to show all axes of the \code{"model"}. }
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. }
-  \item{statistic}{Stastic used: \code{"explained"} gives the cumulative
+  \item{statistic}{Statistic used: \code{"explained"} gives the cumulative
   percentage accounted for, \code{"distance"} shows the residual
   distances. Distances are not available for sites in constrained or
   partial analyses. }

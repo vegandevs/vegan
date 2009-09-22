@@ -15,7 +15,7 @@ contribdiv(comm, index = c("richness", "simpson"),
   \item{comm}{The community data matrix with samples as rows and species as column.}
   \item{index}{Character, the diversity index to be calculated.}
   \item{relative}{Logical, if \code{TRUE} then contribution diversity values are expressed as their signed deviation from their mean. See details.}
-  \item{scaled}{Logical, if \code{TRUE} then relative contribution diversity values are scaled by the sum of gamma values (if \code{index = "richness"}) or by sum of gamma values times the number of rowx in \code{comm} (if \code{index = "simpson"}). See details.}
+  \item{scaled}{Logical, if \code{TRUE} then relative contribution diversity values are scaled by the sum of gamma values (if \code{index = "richness"}) or by sum of gamma values times the number of rows in \code{comm} (if \code{index = "simpson"}). See details.}
   \item{drop.zero}{Logical, should empty rows dropped from the result? If empty rows are not dropped, their corresponding results will be \code{NA}s.}
   \item{x}{An object of class \code{"contribdiv"}.}
   \item{sub, xlab, ylab, ylim, col}{Graphical arguments passed to plot.}

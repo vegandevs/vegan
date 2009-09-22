@@ -36,7 +36,7 @@ constrained ordination model.
   Function \code{add1.cca} will implement a test for single term
   additions that is not directly available in \code{\link{anova.cca}}.
 
-  Functions are used implicity in \code{\link{step}}. The
+  Functions are used implicitly in \code{\link{step}}. The
   \code{\link{deviance.cca}} and \code{\link{deviance.rda}} used in
   \code{\link{step}} have no firm basis, and setting argument
   \code{test = "permutation"} may help in getting useful insight into

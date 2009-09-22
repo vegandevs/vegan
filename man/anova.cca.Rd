@@ -72,7 +72,7 @@ permutest(x, ...)
   differ significantly from \code{alpha} of the alternative hypothesis,
   the permutations are
   continued with \code{step} new permutations (at the first step, the
-  number of permuations is \code{step - 1}).  However, with \code{by =
+  number of permutations is \code{step - 1}).  However, with \code{by =
     "terms"} a fixed number of permutations will be used, and this 
   is given by argument \code{permutations}, or if this is missing,
   by \code{step}.  
@@ -110,7 +110,7 @@ permutest(x, ...)
   constrained axes will be used as conditions (\dQuote{partialled
   out}) and a test for the first constrained eigenvalues is
   performed. You can stop permutation tests after exceeding a given
-  signficance level with argument \code{cutoff} to speed up
+  significance level with argument \code{cutoff} to speed up
   calculations in large models. Setting \code{by = "terms"} will
   perform separate significance test for each term (constraining
   variable). The terms are assessed sequentially from first to last,

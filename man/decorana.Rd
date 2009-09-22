@@ -98,7 +98,7 @@ downweight(veg, fraction = 5)
   space, so that the results look non-curved in two-dimensional projections
   (`lolly paper effect').  As a result, the points usually have an
   easily recognized triangular or diamond shaped pattern, obviously an
-  artefact of detrendingt.  Rescaling works differently than commonly
+  artefact of detrending.  Rescaling works differently than commonly
   presented, too. \code{decorana} does not use, or even evaluate, the
   widths of species responses.  Instead, it tries to equalize the
   weighted variance of species scores on axis segments (parameter
@@ -173,7 +173,7 @@ downweight(veg, fraction = 5)
   \code{\link{cca}}.  Orthogonal correspondence analysis can be
   made with \code{\link[MASS]{corresp}}, or with \code{decorana} or
   \code{\link{cca}}, but the scaling of results vary (and the one in
-  \code{decorana} correspondes to \code{scaling = -1} in
+  \code{decorana} corresponds to \code{scaling = -1} in
   \code{\link{cca}}.).
   See \code{\link{predict.decorana}} for adding new points to an
   ordination.

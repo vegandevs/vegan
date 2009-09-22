@@ -39,12 +39,12 @@ swan(x)
   Sum(k) N[jk] I[ik] / N[k]}, where \eqn{S_i}{S[i]} is the number of
   species on site \eqn{i}, \eqn{N_{jk}}{N[jk]} is the number of joint
   occurrences of species \eqn{j} and \eqn{k}, \eqn{N_k}{N[k]} is the
-  number of occurences of species \eqn{k}, and \eqn{I} is the incidence
+  number of occurrences of species \eqn{k}, and \eqn{I} is the incidence
   (0 or 1) of species (this last term is usually omitted from the
   equation, but it is necessary). As \eqn{N_{jk}}{N[jk]} can be
   interpreted as a mean of conditional probability, the \code{beals}
-  fucntion can be interpred as a mean of conditioned probabilities (De
-  \enc{Cáceres}{Caceres} & Legendre 2008).  The currrent function is
+  function can be interpreted as a mean of conditioned probabilities (De
+  \enc{Cáceres}{Caceres} & Legendre 2008).  The current function is
   generalized to abundance values (De \enc{Cáceres}{Caceres} & Legendre
   2008).
   
@@ -66,7 +66,7 @@ swan(x)
   belong to the species pool (Ewald 2002) or to identify suitable
   unoccupied patches in metapopulation analysis
   (\enc{Münzbergová}{Munzbergova} & Herben 
-  2004).  In this case, the function shold be called with \code{include
+  2004).  In this case, the function should be called with \code{include
   = FALSE} for cross-validatory smoothing for species, and argument
   \code{species} can be used if only one species was studied.
 

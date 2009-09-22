@@ -24,7 +24,7 @@ multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
   \item{index}{Character, the entropy index to be calculated (see Details).}
   \item{relative}{Logical, if \code{TRUE} then beta diversity is
     standardized by its maximum (see Details).}
-  \item{scales}{Numeroc, of length 1, the order of the generalized diversity index 
+  \item{scales}{Numeric, of length 1, the order of the generalized diversity index 
     to be used.}
   \item{global}{Logical, indicates the calculation of beta diversity values, see Details.}
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.

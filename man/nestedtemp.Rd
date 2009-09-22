@@ -27,7 +27,7 @@ nestedn0(comm)
 nesteddisc(comm)
 nestedtemp(comm, ...)
 nestednodf(comm, order = TRUE)
-\method{plot}{nestedtemp}(x, kind = c("temperature", "incidendce"),
+\method{plot}{nestedtemp}(x, kind = c("temperature", "incidence"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
 }
 
@@ -47,7 +47,7 @@ nestednodf(comm, order = TRUE)
   The nestedness functions evaluate alternative indices of nestedness.
   The functions are intended to be used together with Null model
   communities and used as an argument in \code{\link{oecosimu}} to analyse
-  the nonrdanomness of results.
+  the nonrandomness of results.
   
   Function \code{netstedchecker} gives the number of checkerboard units,
   or 2x2 submatrices where both species occur once but on different

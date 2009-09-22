@@ -8,7 +8,7 @@
   Function \code{mantel}  finds the Mantel statistic as a matrix
   correlation between two dissimilarity matrices, and function
   \code{mantel.partial} finds the partial Mantel statistic as the
-  partial matrix correlation between three dissimilarity matricies.  The
+  partial matrix correlation between three dissimilarity matrices.  The
   significance of the statistic is evaluated by permuting rows and
   columns of the first dissimilarity matrix. 
 
@@ -68,7 +68,7 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
 
 \note{
   Legendre & Legendre (1998) say that partial Mantel correlations 
-  often are difficult to interpet. 
+  often are difficult to interpret. 
   }
 
 \author{Jari Oksanen }

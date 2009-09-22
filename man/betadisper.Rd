@@ -116,7 +116,7 @@ betadisper(d, group, type = c("centroid", "median"))
   residuals to generate a permutation distribution of F under the Null
   hypothesis of no difference in dispersion between groups.
 
-  Pairwise comprisons of group mean dispersions can also be performed
+  Pairwise comparisons of group mean dispersions can also be performed
   using \code{\link{permutest.betadisper}}. An alternative to the classical
   comparison of group dispersions, is to calculate Tukey's Honest
   Significant Differences between groups, via

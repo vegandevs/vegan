@@ -48,10 +48,10 @@ cIndexKM(y, x, index = "all")
     displayed.}
   \item{grpmts.plot}{Show the plot (\code{TRUE} or \code{FALSE}).}
   \item{sortg}{Sort the objects as a function of their group membership
-    to produce a more easily interpretatable graph. See Details. The
+    to produce a more easily interpretable graph. See Details. The
     original object names are kept; they are used as labels in the
     output table \code{x}, although not in the graph.  If there were no
-    rownames, sequential row numbers are used to keep track of the
+    row names, sequential row numbers are used to keep track of the
     original order of the objects.}
   \item{gridcol}{The colour of the grid lines in the plots. \code{NA},
     which is the default value, removes the grid lines.}
@@ -59,7 +59,7 @@ cIndexKM(y, x, index = "all")
     
 }
 \details{
-  The function creates several partitions formimg a cascade from a small
+  The function creates several partitions forming a cascade from a small
   to a large number of groups formed by \code{\link{kmeans}}.  Most
   of the work is performed by function \code{cIndex} which is based on the
   \code{\link[cclust]{clustIndex}} function (package \pkg{cclust}). 

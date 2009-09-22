@@ -6,7 +6,7 @@
   A standard CEP name has four first letters of the generic name and
   four first letters of the specific epithet of a Latin name. The last
   epithet, that may be a subspecific name, is used in the current
-  function. If the name has only one component, it is abbreaviated to
+  function. If the name has only one component, it is abbreviated to
   eight characters (see \code{\link{abbreviate}}).
   The returned names are made unique with function
   \code{\link{make.unique}} which adds numbers to the end of CEP names if needed.

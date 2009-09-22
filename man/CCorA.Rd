@@ -27,7 +27,7 @@ CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, nperm = 0, ...)
   \item{xlabs}{Row labels. The default is to use row names, \code{NULL}
     uses row numbers instead, and \code{NA} suppresses plotting row names
     completely}
-  \item{which}{ \code{1} plots \code{Y} reseults, and
+  \item{which}{ \code{1} plots \code{Y} results, and
     \code{2} plots \code{X1} results }
   \item{\dots}{Other arguments passed to functions. \code{biplot.CCorA}
     passes graphical arguments to \code{\link{biplot}} and

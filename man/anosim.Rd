@@ -63,7 +63,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata)
   \code{varwidth=TRUE}. 
 }
 \value{
-  The function returs a list of class \code{"anosim"} with following
+  The function returns a list of class \code{"anosim"} with following
   items: 
   \item{call }{Function call.}
   \item{statistic}{The value of ANOSIM statistic \eqn{R}}

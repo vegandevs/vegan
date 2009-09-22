@@ -32,7 +32,7 @@
     with \code{formula}.}
   \item{terminfo}{Further information on terms with three subitems:
     \code{terms} which is like the \code{terms} component above, but
-    lists conditions and constrainst similarly;  \code{xlev}
+    lists conditions and constraints similarly;  \code{xlev}
     which lists the factor levels, and \code{ordered} which is
     \code{TRUE} to ordered factors.
     This is produced by \pkg{vegan} internal function
@@ -110,7 +110,7 @@
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-    \item{\code{wa.eig}}{The direct result of weighted avaraging or weighted
+    \item{\code{wa.eig}}{The direct result of weighted averaging or weighted
       summation  (matrix multiplication)
       with the resulting eigenvalue inflation.}
     \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
@@ -127,7 +127,7 @@
 }
   
 \seealso{The description here provides a hacker's interface.  For more
-  user friendly acces to the \code{cca} object see
+  user friendly access to the \code{cca} object see
   \code{\link{alias.cca}}, \code{\link{coef.cca}},
   \code{\link{deviance.cca}}, \code{\link{predict.cca}},
   \code{\link{scores.cca}}, 

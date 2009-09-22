@@ -86,7 +86,7 @@ asymmetry in \eqn{(b-c)}. }
 
 \note{The function uses a more powerful alternative for the McNemar test
   than the classical formula. The classical formula was constructed in
-  the spririt of Pearson's Chi-square, but the formula in this function
+  the spirit of Pearson's Chi-square, but the formula in this function
   was constructed in the spirit of Wilks Chi-square or the \eqn{G}
   statistic. Function \code{\link{mcnemar.test}} uses the classical
   formula. The new formula was introduced in \pkg{vegan} version

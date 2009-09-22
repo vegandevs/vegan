@@ -119,7 +119,7 @@ commsimulator(x, method, thin=1)
   but each call produces a matrix that is independent of previous
   matrices, and has the same marginal totals as the original data. The
   recommended method is \code{quasiswap} which is much faster because
-  it is implemented in C. Method \code{bactkracking} is provided for
+  it is implemented in C. Method \code{backtracking} is provided for
   comparison, but it is so slow that it may be dropped from future
   releases of \pkg{vegan} (or also implemented in C).
   Method \code{quasiswap} (\enc{Miklós}{Miklos} & Podani 2004)
@@ -143,8 +143,8 @@ commsimulator(x, method, thin=1)
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
-  examples). Function \code{as.mcmc} transformts teh simulated results
-  of sequential mehots into an \code{\link[coda]{mcmc}} object of the
+  examples). Function \code{as.mcmc} transforms the simulated results
+  of sequential methods into an \code{\link[coda]{mcmc}} object of the
   \pkg{coda} package. The \pkg{coda} package provides functions for
   the analysis of stationarity, adequacy of sample size,
   autocorrelation, need of burn-in and much more for sequential
@@ -189,7 +189,7 @@ commsimulator(x, method, thin=1)
 
 \references{
   Gotelli, N.J. & Entsminger, N.J. (2001). Swap and fill algorithms in
-  null model analyis: rethinking the knight's tour. \emph{Oecologia}
+  null model analysis: rethinking the knight's tour. \emph{Oecologia}
   129, 281--291.
 
   Gotelli, N.J. & Entsminger, N.J. (2003). Swap algorithms in null model

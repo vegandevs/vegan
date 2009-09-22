@@ -11,7 +11,7 @@
 \description{
   The function performs isometric feature mapping which consists of
   three simple steps: (1) retain only some of the shortest
-  dissimilarities among objects, (2) estimate all dissimilarites as
+  dissimilarities among objects, (2) estimate all dissimilarities as
   shortest path distances, and (3) perform metric scaling (Tenenbaum et
   al. 2000).
 }
@@ -24,11 +24,11 @@ rgl.isomap(x, web = "white", ...)
 }
 
 \arguments{
-  \item{dist}{Dissimilariies. }
+  \item{dist}{Dissimilarities. }
   \item{ndim}{Number of axes in metric scaling (argument \code{k} in 
    \code{\link{cmdscale}}).}
   \item{epsilon}{Shortest dissimilarity retained. }
-  \item{k}{Number of shortest dissimilariteis retained for a point. If
+  \item{k}{Number of shortest dissimilarities retained for a point. If
    both \code{epsilon} and \code{k} are given, \code{epsilon} will be used.  }
   \item{path}{Method used in \code{\link{stepacross}} to estimate the
     shortest path, with alternatives \code{"shortest"} and \code{"extended"}. }

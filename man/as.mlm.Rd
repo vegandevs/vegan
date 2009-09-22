@@ -8,7 +8,7 @@
   \code{\link{rda}}, \code{\link{capscale}}) as a multiple response
   linear model (\code{\link{lm}}). This allows finding influence
   statistics (\code{\link{influence.measures}}).  This also allows
-  deriving several other statitics, but most of these are biased and
+  deriving several other statistics, but most of these are biased and
   misleading, since refitting ignores a major component of variation in
   constrained ordination.
 }

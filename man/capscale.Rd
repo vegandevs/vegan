@@ -87,7 +87,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   Redundancy Analysis of results of Metric (Classical) Multidimensional
   Scaling (Anderson & Willis 2003). Function capscale uses two steps:
   (1) it ordinates the dissimilarity matrix using
-  \code{\link{cmdscale}} and (2) analyzes these results using
+  \code{\link{cmdscale}} and (2) analyses these results using
   \code{\link{rda}}. If the user supplied a community data frame instead
   of dissimilarities, the function will find the needed dissimilarity
   matrix using \code{\link{vegdist}} with specified
@@ -134,7 +134,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   constant on the left hand side, or \code{comm ~ 1}. With
   \code{metaMDSdist = TRUE}, the function can do automatic data
   standardization and use extended dissimilarities using function
-  \code{\link{stepacross}} similary as in non-metric multidimensional
+  \code{\link{stepacross}} similarly as in non-metric multidimensional
   scaling with \code{\link{metaMDS}}. 
   
 }

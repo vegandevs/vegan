@@ -21,7 +21,7 @@ adonis(formula, data, permutations = 999, method = "bray",
     where \code{Y} is either a dissimilarity object (inheriting from
     class \code{"dist"}) or data frame or a matrix; \code{A}, \code{B}, and
     \code{C} may be factors or continuous variables. If a dissimilarity
-  object is supplied, no species cofficients can be calculated (see
+  object is supplied, no species coefficients can be calculated (see
   Value below).} 
   \item{data}{ the data frame from which \code{A}, \code{B}, and
     \code{C} would be drawn.} 

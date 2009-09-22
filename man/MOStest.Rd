@@ -35,7 +35,7 @@ fieller.MOStest(object, level = 0.95)
   \item{x}{The independent variable or plotting object in \code{plot}. }
   \item{y}{The dependent variable. }
   \item{interval}{The two points at which the test statistic is
-    evaluated. If missing, the estremes of \code{x} are used. }
+    evaluated. If missing, the extremes of \code{x} are used. }
   \item{which}{Subset of plots produced. Values \code{which=1} and
     \code{2} define plots specific to \code{MOStest} (see Details), and
     larger values select a graphs of \code{\link{plot.lm}} (minus2). }
@@ -112,7 +112,7 @@ fieller.MOStest(object, level = 0.95)
     the evaluated points.} 
   \item{hump}{Sorted vector of location of the hump or the pit and the
     points where the test was evaluated.}
-  \item{coefficients}{Table of test statistics and their signficances.}
+  \item{coefficients}{Table of test statistics and their significances.}
 }
 
 \references{
@@ -147,7 +147,7 @@ and \code{confint} rather follow the example of
 the \pkg{MASS} package.
 }
 
-\seealso{The nointeraction model can be fitted with \code{\link{humpfit}}. }
+\seealso{The no-interaction model can be fitted with \code{\link{humpfit}}. }
 \examples{
 ## The Al-Mufti data analysed in humpfit():
 mass <- c(140,230,310,310,400,510,610,670,860,900,1050,1160,1900,2480)

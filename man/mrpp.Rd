@@ -94,7 +94,7 @@ traditional use of the method, but other dissimilarities in
 \code{\link{vegdist}} also are available. 
 
 Function \code{meandist} calculates a matrix of mean within-cluster
-dissimilarities (diagonal) and between-cluster dissimilarites
+dissimilarities (diagonal) and between-cluster dissimilarities
 (off-diagonal elements), and an attribute \code{n} of \code{grouping}
 counts. Function \code{summary} finds the within-class, between-class
 and overall means of these dissimilarities, and the MRPP statistics
@@ -146,7 +146,7 @@ The function returns a list of class mrpp with following items:
 
 }
 \author{
-M. Herny H. Stevens \email{HStevens@muohio.edu} and Jari Oksanen.
+M. Henry H. Stevens \email{HStevens@muohio.edu} and Jari Oksanen.
 }
 \note{ 
 This difference may be one of location (differences in mean) or one of

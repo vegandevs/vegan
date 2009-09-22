@@ -241,7 +241,7 @@ metaMDSrotate(object, vec, choices, ...)
   Function \code{metaMDS} is a simple wrapper for
   \code{\link[MASS]{isoMDS}} and some support functions.
   You can call these support functions separately for better control
-  of results.  Data transformation, dissmilarities and possible
+  of results.  Data transformation, dissimilarities and possible
   \code{\link{stepacross}} are made in function \code{metaMDSdist}
   which returns a dissimilarity result. Iterative search (with starting
   values from \code{initMDS}) is made in \code{metaMDSiter}.

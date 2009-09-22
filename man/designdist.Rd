@@ -73,7 +73,7 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   If you want to implement binary dissimilarities based on the 2x2
   contingency table notation, you can set \code{abcd = TRUE}. In this
   notation \code{a = J}, \code{b = A-J}, \code{c = B-J}, \code{d =
-  P-A-B+J}. This notation is often used instead fo the more more
+  P-A-B+J}. This notation is often used instead of the more more
   tangible default notation for reasons that are opaque to me. 
 }
 
