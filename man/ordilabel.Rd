@@ -24,7 +24,7 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, cex = 0.8,
   \item{cex}{ Character expansion for the text (passed to \code{\link{text}}). }
   \item{fill}{ Background colour of the labels (the \code{col} argument of
         \code{\link{polygon}}).}
-  \item{border}{The colour and visibilit of the border of the label as defined in
+  \item{border}{The colour and visibility of the border of the label as defined in
          \code{\link{polygon}}).}
   \item{\dots}{Other arguments (passed to \code{\link{text}}). }
 }

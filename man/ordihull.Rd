@@ -61,7 +61,7 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     groups. }
   \item{label}{Label the centre of the points in hull or the ellipse with 
     the group name.}
-  \item{startmark}{plotting characer used to mark the first
+  \item{startmark}{plotting character used to mark the first
     item. The default is to use no mark, and for instance, 
     \code{startmark = 1} will draw a circle.  For other plotting characters,
     see \code{pch} in \code{\link{points}}. }
@@ -126,7 +126,7 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   \code{\link{decorana}} or if the user gives the weights in the
   call. If \code{ordispider} is called with \code{\link{cca}} or
   \code{\link{rda}} result without \code{groups} argument, the function
-  connects each `WA' scores to the correspoding `LC' score.
+  connects each `WA' scores to the corresponding `LC' score.
 
   Function \code{ordicluster} overlays a cluster dendrogram onto
   ordination. It needs the result from a hierarchic clustering such as
@@ -146,7 +146,7 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   you may wish to change the default values in \code{\link{arrows}},
   \code{\link{lines}}, \code{\link{segments}} and
   \code{\link{polygon}}. You can pass
-  parameters to \code{\link{scores}} as well. Umderlying function for
+  parameters to \code{\link{scores}} as well. Underlying function for
   \code{ordihull} is \code{\link{chull}}.
 }
 

@@ -40,7 +40,7 @@ ordiresids(x, kind = c("residuals", "scale", "qqmath"),
   The default plots are similar as in \code{\link{plot.lm}}, but they
   use \code{\link[lattice]{Lattice}} functions
   \code{\link[lattice]{xyplot}} and \code{\link[lattice]{qqmath}}. The
-  alternatives have default formulas but these can be replaced by the
+  alternatives have default formulae but these can be replaced by the
   user. The elements available in formula or in the \code{groups} argument
   are \code{Fitted}, \code{Residuals}, \code{Species} and \code{Sites}.
 }

@@ -89,7 +89,7 @@ specaccum(comm, method = "exact", permutations = 100,
   \item{sites}{Number of sites.  For \code{method = "rarefaction"} this
     is the number of sites corresponding to a certain number of
     individuals and generally not an integer, and the average
-    number of individuals is also retunred in item \code{individuals}.} 
+    number of individuals is also returned in item \code{individuals}.} 
   \item{richness}{The number of species corresponding to number of
     sites.  With \code{method = "collector"} this is the observed
     richness, for other methods the average or expected richness.}
@@ -138,7 +138,7 @@ specaccum(comm, method = "exact", permutations = 100,
 
 \seealso{\code{\link{rarefy}} and \code{\link{rrarefy}} are related
   individual based models. Other accumulation models are
-  \code{\link{poolaccum}} for extrapoltated richenss, and
+  \code{\link{poolaccum}} for extrapoltated richness, and
   \code{\link{renyiaccum}} and \code{\link{tsallisaccum}} for
   diversity indices.  Underlying graphical functions are
   \code{\link{boxplot}}, \code{\link{matlines}},

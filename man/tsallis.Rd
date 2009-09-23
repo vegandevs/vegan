@@ -46,7 +46,7 @@ If \code{hill = TRUE}, \code{tsallis} gives Hill numbers (numbers equivalents, s
 Details on plotting methods and accumulating values can be found on the help pages of the functions \code{\link{renyi}} and \code{\link{renyiaccum}}.
 }
 \value{
-Function \code{tsallis} returns a data frame of selected indices. Function \code{tsallisaccum} with argument \code{raw = FALSE} returns a three-dimensional array, where the first dimension are the accumulated sites, second dimension are the diveristy scales, and third dimension are the summary statistics \code{mean}, \code{stdev}, \code{min}, \code{max}, \code{Qnt 0.025} and \code{Qnt 0.975}. With argument \code{raw = TRUE} the statistics on the third dimension are replaced with individual permutation results.
+Function \code{tsallis} returns a data frame of selected indices. Function \code{tsallisaccum} with argument \code{raw = FALSE} returns a three-dimensional array, where the first dimension are the accumulated sites, second dimension are the diversity scales, and third dimension are the summary statistics \code{mean}, \code{stdev}, \code{min}, \code{max}, \code{Qnt 0.025} and \code{Qnt 0.975}. With argument \code{raw = TRUE} the statistics on the third dimension are replaced with individual permutation results.
 }
 \references{
 Tsallis, C. (1988) Possible generalization of Boltzmann-Gibbs statistics. 
@@ -55,7 +55,7 @@ Tsallis, C. (1988) Possible generalization of Boltzmann-Gibbs statistics.
 Tothmeresz, B. (1995) Comparison of different methods for diversity
   ordering. \emph{Journal of Vegetation Science} \bold{6}, 283--290.
 
-Patil, G. P. and Taillie, C. (1982) Diversity as a concep and its measurement.
+Patil, G. P. and Taillie, C. (1982) Diversity as a concept and its measurement.
   \emph{J. Am. Stat. Ass.} \bold{77}, 548--567.
 
 Keylock, C. J. (2005) Simpson diversity and the Shannon-Wiener index as special cases of a generalized entropy.
@@ -66,7 +66,7 @@ Jost, L (2007) Partitioning diversity into independent alpha and beta components
 }
 \author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}, based on the code of Roeland Kindt and Jari Oksanen written for \code{renyi}}
 \seealso{
-Plotting methods and accumulation routins are based on functions \code{\link{renyi}} and \code{\link{renyiaccum}}. An object of class 'tsallisaccum' can be used with function \code{\link{rgl.renyiaccum}} as well. See also settings for \code{\link{persp}}.
+Plotting methods and accumulation routines are based on functions \code{\link{renyi}} and \code{\link{renyiaccum}}. An object of class 'tsallisaccum' can be used with function \code{\link{rgl.renyiaccum}} as well. See also settings for \code{\link{persp}}.
 }
 \examples{
 data(BCI)

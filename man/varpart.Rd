@@ -82,7 +82,7 @@ table. }
 
   The identifiable fractions are designated by lower case alphabets. The
   meaning of the symbols can be found in the separate document
-  "partionining.pdf" (which can be read using \code{\link{vegandocs}}),
+  "partitioning.pdf" (which can be read using \code{\link{vegandocs}}),
   or can be displayed graphically using function
   \code{showvarparts}.
 
@@ -140,7 +140,7 @@ table. }
   \item{nsets}{Number of explanatory tables}
   \item{bigwarning}{Warnings on collinearity.}
   \item{fract}{Basic fractions from all estimated constrained models.}
-  \item{indfract}{Invididual fractions or all possible subsections in
+  \item{indfract}{Individual fractions or all possible subsections in
     the Venn diagram (see \code{showvarparts}).}
   \item{contr1}{Fractions that can be found after conditioning on single
     explanatory table in models with three or four explanatory tables.}
@@ -152,7 +152,7 @@ table. }
   \code{indfract}, \code{contr1} and \code{contr2} are all data frames with
   items:
   \itemize{
-  \item{Df}{Degrees of freedom of numerator of the \eqn{F}-statististic
+  \item{Df}{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
   \item{R.square}{Raw R-squared.  This is calculated only for
     \code{fract} and this is \code{NA} in other items.}
@@ -166,7 +166,7 @@ table. }
 
 \references{ 
 
-(a) References on variation partioning
+(a) References on variation partitioning
 
 Borcard, D., P. Legendre & P. Drapeau. 1992. Partialling out the spatial
 component of ecological variation. Ecology 73: 1045--1055.
@@ -181,7 +181,7 @@ transformations for ordination of species data. Oecologia 129: 271--280.
 
 (c) Reference on adjustment of the bimultivariate redundancy statistic
 
-Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation partioning
+Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation partitioning
 of species data matrices: estimation and comparison of fractions.
 Ecology 87: 2614--2625.
  }

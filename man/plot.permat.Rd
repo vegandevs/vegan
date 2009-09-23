@@ -33,7 +33,7 @@ The \code{as.ts} method can be used to extract Bray-Curtis dissimilarities or Ch
 }
 
 \value{
-The \code{plot} creates aplor as a side effect.
+The \code{plot} creates a plot as a side effect.
 
 The \code{as.ts} method returns an object of class 'ts'.
 }

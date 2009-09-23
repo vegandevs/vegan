@@ -129,7 +129,7 @@
   so that the results will be in the conventional range \eqn{0 \dots 1}.
 
   Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
-  index based on presensec/absence data.  It is defined as \eqn{1 - prob(j)},
+  index based on presence/absence data.  It is defined as \eqn{1 - prob(j)},
   or based on the probability of observing at least \eqn{j} 
   species in shared in compared communities.  Legendre & Legendre (1998)
   suggest
@@ -227,7 +227,7 @@
   number of variables in \code{vegdist}, but not in \code{\link{dist}}.
   So these differ by a constant multiplier, and the alternative in
   \code{vegdist} is in range (0,1).  Function \code{\link[cluster]{daisy}}
-  (package \pkg{cluster}) provides alternative implentation of Gower
+  (package \pkg{cluster}) provides alternative implementation of Gower
   index for mixed data of numeric and class variables (but it works for
   mixed variables only).
 
@@ -235,7 +235,7 @@
   community data, and they will give misleading values if there are
   negative data entries.  The results may also be misleading or
   \code{NA} or \code{NaN} if there are empty sites.  In principle, you
-  cannot study species compostion without species and you should remove
+  cannot study species composition without species and you should remove
   empty sites from community data.
 }
 

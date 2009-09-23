@@ -121,12 +121,12 @@ estaccumR(x, permutations = 100)
     developed by Bob O'Hara (unpublished).
 
   Functions \code{poolaccum} and \code{estaccumR} are similar to
-  \code{\link{specaccum}}, but estimateextrapolated richness indices
+  \code{\link{specaccum}}, but estimate extrapolated richness indices
   of \code{specpool} or \code{estimateR} in addition to number of
   species for random ordering of sampling units. Function
   \code{specpool} uses presence data and \code{estaccumR} count
   data. The functions share \code{summary} and \code{plot}
-  methods. The \code{summary} returns quantile envilopes of
+  methods. The \code{summary} returns quantile envelopes of
   permutations corresponding the given level of \code{alpha} and
   standard deviation of permutations for each sample size. The
   \code{plot} function shows the mean and envelope of permutations

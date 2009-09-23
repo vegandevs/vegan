@@ -1,7 +1,7 @@
 \name{permutest.betadisper}
 \alias{permutest.betadisper}
 \alias{print.permutest.betadisper}
-\title{Permutation test of ultivariate homogeneity of groups dispersions
+\title{Permutation test of multivariate homogeneity of groups dispersions
   (variances)}
 \description{
   Implements a permutation-based test of multivariate homogeneity of
@@ -30,10 +30,10 @@
   residuals to generate a permutation distribution of F under the Null
   hypothesis of no difference in dispersion between groups.
 
-  Pairwise comprisons of group mean dispersions can be performed by
-  setting argument \code{pairwise} to \code{TRUE}. A classicial t test
+  Pairwise comparisons of group mean dispersions can be performed by
+  setting argument \code{pairwise} to \code{TRUE}. A classical t test
   is performed on the pairwise group dispersions. This is combined with a
-  permutation test based on the t statistic calculated on pariwise group
+  permutation test based on the t statistic calculated on pairwise group
   dispersions. An alternative to the classical comparison of group
   dispersions, is to calculate Tukey's Honest Significant Differences
   between groups, via \code{\link{TukeyHSD.betadisper}}.

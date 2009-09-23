@@ -37,7 +37,7 @@ Adjusted R-square
   methods find this information from the fitted result
   object. There are specific methods for \code{\link{rda}},
   \code{\link{cca}}, \code{\link{lm}} and \code{\link{glm}}. Adjusted,
-  or even unandjusted, R-squared may not be available in some cases,
+  or even unadjusted, R-squared may not be available in some cases,
   and then the functions will return \code{NA}. There is no adjusted
   R-squared in \code{\link{cca}}, in partial \code{\link{rda}}, and
   R-squared values are available only for \code{\link{gaussian}}
@@ -50,7 +50,7 @@ Adjusted R-square
 
 \references{ 
   Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation
-  partioning of species data matrices: estimation and comparison of
+  partitioning of species data matrices: estimation and comparison of
   fractions. \emph{Ecology} 87: 2614-2625.  }
 
 \seealso{

@@ -27,7 +27,7 @@ spantree(d, toolong = 0)
   \item{toolong}{ Shortest dissimilarity regarded as \code{NA}.
     The function uses a fuzz factor, so
     that dissimilarities close to the limit will be made \code{NA}, too.
-    If \code{toolong = 0} (or negative), no dissimmilarity is regarded
+    If \code{toolong = 0} (or negative), no dissimilarity is regarded
     as too long.
   }
   \item{x}{A \code{spantree} result object.}

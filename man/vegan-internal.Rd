@@ -53,7 +53,7 @@ pasteCall(call, prefix = "Call:")
   scores of CCA components and site scores of unconstrained component
   from \code{excluded} rows of observations. Function
   \code{ordiNApredict} puts pads the result object with these or with
-  WA scores similary as \code{\link{napredict}}.
+  WA scores similarly as \code{\link{napredict}}.
 
   \code{ordiArgAbsorber} absorbs arguments of \code{\link{scores}}
   function of \pkg{vegan} so that these do not cause superfluous

@@ -39,7 +39,7 @@ treeheight(tree)
   2006). The subset of the dendrogram is found by first calculating
   \code{\link{cophenetic}} distances from the input dendrogram, then
   reconstructing the dendrogram for the subset of the cophenetic
-  distance matrix for species occuring in each site.
+  distance matrix for species occurring in each site.
 
   The functions need a dendrogram of species traits as an input. If
   species traits contain \code{\link{factor}} or \code{\link{ordered}}
@@ -58,7 +58,7 @@ treeheight(tree)
   A vector of diversity values or a single tree height.
 }
 \references{
-  Petchey, O.L. and Gaston, K.J. 2002. Funcional diversity (FD), species
+  Petchey, O.L. and Gaston, K.J. 2002. Functional diversity (FD), species
   richness and community composition. \emph{Ecology Letters} 5,
   402--411.
   

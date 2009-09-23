@@ -50,7 +50,7 @@
     standardization in \code{\link{cca}} and scaling and centring in 
     \code{\link{rda}}. In \code{\link{capscale}} the \code{"response"} gives
     the dissimilarities, and \code{"working"} the scaled scores that produce
-    the dissimlarities as Euclidean distances.
+    the dissimilarities as Euclidean distances.
     In \code{predict} \code{"response"} 
     gives an approximation of the original data matrix or dissimilarities, 
     \code{"wa"} the site scores as weighted averages of the community data, 
@@ -84,7 +84,7 @@
   unconstrained part of the ordination.
 
   Function \code{predict} can find the estimate of the original data
-  matrix or dissimilarites (\code{type = "response"}) with any rank. 
+  matrix or dissimilarities (\code{type = "response"}) with any rank. 
   With \code{rank = "full"} it is identical to \code{fitted}.
   In addition, the function
   can find the species scores or site scores from the community data

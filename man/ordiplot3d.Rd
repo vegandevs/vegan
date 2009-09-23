@@ -48,10 +48,10 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   \item{xlab, ylab, zlab}{Axis labels passed to
     \code{\link[scatterplot3d]{scatterplot3d}}. If missing, labels  are
     taken from the
-    ordination result. Set to \code{NA} to supress labels. }
+    ordination result. Set to \code{NA} to suppress labels. }
   \item{justify, adj}{Text justification passed to
     \code{\link[rgl]{rgl.texts}}. One of these is used depending on the
-    versionof \pkg{rgl} installed.}
+    version of \pkg{rgl} installed.}
   \item{groups}{Factor giving the groups for which the graphical item is
     drawn.}
   \item{w}{Weights used to find the average within group. Weights are
@@ -93,7 +93,7 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   environmental variables will be plotted, and the ordination scores can
   be added with \code{\link{text.ordiplot}} or
   \code{\link{points.ordiplot}}. Further, you can use any functions from
-  the \code{\link{ordihull}} family with the invisble result of
+  the \code{\link{ordihull}} family with the invisible result of
   \code{\link{ordiplot3d}}, but you must remember to specify the
   \code{display} as \code{"points"} or \code{"arrows"}. To change the
   viewing angle, orientation etc. you must see
@@ -152,7 +152,7 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
 
 \note{The user interface of \pkg{rgl} changed in version 0.65, but
   the \code{ordirgl} functions do not yet fully use the new
-  capablities.  However, they should work both in old and new versions
+  capabilities.  However, they should work both in old and new versions
   of \pkg{rgl}. 
   }
 

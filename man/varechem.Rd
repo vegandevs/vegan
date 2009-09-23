@@ -16,7 +16,7 @@
 The \code{varechem} data frame has 24 rows and 14 columns, giving the
 soil characteristics of the very same sites as in the \code{varespec}
 data frame. The chemical measurements have obvious names.
-\code{Baresoil} gives the estimated cover of bare soil, \code{Humpdepth}
+\code{Baresoil} gives the estimated cover of bare soil, \code{Humdepth}
 the thickness of the humus layer.
 }
 \references{

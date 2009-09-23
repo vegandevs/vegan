@@ -80,7 +80,7 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
   Function \code{renyi} returns a data frame of selected
   indices.  Function \code{renyiaccum} with argument \code{raw = FALSE}
   returns a three-dimensional array, where the first dimension are the
-  accumulated sites, second dimension are the diveristy scales, and
+  accumulated sites, second dimension are the diversity scales, and
   third dimension are the summary statistics \code{mean}, \code{stdev},
   \code{min}, \code{max}, \code{Qnt 0.025} and \code{Qnt 0.975}.  With
   argument \code{raw = TRUE} the statistics on the third dimension are
@@ -102,7 +102,7 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
 \author{ Roeland Kindt \email{r.kindt@cgiar.org} and Jari Oksanen }
 
 \seealso{\code{\link{diversity}} for diversity indices, and
-  \code{\link{specaccum}} for ordinaty species accumulation curves, and
+  \code{\link{specaccum}} for ordinary species accumulation curves, and
   \code{\link[lattice]{xyplot}}, \code{\link{persp}} and
   \code{\link[rgl]{rgl}} for controlling graphics. } 
 \examples{

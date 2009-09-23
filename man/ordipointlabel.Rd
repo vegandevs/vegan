@@ -7,7 +7,7 @@
   points and text label to the points. The points are in the exact
   location given by the ordination, but the function tries to optimize
   the location of the text labels to minimize overplotting text. The
-  function may be useful with moderatly crowded ordination plots.
+  function may be useful with moderately crowded ordination plots.
 }
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
@@ -24,7 +24,7 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
      plot. These should be vectors of the same length as the number of
      items in \code{display}.}
   \item{add}{ Add to an existing plot. }
-  \item{\dots}{Other rguments passed to \code{\link{points}} and
+  \item{\dots}{Other arguments passed to \code{\link{points}} and
   \code{\link{text}}.}
 }
 \details{

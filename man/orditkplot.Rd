@@ -72,12 +72,12 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
   In addition there are buttons
   for the following tasks: \strong{Copy to EPS} copies the current plot
   to an encapsulated postscript (eps) file using standard Tcl/Tk
-  utilities. The faithfullness of this copy is system dependent. Button
+  utilities. The faithfulness of this copy is system dependent. Button
   \strong{Export plot} uses \code{plot.orditkplot} function to redraw
   the plot into graphical file formats. Depending on the system, the
   following graphical formats may be available: eps, pdf, png, jpeg or
   bmp. The file type is deduced from the file suffix or the selection of
-  the file type in the dialog box. Alternatively, the same dialog can be
+  the file type in the dialogue box. Alternatively, the same dialogue can be
   used to save the plot to an editable \code{\link{xfig}} file. Button
   \strong{Dump to R} writes the edited coordinates of labels and points
   to the \R session for further processing, and the
@@ -101,7 +101,7 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
   The function only displays one set of scores. However, you can use
   \code{\link{ordipointlabel}} to produce a result object that has
   different points and text types for several sets of scores and this
-  can further edited fith \code{orditkplot}. For a good starting
+  can further edited with \code{orditkplot}. For a good starting
   solution you need to scale the \code{\link{ordipointlabel}} result so
   that the points span over the whole horizontal axis.
 

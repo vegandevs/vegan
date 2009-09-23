@@ -75,7 +75,7 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
   these functions work with all \pkg{vegan} ordinations and many others.
 
   The \code{formula} is used to define the models. All functions have
-  simple default formulas which are used if \code{formula} is missing. 
+  simple default formulae which are used if \code{formula} is missing. 
   If formula is omitted in \code{ordisplom} it
   produces a pairs plot of ordination axes and variables in
   \code{data}. If \code{formula} is given, ordination results must be

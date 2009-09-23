@@ -48,7 +48,7 @@ permute(i, n, control)
     each level of strata? If \code{FALSE} a separate, possibly restricted,
     permutation is produced for each level of \code{strata}.}
   \item{ncol, nrow}{numeric; the number of columns and rows of samples
-    in the spatial grid respectiavly.}
+    in the spatial grid respectively.}
   \item{all.perms}{an object of class \code{allPerms}, the result of a
     call to \code{\link{allPerms}}.}
   \item{i}{integer; row of \code{control$all.perms} to return.}

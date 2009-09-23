@@ -8,7 +8,7 @@
 
 \title{ Indices of Taxonomic Diversity and Distinctness }
 \description{
-  Function finds indices of taxonomic diversity and distinctiness,
+  Function finds indices of taxonomic diversity and distinctness,
   which are averaged taxonomic distances among species or individuals in
   the community (Clarke & Warwick 1998, 2001)
 }
@@ -27,7 +27,7 @@ taxa2dist(x, varstep = FALSE, check = TRUE, labels)
     order in both.}
   \item{x}{Classification table with a row for each species or other
     basic taxon, and columns
-    for identifiers of its classication at higher levels.}
+    for identifiers of its classification at higher levels.}
   \item{varstep}{Vary step lengths between successive levels
     relative to proportional loss of the number of distinct classes.}
   \item{check}{If \code{TRUE}, remove all redundant levels which are
@@ -80,7 +80,7 @@ taxa2dist(x, varstep = FALSE, check = TRUE, labels)
   With \code{check = TRUE}, the function removes classes which are distinct for all
   species or which combine all species into one class, and assumes that
   each row presents a distinct basic taxon. The function scales
-  the distances so that longesth path length between
+  the distances so that longest path length between
   taxa is 100 (not necessarily when \code{check = FALSE}). 
   
   Function \code{plot.taxondive} plots \eqn{\Delta^+} against Number of

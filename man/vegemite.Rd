@@ -30,7 +30,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     }
   \item{scale}{Cover scale used (can be abbreviated).}
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
-    Data maximum in the \code{select}ed subset will be usd if this is
+    Data maximum in the \code{select}ed subset will be used if this is
     missing.}
   \item{...}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}).}
 }
