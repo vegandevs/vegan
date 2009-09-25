@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
+	* meandist: plot method has a new alternative of drawing
+	histograms (van Sickle 1997) as an alternative to dendrograms. A
+	histogram connects groups at theri within-cluster dissimilarity
+	level to the average between-cluster dissimilarity.
+
 	* oecosimu: gained new keyword 'alternative' for "two.sided",
 	"less" and "greater" one-sided tests.
 	

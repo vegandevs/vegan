@@ -18,7 +18,8 @@ mrpp(dat, grouping, permutations = 999, distance = "euclidean",
      weight.type = 1, strata)
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
-\method{plot}{meandist}(x, cluster = "average", ylim, ...)
+\method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
+     ylim, axes = TRUE, ...)
 }
 
 \arguments{
@@ -40,10 +41,13 @@ meandist(dist, grouping, ...)
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.
   \item{object, x}{A \code{meandist} result object.}
+  \item{kind}{Draw a dendrogram or a histogram; see Details.}
   \item{cluster}{A clustering method for the \code{\link{hclust}}
-    function. Any \code{hclust} method can be used, but perhaps only
+    function for \code{kind = "dendrogram"}. 
+    Any \code{hclust} method can be used, but perhaps only
     \code{"average"} and \code{"single"} make sense.}
   \item{ylim}{Limits for vertical axes (optional).}
+  \item{axes}{Draw scale for the vertical axis.}
   \item{\dots}{Further arguments passed to functions.}
 }
 
@@ -101,11 +105,16 @@ and overall means of these dissimilarities, and the MRPP statistics
 with all \code{weight.type} options and the classification
 strength. The function does not allow significance tests for these
 statistics, but you must use \code{mrpp} with appropriate
-\code{weight.type}. Function \code{plot} draws a dendrogram of the
-result matrix with given \code{cluster} method (see
-\code{\link{hclust}}). The terminal segments hang to within-cluster
-dissimilarity. If some of the clusters is more heterogeneous than the
-combined class, the leaf segment is reversed.  
+\code{weight.type}.  Function \code{plot} draws a dendrogram or a
+histogram of the result matrix based on the within-group and between
+group dissimilarities. The dendrogram is given with the \code{cluster}
+argument which is passed to \code{\link{hclust}}. The terminal
+segments hang to within-cluster dissimilarity. If some of the clusters
+is more heterogeneous than the combined class, the leaf segment is
+reversed.  The histogram is similar as the graphics used by Van Sickle
+(1997): horizontal line is drawn at the level of mean between-cluster
+dissimilarity and vertical lines connect within-cluster
+dissimilarities to this line.  
 }
 
 \value{
