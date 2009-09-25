@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-30 (opened September 18, 2009) 
 
+	* manual pages (Rd files) were run through aspell. With this, an
+	error in an argument choice was corrected also in
+	plot.nestedtemp function.
+
 	* meandist: plot method has a new alternative of drawing
 	histograms (van Sickle 1997) as an alternative to dendrograms. A
 	histogram connects groups at theri within-cluster dissimilarity

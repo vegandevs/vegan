@@ -1,5 +1,5 @@
 `plot.nestedtemp` <-
-    function (x, kind = c("temperature", "incidendce"),
+    function (x, kind = c("temperature", "incidence"),
               col = rev(heat.colors(100)), names = FALSE,  
               ...) 
 {
