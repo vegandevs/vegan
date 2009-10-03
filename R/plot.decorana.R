@@ -26,6 +26,13 @@
     spenam <- rownames(x$cproj)
     sites <- sites[, choices]
     specs <- specs[, choices]
+    ## Use linestack if only one dim was specified (and exit)
+    if (NCOL(sites) == 1 && NCOL(specs) == 1) {
+        pl <- linestack(sites,
+                        ylim = range(c(sites, specs), na.rm = TRUE), ...)
+        linestack(specs, side = "left", add = TRUE, ...)
+        return(invisible(pl))
+    }
     sp.x <- range(specs[, 1])
     sp.y <- range(specs[, 2])
     st.x <- range(sites[, 1])
