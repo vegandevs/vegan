@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* scores.lda: new function to extract row scores and predictor
+	coefficients from "lda" objects (MASS package). Magically,
+	ordiplot() started to work with "lda" results. Not yet documented,
+	but alias in scores.default.Rd.
+
 	* ordiplot: uses linestack() to plot 1-col results, and now really
 	is able to identify if there were no species scores (tried
 	earlier, but failed because species had different names than

@@ -1,6 +1,7 @@
 \name{scores}
 \alias{scores}
 \alias{scores.default}
+\alias{scores.lda}
 
 \title{ Get Species or Site Scores from an Ordination }
 \description{
