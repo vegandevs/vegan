@@ -31,6 +31,26 @@
         else type <- "text"
     }
     else type <- match.arg(type, TYPES)
+    ## use linestack (and exit) if only one axis was chosen, and
+    ## display includes row or column scores
+    if (length(choices) == 1) {
+        ## Only one set of scores: plot them
+        if (length(g) == 1)
+            pl <- linestack(g[[1]], ...)
+        ## The order of scores is species, sites, constraints, biplot,
+        ## centroids: plot two first in this order, but species scores
+        ## on the left
+        else {
+            hasSpec <- names(g)[1] == "species"
+            ylim <- range(c(g[[1]], g[[2]]), na.rm = TRUE)
+            pl <- linestack(g[[1]], ylim = ylim,
+                            side = ifelse(hasSpec, "left", "right"), ...)
+            linestack(g[[2]], ylim = ylim,
+                      side = ifelse(hasSpec, "right","left"),
+                      add = TRUE, ...)
+            }
+        return(invisible(pl))
+    }
     if (missing(xlim))
         xlim <- range(g$spe[, 1], g$sit[, 1], g$con[, 1], g$default[,1],
                       na.rm = TRUE)

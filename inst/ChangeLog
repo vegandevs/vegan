@@ -4,8 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
-	* plot.decorana: uses linestack() if only one dimension was
-	chosen. 
+	* plot.decorana & plot.cca: use linestack() if only one dimension
+	was chosen.
 
 	* scores.lda: new function to extract row scores and predictor
 	coefficients from "lda" objects (MASS package). Magically,
