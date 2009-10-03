@@ -12,13 +12,15 @@
     x <- drop(x)
     if (!missing(labels) && !is.null(labels)) 
         names(x) <- labels
+    else if (is.null(names(x)))
+        names(x) <- rep("", length(x))
     op <- par(xpd = TRUE)
     ord <- order(x)
     x <- x[ord]
     n <- length(x)
     pos <- numeric(n)
     if (!add) {
-        plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "")
+        plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "", ...)
     }
     hoff <- hoff * strwidth("m")
     ht <- air * strheight(names(x), cex = cex)
