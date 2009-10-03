@@ -30,11 +30,19 @@
                 warning("Species scores not available")
                 Y <- NULL
             }
-            else if (!is.null(X) && nrow(X) == nrow(Y) &&
-                     identical(all.equal.numeric(X, Y), TRUE)) {
+            else if (!is.null(X) && NROW(X) == NROW(Y) &&
+                     isTRUE(all.equal.numeric(X, Y,
+                                              check.attributes = FALSE))) {
                 Y <- NULL
                 warning("Species scores not available")
             }
+        }
+        ## Use linestack and exit if there is only one variable
+        if (NCOL(X) == 1 && NCOL(Y) == 1) {
+            pl <- linestack(X, ylim = range(c(X,Y), na.rm=TRUE), ...)
+            if (!is.null(Y))
+                linestack(Y, side = "left", add = TRUE, ...)
+            return(invisible(pl))
         }
         tmp <- apply(rbind(X, Y), 2, range, na.rm=TRUE)
         if (missing(xlim)) 

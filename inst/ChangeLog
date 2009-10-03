@@ -4,6 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* ordiplot: uses linestack() to plot 1-col results, and now really
+	is able to identify if there were no species scores (tried
+	earlier, but failed because species had different names than
+	sites). 
+	
+	* scores.default: returns vector scores as 1-col matrix.
+
 	* linestack: passes "..." to plot(), handles missing names.
 	
 Version 1.16-30 (closed October 3, 2009) 
