@@ -31,11 +31,14 @@
     newd <- expand.grid(x1 = xn1, x2 = xn2)
     fit <- predict(mod, type = "response", newdata=as.data.frame(newd))
     poly <- chull(cbind(x1,x2))
-    poly <- c(poly, poly[1])
+    ## Move out points of the convex hull to have contour for all data
+    ## points
+    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * diff(range(x1))/GRID
+    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * diff(range(x2))/GRID
     npol <- length(poly)
     np <- nrow(newd)
     inpoly <- numeric(np)
-    inpoly <- .C("pnpoly", as.integer(npol), as.double(x1[poly]), as.double(x2[poly]),
+    inpoly <- .C("pnpoly", as.integer(npol), as.double(xhull1), as.double(xhull2),
                  as.integer(np), as.double(newd[,1]), as.double(newd[,2]),
                  inpoly = as.integer(inpoly), PACKAGE="vegan")$inpoly
     is.na(fit) <- inpoly == 0
