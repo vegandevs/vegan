@@ -1,6 +1,7 @@
 \name{add1.cca}
 \alias{add1.cca}
 \alias{drop1.cca}
+\alias{ordistep}
 
 \title{Add or Drop  Single Terms to a Constrained Ordination Model }
 \description{

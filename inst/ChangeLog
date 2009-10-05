@@ -4,6 +4,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* ordistep: new function for automatic model choice in the cca
+	family of methods. This is similar to step(), but uses permutation
+	P-values instead of AIC (that does not exist for these methods,
+	and sometimes fails). This is similar to forward.sel() in Stephane
+	Dray's 'packfor' package at R-Forge. Better things here are that
+	the function has both drop and add instead of only forward
+	selection, handles correctly factors, and works with cca(), rda()
+	and capscale(). On the other hand, it is much slower than
+	forward.sel(). The 'scope' needs still work. Not yet documented
+	(alias with add1.cca). 
+
 	* ordisurf: pushes out limits of convex hull so that contours
 	better cover corners and margins of points.
 
