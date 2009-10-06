@@ -1,7 +1,6 @@
 \name{add1.cca}
 \alias{add1.cca}
 \alias{drop1.cca}
-\alias{ordistep}
 
 \title{Add or Drop  Single Terms to a Constrained Ordination Model }
 \description{
@@ -37,12 +36,16 @@ constrained ordination model.
   Function \code{add1.cca} will implement a test for single term
   additions that is not directly available in \code{\link{anova.cca}}.
 
-  Functions are used implicitly in \code{\link{step}}. The
-  \code{\link{deviance.cca}} and \code{\link{deviance.rda}} used in
-  \code{\link{step}} have no firm basis, and setting argument
-  \code{test = "permutation"} may help in getting useful insight into
-  validity of model building. Meticulous use of \code{add1.cca} and
-  \code{drop1.cca} will allow more judicious model building.
+  Functions are used implicitly in \code{\link{step}} and
+  \code{\link{ordistep}}. The \code{\link{deviance.cca}} and
+  \code{\link{deviance.rda}} used in \code{\link{step}} have no firm
+  basis, and setting argument \code{test = "permutation"} may help in
+  getting useful insight into validity of model building. Function
+  \code{\link{ordistep}} calls alternately \code{drop1.cca} and
+  \code{add1.cca} with argument \code{test = "permutation"} and
+  selects variables by their permutation \eqn{P}-values.  Meticulous
+  use of \code{add1.cca} and \code{drop1.cca} will allow more
+  judicious model building.
 
   The default \code{perm.max} is set to a low value, because
   permutation tests can take a long time. It should be sufficient to
@@ -59,7 +62,7 @@ constrained ordination model.
 
 \seealso{ \code{\link{add1}}, \code{\link{drop1}} and
   \code{\link{anova.cca}} for basic methods. You probably need these
-  functions with \code{\link{step}}. Functions
+  functions with \code{\link{step}} and \code{link{ordistep}}. Functions
   \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} are used
   to produce the other arguments than test results in the
   output. Functions \code{\link{cca}}, \code{\link{rda}} and
@@ -67,8 +70,10 @@ constrained ordination model.
 \examples{
 data(dune)
 data(dune.env)
-## Automatic model building with permutation tests
-step(rda(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
+## Automatic model building based on AIC but with permutation tests
+step(cca(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
+## The same, but based on permutation P-values
+ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=500)
 ## Manual model building
 ## -- define the maximal model for scope
 mbig <- rda(dune ~  ., dune.env)

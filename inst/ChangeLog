@@ -15,8 +15,8 @@ Version 1.16-31 (opened October 3, 2009)
 	the function has both drop and add instead of only forward
 	selection, handles correctly factors, and works with cca(), rda()
 	and capscale(). On the other hand, it is much slower than
-	forward.sel(). The 'scope' needs still work. Not yet documented
-	(alias with add1.cca). 
+	forward.sel(). The function has similar user interface as step():
+	it knows 'scope' and 'direction'.
 
 	* ordisurf: pushes out limits of convex hull so that contours
 	better cover corners and margins of points.
