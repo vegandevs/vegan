@@ -33,7 +33,10 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {
         ncond <- NCOL(zmf)
-        mf <- cbind(zmf, ymf)
+        if (!is.null(ymf))
+            mf <- cbind(zmf, ymf)
+        else
+            mf <- zmf
     } else {
         ncond <- 0
         mf <- ymf

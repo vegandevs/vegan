@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* constrained ordination (cca, rda, capscale) failed if they only
+	had partial term Condition() without constraints.
+
 	* ordistep: new function for automatic model choice in the cca
 	family of methods. This is similar to step(), but uses permutation
 	P-values instead of AIC (that does not exist for these methods,
