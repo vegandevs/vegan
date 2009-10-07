@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* model.frame.cca, model.matrix.cca: new support functions to
+	reconstitute the model frame and model matrix (or  a list of
+	condition and constrain model matrices) from a cca/rda/capscale
+	result object. Not yet documentd (don't know where?), but alias is
+	in cca.Rd.
+
 	* constrained ordination (cca, rda, capscale) did not analyse
 	constrained component in model like cca(varespec ~ Al:P +
 	Condition(Al + P)) or in constrained interaction terms if the
