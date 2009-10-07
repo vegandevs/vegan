@@ -74,10 +74,12 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         if (any(colnames(Z) == "(Intercept)"))
             Z <- Z[, -which(colnames(Z) == "(Intercept)"), drop = FALSE]
     }
-    if ((NCOL(mf) - ncond) > 0 && NROW(mf) > 0) {
+    if (NROW(mf) > 0) {
         Y <- model.matrix(formula, mf)
         if (any(colnames(Y) == "(Intercept)"))
             Y <- Y[, -which(colnames(Y) == "(Intercept)"), drop = FALSE]
+        if (NCOL(Y) == 0)
+            Y <- NULL
     }
     X <- as.matrix(X)
     rownames(X) <- rownames(X, do.NULL = FALSE)

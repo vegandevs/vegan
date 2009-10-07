@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* constrained ordination (cca, rda, capscale) did not analyse
+	constrained component in model like cca(varespec ~ Al:P +
+	Condition(Al + P)) or in constrained interaction terms if the
+	corresponding main effects were partialled out.
+
 	* constrained ordination (cca, rda, capscale) failed if they only
 	had partial term Condition() without constraints.
 
