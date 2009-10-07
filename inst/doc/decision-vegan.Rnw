@@ -52,7 +52,7 @@ ways. Here I discuss the implementation in \texttt{vegan}.
 
 The matrix temperature is intuitively simple
 (Fig. \ref{fig:nestedtemp}), but the the exact calculations were not
-explaind in the original publication \cite{AtmarPat93}.
+explained in the original publication \cite{AtmarPat93}.
 \begin{SCfigure}
 <<fig=true,echo=false,results=hide>>=
 data(sipoo)
@@ -108,8 +108,8 @@ this documents --- all details can be seen in the source code of
     absence, $i$ and $j$ are row and column indices, and $n$ is the
     number of rows. The equations give the indices for columns, but
     the indices can be reversed for corresponding row indexing.
-    Ordering by $s$ packs presences to the topleft corner, and
-    ordering by $t$ pack zeros away from the topleft corner. The final
+    Ordering by $s$ packs presences to the top left corner, and
+    ordering by $t$ pack zeros away from the top left corner. The final
     sorting should be ``a compromise'' \cite{RodGir06} between these
     scores, and \texttt{vegan} uses $s+t$.  The result should be cool,
     but the packing does not try to minimize the temperature
@@ -151,7 +151,7 @@ algorithms is somewhat confusing: it explicitly deals with ``knight's
 tour'' which is quite a different problem than the one we face with
 null models.  The chess piece ``knight''\footnote{``Knight'' is
   ``Springer'' in German which is very appropriate as Springer was the
-  publisher of the paper on ``knight't tour''} has a track of history:
+  publisher of the paper on ``knight's tour''} has a track of history:
 a piece in a certain position could only have entered from some
 candidate squares. The filling of incidence matrix no such a history:
 if we know that the item last added was in certain row and column, we
@@ -170,7 +170,7 @@ backtracking.
     patterns: the rows and columns with one or a couple of presences
     were filled first, and the process was cornered to columns and
     rows with many presences. As a consequence, the the process tried
-    harder to fill that corner, and the result was a more tighlty
+    harder to fill that corner, and the result was a more tightly
     packed quadratic fill pattern than with other methods.
   \item The filling stage stops when no new points can be added
     without exceeding row or column totals. ``Backtracking'' means

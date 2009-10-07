@@ -83,7 +83,7 @@ H_a = \frac{1}{1-a} \log \sum_{i=1}^S p_i^a
 or the corresponding Hill numbers $N_a = \exp(H_a)$.  Many common
 diversity indices are special cases of Hill numbers: $N_0 = S$, $N_1 =
 \exp(H')$, $N_2 = D_2$, and $N_\infty = 1/(\max p_i)$. The
-correspoding R\'{e}nyi diversities are $H_0 = \log(S)$, $H_1 = H'$, $H_2 =
+corresponding R\'{e}nyi diversities are $H_0 = \log(S)$, $H_1 = H'$, $H_2 =
 - \log(\sum p_i^2)$, and $H_\infty = - \log(\max p_i)$.  We select a
 random subset of five sites for R\'{e}nyi diversities:
 <<>>=
@@ -189,7 +189,7 @@ species.
 
 \subsection{Taxonomic diversity: average distance of properties}
 
-The two basic indecies are called taxonomic diversity ($\Delta$) and
+The two basic indices are called taxonomic diversity ($\Delta$) and
 taxonomic distinctness ($\Delta^*$):
 \begin{align}
   \Delta &= \frac{\sum \sum_{i<j} \omega_{ij} x_i x_j}{n (n-1) / 2}\\
@@ -227,7 +227,7 @@ species or to a different genus.
 Function \texttt{taxondive} implements indices of taxonomic diversity,
 and \texttt{taxa2dist} can be used to convert classification tables to
 taxonomic distances either with constant or variable step lengths
-between succesive categories. There is no taxonomic table for the BCI
+between successive categories. There is no taxonomic table for the BCI
 data in \texttt{vegan}\footnote{Actually I made such a classification,
   but taxonomic differences proved to be of little use in the Barro
   Colorado data: they only singled out sites with Monocots (palm
@@ -462,7 +462,7 @@ richness per one site ($\bar \alpha$):
   \label{eq:beta}
   \beta = S/\bar \alpha - 1
 \end{equation}
-Substraction of one means that $\beta = 0$ when there are no excess
+Subtraction of one means that $\beta = 0$ when there are no excess
 species or no heterogeneity between sites. For this index, no specific
 functions are needed, but this index can be easily found with the help
 of \texttt{vegan} function \texttt{specnumber}:

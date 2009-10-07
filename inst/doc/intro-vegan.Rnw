@@ -359,7 +359,7 @@ ord
 @
 This partials out the effect of \texttt{Moisture} before analysing the
 effects of \texttt{A1} and \texttt{Management}.  This also influences
-the signficances of the terms:
+the significances of the terms:
 <<>>=
 anova(ord, by="term", perm=500)
 @
