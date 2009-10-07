@@ -1,5 +1,5 @@
 `ordistep` <-
-    function(object, scope, direction =c("both", "backward", "foreward"),
+    function(object, scope, direction =c("both", "backward", "forward"),
              Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000,
              steps=50, trace = TRUE, ...)
 {

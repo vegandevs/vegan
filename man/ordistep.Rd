@@ -12,7 +12,7 @@
   backward and stepwise model selection.
 }
 \usage{
-ordistep(object, scope, direction = c("both", "backward", "foreward"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE, ...)
+ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,7 +46,7 @@ ordistep(object, scope, direction = c("both", "backward", "foreward"), Pin = 0.0
   Maximum number of iteration steps of dropping and adding terms.
 }
   \item{trace}{
-  If positive, information is printed during the model builing. Larger
+  If positive, information is printed during the model building. Larger
   values may give more information.
 }
   \item{\dots}{
