@@ -6,8 +6,6 @@
 \alias{rda}
 \alias{rda.default}
 \alias{rda.formula}
-\alias{model.frame.cca} % <- Move to a better help page!!
-\alias{model.matrix.cca} % <- Move to a better help page!
 \concept{ordination}
 
 \title{ [Partial] [Constrained] Correspondence Analysis and Redundancy
