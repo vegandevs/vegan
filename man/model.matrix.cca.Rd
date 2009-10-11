@@ -17,9 +17,10 @@
   a single matrix is returned. 
 }
 \usage{
-model.matrix.cca(formula, ...)
+\method{model.frame}{cca}(formula, ...)
+\method{model.matrix}{cca}(object, ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{formula, object}{
   A constrained ordination result object from which the needed
