@@ -12,8 +12,8 @@
     if (any(!keep)) {
         if (!na.rm)
             stop("missing values in data: consider na.rm = TRUE")
-        X <- X[keep,]
-        env <- env[keep,]
+        X <- X[keep,, drop=FALSE]
+        env <- env[keep,, drop=FALSE]
         na.action <- structure(seq_along(keep)[!keep], class="omit")
     }
     if (is.data.frame(env)) {
