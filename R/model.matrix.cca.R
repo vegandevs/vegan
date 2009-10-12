@@ -1,7 +1,7 @@
 `model.matrix.cca` <-
-    function (formula, ...) 
+    function (object, ...) 
 {
-    call <- formula$call
+    call <- object$call
     m <- match(c("formula", "data", "na.action", "subset"), names(call), 
         0)
     call <- call[c(1, m)]

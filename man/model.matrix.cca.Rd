@@ -43,7 +43,7 @@
 }
 \author{
  Jari Oksanen
-
+}
 \seealso{
  \code{\link{model.frame}}, \code{\link{model.matrix}}.
 }
