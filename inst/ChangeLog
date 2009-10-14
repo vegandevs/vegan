@@ -5,11 +5,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.16-31 (opened October 3, 2009)
 
 	* constrained ordination (cca, rda, capscale) could not handle all
-	anova(.., by= "something") cases when the data were not in
-	data.frame but in working environment or defined using
-	with(data,...). Still failing: with(data, anova(..., by = "t"))
-	and attach'ed data frames which were detach'ed during anova (but
-	these work if attach'ed again).
+	anova(.., by= "something") cases when the data were not defined by
+	data=, but were in the working environment or given using
+	with(). The attach'ed data frames that were later detach'ed won't
+	work. This means some potentially unstabilizing changes in scope:
+	please report all problems.
 
 	* envfit: could drop data frame to a vector with na.action (broken
 	in 1.16-28).
