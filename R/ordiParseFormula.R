@@ -2,6 +2,8 @@
 function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
           subset = NULL) 
 {
+    if (missing(data))
+        data <- environment(formula)
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     specdata <- formula[[2]]

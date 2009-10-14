@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* constraind ordination (cca, rda, capscale) could not handle all
+	anova(.., by= "something") cases when the data were not in
+	data.frame but in working environment or attach'ed. Function
+	anova.ccabyaxis still fails, and all fail if the data was defined
+	using with(). 
+
 	* envfit: could drop data frame to a vector with na.action (broken
 	in 1.16-28).
 
