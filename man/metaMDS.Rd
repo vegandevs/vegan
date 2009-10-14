@@ -278,5 +278,8 @@ library(MASS) ## isoMDS
 sol <- metaMDS(dune)
 sol
 plot(sol, type="t")
+
+## Start from previous best solution
+sol2 <- metaMDS(dune, previous.best = sol)
 }
 \keyword{ multivariate }
