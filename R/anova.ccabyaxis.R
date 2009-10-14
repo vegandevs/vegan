@@ -8,11 +8,15 @@ function (object, cutoff = 1,  ...)
     if (is.null(object$terms)) 
         stop("Analysis is only possible for models fitted using formula")
     lc <- object$CCA$u
+    mf <- model.frame(object)
     ## Handle missing values in scores, both "omit" and "exclude" to
     ## match dims with data.
-    if (!is.null(object$na.action))
+    if (!is.null(object$na.action)) {
         lc <- stats:::napredict.exclude(object$na.action, lc)
-    newdata <- cbind(lc, eval(as.list(object$call)$data))
+        mf <- lapply(mf, function(x) stats:::napredict.exclude(object$na.action, x))
+        mf <- as.data.frame(mf)
+    }
+    newdata <- cbind(lc, mf)
     axnam <- colnames(lc)
     df <- c(rep(1, rnk), object$CA$rank)
     chi <- c(object$CCA$eig, Residual = object$CA$tot.chi)
