@@ -11,6 +11,10 @@
         w <- NULL
     require(mgcv)  || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
+    kk <- complete.cases(X) & !is.na(y)
+    X <- X[kk, , drop = FALSE]
+    y <- y[kk]
+    w <- w[kk]
     x1 <- X[, 1]
     x2 <- X[, 2]
     if (knots <= 0)
