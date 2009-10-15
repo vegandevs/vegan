@@ -4,7 +4,7 @@
 {
     x <- comm
     x <- as.matrix(x)
-    x <- x[, colSums(x) > 0]
+    x <- x[, colSums(x) > 0, drop=FALSE]
     n <- nrow(x)
     p <- ncol(x)
     if (p == 1) {
@@ -18,8 +18,8 @@
     METHODS <- c("collector", "random", "exact", "rarefaction", "coleman")
     method <- match.arg(method, METHODS)
     specaccum <- sdaccum <- sites <- perm <- NULL
-    if (n == 1 & method != "rarefaction")
-        stop(paste("only 1 site provided"))
+    if (n == 1 && method != "rarefaction")
+        message("No actual accumulation since only 1 site provided")
     switch(method, collector = {
         sites <- 1:n
         specaccum <- accumulator(x, sites)

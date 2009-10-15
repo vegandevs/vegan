@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-31 (opened October 3, 2009)
 
+	* specaccum: "accumulations" in one-site collections are handled
+	with a message() instead of stop()ping with error. Per request of
+	Roeland Kindt.
+
 	* constrained ordination (cca, rda, capscale) could not handle all
 	anova(.., by= "something") cases when the data were not defined by
 	data=, but were in the working environment or given using
