@@ -41,7 +41,7 @@ where \eqn{S} is the number of species. As \eqn{q} tends to 1, maximum is define
 
 If \code{hill = TRUE}, \code{tsallis} gives Hill numbers (numbers equivalents, see Jost 2007):
 
-\deqn{D_q = (1-(q-1) H)^(1/(1-q))}{D.q = (1-(q-1)*H)^(1/(1-q))}
+\deqn{D_q = (1-(q-1) H)^{1/(1-q)}}{D.q = (1-(q-1)*H)^(1/(1-q))}
 
 Details on plotting methods and accumulating values can be found on the help pages of the functions \code{\link{renyi}} and \code{\link{renyiaccum}}.
 }
