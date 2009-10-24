@@ -41,6 +41,7 @@
 #define RAUP 11
 #define MILLAR 12
 #define CHAO 13
+#define GOWERDZ 14
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -69,10 +70,8 @@ double veg_manhattan(double *x, int nr, int nc, int i1, int i2)
 
 /* Gower is like Manhattan, but data were standardized to range 0..1
  * for rows before call and dist is divided by the number of non-zero
- * pairs.  There is an alternative implementation in cluster package.
- * That can handle mixed data with factors, but won't handle mere
- * numeric variables.  Some extra manipulations are needed in the
- * calling R function.
+ * pairs. There is an alternative implementation in cluster package.
+ * Some extra manipulations are needed in the calling R function.
  */
 
 double veg_gower(double *x, int nr, int nc, int i1, int i2)
@@ -86,6 +85,35 @@ double veg_gower(double *x, int nr, int nc, int i1, int i2)
 	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
 	       dist += fabs( x[i1] - x[i2] );
 	       count++;
+	  }
+	  i1 += nr;
+	  i2 += nr;
+     }
+     if (count == 0) dist = NA_REAL;
+     dist /= (double) count;
+     return dist;
+}
+
+/* Identical to veg_gower except skipping count update for double
+ * zeros.  Gower 1971 proposed skipping double zeros for
+ * presence/absence data (but not for quantitative data), and many
+ * people think this should always be done in Gower distance. With
+ * presence/absence data this gives Jaccard of binary data.
+ */
+
+double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
+{
+     double dist;
+     int count, j;
+  
+     dist = 0.0;
+     count = 0;
+     for (j=0; j<nc; j++) {
+	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	      if (x[i1] > 0 || x[i2] > 0) {
+		  dist += fabs( x[i1] - x[i2] );
+		  count++;
+	      }
 	  }
 	  i1 += nr;
 	  i2 += nr;
@@ -594,9 +622,12 @@ void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method
     case CHAO:
 	distfun = veg_chao;
 	break;
+    case GOWERDZ:
+	distfun = veg_gowerDZ;
+	break;
     case MATCHING:
-	 distfun = veg_matching;
-	 break;
+	distfun = veg_matching;
+	break;
     case NOSHARED:
 	distfun = veg_noshared;
 	break;	 
