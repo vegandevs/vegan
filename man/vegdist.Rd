@@ -228,8 +228,7 @@
   So these differ by a constant multiplier, and the alternative in
   \code{vegdist} is in range (0,1).  Function \code{\link[cluster]{daisy}}
   (package \pkg{cluster}) provides alternative implementation of Gower
-  index for mixed data of numeric and class variables (but it works for
-  mixed variables only).
+  index that also can handle mixed data of numeric and class variables.
 
   Most dissimilarity indices in \code{vegdist} are designed for
   community data, and they will give misleading values if there are
