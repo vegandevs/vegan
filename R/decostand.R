@@ -1,10 +1,10 @@
 "decostand" <-
-    function (x, method, MARGIN, range.global, na.rm = FALSE, ...) 
+    function (x, method, MARGIN, range.global, logbase = 2, na.rm = FALSE, ...) 
 {
     wasDataFrame <- is.data.frame(x)
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", 
-                 "standardize", "pa", "chi.square", "hellinger")
+                 "standardize", "pa", "chi.square", "hellinger", "log")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
@@ -65,6 +65,13 @@
                          na.rm = na.rm)), sqrt(colSums(x, na.rm = na.rm)))
     }, hellinger = {
         x <- sqrt(decostand(x, "total", MARGIN = MARGIN, na.rm = na.rm))
+      }, log = {### Marti Anderson logs, after Etienne Laliberte
+        if (!isTRUE(all.equal(as.integer(x), as.vector(x)))) {
+            x <- x / min(x[x > 0], na.rm = TRUE)
+            warning("non-integer data: divided by smallest positive value",
+                    call. = FALSE)
+        }
+        x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
     })
     if (any(is.nan(x))) 
         warning("result contains NaN, perhaps due to impossible mathematical operation\n")

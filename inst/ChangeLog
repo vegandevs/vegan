@@ -4,11 +4,19 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-32 (opened October 24, 2009)
 
+	* decostand: implemented Marti Anderson's log scaling of type
+	log(x, base = logbase) + 1 as a part of Feature Request #473. The
+	coding follows closely Etienne Laliberte's suggestion, and also
+	handles non-negative non-integer data. 
+
 	* vegdist: C code for an alternative version of Gower Index that
 	skips double zeros. No R level interface yet. If this function is
 	to be used from vegdist.R, it should be added as item 14 in
 	'method' list, and the R level preprocessing should be done
-	similarly as for "gower" (method choice 6).
+	similarly as for "gower" (method choice 6). This was implemented
+	for inspecting the implementation of second part of Feature
+	Request #473, but may be removed if that part of the request is
+	not implemented.
 	
 Version 1.16-31 (closed October 24, 2009)
 
