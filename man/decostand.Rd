@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{decostand}
 \alias{decostand}
 \alias{wisconsin}
@@ -54,10 +55,11 @@ wisconsin(x)
     \item \code{hellinger}: square root of \code{method = "total"}
     (Legendre & Gallagher 2001).
     \item \code{log}: logarithmic transformation as suggested by Anderson 
-     et al. (2006): \eqn{log_b (x) + 1} for \eqn{x > 0},  where \eqn{b} is 
-     the base of the logarithm. Zeros are left as zeros. Higher bases give
+     et al. (2006): \eqn{\log_b (x) + 1} for \eqn{x > 0},  where \eqn{b} is 
+     the base of the logarithm; zeros are left as zeros. Higher bases give
      less weight to quantities and more to presences, and \code{logbase = Inf}
-     gives the presence/absence scaling. Please note this is not \eqn{log(x+1)}.
+     gives the presence/absence scaling. Please note this is \emph{not}
+     \eqn{\log(x+1)}.
      Anderson et al. (2006) suggested this for their (strongly) modified
      Gower distance, but the standardization can be used independently
      of distance indices.
@@ -85,7 +87,8 @@ wisconsin(x)
   \code{"decostand"} giving the name of applied standardization
   \code{"method"}.
 }
-\author{Jari Oksanen and Etienne Laliberte (\code{method = "log"}).}
+\author{Jari Oksanen and Etienne \enc{Laliberté}{Laliberte}
+  (\code{method = "log"}).}
 \note{Common transformations can be made with standard \R functions.}
 
 \references{ 
