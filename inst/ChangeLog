@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-32 (opened October 24, 2009)
 
+	* pcnm: new function for PCNM (Principal Coordinates of
+	Neighbourhood Matrix) with option for row weighs allowing PCNM for
+	cca. Based on Stéphane Dray's PCNM function in his (unreleased)
+	SpacemakeR package. Imported with history from sedarVegan in
+	http://sedar.r-forge.r-project.org/. 
+
 	* decostand: implemented Marti Anderson's log scaling of type
 	log(x, base = logbase) + 1 as a part of Feature Request #473. The
 	coding follows closely Etienne Laliberte's suggestion, and also
