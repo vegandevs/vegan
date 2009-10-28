@@ -2,10 +2,11 @@
 \alias{pcnm}
 \title{ Function to compute classical PCNM(Principal Coordinates of Neighborhood Matrix). }
 \description{
-  This function computed classical PCNM by the principal coordinate analysis of a truncated distance matrix.
+  This function computed classical PCNM by the principal coordinate
+  analysis of a truncated distance matrix. 
 }
 \usage{
-pcnm(matdist, threshold, support = c("vegan", "ade4"))
+pcnm(matdist, threshold, support = c("vegan", "ade4"), w)
 }
 
 \arguments{
@@ -16,7 +17,19 @@ pcnm(matdist, threshold, support = c("vegan", "ade4"))
     \code{matdist}. }
   \item{support}{Use either \pkg{vegan} or \pkg{ade4} function for the
     minimum spanning tree.}
+  \item{w}{Prior weights for rows.}
 }
+
+\details{
+  The function is based on \code{pcnm} function in Dray's
+  \pkg{spacemakeR} package. The differences are that the current
+  function can use either \code{\link[vegan]{spantree}} of \pkg{vegan}
+  or \code{\link[ade4]{mstree}} and \code{\link[ade4]{neig2mat}} of
+  \pkg{ade4} as internal support function. The current function also can
+  use prior weights for rows by using weighted metric scaling of
+  \code{\link[vegan]{wcmscale}} of \pkg{vegan}. The use of row weights
+  allows finding orthonormal PCNMs also for correspondence analysis
+  (e.g., \code{\link[vegan]{cca}} or \code{\link[ade4]{cca}}).  }
 
 \value{
   A list of three elements:
@@ -35,6 +48,10 @@ ordisurf(mite.xy, pcnm1$vectors[,1])
 ordisurf(mite.xy, pcnm1$vectors[,2])
 ordisurf(mite.xy, pcnm1$vectors[,3])
 par(op)
-
+## Weighted PCNM for CCA
+data(mite)
+rs <- rowSums(mite)/sum(mite)
+pcnmw <- pcnm(dist(mite.xy), w = rs)
+ord <- cca(mite ~ pcnmw$vectors)
 }
 \keyword{ spatial }
