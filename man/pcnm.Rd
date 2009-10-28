@@ -1,13 +1,14 @@
 \name{pcnm}
 \alias{pcnm}
-\title{ Function to compute classical PCNM (Principal Coordinates of
-  Neighbourhood Matrix). }
+\title{ Principal Coordinates of Neighbourhood Matrix }
 \description{
   This function computed classical PCNM by the principal coordinate
-  analysis of a truncated distance matrix. 
+  analysis of a truncated distance matrix. These are commonly used to
+  transform (spatial) distances to rectangular data that suitable for
+  constrained ordination or regression. 
 }
 \usage{
-pcnm(matdist, threshold, w)
+pcnm(dis, threshold, w)
 }
 
 \arguments{
@@ -48,20 +49,19 @@ pcnm(matdist, threshold, w)
   
   The function is based on \code{pcnm} function in Dray's unreleased
   \pkg{spacemakeR} package. The differences are that the current
-  function usesr \code{\link[vegan]{spantree}} as an internal support
+  function usesr \code{\link{spantree}} as an internal support
   function. The current function also can use prior weights for rows by
-  using weighted metric scaling of \code{\link[vegan]{wcmscale}} of
-  \pkg{vegan}. The use of row weights allows finding orthonormal PCNMs
-  also for correspondence analysis (e.g., \code{\link[vegan]{cca}} or
-  \code{\link[ade4]{cca}}).
-}
+  using weighted metric scaling of \code{\link{wcmdscale}}. The use of
+  row weights allows finding orthonormal PCNMs also for correspondence
+  analysis (e.g., \code{\link{cca}}).
+  }
 
 \value{
   A list of three elements:
   \item{values }{Eigenvalues obtained by the principal coordinates
     analysis.} 
   \item{vectors }{Eigenvectors obtained by the principal coordinates
-    analysis. They have been normalized to unit norm.}
+    analysis. They are normalized to unit norm.}
  \item{threshold}{Truncation distance.} 
 }
 \references{
@@ -80,18 +80,22 @@ pcnm(matdist, threshold, w)
 \author{Jari Oksanen, based on the code of Stephane Dray.}
 \seealso{ \code{\link[vegan]{spantree}}. }
 \examples{
+## Example from Borcard & Legendre (2002)
 data(mite.xy)
 pcnm1 <- pcnm(dist(mite.xy))
 op <- par(mfrow=c(1,3))
-ordisurf(mite.xy, pcnm1$vectors[,1])
-ordisurf(mite.xy, pcnm1$vectors[,2])
-ordisurf(mite.xy, pcnm1$vectors[,3])
+ordisurf(mite.xy, pcnm1$vectors[,1], bubble = 4, main = "PCNM 1")
+ordisurf(mite.xy, pcnm1$vectors[,2], bubble = 4, main = "PCNM 2")
+ordisurf(mite.xy, pcnm1$vectors[,3], bubble = 4, main = "PCNM 3")
 par(op)
 ## Weighted PCNM for CCA
 data(mite)
 rs <- rowSums(mite)/sum(mite)
 pcnmw <- pcnm(dist(mite.xy), w = rs)
 ord <- cca(mite ~ pcnmw$vectors)
+## Multiscale ordination: residual variance should have no distance
+## trend
+msoplot(mso(ord, mite.xy))
 }
 \keyword{ spatial }
 \keyword{ multivariate }
