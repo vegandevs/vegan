@@ -22,6 +22,7 @@
     res$values <- mypcnm$eig[!(eq0|inf0)]
     res$vectors <- mypcnm$points[,!(eq0|inf0), drop = FALSE]
     res$vectors <- sweep(res$vectors, 2, sqrt(res$values), "/")
+    colnames(res$vectors) <- paste("PCNM", 1:ncol(res$vectors), sep="")
     res$threshold <- threshold
     class(res) <- "pcnm"
     res
