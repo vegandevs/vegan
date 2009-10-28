@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-32 (opened October 24, 2009)
 
+	* ordisurf: plotting main title was broken with NA handling in
+	1.16-31 (r1049). Also increased grid density and adjusted pushing
+	out limits of convex hull.
+
 	* pcnm: new function for PCNM (Principal Coordinates of
 	Neighbourhood Matrix) with option for row weighs allowing PCNM for
 	cca. Based on Stéphane Dray's PCNM function in his (unreleased)

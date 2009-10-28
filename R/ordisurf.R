@@ -5,16 +5,21 @@
               bubble = FALSE, cex = 1, ...) 
 {
     weights.default <- function(object, ...) NULL
-    GRID = 25
+    GRID = 31
     w <- eval(w)
     if (!is.null(w) && length(w) == 1) 
         w <- NULL
     require(mgcv)  || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
+    ## The original name of 'y' may be lost in handling NA: save for
+    ## plots
+    yname <- deparse(substitute(y))
     kk <- complete.cases(X) & !is.na(y)
-    X <- X[kk, , drop = FALSE]
-    y <- y[kk]
-    w <- w[kk]
+    if (!all(kk)) {
+        X <- X[kk, , drop = FALSE]
+        y <- y[kk]
+        w <- w[kk]
+    }
     x1 <- X[, 1]
     x2 <- X[, 2]
     if (knots <= 0)
@@ -37,8 +42,8 @@
     poly <- chull(cbind(x1,x2))
     ## Move out points of the convex hull to have contour for all data
     ## points
-    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * diff(range(x1))/GRID
-    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * diff(range(x2))/GRID
+    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * diff(range(x1))/(GRID - 1)
+    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * diff(range(x2))/(GRID - 1)
     npol <- length(poly)
     np <- nrow(newd)
     inpoly <- numeric(np)
@@ -56,7 +61,7 @@
     }
     if (!missing(main) || (missing(main) && !add)) {
         if (missing(main)) 
-            main <- deparse(substitute(y))
+            main <- yname
         title(main = main)
     }
     if (missing(levels)) 
