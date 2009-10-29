@@ -15,7 +15,8 @@ Version 1.16-32 (opened October 24, 2009)
 	Neighbourhood Matrix) with option for row weighs allowing PCNM for
 	cca. Based on Stéphane Dray's PCNM function in his (unreleased)
 	SpacemakeR package. Imported with history from sedarVegan in
-	http://sedar.r-forge.r-project.org/. 
+	http://sedar.r-forge.r-project.org/. Has scores.pcnm to select all
+	(default) or some vectors of 'choice'.
 
 	* decostand: implemented Marti Anderson's log scaling of type
 	log(x, base = logbase) + 1 as a part of Feature Request #473. The
