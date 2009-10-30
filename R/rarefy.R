@@ -30,6 +30,7 @@
     }
     if (length(sample) > 1) {
         S.rare <- sapply(sample, function(n) apply(x, MARGIN, rarefun, sample = n))
+        S.rare <- matrix(S.rare, ncol=length(sample))
         colnames(S.rare) <- paste("N", sample, sep="")
         if (se) {
             dn <- unlist(dimnames(x)[MARGIN])
