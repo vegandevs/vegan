@@ -1,6 +1,8 @@
-"alias.cca" <-
-function (object, ...) 
+`alias.cca` <-
+    function (object, names.only = FALSE, ...) 
 {
+    if (names.only)
+        return(object$CCA$alias)
     CompPatt <- function(x, ...) {
         x[abs(x) < 1e-06] <- 0
         class(x) <- "mtable"

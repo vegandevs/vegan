@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-32 (opened October 24, 2009)
 
+	* alias.cca: gained argument 'names.only' (defaults FALSE) to only
+	return the names of the aliased variables insted of their defining
+	equations. 
+
 	* rarefy: failed with one site and many sample sizes like
 	rarefy(rpois(10, 2), sample=2:3).
 

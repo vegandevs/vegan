@@ -27,7 +27,7 @@ inertcomp(object, display = c("species", "sites"),
 spenvcor(object)
 intersetcor(object)
 vif.cca(object)
-\method{alias}{cca}(object, ...)
+\method{alias}{cca}(object, names.only = FALSE, ...)
 }
 
 \arguments{
@@ -44,6 +44,8 @@ vif.cca(object)
   \item{summarize}{Show only the accumulated total. }
   \item{proportional}{Give the inertia components as proportional for
     the corresponding total.}
+  \item{names.only}{Return only names of aliased variable(s) instead of
+    defining equations.}
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
@@ -88,7 +90,8 @@ vif.cca(object)
   from the estimation, and no biplot scores or centroids are calculated
   for these aliased constraints. A note will be printed with default
   output if there are aliased constraints. Function \code{alias} will
-  give the linear coefficients defining the aliased constraints. 
+  give the linear coefficients defining the aliased constraints, or 
+  only their names with argument \code{names.only = TRUE}.
 }
 
 \value{
