@@ -1,9 +1,10 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 1.16-32
-Date: October 24, 2009
-Author: Jari Oksanen, Roeland Kindt, Pierre Legendre, Bob O'Hara, Gavin L. Simpson, 
-   Peter Solymos, M. Henry H. Stevens, Helene Wagner  
+Version: 1.16-33
+Date: November, 2009
+Author: Jari Oksanen, Guillaume Blanchet, Roeland Kindt, Pierre Legendre, 
+   R. G. O'Hara, Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, 
+   Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
 Suggests: MASS, mgcv, lattice, cluster, scatterplot3d, rgl, ellipse,
   tcltk 
