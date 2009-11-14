@@ -3,6 +3,7 @@
 \alias{cophenetic.spantree}
 \alias{plot.spantree}
 \alias{lines.spantree}
+\alias{spandepth}
 
 \title{Minimum Spanning Tree}
 \description{
@@ -13,6 +14,7 @@
 \usage{
 spantree(d, toolong = 0)
 \method{cophenetic}{spantree}(x)
+spandepth(x)
 \method{plot}{spantree}(x, ord, cex = 0.7, type = "p", labels, dlim,
      FUN = sammon,  ...)
 \method{lines}{spantree}(x, ord, display="sites", ...)
@@ -57,7 +59,15 @@ spantree(d, toolong = 0)
   using \code{\link{distconnected}}.
 
   Function \code{cophenetic} finds distances between all points along
-  the tree segments. Function \code{plot} displays the tree over a
+  the tree segments. Function \code{spandepth} returns the depth of
+  each node. The nodes of a tree are either leaves (with one link) or
+  internal nodes (more than one link). The leaves are recursively
+  removed from the tree, and the depth is the layer at with the leaf
+  was removed. In disconnected \code{spantree} object (in a forest)
+  each tree is analysed separately and disconnected nodes not in any
+  tree have depth zero.
+  
+  Function \code{plot} displays the tree over a
   supplied ordination configuration, and \code{lines} adds a spanning
   tree to an ordination graph. If configuration is not supplied for \code{plot},
   the function ordinates the cophenetic dissimilarities of the
@@ -119,6 +129,9 @@ tr <- spantree(dis)
 plot(tr, cmdscale(dis), type = "t")
 ## Find a configuration to display the tree neatly
 plot(tr, type = "t")
+## Depths of nodes
+depths <- spandepth(tr)
+plot(tr, type = "t", label = depths)
 }
 \keyword{ multivariate}
 
