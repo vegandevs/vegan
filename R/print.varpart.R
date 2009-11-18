@@ -2,8 +2,7 @@
 function (x, ...) 
 {
     cat("\nPartition of variation in RDA\n\n")
-    cat("Call:\n")
-    cat(deparse(x$call), "\n")
+    writeLines(strwrap(pasteCall(x$call)))
     if (x$scale)
         cat("Columns of Y were scaled to unit variance\n")
     if (!is.null(x$transfo))
