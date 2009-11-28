@@ -9,6 +9,10 @@ Version 1.16-33 (opened November 13, 2009)
 	* spandepth: New function to find the depths of nodes in a
 	spanning tree from spantree() function. Per request of
 	W. E. Sharp. 
+
+	* bstick: refuses to analyse capscale() models with imaginary
+	components because I have no idea how to do it. Reported by
+	Richard Telford, Bergen.
 	
 Version 1.16-32 (closed November 13, 2009)
 
