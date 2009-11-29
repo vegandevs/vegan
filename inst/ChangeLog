@@ -22,7 +22,8 @@ Version 1.16-33 (opened November 13, 2009)
 	values. Experimental, low level interface that requires giving the
 	index of right length. The permutation index can contain
 	duplicates such as from sample(nrow(data), replace = TRUE) so that
-	bootstrapping is possible unlike in anova.cca/permutest.cca. 
+	bootstrapping is possible unlike in anova.cca/permutest.cca. Works
+	now with partial model: adds partial fit to the constrained fit.
 	
 Version 1.16-32 (closed November 13, 2009)
 

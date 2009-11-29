@@ -1,9 +1,6 @@
 `simulate.rda` <-
     function(object, nsim = 1, seed = NULL, indx = NULL, ...) 
 {
-    ## First check cases that won't work (yet?)
-    if (!is.null(object$pCCA))
-        stop("not yet implemented for partial models")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -20,6 +17,9 @@
     if (nsim > 1)
         .NotYetUsed("nsim")
     ftd <- fitted(object)
+    ## pRDA: add partial Fit to the constrained
+    if (!is.null(object$pCCA))
+        ftd <- ftd + object$pCCA$Fit
     if (is.null(indx))
         ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
                sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
