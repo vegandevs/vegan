@@ -24,6 +24,12 @@ Version 1.16-33 (opened November 13, 2009)
 	duplicates such as from sample(nrow(data), replace = TRUE) so that
 	bootstrapping is possible unlike in anova.cca/permutest.cca. Works
 	now with partial model: adds partial fit to the constrained fit.
+
+	* simulate.cca: implemented by cloning simulate.rda. Function
+	works with internal Chi-square standardized form and
+	back-transforms the result by marginal totals and matrix grand
+	total at the end. The marginal totals may still be negative. Not
+	explicitly documented, and needs a connoisseur user. 
 	
 Version 1.16-32 (closed November 13, 2009)
 
