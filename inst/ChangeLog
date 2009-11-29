@@ -17,6 +17,12 @@ Version 1.16-33 (opened November 13, 2009)
 
 	* predict.rda: works now with rank = 0 -- returns matrix of column
 	means.  (Not yet done for predict.cca.)
+
+	* simulate.rda: can now add permuted residuals to the fitted
+	values. Experimental, low level interface that requires giving the
+	index of right length. The permutation index can contain
+	duplicates such as from sample(nrow(data), replace = TRUE) so that
+	bootstrapping is possible unlike in anova.cca/permutest.cca. 
 	
 Version 1.16-32 (closed November 13, 2009)
 

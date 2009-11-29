@@ -1,5 +1,5 @@
 `simulate.rda` <-
-    function(object, nsim = 1, seed = NULL, ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, ...) 
 {
     ## First check cases that won't work (yet?)
     if (!is.null(object$pCCA))
@@ -20,9 +20,12 @@
     if (nsim > 1)
         .NotYetUsed("nsim")
     ftd <- fitted(object)
-    ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
-        sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
-        nrow = nrow(ftd)))
+    if (is.null(indx))
+        ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
+               sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
+               nrow = nrow(ftd)))
+    else
+        ans <- as.data.frame(ftd + object$CA$Xbar[indx,])
     attr(ans, "seed") <- RNGstate
     ans
 }

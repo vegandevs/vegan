@@ -11,7 +11,7 @@
 }
 
 \usage{
-\method{simulate}{rda}(object, nsim = 1, seed = NULL, ...)
+\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, ...)
 }
 \arguments{
   \item{object}{an object representing a fitted \code{\link{rda}} model.}
@@ -20,6 +20,12 @@
   \item{seed}{an object specifying if and how the random number
     generator should be initialized (\sQuote{seeded}). See 
     \code{\link{simulate}} for details. }
+  \item{indx}{Index of residuals added to the fitted values, such as
+    produced by  \code{\link{permuted.index}},
+    \code{\link{permuted.index2}} or \code{\link{sample}}. The index can
+    have duplicate entries so that bootstrapping is allowed. If null,
+    parametric simulation is used and Gaussian error is added to the
+    fitted values.}
   \item{\dots}{additional optional arguments (ignored). }
 }
 
