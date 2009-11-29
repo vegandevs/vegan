@@ -56,16 +56,23 @@
     ## response matrix.
     if (nsim > 1)
         .NotYetUsed("nsim")
+    ## Need sqrt of rowsums for weighting
+    sq.r <- sqrt(object$rowsum)
+    ## Fitted value
     ftd <- fitted(object, type = "working")
     ## pCCA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
-    if (is.null(indx))
-        ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
-               nrow = nrow(ftd)))
-    else
-        ans <- as.data.frame(ftd + object$CA$Xbar[indx,])
+    ## Residual Xbar need weighting and back-weighting
+    Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
+    if (is.null(indx)) {
+        ans <- matrix(rnorm(length(ftd), 
+               sd = outer(rep(1,nrow(ftd)), sd(Xbar))), 
+               nrow = nrow(ftd))
+        ans <- as.data.frame(ftd + sweep(ans, 1, sq.r, "/"))
+    }
+    else 
+        ans <- as.data.frame(ftd + sweep(Xbar[indx,], 1, sq.r, "/"))
     ## From internal form to the original form with fixed marginal totals
     rc <- object$rowsum %o% object$colsum
     ans <- (ans * sqrt(rc) + rc) * object$grand.total
