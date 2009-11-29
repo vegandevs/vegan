@@ -31,6 +31,11 @@
         } else {
             if (take > 0) 
                 out <- u %*% slam %*% t(v)
+            else {
+                out <- matrix(0, nrow = nrow(u), ncol = nrow(v))
+                rownames(out) <- rownames(u)
+                colnames(out) <- rownames(v)
+            }
             if (!is.null(scal)) 
                 out <- sweep(out, 2, scal, "*")
             out <- sweep(out, 2, cent, "+")

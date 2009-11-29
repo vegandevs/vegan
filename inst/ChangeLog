@@ -12,7 +12,11 @@ Version 1.16-33 (opened November 13, 2009)
 
 	* bstick: refuses to analyse capscale() models with imaginary
 	components because I have no idea how to do it. Reported by
-	Richard Telford, Bergen.
+	Richard Telford, Bergen (who probably wanted another
+	solution...). 
+
+	* predict.rda: works now with rank = 0 -- returns matrix of column
+	means.  (Not yet done for predict.cca.)
 	
 Version 1.16-32 (closed November 13, 2009)
 
