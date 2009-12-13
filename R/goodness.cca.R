@@ -10,7 +10,7 @@
         stop("model ", model, " is not available")
     statistic <- match.arg(statistic)
     display <- match.arg(display)
-    cs <- ifelse(display == "species", object$colsum, object$rowsum)
+    cs <- if(display == "species") object$colsum else object$rowsum
     if (display == "species") {
         if (is.null(object$CCA)) 
             Xbar <- object$CA$Xbar
