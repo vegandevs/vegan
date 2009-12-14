@@ -6,6 +6,12 @@ Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 
 	* goodness.cca: was not using correct weights. Broken in r992 (Sep
 	6, 2009). 
+
+	* vegdist: added UI for the alternative Gower index ("altGower")
+	that skips double zeros. The C code has been in vegan since Oct 24
+	(r1051), but no R interface. Together with decostand(..., "log")
+	of r1052 this closes Feature Request #473 submitted by Etienne
+	Laliberte in R-Forge.
 	
 Version 1.16-33 (closed December 13, 2009)
 

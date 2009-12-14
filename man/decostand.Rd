@@ -95,7 +95,7 @@ wisconsin(x)
   
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
-  \strong{9}, 683-693.
+  \strong{9}, 683--693.
 
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}

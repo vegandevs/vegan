@@ -26,8 +26,9 @@
   \item{x}{Community data matrix.}
   \item{method}{Dissimilarity index, partial match to  \code{"manhattan"},
     \code{"euclidean"}, \code{"canberra"}, \code{"bray"}, \code{"kulczynski"},
-     \code{"jaccard"}, \code{"gower"}, \code{"morisita"}, \code{"horn"},
-     \code{"mountford"}, \code{"raup"} , \code{"binomial"} or \code{"chao"}.}
+     \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, \code{"morisita"}, 
+     \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"} or 
+     \code{"chao"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -56,6 +57,10 @@
     \cr
     \tab where \eqn{M} is the number of columns (excluding missing
     values)
+    \cr
+    \code{altGower}
+    \tab like \code{gower}, but \eqn{M} is the number of pairs with at least
+    one non-zero value (excluding double zeros)
     \cr
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
@@ -193,20 +198,25 @@
   Zealand.  \emph{Journal of Experimental Marine Biology and Ecology}
   305, 191--221.
 
+  Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
+  dispersion as a measure of beta diversity. \emph{Ecology Letters} 
+  9, 683--693.
+
   Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new
   statistical approach for assessing similarity of species composition
   with incidence and abundance data. \emph{Ecology Letters} 8, 148--159.
- 
-  
+   
   Faith, D. P, Minchin, P. R. and Belbin, L. (1987).
   Compositional dissimilarity as a robust measure of ecological
   distance. \emph{Vegetatio} 69, 57--68.
+
+  Gower, J. C. (1971). A general coefficient of similarity and some
+  of its properties. \emph{Biometrics} 27, 623--637.
 
   Krebs, C. J. (1999). \emph{Ecological Methodology.} Addison Wesley Longman.
 
   Legendre, P, & Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
   Edition. Elsevier.
-
   
   Mountford, M. D. (1962). An index of similarity and its application to
   classification problems. In: P.W.Murphy (ed.),
@@ -228,7 +238,15 @@
   So these differ by a constant multiplier, and the alternative in
   \code{vegdist} is in range (0,1).  Function \code{\link[cluster]{daisy}}
   (package \pkg{cluster}) provides alternative implementation of Gower
-  index that also can handle mixed data of numeric and class variables.
+  index that also can handle mixed data of numeric and class variables. 
+  There are two versions of Gower distance (\code{"gower"}, 
+  \code{"altGower"}) which differ in scaling: \code{"gower"} divides
+  all distances by the number of observations (rows), but 
+  \code{"altGower"} omits double-zeros and divides by the number of 
+  pairs with at least one above-zero value. Gower (1971) suggested this for
+  presences, but it is often taken as the general feature of the Gower 
+  distances. See Examples for implementing the Anderson et al. (2006)
+  variant of the Gower index.
 
   Most dissimilarity indices in \code{vegdist} are designed for
   community data, and they will give misleading values if there are
@@ -252,5 +270,7 @@ data(varespec)
 vare.dist <- vegdist(varespec)
 # Orlóci's Chord distance: range 0 .. sqrt(2)
 vare.dist <- vegdist(decostand(varespec, "norm"), "euclidean")
+# Anderson et al. version of Gower
+vare.dist <- vegdist(decostand(varespec, "log"), "altGower")
 }
 \keyword{ multivariate }
