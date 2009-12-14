@@ -12,6 +12,12 @@ Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 	(r1051), but no R interface. Together with decostand(..., "log")
 	of r1052 this closes Feature Request #473 submitted by Etienne
 	Laliberte in R-Forge.
+
+	* anova.cca: tied values could be randomly broken due to
+	numerical precision, and this gave false P-values, for instance in
+	anova(cca(dune ~ Management, dune.env),
+	strata=dune.env$Management).  Now rounds statistics to 12 decimal
+	places in permutest.cca and in anova.ccabyterm.
 	
 Version 1.16-33 (closed December 13, 2009)
 

@@ -51,8 +51,11 @@
     pchi <- sweep(pchi, 1, df, "/")
     pchi[-(ntrm + 1), ] <- sweep(pchi[-(ntrm + 1), , drop = FALSE], 
                                  2, pchi[ntrm + 1, , drop = FALSE], "/")
+    ## Round to avoid arbitrary P values due to numerical precision
+    pchi <- round(pchi, 12)
+    Fval <- round(Fval, 12)
     P <- rowSums(sweep(pchi[-(ntrm + 1), , drop = FALSE], 1, 
-                       Fval[-(ntrm + 1)], ">"))
+                       Fval[-(ntrm + 1)], ">="))
     P <- c((P + adj)/(step + adj), NA)
     out <- data.frame(df, chi, Fval, c(rep(step, ntrm), NA), 
                       P)
