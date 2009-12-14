@@ -4,8 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 
-	* goodness.cca: was not using correct weights and the results have
-	been *always* wrong.
+	* goodness.cca: was not using correct weights. Broken in r992 (Sep
+	6, 2009). 
 	
 Version 1.16-33 (closed December 13, 2009)
 
