@@ -1,8 +1,8 @@
 "print.permutest.cca" <-
     function (x, ...) 
 {
-    cat("\nPermutation test for", x$method, "\nCall:\n")
-    cat(deparse(x$call), "\n\n")
+    cat("\nPermutation test for", x$method, "\n\n")
+    writeLines(strwrap(pasteCall(x$call)))
     Pval <- sum(x$F.perm >= x$F.0)/x$nperm
     cat("Permutation test for ")
     if (x$first)

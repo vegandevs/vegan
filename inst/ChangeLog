@@ -18,6 +18,8 @@ Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 	anova(cca(dune ~ Management, dune.env),
 	strata=dune.env$Management).  Now rounds statistics to 12 decimal
 	places in permutest.cca and in anova.ccabyterm.
+
+	* permutest.cca: uses pasteCall() in print.
 	
 Version 1.16-33 (closed December 13, 2009)
 
