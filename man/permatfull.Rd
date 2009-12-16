@@ -27,7 +27,6 @@ strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
   \item{m}{A community data matrix with plots (samples) as rows and species (taxa) as columns.}
   \item{fixedmar}{character, stating which of the row/column sums should be preserved (\code{"none", "rows", "columns", "both"}).}
   \item{strata}{Numeric vector or factor with length same as \code{nrow(m)} for grouping rows within strata for restricted permutations. Unique values or levels are used.}
-  \item{ptype}{Type of quantitative permutation, \code{"full"} to use \code{permatfull} and \code{"swap"} to use \code{permatswap}.}
   \item{mtype}{Matrix data type, either \code{"count"} for count data, or \code{"prab"} for presence-absence type incidence data.}
   \item{times}{Number of permuted matrices.}
   \item{method}{Character for method used for the swap algorithm (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"}, \code{"backtrack"}) as described for function \code{\link{commsimulator}}. If \code{mtype="count"} the \code{"quasiswap"}, \code{"swap"}, \code{"swsh"} and \code{"abuswap"} methods are available (see details).}
