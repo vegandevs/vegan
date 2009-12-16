@@ -9,7 +9,7 @@
     if (!is.function(method)) {
         method <- match.arg(method, c("r00", "r0", "r1", "r2", "c0",
                                   "swap", "tswap", "backtrack", "quasiswap",
-                                  "r2dtable"))   # "permat" method added
+                                  "r2dtable"))
         if (method == "r2dtable") {
             nr <- rowSums(comm)
             nc <- colSums(comm)

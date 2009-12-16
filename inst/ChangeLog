@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 
+	* twostagechao: deleted, because question regarding the 
+	notation in the original article remained unanswered.
+
+	* permat.control: deleted, not needed any longer  due to changes
+	in oecosimu.
+
 	* goodness.cca: was not using correct weights. Broken in r992 (Sep
 	6, 2009). 
 

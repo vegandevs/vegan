@@ -2,7 +2,6 @@
 \name{permat}
 \alias{permatfull}
 \alias{permatswap}
-\alias{permat.control}
 \alias{summary.permat}
 \alias{print.summary.permat}
 \alias{print.permat}
@@ -20,9 +19,6 @@ permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL,
 mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
-permat.control(ptype = "full", mtype = "count", method = "quasiswap",
-fixedmar = "both", shuffle = "both", strata = NULL, 
-burnin = 0, thin = 1)
 \method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
@@ -87,9 +83,6 @@ can be rather slow). If the design is not well balanced
 because same constraints are forced on submatrices of different dimensions. This
 often means, that the number of potential permutations will decrease with their dimensions.
 So the more constraints we put, the less randomness can be expected.
-
-The function \code{permat.control} is used to set up quantitative matrix permutations in other functions
-(e.g. \code{\link{oecosimu}} and \code{\link{adipart}}).
 }
 
 \value{
