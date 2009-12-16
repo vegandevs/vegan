@@ -5,6 +5,10 @@
 \alias{summary.permat}
 \alias{print.summary.permat}
 \alias{print.permat}
+\alias{plot.permat}
+\alias{lines.permat}
+\alias{as.ts.permat}
+\alias{as.mcmc.permat}
 
 \title{Matrix Permutation Algorithms for Presence-Absence and Count Data}
 
@@ -22,6 +26,11 @@ strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
 \method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
+\method{plot}{permat}(x, type = "bray", ylab, xlab, col, lty,
+    lowess = TRUE, plot = TRUE, text = TRUE, ...)
+\method{lines}{permat}(x, type = "bray", ...)
+\method{as.ts}{permat}(x, type = "bray", ...)
+\method{as.mcmc}{permat}(x)
 }
 \arguments{
   \item{m}{A community data matrix with plots (samples) as rows and species (taxa) as columns.}
@@ -35,6 +44,9 @@ strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
   \item{thin}{Number of discarded permuted matrices between two evaluations in sequential (\code{"swap", "tswap"}) methods.}
   \item{x, object}{Object of class \code{"permat"}}
   \item{digits}{Number of digits used for rounding.}
+  \item{ylab, xlab, col, lty}{graphical parameters for the \code{plot} method.}
+  \item{type}{Character, type of plot to be displayed: \code{"bray"} for Bray-Curtis dissimilarities, \code{"chisq"} for Chi-squared values.}
+  \item{lowess, plot, text}{Logical arguments for the \code{plot} method, whether a locally weighted regression curve should be drawn, the plot should be drawn, and statistic values should be printed on the plot.}
   \item{\dots}{Other arguments passed to methods.}
 }
 
@@ -82,12 +94,20 @@ can be rather slow). If the design is not well balanced
 because same constraints are forced on submatrices of different dimensions. This
 often means, that the number of potential permutations will decrease with their dimensions.
 So the more constraints we put, the less randomness can be expected.
+
+The \code{plot} method is useful for graphically testing for trend and independence of permuted matrices. This is especially important when using sequential algorithms (\code{"swap", "tswap", "abuswap"}).
+
+The \code{as.ts} method can be used to extract Bray-Curtis dissimilarities or Chi-squared values as time series. This can further used in testing independence (see Examples). The method \code{as.mcmc} is useful for accessing diagnostic tools available in the 'coda' package.
 }
 
 \value{
 Functions \code{permatfull} and \code{permatswap} return an object of class \code{"permat"} containing the the function call (\code{call}), the original data matrix used for permutations (\code{orig}) and a list of permuted matrices with length \code{times} (\code{perm}).
 
 The \code{summary} method returns various statistics as a list (including mean Bray-Curtis dissimilarities calculated pairwise among original and permuted matrices, Chi-square statistics, and check results of the constraints; see Examples). Note that when \code{strata} is used in the original call, summary calculation may take longer.
+
+The \code{plot} creates a plot as a side effect.
+
+The \code{as.ts} method returns an object of class 'ts'.
 }
 \references{
 Original references for presence-absence algorithms are given on help
@@ -104,18 +124,18 @@ Applied Statistics 30, 91--97.
 \seealso{
 For other functions to permute matrices: \code{\link{commsimulator}}, \code{\link{r2dtable}}, \code{\link{sample}}, \code{\link[bipartite]{swap.web}}.
 
-For the use of these permutation algorithms: \code{\link{oecosimu}}, \code{\link{adipart}}.
+For the use of these permutation algorithms: \code{\link{oecosimu}}, \code{\link{adipart}}, \code{\link{hiersimu}}.
 
-For time-series diagnostics and plotting: \code{\link{as.ts.permat}}, \code{\link{plot.permat}}, \code{\link{lines.permat}}.
+For time-series diagnostics: \code{\link{Box.test}}, \code{\link{lag.plot}}, \code{\link{tsdiag}}, \code{\link{ar}}, \code{\link{arima}}
 }
 \examples{
 ## A simple artificial community data matrix.
 m <- matrix(c(
-   1,3,2,0,3,1,
-   0,2,1,0,2,1,
-   0,0,1,2,0,3,
-   0,0,0,1,4,3
-   ), 4, 6, byrow=TRUE)
+    1,3,2,0,3,1,
+    0,2,1,0,2,1,
+    0,0,1,2,0,3,
+    0,0,0,1,4,3
+    ), 4, 6, byrow=TRUE)
 ## Using the quasiswap algorithm to create a 
 ## list of permuted matrices, where
 ## row/columns sums and matrix fill are preserved:
@@ -134,8 +154,31 @@ summary(x3)
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
 summary(x4)
+## Not sequential algorithm
+data(BCI)
+a <- permatswap(BCI, "quasiswap")
+## Sequential algorithm
+b <- permatswap(BCI, "abuswap", fixedmar="col",
+    burnin=0, thin=100, times=50)
+opar <- par(mfrow=c(2,2))
+plot(a, main="Not sequential")
+plot(b, main="Sequential")
+plot(a, "chisq")
+plot(b, "chisq")
+par(opar)
+## Extract Bray-Curtis dissimilarities
+## as time series
+bc <- as.ts(b)
+## Lag plot
+lag.plot(bc)
+## First order autoregressive model
+mar <- arima(bc, c(1,0,0))
+mar
+## Ljung-Box test of residuals
+Box.test(mar$residuals)
+## Graphical diagnostics
+tsdiag(mar)
 }
 
 \keyword{multivariate}
 \keyword{datagen}
-
