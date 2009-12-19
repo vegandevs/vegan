@@ -7,8 +7,6 @@
     if(!inherits(d, "dist"))
         stop("distances 'd' must be a 'dist' object")
     type <- match.arg(type)
-    if(type == "median")
-        .NotYetUsed('type = "median"')
     ## checks for groups - need to be a factor for later
     if(!is.factor(group))
         group <- as.factor(group)
@@ -50,7 +48,11 @@
     ## store which are the positive eigenvalues
     pos <- eig > 0
     ## group centroids in PCoA space
-    centroids <- apply(vectors, 2, function(x) tapply(x, group, mean))
+    centroids <-
+        switch(type,
+               centroid = apply(vectors, 2, function(x) tapply(x, group, mean)),
+               median = ordimedian(vectors, group, choices = 1:ncol(vectors))
+               )
     ## for each of the groups, calculate distance to centroid for
     ## observation in the group
     if(is.matrix(centroids)) {
@@ -65,8 +67,7 @@
             dist.neg <- 0
         }
     } else {
-        dist.pos <- sweep(vectors[, pos, drop=FALSE], 2,
-                          centroids[pos])
+        dist.pos <- sweep(vectors[, pos, drop=FALSE], 2, centroids[pos])
         dist.pos <- rowSums(dist.pos^2)
         if (any(!pos)) {
             dist.neg <- sweep(vectors[, !pos, drop=FALSE], 2,
@@ -89,5 +90,6 @@
                    group = group, centroids = centroids, call = match.call())
     class(retval) <- "betadisper"
     attr(retval, "method") <- attr(d, "method")
+    attr(retval, "type") <- type
     retval
 }

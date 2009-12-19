@@ -4,14 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 
-	* twostagechao: deleted, because question regarding the 
+	* twostagechao: deleted, because question regarding the
 	notation in the original article remained unanswered.
 
 	* permat* cleanup: permat.control deleted, not needed any longer  due to changes
 	in oecosimu, documentation for plot.permat merged with permat* help page.
 
 	* goodness.cca: was not using correct weights. Broken in r992 (Sep
-	6, 2009). 
+	6, 2009).
 
 	* vegdist: added UI for the alternative Gower index ("altGower")
 	that skips double zeros. The C code has been in vegan since Oct 24
@@ -26,14 +26,19 @@ Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
 	places in permutest.cca and in anova.ccabyterm.
 
 	* permutest.cca: uses pasteCall() in print.
-	
+
+	* betadisper: added spatial median code written by Jari to betadisper.
+	All associated methods work OK, and this should be the default method
+	but needs a little checking first. This requires the new function
+	'ordimedian', which is currently undocumented in ?betadisper.
+
 Version 1.16-33 (closed December 13, 2009)
 
-	* DESCRIPTION: Guillaume Blanchet added to the Authors. 
+	* DESCRIPTION: Guillaume Blanchet added to the Authors.
 
 	* spandepth: New function to find the depths of nodes in a
 	spanning tree from spantree() function. Per request of
-	W. E. Sharp. 
+	W. E. Sharp.
 
 	* bstick: refuses to analyse capscale() models with imaginary
 	components because I have no idea how to do it. Reported by

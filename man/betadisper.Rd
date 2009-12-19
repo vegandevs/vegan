@@ -6,6 +6,7 @@
 \alias{boxplot.betadisper}
 \alias{print.betadisper}
 \alias{TukeyHSD.betadisper}
+\alias{ordimedian}
 
 \title{Multivariate homogeneity of groups dispersions (variances)}
 \description{
@@ -25,7 +26,7 @@
   Tukey's 'Honest Significant Difference' method.
 }
 \usage{
-betadisper(d, group, type = c("centroid", "median"))
+betadisper(d, group, type = c("centroid","median"))
 
 \method{anova}{betadisper}(object, \dots)
 
@@ -49,8 +50,8 @@ betadisper(d, group, type = c("centroid", "median"))
     or an object that can be coerced to a factor using
     \code{\link[base]{as.factor}}. Can consist of a factor with a single
     level (i.e.~one group).}
-  \item{type}{the type of analysis to perform. Only \code{type =
-      "centroid"} is currently supported.}
+  \item{type}{the type of analysis to perform. Use the spatial median or
+  the group centroid?}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a
@@ -222,11 +223,20 @@ groups[c(2,20)] <- NA
 dis[c(2, 20)] <- NA
 mod2 <- betadisper(dis, groups) ## warnings
 mod2
-permutest(mod, control = permControl(nperm = 100))
+permutest(mod2, control = permControl(nperm = 100))
 anova(mod2)
 plot(mod2)
 boxplot(mod2)
 plot(TukeyHSD(mod2))
+
+## Using spatial median
+mod3 <- betadisper(dis, groups, type = "median")
+mod3
+permutest(mod3, control = permControl(nperm = 100))
+anova(mod3)
+plot(mod23)
+boxplot(mod3)
+plot(TukeyHSD(mod3))
 }
 \keyword{methods}
 \keyword{multivariate}
