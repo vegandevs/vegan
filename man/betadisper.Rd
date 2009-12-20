@@ -234,7 +234,7 @@ mod3 <- betadisper(dis, groups, type = "median")
 mod3
 permutest(mod3, control = permControl(nperm = 100))
 anova(mod3)
-plot(mod23)
+plot(mod3)
 boxplot(mod3)
 plot(TukeyHSD(mod3))
 }
