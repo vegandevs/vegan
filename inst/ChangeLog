@@ -2,13 +2,19 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.16-34 (opened December 13, 2009) -- (codename: Lucia)
+Version 1.18-0 (opened January 2, 2010)
+
+	* Opened concurrently with copying 1.16-34 (at rev 1087) to
+	branches/1.17 for a new release.
+
+Version 1.16-34 (closed January 2, 2009) -- (codename: Lucia)
 
 	* twostagechao: deleted, because question regarding the
 	notation in the original article remained unanswered.
 
-	* permat* cleanup: permat.control deleted, not needed any longer  due to changes
-	in oecosimu, documentation for plot.permat merged with permat* help page.
+	* permat* cleanup: permat.control deleted, not needed any longer
+	due to changes in oecosimu, documentation for plot.permat merged
+	with permat* help page.
 
 	* goodness.cca: was not using correct weights. Broken in r992 (Sep
 	6, 2009).
