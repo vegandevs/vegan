@@ -1,7 +1,6 @@
 `isomapdist` <-
     function(dist, epsilon, k, path="shortest", fragmentedOK = FALSE, ...)
 {
-    require(vegan) || stop("needs vegan") # stepacross
     EPS <- 1e-5
     op <- options(warn = 2)
     on.exit(options(op))
