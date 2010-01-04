@@ -26,7 +26,7 @@
   Tukey's 'Honest Significant Difference' method.
 }
 \usage{
-betadisper(d, group, type = c("centroid","median"))
+betadisper(d, group, type = c("median","centroid"))
 
 \method{anova}{betadisper}(object, \dots)
 

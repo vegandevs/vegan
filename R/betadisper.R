@@ -1,11 +1,13 @@
 `betadisper` <-
-    function(d, group, type = c("centroid","median"))
+    function(d, group, type = c("median","centroid"))
 {
     ## Tolerance for zero Eigenvalues
     TOL <- 1e-7
     ## uses code from stats:::cmdscale by R Core Development Team
     if(!inherits(d, "dist"))
         stop("distances 'd' must be a 'dist' object")
+    if(missing(type))
+        type <- "median"
     type <- match.arg(type)
     ## checks for groups - need to be a factor for later
     if(!is.factor(group))
