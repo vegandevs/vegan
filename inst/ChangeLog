@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-0 (opened January 2, 2010)
 
+	* Documented na.action in cca.object.
+
 	* Opened concurrently with copying 1.16-34 (at rev 1087) to
 	branches/1.17 for a new release.
 

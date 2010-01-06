@@ -125,6 +125,32 @@
       \code{\link{scale}}.} }
   }
 }
+
+\section{NA Action}{
+  If the constraints had missing values, and \code{\link{na.action}}
+  was set to  \code{\link{na.exclude}} or \code{\link{na.omit}}, the
+  result will have some extra items:
+  \describe{
+    \item{\code{na.action}}{The object returned by
+    \code{\link{na.action}} which is a named vector of indices of
+    removed items. The class of the vector is either \code{"omit"} or
+    \code{"exclude"} as set by \code{\link{na.action}}.}
+  \item{\code{residuals.zombie}}{A zombie vector of the length of
+    number of rows in the residual ordination. Some standard \R
+    functions find the number of valid observations from this vector,
+    and it is provided for their use although this is useless in
+    \pkg{vegan}.}
+  \item{\code{rowsum.excluded}}{Row sums of removed observations. Only
+    in \code{\link{cca}}.}
+  \item{\code{CCA$wa.excluded}}{The WA scores for sites (found from
+    community data) in constrained ordinaiton if
+    \code{\link{na.action}}  was \code{\link{na.exclude}} and the
+    scores could be calculated. The scores cannot be found for 
+    \code{\link{capscale}} and in partial ordination.}
+  \item{\code{CA$u.excluded}}{Row scores for sites in unconstrained
+    ordination with identical conditions as above.}
+  }
+}
   
 \seealso{The description here provides a hacker's interface.  For more
   user friendly access to the \code{cca} object see
