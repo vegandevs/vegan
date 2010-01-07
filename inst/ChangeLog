@@ -12,6 +12,11 @@ Version 1.18-0 (opened January 2, 2010)
 	* betadisper: 'type = "median"' is now the default type of
 	analysis.
 
+	* fieller.MOStest: removed erroneous multiplication of variances
+	by overdispersion, because this was already done in cov.scaled,
+	and therefore was doubled and gave much too wide (up to Infinite)
+	limits. 
+
 Version 1.16-34 (closed January 2, 2009) -- (codename: Lucia)
 
 	* twostagechao: deleted, because question regarding the

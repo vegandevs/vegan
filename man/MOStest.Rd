@@ -163,9 +163,8 @@ mod <- MOStest(log(mass), spno, family=quasipoisson)
 mod
 plot(mod)
 par(op)
-## Infinite confidence limits (NA)
+## Confidence Limits
 fieller.MOStest(mod)
-## Finite limits with the profile
 confint(mod)
 plot(profile(mod))
 }
