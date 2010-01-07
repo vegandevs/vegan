@@ -38,7 +38,7 @@ fieller.MOStest(object, level = 0.95)
     evaluated. If missing, the extremes of \code{x} are used. }
   \item{which}{Subset of plots produced. Values \code{which=1} and
     \code{2} define plots specific to \code{MOStest} (see Details), and
-    larger values select a graphs of \code{\link{plot.lm}} (minus2). }
+    larger values select graphs of \code{\link{plot.lm}} (minus 2). }
   \item{object, fitted}{A result object from \code{MOStest}.}
   \item{level}{The confidence level required.}
   \item{alpha}{Maximum significance level allowed.}
@@ -46,7 +46,7 @@ fieller.MOStest(object, level = 0.95)
   \item{del}{A step length parameter for the profile (see code).}
   \item{parm}{Ignored.}
   \item{\dots}{ Other variables passed to functions. Function
-    \code{mitchell.olds.test} passes these to \code{\link{glm}} so that
+    \code{MOStest} passes these to \code{\link{glm}} so that
     these can include \code{\link{family}}. The other functions pass
     these to underlying graphical functions. }
 }
@@ -59,13 +59,13 @@ fieller.MOStest(object, level = 0.95)
   \eqn{u = -b_2/(2 b_3)} (ter Braak & Looman 1986). If \eqn{b_2 > 0},
   the parabola has a minimum at \eqn{u} and the response is sometimes
   called \dQuote{bimodal}.  The null hypothesis is that the extreme
-  point \eqn{u} is located within interval given by points \eqn{p_1} and
+  point \eqn{u} is located within the interval given by points \eqn{p_1} and
   \eqn{p_2}. If the extreme point \eqn{u} is exactly at \eqn{p_1}, then
   \eqn{b_1 = 0} on shifted axis \eqn{x - p_1}.  In the test, origin of
   \code{x} is shifted to the values \eqn{p_1} and \eqn{p_2}, and the
   test statistic is the value of the first degree coefficient with its
   significance as estimated by the \code{\link{summary.glm}}
-  function(Mitchell-Olds & Shaw 1987). 
+  function (Mitchell-Olds & Shaw 1987). 
 
   The test is often presented as a general test for the location of the
   hump, but it really is dependent on the quadratic fitted curve. If the
@@ -122,7 +122,7 @@ interpretation. \emph{Evolution} 41, 1149--1161.
 
 Mittelbach, G.C. Steiner, C.F., Scheiner, S.M., Gross, K.L., Reynolds,
 H.L., Waide, R.B., Willig, R.M., Dodson, S.I. & Gough, L. 2001. What is
-the observed richness between species richness and productivity?
+the observed relationship between species richness and productivity?
 \emph{Ecology} 82, 2381--2396.
 
 Oksanen, J., Läärä, E., Tolonen, K. & Warner, B.G. 2001. Confidence
