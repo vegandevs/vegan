@@ -51,7 +51,7 @@ betadisper(d, group, type = c("median","centroid"))
     \code{\link[base]{as.factor}}. Can consist of a factor with a single
     level (i.e.~one group).}
   \item{type}{the type of analysis to perform. Use the spatial median or
-  the group centroid?}
+  the group centroid? The spatial median is now the default.}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a
@@ -73,7 +73,8 @@ betadisper(d, group, type = c("median","centroid"))
 \details{
   One measure of multivariate dispersion (variance) for a group of
   samples is to calculate the average distance of group members to the
-  group centroid or spatial median in multivariate space. To test if the
+  group centroid or spatial median (both referred to as 'centroid' from
+  now on unless stated otherwise) in multivariate space. To test if the
   dispersions (variances) of one or more groups are different, the
   distances of group members to the group centroid are subject to
   ANOVA. This is a multivariate analogue of Levene's test for
@@ -174,6 +175,14 @@ betadisper(d, group, type = c("median","centroid"))
 
   Missing values in either \code{d} or \code{group} will be removed
   prior to performing the analysis.
+}
+\section{Warning}{
+  Stewart Schultz noticed that the permutation test for \code{type =
+  "centroid"} had the wrong type I error and was anti-conservative. As
+  such, the default for \code{type} has been changed to \code{"median"},
+  which uses the spatial median as the group centroid. Tests suggests
+  that the permutation test for this type of analysis gives the correct
+  error rates.
 }
 \references{
   Anderson, M.J. (2006) Distance-based tests for homogeneity of
