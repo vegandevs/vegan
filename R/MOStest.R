@@ -17,11 +17,15 @@
         p2 <- max(x)
     else
         p2 <- interval[2]
-    tmp <- glm(y ~ I(x^2 - 2*x*p1) + x, ...)
-    statmin <- coef(summary(tmp))[3, 3:4]
-    tmp <- glm(y ~ I(x^2 - 2*x*p2) + x, ...)
-    statmax <- coef(summary(tmp))[3, 3:4]
+    test <- if (m0$family$family %in% c("binomial", "poisson")) "Chisq" else "F"
+    tmp <- glm(y ~ I(x^2 - 2*x*p1), ...)
+    ## Chisq test has one column less than F test: extract statistic
+    ## and its P value
+    statmin <- anova(tmp, m0, test = test)[2, (5:6) - (test == "Chisq")]
+    tmp <- glm(y ~ I(x^2 - 2*x*p2), ...)
+    statmax <- anova(tmp, m0, test = test)[2, (5:6) - (test == "Chisq")]
     comb <- 1 - (1-statmin[2])*(1-statmax[2])
+    comb <- unlist(comb)
     stats <- rbind(statmin, statmax)
     rownames(stats) <- paste(hn, c("at min", "at max"))
     stats <- cbind("min/max" = c(p1,p2), stats)

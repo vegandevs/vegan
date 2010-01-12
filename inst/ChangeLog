@@ -17,6 +17,15 @@ Version 1.18-0 (opened January 2, 2010)
 	and therefore was doubled and gave much too wide (up to Infinite)
 	limits. 
 
+	* MOStest uses now ANODEV of free model and model where the
+	hump/pit is forced to a given location instead of the test based
+	on the Wald statistic (coefficient/sd) of the coefficient of the
+	linear term. The ANODEV and Wald statistic are equivalent in
+	Gaussian models, but in with other error families the ANODEV is
+	more correct. This fix removes the conflict between the basic
+	MOStest() and its profile() and confint() methods in non-Gaussian
+	families. 
+
 Version 1.16-34 (closed January 2, 2009) -- (codename: Lucia)
 
 	* twostagechao: deleted, because question regarding the

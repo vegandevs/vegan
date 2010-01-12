@@ -53,19 +53,25 @@ fieller.MOStest(object, level = 0.95)
 
 \details{
 
-  The function fits a quadratic curve \eqn{\mu = b_0 + b_1 x + b_2 x^2}
-  with given \code{\link{family}} and link function.  If \eqn{b_2 < 0},
-  this defines a unimodal curve with highest point at
-  \eqn{u = -b_2/(2 b_3)} (ter Braak & Looman 1986). If \eqn{b_2 > 0},
-  the parabola has a minimum at \eqn{u} and the response is sometimes
+  The function fits a quadratic curve \eqn{\mu = b_0 + b_1 x + b_2
+  x^2} with given \code{\link{family}} and link function.  If \eqn{b_2
+  < 0}, this defines a unimodal curve with highest point at \eqn{u =
+  -b_2/(2 b_3)} (ter Braak & Looman 1986). If \eqn{b_2 > 0}, the
+  parabola has a minimum at \eqn{u} and the response is sometimes
   called \dQuote{bimodal}.  The null hypothesis is that the extreme
-  point \eqn{u} is located within the interval given by points \eqn{p_1} and
-  \eqn{p_2}. If the extreme point \eqn{u} is exactly at \eqn{p_1}, then
-  \eqn{b_1 = 0} on shifted axis \eqn{x - p_1}.  In the test, origin of
-  \code{x} is shifted to the values \eqn{p_1} and \eqn{p_2}, and the
-  test statistic is the value of the first degree coefficient with its
-  significance as estimated by the \code{\link{summary.glm}}
-  function (Mitchell-Olds & Shaw 1987). 
+  point \eqn{u} is located within the interval given by points
+  \eqn{p_1} and \eqn{p_2}. If the extreme point \eqn{u} is exactly at
+  \eqn{p_1}, then \eqn{b_1 = 0} on shifted axis \eqn{x - p_1}.  In the
+  test, origin of \code{x} is shifted to the values \eqn{p_1} and
+  \eqn{p_2}, and the test statistic is based on the differences of
+  deviances between the original model and model where the origin is
+  forced to the given location using the standard
+  \code{\link{anova.glm}} function (Oksanen et al. 2001).
+  Mitchell-Olds & Shaw (1987) used the first degree coefficient with
+  its significance as estimated by the \code{\link{summary.glm}}
+  function.  This give identical results with Normal error, but for
+  other error distributions it is preferable to use the test based on
+  differences in deviances in fitted models.
 
   The test is often presented as a general test for the location of the
   hump, but it really is dependent on the quadratic fitted curve. If the
