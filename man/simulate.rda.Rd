@@ -11,7 +11,7 @@
 }
 
 \usage{
-\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, ...)
+\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
 }
 \arguments{
   \item{object}{an object representing a fitted \code{\link{rda}} model.}
@@ -26,6 +26,8 @@
     have duplicate entries so that bootstrapping is allowed. If null,
     parametric simulation is used and Gaussian error is added to the
     fitted values.}
+  \item{rank}{The rank of the constrained component: passed to
+    \code{\link{predict.rda}} or \code{\link{predict.cca}}. }
   \item{\dots}{additional optional arguments (ignored). }
 }
 

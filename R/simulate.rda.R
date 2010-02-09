@@ -1,5 +1,5 @@
 `simulate.rda` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...) 
 {
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
@@ -16,7 +16,7 @@
     ## response matrix.
     if (nsim > 1)
         .NotYetUsed("nsim")
-    ftd <- fitted(object)
+    ftd <- predict(object, type = "response", rank = rank)
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
@@ -39,7 +39,7 @@
 ### still guarantee that all marginal totals are positive.
 
 `simulate.cca` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, ...)
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
 {
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
@@ -59,7 +59,7 @@
     ## Need sqrt of rowsums for weighting
     sq.r <- sqrt(object$rowsum)
     ## Fitted value
-    ftd <- fitted(object, type = "working")
+    ftd <- predict(object, type = "working", rank = rank)
     ## pCCA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
