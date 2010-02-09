@@ -1,5 +1,5 @@
 "predict.cca" <-
-    function (object, newdata, type = c("response", "wa", "sp", "lc"), 
+    function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
               rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...) 
 {
     type <- match.arg(type)
@@ -18,14 +18,17 @@
     if (is.null(w)) 
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
-    if (type == "response") {
+    if (type %in%  c("response", "working")) {
         Xbar <- 0
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
         if (!is.null(object$pCCA)) 
             warning("Conditional ('partial') component ignored")
         rc <- outer(rs, cs)
-        out <- (Xbar + 1) * rc * gtot
+        if (type == "response") 
+            out <- (Xbar + 1) * rc * gtot
+        else                 # type == "working"
+            out <- Xbar * sqrt(rc)
     }
     else if (type == "lc") {
         if (model == "CA") 

@@ -24,7 +24,7 @@
 \method{fitted}{capscale}(object, model = c("CCA", "CA", "Imaginary"),
     type = c("response", "working"), ...)
 \method{residuals}{cca}(object, ...)
-\method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc"),
+\method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
     rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, ...)
@@ -43,20 +43,19 @@
     this a new community data frame, but for \code{predict.cca}
     \code{type = "lc"} it must be an environment data frame, and for
     \code{type = "response"} this is ignored.}
-  \item{type}{The type of prediction, fitted values or residuals: In
-    \code{fitted} and \code{residuals}, \code{"response"} scales results so
-    that the same ordination gives the same results, and \code{"working"}
-    gives the values used internally, that is after Chi-square
-    standardization in \code{\link{cca}} and scaling and centring in 
-    \code{\link{rda}}. In \code{\link{capscale}} the \code{"response"} gives
-    the dissimilarities, and \code{"working"} the scaled scores that produce
-    the dissimilarities as Euclidean distances.
-    In \code{predict} \code{"response"} 
-    gives an approximation of the original data matrix or dissimilarities, 
-    \code{"wa"} the site scores as weighted averages of the community data, 
-    \code{"lc"} the site scores as linear combinations of environmental data, 
-    and \code{"sp"} the species scores. In \code{predict.decorana} the
-    alternatives are scores for \code{"sites"} or \code{"species"}.} 
+  \item{type}{The type of prediction, fitted values or residuals:
+    \code{"response"} scales results so that the same ordination gives
+    the same results, and \code{"working"} gives the values used
+    internally, that is after Chi-square standardization in
+    \code{\link{cca}} and scaling and centring in
+    \code{\link{rda}}. In \code{\link{capscale}} the \code{"response"}
+    gives the dissimilarities, and \code{"working"} the scaled scores
+    that produce the dissimilarities as Euclidean
+    distances. Alternative \code{"wa"} gives the site scores as
+    weighted averages of the community data, \code{"lc"} the site
+    scores as linear combinations of environmental data, and
+    \code{"sp"} the species scores. In \code{predict.decorana} the
+    alternatives are scores for \code{"sites"} or \code{"species"}.}
   \item{rank}{The rank or the number of axes used in the approximation.
     The default is to use all axes (full rank) of the \code{"model"} or
     all available four axes in \code{predict.decorana}.}

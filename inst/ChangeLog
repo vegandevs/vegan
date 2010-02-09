@@ -6,7 +6,8 @@ Version 1.18-1 (opened February 9, 2010)
 
 	* predict.cca, predict.rda: match 'newdata' by row names or column
 	names in type = "wa" and type = "sp". This is similar as
-	predict.prcomp/princomp.
+	predict.prcomp/princomp. Gained choice type = "working" for
+	working residuals (as fitted.cca/rda). 
 
 Version 1.18-0 (closeed January 11, 2010 with release 1.17-0)
 

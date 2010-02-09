@@ -1,5 +1,5 @@
 `predict.rda` <-
-    function (object, newdata, type = c("response", "wa", "sp", "lc"), 
+    function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
               rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...) 
 {
     type <- match.arg(type)
@@ -22,7 +22,7 @@
     if (is.null(w)) 
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
-    if (type == "response") {
+    if (type %in% c("response", "working")) {
         if (!is.null(object$pCCA)) 
             warning("Conditional ('partial') component ignored")
         if (inherits(object, "capscale")) {
@@ -36,9 +36,13 @@
                 rownames(out) <- rownames(u)
                 colnames(out) <- rownames(v)
             }
-            if (!is.null(scal)) 
-                out <- sweep(out, 2, scal, "*")
-            out <- sweep(out, 2, cent, "+")
+            if (type == "response") {
+                if (!is.null(scal)) 
+                    out <- sweep(out, 2, scal, "*")
+                out <- sweep(out, 2, cent, "+")
+            } else {
+                out <- out/sqrt(nrow(out) - 1)
+            }
         }
     }
     else if (type == "lc") {
