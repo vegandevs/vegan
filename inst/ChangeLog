@@ -13,6 +13,8 @@ Version 1.18-1 (opened February 9, 2010)
 	predict.rda() or predict.rda(). This also allows simulation under
 	null model by setting rank = 0.
 
+	* permatfull.Rd: fixed braces in the help file + mark-up.
+
 Version 1.18-0 (closeed January 11, 2010 with release 1.17-0)
 
 	* Documented na.action in cca.object.
