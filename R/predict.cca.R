@@ -59,10 +59,17 @@
         if (!missing(newdata)) {
             if (!is.null(object$pCCA)) 
                 stop("No 'wa' scores available (yet) in partial CCA")
+            nm <- rownames(v)
+            if (!is.null(nm)) { # Got rownames: keep only species with scores
+                if (!all(nm %in% colnames(newdata)))
+                    stop("'newdata' does not have named columns matching one or more the original columns")
+                newdata <-  newdata[, nm, drop = FALSE]
+            } else { #Rownames are NULL: still try to remove exclude.spec
+                exclude.spec <- attr(object[[model]]$v, "na.action")
+                if (!is.null(exclude.spec)) 
+                    Xbar <- Xbar[, -exclude.spec]
+            }
             Xbar <- as.matrix(newdata)
-            exclude.spec <- attr(object[[model]]$v, "na.action")
-            if (!is.null(exclude.spec)) 
-                Xbar <- Xbar[, -exclude.spec]
             rs <- rowSums(Xbar)
             Xbar <- (Xbar - outer(rs, cs))/sqrt(outer(rs, cs))
             v <- sweep(v, 1, sqrt(cs), "*")
@@ -81,6 +88,12 @@
     }
     else if (type == "sp") {
         if (!missing(newdata)) {
+            nm <- rownames(u)
+            if (!is.null(nm)) {
+                if (!all(nm %in% rownames(newdata)))
+                    stop("'newdata' does not have named rows matching one or more of the original rows")
+                newdata <- newdata[nm, , drop = FALSE]
+            }
             Xbar <- as.matrix(newdata)
             cs <- colSums(Xbar)
             Xbar <- (Xbar - outer(rs, cs))/sqrt(outer(rs, cs))

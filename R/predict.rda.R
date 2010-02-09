@@ -73,6 +73,12 @@
                 stop("'wa' scores not available in capscale with 'newdata'")
             if (!is.null(object$pCCA)) 
                 stop("No 'wa' scores available (yet) in partial RDA")
+            nm <- rownames(v)
+            if (!is.null(nm)) {
+                if (!all(nm %in% colnames(newdata)))
+                    stop("'newdata' does not have named columns matching one or more the original columns")
+                newdata <-  newdata[, nm, drop = FALSE]
+            }
             Xbar <- as.matrix(newdata)
             Xbar <- sweep(Xbar, 2, cent, "-")
             if (!is.null(scal)) {
@@ -93,6 +99,12 @@
         if (inherits(object, "capscale")) 
             warning("'sp' scores may be meaningless in 'capscale'")
         if (!missing(newdata)) {
+            nm <- rownames(u)
+            if (!is.null(nm)) {
+                if (!all(nm %in% rownames(newdata)))
+                    stop("'newdata' does not have named rows matching one or more of the original rows")
+                newdata <- newdata[nm, , drop = FALSE]
+            }
             Xbar <- as.matrix(newdata)
             Xbar <- scale(Xbar, center = TRUE, scale = scaled.PCA)
             if (!is.null(object$pCCA)) 
