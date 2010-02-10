@@ -38,11 +38,15 @@
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. For \code{\link{capscale}} this can also be 
     \code{"Imaginary"} for imaginary components with negative eigenvalues. }
-  \item{newdata}{New data frame to be used in
-    prediction of species and site scores or for calibration.  Usually
-    this a new community data frame, but for \code{predict.cca}
-    \code{type = "lc"} it must be an environment data frame, and for
-    \code{type = "response"} this is ignored.}
+  \item{newdata}{New data frame to be used in prediction of species
+    and site scores or for calibration.  Usually this a new community
+    data frame, but for \code{predict.cca} \code{type = "lc"} it must
+    be an environment data frame, and for \code{type = "response"}
+    this is ignored.  If the original model had row or column names,
+    then new data must contain rows or columns with the same names
+    (row names for species scores, column names for \code{"wa"} scores
+    and constraint names of \code{"lc"} scores). In other cases the
+    rows or columns must match directly. }
   \item{type}{The type of prediction, fitted values or residuals:
     \code{"response"} scales results so that the same ordination gives
     the same results, and \code{"working"} gives the values used
