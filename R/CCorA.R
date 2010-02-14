@@ -1,19 +1,20 @@
 `CCorA` <-
     function(Y, X, stand.Y = FALSE, stand.X = FALSE, nperm = 0, ...)
 {
-    require(MASS) || stop("requires packages 'MASS'")
+    require(MASS) || stop("Requires package 'MASS'")
     epsilon <- sqrt(.Machine$double.eps)
+    ##
     ## BEGIN: Internal functions
+    ##
     cov.inv <- function(mat, no, epsilon) {
         ## This function returns:
-        ## 1) mat = the matrix of PCA object scores (by SVD);
+        ## 1) mat = matrix F of the principal components (PCA object scores);
         ## 2) S.inv = the inverse of the covariance matrix;
         ## 3) m = the rank of matrix 'mat'
-        ## The inverse of the PCA covariance matrix is simply the
-        ## diagonal matrix of (1/eigenvalues).  If ncol(mat) = 1, the
-        ## inverse of the covariance matrix simply contains
-        ## 1/var(mat).
-        mat <- as.matrix(mat)
+        ## The inverse of the PCA covariance matrix is the diagonal
+        ## matrix of (1/eigenvalues). If ncol(mat) = 1, the
+        ## inverse of the covariance matrix contains 1/var(mat).
+        mat <- as.matrix(mat)    # 'mat' was centred before input to cov.inv
         if(ncol(mat) == 1) {
             S.inv <- as.matrix(1/var(mat))
             m <- 1
@@ -26,7 +27,7 @@
                 m <- mm
             }
             S.inv <- diag(1/S.svd$d[1:m])
-            mat <- mat %*% S.svd$u[,1:m]
+            mat <- mat %*% S.svd$u[,1:m] # S.svd$u = normalized eigenvectors
         }
         list(mat=mat, S.inv=S.inv, m=m)
     }
@@ -56,22 +57,44 @@
         P <- nGE/(nperm+1)
     }
     ## END: internal functions
+    ##
     Y <- as.matrix(Y)
     var.null(Y,1)
     nY <- nrow(Y)
     p <- ncol(Y)
-    Ynoms <- colnames(Y)
+    if(is.null(colnames(Y))) {
+        Ynoms <- paste("VarY", 1:p, sep="")
+        } else {
+        Ynoms <- colnames(Y)
+        }
     X <- as.matrix(X)
     var.null(X,2)
     nX <- nrow(X)
     q <- ncol(X)
-    Xnoms <- colnames(X)
+    if(is.null(colnames(X))) {
+        Xnoms <- paste("VarX", 1:q, sep="")
+        } else {
+        Xnoms <- colnames(X)
+        }
     if(nY != nX) stop("Different numbers of rows in Y and X")
     n <- nY
-    if((p+q) >= (n-1)) stop("Not enough degrees of freedom!")
-    rownoms <- rownames(Y)
+    if((p+q) >= (n-1)) stop("Not enough degrees of freedom: (p+q) >= (n-1)")
+    if(is.null(rownames(X)) & is.null(rownames(Y))) {
+        rownoms <- paste("Obj", 1:n, sep="")
+        } else {
+        if(is.null(rownames(X))) {
+            rownoms <- rownames(Y)
+            } else {
+            rownoms <- rownames(X)
+            }
+        }
     Y.c <- scale(Y, center = TRUE, scale = stand.Y)
     X.c <- scale(X, center = TRUE, scale = stand.X)
+    ## Check for identical matrices
+    if(p == q) {
+    	if(sum(abs(Y-X)) < epsilon^2) stop("Y and X are identical")
+    	if(sum(abs(Y.c-X.c)) < epsilon^2) stop("After centering, Y and X are identical")
+    	}
     ## Replace Y.c and X.c by tables of their PCA object scores, computed by SVD
     temp <- cov.inv(Y.c, 1, epsilon)
     Y <- temp$mat
@@ -79,7 +102,7 @@
     rownames(Y) <- rownoms
     temp <- cov.inv(X.c, 2, epsilon)
     X <- temp$mat
-     qq <- temp$m
+    qq <- temp$m
     rownames(X) <- rownoms
     ## Covariance matrices, etc. from the PCA scores
     S11 <- cov(Y)
@@ -95,7 +118,11 @@
     ## K summarizes the correlation structure between the two sets of variables
     K <- t(S11.chol.inv) %*% S12 %*% S22.chol.inv
     K.svd <- svd(K)
-    EigenValues <- K.svd$d^2
+    Eigenvalues <- K.svd$d^2
+    ##
+    ## Check for circular covariance matrix
+    if((p == q) & (var(K.svd$d) < epsilon))
+    	cat("Warning: [nearly] circular covariance matrix. The solution may be meaningless.",'\n')
     ## K.svd$u %*% diag(K.svd$d) %*% t(K.svd$v)   # To check that K = U D V'
     axenames <- paste("CanAxis",1:length(K.svd$d),sep="")
     U <- K.svd$u
@@ -104,21 +131,19 @@
     B <- S22.chol.inv %*% V
     Cy <- (Y %*% A)/sqrt(n-1)
     Cx <- (X %*% B)/sqrt(n-1)
-    ## Compute the 'Biplot scores of Y variables' a posteriori --
-    ## use 'ginv' for inversion in case there is collinearity
-    ## AA <- coefficients of the regression of Cy on Y.c, times sqrt(n-1)
-    ## AA <- sqrt(n-1) * [Y'Y]-1 Y' Cy
-    YprY <- t(Y.c) %*% Y.c
-    AA <- sqrt(n-1) * ginv(YprY) %*% t(Y.c) %*% Cy
-    ##
-    ## Compute the 'Biplot scores of X variables' a posteriori --
-    XprX <- t(X) %*% X
-    BB <- sqrt(n-1) * ginv(XprX) %*% t(X) %*% Cx
+    ## Compute the 'Biplot scores of Y and X variables' a posteriori --
+    corr.Y.Cy <- cor(Y.c, Cy)  # To plot Y in biplot in space Y
+    corr.Y.Cx <- cor(Y.c, Cx)  # Available for plotting Y in space of X
+    corr.X.Cy <- cor(X.c, Cy)  # Available for plotting X in space of Y
+    corr.X.Cx <- cor(X.c, Cx)  # To plot X in biplot in space X
     ## Add row and column names
-    rownames(AA) <- Ynoms
-    rownames(BB) <- Xnoms
     rownames(Cy) <- rownames(Cx) <- rownoms
-    colnames(AA) <- colnames(BB) <- colnames(Cy) <- colnames(Cx) <- axenames
+	colnames(Cy) <- colnames(Cx) <- axenames    
+    rownames(corr.Y.Cy) <- rownames(corr.Y.Cx) <- Ynoms
+    rownames(corr.X.Cy) <- rownames(corr.X.Cx) <- Xnoms
+    colnames(corr.Y.Cy) <- colnames(corr.Y.Cx) <- axenames
+    colnames(corr.X.Cy) <- colnames(corr.X.Cx) <- axenames
+
     ## Compute the two redundancy statistics
     RsquareY.X <- simpleRDA2(Y, X)
     RsquareX.Y <- simpleRDA2(X, Y)
@@ -143,12 +168,13 @@
         p.perm <- NA
     }
 
-    out <- list(Pillai=PillaiTrace, EigenValues=EigenValues, CanCorr=K.svd$d,
+    out <- list(Pillai=PillaiTrace, Eigenvalues=Eigenvalues, CanCorr=K.svd$d,
                 Mat.ranks=c(RsquareX.Y$m, RsquareY.X$m), 
                 RDA.Rsquares=c(RsquareY.X$Rsquare, RsquareX.Y$Rsquare),
                 RDA.adj.Rsq=c(Rsquare.adj.Y.X, Rsquare.adj.X.Y),
-                nperm=nperm, p.Pillai=p.Pillai, p.perm=p.perm,
-                AA=AA, BB=BB, Cy=Cy, Cx=Cx, call = match.call())
+                nperm=nperm, p.Pillai=p.Pillai, p.perm=p.perm, Cy=Cy, Cx=Cx, 
+                corr.Y.Cy=corr.Y.Cy, corr.X.Cx=corr.X.Cx, corr.Y.Cx=corr.Y.Cx, 
+                corr.X.Cy=corr.X.Cy, call = match.call())
     class(out) <- "CCorA"
     out
 }

@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-1 (opened February 9, 2010)
 
+	* CCorA: Fixed bug in presentation of variables in plots. Adds new
+	biplot types. General improvement in checking exceptional cases
+	improve stability.
+
 	* predict.cca, predict.rda: match 'newdata' by row names or column
 	names in type = "wa" and type = "sp". This is similar as
 	predict.prcomp/princomp. Gained choice type = "working" for

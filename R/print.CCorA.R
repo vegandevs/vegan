@@ -16,7 +16,7 @@
     }
     cat("from F-distribution: ", format.pval(x$p.Pillai), "\n\n")
     out <- rbind("Eigenvalues" = x$EigenValues, "Canonical Correlations" = x$CanCorr)
-    colnames(out) <- colnames(x$AA)
+    colnames(out) <- colnames(x$Cy)
     printCoefmat(out, ...)
     cat("\n")
     out <- rbind("RDA R squares" = x$RDA.Rsquares, "adj. RDA R squares" = x$RDA.adj.Rsq)
