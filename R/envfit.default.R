@@ -36,13 +36,15 @@
             if (!is.null(seed)) {
                 assign(".Random.seed", seed, envir = .GlobalEnv)
             }
-            factors <- factorfit(X, Pfac, permutations, strata,  ...)
+            factors <- factorfit(X, Pfac, permutations, strata,
+                                 choices, w = w, ...)
             sol <- list(vector = vectors, factors = factors)
         }
         else vectors <- vectorfit(X, env, permutations, strata, 
                                   choices, w = w, ...)
     }
-    else vectors <- vectorfit(X, env, permutations, strata, ...)
+    else vectors <- vectorfit(X, env, permutations, strata,
+                              choices, w = w, ...)
     sol <- list(vectors = vectors, factors = factors)
     if (!is.null(na.action))
         sol$na.action <- na.action
