@@ -6,7 +6,7 @@ Version 1.18-1 (opened February 9, 2010)
 
 	* envfit: did not pass weights to factorfit or to vectorfit when
 	the environmental variable was a single vector. Reported for
-	vectors by Richard Telford.
+	vectors by Richard Telford. Broken in rev1004 (Sep 12, 2009).
 
 	* CCorA: Fixed bug in presentation of variables in plots. Adds new
 	biplot types. General improvement in checking exceptional cases
