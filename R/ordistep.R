@@ -34,6 +34,8 @@
     }
     scope <- factor.scope(ffac, list(add = fadd, drop = fdrop))
     mod <- object
+    ## 'anotab' collects the changes into 'anova' object in the output
+    anotab <- NULL
     for (i in 1:steps){
         change <- NULL
         ## Consider dropping
@@ -49,6 +51,7 @@
                 print(aod)
             }
             if (aod[1,5] > Pout) {
+                anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 mod <- eval.parent(update(mod, paste("~  .", change)))
                 scope <- factor.scope(attr(terms(mod), "factors"),
@@ -72,6 +75,7 @@
                 print(aod)
             }
             if (aod[1,5] <= Pin) {
+                anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 mod <- eval.parent(update(mod, paste( "~  .",change)))
                 scope <- factor.scope(attr(terms(mod), "factors"),
@@ -87,5 +91,6 @@
             break
     }
     cat("\n")
+    mod$anova <- anotab
     mod
 }

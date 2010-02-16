@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-1 (opened February 9, 2010)
 
+	* ordistep: saves model changes in the 'anova' item similarly as
+	standard step(). Experimental feature: not yet documented. 
+
 	* envfit: did not pass weights to factorfit or to vectorfit when
 	the environmental variable was a single vector. Reported for
 	vectors by Richard Telford. Broken in rev1004 (Sep 12, 2009).
