@@ -59,7 +59,7 @@ level \eqn{i} is the mean of the beta values of the clusters at that level,
 \eqn{\beta_{i} = mean(\beta_{ij})}.
 
 If \code{relative = TRUE}, the respective beta diversity values are
-standardized by their maximum expected values (\eqn{mean(\beta_{ij}) / \beta_{max,ij}})
+standardized by their maximum possible values (\eqn{mean(\beta_{ij}) / \beta_{max,ij}})
 given as \eqn{\beta_{max,ij} = n_{j}} (the number of lower level units in a given cluster \eqn{j}).
 
 The expected diversity components are calculated \code{nsimul} times by individual based 
