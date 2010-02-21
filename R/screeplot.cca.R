@@ -3,7 +3,7 @@
              npcs = min(10, if(is.null(x$CCA)) x$CA$rank else x$CCA$rank),
              ptype = "o", bst.col = "red", bst.lty = "solid",
              xlab = "Component", ylab = "Inertia",
-             main = deparse(substitute(x)), ...)
+             main = deparse(substitute(x)), legend = bstick, ...)
 {
     if(is.null(x$CCA))
         eig.vals <- x$CA$eig
@@ -27,11 +27,14 @@
     if(type=="barplot") {
         ## barplot looks weird if 0 not included
         ylims <- range(0, ylims)
-        mids <- barplot(eig.vals[comps], names = names(eig.vals[comps]),
-                        main = main, ylab = ylab, ylim = ylims, ...)
+        mids <- barplot(eig.vals[comps],
+                        names = names(eig.vals[comps]),
+                        main = main, ylab = ylab, ylim = ylims,
+                        ...)
     } else {
-        plot(eig.vals[comps], type = ptype, axes = FALSE, ylim = ylims,
-             xlab = xlab, ylab = ylab, main = main, ...)
+        plot(eig.vals[comps], type = ptype, axes = FALSE,
+             ylim = ylims, xlab = xlab, ylab = ylab,
+             main = main, ...)
         axis(2)
         axis(1, at = comps, labels = names(eig.vals[comps]))
         box()
@@ -40,6 +43,33 @@
     if(bstick) {
         lines(mids, ord.bstick[comps], type = ptype, col = bst.col,
               lty = bst.lty)
+        if(legend) {
+            dot.args <- list(...)
+            dot.nams <- names(dot.args)
+            pch <- if("pch" %in% dot.nams)
+                dot.args$pch
+            else
+                par("pch")
+            col <- if("col" %in% dot.nams)
+                dot.args$col
+            else
+                par("col")
+            lty <- if("lty" %in% dot.nams)
+                dot.args$lty
+            else
+                par("lty")
+            if(type == "lines") {
+                legend("topright",
+                       legend = c("Ordination","Broken Stick"),
+                       bty = "n", col = c(col, bst.col),
+                       lty = c(lty, bst.lty),
+                       pch = pch)
+            } else {
+                legend("topright",
+                       legend = "Broken Stick", bty = "n",
+                       col = bst.col, lty = bst.lty, pch = pch)
+            }
+        }
     }
     invisible(xy.coords(x = mids, y = eig.vals[comps]))
 }

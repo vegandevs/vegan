@@ -20,7 +20,7 @@
          npcs = min(10, if (is.null(x$CCA)) x$CA$rank else x$CCA$rank),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)),
+         main = deparse(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{decorana}(x, bstick = FALSE, type = c("barplot", "lines"),
@@ -34,14 +34,14 @@
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)),
+         main = deparse(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{princomp}(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)),
+         main = deparse(substitute(x)), legend = bstick,
          \dots)
 
 bstick(n, \dots)
@@ -67,6 +67,7 @@ bstick(n, \dots)
   \item{bst.col, bst.lty}{the colour and line type used to draw the
     broken stick distribution.}
   \item{xlab, ylab, main}{graphics parameters.}
+  \item{legend}{logical; draw a legend?}
   \item{n}{an object from which the variances can be extracted or the
     number of variances (components) in the case of
     \code{bstick.default}.}
