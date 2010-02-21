@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-2 (opened February 18, 2010)
 
+	* screeplot: New argument 'legend' for all methods (except
+	'decorana') to draw a legend if the observed and broken stick
+	distribution are both plotted.
+
 Version 1.18-1 (closed February 18, 2010)
 
 	* closed with the release of vegan 1.17-1. The release contains
@@ -11,7 +15,7 @@ Version 1.18-1 (closed February 18, 2010)
 	upgrades to ordistep.
 
 	* ordistep: saves model changes in the 'anova' item similarly as
-	standard step(). Experimental feature: not yet documented. 
+	standard step(). Experimental feature: not yet documented.
 
 	* envfit: did not pass weights to factorfit or to vectorfit when
 	the environmental variable was a single vector. Reported for
@@ -24,7 +28,7 @@ Version 1.18-1 (closed February 18, 2010)
 	* predict.cca, predict.rda: match 'newdata' by row names or column
 	names in type = "wa" and type = "sp". This is similar as
 	predict.prcomp/princomp. Gained choice type = "working" for
-	working residuals (as fitted.cca/rda). 
+	working residuals (as fitted.cca/rda).
 
 	* simulate.rda, simulate.cca: gained argument rank passed to
 	predict.rda() or predict.rda(). This also allows simulation under
@@ -45,7 +49,7 @@ Version 1.18-0 (closed January 11, 2010 with release 1.17-0)
 	* fieller.MOStest: removed erroneous multiplication of variances
 	by overdispersion, because this was already done in cov.scaled,
 	and therefore was doubled and gave much too wide (up to Infinite)
-	limits. 
+	limits.
 
 	* MOStest uses now ANODEV of free model and model where the
 	hump/pit is forced to a given location instead of the test based
@@ -54,7 +58,7 @@ Version 1.18-0 (closed January 11, 2010 with release 1.17-0)
 	Gaussian models, but in with other error families the ANODEV is
 	more correct. This fix removes the conflict between the basic
 	MOStest() and its profile() and confint() methods in non-Gaussian
-	families. 
+	families.
 
 Version 1.16-34 (closed January 2, 2009) -- (codename: Lucia)
 
