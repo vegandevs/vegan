@@ -6,7 +6,8 @@ Version 1.18-2 (opened February 18, 2010)
 
 	* screeplot: New argument 'legend' for all methods (except
 	'decorana') to draw a legend if the observed and broken stick
-	distribution are both plotted.
+	distribution are both plotted. Now also respects 'pch' for the
+	broken stick line.
 
 Version 1.18-1 (closed February 18, 2010)
 

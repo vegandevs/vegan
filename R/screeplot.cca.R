@@ -41,15 +41,15 @@
         mids <- comps
     }
     if(bstick) {
+        dot.args <- list(...)
+        dot.nams <- names(dot.args)
+        pch <- if("pch" %in% dot.nams)
+            dot.args$pch
+        else
+            par("pch")
         lines(mids, ord.bstick[comps], type = ptype, col = bst.col,
-              lty = bst.lty)
+              lty = bst.lty, pch = pch)
         if(legend) {
-            dot.args <- list(...)
-            dot.nams <- names(dot.args)
-            pch <- if("pch" %in% dot.nams)
-                dot.args$pch
-            else
-                par("pch")
             col <- if("col" %in% dot.nams)
                 dot.args$col
             else
