@@ -9,6 +9,11 @@ Version 1.18-2 (opened February 18, 2010)
 	distribution are both plotted. Now also respects 'pch' for the
 	broken stick line.
 
+	* permutest.betadisper: print method got ordering of permutation
+	p-values wrong in displaying the matrix of pairwise tests. The
+	computed values were correct. The formatting for printing contained
+	the bug. Reported by Dan O'Shea.
+
 Version 1.18-1 (closed February 18, 2010)
 
 	* closed with the release of vegan 1.17-1. The release contains
