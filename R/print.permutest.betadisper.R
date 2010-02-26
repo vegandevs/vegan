@@ -33,8 +33,9 @@
         mat <- matrix(NA, ncol = n.grp, nrow = n.grp)
         colnames(mat) <- rownames(mat) <- x$groups
         mat[lower.tri(mat)] <- x$pairwise$observed
-        mat[upper.tri(mat)] <- x$pairwise$permuted
-        printCoefmat(mat, na.print = "", digits = digits)
+        mat <- t(mat)
+        mat[lower.tri(mat)] <- x$pairwise$permuted
+        printCoefmat(t(mat), na.print = "", digits = digits)
     }
     invisible(x)
 }
