@@ -22,7 +22,7 @@
     comm <- comm[, k]
     ## run lengths: numbers of tied values
     le <- rle(cs)$lengths
-    cle <- cumsum(le)
+    cle <- c(0, cumsum(le))
     x <- seq(along=cs)
     ## Range of row sums: only swaps between these have an effect
     rs <- range(rowSums(comm))
@@ -32,19 +32,19 @@
     for (i in 1:length(le)) {
         if (le[i] > 1) {
             take <- x
-            idx <- (1:le[i]) + if(i == 1) 0 else  cle[i-1]
+            idx <- (1:le[i]) + cle[i]
             ## Can swaps influence discrepancy?
             if (idx[1] > rs[2] || idx[le[i]] < rs[1])
                 next
             Ad <- FUN(x)
             if (le[i] <= NALL)
-                perm <- matrix(allPerms(le[i]), ncol=le[i]) + cle[i-1]
+                perm <- matrix(allPerms(le[i]), ncol=le[i]) + cle[i]
             else {
                 ties <- TRUE
                 perm <- matrix(0, nrow=NITER, ncol=le[i])
                 for (j in 1:NITER)
                     perm[j,] <- permuted.index2(le[i])
-                perm <- perm + if(i==1) 0 else  cle[i-1]
+                perm <- perm + cle[i]
             }
             for (j in 1:nrow(perm)) {
                 take[idx] <- perm[j,]
