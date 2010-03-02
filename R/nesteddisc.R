@@ -9,8 +9,8 @@
     ## enumeration
 
     ## starting values and CONSTANTS
-    NALL <- 7
-    NITER <- 5000
+    NALL <- 6
+    NITER <- 1000
     ties <- FALSE
     trace <- FALSE
     ## Code

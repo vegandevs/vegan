@@ -7,7 +7,8 @@ Version 1.18-2 (opened February 18, 2010)
 	* nesteddisc: failed if highest species frequencies were tied. The
 	error message was "Error: dims [prodcut 15] do not match the
 	length of object [0]". Found by Eric Fuchs in the help forum of
-	vegan.r-forge.r-project.org. 
+	vegan.r-forge.r-project.org. The function does not try as hard to
+	optimize the index, and hence it is much faster (but slacker).
 
 	* screeplot: New argument 'legend' for all methods (except
 	'decorana') to draw a legend if the observed and broken stick
