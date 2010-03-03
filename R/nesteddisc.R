@@ -9,7 +9,7 @@
     ## enumeration
 
     ## starting values and CONSTANTS
-    NALL <- 6
+    NALL <- 7
     NITER <- 1000
     ties <- FALSE
     trace <- FALSE
@@ -37,13 +37,22 @@
             if (idx[1] > rs[2] || idx[le[i]] < rs[1])
                 next
             Ad <- FUN(x)
-            if (le[i] <= NALL)
+            ## Complete enumeration if no. of tied value <= NALL
+            if (le[i] <= NALL) {
                 perm <- matrix(allPerms(le[i]), ncol=le[i]) + cle[i]
+                ## Take at maximum NITER cases from complete enumeration
+                if (nrow(perm) >= NITER) {
+                    perm <- perm[sample(nrow(perm), NITER),]
+                    ties <- TRUE
+                }
+            }
+            ## No complete enumeration, but a sample and potentially
+            ## duplicated orders
             else {
                 ties <- TRUE
                 perm <- matrix(0, nrow=NITER, ncol=le[i])
                 for (j in 1:NITER)
-                    perm[j,] <- permuted.index2(le[i])
+                    perm[j,] <- permuted.index(le[i])
                 perm <- perm + cle[i]
             }
             for (j in 1:nrow(perm)) {
