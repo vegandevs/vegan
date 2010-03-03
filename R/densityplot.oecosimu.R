@@ -5,7 +5,8 @@
     sim <- t(x$oecosimu$simulated)
     obs <- x$oecosimu$statistic
     nm <- names(obs)[col(sim)]
-    densityplot( ~ as.vector(sim) | factor(nm, levels = nm), xlab = xlab,
+    densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
+                xlab = xlab,
                 panel = function(x, ...) {
                     panel.densityplot(x, ...)
                     panel.abline(v = obs[panel.number()], ...)
