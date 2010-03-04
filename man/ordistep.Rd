@@ -57,7 +57,7 @@ ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05
 \details{
   The basic functions for model choice in constrained ordination are
   \code{\link{add1.cca}} and \code{\link{drop1.cca}}. With these functions,
-  ordination models can be chosen with standard \R\ function 
+  ordination models can be chosen with standard \R function 
   \code{\link{step}} which bases the term choice on AIC. AIC-like 
   statistics for ordination are provided by functions 
   \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} (with 
@@ -76,8 +76,13 @@ ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05
   is often sensible to have \code{Pout} \eqn{>} \code{Pin} in stepwise
   models to avoid cyclic adds and drops of single terms. 
 }
-\value{
-  Function returns the chosen model.
+
+\value{ 
+  Function returns the selected model with one additional
+  component, \code{anova}, which contains brief information of steps
+  taken. You can suppress voluminous output during model building by
+  setting \code{trace = FALSE}, and find the summary of model history
+  in the \code{anova} item.  
 }
 
 \author{
