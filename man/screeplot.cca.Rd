@@ -129,6 +129,6 @@ bstick(n, \dots)
 data(varespec)
 vare.pca <- rda(varespec, scale = TRUE)
 bstick(vare.pca)
-screeplot.cca(vare.pca, bstick = TRUE, type = "lines")
+screeplot(vare.pca, bstick = TRUE, type = "lines")
 }
 \keyword{multivariate}
