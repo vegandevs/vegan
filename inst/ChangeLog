@@ -2,7 +2,15 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-2 (opened February 18, 2010)
+Version 1.18-3 (opened March 8, 2010)
+
+	* new version opened with the release of vegan 1.17-2 (March 8,
+	2010). 
+
+	* DESCRIPTION: Corrected the name of Bob O'Hara (also in release
+	1.17-2). 
+	
+Version 1.18-2 (closed March 8, 2010)
 
 	* ordistep: documented the 'anova' component added to the result
 	object. 
