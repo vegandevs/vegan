@@ -9,6 +9,12 @@ Version 1.18-3 (opened March 8, 2010)
 
 	* DESCRIPTION: Corrected the name of Bob O'Hara (also in release
 	1.17-2). 
+
+	* scores.cca/scores.rda: scores will always have names even if the
+	input data have no names. This fixes some display issues that
+	Pierre Legendre had with biplot.rda(), and makes redundant the
+	name checking code in summary.cca (the redundant code was not yet
+	removed, but I see that this fix here was sound).
 	
 Version 1.18-2 (closed March 8, 2010)
 
