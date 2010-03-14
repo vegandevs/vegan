@@ -36,7 +36,7 @@
             v <- sweep(v, 2, scal, "*")
             if (scaling < 0) {
                 v <- sweep(v, 1, x$colsum, "/")
-                v <- v * sqrt(x$tot.chi / (max(nrow(x$CA$u), nrow(x$CCA$u)) - 1 ))
+                v <- v * sqrt(sumev / (nr - 1))
             }
             v <- const * v
         }
