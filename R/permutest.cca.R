@@ -51,26 +51,36 @@ permutest.default <- function(x, ...)
     else E <- x$CA$Xbar
     if (isPartial && model == "direct") 
         E <- E + Y.Z
+    ## Save dimensions
     N <- nrow(E)
+    if (isCCA) {
+        Xcol <- ncol(X)
+        if (isPartial)
+            Zcol <- ncol(Z)
+    }
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     for (i in 1:permutations) {
         take <- permuted.index(N, strata)
         Y <- E[take, ]
+        if (isCCA)
+            wtake <- w[take]
         if (isPartial) {
             if (isCCA) {
-                wm <- colSums(sweep(Z, 1, w[take], "*"))
-                XZ <- sweep(Z, 2, wm, "-")
-                XZ <- sweep(XZ, 1, sqrt(w[take]), "*")
+                XZ <- .C("wcentre", x = as.double(Z), as.double(wtake),
+                         as.integer(N), as.integer(Zcol),
+                         PACKAGE = "vegan")$x
+                dim(XZ) <- c(N, Zcol)
                 QZ <- qr(XZ)
             }
             Y <- qr.resid(QZ, Y)
         }
         if (isCCA) {
-            wm <- colSums(sweep(X, 1, w[take], "*"))
-            XY <- sweep(X, 2, wm, "-")
-            XY <- sweep(XY, 1, sqrt(w[take]), "*")
+            XY <- .C("wcentre", x = as.double(X), as.double(wtake),
+                     as.integer(N), as.integer(Xcol),
+                     PACKAGE = "vegan")$x
+            dim(XY) <- c(N, Xcol)
             Q <- qr(XY)
         }
         tmp <- qr.fitted(Q, Y)

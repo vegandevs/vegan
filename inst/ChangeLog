@@ -15,6 +15,11 @@ Version 1.18-3 (opened March 8, 2010)
 	Pierre Legendre had with biplot.rda(), and makes redundant the
 	name checking code in summary.cca (the redundant code was not yet
 	removed, but I see that this fix here was sound).
+
+	* permutest.cca: re-weighting of permuted CCA data matrix is now
+	done with compiled code using existing C function 'wcentre' (in
+	goffactor.c). This may give huge speed-up (>50% time save in first
+	tests) both in CCA and pCCA. 
 	
 Version 1.18-2 (closed March 8, 2010)
 
