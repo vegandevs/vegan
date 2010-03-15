@@ -3,7 +3,7 @@
 {
     cat("\nPermutation test for", x$method, "\n\n")
     writeLines(strwrap(pasteCall(x$call)))
-    Pval <- sum(x$F.perm >= x$F.0)/x$nperm
+    Pval <- (sum(x$F.perm >= x$F.0) + 1)/(x$nperm + 1)
     cat("Permutation test for ")
     if (x$first)
         cat("first constrained eigenvalue\n")

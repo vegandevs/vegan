@@ -19,7 +19,10 @@ Version 1.18-3 (opened March 8, 2010)
 	* permutest.cca: re-weighting of permuted CCA data matrix is now
 	done with compiled code using existing C function 'wcentre' (in
 	goffactor.c). This may give huge speed-up (>50% time save in first
-	tests) both in CCA and pCCA. 
+	tests) both in CCA and pCCA.  The print function of permutest puts
+	now the observed statistic among permutations (the P-value is only
+	evaluated at printing so that this does not influence any
+	anova.cca function using permutest.cca).
 	
 Version 1.18-2 (closed March 8, 2010)
 
