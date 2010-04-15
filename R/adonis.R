@@ -84,14 +84,17 @@
             f.test(H.s[[i]], G[p[,j],p[,j]], I, df.Exp[i], df.Res, H.snterm)
         } )
     })
-  
+    ## Round to avoid arbitrary P-values with tied data
+    f.perms <- round(f.perms, 12)
+    F.Mod <- round(F.Mod, 12)
     SumsOfSqs = c(SS.Exp.each, SS.Res, sum(SS.Exp.each) + SS.Res)
     tab <- data.frame(Df = c(df.Exp, df.Res, n-1),
                       SumsOfSqs = SumsOfSqs,
                       MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA),
                       F.Model = c(F.Mod, NA,NA),
                       R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)],
-                      P = c((rowSums(t(f.perms) > F.Mod)+1)/(permutations+1), NA, NA))
+                      P = c((rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1),
+                      NA, NA))
     rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"

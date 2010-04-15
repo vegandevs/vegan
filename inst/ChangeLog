@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-3 (opened March 8, 2010)
+Version 1.18-4 (opened April 15, 2010)
+
+	* adonis: implemented tie handling in permutations. 
+
+Version 1.18-3 (closed April 15, 2010)
 
 	* new version opened with the release of vegan 1.17-2 (March 8,
 	2010). 
