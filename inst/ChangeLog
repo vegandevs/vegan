@@ -6,6 +6,11 @@ Version 1.18-4 (opened April 15, 2010)
 
 	* adonis: implemented tie handling in permutations. 
 
+	* predict.cca/rda: implemented 'newdata' for type =
+	"response". For CCA, 'newdata' must be constraints (environmental
+	data), and for CA they must be community data. Test version, not
+	yet documented (except here).
+
 Version 1.18-3 (closed April 15, 2010)
 
 	* new version opened with the release of vegan 1.17-2 (March 8,

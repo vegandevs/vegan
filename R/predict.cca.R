@@ -20,6 +20,9 @@
     slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
     if (type %in%  c("response", "working")) {
         Xbar <- 0
+        if (!missing(newdata))
+            u <- predict(object, type = if(model == "CCA") "lc" else "wa",
+                         newdata = newdata, rank = take)
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
         if (!is.null(object$pCCA)) 
