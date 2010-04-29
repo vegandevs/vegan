@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-4 (opened April 15, 2010)
 
+	* RsquareAdj.rda: uses now correct model df in rank deficit RDA
+	models. 
+
 	* adonis: implemented tie handling in permutations. 
 
 	* predict.cca/rda: implemented 'newdata' for type =
