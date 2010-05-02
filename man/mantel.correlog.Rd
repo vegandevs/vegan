@@ -32,7 +32,8 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   equation will be used unless break points are provided. }
 
   \item{break.pts}{ Vector containing the break points of the distance
-  distribution. Default: \code{break.pts=NULL}. }
+  distribution. Provide (n.class+1) breakpoints, that is, a list with
+  a beginning and an ending point. Default: \code{break.pts=NULL}. }
 
   \item{cutoff}{ For the second half of the distance classes,
   \code{cutoff = TRUE} limits the correlogram to the distance classes
@@ -102,15 +103,17 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
     the program. }
 
   \item{mult }{The name of the correction for multiple testing. No
-    correction: \code{mult="none"}. }  #
+    correction: \code{mult="none"}. }  
 
   \item{progressive }{A logical (\code{TRUE}, \code{FALSE}) value
   indicating whether or not a progressive correction for multiple
-  testing was requested. } \item{n.tests }{The number of distance
-  classes for which Mantel tests have been computed and tested for
-  significance. }
+  testing was requested. } 
 
-\item{call }{The function call. }  }
+  \item{n.tests }{The number of distance classes for which Mantel
+  tests have been computed and tested for significance. }
+
+  \item{call }{The function call. }  
+}
 
 \author{ Pierre Legendre, Universite de Montreal }
 
