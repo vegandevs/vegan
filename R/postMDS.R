@@ -39,7 +39,7 @@
         }
     }
     if (!halfchange) {
-        scl <- max(dist)/max(vegdist(x, "euclidean"))
+        scl <- max(dist, na.rm = TRUE)/max(vegdist(x, "euclidean"))
         x <- x*scl
     }
     if (plot && halfchange) {

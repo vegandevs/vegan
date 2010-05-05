@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-4 (opened April 15, 2010)
 
+	* metaMDS: can handle NA values in dissimilarities (but I do not
+	know if isoMDS can handle them correctly).
+
 	* mantel.correlog: accepts now user supplied breakpoints or number
 	of classes like intended.
 
