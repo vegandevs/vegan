@@ -1,5 +1,5 @@
 "envfit.default" <-
-    function (ord, env, permutations = 0, strata, choices = c(1, 2), 
+    function (ord, env, permutations = 999, strata, choices = c(1, 2), 
              display = "sites", w = weights(ord), na.rm = FALSE, ...) 
 {
     weights.default <- function(object, ...) NULL

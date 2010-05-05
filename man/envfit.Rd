@@ -18,7 +18,7 @@
   the factors show the averages of factor levels.
 }
 \usage{
-\method{envfit}{default}(ord, env, permutations = 0, strata, choices=c(1,2), 
+\method{envfit}{default}(ord, env, permutations = 999, strata, choices=c(1,2), 
    display = "sites", w  = weights(ord), na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), arrow.mul, at = c(0,0), axis = FALSE, 
@@ -40,7 +40,7 @@ factorfit(X, P, permutations = 0, strata, w, ...)
     variable(s). These must be continuous for \code{vectorfit} and
     factors or characters for \code{factorfit}. }
   \item{permutations}{ Number of permutations for assessing significance
-    of vectors or factors.}
+    of vectors or factors. Set to \code{0} to skip permutations.}
   \item{formula, data}{Model  \code{\link{formula}} and data.  }
   \item{na.rm}{Remove points with missing values in ordination scores or 
     environmental variables}.
