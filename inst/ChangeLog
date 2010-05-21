@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
 
+	* RsquareAdj.default: handles vector arguments.
+
 	* ordiellipse: works only with 2D data, and now uses only first
 	two dimensions of input if more given. For instance, the following
 	works now, but gave very cryptic error message previously:
@@ -17,8 +19,8 @@ Version 1.18-5 (opened May 21, 2010)
 	resampled in simulate.cca() where they are again weighted after
 	being added to the new fitted value.
 
-	* mantel.correlog: changes the Sturge's rule to conform with the
-	standard R nclass.Sturges ('ceiling' instead of 'round'. Extends
+	* mantel.correlog: changes the Sturges rule to conform with the
+	standard R nclass.Sturges ('ceiling' instead of 'round'). Extends
 	and corrects documentation and messages.
 
 Version 1.18-4 (closed May 21, 2010)

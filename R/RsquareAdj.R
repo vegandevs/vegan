@@ -8,10 +8,10 @@
 `RsquareAdj.default` <-
     function(x, n, m, ...)
 {
-    if (m >= (n-1))
-        NA
-    else
-        1 - (1-x)*(n-1)/(n-m-1)
+    r2 <- 1 - (1-x)*(n-1)/(n-m-1)
+    if (any(na <- m >= n-1))
+        r2[na] <- NA
+    r2
 }
 
 ## Use this with rda() results
