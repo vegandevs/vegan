@@ -8,6 +8,12 @@
         stop("function is only available for constrained ordination")
     fit <- fitted(x, type = residuals)
     res <- residuals(x, type = residuals)
+    ## remove the effects of row weights in CA
+    if (!inherits(x, "rda")) {
+        sqr <- sqrt(x$rowsum)
+        fit <- sweep(fit, 1, sqr, "*")
+        res <- sweep(res, 1, sqr, "*")
+    }
     colnam <- rep(colnames(fit), each=nrow(fit))
     rownam <- rep(rownames(fit), ncol(fit))
     df <- data.frame(Fitted = as.vector(fit), Residuals = as.vector(res))

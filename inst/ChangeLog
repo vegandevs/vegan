@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010)
 
+	* ordiresids: removes now the row weights from Residuals and
+	Fitted in CA. Now shows the same values that are shuffled or
+	resampled in simulate.cca() where they are again weighted after
+	being added to the new fitted value.
+
 	* mantel.correlog: changes the Sturge's rule to conform with the
 	standard R nclass.Sturges ('ceiling' instead of 'round'. Extends
 	and corrects documentation and messages.
