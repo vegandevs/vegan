@@ -2,7 +2,15 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-5 (opened May 21, 2010)
+Version 1.18-5 (opened May 21, 2010) 
+
+	* ordiellipse: works only with 2D data, and now uses only first
+	two dimensions of input if more given. For instance, the following
+	works now, but gave very cryptic error message previously:
+
+	m <- decorana(dune)
+	plot(m)
+	with(dune.env, ordiellipse(m, Management))
 
 	* ordiresids: removes now the row weights from Residuals and
 	Fitted in CA. Now shows the same values that are shuffled or

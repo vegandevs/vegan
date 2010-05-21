@@ -11,6 +11,12 @@
     kind <- match.arg(kind)
     draw <- match.arg(draw)
     pts <- scores(ord, display = display, ...)
+    ## ordiellipse only works with 2D data (2 columns)
+    pts <- as.matrix(pts)
+    if (ncol(pts) > 2)
+        pts <- pts[ , 1:2, drop = FALSE]
+    if (ncol(pts) < 2)
+        stop("ordiellipse needs two dimensions")
     w <- eval(w)
     if (length(w) == 1)
         w <- rep(1, nrow(pts))
