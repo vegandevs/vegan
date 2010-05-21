@@ -28,7 +28,7 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   \item{XY}{ A file of Cartesian geographic coordinates of the
   points. Default: \code{XY=NULL}. }
 
-  \item{n.class}{ Number of classes. If \code{n.class=0}, the Sturge
+  \item{n.class}{ Number of classes. If \code{n.class=0}, the Sturges
   equation will be used unless break points are provided. }
 
   \item{break.pts}{ Vector containing the break points of the distance
@@ -131,31 +131,37 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 
   Sokal, R. R. 1986. Spatial data analysis and historical
   processes. 29-43 in: E. Diday et al. [eds.] Data analysis and
-  informatics, IV. North-Holland, Amsterdam.  }
+  informatics, IV. North-Holland, Amsterdam.
+  
+  Sturges, H. A. 1926. The choice of a class interval. Journal of the 
+  American Statistical Association 21: 65–66.  }
 
 \examples{   
-# Mite data from "vegan"
+# Mite data available in "vegan"
 data(mite)        
 data(mite.xy)  
 mite.hel <- decostand(mite, "hellinger")
-mite.hel.D <- dist(mite.hel)
 
-mite.correlog <- mantel.correlog(mite.hel.D, XY=mite.xy, nperm=99)
+# Detrend the species data by regression on the site coordinates
+mite.hel.resid <- resid(lm(as.matrix(mite.hel) ~ ., data=mite.xy))
+
+# Compute the detrended species distance matrix
+mite.hel.D = dist(mite.hel.resid)
+
+# Compute Mantel correlogram with cutoff, Pearson statistic
+mite.correlog = mantel.correlog(mite.hel.D, XY=mite.xy, nperm=99)
 summary(mite.correlog)
 mite.correlog   
+# or: print(mite.correlog)
+# or: print.mantel.correlog(mite.correlog)
 plot(mite.correlog)
 
-mite.correlog2 <- mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
+# Compute Mantel correlogram without cutoff, Spearman statistic
+mite.correlog2 = mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
 r.type="spearman", nperm=99)
 summary(mite.correlog2)
 mite.correlog2
 plot(mite.correlog2)
-
-## Mite correlogram after spatially detrending the mite data
-mite.h.det <- resid(lm(as.matrix(mite.hel.D) ~ ., data=mite.xy))
-mite.correlog3 <-  mantel.correlog(mite.h.det, XY=mite.xy, nperm=99)
-mite.correlog3
-plot(mite.correlog3)
 
 }
 

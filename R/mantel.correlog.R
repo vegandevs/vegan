@@ -16,7 +16,7 @@
 	D.geo <- as.matrix(D.geo)
     } else {
 	if(is.null(XY)) {
-            stop("You did not provided a geographic distance matrix nor a list of site coordinates")
+            stop("You did not provide a geographic distance matrix nor a list of site coordinates")
         } else {
             D.geo <- as.matrix(dist(XY))
         }
@@ -40,8 +40,8 @@
     } else {
         ## No breakpoints have been provided: equal-width classes
         if(n.class == 0) { 
-            ## Use Sturge's rule to determine the number of classes
-            n.class <- round(1 + log(n.dist, base=2)) 
+            ## Use Sturges rule to determine the number of classes
+            n.class <- ceiling(1 + log(n.dist, base=2))
         }
         ## Compute the breakpoints from n.class
         start.pt <- min(vec.D)
