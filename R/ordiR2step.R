@@ -1,0 +1,59 @@
+### Forward selection to maximize R2.adjusted, but stopping once the
+### R2.adjusted of the maximum model ('scope') is exceeded, after
+### Blanchet, Legendre & Borcard: Ecology 89, 2623--2623; 2008.
+
+`ordiR2step` <-
+    function(object, scope, trace = TRUE)
+{
+    ## Works only for rda(): cca() does not have (yet) R2.adjusted
+    if (!inherits(object, "rda"))
+        stop("can be used only with rda() or capscale()")
+    ## Get R2 of the original object
+    if (is.null(object$CCA))
+        R2.0 <- 0
+    else
+        R2.0 <- RsquareAdj(object)$adj.r.squared
+    ## Get R2 of the scope
+    if (inherits(scope, "rda")) {
+        R2.all <- RsquareAdj(scope)$adj.r.squared
+        scope <- formula(scope)
+    } else {
+        if (!inherits(scope, "formula"))
+            scope <- reformulate(scope)
+        R2.all <- RsquareAdj(update(object, scope))$adj.r.squared
+    }
+    ## Check that the full model can be evaluated
+    if (is.na(R2.all))
+        stop("the upper scope cannot be fitted (too many terms?)")
+    ## Step forward and continue as long as R2.adj improves and R2.adj
+    ## remains below R2.adj < R2.all
+    R2.previous <- R2.0
+    repeat {
+        adds <- add.scope(object, scope)
+        R2.adds <- numeric(length(adds))
+        names(R2.adds) <- adds
+        ## Loop over add scope
+        for (trm in seq_along(adds)) {
+            fla <- paste("~  . + ", adds[trm])
+            R2.adds[trm] <- RsquareAdj(update(object, fla))$adj.r.squared
+        }
+        best <- which.max(R2.adds)
+        if (trace) {
+            names(R2.adds) <- paste("+", names(R2.adds))
+            out <- sort(c("<All variables>" = R2.all, R2.adds), decreasing = TRUE)
+            out <- as.matrix(out)
+            colnames(out) <- "R2.adjusted"
+            print(out)
+            cat("\n")
+        }
+        ## See if the best should be kept
+        if (R2.adds[best] > R2.previous && R2.adds[best] <= R2.all) {
+            fla <- paste("~  . +", adds[best])
+            object <- update(object, fla)
+            R2.previous <- RsquareAdj(object)$adj.r.squared
+        } else {
+            break
+        }
+    }
+    object
+}

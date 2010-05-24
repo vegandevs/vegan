@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
 
+	* ordiR2step: new function to perform forward model selection
+	following Blanchet, Legendre & Borcard (Ecology 89, 2623-2632;
+	2008) or by adjusted R2 until the adjusted R2 of the full model
+	(scope) is exceeded or adjusted R2 starts to decrease.
+
 	* RsquareAdj.default: handles vector arguments.
 
 	* ordiellipse: works only with 2D data, and now uses only first

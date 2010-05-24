@@ -1,6 +1,7 @@
 \name{ordistep}
 \Rdversion{1.1}
 \alias{ordistep}
+\alias{ordiR2step}
 
 \title{
   Choose a Model by Permutation Tests in Constrained Ordination 
@@ -8,22 +9,27 @@
 \description{
   Automatic stepwise model building for constrained ordination methods 
   (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}). 
-  The function is modelled after \code{\link{step}} and can do forward,
-  backward and stepwise model selection.
+  The function \code{ordistep} is modelled after \code{\link{step}} and 
+  can do forward,backward and stepwise model selection using permutation tests.
+  Function \code{ordiR2step} peforms forward model choice solely on adjusted 
+  \eqn{R^2}{R2} in \code{\link{rda}} or \code{\link{capscale}}.
 }
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE, ...)
+ordiR2step(object, scope, trace = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
-  An ordination object inheriting from \code{\link{cca}}.
+  An ordination object inheriting from \code{\link{cca}} (in \code{ordiR2step} 
+  this must be from \code{\link{rda}} or \code{\link{capscale}}).
 }
   \item{scope}{
   Defines the range of models examined in the stepwise search. 
   This should be either a single formula, or a list containing
   components \code{upper} and \code{lower}, both formulae. 
-  See \code{\link{step}} for details. 
+  See \code{\link{step}} for details. In \code{ordiR2step} this defines the
+  upper scope and can also be an ordination object from with the model is extracted. 
 }
   \item{direction}{
   The mode of stepwise search, can be one of \code{"both"},
@@ -75,6 +81,21 @@ ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05
   is selected adaptively with respect to the defined decision limit. It
   is often sensible to have \code{Pout} \eqn{>} \code{Pin} in stepwise
   models to avoid cyclic adds and drops of single terms. 
+
+  Function \code{ordiR2step} implements the forward selection to
+  maximize adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}})
+  at every step, and stopping when the adjusted \eqn{R^2}{R2} starts
+  to decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
+  exceeded (Blanchet et al. 2008). There are no permutation tests, but
+  the adusted \eqn{R^2}{R2} is the only criterion. If tests are
+  wished, the final model can be analysed using
+  \code{\link{anova.cca}} with argument \code{by = "term"} which
+  performs sequential test in the same order as the model was built in
+  \code{ordiR2step}.
+
+  Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
+  (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select
+  variables in different order.
 }
 
 \value{ 
@@ -83,6 +104,11 @@ ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05
   taken. You can suppress voluminous output during model building by
   setting \code{trace = FALSE}, and find the summary of model history
   in the \code{anova} item.  
+}
+
+\references{
+  Blanchet, F. G., Legendre, P. & Borcard, D. (2008) Forward selection
+  of explanatory variables. \emph{Ecology} 89, 2623--2632. 
 }
 
 \author{
@@ -95,7 +121,8 @@ ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05
   are \code{\link{add1.cca}} and \code{\link{drop1.cca}}, and the 
   function is modelled after standard \code{\link{step}} (which also can 
   be used directly but uses AIC for model choice, see 
-  \code{\link{extractAIC.cca}}). 
+  \code{\link{extractAIC.cca}}). Function \code{ordiR2step} builds upon
+  \code{\link{RsquareAdj}}.  
 }
 \examples{
 ## See add1.cca for another example
@@ -104,6 +131,7 @@ data(dune.env)
 mod1 <- rda(dune ~ ., dune.env)
 ordistep(mod1)
 ordistep(rda(dune ~ 1, dune.env), scope = formula(mod1))
+ordiR2step(rda(dune ~ 1, dune.env), mod1)
 }
 
 \keyword{ multivariate }
