@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{mantel.correlog}
 \alias{mantel.correlog}
 \alias{print.mantel.correlog}
