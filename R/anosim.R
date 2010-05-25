@@ -28,6 +28,8 @@
     cl.vec[within] <- levels(grouping)[grouping[take]]
     cl.vec <- factor(cl.vec, levels = c("Between", levels(grouping)))
     if (permutations) {
+        if (permutations %% 100 == 0)
+            permutations <- permutations - 1
         perm <- rep(0, permutations)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)

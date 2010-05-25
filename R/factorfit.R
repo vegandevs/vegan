@@ -28,6 +28,8 @@
         r.this <- 1 - invar/totvar
         r <- c(r, r.this)
         if (permutations) {
+            if (permutations %% 100 == 0)
+                permutations <- permutations - 1
             A <- as.integer(P[[i]])
             NL <- nlevels(P[[i]])
             tmp <- rep(NA, permutations)

@@ -24,6 +24,8 @@
         colnames(heads) <- paste("Dim", 1:nc, sep = "")
     else colnames(heads) <- colnames(X)
     if (permutations) {
+        if (permutations %% 100 == 0)
+            permutations <- permutations - 1
         nr <- nrow(X)
         permstore <- matrix(nrow = permutations, ncol = ncol(P))
         for (i in 1:permutations) {
