@@ -9,7 +9,7 @@
     variant <- tmp$method
     if (permutations) {
         if (permutations %% 100 == 0)
-            permutatoins <- permutations - 1
+            permutations <- permutations - 1
         N <- attributes(xdis)$Size
         perm <- rep(0, permutations)
         for (i in 1:permutations) {
