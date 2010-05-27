@@ -3,11 +3,6 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
-
-	* revert patch 846: put back patronizing adjustment of the number
-	permutations to n-1 if n requested was an even hundred (i.e., do
-	99 if 100 were asked). Concerns mantel, factorfit, vectofirt,
-	adonis and anosim.
 	
 	* ordiR2step: new function to perform forward model selection
 	following Blanchet, Legendre & Borcard (Ecology 89, 2623-2632;
