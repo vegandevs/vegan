@@ -4,7 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
 
-	* ordispider: gained 'label' argument (uses ordilabel()).
+	* ordispider: gained 'label' argument (uses ordilabel()). Can now
+	handle ordihull() result objects: connects points in the line to
+	the hull centroid. Extended examples.
 	
 	* ordiR2step: new function to perform forward model selection
 	following Blanchet, Legendre & Borcard (Ecology 89, 2623-2632;

@@ -11,6 +11,9 @@
         return(invisible())
     }
     pts <- scores(ord, display = display, ...)
+    ## ordihull: draw lines from centre to the points in the hull
+    if (inherits(ord, "ordihull"))
+        groups <- attr(pts, "hulls")
     w <- eval(w)
     if (length(w) == 1)
         w <- rep(1, nrow(pts))
