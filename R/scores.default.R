@@ -37,8 +37,14 @@
             X <- x$c1
         else stop("Can't find scores")
     }
-    else if (is.numeric(x))
+    else if (is.numeric(x)) {
         X <- as.matrix(x)
+        ## as.matrix() changes 1-row scores into 1-col matrix: this is
+        ## a hack which may fail sometimes (but probably less often
+        ## than without this hack):
+        if (ncol(X) == 1 && nrow(X) == length(choices))
+            X <- t(X)
+    }
     if (is.null(rownames(X))) {
         root <- substr(display, 1, 4)
         rownames(X) <- paste(root, 1:nrow(X), sep = "")

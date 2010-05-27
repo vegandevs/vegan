@@ -1,6 +1,6 @@
 "ordispider" <-
     function (ord, groups, display = "sites", w = weights(ord, display),
-              show.groups, ...)
+              show.groups, label = FALSE, ...)
 {
     weights.default <- function(object, ...) NULL
     if (inherits(ord, "cca") && missing(groups)) {
@@ -24,6 +24,8 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    if (label) 
+    cntrs <- names <- NULL
     for (is in inds) {
         gr <- out[groups == is]
         if (length(gr) > 1) {
@@ -32,7 +34,13 @@
             ave <- apply(X, 2, weighted.mean, w = W)
             ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
                             FUN = segments, ...)
+            if (label) {
+                cntrs <- rbind(cntrs, ave)
+                names <- c(names, is)
+            }
         }
     }
+    if (label) 
+        ordiArgAbsorber(cntrs, label = names, FUN = ordilabel, ...)
     invisible()
 }
