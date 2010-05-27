@@ -3,6 +3,8 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
+
+	* ordispider: gained 'label' argument (uses ordilabel()).
 	
 	* ordiR2step: new function to perform forward model selection
 	following Blanchet, Legendre & Borcard (Ecology 89, 2623-2632;
