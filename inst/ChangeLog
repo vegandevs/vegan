@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-5 (opened May 21, 2010) 
 
+	* cca, rda: plot() failed if Condition() had factors, but
+	constraints had no factors. An example of failure:
+
+	m <- cca(dune ~ A1 + Condition(Management), dune.env)
+	plot(m) ## failed
+
 	* ordispider: gained 'label' argument (uses ordilabel()). Can now
 	handle ordihull() result objects: connects points in the line to
 	the hull centroid. Extended examples.

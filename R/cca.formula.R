@@ -14,10 +14,13 @@
             sol$rowsum)
     if (!is.null(sol$CCA$alias)) 
         sol$CCA$centroids <- unique(sol$CCA$centroids)
+    ## See that there really are centroids
     if (!is.null(sol$CCA$centroids)) {
         rs <- rowSums(sol$CCA$centroids^2)
         sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
             drop = FALSE]
+        if (length(sol$CCA$centroids) == 0)
+            sol$CCA$centroids <- NULL
     }
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, d$modelframe)

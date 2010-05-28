@@ -18,6 +18,8 @@ function (formula, data, scale = FALSE, na.action = na.fail,
         rs <- rowSums(sol$CCA$centroids^2)
         sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
             drop = FALSE]
+        if (length(sol$CCA$centroids) == 0)
+            sol$CCA$centroids <- NULL
     }
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, d$modelframe)
