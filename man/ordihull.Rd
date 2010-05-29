@@ -31,7 +31,7 @@ ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
 ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, label = FALSE, ...)
 ordiarrows(ord, groups, levels, replicates, display = "sites",
-         show.groups, startmark, ...)
+         show.groups, startmark, label = FALSE, ...)
 ordisegments(ord, groups, levels, replicates, display = "sites",
          show.groups, ...)
 ordigrid(ord, levels, replicates, display = "sites",  ...)
