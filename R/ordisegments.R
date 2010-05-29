@@ -1,6 +1,6 @@
 "ordisegments" <-
     function (ord, groups, levels, replicates, display = "sites",
-              show.groups, ...)
+              show.groups, label = FALSE, ...)
 {
     pts <- scores(ord, display = display, ...)
     npoints <- nrow(pts)
@@ -13,6 +13,7 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    ends <- names <- NULL
     for (is in inds) {
         gr <- out[groups == is]
         if (length(gr) > 1) {
@@ -21,7 +22,13 @@
             X1 <- X[-1, , drop = FALSE]
             ordiArgAbsorber(X0[, 1], X0[, 2], X1[, 1], X1[, 2],
                             FUN = segments, ...)
+            if (label) {
+                ends <- rbind(ends, X[c(1, nrow(X)), ])
+                names <- c(names, is, is)
+            }
         }
     }
+    if (label)
+        ordiArgAbsorber(ends, labels = names, FUN = ordilabel, ...)
     invisible()
 }

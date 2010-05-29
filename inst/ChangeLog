@@ -13,6 +13,9 @@ Version 1.18-5 (opened May 21, 2010)
 	* ordiarrows: gained 'label' argument which uses ordilabel() on
 	arrow starts.
 
+	* ordisegments: gained 'label' argument which uses ordilabel() on
+	both ends of the segment.
+
 	* ordispider: gained 'label' argument (uses ordilabel()). Can now
 	handle ordihull() result objects: connects points in the line to
 	the hull centroid. Extended examples.

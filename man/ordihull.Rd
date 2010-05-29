@@ -33,7 +33,7 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
 ordiarrows(ord, groups, levels, replicates, display = "sites",
          show.groups, startmark, label = FALSE, ...)
 ordisegments(ord, groups, levels, replicates, display = "sites",
-         show.groups, ...)
+         show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)

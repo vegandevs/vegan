@@ -35,6 +35,6 @@
         }
     }
     if (label)
-        ordiArgAbsorber(starts, label = names, FUN = ordilabel, ...)
+        ordiArgAbsorber(starts, labels = names, FUN = ordilabel, ...)
     invisible()
 }
