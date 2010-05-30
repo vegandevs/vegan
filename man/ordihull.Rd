@@ -58,10 +58,13 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is
     \code{TRUE}. This argument makes it possible to use different
-    colours and line types for groups. The default is to show all
-    groups. }
-  \item{label}{Label the centre of the points in hull or the ellipse with 
-    the group name.}
+    colours and line types for groups. The default is to show all groups. }
+  \item{label}{Label the \code{groups} by their names. In
+    \code{ordiellipse}, \code{ordihull} and \code{ordispider} the the
+    group name is in the centroid of the object, in \code{ordiarrows}
+    in the start of the arrow, and in \code{ordisegments} at both
+    ends. \code{ordiellipse} and \code{ordihull} use standard
+    \code{\link{text}}, and others use \code{\link{ordilabel}}.}
   \item{startmark}{plotting character used to mark the first
     item. The default is to use no mark, and for instance, 
     \code{startmark = 1} will draw a circle.  For other plotting characters,
@@ -122,9 +125,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   corresponding items among the groups.
 
   Function \code{ordispider} draws a `spider' diagram where each point
-  is connected to the group centroid with \code{\link{segments}}. If
-  \code{label = TRUE}, the centroids are labelled using
-  \code{\link{ordilabel}}. Weighted centroids are used in the
+  is connected to the group centroid with \code{\link{segments}}. 
+  Weighted centroids are used in the
   correspondence analysis methods \code{\link{cca}} and
   \code{\link{decorana}} or if the user gives the weights in the
   call. If \code{ordispider} is called with \code{\link{cca}} or
@@ -155,7 +157,6 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   \code{ordihull} is \code{\link{chull}}.
 }
 
-
 \examples{
 data(dune)
 data(dune.env)
@@ -183,4 +184,3 @@ pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
 summary(pl)
 }
 \keyword{aplot }
-
