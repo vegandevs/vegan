@@ -116,7 +116,7 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   \item{call }{The function call. }  
 }
 
-\author{ Pierre Legendre, Universite de Montreal }
+\author{ Pierre Legendre, Université de Montréal }
 
 \references{
 
@@ -150,7 +150,7 @@ mite.hel.resid <- resid(lm(as.matrix(mite.hel) ~ ., data=mite.xy))
 mite.hel.D = dist(mite.hel.resid)
 
 # Compute Mantel correlogram with cutoff, Pearson statistic
-mite.correlog = mantel.correlog(mite.hel.D, XY=mite.xy, nperm=99)
+mite.correlog = mantel.correlog(mite.hel.D, XY=mite.xy, nperm=49)
 summary(mite.correlog)
 mite.correlog   
 # or: print(mite.correlog)
@@ -159,10 +159,13 @@ plot(mite.correlog)
 
 # Compute Mantel correlogram without cutoff, Spearman statistic
 mite.correlog2 = mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
-r.type="spearman", nperm=99)
+r.type="spearman", nperm=49)
 summary(mite.correlog2)
 mite.correlog2
 plot(mite.correlog2)
+
+# NOTE: 'nperm' argument usually needs to be larger than 49.
+# It was set to this low value for demonstration purposes.
 
 }
 
