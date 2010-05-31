@@ -248,12 +248,16 @@ summary(x3)
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
 summary(x4)
+
+## NOTE: 'times' argument usually needs to be >= 99
+## here much lower value is used for demonstration
+
 ## Not sequential algorithm
 data(BCI)
-a <- permatswap(BCI, "quasiswap")
+a <- permatswap(BCI, "quasiswap", times=19)
 ## Sequential algorithm
 b <- permatswap(BCI, "abuswap", fixedmar="col",
-    burnin=0, thin=100, times=50)
+    burnin=0, thin=100, times=19)
 opar <- par(mfrow=c(2,2))
 plot(a, main="Not sequential")
 plot(b, main="Sequential")

@@ -84,6 +84,9 @@ Whittaker, R. (1972). Evolution and measurement of species diversity.
   \code{\link{hiersimu}} for hierarchical null model testing
   and \code{\link{oecosimu}} for permutation settings and calculating \eqn{p}-values.}
 \examples{
+## NOTE: 'nsimul' argument usually needs to be >= 99
+## here much lower value is used for demonstration
+
 data(mite)
 data(mite.xy)
 data(mite.env)
@@ -100,8 +103,8 @@ levsm <- data.frame(
     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 ## Multiplicative diversity partitioning
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=25)
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=25, relative=TRUE)
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=25, global=TRUE)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9, relative=TRUE)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9, global=TRUE)
 }
 \keyword{multivariate}
