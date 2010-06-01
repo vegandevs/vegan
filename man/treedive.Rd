@@ -106,8 +106,6 @@ oecosimu(dune, treedive, "r0", tree = cl)
 ## Clustering of tree distances
 dtree <- treedist(dune, cl)
 plot(hclust(dtree, "aver"))
-## Use treedist() in metaMDS() instead of the standard vegdist():
-mod <- metaMDS(dune, distfun = treedist, tree = cl)
 }
 
 \keyword{ univar }

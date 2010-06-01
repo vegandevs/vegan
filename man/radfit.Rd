@@ -224,7 +224,7 @@ as.rad(x)
   \code{\link[lattice]{xyplot}}, \code{\link[lattice]{lset}}. }
 \examples{
 data(BCI)
-mod <- rad.lognormal(BCI[1,])
+mod <- rad.lognormal(BCI[5,])
 mod
 plot(mod)
 mod <- radfit(BCI[1,])
@@ -236,7 +236,7 @@ plot(mod, log = "xy")
 ## Lattice graphics separately for each model
 radlattice(mod)
 # Take a subset of BCI to save time and nerves
-mod <- radfit(BCI[2:5,])
+mod <- radfit(BCI[3:5,])
 mod
 plot(mod, pch=".")
 }
