@@ -101,8 +101,8 @@ d <- taxa2dist(dune.taxon, varstep=TRUE)
 cl <- hclust(d, "aver")
 treedive(dune, cl)
 ## Significance test using Null model communities.
-## The current choice fixes both species and site totals.
-oecosimu(dune, treedive, "quasiswap", tree = cl)
+## The current choice fixes only site totals.
+oecosimu(dune, treedive, "r0", tree = cl)
 ## Clustering of tree distances
 dtree <- treedist(dune, cl)
 plot(hclust(dtree, "aver"))

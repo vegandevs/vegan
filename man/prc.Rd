@@ -119,7 +119,7 @@ logabu <- colSums(pyrifos)
 plot(mod, select = logabu > 100)
 # Permutations should be done only within one week, and we only
 # are interested on the first axis
-anova(mod, strata = week, first=TRUE)
+anova(mod, strata = week, first=TRUE, perm.max = 100)
 }
 \keyword{ multivariate }
 

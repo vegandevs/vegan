@@ -66,8 +66,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 \seealso{ \code{\link[maptools]{pointLabel}} for the model
   implementation, and \code{\link{optim}} for the optimization. }
 \examples{
-data(varespec)
-ord <- cca(varespec)
+data(dune)
+ord <- cca(dune)
 ordipointlabel(ord)
 }
 \keyword{ hplot }
