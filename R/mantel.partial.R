@@ -17,10 +17,10 @@
     if (permutations) {
         N <- attributes(xdis)$Size
         perm <- rep(0, permutations)
+        xmat <- as.matrix(xdis)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)
-            permvec <- as.vector(as.dist(as.matrix(xdis)[take, 
-                                                         take]))
+            permvec <- as.dist(xmat[take, take])
             rxy <- cor(permvec, ydis, method = method)
             rxz <- cor(permvec, zdis, method = method)
             perm[i] <- part.cor(rxy, rxz, ryz)
