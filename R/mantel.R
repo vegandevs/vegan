@@ -10,10 +10,10 @@
     if (permutations) {
         N <- attributes(xdis)$Size
         perm <- rep(0, permutations)
+        xmat <- as.matrix(xdis)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)
-            permvec <- as.vector(as.dist(as.matrix(xdis)[take, 
-                                                         take]))
+            permvec <- as.dist(xmat[take, take])
             perm[i] <- cor(permvec, ydis, method = method)
         }
         signif <- (sum(perm >= statistic) + 1)/(permutations + 1)
