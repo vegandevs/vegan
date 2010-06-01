@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Versin 1.18-6 (opened May 31, 2010)
 
+	* mantel, mantel.partial: considerable speed up by cleaning
+	innermost loop and replacing as.dist() with direct extraction of
+	lower diagonal. 
+
 	* treedist: documenting tree dissimilarity function that has been
 	in vegan devel since Aug 17, 2009 (rev928).
 	

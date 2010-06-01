@@ -18,9 +18,10 @@
         N <- attributes(xdis)$Size
         perm <- rep(0, permutations)
         xmat <- as.matrix(xdis)
+        asdist <- row(xmat) > col(xmat)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)
-            permvec <- as.dist(xmat[take, take])
+            permvec <- (xmat[take, take])[asdist]
             rxy <- cor(permvec, ydis, method = method)
             rxz <- cor(permvec, zdis, method = method)
             perm[i] <- part.cor(rxy, rxz, ryz)

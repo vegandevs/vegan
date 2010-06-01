@@ -10,10 +10,13 @@
     if (permutations) {
         N <- attributes(xdis)$Size
         perm <- rep(0, permutations)
+        ## asdist asn an index selects lower diagonal like as.dist,
+        ## but is faster since it does not seet 'dist' attributes
         xmat <- as.matrix(xdis)
+        asdist <- row(xmat) > col(xmat)
         for (i in 1:permutations) {
             take <- permuted.index(N, strata)
-            permvec <- as.dist(xmat[take, take])
+            permvec <- (xmat[take, take])[asdist]
             perm[i] <- cor(permvec, ydis, method = method)
         }
         signif <- (sum(perm >= statistic) + 1)/(permutations + 1)
