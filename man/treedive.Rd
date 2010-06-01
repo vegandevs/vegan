@@ -13,7 +13,7 @@
 \usage{
 treedive(comm, tree, match.force = FALSE)
 treeheight(tree)
-treedist(x, tree)
+treedist(x, tree, ...)
 }
 
 \arguments{
@@ -24,6 +24,7 @@ treedist(x, tree)
     labels in \code{tree}. If \code{FALSE}, matching only happens when
     dimensions differ, and in that case the species must be in identical
     order in both.}
+  \item{\dots}{Other arguments passed to functions (ignored).}
 }
 \details{
   Function \code{treeheight} finds the sum of lengths of connecting
