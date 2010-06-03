@@ -1,6 +1,13 @@
 `betadisper` <-
     function(d, group, type = c("median","centroid"))
 {
+    ## inline function for spatial medians
+    spatialMed <- function(vectors, group, pos) {
+        axes <- seq_len(NCOL(vectors))
+        spMedPos <- ordimedian(vectors, group, choices = axes[pos])
+        spMedNeg <- ordimedian(vectors, group, choices = axes[!pos])
+        return(cbind(spMedPos, spMedNeg))
+    }
     ## Tolerance for zero Eigenvalues
     TOL <- 1e-7
     ## uses code from stats:::cmdscale by R Core Development Team
@@ -53,7 +60,7 @@
     centroids <-
         switch(type,
                centroid = apply(vectors, 2, function(x) tapply(x, group, mean)),
-               median = ordimedian(vectors, group, choices = 1:ncol(vectors))
+               median = spatialMed(vectors, group, pos)
                )
     ## for each of the groups, calculate distance to centroid for
     ## observation in the group
