@@ -129,7 +129,7 @@ ordiR2step(object, scope, trace = TRUE)
 data(dune)
 data(dune.env)
 mod1 <- rda(dune ~ ., dune.env)
-ordistep(mod1)
+ordistep(mod1, perm.max = 200)
 ordistep(rda(dune ~ 1, dune.env), scope = formula(mod1), perm.max = 200)
 ordiR2step(rda(dune ~ 1, dune.env), mod1)
 }
