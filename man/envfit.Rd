@@ -100,7 +100,9 @@ factorfit(X, P, permutations = 0, strata, w, ...)
   The goodness of fit statistic is squared correlation coefficient
   (\eqn{r^2}).
   For factors this is defined as \eqn{r^2 = 1 - ss_w/ss_t}, where
-  \eqn{ss_w} and \eqn{ss_t} are within-group and total sums of squares.
+  \eqn{ss_w} and \eqn{ss_t} are within-group and total sums of
+  squares. See \code{\link{permutations}} for additional details on
+  permutation tests in Vegan.
 
   User can supply a vector of prior  weights \code{w}. If the ordination
   object has weights, these will be used. In practise this means that

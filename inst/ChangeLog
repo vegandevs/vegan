@@ -6,7 +6,7 @@ Versin 1.18-6 (opened May 31, 2010)
 
 	* mantel, mantel.partial: considerable speed up by cleaning
 	innermost loop and replacing as.dist() with direct extraction of
-	lower diagonal. 
+	lower diagonal.
 
 	* treedist: documenting tree dissimilarity function that has been
 	in vegan devel since Aug 17, 2009 (rev928).
@@ -14,8 +14,11 @@ Versin 1.18-6 (opened May 31, 2010)
 	* betadisper: 'type = "median"', the default, was not computing
 	the spatial median on the real and imaginary axes separately.
 	Reported by Marek Omelka.
-	
-Version 1.18-5 (closed May 31, 2010) 
+
+	* permutations: First attempt to document within Vegan the general
+	workings of permutation tests. See ?permutations for details.
+
+Version 1.18-5 (closed May 31, 2010)
 
 	* cca, rda: plot() failed if Condition() had factors, but
 	constraints had no factors. An example of failure:

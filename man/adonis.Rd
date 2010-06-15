@@ -93,7 +93,9 @@ depend upon precisely what is permuted. The strata argument keeps groups
 intact for a particular hypothesis test where one does not want to
 permute the data among particular groups. For instance, \code{strata =
 B} causes permutations among levels of \code{A} but retains data within
-levels of \code{B} (no permutation among levels of \code{B}).
+levels of \code{B} (no permutation among levels of \code{B}). See
+\code{\link{permutations}} for additional details on permutation tests
+in Vegan.
 
 The default \code{\link{contrasts}} are different than in \R in
 general. Specifically, they use \dQuote{sum} contrasts, sometimes known

@@ -53,7 +53,9 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata)
 
   The statistical significance of observed \eqn{R} is assessed by
   permuting the grouping vector to obtain the empirical
-  distribution of \eqn{R} under null-model.
+  distribution of \eqn{R} under null-model.  See
+  \code{\link{permutations}} for additional details on permutation tests
+  in Vegan.
 
   The function has \code{summary} and \code{plot} methods.  These both
   show valuable information to assess the validity of the method:  The

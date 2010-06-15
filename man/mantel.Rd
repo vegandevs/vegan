@@ -34,7 +34,9 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   related).  However, the significance cannot be directly assessed,
   because there are \eqn{N(N-1)/2} entries for just \eqn{N} observations.
   Mantel developed asymptotic test, but here we use permutations of
-  \eqn{N} rows and columns of dissimilarity matrix.
+  \eqn{N} rows and columns of dissimilarity matrix.  See
+  \code{\link{permutations}} for additional details on permutation tests
+  in Vegan.
 
   Partial Mantel statistic uses partial correlation
   conditioned on the third matrix. Only the first matrix is permuted so
