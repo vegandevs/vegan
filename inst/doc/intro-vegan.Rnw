@@ -190,9 +190,9 @@ methods you can try:
 \texttt{Vegan} has a group of functions for adding information about
 classification or grouping of points onto ordination diagrams.
 Function \texttt{ordihull} adds convex hulls, \texttt{ordiellipse}
-(which needs package \texttt{ellipse}) adds ellipses of standard
-deviation, standard error or confidence areas, and \texttt{ordispider}
-combines items to their centroid (Fig. \ref{fig:ordihull}):
+adds ellipses of standard deviation, standard error or confidence
+areas, and \texttt{ordispider} combines items to their centroid
+(Fig. \ref{fig:ordihull}):
 <<>>=
 data(dune.env)
 attach(dune.env)
