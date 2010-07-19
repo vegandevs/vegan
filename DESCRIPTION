@@ -1,13 +1,12 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 1.18-7
-Date: June 16, 2010
+Version: 1.18-8
+Date: July 19, 2010
 Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, 
    R. B. O'Hara, Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, 
    Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
-Suggests: MASS, mgcv, lattice, cluster, scatterplot3d, rgl, ellipse,
-  tcltk 
+Suggests: MASS, mgcv, lattice, cluster, scatterplot3d, rgl, tcltk 
 Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
 License: GPL-2 

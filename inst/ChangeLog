@@ -2,7 +2,14 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-7 (opened June 16, 2010)
+Version 1.18-8 (opened July 19, 2010)
+
+	DEPENDENCE: does not suggest package 'ellipse'.
+
+	plot.MOStest: uses veganCovEllipse instead of
+	ellipse:::ellipse.glm. 
+
+Version 1.18-7 (closed July 19, 2010)
 
 	* new version opened with the release of vegan_1.17-3.
 

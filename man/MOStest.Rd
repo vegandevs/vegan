@@ -82,12 +82,11 @@ fieller.MOStest(object, level = 0.95)
   functions to inspect the fit. Function \code{plot(..., which=1)}
   displays the data points, fitted quadratic model, and its approximate
   95\% confidence intervals (2 times SE). Function \code{plot} with
-  \code{which = 2} (requires \code{\link[ellipse]{ellipse.glm}} in
-  package \pkg{ellipse}) displays the approximate confidence interval of
+  \code{which = 2} displays the approximate confidence interval of
   the polynomial coefficients, together with two lines indicating the
   combinations of the coefficients that produce the evaluated points of
   \code{x}. Moreover, the cross-hair shows the approximate confidence
-  intervals (2 times SE) for the polynomial coefficients ignoring their
+  intervals for the polynomial coefficients ignoring their
   correlations. Higher values of \code{which} produce corresponding
   graphs from \code{\link{plot.lm}}. That is, you must add 2 to the
   value of \code{which} in \code{\link{plot.lm}}.
