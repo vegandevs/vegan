@@ -8,7 +8,8 @@
 \alias{ordiTerminfo}
 \alias{pasteCall}
 \alias{ordiArrowMul}
-\alias{ordiArgAbsorber}
+\alias{ordiArgAbsorber
+\alias{veganCovEllipse}
 \title{Internal vegan functions}
 
 \description{
@@ -28,6 +29,7 @@ ordiArgAbsorber(..., shrink, origin, scaling, triangular,
 centroids.cca(x, mf, wt)
 permuted.index(n, strata)
 pasteCall(call, prefix = "Call:")
+veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
 }
 
 \details{
@@ -72,6 +74,8 @@ pasteCall(call, prefix = "Call:")
   \code{pasteCall} prints the function call so that it is nicely wrapped
   in \code{\link[utils]{Sweave}} output.
 
+  \code{veganCovEllipse} finds the coordinates for drawing a
+  covariance ellipse.
 }
 
 \keyword{internal }
