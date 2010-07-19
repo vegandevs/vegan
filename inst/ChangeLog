@@ -6,7 +6,10 @@ Version 1.18-7 (opened June 16, 2010)
 
 	* new version opened with the release of vegan_1.17-3.
 
-	* veganCovEllipse: new internal for drawing covariance ellipses.
+	* veganCovEllipse: new internal for drawing covariance ellipses
+	(to be used both with ordiellipse() and plot.MOStest()).
+
+	* ordiellipse: uses veganCovEllipse.
 	
 Version 1.18-6 (closed June 16, 2010)
 
