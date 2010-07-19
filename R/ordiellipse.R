@@ -4,9 +4,6 @@
               w = weights(ord, display),
               show.groups, label = FALSE,  ...)
 {
-    ## Define Circle for an ellipse: taken from the 'car' package
-    theta <- (0:51) * 2 * pi/51
-    Circle <- cbind(cos(theta), sin(theta))
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     draw <- match.arg(draw)
@@ -42,7 +39,7 @@
             if (missing(conf))
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
-            xy <- t(mat$center + t * t(Circle %*% chol(mat$cov)))
+            xy <- veganCovEllipse(mat$cov, mat$center, t)
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines, ...)
             else if (draw == "polygon") 
