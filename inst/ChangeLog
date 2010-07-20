@@ -9,6 +9,11 @@ Version 1.18-8 (opened July 19, 2010)
 	plot.MOStest: uses veganCovEllipse instead of
 	ellipse:::ellipse.glm. 
 
+	ordiellipse: failed to plot labels with filled polygons, since the
+	same colour was used for polygon filling and labels. Now uses
+	ordilabel() with draw == "polygon" (but still text() with draw ==
+	"lines"). 
+
 Version 1.18-7 (closed July 19, 2010)
 
 	* new version opened with the release of vegan_1.17-3.

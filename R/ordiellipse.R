@@ -28,6 +28,8 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
+    if (label)
+        cntrs <- names <- NULL
     for (is in inds) {
         gr <- out[groups == is]
         if (length(gr) > 2) {
@@ -44,12 +46,20 @@
                 ordiArgAbsorber(xy, FUN = lines, ...)
             else if (draw == "polygon") 
                 ordiArgAbsorber(xy[, 1], xy[, 2], FUN = polygon, ...)
-            if (label && draw != "none")
-                ordiArgAbsorber(mat$center[1], mat$center[2], labels=is,
-                               FUN = text, ...)
+            if (label && draw != "none") {
+                cntrs <- rbind(cntrs, mat$center)
+                names <- c(names, is)
+            }
             mat$scale <- t
             res[[is]] <- mat
         }
+    }
+    if (label && draw != "none") {
+        if (draw == "lines")
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels=names, 
+                            FUN = text, ...)
+        else
+            ordiArgAbsorber(cntrs, labels = names, FUN = ordilabel, ...)
     }
     class(res) <- "ordiellipse"
     invisible(res)
