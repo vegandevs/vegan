@@ -8,7 +8,7 @@
 \alias{ordiTerminfo}
 \alias{pasteCall}
 \alias{ordiArrowMul}
-\alias{ordiArgAbsorber
+\alias{ordiArgAbsorber}
 \alias{veganCovEllipse}
 \title{Internal vegan functions}
 
