@@ -6,10 +6,10 @@
     Const2 <- 5
     Const3 <- 1e-11
     veg <- as.matrix(veg)
-    if (any(veg < 0))
-        stop("'decorana' cannot handle negative data entries")
     if (any(rowSums(veg) <= 0)) 
         stop("All row sums must be >0 in the community matrix: remove empty sites.")
+    if (any(veg < 0))
+        stop("'decorana' cannot handle negative data entries")
     if (any(colSums(veg) <= 0)) 
         warning("Some species were removed because they were missing in the data.")
     nr <- nrow(veg)

@@ -14,6 +14,9 @@ Version 1.18-8 (opened July 19, 2010)
 	ordilabel() with draw == "polygon" (but still text() with draw ==
 	"lines"). 
 
+	decorana: change order of data checks so that non-numeric data is
+	detected (by rowSums()) before checking negative data entries. 
+
 Version 1.18-7 (closed July 19, 2010)
 
 	* new version opened with the release of vegan_1.17-3.
