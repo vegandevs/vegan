@@ -201,7 +201,7 @@ attach(dune.env)
 plot(ord, disp="sites", type="n")
 ordihull(ord, Management, col="blue")
 ordiellipse(ord, Management, col=3,lwd=2)
-ordispider(ord, Management, col="red")
+ordispider(ord, Management, col="red", label = TRUE)
 points(ord, disp="sites", pch=21, col="red", bg="yellow", cex=1.3)
 @
 \begin{SCfigure}

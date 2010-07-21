@@ -9,6 +9,8 @@ Version 1.18-8 (opened July 19, 2010)
 	* FAQ: new entry on negative or non-numeric data, and updates of
 	variance explained by ordination.
 
+	* intro: ordispider uses label.
+
 	* plot.MOStest: uses veganCovEllipse instead of
 	ellipse:::ellipse.glm.
 
