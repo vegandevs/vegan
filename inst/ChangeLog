@@ -4,18 +4,21 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-8 (opened July 19, 2010)
 
-	DEPENDENCE: does not suggest package 'ellipse'.
+	* DEPENDENCE: does not suggest package 'ellipse'.
 
-	plot.MOStest: uses veganCovEllipse instead of
-	ellipse:::ellipse.glm. 
+	* FAQ: new entry on negative or non-numeric data, and updates of
+	variance explained by ordination.
 
-	ordiellipse: failed to plot labels with filled polygons, since the
-	same colour was used for polygon filling and labels. Now uses
+	* plot.MOStest: uses veganCovEllipse instead of
+	ellipse:::ellipse.glm.
+
+	* ordiellipse: failed to plot labels with filled polygons, since
+	the same colour was used for polygon filling and labels. Now uses
 	ordilabel() with draw == "polygon" (but still text() with draw ==
-	"lines"). 
+	"lines").
 
-	decorana: change order of data checks so that non-numeric data is
-	detected (by rowSums()) before checking negative data entries. 
+	* decorana: change order of data checks so that non-numeric data
+	is detected (by rowSums()) before checking negative data entries.
 
 Version 1.18-7 (closed July 19, 2010)
 

@@ -3,7 +3,7 @@
 @setfilename FAQ-vegan.info
 @settitle vegan FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2008
+@set FAQ_YEAR 2010
 @afourpaper
 @c %**end of header
 
@@ -311,6 +311,7 @@ listed as authors in the documentation.
 @chapter Ordination
 
 @menu
+* I have only numeric and positive data but vegan still complaints::  
 * Can you analyse binary or cover class data?::  
 * Why dissimilarities in vegan differ from other sources?::  
 * Zero dissimilarities in isoMDS::  
@@ -325,7 +326,17 @@ listed as authors in the documentation.
 * How to avoid cluttered ordination graphs?::  
 @end menu
 
-@node Can you analyse binary or cover class data?, Why dissimilarities in vegan differ from other sources?, Ordination, Ordination
+@node  I have only numeric and positive data but vegan still complaints, Can you analyse binary or cover class data?, Ordination, Ordination
+@comment  node-name,  next,  previous,  up
+@section I have only numeric and positive data but vegan still complaints
+
+You are wrong! Computers are painfully pedantic, and if they find
+non-numeric ore negative data entries, you really have them. Check your
+data. Most common reasons for non-numeric data are that row names were
+read as a non-numeric variable instead of being used as row
+names. Another is that you had empty cells in your input data.
+
+@node Can you analyse binary or cover class data?, Why dissimilarities in vegan differ from other sources?, I have only numeric and positive data but vegan still complaints, Ordination
 @section Can you analyse binary or cover class data?
 
 Yes. Most vegan methods can handle binary data or cover abundance data.
@@ -393,11 +404,14 @@ for some methods:
 @item Eigenvector methods:
 Functions @code{rda}, @code{cca} and @code{capscale} give the variation
 of conditional (partialled), constrained (canonical) and residual
-components, but you must calculate the proportions by hand. The
-@code{summary} gives the contributions of the axes. 
-Function @code{goodness} gives the same statistics for individual
-species or sites (species are unavailable with @code{capscale}). In
-addition, there is a special function 
+components, but you must calculate the proportions by hand.  Function
+@code{eigenvals} extracts the eigenvalues, and
+@code{eigenvals(summary(ord))} reports the proportions explained in the
+result object @code{ord}.  Function @code{RsquareAdj} gives the
+R-squared and adjusted R-squared (if available) for constrained
+components.  Function @code{goodness} gives the same statistics for
+individual species or sites (species are unavailable with
+@code{capscale}). In addition, there is a special function
 @code{varpart} for unbiased partitioning of variance between up to four
 separate components in redundancy analysis.
 
