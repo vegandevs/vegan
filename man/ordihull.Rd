@@ -34,7 +34,8 @@ ordiarrows(ord, groups, levels, replicates, display = "sites",
          show.groups, startmark, label = FALSE, ...)
 ordisegments(ord, groups, levels, replicates, display = "sites",
          show.groups, label = FALSE, ...)
-ordigrid(ord, levels, replicates, display = "sites",  ...)
+ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
+         col = c(1,1), lwd = c(1,1), ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)
 }
@@ -82,6 +83,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     2df. }
   \item{cluster}{Result of hierarchic cluster analysis, such as
     \code{\link{hclust}} or \code{\link[cluster]{agnes}}.}
+  \item{lty, col, lwd}{Line type, line colour and line width used for 
+    \code{level}s and \code{replicate}s in \code{ordigrid}.}
   \item{prune}{Number of upper level hierarchies removed from the
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be
     disconnected.}

@@ -4,7 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-8 (opened July 19, 2010)
 
-	* DEPENDENCE: does not suggest package 'ellipse'.
+	* DESCRIPTION: does not suggest package 'ellipse'.
 
 	* FAQ: new entry on negative or non-numeric data, and updates of
 	variance explained by ordination.
@@ -22,12 +22,15 @@ Version 1.18-8 (opened July 19, 2010)
 	* decorana: change order of data checks so that non-numeric data
 	is detected (by rowSums()) before checking negative data entries.
 
+	* ordigrid: arguments lty, col and lwd to use different lines for
+	levels and replicate of the grid.
+
 Version 1.18-7 (closed July 19, 2010)
 
 	* new version opened with the release of vegan_1.17-3.
 
-	* veganCovEllipse: new internal for drawing covariance ellipses
-	(to be used both with ordiellipse() and plot.MOStest()).
+	* veganCovEllipse: new internal function for drawing covariance
+	ellipses (to be used both with ordiellipse() and plot.MOStest()).
 
 	* ordiellipse: uses veganCovEllipse.
 	
