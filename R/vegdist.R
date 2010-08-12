@@ -20,7 +20,7 @@
         warning("results may be meaningless because data have negative entries in method ", inm,"\n")
     if (method == 11 && any(colSums(x) == 0)) 
         warning("data have empty species which influence the results im method ", inm, "\n")
-    if (method %in% c(6, 14)) 
+    if (method == 6) # gower, but no altGower
         x <- decostand(x, "range", 2, na.rm = TRUE, ...)
     if (binary) 
         x <- decostand(x, "pa")

@@ -2,7 +2,7 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-9 (opened August 12, 2010)q
+Version 1.18-9 (opened August 12, 2010)
 
 	* mrpp & meandist: I had misinterpreted the classification
 	strength (CS) be based on weight.type=3 or N*(N-1)/2, but it was
@@ -12,6 +12,11 @@ Version 1.18-9 (opened August 12, 2010)q
 	still checking. For instance, MRPP statistic and CS are not
 	monotonically related with this weight.type (they were with
 	weight.type=3), and CS cannot be tested with the current function.
+
+	* vegdist: Anderson et al. (Ecol Lett 9, 683-693; 2006) defined
+	their "alternative Gower" without range standardization of
+	columns.  Reported as bug #1002 in http://r-forge.r-project.org/
+	by Sergio Garcia. Also some small edits of vegdist man page.
 
 Version 1.18-8 (closed August 12, 2010)
 
