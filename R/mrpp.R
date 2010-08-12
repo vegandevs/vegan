@@ -30,9 +30,9 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
     names(classdel) <- names(ncl) <- indls
     del <- weighted.mean(classdel, w = w, na.rm = TRUE)
     E.del <- mean(dmat, na.rm = TRUE)
-    ## 'Classification strength' if weight.type == 3
-    if (weight.type == 3) {
-        CS <- N*(N-1)/2*(E.del - del)/(N*(N-1)/2 - sum(w))
+    ## 'Classification strength' if weight.type == 1
+    if (weight.type == 1) {
+        CS <- mean(dmat[outer(grouping, grouping, "!=")]) - del
     } else {
         CS <- NA
     }

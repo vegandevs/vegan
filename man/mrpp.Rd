@@ -83,38 +83,39 @@ change-corrected within-group agreement
 \eqn{A = 1 -\delta/E(\delta)}, where \eqn{E(\delta)} is the expected
 \eqn{\delta} assessed as the average of permutations.
 
-With \code{weight.type = 3}, the function also calculates classification
-strength (Van Sickle 1997) which is defined as the difference between
-average between group dissimilarities and within group
-dissimilarities. With \code{weight.type = 3} the classification strength
-is a simple transformation of \eqn{\delta}, and has the same permutation
-significance.
+With \code{weight.type = 1}, the function also calculates classification
+strength (Van Sickle and Hughes 2000) which is defined as the difference
+between average between group dissimilarities and within group
+dissimilarities (with weights \eqn{n}).  With \code{weight.type = 1} the
+classification strength is closely related to the MRPP statistic
+\eqn{A}, but not exactly, and the significance values from permutation
+tests only concern \eqn{A}.
 
 If the first argument \code{dat} can be interpreted as dissimilarities,
 they will be used directly. In other cases the function treats
-\code{dat} as observations, and uses \code{\link{vegdist}} to find 
-the dissimilarities.  The default \code{distance} is Euclidean as in the
+\code{dat} as observations, and uses \code{\link{vegdist}} to find the
+dissimilarities.  The default \code{distance} is Euclidean as in the
 traditional use of the method, but other dissimilarities in
-\code{\link{vegdist}} also are available. 
+\code{\link{vegdist}} also are available.
 
 Function \code{meandist} calculates a matrix of mean within-cluster
 dissimilarities (diagonal) and between-cluster dissimilarities
 (off-diagonal elements), and an attribute \code{n} of \code{grouping}
 counts. Function \code{summary} finds the within-class, between-class
-and overall means of these dissimilarities, and the MRPP statistics
-with all \code{weight.type} options and the classification
-strength. The function does not allow significance tests for these
-statistics, but you must use \code{mrpp} with appropriate
-\code{weight.type}.  Function \code{plot} draws a dendrogram or a
-histogram of the result matrix based on the within-group and between
-group dissimilarities. The dendrogram is given with the \code{cluster}
-argument which is passed to \code{\link{hclust}}. The terminal
-segments hang to within-cluster dissimilarity. If some of the clusters
-is more heterogeneous than the combined class, the leaf segment is
-reversed.  The histogram is similar as the graphics used by Van Sickle
-(1997): horizontal line is drawn at the level of mean between-cluster
-dissimilarity and vertical lines connect within-cluster
-dissimilarities to this line.  
+and overall means of these dissimilarities, and the MRPP statistics with
+all \code{weight.type} options and the classification strength. The
+function does not allow significance tests for these statistics, but you
+must use \code{mrpp} with appropriate \code{weight.type}.  Function
+\code{plot} draws a dendrogram or a histogram of the result matrix based
+on the within-group and between group dissimilarities. The dendrogram is
+given with the \code{cluster} argument which is passed to
+\code{\link{hclust}}. The terminal segments hang to within-cluster
+dissimilarity. If some of the clusters is more heterogeneous than the
+combined class, the leaf segment is reversed.  The histogram is similar
+as the graphics used by Van Sickle and Hughes(1997), except that they
+are based on dissimilarities instead of similarities: horizontal line is
+drawn at the level of mean between-cluster dissimilarity and vertical
+lines connect within-cluster dissimilarities to this line.
 }
 
 \value{
@@ -149,9 +150,10 @@ The function returns a list of class mrpp with following items:
   Distance  Function Approach.} Springer Series in
   Statistics. Springer.  
 
-  J. Van Sickle 1997. Using mean similarity dendrograms to evaluate
-  classifications. \emph{Journal of Agricultural, Biological, and Environmental
-  Statistics} 2:370-388.
+  J. Van Sickle and R. M. Hughes 2000. Classification strengths of
+  ecoregions, catchments, and geographic clusters of aquatic vertebrates
+  in Oregon. \emph{J. N. Am. Benthol. Soc.} 19:370--384.
+
 
 }
 \author{
@@ -164,7 +166,12 @@ significant difference between two groups simply because one of those
 groups has a greater dissimilarities among its sampling units. Most
 \code{mrpp} models can be analysed with \code{\link{adonis}} which seems
 not suffer from the same problems as \code{mrpp} and is a more robust
-alternative. 
+alternative.
+
+Development version 1.18-8 and release version 1.17-3 and prior based
+classification strength (Van Sickle and Hughes, 2000) on
+\code{weight.type=3}, but the original paper clearly used
+\code{weight.type=1} (corrected on August 12, 2010).
 }
 \seealso{
   \code{\link{anosim}} for a similar test based on ranks, and

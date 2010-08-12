@@ -14,7 +14,7 @@
     A2 <- weighted.mean(diag(object), w = n - 1, na.rm = TRUE)
     A3 <- weighted.mean(diag(object), w = n * (n - 1), na.rm = TRUE)
     ##
-    out <- list(W = W, B = B, D = D, CS = B-W,
+    out <- list(W = W, B = B, D = D, CS = B-A1,
                 A1 = 1 - A1/D, A2 = 1 - A2/D, A3 = 1 - A3/D)
     class(out) <- "summary.meandist"
     out
