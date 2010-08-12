@@ -98,6 +98,7 @@
     rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"
+    class(tab) <- c("anova", class(tab))
     out <- list(aov.tab = tab, call = match.call(), 
                 coefficients = beta.spp, coef.sites = beta.sites,
                 f.perms = f.perms, model.matrix = rhs, terms = Terms)

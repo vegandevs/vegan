@@ -3,6 +3,6 @@
 {
     cat("\nCall:\n")
     cat(deparse(x$call), "\n\n")
-    printCoefmat(x$aov.tab,  na.print = "")
+    print(x$aov.tab)
     invisible(x)
 }

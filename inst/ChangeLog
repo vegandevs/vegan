@@ -11,6 +11,8 @@ Version 1.18-8 (opened July 19, 2010)
 
 	* intro: ordispider uses label.
 
+	* adonis: uses print.anova for cleaner output.
+
 	* plot.MOStest: uses veganCovEllipse instead of
 	ellipse:::ellipse.glm.
 
