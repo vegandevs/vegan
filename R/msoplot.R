@@ -35,7 +35,7 @@
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
                   pch = 3, ...)
             ## Legend
-            legend("topleft", c(label[c(2,b:3)+3], ci.lab, sign.lab),
+            legend("topleft", c(label[c(2,3:b)+3], ci.lab, sign.lab),
                    lty=c(c(1,2,1,1,1)[2:b], 1, if(hasSig) NA),
                    pch=c(3, (6:(b+3))-6, NA, if(hasSig) 15)
                    )

@@ -18,6 +18,8 @@ Version 1.18-9 (opened August 12, 2010)
 	columns.  Reported as bug #1002 in http://r-forge.r-project.org/
 	by Sergio Garcia. Also some small edits of vegdist man page.
 
+	* msoplot: legend mixed symbols and labels. 
+
 Version 1.18-8 (closed August 12, 2010)
 
 	* DESCRIPTION: does not suggest package 'ellipse'.
