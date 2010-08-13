@@ -20,7 +20,9 @@ Version 1.18-9 (opened August 12, 2010)
 
 	* msoplot: legend mixed symbols and labels. 
 
-	* Rd (help) files: use real UTF-8 instead of \'-escapes.
+	* Rd (help) files: removed some superfluous \-characters that were
+	visible in rendering text (accented letters, Latex notation in
+	wrong places).
 
 Version 1.18-8 (closed August 12, 2010)
 

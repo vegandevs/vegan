@@ -83,8 +83,8 @@ permute(i, n, control)
   within a function implementing a permutation test. The main purpose of
   \code{permute} is to return the correct permutation in each iteration
   of the loop, either a random permutation from the current design or
-  the next permutation from \code{control\$all.perms} if it is not
-  \code{NULL} and \code{control\$complete} is \code{TRUE}.
+  the next permutation from \code{control$all.perms} if it is not
+  \code{NULL} and \code{control$complete} is \code{TRUE}.
 }
 \value{
   For \code{permuted.index2} a vector of length \code{n} containing a

@@ -95,8 +95,8 @@ estaccumR(x, permutations = 100)
     \eqn{C_{ace} = 1 - \frac{a_1}{N_{rare}}}{C_{ace} = 1- a1/N_{rare}}
     \cr
     \tab \eqn{\gamma^2_{ace} = \max \left[ \frac{S_{rare} \sum_{i=1}^{10}
-      i(i-1)a_i}{C_{ace} N_{rare} (N_{rare} - 1)}-1, 0 \right]}{gamma^2 = \max(
-    S_rare/C_ace (sum[i=1..10] i*(i-1)*a_i) / N_rare/(N_rare-1) -1 , 0)}
+      i(i-1)a_i}{C_{ace} N_{rare} (N_{rare} - 1)}-1, 0 \right]}{gamma^2 = 
+    max(S_rare/C_ace (sum[i=1..10] i*(i-1)*a_i) / N_rare/(N_rare-1) -1 , 0)}
     }
     Here \eqn{a_i} refers to number of species with abundance \eqn{i}
     and  \eqn{S_{rare}}{S_rare} is the number of rare

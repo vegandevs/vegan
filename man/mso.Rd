@@ -22,7 +22,7 @@ msoplot(x, alpha = 0.05, explained = FALSE, ...)
     \code{\link{rda}} function.} 
   \item{object.xy}{ A vector, matrix or data frame with the spatial
     coordinates of the data represented by object.cca. Must have the
-    same number of rows as \code{object.cca\$CA\$Xbar} (see
+    same number of rows as \code{object.cca$CA$Xbar} (see
     \code{\link{cca.object}}). } 
   \item{grain}{ Interval size for distance classes.}
   \item{round.up}{ Determines the choice of breaks. If false, distances
@@ -65,7 +65,7 @@ msoplot(x, alpha = 0.05, explained = FALSE, ...)
   \item{H }{ H is an object of class 'dist' and contains the geographic
     distances between observations.} 
   \item{H.test }{ H.test contains a set of dummy variables that describe
-    which pairs of observations (rows = elements of \code{object\$H}) fall in
+    which pairs of observations (rows = elements of \code{object$H}) fall in
     which distance class (columns). } 
   \item{vario }{ The vario attribute is a data frame that contains some
     or all of the following components for the rda case (cca case in

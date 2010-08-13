@@ -54,8 +54,9 @@ as.rad(x)
     be plotted.}
   \item{order.by}{A vector used for ordering sites in plots.}
   \item{BIC}{Use Bayesian Information Criterion, BIC, instead of
-    Akaike's AIC. The penalty for a parameter is \eqn{k = \log(S)} where
-    \eqn{S} is the number of species, whereas AIC uses \eqn{k = 2}.}
+    Akaike's AIC. The penalty for a parameter is \eqn{k = \log(S)}{k =
+      log(S)}  where \eqn{S} is the number of species, whereas AIC uses
+    \eqn{k = 2}.} 
   \item{model}{Show only the specified model. If missing, AIC is used to
     select the model. The model names (which can be abbreviated) are
     \code{Preemption}, \code{Lognormal}, \code{Veiled.LN},

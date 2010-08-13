@@ -54,16 +54,16 @@ wisconsin(x)
       1}).
     \item \code{hellinger}: square root of \code{method = "total"}
     (Legendre & Gallagher 2001).
-    \item \code{log}: logarithmic transformation as suggested by Anderson 
-     et al. (2006): \eqn{\log_b (x) + 1} for \eqn{x > 0},  where \eqn{b} is 
-     the base of the logarithm; zeros are left as zeros. Higher bases give
-     less weight to quantities and more to presences, and \code{logbase = Inf}
-     gives the presence/absence scaling. Please note this is \emph{not}
-     \eqn{\log(x+1)}.
+    \item \code{log}: logarithmic transformation as suggested by
+     Anderson et al. (2006): \eqn{\log_b (x) + 1}{log_b (x) + 1} for
+     \eqn{x > 0}, where \eqn{b} is the base of the logarithm; zeros are
+     left as zeros. Higher bases give less weight to quantities and more
+     to presences, and \code{logbase = Inf} gives the presence/absence
+     scaling. Please note this is \emph{not} \eqn{\log(x+1)}{log(x+1)}.
      Anderson et al. (2006) suggested this for their (strongly) modified
      Gower distance, but the standardization can be used independently
      of distance indices.
-  }
+   }
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
 
