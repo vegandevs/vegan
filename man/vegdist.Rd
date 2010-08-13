@@ -59,8 +59,10 @@
     values)
     \cr
     \code{altGower}
-    \tab like \code{manhattan}, but divided by the number of rows
-    excluding double-zeros (Anderson et al. 2006).
+    \tab \eqn{d_{jk} = (1/NZ) \sum_i |x_{ij} - x_{ik}|}{d[jk] = (1/NZ) sum(abs(x[ij] - x[ik]))}
+    \cr
+    \tab where \eqn{NZ} is the number of non-zero rows excluding
+    double-zeros (Anderson et al. 2006). 
     \cr
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
@@ -229,25 +231,25 @@
   and Michael Bedward (Raup--Crick index). }
 
 \note{The function is an alternative to \code{\link{dist}} adding some
-  ecologically meaningful indices.  Both methods should produce
-  similar types of objects which can be interchanged in any method
-  accepting either.  Manhattan and Euclidean dissimilarities should be
-  identical in both methods. Canberra index is divided by the number
-  of variables in \code{vegdist}, but not in \code{\link{dist}}.  So
-  these differ by a constant multiplier, and the alternative in
-  \code{vegdist} is in range (0,1).  Function
-  \code{\link[cluster]{daisy}} (package \pkg{cluster}) provides
-  alternative implementation of Gower index that also can handle mixed
-  data of numeric and class variables.  There are two versions of
-  Gower distance (\code{"gower"}, \code{"altGower"}) which differ in
-  scaling: \code{"gower"} divides all distances by the number of
-  observations (rows) and scales each column to unit range, but
-  \code{"altGower"} omits double-zeros and divides by the number of
+  ecologically meaningful indices.  Both methods should produce similar
+  types of objects which can be interchanged in any method accepting
+  either.  Manhattan and Euclidean dissimilarities should be identical
+  in both methods. Canberra index is divided by the number of variables
+  in \code{vegdist}, but not in \code{\link{dist}}.  So these differ by
+  a constant multiplier, and the alternative in \code{vegdist} is in
+  range (0,1).  Function \code{\link[cluster]{daisy}} (package
+  \pkg{cluster}) provides alternative implementation of Gower index that
+  also can handle mixed data of numeric and class variables.  There are
+  two versions of Gower distance (\code{"gower"}, \code{"altGower"})
+  which differ in scaling: \code{"gower"} divides all distances by the
+  number of observations (rows) and scales each column to unit range,
+  but \code{"altGower"} omits double-zeros and divides by the number of
   pairs with at least one above-zero value, and does not scale columns
-  (Anderson et al. 2006). Gower (1971) suggested omitting double zeros
-  for presences, but it is often taken as the general feature of the
-  Gower distances. See Examples for implementing the Anderson et
-  al. (2006) variant of the Gower index.
+  (Anderson et al. 2006).  You can use \code{\link{decostand}} to add
+  range standardization to \code["altGower"} (see Examples). Gower
+  (1971) suggested omitting double zeros for presences, but it is often
+  taken as the general feature of the Gower distances. See Examples for
+  implementing the Anderson et al. (2006) variant of the Gower index.
 
   Most dissimilarity indices in \code{vegdist} are designed for
   community data, and they will give misleading values if there are
@@ -271,7 +273,9 @@ data(varespec)
 vare.dist <- vegdist(varespec)
 # Orlóci's Chord distance: range 0 .. sqrt(2)
 vare.dist <- vegdist(decostand(varespec, "norm"), "euclidean")
-# Anderson et al. version of Gower
+# Anderson et al.  (2006) version of Gower
 vare.dist <- vegdist(decostand(varespec, "log"), "altGower")
+# Range standardization with "altGower" (that excludes double-zeros)
+vare.dist <- vegdist(decostand(varespec, "range"), "altGower")
 }
 \keyword{ multivariate }
