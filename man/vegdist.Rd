@@ -53,7 +53,7 @@
     \cr
     \code{gower}
     \tab \eqn{d_{jk} = (1/M) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
-	x_i}}{d[jk] = (1/M) sum (abs(x[ij]-x[ik])/(max(x[i])-min(x[i]))}
+	x_i}}{d[jk] = (1/M) sum (abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
     \cr
     \tab where \eqn{M} is the number of rows (excluding missing
     values)
