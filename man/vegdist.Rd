@@ -246,7 +246,7 @@
   but \code{"altGower"} omits double-zeros and divides by the number of
   pairs with at least one above-zero value, and does not scale columns
   (Anderson et al. 2006).  You can use \code{\link{decostand}} to add
-  range standardization to \code["altGower"} (see Examples). Gower
+  range standardization to \code{"altGower"} (see Examples). Gower
   (1971) suggested omitting double zeros for presences, but it is often
   taken as the general feature of the Gower distances. See Examples for
   implementing the Anderson et al. (2006) variant of the Gower index.
