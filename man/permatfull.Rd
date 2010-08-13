@@ -208,7 +208,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   Applied Statistics 30, 91--97.
 }
 
-\author{\enc{P\'eter S\'olymos}{Peter Solymos},
+\author{\enc{Péter Sólymos}{Peter Solymos},
 \email{solymos@ualberta.ca} and Jari Oksanen}
 
 \seealso{ For other functions to permute matrices:

@@ -36,7 +36,7 @@ multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
 }
 \details{
 Multiplicative diversity partitioning is based on Whittaker's (1972) ideas, that has 
-recently been generalised to one parametric diversity families (i.e. \enc{R\'enyi}{Renyi} 
+recently been generalised to one parametric diversity families (i.e. \enc{Rényi}{Renyi} 
 and Tsallis) by Jost (2006, 2007). Jost recommends to use the numbers equivalents 
 (Hill numbers), instead of pure diversities, and proofs, that this satisfies the 
 multiplicative partitioning requirements.
@@ -79,7 +79,7 @@ Jost, L. (2007). Partitioning diversity into independent alpha and beta componen
 Whittaker, R. (1972). Evolution and measurement of species diversity.
 \emph{Taxon}, \bold{21}, 213--251.
 }
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
+\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 \seealso{See \code{\link{adipart}} for additive diversity partitioning,
   \code{\link{hiersimu}} for hierarchical null model testing
   and \code{\link{oecosimu}} for permutation settings and calculating \eqn{p}-values.}

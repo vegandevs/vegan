@@ -20,6 +20,8 @@ Version 1.18-9 (opened August 12, 2010)
 
 	* msoplot: legend mixed symbols and labels. 
 
+	* Rd (help) files: use real UTF-8 instead of \'-escapes.
+
 Version 1.18-8 (closed August 12, 2010)
 
 	* DESCRIPTION: does not suggest package 'ellipse'.

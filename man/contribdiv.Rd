@@ -39,7 +39,7 @@ An object of class \code{"contribdiv"}.
 Lu, H. P., Wagner, H. H. and Chen, X. Y. 2007. A contribution diversity approach to evaluate species diversity.
 \emph{Basic and Applied Ecology}, 8, 1--12.
 }
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
+\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 \seealso{\code{\link{adipart}}, \code{\link{diversity}}}
 \examples{
 ## Artificial example given in

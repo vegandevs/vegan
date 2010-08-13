@@ -80,7 +80,7 @@ Distributions}. Penn. State Univ. Press, University Park.
 Krebs, C. J. 1999. \emph{Ecological Methodology}. 2nd ed. Benjamin
 Cummings Publishers.  }
 
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
+\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 
 \note{ A common error found in several papers is that when standardizing
 as in the case (b), the denominator is given as \code{Muni - 1}. This

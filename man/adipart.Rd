@@ -100,7 +100,7 @@ diversity, and similarity among multiple communities.
 \emph{Oikos}, \bold{76}, 5--13.
 }
 
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
+\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 \seealso{See \code{\link{oecosimu}} for permutation settings and calculating \eqn{p}-values.}
 \examples{
 ## NOTE: 'nsimul' argument usually needs to be >= 99

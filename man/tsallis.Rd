@@ -64,7 +64,7 @@ Keylock, C. J. (2005) Simpson diversity and the Shannon-Wiener index as special 
 Jost, L (2007) Partitioning diversity into independent alpha and beta components.
   \emph{Ecology} \bold{88}, 2427--2439.
 }
-\author{\enc{P\'eter S\'olymos}{Peter Solymos}, \email{solymos@ualberta.ca}, based on the code of Roeland Kindt and Jari Oksanen written for \code{renyi}}
+\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}, based on the code of Roeland Kindt and Jari Oksanen written for \code{renyi}}
 \seealso{
 Plotting methods and accumulation routines are based on functions \code{\link{renyi}} and \code{\link{renyiaccum}}. An object of class 'tsallisaccum' can be used with function \code{\link{rgl.renyiaccum}} as well. See also settings for \code{\link{persp}}.
 }
