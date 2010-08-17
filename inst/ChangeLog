@@ -24,6 +24,10 @@ Version 1.18-9 (opened August 12, 2010)
 	visible in rendering text (accented letters, Latex notation in
 	wrong places).
 
+	* predict.rda/cca: document 'newdata' with 'type = "response"' or
+	'type = "working"'. The feature was added in vegan
+	1.18-4 (rev1180, April 15, 2010).
+
 Version 1.18-8 (closed August 12, 2010)
 
 	* DESCRIPTION: does not suggest package 'ellipse'.

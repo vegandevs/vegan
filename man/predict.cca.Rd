@@ -15,8 +15,11 @@
 \title{Prediction Tools for [Constrained] Ordination (CCA,
   RDA, DCA, CA, PCA) }
 \description{
-  Function \code{predict} can be used to find site and species scores
-  with new data sets.  
+  Function \code{predict} can be used to find site and species scores or
+  estimates of the response data with new data sets, Function
+  \code{calibrate} estimates values of constraints with new data set.
+  Functions \code{fitted} and \code{residuals} return estimates of
+  response data. 
 }
 \usage{
 \method{fitted}{cca}(object, model = c("CCA", "CA"),
@@ -38,15 +41,15 @@
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. For \code{\link{capscale}} this can also be 
     \code{"Imaginary"} for imaginary components with negative eigenvalues. }
-  \item{newdata}{New data frame to be used in prediction of species
-    and site scores or for calibration.  Usually this a new community
-    data frame, but for \code{predict.cca} \code{type = "lc"} it must
-    be an environment data frame, and for \code{type = "response"}
-    this is ignored.  If the original model had row or column names,
-    then new data must contain rows or columns with the same names
-    (row names for species scores, column names for \code{"wa"} scores
-    and constraint names of \code{"lc"} scores). In other cases the
-    rows or columns must match directly. }
+  \item{newdata}{New data frame to be used in prediction or in
+    calibration.  Usually this a new community data frame, but for
+    \code{predict.cca} \code{type = "lc"} and for constrained component
+    with \code{type} \code{"response"} and \code{"working"} it must be
+    an environment data frame, If the original model had row or column
+    names, then new data must contain rows or columns with the same
+    names (row names for species scores, column names for \code{"wa"}
+    scores and constraint names of \code{"lc"} scores). In other cases
+    the rows or columns must match directly. }
   \item{type}{The type of prediction, fitted values or residuals:
     \code{"response"} scales results so that the same ordination gives
     the same results, and \code{"working"} gives the values used
@@ -87,31 +90,37 @@
   unconstrained part of the ordination.
 
   Function \code{predict} can find the estimate of the original data
-  matrix or dissimilarities (\code{type = "response"}) with any rank. 
-  With \code{rank = "full"} it is identical to \code{fitted}.
-  In addition, the function
-  can find the species scores or site scores from the community data
-  matrix for \code{\link{cca}} or \code{\link{rda}}.  
-  The function can be used with new data, and it can be used to
-  add new species or site scores to existing ordinations.  The function
-  returns (weighted) orthonormal scores by default, and you must
-  specify explicit \code{scaling} to
-  add those scores to ordination diagrams. With
-  \code{type = "wa"} the function finds the site scores from species
-  scores. In that case, the new data can contain new sites, but species
-  must match in the original and new data.  With \code{type = "sp"} the
-  function finds species scores from site constraints (linear
-  combination scores). In that case the new data can contain new
-  species, but sites must match in the original and new
-  data. With \code{type = "lc"} the function finds the linear
-  combination scores for sites from environmental data. In that case the
-  new data frame must contain all constraining and conditioning environmental
-  variables of the model formula. If a completely new data frame is created,
-  extreme care is needed defining variables similarly as in the original
-  model, in particular with (ordered) factors. If ordination was
-  performed with the formula interface, the \code{newdata} also can be a
-  data frame or matrix, but extreme care is needed that the columns
-  match in the original and \code{newdata}.
+  matrix or dissimilarities (\code{type = "response"}) with any rank.
+  With \code{rank = "full"} it is identical to \code{fitted}.  In
+  addition, the function can find the species scores or site scores from
+  the community data matrix for \code{\link{cca}} or \code{\link{rda}}.
+  The function can be used with new data, and it can be used to add new
+  species or site scores to existing ordinations.  The function returns
+  (weighted) orthonormal scores by default, and you must specify
+  explicit \code{scaling} to add those scores to ordination
+  diagrams. With \code{type = "wa"} the function finds the site scores
+  from species scores. In that case, the new data can contain new sites,
+  but species must match in the original and new data.  With \code{type
+  = "sp"} the function finds species scores from site constraints
+  (linear combination scores). In that case the new data can contain new
+  species, but sites must match in the original and new data. With
+  \code{type = "lc"} the function finds the linear combination scores
+  for sites from environmental data. In that case the new data frame
+  must contain all constraining and conditioning environmental variables
+  of the model formula. With \code{type = "response"} or \code{type =
+  "working"} the new data must contain envinronmental variables if
+  constrained component is desired, and community data matrix if
+  residual or unconstrained component is desired.  With these types, the
+  function uses \code{newdata} to find new \code{"lc"} (constrained) or
+  \code{"wa"} scores (unconstrained) and then finding the response or
+  working data from these new row scores and species scores.
+
+  If a completely new data frame is created, extreme care is needed
+  defining variables similarly as in the original model, in particular
+  with (ordered) factors. If ordination was performed with the formula
+  interface, the \code{newdata} also can be a data frame or matrix, but
+  extreme care is needed that the columns match in the original and
+  \code{newdata}.
 
   Function \code{calibrate.cca} finds estimates of constraints from
   community ordination or \code{"wa"} scores from \code{\link{cca}},
