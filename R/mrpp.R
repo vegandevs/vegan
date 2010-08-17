@@ -31,11 +31,10 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
     del <- weighted.mean(classdel, w = w, na.rm = TRUE)
     E.del <- mean(dmat, na.rm = TRUE)
     ## 'Classification strength' if weight.type == 1
-    if (weight.type == 1) {
-        CS <- mean(dmat[outer(grouping, grouping, "!=")]) - del
-    } else {
-        CS <- NA
-    }
+    ## Do not calculate classification strength because there is no
+    ## significance test for it. Keep the item in reserve for
+    ## possible later re-inclusion.
+    CS <- NA
     if (missing(strata)) 
         strata <- NULL
     perms <- sapply(1:permutations, function(x) grouping[permuted.index(N, 

@@ -4,14 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-9 (opened August 12, 2010)
 
-	* mrpp & meandist: I had misinterpreted the classification
-	strength (CS) be based on weight.type=3 or N*(N-1)/2, but it was
-	based on weight.type=1 or N. The literature reference to CS is now
-	more appropriate. Thanks to Dr John Van Sickle (US EPA, Corvallis,
-	Oregon) for pointing out that I had misread his papers. Needs
-	still checking. For instance, MRPP statistic and CS are not
-	monotonically related with this weight.type (they were with
-	weight.type=3), and CS cannot be tested with the current function.
+	* mrpp & meandist: John Van Sickle notified us that his
+	Classification Strength (CS) uses 'weight.type = 1' (or n)
+	insteaad of 'weight.type = 3' (or n(n-1)/2).  Calculation of CS
+	was dropped from mrpp(), because with this weighting it no longer
+	has an exact relation to the corresponding MRPP statistic and the
+	function mrpp() cannot provide a significance test for both
+	statistics together. CS is kept in meandist(), where its
+	calculation is corrected for the correct weight type.
 
 	* vegdist: Anderson et al. (Ecol Lett 9, 683-693; 2006) defined
 	their "alternative Gower" without range standardization of
