@@ -130,8 +130,6 @@ Vegan declares these packages only as suggested ones, and you can install vegan
 and use most of its functions without these packages.  The
 non-standard packages needed by some vegan functions are:
 @itemize
-@item Package @code{ellipse}
-is needed by @code{MOStest} for plotting 
 
 @item Package @code{cluster}
 is needed by @code{decostand} if environmental data contain factors
