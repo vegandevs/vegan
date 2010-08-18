@@ -6,7 +6,7 @@
 \alias{print.summary.meandist}
 \alias{plot.meandist}
 
-\title{ Multi Response Permutation Procedure of Mean Dissimilarity Matrix}
+\title{Multi Response Permutation Procedure and Mean Dissimilarity Matrix}
 
 \description{ Multiple Response Permutation Procedure (MRPP) provides a
 test of whether there is a significant difference between two or more
@@ -96,20 +96,25 @@ dissimilarities (diagonal) and between-cluster dissimilarities
 counts. Function \code{summary} finds the within-class, between-class
 and overall means of these dissimilarities, and the MRPP statistics with
 all \code{weight.type} options and the Classification Strength, CS (Van
-Sickle and Hughes, 2000).  CS is closely related to MRPP statistic with
-\code{weight.type = 1}. The function does not perform significance tests
-for these statistics, but you must use \code{mrpp} with appropriate
-\code{weight.type}, and there is currently no significance test for CS.
-Function \code{plot} draws a dendrogram or a histogram of the result
-matrix based on the within-group and between group dissimilarities. The
-dendrogram is found with the method given in the \code{cluster} argument
-using function \code{\link{hclust}}. The terminal segments hang to
-within-cluster dissimilarity. If some of the clusters are more
-heterogeneous than the combined class, the leaf segment are reversed.
-The histograms are based on dissimilarites, but ore otherwise similar to
-those of Van Sickle and Hughes (2000): horizontal line is drawn at the
-level of mean between-cluster dissimilarity and vertical lines connect
-within-cluster dissimilarities to this line.
+Sickle and Hughes, 2000). CS is defined for dissimiliraties as
+\eqn{\bar{B} - \bar{W}}{Bbar-Wbar}, where \eqn{\bar{B}}{Bbar} is the
+mean between cluster dissimilarity and \eqn{\bar{W}}{Wbar} is the mean
+within cluster dissimilarity with \code{weight.type = 1}. The function
+does not perform significance tests for these statistics, but you must
+use \code{mrpp} with appropriate \code{weight.type}. There is currently
+no significance test for CS, but \code{mrpp} with \code{weight.type = 1}
+gives the correct test for \eqn{\bar{W}}{Wbar} and a good approximation
+for CS.  Function \code{plot} draws a dendrogram or a histogram of the
+result matrix based on the within-group and between group
+dissimilarities. The dendrogram is found with the method given in the
+\code{cluster} argument using function \code{\link{hclust}}. The
+terminal segments hang to within-cluster dissimilarity. If some of the
+clusters are more heterogeneous than the combined class, the leaf
+segment are reversed.  The histograms are based on dissimilarites, but
+ore otherwise similar to those of Van Sickle and Hughes (2000):
+horizontal line is drawn at the level of mean between-cluster
+dissimilarity and vertical lines connect within-cluster dissimilarities
+to this line.
 }
 
 \value{
