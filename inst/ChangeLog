@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-9 (opened August 12, 2010)
+Version 1.18-10 (opened August 20, 2010)
+
+	* New version opened with the release of vegan_1.17-4 on August
+	20, 2010.
+	
+Version 1.18-9 (closed August 20, 2010)
 
 	* mrpp & meandist: John Van Sickle notified us that his
 	Classification Strength (CS) uses 'weight.type = 1' (or n)
