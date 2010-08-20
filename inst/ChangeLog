@@ -6,6 +6,9 @@ Version 1.18-10 (opened August 20, 2010)
 
 	* New version opened with the release of vegan_1.17-4 on August
 	20, 2010.
+
+	* permustest.cca: defaults to 99 permutations instead of 100 (to
+	be consistent).
 	
 Version 1.18-9 (closed August 20, 2010)
 

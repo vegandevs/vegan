@@ -5,8 +5,9 @@ permutest.default <- function(x, ...)
     stop("No default permutation test defined")
 
 `permutest.cca` <-
-    function (x, permutations = 100, model = c("reduced", "direct", 
-                                     "full"), first = FALSE, strata, ...) 
+    function (x, permutations = 99,
+              model = c("reduced", "direct", "full"), first = FALSE,
+              strata, ...) 
 {
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")

@@ -23,7 +23,7 @@
 
 permutest(x, ...)
 
-\method{permutest}{cca}(x, permutations = 100,
+\method{permutest}{cca}(x, permutations = 99,
           model = c("reduced", "direct", "full"),
           first = FALSE, strata, ...)
 }
