@@ -17,21 +17,13 @@
     objects <- list(object, ...)
     nmodels <- length(objects)
     ## Collect statistics
-    resdf <- sapply(objects, function(x) x$CA$rank)
-    resdev <- sapply(objects, function(x) x$CA$tot.chi)
-    ## residual df (df) do not necessarily decrease with rank deficit
-    ## models: we also need model (CCA) df and their change
-    moddf <- sapply(objects, function(x) x$CCA$qrank)
-    ## ANOVA table except test
-    table <- data.frame(moddf, resdf, resdev, c(NA, diff(moddf)),
-                        c(NA, -diff(resdev)))
-    dimnames(table) <- list(1:nmodels, c("Model.Df", "Res.Df", "RSS", "Df", "Sum of Sq"))
-    variables <- sapply(objects,
-                        function(x) paste(deparse(formula(x)), collapse="\n"))
-    title <- "Analysis of Variance Table\n"
-    topnote <- paste("Model ", format(1:nmodels), ": ", variables,
-                     sep = "", collapse = "\n")
-    table <- structure(table, heading = c(title, topnote))
+    N <- nrow(object$CA$u)
+    ranks <- sapply(objects, function(x)
+                    if (is.null(x$CCA$qrank)) 0 else x$CCA$qrank)
+    resdf <- N - ranks - 1
+    resdev <- sapply(objects, deviance)
+    moddev <- c(NA, -diff(resdev))
+    moddf <- c(NA, diff(ranks))
     ##Collect tests
     mods <- list()
     for(i in 1:nmodels) {
@@ -40,6 +32,27 @@
                    envir = .GlobalEnv)
         mods[[i]] <- permutest(objects[[i]])
     }
-    class(table) <- c("anova", class(table))
+    ## Differences of permutations. In permutation F values, numerator
+    ## is taken from each model, but all use the same denominator from
+    ## the largest model.
+    bigmodel <- which.min(resdf)
+    F <- moddev/moddf/resdev[bigmodel]*resdf[bigmodel]
+    den <- mods[[bigmodel]]$den/mods[[bigmodel]]$df[2]
+    Pval <- rep(NA, nmodels)
+    for (i in 2:nmodels) {
+        F.perm <- abs(mods[[i]]$num - mods[[i-1]]$num)/abs(moddf[i])/abs(den)
+        Pval[i] <- (sum(F.perm >= F[i]) + 1)/(length(F.perm) + 1)
+    }   
+    ## ANOVA table 
+    table <- data.frame(resdf, resdev, moddf, moddev, F, Pval)
+    dimnames(table) <- list(1:nmodels, c("Res.Df", "RSS", "Df", "Sum of Sq",
+                                         "F", "Pr(>F)"))
+    variables <- sapply(objects,
+                        function(x) paste(deparse(formula(x)), collapse="\n"))
+    title <- "Analysis of Variance Table\n"
+    topnote <- paste("Model ", format(1:nmodels), ": ", variables,
+                     sep = "", collapse = "\n")
+    table <- structure(table, heading = c(title, topnote))
+    class(table) <- c("anova.cca", "anova", class(table))
     table
 }

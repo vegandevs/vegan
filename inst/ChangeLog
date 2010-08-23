@@ -13,23 +13,23 @@ Version 1.18-10 (opened August 20, 2010)
 	* anova.ccalist: Started to work on the concept of permutation
 	test comparison of several cca/ rda/ capscale models. The first
 	stage of the function was added to the R-Forge (undocumented!).
-	Currently the function only collects the statistics to an ANOVA
-	table but performs no tests. My first idea is to run permutest.cca
-	with the same RNG seed and collect the permutations from the
-	differences of these models. I know now that this won't work
-	because permuted residuals differ from the corresponding partial
-	model (except with model = "direct").  Another option that I have
-	on my mind is that I use model.matrix.cca to reconstruct a matrix
-	of RHS of each model, and then run a series partial model
-	ANOVAs. Here the problem is that the statistics will be
-	sequential, i.e., the residual of each model is from the next
-	model and not from the final model (bigmodel). Naturally, we have
-	to figure out how the permutation should be done. Probably a note
-	to R-Devel to open up discussion on the issue. NOTE: there is no
-	automatic delegation to this function. If you try this, you must
-	explcititly write "anova.ccalist(model1, model2, model3). NOTE2:
-	There are no tests of the sanity of the input: be careful. NOTE3:
-	No test are provided: still under construction.
+	My first idea is to run permutest.cca with the same RNG seed and
+	collect the permutations from the differences of these models. I
+	know now that this won't work because permuted residuals differ
+	from the corresponding partial model (except with model =
+	"direct").  Another option that I have on my mind is that I use
+	model.matrix.cca to reconstruct a matrix of RHS of each model, and
+	then run a series partial model ANOVAs. Here the problem is that
+	the statistics will be sequential, i.e., the residual of each
+	model is from the next model and not from the final
+	model (bigmodel). Naturally, we have to figure out how the
+	permutation should be done. Probably a note to R-Devel to open up
+	discussion on the issue. NOTE: there is no automatic delegation to
+	this function. If you try this, you must explcititly write
+	"anova.ccalist(model1, model2, model3). NOTE2: There are no tests
+	of the sanity of the input: be careful. NOTE3: Does not yet work
+	with Null model (y ~ 1) since permutest.cca won't work with them
+	(anova.ccanull would work).
 	
 Version 1.18-9 (closed August 20, 2010)
 
