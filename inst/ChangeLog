@@ -7,6 +7,8 @@ Version 1.18-10 (opened August 20, 2010)
 	* New version opened with the release of vegan_1.17-4 on August
 	20, 2010.
 
+	* biplot.CCorA: resets par that it sets.
+
 	* permutest.cca: defaults to 99 permutations instead of 100 (to
 	be consistent). Item 'call' now stores the call to permutest()
 	instead of the call of the ordination which is now saved in

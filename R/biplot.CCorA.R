@@ -1,8 +1,11 @@
 `biplot.CCorA` <-
     function(x, plot.type="ov", xlabs, plot.axes = 1:2, int=0.5, col.Y="red", col.X="blue", cex=c(0.7,0.9), ...)
 {
+    ## Function sets par(): reset them on.exit
+    opar <- par(no.readonly = TRUE)
+    on.exit(par(opar))
     #### Internal function
-	larger.frame <- function(mat, percent=0.10)
+    larger.frame <- function(mat, percent=0.10)
 	# Produce an object plot 10% larger than strictly necessary
 	{
 	range.mat <- apply(mat,2,range)
