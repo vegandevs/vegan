@@ -28,9 +28,21 @@
     mods <- list()
     for(i in 1:nmodels) {
         if (i > 1)
-            assign(".Random.seed", mods[[1]]$Random.seed,
-                   envir = .GlobalEnv)
-        mods[[i]] <- permutest(objects[[i]])
+            ## juggling for Null model y ~ 1
+            if (!is.null(mods[[i-1]]$Random.seed))
+                assign(".Random.seed", mods[[i-1]]$Random.seed,
+                       envir = .GlobalEnv)
+        if (!is.null(objects[[i]]$CCA) && !is.null(objects[[i]]$CA))
+            mods[[i]] <- permutest(objects[[i]])
+        else {
+            if (is.null(objects[[i]]$CCA)) {
+                mods[[i]] <- list(num = 0,
+                                 den = objects[[i]]$CA$tot.chi/(N-1))
+            } else {
+                mods[[i]] <- list(num = objects[[i]]$CCA$tot.chi/moddf[i],
+                                  den = 0)
+            }
+        }
     }
     ## Differences of permutations. In permutation F values, numerator
     ## is taken from each model, but all use the same denominator from
