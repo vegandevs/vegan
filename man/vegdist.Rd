@@ -39,43 +39,59 @@
     \code{method ="gower"} which accepts \code{range.global} parameter of
     \code{\link{decostand}}. .}
 }
-\details{
-  Jaccard (\code{"jaccard"}), Mountford (\code{"mountford"}),
-  Raup--Crick (\code{"raup"}), Binomial and Chao indices are discussed below.
-  The other indices are defined as:
+
+\details{Jaccard (\code{"jaccard"}), Mountford (\code{"mountford"}),
+  Raup--Crick (\code{"raup"}), Binomial and Chao indices are discussed
+  later in this section.  The function also finds indices for presence/
+  absence data by setting \code{binary = TRUE}. The following overview
+  gives first the quantitative version, where \eqn{x_{ij}}{x[ij]}
+  \eqn{x_{ik}}{x[ik]} refer to the quantity on species (column) \eqn{i}
+  and sites (rows) \eqn{j} and \eqn{k}. In binary versions \eqn{A} and
+  \eqn{B} are the numbers of species on compared sites, and \eqn{J} is
+  the number of species that occur on both compared sites similarly as
+  in \code{\link{designdist}} (many indices produce identical binary
+  versions):
+  
   \tabular{ll}{
     \code{euclidean}
-    \tab \eqn{d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}}{d[jk] = sqrt(sum (x[ij]-x[ik])^2)}
+    \tab \eqn{d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}}{d[jk] = sqrt(sum(x[ij]-x[ik])^2)}
+    \cr \tab binary: \eqn{\sqrt{A+B-2J}}{sqrt(A+B-2*J)}
     \cr
     \code{manhattan}
     \tab \eqn{d_{jk}=\sum_i |x_{ij}-x_{ik}|}{d[jk] = sum(abs(x[ij] - x[ik]))}
+    \cr \tab binary: \eqn{A+B-2J}{A+B-2*J}
     \cr
     \code{gower}
-    \tab \eqn{d_{jk} = (1/M) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
-	x_i}}{d[jk] = (1/M) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
+    \tab \eqn{d_{jk} = (1/N) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
+	x_i}}{d[jk] = (1/N) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
+    \cr \tab binary: \eqn{(A+B-2J)/N}{(A+B-2*J)/N},
     \cr
-    \tab where \eqn{M} is the number of rows (excluding missing
+    \tab where \eqn{N} is the number of rows (excluding missing
     values)
     \cr
     \code{altGower}
     \tab \eqn{d_{jk} = (1/NZ) \sum_i |x_{ij} - x_{ik}|}{d[jk] = (1/NZ) sum(abs(x[ij] - x[ik]))}
     \cr
     \tab where \eqn{NZ} is the number of non-zero rows excluding
-    double-zeros (Anderson et al. 2006). 
+    double-zeros (Anderson et al. 2006).
+    \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
     \cr
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
       \frac{|x_{ij}-x_{ik}|}{x_{ij}+x_{ik}}}{d[jk] = (1/NZ) sum ((x[ij]-x[ik])/(x[ij]+x[ik]))}
     \cr
     \tab where \eqn{NZ} is the number of non-zero entries.
+    \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
     \cr
     \code{bray}
     \tab \eqn{d_{jk} = \frac{\sum_i |x_{ij}-x_{ik}|}{\sum_i (x_{ij}+x_{ik})}}{d[jk] = (sum abs(x[ij]-x[ik])/(sum (x[ij]+x[ik]))}
+    \cr \tab binary: \eqn{\frac{A+B-2J}{A+B}}{(A+B-2*J)/(A+B)}
     \cr
     \code{kulczynski}
     \tab \eqn{d_{jk} = 1-0.5(\frac{\sum_i \min(x_{ij},x_{ik})}{\sum_i x_{ij}} +
       \frac{\sum_i \min(x_{ij},x_{ik})}{\sum_i x_{ik}} )}{d[jk] 1 - 0.5*((sum min(x[ij],x[ik])/(sum x[ij]) + (sum
       min(x[ij],x[ik])/(sum x[ik]))}
+    \cr \tab binary: \eqn{1-(J/A + J/B)/2}{1-(J/A + J/B)/2}
     \cr
     \code{morisita}
     \tab \eqn{d_{jk} =  1 - \frac{2 \sum_i x_{ij} x_{ik}}{(\lambda_j +
@@ -85,10 +101,12 @@
     \cr
     \tab \eqn{\lambda_j = \frac{\sum_i x_{ij} (x_{ij} - 1)}{\sum_i
 	x_{ij} \sum_i (x_{ij} - 1)}}{lambda[j] = sum(x[ij]*(x[ij]-1))/sum(x[ij])*sum(x[ij]-1)}
+    \cr \tab binary: cannot be calculated
     \cr
     \code{horn}
     \tab Like \code{morisita}, but \eqn{\lambda_j = \sum_i
       x_{ij}^2/(\sum_i x_{ij})^2}{lambda[j] = sum(x[ij]^2)/(sum(x[ij])^2)}
+    \cr \tab binary: \eqn{\frac{A+B-2J}{A+B}}{(A+B-2*J)/(A+B)}
     \cr
     \code{binomial}
     \tab \eqn{d_{jk} = \sum_i [x_{ij} \log (\frac{x_{ij}}{n_i}) + x_{ik} \log
@@ -97,6 +115,7 @@
       n[i]*log(1/2))/n[i]},
     \cr
     \tab where \eqn{n_i = x_{ij} + x_{ik}}{n[i] = x[ij] + x[ik]}
+    \cr \tab binary: \eqn{\log(2) \times (A+B-2J)}{log(2)*(A+B-2*J)}
   }
 
   Jaccard index is computed as \eqn{2B/(1+B)}, where \eqn{B} is
