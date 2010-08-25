@@ -15,6 +15,9 @@ Version 1.18-10 (opened August 20, 2010)
 
 	* biplot.CCorA: resets par that it sets.
 
+	* ordiR2step: can go to the end and include all variables of the
+	scope (and checks there is a scope).
+
 	* permutest.cca: defaults to 99 permutations instead of 100 (to
 	be consistent). Item 'call' now stores the call to permutest()
 	instead of the call of the ordination which is now saved in

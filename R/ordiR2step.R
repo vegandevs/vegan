@@ -5,6 +5,8 @@
 `ordiR2step` <-
     function(object, scope, trace = TRUE)
 {
+    if (missing(scope))
+        stop("needs scope")
     ## Works only for rda(): cca() does not have (yet) R2.adjusted
     if (!inherits(object, "rda"))
         stop("can be used only with rda() or capscale()")
@@ -30,6 +32,9 @@
     R2.previous <- R2.0
     repeat {
         adds <- add.scope(object, scope)
+        ## Nothing to add, and we're done: break
+        if (length(adds) == 0)
+            break
         R2.adds <- numeric(length(adds))
         names(R2.adds) <- adds
         ## Loop over add scope
