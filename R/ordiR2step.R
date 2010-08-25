@@ -52,7 +52,17 @@
             cat("\n")
         }
         ## See if the best should be kept
+        ## First criterion: R2.adj improves and is still lower or
+        ## equal than for the full model of the scope
         if (R2.adds[best] > R2.previous && R2.adds[best] <= R2.all) {
+            ## Second criterion: added variable is significant
+            tst <- add1(object, scope = adds[best], test="permu")
+            if (trace) {
+                print(tst[-1,])
+                cat("\n")
+            }
+            if (tst[,"Pr(>F)"][2] > 0.05)
+                break
             fla <- paste("~  . +", adds[best])
             object <- update(object, fla)
             R2.previous <- RsquareAdj(object)$adj.r.squared

@@ -16,7 +16,10 @@ Version 1.18-10 (opened August 20, 2010)
 	* biplot.CCorA: resets par that it sets.
 
 	* ordiR2step: can go to the end and include all variables of the
-	scope (and checks there is a scope).
+	scope (and checks there is a scope).  Added alternative stopping
+	criterion of exceeding P-value.  This is now hard-coded to P=0.05,
+	but will be changed to a configurable argument if the criterion is
+	deemed as useful feature to be kept.
 
 	* permutest.cca: defaults to 99 permutations instead of 100 (to
 	be consistent). Item 'call' now stores the call to permutest()
