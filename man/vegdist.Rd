@@ -48,12 +48,11 @@
     \tab \eqn{d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}}{d[jk] = sqrt(sum (x[ij]-x[ik])^2)}
     \cr
     \code{manhattan}
-    \tab \eqn{d_{jk} = \sum_i |x_{ij} - x_{ik}|}{d[jk] = sum(abs(x[ij] -
-      x[ik]))}
+    \tab \eqn{d_{jk}=\sum_i |x_{ij}-x_{ik}|}{d[jk] = sum(abs(x[ij] - x[ik]))}
     \cr
     \code{gower}
     \tab \eqn{d_{jk} = (1/M) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
-	x_i}}{d[jk] = (1/M) sum (abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
+	x_i}}{d[jk] = (1/M) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
     \cr
     \tab where \eqn{M} is the number of rows (excluding missing
     values)
@@ -66,8 +65,7 @@
     \cr
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
-      \frac{|x_{ij}-x_{ik}|}{x_{ij}+x_{ik}}}{d[jk] = (1/NZ) sum
-      ((x[ij]-x[ik])/(x[ij]+x[ik]))}
+      \frac{|x_{ij}-x_{ik}|}{x_{ij}+x_{ik}}}{d[jk] = (1/NZ) sum ((x[ij]-x[ik])/(x[ij]+x[ik]))}
     \cr
     \tab where \eqn{NZ} is the number of non-zero entries.
     \cr
@@ -83,22 +81,20 @@
     \tab \eqn{d_{jk} =  1 - \frac{2 \sum_i x_{ij} x_{ik}}{(\lambda_j +
 	  \lambda_k) \sum_i x_{ij} \sum_i
 	  x_{ik}}}{d[jk] =  1 - 2*sum(x[ij]*x[ik])/((lambda[j]+lambda[k]) *
-	sum(x[ij])*sum(x[ik]))}  
+	sum(x[ij])*sum(x[ik]))}, where  
     \cr
-    \tab where \eqn{\lambda_j = \frac{\sum_i x_{ij} (x_{ij} - 1)}{\sum_i
-      x_{ij} \sum_i (x_{ij} - 1)}}{lambda[j] =
-      sum(x[ij]*(x[ij]-1))/sum(x[ij])*sum(x[ij]-1)}
+    \tab \eqn{\lambda_j = \frac{\sum_i x_{ij} (x_{ij} - 1)}{\sum_i
+	x_{ij} \sum_i (x_{ij} - 1)}}{lambda[j] = sum(x[ij]*(x[ij]-1))/sum(x[ij])*sum(x[ij]-1)}
     \cr
     \code{horn}
     \tab Like \code{morisita}, but \eqn{\lambda_j = \sum_i
-      x_{ij}^2/(\sum_i x_{ij})^2}{lambda[j] =
-      sum(x[ij]^2)/(sum(x[ij])^2)}
+      x_{ij}^2/(\sum_i x_{ij})^2}{lambda[j] = sum(x[ij]^2)/(sum(x[ij])^2)}
     \cr
     \code{binomial}
     \tab \eqn{d_{jk} = \sum_i [x_{ij} \log (\frac{x_{ij}}{n_i}) + x_{ik} \log
       (\frac{x_{ik}}{n_i}) - n_i \log(\frac{1}{2})]/n_i}{d[jk] =
       sum(x[ij]*log(x[ij]/n[i]) + x[ik]*log(x[ik]/n[i]) -
-      n[i]*log(1/2))/n[i]}
+      n[i]*log(1/2))/n[i]},
     \cr
     \tab where \eqn{n_i = x_{ij} + x_{ik}}{n[i] = x[ij] + x[ik]}
   }
