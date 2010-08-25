@@ -6,12 +6,12 @@
 {
     table <- matrix(0, nrow = 2, ncol = 5)
     if (is.null(object$CA)) {
-        table[1,] <- c(object$CCA$rank, object$CCA$tot.chi, NA, 0, NA)
+        table[1,] <- c(object$CCA$qrank, object$CCA$tot.chi, NA, 0, NA)
         table[2,] <- c(0,0,NA,NA,NA)
     }
     else {
         table[1,] <- c(0,0,0,0,NA)
-        table[2,] <- c(object$CA$rank, object$CA$tot.chi, NA, NA, NA)
+        table[2,] <- c(nrow(object$CA$u) - 1, object$CA$tot.chi, NA, NA, NA)
     }
     rownames(table) <- c("Model", "Residual")
     colnames(table) <-  c("Df",
@@ -19,11 +19,11 @@
                           "F", "N.Perm", "Pr(>F)")
     table <- as.data.frame(table)
     if (is.null(object$CA))
-        head <- "No residual component"
+        head <- "No residual component\n"
     else if (is.null(object$CCA))
-        head <- "No constrained component"
+        head <- "No constrained component\n"
     else
-        head <- c("!!!!! ERROR !!!!!")
+        head <- c("!!!!! ERROR !!!!!\n")
     head <- c(head, paste("Model:", c(object$call)))
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     structure(table, heading = head, Random.seed = seed,

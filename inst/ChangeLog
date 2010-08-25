@@ -20,6 +20,9 @@ Version 1.18-10 (opened August 20, 2010)
 	instead of the call of the ordination which is now saved in
 	'testcall'.  This means that update() works now.
 
+	* anova.cca: use correct degrees of freedom when there is no
+	constrained or no residual component.
+
 	* anova.ccalist: Started to work on the concept of permutation
 	test comparison of several cca/ rda/ capscale models. The basic
 	function was added to the R-Forge (undocumented!).  First idea is
