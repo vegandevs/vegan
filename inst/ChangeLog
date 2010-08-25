@@ -7,6 +7,9 @@ Version 1.18-10 (opened August 20, 2010)
 	* New version opened with the release of vegan_1.17-4 on August
 	20, 2010.
 
+	* deviance.cca/rda: return 0 (instead of NULL) if there is no
+	residual variation.
+
 	* vegdist: help page gives equations for binary variants of the
 	indices. 
 

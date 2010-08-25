@@ -1,2 +1,8 @@
-"deviance.cca" <-
-function(object, ...) object$CA$tot.chi * object$grand.tot
+`deviance.cca` <-
+    function(object, ...)
+{
+    if (is.null(object$CA))
+        0
+    else
+        object$CA$tot.chi * object$grand.tot
+}
