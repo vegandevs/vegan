@@ -68,7 +68,7 @@
                 print(tst[-1,])
                 cat("\n")
             }
-            if (tst[,"Pr(>F)"][2] > 0.05)
+            if (tst[,"Pr(>F)"][2] > Pin)
                 break
             fla <- paste("~  . +", adds[best])
             object <- update(object, fla)
