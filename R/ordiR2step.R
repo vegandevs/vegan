@@ -3,7 +3,8 @@
 ### Blanchet, Legendre & Borcard: Ecology 89, 2623--2623; 2008.
 
 `ordiR2step` <-
-    function(object, scope, trace = TRUE)
+    function(object, scope, Pin = 0.05, pstep = 100,
+             perm.max = 1000, trace = TRUE, ...)
 {
     if (missing(scope))
         stop("needs scope")
@@ -31,6 +32,10 @@
     ## remains below R2.adj < R2.all
     R2.previous <- R2.0
     repeat {
+        if (trace) {
+            cat("Step: R2.adj=", R2.previous, "\n")
+            cat(pasteCall(formula(object)), "\n")
+        }
         adds <- add.scope(object, scope)
         ## Nothing to add, and we're done: break
         if (length(adds) == 0)
@@ -56,7 +61,9 @@
         ## equal than for the full model of the scope
         if (R2.adds[best] > R2.previous && R2.adds[best] <= R2.all) {
             ## Second criterion: added variable is significant
-            tst <- add1(object, scope = adds[best], test="permu")
+            tst <- add1(object, scope = adds[best], test="permu",
+                        pstep = pstep, perm.max = perm.max,
+                        alpha = Pin, trace = FALSE, ...)
             if (trace) {
                 print(tst[-1,])
                 cat("\n")

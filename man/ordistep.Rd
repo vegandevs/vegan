@@ -15,8 +15,11 @@
   \eqn{R^2}{R2} in \code{\link{rda}} or \code{\link{capscale}}.
 }
 \usage{
-ordistep(object, scope, direction = c("both", "backward", "forward"), Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50, trace = TRUE, ...)
-ordiR2step(object, scope, trace = TRUE)
+ordistep(object, scope, direction = c("both", "backward", "forward"),
+   Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50,
+   trace = TRUE, ...)
+ordiR2step(object, scope, Pin = 0.05, pstep = 100, perm.max = 1000,
+   trace = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -83,15 +86,13 @@ ordiR2step(object, scope, trace = TRUE)
   models to avoid cyclic adds and drops of single terms. 
 
   Function \code{ordiR2step} implements the forward selection to
-  maximize adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}})
-  at every step, and stopping when the adjusted \eqn{R^2}{R2} starts
-  to decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
-  exceeded (Blanchet et al. 2008). There are no permutation tests, but
-  the adusted \eqn{R^2}{R2} is the only criterion. If tests are
-  wished, the final model can be analysed using
-  \code{\link{anova.cca}} with argument \code{by = "term"} which
-  performs sequential test in the same order as the model was built in
-  \code{ordiR2step}.
+  maximize adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at
+  every step, and stopping when the adjusted \eqn{R^2}{R2} starts to
+  decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
+  exceeded, or the selected permutation \eqn{P}-value is exceeded
+  (Blanchet et al. 2008). Function uses adjusted \eqn{R^2}{R2} as the
+  criterion, and it cannot be used if the criterion cannot be
+  calculated.  Therefore it is unavailable for \code{\link{cca}}.
 
   Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
   (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select
