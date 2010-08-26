@@ -36,6 +36,10 @@
     mod <- object
     ## 'anotab' collects the changes into 'anova' object in the output
     anotab <- NULL
+    if (trace) {
+        cat("\n")
+        cat(pasteCall(formula(mod), prefix = "Start:"))
+    }
     for (i in 1:steps){
         change <- NULL
         ## Consider dropping
@@ -58,7 +62,7 @@
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
                     cat("\n")
-                    print(mod$call)
+                    cat(pasteCall(formula(mod), prefix = "Step:"))
                 }
             }
         }
@@ -82,7 +86,7 @@
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
                     cat("\n")
-                    print(mod$call)
+                    cat(pasteCall(formula(mod), prefix="Step:"))
                 }
             }
         }
