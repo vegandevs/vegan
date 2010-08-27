@@ -15,7 +15,9 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
   \item{grad}{The gradient variable or matrix. }
   \item{veg}{The community data matrix. }
   \item{indices}{Dissimilarity indices compared, partial matches to
-    alternatives in \code{\link{vegdist}}.}
+    alternatives in \code{\link{vegdist}}.
+    Alternatively, it can be a (named) list of functions returning
+    objects of class 'dist'.}
   \item{stepacross}{Use \code{\link{stepacross}} to find
     a shorter path dissimilarity. The dissimilarities for site pairs
     with no shared species are set \code{NA} using
@@ -33,6 +35,14 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
   point is assessed as Euclidean distance for continuous variables, and
   as Gower metric for mixed data using function
   \code{\link[cluster]{daisy}} when \code{grad} has factors.
+
+  The \code{indices} argument can accept any dissimilarity 
+  indices besides the ones calculated by the 
+  \code{\link{vegdist}} function. For this, the argument value
+  should be a (possibly named) list of functions.
+  Each function must return a valid 'dist' object with dissimilarities,
+  similarities are not accepted and should be converted into dissimilarities
+  beforehand.
 }
 \value{
   Returns a named vector of rank correlations.
@@ -40,7 +50,7 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
 \references{ Faith, F.P., Minchin, P.R. and Belbin,
   L. (1987).  Compositional dissimilarity as a robust measure of
     ecological distance. \emph{Vegetatio} 69, 57-68. }
-\author{Jari Oksanen }
+\author{Jari Oksanen, with additions from Peter Solymos}
 \note{
   There are several problems in using rank correlation coefficients.
   Typically there are very many ties when \eqn{n(n-1)/2} gradient
@@ -59,6 +69,11 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
 
   Earlier version of this function used \code{method = "kendall"}, but
   that is far too slow in large data sets.
+
+  The functions returning dissimilarity objects ahould be self contained,
+  because the \code{...} argument passes additional parameters
+  to \code{\link{stepacross}} and not to the functions supplied
+  via the \code{indices} argument.
 }
 
 \seealso{\code{\link{vegdist}}, \code{\link{stepacross}},
@@ -74,5 +89,10 @@ data(varechem)
 ## Some would use PCA transformation.
 rankindex(scale(varechem), varespec)
 rankindex(scale(varechem), wisconsin(varespec))
+## Using non vegdist indices as functions
+funs <- list(Manhattan=function(x) dist(x, "manhattan"),
+    Gower=function(x) daisy(x, "gower"),
+    Ochiai=function(x) designdist(x, "1-J/sqrt(A*B)"))
+rankindex(scale(varechem), varespec, funs)
 }
 \keyword{ multivariate }
