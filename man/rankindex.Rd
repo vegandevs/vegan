@@ -70,7 +70,7 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
   Earlier version of this function used \code{method = "kendall"}, but
   that is far too slow in large data sets.
 
-  The functions returning dissimilarity objects ahould be self contained,
+  The functions returning dissimilarity objects should be self contained,
   because the \code{...} argument passes additional parameters
   to \code{\link{stepacross}} and not to the functions supplied
   via the \code{indices} argument.
