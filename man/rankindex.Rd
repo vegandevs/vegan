@@ -91,7 +91,7 @@ rankindex(scale(varechem), varespec)
 rankindex(scale(varechem), wisconsin(varespec))
 ## Using non vegdist indices as functions
 funs <- list(Manhattan=function(x) dist(x, "manhattan"),
-    Gower=function(x) daisy(x, "gower"),
+    Gower=function(x) cluster:::daisy(x, "gower"),
     Ochiai=function(x) designdist(x, "1-J/sqrt(A*B)"))
 rankindex(scale(varechem), varespec, funs)
 }
