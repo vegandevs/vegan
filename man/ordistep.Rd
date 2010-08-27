@@ -19,7 +19,7 @@ ordistep(object, scope, direction = c("both", "backward", "forward"),
    Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50,
    trace = TRUE, ...)
 ordiR2step(object, scope, Pin = 0.05, pstep = 100, perm.max = 1000,
-   trace = TRUE)
+   trace = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
