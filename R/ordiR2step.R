@@ -50,7 +50,8 @@
         best <- which.max(R2.adds)
         if (trace) {
             names(R2.adds) <- paste("+", names(R2.adds))
-            out <- sort(c("<All variables>" = R2.all, R2.adds), decreasing = TRUE)
+            out <- sort(c("<All variables>" = R2.all, "<none>" = R2.previous,
+                          R2.adds), decreasing = TRUE)
             out <- as.matrix(out)
             colnames(out) <- "R2.adjusted"
             print(out)
