@@ -100,7 +100,7 @@ ordiR2step(object, scope, Pin = 0.05, pstep = 100, perm.max = 1000,
 }
 
 \value{ 
-  Function returns the selected model with one additional
+  Functions returns the selected model with one additional
   component, \code{anova}, which contains brief information of steps
   taken. You can suppress voluminous output during model building by
   setting \code{trace = FALSE}, and find the summary of model history

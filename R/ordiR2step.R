@@ -28,6 +28,8 @@
     ## Check that the full model can be evaluated
     if (is.na(R2.all))
         stop("the upper scope cannot be fitted (too many terms?)")
+    ## Collect data to anotab returned as the 'anova' object
+    anotab <-  list()
     ## Step forward and continue as long as R2.adj improves and R2.adj
     ## remains below R2.adj < R2.all
     R2.previous <- R2.0
@@ -74,9 +76,14 @@
             fla <- paste("~  . +", adds[best])
             object <- update(object, fla)
             R2.previous <- RsquareAdj(object)$adj.r.squared
+            anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
         } else {
             break
         }
     }
+    rownames(anotab) <- paste("+", rownames(anotab))
+    anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 5)))
+    class(anotab) <- c("anova", class(anotab))
+    object$anova <- anotab
     object
 }
