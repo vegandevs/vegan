@@ -81,9 +81,11 @@
             break
         }
     }
-    rownames(anotab) <- paste("+", rownames(anotab))
-    anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 5)))
-    class(anotab) <- c("anova", class(anotab))
-    object$anova <- anotab
+    if (NROW(anotab) > 0) {
+        rownames(anotab) <- paste("+", rownames(anotab))
+        anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 5)))
+        class(anotab) <- c("anova", class(anotab))
+        object$anova <- anotab
+    }
     object
 }
