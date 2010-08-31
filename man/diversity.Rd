@@ -133,9 +133,10 @@ data(BCI)
 H <- diversity(BCI)
 simp <- diversity(BCI, "simpson")
 invsimp <- diversity(BCI, "inv")
-r.2 <- rarefy(BCI, 2)
+## Unbiased Simpson of Hurlbert 1971 (eq. 5):
+unbias.simp <- rarefy(BCI, 2) - 1
 alpha <- fisher.alpha(BCI)
-pairs(cbind(H, simp, invsimp, r.2, alpha), pch="+", col="blue")
+pairs(cbind(H, simp, invsimp, unbias.simp, alpha), pch="+", col="blue")
 ## Species richness (S) and Pielou's evenness (J):
 S <- specnumber(BCI) ## rowSums(BCI > 0) does the same...
 J <- H/log(S)

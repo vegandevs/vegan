@@ -2,10 +2,19 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-10 (opened August 20, 2010)
+Version 1.18-11 (opened August 31, 2010)
+
+	* diversity: example says that rarefy(x, 2) - 1 is the same as
+	unbiased Simpson of a true random sample of Hurlbert (1971,
+	eq. 5). Added after several wishes to have this function.
+	
+Version 1.18-10 (closed August 31, 2010)
 
 	* New version opened with the release of vegan_1.17-4 on August
 	20, 2010.
+
+	* rankindex: can take a list of dissimlarity functions as an
+	argument. 
 
 	* deviance.cca/rda: return 0 (instead of NULL) if there is no
 	residual variation.
@@ -17,7 +26,8 @@ Version 1.18-10 (opened August 20, 2010)
 
 	* ordiR2step: can go to the end and include all variables of the
 	scope (and checks there is a scope).  Additional stopping
-	criterion of exceeding P-value.
+	criterion of exceeding P-value. Looks like being up to specs and
+	left for approval.
 
 	* permutest.cca: defaults to 99 permutations instead of 100 (to
 	be consistent). Item 'call' now stores the call to permutest()
