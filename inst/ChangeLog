@@ -7,6 +7,9 @@ Version 1.18-11 (opened August 31, 2010)
 	* diversity: example says that rarefy(x, 2) - 1 is the same as
 	unbiased Simpson of a true random sample of Hurlbert (1971,
 	eq. 5). Added after several wishes to have this function.
+
+	* FAQ: entry on ade4:cca name clash triggered by an invalid bug
+	report #1066 and queries in r-sig-ecology.
 	
 Version 1.18-10 (closed August 31, 2010)
 
