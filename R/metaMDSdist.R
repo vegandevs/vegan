@@ -32,13 +32,13 @@
     call <- attr(dis, "call")
     call[[1]] <- as.name(distname)
     attr(dis, "call") <- call
-    if (any(dis <= 0)) {
+    if (any(dis <= 0, na.rm = TRUE)) {
         if (zerodist == "fail") 
             stop("Zero dissimilarities are not allowed")
         else if (zerodist == "add") {
             zero <- min(dis[dis > 0], na.rm = TRUE)/2
             dis[dis <= 0] <- zero
-            warning("Zero dissimilarities changed into ", zero)
+            message("Zero dissimilarities changed into ", zero)
         }
     }
     ## We actually used maxdis to decide whether index has a closed
