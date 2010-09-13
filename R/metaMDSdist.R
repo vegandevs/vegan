@@ -36,7 +36,7 @@
         if (zerodist == "fail") 
             stop("Zero dissimilarities are not allowed")
         else if (zerodist == "add") {
-            zero <- min(dis[dis > 0])/2
+            zero <- min(dis[dis > 0], na.rm = TRUE)/2
             dis[dis <= 0] <- zero
             warning("Zero dissimilarities changed into ", zero)
         }
@@ -50,13 +50,13 @@
     if (noshare > 0 && sum(tmp <- no.shared(comm))/length(dis) > noshare) {
         if (trace) 
             cat("Using step-across dissimilarities:\n")
-        rn <- range(dis[tmp])
+        rn <- range(dis[tmp], na.rm = TRUE)
         if (rn[2]/rn[1] > 1.01)
             warning("non-constant distances between points with nothing shared\n",
                     "  stepacross may be meaningless: consider argument 'noshare=0'")
         is.na(dis) <- tmp
         dis <- stepacross(dis, trace = trace, toolong=0, ...)
-        if (length(unique(distconnected(tmp, trace = trace > 1))) > 1) 
+        if (length(unique(distconnected(tmp, trace = trace))) > 1) 
             warning("Data are disconnected, results may be meaningless")
     }
     attr(dis, "maxdis") <- maxdis

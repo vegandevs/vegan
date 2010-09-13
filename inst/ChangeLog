@@ -8,6 +8,9 @@ Version 1.18-11 (opened August 31, 2010)
 	unbiased Simpson of a true random sample of Hurlbert (1971,
 	eq. 5). Added after several wishes to have this function.
 
+	* metaMDS: more verbose about connectivity. Use na.rm = TRUE in
+	metaMDSdist(). 
+
 	* FAQ: entry on ade4:cca name clash triggered by an invalid bug
 	report #1066 and queries in r-sig-ecology.
 	
