@@ -38,7 +38,8 @@
         else if (zerodist == "add") {
             zero <- min(dis[dis > 0], na.rm = TRUE)/2
             dis[dis <= 0] <- zero
-            message("Zero dissimilarities changed into ", zero)
+            if (trace)
+                cat("Zero dissimilarities changed into ", zero,"\n")
         }
     }
     ## We actually used maxdis to decide whether index has a closed
