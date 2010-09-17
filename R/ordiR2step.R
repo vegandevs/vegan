@@ -81,7 +81,7 @@
             }
             if (tst[,"Pr(>F)"][2] > Pin)
                 break
-            fla <- paste("~  . +", adds[best])
+            fla <- paste("~  .", adds[best])
             object <- update(object, fla)
             R2.previous <- RsquareAdj(object)$adj.r.squared
             anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
@@ -90,7 +90,6 @@
         }
     }
     if (NROW(anotab) > 0) {
-        rownames(anotab) <- paste("+", rownames(anotab))
         anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 5)))
         class(anotab) <- c("anova", class(anotab))
         object$anova <- anotab
