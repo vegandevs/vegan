@@ -16,7 +16,7 @@ function (grad, veg, indices = c("euc", "man", "gow", "bra",
     if (is.list(indices)) {
         nam <- names(indices)
         if (is.null(nam))
-            nam <- paste("dis", 1:length(idices), sep="")
+            nam <- paste("dis", 1:length(indices), sep="")
     } else nam <- indices
     names(res) <- nam
     ## indices is a list of functions which return dist objects
