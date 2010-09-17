@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-11 (opened August 31, 2010)
+Version 1.18-12 (opened September 17, 2010)
+
+	* ordiR2step: gained argument 'direction = c("both", "response")',
+	and iwth "both" gives also adjusted R2 when dropping terms. I have
+	not yet seen a case where a terms is dropped.
+	
+Version 1.18-11 (closed September 17, 2010)
 
 	* diversity: example says that rarefy(x, 2) - 1 is the same as
 	unbiased Simpson of a true random sample of Hurlbert (1971,

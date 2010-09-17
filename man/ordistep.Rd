@@ -18,7 +18,8 @@
 ordistep(object, scope, direction = c("both", "backward", "forward"),
    Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50,
    trace = TRUE, ...)
-ordiR2step(object, scope, Pin = 0.05, pstep = 100, perm.max = 1000,
+ordiR2step(object, scope, direction = c("both", "forward"),
+   Pin = 0.05, pstep = 100, perm.max = 1000,
    trace = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -85,14 +86,17 @@ ordiR2step(object, scope, Pin = 0.05, pstep = 100, perm.max = 1000,
   is often sensible to have \code{Pout} \eqn{>} \code{Pin} in stepwise
   models to avoid cyclic adds and drops of single terms. 
 
-  Function \code{ordiR2step} implements the forward selection to
-  maximize adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at
-  every step, and stopping when the adjusted \eqn{R^2}{R2} starts to
-  decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
-  exceeded, or the selected permutation \eqn{P}-value is exceeded
-  (Blanchet et al. 2008). Function uses adjusted \eqn{R^2}{R2} as the
-  criterion, and it cannot be used if the criterion cannot be
-  calculated.  Therefore it is unavailable for \code{\link{cca}}.
+  Function \code{ordiR2step} builds model so that it maximizes adjusted
+  \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at every step, and
+  stopping when the adjusted \eqn{R^2}{R2} starts to decrease, or the
+  adjusted \eqn{R^2}{R2} of the \code{scope} is exceeded, or the
+  selected permutation \eqn{P}-value is exceeded (Blanchet et
+  al. 2008). The \code{direction} has choices \code{"forward"} and
+  \code{"both"}, but it is very excepctional that a term is dropped with
+  the adjusted \eqn{R^2}{R2} criterion.  Function uses adjusted
+  \eqn{R^2}{R2} as the criterion, and it cannot be used if the criterion
+  cannot be calculated.  Therefore it is unavailable for
+  \code{\link{cca}}.
 
   Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
   (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select
