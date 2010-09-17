@@ -6,7 +6,9 @@ Version 1.18-12 (opened September 17, 2010)
 
 	* ordiR2step: gained argument 'direction = c("both", "response")',
 	and iwth "both" gives also adjusted R2 when dropping terms. I have
-	not yet seen a case where a terms is dropped.
+	not yet seen a case where a terms is dropped. Abandoned dangerous
+	practice of getting the R2.all directly from a fitted model of the
+	'scope' since this may have different lhs.
 	
 Version 1.18-11 (closed September 17, 2010)
 

@@ -19,14 +19,11 @@
     else
         R2.0 <- RsquareAdj(object)$adj.r.squared
     ## Get R2 of the scope
-    if (inherits(scope, "rda")) {
-        R2.all <- RsquareAdj(scope)$adj.r.squared
-        scope <- formula(scope)
-    } else {
-        if (!inherits(scope, "formula"))
-            scope <- reformulate(scope)
-        R2.all <- RsquareAdj(update(object, scope))$adj.r.squared
-    }
+    if (inherits(scope, "rda")) 
+        scope <- delete.response(formula(scope))
+    if (!inherits(scope, "formula"))
+        scope <- reformulate(scope)
+    R2.all <- RsquareAdj(update(object, scope))$adj.r.squared
     ## Check that the full model can be evaluated
     if (is.na(R2.all))
         stop("the upper scope cannot be fitted (too many terms?)")
