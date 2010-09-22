@@ -61,12 +61,12 @@
         abline(v = x$origin[choices[1]], lty = 3)
     }
     if (type != "none" && (display == "both" || display == "sites")) {
-        if (type == "text") 
+        if (type == "text" && !is.null(sitnam)) 
             text(sites, sitnam, cex = cex, col = cols[1])
         else points(sites, cex = cex, col = cols[1])
     }
     if (type != "none" && (display == "both" || display == "species")) {
-        if (type == "text") 
+        if (type == "text" && !is.null(spenam)) 
             text(specs, spenam, cex = cex, col = cols[2])
         else points(specs, pch = "+", cex = cex, col = cols[2])
     }
