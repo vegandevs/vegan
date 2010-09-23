@@ -27,7 +27,7 @@ ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
          show.groups, label = FALSE,  ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
-         show.groups, col = NULL, label = FALSE, ...)
+         col = NULL, show.groups, label = FALSE, ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, label = FALSE, ...)
 ordiarrows(ord, groups, levels, replicates, display = "sites",
