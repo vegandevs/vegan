@@ -4,6 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-12 (opened September 17, 2010)
 
+	* ordilabel: gained argument 'col' to set the text colour of the
+	labels separately from 'border' (default action is to use 'border'
+	colour). 
+
+	* ordiellipse: gained argument 'col'. For draw = "lines" this
+	works similarly as previously when 'col' was passed on. For draw =
+	"polygon" 'col' sets only the polygon fill, and the text of the
+	labels will use the colour of the border or of the foreground.
+
 	* ordiR2step: gained argument 'direction = c("both", "response")',
 	and iwth "both" gives also adjusted R2 when dropping terms. I have
 	not yet seen a case where a terms is dropped. Abandoned dangerous

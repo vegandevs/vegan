@@ -1,7 +1,7 @@
 "ordiellipse" <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
               conf, draw = c("lines", "polygon", "none"),
-              w = weights(ord, display),
+              w = weights(ord, display), col = NULL, 
               show.groups, label = FALSE,  ...)
 {
     weights.default <- function(object, ...) NULL
@@ -43,9 +43,12 @@
             else t <- sqrt(qchisq(conf, 2))
             xy <- veganCovEllipse(mat$cov, mat$center, t)
             if (draw == "lines")
-                ordiArgAbsorber(xy, FUN = lines, ...)
+                ordiArgAbsorber(xy, FUN = lines,
+                                col = if(is.null(col)) par("fg") else col,
+                                ...)
             else if (draw == "polygon") 
-                ordiArgAbsorber(xy[, 1], xy[, 2], FUN = polygon, ...)
+                ordiArgAbsorber(xy[, 1], xy[, 2], col = col, FUN = polygon,
+                                ...)
             if (label && draw != "none") {
                 cntrs <- rbind(cntrs, mat$center)
                 names <- c(names, is)
@@ -56,10 +59,11 @@
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels=names, 
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels=names, col = col,  
                             FUN = text, ...)
-        else
-            ordiArgAbsorber(cntrs, labels = names, FUN = ordilabel, ...)
+        else 
+            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+                            FUN = ordilabel, ...)
     }
     class(res) <- "ordiellipse"
     invisible(res)
