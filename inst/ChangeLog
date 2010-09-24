@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-12 (opened September 17, 2010)
 
+	* swan: no eternal loop with disconnected data where zeros will
+	remain in the matrix.
+
 	* ordilabel: gained argument 'col' to set the text colour of the
 	labels separately from 'border' (default action is to use 'border'
 	colour). 
