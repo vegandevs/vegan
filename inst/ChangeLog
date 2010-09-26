@@ -6,7 +6,8 @@ Version 1.18-13 (opened September 26, 2010)
 
 	* decorana: fixed true eigenvalues which were slightly off (too
 	low). Now uses eigengrad() which is more careful in calculations
-	(like in centring).  
+	(like in centring). Gives now warning if residual is bigger than
+	tolerance. 
 	
 Version 1.18-12 (closed September 26, 2010)
 

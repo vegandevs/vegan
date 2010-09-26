@@ -149,6 +149,9 @@ c (subroutine strtch).
       double precision xeig1(mi),xeig2(mi),xeig3(mi),aidot(mi),adotj(n)
       double precision qidat(nid)
       integer ibegin(mi),iend(mi),idat(nid),ix1(mi),ix2(mi),ix3(mi)
+c string to print R warnings: this must be long enough to fit format
+c statement 1012
+      character*64 warning
       tot=0.0
       do 10 j=1,n
       tot=tot+adotj(j)
@@ -297,6 +300,14 @@ c 1010 format(1x,'eigenvalue',f10.5)
 c      if(a12.gt.tol) write(*,1012) tol
 c 1012 format(1x,'*** beware ***     residual bigger than tolerance',
 c     1', which is',f10.6)
+c R version of the above warning. You must change the length of
+c character*n warning definition if you change the warning text
+      if (a12 .gt. tol) then
+         write(warning, 1012) a12, tol, neig+1
+ 1012    format("residual", f10.7, " bigger than tolerance", f10.7, 
+     1 " for axis ", i1)
+         call rwarn(warning)
+      end if
 c we calculate x from y, and set x to unit length if reciprocal
 c averaging option is in force (ira=1)
       call xmaxmi(y,aymax,aymin,n)
