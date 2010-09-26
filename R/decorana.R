@@ -141,11 +141,7 @@
     }
     else {
         evals.decorana <- evals
-        var.r <- cov.wt(rproj, aidot)
-        var.r <- diag(var.r$cov) * (1 - sum(var.r$wt^2))
-        var.c <- cov.wt(cproj, adotj)
-        var.c <- diag(var.c$cov) * (1 - sum(var.c$wt^2))
-        evals <- var.r/var.c
+        evals <- eigengrad(rproj, veg)
     }
     CA <- list(rproj = rproj, cproj = cproj, evals = evals, evals.decorana = evals.decorana, 
                origin = origin, v = v, fraction = v.fraction, adotj = adotj, 

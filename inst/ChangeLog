@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-12 (opened September 17, 2010)
+Version 1.18-13 (opened September 26, 2010)
+
+	* decorana: fixed true eigenvalues which were slightly off (too
+	low). Now uses eigengrad() which is more careful in calculations
+	(like in centring).  
+	
+Version 1.18-12 (closed September 26, 2010)
 
 	* swan: no eternal loop with disconnected data where zeros will
 	remain in the matrix.
