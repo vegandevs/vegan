@@ -37,9 +37,9 @@
     }
     v <- attr(veg, "v")
     v.fraction <- attr(veg, "fraction")
-    adotj <- apply(veg, 2, sum)
+    adotj <- colSums(veg)
     adotj[adotj < Const3] <- Const3
-    aidot <- apply(veg, 1, sum)
+    aidot <- rowSums(veg)
     tot <- sum(adotj)
     yeig1 <- rep(1, nc)
     xeig1 <- rep(1, nr)
