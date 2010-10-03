@@ -9,7 +9,9 @@ Version 1.18-13 (opened September 26, 2010)
 
 	* fitspecaccum: Stephen Sefick suggested adding Michaelis-Menten
 	fit to random species accumulation and sent his model function.
-	These ideas were used to add a new more general function. No
+	These ideas were used to add a new more general function. In
+	addition, there is an option of fitting Arrhenius model S = c*A^z
+	with a new self stargint function SSarrhenius() for nls(). No
 	documentation yet: needs work.
 
 	* decorana: gives warning if residual is bigger than tolerance.

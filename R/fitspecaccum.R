@@ -1,4 +1,6 @@
-fitspecaccum <- function(object, model = "michaelis-menten", method = "random",  ...)
+fitspecaccum <-
+    function(object, model = c("michaelis-menten", "arrhenius"),
+             method = "random",  ...)
 {
     model <- match.arg(model)
     if (!inherits(object, "specaccum")) 
@@ -11,8 +13,11 @@ fitspecaccum <- function(object, model = "michaelis-menten", method = "random", 
         x <- object$individuals
     else
         x <- object$sites
-    ## Only Michaelis-Menten implemented now: no need to switch() yet.
-    mods <- apply(SpeciesRichness, 2, function(y) nls(y ~ SSmicmen(x, Vm, K))) 
+    mods <- switch(model,
+        "michaelis-menten" = apply(SpeciesRichness, 2,
+             function(y) nls(y ~ SSmicmen(x, Vm, K))),
+        "arrhenius" = apply(SpeciesRichness, 2,
+                   function(y) nls(y ~ SSarrhenius(x, k, z))))
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
     object$coefficients <- drop(sapply(mods, coef))

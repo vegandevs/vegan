@@ -5,6 +5,7 @@
 \alias{plot.specaccum}
 \alias{boxplot.specaccum}
 \alias{fitspecaccum}
+\alias{SSarrhenius}
 
 \title{Species Accumulation Curves }
 \description{
