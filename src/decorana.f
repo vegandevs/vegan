@@ -129,6 +129,34 @@ c for the blocks of 3.
    35 z(k)=(zbar(k-1)+zbar(k)+zbar(k+1))/3.0
       do 40 i=1,mi
       k=ix(i)
+ 40   x(i)=x(i)-z(k)
+      return
+      end
+
+c Function segfit is identical to detrnd, but it also returns the fitted
+c values z. x is respone in input, and residuals in output. --Added by
+c J. Oksanen 1 Oct, 2010.
+      subroutine segfit(x,aidot,ix,mi,mk,fit)
+      implicit double precision (a-h,o-z)
+      double precision x(mi),z(50),zn(50),zbar(50),aidot(mi)
+      double precision fit(mi)
+      integer ix(mi)
+      do 10 k=1,mk
+      z(k)=0.0
+   10 zn(k)=0.0
+      do 20 i=1,mi
+      k=ix(i)
+      z(k)=z(k)+x(i)*aidot(i)
+   20 zn(k)=zn(k)+aidot(i)
+      mmk=mk-1
+      do 30 k=2,mmk
+   30 zbar(k)=(z(k-1)+z(k)+z(k+1))/(zn(k-1)+zn(k)+zn(k+1)+1.0e-12)
+      mmk=mmk-1
+      do 35 k=3,mmk
+   35 z(k)=(zbar(k-1)+zbar(k)+zbar(k+1))/3.0
+      do 40 i=1,mi
+      k=ix(i)
+      fit(i) = z(k)
    40 x(i)=x(i)-z(k)
       return
       end
