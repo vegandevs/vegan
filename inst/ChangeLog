@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-13 (opened September 26, 2010)
 
+	* ordistep: name clash if the fitted model contained item or term
+	called 'mod'. Reported by Richard Telford (Bergen, Norway).
+
 	* fitspecaccum: Stephen Sefick suggested adding Michaelis-Menten
 	fit to random species accumulation and sent his model function.
 	These ideas were used to add a new more general function. No
