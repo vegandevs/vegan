@@ -4,6 +4,7 @@
 \alias{summary.specaccum}
 \alias{plot.specaccum}
 \alias{boxplot.specaccum}
+\alias{fitspecaccum}
 
 \title{Species Accumulation Curves }
 \description{

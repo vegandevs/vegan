@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-13 (opened September 26, 2010)
 
+	* fitspecaccum: Stephen Sefick suggested adding Michaelis-Menten
+	fit to random species accumulation and sent his model function.
+	These ideas were used to add a new more general function. No
+	documentation yet: needs work.
+
 	* decorana: gives warning if residual is bigger than tolerance.
 	
 Version 1.18-12 (closed September 26, 2010)
