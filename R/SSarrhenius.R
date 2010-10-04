@@ -1,5 +1,5 @@
 SSarrhenius <-
-    selfStart(function(area, k, z) k*area^z,
+    selfStart(~ k*area^z,
               function(mCall, data, LHS)
 {
     xy <- sortedXyData(mCall[["area"]], LHS, data)
