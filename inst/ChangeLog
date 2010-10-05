@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-13 (opened September 26, 2010)
 
+	* nestednodf: Gustavo Carvalho sent a new upgraded version which
+	also implements a new quantitative method of Almeida-Neto & Ulrich
+	(Env Mod Software, in press; 2010). Based on feature request #1097
+	in R-Forge. 
+
 	* ordistep: name clash if the fitted model contained item or term
 	called 'mod'. Reported by Richard Telford (Bergen, Norway).
 

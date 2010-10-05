@@ -26,7 +26,7 @@ nestedchecker(comm)
 nestedn0(comm)
 nesteddisc(comm)
 nestedtemp(comm, ...)
-nestednodf(comm, order = TRUE)
+nestednodf(comm, order = TRUE, weighted = FALSE)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidence"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
 }
@@ -40,6 +40,7 @@ nestednodf(comm, order = TRUE)
     If it is a logical vector of length 2, row and column labels are
     returned accordingly.}
   \item{order}{Order rows and columns by frequencies.}
+  \item{weighted}{Use species abundances as weights of interactions.}
   \item{\dots}{Other arguments to functions.}
 }
 
@@ -97,16 +98,19 @@ nestednodf(comm, order = TRUE)
   Function \code{nestednodf} implements a nestedness metric based on
   overlap and decreasing fill (Almeida-Neto et al., 2008). Two basic
   properties are required for a matrix to have the maximum degree of
-  nestedness according to this metric: (1) complete overlap of 1's from
-  right to left columns and from down to up rows, and (2) decreasing
-  marginal totals between all pairs of columns and all pairs of
-  rows. The nestedness statistic is evaluated separately for columns
-  (\code{N columns}) for rows (\code{N rows}) and combined for the whole
-  matrix (\code{NODF}).  If you set \code{order = FALSE}, the statistic
-  is evaluated with the current matrix ordering allowing tests of other
-  meaningful hypothesis of matrix structure than ordering by row and
-  column totals (see Almeida-Neto et al. 2008).
-}
+  nestedness according to this metric: (1) complete overlap of 1's
+  from right to left columns and from down to up rows, and (2)
+  decreasing marginal totals between all pairs of columns and all
+  pairs of rows. The nestedness statistic is evaluated separately for
+  columns (\code{N columns}) for rows (\code{N rows}) and combined for
+  the whole matrix (\code{NODF}).  If you set \code{order = FALSE},
+  the statistic is evaluated with the current matrix ordering allowing
+  tests of other meaningful hypothesis of matrix structure than
+  ordering by row and column totals (see Almeida-Neto et
+  al. 2008). With \code{weighted = TRUE}, the function finds the
+  weighted version of the index (Almeida-Neto & Ulrich,
+  2010). However, this requires quantitative null models for adequate
+  testing.}
 
 \value{
   The result returned by a nestedness function contains an item called
@@ -121,6 +125,10 @@ nestednodf(comm, order = TRUE)
   \enc{Gumarães}{Gumaraes}, P.R., Loyola, R.D. & Ulrich, W. (2008). A
   consistent metric for nestedness analysis in ecological systems:
   reconciling concept and measurement. \emph{Oikos} 117, 1227--1239.
+
+  Almeida-Neto, M. & Ulrich, W. (2010). A straightforward
+  computational approac for measuring nestedness using quantitative
+  matrices. \emph{Env. Mod. Software} (in press).
   
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
   disorder in the distribution of species in fragmented
