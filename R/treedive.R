@@ -28,9 +28,17 @@
     div <- numeric(nrow(comm))
     for (i in 1:nrow(comm)) {
         k <- comm[i,] > 0
-        d <- as.dist(m[k,k])
-        cl <- update(tree, d = d)
-        div[i] <- treeheight(cl)
+        nit <- sum(k)
+        ## Trivial cases of zero or one species
+        if (nit==0)
+            div[i] <- NA
+        else if (nit==1)
+            div[i] <- 0
+        else {
+            d <- as.dist(m[k,k])
+            cl <- update(tree, d = d)
+            div[i] <- treeheight(cl)
+        }
     }
     names(div) <- rownames(comm)
     div

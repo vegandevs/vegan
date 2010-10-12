@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-13 (opened September 26, 2010)
 
+	* treedive: handles trivial cases of zero (diversity NA) or one
+	species (diversity 0). 
+
 	* nestednodf: Gustavo Carvalho sent a new upgraded version which
 	also implements a new quantitative method of Almeida-Neto & Ulrich
 	(Env Mod Software, in press; 2010). Based on feature request #1097
@@ -16,10 +19,10 @@ Version 1.18-13 (opened September 26, 2010)
 	fit to random species accumulation and sent his model function.
 	These ideas were used to add a new more general function. In
 	addition, there is an option of fitting Arrhenius model S = c*A^z
-	with a new self stargint function SSarrhenius() for nls(). No
+	with a new self starting function SSarrhenius() for nls(). No
 	documentation yet: needs work.
 
-	* decorana: gives warning if residual is bigger than tolerance.
+	* decorana: gives a warning if residual is bigger than tolerance.
 	
 Version 1.18-12 (closed September 26, 2010)
 

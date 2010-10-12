@@ -35,13 +35,15 @@ treedist(x, tree, ...)
   2002, 2006).
 
   Function \code{treedive} finds the \code{treeheight} for each site
-  (row) of a community matrix. The function uses a subset of dendrogram
-  for those species that occur in each site, and excludes the tree root
-  if that is not needed to connect the species (Petchey and Gaston
-  2006). The subset of the dendrogram is found by first calculating
-  \code{\link{cophenetic}} distances from the input dendrogram, then
-  reconstructing the dendrogram for the subset of the cophenetic
-  distance matrix for species occurring in each site.
+  (row) of a community matrix. The function uses a subset of
+  dendrogram for those species that occur in each site, and excludes
+  the tree root if that is not needed to connect the species (Petchey
+  and Gaston 2006). The subset of the dendrogram is found by first
+  calculating \code{\link{cophenetic}} distances from the input
+  dendrogram, then reconstructing the dendrogram for the subset of the
+  cophenetic distance matrix for species occurring in each
+  site. Diversity is 0 for one spcies, and \code{NA} for empty
+  communities.
 
   Function \code{treedist} finds the dissimilarities among
   trees. Pairwise dissimilarity of two trees is found by combining
