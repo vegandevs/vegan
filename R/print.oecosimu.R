@@ -25,10 +25,15 @@
                     two.sided = c(0.025, 0.5, 0.975),
                     less = c(0, 0.5, 0.95),
                     greater = c(0.05, 0.5, 1))
-    qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs)
+    qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs, na.rm = TRUE)
     m <- cbind("statistic" = x$oecosimu$statistic,
                "z" = x$oecosimu$z, t(qu),
                "Pr(sim.)"=x$oecosimu$pval)
     printCoefmat(m, ...)
+    if (any(is.na(x$oecosimu$simulated))) {
+        nacount <- rowSums(is.na(x$oecosimu$simulated))
+        cat("\nNumber of NA cases removed from simulations:\n",
+            nacount, "\n")
+    }
     invisible(x)   
 }

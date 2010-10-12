@@ -7,6 +7,10 @@ Version 1.18-13 (opened September 26, 2010)
 	* treedive: handles trivial cases of zero (diversity NA) or one
 	species (diversity 0). 
 
+	* oecosimu: handles NA values as na.rm = TRUE in simulations for
+	cases where these are produced by the function to evaluate
+	statistics.
+
 	* nestednodf: Gustavo Carvalho sent a new upgraded version which
 	also implements a new quantitative method of Almeida-Neto & Ulrich
 	(Env Mod Software, in press; 2010). Based on feature request #1097
