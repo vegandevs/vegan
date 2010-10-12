@@ -11,6 +11,11 @@ Version 1.18-13 (opened September 26, 2010)
 	cases where these are produced by the function to evaluate
 	statistics.
 
+	* oecosimu: takes care that the statistic is evaluated with binary
+	data when null models are binary. This was a one-year old bug
+	introduced in rev 967 on Aug 31, 2009. Previous time this bug was
+	corrected in rev 438 on June 28, 2008.
+
 	* nestednodf: Gustavo Carvalho sent a new upgraded version which
 	also implements a new quantitative method of Almeida-Neto & Ulrich
 	(Env Mod Software, in press; 2010). Based on feature request #1097

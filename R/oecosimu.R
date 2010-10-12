@@ -20,8 +20,11 @@
         method <- "custom"
     }
     quant <- method %in% c("r2dtable", "custom")
-
+    ## binarize data with binary null models before getting statistics
+    if (!quant)
+        comm <- ifelse(comm > 0, 1, 0)
     ind <- nestfun(comm, ...)
+
     if (is.list(ind))
         indstat <- ind[[statistic]]
     else
@@ -31,7 +34,6 @@
 
     ## permutation for binary data
     if (!quant) {
-        comm <- ifelse(comm > 0, 1, 0)
         if (method %in% c("swap", "tswap")){
             checkbrd <- 1
             if (method == "tswap") {
