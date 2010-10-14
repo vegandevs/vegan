@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-13 (opened September 26, 2010)
 
+	* anova.cca(..., by = "axis"): now really uses marginal tests for
+	every axis. Significance of axis k with LC scores lc is from model
+	update(object, . ~ lc[,k] + Condition(lc[,-k])). That is, That is,
+	axis k is used as constraint and all other axes as conditions,
+	when axis k is analysed. This also solves the failure of
+	anova(..., by = "ax") of rda(dune ~ poly(pH, 2) + Baresoil,
+	varechem) of PR#945, but no other problems of the same report.
+
 	* treedive: handles trivial cases of zero (diversity NA) or one
 	species (diversity 0). 
 

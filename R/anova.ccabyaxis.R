@@ -8,15 +8,11 @@ function (object, cutoff = 1,  ...)
     if (is.null(object$terms)) 
         stop("Analysis is only possible for models fitted using formula")
     lc <- object$CCA$u
-    mf <- model.frame(object)
     ## Handle missing values in scores, both "omit" and "exclude" to
     ## match dims with data.
     if (!is.null(object$na.action)) {
         lc <- stats:::napredict.exclude(object$na.action, lc)
-        mf <- lapply(mf, function(x) stats:::napredict.exclude(object$na.action, x))
-        mf <- as.data.frame(mf)
     }
-    newdata <- cbind(lc, mf)
     axnam <- colnames(lc)
     df <- c(rep(1, rnk), object$CA$rank)
     chi <- c(object$CCA$eig, Residual = object$CA$tot.chi)
@@ -24,23 +20,23 @@ function (object, cutoff = 1,  ...)
     nperm <- c(numeric(rnk), NA)
     Pval <- rep(NA, rnk+1)
     out <- data.frame(df, chi, Fval, nperm, Pval)
-    sol <- anova(object, first = TRUE, ...)
+    environment(object$terms) <- environment()
+    fla <- update(formula(object), . ~ lc[,1] + Condition(lc[,-1]))
+    sol <- anova(update(object, fla),  ...)
     out[c(1, rnk + 1), ] <- sol
     seed <- attr(sol, "Random.seed")
     attr(out, "names") <- attr(sol, "names")
-    attr(out, "heading") <- attr(sol, "heading")
+    .call <- pasteCall(object$call, "Model:")
+    attr(out, "heading") <- sub(" \n","", .call)
     attr(out, "Random.seed") <- seed
     bigseed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     bigperm <- out$N.Perm[1]
-    environment(object$terms) <- environment()
     if (rnk > 1) {
         for (.ITRM in 2:rnk) {
-            zz <- paste(paste("Condition(", axnam[1:(.ITRM - 1)], 
-                ")"), collapse = "+")
-            fla <- update(formula(object), paste(". ~ . +", zz))
-            sol <- update(object, fla, data = newdata)
+            fla <- update(formula(object),  .~ lc[, .ITRM] + Condition(lc[,-(.ITRM)]) )
+            sol <- update(object, fla)
             assign(".Random.seed", seed, envir = .GlobalEnv)
-            out[.ITRM, ] <- as.matrix(anova(sol, first = TRUE, ...))[1, 
+            out[.ITRM, ] <- as.matrix(anova(sol, ...))[1, 
                 ]
             if (out[.ITRM, "N.Perm"] > bigperm) {
                 bigperm <- out[.ITRM, "N.Perm"]
