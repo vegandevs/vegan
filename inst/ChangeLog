@@ -2,7 +2,20 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-13 (opened September 26, 2010)
+Versin 1.18-14 (opened October 15, 2010)
+
+	* wcmdscale: give two goodness of fit statistics for 'k' axes: one
+	is for the real part and based on the sum of positive eigenvalues,
+	and second is for all axes and based for the sum of absolute
+	values of all eigenvalues.
+
+	* summary.eigenvals: handle now possible negative eigenvalues from
+	capscale() or wcmdscale(): cumulative sum and proportions are now
+	based on the sum of absolute values of eigenvalues, and all real
+	eigenvalues explain less than 100% if there are negative
+	eigenvalues.
+
+Version 1.18-13 (closed October 15, 2010)
 
 	* anova.cca(..., by = "axis"): now really uses marginal tests for
 	every axis. Significance of axis k with LC scores lc is from model

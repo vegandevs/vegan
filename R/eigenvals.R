@@ -75,10 +75,12 @@
 `summary.eigenvals` <-
     function(object, ...)
 {
-    vars <- object/sum(object)
+    ## abs(object) is to handle neg eigenvalues of wcmdscale and
+    ## capscale
+    vars <- object/sum(abs(object))
     importance <- rbind(`Eigenvalue` = object,
                         `Proportion Explained` = round(vars, 5),
-                        `Cumulative Proportion`= round(cumsum(vars), 5))
+                        `Cumulative Proportion`= round(cumsum(abs(vars)), 5))
     out <- list(importance = importance)
     class(out) <- c("summary.eigenvals", "summary.prcomp")
     out

@@ -35,23 +35,30 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   influence on the result than those with low weights. Setting equal
   weights \code{w = 1} will give ordinary multidimensional scaling.
 }
-\value{
-  If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a matrix
-  with \code{k} columns whose rows give the coordinates of the points
-  chosen to represent the dissimilarities.
 
-  Otherwise, an object of class \code{wcmdscale} list containing the
-  following components. 
+\value{ If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a
+  matrix with \code{k} columns whose rows give the coordinates of the
+  points chosen to represent the dissimilarities.
+  Otherwise, an object of class \code{wcmdscale} containing the
+  following components.
   \item{points}{a matrix with \code{k} columns whose rows give the
-    coordinates of the points chosen to represent the dissimilarities.}
-  \item{eig}{the \eqn{n-1} eigenvalues computed during the scaling process if
-    \code{eig} is true.}
-  \item{x}{the doubly centred and weighted distance matrix if \code{x.ret} is true.}
+    coordinates of the points chosen to represent the
+    dissimilarities.}
+  \item{eig}{the \eqn{n-1} eigenvalues computed during the scaling
+    process if \code{eig} is true.}
+  \item{x}{the doubly centred and weighted distance matrix if
+  \code{x.ret} is true.}
+  \item{GOF}{Goodness of fit statistics for \code{k} axes. The first
+    value is for all real axes, and the second value for all axes,
+    including absolute values of negative eigenvalues.}
   \item{weights}{Weights.}
-  \item{negaxes}{A matrix of scores for axes with negative eigenvalues scaled 
-     by the absolute eigenvalues similarly as \code{points}. This is \code{NULL}
-     if there are no negative eigenvalues or \code{k} was specified, and would not     include negative eigenvalues.}
+  \item{negaxes}{A matrix of scores for axes with negative eigenvalues
+     scaled by the absolute eigenvalues similarly as
+     \code{points}. This is \code{NULL} if there are no negative
+     eigenvalues or \code{k} was specified, and would not include
+     negative eigenvalues.}  
 }
+
 \references{
   Gower, J. C. (1966)  
   Some distance properties of latent root and vector 
