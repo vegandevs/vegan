@@ -40,7 +40,7 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   matrix with \code{k} columns whose rows give the coordinates of the
   points chosen to represent the dissimilarities.  Otherwise, an
   object of class \code{wcmdscale} containing the components that are
-  similar as in \code{\link{cmdscale}} (except \samp{weights}):
+  mostly similar as in \code{\link{cmdscale}}:
   \item{points}{a matrix with \code{k} columns whose rows give the
     coordinates of the points chosen to represent the
     dissimilarities.}
