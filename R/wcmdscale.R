@@ -45,8 +45,8 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     ev <- e$values[1:k]
     ev <- ev[ev > 0]
     ## GOF for real and all axes
-    GOF <- c(sum(ev)/sum(e$values[e$values > 0]),
-             sum(ev)/sum(abs(e$values)))
+    GOF <- c(sum(ev)/sum(abs(e$values)),
+             sum(ev)/sum(e$values[e$values > 0]))
     if (eig || x.ret || add) {
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = NA, GOF = GOF, weights = w,

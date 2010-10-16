@@ -38,9 +38,9 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
 
 \value{ If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a
   matrix with \code{k} columns whose rows give the coordinates of the
-  points chosen to represent the dissimilarities.
-  Otherwise, an object of class \code{wcmdscale} containing the
-  following components.
+  points chosen to represent the dissimilarities.  Otherwise, an
+  object of class \code{wcmdscale} containing the components that are
+  similar as in \code{\link{cmdscale}} (except \samp{weights}):
   \item{points}{a matrix with \code{k} columns whose rows give the
     coordinates of the points chosen to represent the
     dissimilarities.}
@@ -49,8 +49,8 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \item{x}{the doubly centred and weighted distance matrix if
   \code{x.ret} is true.}
   \item{GOF}{Goodness of fit statistics for \code{k} axes. The first
-    value is for all real axes, and the second value for all axes,
-    including absolute values of negative eigenvalues.}
+    value is based on the sum of absolute values of all eigenvalues,
+    and the second value is based on the sum of positive eigenvalues}
   \item{weights}{Weights.}
   \item{negaxes}{A matrix of scores for axes with negative eigenvalues
      scaled by the absolute eigenvalues similarly as
