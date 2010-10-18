@@ -4,12 +4,11 @@ function(dist, ndim=10, ...)
     dist <- isomapdist(dist, ...)
     out <- cmdscale(dist, k=ndim, eig=TRUE)
     ## some versions of cmdscale may return NaN points corresponding
-    ## to negative eigenvalues
-    if (any(out$eig < 0)) {
-        out$eig <- out$eig[out$eig > 0]
-        out$points <- out$points[, seq_along(out$eig), drop = FALSE]
+    ## to negative eigenvalues.
+    if ((naxes <- sum(out$eig > 0)) < ndim) {
+        out$points <- out$points[, seq(naxes), drop = FALSE]
         warning(gettextf("isomap returns only %d axes with positive eigenvalues",
-                         length(out$eig)))
+                         naxes))
     }
     npoints <- nrow(out$points)
     net <- matrix(FALSE, nrow=npoints, ncol=npoints)
