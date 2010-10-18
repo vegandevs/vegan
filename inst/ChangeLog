@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Versin 1.18-14 (opened October 15, 2010)
 
+	* isomap: returns only axes associated with positive eigenvalues.
+
 	* wcmdscale: give two goodness of fit statistics for 'k' axes: one
 	is for the real part and based on the sum of positive eigenvalues,
 	and second is for all axes and based for the sum of absolute
