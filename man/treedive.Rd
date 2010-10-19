@@ -50,10 +50,12 @@ treedist(x, tree, ...)
   species in a common tree and seeing how much of the tree height is
   shared and how much is unique. The current function uses a Jaccard
   like approach and defines dissimilarity as the total unshared height
-  proportional of the total height of the combined tree. The idea is
-  similar as in the UniFrac distance (Lozupone and Knight 2005), but
-  the implementation is completely different and only works in the
-  presence absence framework.
+  proportional of the total height of the combined tree. However, the
+  index is not limited to the maximum of one, since combining two trees
+  may add a new root, and therefore the maximum dissimilarity is two.
+  The idea is similar as in the UniFrac distance (Lozupone and Knight
+  2005), but the implementation is completely different and only works
+  in the presence absence framework.
 
   The functions need a dendrogram of species traits as an input. If
   species traits contain \code{\link{factor}} or \code{\link{ordered}}
