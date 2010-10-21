@@ -2,12 +2,14 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Versin 1.18-14 (opened October 15, 2010)
+Version 1.18-14 (opened October 15, 2010)
 
 	* treedist: works now with zero-height trees (for instance, only
-	one item in a tree). Help page now tells that tree distances are
-	in range 0..2 instead of 0..1, since combining two trees may add a
-	new common root. 
+	one item in a tree).  Function gained a new argument 'relative'
+	(defaults TRUE): if FALSE, finds raw dissimilarities of tree
+	heights.  Help page now tells that tree distances are in range
+	0..2 instead of 0..1, since combining two trees may add a new
+	common root.
 
 	* isomap: returns only axes associated with positive eigenvalues.
 

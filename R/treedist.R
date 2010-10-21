@@ -1,5 +1,5 @@
 `treedist` <-
-    function(x, tree, ...)
+    function(x, tree, relative = TRUE,  ...)
 {
     n <- nrow(x)
     ABJ <- matrix(0, n , n)
@@ -14,9 +14,11 @@
     A <- diag(ABJ)
     AB <- as.dist(outer(A, A, "+"))
     ABJ <- as.dist(ABJ)
-    out <- (2 * ABJ - AB)/ABJ
+    out <- (2 * ABJ - AB)
+    if (relative)
+        out <- out/ABJ
     out[ABJ==0] <- 0
-    attr(out, "method") <- "treedist"
+    attr(out, "method") <- if (relative) "treedist" else "raw treeedist"
     attr(out, "call") <- match.call()
     attr(out, "Labels") <- row.names(x)
     out

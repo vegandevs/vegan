@@ -13,7 +13,7 @@
 \usage{
 treedive(comm, tree, match.force = FALSE)
 treeheight(tree)
-treedist(x, tree, ...)
+treedist(x, tree, relative = TRUE, ...)
 }
 
 \arguments{
@@ -24,6 +24,7 @@ treedist(x, tree, ...)
     labels in \code{tree}. If \code{FALSE}, matching only happens when
     dimensions differ, and in that case the species must be in identical
     order in both.}
+  \item{relative}{Use distances relative to the height of combined tree.}
   \item{\dots}{Other arguments passed to functions (ignored).}
 }
 \details{
@@ -48,14 +49,18 @@ treedist(x, tree, ...)
   Function \code{treedist} finds the dissimilarities among
   trees. Pairwise dissimilarity of two trees is found by combining
   species in a common tree and seeing how much of the tree height is
-  shared and how much is unique. The current function uses a Jaccard
-  like approach and defines dissimilarity as the total unshared height
-  proportional of the total height of the combined tree. However, the
-  index is not limited to the maximum of one, since combining two trees
-  may add a new root, and therefore the maximum dissimilarity is two.
-  The idea is similar as in the UniFrac distance (Lozupone and Knight
-  2005), but the implementation is completely different and only works
-  in the presence absence framework.
+  shared and how much is unique. With \code{relative = FALSE} the
+  dissimilarity is defined as \eqn{2 (A \cup B) - A - B}{2AB - A - B}, where
+  \eqn{A} and \eqn{B} are heights of component trees and
+  \eqn{A \cup B}{AB} is the height of the combined tree. With \code{relative = TRUE}
+  the dissimilarity is \eqn{(2(A \cup B)-A-B)/(A \cup B)}{(2AB - A - B)/(AB)}. 
+  Although the latter formula is similar to
+  Jaccard dissimilarity (see \code{\link{vegdist}},
+  \code{\link{designdist}}), it is not in the range \eqn{0 \ldots 1}{0
+  \dots 1}, since combined tree can add a new root. When two zero-height
+  trees are combined into a tree of above zero height, the relative
+  index attains its maximum value \eqn{2}. The dissimilarity is zero
+  from a combined zero-height tree.
 
   The functions need a dendrogram of species traits as an input. If
   species traits contain \code{\link{factor}} or \code{\link{ordered}}
@@ -66,8 +71,8 @@ treedist(x, tree, ...)
   2006).
 
   It is possible to analyse the non-randomness of functional diversity
-  using \code{\link{oecosimu}}. This provided specifying an adequate
-  Null model, and the results will change with this choice.
+  using \code{\link{oecosimu}}. This needs specifying an adequate Null
+  model, and the results will change with this choice.
 }
 
 \value{ 
