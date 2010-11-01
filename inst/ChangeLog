@@ -4,6 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-15 (opened November 1, 2010)
 
+	* rda: the scaling 'const' can now be a vector of two items: the
+	first is used for species and the second for sites. This allows
+	compatibility with Canoco 3.x (but Canoco 4 changed scaling): if
+	'mod' is an rda() result, and 'nr' is the number of rows in data,
+	then "scaling = -2, const = c(sqrt(nr-1), sqrt(nr))" in scores(),
+	summary() or plot() will use default scaling of Canoco 3.x. Help
+	page now points to decision decision vignette explaining scaling
+	and 'const'.
+
 	* prc: coefficients folded in a wrong way. Diagnosed, reported and
 	fixed by Cajo ter Braak.
 

@@ -1,4 +1,4 @@
-"scores.rda" <-
+`scores.rda` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"), 
               scaling = 2, const, ...) 
 {
@@ -25,8 +25,18 @@
         nrow(x$CA$u)
     else
         nrow(x$CCA$u)
+    ## const multiplier of scores
     if (missing(const))
         const <- sqrt(sqrt((nr-1) * sumev))
+    ## canoco 3 compatibility -- canoco 4 is incompatible
+    ##else if (pmatch(const, "canoco")) {
+    ##    const <- (sqrt(nr-1), sqrt(nr))
+    ##}
+    ##
+    ## const[1] for species, const[2] for sites and friends
+    if (length(const) == 1) {
+        const <- c(const, const)
+    }
     rnk <- x$CCA$rank
     sol <- list()
     if ("species" %in% take) {
@@ -38,7 +48,7 @@
                 v <- sweep(v, 1, x$colsum, "/")
                 v <- v * sqrt(sumev / (nr - 1))
             }
-            v <- const * v
+            v <- const[1] * v
         }
         sol$species <- v
     }
@@ -47,7 +57,7 @@
         if (scaling) {
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
             wa <- sweep(wa, 2, scal, "*")
-            wa <- const * wa
+            wa <- const[2] * wa
         }
         sol$sites <- wa
     }
@@ -56,7 +66,7 @@
         if (scaling) {
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
             u <- sweep(u, 2, scal, "*")
-            u <- const * u
+            u <- const[2] * u
         }
         sol$constraints <- u
     }
@@ -78,7 +88,7 @@
             if (scaling) {
                 scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
                 cn <- sweep(cn, 2, scal, "*")
-                cn <- const * cn
+                cn <- const[2] * cn
             }
             sol$centroids <- cn
         }
@@ -93,6 +103,9 @@
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1) 
         sol <- sol[[1]]
+    ## collapse const if both items identical
+    if (identical(const[1], const[2]))
+        const <- const[1]
     attr(sol, "const") <- const
     return(sol)
 }
