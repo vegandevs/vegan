@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-14 (opened October 15, 2010)
+Version 1.18-15 (opened November 1, 2010)
+
+	* prc: coefficients folded in a wrong way. Diagnosed, reported and
+	fixed by Cajo ter Braak.
+
+Version 1.18-14 (closed November 1, 2010)
 
 	* treedist: works now with zero-height trees (for instance, only
 	one item in a tree).  Function gained a new argument 'relative'
