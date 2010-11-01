@@ -106,7 +106,8 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   the whole matrix (\code{NODF}).  If you set \code{order = FALSE},
   the statistic is evaluated with the current matrix ordering allowing
   tests of other meaningful hypothesis of matrix structure than
-  ordering by row and column totals (see Almeida-Neto et
+  default ordering by row and column totals (breaking ties by total
+  abundances when \code{weighted = TRUE}) (see Almeida-Neto et
   al. 2008). With \code{weighted = TRUE}, the function finds the
   weighted version of the index (Almeida-Neto & Ulrich,
   2010). However, this requires quantitative null models for adequate

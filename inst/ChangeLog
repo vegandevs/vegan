@@ -7,6 +7,11 @@ Version 1.18-15 (opened November 1, 2010)
 	* prc: coefficients folded in a wrong way. Diagnosed, reported and
 	fixed by Cajo ter Braak.
 
+	* nestednodf: breaks ties in column and row totals by row sums and
+	column sums in quantitative data ('weighted = TRUE'). Version
+	submitted by Gustavo Carvalho in a follow-up to Feature Request
+	#1097. 
+
 Version 1.18-14 (closed November 1, 2010)
 
 	* treedist: works now with zero-height trees (for instance, only
