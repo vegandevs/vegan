@@ -69,12 +69,11 @@
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
   \item{const}{General scaling constant to \code{rda} scores. The
-    default is to use a constant that tries to scale species and sites
-    similarly but to give biplot scores, or scores that approximate
-    original data (see \code{\link{vignette}}
+    default is to use a constant that gives biplot scores, that is,
+    scores that approximate original data (see \code{\link{vignette}}
     \samp{decision-vegan.pdf} with \code{\link{vegandocs}} for details
-    and discussion). If \code{const} is a vector of two items, the
-    first is used for species, and the second item for site scores.}
+    and discussion). If \code{const} is a vector of two items, the first
+    is used for species, and the second item for site scores.}
   \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
   \item{n, head, tail}{Number of rows printed from the head and tail of
