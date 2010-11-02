@@ -66,7 +66,10 @@ prc(response, treatment, time, ...)
   \code{\link{rda}} results in the PRC fashion. The current version only
   works with default contrasts (\code{\link{contr.treatment}}) in which
   the coefficients are contrasts against the first level, and the levels
-  must be arranged so that the first level is the control (or a baseline).
+  must be arranged so that the first level is the control (or a
+  baseline). If necessary, you must change the baseline level with
+  function \code{\link{relevel}}.  
+  
 
   Function \code{summary} prints the species scores and the
   coefficients. Function \code{plot} plots coefficients against
@@ -99,12 +102,11 @@ prc(response, treatment, time, ...)
 \author{ Jari Oksanen and Cajo ter Braak}
 
 \section{Warning }{The first level of \code{treatment} must be the
-  control, and the treatment contrasts must be used (see
-  \code{\link{contr.treatment}}), so that results are expressed as
-  contrasts to the control.  The function works with other contrast
-  types also, but then the user must take care that the resulting
-  coefficients are meaningful the resulting coefficient may be
-  meaningless.  The \code{time} must be an unordered factor.  }
+  control: use function \code{\link{relevel}} to guarantee the correct
+  refence level. The current version will ignore user setting of
+  \code{\link{contrasts}} and always use treatment contrasts
+  (\code{\link{contr.treatment}}). The \code{time} must be an unordered
+  factor.  }
 
 \seealso{\code{\link{rda}}, \code{\link{anova.cca}}.}
 \examples{

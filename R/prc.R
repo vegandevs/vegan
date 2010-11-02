@@ -1,5 +1,5 @@
 "prc" <-
-    function (response, treatment, time, ...) 
+    function (response, treatment, time, reference, ...) 
 {
     extras <- match.call(expand.dots=FALSE)$...
     if (is.null(extras$data))
@@ -9,6 +9,8 @@
     y <- deparse(substitute(response))
     x <- deparse(substitute(treatment))
     z <- deparse(substitute(time))
+    oldcon <- options(contrasts = c("contr.treatment", "contr.poly"))
+    on.exit(options(oldcon))
     fla <- as.formula(paste("~", x, "+", z))
     mf <- model.frame(fla, data)
     if (!all(sapply(mf, is.factor)))
