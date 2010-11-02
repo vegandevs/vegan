@@ -14,7 +14,10 @@ Version 1.18-15 (opened November 1, 2010)
 	and 'const'.
 
 	* prc: coefficients folded in a wrong way. Diagnosed, reported and
-	fixed by Cajo ter Braak.
+	fixed by Cajo ter Braak. CtB also fixed the scaling of species
+	scores and coefficients to be more consistent with Canoco and
+	common standards. Cajo ter Braak is now recognized as a co-author
+	of the function.
 
 	* nestednodf: breaks ties in column and row totals by row sums and
 	column sums in quantitative data ('weighted = TRUE'). Version
