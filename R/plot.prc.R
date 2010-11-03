@@ -3,6 +3,8 @@
               xlab, ylab, ylim, lty = 1:5, col = 1:6, pch, legpos, cex = 0.8,
               ...)
 {
+    ## save level names before getting the summary
+    levs <- x$terminfo$xlev[[2]]
     x <- summary(x, scaling = scaling, axis = axis)
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar))
@@ -41,7 +43,6 @@
         else legpos <- "topleft"
     }
     if (!is.na(legpos)) {
-        levs <- object$terminfo$xlev[[2]]
         nl <- length(levs)
         pp <- type %in% c("b", "p")
         pl <- type %in% c("b", "l")
