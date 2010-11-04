@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-15 (opened November 1, 2010)
 
+	* fitspecaccum: uses now new SS-models for species-area
+	relationship and several of standard SS-models for
+	nls(). Placeholders for documentation added. Has a plot()
+	function. 
+
 	* Self-starting nls() models for species-area relationship: added
 	Gitay and Lomolino models from Dengler 2009 (J Biogeog 36,
 	728-744). Some more should be added, but these were among the best

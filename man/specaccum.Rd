@@ -5,6 +5,7 @@
 \alias{plot.specaccum}
 \alias{boxplot.specaccum}
 \alias{fitspecaccum}
+\alias{plot.fitspecaccum}
 
 \title{Species Accumulation Curves }
 \description{
@@ -19,6 +20,9 @@ specaccum(comm, method = "exact", permutations = 100,
     col = par("fg"), ci.col = col, ci.lty = 1, xlab = "Sites", 
     ylab = x$method, ylim, ...)
 \method{boxplot}{specaccum}(x, add = FALSE, ...)
+fitspecaccum(object, model, method = "random", ...)
+\method{plot}{fitspecaccum}(x, col = par("fg"), lty = 1, xlab = "Sites", 
+    ylab = x$method, ...) 
 }
 
 \arguments{
@@ -52,6 +56,8 @@ specaccum(comm, method = "exact", permutations = 100,
     \code{"polygon"}.}
   \item{xlab,ylab}{Labels for \code{x} and \code{y} axis.}
   \item{ylim}{the y limits of the plot.}
+  \item{object}{Either a community data set or fitted \code{specaccum} model.}
+  \item{model}{Nonlinear regression model (\code{\link{nls}}). See Details.}
   \item{...}{Other parameters to functions.}
 }
 \details{
@@ -81,6 +87,8 @@ specaccum(comm, method = "exact", permutations = 100,
 
   The function has a \code{plot} method. In addition, \code{method =
     "random"} has \code{summary} and \code{boxplot} methods. 
+
+  Description of \code{fitspecaccum} comes here\dots
 }
 
 \value{
