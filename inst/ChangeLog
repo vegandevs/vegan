@@ -4,14 +4,21 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-15 (opened November 1, 2010)
 
+	* Self-starting nls() models for species-area relationship: added
+	Gitay and Lomolino models from Dengler 2009 (J Biogeog 36,
+	728-744). Some more should be added, but these were among the best
+	in Dengler's simulation. The starting values of the Lomolino model
+	(SSlomolino) need work, as do several other candidate models. The
+	purpose is to use these also in fitspecaccum(). 
+
 	* rda: the scaling 'const' can now be a vector of two items: the
 	first is used for species and the second for sites. This allows
 	compatibility with Canoco 3.x (but Canoco 4 changed scaling): if
 	'mod' is an rda() result, and 'nr' is the number of rows in data,
 	then "scaling = -2, const = c(sqrt(nr-1), sqrt(nr))" in scores(),
 	summary() or plot() will use default scaling of Canoco 3.x. Help
-	page now points to decision decision vignette explaining scaling
-	and 'const'.
+	page now points to decision vignette explaining scaling and
+	'const' (and the vignette needs updating).
 
 	* prc: coefficients folded in a wrong way. Diagnosed, reported and
 	fixed by Cajo ter Braak. CtB also fixed the scaling of species

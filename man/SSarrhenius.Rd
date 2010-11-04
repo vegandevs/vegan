@@ -32,7 +32,9 @@ SSlomolino(area, Asym, xmid, slope)
 \details{
   All these functions are assumed to be used for species richness
   (number of species) as the independent variable, and area or sample
-  size as the independent variable.
+  size as the independent variable. Basically, these define least
+  squares models of untransformed data, and will differ from models
+  for transformed species richness or models with non-Gaussian error.
 
   The Arrhenius model (\code{SSarrhenius}) is the expression
   \code{k*area^z}. This is the most classical model that can be found in
@@ -100,7 +102,32 @@ confint(marr)
 ## draw a line
 xtmp <- seq(min(sipoo.area), max(sipoo.area), len=51)
 lines(xtmp, predict(marr, newdata=data.frame(sipoo.area = xtmp)), lwd=2)
-## The normal way is to use linear regression on double log data.
+## The normal way is to use linear regression on log-log data,
+## but this will be different from the previous:
+mloglog <- lm(log(S) ~ log(sipoo.area))
+mloglog
+lines(xtmp, exp(predict(mloglog, newdata=data.frame(sipoo.area=xtmp))),
+   lty=2)
+## Gitay: quadratic of log-linear
+mgit <- nls(S ~ SSgitay(sipoo.area, k, slope))
+lines(xtmp, predict(mgit, newdata=data.frame(sipoo.area=xtmp)), 
+  lwd=2, col = 2)
+## Lomolino: using original names of the parameters (Lomolino 2000):
+mlom <- nls(S ~ SSlomolino(sipoo.area, Smax, A50, Hill))
+mlom
+lines(xtmp, predict(mlom, newdata=data.frame(sipoo.area=xtmp)), 
+  lwd=2, col = 3)
+## One canned model of standard R:
+mmic <- nls(S ~ SSmicmen(sipoo.area, slope, Asym))
+lines(xtmp, predict(mmic, newdata = data.frame(sipoo.area=xtmp)),
+  lwd =2, col = 4)
+legend("bottomright", c("Arrhenius", "log-log linear", "Gitay", 
+  "Lomolino", "Michaelis-Menten"), col=c(1,1,2,3,4), lwd=c(2,1,2,2,2), 
+   lty=c(1,2,1,1,1))
+## compare models (AIC)
+allmods <- list(Arrhenius = marr, Gitay = mgit, Lomolino = mlom, 
+   MicMen= mmic)
+sapply(allmods, AIC)
 }
 \keyword{ models }
 
