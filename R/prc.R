@@ -1,5 +1,5 @@
-"prc" <-
-    function (response, treatment, time, reference, ...) 
+`prc` <-
+    function (response, treatment, time,...) 
 {
     extras <- match.call(expand.dots=FALSE)$...
     if (is.null(extras$data))
