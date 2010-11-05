@@ -18,8 +18,8 @@
 
 \usage{
 prc(response, treatment, time, ...)
-\method{summary}{prc}(object, axis = 1, scaling = 2, digits = 4, ...)
-\method{plot}{prc}(x, species = TRUE, select, scaling = 2, axis = 1, type = "l", 
+\method{summary}{prc}(object, axis = 1, scaling = 3, digits = 4, ...)
+\method{plot}{prc}(x, species = TRUE, select, scaling = 3, axis = 1, type = "l", 
     xlab, ylab, ylim, lty = 1:5, col = 1:6, pch, legpos, cex = 0.8, 
     ...)  
 }

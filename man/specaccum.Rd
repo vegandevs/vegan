@@ -58,6 +58,7 @@ fitspecaccum(object, model, method = "random", ...)
   \item{ylim}{the y limits of the plot.}
   \item{object}{Either a community data set or fitted \code{specaccum} model.}
   \item{model}{Nonlinear regression model (\code{\link{nls}}). See Details.}
+  \item{lty}{line type code (see \code{\link{par}}.}
   \item{...}{Other parameters to functions.}
 }
 \details{
