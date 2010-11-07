@@ -17,21 +17,21 @@ fitspecaccum <-
         x <- object$sites
     mods <- switch(model,
         "arrhenius" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSarrhenius(x, k, z))),
+             function(y) nls(y ~ SSarrhenius(x, k, z), ...)),
         "gitay" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSgitay(x, k, slope))),
+             function(y) nls(y ~ SSgitay(x, k, slope), ...)),
         "lomolino" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlomolino(x, Asym, xmid, slope))),
+             function(y) nls(y ~ SSlomolino(x, Asym, xmid, slope), ...)),
         "asymp" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal))),
+             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal), ...)),
         "gompertz" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSgompertz(x, Asym, xmid, scal))),
+             function(y) nls(y ~ SSgompertz(x, Asym, xmid, scal), ...)),
         "michaelis-menten" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSmicmen(x, Vm, K))),
+             function(y) nls(y ~ SSmicmen(x, Vm, K), ...)),
         "logis" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal))),
+             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal), ...)),
         "weibull" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSweibull(x, Asym, Drop, lrc, par)))
+             function(y) nls(y ~ SSweibull(x, Asym, Drop, lrc, par), ...))
                    )
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
