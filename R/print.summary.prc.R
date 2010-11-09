@@ -5,7 +5,9 @@ function(x, ...)
     cat(deparse(x$call), "\n")
     cat("Species scores:\n")
     print(x$sp, digits=x$digits, ...)
-    cat("\nCoefficients for", paste(x$names, collapse=":"), "interaction\n")
+    cat("\nCoefficients for",
+        paste(x$names[1], "+", paste(x$names, collapse=":")),
+        "interaction\n")
     cat(paste("which are contrasts to", x$names[2], x$corner, "\n"))
     cat(paste(c("rows are",", columns are"), x$names[2:1], collapse=""))
     cat("\n")

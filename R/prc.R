@@ -1,7 +1,7 @@
-`prc` <-
-    function (response, treatment, time,...) 
+`prc`  <-
+    function (response, treatment, time, ...)
 {
-    extras <- match.call(expand.dots=FALSE)$...
+    extras <- match.call(expand.dots = FALSE)$...
     if (is.null(extras$data))
         data <- parent.frame()
     else
@@ -15,11 +15,16 @@
     mf <- model.frame(fla, data)
     if (!all(sapply(mf, is.factor)))
         stop(x, " and ", z, " must be factors")
-    if (any(sapply(mf, is.ordered))) 
+    if (any(sapply(mf, is.ordered)))
         stop(x, " or ", z, " cannot be ordered factors")
-    fla <- as.formula(paste(y, "~", z, "*", x, "+ Condition(", 
-                            z, ")"))
-    mod <- rda(fla, ...)
+    fla.zx <- as.formula(paste("~", z, ":", x))
+    fla.z <- as.formula(paste("~", z))
+    # delete first (control) level from the design matrix
+    X = model.matrix(fla.zx, data)[,-c(seq_len(nlevels(time)+1))]
+    Z = model.matrix(fla.z, data)[,-1]
+    mod <- rda(response, X, Z, ...)
+    mod$terminfo$xlev = list(levels(time), levels(treatment))
+    names(mod$terminfo$xlev) = c(paste(z), paste(x))
     mod$call <- match.call()
     class(mod) <- c("prc", class(mod))
     mod

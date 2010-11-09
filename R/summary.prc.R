@@ -1,24 +1,19 @@
 `summary.prc` <-
-    function (object, axis = 1, scaling = 3, digits = 4, ...) 
+    function (object, axis = 1, scaling = 3, digits = 4, ...)
 {
-    species <- drop(scores(object, scaling = scaling, display="sp",
-                           choices=axis, ...))
-    sites <- drop(scores(object, scaling = scaling, display="lc",
-                         choices=axis, ... )) 
+    sc = scores(object, scaling = scaling, display = c("sp", "lc"),
+                           choices=axis, ...)
     ## coef for scaled sites (coef(object) gives for orthonormal)
-    b <- qr.coef(object$CCA$QR, sites)
+    b <- qr.coef(object$CCA$QR, sc$constraints)
     prnk <- object$pCCA$rank
     lentreat <- length(object$terminfo$xlev[[2]])
-    lenb <- length(b)
-    b <- b[-(1:(2 * prnk))]
-    bx <- b[1:(lentreat - 1)]
-    by <- b[lentreat:length(b)] + rep(bx, each = length(object$terminfo$xlev[[1]])-1)
-    b <- cbind(bx, matrix(by, nrow = lentreat - 1, byrow = TRUE))
+    b = matrix(b[-(1:prnk)], nrow = lentreat-1, byrow = TRUE)
     rownames(b) <- (object$terminfo$xlev[[2]])[-1]
     colnames(b) <- object$terminfo$xlev[[1]]
-    out <- list(sp = species, coefficients = b, names = names(object$terminfo$xlev), 
-                corner = (object$terminfo$xlev[[2]])[1], call = object$call, 
-                digits = digits)
+    out <- list(sp = drop(sc$species), coefficients = b,
+                names = names(object$terminfo$xlev),
+                corner = (object$terminfo$xlev[[2]])[1],
+                call = object$call, digits = digits)
     class(out) <- "summary.prc"
     out
 }

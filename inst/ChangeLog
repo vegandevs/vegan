@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-15 (opened November 1, 2010)
+Version 1.18-16 (opened November 9, 20109
+
+	* prc: Cajo ter Braak wrote new code for more direct
+	implementation of PRC. This drops formula interface and directly
+	finds model matrices avoiding aliased terms.
+	
+Version 1.18-15 (closed November 9, 2010)
 
 	* procrustes: 'translation' needs to take into account 'scale',
 	although Mardia et al. omit it. Reported, analysed and fix
