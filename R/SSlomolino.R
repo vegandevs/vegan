@@ -14,8 +14,10 @@ SSlomolino <-
     .xmid <- -(.p[2])/2/.p[3] - sqrt(abs(1/2/.p[3]))
      ## estimate slope assuming Asym and xmid are known
     .z <- log(.xmid/xy[["x"]])
-    .b <- exp(coef(lm(.y ~ .z - 1)))
-    value <- c(.S, .xmid, .b)
+    .b <- coef(lm(.y ~ .z))
+    ## Adjust Asym: half of y = Asym/2 at xmid
+    .S <- .S * exp(-0.5 * (.b[1]))
+    value <- c(.S, .xmid, exp(.b[2]))
     names(value) <- mCall[c("Asym","xmid", "slope")]
     value
 },
