@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-15 (opened November 1, 2010)
 
+	* procrustes: 'translation' needs to take into account 'scale',
+	although Mardia et al. omit it. Reported, analysed and fix
+	suggested by Christian Dudel (Bochum). 
+
 	* fitspecaccum: uses now new SS-models for species-area
 	relationship and several of standard SS-models for
 	nls(). Placeholders for documentation added. Has a plot()

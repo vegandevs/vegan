@@ -29,10 +29,13 @@
         c <- sum(sol$d)/ctrace(Y)
     }
     Yrot <- c * Y %*% A
-    b <- xmean - t(A %*% ymean)
+    ## Translation (b) needs scale (c) although Mardia et al. do not
+    ## have this. Reported by Christian Dudel.
+    b <- xmean - c * ymean %*% A
     R2 <- ctrace(X) + c * c * ctrace(Y) - 2 * c * sum(sol$d)
     reslt <- list(Yrot = Yrot, X = X, ss = R2, rotation = A, 
-                  translation = b, scale = c, symmetric = symmetric, call = match.call())
+                  translation = b, scale = c, symmetric = symmetric,
+                  call = match.call())
     reslt$svd <- sol
     class(reslt) <- "procrustes"
     return(reslt)
