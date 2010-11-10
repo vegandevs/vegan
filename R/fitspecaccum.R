@@ -1,8 +1,8 @@
 fitspecaccum <-
     function(object, model, method = "random",  ...)
 {
-    MODELS <- c("arrhenius", "gitay", "lomolino", "asymp",
-                "gompertz", "michaelis-menten", "logis",
+    MODELS <- c("arrhenius", "gleason", "gitay", "lomolino",
+                "asymp", "gompertz", "michaelis-menten", "logis",
                 "weibull")
     model <- match.arg(model, MODELS)
     if (!inherits(object, "specaccum")) 
@@ -18,6 +18,8 @@ fitspecaccum <-
     mods <- switch(model,
         "arrhenius" = apply(SpeciesRichness, 2,
              function(y) nls(y ~ SSarrhenius(x, k, z), ...)),
+        "gleason" = apply(SpeciesRichness, 2,
+             function(y) nls(y ~ SSgleason(x, k, slope), ...)),
         "gitay" = apply(SpeciesRichness, 2,
              function(y) nls(y ~ SSgitay(x, k, slope), ...)),
         "lomolino" = apply(SpeciesRichness, 2,

@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 20109
 
+	* SSgleason: a new SS-species-area-model.
+
 	* SSlomolino: improved starting values for 'xmid' (and
 	'Asym'). Now fitspecaccum(..., "lomolino") works in several cases,
 	including BCI and bryceveg (but fails in <1% of cases). Now 'Asym'

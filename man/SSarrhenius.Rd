@@ -2,6 +2,7 @@
 \alias{SSarrhenius}
 \alias{SSlomolino}
 \alias{SSgitay}
+\alias{SSgleason}
 
 \title{
   Self-Starting nls Species-Area Models
@@ -17,6 +18,7 @@
 
 \usage{
 SSarrhenius(area, k, z)
+SSgleason(area, k, slope)
 SSgitay(area, k, slope)
 SSlomolino(area, Asym, xmid, slope)
 }
@@ -41,6 +43,11 @@ SSlomolino(area, Asym, xmid, slope)
   any textbook of ecology (and also in Dengler 2009). Parameter \code{z}
   is the steepness of the species-area curve, and \code{k} is the
   expected number of species in a unit area.
+
+  The Gleason model (\code{SSgleason}) is a linear expression 
+  \code{k + slope*log(area)} (Dengler 200). This is a linear model,  
+  and starting values give the final estimates; it is provided to 
+  ease comparison with other models.
 
   The Gitay model (\code{SSgitay}) is a quadratic logarithmic expression
   \code{(k + slope*log(area))^2} (Gitay et al. 1991, Dengler
@@ -93,7 +100,8 @@ SSlomolino(area, Asym, xmid, slope)
 ## Get species area data: sipoo.area gives the areas of islands
 example(sipoo)
 S <- specnumber(sipoo)
-plot(S ~ sipoo.area, xlab = "Island Area (ha)", ylab = "Number of Species")
+plot(S ~ sipoo.area, xlab = "Island Area (ha)", ylab = "Number of Species",
+    ylim = c(1, max(S)))
 ## The Arrhenius model
 marr <- nls(S ~ SSarrhenius(sipoo.area, k, z))
 marr
@@ -108,26 +116,29 @@ mloglog <- lm(log(S) ~ log(sipoo.area))
 mloglog
 lines(xtmp, exp(predict(mloglog, newdata=data.frame(sipoo.area=xtmp))),
    lty=2)
+## Gleason: log-linear
+mgle <- nls(S ~ SSgleason(sipoo.area, k, slope))
+lines(xtmp, predict(mgle, newdata=data.frame(sipoo.area=xtmp)),
+  lwd=2, col=2)
 ## Gitay: quadratic of log-linear
 mgit <- nls(S ~ SSgitay(sipoo.area, k, slope))
 lines(xtmp, predict(mgit, newdata=data.frame(sipoo.area=xtmp)), 
-  lwd=2, col = 2)
+  lwd=2, col = 3)
 ## Lomolino: using original names of the parameters (Lomolino 2000):
 mlom <- nls(S ~ SSlomolino(sipoo.area, Smax, A50, Hill))
 mlom
 lines(xtmp, predict(mlom, newdata=data.frame(sipoo.area=xtmp)), 
-  lwd=2, col = 3)
+  lwd=2, col = 4)
 ## One canned model of standard R:
 mmic <- nls(S ~ SSmicmen(sipoo.area, slope, Asym))
 lines(xtmp, predict(mmic, newdata = data.frame(sipoo.area=xtmp)),
-  lwd =2, col = 4)
-legend("bottomright", c("Arrhenius", "log-log linear", "Gitay", 
-  "Lomolino", "Michaelis-Menten"), col=c(1,1,2,3,4), lwd=c(2,1,2,2,2), 
-   lty=c(1,2,1,1,1))
+  lwd =2, col = 5)
+legend("bottomright", c("Arrhenius", "log-log linear", "Gleason", "Gitay", 
+  "Lomolino", "Michaelis-Menten"), col=c(1,1,2,3,4,5), lwd=c(2,1,2,2,2,2), 
+   lty=c(1,2,1,1,1,1))
 ## compare models (AIC)
-allmods <- list(Arrhenius = marr, Gitay = mgit, Lomolino = mlom, 
-   MicMen= mmic)
-sapply(allmods, AIC)
+allmods <- list(Arrhenius = marr, Gleason = mgle, Gitay = mgit, 
+   Lomolino = mlom, MicMen= mmic)
 }
 \keyword{ models }
 
