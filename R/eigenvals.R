@@ -52,7 +52,7 @@
    else
        out <- c(x$CCA$eig, x$CA$eig)
    if (!is.null(out))
-       class(out) <- c("eigenvals")
+       class(out) <- "eigenvals"
    out
 }
 
@@ -61,7 +61,16 @@
     function(x, ...)
 {
     out <- x$eig
-    class(out) <-"eigenvals"
+    class(out) <- "eigenvals"
+    out
+}
+
+## pcnm (in vegan)
+`eigenvals.pcnm` <-
+    function(x, ...)
+{
+    out <- x$values
+    class(out) <- "eigenvals"
     out
 }
 

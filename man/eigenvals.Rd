@@ -6,6 +6,7 @@
 \alias{eigenvals.princomp}
 \alias{eigenvals.cca}
 \alias{eigenvals.wcmdscale}
+\alias{eigenvals.pcnm}
 \alias{print.eigenvals}
 \alias{summary.eigenvals}
 
@@ -39,7 +40,7 @@ eigenvals(x, ...)
 
 \details{
   This is a generic function that has methods for \code{\link{cca}},
-  \code{\link{wcmdscale}}, \code{\link{prcomp}} and
+  \code{\link{wcmdscale}}, \code{\link{pcnm}}, \code{\link{prcomp}} and
   \code{\link{princomp}} result objects. The default method also
   extracts eigenvalues if the result looks like being from
   \code{\link{eigen}} or \code{\link{svd}}.  Functions
@@ -55,7 +56,14 @@ eigenvals(x, ...)
   \code{constrained = TRUE} only constrained eigenvalues are returned. 
 
   The \code{summary} of \code{eigenvals} result returns eigenvalues,
-  proportion explained and cumulative proportion explained.
+  proportion explained and cumulative proportion explained. The result
+  object can have some negative eigenvalues (\code{\link{wcmdscale}},
+  \code{\link{capscale}}, \code{\link{pcnm}}) which correspond to
+  imaginary axes of Euclidean mapping of non-Euclidean distances
+  (Gower 1985). In these cases, the sum of absolute values of
+  eigenvalues is used in calculating the proportions explained, and
+  real axes (corresponding to positive eigenvalues) will only explain
+  a part of total variation (Mardia et al. 1979, Gower 1985).  
 }
 
 \value{
@@ -64,6 +72,14 @@ eigenvals(x, ...)
 
 \author{
  Jari Oksanen.
+}
+\references{
+  Gower, J. C. (1985). Properties of Euclidean and non-Euclidean
+  distance matrices. \emph{Linear Algebra and its Applications} 67,
+  81--97.
+
+  Mardia, K. V., Kent, J. T. and Bibby, J. M. (1979).  Chapter 14 of
+  \emph{Multivariate Analysis}, London: Academic Press.
 }
 
 \seealso{
