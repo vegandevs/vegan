@@ -89,7 +89,26 @@ fitspecaccum(object, model, method = "random", ...)
   The function has a \code{plot} method. In addition, \code{method =
     "random"} has \code{summary} and \code{boxplot} methods. 
 
-  Description of \code{fitspecaccum} comes here\dots
+  Function \code{fitspecaccum} fits a nonlinear (\code{\link{nls}})
+  self-starting species accumulation model. The input \code{object}
+  can be a result of \code{specaccum} or a community in data frame. In
+  the latter case the function first fits a \code{specaccum} model and
+  then proceeds with fitting the a nonlinear model. The function can
+  apply a limited set of nonlinear regression models suggested for
+  species-area relationship (Dengler 2009). All these are
+  \code{\link{selfStart}} models. The permissible alternatives are
+  \code{"arrhenius"} (\code{\link{SSarrhenius}}), \code{"gleason"}
+  (\code{\link{SSgleason}}), \code{"gitay"} (\code{\link{SSgitay}}),
+  \code{"lomolino"} (\code{\link{SSlomolino}}) of \pkg{vegan}
+  package. In addition the following standard \R models are available:
+  \code{"asymp"} (\code{\link{SSasymp}}), \code{"gompertz"}
+  (\code{\link{SSgompertz}}), \code{"michaelis-menten"})
+  (\code{\link{SSmicmen}}), \code{"logis"} (\code{\link{SSlogis}}),
+  \code{"weibull"} (\code{\link{SSweibull}}). See these functions for
+  model specification and details.
+
+  Nonlinear regression may fail for any reason, and some of the
+  \code{fitspecaccum} models are fragile and may not succeed.  
 }
 
 \value{
@@ -162,6 +181,11 @@ sp2
 summary(sp2)
 plot(sp1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(sp2, col="yellow", add=TRUE, pch="+")
+## Fit Arrhenius model
+mods <- fitspecaccum(sp2, "arrh")
+plot(mods, col="hotpink")
+boxplot(sp2, col = "yellow", border = "blue", lty=1, cex=0.3, add= TRUE)
 }
-\keyword{univar }
+\keyword{univar}
+\keyword{models}
 
