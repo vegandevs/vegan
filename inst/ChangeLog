@@ -4,6 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 20109
 
+	* SSlomolino: improved starting values for 'xmid' (and
+	'Asym'). Now fitspecaccum(..., "lomolino") works in several cases,
+	including BCI and bryceveg (but fails in <1% of cases). Now 'Asym'
+	and 'xmid' are estimated from Arrhenius at log-log scale: 'Asym'
+	is the predicted value at max(x), and 'xmid' is the value of x
+	giving 'Asym/2'.
+
 	* capscale: defines total inertia as the sum of absolute values of
 	eigenvalues to be consistent with cmdscale(), wcmdscale(),
 	eigenvals(), Gower and Mardia, Kent & Bibby.
