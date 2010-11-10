@@ -169,8 +169,8 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   dissimilarity indices. The non-Euclidean component of inertia is
   given under the title \code{Imaginary}, and the negative eigenvalues
   are listed after unconstrained eigenvalues with prefix \code{NEG}.
-  The total inertia is the sum of all eigenvalues, including negative
-  ones (Gower 1985). No ordination scores are given for negative
+  The total inertia is the sum of absolute values of all eigenvalues
+  (Gower 1985). No ordination scores are given for negative
   eigenvalues.  If the negative eigenvalues are disturbing, you can
   use argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
   preferably, a distance measure that does not cause these warnings.

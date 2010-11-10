@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 20109
 
+	* capscale: defines total inertia as the sum of absolute values of
+	eigenvalues to be consistent with cmdscale(), wcmdscale(),
+	eigenvals(), Gower and Mardia, Kent & Bibby.
+
 	* eigenvals: added a method for "pcnm" and docs discuss handling
 	negative eigenvalues in summary.eigenvals().
 

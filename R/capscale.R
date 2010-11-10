@@ -94,7 +94,7 @@
             names(negax) <- paste("NEG", seq_along(negax), sep="")
             sol$CA$eig <- c(sol$CA$eig, negax)
             sol$CA$imaginary.chi <- sum(negax)
-            sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
+            sol$tot.chi <- sol$tot.chi + abs(sol$CA$imaginary.chi)
             sol$CA$imaginary.rank <- length(negax)
             sol$CA$imaginary.u.eig <- X$negaxes
         }
