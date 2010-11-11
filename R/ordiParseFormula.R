@@ -8,6 +8,8 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     specdata <- formula[[2]]
     X <- eval.parent(specdata, n = envdepth)
+    ## X is usually a matrix, but it is "dist" with capscale():
+    X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
     zmf <- ymf <- Y <- Z <- NULL
     formula[[2]] <- NULL

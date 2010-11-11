@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 20109
 
+	* capscale: failed with na.action -- fix in ordiParseFormula().
+	na.action was introduced in rev1002 (Sept 11, 2009), and then
+	ruined with a change in ordiParseFormula() in rev1007 (Sept 15,
+	2009) so it lived four days and was broken when released. The
+	problem was reported by Nevil Amos.
+
 	* SSgleason: a new SS-species-area-model.
 
 	* SSlomolino: improved starting values for 'xmid' (and
