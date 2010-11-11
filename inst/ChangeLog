@@ -2,7 +2,7 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-16 (opened November 9, 20109
+Version 1.18-16 (opened November 9, 2010)
 
 	* capscale: failed with na.action -- fix in ordiParseFormula().
 	na.action was introduced in rev1002 (Sept 11, 2009), and then
@@ -74,9 +74,9 @@ Version 1.18-14 (closed November 1, 2010)
 	* treedist: works now with zero-height trees (for instance, only
 	one item in a tree).  Function gained a new argument 'relative'
 	(defaults TRUE): if FALSE, finds raw dissimilarities of tree
-	heights.  Help page now tells that tree distances are in range
-	0..2 instead of 0..1, since combining two trees may add a new
-	common root.
+	heights.  Help page now tells that relative tree distances are in
+	range 0..2 instead of 0..1, since combining two trees may add a
+	new common root.
 
 	* isomap: returns only axes associated with positive eigenvalues.
 
@@ -95,11 +95,11 @@ Version 1.18-13 (closed October 15, 2010)
 
 	* anova.cca(..., by = "axis"): now really uses marginal tests for
 	every axis. Significance of axis k with LC scores lc is from model
-	update(object, . ~ lc[,k] + Condition(lc[,-k])). That is, That is,
-	axis k is used as constraint and all other axes as conditions,
-	when axis k is analysed. This also solves the failure of
-	anova(..., by = "ax") of rda(dune ~ poly(pH, 2) + Baresoil,
-	varechem) of PR#945, but no other problems of the same report.
+	update(object, . ~ lc[,k] + Condition(lc[,-k])). That is, axis k
+	is used as constraint and all other axes as conditions, when axis
+	k is analysed. This also solves the failure of anova(..., by =
+	"ax") of rda(dune ~ poly(pH, 2) + Baresoil, varechem) of PR#945,
+	but no other problems of the same report.
 
 	* treedive: handles trivial cases of zero (diversity NA) or one
 	species (diversity 0). 
@@ -145,16 +145,16 @@ Version 1.18-12 (closed September 26, 2010)
 	labels will use the colour of the border or of the foreground.
 
 	* ordiR2step: gained argument 'direction = c("both", "response")',
-	and iwth "both" gives also adjusted R2 when dropping terms. I have
-	not yet seen a case where a terms is dropped. Abandoned dangerous
+	and with "both" gives also adjusted R2 when dropping terms. I have
+	not yet seen a case where a term is dropped. Abandoned dangerous
 	practice of getting the R2.all directly from a fitted model of the
 	'scope' since this may have different lhs.
 
 	* anova.ccalist: removed. Revisions were 1273, 1274, 1276. Could
 	not make this work consistently with other anova models, except
-	with 'model = "direct"'. The function would also chage the API so
+	with 'model = "direct"'. The function would also change the API so
 	that "..." come as the second argument breaking partial matching
-	of other arguments. 
+	of other arguments.
 	
 Version 1.18-11 (closed September 17, 2010)
 
@@ -173,8 +173,8 @@ Version 1.18-10 (closed August 31, 2010)
 	* New version opened with the release of vegan_1.17-4 on August
 	20, 2010.
 
-	* rankindex: can take a list of dissimlarity functions as an
-	argument. 
+	* rankindex: can take a list of dissimilarity functions as an
+	argument.
 
 	* deviance.cca/rda: return 0 (instead of NULL) if there is no
 	residual variation.
@@ -206,15 +206,15 @@ Version 1.18-10 (closed August 31, 2010)
 	from the corresponding partial model (except with model =
 	"direct").  Another option that I have on my mind is that I use
 	model.matrix.cca to reconstruct a matrix of RHS of each model, and
-	then run a series partial model ANOVAs. Here the problem is that
-	the statistics will be sequential, i.e., the residual of each
+	then run a series of partial model ANOVAs. Here the problem is
+	that the statistics will be sequential, i.e., the residual of each
 	model is from the next model and not from the final model, and the
 	models must be in increasing order or ordered programmatically;
 	the current test will study differences of any sequence.
 	Naturally, we have to figure out how the permutation should be
 	done. Probably a note to R-Devel to open up discussion on the
 	issue. NOTE: there is no automatic delegation to this function. If
-	you try this, you must explcititly write "anova.ccalist(model1,
+	you try this, you must explicitly write "anova.ccalist(model1,
 	model2, model3). NOTE2: There are no tests of the sanity of the
 	input: be careful. NOTE3: Does not work with saturated model with
 	null residual variance.
