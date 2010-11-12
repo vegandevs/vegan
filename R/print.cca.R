@@ -9,9 +9,10 @@
     cat("\n")
     chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi,
              x$CA$imaginary.chi)
+    props <- abs(chi)/sum(abs(chi[-1]))
     rnk <- c(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank, x$CA$imaginary.rank)
-    tbl <- cbind(chi, rnk)
-    colnames(tbl) <- c("Inertia", "Rank")
+    tbl <- cbind(chi, props, rnk)
+    colnames(tbl) <- c("Inertia", "Proportion", "Rank")
     rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
             "Imaginary")
     rownames(tbl) <- rn[c(TRUE, !is.null(x$pCCA), !is.null(x$CCA), 

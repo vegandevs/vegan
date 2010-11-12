@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 2010)
 
+	* cca/rda/capscale: JO yielded to the pressure, and added
+	proportions of inertia components in the printed output.
+
 	* capscale: failed with na.action -- fix in ordiParseFormula().
 	na.action was introduced in rev1002 (Sept 11, 2009), and then
 	ruined with a change in ordiParseFormula() in rev1007 (Sept 15,
