@@ -30,7 +30,8 @@ Version 1.18-16 (opened November 9, 2010)
 	eigenvals(), Gower and Mardia, Kent & Bibby.
 
 	* eigenvals: added a method for "pcnm" and docs discuss handling
-	negative eigenvalues in summary.eigenvals().
+	negative eigenvalues in summary.eigenvals(). Function is ready for
+	the new version of cmdscale() in R 2.12.1.
 
 	* prc: Cajo ter Braak wrote new code for more direct
 	implementation of PRC. This drops formula interface and directly

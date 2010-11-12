@@ -10,15 +10,19 @@
     function(x, ...)
 {
     ## svd and eigen return unspecified 'list', see if this could be
-    ## either of them
+    ## either of them (like does cmdscale)
     out <- NA
     if (is.list(x)) {
         ## eigen
         if (length(x) == 2 && all(names(x) %in% c("values", "vectors")))
             out <- x$values
         ## svd: return squares of singular values
-        if (length(x) == 3 && all(names(x) %in% c("d", "u", "v")))
+        else if (length(x) == 3 && all(names(x) %in% c("d", "u", "v")))
             out <- x$d^2
+        ## cmdscale() will return all eigenvalues from R  2.12.1
+        else if (getRversion() > "2.12.0" &&
+                 all(c("points","eig","GOF") %in% names(x)))
+            out <- x$eig
     }
     class(out) <- "eigenvals"
     out
