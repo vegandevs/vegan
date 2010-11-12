@@ -1,5 +1,5 @@
-"pcnm" <-
-    function(dis, threshold, w)
+`pcnm` <-
+    function(dis, threshold, w, dist.ret = FALSE)
 {
     EPS <- sqrt(.Machine$double.eps)
     wa.old <- options(warn = -1)
@@ -19,6 +19,11 @@
     res$vectors <- sweep(res$vectors, 2, sqrt(res$values[1:k]), "/")
     colnames(res$vectors) <- paste("PCNM", 1:k, sep="")
     res$threshold <- threshold
+    if (dist.ret) {
+        attr(dis, "method") <- paste(attr(dis, "method"), "pcnm")
+        attr(dis, "threshold") <- threshold
+        res$dist <- dis
+    }
     class(res) <- "pcnm"
     res
 }

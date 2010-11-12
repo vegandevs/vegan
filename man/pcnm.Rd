@@ -9,7 +9,7 @@
   constrained ordination or regression. 
 }
 \usage{
-pcnm(dis, threshold, w)
+pcnm(dis, threshold, w, dist.ret = FALSE)
 }
 
 \arguments{
@@ -19,6 +19,7 @@ pcnm(dis, threshold, w)
     used. This is found as the longest distance in the minimum spanning
     tree of \code{dis}. }
   \item{w}{Prior weights for rows.}
+  \item{dist.ret}{Return the distances used to calculate the PCNMs.}
 }
 
 \details{
@@ -58,15 +59,21 @@ pcnm(dis, threshold, w)
   }
 
 \value{
-  A list of three elements:
+  A list of the following elements:
   \item{values }{Eigenvalues obtained by the principal coordinates
     analysis.} 
   \item{vectors }{Eigenvectors obtained by the principal coordinates
     analysis. They are scaled to unit norm. The vectors can be extracted 
     with \code{scores} function. The default is to return all PCNM vectors,
     but argument \code{choices} selects the given vectors.} 
- \item{threshold}{Truncation distance.} 
+ \item{threshold}{Truncation distance.}
+ \item{dist}{The distance matrix where values above \code{threshold}
+    are replaced with arbitrary value of four times the
+    threshold. String \code{"pcnm"} is added to the \code{method}
+    attribute, and new attribute \code{threshold} is added to the
+    distances. This is returned only when \code{dist.ret = TRUE}.  }
 }
+
 \references{
   Borcard D. and Legendre P. (2002) All-scale spatial analysis of
   ecological data by means of principal coordinates of neighbour

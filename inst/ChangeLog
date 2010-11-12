@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 2010)
 
+	* pcnm: gained argument 'dist.ret' to return the distance matrix
+	on which PCNMs were based.
+
 	* cca/rda/capscale: JO yielded to the pressure, and added
 	proportions of inertia components in the printed output.
 
