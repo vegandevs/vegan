@@ -192,49 +192,50 @@ backtracking.
 
 This chapter discusses the scaling of scores (results) in redundancy
 analysis and principal component analysis performed by function
-\texttt{rda} in the \texttt{vegan} library.  Principal component
-analysis, and hence redundancy analysis, is a variant of singular
-value decomposition (\textsc{svd}).  Functions \texttt{rda} and
-\texttt{prcomp} (library \texttt{mva}) even use \textsc{svd}
-internally in their algorithm.  In \textsc{svd} a centred data matrix
-is decomposed into orthogonal components so that $x_{ij} = \sum_k
-\sigma_k u_{ik} v_{jk}$, where $u_{ik}$ and $v_{jk}$ are orthonormal
-coefficient matrices and $\sigma_k$ are singular values.
-Orthonormality means that sum of squared columns is one and their
-cross-product is zero, or $\sum_i u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and
-$\sum_i u_{ik} u_{il} = \sum_j v_{jk} v_{jl} = 0$ for $k \neq l$. This
-is a decomposition, and the original matrix is found exactly from the
-singular vectors and corresponding singular values, and first two
-singular components give the best rank $=2$ least squares estimate of
-the original matrix.
+\texttt{rda} in the \texttt{vegan} library.  
+
+Principal component analysis, and hence redundancy analysis, is a case
+of singular value decomposition (\textsc{svd}).  Functions
+\texttt{rda} and \texttt{prcomp} even use \textsc{svd} internally in
+their algorithm.
+
+In \textsc{svd} a centred data matrix is decomposed into orthogonal
+components so that $x_{ij} = \sum_k \sigma_k u_{ik} v_{jk}$, where
+$u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
+$\sigma_k$ are singular values.  Orthonormality means that sums of
+squared columns is one and their cross-product is zero, or $\sum_i
+u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and $\sum_i u_{ik} u_{il} = \sum_j
+v_{jk} v_{jl} = 0$ for $k \neq l$. This is a decomposition, and the
+original matrix is found exactly from the singular vectors and
+corresponding singular values, and first two singular components give
+the best rank $=2$ least squares estimate of the original matrix.
 
 Principal component analysis is often presented (and performed in
 legacy software) as an eigenanalysis of covariance matrices.  Instead
-of data matrix, we analyse a matrix of covariances and variances
-$\mathbf{S}$.  The result will be orthonormal coefficient matrix
+of a data matrix, we analyse a matrix of covariances and variances
+$\mathbf{S}$.  The result are orthonormal coefficient matrix
 $\mathbf{U}$ and eigenvalues $\mathbf{\Lambda}$.  The coefficients
 $u_{ik}$ ares identical to \textsc{svd} (except for possible sign
 changes), and eigenvalues $\lambda_k$ are related to the corresponding
 singular values by $\lambda_k = \sigma_k^2 /(n-1)$.  With classical
 definitions, the sum of all eigenvalues equals the sum of variances of
 species, or $\sum_k \lambda_k = \sum_j s_j^2$, and it is often said
-that first axes explain a certain maximized proportion of total
-variance in the data.  The other orthonormal matrix $\mathbf{V}$ can
-be found indirectly as well, so that we have the same components in
-both methods.
+that first axes explain a certain proportion of total variance in the
+data.  The orthonormal matrix $\mathbf{V}$ of \textsc{svd} can be
+found indirectly as well, so that we have the same components in both
+methods.
 
-The coefficients $u_{ik}$ and $v_{jk}$ are of the same (unit) length
-for all axes $k$, but singular values $\sigma_k$ or eigenvalues
-$\lambda_k$ give the information of the importance of axes, or the
-`axis lengths.'  Instead of the orthonormal coefficients, or equal
-length axes, it is customary to use eigenvalues to scale at least one
-of the alternative scores to reflect the importance of axes or
-describe the true configuration of points.  Table \ref{tab:scales}
-shows some alternative scalings used in various software.  These
-alternatives apply to principal components analysis in all cases, and
-in redundancy analysis, they apply to species scores and constraints or
-linear combination scores; weighted averaging scores have somewhat
-wider dispersion.
+The coefficients $u_{ik}$ and $v_{jk}$ are scaled similarly for all
+axes $k$. Singular values $\sigma_k$ or eigenvalues $\lambda_k$ give
+the information of the importance of axes, or the `axis lengths.'
+Instead of the orthonormal coefficients, or equal length axes, it is
+customary to scale species (column) or site (row) scores or both by
+eigenvalues to display the importance of axes and to describe the true
+configuration of points.  Table \ref{tab:scales} shows some
+alternative scalings.  These alternatives apply to principal
+components analysis in all cases, and in redundancy analysis, they
+apply to species scores and constraints or linear combination scores;
+weighted averaging scores have somewhat wider dispersion.
 
 \begin{table}
   \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
@@ -246,7 +247,7 @@ wider dispersion.
     species standard deviations ($s_j$). In \texttt{rda},
     $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
     negative scaling in \texttt{vegan}
-    and corresponding positive scaling in \texttt{Canoco} is derived
+    and corresponding positive scaling in \texttt{Canoco 3}  is derived
     dividing each  species by its standard deviation $s_j$ (possibly
     with some additional constant multiplier).  }
 \begin{tabular}{lcc}
@@ -269,14 +270,14 @@ $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 \\
-\texttt{Canoco, scaling=-1} &
+\texttt{Canoco 3, scaling=-1} &
 $u_{ik} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$ &
 $v_{jk} \sqrt{n}$ \\
-\texttt{Canoco, scaling=-2} &
+\texttt{Canoco 3, scaling=-2} &
 $u_{ik} \sqrt{n}$ &
 $v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
 \\
-\texttt{Canoco, scaling=-3} &
+\texttt{Canoco 3, scaling=-3} &
 $u_{ik} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
 $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
 \end{tabular}
@@ -288,37 +289,60 @@ or a graphical, low-dimensional approximation of the data, the graph
 is called a biplot.  The graph is a biplot if the transformed scores
 satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
 constant.  In functions \texttt{princomp}, \texttt{prcomp} and
-\texttt{rda}, $c=1$ or the plotting scores are the straight biplot
-scores so that the singular values (or eigenvalues) are expressed for
-sites, and species are left unscaled.  For \texttt{Canoco} $c = n^{-1}
-\sqrt{n-1} \sqrt{\sum \lambda_k}$ with positive \texttt{Canoco}
-scaling values. All these $c$ are constants for a matrix, so these are
-all biplots with different internal scaling of species and site scores
+\texttt{rda}, $c=1$ and the plotted scores are a biplot so that the
+singular values (or eigenvalues) are expressed for sites, and species
+are left unscaled.  For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
+\sqrt{\sum \lambda_k}$ with negative \texttt{Canoco} scaling
+values. All these $c$ are constants for a matrix, so these are all
+biplots with different internal scaling of species and site scores
 with respect to each other.  For \texttt{Canoco} with positive scaling
 values and \texttt{vegan} with negative scaling values, no constant
 $c$ can be found, but the correction is dependent on species standard
-deviations $s_j$, so this alternative does not define a biplot.
+deviations $s_j$, and these scores do not define a biplot.
 
 There is no natural way of scaling species and site scores to each
-other, but all functions and programs above selected different
-strategies.  The eigenvalues in redundancy and principal components
-analysis are scale dependent and change when the the data are
+other.  The eigenvalues in redundancy and principal components
+analysis are scale-dependent and change when the the data are
 multiplied by a constant.  If we have percent cover data, the
 eigenvalues are typically very high, and the scores scaled by
 eigenvalues will have much wider dispersion than the orthonormal set.
-If we express the percentages as proportions, or divide the matrix by
+If we express the percentages as proportions, and divide the matrix by
 $100$, the eigenvalues will be reduced by factor $100^2$, and the
-scores scaled by eigenvalues will have much narrower dispersion than
-the orthonormal set.  For graphical biplots we should be able to fix
-the relation and make it invariant for scale changes.  The solution
-adoption in the R standard function \texttt{biplot.princomp} is to
-scale site and species scores independently, and typically very
-differently, but plot each with separate scales so that both sets fill
-the graph area.  The solution in \texttt{Canoco} and \texttt{rda} is
-to use proportional eigenvalues $\lambda_k / \sum \lambda_k$ instead
-of original eigenvalues.  These proportions are invariant with scale
-changes, and typically they have a nice range for plotting two data
-sets in the same graph.
+scores scaled by eigenvalues will have a narrower dispersion.  For
+graphical biplots we should be able to fix the relations of row and
+column scores to be invariant against scaling of data.  The solution
+in R standard function \texttt{biplot} is to scale site and species
+scores independently, and typically very differently, but plot each
+independenty to fill the graph area.  The solution in \texttt{Canoco} and 
+and \texttt{rda} is to use proportional eigenvalues $\lambda_k / \sum
+\lambda_k$ instead of original eigenvalues.  These proportions are
+invariant with scale changes, and typically they have a nice range for
+plotting two data sets in the same graph.
+
+The \textbf{vegan} package uses a scaling constant $c = \sqrt[4]{(n-1)
+  \sum \lambda_k}$ in order to be able to use scaling by proportional
+eigenvalues (like in \texttt{Canoco}) and still be able to have a
+biplot scaling. Because of this, the scaling of \texttt{rda} scores is
+non-standard. However, the \texttt{scores} function lets you to set
+the scaling constant to any desired values. It is also possible to
+have two separate scaling constants: the first for the species, and
+the second for sites and friends, and this allows getting scores of
+other software or R functions (Table \ref{tab:rdaconst}). 
+\begin{table}
+  \caption{\label{tab:rdaconst} Values of the \texttt{const} argument in
+    \textbf{vegan} to get the scores that are equal to those from
+    other functions and software. Number of sites (rows) is $n$, 
+    the number of species (columns) is $m$, and the sum of all
+    eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
+    \texttt{tot.chi} in the \texttt{rda} result)}.
+\begin{tabular}{lccc}
+& \textbf{Scaling} &\textbf{Species costant} & \textbf{Site constant} \\
+\texttt{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
+\texttt{prcomp}, \texttt{princomp} & \texttt{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
+\texttt{Canoco 3} & \texttt{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
+\texttt{Canoco 4} & \texttt{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
+\end{tabular}
+\end{table}
 
 In this chapter, I used always centred data matrices.  In principle
 \textsc{svd} could be done with original, non-centred data, but

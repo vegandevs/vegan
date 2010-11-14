@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 2010)
 
+	* vignette on design decision: updated to changes in 'const' in
+	scores.rda()  in 1.18-15 and to Canoco 4. Explains now 'const'
+	more thoroughly.
+
 	* pcnm: gained argument 'dist.ret' to return the distance matrix
 	on which PCNMs were based.
 
