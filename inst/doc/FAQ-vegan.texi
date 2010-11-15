@@ -21,7 +21,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2008 Jari Oksanen
+Copyright @copyright{} 2010 Jari Oksanen
 @end quotation
 @end copying
 
@@ -131,18 +131,12 @@ and use most of its functions without these packages.  The
 non-standard packages needed by some vegan functions are:
 @itemize
 
-@item Package @code{cluster}
-is needed by @code{decostand} if environmental data contain factors
-
 @item Package @code{scatterplot3d}
 is needed by @code{ordiplot3d}
 
 @item Package @code{rgl}
 is needed by @code{ordirgl}
 and @code{rgl.isomap}
-
-@item Package @code{tcltk}
-is needed by @code{orditkplot}
 
 @end itemize
 
@@ -166,6 +160,8 @@ source).  Vegan package ships with other documents which can be read
 with @code{vegandocs} command (documented in the vegan help).  The
 documents included in the vegan package are
 @itemize
+@item
+Vegan @code{NEWS} (not in the development version: only in CRAN)
 @item 
 Vegan @code{ChangeLog}.
 @item
@@ -191,10 +187,6 @@ Web documents outside the package include:
 @item
 @url{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}: vegan
 tutorial.
-
-@item
-@url{http://wiki.r-project.org/rwiki/doku.php?id=packages:cran:vegan,,http://wiki.r-project.org/}:
-entry in R-Wiki.
 
 @end itemize
 
@@ -225,45 +217,44 @@ is a general progression of version numbers mixed with stable (at
 @url{http://cran.r-project.org,,CRAN}) and devel versions (at 
 @url{http://r-forge.r-project.org/projects/vegan/,,R-Forge}). 
 
-Up to versions 1.8-7 and 1.9-34, vegan version numbers were of type
-x.y-z, where number y is even for stable release versions at
-@url{http://cran.r-project.org,,CRAN} and odd for unstable release
-versions at @url{http://cc.oulu.fi/~jarioksa/softhelp/vegan.html,,my
-personal homepage}. Version 1.8-8 was a backport of bug fixes from
-the 1.10 series.
+Vegan version numbers are of type x.y-z, where number y is odd for
+stable release versions at @url{http://cran.r-project.org,,CRAN} and
+even for unstable release versions at
+@url{http://r-forge.r-project.org/projects/vegan,,F-Forge}.
 
 @node How to build vegan from sources?, Are there binaries for devel versions?, Version numbering in vegan, Introduction
 @section How to build vegan from sources?
 
 In general, you do not need to build vegan from sources, but binary
 builds of release versions are available through
-@url{http://cran.r-project.org/,,CRAN} for Windows and MacOS X. If
-you use some other operating systems, or want to use unstable devel
-versions, you may have to use source packages.
+@url{http://cran.r-project.org/,,CRAN} for Windows and MacOS X.  If you
+use some other operating systems, you may have to use source packages.
 Vegan is a standard R package, and can be built like instructed in R
 documentation.  Vegan contains source files in C and @acronym{FORTRAN},
 and you need appropriate compilers (which may need more work in Windows
-and MacOS X). 
+and MacOS X).
 
 @node Are there binaries for devel versions?, How to report a bug in vegan?, How to build vegan from sources?, Introduction
 @section Are there binaries for devel versions?
 
 @url{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
-tests on the devel package, and if passed, it builds source package and
-Windows binaries. You can install those packages within R with command
-@code{install.packages("vegan",
-repos="http://r-forge.r-project.org/")}. 
+tests on the devel package, and if passed, it builds source package
+together with Windows and MacOS X binaries. You can install those
+packages within R with command 
+@code{install.packages("vegan", repos="http://r-forge.r-project.org/")}.
+If you use GUI menu entry, you must select or define the R-Forge
+repository. 
 
 @node How to report a bug in vegan?, Is it a bug or a feature?, Are there binaries for devel versions?, Introduction
 @section How to report a bug in vegan?
 
-If you think you have found a bug in vegan, you should report it to me.
-The bug report should be so detailed that I can correct the bug.  To
-correct a bug, I should be able to reproduce the buggy behaviour.
-Preferably, you should send me an example that causes a bug.  If it
-needs a data set that is not available in R, you should send me minimal
-data set as well. You also should paste the output or error message in
-your message.  You also should tell me which version of vegan you used.
+If you think you have found a bug in vegan, you should report it to
+vegan maintainers or developers.  The bug report should be so detailed
+that the bug can be replicated and corrected.  Preferably, you should
+send an example that causes a bug.  If it needs a data set that is not
+available in R, you should send a minimal data set as well. You also
+should paste the output or error message in your message.  You also
+should specify which version of vegan you used.
 
 Bug reports are welcome: they are the only way to make vegan non-buggy.
 
@@ -291,19 +282,17 @@ binary index, you should use argument @code{binary = TRUE}.
 
 Vegan is dependent on user contribution.  All feedback is welcome.  If
 you have problem with vegan, it may be as simple as incomplete
-documentation, and I'll do my best to improve the documents.
+documentation, and we'll do our best to improve the documents.
 
 Feature requests also are welcome, but they are not necessarily
 fulfilled.  A new feature will be added if it is easy to do and it looks
-useful to me or in general.  
+useful to me or in general, or if you submit code. 
 
 Contributed code and functions are welcome and more certain to be
 included than mere requests.  However, not all functions will be added,
-but I must judge them to be suitable for vegan.  I also audit the code,
-and  typically I edit the code in vegan style for easier maintenance.
-All included contributions will be credited.  You can easily see that
-many vegan functions were contributed by other people, and they are
-listed as authors in the documentation. 
+but I they must be suitable for vegan.  We also audit the code, and
+typically we edit the code in vegan style for easier maintenance.  All
+included contributions will be credited.  
 
 @node Ordination, Other analysis methods , Introduction, Top
 @chapter Ordination
@@ -330,10 +319,13 @@ listed as authors in the documentation.
 @section I have only numeric and positive data but vegan still complaints
 
 You are wrong! Computers are painfully pedantic, and if they find
-non-numeric ore negative data entries, you really have them. Check your
+non-numeric or negative data entries, you really have them. Check your
 data. Most common reasons for non-numeric data are that row names were
-read as a non-numeric variable instead of being used as row
-names. Another is that you had empty cells in your input data.
+read as a non-numeric variable instead of being used as row names (check
+argument @code{row.names} in reading the data), or that the column names
+were interpted as data (check argument @code{header = TRUE} in reading
+the data). Another common reason is that you had empty cells in your
+input data, and these were interprted as missing values.
 
 @node Can you analyse binary or cover class data?, Why dissimilarities in vegan differ from other sources?, I have only numeric and positive data but vegan still complaints, Ordination
 @section Can you analyse binary or cover class data?
@@ -400,11 +392,12 @@ important.  The first axes explains much less of the ``total
 variation'', but now they explain all species equally, and results
 typically are much more useful for the whole community.  Correspondence
 analysis uses another measure of variation (which is not variance), and
-again it typically explains a ``smaller proportion'' with a better
-result.  Detrended correspondence analysis and nonmetric
-multidimensional scaling even do not try to ``explain'' the variation,
-but use other criteria.  All methods are incommensurable, and it is
-impossible to compare methods using ``explanation of variation''.
+again it typically explains a ``smaller proportion'' than principal
+componentsm but with a better result.  Detrended correspondence analysis
+and nonmetric multidimensional scaling even do not try to ``explain''
+the variation, but use other criteria.  All methods are incommensurable,
+and it is impossible to compare methods using ``explanation of
+variation''.
 
 If you still want to get ``explanation of variation'' (or a deranged
 editor requests that from you), it is possible to get this information
@@ -415,7 +408,7 @@ Functions @code{rda}, @code{cca} and @code{capscale} give the variation
 of conditional (partialled), constrained (canonical) and residual
 components, but you must calculate the proportions by hand.  Function
 @code{eigenvals} extracts the eigenvalues, and
-@code{eigenvals(summary(ord))} reports the proportions explained in the
+@code{summary(eigenvals(ord))} reports the proportions explained in the
 result object @code{ord}.  Function @code{RsquareAdj} gives the
 R-squared and adjusted R-squared (if available) for constrained
 components.  Function @code{goodness} gives the same statistics for
@@ -425,11 +418,10 @@ individual species or sites (species are unavailable with
 separate components in redundancy analysis.
 
 @item Detrended correspondence analysis (function @code{decorana}).
-The total amount of variation is unknown and undefined in detrended
-correspondence analysis, and therefore proportions from total also are
-unknown and undefined.  @acronym{DCA} is not a method for
-decomposition of variation, and therefore these proportions would not
-make sense either. 
+The total amount of variation is undefined in detrended correspondence
+analysis, and therefore proportions from total are unknown and
+undefined.  @acronym{DCA} is not a method for decomposition of
+variation, and therefore these proportions would not make sense either.
 
 @item Nonmetric multidimensional scaling. 
 @acronym{NMDS} is a method for nonlinear mapping, and the concept of
@@ -443,18 +435,18 @@ nonlinear fit and gives this statistic.
 @node Is it possible to have passive points in ordination?, Class variables and dummies, Variance explained by ordination axes, Ordination
 @section Is it possible to have passive points in ordination?
 
-Vegan does not have a concept of passive points, or a point that
-should only little influence the ordination results. However, you can
-add points to eigenvector methods using @code{predict} functions with
+Vegan does not have a concept of passive points, or a point that should
+only little influence the ordination results. However, you can add
+points to eigenvector methods using @code{predict} functions with
 @code{newdata}.  You can first perform an ordination without some
-species or sites, and then you can find scores for all points
-using your complete data as @code{newdata}.  The @code{predict}
-functions are available for basic eigenvector methods in vegan
-(@code{cca}, @code{rda}, @code{decorana}, for an up-to-date list, use command
-@code{methods("predict")}). You also can simulate the passive points in R by using
-low weights to row and columns (this is the method used in software
-with passive points). For instance, the following command makes row 3
-``passive'': @code{dune[3,] <- 0.001*dune[3,]}.
+species or sites, and then you can find scores for all points using your
+complete data as @code{newdata}.  The @code{predict} functions are
+available for basic eigenvector methods in vegan (@code{cca},
+@code{rda}, @code{decorana}, for an up-to-date list, use command
+@code{methods("predict")}). You also can simulate the passive points in
+R by using low weights to row and columns (this is the method used in
+software with passive points). For instance, the following command makes
+row 3 ``passive'': @code{dune[3,] <- 0.001*dune[3,]}.
 
 
 @node Class variables and dummies, I want to use Helmert or sum contrasts, Is it possible to have passive points in ordination?, Ordination
@@ -495,7 +487,7 @@ redundant levels of factors or whole variables.
 
 Vegan function @code{alias} gives the defining equations for aliased
 variables.  If you only want to see the names of aliased variables or
-levels in solution @code{sol}, write @code{sol$CCA$alias}.
+levels in solution @code{sol}, use @code{alias(sol, names.only=TRUE)}.
 
 @node Plotting aliased variables, Constrained permutations in vegan, What are aliased variables and how to see them?, Ordination
 @section Plotting aliased variables
@@ -516,10 +508,9 @@ functions that use permutation, such as @code{adonis}, @code{anosim},
 
 Vegan has an alternative permutation function @code{permuted.index2}
 which allows restricted permutation designs for time series, line
-transects, spatial grids and blocking factors. Over time, the other
-functions that currently use the older @code{permuted.index} will be
-updated to use @code{permuted.index2}, but at the moment it is still
-experimental.
+transects, spatial grids and blocking factors. However, that function is
+not developed at the moment. Vegan is going to switch to using a
+separate package (permute) for permutations.
 
 @node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Constrained permutations in vegan, Ordination
 @section How to use different plotting symbols in ordination graphics?
@@ -542,35 +533,42 @@ have complete readable graphics with some data sets. However, here are
 some tricks you can use:
 @itemize
 
-@item Use only points, possibly with different types if you do not need
+@item 
+Use only points, possibly with different types if you do not need
 to see the labels. You may need to first create an empty plot using
 @code{plot(..., type="n")}, if you are not satisfied with the default
 graph. (Here and below  @code{...} means other arguments you want
 to give to your @code{plot} command.)
 
-@item Use points, and add labels to desired points using @code{identify}
-for ordination graphics, if you do not need to see all labels. 
+@item 
+Use points and add labels to desired points using interactive
+@code{identify} command if you do not need to see all labels.
 
-@item Add labels using function @code{ordilabel} which uses
-non-transparent background to the text. The labels still shadow each
-other, but the uppermost labels are readable. Argument @code{priority}
-will help in displaying the most interesting labels. 
+@item 
+Add labels using function @code{ordilabel} which uses non-transparent
+background to the text. The labels still shadow each other, but the
+uppermost labels are readable. Argument @code{priority} will help in
+displaying the most interesting labels.
 
-@item Use @code{orditorp} function that uses labels only if these can be
+@item 
+Use @code{orditorp} function that uses labels only if these can be
 added to a graph without overwriting other labels, and points otherwise,
 if you do not need to see all labels. You must first create an empty
 plot using  @code{plot(..., type="n")}, and then add labels or points
 with @code{orditorp}.  
 
-@item Use @code{ordipointlabel} which uses points and text labels to the
+@item 
+Use @code{ordipointlabel} which uses points and text labels to the
 points, and tries to optimize the location of the text to minimize the
 overlap. 
 
-@item Use interactive @code{orditkplot} function that lets you drag
+@item 
+Use interactive @code{orditkplot} function that lets you drag
 labels of points to better positions if you need to see all labels. Only
 one set of points can be used. 
 
-@item Most @code{plot} functions allow you to zoom to a part of the
+@item 
+Most @code{plot} functions allow you to zoom to a part of the
 graph using @code{xlim} and @code{ylim} arguments to reduce clutter in
 congested areas.  
 
@@ -589,9 +587,9 @@ congested areas.
 @section Is there TWINSPAN?
 
 No.  It may be possible to port @acronym{TWINSPAN} to vegan, but it is
-not among my top priorities.  If anybody wants to try porting,  I will
-be happy to help.  @acronym{TWINSPAN} has a very permissive license,
-and it would be completely legal to port the function into R.
+not among the vegan top priorities.  If anybody wants to try porting, I
+will be happy to help.  @acronym{TWINSPAN} has a very permissive
+license, and it would be completely legal to port the function into R.
 
 @node How is deviance calculated?,  , Is there TWINSPAN?, Other analysis methods
 @section How is deviance calculated?
