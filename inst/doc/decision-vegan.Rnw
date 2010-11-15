@@ -78,7 +78,7 @@ arrows(x,y, r, f(r, mod$p), lwd=4)
   outside the fill line or absences within the fill line.}
 \end{SCfigure}
 The function can be implemented in many ways following the general
-principles.  Rodr{\'i}guez-Girond{\'e}s and Santamaria \cite{RodGir06}
+principles.  Rodr{\'i}guez-Giron{\'e}s and Santamaria \cite{RodGir06}
 have seen the original code and reveal more details of calculations,
 and their explanation is the basis of the implementation in
 \texttt{vegan}.  However, there are still some open issues, and
@@ -121,7 +121,7 @@ this documents --- all details can be seen in the source code of
       y = (1-(1-x)^p)^{1/p}
     \end{equation}
     This is similar to the equation suggested by
-    \citet[eq. 4]{RodGir06}, but omits all terms dependent on the
+    \cite[eq. 4]{RodGir06}, but omits all terms dependent on the
     numbers of species or sites, because I could not understand why
     they were needed. The differences are visible only in small data
     sets. The $y$ and $x$ are the coordinates in the unit square, and
@@ -146,31 +146,31 @@ this documents --- all details can be seen in the source code of
 
 \subsection{Backtracking}
 
-Gotelli and Entsminger's seminal paper \cite{GotelliEnt01} on filling
+Gotelli's and Entsminger's seminal paper \cite{GotelliEnt01} on filling
 algorithms is somewhat confusing: it explicitly deals with ``knight's
 tour'' which is quite a different problem than the one we face with
 null models.  The chess piece ``knight''\footnote{``Knight'' is
   ``Springer'' in German which is very appropriate as Springer was the
-  publisher of the paper on ``knight's tour''} has a track of history:
+  publisher of the paper on ``knight's tour''} has a history:
 a piece in a certain position could only have entered from some
-candidate squares. The filling of incidence matrix no such a history:
+candidate squares. The filling of incidence matrix has not such a history:
 if we know that the item last added was in certain row and column, we
 have no information to guess which of the filled items was entered
 previously. A consequence of dealing with a different problem is that
-\citet{GotelliEnt01} does not give many hints on implementing a fill
+\cite{GotelliEnt01} does not give many hints on implementing a fill
 algorithm as a community null model.
 
-The backtracking is implemented in two stage: filling and
+The backtracking is implemented in two stages in \textbf{vegan}: filling and
 backtracking.
 \begin{enumerate}
   \item The matrix is filled in the order given by the marginal
     probabilities. In this way the matrix will look similar to the
     final matrix at all stages of filling. Equal filling probabilities
-    were not used since that was ineffective and produced strange fill
+    are not used since that is ineffective and produces strange fill
     patterns: the rows and columns with one or a couple of presences
-    were filled first, and the process was cornered to columns and
-    rows with many presences. As a consequence, the the process tried
-    harder to fill that corner, and the result was a more tightly
+    are filled first, and the process is cornered to columns and
+    rows with many presences. As a consequence, the the process tries
+    harder to fill that corner, and the result is a more tightly
     packed quadratic fill pattern than with other methods.
   \item The filling stage stops when no new points can be added
     without exceeding row or column totals. ``Backtracking'' means
@@ -208,7 +208,7 @@ u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and $\sum_i u_{ik} u_{il} = \sum_j
 v_{jk} v_{jl} = 0$ for $k \neq l$. This is a decomposition, and the
 original matrix is found exactly from the singular vectors and
 corresponding singular values, and first two singular components give
-the best rank $=2$ least squares estimate of the original matrix.
+the rank $=2$ least squares estimate of the original matrix.
 
 Principal component analysis is often presented (and performed in
 legacy software) as an eigenanalysis of covariance matrices.  Instead
@@ -336,7 +336,7 @@ other software or R functions (Table \ref{tab:rdaconst}).
     eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
     \texttt{tot.chi} in the \texttt{rda} result)}.
 \begin{tabular}{lccc}
-& \textbf{Scaling} &\textbf{Species costant} & \textbf{Site constant} \\
+& \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
 \texttt{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
 \texttt{prcomp}, \texttt{princomp} & \texttt{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
 \texttt{Canoco 3} & \texttt{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
@@ -505,11 +505,10 @@ easily plot all constrained axes.  With a larger number of
 environmental variables the full configuration remains similarly
 unchanged, but its orientation may change, so that two-dimensional
 projections look different.  In the full space, the differences should
-remain within numerical precision:
+remain within numerical accuracy:
 <<>>=
 tmp1 <- rda(varespec ~ ., varechem)
 tmp2 <- rda(varespec[i,] ~ ., varechem)
-tmp1
 proc <- procrustes(scores(tmp1, dis="lc", choi=1:14), scores(tmp2, dis="lc", choi=1:14))
 max(residuals(proc))
 @
@@ -528,7 +527,6 @@ data(dune)
 data(dune.env)
 summary(dune.env)
 orig <- cca(dune ~ Moisture, dune.env)
-orig
 @
 When the results are plotted using LC scores, sample plots fall only
 in four alternative positions (Fig. \ref{fig:factorlc}).
