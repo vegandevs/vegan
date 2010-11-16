@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-16 (opened November 9, 2010)
 
+	* procrustes: fixed centring of fitted(). Added predict() method
+	that can be used to add new rotated coordinates to the
+	target. Need to check working with 'symmetric = TRUE'.
+
 	* vignette on design decision: updated to changes in 'const' in
 	scores.rda()  in 1.18-15 and to Canoco 4. Explains now 'const'
 	more thoroughly.

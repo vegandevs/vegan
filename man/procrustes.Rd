@@ -9,6 +9,7 @@
 \alias{lines.procrustes}
 \alias{residuals.procrustes}
 \alias{fitted.procrustes}
+\alias{predict.procrustes}
 \alias{protest}
 \alias{print.protest}
 
@@ -28,6 +29,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
+\method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
 protest(X, Y, scores = "sites", permutations = 999, strata, ...)
 }
 
@@ -56,6 +58,8 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
     segments or arrows.}
   \item{truemean}{Use the original range of target matrix instead of
     centring the fitted values.}
+  \item{newdata}{Matrix of coordinates to be rotated (and translated if
+    \code{truemean = TRUE}) to the target.}
   \item{permutations}{Number of permutation to assess the significance
     of the symmetric Procrustes statistic. }
   \item{strata}{An integer vector or factor specifying the strata for
@@ -119,7 +123,9 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \code{Y}, then matrix \code{X} will be filled with zero columns to
   match dimensions. This means that the function can be used to rotate
   an ordination configuration to an environmental variable (most
-  practically extracting the result with the \code{fitted} function).
+  practically extracting the result with the \code{fitted}
+  function). Function \code{predict} can be usd to add new rotated
+  coordinates to the target. 
 
   Function \code{protest} calls \code{procrustes(..., symmetric = TRUE)}
   repeatedly to estimate the `significance' of the Procrustes
@@ -141,6 +147,7 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \item{rotation}{Orthogonal rotation matrix.}
   \item{translation}{Translation of the origin.}
   \item{scale}{Scaling factor.}
+  \item{xmean}{The centroid of the target.}
   \item{symmetric}{Type of \code{ss} statistic.}
   \item{call}{Function call.}
   \item{t0}{This and the following items are only in class

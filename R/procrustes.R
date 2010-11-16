@@ -34,8 +34,8 @@
     b <- xmean - c * ymean %*% A
     R2 <- ctrace(X) + c * c * ctrace(Y) - 2 * c * sum(sol$d)
     reslt <- list(Yrot = Yrot, X = X, ss = R2, rotation = A, 
-                  translation = b, scale = c, symmetric = symmetric,
-                  call = match.call())
+                  translation = b, scale = c, xmean = xmean, 
+                  symmetric = symmetric, call = match.call())
     reslt$svd <- sol
     class(reslt) <- "procrustes"
     return(reslt)
