@@ -10,15 +10,15 @@
 ## Like above, except when takes 'newata'
 
 `predict.procrustes` <-
-    function(object, newdata, truemean = TRUE, ...)
+    function(object, newdata, ...)
 {
     if (missing(newdata))
-        return(fitted(object, truemean = truemean))
+        return(fitted(object, truemean = TRUE))
+    if (object$symmetric)
+        stop(gettextf("'predict' not available for symmetric procrustes analysis with 'newdata'"))
     Y <- as.matrix(newdata)
     ## scaling and rotation
     Y <- object$scale * Y %*% object$rotation
-    ## translation
-    if (truemean)
-        Y <- sweep(Y, 2, object$translation, "+")
-    Y
+    ## translation: always
+    sweep(Y, 2, object$translation, "+")
 }

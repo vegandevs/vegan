@@ -29,7 +29,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
-\method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
+\method{predict}{procrustes}(object, newdata, ...)
 protest(X, Y, scores = "sites", permutations = 999, strata, ...)
 }
 
@@ -58,8 +58,8 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
     segments or arrows.}
   \item{truemean}{Use the original range of target matrix instead of
     centring the fitted values.}
-  \item{newdata}{Matrix of coordinates to be rotated (and translated if
-    \code{truemean = TRUE}) to the target.}
+  \item{newdata}{Matrix of coordinates to be rotated and translated to
+     the target.}
   \item{permutations}{Number of permutation to assess the significance
     of the symmetric Procrustes statistic. }
   \item{strata}{An integer vector or factor specifying the strata for
@@ -124,8 +124,11 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   match dimensions. This means that the function can be used to rotate
   an ordination configuration to an environmental variable (most
   practically extracting the result with the \code{fitted}
-  function). Function \code{predict} can be usd to add new rotated
-  coordinates to the target. 
+  function). Function \code{predict} can be used to add new rotated
+  coordinates to the target. The \code{predict} function will always
+  translate coordinates to the original non-centred matrix. The
+  function canot be used with \code{newdata} for \code{symmetric}
+  analysis.
 
   Function \code{protest} calls \code{procrustes(..., symmetric = TRUE)}
   repeatedly to estimate the `significance' of the Procrustes
