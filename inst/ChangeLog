@@ -7,6 +7,11 @@ Version 1.18-17 (opened November 17, 2010)
 	* alpha release version: preparing release (1.17-5) of
 	vegan. Mainly clean up and checking of functions intended for the
 	release. 
+
+	* vif.cca: aliased terms must be removed when calculating
+	VIFs. Test case vif.cca(cca(dune ~ Manure + Management, dune.env))
+	should give decent values all below <100 (used to give magnitude
+	10^31). VIF of aliased terms is NA. Pierre Legendre noticed this.
 	
 Version 1.18-16 (closed November 17, 2010)
 
