@@ -81,7 +81,7 @@
 `print.eigenvals` <-
     function(x, ...)
 {
-    print(unclass(x), ...)
+    print(zapsmall(unclass(x), ...))
     invisible(x)
 }
 

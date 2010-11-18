@@ -12,6 +12,8 @@ Version 1.18-17 (opened November 17, 2010)
 	VIFs. Test case vif.cca(cca(dune ~ Manure + Management, dune.env))
 	should give decent values all below <100 (used to give magnitude
 	10^31). VIF of aliased terms is NA. Pierre Legendre noticed this.
+
+	* print.eigenvals uses zapsmall.
 	
 Version 1.18-16 (closed November 17, 2010)
 
