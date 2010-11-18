@@ -6,7 +6,7 @@
     names(out)[Q$pivot] <- colnames(Q$qr)
     rank <- Q$rank
     V <- chol2inv(Q$qr, size = rank)
-    X <- qr.X(Q)[, 1:rank,drop=FALSE]
+    X <- qr.X(Q)[, Q$pivot[1:rank], drop=FALSE]
     Vi <- crossprod(X)
     v1 <- diag(V)
     v2 <- diag(Vi)
