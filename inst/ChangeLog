@@ -8,6 +8,10 @@ Version 1.18-17 (opened November 17, 2010)
 	vegan. Mainly clean up and checking of functions intended for the
 	release. 
 
+	* as.mlm.cca/rda and intersector: should get the pivoting of names
+	in qr.X() correct both in the current buggy R and hopefully fixed
+	next version 2.12.1.
+
 	* vif.cca: aliased terms must be removed when calculating
 	VIFs. Test case vif.cca(cca(dune ~ Manure + Management, dune.env))
 	should give decent values all below <100 (used to give magnitude

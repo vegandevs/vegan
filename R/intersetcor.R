@@ -7,5 +7,9 @@ intersetcor <- function(object)
         w <- object$rowsum
         wa <- sweep(object$CCA$wa, 1, sqrt(w), "*")
     }
-    cor(qr.X(object$CCA$QR), wa)
+    X <- qr.X(object$CCA$QR)
+    ## current R (2.12.0) uses wrong column names in pivoted qr.X()
+    if (getRversion() <= "2.12.0")
+        colnames(X)[object$CCA$QR$pivot] <- colnames(X)
+    cor(X, wa)
 }
