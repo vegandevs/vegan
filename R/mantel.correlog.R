@@ -95,10 +95,12 @@
                 temp <- mantel(mat.D2, D.eco, method=r.type, permutations=nperm)
                 mantel.r <- c(mantel.r, -temp$statistic)
                 temp.p <- temp$signif
-                if(temp$statistic >= 0) {
-                    temp.p <- ((temp.p*nperm)+1)/(nperm+1)
-                } else {
-                    temp.p <- (((1-temp.p)*nperm)+1)/(nperm+1)
+                
+                ## The mantel() function produces a one-tailed p-value
+                ## (H1: r>0) Here, compute a one-tailed p-value in
+                ## direction of the sign
+                if(temp$statistic < 0) {
+                    temp.p <- ((1-temp.p)*(nperm+1))/(nperm+1)
                 }
                 mantel.p <- c(mantel.p, temp.p)
             } else {

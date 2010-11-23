@@ -8,6 +8,11 @@ Version 1.18-17 (opened November 17, 2010)
 	vegan. Mainly clean up and checking of functions intended for the
 	release. 
 
+	* mantel.correlog: vegan mantel() was used standard order
+	statistics or (hits+1)/(nperm+1) since May 2009, but
+	mantel.correlog() did not notice the change and still tried to
+	correct the mantel() result.
+
 	* as.mlm.cca/rda and intersector: should get the pivoting of names
 	in qr.X() correct both in the current buggy R and hopefully fixed
 	next version 2.12.1.
