@@ -22,6 +22,6 @@
     ## translation: always
     Y <- sweep(Y, 2, object$translation, "+")
     if (!truemean)
-        Y <- sweep(Y, 2, object$xmean*object$scale, "-")
+        Y <- sweep(Y, 2, object$xmean, "-")
     Y
 }
