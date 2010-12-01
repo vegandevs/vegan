@@ -2,11 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-17 (opened November 17, 2010)
+Version 1.18-18 (opened December 1, 2010)
 
 	* prc: got back the formula interface and with that the na.action
 	lost in r1356 (9 Nov, 2010).
 
+Version 1.18-17 (closed December 1, 2010)
+	
 	* predict.procrustes: gained 'truemean' so that new points can be
 	added to the plot.procrustes() graph.
 
