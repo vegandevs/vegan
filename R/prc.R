@@ -12,7 +12,7 @@
     oldcon <- options(contrasts = c("contr.treatment", "contr.poly"))
     on.exit(options(oldcon))
     fla <- as.formula(paste("~", x, "+", z))
-    mf <- model.frame(fla, data)
+    mf <- model.frame(fla, data, na.action = na.pass)
     if (!all(sapply(mf, is.factor)))
         stop(x, " and ", z, " must be factors")
     if (any(sapply(mf, is.ordered)))
@@ -20,9 +20,9 @@
     fla.zx <- as.formula(paste("~", z, ":", x))
     fla.z <- as.formula(paste("~", z))
     # delete first (control) level from the design matrix
-    X = model.matrix(fla.zx, data)[,-c(seq_len(nlevels(time)+1))]
-    Z = model.matrix(fla.z, data)[,-1]
-    mod <- rda(response, X, Z, ...)
+    X = model.matrix(fla.zx, mf)[,-c(seq_len(nlevels(time)+1))]
+    Z = model.matrix(fla.z, mf)[,-1]
+    mod <- rda(response ~ X + Condition(Z), ...)
     mod$terminfo$xlev = list(levels(time), levels(treatment))
     names(mod$terminfo$xlev) = c(paste(z), paste(x))
     mod$call <- match.call()
