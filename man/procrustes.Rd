@@ -29,7 +29,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
-\method{predict}{procrustes}(object, newdata, ...)
+\method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
 protest(X, Y, scores = "sites", permutations = 999, strata, ...)
 }
 
@@ -57,7 +57,8 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \item{type}{Combine \code{target} and \code{rotated} points with line
     segments or arrows.}
   \item{truemean}{Use the original range of target matrix instead of
-    centring the fitted values.}
+    centring the fitted values. Function \code{plot.procrustes} needs
+    \code{truemean = FALSE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
   \item{permutations}{Number of permutation to assess the significance
