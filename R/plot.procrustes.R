@@ -1,9 +1,16 @@
 "plot.procrustes" <-
-    function (x, kind = 1, choices = c(1,2), xlab, ylab, main, ar.col = "blue", 
-          len = 0.05,  ...) 
+    function (x, kind = 1, choices = c(1,2), to.target = TRUE,
+              type = "p", xlab, ylab, main, ar.col = "blue",
+              len = 0.05, cex = 0.7,  ...) 
 {
-    Yrot <- x$Yrot[, choices]
-    X <- x$X[, choices]
+    type <- match.arg(type, c("points", "text", "none"))
+    if (to.target) {
+        tails <- x$Yrot[, choices]
+        heads <- x$X[, choices]
+    } else {
+        tails <- x$X[, choices]
+        heads <- x$Yrot[, choices]
+    }
     if (missing(main)) 
         main <- "Procrustes errors"
     if (kind <= 1) {
@@ -12,12 +19,12 @@
             xlab <- paste("Dimension", choices[1])
         if (missing(ylab)) 
             ylab <- paste("Dimension", choices[2])
-        xrange <- range(Yrot[, 1], X[, 1])
-        yrange <- range(Yrot[, 2], X[, 2])
+        xrange <- range(tails[, 1], heads[, 1])
+        yrange <- range(tails[, 2], heads[, 2])
         plot(xrange, yrange, xlab = xlab, ylab = ylab, main = main, 
-            type = "n", asp = 1, ...)
+             type = "n", asp = 1, ...)
         if (kind > 0) {
-	        abline(v = 0, lty = 2)
+            abline(v = 0, lty = 2)
             abline(h = 0, lty = 2)
             if (ncol(x$rotation) == 2) {
                 ## Draw rotated axes only if they visibly differ from
@@ -41,13 +48,18 @@
                     text(tmp[2,choices[1]], tmp[2,choices[2]], as.character(k))
                 }
             }
-            points(Yrot, ...)
-            ow <- options(warn = -1)
-            arrows(Yrot[, 1], Yrot[, 2], X[, 1], X[, 2], col = ar.col, 
-                len = len, ...)
-            options(ow)
+            if (type != "none") {
+                ow <- options(warn = -1)
+                arrows(tails[, 1], tails[, 2], heads[, 1], heads[, 2],
+                       col = ar.col, len = len, ...)
+                options(ow)
+                if (type == "text" && !is.null(rownames(tails)))
+                    ordilabel(tails, cex = cex, ...)
+                else
+                    points(tails, cex = cex, ...)
+            }
         }
-        out <- list(heads = X, points = Yrot)
+        out <- list(heads = heads, points = tails)
         class(out) <- "ordiplot"
     }
     else if (kind == 2) {
@@ -58,7 +70,7 @@
         res <- residuals(x)
         q <- quantile(res)
         plot(res, type = "h", xlab = xlab, ylab = ylab, main = main, 
-            ...)
+             ...)
         abline(h = q[2:4], lty = c(2, 1, 2))
         out <- list(sites = cbind(seq(along = res), res))
         class(out) <- "ordiplot"

@@ -7,6 +7,10 @@ Version 1.18-18 (opened December 1, 2010)
 	* prc: got back the formula interface and with that the na.action
 	lost in r1356 (9 Nov, 2010).
 
+	* plot.procrustes: user can select the direction of the arrow with
+	argument 'to.target', and the 'type' of the plot. With 'type =
+	"text"', ordilabel() is used to mark the tails of the arrows.
+
 Version 1.18-17 (closed December 1, 2010)
 	
 	* predict.procrustes: gained 'truemean' so that new points can be

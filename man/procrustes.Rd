@@ -22,8 +22,9 @@
 \usage{
 procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{summary}{procrustes}(object, digits = getOption("digits"), ...)
-\method{plot}{procrustes}(x, kind=1, choices=c(1,2), xlab, ylab, main,
-     ar.col = "blue", len=0.05, ...)
+\method{plot}{procrustes}(x, kind=1, choices=c(1,2), to.target = TRUE, 
+    type = "p", xlab, ylab, main, ar.col = "blue", len=0.05, 
+    cex = 0.7, ...)
 \method{points}{procrustes}(x, display = c("target", "rotated"), ...)
 \method{text}{procrustes}(x, display = c("target", "rotated"), labels, ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"), choices = c(1, 2), ...)  
@@ -54,8 +55,13 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \item{main}{Plot title, if default unacceptable.}
   \item{display}{Show only the \code{"target"} or \code{"rotated"}
     matrix as points.}
-  \item{type}{Combine \code{target} and \code{rotated} points with line
-    segments or arrows.}
+  \item{to.target}{Draw arrows to point to target.}
+  \item{type}{The type of plot drawn. In \code{plot}, the \code{type}
+    can be \code{"points"} or \code{"text"} to select the marker for
+    the tail of the arrow, or \code{"none"} for drawing an empty
+    plot. In \code{lines} the \code{type} selects either
+    \code{\link{arrows}} or line \code{\link{segments}} to connect
+    target and rotated configuration.}
   \item{truemean}{Use the original range of target matrix instead of
     centring the fitted values. Function \code{plot.procrustes} needs
     \code{truemean = FALSE}.}
@@ -70,6 +76,7 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \item{len}{Width of the arrow head.}
   \item{labels}{Character vector of text labels. Rownames of the result 
     object are used as default.}
+  \item{cex}{Character expansion for points or text.}
   \item{...}{Other parameters passed to functions. In \code{procrustes}
     and \code{protest} parameters are passed to \code{\link{scores}}, in
     graphical functions to underlying graphical functions.}
@@ -93,26 +100,26 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \code{\link{scores}}, \code{\link{scores.cca}} etc. so that you can
   specify arguments such as \code{scaling}. 
 
-  Function \code{plot} plots a \code{procrustes}
-  object and  returns invisibly an \code{ordiplot} object so that
-  function \code{\link{identify.ordiplot}} can be used for identifying
+  Function \code{plot} plots a \code{procrustes} object and returns
+  invisibly an \code{ordiplot} object so that function
+  \code{\link{identify.ordiplot}} can be used for identifying
   points. The items in the \code{ordiplot} object are called
-  \code{heads} and \code{points} with \code{kind=1} (ordination diagram)
-  and \code{sites} with \code{kind=2} (residuals).  In ordination
-  diagrams, the arrow heads point to the target configuration, which may
-  be either logical or illogical. Target and original rotated axes are
-  shown as cross hairs in two-dimensional Procrustes analysis, and with
-  a higher number of dimensions, the rotated axes are projected onto
-  plot with their scaled and centred range. Function
-  \code{plot} passes
-  parameters to underlying plotting functions.  For full control of
-  plots, you can draw the axes using \code{plot} with \code{kind = 0},
-  and then add items with \code{points} or \code{lines}.  These
-  functions pass all parameters to the underlying functions so that you
-  can select the plotting characters, their size, colours etc., or you
-  can select the width, colour and type of line \code{\link{segments}} or
-  arrows, or you can select the orientation and head width of
-  \code{\link{arrows}}.
+  \code{heads} and \code{points} with \code{kind=1} (ordination
+  diagram) and \code{sites} with \code{kind=2} (residuals).  In
+  ordination diagrams, the arrow heads point to the target
+  configuration if \code{to.target = TRUE}, and to rotated
+  configuration if \code{to.target = FALSE}.  Target and original
+  rotated axes are shown as cross hairs in two-dimensional Procrustes
+  analysis, and with a higher number of dimensions, the rotated axes
+  are projected onto plot with their scaled and centred
+  range. Function \code{plot} passes parameters to underlying plotting
+  functions.  For full control of plots, you can draw the axes using
+  \code{plot} with \code{kind = 0}, and then add items with
+  \code{points} or \code{lines}.  These functions pass all parameters
+  to the underlying functions so that you can select the plotting
+  characters, their size, colours etc., or you can select the width,
+  colour and type of line \code{\link{segments}} or arrows, or you can
+  select the orientation and head width of \code{\link{arrows}}.
 
   Function \code{residuals} returns the pointwise
   residuals, and \code{fitted} the fitted values, either centred to zero
