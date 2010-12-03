@@ -224,6 +224,9 @@ plot(mod.HSD)
 ## first two PCoA axes
 plot(mod)
 
+## can also specify which axes to plot, ordering respected
+plot(mod, axes = c(3,1))
+
 ## Draw a boxplot of the distances to centroid for each group
 boxplot(mod)
 

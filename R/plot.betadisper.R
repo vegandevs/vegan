@@ -18,12 +18,11 @@
     if(is.matrix(g$centroids)) {
         for(i in levels(x$group)) {
             j <- which(levels(x$group) == i)
-            segments(g$centroids[j, axes[1]],
-                     g$centroids[j, axes[2]],
-                     g$sites[x$group == i, axes[1]],
-                     g$sites[x$group == i, axes[2]], col = "blue", ...)
+            segments(g$centroids[j, 1L], g$centroids[j, 2L],
+                     g$sites[x$group == i, 1L],
+                     g$sites[x$group == i, 2L], col = "blue", ...)
             if(hull) {
-                ch <- chull(g$sites[x$group == i, axes])
+                ch <- chull(g$sites[x$group == i, ])
                 ch <- c(ch, ch[1])
                 lines(x$vectors[x$group == i, axes][ch, ],
                       col = "black", lty = "dashed", ...)
@@ -32,21 +31,18 @@
         points(g$centroids, pch = 16, cex = 1, col = "red", ...)
     } else {
         ## single group
-        segments(g$centroids[axes[1]],
-                     g$centroids[axes[2]],
-                     g$sites[, axes[1]],
-                     g$sites[, axes[2]], col = "blue", ...)
-            if(hull) {
-                ch <- chull(g$sites[, axes])
-                ch <- c(ch, ch[1])
-                lines(x$vectors[, axes][ch, ],
-                      col = "black", lty = "dashed", ...)
-            }
-        points(g$centroids[axes[1]], g$centroids[axes[1]],
+        segments(g$centroids[1L], g$centroids[2L],
+                 g$sites[, 1L], g$sites[, 2L], col = "blue", ...)
+        if(hull) {
+            ch <- chull(g$sites)
+            ch <- c(ch, ch[1])
+            lines(x$vectors[, axes][ch, ],
+                  col = "black", lty = "dashed", ...)
+        }
+        points(g$centroids[1L], g$centroids[1L],
                pch = 16, cex = 1, col = "red", ...)
     }
-    points(g$sites, pch = as.numeric(x$group),
-           cex = cex, ...)
+    points(g$sites, pch = as.numeric(x$group), cex = cex, ...)
     localTitle(main = main, xlab = xlab, ylab = ylab, sub = sub, ...)
     localAxis(1, ...)
     localAxis(2, ...)
