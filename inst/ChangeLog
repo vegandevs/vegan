@@ -11,6 +11,10 @@ Version 1.18-18 (opened December 1, 2010)
 	argument 'to.target', and the 'type' of the plot. With 'type =
 	"text"', ordilabel() is used to mark the tails of the arrows.
 
+	* plot.betadisper: would fail when plotting anything other than
+	axes 1 and 2. Now fixed and an example included in the Rd file to
+	make sure this doesn't happen again. Reported by Sarah Goslee.
+
 Version 1.18-17 (closed December 1, 2010)
 	
 	* predict.procrustes: gained 'truemean' so that new points can be
