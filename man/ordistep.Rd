@@ -10,9 +10,9 @@
   Automatic stepwise model building for constrained ordination methods 
   (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}). 
   The function \code{ordistep} is modelled after \code{\link{step}} and 
-  can do forward,backward and stepwise model selection using permutation tests.
-  Function \code{ordiR2step} peforms forward model choice solely on adjusted 
-  \eqn{R^2}{R2} in \code{\link{rda}} or \code{\link{capscale}}.
+  can do forward, backward and stepwise model selection using permutation tests.
+  Function \code{ordiR2step} performs forward model choice solely on adjusted 
+  \eqn{R^2}{R2} and P-value, for ordination objects created by \code{\link{rda}} or \code{\link{capscale}}.
 }
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"),
@@ -25,21 +25,20 @@ ordiR2step(object, scope, direction = c("both", "forward"),
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
-  An ordination object inheriting from \code{\link{cca}} (in \code{ordiR2step} 
-  this must be from \code{\link{rda}} or \code{\link{capscale}}).
+  In \code{ordistep}, an ordination object inheriting from \code{\link{cca}} or \code{\link{rda}}. In \code{ordiR2step}, the object must inherit from \code{\link{rda}}, that is, it must have been computed using \code{\link{rda}} or \code{\link{capscale}}.
 }
   \item{scope}{
   Defines the range of models examined in the stepwise search. 
   This should be either a single formula, or a list containing
   components \code{upper} and \code{lower}, both formulae. 
-  See \code{\link{step}} for details. In \code{ordiR2step} this defines the
-  upper scope and can also be an ordination object from with the model is extracted. 
+  See \code{\link{step}} for details. In \code{ordiR2step}, this defines the
+  upper scope; it can also be an ordination object from with the model is extracted. 
 }
   \item{direction}{
   The mode of stepwise search, can be one of \code{"both"},
   \code{"backward"}, or \code{"forward"}, with a default of \code{"both"}.  
-  If the \code{scope} argument is missing the default for \code{direction}
-  is \code{"backward"}.	  
+  If the \code{scope} argument is missing, the default for \code{direction}
+   is \code{"backward"}.	  
 }
   \item{Pin, Pout}{
   Limits of permutation \eqn{P}-values for adding (\code{Pin}) a term to 
@@ -131,12 +130,40 @@ ordiR2step(object, scope, direction = c("both", "forward"),
 }
 \examples{
 ## See add1.cca for another example
+
+### Dune data
 data(dune)
 data(dune.env)
-mod1 <- rda(dune ~ ., dune.env)
-ordistep(mod1, perm.max = 200)
+mod0 <- rda(dune ~ 1, dune.env)  # Model with intercept only
+mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
+
+## With scope present, the default direction is "both"
+ordistep(mod0, scope = formula(mod1), perm.max = 200)
 ordistep(rda(dune ~ 1, dune.env), scope = formula(mod1), perm.max = 200)
-ordiR2step(rda(dune ~ 1, dune.env), mod1)
+
+## Example without scope. Default direction is "backward"
+ordistep(mod1, perm.max = 200) 
+
+## Example of ordistep, forward
+ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
+
+### Mite data
+data(mite)
+data(mite.env)
+mite.hel = decostand(mite, "hel")
+mod0 <- rda(mite.hel ~ 1, mite.env)  # Model with intercept only
+mod1 <- rda(mite.hel ~ ., mite.env)  # Model with all explanatory variables
+
+## Example of ordiR2step with default direction = "both"
+## (This never goes "backward" but evaluates included terms.)
+step.res <- ordiR2step(mod0, mod1, perm.max = 200)
+step.res <- ordiR2step(rda(dune ~ 1, dune.env), mod1, perm.max = 200)
+step.res$anova  # Summary table
+
+## Example of ordiR2step with direction} = "forward"
+step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
+step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward", trace=0) 
+step.res$anova  # Summary table
 }
 
 \keyword{ multivariate }
