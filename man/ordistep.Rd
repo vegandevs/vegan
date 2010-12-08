@@ -157,10 +157,9 @@ mod1 <- rda(mite.hel ~ ., mite.env)  # Model with all explanatory variables
 ## Example of ordiR2step with default direction = "both"
 ## (This never goes "backward" but evaluates included terms.)
 step.res <- ordiR2step(mod0, mod1, perm.max = 200)
-step.res <- ordiR2step(rda(dune ~ 1, dune.env), mod1, perm.max = 200)
 step.res$anova  # Summary table
 
-## Example of ordiR2step with direction} = "forward"
+## Example of ordiR2step with direction = "forward"
 step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
 step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward", trace=0) 
 step.res$anova  # Summary table
