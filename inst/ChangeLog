@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-18 (opened December 1, 2010)
 
+	* vegan-package.Rd: added a package intro file (to be merged to
+	the release version 1.17-5).
+
 	* sipoo.rda: got island names, and decision-vegan.Rnw vignette was
 	changed accordingly.
 
