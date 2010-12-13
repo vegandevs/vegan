@@ -62,17 +62,17 @@
     \cr \tab binary: \eqn{A+B-2J}{A+B-2*J}
     \cr
     \code{gower}
-    \tab \eqn{d_{jk} = (1/N) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
-	x_i}}{d[jk] = (1/N) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
-    \cr \tab binary: \eqn{(A+B-2J)/N}{(A+B-2*J)/N},
+    \tab \eqn{d_{jk} = (1/M) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
+	x_i}}{d[jk] = (1/M) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
+    \cr \tab binary: \eqn{(A+B-2J)/M}{(A+B-2*J)/M},
     \cr
-    \tab where \eqn{N} is the number of rows (excluding missing
+    \tab where \eqn{M} is the number of columns (excluding missing
     values)
     \cr
     \code{altGower}
     \tab \eqn{d_{jk} = (1/NZ) \sum_i |x_{ij} - x_{ik}|}{d[jk] = (1/NZ) sum(abs(x[ij] - x[ik]))}
     \cr
-    \tab where \eqn{NZ} is the number of non-zero rows excluding
+    \tab where \eqn{NZ} is the number of non-zero columns excluding
     double-zeros (Anderson et al. 2006).
     \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
     \cr
