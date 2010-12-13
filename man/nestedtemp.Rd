@@ -110,7 +110,7 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   abundances when \code{weighted = TRUE}) (see Almeida-Neto et
   al. 2008). With \code{weighted = TRUE}, the function finds the
   weighted version of the index (Almeida-Neto & Ulrich,
-  2010). However, this requires quantitative null models for adequate
+  2011). However, this requires quantitative null models for adequate
   testing.}
 
 \value{
@@ -127,9 +127,9 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   consistent metric for nestedness analysis in ecological systems:
   reconciling concept and measurement. \emph{Oikos} 117, 1227--1239.
 
-  Almeida-Neto, M. & Ulrich, W. (2010). A straightforward
+  Almeida-Neto, M. & Ulrich, W. (2011). A straightforward
   computational approac for measuring nestedness using quantitative
-  matrices. \emph{Env. Mod. Software} (in press).
+  matrices. \emph{Env. Mod. Software} 26, 173--178.
   
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
   disorder in the distribution of species in fragmented

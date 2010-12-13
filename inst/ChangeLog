@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-18 (opened December 1, 2010)
 
+	* nestedtemp: updated the literature reference to Almeida-Neto &
+	Ulrich (2011).
+
 	* vegdist.Rd: fixed legends to Gower indices and checked binary
 	formualations (ok).
 
