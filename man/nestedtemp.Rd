@@ -48,9 +48,9 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   The nestedness functions evaluate alternative indices of nestedness.
   The functions are intended to be used together with Null model
   communities and used as an argument in \code{\link{oecosimu}} to analyse
-  the nonrandomness of results.
+  the non-randomness of results.
   
-  Function \code{netstedchecker} gives the number of checkerboard units,
+  Function \code{nestedchecker} gives the number of checkerboard units,
   or 2x2 submatrices where both species occur once but on different
   sites (Stone & Roberts 1990).
 
@@ -128,7 +128,7 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   reconciling concept and measurement. \emph{Oikos} 117, 1227--1239.
 
   Almeida-Neto, M. & Ulrich, W. (2011). A straightforward
-  computational approac for measuring nestedness using quantitative
+  computational approach for measuring nestedness using quantitative
   matrices. \emph{Env. Mod. Software} 26, 173--178.
   
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
@@ -157,7 +157,7 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
 
 \seealso{
   In general, the functions should be used with \code{\link{oecosimu}}
-  which generates Null model communities to assess the nonrandomness of
+  which generates Null model communities to assess the non-randomness of
   nestedness patterns. 
  }
 \examples{
@@ -167,7 +167,7 @@ out <- nestedtemp(sipoo)
 out
 plot(out)
 plot(out, kind="incid")
-## Use oecosimu to assess the nonrandomness of checker board units
+## Use oecosimu to assess the non-randomness of checker board units
 nestedchecker(sipoo)
 oecosimu(sipoo, nestedchecker, "quasiswap")
 ## Another Null model and standardized checkerboard score
