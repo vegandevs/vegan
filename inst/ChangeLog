@@ -4,6 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-18 (opened December 1, 2010)
 
+	* mantel.correlog: proper treatment of ties in permutation
+	statistics. Function uses mantel() to evaluate p-values, and this
+	uses one-sided test. If the statistic is negative, the test
+	direction is reversed, but then p-value cannot be directly
+	complemented if there are ties: the observed statistic must be
+	switchec to another side of the tied block. Therefore
+	mantel.correlog() now evaluates the p-value directly in reversed
+	test.
+
 	* nestedtemp: updated the literature reference to Almeida-Neto &
 	Ulrich (2011).
 

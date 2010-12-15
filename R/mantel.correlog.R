@@ -100,7 +100,7 @@
                 ## (H1: r>0) Here, compute a one-tailed p-value in
                 ## direction of the sign
                 if(temp$statistic < 0) {
-                    temp.p <- ((1-temp.p)*(nperm+1))/(nperm+1)
+                    temp.p <- (sum(temp$perm <= temp$statistic)+1)/(nperm+1)
                 }
                 mantel.p <- c(mantel.p, temp.p)
             } else {
