@@ -1,7 +1,6 @@
 `CCorA` <-
     function(Y, X, stand.Y = FALSE, stand.X = FALSE, nperm = 0, ...)
 {
-    require(MASS) || stop("Requires package 'MASS'")
     epsilon <- sqrt(.Machine$double.eps)
     ##
     ## BEGIN: Internal functions
@@ -78,7 +77,6 @@
         }
     if(nY != nX) stop("Different numbers of rows in Y and X")
     n <- nY
-    if((p+q) >= (n-1)) stop("Not enough degrees of freedom: (p+q) >= (n-1)")
     if(is.null(rownames(X)) & is.null(rownames(Y))) {
         rownoms <- paste("Obj", 1:n, sep="")
         } else {
@@ -104,6 +102,9 @@
     X <- temp$mat
     qq <- temp$m
     rownames(X) <- rownoms
+    ## Correction PL, 26dec10
+    if(max(pp,qq) >= (n-1)) 
+    	stop("Not enough degrees of freedom: max(pp,qq) >= (n-1)")
     ## Covariance matrices, etc. from the PCA scores
     S11 <- cov(Y)
     if(sum(abs(S11)) < epsilon) return(0)
@@ -129,8 +130,8 @@
     V <- K.svd$v
     A <- S11.chol.inv %*% U
     B <- S22.chol.inv %*% V
-    Cy <- (Y %*% A)/sqrt(n-1)
-    Cx <- (X %*% B)/sqrt(n-1)
+    Cy <- (Y %*% A)    # Correction 27dec10: remove /sqrt(n-1)
+    Cx <- (X %*% B)    # Correction 27dec10: remove /sqrt(n-1)
     ## Compute the 'Biplot scores of Y and X variables' a posteriori --
     corr.Y.Cy <- cor(Y.c, Cy)  # To plot Y in biplot in space Y
     corr.Y.Cx <- cor(Y.c, Cx)  # Available for plotting Y in space of X
