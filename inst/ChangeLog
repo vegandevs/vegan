@@ -6,7 +6,14 @@ Version 1.18-19 (opened December 18, 2010)
 
 	* new version opened with the release of vegan 1.17-5 (submitted
 	Dec 17, 2010, released at CRAN on on Dec 18, 2010).
-	
+
+	* metaMDS: function was written for community data with all
+	entries non-negative, but it is used increasingly often with other
+	data types with a risk of failure (especially in wascores()). Now
+	data are checked for negative entries, and arguments wascores,
+	autotransform and noshare are set to FALSE with negative data
+	entries. Triggered by email queries and problem reports.
+
 Version 1.18-18 (closed December 17, 2010)
 
 	* mantel.correlog: proper treatment of ties in permutation

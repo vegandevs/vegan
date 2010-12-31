@@ -4,6 +4,15 @@
               plot = FALSE, previous.best, old.wa = FALSE, ...) 
 {
     commname <- deparse(substitute(comm))
+    ## metaMDS was written for community data which should be all
+    ## positive. Check this here, and set arguments so that they are
+    ## suitable for non-negative data.
+    if (any(autotransform, noshare > 0, wascores) && any(comm < 0)) {
+        warning("'comm' has negative data: 'autotransform', 'noshare' and 'wascores' set to FALSE")
+        wascores <- FALSE
+        autotransform <- FALSE
+        noshare <- FALSE
+    }
     if (inherits(comm, "dist")) {
         dis <- comm
         if (is.null(attr(dis, "method")))

@@ -254,7 +254,15 @@ metaMDSrotate(object, vec, choices, ...)
   not save the used dissimilarity matrix, but \code{metaMDSredist}
   tries to reconstruct the used dissimilarities with original data
   transformation and possible \code{\link{stepacross}}.
+
+  The \code{metaMDS} function was designed to be used with community
+  data.  If you have other type of data, you should probably set some
+  arguments to non-default values: probably at least \code{wascores},
+  \code{autotransform} and \code{noshare} should be \code{FALSE}. If
+  you have negative data entries, \code{metaMDS} will set the previous
+  to \code{FALSE} with a warning.
 }
+
 \section{Warning}{
   The calculation of \code{\link{wascores}} for species was changed in
   \pkg{vegan} version 1.12-6. They are now based on the community data
