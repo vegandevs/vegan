@@ -92,7 +92,7 @@
     ## capscale
     vars <- object/sum(abs(object))
     importance <- rbind(`Eigenvalue` = object,
-                        `Proportion Explained` = round(vars, 5),
+                        `Proportion Explained` = round(abs(vars), 5),
                         `Cumulative Proportion`= round(cumsum(abs(vars)), 5))
     out <- list(importance = importance)
     class(out) <- c("summary.eigenvals", "summary.prcomp")

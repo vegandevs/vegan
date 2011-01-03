@@ -2,7 +2,28 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-19 (opened December 18, 2010)
+Version 1.18-20 (opened January 3, 2011)
+
+	* capscale: the total inertia was defined as the sum of absolute
+	values of inertia so that negative eigenvalues of imaginary
+	dimensions increase inertia (changes in 1.18-17 and release
+	1.17-5). Torsten Hauffe reported this as a bug in vegan
+	open-discussion forum in R-Forge on Dec 22, 2010. I (JO) answered
+	on Jan 1, 2011 and justified the change, and said this is a design
+	decision, and not a bug. Now I have reconsidered this design
+	decision, and it really seems to me that it was wrong. Now the
+	negative eigenvalues again reduce the total inertia, and are
+	similar as in vegan 1.17-4 and eariler. As a consequence, there
+	will be no proportions of inertia component in capscale(), because
+	there is no information to calculate those proportions.  However,
+	summary.eigenvals() estimates the proportions explained using
+	absolute values of eigenvalues since this seems to make sense
+	there (the proportion explained is now based on absolute
+	eigenvalues to give more sensible output). Moreover, wcmdscale()
+	will now always give goodness of fit (GOF) as NA, since I have no
+	clue how to calculate GOF meaningfully in PCoA. 
+
+Version 1.18-19 (closed January 3, 2011)
 
 	* new version opened with the release of vegan 1.17-5 (submitted
 	Dec 17, 2010, released at CRAN on on Dec 18, 2010).
@@ -12,7 +33,7 @@ Version 1.18-19 (opened December 18, 2010)
 
 	* wascores: checks input -- weights (species abundances) must be
 	non-negative and not all zero.
-
+ 
 	* metaMDS: function was written for community data with all
 	entries non-negative, but it is used increasingly often with other
 	data types with a risk of failure (especially in wascores()). Now

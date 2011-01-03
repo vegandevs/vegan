@@ -49,7 +49,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
              sum(ev)/sum(e$values[e$values > 0]))
     if (eig || x.ret || add) {
         out <- list(points = points, eig = if (eig) e$values,
-                    x = if (x.ret) m, ac = NA, GOF = GOF, weights = w,
+                    x = if (x.ret) m, ac = NA, GOF = NA, weights = w,
                     negaxes = negaxes)
         class(out) <- "wcmdscale"
     }
