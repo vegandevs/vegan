@@ -67,8 +67,12 @@
     ## handle negative eigenvalues and therefore we normally use
     ## wcmdscale. If we have 'add = TRUE' there will be no negative
     ## eigenvalues and this is not a problem.
-    if (add)
+    if (add) {
         X <- cmdscale(X, k = k, eig = TRUE, add = add)
+        ## All eigenvalues *should* be positive, but see that they are
+        X$points <- X$points[, X$eig[-(k+1)] > 0]
+        X$eig <- X$eig[X$eig > 0]
+    }
     else
         X <- wcmdscale(X, eig = TRUE)
     if (is.null(rownames(X$points))) 
