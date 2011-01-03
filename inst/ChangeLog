@@ -10,6 +10,9 @@ Version 1.18-19 (opened December 18, 2010)
 	* CCorA: Pierre Legendre's minor fixes, including scaling of
 	scores Cy an Cx, and removing requirement of MASS.
 
+	* wascores: checks input -- weights (species abundances) must be
+	non-negative and not all zero.
+
 	* metaMDS: function was written for community data with all
 	entries non-negative, but it is used increasingly often with other
 	data types with a risk of failure (especially in wascores()). Now

@@ -1,6 +1,8 @@
 `wascores` <-
     function (x, w, expand = FALSE) 
 {
+    if(any(w < 0) || sum(w) == 0)
+        stop("weights must be non-negative and not all zero")
     x <- as.matrix(x)
     w <- as.matrix(w)
     nc <- ncol(x)
