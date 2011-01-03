@@ -76,9 +76,7 @@
     X$points <- adjust * X$points
     if (adjust == 1)
         X$eig <- X$eig/k
-    neig <- min(which(X$eig < 0) - 1, sum(X$eig > EPS))
-    sol <- X$points[, 1:neig]
-    sol <- rda.default(sol, d$Y, d$Z, ...)
+    sol <- rda.default(X$points, d$Y, d$Z, ...)
     if (!is.null(sol$CCA)) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
