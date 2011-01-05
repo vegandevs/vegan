@@ -28,6 +28,9 @@
     }
     summ$call <- object$call
     summ$tot.chi <- object$tot.chi
+    ## only the Real component for capscale() with negative eigenvalues
+    if (!is.null(object$CA$imaginary.chi))
+        summ$tot.chi <- summ$tot.chi - object$CA$imaginary.chi
     summ$partial.chi <- object$pCCA$tot.chi
     summ$constr.chi <- object$CCA$tot.chi
     summ$unconst.chi <- object$CA$tot.chi
