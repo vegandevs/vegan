@@ -17,13 +17,15 @@ Version 1.18-20 (opened January 3, 2011)
 	a new item of "Real Total" that gives the sum of eigenvalues
 	without the imaginary component, and the proportions are given
 	only within this real component (if there are negative
-	eigenvalues).  However, summary.eigenvals() estimates the
-	proportions explained using absolute values of eigenvalues since
-	this seems to make sense there (the proportion explained is now
-	based on absolute eigenvalues to give more sensible
-	output). Moreover, wcmdscale() will now always give goodness of
-	fit (GOF) as NA, since I have no clue how to calculate GOF
-	meaningfully in PCoA.
+	eigenvalues).  The eigenvalues of negative eigenvalues are not
+	added to the result, because they are not strictly for the
+	unconstrained component only like previously indicated. However,
+	summary.eigenvals() estimates the proportions explained using
+	absolute values of eigenvalues since this seems to make sense
+	there (the proportion explained is now based on absolute
+	eigenvalues to give more sensible output). Moreover, wcmdscale()
+	will now always give goodness of fit (GOF) as NA, since I have no
+	clue how to calculate GOF meaningfully in PCoA.
 
 Version 1.18-19 (closed January 3, 2011)
 

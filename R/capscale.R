@@ -89,12 +89,10 @@
     if (!is.null(sol$CA)) {
         colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
             paste("MDS", 1:ncol(sol$CA$u), sep = "")
-        ## Add negative eigenvalues to the list and update tot.chi
+        ## update for negative eigenvalues
         poseig <- length(sol$CA$eig)
         if (any(X$eig < 0)) {
             negax <- X$eig[X$eig < 0]
-            names(negax) <- paste("NEG", seq_along(negax), sep="")
-            sol$CA$eig <- c(sol$CA$eig, negax)
             sol$CA$imaginary.chi <- sum(negax)
             sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
             sol$CA$imaginary.rank <- length(negax)
