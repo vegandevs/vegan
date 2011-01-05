@@ -13,15 +13,17 @@ Version 1.18-20 (opened January 3, 2011)
 	decision, and not a bug. Now I have reconsidered this design
 	decision, and it really seems to me that it was wrong. Now the
 	negative eigenvalues again reduce the total inertia, and are
-	similar as in vegan 1.17-4 and eariler. As a consequence, there
-	will be no proportions of inertia component in capscale(), because
-	there is no information to calculate those proportions.  However,
-	summary.eigenvals() estimates the proportions explained using
-	absolute values of eigenvalues since this seems to make sense
-	there (the proportion explained is now based on absolute
-	eigenvalues to give more sensible output). Moreover, wcmdscale()
-	will now always give goodness of fit (GOF) as NA, since I have no
-	clue how to calculate GOF meaningfully in PCoA. 
+	similar as in vegan 1.17-4 and earlier. The capscale() output got
+	a new item of "Real Total" that gives the sum of eigenvalues
+	without the imaginary component, and the proportions are given
+	only within this real component (if there are negative
+	eigenvalues).  However, summary.eigenvals() estimates the
+	proportions explained using absolute values of eigenvalues since
+	this seems to make sense there (the proportion explained is now
+	based on absolute eigenvalues to give more sensible
+	output). Moreover, wcmdscale() will now always give goodness of
+	fit (GOF) as NA, since I have no clue how to calculate GOF
+	meaningfully in PCoA.
 
 Version 1.18-19 (closed January 3, 2011)
 

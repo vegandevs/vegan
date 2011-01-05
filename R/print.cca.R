@@ -7,18 +7,23 @@
     }
     writeLines(strwrap(pasteCall(x$call)))
     cat("\n")
-    chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi,
+    chi <- c(x$tot.chi, if (!is.null(x$CA$imaginary.chi)) x$tot.chi - x$CA$imaginary.chi,
+                            x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi,
              x$CA$imaginary.chi)
-    props <- chi/sum(chi[-1])
-    rnk <- c(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank, x$CA$imaginary.rank)
+    ## Proportions of inertia only for Real dimensions in capscale
+    if (is.null(x$CA$imaginary.chi))
+        props <- chi/chi[1]
+    else
+        props <- c(NA, chi[-c(1, length(chi))]/chi[2], NA)
+    rnk <- c(NA, if (!is.null(x$CA$imaginary.rank)) NA, x$pCCA$rank, x$CCA$rank, x$CA$rank,
+             x$CA$imaginary.rank)
     tbl <- cbind(chi, props, rnk)
     colnames(tbl) <- c("Inertia", "Proportion", "Rank")
-    if (inherits(x, "capscale"))
-        tbl <- tbl[,-2]
-    rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
+    rn <- c("Total", "Real Total",  "Conditional", "Constrained", "Unconstrained",
             "Imaginary")
-    rownames(tbl) <- rn[c(TRUE, !is.null(x$pCCA), !is.null(x$CCA), 
-                          !is.null(x$CA), !is.null(x$CA$imaginary.chi))]
+    rownames(tbl) <- rn[c(TRUE, !is.null(x$CA$imaginary.chi), !is.null(x$pCCA),
+                          !is.null(x$CCA),  !is.null(x$CA),
+                          !is.null(x$CA$imaginary.chi))]
     printCoefmat(tbl, digits = digits, na.print = "")
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
