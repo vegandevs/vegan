@@ -165,13 +165,22 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 }
 \author{ Jari Oksanen }
 
-\note{ The function produces negative eigenvalues with many
+\note{ The function produces negative eigenvalues with non-Euclidean
   dissimilarity indices. The non-Euclidean component of inertia is
-  given under the title \code{Imaginary}, and the negative eigenvalues
-  are listed after unconstrained eigenvalues with prefix \code{NEG}.
-  The total inertia is the sum of absolute values of all eigenvalues
-  (Gower 1985). No ordination scores are given for negative
-  eigenvalues.  If the negative eigenvalues are disturbing, you can
+  given under the title \code{Imaginary} in the printed output. The
+  \code{Total} inertia is the sum of all eigenvalues, but the sum of
+  all non-negative eigenvalues is given as \code{Real Total} (which is
+  higher than the \code{Total}). The ordination is based only on the
+  the real dimensions with positive eigenvalues, and therefore the
+  proportions of inertia components only apply to the \code{Real
+  Total} and ignore the \code{Imaginary} component. Permutation tests
+  with \code{\link{anova.cca}} use only the real solution of positive
+  eigenvalues. Function \code{\link{adonis}} gives similar
+  significance tests, but it also handles the imaginary dimensions
+  (negative eigenvalues) and therefore its results may differ from
+  permutation test results of \code{capscale}.
+
+  If the negative eigenvalues are disturbing, you can
   use argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
   preferably, a distance measure that does not cause these warnings.
   Alternatively, after square root transformation of distances
