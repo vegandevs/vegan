@@ -247,7 +247,8 @@ weighted averaging scores have somewhat wider dispersion.
     species standard deviations ($s_j$). In \texttt{rda},
     $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
     negative scaling in \texttt{vegan}
-    and corresponding positive scaling in \texttt{Canoco 3}  is derived
+   % and corresponding positive scaling in \texttt{Canoco 3}  
+    is derived
     dividing each  species by its standard deviation $s_j$ (possibly
     with some additional constant multiplier).  }
 \begin{tabular}{lcc}
@@ -269,17 +270,17 @@ $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
 \texttt{rda, scaling < 0} &
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
-\\
-\texttt{Canoco 3, scaling=-1} &
-$u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
-$v_{jk} \sqrt{n}$ \\
-\texttt{Canoco 3, scaling=-2} &
-$u_{ik} \sqrt{n-1}$ &
-$v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
-\\
-\texttt{Canoco 3, scaling=-3} &
-$u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
-$v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
+% \\
+% \texttt{Canoco 3, scaling=-1} &
+% $u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
+% $v_{jk} \sqrt{n}$ \\
+% \texttt{Canoco 3, scaling=-2} &
+% $u_{ik} \sqrt{n-1}$ &
+% $v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
+% \\
+% \texttt{Canoco 3, scaling=-3} &
+% $u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
+% $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
 \end{tabular}
 \end{table}
 
@@ -291,14 +292,15 @@ satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
 constant.  In functions \texttt{princomp}, \texttt{prcomp} and
 \texttt{rda}, $c=1$ and the plotted scores are a biplot so that the
 singular values (or eigenvalues) are expressed for sites, and species
-are left unscaled.  For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
-\sqrt{\sum \lambda_k}$ with negative \texttt{Canoco} scaling
-values. All these $c$ are constants for a matrix, so these are all
-biplots with different internal scaling of species and site scores
-with respect to each other.  For \texttt{Canoco} with positive scaling
-values and \texttt{vegan} with negative scaling values, no constant
-$c$ can be found, but the correction is dependent on species standard
-deviations $s_j$, and these scores do not define a biplot.
+are left unscaled.  
+% For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
+% \sqrt{\sum \lambda_k}$ with negative \texttt{Canoco} scaling
+% values. All these $c$ are constants for a matrix, so these are all
+% biplots with different internal scaling of species and site scores
+% with respect to each other.  For \texttt{Canoco} with positive scaling
+% values and \texttt{vegan} with negative scaling values, no constant
+% $c$ can be found, but the correction is dependent on species standard
+% deviations $s_j$, and these scores do not define a biplot.
 
 There is no natural way of scaling species and site scores to each
 other.  The eigenvalues in redundancy and principal components
