@@ -239,8 +239,8 @@ weighted averaging scores have somewhat wider dispersion.
 
 \begin{table}
   \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
-    in the functions \texttt{prcomp} and \texttt{princomp} (package
-    \texttt{mva}), and the one used in the \texttt{vegan} function \texttt{rda}
+    in the functions \texttt{prcomp} and \texttt{princomp}, and the
+    one used in the \texttt{vegan} function \texttt{rda} 
     and the proprietary software \texttt{Canoco}
     scores in terms of orthonormal species ($u_{ik}$) and site scores
     ($v_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
@@ -271,14 +271,14 @@ $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 \\
 \texttt{Canoco 3, scaling=-1} &
-$u_{ik} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$ &
+$u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
 $v_{jk} \sqrt{n}$ \\
 \texttt{Canoco 3, scaling=-2} &
-$u_{ik} \sqrt{n}$ &
+$u_{ik} \sqrt{n-1}$ &
 $v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
 \\
 \texttt{Canoco 3, scaling=-3} &
-$u_{ik} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
+$u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
 $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
 \end{tabular}
 \end{table}
@@ -313,7 +313,7 @@ graphical biplots we should be able to fix the relations of row and
 column scores to be invariant against scaling of data.  The solution
 in R standard function \texttt{biplot} is to scale site and species
 scores independently, and typically very differently, but plot each
-independenty to fill the graph area.  The solution in \texttt{Canoco} and 
+independently to fill the graph area.  The solution in \texttt{Canoco} and 
 and \texttt{rda} is to use proportional eigenvalues $\lambda_k / \sum
 \lambda_k$ instead of original eigenvalues.  These proportions are
 invariant with scale changes, and typically they have a nice range for
@@ -398,7 +398,7 @@ in environmental variables \cite{McCune97}.  All environmental
 measurements contain some errors, and therefore it is safer to use WA
 scores.
 \end{itemize}
-This articles studies mainly the first point.  The users of
+This article studies mainly the first point.  The users of
 \texttt{vegan} have a choice of either LC or WA (default) scores, but
 after reading this article, I believe that most of them do not want to
 use LC scores, because they are not what they were looking for in
