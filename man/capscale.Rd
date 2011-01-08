@@ -171,7 +171,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \code{Total} inertia is the sum of all eigenvalues, but the sum of
   all non-negative eigenvalues is given as \code{Real Total} (which is
   higher than the \code{Total}). The ordination is based only on the
-  the real dimensions with positive eigenvalues, and therefore the
+  real dimensions with positive eigenvalues, and therefore the
   proportions of inertia components only apply to the \code{Real
   Total} and ignore the \code{Imaginary} component. Permutation tests
   with \code{\link{anova.cca}} use only the real solution of positive
