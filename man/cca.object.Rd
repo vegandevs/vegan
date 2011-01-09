@@ -151,6 +151,15 @@
     ordination with identical conditions as above.}
   }
 }
+
+\section{capscale}{
+  Function \code{capscale} may add some items depending on its arguments:
+  \describe{
+    \item{\code{metaMDSdist}}{The data set name if 
+       \code{metaMDSdist = TRUE}.} 
+    \item{\code{ac}}{Additive constant used if \code{add = TRUE}.}
+  }
+}
   
 \seealso{The description here provides a hacker's interface.  For more
   user friendly access to the \code{cca} object see

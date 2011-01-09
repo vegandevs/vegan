@@ -131,6 +131,8 @@
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
     sol$method <- "capscale"
+    if (add)
+        sol$ac <- X$ac
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname

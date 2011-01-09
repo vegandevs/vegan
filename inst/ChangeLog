@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-20 (opened January 3, 2011)
+Version 1.18-21 (opened January 9, 2011)
+
+	* capscale: return additive constant ('ac') when 'add = TRUE'. 
+
+Version 1.18-20 (closed January 9, 2011)
 
 	* capscale: the total inertia was defined as the sum of absolute
 	values of inertia so that negative eigenvalues of imaginary
