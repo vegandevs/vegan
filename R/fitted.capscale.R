@@ -10,8 +10,11 @@ fitted.capscale <-
                 CA = object$CA$u.eig,
                 Imaginary = object$CA$imaginary.u.eig)
     ## Distances or working scores U
-    if (type == "response")
-        dist(U)
-    else
-        U
+    if (type == "response") {
+        U <- dist(U)
+        ## remove additive constant (if add = TRUE)
+        if (!is.null(object$ac))
+            U <- U - object$ac
+    }
+    U
 }
