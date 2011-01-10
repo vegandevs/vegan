@@ -31,9 +31,12 @@
         }
         if (inherits(object, "capscale")) {
             if (take > 0) {
-                out <- dist(u %*% slam/sqrt(nr))
-                if (!is.null(object$ac))
-                    out <- out - object$ac
+                out <- u %*% slam/sqrt(nr)
+                if (type == "response") {
+                    out <- dist(out)
+                    if (!is.null(object$ac))
+                        out <- out - object$ac
+                }
             }
         } else {
             if (take > 0) 

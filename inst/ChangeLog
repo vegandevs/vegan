@@ -10,6 +10,10 @@ Version 1.18-21 (opened January 9, 2011)
 	subtracted from the estimated distances when 'add = TRUE' was used
 	in capscale().
 
+	* predict.rda: type = "working" for capscale returns now scaled
+	scores that produce the dissimilarities as Euclidean distances --
+	like was claimed in the help page.
+
 Version 1.18-20 (closed January 9, 2011)
 
 	* base of vegan release 1.17-6 (released on Jan 10, 2011).
