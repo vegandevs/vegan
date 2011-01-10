@@ -2,12 +2,13 @@
 \alias{simulate.rda}
 \alias{simulate.cca}
 \alias{simulate.capscale}
-\title{ Simulate Responses with Gaussian Error for Redundancy Analysis }
+\title{ Simulate Responses with Gaussian Error or Permuted Residulas for Constrained Ordination }
 
 \description{ Function simulates a response data frame so that it adds
  Gaussian error to the fitted responses of Redundancy Analysis
- (\code{\link{rda}}). The function is a special case of generic
- \code{\link{simulate}}, and works similarly as \code{simulate.lm}. 
+ (\code{\link{rda}}) or Constrained Correspondence Analysis
+ (\code{\link{cca}}).  The function is a special case of generic
+ \code{\link{simulate}}, and works similarly as \code{simulate.lm}.  
 }
 
 \usage{
@@ -33,10 +34,15 @@
 
 \details{ The implementation follows \code{"lm"} method of
   \code{\link{simulate}}, and adds Gaussian (Normal) error to the
-  fitted values (\code{\link{fitted.rda}} using function
+  fitted values (\code{\link{fitted.rda}}) using function
   \code{\link{rnorm}}. The standard deviations are estimated
   independently for each species (column) from the residuals after
-  fitting the constraints.
+  fitting the constraints. Alternatively, the function can take a
+  permutation index that is used to add permuted residuals
+  (unconstrained component) to the fitted values. Raw data are used in
+  \code{\link{rda}} and internal Chi-square transformed data in
+  \code{\link{cca}} within the function, but the returned data frame is 
+  similar to the original input data. 
 }
 
 \value{ Returns a data frame with similar additional arguments on
@@ -44,13 +50,12 @@
 
 \author{Jari Oksanen}
 
-\note{ The function is not implemented for \code{\link{cca}} or
-  \code{\link{capscale}} objects, but only for \code{\link{rda}}.  
-}
+\note{ The function is not implemented for \code{\link{capscale}} objects.}
 
 \seealso{ \code{\link{simulate}} for the generic case and for
-  \code{\link{lm}} objects. Function \code{\link{fitted.rda}} returns
-  fitted values without the error component. 
+  \code{\link{lm}} objects. Functions \code{\link{fitted.rda}} and
+  \code{\link{fitted.cca}} return fitted values without the error
+  component.  
 }
 
 \examples{
