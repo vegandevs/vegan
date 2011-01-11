@@ -133,6 +133,7 @@
     sol$method <- "capscale"
     if (add)
         sol$ac <- X$ac
+    sol$adjust <- adjust
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname

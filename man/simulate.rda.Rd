@@ -6,10 +6,10 @@
 
 \description{ Function simulates a response data frame so that it adds
  Gaussian error to the fitted responses of Redundancy Analysis
- (\code{\link{rda}}) or Constrained Correspondence Analysis
- (\code{\link{cca}}).  The function is a special case of generic
- \code{\link{simulate}}, and works similarly as \code{simulate.lm}.  
-}
+ (\code{\link{rda}}), Constrained Correspondence Analysis
+ (\code{\link{cca}}) or distance-based RDA (\code{\link{capscale}}).
+ The function is a special case of generic \code{\link{simulate}}, and
+ works similarly as \code{simulate.lm}.  }
 
 \usage{
 \method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
@@ -40,9 +40,13 @@
   fitting the constraints. Alternatively, the function can take a
   permutation index that is used to add permuted residuals
   (unconstrained component) to the fitted values. Raw data are used in
-  \code{\link{rda}} and internal Chi-square transformed data in
+  \code{\link{rda}}. Internal Chi-square transformed data in
   \code{\link{cca}} within the function, but the returned data frame is 
-  similar to the original input data. 
+  similar to the original input data. The simulation is performed on
+  internal metric scaling data in \code{\link{capscale}}, but the
+  function returns the Euclidean distances calculated from the simulated
+  data.  The simulation uses only the real components, and the imaginary
+  dimensions are ignored.
 }
 
 \value{ Returns a data frame with similar additional arguments on
@@ -50,7 +54,6 @@
 
 \author{Jari Oksanen}
 
-\note{ The function is not implemented for \code{\link{capscale}} objects.}
 
 \seealso{ \code{\link{simulate}} for the generic case and for
   \code{\link{lm}} objects. Functions \code{\link{fitted.rda}} and

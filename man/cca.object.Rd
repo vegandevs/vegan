@@ -158,6 +158,8 @@
     \item{\code{metaMDSdist}}{The data set name if 
        \code{metaMDSdist = TRUE}.} 
     \item{\code{ac}}{Additive constant used if \code{add = TRUE}.}
+    \item{\code{adjust}}{Adjustment of dissimilarities: see
+      \code{\link{capscale}}, section \dQuote{Notes}.}
   }
 }
   

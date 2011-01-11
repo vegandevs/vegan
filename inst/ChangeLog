@@ -14,6 +14,12 @@ Version 1.18-21 (opened January 9, 2011)
 	scores that produce the dissimilarities as Euclidean distances --
 	like was claimed in the help page.
 
+	* simulate.capscale: implemented simulate() for capscale. This
+	uses internal metric scaling mapping to simulate data and add
+	error, but returns Euclidean distances adjusted to the original
+	scale of input dissimilarities. The function uses only the real
+	axes, and imaginary dimensions are ignored.
+
 Version 1.18-20 (closed January 9, 2011)
 
 	* base of vegan release 1.17-6 (released on Jan 10, 2011).
