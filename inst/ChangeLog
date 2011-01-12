@@ -20,6 +20,12 @@ Version 1.18-21 (opened January 9, 2011)
 	scale of input dissimilarities. The function uses only the real
 	axes, and imaginary dimensions are ignored.
 
+	* anova.cca: anova(..., by = "axis") failed with capscale()
+	results. Again a scoping issue, and not the only one in
+	anova.cca() cases. The fix is hasty, and I'm not sure it is
+	OK. These really should be fixed. As a starter, a test set should
+	be developed and then worked through so long that it succeeds.
+
 Version 1.18-20 (closed January 9, 2011)
 
 	* base of vegan release 1.17-6 (released on Jan 10, 2011).
