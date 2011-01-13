@@ -22,7 +22,7 @@ function (object, cutoff = 1,  ...)
     out <- data.frame(df, chi, Fval, nperm, Pval)
     environment(object$terms) <- environment()
     fla <- update(formula(object), . ~ lc[,1] + Condition(lc[,-1]))
-    sol <- anova(update(object, fla, data = NULL),  ...)
+    sol <- anova(update(object, fla),  ...)
     out[c(1, rnk + 1), ] <- sol
     seed <- attr(sol, "Random.seed")
     attr(out, "names") <- attr(sol, "names")
@@ -34,7 +34,7 @@ function (object, cutoff = 1,  ...)
     if (rnk > 1) {
         for (.ITRM in 2:rnk) {
             fla <- update(formula(object),  .~ lc[, .ITRM] + Condition(lc[,-(.ITRM)]) )
-            sol <- update(object, fla, data = NULL)
+            sol <- update(object, fla)
             assign(".Random.seed", seed, envir = .GlobalEnv)
             out[.ITRM, ] <- as.matrix(anova(sol, ...))[1, 
                 ]
