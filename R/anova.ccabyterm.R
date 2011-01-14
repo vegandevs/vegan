@@ -25,7 +25,7 @@
     pchi[ntrm, ] <- sim$num
     df[ntrm:(ntrm + 1)] <- sim$df
     chi[ntrm:(ntrm + 1)] <- sim$chi
-    modelframe <- model.frame(object)
+    modelframe <- ordiGetData(object$call, NULL)
     environment(object$terms) <- environment()
     for (.ITRM in ntrm:2) {
         if (ntrm < 2) 
