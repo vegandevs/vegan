@@ -126,11 +126,13 @@
   }
 }
 
-\section{NA Action}{
-  If the constraints had missing values, and \code{\link{na.action}}
+\section{NA Action and Subset}{
+  If the constraints had missing values or subsets, and \code{\link{na.action}}
   was set to  \code{\link{na.exclude}} or \code{\link{na.omit}}, the
   result will have some extra items:
   \describe{
+    \item{\code{subset}}{subset evaluated as a logical vector
+      (\code{TRUE} for included cases).}
     \item{\code{na.action}}{The object returned by
     \code{\link{na.action}} which is a named vector of indices of
     removed items. The class of the vector is either \code{"omit"} or

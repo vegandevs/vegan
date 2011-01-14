@@ -24,6 +24,7 @@
     }
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, d$modelframe)
+    sol$subset <- d$subset
     sol$na.action <- d$na.action
     sol$call <- match.call()
     sol$call[[1]] <- as.name("cca")

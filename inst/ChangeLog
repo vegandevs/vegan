@@ -21,11 +21,12 @@ Version 1.18-21 (opened January 9, 2011)
 	axes, and imaginary dimensions are ignored.
 
 	* anova.cca: by = "term" and by = "axis" work now both with the
-	data= statement and with variables in the GlobalEnv both in
-	cca/rda and in capscale. A failing case is still anova(..., by =
-	"axis", subset=...) because subset is applied to the constraints,
-	but not to the response. Moreover, it seems that 'subset' is not
-	implemented for capscale(). 
+	data= statement and with variables in the GlobalEnv and subset=
+	both in cca/rda. It seems that 'subset' is not implemented for
+	capscale(), but otherwise models work.
+
+	* cca/rda: added item 'subset' that is the subset argument
+	evaluated to a logical vector.
 
 Version 1.18-20 (closed January 9, 2011)
 

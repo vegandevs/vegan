@@ -98,5 +98,5 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     }
     list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500), 
          terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
-         na.action = nas, excluded = excluded)
+         subset = subset, na.action = nas, excluded = excluded)
 }

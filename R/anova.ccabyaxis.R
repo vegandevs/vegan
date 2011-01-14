@@ -7,7 +7,16 @@ function (object, cutoff = 1,  ...)
         stop("Needs a constrained ordination")
     if (is.null(object$terms)) 
         stop("Analysis is only possible for models fitted using formula")
-    lc<- as.data.frame(object$CCA$u)
+    ## pad with NA rows if there is a subset
+    if (!is.null(object$subset)) {
+        lc <- matrix(NA, nrow=length(object$subset),
+                     ncol = ncol(object$CCA$u))
+        lc[object$subset,]  <- object$CCA$u
+        object$call$subset <- object$subset
+    } else {
+        lc <- object$CCA$u
+    }
+    lc <- as.data.frame(lc)
     ## Handle missing values in scores, both "omit" and "exclude" to
     ## match dims with data.
     if (!is.null(object$na.action)) {
