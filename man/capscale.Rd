@@ -79,6 +79,11 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      \code{NA} for scores of missing observations. Unlike in
      \code{\link{rda}}, no WA scores are available for missing
      constraints or conditions.}
+   \item{subset}{Subset of data rows. This can be a logical vector
+     which is \code{TRUE} for kept observations, or a logical
+     expression which can contain variables in the working
+     environment, \code{data} or species names of the community data
+     (if given in the formula or as \code{comm} argument).}
    \item{\dots}{Other parameters passed to \code{\link{rda}} or to
      \code{\link{metaMDSdist}}.  }
 }

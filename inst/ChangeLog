@@ -28,6 +28,13 @@ Version 1.18-21 (opened January 9, 2011)
 	* cca/rda: added item 'subset' that is the subset argument
 	evaluated to a logical vector.
 
+	* capscale: implemented 'subset' (and this also works with
+	anova.cca). Still need to check in which order we have stepacross,
+	standardization, na.action etc and subset. However, currently it
+	looks like all anova.cca tests pass also with capscale (but more
+	thorough test will be run before closeing the anova.cca bug in
+	vegan-forge) 
+
 Version 1.18-20 (closed January 9, 2011)
 
 	* base of vegan release 1.17-6 (released on Jan 10, 2011).

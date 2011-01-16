@@ -1,7 +1,7 @@
 `capscale` <-
     function (formula, data, distance = "euclidean", sqrt.dist = FALSE,
               comm = NULL, add = FALSE, dfun = vegdist,
-              metaMDSdist = FALSE, na.action = na.fail, ...) 
+              metaMDSdist = FALSE, na.action = na.fail, subset = NULL, ...) 
 {
     EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula")) 
@@ -44,7 +44,13 @@
     ## deleted due to missing values)
     fla <- update(formula, X ~ .)
     environment(fla) <- environment()
-    d <- ordiParseFormula(fla, data, envdepth = 1, na.action = na.action)
+    d <- ordiParseFormula(fla, cbind(data, comm), envdepth = 1,
+                          na.action = na.action,
+                          subset = substitute(subset))
+    ## ordiParseFormula subsets rows of dissimilarities: do the same
+    ## for columns
+    if (!is.null(d$subset))
+        d$X <- d$X[, d$subset, drop = FALSE]
     ## Delete columns if rows were deleted due to missing values
     if (!is.null(d$na.action)) {
         d$X <- d$X[, -d$na.action, drop = FALSE]
@@ -101,6 +107,9 @@
     }
     if (!is.null(comm)) {
         comm <- scale(comm, center = TRUE, scale = FALSE)
+        ## take a 'subset' of the community after scale()
+        if (!is.null(d$subset))
+            comm <- comm[d$subset, , drop = FALSE]
         sol$colsum <- sd(comm)
         if (!is.null(sol$pCCA)) 
             comm <- qr.resid(sol$pCCA$QR, comm)
@@ -137,6 +146,7 @@
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname
+    sol$subset <- d$subset
     sol$na.action <- d$na.action
     class(sol) <- c("capscale", class(sol))
     if (!is.null(sol$na.action))
