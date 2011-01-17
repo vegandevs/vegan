@@ -29,11 +29,10 @@ Version 1.18-21 (opened January 9, 2011)
 	evaluated to a logical vector.
 
 	* capscale: implemented 'subset' (and this also works with
-	anova.cca). Still need to check in which order we have stepacross,
-	standardization, na.action etc and subset. However, currently it
-	looks like all anova.cca tests pass also with capscale (but more
-	thorough test will be run before closeing the anova.cca bug in
-	vegan-forge) 
+	anova.cca). It looks like all anova.cca tests pass also with
+	capscale (but more thorough test will be run before closeing the
+	anova.cca bug in vegan-forge). It seems that subset and na.action
+	also work. 
 
 Version 1.18-20 (closed January 9, 2011)
 

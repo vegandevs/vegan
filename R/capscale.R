@@ -50,14 +50,12 @@
                           envdepth = 1, na.action = na.action,
                           subset = substitute(subset))
     ## ordiParseFormula subsets rows of dissimilarities: do the same
-    ## for columns
+    ## for columns ('comm' is handled later)
     if (!is.null(d$subset))
         d$X <- d$X[, d$subset, drop = FALSE]
     ## Delete columns if rows were deleted due to missing values
     if (!is.null(d$na.action)) {
         d$X <- d$X[, -d$na.action, drop = FALSE]
-        if (!is.null(comm))
-            comm <- comm[-d$na.action,,drop=FALSE]
     }
     X <- as.dist(d$X)
     k <- attr(X, "Size") - 1
@@ -109,10 +107,13 @@
     }
     if (!is.null(comm)) {
         comm <- scale(comm, center = TRUE, scale = FALSE)
+        sol$colsum <- sd(comm)
         ## take a 'subset' of the community after scale()
         if (!is.null(d$subset))
             comm <- comm[d$subset, , drop = FALSE]
-        sol$colsum <- sd(comm)
+        ## NA action after 'subset'
+        if (!is.null(d$na.action))
+            comm <- comm[-d$na.action, , drop = FALSE]
         if (!is.null(sol$pCCA)) 
             comm <- qr.resid(sol$pCCA$QR, comm)
         if (!is.null(sol$CCA)) {
