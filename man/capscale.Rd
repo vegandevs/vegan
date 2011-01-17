@@ -21,7 +21,7 @@
 \usage{
 capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
-    na.action = na.fail, ...)
+    na.action = na.fail, subset = NULL, ...)
 }
 
 \arguments{

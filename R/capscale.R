@@ -44,8 +44,9 @@
     ## deleted due to missing values)
     fla <- update(formula, X ~ .)
     environment(fla) <- environment()
-    d <- ordiParseFormula(fla, cbind(data, comm), envdepth = 1,
-                          na.action = na.action,
+    d <- ordiParseFormula(fla,
+                          if(is.data.frame(data)) cbind(data, comm) else comm,
+                          envdepth = 1, na.action = na.action,
                           subset = substitute(subset))
     ## ordiParseFormula subsets rows of dissimilarities: do the same
     ## for columns
