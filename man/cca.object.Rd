@@ -134,9 +134,11 @@
     \item{\code{subset}}{subset evaluated as a logical vector
       (\code{TRUE} for included cases).}
     \item{\code{na.action}}{The object returned by
-    \code{\link{na.action}} which is a named vector of indices of
-    removed items. The class of the vector is either \code{"omit"} or
-    \code{"exclude"} as set by \code{\link{na.action}}.}
+      \code{\link{na.action}} which is a named vector of indices of
+      removed items. The class of the vector is either \code{"omit"} or
+      \code{"exclude"} as set by \code{\link{na.action}}. The \code{na.action}
+      is applied after \code{subset} so that the indices refer to the subset
+      data.}
   \item{\code{residuals.zombie}}{A zombie vector of the length of
     number of rows in the residual ordination. Some standard \R
     functions find the number of valid observations from this vector,

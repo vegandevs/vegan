@@ -137,6 +137,10 @@ permutest(x, ...)
   \code{\link{anova}} table and uses \code{\link{print.anova}} for printing.
 }
 \note{
+  Some cases of \code{anova} need access to the original data on
+  constraints (at least \code{by = "term"} and \code{by = "margin"}),
+  and they may fail if data are unavailable.
+ 
   The default permutation \code{model} changed from \code{"direct"} to
   \code{"reduced"} in \pkg{vegan} version 1.14-11 (release version
   1.15-0), and you must explicitly set \code{model = "direct"} for
