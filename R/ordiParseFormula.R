@@ -50,7 +50,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         subset <- eval(subset,
                        if (inherits(data, "data.frame")) cbind(data, X)
                        else as.data.frame(X),
-                       parent.frame())
+                       parent.frame(2))
         X <- X[subset, , drop = FALSE]
         if (NROW(mf) > 0)
             mf <- mf[subset, , drop = FALSE]

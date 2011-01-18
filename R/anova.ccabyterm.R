@@ -29,7 +29,6 @@
         modelframe <- ordiGetData(object$call, NULL)
     else
         modelframe <- NULL
-    environment(object$terms) <- environment()
     for (.ITRM in ntrm:2) {
         if (ntrm < 2) 
             break

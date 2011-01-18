@@ -38,6 +38,12 @@ Version 1.18-21 (opened January 9, 2011)
 	attach()ed data frame after changes to anova.ccabyterm() and
 	ordiParseFormula(). 
 
+	* anova.cca: works (mostly) when there are missing values. The
+	exception found was 'by = "term"' when the data frame is not given
+	as a 'data=' argument, but as an attached data.frame. In this case
+	'by = "term"' detects a change in the number of rows and stops
+	with a message.
+
 Version 1.18-20 (closed January 9, 2011)
 
 	* base of vegan release 1.17-6 (released on Jan 10, 2011).
