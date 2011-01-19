@@ -20,6 +20,8 @@ function (object, cutoff = 1,  ...)
                      ncol = ncol(u))
         lc[object$subset,]  <- u
         object$call$subset <- object$subset
+    } else {
+        lc <- u
     }
     lc <- as.data.frame(lc)
     axnam <- colnames(lc)
