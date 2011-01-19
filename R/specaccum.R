@@ -88,7 +88,7 @@
     out <- list(call = match.call(), method = method, sites = sites,
                 richness = specaccum, sd = sdaccum, perm = perm)
     if (method == "rarefaction")
-        out$invidividuals <- ind
+        out$individuals <- ind
     class(out) <- "specaccum"
     out
 }
