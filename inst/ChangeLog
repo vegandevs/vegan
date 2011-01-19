@@ -2,7 +2,18 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-21 (opened January 9, 2011)
+Version 1.18-22 (opened January 19, 2011)
+
+	* specaccum: fixed typo -- 'individuals' instead of
+	'invidividuals'. plot() gained argument to use "individuals" as
+	x-axis instead of "sites" with method = "rarefaction"
+	
+Version 1.18-21 (closed January 19, 2011)
+
+	* Fixes bug report #945 at R-Forge: anova.cca should now work with
+	subset, missing data, functions of constraints (like log(x)),
+	constraints or subset variables in data=, attached data frames or
+	in working environments. 
 
 	* capscale: return additive constant ('ac') when 'add = TRUE'. 
 
