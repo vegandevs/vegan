@@ -1,0 +1,197 @@
+
+R version 2.12.1 (2010-12-16)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ### vegan-tests: unit tests for vegan functions
+> 
+> ### This file contains unit tests for vegan functions. This file is
+> ### run in R CMD check and its results are compared against previously
+> ### saved results in vegan-tests.Rout.save. If you change tests, you
+> ### must generate new vegan-tests.Rout.save in this directory.
+> 
+> ### The current plan is that tests/ are not included in the CRAN
+> ### release, but only in the development versin of vegan in R-Forge.
+> 
+> ### The tests here are not intended for human reading. The tests need
+> ### not be ecological or biologically meaningful, but they are only
+> ### intended for testing strange arguments, protect against
+> ### regressions and test correctness of results.
+> 
+> ### The tests are in a single file and you should clean work space
+> ### after the unit test. You should set random number seed (if needed)
+> ### for comparison against vegan-tests.Rout.save, and you should
+> ### remove the seed after the unit test. If possible, avoid very long
+> ### lasting tests.
+> 
+> ###<--- BEGIN TESTS --->
+> require(vegan, quiet = TRUE)
+This is vegan 1.18-22
+> ###<--- BEGIN anova.cca test --->
+> ### anova.cca tests: should work with (1) subset, (2) missing values,
+> ### (3) with functions of variables poly(A1,2), (4) variables in data
+> ### frame attached or in data=, or (5) in working environment
+> set.seed(4711)
+> data(dune)
+> data(dune.env)
+> df <- dune.env
+> df$Management[c(1,5)] <- NA
+> ## formula
+> fla <- as.formula("dune ~ Management + poly(A1, 2) + spno")
+> ### variable in the .GlobalEnv
+> spno <- specnumber(dune)
+> ### data= argument
+> ## cca/rda
+> m <-  cca(fla, data=df,  na.action=na.exclude,  subset = Use != "Pasture" & spno > 7)
+> anova(m, perm=100)
+Permutation test for cca under reduced model
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+         Df  Chisq      F N.Perm Pr(>F)  
+Model     6 1.3178 1.3341     99   0.07 .
+Residual  4 0.6585                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(m, by="term", perm=100)
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df  Chisq      F N.Perm Pr(>F)  
+Management   3 0.8039 1.6277     99   0.04 *
+poly(A1, 2)  2 0.3581 1.0877     99   0.37  
+spno         1 0.1558 0.9461     99   0.40  
+Residual     4 0.6585                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(m, by="margin", perm=100)
+Permutation test for cca under reduced model
+Marginal effects of terms
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df  Chisq      F N.Perm Pr(>F)
+Management   3 0.6151 1.2454     99   0.31
+poly(A1, 2)  2 0.3514 1.0673     99   0.46
+spno         1 0.1558 0.9461     99   0.58
+Residual     4 0.6585                     
+> anova(m, by="axis", perm=100)
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df,      na.action = na.exclude, subset = structure(c(TRUE, TRUE,      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE,      FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2",      "13", "4", "16", "6", "1", "8", "5", "17", "15", "10", "11",      "9", "18", "3", "20", "14", "19", "12", "7")))
+         Df  Chisq      F N.Perm Pr(>F)  
+CCA1      1 0.4683 2.8448     99   0.05 *
+CCA2      1 0.3339 2.0280     99   0.18  
+CCA3      1 0.1983 1.2044     99   0.36  
+CCA4      1 0.1457 0.8852     99   0.56  
+CCA5      1 0.1035 0.6284     99   0.82  
+CCA6      1 0.0681 0.4139     99   0.83  
+Residual  4 0.6585                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ## capscale
+> p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
+> anova(p, perm=100)
+Permutation test for capscale under reduced model
+
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+         Df    Var      F N.Perm Pr(>F)   
+Model     6 64.324 1.9652     99   0.01 **
+Residual  4 21.821                        
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(p, by="term", perm=100)
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df    Var      F N.Perm Pr(>F)   
+Management   3 45.520 2.7814     99   0.01 **
+poly(A1, 2)  2 11.342 1.0395     99   0.37   
+spno         1  7.462 1.3679     99   0.19   
+Residual     4 21.821                        
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(p, by="margin", perm=100)
+Permutation test for capscale under reduced model
+Marginal effects of terms
+
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df    Var      F N.Perm Pr(>F)  
+Management   3 34.092 2.0831     99   0.03 *
+poly(A1, 2)  2 10.861 0.9954     99   0.51  
+spno         1  7.462 1.3679     99   0.31  
+Residual     4 21.821                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(p, by="axis", perm=100)
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df,      na.action = na.exclude, subset = structure(c(TRUE, TRUE,      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE,      FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2",      "13", "4", "16", "6", "1", "8", "5", "17", "15", "10", "11",      "9", "18", "3", "20", "14", "19", "12", "7")))
+         Df     Var      F N.Perm Pr(>F)  
+CAP1      1 26.7105 4.8962     99   0.02 *
+CAP2      1 17.1633 3.1462     99   0.04 *
+CAP3      1  7.7026 1.4119     99   0.31  
+CAP4      1  5.9442 1.0896     99   0.50  
+CAP5      1  4.0224 0.7373     99   0.59  
+CAP6      1  2.7811 0.5098     99   0.87  
+Residual  4 21.8213                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ### attach()ed data frame instead of data=
+> attach(df)
+> q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+> anova(q, perm=100)
+Permutation test for cca under reduced model
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+         Df  Chisq      F N.Perm Pr(>F)
+Model     6 1.3178 1.3341     99   0.15
+Residual  4 0.6585                     
+> anova(q, by="term", perm=100)
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+            Df  Chisq      F N.Perm Pr(>F)  
+Management   3 0.8039 1.6277     99   0.06 .
+poly(A1, 2)  2 0.3581 1.0877     99   0.48  
+spno         1 0.1558 0.9461     99   0.49  
+Residual     4 0.6585                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(q, by="margin", perm=100)
+Permutation test for cca under reduced model
+Marginal effects of terms
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+            Df  Chisq      F N.Perm Pr(>F)
+Management   3 0.6151 1.2454     99   0.33
+poly(A1, 2)  2 0.3514 1.0673     99   0.38
+spno         1 0.1558 0.9461     99   0.51
+Residual     4 0.6585                     
+> anova(q, by="axis", perm=100)
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit,      subset = structure(c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE,      FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE,      TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2", "13", "4",      "16", "6", "1", "8", "5", "17", "15", "10", "11", "9", "18",      "3", "20", "14", "19", "12", "7")))
+         Df  Chisq      F N.Perm Pr(>F)  
+CCA1      1 0.4683 2.8448     99   0.04 *
+CCA2      1 0.3339 2.0280     99   0.17  
+CCA3      1 0.1983 1.2044     99   0.34  
+CCA4      1 0.1457 0.8852     99   0.56  
+CCA5      1 0.1035 0.6284     99   0.63  
+CCA6      1 0.0681 0.4139     99   0.79  
+Residual  4 0.6585                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> detach(df)
+> ## clean-up
+> rm(df, spno, fla, m, p, q, .Random.seed)
+> ### <--- END anova.cca test --->
+> 
