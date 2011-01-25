@@ -2,7 +2,7 @@
 \alias{simulate.rda}
 \alias{simulate.cca}
 \alias{simulate.capscale}
-\title{ Simulate Responses with Gaussian Error or Permuted Residulas for Constrained Ordination }
+\title{ Simulate Responses with Gaussian Error or Permuted Residuals for Constrained Ordination }
 
 \description{ Function simulates a response data frame so that it adds
  Gaussian error to the fitted responses of Redundancy Analysis

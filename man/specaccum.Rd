@@ -171,7 +171,7 @@ fitspecaccum(object, model, method = "random", ...)
 
 \seealso{\code{\link{rarefy}} and \code{\link{rrarefy}} are related
   individual based models. Other accumulation models are
-  \code{\link{poolaccum}} for extrapoltated richness, and
+  \code{\link{poolaccum}} for extrapolated richness, and
   \code{\link{renyiaccum}} and \code{\link{tsallisaccum}} for
   diversity indices.  Underlying graphical functions are
   \code{\link{boxplot}}, \code{\link{matlines}},

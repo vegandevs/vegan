@@ -147,7 +147,7 @@
   \item{\code{rowsum.excluded}}{Row sums of removed observations. Only
     in \code{\link{cca}}.}
   \item{\code{CCA$wa.excluded}}{The WA scores for sites (found from
-    community data) in constrained ordinaiton if
+    community data) in constrained ordination if
     \code{\link{na.action}}  was \code{\link{na.exclude}} and the
     scores could be calculated. The scores cannot be found for 
     \code{\link{capscale}} and in partial ordination.}
