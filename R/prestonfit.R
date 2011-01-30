@@ -1,9 +1,10 @@
-"prestonfit" <-
-    function (x, ...) 
+`prestonfit` <-
+    function (x, tiesplit = FALSE, ...) 
 {
-    x <- as.preston(x)
+    x <- as.preston(x, tiesplit = tiesplit)
     oct <- as.numeric(names(x))
-    fit <- glm(x ~ oct + I(oct^2), family = poisson)
+    fit <- glm(x ~ oct + I(oct^2),
+               family = if (tiesplit) quasipoisson else poisson)
     fv <- fitted(fit)
     p <- coef(fit)
     if (!is.na(p[3]) && p[3] < 0) {
@@ -18,6 +19,8 @@
     names(p) <- c("mode", "width", "S0")
     out <- list(freq = unclass(x), fitted = fv, coefficients = p)
     out$method = "Poisson fit to octaves"
+    if(tiesplit)
+        out$method <- paste("Quasi-", out$method, sep="")
     class(out) <- c("prestonfit")
     out
 }

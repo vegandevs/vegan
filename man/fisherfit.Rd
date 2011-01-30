@@ -27,7 +27,7 @@ fisherfit(x, ...)
 \method{confint}{fisherfit}(object, parm, level = 0.95, ...)
 \method{profile}{fisherfit}(fitted, alpha = 0.01, maxsteps = 20, del = zmax/5, 
     ...)
-prestonfit(x, ...)
+prestonfit(x, tiesplit = FALSE, ...)
 prestondistr(x, truncate = -1, ...)
 \method{plot}{prestonfit}(x, xlab = "Frequency", ylab = "Species", bar.col = "skyblue", 
     line.col = "red", lwd = 2, ...)
@@ -45,6 +45,8 @@ as.fisher(x, ...)
   \item{alpha}{The extend of profiling as significance.}
   \item{maxsteps}{Maximum number of steps in profiling.}
   \item{del}{Step length.}
+  \item{tiesplit}{Split frequencies \eqn{1, 2, 4, 8} etc between adjacent 
+    octaves.}
   \item{truncate}{Truncation point for log-Normal model, in log2
     units. Default value \eqn{-1} corresponds to the left border of zero
     Octave. The choice strongly influences the fitting results.}
@@ -83,52 +85,70 @@ as.fisher(x, ...)
   are similar.
 
   Preston (1948) was not satisfied with Fisher's model which seemed to
-  imply infinite species richness, and postulated that rare species is a
-  diminishing class and most species are in the middle of frequency
+  imply infinite species richness, and postulated that rare species is
+  a diminishing class and most species are in the middle of frequency
   scale. This was achieved by collapsing higher frequency classes into
   wider and wider ``octaves'' of doubling class limits: 1, 2, 3--4,
-  5--8, 9--16 etc. occurrences. Any logseries data will look like
-  lognormal when plotted this way. The expected frequency \eqn{f} at abundance
-  octave \eqn{o} is defined by \eqn{f_o = S_0 \exp(-(\log_2(o) -
-    \mu)^2/2/\sigma^2)}{f = S0 exp(-(log2(o)-mu)^2/2/sigma^2)}, where
-  \eqn{\mu} is the location of the mode and \eqn{\sigma} the width, both
-  in \eqn{\log_2}{log2} scale, and \eqn{S_0}{S0} is the expected number
-  of species at mode. The lognormal model is usually truncated on the
-  left so that some rare species are not observed. Function
-  \code{prestonfit} fits the truncated lognormal model as a second
-  degree log-polynomial to the octave pooled data using Poisson
-  error. Function \code{prestondistr} fits left-truncated Normal distribution to
-  \eqn{\log_2}{log2} transformed non-pooled observations with direct
-  maximization of log-likelihood. Function \code{prestondistr} is
-  modelled after function \code{\link[MASS]{fitdistr}} which can be used
-  for alternative distribution models. The functions have common \code{print},
-  \code{plot} and \code{lines} methods. The \code{lines} function adds
-  the fitted curve to the octave range with line segments showing the
-  location of the mode and the width (sd) of the response.
+  5--8, 9--16 etc. occurrences. It seems that Preston regarded
+  frequencies 1, 2, 4, \emph{etc.}. as \dQuote{tied} between octaves
+  (Williamson & Gaston 2005). This means that only half of the species
+  with frequency 1 are shown in the lowest octave, and the rest are
+  transferred to the second octave. Half of the species from the
+  second octave are transferred to the higher one as well, but this is
+  usually not as large a number of species. This practise makes data
+  look more lognormal by reducing the usually high lowest
+  octaves. This can be achieved by setting argument \code{tiesplit =
+  TRUE}. With \code{tiesplit = FALSE} the frequencies are not split,
+  but all ones are in the lowest octave, all twos in the second, etc.
+  Williamson & Gaston (2005) discuss alternative definitions in
+  detail, and they should be consulted for a critical review of
+  log-Normal model.
 
-  The total
-  extrapolated richness from a fitted Preston model can be found with
-  function \code{veiledspec}. The function accepts results both from
-  \code{prestonfit} and from \code{prestondistr}. If \code{veiledspec} is
-  called with a species count vector, it will internally use
-  \code{prestonfit}. Function \code{\link{specpool}} provides
-  alternative ways of estimating the number of unseen species. In fact,
-  Preston's lognormal model seems to be truncated at both ends, and this
-  may be the main reason why its result differ from lognormal models
-  fitted in Rank--Abundance diagrams with functions
-  \code{\link{rad.lognormal}}. 
+  Any logseries data will look like lognormal when plotted in
+  Preston's way. The expected frequency \eqn{f} at abundance octave
+  \eqn{o} is defined by \eqn{f_o = S_0 \exp(-(\log_2(o) -
+  \mu)^2/2/\sigma^2)}{f = S0 exp(-(log2(o)-mu)^2/2/sigma^2)}, where
+  \eqn{\mu} is the location of the mode and \eqn{\sigma} the width,
+  both in \eqn{\log_2}{log2} scale, and \eqn{S_0}{S0} is the expected
+  number of species at mode. The lognormal model is usually truncated
+  on the left so that some rare species are not observed. Function
+  \code{prestonfit} fits the truncated lognormal model as a second
+  degree log-polynomial to the octave pooled data using Poisson (when
+  \eqn{tiesplit = FALSE}) or quasi-Poisson (when \eqn{tiesplit =
+  TRUE}).  error. Function \code{prestondistr} fits left-truncated
+  Normal distribution to \eqn{\log_2}{log2} transformed non-pooled
+  observations with direct maximization of log-likelihood. Function
+  \code{prestondistr} is modelled after function
+  \code{\link[MASS]{fitdistr}} which can be used for alternative
+  distribution models. 
+
+  The functions have common \code{print}, \code{plot} and \code{lines}
+  methods. The \code{lines} function adds the fitted curve to the
+  octave range with line segments showing the location of the mode and
+  the width (sd) of the response.
+
+  The total extrapolated richness from a fitted Preston model can be
+  found with function \code{veiledspec}. The function accepts results
+  both from \code{prestonfit} and from \code{prestondistr}. If
+  \code{veiledspec} is called with a species count vector, it will
+  internally use \code{prestonfit}. Function \code{\link{specpool}}
+  provides alternative ways of estimating the number of unseen
+  species. In fact, Preston's lognormal model seems to be truncated at
+  both ends, and this may be the main reason why its result differ
+  from lognormal models fitted in Rank--Abundance diagrams with
+  functions \code{\link{rad.lognormal}}.  
 }
-\value{
-  The function \code{prestonfit} returns an object with fitted
+
+\value{ The function \code{prestonfit} returns an object with fitted
   \code{coefficients}, and with observed (\code{freq}) and fitted
   (\code{fitted}) frequencies, and a string describing the fitting
-  \code{method}. Function \code{prestondistr} omits the entry \code{fitted}.
-  The function \code{fisherfit} returns the result of \code{\link{nlm}}, where item
-  \code{estimate} is \eqn{\alpha}. The result object is amended with the
-  following items:
+  \code{method}. Function \code{prestondistr} omits the entry
+  \code{fitted}.  The function \code{fisherfit} returns the result of
+  \code{\link{nlm}}, where item \code{estimate} is \eqn{\alpha}. The
+  result object is amended with the following items:
   \item{df.residuals}{Residual degrees of freedom.}
-  \item{nuisance}{Parameter \eqn{x}.}
-  \item{fisher}{Observed data from \code{as.fisher}.}
+  \item{nuisance}{Parameter \eqn{x}.}  \item{fisher}{Observed data
+  from \code{as.fisher}.}
 
 }
 \references{
@@ -138,8 +158,8 @@ as.fisher(x, ...)
   12: 42--58.
 
   Kempton, R.A. & Taylor, L.R. (1974). Log-series and log-normal
-  parameters as diversity discriminators for Lepidoptera. \emph{Journal
-    of Animal Ecology} 43: 381--399.
+  parameters as diversity discriminators for
+  Lepidoptera. \emph{Journal of Animal Ecology} 43: 381--399.
 
   Preston, F.W. (1948) The commonness and rarity of
   species. \emph{Ecology} 29, 254--283.
@@ -148,21 +168,9 @@ as.fisher(x, ...)
   not an appropriate null hypothesis for the species--abundance
   distribution. \emph{Journal of Animal Ecology} 74, 409--422.
 }
-\author{Bob O'Hara \email{bob.ohara@helsinki.fi} (\code{fisherfit}) and Jari Oksanen. }
 
-\note{It seems that Preston regarded frequencies 1, 2, 4, \emph{etc.}. as ``tied''
-  between octaves. This means that only half of the species with
-  frequency 1 were shown in the lowest octave, and the rest were
-  transferred to the second octave. Half of the species from the second
-  octave were transferred to the higher one as well, but this is usually
-  not as large number of species. This practise makes data look more
-  lognormal by reducing the usually high lowest octaves, but is too
-  unfair to be followed. Therefore the octaves used in this function
-  include the upper limit. If you do not accept this, you must change
-  the function yourself. Williamson & Gaston (2005) discuss alternative
-  definitions in detail, and they should be consulted for a
-  critical review of log-Normal model.
-}
+\author{Bob O'Hara \email{bob.ohara@helsinki.fi} (\code{fisherfit})
+and Jari Oksanen. }
 
 \seealso{\code{\link{diversity}}, \code{\link{fisher.alpha}},
   \code{\link{radfit}}, \code{\link{specpool}}. Function
