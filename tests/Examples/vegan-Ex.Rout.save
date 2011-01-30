@@ -4681,7 +4681,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1036af318>
+<environment: 0x1037b6f58>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4827,7 +4827,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106db5c40>
+<environment: 0x106bcdb90>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4840,7 +4840,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104c1a918>
+<environment: 0x106bdfc38>
 
 Estimated degrees of freedom:
 7.753  total = 8.75294 
@@ -4853,7 +4853,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105cee188>
+<environment: 0x106d76588>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6378,7 +6378,7 @@ detaching ‘package:lattice’
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: simulate.rda
-> ### Title: Simulate Responses with Gaussian Error or Permuted Residulas for
+> ### Title: Simulate Responses with Gaussian Error or Permuted Residuals for
 > ###   Constrained Ordination
 > ### Aliases: simulate.rda simulate.cca simulate.capscale
 > ### Keywords: models datagen multivariate
@@ -7482,7 +7482,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107419d08>
+<environment: 0x107e32060>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7959,7 +7959,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  133.819 1.628 136.818 0 0 
+Time elapsed:  137.163 1.764 147.068 0 0 
 > grDevices::dev.off()
 null device 
           1 
