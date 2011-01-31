@@ -1,4 +1,4 @@
-"prestondistr" <-
+`prestondistr` <-
     function (x, truncate = -1,  ...) 
 {
     fun <- function(par, x, truncate) {
@@ -14,7 +14,7 @@
     area <- pnorm(truncate, p[1], p[2], lower = FALSE)
     scale <- length(x)/sqrt(2 * pi)/p[2]/area
     p <- c(p, scale)
-    oct <- as.preston(x)
+    oct <- as.preston(x, ...)
     x <- as.numeric(names(oct))
     fit <- p[3] * exp(-(x - p[1])^2/2/p[2]^2) 
     names(p) <- c("mode", "width", "S0")

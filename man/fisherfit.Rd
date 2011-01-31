@@ -34,6 +34,7 @@ prestondistr(x, truncate = -1, ...)
 \method{lines}{prestonfit}(x, line.col = "red", lwd = 2, ...)
 veiledspec(x, ...)
 as.fisher(x, ...)
+as.preston(x, tiesplit = FALSE, ...)
 }
 
 \arguments{
@@ -54,7 +55,9 @@ as.fisher(x, ...)
   \item{bar.col}{Colour of data bars.}
   \item{line.col}{Colour of fitted line.}
   \item{lwd}{Width of fitted line.}
-  \item{\dots}{Other parameters passed to functions. }
+  \item{\dots}{Other parameters passed to functions. Ignored in 
+    \code{prestonfit} and \code{tiesplit} passed to \code{as.preston} in
+    \code{prestondistr}. }
 }
 \details{
   In Fisher's logarithmic series the expected
@@ -125,7 +128,10 @@ as.fisher(x, ...)
   The functions have common \code{print}, \code{plot} and \code{lines}
   methods. The \code{lines} function adds the fitted curve to the
   octave range with line segments showing the location of the mode and
-  the width (sd) of the response.
+  the width (sd) of the response. Function \code{as.preston}
+  transforms abundance data to octaves.  Argument \code{tiesplit} will
+  not influence the fit in \code{prestondistr}, but it will influence
+  the barplot of the octaves.
 
   The total extrapolated richness from a fitted Preston model can be
   found with function \code{veiledspec}. The function accepts results
