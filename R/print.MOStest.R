@@ -8,6 +8,6 @@
     if (!x$isBracketed)
         cat("***** Caution: hump/pit not bracketed by the data ******\n")
     cat("\n")
-    printCoefmat(coef(x), has.P=TRUE, na.print="")
+    printCoefmat(coef(x), has.Pvalue = TRUE, na.print = "")
     invisible(x)
 }

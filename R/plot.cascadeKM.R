@@ -25,8 +25,6 @@
     if (sortg) {
         x <- orderingKM(x)
     }
-    else {
-    }
     main = (paste("K-means partitions comparison"))
     xlab = ("Number of groups in each partition")
     ylab = ("Objects")
@@ -42,7 +40,7 @@
         grid(nx = nrow(x), ny = max.g - min.g + 1, col = gridcol)
         box()
         axis(2, seq(min.g - min.g + 1, max.g - min.g + 1, by = 1), 
-             lab = seq(min.g, max.g, by = 1))
+             labels = seq(min.g, max.g, by = 1))
         axis(1)
         par(mar = c(5, 2, 5, 1))
         par(bg = "white", fg = "black", col = "black")
@@ -51,7 +49,7 @@
                                                                                             0.5, max.g + 0.5), yaxs = "i", yaxt = "n", xlab = "Values")
         grid(nx = NULL, ny = max.g - min.g + 1, col = gridcol)
         box()
-        axis(2, seq(min.g, max.g, by = 1), lab = seq(min.g, max.g, 
+        axis(2, seq(min.g, max.g, by = 1), labels = seq(min.g, max.g, 
                                            by = 1), col.axis = "black")
         axis(1)
         maxx = which.max(w[])

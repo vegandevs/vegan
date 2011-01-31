@@ -43,7 +43,7 @@
     ##CC# Initialize the counters
     counter <- as.list(1:ngr)
     for(i in 1:ngr){
-        counter[[i]] <- vector(l=n.per.gr[i])
+        counter[[i]] <- vector(length = n.per.gr[i])
     }
     W.gr <- vector("list",ngr)
     if(ngr > 1) spear.gr <- vector("list",ngr)

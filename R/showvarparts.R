@@ -15,9 +15,9 @@ function(parts = 2, labels, ...)
     box()
     symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE, add=TRUE, ...)
     if (parts == 4) {
-        symbols(0, 0.2, rectangles=cbind(1, 0.5), inch=FALSE, add=TRUE, ...)
+        symbols(0, 0.2, rectangles=cbind(1, 0.5), inches=FALSE, add=TRUE, ...)
         symbols(sqrt(1/2), -sqrt(3/4)+0.2, rectangles=cbind(0.5,0.3),
-                inch=FALSE, add=TRUE, ...)
+                inches=FALSE, add=TRUE, ...)
     }
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))

@@ -266,11 +266,11 @@
                eps = postscript(file=fname, width=xy$dim[1], height=xy$dim[2],
                paper="special", horizontal = FALSE),
                pdf = pdf(file=fname, width=xy$dim[1], height=xy$dim[2]),
-               png = png(file=fname, width=pixdim[1], height=pixdim[2]),
-               jpg = jpeg(file=fname, width=pixdim[1], height=pixdim[2],
+               png = png(filename=fname, width=pixdim[1], height=pixdim[2]),
+               jpg = jpeg(filename=fname, width=pixdim[1], height=pixdim[2],
                quality = 100),
-               tiff = tiff(file=fname, width=pixdim[1], height=pixdim[2]),
-               bmp = bmp(file=fname, width=pixdim[1], height=pixdim[2]),
+               tiff = tiff(filename=fname, width=pixdim[1], height=pixdim[2]),
+               bmp = bmp(filename=fname, width=pixdim[1], height=pixdim[2]),
                fig = xfig(file=fname, width=xy$dim[1], height=xy$dim[2]))
         plot.orditkplot(xy)
         dev.off()

@@ -31,7 +31,7 @@
             mul <- ordiArrowMul(cbind(tmp$x, tmp$y), fill=1)
             bp.xyz <- pl$xyz.convert(bp * mul)
             orig <- pl$xyz.convert(0, 0, 0)
-            arrows(orig$x, orig$y, bp.xyz$x, bp.xyz$y, len = arr.len, 
+            arrows(orig$x, orig$y, bp.xyz$x, bp.xyz$y, length = arr.len, 
                    col = arr.col)
         }
     }

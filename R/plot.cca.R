@@ -88,7 +88,7 @@
         else mul <- 1
         attr(g$biplot, "arrow.mul") <- mul
         arrows(0, 0, mul * g$biplot[, 1], mul * g$biplot[, 2], 
-               len = 0.05, col = "blue")
+               length = 0.05, col = "blue")
         text(1.1 * mul * g$biplot, rownames(g$biplot), col = "blue")
         axis(3, at = c(-mul, 0, mul), labels = rep("", 3), col = "blue")
         axis(4, at = c(-mul, 0, mul), labels = c(-1, 0, 1), col = "blue")

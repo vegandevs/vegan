@@ -11,7 +11,7 @@
         ind <- matrix(rep(rr, ncol(x)), nrow=nrow(x))
         s <- -colSums((x*ind)^2)
         t <- -colSums((nrow(x) - (1-x)*ind + 1)^2)
-        st <- rank(s+t, ties="random")
+        st <- rank(s+t, ties.method = "random")
         st
     }
     rowpack <- function(x, cr)
@@ -19,15 +19,15 @@
         ind <- matrix(rep(cr, each=nrow(x)), nrow=nrow(x))
         s <- -rowSums((x*ind)^2)
         t <- -rowSums((ncol(x) - (1-x)*ind + 1)^2)
-        st <- rank(s+t, ties="random")
+        st <- rank(s+t, ties.method = "random")
         st
     }
     comm <- ifelse(comm > 0, 1, 0)
     ## Start with columns, expect if nrow > ncol
     if (ncol(comm) >= nrow(comm)) {
-        i <- rank(-rowSums(comm), ties="average")
+        i <- rank(-rowSums(comm), ties.method = "average")
     } else {
-        j <- rank(-colSums(comm), ties="average")
+        j <- rank(-colSums(comm), ties.method = "average")
         i <- rowpack(comm, j)
     }
     ## Improve eight times
