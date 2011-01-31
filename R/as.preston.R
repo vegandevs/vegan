@@ -27,6 +27,8 @@
         freq[indx] <- tmp
     }
     names(freq) <- seq_along(freq) - 1
+    ## remove empty octaves
+    freq <- freq[freq>0]
     class(freq) <- "preston"
     freq
 }
