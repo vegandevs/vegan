@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-22 (opened January 19, 2011)
 
+	* betadisper: streamlined code somewhat.
+
 	* prestonfit: implemented splitting "tied" counts (1, 2, 4, 8 etc)
 	between octaves following Williamson & Gaston (J Anim Ecol 43,
 	381-399; 2005) with argument 'tiesplit = TRUE'
