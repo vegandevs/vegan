@@ -139,6 +139,7 @@ legend("bottomright", c("Arrhenius", "log-log linear", "Gleason", "Gitay",
 ## compare models (AIC)
 allmods <- list(Arrhenius = marr, Gleason = mgle, Gitay = mgit, 
    Lomolino = mlom, MicMen= mmic)
+sapply(allmods, AIC)
 }
 \keyword{ models }
 

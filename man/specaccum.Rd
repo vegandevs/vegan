@@ -141,7 +141,11 @@ fitspecaccum(object, model, method = "random", ...)
 
   Colwell, R.K., Mao, C.X. & Chang, J. (2004). Interpolating,
   extrapolating, and comparing incidence-based species accumulation
-  curves. \emph{Ecology} 85: 2717--2727.  
+  curves. \emph{Ecology} 85: 2717--2727.
+
+  Dengler, J. (2009). Which function describes the species-area
+  relationship best? A review and empirical evaluation. 
+  \emph{Journal of Biogeography} 36, 728--744.
 
   Gotellli, N.J. & Colwell, R.K. (2001). Quantifying biodiversity:
   procedures and pitfalls in measurement and comparison of species
