@@ -4,7 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-22 (opened January 19, 2011)
 
-	* eigenvals: learnt to know 'dudi' objects of ade4 package.
+	* eigenvals: learnt to know 'dudi' objects of the ade4 package,
+	and 'pco' an 'pca' obejct of the labdsv package.
 
 	* betadisper: streamlined code somewhat.
 
