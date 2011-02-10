@@ -40,8 +40,9 @@ eigenvals(x, ...)
 
 \details{
   This is a generic function that has methods for \code{\link{cca}},
-  \code{\link{wcmdscale}}, \code{\link{pcnm}}, \code{\link{prcomp}} and
-  \code{\link{princomp}} result objects. The default method also
+  \code{\link{wcmdscale}}, \code{\link{pcnm}}, \code{\link{prcomp}},
+  \code{\link{princomp}},  and\code{\link[ade4]{dudi}} (of \pkg{ade4}) 
+  result objects. The default method also
   extracts eigenvalues if the result looks like being from
   \code{\link{eigen}} or \code{\link{svd}}.  Functions
   \code{\link{prcomp}} and \code{\link{princomp}} contain square roots

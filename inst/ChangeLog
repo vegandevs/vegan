@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-22 (opened January 19, 2011)
 
+	* eigenvals: learnt to know 'dudi' objects of ade4 package.
+
 	* betadisper: streamlined code somewhat.
 
 	* prestonfit: implemented splitting "tied" counts (1, 2, 4, 8 etc)

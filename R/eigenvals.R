@@ -78,6 +78,16 @@
     out
 }
 
+## dudi objects of ade4
+
+`eigenvals.dudi` <-
+    function(x)
+{
+    out <- x$eig
+    class(out) <- "eigenvals"
+    out
+}
+
 `print.eigenvals` <-
     function(x, ...)
 {
