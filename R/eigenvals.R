@@ -81,7 +81,7 @@
 ## dudi objects of ade4
 
 `eigenvals.dudi` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$eig
     class(out) <- "eigenvals"
@@ -91,7 +91,7 @@
 ## labdsv::pco
 
 `eigenvals.pco` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$eig
     class(out) <- "eigenvals"
@@ -101,7 +101,7 @@
 ## labdsv::pca
 
 `eigenvals.pca` <-
-    function(x)
+    function(x, ...)
 {
     out <- x$sdev^2
     ## pca() may return only some first eigenvalues
