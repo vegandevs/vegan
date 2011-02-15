@@ -58,3 +58,16 @@ detach(df)
 ## clean-up
 rm(df, spno, fla, m, p, q, .Random.seed)
 ### <--- END anova.cca test --->
+
+### nestednodf: test case by Daniel Spitale in a comment to News on
+### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
+x <- c(1,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0)
+m1 <- matrix(x, nrow=5, ncol=5, byrow=FALSE)# as in Fig 2 Almeida-Neto et al 2008.
+(nodf1 <- nestednodf(m1, order = FALSE, weighted = FALSE))
+## Now the same matrix but with abundance data
+x <- c(5,0,2,1,1,4,1,1,0,0,0,7,1,1,0,3,1,0,0,0,9,1,0,0,0)
+m <- matrix(x, nrow=5, ncol=5, byrow=FALSE)
+(nodfq <- nestednodf(m, order = FALSE, weighted = FALSE))
+identical(nodf1, nodfq)
+rm(x, m, m1, nodfq, nodf1)
+### end nestednodf
