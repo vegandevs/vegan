@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-22 (opened January 19, 2011)
 
+	* nestednodf: did not go to 'weighted = FALSE' with quantitative
+	data if 'order = FALSE'. Reported by Daniel Spitale.  
+
 	* eigenvals: learnt to know 'dudi' objects of the ade4 package,
 	and 'pco' an 'pca' obejct of the labdsv package.
 

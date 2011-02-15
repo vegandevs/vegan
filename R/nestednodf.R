@@ -4,6 +4,8 @@
     bin.comm <- ifelse(comm > 0, 1, 0)
     rfill <- rowSums(bin.comm)
     cfill <- colSums(bin.comm)
+    if (!weighted)
+        comm <- bin.comm
     if (order) {
         if (weighted) {
             rgrad <- rowSums(comm)
@@ -13,7 +15,6 @@
         } else {
             rorder <- order(rfill, decreasing = TRUE)
             corder <- order(cfill, decreasing = TRUE)
-            comm <- bin.comm
         }
         comm <- comm[rorder, corder]
         rfill <- rfill[rorder]
