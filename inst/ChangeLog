@@ -11,6 +11,9 @@ Version 1.18-23 (opened February 16, 2011)
 	* does not use unnecessary return() plus other stylistic
 	twitches. This touches 24 functions, but users should see no
 	difference. 
+
+	* procrustes: checks and reports different number of rows instead
+	of failing in crossprod() with incompatible arguments.
 	
 Version 1.18-22 (closed February 16, 2011)
 
