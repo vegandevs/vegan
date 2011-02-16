@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-22 (opened January 19, 2011)
+
+Version 1.18-23 (opened February 16, 2011)
+
+	* opened with the release of 1.17-7 based on version 1.18-22 on
+	February 16, 2011.
+	
+Version 1.18-22 (closed February 16, 2011)
 
 	* nestednodf: did not go to 'weighted = FALSE' with quantitative
 	data if 'order = FALSE'. Reported by Daniel Spitale.  
