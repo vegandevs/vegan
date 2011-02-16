@@ -12,27 +12,23 @@
         angle <- seq(0, 2*pi, length = n+1)[-(n+1)]
         x <- rev(cos(angle))
         y <- rev(sin(angle))
-        xy <- xy.coords(x, y)
-        return(xy)
+        xy.coords(x, y)
     }
     xy.free <- function(n) {
         x <- runif(n)
         y <- runif(n)
-        xy <- xy.coords(x, y)
-        return(xy)
+        xy.coords(x, y)
     }
     xy.grid <- function(ncol, nrow) {
         x <- rep(seq_len(ncol), each = nrow)
         y <- rev(rep(seq_len(nrow), times = ncol))
-        xy <- xy.coords(x, y)
-        return(xy)
+        xy.coords(x, y)
     }
     axis.limits <- function(vals, inset) {
         lim <- range(vals[is.finite(vals)])
         lim.range <- lim[2] - lim[1]
-        res <- c(lim[1] - (lim.range * inset),
-                 lim[2] + (lim.range * inset))
-        return(res)
+        c(lim[1] - (lim.range * inset),
+          lim[2] + (lim.range * inset))
     }
     ## currently doesn't support restricted permutations of strata themselves
     if(control$permute.strata && control$type != "free")

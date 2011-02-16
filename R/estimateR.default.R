@@ -1,4 +1,4 @@
-"estimateR.default" <-
+`estimateR.default` <-
     function (x, ...) 
 {
     gradF <- function(a, i) {
@@ -24,7 +24,7 @@
         Grad[1] <- .expr25/.expr26 * .expr20 + .expr8 * (1 + 
                                                          (.expr18 + a[1] * (.expr12/.expr16 - .expr13 * ((.expr7 - 
                                                                                                           .expr25 * .expr4) * .expr15 + .expr14)/.expr35)))
-        return(Grad)
+        Grad
     }
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function accepts only integers (counts)")

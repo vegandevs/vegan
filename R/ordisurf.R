@@ -1,4 +1,4 @@
-"ordisurf" <-
+`ordisurf` <-
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian", 
               col = "red", thinplate = TRUE, add = FALSE, display = "sites", 
               w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
@@ -72,5 +72,5 @@
             drawlabels = !is.null(labcex) && labcex > 0)
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
-    return(mod)
+    mod
 }

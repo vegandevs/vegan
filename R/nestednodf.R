@@ -68,5 +68,5 @@
     out <- list(comm = comm, fill = fill,
                 statistic = c(N.columns = N.columns, N.rows = N.rows, NODF = NODF))
     class(out) <- "nestednodf"
-    return(out)
+    out
 }

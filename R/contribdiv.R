@@ -2,8 +2,9 @@
 ## Lu, H.P., H.H. Wagner and X.Y. Chen (2007). 
 ## A contribution diversity approach to evaluate species diversity. 
 ## Basic and Applied Ecology 8: 1 -12.
-contribdiv <-
-function(comm, index = c("richness", "simpson"), relative = FALSE, scaled = TRUE, drop.zero = FALSE)
+`contribdiv` <-
+    function(comm, index = c("richness", "simpson"), relative = FALSE,
+             scaled = TRUE, drop.zero = FALSE)
 {
 
     index <- match.arg(index)
@@ -47,5 +48,5 @@ function(comm, index = c("richness", "simpson"), relative = FALSE, scaled = TRUE
     attr(rval, "relative") <- relative
     attr(rval, "scaled") <- scaled
     class(rval) <- c("contribdiv", "data.frame")
-    return(rval)
+    rval
 }

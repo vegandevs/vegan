@@ -1,6 +1,6 @@
 ## S3 summary method for permat
 `summary.permat` <-
-function(object, ...)
+    function(object, ...)
 {
     x <- object
     n <- attr(x, "times")
@@ -43,5 +43,5 @@ function(object, ...)
     out <- list(x=x, bray=bray, chisq=chisq, sum=psum, fill=pfill, rowsums=vrow, colsums=vcol,
         browsums=brow, bcolsums=bcol, strsum=ssum)
     class(out) <- c("summary.permat", "list")
-    return(out)
+    out
 }

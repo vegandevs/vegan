@@ -1,10 +1,12 @@
-`betadisper` <- function(d, group, type = c("median","centroid")) {
+`betadisper` <-
+    function(d, group, type = c("median","centroid"))
+{
     ## inline function for spatial medians
     spatialMed <- function(vectors, group, pos) {
         axes <- seq_len(NCOL(vectors))
         spMedPos <- ordimedian(vectors, group, choices = axes[pos])
         spMedNeg <- ordimedian(vectors, group, choices = axes[!pos])
-        return(cbind(spMedPos, spMedNeg))
+        cbind(spMedPos, spMedNeg)
     }
     ## inline function for distance computation
     Resids <- function(x, c) {
@@ -12,7 +14,7 @@
             d <- x - c
         else
             d <- sweep(x, 2, c)
-        return(rowSums(d^2))
+        rowSums(d^2)
     }
     ## Tolerance for zero Eigenvalues
     TOL <- 1e-7

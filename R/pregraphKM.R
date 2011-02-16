@@ -1,6 +1,7 @@
-"pregraphKM" <- function(matrice)
+`pregraphKM` <-
+    function(matrice)
 {
-    "row.col.number" <-function(mat,number){
+    `row.col.number` <- function(mat,number){
         nr<-nrow(mat)
         nc<-ncol(mat)
         mod<-number %% nr
@@ -20,7 +21,7 @@
                 }
             }
         }
-        return(list(nr=nr.f,nc=nc.f))
+        list(nr=nr.f,nc=nc.f)
     }
 
     ## Beginning of the function

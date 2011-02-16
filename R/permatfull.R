@@ -12,12 +12,12 @@ indshuffle <- function(x)
    y <- table(sample(1:N, n, replace = TRUE))
    out[names(out) %in% names(y)] <- y
    names(out) <- NULL
-   return(out)
+   out
 }
 bothshuffle <- function(x, y=1)
 {
     x[x!=0] <- indshuffle(x[x!=0] - y) + y
-    return(sample(x))
+    sample(x)
 }
     if (!identical(all.equal(m, round(m)), TRUE))
        stop("function accepts only integers (counts)")
@@ -80,5 +80,5 @@ bothshuffle <- function(x, y=1)
     attr(out, "burnin") <- NA
     attr(out, "thin") <- NA
     class(out) <- c("permatfull", "permat")
-    return(out)
+    out
 }

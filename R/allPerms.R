@@ -217,5 +217,5 @@
     class(res) <- "allPerms"
     attr(res, "control") <- control
     attr(res, "observed") <- observed
-    return(res)
+    res
 }

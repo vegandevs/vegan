@@ -1,5 +1,6 @@
-`scores.betadisper` <- function(x, display = c("sites", "centroids"),
-                                choices = c(1,2), ...)
+`scores.betadisper` <-
+    function(x, display = c("sites", "centroids"),
+             choices = c(1,2), ...)
 {
     display <- match.arg(display, several.ok = TRUE)
     sol <- list()
@@ -13,5 +14,5 @@
     }
     if (length(sol) == 1)
         sol <- sol[[1]]
-    return(sol)
+    sol
 }

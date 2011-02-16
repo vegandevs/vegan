@@ -26,7 +26,7 @@
                 varwithins[k, l] <- sum(x[cluster == k, l])
             }
         }
-        return(varwithins)
+        varwithins
     }
 ##########################################
     maxmindist <- function(clsize, distscen) 
@@ -68,8 +68,7 @@
             }
             i <- i - 1
         }
-        minmaxd <- list(mindw = mindw, maxdw = maxdw)
-        return(minmaxd)
+        list(mindw = mindw, maxdw = maxdw)
     }
 #############################################
     gss <- function(x, clsize, withins) 
@@ -81,8 +80,7 @@
         allmeandist <- sum(dmean^2)
         wgss <- sum(withins)
         bgss <- allmeandist - wgss
-        zgss <- list(wgss = wgss, bgss = bgss)
-        return(zgss)
+        list(wgss = wgss, bgss = bgss)
     }
 #############################################
     vargss <- function(x, clsize, varwithins) 
@@ -102,8 +100,7 @@
         }
         varbgss <- varallmeandist - varwgss
         vartss <- varbgss + varwgss
-        zvargss <- list(vartss = vartss, varbgss = varbgss)
-        return(zvargss)
+        list(vartss = vartss, varbgss = varbgss)
     }
 		
 #################################################
@@ -116,7 +113,7 @@
                      d = d, PACKAGE = "cclust")
         d <- retval$d
         names(d) <- 0:nc
-        return(d)
+        d
     }
 ################################################
 ### Function modified by SD and PL from the original "cIndexKM" in "cclust" 
@@ -129,8 +126,7 @@
     {
         n <- sum(clsize)
         k <- length(clsize)
-        vrc <- (zgss$bgss/(k - 1))/(zgss$wgss/(n - k))
-        return(vrc = vrc)
+        zgss$bgss/(k - 1)/(zgss$wgss/(n - k))
     }
 ################################################
     ssi <- function(centers, clsize) 
@@ -153,7 +149,7 @@
             exp(-min(absmdif))
         sist <- sum(span)/hiest
         sistw <- (span * exp(-absmdif)) %*% sqrt(csizemax * csizemin)/hiestw
-        return(list(ssi = sist, ssiw = sistw))
+        list(ssi = sist, ssiw = sistw)
     }
 ################################################
 		

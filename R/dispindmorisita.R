@@ -26,6 +26,6 @@ function(x, unique.rm=FALSE, crit=0.05)
     usp <- which(apply(x > 0, 2, sum) == 1)
     if (unique.rm && length(usp) != 0)
         out <- out[-usp,]
-    return(out)
+    out
 }
 

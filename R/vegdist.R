@@ -1,4 +1,4 @@
-"vegdist" <-
+`vegdist` <-
     function (x, method = "bray", binary = FALSE, diag = FALSE, upper = FALSE, 
               na.rm = FALSE, ...) 
 {
@@ -44,5 +44,5 @@
                                "binary ", METHODS[method], sep = "")
     attr(d, "call") <- match.call()
     class(d) <- "dist"
-    return(d)
+    d
 }

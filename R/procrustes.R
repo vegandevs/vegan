@@ -1,4 +1,4 @@
-"procrustes" <-
+`procrustes` <-
     function (X, Y, scale = TRUE, symmetric = FALSE,  scores = "sites", ...) 
 {
     X <- scores(X, display = scores, ...)
@@ -38,5 +38,5 @@
                   symmetric = symmetric, call = match.call())
     reslt$svd <- sol
     class(reslt) <- "procrustes"
-    return(reslt)
+    reslt
 }

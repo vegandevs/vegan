@@ -1,4 +1,6 @@
-permute <- function(i, n, control) {
+`permute` <-
+    function(i, n, control)
+{
     if(control$complete && !is.null(control$all.perms))
         perm <- control$all.perms[i,]
     else {
@@ -6,5 +8,5 @@ permute <- function(i, n, control) {
             warning("'$all.perms' is NULL, yet '$complete = TRUE'.\nReturning a random permutation.")
         perm <- permuted.index2(n, control)
     }
-    return(perm)
+    perm
 }

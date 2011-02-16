@@ -7,5 +7,6 @@
         seqmethods <- c("swap", "tswap", "abuswap")
         stop("as.ts available only for sequential methods ",
             paste(seqmethods, collapse=", "))
-    } else return(out)
+    } 
+    out
 }
