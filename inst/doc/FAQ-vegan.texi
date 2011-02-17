@@ -608,11 +608,11 @@ formats, or you can export the graph object back to R and use
 
 @menu
 * Is there TWINSPAN?::          
-* The strata do not influence adonis results::  
+* Why strata do not influence adonis results?::  
 * How is deviance calculated?::  
 @end menu
 
-@node Is there TWINSPAN?, , Other analysis methods , Other analysis methods
+@node Is there TWINSPAN?, Why strata do not influence adonis results?, Other analysis methods , Other analysis methods
 @section Is there TWINSPAN?
 
 No.  It may be possible to port @acronym{TWINSPAN} to vegan, but it is
@@ -629,7 +629,7 @@ levels, but @code{strata} do not influence the calculation of the
 statistics.
 
 
-@node How is deviance calculated?,  , The strata do not influence adonis results, Other analysis methods
+@node How is deviance calculated?,  , Why strata do not influence adonis results?, Other analysis methods
 @section How is deviance calculated?
 
 Some vegan functions, such as @code{radfit} use base R facility of
