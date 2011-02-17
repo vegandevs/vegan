@@ -14,6 +14,11 @@ Version 1.18-23 (opened February 16, 2011)
 
 	* procrustes: checks and reports different number of rows instead
 	of failing in crossprod() with incompatible arguments.
+
+	* FAQ updates: using 'select' in ordination text() and points(),
+	using 'xlim' to flip axes or zoom into ordination plot(), the
+	non-effects of 'strata' in adonis(). All these indeed are
+	frequently asked.
 	
 Version 1.18-22 (closed February 16, 2011)
 

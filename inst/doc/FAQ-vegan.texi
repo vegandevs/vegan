@@ -3,7 +3,7 @@
 @setfilename FAQ-vegan.info
 @settitle vegan FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2010
+@set FAQ_YEAR 2011
 @afourpaper
 @c %**end of header
 
@@ -21,7 +21,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2010 Jari Oksanen
+Copyright @copyright{} 2008-2011 Jari Oksanen
 @end quotation
 @end copying
 
@@ -312,6 +312,8 @@ included contributions will be credited.
 * Constrained permutations in vegan::  
 * How to use different plotting symbols in ordination graphics?::  
 * How to avoid cluttered ordination graphs?::  
+* Can I flip an axis in ordination diagram?::  
+* Can I zoom into an ordination plot?::  
 @end menu
 
 @node  I have only numeric and positive data but vegan still complaints, Can you analyse binary or cover class data?, Ordination, Ordination
@@ -524,7 +526,7 @@ to give to your @code{plot} command). The @code{points} and @code{text}
 commands are fully configurable, and allow different plotting symbols
 and characters.
 
-@node How to avoid cluttered ordination graphs?,  , How to use different plotting symbols in ordination graphics?, Ordination
+@node How to avoid cluttered ordination graphs?, Can I flip an axis in ordination diagram?, How to use different plotting symbols in ordination graphics?, Ordination
 @section How to avoid cluttered ordination graphs?
 
 If there is a really high number of species or sites, the graphs often
@@ -562,6 +564,11 @@ Use @code{ordipointlabel} which uses points and text labels to the
 points, and tries to optimize the location of the text to minimize the
 overlap. 
 
+@item
+Ordination @code{text} and @code{points} functions have argument
+@code{select} that can be used for full control of selecting items
+plotted as text or points.
+
 @item 
 Use interactive @code{orditkplot} function that lets you drag
 labels of points to better positions if you need to see all labels. Only
@@ -574,16 +581,38 @@ congested areas.
 
 @end itemize
 
+@node  Can I flip an axis in ordination diagram?, Can I zoom into an ordination plot?, How to avoid cluttered ordination graphs?, Ordination
+@comment  node-name,  next,  previous,  up 
+@section Can I flip an axis in ordination diagram?
+
+Use @code{xlim} or @code{ylim} flipped limits. If you have model
+@code{mod <- cca(dune)} you can flip the first axis with 
+@code{plot(mod, xlim = c(3, -2))}.
+
+@node  Can I zoom into an ordination plot?,  , Can I flip an axis in ordination diagram?, Ordination
+@comment  node-name,  next,  previous,  up
+@section Can I zoom into an ordination plot?
+You can use @code{xlim} and @code{ylim} arguments in @code{plot} or
+@code{ordiplot} to zoom into ordination diagrams. Normally you must set
+both @code{xlim} and @code{ylim} because ordination plots will keep the
+equal aspect ratio of axes, and they will fill the graph so that the
+longer axis will fit. 
+
+Dynamic zooming can be done with function @code{orditkplot}. You can
+directly save the edited @code{orditkplot} graph in various graphic
+formats, or you can export the graph object back to R and use
+@code{plot} to display the results. 
 
 @node Other analysis methods ,  , Ordination, Top
 @chapter Other analysis methods
 
 @menu
 * Is there TWINSPAN?::          
+* The strata do not influence adonis results::  
 * How is deviance calculated?::  
 @end menu
 
-@node Is there TWINSPAN?, How is deviance calculated?, Other analysis methods , Other analysis methods
+@node Is there TWINSPAN?, , Other analysis methods , Other analysis methods
 @section Is there TWINSPAN?
 
 No.  It may be possible to port @acronym{TWINSPAN} to vegan, but it is
@@ -591,7 +620,16 @@ not among the vegan top priorities.  If anybody wants to try porting, I
 will be happy to help.  @acronym{TWINSPAN} has a very permissive
 license, and it would be completely legal to port the function into R.
 
-@node How is deviance calculated?,  , Is there TWINSPAN?, Other analysis methods
+@node  Why strata do not influence adonis results?, How is deviance calculated?, Is there TWINSPAN?, Other analysis methods
+@comment  node-name,  next,  previous,  up
+@section Why strata do not influence adonis results?
+Permutation happens only within @code{strata} and this influences the
+permutation distribution of the statistics and probably the significance
+levels, but @code{strata} do not influence the calculation of the
+statistics.
+
+
+@node How is deviance calculated?,  , The strata do not influence adonis results, Other analysis methods
 @section How is deviance calculated?
 
 Some vegan functions, such as @code{radfit} use base R facility of
