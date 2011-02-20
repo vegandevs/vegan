@@ -22,7 +22,7 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('vegan')
-This is vegan 1.18-22
+This is vegan 1.18-23
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -2561,19 +2561,19 @@ Loading required package: MASS
 > mod.oct
 
 Preston lognormal model
-Method: Poisson fit to octaves 
+Method: Quasi-Poisson fit to octaves 
 No. of species: 225 
 
      mode     width        S0 
- 4.682037  3.232425 29.886591 
+ 4.885798  2.932690 32.022923 
 
 Frequencies by Octave
-                0       1        2        3        4        5        6        7
-Observed 19.00000 13.0000 14.00000 18.00000 30.00000 34.00000 31.00000 26.00000
-Fitted   10.46872 15.6214 21.18270 26.10223 29.22866 29.74235 27.50278 23.11070
-                8        9       10       11
-Observed 18.00000 13.00000 7.000000 2.000000
-Fitted   17.64755 12.24591 7.722047 4.424956
+                0        1        2        3        4        5        6
+Observed 9.500000 16.00000 18.00000 19.00000 30.00000 35.00000 31.00000
+Fitted   7.994154 13.31175 19.73342 26.04200 30.59502 31.99865 29.79321
+                7        8        9       10     11
+Observed 26.50000 18.00000 13.00000 7.000000 2.0000
+Fitted   24.69491 18.22226 11.97021 7.000122 3.6443
 
 > mod.ll
 
@@ -2585,12 +2585,12 @@ No. of species: 225
  4.365002  2.753531 33.458185 
 
 Frequencies by Octave
-                0        1        2        3        4        5        6
-Observed 19.00000 13.00000 14.00000 18.00000 30.00000 34.00000 31.00000
-Fitted    9.52392 15.85637 23.13724 29.58961 33.16552 32.58022 28.05054
-                7        8         9       10       11
-Observed 26.00000 18.00000 13.000000 7.000000 2.000000
-Fitted   21.16645 13.99829  8.113746 4.121808 1.835160
+               0        1        2        3        4        5        6        7
+Observed 9.50000 16.00000 18.00000 19.00000 30.00000 35.00000 31.00000 26.50000
+Fitted   9.52392 15.85637 23.13724 29.58961 33.16552 32.58022 28.05054 21.16645
+                8         9       10       11
+Observed 18.00000 13.000000 7.000000 2.000000
+Fitted   13.99829  8.113746 4.121808 1.835160
 
 > plot(mod.oct)  
 > lines(mod.ll, line.col="blue3") # Different
@@ -2600,7 +2600,7 @@ Fitted   21.16645 13.99829  8.113746 4.121808 1.835160
 > ## Extrapolated richness
 > veiledspec(mod.oct)
 Extrapolated     Observed       Veiled 
-   242.15571    225.00000     17.15571 
+   235.40577    225.00000     10.40577 
 > veiledspec(mod.ll)
 Extrapolated     Observed       Veiled 
   230.931018   225.000000     5.931018 
@@ -4685,7 +4685,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1031d9ea0>
+<environment: 0x10254fd10>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4831,7 +4831,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104212110>
+<environment: 0x104e4eb18>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4844,7 +4844,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106ac6298>
+<environment: 0x105a8f6e8>
 
 Estimated degrees of freedom:
 7.753  total = 8.75294 
@@ -4857,7 +4857,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104cd1430>
+<environment: 0x104d785f8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7486,7 +7486,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107887788>
+<environment: 0x107d42098>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7963,7 +7963,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  125.486 1.413 128.306 0 0 
+Time elapsed:  108.78 1.21 110.99 0 0 
 > grDevices::dev.off()
 null device 
           1 
