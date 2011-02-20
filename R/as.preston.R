@@ -14,7 +14,7 @@
         notiefreq <- table(ceiling(xlog2[!ties]))
         itie <- as.numeric(names(tiefreq)) + 1
         nitie <- as.numeric(names(notiefreq)) + 1
-        freq <- numeric(max(itie, nitie))
+        freq <- numeric(max(itie+1, nitie))
         ## split tied values between two adjacent octaves
         freq[itie] <- tiefreq/2
         freq[itie+1] <- freq[itie+1] + tiefreq/2

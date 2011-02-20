@@ -17,6 +17,9 @@ Version 1.18-23 (opened February 16, 2011)
 
 	* prestonfit, as.preston: default now 'tiesplit = TRUE'.
 
+	* as.preston (prestonfit, prestondistr): uppermost octave could be
+	NA with 'tiesplit = TRUE' (a bug).
+
 	* decorana: Cajo ter Braak notified about false expansion of
 	computed zero eigenvalues in rescaling to axis scors and in
 	estimating eigenvalues. They are now zeroed. Cajo's example was a
