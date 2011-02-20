@@ -1,5 +1,5 @@
 `prestonfit` <-
-    function (x, tiesplit = FALSE, ...) 
+    function (x, tiesplit = TRUE, ...) 
 {
     x <- as.preston(x, tiesplit = tiesplit)
     oct <- as.numeric(names(x))

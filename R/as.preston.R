@@ -1,5 +1,5 @@
 `as.preston` <-
-    function (x, tiesplit = FALSE, ...) 
+    function (x, tiesplit = TRUE, ...) 
 {
     if (inherits(x, "preston")) 
         return(x)

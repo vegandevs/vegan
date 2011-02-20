@@ -27,14 +27,14 @@ fisherfit(x, ...)
 \method{confint}{fisherfit}(object, parm, level = 0.95, ...)
 \method{profile}{fisherfit}(fitted, alpha = 0.01, maxsteps = 20, del = zmax/5, 
     ...)
-prestonfit(x, tiesplit = FALSE, ...)
+prestonfit(x, tiesplit = TRUE, ...)
 prestondistr(x, truncate = -1, ...)
 \method{plot}{prestonfit}(x, xlab = "Frequency", ylab = "Species", bar.col = "skyblue", 
     line.col = "red", lwd = 2, ...)
 \method{lines}{prestonfit}(x, line.col = "red", lwd = 2, ...)
 veiledspec(x, ...)
 as.fisher(x, ...)
-as.preston(x, tiesplit = FALSE, ...)
+as.preston(x, tiesplit = TRUE, ...)
 }
 
 \arguments{

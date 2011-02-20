@@ -15,6 +15,8 @@ Version 1.18-23 (opened February 16, 2011)
 	* procrustes: checks and reports different number of rows instead
 	of failing in crossprod() with incompatible arguments.
 
+	* prestonfit, as.preston: default now 'tiesplit = TRUE'.
+
 	* FAQ updates: using 'select' in ordination text() and points(),
 	using 'xlim' to flip axes or zoom into ordination plot(), the
 	non-effects of 'strata' in adonis(). All these indeed are
