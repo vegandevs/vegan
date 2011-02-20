@@ -5,6 +5,7 @@
     Const1 <- 1e-10
     Const2 <- 5
     Const3 <- 1e-11
+    ZEROEIG <- 1e-7 # consider as zero eigenvalue
     veg <- as.matrix(veg)
     if (any(rowSums(veg) <= 0)) 
         stop("All row sums must be >0 in the community matrix: remove empty sites.")
@@ -146,6 +147,17 @@
         var.c <- cov.wt(cproj, adotj)
         var.c <- diag(var.c$cov) * (1 - sum(var.c$wt^2))
         evals <- var.r/var.c
+    }
+    ## Some decorana values may be zero, but they still get expanded
+    ## in rescaling and get estimates of shrinkage eigenvalues: zero
+    ## them.
+    zeroeigs <- evals.decorana < ZEROEIG
+    if (any(zeroeigs)) {
+        evals.decorana[zeroeigs] <- 0
+        evals[zeroeigs] <- 0
+        rproj[, zeroeigs] <- 0
+        cproj[, zeroeigs] <- 0
+        origin[zeroeigs] <- 0
     }
     CA <- list(rproj = rproj, cproj = cproj, evals = evals, evals.decorana = evals.decorana, 
                origin = origin, v = v, fraction = v.fraction, adotj = adotj, 
