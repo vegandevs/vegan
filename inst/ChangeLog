@@ -44,6 +44,12 @@ Version 1.18-23 (opened February 16, 2011)
 	orthogonalization algorithm in the Fortran code presumably shared
 	between vegan:decorana and Canoco.
 
+	* specaccum: first step in implementing weights on
+	method="random".  Not yet documented nor supported.  Issues that
+	must be solved are plotting (all lines? summaries?), summarizing
+	(use approx to get average predictions?) and the very natural link
+	to fitspecaccum models.
+
 	* FAQ updates: using 'select' in ordination text() and points(),
 	using 'xlim' to flip axes or zoom into ordination plot(), the
 	non-effects of 'strata' in adonis(). All these indeed are
