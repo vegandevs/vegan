@@ -64,6 +64,11 @@
                    ix2 = as.integer(ix2), ix3 = as.integer(ix3), aidot = as.double(aidot), 
                    adotj = as.double(adotj), PACKAGE = "vegan")[c("x", "y", 
                                              "eig")]
+    ## Eigenvalues can be computed zeros: zero the results exactly to
+    ## avoid problems with rescaling and estimating final eigenvalues
+    ## in arbitrary corner cases.
+    if (s1$eig < ZEROEIG)
+        s1$x[] <- s1$y[] <- s1$eig <- 0
     if (!ira) 
         ix1 <- .Fortran("cutup", x = as.double(s1$x), ix = as.integer(ix1), 
                         mi = as.integer(cep$mi), mk = as.integer(mk), PACKAGE = "vegan")$ix
@@ -79,6 +84,8 @@
                    ix2 = as.integer(ix2), ix3 = as.integer(ix3), aidot = as.double(aidot), 
                    adotj = as.double(adotj), PACKAGE = "vegan")[c("x", "y", 
                                              "eig")]
+    if (s2$eig < ZEROEIG)
+        s2$x[] <- s2$y[] <- s2$eig <- 0
     if (!ira) 
         ix2 <- .Fortran("cutup", x = as.double(s2$x), ix = as.integer(ix2), 
                         mi = as.integer(cep$mi), mk = as.integer(mk), PACKAGE = "vegan")$ix
@@ -94,6 +101,8 @@
                    ix2 = as.integer(ix2), ix3 = as.integer(ix3), aidot = as.double(aidot), 
                    adotj = as.double(adotj), PACKAGE = "vegan")[c("x", "y", 
                                              "eig")]
+    if (s3$eig < ZEROEIG)
+        s3$x[] <- s3$y[] <- s3$eig <- 0
     if (!ira) 
         ix3 <- .Fortran("cutup", x = as.double(s3$x), ix = as.integer(ix3), 
                         mi = as.integer(cep$mi), mk = as.integer(mk), PACKAGE = "vegan")$ix
@@ -109,19 +118,25 @@
                    ix2 = as.integer(ix2), ix3 = as.integer(ix3), aidot = as.double(aidot), 
                    adotj = as.double(adotj), PACKAGE = "vegan")[c("x", "y", 
                                              "eig")]
-    s1$x <- .Fortran("yxmult", y = as.double(s1$y), x = as.double(s1$x), 
+    if (s4$eig < ZEROEIG)
+        s4$x[] <- s4$y[] <- s4$eig <- 0
+    if (s1$eig > ZEROEIG)
+        s1$x <- .Fortran("yxmult", y = as.double(s1$y), x = as.double(s1$x), 
                      as.integer(cep$mi), as.integer(cep$n), as.integer(cep$nid), 
                      as.integer(cep$ibegin), as.integer(cep$iend), as.integer(cep$idat), 
                      as.double(cep$qidat), PACKAGE = "vegan")$x/aidot
-    s2$x <- .Fortran("yxmult", y = as.double(s2$y), x = as.double(s2$x), 
+    if (s2$eig > ZEROEIG)
+        s2$x <- .Fortran("yxmult", y = as.double(s2$y), x = as.double(s2$x), 
                      as.integer(cep$mi), as.integer(cep$n), as.integer(cep$nid), 
                      as.integer(cep$ibegin), as.integer(cep$iend), as.integer(cep$idat), 
                      as.double(cep$qidat), PACKAGE = "vegan")$x/aidot
-    s3$x <- .Fortran("yxmult", y = as.double(s3$y), x = as.double(s3$x), 
+    if (s3$eig > ZEROEIG)
+        s3$x <- .Fortran("yxmult", y = as.double(s3$y), x = as.double(s3$x), 
                      as.integer(cep$mi), as.integer(cep$n), as.integer(cep$nid), 
                      as.integer(cep$ibegin), as.integer(cep$iend), as.integer(cep$idat), 
                      as.double(cep$qidat), PACKAGE = "vegan")$x/aidot
-    s4$x <- .Fortran("yxmult", y = as.double(s4$y), x = as.double(s1$x), 
+    if (s4$eig > ZEROEIG)
+        s4$x <- .Fortran("yxmult", y = as.double(s4$y), x = as.double(s4$x), 
                      as.integer(cep$mi), as.integer(cep$n), as.integer(cep$nid), 
                      as.integer(cep$ibegin), as.integer(cep$iend), as.integer(cep$idat), 
                      as.double(cep$qidat), PACKAGE = "vegan")$x/aidot
@@ -147,17 +162,8 @@
         var.c <- cov.wt(cproj, adotj)
         var.c <- diag(var.c$cov) * (1 - sum(var.c$wt^2))
         evals <- var.r/var.c
-    }
-    ## Some decorana values may be zero, but they still get expanded
-    ## in rescaling and get estimates of shrinkage eigenvalues: zero
-    ## them.
-    zeroeigs <- evals.decorana < ZEROEIG
-    if (any(zeroeigs)) {
-        evals.decorana[zeroeigs] <- 0
-        evals[zeroeigs] <- 0
-        rproj[, zeroeigs] <- 0
-        cproj[, zeroeigs] <- 0
-        origin[zeroeigs] <- 0
+        if (any(ze <- evals.decorana < ZEROEIG))
+            evals[ze] <- 0
     }
     CA <- list(rproj = rproj, cproj = cproj, evals = evals, evals.decorana = evals.decorana, 
                origin = origin, v = v, fraction = v.fraction, adotj = adotj, 
