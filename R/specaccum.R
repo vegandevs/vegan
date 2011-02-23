@@ -32,7 +32,8 @@
             weights <- array(dim = c(n, permutations))
         for (i in 1:permutations) {
             perm[, i] <- accumulator(x, ord <- sample(n))
-            weights[,i] <- cumsum(w[ord])
+            if(!is.null(w))
+                weights[,i] <- cumsum(w[ord])
         }
         sites <- 1:n
         specaccum <- apply(perm, 1, mean)
