@@ -20,7 +20,7 @@
 ### lasting tests.
 
 ###<--- BEGIN TESTS --->
-require(vegan, quiet = TRUE)
+suppressPackageStartupMessages(require(vegan))
 ###<--- BEGIN anova.cca test --->
 ### anova.cca tests: should work with (1) subset, (2) missing values,
 ### (3) with functions of variables poly(A1,2), (4) variables in data

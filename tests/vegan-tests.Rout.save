@@ -38,8 +38,7 @@ Type 'q()' to quit R.
 > ### lasting tests.
 > 
 > ###<--- BEGIN TESTS --->
-> require(vegan, quiet = TRUE)
-This is vegan 1.18-22
+> suppressPackageStartupMessages(require(vegan))
 > ###<--- BEGIN anova.cca test --->
 > ### anova.cca tests: should work with (1) subset, (2) missing values,
 > ### (3) with functions of variables poly(A1,2), (4) variables in data
