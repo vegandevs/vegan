@@ -10,6 +10,19 @@
 \alias{ordiArrowMul}
 \alias{ordiArgAbsorber}
 \alias{veganCovEllipse}
+\alias{nobs.adonis}
+\alias{nobs.betadisper}
+\alias{nobs.cca}
+\alias{nobs.CCorA}
+\alias{nobs.decorana}
+\alias{nobs.isomap}
+\alias{nobs.metaMDS}
+\alias{nobs.pcnm}
+\alias{nobs.procrustes}
+\alias{nobs.rad}
+\alias{nobs.varpart}
+\alias{nobs.wcmdscale}
+
 \title{Internal vegan functions}
 
 \description{

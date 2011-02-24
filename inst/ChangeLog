@@ -50,6 +50,13 @@ Version 1.18-23 (opened February 16, 2011)
 	(use approx to get average predictions?) and the very natural link
 	to fitspecaccum models.
 
+	* nobs: R 2.13.0 will introduce new generic nobs() that will
+	return the number of observations. This is at least needed in
+	functions to evaluate BIC and in step() and functions it
+	calls. Implemented nobs() for several vegan classes -- some of
+	these may be unnecessary. Not yet documented but aliases in
+	vegan-internal.Rd. 
+
 	* FAQ updates: using 'select' in ordination text() and points(),
 	using 'xlim' to flip axes or zoom into ordination plot(), the
 	non-effects of 'strata' in adonis(). All these indeed are
