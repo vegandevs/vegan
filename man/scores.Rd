@@ -14,39 +14,48 @@
 
 \arguments{
   \item{x}{ An ordination result. }
-  \item{choices}{ Ordination axes.  If missing, returns all axes.}
+  \item{choices}{ Ordination axes.  If missing, default method returns all axes.}
   \item{display}{ Partial match to access scores for \code{sites} or
     \code{species}.}
   \item{...}{ Other parameters (unused). }
 }
 \details{
-  Functions \code{\link{cca}} and \code{\link{decorana}} have specific
-  \code{scores} function to access their ordination scores.  Most
-  standard ordination methods of libraries \pkg{mva}, \pkg{multiv} and
-  \pkg{MASS} do not have a  specific \code{class}, and no specific method can be
-  written for them.  However, \code{scores.default} guesses where
-  some commonly used functions keep their site scores and possible
-  species scores.  For site scores, the function seeks items in order
-  \code{points}, \code{rproj}, \code{x}, and \code{scores}.  For species,
-  the seeking order is \code{cproj}, \code{rotation}, and
-  \code{loadings}.
+  Function \code{scores} is a generic method in \pkg{vegan}. Several
+  \pkg{vegan} functions have their own \code{scores} methods with their
+  own defaults and with some new arguments. This help page describes
+  only the default method. For other methods, see, e.g.,
+  \code{\link{scores.cca}}, \code{\link{scores.rda}},
+  \code{\link{scores.decorana}}.
+  
+  The \code{scores.default} function is used to extracts scores from
+  non-\pkg{vegan} ordination results.  Most standard ordination
+  methods of libraries \pkg{mva}, \pkg{multiv} and \pkg{MASS} do not
+  have a specific \code{class}, and no specific method can be written
+  for them.  However, \code{scores.default} guesses where some
+  commonly used functions keep their site scores and possible species
+  scores.
+
   If \code{x} is a matrix, \code{scores.default} returns the chosen
   columns of that matrix, ignoring whether species or sites were
   requested (do not regard this as a bug but as a feature, please).
   Currently the function seems to work at least for \code{\link[MASS]{isoMDS}},
-  \code{\link{prcomp}}, \code{\link{princomp}}. It may work in
-  other cases or fail mysteriously.
+  \code{\link{prcomp}}, \code{\link{princomp}} and some \pkg{ade4} objects. 
+  It may work in other cases or fail mysteriously.
 }
 \value{
-  The function returns a matrix of requested scores.
+  The function returns a matrix of scores.
 }
 \author{Jari Oksanen }
 
-\seealso{\code{\link{scores.cca}}, \code{\link{scores.decorana}}.  These
-have somewhat different interface -- \code{\link{scores.cca}} in
-particular -- but all work with keywords \code{display="sites"} and
-\code{display="species"} and return a matrix with these.
+\seealso{
+  \code{\link{scores.cca}}, \code{\link{scores.decorana}}.  These have
+  somewhat different interface -- \code{\link{scores.cca}} in
+  particular -- but all work with keywords \code{display="sites"} and
+  return a matrix. However, they may also return a list of matrices,
+  and some other \code{scores} methods will have quite different
+  arguments.  
 }
+
 \examples{
 data(varespec)
 vare.pca <- prcomp(varespec)
