@@ -26,8 +26,17 @@
   only the default method. For other methods, see, e.g.,
   \code{\link{scores.cca}}, \code{\link{scores.rda}},
   \code{\link{scores.decorana}}.
+
+  All \pkg{vegan} ordination functions should have a \code{scores}
+  method which should be used to extract the scores instead of
+  directly accessing them. Scaling and transformation of scores should
+  also happen in the \code{scores} function. If the \code{scores}
+  function is available, the results can be plotted using
+  \code{\link{ordiplot}}, \code{\link{ordixyplot}} etc., and the
+  ordination results can be compared in \code{\link{procrustes}}
+  analysis.
   
-  The \code{scores.default} function is used to extracts scores from
+  The \code{scores.default} function is used to extract scores from
   non-\pkg{vegan} ordination results.  Most standard ordination
   methods of libraries \pkg{mva}, \pkg{multiv} and \pkg{MASS} do not
   have a specific \code{class}, and no specific method can be written
