@@ -176,9 +176,9 @@
   and similarly for \eqn{U_k}{U[k]}. Here \eqn{C_j}{C[j]} is the total
   number of individuals in the species of site \eqn{j} that are shared
   with site \eqn{k}, \eqn{N_j}{N[j]} is the total number of
-  individuals at site \eqn{j}, and \eqn{a_1}{a1} (and \eqn{a_2}{a2})
-  are the number of species occurring in site \eqn{j} that have only
-  one (or two) individuals in site \eqn{k}, and \eqn{S_j}{S[j]} is the
+  individuals at site \eqn{j}, \eqn{a_1}{a1} (and \eqn{a_2}{a2}) are
+  the number of species occurring in site \eqn{j} that have only one
+  (or two) individuals in site \eqn{k}, and \eqn{S_j}{S[j]} is the
   total number of individuals in the species present at site \eqn{j}
   that occur with only one individual in site \eqn{k} (Chao et
   al. 2005).
