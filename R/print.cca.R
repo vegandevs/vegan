@@ -37,11 +37,11 @@
         cat(length(sp.na), "species",
             ifelse(length(sp.na)==1, "(variable)", "(variables)"),
             "deleted due to missingness\n")
-    if (!is.null(x$CCA)) {
+    if (!is.null(x$CCA) && x$CCA$rank > 0) {
         cat("\nEigenvalues for constrained axes:\n")
         print(x$CCA$eig, digits = digits, ...)
     }
-    if (!is.null(x$CA)) {
+    if (!is.null(x$CA) && x$CA$rank > 0) {
         ax.lim <- 8
         ax.trig <- 16
         cat("\nEigenvalues for unconstrained axes:\n")

@@ -3,7 +3,27 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 
-Version 1.18-23 (opened February 16, 2011)
+Version 1.18-24 (opened February 28, 2011)
+
+	* cca: will return NULL item for CCA only if constraints were not
+	given. If the CCA component has zero rank (= constraints were
+	aliased or were orthogonal to the data), will still return a CCA
+	item with zero eigenvalue, rank, scores etc plus info on
+	"alias". The residual component will never be NULL, but similar
+	zero-containing component is returned even when there is no
+	residual variation.  Usually these changes only manifest in
+	arbitrary data sets, but we have had email queries in R-sig-eco on
+	completely aliased constrainsts when users assumed that model
+	cca(y ~ A + Condition(A)) would be similar to a random effects
+	model and A could be analysed both as a Condition and as a
+	Constraint instead of being aliased. Naturally, overfitted models
+	with empty residual components do appear often. Currently the
+	printed output includes these zero items with Inertia and Rank 0,
+	whereas NULL components are not displayed. The changes so far only
+	concern cca(); rda() and capscale() are only changed after (and
+	if) this change appears sensible and correct in cca().
+
+Version 1.18-23 (closed February 28, 2011)
 
 	* opened with the release of 1.17-7 based on version 1.18-22 on
 	February 16, 2011.

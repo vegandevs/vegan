@@ -9,7 +9,7 @@
     d <- ordiParseFormula(formula, data, na.action = na.action,
                           subset = substitute(subset))
     sol <- cca.default(d$X, d$Y, d$Z)
-    if (!is.null(sol$CCA)) 
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe, 
             sol$rowsum)
     if (!is.null(sol$CCA$alias)) 

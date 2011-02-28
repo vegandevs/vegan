@@ -39,11 +39,12 @@
                          Fit = Z, envcentre = attr(Z.r, "centre"))
             Xbar <- qr.resid(Q, Xbar)
         }
+        if (tmp < ZERO)
+            pCCA$tot.chi <- 0
     }
     else Z.r <- NULL
     if (!missing(Y) && !is.null(Y)) {
         Y <- as.matrix(Y)
-        rawmat <- Y
         Y.r <- weight.centre(Y, rowsum)
         Q <- qr(cbind(Z.r, Y.r), tol = ZERO)
         if (is.null(pCCA)) 
@@ -86,42 +87,59 @@
             CCA$QR <- Q
             CCA$envcentre <- attr(Y.r, "centre")
             CCA$Xbar <- Xbar
-            Xbar <- qr.resid(Q, Xbar)
-            if (exists("exclude.spec")) {
-                attr(CCA$v, "na.action") <- exclude.spec
-                attr(CCA$v.eig, "na.action") <- exclude.spec
-            }
+        } else {                # zero rank
+            CCA <- list(eig = 0, rank = rank, qrank = qrank, tot.chi = 0,
+                        QR = Q, Xbar = Xbar)
+            u <- matrix(0, nrow=nrow(sol$u), ncol=0)
+            v <- matrix(0, nrow=nrow(sol$v), ncol=0)
+            CCA$u <- CCA$u.eig <- CCA$wa <- CCA$wa.eig <- u
+            CCA$v <- CCA$v.eig <- v
+            CCA$biplot <- matrix(0, 0, 0)
+            CCA$alias <- colnames(Y.r)
         }
+        Xbar <- qr.resid(Q, Xbar)
+        if (exists("exclude.spec")) {
+            attr(CCA$v, "na.action") <- exclude.spec
+            attr(CCA$v.eig, "na.action") <- exclude.spec
+        }
+        
     }
     Q <- qr(Xbar)
-    if (Q$rank > 0) {
-        sol <- svd(Xbar)
-        ax.names <- paste("CA", 1:length(sol$d), sep = "")
-        colnames(sol$u) <- ax.names
-        colnames(sol$v) <- ax.names
-        names(sol$d) <- ax.names
-        rownames(sol$u) <- rownames(X)
-        rownames(sol$v) <- colnames(X)
-        rank <- min(Q$rank, sum(sol$d > ZERO))
-        if (rank) {
-            CA <- list(eig = sol$d[1:rank]^2)
-            CA$u <- sweep(as.matrix(sol$u[, 1:rank, drop = FALSE]), 
-                          1, 1/sqrt(rowsum), "*")
-            CA$v <- sweep(as.matrix(sol$v[, 1:rank, drop = FALSE]), 
-                          1, 1/sqrt(colsum), "*")
-            CA$u.eig <- sweep(CA$u, 2, sol$d[1:rank], "*")
-            CA$v.eig <- sweep(CA$v, 2, sol$d[1:rank], "*")
-            CA$rank <- rank
-            CA$tot.chi <- sum(CA$eig)
-            CA$Xbar <- Xbar
-            if (exists("exclude.spec")) {
-                attr(CA$v, "na.action") <- exclude.spec
-                attr(CA$v.eig, "na.action") <- exclude.spec
-            }
-        }
+    sol <- svd(Xbar)
+    ax.names <- paste("CA", 1:length(sol$d), sep = "")
+    colnames(sol$u) <- ax.names
+    colnames(sol$v) <- ax.names
+    names(sol$d) <- ax.names
+    rownames(sol$u) <- rownames(X)
+    rownames(sol$v) <- colnames(X)
+    rank <- min(Q$rank, sum(sol$d > ZERO))
+    if (rank) {
+        CA <- list(eig = sol$d[1:rank]^2)
+        CA$u <- sweep(as.matrix(sol$u[, 1:rank, drop = FALSE]), 
+                      1, 1/sqrt(rowsum), "*")
+        CA$v <- sweep(as.matrix(sol$v[, 1:rank, drop = FALSE]), 
+                      1, 1/sqrt(colsum), "*")
+        CA$u.eig <- sweep(CA$u, 2, sol$d[1:rank], "*")
+        CA$v.eig <- sweep(CA$v, 2, sol$d[1:rank], "*")
+        CA$rank <- rank
+        CA$tot.chi <- sum(CA$eig)
+        CA$Xbar <- Xbar
+        
+    } else {   # zero rank: no residual component
+        CA <- list(eig = 0, rank = rank, tot.chi = 0,
+                   Xbar = Xbar)
+        CA$u <- CA$u.eig <- matrix(0, nrow(sol$u), 0)
+        CA$v <- CA$v.eig <- matrix(0, nrow(sol$v), 0)
+    }
+    if (exists("exclude.spec")) {
+        attr(CA$v, "na.action") <- exclude.spec
+        attr(CA$v.eig, "na.action") <- exclude.spec
     }
     call <- match.call()
     call[[1]] <- as.name("cca")
+    ## computed pCCA$rank was needed before, but zero it here
+    if (!is.null(pCCA) && pCCA$tot.chi == 0)
+        pCCA$rank <- 0
     sol <- list(call = call, grand.total = gran.tot, rowsum = rowsum, 
                 colsum = colsum, tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, 
                 CA = CA)
