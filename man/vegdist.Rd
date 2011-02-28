@@ -166,18 +166,22 @@
   below one, and two identical communities may have dissimilarity
   slightly above zero.
   
-  Chao index  tries to  take into account  the number of  unseen species
-  pairs, similarly as  Chao's method in \code{\link{specpool}}. Function
-  \code{vegdist} implements a Jaccard  type index defined as \eqn{d_{jk}
-  = U_j  U_k/(U_j +  U_k -  U_j U_k)}{d[jk] =  U[j]*U[k]/(U[j] +  U[k] -
-  U[j]*U[k])}, where  \eqn{U_j = C_j/N_j  + (N_k - 1)/N_k  \times a_1/(2
-  a_2) \times S_j/N_j}{U[j]  = C[j]/N[j] + (N[k] -1)/N[k]  * a1/(2*a2) *
-  S[j]/N[j]}. Here \eqn{C_j}{C[j]} is the total number of individuals in
-  species  shared with  site \eqn{k},  \eqn{N}  is the  total number  of
-  individuals,  \eqn{a_1}{a1} and  \eqn{a_2}{a2} are  number  of species
-  occurring  only with  one  or  two individuals  in  another site,  and
-  \eqn{S_j}{S[j]}  is the number  of individuals  in species  that occur
-  only with one individual in another site (Chao et al. 2005).
+  Chao index tries to take into account the number of unseen species
+  pairs, similarly as in \code{method = "chao"} in
+  \code{\link{specpool}}. Function \code{vegdist} implements a Jaccard
+  type index defined as \eqn{d_{jk} = 1 - U_j U_k/(U_j + U_k - U_j
+  U_k)}{d[jk] = 1 - U[j]*U[k]/(U[j] + U[k] - U[j]*U[k])}, where
+  \eqn{U_j = C_j/N_j + (N_k - 1)/N_k \times a_1/(2 a_2) \times
+  S_j/N_j}{U[j] = C[j]/N[j] + (N[k] -1)/N[k] * a1/(2*a2) * S[j]/N[j]},
+  and similarly for \eqn{U_k}{U[k]}. Here \eqn{C_j}{C[j]} is the total
+  number of individuals in the species of site \eqn{j} that are shared
+  with site \eqn{k}, \eqn{N_j}{N[j]} is the total number of
+  individuals at site \eqn{j}, and \eqn{a_1}{a1} (and \eqn{a_2}{a2})
+  are the number of species occurring in site \eqn{j} that have only
+  one (or two) individuals in site \eqn{k}, and \eqn{S_j}{S[j]} is the
+  total number of individuals in the species present at site \eqn{j}
+  that occur with only one individual in site \eqn{k} (Chao et
+  al. 2005).
 
   Morisita index can be used with genuine count data (integers) only. Its
   Horn--Morisita variant is able to handle any abundance data.
