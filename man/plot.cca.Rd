@@ -37,7 +37,7 @@
 \arguments{
   \item{x, object}{A \code{cca} result object.}
     \item{choices}{Axes shown.}
-  \item{display}{Scores shown.  These must some of the alternatives
+  \item{display}{Scores shown.  These must include some of the alternatives
     \code{species} or \code{sp} for species scores, \code{sites} or
     \code{wa} for site scores, \code{lc} for linear constraints or ``LC
     scores'', or \code{bp} for biplot arrows or \code{cn} for centroids
