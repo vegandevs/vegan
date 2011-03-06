@@ -42,8 +42,10 @@ factorfit(X, P, permutations = 0, strata, w, ...)
   \item{permutations}{ Number of permutations for assessing significance
     of vectors or factors. Set to \code{0} to skip permutations.}
   \item{formula, data}{Model  \code{\link{formula}} and data.  }
-  \item{na.rm}{Remove points with missing values in ordination scores or 
-    environmental variables}.
+  \item{na.rm}{Remove points with missing values in ordination scores
+    or environmental variables. The operation is casewise: the whole
+    row of data is removed if there is a missing value and 
+    \code{na.rm = TRUE}.}
   \item{x}{A result object from \code{envfit}.}
   \item{choices}{Axes to plotted.}
   \item{arrow.mul}{Multiplier for vector lengths. The arrows are
