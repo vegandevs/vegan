@@ -23,6 +23,10 @@ Version 1.18-24 (opened February 28, 2011)
 	concern cca(); rda() and capscale() are only changed after (and
 	if) this change appears sensible and correct in cca().
 
+	* drarefy: a new function to return the probabilities that a
+	species occurs in a rarefied sample (= sampled without
+	replacement) of a given size.
+
 Version 1.18-23 (closed February 28, 2011)
 
 	* opened with the release of 1.17-7 based on version 1.18-22 on

@@ -3,6 +3,7 @@
 \alias{diversity}
 \alias{rarefy}
 \alias{rrarefy}
+\alias{drarefy}
 \alias{fisher.alpha}
 \alias{specnumber}
 
@@ -13,13 +14,10 @@ and rarefied species richness for community ecologists.  }
 
 \usage{
 diversity(x, index = "shannon", MARGIN = 1, base = exp(1))
-
 rarefy(x, sample, se = FALSE, MARGIN = 1)
-
 rrarefy(x, sample)
-
+drarefy(x, sample)
 fisher.alpha(x, MARGIN = 1, se = FALSE, ...)
-
 specnumber(x, MARGIN = 1)
 }
 
@@ -63,6 +61,13 @@ specnumber(x, MARGIN = 1)
   individuals. The random rarefaction is made without replacement so
   that the variance of rarefied communities is rather related to
   rarefaction proportion than to to the size of the \code{sample}.  
+
+  Function \code{drarefy} returns probabilities that species occur in
+  a rarefied community of size \code{sample}. Only a single scalar of
+  \code{sample} size is accepted. If \code{x} is a single site, the
+  function returns a vector of species occurrence probabilities. If
+  \code{x} is a data frame or a matrix, a matrix of probabilities for
+  each row is returned.
 
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
