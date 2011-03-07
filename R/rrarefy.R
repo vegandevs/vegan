@@ -31,7 +31,7 @@
         sample <- min(sample, J)
         1 - exp(lchoose(J - x, sample) - lchoose(J, sample))
     }
-    if (length(dim(x) > 1))
+    if (length(dim(x)) > 1)
         t(apply(x, 1, dfun, sample = sample))
     else
         dfun(x, sample)
