@@ -3,6 +3,9 @@
 `rrarefy` <-
     function(x, sample)
 {
+    x <- as.matrix(x)
+    if (ncol(x) == 1)
+        x <- t(x)
     if (length(sample) > 1 && length(sample) != nrow(x))
         stop("length of 'sample' and number of rows of 'x' do not match")
     sample <- rep(sample, length=nrow(x))

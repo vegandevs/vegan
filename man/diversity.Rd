@@ -22,7 +22,7 @@ specnumber(x, MARGIN = 1)
 }
 
 \arguments{
-  \item{x}{Community data, a matrix-like object.}
+  \item{x}{Community data, a matrix-like object or a vector.}
   \item{index}{Diversity index, one of \code{"shannon"},
     \code{"simpson"} or \code{"invsimpson"}.}
   \item{MARGIN}{Margin for which the index is computed. }

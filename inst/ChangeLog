@@ -27,11 +27,10 @@ Version 1.18-24 (opened February 28, 2011)
 	species occurs in a rarefied sample (= sampled without
 	replacement) of a given size.
 
-	* diversity: accepts a vector input. Among the functions
-	documented in ?diversity the following now accept vector input:
-	diversity, fisher.alpha, drarefy. The following do not accept a
-	vector, but input must be given as foo(t(x)): rarefy, rrarefy,
-	specnumber. 
+	* diversity, rarefy, rrarefy, specnumber: accept vector input. All
+	functions documented in ?diversity now accept vector input.
+	Function fisher.alpha and drararefy already accepted vectors.
+
 
 Version 1.18-23 (closed February 28, 2011)
 

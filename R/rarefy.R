@@ -2,6 +2,9 @@
     function (x, sample, se = FALSE, MARGIN = 1) 
 {
     x <- as.matrix(x)
+    ## as.matrix changes an n-vector to a n x 1 matrix
+    if (ncol(x) == 1 && MARGIN == 1)
+        x <- t(x)
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
     if (missing(sample)) {
