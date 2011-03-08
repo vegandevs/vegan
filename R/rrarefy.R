@@ -7,7 +7,8 @@
     if (ncol(x) == 1)
         x <- t(x)
     if (length(sample) > 1 && length(sample) != nrow(x))
-        stop("length of 'sample' and number of rows of 'x' do not match")
+        stop(gettextf,
+             "length of 'sample' and number of rows of 'x' do not match")
     sample <- rep(sample, length=nrow(x))
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
@@ -26,16 +27,20 @@
 `drarefy` <-
     function(x, sample)
 {
-    if (length(sample) > 1)
-        stop(gettextf("only scalar 'sample' is accepted"))
+    if (length(sample) > 1 &&  length(sample) != nrow(x))
+        stop(gettextf,
+             "length of  'sample' and number of rows of 'x' do not match")
     x <- drop(as.matrix(x))
+    ## dfun is kluge: first item of  vector x must be the sample size,
+    ## and the rest  is the community data. This  seemed an easy trick
+    ## to evaluate dfun in an apply() instead of a loop.
     dfun <- function(x, sample) {
-        J <- sum(x)
-        sample <- min(sample, J)
-        1 - exp(lchoose(J - x, sample) - lchoose(J, sample))
+        J <- sum(x[-1])
+        sample <- min(x[1], J)
+        1 - exp(lchoose(J - x[-1], sample) - lchoose(J, sample))
     }
     if (length(dim(x)) > 1)
-        t(apply(x, 1, dfun, sample = sample))
+        t(apply(cbind(sample, x), 1, dfun))
     else
-        dfun(x, sample)
+        dfun(c(sample, x))
 }

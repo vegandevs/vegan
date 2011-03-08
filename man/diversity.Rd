@@ -47,27 +47,25 @@ specnumber(x, MARGIN = 1)
   Function \code{rarefy} gives the expected species richness in random
   subsamples of size \code{sample} from the community. The size of
   \code{sample} should be smaller than total community size, but the
-  function will  silently work for larger \code{sample} as well and
+  function will silently work for larger \code{sample} as well and
   return non-rarefied species richness (and standard error = 0). If
-  \code{sample} is a vector, rarefaction is performed for each sample
-  size separately.
-  Rarefaction can be performed only with genuine counts of individuals.
-  The function \code{rarefy} is based on Hurlbert's (1971) formulation,
-  and the standard errors on Heck et al. (1975).
+  \code{sample} is a vector, rarefaction of all observations is
+  performed for each sample size separately.  Rarefaction can be
+  performed only with genuine counts of individuals.  The function
+  \code{rarefy} is based on Hurlbert's (1971) formulation, and the
+  standard errors on Heck et al. (1975).
 
   Function \code{rrarefy} generates one randomly rarefied community data
   frame or vector of given \code{sample} size. The \code{sample} can be
-  a vector, and its values must be less or equal to observed number of
-  individuals. The random rarefaction is made without replacement so
-  that the variance of rarefied communities is rather related to
-  rarefaction proportion than to to the size of the \code{sample}.  
+  a vector giving the sample sizes for each row, and its values must be
+  less or equal to observed number of individuals. The random
+  rarefaction is made without replacement so that the variance of
+  rarefied communities is rather related to rarefaction proportion than
+  to to the size of the \code{sample}.
 
-  Function \code{drarefy} returns probabilities that species occur in
-  a rarefied community of size \code{sample}. Only a single scalar of
-  \code{sample} size is accepted. If \code{x} is a single site, the
-  function returns a vector of species occurrence probabilities. If
-  \code{x} is a data frame or a matrix, a matrix of probabilities for
-  each row is returned.
+  Function \code{drarefy} returns probabilities that species occur in a
+  rarefied community of size \code{sample}. The \code{sample} can be a
+  vector giving the sample sizes for each row.
 
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 

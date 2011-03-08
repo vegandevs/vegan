@@ -25,7 +25,8 @@ Version 1.18-24 (opened February 28, 2011)
 
 	* drarefy: a new function to return the probabilities that a
 	species occurs in a rarefied sample (= sampled without
-	replacement) of a given size.
+	replacement) of a given size, (or given sizes specified
+	separately for each row if 'sample' is a vector)..
 
 	* diversity, rarefy, rrarefy, specnumber: accept vector input. All
 	functions documented in ?diversity now accept vector input.
