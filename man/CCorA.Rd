@@ -131,7 +131,6 @@ rownames(mite.hel.1) = paste("S",1:nrow(mite),sep="")
 rownames(mite.hel.2) = paste("S",1:nrow(mite),sep="")
 out <- CCorA(mite.hel.1, mite.hel.2)
 out
-summary(out)
 biplot(out, "ob")                 # Two plots of objects
 biplot(out, "v", cex=c(0.7,0.6))  # Two plots of variables
 biplot(out, "ov", cex=c(0.7,0.6)) # Four plots (2 for objects, 2 for variables)
