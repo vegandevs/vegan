@@ -1,6 +1,6 @@
 
-R version 2.12.1 (2010-12-16)
-Copyright (C) 2010 The R Foundation for Statistical Computing
+R version 2.12.2 (2011-02-25)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
@@ -22,7 +22,7 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('vegan')
-This is vegan 1.18-23
+This is vegan 1.18-24
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -93,24 +93,6 @@ Canonical Correlations  0.50189  0.48179  0.41089   0.37823      0.28
 RDA R squares      0.33224 0.5376
 adj. RDA R squares 0.20560 0.2910
 
-> summary(out)
-             Length Class  Mode   
-Pillai         1    -none- numeric
-Eigenvalues   11    -none- numeric
-CanCorr       11    -none- numeric
-Mat.ranks      2    -none- numeric
-RDA.Rsquares   2    -none- numeric
-RDA.adj.Rsq    2    -none- numeric
-nperm          1    -none- numeric
-p.Pillai       1    -none- numeric
-p.perm         1    -none- logical
-Cy           770    -none- numeric
-Cx           770    -none- numeric
-corr.Y.Cy    264    -none- numeric
-corr.X.Cx    121    -none- numeric
-corr.Y.Cx    264    -none- numeric
-corr.X.Cy    121    -none- numeric
-call           3    -none- call   
 > biplot(out, "ob")                 # Two plots of objects
 > biplot(out, "v", cex=c(0.7,0.6))  # Two plots of variables
 > biplot(out, "ov", cex=c(0.7,0.6)) # Four plots (2 for objects, 2 for variables)
@@ -2306,7 +2288,7 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy fisher.alpha specnumber
+> ### Aliases: diversity rarefy rrarefy drarefy fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -4685,7 +4667,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10254fd10>
+<environment: 0x10252b388>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4831,7 +4813,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104e4eb18>
+<environment: 0x106023db8>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4844,7 +4826,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105a8f6e8>
+<environment: 0x10640b898>
 
 Estimated degrees of freedom:
 7.753  total = 8.75294 
@@ -4857,7 +4839,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104d785f8>
+<environment: 0x1065fdbc8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7486,7 +7468,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107d42098>
+<environment: 0x106d90118>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7963,7 +7945,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  108.78 1.21 110.99 0 0 
+Time elapsed:  119.75 1.646 129.415 0 0 
 > grDevices::dev.off()
 null device 
           1 
