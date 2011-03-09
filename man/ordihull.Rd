@@ -104,7 +104,7 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   the items in the groups. 
   
   Function \code{ordiellipse} draws \code{\link{lines}} or
-  \code{\link{polygon}}s for dispersion \code{\link[ellipse]{ellipse}}
+  \code{\link{polygon}}s for dispersion ellipses
   using either standard deviation of point scores or standard error of
   the (weighted) average of scores, and the (weighted) correlation
   defines the direction of the principal axis of the ellipse. 
