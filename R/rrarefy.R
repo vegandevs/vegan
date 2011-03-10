@@ -7,8 +7,8 @@
     if (ncol(x) == 1)
         x <- t(x)
     if (length(sample) > 1 && length(sample) != nrow(x))
-        stop(gettextf,
-             "length of 'sample' and number of rows of 'x' do not match")
+        stop(gettextf(
+             "length of 'sample' and number of rows of 'x' do not match"))
     sample <- rep(sample, length=nrow(x))
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
@@ -28,8 +28,8 @@
     function(x, sample)
 {
     if (length(sample) > 1 &&  length(sample) != nrow(x))
-        stop(gettextf,
-             "length of  'sample' and number of rows of 'x' do not match")
+        stop(gettextf(
+             "length of  'sample' and number of rows of 'x' do not match"))
     x <- drop(as.matrix(x))
     ## dfun is kluge: first item of  vector x must be the sample size,
     ## and the rest  is the community data. This  seemed an easy trick
