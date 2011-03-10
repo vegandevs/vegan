@@ -1,4 +1,21 @@
 `ordisurf` <-
+    function(...) UseMethod("ordisurf")
+
+`ordisurf.formula` <-
+    function(formula, data, ...)
+{
+    if (missing(data))
+        data <- parent.frame()
+    x <- formula[[2]]
+    x <- eval.parent(x)
+    formula[[2]] <- NULL
+    y <- drop(as.matrix(model.frame(formula, data, na.action = na.pass)))
+    if (NCOL(y) > 1)
+        stop(gettextf("only one fitted variable allowed in the formula"))
+    ordisurf(x, y, ...)
+}
+
+`ordisurf.default` <-
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian", 
               col = "red", thinplate = TRUE, add = FALSE, display = "sites", 
               w = weights(x), main, nlevels = 10, levels, labcex = 0.6,

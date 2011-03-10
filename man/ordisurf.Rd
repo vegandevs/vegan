@@ -8,10 +8,11 @@
   plots the result on ordination diagram.
 }
 \usage{
-ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
+\method{ordisurf}{default}(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
      w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
      bubble = FALSE, cex = 1, ...)
+\method{ordisurf}{formula}(formula, data, ...)
 \method{calibrate}{ordisurf}(object, newdata, ...)
 }
 
@@ -47,10 +48,18 @@ ordisurf(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
     the maximum. The minimum size will always be \code{cex = 0.4}.  The
     option only has an effect if \code{add = FALSE}.}
   \item{cex}{Character expansion of plotting symbols.}
+  \item{formula, data}{Alternative definition of the fitted model as
+    \code{x ~ y}, or left-hand side is the ordination \code{x} and
+    right-hand side the single fitted continuous variable
+    \code{y}. The variable \code{y} must be in the working environment
+    or in the data frame or environment given by \code{data}. All
+    other arguments of are passed to the default method.}
   \item{object}{An \code{ordisurf} result object.}
   \item{newdata}{Coordinates in two-dimensional ordination for new points.}
-  \item{\dots}{ Other graphical parameters. }
+  \item{\dots}{Other parameters passed to \code{\link[mgcv]{gam}}, or
+    to the graphical functions.}
 }
+
 \details{
   Function \code{ordisurf} fits a smooth surface using thinplate splines
   in \code{\link[mgcv]{gam}}, and uses \code{\link[mgcv]{predict.gam}}

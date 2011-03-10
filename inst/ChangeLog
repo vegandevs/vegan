@@ -2,8 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 1.18-25 (opened March 10, 2011)
 
-Version 1.18-24 (opened February 28, 2011)
+	* ordisurf: got a formula interface as an alternative to define
+	the model.
+	
+Version 1.18-24 (closed March 10, 2011)
 
 	* cca: will return NULL item for CCA only if constraints were not
 	given. If the CCA component has zero rank (= constraints were
@@ -31,7 +35,6 @@ Version 1.18-24 (opened February 28, 2011)
 	* diversity, rarefy, rrarefy, specnumber: accept vector input. All
 	functions documented in ?diversity now accept vector input.
 	Function fisher.alpha and drararefy already accepted vectors.
-
 
 Version 1.18-23 (closed February 28, 2011)
 
