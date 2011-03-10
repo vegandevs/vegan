@@ -1,5 +1,7 @@
 \name{ordisurf}
 \alias{ordisurf}
+\alias{ordisurf.default}
+\alias{ordisurf.formula}
 \alias{calibrate.ordisurf}
 
 \title{ Fit and Plot Smooth Surfaces of Variables on Ordination. }
