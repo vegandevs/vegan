@@ -6,6 +6,9 @@
         stop("function works only with 'metaMDS' results")
     if (length(choices) != 2)
         stop("function can be only used with 2dim plots")
+    if (NCOL(object$points) > 2)
+        warning(gettextf("only two of %d axes are rotated",
+                         NCOL(object$points)))
     vec <- drop(vec)
     if (length(dim(vec)) > 1)
         stop("function works only with univariate 'x'")
@@ -18,10 +21,12 @@
     ## transpose (inverse) of the rotation matrix
     rot <- t(rot)
     ## Rotation of points and species scores
-    object$points[] <- object$points %*% rot
+    object$points[, choices] <-
+        object$points[, choices, drop=FALSE] %*% rot
     attr(object$points, "pc") <- FALSE
     if (!is.null(object$species))
-        object$species[] <- object$species %*% rot
+        object$species[, choices] <-
+            object$species[, choices, drop=FALSE] %*% rot
     object
 }
 

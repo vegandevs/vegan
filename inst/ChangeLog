@@ -6,6 +6,15 @@ Version 1.18-25 (opened March 10, 2011)
 
 	* ordisurf: got a formula interface as an alternative to define
 	the model.
+
+	* metaMDSrotate: function can only rotate two dimensions. It was
+	supposed to be able to pick two dimensions from multidimensional
+	solutions, but failed. Now it really rotates two dimensions, and
+	lefts the rest as unrotated instead of destroying them and only
+	returning the two axes. Needs improvement if we want to have this
+	as a generic function. Indeed, JO had great doubts about releasing
+	this function, but then light-mindedly let it go to 1.16-14 &
+	1.17-0.
 	
 Version 1.18-24 (closed March 10, 2011)
 
