@@ -7,14 +7,20 @@ Version 1.18-25 (opened March 10, 2011)
 	* ordisurf: got a formula interface as an alternative to define
 	the model.
 
-	* metaMDSrotate: function can only rotate two dimensions. It was
-	supposed to be able to pick two dimensions from multidimensional
-	solutions, but failed. Now it really rotates two dimensions, and
-	lefts the rest as unrotated instead of destroying them and only
-	returning the two axes. Needs improvement if we want to have this
-	as a generic function. Indeed, JO had great doubts about releasing
-	this function, but then light-mindedly let it go to 1.16-14 &
-	1.17-0.
+	* metaMDSrotate: can now rotate > 2-dim solutions so that the
+	first axis is parallel to a given vector and all others are
+	orthogonal to the vector (and rotated to PC if they were
+	originally). Earlier had argument 'choices' which was supposed to
+	select only two axes to be rotated (but failed before rev 1533),
+	but now lost 'choices' and always uses all dimensions, and
+	orthogonalies dim 2 and beyond against the given vector. There was
+	a query in R-sig-ecology on having two vectors in 3-dim ordination
+	which triggered the current changes, but this does not still
+	answer to the question of
+	https://stat.ethz.ch/pipermail/r-sig-ecology/2011-March/001947.html.
+	It would be possible to have this with recursive metaMDSrotate for
+	1..N for first 'vec', then 2..N for the second 'vec', but the
+	later 'vec's could be correlated with previous axes.
 	
 Version 1.18-24 (closed March 10, 2011)
 

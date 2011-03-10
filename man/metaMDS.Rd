@@ -43,7 +43,7 @@ initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
         nthreshold=10, plot=FALSE, ...)
 metaMDSredist(object, ...)
-metaMDSrotate(object, vec, choices, ...)
+metaMDSrotate(object, vec, ...)
 }
 
 \arguments{
