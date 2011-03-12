@@ -13,7 +13,7 @@
 \method{ordisurf}{default}(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
      w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-     bubble = FALSE, cex = 1, select = FALSE, ...)
+     bubble = FALSE, cex = 1, select = FALSE, method = "GCV.Cp", ...)
 \method{ordisurf}{formula}(formula, data, ...)
 \method{calibrate}{ordisurf}(object, newdata, ...)
 }
@@ -57,6 +57,15 @@
     of fitting can completely remove terms from the model. If the
     corresponding smoothing parameter is estimated as zero then the extra
     penalty has no effect.}
+  \item{method}{character; the smoothing parameter estimation
+    method. Options allowed are: \code{"GCV.Cp"} uses GCV for models with
+    unknown scale parameter and Mallows' Cp/UBRE/AIC for models with
+    known scale; \code{"GACV.Cp"} as for \code{"GCV.Cp"} but uses GACV
+    (Generalised Approximate CV) instead of GCV; \code{"REML"} and
+    \code{"ML"} use restricted maximum likelihood or maximum likelihood
+    estimation for both known and unknown scale; and \code{"P-REML"} and
+    \code{"P-ML"} use REML or ML estimation but use a Pearson estimate
+    of the scale.}
   \item{formula, data}{Alternative definition of the fitted model as
     \code{x ~ y}, or left-hand side is the ordination \code{x} and
     right-hand side the single fitted continuous variable

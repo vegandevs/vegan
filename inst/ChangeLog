@@ -8,6 +8,9 @@ Version 1.18-25 (opened March 10, 2011)
 	the model. Also now accepts `gam()` argument `select` to add an
 	extra penalty to smooths so they can be penalized to zero (i.e.
 	removed from the model). This is a form of model selection.
+	Estimation of smoothing parameters can now be determined via
+	argument `method`. Both `select` and `method` have been set to
+	defaults that were implied in previous versions of the function.
 
 	* metaMDSrotate: can now rotate > 2-dim solutions so that the
 	first axis is parallel to a given vector and all others are

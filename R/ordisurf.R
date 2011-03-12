@@ -16,15 +16,16 @@
 }
 
 `ordisurf.default` <-
-    function (x, y, choices = c(1, 2), knots = 10, family = "gaussian", 
-              col = "red", thinplate = TRUE, add = FALSE, display = "sites", 
+    function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
+              col = "red", thinplate = TRUE, add = FALSE, display = "sites",
               w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-              bubble = FALSE, cex = 1, select = FALSE, ...) 
+              bubble = FALSE, cex = 1, select = FALSE,
+              method = "GCV.Cp", ...)
 {
     weights.default <- function(object, ...) NULL
     GRID = 31
     w <- eval(w)
-    if (!is.null(w) && length(w) == 1) 
+    if (!is.null(w) && length(w) == 1)
         w <- NULL
     require(mgcv)  || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
@@ -43,15 +44,15 @@
         mod <- gam(y ~ x1 + x2, family = family, weights = w)
     else if (knots == 1)
         mod <- gam(y ~ poly(x1, 1) + poly(x2, 1),
-                   family = family, weights = w)
+                   family = family, weights = w, method = method)
     else if (knots == 2)
         mod <- gam(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1),
-                   family = family, weights = w)
-    else if (thinplate) 
-        mod <- gam(y ~ s(x1, x2, k = knots), family = family, 
-                   weights = w, select = select)
-    else mod <- gam(y ~ s(x1, k = knots) + s(x2, k = knots), 
-                    family = family, weights = w, select = select)
+                   family = family, weights = w, method = method)
+    else if (thinplate)
+        mod <- gam(y ~ s(x1, x2, k = knots), family = family,
+                   weights = w, select = select, method = method)
+    else mod <- gam(y ~ s(x1, k = knots) + s(x2, k = knots), family = family,
+                    weights = w, select = select, method = method)
     xn1 <- seq(min(x1), max(x1), len=GRID)
     xn2 <- seq(min(x2), max(x2), len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
@@ -77,13 +78,13 @@
         plot(X, asp = 1, cex = cex, ...)
     }
     if (!missing(main) || (missing(main) && !add)) {
-        if (missing(main)) 
+        if (missing(main))
             main <- yname
         title(main = main)
     }
-    if (missing(levels)) 
+    if (missing(levels))
         levels <- pretty(range(fit, finite = TRUE), nlevels)
-    
+
     contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
             levels = levels, labcex = labcex,
             drawlabels = !is.null(labcex) && labcex > 0)
