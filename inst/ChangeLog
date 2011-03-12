@@ -5,7 +5,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.18-25 (opened March 10, 2011)
 
 	* ordisurf: got a formula interface as an alternative to define
-	the model.
+	the model. Also now accepts `gam()` argument `select` to add an
+	extra penalty to smooths so they can be penalized to zero (i.e.
+	removed from the model). This is a form of model selection.
 
 	* metaMDSrotate: can now rotate > 2-dim solutions so that the
 	first axis is parallel to a given vector and all others are
@@ -21,7 +23,7 @@ Version 1.18-25 (opened March 10, 2011)
 	It would be possible to have this with recursive metaMDSrotate for
 	1..N for first 'vec', then 2..N for the second 'vec', but the
 	later 'vec's could be correlated with previous axes.
-	
+
 Version 1.18-24 (closed March 10, 2011)
 
 	* cca: will return NULL item for CCA only if constraints were not

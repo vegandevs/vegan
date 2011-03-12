@@ -13,7 +13,7 @@
 \method{ordisurf}{default}(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
      w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-     bubble = FALSE, cex = 1, ...)
+     bubble = FALSE, cex = 1, select = FALSE, ...)
 \method{ordisurf}{formula}(formula, data, ...)
 \method{calibrate}{ordisurf}(object, newdata, ...)
 }
@@ -50,6 +50,13 @@
     the maximum. The minimum size will always be \code{cex = 0.4}.  The
     option only has an effect if \code{add = FALSE}.}
   \item{cex}{Character expansion of plotting symbols.}
+  \item{select}{Logical; specify \code{\link[mgcv]{gam}} argument
+    \code{"select"}. If this is \code{TRUE} then \code{\link[mgcv]{gam}} can
+    add an extra  penalty to each term so that it can be penalized to
+    zero. This means that the smoothing parameter estimation that is part
+    of fitting can completely remove terms from the model. If the
+    corresponding smoothing parameter is estimated as zero then the extra
+    penalty has no effect.}
   \item{formula, data}{Alternative definition of the fitted model as
     \code{x ~ y}, or left-hand side is the ordination \code{x} and
     right-hand side the single fitted continuous variable
@@ -122,6 +129,11 @@ library(MASS)
 vare.dist <- vegdist(varespec)
 vare.mds <- isoMDS(vare.dist)
 with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
+
+## as above but with extra penalties on smooth terms:
+with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5, col = "blue",
+                        add = TRUE, select = TRUE))
+
 ## Cover of Cladina arbuscula
 fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 ## Get fitted values

@@ -19,7 +19,7 @@
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian", 
               col = "red", thinplate = TRUE, add = FALSE, display = "sites", 
               w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-              bubble = FALSE, cex = 1, ...) 
+              bubble = FALSE, cex = 1, select = FALSE, ...) 
 {
     weights.default <- function(object, ...) NULL
     GRID = 31
@@ -49,9 +49,9 @@
                    family = family, weights = w)
     else if (thinplate) 
         mod <- gam(y ~ s(x1, x2, k = knots), family = family, 
-                   weights = w)
+                   weights = w, select = select)
     else mod <- gam(y ~ s(x1, k = knots) + s(x2, k = knots), 
-                    family = family, weights = w)
+                    family = family, weights = w, select = select)
     xn1 <- seq(min(x1), max(x1), len=GRID)
     xn2 <- seq(min(x2), max(x2), len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
