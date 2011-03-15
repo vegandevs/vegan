@@ -81,12 +81,26 @@
 \details{
   Function \code{ordisurf} fits a smooth surface using thinplate splines
   in \code{\link[mgcv]{gam}}, and uses \code{\link[mgcv]{predict.gam}}
-  to find fitted values in a regular grid.
-  Function plots the fitted contours with convex hull of data points 
-  either over an existing ordination diagram or draws a new plot
-  The function uses
-  \code{\link{scores}} to extract ordination scores, and \code{x} can be
-  any result object known by that function.
+  to find fitted values in a regular grid. The smooth surface can be
+  fitted with an extra penalty that allows the entire smoother to be
+  penalized back to 0 degrees of freedom, effectively removing the term
+  from the model. The addition of this extra penalty is invoked by
+  setting argument \code{select} to \code{TRUE}. The function plots the
+  fitted contours with convex hull of data points either over an
+  existing ordination diagram or draws a new plot. If \code{select ==
+    TRUE} and the smooth is effectively penalised out of the model, no
+  contours will be plotted.
+
+  \code{\link[mgcv]{gam}} determines the degree of smoothness for the
+  fitted response surface during model fitting. Argument \code{method}
+  controls how \code{\link[mgcv]{gam}} performs this smoothness
+  selection. See \code{\link[mgcv]{gam}} for details of the available
+  options. Using \code{"REML"} or \code{"ML"} yields p-values for
+  smooths with the best coverage properties if such things matter to
+  you.
+
+  The function uses \code{\link{scores}} to extract ordination scores,
+  and \code{x} can be any result object known by that function.
 
   User can supply a vector of prior weights \code{w}. If the ordination
   object has weights, these will be used. In practise this means that

@@ -11,6 +11,8 @@ Version 1.18-25 (opened March 10, 2011)
 	Estimation of smoothing parameters can now be determined via
 	argument `method`. Both `select` and `method` have been set to
 	defaults that were implied in previous versions of the function.
+	If smooth is penalized to (effectively) 0, countour plotting is
+	suppressed.
 
 	* metaMDSrotate: can now rotate > 2-dim solutions so that the
 	first axis is parallel to a given vector and all others are

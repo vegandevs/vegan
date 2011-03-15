@@ -84,10 +84,11 @@
     }
     if (missing(levels))
         levels <- pretty(range(fit, finite = TRUE), nlevels)
-
-    contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
-            levels = levels, labcex = labcex,
-            drawlabels = !is.null(labcex) && labcex > 0)
+    ## Only plot surface is select is FALSE or (TRUE and EDF is diff from 0)
+    if(!select || (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
+        contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
+                levels = levels, labcex = labcex,
+                drawlabels = !is.null(labcex) && labcex > 0)
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
     mod
