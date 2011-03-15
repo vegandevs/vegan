@@ -10,11 +10,38 @@
     SOL <- FALSE
     converged <- FALSE
     isotrace <- max(0, trace - 1)
+    ## Previous best or initial configuration 
     if (!missing(previous.best) && !is.null(previous.best)) {
-        s0 <- previous.best
-        if (trace) 
-            cat("Starting from a previous solution\n")
-    }
+        ## check if previous.best is from metaMDS or isoMDS
+        if (inherits(previous.best, "metaMDS") ||
+            is.list(previous.best) &&
+            all(c("points", "stress") %in% names(previous.best))) {
+            ## real "previous best"
+            if (NCOL(previous.best$points) == k) {
+                s0 <- previous.best
+                if (trace) 
+                    cat("Starting from a previous solution\n")
+            } else {
+                init <- previous.best$points
+                nc <- NCOL(init)
+                if (nc > k)
+                    init <- init[, 1:k, drop = FALSE]
+                else   # nc < k
+                    for (i in 1:(k-nc))
+                        init <- cbind(init, runif(NROW(init), -0.1, 0.1))
+                # evaluate isoMDS with stress
+                s0 <- isoMDS(dist, init, k = k, maxit = 0)
+                if (trace)
+                    cat(gettextf("Starting from %d-dimensional solution\n", nc))
+            }
+        } else if (is.matrix(previous.best) || is.data.frame(previous.best)) {
+            s0 <- isoMDS(dist, previous.best, k = k, maxit = 0)
+            if (trace)
+                cat("Starting from supplied configuration\n")
+        } else { # an error!
+            stop("'previous.best' of unknown kind")
+        }
+    } # No previous best:
     else s0 <- isoMDS(dist, k = k, trace = isotrace)
     if (trace) 
         cat("Run 0 stress", s0$stress, "\n")
@@ -48,10 +75,12 @@
         }
         flush.console()
     }
-    if (!missing(previous.best) && !is.null(previous.best$tries)) 
+    if (!missing(previous.best) && inherits(previous.best, "metaMDS")) {
         tries <- tries + previous.best$tries
+    }
     out <- list(points = s0$points, dims = k, stress = s0$stress, 
-                data = attr(dist, "commname"), distance = attr(dist, 
-                                               "method"), converged = converged, tries = tries)
+                data = attr(dist, "commname"),
+                distance = attr(dist, "method"), converged = converged,
+                tries = tries)
     out
 }

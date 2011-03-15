@@ -27,6 +27,13 @@ Version 1.18-25 (opened March 10, 2011)
 	1..N for first 'vec', then 2..N for the second 'vec', but the
 	later 'vec's could be correlated with previous axes.
 
+	* metaMDS: 'previous.best' can now be a user-supplied
+	configuration, or a result of isoMDS(). If 'previous.best' is an
+	isoMDS() or a metaMDS() result, it can have different number of
+	dimensions than the current 'k': extra dimensions are dropped off,
+	or noisy extra dimensions are added as needed. This may help in
+	running metaMDS() with a range of 'k'. Not yet documented.
+
 Version 1.18-24 (closed March 10, 2011)
 
 	* cca: will return NULL item for CCA only if constraints were not
