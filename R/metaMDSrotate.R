@@ -11,7 +11,9 @@
         stop(gettextf("needs at least 2 dimensions"))
     vec <- drop(vec)
     if (length(dim(vec)) > 1)
-        stop(gettextf, "function works only with univariate 'vec'")
+        stop(gettextf("function works only with univariate 'vec'"))
+    if (!is.numeric(vec))
+        stop(gettextf("'vec' must be numeric"))
     ## scores must be orthogonal for the next loop to work
     if (N > 2) {
         pc <- prcomp(x)
@@ -23,7 +25,7 @@
     ## 'vec' which means that we make other axes orthogonal to 'vec'
     ## one by one
     for (k in 2:N) {
-        rot <- envfit(x, vec, choices = c(1,k), permutations=0)$vectors$arrows
+        rot <- vectorfit(x[, c(1,k)], vec, permutations=0)$arrows
         rot <- drop(rot)
         ## rotation matrix [[sin theta, cos theta] [-cos theta, sin theta]]
         rot <- rbind(rot, rev(rot))
