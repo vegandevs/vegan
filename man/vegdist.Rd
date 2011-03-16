@@ -84,7 +84,7 @@
     \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
     \cr
     \code{bray}
-    \tab \eqn{d_{jk} = \frac{\sum_i |x_{ij}-x_{ik}|}{\sum_i (x_{ij}+x_{ik})}}{d[jk] = (sum abs(x[ij]-x[ik])/(sum (x[ij]+x[ik]))}
+    \tab \eqn{d_{jk} = \frac{\sum_i |x_{ij}-x_{ik}|}{\sum_i (x_{ij}+x_{ik})}}{d[jk] = (sum abs(x[ij]-x[ik]))/(sum (x[ij]+x[ik]))}
     \cr \tab binary: \eqn{\frac{A+B-2J}{A+B}}{(A+B-2*J)/(A+B)}
     \cr
     \code{kulczynski}
