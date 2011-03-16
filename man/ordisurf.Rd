@@ -3,6 +3,7 @@
 \alias{ordisurf.default}
 \alias{ordisurf.formula}
 \alias{calibrate.ordisurf}
+\alias{plot.ordisurf}
 
 \title{ Fit and Plot Smooth Surfaces of Variables on Ordination. }
 \description{
@@ -13,14 +14,23 @@
 \method{ordisurf}{default}(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
      thinplate = TRUE, add = FALSE, display = "sites",
      w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-     bubble = FALSE, cex = 1, select = FALSE, method = "GCV.Cp", ...)
+     bubble = FALSE, cex = 1, select = FALSE, method = "GCV.Cp",
+     gamma = 1, plot = TRUE, ...)
+
 \method{ordisurf}{formula}(formula, data, ...)
+
 \method{calibrate}{ordisurf}(object, newdata, ...)
+
+\method{plot}{ordisurf}(x, what = c("contour","persp","gam"),
+     add = FALSE, bubble = FALSE, col = "red", cex = 1,
+     nlevels = 10, levels, labcex = 0.6, \dots)
 }
 
 \arguments{
-  \item{x}{Ordination configuration, either a matrix or a result known
-    by \code{\link{scores}}. }
+  \item{x}{For \code{ordisurf} an ordination configuration, either a
+    matrix or a result known by \code{\link{scores}}. For
+    \code{plot.ordisurf} and object of class \code{"ordisurf"} as
+    returned by \code{ordisurf}.}
   \item{y}{ Variable to be plotted. }
   \item{choices}{Ordination axes. }
   \item{knots}{Number of initial knots in \code{\link[mgcv]{gam}} (one
@@ -66,6 +76,12 @@
     estimation for both known and unknown scale; and \code{"P-REML"} and
     \code{"P-ML"} use REML or ML estimation but use a Pearson estimate
     of the scale.}
+  \item{gamma}{Multiplier to inflate model degrees of freedom in GCV or
+    UBRE/AIC score by. This effectively places an extra penalty on
+    complex models. An oft used value if \code{gamma = 1.4}.}
+  \item{plot}{logical; should any plotting be done by
+    \code{ordisurf}? Useful if all you want is the fitted response
+    surface model.}
   \item{formula, data}{Alternative definition of the fitted model as
     \code{x ~ y}, or left-hand side is the ordination \code{x} and
     right-hand side the single fitted continuous variable
@@ -73,9 +89,17 @@
     or in the data frame or environment given by \code{data}. All
     other arguments of are passed to the default method.}
   \item{object}{An \code{ordisurf} result object.}
-  \item{newdata}{Coordinates in two-dimensional ordination for new points.}
+  \item{newdata}{Coordinates in two-dimensional ordination for new
+    points.}
+  \item{what}{character; what type of plot to produce. \code{"contour"}
+    produces a contour plot of the response surface, see
+    \code{\link{contour}} for details. \code{"persp"} produces a
+    perspective plot of the same, see \code{\link{persp}} for
+    details. \code{"gam"} plots the fitted GAM model, an object that
+    inherits from class \code{"gam"} returned by \code{ordisurf}, see
+    \code{\link[mgcv]{plot.gam}}.} 
   \item{\dots}{Other parameters passed to \code{\link[mgcv]{gam}}, or
-    to the graphical functions.}
+    to the graphical functions. See Note below for exceptions.}
 }
 
 \details{
@@ -133,11 +157,22 @@
   predicting new values (see \code{\link[mgcv]{predict.gam}}).
 }
 
-\author{ Dave Roberts and Jari Oksanen }
+\author{ Dave Roberts, Jari Oksanen and Gavin L. Simpson }
 \note{   
   The default is to use thinplate splines.  These make sense in
   ordination as they have equal smoothing in all directions and are
-  rotation invariant. 
+  rotation invariant.
+
+  Graphical arguments supplied to \code{plot.ordisurf} are passed on to
+  the underlying plotting functions, \code{contour}, \code{persp}, and
+  \code{\link[mgcv]{plot.gam}}. The exception to this is that arguments
+  \code{col} and \code{cex} can not currently be passed to
+  \code{\link[mgcv]{plot.gam}} because of a bug in the way that function
+  evaluates arguments when arranging the plot.
+
+  A work-around is to call \code{\link[mgcv]{plot.gam}} directly on the
+  result of a call to \code{ordisurf}. See the Examples for an
+  illustration of this.  
 }
 
 \seealso{ For basic routines \code{\link[mgcv]{gam}},
@@ -161,6 +196,15 @@ with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5, col = "blue",
 fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 ## Get fitted values
 calibrate(fit)
+
+## Plot method
+plot(fit, what = "contour")
+
+## Plotting the "gam" object
+plot(fit, what = "gam") ## 'col' and 'cex' not passed on
+## or via plot.gam directly
+plot.gam(fit, cex = 2, pch = 1, col = "blue")
+## 'col' effects all objects drawn...
 }
 \keyword{ multivariate }
 \keyword{ aplot }

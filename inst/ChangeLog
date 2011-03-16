@@ -12,7 +12,12 @@ Version 1.18-25 (opened March 10, 2011)
 	argument `method`. Both `select` and `method` have been set to
 	defaults that were implied in previous versions of the function.
 	If smooth is penalized to (effectively) 0, countour plotting is
-	suppressed.
+	suppressed. New argument `gamma` can be used to increase the cost
+	of each degree of freedom used by a model in the GCV or UBRE/AIC
+	scores used in smoothness selection. New argument `plot` can be
+	used to stop ordisurf producing any graphical output.
+	A plot method is now provided that can draw contour or perspective
+	plots of ordisurf results, or plot the fitted GAM surface.
 
 	* metaMDSrotate: can now rotate > 2-dim solutions so that the
 	first axis is parallel to a given vector and all others are
