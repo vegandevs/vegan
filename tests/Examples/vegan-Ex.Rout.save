@@ -4645,6 +4645,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: ordisurf
 > ### Title: Fit and Plot Smooth Surfaces of Variables on Ordination.
 > ### Aliases: ordisurf ordisurf.default ordisurf.formula calibrate.ordisurf
+> ###   plot.ordisurf
 > ### Keywords: multivariate aplot
 > 
 > ### ** Examples
@@ -4667,7 +4668,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1033d4d48>
+<environment: 0x103156c00>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4683,7 +4684,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105a701b8>
+<environment: 0x103286148>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4702,6 +4703,15 @@ GCV score: 166.6991
 23.4774998 29.9710379  7.0213117 15.7428646  2.7320035  0.8380256  3.4990451 
         22         23         24 
  1.2362978 10.9537267  0.7443408 
+> 
+> ## Plot method
+> plot(fit, what = "contour")
+> 
+> ## Plotting the "gam" object
+> plot(fit, what = "gam") ## 'col' and 'cex' not passed on
+> ## or via plot.gam directly
+> plot.gam(fit, cex = 2, pch = 1, col = "blue")
+> ## 'col' effects all objects drawn...
 > 
 > 
 > 
@@ -4830,7 +4840,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x100ff1d58>
+<environment: 0x104eeb520>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4843,7 +4853,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105ff2df8>
+<environment: 0x107318ed0>
 
 Estimated degrees of freedom:
 7.753  total = 8.75294 
@@ -4856,7 +4866,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105fac898>
+<environment: 0x1071ce4a0>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7485,7 +7495,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106b16d10>
+<environment: 0x10456e8b0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7962,7 +7972,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  113.356 1.278 116.208 0 0 
+Time elapsed:  118.697 1.564 126.298 0 0 
 > grDevices::dev.off()
 null device 
           1 
