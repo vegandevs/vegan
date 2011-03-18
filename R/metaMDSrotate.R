@@ -21,17 +21,17 @@
         if (!all(is.na(sp)))
             sp <- sp %*% pc$rotation
     }
-    ## envfit finds the direction cosine. We rotate first axis to
+    ## vectorfit finds the direction cosine. We rotate first axis to
     ## 'vec' which means that we make other axes orthogonal to 'vec'
     ## one by one
     for (k in 2:N) {
         rot <- vectorfit(x[, c(1,k)], vec, permutations=0)$arrows
         rot <- drop(rot)
-        ## rotation matrix [[sin theta, cos theta] [-cos theta, sin theta]]
+        ## counterclockwise rotation matrix:
+        ## [cos theta   -sin theta]
+        ## [sin theta    cos theta]
         rot <- rbind(rot, rev(rot))
-        rot[2,1] <- -rot[2,1]
-        ## transpose (inverse) of the rotation matrix
-        rot <- t(rot)
+        rot[1,2] <- -rot[1,2]
         ## Rotation of points and species scores
         x[, c(1,k)] <- x[, c(1,k)] %*% rot
         if (!all(is.na(sp)))
