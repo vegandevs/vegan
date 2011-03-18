@@ -31,6 +31,9 @@
                         init <- cbind(init, runif(NROW(init), -0.1, 0.1))
                 # evaluate isoMDS with stress
                 s0 <- isoMDS(dist, init, k = k, maxit = 0)
+                # zero 'tries': this was a new start
+                if (inherits(previous.best, "metaMDS"))
+                    previous.best$tries <- 0
                 if (trace)
                     cat(gettextf("Starting from %d-dimensional solution\n", nc))
             }
