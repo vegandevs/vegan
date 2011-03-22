@@ -1,7 +1,7 @@
 `ordilabel` <-
     function(x, display, labels, choices = c(1,2), priority,
              cex = 0.8, fill = "white", border = NULL, col = NULL,
-             ...)
+             xpd = TRUE, ...)
 {
     if (missing(display))
         display <- "sites"
@@ -24,8 +24,9 @@
             col <- par("fg")
     for (i in 1:nrow(x)) {
         polygon(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
-                col = fill, border = border)
-        text(x[i,1], x[i,2], labels = labels[i], cex = cex, col = col, ...)
+                col = fill, border = border, xpd = xpd)
+        text(x[i,1], x[i,2], labels = labels[i], cex = cex, col = col,
+             xpd = xpd, ...)
     }
     invisible(x)
 }

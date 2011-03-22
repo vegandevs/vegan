@@ -11,7 +11,7 @@
 
 \usage{
 ordilabel(x, display, labels, choices = c(1, 2), priority, cex = 0.8,
-    fill = "white", border = NULL, col = NULL, ...)
+    fill = "white", border = NULL, col = NULL, xpd = TRUE, ...)
 }
 
 \arguments{
@@ -31,7 +31,9 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, cex = 0.8,
   \item{border}{The colour and visibility of the border of the label as
     defined in \code{\link{polygon}}).}
   \item{col}{Text colour. Default \code{NULL} will give the value of
-    \code{border} or \code{par("fg")} if \code{border} is \code{NULL}.} 
+    \code{border} or \code{par("fg")} if \code{border} is \code{NULL}.}
+  \item{xpd}{Draw labels also outside the plot region (see 
+    \code{\link{par}}).} 
   \item{\dots}{Other arguments (passed to \code{\link{text}}). }
 }
 
