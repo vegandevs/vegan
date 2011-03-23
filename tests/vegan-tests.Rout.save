@@ -1,6 +1,6 @@
 
-R version 2.12.1 (2010-12-16)
-Copyright (C) 2010 The R Foundation for Statistical Computing
+R version 2.12.2 (2011-02-25)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
@@ -190,8 +190,45 @@ Residual  4 0.6585
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 > detach(df)
+> ### Check that statistics match in partial constrained ordination
+> m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
+> tab <- anova(m, by = "axis", perm.max = 100)
+> m
+Call: cca(formula = dune ~ A1 + Moisture + Condition(Management), data
+= dune.env, subset = A1 > 3)
+
+              Inertia Proportion Rank
+Total          2.0976     1.0000     
+Conditional    0.6251     0.2980    3
+Constrained    0.5555     0.2648    4
+Unconstrained  0.9170     0.4372   10
+Inertia is mean squared contingency coefficient 
+
+Eigenvalues for constrained axes:
+   CCA1    CCA2    CCA3    CCA4 
+0.27109 0.14057 0.08761 0.05624 
+
+Eigenvalues for unconstrained axes:
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
+0.31042 0.13634 0.11974 0.09408 0.07763 0.06425 0.04449 0.02925 0.02785 0.01299 
+
+> tab
+Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env,      subset = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE,      TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,      TRUE, FALSE))
+         Df  Chisq      F N.Perm Pr(>F)  
+CCA1      1 0.2711 2.9561     99   0.02 *
+CCA2      1 0.1406 1.5329     99   0.10 .
+CCA3      1 0.0876 0.9553     99   0.46  
+CCA4      1 0.0562 0.6132     99   0.78  
+Residual 10 0.9170                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
+[1] TRUE
+> tab[nrow(tab),1] == m$CA$rank
+[1] TRUE
+> 
 > ## clean-up
-> rm(df, spno, fla, m, p, q, .Random.seed)
+> rm(df, spno, fla, m, p, q, tab, .Random.seed)
 > ### <--- END anova.cca test --->
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on

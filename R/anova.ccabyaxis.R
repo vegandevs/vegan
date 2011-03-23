@@ -1,10 +1,6 @@
 "anova.ccabyaxis" <-
 function (object, cutoff = 1,  ...) 
 {
-    ## FIXME: wrong results in partial model
-    ## BUG -- NEEDS AN URGENT FIX
-    if (!is.null(object$pCCA))
-        stop("anova by 'axis' does not work in partial models: call the developers")
     cutoff <- cutoff + sqrt(.Machine$double.eps)
     rnk <- object$CCA$rank
     if (!max(rnk, 0)) 
@@ -18,11 +14,26 @@ function (object, cutoff = 1,  ...)
     } else {
         u <- object$CCA$u
     }
+    ## Get conditions
+    if (!is.null(object$pCCA)) {
+        CondMat <- qr.X(object$pCCA$QR)
+        ## deweight if CCA
+        if (!inherits(object, "rda"))
+            CondMat <- sweep(CondMat, 1, sqrt(object$rowsum), "/")
+    }
+    else
+        CondMat <- NULL
     ## pad with NA rows if there is a subset
     if (!is.null(object$subset)) {
         lc <- matrix(NA, nrow=length(object$subset),
-                     ncol = ncol(u))
+                     ncol = NCOL(u))
         lc[object$subset,]  <- u
+        if (!is.null(CondMat)) {
+            tmp <- matrix(NA, nrow=length(object$subset),
+                          ncol = NCOL(CondMat))
+            tmp[object$subset,] <- CondMat
+            CondMat <- tmp
+        }
         object$call$subset <- object$subset
     } else {
         lc <- u
@@ -38,6 +49,8 @@ function (object, cutoff = 1,  ...)
     environment(object$terms) <- environment()
     fla <- paste(". ~ ", axnam[1], "+ Condition(",
                  paste(axnam[-1], collapse="+"),")")
+    if (!is.null(CondMat))
+        fla <- paste(fla, " + Condition(CondMat)")
     fla <- update(formula(object), fla)
     sol <- anova(update(object, fla, data=lc),  ...)
     out[c(1, rnk + 1), ] <- sol
@@ -52,11 +65,12 @@ function (object, cutoff = 1,  ...)
         for (.ITRM in 2:rnk) {
             fla <- paste(".~", axnam[.ITRM], "+Condition(",
                          paste(axnam[-(.ITRM)], collapse="+"),")")
+            if (!is.null(CondMat))
+                fla <- paste(fla, "+ Condition(CondMat)")
             fla <- update(formula(object),  fla) 
             sol <- update(object, fla, data = lc)
             assign(".Random.seed", seed, envir = .GlobalEnv)
-            out[.ITRM, ] <- as.matrix(anova(sol, ...))[1, 
-                ]
+            out[.ITRM, ] <- as.matrix(anova(sol, ...))[1,]
             if (out[.ITRM, "N.Perm"] > bigperm) {
                 bigperm <- out[.ITRM, "N.Perm"]
                 bigseed <- get(".Random.seed", envir = .GlobalEnv, 

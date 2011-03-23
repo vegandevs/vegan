@@ -55,8 +55,16 @@ anova(q, by="term", perm=100)
 anova(q, by="margin", perm=100)
 anova(q, by="axis", perm=100)
 detach(df)
+### Check that statistics match in partial constrained ordination
+m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
+tab <- anova(m, by = "axis", perm.max = 100)
+m
+tab
+all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
+tab[nrow(tab),1] == m$CA$rank
+
 ## clean-up
-rm(df, spno, fla, m, p, q, .Random.seed)
+rm(df, spno, fla, m, p, q, tab, .Random.seed)
 ### <--- END anova.cca test --->
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on

@@ -2,13 +2,16 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-25 (opened March 10, 2011)
+Version 1.18-26 (opened March 23, 2011)
 
 	* anova.ccabyaxis: I (JO) noticed in an ORDNEWS message that
-	anova(..., by = "axis") drops the original conditions in partial
-	models and so gives wrong results. The first thing here prevents
-	the analysis, and a final fix brings along a new release (this
-	also breaks the tests).
+	anova(..., by = "axis") ignores the original Conditions in partial
+	models and so gives wrong results in partial models. The fix finds
+	the conditioning matrix as qr.X(object$pCCA$QR), and uses this as
+	a Condition in updated models. Added a regression test that checks
+	that statistics and residual df match.
+
+Version 1.18-25 (closed March 23, 2011)
 
 	* ordilabel: gained argument 'xpd' to draw labels outside the plot
 	region. 
