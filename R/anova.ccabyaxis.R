@@ -1,6 +1,10 @@
 "anova.ccabyaxis" <-
 function (object, cutoff = 1,  ...) 
 {
+    ## FIXME: wrong results in partial model
+    ## BUG -- NEEDS AN URGENT FIX
+    if (!is.null(object$pCCA))
+        stop("anova by 'axis' does not work in partial models: call the developers")
     cutoff <- cutoff + sqrt(.Machine$double.eps)
     rnk <- object$CCA$rank
     if (!max(rnk, 0)) 

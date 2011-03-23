@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-25 (opened March 10, 2011)
 
+	* anova.ccabyaxis: I (JO) noticed in an ORDNEWS message that
+	anova(..., by = "axis") drops the original conditions in partial
+	models and so gives wrong results. The first thing here prevents
+	the analysis, and a final fix brings along a new release (this
+	also breaks the tests).
+
 	* ordilabel: gained argument 'xpd' to draw labels outside the plot
 	region. 
 
