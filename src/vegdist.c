@@ -20,10 +20,11 @@
 
 
 /* Standard R headers */
+#include <R_ext/Arith.h>
 
 #include <R.h>
 #include <Rmath.h>
-#include <math.h>
+#include <float.h>
 
 
 /* Indices */
