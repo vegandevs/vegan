@@ -4,6 +4,18 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-26 (opened March 23, 2011)
 
+	* oecosimu: added argument 'tiesplit' (defaults FALSE). If TRUE,
+	simulated values tied with the observed statistic are split so
+	that half of them are regarded as satisfying the condition, and
+	removed from those cases which are greater or less (as given by
+	'alternative'). This is usually *not* done, but implementing
+	Raup-Crick dissimilarity in oecosimu() following
+	http://www.esajournals.org/doi/pdf/10.1890/ES10-00117.1 (Chase et
+	al., Ecosphere 2011) uses this option. However, cross-checking
+	the "r0" null model against the vegdist(..., "raup") indicates
+	that the options should be set FALSE (and this would mean that the
+	change is reverted).
+
 	* anova.ccabyaxis: I (JO) noticed in an ORDNEWS message that
 	anova(..., by = "axis") ignores the original Conditions in partial
 	models and so gives wrong results in partial models. The fix finds
