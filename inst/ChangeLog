@@ -27,6 +27,9 @@ Version 1.18-26 (opened March 23, 2011)
 	heterogeneities as Canoco does. Includes a method for objects of
 	class "cca".
 
+	* plot.contribdiv: plot now draws axes and box *after* doing the
+	drawing - stops polygons overplotting the axis and box.
+
 Version 1.18-25 (closed March 23, 2011)
 
 	* ordilabel: gained argument 'xpd' to draw labels outside the plot
