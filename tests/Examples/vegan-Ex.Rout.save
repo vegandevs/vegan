@@ -1,8 +1,8 @@
 
-R version 2.12.2 (2011-02-25)
+R version 2.13.0 alpha (2011-03-28 r55109)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -385,8 +385,8 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3 
-0.4187 0.1330 0.0766 
+   CCA1    CCA2    CCA3 
+0.41868 0.13304 0.07659 
 
 Eigenvalues for unconstrained axes:
      CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
@@ -845,31 +845,31 @@ K  -0.006755568  0.015343662  0.017067351
 Influence measures of
 	 lm(formula = wa ~ . - 1, data = as.data.frame(X)) :
 
-      dfb.Al    dfb.P    dfb.K    CCA1    CCA2      CCA3  cov.r   CCA1.1
-18 -0.251387  0.00976 -0.06310  0.2740  0.1806 -0.118754 0.0265 7.38e-03
-15  0.099858  0.13864 -0.11781 -0.1654 -0.0935  0.006898 0.0319 2.86e-03
-24 -0.003448 -0.44078  0.20788 -0.4824 -0.1750 -0.260788 0.0307 2.33e-02
-27  0.071682 -0.01707 -0.03516 -0.1018 -0.1676  0.022271 0.0406 1.13e-03
-23 -0.116533  0.06900 -0.02545  0.1441  0.2918 -0.220457 0.0355 2.23e-03
-19 -0.007394 -0.01169  0.01080  0.0136 -0.2318 -0.000417 0.0359 2.02e-05
-22  0.150916  0.14845 -0.13091 -0.2047  0.3815  0.168914 0.0376 4.50e-03
-16  0.107456  0.17900 -0.09917 -0.2120  0.2250  0.194432 0.0338 4.75e-03
-28  0.332161 -0.34398 -0.05414 -0.6774  0.0742  0.620990 0.0364 4.65e-02
-13  0.366880 -1.00834  1.23685  1.3392  0.4102  0.277067 0.1124 1.89e-01
-14  0.024147  0.02512 -0.01161 -0.0361  0.1491  0.053638 0.0355 1.42e-04
-20  0.000747 -0.00560  0.00205 -0.0066  0.2935 -0.190351 0.0368 4.77e-06
-25  0.166736 -0.11049  0.09341 -0.2095 -0.1627 -0.070753 0.0346 4.66e-03
-7  -0.397145  0.15747  0.15662 -0.5912  0.5842 -0.838287 0.0327 3.51e-02
-5  -0.279996 -0.09119 -0.35616  0.7358  0.3694 -0.326563 0.0281 5.18e-02
-6   0.003191 -0.00168 -0.01550  0.0259  0.3447  0.201072 0.0400 7.34e-05
-3  -0.302851 -0.07889  0.25932 -0.4196 -0.2766  0.536017 0.0386 1.85e-02
-4  -0.058151 -0.02719  0.00870 -0.0664  0.8199  0.131003 0.0486 4.83e-04
-2   0.020380  0.00416 -0.00373  0.0206 -0.4158 -0.160401 0.0395 4.62e-05
-9   0.074217  0.09551 -0.10857  0.1271 -0.3481  0.644579 0.0383 1.75e-03
-12 -0.097825 -0.20830  0.04637  0.2864 -0.6601  0.270324 0.0280 8.19e-03
-10  0.149178  0.66594 -0.12975  0.8935 -0.2510  0.000571 0.0118 5.90e-02
-11  0.014687  0.00691  0.00105  0.0191  0.1838 -0.301086 0.0377 4.00e-05
-21  0.148213  0.15461 -0.02915 -0.2531 -0.1892 -0.318491 0.0361 6.81e-03
+      dfb.Al    dfb.P    dfb.K     CCA1    CCA2      CCA3  cov.r   CCA1.1
+18 -0.251387  0.00976 -0.06310  0.27401  0.1806 -0.118754 0.0265 7.38e-03
+15  0.099858  0.13864 -0.11781 -0.16542 -0.0935  0.006898 0.0319 2.86e-03
+24 -0.003448 -0.44078  0.20788 -0.48239 -0.1750 -0.260788 0.0307 2.33e-02
+27  0.071682 -0.01707 -0.03516 -0.10185 -0.1676  0.022271 0.0406 1.13e-03
+23 -0.116533  0.06900 -0.02545  0.14407  0.2918 -0.220457 0.0355 2.23e-03
+19 -0.007394 -0.01169  0.01080  0.01360 -0.2318 -0.000417 0.0359 2.02e-05
+22  0.150916  0.14845 -0.13091 -0.20466  0.3815  0.168914 0.0376 4.50e-03
+16  0.107456  0.17900 -0.09917 -0.21196  0.2250  0.194432 0.0338 4.75e-03
+28  0.332161 -0.34398 -0.05414 -0.67745  0.0742  0.620990 0.0364 4.65e-02
+13  0.366880 -1.00834  1.23685  1.33919  0.4102  0.277067 0.1124 1.89e-01
+14  0.024147  0.02512 -0.01161 -0.03608  0.1491  0.053638 0.0355 1.42e-04
+20  0.000747 -0.00560  0.00205 -0.00661  0.2935 -0.190351 0.0368 4.77e-06
+25  0.166736 -0.11049  0.09341 -0.20954 -0.1627 -0.070753 0.0346 4.66e-03
+7  -0.397145  0.15747  0.15662 -0.59116  0.5842 -0.838287 0.0327 3.51e-02
+5  -0.279996 -0.09119 -0.35616  0.73579  0.3694 -0.326563 0.0281 5.18e-02
+6   0.003191 -0.00168 -0.01550  0.02590  0.3447  0.201072 0.0400 7.34e-05
+3  -0.302851 -0.07889  0.25932 -0.41958 -0.2766  0.536017 0.0386 1.85e-02
+4  -0.058151 -0.02719  0.00870 -0.06644  0.8199  0.131003 0.0486 4.83e-04
+2   0.020380  0.00416 -0.00373  0.02055 -0.4158 -0.160401 0.0395 4.62e-05
+9   0.074217  0.09551 -0.10857  0.12712 -0.3481  0.644579 0.0383 1.75e-03
+12 -0.097825 -0.20830  0.04637  0.28644 -0.6601  0.270324 0.0280 8.19e-03
+10  0.149178  0.66594 -0.12975  0.89348 -0.2510  0.000571 0.0118 5.90e-02
+11  0.014687  0.00691  0.00105  0.01913  0.1838 -0.301086 0.0377 4.00e-05
+21  0.148213  0.15461 -0.02915 -0.25306 -0.1892 -0.318491 0.0361 6.81e-03
      CCA2.1   CCA3.1    hat inf
 18 0.003207 1.39e-03 0.0321    
 15 0.000915 4.98e-06 0.0295    
@@ -987,27 +987,27 @@ Influence measures of
 19 0.5548077 0.082361157 0.11966159 0.8147968 0.51929869 0.36429493 0.29826049
 12 0.6932541 0.100954127 0.13849854 0.9079979 0.20078932 0.08041977 0.21008725
 7  0.8925059 0.024070054 0.32489503 0.9171688 0.48010987 0.07094548 0.56496165
-      Poatri     Chealb    Elyrep    Sagpro     Plalan     Agrsto    Lolper
-2  0.8288385 0.04386656 0.4407282 0.3302063 0.40700777 0.39501120 0.8272395
-13 0.7993754 0.12254774 0.3511708 0.5131337 0.18153869 0.68239707 0.5714581
-4  0.8197302 0.05797091 0.4399661 0.4191908 0.25797285 0.51198853 0.7197924
-16 0.6071083 0.05624699 0.1832397 0.3480368 0.07269979 0.87877202 0.3561752
-6  0.7782619 0.02125637 0.3138879 0.2539380 0.58765018 0.26299306 0.8000021
-1  0.8826329 0.02513228 0.4667439 0.3371121 0.40103107 0.38333415 0.9226190
-8  0.7101299 0.06327845 0.3046956 0.4009544 0.20596764 0.66906674 0.5403355
-5  0.8094632 0.02643474 0.3575948 0.2612828 0.52628928 0.27622698 0.8380779
-17 0.5036834 0.00771605 0.1929470 0.3292030 0.59641331 0.07330247 0.5858415
-15 0.5263520 0.03560905 0.1462975 0.3151199 0.13523214 0.79412733 0.3689922
-10 0.7543592 0.02568664 0.3736128 0.2732735 0.52588347 0.26902092 0.8102783
-11 0.6404351 0.02123473 0.2884798 0.3673397 0.47012501 0.31656550 0.7180948
-9  0.8247374 0.06987928 0.3523460 0.4531178 0.25274756 0.59744543 0.6874068
-18 0.5859071 0.01464043 0.2651538 0.3154533 0.45087176 0.34451209 0.7124388
-3  0.8383185 0.06533864 0.4137888 0.4204104 0.27933493 0.52738394 0.7205525
-20 0.4523029 0.03762374 0.1168700 0.3105433 0.13059496 0.76675441 0.3262685
-14 0.5090703 0.04299059 0.1428372 0.2528665 0.14342002 0.76284476 0.3356311
-19 0.3605827 0.01959125 0.1422725 0.4798245 0.40784415 0.25952255 0.4289185
-12 0.8199960 0.10354334 0.3354080 0.5122033 0.22110550 0.66278454 0.5875943
-7  0.8018775 0.03846771 0.3586644 0.2954682 0.51905808 0.29412293 0.8053380
+      Poatri      Chealb    Elyrep    Sagpro     Plalan     Agrsto    Lolper
+2  0.8288385 0.043866562 0.4407282 0.3302063 0.40700777 0.39501120 0.8272395
+13 0.7993754 0.122547745 0.3511708 0.5131337 0.18153869 0.68239707 0.5714581
+4  0.8197302 0.057970906 0.4399661 0.4191908 0.25797285 0.51198853 0.7197924
+16 0.6071083 0.056246994 0.1832397 0.3480368 0.07269979 0.87877202 0.3561752
+6  0.7782619 0.021256367 0.3138879 0.2539380 0.58765018 0.26299306 0.8000021
+1  0.8826329 0.025132275 0.4667439 0.3371121 0.40103107 0.38333415 0.9226190
+8  0.7101299 0.063278453 0.3046956 0.4009544 0.20596764 0.66906674 0.5403355
+5  0.8094632 0.026434737 0.3575948 0.2612828 0.52628928 0.27622698 0.8380779
+17 0.5036834 0.007716049 0.1929470 0.3292030 0.59641331 0.07330247 0.5858415
+15 0.5263520 0.035609053 0.1462975 0.3151199 0.13523214 0.79412733 0.3689922
+10 0.7543592 0.025686639 0.3736128 0.2732735 0.52588347 0.26902092 0.8102783
+11 0.6404351 0.021234732 0.2884798 0.3673397 0.47012501 0.31656550 0.7180948
+9  0.8247374 0.069879277 0.3523460 0.4531178 0.25274756 0.59744543 0.6874068
+18 0.5859071 0.014640428 0.2651538 0.3154533 0.45087176 0.34451209 0.7124388
+3  0.8383185 0.065338638 0.4137888 0.4204104 0.27933493 0.52738394 0.7205525
+20 0.4523029 0.037623741 0.1168700 0.3105433 0.13059496 0.76675441 0.3262685
+14 0.5090703 0.042990591 0.1428372 0.2528665 0.14342002 0.76284476 0.3356311
+19 0.3605827 0.019591245 0.1422725 0.4798245 0.40784415 0.25952255 0.4289185
+12 0.8199960 0.103543341 0.3354080 0.5122033 0.22110550 0.66278454 0.5875943
+7  0.8018775 0.038467708 0.3586644 0.2954682 0.51905808 0.29412293 0.8053380
       Alogen     Brohor
 2  0.4718807 0.42000984
 13 0.6404427 0.24942466
@@ -1822,10 +1822,10 @@ decorana(veg = varespec)
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
 
-                  DCA1   DCA2   DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.2001 0.19176
-Decorana values 0.5249 0.1572 0.0967 0.06075
-Axis lengths    2.8161 2.2054 1.5465 1.64864
+                  DCA1   DCA2    DCA3    DCA4
+Eigenvalues     0.5235 0.3253 0.20010 0.19176
+Decorana values 0.5249 0.1572 0.09669 0.06075
+Axis lengths    2.8161 2.2054 1.54650 1.64864
 
 > summary(vare.dca)
 
@@ -1835,10 +1835,10 @@ decorana(veg = varespec)
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
 
-                  DCA1   DCA2   DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.2001 0.19176
-Decorana values 0.5249 0.1572 0.0967 0.06075
-Axis lengths    2.8161 2.2054 1.5465 1.64864
+                  DCA1   DCA2    DCA3    DCA4
+Eigenvalues     0.5235 0.3253 0.20010 0.19176
+Decorana values 0.5249 0.1572 0.09669 0.06075
+Axis lengths    2.8161 2.2054 1.54650 1.64864
 
 Species scores:
 
@@ -2141,8 +2141,8 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3 
-0.4187 0.1330 0.0766 
+   CCA1    CCA2    CCA3 
+0.41868 0.13304 0.07659 
 
 Eigenvalues for unconstrained axes:
      CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
@@ -2414,7 +2414,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 Square root transformation
 Wisconsin double standardization
 Run 0 stress 18.44915 
-Run 1 stress 18.45800 
+Run 1 stress 18.458 
 ... procrustes: rmse 0.05246287  max resid 0.1748373 
 Run 2 stress 24.19514 
 Run 3 stress 19.69805 
@@ -2430,7 +2430,7 @@ Run 10 stress 20.06893
 Run 11 stress 18.52397 
 Run 12 stress 21.37384 
 Run 13 stress 19.5049 
-Run 14 stress 21.67150 
+Run 14 stress 21.6715 
 Run 15 stress 22.65719 
 Run 16 stress 21.0961 
 Run 17 stress 18.25659 
@@ -2550,12 +2550,12 @@ No. of species: 225
  4.885798  2.932690 32.022923 
 
 Frequencies by Octave
-                0        1        2        3        4        5        6
-Observed 9.500000 16.00000 18.00000 19.00000 30.00000 35.00000 31.00000
-Fitted   7.994154 13.31175 19.73342 26.04200 30.59502 31.99865 29.79321
-                7        8        9       10     11
-Observed 26.50000 18.00000 13.00000 7.000000 2.0000
-Fitted   24.69491 18.22226 11.97021 7.000122 3.6443
+                0        1        2      3        4        5        6        7
+Observed 9.500000 16.00000 18.00000 19.000 30.00000 35.00000 31.00000 26.50000
+Fitted   7.994154 13.31175 19.73342 26.042 30.59502 31.99865 29.79321 24.69491
+                8        9       10     11
+Observed 18.00000 13.00000 7.000000 2.0000
+Fitted   18.22226 11.97021 7.000122 3.6443
 
 > mod.ll
 
@@ -2570,9 +2570,9 @@ Frequencies by Octave
                0        1        2        3        4        5        6        7
 Observed 9.50000 16.00000 18.00000 19.00000 30.00000 35.00000 31.00000 26.50000
 Fitted   9.52392 15.85637 23.13724 29.58961 33.16552 32.58022 28.05054 21.16645
-                8         9       10       11
-Observed 18.00000 13.000000 7.000000 2.000000
-Fitted   13.99829  8.113746 4.121808 1.835160
+                8         9       10      11
+Observed 18.00000 13.000000 7.000000 2.00000
+Fitted   13.99829  8.113746 4.121808 1.83516
 
 > plot(mod.oct)  
 > lines(mod.ll, line.col="blue3") # Different
@@ -2841,7 +2841,7 @@ Square root transformation
 Wisconsin double standardization
 Loading required package: MASS
 Run 0 stress 18.44915 
-Run 1 stress 18.45800 
+Run 1 stress 18.458 
 ... procrustes: rmse 0.05246287  max resid 0.1748373 
 Run 2 stress 24.19514 
 Run 3 stress 19.69805 
@@ -2857,7 +2857,7 @@ Run 10 stress 20.06893
 Run 11 stress 18.52397 
 Run 12 stress 21.37384 
 Run 13 stress 19.5049 
-Run 14 stress 21.67150 
+Run 14 stress 21.6715 
 Run 15 stress 22.65719 
 Run 16 stress 21.0961 
 Run 17 stress 18.25659 
@@ -2934,22 +2934,22 @@ Link function: Fisher diversity
 Coefficients:
 
         Estimate Std. Error
-hump  5.3767e+02 3.3533e+01
-scale 1.8393e+01 1.7634e+00
-alpha 9.2294e+06 3.4044e+07
+hump  5.3766e+02 3.3528e+01
+scale 1.8394e+01 1.7472e+00
+alpha 2.4233e+06 7.7206e+06
 
 Dispersion parameter for poisson family taken to be 1 
 
-Deviance 41.44821 with 11 residual degrees of freedom
-AIC: 96.37774    BIC: 98.29492 
+Deviance 41.44826 with 11 residual degrees of freedom
+AIC: 96.3778    BIC: 98.29497 
 
 Correlation of Coefficients:
       hump  scale
-scale -0.20      
-alpha -0.05 -0.14
+scale -0.21      
+alpha -0.02  0.01
 
 Diagnostics from nlm:
-Number of iterations: 87, code: 5
+Number of iterations: 79, code: 2
 > plot(sol)
 > # confint is in MASS, and impicitly calls profile.humpfit.
 > # Parameter 3 (alpha) is too extreme for profile and confint, and we
@@ -2959,8 +2959,8 @@ Number of iterations: 87, code: 5
 > confint(sol, parm=c(1,2))
 Waiting for profiling to be done...
           2.5 %    97.5 %
-hump  494.14239 607.25824
-scale  15.17635  22.02856
+hump  494.14179 607.25654
+scale  15.17642  22.02868
 > 
 > 
 > 
@@ -3110,21 +3110,21 @@ attr(,"class")
 > kendall.post(mite.hel, group=group, mult="holm", nperm=99)
 $A_posteriori_tests_Group
 $A_posteriori_tests_Group[[1]]
-                  Brachy      PHTH      RARD      SSTR   Protopl      MEGR
-Spearman.mean  0.1851177 0.4258111 0.3590580 0.2505486 0.1802160 0.2833298
-W.per.species  0.2190711 0.4497357 0.3857640 0.2817757 0.2143736 0.3131911
-Prob           0.0100000 0.0100000 0.0100000 0.0100000 0.0400000 0.0100000
-Corrected prob 0.3500000 0.3500000 0.3500000 0.3500000 0.3500000 0.3500000
+                  Brachy      PHTH     RARD      SSTR   Protopl      MEGR
+Spearman.mean  0.1851177 0.4258111 0.359058 0.2505486 0.1802160 0.2833298
+W.per.species  0.2190711 0.4497357 0.385764 0.2817757 0.2143736 0.3131911
+Prob           0.0100000 0.0100000 0.010000 0.0100000 0.0400000 0.0100000
+Corrected prob 0.3500000 0.3500000 0.350000 0.3500000 0.3500000 0.3500000
                      MPRO      HMIN     HMIN2      NPRA      TVEL      ONOV
 Spearman.mean  0.09248024 0.2444656 0.4138494 0.1263751 0.4177343 0.3301159
 W.per.species  0.13029357 0.2759462 0.4382723 0.1627761 0.4419954 0.3580278
 Prob           0.08000000 0.0100000 0.0100000 0.0400000 0.0100000 0.0100000
 Corrected prob 0.35000000 0.3500000 0.3500000 0.3500000 0.3500000 0.3500000
-                    SUCT  Oribatl1      PWIL  Galumna1  Stgncrs2      HRUF
-Spearman.mean  0.2185421 0.4212160 0.2574779 0.4180699 0.3623428 0.1250230
-W.per.species  0.2511028 0.4453320 0.2884163 0.4423170 0.3889118 0.1614804
-Prob           0.0100000 0.0100000 0.0100000 0.0100000 0.0100000 0.0500000
-Corrected prob 0.3500000 0.3500000 0.3500000 0.3500000 0.3500000 0.3500000
+                    SUCT Oribatl1      PWIL  Galumna1  Stgncrs2      HRUF
+Spearman.mean  0.2185421 0.421216 0.2574779 0.4180699 0.3623428 0.1250230
+W.per.species  0.2511028 0.445332 0.2884163 0.4423170 0.3889118 0.1614804
+Prob           0.0100000 0.010000 0.0100000 0.0100000 0.0100000 0.0500000
+Corrected prob 0.3500000 0.350000 0.3500000 0.3500000 0.3500000 0.3500000
                     PPEL      SLAT      FSET  Lepidzts  Eupelops  Miniglmn
 Spearman.mean  0.2188216 0.3016159 0.4217606 0.2577037 0.1108022 0.2301430
 W.per.species  0.2513707 0.3307153 0.4458539 0.2886327 0.1478521 0.2622203
@@ -3408,7 +3408,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > # NMDS
 > sol <- metaMDS(dune)
 Run 0 stress 12.05894 
-Run 1 stress 18.21960 
+Run 1 stress 18.2196 
 Run 2 stress 18.97837 
 Run 3 stress 18.57544 
 Run 4 stress 19.42521 
@@ -3448,7 +3448,7 @@ Run 1 stress 11.97275
 Run 2 stress 18.60079 
 Run 3 stress 11.97273 
 ... New best solution
-... procrustes: rmse 0.0001281550  max resid 0.0004408931 
+... procrustes: rmse 0.000128155  max resid 0.0004408931 
 *** Solution reached
 
 > 
@@ -3613,7 +3613,7 @@ Run 3 stress 18.57545
 Run 4 stress 18.57545 
 Run 5 stress 20.78037 
 Run 6 stress 12.04546 
-... procrustes: rmse 3.743805e-05  max resid 0.0001122700 
+... procrustes: rmse 3.743805e-05  max resid 0.00011227 
 *** Solution reached
 
 > ordihull(dune.ord, dune.env$Management)
@@ -4003,10 +4003,10 @@ detaching ‘package:lattice’
 > pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
 > ## ... and find centres and areas of the hulls
 > summary(pl)
-             BF         HF        NM         SF
-CCA1 -0.2917476 -0.3682611 1.3505642 -0.2762936
-CCA2  0.8632208  0.0941992 0.2681515 -0.8139398
-Area  0.1951715  0.5994336 1.7398193  1.0144372
+             BF          HF        NM         SF
+CCA1 -0.2917476 -0.36826105 1.3505642 -0.2762936
+CCA2  0.8632208  0.09419919 0.2681515 -0.8139398
+Area  0.1951715  0.59943363 1.7398193  1.0144372
 > ## use ordispider to label and mark the hull
 > plot(mod, type = "n")
 > pl <- ordihull(mod, Management, scaling = 3)
@@ -4661,14 +4661,14 @@ final  value 10.020469
 converged
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-2. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10234bed0>
+<environment: 0x467ea80>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4684,7 +4684,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10538e238>
+<environment: 0x66d7a58>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4833,14 +4833,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-2. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1064ab778>
+<environment: 0x47d8f80>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4853,10 +4853,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1067618b0>
+<environment: 0x6d9e7f8>
 
 Estimated degrees of freedom:
-7.753  total = 8.75294 
+7.7529  total = 8.75294 
 
 GCV score: 0.002284958
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
@@ -4866,7 +4866,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106033698>
+<environment: 0x711dbb8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -4957,7 +4957,7 @@ Use same permutation within strata?: No
 > ## time series within strata, with mirroring
 > permCheck(pyrifos, control = permControl(strata = ditch,
 +                    type = "series", mirror = TRUE))
-[1] 1.285500e+16
+[1] 1.2855e+16
 > 
 > ## time series within strata, no mirroring, same permutation within strata
 > permCheck(pyrifos, control = permControl(strata = ditch,
@@ -5697,9 +5697,9 @@ cca(formula = dune ~ A1 + Moisture + Management, data = dune.env)
 
 Partitioning of mean squared contingency coefficient:
               Inertia Proportion
-Total           2.115     1.0000
-Constrained     1.139     0.5385
-Unconstrained   0.976     0.4615
+Total          2.1153     1.0000
+Constrained    1.1392     0.5385
+Unconstrained  0.9761     0.4615
 
 Eigenvalues, and their contribution to the mean squared contingency coefficient 
 
@@ -6013,8 +6013,8 @@ Cirarv  0.5945146 0.3714228  0.2862647 -0.88373727
 Chealb  1.5737337 0.7842538 -0.5503660 -0.35108333
 > # New sites
 > predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
-       CCA1     CCA2      CCA3      CCA4
-1 -2.388290 1.230652 0.2363485 0.3338258
+      CCA1     CCA2      CCA3      CCA4
+1 -2.38829 1.230652 0.2363485 0.3338258
 > # Calibration and residual plot
 > mod <- cca(dune ~ A1 + Moisture, dune.env)
 > pred <- calibrate(mod)
@@ -6540,10 +6540,10 @@ sd         2.761569   2.575251   2.529742   2.588455   2.486326   2.371442
 Sites     37.000000  38.000000  39.000000  40.000000  41.000000  42.000000
 Richness 218.160000 218.770000 219.340000 219.970000 220.600000 221.210000
 sd         2.364382   2.210421   2.041093   2.071719   1.964328   1.945183
-                                                                           
-Sites     43.000000  44.000000  45.000000  46.000000  47.000000  48.0000000
-Richness 221.850000 222.360000 222.890000 223.320000 223.710000 224.1700000
-sd         1.771691   1.586050   1.490000   1.476277   1.208514   0.9749903
+                                                                      
+Sites     43.000000  44.00000  45.00  46.000000  47.000000  48.0000000
+Richness 221.850000 222.36000 222.89 223.320000 223.710000 224.1700000
+sd         1.771691   1.58605   1.49   1.476277   1.208514   0.9749903
                         
 Sites     49.0000000  50
 Richness 224.6500000 225
@@ -6612,27 +6612,27 @@ sd         0.6092718   0
  Mean   :216.4   Mean   :217   Mean   :217.6   Mean   :218.2   Mean   :218.8  
  3rd Qu.:218.0   3rd Qu.:219   3rd Qu.:219.0   3rd Qu.:220.0   3rd Qu.:220.0  
  Max.   :222.0   Max.   :222   Max.   :223.0   Max.   :223.0   Max.   :224.0  
- 39 sites        40 sites        41 sites        42 sites       
- Min.   :214.0   Min.   :214.0   Min.   :216.0   Min.   :216.0  
- 1st Qu.:218.0   1st Qu.:219.0   1st Qu.:219.0   1st Qu.:220.0  
- Median :220.0   Median :220.0   Median :221.0   Median :221.0  
- Mean   :219.3   Mean   :220.0   Mean   :220.6   Mean   :221.2  
- 3rd Qu.:221.0   3rd Qu.:222.0   3rd Qu.:222.0   3rd Qu.:223.0  
- Max.   :224.0   Max.   :224.0   Max.   :224.0   Max.   :225.0  
- 43 sites        44 sites        45 sites        46 sites       
- Min.   :217.0   Min.   :217.0   Min.   :219.0   Min.   :219.0  
- 1st Qu.:221.0   1st Qu.:221.8   1st Qu.:222.0   1st Qu.:223.0  
- Median :222.0   Median :223.0   Median :223.0   Median :224.0  
- Mean   :221.8   Mean   :222.4   Mean   :222.9   Mean   :223.3  
- 3rd Qu.:223.0   3rd Qu.:223.0   3rd Qu.:224.0   3rd Qu.:224.0  
+ 39 sites        40 sites      41 sites        42 sites        43 sites       
+ Min.   :214.0   Min.   :214   Min.   :216.0   Min.   :216.0   Min.   :217.0  
+ 1st Qu.:218.0   1st Qu.:219   1st Qu.:219.0   1st Qu.:220.0   1st Qu.:221.0  
+ Median :220.0   Median :220   Median :221.0   Median :221.0   Median :222.0  
+ Mean   :219.3   Mean   :220   Mean   :220.6   Mean   :221.2   Mean   :221.8  
+ 3rd Qu.:221.0   3rd Qu.:222   3rd Qu.:222.0   3rd Qu.:223.0   3rd Qu.:223.0  
+ Max.   :224.0   Max.   :224   Max.   :224.0   Max.   :225.0   Max.   :225.0  
+ 44 sites        45 sites        46 sites        47 sites       
+ Min.   :217.0   Min.   :219.0   Min.   :219.0   Min.   :220.0  
+ 1st Qu.:221.8   1st Qu.:222.0   1st Qu.:223.0   1st Qu.:223.0  
+ Median :223.0   Median :223.0   Median :224.0   Median :224.0  
+ Mean   :222.4   Mean   :222.9   Mean   :223.3   Mean   :223.7  
+ 3rd Qu.:223.0   3rd Qu.:224.0   3rd Qu.:224.0   3rd Qu.:225.0  
  Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225.0  
- 47 sites        48 sites        49 sites        50 sites     
- Min.   :220.0   Min.   :221.0   Min.   :222.0   Min.   :225  
- 1st Qu.:223.0   1st Qu.:224.0   1st Qu.:224.0   1st Qu.:225  
- Median :224.0   Median :224.0   Median :225.0   Median :225  
- Mean   :223.7   Mean   :224.2   Mean   :224.7   Mean   :225  
- 3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225  
- Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225  
+ 48 sites        49 sites        50 sites     
+ Min.   :221.0   Min.   :222.0   Min.   :225  
+ 1st Qu.:224.0   1st Qu.:224.0   1st Qu.:225  
+ Median :224.0   Median :225.0   Median :225  
+ Mean   :224.2   Mean   :224.7   Mean   :225  
+ 3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225  
+ Max.   :225.0   Max.   :225.0   Max.   :225  
 > plot(sp1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 > boxplot(sp2, col="yellow", add=TRUE, pch="+")
 > ## Fit Arrhenius model
@@ -6674,7 +6674,7 @@ Warning in bxp(list(stats = c(9, 9.5, 10, 11, 12, 11, 12, 13, 13, 14, 7,  :
   some notches went outside hinges ('box'): maybe set notch=FALSE
 > boxplot(specnumber(dune)/specpool2vect(pool) ~ Management, col="hotpink",
 +  border="cyan3", notch=TRUE)
-Warning in bxp(list(stats = c(0.465517241379310, 0.491379310344828, 0.517241379310345,  :
+Warning in bxp(list(stats = c(0.46551724137931, 0.491379310344828, 0.517241379310345,  :
   some notches went outside hinges ('box'): maybe set notch=FALSE
 > par(op)
 > data(BCI)
@@ -6853,6 +6853,94 @@ Expected 74.5941 71.4315 79.6440
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > plot(mod)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("tolerance")
+> ### * tolerance
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: tolerance
+> ### Title: Species tolerances and sample heterogeneities
+> ### Aliases: tolerance tolerance.cca print.tolerance.cca
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- cca(dune ~ ., data = dune.env)
+> 
+> ## defaults to species tolerances
+> tolerance.cca(mod)
+
+	Species Tolerances
+
+Scaling: 2
+
+            CCA1         CCA2
+Belper 1.1917539 9.067794e-01
+Empnig 0.1354109 4.260585e-09
+Junbuf 1.2030350 5.294370e-01
+Junart 1.4857922 9.536362e-01
+Airpra 1.1366065 4.080607e-01
+Elepal 1.7546413 8.292822e-01
+Rumace 1.1961493 7.625654e-01
+Viclat 1.4806588 4.896853e-01
+Brarut 1.0600419 1.051819e+00
+Ranfla 1.6515397 1.059420e+00
+Cirarv 0.5464178 1.010898e-09
+Hyprad 1.0228811 5.791210e-01
+Leoaut 1.1005249 1.036536e+00
+Potpal 1.9934851 5.677653e-01
+Poapra 0.9755201 9.166587e-01
+Calcus 1.4830852 8.464129e-01
+Tripra 1.6458942 2.811272e-01
+Trirep 0.8832545 8.738483e-01
+Antodo 1.6055439 7.575379e-01
+Salrep 0.7118892 8.654457e-02
+Achmil 1.5948052 8.449914e-01
+Poatri 0.7367577 7.099165e-01
+Chealb 1.9479718 6.661338e-16
+Elyrep 0.5160932 5.135604e-01
+Sagpro 1.3031750 1.019154e+00
+Plalan 1.7013794 6.393173e-01
+Agrsto 1.5333793 8.718601e-01
+Lolper 0.9372994 7.874610e-01
+Alogen 1.3282695 3.464157e-01
+Brohor 0.9942186 5.515502e-01
+
+> 
+> ## sample heterogeneities for CCA axes 1:6
+> tolerance.cca(mod, which = "sites", choices = 1:6)
+
+	Sample Heterogeneities
+
+Scaling: 2
+
+        CCA1      CCA2      CCA3      CCA4      CCA5      CCA6
+2  0.3704376 0.4136311 0.2577614 0.4568628 0.4195810 0.3008441
+13 1.5316319 0.8859365 1.3123835 1.1171402 1.1864910 1.3897352
+4  0.9731497 0.6901907 0.7635961 1.0376255 0.9605477 0.8926357
+16 1.6234034 0.6058313 0.7844734 0.7613380 0.5958267 0.5629790
+6  1.3333927 0.6867342 0.7197785 0.9198419 0.7805006 0.8990979
+1  0.5105295 0.8611530 0.7899744 1.2845700 1.2979664 1.0054039
+8  1.1620519 0.5498552 0.6644775 0.7228239 0.6741525 0.6517439
+5  0.9542590 0.5614830 0.5959594 0.5132623 0.5752587 0.5563630
+17 2.5726711 1.5142792 2.4777393 2.6399164 2.6535981 2.3439179
+15 1.5138941 0.5294221 0.7825392 0.9351406 0.5179700 0.4276478
+10 1.0838459 0.5806978 0.6728446 0.5252812 0.8560723 0.5987258
+11 0.9287656 0.6016877 0.7723739 0.5564622 0.4862828 0.5231514
+9  1.0764527 0.7399384 1.0186106 0.9349072 1.1402787 1.0529521
+18 1.9244560 1.4067575 1.9247709 1.7308449 1.6489079 1.6626793
+3  0.9198229 0.7279717 0.8436548 1.0250503 1.0046263 0.9500034
+20 0.8072003 1.4458326 1.7206345 1.6474922 1.4677056 1.6688951
+14 0.8177818 0.6747926 0.5266039 0.5746225 0.7167503 0.7056578
+19 1.2569512 0.9816332 1.9763249 1.9274770 1.5631271 1.5270539
+12 1.6053172 1.1084494 1.5533289 1.1876810 1.4254523 1.6001441
+7  0.7242557 0.4993262 0.4905135 0.4240258 0.3864188 0.3037031
+
 > 
 > 
 > 
@@ -7281,7 +7369,7 @@ Square root transformation
 Wisconsin double standardization
 Loading required package: MASS
 Run 0 stress 18.44915 
-Run 1 stress 18.45800 
+Run 1 stress 18.458 
 ... procrustes: rmse 0.05246287  max resid 0.1748373 
 Run 2 stress 24.19514 
 Run 3 stress 19.69805 
@@ -7297,7 +7385,7 @@ Run 10 stress 20.06893
 Run 11 stress 18.52397 
 Run 12 stress 21.37384 
 Run 13 stress 19.5049 
-Run 14 stress 21.67150 
+Run 14 stress 21.6715 
 Run 15 stress 22.65719 
 Run 16 stress 21.0961 
 Run 17 stress 18.25659 
@@ -7488,14 +7576,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-2. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10718d600>
+<environment: 0x816faf0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7510,10 +7598,10 @@ adonis(formula = dune ~ ., data = dune.env)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 A1          1    0.7230 0.72295  5.2038 0.16817  0.001 ***
-Moisture    3    1.1871 0.39569  2.8482 0.27613  0.006 ** 
-Management  3    0.9036 0.30121  2.1681 0.21019  0.041 *  
-Use         2    0.0921 0.04606  0.3315 0.02143  0.977    
-Manure      3    0.4208 0.14026  1.0096 0.09787  0.476    
+Moisture    3    1.1871 0.39569  2.8482 0.27613  0.004 ** 
+Management  3    0.9036 0.30121  2.1681 0.21019  0.028 *  
+Use         2    0.0921 0.04606  0.3315 0.02143  0.973    
+Manure      3    0.4208 0.14026  1.0096 0.09787  0.489    
 Residuals   7    0.9725 0.13893         0.22621           
 Total      19    4.2990                 1.00000           
 ---
@@ -7525,7 +7613,7 @@ adonis(formula = dune ~ Management + Moisture, data = dune.env)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 Management  3    1.4686 0.48953  3.7907 0.34161  0.001 ***
-Moisture    3    1.1516 0.38387  2.9726 0.26788  0.004 ** 
+Moisture    3    1.1516 0.38387  2.9726 0.26788  0.003 ** 
 Residuals  13    1.6788 0.12914         0.39051           
 Total      19    4.2990                 1.00000           
 ---
@@ -7972,7 +8060,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  115.054 1.293 119.552 0 0 
+Time elapsed:  55.898 0.306 56.327 0 0 
 > grDevices::dev.off()
 null device 
           1 
