@@ -68,6 +68,7 @@ C
       Subroutine TWWS(mat,n,k,sumrow,sumtot,rowscore,colscore,
      +                toler,epsilon)
       Integer n, niter
+      Integer mat(n,k)
       Real sumrow(n),sumtot,d
       Real*8 rowscore(n),colscore(n),epsilon,oldS,newS,toler,
      +       oldrowsc(n)

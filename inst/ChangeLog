@@ -3,6 +3,10 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-27 (opened March 31, 2011)
+
+	* orderingKM: Kurt Hornik found a problem when inspecting the
+	Fortran subroutines with gcc 4.6 tools when checking vegan release
+	1.17-9. 
 	
 Version 1.18-26 (closed March 31, 2011)
 
