@@ -2,7 +2,21 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-27 (opened March 31, 2011)
+Version 1.18-28 (opened April 1, 2011)
+
+	* Peter Minchin joined the vegan team.
+
+	* monoMDS: a new function with Peter Minchin's Fortran90 code for
+	NMDS. The full Fortran90 code has global, local, linear and hybrid
+	MDS, configurable and valid tie treatment, handles missing values,
+	and allows adding new points to existing ordinations. The Fortran
+	code is highly tuned, and much faster than other alternatives in
+	R. The current R interface allows only access to a subset of the
+	capabilities of the Fortran90 code, but the missing pieces will be
+	added gradually. The function will eventually replaces isoMDS() of
+	the MASS package as the main NMDS engine in metaMDS().
+	
+Version 1.18-27 (closed April 1, 2011)
 
 	* orderingKM: Kurt Hornik found a problem when inspecting the
 	Fortran subroutines with gcc 4.6 tools when checking vegan release

@@ -45,10 +45,10 @@ To see the preferable citation of the package, type
 }
 
 \author{ The \pkg{vegan} development team is Jari Oksanen,
-F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, R. B. O'Hara,
-Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Helene
-Wagner.  Many other people have contributed to individual functions: see
-credits in function help pages.
+F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter
+R. Minchin, R. B. O'Hara, Gavin L. Simpson, Peter Solymos, M. Henry
+H. Stevens, Helene Wagner.  Many other people have contributed to
+individual functions: see credits in function help pages.
 
 The maintainers at the R-Forge are Jari Oksanen <jari.oksanen@oulu.fi>
 and Gavin Simpson <gavin.simpson@ucl.ac.uk>.
