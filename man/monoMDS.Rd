@@ -1,5 +1,8 @@
 \name{monoMDS}
 \alias{monoMDS}
+\alias{print.monoMDS}
+\alias{scores.monoMDS}
+\alias{plot.monoMDS}
 
 \title{
   Kruskal's Non-metric Multidimensional Scaling
@@ -12,6 +15,8 @@
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"), 
     threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
     scaling = TRUE, smin = 0.00001, sfgrmin = 0.00001, sratmax=0.99999, ...) 
+\method{scores}{monoMDS}(x, ...)
+\method{plot}{monoMDS}(x, choices = c(1,2), type = "t", ...)
 }
 
 \arguments{
@@ -45,7 +50,14 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
     drops below \code{sfgrmin}, or stress ratio goes over
     \code{sratmax} (but is still \eqn{< 1}).}
 
-  \item{\dots}{Other parameters to the functions (ignored).}
+  \item{x}{A \code{monoMDS} result.}
+  \item{choices}{Dimensions plotted.}
+
+  \item{type}{The type of the plot: \code{"t"} for text, \code{"p"}
+    for points, and \code{"n"} for none.}
+
+  \item{\dots}{Other parameters to the functions (ignored in
+    \code{monoMDS}, passed to graphical functions in \code{plot}.).}
 }
 
 \details{
@@ -77,7 +89,11 @@ Peter R. Michin (Fortran core) and Jari Oksanen (R interface).
   \code{\link[smacof]{smacofSym}}, \code{\link[ecodist]{nmds}}. }
 
 \examples{
-##
+data(dune)
+dis <- vegdist(dune)
+m <- monoMDS(dis, model = "loc")
+m
+plot(m)
 }
 \keyword{ multivariate }
 

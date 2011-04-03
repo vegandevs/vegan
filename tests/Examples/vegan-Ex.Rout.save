@@ -1,8 +1,8 @@
 
-R version 2.13.0 alpha (2011-03-28 r55109)
+R version 2.13.0 beta (2011-04-03 r55279)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin10.7.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -22,7 +22,7 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('vegan')
-This is vegan 1.18-26
+This is vegan 1.18-28
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -2934,22 +2934,22 @@ Link function: Fisher diversity
 Coefficients:
 
         Estimate Std. Error
-hump  5.3766e+02 3.3528e+01
-scale 1.8394e+01 1.7472e+00
-alpha 2.4233e+06 7.7206e+06
+hump  5.3767e+02 3.3533e+01
+scale 1.8393e+01 1.7634e+00
+alpha 9.2294e+06 3.4044e+07
 
 Dispersion parameter for poisson family taken to be 1 
 
-Deviance 41.44826 with 11 residual degrees of freedom
-AIC: 96.3778    BIC: 98.29497 
+Deviance 41.44821 with 11 residual degrees of freedom
+AIC: 96.37774    BIC: 98.29492 
 
 Correlation of Coefficients:
       hump  scale
-scale -0.21      
-alpha -0.02  0.01
+scale -0.20      
+alpha -0.05 -0.14
 
 Diagnostics from nlm:
-Number of iterations: 79, code: 2
+Number of iterations: 87, code: 5
 > plot(sol)
 > # confint is in MASS, and impicitly calls profile.humpfit.
 > # Parameter 3 (alpha) is too extreme for profile and confint, and we
@@ -2959,8 +2959,8 @@ Number of iterations: 79, code: 2
 > confint(sol, parm=c(1,2))
 Waiting for profiling to be done...
           2.5 %    97.5 %
-hump  494.14179 607.25654
-scale  15.17642  22.02868
+hump  494.14239 607.25824
+scale  15.17635  22.02856
 > 
 > 
 > 
@@ -3556,6 +3556,35 @@ detaching ‘package:MASS’
 19 -7.071068e-01  0.4082483
 12 -7.850462e-17 -0.8164966
 7   7.071068e-01  0.4082483
+> 
+> 
+> 
+> cleanEx()
+> nameEx("monoMDS")
+> ### * monoMDS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: monoMDS
+> ### Title: Kruskal's Non-metric Multidimensional Scaling
+> ### Aliases: monoMDS print.monoMDS scores.monoMDS plot.monoMDS
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(dune)
+> dis <- vegdist(dune)
+> m <- monoMDS(dis, model = "loc")
+> m
+
+Call:
+monoMDS(dist = dis, model = "loc") 
+
+Local non-metric Multidimensional Scaling
+Dimensions: 2 
+Stress:     0.07596768
+Stopped after 72 iterations: Stress nearly unchanged
+> plot(m)
 > 
 > 
 > 
@@ -4668,7 +4697,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x467ea80>
+<environment: 0x102895988>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4684,7 +4713,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x66d7a58>
+<environment: 0x105c32108>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4840,7 +4869,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x47d8f80>
+<environment: 0x1060b2ae8>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4853,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x6d9e7f8>
+<environment: 0x1068ae078>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4866,7 +4895,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x711dbb8>
+<environment: 0x1068a9778>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6902,7 +6931,7 @@ Antodo 1.6055439 7.575379e-01
 Salrep 0.7118892 8.654457e-02
 Achmil 1.5948052 8.449914e-01
 Poatri 0.7367577 7.099165e-01
-Chealb 1.9479718 6.661338e-16
+Chealb 1.9479718 2.220446e-16
 Elyrep 0.5160932 5.135604e-01
 Sagpro 1.3031750 1.019154e+00
 Plalan 1.7013794 6.393173e-01
@@ -7583,7 +7612,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x816faf0>
+<environment: 0x1073cfd80>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8027,13 +8056,13 @@ detaching ‘package:MASS’
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
+ 9.992007e-16 -6.106227e-16  8.881784e-16 -2.775558e-17  2.220446e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
+ 9.714451e-17  9.714451e-17  4.163336e-17 -1.387779e-17  8.326673e-17 
          CA11          CA12          CA13          CA14          CA15 
- 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
+ 7.632783e-17  1.040834e-16 -2.081668e-17  4.510281e-17  1.908196e-17 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
+-1.908196e-17  0.000000e+00  7.025630e-17  2.125036e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8042,7 +8071,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
-    0 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8060,7 +8089,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  55.898 0.306 56.327 0 0 
+Time elapsed:  112.988 1.253 114.876 0 0 
 > grDevices::dev.off()
 null device 
           1 
