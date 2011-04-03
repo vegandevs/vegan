@@ -6,9 +6,11 @@ monoMDS <-
              sratmax=0.99999, ...) 
 {
     model <- match.arg(model)
+    ## dist to mat
+    mat <- as.matrix(dist)
+    nm <- rownames(mat)
     if (model %in% c("global", "linear")) {
         ## global NMDS: lower triangle
-        mat <- as.matrix(dist)
         dist <- mat[lower.tri(mat)]
         iidx <- row(mat)[lower.tri(mat)]
         jidx <- col(mat)[lower.tri(mat)]
@@ -29,13 +31,13 @@ monoMDS <-
     } else if (model == "local") {
         ## local NMDS: whole matrix without the diagonal, and rows in
         ## a row (hence transpose)
-        mat <- t(as.matrix(dist))
+        mat <- t(mat)
         ## Get missing values
         nas <- is.na(mat)
         ## groups by rows, except missing values
-        rs <- rowSums(!nas)
+        rs <- rowSums(!nas) - 1
         istart <- cumsum(rs)
-        istart <- c(1, istart[-length(istart)] + 1)
+        istart <- c(0, istart[-length(istart)]) + 1
         ## Full matrix expect the diagonal
         dist <- mat[col(mat) != row(mat)]
         iidx <- col(mat)[col(mat) != row(mat)]  # transpose!
@@ -53,7 +55,6 @@ monoMDS <-
     } else if (model == "hybrid") {
         ## Hybrid NMDS: two lower triangles, first a complete one,
         ## then those with dissimilarities below the threshold
-        mat <- as.matrix(dist)
         dist <- mat[lower.tri(mat)]
         iidx <- row(mat)[lower.tri(mat)]
         jidx <- col(mat)[lower.tri(mat)]
@@ -102,7 +103,11 @@ monoMDS <-
                  dhat = double(ndis), points = double(k*nobj),
                  stress = double(1), iters = integer(1),
                  icause = integer(1), PACKAGE = "vegan")
+    sol$call <- match.call()
+    sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)
+    rownames(sol$points) <- nm
+    colnames(sol$points) <- paste("MDS", 1:k, sep="")
     class(sol) <- "monoMDS"
     sol
 }
