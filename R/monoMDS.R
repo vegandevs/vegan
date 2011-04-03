@@ -1,16 +1,21 @@
 monoMDS <-
     function(dist, y, k = 2,
-             model = c("global", "local", "hybrid"), threshold = 0.8,
-             maxit = 200, tol = 0.0001, ...) 
+             model = c("global", "local", "linear", "hybrid"),
+             threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
+             scaling = TRUE, smin = 0.00001, sfgrmin = 0.00001,
+             sratmax=0.99999, ...) 
 {
     model <- match.arg(model)
-    if (model == "global") {
+    if (model %in% c("global", "linear")) {
         ## global NMDS: lower triangle
         mat <- as.matrix(dist)
         dist <- mat[lower.tri(mat)]
         iidx <- row(mat)[lower.tri(mat)]
         jidx <- col(mat)[lower.tri(mat)]
-        iregn <- 1
+        if (model == "global")
+            iregn <- 1
+        else
+            iregn <- 2
         ngrp <- 1
         nobj <- nrow(mat)
         istart <- 1
@@ -52,17 +57,22 @@ monoMDS <-
     }
     ## y to vector
     y <- as.vector(as.matrix(y))
+    ## translate R args to Fortran call
+    if (weakties)
+        ities <- 1
+    else
+        ities <- 2
     ## Fortran call
     sol <- .Fortran("monoMDS", nobj = as.integer(nobj), nfix=as.integer(0),
                  ndim = as.integer(k), ndis = as.integer(ndis),
                  ngrp = as.integer(ngrp), diss = as.double(dist),
                  iidx = as.integer(iidx), jidx = as.integer(jidx),
                  xinit = as.double(y), istart = as.integer(istart),
-                 isform = as.integer(1), ities = as.integer(1),
-                 iregn = as.integer(iregn), iscal = as.integer(1),
+                 isform = as.integer(stress), ities = as.integer(ities),
+                 iregn = as.integer(iregn), iscal = as.integer(scaling),
                  maxits = as.integer(maxit),
-                 sratmx = as.double(0.99999), strmin = as.double(tol),
-                 sfgrmn = as.double(1e-7), dist = double(ndis),
+                 sratmx = as.double(sratmax), strmin = as.double(smin),
+                 sfgrmn = as.double(sfgrmin), dist = double(ndis),
                  dhat = double(ndis), points = double(k*nobj),
                  stress = double(1), iters = integer(1),
                  icause = integer(1), PACKAGE = "vegan")
