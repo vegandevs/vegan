@@ -12,6 +12,13 @@ monoMDS <-
         dist <- mat[lower.tri(mat)]
         iidx <- row(mat)[lower.tri(mat)]
         jidx <- col(mat)[lower.tri(mat)]
+        ## Remove missing values
+        if (any(nas <- is.na(dist))) {
+            dist <- dist[!nas]
+            iidx <- iidx[!nas]
+            jidx <- jidx[!nas]
+        }
+        ## non-metric/metric: Fortran parameter 'iregn'
         if (model == "global")
             iregn <- 1
         else
@@ -23,13 +30,26 @@ monoMDS <-
         ## local NMDS: whole matrix without the diagonal, and rows in
         ## a row (hence transpose)
         mat <- t(as.matrix(dist))
+        ## Get missing values
+        nas <- is.na(mat)
+        ## groups by rows, except missing values
+        rs <- rowSums(!nas)
+        istart <- cumsum(rs)
+        istart <- c(1, istart[-length(istart)] + 1)
+        ## Full matrix expect the diagonal
         dist <- mat[col(mat) != row(mat)]
         iidx <- col(mat)[col(mat) != row(mat)]  # transpose!
         jidx <- row(mat)[col(mat) != row(mat)]
+        ## Remove missing values
+        if (any(nas)) {
+            nas <- nas[col(mat) != row(mat)]
+            dist <- dist[!nas]
+            iidx <- iidx[!nas]
+            jidx <- jidx[!nas]
+        }
         iregn <- 1
         nobj <- nrow(mat)
         ngrp <- nobj
-        istart <- seq(1, length(dist), by = (nobj-1))
     } else if (model == "hybrid") {
         ## Hybrid NMDS: two lower triangles, first a complete one,
         ## then those with dissimilarities below the threshold
@@ -37,6 +57,12 @@ monoMDS <-
         dist <- mat[lower.tri(mat)]
         iidx <- row(mat)[lower.tri(mat)]
         jidx <- col(mat)[lower.tri(mat)]
+        ## Missing values
+        if (any(nas <- is.na(dist))) {
+            dist <- dist[!nas]
+            iidx <- iidx[!nas]
+            jidx <- jidx[!nas]
+        }
         ## second group: dissimilarities below threshold
         ngrp <- 2
         istart <- c(1, length(dist) + 1)

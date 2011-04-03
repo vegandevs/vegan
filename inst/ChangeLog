@@ -13,8 +13,10 @@ Version 1.18-28 (opened April 1, 2011)
 	code is highly tuned, and much faster than other alternatives in
 	R. The R interfaces allows access to most features of the Fortan90
 	code, except adding new points to the ordination (which will need
-	a separate function). The function will eventually replaces
-	isoMDS() of the MASS package as the main NMDS engine in metaMDS().
+	a separate function). The missing values in dissimilarities are
+	also handled in the R interface. The function will eventually
+	replace isoMDS() of the MASS package as the main NMDS engine in
+	metaMDS().
 	
 Version 1.18-27 (closed April 1, 2011)
 
