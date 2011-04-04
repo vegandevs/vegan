@@ -1,6 +1,6 @@
 ### Rotates metaMDS result so that axis one is parallel to vector 'x'
 `metaMDSrotate` <-
-    function(object, vec, ...) 
+    function(object, vec, na.rm = FALSE, ...) 
 {
     if (!inherits(object, "metaMDS"))
         stop(gettextf("function works only with 'metaMDS' results"))
@@ -24,8 +24,12 @@
     ## vectorfit finds the direction cosine. We rotate first axis to
     ## 'vec' which means that we make other axes orthogonal to 'vec'
     ## one by one
+    if (na.rm)
+        keep <- !is.na(vec)
+    else
+        keep <- !logical(length(vec))
     for (k in 2:N) {
-        rot <- vectorfit(x[, c(1,k)], vec, permutations=0)$arrows
+        rot <- vectorfit(x[keep, c(1,k)], vec[keep], permutations=0)$arrows
         rot <- drop(rot)
         ## counterclockwise rotation matrix:
         ## [cos theta   -sin theta]

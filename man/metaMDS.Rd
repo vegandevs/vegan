@@ -43,7 +43,7 @@ initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
         nthreshold=10, plot=FALSE, ...)
 metaMDSredist(object, ...)
-metaMDSrotate(object, vec, ...)
+metaMDSrotate(object, vec, na.rm = FALSE, ...)
 }
 
 \arguments{
@@ -108,6 +108,7 @@ metaMDSrotate(object, vec, ...)
  \item{nthreshold}{ Minimum number of points in half-change scaling. }
  \item{object}{A result object from \code{metaMDS}.}
  \item{vec}{A continuous site variable (vector).}
+ \item{na.rm}{Remove missing values from continuous variable \code{vec}.}
  \item{...}{Other parameters passed to functions.}
 }
 \details{

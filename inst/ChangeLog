@@ -17,6 +17,9 @@ Version 1.18-28 (opened April 1, 2011)
 	also handled in the R interface. The function will eventually
 	replace isoMDS() of the MASS package as the main NMDS engine in
 	metaMDS().
+
+	* metaMDSrotate: gained argument 'na.rm' (defaults FALSE) to
+	remove missing data from the continuous vector.
 	
 Version 1.18-27 (closed April 1, 2011)
 
