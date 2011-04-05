@@ -1,8 +1,8 @@
 
-R version 2.13.0 beta (2011-04-03 r55279)
+R version 2.13.0 beta (2011-04-04 r55296)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin10.7.0 (64-bit)
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -631,12 +631,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
-Loading required package: MASS
-Run 0 stress 8.56469 
-Run 1 stress 17.68491 
-Run 2 stress 8.556588 
+Run 0 stress 0.1560545 
+Run 1 stress 0.08556612 
 ... New best solution
-... procrustes: rmse 0.001526914  max resid 0.003279392 
+... procrustes: rmse 0.2476582  max resid 0.4167042 
+Run 2 stress 0.1560554 
+Run 3 stress 0.2162345 
+Run 4 stress 0.2062595 
+Run 5 stress 0.08556601 
+... New best solution
+... procrustes: rmse 0.0001113815  max resid 0.0001929155 
 *** Solution reached
 
 > plot(mod)
@@ -676,7 +680,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > cleanEx()
 
-detaching ‘package:MASS’, ‘package:lattice’
+detaching ‘package:lattice’
 
 > nameEx("anosim")
 > ### * anosim
@@ -2413,51 +2417,56 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 18.44915 
-Run 1 stress 18.458 
-... procrustes: rmse 0.05246287  max resid 0.1748373 
-Run 2 stress 24.19514 
-Run 3 stress 19.69805 
-Run 4 stress 19.74406 
-Run 5 stress 18.43204 
+Run 0 stress 0.2455937 
+Run 1 stress 0.2169416 
 ... New best solution
-... procrustes: rmse 0.00448445  max resid 0.01722444 
-Run 6 stress 19.48415 
-Run 7 stress 19.48414 
-Run 8 stress 20.57245 
-Run 9 stress 21.00656 
-Run 10 stress 20.06893 
-Run 11 stress 18.52397 
-Run 12 stress 21.37384 
-Run 13 stress 19.5049 
-Run 14 stress 21.6715 
-Run 15 stress 22.65719 
-Run 16 stress 21.0961 
-Run 17 stress 18.25659 
+... procrustes: rmse 0.1701481  max resid 0.3710944 
+Run 2 stress 0.2313238 
+Run 3 stress 0.1974421 
 ... New best solution
-... procrustes: rmse 0.04191616  max resid 0.1532558 
-Run 18 stress 19.48413 
-Run 19 stress 21.77541 
-Run 20 stress 22.24925 
+... procrustes: rmse 0.1031564  max resid 0.2251109 
+Run 4 stress 0.1858424 
+... New best solution
+... procrustes: rmse 0.1299653  max resid 0.5189456 
+Run 5 stress 0.1948436 
+Run 6 stress 0.2265718 
+Run 7 stress 0.2225085 
+Run 8 stress 0.2023228 
+Run 9 stress 0.2673177 
+Run 10 stress 0.1976154 
+Run 11 stress 0.1852405 
+... New best solution
+... procrustes: rmse 0.06229216  max resid 0.150469 
+Run 12 stress 0.2341085 
+Run 13 stress 0.1955872 
+Run 14 stress 0.2137414 
+Run 15 stress 0.2109643 
+Run 16 stress 0.1825664 
+... New best solution
+... procrustes: rmse 0.03764707  max resid 0.1441352 
+Run 17 stress 0.1843199 
+Run 18 stress 0.2570123 
+Run 19 stress 0.3760596 
+Run 20 stress 0.202883 
 > (fit <- envfit(ord, varechem, perm = 999))
 
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.057349 -0.998354 0.2537  0.046 *  
-P         0.619854  0.784717 0.1938  0.103    
-K         0.766510  0.642232 0.1810  0.143    
-Ca        0.685179  0.728375 0.4119  0.008 ** 
-Mg        0.632611  0.774470 0.4272  0.004 ** 
-S         0.191631  0.981467 0.1752  0.140    
-Al       -0.871518  0.490363 0.5269  0.001 ***
-Fe       -0.936058  0.351845 0.4451  0.002 ** 
-Mn        0.798539 -0.601944 0.5230  0.001 ***
-Zn        0.617746  0.786378 0.1879  0.125    
-Mo       -0.902967  0.429710 0.0609  0.537    
-Baresoil  0.924867 -0.380290 0.2508  0.039 *  
-Humdepth  0.932733 -0.360568 0.5202  0.002 ** 
-pH       -0.647704  0.761892 0.2309  0.060 .  
+N         0.056188  0.998420 0.2542  0.046 *  
+P        -0.618628 -0.785684 0.1936  0.102    
+K        -0.765142 -0.643862 0.1809  0.142    
+Ca       -0.683985 -0.729496 0.4120  0.008 ** 
+Mg       -0.631457 -0.775411 0.4273  0.004 ** 
+S        -0.190091 -0.981767 0.1754  0.139    
+Al        0.872443 -0.488715 0.5270  0.001 ***
+Fe        0.937013 -0.349294 0.4452  0.002 ** 
+Mn       -0.799058  0.601253 0.5228  0.001 ***
+Zn       -0.616932 -0.787017 0.1878  0.124    
+Mo        0.903112 -0.429406 0.0609  0.539    
+Baresoil -0.926090  0.377302 0.2509  0.039 *  
+Humdepth -0.933540  0.358473 0.5198  0.002 ** 
+pH        0.648970 -0.760814 0.2306  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -2465,20 +2474,20 @@ P values based on 999 permutations.
 
 > scores(fit, "vectors")
                NMDS1      NMDS2
-N        -0.02888867 -0.5029042
-P         0.27288032  0.3454586
-K         0.32607474  0.2732065
-Ca        0.43973962  0.4674626
-Mg        0.41345930  0.5061752
-S         0.08021282  0.4108214
-Al       -0.63261567  0.3559438
-Fe       -0.62449816  0.2347361
-Mn        0.57751792 -0.4353369
-Zn        0.26779998  0.3409037
-Mo       -0.22279874  0.1060270
-Baresoil  0.46316302 -0.1904451
-Humdepth  0.67270911 -0.2600505
-pH       -0.31126667  0.3661418
+N         0.02832824  0.5033758
+P        -0.27221584 -0.3457258
+K        -0.32540799 -0.2738285
+Ca       -0.43903747 -0.4682499
+Mg       -0.41279593 -0.5069011
+S        -0.07961737 -0.4112023
+Al        0.63333130 -0.3547724
+Fe        0.62521305 -0.2330634
+Mn       -0.57778128  0.4347530
+Zn       -0.26732049 -0.3410194
+Mo        0.22283870 -0.1059540
+Baresoil -0.46384359  0.1889764
+Humdepth -0.67308687  0.2584611
+pH        0.31165145 -0.3653619
 > plot(ord)
 > plot(fit)
 > plot(fit, p.max = 0.05, col = "red")
@@ -2836,7 +2845,7 @@ Manure^4     -0.41602035  0.01685222
 > ### ** Examples
 > 
 > data(varespec)
-> mod <- metaMDS(varespec)
+> mod <- metaMDS(varespec, engine = "isoMDS")
 Square root transformation
 Wisconsin double standardization
 Loading required package: MASS
@@ -3407,17 +3416,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > library(MASS) ## isoMDS
 > # NMDS
 > sol <- metaMDS(dune)
-Run 0 stress 12.05894 
-Run 1 stress 18.2196 
-Run 2 stress 18.97837 
-Run 3 stress 18.57544 
-Run 4 stress 19.42521 
-Run 5 stress 12.04546 
+Run 0 stress 0.1808932 
+Run 1 stress 0.1808918 
 ... New best solution
-... procrustes: rmse 0.003139708  max resid 0.01078196 
-Run 6 stress 18.91766 
-Run 7 stress 12.04548 
-... procrustes: rmse 0.0001744096  max resid 0.0004460873 
+... procrustes: rmse 0.001095961  max resid 0.003218655 
 *** Solution reached
 
 > sol
@@ -3425,14 +3427,14 @@ Run 7 stress 12.04548
 Call:
 metaMDS(comm = dune) 
 
-Nonmetric Multidimensional Scaling using isoMDS (MASS package)
+Nonmetric Multidimensional Scaling using monoMDS
 
 Data:     dune 
 Distance: bray 
 
 Dimensions: 2 
-Stress:     12.04546 
-Two convergent solutions found after 7 tries
+Stress:     0.1808918 
+Two convergent solutions found after 1 tries
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -3441,14 +3443,10 @@ Species: expanded scores based on ‘dune’
 > ## Start from previous best solution
 > sol2 <- metaMDS(dune, previous.best = sol)
 Starting from a previous solution
-Run 0 stress 12.04546 
-Run 1 stress 11.97275 
+Run 0 stress 0.1808918 
+Run 1 stress 0.1808912 
 ... New best solution
-... procrustes: rmse 0.01996662  max resid 0.06276596 
-Run 2 stress 18.60079 
-Run 3 stress 11.97273 
-... New best solution
-... procrustes: rmse 0.000128155  max resid 0.0004408931 
+... procrustes: rmse 0.0005388664  max resid 0.001425574 
 *** Solution reached
 
 > 
@@ -3632,17 +3630,9 @@ Based on  999  permutations
 > layout(matrix(1:2,nr=1))
 > 
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-Loading required package: MASS
-Run 0 stress 12.05894 
-Run 1 stress 12.04546 
-... New best solution
-... procrustes: rmse 0.003121844  max resid 0.01070399 
-Run 2 stress 20.43766 
-Run 3 stress 18.57545 
-Run 4 stress 18.57545 
-Run 5 stress 20.78037 
-Run 6 stress 12.04546 
-... procrustes: rmse 3.743805e-05  max resid 0.00011227 
+Run 0 stress 0.1192689 
+Run 1 stress 0.1192718 
+... procrustes: rmse 0.001708735  max resid 0.005233673 
 *** Solution reached
 
 > ordihull(dune.ord, dune.env$Management)
@@ -3690,9 +3680,6 @@ Classification strength 0.1127012
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("mso")
 > ### * mso
 > 
@@ -4697,7 +4684,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x102895988>
+<environment: 0x103d3b988>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4713,7 +4700,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105c32108>
+<environment: 0x10593c430>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4869,7 +4856,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1060b2ae8>
+<environment: 0x105cd3148>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4882,7 +4869,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1068ae078>
+<environment: 0x106f35800>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4895,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1068a9778>
+<environment: 0x106fb1678>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6931,7 +6918,7 @@ Antodo 1.6055439 7.575379e-01
 Salrep 0.7118892 8.654457e-02
 Achmil 1.5948052 8.449914e-01
 Poatri 0.7367577 7.099165e-01
-Chealb 1.9479718 2.220446e-16
+Chealb 1.9479718 6.661338e-16
 Elyrep 0.5160932 5.135604e-01
 Sagpro 1.3031750 1.019154e+00
 Plalan 1.7013794 6.393173e-01
@@ -7396,33 +7383,37 @@ Use function 'rda' to test significance of fractions of interest
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Loading required package: MASS
-Run 0 stress 18.44915 
-Run 1 stress 18.458 
-... procrustes: rmse 0.05246287  max resid 0.1748373 
-Run 2 stress 24.19514 
-Run 3 stress 19.69805 
-Run 4 stress 19.74406 
-Run 5 stress 18.43204 
+Run 0 stress 0.2455937 
+Run 1 stress 0.2169416 
 ... New best solution
-... procrustes: rmse 0.00448445  max resid 0.01722444 
-Run 6 stress 19.48415 
-Run 7 stress 19.48414 
-Run 8 stress 20.57245 
-Run 9 stress 21.00656 
-Run 10 stress 20.06893 
-Run 11 stress 18.52397 
-Run 12 stress 21.37384 
-Run 13 stress 19.5049 
-Run 14 stress 21.6715 
-Run 15 stress 22.65719 
-Run 16 stress 21.0961 
-Run 17 stress 18.25659 
+... procrustes: rmse 0.1701481  max resid 0.3710944 
+Run 2 stress 0.2313238 
+Run 3 stress 0.1974421 
 ... New best solution
-... procrustes: rmse 0.04191616  max resid 0.1532558 
-Run 18 stress 19.48413 
-Run 19 stress 21.77541 
-Run 20 stress 22.24925 
+... procrustes: rmse 0.1031564  max resid 0.2251109 
+Run 4 stress 0.1858424 
+... New best solution
+... procrustes: rmse 0.1299653  max resid 0.5189456 
+Run 5 stress 0.1948436 
+Run 6 stress 0.2265718 
+Run 7 stress 0.2225085 
+Run 8 stress 0.2023228 
+Run 9 stress 0.2673177 
+Run 10 stress 0.1976154 
+Run 11 stress 0.1852405 
+... New best solution
+... procrustes: rmse 0.06229216  max resid 0.150469 
+Run 12 stress 0.2341085 
+Run 13 stress 0.1955872 
+Run 14 stress 0.2137414 
+Run 15 stress 0.2109643 
+Run 16 stress 0.1825664 
+... New best solution
+... procrustes: rmse 0.03764707  max resid 0.1441352 
+Run 17 stress 0.1843199 
+Run 18 stress 0.2570123 
+Run 19 stress 0.3760596 
+Run 20 stress 0.202883 
 > plot(ord, type = "t")
 > ## Fit environmental variables
 > ef <- envfit(ord, varechem)
@@ -7431,20 +7422,20 @@ Run 20 stress 22.24925
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.057349 -0.998354 0.2537  0.046 *  
-P         0.619854  0.784717 0.1938  0.103    
-K         0.766510  0.642232 0.1810  0.143    
-Ca        0.685179  0.728375 0.4119  0.008 ** 
-Mg        0.632611  0.774470 0.4272  0.004 ** 
-S         0.191631  0.981467 0.1752  0.140    
-Al       -0.871518  0.490363 0.5269  0.001 ***
-Fe       -0.936058  0.351845 0.4451  0.002 ** 
-Mn        0.798539 -0.601944 0.5230  0.001 ***
-Zn        0.617746  0.786378 0.1879  0.125    
-Mo       -0.902967  0.429710 0.0609  0.537    
-Baresoil  0.924867 -0.380290 0.2508  0.039 *  
-Humdepth  0.932733 -0.360568 0.5202  0.002 ** 
-pH       -0.647704  0.761892 0.2309  0.060 .  
+N         0.056188  0.998420 0.2542  0.046 *  
+P        -0.618628 -0.785684 0.1936  0.102    
+K        -0.765142 -0.643862 0.1809  0.142    
+Ca       -0.683985 -0.729496 0.4120  0.008 ** 
+Mg       -0.631457 -0.775411 0.4273  0.004 ** 
+S        -0.190091 -0.981767 0.1754  0.139    
+Al        0.872443 -0.488715 0.5270  0.001 ***
+Fe        0.937013 -0.349294 0.4452  0.002 ** 
+Mn       -0.799058  0.601253 0.5228  0.001 ***
+Zn       -0.616932 -0.787017 0.1878  0.124    
+Mo        0.903112 -0.429406 0.0609  0.539    
+Baresoil -0.926090  0.377302 0.2509  0.039 *  
+Humdepth -0.933540  0.358473 0.5198  0.002 ** 
+pH        0.648970 -0.760814 0.2306  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -7500,9 +7491,9 @@ Eigenvalues for unconstrained axes:
 Permutation test for rda under reduced model
 
 Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
-         Df    Var      F N.Perm Pr(>F)   
-Model    12 63.206 1.7627    199  0.005 **
-Residual  7 20.917                        
+         Df    Var      F N.Perm Pr(>F)  
+Model    12 63.206 1.7627    199  0.015 *
+Residual  7 20.917                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Permutation test for terms added sequentially
@@ -7515,8 +7506,8 @@ Model: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data = du
 A1          1  8.1148 2.7156     99   0.01 **
 Moisture    3 21.6497 2.4150     99   0.01 **
 Management  3 19.1153 2.1323     99   0.02 * 
-Use         2  4.7007 0.7865     99   0.70   
-Manure      3  9.6257 1.0737     99   0.40   
+Use         2  4.7007 0.7865     99   0.78   
+Manure      3  9.6257 1.0737     99   0.35   
 Residual    7 20.9175                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
@@ -7529,8 +7520,8 @@ Start: dune ~ 1
 + Management  3 87.082 2.8400    199  0.005 **
 + Moisture    3 87.707 2.5883    199  0.005 **
 + Manure      4 89.232 1.9539    199  0.005 **
-+ A1          1 89.591 1.9217    999  0.040 * 
-+ Use         2 91.032 1.1741     99  0.250   
++ A1          1 89.591 1.9217    999  0.043 * 
++ Use         2 91.032 1.1741     99  0.300   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
@@ -7543,24 +7534,24 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
            Df    AIC      F N.Perm Pr(>F)   
 + Moisture  3 85.567 1.9764    199   0.01 **
-+ Manure    3 87.517 1.3902     99   0.18   
-+ A1        1 87.424 1.2965     99   0.24   
-+ Use       2 88.284 1.0510     99   0.37   
++ Manure    3 87.517 1.3902    399   0.09 . 
++ A1        1 87.424 1.2965     99   0.18   
++ Use       2 88.284 1.0510     99   0.39   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
 Step: dune ~ Management + Moisture 
 
              Df    AIC      F N.Perm Pr(>F)   
-- Moisture    3 87.082 1.9764     99   0.01 **
+- Moisture    3 87.082 1.9764     99   0.02 * 
 - Management  3 87.707 2.1769     99   0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 
          Df    AIC      F N.Perm Pr(>F)
-+ Manure  3 85.762 1.1225     99   0.27
-+ A1      1 86.220 0.8359     99   0.70
-+ Use     2 86.842 0.8027     99   0.77
++ Manure  3 85.762 1.1225     99   0.32
++ A1      1 86.220 0.8359     99   0.64
++ Use     2 86.842 0.8027     99   0.75
 
 > mod
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
@@ -7591,7 +7582,7 @@ Marginal effects of terms
 Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
            Df    Var      F N.Perm Pr(>F)   
 Management  3 18.938 2.1769    199  0.005 **
-Moisture    3 17.194 1.9764    199  0.005 **
+Moisture    3 17.194 1.9764    199  0.010 **
 Residual   13 37.699                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
@@ -7612,7 +7603,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1073cfd80>
+<environment: 0x10802f698>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7625,14 +7616,14 @@ GCV score: 0.07246275
 Call:
 adonis(formula = dune ~ ., data = dune.env) 
 
-           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-A1          1    0.7230 0.72295  5.2038 0.16817  0.001 ***
-Moisture    3    1.1871 0.39569  2.8482 0.27613  0.004 ** 
-Management  3    0.9036 0.30121  2.1681 0.21019  0.028 *  
-Use         2    0.0921 0.04606  0.3315 0.02143  0.973    
-Manure      3    0.4208 0.14026  1.0096 0.09787  0.489    
-Residuals   7    0.9725 0.13893         0.22621           
-Total      19    4.2990                 1.00000           
+           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
+A1          1    0.7230 0.72295  5.2038 0.16817  0.003 **
+Moisture    3    1.1871 0.39569  2.8482 0.27613  0.007 **
+Management  3    0.9036 0.30121  2.1681 0.21019  0.045 * 
+Use         2    0.0921 0.04606  0.3315 0.02143  0.971   
+Manure      3    0.4208 0.14026  1.0096 0.09787  0.468   
+Residuals   7    0.9725 0.13893         0.22621          
+Total      19    4.2990                 1.00000          
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > adonis(dune ~ Management + Moisture, dune.env)
@@ -7652,7 +7643,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > cleanEx()
 
-detaching ‘package:mgcv’, ‘package:MASS’
+detaching ‘package:mgcv’
 
 > nameEx("vegandocs")
 > ### * vegandocs
@@ -8056,13 +8047,13 @@ detaching ‘package:MASS’
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 9.992007e-16 -6.106227e-16  8.881784e-16 -2.775558e-17  2.220446e-16 
+-7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 9.714451e-17  9.714451e-17  4.163336e-17 -1.387779e-17  8.326673e-17 
+ 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
          CA11          CA12          CA13          CA14          CA15 
- 7.632783e-17  1.040834e-16 -2.081668e-17  4.510281e-17  1.908196e-17 
+ 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--1.908196e-17  0.000000e+00  7.025630e-17  2.125036e-17 
+-3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8071,7 +8062,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
--4.263e-14 
+    0 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8089,7 +8080,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  112.988 1.253 114.876 0 0 
+Time elapsed:  111.852 1.255 113.956 0 0 
 > grDevices::dev.off()
 null device 
           1 
