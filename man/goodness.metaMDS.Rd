@@ -61,7 +61,7 @@ stressplot(object, dis, pch, p.col = "blue", l.col = "red", lwd = 2,
   \code{\link[MASS]{Shepard}}. }
 \examples{
 data(varespec)
-mod <- metaMDS(varespec)
+mod <- metaMDS(varespec, engine = "isoMDS")
 stressplot(mod)
 gof <- goodness(mod)
 gof

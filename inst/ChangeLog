@@ -18,6 +18,11 @@ Version 1.18-28 (opened April 1, 2011)
 	replace isoMDS() of the MASS package as the main NMDS engine in
 	metaMDS().
 
+	* metaMDS: uses monoMDS() as its default engine (and gained
+	argument 'engine' to select either monoMDS() or isoMDS()). Not all
+	functions work with the new engine, yet (stressplot, goodness fail
+	at least).
+
 	* metaMDSrotate: gained argument 'na.rm' (defaults FALSE) to
 	remove missing data from the continuous vector.
 	

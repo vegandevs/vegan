@@ -38,7 +38,7 @@ metaMDS(comm, distance = "bray", k = 2, trymax = 20, autotransform =TRUE,
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, noshare = 0.1, 
     trace = 1, commname, zerodist = "fail", distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, trymax = 20, trace = 1, plot = FALSE, previous.best, 
-    ...)   
+    engine = "monoMDS", ...)   
 initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
         nthreshold=10, plot=FALSE, ...)
@@ -97,6 +97,10 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
    \code{dist} object and accepting argument \code{method} can be used
    (but some extra arguments may cause name conflicts).}
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
+  \item{engine}{The function used for non-metric MDS. The default is to
+     use the \code{\link{monoMDS}} function in \pkg{vegan}, but for 
+     backward compatibility it is also possible to use \code{\link{isoMDS}}
+     of \pkg{MASS}.}			   
   \item{pc}{Rotate to principal components. }
   \item{center}{Centre the configuration. }
  \item{halfchange}{Scale axes to half-change units. This defaults
@@ -111,14 +115,15 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
  \item{na.rm}{Remove missing values from continuous variable \code{vec}.}
  \item{...}{Other parameters passed to functions.}
 }
-\details{
-  Non-metric Multidimensional Scaling (NMDS) is commonly regarded as the
-  most robust unconstrained ordination method in community ecology (Minchin
-  1987).  Functions \code{initMDS} and \code{postMDS} together with some
-  other functions are intended to 
-  help run NMDS wit \code{\link[MASS]{isoMDS}} like recommended by
-  Minchin (1987).  Function \code{metaMDS} combines all recommendations
-  into one command for a shotgun style analysis. The complete steps in
+
+\details{ Non-metric Multidimensional Scaling (NMDS) is commonly
+  regarded as the most robust unconstrained ordination method in
+  community ecology (Minchin 1987).  Functions \code{initMDS} and
+  \code{postMDS} together with some other functions are intended to
+  help run NMDS with \code{\link{monoMDS}} (or optinally with
+  \code{\link[MASS]{isoMDS}}) like recommended by Minchin (1987).
+  Function \code{metaMDS} combines all recommendations into one
+  command for a shotgun style analysis. The complete steps in
   \code{metaMDS} are:
   \enumerate{
     \item Transformation: If the data values are larger than common
@@ -152,14 +157,14 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
 
     \item NMDS with random starts: NMDS easily gets trapped into local
     optima, and you must start NMDS several times from random start to
-    be confident that you have found the global solution. The default in
-    \code{\link[MASS]{isoMDS}} is to start from
+    be confident that you have found the global solution. An often-used
+    default  is to start from
     metric scaling (with \code{\link{cmdscale}}) which typically is
     close to a local optimum. The strategy in \code{metaMDS} is to first
-    run a default \code{\link[MASS]{isoMDS}}, or use the
+    run NMDS starting with the metric scaling, or use the
     \code{previous.best} solution if supplied, and take
     its solution as the standard (\code{Run 0}). Then \code{metaMDS}
-    starts \code{\link[MASS]{isoMDS}} from several
+    starts NMDS from several
     random starts (maximum number is given by \code{trymax}). If a
     solution is better (has a lower stress) than the previous standard,
     it is taken as the new standard. If the solution is better or close
@@ -238,23 +243,22 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
 
 \author{ Jari Oksanen }
 
-\note{
-  Function \code{metaMDS} is a simple wrapper for
-  \code{\link[MASS]{isoMDS}} and some support functions.
-  You can call these support functions separately for better control
-  of results.  Data transformation, dissimilarities and possible
-  \code{\link{stepacross}} are made in function \code{metaMDSdist}
-  which returns a dissimilarity result. Iterative search (with starting
-  values from \code{initMDS}) is made in \code{metaMDSiter}.
-  Processing of result configuration is done in \code{postMDS}, and
-  species scores added by \code{\link{wascores}}.
-  If you want
-  to be more certain of reaching a global solution, you can compare
-  results from several independent runs. You can also continue analysis
-  from previous results or from your own configuration.  Function does
-  not save the used dissimilarity matrix, but \code{metaMDSredist}
-  tries to reconstruct the used dissimilarities with original data
-  transformation and possible \code{\link{stepacross}}.
+\note{ Function \code{metaMDS} is a simple wrapper for an NMDS engine
+  (either \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}) and
+  some support functions.  You can call these support functions
+  separately for better control of results.  Data transformation,
+  dissimilarities and possible \code{\link{stepacross}} are made in
+  function \code{metaMDSdist} which returns a dissimilarity
+  result. Iterative search (with starting values from \code{initMDS})
+  is made in \code{metaMDSiter}.  Processing of result configuration
+  is done in \code{postMDS}, and species scores added by
+  \code{\link{wascores}}.  If you want to be more certain of reaching
+  a global solution, you can compare results from several independent
+  runs. You can also continue analysis from previous results or from
+  your own configuration.  Function may not save the used
+  dissimilarity matrix, but \code{metaMDSredist} tries to reconstruct
+  the used dissimilarities with original data transformation and
+  possible \code{\link{stepacross}}.
 
   The \code{metaMDS} function was designed to be used with community
   data.  If you have other type of data, you should probably set some
@@ -264,14 +268,19 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
   to \code{FALSE} with a warning.
 }
 
-\section{Warning}{
+\section{Warning}{ \code{metaMDS} used \code{\link[MASS]{isoMDS}} as
+  its NMDS engine till version 1.18-28, when this was replaced with
+  the \code{\link{monoMDS}} function. You can set argument
+  \code{engine} to select the old engine.
+
   The calculation of \code{\link{wascores}} for species was changed in
   \pkg{vegan} version 1.12-6. They are now based on the community data
   transformed similarly as in the ordination. Previously the species
   scores always were based on the original data. You can re-establish
   the old behaviour with argument \code{old.wa = TRUE}.
 }
-\seealso{\code{\link[MASS]{isoMDS}}, \code{\link{decostand}},
+\seealso{\code{\link{monoMDS}} (and \code{\link[MASS]{isoMDS}}), 
+  \code{\link{decostand}},
   \code{\link{wisconsin}}, 
   \code{\link{vegdist}}, \code{\link{rankindex}}, \code{\link{stepacross}}, 
   \code{\link{procrustes}}, \code{\link{wascores}},

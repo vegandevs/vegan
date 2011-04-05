@@ -1,10 +1,13 @@
 `metaMDSiter` <-
     function (dist, k = 2, trymax = 20, trace = 1, plot = FALSE, 
-              previous.best, ...) 
+              previous.best, engine = "monoMDS", ...) 
 {
-    if (!require(MASS)) 
-        stop("Needs package MASS (function isoMDS): not found")
+    engine <- match.arg(engine, c("monoMDS", "isoMDS"))
+    if (engine == "isoMDS")
+        require(MASS) || stop("Needs package MASS (function isoMDS)")
     EPS <- 0.05
+    if (engine == "monoMDS")
+        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100) 
     RESLIM <- 0.01
     RMSELIM <- 0.005
     SOL <- FALSE
@@ -30,7 +33,10 @@
                     for (i in 1:(k-nc))
                         init <- cbind(init, runif(NROW(init), -0.1, 0.1))
                 # evaluate isoMDS with stress
-                s0 <- isoMDS(dist, init, k = k, maxit = 0)
+                s0 <- switch(engine,
+                             "monoMDS" = monoMDS(dist, init, k = k, maxit = 0,
+                             ...),
+                             "isoMDS" = isoMDS(dist, init, k = k, maxit = 0))
                 # zero 'tries': this was a new start
                 if (inherits(previous.best, "metaMDS"))
                     previous.best$tries <- 0
@@ -38,21 +44,29 @@
                     cat(gettextf("Starting from %d-dimensional solution\n", nc))
             }
         } else if (is.matrix(previous.best) || is.data.frame(previous.best)) {
-            s0 <- isoMDS(dist, previous.best, k = k, maxit = 0)
+            s0 <- switch(engine,
+                         "monoMDS" = monoMDS(dist, previous.best, k=k, maxit = 0),
+                         "isoMDS" = isoMDS(dist, previous.best, k = k, maxit = 0)
+                         )
             if (trace)
                 cat("Starting from supplied configuration\n")
         } else { # an error!
             stop("'previous.best' of unknown kind")
         }
     } # No previous best:
-    else s0 <- isoMDS(dist, k = k, trace = isotrace)
+    else
+        s0 <- switch(engine,
+                     "monoMDS" = monoMDS(dist, k = k, ...),
+                     "isoMDS" = isoMDS(dist, k = k, trace = isotrace))
     if (trace) 
         cat("Run 0 stress", s0$stress, "\n")
     tries <- 0
     while(tries < trymax) {
         tries <- tries + 1
-        stry <- isoMDS(dist, initMDS(dist, k = k), k = k, maxit = 200, 
-                       tol = 1e-07, trace = isotrace)
+        stry <- switch(engine,
+                       "monoMDS" = monoMDS(dist, k = k, maxit = 200, ...),
+                       "isoMDS" = isoMDS(dist, initMDS(dist, k = k), k = k,
+                       maxit = 200, tol = 1e-07, trace = isotrace))
         if (trace) {
             cat("Run", tries, "stress", stry$stress, "\n")
         }
@@ -84,6 +98,6 @@
     out <- list(points = s0$points, dims = k, stress = s0$stress, 
                 data = attr(dist, "commname"),
                 distance = attr(dist, "method"), converged = converged,
-                tries = tries)
+                tries = tries, engine = engine)
     out
 }
