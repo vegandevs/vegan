@@ -49,6 +49,6 @@
     out$call <- match.call()
     if (is.null(out$data))
         out$data <- commname
-    class(out) <- "metaMDS"
+    class(out) <- c("metaMDS", class(out))
     out
 }

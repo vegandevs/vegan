@@ -95,9 +95,12 @@
     if (!missing(previous.best) && inherits(previous.best, "metaMDS")) {
         tries <- tries + previous.best$tries
     }
-    out <- list(points = s0$points, dims = k, stress = s0$stress, 
-                data = attr(dist, "commname"),
-                distance = attr(dist, "method"), converged = converged,
-                tries = tries, engine = engine)
+    out <- s0
+    out$ndim = k
+    out$data <- attr(dist, "commname")
+    out$distance <- attr(dist, "method")
+    out$converged <- converged
+    out$tries <- tries
+    out$engine <- engine
     out
 }

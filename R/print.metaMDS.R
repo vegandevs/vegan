@@ -3,14 +3,13 @@
 {
     cat("\nCall:\n")
     cat(deparse(x$call), "\n\n")
-    cat("Nonmetric Multidimensional Scaling using ")
     if (x$engine == "monoMDS")
-        cat("monoMDS\n\n")
+        cat(x$model, "Multidimensional Scaling using monoMDS\n\n")
     else if (x$engine == "isoMDS")
-        cat("isoMDS (MASS package)\n\n")
+        cat("non-metric Multidimensional Scaling using isoMDS (MASS package)\n\n")
     cat("Data:    ", x$data, "\n")
     cat("Distance:", x$distance, "\n\n")
-    cat("Dimensions:", x$dims, "\n")
+    cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
     if (x$converged) 
         cat("Two convergent solutions found after", x$tries, 

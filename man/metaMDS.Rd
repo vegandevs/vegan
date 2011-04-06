@@ -214,21 +214,17 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
   }
 }
 
-\value{
-  Function \code{metaMDS} returns an object of class
+\value{ Function \code{metaMDS} returns an object of class
   \code{metaMDS}. The final site ordination is stored in the item
-  \code{points}, and species ordination in the item \code{species}. The
-  other items store the information on the steps taken by the
-  function. The object has \code{print}, \code{plot}, \code{points} and
-  \code{text} methods.
-  Functions \code{metaMDSdist} and \code{metaMDSredist} return
-  \code{\link{vegdist}} objects.
-  Function \code{initMDS} returns a random
-  configuration which is intended to be used within
-  \code{\link[MASS]{isoMDS}} only.  Functions \code{metaMDSiter} and
-  \code{postMDS} returns the result of \code{\link[MASS]{isoMDS}} with
-  updated configuration.
-}
+  \code{points}, and species ordination in the item
+  \code{species}. The other items store the information on the steps
+  taken by the function. The object has \code{print}, \code{plot},
+  \code{points} and \code{text} methods.  Functions \code{metaMDSdist}
+  and \code{metaMDSredist} return \code{\link{vegdist}} objects.
+  Function \code{initMDS} returns a random configuration which is
+  intended to be used within \code{\link[MASS]{isoMDS}} only.
+  Functions \code{metaMDSiter} and \code{postMDS} returns the result
+  of NMDS with updated configuration.  }
 
 
 \references{
