@@ -3,7 +3,7 @@
 {
     display <- match.arg(display)
     if (missing(choices))
-        choices <- 1:x$dims
+        choices <- 1:x$ndim
     if (display == "sites")
         X <- x$points
     else if (display == "species") {

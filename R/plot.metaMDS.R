@@ -6,7 +6,7 @@
         display <- match.arg(display)
     if (shrink) {
         x$species <- scores(x, display = "species", shrink = shrink,
-                            choices=1:x$dims)
+                            choices=1:x$ndim)
     }
     ordiplot(x, choices = choices, type = type, display = display, ...)
 }
