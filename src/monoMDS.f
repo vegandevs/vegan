@@ -2,9 +2,14 @@
      .  DISS, IIDX, JIDX, XINIT, ISTART,
      .  ISFORM, ITIES, IREGN, ISCAL, MAXITS, SRATMX,
      .  STRMIN, SFGRMN, 
-     .  DIST, DHAT, X, STRESS, ITERS, ICAUSE)
+     .  DIST, DHAT, X, STRESS, STRS, ITERS, ICAUSE)
 C
 C Subroutine for multidimensional scaling.
+C
+C 1.00 March 28, 2011
+C 1.01 April 6, 2011  - added argument STRS(NGRP) to return the stress
+C                       for each of the NGRP groups of dissimilarities
+C                       i.e., from each separate regression.
 C
 C Written by Dr. Peter R. Minchin
 C            Department of Biological Sciences
@@ -101,13 +106,15 @@ C========OUTPUT ARGUMENTS:
 C
 C DIST(NDIS) = distances among objects in the final ordination
 C
-C DHAT(NDIS) = fitted distances in final regression of distance
+C DHAT(NDIS) = fitted distances in final regression(s) of distance
 C              on dissimilarity
 C
 C X(NOBJ,NDIM) = final ordination coordinates of NOBJ objects in NDIM
 C                dimensions
 C
 C STRESS = final value of stress
+C
+C STRS(NGRP) = vector of stress values from each separate regression
 C
 C ITERS = number of iterations performed
 C
@@ -125,10 +132,10 @@ C---INPUT ARGUMENTS
 C---OUTPUT ARGUMENTS
       INTEGER, INTENT(OUT) :: ITERS, ICAUSE
       DOUBLE PRECISION, INTENT(OUT) :: X(NOBJ,NDIM), DIST(NDIS), 
-     .  DHAT(NDIS), STRESS
+     .  DHAT(NDIS), STRESS, STRS(NGRP)
 C---ALLOCATABLE TEMPORARY ARRAYS
       INTEGER, ALLOCATABLE :: IWORK(:)
-      DOUBLE PRECISION, ALLOCATABLE :: GRAD(:,:), GRLAST(:,:), STRS(:)
+      DOUBLE PRECISION, ALLOCATABLE :: GRAD(:,:), GRLAST(:,:)
 C
       DOUBLE PRECISION :: STRLST, SQRTN, SRATF1, SRATF2, FNGRP,
      .  STRINC, COSAV, ACOSAV, SRATAV, STEP, FNDIM, SFGR, SRATIO,
@@ -137,8 +144,7 @@ C
 C
 C ALLOCATE THE TEMPORARY ARRAYS NEEDED
 C
-      ALLOCATE (IWORK(NDIS), GRAD(NOBJ,NDIM), GRLAST(NOBJ,NDIM), 
-     .  STRS(NGRP))
+      ALLOCATE (IWORK(NDIS), GRAD(NOBJ,NDIM), GRLAST(NOBJ,NDIM))
 C
 C INITIALIZE SOME PARAMETERS
 C
@@ -346,7 +352,7 @@ C=======================================================================
 C
 C DEALLOCATE THE TEMPORARY ARRAYS AND RETURN
 C
-      DEALLOCATE (IWORK, GRAD, GRLAST, STRS)
+      DEALLOCATE (IWORK, GRAD, GRLAST)
       RETURN
       END SUBROUTINE monoMDS
 
