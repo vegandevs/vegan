@@ -1,6 +1,6 @@
 `metaMDSdist` <-
     function (comm, distance = "bray", autotransform = TRUE, noshare = 0.1, 
-              trace = 1, commname, zerodist = "fail", distfun = vegdist, 
+              trace = 1, commname, zerodist = "ignore", distfun = vegdist, 
               ...) 
 {
     ## metaMDSdist should get a raw data matrix, but if it gets a
@@ -32,7 +32,7 @@
     call <- attr(dis, "call")
     call[[1]] <- as.name(distname)
     attr(dis, "call") <- call
-    if (any(dis <= 0, na.rm = TRUE)) {
+    if (zerodist != "ignore" && any(dis <= 0, na.rm = TRUE)) {
         if (zerodist == "fail") 
             stop("Zero dissimilarities are not allowed")
         else if (zerodist == "add") {

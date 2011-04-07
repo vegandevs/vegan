@@ -36,7 +36,7 @@ metaMDS(comm, distance = "bray", k = 2, trymax = 20, autotransform =TRUE,
 \method{scores}{metaMDS}(x, display = c("sites", "species"), shrink = FALSE, 
         choices, ...)
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, noshare = 0.1, 
-    trace = 1, commname, zerodist = "fail", distfun = vegdist, ...)
+    trace = 1, commname, zerodist = "ignore", distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, trymax = 20, trace = 1, plot = FALSE, previous.best, 
     engine = "monoMDS", ...)   
 initMDS(x, k=2)
