@@ -1,4 +1,56 @@
-"stressplot" <-
+`stressplot`<-
+    function(object, ...)
+{
+    UseMethod("stressplot")
+}
+
+`stressplot.monoMDS` <-
+    function(object, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
+{
+    ## extract items to plot
+    x <- object$diss
+    y <- object$dist
+    yf <- object$dhat
+    ## all models plot dist against diss, but there can be duplicated
+    ## items in some models: remove duplicates in hybrid (iregn==3)
+    ## and local (ngrp > 1) models:
+    if (object$iregn == 3)
+        pts <- seq_along(x) < object$istart[2]
+    else if (object$ngrp > 2)
+        pts <- object$iidx > object$jidx
+    else
+        pts <- !logical(length(x))
+    ## Plotting character
+    if (missing(pch))
+        if (sum(pts) > 5000) pch <- "." else pch <- 1
+    ## plot points
+    plot(x[pts], y[pts], pch = pch, col = p.col, xlab = "Observed Dissimilarity",
+         ylab = "Ordination Distance", ...)
+    ## Fit lines: linear (iregn=2) and hybrid (iregn=3) have a smooth line
+    if (object$iregn > 1) {
+        if (object$iregn == 3) { 
+            yl <- range(yf[seq(object$istart[2], object$ndis)])
+            xl <- range(x[seq(object$istart[2], object$ndis)])
+        } else {
+            yl <- range(yf)
+            xl <- range(x)
+        }
+        lines(xl, yl, col = l.col, lwd = lwd, ...)
+    }
+    ## Monotone line except in linear, and local has several...
+    if (object$iregn != 2) {
+        ist <- c(object$istart, object$ndis - 1)
+        if (object$iregn == 3)
+            object$ngrp <- 1
+        for(j in 1:object$ngrp) {
+            k <- seq(ist[j], ist[j+1]-1)
+            lines(x[k], yf[k], type = "S", col = l.col, lwd = lwd, ...)
+        }
+    }
+    invisible(list("x" = x, "y" = y, "yf" = yf))
+}
+    
+`stressplot.default` <-
     function(object, dis, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
     require(MASS) || stop("Needs MASS package")
@@ -14,7 +66,7 @@
     if ( abs(stress - object$stress) > 0.001)
         stop("Dissimilarities and ordination do not match")
     if (missing(pch))
-        if (length(dis) > 5000) pch = "." else pch = 1
+        if (length(dis) > 5000) pch <- "." else pch <- 1
     plot(shep, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
          ylab = "Ordination Distance", ...)
     lines(shep$x, shep$yf, type = "S", col = l.col, lwd = lwd, ...)
