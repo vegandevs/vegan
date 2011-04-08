@@ -42,11 +42,12 @@
         s0 <- switch(engine,
                      "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0, ...),
                      "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0))
-    }
-    ## no previous.best: start with cmdscale
-    s0 <- switch(engine,
-                 "monoMDS" = monoMDS(dist, y = cmdscale(dist), k = k, ...),
+    } else {
+        ## no previous.best: start with cmdscale
+        s0 <- switch(engine,
+                 "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k, ...),
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace))
+    }
     if (trace) 
         cat("Run 0 stress", s0$stress, "\n")
     tries <- 0
