@@ -12,10 +12,10 @@
 }
 \usage{
 \method{goodness}{metaMDS}(object, dis, ...)
-stressplot(object, dis, pch, p.col = "blue", l.col = "red", lwd = 2, 
-    ...) 
+\method{stressplot}{default}(object, dis, pch, p.col = "blue", l.col = "red", 
+    lwd = 2, ...) 
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{object}{A result object from \code{\link{metaMDS}}, 
     \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}. }
