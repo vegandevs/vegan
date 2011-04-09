@@ -39,7 +39,7 @@
     }
     ## Monotone line except in linear, and local has several...
     if (object$iregn != 2) {
-        ist <- c(object$istart, object$ndis - 1)
+        ist <- c(object$istart, object$ndis + 1)
         if (object$iregn == 3)
             object$ngrp <- 1
         for(j in 1:object$ngrp) {
