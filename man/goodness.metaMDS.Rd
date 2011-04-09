@@ -1,5 +1,6 @@
 \name{goodness.metaMDS}
 \alias{goodness.metaMDS}
+\alias{goodness.monoMDS}
 \alias{stressplot}
 \alias{stressplot.default}
 \alias{stressplot.monoMDS}
@@ -31,7 +32,7 @@
 \details{
   Function \code{goodness.metaMDS} finds a goodness of fit statistic for
   observations (points).  This is defined so that sum of squared values
-  is equal to squared stress.  Large values indicate poor fit.
+  is equal to squared stress.  Large values indicate poor fit. 
 
   Function \code{stressplot} is draws a Sheaprd diagram which is a
   plot of ordination distances and monotone or linear fit line against
@@ -65,12 +66,12 @@
 
 \examples{
 data(varespec)
-mod <- metaMDS(varespec, engine = "isoMDS")
+mod <- metaMDS(varespec)
 stressplot(mod)
 gof <- goodness(mod)
 gof
 plot(mod, display = "sites", type = "n")
-points(mod, display = "sites", cex = gof/2)
+points(mod, display = "sites", cex = 2*gof/mean(gof))
 }
 \keyword{ multivariate }
 

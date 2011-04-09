@@ -19,11 +19,14 @@ Version 1.18-28 (opened April 1, 2011)
 	metaMDS().
 
 	* metaMDS: uses monoMDS() as its default engine (and gained
-	argument 'engine' to select either monoMDS() or isoMDS()). Not all
-	functions work with the new engine, yet (goodness fails at least).
+	argument 'engine' to select either monoMDS() or isoMDS()).
 
 	* stressplot: is generic with a specific method for "monoMDS"
 	objects, and the old function as the default method.
+
+	* goodness: got a new method for "monoMDS" objects. The function
+	handles all monoMDS() models, but does not take into account
+	possible missing values in input dissimilarities.
 
 	* metaMDSrotate: gained argument 'na.rm' (defaults FALSE) to
 	remove missing data from the continuous vector.
