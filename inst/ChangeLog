@@ -6,13 +6,15 @@ Version 1.18-29 (opened April 11, 2011)
 
 	* adipart.Rd, multipart.Rd: cancelled some excessive speed-ups in
 	example code made in r1204. Some of these speed-ups never made to
-	the release version, but were only made in the devel branch. Now
-	it seems that sped-up examples could be merged to the release
-	(adipart.Rd, multipart.Rd, mantel.correlog.Rd, pertmatfull.Rd)
-	radfit.Rd). Probably we should speed up some other examples. The
-	five worst cases (timing in MacBook Air) are: ordistep (19.0 sec),
+	the release version, but were only made in the devel branch. The
+	sped-up examples were also merged to the release (adipart.Rd,
+	kendall.global.Rd, multipart.Rd, mantel.correlog.Rd,
+	pertmatfull.Rd, radfit.Rd). Also reverted r1224 so that
+	Guillaume's original r1206 (49 permutations instead of 99) is used
+	again. Probably we should speed up some other examples. The five
+	worst cases (timing in MacBook Air) are: ordistep (19.0 sec),
 	add1.cca (7.2 sec), tsallis (7.0 sec), prc (5.6 sec),
-	vegan-package (5.2 sec). 
+	vegan-package (5.2 sec).
 	
 Version 1.18-28 (closed April 11, 2011)
 
