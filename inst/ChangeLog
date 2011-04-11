@@ -15,6 +15,8 @@ Version 1.18-29 (opened April 11, 2011)
 	worst cases (timing in MacBook Air) are: ordistep (19.0 sec),
 	add1.cca (7.2 sec), tsallis (7.0 sec), prc (5.6 sec),
 	vegan-package (5.2 sec).
+
+	* vegan-package.Rd, ordistep.Rd: speed up examples.
 	
 Version 1.18-28 (closed April 11, 2011)
 

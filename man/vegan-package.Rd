@@ -76,14 +76,12 @@ plot(mod0)
 mod1 <- rda(dune ~ ., dune.env)
 mod1
 plot(mod1)
-## Overall permutation test for all variables
-anova(mod1)
-## Permutation test for terms added sequentially
-anova(mod1, by = "term")
 ## Automatic selection of variables by permutation P-values
 mod <- ordistep(mod0, scope=formula(mod1))
 mod
 plot(mod)
+## Permutation test for all variables
+anova(mod)
 ## Permutation test of "type III" effects, or significance when a term
 ## is added to the model after all other terms
 anova(mod, by = "margin")

@@ -139,7 +139,6 @@ mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 
 ## With scope present, the default direction is "both"
 ordistep(mod0, scope = formula(mod1), perm.max = 200)
-ordistep(rda(dune ~ 1, dune.env), scope = formula(mod1), perm.max = 200)
 
 ## Example without scope. Default direction is "backward"
 ordistep(mod1, perm.max = 200) 
@@ -161,7 +160,6 @@ step.res$anova  # Summary table
 
 ## Example of ordiR2step with direction = "forward"
 step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
-step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward", trace=0) 
 step.res$anova  # Summary table
 }
 
