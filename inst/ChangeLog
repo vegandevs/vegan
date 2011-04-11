@@ -2,7 +2,19 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-28 (opened April 1, 2011)
+Version 1.18-29 (opened April 11, 2011)
+
+	* adipart.Rd, multipart.Rd: cancelled some excessive speed-ups in
+	example code made in r1204. Some of these speed-ups never made to
+	the release version, but were only made in the devel branch. Now
+	it seems that sped-up examples could be merged to the release
+	(adipart.Rd, multipart.Rd, mantel.correlog.Rd, pertmatfull.Rd)
+	radfit.Rd). Probably we should speed up some other examples. The
+	five worst cases (timing in MacBook Air) are: ordistep (19.0 sec),
+	add1.cca (7.2 sec), tsallis (7.0 sec), prc (5.6 sec),
+	vegan-package (5.2 sec). 
+	
+Version 1.18-28 (closed April 11, 2011)
 
 	* Peter Minchin joined the vegan team.
 

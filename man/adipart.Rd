@@ -128,12 +128,12 @@ plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1)
 plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
-adipart(mite ~., levsm, index="richness", nsimul=9)
+adipart(mite ~., levsm, index="richness", nsimul=19)
 ## Hierarchical null model testing
 ## diversity analysis (similar to adipart)
-hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=9)
+hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=19)
 ## Hierarchical testing with the Morisita index
 morfun <- function(x) dispindmorisita(x)$imst
-hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=9)
+hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
 }
 \keyword{multivariate}

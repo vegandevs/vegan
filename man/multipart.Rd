@@ -103,8 +103,8 @@ levsm <- data.frame(
     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 ## Multiplicative diversity partitioning
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9)
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9, relative=TRUE)
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=9, global=TRUE)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
+multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
 }
 \keyword{multivariate}
