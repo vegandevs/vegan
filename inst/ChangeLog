@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-29 (opened April 11, 2011)
 
+	* capscale: could fail with add = TRUE in R 2.13.0. A kluge was
+	necessary in cmdscale() pre 2.13.0, but the feature was fixed in R
+	2.13.0 and unnecessary fix failed. Now the kluge is used only in
+	older versions of R and capscale should be working both in 2.13.0
+	and older R.
+
 	* adipart.Rd, multipart.Rd: cancelled some excessive speed-ups in
 	example code made in r1204. Some of these speed-ups never made to
 	the release version, but were only made in the devel branch. The
