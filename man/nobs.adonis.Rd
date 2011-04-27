@@ -30,17 +30,16 @@
    Further arguments to be passed to methods.
 }
 }
-\details{
-  Function \code{nobs} is generic in \R version 2.13.0, and \pkg{vegan}
-  provides methods for objects of classes \code{\link{adonis}}, 
-  \code{\link{betadisper}}, \code{\link{cca}}, \code{\link{CCorA}}, 
-  \code{\link{decorana}}, \code{\link{isomap}}, \code{\link{metaMDS}},
-  \code{\link{pcnm}}, \code{\link{procrustes}}, \code{\link{rad}},
-  \code{\link{varpart}} and \code{\link{wcmdscale}}.
-}
-\value{
-  A single number, normally an interger, giving the number of observations.
-}
+
+\details{ Function \code{nobs} is generic in \R version 2.13.0, and
+  \pkg{vegan} provides methods for objects from \code{\link{adonis}},
+  \code{\link{betadisper}}, \code{\link{cca}} and other related
+  methods, \code{\link{CCorA}}, \code{\link{decorana}},
+  \code{\link{isomap}}, \code{\link{metaMDS}}, \code{\link{pcnm}},
+  \code{\link{procrustes}}, \code{\link{radfit}},
+  \code{\link{varpart}} and \code{\link{wcmdscale}}.  } \value{ A
+  single number, normally an interger, giving the number of
+  observations.  }
 
 \author{
   Jari Oksanen
