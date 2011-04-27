@@ -22,7 +22,7 @@
 in \Sexpr{R.version.string} on \today}
 
 \begin{document}
-\SweaveOpts{strip.white=TRUE}
+\SweaveOpts{strip.white=true}
 \setkeys{Gin}{width=0.55\linewidth}
 <<echo=false,results=hide>>=
 figset <- function() par(mar=c(4,4,1,1)+.1)
