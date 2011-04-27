@@ -2,7 +2,16 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-29 (opened April 11, 2011)
+Version 1.18-30 (opened April 27, 2011)
+
+	* opened with the release of vegan 1.17-10 on April 27, 2011.
+
+	* nobs: documented nobs() methods for vegan. These seem to be
+	needed in R 2.13.0 and should be released soon (there is no need
+	to add R >= 2.13.0 dependence as long as we do not use these
+	functions ourselves within released vegan code).
+	
+Version 1.18-29 (closed April 27, 2011)
 
 	* capscale: could fail with add = TRUE in R 2.13.0. A kluge was
 	necessary in cmdscale() pre 2.13.0, but the feature was fixed in R
