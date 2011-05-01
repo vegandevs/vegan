@@ -140,10 +140,11 @@
       is applied after \code{subset} so that the indices refer to the subset
       data.}
   \item{\code{residuals.zombie}}{A zombie vector of the length of
-    number of rows in the residual ordination. Some standard \R
-    functions find the number of valid observations from this vector,
-    and it is provided for their use although this is useless in
-    \pkg{vegan}.}
+    number of rows in the residual ordination. \R versions before 2.13.0
+    may use this vector to find the number of valid observations,
+    and it is provided for their use although this is useless in \R 2.13.0
+    and in \pkg{vegan}. Currently \R uses \code{\link{nobs.cca}} to find
+    the number of observations.}
   \item{\code{rowsum.excluded}}{Row sums of removed observations. Only
     in \code{\link{cca}}.}
   \item{\code{CCA$wa.excluded}}{The WA scores for sites (found from
