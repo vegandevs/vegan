@@ -25,7 +25,10 @@
     else
         head <- c("!!!!! ERROR !!!!!\n")
     head <- c(head, paste("Model:", c(object$call)))
-    seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
+    if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE))
+        seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
+    else
+        seed <- NULL
     structure(table, heading = head, Random.seed = seed,
               class = c("anova.cca", "anova", "data.frame"))
 }
