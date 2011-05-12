@@ -10,6 +10,8 @@ Version 1.18-30 (opened April 27, 2011)
 	needed in R 2.13.0 and should be released soon (there is no need
 	to add R >= 2.13.0 dependence as long as we do not use these
 	functions ourselves within released vegan code).
+
+	* treeheight: dramatic simplification and speed-up of the code.
 	
 Version 1.18-29 (closed April 27, 2011)
 
