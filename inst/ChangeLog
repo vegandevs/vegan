@@ -12,6 +12,10 @@ Version 1.18-30 (opened April 27, 2011)
 	functions ourselves within released vegan code).
 
 	* treeheight: dramatic simplification and speed-up of the code.
+
+	* scores.cca/rda: failed if user requested only non-existing
+	scores. Now return an empty list of scores instead (with possible
+	attributes). 
 	
 Version 1.18-29 (closed April 27, 2011)
 
