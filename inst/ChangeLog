@@ -16,6 +16,13 @@ Version 1.18-30 (opened April 27, 2011)
 	* scores.cca/rda: failed if user requested only non-existing
 	scores. Now return an empty list of scores instead (with possible
 	attributes). 
+
+	* prc: several support methods did not work with 'prc' results,
+	and these now stop with an informative error instead of an
+	uniformative error. Concerns anova.ccabymargin, anova.ccabyaxis,
+	drop1.cca, add1.cca, model.frame.cca, model.matrix.cca. This was
+	found out after a private user query about having signficance test
+	for the sencond PRC axis.
 	
 Version 1.18-29 (closed April 27, 2011)
 

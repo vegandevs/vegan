@@ -1,6 +1,8 @@
 `model.matrix.cca` <-
     function (object, ...) 
 {
+    if (inherits(object, "prc"))
+        stop("model.matrix does not work with 'prc' results")
     call <- object$call
     m <- match(c("formula", "data", "na.action", "subset"), names(call), 
         0)

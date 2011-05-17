@@ -1,6 +1,8 @@
-"anova.ccabyaxis" <-
-function (object, cutoff = 1,  ...) 
+`anova.ccabyaxis` <-
+    function (object, cutoff = 1,  ...) 
 {
+    if(inherits(object, "prc"))
+        stop("anova(..., by = 'axis') cannot be used for 'prc' results")
     cutoff <- cutoff + sqrt(.Machine$double.eps)
     rnk <- object$CCA$rank
     if (!max(rnk, 0)) 

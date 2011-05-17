@@ -1,6 +1,8 @@
 `model.frame.cca` <-
     function (formula, ...) 
 {
+    if (inherits(formula, "prc"))
+        stop("model.frame does not work with 'prc' results")
     call <- formula$call
     m <- match(c("formula", "data", "na.action", "subset"), names(call), 
         0)

@@ -2,6 +2,8 @@
     function(object, scope, test = c("none", "permutation"),
              pstep = 100, perm.max = 200, ...)
 {
+    if (inherits(object, "prc"))
+        stop("'step'/'drop1' cannot be used for 'prc' objects")
     test <- match.arg(test)
     out <- NextMethod("drop1", object, test="none", ...)
     cl <- class(out)

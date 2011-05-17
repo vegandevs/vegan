@@ -1,6 +1,8 @@
 `anova.ccabymargin` <-
     function(object, step=100, scope, ...)
 {
+    if(inherits(object, "prc"))
+        stop("anova(..., by = 'margin') cannot be used for 'prc' results")
     if (!missing(scope) && is.character(scope))
         trms <- scope
     else

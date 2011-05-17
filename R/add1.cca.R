@@ -2,6 +2,8 @@
     function(object, scope, test = c("none", "permutation"),
              pstep = 100, perm.max = 200, ...)
 {
+    if (inherits(object, "prc"))
+        stop("'step'/'add1' cannot be used for 'prc' objects")
     test <- match.arg(test)
     ## Default add1
     out <- NextMethod("add1", object, test = "none", ...)
