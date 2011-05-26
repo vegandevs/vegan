@@ -15,7 +15,7 @@
 }
 \usage{
 specaccum(comm, method = "exact", permutations = 100,
-          conditioned =TRUE, gamma = "jack1",  w = NULL, ...)
+          conditioned =TRUE, gamma = "jack1",  ...)
 \method{plot}{specaccum}(x, add = FALSE, ci = 2, ci.type = c("bar", "line", "polygon"), 
     col = par("fg"), ci.col = col, ci.lty = 1, xlab, 
     ylab = x$method, ylim, xvar = c("sites", "individuals"), ...)
@@ -63,7 +63,6 @@ fitspecaccum(object, model, method = "random", ...)
   \item{object}{Either a community data set or fitted \code{specaccum} model.}
   \item{model}{Nonlinear regression model (\code{\link{nls}}). See Details.}
   \item{lty}{line type code (see \code{\link{par}}.}
-  \item{w}{Not yet documented.}
   \item{...}{Other parameters to functions.}
 }
 \details{

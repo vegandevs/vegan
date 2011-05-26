@@ -10,6 +10,13 @@ Version 1.18-31 (opened May 26, 2011)
 	in their Raup-Crick index. This is against established practice in
 	order statistics and therefore we cancelled this.
 
+	* specaccum: reverted r1505 & 1507, or introduction of weighted
+	species accumulation model in version 1.18-23. The method was
+	introduced because of user request, but these persons lost their
+	interest and therefore there is no reason to see the trouble that
+	finalizing these functions would require (see comments on version
+	1.18-23 about some of the work needed, and there is more).
+
 Version 1.18-30 (closed May 26, 2011)
 
 	* opened with the release of vegan 1.17-10 on April 27, 2011.
