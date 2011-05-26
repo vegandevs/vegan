@@ -21,7 +21,7 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"),
-   tiesplit = FALSE, ...)
+   ...)
 commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
@@ -53,9 +53,6 @@ commsimulator(x, method, thin=1)
     or \code{"less"}. You can specify just the initial letter.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
-  \item{tiesplit}{Tied values of simulations are split so that half of them are
-    regarded as fulfilling the condition of \code{alternative}. This is not 
-    usually done, but some published examples use splitting.}
   \item{\dots}{Other arguments to functions.}
 }
 

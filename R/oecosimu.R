@@ -2,7 +2,7 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
-             tiesplit = FALSE, ...)
+             ...)
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
@@ -103,18 +103,14 @@
         z[sd < sqrt(.Machine$double.eps)] <- 0
     pless <- rowSums(indstat <= simind, na.rm = TRUE)
     pmore <- rowSums(indstat >= simind, na.rm = TRUE)
-    if (tiesplit)
-        ties <- rowSums(indstat == simind, na.rm = TRUE)/2
-    else
-        ties <- 0
     if (any(is.na(simind))) {
         warning("some simulated values were NA and were removed")
         nsimul <- nsimul - rowSums(is.na(simind))
     }
     p <- switch(alternative,
-                two.sided = 2*(pmin(pless, pmore) - ties),
-                less = pless - ties,
-                greater = pmore - ties)
+                two.sided = 2*pmin(pless, pmore),
+                less = pless,
+                greater = pmore)
     p <- pmin(1, (p + 1)/(nsimul + 1))
 
     ## ADDITION: if z is NA then it is not correct to calculate p values

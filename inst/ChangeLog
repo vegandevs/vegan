@@ -2,14 +2,22 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-30 (opened April 27, 2011)
+Version 1.18-31 (opened May 26, 2011)
+
+	* oecosimu: reverted r1557 of version 1.18-26, or splitting tied
+	values. This was introduced because Chase et al. (Ecosphere 2011,
+	http://www.esajournals.org/doi/pdf/10.1890/ES10-00117.1) used this
+	in their Raup-Crick index. This is against established practice in
+	order statistics and therefore we cancelled this.
+
+Version 1.18-30 (closed May 26, 2011)
 
 	* opened with the release of vegan 1.17-10 on April 27, 2011.
 
 	* nobs: documented nobs() methods for vegan. These seem to be
 	needed in R 2.13.0 and should be released soon (there is no need
 	to add R >= 2.13.0 dependence as long as we do not use these
-	functions ourselves within released vegan code).
+ 	functions ourselves within released vegan code).
 
 	* treeheight: dramatic simplification and speed-up of the code.
 
