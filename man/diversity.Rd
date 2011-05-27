@@ -18,7 +18,7 @@ rarefy(x, sample, se = FALSE, MARGIN = 1)
 rrarefy(x, sample)
 drarefy(x, sample)
 fisher.alpha(x, MARGIN = 1, se = FALSE, ...)
-specnumber(x, MARGIN = 1)
+specnumber(x, groups, MARGIN = 1)
 }
 
 \arguments{
@@ -30,6 +30,8 @@ specnumber(x, MARGIN = 1)
   \item{sample}{Subsample size for rarefying community, either a single
     value or a vector.}
   \item{se}{Estimate standard errors.}
+  \item{groups}{A grouping factor: if given, finds the total number of
+    species in each group.}
   \item{...}{Parameters passed to \code{\link{nlm}}}
 }
 \details{
@@ -77,8 +79,9 @@ specnumber(x, MARGIN = 1)
   Normal inference.
   
   Function \code{specnumber} finds the number of species. With
-  \code{MARGIN = 2}, it finds frequencies of species. The function is
-  extremely simple, and shortcuts are easy in plain \R.
+  \code{MARGIN = 2}, it finds frequencies of species. If \code{groups}
+  is given, finds the total number of species in each group (see 
+  example on finding one kind of beta diversity with this option).
   
   Better stories can be told about Simpson's index than about
   Shannon's index, and still grander narratives about
@@ -138,12 +141,19 @@ simp <- diversity(BCI, "simpson")
 invsimp <- diversity(BCI, "inv")
 ## Unbiased Simpson of Hurlbert 1971 (eq. 5):
 unbias.simp <- rarefy(BCI, 2) - 1
+## Fisher alpha
 alpha <- fisher.alpha(BCI)
+## Plot all
 pairs(cbind(H, simp, invsimp, unbias.simp, alpha), pch="+", col="blue")
 ## Species richness (S) and Pielou's evenness (J):
 S <- specnumber(BCI) ## rowSums(BCI > 0) does the same...
 J <- H/log(S)
-
+## beta diversity defined as gamma/alpha - 1:
+data(dune)
+data(dune.env)
+alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
+gamma <- with(dune.env, specnumber(dune, Management))
+gamma/alpha - 1
 }
 \keyword{ univar }
 
