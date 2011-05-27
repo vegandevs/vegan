@@ -128,6 +128,11 @@
             sol$CA$v <- sweep(sol$CA$v.eig, 2, sqrt(sol$CA$eig[1:poseig]), 
                               "/")
         }
+    } else {
+        ## input data were dissimilarities, and no 'comm' defined:
+        ## species scores make no sense and are made NA
+        sol$CA$v.eig <- sol$CA$v <- sol$CCA$v <- sol$CCA$v.eig <- NA
+        sol$colsum <- NA
     }
     if (!is.null(sol$CCA)) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)

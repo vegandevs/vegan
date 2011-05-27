@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-31 (opened May 26, 2011)
 
+	* capscale: species scores will be NA if input data were
+	dissimilarities and no 'comm' was given. (BTW, if input data were
+	dissimilarities, update() will fail! -- I don't know why, but
+	anybody can fix this.)
+
 	* oecosimu: reverted r1557 of version 1.18-26, or splitting tied
 	values. This was introduced because Chase et al. (Ecosphere 2011,
 	http://www.esajournals.org/doi/pdf/10.1890/ES10-00117.1) used this
