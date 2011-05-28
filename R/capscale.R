@@ -131,7 +131,9 @@
     } else {
         ## input data were dissimilarities, and no 'comm' defined:
         ## species scores make no sense and are made NA
-        sol$CA$v.eig <- sol$CA$v <- sol$CCA$v <- sol$CCA$v.eig <- NA
+        sol$CA$v.eig[] <- sol$CA$v[] <- NA
+        if (!is.null(sol$CCA))
+            sol$CCA$v.eig[] <- sol$CCA$v[] <- NA
         sol$colsum <- NA
     }
     if (!is.null(sol$CCA)) 
