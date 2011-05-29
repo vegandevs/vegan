@@ -56,7 +56,7 @@ fieller.MOStest(object, level = 0.95)
   The function fits a quadratic curve \eqn{\mu = b_0 + b_1 x + b_2
   x^2} with given \code{\link{family}} and link function.  If \eqn{b_2
   < 0}, this defines a unimodal curve with highest point at \eqn{u =
-  -b_2/(2 b_3)} (ter Braak & Looman 1986). If \eqn{b_2 > 0}, the
+  -b_1/(2 b_2)} (ter Braak & Looman 1986). If \eqn{b_2 > 0}, the
   parabola has a minimum at \eqn{u} and the response is sometimes
   called \dQuote{bimodal}.  The null hypothesis is that the extreme
   point \eqn{u} is located within the interval given by points
