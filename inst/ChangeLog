@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-31 (opened May 26, 2011)
 
+	* ordiR2step: more informative about rejecting 'scope': partial
+	models are not (currently) accepted due to the design of
+	RsquareAdj.rda().
+
 	* specnumber: gained argument 'groups' to find total richness
 	within each group. An example shows how to use this to find one
 	index that Whittaker suggested to estimate beta diversity.

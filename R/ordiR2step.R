@@ -23,10 +23,15 @@
         scope <- delete.response(formula(scope))
     if (!inherits(scope, "formula"))
         scope <- reformulate(scope)
-    R2.all <- RsquareAdj(update(object, scope))$adj.r.squared
+    R2.all <- RsquareAdj(update(object, scope))
     ## Check that the full model can be evaluated
-    if (is.na(R2.all))
-        stop("the upper scope cannot be fitted (too many terms?)")
+    if (is.na(R2.all$adj.r.squared)) {
+        if (R2.all$r.squared > 0.999)
+            stop("the upper scope cannot be fitted (too many terms?)")
+        else
+            stop("upper scope cannot be fitted (Condition() in scope?)")
+    }
+    R2.all <- R2.all$adj.r.squared
     ## Collect data to anotab returned as the 'anova' object
     anotab <-  list()
     ## Step forward and continue as long as R2.adj improves and R2.adj
