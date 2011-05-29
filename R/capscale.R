@@ -13,11 +13,10 @@
         data <- ordiGetData(match.call(), environment(formula))
     }
     formula <- formula(terms(formula, data = data))
-    ## the following line fails in update() of a previously fitted
-    ## model because it is eval'ed in environment(formula), but works
-    ## when eval'ed in the default environment -- need to test if the
-    ## environment(formula) is necessary
-    X <- eval(formula[[2]], environment(formula))
+    ## The following line was eval'ed in environment(formula), but
+    ## that made update() fail. Rethink the line if capscale() fails
+    ## mysteriously at this point.
+    X <- eval(formula[[2]]) #, environment(formula))
     if (!inherits(X, "dist")) {
         comm <- X
         dfun <- match.fun(dfun)

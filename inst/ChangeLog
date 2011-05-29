@@ -9,10 +9,13 @@ Version 1.18-31 (opened May 26, 2011)
 	index that Whittaker suggested to estimate beta diversity.
 
 	* capscale: species scores will be NA if input data were
-	dissimilarities and no 'comm' was given. (BTW, if input data were
-	dissimilarities, update() will fail! -- I don't know why, but
-	anybody can fix this.)
-
+	dissimilarities and no 'comm' was given. update(capscale_result)
+	failed because LHS data were evaluated in the
+	environment(formula).  Now removed the explicit environment: I ran
+	some tests and found no problems, but let's see what the real life
+	brings along. The changed point is commented so that this change
+	can be reconsidered if necessary.
+	
 	* oecosimu: reverted r1557 of version 1.18-26, or splitting tied
 	values. This was introduced because Chase et al. (Ecosphere 2011,
 	http://www.esajournals.org/doi/pdf/10.1890/ES10-00117.1) used this
