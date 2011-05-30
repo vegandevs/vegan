@@ -10,6 +10,11 @@ Version 1.18-32 (opened May 30, 2011)
 	specified originally, and if they become zero rank because of
 	aliasing etc, they are returned as zero components (instead of
 	NULL). 
+
+	* print of cca/rda/capscale: do not "Proportion" column in
+	unconstrained ordination which only has one component. However,
+	this will be printed also with zero pCCA or CCA (but not with
+	NULL). 
 	
 Version 1.18-31 (closed May 30, 2011)
 
