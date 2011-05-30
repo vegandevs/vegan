@@ -99,14 +99,14 @@
         colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
             paste("MDS", 1:ncol(sol$CA$u), sep = "")
     }
-        ## update for negative eigenvalues
-        poseig <- length(sol$CA$eig)
-        if (any(X$eig < 0)) {
-            negax <- X$eig[X$eig < 0]
-            sol$CA$imaginary.chi <- sum(negax)
-            sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
-            sol$CA$imaginary.rank <- length(negax)
-            sol$CA$imaginary.u.eig <- X$negaxes
+    ## update for negative eigenvalues
+    poseig <- length(sol$CA$eig)
+    if (any(X$eig < 0)) {
+        negax <- X$eig[X$eig < 0]
+        sol$CA$imaginary.chi <- sum(negax)
+        sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
+        sol$CA$imaginary.rank <- length(negax)
+        sol$CA$imaginary.u.eig <- X$negaxes
     }
     if (!is.null(comm)) {
         comm <- scale(comm, center = TRUE, scale = FALSE)
