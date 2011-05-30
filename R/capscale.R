@@ -95,9 +95,10 @@
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
                 paste("CAP", 1:ncol(sol$CCA$u), sep = "")
     }
-    if (!is.null(sol$CA)) {
+    if (!is.null(sol$CA) && sol$CA$rank > 0) {
         colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
             paste("MDS", 1:ncol(sol$CA$u), sep = "")
+    }
         ## update for negative eigenvalues
         poseig <- length(sol$CA$eig)
         if (any(X$eig < 0)) {
@@ -106,7 +107,6 @@
             sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
             sol$CA$imaginary.rank <- length(negax)
             sol$CA$imaginary.u.eig <- X$negaxes
-        }
     }
     if (!is.null(comm)) {
         comm <- scale(comm, center = TRUE, scale = FALSE)
@@ -125,7 +125,7 @@
                                "/")
             comm <- qr.resid(sol$CCA$QR, comm)
         }
-        if (!is.null(sol$CA)) {
+        if (!is.null(sol$CA) && sol$CA$rank > 0) {
             sol$CA$v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
             sol$CA$v <- sweep(sol$CA$v.eig, 2, sqrt(sol$CA$eig[1:poseig]), 
                               "/")

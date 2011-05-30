@@ -2,7 +2,16 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-31 (opened May 26, 2011)
+Version 1.18-32 (opened May 30, 2011)
+
+	* rda & capscale: similar changes as in cca in r1517 (version
+	1.18-24). CA component is always returned, even with zero rank,
+	and CCA and pCCA components are NULL only if they were not
+	specified originally, and if they become zero rank because of
+	aliasing etc, they are returned as zero components (instead of
+	NULL). 
+	
+Version 1.18-31 (closed May 30, 2011)
 
 	* ordiR2step: more informative about rejecting 'scope': partial
 	models are not (currently) accepted due to the design of

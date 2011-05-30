@@ -1,6 +1,6 @@
-"rda.formula" <-
-function (formula, data, scale = FALSE, na.action = na.fail,
-          subset = NULL, ...) 
+`rda.formula` <-
+    function (for§mula, data, scale = FALSE, na.action = na.fail,
+              subset = NULL, ...) 
 {
     if (missing(data)) {
         data <- parent.frame()
@@ -10,7 +10,7 @@ function (formula, data, scale = FALSE, na.action = na.fail,
     d <- ordiParseFormula(formula, data, na.action = na.action,
                           subset = substitute(subset))
     sol <- rda.default(d$X, d$Y, d$Z, scale)
-    if (!is.null(sol$CCA)) 
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
     if (!is.null(sol$CCA$alias)) 
         sol$CCA$centroids <- unique(sol$CCA$centroids)

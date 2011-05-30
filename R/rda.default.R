@@ -23,11 +23,12 @@
                          Fit = Z, envcentre = attr(Z.r, "scaled:center"))
             Xbar <- qr.resid(Q, Xbar)
         }
+        if (tmp < ZERO)
+            pCCA$tot.chi <- 0
     }
     else Z.r <- NULL
     if (!missing(Y) && !is.null(Y)) {
         Y <- as.matrix(Y)
-        rawmat <- Y
         Y.r <- scale(Y, center = TRUE, scale = FALSE)
         Q <- qr(cbind(Z.r, Y.r), tol = ZERO)
         if (is.null(pCCA)) 
@@ -72,31 +73,43 @@
             CCA$envcentre <- attr(Y.r, "scaled:center")
             CCA$Xbar <- Xbar
             Xbar <- qr.resid(Q, Xbar)
+        } else {
+            CCA <- list(eig = 0, rank = rank, qrank = qrank, tot.chi = 0,
+                        QR = Q, Xbar = Xbar)
+            u <- matrix(0, nrow=nrow(sol$u), ncol=0)
+            v <- matrix(0, nrow=nrow(sol$v), ncol=0)
+            CCA$u <- CCA$u.eig <- CCA$wa <- CCA$wa.eig <- u
+            CCA$v <- CCA$v.eig <- v
+            CCA$biplot <- matrix(0, 0, 0)
+            CCA$alias <- colnames(Y.r)
         }
     }
     Q <- qr(Xbar)
-    if (Q$rank > 0) {
-        sol <- svd(Xbar)
-        sol$d <- sol$d/sqrt(NR)
-        ax.names <- paste("PC", 1:length(sol$d), sep = "")
-        colnames(sol$u) <- ax.names
-        colnames(sol$v) <- ax.names
-        names(sol$d) <- ax.names
-        rownames(sol$u) <- rownames(X)
-        rownames(sol$v) <- colnames(X)
-        rank <- min(Q$rank, sum(sol$d > ZERO))
-        if (rank) {
-            CA <- list(eig = (sol$d[1:rank]^2))
-            CA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
-            CA$v <- as.matrix(sol$v)[, 1:rank, drop = FALSE]
-            CA$u.eig <- sweep(as.matrix(CA$u), 2, sol$d[1:rank], 
-                              "*")
-            CA$v.eig <- sweep(as.matrix(CA$v), 2, sol$d[1:rank], 
-                              "*")
-            CA$rank <- rank
-            CA$tot.chi <- sum(CA$eig)
-            CA$Xbar <- Xbar
-        }
+    sol <- svd(Xbar)
+    sol$d <- sol$d/sqrt(NR)
+    ax.names <- paste("PC", 1:length(sol$d), sep = "")
+    colnames(sol$u) <- ax.names
+    colnames(sol$v) <- ax.names
+    names(sol$d) <- ax.names
+    rownames(sol$u) <- rownames(X)
+    rownames(sol$v) <- colnames(X)
+    rank <- min(Q$rank, sum(sol$d > ZERO))
+    if (rank) {
+        CA <- list(eig = (sol$d[1:rank]^2))
+        CA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
+        CA$v <- as.matrix(sol$v)[, 1:rank, drop = FALSE]
+        CA$u.eig <- sweep(as.matrix(CA$u), 2, sol$d[1:rank], 
+                          "*")
+        CA$v.eig <- sweep(as.matrix(CA$v), 2, sol$d[1:rank], 
+                          "*")
+        CA$rank <- rank
+        CA$tot.chi <- sum(CA$eig)
+        CA$Xbar <- Xbar
+    } else {   # zero rank: no residual component
+        CA <- list(eig = 0, rank = rank, tot.chi = 0,
+                   Xbar = Xbar)
+        CA$u <- CA$u.eig <- matrix(0, nrow(sol$u), 0)
+        CA$v <- CA$v.eig <- matrix(0, nrow(sol$v), 0)
     }
     call <- match.call()
     call[[1]] <- as.name("rda")
