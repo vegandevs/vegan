@@ -1,5 +1,5 @@
 `rda.formula` <-
-    function (for§mula, data, scale = FALSE, na.action = na.fail,
+    function (formula, data, scale = FALSE, na.action = na.fail,
               subset = NULL, ...) 
 {
     if (missing(data)) {
