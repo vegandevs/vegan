@@ -47,6 +47,13 @@ anova(p, perm=100)
 anova(p, by="term", perm=100)
 anova(p, by="margin", perm=100)
 anova(p, by="axis", perm=100)
+## see that capscale can be updated and also works with 'dist' input
+dis <- vegdist(dune)
+p <- update(p, dis ~ .)
+anova(p, perm=100)
+anova(p, by="term", perm=100)
+anova(p, by="margin", perm=100)
+anova(p, by="axis", perm=100)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -62,9 +69,8 @@ m
 tab
 all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
 tab[nrow(tab),1] == m$CA$rank
-
 ## clean-up
-rm(df, spno, fla, m, p, q, tab, .Random.seed)
+rm(df, spno, fla, m, p, q, tab, dis, .Random.seed)
 ### <--- END anova.cca test --->
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on

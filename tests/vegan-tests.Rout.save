@@ -1,5 +1,5 @@
 
-R version 2.12.2 (2011-02-25)
+R version 2.13.0 beta (2011-04-04 r55296)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
@@ -145,6 +145,52 @@ CAP6      1  2.7811 0.5098     99   0.87
 Residual  4 21.8213                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ## see that capscale can be updated and also works with 'dist' input
+> dis <- vegdist(dune)
+> p <- update(p, dis ~ .)
+> anova(p, perm=100)
+Permutation test for capscale under reduced model
+
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+         Df     Var      F N.Perm Pr(>F)  
+Model     6 1.55041 1.9024     99   0.06 .
+Residual  4 0.54333                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(p, by="term", perm=100)
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df     Var      F N.Perm Pr(>F)  
+Management   3 1.04714 2.5697     99   0.02 *
+poly(A1, 2)  2 0.29810 1.0973     99   0.44  
+spno         1 0.20517 1.5105     99   0.21  
+Residual     4 0.54333                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(p, by="margin", perm=100)
+Permutation test for capscale under reduced model
+Marginal effects of terms
+
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df     Var      F N.Perm Pr(>F)
+Management   3 0.70723 1.7356     99   0.15
+poly(A1, 2)  2 0.27558 1.0144     99   0.44
+spno         1 0.20517 1.5105     99   0.29
+Residual     4 0.54333                     
+> anova(p, by="axis", perm=100)
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df,      na.action = na.exclude, subset = structure(c(TRUE, TRUE,      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE,      FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2",      "13", "4", "16", "6", "1", "8", "5", "17", "15", "10", "11",      "9", "18", "3", "20", "14", "19", "12", "7")))
+         Df     Var      F N.Perm Pr(>F)  
+CAP1      1 0.70878 5.2181     99   0.03 *
+CAP2      1 0.54318 3.9989     99   0.07 .
+CAP3      1 0.11673 0.8594     99   0.53  
+CAP4      1 0.09299 0.6846     99   0.59  
+CAP5      1 0.06416 0.4723     99   0.84  
+CAP6      1 0.02458 0.1810     99   0.98  
+Residual  4 0.54333                       
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -153,7 +199,7 @@ Permutation test for cca under reduced model
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df  Chisq      F N.Perm Pr(>F)
-Model     6 1.3178 1.3341     99   0.15
+Model     6 1.3178 1.3341     99   0.17
 Residual  4 0.6585                     
 > anova(q, by="term", perm=100)
 Permutation test for cca under reduced model
@@ -161,9 +207,9 @@ Terms added sequentially (first to last)
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
             Df  Chisq      F N.Perm Pr(>F)  
-Management   3 0.8039 1.6277     99   0.06 .
-poly(A1, 2)  2 0.3581 1.0877     99   0.48  
-spno         1 0.1558 0.9461     99   0.49  
+Management   3 0.8039 1.6277     99   0.03 *
+poly(A1, 2)  2 0.3581 1.0877     99   0.36  
+spno         1 0.1558 0.9461     99   0.43  
 Residual     4 0.6585                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -173,19 +219,19 @@ Marginal effects of terms
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
             Df  Chisq      F N.Perm Pr(>F)
-Management   3 0.6151 1.2454     99   0.33
-poly(A1, 2)  2 0.3514 1.0673     99   0.38
+Management   3 0.6151 1.2454     99   0.35
+poly(A1, 2)  2 0.3514 1.0673     99   0.44
 spno         1 0.1558 0.9461     99   0.51
 Residual     4 0.6585                     
 > anova(q, by="axis", perm=100)
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit,      subset = structure(c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE,      FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE,      TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2", "13", "4",      "16", "6", "1", "8", "5", "17", "15", "10", "11", "9", "18",      "3", "20", "14", "19", "12", "7")))
          Df  Chisq      F N.Perm Pr(>F)  
-CCA1      1 0.4683 2.8448     99   0.04 *
-CCA2      1 0.3339 2.0280     99   0.17  
-CCA3      1 0.1983 1.2044     99   0.34  
-CCA4      1 0.1457 0.8852     99   0.56  
-CCA5      1 0.1035 0.6284     99   0.63  
-CCA6      1 0.0681 0.4139     99   0.79  
+CCA1      1 0.4683 2.8448     99   0.07 .
+CCA2      1 0.3339 2.0280     99   0.11  
+CCA3      1 0.1983 1.2044     99   0.25  
+CCA4      1 0.1457 0.8852     99   0.50  
+CCA5      1 0.1035 0.6284     99   0.59  
+CCA6      1 0.0681 0.4139     99   0.75  
 Residual  4 0.6585                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -214,21 +260,20 @@ Eigenvalues for unconstrained axes:
 
 > tab
 Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env,      subset = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE,      TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,      TRUE, FALSE))
-         Df  Chisq      F N.Perm Pr(>F)  
-CCA1      1 0.2711 2.9561     99   0.02 *
-CCA2      1 0.1406 1.5329     99   0.10 .
-CCA3      1 0.0876 0.9553     99   0.46  
-CCA4      1 0.0562 0.6132     99   0.78  
-Residual 10 0.9170                       
+         Df  Chisq      F N.Perm Pr(>F)   
+CCA1      1 0.2711 2.9561     99   0.01 **
+CCA2      1 0.1406 1.5329     99   0.05 * 
+CCA3      1 0.0876 0.9553     99   0.42   
+CCA4      1 0.0562 0.6132     99   0.75   
+Residual 10 0.9170                        
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 > all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
 [1] TRUE
 > tab[nrow(tab),1] == m$CA$rank
 [1] TRUE
-> 
 > ## clean-up
-> rm(df, spno, fla, m, p, q, tab, .Random.seed)
+> rm(df, spno, fla, m, p, q, tab, dis, .Random.seed)
 > ### <--- END anova.cca test --->
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
