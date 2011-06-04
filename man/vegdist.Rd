@@ -149,22 +149,24 @@
   are divided by \eqn{\log(2)}{log(2)} so that the results will be in
   the conventional range \eqn{0 \dots 1}.
 
-  Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
-  index based on presence/absence data.  It is defined as \eqn{1 - prob(j)},
-  or based on the probability of observing at least \eqn{j} 
-  species in shared in compared communities.  Legendre & Legendre (1998)
-  suggest
-  using simulations to assess the probability, but the current function
-  uses analytic result from hypergeometric distribution
-  (\code{\link{phyper}}) instead.  This probability (and the index) is
-  dependent on the number of species missing in both sites, and adding
-  all-zero species to the data or removing missing species from the data
-  will influence the index.  The probability (and the index) may be
-  almost zero or almost one for a wide range of parameter values.  The
-  index is nonmetric: two
-  communities with no shared species may have a dissimilarity slightly
-  below one, and two identical communities may have dissimilarity
-  slightly above zero.
+  Raup--Crick dissimilarity (\code{method = "raup"}) is a
+  probabilistic index based on presence/absence data.  It is defined
+  as \eqn{1 - prob(j)}, or based on the probability of observing at
+  least \eqn{j} species in shared in compared communities.  Legendre &
+  Legendre (1998) suggest using simulations to assess the probability,
+  but the current function uses analytic result from hypergeometric
+  distribution (\code{\link{phyper}}) instead.  This probability (and
+  the index) is dependent on the number of species missing in both
+  sites, and adding all-zero species to the data or removing missing
+  species from the data will influence the index.  The probability
+  (and the index) may be almost zero or almost one for a wide range of
+  parameter values.  The index is nonmetric: two communities with no
+  shared species may have a dissimilarity slightly below one, and two
+  identical communities may have dissimilarity slightly above
+  zero. Please note that this index does not implement the Raup--Crick
+  dissimilarity as discussed by Chase et al. (2011): the current index
+  uses equal probabilities for all species, but the probabilities
+  should be inequal and based on species frequencies.
   
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
@@ -226,6 +228,11 @@
   Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new
   statistical approach for assessing similarity of species composition
   with incidence and abundance data. \emph{Ecology Letters} 8, 148--159.
+
+  Chase, J.M., Kraft, N.J.B., Smith, K.G., Vellend, M. and Inouye,
+  B.D. (2011). Using null models to disentangle variation in community
+  dissimilarity from variation in \eqn{\alpha}{alpha}-diversity.
+  \emph{Ecosphere} 2:art24 [doi:10.1890/ES10-00117.1]
    
   Faith, D. P, Minchin, P. R. and Belbin, L. (1987).
   Compositional dissimilarity as a robust measure of ecological
