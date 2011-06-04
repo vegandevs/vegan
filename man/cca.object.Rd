@@ -46,13 +46,22 @@
     values). This is a vector of indices of missing value rows in the
     original data and a class of the action, usually either
     \code{"omit"} or \code{"exclude"}.}
-\item{pCCA, CCA, CA}{Actual ordination results for conditioned
+
+  \item{pCCA, CCA, CA}{Actual ordination results for conditioned
     (partial), constrained and unconstrained components of the
-    model. Any of these can be \code{NULL} if there is no corresponding
-    component.
-    Items \code{pCCA}, \code{CCA} and \code{CA} have similar
-    structure, and contain following items:
-    \describe{
+    model. If constraints or conditions are not given, the
+    corresponding components \code{CCA} and \code{pCCA} are
+    \code{NULL}. If they are specified but have zero rank and zero
+    eigenvalue (e.g., due to aliasing), they have a standard structure
+    like described below, but the result scores have zero columns, but
+    the correct number of rows. The residual component is never
+    \code{NULL}, and if there is no residual variation (like in
+    overdefined model), its scores have zero columns. The standard
+    \code{print} command does not show \code{NULL} components, but it
+    prints zeros for zeroed components. Items \code{pCCA}, \code{CCA}
+    and \code{CA} contain following items:
+
+\describe{
     \item{\code{alias}}{The names of the aliased constraints or conditions.
       Function \code{\link{alias.cca}} does not access this item
       directly, but it finds the aliased variables and their defining
