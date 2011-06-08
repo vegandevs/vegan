@@ -150,14 +150,13 @@ permutest(x, ...)
   Tests \code{by = "terms"} and \code{by = "margin"} are consistent
   only when \code{model = "direct"}.  
 }
-\references
-{
+\references{
   Legendre, P. and Legendre, L. (1998). \emph{Numerical Ecology}. 2nd
   English ed. Elsevier.
 
   Legendre, P., Oksanen, J. and ter Braak, C.J.F. (2011). Testing the
-  significance of canonical axes in redundancy analysis. \emph{Methods
-  in Ecology and Evolution} 2, 269--277.
+  significance of canonical axes in redundancy analysis. 
+  \emph{Methods in Ecology and Evolution} 2, 269--277.
 }
 \author{Jari  Oksanen}
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}
