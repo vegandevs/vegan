@@ -741,7 +741,7 @@ detaching ‘dune.env’
 > ### Title: Permutation Test for Constrained Correspondence Analysis,
 > ###   Redundancy Analysis and Constrained Analysis of Principal Coordinates
 > ### Aliases: anova.cca anova.ccanull anova.ccabyaxis anova.ccabyterm
-> ###   anova.ccabymargin permutest permutest.default permutest.cca
+> ###   anova.ccabymargin anova.prc permutest permutest.default permutest.cca
 > ###   print.permutest.cca
 > ### Keywords: multivariate htest
 > 
@@ -4624,7 +4624,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103145468>
+<environment: 0x103676520>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4640,7 +4640,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1063106e0>
+<environment: 0x105814510>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4796,7 +4796,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106d80540>
+<environment: 0x1073cc078>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4809,7 +4809,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1063f4df0>
+<environment: 0x103301c30>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4822,7 +4822,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10706ab18>
+<environment: 0x10461d078>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5875,7 +5875,7 @@ rows are dose, columns are week
 Permutation test for rda under reduced model
 Permutations stratified within 'week'
 
-Model: prc(response = pyrifos, treatment = dose, time = week)
+Model: rda(formula = pyrifos ~ X + Condition(Z))
          Df     Var      F N.Perm Pr(>F)   
 RDA1      1  25.282 15.096     99   0.01 **
 Residual 77 128.959                        
@@ -7520,7 +7520,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108058578>
+<environment: 0x107afa640>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7997,7 +7997,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  116.809 1.693 128.077 0 0 
+Time elapsed:  103.176 1.152 106.333 0 0 
 > grDevices::dev.off()
 null device 
           1 

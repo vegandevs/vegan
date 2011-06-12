@@ -4,6 +4,7 @@
 \alias{anova.ccabyaxis}
 \alias{anova.ccabyterm}
 \alias{anova.ccabymargin}
+\alias{anova.prc}
 \alias{permutest}
 \alias{permutest.default}
 \alias{permutest.cca}
