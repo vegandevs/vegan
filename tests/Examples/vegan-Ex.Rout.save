@@ -5875,7 +5875,7 @@ rows are dose, columns are week
 Permutation test for rda under reduced model
 Permutations stratified within 'week'
 
-Model: rda(formula = pyrifos ~ X + Condition(Z))
+Model: prc(response = pyrifos, treatment = dose, time = week)
          Df     Var      F N.Perm Pr(>F)   
 RDA1      1  25.282 15.096     99   0.01 **
 Residual 77 128.959                        
@@ -7520,7 +7520,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107afa640>
+<environment: 0x107bd3e60>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7997,7 +7997,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.176 1.152 106.333 0 0 
+Time elapsed:  103.883 1.212 107.845 0 0 
 > grDevices::dev.off()
 null device 
           1 
