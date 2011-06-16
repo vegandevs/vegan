@@ -63,9 +63,24 @@
     colnames(beta.sites) <- rownames(lhs)
     F.Mod <- (SS.Exp.each/df.Exp) / (SS.Res/df.Res)
 
-    f.test <- function(H, G, I, df.Exp, df.Res, H.snterm){
-        (sum( G * t(H) )/df.Exp) /
-            (sum( G * t(I-H.snterm) )/df.Res) }
+
+    
+    f.test <- function(tH, G, df.Exp, df.Res, tIH.snterm) {
+      ## HERE I TRY CHANGING t(H)  TO tH, and
+      ## t(I - H.snterm) to tIH.snterm, so that we don't have
+      ## to do those calculations for EACH iteration.
+      ## This is the function we have to do for EACH permutation.
+      ## G is an n x n centered distance matrix
+      ## H is the hat matrix from the design (X)
+      ## note that for R, * is element-wise multiplication,
+      ## whereas %*% is matrix multiplication. 
+        (sum(G * tH)/df.Exp) /
+          (sum(G * tIH.snterm)/df.Res) }
+  
+ ### Old f.test
+    ### f.test <- function(H, G, I, df.Exp, df.Res, H.snterm){
+    ##    (sum( G * t(H) )/df.Exp) /
+      ##    (sum( G * t(I-H.snterm) )/df.Res) }
     
     SS.perms <- function(H, G, I){
         c(SS.Exp.p = sum( G * t(H) ),
@@ -77,11 +92,15 @@
         strata <- NULL
     p <- sapply(1:permutations,
                 function(x) permuted.index(n, strata=strata))
+
     
+    tH.s <- sapply(H.s, t)
+    tIH.snterm <- t(I-H.snterm)
     ## Apply permutations for each term
+    ## This is the new f.test (2011-06-15) that uses fewer arguments
     f.perms <- sapply(1:nterms, function(i) {
         sapply(1:permutations, function(j) {
-            f.test(H.s[[i]], G[p[,j],p[,j]], I, df.Exp[i], df.Res, H.snterm)
+            f.test(H.s[[i]], G[p[,j], p[,j]], df.Exp[i], df.Res, tIH.snterm)
         } )
     })
     ## Round to avoid arbitrary P-values with tied data

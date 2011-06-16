@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.18-33 (opened June 14, 2011)
 	
+	* adonis: made faster (much faster in tests) by polishing the
+	f.test() in the innermost loop.
 	
 Version 1.18-32 (closed June 14, 2011)
 
