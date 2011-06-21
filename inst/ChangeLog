@@ -2,11 +2,22 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.18-33 (opened June 14, 2011)
-	
+Version 1.90-0 (opened June 21, 2011)
+
+	* vegan now depends on the permute package for new permutation
+	designs. This initially version strips out all the old "new"
+	permutation code from the R and Rd files, and patches up
+	permutest.betadisper to use shuffle() to generate permutations.
+
+	The 1.90-0 devel series will lead the way to vegan 2.0-0. There
+	may well be build problems as we iron out permute / vegan
+	meshing.
+
+Version 1.18-33 (closed June 21, 2011)
+
 	* adonis: made faster (much faster in tests) by polishing the
 	f.test() in the innermost loop.
-	
+
 Version 1.18-32 (closed June 14, 2011)
 
 	* closed with the release of vegan_1.17-11.
