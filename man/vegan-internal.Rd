@@ -69,8 +69,8 @@ veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
   \code{permuted.index} creates permuted index of length \code{n}
   possibly stratified within \code{strata}. This is the basic \pkg{vegan}
   permutation function that should be replaced with more powerful
-  \code{permuted.index2} in the future releases of \pkg{vegan}, and all
-  new functions should use \code{\link{permuted.index2}}.
+  \code{\link{shuffle}} in the future releases of \pkg{vegan}, and all
+  new functions should use \code{\link{shuffle}}.
 
   \code{pasteCall} prints the function call so that it is nicely wrapped
   in \code{\link[utils]{Sweave}} output.

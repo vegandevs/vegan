@@ -23,7 +23,7 @@
     \code{\link{simulate}} for details. }
   \item{indx}{Index of residuals added to the fitted values, such as
     produced by  \code{\link{permuted.index}},
-    \code{\link{permuted.index2}} or \code{\link{sample}}. The index can
+    \code{\link{shuffle}} or \code{\link{sample}}. The index can
     have duplicate entries so that bootstrapping is allowed. If null,
     parametric simulation is used and Gaussian error is added to the
     fitted values.}

@@ -33,7 +33,8 @@
                         x$distances[x$group == z[2]])})
     }
     for(i in seq(along = res[-1])) {
-        perm <- permuted.index2(nobs, control = control)
+        ##perm <- permuted.index2(nobs, control = control)
+        perm <- shuffle(nobs, control = control)
         perm.resid <- resids[perm]
         f <- qr.fitted(mod.Q, perm.resid)
         mss <- sum((f - mean(f))^2)
