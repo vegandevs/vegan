@@ -22,7 +22,8 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('vegan')
-This is vegan 1.18-32
+Loading required package: permute
+This is vegan 1.90-0
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -1108,10 +1109,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Permutation test for homogeneity of multivariate dispersions
 
 No. of permutations: 999  
-Permutation type: free 
+
+**** STRATA ****
 Permutations are unstratified
-Mirrored permutations?: No 
-Use same permutation within strata?: No 
+
+**** SAMPLES ****
+Permutation type: free 
+Mirrored permutations for Samples?: No 
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
@@ -1180,10 +1184,13 @@ Eigenvalues for PCoA axes:
 Permutation test for homogeneity of multivariate dispersions
 
 No. of permutations: 100  
-Permutation type: free 
+
+**** STRATA ****
 Permutations are unstratified
-Mirrored permutations?: No 
-Use same permutation within strata?: No 
+
+**** SAMPLES ****
+Permutation type: free 
+Mirrored permutations for Samples?: No 
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
@@ -1229,10 +1236,13 @@ Eigenvalues for PCoA axes:
 Permutation test for homogeneity of multivariate dispersions
 
 No. of permutations: 100  
-Permutation type: free 
+
+**** STRATA ****
 Permutations are unstratified
-Mirrored permutations?: No 
-Use same permutation within strata?: No 
+
+**** SAMPLES ****
+Permutation type: free 
+Mirrored permutations for Samples?: No 
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
@@ -4624,7 +4634,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103676520>
+<environment: 0x103cf98d8>
 
 Estimated degrees of freedom:
 6.2955  total = 7.295494 
@@ -4640,7 +4650,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105814510>
+<environment: 0x10187dad0>
 
 Estimated degrees of freedom:
 4.9207  total = 5.920718 
@@ -4796,7 +4806,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1073cc078>
+<environment: 0x106523200>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4809,7 +4819,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103301c30>
+<environment: 0x105decb18>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4822,7 +4832,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10461d078>
+<environment: 0x10665fd78>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -4848,319 +4858,6 @@ Loading required package: lattice
 
 detaching ‘package:lattice’, ‘package:mgcv’
 
-> nameEx("permCheck")
-> ### * permCheck
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: permCheck
-> ### Title: Utility functions for permutation schemes
-> ### Aliases: permCheck numPerms print.permCheck print.summary.permCheck
-> ###   summary.permCheck getNumObs getNumObs.default getNumObs.integer
-> ###   getNumObs.numeric allPerms print.allPerms summary.allPerms
-> ###   print.summary.allPerms permuplot
-> ### Keywords: utilities design methods datagen
-> 
-> ### ** Examples
-> 
-> ## use example data from ?pyrifos
-> example(pyrifos)
-
-pyrifs> data(pyrifos)
-
-pyrifs> ditch <- gl(12, 1, length=132)
-
-pyrifs> week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
-
-pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
-> 
-> ## Demonstrate the maximum number of permutations for the pyrifos data
-> ## under a series of permutation schemes
-> 
-> ## no restrictions - lots of perms
-> (check1 <- permCheck(pyrifos, control = permControl(type = "free")))
-[1] 1.118249e+224
-> summary(check1)
-Number of possible permutations: 1.11824865119614e+224 
-
-No. of permutations: 199  
-Permutation type: free 
-Permutations are unstratified
-Mirrored permutations?: No 
-Use same permutation within strata?: No 
-
-> 
-> ## no strata but data are series with no mirroring, so 132 permutations
-> permCheck(pyrifos, control = permControl(type = "series",
-+                    mirror = FALSE))
-[1] 132
-> 
-> ## no strata but data are series with mirroring, so 264 permutations
-> permCheck(pyrifos, control = permControl(type = "series",
-+                    mirror = TRUE))
-[1] 264
-> 
-> ## unrestricted within strata
-> permCheck(pyrifos, control = permControl(strata = ditch,
-+                    type = "free"))
-[1] 1.636321e+91
-> 
-> ## time series within strata, no mirroring
-> permCheck(pyrifos, control = permControl(strata = ditch,
-+                    type = "series", mirror = FALSE))
-[1] 3.138428e+12
-> 
-> ## time series within strata, with mirroring
-> permCheck(pyrifos, control = permControl(strata = ditch,
-+                    type = "series", mirror = TRUE))
-[1] 1.2855e+16
-> 
-> ## time series within strata, no mirroring, same permutation within strata
-> permCheck(pyrifos, control = permControl(strata = ditch,
-+                    type = "series", constant = TRUE))
-[1] 11
-> 
-> ## time series within strata, with mirroring, same permutation within strata
-> permCheck(pyrifos, control = permControl(strata = ditch,
-+                    type = "series", mirror = TRUE, constant = TRUE))
-[1] 22
-> 
-> ## permute strata
-> permCheck(pyrifos, permControl(strata = ditch, type = "free",
-+                                permute.strata = TRUE))
-[1] 479001600
-> 
-> ## this should also also for arbitrary vectors
-> vec1 <- permCheck(1:100)
-> vec2 <- permCheck(1:100, permControl())
-> all.equal(vec1, vec2)
-[1] TRUE
-> vec3 <- permCheck(1:100, permControl(type = "series"))
-> all.equal(100, vec3$n)
-[1] TRUE
-> vec4 <- permCheck(1:100, permControl(type = "series", mirror = TRUE))
-> all.equal(vec4$n, 200)
-[1] TRUE
-> 
-> ## enumerate all possible permutations
-> fac <- gl(2,6)
-> ctrl <- permControl(type = "grid", mirror = FALSE, strata = fac,
-+                     constant = TRUE, nrow = 3, ncol = 2)
-> numPerms(1:12, control = ctrl)
-[1] 6
-> (tmp <- allPerms(12, control = ctrl, observed = TRUE))
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
-[1,]    2    3    4    5    6    1    8    9   10    11    12     7
-[2,]    3    4    5    6    1    2    9   10   11    12     7     8
-[3,]    4    5    6    1    2    3   10   11   12     7     8     9
-[4,]    5    6    1    2    3    4   11   12    7     8     9    10
-[5,]    6    1    2    3    4    5   12    7    8     9    10    11
-[6,]    1    2    3    4    5    6    7    8    9    10    11    12
-> (tmp2 <- allPerms(12, control = ctrl))
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
-[1,]    2    3    4    5    6    1    8    9   10    11    12     7
-[2,]    3    4    5    6    1    2    9   10   11    12     7     8
-[3,]    4    5    6    1    2    3   10   11   12     7     8     9
-[4,]    5    6    1    2    3    4   11   12    7     8     9    10
-[5,]    6    1    2    3    4    5   12    7    8     9    10    11
-> ## turn on mirroring
-> ctrl$mirror <- TRUE
-> numPerms(1:12, control = ctrl)
-[1] 12
-> (tmp3 <- allPerms(12, control = ctrl, observed = TRUE))
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
- [1,]    2    3    4    5    6    1    8    9   10    11    12     7
- [2,]    3    4    5    6    1    2    9   10   11    12     7     8
- [3,]    4    5    6    1    2    3   10   11   12     7     8     9
- [4,]    5    6    1    2    3    4   11   12    7     8     9    10
- [5,]    6    1    2    3    4    5   12    7    8     9    10    11
- [6,]    1    2    3    4    5    6    7    8    9    10    11    12
- [7,]    1    6    5    4    3    2    7   12   11    10     9     8
- [8,]    2    1    6    5    4    3    8    7   12    11    10     9
- [9,]    3    2    1    6    5    4    9    8    7    12    11    10
-[10,]    4    3    2    1    6    5   10    9    8     7    12    11
-[11,]    5    4    3    2    1    6   11   10    9     8     7    12
-[12,]    6    5    4    3    2    1   12   11   10     9     8     7
-> (tmp4 <- allPerms(12, control = ctrl))
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
- [1,]    2    3    4    5    6    1    8    9   10    11    12     7
- [2,]    3    4    5    6    1    2    9   10   11    12     7     8
- [3,]    4    5    6    1    2    3   10   11   12     7     8     9
- [4,]    5    6    1    2    3    4   11   12    7     8     9    10
- [5,]    6    1    2    3    4    5   12    7    8     9    10    11
- [6,]    1    6    5    4    3    2    7   12   11    10     9     8
- [7,]    2    1    6    5    4    3    8    7   12    11    10     9
- [8,]    3    2    1    6    5    4    9    8    7    12    11    10
- [9,]    4    3    2    1    6    5   10    9    8     7    12    11
-[10,]    5    4    3    2    1    6   11   10    9     8     7    12
-[11,]    6    5    4    3    2    1   12   11   10     9     8     7
-> ## prints out details of the permutation scheme as
-> ## well as the matrix of permutations
-> summary(tmp)
-
-	Complete enumeration of permutations
-
-Permutation Scheme:
-
-No. of permutations: 6 (complete enumeration) 
-Permutation type: grid 
-Data are spatial grid(s) of dimension 3 * 2 
-Permutations stratified within 'fac'
-Mirrored permutations?: No 
-Use same permutation within strata?: Yes 
-
-Contains observed ordering?: Yes 
-
-All permutations:
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
-[1,]    2    3    4    5    6    1    8    9   10    11    12     7
-[2,]    3    4    5    6    1    2    9   10   11    12     7     8
-[3,]    4    5    6    1    2    3   10   11   12     7     8     9
-[4,]    5    6    1    2    3    4   11   12    7     8     9    10
-[5,]    6    1    2    3    4    5   12    7    8     9    10    11
-[6,]    1    2    3    4    5    6    7    8    9    10    11    12
-> summary(tmp2)
-
-	Complete enumeration of permutations
-
-Permutation Scheme:
-
-No. of permutations: 5 (complete enumeration) 
-Permutation type: grid 
-Data are spatial grid(s) of dimension 3 * 2 
-Permutations stratified within 'fac'
-Mirrored permutations?: No 
-Use same permutation within strata?: Yes 
-
-Contains observed ordering?: No 
-
-All permutations:
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
-[1,]    2    3    4    5    6    1    8    9   10    11    12     7
-[2,]    3    4    5    6    1    2    9   10   11    12     7     8
-[3,]    4    5    6    1    2    3   10   11   12     7     8     9
-[4,]    5    6    1    2    3    4   11   12    7     8     9    10
-[5,]    6    1    2    3    4    5   12    7    8     9    10    11
-> 
-> ## different numbers of observations per level of strata
-> fac <- factor(rep(1:3, times = c(3,2,2)))
-> ## free permutations in levels of strata
-> numPerms(7, permControl(type = "free", strata = fac))
-[1] 24
-> allPerms(7, permControl(type = "free", strata = fac))
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
- [1,]    1    2    3    4    5    7    6
- [2,]    1    2    3    5    4    6    7
- [3,]    1    2    3    5    4    7    6
- [4,]    1    3    2    4    5    6    7
- [5,]    1    3    2    4    5    7    6
- [6,]    1    3    2    5    4    6    7
- [7,]    1    3    2    5    4    7    6
- [8,]    2    1    3    4    5    6    7
- [9,]    2    1    3    4    5    7    6
-[10,]    2    1    3    5    4    6    7
-[11,]    2    1    3    5    4    7    6
-[12,]    2    3    1    4    5    6    7
-[13,]    2    3    1    4    5    7    6
-[14,]    2    3    1    5    4    6    7
-[15,]    2    3    1    5    4    7    6
-[16,]    3    1    2    4    5    6    7
-[17,]    3    1    2    4    5    7    6
-[18,]    3    1    2    5    4    6    7
-[19,]    3    1    2    5    4    7    6
-[20,]    3    2    1    4    5    6    7
-[21,]    3    2    1    4    5    7    6
-[22,]    3    2    1    5    4    6    7
-[23,]    3    2    1    5    4    7    6
-> ## series permutations in levels of strata
-> numPerms(7, permControl(type = "series", strata = fac))
-[1] 12
-> allPerms(7, permControl(type = "series", strata = fac))
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
- [1,]    2    3    1    5    4    7    6
- [2,]    2    3    1    5    4    6    7
- [3,]    2    3    1    4    5    7    6
- [4,]    2    3    1    4    5    6    7
- [5,]    3    1    2    5    4    7    6
- [6,]    3    1    2    5    4    6    7
- [7,]    3    1    2    4    5    7    6
- [8,]    3    1    2    4    5    6    7
- [9,]    1    2    3    5    4    7    6
-[10,]    1    2    3    5    4    6    7
-[11,]    1    2    3    4    5    7    6
-> 
-> ## allPerms can work with a vector
-> vec <- c(3,4,5)
-> allPerms(vec)
-     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    1    3    2
-[3,]    2    1    3
-[4,]    2    3    1
-[5,]    3    1    2
-[6,]    3    2    1
-> 
-> ## Tests for permuplot
-> n <- 25
-> ## standard permutation designs
-> permuplot(n, permControl(type = "free"))
-> permuplot(n, permControl(type = "series"))
-> permuplot(n, permControl(type = "grid", nrow = 5, ncol = 5))
-> 
-> ## restricted perms with mirroring
-> permuplot(n, permControl(type = "series", mirror = TRUE))
-> permuplot(n, permControl(type = "grid", nrow = 5, ncol = 5,
-+                              mirror = TRUE))
-> 
-> ## perms within strata
-> fac <- gl(6, 20)
-> control <- permControl(type = "free", strata = fac)
-> permuplot(120, control = control, cex = 0.8)
-> control <- permControl(type = "series", strata = fac)
-> permuplot(120, control = control, cex = 0.8)
-> fac <- gl(6, 25)
-> control <- permControl(type = "grid", strata = fac,
-+                        nrow = 5, ncol = 5)
-> permuplot(150, control = control, cex = 0.8)
-> 
-> ## perms within strata with mirroring
-> fac <- gl(6, 20)
-> control <- permControl(type = "series", strata = fac,
-+                        mirror = TRUE)
-> permuplot(120, control = control, cex = 0.8)
-> fac <- gl(6, 25)
-> control <- permControl(type = "grid", strata = fac,
-+                        nrow = 5, ncol = 5, mirror = TRUE)
-> permuplot(150, control = control, cex = 0.8)
-> 
-> ## same perms within strata
-> fac <- gl(6, 20)
-> control <- permControl(type = "free", strata = fac,
-+                        constant = TRUE)
-> permuplot(120, control = control, cex = 0.8)
-> control <- permControl(type = "series", strata = fac,
-+                        constant = TRUE)
-> permuplot(120, control = control, cex = 0.8)
-> fac <- gl(6, 25)
-> control <- permControl(type = "grid", strata = fac,
-+                        nrow = 5, ncol = 5, constant = TRUE)
-> permuplot(150, control = control, cex = 0.8)
-> 
-> ## same perms within strata with mirroring
-> fac <- gl(6, 20)
-> control <- permControl(type = "series", strata = fac,
-+                        mirror = TRUE, constant = TRUE)
-> permuplot(120, control = control, cex = 0.8)
-> fac <- gl(6, 25)
-> control <- permControl(type = "grid", strata = fac,
-+                        nrow = 5, ncol = 5, mirror = TRUE,
-+                        constant = TRUE)
-> permuplot(150, control = control, cex = 0.8)
-> 
-> 
-> 
-> 
-> cleanEx()
 > nameEx("permatfull")
 > ### * permatfull
 > 
@@ -5373,162 +5070,6 @@ X-squared = 0.0142, df = 1, p-value = 0.9051
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-> nameEx("permuted.index2")
-> ### * permuted.index2
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: permuted.index2
-> ### Title: Unrestricted and restricted permutations
-> ### Aliases: permuted.index2 permControl print.permControl permute
-> ### Keywords: htest design datagen
-> 
-> ### ** Examples
-> 
-> set.seed(1234)
-> 
-> ## unrestricted permutations
-> permuted.index2(20)
- [1]  3 12 11 18 14 10  1  4  8  6  7  5 20 15  2  9 17 16 19 13
-> 
-> ## observations represent a time series of line transect
-> permuted.index2(20, control = permControl(type = "series"))
- [1]  8  9 10 11 12 13 14 15 16 17 18 19 20  1  2  3  4  5  6  7
-> 
-> ## observations represent a time series of line transect
-> ## but with mirroring allowed
-> permuted.index2(20, control = permControl(type = "series", mirror = TRUE))
- [1]  7  6  5  4  3  2  1 20 19 18 17 16 15 14 13 12 11 10  9  8
-> 
-> ## observations represent a spatial grid
-> perms <- permuted.index2(20, permControl(type = "grid",
-+                                          ncol = 4, nrow = 5))
-> ## view the permutation as a grid
-> matrix(matrix(1:20, nrow = 5, ncol = 4)[perms], ncol = 4, nrow = 5)
-     [,1] [,2] [,3] [,4]
-[1,]    7   12   17    2
-[2,]    8   13   18    3
-[3,]    9   14   19    4
-[4,]   10   15   20    5
-[5,]    6   11   16    1
-> 
-> ## random permutations in presence of strata
-> block <- gl(4, 5)
-> permuted.index2(20, permControl(strata = block, type = "free"))
- [1]  5  3  4  2  1  8  7  6  9 10 14 11 15 12 13 18 20 16 17 19
-> ## as above but same random permutation within strata
-> permuted.index2(20, permControl(strata = block, type = "free",
-+                                 constant = TRUE))
- [1]  3  5  2  1  4  6  7  8  9 10 13 12 15 11 14 20 16 19 18 17
-> 
-> ## time series within each level of block
-> permuted.index2(20, permControl(strata = block, type = "series"))
- [1]  5  1  2  3  4  8  9 10  6  7 14 15 11 12 13 17 18 19 20 16
-> ## as above, but  with same permutation for each level
-> permuted.index2(20, permControl(strata = block, type = "series",
-+                                 constant = TRUE))
- [1]  3  2  1  5  4  8  7  6 10  9 13 12 11 15 14 18 17 16 20 19
-> 
-> ## spatial grids within each level of block
-> permuted.index2(100, permControl(strata = block, type = "grid",
-+                                  ncol = 5, nrow = 5))
-  [1]  21  22  23  24  25  30  26  27  28  29  54  55  51  52  53  57  58  59
- [19]  60  56  41  42  43  44  45  50  46  47  48  49  74  75  71  72  73  77
- [37]  78  79  80  76  61  62  63  64  65  70  66  67  68  69  94  95  91  92
- [55]  93  97  98  99 100  96  81  82  83  84  85  90  86  87  88  89  14  15
- [73]  11  12  13  17  18  19  20  16   1   2   3   4   5  10   6   7   8   9
- [91]  34  35  31  32  33  37  38  39  40  36
-> ## as above, but with same permutation for each level
-> permuted.index2(100, permControl(strata = block, type = "grid",
-+                                  ncol = 5, nrow = 5, constant = TRUE))
-  [1]  84  83  82  81  85  89  88  87  86  90  94  93  92  91  95  99  98  97
- [19]  96 100  64  63  62  61  65  69  68  67  66  70  74  73  72  71  75  79
- [37]  78  77  76  80  44  43  42  41  45  49  48  47  46  50  54  53  52  51
- [55]  55  59  58  57  56  60  24  23  22  21  25  29  28  27  26  30  34  33
- [73]  32  31  35  39  38  37  36  40   4   3   2   1   5   9   8   7   6  10
- [91]  14  13  12  11  15  19  18  17  16  20
-> 
-> ## permuting levels of block instead of observations
-> permuted.index2(20, permControl(strata = block, type = "free",
-+                                 permute.strata = TRUE))
- [1] 11 12 13 14 15  1  2  3  4  5  6  7  8  9 10 16 17 18 19 20
-> 
-> ## Simple function using permute() to assess significance
-> ## of a t.test  
-> pt.test <- function(x, group, control) {
-+     ## function to calculate t
-+     t.statistic <- function(x, y) {
-+         m <- length(x)
-+         n <- length(y)
-+         ## means and variances, but for speed
-+         xbar <- .Internal(mean(x))
-+         ybar <- .Internal(mean(y))
-+         xvar <- .Internal(cov(x, NULL, 1, FALSE))
-+         yvar <- .Internal(cov(y, NULL, 1, FALSE))
-+         pooled <- sqrt(((m-1)*xvar + (n-1)*yvar) / (m+n-2))
-+         (xbar - ybar) / (pooled * sqrt(1/m + 1/n))
-+     }
-+     ## check the control object
-+     control <- permCheck(x, control)$control
-+     ## number of observations
-+     nobs <- getNumObs(x)
-+     ## group names
-+     lev <- names(table(group))
-+     ## vector to hold results, +1 because of observed t
-+     t.permu <- numeric(length = control$nperm) + 1
-+     ## calculate observed t
-+     t.permu[1] <- t.statistic(x[group == lev[1]], x[group == lev[2]])
-+     ## generate randomisation distribution of t
-+     for(i in seq_along(t.permu)) {
-+         ## return a permutation
-+         want <- permute(i, nobs, control)
-+         ## calculate permuted t
-+         t.permu[i+1] <- t.statistic(x[want][group == lev[1]],
-+                                     x[want][group == lev[2]])
-+     }
-+     ## pval from permutation test
-+     pval <- sum(abs(t.permu) >= abs(t.permu[1])) / (control$nperm + 1)
-+     ## return value
-+     return(list(t.stat = t.permu[1], pval = pval))
-+ }
-> 
-> ## generate some data with slightly different means
-> set.seed(1234)
-> gr1 <- rnorm(20, mean = 9)
-> gr2 <- rnorm(20, mean = 10)
-> dat <- c(gr1, gr2)
-> ## grouping variable
-> grp <- gl(2, 20, labels = paste("Group", 1:2))
-> ## create the permutation design
-> control <- permControl(type = "free", nperm = 999)
-> ## perform permutation t test
-> perm.val <- pt.test(dat, grp, control)
-> perm.val
-$t.stat
-[1] -2.342064
-
-$pval
-[1] 0.024
-
-> 
-> ## compare perm.val with the p-value from t.test()
-> t.test(dat ~ grp, var.equal = TRUE)
-
-	Two Sample t-test
-
-data:  dat by grp 
-t = -2.3421, df = 38, p-value = 0.02452
-alternative hypothesis: true difference in means is not equal to 0 
-95 percent confidence interval:
- -1.25582408 -0.09136416 
-sample estimates:
-mean in group Group 1 mean in group Group 2 
-             8.749336              9.422930 
-
-> 
-> 
-> 
-> cleanEx()
 > nameEx("permutest.betadisper")
 > ### * permutest.betadisper
 > 
@@ -5590,10 +5131,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Permutation test for homogeneity of multivariate dispersions
 
 No. of permutations: 999  
-Permutation type: free 
+
+**** STRATA ****
 Permutations are unstratified
-Mirrored permutations?: No 
-Use same permutation within strata?: No 
+
+**** SAMPLES ****
+Permutation type: free 
+Mirrored permutations for Samples?: No 
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
@@ -7520,7 +7064,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107bd3e60>
+<environment: 0x1081c2098>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7997,7 +7541,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.883 1.212 107.845 0 0 
+Time elapsed:  101.713 1.044 103.58 0 0 
 > grDevices::dev.off()
 null device 
           1 
