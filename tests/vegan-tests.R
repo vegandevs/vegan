@@ -61,6 +61,19 @@ anova(q, perm=100)
 anova(q, by="term", perm=100)
 anova(q, by="margin", perm=100)
 anova(q, by="axis", perm=100)
+### Check that constrained ordination functions can be embedded.
+### The data.frame 'df' is still attach()ed.
+foo <- function(bar, Y, X, ...)
+{
+    bar <- match.fun(bar)
+    bar(Y ~ X, ...)
+}
+foo("cca", dune, Management, na.action = na.omit)
+foo("rda", dune, Management, na.action = na.omit)
+foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
+foo("capscale", vegdist(dune), Management, na.action = na.omit)
+### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+###
 detach(df)
 ### Check that statistics match in partial constrained ordination
 m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
@@ -70,7 +83,7 @@ tab
 all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
 tab[nrow(tab),1] == m$CA$rank
 ## clean-up
-rm(df, spno, fla, m, p, q, tab, dis, .Random.seed)
+rm(df, spno, fla, m, p, q, tab, dis, foo, .Random.seed)
 ### <--- END anova.cca test --->
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on

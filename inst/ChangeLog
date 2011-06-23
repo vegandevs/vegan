@@ -13,6 +13,10 @@ Version 1.90-0 (opened June 21, 2011)
 	may well be build problems as we iron out permute / vegan
 	meshing.
 
+	* capscale: could not be embedded in another function after fixing
+	the update() in 1.18-31 -- problems were anticipated in ChangeLog,
+	and they were realized.
+
 Version 1.18-33 (closed June 21, 2011)
 
 	* adonis: made faster (much faster in tests) by polishing the

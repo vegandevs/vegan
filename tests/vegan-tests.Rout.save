@@ -235,6 +235,97 @@ CCA6      1 0.0681 0.4139     99   0.75
 Residual  4 0.6585                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ### Check that constrained ordination functions can be embedded.
+> ### The data.frame 'df' is still attach()ed.
+> foo <- function(bar, Y, X, ...)
++ {
++     bar <- match.fun(bar)
++     bar(Y ~ X, ...)
++ }
+> foo("cca", dune, Management, na.action = na.omit)
+Call: cca(formula = Y ~ X, na.action = ..1)
+
+              Inertia Proportion Rank
+Total          2.1037     1.0000     
+Constrained    0.5887     0.2798    3
+Unconstrained  1.5150     0.7202   14
+Inertia is mean squared contingency coefficient 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+   CCA1    CCA2    CCA3 
+0.33273 0.17481 0.08118 
+
+Eigenvalues for unconstrained axes:
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.459535 0.216846 0.174562 0.140934 0.115518 0.086518 0.077818 0.066855 
+     CA9     CA10     CA11     CA12     CA13     CA14 
+0.053171 0.043102 0.035635 0.026482 0.012864 0.005163 
+
+> foo("rda", dune, Management, na.action = na.omit)
+Call: rda(formula = Y ~ X, na.action = ..1)
+
+              Inertia Proportion Rank
+Total         81.8333     1.0000     
+Constrained   28.0931     0.3433    3
+Unconstrained 53.7402     0.6567   14
+Inertia is variance 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+  RDA1   RDA2   RDA3 
+15.661  9.697  2.736 
+
+Eigenvalues for unconstrained axes:
+    PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8     PC9    PC10 
+16.2669  8.1255  6.3186  5.1808  3.6647  3.4383  2.6543  2.3589  1.8917  1.4150 
+   PC11    PC12    PC13    PC14 
+ 0.9926  0.6646  0.4185  0.3497 
+
+> foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
+Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
+
+              Inertia Proportion Rank
+Total          5.2931     1.0000     
+Constrained    1.5460     0.2921    3
+Unconstrained  3.7471     0.7079   14
+Inertia is squared Jaccard distance 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+  CAP1   CAP2   CAP3 
+0.8856 0.4712 0.1893 
+
+Eigenvalues for unconstrained axes:
+   MDS1    MDS2    MDS3    MDS4    MDS5    MDS6    MDS7    MDS8    MDS9   MDS10 
+1.16466 0.54261 0.44747 0.33940 0.29449 0.20622 0.17594 0.15306 0.11676 0.08854 
+  MDS11   MDS12   MDS13   MDS14 
+0.08756 0.07427 0.04752 0.00856 
+
+> foo("capscale", vegdist(dune), Management, na.action = na.omit)
+Call: bar(formula = Y ~ X, na.action = ..1)
+
+              Inertia Proportion Rank
+Total          3.9491                
+Real Total     4.1689     1.0000     
+Constrained    1.3488     0.3235    3
+Unconstrained  2.8201     0.6765   12
+Imaginary     -0.2198               5
+Inertia is squared Bray distance 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+  CAP1   CAP2   CAP3 
+0.8665 0.3747 0.1076 
+
+Eigenvalues for unconstrained axes:
+    MDS1     MDS2     MDS3     MDS4     MDS5     MDS6     MDS7     MDS8 
+1.250893 0.480810 0.371480 0.235202 0.161136 0.096709 0.071414 0.068872 
+    MDS9    MDS10    MDS11    MDS12 
+0.036576 0.029876 0.013495 0.003631 
+
+> ### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+> ###
 > detach(df)
 > ### Check that statistics match in partial constrained ordination
 > m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
@@ -273,7 +364,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > tab[nrow(tab),1] == m$CA$rank
 [1] TRUE
 > ## clean-up
-> rm(df, spno, fla, m, p, q, tab, dis, .Random.seed)
+> rm(df, spno, fla, m, p, q, tab, dis, foo, .Random.seed)
 > ### <--- END anova.cca test --->
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
