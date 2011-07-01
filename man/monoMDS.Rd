@@ -97,8 +97,11 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   where \eqn{d} are the observed dissimilarities, \eqn{\hat d}{dhat}
   are the fitted ordination distances, and \eqn{d_0}{dnull} are the
   ordination distances under null model. For \dQuote{stress 1}
-  \eqn{d_0 = 0}{dnull = 0}, and for \dQuote{stress 2} \eqn{d_0 = \bar
-  d}{dnull = dbar} or mean dissimilarities.
+  \eqn{d_0 = 0}{dnull = 0}, and for \dQuote{stress 2} \eqn{d_0 =
+  \bar{d}}{dnull = dbar} or mean dissimilarities.  \dQuote{Stress 2}
+  is the same as correlation between fitted values and ordination
+  distances, and so related to the \dQuote{linear fit} of
+  \code{\link{stressplot}}.
 
   Function \code{monoMDS} can fit several alternative NMDS variants
   that can be selected with argument \code{model}.  The default
@@ -110,8 +113,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   regression is used for each point (Sibson 1972).  Alternative
   \code{model = "linear"} fits a linear MDS. This fits a linear
   regression instead of monotone, and is not identical to metric
-  scaling or principal coordinates analysis that performs an
-  eigenvector decomposition of dissimilarities (Gower
+  scaling or principal coordinates analysis (\code{\link{cmdscale}})
+  that performs an eigenvector decomposition of dissimilarities (Gower
   1966). Alternative \code{model = "hybrid"} implements hybrid MDS
   thatuses monotone regression for all points and linear regression
   for dissimilarities below or at a \code{threshold} in alternating

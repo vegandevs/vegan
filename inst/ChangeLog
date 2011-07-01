@@ -19,7 +19,9 @@ Version 1.90-0 (opened June 21, 2011)
 
 	* monoMDS: text for a proper help (Rd file). Other help files
 	updated for monoMDS. Stress type 2 is printed both in monoMDS and
-	metaMDS. 
+	metaMDS. stressplot() prints now R2 for monoMDS() results, and
+	docs tell that "linear fit" of stressplot() is related to "stress
+	2". 
 
 Version 1.18-33 (closed June 21, 2011)
 

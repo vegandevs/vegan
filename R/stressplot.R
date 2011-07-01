@@ -47,6 +47,12 @@
             lines(x[k], yf[k], type = "S", col = l.col, lwd = lwd, ...)
         }
     }
+    ## Stress as R2
+    rstress <- 1 - object$stress^2
+    ralscal <- cor(y, yf)^2
+    lab <- paste("Non-metric fit, R2 =", format(rstress, digits=3),
+                 "\nLinear fit, R2 =", format(ralscal, digits=3))
+    text(min(x), 0.95*max(y), lab, pos=4)
     invisible(list("x" = x, "y" = y, "yf" = yf))
 }
     

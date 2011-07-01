@@ -38,9 +38,11 @@
   plot of ordination distances and monotone or linear fit line against
   original dissimilarities.  In addition, it adds to the graph two
   correlation-like statistics on the goodness of fit.  The nonmetric
-  fit is based on stress \eqn{S} and defined as
-  \eqn{\sqrt{1-S^2}}{sqrt(1-S^2)}.  The \dQuote{linear fit} is the
-  correlation between fitted values and ordination distances.
+  fit is based on stress \eqn{S} and defined as \eqn{R^2 = 1-S^2}{R2 =
+  1-S*S}.  The \dQuote{linear fit} is the squared correlation between
+  fitted values and ordination distances. For \code{\link{monoMDS}},
+  the \dQuote{linear fit} and \eqn{R^2}{R2} from \dQuote{stress type
+  2} are equal.
 
   Both functions can be used both with \code{\link{metaMDS}},
   \code{\link{monoMDS}} and \code{\link[MASS]{isoMDS}}.  The original
