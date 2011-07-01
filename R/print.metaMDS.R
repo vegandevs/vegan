@@ -11,6 +11,8 @@
     cat("Distance:", x$distance, "\n\n")
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
+    if (inherits(x, "monoMDS") && x$isform == 2)
+        cat("(stress type 2)\n")
     if (x$converged) 
         cat("Two convergent solutions found after", x$tries, 
             "tries\n")

@@ -14,7 +14,7 @@
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress)
     if (x$isform == 2)
-        cat("(type 2)")
+        cat(" (type 2)")
     cat("\n")
     stoplab <- switch(x$icause,
                       "Maximum number of iteration reached",

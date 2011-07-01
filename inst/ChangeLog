@@ -18,7 +18,8 @@ Version 1.90-0 (opened June 21, 2011)
 	and they were realized.
 
 	* monoMDS: text for a proper help (Rd file). Other help files
-	updated for monoMDS.
+	updated for monoMDS. Stress type 2 is printed both in monoMDS and
+	metaMDS. 
 
 Version 1.18-33 (closed June 21, 2011)
 
