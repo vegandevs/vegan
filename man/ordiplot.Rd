@@ -96,13 +96,10 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
 }
 
 \examples{
-# Draw a cute NMDS plot from a non-vegan ordination (isoMDS).
-# Function metaMDS would be an easier alternative.
+# Draw a plot for a non-vegan ordination (cmdscale).
 data(dune)
 dune.dis <- vegdist(wisconsin(dune))
-library(MASS)
-dune.mds <- isoMDS(dune.dis)
-dune.mds <- postMDS(dune.mds, dune.dis)
+dune.mds <- cmdscale(dune.dis, eig = TRUE)
 dune.mds$species <- wascores(dune.mds$points, dune, expand = TRUE)
 fig <- ordiplot(dune.mds, type = "none")
 points(fig, "sites", pch=21, col="red", bg="yellow")

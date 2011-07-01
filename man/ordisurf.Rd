@@ -183,9 +183,8 @@
 \examples{
 data(varespec)
 data(varechem)
-library(MASS)
 vare.dist <- vegdist(varespec)
-vare.mds <- isoMDS(vare.dist)
+vare.mds <- monoMDS(vare.dist)
 with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 
 ## as above but with extra penalties on smooth terms:

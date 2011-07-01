@@ -42,14 +42,13 @@ eigengrad(x, w)
 
 \author{ Jari Oksanen }
 
-\seealso{ \code{\link[MASS]{isoMDS}}, \code{\link{cca}}. }
+\seealso{ \code{\link{monoMDS}}, \code{\link{cca}}. }
 
 \examples{
 data(varespec)
 data(varechem)
-library(MASS)  ## isoMDS
 vare.dist <- vegdist(wisconsin(varespec))
-vare.mds <- isoMDS(vare.dist)
+vare.mds <- monoMDS(vare.dist)
 vare.points <- postMDS(vare.mds$points, vare.dist)
 vare.wa <- wascores(vare.points, varespec)
 plot(scores(vare.points), pch="+", asp=1)

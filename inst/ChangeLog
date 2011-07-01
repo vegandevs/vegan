@@ -17,7 +17,8 @@ Version 1.90-0 (opened June 21, 2011)
 	the update() in 1.18-31 -- problems were anticipated in ChangeLog,
 	and they were realized.
 
-	* monoMDS: text for a proper help (Rd file).
+	* monoMDS: text for a proper help (Rd file). Other help files
+	updated for monoMDS.
 
 Version 1.18-33 (closed June 21, 2011)
 

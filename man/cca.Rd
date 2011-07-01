@@ -118,7 +118,7 @@
   analysed with
   unconstrained methods such as correspondence analysis
   (\code{\link{decorana}}, \code{\link[MASS]{corresp}}) or non-metric
-  multidimensional scaling (\code{\link[MASS]{isoMDS}}) and
+  multidimensional scaling (\code{\link{metaMDS}}) and
   environmental interpretation after analysis
   (\code{\link{envfit}}, \code{\link{ordisurf}}).
   CCA is a good choice if the user has

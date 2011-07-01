@@ -4093,19 +4093,10 @@ detaching ‘dune.env’
 > 
 > ### ** Examples
 > 
-> # Draw a cute NMDS plot from a non-vegan ordination (isoMDS).
-> # Function metaMDS would be an easier alternative.
+> # Draw a plot for a non-vegan ordination (cmdscale).
 > data(dune)
 > dune.dis <- vegdist(wisconsin(dune))
-> library(MASS)
-> dune.mds <- isoMDS(dune.dis)
-initial  value 17.440604 
-iter   5 value 11.776556
-iter  10 value 11.603233
-iter  10 value 11.596516
-final  value 11.562320 
-converged
-> dune.mds <- postMDS(dune.mds, dune.dis)
+> dune.mds <- cmdscale(dune.dis, eig = TRUE)
 > dune.mds$species <- wascores(dune.mds$points, dune, expand = TRUE)
 > fig <- ordiplot(dune.mds, type = "none")
 > points(fig, "sites", pch=21, col="red", bg="yellow")
@@ -4120,9 +4111,6 @@ converged
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("ordiplot3d")
 > ### * ordiplot3d
 > 
@@ -4618,13 +4606,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > data(varespec)
 > data(varechem)
-> library(MASS)
 > vare.dist <- vegdist(varespec)
-> vare.mds <- isoMDS(vare.dist)
-initial  value 18.026495 
-iter   5 value 10.095483
-final  value 10.020469 
-converged
+> vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
 This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
@@ -4634,12 +4617,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103cf98d8>
+<environment: 0x103b07b90>
 
 Estimated degrees of freedom:
-6.2955  total = 7.295494 
+6.4351  total = 7.435071 
 
-GCV score: 177.6966
+GCV score: 144.1236
 > 
 > ## as above but with extra penalties on smooth terms:
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5, col = "blue",
@@ -4650,25 +4633,25 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10187dad0>
+<environment: 0x1049a7298>
 
 Estimated degrees of freedom:
-4.9207  total = 5.920718 
+6.0761  total = 7.076141 
 
-GCV score: 166.6991
+GCV score: 140.2187
 > 
 > ## Cover of Cladina arbuscula
 > fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-21.7718381  8.0217184  3.7389252  2.3141513  6.4228083  5.4870157  6.7890109 
+22.0644704  6.0132156  3.6350565  4.1019775  9.0031309  5.9203047  8.6398803 
          8          9         10         11         12         13         14 
-11.4240724  0.6785602 31.1495927 16.5936957  9.5810013  5.5200242 29.3414323 
+11.0718916  0.6562064 35.2281050 10.4346237  7.2900391  5.5710523 24.6503175 
         15         16         17         18         19         20         21 
-23.4774998 29.9710379  7.0213117 15.7428646  2.7320035  0.8380256  3.4990451 
+18.8754108 29.7285810  5.6159070  9.5869408  3.2876591  2.7112108 10.7832711 
         22         23         24 
- 1.2362978 10.9537267  0.7443408 
+ 3.0020769  9.8129184  7.3657528 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -4683,7 +4666,7 @@ GCV score: 166.6991
 > 
 > cleanEx()
 
-detaching ‘package:mgcv’, ‘package:MASS’
+detaching ‘package:mgcv’
 
 > nameEx("orditkplot")
 > ### * orditkplot
@@ -4806,7 +4789,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106523200>
+<environment: 0x104aa7200>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4819,7 +4802,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105decb18>
+<environment: 0x1069545c8>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4832,7 +4815,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10665fd78>
+<environment: 0x106aff948>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5563,44 +5546,8 @@ Chealb  1.5737337 0.7842538 -0.5503660 -0.35108333
 > 
 > data(varespec)
 > vare.dist <- vegdist(wisconsin(varespec))
-> library(MASS)  ## isoMDS
-> mds.null <- isoMDS(vare.dist, tol=1e-7)
-initial  value 27.004018 
-iter   5 value 19.627798
-iter  10 value 19.080657
-iter  15 value 18.587495
-iter  20 value 18.075166
-iter  25 value 17.922314
-iter  30 value 17.858977
-iter  35 value 17.823041
-iter  40 value 17.816456
-iter  45 value 17.812079
-iter  50 value 17.811040
-final  value 17.811040 
-stopped after 50 iterations
-> mds.alt <- isoMDS(vare.dist, initMDS(vare.dist), maxit=200, tol=1e-7)
-initial  value 40.946864 
-iter   5 value 35.233817
-iter  10 value 29.213576
-iter  15 value 27.267129
-iter  20 value 26.789268
-iter  25 value 26.326361
-iter  30 value 26.022929
-iter  35 value 25.583087
-iter  40 value 24.798014
-iter  45 value 24.186366
-iter  50 value 22.970805
-iter  55 value 22.791064
-iter  60 value 22.650504
-iter  65 value 22.192285
-iter  70 value 22.042446
-iter  75 value 22.016123
-iter  80 value 22.006493
-iter  85 value 22.003260
-iter  90 value 22.002696
-iter  95 value 22.002568
-final  value 22.002559 
-converged
+> mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
+> mds.alt <- monoMDS(vare.dist)
 > vare.proc <- procrustes(mds.alt, mds.null)
 > vare.proc
 
@@ -5608,7 +5555,7 @@ Call:
 procrustes(X = mds.alt, Y = mds.null) 
 
 Procrustes sum of squares:
-476.9 
+13.11 
 
 > summary(vare.proc)
 
@@ -5618,43 +5565,40 @@ procrustes(X = mds.alt, Y = mds.null)
 Number of objects: 24    Number of dimensions: 2 
 
 Procrustes sum of squares:  
- 476.8696 
+ 13.10751 
 Procrustes root mean squared error: 
- 4.457529 
+ 0.739017 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
- 0.4414805  1.4921114  2.0623186  4.1475454 13.2852587 
+0.02322413 0.27259237 0.34146895 0.64121655 2.23350654 
 
 Rotation matrix:
-          [,1]       [,2]
-[1,] 0.2217232 -0.9751096
-[2,] 0.9751096  0.2217232
+           [,1]       [,2]
+[1,] -0.2427790 -0.9700816
+[2,]  0.9700816 -0.2427790
 
 Translation of averages:
-          [,1]      [,2]
-[1,] 0.5428091 0.5073825
+             [,1]         [,2]
+[1,] -9.65583e-18 7.915471e-19
 
 Scaling of target:
-[1] 9.01332
+[1] 0.6736868
 
 > plot(vare.proc)
 > plot(vare.proc, kind=2)
 > residuals(vare.proc)
         18         15         24         27         23         19         22 
- 1.9188822  0.7545389  7.8149973  3.8711767  2.3330069  0.8367255  1.9704564 
+0.27803992 0.12847298 1.72993477 0.63690082 0.37244204 0.11829836 0.38555390 
         16         28         13         14         20         25          7 
- 1.3378486  7.4734078  1.9821648  1.2580153  0.4414805  2.3028258  3.4903312 
+0.27735743 1.22675827 0.65416375 0.25829720 0.02322413 0.35904126 0.28489676 
          5          6          3          4          2          9         12 
- 5.6982274  1.5244639  1.9559438  4.9766513 13.2852587  1.8906924  1.3950539 
+0.69505200 0.19983445 0.29397151 0.50089415 2.23350654 0.31836035 0.21622926 
         10         11         21 
- 2.1424725  3.4187558  6.6343849 
+0.32389663 0.56349530 0.77939208 
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("pyrifos")
 > ### * pyrifos
 > 
@@ -7064,7 +7008,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1081c2098>
+<environment: 0x107a4b918>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7361,17 +7305,8 @@ scale:  Hult
 > 
 > data(varespec)
 > data(varechem)
-> library(MASS)  ## isoMDS
 > vare.dist <- vegdist(wisconsin(varespec))
-> vare.mds <- isoMDS(vare.dist)
-initial  value 27.004018 
-iter   5 value 19.627798
-iter  10 value 19.080657
-iter  15 value 18.587495
-iter  20 value 18.075166
-iter  20 value 18.064314
-final  value 17.850149 
-converged
+> vare.mds <- monoMDS(vare.dist)
 > vare.points <- postMDS(vare.mds$points, vare.dist)
 > vare.wa <- wascores(vare.points, varespec)
 > plot(scores(vare.points), pch="+", asp=1)
@@ -7482,9 +7417,6 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("wcmdscale")
 > ### * wcmdscale
 > 
@@ -7541,7 +7473,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  101.713 1.044 103.58 0 0 
+Time elapsed:  109.042 1.175 111.06 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -184,16 +184,15 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   but the implementation is still after Mardia \emph{et al.}
   (1979).}
 
-\seealso{\code{\link[MASS]{isoMDS}}, \code{\link{initMDS}} for obtaining
+\seealso{\code{\link{monoMDS}},  for obtaining
 objects for \code{procrustes}, and \code{\link{mantel}} for an
 alternative to \code{protest} without need of dimension reduction.} 
 
 \examples{
 data(varespec)
 vare.dist <- vegdist(wisconsin(varespec))
-library(MASS)  ## isoMDS
-mds.null <- isoMDS(vare.dist, tol=1e-7)
-mds.alt <- isoMDS(vare.dist, initMDS(vare.dist), maxit=200, tol=1e-7)
+mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
+mds.alt <- monoMDS(vare.dist)
 vare.proc <- procrustes(mds.alt, mds.null)
 vare.proc
 summary(vare.proc)

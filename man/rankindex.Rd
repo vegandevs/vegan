@@ -77,7 +77,7 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
 }
 
 \seealso{\code{\link{vegdist}}, \code{\link{stepacross}},
-  \code{\link{no.shared}}, \code{\link[MASS]{isoMDS}},
+  \code{\link{no.shared}}, \code{\link{monoMDS}},
     \code{\link{cor}}, \code{\link{Machine}}, and for
     alternatives \code{\link{anosim}}, \code{\link{mantel}} and
     \code{\link{protest}}. }

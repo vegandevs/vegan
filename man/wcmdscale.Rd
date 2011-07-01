@@ -68,11 +68,12 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   Mardia, K. V., Kent, J. T. and Bibby, J. M. (1979).  Chapter 14 of
   \emph{Multivariate Analysis}, London: Academic Press.
 }
-\seealso{
-  \code{\link{cmdscale}}.
-  Also \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}}
-  in package \pkg{MASS}.
+
+\seealso{ \code{\link{cmdscale}}.  Also \code{\link{monoMDS}}, and
+  \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}} in package
+  \pkg{MASS}.  
 }
+
 \examples{
 ## Correspondence analysis as a weighted principal coordinates
 ## analysis of Euclidean distances of Chi-square transformed data

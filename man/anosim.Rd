@@ -36,7 +36,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata)
   dissimilarity matrix.  A suitable dissimilarity matrix is produced by
   functions \code{\link{dist}} or \code{\link{vegdist}}.  The
   method is philosophically allied with NMDS ordination
-  (\code{\link[MASS]{isoMDS}}), in that it uses only the rank order of
+  (\code{\link{monoMDS}}), in that it uses only the rank order of
   dissimilarity values.
 
   If two groups of sampling units are really different in their species
