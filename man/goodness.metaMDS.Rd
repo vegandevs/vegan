@@ -20,14 +20,16 @@
 \arguments{
   \item{object}{A result object from \code{\link{metaMDS}}, 
     \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}. }
-  \item{dis}{Dissimilarities.  Rhis should  not used with
+  \item{dis}{Dissimilarities.  This should  not used with
     \code{\link{metaMDS}} or \code{\link{monoMDS}}, but must be used with
     \code{\link[MASS]{isoMDS}}.}
   \item{pch}{Plotting character for points.  Default is dependent on the
     number of points. }
   \item{p.col, l.col}{Point and line colours.}
-  \item{lwd}{Line width.}
-  \item{\dots}{Other parameters to functions, e.g. graphical parameters. }
+  \item{lwd}{Line width. For \code{\link{monoMDS} the default is
+    \code{lwd = 1} if more than two lines are drawn, and \code{lwd =
+    2} otherwise.}
+  \item{\dots}{Other parameters to functions, e.g. graphical parameters.}
 }
 \details{
   Function \code{goodness.metaMDS} finds a goodness of fit statistic for
@@ -54,8 +56,9 @@
   either case, the functions inspect that dissimilarities are
   consistent with current ordination, and refuse to analyse
   inconsistent dissimilarities.  Function \code{goodness.metaMDS} is
-  generic in \code{vegan}, but you must spell its name completely with
-  \code{\link[MASS]{isoMDS}} which has no class.  } 
+  generic in \pkg{vegan}, but you must spell its name completely with
+  \code{\link[MASS]{isoMDS}} which has no class.
+} 
 
 \value{ Function \code{goodness} returns a vector of values. Function
   \code{stressplot} returns invisibly an object with itmes for

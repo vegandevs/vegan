@@ -5,8 +5,13 @@
 }
 
 `stressplot.monoMDS` <-
-    function(object, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
+    function(object, pch, p.col = "blue", l.col = "red", lwd, ...)
 {
+    if (missing(lwd))
+        if (object$ngrp > 2)
+            lwd <- 1
+        else
+            lwd <- 2
     ## extract items to plot
     x <- object$diss
     y <- object$dist
