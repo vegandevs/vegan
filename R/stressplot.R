@@ -26,14 +26,19 @@
     ## plot points
     plot(x[pts], y[pts], pch = pch, col = p.col, xlab = "Observed Dissimilarity",
          ylab = "Ordination Distance", ...)
+    ## collect values for 'linear fit'
+    ralscal <- 0
     ## Fit lines: linear (iregn=2) and hybrid (iregn=3) have a smooth line
     if (object$iregn > 1) {
-        if (object$iregn == 3) { 
-            yl <- range(yf[seq(object$istart[2], object$ndis)])
-            xl <- range(x[seq(object$istart[2], object$ndis)])
+        if (object$iregn == 3) {
+            k <- seq(object$istart[2], object$ndis)
+            yl <- range(yf[k])
+            xl <- range(x[k])
+            ralscal <- cor(y[k], yf[k])^2
         } else {
             yl <- range(yf)
             xl <- range(x)
+            ralscal <- cor(y, yf)^2
         }
         lines(xl, yl, col = l.col, lwd = lwd, ...)
     }
@@ -44,12 +49,13 @@
             object$ngrp <- 1
         for(j in 1:object$ngrp) {
             k <- seq(ist[j], ist[j+1]-1)
+            ralscal <- ralscal + cor(y[k], yf[k])^2
             lines(x[k], yf[k], type = "S", col = l.col, lwd = lwd, ...)
         }
     }
     ## Stress as R2
     rstress <- 1 - object$stress^2
-    ralscal <- cor(y, yf)^2
+    ralscal <- if(object$iregn == 3) ralscal/2 else ralscal/object$ngrp
     lab <- paste("Non-metric fit, R2 =", format(rstress, digits=3),
                  "\nLinear fit, R2 =", format(ralscal, digits=3))
     text(min(x), 0.95*max(y), lab, pos=4)
