@@ -26,7 +26,7 @@
 \usage{
 metaMDS(comm, distance = "bray", k = 2, trymax = 20, autotransform =TRUE,
         noshare = 0.1, wascores = TRUE, expand = TRUE, trace = 1,
-        plot = FALSE, previous.best, old.wa = FALSE, ...)
+        plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
      type = "p", shrink = FALSE,  ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
@@ -71,11 +71,6 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
   \item{previous.best}{Start searches from a previous
     solutions. Otherwise use \code{\link[MASS]{isoMDS}} default for the
     starting solution.}
-  \item{old.wa}{Use the old way of calculating WA scores for species:
-    in vegan versions 1.12-5 and 1.11-2 WA scores were based on
-    untransformed data even when data were transformed in analysis, but
-    since then the similar transformation will be used in WA scores as
-    in ordination.}
   \item{x}{Dissimilarity matrix for \code{\link[MASS]{isoMDS}} or \code{plot}
     object.} 
   \item{choices}{Axes shown.}
@@ -268,12 +263,6 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
   its NMDS engine till version 1.18-28, when this was replaced with
   the \code{\link{monoMDS}} function. You can set argument
   \code{engine} to select the old engine.
-
-  The calculation of \code{\link{wascores}} for species was changed in
-  \pkg{vegan} version 1.12-6. They are now based on the community data
-  transformed similarly as in the ordination. Previously the species
-  scores always were based on the original data. You can re-establish
-  the old behaviour with argument \code{old.wa = TRUE}.
 }
 \seealso{\code{\link{monoMDS}} (and \code{\link[MASS]{isoMDS}}), 
   \code{\link{decostand}},

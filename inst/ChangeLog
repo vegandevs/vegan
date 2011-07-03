@@ -2,7 +2,14 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.90-0 (opened June 21, 2011)
+Version 1.90-1 (opened July 3, 2011)
+
+	* metaMDS: remove argument 'old.wa'. This was introduced in rev280
+	(24/3/08) for backward compatibility when calculating WA scores
+	started to use the same transformed data as the dissimilarities
+	analysed. 
+	
+Version 1.90-0 (closed July 3, 2011)
 
 	* vegan now depends on the permute package for new permutation
 	designs. This initially version strips out all the old "new"
@@ -21,7 +28,7 @@ Version 1.90-0 (opened June 21, 2011)
 	updated for monoMDS. Stress type 2 is printed both in monoMDS and
 	metaMDS. stressplot() prints now R2 for monoMDS() results, and
 	docs tell that "linear fit" of stressplot() is related to "stress
-	2". 
+	2".
 
 Version 1.18-33 (closed June 21, 2011)
 

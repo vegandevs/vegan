@@ -1,7 +1,7 @@
 `metaMDS` <-
     function (comm, distance = "bray", k = 2, trymax = 20, autotransform = TRUE, 
               noshare = 0.1, wascores = TRUE, expand = TRUE, trace = 1,
-              plot = FALSE, previous.best, old.wa = FALSE, ...) 
+              plot = FALSE, previous.best,  ...) 
 {
     commname <- deparse(substitute(comm))
     ## metaMDS was written for community data which should be all
@@ -37,10 +37,9 @@
     if (is.null(rownames(points))) 
         rownames(points) <- rownames(comm)
     if (wascores) {
-        if (!old.wa)
-            comm <- eval.parent(parse(text=attr(dis, "commname")))
+        ## transformed data
+        comm <- eval.parent(parse(text=attr(dis, "commname")))
         wa <- wascores(points, comm, expand = expand)
-        attr(wa, "old.wa") <- old.wa
     }
     else
         wa <- NA
