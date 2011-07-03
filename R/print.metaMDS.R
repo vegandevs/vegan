@@ -33,9 +33,7 @@
             cat("Species: non-expanded scores ")
         else
             cat("Species: expanded scores ")
-        else
-            cat("based on", sQuote(x$data), "\n")
-        
+        cat("based on", sQuote(x$data), "\n")
     }
     cat("\n")
     invisible(x)
