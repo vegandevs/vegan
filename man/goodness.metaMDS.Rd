@@ -26,7 +26,7 @@
   \item{pch}{Plotting character for points.  Default is dependent on the
     number of points. }
   \item{p.col, l.col}{Point and line colours.}
-  \item{lwd}{Line width. For \code{\link{monoMDS} the default is
+  \item{lwd}{Line width. For \code{\link{monoMDS}} the default is
     \code{lwd = 1} if more than two lines are drawn, and \code{lwd =
     2} otherwise.}
   \item{\dots}{Other parameters to functions, e.g. graphical parameters.}
@@ -36,17 +36,17 @@
   observations (points).  This is defined so that sum of squared values
   is equal to squared stress.  Large values indicate poor fit. 
 
-  Function \code{stressplot} is draws a Sheaprd diagram which is a
-  plot of ordination distances and monotone or linear fit line against
-  original dissimilarities.  In addition, it adds to the graph two
-  correlation-like statistics on the goodness of fit.  The nonmetric
-  fit is based on stress \eqn{S} and defined as \eqn{R^2 = 1-S^2}{R2 =
-  1-S*S}.  The \dQuote{linear fit} is the squared correlation between
-  fitted values and ordination distances. For \code{\link{monoMDS}},
-  the \dQuote{linear fit} and \eqn{R^2}{R2} from \dQuote{stress type
-  2} are equal.
+  Function \code{stressplot} draws a Shepard diagram which is a plot
+  of ordination distances and monotone or linear fit line against
+  original dissimilarities.  In addition, it displays two
+  correlation-like statistics on the goodness of fit in the graph.
+  The nonmetric fit is based on stress \eqn{S} and defined as \eqn{R^2
+  = 1-S^2}{R2 = 1-S*S}.  The \dQuote{linear fit} is the squared
+  correlation between fitted values and ordination distances. For
+  \code{\link{monoMDS}}, the \dQuote{linear fit} and \eqn{R^2}{R2}
+  from \dQuote{stress type 2} are equal.
 
-  Both functions can be used both with \code{\link{metaMDS}},
+  Both functions can be used with \code{\link{metaMDS}},
   \code{\link{monoMDS}} and \code{\link[MASS]{isoMDS}}.  The original
   dissimilarities should not be given for \code{\link{monoMDS}} or
   \code{\link{metaMDS}} results (the latter tries to reconstruct the

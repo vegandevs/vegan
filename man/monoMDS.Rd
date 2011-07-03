@@ -4,13 +4,16 @@
 \alias{scores.monoMDS}
 \alias{plot.monoMDS}
 
-\title{
-  Kruskal's Non-metric Multidimensional Scaling
+\title{ Global and Local Non-metric Multidimensional Scaling and
+  Linear and Hybrid Scaling }
+
+\description{ Function implements Kruskal's (1964a,b) non-metric
+  multidimensional scaling (NMDS) using monotone regression and
+  primary (\dQuote{weak}) treatment of ties. In addition to
+  traditional global NMDS, the function implements local NMDS, linear
+  and hybrid multidimensional scaling.  
 }
-\description{
-  Function implements Kruskal's (1964a,b) non-metric multidimensional scaling 
-  using monotone regression and primary (\dQuote{weak}) treatment of ties.
-}
+
 \usage{
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"), 
     threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
@@ -39,7 +42,7 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   
   \item{weakties}{Use primary or weak tie treatment, where equal
     observed dissimilarities are allowed to have different fitted
-    values. if \code{FALSE}, then secondary (strong) tie treatment are
+    values. if \code{FALSE}, then secondary (strong) tie treatment is
     used, and tied values are not broken.}
   
   \item{stress}{Use stress type 1 or 2 (see Details).}
@@ -67,14 +70,14 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   \itemize{
     
     \item \dQuote{Weak} treatment of ties (Kruskal 1964a,b), where
-    tied dissimilarities can be broken in monontone regression. This
-    is especially important for cases where compared sites share no
-    species and dissimiliraties are tied to their maximum value of
-    one, and breaking these tied values is crucial on long gradients
-    to avoid curved artefacts. Functions
-    \code{\link[smacof]{smacofSym}} (\pkg{smacof} package) and
-    \code{\link[ecodist]{nmds}} (\pkg{ecodist} package) also have
-    adequate tie treatment.
+    tied dissimilarities can be broken in monotone regression. This is
+    especially important for cases where compared sites share no
+    species and dissimilarities are tied to their maximum value of
+    one. Breaking ties allows these points to be at different
+    distances and can help in recovering very long coenoclines
+    (gradients).  Functions \code{\link[smacof]{smacofSym}}
+    (\pkg{smacof} package) and \code{\link[ecodist]{nmds}}
+    (\pkg{ecodist} package) also have adequate tie treatment.
 
     \item Handles missing values in a meaningful way.
   
@@ -99,8 +102,9 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   ordination distances under null model. For \dQuote{stress 1}
   \eqn{d_0 = 0}{dnull = 0}, and for \dQuote{stress 2} \eqn{d_0 =
   \bar{d}}{dnull = dbar} or mean dissimilarities.  \dQuote{Stress 2}
-  is the same as correlation between fitted values and ordination
-  distances, and so related to the \dQuote{linear fit} of
+  can be expressed as \eqn{s^2 = 1 - R^2}{stress^2 = 1 - R2}, where
+  \eqn{R^2}{R2} is squared correlation between fitted values and
+  ordination distances, and so related to the \dQuote{linear fit} of
   \code{\link{stressplot}}.
 
   Function \code{monoMDS} can fit several alternative NMDS variants
@@ -116,10 +120,11 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   scaling or principal coordinates analysis (\code{\link{cmdscale}})
   that performs an eigenvector decomposition of dissimilarities (Gower
   1966). Alternative \code{model = "hybrid"} implements hybrid MDS
-  thatuses monotone regression for all points and linear regression
-  for dissimilarities below or at a \code{threshold} in alternating
-  steps (Faith et al. 1987). Function \code{\link{stressplot}} can be
-  used to display the kind of regression in each \code{model}.
+  that uses monotone regression for all points and linear regression
+  for dissimilarities below or at a \code{threshold} dissimilarity
+  in alternating steps (Faith et al. 1987). Function
+  \code{\link{stressplot}} can be used to display the kind of
+  regression in each \code{model}.
 
 }
 
@@ -131,12 +136,12 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 
 \references{
 
-  Faith, D.P., Minchin, P.E and Belbin, L. 1987. Compositional
+  Faith, D.P., Minchin, P.R and Belbin, L. 1987. Compositional
       dissimilarity as a robust measure of ecological
       distance. \emph{Vegetatio} 69, 57--68.
   
   Gower, J.C. (1966). Some distance properties of latent root and
-      vector methods uses in multivariate analysis. \emph{Biometrika}
+      vector methods used in multivariate analysis. \emph{Biometrika}
       53, 325--328.
 
   Kruskal, J.B. 1964a. Multidimensional scaling by optimizing
