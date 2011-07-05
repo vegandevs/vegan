@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.90-1 (opened July 3, 2011)
 
+	* betadiver: argument 'index' was renamed to 'method' for
+	compatibility with dist() objects. Argument 'index' is
+	still recognized with a warning.
+
 	* metaMDS: Documentation and interface adapted to monoMDS().
 	Argument 'noshare' defaults to FALSE with monoMDS(), since tie
 	breaking seem to handle tied maximum dissimilarities even better

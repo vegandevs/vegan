@@ -1,6 +1,14 @@
 `betadiver` <-
-    function(x, index = NA, order = FALSE, help = FALSE,  ...)
+    function(x, method = NA, order = FALSE, help = FALSE,  ...)
 {
+    ## 'index' was renamed to 'method' in vegan 1.90-1 for dist()
+    ## compatibility. Below we implement backward compatibility (with
+    ## warning) for 'index'.
+    dots <- match.call(expand.dots = FALSE)$...
+    if (any(k <- pmatch(names(dots), "index", nomatch = FALSE))) {
+        warning("argument 'index' deprecated: use 'method'")
+        method <- dots[[which(k==1)]]
+    }
     beta <- list("w"="(b+c)/(2*a+b+c)", "-1"="(b+c)/(2*a+b+c)", "c"="(b+c)/2",
                  "wb"="b+c", "r"="2*b*c/((a+b+c)^2-2*b*c)",
                  "I"="log(2*a+b+c)-2*a*log(2)/(2*a+b+c)-((a+b)*log(a+b)+(a+c)*log(a+c))/(2*a+b+c)",
@@ -33,14 +41,14 @@
     N <- length(S)
     b <- as.dist(matrix(rep(S, N), nrow=N)) - a
     c <- as.dist(matrix(rep(S, each=N), nrow=N)) - a
-    if (is.na(index) || is.null(index) || is.logical(index) && !index) {
+    if (is.na(method) || is.null(method) || is.logical(method) && !method) {
         out <- list(a = a, b = b, c = c)
         class(out) <- "betadiver"
         return(out)
     }
-    out <- eval(parse(text=beta[[index]]))
+    out <- eval(parse(text=beta[[method]]))
     out <- as.dist(out)
-    attr(out, "method") <- paste("beta", names(beta[index]), sep=".")
+    attr(out, "method") <- paste("beta", names(beta[method]), sep=".")
     attr(out, "call") <- match.call()
     out
 }

@@ -13,7 +13,7 @@
 }
 
 \usage{
-betadiver(x, index = NA, order = FALSE, help = FALSE, ...)
+betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
 \method{plot}{betadiver}(x, ...)
 \method{scores}{betadiver}(x, triangular = TRUE, ...)
 }
@@ -21,7 +21,7 @@ betadiver(x, index = NA, order = FALSE, help = FALSE, ...)
 \arguments{
   \item{x}{Community data matrix, or the \code{betadiver} result for
   \code{plot} and \code{scores} functions. }
-  \item{index}{The index of beta diversity as defined in Koleff et al.
+  \item{method}{The index of beta diversity as defined in Koleff et al.
   (2003), Table 1. You can use either the subscript of \eqn{\beta} or
   the number of the index. See argument \code{help} below. }
   \item{order}{Order sites by increasing number of species. This will
@@ -67,7 +67,7 @@ betadiver(x, index = NA, order = FALSE, help = FALSE, ...)
   alternatives is much lower than 24 formally provided. The formulations
   used in functions differ occasionally from those in Koleff et
   al. (2003), but they are still mathematically equivalent. With
-  \code{index = NA}, no index is calculated, but instead an object of
+  \code{method = NA}, no index is calculated, but instead an object of
   class \code{betadiver} is returned. This is a list of elements
   \code{a}, \code{b} and \code{c}. Function \code{plot} can be used to
   display the proportions of these elements in triangular plot as
@@ -77,9 +77,9 @@ betadiver(x, index = NA, order = FALSE, help = FALSE, ...)
   object. 
 }
 
-\value{ With \code{index = NA}, the function returns an object of
+\value{ With \code{method = NA}, the function returns an object of
   class \code{"betadisper"} with elements \code{a}, \code{b}, and
-  \code{c}. If \code{index} is specified, the function returns a
+  \code{c}. If \code{method} is specified, the function returns a
   \code{"dist"} object which can be used in any function analysing
   dissimilarities. For beta diversity, particularly useful functions
   are \code{\link{betadisper}} to study the betadiversity in groups,
@@ -91,6 +91,11 @@ betadiver(x, index = NA, order = FALSE, help = FALSE, ...)
   severe user error. Functions 10 (\code{"j"}) and 11 (\code{"sor"})
   are two such similarity indices.
 }
+
+\note{The argument \code{method} was called \code{index} in older
+  versions of the function (upto \pkg{vegan} version
+  1.17-11). Argument \code{index} is deprecated, but still recognized
+  with a warning. }
 
 \references{
 Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta
