@@ -4,11 +4,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.90-1 (opened July 3, 2011)
 
-	* metaMDS: remove argument 'old.wa'. This was introduced in rev280
-	(24/3/08) for backward compatibility when calculating WA scores
-	started to use the same transformed data as the dissimilarities
-	analysed. 
-	
+	* metaMDS: Documentation and interface adapted to monoMDS().
+	Argument 'noshare' defaults to FALSE with monoMDS(), since tie
+	breaking seem to handle tied maximum dissimilarities even better
+	than stepacross(). For 'engine = "monoMDS"' 'noshare' defaults to
+	TRUE. The 'noshare' argument now accepts logical arguments in
+	addition to old numeric (FALSE worked previously because it was
+	interpreted as numeric 0, but TRUE has now meaningful
+	interpretation). Remove argument 'old.wa' introduced in rev280 on
+	24/3/08 for backward compatibility when calculating WA scores
+	started to use the same transformed data as analysed.
+	 
 Version 1.90-0 (closed July 3, 2011)
 
 	* vegan now depends on the permute package for new permutation
