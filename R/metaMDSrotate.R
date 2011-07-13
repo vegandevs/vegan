@@ -14,13 +14,6 @@
         stop(gettextf("function works only with univariate 'vec'"))
     if (!is.numeric(vec))
         stop(gettextf("'vec' must be numeric"))
-    ## scores must be orthogonal for the next loop to work
-    if (N > 2) {
-        pc <- prcomp(x)
-        x <- pc$x
-        if (!all(is.na(sp)))
-            sp <- sp %*% pc$rotation
-    }
     ## vectorfit finds the direction cosine. We rotate first axis to
     ## 'vec' which means that we make other axes orthogonal to 'vec'
     ## one by one
@@ -28,6 +21,14 @@
         keep <- !is.na(vec)
     else
         keep <- !logical(length(vec))
+    ## scores must be orthogonal for the next loop to work
+    if (N > 2) {
+        pc <- prcomp(x[keep,])
+        x <- x %*% pc$rotation
+        if (!all(is.na(sp)))
+            sp <- sp %*% pc$rotation
+    }
+    ## Rotation loop
     for (k in 2:N) {
         rot <- vectorfit(x[keep, c(1,k)], vec[keep], permutations=0)$arrows
         rot <- drop(rot)
