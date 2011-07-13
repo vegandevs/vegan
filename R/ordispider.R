@@ -29,8 +29,10 @@
     inds <- names(table(groups))
     if (label) 
     cntrs <- names <- NULL
+    ## 'kk' removes NA scores
+    kk <- complete.cases(pts)
     for (is in inds) {
-        gr <- out[groups == is]
+        gr <- out[groups == is & kk]
         if (length(gr) > 1) {
             X <- pts[gr, ]
             W <- w[gr]

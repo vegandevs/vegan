@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.90-1 (opened July 3, 2011)
 
+	* ordiellipse, ordihull, ordispider: will remove NA scores that
+	can appear with na.action in cca/rda/capscale (and perhaps in
+	other cases).
+
 	* betadiver: argument 'index' was renamed to 'method' for
 	compatibility with dist() objects. Argument 'index' is
 	still recognized with a warning.

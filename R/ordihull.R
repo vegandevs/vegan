@@ -13,8 +13,10 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
+    ## Remove NA scores
+    kk <- complete.cases(pts)
     for (is in inds) {
-        gr <- out[groups == is]
+        gr <- out[groups == is & kk]
         if (length(gr) > 1) {
             X <- pts[gr, ]
             hpts <- chull(X)
