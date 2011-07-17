@@ -1,10 +1,13 @@
 swan <-
-function (x)
+function (x, maxit = Inf)
 {
     zeros <- -Inf
-    while(zeros != (zeros <- sum(x == 0)) && any(x == 0)) {
+    iter <- 0
+    while(zeros != (zeros <- sum(x == 0)) && any(x == 0) &&
+          iter < maxit) {
         x[x > 0] <- x[x > 0] - min(x[x > 0]) + 1
         x[x == 0] <- beals(x)[x == 0]
+        iter <- iter + 1
     }
     x
 }

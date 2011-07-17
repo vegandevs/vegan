@@ -14,7 +14,7 @@
 }
 \usage{
 beals(x, species = NA, reference = x, type = 0, include = TRUE)
-swan(x)
+swan(x, maxit = Inf)
 }
 \arguments{
   \item{x}{Community data frame or matrix. }
@@ -29,8 +29,14 @@ swan(x)
   included when computing the mean of the conditioned probabilities. The
   original Beals (1984) definition is equivalent to \code{include=TRUE},
   while the formulation of \enc{Münzbergová}{Munzbergova} and Herben is
-  equal to \code{include=FALSE}. }  
+  equal to \code{include=FALSE}.}
+
+  \item{maxit}{Maximum number of iterations. The default \code{Inf}
+    means that iterations are continued until there are no zeros or
+    the number of zeros does not change. Probably only 
+    \code{maxit = 1} makes sense in addition to the default.}  
 }
+
 \details{
 
   Beals smoothing is the estimated probability \eqn{p_{ij}}{p[ij]} that
