@@ -1,11 +1,11 @@
 `screeplot.cca` <-
     function(x, bstick = FALSE, type = c("barplot", "lines"),
-             npcs = min(10, if(is.null(x$CCA)) x$CA$rank else x$CCA$rank),
+             npcs = min(10, if(is.null(x$CCA) || x$CCA$rank == 0) x$CA$rank else x$CCA$rank),
              ptype = "o", bst.col = "red", bst.lty = "solid",
              xlab = "Component", ylab = "Inertia",
              main = deparse(substitute(x)), legend = bstick, ...)
 {
-    if(is.null(x$CCA))
+    if(is.null(x$CCA) || x$CCA$rank == 0)
         eig.vals <- x$CA$eig
     else
         eig.vals <- x$CCA$eig
@@ -14,7 +14,7 @@
         npcs <- ncomps
     comps <- seq(len=npcs)
     type <- match.arg(type)
-    if (bstick && !is.null(x$CCA)) {
+    if (bstick && !is.null(x$CCA) && x$CCA$rank > 0) {
         warning("'bstick' unavailable for constrained ordination")
         bstick <- FALSE
     }

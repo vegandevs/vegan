@@ -7,6 +7,8 @@
     if (model == "CCA" && is.null(object$CCA)) 
         model <- "CA"
     take <- object[[model]]$rank
+    if (take == 0)
+        stop("model ", dQuote(model), " has rank 0")
     if (rank != "full") 
         take <- min(take, rank)
     if (is.null(object$CCA)) 

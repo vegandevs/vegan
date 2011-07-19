@@ -4,9 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.90-1 (opened July 3, 2011)
 
-	* anova.cca: failed (bug) if CCA object had rank zero. This was
-	broken by the new CCA return object, where completely aliased
-	constraints do not give NULL component but a zero rank component. 
+	* cca/rda/capscale support functions: cca/rda/capscale were
+	changed to return zero components instead of NULL for completely
+	aliased constraints (CCA) or saturated models (CA), but several
+	support functions still checked for is.null() only, although they
+	also should check if rank == 0. Some functions failed, and these
+	are fixed here: anova.cca, bstick.cca, goodness.cca/rda,
+	predict.cca/rda, screeplot.cca. There are many other functions
+	with wrong test, but these didn't fail completely were not fixed
+	yet.
 
 	* swan: gained argument 'maxit' that can be used to restrict the
 	number of beals() passes on zeros. The default is 'maxit = Inf'

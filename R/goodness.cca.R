@@ -6,7 +6,7 @@
     model <- match.arg(model)
     if (is.null(object$CCA)) 
         model <- "CA"
-    if (is.null(object[[model]])) 
+    if (is.null(object[[model]]) || object[[model]]$rank == 0) 
         stop("model ", model, " is not available")
     statistic <- match.arg(statistic)
     display <- match.arg(display)
