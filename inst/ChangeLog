@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.90-1 (opened July 3, 2011)
 
+	* anova.cca: failed (bug) if CCA object had rank zero. This was
+	broken by the new CCA return object, where completely aliased
+	constraints do not give NULL component but a zero rank component. 
+
 	* swan: gained argument 'maxit' that can be used to restrict the
 	number of beals() passes on zeros. The default is 'maxit = Inf'
 	which is the old behaviour: beals() passes on zero entries

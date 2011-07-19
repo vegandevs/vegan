@@ -2,7 +2,8 @@
     function (object, alpha = 0.05, beta = 0.01, step = 100, perm.max = 9999, 
               by = NULL, ...) 
 {
-    if (is.null(object$CA) || is.null(object$CCA))
+    if (is.null(object$CA) || is.null(object$CCA) ||
+        object$CCA$rank == 0 || object$CA$rank == 0)
         return(anova.ccanull(object))
     perm.max <- max(step-1, perm.max)
     if (perm.max %% step == 0)
