@@ -3,7 +3,7 @@
 {
     if (!is.null(object$pCCA))
         stop("does not work with conditioned (partial) models")
-    if (is.null(object$CCA))
+    if (is.null(object$CCA) || object$CCA$rank == 0)
         stop("needs constrained model")
     if (object$CCA$rank < object$CCA$qrank)
         stop("rank of constraints is higher than rank of dependent data")

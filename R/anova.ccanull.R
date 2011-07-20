@@ -5,7 +5,7 @@
     function(object, ...)
 {
     table <- matrix(0, nrow = 2, ncol = 5)
-    if (is.null(object$CA)) {
+    if (object$CA$rank == 0) {
         table[1,] <- c(object$CCA$qrank, object$CCA$tot.chi, NA, 0, NA)
         table[2,] <- c(0,0,NA,NA,NA)
     }
@@ -18,9 +18,9 @@
                           if (inherits(object, "rda")) "Var" else "Chisq", 
                           "F", "N.Perm", "Pr(>F)")
     table <- as.data.frame(table)
-    if (is.null(object$CA))
+    if (object$CA$rank == 0)
         head <- "No residual component\n"
-    else if (is.null(object$CCA))
+    else if (is.null(object$CCA) || object$CCA$rank == 0)
         head <- "No constrained component\n"
     else
         head <- c("!!!!! ERROR !!!!!\n")

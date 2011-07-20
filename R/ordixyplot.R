@@ -12,7 +12,8 @@
       v <- colnames(p)
       formula <- as.formula(paste(v[2], "~", v[1]))
     }
-  if ("biplot" %in% type && (!is.null(x$CCA) || !missing(envfit))) {
+  if ("biplot" %in% type && ((!is.null(x$CCA) && x$CCA$rank > 0) ||
+                             !missing(envfit))) {
     if (missing(envfit))
       envfit <- NULL
     env <- ordilattice.getEnvfit(formula, x, envfit, choices, ...)

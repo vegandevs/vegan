@@ -4,7 +4,7 @@
 {
     require(lattice) || stop("requires package lattice")
     kind <- match.arg(kind)
-    if (!inherits(x, "cca") || is.null(x$CCA))
+    if (!inherits(x, "cca") || is.null(x$CCA) || x$CCA$rank == 0)
         stop("function is only available for constrained ordination")
     fit <- fitted(x, type = residuals)
     res <- residuals(x, type = residuals)

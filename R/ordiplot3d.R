@@ -16,7 +16,8 @@
                 col = ax.col)
     pl$points3d(c(0, 0), c(0, 0), range(x[, 3]), type = "l", 
                 col = ax.col)
-    if (!missing(envfit) || !is.null(object$CCA)) {
+    if (!missing(envfit) ||
+        (!is.null(object$CCA) && object$CCA$rank > 0)) {
         if (!missing(envfit)) 
             object <- envfit
         bp <- scores(object, dis = "bp", choices = choices, ...)

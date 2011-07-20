@@ -25,7 +25,8 @@
               adj = 0.5)
     rgl.texts(0, 0, 1.1 * max(x[, 3]), colnames(x)[3], col = ax.col, 
               adj = 0.5)
-    if (!missing(envfit) || !is.null(object$CCA)) {
+    if (!missing(envfit) ||
+        (!is.null(object$CCA) && object$CCA$rank > 0)) {
         if (!missing(envfit)) 
             object <- envfit
         bp <- scores(object, dis = "bp", choices = choices)

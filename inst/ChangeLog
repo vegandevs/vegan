@@ -10,9 +10,10 @@ Version 1.90-1 (opened July 3, 2011)
 	support functions still checked for is.null() only, although they
 	also should check if rank == 0. Some functions failed, and these
 	are fixed here: anova.cca, bstick.cca, goodness.cca/rda,
-	predict.cca/rda, screeplot.cca. There are many other functions
-	with wrong test, but these didn't fail completely were not fixed
-	yet.
+	predict.cca/rda, screeplot.cca. The following functions did not
+	fail, but were fixed: anova.ccanull, calibrate.cca, ordirgl,
+	ordiresids, ordiplot3d, deviance.cca/rda (simplified),
+	ordixyplot. 
 
 	* swan: gained argument 'maxit' that can be used to restrict the
 	number of beals() passes on zeros. The default is 'maxit = Inf'
