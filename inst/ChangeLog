@@ -13,7 +13,7 @@ Version 1.90-1 (opened July 3, 2011)
 	predict.cca/rda, screeplot.cca. The following functions did not
 	fail, but were fixed: anova.ccanull, calibrate.cca, ordirgl,
 	ordiresids, ordiplot3d, deviance.cca/rda (simplified),
-	ordixyplot. 
+	ordixyplot.
 
 	* swan: gained argument 'maxit' that can be used to restrict the
 	number of beals() passes on zeros. The default is 'maxit = Inf'
@@ -45,7 +45,10 @@ Version 1.90-1 (opened July 3, 2011)
 	interpretation). Remove argument 'old.wa' introduced in rev280 on
 	24/3/08 for backward compatibility when calculating WA scores
 	started to use the same transformed data as analysed.
-	 
+
+	* ordiplot: Now handles non-par arguments to plot.default without
+	warnings. Things like `axes = FALSE` in the call now just work!
+
 Version 1.90-0 (closed July 3, 2011)
 
 	* vegan now depends on the permute package for new permutation

@@ -1,13 +1,18 @@
 `ordiplot` <-
-    function (ord, choices = c(1, 2), type = "points", display, xlim, 
-              ylim, ...) 
+    function (ord, choices = c(1, 2), type = "points", display, xlim,
+              ylim, ...)
 {
-    if (!is.null(attr(ord, "class")) && (class(ord) == "decorana" || 
+    ## local functions to absorb non-par arguments of plot.default
+    localPoints <- function(..., log, frame.plot, panel.first,
+                            panel.last, axes) points(...)
+    localText <- function(..., log, frame.plot, panel.first,
+                          panel.last, axes) text(...)
+    if (!is.null(attr(ord, "class")) && (class(ord) == "decorana" ||
                                          any(class(ord) == "cca"))) {
-        if (missing(display)) 
-            out <- plot(ord, choices, type = type, xlim = xlim, 
+        if (missing(display))
+            out <- plot(ord, choices, type = type, xlim = xlim,
                         ylim = ylim, ...)
-        else out <- plot(ord, choices, type = type, display = display, 
+        else out <- plot(ord, choices, type = type, display = display,
                          xlim = xlim, ylim = ylim, ...)
     }
     else {
@@ -20,7 +25,7 @@
         else
             display <- match.arg(display, dplays, several.ok = TRUE)
         X <- Y <- NULL
-        if ("sites" %in% display) 
+        if ("sites" %in% display)
             X <- scores(ord, choices = choices, display = "sites")
         if ("species" %in% display) {
             options(show.error.messages = FALSE)
@@ -45,26 +50,23 @@
             return(invisible(pl))
         }
         tmp <- apply(rbind(X, Y), 2, range, na.rm=TRUE)
-        if (missing(xlim)) 
+        if (missing(xlim))
             xlim <- tmp[, 1]
-        if (missing(ylim)) 
+        if (missing(ylim))
             ylim <- tmp[, 2]
-        plot(tmp, xlim = xlim, ylim = ylim, asp = 1, type = "n", 
+        plot(tmp, xlim = xlim, ylim = ylim, asp = 1, type = "n",
              ...)
         if (type == "points") {
-            if (!is.null(X)) 
-                points(X, pch = 1, col = 1, cex = 0.7, ...)
-            if (!is.null(Y)) 
-                points(Y, pch = "+", col = "red", cex = 0.7, 
-                       ...)
+            if (!is.null(X))
+                localPoints(X, pch = 1, col = 1, cex = 0.7, ...)
+            if (!is.null(Y))
+                localPoints(Y, pch = "+", col = "red", cex = 0.7, ...)
         }
         if (type == "text") {
-            if (!is.null(X)) 
-                text(X, labels = rownames(X), col = 1, cex = 0.7, 
-                     ...)
-            if (!is.null(Y)) 
-                text(Y, labels = rownames(Y), col = "red", cex = 0.7, 
-                     ...)
+            if (!is.null(X))
+                localText(X, labels = rownames(X), col = 1, cex = 0.7, ...)
+            if (!is.null(Y))
+                localText(Y, labels = rownames(Y), col = "red", cex = 0.7, ...)
         }
         out <- list(sites = X, species = Y)
     }
