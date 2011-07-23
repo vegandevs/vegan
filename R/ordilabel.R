@@ -1,5 +1,5 @@
 `ordilabel` <-
-    function(x, display, labels, choices = c(1,2), priority,
+    function(x, display, labels, choices = c(1,2), priority, select,
              cex = 0.8, fill = "white", border = NULL, col = NULL,
              xpd = TRUE, ...)
 {
@@ -8,7 +8,13 @@
     x <- scores(x, choices = choices, display = display, ...)
     if (missing(labels))
         labels <- rownames(x)
+    if (!missing(select)) {
+        x <- x[select, , drop = FALSE]
+        labels <- labels[select]
+    }
     if (!missing(priority)) {
+        if (!missing(select))
+            priority <- priority[select]
         ord <- order(priority)
         x <- x[ord, ]
         labels <- labels[ord]

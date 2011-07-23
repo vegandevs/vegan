@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.90-1 (opened July 3, 2011)
+Version 1.90-2 (opened July 23, 2011)
+
+	* ordilabel: gained argument 'select'.
+	
+Version 1.90-1 (closed July 23, 2011)
 
 	* cca/rda/capscale support functions: cca/rda/capscale were
 	changed to return zero components instead of NULL for completely

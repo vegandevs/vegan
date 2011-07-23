@@ -10,8 +10,8 @@
   make the most important labels visible.  }
 
 \usage{
-ordilabel(x, display, labels, choices = c(1, 2), priority, cex = 0.8,
-    fill = "white", border = NULL, col = NULL, xpd = TRUE, ...)
+ordilabel(x, display, labels, choices = c(1, 2), priority, select, 
+    cex = 0.8, fill = "white", border = NULL, col = NULL, xpd = TRUE, ...)
 }
 
 \arguments{
@@ -20,10 +20,17 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, cex = 0.8,
   \item{display}{Kind of scores displayed (passed to
     \code{\link{scores}}). } 
   \item{labels}{Optional text used in plots. If this is not given, the
-    text is found from the ordination object.}
+     text is found from the ordination object.}
+  
   \item{choices}{Axes shown (passed to \code{\link{scores}}). }
-  \item{priority}{Vector of the same length as the number of labels. The
-    items with high priority will be plotted uppermost. }
+  
+  \item{priority}{Vector of the same length as the number of
+    labels. The items with high priority will be plotted uppermost.}
+  
+  \item{select}{Items to be displayed. This can either be a logical
+    vector which is \code{TRUE} for displayed items or a vector of
+    indices of displayed items.}
+  
   \item{cex}{ Character expansion for the text (passed to
     \code{\link{text}}). } 
   \item{fill}{ Background colour of the labels (the \code{col} argument
