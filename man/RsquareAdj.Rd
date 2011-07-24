@@ -7,7 +7,6 @@
 \alias{RsquareAdj.glm}
 
 \Rdversion{1.1}
-\alias{RsquareAdj}
 
 \title{
 Adjusted R-square
