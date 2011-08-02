@@ -8,10 +8,15 @@
     if (missing(pcol))
         pcol <- col
     x <- scores(x, display = display, choices = choices, ...)
+    kk <- complete.cases(x)
     if (missing(labels))
         labels <- rownames(x)
     if (missing(priority))
         priority <- rowSums((scale(x)^2))
+    ## remove NA scores
+    x <- x[kk,]
+    priority <- priority[kk]
+    labels <- labels[kk]
     w <- abs(strwidth(labels, cex = cex))/2 * air
     h <- abs(strheight(labels, cex = cex))/2 * air
     xx <- cbind(x[, 1] - w, x[, 1] + w, x[, 2] - h, x[, 2] +
