@@ -5,6 +5,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.90-2 (opened July 23, 2011)
 
 	* ordilabel: gained argument 'select'.
+
+	* orditorp: works with NA scores.
+
+	* make.cepnames: ignores duplicated and trailing dots. It is
+	assumed that the names to be changed came via R make.names()
+	mechanism which changes all blanks and non-accepted characters to
+	dots, and this may give extra dots in names. Gained argument to
+	take the second item of the name instead of the last which may
+	help in names like "Vaccinium vitis-idaea" (which becomes
+	"Vaccinium.vitis.idaea" -> "Vaccidae") or names which have authors
+	or other rubbish at the end.
 	
 Version 1.90-1 (closed July 23, 2011)
 
