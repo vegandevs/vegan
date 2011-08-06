@@ -1,6 +1,6 @@
-.First.lib <- function(lib, pkg)  {
-    library.dynam("vegan", pkg, lib)
+.onAttach <- function(lib, pkg)  {
     packageStartupMessage("This is vegan ",
-                          utils::packageDescription("vegan", field="Version"),
+                          utils::packageDescription("vegan",
+                                                    field="Version"),
                           appendLF = TRUE)
 }

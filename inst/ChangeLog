@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.90-2 (opened July 23, 2011)
+Version 1.91-0 (opened August 6, 2011)
+
+	* NAMESPACE: added namespace to vegan. At this stage exports
+	everything and loads compiled code: changes nothing.
+
+Version 1.90-2 (closed August 6, 2011)
 
 	* ordilabel: gained argument 'select'.
 
