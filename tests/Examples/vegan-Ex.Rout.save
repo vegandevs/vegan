@@ -23,7 +23,6 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 1.90-1
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -216,7 +215,7 @@ detaching ‘package:MASS’
 > ### Name: RsquareAdj
 > ### Title: Adjusted R-square
 > ### Aliases: RsquareAdj RsquareAdj.default RsquareAdj.rda RsquareAdj.cca
-> ###   RsquareAdj.lm RsquareAdj.glm RsquareAdj
+> ###   RsquareAdj.lm RsquareAdj.glm
 > ### Keywords: univar multivariate
 > 
 > ### ** Examples
@@ -4649,7 +4648,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10425fa68>
+<environment: 0x103d05870>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4665,7 +4664,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10611b910>
+<environment: 0x106050d10>
 
 Estimated degrees of freedom:
 6.0761  total = 7.076141 
@@ -4821,7 +4820,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106481d18>
+<environment: 0x10709b778>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4834,7 +4833,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10702af78>
+<environment: 0x10701f0e8>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4847,7 +4846,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106697510>
+<environment: 0x107031990>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6598,8 +6597,7 @@ detaching ‘package:lattice’
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
 > ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts print.varpart
-> ###   print.varpart234 plot.varpart234 plot.varpart plot.varpart234
-> ###   simpleRDA2
+> ###   print.varpart234 plot.varpart plot.varpart234 simpleRDA2
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7040,7 +7038,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107a91898>
+<environment: 0x1084934a0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7505,7 +7503,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.417 1.269 105.72 0 0 
+Time elapsed:  103.782 1.214 106.025 0 0 
 > grDevices::dev.off()
 null device 
           1 
