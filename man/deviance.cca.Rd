@@ -2,7 +2,6 @@
 \name{deviance.cca}
 \alias{deviance.cca}
 \alias{deviance.rda}
-\alias{deviance.capscale}
 \alias{extractAIC.cca}
 \title{ Statistics Resembling Deviance and AIC for Constrained Ordination}
 \description{

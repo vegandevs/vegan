@@ -26,7 +26,7 @@
     df[ntrm:(ntrm + 1)] <- sim$df
     chi[ntrm:(ntrm + 1)] <- sim$chi
     if (!is.null(object$call$data))
-        modelframe <- ordiGetData(object$call, NULL)
+        modelframe <- ordiGetData(object$call, globalenv())
     else
         modelframe <- NULL
     for (.ITRM in ntrm:2) {

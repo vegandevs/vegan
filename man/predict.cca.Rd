@@ -3,7 +3,6 @@
 \alias{fitted.rda}
 \alias{fitted.capscale}
 \alias{residuals.cca}
-\alias{residuals.rda}
 \alias{predict.cca}
 \alias{predict.rda}
 \alias{predict.decorana}

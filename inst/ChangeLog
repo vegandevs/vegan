@@ -5,7 +5,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.91-0 (opened August 6, 2011)
 
 	* NAMESPACE: added namespace to vegan. At this stage exports
-	everything and loads compiled code: changes nothing.
+	everything and loads compiled code (so that nothing changed in
+	from user's perspective). Some superfluous aliases were removed
+	with the registration of S3 methods, and scoping was changed a bit
+	in anova.ccabyterm. as.mcmc and densityplot are not yet registred:
+	these need changes in Imports field of DESCRIPTION (same with
+	vif.cca: vif is defined in car, but we could have our private vif
+	generic here?). 
 
 Version 1.90-2 (closed August 6, 2011)
 

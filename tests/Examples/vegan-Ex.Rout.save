@@ -23,6 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
+This is vegan 1.91-0
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -2032,7 +2033,7 @@ Warning in ordiplot(cmdscale(dis)) : Species scores not available
 > ### Name: deviance.cca
 > ### Title: Statistics Resembling Deviance and AIC for Constrained
 > ###   Ordination
-> ### Aliases: deviance.cca deviance.rda deviance.capscale extractAIC.cca
+> ### Aliases: deviance.cca deviance.rda extractAIC.cca
 > ### Keywords: multivariate models
 > 
 > ### ** Examples
@@ -4648,7 +4649,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103d05870>
+<environment: 0x103a09710>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4664,7 +4665,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106050d10>
+<environment: 0x10601eb40>
 
 Estimated degrees of freedom:
 6.0761  total = 7.076141 
@@ -4820,7 +4821,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10709b778>
+<environment: 0x1066de2a0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4833,7 +4834,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10701f0e8>
+<environment: 0x105d7a0d0>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4846,7 +4847,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107031990>
+<environment: 0x106799940>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5452,8 +5453,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Title: Prediction Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
 > ### Aliases: fitted.cca fitted.rda fitted.capscale residuals.cca
-> ###   residuals.rda predict.cca predict.rda predict.decorana coef.cca
-> ###   coef.rda calibrate.cca calibrate
+> ###   predict.cca predict.rda predict.decorana coef.cca coef.rda
+> ###   calibrate.cca calibrate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7038,7 +7039,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1084934a0>
+<environment: 0x1080ca318>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7503,7 +7504,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.782 1.214 106.025 0 0 
+Time elapsed:  118.169 1.253 120.445 0 0 
 > grDevices::dev.off()
 null device 
           1 
