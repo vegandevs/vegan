@@ -1,7 +1,51 @@
 ## compiled code
 useDynLib(vegan)
-## Export
-exportPattern(".")
+
+## Export regular function names (no dots)
+
+export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
+SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
+bgdispersal, bioenv, bstick, cIndexKM, calibrate, capscale, cascadeKM,
+cca, commsimulator, contribdiv, decorana, decostand, designdist,
+dispindmorisita, distconnected, diversity, downweight, drarefy,
+eigengrad, eigenvals, envfit, estaccumR, estimateR, factorfit,
+fisherfit, fitspecaccum, goodness, hiersimu, humpfit, indpower,
+inertcomp, initMDS, intersetcor, isomapdist, isomap, linestack,
+mantel, meandist, metaMDSdist, metaMDSiter, metaMDSredist,
+metaMDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart,
+nestedchecker, nesteddisc, nestedn0, nestednodf, nestedtemp, oecosimu,
+orderingKM, ordiR2step, ordiarrows, ordicloud, ordicluster,
+ordiellipse, ordigrid, ordihull, ordilabel, ordimedian, ordiplot3d,
+ordiplot, ordipointlabel, ordiresids, ordirgl, ordisegments,
+ordispider, ordisplom, ordistep, ordisurf, orditkplot, orditorp,
+ordixyplot, orglpoints, orglsegments, orglspider, orgltext, pcnm,
+permatfull, permatswap, permutest, poolaccum, postMDS, prc,
+prestondistr, prestonfit, procrustes, protest, radfit, radlattice,
+rankindex, rarefy, rda, renyiaccum, renyi, rrarefy, scores,
+showvarparts, spandepth, spantree, specaccum, specnumber,
+specpool2vect, specpool, spenvcor, stepacross, stressplot, swan,
+taxa2dist, taxondive, tolerance, treedist, treedive, treeheight,
+tsallisaccum, tsallis, varpart, vectorfit, vegandocs, vegdist,
+vegemite, veiledspec, wascores, wcmdscale, wisconsin)
+
+## export regular functions with dot names
+
+export(as.fisher, as.mlm, as.preston, as.rad, fieller.MOStest,
+fisher.alpha, kendall.global, kendall.post, make.cepnames,
+mantel.correlog, mantel.partial, no.shared, rad.lognormal, rad.null,
+rad.preempt, rad.zipf, rad.zipfbrot, read.cep, rgl.isomap,
+rgl.renyiaccum, vif.cca)
+
+## Export panel functions
+export(panel.ordi, panel.ordi3d, prepanel.ordi3d)
+
+## do NOT export the following internal functions
+
+## export(ade2vegancca, coverscale, ordiArgAbsorber, ordiArrowMul,
+## ordiGetData, ordiNAexclude, ordiNApredict, ordiParseFormula,
+## ordiTerminfo, pasteCall, pregraphKM, simpleRDA2, varpart2,
+## varpart3, varpart4, veganCovEllipse)
+
 ## Registration of S3 methods
 import(stats)
 import(graphics)

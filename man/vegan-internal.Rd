@@ -33,10 +33,12 @@ pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
 }
 
-\details{
-  The description here is only intended for \pkg{vegan} developers:
-  these functions are not intended for users, but they only should be
-  used within functions
+\details{ The description here is only intended for \pkg{vegan}
+  developers: these functions are not intended for users, but they
+  only should be used within functions.  In general, these functions
+  are not exported to the namespace, but you must use
+  \code{\link{get}} or \code{\link{:::}} to directly call these
+  functions.
   
   \code{ordiGetData} finds the model frame of constraints and
   conditions in constrained ordination in the defined

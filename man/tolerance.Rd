@@ -40,8 +40,8 @@ data(dune.env)
 mod <- cca(dune ~ ., data = dune.env)
 
 ## defaults to species tolerances
-tolerance.cca(mod)
+tolerance(mod)
 
 ## sample heterogeneities for CCA axes 1:6
-tolerance.cca(mod, which = "sites", choices = 1:6)
+tolerance(mod, which = "sites", choices = 1:6)
 }

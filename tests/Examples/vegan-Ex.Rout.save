@@ -1,5 +1,5 @@
 
-R version 2.13.0 beta (2011-04-04 r55296)
+R version 2.13.1 (2011-07-08)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
@@ -4642,14 +4642,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103a09710>
+<environment: 0x103dee498>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4665,7 +4665,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10601eb40>
+<environment: 0x104ee6fc0>
 
 Estimated degrees of freedom:
 6.0761  total = 7.076141 
@@ -4814,14 +4814,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1066de2a0>
+<environment: 0x1068afa00>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4834,7 +4834,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105d7a0d0>
+<environment: 0x1071b9158>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4847,7 +4847,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106799940>
+<environment: 0x107462a70>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6349,7 +6349,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod <- cca(dune ~ ., data = dune.env)
 > 
 > ## defaults to species tolerances
-> tolerance.cca(mod)
+> tolerance(mod)
 
 	Species Tolerances
 
@@ -6389,7 +6389,7 @@ Brohor 0.9942186 5.515502e-01
 
 > 
 > ## sample heterogeneities for CCA axes 1:6
-> tolerance.cca(mod, which = "sites", choices = 1:6)
+> tolerance(mod, which = "sites", choices = 1:6)
 
 	Sample Heterogeneities
 
@@ -7032,14 +7032,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-5. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1080ca318>
+<environment: 0x107a938a0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7504,7 +7504,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  118.169 1.253 120.445 0 0 
+Time elapsed:  99.645 1.025 101.043 0 0 
 > grDevices::dev.off()
 null device 
           1 
