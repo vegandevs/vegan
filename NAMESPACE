@@ -6,7 +6,7 @@ exportPattern(".")
 import(stats)
 import(graphics)
 importFrom(utils, head, tail)
-#importFrom(lattice, densityplot)
+importFrom(lattice, densityplot)
 # AIC: stats
 S3method(AIC, radfit)
 # RsquareAdj: vegan
@@ -69,7 +69,7 @@ S3method(cophenetic, spantree)
 # density: stats
 S3method(density, oecosimu)
 # densityplot: lattice
-#S3method(densityplot, oecosimu)
+S3method(densityplot, oecosimu)
 # deviance: stats
 S3method(deviance, cca)
 S3method(deviance, rda)
