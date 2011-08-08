@@ -25,7 +25,7 @@
                 CCA = CCA,
                 CA = NULL,
                 method = "cca",
-                inertia = "mean square contigency coefficient")
+                inertia = "mean squared contingency coefficient")
     class(out) = c("ade4cca", "cca")
     out
 }
