@@ -1,20 +1,30 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Diversity analysis in vegan}
-\documentclass[a4paper,10pt]{amsart}
-\usepackage{ucs}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\documentclass[article,a4paper,10pt,nojss]{jss}
+%\usepackage{ucs}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
 \usepackage{sidecap}
-\setlength{\captionindent}{0pt}
-\usepackage{url}
+\usepackage{amsmath}
 
 
 \title{Vegan: ecological diversity}
 \author{Jari Oksanen}
-\date{$ $Id$ $
+\Abstract{
+  }
+\Keywords{diversity, Shannon, Rényi, Hill number, Tsallis,
+  rarefaction, species accumulation, beta diversity, species
+  abundance, Fisher alpha, Fisher logarithmic series, Preston
+  log-normal model, extended richness, taxonomic diversity, functional
+  divesity, species pool}
+
+%% misuse next for scm data
+\Address{$ $Id$ $
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
   in \Sexpr{R.version.string} on \today}
+\Footername{This version}
+
+%% need no \usepackage{Sweave}
 \begin{document}
 \setkeys{Gin}{width=0.55\linewidth}
 \SweaveOpts{strip.white=true}
@@ -23,12 +33,11 @@ par(mfrow=c(1,1))
 options(width=72)
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
+options("prompt" = "R> ", "continue" = "+  ")
 @
-\maketitle
 
-\tableofcontents
 
-\noindent The \texttt{vegan} package has two major components:
+\noindent The \pkg{vegan} package has two major components:
 multivariate analysis (mainly ordination), and methods for diversity
 analysis of ecological communities.  This document gives an
 introduction to the latter.  Ordination methods are covered in other
@@ -49,7 +58,7 @@ data(BCI)
 
 \section{Diversity indices}
 
-Function \texttt{diversity} finds the most commonly used diversity
+Function \code{diversity} finds the most commonly used diversity
 indices:
 \begin{align}
 H &= - \sum_{i=1}^S p_i \log_b  p_i & \text{Shannon--Weaver}\\
@@ -67,16 +76,16 @@ H <- diversity(BCI)
 @
 which finds diversity indices for all sites.
 
-\texttt{Vegan} does not have indices for evenness (equitability), but
+\pkg{vegan} does not have indices for evenness (equitability), but
 the most common of these, Pielou's evenness $J = H'/\log(S)$ is easily
 found as:
 <<>>=
 J <- H/log(specnumber(BCI))
 @
-where \texttt{specnumber} is a simple \texttt{vegan} function to find
+where \code{specnumber} is a simple \pkg{vegan} function to find
 the numbers of species.
 
-\texttt{Vegan} also can estimate R\'{e}nyi diversities of order $a$:
+\pkg{vegan} also can estimate R\'{e}nyi diversities of order $a$:
 \begin{equation}
 H_a = \frac{1}{1-a} \log \sum_{i=1}^S p_i^a
 \end{equation}
@@ -92,8 +101,8 @@ R <- renyi(BCI[k,])
 @
 We can really regard a site more diverse if all of its R\'{e}nyi
 diversities are higher than in another site.  We can inspect this
-graphically using the standard \texttt{plot} function for the
-\texttt{renyi} result (Fig. \ref{fig:renyi}).
+graphically using the standard \code{plot} function for the
+\code{renyi} result (Fig. \ref{fig:renyi}).
 <<echo=false,results=hide>>=
 require(lattice, quietly=TRUE)
 @
@@ -224,11 +233,11 @@ categories: if almost all genera have only one species, it does not
 make a great difference if two individuals belong to a different
 species or to a different genus.
 
-Function \texttt{taxondive} implements indices of taxonomic diversity,
-and \texttt{taxa2dist} can be used to convert classification tables to
+Function \code{taxondive} implements indices of taxonomic diversity,
+and \code{taxa2dist} can be used to convert classification tables to
 taxonomic distances either with constant or variable step lengths
 between successive categories. There is no taxonomic table for the BCI
-data in \texttt{vegan}\footnote{Actually I made such a classification,
+data in \pkg{vegan}\footnote{Actually I made such a classification,
   but taxonomic differences proved to be of little use in the Barro
   Colorado data: they only singled out sites with Monocots (palm
   trees) in the data.}
@@ -260,12 +269,12 @@ single deviant species will have a small influence, since its
 difference is evaluated only once instead of evaluating its distance
 to all other species.
 
-Function \texttt{treedive} implements functional diversity defined as
+Function \code{treedive} implements functional diversity defined as
 the total branch length in a trait dendrogram connecting all species,
 but excluding the unnecessary root segments of the tree.  The example
 uses the taxonomic distances of the previous chapter. These are first
 converted to a hierarchic clustering (which actually were their
-original form before \texttt{taxa2dist} converted them into distances)
+original form before \code{taxa2dist} converted them into distances)
 <<>>=
 tr <- hclust(taxdis, "aver")
 mod <- treedive(dune, tr)
@@ -275,7 +284,7 @@ mod <- treedive(dune, tr)
 
 Diversity indices may be regarded as variance measures of species
 abundance distribution.  We may wish to inspect abundance
-distributions more directly.  \texttt{Vegan} has functions for
+distributions more directly.  \pkg{vegan} has functions for
 Fisher's log-series and Preston's log-normal models, and in addition
 several models for species abundance distribution.
 
@@ -305,11 +314,11 @@ plot(fish)
 \end{SCfigure}
 We already saw $\alpha$ as a diversity index.  Now we also obtained
 estimate of standard error of $\alpha$ (these also are optionally
-available in \texttt{fisherfit}).  The standard errors are based on
+available in \code{fisherfit}).  The standard errors are based on
 the second derivatives (curvature) of log-likelihood at the solution
 of $\alpha$.  The distribution of $\alpha$ is often non-normal
 and skewed, and standard errors are of not much use.  However,
-\texttt{fisherfit} has a \texttt{profile} method that can be used to
+\code{fisherfit} has a \code{profile} method that can be used to
 inspect the validity of normal assumptions, and will be used in
 calculations of confidence intervals from profile deviance:
 <<>>=
@@ -324,10 +333,10 @@ sometimes the result looks similar to Gaussian distribution truncated
 at the left.
 
 There are two alternative functions for the log-normal model:
-\texttt{prestonfit} and \texttt{prestondistr}.  Function
-\texttt{prestonfit} uses traditionally binning approach, and is burdened
+\code{prestonfit} and \code{prestondistr}.  Function
+\code{prestonfit} uses traditionally binning approach, and is burdened
 with arbitrary choices of binning limits and treatment of ties.
-Function \texttt{prestondistr} directly
+Function \code{prestondistr} directly
 maximizes truncated log-normal likelihood without binning data, and it
 is the recommended alternative.  Log-normal models  usually fit poorly
 to the BCI data, but here our random plot (number \Sexpr{k}):
@@ -342,7 +351,7 @@ logarithmic abundances in decreasing order, or against ranks of
 species.  These are known as ranked abundance
 distribution curves, species abundance curves, dominance--diversity
 curves or Whittaker plots.
-Function \texttt{radfit} fits some of the most popular models using
+Function \code{radfit} fits some of the most popular models using
 maximum likelihood estimation:
 \begin{align}
 \hat a_r &= \frac{N}{S} \sum_{k=r}^S \frac{1}{k} &\text{brokenstick}\\
@@ -359,7 +368,7 @@ the most abundant species, and $\alpha$, $\mu$, $\sigma$, $\gamma$,
 $\beta$ and $c$ are the estimated parameters in each model.
 
 It is customary to define the models for proportions $p_r$ instead of
-abundances $a_r$, but there is no reason for this, and \texttt{radfit}
+abundances $a_r$, but there is no reason for this, and \code{radfit}
 is able to work with the original abundance data.  We have count data,
 and the default Poisson error looks appropriate, and our example data
 set gives (Fig. \ref{fig:rad}):
@@ -376,17 +385,17 @@ print(radlattice(rad))
 \label{fig:rad}
 \end{SCfigure}
 
-Function \texttt{radfit} compares the models using alternatively
+Function \code{radfit} compares the models using alternatively
 Akaike's or Schwartz's Bayesian information criteria.  These are based
 on log-likelihood, but penalized by the number of estimated
 parameters.  The penalty per parameter is $2$ in \textsc{aic}, and
 $\log S$ in \textsc{bic}.  Brokenstick is regarded as a null model and
-has no estimated parameters in \texttt{vegan}.  Preemption model has
+has no estimated parameters in \pkg{vegan}.  Preemption model has
 one estimated parameter ($\alpha$), log-normal and Zipf models two
 ($\mu, \sigma$, or $\hat p_1, \gamma$, resp.), and Zipf--Mandelbrot
 model has three ($c, \beta, \gamma$).
 
-Function \texttt{radfit} also works with data frames, and fits models
+Function \code{radfit} also works with data frames, and fits models
 for each site. It is curious that log-normal model rarely is the
 choice, although it generally is regarded as the canonical model, in
 particular in data sets like Barro Colorado tropical forests.
@@ -465,7 +474,7 @@ richness per one site ($\bar \alpha$):
 Subtraction of one means that $\beta = 0$ when there are no excess
 species or no heterogeneity between sites. For this index, no specific
 functions are needed, but this index can be easily found with the help
-of \texttt{vegan} function \texttt{specnumber}:
+of \pkg{vegan} function \code{specnumber}:
 <<>>=
 ncol(BCI)/mean(specnumber(BCI)) - 1
 @
@@ -482,7 +491,7 @@ a+b+c$, and index \ref{eq:beta} can be expressed as:
   \beta = \frac{a+b+c}{(2a+b+c)/2} - 1 = \frac{b+c}{2a+b+c}
 \end{equation}
 This is the S{\o}rensen index of dissimilarity, and it can be found
-for all sites using \texttt{vegan} function \texttt{vegdist} with
+for all sites using \pkg{vegan} function \code{vegdist} with
 binary data:
 <<>>=
 beta <- vegdist(BCI, binary=TRUE)
@@ -491,7 +500,7 @@ mean(beta)
 
 There are many other definitions of beta diversity in addition to
 eq. \ref{eq:beta}.  All commonly used indices can be found using
-\texttt{betadiver}. The indices in \texttt{betadiver} can be referred
+\code{betadiver}. The indices in \code{betadiver} can be referred
 to by subscript name, or index number:
 <<>>=
 betadiver(help=TRUE)
@@ -511,7 +520,7 @@ diversity. In islands,  $z$ is typically about $0.3$. This kind of
 islands can be regarded as subsets of the same community, indicating
 that we really should talk about gradient differences if $z > 0.3$. We
 can find the value of $z$ for a pair of plots using function
-\texttt{betadiver}:
+\code{betadiver}:
 <<>>=
 z <- betadiver(BCI, "z")
 quantile(z)
@@ -519,7 +528,7 @@ quantile(z)
 The size $X$ and parameter $c$ cancel out, and the index gives the
 estimate $z$ for any pair of sites.
 
-Function \texttt{betadisper} can be used to analyse beta diversities
+Function \code{betadisper} can be used to analyse beta diversities
 with respect to classes or factors.  There is no such classification
 available for the Barro Colorado Island data, and the example studies
 beta diversities in the management classes of the dune meadows
@@ -546,15 +555,15 @@ boxplot(mod)
 
 Species accumulation models indicate that not all species were seen in
 any site.  These unseen species also belong to the species pool.
-Functions \texttt{specpool} and \texttt{estimateR} implement some
+Functions \code{specpool} and \code{estimateR} implement some
 methods of estimating the number of unseen species.  Function
-\texttt{specpool} studies a collection of sites, and
-\texttt{estimateR} works with counts of individuals, and can be used
+\code{specpool} studies a collection of sites, and
+\code{estimateR} works with counts of individuals, and can be used
 with a single site.  Both functions assume that the number of unseen
 species is related to the number of rare species, or species seen only
 once or twice.
 
-Function \texttt{specpool} implements the following models to estimate
+Function \code{specpool} implements the following models to estimate
 the pool size $S_p$:
 \begin{align}
 S_p &= S_o + \frac{f_1^2}{2 f_2} & \text{Chao}\\
@@ -582,7 +591,7 @@ plots:
 s^2 = \left(\sum_{i=1}^N r_i^2 - \frac{f_1}{N}\right) \frac{N-1}{N}
 \end{equation}
 Variance of the second-order jackknife is not evaluated in
-\texttt{specpool} (but contributions are welcome).
+\code{specpool} (but contributions are welcome).
 For the variance of bootstrap estimator, it is practical to define a
 new variable $q_i = (1-p_i)^N$ for each species:
 \begin{equation}
@@ -608,11 +617,11 @@ These typically are even lower than the observed richness
 
 \subsection{Pool size from a single site}
 
-The \texttt{specpool} function needs a collection of sites, but there
+The \code{specpool} function needs a collection of sites, but there
 are some methods that estimate the number of unseen species for each
 single site.  These functions need counts of individuals, and species
 seen only once or twice, or other rare species, take the place of
-species with low frequencies.  Function \texttt{estimateR} implements
+species with low frequencies.  Function \code{estimateR} implements
 two of these methods:
 <<>>=
 estimateR(BCI[k,])
@@ -647,11 +656,11 @@ S_p = S_\mu \sigma \sqrt{2 \pi}
 \end{equation}
 where $S_\mu$ is the modal height or the expected number of species at
 maximum (at $\mu$), and $\sigma$ is the width.  Function
-\texttt{veiledspec} estimates this integral from a model fitted either
-with \texttt{prestondistr} or \texttt{prestonfit}, and fits the latter
+\code{veiledspec} estimates this integral from a model fitted either
+with \code{prestondistr} or \code{prestonfit}, and fits the latter
 if raw site data are given.  Log-normal model fits badly, and
-\texttt{prestonfit} is particularly poor.  Therefore the following
-explicitly uses \texttt{prestondistr}, although this also may fail:
+\code{prestonfit} is particularly poor.  Therefore the following
+explicitly uses \code{prestondistr}, although this also may fail:
 <<>>=
 veiledspec(prestondistr(BCI[k,]))
 veiledspec(BCI[k,])
@@ -666,7 +675,7 @@ missing species could occur in a site, or which sites are suitable for
 a species.  The probability for each species at each site is assessed
 from other species occurring on the site.
 
-Function \texttt{beals} implement Beals smoothing:
+Function \code{beals} implement Beals smoothing:
 <<>>=
 smo <- beals(BCI)
 @

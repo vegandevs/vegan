@@ -1,24 +1,33 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
-\documentclass[a4paper,10pt]{amsart}
-\usepackage{ucs}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\documentclass[article,10pt,nojss]{jss}
+%\usepackage{ucs}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
 \usepackage{sidecap}
-\setlength{\captionindent}{0pt}
-\usepackage{url}
+\usepackage{amsmath}
 
 \renewcommand{\floatpagefraction}{0.8}
 
 
-\title{Vegan: an introduction to ordination}
+\title{Vegan: an introduction to ordination} 
+
 \author{Jari Oksanen}
 
-\date{$ $Id$ $
+\Abstract{ } 
+
+\Keywords{ordination, correspondence analysis, non-metric
+  multidimensional scaling, CCA, RDA, NMDS, fitted environmental
+  vector, fitted environmental surface, permutation tests}
+
+%% misuse of the address field for revision data
+\Address{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
+\Footername{This version}
+
+%% need no \usepackage{Sweave}
 \begin{document}
 
 \setkeys{Gin}{width=0.55\linewidth}
@@ -28,35 +37,32 @@ par(mfrow=c(1,1))
 options(width=72)
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
+options("prompt" = "R> ", "continue" = "+  ")
 @
 
-\maketitle
 
-\tableofcontents
-
-
-\noindent \texttt{Vegan} is a package for community ecologists.  This
+\noindent \pkg{vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
-done in \texttt{vegan}.  The document only is a very basic
+done in \pkg{vegan}.  The document only is a very basic
 introduction.  Another document (\emph{vegan tutorial})
 (\url{http://cc.oulu.fi/~jarioksa/opetus/method/vegantutor.pdf}) gives
 a longer and more detailed introduction to ordination.  The
-current document only describes a small part of all \texttt{vegan}
+current document only describes a small part of all \pkg{vegan}
 functions.  For most functions, the canonical references are the
-\texttt{vegan} help pages, and some of the most important additional
+\pkg{vegan} help pages, and some of the most important additional
 functions are listed at this document.
 
 \section{Ordination}
 
-The \texttt{vegan} package contains all common ordination methods:
-Principal component analysis (function \texttt{rda}, or
-\texttt{prcomp} in the base \textsf{R}), correspondence analysis
-(\texttt{cca}), detrended correspondence analysis (\texttt{decorana})
+The \pkg{vegan} package contains all common ordination methods:
+Principal component analysis (function \code{rda}, or
+\code{prcomp} in the base \textsf{R}), correspondence analysis
+(\code{cca}), detrended correspondence analysis (\code{decorana})
 and a wrapper for non-metric multidimensional scaling
-(\texttt{metaMDS}).  Functions \texttt{rda} and \texttt{cca} mainly
+(\code{metaMDS}).  Functions \code{rda} and \code{cca} mainly
 are designed for constrained ordination, and will be discussed later.
-In this chapter I describe functions \texttt{decorana} and
-\texttt{metaMDS}.
+In this chapter I describe functions \code{decorana} and
+\code{metaMDS}.
 
 \subsection{Detrended correspondence analysis}
 
@@ -67,29 +73,29 @@ library(vegan)
 data(dune)
 ord <- decorana(dune)
 @
-This saves ordination results in \texttt{ord}:
+This saves ordination results in \code{ord}:
 <<>>=
 ord
 @
 The display of results is very brief: only eigenvalues and used
 options are listed.  Actual ordination results are not shown, but you
-can see them with command \texttt{summary(ord)}, or extract the scores
-with command \texttt{scores}.  The \texttt{plot} function also
+can see them with command \code{summary(ord)}, or extract the scores
+with command \code{scores}.  The \code{plot} function also
 automatically knows how to access the scores.
 
 \subsection{Non-metric multidimensional scaling}
 
-Function \texttt{metaMDS} is a bit special case.  The actual
-ordination is performed by function \texttt{isoMDS} of the \texttt{MASS}
-package.  Function \texttt{metaMDS} is a wrapper to perform non-metric
+Function \code{metaMDS} is a bit special case.  The actual
+ordination is performed by function \code{isoMDS} of the \code{MASS}
+package.  Function \code{metaMDS} is a wrapper to perform non-metric
 multidimensional scaling (\textsc{nmds}) like recommended in community
 ordination: it uses adequate dissimilarity measures (function
-\texttt{vegdist}), then it runs \textsc{nmds} several times with
+\code{vegdist}), then it runs \textsc{nmds} several times with
 random starting configurations, compares results (function
-\texttt{procrustes}), and stops after finding twice a similar minimum stress
+\code{procrustes}), and stops after finding twice a similar minimum stress
 solution.  Finally it scales and rotates the solution, and adds
 species scores to the configuration as weighted averages (function
-\texttt{wascores}):
+\code{wascores}):
 <<>>=
 ord <- metaMDS(dune)
 ord
@@ -101,8 +107,8 @@ Ordination is nothing but a way of drawing graphs, and it is best to
 inspect ordinations only graphically (which also implies that they
 should not be taken too seriously).
 
-All ordination results of \texttt{vegan} can be displayed with a
-\texttt{plot} command (Fig. \ref{fig:plot}):
+All ordination results of \pkg{vegan} can be displayed with a
+\code{plot} command (Fig. \ref{fig:plot}):
 <<a>>=
 plot(ord)
 @
@@ -113,14 +119,14 @@ plot(ord)
 \caption{Default ordination plot.}
 \label{fig:plot}
 \end{SCfigure}
-Default \texttt{plot} command uses either black circles for sites and
+Default \code{plot} command uses either black circles for sites and
 red pluses for species, or black and red text for sites and species,
 resp.  The choices depend on the number of items in the plot and
 ordination method.  You can override the default choice by setting
-\texttt{type = "p"} for points, or \texttt{type = "t"} for text.  For
+\code{type = "p"} for points, or \code{type = "t"} for text.  For
 a better control of ordination graphics you can first draw an empty
-plot (\texttt{type = "n"}) and then add species and sites separately
-using \texttt{points} or \texttt{text} functions.  In this way you can
+plot (\code{type = "n"}) and then add species and sites separately
+using \code{points} or \code{text} functions.  In this way you can
 combine points and text, and you can select colours and character
 sizes freely (Fig. \ref{fig:plot.args}):
 <<a>>=
@@ -137,19 +143,19 @@ text(ord, display = "spec", cex=0.7, col="blue")
 \label{fig:plot.args}
 \end{SCfigure}
 
-All \texttt{vegan} ordination methods have a specific \texttt{plot}
-function.  In addition, \texttt{vegan} has an alternative plotting
-function \texttt{ordiplot} that also knows many non-\texttt{vegan}
-ordination methods, such as \texttt{prcomp}, \texttt{cmdscale} and
-\texttt{isoMDS}.  All \texttt{vegan} plot functions return invisibly
-an \texttt{ordiplot} object, so that you can use \texttt{ordiplot}
-support functions with the results (\texttt{points}, \texttt{text},
-\texttt{identify}).
+All \pkg{vegan} ordination methods have a specific \code{plot}
+function.  In addition, \pkg{vegan} has an alternative plotting
+function \code{ordiplot} that also knows many non-\pkg{vegan}
+ordination methods, such as \code{prcomp}, \code{cmdscale} and
+\code{isoMDS}.  All \pkg{vegan} plot functions return invisibly
+an \code{ordiplot} object, so that you can use \code{ordiplot}
+support functions with the results (\code{points}, \code{text},
+\code{identify}).
 
-Function \texttt{ordirgl} (requires \texttt{rgl} package) provides
+Function \code{ordirgl} (requires \code{rgl} package) provides
 dynamic three-dimensional graphics that can be spun around or zoomed
-into with your mouse.  Function \texttt{ordiplot3d} (requires package
-\texttt{scatterplot3d}) displays simple three-dimensional
+into with your mouse.  Function \code{ordiplot3d} (requires package
+\code{scatterplot3d}) displays simple three-dimensional
 scatterplots.
 
 \subsection{Cluttered plots}
@@ -157,27 +163,27 @@ scatterplots.
 Ordination plots are often congested: there is a large number of sites
 and species, and it may be impossible to display all clearly.  In
 particular, two or more species may have identical scores and are
-plotted over each other.  \texttt{Vegan} does not have (yet?)
+plotted over each other.  \pkg{vegan} does not have (yet?)
 automatic tools for clean plotting in these cases, but here some
 methods you can try:
 \begin{itemize}
-\item Zoom into graph setting axis limits \texttt{xlim} and
-  \texttt{ylim}.  You must typically set both, because \texttt{vegan}
+\item Zoom into graph setting axis limits \code{xlim} and
+  \code{ylim}.  You must typically set both, because \pkg{vegan}
   will maintain equal aspect ratio of axes.
-\item Use points and label only some of these with \texttt{identify}
+\item Use points and label only some of these with \code{identify}
   command.
-\item Use \texttt{select} argument in ordination \texttt{text} and
-  \texttt{points} functions to only show the specified items.
-\item Use \texttt{ordilabel} function that uses opaque background to
+\item Use \code{select} argument in ordination \code{text} and
+  \code{points} functions to only show the specified items.
+\item Use \code{ordilabel} function that uses opaque background to
   the text: some text labels will be covered, but the uppermost are
   readable.
-\item Use automatic \texttt{orditorp} function that uses text only if
+\item Use automatic \code{orditorp} function that uses text only if
   this can be done without overwriting previous labels, but points in
   other cases.
-\item Use automatic \texttt{ordipointlabel} function that uses both
+\item Use automatic \code{ordipointlabel} function that uses both
   points and text labels, and tries to optimize the location of the
   text to avoid overwriting.
-\item Use interactive \texttt{orditkplot} function that draws both
+\item Use interactive \code{orditkplot} function that draws both
   points and labels for ordination scores, and allows you to drag labels
   to better positions. You can export the results of the edited graph to
   encapsulated postscript, pdf, png or jpeg files, or copy directly to
@@ -187,11 +193,11 @@ methods you can try:
 
 \subsection{Adding items to ordination plots}
 
-\texttt{Vegan} has a group of functions for adding information about
+\pkg{vegan} has a group of functions for adding information about
 classification or grouping of points onto ordination diagrams.
-Function \texttt{ordihull} adds convex hulls, \texttt{ordiellipse}
+Function \code{ordihull} adds convex hulls, \code{ordiellipse}
 adds ellipses of standard deviation, standard error or confidence
-areas, and \texttt{ordispider} combines items to their centroid
+areas, and \code{ordispider} combines items to their centroid
 (Fig. \ref{fig:ordihull}):
 <<>>=
 data(dune.env)
@@ -212,28 +218,28 @@ points(ord, disp="sites", pch=21, col="red", bg="yellow", cex=1.3)
   for Management levels in ordination.}
 \label{fig:ordihull}
 \end{SCfigure}
-In addition, you can overlay a cluster dendrogram from \texttt{hclust}
-using \texttt{ordicluster} or a minimum spanning tree from
-\texttt{spantree} with its \texttt{lines} function.  Segmented arrows
-can be added with \texttt{ordiarrows}, lines with
-\texttt{ordisegments} and regular grids with \texttt{ordigrid}.
+In addition, you can overlay a cluster dendrogram from \code{hclust}
+using \code{ordicluster} or a minimum spanning tree from
+\code{spantree} with its \code{lines} function.  Segmented arrows
+can be added with \code{ordiarrows}, lines with
+\code{ordisegments} and regular grids with \code{ordigrid}.
 
 \section{Fitting environmental variables}
 
-\texttt{Vegan} provides two functions for fitting environmental
+\pkg{vegan} provides two functions for fitting environmental
 variables onto ordination:
 \begin{itemize}
-\item \texttt{envfit} fits vectors of continuous variables and
-  centroids of levels of class variables (defined as \texttt{factor}
+\item \code{envfit} fits vectors of continuous variables and
+  centroids of levels of class variables (defined as \code{factor}
   in \textsf{R}).  The direction of the vector shows the direction of
   the gradient, and the length of the arrow is proportional to the
   correlation between the variable and the ordination.
-\item \texttt{ordisurf} (which requires package \texttt{mgcv}) fits
+\item \code{ordisurf} (which requires package \code{mgcv}) fits
   smooth surfaces for continuous variables onto ordination using
   thinplate splines with cross-validatory selection of smoothness.
 \end{itemize}
 
-Function \texttt{envfit} can be called with a \texttt{formula}
+Function \code{envfit} can be called with a \code{formula}
 interface, and it optionally can assess the ``significance'' of the
 variables using permutation tests:
 <<>>=
@@ -247,9 +253,9 @@ plot(ord, dis="site")
 plot(ord.fit)
 @
 
-Function \texttt{ordisurf} directly adds a fitted surface onto
+Function \code{ordisurf} directly adds a fitted surface onto
 ordination, but it returns the result of the fitted thinplate spline
-\texttt{gam} (Fig. \ref{fig:envfit}):
+\code{gam} (Fig. \ref{fig:envfit}):
 <<b,fig=false>>=
 ordisurf(ord, A1, add=TRUE)
 @
@@ -259,21 +265,21 @@ ordisurf(ord, A1, add=TRUE)
 <<b>>
 @
 \caption{Fitted vector and smooth surface for the thickness of A1
-  horizon (\texttt{A1}, in cm), and centroids of Management levels.}
+  horizon (\code{A1}, in cm), and centroids of Management levels.}
 \label{fig:envfit}
 \end{SCfigure}
 
 \section{Constrained ordination}
 
-\texttt{Vegan} has three methods of constrained ordination:
+\pkg{vegan} has three methods of constrained ordination:
 constrained or ``canonical'' correspondence analysis (function
-\texttt{cca}), redundancy analysis (function \texttt{rda}) and
-constrained analysis of proximities (function \texttt{capscale}).  All
+\code{cca}), redundancy analysis (function \code{rda}) and
+constrained analysis of proximities (function \code{capscale}).  All
 these functions also can have a conditioning term that is ``partialled
-out''.  I only demonstrate \texttt{cca}, but all functions accept
+out''.  I only demonstrate \code{cca}, but all functions accept
 similar commands and can be used in the same way.
 
-The preferred way is to use \texttt{formula} interface, where the left
+The preferred way is to use \code{formula} interface, where the left
 hand side gives the community data frame and the right hand side lists
 the constraining variables:
 <<>>=
@@ -302,30 +308,30 @@ constraints means slacker constraint, and you finally end up with
 solution similar to unconstrained ordination. In that case it is
 better to use unconstrained ordination with environmental fitting.
 However, if you really want to do so, it is possible with the
-following shortcut in \texttt{formula}:
+following shortcut in \code{formula}:
 <<>>=
 cca(dune ~ ., data=dune.env)
 @
 
 \subsection{Significance tests}
 
-\texttt{Vegan} provides permutation tests for the significance of
+\pkg{vegan} provides permutation tests for the significance of
 constraints.  The test mimics standard analysis of variance function
-(\texttt{anova}), and the default test analyses all constraints
+(\code{anova}), and the default test analyses all constraints
 simultaneously:
 <<>>=
 anova(ord)
 @
-The function actually used was \texttt{anova.cca}, but you do not need
+The function actually used was \code{anova.cca}, but you do not need
 to give its name in full, because \textsf{R} automatically chooses the
-correct \texttt{anova} variant for the result of constrained
+correct \code{anova} variant for the result of constrained
 ordination.
 
-The \texttt{anova.cca} function tries to be clever and lazy: it
+The \code{anova.cca} function tries to be clever and lazy: it
 automatically stops if the observed permutation significance probably
 differs from the targeted critical value ($0.05$ as default), but it
-will continue long in uncertain cases.  You must set \texttt{step} and
-\texttt{perm.max} to same values to override this behaviour.
+will continue long in uncertain cases.  You must set \code{step} and
+\code{perm.max} to same values to override this behaviour.
 
 It is also possible to analyse terms separately:
 <<>>=
@@ -345,7 +351,7 @@ anova(ord, by="axis", perm=500)
 @
 Now the automatic selection works, but typically some of your axes
 will be very close to the critical value, and it may be useful to set
-a lower \texttt{perm.max} than the default $10000$ (typically you use
+a lower \code{perm.max} than the default $10000$ (typically you use
 higher limits than in these examples: we used lower limits to save
 time when this document is automatically generated with this package).
 
@@ -357,15 +363,15 @@ out from the analysis before constraints:
 ord <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 ord
 @
-This partials out the effect of \texttt{Moisture} before analysing the
-effects of \texttt{A1} and \texttt{Management}.  This also influences
+This partials out the effect of \code{Moisture} before analysing the
+effects of \code{A1} and \code{Management}.  This also influences
 the significances of the terms:
 <<>>=
 anova(ord, by="term", perm=500)
 @
 If we had a designed experiment, we may wish to restrict the
 permutations so that the observations only are permuted within levels
-of \texttt{strata}:
+of \code{strata}:
 <<>>=
 anova(ord, by="term", perm=500, strata=Moisture)
 @

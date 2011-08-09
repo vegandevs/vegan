@@ -1,52 +1,50 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Design decisions and implementation}
 
-\documentclass[a4paper,10pt]{amsart}
+\documentclass[article,a4paper,10pt,nojss]{jss}
 
-\usepackage{ucs}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[sort&compress]{natbib}
-\usepackage{hyperref}
-\usepackage{graphics}
+\usepackage{amsmath}
+%\usepackage{ucs}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
 \usepackage{sidecap}
-\setlength{\captionindent}{0pt}
-\usepackage{url}
 \renewcommand{\floatpagefraction}{0.8}
 
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
-\date{$ $Id$ $
+\Abstract{
+  This document describes design decisions, and discusses implementation
+and algorithmic details in some vegan functions. The proper FAQ is
+another document.
+  }
+ \Keywords{nestdness, matrix temperature, community null models, scaling of PCA and RDA, WA
+   and LC scores}
+
+\Address{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
+\Footername{This version}
 
+%% need no \usepackage{Sweave.sty}
 \begin{document}
 \SweaveOpts{strip.white=true}
 \setkeys{Gin}{width=0.55\linewidth}
 <<echo=false,results=hide>>=
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
+options("prompt" = "R> ", "continue" = "+  ")
 require(vegan)
 @
 
 \maketitle
 
-\begin{abstract}
-
-\noindent This document describes design decisions, and discusses implementation
-and algorithmic details in some vegan functions. The proper FAQ is
-another document.
-
-\end{abstract}
-
-\tableofcontents
 
 \section{Nestedness and Null models}
 
 Some indicators of nestedness and null models of communities are only
 described in general terms, and they could be implemented in various
-ways. Here I discuss the implementation in \texttt{vegan}.
+ways. Here I discuss the implementation in \pkg{vegan}.
 
 \subsection{Matrix temperature}
 
@@ -81,12 +79,12 @@ The function can be implemented in many ways following the general
 principles.  Rodr{\'i}guez-Giron{\'e}s and Santamaria \cite{RodGir06}
 have seen the original code and reveal more details of calculations,
 and their explanation is the basis of the implementation in
-\texttt{vegan}.  However, there are still some open issues, and
-probably \texttt{vegan} function \texttt{nestedtemp} will never
+\pkg{vegan}.  However, there are still some open issues, and
+probably \pkg{vegan} function \code{nestedtemp} will never
 exactly reproduce results from other programs, although it is based on
 the same general principles. I try to give main computation details in
 this documents --- all details can be seen in the source code of
-\texttt{nestedtemp}.
+\code{nestedtemp}.
 
 \begin{itemize}
 \item Species and sites are put into unit square \citep{RodGir06}. The
@@ -110,8 +108,8 @@ this documents --- all details can be seen in the source code of
     the indices can be reversed for corresponding row indexing.
     Ordering by $s$ packs presences to the top left corner, and
     ordering by $t$ pack zeros away from the top left corner. The final
-    sorting should be ``a compromise'' \cite{RodGir06} between these
-    scores, and \texttt{vegan} uses $s+t$.  The result should be cool,
+    sorting should be ``a compromise'' \citep{RodGir06} between these
+    scores, and \pkg{vegan} uses $s+t$.  The result should be cool,
     but the packing does not try to minimize the temperature
     \citep{RodGir06}.  I do not know how the ``compromise'' is
     defined, and this can cause some differences to other
@@ -128,20 +126,20 @@ this documents --- all details can be seen in the source code of
     the parameter $p$ is selected so that the curve covers the same
     area as is the proportion of presences
     (Fig. \ref{fig:nestedtemp}). The parameter $p$ is found
-    numerically using \textsf{R} functions \texttt{integrate} and
-    \texttt{uniroot}.  The fill line used in the original matrix
-    temperature software \cite{AtmarPat93} is supposed to be similar
+    numerically using \proglang{R} functions \code{integrate} and
+    \code{uniroot}.  The fill line used in the original matrix
+    temperature software \citep{AtmarPat93} is supposed to be similar
     \citep{RodGir06}. Small details in the fill line combined with
     differences in scores used in the unit square (especially in the
     corners) can cause large differences in the results.
   \item A line with slope $-1$ is drawn through the point and the $x$
     coordinate of the intersection of this line and the fill line is
-    found using function \texttt{uniroot}. The difference of this
+    found using function \code{uniroot}. The difference of this
     intersection and the row coordinate gives the argument $d$ of matrix
     temperature (Fig. \ref{fig:nestedtemp}).
   \item In other software, ``duplicated'' species occurring on every
     site are removed, as well as empty sites and species after
-    reordering \cite{RodGir06}. This is not done in \texttt{vegan}.
+    reordering \cite{RodGir06}. This is not done in \pkg{vegan}.
 \end{itemize}
 
 \subsection{Backtracking}
@@ -160,7 +158,7 @@ previously. A consequence of dealing with a different problem is that
 \cite{GotelliEnt01} does not give many hints on implementing a fill
 algorithm as a community null model.
 
-The backtracking is implemented in two stages in \textbf{vegan}: filling and
+The backtracking is implemented in two stages in \pkg{vegan}: filling and
 backtracking.
 \begin{enumerate}
   \item The matrix is filled in the order given by the marginal
@@ -192,11 +190,11 @@ backtracking.
 
 This chapter discusses the scaling of scores (results) in redundancy
 analysis and principal component analysis performed by function
-\texttt{rda} in the \texttt{vegan} library.  
+\code{rda} in the \pkg{vegan} library.  
 
 Principal component analysis, and hence redundancy analysis, is a case
 of singular value decomposition (\textsc{svd}).  Functions
-\texttt{rda} and \texttt{prcomp} even use \textsc{svd} internally in
+\code{rda} and \code{prcomp} even use \textsc{svd} internally in
 their algorithm.
 
 In \textsc{svd} a centred data matrix is decomposed into orthogonal
@@ -239,14 +237,14 @@ weighted averaging scores have somewhat wider dispersion.
 
 \begin{table}
   \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
-    in the functions \texttt{prcomp} and \texttt{princomp}, and the
-    one used in the \texttt{vegan} function \texttt{rda} 
-    and the proprietary software \texttt{Canoco}
+    in the functions \code{prcomp} and \code{princomp}, and the
+    one used in the \pkg{vegan} function \code{rda} 
+    and the proprietary software \proglang{Canoco}
     scores in terms of orthonormal species ($u_{ik}$) and site scores
     ($v_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
-    species standard deviations ($s_j$). In \texttt{rda},
+    species standard deviations ($s_j$). In \code{rda},
     $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
-    negative scaling in \texttt{vegan}
+    negative scaling in \pkg{vegan}
    % and corresponding positive scaling in \texttt{Canoco 3}  
     is derived
     dividing each  species by its standard deviation $s_j$ (possibly
@@ -254,31 +252,31 @@ weighted averaging scores have somewhat wider dispersion.
 \begin{tabular}{lcc}
 & \textbf{Site scores} $u_{ik}^*$ &
 \textbf{Species scores} $v_{jk}^*$ \\
-\texttt{prcomp, princomp} &
+\code{prcomp, princomp} &
 $u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
 $v_{jk}$ \\
-\texttt{rda, scaling=1} &
+\code{rda, scaling=1} &
 $u_{ik} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \times \mathrm{const}$
 \\
-\texttt{rda, scaling=2} &
+\code{rda, scaling=2} &
 $u_{ik} \times \mathrm{const}$ &
 $v_{jk} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$  \\
-\texttt{rda, scaling=3} &
+\code{rda, scaling=3} &
 $u_{ik} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
-\texttt{rda, scaling < 0} &
+\code{rda, scaling < 0} &
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 % \\
-% \texttt{Canoco 3, scaling=-1} &
+% \code{Canoco 3, scaling=-1} &
 % $u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
 % $v_{jk} \sqrt{n}$ \\
-% \texttt{Canoco 3, scaling=-2} &
+% \code{Canoco 3, scaling=-2} &
 % $u_{ik} \sqrt{n-1}$ &
 % $v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
 % \\
-% \texttt{Canoco 3, scaling=-3} &
+% \code{Canoco 3, scaling=-3} &
 % $u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
 % $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
 \end{tabular}
@@ -289,16 +287,16 @@ the same graph.  If this graph is a graphical display of \textsc{svd},
 or a graphical, low-dimensional approximation of the data, the graph
 is called a biplot.  The graph is a biplot if the transformed scores
 satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
-constant.  In functions \texttt{princomp}, \texttt{prcomp} and
-\texttt{rda}, $c=1$ and the plotted scores are a biplot so that the
+constant.  In functions \code{princomp}, \code{prcomp} and
+\code{rda}, $c=1$ and the plotted scores are a biplot so that the
 singular values (or eigenvalues) are expressed for sites, and species
 are left unscaled.  
 % For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
-% \sqrt{\sum \lambda_k}$ with negative \texttt{Canoco} scaling
+% \sqrt{\sum \lambda_k}$ with negative \proglang{Canoco} scaling
 % values. All these $c$ are constants for a matrix, so these are all
 % biplots with different internal scaling of species and site scores
-% with respect to each other.  For \texttt{Canoco} with positive scaling
-% values and \texttt{vegan} with negative scaling values, no constant
+% with respect to each other.  For \proglang{Canoco} with positive scaling
+% values and \pkg{vegan} with negative scaling values, no constant
 % $c$ can be found, but the correction is dependent on species standard
 % deviations $s_j$, and these scores do not define a biplot.
 
@@ -313,45 +311,45 @@ $100$, the eigenvalues will be reduced by factor $100^2$, and the
 scores scaled by eigenvalues will have a narrower dispersion.  For
 graphical biplots we should be able to fix the relations of row and
 column scores to be invariant against scaling of data.  The solution
-in R standard function \texttt{biplot} is to scale site and species
+in R standard function \code{biplot} is to scale site and species
 scores independently, and typically very differently, but plot each
-independently to fill the graph area.  The solution in \texttt{Canoco} and 
-and \texttt{rda} is to use proportional eigenvalues $\lambda_k / \sum
+independently to fill the graph area.  The solution in \proglang{Canoco} and 
+and \code{rda} is to use proportional eigenvalues $\lambda_k / \sum
 \lambda_k$ instead of original eigenvalues.  These proportions are
 invariant with scale changes, and typically they have a nice range for
 plotting two data sets in the same graph.
 
 The \textbf{vegan} package uses a scaling constant $c = \sqrt[4]{(n-1)
   \sum \lambda_k}$ in order to be able to use scaling by proportional
-eigenvalues (like in \texttt{Canoco}) and still be able to have a
-biplot scaling. Because of this, the scaling of \texttt{rda} scores is
-non-standard. However, the \texttt{scores} function lets you to set
+eigenvalues (like in \proglang{Canoco}) and still be able to have a
+biplot scaling. Because of this, the scaling of \code{rda} scores is
+non-standard. However, the \code{scores} function lets you to set
 the scaling constant to any desired values. It is also possible to
 have two separate scaling constants: the first for the species, and
 the second for sites and friends, and this allows getting scores of
 other software or R functions (Table \ref{tab:rdaconst}). 
 \begin{table}
-  \caption{\label{tab:rdaconst} Values of the \texttt{const} argument in
+  \caption{\label{tab:rdaconst} Values of the \code{const} argument in
     \textbf{vegan} to get the scores that are equal to those from
     other functions and software. Number of sites (rows) is $n$, 
     the number of species (columns) is $m$, and the sum of all
     eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
-    \texttt{tot.chi} in the \texttt{rda} result)}.
+    \code{tot.chi} in the \code{rda} result)}.
 \begin{tabular}{lccc}
 & \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
-\texttt{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
-\texttt{prcomp}, \texttt{princomp} & \texttt{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
-\texttt{Canoco 3} & \texttt{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
-\texttt{Canoco 4} & \texttt{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
+\pkg{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
+\code{prcomp}, \code{princomp} & \code{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
+\texttt{Canoco 3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
+\texttt{Canoco 4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
 \end{tabular}
 \end{table}
 
 In this chapter, I used always centred data matrices.  In principle
 \textsc{svd} could be done with original, non-centred data, but
-there is no option for this in \texttt{rda}, because I think that
+there is no option for this in \code{rda}, because I think that
 non-centred analysis is dubious and I do not want to encourage its use
 (if you think you need it, you are certainly so good in programming
-that you can change that one line in \texttt{rda.default}).  I do
+that you can change that one line in \code{rda.default}).  I do
 think that the arguments for non-centred analysis are often twisted,
 and the method is not very good for its intended purpose, but there
 are better methods for finding fuzzy classes.  Normal, centred
@@ -381,8 +379,8 @@ species scores that are as similar to LC scores as possible.
 \end{itemize}
 Many computer programs for constrained ordinations give only or
 primarily LC scores, following Mike Palmer's recommendation
-\cite{Palmer93}.  However, functions \texttt{cca} and \texttt{rda} in
-the \texttt{vegan} package use primarily WA scores. This chapter
+\cite{Palmer93}.  However, functions \code{cca} and \code{rda} in
+the \pkg{vegan} package use primarily WA scores. This chapter
 explains the reasons for this choice.
 
 Briefly, the main reasons are that
@@ -401,7 +399,7 @@ measurements contain some errors, and therefore it is safer to use WA
 scores.
 \end{itemize}
 This article studies mainly the first point.  The users of
-\texttt{vegan} have a choice of either LC or WA (default) scores, but
+\pkg{vegan} have a choice of either LC or WA (default) scores, but
 after reading this article, I believe that most of them do not want to
 use LC scores, because they are not what they were looking for in
 ordination.
@@ -417,7 +415,7 @@ data(varespec)
 data(varechem)
 orig <- cca(varespec ~ Al + K, varechem)
 @
-Function \texttt{cca} in \texttt{vegan} uses WA scores as
+Function \code{cca} in \pkg{vegan} uses WA scores as
 default. So we must specifically ask for LC scores
 (Fig. \ref{fig:ccalc}).
 <<a,fig=false>>=
@@ -432,7 +430,7 @@ plot(orig, dis=c("lc","bp"))
 \end{SCfigure}
 
 What would happen to linear combinations of LC scores if we shuffle
-the ordering of sites in species data?  Function \texttt{sample()} below
+the ordering of sites in species data?  Function \code{sample()} below
 shuffles the indices.
 <<>>=
 i <- sample(nrow(varespec))
@@ -514,7 +512,7 @@ tmp2 <- rda(varespec[i,] ~ ., varechem)
 proc <- procrustes(scores(tmp1, dis="lc", choi=1:14), scores(tmp2, dis="lc", choi=1:14))
 max(residuals(proc))
 @
-In \texttt{cca} the difference would be somewhat larger than now
+In \code{cca} the difference would be somewhat larger than now
 observed \Sexpr{format.pval(max(residuals(proc)))} because site
 weights used for environmental variables are shuffled with the species
 data.
@@ -550,7 +548,7 @@ plot WA scores, or LC scores and WA scores together:  The LC scores
 show where the site \emph{should} be, the WA scores shows where the
 site \emph{is}.
 
-Function \texttt{ordispider} adds line segments to connect each WA
+Function \code{ordispider} adds line segments to connect each WA
 score with the corresponding LC (Fig.  \ref{fig:walcspider}).
 <<a,fig=false>>=
 plot(orig, display="wa", type="points")
@@ -566,7 +564,7 @@ text(orig, dis="cn", col="blue")
 \label{fig:walcspider}
 \end{SCfigure}
 This is the standard way of displaying results of discriminant
-analysis, too.  Moisture classes \texttt{1} and \texttt{2} seem to be
+analysis, too.  Moisture classes \code{1} and \code{2} seem to be
 overlapping, and cannot be completely separated by their
 vegetation. Other classes are more distinct, but there seems to be a
 clear arc effect or a ``horseshoe'' despite using CCA.
@@ -577,13 +575,11 @@ LC scores are only the (weighted and scaled) constraints and
 independent of vegetation. If you plot them, you plot only your
 environmental variables. WA scores are based on vegetation data but
 are constrained to be as similar to the LC scores as only
-possible. Therefore \texttt{vegan} calls LC scores as
-\texttt{constraints} and WA scores as \texttt{site scores}, and uses
+possible. Therefore \pkg{vegan} calls LC scores as
+\code{constraints} and WA scores as \code{site scores}, and uses
 primarily WA scores in plotting.  However, the user makes the ultimate
 choice, since both scores are available.
 
-
-\bibliographystyle{plain}
 \bibliography{vegan}
 
 \end{document}

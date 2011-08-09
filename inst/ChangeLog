@@ -13,6 +13,9 @@ Version 1.91-0 (opened August 6, 2011)
 	Imports field of DESCRIPTION (same with vif.cca: vif is defined in
 	car, but we could have our private vif generic here?).
 
+	* Vignettes: use now jss.cls shipped with R instead of amsart.cls
+	for better consistency with R and permute style.
+
 Version 1.90-2 (closed August 6, 2011)
 
 	* ordilabel: gained argument 'select'.
