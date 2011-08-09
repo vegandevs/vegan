@@ -39,6 +39,10 @@ rgl.renyiaccum, vif.cca)
 ## Export panel functions
 export(panel.ordi, panel.ordi3d, prepanel.ordi3d)
 
+
+## Export as.mcmc for coda
+export(as.mcmc.oecosimu, as.mcmc.permat)
+
 ## do NOT export the following internal functions
 
 ## export(ade2vegancca, coverscale, ordiArgAbsorber, ordiArrowMul,
