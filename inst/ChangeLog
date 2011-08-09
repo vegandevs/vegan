@@ -16,6 +16,10 @@ Version 1.91-0 (opened August 6, 2011)
 	* Vignettes: use now jss.cls shipped with R instead of amsart.cls
 	for better consistency with R and permute style.
 
+	* plot.envfit: When `add == FALSE`, make sure we leave enough room
+	around the plotting locations to contain the arrow and centroid
+	labels.
+
 Version 1.90-2 (closed August 6, 2011)
 
 	* ordilabel: gained argument 'select'.
