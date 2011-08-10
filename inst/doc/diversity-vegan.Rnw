@@ -12,7 +12,7 @@
 \author{Jari Oksanen}
 \Abstract{
   }
-\Keywords{diversity, Shannon, Rényi, Hill number, Tsallis,
+\Keywords{diversity, Shannon, R{\'e}nyi, Hill number, Tsallis,
   rarefaction, species accumulation, beta diversity, species
   abundance, Fisher alpha, Fisher logarithmic series, Preston
   log-normal model, extended richness, taxonomic diversity, functional
