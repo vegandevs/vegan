@@ -1,28 +1,28 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Diversity analysis in vegan}
-\documentclass[article,a4paper,10pt,nojss]{jss}
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-%\usepackage[T1]{fontenc}
+\documentclass[article,nojss]{jss}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{sidecap}
 \usepackage{amsmath}
+\usepackage{amssymb} % \gtrapprox
 
 
-\title{Vegan: ecological diversity}
-\author{Jari Oksanen}
-\Abstract{
-  }
-\Keywords{diversity, Shannon, R{\'e}nyi, Hill number, Tsallis,
-  rarefaction, species accumulation, beta diversity, species
+\title{Vegan: ecological diversity} \author{Jari Oksanen} 
+\Abstract{ }
+\Keywords{diversity, Shannon, Simpson, R{\'e}nyi, Hill number,
+  Tsallis, rarefaction, species accumulation, beta diversity, species
   abundance, Fisher alpha, Fisher logarithmic series, Preston
-  log-normal model, extended richness, taxonomic diversity, functional
-  divesity, species pool}
+  log-normal model, species abundance models, Whittaker plots,
+  extended richness, taxonomic diversity, functional divesity, species
+  pool}
 
 %% misuse next for scm data
 \Address{$ $Id$ $
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
   in \Sexpr{R.version.string} on \today}
-\Footername{This version}
+\Footername{About this version}
 
 %% need no \usepackage{Sweave}
 \begin{document}
@@ -42,13 +42,13 @@ multivariate analysis (mainly ordination), and methods for diversity
 analysis of ecological communities.  This document gives an
 introduction to the latter.  Ordination methods are covered in other
 documents.  Many of the diversity functions were written by Roeland
-Kindt and Bob O'Hara.
+Kindt, Bob O'Hara and P{\'e}ter S{\'o}lymos.
 
 Most diversity methods assume that data are counts of individuals.
 The methods are used with other data types, and some people argue that
 biomass or cover are more adequate than counts of individuals of
 variable sizes.  However, this document mainly uses a data set with
-counts: stem counts of trees on $1$ha plots in the Barro Colorado
+counts: stem counts of trees on $1$\,ha plots in the Barro Colorado
 Island.  The following steps make these data available for the
 document:
 <<>>=
@@ -76,7 +76,7 @@ H <- diversity(BCI)
 @
 which finds diversity indices for all sites.
 
-\pkg{vegan} does not have indices for evenness (equitability), but
+\pkg{Vegan} does not have indices for evenness (equitability), but
 the most common of these, Pielou's evenness $J = H'/\log(S)$ is easily
 found as:
 <<>>=
@@ -85,7 +85,8 @@ J <- H/log(specnumber(BCI))
 where \code{specnumber} is a simple \pkg{vegan} function to find
 the numbers of species.
 
-\pkg{vegan} also can estimate R\'{e}nyi diversities of order $a$:
+\pkg{vegan} also can estimate series of R\'{e}nyi and Tsallis
+diversities. R{\'e}nyi diversity of order $a$ is:
 \begin{equation}
 H_a = \frac{1}{1-a} \log \sum_{i=1}^S p_i^a
 \end{equation}
@@ -93,8 +94,18 @@ or the corresponding Hill numbers $N_a = \exp(H_a)$.  Many common
 diversity indices are special cases of Hill numbers: $N_0 = S$, $N_1 =
 \exp(H')$, $N_2 = D_2$, and $N_\infty = 1/(\max p_i)$. The
 corresponding R\'{e}nyi diversities are $H_0 = \log(S)$, $H_1 = H'$, $H_2 =
-- \log(\sum p_i^2)$, and $H_\infty = - \log(\max p_i)$.  We select a
-random subset of five sites for R\'{e}nyi diversities:
+- \log(\sum p_i^2)$, and $H_\infty = - \log(\max p_i)$.  
+Tsallis diversity of order $q$ is:
+\begin{equation}
+  H_q = \frac{1}{q-1} \left(1 - \sum_{i=1}^S p^q \right) \, .
+\end{equation}
+This corresponds to common diversity indices: $H_0 = S-1$, $H_1 = H'$,
+and $H_2 = D_2$, and can be converted to the Hill number:
+\begin{equation}
+  N_q = (1 - (q-1) H_q )^\frac{1}{1-q} \, .
+\end{equation}
+
+We select a random subset of five sites for R\'{e}nyi diversities:
 <<>>=
 k <- sample(nrow(BCI), 6)
 R <- renyi(BCI[k,])
@@ -132,26 +143,26 @@ number of individuals.  Expected number of species in a community
 rarefied from $N$ to $n$ individuals is:
 \begin{equation}
 \label{eq:rare}
-\hat S_n = \sum_{i=1}^S (1 - p_i),\, \text{where} \quad p_i = {N-x_i
+\hat S_n = \sum_{i=1}^S (1 - q_i),\quad \text{where} \quad q_i = {N-x_i
   \choose n} \Bigm /{N \choose n}
 \end{equation}
 where $x_i$ is the count of species $i$, and ${N \choose n}$ is the
 binomial coefficient, or the number of ways we can choose $n$ from
-$N$, and $p_i$ give the probabilities that species $i$ does not occur in a
+$N$, and $q_i$ give the probabilities that species $i$ does \emph{not} occur in a
 sample of size $n$.  This is defined only when $N-x_i > n$, but for
-other cases $p_i = 0$ or the species is sure to occur in the sample.
+other cases $q_i = 0$ or the species is sure to occur in the sample.
 The variance of rarefied richness is:
 \begin{equation}
 \label{eq:rarevar}
-s^2 = p_i (1-p_i) + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
+s^2 = q_i (1-q_i) + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
     \choose n} \Bigm / {N
-    \choose n} - p_i p_j\right]
+    \choose n} - q_i q_j\right]
 \end{equation}
 Equation \ref{eq:rarevar} actually is of the same form as the variance
 of sum of correlated variables:
 \begin{equation}
-\mathrm{var} \left(\sum x_i \right) = \sum \mathrm{var}(x_i) - 2 \sum_{i=1}^S
-\sum_{j>i} \mathrm{cov}(x_i, x_j)
+\VAR \left(\sum x_i \right) = \sum \VAR (x_i) + 2 \sum_{i=1}^S
+\sum_{j>i} \COV (x_i, x_j)
 \end{equation}
 
 The number of stems per hectare varies in our
@@ -165,7 +176,8 @@ Srar <- rarefy(BCI, min(rowSums(BCI)))
 @
 Rarefaction curves often are seen as an objective solution for
 comparing species richness with different sample sizes.  However, rank
-orders typically differ among different rarefaction sample sizes.
+orders typically differ among different rarefaction sample sizes,
+rarefaction curves can cross.
 
 As an extreme case we may rarefy sample size to two individuals:
 <<>>=
@@ -190,7 +202,7 @@ seem to be small.
 
 Simple diversity indices only consider species identity: all different
 species are equally different. In contrast, taxonomic and functional
-diversity indices see how different two different species
+diversity indices judge the differences of species
 are. Taxonomic and functional diversities are used in different fields
 of science, but they really have very similar reasoning, and either
 could be used either with taxonomic or functional properties of
@@ -207,7 +219,7 @@ taxonomic distinctness ($\Delta^*$):
 These equations give the index values for a single site, and summation
 goes over species $i$ and $j$, and $\omega$ are the taxonomic
 distances among taxa, $x$ are species abundances, and $n$ is the total
-abundance for a site.  With presence absence data, both indices
+abundance for a site.  With presence--absence data, both indices
 reduce to the same index called $\Delta^+$, and for this it is
 possible to estimate standard deviation. There are two indices
 derived from $\Delta^+$: it can be multiplied with species
@@ -284,7 +296,7 @@ mod <- treedive(dune, tr)
 
 Diversity indices may be regarded as variance measures of species
 abundance distribution.  We may wish to inspect abundance
-distributions more directly.  \pkg{vegan} has functions for
+distributions more directly.  \pkg{Vegan} has functions for
 Fisher's log-series and Preston's log-normal models, and in addition
 several models for species abundance distribution.
 
@@ -314,7 +326,7 @@ plot(fish)
 \end{SCfigure}
 We already saw $\alpha$ as a diversity index.  Now we also obtained
 estimate of standard error of $\alpha$ (these also are optionally
-available in \code{fisherfit}).  The standard errors are based on
+available in \code{fisher.alpha}).  The standard errors are based on
 the second derivatives (curvature) of log-likelihood at the solution
 of $\alpha$.  The distribution of $\alpha$ is often non-normal
 and skewed, and standard errors are of not much use.  However,
@@ -335,7 +347,13 @@ at the left.
 There are two alternative functions for the log-normal model:
 \code{prestonfit} and \code{prestondistr}.  Function
 \code{prestonfit} uses traditionally binning approach, and is burdened
-with arbitrary choices of binning limits and treatment of ties.
+with arbitrary choices of binning limits and treatment of ties. It
+seems that Preston split ties between adjacent octaves: only half of
+the species observed once were in the first octave, and half were
+transferred to the next octave, and the same for all species at the
+octave limits occuring 2, 4, 8, 16\ldots times. Function
+\code{prestonfit} can either split the ties or keep all limit cases in
+the lower octave.
 Function \code{prestondistr} directly
 maximizes truncated log-normal likelihood without binning data, and it
 is the recommended alternative.  Log-normal models  usually fit poorly
@@ -516,9 +534,9 @@ on the Arrhenius species--area model
 where $X$ is the area (size) of the patch or site, and $c$ and $z$ are
 parameters. Parameter $c$ is uninteresting, but $z$ gives the
 steepness of the species area curve and is a measure of beta
-diversity. In islands,  $z$ is typically about $0.3$. This kind of
+diversity. In islands typically  $z \approx 0.3$. This kind of
 islands can be regarded as subsets of the same community, indicating
-that we really should talk about gradient differences if $z > 0.3$. We
+that we really should talk about gradient differences if $z \gtrapprox 0.3$. We
 can find the value of $z$ for a pair of plots using function
 \code{betadiver}:
 <<>>=
@@ -577,7 +595,7 @@ numbers of species observed once or twice, $N$ is the number of sites,
 and $p_i$ are proportions of species.  The idea in jackknife seems to
 be that we missed about as many species as we saw only once, and the
 idea in bootstrap that if we repeat sampling (with replacement) from
-the same data, we miss any many species as we missed originally.
+the same data, we miss as many species as we missed originally.
 
 The variance estimators of Chao is:
 \begin{equation}
@@ -607,13 +625,11 @@ specpool(BCI)
 @
 If the estimation of pool size really works, we should get the same
 values of estimated richness if we take a random subset of a half of
-the plots:
+the plots (but this is rarely true):
 <<>>=
 s <- sample(nrow(BCI), 25)
 specpool(BCI[s,])
 @
-These typically are even lower than the observed richness
-(\Sexpr{ncol(BCI)} species) at the whole data set.
 
 \subsection{Pool size from a single site}
 
@@ -658,9 +674,8 @@ where $S_\mu$ is the modal height or the expected number of species at
 maximum (at $\mu$), and $\sigma$ is the width.  Function
 \code{veiledspec} estimates this integral from a model fitted either
 with \code{prestondistr} or \code{prestonfit}, and fits the latter
-if raw site data are given.  Log-normal model fits badly, and
-\code{prestonfit} is particularly poor.  Therefore the following
-explicitly uses \code{prestondistr}, although this also may fail:
+if raw site data are given.  Log-normal model may fit poorly, but we
+can try:
 <<>>=
 veiledspec(prestondistr(BCI[k,]))
 veiledspec(BCI[k,])

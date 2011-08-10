@@ -9,6 +9,7 @@
 %\usepackage[T1]{fontenc}
 \usepackage{sidecap}
 \renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\cite}{\citep}
 
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
@@ -19,12 +20,12 @@ another document.
   }
  \Keywords{nestdness, matrix temperature, community null models, scaling of PCA and RDA, WA
    and LC scores}
-
+%% hijack Address for version info
 \Address{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
-\Footername{This version}
+\Footername{About this version}
 
 %% need no \usepackage{Sweave.sty}
 \begin{document}
@@ -76,15 +77,16 @@ arrows(x,y, r, f(r, mod$p), lwd=4)
   outside the fill line or absences within the fill line.}
 \end{SCfigure}
 The function can be implemented in many ways following the general
-principles.  Rodr{\'i}guez-Giron{\'e}s and Santamaria \cite{RodGir06}
-have seen the original code and reveal more details of calculations,
-and their explanation is the basis of the implementation in
-\pkg{vegan}.  However, there are still some open issues, and
-probably \pkg{vegan} function \code{nestedtemp} will never
+principles.  \citet{RodGir06} have seen the original code and reveal
+more details of calculations, and their explanation is the basis of
+the implementation in \pkg{vegan}.  However, there are still some open
+issues, and probably \pkg{vegan} function \code{nestedtemp} will never
 exactly reproduce results from other programs, although it is based on
-the same general principles. I try to give main computation details in
-this documents --- all details can be seen in the source code of
-\code{nestedtemp}.
+the same general principles.\footnote{function \code{nestedness} in
+  the \pkg{bipartite} package is a direct port of the original
+  \proglang{BINMATNEST} program of \citet{RodGir06}.}  I try to give
+main computation details in this document --- all details can be seen
+in the source code of \code{nestedtemp}.
 
 \begin{itemize}
 \item Species and sites are put into unit square \citep{RodGir06}. The
@@ -119,7 +121,7 @@ this documents --- all details can be seen in the source code of
       y = (1-(1-x)^p)^{1/p}
     \end{equation}
     This is similar to the equation suggested by
-    \cite[eq. 4]{RodGir06}, but omits all terms dependent on the
+    \citet[eq. 4]{RodGir06}, but omits all terms dependent on the
     numbers of species or sites, because I could not understand why
     they were needed. The differences are visible only in small data
     sets. The $y$ and $x$ are the coordinates in the unit square, and
@@ -151,11 +153,11 @@ null models.  The chess piece ``knight''\footnote{``Knight'' is
   ``Springer'' in German which is very appropriate as Springer was the
   publisher of the paper on ``knight's tour''} has a history:
 a piece in a certain position could only have entered from some
-candidate squares. The filling of incidence matrix has not such a history:
+candidate squares. The filling of incidence matrix has no  history:
 if we know that the item last added was in certain row and column, we
 have no information to guess which of the filled items was entered
 previously. A consequence of dealing with a different problem is that
-\cite{GotelliEnt01} does not give many hints on implementing a fill
+\citet{GotelliEnt01} do not give many hints on implementing a fill
 algorithm as a community null model.
 
 The backtracking is implemented in two stages in \pkg{vegan}: filling and
@@ -182,7 +184,7 @@ backtracking.
     Because there is no record of history, this does not sound like a
     backtracking, but it still fits the general definition of
     backtracking: ``try something, and if it fails, try something
-    else'' \cite{Sedgewick90}.
+    else'' \citep{Sedgewick90}.
 \end{enumerate}
 
 
@@ -302,7 +304,7 @@ are left unscaled.
 
 There is no natural way of scaling species and site scores to each
 other.  The eigenvalues in redundancy and principal components
-analysis are scale-dependent and change when the the data are
+analysis are scale-dependent and change when the  data are
 multiplied by a constant.  If we have percent cover data, the
 eigenvalues are typically very high, and the scores scaled by
 eigenvalues will have much wider dispersion than the orthonormal set.
@@ -311,10 +313,10 @@ $100$, the eigenvalues will be reduced by factor $100^2$, and the
 scores scaled by eigenvalues will have a narrower dispersion.  For
 graphical biplots we should be able to fix the relations of row and
 column scores to be invariant against scaling of data.  The solution
-in R standard function \code{biplot} is to scale site and species
+in \proglang{R} standard function \code{biplot} is to scale site and species
 scores independently, and typically very differently, but plot each
 independently to fill the graph area.  The solution in \proglang{Canoco} and 
-and \code{rda} is to use proportional eigenvalues $\lambda_k / \sum
+\code{rda} is to use proportional eigenvalues $\lambda_k / \sum
 \lambda_k$ instead of original eigenvalues.  These proportions are
 invariant with scale changes, and typically they have a nice range for
 plotting two data sets in the same graph.
@@ -327,7 +329,7 @@ non-standard. However, the \code{scores} function lets you to set
 the scaling constant to any desired values. It is also possible to
 have two separate scaling constants: the first for the species, and
 the second for sites and friends, and this allows getting scores of
-other software or R functions (Table \ref{tab:rdaconst}). 
+other software or \proglang{R} functions (Table \ref{tab:rdaconst}). 
 \begin{table}
   \caption{\label{tab:rdaconst} Values of the \code{const} argument in
     \textbf{vegan} to get the scores that are equal to those from
@@ -339,8 +341,8 @@ other software or R functions (Table \ref{tab:rdaconst}).
 & \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
 \pkg{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
 \code{prcomp}, \code{princomp} & \code{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
-\texttt{Canoco 3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
-\texttt{Canoco 4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
+\proglang{Canoco\,v3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
+\proglang{Canoco\,v4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
 \end{tabular}
 \end{table}
 
@@ -363,8 +365,7 @@ non-centred analysis is to discard the first component and use only
 the rest. This is better done with directly centred analysis.
 
 
-\section{Why to use weighted averages scores instead of linear
-  combinations in constrained ordination}
+\section{Weighted average and linear combination scores}
 
 Constrained ordination methods such as Constrained Correspondence
 Analysis (CCA) and Redundancy Analysis (RDA) produce two kind of site

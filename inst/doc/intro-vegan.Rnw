@@ -1,9 +1,9 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
-\documentclass[article,10pt,nojss]{jss}
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-%\usepackage[T1]{fontenc}
+\documentclass[article,nojss]{jss}
+\usepackage{ucs} %% needed for R output: signif stars etc, quotes
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{sidecap}
 \usepackage{amsmath}
 
@@ -14,7 +14,19 @@
 
 \author{Jari Oksanen}
 
-\Abstract{ } 
+\Abstract{The document describes typical, simple work pathways of
+  vegetation ordination. Unconstrained ordination uses as examples
+  detrended correspondence analysis and non-metric multidimensional
+  scaling, and shows how to interpret their results by fitting
+  environmental vectors and factors or smooth environmental surfaces
+  to the graph. The basic plotting command, and more advanced plotting
+  commands for congested plots are also discussed, as well as adding
+  items such as ellipses, convex hulls, and other items for
+  classes. The constrained ordination uses constrained (canonical)
+  correspondence analysis as an example. It is first shown how a model
+  is defined, then the document discusses model building and
+  signficance tests of the whole analysis, single constraints and
+  axes.}
 
 \Keywords{ordination, correspondence analysis, non-metric
   multidimensional scaling, CCA, RDA, NMDS, fitted environmental
@@ -25,7 +37,7 @@
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
-\Footername{This version}
+\Footername{About this version}
 
 %% need no \usepackage{Sweave}
 \begin{document}
@@ -43,7 +55,7 @@ options("prompt" = "R> ", "continue" = "+  ")
 
 \noindent \pkg{vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
-done in \pkg{vegan}.  The document only is a very basic
+performed in \pkg{vegan}.  The document only is a very basic
 introduction.  Another document (\emph{vegan tutorial})
 (\url{http://cc.oulu.fi/~jarioksa/opetus/method/vegantutor.pdf}) gives
 a longer and more detailed introduction to ordination.  The
@@ -55,14 +67,13 @@ functions are listed at this document.
 \section{Ordination}
 
 The \pkg{vegan} package contains all common ordination methods:
-Principal component analysis (function \code{rda}, or
-\code{prcomp} in the base \textsf{R}), correspondence analysis
-(\code{cca}), detrended correspondence analysis (\code{decorana})
-and a wrapper for non-metric multidimensional scaling
-(\code{metaMDS}).  Functions \code{rda} and \code{cca} mainly
-are designed for constrained ordination, and will be discussed later.
-In this chapter I describe functions \code{decorana} and
-\code{metaMDS}.
+Principal component analysis (function \code{rda}, or \code{prcomp} in
+the base \proglang{R}), correspondence analysis (\code{cca}),
+detrended correspondence analysis (\code{decorana}) and a wrapper for
+non-metric multidimensional scaling (\code{metaMDS}).  Functions
+\code{rda} and \code{cca} mainly are designed for constrained
+ordination, and will be discussed later.  In this chapter I describe
+functions \code{decorana} and \code{metaMDS}.
 
 \subsection{Detrended correspondence analysis}
 
@@ -85,15 +96,17 @@ automatically knows how to access the scores.
 
 \subsection{Non-metric multidimensional scaling}
 
-Function \code{metaMDS} is a bit special case.  The actual
-ordination is performed by function \code{isoMDS} of the \code{MASS}
-package.  Function \code{metaMDS} is a wrapper to perform non-metric
+
+Function \code{metaMDS} is a bit special case.  The actual ordination
+is performed by function \pkg{vegan} function \code{monoMDS} (or
+alternatively using \code{isoMDS} of the \pkg{MASS} package).
+Function \code{metaMDS} is a wrapper to perform non-metric
 multidimensional scaling (\textsc{nmds}) like recommended in community
 ordination: it uses adequate dissimilarity measures (function
-\code{vegdist}), then it runs \textsc{nmds} several times with
-random starting configurations, compares results (function
-\code{procrustes}), and stops after finding twice a similar minimum stress
-solution.  Finally it scales and rotates the solution, and adds
+\code{vegdist}), then it runs \textsc{nmds} several times with random
+starting configurations, compares results (function
+\code{procrustes}), and stops after finding twice a similar minimum
+stress solution.  Finally it scales and rotates the solution, and adds
 species scores to the configuration as weighted averages (function
 \code{wascores}):
 <<>>=
@@ -152,9 +165,9 @@ an \code{ordiplot} object, so that you can use \code{ordiplot}
 support functions with the results (\code{points}, \code{text},
 \code{identify}).
 
-Function \code{ordirgl} (requires \code{rgl} package) provides
+Function \code{ordirgl} (requires \pkg{rgl} package) provides
 dynamic three-dimensional graphics that can be spun around or zoomed
-into with your mouse.  Function \code{ordiplot3d} (requires package
+into with your mouse.  Function \pkg{ordiplot3d} (requires package
 \code{scatterplot3d}) displays simple three-dimensional
 scatterplots.
 
@@ -163,14 +176,14 @@ scatterplots.
 Ordination plots are often congested: there is a large number of sites
 and species, and it may be impossible to display all clearly.  In
 particular, two or more species may have identical scores and are
-plotted over each other.  \pkg{vegan} does not have (yet?)
+plotted over each other.  \pkg{Vegan} does not have (yet?)
 automatic tools for clean plotting in these cases, but here some
 methods you can try:
 \begin{itemize}
 \item Zoom into graph setting axis limits \code{xlim} and
   \code{ylim}.  You must typically set both, because \pkg{vegan}
   will maintain equal aspect ratio of axes.
-\item Use points and label only some of these with \code{identify}
+\item Use points and add labell only some points with \code{identify}
   command.
 \item Use \code{select} argument in ordination \code{text} and
   \code{points} functions to only show the specified items.
@@ -184,16 +197,17 @@ methods you can try:
   points and text labels, and tries to optimize the location of the
   text to avoid overwriting.
 \item Use interactive \code{orditkplot} function that draws both
-  points and labels for ordination scores, and allows you to drag labels
-  to better positions. You can export the results of the edited graph to
-  encapsulated postscript, pdf, png or jpeg files, or copy directly to
-  encapsulated postscript, or return the edited positions to R for
-  further processing.
+  points and labels for ordination scores, and allows you to drag
+  labels to better positions. You can export the results of the edited
+  graph to encapsulated \proglang{postscript}, \proglang{pdf},
+  \proglang{png} or \proglang{jpeg} files, or copy directly to
+  encapsulated \proglang{postscript}, or return the edited positions
+  to \proglang{R} for further processing.
 \end{itemize}
 
 \subsection{Adding items to ordination plots}
 
-\pkg{vegan} has a group of functions for adding information about
+\pkg{Vegan} has a group of functions for adding information about
 classification or grouping of points onto ordination diagrams.
 Function \code{ordihull} adds convex hulls, \code{ordiellipse}
 adds ellipses of standard deviation, standard error or confidence
@@ -226,15 +240,15 @@ can be added with \code{ordiarrows}, lines with
 
 \section{Fitting environmental variables}
 
-\pkg{vegan} provides two functions for fitting environmental
+\pkg{Vegan} provides two functions for fitting environmental
 variables onto ordination:
 \begin{itemize}
-\item \code{envfit} fits vectors of continuous variables and
-  centroids of levels of class variables (defined as \code{factor}
-  in \textsf{R}).  The direction of the vector shows the direction of
-  the gradient, and the length of the arrow is proportional to the
+\item \code{envfit} fits vectors of continuous variables and centroids
+  of levels of class variables (defined as \code{factor} in
+  \proglang{R}).  The arrow shows the direction of the (increasing)
+  gradient, and the length of the arrow is proportional to the
   correlation between the variable and the ordination.
-\item \code{ordisurf} (which requires package \code{mgcv}) fits
+\item \code{ordisurf} (which requires package \pkg{mgcv}) fits
   smooth surfaces for continuous variables onto ordination using
   thinplate splines with cross-validatory selection of smoothness.
 \end{itemize}
@@ -271,11 +285,11 @@ ordisurf(ord, A1, add=TRUE)
 
 \section{Constrained ordination}
 
-\pkg{vegan} has three methods of constrained ordination:
+\pkg{Vegan} has three methods of constrained ordination:
 constrained or ``canonical'' correspondence analysis (function
 \code{cca}), redundancy analysis (function \code{rda}) and
-constrained analysis of proximities (function \code{capscale}).  All
-these functions also can have a conditioning term that is ``partialled
+distance-based redundancy analysis (function \code{capscale}).  All
+these functions can have a conditioning term that is ``partialled
 out''.  I only demonstrate \code{cca}, but all functions accept
 similar commands and can be used in the same way.
 
@@ -323,7 +337,7 @@ simultaneously:
 anova(ord)
 @
 The function actually used was \code{anova.cca}, but you do not need
-to give its name in full, because \textsf{R} automatically chooses the
+to give its name in full, because \proglang{R} automatically chooses the
 correct \code{anova} variant for the result of constrained
 ordination.
 
