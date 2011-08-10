@@ -1,6 +1,7 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Diversity analysis in vegan}
 \documentclass[article,nojss]{jss}
+\usepackage{veganjss} %% vegan setup
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -36,8 +37,11 @@ options(SweaveHooks = list(fig = figset))
 options("prompt" = "R> ", "continue" = "+  ")
 @
 
+\tableofcontents
 
-\noindent The \pkg{vegan} package has two major components:
+\section*{~}
+
+The \pkg{vegan} package has two major components:
 multivariate analysis (mainly ordination), and methods for diversity
 analysis of ecological communities.  This document gives an
 introduction to the latter.  Ordination methods are covered in other

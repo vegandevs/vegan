@@ -1,6 +1,7 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
 \documentclass[article,nojss]{jss}
+\usepackage{veganjss} % vegan settings
 \usepackage{ucs} %% needed for R output: signif stars etc, quotes
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
@@ -52,8 +53,11 @@ options(SweaveHooks = list(fig = figset))
 options("prompt" = "R> ", "continue" = "+  ")
 @
 
+\tableofcontents
 
-\noindent \pkg{vegan} is a package for community ecologists.  This
+\section*{~}
+
+\pkg{Vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
 performed in \pkg{vegan}.  The document only is a very basic
 introduction.  Another document (\emph{vegan tutorial})
