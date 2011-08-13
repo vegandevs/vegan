@@ -43,15 +43,15 @@
         if(!is.null(vect)) {
             ## compute axis limits allowing space for labels
             labs <- rownames(x$vectors$arrows)
-            sw <- strwidth(labs)
-            sh <- strheight(labs)
+            sw <- strwidth(labs, ...)
+            sh <- strheight(labs, ...)
             xlim <- range(at[1], vtext[,1] + sw, vtext[,1] - sw)
             ylim <- range(at[2], vtext[,2] + sh, vtext[,2] - sh)
             if(!is.null(x$factors)) {
                 ## if factors, also need to consider them
                 labs <- rownames(x$factors$centroids)
-                sw <- strwidth(labs)
-                sh <- strheight(labs)
+                sw <- strwidth(labs, ...)
+                sh <- strheight(labs, ...)
                 xlim <- range(xlim, x$factors$centroids[, choices[1]] + sw,
                               x$factors$centroids[, choices[1]] - sw)
                 ylim <- range(ylim, x$factors$centroids[, choices[2]] + sh,
@@ -67,8 +67,8 @@
             title(..., ylab = alabs[2], xlab = alabs[1])
         } else if (!is.null(x$factors)) {
             labs <- rownames(x$factors$centroids)
-            sw <- strwidth(labs)
-            sh <- strheight(labs)
+            sw <- strwidth(labs, ...)
+            sh <- strheight(labs, ...)
             xlim <- range(at[1], x$factors$centroids[, choices[1]] + sw,
                           x$factors$centroids[, choices[1]] - sw)
             ylim <- range(at[2], x$factors$centroids[, choices[2]] + sh,
@@ -89,8 +89,8 @@
         text(vtext, rownames(x$vectors$arrows), col = col, ...)
     }
     if (!is.null(x$factors)) {
-        text(x$factors$centroids[, choices, drop = FALSE], rownames(x$factors$centroids),
-             col = col, ...)
+        text(x$factors$centroids[, choices, drop = FALSE],
+             rownames(x$factors$centroids), col = col, ...)
     }
     if (axis && !is.null(vect)) {
         axis(3, at = ax + at[1], labels = c(maxarr, 0, maxarr),
