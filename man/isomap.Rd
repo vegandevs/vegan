@@ -71,13 +71,15 @@ rgl.isomap(x, web = "white", ...)
   used \code{epsilon} criterion.  In practice, De'ath also retains
   higher proportion of dissimilarities than typical \code{isomap}.
 
-  In addition to the standard \code{plot} function, function
-  \code{rgl.isomap} can make dynamic 3D plots that can be rotated on the
-  screen. The functions is based on \code{\link{ordirgl}}, but it adds
-  the connecting lines. The function passes extra arguments to
-  \code{\link{scores}} or \code{\link{ordirgl}} functions so that you
-  can select axes, or define colours and sizes of points.
-}
+  The \code{plot} function uses internally \code{\link{ordiplot}},
+  except that it adds text over net using \code{\link{ordilabel}}. The
+  \code{plot} function passes extra arguments to these functions.  In
+  addition, function \code{rgl.isomap} can make dynamic 3D plots that
+  can be rotated on the screen. The functions is based on
+  \code{\link{ordirgl}}, but it adds the connecting lines. The function
+  passes extra arguments to \code{\link{scores}} or
+  \code{\link{ordirgl}} functions so that you can select axes, or define
+  colours and sizes of points.  }
 
 \value{
   Function \code{isomapdist} returns a dissimilarity object similar to
