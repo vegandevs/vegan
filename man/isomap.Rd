@@ -19,7 +19,7 @@
 isomap(dist, ndim=10, ...)
 isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
 \method{summary}{isomap}(object, axes = 4, ...)
-\method{plot}{isomap}(x, net = TRUE, n.col = "gray", ...)
+\method{plot}{isomap}(x, net = TRUE, n.col = "gray", type = "points", ...)
 rgl.isomap(x, web = "white", ...)
 }
 
@@ -39,6 +39,13 @@ rgl.isomap(x, web = "white", ...)
   \item{axes}{Number of axes displayed.}
   \item{net}{Draw the net of retained dissimilarities.}
   \item{n.col}{Colour of drawn net segments.}
+
+  \item{type}{Plot observations either as \code{"points"},
+    \code{"text"} or use \code{"none"} to plot no observations. The
+    \code{"text"} will use \code{\link{ordilabel}} if \code{net =
+    TRUE} and \code{\link{ordiplot}} if \code{net = FALSE}, and pass
+    extra arguments to these functions.}
+
   \item{web}{Colour of the web in \pkg{rgl} graphics.}
   \item{\dots}{Other parameters passed to functions. }
 }
@@ -68,7 +75,7 @@ rgl.isomap(x, web = "white", ...)
   \code{rgl.isomap} can make dynamic 3D plots that can be rotated on the
   screen. The functions is based on \code{\link{ordirgl}}, but it adds
   the connecting lines. The function passes extra arguments to
-  \code{\link{scores}} and \code{\link{ordirgl}} functions so that you
+  \code{\link{scores}} or \code{\link{ordirgl}} functions so that you
   can select axes, or define colours and sizes of points.
 }
 

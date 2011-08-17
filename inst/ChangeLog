@@ -20,6 +20,9 @@ Version 1.91-0 (opened August 6, 2011)
 	around the plotting locations to contain the arrow and centroid
 	labels.
 
+	* plot.isomap: will always plot points or text above net so that
+	they are visible. Gained argument 'type'.
+
 Version 1.90-2 (closed August 6, 2011)
 
 	* ordilabel: gained argument 'select'.
