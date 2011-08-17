@@ -1,6 +1,6 @@
 `ordiplot` <-
     function (ord, choices = c(1, 2), type = "points", display, xlim,
-              ylim, ...)
+              ylim, cex = 0.7, ...)
 {
     ## local functions to absorb non-par arguments of plot.default
     localPoints <- function(..., log, frame.plot, panel.first,
@@ -58,15 +58,15 @@
              ...)
         if (type == "points") {
             if (!is.null(X))
-                localPoints(X, pch = 1, col = 1, cex = 0.7, ...)
+                localPoints(X, pch = 1, col = 1, cex = cex, ...)
             if (!is.null(Y))
-                localPoints(Y, pch = "+", col = "red", cex = 0.7, ...)
+                localPoints(Y, pch = "+", col = "red", cex = cex, ...)
         }
         if (type == "text") {
             if (!is.null(X))
-                localText(X, labels = rownames(X), col = 1, cex = 0.7, ...)
+                localText(X, labels = rownames(X), col = 1, cex = cex, ...)
             if (!is.null(Y))
-                localText(Y, labels = rownames(Y), col = "red", cex = 0.7, ...)
+                localText(Y, labels = rownames(Y), col = "red", cex = cex, ...)
         }
         out <- list(sites = X, species = Y)
     }

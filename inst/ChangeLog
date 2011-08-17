@@ -23,6 +23,10 @@ Version 1.91-0 (opened August 6, 2011)
 	* plot.isomap: will always plot points or text above net so that
 	they are visible. Gained argument 'type'.
 
+	* ordiplot: expose arg 'cex' so that user can change its value.
+	Age shows in this function, and it is badly in need of complete
+	re-writing to improve its flexibility.
+
 Version 1.90-2 (closed August 6, 2011)
 
 	* ordilabel: gained argument 'select'.

@@ -16,7 +16,8 @@
   \code{\link{plot.rad}} as well.
 }
 \usage{
-ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
+ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
+     cex = 0.7, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
 \method{points}{ordiplot}(x, what, select, ...)
 \method{text}{ordiplot}(x, what, labels, select, ...)
@@ -32,6 +33,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
     \code{\link{rda}} and \code{\link{capscale}} it is the same as in
     \code{\link{plot.cca}}.  }
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
+  \item{cex}{Character expansion factor for points and text.}
   \item{\dots}{Other graphical parameters. }
   \item{x}{A result object from \code{ordiplot}.}
   \item{what}{Items identified in the ordination plot. The types depend
