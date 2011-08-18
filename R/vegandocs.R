@@ -10,7 +10,7 @@
             shell.exec(doc)
         else system(paste(getOption("pdfviewer"), doc, "&"))
     } else if (doc == "NEWS") {
-        file.show(Rd2txt(file.path(path.package("vegan"), "NEWS.Rd"), tempfile()))
+        file.show(tools:::Rd2txt(file.path(path.package("vegan"), "NEWS.Rd"), tempfile()))
     } else {
         file.show(system.file(package="vegan", doc))
     } 
