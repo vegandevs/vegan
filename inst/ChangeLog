@@ -2,7 +2,14 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.91-0 (opened August 6, 2011)
+Version 1.92-0 (opened August 18, 2011)
+
+	* open new version with the release of vegan_1.17-12 on August 17,
+	2011. 
+
+	* NAMESPACE: export pasteCall for analogue.
+	
+Version 1.91-0 (closed August 18, 2011)
 
 	* NAMESPACE: added namespace to vegan. Currently hides all that
 	can be hidden, and exports only main functions: Some method
