@@ -18,8 +18,8 @@ orderingKM, ordiR2step, ordiarrows, ordicloud, ordicluster,
 ordiellipse, ordigrid, ordihull, ordilabel, ordimedian, ordiplot3d,
 ordiplot, ordipointlabel, ordiresids, ordirgl, ordisegments,
 ordispider, ordisplom, ordistep, ordisurf, orditkplot, orditorp,
-ordixyplot, orglpoints, orglsegments, orglspider, orgltext, pcnm,
-permatfull, permatswap, permutest, poolaccum, postMDS, prc,
+ordixyplot, orglpoints, orglsegments, orglspider, orgltext, pasteCall,
+pcnm, permatfull, permatswap, permutest, poolaccum, postMDS, prc,
 prestondistr, prestonfit, procrustes, protest, radfit, radlattice,
 rankindex, rarefy, rda, renyiaccum, renyi, rrarefy, scores,
 showvarparts, spandepth, spantree, specaccum, specnumber,
@@ -45,10 +45,10 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 
 ## do NOT export the following internal functions
 
-## export(ade2vegancca, coverscale, ordiArgAbsorber, ordiArrowMul,
-## ordiGetData, ordiNAexclude, ordiNApredict, ordiParseFormula,
-## ordiTerminfo, pasteCall, pregraphKM, simpleRDA2, varpart2,
-## varpart3, varpart4, veganCovEllipse)
+## export(ade2vegancca, ordiArgAbsorber, ordiArrowMul, ordiGetData,
+## ordiNAexclude, ordiNApredict, ordiParseFormula, ordiTerminfo,
+## pregraphKM, simpleRDA2, varpart2, varpart3, varpart4,
+## veganCovEllipse)
 
 ## Registration of S3 methods
 import(stats)
