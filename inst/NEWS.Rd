@@ -2,13 +2,13 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{CHANGES IN VEGAN VERSION 2.0}{
+\section{CHANGES IN VEGAN VERSION 2.0 beta}{
 
   \subsection{GENERAL}{
     \itemize{
-
+      
       \item Peter Minchin joins the \pkg{vegan} team.
-
+      
       \item \pkg{vegan} implements standard \R \code{NAMESPACE}. In
       general, \code{S3} methods are not exported which means that you
       cannot directly use or see contents of functions like
@@ -19,19 +19,19 @@
       the functión you can use \code{:::}, such as
       \code{vegan:::cca.default}. This change may break packages,
       documents or scripts that rely on non-exported names.
-
-      \item \pgk{vegan} depends on the \pkg{permute} package. This
+      
+      \item \pkg{vegan} depends on the \pkg{permute} package. This
       package provides powerful tools for restricted permutation
       schemes. All \pkg{vegan} permutation will gradually move to use
       \pkg{permute}, but currently only \code{betadisper} uses the new
       feature. 
-
+      
     }
   } % end GENERAL
   
   \subsection{NEW FUNCTIONS}{
     \itemize{
-
+      
       \item \code{monoMDS}: a new function for non-metric
       multidimensional scaling (NMDS). This function replaces
       \code{MASS::isoMDS} as the default method in \code{metaMDS}. Major
@@ -49,19 +49,19 @@
       function can use new self-starting species accumulation models in
       \pkg{vegan} or other self-starting non-linear regression models in
       \R such as \code{SSmicmen} for Michaelis-Menten models.
-
+      
       \item Self-starting non-linear species accumulation models
       \code{SSarrhenius}, \code{SSgleason}, \code{SSgitay} and
       \code{SSlomolino}. These can be used with \code{fitspecaccum} or
       directly in non-linear regression with \code{nls}. 
-
+      
     }
   } % end NEW FUNCTIONS
-
+  
   \subsection{NEW FEATURES}{
     
     \itemize{
-
+      
       \item \code{betadisper} uses restricted permutation of the
       \pkg{permute} package. 
       
@@ -73,17 +73,17 @@
       dissimilarities of one. However, \code{stepacross} is always used
       with \code{isoMDS} because it cannot handle adequately these tied
       maximum dissimilarities. 
-
+      
     }
   } % end NEW FEATURES
-
+  
   \subsection{BUG FIXES}{
     
   } % end BUG FIXES
-
+  
   \subsection{ANALYSES}{
     \itemize{
-
+      
       \item \code{treeheight} uses much snappier code. The results
       should be unchanged.
       

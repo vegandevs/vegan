@@ -13,8 +13,10 @@ Version 1.92-0 (opened August 18, 2011)
 	Keeping neat formatting of this file may be challenging to many
 	text editors, but it is worth trying. This file should list the
 	important items for regular vegan users, whereas this ChangeLog
-	should explain the changes to other vegan developers. The
-	vegandocs() function is not yet adapted to the NEWS.Rd.
+	should explain the changes to other vegan developers. vegandocs()
+	uses a kluge to show the text formatted NEWS file -- I really do
+	not understand why R core decided to use NEWS format that is not
+	intended to be human readable but is very difficult to access. 
 	
 Version 1.91-0 (closed August 18, 2011)
 

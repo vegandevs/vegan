@@ -1,4 +1,4 @@
-"vegandocs" <-
+`vegandocs` <-
     function (doc = c("NEWS", "ChangeLog", "FAQ-vegan.pdf", "intro-vegan.pdf",
               "diversity-vegan.pdf", "decision-vegan.pdf",
               "partitioning.pdf")) 
@@ -9,8 +9,9 @@
         if (.Platform$OS.type == "windows")
             shell.exec(doc)
         else system(paste(getOption("pdfviewer"), doc, "&"))
-    }
-    else {
+    } else if (doc == "NEWS") {
+        file.show(Rd2txt(file.path(path.package("vegan"), "NEWS.Rd"), tempfile()))
+    } else {
         file.show(system.file(package="vegan", doc))
     } 
 }
