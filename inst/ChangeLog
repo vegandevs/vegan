@@ -8,6 +8,13 @@ Version 1.92-0 (opened August 18, 2011)
 	2011. 
 
 	* NAMESPACE: export pasteCall for analogue.
+
+	* NEWS: added file NEWS.Rd for vegan release 2.0 news in Rd format.
+	Keeping neat formatting of this file may be challenging to many
+	text editors, but it is worth trying. This file should list the
+	important items for regular vegan users, whereas this ChangeLog
+	should explain the changes to other vegan developers. The
+	vegandocs() function is not yet adapted to the NEWS.Rd.
 	
 Version 1.91-0 (closed August 18, 2011)
 
