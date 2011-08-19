@@ -2,7 +2,7 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{CHANGES IN VEGAN VERSION 2.0 beta}{
+\section{Changes in version 2.0-beta}{
 
   \subsection{GENERAL}{
     \itemize{
@@ -78,7 +78,9 @@
   } % end NEW FEATURES
   
   \subsection{BUG FIXES}{
-    
+    \itemize{
+      \item None yet.
+    }
   } % end BUG FIXES
   
   \subsection{ANALYSES}{
@@ -88,8 +90,6 @@
       should be unchanged.
       
     }
-
   } % end ANALYSES
-    
 }% end VERSTION 2.0   
    	  
