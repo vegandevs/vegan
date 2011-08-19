@@ -13,10 +13,13 @@ Version 1.92-0 (opened August 18, 2011)
 	Keeping neat formatting of this file may be challenging to many
 	text editors, but it is worth trying. This file should list the
 	important items for regular vegan users, whereas this ChangeLog
-	should explain the changes to other vegan developers. vegandocs()
-	uses a kluge to show the text formatted NEWS file -- I really do
-	not understand why R core decided to use NEWS format that is not
-	intended to be human readable but is very difficult to access. 
+	should explain the changes to other vegan developers. If
+	getOption("help_type") == "html", should start a browser to show
+	the NEWS, and use text console otherwise ("html" tested on MacOS
+	R.App GUI, text mode in Linux and MacOS bash shells, no testing on
+	Windows yet). However, although the browser knows how to show
+	NEWS.Rd it does not do the formatting: perhaps we need to build a
+	NEWS.html for the purpose, but I do not yet know how to do that.
 	
 Version 1.91-0 (closed August 18, 2011)
 
