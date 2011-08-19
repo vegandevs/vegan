@@ -16,7 +16,7 @@
             if (!tools:::httpdPort)
                 tools:::startDynamicHelp()
             browseURL(paste("http://127.0.0.1:", tools:::httpdPort,
-                            "/library/vegan/NEWS", sep=""))
+                            "/library/vegan/doc/NEWS.html", sep=""))
         } else {
             file.show(tools:::Rd2txt(file.path(path.package("vegan"),
                                                "NEWS.Rd"), tempfile()))

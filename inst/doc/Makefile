@@ -1,4 +1,4 @@
-all: FAQ-vegan.pdf decision-vegan.pdf intro-vegan.pdf diversity-vegan.pdf
+all: FAQ-vegan.pdf decision-vegan.pdf intro-vegan.pdf diversity-vegan.pdf NEWS.html
 FAQ-vegan.pdf: FAQ-vegan.texi
 	texi2dvi --pdf --clean FAQ-vegan.texi
 decision-vegan.pdf: decision-vegan.tex
@@ -10,4 +10,6 @@ intro-vegan.pdf: intro-vegan.tex
 diversity-vegan.pdf: diversity-vegan.tex
 	texi2dvi --pdf --clean diversity-vegan.tex
 	-rm -f diversity-vegan-0*.* Rplots.*
+NEWS.html: ../NEWS.Rd
+	R CMD Rd2txt -t html ../NEWS.Rd -o NEWS.html
 

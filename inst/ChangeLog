@@ -17,9 +17,12 @@ Version 1.92-0 (opened August 18, 2011)
 	getOption("help_type") == "html", should start a browser to show
 	the NEWS, and use text console otherwise ("html" tested on MacOS
 	R.App GUI, text mode in Linux and MacOS bash shells, no testing on
-	Windows yet). However, although the browser knows how to show
-	NEWS.Rd it does not do the formatting: perhaps we need to build a
-	NEWS.html for the purpose, but I do not yet know how to do that.
+	Windows yet). Although the browser knows how to display NEWS.Rd,
+	it does not format the page properly (\code{foo} shows as ordinary
+	text etc). As a kluge we now make a NEWS.html file in the inst/doc
+	directory. NEWS.html cannot be made in the inst/ directory since
+	browser only agrees to show NEWS (plain) in the main directory or
+	files in doc directory.
 	
 Version 1.91-0 (closed August 18, 2011)
 
