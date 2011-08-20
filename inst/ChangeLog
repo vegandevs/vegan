@@ -7,6 +7,8 @@ Version 1.92-0 (opened August 18, 2011)
 	* open new version with the release of vegan_1.17-12 on August 17,
 	2011. 
 
+	* fitspecaccum: a typo and a condition was never true.
+
 	* NAMESPACE: export pasteCall for analogue.
 
 	* NEWS: added file NEWS.Rd for vegan release 2.0 news in Rd format.

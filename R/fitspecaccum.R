@@ -11,7 +11,7 @@ fitspecaccum <-
         SpeciesRichness <- as.matrix(object$richness)
     else
         SpeciesRichness <- object$perm
-    if (!is.null(object$inviduals))
+    if (!is.null(object$individuals))
         x <- object$individuals
     else
         x <- object$sites
