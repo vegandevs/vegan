@@ -46,9 +46,11 @@
       
       \item \code{fitspecaccum} to fit non-linear regression models to
       the species accumulation results from \code{specaccum}. The
-      function can use new self-starting species accumulation models in
-      \pkg{vegan} or other self-starting non-linear regression models in
-      \R such as \code{SSmicmen} for Michaelis-Menten models.
+      function can use new self-starting species accumulation models
+      in \pkg{vegan} or other self-starting non-linear regression
+      models in \R. The functin can fit Arrhenius, Gleason, Gitay,
+      Lomolino (in \pkg{vegan}), asymptotic, Gompertz,
+      Michaelis-Menten, logistic and Weibull (in base \R) models.
       
       \item Self-starting non-linear species accumulation models
       \code{SSarrhenius}, \code{SSgleason}, \code{SSgitay} and

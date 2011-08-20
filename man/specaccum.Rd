@@ -115,8 +115,11 @@ fitspecaccum(object, model, method = "random", ...)
   \code{fitspecaccum} models are fragile and may not succeed.  
 }
 
-\value{
-  The function returns an object of class \code{"specaccum"} with items:
+\value{ Function \code{specaccum} returns an object of class
+  \code{"specaccum"}, and \code{fitspecaccum} a model of class
+  \code{"fitspecaccum"} that adds a few items to the
+  \code{"specaccum"} (see the end of the list below):
+
   \item{call }{Function call.}
   \item{method}{Accumulator method.}
   \item{sites}{Number of sites.  For \code{method = "rarefaction"} this
@@ -133,7 +136,17 @@ fitspecaccum(object, model, method = "random", ...)
   \item{perm}{Permutation results with \code{method = "random"} and
     \code{NULL} in other cases. Each column in \code{perm} holds one
     permutation.}
+
+  \item{fitted, residuals, coefficients}{Only in \code{fitspecacum}:
+     fitted values, residuals and nonlinear model coefficients. For
+     \code{method = "random"} these are matrices with a column for
+     each random accumulation.}
+
+  \item{models}{Only in \code{fitspecaccum}: list of fitted
+    \code{\link{nls}} models (see Examples on accessing these models).} 
+
 }
+
 \references{
   Coleman, B.D, Mares, M.A., Willis, M.R. & Hsieh,
   Y. (1982). Randomness, area and species richness. \emph{Ecology} 63:
@@ -189,10 +202,19 @@ sp2
 summary(sp2)
 plot(sp1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(sp2, col="yellow", add=TRUE, pch="+")
-## Fit Arrhenius model
+## Fit Lomolino model to the exact accumulation
+mod1 <- fitspecaccum(sp1, "lomolino")
+coef(mod1)
+fitted(mod1)
+plot(sp1)
+## Add Lomolino model using argument 'add'
+plot(mod1, add = TRUE, col=2, lwd=2)
+## Fit Arrhenius models to all random accumulations
 mods <- fitspecaccum(sp2, "arrh")
 plot(mods, col="hotpink")
 boxplot(sp2, col = "yellow", border = "blue", lty=1, cex=0.3, add= TRUE)
+## Use nls() methods to the list of models
+sapply(mods$models, AIC)
 }
 \keyword{univar}
 \keyword{models}
