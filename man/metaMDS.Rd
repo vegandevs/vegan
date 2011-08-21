@@ -334,6 +334,12 @@ sol <- metaMDS(dune)
 sol
 plot(sol, type="t")
 ## Start from previous best solution
-sol2 <- metaMDS(dune, previous.best = sol)
+sol <- metaMDS(dune, previous.best = sol)
+## Local NMDS and stress 2 of monoMDS
+sol2 <- metaMDS(dune, model = "local", stress=2)
+sol2
+## Use Arrhenius exponent 'z' as a binary dissimilarity measure
+sol <- metaMDS(dune, distfun = betadiver, distance = "z")
+sol
 }
 \keyword{ multivariate }
