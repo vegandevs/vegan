@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 1.91-0
+This is vegan 1.92-0
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -3435,13 +3435,14 @@ Distance: bray
 
 Dimensions: 2 
 Stress:     0.1192691 
+Stress type 1, weak ties
 Two convergent solutions found after 5 tries
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
 > plot(sol, type="t")
 > ## Start from previous best solution
-> sol2 <- metaMDS(dune, previous.best = sol)
+> sol <- metaMDS(dune, previous.best = sol)
 Starting from 2-dimensional configuration
 Run 0 stress 0.1192691 
 Run 1 stress 0.1939205 
@@ -3449,6 +3450,54 @@ Run 2 stress 0.1192685
 ... New best solution
 ... procrustes: rmse 0.000737655  max resid 0.001867068 
 *** Solution reached
+
+> ## Local NMDS and stress 2 of monoMDS
+> sol2 <- metaMDS(dune, model = "local", stress=2)
+Run 0 stress 0.1928489 
+Run 1 stress 0.1928527 
+... procrustes: rmse 0.0004929149  max resid 0.001420577 
+*** Solution reached
+
+> sol2
+
+Call:
+metaMDS(comm = dune, model = "local", stress = 2) 
+
+local Multidimensional Scaling using monoMDS
+
+Data:     dune 
+Distance: bray 
+
+Dimensions: 2 
+Stress:     0.1928489 
+Stress type 2, weak ties
+Two convergent solutions found after 1 tries
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on ‘dune’ 
+
+> ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
+> sol <- metaMDS(dune, distfun = betadiver, distance = "z")
+Run 0 stress 0.106717 
+Run 1 stress 0.1067187 
+... procrustes: rmse 0.0004025738  max resid 0.001408067 
+*** Solution reached
+
+> sol
+
+Call:
+metaMDS(comm = dune, distance = "z", distfun = betadiver) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     dune 
+Distance: beta.z 
+
+Dimensions: 2 
+Stress:     0.106717 
+Stress type 1, weak ties
+Two convergent solutions found after 1 tries
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on ‘dune’ 
 
 > 
 > 
@@ -3579,7 +3628,8 @@ monoMDS(dist = dis, model = "loc")
 
 Local non-metric Multidimensional Scaling
 Dimensions: 2 
-Stress:     0.07596768
+Stress:     0.07596768 
+Stress type 1, weak ties
 Stopped after 72 iterations: Stress nearly unchanged
 > plot(m)
 > 
@@ -4649,7 +4699,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103dee498>
+<environment: 0x103c3dff8>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4665,7 +4715,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104ee6fc0>
+<environment: 0x1048ab260>
 
 Estimated degrees of freedom:
 6.0761  total = 7.076141 
@@ -4821,7 +4871,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1068afa00>
+<environment: 0x105d6ef90>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4834,7 +4884,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1071b9158>
+<environment: 0x106065b50>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4847,7 +4897,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107462a70>
+<environment: 0x106947a38>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6111,10 +6161,42 @@ sd         0.6092718   0
  Max.   :225.0   Max.   :225.0   Max.   :225  
 > plot(sp1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 > boxplot(sp2, col="yellow", add=TRUE, pch="+")
-> ## Fit Arrhenius model
+> ## Fit Lomolino model to the exact accumulation
+> mod1 <- fitspecaccum(sp1, "lomolino")
+> coef(mod1)
+      Asym       xmid      slope 
+258.440682   2.442061   1.858694 
+> fitted(mod1)
+ [1]  94.34749 121.23271 137.45031 148.83053 157.45735 164.31866 169.95946
+ [8] 174.71115 178.78954 182.34254 185.47566 188.26658 190.77402 193.04337
+[15] 195.11033 197.00350 198.74606 200.35705 201.85227 203.24499 204.54643
+[22] 205.76612 206.91229 207.99203 209.01150 209.97609 210.89054 211.75903
+[29] 212.58527 213.37256 214.12386 214.84180 215.52877 216.18692 216.81820
+[36] 217.42437 218.00703 218.56767 219.10762 219.62811 220.13027 220.61514
+[43] 221.08369 221.53679 221.97528 222.39991 222.81138 223.21037 223.59747
+[50] 223.97327
+> plot(sp1)
+> ## Add Lomolino model using argument 'add'
+> plot(mod1, add = TRUE, col=2, lwd=2)
+> ## Fit Arrhenius models to all random accumulations
 > mods <- fitspecaccum(sp2, "arrh")
 > plot(mods, col="hotpink")
 > boxplot(sp2, col = "yellow", border = "blue", lty=1, cex=0.3, add= TRUE)
+> ## Use nls() methods to the list of models
+> sapply(mods$models, AIC)
+  [1] 324.2489 358.8631 357.1474 348.5675 320.8596 362.4988 339.6392 302.6209
+  [9] 325.8906 335.5387 358.2781 347.9665 305.9077 338.6679 331.4992 319.3814
+ [17] 342.8604 308.0547 303.6049 307.0464 324.5011 335.4867 362.7110 342.5750
+ [25] 278.4388 346.3987 314.5455 305.6342 358.2744 307.9340 342.8888 301.1880
+ [33] 341.8359 348.4535 328.1716 341.5565 291.4052 336.6322 349.8087 350.1049
+ [41] 349.5025 352.0225 308.1040 322.4882 322.5936 361.7398 353.0302 350.8482
+ [49] 325.5460 360.2195 345.9105 342.7948 351.8214 267.6483 332.0333 320.1204
+ [57] 313.6519 344.1718 346.6968 311.0463 334.1548 368.1168 299.7756 322.6268
+ [65] 364.3129 353.3865 327.4970 343.1699 350.5206 316.0220 302.6937 286.5891
+ [73] 329.5312 323.6312 355.3245 322.2671 339.8070 367.4518 336.2615 323.6332
+ [81] 330.1162 309.3435 352.7868 321.6770 310.2606 326.1316 342.7621 333.2059
+ [89] 321.3756 368.4900 363.6466 326.1864 292.2932 296.4067 361.3046 356.2217
+ [97] 350.8804 359.9127 344.3568 332.4569
 > 
 > 
 > 
@@ -7039,7 +7121,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107a938a0>
+<environment: 0x107a06cd8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7504,7 +7586,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  99.645 1.025 101.043 0 0 
+Time elapsed:  181.374 2.354 219.591 0 0 
 > grDevices::dev.off()
 null device 
           1 
