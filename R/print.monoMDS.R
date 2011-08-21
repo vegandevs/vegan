@@ -12,10 +12,10 @@
                      hybrid = "Hybrid")
     cat(paste(modlab, "Multidimensional Scaling\n"))
     cat("Dimensions:", x$ndim, "\n")
-    cat("Stress:    ", x$stress)
-    if (x$isform == 2)
-        cat(" (type 2)")
-    cat("\n")
+    cat("Stress:    ", x$stress, "\n")
+    cat("Stress type ", x$isform, ", ", c("weak", "strong")[x$ities], " ties\n",
+        sep = "")
+   
     stoplab <- switch(x$icause,
                       "Maximum number of iteration reached",
                       "Stress nearly zero",

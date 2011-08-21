@@ -9,6 +9,8 @@ Version 1.92-0 (opened August 18, 2011)
 
 	* fitspecaccum: a typo and a condition was never true.
 
+	* monoMDS & metaMDS: always print types of stress and ties.
+
 	* NAMESPACE: export pasteCall for analogue.
 
 	* NEWS: added file NEWS.Rd for vegan release 2.0 news in Rd format.
