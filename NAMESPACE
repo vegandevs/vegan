@@ -18,7 +18,7 @@ orderingKM, ordiR2step, ordiarrows, ordicloud, ordicluster,
 ordiellipse, ordigrid, ordihull, ordilabel, ordimedian, ordiplot3d,
 ordiplot, ordipointlabel, ordiresids, ordirgl, ordisegments,
 ordispider, ordisplom, ordistep, ordisurf, orditkplot, orditorp,
-ordixyplot, orglpoints, orglsegments, orglspider, orgltext, pasteCall,
+ordixyplot, orglpoints, orglsegments, orglspider, orgltext, 
 pcnm, permatfull, permatswap, permutest, poolaccum, postMDS, prc,
 prestondistr, prestonfit, procrustes, protest, radfit, radlattice,
 rankindex, rarefy, rda, renyiaccum, renyi, rrarefy, scores,
@@ -27,6 +27,11 @@ specpool2vect, specpool, spenvcor, stepacross, stressplot, swan,
 taxa2dist, taxondive, tolerance, treedist, treedive, treeheight,
 tsallisaccum, tsallis, varpart, vectorfit, vegandocs, vegdist,
 vegemite, veiledspec, wascores, wcmdscale, wisconsin)
+
+## export pasteCall for 'permute'
+export(pasteCall)
+## export anova.cca for 'BiodiversityR': this should be fixed there
+export(anova.cca)
 
 ## export regular functions with dot names
 
