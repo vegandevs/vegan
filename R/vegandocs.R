@@ -18,7 +18,7 @@
             browseURL(paste("http://127.0.0.1:", tools:::httpdPort,
                             "/library/vegan/doc/NEWS.html", sep=""))
         } else {
-            file.show(tools:::Rd2txt(file.path(path.package("vegan"),
+            file.show(tools:::Rd2txt(file.path(system.file(package="vegan"),
                                                "NEWS.Rd"), tempfile()))
         }
     } else {
