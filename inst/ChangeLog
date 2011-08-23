@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.92-0 (opened August 18, 2011)
+Version 1.92-1 (opened August 23, 2011)
+
+	* NAMESPACE: imports nobs from permute_0.5-3 in R 2.12.2 and older
+	which do not yet have nobs() generic.
+	
+Version 1.92-0 (closed August 23, 2011)
 
 	* open new version with the release of vegan_1.17-12 on August 17,
 	2011. 
