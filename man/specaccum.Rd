@@ -6,6 +6,9 @@
 \alias{boxplot.specaccum}
 \alias{fitspecaccum}
 \alias{plot.fitspecaccum}
+\alias{fitted.specaccum}
+\alias{predict.specaccum}
+\alias{predict.fitspecaccum}
 
 \title{Species Accumulation Curves }
 \description{
