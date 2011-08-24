@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.92-1 (opened August 23, 2011)
 
+	* specaccum, fitspecaccum: fitted() and predict() methods for
+	specaccum. The fitted() method returns the fitted richness, and
+	predict(..., newdata) can select items from richness with integer
+	'newdata'. For fitspecaccum(), the predict() is performed to each
+	fitted model, allowing non-interger values. There is no special
+	fitted() models, but fitspecaccum() is written so that default
+	fitted(), residuals() and coef() work.  
+
 	* NAMESPACE: imports nobs from permute_0.5-3 in R 2.12.2 and older
 	which do not yet have nobs() generic.
 

@@ -23,6 +23,9 @@ specaccum(comm, method = "exact", permutations = 100,
 fitspecaccum(object, model, method = "random", ...)
 \method{plot}{fitspecaccum}(x, col = par("fg"), lty = 1, xlab = "Sites", 
     ylab = x$method, ...) 
+\method{fitted}{specaccum}(object, ...)
+\method{predict}{specaccum}(object, newdata, interpolation = c("linear", "spline"), ...)
+\method{predict}{fitspecaccum}(object, newdata, ...)
 }
 
 \arguments{
@@ -63,6 +66,13 @@ fitspecaccum(object, model, method = "random", ...)
   \item{object}{Either a community data set or fitted \code{specaccum} model.}
   \item{model}{Nonlinear regression model (\code{\link{nls}}). See Details.}
   \item{lty}{line type code (see \code{\link{par}}.}
+  
+  \item{newdata}{Optional data used in prediction interpreted as
+    number of sampling units (sites). If missing, fitted values are
+    returned. }
+  
+  \item{interpolation}{Interpolation method used with \code{newdata}.}
+
   \item{...}{Other parameters to functions.}
 }
 \details{
@@ -91,7 +101,15 @@ fitspecaccum(object, model, method = "random", ...)
   corresponding to average number of individuals per site.
 
   The function has a \code{plot} method. In addition, \code{method =
-    "random"} has \code{summary} and \code{boxplot} methods. 
+  "random"} has \code{summary} and \code{boxplot} methods. 
+
+  Function \code{fitted} returns the fitted values, and \code{predict}
+  can return the values corresponding to \code{newdata} using linear
+  (function \code{\link{approx}}) or spline (function
+  \code{\link{spline}}) interpolation. The function cannot extrapolate
+  with linear interpolation, and with spline the type and sensibility
+  of the extrapolation depends on argument \code{method} which can be
+  given and is passed to \code{\link{spline}}.
 
   Function \code{fitspecaccum} fits a nonlinear (\code{\link{nls}})
   self-starting species accumulation model. The input \code{object}
@@ -110,6 +128,11 @@ fitspecaccum(object, model, method = "random", ...)
   (\code{\link{SSmicmen}}), \code{"logis"} (\code{\link{SSlogis}}),
   \code{"weibull"} (\code{\link{SSweibull}}). See these functions for
   model specification and details.
+
+  Function \code{predict} uses \code{\link{predict.nls}}, and you can
+  pass all arguments to that function. In addition, \R default methods
+  \code{fitted}, \code{residuals} and \code{coef} work on the result
+  object.
 
   Nonlinear regression may fail for any reason, and some of the
   \code{fitspecaccum} models are fragile and may not succeed.  

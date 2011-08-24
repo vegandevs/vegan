@@ -50,7 +50,8 @@
       in \pkg{vegan} or other self-starting non-linear regression
       models in \R. The functin can fit Arrhenius, Gleason, Gitay,
       Lomolino (in \pkg{vegan}), asymptotic, Gompertz,
-      Michaelis-Menten, logistic and Weibull (in base \R) models.
+      Michaelis-Menten, logistic and Weibull (in base \R) models. The
+      function has \code{plot} and \code{predict} methods.
       
       \item Self-starting non-linear species accumulation models
       \code{SSarrhenius}, \code{SSgleason}, \code{SSgitay} and
@@ -76,6 +77,10 @@
       with \code{isoMDS} because it cannot handle adequately these tied
       maximum dissimilarities. 
       
+      \item \code{specaccum} gained \code{predict} method which uses
+      either linear or spline interpolation. Extrapolation is possible
+      with spline interpolation, but may make little sense.
+
     }
   } % end NEW FEATURES
   
