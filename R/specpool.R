@@ -4,6 +4,14 @@
     x <- as.matrix(x)
     if (missing(pool)) 
         pool <- rep("All", nrow(x))
+    ## check dims
+    if (length(pool) != NROW(x))
+        stop("length of 'pool' and number rows in 'x' do not match")
+    ## remove missing values
+    if (any(nas <- is.na(pool))) {
+        pool <- pool[!nas]
+        x <- x[!nas, , drop = FALSE]
+    }
     out <- seq(1:nrow(x))
     groups <- table(pool)
     inds <- names(groups)
@@ -15,6 +23,8 @@
         a1 <- a2 <- NA
         gr <- out[pool == is]
         n <- length(gr)
+        if (n <= 0)
+            next
         X <- x[gr, , drop = FALSE]
         freq <- colSums(X > 0)
         p <- freq[freq > 0]/n

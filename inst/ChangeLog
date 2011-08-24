@@ -12,6 +12,9 @@ Version 1.92-1 (opened August 23, 2011)
 	each fitted model. Function fitspecaccum() is written so that
 	default fitted(), residuals() and coef() work.
 
+	* specpool: failed if 'pool' had NA values or empty factor
+	levels. Checks that 'pool' length matches nrow of data.
+
 	* NAMESPACE: imports nobs from permute_0.5-3 in R 2.12.2 and older
 	which do not yet have nobs() generic.
 

@@ -86,7 +86,12 @@
   
   \subsection{BUG FIXES}{
     \itemize{
-      \item None yet.
+
+      \item \code{specpool} failed if the grouping factor \code{pool}
+      had missing values or empty factor levels.  Now also checks that
+      the length of the \code{pool} matches the number of
+      observations.
+
     }
   } % end BUG FIXES
   
