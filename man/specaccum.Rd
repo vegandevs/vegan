@@ -6,7 +6,6 @@
 \alias{boxplot.specaccum}
 \alias{fitspecaccum}
 \alias{plot.fitspecaccum}
-\alias{fitted.specaccum}
 \alias{predict.specaccum}
 \alias{predict.fitspecaccum}
 
@@ -26,7 +25,6 @@ specaccum(comm, method = "exact", permutations = 100,
 fitspecaccum(object, model, method = "random", ...)
 \method{plot}{fitspecaccum}(x, col = par("fg"), lty = 1, xlab = "Sites", 
     ylab = x$method, ...) 
-\method{fitted}{specaccum}(object, ...)
 \method{predict}{specaccum}(object, newdata, interpolation = c("linear", "spline"), ...)
 \method{predict}{fitspecaccum}(object, newdata, ...)
 }
@@ -106,13 +104,13 @@ fitspecaccum(object, model, method = "random", ...)
   The function has a \code{plot} method. In addition, \code{method =
   "random"} has \code{summary} and \code{boxplot} methods. 
 
-  Function \code{fitted} returns the fitted values, and \code{predict}
-  can return the values corresponding to \code{newdata} using linear
-  (function \code{\link{approx}}) or spline (function
-  \code{\link{spline}}) interpolation. The function cannot extrapolate
-  with linear interpolation, and with spline the type and sensibility
-  of the extrapolation depends on argument \code{method} which can be
-  given and is passed to \code{\link{spline}}.
+  Function \code{predict} can return the values corresponding to
+  \code{newdata} using linear (\code{\link{approx}}) or spline
+  (\code{\link{spline}}) interpolation. The function cannot
+  extrapolate with linear interpolation, and with spline the type and
+  sensibility of the extrapolation depends on argument \code{method}
+  which is passed to \code{\link{spline}}.  If \code{newdata} is not
+  given, the function returns the values corresponding to the data.
 
   Function \code{fitspecaccum} fits a nonlinear (\code{\link{nls}})
   self-starting species accumulation model. The input \code{object}
@@ -133,9 +131,8 @@ fitspecaccum(object, model, method = "random", ...)
   model specification and details.
 
   Function \code{predict} uses \code{\link{predict.nls}}, and you can
-  pass all arguments to that function. In addition, \R default methods
-  \code{fitted}, \code{residuals} and \code{coef} work on the result
-  object.
+  pass all arguments to that function. In addition, \code{fitted},
+  \code{residuals} and \code{coef} work on the result object.
 
   Nonlinear regression may fail for any reason, and some of the
   \code{fitspecaccum} models are fragile and may not succeed.  

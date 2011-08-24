@@ -1,9 +1,3 @@
-`fitted.specaccum` <-
-    function(object, ...)
-{
-    object$richness
-}
-
 `predict.specaccum` <-
     function(object, newdata, interpolation = c("linear", "spline"), ...)
 {

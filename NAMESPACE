@@ -157,7 +157,6 @@ S3method(fitted, cca)
 S3method(fitted, procrustes)
 S3method(fitted, radfit)
 S3method(fitted, rda)
-S3method(fitted, specaccum)
 # goodness: vegan
 S3method(goodness, cca)
 S3method(goodness, metaMDS)
