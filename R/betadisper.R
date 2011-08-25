@@ -21,6 +21,9 @@
     ## uses code from stats:::cmdscale by R Core Development Team
     if(!inherits(d, "dist"))
         stop("distances 'd' must be a 'dist' object")
+    ## Someone really tried to analyse correlation like object in range -1..+1
+    if (any(d < -TOL, na.rm = TRUE))
+        stop("dissimilarities 'd' must be non-negative")
     if(missing(type))
         type <- "median"
     type <- match.arg(type)

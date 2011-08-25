@@ -10,6 +10,8 @@
         attr(x, "method") <- "user supplied square matrix"
     }
     else x <- vegdist(dat, method = distance)
+    if (any(x < -sqrt(.Machine$double.eps)))
+        stop("dissimilarities must be non-negative")
     sol <- c(call = match.call())
     grouping <- as.factor(grouping)
     matched <- function(irow, icol, grouping) {

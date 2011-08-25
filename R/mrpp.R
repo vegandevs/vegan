@@ -18,6 +18,8 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
         attr(dmat, "method") <- "user supplied square matrix"
     }
     else dmat <- vegdist(dat, method = distance)
+    if (any(dmat < -sqrt(.Machine$double.eps)))
+        stop("dissimilarities must be non-negative")
     distance <- attr(dmat, "method")
     dmat <- as.matrix(dmat)
     diag(dmat) <- NA

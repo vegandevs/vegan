@@ -31,8 +31,11 @@
                                Q <- qr.Q(qrX)
                                tcrossprod(Q[,1:qrX$rank])
                            })
-    if (inherits(lhs, "dist"))
+    if (inherits(lhs, "dist")) {
+        if (any(lhs < -TOL))
+            stop("dissimilarities must be non-negative")
         dmat <- as.matrix(lhs^2)
+    }
     else {
         dist.lhs <- as.matrix(vegdist(lhs, method=method, ...))
         dmat <- dist.lhs^2
