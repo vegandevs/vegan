@@ -14,8 +14,8 @@ indpower, inertcomp, initMDS, intersetcor, isomapdist, isomap,
 linestack, mantel, meandist, metaMDSdist, metaMDSiter, metaMDSredist,
 metaMDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart,
 nestedchecker, nesteddisc, nestedn0, nestednodf, nestedtemp, oecosimu,
-orderingKM, ordiR2step, ordiarrows, ordicloud, ordicluster,
-ordiellipse, ordigrid, ordihull, ordilabel, ordimedian, ordiplot3d,
+ordiR2step, ordiarrows, ordicloud, ordicluster,
+ordiellipse, ordigrid, ordihull, ordilabel, ordiplot3d,
 ordiplot, ordipointlabel, ordiresids, ordirgl, ordisegments,
 ordispider, ordisplom, ordistep, ordisurf, orditkplot, orditorp,
 ordixyplot, orglpoints, orglsegments, orglspider, orgltext, 
@@ -50,10 +50,10 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 
 ## do NOT export the following internal functions
 
-## export(ade2vegancca, ordiArgAbsorber, ordiArrowMul, ordiGetData,
-## ordiNAexclude, ordiNApredict, ordiParseFormula, ordiTerminfo,
-## pregraphKM, simpleRDA2, varpart2, varpart3, varpart4,
-## veganCovEllipse)
+## export(ade2vegancca, orderingKM, ordiArgAbsorber, ordiArrowMul,
+## ordiGetData, ordimedian, ordiNAexclude, ordiNApredict,
+## ordiParseFormula, ordiTerminfo, pregraphKM, simpleRDA2, varpart2,
+## varpart3, varpart4, veganCovEllipse)
 
 ## Registration of S3 methods
 import(stats)
