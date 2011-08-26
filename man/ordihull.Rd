@@ -27,6 +27,8 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, label = FALSE, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)
+\method{summary}{ordihull}(object, ...)
+\method{summary}{ordiellipse}(object, ...)
 }
 
 \arguments{
@@ -74,6 +76,11 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   \item{prune}{Number of upper level hierarchies removed from the
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be
     disconnected.}
+
+  \item{object}{A result object from \code{ordihull} or
+    \code{ordiellipse}. The result is \code{\link{invisible}}, but it
+    can be saved, and used for summaries (areas etc. of hulls and
+    ellipses). }
 
   \item{\dots}{Parameters passed to graphical functions or to
     \code{\link{scores}} to select axes and scaling etc. } 
