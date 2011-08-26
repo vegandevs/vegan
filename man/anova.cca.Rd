@@ -8,7 +8,6 @@
 \alias{permutest}
 \alias{permutest.default}
 \alias{permutest.cca}
-\alias{print.permutest.cca}
 
 \title{Permutation Test for Constrained Correspondence Analysis,
   Redundancy Analysis and Constrained Analysis of Principal Coordinates }

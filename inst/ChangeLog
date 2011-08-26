@@ -24,7 +24,10 @@ Version 1.92-1 (opened August 23, 2011)
 	levels. Checks that 'pool' length matches nrow of data.
 
 	* NAMESPACE: imports nobs from permute_0.5-3 in R 2.12.2 and older
-	which do not yet have nobs() generic.
+	which do not yet have nobs() generic. Do not export orderingKM &
+	ordimedian. Remove aliases to non-exported and non-documented
+	print and print.summary methods in Rd files (but leave documented
+	ones).
 
 	* vegandocs: shows the permutation vignette of the 'permute'
 	package. 

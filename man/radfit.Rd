@@ -13,9 +13,6 @@
 \alias{plot.rad}
 \alias{radlattice}
 \alias{points.radline}
-\alias{print.radfit.frame}
-\alias{print.radfit}
-\alias{print.radline}
 \alias{summary.radfit.frame}
 \alias{rad.preempt}
 \alias{rad.lognormal}

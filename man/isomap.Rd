@@ -3,8 +3,6 @@
 \alias{isomapdist}
 \alias{plot.isomap}
 \alias{summary.isomap}
-\alias{print.summary.isomap}
-\alias{print.isomap}
 \alias{rgl.isomap}
 
 \title{ Isometric Feature Mapping Ordination }

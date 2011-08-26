@@ -1,8 +1,6 @@
 \name{procrustes}
 \alias{procrustes}
-\alias{print.procrustes}
 \alias{summary.procrustes}
-\alias{print.summary.procrustes}
 \alias{plot.procrustes}
 \alias{points.procrustes}
 \alias{text.procrustes}

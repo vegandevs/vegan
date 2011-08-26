@@ -1,6 +1,5 @@
 \name{anosim}
 \alias{anosim}
-\alias{print.anosim}
 \alias{summary.anosim}
 \alias{plot.anosim}
 

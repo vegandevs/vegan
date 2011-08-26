@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{mantel.correlog}
 \alias{mantel.correlog}
-\alias{print.mantel.correlog}
 \alias{plot.mantel.correlog}
 \title{ Mantel Correlogram }
 

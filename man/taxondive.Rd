@@ -1,8 +1,6 @@
 \name{taxondive}
 \alias{taxondive}
-\alias{print.taxondive}
 \alias{summary.taxondive}
-\alias{print.summary.taxondive}
 \alias{plot.taxondive}
 \alias{taxa2dist}
 

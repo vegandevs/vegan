@@ -4,7 +4,6 @@
 \alias{anova.betadisper}
 \alias{plot.betadisper}
 \alias{boxplot.betadisper}
-\alias{print.betadisper}
 \alias{TukeyHSD.betadisper}
 \alias{ordimedian}
 

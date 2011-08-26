@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{adonis}
 \alias{adonis}
-\alias{print.adonis}
 
 \title{Permutational Multivariate Analysis of Variance Using Distance Matrices}
 

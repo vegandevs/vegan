@@ -1,7 +1,6 @@
 \name{prc}
 \alias{prc}
 \alias{summary.prc}
-\alias{print.summary.prc}
 \alias{plot.prc}
 
 \title{Principal Response Curves for Treatments with Repeated Observations }

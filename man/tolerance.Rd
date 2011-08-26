@@ -1,7 +1,7 @@
 \name{tolerance}
 \alias{tolerance}
 \alias{tolerance.cca}
-\alias{print.tolerance.cca}
+
 \title{Species tolerances and sample heterogeneities}
 \usage{
 tolerance(x, \dots)

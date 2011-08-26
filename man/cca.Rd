@@ -2,11 +2,9 @@
 \alias{cca}
 \alias{cca.default}
 \alias{cca.formula}
-\alias{print.cca}
 \alias{rda}
 \alias{rda.default}
 \alias{rda.formula}
-\concept{ordination}
 
 \title{ [Partial] [Constrained] Correspondence Analysis and Redundancy
   Analysis } 

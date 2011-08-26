@@ -2,9 +2,7 @@
 \alias{bioenv}
 \alias{bioenv.default}
 \alias{bioenv.formula}
-\alias{print.bioenv}
 \alias{summary.bioenv}
-\alias{print.summary.bioenv}
 
 \title{Best Subset of Environmental Variables with
   Maximum (Rank) Correlation with Community Dissimilarities }

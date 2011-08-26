@@ -1,7 +1,6 @@
 \name{mantel}
 \alias{mantel}
 \alias{mantel.partial}
-\alias{print.mantel}
 
 \title{Mantel and Partial Mantel Tests for Dissimilarity Matrices }
 \description{

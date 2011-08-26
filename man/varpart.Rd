@@ -4,8 +4,6 @@
 \alias{varpart3}
 \alias{varpart4}
 \alias{showvarparts}
-\alias{print.varpart}
-\alias{print.varpart234}
 \alias{plot.varpart}
 \alias{plot.varpart234}
 \alias{simpleRDA2}

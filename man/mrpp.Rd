@@ -1,9 +1,7 @@
 \name{mrpp}
 \alias{mrpp}
-\alias{print.mrpp}
 \alias{meandist}
 \alias{summary.meandist}
-\alias{print.summary.meandist}
 \alias{plot.meandist}
 
 \title{Multi Response Permutation Procedure and Mean Dissimilarity Matrix}

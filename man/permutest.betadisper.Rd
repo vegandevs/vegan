@@ -1,6 +1,6 @@
 \name{permutest.betadisper}
 \alias{permutest.betadisper}
-\alias{print.permutest.betadisper}
+
 \title{Permutation test of multivariate homogeneity of groups dispersions
   (variances)}
 \description{

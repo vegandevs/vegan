@@ -1,8 +1,8 @@
 \encoding{UTF-8}
 \name{multipart}
 \alias{multipart}
-\alias{print.multipart}
 \title{Multiplicative Diversity Partitioning}
+
 \description{
 In multiplicative diversity partitioning, mean values of alpha diversity at lower levels of a sampling 
 hierarchy are compared to the total diversity in the entire data set or the pooled samples (gamma diversity). 
@@ -10,7 +10,6 @@ hierarchy are compared to the total diversity in the entire data set or the pool
 \usage{
 multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
     global = FALSE, relative = FALSE, nsimul=99, ...)
-\method{print}{multipart}(x, ...)
 }
 \arguments{
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
@@ -30,7 +29,6 @@ multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
   \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.
     If \code{nsimul = 0}, only the \code{FUN} argument is evaluated. It is thus possible
     to reuse the statistic values without using a null model.}
-  \item{x}{An object to print.}
   \item{\dots}{Other arguments passed to \code{\link{oecosimu}}, i.e. 
     \code{method}, \code{thin} or \code{burnin}.}
 }

@@ -2,7 +2,6 @@
 \alias{fisherfit}
 \alias{as.fisher}
 \alias{plot.fisherfit}
-\alias{print.fisherfit}
 \alias{profile.fisherfit}
 \alias{confint.fisherfit}
 \alias{plot.profile.fisherfit}
@@ -11,7 +10,6 @@
 \alias{as.preston}
 \alias{plot.prestonfit}
 \alias{lines.prestonfit}
-\alias{print.prestonfit}
 \alias{veiledspec}
 
 \title{Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data}

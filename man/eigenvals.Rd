@@ -10,7 +10,6 @@
 \alias{eigenvals.dudi}
 \alias{eigenvals.pca}
 \alias{eigenvals.pco}
-\alias{print.eigenvals}
 \alias{summary.eigenvals}
 
 \title{

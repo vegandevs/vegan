@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{adipart}
 \alias{adipart}
-\alias{print.adipart}
 \alias{hiersimu}
 \alias{print.hiersimu}
 \title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
@@ -16,8 +15,6 @@ adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
 hiersimu(formula, data, FUN, location = c("mean", "median"),
     relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
-\method{print}{adipart}(x, ...)
-\method{print}{hiersimu}(x, ...)
 }
 \arguments{
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
@@ -44,7 +41,6 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
   \item{drop.highest}{Logical, to drop the highest level or not. When \code{FUN} 
     evaluates only arrays with at least 2 dimensions, highest level should be dropped, 
     or not selected at all.}
-  \item{x}{An object to print.}
   \item{\dots}{Other arguments passed to functions, e.g. base of logarithm for 
     Shannon diversity, or \code{method}, \code{thin} or \code{burnin} arguments for
     \code{\link{oecosimu}}.}

@@ -54,7 +54,7 @@ This is vegan 1.92-1
 > 
 > ### Name: CCorA
 > ### Title: Canonical Correlation Analysis
-> ### Aliases: CCorA print.CCorA biplot.CCorA
+> ### Aliases: CCorA biplot.CCorA
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -140,8 +140,8 @@ adj. RDA R squares -0.12553 -0.0250
 > 
 > ### Name: MOStest
 > ### Title: Mitchell-Olds & Shaw Test for the Location of Quadratic Extreme
-> ### Aliases: MOStest print.MOStest plot.MOStest fieller.MOStest
-> ###   profile.MOStest confint.MOStest
+> ### Aliases: MOStest plot.MOStest fieller.MOStest profile.MOStest
+> ###   confint.MOStest
 > ### Keywords: models regression
 > 
 > ### ** Examples
@@ -510,7 +510,7 @@ Manure  3 85.762 1.1225     99   0.31
 > ### Name: adipart
 > ### Title: Additive Diversity Partitioning and Hierarchical Null Model
 > ###   Testing
-> ### Aliases: adipart print.adipart hiersimu print.hiersimu
+> ### Aliases: adipart hiersimu print.hiersimu
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -590,7 +590,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
-> ### Aliases: adonis print.adonis
+> ### Aliases: adonis
 > ### Keywords: multivariate nonparametric
 > 
 > ### ** Examples
@@ -690,7 +690,7 @@ detaching ‘package:lattice’
 > 
 > ### Name: anosim
 > ### Title: Analysis of Similarities
-> ### Aliases: anosim print.anosim summary.anosim plot.anosim
+> ### Aliases: anosim summary.anosim plot.anosim
 > ### Keywords: multivariate nonparametric htest
 > 
 > ### ** Examples
@@ -743,7 +743,6 @@ detaching ‘dune.env’
 > ###   Redundancy Analysis and Constrained Analysis of Principal Coordinates
 > ### Aliases: anova.cca anova.ccanull anova.ccabyaxis anova.ccabyterm
 > ###   anova.ccabymargin anova.prc permutest permutest.default permutest.cca
-> ###   print.permutest.cca
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -1056,7 +1055,7 @@ Influence measures of
 > ### Name: betadisper
 > ### Title: Multivariate homogeneity of groups dispersions (variances)
 > ### Aliases: betadisper scores.betadisper anova.betadisper plot.betadisper
-> ###   boxplot.betadisper print.betadisper TukeyHSD.betadisper ordimedian
+> ###   boxplot.betadisper TukeyHSD.betadisper ordimedian
 > ### Keywords: methods multivariate hplot
 > 
 > ### ** Examples
@@ -1384,8 +1383,7 @@ $prob.McNemar
 > ### Name: bioenv
 > ### Title: Best Subset of Environmental Variables with Maximum (Rank)
 > ###   Correlation with Community Dissimilarities
-> ### Aliases: bioenv bioenv.default bioenv.formula print.bioenv
-> ###   summary.bioenv print.summary.bioenv
+> ### Aliases: bioenv bioenv.default bioenv.formula summary.bioenv
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1451,7 +1449,7 @@ log(N) P K Ca pH Al    6      0.2822
 > ### Name: capscale
 > ### Title: [Partial] Constrained Analysis of Principal Coordinates or
 > ###   distance-based RDA
-> ### Aliases: capscale print.capscale
+> ### Aliases: capscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1603,8 +1601,7 @@ metaMDSdist transformed data: wisconsin(sqrt(varespec))
 > ### Name: cca
 > ### Title: [Partial] [Constrained] Correspondence Analysis and Redundancy
 > ###   Analysis
-> ### Aliases: cca cca.default cca.formula print.cca rda rda.default
-> ###   rda.formula
+> ### Aliases: cca cca.default cca.formula rda rda.default rda.formula
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1819,9 +1816,8 @@ C     0  0.00000000  0.00000000
 > 
 > ### Name: decorana
 > ### Title: Detrended Correspondence Analysis and Basic Reciprocal Averaging
-> ### Aliases: decorana print.decorana summary.decorana
-> ###   print.summary.decorana plot.decorana downweight scores.decorana
-> ###   points.decorana text.decorana
+> ### Aliases: decorana summary.decorana print.summary.decorana plot.decorana
+> ###   downweight scores.decorana points.decorana text.decorana
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2377,8 +2373,7 @@ Groups sizes
 > ### Title: Extract Eigenvalues from an Ordination Object
 > ### Aliases: eigenvals eigenvals.default eigenvals.prcomp
 > ###   eigenvals.princomp eigenvals.cca eigenvals.wcmdscale eigenvals.pcnm
-> ###   eigenvals.dudi eigenvals.pca eigenvals.pco print.eigenvals
-> ###   summary.eigenvals
+> ###   eigenvals.dudi eigenvals.pca eigenvals.pco summary.eigenvals
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2424,8 +2419,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit print.envfit print.factorfit print.vectorfit
-> ###   scores.envfit
+> ###   plot.envfit scores.envfit
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
@@ -2534,10 +2528,9 @@ detaching ‘dune.env’, ‘package:MASS’
 > ### Name: fisherfit
 > ### Title: Fit Fisher's Logseries and Preston's Lognormal Model to
 > ###   Abundance Data
-> ### Aliases: fisherfit as.fisher plot.fisherfit print.fisherfit
-> ###   profile.fisherfit confint.fisherfit plot.profile.fisherfit prestonfit
-> ###   prestondistr as.preston plot.prestonfit lines.prestonfit
-> ###   print.prestonfit veiledspec
+> ### Aliases: fisherfit as.fisher plot.fisherfit profile.fisherfit
+> ###   confint.fisherfit plot.profile.fisherfit prestonfit prestondistr
+> ###   as.preston plot.prestonfit lines.prestonfit veiledspec
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -2904,9 +2897,8 @@ Run 20 stress 0.3760596
 > ### Name: humpfit
 > ### Title: No-interaction Model for Hump-backed Species Richness vs.
 > ###   Biomass
-> ### Aliases: humpfit print.humpfit summary.humpfit print.summary.humpfit
-> ###   lines.humpfit plot.humpfit points.humpfit predict.humpfit
-> ###   profile.humpfit
+> ### Aliases: humpfit summary.humpfit lines.humpfit plot.humpfit
+> ###   points.humpfit predict.humpfit profile.humpfit
 > ### Keywords: models regression nonlinear
 > 
 > ### ** Examples
@@ -3013,8 +3005,7 @@ detaching ‘package:MASS’
 > 
 > ### Name: isomap
 > ### Title: Isometric Feature Mapping Ordination
-> ### Aliases: isomap isomapdist plot.isomap summary.isomap
-> ###   print.summary.isomap print.isomap rgl.isomap
+> ### Aliases: isomap isomapdist plot.isomap summary.isomap rgl.isomap
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3217,7 +3208,7 @@ attr(,"class")
 > 
 > ### Name: mantel
 > ### Title: Mantel and Partial Mantel Tests for Dissimilarity Matrices
-> ### Aliases: mantel mantel.partial print.mantel
+> ### Aliases: mantel mantel.partial
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -3270,7 +3261,7 @@ Based on 999 permutations
 > 
 > ### Name: mantel.correlog
 > ### Title: Mantel Correlogram
-> ### Aliases: mantel.correlog print.mantel.correlog plot.mantel.correlog
+> ### Aliases: mantel.correlog plot.mantel.correlog
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3403,8 +3394,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Title: Nonmetric Multidimensional Scaling with Stable Solution from
 > ###   Random Starts, Axis Scaling and Species Scores
 > ### Aliases: metaMDS metaMDSdist metaMDSiter metaMDSredist initMDS postMDS
-> ###   print.metaMDS plot.metaMDS points.metaMDS text.metaMDS scores.metaMDS
-> ###   metaMDSrotate
+> ###   plot.metaMDS points.metaMDS text.metaMDS scores.metaMDS metaMDSrotate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3613,7 +3603,7 @@ Species: expanded scores based on ‘dune’
 > ### Name: monoMDS
 > ### Title: Global and Local Non-metric Multidimensional Scaling and Linear
 > ###   and Hybrid Scaling
-> ### Aliases: monoMDS print.monoMDS scores.monoMDS plot.monoMDS
+> ### Aliases: monoMDS scores.monoMDS plot.monoMDS
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3644,8 +3634,7 @@ Stopped after 72 iterations: Stress nearly unchanged
 > ### Name: mrpp
 > ### Title: Multi Response Permutation Procedure and Mean Dissimilarity
 > ###   Matrix
-> ### Aliases: mrpp print.mrpp meandist summary.meandist
-> ###   print.summary.meandist plot.meandist
+> ### Aliases: mrpp meandist summary.meandist plot.meandist
 > ### Keywords: multivariate nonparametric htest
 > 
 > ### ** Examples
@@ -3738,7 +3727,7 @@ Classification strength 0.1127012
 > ### Name: mso
 > ### Title: Functions for performing and displaying a spatial partitioning
 > ###   of cca or rda results
-> ### Aliases: mso print.mso msoplot
+> ### Aliases: mso msoplot
 > ### Keywords: spatial multivariate
 > 
 > ### ** Examples
@@ -3842,7 +3831,7 @@ mso variogram:
 > 
 > ### Name: multipart
 > ### Title: Multiplicative Diversity Partitioning
-> ### Aliases: multipart print.multipart
+> ### Aliases: multipart
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3920,8 +3909,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: nestedtemp
 > ### Title: Nestedness Indices for Communities of Islands or Patches
 > ### Aliases: nestedtemp nestedchecker nestedn0 nesteddisc nestednodf
-> ###   print.nestedchecker print.nestedn0 print.nesteddisc print.nestedtemp
-> ###   print.nestednodf plot.nestedtemp
+> ###   plot.nestedtemp
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -3972,8 +3960,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: oecosimu
 > ### Title: Null Models for Biological Communities
-> ### Aliases: oecosimu commsimulator print.oecosimu as.ts.oecosimu
-> ###   as.mcmc.oecosimu density.oecosimu densityplot.oecosimu
+> ### Aliases: oecosimu commsimulator as.ts.oecosimu as.mcmc.oecosimu
+> ###   density.oecosimu densityplot.oecosimu
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
@@ -4699,7 +4687,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x103b0b1c8>
+<environment: 0x1039d4b48>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4715,7 +4703,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106462988>
+<environment: 0x1045cae68>
 
 Estimated degrees of freedom:
 6.0761  total = 7.076141 
@@ -4871,7 +4859,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106a3ced8>
+<environment: 0x105f2d9f0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4884,7 +4872,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106d97520>
+<environment: 0x1065a98e0>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4897,7 +4885,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1066c0430>
+<environment: 0x106bbb980>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5143,7 +5131,7 @@ X-squared = 0.0142, df = 1, p-value = 0.9051
 > ### Name: permutest.betadisper
 > ### Title: Permutation test of multivariate homogeneity of groups
 > ###   dispersions (variances)
-> ### Aliases: permutest.betadisper print.permutest.betadisper
+> ### Aliases: permutest.betadisper
 > ### Keywords: methods multivariate
 > 
 > ### ** Examples
@@ -5373,7 +5361,7 @@ ManagementSF  0.2320  1.06831 -0.59183 -0.38035 -0.45250  0.3659
 > ### Name: prc
 > ### Title: Principal Response Curves for Treatments with Repeated
 > ###   Observations
-> ### Aliases: prc summary.prc print.summary.prc plot.prc
+> ### Aliases: prc summary.prc plot.prc
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -5618,10 +5606,10 @@ Chealb  1.5737337 0.7842538 -0.5503660 -0.35108333
 > 
 > ### Name: procrustes
 > ### Title: Procrustes Rotation of Two Configurations and PROTEST
-> ### Aliases: procrustes print.procrustes summary.procrustes
-> ###   print.summary.procrustes plot.procrustes points.procrustes
-> ###   text.procrustes lines.procrustes residuals.procrustes
-> ###   fitted.procrustes predict.procrustes protest print.protest
+> ### Aliases: procrustes summary.procrustes plot.procrustes
+> ###   points.procrustes text.procrustes lines.procrustes
+> ###   residuals.procrustes fitted.procrustes predict.procrustes protest
+> ###   print.protest
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -5710,9 +5698,8 @@ Scaling of target:
 > ### Title: Rank - Abundance or Dominance / Diversity Models
 > ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit as.rad
 > ###   coef.radfit fitted.radfit lines.radline plot.radfit.frame plot.radfit
-> ###   plot.radline plot.rad radlattice points.radline print.radfit.frame
-> ###   print.radfit print.radline summary.radfit.frame rad.preempt
-> ###   rad.lognormal rad.zipf rad.zipfbrot rad.null
+> ###   plot.radline plot.rad radlattice points.radline summary.radfit.frame
+> ###   rad.preempt rad.lognormal rad.zipf rad.zipfbrot rad.null
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -6209,9 +6196,9 @@ sd         0.6092718   0
 > 
 > ### Name: specpool
 > ### Title: Extrapolated Species Richness in a Species Pool
-> ### Aliases: specpool specpool2vect poolaccum print.poolaccum
-> ###   summary.poolaccum plot.poolaccum estimateR estimateR.default
-> ###   estimateR.matrix estimateR.data.frame estaccumR
+> ### Aliases: specpool specpool2vect poolaccum summary.poolaccum
+> ###   plot.poolaccum estimateR estimateR.default estimateR.matrix
+> ###   estimateR.data.frame estaccumR
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -6349,8 +6336,7 @@ Stepping across 190 dissimilarities...
 > 
 > ### Name: taxondive
 > ### Title: Indices of Taxonomic Diversity and Distinctness
-> ### Aliases: taxondive print.taxondive summary.taxondive
-> ###   print.summary.taxondive plot.taxondive taxa2dist
+> ### Aliases: taxondive summary.taxondive plot.taxondive taxa2dist
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -6423,7 +6409,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: tolerance
 > ### Title: Species tolerances and sample heterogeneities
-> ### Aliases: tolerance tolerance.cca print.tolerance.cca
+> ### Aliases: tolerance tolerance.cca
 > 
 > ### ** Examples
 > 
@@ -6680,8 +6666,8 @@ detaching ‘package:lattice’
 > ### Name: varpart
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
-> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts print.varpart
-> ###   print.varpart234 plot.varpart plot.varpart234 simpleRDA2
+> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts plot.varpart
+> ###   plot.varpart234 simpleRDA2
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7122,7 +7108,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1083443f8>
+<environment: 0x107af8040>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7587,7 +7573,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  104.154 1.15 107.798 0 0 
+Time elapsed:  122.3 1.391 125.699 0 0 
 > grDevices::dev.off()
 null device 
           1 

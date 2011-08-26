@@ -5,9 +5,6 @@
 \alias{vectorfit}
 \alias{factorfit}
 \alias{plot.envfit}
-\alias{print.envfit}
-\alias{print.factorfit}
-\alias{print.vectorfit}
 \alias{scores.envfit}
 
 \title{Fits an Environmental Vector or Factor onto an Ordination }

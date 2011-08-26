@@ -2,7 +2,6 @@
 \name{oecosimu}
 \alias{oecosimu}
 \alias{commsimulator}
-\alias{print.oecosimu}
 \alias{as.ts.oecosimu}
 \alias{as.mcmc.oecosimu}
 \alias{density.oecosimu}

@@ -6,7 +6,6 @@
 \alias{metaMDSredist}
 \alias{initMDS}
 \alias{postMDS}
-\alias{print.metaMDS}
 \alias{plot.metaMDS}
 \alias{points.metaMDS}
 \alias{text.metaMDS}

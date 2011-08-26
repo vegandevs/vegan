@@ -1,6 +1,5 @@
 \name{capscale}
 \alias{capscale}
-\alias{print.capscale}
 
 \title{[Partial] Constrained Analysis of Principal Coordinates or
   distance-based RDA }

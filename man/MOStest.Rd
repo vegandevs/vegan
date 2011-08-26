@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{MOStest}
 \alias{MOStest}
-\alias{print.MOStest}
 \alias{plot.MOStest}
 \alias{fieller.MOStest}
 \alias{profile.MOStest}

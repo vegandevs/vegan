@@ -1,6 +1,5 @@
 \name{decorana}
 \alias{decorana}
-\alias{print.decorana}
 \alias{summary.decorana}
 \alias{print.summary.decorana}
 \alias{plot.decorana}
@@ -8,7 +7,6 @@
 \alias{scores.decorana}
 \alias{points.decorana}
 \alias{text.decorana}
-\concept{ordination}
 
 \title{Detrended Correspondence Analysis and Basic Reciprocal Averaging }
 \description{

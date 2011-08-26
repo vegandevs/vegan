@@ -2,7 +2,6 @@
 \alias{specpool}
 \alias{specpool2vect}
 \alias{poolaccum}
-\alias{print.poolaccum}
 \alias{summary.poolaccum}
 \alias{plot.poolaccum}
 \alias{estimateR}

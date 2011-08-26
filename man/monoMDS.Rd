@@ -1,6 +1,5 @@
 \name{monoMDS}
 \alias{monoMDS}
-\alias{print.monoMDS}
 \alias{scores.monoMDS}
 \alias{plot.monoMDS}
 

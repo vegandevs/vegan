@@ -1,8 +1,6 @@
 \name{humpfit}
 \alias{humpfit}
-\alias{print.humpfit}
 \alias{summary.humpfit}
-\alias{print.summary.humpfit}
 \alias{lines.humpfit}
 \alias{plot.humpfit}
 \alias{points.humpfit}

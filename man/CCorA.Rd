@@ -1,6 +1,5 @@
 \name{CCorA}
 \alias{CCorA}
-\alias{print.CCorA}
 \alias{biplot.CCorA}
 \concept{ordination}
 
