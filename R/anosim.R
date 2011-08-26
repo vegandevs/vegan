@@ -1,4 +1,4 @@
-"anosim" <-
+`anosim` <-
     function (dat, grouping, permutations = 999,
               distance = "bray", strata) 
 {
@@ -11,7 +11,7 @@
     }
     else x <- vegdist(dat, method = distance)
     if (any(x < -sqrt(.Machine$double.eps)))
-        stop("dissimilarities must be non-negative")
+        warning("some dissimilarities are negative -- is this intentional?")
     sol <- c(call = match.call())
     grouping <- as.factor(grouping)
     matched <- function(irow, icol, grouping) {

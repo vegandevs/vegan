@@ -4,13 +4,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 1.92-1 (opened August 23, 2011)
 
-	* adonis, anosim, betadisper, mrpp: check that dissimilarities are
+	* adonis, betadisper, mrpp: check that dissimilarities are
 	non-negative (small negative values are tolerated). The test was
 	not added to meandist: there may be legitimate usages for
 	correlation-like objects although summary.meandist() is
 	invalid. The addition was triggered by a user who tried to analyse
 	Chase et al. Raup-Crick values in the range -1 .. +1 in
-	betadisper(). 
+	betadisper().
+
+	* anosim: warn if some dissimilarities are negative. Function can
+	handle negative dissimilarities because it is based on ranks, but
+	probably this is a user error (but can be intentional and correct).
 
 	* specaccum, fitspecaccum: gained predict() methods. With
 	specaccum() predict(..., newdata) can estimate values for
