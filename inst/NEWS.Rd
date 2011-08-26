@@ -16,7 +16,7 @@
       these functions you should rely on \R delegation and simply use
       \code{cca} and for its result objects use \code{plot} and
       \code{anova} without suffix \code{.cca}. To see the contents of
-      the functión you can use \code{:::}, such as
+      the function you can use \code{:::}, such as
       \code{vegan:::cca.default}. This change may break packages,
       documents or scripts that rely on non-exported names.
       
@@ -34,21 +34,22 @@
       
       \item \code{monoMDS}: a new function for non-metric
       multidimensional scaling (NMDS). This function replaces
-      \code{MASS::isoMDS} as the default method in \code{metaMDS}. Major
-      advantages of \code{monoMDS} is that it has so called
-      \sQuote{primary} or \sQuote{weak} tie treatment which means that
-      it can split tied observed dissimilarities.  \sQuote{Weak} tie
-      treatment improves ordination of heterogeneous data sets, because
-      maximum dissimilarities of \eqn{1} can be split. In addition to
-      global NMDS, \code{monoMDS} can perform local and hybrid NMDS and
-      metric MDS.  It can also handle missing and zero dissimilarities.
-      Moreover, \code{monoMDS} is faster than previous alternatives.
+      \code{MASS::isoMDS} as the default method in
+      \code{metaMDS}. Major advantages of \code{monoMDS} are that it
+      has \sQuote{primary} or \sQuote{weak} tie treatment which means
+      that it can split tied observed dissimilarities.  \sQuote{Weak}
+      tie treatment improves ordination of heterogeneous data sets,
+      because maximum dissimilarities of \eqn{1} can be split. In
+      addition to global NMDS, \code{monoMDS} can perform local and
+      hybrid NMDS and metric MDS.  It can also handle missing and zero
+      dissimilarities.  Moreover, \code{monoMDS} is faster than
+      previous alternatives.
       
       \item \code{fitspecaccum} to fit non-linear regression models to
       the species accumulation results from \code{specaccum}. The
       function can use new self-starting species accumulation models
       in \pkg{vegan} or other self-starting non-linear regression
-      models in \R. The functin can fit Arrhenius, Gleason, Gitay,
+      models in \R. The function can fit Arrhenius, Gleason, Gitay,
       Lomolino (in \pkg{vegan}), asymptotic, Gompertz,
       Michaelis-Menten, logistic and Weibull (in base \R) models. The
       function has \code{plot} and \code{predict} methods.
@@ -80,20 +81,14 @@
       \item \code{specaccum} gained \code{predict} method which uses
       either linear or spline interpolation. Extrapolation is possible
       with spline interpolation, but may make little sense.
-
-    }
-  } % end NEW FEATURES
-  
-  \subsection{BUG FIXES}{
-    \itemize{
-
-      \item \code{specpool} failed if the grouping factor \code{pool}
-      had missing values or empty factor levels.  Now also checks that
+      
+      \item \code{specpool} can handle missing values or empty factor
+      levels in the grouping factor \code{pool}.  Now also checks that
       the length of the \code{pool} matches the number of
       observations.
 
     }
-  } % end BUG FIXES
+  } % end NEW FEATURES
   
   \subsection{ANALYSES}{
     \itemize{
@@ -103,5 +98,5 @@
       
     }
   } % end ANALYSES
-}% end VERSTION 2.0   
+}% end VERSION 2.0   
    	  
