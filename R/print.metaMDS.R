@@ -11,9 +11,12 @@
     cat("Distance:", x$distance, "\n\n")
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
-    if (inherits(x, "monoMDS"))
-        cat("Stress type ", x$isform, ", ",
-            c("weak", "strong")[x$ities], " ties\n", sep = "")
+    if (inherits(x, "monoMDS")) {
+        cat("Stress type ", x$isform)
+        if(x$model != "linear")
+            cat(", ", c("weak", "strong")[x$ities], " ties", sep = "")
+        cat("\n")
+    }
     if (x$converged) 
         cat("Two convergent solutions found after", x$tries, 
             "tries\n")

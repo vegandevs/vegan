@@ -13,9 +13,10 @@
     cat(paste(modlab, "Multidimensional Scaling\n"))
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
-    cat("Stress type ", x$isform, ", ", c("weak", "strong")[x$ities], " ties\n",
-        sep = "")
-   
+    cat("Stress type ", x$isform)
+    if (x$model != "linear")
+        cat(", ", c("weak", "strong")[x$ities], " ties", sep = "")
+    cat("\n")
     stoplab <- switch(x$icause,
                       "Maximum number of iteration reached",
                       "Stress nearly zero",
