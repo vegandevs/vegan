@@ -14,7 +14,11 @@ Version 1.92-1 (opened August 23, 2011)
 
 	* anosim: warn if some dissimilarities are negative. Function can
 	handle negative dissimilarities because it is based on ranks, but
-	probably this is a user error (but can be intentional and correct).
+	probably this is a user error (but can be intentional and
+	correct).
+
+	* monoMDS: gained argument 'pc' (defaults TRUE) to rotate the
+	final scores to principal components.
 
 	* specaccum, fitspecaccum: gained predict() methods. With
 	specaccum() predict(..., newdata) can estimate values for

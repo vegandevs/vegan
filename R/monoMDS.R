@@ -2,7 +2,7 @@ monoMDS <-
     function(dist, y, k = 2,
              model = c("global", "local", "linear", "hybrid"),
              threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
-             scaling = TRUE, smin = 0.00001, sfgrmin = 0.00001,
+             scaling = TRUE, pc = TRUE, smin = 0.00001, sfgrmin = 0.00001,
              sratmax=0.99999, ...) 
 {
     model <- match.arg(model)
@@ -107,6 +107,9 @@ monoMDS <-
     sol$call <- match.call()
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)
+    if (pc)
+        sol$points <- prcomp(sol$points)$x
+    sol$pc <- pc
     rownames(sol$points) <- nm
     colnames(sol$points) <- paste("MDS", 1:k, sep="")
     class(sol) <- "monoMDS"

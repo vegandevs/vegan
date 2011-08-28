@@ -16,7 +16,8 @@
 \usage{
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"), 
     threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
-    scaling = TRUE, smin = 0.00001, sfgrmin = 0.00001, sratmax=0.99999, ...) 
+    scaling = TRUE, pc = TRUE, smin = 0.00001, sfgrmin = 0.00001, 
+    sratmax=0.99999, ...) 
 \method{scores}{monoMDS}(x, ...)
 \method{plot}{monoMDS}(x, choices = c(1,2), type = "t", ...)
 }
@@ -47,6 +48,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   \item{stress}{Use stress type 1 or 2 (see Details).}
 
   \item{scaling}{Scale final scores to unit root mean squares.}
+
+  \item{pc}{Rotate final scores to principal components.}
 
   \item{smin, sfgrmin, sratmax}{Convergence criteria: iterations stop
     when stress drops below \code{smin}, scale factor of the gradient
