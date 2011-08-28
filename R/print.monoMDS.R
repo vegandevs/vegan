@@ -10,7 +10,12 @@
                      local = "Local non-metric",
                      linear = "Linear",
                      hybrid = "Hybrid")
-    cat(paste(modlab, "Multidimensional Scaling\n"))
+    cat(paste(modlab, "Multidimensional Scaling\n\n"))
+    cat(x$nobj, "points")
+    cat(", dissimilarity", sQuote(x$distmethod))
+    if (!is.null(x$distcall))
+        cat(", call", sQuote(x$distcall))
+    cat("\n\n")
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
     cat("Stress type", x$isform)

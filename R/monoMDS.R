@@ -6,6 +6,13 @@ monoMDS <-
              sratmax=0.99999, ...) 
 {
     model <- match.arg(model)
+    ## save 'dist' attributes to display in print()
+    distmethod <- attr(dist, "method")
+    if (is.null(distmethod))
+        distmethod <- "unknown"
+    distcall <-attr(dist, "call")
+    if (!is.null(distcall))
+        distcall <- deparse(distcall)
     ## dist to mat
     mat <- as.matrix(dist)
     nm <- rownames(mat)
@@ -112,6 +119,9 @@ monoMDS <-
     attr(sol$points, "pc") <- pc
     rownames(sol$points) <- nm
     colnames(sol$points) <- paste("MDS", 1:k, sep="")
+    ## save info on dissimilarities
+    sol$distmethod <- distmethod
+    sol$distcall <- distcall
     class(sol) <- "monoMDS"
     sol
 }
