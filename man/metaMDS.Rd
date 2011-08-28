@@ -10,7 +10,6 @@
 \alias{points.metaMDS}
 \alias{text.metaMDS}
 \alias{scores.metaMDS}
-\alias{metaMDSrotate}
 
 \title{Nonmetric Multidimensional Scaling with Stable Solution from
   Random Starts, Axis Scaling and Species Scores}
@@ -46,7 +45,6 @@ initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
     nthreshold=10, plot=FALSE, ...)
 metaMDSredist(object, ...)
-metaMDSrotate(object, vec, na.rm = FALSE, ...)
 }
 
 \arguments{
@@ -130,14 +128,11 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
  \item{threshold}{Largest dissimilarity used in half-change scaling. }
  \item{nthreshold}{ Minimum number of points in half-change scaling. }
  \item{object}{A result object from \code{metaMDS}.}
- \item{vec}{A continuous site variable (vector).}
- \item{na.rm}{Remove missing values from continuous variable \code{vec}.}
- 
-  \item{\dots}{Other parameters passed to functions. Function
-    \code{metaMDS} passes all arguments to its component functions
-    \code{metaMDSdist}, \code{metaMDSiter}, \code{postMDS}, and to
-    \code{distfun} and \code{engine}.}  
-}
+
+ \item{\dots}{Other parameters passed to functions. Function
+   \code{metaMDS} passes all arguments to its component functions
+   \code{metaMDSdist}, \code{metaMDSiter}, \code{postMDS}, and to
+   \code{distfun} and \code{engine}.}  }
 
 \details{ Non-metric Multidimensional Scaling (NMDS) is commonly
   regarded as the most robust unconstrained ordination method in
@@ -226,7 +221,7 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
     orientation of axes in NMDS: Centring moves the origin to the
     average of the axes; Principal components rotate the configuration
     so that the variance of points is maximized on first dimension
-    (with function \code{metaMDSrotate} you can alternatively rotate
+    (with function \code{\link{MDSrotate}} you can alternatively rotate
     the configuration so that the first axis is parallel to an
     environmental variable); Half-change scaling scales the
     configuration so that one unit means halving of community
@@ -320,7 +315,7 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
   \code{\link{decostand}},
   \code{\link{wisconsin}}, 
   \code{\link{vegdist}}, \code{\link{rankindex}}, \code{\link{stepacross}}, 
-  \code{\link{procrustes}}, \code{\link{wascores}},
+  \code{\link{procrustes}}, \code{\link{wascores}}, \code{\link{MDSrotate}},
   \code{\link{ordiplot}}.
 }
 

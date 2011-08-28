@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 1.92-1
+This is vegan 1.92-2
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -133,6 +133,45 @@ adj. RDA R squares -0.12553 -0.0250
 > 
 > 
 > cleanEx()
+> nameEx("MDSrotate")
+> ### * MDSrotate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MDSrotate
+> ### Title: Rotate First MDS Dimension Parallel to an External Variable
+> ### Aliases: MDSrotate
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(varespec)
+> data(varechem)
+> mod <- monoMDS(vegdist(varespec))
+> mod <- with(varechem, MDSrotate(mod, pH))
+> plot(mod)
+> ef <- envfit(mod ~ pH, varechem)
+> plot(ef)
+> ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
+Loading required package: mgcv
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+y ~ poly(x1, 1) + poly(x2, 1)
+<environment: 0x102383db8>
+Total model degrees of freedom 3 
+
+GCV score: 0.0427924
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:mgcv’
+
 > nameEx("MOStest")
 > ### * MOStest
 > 
@@ -3394,7 +3433,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Title: Nonmetric Multidimensional Scaling with Stable Solution from
 > ###   Random Starts, Axis Scaling and Species Scores
 > ### Aliases: metaMDS metaMDSdist metaMDSiter metaMDSredist initMDS postMDS
-> ###   plot.metaMDS points.metaMDS text.metaMDS scores.metaMDS metaMDSrotate
+> ###   plot.metaMDS points.metaMDS text.metaMDS scores.metaMDS
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4688,7 +4727,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10399f0d8>
+<environment: 0x10684e8a0>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4704,7 +4743,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104fecd18>
+<environment: 0x1067b0430>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4860,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106763ed0>
+<environment: 0x106c4c3f8>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4873,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1066d1940>
+<environment: 0x1069610b0>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4886,7 +4925,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106ba20b0>
+<environment: 0x106ba78b0>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7109,7 +7148,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107530ce0>
+<environment: 0x106ea3c78>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7574,7 +7613,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.993 1.147 107.236 0 0 
+Time elapsed:  148.95 1.66 152.883 0 0 
 > grDevices::dev.off()
 null device 
           1 

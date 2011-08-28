@@ -1,5 +1,6 @@
-### Rotates metaMDS result so that axis one is parallel to vector 'x'
-`metaMDSrotate` <-
+### Rotates metaMDS or monoMDS result so that axis one is parallel to
+### vector 'x'.
+`MDSrotate` <-
     function(object, vec, na.rm = FALSE, ...) 
 {
     workswith <- c("metaMDS", "monoMDS")

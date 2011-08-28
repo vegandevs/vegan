@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 1.92-1 (opened August 23, 2011)
+Version 1.92-2 (opened August 28, 2011)
+
+	* MDSrotate: metaMDSrotate() was renamed to MDSrotate(), and
+	metaMDSrotate() was .Deprecated. 
+	
+Version 1.92-1 (closed August 28, 2011)
 
 	* adonis, betadisper, mrpp: check that dissimilarities are
 	non-negative (small negative values are tolerated). The test was
@@ -18,7 +23,7 @@ Version 1.92-1 (opened August 23, 2011)
 	correct).
 
 	* metaMDSrotate: can rotate monoMDS() results.
-	
+
 	* monoMDS: gained argument 'pc' (defaults TRUE) to rotate the
 	final scores to principal components.
 

@@ -12,7 +12,7 @@ drarefy, eigengrad, eigenvals, envfit, estaccumR, estimateR,
 factorfit, fisherfit, fitspecaccum, goodness, hiersimu, humpfit,
 indpower, inertcomp, initMDS, intersetcor, isomapdist, isomap,
 linestack, mantel, meandist, metaMDSdist, metaMDSiter, metaMDSredist,
-metaMDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart,
+MDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart,
 nestedchecker, nesteddisc, nestedn0, nestednodf, nestedtemp, oecosimu,
 ordiR2step, ordiarrows, ordicloud, ordicluster,
 ordiellipse, ordigrid, ordihull, ordilabel, ordiplot3d,
@@ -32,6 +32,8 @@ vegemite, veiledspec, wascores, wcmdscale, wisconsin)
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
+## Export as.mcmc for coda
+export(as.mcmc.oecosimu, as.mcmc.permat)
 
 ## export regular functions with dot names
 
@@ -44,9 +46,8 @@ rgl.renyiaccum, vif.cca)
 ## Export panel functions
 export(panel.ordi, panel.ordi3d, prepanel.ordi3d)
 
-
-## Export as.mcmc for coda
-export(as.mcmc.oecosimu, as.mcmc.permat)
+## Export .Depracated functions (to be removed later)
+export(metaMDSrotate)
 
 ## do NOT export the following internal functions
 

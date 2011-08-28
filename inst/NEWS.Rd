@@ -43,7 +43,12 @@
       addition to global NMDS, \code{monoMDS} can perform local and
       hybrid NMDS and metric MDS.  It can also handle missing and zero
       dissimilarities.  Moreover, \code{monoMDS} is faster than
-      previous alternatives.
+      previous alternatives. 
+
+      \item \code{MDSrotate} a new function to replace
+      \code{metaMDSrotate}. This function can rotate both
+      \code{metaMDS} and \code{monoMDS} results so that the first axis
+      is parallel to an environmental vector.
       
       \item \code{fitspecaccum} to fit non-linear regression models to
       the species accumulation results from \code{specaccum}. The
@@ -89,6 +94,16 @@
 
     }
   } % end NEW FEATURES
+
+  \subsection{DEPRECATED}{
+    \itemize{
+
+      \item \code{metaMDSrotate} was replaced with \code{MDSrotate}
+      that can also handle the results of \code{monoMDS}.
+
+    }  
+    
+  } % end DEPRECATED
   
   \subsection{ANALYSES}{
     \itemize{
