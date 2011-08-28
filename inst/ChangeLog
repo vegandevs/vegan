@@ -9,6 +9,9 @@ Version 1.92-2 (opened August 28, 2011)
 
 	* MDSrotate: metaMDSrotate() was renamed to MDSrotate(), and
 	metaMDSrotate() was .Deprecated. 
+
+	* meandist: warns if some dissimilarities are negative (small
+	negative values are tolerated).
 	
 Version 1.92-1 (closed August 28, 2011)
 
