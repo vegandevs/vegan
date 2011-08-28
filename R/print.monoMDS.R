@@ -22,7 +22,7 @@
         cat("scaled to unit root mean square")
     else
         cat("unscaled")
-    if (x$pc)
+    if (attr(x$points, "pc"))
         cat(", rotated to principal components")
     cat("\n")
     stoplab <- switch(x$icause,

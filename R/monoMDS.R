@@ -109,7 +109,7 @@ monoMDS <-
     sol$points <- matrix(sol$points, nobj, k)
     if (pc)
         sol$points <- prcomp(sol$points)$x
-    sol$pc <- pc
+    attr(sol$points, "pc") <- pc
     rownames(sol$points) <- nm
     colnames(sol$points) <- paste("MDS", 1:k, sep="")
     class(sol) <- "monoMDS"

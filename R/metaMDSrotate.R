@@ -2,10 +2,15 @@
 `metaMDSrotate` <-
     function(object, vec, na.rm = FALSE, ...) 
 {
-    if (!inherits(object, "metaMDS"))
-        stop(gettextf("function works only with 'metaMDS' results"))
+    workswith <- c("metaMDS", "monoMDS")
+    if (!inherits(object, workswith))
+        stop(gettextf("function works only with the results of: %s",
+                      paste(workswith, collapse = ", ")))
     x <- object$points
-    sp <- object$species
+    if (is.null(object$species))
+        sp <- NA
+    else
+        sp <- object$species
     N <- NCOL(x)
     if (N < 2)
         stop(gettextf("needs at least 2 dimensions"))

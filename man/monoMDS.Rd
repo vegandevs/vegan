@@ -128,6 +128,15 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   \code{\link{stressplot}} can be used to display the kind of
   regression in each \code{model}.
 
+  Scaling, orientation and direction of the axes is arbitrary.
+  However, the function always centres the axes, and the default
+  \code{scaling} is to scale the configuration ot unit root mean
+  square and to rotate the axes (argument \code{pc}) to principal
+  components so that the first dimension shows the major variation.
+  It is possible to rotate the solution so that the first axis is
+  parallel to a given environmental variable using fuction
+  \code{\link{metaMDSrotate}}.
+
 }
 
 \value{ Returns an object of class \code{"monoMDS"}. The final scores

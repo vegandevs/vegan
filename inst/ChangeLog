@@ -17,6 +17,8 @@ Version 1.92-1 (opened August 23, 2011)
 	probably this is a user error (but can be intentional and
 	correct).
 
+	* metaMDSrotate: can rotate monoMDS() results.
+	
 	* monoMDS: gained argument 'pc' (defaults TRUE) to rotate the
 	final scores to principal components.
 
