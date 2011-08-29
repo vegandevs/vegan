@@ -5,7 +5,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 1.92-2 (opened August 28, 2011)
 
 	* monoMDS: saves and displays info on the dissimilarities used,
-	and displays the number of points.
+	and displays the number of points. Checks that input is
+	dissimilarities, and warns on negative ones.
 
 	* MDSrotate: metaMDSrotate() was renamed to MDSrotate(), and
 	metaMDSrotate() was .Deprecated. 

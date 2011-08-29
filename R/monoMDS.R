@@ -1,10 +1,18 @@
-monoMDS <-
+`monoMDS` <-
     function(dist, y, k = 2,
              model = c("global", "local", "linear", "hybrid"),
              threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
              scaling = TRUE, pc = TRUE, smin = 0.00001, sfgrmin = 0.00001,
              sratmax=0.99999, ...) 
 {
+    ## Check that 'dist' are distances or a symmetric square matrix
+    if (!(inherits(dist, "dist") || (is.matrix(dist) || is.data.frame(dist))
+          && ncol(dist) == nrow(dist)
+          && isTRUE(all.equal(dist[lower.tri(dist)], t(dist)[lower.tri(dist)]))))
+        stop("'dist' must be a distance object (class \"dist\") or a symmetric square matrix")
+    if (any(dist < -sqrt(.Machine$double.eps)))
+        warning("some dissimilarities are negative -- is this intentional?")
+    ## match.arg
     model <- match.arg(model)
     ## save 'dist' attributes to display in print()
     distmethod <- attr(dist, "method")
