@@ -2,7 +2,7 @@
     function(dist, grouping, ...)
 {
     ## check that 'dist' are dissimilarities (non-negative)
-    if (any(x < -sqrt(.Machine$double.eps)))
+    if (any(dist < -sqrt(.Machine$double.eps)))
         warning("some dissimilarities are negative -- is this intentional?")
     ## merge levels so that lower is always first (filling lower triangle)
     mergenames <- function(X, Y, ...) {
