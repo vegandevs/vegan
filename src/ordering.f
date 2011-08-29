@@ -93,9 +93,9 @@ C      Step 4: Calculate new site scores (equation 5.9, p. 122)
 C      Step 6: Normalize the site scores
       call NormTWWS(rowscore,n,newS)
       if(newS.lt.epsilon) then
-         write(*,103) 0
+C         write(*,103) 0
          goto 52
-         endif
+      endif
 C When convergence has been attained, check sign of eigenvalue.
 C If ALL rowscores have changed sign during the last iteration, 
 C this is a negative eigenvalue.
