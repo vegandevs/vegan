@@ -12,7 +12,7 @@
     cat("Dimensions:", x$ndim, "\n")
     cat("Stress:    ", x$stress, "\n")
     if (inherits(x, "monoMDS")) {
-        cat("Stress type ", x$isform)
+        cat("Stress type", x$isform)
         if(x$model != "linear")
             cat(", ", c("weak", "strong")[x$ities], " ties", sep = "")
         cat("\n")
