@@ -13,6 +13,9 @@ Version 1.92-2 (opened August 28, 2011)
 
 	* meandist: warns if some dissimilarities are negative (small
 	negative values are tolerated).
+
+	* vegandocs: copied branches/1.17/inst/NEWS as ONEWS (old news),
+	and adapted vegandocs. Expanded documentation of vegandocs().
 	
 Version 1.92-1 (closed August 28, 2011)
 
