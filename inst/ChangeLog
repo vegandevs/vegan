@@ -1,8 +1,12 @@
 $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
+ 
+Version 2.0-0 (opened September 3, 2011)
 
-Version 1.92-2 (opened August 28, 2011)
+	* opened the release candidate ov vegan_2.0-0.
+
+Version 1.92-2 (closed September 3, 2011)
 
 	* monoMDS: saves and displays info on the dissimilarities used,
 	and displays the number of points. Checks that input is
