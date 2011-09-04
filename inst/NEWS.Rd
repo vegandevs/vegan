@@ -49,6 +49,14 @@
       \code{metaMDSrotate}. This function can rotate both
       \code{metaMDS} and \code{monoMDS} results so that the first axis
       is parallel to an environmental vector.
+
+      \item \code{eventstar} finds the minimum of the evenness profile
+      on the Tsallis entropy, and uses this to find the corresponding
+      values of diversity, evenness and numbers equivalent following
+      Mendes et al. (Ecography 31, 450-456; 2008). The code was
+      contributed by Eduardo Ribeira Cunha and Heloisa Beatriz
+      Antoniazi Evangelista and adapted to \pkg{vegan} by Peter
+      Solymos.
       
       \item \code{fitspecaccum} to fit non-linear regression models to
       the species accumulation results from \code{specaccum}. The
