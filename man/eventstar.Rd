@@ -1,10 +1,12 @@
+\encoding{UTF-8}
 \name{eventstar}
 \alias{eventstar}
+
 \title{
 Scale Parameter at the Minimum of the Tsallis Evenness Profile
 }
 \description{
-The function \code{eventstar} finds the minimum (\eqn{q\ast}{q*}) of the 
+The function \code{eventstar} finds the minimum (\eqn{q^*}{q*}) of the 
 evenness profile based on the Tsallis entropy. This scale factor
 of the entropy represents a specific weighting of species
 relative frequencies that leads to minimum evenness of the
@@ -27,45 +29,45 @@ in the range \code{c(0, qmax)}.
 The function \code{eventstar} finds a characteristic value of the scale 
 parameter \eqn{q} of the Tsallis entropy corresponding to
 minimum of the evenness (equitability) profile based on Tsallis entropy.
-This value was proposed by Mendes et al. (2008) as \eqn{q\ast}{q*}.
+This value was proposed by Mendes et al. (2008) as \eqn{q^*}{q*}.
 
-The \eqn{q\ast}{q*} index represents the scale parameter of
+The \eqn{q^\ast}{q*} index represents the scale parameter of
 the one parameter Tsallis diversity family that leads to
 the greatest deviation from the maximum equitability given the relative 
 abundance vactor of a community.
 
-The value of \eqn{q\ast}{q*} is found by identifying the minimum
+The value of \eqn{q^\ast}{q*} is found by identifying the minimum
 of the evenness profile over scaling factor \eqn{q}{q} by
 one-dimensional minimization. Because evenness profile is
 known to be a convex function, it is guaranteed that underlying
 \code{\link{optimize}} function will find a unique solution
 if it is in the range \code{c(0, qmax)}.
 
-The scale parameter value \eqn{q\ast}{q*} is used to 
-find corresponding values of diversity (\eqn{H_{q\ast}}{H.q*}), 
-evenness (\eqn{H_{q\ast}(max)}{H.q*(max)}),
-and numbers equivalent (\eqn{D_{q\ast}}{D.q*}). For calculation
-details see \code{\link{tsallis}} and Examples below.
+The scale parameter value \eqn{q^\ast}{q*} is used to 
+find corresponding values of diversity (\eqn{H_{q^\ast}}{H.q*}), 
+evenness (\eqn{H_{q^\ast}(\max)}{H.q*(max)}),
+and numbers equivalent (\eqn{D_{q^\ast}}{D.q*}). For calculation
+details, see \code{\link{tsallis}} and Examples below.
 
-Mendes et al. (2008) advocated the use of \eqn{q\ast}{q*}
+Mendes et al. (2008) advocated the use of \eqn{q^\ast}{q*}
 and corresponding diversity, evenness, and Hill numbers, because
 it is a unique value representing the diversity profile, and is
-is positively associated by rare species in the community,
+is positively associated with rare species in the community,
 thus it is a potentially useful indicator of certain
 relative abundance distributions of the communities.
 }
 \value{
 A data frame with columns:
 \itemize{
-  \item{\code{qstar}}{scale parameter value \eqn{q\ast}{q*}
+  \item{\code{qstar}}{ scale parameter value \eqn{q\ast}{q*}
     corresponding to minimum value of Tsallis based evenness profile.}
-  \item{\code{Estar}}{Value of evenness based on normalized Tsallis 
-    entropy at \eqn{q\ast}{q*}.}
-  \item{\code{Hstar}}{Value of Tsallis entropy at \eqn{q\ast}{q*}.}
-  \item{\code{Dstar}}{Value of Tsallis entropy at \eqn{q\ast}{q*} 
+  \item{\code{Estar}}{ Value of evenness based on normalized Tsallis 
+    entropy at \eqn{q^\ast}{q*}.}
+  \item{\code{Hstar}}{ Value of Tsallis entropy at \eqn{q^\ast}{q*}.}
+  \item{\code{Dstar}}{ Value of Tsallis entropy at \eqn{q^\ast}{q*} 
     converted to numbers equivalents
-    ( also called as Hill numbers, effective number of species, 
-    'true' diversity; cf. Jost 2007).}
+    (also called as Hill numbers, effective number of species, 
+    \sQuote{true} diversity; cf. Jost 2007).}
 }
 See \code{\link{tsallis}} for calculation details.
 }
@@ -82,10 +84,10 @@ Tsallis, C. (1988) Possible generalization of Boltzmann-Gibbs statistics.
   \emph{J. Stat. Phis.} \bold{52}, 479--487.
 }
 \note{
-Values for \eqn{q\ast}{q*} found by Mendes et al. (2008) ranged
+Values for \eqn{q^\ast}{q*} found by Mendes et al. (2008) ranged
 from 0.56 and 1.12 presenting low variability, so an
 interval between 0 and 5 should safely encompass
-the possibly expected \eqn{q\ast}{q*} values in practice,
+the possibly expected \eqn{q^\ast}{q*} values in practice,
 but profiling the evenness and changing the value of
 the \code{qmax} argument is advised if output values
 near the range limits are found.
@@ -93,7 +95,7 @@ near the range limits are found.
 \author{
 Eduardo Ribeiro Cunha \email{edurcunha@gmail.com} and 
 Heloisa Beatriz Antoniazi Evangelista \email{helobeatriz@gmail.com}, 
-with tecnical input from Peter Solymos
+with technical input of Péter Sólymos.
 }
 \seealso{
 Tsallis entropy: \code{\link{tsallis}}
