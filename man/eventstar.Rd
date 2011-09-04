@@ -1,6 +1,8 @@
 \name{eventstar}
 \alias{eventstar}
-\title{Minimum of Tsallis Entropy Based Evenness Profile}
+\title{
+Scale Parameter at the Minimum of the Tsallis Evenness Profile
+}
 \description{
 The function \code{eventstar} finds the minimum (\eqn{q\ast}{q*}) of the 
 evenness profile based on the Tsallis entropy. This scale factor
