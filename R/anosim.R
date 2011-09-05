@@ -18,7 +18,7 @@
         grouping[irow] == grouping[icol]
     }
     x.rank <- rank(x)
-    N <- attributes(x)$Size
+    N <- attr(x, "Size")
     div <- length(x)/2
     irow <- as.vector(as.dist(row(matrix(nrow = N, ncol = N))))
     icol <- as.vector(as.dist(col(matrix(nrow = N, ncol = N))))

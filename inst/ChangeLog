@@ -6,6 +6,15 @@ Version 2.0-0 (opened September 3, 2011)
 
 	* opened the release candidate ov vegan_2.0-0.
 
+	* some old functions used attributes(x)$which instead of more
+	correct attr(x, "which"), and in addition postMDS() used
+	attributes(x)$names instead of names(). Concerns anosim(),
+	initMDS(), postMDS(), mantel(), mantel.partial() and
+	mso(). initMDS() was one of the two functions that was unchanged
+	since the first vegan release on 6/9/01, and it was changed day
+	before it turned ten-years-old. After this, wisconsin() is the
+	only unchanged function from the first release.
+
 Version 1.92-2 (closed September 3, 2011)
 
 	* monoMDS: saves and displays info on the dissimilarities used,

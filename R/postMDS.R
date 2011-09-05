@@ -2,8 +2,8 @@
     function (X, dist, pc = TRUE, center = TRUE, halfchange, 
               threshold = 0.8, nthreshold = 10, plot = FALSE, ...) 
 {
-    Size <- attributes(dist)$Size
-    if (any(attributes(X)$names == "points")) 
+    Size <- attr(dist, "Size")
+    if (any(names(X) == "points")) 
         x <- X$points
     else x <- as.matrix(X)
     if (center) 
@@ -71,7 +71,7 @@
     attr(x, "centre") <- center
     attr(x, "pc") <- pc
     attr(x, "halfchange") <- halfchange
-    if (any(attributes(X)$names == "points")) 
+    if (any(names(X) == "points")) 
         X$points <- x
     else X <- x
     X

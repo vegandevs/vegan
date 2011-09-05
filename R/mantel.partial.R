@@ -15,7 +15,7 @@
     rxy <- rxy$estimate
     statistic <- part.cor(rxy, rxz, ryz)
     if (permutations) {
-        N <- attributes(xdis)$Size
+        N <- attr(xdis, "Size")
         perm <- rep(0, permutations)
         xmat <- as.matrix(xdis)
         asdist <- row(xmat) > col(xmat)

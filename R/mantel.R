@@ -8,7 +8,7 @@
     statistic <- as.numeric(tmp$estimate)
     variant <- tmp$method
     if (permutations) {
-        N <- attributes(xdis)$Size
+        N <- attr(xdis, "Size")
         perm <- rep(0, permutations)
         ## asdist asn an index selects lower diagonal like as.dist,
         ## but is faster since it does not seet 'dist' attributes

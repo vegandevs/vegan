@@ -65,7 +65,7 @@
             object$H.test[, i] <- as.numeric(object$H == object$vario$H[i])
         }
         xdis <- dist(object$CA$Xbar)^2
-        N <- attributes(xdis)$Size
+        N <- attr(xdis, "Size")
         statistic <- abs(cor(as.vector(xdis), object$H.test))
         perm <- matrix(0, length(statistic), permutations)
         for (i in 1:permutations) {
