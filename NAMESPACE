@@ -34,6 +34,8 @@ export(pasteCall)
 export(anova.cca)
 ## Export as.mcmc for coda
 export(as.mcmc.oecosimu, as.mcmc.permat)
+## DEFUNCT: export names defined in vegan-defunct
+export(permuted.index2, getNumObs)
 
 ## export regular functions with dot names
 

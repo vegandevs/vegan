@@ -16,6 +16,9 @@ Version 2.0-0 (released September 7, 2011)
 	before it turned ten-years-old. After this, wisconsin() is the
 	only unchanged function from the first release.
 
+	* vegan-defunct: put definitions of removed "new" permutation
+	functions to vegan-defunct and have a vegan-defunct.Rd for them. 
+
 Version 1.92-2 (closed September 3, 2011)
 
 	* monoMDS: saves and displays info on the dissimilarities used,
