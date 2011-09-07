@@ -11,7 +11,17 @@
 
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
-\Abstract{ }
+
+\Abstract{ This document explains diversity related methods in
+  \pkg{vegan}. The methods are briefly described, and the equations
+  used them are given often in more detail than in their help
+  pages. The methods discussed include common diversity indices and
+  rarefaction, families of diversity indices, species abundance
+  models, species accumulation models and beta diversity, extrapolated
+  richness and probability of being a member of the species pool. The
+  document is still incomplete and does not cover all diversity
+  methods in \pkg{vegan}.}
+
 \Keywords{diversity, Shannon, Simpson, R{\'e}nyi, Hill number,
   Tsallis, rarefaction, species accumulation, beta diversity, species
   abundance, Fisher alpha, Fisher logarithmic series, Preston
