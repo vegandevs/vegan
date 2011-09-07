@@ -2,9 +2,10 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
  
-Version 2.0-0 (opened September 3, 2011)
+Version 2.0-0 (released September 7, 2011)
 
-	* opened the release candidate ov vegan_2.0-0.
+	* opened the release candidate ov vegan_2.0-0 on September 3,
+	2011. 
 
 	* some old functions used attributes(x)$which instead of more
 	correct attr(x, "which"), and in addition postMDS() used
