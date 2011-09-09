@@ -6,7 +6,7 @@ useDynLib(vegan)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bstick, cIndexKM, calibrate, capscale, cascadeKM,
-cca, commsimulator, contribdiv, decorana, decostand, designdist,
+cca, commsimulator, contribdiv, clamtest, decorana, decostand, designdist,
 coverscale, dispindmorisita, distconnected, diversity, downweight,
 drarefy, eigengrad, eigenvals, envfit, estaccumR, estimateR, eventstar,
 factorfit, fisherfit, fitspecaccum, goodness, hiersimu, humpfit,
@@ -211,6 +211,7 @@ S3method(plot, betadiver)
 S3method(plot, cascadeKM)
 S3method(plot, cca)
 S3method(plot, contribdiv)
+S3method(plot, clamtest)
 S3method(plot, decorana)
 S3method(plot, envfit)
 S3method(plot, fisherfit)
@@ -302,6 +303,7 @@ S3method(print, radline)
 S3method(print, specaccum)
 S3method(print, summary.bioenv)
 S3method(print, summary.cca)
+S3method(print, summary.clamtest)
 S3method(print, summary.decorana)
 S3method(print, summary.humpfit)
 S3method(print, summary.isomap)
@@ -360,6 +362,7 @@ S3method(stressplot, monoMDS)
 S3method(summary, anosim)
 S3method(summary, bioenv)
 S3method(summary, cca)
+S3method(summary, clamtest)
 S3method(summary, decorana)
 S3method(summary, eigenvals)
 S3method(summary, humpfit)

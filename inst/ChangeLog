@@ -17,6 +17,16 @@ Version 2.1-0 (opened September 8, 2011)
 	called repeatedly by the corresponding permatfull and permatswap
 	functions.
 
+	* New function: clamtest (with summary and plot methods).
+	The method uses a multinomial model based on estimated species
+	relative abundance in two habitats, it minimizes bias 
+	due to differences in sampling intensities between two 
+	habitat types as well as bias due to insufficient sampling within each
+	habitat. The method permits a robust statistical classification 
+	of habitat specialists and generalists, without excluding rare 
+	species a priori. Based on Chazdon et al. 2011 (Ecology, 92, 1332--1343).
+
+
 Version 2.0-0 (released September 8, 2011)
 
 	* opened the release candidate ov vegan_2.0-0 on September 3,
