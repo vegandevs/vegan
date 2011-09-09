@@ -179,12 +179,16 @@ double isDiag(double *sm)
 	    if (sm[i] > 0)
 		    sX++;
 
+    /* quick return if there really is nothing to do */
+    if (sX == 0)
+        return 0;
+
     /* Smallest diagonal and antidiagonal element */
     choose[0] = (sm[1] < sm[2]) ? sm[1] : sm[2];
     choose[1] = (sm[0] < sm[3]) ? -sm[0] : -sm[3]; 
 
     if (sX == 4) {
-        /* Either choose could be returned, but RNG is not needed,
+	 /* Either choose could be returned, but RNG is not needed, 
 	 * because sm already is in random order, and we always return
 	 * choose[0] */
 	    return choose[0];
@@ -320,6 +324,8 @@ double isDiagSimple(double *sm)
 	if (sm[i] > 0)
 	    sX++;
 
+    if (sX == 0)
+	return 0;
     if (sX == 4) {
 	return 1;
     }
