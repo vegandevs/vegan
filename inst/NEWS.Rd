@@ -2,6 +2,18 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-1}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Function \code{permatswap} for community null models using
+      quantitative swap never swapped items in a \eqn{2 \times 2}{2x2}
+      submatrix if all cells were filled.
+
+    }	
+  } % end BUG FIXES
+} % end version 2.0-1
+
 \section{Changes in version 2.0-0}{
   \subsection{GENERAL}{
     \itemize{
