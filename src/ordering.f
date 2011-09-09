@@ -7,8 +7,8 @@ C Based on Pierre Legendre Fortran code and Table 9.5 and 9.10
 C We compute the principal coordinate of the first axis only.
 C Set the precision level for eigenvalue estimation
       Integer mat(n,k)
-      Real sumrow(n),sumtot
-      real*8 rowscore(n),colscore(n),toler,epsilon
+      double precision sumrow(n), sumtot
+      double precision rowscore(n),colscore(n),toler,epsilon
       epsilon=0.000001
       toler=  0.000001
       if(n.gt.1000) then
@@ -26,8 +26,8 @@ C Centre the distance matrix (Gower's method)
 
       Subroutine Centre(mat, n, k, sumrow, sumtot)
       Integer mat(n,k)
-      Real d
-      Real sumrow(n),sumtot
+      double precision d
+      double precision sumrow(n),sumtot
       do i=1,n
          sumrow(i)=0.0
          enddo
@@ -56,7 +56,7 @@ C   16 d(i,j)=d(i,j)-sumrow(i)-sumrow(j)+sumtot
 C Compute a simple matching coefficient from a table of K-means results (integers).
 C The 'n' rows are the objects; the 'k' columns are the partitions.
       Integer mat(n,k)
-      Real d
+      double precision d
 C
       a = 0.0
       do kk=1,k
@@ -69,8 +69,8 @@ C
      +                toler,epsilon)
       Integer n, niter
       Integer mat(n,k)
-      Real sumrow(n),sumtot,d
-      Real*8 rowscore(n),colscore(n),epsilon,oldS,newS,toler,
+      double precision sumrow(n),sumtot,d
+      double precision rowscore(n),colscore(n),epsilon,oldS,newS,toler,
      +       oldrowsc(n)
       niter=1000
 C      Step 2: Take the column order as arbitrary initial site scores
@@ -123,7 +123,7 @@ C      write(*,*) rowscore
 C  101 format(' Convergence not reached for axis:',i3/
 C     +       ' Increase NITER or lower TOLER')
 C  102 format(' N. iterations to reach convergence for axis',i3,' =',i4)
-  103 format(' There are',i4,' eigenvalues different from 0')
+C  103 format(' There are',i4,' eigenvalues different from 0')
 C  104 format(' Eigenvector',i3,' is complex [multiply values*Sqrt(-1)]')
 C  105 format(" Tolerance is: ", F12.8, "  NIter is: ", i4)
 
@@ -134,7 +134,7 @@ C  151 format(1x,1hC,2i3,10x,6f10.5)
 
       Subroutine NormTWWS(rowscore,n,newS)
       Integer n
-      Real*8 rowscore(n),s2,newS
+      double precision rowscore(n),s2,newS
 C      Normalization for two-way weighted summation algorithm for PCA
 C      (ter Braak 1987: 123)
 C      On output, vector 'rowscore' has length = 1.
