@@ -8,9 +8,14 @@ Version 2.1-0 (opened September 8, 2011)
 	September 8, 2011.
 
 	* permatswap: there was a bug in internal C routine, and therefore
-	not all permissible swaps were performed. We have not yet analysed
-	the effects of this bug, and do not know its severity. It is
-	recommended to re-run all analyses.
+	not all permissible swaps were performed. Based on limited
+	analysis, the effects of this bug seem to be negligible. 
+	It is, however, recommended to re-run all analyses.
+
+	* New functions: permatfull1 and permatswap1. Both functions
+	return a single permuted matrix. These functions are now 
+	called repeatedly by the corresponding permatfull and permatswap
+	functions.
 
 Version 2.0-0 (released September 8, 2011)
 

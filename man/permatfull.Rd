@@ -1,7 +1,9 @@
 \encoding{UTF-8}
 \name{permat}
 \alias{permatfull}
+\alias{permatfull1}
 \alias{permatswap}
+\alias{permatswap1}
 \alias{summary.permat}
 \alias{print.summary.permat}
 \alias{print.permat}
@@ -20,6 +22,10 @@ restricted permutations (based on strata) are discussed in the
 Details section.}
 
 \usage{
+permatfull1(m, fixedmar = "both", shuffle = "both", strata = NULL, 
+    mtype = "count")
+permatswap1(m, method = "quasiswap", fixedmar="both", shuffle = "both",
+    strata = NULL, mtype = "count", thin = 1)
 permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL, 
     mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
@@ -177,7 +183,12 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   is useful for accessing diagnostic tools available in the \pkg{coda}
   package.  }
 
-\value{ Functions \code{permatfull} and \code{permatswap} return an
+\value{ Functions \code{permatfull1} and \code{permatswap1} return a
+  single permuted matrix. These functions are called repeatedly
+  by the corresponding \code{permatfull} and \code{permatswap}
+  functions.
+
+  Functions \code{permatfull} and \code{permatswap} return an
   object of class \code{"permat"} containing the the function call
   (\code{call}), the original data matrix used for permutations
   (\code{orig}) and a list of permuted matrices with length \code{times}
