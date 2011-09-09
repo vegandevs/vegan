@@ -7,6 +7,11 @@ Version 2.1-0 (opened September 8, 2011)
 	* New major version opened with the release of vegan_2.0-0 on
 	September 8, 2011.
 
+	* permatswap: there was a bug in internal C routine, and therefore
+	not all permissible swaps were performed. We have not yet analysed
+	the effects of this bug, and do not know its severity. It is
+	recommended to re-run all analyses.
+
 Version 2.0-0 (released September 8, 2011)
 
 	* opened the release candidate ov vegan_2.0-0 on September 3,

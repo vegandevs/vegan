@@ -175,7 +175,7 @@ double isDiag(double *sm)
     double choose[2];
 
     /* sX: number of non-zero cells */
-    for (i = 0, sX = 0; i++; i < 4)
+    for (i = 0, sX = 0; i < 4; i++)
 	    if (sm[i] > 0)
 		    sX++;
 
@@ -316,7 +316,7 @@ double isDiagSimple(double *sm)
     int i, sX;
 
     /* sX: number of non-zero cells */
-    for (i = 0, sX = 0; i++; i < 4)
+    for (i = 0, sX = 0; i < 4; i++)
 	if (sm[i] > 0)
 	    sX++;
 
@@ -348,7 +348,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	 ij[1] = INDX(row[1], col[0], *nr);
 	 ij[2] = INDX(row[0], col[1], *nr);
 	 ij[3] = INDX(row[1], col[1], *nr);
-	 for (k = 0; k < 4; k ++)
+	 for (k = 0; k < 4; k++)
 	      sm[k] = m[ij[k]];
 	 ev = isDiagSimple(sm);
 	 /* Swap */
