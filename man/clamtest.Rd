@@ -12,7 +12,7 @@ specialists in two distinct habitats is described in Chazdon et al. (2011).
 }
 \usage{
 clamtest(comm, groups, coverage.limit = 10, specialization = 0.667, 
-npoints = 20, alpha = 0.05/npoints, ...)
+npoints = 20, alpha = 0.05/npoints)
 \method{summary}{clamtest}(object, ...)
 \method{print}{summary.clamtest}(x, 
 digits = max(3, getOption("digits") - 3), ...)
@@ -61,13 +61,13 @@ Labels for the plot axes.
 Main title of the plot.
 }
   \item{pch, col.points}{
-Symbols and color used in plotting species groups.
+Symbols and colors used in plotting species groups.
 }
   \item{lty, col.lines}{
-Line type and color for boundary lines in plot to separate species groups.
+Line types and colors for boundary lines in plot to separate species groups.
 }
   \item{position}{
-Position of figure legend, see \code{\link{legend}} for description.
+Position of figure legend, see \code{\link{legend}} for specification details.
 Legend not shown if \code{position = NULL}.
 }
   \item{\dots}{
@@ -112,7 +112,7 @@ Peter Solymos \email{solymos@ualberta.ca}
 \note{
 The code was tested against standalone CLAM software provided
 on the website of Anne Chao (\url{http://chao.stat.nthu.edu.tw/softwarece.html});
-Minor inconsistencies were found, especially for finding the
+minor inconsistencies were found, especially for finding the
 threshold for 'too rare' species.
 These inconsistencies are probably due to numerical differences between the
 two implementation. The current R implementation uses 
