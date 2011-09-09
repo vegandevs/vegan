@@ -7,7 +7,7 @@ function(m, fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=9
     fixedmar <- match.arg(fixedmar, c("none", "rows", "columns", "both"))
 
     if (is.null(strata))
-        str <- as.factor(rep(1, n.row))
+        str <- as.factor(rep(1, nrow(m)))
         else str <- as.factor(strata)[drop = TRUE]
 
     levels(str) <- 1:length(unique(str))
