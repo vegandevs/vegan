@@ -14,8 +14,7 @@ specialists in two distinct habitats is described in Chazdon et al. (2011).
 clamtest(comm, groups, coverage.limit = 10, specialization = 0.667, 
 npoints = 20, alpha = 0.05/npoints)
 \method{summary}{clamtest}(object, ...)
-\method{print}{summary.clamtest}(x, 
-digits = max(3, getOption("digits") - 3), ...)
+\method{print}{summary.clamtest}(x, digits = max(3, getOption("digits") - 3), ...)
 \method{plot}{clamtest}(x, xlab, ylab, main, 
 pch = 21:24, col.points = 1:4, col.lines = 2:4, 
 lty = 1:3, position = "bottomright", ...)
@@ -53,6 +52,9 @@ boundary lines.
 }
   \item{x, object}{
 Fitted model object of class \code{"clamtest"}.
+}
+  \item{digits}{
+Number of decimal digits in the output.
 }
   \item{xlab, ylab}{
 Labels for the plot axes.
