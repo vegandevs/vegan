@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1009b4d90>
+<environment: 0x100ed4a30>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -1779,6 +1779,53 @@ attr(,"class")
 > eig <- mod$CCA$eig
 > rsum <- mod$rowsum
 > csum <- mod$colsum
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clamtest")
+> ### * clamtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clamtest
+> ### Title: Multinomial Species Classification Method (CLAM)
+> ### Aliases: clamtest summary.clamtest print.summary.clamtest plot.clamtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> data(mite)
+> data(mite.env)
+> x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005, specialization = 0.667)
+> summary(x)
+Two Groups Species Classification Method (CLAM)
+
+Specialization threshold = 0.667
+Alpha level = 0.005
+
+Estimated sample coverage:
+ FALSE   TRUE 
+1.0000 0.9996 
+
+Minimum abundance for classification:
+FALSE  TRUE 
+   27     9 
+
+                 Species Proportion
+Generalist            10      0.286
+Specialist_FALSE      14      0.400
+Specialist_TRUE        4      0.114
+Too_rare               7      0.200
+> head(x)
+  Species Total_FALSE Total_TRUE          Classes
+1  Brachy         534         77       Generalist
+2    PHTH          89          0 Specialist_FALSE
+3    HPAV         389        207       Generalist
+4    RARD          85          0 Specialist_FALSE
+5    SSTR          22          0         Too_rare
+6 Protopl          26          0         Too_rare
+> plot(x)
 > 
 > 
 > 
@@ -4772,7 +4819,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106d2e878>
+<environment: 0x1069dabf8>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4788,7 +4835,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1063f4df0>
+<environment: 0x107e2dcd0>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4944,7 +4991,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105a75038>
+<environment: 0x104d0f628>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4957,7 +5004,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1068d7d40>
+<environment: 0x107b42078>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4970,7 +5017,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105afc0a8>
+<environment: 0x10788b580>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5004,8 +5051,9 @@ detaching ‘package:lattice’, ‘package:mgcv’
 > ### Name: permat
 > ### Title: Matrix Permutation Algorithms for Presence-Absence and Count
 > ###   Data
-> ### Aliases: permatfull permatswap summary.permat print.summary.permat
-> ###   print.permat plot.permat lines.permat as.ts.permat as.mcmc.permat
+> ### Aliases: permatfull permatfull1 permatswap permatswap1 summary.permat
+> ###   print.summary.permat print.permat plot.permat lines.permat
+> ###   as.ts.permat as.mcmc.permat
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
@@ -5041,17 +5089,17 @@ Matrix sums retained: 100 %
 Matrix fill retained: 100 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    2.02 %
-Column incidences retained: 6.06 %
+Row incidences retained:    9.09 %
+Column incidences retained: 7.07 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3667  0.4333  0.4202  0.4667  0.6333 
+ 0.2000  0.3667  0.4000  0.4229  0.5000  0.6333 
 
 Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  15.63   19.38   21.19   21.53   23.44   29.08 
+  15.75   19.64   20.93   21.41   23.25   29.87 
 > ## Unrestricted permutation retaining
 > ## row/columns sums but not matrix fill:
 > x2 <- permatfull(m)
@@ -5071,20 +5119,20 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 18.18 %
+Matrix fill retained: 16.16 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    0 %
+Row incidences retained:    1.01 %
 Column incidences retained: 1.01 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.1667  0.3333  0.4000  0.3754  0.4333  0.5667 
+ 0.2000  0.3333  0.3667  0.3848  0.4333  0.5333 
 
 Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  7.857  12.640  15.650  16.410  20.240  33.150 
+  5.076  12.730  15.190  15.810  18.830  26.120 
 > ## Unrestricted permutation of presence-absence type
 > ## not retaining row/columns sums:
 > x3 <- permatfull(m, "none", mtype="prab")
@@ -5112,19 +5160,19 @@ Number of permuted matrices: 99
 
 Matrix sums retained: 100 %
 Matrix fill retained: 100 %
-Row sums retained:    2.02 %
+Row sums retained:    3.03 %
 Column sums retained: 0 %
-Row incidences retained:    2.02 %
+Row incidences retained:    3.03 %
 Column incidences retained: 0 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3333  0.4000  0.3643  0.4000  0.5333 
+ 0.2000  0.3333  0.4000  0.3805  0.4000  0.5333 
 
 Chi-squared for original matrix: 8.4)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  8.354  13.340  15.060  15.280  17.180  21.330 
+  9.188  13.620  15.730  15.420  17.340  20.830 
 > ## Restricted permutation,
 > ## check sums within strata:
 > x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -5144,21 +5192,21 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 49.49 %
+Matrix fill retained: 38.38 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    7.07 %
-Column incidences retained: 3.03 %
+Row incidences retained:    2.02 %
+Column incidences retained: 5.05 %
 Sums within strata retained: 100 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.06667 0.20000 0.20000 0.21950 0.26670 0.40000 
+0.06667 0.20000 0.20000 0.21750 0.26670 0.33330 
 
 Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  14.21   18.28   19.84   20.85   23.01   32.63 
+  14.21   18.20   21.27   21.18   23.45   37.88 
 > 
 > ## NOTE: 'times' argument usually needs to be >= 99
 > ## here much lower value is used for demonstration
@@ -5189,17 +5237,17 @@ arima(x = bc, order = c(1, 0, 0))
 
 Coefficients:
          ar1  intercept
-      0.9914     0.1847
-s.e.  0.0122     0.1343
+      0.9918     0.1835
+s.e.  0.0116     0.1364
 
-sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
+sigma^2 estimated as 0.0003259:  log likelihood = 47.26,  aic = -88.51
 > ## Ljung-Box test of residuals
 > Box.test(mar$residuals)
 
 	Box-Pierce test
 
 data:  mar$residuals 
-X-squared = 0.0011, df = 1, p-value = 0.9739
+X-squared = 0.1905, df = 1, p-value = 0.6625
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -7193,7 +7241,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107dd7428>
+<environment: 0x106abe778>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7669,7 +7717,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  106.67 1.059 108.278 0 0 
+Time elapsed:  140.127 1.72 143.859 0 0 
 > grDevices::dev.off()
 null device 
           1 
