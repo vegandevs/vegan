@@ -9,8 +9,14 @@ Version 2.1-0 (opened September 8, 2011)
 
 	* permatswap: there was a bug in internal C routine, and therefore
 	not all permissible swaps were performed. Based on limited
-	analysis, the effects of this bug seem to be negligible. 
-	It is, however, recommended to re-run all analyses.
+	analysis, the effects of this bug seem to be negligible.  It is,
+	however, recommended to re-run all analyses. The C code was made
+	faster by getting quickly out from isDiag* if there are only 0 or
+	1 filled items, because there is nothing to swap. Tests show that
+	the C code indeed is ca 10% faster in permatswap(BCI,
+	method="swa", thin=1000, times=999), but only a 20-25% of time was
+	spent in C, and the new permatswap/permatswap1 spends 2.2x longer
+	in other parts. With faster C code the net slowdown is 1.7x.
 
 	* New functions: permatfull1 and permatswap1. Both functions
 	return a single permuted matrix. These functions are now 

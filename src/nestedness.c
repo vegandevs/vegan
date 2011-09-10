@@ -179,8 +179,8 @@ double isDiag(double *sm)
 	    if (sm[i] > 0)
 		    sX++;
 
-    /* quick return if there really is nothing to do */
-    if (sX == 0)
+    /* quick return: you cannot swap 0 or 1 items */
+    if (sX < 2)
         return 0;
 
     /* Smallest diagonal and antidiagonal element */
@@ -201,13 +201,19 @@ double isDiag(double *sm)
 	(sm[0] > 0 && sm[1] == 0 && sm[2] > 0 && sm[3] > 0) ||
 	(sm[0] > 0 && sm[1] > 0 && sm[2] == 0 && sm[3] > 0))
 	    return choose[1];
-    if (sX < 2 ||
-	(sm[0] == 0 && sm[1] == 0 && sm[2] > 0 && sm[3] > 0) ||
-	(sm[0] > 0 && sm[1] > 0 && sm[2] == 0 && sm[3] == 0) ||
-	(sm[0] == 0 && sm[1] > 0 && sm[2] == 0 && sm[3] > 0) ||
-	(sm[0] > 0 && sm[1] == 0 && sm[2] > 0 && sm[3] == 0))
-	    return 0; 
-    /* never reach this but pacify a pedantic compiler */
+ 
+   /* The following is unnecessary, because next 'else' will return 0
+     * even if this if(...) is false */
+
+/*
+ *  if (sX < 2 ||
+ *	(sm[0] == 0 && sm[1] == 0 && sm[2] > 0 && sm[3] > 0) ||
+ *	(sm[0] > 0 && sm[1] > 0 && sm[2] == 0 && sm[3] == 0) ||
+ *	(sm[0] == 0 && sm[1] > 0 && sm[2] == 0 && sm[3] > 0) ||
+ *	(sm[0] > 0 && sm[1] == 0 && sm[2] > 0 && sm[3] == 0))
+ *	    return 0;
+ */ 
+
     else
 	 return 0;
 }
@@ -323,8 +329,8 @@ double isDiagSimple(double *sm)
     for (i = 0, sX = 0; i < 4; i++)
 	if (sm[i] > 0)
 	    sX++;
-
-    if (sX == 0)
+    /* quickly out: you cannot swap 0 or 1 items */
+    if (sX < 2)
 	return 0;
     if (sX == 4) {
 	return 1;
