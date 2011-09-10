@@ -19,19 +19,32 @@ Version 2.1-0 (opened September 8, 2011)
 	in other parts. With faster C code the net slowdown is 1.7x.
 
 	* New functions: permatfull1 and permatswap1. Both functions
-	return a single permuted matrix. These functions are now 
-	called repeatedly by the corresponding permatfull and permatswap
+	return a single permuted matrix. These functions are now calledino
+	絵
+	repeatedly by the corresponding permatfull and permatswap
 	functions.
 
-	* New function: clamtest (with summary and plot methods).
-	The method uses a multinomial model based on estimated species
-	relative abundance in two habitats, it minimizes bias 
-	due to differences in sampling intensities between two 
-	habitat types as well as bias due to insufficient sampling within each
-	habitat. The method permits a robust statistical classification 
-	of habitat specialists and generalists, without excluding rare 
-	species a priori. Based on Chazdon et al. 2011 (Ecology, 92, 1332--1343).
+	* New function: clamtest (with summary and plot methods).  The
+	method uses a multinomial model based on estimated species
+	relative abundance in two habitats, it minimizes bias due to
+	differences in sampling intensities between two habitat types as
+	well as bias due to insufficient sampling within each habitat. The
+	method permits a robust statistical classification of habitat
+	specialists and generalists, without excluding rare species a
+	priori. Based on Chazdon et al. 2011 (Ecology, 92, 1332--1343).
 
+	* raupcrick: new function to implement Raup-Crick (dissimilarity/
+	probability) index with unequal sampling probabilities of species.
+	Brian Inouye informed about their paper (Chase et al., Ecospher
+	2:art24 [doi:10.1890/ES10-00117.1]; 2011) where they showed that
+	Raup & Crick said that we should use sampling probabilities
+	proportional to species frequencies in assessing their index, but
+	vegdist(x, "raup") uses equal probabilities. Unequal sampling
+	probabilities cannot be directly implemented in vegan, but the
+	Chase et al. method can be implemented as oecosimu(x, function(x)
+	designdist(x, "J"), method="r1"). Basically, the current function
+	uses this, but with boosted code that is much faster than
+	designdist(). 
 
 Version 2.0-0 (released September 8, 2011)
 

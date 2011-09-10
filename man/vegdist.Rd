@@ -163,10 +163,12 @@
   parameter values.  The index is nonmetric: two communities with no
   shared species may have a dissimilarity slightly below one, and two
   identical communities may have dissimilarity slightly above
-  zero. Please note that this index does not implement the Raup--Crick
-  dissimilarity as discussed by Chase et al. (2011): the current index
-  uses equal probabilities for all species, but the probabilities
-  should be inequal and based on species frequencies.
+  zero. The index uses equal occurrence probabilities for all species,
+  but Raup and Crick originally suggested that sampling probabilities
+  should be proportional to species frequencies (Chase et al. 2011). A
+  simulation approach with unequal species sampling probabilities is
+  implemented in \code{\link{raupcrick}} function following Chase et
+  al. (2011).
   
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in

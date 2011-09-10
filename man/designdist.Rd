@@ -59,7 +59,7 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
     \code{1-J/sqrt(A*B)} \tab \code{"binary"} \tab Ochiai \cr
     \code{1-J/sqrt(A*B)} \tab \code{"quadratic"} \tab cosine
     complement \cr
-    \code{1-phyper(J-1, A, P-A, B)} \tab \code{"binary"} \tab Raup-Crick 
+    \code{1-phyper(J-1, A, P-A, B)} \tab \code{"binary"} \tab Raup-Crick (but see \code{\link{raupcrick}})
   }
 
   The function \code{designdist} can implement most dissimilarity

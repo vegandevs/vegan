@@ -58,21 +58,23 @@ commsimulator(x, method, thin=1)
 \details{
   
   Function \code{oecosimu} is a wrapper that evaluates a nestedness
-  statistic using function given by \code{nestfun}, and then simulates a
-  series of null models using \code{commsimulator} or 
-  other functions (depending on method argument), and evaluates the
-  statistic on these null models. The \pkg{vegan} packages contains some
-  nestedness functions that are described separately
+  statistic using function given by \code{nestfun}, and then simulates
+  a series of null models using \code{commsimulator} or other
+  functions (depending on method argument), and evaluates the
+  statistic on these null models. The \pkg{vegan} packages contains
+  some nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},
   \code{\link{nestedn0}}, \code{\link{nestedtemp}}), but many other
-  functions can be used as long as they are meaningful with binary
-  or quantitative community models. An applicable function must return either the
-  statistic as a plain number, or as a list element \code{"statistic"}
-  (like \code{\link{chisq.test}}), or in an item whose name is given in
-  the argument \code{statistic}.  The statistic can be a single number
-  (like typical for a nestedness index), or it can be a vector. The
-  vector indices can be used to analyse site (row) or species (column)
-  properties, see \code{\link{treedive}} for an example.
+  functions can be used as long as they are meaningful with binary or
+  quantitative community models.  An applicable function must return
+  either the statistic as a plain number, or as a list element
+  \code{"statistic"} (like \code{\link{chisq.test}}), or in an item
+  whose name is given in the argument \code{statistic}.  The statistic
+  can be a single number (like typical for a nestedness index), or it
+  can be a vector. The vector indices can be used to analyse site
+  (row) or species (column) properties, see \code{\link{treedive}} for
+  an example. Raup-Crick index (\code{\link{raupcrick}}) gives an
+  example of using a dissimilarities index.
 
   Function \code{commsimulator} implements binary (presence/absence) 
   null models for community composition.
