@@ -3,6 +3,8 @@
     function(object, ...)
 {
     x <- object
+    ## calculations are much faster if x$orig is matrix instead of data.frame
+    x$orig <- data.matrix(x$orig)
     n <- attr(x, "times")
     ss <- sum(x$orig)
     fi <- sum(x$orig > 0)

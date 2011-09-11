@@ -18,6 +18,30 @@ Version 2.1-0 (opened September 8, 2011)
 	spent in C, and the new permatswap/permatswap1 spends 2.2x longer
 	in other parts. With faster C code the net slowdown is 1.7x.
 
+	* permatfull, permatswap summary: huge speed-up. Running
+	example(permatfull) was by far the slowest part of R CMD check: it
+	took more than 21% of the example checking time. Especially
+	plot.permat() and as.ts.permat() were extremely slow. I traced
+	this to summary.permat, and there in calculating Bray-Curtis
+	dissimilarities. Here the original data x$orig was a data.frame,
+	and changing this to matrix made a huge difference. Here timings
+	in my MacBook Air 1.6 GHz:
+
+	> system.time(bray <- sapply(x$perm, function(z) 
+	      sum(abs(x$orig - z)) / sum(x$orig + z)))
+        user  system elapsed 
+        3.609   0.046   3.662 
+        Change x$orig to a matrix:
+        > system.time(bray <- sapply(x$perm, function(z) 
+	        sum(abs(x$orig - z)) / sum(x$orig + z)))
+        user  system elapsed 
+        0.007   0.000   0.007
+
+	After changing x$orig to matrix in summary.permat, the
+	example(permutest) used only 5% of total example checking time,
+	the whole vegan example checking time was reduced by 13%, and
+	permatfull checks run 4.5x faster.
+
 	* New functions: permatfull1 and permatswap1. Both functions
 	return a single permuted matrix. These functions are now calledino
 	絵
