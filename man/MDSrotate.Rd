@@ -57,7 +57,7 @@ data(varechem)
 mod <- monoMDS(vegdist(varespec))
 mod <- with(varechem, MDSrotate(mod, pH))
 plot(mod)
-ef <- envfit(mod ~ pH, varechem)
+ef <- envfit(mod ~ pH, varechem, permutations = 0)
 plot(ef)
 ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 }
