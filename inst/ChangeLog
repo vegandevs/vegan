@@ -7,6 +7,11 @@ Version 2.1-0 (opened September 8, 2011)
 	* New major version opened with the release of vegan_2.0-0 on
 	September 8, 2011.
 
+	* commsimulator: a bit less overhead -- all attributes set
+	simultaneously instead of setting separately dim, rownames and
+	colnames. The results should be identical(), running should be
+	marginally faster or neutral.
+
 	* permatswap: there was a bug in internal C routine, and therefore
 	not all permissible swaps were performed. Based on limited
 	analysis, the effects of this bug seem to be negligible.  It is,

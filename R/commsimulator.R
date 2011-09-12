@@ -4,6 +4,7 @@ function (x, method, thin = 1)
     method <- match.arg(method, 
                         c("r0","r1","r2","r00","c0","swap", "tswap",
                           "backtrack", "quasiswap"))
+    x <- as.matrix(x)
     if (any(x > 1))
         x <- ifelse(x > 0, 1, 0)
     nr <- nrow(x)
@@ -23,7 +24,6 @@ function (x, method, thin = 1)
     else if (method == "r00") {
         out <- numeric(nr*nc)
         out[sample(length(out), sum(x))] <- 1
-        dim(out) <- dim(x)
     }
     else if (method == "c0") {
         cs <- colSums(x)
@@ -31,22 +31,17 @@ function (x, method, thin = 1)
         for (j in 1:nc)
             out[sample(nr, cs[j]), j] <- 1
     } else if (method == "swap") {
-        x <- as.matrix(x)
         out <- .C("swap", m = as.integer(x), as.integer(nrow(x)),
                   as.integer(ncol(x)), as.integer(thin),
                   PACKAGE = "vegan")$m
-        dim(out) <- dim(x)
     } else if (method == "tswap") {
-        x <- as.matrix(x)
         out <- .C("trialswap", m = as.integer(x), as.integer(nrow(x)),
                   as.integer(ncol(x)), as.integer(thin),
                   PACKAGE = "vegan")$m
-        dim(out) <- dim(x)
     } else if (method == "quasiswap") {
         out <- r2dtable(1, rowSums(x), colSums(x))[[1]]
         out <- .C("quasiswap", m = as.integer(out), as.integer(nrow(x)),
                   as.integer(ncol(x)), PACKAGE = "vegan")$m
-        dim(out) <- dim(x)
     }
     else if (method == "backtrack") {
         fill <- sum(x)
@@ -94,7 +89,6 @@ function (x, method, thin = 1)
                 out <- oldout
         }
     }
-    colnames(out) <- colnames(x)
-    rownames(out) <- rownames(x)
+    attributes(out) <- attributes(x)
     out
 }
