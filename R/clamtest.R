@@ -41,9 +41,9 @@ specialization = 0.667, npoints = 20, alpha = 0.05/npoints)
         stop("zero group totals not allowed")
     ## check if comm contains integer, especially for singletons
     if (any(X[X>0] < 1) || any(Y[Y>0] < 1))
-        warnings("<1 non integer values detected: analysis might not be meaningful")
+        warning("<1 non integer values detected: analysis might not be meaningful")
     if (abs(sum(X,Y) - sum(as.integer(X), as.integer(Y))) > 10^-6)
-        warnings("non integer values detected")
+        warning("non integer values detected")
     C1 <- 1 - sum(X==1)/n
     C2 <- 1 - sum(Y==1)/m
     ## this stands for other than 2/3 cases

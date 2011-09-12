@@ -1,5 +1,5 @@
-tsallisaccum <-
-function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE, ...)
+`tsallisaccum` <-
+    function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE, ...)
 {
     x <- as.matrix(x)
     n <- nrow(x)

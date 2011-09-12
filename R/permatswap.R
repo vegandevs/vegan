@@ -36,10 +36,10 @@ function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
     ## non-sequential algos: no burnin required
     } else {
         if (burnin > 0)
-            warnings("Non sequential algorithm used: 'burnin' argument ignored")
+            warning("Non sequential algorithm used: 'burnin' argument ignored")
         burnin <- 0
         if (thin != 1)
-            warnings("Non sequential algorithm used: 'thin' value set to 1")
+            warning("Non sequential algorithm used: 'thin' value set to 1")
         thin <- 1
         perm <- replicate(times, 
             permatswap1(m, method, fixedmar, shuffle, strata, mtype, thin), 

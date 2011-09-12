@@ -36,7 +36,7 @@ function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
             }
         }
     }
-    result <- as.data.frame(result)
+    #result <- as.data.frame(result)
     if (any(dim(result) == 1)) 
         result <- unlist(result, use.names = TRUE)
     class(result) <- c("tsallis", "renyi", class(result))
