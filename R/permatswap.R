@@ -7,6 +7,8 @@ function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
     fixedmar <- match.arg(fixedmar, c("rows", "columns", "both"))
     shuffle <- match.arg(shuffle, c("samp", "both"))
     count <- mtype == "count"
+    m <- as.matrix(m)
+
     ## evaluating algo type
     if (count) {
         method <- match.arg(method, c("swap", "quasiswap", "swsh", "abuswap"))

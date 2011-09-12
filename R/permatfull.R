@@ -5,6 +5,7 @@ function(m, fixedmar="both", shuffle="both", strata=NULL, mtype="count", times=9
     mtype <- match.arg(mtype, c("prab", "count"))
     shuffle <- match.arg(shuffle, c("ind", "samp", "both"))
     fixedmar <- match.arg(fixedmar, c("none", "rows", "columns", "both"))
+    m <- as.matrix(m)
 
     if (is.null(strata))
         str <- as.factor(rep(1, nrow(m)))
