@@ -86,7 +86,7 @@ permutest.default <- function(x, ...)
         }
         tmp <- qr.fitted(Q, Y)
         if (first) 
-            cca.ev <- svd(tmp, nv = 0, nu = 0)$d[1]^2
+            cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
         else cca.ev <- sum(tmp * tmp)
         if (isPartial || first) {
             tmp <- qr.resid(Q, Y)
