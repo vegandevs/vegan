@@ -23,33 +23,31 @@ Version 2.1-0 (opened September 8, 2011)
 	spent in C, and the new permatswap/permatswap1 spends 2.2x longer
 	in other parts. With faster C code the net slowdown is 1.7x.
 
-	* permatfull, permatswap summary: huge speed-up. Running
-	example(permatfull) was by far the slowest part of R CMD check: it
-	took more than 21% of the example checking time. Especially
-	plot.permat() and as.ts.permat() were extremely slow. I traced
-	this to summary.permat, and there in calculating Bray-Curtis
-	dissimilarities. Here the original data x$orig was a data.frame,
-	and changing this to matrix made a huge difference. Here timings
-	in my MacBook Air 1.6 GHz:
+	* various attemps of speed-up (often in vain): The speed-up
+	started with permatfull/permatswap which appeared to be by far the
+	slowest functions in R CMD check --timings. Later this proved to
+	be a feature of checking these functions in MacBook Air/MacOS X:
+	the functions were not slow in Linux, nor in MacBook when the very
+	same tests were run outside R CMD check. However, several changes
+	were made: 
 
-	> system.time(bray <- sapply(x$perm, function(z) 
-	      sum(abs(x$orig - z)) / sum(x$orig + z)))
-        user  system elapsed 
-        3.609   0.046   3.662 
-        Change x$orig to a matrix:
-        > system.time(bray <- sapply(x$perm, function(z) 
-	        sum(abs(x$orig - z)) / sum(x$orig + z)))
-        user  system elapsed 
-        0.007   0.000   0.007
-
-	After changing x$orig to matrix in summary.permat, the
-	example(permutest) used only 5% of total example checking time,
-	the whole vegan example checking time was reduced by 13%, and
-	permatfull checks run 4.5x faster.
+	- permatfull/permatswap avoid data.frame/matrix casting, and save
+	results in matrices. This was based on misleading test statistics
+	in MacOS, and it is not sure what are the real effects.
+	- commsimulator: smaller overhead.
+	- sample.int was used in place of sample in commsimulator,
+	nesteddisc, permuted.index and poolaccum (the effects may be
+	measurable for permuted.index, but not large).
+	- centroids.cca: much faster. This was perhaps real -- profiling
+	(not timing) showed that cca.formula/rda.formula have a large
+	overhead over cca.default/rda.default, and centroids.cca was
+	responsible for a lot of that -- most is due to ordiParseFormula.
+	- permutest.cca uses La.svd, but the effects are non-measurable
+	and only concern case first = TRUE.
+	- MDSrotate example: envfit does not do permutations.
 
 	* New functions: permatfull1 and permatswap1. Both functions
-	return a single permuted matrix. These functions are now calledino
-	絵
+	return a single permuted matrix. These functions are now called
 	repeatedly by the corresponding permatfull and permatswap
 	functions.
 
