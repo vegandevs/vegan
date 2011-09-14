@@ -10,7 +10,7 @@
     ## specpool() is slow, but the vectorized versions below are
     ## pretty fast
     for (i in 1:permutations) {
-        take <- sample(n)
+        take <- sample.int(n, n)
         tmp <- apply(x[take,] > 0, 2, cumsum)
         S[,i] <- rowSums(tmp > 0)
         ## All-zero species are taken as *known* to be missing in

@@ -42,7 +42,7 @@
                 perm <- matrix(allPerms(le[i]), ncol=le[i]) + cle[i]
                 ## Take at maximum NITER cases from complete enumeration
                 if (nrow(perm) >= NITER) {
-                    perm <- perm[sample(nrow(perm), NITER),]
+                    perm <- perm[sample.int(nrow(perm), NITER),]
                     ties <- TRUE
                 }
             }

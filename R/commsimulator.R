@@ -19,17 +19,17 @@ function (x, method, thin = 1)
             p <- p*p
         out <- matrix(0, nrow=nr, ncol=nc)
         for (i in 1:nr)
-            out[i,sample(nc, rs[i], prob=p)] <- 1 
+            out[i,sample.int(nc, rs[i], prob=p)] <- 1 
     }
     else if (method == "r00") {
         out <- numeric(nr*nc)
-        out[sample(length(out), sum(x))] <- 1
+        out[sample.int(length(out), sum(x))] <- 1
     }
     else if (method == "c0") {
         cs <- colSums(x)
         out <- matrix(0, nrow=nr, ncol=nc)
         for (j in 1:nc)
-            out[sample(nr, cs[j]), j] <- 1
+            out[sample.int(nr, cs[j]), j] <- 1
     } else if (method == "swap") {
         out <- .C("swap", m = as.integer(x), as.integer(nrow(x)),
                   as.integer(ncol(x)), as.integer(thin),

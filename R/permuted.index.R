@@ -2,7 +2,7 @@
     function (n, strata) 
 {
     if (missing(strata) || is.null(strata)) 
-        out <- sample(n, n)
+        out <- sample.int(n, n)
     else {
         out <- 1:n
         inds <- names(table(strata))
