@@ -1,24 +1,34 @@
-"centroids.cca" <-
-    function (x, mf, wt) 
+`centroids.cca` <-
+    function(x, mf, wt)
 {
-    mf <- mf[, unlist(lapply(mf, is.factor)), drop = FALSE]
-    if (ncol(mf) == 0) 
+    facts <- sapply(mf, is.factor)
+    if (!any(facts))
         return(NULL)
+    mf <- mf[, facts, drop = FALSE]
     if (missing(wt)) 
         wt <- rep(1, nrow(mf))
-    x <- sweep(x, 1, wt, "*")
-    workhorse <- function(mf, x, wt) {
-        sw <- tapply(wt, mf, sum)
-        swx <- apply(x, 2, tapply, mf, sum)
-        sweep(swx, 1, sw, "/")
-    }
-    tmp <- lapply(mf, workhorse, x, wt)
+    ind <- seq_len(nrow(mf))
+    workhorse <- function(x, wt)
+        colSums(x * wt) / sum(wt)
+    tmp <- lapply(mf, function(fct)
+                  tapply(ind, fct, function(i) workhorse(x[i,, drop=FALSE], wt[i])))
+    tmp <- lapply(tmp, function(z) sapply(z, rbind))
     pnam <- labels(tmp)
     out <- NULL
-    for (i in 1:length(tmp)) {
-        rownames(tmp[[i]]) <- paste(pnam[i], rownames(tmp[[i]]), 
-                                    sep = "")
-        out <- rbind(out, tmp[[i]])
+    if (ncol(x) == 1) {
+        for(i in 1:length(tmp)) {
+            names(tmp[[i]]) <- paste(pnam[i], names(tmp[[i]]), sep="")
+            out <- c(out, tmp[[i]])
+            out <- matrix(out, nrow=1)
+        }  
+    } else {
+        for (i in 1:length(tmp)) {
+            colnames(tmp[[i]]) <- paste(pnam[i], colnames(tmp[[i]]), 
+                                        sep = "")
+            out <- cbind(out, tmp[[i]])
+        }
     }
+    out <- t(out)
+    colnames(out) <- colnames(x)
     out
 }
