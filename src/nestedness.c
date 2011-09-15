@@ -90,7 +90,7 @@ void quasiswap(int *m, int *nr, int *nc)
 void trialswap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2];
+    int i, a, b, c, d, row[2], col[2], sX;
 
     GetRNGstate();
 
@@ -101,13 +101,16 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
 	b = INDX(row[0], col[1], *nr);
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
-	if (m[a] == 1 && m[d] == 1 && m[b] == 0 && m[c] == 0) {
+        /* only two filled items can be swapped */
+	sX = m[a] + m[b] + m[c] + m[d];
+	if (sX != 2)
+	    continue;
+	if (m[a] == 1 && m[d] == 1) {
 	    m[a] = 0;
 	    m[d] = 0;
 	    m[b] = 1;
 	    m[c] = 1;
-	} else if (m[c] == 1 && m[b] == 1 && m[d] == 0 &&
-		   m[a] == 0) {
+	} else if (m[c] == 1 && m[b] == 1) {
 	    m[a] = 1;
 	    m[d] = 1;
 	    m[b] = 0;
@@ -126,7 +129,7 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
 void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2];
+    int i, a, b, c, d, row[2], col[2], sX;
 
     GetRNGstate();
 
@@ -138,14 +141,17 @@ void swap(int *m, int *nr, int *nc, int *thin)
 	    b = INDX(row[0], col[1], *nr);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if (m[a] == 1 && m[d] == 1 && m[b] == 0 && m[c] == 0) {
+	    sX = m[a] + m[b] + m[c] + m[d];
+	    if (sX != 2)
+		continue;
+	    if (m[a] == 1 && m[d] == 1) {
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1 && m[d] == 0 && m[a] == 0) {
+	    if (m[c] == 1 && m[b] == 1) {
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
@@ -172,50 +178,50 @@ void swap(int *m, int *nr, int *nc, int *thin)
 double isDiag(double *sm)
 {
     int i, sX;
-    double choose[2];
+    double retval;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
 	    if (sm[i] > 0)
 		    sX++;
 
-    /* quick return: you cannot swap 0 or 1 items */
-    if (sX < 2)
-        return 0;
-
-    /* Smallest diagonal and antidiagonal element */
-    choose[0] = (sm[1] < sm[2]) ? sm[1] : sm[2];
-    choose[1] = (sm[0] < sm[3]) ? -sm[0] : -sm[3]; 
-
-    if (sX == 4) {
-	 /* Either choose could be returned, but RNG is not needed, 
-	 * because sm already is in random order, and we always return
-	 * choose[0] */
-	    return choose[0];
-    } 
-    if ((sm[0] == 0 && sm[1] > 0 && sm[2] > 0 && sm[3] == 0) ||
-	(sm[0] == 0 && sm[1] > 0 && sm[2] > 0 && sm[3] > 0) ||
-	(sm[0] > 0 && sm[1] > 0 && sm[2] > 0 && sm[3] == 0))
-	    return choose[0];
-    if ((sm[0] > 0 && sm[1] == 0 && sm[2] == 0 && sm[3] > 0) ||
-	(sm[0] > 0 && sm[1] == 0 && sm[2] > 0 && sm[3] > 0) ||
-	(sm[0] > 0 && sm[1] > 0 && sm[2] == 0 && sm[3] > 0))
-	    return choose[1];
- 
-   /* The following is unnecessary, because next 'else' will return 0
-     * even if this if(...) is false */
-
-/*
- *  if (sX < 2 ||
- *	(sm[0] == 0 && sm[1] == 0 && sm[2] > 0 && sm[3] > 0) ||
- *	(sm[0] > 0 && sm[1] > 0 && sm[2] == 0 && sm[3] == 0) ||
- *	(sm[0] == 0 && sm[1] > 0 && sm[2] == 0 && sm[3] > 0) ||
- *	(sm[0] > 0 && sm[1] == 0 && sm[2] > 0 && sm[3] == 0))
- *	    return 0;
- */ 
-
-    else
-	 return 0;
+    switch (sX) {
+    case 0:
+    case 1:
+	    /* nothing to swap*/
+	    return 0;
+	    break;
+    case 2:
+	    /* diagonal and antidiagonal swappable */
+	    if (sm[1] > 0 && sm[2] > 0) {
+		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+	    }
+	    else if (sm[0] > 0 && sm[3] > 0) { 
+		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+	    } else {
+		    retval = 0;
+	    }
+	    return retval;
+	    break;
+    case 3:
+	    /* always swappable: case depends on the empty corner */
+	    if (sm[0] == 0 || sm[3] == 0) {
+		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+	    } else {
+		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+	    }
+	    return retval;
+	    break;
+    case 4:
+	    /* always swappable: return diagonal case */
+	    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+	    return retval;
+	    break;
+    default:
+            /* never reach this */
+	    return 0;
+	    break;
+    }
 }
 
 void swapcount(double *m, int *nr, int *nc, int *thin)
@@ -329,17 +335,29 @@ double isDiagSimple(double *sm)
     for (i = 0, sX = 0; i < 4; i++)
 	if (sm[i] > 0)
 	    sX++;
-    /* quickly out: you cannot swap 0 or 1 items */
-    if (sX < 2)
-	return 0;
-    if (sX == 4) {
-	return 1;
+    
+    switch(sX) {
+    case 0:
+    case 1:
+	    /* never swappable */
+	    return 0;
+	    break;
+    case 2:
+	    /* diagonal and antidiagonal swappable */
+	    if ((sm[1] > 0 && sm[2] > 0) || (sm[0] > 0 && sm[3] > 0))
+		    return 1;
+	    else
+		    return 0;
+	    break;
+    case 3:
+	    /* never swappable */
+	    return 0;
+	    break;
+    case 4:
+	    /* always swappable */
+	    return 1;
+	    break;
     }
-    if ((sm[0] == 0 && sm[1] > 0 && sm[2] > 0 && sm[3] == 0) ||
-	(sm[0] > 0 && sm[1] == 0 && sm[2] == 0 && sm[3] > 0))
-	return 1;
-    else
-	return 0;
 }
 
 /* 'abuswap' to do Hardy 2008 J Ecol 96: 914-926 */

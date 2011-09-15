@@ -7,6 +7,17 @@ Version 2.1-0 (opened September 8, 2011)
 	* New major version opened with the release of vegan_2.0-0 on
 	September 8, 2011.
 
+	* nestedness.c: isDiag* uses now switch(sX) where sX is the number
+	of non-empty cells. The code looks like it should be faster, but
+	measurable effects are hard to see. However, it is now much
+	clearer since it is obvious what kind of decisions are made with
+	each matrix fill. The swap and trialswap also find first the fill
+	of the 2x2 submatrix, and continue only if fill == 2. The
+	measurable effects are small again (perhaps 1%). 
+
+	* tests: added tests for commsimulator, permatswap1 and
+	permatfull1 before starting the adventures with nestedness.c.
+
 	* commsimulator: a bit less overhead -- all attributes set
 	simultaneously instead of setting separately dim, rownames and
 	colnames. The results should be identical(), running should be
