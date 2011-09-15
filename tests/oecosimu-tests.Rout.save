@@ -604,7 +604,7 @@ Type 'q()' to quit R.
 +     cat("row freqs: ")
 +     print(all.equal(rowSums(x>0), rfrq, check.attributes = FALSE))
 +     cat("col freqs: ")
-+     print(all.equal(colSums(x), cfrq, check.attributes = FALSE))
++     print(all.equal(colSums(x>0), cfrq, check.attributes = FALSE))
 + }
 > 
 > ### permatfull1
@@ -628,7 +628,7 @@ row sums:  [1] "Mean relative difference: 0.3935785"
 col sums:  [1] "Mean relative difference: 1.181426"
 fill:      [1] "Mean relative difference: 0.5952064"
 row freqs: [1] "Mean relative difference: 0.5952064"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.5952064"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    3    2    3    9    0    1    5    6    3     4     5     0
  [2,]    3    3    4    3    4    5    4    7    4     5     2     2
@@ -681,7 +681,7 @@ row sums:  [1] "Mean relative difference: 0.6269636"
 col sums:  [1] "Mean relative difference: 1.136544"
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.365812"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.6355786"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    5    0    0    0    0    0    0    0   14     0     3    11
  [2,]   18    2    2   22    0    0    0    0    4     0     1     0
@@ -734,7 +734,7 @@ row sums:  [1] "Mean relative difference: 0.4682944"
 col sums:  [1] "Mean relative difference: 1.192474"
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.3378378"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.6527051"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    0    0   14    0    0    0    0    0    0     0     0     8
  [2,]    0   15   12    0    0    5    0    9    0     0     6     5
@@ -787,7 +787,7 @@ row sums:  [1] TRUE
 col sums:  [1] "Mean relative difference: 1.161747"
 fill:      [1] "Mean relative difference: 0.5733333"
 row freqs: [1] "Mean relative difference: 0.5733333"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.6078869"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    0    6    3    5    5    4    9    2    2     2     4     1
  [2,]   10    4    3    5    2    5    3    4    2     3     3     4
@@ -840,7 +840,7 @@ row sums:  [1] TRUE
 col sums:  [1] "Mean relative difference: 1.316775"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.6372881"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    4   10    1   12    0    8    0    0    0     2     1     4
  [2,]    0    0    3    2    0    0    1    9    0     0     0     0
@@ -893,7 +893,7 @@ row sums:  [1] TRUE
 col sums:  [1] "Mean relative difference: 1.170378"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.6888889"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    2    6    9    0    5    0    0   10   11     4     0     4
  [2,]    0    0    0    8    3    0    0    7    0     5    12     5
@@ -946,7 +946,7 @@ row sums:  [1] "Mean relative difference: 0.4001381"
 col sums:  [1] TRUE
 fill:      [1] "Mean relative difference: 0.360673"
 row freqs: [1] "Mean relative difference: 0.3812095"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.3633475"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    5    1    6    0    0    0    3    1    0     3     2     2
  [2,]    7    1   17    0    0    0    1    0    0     3     0     1
@@ -999,7 +999,7 @@ row sums:  [1] "Mean relative difference: 0.5156635"
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.3597122"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    0    0    0    0    0    0   15    0    0     0     4     0
  [2,]   12    0   10    0    0    0    5    0    0    16     0     0
@@ -1052,7 +1052,7 @@ row sums:  [1] "Mean relative difference: 0.419817"
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.3198653"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    7    0   11    0    2    1    0    0    1    13     0     2
  [2,]    0    0   13    0    0    0    8    1    0    12     0     6
@@ -1105,7 +1105,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] "Mean relative difference: 0.3153153"
 row freqs: [1] "Mean relative difference: 0.3501199"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.3175676"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    8    1   11    0    0    0    3    2    0     5     0     2
  [2,]    5    1   15    0    0    0    2    0    0     4     1     0
@@ -1158,7 +1158,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] "Mean relative difference: 0.3145434"
 row freqs: [1] "Mean relative difference: 0.3333333"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.3201357"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]   10    0    9    0    0    1    2    0    1     3     0     3
  [2,]    8    1   10    1    0    0    0    0    0     1     1     2
@@ -1211,7 +1211,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] "Mean relative difference: 0.3214286"
 row freqs: [1] "Mean relative difference: 0.3431953"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.3250564"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]   12    0    7    0    0    0    1    0    1     2     2     1
  [2,]   11    1    7    0    0    0    2    0    1     3     1     0
@@ -1293,7 +1293,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.1074766"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.08316008"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    0    3    0    2    1    0    2    0    0     1     4    10
  [2,]    3    3    2    2    1    1   12    0    0     0     3     6
@@ -1347,7 +1347,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.1129944"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.06504065"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    5    4    8    2    1    2    3    0    0     1     4    10
  [2,]    3    2    2    2    1    1   12    0    0     0     3     4
@@ -1401,7 +1401,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.3157895"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.2634315"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    2    1   18    0    0    0    5    2    0     3     0     0
  [2,]    5    0    0    0    0    0    0    0    0     0     0     1
@@ -1455,7 +1455,7 @@ row sums:  [1] TRUE
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] "Mean relative difference: 0.254025"
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] "Mean relative difference: 0.2862669"
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    7    0    3    2    0    0    3    0    1     6     0     2
  [2,]   14    5   25    0    0    0    3    0    0    12     0     6
@@ -1509,7 +1509,7 @@ row sums:  [1] "Mean relative difference: 0.5443016"
 col sums:  [1] "Mean relative difference: 0.8578847"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    6   22    1    1    0    0    1    0    0     0     0     6
  [2,]    2    0   19    0    0    0    0    0    0     2     1     1
@@ -1563,7 +1563,7 @@ row sums:  [1] "Mean relative difference: 0.3701018"
 col sums:  [1] "Mean relative difference: 0.7698947"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]   12    0   14    0    0    0   11    0   13     5     0     9
  [2,]   10    0   16    0    0    0    0    0   10     0     0     8
@@ -1617,7 +1617,7 @@ row sums:  [1] TRUE
 col sums:  [1] "Mean relative difference: 0.2572078"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    5   25    3    0    1    2    2    0    2     1     4    10
  [2,]    8    0   12    2    0    0    0    0    0     0     3     9
@@ -1671,7 +1671,7 @@ row sums:  [1] TRUE
 col sums:  [1] "Mean relative difference: 0.242582"
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    5    4    1    2    0    2    8    0    0     3     4    10
  [2,]    3    0    2    0    1    1    0    0   12     2    19     9
@@ -1725,7 +1725,7 @@ row sums:  [1] "Mean relative difference: 0.2387203"
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]    3    4    5    0    0    2    7    0    0     1     4    10
  [2,]    3    5    3    2    0    1   12    1    0     0     3     9
@@ -1779,7 +1779,7 @@ row sums:  [1] "Mean relative difference: 0.247943"
 col sums:  [1] TRUE
 fill:      [1] TRUE
 row freqs: [1] TRUE
-col freqs: [1] "Mean relative difference: 0.8950457"
+col freqs: [1] TRUE
       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
  [1,]   12    3   12    0    1    0    3    1    0     1     4     2
  [2,]    3    4    2    2    1    1   16    0    0     1     3     9

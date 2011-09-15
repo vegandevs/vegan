@@ -90,7 +90,7 @@ margintest <-
     cat("row freqs: ")
     print(all.equal(rowSums(x>0), rfrq, check.attributes = FALSE))
     cat("col freqs: ")
-    print(all.equal(colSums(x), cfrq, check.attributes = FALSE))
+    print(all.equal(colSums(x>0), cfrq, check.attributes = FALSE))
 }
 
 ### permatfull1
