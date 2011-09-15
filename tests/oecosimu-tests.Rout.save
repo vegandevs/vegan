@@ -1,0 +1,579 @@
+
+R version 2.13.1 (2011-07-08)
+Copyright (C) 2011 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ### oecosimu-tests: unit tests for vegan functions
+> 
+> ### This file contains unit tests for oecosimu, permatfull and related
+> ### functions. This file is run in R CMD check and its results are
+> ### compared against previously saved results in
+> ### oecosimu-tests.Rout.save. If you change tests, you must generate
+> ### new oecosimu-tests.Rout.save in this directory.
+> 
+> ### The current plan is that tests/ are not included in the CRAN
+> ### release, but only in the development version of vegan in R-Forge.
+> 
+> ### The tests here are not intended for human reading. The tests need
+> ### not be ecological or biologically meaningful, but they are only
+> ### intended for testing strange arguments, protect against
+> ### regressions and test correctness of results.
+> 
+> ### The tests are in a single file and you should clean work space
+> ### after the unit test. You should set random number seed (if needed)
+> ### for comparison against vegan-tests.Rout.save, and you should
+> ### remove the seed after the unit test. If possible, avoid very long
+> ### lasting tests.
+> 
+> ### <-- oecosimu/permat specifics -->
+> 
+> ### The necessary condition is that fill, row and column sums are honoured. Secondarily we want to keep the simulation results identical when chaning the underlying routines in oecosimu (except experimental method = "backtrack"). The permatfull/swap code can be regarded as more experimental, and we can perhaps there change the simulation results, but not lightly. 
+> 
+> ###<--- BEGIN TESTS --->
+> suppressPackageStartupMessages(require(vegan))
+> set.seed(4711)
+> 
+> ### start commsimulator
+> 
+> ## expect fill, rowSums, colSums
+> expect <- data.frame("r00" = c(TRUE, FALSE, FALSE),
++                      "r0" = c(TRUE, TRUE, FALSE),
++                      "r1" = c(TRUE, TRUE, FALSE),
++                      "r2" = c(TRUE, TRUE, FALSE),
++                      "c0" = c(TRUE, FALSE, TRUE),
++                      "swap" = c(TRUE, TRUE, TRUE),
++                      "tswap" = c(TRUE, TRUE, TRUE),
++                      "quasi" = c(TRUE, TRUE, TRUE))
+> margintest <- function(x, fill, rs, cs) {
++     c(sum(x) == fill,
++       all(rowSums(x) == rs),
++       all(colSums(x) == cs))
++ }
+> 
+> ## data must be binary! 'sipoo' is (and not transformed) 
+> data(sipoo)
+> fill <- sum(sipoo)
+> rs <- rowSums(sipoo)
+> cs <- colSums(sipoo)
+> 
+> for(method in names(expect)) {
++     m <- commsimulator(sipoo, method = method, thin = 100)
++     cat("--> method:", method, "\n")
++     cat("** margintest:")
++     print(all(margintest(m, fill, rs, cs) == expect[, method]))
++     vegemite(m)
++ }
+--> method: r00 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  1...11........1..1
+ Falcsubb  ..1....1.1..1...1.
+ Tetrtetr  1.....1.......1..1
+ Scolrust  ...11.1...1..1.11.
+ Colupalu  1..........1.1...1
+ Cucucano  ...1.1.1.......1..
+ Apusapus  .........1..1.....
+ Picucanu  ..........1.11...1
+ Dryomart  1...1...........11
+ Jynxtorq  ..11..1...1....1..
+ Deliurbi  .....11.1.........
+ Hirurust  .1.......1.11.1.1.
+ Motaalba  .......1....11.1..
+ Anthtriv  1..1...111........
+ Trogtrog  ..1.1...1.....1..1
+ Prunmodu  .....1.1...1..1.11
+ Turdpila  .....1.1......1..1
+ Turdphil  .....1...1....1...
+ Turdmeru  .1....1..1....1...
+ Eritrube  1....1..111.......
+ Oenaoena  .11....1..........
+ Phoephoe  ....1..1....11....
+ Acroarun  ..........1.1....1
+ Acroscir  1...11.....1.....1
+ Hippicte  1....11...1.....1.
+ Sylvatri  ..........1....1..
+ Sylvbori  ..111111.....11.11
+ Sylvcurr  .1.....1..........
+ Sylvcomm  .1..........1.....
+ Phylsibi  .1..1.....1..1..1.
+ Phyltrocs 1.111.............
+ Phyltrocd ....1.1....1.1...1
+ Reguregu  ...1..111.....1..1
+ Muscstri  11.1........1.....
+ Ficehypo  ..1.11.11......111
+ Parumajo  .1....1.....1.....
+ Parucaer  .................1
+ Paruater  ...........1......
+ Parumont  ..1....111...1.1..
+ Cardchlo  ...1......111....1
+ Cardspin  .1..11.1..........
+ Pyrrpyrr  .........1...1...1
+ Loxicurv  .1.......1.1....1.
+ Frincoel  11....1.....11....
+ Sturvulg  .........1.11.1...
+ Orioorio  ......1.....1.....
+ Corvcora  .1...1.....1...1..
+ Garrglan  11................
+  sites species 
+     18      48 
+--> method: r0 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  ...............1..
+ Falcsubb  .........1..1..1.1
+ Tetrtetr  .1...............1
+ Scolrust  .......1..........
+ Colupalu  ............1.1..1
+ Cucucano  ..1....11.1.1.1.11
+ Apusapus  .....1..1..1.11.11
+ Picucanu  .1..1..........11.
+ Dryomart  ....1..........111
+ Jynxtorq  ......1....1111111
+ Deliurbi  .....1......11....
+ Hirurust  ...........1....11
+ Motaalba  .....1...1..111.11
+ Anthtriv  ...........1....11
+ Trogtrog  ...1......1......1
+ Prunmodu  ..........1..1..11
+ Turdpila  .......1......1..1
+ Turdphil  .........11.....11
+ Turdmeru  .........11..1...1
+ Turdilia  .......1.......11.
+ Eritrube  ....1.......1..11.
+ Oenaoena  ..1....1.......11.
+ Phoephoe  .......1....1...11
+ Acroarun  ........1.1.....1.
+ Acroscir  ..........1.1...11
+ Hippicte  1....1.........111
+ Sylvatri  .1...........1...1
+ Sylvbori  ..1........1.11..1
+ Sylvcurr  ...........1.11..1
+ Sylvcomm  ......11..1..1....
+ Phylsibi  ........1.1.1.1..1
+ Phyltrocs .........11...1.1.
+ Phyltrocd ..1..........1..1.
+ Reguregu  1....1.....11...11
+ Muscstri  .......1.........1
+ Ficehypo  .1...............1
+ Parumajo  .......1...1...1..
+ Parucaer  .......1.1..1.1111
+ Paruater  ....1....1.1...11.
+ Parumont  1.1.1.........1111
+ Cardchlo  1.......1........1
+ Cardspin  ...1.........1..11
+ Pyrrpyrr  ..........1.....1.
+ Loxicurv  ..........11.11111
+ Frincoel  .................1
+ Sturvulg  ....1.1..1.....11.
+ Orioorio  .............1..11
+ Corvcoro  ..............1111
+ Corvcora  ......1.......1.11
+ Garrglan  .....1..1.1...11..
+  sites species 
+     18      50 
+--> method: r1 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Falcsubb  .............1....
+ Tetrtetr  ....1.........1.1.
+ Scolrust  .............1.1.1
+ Colupalu  ................11
+ Apusapus  ..........1.1...11
+ Picucanu  ................1.
+ Dryomart  ................11
+ Deliurbi  .............11.11
+ Hirurust  .................1
+ Motaalba  .....111....1.1111
+ Anthtriv  ..1.............11
+ Trogtrog  ............1....1
+ Prunmodu  .......1...1....11
+ Turdpila  ...........1....1.
+ Turdphil  .....1.......1.111
+ Turdmeru  .....1.1.1.1.11111
+ Turdilia  ....1...1.111...11
+ Eritrube  ..........1.1..111
+ Oenaoena  1.1............1.1
+ Phoephoe  .......1..1.......
+ Acroarun  .................1
+ Acroscir  .....1.1..11....1.
+ Hippicte  ......1.1....1..1.
+ Sylvatri  ............1....1
+ Sylvbori  .1..........1.1111
+ Sylvcurr  ....1.1...1....1.1
+ Sylvcomm  .........1.....1.1
+ Phylsibi  .....1...11...11.1
+ Phyltrocs .........11.1.1111
+ Phyltrocd .............11.11
+ Reguregu  11.11..1...11.1.11
+ Muscstri  .............11111
+ Parumajo  11.....11.1111.111
+ Parucaer  .............1..11
+ Paruater  ........1.....1...
+ Parumont  ..........1......1
+ Cardchlo  .......1........1.
+ Cardspin  .....1..1111.11111
+ Pyrrpyrr  ................1.
+ Loxicurv  ..1...1..1....11..
+ Frincoel  .1111..111.1111111
+ Sturvulg  .........11..1..11
+ Orioorio  ..............1.1.
+ Corvcoro  1.1.1..1..11111111
+ Corvcora  .................1
+ Garrglan  .................1
+  sites species 
+     18      46 
+--> method: r2 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  ..........1.....11
+ Falcsubb  ...............1..
+ Tetrtetr  .................1
+ Scolrust  ................11
+ Cucucano  ................1.
+ Apusapus  ................11
+ Jynxtorq  ..............1..1
+ Deliurbi  .................1
+ Hirurust  ............111..1
+ Motaalba  1.1..1....1.111111
+ Anthtriv  .1.........11..111
+ Trogtrog  ..........1..11.11
+ Prunmodu  .........1..1...11
+ Turdpila  ..........1...1.11
+ Turdphil  1...1..1....1..111
+ Turdmeru  .11.1.11...1.11111
+ Turdilia  .....1....1.....11
+ Eritrube  .....11.11..1.1111
+ Oenaoena  ..1.......11....1.
+ Acroscir  .................1
+ Hippicte  .......1..........
+ Sylvbori  .......1.......111
+ Sylvcurr  .1.1.....1.1111111
+ Sylvcomm  .............1..11
+ Phylsibi  ..............1111
+ Phyltrocs 11..1..11111111111
+ Phyltrocd ...........1...111
+ Reguregu  ..1.11111111111111
+ Muscstri  ..........1.....11
+ Ficehypo  ................1.
+ Parumajo  .......11111111111
+ Parucaer  ...............1.1
+ Parumont  ................11
+ Cardchlo  .................1
+ Cardspin  ....1..1.111.11111
+ Loxicurv  .............1...1
+ Frincoel  1..111.1111.111111
+ Sturvulg  .......1.....11.11
+ Corvcoro  ..1..11.1.11111111
+ Garrglan  ................1.
+  sites species 
+     18      40 
+--> method: c0 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  ............1.....
+ Falcsubb  ..1...............
+ Tetrtetr  ........1...1.....
+ Scolrust  ...1....1.........
+ Colupalu  .1................
+ Cucucano  ........1.........
+ Apusapus  ....1.............
+ Picucanu  ............1.....
+ Dryomart  ...1..............
+ Jynxtorq  1.................
+ Deliurbi  ............1.1...
+ Hirurust  .1.......1..11....
+ Motaalba  1..1..11.11.11..11
+ Anthtriv  ....111....1......
+ Trogtrog  .........1..11....
+ Prunmodu  ..11..1...........
+ Turdpila  .....1.....1......
+ Turdphil  ..11....1....1...1
+ Turdmeru  11..1...1.1111111.
+ Turdilia  .1.1..111..1......
+ Eritrube  .1111.1.....1...1.
+ Oenaoena  1....11.....1.....
+ Phoephoe  ......1...........
+ Acroarun  ....1.............
+ Acroscir  1.......1.........
+ Hippicte  ..1........1......
+ Sylvatri  .1................
+ Sylvbori  ......11...1.....1
+ Sylvcurr  1...11.11...1111..
+ Sylvcomm  ...........11...1.
+ Phylsibi  ..1....1...1.....1
+ Phyltrocs .11.1.1.1111111..1
+ Phyltrocd 11.............1..
+ Reguregu  .1..1.111111.111.1
+ Muscstri  .1......1.1.......
+ Ficehypo  ...1......1.......
+ Parumajo  .1..11.1.111...11.
+ Parucaer  ....1....1........
+ Paruater  ............1.....
+ Parumont  .....1......1.....
+ Cardchlo  1.1...............
+ Cardspin  1.1111111...11.11.
+ Pyrrpyrr  .1................
+ Loxicurv  1.......1.........
+ Frincoel  111111111111111111
+ Sturvulg  ..........1...1..1
+ Orioorio  ....1.............
+ Corvcoro  .111111111.111.1.1
+ Corvcora  .....1............
+ Garrglan  ..1...............
+  sites species 
+     18      50 
+--> method: swap 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  ............1.....
+ Falcsubb  .......1..........
+ Tetrtetr  .............1...1
+ Scolrust  ............1...1.
+ Colupalu  .................1
+ Cucucano  ................1.
+ Apusapus  .................1
+ Picucanu  ...........1......
+ Dryomart  ...............1..
+ Jynxtorq  .............1....
+ Deliurbi  ................11
+ Hirurust  .........1.....111
+ Motaalba  1.1....1.11.1111.1
+ Anthtriv  ..........1...1.11
+ Trogtrog  .......1........11
+ Prunmodu  ..........1.....11
+ Turdpila  ................11
+ Turdphil  .............11111
+ Turdmeru  11....111..11.1111
+ Turdilia  ....11....1....111
+ Eritrube  ........1.1.1.1111
+ Oenaoena  ....1........1..11
+ Phoephoe  .............1....
+ Acroarun  .................1
+ Acroscir  ..............1.1.
+ Hippicte  ................11
+ Sylvatri  .................1
+ Sylvbori  ....11..........11
+ Sylvcurr  ..1.1..1.1...11111
+ Sylvcomm  .............1..11
+ Phylsibi  .............1111.
+ Phyltrocs 1....111.1111.1111
+ Phyltrocd .....1.........1.1
+ Reguregu  .1...1..1111111111
+ Muscstri  ..............1.11
+ Ficehypo  ......1..........1
+ Parumajo  .......11.111.1111
+ Parucaer  ............1...1.
+ Paruater  .............1....
+ Parumont  ..........11......
+ Cardchlo  ..........1.....1.
+ Cardspin  ..1....11111111111
+ Pyrrpyrr  ................1.
+ Loxicurv  ...............1.1
+ Frincoel  111111111111111111
+ Sturvulg  ..............1.11
+ Orioorio  .................1
+ Corvcoro  .1111..1.111111111
+ Corvcora  .................1
+ Garrglan  ...........1......
+  sites species 
+     18      50 
+--> method: tswap 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  .................1
+ Falcsubb  1.................
+ Tetrtetr  ................11
+ Scolrust  ......1..........1
+ Colupalu  .................1
+ Cucucano  ................1.
+ Apusapus  .............1....
+ Picucanu  .................1
+ Dryomart  ..............1...
+ Jynxtorq  .............1....
+ Deliurbi  ................11
+ Hirurust  .......1...1.1..1.
+ Motaalba  111.1..1..111...11
+ Anthtriv  ............1.11.1
+ Trogtrog  ...........1....11
+ Prunmodu  ...............111
+ Turdpila  ................11
+ Turdphil  ..........1..1.111
+ Turdmeru  .......11111111111
+ Turdilia  ............111111
+ Eritrube  ........1..11.1111
+ Oenaoena  ..1....1.....1..1.
+ Phoephoe  ..........1.......
+ Acroarun  .................1
+ Acroscir  ..........1.....1.
+ Hippicte  ................11
+ Sylvatri  .................1
+ Sylvbori  ............1..111
+ Sylvcurr  .....1.11.1.1.1111
+ Sylvcomm  .............11..1
+ Phylsibi  ..............1111
+ Phyltrocs ....111..111111111
+ Phyltrocd ..............1.11
+ Reguregu  .11.11....11111111
+ Muscstri  ..............1.11
+ Ficehypo  ...............11.
+ Parumajo  .1...1.1111...1.11
+ Parucaer  .......1..1.......
+ Paruater  .................1
+ Parumont  ...............1.1
+ Cardchlo  ...............11.
+ Cardspin  1.1.1..1..11111111
+ Pyrrpyrr  ................1.
+ Loxicurv  .........11.......
+ Frincoel  111111111111111111
+ Sturvulg  .........1...1..1.
+ Orioorio  .........1........
+ Corvcoro  ...1111111.1111111
+ Corvcora  .................1
+ Garrglan  .................1
+  sites species 
+     18      50 
+--> method: quasi 
+** margintest:[1] TRUE
+                             
+           SLLS  FS AGH  KMK 
+           v.e.TSl.Fsra Taua 
+           aHdHokafapanRrisu 
+           rohorakarlnsauvtn 
+           tgogvtarhalkgtoai 
+           hhlheashonnhslkhsO
+           oomodLkolddokaaesn
+           llelsealmeelanrvra
+           mmnmhdrmnttmrdiois
+ Pandhali  ...........1......
+ Falcsubb  .................1
+ Tetrtetr  ................11
+ Scolrust  .......1........1.
+ Colupalu  .................1
+ Cucucano  ................1.
+ Apusapus  .................1
+ Picucanu  ............1.....
+ Dryomart  ................1.
+ Jynxtorq  .................1
+ Deliurbi  ..........1....1..
+ Hirurust  .........11...1..1
+ Motaalba  .1.....1111..11111
+ Anthtriv  ............1.1.11
+ Trogtrog  ............11...1
+ Prunmodu  ..........11.....1
+ Turdpila  ................11
+ Turdphil  ........1....11.11
+ Turdmeru  ..1.1.11..1.111111
+ Turdilia  ...1.....1..11..11
+ Eritrube  .1.....1..1.1..111
+ Oenaoena  .......1....1...11
+ Phoephoe  .................1
+ Acroarun  .................1
+ Acroscir  ..............1.1.
+ Hippicte  ................11
+ Sylvatri  .................1
+ Sylvbori  ...........1...111
+ Sylvcurr  .....1.1..111.1111
+ Sylvcomm  .............11.1.
+ Phylsibi  .........11...11..
+ Phyltrocs 1.1.11.1..1.111111
+ Phyltrocd ...........1....11
+ Reguregu  1...11.1..11111111
+ Muscstri  ...............111
+ Ficehypo  .............1..1.
+ Parumajo  ..1.....11.1.11111
+ Parucaer  1..............1..
+ Paruater  ...............1..
+ Parumont  ..........1......1
+ Cardchlo  ................11
+ Cardspin  ..1.11..11.1111111
+ Pyrrpyrr  ................1.
+ Loxicurv  ................11
+ Frincoel  111111111111111111
+ Sturvulg  ......1........1.1
+ Orioorio  .............1....
+ Corvcoro  .1..11111111.11111
+ Corvcora  ................1.
+ Garrglan  ..............1...
+  sites species 
+     18      50 
+> ## clean
+> rm(list = ls())
+> 
+> ### end commsimulator
+> 
