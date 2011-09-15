@@ -62,3 +62,83 @@ for(method in names(expect)) {
 rm(list = ls())
 
 ### end commsimulator
+
+### set up permatfull/swap1 tests
+
+data(mite)
+data(mite.env)
+x <- as.matrix(subset(mite, mite.env$Topo == "Blanket"))
+x <- x[, colSums(x) > 0]
+gsum <- sum(x)
+rsum <- rowSums(x)
+csum <- colSums(x)
+fill <- sum(x>0)
+rfrq <- rowSums(x>0)
+cfrq <- colSums(x>0)
+
+margintest <-
+    function(x, gsum, rsum, csum, fill, rfrq, cfrq)
+{
+    cat("grand sum: ")
+    print(all.equal(sum(x), gsum, check.attributes = FALSE))
+    cat("row sums:  ")
+    print(all.equal(rowSums(x), rsum, check.attributes = FALSE))
+    cat("col sums:  ")
+    print(all.equal(colSums(x), csum, check.attributes = FALSE))
+    cat("fill:      ")
+    print(all.equal(sum(x>0), fill, check.attributes = FALSE))
+    cat("row freqs: ")
+    print(all.equal(rowSums(x>0), rfrq, check.attributes = FALSE))
+    cat("col freqs: ")
+    print(all.equal(colSums(x), cfrq, check.attributes = FALSE))
+}
+
+### permatfull1
+
+set.seed(4711)
+margin <- c("none", "rows", "columns", "both")
+shuffle <- c("ind", "samp", "both")
+
+for(mar in margin) {
+    for(what in shuffle) {
+        cat("\n--> margin", mar, " shuffle", what, "<--\n")
+        m <- permatfull1(x, fixedmar = mar, shuffle = what, mtype = "count")
+        margintest(m, gsum, rsum, csum, fill, rfrq, cfrq)
+        print(m[,1:12])
+    }
+}
+
+### permatswap1
+set.seed(4711)
+methods <- c("swap", "quasiswap", "swsh", "abuswap")
+margins <- c("rows", "columns", "both")
+shuffle <- c("samp", "both")
+
+incompatible <- function(method, margin)
+{
+    (method == "swap" && margin != "both") ||
+    (method == "abuswap" && margin == "both") ||
+    (method %in% c("quasiswap", "swsh") && margin != "both")
+}
+
+for(method in methods) {
+    for(margin in margins) {
+        for(what in shuffle) {
+            if (incompatible(method = method, margin = margin))
+                next
+            cat("\n*** ", method, " ***\n")
+            cat("--> margin", margin, " shuffle", what, "<--\n")
+            m <- permatswap1(x, method = method, fixedmar = margin, shuffle = what,
+                             mtype = "count", thin=100)
+            margintest(m, gsum, rsum, csum,fill, rfrq, cfrq)
+            print(m[,1:12])
+        }
+    }
+}
+### end permatswap1
+
+### clean
+rm(list = ls())
+
+## end permatfull1/swap1
+
