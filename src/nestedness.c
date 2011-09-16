@@ -224,9 +224,61 @@ double isDiag(double *sm)
     }
 }
 
+
+/* idDiagFill: Largest swappable element and swap policies for
+ * fill-neutral swapping
+ */
+
+double isDiagFill(double *sm)
+{
+    int i, sX;
+    double retval;
+
+    /* sX: number of non-zero cells */
+    for (i = 0, sX = 0; i < 4; i++)
+	    if (sm[i] > 0)
+		    sX++;
+
+    retval = 0; /* default retval */
+    switch (sX) {
+    case 0:
+    case 1:
+	    /* nothing to swap*/
+	    return 0;
+	    break;
+    case 2:
+	    /* equal diagonal and antidiagonal fill-neutrally
+	     * swappable */
+	    if ((sm[0] == sm[3]) && (sm[1] == sm[2])) {
+		    if (sm[1] > 0)
+			    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+		    else
+			    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+	    }
+	    return retval;
+	    break;
+    case 3:
+	    /* fill-neutrally swappable if diagonal & antidiagonal
+	     * unequal */
+	    if ((sm[0] != sm[3]) && (sm[1] != sm[2])) {
+		    if (sm[0] == 0 || sm[3] == 0) {
+			    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+		    } else {
+			    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+		    }
+	    }
+	    return retval;
+	    break;
+    case 4:
+	    /* never swappable (minelement-1 always swappable) */
+	    return 0;
+	    break;
+    }
+}
+
 void swapcount(double *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, oldn, newn, 
+    int row[2], col[2], k, ij[4], changed, 
 	pm[4] = {1, -1, -1, 1} ;
     double sm[4], ev;
 
@@ -244,21 +296,12 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
-	ev = isDiag(sm);
+	ev = isDiagFill(sm);
 	if (ev != 0) {
-	    /* Check that the fill doesn't change*/
-	    for (k = 0, oldn = 0, newn = 0; k < 4; k++) {
-		if(sm[k] > 0)
-		    oldn++;
-		if (sm[k] + pm[k]*ev > 0)
-		    newn++;
-	    }
 	    /* Swap */
-	    if (oldn == newn) {
 		for (k = 0; k < 4; k++)
-		    m[ij[k]] += pm[k]*ev;
+			m[ij[k]] += pm[k]*ev;
 		changed++;
-	    }
 	}
     }
 
