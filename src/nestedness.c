@@ -224,6 +224,65 @@ double isDiag(double *sm)
     }
 }
 
+double isDiagGot(double *sm, double *got)
+{
+    int i, sX;
+    double retval;
+
+    /* sX: number of non-zero cells */
+    for (i = 0, sX = 0; i < 4; i++)
+	    if (sm[i] > 0)
+		    sX++;
+
+    /* default values */
+    retval = 0;
+    *got = 0;
+
+    switch (sX) {
+    case 0:
+    case 1:
+	    /* nothing to swap*/
+	    return 0;
+	    break;
+    case 2:
+	    /* diagonal and antidiagonal swappable */
+	    if (sm[1] > 0 && sm[2] > 0) {
+		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+		    if (sm[1] != sm[2])
+			    *got = 1;
+	    }
+	    else if (sm[0] > 0 && sm[3] > 0) { 
+		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+		    if (sm[0] != sm[3])
+			    *got = 1;
+	    }
+	    return retval;
+	    break;
+    case 3:
+	    /* always swappable: case depends on the empty corner */
+	    if (sm[0] == 0 || sm[3] == 0) {
+		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+		    if (sm[1] == sm[2])
+			    *got = -1;
+	    } else {
+		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
+		    if (sm[0] == sm[3])
+			    *got = -1;
+	    }
+	    return retval;
+	    break;
+    case 4:
+	    /* always swappable: return diagonal case */
+	    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
+	    if (sm[1] == sm[2])
+		    *got = -2;
+	    else
+		    *got = -1;
+	    return retval;
+	    break;
+    }
+}
+
 
 /* idDiagFill: Largest swappable element and swap policies for
  * fill-neutral swapping
@@ -280,7 +339,7 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 {
     int row[2], col[2], k, ij[4], changed, 
 	pm[4] = {1, -1, -1, 1} ;
-    double sm[4], ev;
+    double sm[4], ev, got;
 
     GetRNGstate();
 
@@ -296,9 +355,9 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
-	ev = isDiagFill(sm);
-	if (ev != 0) {
-	    /* Swap */
+	ev = isDiagGot(sm, &got);
+	if (ev != 0 && got == 0) {
+		/* Swap */
 		for (k = 0; k < 4; k++)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
