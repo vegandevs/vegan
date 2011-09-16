@@ -175,7 +175,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * way. The input is a 2x2 submatrix 'sm'.
 */
 
-double isDiag(double *sm)
+double isDiagOld(double *sm)
 {
     int i, sX;
     double retval;
@@ -224,7 +224,7 @@ double isDiag(double *sm)
     }
 }
 
-double isDiagGot(double *sm, double *got)
+double isDiag(double *sm, int *got)
 {
     int i, sX;
     double retval;
@@ -337,9 +337,9 @@ double isDiagFill(double *sm)
 
 void swapcount(double *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, 
+    int row[2], col[2], k, ij[4], changed, got,
 	pm[4] = {1, -1, -1, 1} ;
-    double sm[4], ev, got;
+    double sm[4], ev;
 
     GetRNGstate();
 
@@ -355,7 +355,7 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
-	ev = isDiagGot(sm, &got);
+	ev = isDiag(sm, &got);
 	if (ev != 0 && got == 0) {
 		/* Swap */
 		for (k = 0; k < 4; k++)
@@ -401,15 +401,8 @@ void rswapcount(double *m, int *nr, int *nc, int *mfill)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
-	ev = isDiag(sm);
+	ev = isDiag(sm, &change);
 	if (ev != 0) {
-	    /* Check the change in fills */
-	    for (k = 0, change=0; k < 4; k++) {
-		if(sm[k] > 0)
-		    change--;
-		if (sm[k] + pm[k]*ev > 0)
-		    change++;
-	    }
 	    /* Fill does not change, but swap to bail out from
 	     * non-swappable configurations */
 	    if (change == 0) {
