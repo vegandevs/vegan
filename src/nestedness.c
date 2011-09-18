@@ -224,7 +224,7 @@ double isDiagOld(double *sm)
     }
 }
 
-double isDiag(double *sm, int *got)
+double isDiag(double *sm, int *change)
 {
     int i, sX;
     double retval;
@@ -236,55 +236,51 @@ double isDiag(double *sm, int *got)
 
     /* default values */
     retval = 0;
-    *got = 0;
-
+    *change = 0;
     switch (sX) {
     case 0:
     case 1:
 	    /* nothing to swap*/
-	    return 0;
 	    break;
     case 2:
 	    /* diagonal and antidiagonal swappable */
 	    if (sm[1] > 0 && sm[2] > 0) {
 		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
 		    if (sm[1] != sm[2])
-			    *got = 1;
+			    *change = 1;
 	    }
 	    else if (sm[0] > 0 && sm[3] > 0) { 
 		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
 		    if (sm[0] != sm[3])
-			    *got = 1;
-	    }
-	    return retval;
+			    *change = 1;
+	    } 
 	    break;
     case 3:
 	    /* always swappable: case depends on the empty corner */
 	    if (sm[0] == 0 || sm[3] == 0) {
 		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
 		    if (sm[1] == sm[2])
-			    *got = -1;
+			    *change = -1;
 	    } else {
 		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
 		    if (sm[0] == sm[3])
-			    *got = -1;
+			    *change = -1;
 	    }
-	    return retval;
 	    break;
     case 4:
 	    /* always swappable: return diagonal case */
 	    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
 	    if (sm[1] == sm[2])
-		    *got = -2;
+		    *change = -2;
 	    else
-		    *got = -1;
-	    return retval;
+		    *change = -1;
 	    break;
     }
+    return retval;
 }
 
 
-/* idDiagFill: Largest swappable element and swap policies for
+/* isDiagFill: Largest swappable element and swap policies for
  * fill-neutral swapping
  */
 
@@ -298,12 +294,11 @@ double isDiagFill(double *sm)
 	    if (sm[i] > 0)
 		    sX++;
 
-    retval = 0; /* default retval */
+    retval = 0;
     switch (sX) {
     case 0:
     case 1:
 	    /* nothing to swap*/
-	    return 0;
 	    break;
     case 2:
 	    /* equal diagonal and antidiagonal fill-neutrally
@@ -314,7 +309,6 @@ double isDiagFill(double *sm)
 		    else
 			    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
 	    }
-	    return retval;
 	    break;
     case 3:
 	    /* fill-neutrally swappable if diagonal & antidiagonal
@@ -326,13 +320,12 @@ double isDiagFill(double *sm)
 			    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
 		    }
 	    }
-	    return retval;
 	    break;
     case 4:
 	    /* never swappable (minelement-1 always swappable) */
-	    return 0;
 	    break;
     }
+    return retval;
 }
 
 void swapcount(double *m, int *nr, int *nc, int *thin)
@@ -355,9 +348,10 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
+/*	ev = isDiagFill(sm);
+ 	if (ev != 0) { */
 	ev = isDiag(sm, &got);
 	if (ev != 0 && got == 0) {
-		/* Swap */
 		for (k = 0; k < 4; k++)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
@@ -425,6 +419,7 @@ void rswapcount(double *m, int *nr, int *nc, int *mfill)
 double isDiagSimple(double *sm)
 {
     int i, sX;
+    double retval;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
@@ -435,24 +430,25 @@ double isDiagSimple(double *sm)
     case 0:
     case 1:
 	    /* never swappable */
-	    return 0;
+	    retval = 0;
 	    break;
     case 2:
 	    /* diagonal and antidiagonal swappable */
 	    if ((sm[1] > 0 && sm[2] > 0) || (sm[0] > 0 && sm[3] > 0))
-		    return 1;
+		    retval = 1;
 	    else
-		    return 0;
+		    retval = 0;
 	    break;
     case 3:
 	    /* never swappable */
-	    return 0;
+	    retval = 0;
 	    break;
     case 4:
 	    /* always swappable */
-	    return 1;
+	    retval = 1;
 	    break;
     }
+    return retval;
 }
 
 /* 'abuswap' to do Hardy 2008 J Ecol 96: 914-926 */
