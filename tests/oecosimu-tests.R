@@ -142,3 +142,16 @@ rm(list = ls())
 
 ## end permatfull1/swap1
 
+## The following vegan functions depend on *oecosimu*: adipart
+## hiersimu multipart raupcrick. The following functions directly
+## depend on *commsimulator*: permatfull1 permatswap1.  All these have
+## derived and/or method functions. These should not be broken.
+
+## Do not break raupcrick:
+set.seed(4711)
+data(sipoo)
+as.numeric(raupcrick(sipoo, nsimul = 99))
+rm(list = ls())
+## end raupcrick
+
+
