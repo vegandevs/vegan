@@ -348,10 +348,8 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
-/*	ev = isDiagFill(sm);
- 	if (ev != 0) { */
-	ev = isDiag(sm, &got);
-	if (ev != 0 && got == 0) {
+	ev = isDiagFill(sm);
+ 	if (ev != 0) { 
 		for (k = 0; k < 4; k++)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
