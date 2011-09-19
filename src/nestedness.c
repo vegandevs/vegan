@@ -175,55 +175,6 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * way. The input is a 2x2 submatrix 'sm'.
 */
 
-double isDiagOld(double *sm)
-{
-    int i, sX;
-    double retval;
-
-    /* sX: number of non-zero cells */
-    for (i = 0, sX = 0; i < 4; i++)
-	    if (sm[i] > 0)
-		    sX++;
-
-    switch (sX) {
-    case 0:
-    case 1:
-	    /* nothing to swap*/
-	    return 0;
-	    break;
-    case 2:
-	    /* diagonal and antidiagonal swappable */
-	    if (sm[1] > 0 && sm[2] > 0) {
-		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
-	    }
-	    else if (sm[0] > 0 && sm[3] > 0) { 
-		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
-	    } else {
-		    retval = 0;
-	    }
-	    return retval;
-	    break;
-    case 3:
-	    /* always swappable: case depends on the empty corner */
-	    if (sm[0] == 0 || sm[3] == 0) {
-		    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
-	    } else {
-		    retval = (sm[0] < sm[3]) ? -sm[0] : -sm[3];
-	    }
-	    return retval;
-	    break;
-    case 4:
-	    /* always swappable: return diagonal case */
-	    retval = (sm[1] < sm[2]) ? sm[1] : sm[2];
-	    return retval;
-	    break;
-    default:
-            /* never reach this */
-	    return 0;
-	    break;
-    }
-}
-
 double isDiag(double *sm, int *change)
 {
     int i, sX;
