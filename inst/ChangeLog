@@ -9,6 +9,28 @@ Version 2.1-1 (opened September 20, 2011)
 	call should now be defined as as.integer() instead of old
 	as.double().
 
+	* New functions: commsim is used to define Null Model Algorithms
+	via a function that returns n x m x nsim array of permuted
+	matrices based on structural constraints. make.commsim
+	contains Null Model Algorithms already defined in vegan 
+	from commsimulator and permat* functions (and some more).
+	The nullmodel function creates an environment, where statistics
+	of the input matrix are stored. The environment also stores
+	updated status of sequential algorithms and current number of 
+	iterations. The update and simulate methods are used to
+	update the nullmodel (for sequential algorithms) or
+	simulate random matrices, respectively. The simulate
+	method returns the n x m nsim array (simmat class).
+	Efficiency gains are sometimes high (because marginal
+	statistics are calculate only once by nullmodel), 
+	but not significant in most cases. 
+	Most advanageously, this implementation
+	can unite the commsimulator and permat* branches
+	and can serve as basis for further extensions.
+	Current intent is to investigate how this low level
+	infrastructure can be used within oecosimu and permat*
+	functions without breaking current vegan functionality.
+
 Version 2.1-0 (closed September 20, 2011)
 
 	* New major version opened with the release of vegan_2.0-0 on

@@ -6,15 +6,16 @@ useDynLib(vegan)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bstick, cIndexKM, calibrate, capscale, cascadeKM,
-cca, commsimulator, contribdiv, clamtest, decorana, decostand, designdist,
+cca, commsimulator, contribdiv, clamtest, commsim,
+decorana, decostand, designdist,
 coverscale, dispindmorisita, distconnected, diversity, downweight,
 drarefy, eigengrad, eigenvals, envfit, estaccumR, estimateR, eventstar,
 factorfit, fisherfit, fitspecaccum, goodness, hiersimu, humpfit,
 indpower, inertcomp, initMDS, intersetcor, isomapdist, isomap,
 linestack, mantel, meandist, metaMDSdist, metaMDSiter, metaMDSredist,
-MDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart,
-nestedchecker, nesteddisc, nestedn0, nestednodf, nestedtemp, oecosimu,
-ordiR2step, ordiarrows, ordicloud, ordicluster,
+MDSrotate, metaMDS, monoMDS, mrpp, msoplot, mso, multipart, make.commsim,
+nestedchecker, nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel,
+oecosimu, ordiR2step, ordiarrows, ordicloud, ordicluster,
 ordiellipse, ordigrid, ordihull, ordilabel, ordiplot3d,
 ordiplot, ordipointlabel, ordiresids, ordirgl, ordisegments,
 ordispider, ordisplom, ordistep, ordisurf, orditkplot, orditorp,
@@ -269,6 +270,7 @@ S3method(print, betadisper)
 S3method(print, bioenv)
 S3method(print, capscale)
 S3method(print, cca)
+S3method(print, commsim)
 S3method(print, decorana)
 S3method(print, eigenvals)
 S3method(print, envfit)
@@ -289,6 +291,7 @@ S3method(print, nesteddisc)
 S3method(print, nestedn0)
 S3method(print, nestednodf)
 S3method(print, nestedtemp)
+S3method(print, nullmodel)
 S3method(print, oecosimu)
 S3method(print, permat)
 S3method(print, permutest.betadisper)
@@ -301,6 +304,7 @@ S3method(print, radfit)
 S3method(print, radfit.frame)
 S3method(print, radline)
 S3method(print, specaccum)
+S3method(print, simmat)
 S3method(print, summary.bioenv)
 S3method(print, summary.cca)
 S3method(print, summary.clamtest)
@@ -355,6 +359,7 @@ S3method(screeplot, princomp)
 S3method(simulate, capscale)
 S3method(simulate, cca)
 S3method(simulate, rda)
+S3method(simulate, nullmodel)
 # stressplot: vegan
 S3method(stressplot, default)
 S3method(stressplot, monoMDS)
@@ -388,6 +393,8 @@ S3method(text, orditkplot)
 S3method(text, procrustes)
 # tolerance: vegan -- or analogue?? Gav?
 S3method(tolerance, cca)
+# update: stats
+S3method(update, nullmodel)
 # vif: car -- but not used as a S3method within vegan
 # because of car definition: could be defined as exported 'vif' generic
 # in vegan with namespace
