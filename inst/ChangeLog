@@ -2,18 +2,25 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-0 (opened September 8, 2011)
+Version 2.1-1 (opened September 20, 2011)
+
+	* nestedness.c: changed interface in "swapcount" and "rswapcount"
+	which now require integer data matrix. The first argument in .C
+	call should now be defined as as.integer() instead of old
+	as.double().
+
+Version 2.1-0 (closed September 20, 2011)
 
 	* New major version opened with the release of vegan_2.0-0 on
 	September 8, 2011.
 
 	* nestedness.c: isDiag* uses now switch(sX) where sX is the number
-	of non-empty cells. The code looks like it should be faster, but
-	measurable effects are hard to see. However, it is now much
-	clearer since it is obvious what kind of decisions are made with
-	each matrix fill. The swap and trialswap also find first the fill
-	of the 2x2 submatrix, and continue only if fill == 2. The
-	measurable effects are small again (perhaps 1%). 
+	of non-empty cells. The "swapcount" method uses new isDiagFill
+	which finds the largest swappable element that does not change the
+	fill, and "rswapcount" uses isDiag which finds both the largest
+	swappable element the change in fill. The swap and trialswap also
+	find first the fill of the 2x2 submatrix, and continue only if
+	fill == 2. The measurable effects are small again (perhaps 1%).
 
 	* tests: added tests for commsimulator, permatswap1 and
 	permatfull1 before starting the adventures with nestedness.c.
