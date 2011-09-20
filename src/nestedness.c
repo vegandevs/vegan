@@ -175,10 +175,10 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * way. The input is a 2x2 submatrix 'sm'.
 */
 
-double isDiag(double *sm, int *change)
+int isDiag(int *sm, int *change)
 {
     int i, sX;
-    double retval;
+    int retval;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
@@ -235,10 +235,10 @@ double isDiag(double *sm, int *change)
  * fill-neutral swapping
  */
 
-double isDiagFill(double *sm)
+int isDiagFill(int *sm)
 {
     int i, sX;
-    double retval;
+    int retval;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
@@ -279,11 +279,11 @@ double isDiagFill(double *sm)
     return retval;
 }
 
-void swapcount(double *m, int *nr, int *nc, int *thin)
+void swapcount(int *m, int *nr, int *nc, int *thin)
 {
     int row[2], col[2], k, ij[4], changed, got,
 	pm[4] = {1, -1, -1, 1} ;
-    double sm[4], ev;
+    int sm[4], ev;
 
     GetRNGstate();
 
@@ -317,11 +317,11 @@ void swapcount(double *m, int *nr, int *nc, int *thin)
  * is similar as quasiswap for presence/absence data.
  */
 
-void rswapcount(double *m, int *nr, int *nc, int *mfill)
+void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
     int row[2], col[2], i, k, ij[4], n, change, cfill,
        pm[4] = {1, -1, -1, 1} ;
-    double sm[4], ev;
+    int sm[4], ev;
 
     /* Get the current fill 'cfill' */
     n = (*nr) * (*nc);
@@ -365,10 +365,10 @@ void rswapcount(double *m, int *nr, int *nc, int *mfill)
 
 /* 'isDiagSimple' needed for 'abuswap' */
 
-double isDiagSimple(double *sm)
+int isDiagSimple(double *sm)
 {
     int i, sX;
-    double retval;
+    int retval;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
@@ -404,7 +404,7 @@ double isDiagSimple(double *sm)
 
 void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], changed, ev ;
+    int row[2], col[2], k, ij[4], changed, ev;
     double sm[4];
 
     GetRNGstate();

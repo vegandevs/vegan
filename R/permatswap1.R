@@ -83,7 +83,7 @@ function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
             if (count) {
                 if (method == "swap")
                     perm[id,] <- .C("swapcount",
-                                m = as.double(temp),
+                                m = as.integer(temp),
                                 as.integer(nn.row),
                                 as.integer(nn.col),
                                 as.integer(thin),
@@ -112,7 +112,7 @@ function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
                     ## if fills are equal, no need to restore fill
                     if (sum(tmp > 0) != ms) {
                         tmp <- .C("rswapcount",
-                                    m = as.double(tmp),
+                                    m = as.integer(tmp),
                                     as.integer(nn.row),
                                     as.integer(nn.col),
                                     as.integer(ms),
