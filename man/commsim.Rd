@@ -103,7 +103,7 @@ The following algorithms are currently predefined:
     is trying a fixed number of times and doing zero to 
     many swaps at one step (according th thin argument in later call, 
     see Examples). This approach was suggested by
-    \enc{Miklós}{Miklos} & Podani (2004) because they found that ordinary swap
+    \enc{MiklÃ³s}{Miklos} & Podani (2004) because they found that ordinary swap
     may lead into biased sequences, 
     since some columns or rows may be more easily swapped.}
   \item{\code{"quasiswap"}: }{non-sequential algorithm for binary matrices described 
@@ -114,7 +114,7 @@ The following algorithms are currently predefined:
     Then the method inspects random 2x2 matrices and performs a 
     quasiswap on them. Quasiswap is similar to ordinary swap, 
     but it also can reduce numbers above one to ones maintaining 
-    marginal totals (\enc{Miklós}{Miklos} & Podani 2004). }
+    marginal totals (\enc{MiklÃ³s}{Miklos} & Podani 2004). }
   \item{\code{"backtracking"}: }{non-sequential algorithm for binary matrices described 
     in the page of \code{\link{commsimulator}}.
     This method implements a filling method with constraints 
@@ -291,7 +291,7 @@ if none such is found.
   Jonsson, B.G. (2001) A null model for randomization tests of
   nestedness in species assemblages. \emph{Oecologia} 127, 309--313.
 
-  \enc{Miklós}{Miklos}, I. & Podani, J. (2004). Randomization of presence-absence
+  \enc{MiklÃ³s}{Miklos}, I. & Podani, J. (2004). Randomization of presence-absence
   matrices: comments and new algorithms. \emph{Ecology} 85, 86--92.
 
   Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. & Atmar,
