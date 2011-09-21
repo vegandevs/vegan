@@ -29,7 +29,7 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
         burnin <- 0L
     }
     perm <- object$commsim$fun(x=x,
-        n=nsim,
+        n=as.integer(nsim),
         nr=object$nrow,
         nc=object$ncol,
         rs=object$rowSums,
@@ -38,7 +38,7 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
         cf=object$colFreq,
         s=object$totalSum,
         fill=object$fill,
-        thin=thin, ...)
+        thin=as.integer(thin), ...)
     if (object$commsim$isSeq) {
         Start <- as.integer(object$iter + 1L)
         End <- as.integer(object$iter + nsim * thin)

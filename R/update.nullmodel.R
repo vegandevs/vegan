@@ -13,7 +13,7 @@ function(object, nsim=1, seed = NULL, ...)
     }
     if (object$commsim$isSeq) {
         perm <- object$commsim$fun(x=object$state,
-            n=1,
+            n=1L,
             nr=object$nrow,
             nc=object$ncol,
             rs=object$rowSums,
@@ -22,7 +22,7 @@ function(object, nsim=1, seed = NULL, ...)
             cf=object$colFreq,
             s=object$totalSum,
             fill=object$fill,
-            thin=nsim, ...)
+            thin=as.integer(nsim), ...)
         state <- perm[,,1L]
         storage.mode(state) <- object$commsim$mode
         iter <- as.integer(object$iter + nsim)
