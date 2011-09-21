@@ -1,9 +1,7 @@
 \encoding{UTF-8}
 \name{permat}
 \alias{permatfull}
-\alias{permatfull1}
 \alias{permatswap}
-\alias{permatswap1}
 \alias{summary.permat}
 \alias{print.summary.permat}
 \alias{print.permat}
@@ -22,10 +20,6 @@ restricted permutations (based on strata) are discussed in the
 Details section.}
 
 \usage{
-permatfull1(m, fixedmar = "both", shuffle = "both", strata = NULL, 
-    mtype = "count")
-permatswap1(m, method = "quasiswap", fixedmar="both", shuffle = "both",
-    strata = NULL, mtype = "count", thin = 1)
 permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL, 
     mtype = "count", times = 99)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
@@ -146,13 +140,18 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   column incidences constant, then non-zero values are modified
   according to the \code{shuffle} argument (only \code{"samp"} and
   \code{"both"} are available in this case, because it is applied only
-  on non-zero values).
+  on non-zero values). It also recognizes the \code{fixedmar}
+  argument which cannot be \code{"both"} (\pkg{vega} versions <= 2.0
+  had this algorithm with \code{fixedmar = "none"}).
 
   The algorithm \code{"abuswap"} produces two kinds of null models
   (based on \code{fixedmar="columns"} or \code{fixedmar="rows"}) as
   described in Hardy (2008; randomization scheme 2x and 3x,
   respectively).  These preserve column and row occurrences, and column
-  or row sums at the same time.
+  or row sums at the same time. (Note that similar constraints
+  can be achieved by the non sequential \code{"swsh"} algorithm
+  with \code{fixedmar} argument set to \code{"columns"} or
+  \code{"rows"}, respectively.)
 
   Constraints on row/column sums, matrix fill, total sum and sums within
   strata can be checked by the \code{summary} method. \code{plot} method
@@ -183,11 +182,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   is useful for accessing diagnostic tools available in the \pkg{coda}
   package.  }
 
-\value{ Functions \code{permatfull1} and \code{permatswap1} return a
-  single permuted matrix. These functions are called repeatedly
-  by the corresponding \code{permatfull} and \code{permatswap}
-  functions.
-
+\value{ 
   Functions \code{permatfull} and \code{permatswap} return an
   object of class \code{"permat"} containing the the function call
   (\code{call}), the original data matrix used for permutations
@@ -225,6 +220,9 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 \seealso{ For other functions to permute matrices:
 \code{\link{commsimulator}}, \code{\link{r2dtable}},
 \code{\link{sample}}, \code{\link[bipartite]{swap.web}}.
+
+For underlying `low level' implementation, see
+\code{\link{commsim}} and \code{\link{nullmodel}}.
 
 For the use of these permutation algorithms: \code{\link{oecosimu}},
 \code{\link{adipart}}, \code{\link{hiersimu}}.

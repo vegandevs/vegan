@@ -131,8 +131,9 @@ It is a list with element \code{data} for the original matrix,
 and \code{perm} for an array of simulated matrices (third dimension
 corresponding to \code{nsim} argument).
 
-The \code{update} method returns \code{NULL} invisibly,
-and update the input object for sequential algorithms.
+The \code{update} method returns the current state (last updated matrix)
+invisibly, and update the input object for sequential algorithms.
+For non sequential algorithms, it returns \code{NULL}.
 }
 \author{
 Peter Solymos \email{solymos@ualberta.ca}

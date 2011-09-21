@@ -263,11 +263,13 @@ An object of class \code{"commsim"} with elements
 corresponding to the arguments (\code{method}, \code{binary}, 
 \code{isSeq}, \code{fun}).
 
-IF the input of \code{make.comsimm} is a \code{commsim} object,
+If the input of \code{make.comsimm} is a \code{commsim} object,
 it is returned without further evaluation. If this is not the case,
 the character \code{method} argument is matched agains
 predefined algorithm names. An error message is issued
-if none such is found.
+if none such is found. If the \code{method} argument is missing,
+the function returns names of all currently available
+null model algorithms as a character vector.
 }
 \references{
   Hardy, O. J. (2008) 
@@ -313,7 +315,10 @@ f <- function(x, n, ...)
     isSeq=FALSE, mode="integer"))
 
 ## retrieving the sequential swap algorithm
-make.commsim("swap")
+(cs <- make.commsim("swap"))
+
+## feeding a commsim object as argument
+make.commsim(cs)
 
 ## structural constraints
 diagfun <- function(x, y) {
@@ -334,15 +339,8 @@ evalfun <- function(meth, x, n) {
     c(z, out)
 }
 x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
-a <- t(sapply(c("r00","r0","r1","r2","c0",
-    "swap","tswap","quasiswap","backtrack",
-    "r2dtable","swap_count","quasiswap_count",
-    "swsh_samp","swsh_both","abuswap_r","abuswap_c",
-    "swsh_samp_r","swsh_samp_c","swsh_both_r","swsh_both_c",
-    "r00_ind","r0_ind","c0_ind",
-    "r00_samp","r0_samp","c0_samp",
-    "r00_both","r0_both","c0_both"), 
-    evalfun, x=x, n=10))
+algos <- make.commsim()
+a <- t(sapply(algos, evalfun, x=x, n=10))
 print(as.table(ifelse(a==1,1,0)), zero.print = ".")
 }
 \keyword{ multivariate }

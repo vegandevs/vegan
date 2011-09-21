@@ -9,10 +9,8 @@
 make.commsim <- 
 function(method)
 {
-    if (inherits(method, "commsim"))
-        return(method)
-    switch(method, 
-        "r00" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+    algos <- list(
+        "r00" = commsim(method="r00", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- matrix(0L, nr * nc, n)
@@ -20,8 +18,8 @@ function(method)
                 out[sample.int(nr * nc, s), k] <- 1
             dim(out) <- c(nr, nc, n)
             out
-        })),
-        "c0" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "c0" = commsim(method="c0", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -30,8 +28,8 @@ function(method)
                 for (j in J)
                     out[sample.int(nr, cs[j]), j, k] <- 1
             out
-        })),
-        "r0" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "r0" = commsim(method="r0", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -40,8 +38,8 @@ function(method)
                 for (i in I)
                     out[i, sample.int(nc, rs[i]), k] <- 1
             out
-        })),
-        "r1" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "r1" = commsim(method="r1", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -50,8 +48,8 @@ function(method)
                 for (i in I)
                     out[i, sample.int(nc, rs[i], prob=cs), k] <- 1
             out
-        })),
-        "r2" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "r2" = commsim(method="r2", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -61,8 +59,8 @@ function(method)
                 for (i in I)
                     out[i, sample.int(nc, rs[i], prob=p), k] <- 1
             out
-        })),
-        "quasiswap" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "quasiswap" = commsim(method="quasiswap", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
@@ -71,8 +69,8 @@ function(method)
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
             out
-        })),
-        "swap" = return(commsim(method=method, binary=TRUE, isSeq=TRUE,
+        }),
+        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -83,8 +81,8 @@ function(method)
                     m = out[,,k], nr, nc, thin, 
                     PACKAGE = "vegan")$m
             out
-        })),
-        "tswap" = return(commsim(method=method, binary=TRUE, isSeq=TRUE,
+        }),
+        "tswap" = commsim(method="tswap", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -94,8 +92,8 @@ function(method)
                 out[,,k+1] <- .C("trialswap", 
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
-        })),
-        "backtrack" = return(commsim(method=method, binary=TRUE, isSeq=FALSE,
+        }),
+        "backtrack" = commsim(method="backtrack", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             btrfun <- function() {
@@ -143,39 +141,36 @@ function(method)
             for (k in seq_len(n))
                 out[, , k] <- btrfun()
             out
-        })),
-        "r2dtable" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r2dtable" = commsim(method="r2dtable", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             out
-        })),
-        "swap_count" = return(commsim(method=method, binary=FALSE, isSeq=TRUE,
+        }),
+        "swap_count" = commsim(method="swap_count", binary=FALSE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
             out[,,1] <- .C("swapcount", 
-#                m = as.double(x), nr, nc, thin, PACKAGE = "vegan")$m
                 m = x, nr, nc, thin, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
                 out[,,k+1] <- .C("swapcount", 
-#                    m = as.double(out[,,k]), nr, nc, thin, PACKAGE = "vegan")$m
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
-        })),
-        "quasiswap_count" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n))
                 out[,,k] <- .C("rswapcount", 
-#                    m = as.double(out[,,k]), nr, nc, fill, PACKAGE = "vegan")$m
                     m = out[,,k], nr, nc, fill, PACKAGE = "vegan")$m
             out
-        })),
-        "swsh_samp" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_samp" = commsim(method="swsh_samp", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             nz <- as.integer(x[x > 0])
@@ -187,8 +182,8 @@ function(method)
                 out[,,k][out[,,k] > 0] <- sample(nz)
             }
             out
-        })),
-        "swsh_both" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_both" = commsim(method="swsh_both", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -206,8 +201,8 @@ function(method)
                 out[,,k][out[,,k] > 0] <- sample(indshuffle(nz - 1L) + 1L)
             }
             out
-        })),
-        "swsh_samp_r" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_samp_r" = commsim(method="swsh_samp_r", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
@@ -220,8 +215,8 @@ function(method)
                     out[i,,k][out[i,,k] > 0] <- sample(as.integer(x[i,][x[i,] > 0]))
             }
             out
-        })),
-        "swsh_samp_c" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_samp_c" = commsim(method="swsh_samp_c", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
@@ -234,8 +229,8 @@ function(method)
                     out[,j,k][out[,j,k] > 0] <- sample(as.integer(x[,j][x[,j] > 0]))
             }
             out
-        })),
-        "swsh_both_r" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_both_r" = commsim(method="swsh_both_r", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -254,8 +249,8 @@ function(method)
                     out[i,,k][out[i,,k] > 0] <- sample(indshuffle(as.integer(x[i,][x[i,] > 0]) - 1L) + 1L)
             }
             out
-        })),
-        "swsh_both_c" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "swsh_both_c" = commsim(method="swsh_both_c", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -274,8 +269,8 @@ function(method)
                     out[,j,k][out[,j,k] > 0] <- sample(indshuffle(as.integer(x[,j][x[,j] > 0]) - 1L) + 1L)
             }
             out
-        })),
-        "abuswap_r" = return(commsim(method=method, binary=FALSE, isSeq=TRUE,
+        }),
+        "abuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
@@ -285,8 +280,8 @@ function(method)
                 out[,,k+1] <- .C("abuswap", 
                     m = out[,,k], nr, nc, thin, 1L, PACKAGE = "vegan")$m
             out
-        })),
-        "abuswap_c" = return(commsim(method=method, binary=FALSE, isSeq=TRUE,
+        }),
+        "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
@@ -296,8 +291,8 @@ function(method)
                 out[,,k+1] <- .C("abuswap", 
                     m = out[,,k], nr, nc, thin, 0L, PACKAGE = "vegan")$m
             out
-        })),
-        "r00_samp" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r00_samp" = commsim(method="r00_samp", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- matrix(0L, nr * nc, n)
@@ -305,8 +300,8 @@ function(method)
                 out[, k] <- sample(x)
             dim(out) <- c(nr, nc, n)
             out
-        })),
-        "c0_samp" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "c0_samp" = commsim(method="c0_samp", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -315,8 +310,8 @@ function(method)
                 for (j in J)
                     out[, j, k] <- sample(x[,j])
             out
-        })),
-        "r0_samp" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r0_samp" = commsim(method="r0_samp", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -325,8 +320,8 @@ function(method)
                 for (i in I)
                     out[i, , k] <- sample(x[i,])
             out
-        })),
-        "r00_ind" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r00_ind" = commsim(method="r00_ind", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -340,8 +335,8 @@ function(method)
                 out[, k] <- indshuffle(x)
             dim(out) <- c(nr, nc, n)
             out
-        })),
-        "c0_ind" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "c0_ind" = commsim(method="c0_ind", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -356,8 +351,8 @@ function(method)
                 for (j in J)
                     out[, j, k] <- indshuffle(x[,j])
             out
-        })),
-        "r0_ind" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r0_ind" = commsim(method="r0_ind", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -372,8 +367,8 @@ function(method)
                 for (i in I)
                     out[i, , k] <- indshuffle(x[i,])
             out
-        })),
-        "r00_both" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r00_both" = commsim(method="r00_both", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -389,8 +384,8 @@ function(method)
             }
             dim(out) <- c(nr, nc, n)
             out
-        })),
-        "c0_both" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "c0_both" = commsim(method="c0_both", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -407,8 +402,8 @@ function(method)
                     out[,j,k] <- sample(out[,j,k])
                 }
             out
-        })),
-        "r0_both" = return(commsim(method=method, binary=FALSE, isSeq=FALSE,
+        }),
+        "r0_both" = commsim(method="r0_both", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
@@ -425,7 +420,13 @@ function(method)
                     out[i,,k] <- sample(out[i,,k])
                 }
             out
-        }))
+        })
     )
+    if (missing(method))
+        return(names(algos))
+    if (inherits(method, "commsim"))
+        return(method)
+    if (method %in% names(algos))
+        return(algos[[method]])
     stop("\"", method, "\" method not found")
 }

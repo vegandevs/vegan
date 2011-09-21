@@ -11,10 +11,9 @@ function(object, nsim=1, seed = NULL, ...)
         RNGstate <- structure(seed, kind = as.list(RNGkind()))
         on.exit(assign(".Random.seed", R.seed, envir = .GlobalEnv))
     }
-    m <- object$data
     if (object$commsim$isSeq) {
         perm <- object$commsim$fun(x=object$state,
-            n=nsim,
+            n=1,
             nr=object$nrow,
             nc=object$ncol,
             rs=object$rowSums,
@@ -23,11 +22,15 @@ function(object, nsim=1, seed = NULL, ...)
             cf=object$colFreq,
             s=object$totalSum,
             fill=object$fill,
-            thin=1, ...)
+            thin=nsim, ...)
         state <- perm[,,nsim]
         storage.mode(state) <- object$commsim$mode
+        iter <- as.integer(object$iter + nsim)
         assign("state", state, envir=object)
-        assign("iter", as.integer(object$iter + nsim), envir=object)
+        assign("iter", iter, envir=object)
+        attr(state, "iter") <- iter
+    } else {
+        state <- NULL
     }
-    invisible(NULL)
+    invisible(state)
 }
