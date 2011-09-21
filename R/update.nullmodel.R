@@ -23,7 +23,7 @@ function(object, nsim=1, seed = NULL, ...)
             s=object$totalSum,
             fill=object$fill,
             thin=nsim, ...)
-        state <- perm[,,nsim]
+        state <- perm[,,1L]
         storage.mode(state) <- object$commsim$mode
         iter <- as.integer(object$iter + nsim)
         assign("state", state, envir=object)
