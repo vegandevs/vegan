@@ -1,26 +1,27 @@
 `meandist` <-
     function(dist, grouping, ...)
 {
+    if (!inherits(dist, "dist"))
+        stop("'dist' must be dissimilarity object inheriting from", dQuote(dist))
     ## check that 'dist' are dissimilarities (non-negative)
     if (any(dist < -sqrt(.Machine$double.eps)))
         warning("some dissimilarities are negative -- is this intentional?")
-    ## merge levels so that lower is always first (filling lower triangle)
-    mergenames <- function(X, Y, ...) {
-        xy <- cbind(X, Y)
-        xy <- apply(xy, 1, sort)
-        apply(xy, 2, paste, collapse = " ")
-    }
     grouping <- factor(grouping, exclude = NULL)
-    cl <- outer(grouping, grouping, mergenames)
-    cl <- cl[lower.tri(cl)]
+    ## grouping for rows and columns
+    grow <- grouping[as.dist(row(as.matrix(dist)))]
+    gcol <- grouping[as.dist(col(as.matrix(dist)))]
+    ## The row index must be "smaller" of the factor levels so that
+    ## all means are in the lower triangle, and upper is NA
+    first <- as.numeric(grow) >= as.numeric(gcol)
+    cl1 <- ifelse(first, grow, gcol)
+    cl2 <- ifelse(!first, grow, gcol)
     ## Cannot have within-group dissimilarity for group size 1
     n <- table(grouping)
     take <- matrix(TRUE, nlevels(grouping), nlevels(grouping))
     diag(take) <- n > 1
     take[upper.tri(take)] <- FALSE
     ## Get output matrix
-    out <- matrix(NA, nlevels(grouping), nlevels(grouping))
-    out[take] <- tapply(dist, cl, mean)
+    out <- tapply(dist, list(cl1, cl2), mean)
     out[upper.tri(out)] <- t(out)[upper.tri(out)]
     rownames(out) <- colnames(out) <- levels(grouping)
     class(out) <- c("meandist", "matrix")
