@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x102618468>
+<environment: 0x102618388>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -1852,7 +1852,13 @@ An object of class "commsim"
 
 > 
 > ## retrieving the sequential swap algorithm
-> make.commsim("swap")
+> (cs <- make.commsim("swap"))
+An object of class "commsim"
+"swap" method (binary, sequential, integer mode)
+
+> 
+> ## feeding a commsim object as argument
+> make.commsim(cs)
 An object of class "commsim"
 "swap" method (binary, sequential, integer mode)
 
@@ -1876,46 +1882,39 @@ An object of class "commsim"
 +     c(z, out)
 + }
 > x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
-> a <- t(sapply(c("r00","r0","r1","r2","c0",
-+     "swap","tswap","quasiswap","backtrack",
-+     "r2dtable","swap_count","quasiswap_count",
-+     "swsh_samp","swsh_both","abuswap_r","abuswap_c",
-+     "swsh_samp_r","swsh_samp_c","swsh_both_r","swsh_both_c",
-+     "r00_ind","r0_ind","c0_ind",
-+     "r00_samp","r0_samp","c0_samp",
-+     "r00_both","r0_both","c0_both"), 
-+     evalfun, x=x, n=10))
+> algos <- make.commsim()
+> a <- t(sapply(algos, evalfun, x=x, n=10))
 > print(as.table(ifelse(a==1,1,0)), zero.print = ".")
                 binary isSeq sum fill rowSums colSums rowFreq colFreq
 r00                  1     .   1    1       .       .       .       .
+c0                   1     .   1    1       .       1       .       1
 r0                   1     .   1    1       1       .       1       .
 r1                   1     .   1    1       1       .       1       .
 r2                   1     .   1    1       1       .       1       .
-c0                   1     .   1    1       .       1       .       1
+quasiswap            1     .   1    1       1       1       1       1
 swap                 1     1   1    1       1       1       1       1
 tswap                1     1   1    1       1       1       1       1
-quasiswap            1     .   1    1       1       1       1       1
 backtrack            1     .   1    1       1       1       1       1
 r2dtable             .     .   1    .       1       1       .       .
-swap_count           .     1   1    1       1       1       1       1
+swap_count           .     1   1    1       1       1       .       .
 quasiswap_count      .     .   1    1       1       1       .       .
 swsh_samp            .     .   1    1       .       .       1       1
 swsh_both            .     .   1    1       .       .       1       1
-abuswap_r            .     1   1    1       1       1       1       1
-abuswap_c            .     1   1    1       1       1       1       1
 swsh_samp_r          .     .   1    1       1       .       1       1
 swsh_samp_c          .     .   1    1       .       1       1       1
 swsh_both_r          .     .   1    1       1       .       1       1
 swsh_both_c          .     .   1    1       .       1       1       1
-r00_ind              .     .   1    .       .       .       .       .
-r0_ind               .     .   1    .       1       .       .       .
-c0_ind               .     .   1    .       .       1       .       .
+abuswap_r            .     1   1    1       1       .       1       1
+abuswap_c            .     1   1    1       .       1       1       1
 r00_samp             .     .   1    1       .       .       .       .
-r0_samp              .     .   1    1       1       .       1       .
 c0_samp              .     .   1    1       .       1       .       1
+r0_samp              .     .   1    1       1       .       1       .
+r00_ind              .     .   1    .       .       .       .       .
+c0_ind               .     .   1    .       .       1       .       .
+r0_ind               .     .   1    .       1       .       .       .
 r00_both             .     .   1    1       .       .       .       .
-r0_both              .     .   1    1       1       .       1       .
 c0_both              .     .   1    1       .       1       .       1
+r0_both              .     .   1    1       1       .       1       .
 > 
 > 
 > 
@@ -5000,7 +4999,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106cb7ab0>
+<environment: 0x10649b800>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -5016,7 +5015,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105071788>
+<environment: 0x107d7ea78>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5172,7 +5171,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106225ae0>
+<environment: 0x106674b58>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5185,7 +5184,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1078e2f58>
+<environment: 0x106ce8200>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5198,7 +5197,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107e70e00>
+<environment: 0x106d701f0>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7458,7 +7457,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107d87dc8>
+<environment: 0x107d8ac00>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7934,7 +7933,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  111.738 1.253 113.941 0 0 
+Time elapsed:  119.899 1.399 124.377 0 0 
 > grDevices::dev.off()
 null device 
           1 
