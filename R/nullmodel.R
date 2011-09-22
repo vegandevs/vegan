@@ -19,10 +19,9 @@ function(x, method)
     int <- method$mode == "integer"
     if (int && abs(sum(x) - sum(as.integer(x))) > 10^-6)
         stop("non integer values not allowed")
-    if (int) {
+    if (int)
         x <- round(x, 0) # round up to closest integer
-        storage.mode(x) <- "integer"
-    }
+    storage.mode(x) <- method$mode
     out <- list(
         data=x,
         nrow=as.integer(dim(x)[1L]),
@@ -37,7 +36,7 @@ function(x, method)
         state=if (method$isSeq) x else NULL,
         iter=if (method$isSeq) as.integer(0L) else NULL
         )
-    storage.mode(out$x) <- method$mode
+#    storage.mode(out$x) <- method$mode
     storage.mode(out$rowSums) <- method$mode
     storage.mode(out$colSums) <- method$mode
     out <- list2env(out, parent=emptyenv())
