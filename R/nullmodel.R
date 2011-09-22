@@ -19,6 +19,8 @@ function(x, method)
     int <- method$mode == "integer"
     if (int && abs(sum(x) - sum(as.integer(x))) > 10^-6)
         stop("non integer values not allowed")
+    if (int)
+        storage.mode(x) <- "integer"
     out <- list(
         data=x,
         nrow=as.integer(dim(x)[1L]),
