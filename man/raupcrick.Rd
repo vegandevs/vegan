@@ -6,9 +6,8 @@
 }
 
 \description{ Function finds the Raup-Crick dissimilarity which is a
-  probability index of number of co-occuring species with species
-  occurrence probability proportional to species frequencies.  
-}
+  probability of number of co-occurring species with species
+  occurrence probabilities proportional to species frequencies.  }
 
 \usage{
 raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
@@ -31,31 +30,33 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
 }
 
 \details{Raup-Crick index is the probability that compared sampling
-  units have identical species composition.  This probability can be
-  regarded as a dissimilarity, although it is not metric: identical
-  sampling units can have dissimilarity slightly above \eqn{0}, and
-  sampling units with no shared species can have dissimilarity below
-  \eqn{1}. Moreover, communities sharing rare species appear as more
-  similar (lower probability of finding rare species together), than
-  communities sharing the same number of common species. 
+  units have non-identical species composition.  This probability can
+  be regarded as a dissimilarity, although it is not metric: identical
+  sampling units can have dissimilarity slightly above \eqn{0}, the
+  dissimilarity can be nearly zero over a range of shared species, and
+  sampling units with no shared species can have dissimilarity
+  slightly below \eqn{1}. Moreover, communities sharing rare species
+  appear as more similar (lower probability of finding rare species
+  together), than communities sharing the same number of common
+  species.
 
-  The function will always treat the data as binary (presence/ absence).
+  The function will always treat the data as binary (presence/
+  absence).
 
   The probability is assessed using simulation with
   \code{\link{oecosimu}} where the test statistic is the observed
-  number of shared species between sampling units (see Examples).
-  Simulation is performed using an \code{\link{oecosimu}} \code{null}
-  model. The default null model is \code{"r1"} where the probability
-  of selecting species is proportional to the species frequencies.
+  number of shared species between sampling units evaluated against a
+  community null model (see Examples).  The default null model is
+  \code{"r1"} where the probability of selecting species is
+  proportional to the species frequencies.
 
   The \code{\link{vegdist}} function implements a variant of the
-  Raup-Crick index with equal sampling densities for species using
+  Raup-Crick index with equal sampling probabilities for species using
   exact analytic equations without simulation. This corresponds to
   \code{null} model \code{"r0"} which also can be used with the
   current function.  All other null model methods of
   \code{\link{oecosimu}} can be used with the current function, but
-  they are new unpublished methods.  
-}
+  they are new unpublished methods.  }
 
 \value{The function returns an object inheriting from
   \code{\link{dist}} which can be interpreted as a dissimilarity
@@ -70,20 +71,22 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
 
 \author{The function was developed after Brian Inouye contacted us and
   informed us about the method in Chase et al. (2011), and the
-  function takes its idea from the code that was publisehd with their
+  function takes its idea from the code that was published with their
   paper. The current function was written by Jari Oksanen.  }
 
-\note{Function \code{rauprcrick} with options \code{null = "r1"} and
-  \code{split = TRUE} gives equal results (within sampling error) to
-  the function published with Chase et al. (2011) when their function
-  is called with argument \code{split = FALSE}.  However, \code{chase =
-  TRUE} is not recommended except for this comparison. In
-  \code{raupcrick} (\pkg{vegan}) simulation values tied with the
-  observed test statistic do not prove against the null model, unlike
-  in the Chase et al. (2011) script with \code{split = FALSE}.  The
-  Chase et al. (2011) script with \code{split = TRUE} regards a half
-  of tied simulation values to support and a half to oppose the null
-  model, and that choice cannot be reproduced in \pkg{vegan}.}
+\note{ The test statistic is the number of shared species, and this is
+  typically tied with a large number of simulation results. The tied
+  values are handled differently in the current function and in the
+  function published with Chase et al. (2011). In \pkg{vegan}, the
+  index is the number of simulated values that are smaller \emph{or
+  equal} than the observed value, but smaller than observed value is
+  used by Chase et al. (2011) with option \code{split = FALSE} in
+  their script; this can be achieved with \code{chase = TRUE} in
+  \pkg{vegan}.  Chase et al. (2011) script with \code{split = TRUE}
+  uses half of tied simulation values to calculate a distance measure,
+  and that choice cannot be directly reproduced in vegan (it is the
+  average of \pkg{vegan} \code{raupcrick} results with \code{chase =
+  TRUE} and \code{chase = FALSE}).}
 
 \seealso{The function is based on \code{\link{oecosimu}}. Function
   \code{\link{vegdist}} with {method = "raup"} implements a related
