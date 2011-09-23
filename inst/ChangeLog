@@ -4,6 +4,16 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-1 (opened September 20, 2011)
 
+	* permatfull/swap is using the new simulate(nullmodel(...)...)
+	infrastructure. permatfull1 and permatswap1 removed from vegan 
+	devel.
+
+	* Value of 'mode' is set to "double" for the following
+	null model algorithms in make.commsim: abuswap_r, abuswap_c,
+	r00_samp, r0_samp, c0_samp. These can take any nonnegative real 
+	valued matrix as input. nullmodel function now handles storage
+	mode reliably.
+
 	* meandist bug fix: tapply() function used to find mean group x
 	group dissimilarities could reorder the class levels and return a
 	confused matrix. This could happen in particular when the

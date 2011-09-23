@@ -199,7 +199,8 @@ The following algorithms are currently predefined:
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, individuals of the
     nonzero cells are also shuffled, separately for each columns.}
-  \item{\code{"abuswap_r"}: }{sequential algorithm for count matrices 
+  \item{\code{"abuswap_r"}: }{sequential algorithm for count 
+    or nonnegative real valued (\code{mode = "double"}) matrices 
     described in the page of \code{\link{permatswap}} (\code{"abuswap"} 
     algorithm with fixed row freqencies).
     The algorithm produces matrices by swapping
@@ -207,7 +208,8 @@ The following algorithms are currently predefined:
     column sums, but honours matrix fill, row sums,
     and row/column frequencies, 
     as described in Hardy (2008; randomization scheme 2x).}
-  \item{\code{"abuswap_c"}: }{sequential algorithm for count matrices 
+  \item{\code{"abuswap_c"}: }{sequential algorithm for count 
+    or nonnegative real valued (\code{mode = "double"}) matrices 
     described in the page of \code{\link{permatswap}} (\code{"abuswap"} 
     algorithm with fixed column freqencies).
     The algorithm produces matrices by swapping
@@ -231,15 +233,18 @@ The following algorithms are currently predefined:
     described in the page of \code{\link{permatfull}}.
     This algorithm keeps column sums constant,
     individuals are shullfed among cells of each column of the matrix.}
-  \item{\code{"r00_samp"}: }{non-sequential algorithm for count matrices 
+  \item{\code{"r00_samp"}: }{non-sequential algorithm for count 
+    or nonnegative real valued (\code{mode = "double"}) matrices 
     described in the page of \code{\link{permatfull}}.
     This algorithm keeps total sum constant,
     cells of the matrix are shuffled.}
-  \item{\code{"r0_samp"}: }{non-sequential algorithm for count matrices 
+  \item{\code{"r0_samp"}: }{non-sequential algorithm for count 
+    or nonnegative real valued (\code{mode = "double"}) matrices 
     described in the page of \code{\link{permatfull}}.
     This algorithm keeps row sums constant,
     cells within each row are shuffled.}
-  \item{\code{"c0_samp"}: }{non-sequential algorithm for count matrices 
+  \item{\code{"c0_samp"}: }{non-sequential algorithm for count 
+    or nonnegative real valued (\code{mode = "double"}) matrices 
     described in the page of \code{\link{permatfull}}.
     This algorithm keeps column sums constant,
     cells within each columns are shuffled.}

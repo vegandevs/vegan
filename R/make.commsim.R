@@ -293,18 +293,18 @@ function(method)
             out
         }),
         "r00_samp" = commsim(method="r00_samp", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- matrix(0L, nr * nc, n)
+            out <- matrix(0, nr * nc, n)
             for (k in seq_len(n))
                 out[, k] <- sample(x)
             dim(out) <- c(nr, nc, n)
             out
         }),
         "c0_samp" = commsim(method="c0_samp", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- array(0L, c(nr, nc, n))
+            out <- array(0, c(nr, nc, n))
             J <- seq_len(nc)
             for (k in seq_len(n))
                 for (j in J)
@@ -312,9 +312,9 @@ function(method)
             out
         }),
         "r0_samp" = commsim(method="r0_samp", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- array(0L, c(nr, nc, n))
+            out <- array(0, c(nr, nc, n))
             I <- seq_len(nr)
             for (k in seq_len(n))
                 for (i in I)
