@@ -63,7 +63,7 @@ rm(list = ls())
 
 ### end commsimulator
 
-### set up permatfull/swap1 tests
+### set up permatfull/swap tests
 
 data(mite)
 data(mite.env)
@@ -93,7 +93,7 @@ margintest <-
     print(all.equal(colSums(x>0), cfrq, check.attributes = FALSE))
 }
 
-### permatfull1
+### permatfull
 
 set.seed(4711)
 margin <- c("none", "rows", "columns", "both")
@@ -102,13 +102,14 @@ shuffle <- c("ind", "samp", "both")
 for(mar in margin) {
     for(what in shuffle) {
         cat("\n--> margin", mar, " shuffle", what, "<--\n")
-        m <- permatfull1(x, fixedmar = mar, shuffle = what, mtype = "count")
+        m <- permatfull(x, fixedmar = mar, shuffle = what, mtype = "count", 
+            times=1)$perm[[1]]
         margintest(m, gsum, rsum, csum, fill, rfrq, cfrq)
         print(m[,1:12])
     }
 }
 
-### permatswap1
+### permatswap
 set.seed(4711)
 methods <- c("swap", "quasiswap", "swsh", "abuswap")
 margins <- c("rows", "columns", "both")
@@ -118,7 +119,8 @@ incompatible <- function(method, margin)
 {
     (method == "swap" && margin != "both") ||
     (method == "abuswap" && margin == "both") ||
-    (method %in% c("quasiswap", "swsh") && margin != "both")
+    (method == "quasiswap" && margin != "both") ||
+    (method == "swsh" && margin == "both")
 }
 
 for(method in methods) {
@@ -128,19 +130,22 @@ for(method in methods) {
                 next
             cat("\n*** ", method, " ***\n")
             cat("--> margin", margin, " shuffle", what, "<--\n")
-            m <- permatswap1(x, method = method, fixedmar = margin, shuffle = what,
-                             mtype = "count", thin=100)
+            m <- permatswap(x, method = method, fixedmar = margin, shuffle = what,
+                             mtype = "count", thin=100, times=1)$perm[[1]]
             margintest(m, gsum, rsum, csum,fill, rfrq, cfrq)
             print(m[,1:12])
         }
     }
 }
-### end permatswap1
+### end permatswap
+
+nm=nullmodel(m,"abuswap_c")
+sm<-simulate(nm,nsim=100,thin=100,burnin=100)
 
 ### clean
 rm(list = ls())
 
-## end permatfull1/swap1
+## end permatfull/swap
 
 ## The following vegan functions depend on *oecosimu*: adipart
 ## hiersimu multipart raupcrick. The following functions directly
