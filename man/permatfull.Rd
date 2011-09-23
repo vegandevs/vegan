@@ -1,9 +1,7 @@
 \encoding{UTF-8}
 \name{permat}
 \alias{permatfull}
-\alias{permatfull1}
 \alias{permatswap}
-\alias{permatswap1}
 \alias{summary.permat}
 \alias{print.summary.permat}
 \alias{print.permat}
@@ -22,14 +20,11 @@ restricted permutations (based on strata) are discussed in the
 Details section.}
 
 \usage{
-permatfull1(m, fixedmar = "both", shuffle = "both", strata = NULL, 
-    mtype = "count")
-permatswap1(m, method = "quasiswap", fixedmar="both", shuffle = "both",
-    strata = NULL, mtype = "count", thin = 1)
 permatfull(m, fixedmar = "both", shuffle = "both", strata = NULL, 
-    mtype = "count", times = 99)
+    mtype = "count", times = 99, ...)
 permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
-    strata = NULL, mtype = "count", times = 99, burnin = 0, thin = 1)
+    strata = NULL, mtype = "count", times = 99, 
+    burnin = 0, thin = 1, ...)
 \method{print}{permat}(x, digits = 3, ...)
 \method{summary}{permat}(object, ...)
 \method{print}{summary.permat}(x, digits = 2, ...)
@@ -73,7 +68,8 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
     method, whether a locally weighted regression curve should be drawn,
     the plot should be drawn, and statistic values should be printed on
     the plot.} 
-  \item{\dots}{Other arguments passed to methods.}
+  \item{\dots}{Other arguments passed to \code{\link{simulate.nullmodel}} 
+    or methods.}
 }
 
 \details{
@@ -146,13 +142,18 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   column incidences constant, then non-zero values are modified
   according to the \code{shuffle} argument (only \code{"samp"} and
   \code{"both"} are available in this case, because it is applied only
-  on non-zero values).
+  on non-zero values). It also recognizes the \code{fixedmar}
+  argument which cannot be \code{"both"} (\pkg{vegan} versions <= 2.0
+  had this algorithm with \code{fixedmar = "none"}).
 
   The algorithm \code{"abuswap"} produces two kinds of null models
   (based on \code{fixedmar="columns"} or \code{fixedmar="rows"}) as
   described in Hardy (2008; randomization scheme 2x and 3x,
   respectively).  These preserve column and row occurrences, and column
-  or row sums at the same time.
+  or row sums at the same time. (Note that similar constraints
+  can be achieved by the non sequential \code{"swsh"} algorithm
+  with \code{fixedmar} argument set to \code{"columns"} or
+  \code{"rows"}, respectively.)
 
   Constraints on row/column sums, matrix fill, total sum and sums within
   strata can be checked by the \code{summary} method. \code{plot} method
@@ -183,12 +184,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   is useful for accessing diagnostic tools available in the \pkg{coda}
   package.  }
 
-\value{ Functions \code{permatfull1} and \code{permatswap1} return a
-  single permuted matrix. These functions are called repeatedly
-  by the corresponding \code{permatfull} and \code{permatswap}
-  functions.
-
-  Functions \code{permatfull} and \code{permatswap} return an
+\value{Functions \code{permatfull} and \code{permatswap} return an
   object of class \code{"permat"} containing the the function call
   (\code{call}), the original data matrix used for permutations
   (\code{orig}) and a list of permuted matrices with length \code{times}
@@ -231,7 +227,10 @@ For the use of these permutation algorithms: \code{\link{oecosimu}},
 
 For time-series diagnostics: \code{\link{Box.test}},
 \code{\link{lag.plot}}, \code{\link{tsdiag}}, \code{\link{ar}},
-\code{\link{arima}} }
+\code{\link{arima}} 
+
+For underlying `low level' implementation:
+\code{\link{commsim}} and \code{\link{nullmodel}}.}
 
 \examples{
 ## A simple artificial community data matrix.

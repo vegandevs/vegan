@@ -1,51 +1,79 @@
 ## permatswap function
 `permatswap` <-
 function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
-         mtype="count", times=99, burnin = 0, thin = 1)
+mtype="count", times=99, burnin = 0, thin = 1, ...)
 {
     mtype <- match.arg(mtype, c("prab", "count"))
     fixedmar <- match.arg(fixedmar, c("rows", "columns", "both"))
     shuffle <- match.arg(shuffle, c("samp", "both"))
     count <- mtype == "count"
     m <- as.matrix(m)
-
+    str <- if (is.null(strata))
+        1 else as.integer(as.factor(strata)[drop = TRUE])
+    levstr <- unique(str)
+    nstr <- length(unique(str))
+    if (!is.null(strata) && any(table(str) < 2))
+        stop("strata should contain at least 2 observations")
     ## evaluating algo type
     if (count) {
         method <- match.arg(method, c("swap", "quasiswap", "swsh", "abuswap"))
-        ## warning if swapcount is to be used
         if (method == "swap") {
             warning("quantitative swap method may not yield random null models, use only to study its properties")
             isSeq <- TRUE
+            if (fixedmar != "both")
+                stop("if 'method=\"swap\"', 'fixedmar' must be \"both\"")
         } else {
             if (method == "abuswap") {
+                if (fixedmar == "both")
+                    stop("if 'method=\"abuswap\"', 'fixedmar' must not be \"both\"")
+                direct <- if (fixedmar == "columns")
+                    0 else 1
                 isSeq <- TRUE
             } else {
                 isSeq <- FALSE
+                if (method != "swsh" && fixedmar != "both")
+                    stop("'fixedmar' must be \"both\"")
+            }
+        }
+        if (method %in% c("swap", "quasiswap"))
+            ALGO <- paste(method, "count", sep="_")
+        if (method == "abuswap")
+            ALGO <- paste(method, substr(fixedmar, 1, 1), sep="_")
+        if (method == "swsh") {
+            if (fixedmar=="both")
+                stop("if 'method=\"swsh\"', 'fixedmar' must not be \"both\"")
+            ALGO <- if (fixedmar=="none") {
+                paste(method, shuffle, sep="_")
+            } else {
+                paste(method, shuffle, substr(fixedmar, 1, 1), sep="_")
             }
         }
     } else {
+        if (fixedmar != "both")
+            stop("if 'mtype=\"prab\"', 'fixedmar' must be \"both\"")
         method <- match.arg(method, c("swap", "quasiswap", "tswap", "backtracking"))
         isSeq <- method != "quasiswap"
+        ALGO <- method
     }
-
-    ## sequential algos: might have burnin
-    if (isSeq) {
+    if (is.null(strata)) {
+        tmp <- simulate(nullmodel(m, ALGO), 
+            nsim=times, burnin=burnin, thin=thin, ...)
         perm <- vector("list", times)
-        ## with burnin
-        perm[[1]] <- permatswap1(m, method, fixedmar, shuffle, strata, mtype, burnin+thin)
-        for (i in 2:times)
-            perm[[i]] <- permatswap1(perm[[i-1]], method, fixedmar, shuffle, strata, mtype, thin)
-    ## non-sequential algos: no burnin required
+        for (i in seq_len(times))
+            perm[[i]] <- tmp[,,i]
     } else {
-        if (burnin > 0)
-            warning("Non sequential algorithm used: 'burnin' argument ignored")
-        burnin <- 0
-        if (thin != 1)
-            warning("Non sequential algorithm used: 'thin' value set to 1")
-        thin <- 1
-        perm <- replicate(times, 
-            permatswap1(m, method, fixedmar, shuffle, strata, mtype, thin), 
-            simplify=FALSE)
+        perm <- vector("list", times)
+        tmp <- vector("list", length(unique(strata)))
+        for (j in seq_len(nstr)) {
+            tmp[[j]] <- simulate(nullmodel(m[strata==levstr[j],], ALGO), 
+                nsim=times, burnin=burnin, thin=thin, ...)
+        }
+        for (i in seq_len(times)) {
+            perm[[i]] <- array(0, dim(m))
+            for (j in seq_len(nstr)) {
+                perm[[i]][strata==levstr[j],] <- tmp[[j]][,,i]
+            }
+        }
     }
     if (mtype == "prab")
         m <- ifelse(m > 0, 1, 0)
