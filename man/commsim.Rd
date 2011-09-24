@@ -306,7 +306,7 @@ null model algorithms as a character vector.
   composition. \emph{Oecologia} 113, 1--20.
 }
 \author{
-Peter Solymos \email{solymos@ualberta.ca}
+Jari Oksanen and Peter Solymos
 }
 \seealso{
 \code{\link{commsimulator}}, \code{\link{permatfull}}, 
