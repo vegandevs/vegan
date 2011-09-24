@@ -6,97 +6,48 @@
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
-    if (!is.function(method)) {
-        method <- match.arg(method, c("r00", "r0", "r1", "r2", "c0",
-                                  "swap", "tswap", "backtrack", "quasiswap",
-                                  "r2dtable"))
-        if (method == "r2dtable") {
-            nr <- rowSums(comm)
-            nc <- colSums(comm)
-            permfun <- function(z) r2dtable(1, nr, nc)[[1]]
-        }
-    } else {
-        permfun <- match.fun(method)
-        method <- "custom"
+    applynestfun <-
+        function(x, fun = nestfun, statistic = "statistic", ...) {
+            tmp <- fun(x, ...)
+            if (is.list(tmp))
+                tmp[[statistic]]
+            else
+                tmp
     }
-    quant <- method %in% c("r2dtable", "custom")
-    ## binarize data with binary null models before getting statistics
-    if (!quant)
-        comm <- ifelse(comm > 0, 1, 0)
+
+    nm <- nullmodel(comm, method)
+    if (nm$commsim$binary)
+        comm <- ifelse(comm > 0, 1L, 0L)
+    
     ind <- nestfun(comm, ...)
-
-    if (is.list(ind))
-        indstat <- ind[[statistic]]
-    else
-        indstat <- ind
-    n <- length(indstat)
-    simind <- matrix(0, nrow=n, ncol=nsimul)
-
-    ## permutation for binary data
-    if (!quant) {
-        if (method %in% c("swap", "tswap")){
-            checkbrd <- 1
-            if (method == "tswap") {
-                checkbrd <- sum(designdist(comm, "(J-A)*(J-B)", "binary"))
-                M <- ncol(comm)
-                N <- nrow(comm)
-                checkbrd <- M*(M-1)*N*(N-1)/4/checkbrd
-                thin <- round(thin*checkbrd)
-            }
-            attr(simind, "thin") <- thin
-            attr(simind, "burnin") <- burnin
-            x <- comm
-            if (burnin > 0)
-                x <- commsimulator(x, method= method, thin = round(checkbrd) * burnin)
-            for(i in 1:nsimul) {
-                x <- commsimulator(x, method = method, thin = thin)
-                tmp <- nestfun(x, ...)
-                if (is.list(tmp))
-                    simind[,i] <- tmp[[statistic]]
-                else
-                    simind[,i] <- tmp
-            }
-        }
-        else {
-            for (i in 1:nsimul) {
-                x <- commsimulator(comm, method=method)
-                tmp <- nestfun(x,...)
-                if (is.list(tmp))
-                    simind[,i] <- tmp[[statistic]]
-                else
-                    simind[,i] <- tmp
-            }
-        }
-    ## permutation for count data
-    } else {
-        if (!all(dim(comm) == dim(permfun(comm))))
-            stop("permutation function is not compatible with community matrix")
-        ## sequential algorithms
-        if (burnin > 0 || thin > 1) {
-            if (burnin > 0) {
-                m <- permfun(comm, burnin=burnin, thin=1)
-            }  else m <- comm
-            for (i in 1:nsimul) {
-                tmp <- nestfun(permfun(m, burnin=0, thin=thin), ...)
-                if (is.list(tmp))
-                    simind[, i] <- tmp[[statistic]]
-                else simind[, i] <- tmp
-            }
-            attr(simind, "thin") <- thin
-            attr(simind, "burnin") <- burnin
-        ## not sequential algorithms
-        } else {
-            for (i in 1:nsimul) {
-                tmp <- nestfun(permfun(comm), ...)
-                if (is.list(tmp)) {
-                    simind[, i] <- tmp[[statistic]]
-                } else simind[, i] <- tmp
-            }
-            attr(simind, "thin") <- NULL
-            attr(simind, "burnin") <- NULL
-        }
+    indstat <-
+        if (is.list(ind))
+            ind[[statistic]]
+        else
+            ind
+    
+    ## estimate thinning for "tswap" (trial swap)
+    if (nm$commsim$method == "tswap") {
+        checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
+                                  "binary"))
+        M <- nm$ncol
+        N <- nm$nrow
+        checkbrd <- M * (M - 1) * N * (N - 1)/4/checkbrd
+        thin <- round(thin * checkbrd)
+        burnin <- round(burnin * checkbrd)
     }
-    ## end of addition
+    x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
+
+    simind <- apply(x, 3, applynestfun, fun = nestfun, statistic = statistic, ...) 
+    simind <- matrix(simind, ncol = nsimul)
+
+    if (nm$commsim$isSeq) {
+        if (thin > 1)
+            attr(simind, "thin") <- thin
+        if (burnin > 0)
+            attr(simind, "burnin") <- burnin
+    }
+    
     sd <- apply(simind, 1, sd, na.rm = TRUE)
     z <- (indstat - rowMeans(simind, na.rm = TRUE))/sd
     if (any(sd < sqrt(.Machine$double.eps)))
@@ -112,7 +63,7 @@
                 less = pless,
                 greater = pmore)
     p <- pmin(1, (p + 1)/(nsimul + 1))
-
+    
     ## ADDITION: if z is NA then it is not correct to calculate p values
     ## try e.g. oecosimu(dune, sum, "permat")
     if (any(is.na(z)))
@@ -122,8 +73,6 @@
         names(indstat) <- statistic
     if (!is.list(ind))
         ind <- list(statistic = ind)
-    if (method == "custom")
-        attr(method, "permfun") <- permfun
     ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=method,
                          statistic = indstat, alternative = alternative)
     class(ind) <- c("oecosimu", class(ind))
