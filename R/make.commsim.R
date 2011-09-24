@@ -426,7 +426,6 @@ function(method)
         return(names(algos))
     if (inherits(method, "commsim"))
         return(method)
-    if (method %in% names(algos))
-        return(algos[[method]])
-    stop("\"", method, "\" method not found")
+    method <- match.arg(method, sort(names(algos)))
+    algos[[method]]
 }
