@@ -34,9 +34,9 @@ commsimulator(x, method, thin=1)
     result object for \code{as.ts}, \code{as.mcmc}, \code{density} and 
     \code{densityplot}.}
   \item{nestfun}{Function to analyse nestedness. Some functions are
-  provided in \pkg{vegan}, but any function can be used if it accepts the
-  community as the first argument, and returns either a plain number or
-  the result in list item with the name defined in argument
+    provided in \pkg{vegan}, but any function can be used if it accepts the
+    community as the first argument, and returns either a plain number or
+    the result in list item with the name defined in argument
   \code{statistic}. See Examples for defining your own functions.}
   \item{method}{Null model method. See details.}
   \item{nsimul}{Number of simulated null communities.}
@@ -59,8 +59,7 @@ commsimulator(x, method, thin=1)
   
   Function \code{oecosimu} is a wrapper that evaluates a nestedness
   statistic using function given by \code{nestfun}, and then simulates
-  a series of null models using \code{commsimulator} or other
-  functions (depending on method argument), and evaluates the
+  a series of null models based on \code{nullmodel}, and evaluates the
   statistic on these null models. The \pkg{vegan} packages contains
   some nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},
@@ -76,6 +75,10 @@ commsimulator(x, method, thin=1)
   an example. Raup-Crick index (\code{\link{raupcrick}}) gives an
   example of using a dissimilarities index.
 
+  The description of the function \code{commsimulator} below is
+  obsolescent: the function is not used any longer, but
+  \code{oecosimu} uses null models described in \code{\link{commsim}}.
+
   Function \code{commsimulator} implements binary (presence/absence) 
   null models for community composition.
   The implemented models are \code{r00} which maintains the
@@ -89,7 +92,7 @@ commsimulator(x, method, thin=1)
   frequencies, but they are not strictly constrained. All these methods
   are reviewed by Wright et al. (1998). Method \code{c0} maintains
   species frequencies, but does not honour site (row) frequencies (Jonsson
-  2001).
+  2001). 
 
   The other methods maintain both row and column frequencies.
   Methods \code{swap} and \code{tswap} implement sequential methods,
@@ -165,18 +168,6 @@ commsimulator(x, method, thin=1)
   load the \pkg{lattice} library before calling \code{densityplot}, or
   use the longer form \code{densityplot.oecosimu} when you first time
   call the function.
-
-  As a result of \code{method = "r2dtable"} in \code{oecosimu}, quantitative
-  community null models are used to evaluate the statistic. This setting uses
-  the \code{\link{r2dtable}} function to generate random matrices with fixed
-  row and column totals (hypergeometric distribution). This null model is
-  used in diversity partitioning function (see \code{\link{adipart}}).
-
-  The \code{method} argument can be a function with first argument taking the 
-  community matrix, and optionally with \code{burnin} and \code{thin} argument.
-  The function must return a matrix-like object with same dimensions.
-  But be careful, blindly applying permuted matrices for null model testing
-  can be dangerous.
 }
 
 \value{
@@ -236,13 +227,16 @@ commsimulator(x, method, thin=1)
   If you wonder about the name of \code{oecosimu}, look at journal
   names in the References (and more in \code{\link{nestedtemp}}).  }
 
-\seealso{ \code{\link{r2dtable}} generates table with given marginals but
-  with entries above one. Functions \code{\link{permatfull}} and
-  \code{\link{permatswap}} generate Null models for count data.
+\seealso{Function \code{oecosimu} currently defines null models with
+  \code{\link{commsim}} and generates the simulated null model
+  communities with \code{\link{nullmodel}} and
+  \code{\link{simulate.nullmodel}}.
+
   Function \code{\link[labdsv]{rndtaxa}}
   (\pkg{labdsv} package) randomizes a community table. See also
   \code{\link{nestedtemp}} (that also discusses other nestedness
-  functions) and \code{\link{treedive}} for another application. }
+  functions) and \code{\link{treedive}} for another application. 
+}
 \examples{
 ## Use the first eigenvalue of correspondence analysis as an index
 ## of structure: a model for making your own functions.
@@ -262,13 +256,6 @@ data(dune)
 meandist <- function(x) mean(vegdist(x, "bray"))
 mbc1 <- oecosimu(dune, meandist, "r2dtable")
 mbc1
-## Define a custom function that shuffles
-## cells in each rows
-f <- function(x) {
-    apply(x, 2, function(z) sample(z, length(z)))
-}
-mbc2 <- oecosimu(as.matrix(dune), meandist, f)
-mbc2
 }
 \keyword{ multivariate }
 \keyword{ datagen }
