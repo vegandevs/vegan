@@ -73,7 +73,7 @@
         names(indstat) <- statistic
     if (!is.list(ind))
         ind <- list(statistic = ind)
-    ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=method,
+    ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=nm$commsim$method,
                          statistic = indstat, alternative = alternative)
     class(ind) <- c("oecosimu", class(ind))
     ind

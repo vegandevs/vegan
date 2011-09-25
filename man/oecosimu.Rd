@@ -38,7 +38,9 @@ commsimulator(x, method, thin=1)
     community as the first argument, and returns either a plain number or
     the result in list item with the name defined in argument
   \code{statistic}. See Examples for defining your own functions.}
-  \item{method}{Null model method. See details.}
+  \item{method}{Null model method: either a name (character string) of
+    a method defined in \code{\link{make.commsim}} or a
+    \code{\link{commsim}} function. See Details and Examples.}
   \item{nsimul}{Number of simulated null communities.}
   \item{burnin}{Number of null communities discarded before proper
   analysis in sequential methods \code{"swap"} and \code{"tswap"}.}
@@ -256,6 +258,17 @@ data(dune)
 meandist <- function(x) mean(vegdist(x, "bray"))
 mbc1 <- oecosimu(dune, meandist, "r2dtable")
 mbc1
+
+## Define your own null model as a 'commsim' function: shuffle cells
+## in each row
+foo <- function(x, n, nr, nc, ...) {
+   out <- array(0, c(nr, nc, n))
+   for (k in seq_len(n))
+      out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
+   out
+}
+cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, mode = "double")
+oecosimu(dune, meandist, cf)
 }
 \keyword{ multivariate }
 \keyword{ datagen }

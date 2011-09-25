@@ -4330,6 +4330,25 @@ statistic   0.64565 13.89665  0.44577  0.46758 0.4934     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
+> ## Define your own null model as a 'commsim' function: shuffle cells
+> ## in each row
+> foo <- function(x, n, nr, nc, ...) {
++    out <- array(0, c(nr, nc, n))
++    for (k in seq_len(n))
++       out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
++    out
++ }
+> cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, mode = "double")
+> oecosimu(dune, meandist, cf)
+oecosimu with 99 simulations
+simulation method myshuffle
+alternative hypothesis: true mean is not equal to the statistic
+
+          statistic       z    2.5%     50%  97.5% Pr(sim.)   
+statistic   0.64565 3.44557 0.62994 0.63487 0.6418     0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> 
 > 
 > 
 > cleanEx()
@@ -4984,7 +5003,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1074dd0a0>
+<environment: 0x107a4cd50>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -5000,7 +5019,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10696c9c8>
+<environment: 0x107008a38>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5156,7 +5175,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1073b3118>
+<environment: 0x105ce1950>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5169,7 +5188,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10715aa30>
+<environment: 0x105b6bc68>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5182,7 +5201,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107d26cd8>
+<environment: 0x106f04f10>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7441,7 +7460,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1072c38d0>
+<environment: 0x105b7de68>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7917,7 +7936,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  110.662 1.469 112.859 0 0 
+Time elapsed:  112.312 1.473 115.297 0 0 
 > grDevices::dev.off()
 null device 
           1 
