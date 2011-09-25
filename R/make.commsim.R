@@ -39,6 +39,17 @@ function(method)
                     out[i, sample.int(nc, rs[i]), k] <- 1
             out
         }),
+        "r0_old" = commsim(method="r0_old", binary=TRUE, isSeq=FALSE,
+        mode="integer",
+        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            out <- array(0L, c(nr, nc, n))
+            I <- seq_len(nr)
+            p <- rep(1, nc)
+            for (k in seq_len(n))
+                for (i in I)
+                    out[i, sample.int(nc, rs[i], prob = p), k] <- 1
+            out
+        }),
         "r1" = commsim(method="r1", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {

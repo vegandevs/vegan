@@ -71,11 +71,14 @@ The following algorithms are currently predefined:
     This maintains the number of presences but fills 
     these anywhere so that neither species (column) nor 
     site (row) totals are preserved. See Wright et al. (1998) for review.}
-  \item{\code{"r0"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This maintains the site (row) frequencies,
-    fills presences anywhere on the row with no respect to 
-    species (column) frequencies. See Wright et al. (1998) for review.}
+  \item{\code{"r0", "r0_old"}: }{non-sequential algorithm for binary
+    matrices described in the page of \code{\link{commsimulator}}.
+    This maintains the site (row) frequencies, fills presences
+    anywhere on the row with no respect to species (column)
+    frequencies. Methods \code{"r0"} and \code{"r0_old"} implement the
+    same method, but use different random number sequences; use
+    \code{"r0_old"} is you want to reproduce reusult in \pkg{vegan
+    2.0-0} or older. See Wright et al. (1998) for a review.}
   \item{\code{"r1"}: }{non-sequential algorithm for binary matrices described 
     in the page of \code{\link{commsimulator}}.
     This maintains the site (row) frequencies,
