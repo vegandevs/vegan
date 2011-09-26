@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1026110e8>
+<environment: 0x102611008>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -1790,18 +1790,18 @@ attr(,"class")
 > 
 > ### Name: clamtest
 > ### Title: Multinomial Species Classification Method (CLAM)
-> ### Aliases: clamtest summary.clamtest print.summary.clamtest plot.clamtest
+> ### Aliases: clamtest summary.clamtest plot.clamtest
 > ### Keywords: htest
 > 
 > ### ** Examples
 > 
 > data(mite)
 > data(mite.env)
-> x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005, specialization = 0.667)
+> x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
 > summary(x)
 Two Groups Species Classification Method (CLAM)
 
-Specialization threshold = 0.667
+Specialization threshold = 0.6666667
 Alpha level = 0.005
 
 Estimated sample coverage:
@@ -4272,7 +4272,7 @@ Start = 11, End = 60, Thin = 5
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: oecosimu
-> ### Title: Null Models for Biological Communities
+> ### Title: Evaluate Statistics with Null Models of Biological Communities
 > ### Aliases: oecosimu commsimulator as.ts.oecosimu as.mcmc.oecosimu
 > ###   density.oecosimu densityplot.oecosimu
 > ### Keywords: multivariate datagen
@@ -5004,7 +5004,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1074d1a40>
+<environment: 0x107232ca0>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -5020,7 +5020,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10787d120>
+<environment: 0x10785fc00>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5176,7 +5176,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106cedd18>
+<environment: 0x104f32f78>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5189,7 +5189,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104bac468>
+<environment: 0x1073aa3c0>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5202,7 +5202,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107be6240>
+<environment: 0x107b7aca8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7464,7 +7464,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10680abc0>
+<environment: 0x108031840>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7940,7 +7940,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  110.481 1.351 113.149 0 0 
+Time elapsed:  112.907 1.395 116.971 0 0 
 > grDevices::dev.off()
 null device 
           1 

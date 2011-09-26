@@ -2,7 +2,7 @@
 ## Ecology, 92, 1332--1343
 clamtest <- 
 function(comm, groups, coverage.limit = 10,
-specialization = 0.667, npoints = 20, alpha = 0.05/npoints) 
+specialization = 2/3, npoints = 20, alpha = 0.05/20) 
 {
     ## inital checks
     comm <- as.matrix(comm)
