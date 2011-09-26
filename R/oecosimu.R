@@ -15,6 +15,13 @@
                 tmp
     }
 
+    if (inherits(comm, "simmat")) {
+        x <- comm
+        comm <- attr(comm, "data")
+        method <- attr(comm, "method")
+        simmat_in <- TRUE
+    } else simmat_in <- FALSE
+
     nm <- nullmodel(comm, method)
     if (nm$commsim$binary)
         comm <- ifelse(comm > 0, 1L, 0L)
@@ -25,18 +32,19 @@
             ind[[statistic]]
         else
             ind
-    
-    ## estimate thinning for "tswap" (trial swap)
-    if (nm$commsim$method == "tswap") {
-        checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
-                                  "binary"))
-        M <- nm$ncol
-        N <- nm$nrow
-        checkbrd <- M * (M - 1) * N * (N - 1)/4/checkbrd
-        thin <- round(thin * checkbrd)
-        burnin <- round(burnin * checkbrd)
+    if (!simmat_in) {
+        ## estimate thinning for "tswap" (trial swap)
+        if (nm$commsim$method == "tswap") {
+            checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
+                                      "binary"))
+            M <- nm$ncol
+            N <- nm$nrow
+            checkbrd <- M * (M - 1) * N * (N - 1)/4/checkbrd
+            thin <- round(thin * checkbrd)
+            burnin <- round(burnin * checkbrd)
+        }
+        x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
     }
-    x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
 
     simind <- apply(x, 3, applynestfun, fun = nestfun, statistic = statistic, ...) 
     simind <- matrix(simind, ncol = nsimul)

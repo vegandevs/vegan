@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-1 (opened September 20, 2011)
 
+	* oecosimu can take a simmat object as comm argument,
+	so different statistics can be swept out based on the
+	same set of permuted matrices.
+
 	* permatfull/swap is using the new simulate(nullmodel(...)...)
 	infrastructure. permatfull1 and permatswap1 removed from vegan 
 	devel.
