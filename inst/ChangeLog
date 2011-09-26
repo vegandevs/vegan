@@ -4,9 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-1 (opened September 20, 2011)
 
-	* oecosimu can take a simmat object as comm argument,
-	so different statistics can be swept out based on the
-	same set of permuted matrices.
+	* oecosimu: the 'comm' argument can be either 1) community data,
+	2) a nullmodel object or 3) a simmat object. If 'comm' is a
+	nullmodel, simulation method is found from the nullmodel object,
+	and if 'comm' is a simmat object, its matrices are analysed
+	without simulations within oecosimu(), and different statistics
+	can be swept out based on the same set of simulated matrices.
 
 	* permatfull/swap is using the new simulate(nullmodel(...)...)
 	infrastructure. permatfull1 and permatswap1 removed from vegan 

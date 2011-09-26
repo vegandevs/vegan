@@ -18,13 +18,19 @@
     if (inherits(comm, "simmat")) {
         x <- comm
         comm <- attr(comm, "data")
-        method <- attr(comm, "method")
+        method <- attr(x, "method")
         simmat_in <- TRUE
-    } else simmat_in <- FALSE
-
-    nm <- nullmodel(comm, method)
-    if (nm$commsim$binary)
-        comm <- ifelse(comm > 0, 1L, 0L)
+    } else {
+        simmat_in <- FALSE
+        if (inherits(comm, "nullmodel")) {
+            nm <- comm
+            comm <- comm$data
+        } else {
+            nm <- nullmodel(comm, method)
+            if (nm$commsim$binary)
+                comm <- nm$data
+        }
+    }
     
     ind <- nestfun(comm, ...)
     indstat <-
