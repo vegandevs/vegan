@@ -80,7 +80,7 @@ mtype="count", times=99, burnin = 0, thin = 1, ...)
     out <- list(call=match.call(), orig=m, perm=perm)
     attr(out, "mtype") <- mtype
     attr(out, "ptype") <- "swap"
-    attr(out, "method") <- method
+    attr(out, "method") <- ALGO
     attr(out, "fixedmar") <- if (method == "swsh") "none" else fixedmar
     attr(out, "times") <- times
     attr(out, "shuffle") <- if (method == "swsh") shuffle else NA

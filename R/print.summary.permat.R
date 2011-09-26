@@ -6,12 +6,12 @@ function(x, digits=2, ...)
     cat("Summary of object of class 'permat'\n\nCall: ")
     print(x$x$call)
     cat("\nMatrix type:", attr(x$x, "mtype"), "\nPermutation type:", attr(x$x, "ptype"))
-    if (attr(x$x, "ptype") == "swap") {
-        cat("\nMethod: ", attr(x$x, "method"), sep = "")
-        if (attr(x$x, "method") != "quasiswap") {
-            cat(", burnin: ", attr(x$x, "burnin"), sep = "")
-            cat(", thin: ", attr(x$x, "thin"), sep = "")
-        }
+    cat("\nMethod: ", attr(x, "method"), sep = "")
+    if (attr(x, "ptype") == "swap") {
+        if (!is.na(attr(x, "burnin")))
+            cat(", burnin: ", attr(x, "burnin"), sep = "")
+        if (!is.na(attr(x, "thin")))
+            cat(", thin: ", attr(x, "thin"), sep = "")
     }
     cat("\nRestricted:", attr(x$x, "is.strat"), "\nFixed margins:", attr(x$x, "fixedmar"))
     if (!is.na(attr(x$x, "shuffle"))) {

@@ -48,7 +48,7 @@ strata=NULL, mtype="count", times=99, ...)
     out <- list(call=match.call(), orig=m, perm=perm)
     attr(out, "mtype") <- mtype
     attr(out, "ptype") <- "full"
-    attr(out, "method") <- NA
+    attr(out, "method") <- ALGO
     attr(out, "fixedmar") <- fixedmar
     attr(out, "times") <- times
     attr(out, "shuffle") <- shuffle
