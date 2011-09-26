@@ -6,7 +6,7 @@ function(x, digits=2, ...)
     cat("Summary of object of class 'permat'\n\nCall: ")
     print(x$x$call)
     cat("\nMatrix type:", attr(x$x, "mtype"), "\nPermutation type:", attr(x$x, "ptype"))
-    cat("\nMethod: ", attr(x, "method"), sep = "")
+    cat("\nMethod: ", attr(x$x, "method"), sep = "")
     if (attr(x$x, "ptype") == "swap") {
         if (!is.na(attr(x$x, "burnin")))
             cat(", burnin: ", attr(x$x, "burnin"), sep = "")
