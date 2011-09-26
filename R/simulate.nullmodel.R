@@ -22,10 +22,10 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
     } else {
         x <- m
         if (thin != 1)
-            warning("non-sequential model: 'thin' set to 1")
+            message("non-sequential model: 'thin' set to 1")
         thin <- 1L
-        if (burnin > 0)
-            warning("non-sequential model: 'burnin' set to 0")
+        if (burnin != 0)
+            message("non-sequential model: 'burnin' set to 0")
         burnin <- 0L
     }
     perm <- object$commsim$fun(x=x,
