@@ -19,6 +19,7 @@
         x <- comm
         comm <- attr(comm, "data")
         method <- attr(x, "method")
+        nsimul <- dim(x)[3]
         simmat_in <- TRUE
     } else {
         simmat_in <- FALSE
