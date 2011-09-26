@@ -4,7 +4,9 @@
     type <- match.arg(type, c("bray", "chisq"))
     out <- summary(x)[[type]]
     if (!is.ts(out)) {
-        seqmethods <- c("swap", "tswap", "abuswap")
+        seqmethods <- sapply(make.commsim(), function(z) make.commsim(z)$isSeq)
+        seqmethods <- names(seqmethods)[seqmethods]
+#        seqmethods <- c("swap", "tswap", "abuswap")
         stop("as.ts available only for sequential methods ",
             paste(seqmethods, collapse=", "))
     } 

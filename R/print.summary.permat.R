@@ -7,11 +7,11 @@ function(x, digits=2, ...)
     print(x$x$call)
     cat("\nMatrix type:", attr(x$x, "mtype"), "\nPermutation type:", attr(x$x, "ptype"))
     cat("\nMethod: ", attr(x, "method"), sep = "")
-    if (attr(x, "ptype") == "swap") {
-        if (!is.na(attr(x, "burnin")))
-            cat(", burnin: ", attr(x, "burnin"), sep = "")
-        if (!is.na(attr(x, "thin")))
-            cat(", thin: ", attr(x, "thin"), sep = "")
+    if (attr(x$x, "ptype") == "swap") {
+        if (!is.na(attr(x$x, "burnin")))
+            cat(", burnin: ", attr(x$x, "burnin"), sep = "")
+        if (!is.na(attr(x$x, "thin")))
+            cat(", thin: ", attr(x$x, "thin"), sep = "")
     }
     cat("\nRestricted:", attr(x$x, "is.strat"), "\nFixed margins:", attr(x$x, "fixedmar"))
     if (!is.na(attr(x$x, "shuffle"))) {

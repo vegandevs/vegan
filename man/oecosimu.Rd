@@ -30,7 +30,7 @@ commsimulator(x, method, thin=1)
 
 \arguments{
   \item{comm}{Community data, or an object of class \code{simmat} (array 
-    of permuted matrices from \code{\link{simulae.nullmodel}}).}
+    of permuted matrices from \code{\link{simulate.nullmodel}}).}
   \item{x}{Community data for \code{commsimulator}, or an \code{oecosimu}
     result object for \code{as.ts}, \code{as.mcmc}, \code{density} and 
     \code{densityplot}.}
