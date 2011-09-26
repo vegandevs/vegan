@@ -15,7 +15,7 @@ function(method)
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- matrix(0L, nr * nc, n)
             for (k in seq_len(n))
-                out[sample.int(nr * nc, s), k] <- 1
+                out[sample.int(nr * nc, s), k] <- 1L
             dim(out) <- c(nr, nc, n)
             out
         }),
@@ -26,7 +26,7 @@ function(method)
             J <- seq_len(nc)
             for (k in seq_len(n))
                 for (j in J)
-                    out[sample.int(nr, cs[j]), j, k] <- 1
+                    out[sample.int(nr, cs[j]), j, k] <- 1L
             out
         }),
         "r0" = commsim(method="r0", binary=TRUE, isSeq=FALSE,
@@ -36,7 +36,7 @@ function(method)
             I <- seq_len(nr)
             for (k in seq_len(n))
                 for (i in I)
-                    out[i, sample.int(nc, rs[i]), k] <- 1
+                    out[i, sample.int(nc, rs[i]), k] <- 1L
             out
         }),
         "r0_old" = commsim(method="r0_old", binary=TRUE, isSeq=FALSE,
@@ -47,7 +47,7 @@ function(method)
             p <- rep(1, nc)
             for (k in seq_len(n))
                 for (i in I)
-                    out[i, sample.int(nc, rs[i], prob = p), k] <- 1
+                    out[i, sample.int(nc, rs[i], prob = p), k] <- 1L
             out
         }),
         "r1" = commsim(method="r1", binary=TRUE, isSeq=FALSE,
@@ -55,9 +55,10 @@ function(method)
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
             I <- seq_len(nr)
+            storage.mode(cs) <- "double"
             for (k in seq_len(n))
                 for (i in I)
-                    out[i, sample.int(nc, rs[i], prob=cs), k] <- 1
+                    out[i, sample.int(nc, rs[i], prob=cs), k] <- 1L
             out
         }),
         "r2" = commsim(method="r2", binary=TRUE, isSeq=FALSE,
@@ -68,7 +69,7 @@ function(method)
             I <- seq_len(nr)
             for (k in seq_len(n))
                 for (i in I)
-                    out[i, sample.int(nc, rs[i], prob=p), k] <- 1
+                    out[i, sample.int(nc, rs[i], prob=p), k] <- 1L
             out
         }),
         "quasiswap" = commsim(method="quasiswap", binary=TRUE, isSeq=FALSE,
@@ -81,7 +82,7 @@ function(method)
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
             out
         }),
-        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,
+        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE, 
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
@@ -119,23 +120,23 @@ function(method)
                 j <- (ij - 1)%/%nr + 1
                 for (k in 1:length(ij)) {
                     if (icount[i[k]] < rs[i[k]] && jcount[j[k]] < cs[j[k]]) {
-                        out[ij[k]] <- 1
-                        icount[i[k]] <- icount[i[k]] + 1
-                        jcount[j[k]] <- jcount[j[k]] + 1
+                        out[ij[k]] <- 1L
+                        icount[i[k]] <- icount[i[k]] + 1L
+                        jcount[j[k]] <- jcount[j[k]] + 1L
                     }
                 }
                 ndrop <- 1
                 for (i in 1:10000) {
                     oldout <- out
                     oldn <- sum(out)
-                    drop <- sample(all[out == 1], ndrop)
-                    out[drop] <- 0
-                    candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0
+                    drop <- sample(all[out == 1L], ndrop)
+                    out[drop] <- 0L
+                    candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0L
                     while (sum(candi) > 0) {
                         if (sum(candi) > 1) 
                           ij <- sample(all[candi], 1)
                         else ij <- all[candi]
-                        out[ij] <- 1
+                        out[ij] <- 1L
                         candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0
                     }
                     if (sum(out) >= fill) 
@@ -148,7 +149,7 @@ function(method)
                 }
                 out
             }
-            out <- array(0, c(nr, nc, n))
+            out <- array(0L, c(nr, nc, n))
             for (k in seq_len(n))
                 out[, , k] <- btrfun()
             out
