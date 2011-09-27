@@ -26,7 +26,9 @@
         if (inherits(comm, "nullmodel")) {
             nm <- comm
             comm <- comm$data
+            method <- nm$commsim$method
         } else {
+            method <- make.commsim(method)$method
             nm <- nullmodel(comm, method)
             if (nm$commsim$binary)
                 comm <- nm$data
@@ -41,7 +43,7 @@
             ind
     if (!simmat_in) {
         ## estimate thinning for "tswap" (trial swap)
-        if (nm$commsim$method == "tswap") {
+        if (method == "tswap") {
             checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
                                       "binary"))
             M <- nm$ncol
@@ -56,11 +58,9 @@
     simind <- apply(x, 3, applynestfun, fun = nestfun, statistic = statistic, ...) 
     simind <- matrix(simind, ncol = nsimul)
 
-    if (nm$commsim$isSeq) {
-        if (thin > 1)
-            attr(simind, "thin") <- thin
-        if (burnin > 0)
-            attr(simind, "burnin") <- burnin
+    if (attr(x, "isSeq")) {
+        attr(simind, "thin") <- attr(x, "thin")
+        attr(simind, "burnin") <- attr(x, "start") - 1L
     }
     
     sd <- apply(simind, 1, sd, na.rm = TRUE)
@@ -88,7 +88,7 @@
         names(indstat) <- statistic
     if (!is.list(ind))
         ind <- list(statistic = ind)
-    ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=nm$commsim$method,
+    ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=method,
                          statistic = indstat, alternative = alternative)
     class(ind) <- c("oecosimu", class(ind))
     ind
