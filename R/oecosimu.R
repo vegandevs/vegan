@@ -88,7 +88,8 @@
     if (!is.list(ind))
         ind <- list(statistic = ind)
     ind$oecosimu <- list(z = z, pval = p, simulated=simind, method=method,
-                         statistic = indstat, alternative = alternative)
+                         statistic = indstat, alternative = alternative,
+                         isSeq = attr(x, "isSeq"))
     class(ind) <- c("oecosimu", class(ind))
     ind
 }
