@@ -3,11 +3,39 @@
 \encoding{UTF-8}
 
 \section{Changes in version 2.0-1}{
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+  
+      \item \code{clamtest}: new function to classify species as
+      generalists and specialists in two distinct habitats (CLAM test
+      of Chazdon et al., \emph{Ecology} 92, 1332--1343; 2011).  The
+      test is based on multinomial distribution of individuals in two
+      habitat types or sampling units, and is applicable only to count
+      data with no over-dispersion.
+
+      \item \code{raupcrick}: new function to implement Raup-Crick
+      dissimilarity as a probability of number of co-occurring species
+      with occurrence probabilities proportional to species
+      frequencies.  \pkg{Vegan} has Raup-Crick index as a choice in
+      \code{vegdist}, but it uses equal sampling probabilities for
+      species and analytic equations. The new \code{raupcrick}
+      function uses simulation with \code{oecosimu}. The function
+      follows Chase et al. (2011) \emph{Ecosphere} 2:art24
+      [doi:10.1890/ES10-00117.1], and was developed with the
+      consultation of Brian Inouye.
+
+    }
+  } % end NEW FUNCTIONS
+
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item Function \code{meandist} could randomly permute items,
+      especially when the \code{grouping} was numerical. The problem
+      was reported by Dr Miguel Alvarez (Univ. Bonn).
+
       \item Function \code{permatswap} for community null models using
-      quantitative swap never swapped items in a \eqn{2 \times 2}{2x2}
+      quantitative swap never swapped items in a \eqn{2 \times 2}{2 by 2}
       submatrix if all cells were filled.
 
     }	
