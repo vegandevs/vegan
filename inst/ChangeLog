@@ -35,6 +35,11 @@ Version 2.1-1 (opened September 20, 2011)
 	call should now be defined as as.integer() instead of old
 	as.double().
 
+	* str.nullmodel: new function to display the *str*ucture of the
+	"nullmodel". The "nullmodel" is an environment and therefore does
+	not show in usual str() although its items can be accessed with
+	$-notation. No documentation, but alias in nullmodel.Rd.
+
 	* New functions: commsim is used to define Null Model Algorithms
 	via a function that returns n x m x nsim array of simulated
 	matrices based on structural constraints. make.commsim contains

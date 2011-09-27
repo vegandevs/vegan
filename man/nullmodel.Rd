@@ -3,6 +3,7 @@
 \alias{print.nullmodel}
 \alias{simulate.nullmodel}
 \alias{update.nullmodel}
+\alias{str.nullmodel}
 \alias{print.simmat}
 \title{
 Null Model and Simulation

@@ -63,7 +63,7 @@ export(metaMDSrotate)
 ## Registration of S3 methods
 import(stats)
 import(graphics)
-importFrom(utils, head, tail)
+importFrom(utils, head, tail, str)
 importFrom(lattice, densityplot)
 ## nobs only exists in R 2.13.0 -- import from permute with older R
 if (getRversion() < "2.13.0") {
@@ -360,6 +360,8 @@ S3method(simulate, capscale)
 S3method(simulate, cca)
 S3method(simulate, rda)
 S3method(simulate, nullmodel)
+# str: utils
+S3method(str, nullmodel)
 # stressplot: vegan
 S3method(stressplot, default)
 S3method(stressplot, monoMDS)
