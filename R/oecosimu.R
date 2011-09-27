@@ -26,13 +26,12 @@
         if (inherits(comm, "nullmodel")) {
             nm <- comm
             comm <- comm$data
-            method <- nm$commsim$method
         } else {
-            method <- make.commsim(method)$method
             nm <- nullmodel(comm, method)
             if (nm$commsim$binary)
                 comm <- nm$data
         }
+        method <- nm$commsim$method
     }
     
     ind <- nestfun(comm, ...)
