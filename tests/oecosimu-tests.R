@@ -102,6 +102,7 @@ shuffle <- c("ind", "samp", "both")
 for(mar in margin) {
     for(what in shuffle) {
         cat("\n--> margin", mar, " shuffle", what, "<--\n")
+        set.seed(4711)
         m <- permatfull(x, fixedmar = mar, shuffle = what, mtype = "count", 
             times=1)$perm[[1]]
         margintest(m, gsum, rsum, csum, fill, rfrq, cfrq)
@@ -130,6 +131,7 @@ for(method in methods) {
                 next
             cat("\n*** ", method, " ***\n")
             cat("--> margin", margin, " shuffle", what, "<--\n")
+            set.seed(4711)
             m <- permatswap(x, method = method, fixedmar = margin, shuffle = what,
                              mtype = "count", thin=100, times=1)$perm[[1]]
             margintest(m, gsum, rsum, csum,fill, rfrq, cfrq)
