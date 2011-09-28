@@ -1847,20 +1847,20 @@ Too_rare               7      0.200
 +     array(replicate(n, sample(x)), c(dim(x), n))
 > (cs <- commsim("r00", fun=f, binary=TRUE, 
 +     isSeq=FALSE, mode="integer"))
-An object of class "commsim"
-"r00" method (binary, non-sequential, integer mode)
+An object of class “commsim” 
+‘r00’ method (binary, non-sequential, integer mode)
 
 > 
 > ## retrieving the sequential swap algorithm
 > (cs <- make.commsim("swap"))
-An object of class "commsim"
-"swap" method (binary, sequential, integer mode)
+An object of class “commsim” 
+‘swap’ method (binary, sequential, integer mode)
 
 > 
 > ## feeding a commsim object as argument
 > make.commsim(cs)
-An object of class "commsim"
-"swap" method (binary, sequential, integer mode)
+An object of class “commsim” 
+‘swap’ method (binary, sequential, integer mode)
 
 > 
 > ## structural constraints
@@ -4150,7 +4150,7 @@ Checkerboard Units    : 2767
 C-score (species mean): 2.258776 
 > oecosimu(sipoo, nestedchecker, "quasiswap")
 oecosimu with 99 simulations
-simulation method quasiswap
+simulation method ‘quasiswap’
 alternative hypothesis: true mean is not equal to the statistic
 
 Checkerboard Units    : 2767 
@@ -4161,7 +4161,7 @@ statistic 2767.00000    0.84129 2584.40000 2676.00000 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 oecosimu with 99 simulations
-simulation method r00
+simulation method ‘r00’
 alternative hypothesis: true mean is not equal to the statistic
 
 Checkerboard Units    : 2767 
@@ -4192,34 +4192,34 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ## non-sequential nullmodel
 > (nm <- nullmodel(x, "r00"))
-An object of class "nullmodel"
-"r00" method (binary, non-sequential)
+An object of class “nullmodel” 
+‘r00’ method (binary, non-sequential)
 12 x 10 matrix
 
 > (sm <- simulate(nm, nsim=10))
-An object of class "simmat"
-"r00" method (binary, non-sequential)
+An object of class “simmat” 
+‘r00’ method (binary, non-sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 
 > 
 > ## sequential nullmodel
 > (nm <- nullmodel(x, "swap"))
-An object of class "nullmodel"
-"swap" method (binary, sequential)
+An object of class “nullmodel” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
 > (sm1 <- simulate(nm, nsim=10, thin=5))
-An object of class "simmat"
-"swap" method (binary, sequential)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 1, End = 50, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class "simmat"
-"swap" method (binary, sequential)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 51, End = 100, Thin = 5
@@ -4227,21 +4227,21 @@ Start = 51, End = 100, Thin = 5
 > 
 > ## sequential nullmodel with burnin and extra updating
 > (nm <- nullmodel(x, "swap"))
-An object of class "nullmodel"
-"swap" method (binary, sequential)
+An object of class “nullmodel” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
 > (sm1 <- simulate(nm, burnin=10, nsim=10, thin=5))
-An object of class "simmat"
-"swap" method (binary, sequential)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 11, End = 60, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class "simmat"
-"swap" method (binary, sequential)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 61, End = 110, Thin = 5
@@ -4249,15 +4249,15 @@ Start = 61, End = 110, Thin = 5
 > 
 > ## sequential nullmodel with separate initial burnin
 > (nm <- nullmodel(x, "swap"))
-An object of class "nullmodel"
-"swap" method (binary, sequential)
+An object of class “nullmodel” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
 > update(nm, nsim=10)
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class "simmat"
-"swap" method (binary, sequential)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 11, End = 60, Thin = 5
@@ -4285,7 +4285,7 @@ Start = 11, End = 60, Thin = 5
 > out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, statistic="evals")
 > out
 oecosimu with 99 simulations
-simulation method swap with thin 10, burnin 100
+simulation method ‘swap’ with thin 10, burnin 100
 alternative hypothesis: true mean is not equal to the statistic
 
 
@@ -4323,7 +4323,7 @@ Loading required package: lattice
 > mbc1 <- oecosimu(dune, meandist, "r2dtable")
 > mbc1
 oecosimu with 99 simulations
-simulation method r2dtable
+simulation method ‘r2dtable’
 alternative hypothesis: true mean is not equal to the statistic
 
           statistic        z     2.5%      50%  97.5% Pr(sim.)   
@@ -4342,7 +4342,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, mode = "double")
 > oecosimu(dune, meandist, cf)
 oecosimu with 99 simulations
-simulation method myshuffle
+simulation method ‘myshuffle’
 alternative hypothesis: true mean is not equal to the statistic
 
           statistic       z    2.5%     50%  97.5% Pr(sim.)   
@@ -5004,7 +5004,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1071a1e28>
+<environment: 0x10729d470>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -5020,7 +5020,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1076bfb40>
+<environment: 0x1075933c8>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5176,7 +5176,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1045a2ed8>
+<environment: 0x107035b48>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5189,7 +5189,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107995bf8>
+<environment: 0x107723990>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5202,7 +5202,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1071a2158>
+<environment: 0x107713a00>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6875,7 +6875,7 @@ Scaling: 2
 > ## The current choice fixes only site totals.
 > oecosimu(dune, treedive, "r0", tree = cl)
 oecosimu with 99 simulations
-simulation method r0
+simulation method ‘r0’
 alternative hypothesis: true mean is not equal to the statistic
 
     statistic          z       2.5%        50%  97.5% Pr(sim.)   
@@ -7464,7 +7464,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107a3b340>
+<environment: 0x10701aa68>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7940,7 +7940,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  110.209 1.343 113.01 0 0 
+Time elapsed:  115.862 1.458 121.541 0 0 
 > grDevices::dev.off()
 null device 
           1 
