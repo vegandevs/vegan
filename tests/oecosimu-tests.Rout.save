@@ -1942,18 +1942,6 @@ Warning messages:
   quantitative swap method may not yield random null models, use only to study its properties
 2: In permatswap(x, method = method, fixedmar = margin, shuffle = what,  :
   quantitative swap method may not yield random null models, use only to study its properties
-3: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
-4: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
-5: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
-6: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
-7: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
-8: In simulate.nullmodel(nullmodel(m, ALGO), nsim = times, burnin = burnin,  :
-  non-sequential model: 'thin' set to 1
 > ### end permatswap
 > 
 > nm=nullmodel(m,"abuswap_c")
