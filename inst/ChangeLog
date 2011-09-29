@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-2 (opened September 29, 20119
 
+	* commsimulator is going to be deprecated: it is no longer used in
+	oecosimu() ore elsewhere in other functions. Currently, functions
+	make.commsim(), nullmodel() and simulate.nullmodel() do the same,
+	and more. As the first step, its documenation in oecosimu.Rd is
+	moved to vegan-deprecated.Rd.
+	
 	* examples: cut donw some excessively time consuming examples.
 	Profiling of all vegan examples showed that 25% of total time was
 	spent in anova.cca, and 12.6% in ordistep, but they probably are

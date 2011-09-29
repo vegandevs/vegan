@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-1
+This is vegan 2.1-2
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1026163c0>
+<environment: 0x102616740>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -4132,8 +4132,8 @@ Start = 11, End = 60, Thin = 5
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu commsimulator as.ts.oecosimu as.mcmc.oecosimu
-> ###   density.oecosimu densityplot.oecosimu
+> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
+> ###   densityplot.oecosimu
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
@@ -4732,7 +4732,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1075ffb90>
+<environment: 0x1075fb590>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4748,7 +4748,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107aa9f48>
+<environment: 0x1078fa348>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4904,7 +4904,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10859b828>
+<environment: 0x1079ace28>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4917,7 +4917,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1070ec438>
+<environment: 0x1070ece38>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4930,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107471a68>
+<environment: 0x1079fcc68>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7192,7 +7192,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1047b6498>
+<environment: 0x10775ea98>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7668,7 +7668,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  105.636 1.365 108.878 0 0 
+Time elapsed:  175.18 2.895 213.598 0 0 
 > grDevices::dev.off()
 null device 
           1 

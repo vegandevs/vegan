@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{oecosimu}
 \alias{oecosimu}
-\alias{commsimulator}
 \alias{as.ts.oecosimu}
 \alias{as.mcmc.oecosimu}
 \alias{density.oecosimu}
@@ -21,7 +20,6 @@
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"),
    ...)
-commsimulator(x, method, thin=1)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -38,9 +36,6 @@ commsimulator(x, method, thin=1)
     and if \code{comm} is a \code{simmat} object, all other arguments
     are ignored except \code{nestfun}, \code{statistic} and
     \code{alternative}.}
-  \item{x}{Community data for \code{commsimulator}, or an \code{oecosimu}
-    result object for \code{as.ts}, \code{as.mcmc}, \code{density} and 
-    \code{densityplot}.}
   \item{nestfun}{Function to analyse nestedness. Some functions are
     provided in \pkg{vegan}, but any function can be used if it accepts the
     community as the first argument, and returns either a plain number or
@@ -66,6 +61,7 @@ commsimulator(x, method, thin=1)
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
     or \code{"less"}. You can specify just the initial letter.}
+  \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
   \item{\dots}{Other arguments to functions.}
@@ -90,75 +86,6 @@ commsimulator(x, method, thin=1)
   (row) or species (column) properties, see \code{\link{treedive}} for
   an example. Raup-Crick index (\code{\link{raupcrick}}) gives an
   example of using a dissimilarities index.
-
-  The description of the function \code{commsimulator} below is
-  obsolescent: the function is not used any longer, but
-  \code{oecosimu} uses null models described in \code{\link{commsim}}.
-
-  Function \code{commsimulator} implements binary (presence/absence) 
-  null models for community composition.
-  The implemented models are \code{r00} which maintains the
-  number of presences but fills these anywhere so that neither species
-  (column) nor site (row) totals are preserved. Methods \code{r0},
-  \code{r1} and \code{r2} maintain the site (row) frequencies. Method \code{r0}
-  fills presences anywhere on the row with no respect to species (column)
-  frequencies, \code{r1} uses column marginal 
-  frequencies as probabilities, and \code{r2} uses squared column
-  sums. Methods \code{r1} and \code{r2} try to simulate original species
-  frequencies, but they are not strictly constrained. All these methods
-  are reviewed by Wright et al. (1998). Method \code{c0} maintains
-  species frequencies, but does not honour site (row) frequencies (Jonsson
-  2001). 
-
-  The other methods maintain both row and column frequencies.
-  Methods \code{swap} and \code{tswap} implement sequential methods,
-  where the matrix is changed only little in one step, but the changed
-  matrix is used as an input if the next step.
-  Methods \code{swap} and \code{tswap} inspect random 2x2 submatrices
-  and if they are checkerboard units, the order of columns is
-  swapped. This changes the matrix structure, but does not influence
-  marginal sums (Gotelli & Entsminger
-  2003). Method \code{swap} inspects submatrices so long that a swap
-  can be done. \enc{Miklós}{Miklos} & Podani (2004) suggest that this may lead into
-  biased sequences, since some columns or rows may be more easily
-  swapped, and they suggest trying a fixed number of times and
-  doing zero to many swaps at one step. This method is implemented by
-  method \code{tswap} or trial swap. Function \code{commsimulator} makes
-  only one trial swap in time (which probably does nothing),
-  but \code{oecosimu} estimates how many
-  submatrices are expected before finding a swappable checkerboard,
-  and uses that ratio to thin the results, so that on average one swap
-  will be found per step of \code{tswap}.  However, the checkerboard
-  frequency probably changes during swaps, but this is not taken into
-  account in estimating the \code{thin}.  One swap still changes the
-  matrix only little, and it may be useful to 
-  thin the results so that the statistic is only evaluated after
-  \code{burnin} steps (and \code{thin}ned). 
-
-  Methods \code{quasiswap} and \code{backtracking} are not sequential,
-  but each call produces a matrix that is independent of previous
-  matrices, and has the same marginal totals as the original data. The
-  recommended method is \code{quasiswap} which is much faster because
-  it is implemented in C. Method \code{backtracking} is provided for
-  comparison, but it is so slow that it may be dropped from future
-  releases of \pkg{vegan} (or also implemented in C).
-  Method \code{quasiswap} (\enc{Miklós}{Miklos} & Podani 2004)
-  implements a method where matrix is first filled 
-  honouring row and column totals, but with integers that may be larger than
-  one. Then the method inspects random 2x2 matrices and performs a
-  quasiswap on them. Quasiswap is similar to ordinary swap, but it also
-  can reduce numbers above one to ones maintaining marginal
-  totals.
-  Method \code{backtracking}
-  implements a filling method with constraints both for row and column
-  frequencies (Gotelli & Entsminger 2001). The matrix is first filled
-  randomly using row and column frequencies as probabilities. Typically
-  row and column sums are reached before all incidences are filled in.
-  After that begins \dQuote{backtracking}, where some of the
-  points are removed, and then filling is started again, and this
-  backtracking is done so may times that all incidences will be filled
-  into matrix. The \code{quasiswap} method is not sequential, but it produces
-  a random incidence matrix with given marginal totals. 
 
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
@@ -195,50 +122,19 @@ commsimulator(x, method, thin=1)
   \code{commsimulator} returns a null model matrix or a swap of the
   input matrix.  }
 
-\references{
-  Gotelli, N.J. & Entsminger, N.J. (2001). Swap and fill algorithms in
-  null model analysis: rethinking the knight's tour. \emph{Oecologia}
-  129, 281--291.
+\author{Jari Oksanen and Peter Solymos}
 
-  Gotelli, N.J. & Entsminger, N.J. (2003). Swap algorithms in null model
-  analysis. \emph{Ecology} 84, 532--535.
-
-  Jonsson, B.G. (2001) A null model for randomization tests of
-  nestedness in species assemblages. \emph{Oecologia} 127, 309--313.
-
-  \enc{Miklós}{Miklos}, I. & Podani, J. (2004). Randomization of presence-absence
-  matrices: comments and new algorithms. \emph{Ecology} 85, 86--92.
-
-  Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. & Atmar,
-  W. (1998). A comparative analysis of nested subset patterns of species
-  composition. \emph{Oecologia} 113, 1--20.
-  }
-\author{ Jari Oksanen }
 \note{
-  Functions \code{commsimulator} and \code{oecosimu} do not have
-  default \code{nestfun} nor default \code{method}, because there is
-  no clear natural choice. If you use these methods, you must be able
-  to choose your own strategy. The choice of nestedness index is
-  difficult because the functions seem to imply very different
-  concepts of structure and randomness. The choice of swapping method
-  is also problematic. Method \code{r00} has some heuristic value of
-  being really random. However, it produces null models which are
-  different from observed communities in most respects, and a
-  \dQuote{significant} result may simply mean that not all species are
-  equally common (\code{r0} is similar with this respect). It is also
-  difficult to find justification for \code{r2}. The methods
-  maintaining both row and column totals only study the community
-  relations, but they can be very slow. Moreover, they regard marginal
-  totals as constraints instead of results of occurrence patterns. You
-  should evaluate timings in small trials (one cycle) before launching
-  an extensive simulation. One swap is fast, but it changes data only
-  little, and you may need long \code{burnin} and strong
-  \code{thin}ning in large matrices. You should plot the simulated
-  values to see that they are more or less stationary and there is no
-  trend. Method \code{quasiswap} is implemented
-  in C and it is much faster than \code{backtrack}.  Method
-  \code{backtrack} may be removed from later releases of \pkg{vegan}
-  because it is slow, but it is still included for comparison.
+  
+  Function \code{oecosimu} does not have default \code{nestfun} nor
+  default \code{method}, because there is no clear natural choice. If
+  you use these methods, you must be able to choose your own
+  strategy. For description of canned null models and discussion, see
+  \code{\link{commsim}}.  For canned nestedness functions see
+  \code{\link{nestedtemp}} (which describes several functions).
+  Although \code{oecosimu} is given in the Null model framework where
+  nestedness is typically analysed, the function is not limited to
+  study nestedness, but it is much more general (see Examples).
 
   If you wonder about the name of \code{oecosimu}, look at journal
   names in the References (and more in \code{\link{nestedtemp}}).  }
