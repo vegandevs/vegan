@@ -72,8 +72,10 @@ data(dune)
 data(dune.env)
 ## Automatic model building based on AIC but with permutation tests
 step(cca(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
-## The same, but based on permutation P-values
+## see ?ordistep to do the same, but based on permutation P-values
+\dontrun{
 ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
+}
 ## Manual model building
 ## -- define the maximal model for scope
 mbig <- rda(dune ~  ., dune.env)

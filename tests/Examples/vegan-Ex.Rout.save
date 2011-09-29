@@ -434,68 +434,10 @@ Eigenvalues for unconstrained axes:
      CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
 0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
 
-> ## The same, but based on permutation P-values
-> ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
-
-Start: dune ~ 1 
-
-             Df    AIC      F N.Perm Pr(>F)   
-+ Moisture    3 86.608 2.2536    199  0.005 **
-+ Management  3 86.935 2.1307    199  0.005 **
-+ Manure      4 88.832 1.5251    199  0.025 * 
-+ A1          1 87.411 2.1400    199  0.035 * 
-+ Use         2 89.134 1.1431     99  0.130   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: dune ~ Moisture 
-
-           Df    AIC      F N.Perm Pr(>F)   
-- Moisture  3 87.657 2.2536     99   0.01 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-             Df    AIC      F N.Perm Pr(>F)  
-+ Management  3 86.813 1.4565    199  0.035 *
-+ Use         2 87.259 1.2760    199  0.095 .
-+ Manure      4 87.342 1.3143    199  0.095 .
-+ A1          1 86.992 1.2624     99  0.170  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: dune ~ Moisture + Management 
-
-             Df    AIC      F N.Perm Pr(>F)  
-- Management  3 86.608 1.4565    199  0.035 *
-- Moisture    3 86.935 1.5518     99  0.020 *
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-         Df    AIC      F N.Perm Pr(>F)  
-+ A1      1 86.190 1.6817    199   0.09 .
-+ Manure  3 88.430 0.8167     99   0.58  
-+ Use     2 88.245 0.7534     99   0.65  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Call: cca(formula = dune ~ Moisture + Management, data = dune.env)
-
-              Inertia Proportion Rank
-Total          2.1153     1.0000     
-Constrained    1.0024     0.4739    6
-Unconstrained  1.1129     0.5261   13
-Inertia is mean squared contingency coefficient 
-
-Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6 
-0.44583 0.28869 0.11239 0.07166 0.04937 0.03444 
-
-Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.350396 0.152057 0.125084 0.109838 0.092209 0.077107 0.059441 0.047755 
-     CA9     CA10     CA11     CA12     CA13 
-0.036958 0.022266 0.020700 0.010827 0.008252 
-
+> ## see ?ordistep to do the same, but based on permutation P-values
+> ## Not run: 
+> ##D ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
+> ## End(Not run)
 > ## Manual model building
 > ## -- define the maximal model for scope
 > mbig <- rda(dune ~  ., dune.env)
@@ -505,21 +447,21 @@ Eigenvalues for unconstrained axes:
 > add1(m0, scope=formula(mbig), test="perm")
            Df    AIC      F N.Perm Pr(>F)   
 <none>        89.620                        
-A1          1 89.591 1.9217    199  0.055 . 
+A1          1 89.591 1.9217    199  0.070 . 
 Moisture    3 87.707 2.5883    199  0.005 **
 Management  3 87.082 2.8400    199  0.005 **
-Use         2 91.032 1.1741     99  0.270   
+Use         2 91.032 1.1741     99  0.180   
 Manure      4 89.232 1.9539    199  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
-         Df    AIC      F N.Perm Pr(>F)  
-<none>      87.082                       
-A1        1 87.424 1.2965     99   0.21  
-Moisture  3 85.567 1.9764    199   0.03 *
-Use       2 88.284 1.0510     99   0.41  
-Manure    3 87.517 1.3902    199   0.07 .
+         Df    AIC      F N.Perm Pr(>F)   
+<none>      87.082                        
+A1        1 87.424 1.2965     99  0.240   
+Moisture  3 85.567 1.9764    199  0.005 **
+Use       2 88.284 1.0510     99  0.430   
+Manure    3 87.517 1.3902    199  0.130   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > m0 <- update(m0, . ~ . + Moisture)
@@ -527,16 +469,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > drop1(m0, test="perm")
            Df    AIC      F N.Perm Pr(>F)   
 <none>        85.567                        
-Management  3 87.707 2.1769    199  0.015 * 
-Moisture    3 87.082 1.9764    199  0.005 **
+Management  3 87.707 2.1769    199  0.010 **
+Moisture    3 87.082 1.9764    199  0.015 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > add1(m0, scope=formula(mbig), test="perm")
        Df    AIC      F N.Perm Pr(>F)
 <none>    85.567                     
-A1      1 86.220 0.8359     99   0.66
-Use     2 86.842 0.8027     99   0.66
-Manure  3 85.762 1.1225     99   0.31
+A1      1 86.220 0.8359     99   0.72
+Use     2 86.842 0.8027     99   0.77
+Manure  3 85.762 1.1225     99   0.26
 > 
 > 
 > 
@@ -2224,78 +2166,8 @@ X-squared = 1448.956, df = 551, p-value < 2.2e-16
 
 > deviance(cca(dune))
 [1] 1448.956
-> # Backward elimination from a complete model "dune ~ ."
-> ord <- cca(dune ~ ., dune.env)
-> ord
-Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure,
-data = dune.env)
-
-              Inertia Proportion Rank
-Total          2.1153     1.0000     
-Constrained    1.5032     0.7106   12
-Unconstrained  0.6121     0.2894    7
-Inertia is mean squared contingency coefficient 
-Some constraints were aliased because they were collinear (redundant)
-
-Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
-0.46713 0.34102 0.17606 0.15317 0.09528 0.07027 0.05887 0.04993 0.03183 0.02596 
-  CCA11   CCA12 
-0.02282 0.01082 
-
-Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7 
-0.27237 0.10876 0.08975 0.06305 0.03489 0.02529 0.01798 
-
-> step(ord)
-Start:  AIC=86.86
-dune ~ A1 + Moisture + Management + Use + Manure
-
-             Df    AIC
-- Use         2 86.711
-<none>          86.857
-- Management  2 87.470
-- Manure      3 87.819
-- A1          1 88.181
-- Moisture    3 89.179
-
-Step:  AIC=86.71
-dune ~ A1 + Moisture + Management + Manure
-
-             Df    AIC
-- Manure      3 86.190
-- Management  2 86.446
-<none>          86.711
-- Moisture    3 87.873
-- A1          1 88.430
-
-Step:  AIC=86.19
-dune ~ A1 + Moisture + Management
-
-             Df    AIC
-<none>          86.190
-- Moisture    3 86.460
-- A1          1 86.813
-- Management  3 86.992
-Call: cca(formula = dune ~ A1 + Moisture + Management, data = dune.env)
-
-              Inertia Proportion Rank
-Total          2.1153     1.0000     
-Constrained    1.1392     0.5385    7
-Unconstrained  0.9761     0.4615   12
-Inertia is mean squared contingency coefficient 
-
-Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7 
-0.44826 0.30014 0.14995 0.10733 0.05668 0.04335 0.03345 
-
-Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
-     CA9     CA10     CA11     CA12 
-0.031058 0.021024 0.012542 0.009277 
-
 > # Stepwise selection (forward from an empty model "dune ~ 1")
+> ord <- cca(dune ~ ., dune.env)
 > step(cca(dune ~ 1, dune.env), scope = formula(ord))
 Start:  AIC=87.66
 dune ~ 1
@@ -2336,19 +2208,6 @@ Eigenvalues for unconstrained axes:
      CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
 0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
 
-> # ANOVA: added variable + the first left out
-> anova(cca(dune ~ Moisture + Management, dune.env), permut=200,
-+       by = "terms")
-Permutation test for cca under reduced model
-Terms added sequentially (first to last)
-
-Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
-           Df  Chisq      F N.Perm Pr(>F)   
-Moisture    3 0.6283 2.4465    199  0.005 **
-Management  3 0.3741 1.4565    199  0.025 * 
-Residual   13 1.1129                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > 
 > 
@@ -2684,7 +2543,7 @@ pH       -0.31165145  0.3653619
 > data(dune.env)
 > attach(dune.env)
 > ord <- cca(dune)
-> fit <- envfit(ord ~ Moisture + A1, dune.env)
+> fit <- envfit(ord ~ Moisture + A1, dune.env, perm = 0)
 > plot(ord, type = "n")
 > ordispider(ord, Moisture, col="skyblue")
 > points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
@@ -4717,55 +4576,9 @@ Eigenvalues for unconstrained axes:
 
 > 
 > ## Example of ordistep, forward
-> ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
-
-Start: dune ~ 1 
-
-             Df    AIC      F N.Perm Pr(>F)   
-+ Management  3 87.082 2.8400    199  0.005 **
-+ Moisture    3 87.707 2.5883    199  0.005 **
-+ Manure      4 89.232 1.9539    199  0.010 **
-+ A1          1 89.591 1.9217    199  0.045 * 
-+ Use         2 91.032 1.1741     99  0.350   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: dune ~ Management 
-
-           Df    AIC      F N.Perm Pr(>F)   
-+ Moisture  3 85.567 1.9764    199  0.005 **
-+ Manure    3 87.517 1.3902    199  0.095 . 
-+ A1        1 87.424 1.2965     99  0.180   
-+ Use       2 88.284 1.0510     99  0.380   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: dune ~ Management + Moisture 
-
-         Df    AIC      F N.Perm Pr(>F)
-+ Manure  3 85.762 1.1225     99   0.32
-+ A1      1 86.220 0.8359     99   0.61
-+ Use     2 86.842 0.8027     99   0.66
-
-Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
-
-              Inertia Proportion Rank
-Total         84.1237     1.0000     
-Constrained   46.4249     0.5519    6
-Unconstrained 37.6988     0.4481   13
-Inertia is variance 
-
-Eigenvalues for constrained axes:
-  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
-21.588 14.075  4.123  3.163  2.369  1.107 
-
-Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
-  PC12   PC13 
-0.3107 0.2273 
-
-> 
+> ## Not run: 
+> ##D ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
+> ## End(Not run)
 > ### Mite data
 > data(mite)
 > data(mite.env)
@@ -4885,95 +4698,10 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > ## Example of ordiR2step with direction = "forward"
-> step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
-Step: R2.adj= 0 
-Call: mite.hel ~ 1 
- 
-                R2.adjusted
-<All variables>  0.43670383
-+ WatrCont       0.26084533
-+ Shrub          0.20716190
-+ Topo           0.15205437
-+ Substrate      0.07718348
-+ SubsDens       0.02632468
-<none>           0.00000000
-
-           Df     AIC     F N.Perm Pr(>F)   
-+ WatrCont  1 -84.336 25.35    199  0.005 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: R2.adj= 0.2608453 
-Call: mite.hel ~ WatrCont 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Shrub           0.3177536
-+ Topo            0.3120057
-+ Substrate       0.3091579
-+ SubsDens        0.3066715
-<none>            0.2608453
-
-        Df     AIC     F N.Perm Pr(>F)   
-+ Shrub  2 -88.034 3.836    199  0.005 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: R2.adj= 0.3177536 
-Call: mite.hel ~ WatrCont + Shrub 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Substrate       0.3653551
-+ Topo            0.3525851
-+ SubsDens        0.3446967
-<none>            0.3177536
-
-            Df     AIC      F N.Perm Pr(>F)   
-+ Substrate  6 -87.768 1.8251    199   0.01 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: R2.adj= 0.3653551 
-Call: mite.hel ~ WatrCont + Shrub + Substrate 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Topo            0.4004249
-+ SubsDens        0.3901844
-<none>            0.3653551
-
-       Df     AIC      F N.Perm Pr(>F)   
-+ Topo  1 -90.924 4.5095    199  0.005 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: R2.adj= 0.4004249 
-Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ SubsDens        0.4367038
-<none>            0.4004249
-
-           Df     AIC      F N.Perm Pr(>F)   
-+ SubsDens  1 -94.489 4.7999    199  0.005 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-
-Step: R2.adj= 0.4367038 
-Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens 
- 
-> step.res$anova  # Summary table
-                 R2.adj Df     AIC       F N.Perm Pr(>F)   
-+ WatrCont      0.26085  1 -84.336 25.3499    199  0.005 **
-+ Shrub         0.31775  2 -88.034  3.8360    199  0.005 **
-+ Substrate     0.36536  6 -87.768  1.8251    199  0.010 **
-+ Topo          0.40042  1 -90.924  4.5095    199  0.005 **
-+ SubsDens      0.43670  1 -94.489  4.7999    199  0.005 **
-<All variables> 0.43670                                    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> ## Not run: 
+> ##D step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
+> ##D step.res$anova  # Summary table
+> ## End(Not run)
 > 
 > 
 > 
@@ -5004,7 +4732,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10729d470>
+<environment: 0x1075ffb90>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -5020,7 +4748,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1075933c8>
+<environment: 0x107aa9f48>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5176,7 +4904,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107035b48>
+<environment: 0x10859b828>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5189,7 +4917,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107723990>
+<environment: 0x1070ec438>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5202,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107713a00>
+<environment: 0x107471a68>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7464,7 +7192,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10701aa68>
+<environment: 0x1047b6498>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7940,7 +7668,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  115.862 1.458 121.541 0 0 
+Time elapsed:  105.636 1.365 108.878 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -2,6 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 2.1-2 (opened September 29, 20119
+
+	* examples: cut donw some excessively time consuming examples.
+	Profiling of all vegan examples showed that 25% of total time was
+	spent in anova.cca, and 12.6% in ordistep, but they probably are
+	sufficiently documented more quickly. 
+
 Version 2.1-1 (opened September 20, 2011)
 
 	* oecosimu: the 'comm' argument can be either 1) community data,

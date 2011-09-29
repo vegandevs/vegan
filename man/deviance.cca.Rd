@@ -91,15 +91,9 @@ data(dune)
 data(dune.env)
 chisq.test(dune)
 deviance(cca(dune))
-# Backward elimination from a complete model "dune ~ ."
-ord <- cca(dune ~ ., dune.env)
-ord
-step(ord)
 # Stepwise selection (forward from an empty model "dune ~ 1")
+ord <- cca(dune ~ ., dune.env)
 step(cca(dune ~ 1, dune.env), scope = formula(ord))
-# ANOVA: added variable + the first left out
-anova(cca(dune ~ Moisture + Management, dune.env), permut=200,
-      by = "terms")
 }
 \keyword{ multivariate }
 \keyword{ models }
