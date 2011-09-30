@@ -102,17 +102,19 @@
     to the graphical functions. See Note below for exceptions.}
 }
 
-\details{
-  Function \code{ordisurf} fits a smooth surface using thinplate splines
-  in \code{\link[mgcv]{gam}}, and uses \code{\link[mgcv]{predict.gam}}
-  to find fitted values in a regular grid. The smooth surface can be
-  fitted with an extra penalty that allows the entire smoother to be
-  penalized back to 0 degrees of freedom, effectively removing the term
-  from the model. The addition of this extra penalty is invoked by
-  setting argument \code{select} to \code{TRUE}. The function plots the
-  fitted contours with convex hull of data points either over an
+\details{ 
+  
+  Function \code{ordisurf} fits a smooth surface using thinplate
+  splines (Wood 2003) in \code{\link[mgcv]{gam}}, and uses
+  \code{\link[mgcv]{predict.gam}} to find fitted values in a regular
+  grid. The smooth surface can be fitted with an extra penalty that
+  allows the entire smoother to be penalized back to 0 degrees of
+  freedom, effectively removing the term from the model (see Marra &
+  Wood, 2011). The addition of this extra penalty is invoked by
+  setting argument \code{select} to \code{TRUE}. The function plots
+  the fitted contours with convex hull of data points either over an
   existing ordination diagram or draws a new plot. If \code{select ==
-    TRUE} and the smooth is effectively penalised out of the model, no
+  TRUE} and the smooth is effectively penalised out of the model, no
   contours will be plotted.
 
   \code{\link[mgcv]{gam}} determines the degree of smoothness for the
@@ -173,6 +175,17 @@
   A work-around is to call \code{\link[mgcv]{plot.gam}} directly on the
   result of a call to \code{ordisurf}. See the Examples for an
   illustration of this.  
+}
+
+\references{
+  
+  Marra, G.P & Wood, S.N. (2011) Practical variable selection for
+  generalized additive models. \emph{Comput. Stat. Data Analysis} 55,
+  2372--2387.
+
+  Wood, S.N. (2003) Thin plate regression splines.
+  \emph{J. R. Statist. Soc. B} 65, 95--114.
+
 }
 
 \seealso{ For basic routines \code{\link[mgcv]{gam}},
