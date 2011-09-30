@@ -191,7 +191,7 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
-                out[,,k][out[,,k] > 0] <- sample(nz)
+                out[,,k][out[,,k] > 0] <- sample(nz) # we assume that length(nz)>1
             }
             out
         }),
@@ -210,7 +210,7 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
-                out[,,k][out[,,k] > 0] <- sample(indshuffle(nz - 1L) + 1L)
+                out[,,k][out[,,k] > 0] <- sample(indshuffle(nz - 1L) + 1L)  # we assume that length(nz)>1
             }
             out
         }),
@@ -223,8 +223,13 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
-                for (i in I)
-                    out[i,,k][out[i,,k] > 0] <- sample(as.integer(x[i,][x[i,] > 0]))
+                for (i in I) {
+                    nz <- as.integer(x[i,][x[i,] > 0])
+                    if (length(nz) == 1)
+                        out[i,,k][out[i,,k] > 0] <- nz
+                    if (length(nz) > 1)
+                        out[i,,k][out[i,,k] > 0] <- sample(nz)
+                }
             }
             out
         }),
@@ -237,8 +242,13 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
-                for (j in J)
-                    out[,j,k][out[,j,k] > 0] <- sample(as.integer(x[,j][x[,j] > 0]))
+                for (j in J) {
+                    nz <- as.integer(x[,j][x[,j] > 0])
+                    if (length(nz) == 1)
+                        out[,j,k][out[,j,k] > 0] <- nz
+                    if (length(nz) > 1)
+                        out[,j,k][out[,j,k] > 0] <- sample(nz)
+                }
             }
             out
         }),
@@ -257,8 +267,13 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
-                for (i in I)
-                    out[i,,k][out[i,,k] > 0] <- sample(indshuffle(as.integer(x[i,][x[i,] > 0]) - 1L) + 1L)
+                for (i in I) {
+                    nz <- as.integer(x[i,][x[i,] > 0])
+                    if (length(nz) == 1)
+                        out[i,,k][out[i,,k] > 0] <- nz
+                    if (length(nz) > 1)
+                        out[i,,k][out[i,,k] > 0] <- sample(indshuffle(nz - 1L) + 1L)
+                }
             }
             out
         }),
@@ -277,8 +292,13 @@ function(method)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
                     m = out[,,k], nr, nc,  PACKAGE = "vegan")$m
-                for (j in J)
-                    out[,j,k][out[,j,k] > 0] <- sample(indshuffle(as.integer(x[,j][x[,j] > 0]) - 1L) + 1L)
+                for (j in J) {
+                    nz <- as.integer(x[,j][x[,j] > 0])
+                    if (length(nz) == 1)
+                        out[,j,k][out[,j,k] > 0] <- nz
+                    if (length(nz) > 1)
+                        out[,j,k][out[,j,k] > 0] <- sample(indshuffle(nz - 1L) + 1L)
+                }
             }
             out
         }),
