@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x102616740>
+<environment: 0x102616318>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -4134,18 +4134,33 @@ Start = 11, End = 60, Thin = 5
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
 > ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
 > ###   densityplot.oecosimu
-> ### Keywords: multivariate datagen
+> ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
 > 
 > ## Use the first eigenvalue of correspondence analysis as an index
 > ## of structure: a model for making your own functions.
 > data(sipoo)
-> out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, statistic="evals")
+> ## Traditional nestedness statistics (number of checkerboard units)
+> oecosimu(sipoo, nestedchecker, "r0")
+oecosimu with 99 simulations
+simulation method ‘r0’
+alternative hypothesis: true mean is not equal to the statistic
+
+Checkerboard Units    : 2767 
+C-score (species mean): 2.258776 
+
+          statistic        z     2.5%      50%  97.5% Pr(sim.)   
+statistic  2767.000  -17.768 7529.850 8052.000 8518.5     0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> ## sequential model, one-sided test, a vector statistic
+> out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
++    statistic="evals", alt = "less")
 > out
 oecosimu with 99 simulations
 simulation method ‘swap’ with thin 10, burnin 100
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: true mean is less than the statistic
 
 
 Call:
@@ -4160,11 +4175,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic         z      2.5%       50%  97.5% Pr(sim.)   
-DCA1  0.382249  2.867094  0.265441  0.318296 0.3561     0.01 **
-DCA2  0.261208  1.876958  0.172847  0.217304 0.2594     0.05 * 
-DCA3  0.166788  0.394936  0.119616  0.158218 0.2019     0.67   
-DCA4  0.087226 -1.979239  0.084854  0.128229 0.1709     0.11   
+     statistic         z        0%       50%    95% Pr(sim.)  
+DCA1  0.382249  1.865783  0.230869  0.323729 0.3726     0.02 *
+DCA2  0.261208  1.577196  0.149703  0.216169 0.2637     0.09 .
+DCA3  0.166788  0.520903  0.105269  0.155716 0.1859     0.30  
+DCA4  0.087226 -1.982236  0.066742  0.126492 0.1649     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Inspect the swap sequence as a time series object
@@ -4186,7 +4201,7 @@ simulation method ‘r2dtable’
 alternative hypothesis: true mean is not equal to the statistic
 
           statistic        z     2.5%      50%  97.5% Pr(sim.)   
-statistic   0.64565 13.89665  0.44577  0.46758 0.4934     0.01 **
+statistic   0.64565 13.06023  0.44057  0.46544 0.4924     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4198,14 +4213,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 +       out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
 +    out
 + }
-> cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, mode = "double")
+> cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
++    mode = "double")
 > oecosimu(dune, meandist, cf)
 oecosimu with 99 simulations
 simulation method ‘myshuffle’
 alternative hypothesis: true mean is not equal to the statistic
 
-          statistic       z    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 3.44557 0.62994 0.63487 0.6418     0.01 **
+          statistic       z    2.5%     50%  97.5% Pr(sim.)  
+statistic   0.64565 3.11878 0.62983 0.63557 0.6416     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4732,7 +4748,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1075fb590>
+<environment: 0x1076efd50>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4748,7 +4764,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1078fa348>
+<environment: 0x107d2c520>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4904,7 +4920,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1079ace28>
+<environment: 0x1071b6878>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4917,7 +4933,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1070ece38>
+<environment: 0x107335828>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4930,7 +4946,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1079fcc68>
+<environment: 0x107559a78>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7192,7 +7208,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10775ea98>
+<environment: 0x107b75200>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7668,7 +7684,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  175.18 2.895 213.598 0 0 
+Time elapsed:  101.036 1.382 104.093 0 0 
 > grDevices::dev.off()
 null device 
           1 
