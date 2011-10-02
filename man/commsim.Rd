@@ -313,7 +313,7 @@ null model algorithms as a character vector.
 Jari Oksanen and Peter Solymos
 }
 \seealso{
-\code{\code{\link{permatfull}}, \code{\link{permatswap}},
+\code{\link{permatfull}}, \code{\link{permatswap}},
 \code{\link{oecosimu}}.
 }
 \examples{
