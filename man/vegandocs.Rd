@@ -46,7 +46,7 @@ vegandocs(doc = c("NEWS", "ONEWS", "ChangeLog", "FAQ-vegan.pdf",
      design decisions in \pkg{vegan}.  Currently this discusses
      implementing nestedness temperature (\code{\link{nestedtemp}}),
      backtracking algorithm in community null models
-     (\code{\link{commsimulator}}), scaling of RDA results, and why WA
+     (\code{\link{make.commsim}}), scaling of RDA results, and why WA
      scores are used as default instead of LC scores in constrained
      ordination.
 

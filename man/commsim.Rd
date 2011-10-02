@@ -66,68 +66,69 @@ Autput must be an array of \code{dim(nr, nc, n)}.
 The following algorithms are currently predefined:
 \itemize{
 %% commsimulator
-  \item{\code{"r00"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This maintains the number of presences but fills 
-    these anywhere so that neither species (column) nor 
-    site (row) totals are preserved. See Wright et al. (1998) for review.}
+
+  \item{\code{"r00"}: }{non-sequential algorithm for binary matrices
+    that maintains the number of presences but fills these anywhere so
+    that neither species (column) nor site (row) totals are
+    preserved. See Wright et al. (1998) for review.}
+
   \item{\code{"r0", "r0_old"}: }{non-sequential algorithm for binary
-    matrices described in the page of \code{\link{commsimulator}}.
-    This maintains the site (row) frequencies, fills presences
-    anywhere on the row with no respect to species (column)
+    matrices that maintains the site (row) frequencies, fills
+    presences anywhere on the row with no respect to species (column)
     frequencies. Methods \code{"r0"} and \code{"r0_old"} implement the
     same method, but use different random number sequences; use
     \code{"r0_old"} is you want to reproduce reusult in \pkg{vegan
-    2.0-0} or older. See Wright et al. (1998) for a review.}
-  \item{\code{"r1"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This maintains the site (row) frequencies,
-    uses column marginal frequencies as probabilities. 
-    It tries to simulate original species frequencies, 
-    but it is not strictly constrained. See Wright et al. (1998) for review.}
-  \item{\code{"r2"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This maintains the site (row) frequencies,
-    uses squared column sums as as probabilities. 
-    It tries to simulate original species frequencies, 
-    but it is not strictly constrained. See Wright et al. (1998) for review.}
-  \item{\code{"c0"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This method maintains species frequencies, 
-    but does not honour site (row) frequencies (Jonsson 2001). }
-  \item{\code{"swap"}: }{sequential algorithm for binary matrices 
-    described in the page of \code{\link{commsimulator}}.
-    This changes the matrix structure, but does not influence 
-    marginal sums (Gotelli & Entsminger 2003).
-    This inspects 2 x 2 submatrices so long that a swap can be done.}
-  \item{\code{"tswap"}: }{sequential algorithm for binary matrices 
-    described in the page of \code{\link{commsimulator}}.
-    Same as the \code{"swap"} algorithm, but it
-    is trying a fixed number of times and doing zero to 
-    many swaps at one step (according th thin argument in later call, 
-    see Examples). This approach was suggested by
-    \enc{Miklós}{Miklos} & Podani (2004) because they found that ordinary swap
-    may lead into biased sequences, 
-    since some columns or rows may be more easily swapped.}
-  \item{\code{"quasiswap"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This method implements a 
-    method where matrix is first filled honouring row and 
-    column totals, but with integers that may be larger than one. 
-    Then the method inspects random 2x2 matrices and performs a 
-    quasiswap on them. Quasiswap is similar to ordinary swap, 
-    but it also can reduce numbers above one to ones maintaining 
-    marginal totals (\enc{Miklós}{Miklos} & Podani 2004). }
-  \item{\code{"backtracking"}: }{non-sequential algorithm for binary matrices described 
-    in the page of \code{\link{commsimulator}}.
-    This method implements a filling method with constraints 
-    both for row and column frequencies (Gotelli & Entsminger 2001). 
-    The matrix is first filled randomly using row and column frequencies 
-    as probabilities. Typically row and column sums are reached before 
-    all incidences are filled in. After that begins "backtracking", 
-    where some of the points are removed, and then filling is 
-    started again, and this backtracking is done so may times that 
-    all incidences will be filled into matrix.}
+    2.0-0} or older using \code{commsimulator} (now deprecated). See
+    Wright et al. (1998) for a review.}
+
+  \item{\code{"r1"}: }{non-sequential algorithm for binary matrices
+    that maintains the site (row) frequencies, uses column marginal
+    frequencies as probabilities.  It tries to simulate original
+    species frequencies, but it is not strictly constrained. See
+    Wright et al. (1998) for review.}
+
+  \item{\code{"r2"}: }{non-sequential algorithm for binary matrices
+    that maintains the site (row) frequencies, uses squared column
+    sums as as probabilities.  It tries to simulate original species
+    frequencies, but it is not strictly constrained. See Wright et
+    al. (1998) for review.}
+  
+  \item{\code{"c0"}: }{non-sequential algorithm for binary matrices
+    that maintains species frequencies, but does not honour site (row)
+    frequencies (Jonsson 2001). }
+  
+  \item{\code{"swap"}: }{sequential algorithm for binary matrices that
+    changes the matrix structure, but does not influence marginal sums
+    (Gotelli & Entsminger 2003).  This inspects \eqn{2 \times 2}{2 by
+    2} submatrices so long that a swap can be done.}
+  
+  \item{\code{"tswap"}: }{sequential algorithm for binary matrices.
+    Same as the \code{"swap"} algorithm, but it is trying a fixed
+    number of times and doing zero to many swaps at one step
+    (according th thin argument in later call, see Examples). This
+    approach was suggested by \enc{Miklós}{Miklos} & Podani (2004)
+    because they found that ordinary swap may lead into biased
+    sequences, since some columns or rows may be more easily swapped.}
+
+  \item{\code{"quasiswap"}: }{non-sequential algorithm for binary
+    matrices that implements a method where matrix is first filled
+    honouring row and column totals, but with integers that may be
+    larger than one.  Then the method inspects random \eqn{2 \times
+    2}{2 by 2} matrices and performs a quasiswap on them. Quasiswap is
+    similar to ordinary swap, but it also can reduce numbers above one
+    to ones maintaining marginal totals (\enc{Miklós}{Miklos} & Podani
+    2004). }
+
+  \item{\code{"backtracking"}: }{non-sequential algorithm for binary
+    matrices that implements a filling method with constraints both
+    for row and column frequencies (Gotelli & Entsminger 2001).  The
+    matrix is first filled randomly using row and column frequencies
+    as probabilities. Typically row and column sums are reached before
+    all incidences are filled in. After that begins "backtracking",
+    where some of the points are removed, and then filling is started
+    again, and this backtracking is done so may times that all
+    incidences will be filled into matrix.}
+
 %% permatswap
   \item{\code{"swap_count"}: }{sequential algorithm for count matrices 
     described in the page of \code{\link{permatswap}}.
@@ -312,8 +313,8 @@ null model algorithms as a character vector.
 Jari Oksanen and Peter Solymos
 }
 \seealso{
-\code{\link{commsimulator}}, \code{\link{permatfull}}, 
-\code{\link{permatswap}}, \code{\link{oecosimu}}.
+\code{\code{\link{permatfull}}, \code{\link{permatswap}},
+\code{\link{oecosimu}}.
 }
 \examples{
 ## write the r00 algorithm

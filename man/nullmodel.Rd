@@ -142,7 +142,6 @@ Peter Solymos \email{solymos@ualberta.ca}
 \seealso{
 \code{\link{commsim}}, \code{\link{make.commsim}}, 
 \code{\link{permatfull}}, \code{\link{permatswap}}
-\code{\link{commsimulator}}
 }
 \examples{
 x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)

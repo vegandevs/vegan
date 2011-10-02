@@ -48,7 +48,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   \item{method}{Character for method used for the swap algorithm
     (\code{"swap"}, \code{"tswap"}, \code{"quasiswap"},
     \code{"backtrack"}) as described for function
-    \code{\link{commsimulator}}. If \code{mtype="count"} the
+    \code{\link{make.commsim}}. If \code{mtype="count"} the
     \code{"quasiswap"}, \code{"swap"}, \code{"swsh"} and
     \code{"abuswap"} methods are available (see details).} 
   \item{shuffle}{Character, indicating whether individuals
@@ -82,8 +82,8 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   \code{\link{r2dtable}} function is used that is based on Patefield's
   (1981) algorithm. For presence absence data, matrix fill should be
   necessarily fixed, and \code{permatfull} is a wrapper for the function
-  \code{\link{commsimulator}}. The \code{r00, r0, c0, quasiswap}
-  algorithms of \code{\link{commsimulator}} are used for \code{"none",
+  \code{\link{make.commsim}}. The \code{r00, r0, c0, quasiswap}
+  algorithms of \code{\link{make.commsim}} are used for \code{"none",
   "rows", "columns", "both"} values of the \code{fixedmar} argument,
   respectively
 
@@ -101,7 +101,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
   kept constant. \code{permatswap} uses different kinds of swap
   algorithms, and row and columns sums are fixed in all cases.  For
   presence-absence data, the \code{swap} and \code{tswap} methods of
-  \code{\link{commsimulator}} can be used.  For count data, a special
+  \code{\link{make.commsim}} can be used.  For count data, a special
   swap algorithm ('swapcount') is implemented that results in permuted
   matrices with fixed marginals and matrix fill at the same time.
 
@@ -203,7 +203,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 
 
 \references{ Original references for presence-absence algorithms are
-  given on help page of \code{\link{commsimulator}}.
+  given on help page of \code{\link{make.commsim}}.
 
   Hardy, O. J. (2008) Testing the spatial phylogenetic structure of
   local communities: statistical performances of different null models
@@ -219,7 +219,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 \email{solymos@ualberta.ca} and Jari Oksanen}
 
 \seealso{ For other functions to permute matrices:
-\code{\link{commsimulator}}, \code{\link{r2dtable}},
+\code{\link{make.commsim}}, \code{\link{r2dtable}},
 \code{\link{sample}}, \code{\link[bipartite]{swap.web}}.
 
 For the use of these permutation algorithms: \code{\link{oecosimu}},
