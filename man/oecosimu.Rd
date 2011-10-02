@@ -9,17 +9,27 @@
 \title{Evaluate Statistics with Null Models of Biological Communities }
 
 \description{
-  Null models generate random communities with different criteria to
-  study the significance of nestedness or other community patterns. The
-  function only simulates binary (presence/absence) models with
-  constraint for total number of presences, and optionally for numbers
-  of species and/or species frequencies.
+ 
+  Function evaluates a statistic or a vector of statistics in
+  community and evaluates its significance in a series of simulated
+  random communities.  The approach has been used traditionally for
+  the analysis of nestedness, but the function is more general and can
+  be used with any statistics evaluated with simulated
+  communities. Function \code{oecosimu} collects and evaluates the
+  statistics. The Null model communities are described in
+  \code{\link{make.commsim}} and \code{\link{permatfull}}/
+  \code{\link{permatswap}}, the definition of Null models in
+  \code{\link{nullmodel}}, and nestedness statistics in
+  \code{\link{nestednodf}} (which describes several alternative
+  statistics, including nestedness temperature, \eqn{N0}, checker
+  board units, nestedness discrepancy and NODF).
+
 }
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", alternative = c("two.sided", "less", "greater"),
-   ...)
+   statistic = "statistic", 
+   alternative = c("two.sided", "less", "greater"), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -36,31 +46,32 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     and if \code{comm} is a \code{simmat} object, all other arguments
     are ignored except \code{nestfun}, \code{statistic} and
     \code{alternative}.}
-  \item{nestfun}{Function to analyse nestedness. Some functions are
-    provided in \pkg{vegan}, but any function can be used if it accepts the
-    community as the first argument, and returns either a plain number or
-    the result in list item with the name defined in argument
-  \code{statistic}. See Examples for defining your own functions.}
+  \item{nestfun}{Function analysed. Some nestedness functions are
+    provided in \pkg{vegan} (see \code{\link{nestedtemp}}), but any
+    function can be used if it accepts the community as the first
+    argument, and returns either a plain number or a vector or the
+    result in list item with the name defined in argument
+    \code{statistic}. See Examples for defining your own functions.}
   \item{method}{Null model method: either a name (character string) of
     a method defined in \code{\link{make.commsim}} or a
     \code{\link{commsim}} function. This argument is ignored if
     \code{comm} is a \code{\link{nullmodel}} or a \code{simmat}
     object. See Details and Examples.}
   \item{nsimul}{Number of simulated null communities (ignored if
-    \code{comm} is a \code{simmat} object.}
+    \code{comm} is a \code{simmat} object).}
   \item{burnin}{Number of null communities discarded before proper
-    analysis in sequential methods \code{"swap"} and \code{"tswap"}
+    analysis in sequential methods (such as \code{"tswap"})
     (ignored with non-sequential methods or when \code{comm} is a
-    \code{simmat} object.}
+    \code{simmat} object).}
   \item{thin}{Number of discarded null communities between two
-    evaluations of nestedness statistic in sequential methods
-    \code{"swap"} and \code{"tswap"} (ignored with non-sequential
-    methods or when \code{comm} is a \code{simmat} object.}
+    evaluations of nestedness statistic in sequential methods (ignored
+    with non-sequential methods or when \code{comm} is a \code{simmat}
+    object).}
   \item{statistic}{The name of the statistic returned by
-    \code{nestedfun}} 
+    \code{nestfun}.} 
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
-    or \code{"less"}. You can specify just the initial letter.}
+    or \code{"less"}.}
   \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
@@ -69,23 +80,52 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 
 \details{
   
-  Function \code{oecosimu} is a wrapper that evaluates a nestedness
-  statistic using function given by \code{nestfun}, and then simulates
-  a series of null models based on \code{nullmodel}, and evaluates the
+  Function \code{oecosimu} is a wrapper that evaluates a statistic
+  using function given by \code{nestfun}, and then simulates a series
+  of null models based on \code{nullmodel}, and evaluates the
   statistic on these null models. The \pkg{vegan} packages contains
   some nestedness functions that are described separately
   (\code{\link{nestedchecker}}, \code{\link{nesteddisc}},
-  \code{\link{nestedn0}}, \code{\link{nestedtemp}}), but many other
-  functions can be used as long as they are meaningful with binary or
-  quantitative community models.  An applicable function must return
-  either the statistic as a plain number, or as a list element
-  \code{"statistic"} (like \code{\link{chisq.test}}), or in an item
-  whose name is given in the argument \code{statistic}.  The statistic
-  can be a single number (like typical for a nestedness index), or it
-  can be a vector. The vector indices can be used to analyse site
-  (row) or species (column) properties, see \code{\link{treedive}} for
-  an example. Raup-Crick index (\code{\link{raupcrick}}) gives an
-  example of using a dissimilarities index.
+  \code{\link{nestedn0}}, \code{\link{nestedtemp}},
+  \code{\link{nestednodf}}), but many other functions can be used as
+  long as they are meaningful with simulated communities.  An
+  applicable function must return either the statistic as a plain
+  number or a vector, or as a list element \code{"statistic"} (like
+  \code{\link{chisq.test}}), or in an item whose name is given in the
+  argument \code{statistic}.  The statistic can be a single number
+  (like typical for a nestedness index), or it can be a vector. The
+  vector indices can be used to analyse site (row) or species (column)
+  properties, see \code{\link{treedive}} for an example. Raup-Crick
+  index (\code{\link{raupcrick}}) gives an example of using a
+  dissimilarities.
+
+  The Null model type can be given as a name (quoted character string)
+  that is used to define a Null model in \code{\link{make.commsim}}.
+  These include all binary models described by Wright et al. (1998),
+  Jonsson (2001), Gotelli & Entsminger (2003), \enc{Miklós}{Miklos} &
+  Podani (2004), and some others. There are several quantitative Null
+  models, such those discussed by Hardy (2008), and several that are
+  unpublished (see \code{\link{make.commsim}},
+  \code{\link{permatfull}}, \code{\link{permatswap}} for
+  discussion). The user can also define her own \code{\link{commsim}}
+  function (see Examples).
+
+  Function works by first defining a \code{\link{nullmodel}} with
+  given \code{\link{commsim}}, and then generating a series of
+  simulated communities with \code{\link{simulate.nullmodel}}. A
+  shortcut can be used for any of these stages and the input can be
+  \enumerate{
+    \item Community data (\code{comm}), Null model function
+      (\code{nestfun}) and the number of simulations (\code{nsimul}).
+    \item A \code{\link{nullmodel}} object and the number of
+      simulations, and argument \code{nestfun} is ignored.
+    \item A three-dimensional array of simulated communities generated
+      with \code{\link{simulate.nullmodel}}, and arguments
+      \code{nestfun} and \code{nsimul} are ignored.  
+  }
+  The last case allows analysing several statistics with the same
+  simulations. However, be aware that the \code{\link{object.size}} of
+  the simulated communities may be large.
 
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
@@ -95,7 +135,8 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \pkg{coda} package. The \pkg{coda} package provides functions for
   the analysis of stationarity, adequacy of sample size,
   autocorrelation, need of burn-in and much more for sequential
-  methods. Please consult the documentation of \pkg{coda} package.
+  methods, and summary of the results. Please consult the
+  documentation of the \pkg{coda} package.
 
   Function \code{density} provides an interface to the
   standard \code{\link{density}} function for the simulated
@@ -108,41 +149,58 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   shows the observed value of the statistic (provided it is within the
   graph limits). The \code{densityplot} function is defined as a
   generic function in the \pkg{lattice} package and you must either
-  load the \pkg{lattice} library before calling \code{densityplot}, or
-  use the longer form \code{densityplot.oecosimu} when you first time
-  call the function.
+  load the \pkg{lattice} library before calling \code{densityplot}.
 }
 
 \value{
-  Function \code{oecosimu} returns the result of \code{nestfun}
-  with one added component called \code{oecosimu}. The \code{oecosimu}
+  Function \code{oecosimu} returns the result of \code{nestfun} 
+  added with a component called \code{oecosimu}. The \code{oecosimu}
   component contains the simulated values of the statistic (item
-  \code{simulated}), the name of the \code{method}, two-sided \eqn{P}
-  value and z-value of the statistic based on simulation. The
-  \code{commsimulator} returns a null model matrix or a swap of the
-  input matrix.  }
+  \code{simulated}), the name of the \code{method}, \eqn{P} value
+  (with given \code{alternative}) and \eqn{z}-value of the statistic
+  based on simulation.  }
+
+\references{
+  Hardy, O. J. (2008) 
+  Testing the spatial phylogenetic structure of local communities: 
+  statistical performances of different null models 
+  and test statistics on a locally neutral community. 
+  \emph{Journal of Ecology} 96, 914--926.
+
+  Gotelli, N.J. & Entsminger, N.J. (2003). Swap algorithms in null model
+  analysis. \emph{Ecology} 84, 532--535.
+
+  Jonsson, B.G. (2001) A null model for randomization tests of
+  nestedness in species assemblages. \emph{Oecologia} 127, 309--313.
+
+  \enc{Miklós}{Miklos}, I. & Podani, J. (2004). Randomization of presence-absence
+  matrices: comments and new algorithms. \emph{Ecology} 85, 86--92.
+
+  Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. & Atmar,
+  W. (1998). A comparative analysis of nested subset patterns of species
+  composition. \emph{Oecologia} 113, 1--20.
+}
 
 \author{Jari Oksanen and Peter Solymos}
 
 \note{
-  
-  Function \code{oecosimu} does not have default \code{nestfun} nor
-  default \code{method}, because there is no clear natural choice. If
-  you use these methods, you must be able to choose your own
-  strategy. For description of canned null models and discussion, see
-  \code{\link{commsim}}.  For canned nestedness functions see
-  \code{\link{nestedtemp}} (which describes several functions).
-  Although \code{oecosimu} is given in the Null model framework where
-  nestedness is typically analysed, the function is not limited to
-  study nestedness, but it is much more general (see Examples).
-
   If you wonder about the name of \code{oecosimu}, look at journal
-  names in the References (and more in \code{\link{nestedtemp}}).  }
+  names in the References (and more in \code{\link{nestedtemp}}).  
+
+  The internal structure of the function was radically changed in
+  \pkg{vegan 2.0-2} with introduction of \code{\link{commsim}} and
+  \code{\link{nullmodel}} and deprecation of
+  \code{\link{commsimulator}}. However, the results and the basic user
+  interface remain the same (except that \code{method = "r0_old"} must
+  be used to reproduce the old results of \code{"method = r0"}).  
+}
 
 \seealso{Function \code{oecosimu} currently defines null models with
   \code{\link{commsim}} and generates the simulated null model
   communities with \code{\link{nullmodel}} and
-  \code{\link{simulate.nullmodel}}.
+  \code{\link{simulate.nullmodel}}. For other applications of
+  \code{oecosimu}, see \code{\link{treedive}} and
+  \code{\link{raupcrick}}.
 
   Function \code{\link[labdsv]{rndtaxa}}
   (\pkg{labdsv} package) randomizes a community table. See also
@@ -153,7 +211,11 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 ## Use the first eigenvalue of correspondence analysis as an index
 ## of structure: a model for making your own functions.
 data(sipoo)
-out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, statistic="evals")
+## Traditional nestedness statistics (number of checkerboard units)
+oecosimu(sipoo, nestedchecker, "r0")
+## sequential model, one-sided test, a vector statistic
+out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
+   statistic="evals", alt = "less")
 out
 ## Inspect the swap sequence as a time series object
 plot(as.ts(out))
@@ -177,10 +239,12 @@ foo <- function(x, n, nr, nc, ...) {
       out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
    out
 }
-cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, mode = "double")
+cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
+   mode = "double")
 oecosimu(dune, meandist, cf)
 }
 \keyword{ multivariate }
 \keyword{ datagen }
+\keyword{ nonparametric }
 
 
