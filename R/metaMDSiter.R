@@ -30,9 +30,6 @@
             else if (nc < k)
                 for (i in 1:(k-nc))
                     init <- cbind(init, runif(NROW(init), -0.1, 0.1))
-            ## zero 'tries' if started from different no. of dims
-            if (inherits(previous.best, "metaMDS") && nc != k)
-                previous.best$tries <- 0
             if (trace)
                 cat(gettextf("Starting from %d-dimensional configuration\n", nc))
         } else {
@@ -42,6 +39,13 @@
         s0 <- switch(engine,
                      "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0, ...),
                      "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0))
+        ## Check whether model changed
+        if (is.list(previous.best) && !is.null(previous.best$stress) &&
+            !isTRUE(all.equal(previous.best$stress, s0$stress))) {
+            if (trace) cat("Stress differs from 'previous.best': reset tries\n")
+            if (inherits(previous.best, "metaMDS"))
+                previous.best$tries <- 0
+        }
     } else {
         ## no previous.best: start with cmdscale
         s0 <- switch(engine,

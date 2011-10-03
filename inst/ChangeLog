@@ -4,10 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-2 (opened September 29, 20119
 
+	* metaMDS did not reset 'tries' when the analysis was started from
+	'previous.best' of a different model (except when no. of dims 'k'
+	changed). I think this was a bug(let). Fixed in metaMDSiter.R.
+	
 	* commsimulator is going to be deprecated: it is no longer used in
 	oecosimu() ore elsewhere in other functions. Currently, functions
 	make.commsim(), nullmodel() and simulate.nullmodel() do the same,
-	and more. As the first step, its documenation in oecosimu.Rd is
+	and more. As the first step, its documentation in oecosimu.Rd is
 	moved to vegan-deprecated.Rd.
 	
 	* examples: cut donw some excessively time consuming examples.
@@ -24,7 +28,7 @@ Version 2.1-1 (opened September 20, 2011)
 	without simulations within oecosimu(), and different statistics
 	can be swept out based on the same set of simulated matrices.
 
-	* permatfull/swap is using the new simulate(nullmodel(...)...)
+	* permatfull/swap is using the new simulate.nullmodel(...)
 	infrastructure. permatfull1 and permatswap1 removed from vegan 
 	devel.
 
@@ -143,7 +147,7 @@ Version 2.1-0 (closed September 20, 2011)
 
 	* raupcrick: new function to implement Raup-Crick (dissimilarity/
 	probability) index with unequal sampling probabilities of species.
-	Brian Inouye informed about their paper (Chase et al., Ecospher
+	Brian Inouye informed about their paper (Chase et al., Exosphere
 	2:art24 [doi:10.1890/ES10-00117.1]; 2011) where they showed that
 	Raup & Crick said that we should use sampling probabilities
 	proportional to species frequencies in assessing their index, but
@@ -156,7 +160,7 @@ Version 2.1-0 (closed September 20, 2011)
 
 Version 2.0-0 (released September 8, 2011)
 
-	* opened the release candidate ov vegan_2.0-0 on September 3,
+	* opened the release candidate of vegan_2.0-0 on September 3,
 	2011. 
 
 	* some old functions used attributes(x)$which instead of more
