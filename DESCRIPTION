@@ -6,7 +6,7 @@ Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre,
    Peter R. Minchin, R. B. O'Hara, Gavin L. Simpson, Peter Solymos, 
    M. Henry H. Stevens, Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
-Depends: permute
+Depends: permute, R (>= 2.12.0)
 Imports: lattice
 Suggests: MASS, mgcv, lattice, cluster, scatterplot3d, rgl, tcltk 
 Description: Ordination methods, diversity analysis and other
