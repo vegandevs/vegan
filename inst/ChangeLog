@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-2 (opened September 29, 20119
 
+	* permutest.cca could not be update()d, because "permutest.cca"
+	was not exported from NAMESPACE -- only "permutest" was
+	exported. Another buglet (and this calls for checking other 'call'
+	items that return non-exported calls).
+
 	* metaMDS did not reset 'tries' when the analysis was started from
 	'previous.best' of a different model (except when no. of dims 'k'
 	changed). I think this was a bug(let). Fixed in metaMDSiter.R.
