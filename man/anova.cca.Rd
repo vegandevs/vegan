@@ -25,7 +25,7 @@ permutest(x, ...)
 
 \method{permutest}{cca}(x, permutations = 99,
           model = c("reduced", "direct", "full"),
-          first = FALSE, strata, ...)
+          first = FALSE, strata, parallel = 1, ...)
 }
 
 \arguments{
@@ -53,6 +53,13 @@ permutest(x, ...)
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+
+  \item{parallel}{Number of parallel processes. The parallel
+    processing is only possible in \R version 2.14.x and later, and
+    currently only works in unix-like operating systems, such as Linux
+    and MacOS X. The argument is silently ignored if the system is not
+    capable of parallel processing.  }
+
 }
 \details{
   Functions \code{anova.cca} and \code{permutest.cca} implement an ANOVA

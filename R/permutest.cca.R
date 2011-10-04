@@ -7,11 +7,51 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = 99,
               model = c("reduced", "direct", "full"), first = FALSE,
-              strata, ...) 
+              strata = NULL, parallel = 1, ...) 
 {
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
     isPartial <- !is.null(x$pCCA)
+    ## Function to get the F statistics in one loop
+    getF <- function (R, ...)
+    {
+        mat <- matrix(0, nrow = R, ncol = 3)
+        for (i in seq_len(R)) {
+            take <- permuted.index(N, strata)
+            Y <- E[take, ]
+            if (isCCA)
+                wtake <- w[take]
+            if (isPartial) {
+                if (isCCA) {
+                    XZ <- .C("wcentre", x = as.double(Z), as.double(wtake),
+                             as.integer(N), as.integer(Zcol),
+                             PACKAGE = "vegan")$x
+                    dim(XZ) <- c(N, Zcol)
+                    QZ <- qr(XZ)
+                }
+                Y <- qr.resid(QZ, Y)
+            }
+            if (isCCA) {
+                XY <- .C("wcentre", x = as.double(X), as.double(wtake),
+                         as.integer(N), as.integer(Xcol),
+                         PACKAGE = "vegan")$x
+                dim(XY) <- c(N, Xcol)
+                Q <- qr(XY)
+            }
+            tmp <- qr.fitted(Q, Y)
+            if (first) 
+                cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
+            else cca.ev <- sum(tmp * tmp)
+            if (isPartial || first) {
+                tmp <- qr.resid(Q, Y)
+                ca.ev <- sum(tmp * tmp)
+            }
+            else ca.ev <- Chi.tot - cca.ev
+            mat[i,] <- cbind(cca.ev, ca.ev, (cca.ev/q)/(ca.ev/r))
+        }
+        mat
+    }
+    ## end getF()
     if (first) {
         Chi.z <- x$CCA$eig[1]
         q <- 1
@@ -20,7 +60,8 @@ permutest.default <- function(x, ...)
         Chi.z <- x$CCA$tot.chi
         names(Chi.z) <- "Model"
         q <- x$CCA$qrank
-    }
+    }  
+    ## Set up 
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
     r <- nrow(x$CA$Xbar) - x$CCA$QR$rank - 1
@@ -30,9 +71,6 @@ permutest.default <- function(x, ...)
     if (!isCCA) 
         Chi.tot <- Chi.tot * (nrow(x$CCA$Xbar) - 1)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
-    F.perm <- numeric(permutations)
-    num <- numeric(permutations)
-    den <- numeric(permutations)
     Q <- x$CCA$QR
     if (isCCA) {
         w <- x$rowsum # works with any na.action, weights(x) won't
@@ -62,41 +100,18 @@ permutest.default <- function(x, ...)
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
-    for (i in 1:permutations) {
-        take <- permuted.index(N, strata)
-        Y <- E[take, ]
-        if (isCCA)
-            wtake <- w[take]
-        if (isPartial) {
-            if (isCCA) {
-                XZ <- .C("wcentre", x = as.double(Z), as.double(wtake),
-                         as.integer(N), as.integer(Zcol),
-                         PACKAGE = "vegan")$x
-                dim(XZ) <- c(N, Zcol)
-                QZ <- qr(XZ)
-            }
-            Y <- qr.resid(QZ, Y)
-        }
-        if (isCCA) {
-            XY <- .C("wcentre", x = as.double(X), as.double(wtake),
-                     as.integer(N), as.integer(Xcol),
-                     PACKAGE = "vegan")$x
-            dim(XY) <- c(N, Xcol)
-            Q <- qr(XY)
-        }
-        tmp <- qr.fitted(Q, Y)
-        if (first) 
-            cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-        else cca.ev <- sum(tmp * tmp)
-        if (isPartial || first) {
-            tmp <- qr.resid(Q, Y)
-            ca.ev <- sum(tmp * tmp)
-        }
-        else ca.ev <- Chi.tot - cca.ev
-        num[i] <- cca.ev
-        den[i] <- ca.ev
-        F.perm[i] <- (cca.ev/q)/(ca.ev/r)
+    ## permutations
+    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)
+        && .Platform$OS.type == "unix") {
+        R <- ceiling(permutations/parallel)
+        tmp <- do.call(rbind, mclapply(seq_len(parallel), getF, R = R,
+                                       mc.cores = parallel))
+    } else {
+        tmp <- getF(R = permutations)
     }
+    num <- tmp[1:permutations,1]
+    den <- tmp[1:permutations,2]
+    F.perm <- tmp[1:permutations,3]
     ## Round to avoid arbitrary ordering of statistics due to
     ## numerical inaccuracy
     F.0 <- round(F.0, 12)
