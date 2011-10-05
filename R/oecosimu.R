@@ -17,9 +17,11 @@
 
     if (inherits(comm, "simmat")) {
         x <- comm
-        comm <- attr(comm, "data")
         method <- attr(x, "method")
         nsimul <- dim(x)[3]
+        if (nsimul == 1)
+            stop("only one simulation in ", sQuote(deparse(substitute(comm))))
+        comm <- attr(comm, "data")
         simmat_in <- TRUE
     } else {
         simmat_in <- FALSE
@@ -55,7 +57,7 @@
     }
 
     ## socket cluster if parallel > 1 (and we can do this)
-    if (parallel > 1 && getRversion() > "2.14" && require(parallel)) {
+    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)) {
         oecoClus <- makePSOCKcluster(as.integer(parallel))
         ## make vegan functions available: others may be unavailable
         clusterEvalQ(oecoClus, library(vegan))
