@@ -2983,68 +2983,10 @@ Run 20 stress 0.3760596
 > ##
 > ## Data approximated from Al-Mufti et al. (1977)
 > ##
-> mass <- c(140,230,310,310,400,510,610,670,860,900,1050,1160,1900,2480)
-> spno <- c(1,  4,  3,  9, 18, 30, 20, 14,  3,  2,  3,  2,  5,  2)
-> sol <- humpfit(mass, spno)
-Warning in log(1 + p[2] * x/p[3]) : NaNs produced
-Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
-Warning in dpois(x, lambda, log) : NaNs produced
-Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
-  NA/Inf replaced by maximum positive value
-Warning in log(1 + p[2] * x/p[3]) : NaNs produced
-Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
-Warning in dpois(x, lambda, log) : NaNs produced
-Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
-  NA/Inf replaced by maximum positive value
-Warning in log(1 + p[2] * x/p[3]) : NaNs produced
-Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
-Warning in dpois(x, lambda, log) : NaNs produced
-Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
-  NA/Inf replaced by maximum positive value
-> summary(sol) # Almost infinite alpha...
-
-Hump-backed Null model of richness vs. productivity
-
-Family: poisson 
-Link function: Fisher diversity
-
-Coefficients:
-
-        Estimate Std. Error
-hump  5.3767e+02 3.3533e+01
-scale 1.8393e+01 1.7634e+00
-alpha 9.2294e+06 3.4044e+07
-
-Dispersion parameter for poisson family taken to be 1 
-
-Deviance 41.44821 with 11 residual degrees of freedom
-AIC: 96.37774    BIC: 98.29492 
-
-Correlation of Coefficients:
-      hump  scale
-scale -0.20      
-alpha -0.05 -0.14
-
-Diagnostics from nlm:
-Number of iterations: 87, code: 5
-> plot(sol)
-> # confint is in MASS, and impicitly calls profile.humpfit.
-> # Parameter 3 (alpha) is too extreme for profile and confint, and we
-> # must use only "hump" and "scale".
-> library(MASS)
-> plot(profile(sol, parm=1:2))
-> confint(sol, parm=c(1,2))
-Waiting for profiling to be done...
-          2.5 %    97.5 %
-hump  494.14239 607.25824
-scale  15.17635  22.02856
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("indpower")
 > ### * indpower
 > 
@@ -4748,7 +4690,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107369758>
+<environment: 0x1073aee38>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4764,7 +4706,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107373118>
+<environment: 0x1059c2508>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4920,7 +4862,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x106e7fd88>
+<environment: 0x105e9c0a8>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4933,7 +4875,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1075d88e0>
+<environment: 0x107753040>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4946,7 +4888,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x104c35a78>
+<environment: 0x10755e548>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7215,7 +7157,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1051f2b18>
+<environment: 0x107b81c28>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7691,7 +7633,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  104.669 1.275 107.14 0 0 
+Time elapsed:  99.046 1.2 101.21 0 0 
 > grDevices::dev.off()
 null device 
           1 

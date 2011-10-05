@@ -144,6 +144,7 @@ humpfit(mass, spno, family = poisson, start)
 ##
 ## Data approximated from Al-Mufti et al. (1977)
 ##
+\donttest{
 mass <- c(140,230,310,310,400,510,610,670,860,900,1050,1160,1900,2480)
 spno <- c(1,  4,  3,  9, 18, 30, 20, 14,  3,  2,  3,  2,  5,  2)
 sol <- humpfit(mass, spno)
@@ -155,6 +156,7 @@ plot(sol)
 library(MASS)
 plot(profile(sol, parm=1:2))
 confint(sol, parm=c(1,2))
+}
 }
 \keyword{models }
 \keyword{regression }
