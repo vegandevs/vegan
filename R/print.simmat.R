@@ -1,10 +1,13 @@
 print.simmat <- function(x, ...) {
     isSeq <- ifelse(attr(x, "isSeq"), "sequential", "non-sequential")
-    binary <- ifelse(attr(x, "binary"), "binary", "count")
+    if (attr(x, "binary"))
+        kind <- "binary"
+    else
+        kind <- ifelse(attr(x, "mode") == "integer", "count", "abundance")
     d <- dim(x)
     cat("An object of class", dQuote(class(x)[1L]), "\n")
     cat(sQuote(attr(x, "method")), " method (", 
-        binary, ", ", isSeq, ")\n", sep="")
+        kind, ", ", isSeq, ")\n", sep="")
     cat(d[1L], "x", d[2L], "matrix\n")
     cat("Number of permuted matrices =", d[3L], "\n")
     if (attr(x, "isSeq")) {
