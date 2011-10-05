@@ -29,7 +29,7 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", 
-   alternative = c("two.sided", "less", "greater"), ...)
+   alternative = c("two.sided", "less", "greater"), parallel = 1, ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -72,6 +72,16 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
     or \code{"less"}.}
+  \item{parallel}{Use parallel processing with \code{parallel} number of
+    processes when evaluating the \code{statistic}. With \code{parallel
+    = 1} uses ordinary, non-parallel processing. The parallel processing
+    is done with \pkg{parallel} package which is available only for \R
+    2.14.0 and later, and uses socket clusters which are available for
+    all operating systems. Due to overhead in setting up and using the
+    cluster, parallel processing is only useful when the estimation of
+    the statistic is slow. Not all functions are available in parallel
+    processing: the error messages on missing functions can be
+    surprsing.} 
   \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}

@@ -2,7 +2,7 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
-             ...)
+             parallel = 1, ...)
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
@@ -54,7 +54,20 @@
         x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
     }
 
-    simind <- apply(x, 3, applynestfun, fun = nestfun, statistic = statistic, ...) 
+    ## socket cluster if parallel > 1 (and we can do this)
+    if (parallel > 1 && getRversion() > "2.14" && require(parallel)) {
+        oecoClus <- makePSOCKcluster(as.integer(parallel))
+        ## make vegan functions available: others may be unavailable
+        clusterEvalQ(oecoClus, library(vegan))
+        simind <- parApply(oecoClus, x, 3, function(z)
+                           applynestfun(z, fun = nestfun,
+                           statistic = statistic, ...))
+        stopCluster(oecoClus)
+    } else {
+        simind <- apply(x, 3, applynestfun, fun = nestfun,
+                        statistic = statistic, ...)
+    }
+    
     simind <- matrix(simind, ncol = nsimul)
 
     if (attr(x, "isSeq")) {
