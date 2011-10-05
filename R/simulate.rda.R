@@ -12,24 +12,58 @@
         RNGstate <- structure(seed, kind = as.list(RNGkind()))
         on.exit(assign(".Random.seed", R.seed, envir = .GlobalEnv))
     }
-    ## Proper simulation: very similar for simulate.lm, but produces a
-    ## response matrix.
-    if (nsim > 1)
-        .NotYetUsed("nsim")
+    ## indx can be an output of permute::shuffleSet in which case it
+    ## is a nsim x nrow matrix, or it may be a single vector, in which
+    ## case it will changed to shuffleSet
+    if (!is.null(indx))
+        if (is.vector(indx))
+            dim(indx) <- c(1, length(indx))
+    ## If nsim is missing, take it from indx (if given)
+    if (missing(nsim) && !is.null(indx))
+        nsim <- nrow(indx)
+    ## Check that dims match
+    if (!is.null(indx))
+        if(nrow(indx) != nsim)
+            stop(gettextf("'nsim' (%d) and no. of 'indx' rows (%d) do not match",
+                          nsim, nrow(indx)))
+    ## Proper simulation: very similar for simulate.lm, but produces
+    ## an array of response matrices
+    
     ftd <- predict(object, type = "response", rank = rank)
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
-    if (is.null(indx))
-        ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
+    ## Generate an array
+    ans <- array(0, c(dim(ftd), nsim))
+    for (i in seq_len(nsim)) {
+        if (is.null(indx))
+            ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), 
                sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
                nrow = nrow(ftd)))
-    else
-        ans <- as.data.frame(ftd + object$CA$Xbar[indx,])
+        else
+            ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
+    }
+    ## set RNG attributes
     if (is.null(indx))
         attr(ans, "seed") <- RNGstate
-    else
-        attr(ans, "seed") <- indx
+    else 
+        attr(ans, "seed") <- "index"
+    ## set commsim attributes if nsim > 1, else return a 2-dim matrix
+    if (nsim == 1) {
+        ans <- ans[,,1]
+        attributes(ans) <- attributes(ftd)
+    } else {
+        attr(ans, "data") <- ftd
+        attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
+                                                        "parametric", "index"))
+        attr(ans, "binary") <- FALSE
+        attr(ans, "isSeq") <- FALSE
+        attr(ans, "mode") <- "double"
+        attr(ans, "start") <- 1L
+        attr(ans, "end") <- as.integer(nsim)
+        attr(ans, "thin") <- 1L
+        class(ans) <- c("simulate.rda", "simmat", "array")
+    }
     ans
 }
 
@@ -52,10 +86,16 @@
         RNGstate <- structure(seed, kind = as.list(RNGkind()))
         on.exit(assign(".Random.seed", R.seed, envir = .GlobalEnv))
     }
-    ## Proper simulation: very similar for simulate.lm, but produces a
-    ## response matrix.
-    if (nsim > 1)
-        .NotYetUsed("nsim")
+    ## Preparations like in simulate.rda()
+    if (!is.null(indx))
+        if (is.vector(indx))
+            dim(indx) <- c(1, length(indx))
+    if (missing(nsim) && !is.null(indx))
+        nsim <- nrow(indx)
+    if (!is.null(indx))
+        if(nrow(indx) != nsim)
+            stop(gettextf("'nsim' (%d) and no. of 'indx' rows (%d) do not match",
+                          nsim, nrow(indx)))   
     ## Need sqrt of rowsums for weighting
     sq.r <- sqrt(object$rowsum)
     ## Fitted value
@@ -65,21 +105,43 @@
         ftd <- ftd + object$pCCA$Fit
     ## Residual Xbar need weighting and back-weighting
     Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
-    if (is.null(indx)) {
-        ans <- matrix(rnorm(length(ftd), 
+    ## Simulation
+    ans <- array(0, c(dim(ftd), nsim))
+    for (i in seq_len(nsim)) {
+        if (is.null(indx)) {
+            tmp <- matrix(rnorm(length(ftd), 
                sd = outer(rep(1,nrow(ftd)), sd(Xbar))), 
                nrow = nrow(ftd))
-        ans <- as.data.frame(ftd + sweep(ans, 1, sq.r, "/"))
+            ans[,,i] <- as.matrix(ftd + sweep(tmp, 1, sq.r, "/"))
+        }
+        else 
+            ans[,,i] <- as.matrix(ftd + sweep(Xbar[indx[i,],], 1, sq.r, "/"))
     }
-    else 
-        ans <- as.data.frame(ftd + sweep(Xbar[indx,], 1, sq.r, "/"))
     ## From internal form to the original form with fixed marginal totals
     rc <- object$rowsum %o% object$colsum
-    ans <- (ans * sqrt(rc) + rc) * object$grand.total
+    for (i in seq_len(nsim))
+        ans[,,i] <- (ans[,,i] * sqrt(rc) + rc) * object$grand.total
+    ## RNG attributes
     if (is.null(indx))
         attr(ans, "seed") <- RNGstate
     else
-        attr(ans, "seed") <- indx
+        attr(ans, "seed") <- "index"
+    ## set commsim attributes if nsim > 1, else return a 2-dim matrix
+    if (nsim == 1) {
+        ans <- ans[,,1]
+        attributes(ans) <- attributes(ftd)
+    } else {
+        attr(ans, "data") <- ftd
+        attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
+                                                        "parametric", "index"))
+        attr(ans, "binary") <- FALSE
+        attr(ans, "isSeq") <- FALSE
+        attr(ans, "mode") <- "double"
+        attr(ans, "start") <- 1L
+        attr(ans, "end") <- as.integer(nsim)
+        attr(ans, "thin") <- 1L
+        class(ans) <- c("simulate.cca", "simmat", "array")
+    }    
     ans
 }
 

@@ -4,6 +4,18 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-3 (opened October 4, 2011)
 
+	* simulate.rda/cca: implemented 'nsim' or an option to generate an
+	array of simulated matrices inheriting from "simmat" object and
+	using print.simmat() for a compact display. The attr(x, "data")
+	needs consideration: now it is the fitted value, but this makes
+	little sense if we are using the result in oecosimu(). If 'nsim =
+	1', similar 2-dim matrix is returned as before so that
+	cca(simulate(mod)) still work. For 'nsim > 1', the 'indx' argument
+	should be compliant with permute::shuffleSet and the number of
+	rows in 'indx' gives the number of simulations. Implemented for
+	rda() and cca() results, but not for capscale() where simulate
+	returns a "dist" object which is nasty to pack into an array.
+
 	* oecosimu: An attempt to set 'parallel' processing in evaluating
 	the statistic, and only evaluating the statistic -- the simulation
 	of null models is not influenced. This uses socket cluster and is
