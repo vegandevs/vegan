@@ -53,7 +53,7 @@
         ans <- ans[,,1]
         attributes(ans) <- attributes(ftd)
     } else {
-        attr(ans, "data") <- ftd
+        attr(ans, "data") <- round(ftd + object$CA$Xbar, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
                                                         "parametric", "index"))
         attr(ans, "binary") <- FALSE
@@ -131,7 +131,9 @@
         ans <- ans[,,1]
         attributes(ans) <- attributes(ftd)
     } else {
-        attr(ans, "data") <- ftd
+        obsdata <- ftd + object$CA$Xbar
+        obsdata <- (obsdata * sqrt(rc) + rc) * object$grand.total
+        attr(ans, "data") <- round(obsdata, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
                                                         "parametric", "index"))
         attr(ans, "binary") <- FALSE
