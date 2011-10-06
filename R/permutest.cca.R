@@ -104,6 +104,7 @@ permutest.default <- function(x, ...)
     if (parallel > 1 && getRversion() >= "2.14" && require(parallel)
         && .Platform$OS.type == "unix") {
         R <- ceiling(permutations/parallel)
+        mc.reset.stream()
         tmp <- do.call(rbind, mclapply(seq_len(parallel), getF, R = R,
                                        mc.cores = parallel))
     } else {
