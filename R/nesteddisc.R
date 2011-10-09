@@ -10,7 +10,7 @@
 
     ## starting values and CONSTANTS
     NALL <- 7
-    NITER <- 1000
+    NITER <- 200
     ties <- FALSE
     trace <- FALSE
     ## Code
