@@ -7,22 +7,17 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = 99,
               model = c("reduced", "direct", "full"), first = FALSE,
-              strata = NULL, parallel = 1, kind = c("snow", "multicore"),...) 
+              strata = NULL, parallel = 1, ...) 
 {
-    kind <- match.arg(kind)
-    parallel <- as.integer(parallel)
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
     isPartial <- !is.null(x$pCCA)
     ## Function to get the F statistics in one loop
-    getF <- function (indx, ...)
+    getF <- function (R, ...)
     {
-        if (!is.matrix(indx))
-            dim(indx) <- c(1, length(indx))
-        R <- nrow(indx)
         mat <- matrix(0, nrow = R, ncol = 3)
         for (i in seq_len(R)) {
-            take <- indx[i,]
+            take <- permuted.index(N, strata)
             Y <- E[take, ]
             if (isCCA)
                 wtake <- w[take]
@@ -106,29 +101,18 @@ permutest.default <- function(x, ...)
         runif(1)
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     ## permutations
-    if (length(permutations) == 1) {
-        permutations <- shuffleSet(N, permutations)
-    }
-    nperm <- nrow(permutations)
-    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)) {
-        if (kind == "snow") {
-            cl <- makeCluster(parallel)
-            clusterEvalQ(cl, library(vegan))
-            tmp <- parRapply(cl, permutations, function(i) getF(i))
-            tmp <- t(matrix(tmp, nrow=3))
-            stopCluster(cl)
-        } else {
-            tmp <- do.call(rbind,
-                           mclapply(1:nperm,
-                                    function(i) getF(permutations[i,]),
-                                    mc.cores = parallel))
-        }
+    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)
+        && .Platform$OS.type == "unix") {
+        R <- ceiling(permutations/parallel)
+        mc.reset.stream()
+        tmp <- do.call(rbind, mclapply(seq_len(parallel), getF, R = R,
+                                       mc.cores = parallel))
     } else {
-        tmp <- getF(permutations)
+        tmp <- getF(R = permutations)
     }
-    num <- tmp[,1]
-    den <- tmp[,2]
-    F.perm <- tmp[,3]
+    num <- tmp[1:permutations,1]
+    den <- tmp[1:permutations,2]
+    F.perm <- tmp[1:permutations,3]
     ## Round to avoid arbitrary ordering of statistics due to
     ## numerical inaccuracy
     F.0 <- round(F.0, 12)
