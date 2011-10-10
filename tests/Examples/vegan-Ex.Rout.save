@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x101f4a668>
+<environment: 0x1019a69f8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -2607,7 +2607,8 @@ detaching ‘dune.env’, ‘package:MASS’
 > ###   Abundance Data
 > ### Aliases: fisherfit as.fisher plot.fisherfit profile.fisherfit
 > ###   confint.fisherfit plot.profile.fisherfit prestonfit prestondistr
-> ###   as.preston plot.prestonfit lines.prestonfit veiledspec
+> ###   as.preston plot.prestonfit lines.prestonfit plot.preston
+> ###   lines.preston plot.fisher veiledspec
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -4690,7 +4691,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1073aee38>
+<environment: 0x1077de908>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4706,7 +4707,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1059c2508>
+<environment: 0x10595d098>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4862,7 +4863,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x105e9c0a8>
+<environment: 0x106e48ed0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4875,7 +4876,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107753040>
+<environment: 0x107c88140>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4888,7 +4889,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10755e548>
+<environment: 0x10779bcd8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7157,7 +7158,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107b81c28>
+<environment: 0x10711bab0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7633,7 +7634,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  99.046 1.2 101.21 0 0 
+Time elapsed:  101.859 1.444 104.809 0 0 
 > grDevices::dev.off()
 null device 
           1 

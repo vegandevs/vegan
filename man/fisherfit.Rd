@@ -10,6 +10,9 @@
 \alias{as.preston}
 \alias{plot.prestonfit}
 \alias{lines.prestonfit}
+\alias{plot.preston}
+\alias{lines.preston}
+\alias{plot.fisher}
 \alias{veiledspec}
 
 \title{Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data}
@@ -32,7 +35,11 @@ prestondistr(x, truncate = -1, ...)
 \method{lines}{prestonfit}(x, line.col = "red", lwd = 2, ...)
 veiledspec(x, ...)
 as.fisher(x, ...)
+\method{plot}{fisher}(x, xlab = "Frequency", ylab = "Species", bar.col = "skyblue",
+             kind = c("bar", "hiplot", "points", "lines"), add = FALSE, ...)
 as.preston(x, tiesplit = TRUE, ...)
+\method{plot}{preston}(x, xlab = "Frequency", ylab = "Species", bar.col = "skyblue", ...)
+\method{lines}{preston}(x, xadjust = 0.5, ...)
 }
 
 \arguments{
@@ -53,6 +60,12 @@ as.preston(x, tiesplit = TRUE, ...)
   \item{bar.col}{Colour of data bars.}
   \item{line.col}{Colour of fitted line.}
   \item{lwd}{Width of fitted line.}
+  \item{kind}{Kind of plot to drawn: \code{"bar"} is similar bar plot
+    as in \code{plot.fisherfit}, \code{"hiplot"} draws vertical lines
+    as with \command{plot(..., type="h")}, and \code{"points"} and
+    \code{"lines"} are obvious.}
+  \item{add}{Add to an existing plot.}
+  \item{xadjust}{Adjustment of horizontal positions in octaves.}
   \item{\dots}{Other parameters passed to functions. Ignored in 
     \code{prestonfit} and \code{tiesplit} passed to \code{as.preston} in
     \code{prestondistr}. }
@@ -129,7 +142,7 @@ as.preston(x, tiesplit = TRUE, ...)
   the width (sd) of the response. Function \code{as.preston}
   transforms abundance data to octaves.  Argument \code{tiesplit} will
   not influence the fit in \code{prestondistr}, but it will influence
-  the barplot of the octaves.
+  the barplot of the octaves. 
 
   The total extrapolated richness from a fitted Preston model can be
   found with function \code{veiledspec}. The function accepts results
