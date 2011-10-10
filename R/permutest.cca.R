@@ -107,7 +107,12 @@ permutest.default <- function(x, ...)
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     ## permutations
     if (length(permutations) == 1) {
-        permutations <- shuffleSet(N, permutations)
+        if (is.null(strata))
+            permutations <- shuffleSet(N, permutations)
+        else
+            permutations <-
+                t(sapply(1:permutations,
+                         function(x) vegan:::permuted.index(N, strata=strata))) 
     }
     nperm <- nrow(permutations)
     if (parallel > 1 && getRversion() >= "2.14" && require(parallel)) {
