@@ -111,7 +111,7 @@
     }
     if (!is.null(comm)) {
         comm <- scale(comm, center = TRUE, scale = FALSE)
-        sol$colsum <- sd(comm)
+        sol$colsum <- apply(comm, 2, sd)
         ## take a 'subset' of the community after scale()
         if (!is.null(d$subset))
             comm <- comm[d$subset, , drop = FALSE]

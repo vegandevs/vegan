@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-3 (opened October 4, 2011)
 
+	* sd() function for matrix or data.frame columns was deprecated in
+	R r57185 (R-to-be-2.15.0). The reason seems to be that users were
+	confused when median() did not work on data.frames, and as a
+	solution the R developers decided to take care that mean() or sd()
+	will not work either (it would be nice to understand how these
+	people think). Fixed in rda.default, capscale and
+	simulate.rda/cca/capscale.
+
 	* nesteddisc: use only max 200 tries to reorder columns: tracing
 	showed that in most cases an improved ordering is found rather
 	quickly, and trying up to 1000 times takes awfully long. Now

@@ -38,7 +38,7 @@
     for (i in seq_len(nsim)) {
         if (is.null(indx))
             ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
+               sd = outer(rep(1,nrow(ftd)), apply(object$CA$Xbar, 2, sd))), 
                nrow = nrow(ftd)))
         else
             ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
@@ -110,8 +110,8 @@
     for (i in seq_len(nsim)) {
         if (is.null(indx)) {
             tmp <- matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), sd(Xbar))), 
-               nrow = nrow(ftd))
+               sd = outer(rep(1,nrow(ftd)), apply(Xbar, 2, sd))), 
+                          nrow = nrow(ftd))
             ans[,,i] <- as.matrix(ftd + sweep(tmp, 1, sq.r, "/"))
         }
         else 
@@ -191,7 +191,7 @@
         ftd <- ftd + object$pCCA$Fit
     if (is.null(indx))
         ans <- as.data.frame(ftd + matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), sd(object$CA$Xbar))), 
+               sd = outer(rep(1,nrow(ftd)), apply(object$CA$Xbar, 2, sd))), 
                nrow = nrow(ftd)))
     else
         ans <- ftd + object$CA$Xbar[indx,]
