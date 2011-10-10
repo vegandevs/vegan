@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-3 (opened October 4, 2011)
 
+	* added plot.preston, lines.preston and plot.fisher (that also can
+	add points and lines). These are similar as plot.prestonfit and
+	plot.fisherfit, but without the fitted model. Among other things,
+	they can be used to add alternative models to fisherfit and
+	prestonfit models.
+
 	* sd() function for matrix or data.frame columns was deprecated in
 	R r57185 (R-to-be-2.15.0). The reason seems to be that users were
 	confused when median() did not work on data.frames, and as a
