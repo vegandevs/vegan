@@ -39,14 +39,8 @@ Version 2.1-3 (opened October 4, 2011)
 
 	* oecosimu: An attempt to set 'parallel' processing in evaluating
 	the statistic, and only evaluating the statistic -- the simulation
-	of null models is not influenced. This uses socket cluster and is
-	available in all operating systems. It seems that parallel
-	processing is only useful when the evaluation of the statistic is
-	slow (tens of seconds). Moreover, it seems that increasing the
-	number of parallel processes slows down calculations
-	(communication between processes?). Further, socket processing may
-	not find function in all packages, but 'vegan' is made known, and
-	'stats' and 'base' seem to be known.
+	of null models is not influenced. Both "multicore" (fork) and
+	"snow" (socket) style parallelization are implemented. 
 
 	* permutest.cca: implemented 'parallel' processing in
 	permutest.cca.  The parallelization only works in R 2.14.0 (alpha)

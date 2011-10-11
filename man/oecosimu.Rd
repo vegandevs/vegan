@@ -29,7 +29,8 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", 
-   alternative = c("two.sided", "less", "greater"), parallel = 1, ...)
+   alternative = c("two.sided", "less", "greater"), parallel = 1, ...,
+   kind = c("snow", "multicore"))
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -85,6 +86,17 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
+
+  \item{kind}{Kind of parallelization: \code{kind = "snow"} uses
+    socket clusters that are slow to set up, but work in all operating
+    systems, and \code{kind = "multicore"} uses fork clusters that are
+    usually faster, but only work in unix-like systems (Linux, MacOS
+    X). With \code{kind = "snow"}, the \code{nestfun} can only handle
+    functions of \pkg{base}, \pkg{stats} and \pkg{vegan}: other
+    function can cause an error and have an adverse effect on
+    computations for the rest of the session. The argument is intended
+    for testing, and will be probably removed later.}
+
   \item{\dots}{Other arguments to functions.}
 }
 
