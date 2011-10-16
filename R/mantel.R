@@ -7,18 +7,31 @@
     tmp <- cor.test(as.vector(xdis), ydis, method = method)
     statistic <- as.numeric(tmp$estimate)
     variant <- tmp$method
+    N <- attr(xdis, "Size")
+    if (length(permutations) == 1) {
+        if (permutations > 0) {
+            arg <- if (missing(strata)) NULL else strata
+            permat <- t(replicate(permutations,
+                                  permuted.index(N, strata = arg)))
+        }
+    } else {
+        permat <- as.matrix(permutations)
+        if (ncol(permat) != N)
+            stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                          ncol(permat), N))
+        permutations <- nrow(permutations)
+    }
     if (permutations) {
-        N <- attr(xdis, "Size")
-        perm <- rep(0, permutations)
-        ## asdist asn an index selects lower diagonal like as.dist,
-        ## but is faster since it does not seet 'dist' attributes
+        perm <- numeric(permutations)
+        ## asdist as an index selects lower diagonal like as.dist,
+        ## but is faster since it does not set 'dist' attributes
         xmat <- as.matrix(xdis)
         asdist <- row(xmat) > col(xmat)
-        for (i in 1:permutations) {
-            take <- permuted.index(N, strata)
+        ptest <- function(take, ...) {
             permvec <- (xmat[take, take])[asdist]
-            perm[i] <- cor(permvec, ydis, method = method)
+            drop(cor(permvec, ydis, method = method))
         }
+        perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...) )
         signif <- (sum(perm >= statistic) + 1)/(permutations + 1)
      }
     else {

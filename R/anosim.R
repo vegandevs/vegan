@@ -30,14 +30,15 @@
     cl.vec[within] <- levels(grouping)[grouping[take]]
     cl.vec <- factor(cl.vec, levels = c("Between", levels(grouping)))
     if (permutations) {
-        perm <- rep(0, permutations)
-        for (i in 1:permutations) {
-            take <- permuted.index(N, strata)
+        ptest <- function(take, ...) {
             cl.perm <- grouping[take]
             tmp.within <- matched(irow, icol, cl.perm)
             tmp.ave <- tapply(x.rank, tmp.within, mean)
-            perm[i] <- -diff(tmp.ave)/div
+            -diff(tmp.ave)/div
         }
+        arg <- if (missing(strata)) NULL else strata
+        permat <- t(replicate(permutations, permuted.index(N, strata = arg)))
+        perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
         p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
         sol$signif <- p.val
         sol$perm <- perm

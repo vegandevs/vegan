@@ -14,18 +14,32 @@
     variant <- rxy$method
     rxy <- rxy$estimate
     statistic <- part.cor(rxy, rxz, ryz)
+    N <- attr(xdis, "Size")
+    if (length(permutations) == 1) {
+        if (permutations > 0) {
+            arg <- if(missing(strata)) NULL else strata
+            permat <- t(replicate(permutations,
+                                  permuted.index(N, strata = arg)))
+        }
+    } else {
+        permat <- as.matrix(permutations)
+        if (ncol(permat) != N)
+            stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                          ncol(permat), N))
+        permutations <- nrow(permutations)
+    }
     if (permutations) {
         N <- attr(xdis, "Size")
         perm <- rep(0, permutations)
         xmat <- as.matrix(xdis)
         asdist <- row(xmat) > col(xmat)
-        for (i in 1:permutations) {
-            take <- permuted.index(N, strata)
+        ptest <- function(take, ...) {
             permvec <- (xmat[take, take])[asdist]
             rxy <- cor(permvec, ydis, method = method)
             rxz <- cor(permvec, zdis, method = method)
-            perm[i] <- part.cor(rxy, rxz, ryz)
+            part.cor(rxy, rxz, ryz)
         }
+        perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
         signif <- (sum(perm >= statistic)+1)/(permutations + 1)
     }
     else {

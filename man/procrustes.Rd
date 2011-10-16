@@ -65,8 +65,9 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
     \code{truemean = FALSE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
-  \item{permutations}{Number of permutation to assess the significance
-    of the symmetric Procrustes statistic. }
+  \item{permutations}{Number of permutations or a permutation matrix
+    where each row gives the permuted indices. These are used to asses the
+    signficance of the symmetric Procrustes statistic.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}

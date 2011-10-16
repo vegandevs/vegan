@@ -36,8 +36,9 @@ factorfit(X, P, permutations = 0, strata, w, ...)
   \item{P}{Data frame, matrix or vector of environmental
     variable(s). These must be continuous for \code{vectorfit} and
     factors or characters for \code{factorfit}. }
-  \item{permutations}{ Number of permutations for assessing significance
-    of vectors or factors. Set to \code{0} to skip permutations.}
+  \item{permutations}{Number of permutations or a permutation matrix
+    where each row gives the permuted indices. Set \code{permutations = 0}
+    to skip the permutations.}
   \item{formula, data}{Model  \code{\link{formula}} and data.  }
   \item{na.rm}{Remove points with missing values in ordination scores
     or environmental variables. The operation is casewise: the whole

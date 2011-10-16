@@ -16,30 +16,34 @@
         env <- env[keep,, drop=FALSE]
         na.action <- structure(seq_along(keep)[!keep], class="omit")
     }
+    ## make permutation matrix for all variables handled in the next loop
+    nr <- nrow(X)
+    if (length(permutations) == 1) {
+        if (permutations > 0 ) {
+            arg <- if (missing(strata)) NULL else strata
+            permat <- t(replicate(permutations,
+                                  permuted.index(nr, strata=arg)))
+        }
+    } else {
+        permat <- as.matrix(permutations)
+        if (ncol(permat) != nr)
+            stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(permat), nr))
+        permutations <- nrow(permutations)
+    }
     if (is.data.frame(env)) {
-        facts <- unlist(lapply(env, is.factor))
-        if (sum(facts)) {
+        facts <- sapply(env, is.factor)
+        if (sum(facts)) {  # have factors
             Pfac <- env[, facts, drop = FALSE]
             P <- env[, !facts, drop = FALSE]
-            if (length(P)) {
-                if (permutations) {
-                    if (!exists(".Random.seed", envir = .GlobalEnv, 
-                                inherits = FALSE)) {
-                        runif(1)
-                    }
-                    seed <- get(".Random.seed", envir = .GlobalEnv, 
-                                inherits = FALSE)
-                }
+            if (length(P)) { # also have vectors
                 vectors <- vectorfit(X, P, permutations, strata, 
                                      choices, w = w, ...)
             }
-            if (!is.null(seed)) {
-                assign(".Random.seed", seed, envir = .GlobalEnv)
-            }
             factors <- factorfit(X, Pfac, permutations, strata,
-                                 choices, w = w, ...)
+                                         choices, w = w, ...)
             sol <- list(vector = vectors, factors = factors)
-        }
+            }
         else vectors <- vectorfit(X, env, permutations, strata, 
                                   choices, w = w, ...)
     }

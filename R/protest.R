@@ -1,4 +1,4 @@
-"protest" <-
+`protest` <-
     function (X, Y, scores = "sites", permutations = 999, strata, ...)
 {
     X <- scores(X, display = scores, ...)
@@ -6,15 +6,25 @@
     sol <- procrustes(X, Y, symmetric = TRUE)
     sol$t0 <- sqrt(1 - sol$ss)
     N <- nrow(X)
-    perm <- rep(0, permutations)
-    for (i in 1:permutations) {
-        take <- permuted.index(N, strata)
-        tmp <- procrustes(X, Y[take, ], symmetric = TRUE)$ss
-        perm[i] <- sqrt(1 - tmp)
+    if (length(permutations) == 1) {
+        if (permutations > 0) {
+            arg <- if (missing(strata)) NULL else strata
+            permat <- t(replicate(permutations,
+                                  permuted.index(N, strata = arg)))
+        }
+    } else {
+        permat <- as.matrix(permutations)
+        if (ncol(permat) != N)
+            stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                          ncol(permat), N))
+        permutations <- nrow(permutations)
     }
+    perm <- sapply(1:permutations,
+                   function(i, ...) procrustes(X, Y[permat[i,],],
+                                               symmetric = TRUE)$ss)
+    perm <- sqrt(1 - perm)
     perm <- c(sol$t0, perm)
-    permutations <- permutations + 1
-    Pval <- sum(perm >= sol$t0)/permutations
+    Pval <- sum(perm >= sol$t0)/(permutations + 1)
     if (!missing(strata)) {
         strata <- deparse(substitute(strata))
         s.val <- strata

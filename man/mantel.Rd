@@ -22,7 +22,8 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{xdis, ydis, zdis}{ Dissimilarity matrices or a \code{dist} objects. }
   \item{method}{ Correlation method, as accepted by \code{\link{cor}}:
     \code{"pearson"}, \code{"spearman"} or \code{"kendall"}. }
-  \item{permutations}{Number of permutations in assessing significance. }
+  \item{permutations}{Number of permutations or a permutation matrix
+    where each row gives the permuted indices.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
