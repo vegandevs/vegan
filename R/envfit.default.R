@@ -21,7 +21,7 @@
     if (length(permutations) == 1) {
         if (permutations > 0 ) {
             arg <- if (missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
+            permutations <- t(replicate(permutations,
                                   permuted.index(nr, strata=arg)))
         }
     } else {
@@ -29,7 +29,6 @@
         if (ncol(permat) != nr)
             stop(gettextf("'permutations' have %d columns, but data have %d rows",
                           ncol(permat), nr))
-        permutations <- nrow(permutations)
     }
     if (is.data.frame(env)) {
         facts <- sapply(env, is.factor)

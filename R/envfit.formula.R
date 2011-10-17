@@ -7,5 +7,5 @@
     X <- eval(X, data, parent.frame())
     formula[[2]] <- NULL
     P <- model.frame(formula, data, na.action = na.pass)
-    envfit(X, P, ...)
+    envfit.default(X, P, ...)
 }
