@@ -12,7 +12,7 @@ Null Model and Simulation
 The \code{nullmodel} function creates an object,
 which can serve as a basis for Null Model simulation
 via the \code{\link{simulate}} method.
-\code{\link{update}} method updated the nullmodel
+The \code{\link{update}} method updates the nullmodel
 object without sampling (effective for sequential algorithms).
 }
 \usage{
@@ -27,22 +27,22 @@ seed = NULL, ...)
 \arguments{
   \item{x}{
 A community matrix.
+For the \code{print} method, it is an object to be printed.
 }
   \item{method}{
 Character, specifying one of the null model algorithms
-listed in the help page of \code{\link{commsim}}.
+listed on the help page of \code{\link{commsim}}.
 It can be a user supplied object of class \code{commsim}.
-For the \code{print} method, it is an object to be printed.
 }
   \item{object}{
-A \code{nullmodel} object returned by
+An object of class \code{nullmodel} returned by
 the function \code{nullmodel}.
 }
   \item{nsim}{
-Number of simulated matrices to return.
+Positive integer, the number of simulated matrices to return.
 For the \code{update} method, it is the number of
 burnin steps made for sequential algorithms
-to update the status of the input model.
+to update the status of the input model \code{object}.
 }
   \item{seed}{
 An object specifying if and how the random number 
@@ -75,24 +75,24 @@ Additional arguments supplied to algorithms.
 }
 \details{
 The purpose of the \code{nullmodel} function is to
-create an object, where all necessari statistics of the
-input matrix is calculated only once.
+create an object, where all necessary statistics of the
+input matrix are calculated only once.
 This information is reused, but not recalculated
-in each step of the simulation process dome by
+in each step of the simulation process done by
 the \code{simulate} method.
 
 The \code{simulate} method carries out the simulation,
 the simulated matrices are stored in an array.
 For sequential algorithms, the method updates the state
 of the input \code{nullmodel} object.
-Therefore, it is possible to make disgnostic
-tests of the returned \code{simmat} object,
+Therefore, it is possible to do disgnostic
+tests on the returned \code{simmat} object,
 and make further simulations, or use
 increased thinning value if desired.
 
 The \code{update} method makes burnin steps in case
 of sequential algorithms to update the status of the 
-input model without any attempt to return any matrices.
+input model without any attempt to return matrices.
 For non-sequential algorithms the method does nothing.
 
 \code{update} is the preferred way of making burnin iterations
@@ -105,7 +105,7 @@ samples can be simulated if desired without having
 to start the process all over again. See Examples.
 }
 \value{
-The function code{nullmodel} returns an object of class \code{"nullmodel"}.
+The function \code{nullmodel} returns an object of class \code{nullmodel}.
 It is a set of objects sharing the same environment:
 \itemize{
   \item{\code{data}: }{original matrix in ineger mode.}
@@ -118,7 +118,7 @@ It is a set of objects sharing the same environment:
   \item{\code{totalSum}: }{total sum.}
   \item{\code{fill}: }{number of nonzero cells in the matrix.}
   \item{\code{commsim}: }{the \code{commsim} object as a result
-    of the \code{method} ergument}
+    of the \code{method} argument.}
   \item{\code{state}: }{current state of the permutations, 
     a matrix similar to the original.
     It is \code{NULL} for non-sequential algorithms.}
@@ -128,8 +128,7 @@ It is a set of objects sharing the same environment:
 }
 
 The \code{simulate} method returns an object of class \code{simmat}.
-It is a list with element \code{data} for the original matrix,
-and \code{perm} for an array of simulated matrices (third dimension
+It is an array of simulated matrices (third dimension
 corresponding to \code{nsim} argument).
 
 The \code{update} method returns the current state (last updated matrix)
@@ -137,14 +136,14 @@ invisibly, and update the input object for sequential algorithms.
 For non sequential algorithms, it returns \code{NULL}.
 }
 \author{
-Peter Solymos \email{solymos@ualberta.ca}
+JAri Oksanen and Peter Solymos
 }
 \seealso{
 \code{\link{commsim}}, \code{\link{make.commsim}}, 
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
 \examples{
-x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
+x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 
 ## non-sequential nullmodel
 (nm <- nullmodel(x, "r00"))

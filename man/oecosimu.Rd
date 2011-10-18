@@ -140,10 +140,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     \item Community data (\code{comm}), Null model function
       (\code{nestfun}) and the number of simulations (\code{nsimul}).
     \item A \code{\link{nullmodel}} object and the number of
-      simulations, and argument \code{nestfun} is ignored.
+      simulations, and argument \code{method} is ignored.
     \item A three-dimensional array of simulated communities generated
       with \code{\link{simulate.nullmodel}}, and arguments
-      \code{nestfun} and \code{nsimul} are ignored.  
+      \code{method} and \code{nsimul} are ignored.  
   }
   The last case allows analysing several statistics with the same
   simulations. However, be aware that the \code{\link{object.size}} of

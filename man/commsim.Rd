@@ -9,7 +9,7 @@ Create a Object for Null Model Algorithms
 \description{
 The \code{commsim} function can be used to feed Null Model algorithms into
 \code{\link{nullmodel}} analysis.
-The \code{make.commsim} function returns various predefined algorithm type
+The \code{make.commsim} function returns various predefined algorithm types
 (see Details).
 These functions represent low level interface for community null model
 infrastructure in \pkg{vegan} with the intent of extensibility,
@@ -25,43 +25,43 @@ make.commsim(method)
 Character, name of the algorithm.
 }
   \item{fun}{
-A function. For possible arguments see Details.
+A function. For possible formal arguments of this function
+see Details.
 }
   \item{binary}{
-Logical, if the algorithm applies to presence-abseence or count matrices.
+Logical, if the algorithm applies to presence-absence or count matrices.
 }
   \item{isSeq}{
-Logical, if the algorthm is sequential (needs burnin).
+Logical, if the algorthm is sequential (needs burnin) or not.
 }
   \item{mode}{
-Character, storage mode of community matrix, either 
+Character, storage mode of the community matrix, either 
 \code{"integer"} or \code{"double"}.
 }
   \item{x}{
-A \code{commsim} object.
+An object of class \code{commsim}.
 }
   \item{\dots}{
 Additional arguments.
 }
 }
 \details{
-The function \code{fun} must take some of the
-following arguments:
+The function \code{fun} must return an array of \code{dim(nr, nc, n)},
+and must take some of the following arguments:
 \itemize{
-  item{\code{x}: }{input matrix,}
-  item{\code{n}: }{number of permuted matrices in output,}
-  item{\code{nr}: }{number of rows,}
-  item{\code{nc}: }{number of columns,}
-  item{\code{rs}: }{vector of row sums,}
-  item{\code{cs}: }{vector of column sums,}
-  item{\code{rf}: }{vector of row frequencies (nonzero cells),}
-  item{\code{cf}: }{vector of column frequencies (nonzero cells),}
-  item{\code{s}: }{total sum of \code{x}}
-  item{\code{fill}: }{matrix fill,}
-  item{\code{thin}: }{thinning value for sequential algorithms,}
-  item{\code{...}: }{additional arguments.}
+  \item{\code{x}: }{input matrix,}
+  \item{\code{n}: }{number of permuted matrices in output,}
+  \item{\code{nr}: }{number of rows,}
+  \item{\code{nc}: }{number of columns,}
+  \item{\code{rs}: }{vector of row sums,}
+  \item{\code{cs}: }{vector of column sums,}
+  \item{\code{rf}: }{vector of row frequencies (non-zero cells),}
+  \item{\code{cf}: }{vector of column frequencies (non-zero cells),}
+  \item{\code{s}: }{total sum of \code{x},}
+  \item{\code{fill}: }{matrix fill (non-zero cells),}
+  \item{\code{thin}: }{thining value for sequential algorithms,}
+  \item{\code{...}: }{additional arguments.}
 }
-Autput must be an array of \code{dim(nr, nc, n)}.
 
 The following algorithms are currently predefined:
 \itemize{
@@ -77,7 +77,7 @@ The following algorithms are currently predefined:
     presences anywhere on the row with no respect to species (column)
     frequencies. Methods \code{"r0"} and \code{"r0_old"} implement the
     same method, but use different random number sequences; use
-    \code{"r0_old"} is you want to reproduce reusult in \pkg{vegan
+    \code{"r0_old"} if you want to reproduce reusult in \pkg{vegan
     2.0-0} or older using \code{commsimulator} (now deprecated). See
     Wright et al. (1998) for a review.}
 
@@ -105,9 +105,9 @@ The following algorithms are currently predefined:
   \item{\code{"tswap"}: }{sequential algorithm for binary matrices.
     Same as the \code{"swap"} algorithm, but it is trying a fixed
     number of times and doing zero to many swaps at one step
-    (according th thin argument in later call, see Examples). This
+    (according the thin argument in later call). This
     approach was suggested by \enc{Miklós}{Miklos} & Podani (2004)
-    because they found that ordinary swap may lead into biased
+    because they found that ordinary swap may lead to biased
     sequences, since some columns or rows may be more easily swapped.}
 
   \item{\code{"quasiswap"}: }{non-sequential algorithm for binary
@@ -130,8 +130,7 @@ The following algorithms are currently predefined:
     incidences will be filled into matrix.}
 
 %% permatswap
-  \item{\code{"swap_count"}: }{sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+  \item{\code{"swap_count"}: }{sequential algorithm for count matrices. 
     This algorithm tries to find 2 x 2 submatrices 
     (identified by 2 random row and 2 random column indices), 
     that can be swapped in order to leave column and row totals 
@@ -146,8 +145,8 @@ The following algorithms are currently predefined:
     \bold{WARNING}: according to simulations, 
     this algorithm seems to be biased and non random, 
     thus its use should be avoided!}
-  \item{\code{"quasiswap_count"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"quasiswap_count"}: }{non-sequential algorithm for count matrices. 
     This algorithm uses the same trick as 
     Carsten Dormann's \code{\link[bipartite]{swap.web}} 
     function in the package \pkg{bipartite}. First, a 
@@ -158,123 +157,127 @@ The following algorithms are currently predefined:
     the random matrix. These steps are based on swapping 2 x 2 
     submatrices (see \code{"swap_count"} algorithm for details) 
     to maintain row and column totals. }
-  \item{\code{"swsh_samp"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_samp"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix.}
-  \item{\code{"swsh_both"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_both"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, individuals of the
     nonzero cells are also shuffled.}
-  \item{\code{"swsh_samp_r"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_samp_r"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, separately for each rows.}
-  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, separately for each columns.}
-  \item{\code{"swsh_both_r"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_both_r"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, individuals of the
     nonzero cells are also shuffled, separately for each rows.}
-  \item{\code{"swsh_both_c"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatswap}}.
+
+  \item{\code{"swsh_both_c"}: }{non-sequential algorithm for count matrices. 
     The algorithm is a hybrid algorithm. 
     First, it makes binary quasiswaps to keep row and column 
     incidences constant, then non-zero values are 
     modified by shuffling original nonzero samples among the new
     nonzero cells of the binary matrix, individuals of the
     nonzero cells are also shuffled, separately for each columns.}
+
   \item{\code{"abuswap_r"}: }{sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices 
-    described in the page of \code{\link{permatswap}} (\code{"abuswap"} 
-    algorithm with fixed row freqencies).
+    or nonnegative real valued (\code{mode = "double"}) matrices
+    (\code{"abuswap"} algorithm with fixed row freqencies,
+    see help page of \code{\link{permatswap}}).
     The algorithm produces matrices by swapping
     2 x 2 submatrices. Each step changes the the corresponding
     column sums, but honours matrix fill, row sums,
     and row/column frequencies, 
     as described in Hardy (2008; randomization scheme 2x).}
+
   \item{\code{"abuswap_c"}: }{sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices 
-    described in the page of \code{\link{permatswap}} (\code{"abuswap"} 
-    algorithm with fixed column freqencies).
+    or nonnegative real valued (\code{mode = "double"}) matrices. 
+    (\code{"abuswap"} algorithm with fixed column freqencies,
+    see help page of \code{\link{permatswap}}).
     The algorithm produces matrices by swapping
     2 x 2 submatrices. Each step changes the the corresponding
     row sums, but honours matrix fill, column sums,
     and row/column frequencies, 
     as described in Hardy (2008; randomization scheme 3x).}
+
 %% permatfull
-  \item{\code{"r2dtable"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{r2dtable}} and \code{\link{permatfull}}.
-    This algorithm keeps matrix sum and row/column sums constant.}
-  \item{\code{"r00_ind"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+  \item{\code{"r2dtable"}: }{non-sequential algorithm for count matrices. 
+    This algorithm keeps matrix sum and row/column sums constant,
+    based on Patefield's (1981) algorithm, see help page of 
+    \code{\link{r2dtable}}.}
+
+  \item{\code{"r00_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
-    individuals are shullfed among cells of the matrix.}
-  \item{\code{"r0_ind"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+    individuals are shullfled among cells of the matrix.}
+
+  \item{\code{"r0_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps row sums constant,
-    individuals are shullfed among cells of each row of the matrix.}
-  \item{\code{"c0_ind"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+    individuals are shullfled among cells of each row of the matrix.}
+
+  \item{\code{"c0_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps column sums constant,
-    individuals are shullfed among cells of each column of the matrix.}
+    individuals are shullfled among cells of each column of the matrix.}
+
   \item{\code{"r00_samp"}: }{non-sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices 
-    described in the page of \code{\link{permatfull}}.
+    or nonnegative real valued (\code{mode = "double"}) matrices. 
     This algorithm keeps total sum constant,
     cells of the matrix are shuffled.}
+
   \item{\code{"r0_samp"}: }{non-sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices 
-    described in the page of \code{\link{permatfull}}.
+    or nonnegative real valued (\code{mode = "double"}) matrices. 
     This algorithm keeps row sums constant,
     cells within each row are shuffled.}
+
   \item{\code{"c0_samp"}: }{non-sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices 
-    described in the page of \code{\link{permatfull}}.
+    or nonnegative real valued (\code{mode = "double"}) matrices. 
     This algorithm keeps column sums constant,
     cells within each columns are shuffled.}
-  \item{\code{"r00_both"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+
+  \item{\code{"r00_both"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
     cells and individuals among cells of the matrix are shuffled.}
-  \item{\code{"r0_both"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+
+  \item{\code{"r0_both"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
     cells and individuals among cells of each row are shuffled.}
-  \item{\code{"c0_both"}: }{non-sequential algorithm for count matrices 
-    described in the page of \code{\link{permatfull}}.
+
+  \item{\code{"c0_both"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
     cells and individuals among cells of each column are shuffled.}
 }
 For structural constraints imposed by each algorithm, see Examples.
 }
 \value{
-An object of class \code{"commsim"} with elements 
+An object of class \code{commsim} with elements 
 corresponding to the arguments (\code{method}, \code{binary}, 
-\code{isSeq}, \code{fun}).
+\code{isSeq}, \code{mode}, \code{fun}).
 
 If the input of \code{make.comsimm} is a \code{commsim} object,
 it is returned without further evaluation. If this is not the case,
-the character \code{method} argument is matched agains
+the character \code{method} argument is matched against
 predefined algorithm names. An error message is issued
 if none such is found. If the \code{method} argument is missing,
 the function returns names of all currently available
@@ -343,8 +346,9 @@ evalfun <- function(meth, x, n) {
     y <- simulate(m, nsim=n)
     out <- rowMeans(sapply(1:dim(y)[3], 
         function(i) diagfun(attr(y, "data"), y[,,i])))
-    z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq")))
-    names(z) <- c("binary", "isSeq")
+    z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq"),
+        attr(y, "mode") == "double"))
+    names(z) <- c("binary", "isSeq", "double")
     c(z, out)
 }
 x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
