@@ -25,8 +25,9 @@ meandist(dist, grouping, ...)
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.} 
   \item{grouping}{ Factor or numeric index for grouping observations.}
-  \item{permutations}{Number of permutations to assess the significance
-    of the MRPP statistic, \eqn{delta}.} 
+  \item{permutations}{Number of permutations or a permutation matrix
+    where each row gives the permuted indices. These are used to assess 
+    the significance of the MRPP statistic, \eqn{delta}.} 
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations . See \code{\link{vegdist}} for
     options.  This will be used if \code{dat} was not a dissimilarity

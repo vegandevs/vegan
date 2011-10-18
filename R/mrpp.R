@@ -37,11 +37,18 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
     ## significance test for it. Keep the item in reserve for
     ## possible later re-inclusion.
     CS <- NA
-    if (missing(strata)) 
-        strata <- NULL
-    perms <- sapply(1:permutations, function(x) grouping[permuted.index(N, 
-        strata = strata)])
-    m.ds <- numeric(permutations)
+    if (length(permutations) == 1) {
+        if (missing(strata)) 
+            strata <- NULL
+        perms <- sapply(1:permutations,
+                        function(x) grouping[permuted.index(N, strata = strata)])
+    } else {
+        perms <- apply(permutations, 1, function(indx) grouping[indx])
+        permutations <- ncol(perms)
+        if (nrow(perms) != N)
+            stop(fettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(permat), n))
+    }
     m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, 
         w))
     p <- (1 + sum(del >= m.ds))/(permutations + 1)
@@ -50,7 +57,7 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
         n = ncl, classdelta = classdel,
         Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
         boot.deltas = m.ds, permutations = permutations)
-    if (!is.null(strata)) {
+    if (!missing(strata) && !is.null(strata)) {
         out$strata <- deparse(substitute(strata))
         out$stratum.values <- strata
     }

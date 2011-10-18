@@ -23,7 +23,8 @@ CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, nperm = 0, ...)
   \item{stand.Y}{ Logical; should \code{Y} be standardized? }
   \item{stand.X}{ Logical; should \code{X} be standardized? }
   \item{nperm}{ Numeric; number of permutations to evaluate the
-    significance of Pillai's trace, e.g. \code{nperm=99} or \code{nperm=999}.}
+    significance of Pillai's trace, or a permutation matrix
+    where each row gives the permuted indices.} 
   \item{x}{\code{CCoaR} result object.}
   \item{plot.type}{ A character string indicating which of the following 
     plots should be produced: \code{"objects"}, \code{"variables"}, \code{"ov"} 

@@ -91,11 +91,18 @@
           ) }
     
     ## Permutations
-    if (missing(strata)) 
-        strata <- NULL
-    p <- sapply(1:permutations,
-                function(x) permuted.index(n, strata=strata))
-
+    if (length(permutations) == 1) {
+        if (missing(strata)) 
+            strata <- NULL
+        p <- replicate(permutations,
+                       permuted.index(n, strata=strata))
+    } else {
+        p <- t(as.matrix(permutations))
+        if (nrow(p) != n)
+            stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(permat), n))
+        permutations <- ncol(p)
+    }
     
     tH.s <- sapply(H.s, t)
     tIH.snterm <- t(I-H.snterm)
