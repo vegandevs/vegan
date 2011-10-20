@@ -7,17 +7,17 @@
     \itemize{
   
       \item \code{clamtest}: new function to classify species as
-      generalists and specialists in two distinct habitats (CLAM test
-      of Chazdon et al., \emph{Ecology} 92, 1332--1343; 2011).  The
-      test is based on multinomial distribution of individuals in two
-      habitat types or sampling units, and is applicable only to count
-      data with no over-dispersion.
+      generalists and specialists in two distinct habitats (CLAM test of
+      Chazdon et al., \emph{Ecology} 92, 1332--1343; 2011).  The test is
+      based on multinomial distribution of individuals in two habitat
+      types or sampling units, and it is applicable only to count data
+      with no over-dispersion.
 
-      \item \code{as.preston} gained \code{plot} and \code{lines}, and
-      \code{as.fisher} gained \code{plot} method (which also can add
-      items to existing plots). These are similar as \code{plot} and
-      \code{lines} for \code{prestonfit} and \code{fisherfit}, but
-      display only data without the fitted model.
+      \item \code{as.preston} gained \code{plot} and \code{lines}
+      methods, and \code{as.fisher} gained \code{plot} method (which
+      also can add items to existing plots). These are similar as
+      \code{plot} and \code{lines} for \code{prestonfit} and
+      \code{fisherfit}, but display only data without the fitted lines.
 
       \item \code{raupcrick}: new function to implement Raup-Crick
       dissimilarity as a probability of number of co-occurring species
@@ -36,7 +36,7 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item Function \code{meandist} can scramble items and confusing
+      \item Function \code{meandist} can scramble items and give wrong
       results, especially when the \code{grouping} was numerical. The
       problem was reported by Dr Miguel Alvarez (Univ. Bonn).
 
@@ -52,13 +52,13 @@
       \code{update}d because of a \file{NAMESPACE} issue.
 
       \item \R 2.14.0 changed so that it does not accept using
-      \code{sd()} function for matrices, and several \pkg{vegan}
-      functions were changed to adapt to these changes (\code{rda},
-      \code{capscale}, \code{simulate} methods for \code{rda},
-      \code{cca} and \code{capscale}). The change in \R 2.14.0 does
-      not change the results but causes a lot of annoying warnings in
-      \code{rda} and related functions, and you probably wish to
-      upgrade \pkg{vegan}.
+      \code{sd()} function for matrices (which was the behaviour at
+      least since \R 1.0-0), and several \pkg{vegan} functions were
+      changed to adapt to this change (\code{rda}, \code{capscale},
+      \code{simulate} methods for \code{rda}, \code{cca} and
+      \code{capscale}). The change in \R 2.14.0 does not influence the
+      results but you probably wish to upgrade \pkg{vegan} to avoid
+      annoying warnings.
 
     }	
   } % end BUG FIXES

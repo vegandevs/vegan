@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-4 (opened October 16, 2011)
+Version 2.1-5 (opened October 20, 2011)
+
+	* opened a new version with the release of vegan 2.0-1 on Oct 20,
+	2011.
+	
+Version 2.1-4 (opened October 20, 2011)
 
 	* adonis, anosim, CCorA, envfit (factorfit, vectorfit), mantel,
 	mantel.partial, mrpp, protest: user interface changed and
