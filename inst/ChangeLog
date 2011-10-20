@@ -6,6 +6,12 @@ Version 2.1-5 (opened October 20, 2011)
 
 	* opened a new version with the release of vegan 2.0-1 on Oct 20,
 	2011.
+
+	* capscale: could fail if constrained component had zero rank,
+	typically in partial models where constrained component was
+	completely aliased. This was observed when checking an R-News
+	query of October 19, 2011
+	(https://stat.ethz.ch/pipermail/r-help/2011-October/293077.html)
 	
 Version 2.1-4 (opened October 20, 2011)
 

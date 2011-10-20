@@ -91,7 +91,7 @@
     if (adjust == 1)
         X$eig <- X$eig/k
     sol <- rda.default(X$points, d$Y, d$Z, ...)
-    if (!is.null(sol$CCA)) {
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
                 paste("CAP", 1:ncol(sol$CCA$u), sep = "")
@@ -118,9 +118,9 @@
         ## NA action after 'subset'
         if (!is.null(d$na.action))
             comm <- comm[-d$na.action, , drop = FALSE]
-        if (!is.null(sol$pCCA)) 
+        if (!is.null(sol$pCCA) && sol$pCCA$rank > 0) 
             comm <- qr.resid(sol$pCCA$QR, comm)
-        if (!is.null(sol$CCA)) {
+        if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
             sol$CCA$v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
             sol$CCA$v <- sweep(sol$CCA$v.eig, 2, sqrt(sol$CCA$eig), 
                                "/")
@@ -139,7 +139,7 @@
             sol$CCA$v.eig[] <- sol$CCA$v[] <- NA
         sol$colsum <- NA
     }
-    if (!is.null(sol$CCA)) 
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
     if (!is.null(sol$CCA$alias)) 
         sol$CCA$centroids <- unique(sol$CCA$centroids)
