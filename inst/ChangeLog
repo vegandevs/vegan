@@ -7,6 +7,14 @@ Version 2.1-5 (opened October 20, 2011)
 	* opened a new version with the release of vegan 2.0-1 on Oct 20,
 	2011.
 
+	* metaMDSdist: the default value of "noshare" was inconsistent
+	with metaMDS(), and therefore stressplot() could fail for
+	engine="isoMDS". Usually metaMDS() sets the 'noshare' depending on
+	the engine, but metaMDSdist() is called directly from
+	capscale(..., metaMDSdist = TRUE) and metaMDSredist (for
+	stressplot), and now these default to extended dissimilarities.
+	The problem was reported by Falk Hildebrand
+
 	* capscale: could fail if constrained component had zero rank,
 	typically in partial models where constrained component was
 	completely aliased. This was observed when checking an R-News
