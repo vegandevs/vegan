@@ -46,8 +46,8 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
         perms <- apply(permutations, 1, function(indx) grouping[indx])
         permutations <- ncol(perms)
         if (nrow(perms) != N)
-            stop(fettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(permat), n))
+            stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(perms), N))
     }
     m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, 
         w))

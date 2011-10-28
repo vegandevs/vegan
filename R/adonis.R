@@ -100,7 +100,7 @@
         p <- t(as.matrix(permutations))
         if (nrow(p) != n)
             stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(permat), n))
+                          ncol(p), n))
         permutations <- ncol(p)
     }
     
