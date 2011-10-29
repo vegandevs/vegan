@@ -20,7 +20,7 @@
 \arguments{
   \item{object}{A result object from \code{\link{metaMDS}}, 
     \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}. }
-  \item{dis}{Dissimilarities.  This should  not used with
+  \item{dis}{Dissimilarities.  This should not be used with
     \code{\link{metaMDS}} or \code{\link{monoMDS}}, but must be used with
     \code{\link[MASS]{isoMDS}}.}
   \item{pch}{Plotting character for points.  Default is dependent on the
@@ -32,9 +32,14 @@
   \item{\dots}{Other parameters to functions, e.g. graphical parameters.}
 }
 \details{
-  Function \code{goodness.metaMDS} finds a goodness of fit statistic for
-  observations (points).  This is defined so that sum of squared values
-  is equal to squared stress.  Large values indicate poor fit. 
+  Function \code{goodness.metaMDS} finds a goodness of fit statistic
+  for observations (points).  This is defined so that sum of squared
+  values is equal to squared stress.  Large values indicate poor fit.
+  The absolute values of the goodness statistic depend on the
+  definition of the stress: \code{\link[MASS]{isoMDS}} expresses
+  stress in percents, and therefore its goodness values are 100 times
+  higher than those of \code{\link{monoMDS}} which expresses the
+  stress as a proportion.
 
   Function \code{stressplot} draws a Shepard diagram which is a plot
   of ordination distances and monotone or linear fit line against

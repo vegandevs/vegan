@@ -252,17 +252,19 @@ metaMDSredist(object, ...)
 
 \value{ Function \code{metaMDS} returns an object of class
   \code{metaMDS}. The final site ordination is stored in the item
-  \code{points}, and species ordination in the item
-  \code{species}. The other items store the information on the steps
-  taken and the items returned by the \code{engine} function. The
-  object has \code{print}, \code{plot}, \code{points} and \code{text}
-  methods.  Functions \code{metaMDSdist} and \code{metaMDSredist}
-  return \code{\link{vegdist}} objects.  Function \code{initMDS}
-  returns a random configuration which is intended to be used within
+  \code{points}, and species ordination in the item \code{species},
+  and the stress in item \code{stress} (NB, the scaling of the stress
+  depends on the \code{engine}: \code{\link[MASS]{isoMDS}} uses
+  percents, and \code{\link{monoMDS}} proportions in the range \eqn{0
+  \ldots 1}). The other items store the information on the steps taken
+  and the items returned by the \code{engine} function. The object has
+  \code{print}, \code{plot}, \code{points} and \code{text} methods.
+  Functions \code{metaMDSdist} and \code{metaMDSredist} return
+  \code{\link{vegdist}} objects.  Function \code{initMDS} returns a
+  random configuration which is intended to be used within
   \code{\link[MASS]{isoMDS}} only.  Functions \code{metaMDSiter} and
   \code{postMDS} returns the result of NMDS with updated
-  configuration.  
-}
+  configuration.  }
 
 
 \references{
@@ -306,11 +308,10 @@ metaMDSredist(object, ...)
   to \code{FALSE} with a warning.  
 }
 
-\section{Warning}{ \code{metaMDS} used \code{\link[MASS]{isoMDS}} as
-  its NMDS engine till version 1.18-28, when this was replaced with
-  the \code{\link{monoMDS}} function. You can set argument
-  \code{engine} to select the old engine.
-}
+\section{Warning}{\code{metaMDS} uses \code{\link{monoMDS}} as its
+  NMDS \code{engine} from \pkg{vegan} version 2.0-0, when it replaced
+  the \code{\link[MASS]{isoMDS}} function. You can set argument
+  \code{engine} to select the old engine.}
 
 \seealso{\code{\link{monoMDS}} (and \code{\link[MASS]{isoMDS}}), 
   \code{\link{decostand}},
