@@ -2,10 +2,8 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
-             parallel = 1, ..., kind = c("snow", "multicore"))
+             parallel = getOption("mc.cores", 1L), ..., cl)
 {
-    kind = match.arg(kind)
-    parallel = as.integer(parallel)
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
     applynestfun <-
@@ -58,9 +56,10 @@
     }
 
     ## socket cluster if parallel > 1 (and we can do this)
-    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)) {
-##        if(.Platform$OS.type == "unix") {
-        if(kind == "multicore") {
+    if ((parallel > 1 || !missing(cl))  && require(parallel)) {
+        ## If 'cl' is given (and is a cluster), use it for socket clusters
+        hasClus <- !missing(cl) && inherits(cl, "cluster")
+        if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- mclapply(1:nsimul,
                             function(i)
                             applynestfun(x[,,i], fun=nestfun,
@@ -68,13 +67,17 @@
                             mc.cores = parallel)
             simind <- do.call(cbind, tmp)
         } else {
-            oecoClus <- makeCluster(parallel)
-            ## make vegan functions available: others may be unavailable
-            clusterEvalQ(oecoClus, library(vegan))
-            simind <- parApply(oecoClus, x, 3, function(z)
+            ## if hasClus, do not set up and stop a temporary cluster
+            if (!hasClus) {
+                cl <- makeCluster(parallel)
+                ## make vegan functions available: others may be unavailable
+                clusterEvalQ(cl, library(vegan))
+            }
+            simind <- parApply(cl, x, 3, function(z)
                                applynestfun(z, fun = nestfun,
                                             statistic = statistic, ...))
-            stopCluster(oecoClus)
+            if (!hasClus)
+                stopCluster(cl)
         }
     } else {
         simind <- apply(x, 3, applynestfun, fun = nestfun,

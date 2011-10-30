@@ -28,9 +28,8 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", 
-   alternative = c("two.sided", "less", "greater"), parallel = 1, ...,
-   kind = c("snow", "multicore"))
+   statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
+   parallel = getOption("mc.cores", 1L), ..., cl)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -87,15 +86,14 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
 
-  \item{kind}{Kind of parallelization: \code{kind = "snow"} uses
-    socket clusters that are slow to set up, but work in all operating
-    systems, and \code{kind = "multicore"} uses fork clusters that are
-    usually faster, but only work in unix-like systems (Linux, MacOS
-    X). With \code{kind = "snow"}, the \code{nestfun} can only handle
-    functions of \pkg{base}, \pkg{stats} and \pkg{vegan}: other
-    function can cause an error and have an adverse effect on
-    computations for the rest of the session. The argument is intended
-    for testing, and will be probably removed later.}
+  \item{cl}{A socket cluster created with
+    \code{\link[parallel]{makeCluster}} or similar.  Usually command
+    \code{clusterEvalQ(cl, library(vegan))} also must be given. If
+    other packages than \pkg{vegan} are needed for the \code{nestfun},
+    they must be evaluated similarly with
+    \code{\link[parallel]{clusterEvalQ}}. The socket clusters are used
+    in default only in Windows, but if \code{cl} is given, the
+    specified cluster will be used also in other operating systems.}
 
   \item{\dots}{Other arguments to functions.}
 }

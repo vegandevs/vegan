@@ -2,7 +2,23 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-5 (opened October 20, 2011)
+Version 2.1-6 (opened October 30, 2011)
+
+	* oecosimu: new proposition for implementing parallel processing.
+	The relevant arguments are now 'parallel = getOption("mc.cores",
+	1)' and 'cl'. The 'parallel' defaults to 1 (no parallel
+	processing), but if the user sets the "mc.cores" option, all
+	parallel processing functions will automatically use that number
+	of paralle processes.  (The "mc.cores" argument is used by the
+	'parallel' package, but it is normally unset.)  The 'cl' argument
+	is an existing pre-defined socket ("snow") cluster, and if given,
+	that will be reused without resetting and closing. This (1) saves
+	time, (2) allows using of other packages than 'vegan' if user has
+	given command 'clusterEvalQ(library(foo))', and (3) makes
+	unix-like OS (incl. MacOS X and Linux) to use the socket
+	processing instead of forking.
+
+Version 2.1-5 (closed October 30, 2011)
 
 	* opened a new version with the release of vegan 2.0-1 on Oct 20,
 	2011.
