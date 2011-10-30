@@ -85,19 +85,21 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   functions. 
 
   Function \code{ordiplot3d} plots only points. However, it returns
-  invisibly an object inheriting from \code{\link{ordiplot}} so that you
-  can use \code{\link{identify.ordiplot}} to identify \code{"points"} or
-  \code{"arrows"}. The underlying
-  \code{\link[scatterplot3d]{scatterplot3d}} function accepts \code{type
-    = "n"} so that only the axes, biplot arrows and centroids of
-  environmental variables will be plotted, and the ordination scores can
-  be added with \code{\link{text.ordiplot}} or
-  \code{\link{points.ordiplot}}. Further, you can use any functions from
-  the \code{\link{ordihull}} family with the invisible result of
+  invisibly an object inheriting from \code{\link{ordiplot}} so that
+  you can use \code{\link{identify.ordiplot}} to identify
+  \code{"points"} or \code{"arrows"}. The underlying
+  \code{\link[scatterplot3d]{scatterplot3d}} function accepts
+  \code{type = "n"} so that only the axes, biplot arrows and centroids
+  of environmental variables will be plotted, and the ordination
+  scores can be added with \code{\link{text.ordiplot}} or
+  \code{\link{points.ordiplot}}. Further, you can use any functions
+  from the \code{\link{ordihull}} family with the invisible result of
   \code{\link{ordiplot3d}}, but you must remember to specify the
   \code{display} as \code{"points"} or \code{"arrows"}. To change the
-  viewing angle, orientation etc. you must see
-  \code{\link[scatterplot3d]{scatterplot3d}}.
+  viewing angle, orientation etc.{} you must see
+  \code{\link[scatterplot3d]{scatterplot3d}}. Only one kind of scores
+  will be plotted.  See Examples for plotting both species and
+  site scores.
 
   Function \code{ordigl} makes a dynamic three-dimensional graph that
   can be rotated with mouse, and zoomed into with mouse buttons or wheel
@@ -121,20 +123,25 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   \code{\link[rgl]{rgl.points}}, \code{\link[rgl]{rgl.texts}},
  \code{\link[rgl]{rgl.lines}} and many others can be used. 
 }
- \value{
+ 
+\value{
+
   Function \code{ordiplot3d} returns invisibly an object of class
-  \code{"ordiplot3d"} inheriting from \code{\link{ordiplot}}. The return
-  object will contain the coordinates projected onto two dimensions for
-  \code{"points"}, and possibly for the heads of \code{"arrows"} and
-  \code{"centroids"} of environmental variables. Functions like
-  \code{\link{identify.ordiplot}}, \code{\link{points.ordiplot}},
-  \code{\link{text.ordiplot}} can use this result, as well as
-  \code{\link{ordihull}} and other functions documented with the
-  latter. In addition, the result will contain the object returned by
-  \code{\link[scatterplot3d]{scatterplot3d}}, including function
-  \code{xyz.converter} which projects three-dimensional
-  coordinates onto the plane used in the current plot. 
+  \code{"ordiplot3d"} inheriting from \code{\link{ordiplot}}. The
+  return object will contain the coordinates projected onto two
+  dimensions for \code{"points"}, and possibly for the heads of
+  \code{"arrows"} and \code{"centroids"} of environmental
+  variables. Functions like \code{\link{identify.ordiplot}},
+  \code{\link{points.ordiplot}}, \code{\link{text.ordiplot}} can use
+  this result, as well as \code{\link{ordihull}} and other functions
+  documented with the latter. In addition, the result will contain the
+  object returned by \code{\link[scatterplot3d]{scatterplot3d}},
+  including function \code{xyz.convert} which projects
+  three-dimensional coordinates onto the plane used in the current
+  plot (see Examples).
+
   Function \code{ordirgl} returns nothing.
+
 }
 
 \author{Jari Oksanen }
@@ -167,21 +174,24 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
 ## Examples are not run, because they need non-standard packages
 ## 'scatterplot3d' and 'rgl' (and the latter needs user interaction).
 #####
-#### Default 'ordiplot3d'
+### Default 'ordiplot3d'
 \dontrun{
 data(dune)
 data(dune.env)
 ord <- cca(dune ~ A1 + Moisture, dune.env)
 ordiplot3d(ord)
-#### A boxed 'pin' version
+### A boxed 'pin' version
 ordiplot3d(ord, type = "h")
-#### More user control
-pl <- ordiplot3d(ord, angle=15, type="n")
+### More user control
+pl <- ordiplot3d(ord, scaling = 3, angle=15, type="n")
 points(pl, "points", pch=16, col="red", cex = 0.7)
-#### identify(pl, "arrows", col="blue") would put labels in better positions
+### identify(pl, "arrows", col="blue") would put labels in better positions
 text(pl, "arrows", col="blue", pos=3)
-text(pl, "centroids", col="blue", pos=1, cex = 1.2)
-#### ordirgl
+text(pl, "centroids", col="blue", pos=1, cex = 1)
+### Add species using xyz.convert function returned by ordiplot3d
+sp <- scores(ord, choices=1:3, display="species", scaling=3)
+text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
+### ordirgl
 ordirgl(ord, size=2)
 ordirgl(ord, display = "species", type = "t")
 rgl.quit()

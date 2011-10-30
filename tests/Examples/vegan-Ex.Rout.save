@@ -1,5 +1,5 @@
 
-R version 2.14.0 RC (2011-10-27 r57452)
+R version 2.14.0 RC (2011-10-29 r57474)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin10.8.0/x86_64 (64-bit)
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-5
+This is vegan 2.1-6
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-9. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x101fadcd0>
+<environment: 0x101faf2d8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -4332,21 +4332,24 @@ detaching ‘dune.env’
 > ## Examples are not run, because they need non-standard packages
 > ## 'scatterplot3d' and 'rgl' (and the latter needs user interaction).
 > #####
-> #### Default 'ordiplot3d'
+> ### Default 'ordiplot3d'
 > ## Not run: 
 > ##D data(dune)
 > ##D data(dune.env)
 > ##D ord <- cca(dune ~ A1 + Moisture, dune.env)
 > ##D ordiplot3d(ord)
-> ##D #### A boxed 'pin' version
+> ##D ### A boxed 'pin' version
 > ##D ordiplot3d(ord, type = "h")
-> ##D #### More user control
-> ##D pl <- ordiplot3d(ord, angle=15, type="n")
+> ##D ### More user control
+> ##D pl <- ordiplot3d(ord, scaling = 3, angle=15, type="n")
 > ##D points(pl, "points", pch=16, col="red", cex = 0.7)
-> ##D #### identify(pl, "arrows", col="blue") would put labels in better positions
+> ##D ### identify(pl, "arrows", col="blue") would put labels in better positions
 > ##D text(pl, "arrows", col="blue", pos=3)
-> ##D text(pl, "centroids", col="blue", pos=1, cex = 1.2)
-> ##D #### ordirgl
+> ##D text(pl, "centroids", col="blue", pos=1, cex = 1)
+> ##D ### Add species using xyz.convert function returned by ordiplot3d
+> ##D sp <- scores(ord, choices=1:3, display="species", scaling=3)
+> ##D text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
+> ##D ### ordirgl
 > ##D ordirgl(ord, size=2)
 > ##D ordirgl(ord, display = "species", type = "t")
 > ##D rgl.quit()
@@ -4685,14 +4688,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-9. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109cec958>
+<environment: 0x10a0c9000>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4708,7 +4711,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1098eef40>
+<environment: 0x109adf6d0>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4857,14 +4860,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-9. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108f78578>
+<environment: 0x10692bee0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4877,7 +4880,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107654278>
+<environment: 0x1096e8098>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4890,7 +4893,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109e1a758>
+<environment: 0x10a7e9830>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7152,14 +7155,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-9. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a9c72a8>
+<environment: 0x10952b190>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7635,7 +7638,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  90.316 1.908 92.398 0 0 
+Time elapsed:  81.081 1.732 83.592 0 0 
 > grDevices::dev.off()
 null device 
           1 
