@@ -100,27 +100,16 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   An ellipsoid hull can be drawn with function
   \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
 
-  Functions \code{ordihull} and \code{ordiellipse} return the
-  \code{\link{invisible}} plotting structure. In \code{ordihull} this is
-  a list of coordinates of the hulls (which can be extracted with
-  \code{scores}), and in \code{ordiellipse} a list of covariance
-  matrices and scales used in drawing the ellipses.  These result
-  objects have a \code{summary} method that returns the coordinates of
-  the centres of the ellipses or hulls and their surface areas in user
-  units. The centres of the hulls may differ from the location of the
-  \code{label} which is the centre of the points instead of the centre
-  of the polygon. With \code{draw = "none"} only the result object is
-  returned and nothing is drawn.
-
-  Function \code{ordispider} draws a `spider' diagram where each point
-  is connected to the group centroid with \code{\link{segments}}.
-  Weighted centroids are used in the correspondence analysis methods
-  \code{\link{cca}} and \code{\link{decorana}} or if the user gives
-  the weights in the call. If \code{ordispider} is called with
-  \code{\link{cca}} or \code{\link{rda}} result without \code{groups}
-  argument, the function connects each `WA' scores to the
-  corresponding `LC' score. If the argument is a (\code{invisible})
-  \code{ordihull} object, the functin will connect the points of the
+  Function \code{ordispider} draws a \sQuote{spider} diagram where
+  each point is connected to the group centroid with
+  \code{\link{segments}}.  Weighted centroids are used in the
+  correspondence analysis methods \code{\link{cca}} and
+  \code{\link{decorana}} or if the user gives the weights in the
+  call. If \code{ordispider} is called with \code{\link{cca}} or
+  \code{\link{rda}} result without \code{groups} argument, the
+  function connects each \sQuote{WA} scores to the corresponding
+  \sQuote{LC} score. If the argument is a (\code{invisible})
+  \code{ordihull} object, the function will connect the points of the
   hull to their centroid.
 
   Function \code{ordicluster} overlays a cluster dendrogram onto
@@ -136,6 +125,26 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   must draw a graph first. To draw line segments, grids or arrows, see
   \code{\link{ordisegments}}, \code{\link{ordigrid}}
   and\code{\link{ordiarrows}}.  }
+
+\value{
+
+  Functions \code{ordihull}, \code{ordiellipse} and \code{ordispider}
+  return the \code{\link{invisible}} plotting structure. 
+
+  Function \code{ordispider} return the coordinates to which each
+  point is connected (centroids or \sQuote{LC} scores).
+
+  Function \code{ordihull} returns a list of coordinates of the hulls
+  (which can be extracted with \code{scores}), and \code{ordiellipse}
+  returns a list of covariance matrices and scales used in drawing the
+  ellipses.  These result objects have a \code{summary} method that
+  returns the coordinates of the centres of the ellipses or hulls and
+  their surface areas in user units. The centres of the hulls may
+  differ from the location of the \code{label} which is the centre of
+  the points instead of the centre of the polygon. With \code{draw =
+  "none"} only the result object is returned and nothing is drawn.
+
+}
 
 \author{ Jari Oksanen }
 

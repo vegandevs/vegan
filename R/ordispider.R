@@ -1,4 +1,4 @@
-"ordispider" <-
+`ordispider` <-
     function (ord, groups, display = "sites", w = weights(ord, display),
               show.groups, label = FALSE, ...)
 {
@@ -8,9 +8,14 @@
         wa <- scores(ord, display = "wa", ...)
         ordiArgAbsorber(lc[, 1], lc[, 2], wa[, 1], wa[, 2],
                         FUN = segments, ...)
-        return(invisible())
+        class(lc) <- "ordispider"
+        return(invisible(lc))
     }
     pts <- scores(ord, display = display, ...)
+    ## spids stores pointwise centroids to be returned invisibly
+    ## (transposed here so that filling is easier, but back-transposed
+    ## when returned).
+    spids <- t(array(NA, dim=dim(pts), dimnames = dimnames(pts)))
     ## ordihull: draw lines from centre to the points in the hull
     if (inherits(ord, "ordihull"))
         groups <- attr(pts, "hulls")
@@ -37,6 +42,7 @@
             X <- pts[gr, ]
             W <- w[gr]
             ave <- apply(X, 2, weighted.mean, w = W)
+            spids[,gr] <- ave
             ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
                             FUN = segments, ...)
             if (label) {
@@ -47,5 +53,7 @@
     }
     if (label) 
         ordiArgAbsorber(cntrs, label = names, FUN = ordilabel, ...)
-    invisible()
+    spids <- t(spids)
+    class(spids) <- "ordispider"
+    invisible(spids)
 }

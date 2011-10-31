@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-6 (opened October 30, 2011)
 
+	* ordispider: returns invisibly the coordinates to which each
+	point is connected. Triggered by an email query of this
+	functionality. 
+
 	* ordiplot3d: expanded example to show how to use xyz.convert() to
 	add points as per
 	https://stat.ethz.ch/pipermail/r-help/2011-October/293955.html
