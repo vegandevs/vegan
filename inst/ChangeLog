@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-6 (opened October 30, 2011)
 
+	* FAQ: correct mark-up of hyper links (@uref{} instead of @url{}),
+	add new entries on RDA scaling, scaling of NMDS stress and scaling
+	of environmental arrows in cca/rda/capscale/envfit, plus some
+	minor updates of old entries.
+
 	* ordispider: returns invisibly the coordinates to which each
 	point is connected. Triggered by an email query of this
 	functionality. 

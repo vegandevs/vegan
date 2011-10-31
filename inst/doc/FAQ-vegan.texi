@@ -17,7 +17,7 @@ This is version of $Date$.
 @quotation
 This work is licensed under the Creative Commons Attribution 3.0
 License. To view a copy of this license, visit
-@url{http://creativecommons.org/licenses/by/3.0/} or send a letter to
+@uref{http://creativecommons.org/licenses/by/3.0/} or send a letter to
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
@@ -66,7 +66,7 @@ Copyright @copyright{} 2008-2011 Jari Oksanen
 @chapter Introduction
 
 @menu
-* What is vegan?::               
+* What is vegan?::              
 * What is R?::                  
 * How to obtain vegan and R?::  
 * What R packages vegan depends on?::  
@@ -113,9 +113,9 @@ official part of the @uref{http://www.gnu.org/, @acronym{GNU}} project
 @section How to obtain vegan and R?
 
 Both R and latest release version of vegan can be obtained through
-@url{http://cran.r-project.org,,CRAN}. Unstable development version of
+@uref{http://cran.r-project.org,,CRAN}. Unstable development version of
 vegan can be obtained through
-@url{http://r-forge.r-project.org/projects/vegan/,,R-Forge}.
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}.
 
 
 
@@ -143,7 +143,7 @@ and @code{rgl.isomap}
 @node What other packages are available for ecologists?, What other documentation is available for vegan?, What R packages vegan depends on?, Introduction
 @section What other packages are available for ecologists?
 
-@acronym{CRAN} @url{http://cran.r-project.org/src/contrib/Views/,,Task
+@acronym{CRAN} @uref{http://cran.r-project.org/src/contrib/Views/,,Task
 Views} include entries like @code{Environmetrics}, @code{Multivariate}
 and @code{Spatial} that describe several useful packages and
 functions.  If you install R package @code{ctv}, you can
@@ -161,7 +161,7 @@ with @code{vegandocs} command (documented in the vegan help).  The
 documents included in the vegan package are
 @itemize
 @item
-Vegan @code{NEWS} (not in the development version: only in CRAN)
+Vegan @code{NEWS}
 @item 
 Vegan @code{ChangeLog}.
 @item
@@ -183,9 +183,9 @@ Web documents outside the package include:
 @itemize
 
 @item
-@url{http://vegan.r-forge.r-project.org/}: vegan homepage.
+@uref{http://vegan.r-forge.r-project.org/}: vegan homepage.
 @item
-@url{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}: vegan
+@uref{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}: vegan
 tutorial.
 
 @end itemize
@@ -195,7 +195,7 @@ tutorial.
 
 Roeland Kindt has made package @code{BiodiversityR} which provides a
 GUI for vegan. The package is available at 
-@url{http://cran.r-project.org/src/contrib/Descriptions/BiodiversityR.html,,CRAN}.
+@uref{http://cran.r-project.org/src/contrib/Descriptions/BiodiversityR.html,,CRAN}.
 It is not a mere GUI for vegan, but adds some new functions and
 complements vegan functions in order to provide a 
 workbench for biodiversity analysis. You can install @code{BiodiversityR} using
@@ -212,22 +212,22 @@ citation to be used in publications.
 @section Version numbering in vegan
 
 From version 1.10-0, vegan is developed at
-@url{http://r-forge.r-project.org/projects/vegan/,,R-Forge} and there
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} and there
 is a general progression of version numbers mixed with stable (at
-@url{http://cran.r-project.org,,CRAN}) and devel versions (at 
-@url{http://r-forge.r-project.org/projects/vegan/,,R-Forge}). 
+@uref{http://cran.r-project.org,,CRAN}) and devel versions (at 
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}). 
 
 Vegan version numbers are of type x.y-z, where number y is odd for
-stable release versions at @url{http://cran.r-project.org,,CRAN} and
+stable release versions at @uref{http://cran.r-project.org,,CRAN} and
 even for unstable release versions at
-@url{http://r-forge.r-project.org/projects/vegan,,R-Forge}.
+@uref{http://r-forge.r-project.org/projects/vegan,,R-Forge}.
 
 @node How to build vegan from sources?, Are there binaries for devel versions?, Version numbering in vegan, Introduction
 @section How to build vegan from sources?
 
 In general, you do not need to build vegan from sources, but binary
 builds of release versions are available through
-@url{http://cran.r-project.org/,,CRAN} for Windows and MacOS X.  If you
+@uref{http://cran.r-project.org/,,CRAN} for Windows and MacOS X.  If you
 use some other operating systems, you may have to use source packages.
 Vegan is a standard R package, and can be built like instructed in R
 documentation.  Vegan contains source files in C and @acronym{FORTRAN},
@@ -237,7 +237,7 @@ and MacOS X).
 @node Are there binaries for devel versions?, How to report a bug in vegan?, How to build vegan from sources?, Introduction
 @section Are there binaries for devel versions?
 
-@url{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
 tests on the devel package, and if passed, it builds source package
 together with Windows and MacOS X binaries. You can install those
 packages within R with command 
@@ -262,7 +262,7 @@ Please note that you shall not send bug reports to R mailing lists,
 since vegan is not a standard R package.
 
 There also is a bug reporting tool at
-@url{http://r-forge.r-project.org/projects/vegan/,,R-Forge}, but you
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}, but you
 need to register as a site user to report bugs (this is site policy).
 
 @node Is it a bug or a feature?, Can I contribute to vegan?, How to report a bug in vegan?, Introduction
@@ -301,11 +301,14 @@ included contributions will be credited.
 * I have only numeric and positive data but vegan still complaints::  
 * Can you analyse binary or cover class data?::  
 * Why dissimilarities in vegan differ from other sources?::  
+* Why NMDS stress is sometimes 0.1 and sometimes 10?::  
 * Zero dissimilarities in isoMDS::  
+* How the RDA results are scaled?::  
 * cca fails with ``data.frame expected'' or ``"site.env" missing''::  
 * Variance explained by ordination axes::  
 * Is it possible to have passive points in ordination?::  
 * Class variables and dummies::  
+* How are environmental arrows scaled?::  
 * I want to use Helmert or sum contrasts::  
 * What are aliased variables and how to see them?::  
 * Plotting aliased variables::  
@@ -338,7 +341,7 @@ distributional assumptions.  There are some methods (mainly in diversity
 analysis) that need count data.  These methods check that input data are
 integers, but they may be fooled by cover class data.
 
-@node Why dissimilarities in vegan differ from other sources?, Zero dissimilarities in isoMDS, Can you analyse binary or cover class data?, Ordination
+@node Why dissimilarities in vegan differ from other sources?, Why NMDS stress is sometimes 0.1 and sometimes 10?, Can you analyse binary or cover class data?, Ordination
 @section Why dissimilarities in vegan differ from other sources?
 
 Most commonly the reason is that other software use presence--absence
@@ -352,20 +355,47 @@ name @code{"jaccard"} for the quantitative index, too.
 Another reason may be that indices indeed are defined differently,
 because people use same names for different indices.
 
-@node Zero dissimilarities in isoMDS, cca fails with ``data.frame expected'' or ``"site.env" missing'', Why dissimilarities in vegan differ from other sources?, Ordination
+@node Why NMDS stress is sometimes 0.1 and sometimes 10?, Zero dissimilarities in isoMDS, Why dissimilarities in vegan differ from other sources?, Ordination
+@section Why @acronym{NMDS} stress is sometimes 0.1 and sometimes 10?
+
+Stress is a proportional measure of badness of fit. The proportions can
+be expressed either as parts of one or as percents.  Function
+@code{isoMDS} (MASS package) uses percents, and function @code{monoMDS}
+(vegan package) uses proprotions, and therefore the same stress is 100
+times higher in @code{isoMDS}. The results of @code{goodness} function
+also depend on the definition of stress, and the same @code{goodness} is
+100 times higher in @code{isoMDS} than in @code{monoMDS}.  Both of these
+conventions are equally correct.
+
+@node Zero dissimilarities in isoMDS, How the RDA results are scaled?, Why NMDS stress is sometimes 0.1 and sometimes 10?, Ordination
 @section Zero dissimilarities in isoMDS
 
-You can use argument @code{zerodist = "add"} in @code{metaMDS} or
-@code{metaMDSdist} to handle zero dissimilarities.  With this argument,
-zero dissimilarities are replace with a small above zero value, and they
-can be handled in @code{isoMDS}.  This is a kluge, and some people do
-not like this. A more principal solution is to remove duplicate sites
-using R command @code{unique}.  However, after some standardizations or
-with some dissimilarity indices, originally non-unique sites can have
-zero dissimilarity, and you have to resort to the kluge (or work
-harder with your data).
+Function @code{metaMDS} uses function @code{monoMDS} as its default
+method for @acronym{NMDS}, and this function can handle zero
+dissimilarities. The alternative function @code{isoMDS} was the only
+choice before vegan 2.0-0, and it cannot handle zero dissimilarities. If
+you want to use @code{isoMDS}, you can use argument @code{zerodist =
+"add"} in @code{metaMDS} to handle zero dissimilarities.  With this
+argument, zero dissimilarities are replaced with a small above zero
+value, and they can be handled in @code{isoMDS}.  This is a kluge, and
+some people do not like this. A more principal solution is to remove
+duplicate sites using R command @code{unique}.  However, after some
+standardizations or with some dissimilarity indices, originally
+non-unique sites can have zero dissimilarity, and you have to resort to
+the kluge (or work harder with your data). Usually it is better to use
+@code{monoMDS}.
 
-@node cca fails with ``data.frame expected'' or ``"site.env" missing'', Variance explained by ordination axes, Zero dissimilarities in isoMDS, Ordination
+@node How the RDA results are scaled?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Zero dissimilarities in isoMDS, Ordination
+@section How the @acronym{RDA} results are scaled?
+
+The scaling or @acronym{RDA} results indeed differ from most other
+software packages. The scaling of @acronym{RDA} is such a complicated
+issue that it cannot be explained in this @acronym{FAQ}, but it is
+explained in a separate @acronym{pdf} document on ``Design decision and
+implementation details in vegan'' that you can read with
+vegan command @code{vegandocs("decision")}.
+
+@node cca fails with ``data.frame expected'' or ``"site.env" missing'', Variance explained by ordination axes, How the RDA results are scaled?, Ordination
 @section cca fails with ``data.frame expected'' or ``"site.env" missing''
 
 This is not a vegan error message, but it comes from the @code{cca}
@@ -451,7 +481,7 @@ software with passive points). For instance, the following command makes
 row 3 ``passive'': @code{dune[3,] <- 0.001*dune[3,]}.
 
 
-@node Class variables and dummies, I want to use Helmert or sum contrasts, Is it possible to have passive points in ordination?, Ordination
+@node Class variables and dummies, How are environmental arrows scaled?, Is it possible to have passive points in ordination?, Ordination
 @section Class variables and dummies
 
 You should define a class variable as an R @code{factor}, and vegan will
@@ -466,11 +496,28 @@ level is the first one.  Ordered factors are expressed as polynomial
 contrasts. Both of these contrasts explained in standard R
 documentation. 
 
-You should never make your own dummy variables, but you should use
-standard R factors.  R will internally change these factors into
-dummies in a consistent and correct way.
 
-@node I want to use Helmert or sum contrasts, What are aliased variables and how to see them?, Class variables and dummies, Ordination
+@node How are environmental arrows scaled?, I want to use Helmert or sum contrasts, Class variables and dummies, Ordination
+@section How are environmental arrows scaled?
+
+Arrows for continuous environmental variables in constrained ordination
+(@code{cca}, @code{rda}, @code{capscale}) and fitted environmental
+vectors from @code{envfit} are scaled to fill the current graph.  The
+lengths of arrows do not have fixed meaning with respect to the points
+(species, sites), but they can only compared against each other, and
+therefore only their relative lengths are important. 
+
+If you really want change the scaling of the arrows, you can use
+@code{text} (plotting arrows and text) or @code{points} (plotting only
+arrows) functions for constrained ordination. These functions have
+argument @code{arrow.mul} which sets the multiplier.  The @code{plot}
+function for @code{envfit} also has the @code{arrow.mul} argument to set
+the arrow multiplier.  If you save the invisible result of the
+constrained ordination @code{plot} command, you can see the value of the
+currently used @code{arrow.mul} which is saved as an attribute of
+@code{biplot} scores. 
+
+@node I want to use Helmert or sum contrasts, What are aliased variables and how to see them?, How are environmental arrows scaled?, Ordination
 @section I want to use Helmert or sum contrasts
 
 @code{vegan} uses standard R utilities for defining
@@ -508,11 +555,10 @@ functions that use permutation, such as @code{adonis}, @code{anosim},
 @code{anova.cca}, @code{mantel}, @code{mrpp}, @code{envfit} and
 @code{protest}.
 
-Vegan has an alternative permutation function @code{permuted.index2}
-which allows restricted permutation designs for time series, line
-transects, spatial grids and blocking factors. However, that function is
-not developed at the moment. Vegan is going to switch to using a
-separate package (permute) for permutations.
+Vegan will move to use permute package in all its permutation tests, but
+currently this package is only used in @code{permutest.betadisper}. The
+permute package will allow restricted permutation designs for time
+series, line transects, spatial grids and blocking factors.
 
 @node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Constrained permutations in vegan, Ordination
 @section How to use different plotting symbols in ordination graphics?
