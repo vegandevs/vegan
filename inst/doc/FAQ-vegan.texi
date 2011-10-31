@@ -38,7 +38,7 @@ Copyright @copyright{} 2008-2011 Jari Oksanen
 @subtitle Version of $Date$ 
 @author Jari Oksanen
 
-@vskip 0pt plus 1filll
+@vskip 0pt plus 1fill
 @insertcopying
 @end titlepage
 
@@ -66,7 +66,7 @@ Copyright @copyright{} 2008-2011 Jari Oksanen
 @chapter Introduction
 
 @menu
-* What is vegan?::              
+* What is vegan?::               
 * What is R?::                  
 * How to obtain vegan and R?::  
 * What R packages vegan depends on?::  
@@ -90,9 +90,9 @@ popular methods of multivariate analysis needed in analysing ecological
 communities, and tools for diversity analysis, and other potentially
 useful functions.  Vegan is not self-contained but it must be run under
 R statistical environment, and it also depends on many other R
-packages. Vegan is @url{http://www.gnu.org/philosophy/free-sw.html, free
+packages. Vegan is @uref{http://www.gnu.org/philosophy/free-sw.html, free
 software} and distributed under
-@url{http://www.gnu.org/licenses/gpl.html, ,GPL2 license}.
+@uref{http://www.gnu.org/licenses/gpl.html, ,GPL2 license}.
 
 @node What is R?, How to obtain vegan and R?, What is vegan?, Introduction
 @section What is R?
@@ -102,11 +102,11 @@ a language plus a run-time environment with graphics, a debugger, access
 to certain system functions, and the ability to run programs stored in
 script files.
 
-R has a home page at @url{http://www.R-project.org/}.  It is
-@url{http://www.gnu.org/philosophy/free-sw.html, free software}
+R has a home page at @uref{http://www.R-project.org/}.  It is
+@uref{http://www.gnu.org/philosophy/free-sw.html, free software}
 distributed under a @acronym{GNU}-style
-@url{http://www.gnu.org/copyleft/copyleft.html, copyleft}, and an
-official part of the @url{http://www.gnu.org/, @acronym{GNU}} project
+@uref{http://www.gnu.org/copyleft/copyleft.html, copyleft}, and an
+official part of the @uref{http://www.gnu.org/, @acronym{GNU}} project
 (``@acronym{GNU} S'').
 
 @node How to obtain vegan and R?, What R packages vegan depends on?, What is R?, Introduction
@@ -220,7 +220,7 @@ is a general progression of version numbers mixed with stable (at
 Vegan version numbers are of type x.y-z, where number y is odd for
 stable release versions at @url{http://cran.r-project.org,,CRAN} and
 even for unstable release versions at
-@url{http://r-forge.r-project.org/projects/vegan,,F-Forge}.
+@url{http://r-forge.r-project.org/projects/vegan,,R-Forge}.
 
 @node How to build vegan from sources?, Are there binaries for devel versions?, Version numbering in vegan, Introduction
 @section How to build vegan from sources?
@@ -325,9 +325,9 @@ non-numeric or negative data entries, you really have them. Check your
 data. Most common reasons for non-numeric data are that row names were
 read as a non-numeric variable instead of being used as row names (check
 argument @code{row.names} in reading the data), or that the column names
-were interpted as data (check argument @code{header = TRUE} in reading
+were interpreted as data (check argument @code{header = TRUE} in reading
 the data). Another common reason is that you had empty cells in your
-input data, and these were interprted as missing values.
+input data, and these were interpreted as missing values.
 
 @node Can you analyse binary or cover class data?, Why dissimilarities in vegan differ from other sources?, I have only numeric and positive data but vegan still complaints, Ordination
 @section Can you analyse binary or cover class data?
@@ -395,7 +395,7 @@ variation'', but now they explain all species equally, and results
 typically are much more useful for the whole community.  Correspondence
 analysis uses another measure of variation (which is not variance), and
 again it typically explains a ``smaller proportion'' than principal
-componentsm but with a better result.  Detrended correspondence analysis
+components but with a better result.  Detrended correspondence analysis
 and nonmetric multidimensional scaling even do not try to ``explain''
 the variation, but use other criteria.  All methods are incommensurable,
 and it is impossible to compare methods using ``explanation of
