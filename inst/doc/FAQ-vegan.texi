@@ -71,15 +71,14 @@ Copyright @copyright{} 2008-2011 Jari Oksanen
 @chapter Introduction
 
 @menu
-* What is @pkg{vegan}?::              
+* What is @pkg{vegan}?::        
 * What is R?::                  
 * How to obtain @pkg{vegan} and R?::  
 * What R packages @pkg{vegan} depends on?::  
 * What other packages are available for ecologists?::  
 * What other documentation is available for @pkg{vegan}?::  
 * Is there a Graphical User Interface (GUI) for @pkg{vegan}?::  
-* How to cite @pkg{vegan}?::          
-* Version numbering in @pkg{vegan}::  
+* How to cite @pkg{vegan}?::    
 * How to build @pkg{vegan} from sources?::  
 * Are there binaries for devel versions?::  
 * How to report a bug in @pkg{vegan}?::  
@@ -213,27 +212,13 @@ workbench for biodiversity analysis. You can install @pkg{BiodiversityR} using
 @code{install.packages("BiodiversityR")} or graphical package
 management menu in R. The GUI works on Windows, MacOS X and Linux.
 
-@node How to cite @pkg{vegan}?, Version numbering in @pkg{vegan}, Is there a Graphical User Interface (GUI) for @pkg{vegan}?, Introduction
+@node How to cite @pkg{vegan}?, How to build @pkg{vegan} from sources?, Is there a Graphical User Interface (GUI) for @pkg{vegan}?, Introduction
 @section How to cite @pkg{vegan}? 
 
 Use command @code{citation("vegan")} in R to see the recommended
 citation to be used in publications. 
 
-@node Version numbering in @pkg{vegan}, How to build @pkg{vegan} from sources?, How to cite @pkg{vegan}?, Introduction
-@section Version numbering in @pkg{vegan}
-
-From version 1.10-0, @pkg{vegan} is developed at
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} and there
-is a general progression of version numbers mixed with stable (at
-@uref{http://cran.r-project.org,,CRAN}) and devel versions (at 
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}). 
-
-@pkg{Vegan} version numbers are of type x.y-z, where number y is odd for
-stable release versions at @uref{http://cran.r-project.org,,CRAN} and
-even for unstable release versions at
-@uref{http://r-forge.r-project.org/projects/vegan,,R-Forge}.
-
-@node How to build @pkg{vegan} from sources?, Are there binaries for devel versions?, Version numbering in @pkg{vegan}, Introduction
+@node How to build @pkg{vegan} from sources?, Are there binaries for devel versions?, How to cite @pkg{vegan}?, Introduction
 @section How to build @pkg{vegan} from sources?
 
 In general, you do not need to build @pkg{vegan} from sources, but binary
@@ -403,8 +388,8 @@ The scaling or @acronym{RDA} results indeed differ from most other
 software packages. The scaling of @acronym{RDA} is such a complicated
 issue that it cannot be explained in this @acronym{FAQ}, but it is
 explained in a separate @acronym{pdf} document on ``Design decision and
-implementation details in @pkg{vegan}'' that you can read with
-@pkg{vegan} command @code{@pkg{vegan}docs("decision")}.
+implementation details in vegan'' that you can read with @pkg{vegan}
+command @code{vegandocs("decision")}.
 
 @node cca fails with ``data.frame expected'' or ``"site.env" missing'', Variance explained by ordination axes, How the RDA results are scaled?, Ordination
 @section cca fails with ``data.frame expected'' or ``"site.env" missing''
@@ -412,9 +397,9 @@ implementation details in @pkg{vegan}'' that you can read with
 This is not a @pkg{vegan} error message, but it comes from the
 @code{cca} function in the @pkg{ade4} package. There is an unfortunate
 name clash, and if you have loaded @pkg{ade4} after @pkg{vegan}, the
-ade4 version of @code{cca} will mask the @pkg{vegan} version. You can
-use the @pkg{vegan} version using command @code{vegan::cca()}. If you do
-not need package @pkg{ade4}, you can detach it with command
+@pkg{ade4} version of @code{cca} will mask the @pkg{vegan} version. You
+can use the @pkg{vegan} version using command @code{vegan::cca()}. If
+you do not need package @pkg{ade4}, you can detach it with command
 @code{detach(package:ade4)}.
 
 @node Variance explained by ordination axes, Is it possible to have passive points in ordination?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Ordination
