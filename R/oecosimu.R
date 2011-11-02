@@ -2,7 +2,7 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
-             parallel = getOption("mc.cores", 1L), ..., cl)
+             parallel = getOption("mc.cores", 1L), ...)
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
@@ -55,10 +55,11 @@
         x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
     }
 
-    ## socket cluster if parallel > 1 (and we can do this)
-    if ((parallel > 1 || !missing(cl))  && require(parallel)) {
-        ## If 'cl' is given (and is a cluster), use it for socket clusters
-        hasClus <- !missing(cl) && inherits(cl, "cluster")
+    ## Go to parallel processing if 'parallel > 1' or 'parallel' could
+    ## be a pre-defined socket cluster or 'parallel = NULL' in which
+    ## case it could be setDefaultCluster (or a user error)
+    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
+    if ((hasClus || parallel > 1)  && require(parallel)) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- mclapply(1:nsimul,
                             function(i)
@@ -69,15 +70,15 @@
         } else {
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
-                cl <- makeCluster(parallel)
+                parallel <- makeCluster(parallel)
                 ## make vegan functions available: others may be unavailable
-                clusterEvalQ(cl, library(vegan))
+                clusterEvalQ(parallel, library(vegan))
             }
-            simind <- parApply(cl, x, 3, function(z)
+            simind <- parApply(parallel, x, 3, function(z)
                                applynestfun(z, fun = nestfun,
                                             statistic = statistic, ...))
             if (!hasClus)
-                stopCluster(cl)
+                stopCluster(parallel)
         }
     } else {
         simind <- apply(x, 3, applynestfun, fun = nestfun,

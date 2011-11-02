@@ -29,7 +29,7 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
-   parallel = getOption("mc.cores", 1L), ..., cl)
+   parallel = getOption("mc.cores", 1L), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -72,29 +72,13 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
     or \code{"less"}.}
-  \item{parallel}{Use parallel processing with \code{parallel} number of
-    processes when evaluating the \code{statistic}. With \code{parallel
-    = 1} uses ordinary, non-parallel processing. The parallel processing
-    is done with \pkg{parallel} package which is available only for \R
-    2.14.0 and later, and uses socket clusters which are available for
-    all operating systems. Due to overhead in setting up and using the
-    cluster, parallel processing is only useful when the estimation of
-    the statistic is slow. Not all functions are available in parallel
-    processing: the error messages on missing functions can be
-    surprsing.} 
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
   \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
-
-  \item{cl}{A socket cluster created with
-    \code{\link[parallel]{makeCluster}} or similar.  Usually command
-    \code{clusterEvalQ(cl, library(vegan))} also must be given. If
-    other packages than \pkg{vegan} are needed for the \code{nestfun},
-    they must be evaluated similarly with
-    \code{\link[parallel]{clusterEvalQ}}. The socket clusters are used
-    in default only in Windows, but if \code{cl} is given, the
-    specified cluster will be used also in other operating systems.}
-
   \item{\dots}{Other arguments to functions.}
 }
 
