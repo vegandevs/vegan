@@ -9,6 +9,11 @@ Version 2.1-6 (opened October 30, 2011)
 	of environmental arrows in cca/rda/capscale/envfit, plus some
 	minor updates of old entries.
 
+	* ordiarrows, ordisegments: gained argument 'order.by' that can be
+	used to order the points within groups before drawing the arrows
+	or segments. This message in R-sig-ecology seems to need this: 
+	https://stat.ethz.ch/pipermail/r-sig-ecology/2011-November/002464.html
+
 	* ordispider: returns invisibly the coordinates to which each
 	point is connected. Triggered by an email query of this
 	functionality. 

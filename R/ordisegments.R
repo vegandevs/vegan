@@ -1,11 +1,19 @@
-"ordisegments" <-
-    function (ord, groups, levels, replicates, display = "sites",
+`ordisegments` <-
+    function (ord, groups, levels, replicates, order.by, display = "sites",
               show.groups, label = FALSE, ...)
 {
     pts <- scores(ord, display = display, ...)
     npoints <- nrow(pts)
     if (missing(groups))
         groups <- gl(levels, replicates, npoints)
+    if (!missing(order.by)) {
+        if (length(order.by) != nrow(pts))
+            stop(gettextf("the length of order.by (%d) does not match the number of points (%d)",
+                 length(order.by), nrow(pts)))
+        ord <- order(order.by)
+        pts <- pts[ord,]
+        groups <- groups[ord]
+    }
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
         pts <- pts[take, , drop = FALSE]

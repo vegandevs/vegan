@@ -11,9 +11,9 @@
   \code{\link{ordiplot}}.  }
 
 \usage{
-ordiarrows(ord, groups, levels, replicates, display = "sites",
+ordiarrows(ord, groups, levels, replicates, order.by, display = "sites",
          show.groups, startmark, label = FALSE, ...)
-ordisegments(ord, groups, levels, replicates, display = "sites",
+ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
          show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
          col = c(1,1), lwd = c(1,1), ...)
@@ -28,6 +28,9 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
     \code{replicates}, where \code{levels} gives the number of groups,
     and \code{replicates} the number of successive items at the same
     group.}
+  \item{order.by}{Order points by increasing order of this variable
+    within \code{groups}. Reverse sign of the variable for decreasing
+    ordering.} 
   \item{display}{Item to displayed. }
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is
