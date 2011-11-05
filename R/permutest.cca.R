@@ -7,10 +7,8 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = 99,
               model = c("reduced", "direct", "full"), first = FALSE,
-              strata = NULL, parallel = 1, ..., kind = c("snow", "multicore")) 
+              strata = NULL, parallel = getOption("mc.cores", 1L) , ...) 
 {
-    kind <- match.arg(kind)
-    parallel <- as.integer(parallel)
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
     isPartial <- !is.null(x$pCCA)
@@ -115,18 +113,24 @@ permutest.default <- function(x, ...)
                          function(x) vegan:::permuted.index(N, strata=strata))) 
     }
     nperm <- nrow(permutations)
-    if (parallel > 1 && getRversion() >= "2.14" && require(parallel)) {
-        if (kind == "snow") {
-            cl <- makeCluster(parallel)
-            clusterEvalQ(cl, library(vegan))
-            tmp <- parRapply(cl, permutations, function(i) getF(i))
-            tmp <- matrix(tmp, ncol=3, byrow=TRUE)
-            stopCluster(cl)
-        } else {
+    ## Parallel processing (similar as in oecosimu)
+    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
+    if ((hasClus || parallel > 1)  && require(parallel)) {
+        if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- do.call(rbind,
                            mclapply(1:nperm,
                                     function(i) getF(permutations[i,]),
                                     mc.cores = parallel))
+        } else {
+            ## if hasClus, do not set up and stop a temporary cluster
+            if (!hasClus) {
+                parallel <- makeCluster(parallel)
+                clusterEvalQ(parallel, library(vegan))
+            }
+            tmp <- parRapply(parallel, permutations, function(i) getF(i))
+            tmp <- matrix(tmp, ncol=3, byrow=TRUE)
+            if (!hasClus)
+                stopCluster(parallel)
         }
     } else {
         tmp <- getF(permutations)

@@ -42,6 +42,8 @@ Version 2.1-6 (opened October 30, 2011)
 	(incl. MacOS X and Linux) to use the socket processing instead of
 	forking.
 
+	* permutest.cca: parallel processing modelled after oecosimu().
+
 Version 2.1-5 (closed October 30, 2011)
 
 	* opened a new version with the release of vegan 2.0-1 on Oct 20,

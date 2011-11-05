@@ -25,8 +25,8 @@ permutest(x, ...)
 
 \method{permutest}{cca}(x, permutations = 99,
           model = c("reduced", "direct", "full"),
-          first = FALSE, strata = NULL, parallel = 1, ..., 
-          kind = c("snow", "multicore"))
+          first = FALSE, strata = NULL, 
+	  parallel = getOption("mc.cores", 1L) , ...)
 }
 
 \arguments{
@@ -55,15 +55,10 @@ permutest(x, ...)
     permutation. If supplied, observations are permuted only within the
     specified strata.}
 
-  \item{parallel, kind}{Number of parallel processes. The parallel
-    processing is only possible in \R version 2.14.x and later. The
-    argument is silently ignored if the system is not capable of
-    parallel processing. There are two \code{kind} of parallelization:
-    \code{kind = "snow"} selects a socket cluster which is available
-    in all operationg systems, and \code{kind = "multicore"} selects a
-    fork cluster that is available only in unix-like systems (Linux,
-    MacOS X), but is usually faster. These arguments are experimental
-    and may change or disappear in any version. }
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
 
 }
 \details{
