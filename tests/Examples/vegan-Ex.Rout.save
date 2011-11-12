@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-6
+This is vegan 2.1-7
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x3745a78>
+<environment: 0x3832a78>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -585,8 +585,8 @@ adonis(formula = dune ~ Management * A1, data = dune.env, permutations = 99)
 
               Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
 Management     3    1.4686 0.48953  3.2629 0.34161   0.01 **
-A1             1    0.4409 0.44089  2.9387 0.10256   0.01 **
-Management:A1  3    0.5892 0.19639  1.3090 0.13705   0.01 **
+A1             1    0.4409 0.44089  2.9387 0.10256   0.02 * 
+Management:A1  3    0.5892 0.19639  1.3090 0.13705   0.18   
 Residuals     12    1.8004 0.15003         0.41878          
 Total         19    4.2990                 1.00000          
 ---
@@ -638,10 +638,10 @@ Run 2 stress 0.08556612
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 1000, strata = dat$field) 
 
-          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)    
-NO3        1  0.055856 0.055856  4.0281 0.28714 0.000999 ***
-Residuals 10  0.138667 0.013867         0.71286             
-Total     11  0.194524                  1.00000             
+          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714 0.008991 **
+Residuals 10  0.138667 0.013867         0.71286            
+Total     11  0.194524                  1.00000            
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -651,10 +651,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 1000) 
 
-          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)    
-NO3        1  0.055856 0.055856  4.0281 0.28714 0.000999 ***
-Residuals 10  0.138667 0.013867         0.71286             
-Total     11  0.194524                  1.00000             
+          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714 0.004995 **
+Residuals 10  0.138667 0.013867         0.71286            
+Total     11  0.194524                  1.00000            
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4695,7 +4695,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x954e888>
+<environment: 0x8c56950>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4711,7 +4711,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x87cc510>
+<environment: 0x9171138>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4867,7 +4867,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x6407078>
+<environment: 0x7ba3778>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4880,7 +4880,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x916f818>
+<environment: 0x92baf50>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4893,7 +4893,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x84c5758>
+<environment: 0x8e2a6a8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7162,7 +7162,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8a4dc68>
+<environment: 0x8f05d28>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7175,14 +7175,14 @@ GCV score: 0.07246275
 Call:
 adonis(formula = dune ~ ., data = dune.env) 
 
-           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-A1          1    0.7230 0.72295  5.2038 0.16817  0.001 ***
-Moisture    3    1.1871 0.39569  2.8482 0.27613  0.001 ***
-Management  3    0.9036 0.30121  2.1681 0.21019  0.001 ***
-Use         2    0.0921 0.04606  0.3315 0.02143  0.001 ***
-Manure      3    0.4208 0.14026  1.0096 0.09787  0.001 ***
-Residuals   7    0.9725 0.13893         0.22621           
-Total      19    4.2990                 1.00000           
+           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
+A1          1    0.7230 0.72295  5.2038 0.16817  0.002 **
+Moisture    3    1.1871 0.39569  2.8482 0.27613  0.003 **
+Management  3    0.9036 0.30121  2.1681 0.21019  0.025 * 
+Use         2    0.0921 0.04606  0.3315 0.02143  0.976   
+Manure      3    0.4208 0.14026  1.0096 0.09787  0.490   
+Residuals   7    0.9725 0.13893         0.22621          
+Total      19    4.2990                 1.00000          
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > adonis(dune ~ Management + Moisture, dune.env)
@@ -7192,7 +7192,7 @@ adonis(formula = dune ~ Management + Moisture, data = dune.env)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 Management  3    1.4686 0.48953  3.7907 0.34161  0.001 ***
-Moisture    3    1.1516 0.38387  2.9726 0.26788  0.001 ***
+Moisture    3    1.1516 0.38387  2.9726 0.26788  0.003 ** 
 Residuals  13    1.6788 0.12914         0.39051           
 Total      19    4.2990                 1.00000           
 ---
@@ -7638,7 +7638,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  49.21 0.408 50.131 0 0 
+Time elapsed:  49.291 0.376 50.073 0 0 
 > grDevices::dev.off()
 null device 
           1 
