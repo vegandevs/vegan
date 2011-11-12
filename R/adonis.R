@@ -104,7 +104,7 @@
         permutations <- ncol(p)
     }
 
-    tH.s <- sapply(H.s, t)
+    tH.s <- lapply(H.s, t)
     tIH.snterm <- t(I-H.snterm)
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
