@@ -10,7 +10,7 @@
     TOL <- 1e-7
     Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
-    lhs <- eval(lhs, data, parent.frame()) # to force evaluation 
+    lhs <- eval(lhs, data, parent.frame()) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
     rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
     op.c <- options()$contrasts
@@ -67,7 +67,7 @@
     F.Mod <- (SS.Exp.each/df.Exp) / (SS.Res/df.Res)
 
 
-    
+
     f.test <- function(tH, G, df.Exp, df.Res, tIH.snterm) {
       ## HERE I TRY CHANGING t(H)  TO tH, and
       ## t(I - H.snterm) to tIH.snterm, so that we don't have
@@ -76,23 +76,23 @@
       ## G is an n x n centered distance matrix
       ## H is the hat matrix from the design (X)
       ## note that for R, * is element-wise multiplication,
-      ## whereas %*% is matrix multiplication. 
+      ## whereas %*% is matrix multiplication.
         (sum(G * tH)/df.Exp) /
           (sum(G * tIH.snterm)/df.Res) }
-  
+
  ### Old f.test
     ### f.test <- function(H, G, I, df.Exp, df.Res, H.snterm){
     ##    (sum( G * t(H) )/df.Exp) /
       ##    (sum( G * t(I-H.snterm) )/df.Res) }
-    
+
     SS.perms <- function(H, G, I){
         c(SS.Exp.p = sum( G * t(H) ),
           S.Res.p=sum( G * t(I-H) )
           ) }
-    
+
     ## Permutations
     if (length(permutations) == 1) {
-        if (missing(strata)) 
+        if (missing(strata))
             strata <- NULL
         p <- replicate(permutations,
                        permuted.index(n, strata=strata))
@@ -103,14 +103,14 @@
                           ncol(p), n))
         permutations <- ncol(p)
     }
-    
+
     tH.s <- sapply(H.s, t)
     tIH.snterm <- t(I-H.snterm)
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
     f.perms <- sapply(1:nterms, function(i) {
         sapply(1:permutations, function(j) {
-            f.test(H.s[[i]], G[p[,j], p[,j]], df.Exp[i], df.Res, tIH.snterm)
+            f.test(tH.s[[i]], G[p[,j], p[,j]], df.Exp[i], df.Res, tIH.snterm)
         } )
     })
     ## Round to avoid arbitrary P-values with tied data
@@ -128,7 +128,7 @@
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"
     class(tab) <- c("anova", class(tab))
-    out <- list(aov.tab = tab, call = match.call(), 
+    out <- list(aov.tab = tab, call = match.call(),
                 coefficients = beta.spp, coef.sites = beta.sites,
                 f.perms = f.perms, model.matrix = rhs, terms = Terms)
     class(out) <- "adonis"
