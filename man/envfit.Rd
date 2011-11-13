@@ -28,7 +28,7 @@ factorfit(X, P, permutations = 0, strata, w, ...)
 \arguments{
   \item{ord}{An ordination object or other structure from which the
     ordination \code{\link{scores}} can be extracted (including a data
-    frame or matrix of scores)}.
+    frame or matrix of scores).}
   \item{env}{Data frame, matrix or vector of environmental
     variables. The variables can be of mixed type (factors, continuous
     variables) in data frames.}
@@ -86,6 +86,19 @@ factorfit(X, P, permutations = 0, strata, w, ...)
   used for easier selection and/or transformation of environmental
   variables. Only the main effects will be analysed even if interaction
   terms were defined in the formula. 
+
+  The printed output of continuous variables (vectors) gives the
+  direction cosines which are the coordinates of the heads of unit
+  length vectors.  In \code{plot} these are scaled by their
+  correlation (square root of the column \code{r2}) so that
+  \dQuote{weak} predictors have shorter arrows than \dQuote{strong}
+  predictors.  You can see the scaled relative lengths using command
+  \code{scores}.  The \code{plot}ted (and scaled) arrows are further
+  adjusted to the current graph using a constant multiplier: this will
+  keep the relative \code{r2}-scaled lengths of the arrows but tries
+  to fill the current plot.  You can see the multiplier using
+  \code{vegan:::ordiArrowMul(result_of_envfit)}, and set it with the
+  argument \code{arrow.mul}.
   
   Functions \code{vectorfit} and \code{factorfit} can be called directly.
   Function \code{vectorfit} finds directions in the ordination space
