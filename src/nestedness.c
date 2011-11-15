@@ -281,7 +281,7 @@ int isDiagFill(int *sm)
 
 void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, got,
+    int row[2], col[2], k, ij[4], changed, 
 	pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
 
@@ -368,7 +368,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 int isDiagSimple(double *sm)
 {
     int i, sX;
-    int retval;
+    int retval = 0;
 
     /* sX: number of non-zero cells */
     for (i = 0, sX = 0; i < 4; i++)
