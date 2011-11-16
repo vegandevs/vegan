@@ -8,6 +8,11 @@ Version 2.1-7 (opened November 12, 2011)
 	transposed matrices to internal f.test function. Reported by
 	Nicholas Lewin-Koh.
 
+	* metaMDS: arguments 'noshare = 0' and 'noshare = FALSE' are now
+	different: zero is taken as the numeric threshold and always
+	triggers stepacross(), whereas FALSE is logical and never triggers
+	stepacross.
+
 Version 2.1-6 (closed November 12, 2011)
 
 	* FAQ: correct mark-up of hyper links (@uref{} instead of @url{}),

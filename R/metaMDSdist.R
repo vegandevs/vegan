@@ -49,7 +49,7 @@
     maxdis <- abs(distfun(matrix(c(7,0,0,3), 2, 2),
                       method = distance, ...) - 1) < 1e-4
     if ((isTRUE(noshare) && any(tmp <- no.shared(comm))) ||
-        (noshare > 0 &&
+        (!is.logical(noshare) && noshare >= 0 &&
          sum(tmp <- no.shared(comm))/length(dis) > noshare)) {
         if (trace) 
             cat("Using step-across dissimilarities:\n")
