@@ -2,6 +2,54 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-2}{
+  \subsection{BUG FIXES}{
+   \itemize{
+
+     \item Function \code{capscale} failed if constrained component
+     had zero rank. This happened most likely in partial models when
+     the conditions aliased constraints. The problem was observed in
+     \code{anova(..., by ="margin")} which uses partial models to
+     analyses the marginal effects, and was reported in an email
+     message to
+     \href{https://stat.ethz.ch/pipermail/r-help/2011-October/293077.html}{R-News
+     mailing list}.
+
+     \item \code{stressplot} and \code{goodness} sometimes failed when
+     \code{metaMDS} was based on \code{isoMDS} (\pkg{MASS} package)
+     because \code{metaMDSdist} did not use the same defaults for
+     step-across (extended) dissimilarities as \code{metaMDS(...,
+     engine = "isoMDS")}. The change of defaults can also influence
+     triggering of step-across in \code{capscale(..., metaMDSdist =
+     TRUE)}.
+
+   \item \code{adonis} contained a minor bug resulting from incomplete
+   implementation of a speed-up that did not affect the results. In
+   fixing this bug, a further bug was identified in transposing the hat
+   matrices. This second bug was only active following fixing of the
+   first bug. In fixing both bugs, a speed-up in the internal f.test()
+   function is fully realised. Reported by Nicholas Lewin-Koh.
+   
+     }
+ }  % end bug fixes 
+ 
+ \subsection{NEW FEATURES}{
+   \itemize{
+
+     \item \code{ordiarrows} and \code{ordisegments} gained argument
+     \code{order.by} that gives a variable to sort points within
+     \code{groups}. Earlier the points were assumed to be in order.
+      
+     \item Function \code{ordispider} invisibly returns the
+     coordinates to which the points were connected.  Typically these
+     are class centroids of each point, but for constrained ordination
+     with no \code{groups} they are the LC scores.
+
+    }		 
+  }  %end new features
+		  
+} %end version 2.0-2
+
 \section{Changes in version 2.0-1}{
   \subsection{NEW FUNCTIONS}{
     \itemize{
@@ -27,8 +75,8 @@
       species and analytic equations. The new \code{raupcrick}
       function uses simulation with \code{oecosimu}. The function
       follows Chase et al. (2011) \emph{Ecosphere} 2:art24
-      [doi:10.1890/ES10-00117.1], and was developed with the
-      consultation of Brian Inouye.
+      [\href{http://www.esajournals.org/doi/abs/10.1890/ES10-00117.1}{doi:10.1890/ES10-00117.1}],
+      and was developed with the consultation of Brian Inouye.
 
     }
   } % end NEW FUNCTIONS
@@ -36,9 +84,10 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item Function \code{meandist} can scramble items and give wrong
-      results, especially when the \code{grouping} was numerical. The
-      problem was reported by Dr Miguel Alvarez (Univ. Bonn).
+      \item Function \code{meandist} could scramble items and give
+      wrong results, especially when the \code{grouping} was
+      numerical. The problem was reported by Dr Miguel Alvarez
+      (Univ. Bonn).
 
       \item \code{metaMDS} did not reset \code{tries} when a new model
       was started with a \code{previous.best} solution from a different
