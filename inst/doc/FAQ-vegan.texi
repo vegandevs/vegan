@@ -497,22 +497,29 @@ documentation.
 @node How are environmental arrows scaled?, I want to use Helmert or sum contrasts, Class variables and dummies, Ordination
 @section How are environmental arrows scaled?
 
-Arrows for continuous environmental variables in constrained ordination
-(@code{cca}, @code{rda}, @code{capscale}) and fitted environmental
-vectors from @code{envfit} are scaled to fill the current graph.  The
-lengths of arrows do not have fixed meaning with respect to the points
-(species, sites), but they can only compared against each other, and
-therefore only their relative lengths are important. 
+The printed output of @code{envfit} gives the direction cosines which
+are the coordinates of unit length arrows. For plotting, these are
+scaled by their correlation (square roots of column @code{r2}). You can
+see the scaled lengths of @code{envfit} arrows using command
+@code{scores}.
 
-If you really want change the scaling of the arrows, you can use
-@code{text} (plotting arrows and text) or @code{points} (plotting only
-arrows) functions for constrained ordination. These functions have
-argument @code{arrow.mul} which sets the multiplier.  The @code{plot}
-function for @code{envfit} also has the @code{arrow.mul} argument to set
-the arrow multiplier.  If you save the invisible result of the
-constrained ordination @code{plot} command, you can see the value of the
-currently used @code{arrow.mul} which is saved as an attribute of
-@code{biplot} scores. 
+The scaled environmental vectors from @code{envfit} and the arrows for
+continuous environmental variables in constrained ordination
+(@code{cca}, @code{rda}, @code{capscale}) are adjusted to fill the
+current graph.  The lengths of arrows do not have fixed meaning with
+respect to the points (species, sites), but they can only compared
+against each other, and therefore only their relative lengths are
+important.
+
+If you want change the scaling of the arrows, you can use @code{text}
+(plotting arrows and text) or @code{points} (plotting only arrows)
+functions for constrained ordination. These functions have argument
+@code{arrow.mul} which sets the multiplier.  The @code{plot} function
+for @code{envfit} also has the @code{arrow.mul} argument to set the
+arrow multiplier.  If you save the invisible result of the constrained
+ordination @code{plot} command, you can see the value of the currently
+used @code{arrow.mul} which is saved as an attribute of @code{biplot}
+scores.
 
 An unexported function @code{ordiArrowMul} is used to find the scaling
 for the current plot. You can use this function to see how arrows would
