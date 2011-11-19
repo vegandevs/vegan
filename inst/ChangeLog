@@ -2,7 +2,15 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-7 (opened November 12, 2011)
+Version 2.1-8 (opened November 19, 2011)
+
+	* rarecurve: new function to draw rarefaction curves for each
+	plot, optionally with sample size vertical and corresponding
+	horizontal richness lines. Soil microbiologists with sequencing
+	data seem to want these, and I have seen them used elsewhere as
+	well. 
+	
+Version 2.1-7 (closed November 19, 2011)
 
 	* adonis: speed up implemented in r1636 was not passing the
 	transposed matrices to internal f.test function. Reported by
@@ -12,6 +20,8 @@ Version 2.1-7 (opened November 12, 2011)
 	different: zero is taken as the numeric threshold and always
 	triggers stepacross(), whereas FALSE is logical and never triggers
 	stepacross.
+
+	* vegan 2.0-2 was released on November 15, based on this version.
 
 Version 2.1-6 (closed November 12, 2011)
 
