@@ -80,9 +80,8 @@ specnumber(x, groups, MARGIN = 1)
   the input data. The rarefaction curves are evaluated using the
   interval of \code{step} sample sizes, always including 1 and total
   sample size.  If \code{sample} is specified, a vertical line is
-  drawn at \code{sample} with horizontal lines for the sections of
-  rarefaction curves and the vertical \code{sample} size to show the
-  rarefied sample sizes.
+  drawn at \code{sample} with horizontal lines for the rarefied
+  species richnesses.
 
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
@@ -173,6 +172,12 @@ data(dune.env)
 alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
 gamma <- with(dune.env, specnumber(dune, Management))
 gamma/alpha - 1
+## Rarefaction
+(raremax <- min(rowSums(BCI)))
+Srare <- rarefy(BCI, raremax)
+plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+abline(0, 1)
+rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 }
 \keyword{ univar }
 

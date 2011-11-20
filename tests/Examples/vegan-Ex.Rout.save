@@ -1,8 +1,8 @@
 
-R version 2.14.0 Patched (2011-11-04 r57571)
+R version 2.14.0 Patched (2011-11-05 r57575)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin10.8.0/x86_64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-7
+This is vegan 2.1-8
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x3832a78>
+<environment: 0x101fb3ad8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -2334,7 +2334,8 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy fisher.alpha specnumber
+> ### Aliases: diversity rarefy rrarefy drarefy rarecurve fisher.alpha
+> ###   specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2360,6 +2361,13 @@ Groups sizes
 > gamma/alpha - 1
        BF        HF        NM        SF 
 0.5483871 0.6666667 1.6250000 1.2909091 
+> ## Rarefaction
+> (raremax <- min(rowSums(BCI)))
+[1] 340
+> Srare <- rarefy(BCI, raremax)
+> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+> abline(0, 1)
+> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -4695,10 +4703,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8c56950>
+<environment: 0x109f03a28>
 
 Estimated degrees of freedom:
-6.4351  total = 7.43507 
+6.4351  total = 7.435071 
 
 GCV score: 144.1236
 > 
@@ -4711,7 +4719,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9171138>
+<environment: 0x109004d48>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4723,13 +4731,13 @@ GCV score: 140.0949
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
+22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
          8          9         10         11         12         13         14 
-11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
+11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
         15         16         17         18         19         20         21 
-18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
+18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
         22         23         24 
- 3.0020415  9.8128952  7.3656934 
+ 3.0020413  9.8128952  7.3656932 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -4867,7 +4875,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x7ba3778>
+<environment: 0x109ae36b0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4880,7 +4888,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x92baf50>
+<environment: 0x10abfbc78>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4893,7 +4901,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8e2a6a8>
+<environment: 0x109acbc08>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5659,8 +5667,8 @@ Rotation matrix:
 [2,] 0.1169579  0.9931369
 
 Translation of averages:
-            [,1]         [,2]
-[1,] 1.79048e-17 9.246476e-19
+             [,1]          [,2]
+[1,] 1.047183e-17 -1.381645e-17
 
 Scaling of target:
 [1] 0.6736868
@@ -6501,7 +6509,7 @@ Antodo 1.6055439 7.575379e-01
 Salrep 0.7118892 8.654457e-02
 Achmil 1.5948052 8.449914e-01
 Poatri 0.7367577 7.099165e-01
-Chealb 1.9479718 6.661338e-16
+Chealb 1.9479718 2.220446e-16
 Elyrep 0.5160932 5.135604e-01
 Sagpro 1.3031750 1.019154e+00
 Plalan 1.7013794 6.393173e-01
@@ -7162,7 +7170,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8f05d28>
+<environment: 0x108e4e190>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7605,13 +7613,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
+ 9.992007e-16 -6.106227e-16  8.881784e-16 -2.775558e-17  2.220446e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
+ 9.714451e-17  9.714451e-17  4.163336e-17 -1.387779e-17  8.326673e-17 
          CA11          CA12          CA13          CA14          CA15 
- 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
+ 7.632783e-17  1.040834e-16 -2.081668e-17  4.510281e-17  1.908196e-17 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
+-1.908196e-17  0.000000e+00  7.025630e-17  2.125036e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -7620,7 +7628,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
-    0 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -7638,7 +7646,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  49.291 0.376 50.073 0 0 
+Time elapsed:  108.43 2.371 111.048 0 0 
 > grDevices::dev.off()
 null device 
           1 
