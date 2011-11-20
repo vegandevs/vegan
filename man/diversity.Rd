@@ -38,8 +38,8 @@ specnumber(x, groups, MARGIN = 1)
   \item{label}{Label rarefaction curves by rownames of \code{x} (logical).}
   \item{groups}{A grouping factor: if given, finds the total number of
     species in each group.}
-  \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}} 
-    and \code{link{link{lines}} in \code{rarecurve}.}
+  \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}}, 
+    \code{\link{lines}} and \code{\link{ordilabel}} in \code{rarecurve}.}
 }
 \details{
   Shannon or Shannon--Weaver (or Shannon--Wiener) index is defined as
