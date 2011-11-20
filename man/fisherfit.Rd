@@ -186,8 +186,7 @@ as.preston(x, tiesplit = TRUE, ...)
   distribution. \emph{Journal of Animal Ecology} 74, 409--422.
 }
 
-\author{Bob O'Hara \email{bob.ohara@helsinki.fi} (\code{fisherfit})
-and Jari Oksanen. }
+\author{Bob O'Hara (\code{fisherfit}) and Jari Oksanen. }
 
 \seealso{\code{\link{diversity}}, \code{\link{fisher.alpha}},
   \code{\link{radfit}}, \code{\link{specpool}}. Function

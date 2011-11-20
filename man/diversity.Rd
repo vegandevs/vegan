@@ -149,8 +149,7 @@ specnumber(x, groups, MARGIN = 1)
 \seealso{Function \code{renyi} for generalized \enc{Rényi}{Renyi}
   diversity and Hill numbers.}
 
-\author{ Jari Oksanen  and  Bob O'Hara \email{bob.ohara@helsinki.fi}
-    (\code{fisher.alpha}).}
+\author{ Jari Oksanen  and  Bob O'Hara (\code{fisher.alpha}).}
 
 \examples{
 data(BCI)
