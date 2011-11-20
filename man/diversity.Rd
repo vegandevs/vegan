@@ -120,7 +120,7 @@ specnumber(x, groups, MARGIN = 1)
   and if \code{se = TRUE}, rarefied richness and its standard error are
   on consecutive lines.
 
-  Function \code{rarecurve} retunrs \code{\link{invisible}} list of
+  Function \code{rarecurve} returns \code{\link{invisible}} list of
   \code{rarefy} results corresponding each drawn curve.
 
   With option \code{se = TRUE}, function \code{fisher.alpha} returns a
