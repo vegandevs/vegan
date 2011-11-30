@@ -4,6 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-8 (opened November 19, 2011)
 
+	* betadisper: failed with an error in internal function
+	betadisper() if there were empty levels. This could happen when
+	'groups' was a factor with empty levels, and was reported in 
+	https://stat.ethz.ch/pipermail/r-sig-ecology/2011-November/002525.html
+	The behaviour is now corrected in ordimedian() which will return NA
+	for empty factor levels. 
+	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding
 	horizontal richness lines. Soil microbiologists with sequencing

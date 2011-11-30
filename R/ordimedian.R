@@ -21,12 +21,13 @@
     #dmedfun <- NULL
     pts <- scores(ord, display = display, ...)
     inds <- names(table(groups))
-    medians <- matrix(0, nrow = length(inds), ncol = ncol(pts))
+    medians <- matrix(NA, nrow = length(inds), ncol = ncol(pts))
     rownames(medians) <- inds
     colnames(medians) <- colnames(pts)
     for (i in inds) {
         X <- pts[groups == i, , drop = FALSE]
-        medians[i, ] <- optim(apply(X, 2, median, na.rm = TRUE),
+        if (NROW(X) > 0)
+            medians[i, ] <- optim(apply(X, 2, median, na.rm = TRUE),
                               fn = medfun, gr = dmedfun,
                               ord = X, method = "BFGS")$par
         if(label)
