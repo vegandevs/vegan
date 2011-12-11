@@ -5,6 +5,8 @@
 \alias{nestedn0}
 \alias{nesteddisc}
 \alias{nestednodf}
+\alias{nestedbetasor}
+\alias{nestedbetajac}
 \alias{plot.nestedtemp}
 
 \title{ Nestedness Indices for Communities of Islands or Patches }
@@ -22,6 +24,8 @@ nestedn0(comm)
 nesteddisc(comm)
 nestedtemp(comm, ...)
 nestednodf(comm, order = TRUE, weighted = FALSE)
+nestedbetasor(comm)
+nestedbetajac(comm)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidence"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
 }
@@ -106,7 +110,21 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   al. 2008). With \code{weighted = TRUE}, the function finds the
   weighted version of the index (Almeida-Neto & Ulrich,
   2011). However, this requires quantitative null models for adequate
-  testing.}
+  testing.
+
+  Functions \code{nestedbetasor} and \code{nestedbetajac} find
+  multiple-site dissimilarities and decompose these into components of
+  turnover and nestedness following Baselga (2010). This can be seen
+  as a decomposition of beta diversity (see \code{\link{betadiver}}).
+  Function \code{nestedbetasor} uses \enc{Sørensen}{Sorensen}
+  dissimilarity and the turnover component is Simpson dissimilarity
+  (Baselga 2010), and \code{nestedbetajac} uses analogous methods with
+  the Jaccard index. The functions return a vector of three items:
+  turnover, nestedness and their sum which is the multiple
+  \enc{Sørensen}{Sorensen} or Jaccard dissimilarity. The last one is
+  the total beta diversity (Baselga 2010).
+
+}
 
 \value{
   The result returned by a nestedness function contains an item called
@@ -129,6 +147,10 @@ nestednodf(comm, order = TRUE, weighted = FALSE)
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
   disorder in the distribution of species in fragmented
   habitat. \emph{Oecologia} 96, 373--382.
+
+  Baselga, A. (2010). Partitioning the turnover and nestedness
+  components of beta diversity. \emph{Global Ecol. Biogeog.} 19,
+  134--143.
 
   Brualdi, R.A. & Sanderson, J.G. (1999). Nested species subsets, gaps,
   and discrepancy. \emph{Oecologia} 119, 256--264.

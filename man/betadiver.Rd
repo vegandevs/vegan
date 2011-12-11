@@ -98,20 +98,34 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   with a warning. }
 
 \references{
-Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta
-diversity for presence-absence data. \emph{Journal of Animal Ecology}
-72, 367--382.
 
-Whittaker, R.H. (1960) Vegetation of Siskiyou mountains, Oregon and
- California. \emph{Ecological Monographs} 30, 279--338.
+  Baselga, A. (2010) Partitioning the turnover and nestedness
+  components of beta diversity. \emph{Global Ecology and Biogeography}
+  19, 134--143.
+
+  Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta
+  diversity for presence-absence data. \emph{Journal of Animal
+  Ecology} 72, 367--382.
+
+  Whittaker, R.H. (1960) Vegetation of Siskiyou mountains, Oregon and
+  California. \emph{Ecological Monographs} 30, 279--338.
+
  }
+
 \author{Jari Oksanen }
 \section{Warning }{Some indices return similarities instead of dissimilarities.} 
 
 \seealso{ \code{\link{designdist}} for an alternative to implement all
-these functions, \code{\link{vegdist}} for some canned alternatives,
-and \code{\link{betadisper}}, \code{\link{adonis}},
-\code{\link{mantel}} for analysing beta diversity objects.}
+  these functions, \code{\link{vegdist}} for some canned alternatives,
+  and \code{\link{betadisper}}, \code{\link{adonis}},
+  \code{\link{mantel}} for analysing beta diversity objects.
+  Functions \code{\link{nestedbetasor}} and
+  \code{\link{nestedbetajac}} implement decomposition beta diversity
+  measures (\enc{Sørensen}{Sorensen} and Jaccard) into turnover and
+  nestedness components following Baselga (2010).
+}
+
+
 \examples{
 ## Raw data and plotting
 data(sipoo)

@@ -10,6 +10,12 @@ Version 2.1-8 (opened November 19, 2011)
 	https://stat.ethz.ch/pipermail/r-sig-ecology/2011-November/002525.html
 	The behaviour is now corrected in ordimedian() which will return NA
 	for empty factor levels. 
+
+	* nestedbetasor, nestedbetajac: New functions that implement
+	decomposition of Sorensen and Jaccard beta diversities into
+	components of turnover and nestedness following Baselga (Global
+	Ecology and Biogeography 19, 134-143; 2010). These are documented
+	with nestedness indices and are ready to be used with oecosimu().
 	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding
