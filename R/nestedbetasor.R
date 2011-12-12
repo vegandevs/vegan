@@ -1,3 +1,8 @@
+### Multiple-site dissimilarity indices (Sorensen & Jaccard) and their
+### decomposition into "turnover" and "nestedness" following Baselga
+### (Global Ecology & Biogeography 19, 134-143; 2010). Implemented as
+### nestedness functions and directly usable in oecosimu().
+
 `nestedbetasor` <-
     function(comm)
 {
