@@ -124,11 +124,11 @@ nestedbetajac(comm)
   \enc{Sørensen}{Sorensen} or Jaccard dissimilarity. The last one is
   the total beta diversity (Baselga 2010). The functions will treat
   data as presence/absence (binary) and they can be used with binary
-  null models (see \code{\link{commsimulator}}). The overall
-  dissimilarity is constant in all null models that fix species
-  (column) frequencies (\code{"c0"}), and all components are constant
-  if row columns are also fixed (e.g., model \code{"quasiswap"}), and
-  the functions are not meaningful with these null models.
+  \code{\link{nullmodel}}). The overall dissimilarity is constant in
+  all \code{\link{nullmodel}}s that fix species (column) frequencies
+  (\code{"c0"}), and all components are constant if row columns are
+  also fixed (e.g., model \code{"quasiswap"}), and the functions are
+  not meaningful with these null models.
 
 }
 
