@@ -12,7 +12,7 @@
                        two.sided = "not equal to",
                        less = "less than",
                        greater = "greater than")
-    cat("\nalternative hypothesis: true mean is", alt.char, "the statistic")
+    cat("\nalternative hypothesis: simulated median is", alt.char, "the statistic")
     ## dim attribute is always there, but print all others
 
     cat("\n\n")
