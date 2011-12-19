@@ -18,7 +18,8 @@ Version 2.1-8 (opened November 19, 2011)
 	with nestedness indices and are ready to be used with oecosimu().
 
 	* oecosimu: more informative text on 'alternative' hypotheses in
-	the printed output.
+	the printed output. Return also the mean of simulations and show
+	that in the printed output.
 	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding

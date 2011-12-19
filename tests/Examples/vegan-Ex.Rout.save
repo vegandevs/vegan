@@ -1,8 +1,8 @@
 
-R Under development (unstable) (2011-12-11 r57866)
+R version 2.14.1 RC (2011-12-19 r57935)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin10.8.0/x86_64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-11. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2a7ab40>
+<environment: 0x101fd2bc8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -3962,24 +3962,24 @@ C-score (species mean): 2.258776
 > oecosimu(sipoo, nestedchecker, "quasiswap")
 oecosimu with 99 simulations
 simulation method ‘quasiswap’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-           statistic          z       2.5%        50%  97.5% Pr(sim.)
-statistic 2767.00000    0.84129 2584.40000 2676.00000 2858.1     0.39
+          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
+statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 oecosimu with 99 simulations
 simulation method ‘r00’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic        z     2.5%      50%  97.5% Pr(sim.)   
-C.score    2.2588 -28.9196   8.6935   9.2384 9.6053     0.01 **
+        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)   
+C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4097,13 +4097,13 @@ Start = 11, End = 60, Thin = 5
 > oecosimu(sipoo, nestedchecker, "r0")
 oecosimu with 99 simulations
 simulation method ‘r0’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic        z     2.5%      50%  97.5% Pr(sim.)   
-statistic  2767.000  -17.768 7529.850 8052.000 8518.5     0.01 **
+          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
+statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## sequential model, one-sided test, a vector statistic
@@ -4112,7 +4112,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > out
 oecosimu with 99 simulations
 simulation method ‘swap’ with thin 10, burnin 100
-alternative hypothesis: true mean is less than the statistic
+alternative hypothesis: simulated median is less than the statistic
 
 
 Call:
@@ -4127,11 +4127,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic         z        0%       50%    95% Pr(sim.)  
-DCA1  0.382249  1.865783  0.230869  0.323729 0.3726     0.02 *
-DCA2  0.261208  1.577196  0.149703  0.216169 0.2637     0.09 .
-DCA3  0.166788  0.520903  0.105269  0.155716 0.1859     0.30  
-DCA4  0.087226 -1.982236  0.066742  0.126492 0.1649     0.99  
+     statistic       z     mean       0%      50%    95% Pr(sim.)  
+DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
+DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
+DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
+DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Inspect the swap sequence as a time series object
@@ -4150,10 +4150,10 @@ Loading required package: lattice
 > mbc1
 oecosimu with 99 simulations
 simulation method ‘r2dtable’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
-          statistic        z     2.5%      50%  97.5% Pr(sim.)   
-statistic   0.64565 13.06023  0.44057  0.46544 0.4924     0.01 **
+          statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
+statistic   0.64565 13.06 0.46704 0.44057 0.46544 0.4924     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4170,10 +4170,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > oecosimu(dune, meandist, cf)
 oecosimu with 99 simulations
 simulation method ‘myshuffle’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
-          statistic       z    2.5%     50%  97.5% Pr(sim.)  
-statistic   0.64565 3.11878 0.62983 0.63557 0.6416     0.03 *
+          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
+statistic   0.64565 3.1188 0.63551 0.62983 0.63557 0.6416     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4696,17 +4696,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-11. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8ad2b48>
+<environment: 0x109aa0980>
 
 Estimated degrees of freedom:
-6.4351  total = 7.43507 
+6.4351  total = 7.435071 
 
 GCV score: 144.1236
 > 
@@ -4719,7 +4719,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x995d978>
+<environment: 0x10960fbf0>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4731,13 +4731,13 @@ GCV score: 140.0949
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
+22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
          8          9         10         11         12         13         14 
-11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
+11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
         15         16         17         18         19         20         21 
-18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
+18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
         22         23         24 
- 3.0020415  9.8128952  7.3656934 
+ 3.0020413  9.8128952  7.3656932 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -4868,14 +4868,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-11. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8dbccd8>
+<environment: 0x10b083f78>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4888,7 +4888,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x999e6a8>
+<environment: 0x10a09aa28>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4901,7 +4901,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x936c760>
+<environment: 0x10b2cb3f8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5667,8 +5667,8 @@ Rotation matrix:
 [2,] 0.1169579  0.9931369
 
 Translation of averages:
-            [,1]         [,2]
-[1,] 1.79048e-17 9.246476e-19
+             [,1]          [,2]
+[1,] 1.047183e-17 -1.381645e-17
 
 Scaling of target:
 [1] 0.6736868
@@ -6509,7 +6509,7 @@ Antodo 1.6055439 7.575379e-01
 Salrep 0.7118892 8.654457e-02
 Achmil 1.5948052 8.449914e-01
 Poatri 0.7367577 7.099165e-01
-Chealb 1.9479718 6.661338e-16
+Chealb 1.9479718 2.220446e-16
 Elyrep 0.5160932 5.135604e-01
 Sagpro 1.3031750 1.019154e+00
 Plalan 1.7013794 6.393173e-01
@@ -6582,29 +6582,29 @@ Scaling: 2
 > oecosimu(dune, treedive, "r0", tree = cl)
 oecosimu with 99 simulations
 simulation method ‘r0’
-alternative hypothesis: true mean is not equal to the statistic
+alternative hypothesis: simulated median is not equal to the statistic
 
-    statistic          z       2.5%        50%  97.5% Pr(sim.)   
-2  411.981567  -3.174838 462.373272 577.880184 673.73     0.01 **
-13 548.847926  -0.391605 464.447005 565.898618 664.40     0.71   
-4  606.912442  -1.670683 584.493088 694.009217 791.24     0.13   
-16 479.262673  -0.364249 364.516129 502.304147 591.24     0.53   
-6  572.350230  -0.652353 510.253456 609.216590 717.05     0.63   
-1  249.308756  -2.584802 264.700461 367.281106 435.37     0.05 * 
-8  692.165899   0.891185 550.276498 643.778802 747.93     0.45   
-5  640.092166  -1.331165 613.870968 724.884793 830.41     0.25   
-17 341.935484  -2.279642 373.271889 441.474654 538.59     0.03 * 
-15 599.539171   1.874784 395.852535 491.705069 599.54     0.09 . 
-10 563.594470  -1.618219 553.801843 660.829493 723.46     0.11   
-11 564.055300   0.531521 418.433180 536.405530 634.15     0.77   
-9  625.806452  -1.015424 548.387097 694.009217 778.80     0.31   
-18 543.317972   0.090292 411.820276 543.317972 626.68     1.00   
-3  489.400922  -1.486983 460.483871 567.281106 673.73     0.15   
-20 578.801843   1.595836 408.709677 495.391705 585.65     0.11   
-14 547.926267   1.912479 370.967742 462.211982 544.19     0.07 . 
-19 593.087558   0.978571 439.170507 527.188940 642.86     0.49   
-12 572.350230   0.797098 425.460829 527.188940 642.86     0.33   
-7  646.543779  -0.606963 576.152074 681.566820 770.51     0.53   
+   statistic         z   mean   2.5%    50%  97.5% Pr(sim.)   
+2     411.98 -3.174838 580.78 462.37 577.88 673.73     0.01 **
+13    548.85 -0.391605 569.18 464.45 565.90 664.40     0.71   
+4     606.91 -1.670683 693.49 584.49 694.01 791.24     0.13   
+16    479.26 -0.364249 500.03 364.52 502.30 591.24     0.53   
+6     572.35 -0.652353 610.06 510.25 609.22 717.05     0.63   
+1     249.31 -2.584802 362.63 264.70 367.28 435.37     0.05 * 
+8     692.17  0.891185 646.01 550.28 643.78 747.93     0.45   
+5     640.09 -1.331165 720.26 613.87 724.88 830.41     0.25   
+17    341.94 -2.279642 449.35 373.27 441.47 538.59     0.03 * 
+15    599.54  1.874784 494.62 395.85 491.71 599.54     0.09 . 
+10    563.59 -1.618219 648.58 553.80 660.83 723.46     0.11   
+11    564.06  0.531521 534.78 418.43 536.41 634.15     0.77   
+9     625.81 -1.015424 685.40 548.39 694.01 778.80     0.31   
+18    543.32  0.090292 538.71 411.82 543.32 626.68     1.00   
+3     489.40 -1.486983 575.24 460.48 567.28 673.73     0.15   
+20    578.80  1.595836 500.98 408.71 495.39 585.65     0.11   
+14    547.93  1.912479 457.16 370.97 462.21 544.19     0.07 . 
+19    593.09  0.978571 538.05 439.17 527.19 642.86     0.49   
+12    572.35  0.797098 531.20 425.46 527.19 642.86     0.33   
+7     646.54 -0.606963 678.97 576.15 681.57 770.51     0.53   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Clustering of tree distances
@@ -7163,14 +7163,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-11. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9403288>
+<environment: 0x10b2f4d80>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7613,13 +7613,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
+ 9.992007e-16 -6.106227e-16  8.881784e-16 -2.775558e-17  2.220446e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
+ 9.714451e-17  9.714451e-17  4.163336e-17 -1.387779e-17  8.326673e-17 
          CA11          CA12          CA13          CA14          CA15 
- 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
+ 7.632783e-17  1.040834e-16 -2.081668e-17  4.510281e-17  1.908196e-17 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
+-1.908196e-17  0.000000e+00  7.025630e-17  2.125036e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -7628,7 +7628,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
-    0 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -7646,7 +7646,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.593 0.132 25.82 0 0 
+Time elapsed:  90.026 2.277 98.239 0 0 
 > grDevices::dev.off()
 null device 
           1 

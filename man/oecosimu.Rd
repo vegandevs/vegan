@@ -156,13 +156,15 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   load the \pkg{lattice} library before calling \code{densityplot}.
 }
 
-\value{
-  Function \code{oecosimu} returns the result of \code{nestfun} 
-  added with a component called \code{oecosimu}. The \code{oecosimu}
+\value{ 
+  Function \code{oecosimu} returns the result of \code{nestfun} added
+  with a component called \code{oecosimu}. The \code{oecosimu}
   component contains the simulated values of the statistic (item
   \code{simulated}), the name of the \code{method}, \eqn{P} value
-  (with given \code{alternative}) and \eqn{z}-value of the statistic
-  based on simulation.  }
+  (with given \code{alternative}), \eqn{z}-value of the statistic
+  based on simulation (also known as standardized effect size), and
+  the means of simultions.  
+}
 
 \references{
   Hardy, O. J. (2008) 
