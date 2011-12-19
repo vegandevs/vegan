@@ -1,7 +1,7 @@
 `oecosimu` <-
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
-             alternative = c("two.sided", "less", "greater"),
+             alternative = c("two.sided", "less", "greater", "pick"),
              parallel = getOption("mc.cores", 1L), ...)
 {
     alternative <- match.arg(alternative)
@@ -106,7 +106,8 @@
     p <- switch(alternative,
                 two.sided = 2*pmin(pless, pmore),
                 less = pless,
-                greater = pmore)
+                greater = pmore,
+                pick = pmin(pless, pmore))
     p <- pmin(1, (p + 1)/(nsimul + 1))
     
     ## ADDITION: if z is NA then it is not correct to calculate p values

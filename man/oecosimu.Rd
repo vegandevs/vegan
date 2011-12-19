@@ -28,7 +28,8 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
+   statistic = "statistic", 
+   alternative = c("two.sided", "less", "greater", "pick"), 
    parallel = getOption("mc.cores", 1L), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
@@ -70,8 +71,11 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{statistic}{The name of the statistic returned by
     \code{nestfun}.} 
   \item{alternative}{a character string specifying the alternative
-    hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
-    or \code{"less"}.}
+    hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"},
+    \code{"less"} or \code{"pick"}. The case \code{"pick"} analyses both 
+    \code{"greater"} and \code{"less"} one-sided tests and selects the one 
+    with lower  \eqn{p}-value; this is not recommended but is provided for 
+    compatibility with some other software.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
