@@ -71,7 +71,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     \code{nestfun}.} 
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
-    or \code{"less"}.}
+    or \code{"less"}. Please note that the \eqn{p}-value of two-sided
+    test is approximately two times higher than in the corresponding
+    one-sided test (\code{"greater"} or \code{"less"} depending on the
+    sign of the difference).}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -163,7 +166,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \code{simulated}), the name of the \code{method}, \eqn{P} value
   (with given \code{alternative}), \eqn{z}-value of the statistic
   based on simulation (also known as standardized effect size), and
-  the means of simultions.  
+  the mean of simulations.  
 }
 
 \references{
