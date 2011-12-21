@@ -11,8 +11,7 @@
     alt.char <- switch(x$oecosimu$alternative,
                        two.sided = "not equal to",
                        less = "less than",
-                       greater = "greater than",
-                       pick = "less or greater than")
+                       greater = "greater than")
     cat("\nalternative hypothesis: simulated median is", alt.char, "the statistic")
     ## dim attribute is always there, but print all others
 
@@ -25,8 +24,7 @@
     probs <- switch(x$oecosimu$alternative,
                     two.sided = c(0.025, 0.5, 0.975),
                     less = c(0, 0.5, 0.95),
-                    greater = c(0.05, 0.5, 1),
-                    pick = c(0.05, 0.5, 0.95))
+                    greater = c(0.05, 0.5, 1))
     qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs, na.rm = TRUE)
     m <- cbind("statistic" = x$oecosimu$statistic,
                "z" = x$oecosimu$z, "mean" = x$oecosimu$means, t(qu),

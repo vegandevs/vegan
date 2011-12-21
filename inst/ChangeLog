@@ -19,13 +19,7 @@ Version 2.1-8 (opened November 19, 2011)
 
 	* oecosimu: more informative text on 'alternative' hypotheses in
 	the printed output. Return also the mean of simulations and show
-	that in the printed output. Added 'alternative = "pick"' which
-	performs two one-sided tests (both "less" and "greater"), and
-	returns the results of the one with lower p-value. This does not
-	sound fair, but is provided for compatibility with EcosSim.exe
-	which returns both one-way tests for authors to choose (and
-	presumably they often pick the lower p-value, and if they know,
-	they can use specific 'alternative' in oecosimu()).
+	that in the printed output.
 	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding
