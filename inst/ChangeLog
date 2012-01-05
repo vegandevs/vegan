@@ -20,6 +20,9 @@ Version 2.1-8 (opened November 19, 2011)
 	* oecosimu: more informative text on 'alternative' hypotheses in
 	the printed output. Return also the mean of simulations and show
 	that in the printed output.
+
+	* plot.cca: works with degenerate solutions where constraints are
+	aliased and 'biplot' scores have zero rows.
 	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding

@@ -81,7 +81,7 @@
         else if (type == "points") 
             points(g$constraints, pch = 2, cex = 0.7, col = "darkgreen")
     }
-    if (!is.null(g$biplot) && type != "none") {
+    if (!is.null(g$biplot) && nrow(g$biplot) > 0 && type != "none") {
         if (length(display) > 1) {
             mul <- ordiArrowMul(g$biplot)
         }
