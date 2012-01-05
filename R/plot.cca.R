@@ -4,10 +4,12 @@
 {
     TYPES <- c("text", "points", "none")
     g <- scores(x, choices, display, scaling, const)
+    if (length(g) == 0)
+      stop("nothing to plot: requested scores do not exist")
     if (!is.list(g)) 
         g <- list(default = g)
     ## Take care that there are names
-    for (i in 1:length(g)) {
+    for (i in seq_len(length(g))) {
         if (length(dim(g[[i]])) > 1)
             rownames(g[[i]]) <- rownames(g[[i]], do.NULL = FALSE,
                                          prefix = substr(names(g)[i], 1, 3))

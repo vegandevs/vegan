@@ -22,7 +22,9 @@ Version 2.1-8 (opened November 19, 2011)
 	that in the printed output.
 
 	* plot.cca: works with degenerate solutions where constraints are
-	aliased and 'biplot' scores have zero rows.
+	aliased and 'biplot' scores have zero rows. Stops with a
+	comprehensible error message if a user requests non-existing
+	scores (such as "bp" scores for unconstrained ordination).
 	
 	* rarecurve: new function to draw rarefaction curves for each
 	plot, optionally with sample size vertical and corresponding
