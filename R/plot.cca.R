@@ -4,7 +4,7 @@
 {
     TYPES <- c("text", "points", "none")
     g <- scores(x, choices, display, scaling, const)
-    if (length(g) == 0)
+    if (length(g) == 0 || all(is.na(g)))
       stop("nothing to plot: requested scores do not exist")
     if (!is.list(g)) 
         g <- list(default = g)
@@ -56,6 +56,8 @@
     if (missing(xlim))
         xlim <- range(g$spe[, 1], g$sit[, 1], g$con[, 1], g$default[,1],
                       na.rm = TRUE)
+    if (!any(is.finite(xlim)))
+        stop("no finite scores to plot")
     if (missing(ylim))
         ylim <- range(g$spe[, 2], g$sit[, 2], g$con[, 2], g$default[,2],
                       na.rm = TRUE)
