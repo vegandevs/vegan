@@ -117,7 +117,7 @@ clusters. If you use socket clusters, you must pre-define your
 clusters if you need to use other functions than those in
 \pkg{vegan}. 
 
-If socket cluster is not set in WIndows, \pkg{vegan} will set and
+If socket cluster is not set in Windows, \pkg{vegan} will set and
 close the cluster within the function body. This involves following commands:
 <<eval=false>>=
 clus <- makeCluster(4)
