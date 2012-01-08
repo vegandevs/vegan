@@ -10,6 +10,7 @@
 \usepackage{sidecap}
 \renewcommand{\floatpagefraction}{0.8}
 \renewcommand{\cite}{\citep}
+\newcommand{\R}{\textsf{R}}
 
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
@@ -40,6 +41,215 @@ require(vegan)
 
 \tableofcontents
 
+\section{Parallel processing}
+
+Several \pkg{vegan} functions can perform parallel processing using
+the standard \R{} package \pkg{parallel}.\footnote{available since
+  \R{} version 2.14.0.}  The \pkg{parallel} package in \R{} implements
+the functionality of earlier contributed packages \pkg{multicore} and
+\pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
+the multiple cores and \pkg{snow} functionality sets up a socket
+cluster.  The \pkg{multicore} functionality only works in unix-like
+systems (such as MacOS and Linux), but \pkg{snow} functionality works
+in all OS's.  \pkg{Vegan} can use either method, but defaults to
+\pkg{multicore} functionality when this is available, because its fork
+processes are usually faster.  This chapter describes both the user
+interface and internal implementation for the developers.
+
+\subsection{User interface}
+\label{sec:parallel:ui}
+
+The functions that are capable of parallel processing have argument
+\code{parallel}.  The normal default is \code{parallel = 1} which
+means that no parallel processing is performed.  It is possible to set
+parallel processing as the default in \pkg{vegan} (see
+\S~\ref{sec:parallel:default}). 
+
+For parallel processing, the \code{parallel} argument can be either
+
+\begin{enumerate}
+  \item Integer $>1$ in which case the given number of parallel
+    processes will be launched. In unix-like systems (\emph{e.g.},
+    MacOS, Linux) these will be forked \code{multicore} processes, but
+    socket clusters will be set up, initialized and closed in Windows.
+  \item The argument of \code{parallel} can be a previously created
+    socket cluster. This saves time as the cluster is not set up and
+    closed repeatedly.  If the argument is a socket cluster, they will
+    also be used in unix-like systems. Setting up a socket cluster is
+    discussed in \S~\ref{sec:parallel:socket}.  
+\end{enumerate}
+
+\subsubsection{Using parallel processing as default}
+\label{sec:parallel:default}
+
+If the user sets option \code{mc.cores}, its value will be used as the
+default value of the \code{parallel} argument in \pkg{vegan}
+functions.  The following command will set up parallel processing to
+all subsequent \pkg{vegan} commands:
+<<eval=false>>=
+options(mc.cores = 2)
+@ 
+
+The \code{mc.cores} option is defined in the \pkg{parallel} package,
+but it is usualy unset in which case \pkg{vegan} will default to
+non-parallel computation.  The \code{mc.cores} option can be set by
+the environmental variable \code{MC_CORES}.
+
+The development version of \R\footnote{Probably released as \R-2.15.0
+  on October 2012.} makes it possible to set up a default socket
+cluster with a command \code{setDefaultCluster}.  In that case
+\pkg{vegan} will default to parallel processing and use the set
+default cluster if parallelized functions are called with argument
+\code{parallel = NULL}.\footnote{Something better and more automatic
+  is needed here, please help with suggestion or alternative
+  implementation.} 
+
+\subsubsection{Setting socket clusters}
+\label{sec:parallel:socket}
+
+If socket clusters are used (and they are the only alternative in
+Windows), it is often wise and faster to set a cluster before calling
+parallelized code in \pkg{vegan} and use the pre-defined cluster as
+the argument for the \code{parallel} argument.  If you want to use
+socket clusters in unix-like systems (MacOS, Linux), this can be only
+done with pre-defined clusters as these systems default to fork
+clusters. If you use socket clusters, you must pre-define your
+clusters if you need to use other functions than those in
+\pkg{vegan}. 
+
+If socket cluster is not set in WIndows, \pkg{vegan} will set and
+close the cluster within the function body. This involves following commands:
+<<eval=false>>=
+clus <- makeCluster(4)
+clusterEvalQ(clus, library(vegan))
+stopCluster(clus)
+@ 
+The first command sets up the cluster, in this case with four
+cores. The second command makes \pkg{vegan} and \pkg{parallel}
+commands known to the established cluster and allows their use within
+the parallel code. Finally, the third command stops the cluster.  You
+should give the two first commands to establish a cluster used with
+\pkg{vegan} commands, and after finishing all parallel processing you
+should \code{stopCluster}.
+
+If you need other packages than \pkg{vegan} and \pkg{parallel}, you
+must made those known to your cluster with \code{clusterEvalQ}, or
+alternatively with \code{clusterCall} (and perhaps even with
+\code{clusterExport}).  This is unnecessary in most parallel code in
+\pkg{vegan}, but you can define your own functions in \code{oecosimu}.
+If your own functions contain functions or elements from other
+packages, you must use pre-defined clusters and define all these
+external packages with \code{clusterEvalQ}.  The parallel processing
+will fail in Windows if you only give the integer value to the
+\code{parallel} argument is such cases. You must set the cluster in
+the session and call \code{oecosimu} giving the cluster to the
+\code{parallel} argument. 
+
+If you pre-set the cluster, you can also use \pkg{snow} style clusters
+in unix-like systems.  
+
+In \R-devel you can set a default socket cluster
+(\code{setDefaultCluster}) and  that will be used for parallel
+processing in all operating systems.  Such default cluster must have
+defined \code{clusterEvalQ} for \code{library(vegan)} and all other
+necessary packages.
+
+\subsubsection{Random number generation}
+
+\pkg{Vegan} does not use parallel processing in random number
+generation.  This means that you do not need to define the type of the
+random number generator.  You can set the seed for the standard random
+number generation, and setting the seed for the parallelized generator
+(L'Ecuyer) has no effect in \pkg{vegan}.
+
+\subsubsection{Does it pay off?}
+
+Parallelized processing has a considerable overhead, and the analysis
+is faster only if the non-parallel code is really slow (takes several
+seconds in wall clock time). The overhead is particularly large in
+socket clusters (in Windows). Setting a socket cluster and evaluating
+\code{library(vegan)} with \code{clusterEvalQ} can take two seconds,
+and only pays off if the non-parallel analysis takes close to ten
+seconds. Using pre-defined clusters will reduce the overhead, but not
+completely.  Fork cluster (in unix-likes operating systems) has
+smaller overhead and can be faster. 
+
+Parallel processes also need parallel memory, and for a large number
+of processors you also need large memory.  If the memory is exhausted,
+the parallel processes can stall and can take a huge amount longer
+time than non-parallel processes (minutes instead of seconds).
+
+If the analysis is fast, and function runs in, say, less than five
+seconds, parallel processing is rarely useful.  Parallel processing is
+useful only in slow analyses: large number of replications or
+simulations, slow evaluation of each simulation. It also seems that
+increasing the number of processors gives diminishing yields, in
+particular in socket clusters.  The danger of memory exhaustion must
+also be remembered. 
+
+The benefits and potential problems of parallel processing depend on
+your particular system: it is best to rely on your own experience. 
+
+\subsection{Internals for developers}
+
+The implementation of the parallel processing should accord with the
+description of the user interface above (\S~\ref{sec:parallel:ui}).
+The following rules should be satisfied:
+\begin{enumerate}
+  \item If argument \code{parallel} is specified, it should be
+    honoured despite all other default settings.
+  \item If \code{parallel} is an interger $>1$, this should be used as
+    the number of parallel processes.  In unix-likes, this is the
+    number of forked processes, and in Windows it used as the number
+    of workers in created socket clusters which are closed after the
+    use. In socket clusters, the command \code{clusterEvalQ(clus,
+      library(vegan))} must be evaluated.
+  \item If \code{parallel} is a socket cluster, it must be used in all
+    operating systems, and not be closed after the analysis.
+  \item If \code{parallel = NULL}, then it is assumed that a
+    \code{setDefaultCluster} socket cluster has been defined and it
+    will be used in all operating systems.
+  \item If \code{parallel} is undefined (missing argument value), then
+    the number of parallel processes is taken from the option
+    \code{mc.cores}, and if the option is not set, will be take as
+    \code{parallel = 1} implying non-parallel processing (in contrast
+    to the practice in the \pkg{parallel} package where the default is
+    \code{parallel = 2}.
+\end{enumerate}
+
+For the refenrence, following is the implementation in
+\code{oecosimu}.  The function is called with argument:
+<<eval=false>>=
+parallel = getOption("mc.cores", 1L)
+@ 
+which sets the default value. The parallel processing is done in this block:
+<<eval=false>>=
+    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
+    if ((hasClus || parallel > 1)  && require(parallel)) {
+        if(.Platform$OS.type == "unix" && !hasClus) {
+            tmp <- mclapply(1:nsimul,
+                            function(i)
+                            applynestfun(x[,,i], fun=nestfun,
+                                         statistic = statistic, ...),
+                            mc.cores = parallel)
+            simind <- do.call(cbind, tmp)
+        } else {
+             if (!hasClus) {
+                parallel <- makeCluster(parallel)
+                 clusterEvalQ(parallel, library(vegan))
+            }
+            simind <- parApply(parallel, x, 3, function(z)
+                               applynestfun(z, fun = nestfun,
+                                            statistic = statistic, ...))
+            if (!hasClus)
+                stopCluster(parallel)
+        }
+    } else {
+        simind <- apply(x, 3, applynestfun, fun = nestfun,
+                        statistic = statistic, ...)
+    }
+@ 
+The last line (after the last \code{else}) peforms non-parallel processing.
 
 \section{Nestedness and Null models}
 
