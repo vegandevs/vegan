@@ -41,7 +41,8 @@
         assign(".Random.seed", seed, envir = .GlobalEnv)
     }
     ## Put RNG at the end of the longest simulation
-    assign(".Random.seed", bigseed, envir = .GlobalEnv)
+    if (bigperm > 0)
+        assign(".Random.seed", bigseed, envir = .GlobalEnv)
     rownames(sol)[1:ntrms] <- trms
     head <- attr(sol, "heading")
     head[1] <- paste(head[1], "Marginal effects of terms\n", sep="")
