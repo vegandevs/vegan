@@ -22,6 +22,11 @@ Version 2.1-9 (opened January 8, 2012)
 
 	or in general if all marginal effects were aliased. 
 
+	* ordistep: handle cases where the marginal effects for
+	adding/dropping are completely aliased. This should avoid problems
+	like that reported in
+	https://stat.ethz.ch/pipermail/r-help/2012-January/300167.html
+
 Version 2.1-8 (closed January 8, 2012)
 
 	* betadisper: failed with an error in internal function

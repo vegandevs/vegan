@@ -53,7 +53,7 @@
                 cat("\n")
                 print(aod)
             }
-            if (aod[1,5] > Pout) {
+            if (is.na(aod[1,5]) || aod[1,5] > Pout) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- eval.parent(update(object, paste("~  .", change)))
@@ -77,7 +77,7 @@
                 cat("\n")
                 print(aod)
             }
-            if (aod[1,5] <= Pin) {
+            if (!is.na(aod[1,5]) && aod[1,5] <= Pin) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- eval.parent(update(object, paste( "~  .",change)))
