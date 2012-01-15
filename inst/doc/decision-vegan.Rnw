@@ -19,9 +19,9 @@
 and algorithmic details in some vegan functions. The proper FAQ is
 another document.
   }
- \Keywords{nestdness, matrix temperature, community null models, scaling of PCA and RDA, WA
-   and LC scores}
-%% hijack Address for version info
+\Keywords{parallel processing, nestdness, matrix temperature,
+    community null models, scaling of PCA and RDA, WA and LC scores}
+ %% hijack Address for version info
 \Address{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
@@ -48,7 +48,7 @@ the standard \R{} package \pkg{parallel}.\footnote{available since
   \R{} version 2.14.0.}  The \pkg{parallel} package in \R{} implements
 the functionality of earlier contributed packages \pkg{multicore} and
 \pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
-multiple cores. and \pkg{snow} functionality sets up a socket cluster
+multiple cores, and \pkg{snow} functionality sets up a socket cluster
 of workers.  The \pkg{multicore} functionality only works in unix-like
 systems (such as MacOS and Linux), but \pkg{snow} functionality works
 in all operating systems.  \pkg{Vegan} can use either method, but
@@ -73,11 +73,10 @@ For parallel processing, the \code{parallel} argument can be either
     processes will be launched. In unix-like systems (\emph{e.g.},
     MacOS, Linux) these will be forked \code{multicore} processes, but
     socket clusters will be set up, initialized and closed in Windows.
-  \item The argument of \code{parallel} can be a previously created
-    socket cluster. This saves time as the cluster is not set up and
-    closed repeatedly.  If the argument is a socket cluster, it will
-    also be used in unix-like systems. Setting up a socket cluster is
-    discussed in \S~\ref{sec:parallel:socket}.  
+  \item A previously created socket cluster. This saves time as the
+    cluster is not set up and closed repeatedly.  If the argument is a
+    socket cluster, it will also be used in unix-like systems. Setting
+    up a socket cluster is discussed in \S~\ref{sec:parallel:socket}.
 \end{enumerate}
 
 \subsubsection{Using parallel processing as default}
@@ -98,14 +97,13 @@ the environmental variable \code{MC_CORES}.
 
 The development version of \R\footnote{Probably released as \R-2.15.0
   on October 2012.} makes it possible to set up a default socket
-cluster with a command \code{setDefaultCluster}.  In that case
-\pkg{vegan} will default to parallel processing and use the set
-default cluster if parallelized functions are called with argument
-\code{parallel = NULL}.\footnote{Something better and more automatic
-  is needed here, please help with suggestion or alternative
-  implementation.} 
+cluster with command \code{setDefaultCluster}.  In that case
+\pkg{vegan} will use the set default cluster if parallelized functions
+are called with argument \code{parallel = NULL}.\footnote{Something
+  better and more automatic is needed here, please help with
+  suggestion or alternative implementation.}
 
-\subsubsection{Setting socket clusters}
+\subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
 
 If socket clusters are used (and they are the only alternative in
@@ -114,9 +112,7 @@ parallelized code and give the pre-defined cluster as the value of
 the \code{parallel} argument in \pkg{vegan}.  If you want to use
 socket clusters in unix-like systems (MacOS, Linux), this can be only
 done with pre-defined clusters as these systems default to fork
-clusters. If you use socket clusters, you must pre-define your
-clusters when you need to other functions than those in \pkg{vegan}
-and basic \R.
+clusters.
 
 If socket cluster is not set in Windows, \pkg{vegan} will set and
 close the cluster within the function body. This involves following commands:
@@ -142,16 +138,44 @@ contain functions or items from other packages, you must use
 pre-defined clusters and declare all these external packages with
 \code{clusterEvalQ}.
 
+Most parallelized \pkg{vegan} functions work similarly in socket and
+fork clusters, but in \code{oecosimu} the parallel processing is used
+to evaluate user-defined functions.  If these functions need other
+packages than \pkg{vegan}, \pkg{permute} and standard \R{} packages,
+it is necessary to use pre-defined socket clusters which declare these
+other packages.  Socket clusters are always used in Windows, and there
+the socket cluster must be reset, whereas the fork clusters in
+unix-likes work also in these cases.  For example, if you want to use
+the Ochiai dissimilarity in the function \code{dsvdis} of the
+\pkg{labdsv} package in the \code{meandist} function of the
+\code{oecosimu} example in Windows, you must pre-set the socket
+cluster, and in addition also load the \pkg{labdsv} package before the
+call: 
+<<eval=false>>=
+## start up and define meandist()
+library(vegan)
+data(sipoo)
+meandist <- function(x) mean(dsvdis(x, "ochiai"))
+## set up a cluster and load packages
+library(parallel)
+library(labdsv)
+clus <- makeCluster(2)
+clusterEvalQ(clus, library(labdsv))
+## call oecosimu
+oecosimu(sipoo, meandist, "r1", parallel = clus)
+## close the cluster
+stopCluster(clus)
+@ 
+
 If you pre-set the cluster, you can also use \pkg{snow} style clusters
 in unix-like systems.  
 
 \subsubsection{Random number generation}
 
 \pkg{Vegan} does not use parallel processing in random number
-generation.  This means that you do not need to define the type of the
-random number generator for parallel processing.  You can set the seed
-for the standard random number generation, and setting the seed for
-the parallelized generator (L'Ecuyer) has no effect in \pkg{vegan}.
+generation.  You can set the seed for the standard random number
+generation, and setting the seed for the parallelized generator
+(L'Ecuyer) has no effect in \pkg{vegan}.
 
 \subsubsection{Does it pay off?}
 
@@ -162,7 +186,7 @@ socket clusters (in Windows). Setting a socket cluster and evaluating
 \code{library(vegan)} with \code{clusterEvalQ} can take two seconds,
 and only pays off if the non-parallel analysis takes close to ten
 seconds. Using pre-defined clusters will reduce the overhead, but not
-completely.  Fork clusters (in unix-likes operating systems) have
+completely.  Fork clusters (in unix-likes operating systems) have a
 smaller overhead and can be faster. 
 
 Each parallel process needs memory, and for a large number of
@@ -185,7 +209,7 @@ your particular system: it is best to rely on your own experience.
 
 The implementation of the parallel processing should accord with the
 description of the user interface above (\S~\ref{sec:parallel:ui}).
-The following rules should be satisfied:
+The following rules should be followed:
 \begin{enumerate}
   \item If argument \code{parallel} is specified, it should be
     honoured despite all other default settings.

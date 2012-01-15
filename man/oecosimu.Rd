@@ -78,7 +78,11 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package which is available only for \R 2.14.0 and later.  If you
+    define a \code{nestfun} in Windows that needs other \R packages
+    than \pkg{vegan} or \pkg{permute}, you must set up a scoket
+    cluster before the call. See \code{\link{vegandocs}}
+    \code{decision-vegan} for details. }
   \item{x}{An \code{oecosimu} result object.}
   \item{data}{Ignored argument of the generic function.}
   \item{xlab}{Label of the x-axis.}
