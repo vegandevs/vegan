@@ -13,6 +13,14 @@ Version 2.1-9 (opened January 8, 2012)
 	_R_CHECK_FORCE_SUGGESTS_=FALSE (see, e.g., discussion
 	https://stat.ethz.ch/pipermail/r-devel/2011-December/062827.html).
 
+	* oecosimu: new experimental parallel block which honours
+	setDefaultCluster() in R-devel (becoming R 2.15.0) and
+	automatically uses parallel processing with socket clusters if
+	setDefaultCluster was defined. Tested in R (unstable) (2012-01-16
+	r58122) with full features, and in R version 2.13.1 (2011-07-08)
+	without parallel processing, but not yet in R 2.14.1 with parallel
+	processing but without setDefaultCluster().
+
 	* anova.ccabymargin failed if none of the terms was analysed (all
 	were aliased) and no permutations were performed.  This would
 	happen with, e.g.,

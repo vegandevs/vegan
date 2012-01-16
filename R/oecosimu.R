@@ -2,7 +2,7 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
-             parallel = getOption("mc.cores", 1L), ...)
+             parallel = getOption("mc.cores"), ...)
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
@@ -58,7 +58,12 @@
     ## Go to parallel processing if 'parallel > 1' or 'parallel' could
     ## be a pre-defined socket cluster or 'parallel = NULL' in which
     ## case it could be setDefaultCluster (or a user error)
-    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    ## still NULL? was not a defaultCluster, so make to non-parallel
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- mclapply(1:nsimul,

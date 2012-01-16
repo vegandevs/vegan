@@ -29,7 +29,7 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
-   parallel = getOption("mc.cores", 1L), ...)
+   parallel = getOption("mc.cores"), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
