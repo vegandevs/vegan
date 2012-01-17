@@ -69,14 +69,15 @@ parallel processing as the default in \pkg{vegan} (see
 For parallel processing, the \code{parallel} argument can be either
 
 \begin{enumerate}
-  \item Integer $>1$ in which case the given number of parallel
-    processes will be launched. In unix-like systems (\emph{e.g.},
-    MacOS, Linux) these will be forked \code{multicore} processes, but
-    socket clusters will be set up, initialized and closed in Windows.
-  \item A previously created socket cluster. This saves time as the
-    cluster is not set up and closed repeatedly.  If the argument is a
-    socket cluster, it will also be used in unix-like systems. Setting
-    up a socket cluster is discussed in \S~\ref{sec:parallel:socket}.
+\item Integer in which case the given number of parallel processes
+  will be launched (value $1$ launches non-parallel processing). In
+  unix-like systems (\emph{e.g.}, MacOS, Linux) these will be forked
+  \code{multicore} processes, but socket clusters will be set up,
+  initialized and closed in Windows.
+\item A previously created socket cluster. This saves time as the
+  cluster is not set up and closed repeatedly.  If the argument is a
+  socket cluster, it will also be used in unix-like systems. Setting
+  up a socket cluster is discussed in \S~\ref{sec:parallel:socket}.
 \end{enumerate}
 
 \subsubsection{Using parallel processing as default}
@@ -95,13 +96,11 @@ but it is usually unset in which case \pkg{vegan} will default to
 non-parallel computation.  The \code{mc.cores} option can be set by
 the environmental variable \code{MC_CORES}.
 
-The development version of \R\footnote{Probably released as \R-2.15.0
-  on October 2012.} makes it possible to set up a default socket
-cluster with command \code{setDefaultCluster}.  In that case
-\pkg{vegan} will use the set default cluster if parallelized functions
-are called with argument \code{parallel = NULL}.\footnote{Something
-  better and more automatic is needed here, please help with
-  suggestion or alternative implementation.}
+The \R{} development version\footnote{Probably released as \R-2.15.0
+  in October 2012.} allows setting up a default socket cluster
+(\code{setDefaultCluster}).  In that case \pkg{vegan} will perform
+parallel processing with that default cluster.  If the \code{mc.cores}
+is also set, it takes precedence.  
 
 \subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
@@ -114,7 +113,7 @@ socket clusters in unix-like systems (MacOS, Linux), this can be only
 done with pre-defined clusters as these systems default to fork
 clusters.
 
-If socket cluster is not set in Windows, \pkg{vegan} will set and
+If socket cluster is not set up in Windows, \pkg{vegan} will create and
 close the cluster within the function body. This involves following commands:
 <<eval=false>>=
 clus <- makeCluster(4)
@@ -129,28 +128,16 @@ cluster.  You should give the two first commands to set up a cluster
 used with \pkg{vegan} commands, and after finishing all parallel
 processing you should \code{stopCluster}.
 
-If you need other packages than \pkg{vegan} and \pkg{permute}, you
-must make those known to your cluster with \code{clusterEvalQ}, or
-similar commands (\code{clusterCall}, \code{clusterExport}).  This is
-unnecessary in most parallel code in \pkg{vegan}, but in
-\code{oecosimu} you can define your own functions, and if these
-contain functions or items from other packages, you must use
-pre-defined clusters and declare all these external packages with
-\code{clusterEvalQ}.
-
 Most parallelized \pkg{vegan} functions work similarly in socket and
 fork clusters, but in \code{oecosimu} the parallel processing is used
 to evaluate user-defined functions.  If these functions need other
-packages than \pkg{vegan}, \pkg{permute} and standard \R{} packages,
-it is necessary to use pre-defined socket clusters which declare these
-other packages.  Socket clusters are always used in Windows, and there
-the socket cluster must be reset, whereas the fork clusters in
-unix-likes work also in these cases.  For example, if you want to use
-the Ochiai dissimilarity in the function \code{dsvdis} of the
-\pkg{labdsv} package in the \code{meandist} function of the
-\code{oecosimu} example in Windows, you must pre-set the socket
-cluster, and in addition also load the \pkg{labdsv} package before the
-call: 
+packages than \pkg{vegan}, \pkg{permute} and base \R{} packages, it is
+necessary to use pre-defined socket clusters which declare these other
+packages.  For example, if you want to use the Ochiai dissimilarity in
+the function \code{dsvdis} of the \pkg{labdsv} package in the
+\code{meandist} function of the \code{oecosimu} example in Windows,
+you must pre-set the socket cluster, and in addition also load the
+\pkg{labdsv} package before the call:
 <<eval=false>>=
 ## start up and define meandist()
 library(vegan)
@@ -182,12 +169,13 @@ generation, and setting the seed for the parallelized generator
 Parallelized processing has a considerable overhead, and the analysis
 is faster only if the non-parallel code is really slow (takes several
 seconds in wall clock time). The overhead is particularly large in
-socket clusters (in Windows). Setting a socket cluster and evaluating
-\code{library(vegan)} with \code{clusterEvalQ} can take two seconds,
-and only pays off if the non-parallel analysis takes close to ten
-seconds. Using pre-defined clusters will reduce the overhead, but not
-completely.  Fork clusters (in unix-likes operating systems) have a
-smaller overhead and can be faster. 
+socket clusters (in Windows). Creating a socket cluster and evaluating
+\code{library(vegan)} with \code{clusterEvalQ} can take two seconds or
+longer, and only pays off if the non-parallel analysis takes ten
+seconds or longer. Using pre-defined clusters will reduce the
+overhead, but not completely.  Fork clusters (in unix-likes operating
+systems) have a smaller overhead and can be faster, but they also have
+an overhead.
 
 Each parallel process needs memory, and for a large number of
 processes you need much memory.  If the memory is exhausted, the
@@ -209,68 +197,63 @@ your particular system: it is best to rely on your own experience.
 
 The implementation of the parallel processing should accord with the
 description of the user interface above (\S~\ref{sec:parallel:ui}).
-The following rules should be followed:
-\begin{enumerate}
-  \item If argument \code{parallel} is specified, it should be
-    honoured despite all other default settings.
-  \item If \code{parallel} is an interger $>1$, this should be used as
-    the number of parallel processes.  In unix-likes, this is the
-    number of forked processes, and in Windows it used as the number
-    of workers in created socket clusters which are closed after the
-    use. In socket clusters, the command \code{clusterEvalQ(clus,
-      library(vegan))} must be evaluated for the created cluster
-    \code{clus}.
-  \item If \code{parallel} is a socket cluster, it must be used in all
-    operating systems, and not be closed after the analysis.
-  \item If \code{parallel = NULL}, then it is assumed that a
-    \code{setDefaultCluster} socket cluster has been defined and it
-    will be used in all operating systems.\footnote{This needs better
-    heuristics, and a system should be developed where parallel
-    processing is always done when \code{setDefaultCluster} is defined
-    (this may not be possible before \R~2.15.0 is released).}
-  \item If \code{parallel} is undefined (missing argument value), then
-    the number of parallel processes is taken from the option
-    \code{mc.cores}, and if the option is not set, will be taken as
-    \code{parallel = 1} implying non-parallel processing.
-  \item The fallback must be non-parallel (serial) processing.
+Function \code{oecosimu} can be used as the reference implementation,
+and similar interpretation and order of interpretation of arguments
+should be followed.  All future implementations should be consistent
+and all must be changed if the call heuristic changes.
+
+The value of the \code{parallel} argument can be \code{NULL}, a
+positive integer or a socket cluster.  Integer $1$ means that no
+parallel processing is performed.  The ``normal'' default is
+\code{NULL} which in  the ``normal'' case is interpreted as $1$.  Here
+``normal'' means that \R{} is run with default settings.  Function
+\code{oecosimu} interprets the \code{parallel} arguments in the
+following way:
+\begin{enumerate} 
+\item \code{NULL}: The function is called with argument \code{parallel
+    = getOption("mc.cores")}. The option \code{mc.cores} is normally
+  unset and then the default is \code{parallel = NULL}.  This is
+  interpreted as \code{parallel = 1} in \R-2.14.x.  In \R-2.15.x (not
+  yet released) the function inspects if a default socket cluster is
+  defined.  \R-2.15.0 has an unexported environment
+  \code{parallel:::.reg} with variable \code{default} that is either
+  \code{NULL} for unset default or a socket cluster.  Querying this
+  environment is an error in \R-2.14.x so that we also need to test
+  the \R{} version.  In the following \code{oecosimu} code we first
+  see if the default cluster is set when \code{parallel = NULL}, and
+  if it is unset, the \code{parallel} will still be \code{NULL} and
+  will be changed to \code{1}.  After this, the value of
+  \code{parallel} will be either an integer or a socket cluster, and
+  information on the type is saved in variable \code{hasClus}:
+<<eval=false>>=
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+@ 
+\item Integer: An integer value is taken as the number of created
+  parallel processes.  In unix-like systems this is the number of
+  forked multicore processes, and in Windows this is the number of
+  workers in socket clusters.  In Windows, the socket clustes is
+  created, \code{library(vegan)} is evaluated in the cluster, and the
+  cluster is stopped after parallel processing.
+\item Socket cluster: If a socket cluster is given, it will be used in
+  all operating systems.  It is not created, \code{library(vegan)} is
+  not evaluated and the cluster is not stopped.
 \end{enumerate}
 
-For the reference, following is the implementation in
-\code{oecosimu}.  The function is called with argument:
-<<eval=false>>=
-parallel = getOption("mc.cores", 1L)
-@ 
-which sets the default value to $1$ unless option \code{mc.cores} is
-set.. The parallel processing is done in this block:
-<<eval=false>>=
-    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
-    if ((hasClus || parallel > 1)  && require(parallel)) {
-        if(.Platform$OS.type == "unix" && !hasClus) {
-            tmp <- mclapply(1:nsimul,
-                            function(i)
-                            applynestfun(x[,,i], fun=nestfun,
-                                         statistic = statistic, ...),
-                            mc.cores = parallel)
-            simind <- do.call(cbind, tmp)
-        } else {
-             if (!hasClus) {
-                parallel <- makeCluster(parallel)
-                clusterEvalQ(parallel, library(vegan))
-            }
-            simind <- parApply(parallel, x, 3, function(z)
-                               applynestfun(z, fun = nestfun,
-                                            statistic = statistic, ...))
-            if (!hasClus)
-                stopCluster(parallel)
-        }
-    } else {
-        simind <- apply(x, 3, applynestfun, fun = nestfun,
-                        statistic = statistic, ...)
-    }
-@ 
-Functions \code{mclapply} and \code{parApply} perform the actual
-parallel processing, and \code{apply} (after the last \code{else}) is
-the fall-back to non-parallel processing.
+This gives the following precedence order for parallel processing
+(highest to lowest):
+\begin{enumerate}
+  \item Explicitly given argument value of \code{parallel} will always
+    be used.
+  \item If \code{mc.cores} is set, it will be used. In Windows this
+    will mean creating and stopping socket clusters even when a
+    default cluster is set if \code{mc.cores} is not \code{NULL}. 
+  \item In \R-2.15.0 the default socket cluster will be used if set.
+  \item The fall back behaviour is no parallel processing. 
+\end{enumerate}
 
 \section{Nestedness and Null models}
 
