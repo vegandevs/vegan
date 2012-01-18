@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = 99,
               model = c("reduced", "direct", "full"), first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores", 1L) , ...) 
+              strata = NULL, parallel = getOption("mc.cores") , ...) 
 {
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
@@ -114,7 +114,11 @@ permutest.default <- function(x, ...)
     }
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
-    hasClus <- inherits(parallel, "cluster") || is.null(parallel)
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- do.call(rbind,

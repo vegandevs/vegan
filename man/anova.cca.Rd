@@ -26,7 +26,7 @@ permutest(x, ...)
 \method{permutest}{cca}(x, permutations = 99,
           model = c("reduced", "direct", "full"),
           first = FALSE, strata = NULL, 
-	  parallel = getOption("mc.cores", 1L) , ...)
+	  parallel = getOption("mc.cores") , ...)
 }
 
 \arguments{
