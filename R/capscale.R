@@ -147,6 +147,8 @@
         rs <- rowSums(sol$CCA$centroids^2)
         sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
                                                drop = FALSE]
+        if (nrow(sol$CCA$centroids) == 0)
+            sol$CCA$centroids <- NULL
     }
     sol$call <- match.call()
     sol$terms <- terms(formula, "Condition", data = data)

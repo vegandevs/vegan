@@ -29,6 +29,13 @@ Version 2.1-9 (opened January 8, 2012)
 
 	or in general if all marginal effects were aliased. 
 
+	* capscale: plotting failed for mod <- capscale(dune ~
+	Condition(Management) + A1, dune.env). The centroids for
+	Management were completely removed leaving a zero-row matrix of
+	centroids, and this caused an error in plot() and would probably
+	fail elsewhere.  The same problem can appear with completely
+	aliased classes, or when class centroids are nearly zero.
+
 	* ordistep: handle cases where the marginal effects for
 	adding/dropping are completely aliased. This should avoid problems
 	like that reported in
