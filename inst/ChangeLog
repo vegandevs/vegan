@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-9 (opened January 8, 2012)
+Vegan 2.1-10 (opened January 22, 2012)
+
+	* mantel, mantel.partial: implemented parallel processing.
+	
+Version 2.1-9 (closed January 22, 2012)
 
 	* public launch of parallel processing in vegan. First step was to
 	explain the implementation in decision-vegan.Rnw. 

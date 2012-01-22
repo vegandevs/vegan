@@ -1,6 +1,6 @@
-"mantel.partial" <-
+`mantel.partial` <-
   function (xdis, ydis, zdis, method = "pearson", permutations = 999, 
-            strata) 
+            strata, parallel = getOption("mc.cores")) 
 {
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
@@ -39,7 +39,30 @@
             rxz <- cor(permvec, zdis, method = method)
             part.cor(rxy, rxz, ryz)
         }
-        perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
+        ## parallel processing
+        if (is.null(parallel) && getRversion() >= "2.15.0")
+            parallel <- get("default", envir = parallel:::.reg)
+        if (is.null(parallel) || getRversion() < "2.14.0")
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if ((hasClus || parallel > 1)  && require(parallel)) {
+            if(.Platform$OS.type == "unix" && !hasClus) {
+                perm <- do.call(rbind,
+                               mclapply(1:permutations,
+                                        function(i, ...) ptest(permat[i,],...),
+                                        mc.cores = parallel))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                    clusterEvalQ(parallel, library(vegan))
+                }
+                perm <- parRapply(parallel, permat, ptest)
+                if (!hasClus)
+                    stopCluster(parallel)
+            }
+        } else {
+            perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
+        }
         signif <- (sum(perm >= statistic)+1)/(permutations + 1)
     }
     else {

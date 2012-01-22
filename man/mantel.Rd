@@ -13,9 +13,10 @@
 
 }
 \usage{
-mantel(xdis, ydis, method="pearson", permutations=999, strata)
+mantel(xdis, ydis, method="pearson", permutations=999, strata,
+    parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
-    strata)
+    strata, parallel = getOption("mc.cores"))
 }
 
 \arguments{
@@ -27,6 +28,11 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
+
 }
 \details{
   Mantel statistic is simply a correlation between entries of two
