@@ -20,9 +20,9 @@
     if (n3 != n) 
         stop("Y and X3 do not have the same number of rows")
     Y <- scale(Y, center = TRUE, scale = FALSE)
-    X1 <- scale(X1, center = TRUE, scale = TRUE)
-    X2 <- scale(X2, center = TRUE, scale = TRUE)
-    X3 <- scale(X3, center = TRUE, scale = TRUE)
+    X1 <- scale(X1, center = TRUE, scale = FALSE)
+    X2 <- scale(X2, center = TRUE, scale = FALSE)
+    X3 <- scale(X3, center = TRUE, scale = FALSE)
     SS.Y <- sum(Y * Y)
     dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
     adfg.ua <- dummy$Rsquare

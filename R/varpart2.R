@@ -15,8 +15,8 @@
     if (n2 != n) 
         stop("Y and X2 do not have the same number of rows")
     Y <- scale(Y, center = TRUE, scale = FALSE)
-    X1 <- scale(X1)
-    X2 <- scale(X2)
+    X1 <- scale(X1, center = TRUE, scale = FALSE)
+    X2 <- scale(X2, center = TRUE, scale = FALSE)
     SS.Y <- sum(Y * Y)
     dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
     ab.ua <- dummy$Rsquare
