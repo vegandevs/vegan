@@ -40,17 +40,31 @@ Adjusted R-square
   and then the functions will return \code{NA}. There is no adjusted
   R-squared in \code{\link{cca}}, in partial \code{\link{rda}}, and
   R-squared values are available only for \code{\link{gaussian}}
-  models in \code{\link{glm}}. 
-}
+  models in \code{\link{glm}}.
+
+  The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
+  proportion explained after removing the variation due to conditioning
+  (partial) terms; Legendre et al. (2011) call this semi-partial
+  \eqn{R^2}{R-squared}. The adjusted \eqn{R^2}{R-squared} is found as
+  the difference of adjusted \eqn{R^2}{R-squared} values of joint effect
+  of partial and constraining terms and partial term alone, and it is
+  the same as the adjusted \eqn{R^2}{R-squared} of component \code{[a] =
+  X1|X2} in two-component variation partition in \code{\link{varpart}}.
+  }
 
 \value{ The functions return a list of items \code{r.squared} and
 \code{adj.r.squared}.  
 }
 
-\references{ 
+\references{
+  Legendre, P., Oksanen, J. and ter Braak, C.J.F. (2011). Testing the
+  significance of canonical axes in redundancy analysis. 
+  \emph{Methods in Ecology and Evolution} 2, 269--277.
+  
   Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation
   partitioning of species data matrices: estimation and comparison of
-  fractions. \emph{Ecology} 87: 2614-2625.  }
+  fractions. \emph{Ecology} 87, 2614--2625.
+}
 
 \seealso{
   \code{\link{varpart}} uses \code{RsquareAdj}.

@@ -6,6 +6,11 @@ Vegan 2.1-10 (opened January 22, 2012)
 
 	* mantel, mantel.partial: implemented parallel processing.
 
+	* RsquareAdj: implemented adjusted R2 for partial RDA results.
+	The adjusted R2 of model rda(Y ~ X1 + Condition(X2)) is defined so
+	that it is the same as component '[a] = X1|X2' in
+	varpart(). Removed some dead code from RsquareAdj.cca().
+
 	* varpart: do not scale constraints to unit sd -- this makes
 	constant columns (like all zero) into NaN and causes an error in
 	simpleRDA2.  Not scaling may help in problems like that reported

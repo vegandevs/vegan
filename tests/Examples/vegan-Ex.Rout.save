@@ -1,8 +1,8 @@
 
-R version 2.14.1 RC (2011-12-19 r57935)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R Under development (unstable) (2012-01-26 r58207)
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin10.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-8
+This is vegan 2.1-10
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x101fd2bc8>
+<environment: 0x2c8da40>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -4696,17 +4696,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109aa0980>
+<environment: 0x8c15f18>
 
 Estimated degrees of freedom:
-6.4351  total = 7.435071 
+6.4351  total = 7.43507 
 
 GCV score: 144.1236
 > 
@@ -4719,7 +4719,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10960fbf0>
+<environment: 0x984b600>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4731,13 +4731,13 @@ GCV score: 140.0949
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
+22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
          8          9         10         11         12         13         14 
-11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
+11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
         15         16         17         18         19         20         21 
-18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
+18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
         22         23         24 
- 3.0020413  9.8128952  7.3656932 
+ 3.0020415  9.8128952  7.3656934 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -4868,14 +4868,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b083f78>
+<environment: 0x5939ad0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4888,7 +4888,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a09aa28>
+<environment: 0x9a31598>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4901,7 +4901,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b2cb3f8>
+<environment: 0x8f47880>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5667,8 +5667,8 @@ Rotation matrix:
 [2,] 0.1169579  0.9931369
 
 Translation of averages:
-             [,1]          [,2]
-[1,] 1.047183e-17 -1.381645e-17
+            [,1]         [,2]
+[1,] 1.79048e-17 9.246476e-19
 
 Scaling of target:
 [1] 0.6736868
@@ -6509,7 +6509,7 @@ Antodo 1.6055439 7.575379e-01
 Salrep 0.7118892 8.654457e-02
 Achmil 1.5948052 8.449914e-01
 Poatri 0.7367577 7.099165e-01
-Chealb 1.9479718 2.220446e-16
+Chealb 1.9479718 6.661338e-16
 Elyrep 0.5160932 5.135604e-01
 Sagpro 1.3031750 1.019154e+00
 Plalan 1.7013794 6.393173e-01
@@ -6780,17 +6780,25 @@ Use function 'rda' to test significance of fractions of interest
 > # Change the data frame with factors into numeric model matrix
 > mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
 > mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-> # Test fraction [a] using RDA:
-> rda.result <- rda(decostand(mite, "hell"), mm, mite.pcnm)
-> anova(rda.result, step=200, perm.max=200)
+> # Test fraction [a] using partial RDA:
+> aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
+> anova(aFrac, step=200, perm.max=200)
 Permutation test for rda under reduced model
 
-Model: rda(X = decostand(mite, "hell"), Y = mm, Z = mite.pcnm)
+Model: rda(X = decostand(mite, "hel"), Y = mm, Z = mite.pcnm)
          Df      Var      F N.Perm Pr(>F)   
 Model    11 0.053592 1.8453    199  0.005 **
 Residual 36 0.095050                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> # RsquareAdj gives the same result as component [a] of varpart
+> RsquareAdj(aFrac)
+$r.squared
+[1] 0.1359251
+
+$adj.r.squared
+[1] 0.09140797
+
 > 
 > # Three explanatory matrices 
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
@@ -7163,14 +7171,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-12. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-13. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b2f4d80>
+<environment: 0x991fb68>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7613,13 +7621,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 9.992007e-16 -6.106227e-16  8.881784e-16 -2.775558e-17  2.220446e-16 
+-7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 9.714451e-17  9.714451e-17  4.163336e-17 -1.387779e-17  8.326673e-17 
+ 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
          CA11          CA12          CA13          CA14          CA15 
- 7.632783e-17  1.040834e-16 -2.081668e-17  4.510281e-17  1.908196e-17 
+ 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--1.908196e-17  0.000000e+00  7.025630e-17  2.125036e-17 
+-3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -7628,7 +7636,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
--4.263e-14 
+    0 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -7646,7 +7654,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  90.026 2.277 98.239 0 0 
+Time elapsed:  24.737 0.132 24.955 0 0 
 > grDevices::dev.off()
 null device 
           1 

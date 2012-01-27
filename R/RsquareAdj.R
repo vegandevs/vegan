@@ -21,10 +21,15 @@
     R2 <- x$CCA$tot.chi/x$tot.chi
     m <- x$CCA$qrank
     n <- nrow(x$CCA$u)
-    if (is.null(x$pCCA))
+    if (is.null(x$pCCA)) {
         radj <- RsquareAdj(R2, n, m)
-    else
-        radj <- NA
+    } else {
+        ## Partial model: same adjusted R2 as for component [a] in two
+        ## source varpart model
+        R2p <- x$pCCA$tot.chi/x$tot.chi
+        p <- x$pCCA$rank
+        radj <- RsquareAdj(R2 + R2p, n, m + p) - RsquareAdj(R2p, n, p)
+    }
     list(r.squared = R2, adj.r.squared = radj)
 }
 
@@ -33,8 +38,6 @@ RsquareAdj.cca <-
     function(x, ...)
 {
     R2 <- x$CCA$tot.chi/x$tot.chi
-    m <- x$CCA$qrank
-    n <- nrow(x$CCA$u)
     radj <- NA
     list(r.squared = R2, adj.r.squared = radj)
 }

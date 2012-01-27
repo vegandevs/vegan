@@ -234,9 +234,11 @@ plot(mod)
 # Change the data frame with factors into numeric model matrix
 mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
 mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-# Test fraction [a] using RDA:
-rda.result <- rda(decostand(mite, "hell"), mm, mite.pcnm)
-anova(rda.result, step=200, perm.max=200)
+# Test fraction [a] using partial RDA:
+aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
+anova(aFrac, step=200, perm.max=200)
+# RsquareAdj gives the same result as component [a] of varpart
+RsquareAdj(aFrac)
 
 # Three explanatory matrices 
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
