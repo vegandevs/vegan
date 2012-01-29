@@ -15,7 +15,9 @@ Vegan 2.1-10 (opened January 22, 2012)
 	constant columns (like all zero) into NaN and causes an error in
 	simpleRDA2.  Not scaling may help in problems like that reported
 	in "[vegan-help][5477] Nested factors in function "varpart"?" by
-	Katie Shelef on 26 Jan 2012
+	Katie Shelef on 26 Jan 2012.
+
+	* use inconsolata fonts in vignettes.
 	
 Version 2.1-9 (closed January 22, 2012)
 
