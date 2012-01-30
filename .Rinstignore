@@ -1,0 +1,5 @@
+Makefile
+.*tex$
+.*sty$
+.*bib$
+.*texi$

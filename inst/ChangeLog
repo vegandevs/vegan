@@ -18,6 +18,17 @@ Vegan 2.1-10 (opened January 22, 2012)
 	Katie Shelef on 26 Jan 2012.
 
 	* use inconsolata fonts in vignettes.
+
+	* added .Rinstignore file to list inst/doc files that should not
+	be installed (Makefile, tex, bib, sty). Background: R 2.13.0
+	mandated to put vignettes to their specific vignettes/ directory,
+	but this is incompatible with R 2.12.* where vegan also should
+	work.  The inst/doc directory can still be used (it isnow
+	'deprecated'), but system files (such as Makefile) and
+	intermediate files (such as tex) are silently copied to the
+	installation.  R 2.15.0 (under development) added R CMD check test
+	for these extra files.  File .Rinstignore allows maintaining R
+	2.12.* compatibility and silences R 2.15.0 tests.
 	
 Version 2.1-9 (closed January 22, 2012)
 
