@@ -1,6 +1,6 @@
 "mrpp" <-
 function (dat, grouping, permutations = 999, distance = "euclidean", 
-    weight.type = 1, strata) 
+    weight.type = 1, strata, parallel = getOption("mc.cores")) 
 {
     classmean <- function(ind, dmat, indls) {
         sapply(indls, function(x)
@@ -49,13 +49,35 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
             stop(gettextf("'permutations' have %d columns, but data have %d rows",
                           ncol(perms), N))
     }
-    m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, 
-        w))
+    ## Parallel processing
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    if ((hasClus || parallel > 1)  && require(parallel)) {
+        if(.Platform$OS.type == "unix" && !hasClus) {
+            m.ds <- unlist(mclapply(1:permutations, function(i, ...)
+                                    mrpp.perms(perms[,i], dmat, indls, w),
+                                    mc.cores = parallel))
+        } else {
+            if (!hasClus) {
+                parallel <- makeCluster(parallel)
+                clusterEvalQ(parallel, library(vegan))
+            }
+            m.ds <- parCapply(parallel, perms, function(x)
+                              mrpp.perms(x, dmat, indls, w))
+            if (!hasClus)
+                stopCluster(parallel)
+        }
+    } else {
+        m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
+    }
     p <- (1 + sum(del >= m.ds))/(permutations + 1)
     r2 <- 1 - del/E.del
     out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
         n = ncl, classdelta = classdel,
-        Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
+                Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
         boot.deltas = m.ds, permutations = permutations)
     if (!missing(strata) && !is.null(strata)) {
         out$strata <- deparse(substitute(strata))

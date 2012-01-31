@@ -13,7 +13,7 @@ and between block dissimilarities.}
 
 \usage{
 mrpp(dat, grouping, permutations = 999, distance = "euclidean",
-     weight.type = 1, strata)
+     weight.type = 1, strata, parallel = getOption("mc.cores"))
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
 \method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
@@ -36,6 +36,10 @@ meandist(dist, grouping, ...)
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
   \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.

@@ -4,7 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Vegan 2.1-10 (opened January 22, 2012)
 
-	* mantel, mantel.partial: implemented parallel processing.
+	* mantel, mantel.partial, mrpp: implemented parallel processing.
 
 	* RsquareAdj: implemented adjusted R2 for partial RDA results.
 	The adjusted R2 of model rda(Y ~ X1 + Condition(X2)) is defined so
