@@ -10,7 +10,8 @@
   of sampling units.
 }
 \usage{
-anosim(dat, grouping, permutations = 999, distance = "bray", strata)
+anosim(dat, grouping, permutations = 999, distance = "bray", strata,
+    parallel = getOption("mc.cores"))
 }
 
 \arguments{
@@ -27,6 +28,10 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata)
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
 }
 \details{
   Analysis of similarities (ANOSIM) provides a way to test statistically

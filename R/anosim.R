@@ -1,6 +1,6 @@
 `anosim` <-
     function (dat, grouping, permutations = 999,
-              distance = "bray", strata) 
+              distance = "bray", strata, parallel = getOption("mc.cores")) 
 {
     if (inherits(dat, "dist")) 
         x <- dat
@@ -47,7 +47,29 @@
                           ncol(permat), N))
         permutations <- nrow(permat)
     }
-    perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
+    ## Parallel processing
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    if ((hasClus || parallel > 1)  && require(parallel)) {
+        if(.Platform$OS.type == "unix" && !hasClus) {
+            perm <- unlist(mclapply(1:permutations, function(i, ...)
+                                    ptest(permat[i,]),
+                                    mc.cores = parallel))
+        } else {
+            if (!hasClus) {
+                parallel <- makeCluster(parallel)
+                clusterEvalQ(parallel, library(vegan))
+            }
+            perm <- parRapply(parallel, permat, ptest)
+            if (!hasClus)
+                stopCluster(parallel)
+        }
+    } else {
+        perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
+    }
     p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
     sol$signif <- p.val
     sol$perm <- perm
