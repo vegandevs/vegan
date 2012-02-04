@@ -1,7 +1,7 @@
 `adonis` <-
     function(formula, data=NULL, permutations=999, method="bray", strata=NULL,
              contr.unordered="contr.sum", contr.ordered="contr.poly",
-             ...)
+             parallel = getOption("mc.cores"), ...)
 {
     ## formula is model formula such as Y ~ A + B*C where Y is a data
     ## frame or a matrix, and A, B, and C may be factors or continuous
@@ -108,11 +108,42 @@
     tIH.snterm <- t(I-H.snterm)
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
-    f.perms <- sapply(1:nterms, function(i) {
-        sapply(1:permutations, function(j) {
-            f.test(tH.s[[i]], G[p[,j], p[,j]], df.Exp[i], df.Res, tIH.snterm)
-        } )
-    })
+    ## Set first parallel processing for all terms
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isMulticore <- .Platform$OS.type == "unix" && !hasClus
+    if (isParal && !isMulticore && !hasClus) {
+        parallel <- makeCluster(parallel)
+        clusterEvalQ(parallel, library(vegan))
+    }
+    if (isParal) {
+        if (isMulticore) {
+            f.perms <-
+                sapply(1:nterms, function(i)
+                       unlist(mclapply(1:permutations, function(j)
+                                       f.test(tH.s[[i]], G[p[,j], p[,j]],
+                                              df.Exp[i], df.Res, tIH.snterm))))
+        } else {
+            f.perms <-
+                sapply(1:nterms, function(i)
+                       parSapply(parallel, 1:permutations, function(j)
+                                 f.test(tH.s[[i]], G[p[,j], p[,j]],
+                                        df.Exp[i], df.Res, tIH.snterm)))
+        }
+    } else {
+        f.perms <-
+            sapply(1:nterms, function(i) 
+                   sapply(1:permutations, function(j) 
+                          f.test(tH.s[[i]], G[p[,j], p[,j]],
+                                 df.Exp[i], df.Res, tIH.snterm)))
+    }
+    ## Close socket cluster if created here
+    if (isParal && !isMulticore && !hasClus)
+        stopCluster(parallel)
     ## Round to avoid arbitrary P-values with tied data
     f.perms <- round(f.perms, 12)
     F.Mod <- round(F.Mod, 12)

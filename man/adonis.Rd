@@ -12,7 +12,7 @@
 \usage{
 adonis(formula, data, permutations = 999, method = "bray",
        strata = NULL, contr.unordered = "contr.sum",
-       contr.ordered = "contr.poly", ...)
+       contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{  
@@ -34,6 +34,10 @@ adonis(formula, data, permutations = 999, method = "bray",
   \item{contr.unordered, contr.ordered}{contrasts used for the design
     matrix (default in R is dummy or treatment contrasts for unordered
     factors). }
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
   \item{\dots}{Other arguments passed to \code{vegdist}.}
 }
 

@@ -8,8 +8,8 @@ Vegan 2.1-10 (opened January 22, 2012)
 	seems to confuse users. Make this change in adonis() instead of
 	print.adonis to be prepared to add other policies.
 
-	* anomsim, mantel, mantel.partial, mrpp: implemented parallel
-	processing.
+	* adonis, anosim, mantel, mantel.partial, mrpp: implemented
+	parallel processing.
 
 	* RsquareAdj: implemented adjusted R2 for partial RDA results.
 	The adjusted R2 of model rda(Y ~ X1 + Condition(X2)) is defined so
