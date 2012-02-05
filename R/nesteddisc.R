@@ -1,5 +1,5 @@
 `nesteddisc` <-
-    function(comm)
+    function(comm, niter = 200)
 {
     ## The original discrepancy method orders columns by frequencies,
     ## but does not consider ties. The current function tries to order
@@ -10,7 +10,6 @@
 
     ## starting values and CONSTANTS
     NALL <- 7
-    NITER <- 200
     ties <- FALSE
     trace <- FALSE
     ## Code
@@ -28,6 +27,7 @@
     rs <- range(rowSums(comm))
     ## Function to evaluate discrepancy
     FUN <- function(x) sum(comm[col(comm)[,x] <= rowSums(comm)] == 0) 
+    Ad <- FUN(x)
     ## Go through all le-items and permute ties
     for (i in 1:length(le)) {
         if (le[i] > 1) {
@@ -36,13 +36,12 @@
             ## Can swaps influence discrepancy?
             if (idx[1] > rs[2] || idx[le[i]] < rs[1])
                 next
-            Ad <- FUN(x)
             ## Complete enumeration if no. of tied value <= NALL
             if (le[i] <= NALL) {
                 perm <- matrix(allPerms(le[i]), ncol=le[i]) + cle[i]
                 ## Take at maximum NITER cases from complete enumeration
-                if (nrow(perm) >= NITER) {
-                    perm <- perm[sample.int(nrow(perm), NITER),]
+                if (nrow(perm) > niter) {
+                    perm <- perm[sample.int(nrow(perm), niter),]
                     ties <- TRUE
                 }
             }
@@ -50,20 +49,17 @@
             ## duplicated orders
             else {
                 ties <- TRUE
-                perm <- matrix(0, nrow=NITER, ncol=le[i])
-                for (j in 1:NITER)
-                    perm[j,] <- permuted.index(le[i])
+                perm <- t(replicate(niter, permuted.index(le[i])))
                 perm <- perm + cle[i]
             }
-            for (j in 1:nrow(perm)) {
+            vals <- sapply(1:nrow(perm), function(j) {
                 take[idx] <- perm[j,]
-                val <- FUN(take)
-                if (val < Ad) {
-                    x <- take
-                    Ad <- val
-                    if (trace)
-                        cat(Ad, ":", perm[j,], "\n")
-                }
+                FUN(take)
+            })
+            jmin <- which.min(vals)
+            if (vals[jmin] < Ad) {
+                x[idx] <- perm[jmin,]
+                Ad <- vals[jmin]
             }
         }
     }

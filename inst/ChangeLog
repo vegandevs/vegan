@@ -7,6 +7,9 @@ Version 2.1-11 (opened February 5, 2012)
 	* adonis, anosim, mantel, mantel.partial, mrpp, permutest.cca: do
 	not need clusterEvalQ(parallel, library(vegan)) for socket
 	clusters. 
+
+	* nesteddisc: new argument 'niter' to give the number of
+	iterations to reorder tied columns.
 	
 Version 2.1-10 (closed February 5, 2012)
 
