@@ -94,7 +94,8 @@ options(mc.cores = 2)
 The \code{mc.cores} option is defined in the \pkg{parallel} package,
 but it is usually unset in which case \pkg{vegan} will default to
 non-parallel computation.  The \code{mc.cores} option can be set by
-the environmental variable \code{MC_CORES}.
+the environmental variable \code{MC_CORES} when the \pkg{parallel}
+package is loaded.
 
 The \R{} development version\footnote{Probably released as \R-2.15.0
   in October 2012.} allows setting up a default socket cluster
@@ -117,45 +118,39 @@ If socket cluster is not set up in Windows, \pkg{vegan} will create and
 close the cluster within the function body. This involves following commands:
 <<eval=false>>=
 clus <- makeCluster(4)
-clusterEvalQ(clus, library(vegan))
+## perform parallel processing
 stopCluster(clus)
 @ 
 The first command sets up the cluster, in this case with four
-cores. The second command makes \pkg{vegan} (and \pkg{permute} that is
-also loaded) functions known to the cluster and allows their use
-within the parallel code. Finally, the third command stops the
-cluster.  You should give the two first commands to set up a cluster
-used with \pkg{vegan} commands, and after finishing all parallel
-processing you should \code{stopCluster}.
+cores, and the second command stops the cluster.
 
 Most parallelized \pkg{vegan} functions work similarly in socket and
 fork clusters, but in \code{oecosimu} the parallel processing is used
-to evaluate user-defined functions.  If these functions need other
-packages than \pkg{vegan}, \pkg{permute} and base \R{} packages, it is
-necessary to use pre-defined socket clusters which declare these other
-packages.  For example, if you want to use the Ochiai dissimilarity in
-the function \code{dsvdis} of the \pkg{labdsv} package in the
-\code{meandist} function of the \code{oecosimu} example in Windows,
-you must pre-set the socket cluster, and in addition also load the
-\pkg{labdsv} package before the call:
+to evaluate user-defined functions. If you use pre-defined socket
+cluster, and you use functions in packages (like in \pkg{vegan}), you
+must make those packages known to the socket cluster.  For example, if
+you want to run in parallel the \code{meandist} function of the
+\code{oecosimu} example with a pre-defined socket cluster, you must
+use:
 <<eval=false>>=
 ## start up and define meandist()
 library(vegan)
 data(sipoo)
-meandist <- function(x) mean(dsvdis(x, "ochiai"))
-## set up a cluster and load packages
+meandist <- function(x) mean(vegdist(x, "bray"))
 library(parallel)
-library(labdsv)
-clus <- makeCluster(2)
-clusterEvalQ(clus, library(labdsv))
-## call oecosimu
-oecosimu(sipoo, meandist, "r1", parallel = clus)
-## close the cluster
+clus <- makeCluster(4)
+clusterEvalQ(clus, library(vegan))
+mbc1 <- oecosimu(dune, meandist, "r2dtable", parallel = clus)
 stopCluster(clus)
 @ 
+Socket clusters are used for parallel processing in Windows, but you
+do not need to pre-define the socket cluster in \code{oecosimu} if you
+only need \pkg{vegan} commands.  However, if you need some other
+contributed packages, you must pre-define the socket cluster also in
+Windows with appropriate \code{clusterEvalQ} calls.
 
-If you pre-set the cluster, you can also use \pkg{snow} style clusters
-in unix-like systems.  
+If you pre-set the cluster, you can also use \pkg{snow} style socket
+clusters in unix-like systems.
 
 \subsubsection{Random number generation}
 
@@ -236,8 +231,9 @@ following way:
   parallel processes.  In unix-like systems this is the number of
   forked multicore processes, and in Windows this is the number of
   workers in socket clusters.  In Windows, the socket clustes is
-  created, \code{library(vegan)} is evaluated in the cluster, and the
-  cluster is stopped after parallel processing.
+  created, and if needed \code{library(vegan)} is evaluated in the
+  cluster (this is not necessary if the function only uses internal
+  functions), and the cluster is stopped after parallel processing.
 \item Socket cluster: If a socket cluster is given, it will be used in
   all operating systems.  It is not created, \code{library(vegan)} is
   not evaluated and the cluster is not stopped.
@@ -250,7 +246,12 @@ This gives the following precedence order for parallel processing
     be used.
   \item If \code{mc.cores} is set, it will be used. In Windows this
     will mean creating and stopping socket clusters even when a
-    default cluster is set if \code{mc.cores} is not \code{NULL}. 
+    default cluster is set if \code{mc.cores} is not
+    \code{NULL}. Please note that the \code{mc.cores} is only set from
+    the environmental variable \code{MC_CORES} when you load the
+    \pkg{parallel} package, and it is always unset before first
+    \code{require(parallel)}. \footnote{The behaviour of
+      \code{mc.cores} option is untested in Windows.}
   \item In \R-2.15.0 the default socket cluster will be used if set.
   \item The fall back behaviour is no parallel processing. 
 \end{enumerate}
