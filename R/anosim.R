@@ -61,7 +61,6 @@
         } else {
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
-                clusterEvalQ(parallel, library(vegan))
             }
             perm <- parRapply(parallel, permat, ptest)
             if (!hasClus)

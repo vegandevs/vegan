@@ -129,7 +129,6 @@ permutest.default <- function(x, ...)
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
-                clusterEvalQ(parallel, library(vegan))
             }
             tmp <- parRapply(parallel, permutations, function(i) getF(i))
             tmp <- matrix(tmp, ncol=3, byrow=TRUE)

@@ -118,7 +118,6 @@
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)
-        clusterEvalQ(parallel, library(vegan))
     }
     if (isParal) {
         if (isMulticore) {

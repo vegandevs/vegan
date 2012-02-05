@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Vegan 2.1-10 (opened January 22, 2012)
+Version 2.1-11 (opened February 5, 2012)
+
+	* adonis, anosim, mantel, mantel.partial, mrpp, permutest.cca: do
+	not need clusterEvalQ(parallel, library(vegan)) for socket
+	clusters. 
+	
+Version 2.1-10 (closed February 5, 2012)
 
 	* adonis: print info that terms are added sequentially -- this
 	seems to confuse users. Make this change in adonis() instead of

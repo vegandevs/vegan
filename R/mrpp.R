@@ -63,8 +63,7 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
         } else {
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
-                clusterEvalQ(parallel, library(vegan))
-            }
+             }
             m.ds <- parCapply(parallel, perms, function(x)
                               mrpp.perms(x, dmat, indls, w))
             if (!hasClus)
