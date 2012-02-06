@@ -13,7 +13,8 @@
 }
 \usage{
 \method{bioenv}{default}(comm, env, method = "spearman", index = "bray",
-       upto = ncol(env), trace = FALSE, partial = NULL, ...)
+       upto = ncol(env), trace = FALSE, partial = NULL, 
+       parallel = getOption("mc.cores"), ...)
 \method{bioenv}{formula}(formula, data, ...)
 }
 
@@ -28,6 +29,10 @@
   \item{trace}{Trace the advance of calculations }
   \item{partial}{Dissimilarities partialled out when inspecting
     variables in \code{env}.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
   \item{...}{Other arguments passed to \code{\link{cor}}.}
 }
 \details{

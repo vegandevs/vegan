@@ -1,6 +1,7 @@
 `bioenv.default` <-
 function (comm, env, method = "spearman", index = "bray", upto = ncol(env), 
-              trace = FALSE, partial = NULL, ...) 
+              trace = FALSE, partial = NULL, parallel = getOption("mc.cores"),
+          ...) 
 {
     if (is.null(partial)) {
         corfun <- function(dx, dy, dz, method) {
@@ -34,6 +35,24 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     x <- scale(env)
     best <- list()
     comdis <- vegdist(comm, method = index)
+    ## Prepare for parallel processing
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isMulticore <- .Platform$OS.type == "unix" && !hasClus
+    if (isParal && !isMulticore && !hasClus) {
+        parallel <- makeCluster(parallel)
+    }
+    ## get the number of clusters
+    if (inherits(parallel, "cluster"))
+        nclus <- length(parallel)
+    else
+        nclus <- parallel
+    CLUSLIM <- 8
+    ## The proper loop
     for (i in 1:upto) {
         if (trace) {
             nvar <- choose(n, i)
@@ -44,9 +63,22 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         sets <- t(combn(1:n, i))
         if (!is.matrix(sets)) 
             sets <- as.matrix(t(sets))
-        est <- numeric(nrow(sets))
-        for (j in 1:nrow(sets)) est[j] <- corfun(comdis, dist(x[, 
-                                                                sets[j, ]]), partial, method = method)
+        if (isParal && nrow(sets) >= CLUSLIM*nclus) {
+            if (isMulticore) {
+                est <- unlist(mclapply(1:nrow(sets), function(j)
+                                       corfun(comdis, dist(x[,sets[j, ]]), partial,
+                                              method = method),
+                                       mc.cores = parallel))
+            } else {
+                est <- parSapply(parallel, 1:nrow(sets), function(j)
+                                  corfun(comdis, dist(x[,sets[j, ]]), partial,
+                                         method = method))
+            }
+        } else {
+            est <- sapply(1:nrow(sets), function(j) 
+                          corfun(comdis, dist(x[,sets[j, ]]), partial,
+                                 method = method))
+        }
         best[[i]] <- list(best = sets[which.max(est), ], est = max(est))
         if (trace) {
             ndone <- ndone + nvar

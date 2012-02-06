@@ -8,6 +8,8 @@ Version 2.1-11 (opened February 5, 2012)
 	not need clusterEvalQ(parallel, library(vegan)) for socket
 	clusters. 
 
+	* bioenv: implemented parallel processing.
+
 	* nesteddisc: new argument 'niter' to give the number of
 	iterations to reorder tied columns.
 	
