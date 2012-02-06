@@ -125,7 +125,8 @@
                 sapply(1:nterms, function(i)
                        unlist(mclapply(1:permutations, function(j)
                                        f.test(tH.s[[i]], G[p[,j], p[,j]],
-                                              df.Exp[i], df.Res, tIH.snterm))))
+                                              df.Exp[i], df.Res, tIH.snterm),
+                                       mc.cores = parallel)))
         } else {
             f.perms <-
                 sapply(1:nterms, function(i)
