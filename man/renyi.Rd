@@ -87,7 +87,7 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
   replaced with individual permutation results. 
 }
 \references{
-  \url{http://www.worldagroforestry.org/treesandmarkets/tree_diversity_analysis.asp}
+  \url{http://www.worldagroforestry.org/resources/databases/tree-diversity-analysis}
 
   Hill, M.O. (1973). Diversity and evenness: a unifying notation and its
    consequences. \emph{Ecology} 54, 427--473.

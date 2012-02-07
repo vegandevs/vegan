@@ -15,6 +15,9 @@ Version 2.1-11 (opened February 5, 2012)
 
 	* nesteddisc: new argument 'niter' to give the number of
 	iterations to reorder tied columns.
+
+	* renyi.Rd: fixed a broken link reported by Arne Erpenbach (Uni
+	Frankfurt, Germany). 
 	
 Version 2.1-10 (closed February 5, 2012)
 
