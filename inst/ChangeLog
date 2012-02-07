@@ -11,7 +11,7 @@ Version 2.1-11 (opened February 5, 2012)
 	* adonis: added missing 'mc.cores=' for multicore parallel
 	processing. 
 
-	* bioenv: implemented parallel processing.
+	* bioenv, metaMDS: implemented parallel processing.
 
 	* nesteddisc: new argument 'niter' to give the number of
 	iterations to reorder tied columns.
