@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-11 (opened February 5, 2012)
 
+    * indpower: now can handle input objects without dimnames.
+    This caused problems with oecosimu, because nullmodel
+    objects have no dimnames to save memory.
+    Extended example on indpower help page shows the p-value
+    and heterogeneity calculations soggested in Halme et al. 2009.
+
 	* adonis, anosim, mantel, mantel.partial, mrpp, permutest.cca: do
 	not need clusterEvalQ(parallel, library(vegan)) for socket
 	clusters. 
