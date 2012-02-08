@@ -11,7 +11,24 @@ Version 2.1-11 (opened February 5, 2012)
 	* adonis: added missing 'mc.cores=' for multicore parallel
 	processing. 
 
-	* bioenv, metaMDS: implemented parallel processing.
+	* bioenv: implemented parallel processing.
+
+	* metaMDS: implemented parallel processing which runs iterations
+	(tries) in batches of 'parallel' iterations. However, it seems
+	that this does not work completely with monoMDS: basic results are
+	OK, but 'diss' and 'dist' vectors are scrambled (tested in Linux &
+	R 2.15.0) which is evident if you try to run stressplot() on the
+	result.  The problematic behaviour can also be generated directly
+	with monoMDS():
+
+	mods <- mclapply(1:8, function(i) monoMDS(d), mc.cores=2)
+	stressplot(mods[[1]])
+
+	The 'diss' and 'dist' seem to contain random rubbish as soon as
+	mc.cores > 1.  On the other hand, there are no similar problems
+	with isoMDS() -- but it does not directly return 'diss' and
+	'dist'.  If this cannot be solved, the parallel processing (r2069)
+	will be reverted.
 
 	* nesteddisc: new argument 'niter' to give the number of
 	iterations to reorder tied columns.
