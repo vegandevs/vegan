@@ -11,12 +11,15 @@ function(x, type=0)
     j <- t(x) %*% x
     ip1 <- sweep(j, 1, diag(j), "/")
     ip2 <- 1 - sweep(-sweep(j, 2, diag(j), "-"), 1, n - diag(j), "/")
-    ip <- sqrt(ip1 * ip2)
     out <- switch(as.character(type),
-        "0" = ip,
+        "0" = sqrt(ip1 * ip2),
         "1" = ip1,
         "2" = ip2)
-    colnames(out) <- paste("t", colnames(out), sep=".")
-    rownames(out) <- paste("i", rownames(out), sep=".")
+    cn <- if (is.null(colnames(out)))
+        1:ncol(out) else colnames(out)
+    rn <- if (is.null(rownames(out)))
+        1:ncol(out) else rownames(out)
+    colnames(out) <- paste("t", cn, sep=".")
+    rownames(out) <- paste("i", rn, sep=".")
     out
 }
