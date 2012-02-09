@@ -4,11 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-11 (opened February 5, 2012)
 
-    * indpower: now can handle input objects without dimnames.
-    This caused problems with oecosimu, because nullmodel
-    objects have no dimnames to save memory.
-    Extended example on indpower help page shows the p-value
-    and heterogeneity calculations suggested in Halme et al. 2009.
+	* indpower: now can handle input objects without dimnames.  This
+	caused problems with oecosimu, because nullmodel objects have no
+	dimnames to save memory.  Extended example on indpower help page
+	shows the p-value and heterogeneity calculations suggested in
+	Halme et al. 2009.
 
 	* adonis, anosim, mantel, mantel.partial, mrpp, permutest.cca: do
 	not need clusterEvalQ(parallel, library(vegan)) for socket
@@ -41,6 +41,10 @@ Version 2.1-11 (opened February 5, 2012)
 
 	* renyi.Rd: fixed a broken link reported by Arne Erpenbach (Uni
 	Frankfurt, Germany). 
+
+	* simper: new function to implement "similarity percentages" of
+	Clarke (Austral Ecology 18, 117-143; 1993) contributed by Eduard
+	Szöcz (Uni Landau, Germany).
 	
 Version 2.1-10 (closed February 5, 2012)
 
