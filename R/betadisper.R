@@ -28,8 +28,11 @@
         type <- "median"
     type <- match.arg(type)
     ## checks for groups - need to be a factor for later
-    if(!is.factor(group))
+    if(!is.factor(group)) {
         group <- as.factor(group)
+    } else { ## if already a factor, drop empty levels
+        group <- droplevels(group)
+    }
     n <- attr(d, "Size")
     x <- matrix(0, ncol = n, nrow = n)
     x[row(x) > col(x)] <- d^2
