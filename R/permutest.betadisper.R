@@ -4,10 +4,10 @@
     t.statistic <- function(x, y) {
         m <- length(x)
         n <- length(y)
-        xbar <- .Internal(mean(x))
-        ybar <- .Internal(mean(y))
-        xvar <- .Internal(cov(x, NULL, 1, FALSE))
-        yvar <- .Internal(cov(y, NULL, 1, FALSE))
+        xbar <- mean(x) ## .Internal(mean(x))
+        ybar <- mean(y) ## .Internal(mean(y))
+        xvar <- var(x)  ## .Internal(cov(x, NULL, 1, FALSE))
+        yvar <- var(y)  ## .Internal(cov(y, NULL, 1, FALSE))
         pooled <- sqrt(((m-1)*xvar + (n-1)*yvar) / (m+n-2))
         (xbar - ybar) / (pooled * sqrt(1/m + 1/n))
     }
