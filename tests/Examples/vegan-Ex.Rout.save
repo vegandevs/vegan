@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2012-01-31 r58242)
+R Under development (unstable) (2012-02-09 r58307)
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-10
+This is vegan 2.1-11
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x340c9d0>
+<environment: 0x20775d8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -626,7 +626,6 @@ Run 1 stress 0.1560545
 Run 2 stress 0.08556612 
 ... procrustes: rmse 0.0001630123  max resid 0.0003642025 
 *** Solution reached
-
 > plot(mod)
 > ### Hulls show treatment
 > ordihull(mod, group=dat$NO3, show="0")
@@ -2500,7 +2499,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > (fit <- envfit(ord, varechem, perm = 999))
@@ -2966,7 +2965,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > stressplot(mod)
@@ -3020,7 +3019,7 @@ Run 20 stress 0.3760596
 > ip <- indpower(dune)
 > ## and TIP values
 > diag(ip) <- NA
-> rowMeans(ip, na.rm=TRUE)
+> (TIP <- rowMeans(ip, na.rm=TRUE))
  i.Belper  i.Empnig  i.Junbuf  i.Junart  i.Airpra  i.Elepal  i.Rumace  i.Viclat 
 0.3432281 0.2016196 0.3331330 0.2915850 0.2168133 0.2414787 0.3484684 0.2605349 
  i.Brarut  i.Ranfla  i.Cirarv  i.Hyprad  i.Leoaut  i.Potpal  i.Poapra  i.Calcus 
@@ -3029,6 +3028,33 @@ Run 20 stress 0.3760596
 0.3145854 0.4503764 0.3567884 0.2898512 0.3186250 0.3929520 0.2095044 0.3263516 
  i.Sagpro  i.Plalan  i.Agrsto  i.Lolper  i.Alogen  i.Brohor 
 0.3788905 0.3426064 0.3342800 0.3998442 0.3416198 0.3665632 
+> 
+> ## p value calculation for a species
+> ## from Halme et al. 2009
+> ## i is ID for the species
+> i <- 1
+> fun <- function(x, i) indpower(x)[i,-i]
+> ## 'c0' randomizes species occurrences
+> os <- oecosimu(dune, fun, "c0", i=i, nsimul=99)
+> ## get z values from oecosimu output
+> z <- os$oecosimu$z
+> ## p-value
+> (p <- sum(z) / sqrt(length(z)))
+[1] 0.206007
+> ## 'heterogeneity' measure
+> (chi2 <- sum((z - mean(z))^2))
+[1] 57.9089
+> pchisq(chi2, df=length(z)-1)
+[1] 0.9992519
+> ## Halme et al.'s suggested output
+> out <- c(TIP=TIP[i], 
++     significance=p,
++     heterogeneity=chi2,
++     minIP=min(fun(dune, i=i)),
++     varIP=sd(fun(dune, i=i)^2))
+> out
+ TIP.i.Belper  significance heterogeneity         minIP         varIP 
+    0.3432281     0.2060070    57.9088970     0.0000000     0.1932110 
 > 
 > 
 > 
@@ -3447,7 +3473,6 @@ Run 4 stress 0.2035431
 Run 5 stress 0.1192719 
 ... procrustes: rmse 0.001450932  max resid 0.004117039 
 *** Solution reached
-
 > sol
 
 Call:
@@ -3475,14 +3500,12 @@ Run 2 stress 0.1192685
 ... New best solution
 ... procrustes: rmse 0.000737655  max resid 0.001867068 
 *** Solution reached
-
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
 Run 0 stress 0.1928489 
 Run 1 stress 0.1928527 
 ... procrustes: rmse 0.0004929149  max resid 0.001420577 
 *** Solution reached
-
 > sol2
 
 Call:
@@ -3506,7 +3529,6 @@ Run 0 stress 0.106717
 Run 1 stress 0.1067187 
 ... procrustes: rmse 0.0004025738  max resid 0.001408067 
 *** Solution reached
-
 > sol
 
 Call:
@@ -3712,7 +3734,6 @@ Run 1 stress 0.1192689
 ... New best solution
 ... procrustes: rmse 0.0006819572  max resid 0.001730883 
 *** Solution reached
-
 > ordihull(dune.ord, dune.env$Management)
 > 
 > with(dune.mrpp, {
@@ -4709,7 +4730,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9bc4da0>
+<environment: 0x88f0bb8>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4725,7 +4746,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9567128>
+<environment: 0x7cf4060>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4881,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8486f38>
+<environment: 0x706cbd8>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4894,7 +4915,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa1ad570>
+<environment: 0x576bdd0>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4907,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9399d40>
+<environment: 0x9068100>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7007,7 +7028,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > plot(ord, type = "t")
@@ -7184,7 +7205,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa20daa0>
+<environment: 0x8db4a60>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7664,7 +7685,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.025 0.12 25.231 0 0 
+Time elapsed:  24.973 0.116 25.177 0 0 
 > grDevices::dev.off()
 null device 
           1 
