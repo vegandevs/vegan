@@ -25,7 +25,8 @@
 #' data(dune.env)
 #' with(dune.env, simper(dune, Management))
 
-simper <- function(comm, group)
+`simper` <-
+    function(comm, group)
 {
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL

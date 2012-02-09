@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-11 (opened February 5, 2012)
+Version 2.1-12 (opened February 9, 2012)
+	
+	* simper: new function to implement "similarity percentages" of
+	Clarke (Austral Ecology 18, 117-143; 1993) contributed by Eduard
+	Szöcz (Uni Landau, Germany).
+
+Version 2.1-11 (closed February 9, 2012)
 
 	* indpower: now can handle input objects without dimnames.  This
 	caused problems with oecosimu, because nullmodel objects have no
@@ -42,10 +48,6 @@ Version 2.1-11 (opened February 5, 2012)
 	* renyi.Rd: fixed a broken link reported by Arne Erpenbach (Uni
 	Frankfurt, Germany). 
 
-	* simper: new function to implement "similarity percentages" of
-	Clarke (Austral Ecology 18, 117-143; 1993) contributed by Eduard
-	Szöcz (Uni Landau, Germany).
-	
 Version 2.1-10 (closed February 5, 2012)
 
 	* adonis: print info that terms are added sequentially -- this

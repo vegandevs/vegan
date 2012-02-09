@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{simper}
 \alias{simper}
 \title{Similarity Percentages}
