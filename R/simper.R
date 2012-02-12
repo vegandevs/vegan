@@ -74,15 +74,15 @@
 }
 
 `print.simper` <-
-    function(object)
+    function(x, ...)
 {
-    out <- lapply(object, function(x) t(x[x$cum <= 70 ,"cum", drop = FALSE]))
+    out <- lapply(x, function(z) t(z[z$cum <= 70 ,"cum", drop = FALSE]))
     print(out)
-    invisible(object)
+    invisible(x)
 }
 
 `summary.simper` <-
-    function(object)
+    function(object, ...)
 {
     class(object) <- "summary.simper"
     object

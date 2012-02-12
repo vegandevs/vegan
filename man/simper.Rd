@@ -33,6 +33,10 @@
   The \code{simper} functions performs pairwise comparisons of groups
   of sampling units and finds the average percentage contributions
   of each species to the average overall Bray-Curtis dissimilarity.
+
+  The function displays most important species for each contrast. The
+  complete results can be seen with \code{summary} (see Examples).
+
 }
 
 \value{
@@ -47,7 +51,8 @@
 \examples{
 data(dune)
 data(dune.env)
-with(dune.env, simper(dune, Management))
+(sim <- with(dune.env, simper(dune, Management)))
+summary(sim)
 }
 \author{
   Eduard Szöcs \email{szoe8822@uni-landau.de}
