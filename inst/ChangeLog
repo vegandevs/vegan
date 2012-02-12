@@ -5,7 +5,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 2.1-12 (opened February 9, 2012)
 	
 	* simper: new function to implement "similarity percentages" of
-	Clarke (Austral Ecology 18, 117-143; 1993) contributed by Eduard
+	Clarke (Austral. J. Ecol. 18, 117-143; 1993) contributed by Eduard
 	Szöcz (Uni Landau, Germany).
 
 Version 2.1-11 (closed February 9, 2012)

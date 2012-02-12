@@ -44,16 +44,12 @@
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
         P <- ncol(comm)
-        me <- matrix(ncol = P)    	
-        md <- matrix(ncol = P)
         contr <- matrix(ncol = P, nrow = n.a * n.b)
         for(j in 1:n.b) {
             for(k in 1:n.a) {
-                for(s in 1:P) {
-                    md[s] <- abs(group.a[k, s] - group.b[j, s])
-                    me[s] <- group.a[k, s] + group.b[j, s]
-                    contr[(j-1)*n.a+k, ] <- md / rowSums(me)	
-                }
+                md <- abs(group.a[k, ] - group.b[j, ])
+                me <- group.a[k, ] + group.b[j, ]
+                contr[(j-1)*n.a+k, ] <- md / sum(me)	
             }
         }
         av.contr <- apply(contr, 2, mean) * 100
