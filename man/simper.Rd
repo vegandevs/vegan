@@ -12,9 +12,9 @@
   simper(comm, group)
 }
 \arguments{
-  \item{comm}{Community data}
+  \item{comm}{Community data matrix}
 
-  \item{group}{Vector assigning the groups}
+  \item{group}{factor describing the group structure. Must have at least 2 levels.}
 }
 
 \details{ Similarity percentage, \code{simper} (Clarke 1993) is based
