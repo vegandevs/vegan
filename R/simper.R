@@ -1,38 +1,3 @@
-#' Similarity Percentages
-#'
-#' Discriminating species between two groups using Bray-Curtis dissimilarities.
-#'
-#' @param comm Community data matrix
-#' @param group factor describing the group structure. Must have at least 2 levels.
-#' 
-#' @section Details: simper is a function that extracts species discriminating between two groups and ranks them by their contribution. They Bray-Curtis dissimilarity between two samples is given as:
-#' d[jk] = (sum abs(x[ij]-x[ik])) / (sum (x[ij]+x[ik]))
-#' 
-#' print.simper prints the species with a cumulative contribution <= 70\%
-#' 
-#' summary.simper shows the whole output with additional characteristics
-#'
-#' @return
-#' A list of dataframes for every factor-combination.
-#' \item{contr}{average contribution to overall dissimilarity}
-#' \item{sd}{standard deviation of contribution}
-#' \item{contr/sd}{mean to sd ratio}
-#' \item{av_}{average abundance per group} 
-#' \item{cum}{cumulative per cent contribution}
-#'
-#' @author Eduard Szöcs \email{szoe8822@@uni-landau.de}
-#' @references Clarke, K.R. 1993. Non-parametric multivariate analyses of changes incommunity structure. Austral Ecology, 18(1):117–143.
-#' @export
-#'
-#' @keywords multivariate
-#'
-#' @examples
-#' require(vegan)
-#' data(dune)
-#' data(dune.env)
-#' (sim <- simper(dune, dune.env$Management))
-#' summary(sim)
-
 `simper` <-
     function(comm, group)
 {
