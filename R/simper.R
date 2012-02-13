@@ -52,7 +52,7 @@
                 contr[(j-1)*n.a+k, ] <- md / sum(me)	
             }
         }
-        av.contr <- apply(contr, 2, mean) * 100
+        av.contr <- colMeans(contr) * 100
         ov.av.dis <- sum(av.contr)
         sdi <- apply(contr, 2, sd)
         sdi.av <- av.contr / sdi
