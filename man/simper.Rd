@@ -13,7 +13,7 @@
 }
 \arguments{
   \item{comm}{Community data matrix}
-
+  
   \item{group}{Factor describing the group structure. Must have at least 2 levels.}
 }
 
