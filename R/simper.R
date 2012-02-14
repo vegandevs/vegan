@@ -21,6 +21,7 @@
         average <- colMeans(contr) * 100
         
         if(permutations != 0){
+            cat("Permuting", paste(comp[i,1], "_", comp[i,2], sep = ""), "\n")
             nobs <- length(group)
             perm.contr <- matrix(nrow=P, ncol=permutations)
             contrp <- matrix(ncol = P, nrow = n.a * n.b)
@@ -76,7 +77,7 @@
     function(object, ordered = TRUE, ...)
 {
     if (ordered == TRUE) {
-        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) z$cusum)
         for(i in 1:length(out)) {
             out[[i]]$cumsum <- cusum[[i]]

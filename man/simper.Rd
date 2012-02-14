@@ -9,12 +9,16 @@
 }
 
 \usage{
-  simper(comm, group)
+  simper(comm, group, permutations = 0)
+  
+  \method{summary}{simper}(object, ordered = TRUE, ...)
 }
+
 \arguments{
   \item{comm}{Community data matrix}
-  
   \item{group}{Factor describing the group structure. Must have at least 2 levels.}
+  \item{permutation}{Number of permutations for assessing the 'significance' of the average contribution.}
+  \item{ordered}{Logical; Should the species be ordered by their average contribution?}
 }
 
 \details{ Similarity percentage, \code{simper} (Clarke 1993) is based
@@ -42,16 +46,19 @@
 \value{
   A list of dataframes for every factor-combination.
   \item{contr}{average contribution to overall
-  dissimilarity} \item{sd}{standard deviation of
-  contribution} \item{contr/sd}{mean to sd ratio}
-  \item{av_}{average abundance per group}
-  \item{cum}{cumulative per cent contribution}
+  dissimilarity.} 
+  \item{sd}{standard deviation of
+  contribution.} 
+  \item{ratio}{mean to sd ratio.}
+  \item{av_}{average abundance per group.}
+  \item{cumsum}{cumulative per cent contribution.}
+  \item{p}{permutation p-value. Probability of getting a larger or equal average contribution in random permutation of the group factor.}
 }
 
 \examples{
 data(dune)
 data(dune.env)
-(sim <- with(dune.env, simper(dune, Management)))
+(sim <- with(dune.env, simper(dune, Management, permutations = 99)))
 summary(sim)
 }
 \author{
