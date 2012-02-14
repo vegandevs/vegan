@@ -23,11 +23,8 @@
         sdi.av <- av.contr / sdi
         av.a <- colMeans(group.a)
         av.b <- colMeans(group.b) 
-        dat <- data.frame(av.contr, sdi, sdi.av, av.a, av.b)
-        dat <- dat[order(dat$av.contr, decreasing = TRUE), ]
-        cum <-  cumsum(dat$av.contr / ov.av.dis) * 100
-        out <-  data.frame(dat, cum)
-        names(out) <- c("contr", "sd", "contr/sd", paste("av_", comp[i, 1], sep = ""), paste("av_", comp[i, 2], sep = ""), "cum")
+        ord <- order(av.contr, decreasing = TRUE)
+        out <-  list(species = colnames(comm), average = av.contr, overall = ov.av.dis, sd = sdi, meansdratio = sdi.av, ava = av.a, avb = av.b, ord = ord)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
     class(outlist) <- "simper"
@@ -37,7 +34,12 @@
 `print.simper` <-
     function(x, ...)
 {
-    out <- lapply(x, function(z) t(z[z$cum <= 70 ,"cum", drop = FALSE]))
+    cusum <- lapply(x, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+    spec <- lapply(x, function(z) z$species[z$ord])
+    for(i in 1:length(cusum)) {
+        names(cusum[[i]]) <- spec[[i]]
+    }
+    out <- lapply(cusum, function(z) z[z <= 70])
     print(out)
     invisible(x)
 }
@@ -45,6 +47,11 @@
 `summary.simper` <-
     function(object, ...)
 {
-    class(object) <- "summary.simper"
-    object
+    cusum <- lapply(x, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+    out <- lapply(x, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+    for(i in 1:length(out)) {
+        out[[i]]$cum <- cusum[[i]]
+    }
+    class(out) <- "summary.simper"
+    out
 }
