@@ -1,5 +1,5 @@
 `simper` <-
-    function(comm, group)
+    function(comm, group, permutations = 0)
 {
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL
@@ -18,13 +18,38 @@
             }
         }
         av.contr <- colMeans(contr) * 100
+        
+        if(permutations != 0){
+            nobs <- length(group)
+            perm.contr <- matrix(nrow=P, ncol=permutations)
+            contrp <- matrix(ncol = P, nrow = n.a * n.b)
+            for(p in 1:permutations){
+                perm <- shuffle(nobs)
+                groupp <- group[perm]
+                ga <- as.matrix(comm[groupp == comp[i, 1], ])  
+                gb <- as.matrix(comm[groupp == comp[i, 2], ])
+                for(j in 1:n.b) {
+                    for(k in 1:n.a) {
+                        mdp <- abs(ga[k, ] - gb[j, ])
+                        mep <- ga[k, ] + gb[j, ]
+                        contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
+                    }
+                }
+                perm.contr[ ,p] <- apply(contrp, 2, mean) * 100
+            }
+        p <- apply(apply(perm.contr, 2, function(x) x >= av.contr), 1, sum) / permutations
+        } 
+        else {
+          p <- NULL
+        }
+        
         ov.av.dis <- sum(av.contr)
         sdi <- apply(contr, 2, sd)
         sdi.av <- av.contr / sdi
         av.a <- colMeans(group.a)
         av.b <- colMeans(group.b) 
         ord <- order(av.contr, decreasing = TRUE)
-        out <-  list(species = colnames(comm), average = av.contr, overall = ov.av.dis, sd = sdi, meansdratio = sdi.av, ava = av.a, avb = av.b, ord = ord)
+        out <-  list(species = colnames(comm), average = av.contr, overall = ov.av.dis, sd = sdi, ratio = sdi.av, ava = av.a, avb = av.b, ord = ord, p = p)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
     class(outlist) <- "simper"
@@ -48,14 +73,17 @@
     function(object, ordered = TRUE, ...)
 {
     if (ordered == TRUE) {
-        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) cumsum(z$average[z$ord] / z$overall * 100))
         for(i in 1:length(out)) {
             out[[i]]$cum <- cusum[[i]]
+            if(!is.null(object[[i]]$p)) {
+                out[[i]]$p <- object[[i]]$p[object[[i]]$ord]
+            }
         } 
     } 
     else {
-        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb))
+        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb, p = z$p))
     }
     class(out) <- "summary.simper"
     out
