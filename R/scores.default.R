@@ -51,8 +51,10 @@
     }
     if (is.null(colnames(X))) 
         colnames(X) <- paste("Dim", 1:ncol(X), sep = "")
-    if (!missing(choices)) 
+    if (!missing(choices)) {
+        choices <- choices[choices <= ncol(X)]
         X <- X[, choices, drop = FALSE]
+    }
     X <- as.matrix(X)
     X
 }

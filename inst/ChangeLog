@@ -3,7 +3,12 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-12 (opened February 9, 2012)
-	
+
+	* scores.default: failed if users asked scores of non-existing
+	axes. This was reported as an error in ordiplot() when the user
+	tried to plot 2-dim graph of 1-dim solution in
+	https://stat.ethz.ch/pipermail/r-sig-ecology/2012-February/002764.html
+
 	* simper: new function to implement "similarity percentages" of
 	Clarke (Austral. J. Ecol. 18, 117-143; 1993) contributed by Eduard
 	Szöcz (Uni Landau, Germany).
