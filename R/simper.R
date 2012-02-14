@@ -47,8 +47,8 @@
 `summary.simper` <-
     function(object, ...)
 {
-    cusum <- lapply(x, function(z) cumsum(z$average[z$ord] / z$overall * 100))
-    out <- lapply(x, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+    cusum <- lapply(object, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+    out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
     for(i in 1:length(out)) {
         out[[i]]$cum <- cusum[[i]]
     }
