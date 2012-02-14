@@ -15,9 +15,9 @@
 }
 
 \arguments{
-  \item{comm}{Community data matrix}
+  \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure. Must have at least 2 levels.}
-  \item{permutation}{Number of permutations for assessing the 'significance' of the average contribution.}
+  \item{permutation}{Number of permutations for assessing the 'significance' of the average contribution. Default is set to 0 (no permutation test), because computations may take long time.}
   \item{ordered}{Logical; Should the species be ordered by their average contribution?}
 }
 
