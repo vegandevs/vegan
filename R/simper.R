@@ -1,11 +1,12 @@
 `simper` <-
     function(comm, group, permutations = 0)
 {
+    comm <- as.matrix(comm)
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL
     for (i in 1:nrow(comp)) {
-        group.a <- as.matrix(comm[group == comp[i, 1], ])  
-        group.b <- as.matrix(comm[group == comp[i, 2], ])  
+        group.a <- comm[group == comp[i, 1], ]
+        group.b <- comm[group == comp[i, 2], ]
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
         P <- ncol(comm)
@@ -26,8 +27,8 @@
             for(p in 1:permutations){
                 perm <- shuffle(nobs)
                 groupp <- group[perm]
-                ga <- as.matrix(comm[groupp == comp[i, 1], ])  
-                gb <- as.matrix(comm[groupp == comp[i, 2], ])
+                ga <- comm[groupp == comp[i, 1], ] 
+                gb <- comm[groupp == comp[i, 2], ]
                 for(j in 1:n.b) {
                     for(k in 1:n.a) {
                         mdp <- abs(ga[k, ] - gb[j, ])
@@ -35,7 +36,7 @@
                         contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
                     }
                 }
-                perm.contr[ ,p] <- apply(contrp, 2, mean) * 100
+                perm.contr[ ,p] <- colMeans(contrp) * 100
             }
         p <- apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) / permutations
         } 
