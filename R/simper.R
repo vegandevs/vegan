@@ -17,7 +17,7 @@
                 contr[(j-1)*n.a+k, ] <- md / sum(me)	
             }
         }
-        av.contr <- colMeans(contr) * 100
+        average <- colMeans(contr) * 100
         
         if(permutations != 0){
             nobs <- length(group)
@@ -37,19 +37,20 @@
                 }
                 perm.contr[ ,p] <- apply(contrp, 2, mean) * 100
             }
-        p <- apply(apply(perm.contr, 2, function(x) x >= av.contr), 1, sum) / permutations
+        p <- apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) / permutations
         } 
         else {
           p <- NULL
         }
         
-        ov.av.dis <- sum(av.contr)
+        overall <- sum(average)
         sdi <- apply(contr, 2, sd)
-        sdi.av <- av.contr / sdi
+        ratio <- average / sdi
         av.a <- colMeans(group.a)
         av.b <- colMeans(group.b) 
-        ord <- order(av.contr, decreasing = TRUE)
-        out <-  list(species = colnames(comm), average = av.contr, overall = ov.av.dis, sd = sdi, ratio = sdi.av, ava = av.a, avb = av.b, ord = ord, p = p)
+        ord <- order(average, decreasing = TRUE)
+        cusum <- cumsum(average[ord] / overall * 100)
+        out <-  list(species = colnames(comm), average = average, overall = overall, sd = sdi, ratio = ratio, ava = av.a, avb = av.b, ord = ord, cusum = cusum, p = p)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
     class(outlist) <- "simper"
@@ -59,7 +60,8 @@
 `print.simper` <-
     function(x, ...)
 {
-    cusum <- lapply(x, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+    cat("cumulative contributions of most influential species:\n\n")
+    cusum <- lapply(x, function(z) z$cusum)
     spec <- lapply(x, function(z) z$species[z$ord])
     for (i in 1:length(cusum)) {
         names(cusum[[i]]) <- spec[[i]]
@@ -74,9 +76,9 @@
 {
     if (ordered == TRUE) {
         out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
-        cusum <- lapply(object, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+        cusum <- lapply(object, function(z) z$cusum)
         for(i in 1:length(out)) {
-            out[[i]]$cum <- cusum[[i]]
+            out[[i]]$cumsum <- cusum[[i]]
             if(!is.null(object[[i]]$p)) {
                 out[[i]]$p <- object[[i]]$p[object[[i]]$ord]
             }
