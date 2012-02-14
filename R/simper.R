@@ -3,15 +3,15 @@
 {
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL
-    for (i in 1:nrow(comp)){
+    for (i in 1:nrow(comp)) {
         group.a <- as.matrix(comm[group == comp[i, 1], ])  
         group.b <- as.matrix(comm[group == comp[i, 2], ])  
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
         P <- ncol(comm)
         contr <- matrix(ncol = P, nrow = n.a * n.b)
-        for(j in 1:n.b) {
-            for(k in 1:n.a) {
+        for (j in 1:n.b) {
+            for (k in 1:n.a) {
                 md <- abs(group.a[k, ] - group.b[j, ])
                 me <- group.a[k, ] + group.b[j, ]
                 contr[(j-1)*n.a+k, ] <- md / sum(me)	
@@ -36,7 +36,7 @@
 {
     cusum <- lapply(x, function(z) cumsum(z$average[z$ord] / z$overall * 100))
     spec <- lapply(x, function(z) z$species[z$ord])
-    for(i in 1:length(cusum)) {
+    for (i in 1:length(cusum)) {
         names(cusum[[i]]) <- spec[[i]]
     }
     out <- lapply(cusum, function(z) z[z <= 70])
@@ -45,12 +45,17 @@
 }
 
 `summary.simper` <-
-    function(object, ...)
+    function(object, ordered = TRUE, ...)
 {
-    cusum <- lapply(object, function(z) cumsum(z$average[z$ord] / z$overall * 100))
-    out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
-    for(i in 1:length(out)) {
-        out[[i]]$cum <- cusum[[i]]
+    if (ordered == TRUE) {
+        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+        cusum <- lapply(object, function(z) cumsum(z$average[z$ord] / z$overall * 100))
+        for(i in 1:length(out)) {
+            out[[i]]$cum <- cusum[[i]]
+        } 
+    } 
+    else {
+        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$meansdratio, av.a = z$ava, av.b = z$avb))
     }
     class(out) <- "summary.simper"
     out
