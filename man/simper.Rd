@@ -13,8 +13,8 @@
 }
 \arguments{
   \item{comm}{Community data matrix}
-
-  \item{group}{factor describing the group structure. Must have at least 2 levels.}
+  
+  \item{group}{Factor describing the group structure. Must have at least 2 levels.}
 }
 
 \details{ Similarity percentage, \code{simper} (Clarke 1993) is based
