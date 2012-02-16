@@ -61,7 +61,7 @@
 \examples{
 data(dune)
 data(dune.env)
-(sim <- with(dune.env, simper(dune, Management, permutations = 0)))
+(sim <- with(dune.env, simper(dune, Management)))
 summary(sim)
 }
 \author{
