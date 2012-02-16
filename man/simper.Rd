@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{simper}
 \alias{simper}
+\alias{summary.simper}
 \title{Similarity Percentages}
 
 \description{
@@ -17,7 +18,7 @@
 \arguments{
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure. Must have at least 2 levels.}
-  \item{permutations}{Number of permutations for assessing the 'significance' of the average contribution. Default is set to 0 (no permutation test), because computations may take long time.}
+  \item{permutations}{Number of permutations for assessing the \dQuote{significance} of the average contribution. Default is set to 0 (no permutation test), because computations may take long time.}
   \item{ordered}{Logical; Should the species be ordered by their average contribution?}
 }
 
@@ -58,7 +59,7 @@
 \examples{
 data(dune)
 data(dune.env)
-(sim <- with(dune.env, simper(dune, Management, permutations = 99)))
+(sim <- with(dune.env, simper(dune, Management, permutations = 0)))
 summary(sim)
 }
 \author{
