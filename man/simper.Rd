@@ -17,10 +17,15 @@
 
 \arguments{
   \item{comm}{Community data matrix.}
-  \item{group}{Factor describing the group structure. Must have at least 2 levels.}
-  \item{permutations}{Number of permutations for assessing the \dQuote{significance} of the average contribution. Default is set to 0 (no permutation test), since computations may take long time.}
+  \item{group}{Factor describing the group structure. Must have at
+    least 2 levels.}
+  \item{permutations}{Number of permutations for assessing the
+    \dQuote{significance} of the average contribution. Default is set
+    to 0 (no permutation test), since computations may take long
+    time.}
   \item{object}{an object returned by \code{simper}.}
-  \item{ordered}{Logical; Should the species be ordered by their average contribution?}
+  \item{ordered}{Logical; Should the species be ordered by their
+    average contribution?}
   \item{...}{Parameters passed to other functions}
 }
 
@@ -41,8 +46,14 @@
   of sampling units and finds the average percentage contributions
   of each species to the average overall Bray-Curtis dissimilarity.
 
-  The function displays most important species for each contrast. The
-  complete results can be seen with \code{summary} (see Examples).
+  The function displays most important species for each pair of
+  \code{groups}.  These species contribute at least to 70 \% of the
+  differences between groups.  The function returns much more
+  extensive results which can be accessed directly from the result
+  object (see section Value). Function \code{summary} transforms the
+  result to a list of data frames. With argument \code{ordered =
+  TRUE} the data frames also include the cumulative contributions and
+  are ordered by species contribution.
 
 }
 
