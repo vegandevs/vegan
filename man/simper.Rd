@@ -10,7 +10,7 @@
 }
 
 \usage{
-  simper(comm, group, permutations = 0)
+  simper(comm, group, permutations = 0, trace = FALSE, ...)
   
   \method{summary}{simper}(object, ordered = TRUE, ...)
 }
@@ -19,14 +19,18 @@
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure. Must have at
     least 2 levels.}
-  \item{permutations}{Number of permutations for assessing the
-    \dQuote{significance} of the average contribution. Default is set
-    to 0 (no permutation test), since computations may take long
+  \item{permutations}{Number of permutations or a permutation matrix
+    such as produced by \code{\link[permute]{shuffleSet}} for assessing
+    the \dQuote{significance} of the average contribution. Default is
+    set to 0 (no permutation test), since computations may take long
     time.}
+  \item{trace}{Trace permutations.}
   \item{object}{an object returned by \code{simper}.}
   \item{ordered}{Logical; Should the species be ordered by their
     average contribution?}
-  \item{...}{Parameters passed to other functions}
+  \item{...}{Parameters passed to other functions. In \code{simper} the
+    extra parameters are passed to \code{\link[permute]{shuffleSet}} if
+    permutations are used.}
 }
 
 \details{ Similarity percentage, \code{simper} (Clarke 1993) is based
