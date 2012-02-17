@@ -68,7 +68,8 @@
     for (i in 1:length(cusum)) {
         names(cusum[[i]]) <- spec[[i]]
     }
-    out <- lapply(cusum, function(z) z[z <= 70])
+    ## this probably fails with empty or identical groups that have 0/0 = NaN
+    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 70)))])
     print(out)
     invisible(x)
 }

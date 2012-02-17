@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1021396a0>
+<environment: 0x1021396d8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -4730,7 +4730,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109e21030>
+<environment: 0x109c72cd8>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4746,7 +4746,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1099b4e78>
+<environment: 0x10969d268>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4902,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108f53f78>
+<environment: 0x109ddf588>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4915,7 +4915,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1091aaf58>
+<environment: 0x1094cc2e8>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109d0f6b0>
+<environment: 0x10916cb58>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -6000,38 +6000,38 @@ cumulative contributions of most influential species:
 $BF_SF
    Agrsto    Alogen    Lolper    Trirep    Poatri    Leoaut    Brohor    Achmil 
  9.824271 18.254830 25.956958 33.367870 40.734444 47.729205 53.120026 57.946526 
-   Plalan    Elyrep 
-62.522255 67.016196 
+   Plalan    Elyrep    Brarut 
+62.522255 67.016196 71.098133 
 
 $BF_HF
    Rumace    Poatri    Plalan    Brohor    Lolper    Elyrep    Trirep    Antodo 
  8.163219 15.193797 21.918333 27.967181 33.969561 39.843338 45.298204 50.276849 
-   Achmil    Brarut    Alogen    Tripra 
-55.222648 60.021994 64.584333 69.126471 
+   Achmil    Brarut    Alogen    Tripra    Junart 
+55.222648 60.021994 64.584333 69.126471 73.366621 
 
 $BF_NM
   Lolper   Poatri   Poapra   Trirep   Brohor   Brarut   Elepal   Agrsto 
 12.42718 19.92126 27.11756 34.14609 39.58520 44.48077 49.10724 53.69083 
-  Achmil   Leoaut   Antodo 
-58.23926 62.53645 66.38182 
+  Achmil   Leoaut   Antodo   Plalan 
+58.23926 62.53645 66.38182 70.12577 
 
 $SF_HF
    Agrsto    Alogen    Lolper    Plalan    Rumace    Elyrep    Poatri    Brarut 
  8.350879 16.534834 23.934930 30.843624 37.716139 43.334492 48.351753 52.804045 
-   Elepal    Poapra    Antodo    Sagpro 
-57.205850 61.423981 65.549838 69.628951 
+   Elepal    Poapra    Antodo    Sagpro    Tripra 
+57.205850 61.423981 65.549838 69.628951 73.696831 
 
 $SF_NM
   Poatri   Alogen   Agrsto   Lolper   Elepal   Poapra   Brarut   Elyrep 
 10.13601 19.35731 26.67383 33.77578 39.99419 45.26707 50.44725 55.05643 
-  Leoaut   Trirep   Sagpro 
-59.26117 63.20111 67.12478 
+  Leoaut   Trirep   Sagpro   Salrep 
+59.26117 63.20111 67.12478 70.91528 
 
 $HF_NM
    Poatri    Lolper    Rumace    Poapra    Plalan    Brarut    Elepal    Agrsto 
  9.913221 17.468460 23.917190 29.701331 35.469313 40.365488 44.804851 49.226546 
-   Trirep    Elyrep    Antodo    Junart    Tripra 
-53.434466 57.564661 61.543243 65.341300 68.921695 
+   Trirep    Elyrep    Antodo    Junart    Tripra    Salrep 
+53.434466 57.564661 61.543243 65.341300 68.921695 72.432408 
 
 > summary(sim)
 $BF_SF
@@ -7463,7 +7463,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10c899358>
+<environment: 0x109f0bf90>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7943,7 +7943,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  82.407 1.599 84.181 0 0 
+Time elapsed:  81.254 1.591 83.713 0 0 
 > grDevices::dev.off()
 null device 
           1 
