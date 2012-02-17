@@ -1,15 +1,24 @@
 `simper` <-
-    function(comm, group, permutations = 0)
+    function(comm, group, permutations = 0, trace = FALSE,  ...)
 {
     comm <- as.matrix(comm)
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL
+    ## data parameters
+    P <- ncol(comm)
+    nobs <- nrow(comm)
+    ## Make permutation matrix
+    if (length(permutations) == 1) {
+        perm <- shuffleSet(nobs, permutations, ...)
+    }
+    nperm <- nrow(perm)
+    if (nperm > 0)
+        perm.contr <- matrix(nrow=P, ncol=nperm)
     for (i in 1:nrow(comp)) {
         group.a <- comm[group == comp[i, 1], ]
         group.b <- comm[group == comp[i, 2], ]
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
-        P <- ncol(comm)
         contr <- matrix(ncol = P, nrow = n.a * n.b)
         for (j in 1:n.b) {
             for (k in 1:n.a) {
@@ -20,14 +29,12 @@
         }
         average <- colMeans(contr) * 100
         
-        if(permutations != 0){
-            cat("Permuting", paste(comp[i,1], "_", comp[i,2], sep = ""), "\n")
-            nobs <- length(group)
-            perm.contr <- matrix(nrow=P, ncol=permutations)
+        if(nperm > 0){
+            if (trace)
+                cat("Permuting", paste(comp[i,1], comp[i,2], sep = "_"), "\n")
             contrp <- matrix(ncol = P, nrow = n.a * n.b)
-            for(p in 1:permutations){
-                perm <- shuffle(nobs)
-                groupp <- group[perm]
+            for(p in 1:nperm){
+                groupp <- group[perm[p,]]
                 ga <- comm[groupp == comp[i, 1], ] 
                 gb <- comm[groupp == comp[i, 2], ]
                 for(j in 1:n.b) {
@@ -68,7 +75,8 @@
     for (i in 1:length(cusum)) {
         names(cusum[[i]]) <- spec[[i]]
     }
-    out <- lapply(cusum, function(z) z[z <= 70])
+    ## this probably fails with empty or identical groups that have 0/0 = NaN
+    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 70)))])
     print(out)
     invisible(x)
 }
@@ -76,7 +84,7 @@
 `summary.simper` <-
     function(object, ordered = TRUE, ...)
 {
-    if (ordered == TRUE) {
+    if (ordered) {
         out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) z$cusum)
         for(i in 1:length(out)) {
