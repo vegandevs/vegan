@@ -10,7 +10,14 @@
     ## Make permutation matrix
     if (length(permutations) == 1) {
         perm <- shuffleSet(nobs, permutations, ...)
+    } else {  # permutations is a matrix
+        perm <- permutations
     }
+    ## check dims (especially if permutations was a matrix)
+    if (ncol(perm) != nobs)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(perm), nobs))
+    ## OK: take number of permutations
     nperm <- nrow(perm)
     if (nperm > 0)
         perm.contr <- matrix(nrow=P, ncol=nperm)
@@ -59,9 +66,12 @@
         av.b <- colMeans(group.b) 
         ord <- order(average, decreasing = TRUE)
         cusum <- cumsum(average[ord] / overall * 100)
-        out <-  list(species = colnames(comm), average = average, overall = overall, sd = sdi, ratio = ratio, ava = av.a, avb = av.b, ord = ord, cusum = cusum, p = p)
+        out <- list(species = colnames(comm), average = average,
+                    overall = overall, sd = sdi, ratio = ratio, ava = av.a,
+                    avb = av.b, ord = ord, cusum = cusum, p = p)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
+    attr(outlist, "permutations") <- nperm
     class(outlist) <- "simper"
     outlist
 }
@@ -82,7 +92,7 @@
 }
 
 `summary.simper` <-
-    function(object, ordered = TRUE, ...)
+    function(object, ordered = TRUE, digits = max(3, getOption("digits") - 3), ...)
 {
     if (ordered) {
         out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
@@ -97,6 +107,33 @@
     else {
         out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb, p = z$p))
     }
+    attr(out, "digits") <- digits
+    attr(out, "permutations") <- attr(object, "permutations")
     class(out) <- "summary.simper"
     out
 }
+
+`print.summary.simper`<-
+    function(x, digits = attr(x, "digits"), ...)
+{
+    signif.stars <- getOption("show.signif.stars") && attr(x, "permutations") > 0
+    starprint <- function(z, ...) {
+        if (signif.stars && any(z$p < 0.1)) {
+            stars <- symnum(z$p, cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                            symbols = c("***", "**", "*", ".", " "))
+            z <- cbind(z, " " = format(stars))
+        }
+        z
+    }
+    out <- lapply(x, starprint, digits = digits, ...)
+    print(out)
+    if (signif.stars && any(sapply(x, function(z) z$p) < 0.1)) {
+        leg <- attr(symnum(1, cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                            symbols = c("***", "**", "*", ".", " ")), "legend")
+        cat("---\nSignif. codes: ", leg, "\n")
+    }
+    if ((np <- attr(x, "permutations")) > 0)
+        cat("P-values based on", np, "permutations\n")
+    invisible(x)
+}
+
