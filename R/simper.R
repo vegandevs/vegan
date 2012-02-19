@@ -10,7 +10,14 @@
     ## Make permutation matrix
     if (length(permutations) == 1) {
         perm <- shuffleSet(nobs, permutations, ...)
+    } else {  # permutations is a matrix
+        perm <- permutations
     }
+    ## check dims (especially if permutations was a matrix)
+    if (ncol(perm) != nobs)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                          ncol(perms), nobs))
+    ## OK: take number of permutations
     nperm <- nrow(perm)
     if (nperm > 0)
         perm.contr <- matrix(nrow=P, ncol=nperm)
