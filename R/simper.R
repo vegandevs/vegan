@@ -16,7 +16,7 @@
     ## check dims (especially if permutations was a matrix)
     if (ncol(perm) != nobs)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(perms), nobs))
+                          ncol(perm), nobs))
     ## OK: take number of permutations
     nperm <- nrow(perm)
     if (nperm > 0)
