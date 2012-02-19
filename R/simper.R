@@ -105,7 +105,7 @@
         } 
     } 
     else {
-        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb, p = z$p))
+        out <- lapply(object, function(z) data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb, p = z$p)))
     }
     attr(out, "digits") <- digits
     attr(out, "permutations") <- attr(object, "permutations")
