@@ -12,7 +12,8 @@
 \usage{
   simper(comm, group, permutations = 0, trace = FALSE, ...)
   
-  \method{summary}{simper}(object, ordered = TRUE, ...)
+  \method{summary}{simper}(object, ordered = TRUE, 
+     digits = max(3, getOption("digits") - 3), ...)
 }
 
 \arguments{
@@ -20,14 +21,15 @@
   \item{group}{Factor describing the group structure. Must have at
     least 2 levels.}
   \item{permutations}{Number of permutations or a permutation matrix
-    such as produced by \code{\link[permute]{shuffleSet}} for assessing
-    the \dQuote{significance} of the average contribution. Default is
-    set to 0 (no permutation test), since computations may take long
+    where each row gives a permuted index for assessing the
+    \dQuote{significance} of the average contribution. Default is set
+    to 0 (no permutation test), since computations may take long
     time.}
   \item{trace}{Trace permutations.}
   \item{object}{an object returned by \code{simper}.}
   \item{ordered}{Logical; Should the species be ordered by their
     average contribution?}
+  \item{digits}{Number of digits in output.}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}
