@@ -21,9 +21,9 @@
   \item{group}{Factor describing the group structure. Must have at
     least 2 levels.}
   \item{permutations}{Number of permutations or a permutation matrix
-    such as produced by \code{\link[permute]{shuffleSet}} for assessing
-    the \dQuote{significance} of the average contribution. Default is
-    set to 0 (no permutation test), since computations may take long
+    where each row gives a permuted index for assessing the
+    \dQuote{significance} of the average contribution. Default is set
+    to 0 (no permutation test), since computations may take long
     time.}
   \item{trace}{Trace permutations.}
   \item{object}{an object returned by \code{simper}.}
