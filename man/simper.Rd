@@ -12,7 +12,8 @@
 \usage{
   simper(comm, group, permutations = 0, trace = FALSE, ...)
   
-  \method{summary}{simper}(object, ordered = TRUE, ...)
+  \method{summary}{simper}(object, ordered = TRUE, 
+     digits = max(3, getOption("digits") - 3), ...)
 }
 
 \arguments{
@@ -28,6 +29,7 @@
   \item{object}{an object returned by \code{simper}.}
   \item{ordered}{Logical; Should the species be ordered by their
     average contribution?}
+  \item{digits}{Number of digits in output.}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}
