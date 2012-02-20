@@ -125,8 +125,10 @@
         }
         z
     }
-    out <- lapply(x, starprint, digits = digits, ...)
-    print(out)
+    out <- lapply(x, starprint, ...)
+    for (nm in names(out)) {
+        print(out[[nm]], digits = digits, ...)
+    }
     if (signif.stars && any(sapply(x, function(z) z$p) < 0.1)) {
         leg <- attr(symnum(1, cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
                             symbols = c("***", "**", "*", ".", " ")), "legend")
@@ -136,4 +138,5 @@
         cat("P-values based on", np, "permutations\n")
     invisible(x)
 }
+
 
