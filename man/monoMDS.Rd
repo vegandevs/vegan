@@ -99,13 +99,13 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 
 \deqn{s^2 = \frac{\sum (d - \hat d)^2}{\sum(d - d_0)^2}}{stress^2 = sum (d-dhat)^2/ sum (d-dnull)^2}
 
-  where \eqn{d} are the observed dissimilarities, \eqn{\hat d}{dhat}
-  are the fitted ordination distances, and \eqn{d_0}{dnull} are the
-  ordination distances under null model. For \dQuote{stress 1}
-  \eqn{d_0 = 0}{dnull = 0}, and for \dQuote{stress 2} \eqn{d_0 =
-  \bar{d}}{dnull = dbar} or mean dissimilarities.  \dQuote{Stress 2}
-  can be expressed as \eqn{s^2 = 1 - R^2}{stress^2 = 1 - R2}, where
-  \eqn{R^2}{R2} is squared correlation between fitted values and
+  where \eqn{d} are distances among points in ordination configuration,
+  \eqn{\hat d}{dhat} are the fitted ordination distances, and
+  \eqn{d_0}{dnull} are the ordination distances under null model.  For
+  \dQuote{stress 1} \eqn{d_0 = 0}{dnull = 0}, and for \dQuote{stress 2}
+  \eqn{d_0 = \bar{d}}{dnull = dbar} or mean distances. \dQuote{Stress 2}
+  can be expressed as \eqn{s^2 = 1 - R^2}{stress^2 = 1 - R2},
+  where\eqn{R^2}{R2} is squared correlation between fitted values and
   ordination distances, and so related to the \dQuote{linear fit} of
   \code{\link{stressplot}}.
 
