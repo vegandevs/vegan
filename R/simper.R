@@ -53,7 +53,7 @@
                 }
                 perm.contr[ ,p] <- colMeans(contrp) * 100
             }
-        p <- (apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) + 1) / (permutations + 1)
+        p <- (apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) + 1) / (nperm + 1)
         } 
         else {
           p <- NULL
