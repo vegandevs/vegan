@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-12 (opened February 9, 2012)
+Version 2.1-13 (opened February 23, 2012)
+
+	* vegdist: Added Cao dissimilarity (CYd).
+	
+Version 2.1-12 (closed February 23, 2012)
 
 	* scores.default: failed if users asked scores of non-existing
 	axes. This was reported as an error in ordiplot() when the user
