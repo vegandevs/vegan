@@ -13,7 +13,7 @@
   Gower, Bray--Curtis, Jaccard and
   Kulczynski indices are good in detecting underlying
   ecological gradients (Faith et al. 1987). Morisita, Horn--Morisita,
-  Binomial and Chao
+  Binomial, Cao and Chao
   indices should be able to handle different sample sizes (Wolda 1981,
   Krebs 1999, Anderson & Millar 2004),
   and Mountford (1962) and Raup-Crick indices for presence--absence data should
@@ -27,8 +27,8 @@
   \item{method}{Dissimilarity index, partial match to  \code{"manhattan"},
     \code{"euclidean"}, \code{"canberra"}, \code{"bray"}, \code{"kulczynski"},
      \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, \code{"morisita"}, 
-     \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"} or 
-     \code{"chao"}.}
+     \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"}, 
+     \code{"chao"} of \code{"cao"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -116,6 +116,15 @@
     \cr
     \tab where \eqn{n_i = x_{ij} + x_{ik}}{n[i] = x[ij] + x[ik]}
     \cr \tab binary: \eqn{\log(2) \times (A+B-2J)}{log(2)*(A+B-2*J)}
+    \cr
+    \code{cao}
+    \tab \eqn{d_{jk} = \frac{1}{S} \sum_i \log
+    \left(\frac{n_i}{2}\right) - (x_{ij} \log(x_{ik}) + x_{ik}
+    \log(x_{ij}))/n_i}{d[jk] = (1/S) * sum(log(n[i]/2) -
+    (x[ij]*log(x[ik]) + x[ik]*log(x[ij]))/n[i])},
+  \cr
+  \tab where \eqn{S} is the number of species in compared sites and
+    \eqn{n_i = x_{ij}+x_{ik}}{n[i] = x[ij] + x[ik]}
   }
 
   Jaccard index is computed as \eqn{2B/(1+B)}, where \eqn{B} is
@@ -126,6 +135,18 @@
   handle variable sample sizes. The index does not have a fixed upper
   limit, but can vary among sites with no shared species. For further
   discussion, see Anderson & Millar (2004).
+
+  Cao index or CYd index (Cao et al. 1997) was suggested as a minimally
+  biased index for high beta diversity and variable sampling intensity.
+  Cao index does not have a fixed upper limit, but can vary among sites
+  with no shared species.  The index is intended for count (integer)
+  data, and it is undefined for zero abundances; these are replaced with
+  arbitrary value \eqn{0.1} following Cao et al. (1997).  Cao et
+  al. (1997) used \eqn{\log_{10}}{log10}, but the current function uses
+  natural logarithms so that the values are approximately \eqn{2.30}
+  times higher than with 10-based logarithms. Anderson & Thompson (2004)
+  give an alternative formulation of Cao index to highlight its
+  relationship with Binomial index (above).
   
   Mountford index is defined as \eqn{M = 1/\alpha} where \eqn{\alpha}
   is the parameter of Fisher's logseries assuming that the compared
@@ -223,9 +244,17 @@
   Zealand.  \emph{Journal of Experimental Marine Biology and Ecology}
   305, 191--221.
 
-  Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
+  Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006). Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
   9, 683--693.
+
+  Anderson, M.J & Thompson, A.A. (2004). Multivariate control charts for
+  ecological and environmental monitoring. \emph{Ecological
+    Applications} 14, 1921--1935.
+
+  Cao, Y., Williams, W.P. & Bark, A.W. (1997). Similarity measure bias
+  in river benthic Auswuchs community analysis. \emph{Water
+  Environment Research} 69, 95--106.
 
   Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005). A new
   statistical approach for assessing similarity of species composition

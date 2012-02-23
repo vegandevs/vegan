@@ -43,6 +43,7 @@
 #define MILLAR 12
 #define CHAO 13
 #define GOWERDZ 14
+#define CAO 15
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -526,6 +527,46 @@ double veg_chao(double *x, int nr, int nc, int i1, int i2)
     return dist;
 }
 
+/* veg_cao implements Cao index (CYd) of Cao Y, Williams WP, Bark AW:
+ *   Water Envir Res 69, 95-106; 1997. Anderson MJ & Thompson AA: Ecol
+ *   Appl 14, 1921-1935; 2004 use different but equal formulation.
+ */
+
+double veg_cao(double *x, int nr, int nc, int i1, int i2)
+{
+     double dist, x1, x2, t1, t2, t3, tlog;
+     int count, j;
+  
+     count = 0;
+     dist = 0;
+     for (j=0; j<nc; j++, i1 += nr, i2 += nr) {
+	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	       /* skip the rest of the loop if both species are
+		  absent */
+	       if (x[i1] == 0 && x[i2] == 0) continue;
+	       /* Cao uses arbitrary value of 0.1 for zeros to avoid
+		  log(0). Obviously this indicates the use of counts
+		  (integer), but we accept non-integer data (with a
+		  warning in R) and put the truncation to the same 0.1
+		  to avoid discontinuities with non-integer data */
+	       x1 = (x[i1] < 0.1) ? 0.1 : x[i1];
+	       x2 = (x[i2] < 0.1) ? 0.1 : x[i2];
+	       t1 = x1 + x2;
+	       /* Cao et al. used log10, but we do not and so our
+		  results are log(10) = 2.302585 times higher */
+	       t2 = x1 * log(x2) + x2 * log(x1);
+	       dist += log(t1) - M_LN2 - t2/t1;
+	       count++;
+	  }
+     }
+     if (count==0) return NA_REAL;
+     if (dist < 0)
+	 dist = 0;
+     dist /= (double)count;
+     return dist;
+}
+
+
 /* veg_noshared is not a proper dissimilarity index, but a pretty
  * useless helper function. It returns 1 when there are no shared
  * species, and 0 if two sites have at least one shared species, and
@@ -626,6 +667,9 @@ void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method
     case GOWERDZ:
 	distfun = veg_gowerDZ;
 	break;
+    case CAO:
+        distfun = veg_cao;
+        break;
     case MATCHING:
 	distfun = veg_matching;
 	break;
