@@ -534,7 +534,7 @@ double veg_chao(double *x, int nr, int nc, int i1, int i2)
 
 double veg_cao(double *x, int nr, int nc, int i1, int i2)
 {
-     double dist, x1, x2, t1, t2, t3, tlog;
+     double dist, x1, x2, t1, t2;
      int count, j;
   
      count = 0;
