@@ -4,7 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-13 (opened February 23, 2012)
 
-	* vegdist: Added Cao dissimilarity (CYd).
+	* scores: expand description of the default method to avoid
+	confusion with specific vegan methods.
+	
+	* scores.monoMDS: did not know 'choices' and hence plot() was also
+	unable to choose dimensions. 
+	
+	* vegdist: Added Cao dissimilarity (CYd). Thanks to Yong Cao for
+	consultation. 
 	
 Version 2.1-12 (closed February 23, 2012)
 
