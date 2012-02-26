@@ -40,9 +40,12 @@
 }
 
 `scores.monoMDS` <-
-    function(x, ...)
+    function(x, choices = NA, ...)
 {
-    x$points
+    if (any(is.na(choices)))
+        x$points
+    else
+        x$points[, choices, drop = FALSE]
 }
 
 `plot.monoMDS` <-
