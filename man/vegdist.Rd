@@ -28,7 +28,7 @@
     \code{"euclidean"}, \code{"canberra"}, \code{"bray"}, \code{"kulczynski"},
      \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, \code{"morisita"}, 
      \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"}, 
-     \code{"chao"} of \code{"cao"}.}
+     \code{"chao"} or \code{"cao"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }

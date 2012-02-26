@@ -4,10 +4,18 @@
 \alias{scores.lda}
 
 \title{ Get Species or Site Scores from an Ordination }
+
 \description{
-  Function to access either species or site scores for specified axes in
-  some ordination methods.
+  Function to access either species or site scores for specified axes
+  in some ordination methods. The \code{scores} function is generic in
+  \pkg{vegan}, and \pkg{vegan} ordination functions have their own
+  \code{scores} functions that are documented separately with the
+  method (see e.g. \code{\link{scores.cca}},
+  \code{\link{scores.metaMDS}}, \code{\link{scores.decorana}}). This
+  help file documents the default \code{scores} method that is only
+  used for non-\pkg{vegan} ordination objects.
 }
+
 \usage{
 \method{scores}{default}(x, choices, display=c("sites", "species"), ...)
 }
@@ -37,12 +45,11 @@
   analysis.
   
   The \code{scores.default} function is used to extract scores from
-  non-\pkg{vegan} ordination results.  Most standard ordination
-  methods of libraries \pkg{mva}, \pkg{multiv} and \pkg{MASS} do not
-  have a specific \code{class}, and no specific method can be written
-  for them.  However, \code{scores.default} guesses where some
-  commonly used functions keep their site scores and possible species
-  scores.
+  non-\pkg{vegan} ordination results.  Many standard ordination
+  methods of libraries do not have a specific \code{class}, and no
+  specific method can be written for them.  However,
+  \code{scores.default} guesses where some commonly used functions
+  keep their site scores and possible species scores.
 
   If \code{x} is a matrix, \code{scores.default} returns the chosen
   columns of that matrix, ignoring whether species or sites were
@@ -57,12 +64,15 @@
 \author{Jari Oksanen }
 
 \seealso{
-  \code{\link{scores.cca}}, \code{\link{scores.decorana}}.  These have
-  somewhat different interface -- \code{\link{scores.cca}} in
-  particular -- but all work with keywords \code{display="sites"} and
-  return a matrix. However, they may also return a list of matrices,
-  and some other \code{scores} methods will have quite different
-  arguments.  
+  Specific \code{scores} functions include (but are not limited to)
+  \code{\link{scores.cca}}, \code{\link{scores.rda}},
+  \code{\link{scores.decorana}}, \code{\link{scores.envfit}},
+  \code{\link{scores.metaMDS}}, \code{\link{scores.monoMDS}} and
+  \code{\link{scores.pcnm}}.  These have somewhat different interface
+  -- \code{\link{scores.cca}} in particular -- but all work with
+  keywords \code{display="sites"} and return a matrix. However, they
+  may also return a list of matrices, and some other \code{scores}
+  methods will have quite different arguments.
 }
 
 \examples{
