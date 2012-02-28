@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-13 (opened February 23, 2012)
 
+	* cca/rda/capscale: names of levels could be dropped if a
+	two-class factor was used as the only constraint. Noticed in an
+	email of Sascha Kirchner (Univ Helsinki, Finland).
+	
 	* scores: expand description of the default method to avoid
 	confusion with specific vegan methods.
 	
