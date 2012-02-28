@@ -19,7 +19,7 @@
         for(i in 1:length(tmp)) {
             names(tmp[[i]]) <- paste(pnam[i], names(tmp[[i]]), sep="")
             out <- c(out, tmp[[i]])
-            out <- matrix(out, nrow=1)
+            out <- matrix(out, nrow=1, dimnames = list(NULL, names(out)))
         }  
     } else {
         for (i in 1:length(tmp)) {
