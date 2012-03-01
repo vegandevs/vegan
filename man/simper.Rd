@@ -10,10 +10,9 @@
 }
 
 \usage{
-  simper(comm, group, permutations = 0, trace = FALSE, ...)
-  
-  \method{summary}{simper}(object, ordered = TRUE, 
-     digits = max(3, getOption("digits") - 3), ...)
+simper(comm, group, permutations = 0, trace = FALSE, ...)
+\method{summary}{simper}(object, ordered = TRUE,
+    digits = max(3,getOption("digits") - 3), ...)
 }
 
 \arguments{
@@ -57,8 +56,8 @@
   differences between groups.  The function returns much more
   extensive results which can be accessed directly from the result
   object (see section Value). Function \code{summary} transforms the
-  result to a list of data frames. With argument \code{ordered =
-  TRUE} the data frames also include the cumulative contributions and
+  result to a list of data frames. With argument \code{ordered = TRUE}
+  the data frames also include the cumulative contributions and
   are ordered by species contribution.
 
 }
