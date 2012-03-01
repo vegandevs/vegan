@@ -65,15 +65,15 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
 \value{
   A list of class \code{"simper"} with following items:
   \item{species}{The species names.}
-  \item{average}{average contribution to overall dissimilarity.}
+  \item{average}{Average contribution to overall dissimilarity.}
   \item{overall}{The overall between-group dissimilarity (times 100).} 
-  \item{sd}{standard deviation of contribution.} 
-  \item{ratio}{mean to sd ratio.}
-  \item{ava, avb}{average abundances per group.}
+  \item{sd}{Standard deviation of contribution.} 
+  \item{ratio}{Mean to sd ratio.}
+  \item{ava, avb}{Average abundances per group.}
   \item{ord}{An index vector to order vectors by their contribution or
     order \code{cusum} back to the original data order.}
   \item{cusum}{Ordered cumulative per cent contribution.}
-  \item{p}{permutation \eqn{p}-value. Probability of getting a larger
+  \item{p}{Permutation \eqn{p}-value. Probability of getting a larger
     or equal average contribution in random permutation of the group
     factor.}
 }

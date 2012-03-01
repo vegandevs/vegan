@@ -61,7 +61,7 @@
         
         overall <- sum(average)
         sdi <- apply(contr, 2, sd)
-        ratio <- average / sdi
+        ratio <- average / sdi / 100
         av.a <- colMeans(group.a)
         av.b <- colMeans(group.b) 
         ord <- order(average, decreasing = TRUE)
@@ -105,7 +105,7 @@
         } 
     } 
     else {
-        out <- lapply(object, function(z) data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, av.a = z$ava, av.b = z$avb, p = z$p)))
+        out <- lapply(object, function(z) data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, ava = z$ava, avb = z$avb, p = z$p)))
     }
     attr(out, "digits") <- digits
     attr(out, "permutations") <- attr(object, "permutations")
