@@ -72,7 +72,7 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
   \item{ava, avb}{Average abundances per group.}
   \item{ord}{An index vector to order vectors by their contribution or
     order \code{cusum} back to the original data order.}
-  \item{cusum}{Ordered cumulative per cent contribution.}
+  \item{cusum}{Ordered cumulative contribution.}
   \item{p}{Permutation \eqn{p}-value. Probability of getting a larger
     or equal average contribution in random permutation of the group
     factor.}

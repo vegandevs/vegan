@@ -65,7 +65,7 @@
         ava <- colMeans(group.a)
         avb <- colMeans(group.b) 
         ord <- order(average, decreasing = TRUE)
-        cusum <- cumsum(average[ord] / overall * 100)
+        cusum <- cumsum(average[ord] / overall)
         out <- list(species = colnames(comm), average = average,
                     overall = overall, sd = sdi, ratio = ratio, ava = ava,
                     avb = avb, ord = ord, cusum = cusum, p = p)
