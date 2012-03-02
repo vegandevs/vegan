@@ -48,7 +48,7 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
   \eqn{d_{jk}=\sum_{i=1}^S d_{ijk}}{d[jk] = sum(i=1..S) d[ijk]}. 
   
   The \code{simper} functions performs pairwise comparisons of groups
-  of sampling units and finds the average percentage contributions
+  of sampling units and finds the average contributions
   of each species to the average overall Bray-Curtis dissimilarity.
 
   The function displays most important species for each pair of
@@ -65,15 +65,15 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
 \value{
   A list of class \code{"simper"} with following items:
   \item{species}{The species names.}
-  \item{average}{average contribution to overall dissimilarity.}
-  \item{overall}{The overall between-group dissimilarity (times 100).} 
-  \item{sd}{standard deviation of contribution.} 
-  \item{ratio}{mean to sd ratio.}
-  \item{ava, avb}{average abundances per group.}
+  \item{average}{Average contribution to overall dissimilarity.}
+  \item{overall}{The overall between-group dissimilarity.} 
+  \item{sd}{Standard deviation of contribution.} 
+  \item{ratio}{Average to sd ratio.}
+  \item{ava, avb}{Average abundances per group.}
   \item{ord}{An index vector to order vectors by their contribution or
     order \code{cusum} back to the original data order.}
-  \item{cusum}{Ordered cumulative per cent contribution.}
-  \item{p}{permutation \eqn{p}-value. Probability of getting a larger
+  \item{cusum}{Ordered cumulative contribution.}
+  \item{p}{Permutation \eqn{p}-value. Probability of getting a larger
     or equal average contribution in random permutation of the group
     factor.}
 }
