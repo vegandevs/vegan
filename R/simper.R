@@ -34,7 +34,7 @@
                 contr[(j-1)*n.a+k, ] <- md / sum(me)	
             }
         }
-        average <- colMeans(contr) * 100
+        average <- colMeans(contr)
         
         if(nperm > 0){
             if (trace)
@@ -51,7 +51,7 @@
                         contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
                     }
                 }
-                perm.contr[ ,p] <- colMeans(contrp) * 100
+                perm.contr[ ,p] <- colMeans(contrp)
             }
         p <- (apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) + 1) / (nperm + 1)
         } 
@@ -61,14 +61,14 @@
         
         overall <- sum(average)
         sdi <- apply(contr, 2, sd)
-        ratio <- average / sdi / 100
-        av.a <- colMeans(group.a)
-        av.b <- colMeans(group.b) 
+        ratio <- average / sdi
+        ava <- colMeans(group.a)
+        avb <- colMeans(group.b) 
         ord <- order(average, decreasing = TRUE)
         cusum <- cumsum(average[ord] / overall * 100)
         out <- list(species = colnames(comm), average = average,
-                    overall = overall, sd = sdi, ratio = ratio, ava = av.a,
-                    avb = av.b, ord = ord, cusum = cusum, p = p)
+                    overall = overall, sd = sdi, ratio = ratio, ava = ava,
+                    avb = avb, ord = ord, cusum = cusum, p = p)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
     attr(outlist, "permutations") <- nperm
@@ -86,7 +86,7 @@
         names(cusum[[i]]) <- spec[[i]]
     }
     ## this probably fails with empty or identical groups that have 0/0 = NaN
-    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 70)))])
+    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 70)) - 1)])
     print(out)
     invisible(x)
 }
