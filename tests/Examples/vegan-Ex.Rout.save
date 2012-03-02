@@ -5998,30 +5998,34 @@ detaching ‘package:lattice’
 cumulative contributions of most influential species:
 
 $BF_SF
-    Agrsto     Alogen     Lolper     Trirep     Poatri     Leoaut     Brohor     Achmil     Plalan     Elyrep 
-0.09824271 0.18254830 0.25956958 0.33367870 0.40734444 0.47729205 0.53120026 0.57946526 0.62522255 0.67016196 
+    Agrsto     Alogen     Lolper     Trirep     Poatri     Leoaut     Brohor     Achmil     Plalan     Elyrep     Brarut 
+0.09824271 0.18254830 0.25956958 0.33367870 0.40734444 0.47729205 0.53120026 0.57946526 0.62522255 0.67016196 0.71098133 
 
 $BF_HF
     Rumace     Poatri     Plalan     Brohor     Lolper     Elyrep     Trirep     Antodo     Achmil     Brarut     Alogen     Tripra 
 0.08163219 0.15193797 0.21918333 0.27967181 0.33969561 0.39843338 0.45298204 0.50276849 0.55222648 0.60021994 0.64584333 0.69126471 
+    Junart 
+0.73366621 
 
 $BF_NM
-   Lolper    Poatri    Poapra    Trirep    Brohor    Brarut    Elepal    Agrsto    Achmil    Leoaut    Antodo 
-0.1242718 0.1992126 0.2711756 0.3414609 0.3958520 0.4448077 0.4910724 0.5369083 0.5823926 0.6253645 0.6638182 
+   Lolper    Poatri    Poapra    Trirep    Brohor    Brarut    Elepal    Agrsto    Achmil    Leoaut    Antodo    Plalan 
+0.1242718 0.1992126 0.2711756 0.3414609 0.3958520 0.4448077 0.4910724 0.5369083 0.5823926 0.6253645 0.6638182 0.7012577 
 
 $SF_HF
     Agrsto     Alogen     Lolper     Plalan     Rumace     Elyrep     Poatri     Brarut     Elepal     Poapra     Antodo     Sagpro 
 0.08350879 0.16534834 0.23934930 0.30843624 0.37716139 0.43334492 0.48351753 0.52804045 0.57205850 0.61423981 0.65549838 0.69628951 
+    Tripra 
+0.73696831 
 
 $SF_NM
-   Poatri    Alogen    Agrsto    Lolper    Elepal    Poapra    Brarut    Elyrep    Leoaut    Trirep    Sagpro 
-0.1013601 0.1935731 0.2667383 0.3377578 0.3999419 0.4526707 0.5044725 0.5505643 0.5926117 0.6320111 0.6712478 
+   Poatri    Alogen    Agrsto    Lolper    Elepal    Poapra    Brarut    Elyrep    Leoaut    Trirep    Sagpro    Salrep 
+0.1013601 0.1935731 0.2667383 0.3377578 0.3999419 0.4526707 0.5044725 0.5505643 0.5926117 0.6320111 0.6712478 0.7091528 
 
 $HF_NM
     Poatri     Lolper     Rumace     Poapra     Plalan     Brarut     Elepal     Agrsto     Trirep     Elyrep     Antodo     Junart 
 0.09913221 0.17468460 0.23917190 0.29701331 0.35469313 0.40365488 0.44804851 0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 
-    Tripra 
-0.68921695 
+    Tripra     Salrep 
+0.68921695 0.72432408 
 
 > summary(sim)
 
