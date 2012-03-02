@@ -86,7 +86,7 @@
         names(cusum[[i]]) <- spec[[i]]
     }
     ## this probably fails with empty or identical groups that have 0/0 = NaN
-    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 0.7)) - 1)])
+    out <- lapply(cusum, function(z) z[seq_len(min(which(z >= 0.7)))])
     print(out)
     invisible(x)
 }
