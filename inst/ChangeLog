@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-13 (opened February 23, 2012)
+Version 2.1-14 (opened March 9, 2012)
+
+	* Opened a new version with the CRAN release of vegan 2.0-3 on
+	March 3, 2012.
+	
+Version 2.1-13 (closed March 9, 2012)
 
 	* cca/rda/capscale: names of levels could be dropped if a
 	two-class factor was used as the only constraint. Noticed in an
