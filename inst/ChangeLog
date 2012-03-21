@@ -6,6 +6,15 @@ Version 2.1-14 (opened March 9, 2012)
 
 	* Opened a new version with the CRAN release of vegan 2.0-3 on
 	March 3, 2012.
+
+	* Warton, Wright & Wang (Methods Ecol Evol 3, 89-101; 2012) had a
+	paper where the analysed the confusion of location (differences
+	between groups) and dispersion (variability within groups) in
+	dissimilarity-based analyses.  We have warned on this for long in
+	vegan, but now we can get support from this paper. Warnings added
+	to anosim, mrpp and simper (where this worst). There could be a
+	warning in adonis as well, but there the problem is not quite as
+	bad (although Anderson warns on this in her original paper, too).
 	
 Version 2.1-13 (closed March 9, 2012)
 
