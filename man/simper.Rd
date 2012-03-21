@@ -60,6 +60,15 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
   the data frames also include the cumulative contributions and
   are ordered by species contribution.
 
+  The results of \code{simper} can be very difficult to interpret. The
+  method very badly confounds the mean between group differences and
+  within group variation, and seems to single out variable species
+  instead of distinctive species (Warton et al. 2012). Even if you make
+  groups that are copies of each other, the method will single out
+  species with high contribution, but these are not contributions
+  to non-existing between-group differences but to within-group
+  variation in species abundance.
+
 }
 
 \value{
@@ -92,6 +101,10 @@ summary(sim)
   Clarke, K.R. 1993. Non-parametric multivariate analyses of changes
     in community structure. \emph{Australian Journal of Ecology}, 18,
     117–143.
+
+  Warton, D.I., Wright, T.W., Wang, Y. 2012. Distance-based multivariate
+    analyses confound location and dispersion effects. \emph{Methods in
+    Ecology and Evolution}, 3, 89--101.
 }
 \keyword{multivariate}
 
