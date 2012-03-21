@@ -84,14 +84,23 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
 }
 \references{
   Clarke, K. R. (1993). Non-parametric multivariate analysis of changes
-  in community structure. \emph{Australian Journal of Ecology} 18, 117-143.
+  in community structure. \emph{Australian Journal of Ecology} 18,
+  117--143.
+  
+  Warton, D.I., Wright, T.W., Wang, Y. 2012. Distance-based multivariate
+  analyses confound location and dispersion effects. \emph{Methods in
+  Ecology and Evolution}, 3, 89--101
+  
 }
 \author{Jari Oksanen, with a help from Peter R. Minchin.}
 \note{
-  I don't quite trust this method.  Somebody should study its
-  performance carefully.  The function returns a lot of information 
-  to ease further scrutiny. Most \code{anosim} models could be analysed
-  with \code{\link{adonis}} which seems to be a more robust alternative.
+
+  The \code{anosim} function can confound the differences between groups
+  and dispersion within groups and the results can be difficult to
+  interpret (cf. Warton et al. 2012).  The function returns a lot of
+  information to ease studying its performance. Most \code{anosim}
+  models could be analysed with \code{\link{adonis}} which seems to be a
+  more robust alternative.
 
 }
 
