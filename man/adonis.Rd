@@ -142,6 +142,18 @@ overview of rules.
     side of the formula.}
   \item{terms}{The \code{\link{terms}} component of the model.}
 }
+
+\note{Anderson (2001, Fig. 4) warns that the method may confound
+  location and dispersion effects: significant differences may be caused
+  by different within-group variation (dispersion) instead of different
+  mean values of the groups (see Warton et al. 2012 for a general
+  analysis). However, it seems that \code{adonis} is less sensitive to
+  dispersion effects than some of its alternatives (\code{link{anosim}},
+  \code{\link{mrpp}}). Function \code{\link{betadisper}} is a sister
+  function to \code{adonis} to study the differences in dispersion
+  within the same geometric framework.
+}
+
 \references{
 Anderson, M.J. 2001. A new method for non-parametric multivariate
 analysis of variance. \emph{Austral Ecology}, \strong{26}: 32--46.
@@ -161,6 +173,10 @@ experiments. \emph{Ecological Monographs}, \strong{69}:1--24.
 McArdle, B.H.  and M.J. Anderson. 2001. Fitting multivariate models to
 community data: A comment on distance-based redundancy
 analysis. \emph{Ecology}, \strong{82}: 290--297.
+
+Warton, D.I., Wright, T.W., Wang, Y. 2012. Distance-based multivariate
+analyses confound location and dispersion effects. \emph{Methods in
+Ecology and Evolution}, 3, 89--101.
 
 Zapala, M.A. and N.J. Schork. 2006. Multivariate regression analysis of
 distance matrices for testing associations between gene expression
