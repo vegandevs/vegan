@@ -12,9 +12,9 @@ Version 2.1-14 (opened March 9, 2012)
 	between groups) and dispersion (variability within groups) in
 	dissimilarity-based analyses.  We have warned on this for long in
 	vegan, but now we can get support from this paper. Warnings added
-	to anosim, mrpp and simper (where this worst). There could be a
-	warning in adonis as well, but there the problem is not quite as
-	bad (although Anderson warns on this in her original paper, too).
+	to anosim, mrpp, simper (where this worst) and adonis (where this
+	was already analysed by Marti Anderson when introducing the
+	method).
 	
 Version 2.1-13 (closed March 9, 2012)
 
