@@ -2,6 +2,93 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-3}{
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item Added new nestedness functions \code{nestedbetasor} and
+      \code{nestedbetajac} that implement multiple-site dissimilarity
+      indices and their decomposition into turnover and nestedness
+      components following Baselga (\emph{Global Ecology and
+      Biogeography} 19, 134--143; 2010).
+
+      \item Added function \code{rarecurve} to draw rarefaction curves
+      for each row (sampling unit) of the input data, optionally with
+      lines showing rarefied species richness with given sample size
+      for each curve.
+
+      \item Added function \code{simper} that implements
+      \dQuote{similarity percentages} of Clarke (\emph{Australian
+      Journal of Ecology} 18, 117--143; 1993).  The method compares
+      two or more groups and decomposes the average between-group
+      Bray-Curtis dissimilarity index to contributions by individual
+      species.  The code was developed in 
+      \href{https://github.com/jarioksa/vegan}{GitHub}
+      by Eduard Szöcz (Uni Landau, Germany).
+
+    }
+  } % end new functions
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{betadisper()} failed when the \code{groups} was a
+      factor with empty levels.
+
+      \item Some constrained ordination methods and their support
+      functions are more robust in border cases (completely aliased
+      effects, saturated models, user requests for non-existng scores
+      etc). Concerns \code{capscale}, \code{ordistep}, \code{varpart},
+      \code{plot} function for constrained ordination, and
+      \code{anova(<cca.object>, by = "margin")}.
+
+      \item The \code{scores} function for \code{monoMDS} did not
+      honour \code{choices} argument and hence dimensions could not be
+      chosen in \code{plot}.
+
+      \item The default \code{scores} method failed if the number of
+      requested axes was higher than the ordination object had.  This
+      was reported as an error in \code{ordiplot} in
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2012-February/002768.html}{R-sig-ecology} mailing list.
+
+    }
+  } % end bug fixes	
+		  
+  \subsection{NEW FEATURES}{
+     \itemize{
+
+       \item \code{metaMDS} argument \code{noshare = 0} is now
+       regarded as a numeric threshold that always triggers extended
+       dissimilarities (\code{stepacross}), instead of being treated
+       as synonymous with \code{noshare = FALSE} which always
+       suppresses extended dissimilarities.
+
+       \item Nestedness discrepancy index \code{nesteddisc} gained a
+       new argument that allows user to set the number of iterations
+       in optimizing the index.
+
+       \item \code{oecosimu} displays the mean of simulations and
+       describes alternative hypothesis more clearly in the printed
+       output. 
+
+       \item Implemented adjusted \eqn{R^2}{R-squared} for partial
+       RDA. For partial model \code{rda(Y ~ X1 + Condition(X2))} this
+       is the same as the component \code{[a] = X1|X2} in variance
+       partition in \code{varpart} and describes the marginal (unique)
+       effect of constraining term to adjusted \eqn{R^2}{R-squared}.
+
+       \item Added Cao dissimilarity (CYd) as a new dissimilarity
+       method in \code{vegdist} following Cao et al., \emph{Water
+       Envir Res} 69, 95--106 (1997). The index should be good for
+       data with high beta diversity and variable sampling
+       intensity. Thanks to consultation to Yong Cao (Univ Illinois,
+       USA).
+     
+     }
+  } % end new features
+} % end version 2.0-3
+
 \section{Changes in version 2.0-2}{
   \subsection{BUG FIXES}{
    \itemize{
@@ -23,12 +110,13 @@
      triggering of step-across in \code{capscale(..., metaMDSdist =
      TRUE)}.
 
-   \item \code{adonis} contained a minor bug resulting from incomplete
-   implementation of a speed-up that did not affect the results. In
-   fixing this bug, a further bug was identified in transposing the hat
-   matrices. This second bug was only active following fixing of the
-   first bug. In fixing both bugs, a speed-up in the internal f.test()
-   function is fully realised. Reported by Nicholas Lewin-Koh.
+     \item \code{adonis} contained a minor bug resulting from
+     incomplete implementation of a speed-up that did not affect the
+     results. In fixing this bug, a further bug was identified in
+     transposing the hat matrices. This second bug was only active
+     following fixing of the first bug. In fixing both bugs, a
+     speed-up in the internal f.test() function is fully
+     realised. Reported by Nicholas Lewin-Koh.
    
      }
  }  % end bug fixes 
