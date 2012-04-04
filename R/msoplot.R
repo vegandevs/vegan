@@ -30,9 +30,9 @@
                 b <- b - 1
             if (is.numeric(object$vario$se)) 
                 b <- b - 1
-            plot(vario$Dist, vario$All, type = "n", lty = 1, 
-                 pch = 3, xlab = "Distance", ylab = "Variance", 
-                 ylim = ylim, cex.lab = 1.2, ...)
+            plot(vario$Dist, vario$All, type = "n",  
+                 xlab = "Distance", ylab = "Variance", 
+                 ylim = ylim,  ...)
             lines(vario$Dist, vario$All + z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$All - z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
@@ -54,7 +54,7 @@
         else {
             plot(vario$Dist, vario$All, type = "b", lty = 1, 
                  pch = 0, xlab = "Distance", ylab = "Variance", 
-                 ylim = ylim, cex.lab = 1.2, ...)
+                 ylim = ylim, ...)
             lines(c(0, 10), rep(object$tot.chi, 2), lty = 5, ...)
             text(x = c(vario$Dist), y = rep(0, length(vario$Dist)), 
                  label = c(vario$n), cex = 0.8)
