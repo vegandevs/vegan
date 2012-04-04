@@ -1,5 +1,5 @@
 `msoplot` <-
-    function (x, alpha = 0.05, explained = FALSE, ...) 
+    function (x, alpha = 0.05, explained = FALSE, ylim, ...) 
 {
     object.cca <- x
     if (is.data.frame(object.cca$vario)) {
@@ -11,7 +11,10 @@
         if (is.numeric(vario$CA.signif)) {
             vario <- vario[, -ncol(vario)]
         }
-        ymax <- max(vario[, -1:-3], na.rm = TRUE)
+        if (missing(ylim)) {
+            ymax <- max(vario[, -1:-3], na.rm = TRUE)
+            ylim <- c(0, ymax)
+        }
         b <- ncol(vario) - 3
         label <- c("", "", "", "Total variance", "Explained plus residual", 
                    "Residual variance", "Explained variance", "Conditioned variance")
@@ -29,7 +32,7 @@
                 b <- b - 1
             plot(vario$Dist, vario$All, type = "n", lty = 1, 
                  pch = 3, xlab = "Distance", ylab = "Variance", 
-                 ylim = c(0, ymax), cex.lab = 1.2, ...)
+                 ylim = ylim, cex.lab = 1.2, ...)
             lines(vario$Dist, vario$All + z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$All - z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
@@ -51,7 +54,7 @@
         else {
             plot(vario$Dist, vario$All, type = "b", lty = 1, 
                  pch = 0, xlab = "Distance", ylab = "Variance", 
-                 ylim = c(0, ymax), cex.lab = 1.2, ...)
+                 ylim = ylim, cex.lab = 1.2, ...)
             lines(c(0, 10), rep(object$tot.chi, 2), lty = 5, ...)
             text(x = c(vario$Dist), y = rep(0, length(vario$Dist)), 
                  label = c(vario$n), cex = 0.8)
