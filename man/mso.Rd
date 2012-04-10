@@ -14,7 +14,7 @@ of cca or rda results}
 
 \usage{
 mso(object.cca, object.xy, grain = 1, round.up = FALSE, permutations = FALSE)
-msoplot(x, alpha = 0.05, explained = FALSE, ylim, ...)
+msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, ...)
 }
 \arguments{
   \item{object.cca}{ An object of class cca, created by the \code{\link{cca}} or
