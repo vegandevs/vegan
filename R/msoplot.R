@@ -1,5 +1,5 @@
 `msoplot` <-
-    function (x, alpha = 0.05, explained = FALSE, ...) 
+    function (x, alpha = 0.05, explained = FALSE, ylim = NULL, ...) 
 {
     object.cca <- x
     if (is.data.frame(object.cca$vario)) {
@@ -17,19 +17,18 @@
                    "Residual variance", "Explained variance", "Conditioned variance")
         ci.lab <- "C.I. for total variance"
         sign.lab <- if(hasSig) "Sign. autocorrelation" else NULL
-        ## You should not change par, or at least you must put
-        ## back the old values when exiting:
-        ## op <- par(omi = c(0.5, 0.5, 0, 0))
-        ## on.exit(par(op))
-        ##par(omi = c(0.5, 0.5, 0, 0))
         if (is.numeric(object$CCA$rank)) {
             if (!explained) 
                 b <- b - 1
             if (is.numeric(object$vario$se)) 
                 b <- b - 1
-            plot(vario$Dist, vario$All, type = "n", lty = 1, 
-                 pch = 3, xlab = "Distance", ylab = "Variance", 
-                 ylim = c(0, ymax), cex.lab = 1.2, ...)
+            figmat <- cbind(vario$All + z * vario$se,
+                            vario$All - z * vario$se,
+                            vario$Sum,
+                            vario[, 6:(b + 3)])
+            matplot(vario$Dist, cbind(0,figmat), type = "n",
+                    xlab = "Distance", ylab = "Variance",
+                    ylim = ylim, ...)
             lines(vario$Dist, vario$All + z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$All - z * vario$se, lty = 1, ...)
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
@@ -39,24 +38,22 @@
                    lty=c(c(1,2,1,1,1)[2:b], 1, if(hasSig) NA),
                    pch=c(3, (6:(b+3))-6, NA, if(hasSig) 15)
                    )
-            for (i in 6:(b + 3)) {
-                lines(vario$Dist, vario[, i], type = "b", lty = 1, 
-                      pch = i - 6, ...)
-            }
-            text(x = c(vario$Dist), y = rep(0, length(vario$Dist)), 
+            matlines(vario$Dist, figmat[,-c(1:3)], type = "b", lty = 1,
+                     pch = 6:(b+3)-6, ...)
+            text(x = c(vario$Dist), y = par("usr")[3], pos = 3, 
                  label = c(vario$n), cex = 0.8, ...)
-            lines(x = rep(max(object$H)/2, 2), y = c(-10, ymax + 
-                                               10), lty = 3, ...)
+            abline(v = max(object$H/2), lty = 3, ...)
         }
         else {
+            if (is.null(ylim))
+                ylim <- c(0, ymax)
             plot(vario$Dist, vario$All, type = "b", lty = 1, 
-                 pch = 0, xlab = "Distance", ylab = "Variance", 
-                 ylim = c(0, ymax), cex.lab = 1.2, ...)
-            lines(c(0, 10), rep(object$tot.chi, 2), lty = 5, ...)
-            text(x = c(vario$Dist), y = rep(0, length(vario$Dist)), 
+                 pch = 0, xlab = "Distance", ylab = "Variance",
+                 ylim = ylim, ...)
+            abline(h = object$tot.chi, lty = 5, ...)
+            text(x = c(vario$Dist), y = par("usr")[3], pos = 3, 
                  label = c(vario$n), cex = 0.8)
-            lines(x = rep(max(object$H)/2, 2), y = c(-10, ymax + 
-                                               10), lty = 3, ...)
+            abline(v = max(object$H)/2, lty = 3, ...)
             legend("topleft",
                    c("Total variance","Global variance estimate",
                      if(hasSig) "Sign. autocorrelation"),
