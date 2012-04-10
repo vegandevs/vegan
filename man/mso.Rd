@@ -14,7 +14,7 @@ of cca or rda results}
 
 \usage{
 mso(object.cca, object.xy, grain = 1, round.up = FALSE, permutations = FALSE)
-msoplot(x, alpha = 0.05, explained = FALSE, ...)
+msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, ...)
 }
 \arguments{
   \item{object.cca}{ An object of class cca, created by the \code{\link{cca}} or
@@ -39,6 +39,7 @@ msoplot(x, alpha = 0.05, explained = FALSE, ...)
     classes.} 
   \item{explained}{ If false, suppresses the plotting of the variogram
     of explained variance.}
+  \item{ylim}{Limits for y-axis.}
   \item{\dots}{Other arguments passed to functions.}
 }
 \details{
