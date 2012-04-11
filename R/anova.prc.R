@@ -15,7 +15,7 @@
                    names(object$call), 0)
         call <- object$call[c(1,m)]
         call$formula <- fla
-        call[[1]] <- as.name("rda.formula")
+        call[[1]] <- as.name("rda")
         object <- eval(call, parent.frame())
         anova(object, ...)
     } else {
