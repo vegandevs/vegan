@@ -16,6 +16,10 @@ Version 2.1-14 (opened March 9, 2012)
 	was already analysed by Marti Anderson when introducing the
 	method).
 
+	* anova of prc() objects by "axis", "terms" or "margin" failed due
+	to NAMESPACE issues. Reported as issue #7 by Eduard Szöcz in
+	github.com.
+
 	* msoplot: expose 'ylim' as an argument. Previously, 'ylim' was
 	set internally and user could not change it setting, although
 	y-axis maximum was sometimes so low that standard errors were
