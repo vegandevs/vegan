@@ -5,6 +5,7 @@
     if (!any(facts))
         return(NULL)
     mf <- mf[, facts, drop = FALSE]
+    mf <- droplevels(mf)
     if (missing(wt)) 
         wt <- rep(1, nrow(mf))
     ind <- seq_len(nrow(mf))
