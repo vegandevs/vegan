@@ -17,12 +17,12 @@ Version 2.1-14 (opened March 9, 2012)
 	method).
 
 	* anova of prc() objects by "axis", "terms" or "margin" failed due
-	to NAMESPACE issues. Reported as issue #7 by Eduard Szöcz in
+	to NAMESPACE issues. Reported as issue #7 by Eduard Szöcs in
 	github.com.
 
 	* envfit: failed if some of the environmental variables were
 	factor with unused factor levels. Fixed in centroids.cca. Reported
-	as issue #8 in github.com by Eduard Szöcz.
+	as issue #8 in github.com by Eduard Szöcs.
 
 	* msoplot: expose 'ylim' as an argument. Previously, 'ylim' was
 	set internally and user could not change it setting, although
@@ -55,7 +55,7 @@ Version 2.1-12 (closed February 23, 2012)
 
 	* simper: new function to implement "similarity percentages" of
 	Clarke (Austral. J. Ecol. 18, 117-143; 1993) contributed by Eduard
-	Szöcz (Uni Landau, Germany).
+	Szöcs (Uni Landau, Germany).
 
 Version 2.1-11 (closed February 9, 2012)
 
