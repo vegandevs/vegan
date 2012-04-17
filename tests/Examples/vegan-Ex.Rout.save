@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2012-02-21 r58440)
+R Under development (unstable) (2012-04-16 r59057) -- "Unsuffered Consequences"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-12
+This is vegan 2.1-14
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2cbf5f8>
+<environment: 0x336a260>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -522,7 +522,7 @@ Manure  3 85.762 1.1225     99   0.26
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
 > adipart(mite ~., levsm, index="richness", nsimul=19)
-adipart with 19 simulations
+adipart with 19 simulations using method “r2dtable” 
 with index richness, weights unif
 
         statistic        z     2.5%      50%  97.5% Pr(sim.)  
@@ -4730,7 +4730,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x95688d0>
+<environment: 0x9905320>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4746,7 +4746,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8ced6a8>
+<environment: 0x8caa2e0>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4902,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x7c82a40>
+<environment: 0x9b50e30>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4915,7 +4915,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9fbbb60>
+<environment: 0xa64ecc8>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x7f79688>
+<environment: 0x961bac8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5998,34 +5998,40 @@ detaching ‘package:lattice’
 cumulative contributions of most influential species:
 
 $BF_SF
-    Agrsto     Alogen     Lolper     Trirep     Poatri     Leoaut     Brohor     Achmil     Plalan     Elyrep     Brarut 
-0.09824271 0.18254830 0.25956958 0.33367870 0.40734444 0.47729205 0.53120026 0.57946526 0.62522255 0.67016196 0.71098133 
+    Agrsto     Alogen     Lolper     Trirep     Poatri     Leoaut     Brohor 
+0.09824271 0.18254830 0.25956958 0.33367870 0.40734444 0.47729205 0.53120026 
+    Achmil     Plalan     Elyrep     Brarut 
+0.57946526 0.62522255 0.67016196 0.71098133 
 
 $BF_HF
-    Rumace     Poatri     Plalan     Brohor     Lolper     Elyrep     Trirep     Antodo     Achmil     Brarut     Alogen     Tripra 
-0.08163219 0.15193797 0.21918333 0.27967181 0.33969561 0.39843338 0.45298204 0.50276849 0.55222648 0.60021994 0.64584333 0.69126471 
-    Junart 
-0.73366621 
+    Rumace     Poatri     Plalan     Brohor     Lolper     Elyrep     Trirep 
+0.08163219 0.15193797 0.21918333 0.27967181 0.33969561 0.39843338 0.45298204 
+    Antodo     Achmil     Brarut     Alogen     Tripra     Junart 
+0.50276849 0.55222648 0.60021994 0.64584333 0.69126471 0.73366621 
 
 $BF_NM
-   Lolper    Poatri    Poapra    Trirep    Brohor    Brarut    Elepal    Agrsto    Achmil    Leoaut    Antodo    Plalan 
-0.1242718 0.1992126 0.2711756 0.3414609 0.3958520 0.4448077 0.4910724 0.5369083 0.5823926 0.6253645 0.6638182 0.7012577 
+   Lolper    Poatri    Poapra    Trirep    Brohor    Brarut    Elepal    Agrsto 
+0.1242718 0.1992126 0.2711756 0.3414609 0.3958520 0.4448077 0.4910724 0.5369083 
+   Achmil    Leoaut    Antodo    Plalan 
+0.5823926 0.6253645 0.6638182 0.7012577 
 
 $SF_HF
-    Agrsto     Alogen     Lolper     Plalan     Rumace     Elyrep     Poatri     Brarut     Elepal     Poapra     Antodo     Sagpro 
-0.08350879 0.16534834 0.23934930 0.30843624 0.37716139 0.43334492 0.48351753 0.52804045 0.57205850 0.61423981 0.65549838 0.69628951 
-    Tripra 
-0.73696831 
+    Agrsto     Alogen     Lolper     Plalan     Rumace     Elyrep     Poatri 
+0.08350879 0.16534834 0.23934930 0.30843624 0.37716139 0.43334492 0.48351753 
+    Brarut     Elepal     Poapra     Antodo     Sagpro     Tripra 
+0.52804045 0.57205850 0.61423981 0.65549838 0.69628951 0.73696831 
 
 $SF_NM
-   Poatri    Alogen    Agrsto    Lolper    Elepal    Poapra    Brarut    Elyrep    Leoaut    Trirep    Sagpro    Salrep 
-0.1013601 0.1935731 0.2667383 0.3377578 0.3999419 0.4526707 0.5044725 0.5505643 0.5926117 0.6320111 0.6712478 0.7091528 
+   Poatri    Alogen    Agrsto    Lolper    Elepal    Poapra    Brarut    Elyrep 
+0.1013601 0.1935731 0.2667383 0.3377578 0.3999419 0.4526707 0.5044725 0.5505643 
+   Leoaut    Trirep    Sagpro    Salrep 
+0.5926117 0.6320111 0.6712478 0.7091528 
 
 $HF_NM
-    Poatri     Lolper     Rumace     Poapra     Plalan     Brarut     Elepal     Agrsto     Trirep     Elyrep     Antodo     Junart 
-0.09913221 0.17468460 0.23917190 0.29701331 0.35469313 0.40365488 0.44804851 0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 
-    Tripra     Salrep 
-0.68921695 0.72432408 
+    Poatri     Lolper     Rumace     Poapra     Plalan     Brarut     Elepal 
+0.09913221 0.17468460 0.23917190 0.29701331 0.35469313 0.40365488 0.44804851 
+    Agrsto     Trirep     Elyrep     Antodo     Junart     Tripra     Salrep 
+0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 0.68921695 0.72432408 
 
 > summary(sim)
 
@@ -7461,7 +7467,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9a3e668>
+<environment: 0xa026f68>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7941,7 +7947,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.013 0.088 25.186 0 0 
+Time elapsed:  24.949 0.148 25.187 0 0 
 > grDevices::dev.off()
 null device 
           1 

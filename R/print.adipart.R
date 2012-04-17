@@ -3,7 +3,11 @@ function(x, ...)
 {
     n <- if (is.null(x$oecosimu$simulated))
         0 else ncol(x$oecosimu$simulated)
-    cat("adipart with", n, "simulations\n")
+    if (n > 0)
+        cat("adipart with", n, "simulations using method",
+            dQuote(x$oecosimu$method), "\n")
+    else
+        cat("adipart ")
     att <- attributes(x)
     att$names <- att$call <- att$class <- att$n.levels <- att$terms <- att$model <- NULL
     cat("with", paste(names(att), att, collapse=", "))
