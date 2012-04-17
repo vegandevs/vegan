@@ -16,6 +16,11 @@ Version 2.1-14 (opened March 9, 2012)
 	was already analysed by Marti Anderson when introducing the
 	method).
 
+	* adipart: permutation tests assumed constant full gamma diversity
+	in all simulations even when the null model could produce variable
+	gamma diversities. The default method ("r2dtable") had constant
+	gamma diversity.
+
 	* anova of prc() objects by "axis", "terms" or "margin" failed due
 	to NAMESPACE issues. Reported as issue #7 by Eduard Szöcs in
 	github.com.

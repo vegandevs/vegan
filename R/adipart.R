@@ -69,13 +69,14 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
                divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
            "simpson" = {
                divfun <- function(x) diversity(x, index = "simpson", MARGIN = 1)})
-    sumMatr <- sum(lhs)
 
     ## this is the function passed to oecosimu
     wdivfun <- function(x) {
+        ## matrix sum *can* change in oecosimu (but default is constant sumMatr)
+        sumMatr <- sum(x)
         if (fullgamma) {
             tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
-            tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+            tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
         } else {
             tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
         }
