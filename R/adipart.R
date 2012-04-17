@@ -63,26 +63,27 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     index <- match.arg(index)
     weights <- match.arg(weights)
     switch(index,
-        "richness" = {
-            divfun <- function(x) apply(x > 0, 1, sum)},
-        "shannon" = {
-            divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
-        "simpson" = {
-            divfun <- function(x) diversity(x, index = "simpson", MARGIN = 1)})
-    sumMatr <- sum(lhs)
+           "richness" = {
+               divfun <- function(x) apply(x > 0, 1, sum)},
+           "shannon" = {
+               divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
+           "simpson" = {
+               divfun <- function(x) diversity(x, index = "simpson", MARGIN = 1)})
 
     ## this is the function passed to oecosimu
     wdivfun <- function(x) {
+        ## matrix sum *can* change in oecosimu (but default is constant sumMatr)
+        sumMatr <- sum(x)
         if (fullgamma) {
             tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
-            tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+            tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
         } else {
             tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
         }
         ## weights will change in oecosimu thus need to be recalculated
         if (weights == "prop")
             wt <- lapply(1:nlevs, function(i) apply(tmp[[i]], 1, function(z) sum(z) / sumMatr))
-            else wt <- lapply(1:nlevs, function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
+        else wt <- lapply(1:nlevs, function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
         a <- sapply(1:nlevs, function(i) sum(divfun(tmp[[i]]) * wt[[i]]))
         if (relative)
             a <- a / a[length(a)]
@@ -91,15 +92,15 @@ function(formula, data, index=c("richness", "shannon", "simpson"),
     }
     if (nsimul > 0) {
         sim <- oecosimu(lhs, wdivfun, method = method, nsimul=nsimul,
-            burnin=burnin, thin=thin)
-        } else {
-            sim <- wdivfun(lhs)
-            tmp <- rep(NA, length(sim))
-            sim <- list(statistic = sim,
-                oecosimu = list(z = tmp, pval = tmp, method = NA, statistic = sim))
-        }
+                        burnin=burnin, thin=thin)
+    } else {
+        sim <- wdivfun(lhs)
+        tmp <- rep(NA, length(sim))
+        sim <- list(statistic = sim,
+                    oecosimu = list(z = tmp, pval = tmp, method = NA, statistic = sim))
+    }
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
-        paste("beta", 1:(nlevs-1), sep="."))
+             paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
     attr(sim, "call") <- match.call()
     attr(sim, "index") <- index
