@@ -25,7 +25,7 @@
       Bray-Curtis dissimilarity index to contributions by individual
       species.  The code was developed in 
       \href{https://github.com/jarioksa/vegan}{GitHub}
-      by Eduard Szöcz (Uni Landau, Germany).
+      by Eduard Szöcs (Uni Landau, Germany).
 
     }
   } % end new functions
