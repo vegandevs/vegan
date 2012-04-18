@@ -1,5 +1,5 @@
 `betadisper` <-
-    function(d, group, type = c("median","centroid"))
+    function(d, group, type = c("median","centroid"), bias.adjust=FALSE)
 {
     ## inline function for spatial medians
     spatialMed <- function(vectors, group, pos) {
@@ -66,8 +66,11 @@
     eig <- e$values
     ## Remove zero eigenvalues
     eig <- eig[(want <- abs(eig/eig[1]) > TOL)]
+    emat <- sqrt(abs(eig))
+    ## allow for a SINGLE eigenvalue (in which case diag(emat) will do the wrong thing ...
+    if (length(eig)>1) emat <- diag(emat)
     ## scale Eigenvectors
-    vectors <- vectors[, want, drop = FALSE] %*% diag(sqrt(abs(eig)))
+    vectors <- vectors[, want, drop = FALSE] %*% emat
     ## store which are the positive eigenvalues
     pos <- eig > 0
     ## group centroids in PCoA space
@@ -89,6 +92,10 @@
 
     ## zij are the distances of each point to its group centroid
     zij <- sqrt(abs(dist.pos - dist.neg))
+    if (bias.adjust) {
+        n.group <- table(group)
+        zij <- zij*sqrt(n.group[group]/(n.group[group]-1))
+    }
     ## add in correct labels
     colnames(vectors) <- names(eig) <- paste("PCoA", seq_along(eig), sep = "")
     if(is.matrix(centroids))
