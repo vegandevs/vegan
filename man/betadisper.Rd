@@ -25,7 +25,7 @@
   Tukey's 'Honest Significant Difference' method.
 }
 \usage{
-betadisper(d, group, type = c("median","centroid"))
+betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \method{anova}{betadisper}(object, \dots)
 
@@ -50,7 +50,9 @@ betadisper(d, group, type = c("median","centroid"))
     \code{\link[base]{as.factor}}. Can consist of a factor with a single
     level (i.e.~one group).}
   \item{type}{the type of analysis to perform. Use the spatial median or
-  the group centroid? The spatial median is now the default.}
+    the group centroid? The spatial median is now the default.}
+  \item{bias.adjust}{Adjust for small sample bias with unequal group
+    sizes.}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a
