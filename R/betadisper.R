@@ -66,11 +66,9 @@
     eig <- e$values
     ## Remove zero eigenvalues
     eig <- eig[(want <- abs(eig/eig[1]) > TOL)]
-    emat <- sqrt(abs(eig))
-    ## allow for a SINGLE eigenvalue (in which case diag(emat) will do the wrong thing ...
-    if (length(eig)>1) emat <- diag(emat)
     ## scale Eigenvectors
-    vectors <- vectors[, want, drop = FALSE] %*% emat
+    vectors <- vectors[, want, drop = FALSE] %*% diag(sqrt(abs(eig)),
+                               nrow = length(eig))
     ## store which are the positive eigenvalues
     pos <- eig > 0
     ## group centroids in PCoA space
