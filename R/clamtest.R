@@ -54,9 +54,10 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
     #pi_i=b
     ## function to calculate test statistic from Appendix D 
     ## (Ecological Archives E092-112-A4)
+    ## coverage limit is count, not freq !!!
     testfun <- function(p_i, pi_i, C1, C2, n, m) {
-        C1 <- ifelse(p_i < coverage.limit, C1, 1)
-        C2 <- ifelse(pi_i < coverage.limit, C2, 1)
+        C1 <- ifelse(p_i*n < coverage.limit, C1, 1)
+        C2 <- ifelse(pi_i*m < coverage.limit, C2, 1)
         Var <- C1^2*(p_i*(1-p_i)/n) + uu^2*C2^2*(pi_i*(1-pi_i)/m)
         C1*p_i - C2*pi_i*uu - Zp*sqrt(Var)
     }
