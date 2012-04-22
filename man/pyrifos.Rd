@@ -10,7 +10,7 @@
 }
 \usage{data(pyrifos)}
 \format{
-  A data frame with 132 observations on the log-transformed abundances
+  A data frame with 132 observations on the log-transformed (\code{log(10*x + 1)}) abundances
   of 178 species. There are only twelve sites (ditches, mesocosms), but
   these were studied repeatedly in eleven occasions. The treatment
   levels, treatment times, or ditch ID's are not in the data frame, but
