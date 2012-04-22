@@ -114,7 +114,8 @@ scoverage(x, coverage.limit = 10)
   \strong{9}; 683--693.
 
   Good, I. J. 1953. The population frequencies of species and the
-  estimation of population parameters. Biometrika \stron{40};237--264.
+  estimation of population parameters. \emph{Biometrika}
+  \strong{40};237--264.
 
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
