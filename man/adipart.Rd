@@ -3,7 +3,10 @@
 \alias{adipart}
 \alias{adipart.default}
 \alias{adipart.formula}
+\alias{print.adipart}
 \alias{hiersimu}
+\alias{hiersimu.default}
+\alias{hiersimu.formula}
 \alias{print.hiersimu}
 \title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
@@ -19,7 +22,10 @@ adipart(...)
 \method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
 
-hiersimu(formula, data, FUN, location = c("mean", "median"),
+hiersimu(...)
+\method{hiersimu}{default}(y, x, FUN, location = c("mean", "median"),
+    relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
+\method{hiersimu}{formula}(formula, data, FUN, location = c("mean", "median"),
     relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
 }
 \arguments{
@@ -140,7 +146,7 @@ adipart(mite, index="richness", nsimul=19)
 adipart(mite ~ ., levsm, index="richness", nsimul=19)
 ## Hierarchical null model testing
 ## diversity analysis (similar to adipart)
-hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=19)
+hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
 ## Hierarchical testing with the Morisita index
 morfun <- function(x) dispindmorisita(x)$imst
 hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)

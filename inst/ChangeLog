@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-14 (opened March 9, 2012)
 
+  * adipart, multipart, hiersimu: these are now generic functions
+  with default and formula methods. The formula method is 
+  identical to the previous function, the default method
+  can take two matrices as input, but the second argument
+  describing the hierarchy can be missing. In this case
+  a trivial two-level hierarchy will be assumed (each row
+  is a seperate group, all rows are in same group).
+
   * scoverage: new function for sample coverage based 
   correction for calculation of relative frequencies in count
   community matrices (Good 1953, Biometrika 40, 237--264).
