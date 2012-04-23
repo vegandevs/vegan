@@ -5,13 +5,15 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
-        x <- cbind(seq_len(nrow(lhs)), rep(1, nrow(lhs)))
+        x <- cbind(level_1=seq_len(nrow(lhs)), 
+            leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
     rhs[] <- lapply(rhs, droplevels)
     nlevs <- ncol(rhs)
-    tlab <- paste("level", 1:nlevs, sep="_")
-    colnames(rhs) <- tlab
+    if (is.null(colnames(rhs)))
+        colnames(rhs) <- paste("level", 1:nlevs, sep="_")
+    tlab <- colnames(rhs)
 
     ## part check proper design of the model frame
     l1 <- sapply(rhs, function(z) length(unique(z)))
