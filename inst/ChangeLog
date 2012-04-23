@@ -4,10 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-14 (opened March 9, 2012)
 
+  * scoverage: new function for sample coverage based 
+  correction for calculation of relative frequencies in count
+  community matrices (Good 1953, Biometrika 40, 237--264).
+
   * clamtest: wrongly used frequencies instead of the counts
   when calculating sample coverage to test x < coverage.limit. 
   No detectable differences were produced when rerunning 
-  examples from Chazdon et al. 2011 and vegan help page.
+  examples from Chazdon et al. 2011 (Ecology, 92, 1332--1343)
+  and vegan help page.
 
 	* Opened a new version with the CRAN release of vegan 2.0-3 on
 	March 3, 2012.
