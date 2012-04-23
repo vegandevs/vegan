@@ -136,7 +136,7 @@ invisibly, and update the input object for sequential algorithms.
 For non sequential algorithms, it returns \code{NULL}.
 }
 \author{
-JAri Oksanen and Peter Solymos
+Jari Oksanen and Peter Solymos
 }
 \seealso{
 \code{\link{commsim}}, \code{\link{make.commsim}}, 

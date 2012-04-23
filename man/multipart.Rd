@@ -1,6 +1,9 @@
 \encoding{UTF-8}
 \name{multipart}
 \alias{multipart}
+\alias{multipart.default}
+\alias{multipart.formula}
+\alias{print.multipart}
 \title{Multiplicative Diversity Partitioning}
 
 \description{
@@ -8,10 +11,19 @@ In multiplicative diversity partitioning, mean values of alpha diversity at lowe
 hierarchy are compared to the total diversity in the entire data set or the pooled samples (gamma diversity). 
 }
 \usage{
-multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
+multipart(...)
+\method{multipart}{default}(y, x, index=c("renyi", "tsallis"), scales = 1,
+    global = FALSE, relative = FALSE, nsimul=99, ...)
+\method{multipart}{formula}(formula, data, index=c("renyi", "tsallis"), scales = 1,
     global = FALSE, relative = FALSE, nsimul=99, ...)
 }
 \arguments{
+  \item{y}{A community matrix.}
+  \item{x}{A matrix with same number of rows as in \code{y}, columns
+    coding the levels of sampling hierarchy. The number of groups within
+    the hierarchy must decrease from left to right. If \code{x} is missing,
+    two levels are assumed: each row is a group in the first level, and
+    all rows are in the same group in the second level.}
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
     is the community data matrix with samples as rows and species as column. Right 
     hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, 
@@ -101,6 +113,7 @@ levsm <- data.frame(
     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 ## Multiplicative diversity partitioning
+multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
