@@ -146,6 +146,7 @@ adipart(mite, index="richness", nsimul=19)
 adipart(mite ~ ., levsm, index="richness", nsimul=19)
 ## Hierarchical null model testing
 ## diversity analysis (similar to adipart)
+hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
 hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
 ## Hierarchical testing with the Morisita index
 morfun <- function(x) dispindmorisita(x)$imst
