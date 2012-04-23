@@ -82,7 +82,7 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
         wdivfun <- function(x) {
             if (fullgamma) {
                 tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
-                tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+                tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
             } else {
                 tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
             }
@@ -98,7 +98,7 @@ function(formula, data, index=c("renyi", "tsallis"), scales = 1,
         wdivfun <- function(x) {
             if (fullgamma) {
                 tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
-                tmp[[nlevs]] <- matrix(colSums(lhs), nrow = 1, ncol = ncol(lhs))
+                tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
             } else {
                 tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
             }
