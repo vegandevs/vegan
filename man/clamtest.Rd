@@ -27,8 +27,9 @@ A vector identifying the two habitats. Must have exactly
 two unique values or levels.
 }
   \item{coverage.limit}{
-Integer, below this limit the sample coverage based correction
-is applied to rare species. Sample coverage is calculated separately 
+Integer, the sample coverage based correction 
+is applied to rare species with counts below this limit. 
+Sample coverage is calculated separately 
 for the two habitats. Sample relative abundances are used for species 
 with higher than or equal to \code{coverage.limit} total counts per habitat.
 }
