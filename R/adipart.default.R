@@ -16,7 +16,8 @@ function(y, x, index=c("richness", "shannon", "simpson"),
         stop("data matrix contains empty rows")
     if (any(lhs < 0))
         stop("data matrix contains negative entries")
-    colnames(rhs) <- paste("level", 1:nlevs, sep="_")
+    tlab <- paste("level", 1:nlevs, sep="_")
+    colnames(rhs) <- tlab
 
     ## part check proper design of the model frame
     l1 <- sapply(rhs, function(z) length(unique(z)))
@@ -39,7 +40,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
         TRUE else FALSE
     ftmp <- vector("list", nlevs)
     for (i in 1:nlevs) {
-        ftmp[[i]] <- as.formula(paste("~", colnames(rhs)[i], "- 1"))
+        ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
     ## is there a method/burnin/thin in ... ?
@@ -99,7 +100,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
     attr(sim, "index") <- index
     attr(sim, "weights") <- weights
     attr(sim, "n.levels") <- nlevs
-    attr(sim, "terms") <- colnames(rhs)
+    attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs
     class(sim) <- c("adipart", "list")
     sim
