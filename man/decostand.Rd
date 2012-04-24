@@ -111,19 +111,19 @@ scoverage(x, coverage.limit = 10)
   
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
-  \strong{9}; 683--693.
+  \strong{9}, 683--693.
 
   Good, I. J. 1953. The population frequencies of species and the
   estimation of population parameters. \emph{Biometrika}
-  \strong{40};237--264.
+  \strong{40}, 237--264.
 
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
-  \strong{129}; 271--280.
+  \strong{129}, 271--280.
 
   Oksanen, J. (1983) Ordination of boreal heath-like vegetation with
   principal component analysis, correspondence analysis and
-  multidimensional scaling. \emph{Vegetatio} \strong{52}; 181--189.
+  multidimensional scaling. \emph{Vegetatio} \strong{52}, 181--189.
   }
 
 \examples{
