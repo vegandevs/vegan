@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2012-04-16 r59057) -- "Unsuffered Consequences"
+R Under development (unstable) (2012-04-24 r59157) -- "Unsuffered Consequences"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x336a260>
+<environment: 0x2fe66b8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -491,7 +491,8 @@ Manure  3 85.762 1.1225     99   0.26
 > ### Name: adipart
 > ### Title: Additive Diversity Partitioning and Hierarchical Null Model
 > ###   Testing
-> ### Aliases: adipart hiersimu print.hiersimu
+> ### Aliases: adipart adipart.default adipart.formula print.adipart hiersimu
+> ###   hiersimu.default hiersimu.formula print.hiersimu
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -521,29 +522,47 @@ Manure  3 85.762 1.1225     99   0.26
 > plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
-> adipart(mite ~., levsm, index="richness", nsimul=19)
+> adipart(mite, index="richness", nsimul=19)
 adipart with 19 simulations using method “r2dtable” 
 with index richness, weights unif
 
-        statistic        z     2.5%      50%  97.5% Pr(sim.)  
-alpha.1   15.1143 -38.4304  22.0321  22.3000 22.608     0.05 *
-alpha.2   29.7500 -27.1142  34.5000  34.7500 35.000     0.05 *
-alpha.3   33.0000   0.0000  35.0000  35.0000 35.000     0.05 *
-gamma     35.0000   0.0000  35.0000  35.0000 35.000     1.00  
-beta.1    14.6357   9.1184  12.1629  12.4500 12.955     0.05 *
-beta.2     3.2500  16.4371   0.0000   0.2500  0.500     0.05 *
-beta.3     2.0000   0.0000   0.0000   0.0000  0.000     0.05 *
+        statistic       z    2.5%     50%  97.5% Pr(sim.)  
+alpha.1    15.114 -38.430  22.032  22.300 22.608     0.05 *
+gamma      35.000   0.000  35.000  35.000 35.000     1.00  
+beta.1     19.886  38.430  12.392  12.700 12.968     0.05 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> adipart(mite ~ ., levsm, index="richness", nsimul=19)
+adipart with 19 simulations using method “r2dtable” 
+with index richness, weights unif
+
+        statistic        z     2.5%      50%   97.5% Pr(sim.)  
+alpha.1   15.1143 -46.2370  22.1257  22.4429 22.6236     0.05 *
+alpha.2   29.7500 -21.7076  34.3625  35.0000 35.0000     0.05 *
+alpha.3   33.0000   0.0000  35.0000  35.0000 35.0000     0.05 *
+gamma     35.0000   0.0000  35.0000  35.0000 35.0000     1.00  
+beta.1    14.6357   9.0407  12.0075  12.4286 12.8743     0.05 *
+beta.2     3.2500  13.1373   0.0000   0.0000  0.6375     0.05 *
+beta.3     2.0000   0.0000   0.0000   0.0000  0.0000     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
-> hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=19)
+> hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
+hiersimu with 19 simulations
+
+        statistic         z      2.5%       50%  97.5% Pr(sim.)  
+level_1   0.76064 -71.19509   0.93487   0.93856 0.9444     0.05 *
+leve_2    1.00000   0.00000   1.00000   1.00000 1.0000     1.00  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
 hiersimu with 19 simulations
 
     statistic          z       2.5%        50%  97.5% Pr(sim.)  
-l1    0.76064  -72.78152    0.93511    0.93959 0.9424     0.05 *
-l2    0.89736 -117.34300    0.99619    0.99815 0.9989     0.05 *
-l3    0.92791 -462.37200    0.99914    0.99939 0.9997     0.05 *
+l1    0.76064  -75.13855    0.93389    0.93819 0.9427     0.05 *
+l2    0.89736 -110.96786    0.99699    0.99814 0.9999     0.05 *
+l3    0.92791 -417.33833    0.99904    0.99943 0.9996     0.05 *
 l4    1.00000    0.00000    1.00000    1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
@@ -553,9 +572,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 hiersimu with 19 simulations
 
    statistic        z     2.5%      50%   97.5% Pr(sim.)  
-l1   0.52070  5.05179  0.31808  0.36836  0.4227     0.05 *
-l2   0.60234 11.31794  0.10507  0.17096  0.2283     0.05 *
-l3   0.67509 16.06868 -0.27784 -0.19160 -0.0895     0.05 *
+l1   0.52070  8.52164  0.32262  0.35107  0.3848     0.05 *
+l2   0.60234 14.38537  0.09670  0.15043  0.1969     0.05 *
+l3   0.67509 20.31622 -0.23479 -0.19594 -0.0988     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -2087,7 +2106,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin
+> ### Aliases: decostand wisconsin scoverage
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -2111,6 +2130,9 @@ Ich.eri Cla.cer Cla.def Cla.phy
 > ## Use wcmdscale for weighted analysis and identical results.
 > sptrans <- decostand(varespec, "chi.square")
 > plot(procrustes(rda(sptrans), cca(varespec)))
+> 
+> data(mite)
+> sptrans <- scoverage(mite)
 > 
 > 
 > 
@@ -3891,7 +3913,7 @@ mso variogram:
 > 
 > ### Name: multipart
 > ### Title: Multiplicative Diversity Partitioning
-> ### Aliases: multipart
+> ### Aliases: multipart multipart.default multipart.formula print.multipart
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3915,7 +3937,7 @@ mso variogram:
 +     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 > ## Multiplicative diversity partitioning
-> multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+> multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 multipart with 19 simulations
 with index renyi, scales 1, global TRUE
 
@@ -3929,32 +3951,46 @@ beta.2     1.07103   30.43075    0.99912    1.00340  1.0059     0.05 *
 beta.3     1.17939  460.54976    1.00083    1.00148  1.0021     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+> multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+multipart with 19 simulations
+with index renyi, scales 1, global TRUE
+
+        statistic         z      2.5%       50%   97.5% Pr(sim.)  
+alpha.1    8.0555  -66.6425   12.1143   12.2120 12.2910     0.05 *
+alpha.2   11.2353  -94.6265   14.0246   14.0917 14.1193     0.05 *
+alpha.3   12.0064 -355.9621   14.1283   14.1374 14.1485     0.05 *
+gamma     14.1603    0.0000   14.1603   14.1603 14.1603     1.00  
+beta.1     1.3568   35.0277    1.1478    1.1565  1.1660     0.05 *
+beta.2     1.0710   33.4227    1.0015    1.0035  1.0078     0.05 *
+beta.3     1.1794  419.1662    1.0008    1.0016  1.0023     0.05 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
 multipart with 19 simulations
 with index renyi, scales 1, global TRUE
 
           statistic           z        2.5%         50%   97.5% Pr(sim.)  
-alpha.1    8.055481  -66.642517   12.114272   12.212001 12.2910     0.05 *
-alpha.2   11.235261  -94.626473   14.024555   14.091674 14.1193     0.05 *
-alpha.3   12.006443 -355.962100   14.128270   14.137438 14.1485     0.05 *
+alpha.1    8.055481  -53.543897   12.071168   12.198307 12.3689     0.05 *
+alpha.2   11.235261  -99.506116   14.032767   14.076147 14.1247     0.05 *
+alpha.3   12.006443 -343.945577   14.123604   14.136297 14.1438     0.05 *
 gamma     14.160271    0.000000   14.160271   14.160271 14.1603     1.00  
-beta.1     0.078594   27.638115    0.067625    0.068160  0.0688     0.05 *
-beta.2     0.535514   33.422699    0.500756    0.501738  0.5039     0.05 *
-beta.3     0.589695  419.166208    0.500417    0.500808  0.5011     0.05 *
+beta.1     0.078594   19.567843    0.067236    0.068392  0.0691     0.05 *
+beta.2     0.535514   35.965825    0.500294    0.502062  0.5035     0.05 *
+beta.3     0.589695  404.814230    0.500583    0.500848  0.5013     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
 multipart with 19 simulations
 with index renyi, scales 1, global TRUE
 
-        statistic         z      2.5%       50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -53.5439   12.0712   12.1983 12.3689     0.05 *
-alpha.2   11.2353  -99.5061   14.0328   14.0761 14.1247     0.05 *
-alpha.3   12.0064 -343.9456   14.1236   14.1363 14.1438     0.05 *
-gamma     14.1603    0.0000   14.1603   14.1603 14.1603     1.00  
-beta.1     1.7578   81.2944    1.1448    1.1608  1.1731     0.05 *
-beta.2     1.2603  124.6871    1.0025    1.0060  1.0091     0.05 *
-beta.3     1.1794  404.8142    1.0012    1.0017  1.0026     0.05 *
+         statistic          z       2.5%        50%   97.5% Pr(sim.)  
+alpha.1    8.05548  -69.63045   12.09434   12.18504 12.3160     0.05 *
+alpha.2   11.23526  -81.67569   14.05248   14.09208 14.1625     0.05 *
+alpha.3   12.00644 -321.41937   14.12429   14.13991 14.1456     0.05 *
+gamma     14.16027    0.00000   14.16027   14.16027 14.1603     1.00  
+beta.1     1.75784  105.55202    1.14975    1.16210  1.1708     0.05 *
+beta.2     1.26034  102.69533    0.99985    1.00484  1.0077     0.05 *
+beta.3     1.17939  378.33472    1.00104    1.00144  1.0025     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4730,7 +4766,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9905320>
+<environment: 0x99098a8>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4746,7 +4782,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8caa2e0>
+<environment: 0x8ff01d8>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4902,7 +4938,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9b50e30>
+<environment: 0x9b5efd0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4915,7 +4951,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa64ecc8>
+<environment: 0x8e85b98>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4928,7 +4964,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x961bac8>
+<environment: 0xa37abe0>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7467,7 +7503,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa026f68>
+<environment: 0x971c8e8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7947,7 +7983,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.949 0.148 25.187 0 0 
+Time elapsed:  25.241 0.208 25.54 0 0 
 > grDevices::dev.off()
 null device 
           1 
