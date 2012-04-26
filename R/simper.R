@@ -1,5 +1,6 @@
 `simper` <-
-    function(comm, group, permutations = 0, trace = FALSE,  ...)
+    function(comm, group, permutations = 0, trace = FALSE,  
+             parallel = getOption("mc.cores"), ...)
 {
     comm <- as.matrix(comm)
     comp <- t(combn(unique(as.character(group)), 2))
@@ -36,7 +37,20 @@
         }
         average <- colMeans(contr)
         
+        ## Apply permutations
         if(nperm > 0){
+            ## Parallel processing ?
+            if (is.null(parallel) && getRversion() >= "2.15.0")
+                parallel <- get("default", envir = parallel:::.reg)
+            if (is.null(parallel) || getRversion() < "2.14.0")
+                parallel <- 1
+            hasClus <- inherits(parallel, "cluster")
+            isParal <- (hasClus || parallel > 1) && require(parallel)
+            isMulticore <- .Platform$OS.type == "unix" && !hasClus
+            if (isParal && !isMulticore && !hasClus) {
+                parallel <- makeCluster(parallel)
+            }
+            
             if (trace)
                 cat("Permuting", paste(comp[i,1], comp[i,2], sep = "_"), "\n")
             contrp <- matrix(ncol = P, nrow = n.a * n.b)
@@ -53,7 +67,11 @@
                 }
                 perm.contr[ ,p] <- colMeans(contrp)
             }
-        p <- (apply(apply(perm.contr, 2, function(x) x >= average), 1, sum) + 1) / (nperm + 1)
+            p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
+            
+            ## Close socket cluster if created here
+            if (isParal && !isMulticore && !hasClus)
+                stopCluster(parallel)
         } 
         else {
           p <- NULL
