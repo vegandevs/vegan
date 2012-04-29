@@ -91,6 +91,11 @@
     }
     ## ndis: number dissimilarities
     ndis <- length(dist)
+    ## some people try to use NMDS with too few points and too many
+    ## dimensions
+    if (ndis <= k * nobj)
+        stop(gettextf("Not enough data for NMDS: you have %d dissimilarities,\n  and you ask %d scores (%d dimensions times %d points)",
+                      ndis, k * nobj, k, nobj))
     ## starting configuration
     if (missing(y)) {
         y <- matrix(runif(nobj*k, -1, 1), nobj, k)
