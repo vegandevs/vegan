@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2012-04-24 r59157) -- "Unsuffered Consequences"
+R version 2.15.0 Patched (2012-04-14 r59019) -- "Easter Beagle"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-14
+This is vegan 2.1-15
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2fe66b8>
+<environment: 0x3b58c00>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -1158,6 +1158,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > boxplot(mod)
 > 
 > ## simulate missing values in 'd' and 'group'
+> ## using spatial medians
 > groups[c(2,20)] <- NA
 > dis[c(2, 20)] <- NA
 > mod2 <- betadisper(dis, groups) ## warnings
@@ -1211,24 +1212,24 @@ Residuals 18 0.296910 0.016495
 > boxplot(mod2)
 > plot(TukeyHSD(mod2))
 > 
-> ## Using spatial median
-> mod3 <- betadisper(dis, groups, type = "median")
-Warning in betadisper(dis, groups, type = "median") :
+> ## Using group centroids
+> mod3 <- betadisper(dis, groups, type = "centroid")
+Warning in betadisper(dis, groups, type = "centroid") :
   Missing observations due to 'group' removed.
-Warning in betadisper(dis, groups, type = "median") :
+Warning in betadisper(dis, groups, type = "centroid") :
   Missing observations due to 'd' removed.
 > mod3
 
 	Homogeneity of multivariate dispersions
 
-Call: betadisper(d = dis, group = groups, type = "median")
+Call: betadisper(d = dis, group = groups, type = "centroid")
 
 No. of Positive Eigenvalues: 14
 No. of Negative Eigenvalues: 5
 
 Average distance to centroid:
   grazed ungrazed 
-  0.3984   0.3008 
+  0.4001   0.3108 
 
 Eigenvalues for PCoA axes:
   PCoA1   PCoA2   PCoA3   PCoA4   PCoA5   PCoA6   PCoA7   PCoA8   PCoA9  PCoA10 
@@ -1249,16 +1250,20 @@ Permutation type: free
 Mirrored permutations for Samples?: No 
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237    100 0.1287
-Residuals 18 0.296910 0.016495                     
+          Df   Sum Sq  Mean Sq      F N.Perm  Pr(>F)  
+Groups     1 0.033468 0.033468 3.1749    100 0.06931 .
+Residuals 18 0.189749 0.010542                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > anova(mod3)
 Analysis of Variance Table
 
 Response: Distances
-          Df   Sum Sq  Mean Sq F value Pr(>F)
-Groups     1 0.039979 0.039979  2.4237 0.1369
-Residuals 18 0.296910 0.016495               
+          Df   Sum Sq  Mean Sq F value  Pr(>F)  
+Groups     1 0.033468 0.033468  3.1749 0.09166 .
+Residuals 18 0.189749 0.010542                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > plot(mod3)
 > boxplot(mod3)
 > plot(TukeyHSD(mod3))
@@ -4766,7 +4771,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x99098a8>
+<environment: 0x8d98370>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4782,7 +4787,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8ff01d8>
+<environment: 0x86d04d0>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4938,7 +4943,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9b5efd0>
+<environment: 0x6b56e38>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4951,7 +4956,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8e85b98>
+<environment: 0x9397088>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4964,7 +4969,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa37abe0>
+<environment: 0x953fb68>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7503,7 +7508,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x971c8e8>
+<environment: 0x8825e30>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7983,7 +7988,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.241 0.208 25.54 0 0 
+Time elapsed:  52.033 0.299 53.846 0 0 
 > grDevices::dev.off()
 null device 
           1 
