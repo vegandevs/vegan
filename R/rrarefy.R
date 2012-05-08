@@ -3,6 +3,8 @@
 `rrarefy` <-
     function(x, sample)
 {
+    if (!identical(all.equal(x, round(x)), TRUE)) 
+        stop("function is meaningful only for integers (counts)")
     x <- as.matrix(x)
     if (ncol(x) == 1)
         x <- t(x)
@@ -27,6 +29,8 @@
 `drarefy` <-
     function(x, sample)
 {
+    if (!identical(all.equal(x, round(x)), TRUE)) 
+        stop("function accepts only integers (counts)")
     if (length(sample) > 1 &&  length(sample) != nrow(x))
         stop(gettextf(
              "length of  'sample' and number of rows of 'x' do not match"))

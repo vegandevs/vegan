@@ -22,7 +22,8 @@ orditkplot, orditorp, ordixyplot, orglpoints, orglsegments,
 orglspider, orgltext, pcnm, permatfull, permatswap, permutest,
 poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
 protest, radfit, radlattice, rankindex, rarefy, rarecurve, raupcrick,
-rda, renyiaccum, renyi, rrarefy, scores, showvarparts, simper, spandepth,
+rda, renyiaccum, renyi, rrarefy, scores, scoverage,
+showvarparts, simper, spandepth,
 spantree, specaccum, specnumber, specpool2vect, specpool, spenvcor,
 stepacross, stressplot, swan, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
@@ -68,6 +69,9 @@ importFrom(lattice, densityplot)
 if (getRversion() < "2.13.0") {
     importFrom(permute, nobs)
 }
+# adipart: vegan
+S3method(adipart, default)
+S3method(adipart, formula)
 # AIC: stats
 S3method(AIC, radfit)
 # RsquareAdj: vegan
@@ -168,6 +172,9 @@ S3method(goodness, monoMDS)
 S3method(goodness, rda)
 # head: utils
 S3method(head, summary.cca)
+# hiersimu: vegan
+S3method(hiersimu, default)
+S3method(hiersimu, formula)
 # identify: graphics
 S3method(identify, ordiplot)
 # lines: graphics
@@ -181,6 +188,9 @@ S3method(lines, spantree)
 # model.frame, model.matrix: stats
 S3method(model.frame, cca)
 S3method(model.matrix, cca)
+# multipart: vegan
+S3method(multipart, default)
+S3method(multipart, formula)
 # nobs: stats
 S3method(nobs, CCorA)
 S3method(nobs, adonis)

@@ -1,7 +1,12 @@
 \encoding{UTF-8}
 \name{adipart}
 \alias{adipart}
+\alias{adipart.default}
+\alias{adipart.formula}
+\alias{print.adipart}
 \alias{hiersimu}
+\alias{hiersimu.default}
+\alias{hiersimu.formula}
 \alias{print.hiersimu}
 \title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
@@ -11,12 +16,25 @@ In hierarchical null model testing, a statistic returned by a function is evalua
 according to a nested hierarchical sampling design (\code{hiersimu}).
 }
 \usage{
-adipart(formula, data, index=c("richness", "shannon", "simpson"),
+adipart(...)
+\method{adipart}{default}(y, x, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
-hiersimu(formula, data, FUN, location = c("mean", "median"),
+\method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson"),
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
+
+hiersimu(...)
+\method{hiersimu}{default}(y, x, FUN, location = c("mean", "median"),
+    relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
+\method{hiersimu}{formula}(formula, data, FUN, location = c("mean", "median"),
     relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
 }
 \arguments{
+  \item{y}{A community matrix.}
+  \item{x}{A matrix with same number of rows as in \code{y}, columns
+    coding the levels of sampling hierarchy. The number of groups within
+    the hierarchy must decrease from left to right. If \code{x} is missing,
+    two levels are assumed: each row is a group in the first level, and
+    all rows are in the same group in the second level.}
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
     is the community data matrix with samples as rows and species as column. Right 
     hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, 
@@ -124,10 +142,12 @@ plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1)
 plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
-adipart(mite ~., levsm, index="richness", nsimul=19)
+adipart(mite, index="richness", nsimul=19)
+adipart(mite ~ ., levsm, index="richness", nsimul=19)
 ## Hierarchical null model testing
 ## diversity analysis (similar to adipart)
-hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=19)
+hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
+hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
 ## Hierarchical testing with the Morisita index
 morfun <- function(x) dispindmorisita(x)$imst
 hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
