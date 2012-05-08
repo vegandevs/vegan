@@ -230,6 +230,7 @@ plot(mod, axes = c(3,1))
 boxplot(mod)
 
 ## simulate missing values in 'd' and 'group'
+## using spatial medians
 groups[c(2,20)] <- NA
 dis[c(2, 20)] <- NA
 mod2 <- betadisper(dis, groups) ## warnings
@@ -240,8 +241,8 @@ plot(mod2)
 boxplot(mod2)
 plot(TukeyHSD(mod2))
 
-## Using spatial median
-mod3 <- betadisper(dis, groups, type = "median")
+## Using group centroids
+mod3 <- betadisper(dis, groups, type = "centroid")
 mod3
 permutest(mod3, control = permControl(nperm = 100))
 anova(mod3)
