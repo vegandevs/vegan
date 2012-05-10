@@ -194,6 +194,14 @@ text(pl, "centroids", col="blue", pos=1, cex = 1)
 ### Add species using xyz.convert function returned by ordiplot3d
 sp <- scores(ord, choices=1:3, display="species", scaling=3)
 text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
+### Two ways of adding fitted variables to ordination plots
+ord <- cca(dune)
+ef <- envfit(ord ~ Moisture + A1, dune.env, choices = 1:3)
+### 1. use argument 'envfit'
+ordiplot3d(ord, envfit = ef)
+### 2. use returned envfit.convert function for better user control
+pl3 <- ordiplot3d(ord)
+plot(pl3$envfit.convert(ef), at = pl3$origin)
 ### ordirgl
 ordirgl(ord, size=2)
 ordirgl(ord, display = "species", type = "t")
