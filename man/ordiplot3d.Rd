@@ -129,16 +129,19 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   Function \code{ordiplot3d} returns invisibly an object of class
   \code{"ordiplot3d"} inheriting from \code{\link{ordiplot}}. The
   return object will contain the coordinates projected onto two
-  dimensions for \code{"points"}, and possibly for the heads of
-  \code{"arrows"} and \code{"centroids"} of environmental
-  variables. Functions like \code{\link{identify.ordiplot}},
+  dimensions for \code{points}, and the projected coordinates of
+  \code{origin}, and possibly the projected coordinates of the heads
+  of \code{arrows} and \code{centroids} of environmental variables.
+  Functions like \code{\link{identify.ordiplot}},
   \code{\link{points.ordiplot}}, \code{\link{text.ordiplot}} can use
   this result, as well as \code{\link{ordihull}} and other functions
-  documented with the latter. In addition, the result will contain the
-  object returned by \code{\link[scatterplot3d]{scatterplot3d}},
-  including function \code{xyz.convert} which projects
-  three-dimensional coordinates onto the plane used in the current
-  plot (see Examples).
+  documented with the latter. The result will also contain the object
+  returned by \code{\link[scatterplot3d]{scatterplot3d}}, including
+  function \code{xyz.convert} which projects three-dimensional
+  coordinates onto the plane used in the current plot (see
+  Examples). In addition, there is a function \code{envfit.convert}
+  that projects a three-dimensional \code{\link{envfit}} object to the
+  current plot.
 
   Function \code{ordirgl} returns nothing.
 

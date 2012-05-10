@@ -15,6 +15,10 @@ Version 2.1-15 (opened April 24, 2012)
 	metaMDS. With over-defined models there is an infinite number of
 	different solutions with nearly zero stress, and no convergence is
 	found. 
+
+	* ordiplot3d: function returns the projected coordinates of the
+	origin, and function envfit.convert() that can project a
+	three-dimensional envfit() result to the current plot.
 	
 Version 2.1-14 (opened March 9, 2012)
 
