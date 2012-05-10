@@ -46,6 +46,9 @@
             rn <- rownames(object$vectors$arrows)
             object$vectors$arrows <-
                 sapply(xyz2xy(object$vectors$arrows), cbind)
+            if (!is.matrix(object$vectors$arrows))
+                object$vectors$arrows <-
+                    matrix(object$vector$arrows, ncol = 2)
             object$vectors$arrows <-
                 sweep(object$vector$arrows, 2, pl$origin)
             rownames(object$vectors$arrows) <- rn
@@ -54,6 +57,9 @@
             rn <- rownames(object$factors$centroids)
             object$factors$centroids <-
                 sapply(xyz2xy(object$factors$centroids), cbind)
+            if (!is.matrix(object$factors$centroids))
+                object$factors$centroids <-
+                    matrix(object$factors$centroids, ncol = 2)
             rownames(object$factors$centroids) <- rn
         }
         object
