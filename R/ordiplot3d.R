@@ -7,8 +7,17 @@
     if (missing(xlab)) xlab <- colnames(x)[1]
     if (missing(ylab)) ylab <- colnames(x)[2]
     if (missing(zlab)) zlab <- colnames(x)[3]
+    ### scatterplot3d does not allow setting equal aspect ratio. We
+    ### try to compensate this by setting equal limits for all axes
+    ### and hoping the graph is more or less square so that the lines
+    ### come correctly out.
+    rnge <- apply(x, 2, range)
+    scl <- c(-0.5, 0.5) * max(apply(rnge, 2, diff))
     pl <- ordiArgAbsorber(x[, 1], x[, 2], x[, 3],  
-                        xlab = xlab, ylab = ylab, zlab = zlab,
+                          xlab = xlab, ylab = ylab, zlab = zlab,
+                          xlim = mean(rnge[,1]) + scl,
+                          ylim = mean(rnge[,2]) + scl,
+                          zlim = mean(rnge[,3]) + scl,
                           FUN = "scatterplot3d", ...)
     pl$points3d(range(x[, 1]), c(0, 0), c(0, 0), type = "l", 
                 col = ax.col)
@@ -36,6 +45,8 @@
                    col = arr.col)
         }
     }
+    ## save the location of the origin
+    pl$origin <- matrix(unlist(pl$xyz.convert(0, 0, 0)), nrow=1)
     ## Add function that flattens 3d envfit object so that it can be
     ## projected on the created 3d graph
     xyz2xy <- pl$xyz.convert
@@ -44,19 +55,25 @@
             rn <- rownames(object$vectors$arrows)
             object$vectors$arrows <-
                 sapply(xyz2xy(object$vectors$arrows), cbind)
+            if (!is.matrix(object$vectors$arrows))
+                object$vectors$arrows <-
+                    matrix(object$vector$arrows, ncol = 2)
+            object$vectors$arrows <-
+                sweep(object$vector$arrows, 2, pl$origin)
             rownames(object$vectors$arrows) <- rn
         }
         if (!is.null(object$factors)) {
             rn <- rownames(object$factors$centroids)
             object$factors$centroids <-
                 sapply(xyz2xy(object$factors$centroids), cbind)
+            if (!is.matrix(object$factors$centroids))
+                object$factors$centroids <-
+                    matrix(object$factors$centroids, ncol = 2)
             rownames(object$factors$centroids) <- rn
         }
         object
     }
     pl$envfit.convert <- envfit.convert
-    ## save the location of the origin
-    pl$origin <- matrix(unlist(pl$xyz.convert(0, 0, 0)), nrow=1)
     ## save projected coordinates of points
     tmp <- pl$xyz.convert(x)
     pl$points <- cbind(tmp$x, tmp$y)

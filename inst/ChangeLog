@@ -18,7 +18,10 @@ Version 2.1-15 (opened April 24, 2012)
 
 	* ordiplot3d: function returns the projected coordinates of the
 	origin, and function envfit.convert() that can project a
-	three-dimensional envfit() result to the current plot.
+	three-dimensional envfit() result to the current plot. Unlike
+	originally assumed, the function will not set equal aspect ratio
+	for all axes.  We try to compensate this by setting equal scaling
+	to all axes.
 	
 Version 2.1-14 (opened March 9, 2012)
 
