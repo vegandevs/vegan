@@ -7,8 +7,17 @@
     if (missing(xlab)) xlab <- colnames(x)[1]
     if (missing(ylab)) ylab <- colnames(x)[2]
     if (missing(zlab)) zlab <- colnames(x)[3]
+    ### scatterplot3d does not allow setting equal aspect ratio. We
+    ### try to compensate this by setting equal limits for all axes
+    ### and hoping the graph is more or less square so that the lines
+    ### come correctly out.
+    rnge <- apply(x, 2, range)
+    scl <- c(-0.5, 0.5) * max(apply(rnge, 2, diff))
     pl <- ordiArgAbsorber(x[, 1], x[, 2], x[, 3],  
-                        xlab = xlab, ylab = ylab, zlab = zlab,
+                          xlab = xlab, ylab = ylab, zlab = zlab,
+                          xlim = mean(rnge[,1]) + scl,
+                          ylim = mean(rnge[,2]) + scl,
+                          zlim = mean(rnge[,3]) + scl,
                           FUN = "scatterplot3d", ...)
     pl$points3d(range(x[, 1]), c(0, 0), c(0, 0), type = "l", 
                 col = ax.col)
