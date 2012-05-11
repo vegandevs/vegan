@@ -7,6 +7,9 @@ Version 2.1-16 (opened May 11, 2012)
 	* update.nullmodel: explicit assignment is required to update
 	the input object (nm <- update(nm, ...)).
 
+	* ordiplot3d: the returned envfit.convert() function did not
+	recognize 'choices'.
+
 Version 2.1-15 (closed May 11, 2012)
 
 	* rrarefy, drarefy: check the data are integers -- the functions

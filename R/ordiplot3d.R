@@ -53,17 +53,18 @@
     envfit.convert <- function(object) {
         if (!is.null(object$vectors)) {
             rn <- rownames(object$vectors$arrows)
-            object$vectors$arrows <-
-                sapply(xyz2xy(object$vectors$arrows), cbind)
-            if (!is.matrix(object$vectors$arrows))
-                object$vectors$arrows <-
-                    matrix(object$vector$arrows, ncol = 2)
-            object$vectors$arrows <-
-                sweep(object$vector$arrows, 2, pl$origin)
-            rownames(object$vectors$arrows) <- rn
+            arr <- object$vectors$arrows[, choices, drop = FALSE]
+            arr <- sapply(xyz2xy(arr), cbind)
+            if (!is.matrix(arr))
+                arr <- matrix(arr, ncol = 2)
+            arr <- sweep(arr, 2, pl$origin)
+            rownames(arr) <- rn
+            object$vectors$arrows <- arr
         }
         if (!is.null(object$factors)) {
             rn <- rownames(object$factors$centroids)
+            object$factors$centroids <-
+                object$factors$centroids[ ,choices, drop = FALSE]
             object$factors$centroids <-
                 sapply(xyz2xy(object$factors$centroids), cbind)
             if (!is.matrix(object$factors$centroids))
