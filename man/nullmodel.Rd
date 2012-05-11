@@ -161,7 +161,7 @@ x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 
 ## sequential nullmodel with separate initial burnin
 (nm <- nullmodel(x, "swap"))
-update(nm, nsim=10)
+nm <- update(nm, nsim=10)
 (sm2 <- simulate(nm, nsim=10, thin=5))
 }
 \keyword{ multivariate }
