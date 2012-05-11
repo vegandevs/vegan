@@ -17,7 +17,7 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
     if (object$commsim$isSeq) {
         ## here is burnin, see update method
         if (burnin > 0)
-            update(object, burnin, ...)
+            object <- update(object, burnin, ...)
         x <- object$state
     } else {
         x <- m
