@@ -2,10 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-15 (opened April 24, 2012)
+Version 2.1-16 (opened May 11, 2012)
 
 	* update.nullmodel: explicit assignment is required to update
 	the input object (nm <- update(nm, ...)).
+
+Version 2.1-15 (closed May 11, 2012)
 
 	* rrarefy, drarefy: check the data are integers -- the functions
 	do not give sensible results with real values.
