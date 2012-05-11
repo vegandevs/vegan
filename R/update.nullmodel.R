@@ -26,11 +26,15 @@ function(object, nsim=1, seed = NULL, ...)
         state <- perm[,,1L]
         storage.mode(state) <- object$commsim$mode
         iter <- as.integer(object$iter + nsim)
-        assign("state", state, envir=object)
-        assign("iter", iter, envir=object)
-        attr(state, "iter") <- iter
+#        assign("state", state, envir=object)
+#        assign("iter", iter, envir=object)
+#        attr(state, "iter") <- iter
+        out <- nullmodel(state, object$commsim)
+        out$iter <- iter
     } else {
-        state <- NULL
+#        state <- NULL
+        out <- object
     }
-    invisible(state)
+#    invisible(state)
+    out
 }
