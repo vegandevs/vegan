@@ -158,6 +158,20 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
   that \code{\link[rgl]{rgl.texts}} does  not always position the text
   like supposed, and it may be safe to verify text location with
   corresponding points.
+
+  Function \code{ordiplot3d} is based on
+  \code{\link[scatterplot3d]{scatterplot3d}} which does not allow
+  exactly setting equal aspect ratio for axes.  The function tries to
+  circumvent this by setting equal plotting ranges for all axes so that
+  the plot should be a cube.  Depending on the dimensions of plotting
+  device, this may fail, and the user should verify that the axes are
+  approximately equal.
+
+  Please note that \code{\link[scatterplot3d]{scatterplot3d}} sets
+  internally some graphical parameters (such as \code{mar} for margins)
+  and does not honour default settings.  It is advisable to study
+  carefully the documentation and examples of
+  \code{\link[scatterplot3d]{scatterplot3d}}.
 }
 
 \note{The user interface of \pkg{rgl} changed in version 0.65, but
