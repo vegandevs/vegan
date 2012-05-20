@@ -19,11 +19,12 @@
 }
 
 \arguments{
-  \item{comm}{Community data frame. }
+  \item{comm}{Community data frame or a dissimilarity object or a square
+    matrix that can be interpreted as dissimilarities. }
   \item{env}{Data frame of continuous environmental variables. }
   \item{method}{The correlation method used in \code{\link{cor}}.}
-  \item{index}{The dissimilarity index used for community data in
-    \code{\link{vegdist}}. }
+  \item{index}{The dissimilarity index used for community data (\code{comm}) 
+    in \code{\link{vegdist}}. This is ignored if \code{comm} are dissimilarities.}
   \item{upto}{Maximum number of parameters in studied subsets.}
   \item{formula, data}{Model \code{\link{formula}} and data.}
   \item{trace}{Trace the advance of calculations }
