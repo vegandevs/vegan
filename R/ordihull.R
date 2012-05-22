@@ -4,6 +4,18 @@
               col = NULL, show.groups, label = FALSE, ...)
 {
     draw <- match.arg(draw)
+    ## Internal function to find the polygon centre
+    polycentre <- function(x) {
+        n <- nrow(x)
+        if (n < 4) 
+            return(colMeans(x[-n, ]))
+        xy <- x[-n, 1] * x[-1, 2] - x[-1, 1] * x[-n, 2]
+        A <- sum(xy)/2
+        xc <- sum((x[-n, 1] + x[-1, 1]) * xy)/A/6
+        yc <- sum((x[-n, 2] + x[-1, 2]) * xy)/A/6
+        c(xc, yc)
+    }
+
     pts <- scores(ord, display = display, ...)
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
@@ -29,7 +41,7 @@
             else if (draw == "polygon")
                 ordiArgAbsorber(X[hpts,], FUN = polygon, col = col, ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, colMeans(X[hpts[-1],, drop = FALSE]))
+                cntrs <- rbind(cntrs, polycentre(X[hpts,]))
                 names <- c(names, is)
             }
             res[[is]] <- X[hpts,]
