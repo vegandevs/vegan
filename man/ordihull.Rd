@@ -19,10 +19,10 @@
 
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         col = NULL, show.groups, label = FALSE,  ...)
+         col = NULL, alpha = 127, show.groups, label = FALSE,  ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
-         col = NULL, show.groups, label = FALSE, ...)
+         col = NULL, alpha = 127, show.groups, label = FALSE, ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
          show.groups, label = FALSE, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
@@ -49,6 +49,13 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     bordering lines can be set with argument \code{border} of the
     \code{\link{polygon}} function. For other functions the effect
     depends on the underlining functions this argument is passed to.}
+
+  \item{alpha}{Transparency of the fill \code{col}our with \code{draw
+    = "polygon"} in \code{ordihull} and \code{ordiellipse}.  The
+    argument takes precedence over possible transparency definitions
+    of the colour. The value must be in range \eqn{0...255}, and low
+    values are more transparent.  Transparency is not available in all
+    graphics devices or file formats.}
 
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is
@@ -181,7 +188,8 @@ plot(mod, type = "p", display="sites")
 ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
 plot(mod, type="n", display = "sites")
 text(mod, display="sites", labels = as.character(Management))
-pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
+pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, draw = "polygon", 
+  col="skyblue", border = "blue")
 summary(pl)
 }
 \keyword{aplot }
