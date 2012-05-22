@@ -19,7 +19,7 @@
 
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         show.groups, label = FALSE,  ...)
+         col = NULL, show.groups, label = FALSE,  ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
          col = NULL, show.groups, label = FALSE, ...)
@@ -42,6 +42,13 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     main difference is that \code{polygon}s may be filled and
     non-transparent. With \code{none} nothing is drawn, but the
     function returns the \code{\link{invisible}} plotting data.}
+
+  \item{col}{Colour of hull or ellipse lines (if \code{draw = "lines"})
+    or their fills (if \code{draw = "polygon"}) in \code{ordihull} and
+    \code{ordiellipse}.  When \code{draw = "polygon"}, the colour of
+    bordering lines can be set with argument \code{border} of the
+    \code{\link{polygon}} function. For other functions the effect
+    depends on the underlining functions this argument is passed to.}
 
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is
@@ -68,10 +75,6 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
 
   \item{cluster}{Result of hierarchic cluster analysis, such as
     \code{\link{hclust}} or \code{\link[cluster]{agnes}}.}
-
-  \item{col}{Colour of ellipses or ellipse fills in
-    \code{ordiellipse}. For other functions the effect depends on the
-    underlining functions this argument is passed to.}
 
   \item{prune}{Number of upper level hierarchies removed from the
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be

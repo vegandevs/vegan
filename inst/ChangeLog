@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* ordihull: gained explicit 'col' argument and adds labels after
+	drawing convex hulls so that filled hulls (with 'draw = "polygon")
+	do not cover labels. With these changes, the behaviour of
+	ordihull() is similar to ordiellipse().
+
 	* monoMDS: Count only above-zero non-NA dissimilarities for the
 	absolute lower limit of sufficient data. 
 
