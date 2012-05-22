@@ -29,7 +29,7 @@
             else if (draw == "polygon")
                 ordiArgAbsorber(X[hpts,], FUN = polygon, col = col, ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, colMeans(X[hpts,]))
+                cntrs <- rbind(cntrs, colMeans(X[hpts[-1],, drop = FALSE]))
                 names <- c(names, is)
             }
             res[[is]] <- X[hpts,]
