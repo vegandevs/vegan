@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* monoMDS: Count only above-zero non-NA dissimilarities for the
+	absolute lower limit of sufficient data. 
+
 	* bioenv: accepts now dissimilarities or a square matrix that can
 	interpred as dissimilarities instead of a community data frame.
 	This allows using other dissimilarities than those in vegdist(). 

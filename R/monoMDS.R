@@ -89,12 +89,12 @@
         iregn <- 3
         nobj <- nrow(mat)
     }
-    ## ndis: number dissimilarities
-    ndis <- length(dist)
+    ## ndis: number of >0 dissimilarities (distinct points)
+    ndis <- sum(dist > 0)
     ## some people try to use NMDS with too few points and too many
     ## dimensions
     if (ndis <= k * nobj)
-        stop(gettextf("Not enough data for NMDS: you have %d dissimilarities,\n  and you ask %d scores (%d dimensions times %d points)",
+        stop(gettextf("Not enough data: you have %d dissimilarities >0,\n  and you ask %d scores (%d dimensions times %d points)",
                       ndis, k * nobj, k, nobj))
     ## starting configuration
     if (missing(y)) {
