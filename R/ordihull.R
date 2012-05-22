@@ -1,7 +1,7 @@
-"ordihull" <-
+`ordihull` <-
     function (ord, groups, display = "sites",
               draw = c("lines", "polygon", "none"),
-              show.groups, label = FALSE, ...)
+              col = NULL, show.groups, label = FALSE, ...)
 {
     draw <- match.arg(draw)
     pts <- scores(ord, display = display, ...)
@@ -13,6 +13,8 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
+    if (label)
+        cntrs <- names <- NULL
     ## Remove NA scores
     kk <- complete.cases(pts)
     for (is in inds) {
@@ -22,16 +24,24 @@
             hpts <- chull(X)
             hpts <- c(hpts, hpts[1])
             if (draw == "lines")
-                ordiArgAbsorber(X[hpts, ], FUN = lines, ...)
+                ordiArgAbsorber(X[hpts, ], FUN = lines,
+                                col = if(is.null(col)) par("fg") else col, ...)
             else if (draw == "polygon")
-                ordiArgAbsorber(X[hpts,], FUN = polygon, ...)
+                ordiArgAbsorber(X[hpts,], FUN = polygon, col = col, ...)
             if (label && draw != "none") {
-                cntr <- colMeans(X)
-                ordiArgAbsorber(cntr[1], cntr[2], labels = is,
-                                FUN = text, ...)
+                cntrs <- rbind(cntrs, colMeans(X[hpts,]))
+                names <- c(names, is)
             }
             res[[is]] <- X[hpts,]
         }
+    }
+    if (label && draw != "none") {
+        if (draw == "lines")
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = names,
+                            col = col, FUN = text, ...)
+        else
+            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+                            FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"
     invisible(res)
