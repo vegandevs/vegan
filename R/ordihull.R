@@ -1,7 +1,7 @@
 `ordihull` <-
     function (ord, groups, display = "sites",
               draw = c("lines", "polygon", "none"),
-              col = NULL, show.groups, label = FALSE, ...)
+              col = NULL, alpha = 127, show.groups, label = FALSE, ...)
 {
     draw <- match.arg(draw)
     ## Internal function to find the polygon centre
@@ -15,7 +15,9 @@
         yc <- sum((x[-n, 2] + x[-1, 2]) * xy)/A/6
         c(xc, yc)
     }
-
+    ## Make semitransparent fill colour
+    if (draw == "polygon" && !is.null(col))
+        col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
     pts <- scores(ord, display = display, ...)
     if (!missing(show.groups)) {
         take <- groups %in% show.groups

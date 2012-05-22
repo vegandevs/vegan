@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* ordihull, ordiellipse: defaults to use semitransparent fill
+	colour with 'draw = "polygon"', and gain argument 'alpha' to set
+	the transparency. 
+
 	* ordihull: gained explicit 'col' argument and adds labels after
 	drawing convex hulls so that filled hulls (with 'draw = "polygon")
 	do not cover labels. With these changes, the behaviour of
