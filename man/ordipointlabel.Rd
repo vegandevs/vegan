@@ -28,7 +28,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items. \code{select} is only used if a single set of
     scores is being plotted (i.e. \code{length(display) == 1}),
-    otherwise it is ignored.}
+    otherwise it is ignored and a warning issued. If a logical vector is
+    used, it must have the same length as the scores plotted.}
   \item{\dots}{Other arguments passed to \code{\link{points}} and
   \code{\link{text}}.}
 }
