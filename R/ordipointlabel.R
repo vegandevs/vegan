@@ -14,10 +14,11 @@
     if(!missing(select)) {
         if(isTRUE(all.equal(length(display), 1L))) {
             ## check `select` and length of scores match
-            if(isTRUE(all.equal(length(select), NROW(xy[[1]])))) {
-                xy[[1]] <- xy[[1]][select, , drop = FALSE]
+            if(is.logical(select) &&
+               !isTRUE(all.equal(length(select), NROW(xy[[1]])))) {
+                warning("Length of logical vector 'select' does not match the number of scores.\nIgnoring 'select'.")
             } else {
-                warning("Length of 'select' does not match the number of scores.\nIgnoring 'select'.")
+                xy[[1]] <- xy[[1]][select, , drop = FALSE]
             }
         } else {
             warning("'select' does not apply when plotting more than one set of scores.\n'select' was ignored.")
