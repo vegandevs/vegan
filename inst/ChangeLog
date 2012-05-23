@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* ordipointlabel: gains argument 'select' which allows some rows
+	of the plotted scores to be skipped in the same manner as for
+	text.cca(). This only applies when a single set of scores is
+	plotted. Otherwise it is ignored and a warning issued.
+
 	* ordihull, ordiellipse: defaults to use semitransparent fill
 	colour with 'draw = "polygon"', and gain argument 'alpha' to set
 	the transparency. 
