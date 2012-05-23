@@ -17,11 +17,18 @@
             cat(", ", c("weak", "strong")[x$ities], " ties", sep = "")
         cat("\n")
     }
-    if (x$converged) 
+    if (x$converged) { 
         cat("Two convergent solutions found after", x$tries, 
             "tries\n")
-    else cat("No convergent solutions - best solution after", 
-             x$tries, "tries\n")
+    } else {
+        cat("No convergent solutions - best solution after", 
+            x$tries, "tries\n")
+        if (x$stress < 1e-3) {
+            cat("Stress is (nearly) zero - you may have too few points for NMDS:\n")
+            cat(gettextf("You have %d dissimilarities >0, and you ask for %d scores\n", sum(x$dist > 0), prod(dim(x$points))))
+            cat(gettextf("(%d points x %d dimensions).\n", nrow(x$points), ncol(x$points)))
+        }                 
+    }
     z <- x$points
     scal <- c(if (attr(z, "centre")) "centring",
               if (attr(z, "pc")) "PC rotation",
