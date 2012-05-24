@@ -91,6 +91,7 @@
     }
     ## ndis: number of >0 dissimilarities (distinct points)
     ndis <- length(dist)
+    if (ndis <= k * nobj)
         warning(gettextf("Not enough data: you have %d dissimilarities >0,\n  and you ask %d scores (%d dimensions times %d points)",
                          ndis, k * nobj, k, nobj))
     ## starting configuration
