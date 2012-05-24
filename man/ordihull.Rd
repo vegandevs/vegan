@@ -149,10 +149,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
   returns a list of covariance matrices and scales used in drawing the
   ellipses.  These result objects have a \code{summary} method that
   returns the coordinates of the centres of the ellipses or hulls and
-  their surface areas in user units. The centres of the hulls may
-  differ from the location of the \code{label} which is the centre of
-  the points instead of the centre of the polygon. With \code{draw =
-  "none"} only the result object is returned and nothing is drawn.
+  their surface areas in user units.  With \code{draw = "none"} only
+  the result object is returned and nothing is drawn.
 
 }
 
