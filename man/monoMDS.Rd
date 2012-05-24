@@ -28,7 +28,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
     generated if this is missing.}
   
   \item{k}{Number of dimensions. NB., the number of points \eqn{n}
-    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher.}
+    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
+    non-metric MDS.}
 
   \item{model}{MDS model: \code{"global"} is normal non-metric MDS
     with a monotone regression, \code{"local"} is non-metric MDS with

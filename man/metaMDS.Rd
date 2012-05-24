@@ -55,7 +55,8 @@ metaMDSredist(object, ...)
     starts and centring and pc rotation of axes. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions.  NB., the number of points \eqn{n}
-    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher.}
+    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
+    non-metric MDS.}
   \item{trymax}{Maximum number of random starts in search of stable
     solution.}
 
