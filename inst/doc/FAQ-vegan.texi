@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2011
+@set FAQ_YEAR 2012
 @afourpaper
 @c %**end of header
 
@@ -26,7 +26,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2008-2011 Jari Oksanen
+Copyright @copyright{} 2008-2012 Jari Oksanen
 @end quotation
 @end copying
 
