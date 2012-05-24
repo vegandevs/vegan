@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2011
+@set FAQ_YEAR 2012
 @afourpaper
 @c %**end of header
 
@@ -26,7 +26,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2008-2011 Jari Oksanen
+Copyright @copyright{} 2008-2012 Jari Oksanen
 @end quotation
 @end copying
 
@@ -298,6 +298,7 @@ included contributions will be credited.
 * Can you analyse binary or cover class data?::  
 * Why dissimilarities in @pkg{vegan} differ from other sources?::  
 * Why NMDS stress is sometimes 0.1 and sometimes 10?::  
+* I get zero stress but no convergent solutions in @code{metaMDS}::  
 * Zero dissimilarities in isoMDS::  
 * How the RDA results are scaled?::  
 * cca fails with ``data.frame expected'' or ``"site.env" missing''::  
@@ -351,9 +352,9 @@ name @code{"jaccard"} for the quantitative index, too.
 Another reason may be that indices indeed are defined differently,
 because people use same names for different indices.
 
-@node Why NMDS stress is sometimes 0.1 and sometimes 10?, Zero dissimilarities in isoMDS, Why dissimilarities in @pkg{vegan} differ from other sources?, Ordination
+@node Why NMDS stress is sometimes 0.1 and sometimes 10?, I get zero stress but no convergent solutions in @code{metaMDS}, Why dissimilarities in @pkg{vegan} differ from other sources?, Ordination
 @section Why @acronym{NMDS} stress is sometimes 0.1 and sometimes 10?
-
+q
 Stress is a proportional measure of badness of fit. The proportions can
 be expressed either as parts of one or as percents.  Function
 @code{isoMDS} (@pkg{MASS} package) uses percents, and function @code{monoMDS}
@@ -363,7 +364,25 @@ also depend on the definition of stress, and the same @code{goodness} is
 100 times higher in @code{isoMDS} than in @code{monoMDS}.  Both of these
 conventions are equally correct.
 
-@node Zero dissimilarities in isoMDS, How the RDA results are scaled?, Why NMDS stress is sometimes 0.1 and sometimes 10?, Ordination
+@node I get zero stress but no convergent solutions in @code{metaMDS}, Zero dissimilarities in isoMDS, Why NMDS stress is sometimes 0.1 and sometimes 10?, Ordination
+@section I get zero stress but no convergent solutions in @code{metaMDS}
+
+Most common reason is that you have too few observations for your
+@acronym{NMDS}. For @code{n} observations (points) and @code{k}
+dimensions you need to estimate @code{n*k} parameters (ordination
+scores) using @code{n*(n-1)/2} dissimilarities.  For @code{k} dimensions
+you must have @code{n > 2*k + 1}, or for two dimensions at least six
+points.  In some degenerate situations you may need even a larger number
+of points.  If you have a lower number of points, you can find an
+undefined number of perfect (stress is zero) but different solutions.
+Conventional wisdom due to Kruskal is that you should have @code{n > 4*k
++ 1} points for @code{k} dimensions.  A typical symptom of insufficient
+data is that you have (nearly) zero stress but no two convergent
+solutions.  In those cases you should reduce the number of dimensions
+(@code{k}) and with very small data sets you should not use @code{NMDS},
+but rely on metric methods.
+
+@node Zero dissimilarities in isoMDS, How the RDA results are scaled?, I get zero stress but no convergent solutions in @code{metaMDS}, Ordination
 @section Zero dissimilarities in isoMDS
 
 Function @code{metaMDS} uses function @code{monoMDS} as its default
