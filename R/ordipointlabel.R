@@ -1,13 +1,29 @@
 ### Modelled after maptools:::pointLabel.
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
-             pch=c("o","+"), font = c(1,1), cex=c(0.8, 0.8), add = FALSE, ...)
+             pch=c("o","+"), font = c(1,1), cex=c(0.8, 0.8), add = FALSE,
+             select, ...)
 {
     xy <- list()
     ## Some 'scores' accept only one 'display': a workaround
     for (nm in display)
         xy[[nm]] <- scores(x, display = nm, choices = choices, ...)
     ##xy <- scores(x, display = display, choices = choices, ...)
+    ## remove `select`ed observations from scores as per text.cca
+    ## only useful if we are displaying only one set of scores
+    if(!missing(select)) {
+        if(isTRUE(all.equal(length(display), 1L))) {
+            ## check `select` and length of scores match
+            if(is.logical(select) &&
+               !isTRUE(all.equal(length(select), NROW(xy[[1]])))) {
+                warning("Length of logical vector 'select' does not match the number of scores.\nIgnoring 'select'.")
+            } else {
+                xy[[1]] <- xy[[1]][select, , drop = FALSE]
+            }
+        } else {
+            warning("'select' does not apply when plotting more than one set of scores.\n'select' was ignored.")
+        }
+    }
     if (length(display) > 1) {
         col <- rep(col, sapply(xy, nrow))
         pch <- rep(pch, sapply(xy, nrow))

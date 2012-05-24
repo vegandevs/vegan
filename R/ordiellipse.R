@@ -1,7 +1,7 @@
-"ordiellipse" <-
+`ordiellipse` <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
               conf, draw = c("lines", "polygon", "none"),
-              w = weights(ord, display), col = NULL, 
+              w = weights(ord, display), col = NULL, alpha = 127,
               show.groups, label = FALSE,  ...)
 {
     weights.default <- function(object, ...) NULL
@@ -19,7 +19,10 @@
         w <- rep(1, nrow(pts))
     if (is.null(w))
         w <- rep(1, nrow(pts))
-     if (!missing(show.groups)) {
+    ## make semitransparent fill
+    if (draw == "polygon" && !is.null(col))
+        col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
+    if (!missing(show.groups)) {
         take <- groups %in% show.groups
         pts <- pts[take, , drop = FALSE]
         groups <- groups[take]

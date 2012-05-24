@@ -12,7 +12,7 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.8, 0.8), add = FALSE, ...)
+   cex = c(0.8, 0.8), add = FALSE, select, ...)
 }
 
 \arguments{
@@ -24,6 +24,12 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
      plot. These should be vectors of the same length as the number of
      items in \code{display}.}
   \item{add}{ Add to an existing plot. }
+  \item{select}{Items to be displayed.  This can either be a logical
+    vector which is \code{TRUE} for displayed items or a vector of indices
+    of displayed items. \code{select} is only used if a single set of
+    scores is being plotted (i.e. \code{length(display) == 1}),
+    otherwise it is ignored and a warning issued. If a logical vector is
+    used, it must have the same length as the scores plotted.}
   \item{\dots}{Other arguments passed to \code{\link{points}} and
   \code{\link{text}}.}
 }
