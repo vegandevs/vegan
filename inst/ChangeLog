@@ -19,8 +19,14 @@ Version 2.1-16 (opened May 11, 2012)
 	ordihull() is similar to ordiellipse(). The labels are centred
 	more correctly.
 
-	* monoMDS: Count only above-zero non-NA dissimilarities for the
-	absolute lower limit of sufficient data. 
+	* metaMDS: A warning is issued on too good stress (zero or nearly
+	zero).  This is often a symptom of insufficient data.  In general,
+	you need n > 2*k + 1 points for k dimensions, and Kruskal's advice
+	is to have n > 4*k + 1.  With low number of points there can be
+	several complete (zero stress) but different results, and no two
+	convergent solution can be found.  The warning is issued also when
+	convergence was obtained, and information on dimensions is
+	printed.  FAQ gained an entry on the issue.
 
 	* bioenv: accepts now dissimilarities or a square matrix that can
 	interpred as dissimilarities instead of a community data frame.

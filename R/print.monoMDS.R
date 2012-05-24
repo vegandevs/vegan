@@ -36,13 +36,6 @@
                       "Stress nearly unchanged",
                       "Scale factor of gradient nearly zero")
     cat("Stopped after ", x$iters, " iterations: ", stoplab, "\n", sep="")
-    if (x$stress < 1e-3) {
-        cat("Stress is (nearly) zero: check your analysis\n")
-        ndis <- sum(x$dist > 0)
-        pdim <- dim(x$points)
-        cat(gettextf("You asked % d scores (%d points x %d dimensions)\nand  you have %d dissimilarities > 0\n",
-                    prod(pdim), pdim[1], pdim[2], ndis))
-    }
     invisible(x)
 }
 
