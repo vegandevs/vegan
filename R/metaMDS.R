@@ -40,8 +40,7 @@
     ## Nearly zero stress is usually not a good thing but a symptom of
     ## a problem: you may have insufficient data for NMDS
     if (out$stress < 1e-3) {
-        warning(gettextf("Stress is (nearly) zero - you may have insufficient data:\n  %d dimensions x %d points = %d estimated scores with %d dissimilarities",
-                out$ndim, out$nobj, out$ndim * out$nobj, out$ndis))
+        warning("Stress is (nearly) zero - you may have insufficient data")
     }     
     points <- postMDS(out$points, dis, plot = max(0, plot - 1), ...)
     if (is.null(rownames(points))) 
