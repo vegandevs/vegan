@@ -26,7 +26,10 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   \item{dist}{Input dissimilarities.}
   \item{y}{Starting configuration. A random configuration will be
     generated if this is missing.}
-  \item{k}{Number of dimensions.}
+  
+  \item{k}{Number of dimensions. NB., the number of points \eqn{n}
+    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
+    non-metric MDS.}
 
   \item{model}{MDS model: \code{"global"} is normal non-metric MDS
     with a monotone regression, \code{"local"} is non-metric MDS with
