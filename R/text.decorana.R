@@ -10,7 +10,7 @@
     if (!missing(labels))
         rownames(x) <- labels
     if (!missing(select))
-        x <- x[select, , drop = FALSE]
+        x <- .checkSelect(select, x)
     localText(x, rownames(x), ...)
     invisible()
 }
