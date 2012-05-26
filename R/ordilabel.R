@@ -9,8 +9,10 @@
     if (missing(labels))
         labels <- rownames(x)
     if (!missing(select)) {
-        x <- x[select, , drop = FALSE]
-        labels <- labels[select]
+        #x <- x[select, , drop = FALSE]
+        #labels <- labels[select]
+        x <- .checkSelect(select, x)
+        labels <- .checkSelect(select, labels)
     }
     if (!missing(priority)) {
         if (!missing(select))
