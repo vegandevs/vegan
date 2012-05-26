@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* .checkSelect: standardise those plotting functions that have a
+	'select' argument that controls which rows of the scores are
+	plotted. All these functions now use .checkSelect() to check and
+	apply 'select' as appropriate.
+
 	* ordipointlabel: gains argument 'select' which allows some rows
 	of the plotted scores to be skipped in the same manner as for
 	text.cca(). This only applies when a single set of scores is
@@ -11,7 +16,7 @@ Version 2.1-16 (opened May 11, 2012)
 
 	* ordihull, ordiellipse: defaults to use semitransparent fill
 	colour with 'draw = "polygon"', and gain argument 'alpha' to set
-	the transparency. 
+	the transparency.
 
 	* ordihull: gained explicit 'col' argument and adds labels after
 	drawing convex hulls so that filled hulls (with 'draw = "polygon")

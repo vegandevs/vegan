@@ -5,7 +5,7 @@
     display <- match.arg(display)
     x <- scores(x, display = display, choices = choices, origin = origin, ...)
     if (!missing(select))
-        x <- x[select,,drop=FALSE]
+        x <- .checkSelect(select, x)
     ordiArgAbsorber(x, FUN = points, ...)
     invisible()
 }
