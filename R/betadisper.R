@@ -106,5 +106,6 @@
     class(retval) <- "betadisper"
     attr(retval, "method") <- attr(d, "method")
     attr(retval, "type") <- type
+    attr(retval, "bias.adjust") <- bias.adjust
     retval
 }
