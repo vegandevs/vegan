@@ -141,7 +141,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   will be biased downward. This bias matters most when comparing diversity
   among treatments with small, unequal numbers of samples.  Setting
   \code{bias.adjust=TRUE} when using \code{betadisper} imposes a 
-  \eqn{\sqrt{n/(n-1)} correction (Stier et al. 2012).
+  \eqn{\sqrt{n/(n-1)}}{sqrt(n/(n-1))} correction (Stier et al. 2012).
 }
 \value{
   The \code{anova} method returns an object of class \code{"anova"}
@@ -211,7 +211,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   density and timing of arrival affect reef fish community assembly. Ms.
   in revision, \emph{Oikos}.
 }
-\author{Gavin L. Simpson}
+\author{Gavin L. Simpson; bias correction by Adrian Stier and Ben Bolker.}
 \seealso{\code{\link{permutest.betadisper}}, \code{\link[stats]{anova.lm}},
   \code{\link{scores}}, \code{\link[graphics]{boxplot}},
   \code{\link{TukeyHSD}}. Further measure of beta diversity

@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* betadisper: the method is biased with small, unequal group
+	sizes. Bias corrected version can now be used with new argument
+	'bias.adjust' (defaults 'FALSE'). The problem was analysed and
+	bias correction developed by Adrian Stier and Ben Bolker.
+
 	* .checkSelect: standardise those plotting functions that have a
 	'select' argument that controls which rows of the scores are
 	plotted. All these functions now use .checkSelect() to check and
