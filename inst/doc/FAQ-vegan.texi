@@ -382,6 +382,12 @@ solutions.  In those cases you should reduce the number of dimensions
 (@code{k}) and with very small data sets you should not use @code{NMDS},
 but rely on metric methods.
 
+It seems that local and hybrid scaling with @code{monoMDS} have similar
+lower limits in practice (although theoretically they could differ).
+However, higher number of dimensions can be used in metric scaling, both
+with @code{monoMDS} and in principal coordinates analysis
+(@code{cmdscale} in @pkg{stats}, @code{wcmdscale} in @pkg{vegan}).
+
 @node Zero dissimilarities in isoMDS, How the RDA results are scaled?, I get zero stress but no convergent solutions in @code{metaMDS}, Ordination
 @section Zero dissimilarities in isoMDS
 
