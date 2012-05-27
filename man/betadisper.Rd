@@ -197,15 +197,15 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   analysis of variance. \emph{Austral Ecology} \strong{26}, 32--46.
 
   Anderson, M.J. (2006) Distance-based tests for homogeneity of
-  multivariate dispersions. \emph{Biometrics} \strong{62}(1), 245--253.
+  multivariate dispersions. \emph{Biometrics} \strong{62}, 245--253.
 
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters}
-  \strong{9}(6), 683--693.
+  \strong{9}, 683--693.
 
   O'Neill, M.E. (2000) A Weighted Least Squares Approach to Levene's 
   Test of Homogeneity of Variance. \emph{Australian & New Zealand Journal of 
-  Statistics \strong{42}(1), 81-–100.
+  Statistics \strong{42}, 81-–100.
 
   Stier, A.C., Geange, S.W., Hanson, K.M., & Bolker, B.M. (2012) Predator 
   density and timing of arrival affect reef fish community assembly. Ms.
