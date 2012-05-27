@@ -13,13 +13,7 @@
     ## only useful if we are displaying only one set of scores
     if(!missing(select)) {
         if(isTRUE(all.equal(length(display), 1L))) {
-            ## check `select` and length of scores match
-            if(is.logical(select) &&
-               !isTRUE(all.equal(length(select), NROW(xy[[1]])))) {
-                warning("Length of logical vector 'select' does not match the number of scores.\nIgnoring 'select'.")
-            } else {
-                xy[[1]] <- xy[[1]][select, , drop = FALSE]
-            }
+            xy[[1]] <- .checkSelect(select, xy[[1]])
         } else {
             warning("'select' does not apply when plotting more than one set of scores.\n'select' was ignored.")
         }

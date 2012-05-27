@@ -10,12 +10,12 @@
     on.exit(par(oldpar))
     b <- t(coef(x))
     xax <- rownames(b)
-    if (missing(xlab)) 
+    if (missing(xlab))
         xlab <- x$names[1]
     if (missing(ylab))
         ylab <- "Effect"
     if (!missing(select))
-        x$sp <- x$sp[select]
+        x$sp <- .checkSelect(select, x$sp)
     if (missing(ylim))
         ylim <- if (species)
             range(b, x$sp, na.rm = TRUE)
