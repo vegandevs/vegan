@@ -295,7 +295,7 @@ included contributions will be credited.
 
 @menu
 * I have only numeric and positive data but @pkg{vegan} still complaints::  
-* Can you analyse binary or cover class data?::  
+* Can I analyse binary or cover class data?::  
 * Why dissimilarities in @pkg{vegan} differ from other sources?::  
 * Why NMDS stress is sometimes 0.1 and sometimes 10?::  
 * I get zero stress but no convergent solutions in @code{metaMDS}::  
@@ -316,7 +316,7 @@ included contributions will be credited.
 * Can I zoom into an ordination plot?::  
 @end menu
 
-@node  I have only numeric and positive data but @pkg{vegan} still complaints, Can you analyse binary or cover class data?, Ordination, Ordination
+@node  I have only numeric and positive data but @pkg{vegan} still complaints, Can I analyse binary or cover class data?, Ordination, Ordination
 @comment  node-name,  next,  previous,  up
 @section I have only numeric and positive data but @pkg{vegan} still complaints
 
@@ -329,8 +329,8 @@ were interpreted as data (check argument @code{header = TRUE} in reading
 the data). Another common reason is that you had empty cells in your
 input data, and these were interpreted as missing values.
 
-@node Can you analyse binary or cover class data?, Why dissimilarities in @pkg{vegan} differ from other sources?, I have only numeric and positive data but @pkg{vegan} still complaints, Ordination
-@section Can you analyse binary or cover class data?
+@node Can I analyse binary or cover class data?, Why dissimilarities in @pkg{vegan} differ from other sources?, I have only numeric and positive data but @pkg{vegan} still complaints, Ordination
+@section Can I analyse binary or cover class data?
 
 Yes. Most @pkg{vegan} methods can handle binary data or cover abundance data.
 Most statistical tests are based on permutation, and do not make
@@ -338,7 +338,7 @@ distributional assumptions.  There are some methods (mainly in diversity
 analysis) that need count data.  These methods check that input data are
 integers, but they may be fooled by cover class data.
 
-@node Why dissimilarities in @pkg{vegan} differ from other sources?, Why NMDS stress is sometimes 0.1 and sometimes 10?, Can you analyse binary or cover class data?, Ordination
+@node Why dissimilarities in @pkg{vegan} differ from other sources?, Why NMDS stress is sometimes 0.1 and sometimes 10?, Can I analyse binary or cover class data?, Ordination
 @section Why dissimilarities in @pkg{vegan} differ from other sources?
 
 Most commonly the reason is that other software use presence--absence
@@ -354,7 +354,7 @@ because people use same names for different indices.
 
 @node Why NMDS stress is sometimes 0.1 and sometimes 10?, I get zero stress but no convergent solutions in @code{metaMDS}, Why dissimilarities in @pkg{vegan} differ from other sources?, Ordination
 @section Why @acronym{NMDS} stress is sometimes 0.1 and sometimes 10?
-q
+
 Stress is a proportional measure of badness of fit. The proportions can
 be expressed either as parts of one or as percents.  Function
 @code{isoMDS} (@pkg{MASS} package) uses percents, and function @code{monoMDS}
