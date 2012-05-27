@@ -9,8 +9,8 @@
 {
     ## Sum of distances from the statistic
     medfun <-
-        function(x, ord) sqrt(sum(sweep(ord, 2, x)^2,
-                              na.rm = TRUE))
+        function(x, ord) sum(sqrt(rowSums(sweep(ord, 2, x)^2)),
+                              na.rm = TRUE)
     ## derivative of medfun (if NULL, optim will use numerical
     ## differentiation)
     dmedfun <- function(x, ord) {
@@ -18,7 +18,7 @@
         dn <- sqrt(rowSums(sweep(ord, 2, x)^2))
         colSums(sweep(up, 1, dn, "/"))
     }
-    dmedfun <- NULL
+    #dmedfun <- NULL
     pts <- scores(ord, display = display, ...)
     inds <- names(table(groups))
     medians <- matrix(NA, nrow = length(inds), ncol = ncol(pts))
