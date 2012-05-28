@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2012-05-22 r59410) -- "Unsuffered Consequences"
+R Under development (unstable) (2012-05-28 r59461) -- "Unsuffered Consequences"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x38567e8>
+<environment: 0x2692be8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -1267,6 +1267,32 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > plot(mod3)
 > boxplot(mod3)
 > plot(TukeyHSD(mod3))
+> 
+> ## try out bias correction; compare with mod3
+> (mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
+Warning in betadisper(dis, groups, type = "median", bias.adjust = TRUE) :
+  Missing observations due to 'group' removed.
+Warning in betadisper(dis, groups, type = "median", bias.adjust = TRUE) :
+  Missing observations due to 'd' removed.
+
+	Homogeneity of multivariate dispersions
+
+Call: betadisper(d = dis, group = groups, type = "median", bias.adjust
+= TRUE)
+
+No. of Positive Eigenvalues: 14
+No. of Negative Eigenvalues: 5
+
+Average distance to centroid:
+  grazed ungrazed 
+  0.4134   0.3295 
+
+Eigenvalues for PCoA axes:
+  PCoA1   PCoA2   PCoA3   PCoA4   PCoA5   PCoA6   PCoA7   PCoA8   PCoA9  PCoA10 
+ 1.4755  0.8245  0.4218  0.3456  0.2159  0.1688  0.1150  0.1060  0.0912  0.0639 
+ PCoA11  PCoA12  PCoA13  PCoA14  PCoA15  PCoA16  PCoA17  PCoA18  PCoA19 
+ 0.0420  0.0267  0.0157  0.0020 -0.0025 -0.0215 -0.0221 -0.0486 -0.0592 
+> 
 > 
 > 
 > 
@@ -4780,7 +4806,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa720c90>
+<environment: 0x95bf158>
 
 Estimated degrees of freedom:
 6.4351  total = 7.43507 
@@ -4796,7 +4822,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa0b8058>
+<environment: 0x7763580>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4952,7 +4978,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9bbcd00>
+<environment: 0x97f77f0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4965,7 +4991,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa7920a8>
+<environment: 0x6ed8420>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -4978,7 +5004,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb12a2c0>
+<environment: 0x95b6798>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7517,7 +7543,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb1c9470>
+<environment: 0x9488ef8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7997,7 +8023,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.445 0.216 26.972 0 0 
+Time elapsed:  25.313 0.132 25.532 0 0 
 > grDevices::dev.off()
 null device 
           1 
