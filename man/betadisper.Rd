@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{betadisper}
 \alias{betadisper}
 \alias{scores.betadisper}
@@ -38,7 +39,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 \method{boxplot}{betadisper}(x, ylab = "Distance to centroid", ...)
 
 \method{TukeyHSD}{betadisper}(x, which = "group", ordered = FALSE,
-         conf.level = 0.95, \ldots)
+         conf.level = 0.95, \dots)
 }
 
 \arguments{
@@ -205,7 +206,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
   O'Neill, M.E. (2000) A Weighted Least Squares Approach to Levene's 
   Test of Homogeneity of Variance. \emph{Australian & New Zealand Journal of 
-  Statistics \strong{42}, 81-–100.
+  Statistics} \strong{42}, 81-–100.
 
   Stier, A.C., Geange, S.W., Hanson, K.M., & Bolker, B.M. (2012) Predator 
   density and timing of arrival affect reef fish community assembly. Ms.
