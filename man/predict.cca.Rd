@@ -39,16 +39,22 @@
     \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. For \code{\link{capscale}} this can also be 
-    \code{"Imaginary"} for imaginary components with negative eigenvalues. }
+    \code{"Imaginary"} for imaginary components with negative
+    eigenvalues. }
+  
   \item{newdata}{New data frame to be used in prediction or in
-    calibration.  Usually this a new community data frame, but for
-    \code{predict.cca} \code{type = "lc"} and for constrained component
-    with \code{type} \code{"response"} and \code{"working"} it must be
-    an environment data frame, If the original model had row or column
-    names, then new data must contain rows or columns with the same
-    names (row names for species scores, column names for \code{"wa"}
-    scores and constraint names of \code{"lc"} scores). In other cases
-    the rows or columns must match directly. }
+    calibration.  Usually this a new community data frame, but with
+    \code{type = "lc"} and for constrained component with \code{type =
+    "response"} and \code{type = "working"} it must be an environment
+    data frame.  The \code{newdata} must have the same number of rows as
+    the original community data for a \code{\link{cca}} result with
+    \code{type = "response"} or \code{type = "working"}.  If the
+    original model had row or column names, then new data must contain
+    rows or columns with the same names (row names for species scores,
+    column names for \code{"wa"} scores and constraint names of
+    \code{"lc"} scores). In other cases the rows or columns must match
+    directly. }
+
   \item{type}{The type of prediction, fitted values or residuals:
     \code{"response"} scales results so that the same ordination gives
     the same results, and \code{"working"} gives the values used
@@ -112,7 +118,11 @@
   residual or unconstrained component is desired.  With these types, the
   function uses \code{newdata} to find new \code{"lc"} (constrained) or
   \code{"wa"} scores (unconstrained) and then finding the response or
-  working data from these new row scores and species scores.
+  working data from these new row scores and species scores.  The
+  original site (row) and species (column) weights are used for
+  \code{type = "response"} and \code{type = "working"} in correspondence
+  analysis (\code{\link{cca}}) and therefore the number of rows must
+  match in the original data and \code{newdata}.
 
   If a completely new data frame is created, extreme care is needed
   defining variables similarly as in the original model, in particular
