@@ -27,7 +27,7 @@
                 u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                              newdata = newdata, rank = take)
             else
-                warning(gettextf("'newdata' must have the same number of rows as the original community data with type = '%s' -- 'newdata' ignored", type))
+                warning(gettextf("'newdata' ignored: it must have the same number of rows as the original community data with type = '%s'", type))
         }
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
