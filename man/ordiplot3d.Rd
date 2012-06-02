@@ -216,6 +216,9 @@ ordiplot3d(ord, envfit = ef)
 ### 2. use returned envfit.convert function for better user control
 pl3 <- ordiplot3d(ord)
 plot(pl3$envfit.convert(ef), at = pl3$origin)
+### envfit.convert() also handles different 'choices' of axes
+pl3 <- ordiplot3d(ord, choices = c(1,3,2))
+plot(pl3$envfit.convert(ef), at = pl3$origin)
 ### ordirgl
 ordirgl(ord, size=2)
 ordirgl(ord, display = "species", type = "t")
