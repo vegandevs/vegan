@@ -2,6 +2,19 @@
     function(comm, group, permutations = 0, trace = FALSE,  
              parallel = getOption("mc.cores"), ...)
 {
+    pfun <- function(x, comm, comp, i, contrp) {
+        groupp <- group[perm[x,]]
+        ga <- comm[groupp == comp[i, 1], ] 
+        gb <- comm[groupp == comp[i, 2], ]
+        for(j in 1:n.b) {
+            for(k in 1:n.a) {
+                mdp <- abs(ga[k, ] - gb[j, ])
+                mep <- ga[k, ] + gb[j, ]
+                contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
+            }
+        }
+        colMeans(contrp)
+    }
     comm <- as.matrix(comm)
     comp <- t(combn(unique(as.character(group)), 2))
     outlist <- NULL
@@ -54,24 +67,25 @@
             if (trace)
                 cat("Permuting", paste(comp[i,1], comp[i,2], sep = "_"), "\n")
             contrp <- matrix(ncol = P, nrow = n.a * n.b)
-            for(p in 1:nperm){
-                groupp <- group[perm[p,]]
-                ga <- comm[groupp == comp[i, 1], ] 
-                gb <- comm[groupp == comp[i, 2], ]
-                for(j in 1:n.b) {
-                    for(k in 1:n.a) {
-                        mdp <- abs(ga[k, ] - gb[j, ])
-                        mep <- ga[k, ] + gb[j, ]
-                        contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
-                    }
-                }
-                perm.contr[ ,p] <- colMeans(contrp)
+
+            if (isParal) {
+                if (isMulticore){
+                    perm.contr <- mclapply(1:nperm, function(d) 
+                        pfun(d, comm, comp, i, contrp), mc.cores = parallel)
+                    perm.contr <- do.call(cbind, perm.contr)
+                } else {
+                    perm.contr <- parSapply(parallel, 1:nperm, function(d) 
+                        pfun(d, comm, comp, i, contrp))
+                }  
+            } else {
+                perm.contr <- sapply(1:nperm, function(d) 
+                    pfun(d, comm, comp, i, contrp))
             }
-            p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
-            
             ## Close socket cluster if created here
             if (isParal && !isMulticore && !hasClus)
                 stopCluster(parallel)
+            
+            p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
         } 
         else {
           p <- NULL
@@ -113,7 +127,9 @@
     function(object, ordered = TRUE, digits = max(3, getOption("digits") - 3), ...)
 {
     if (ordered) {
-        out <- lapply(object, function(z) data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, av.a = z$ava, av.b = z$avb)[z$ord, ])
+        out <- lapply(object, function(z) 
+            data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, 
+                       av.a = z$ava, av.b = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) z$cusum)
         for(i in 1:length(out)) {
             out[[i]]$cumsum <- cusum[[i]]
@@ -123,7 +139,9 @@
         } 
     } 
     else {
-        out <- lapply(object, function(z) data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, ava = z$ava, avb = z$avb, p = z$p)))
+        out <- lapply(object, function(z) 
+            data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, 
+                             ava = z$ava, avb = z$avb, p = z$p)))
     }
     attr(out, "digits") <- digits
     attr(out, "permutations") <- attr(object, "permutations")
