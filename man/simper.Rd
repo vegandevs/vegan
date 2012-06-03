@@ -10,7 +10,8 @@
 }
 
 \usage{
-simper(comm, group, permutations = 0, trace = FALSE, ...)
+simper(comm, group, permutations = 0, trace = FALSE, 
+    parallel = getOption("mc.cores"), ...)
 \method{summary}{simper}(object, ordered = TRUE,
     digits = max(3,getOption("digits") - 3), ...)
 }
