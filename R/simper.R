@@ -37,6 +37,17 @@
     nperm <- nrow(perm)
     if (nperm > 0)
         perm.contr <- matrix(nrow=P, ncol=nperm)
+    ## Parallel processing ?
+    if (is.null(parallel) && getRversion() >= "2.15.0")
+        parallel <- get("default", envir = parallel:::.reg)
+    if (is.null(parallel) || getRversion() < "2.14.0")
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isMulticore <- .Platform$OS.type == "unix" && !hasClus
+    if (isParal && !isMulticore && !hasClus) {
+        parallel <- makeCluster(parallel)
+    }
     for (i in 1:nrow(comp)) {
         group.a <- comm[group == comp[i, 1], ]
         group.b <- comm[group == comp[i, 2], ]
@@ -54,18 +65,6 @@
         
         ## Apply permutations
         if(nperm > 0){
-            ## Parallel processing ?
-            if (is.null(parallel) && getRversion() >= "2.15.0")
-                parallel <- get("default", envir = parallel:::.reg)
-            if (is.null(parallel) || getRversion() < "2.14.0")
-                parallel <- 1
-            hasClus <- inherits(parallel, "cluster")
-            isParal <- (hasClus || parallel > 1) && require(parallel)
-            isMulticore <- .Platform$OS.type == "unix" && !hasClus
-            if (isParal && !isMulticore && !hasClus) {
-                parallel <- makeCluster(parallel)
-            }
-            
             if (trace)
                 cat("Permuting", paste(comp[i,1], comp[i,2], sep = "_"), "\n")
             contrp <- matrix(ncol = P, nrow = n.a * n.b)
@@ -83,10 +82,6 @@
                 perm.contr <- sapply(1:nperm, function(d) 
                     pfun(d, comm, comp, i, contrp))
             }
-            ## Close socket cluster if created here
-            if (isParal && !isMulticore && !hasClus)
-                stopCluster(parallel)
-            
             p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
         } 
         else {
@@ -105,6 +100,9 @@
                     avb = avb, ord = ord, cusum = cusum, p = p)
         outlist[[paste(comp[i,1], "_", comp[i,2], sep = "")]] <- out
     }
+    ## Close socket cluster if created here
+    if (isParal && !isMulticore && !hasClus)
+        stopCluster(parallel)
     attr(outlist, "permutations") <- nperm
     class(outlist) <- "simper"
     outlist
