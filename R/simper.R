@@ -2,6 +2,8 @@
     function(comm, group, permutations = 0, trace = FALSE,  
              parallel = getOption("mc.cores"), ...)
 {
+    if (any(rowSums(comm, na.rm = TRUE) == 0)) 
+        warning("you have empty rows: results may be meaningless")
     pfun <- function(x, comm, comp, i, contrp) {
         groupp <- group[perm[x,]]
         ga <- comm[groupp == comp[i, 1], ] 
