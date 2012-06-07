@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* predict.cca: number of rows must match in the original data and
+	'newdata' of cca() result, because original row weights are used
+	in scaling the results.  Now the match is checked, and
+	non-matching 'newdata' is ignored with warning.  Earlier this gave
+	an error.  Reported by Glenn De'ath.
+
 	* betadisper: the method is biased with small, unequal group
 	sizes. Bias corrected version can now be used with new argument
 	'bias.adjust' (defaults 'FALSE'). The problem was analysed and

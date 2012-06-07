@@ -1,4 +1,4 @@
-"predict.cca" <-
+`predict.cca` <-
     function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
               rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...) 
 {
@@ -22,9 +22,13 @@
     slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
     if (type %in%  c("response", "working")) {
         Xbar <- 0
-        if (!missing(newdata))
-            u <- predict(object, type = if(model == "CCA") "lc" else "wa",
-                         newdata = newdata, rank = take)
+        if (!missing(newdata)) {
+            if (NROW(u) == NROW(newdata))
+                u <- predict(object, type = if(model == "CCA") "lc" else "wa",
+                             newdata = newdata, rank = take)
+            else
+                warning(gettextf("'newdata' ignored: it must have the same number of rows as the original community data with type = '%s'", type))
+        }
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
         if (!is.null(object$pCCA)) 
