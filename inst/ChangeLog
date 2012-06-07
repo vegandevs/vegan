@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* simper: added parallel processing for permutation tests in
+	accordance with other vegan functions and with similar user
+	interface. The code was developed by Eduard Szöcs in
+	http://github.com.
+
 	* predict.cca: number of rows must match in the original data and
 	'newdata' of cca() result, because original row weights are used
 	in scaling the results.  Now the match is checked, and
