@@ -10,7 +10,8 @@
 }
 
 \usage{
-simper(comm, group, permutations = 0, trace = FALSE, ...)
+simper(comm, group, permutations = 0, trace = FALSE, 
+    parallel = getOption("mc.cores"), ...)
 \method{summary}{simper}(object, ordered = TRUE,
     digits = max(3,getOption("digits") - 3), ...)
 }
@@ -29,6 +30,11 @@ simper(comm, group, permutations = 0, trace = FALSE, ...)
   \item{ordered}{Logical; Should the species be ordered by their
     average contribution?}
   \item{digits}{Number of digits in output.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later. See 
+    \code{\link{vegandocs}} \code{decision-vegan} for details.}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}
