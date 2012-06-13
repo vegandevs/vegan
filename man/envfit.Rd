@@ -19,7 +19,7 @@
    display = "sites", w  = weights(ord), na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), arrow.mul, at = c(0,0), axis = FALSE, 
-    p.max = NULL, col = "blue", add = TRUE, ...)
+    p.max = NULL, col = "blue", bg, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, ...)
 vectorfit(X, P, permutations = 0, strata, w, ...)
 factorfit(X, P, permutations = 0, strata, w, ...)
@@ -57,6 +57,9 @@ factorfit(X, P, permutations = 0, strata, w, ...)
     variables.  You must calculate \eqn{P} values with setting
     \code{permutations} to use this option. }
   \item{col}{Colour in plotting.}
+  \item{bg}{Background colour for labels. If \code{bg} is set, the
+    labels are displayed with \code{\link{ordilabel}} instead of
+    \code{text}. See Examples for using semitransparent background.}
   \item{add}{Results added to an existing ordination plot.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
@@ -196,7 +199,9 @@ plot(ord, type="p")
 fit <- envfit(ord, varechem, perm = 999, display = "lc")
 plot(fit, p.max = 0.05, col = "red")
 ## Class variables, formula interface, and displaying the
-## inter-class variability with `ordispider'
+## inter-class variability with `ordispider', and semitransparent
+## white background for labels (semitransparent colours are not
+## supported by all graphics devices)
 data(dune)
 data(dune.env)
 attach(dune.env)
@@ -205,7 +210,7 @@ fit <- envfit(ord ~ Moisture + A1, dune.env, perm = 0)
 plot(ord, type = "n")
 ordispider(ord, Moisture, col="skyblue")
 points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
-plot(fit, cex=1.2, axis=TRUE)
+plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
 }
 \keyword{multivariate }
 \keyword{aplot}
