@@ -1,6 +1,6 @@
 `plot.envfit` <-
     function (x, choices = c(1, 2), arrow.mul, at = c(0, 0),
-              axis = FALSE, p.max = NULL, col = "blue", add = TRUE, ...)
+              axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     vect <- NULL
@@ -86,11 +86,20 @@
     if (!is.null(vect)) {
         arrows(at[1], at[2], vect[, 1], vect[, 2], len = 0.05,
                col = col)
-        text(vtext, rownames(x$vectors$arrows), col = col, ...)
+        if (missing(bg))
+            text(vtext, rownames(x$vectors$arrows), col = col, ...)
+        else
+            ordilabel(vtext, labels = rownames(x$vectors$arrows),
+                      col = col, fill = bg, ...)
     }
     if (!is.null(x$factors)) {
-        text(x$factors$centroids[, choices, drop = FALSE],
-             rownames(x$factors$centroids), col = col, ...)
+        if (missing(bg))
+            text(x$factors$centroids[, choices, drop = FALSE],
+                 rownames(x$factors$centroids), col = col, ...)
+        else
+            ordilabel(x$factors$centroids[, choices, drop = FALSE],
+                      labels = rownames(x$factors$centroids),
+                      col = col, fill = bg, ...)
     }
     if (axis && !is.null(vect)) {
         axis(3, at = ax + at[1], labels = c(maxarr, 0, maxarr),
