@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-16 (opened May 11, 2012)
 
+	* envfit: plot() gained new argument 'bg' that triggers labelling
+	with ordilabel() using the colour given in 'bg' as the background.
+
 	* simper: added parallel processing for permutation tests in
 	accordance with other vegan functions and with similar user
 	interface. The code was developed by Eduard Szöcs in
