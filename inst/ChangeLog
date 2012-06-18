@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-16 (opened May 11, 2012)
+Version 2.1-17 (opened June 18, 2012)
+
+	* New version opened with the CRAN release of vegan 2.0-4 on June
+	18, 2012.
+	
+Version 2.1-16 (closed June 18, 2012)
 
 	* envfit: plot() gained new argument 'bg' that triggers labelling
 	with ordilabel() using the colour given in 'bg' as the background.
