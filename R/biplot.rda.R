@@ -23,18 +23,18 @@ biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
   if (missing(type)) {
       nitlimit <- 80
       nit <- max(nrow(g$species), nrow(g$sites))
-      if (nit > nitlimit) 
-          type <- "points"
-      else type <- "text"
+      if (nit > nitlimit)
+          type <- rep("points", 2)
+      else type <- rep("text", 2)
   }
   else type <- match.arg(type, TYPES, several.ok = TRUE)
   if(length(type) < 2)
       type <- rep(type, 2)
-  if (missing(xlim)) 
+  if (missing(xlim))
       xlim <- range(g$species[, 1], g$sites[, 1])
-  if (missing(ylim)) 
+  if (missing(ylim))
       ylim <- range(g$species[, 2], g$sites[, 2])
-  plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1, 
+  plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
        ...)
   abline(h = 0, lty = 3)
   abline(v = 0, lty = 3)
@@ -51,9 +51,9 @@ biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
                col = col[2], cex = 0.7)
   }
   if (!is.null(g$sites)) {
-      if (type[2] == "text") 
+      if (type[2] == "text")
           text(g$sites, rownames(g$sites), cex = 0.7, col = col[1])
-      else if (type[2] == "points") 
+      else if (type[2] == "points")
           points(g$sites, pch = 1, cex = 0.7, col = col[1])
   }
   class(g) <- "ordiplot"

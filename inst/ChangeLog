@@ -6,6 +6,9 @@ Version 2.1-17 (opened June 18, 2012)
 
 	* New version opened with the CRAN release of vegan 2.0-4 on June
 	18, 2012.
+
+	* biplot.rda: bug in specification of `type` argument if not supplied
+	by the user; should have been a vector of length == 2.
 	
 Version 2.1-16 (closed June 18, 2012)
 
