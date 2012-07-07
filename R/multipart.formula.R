@@ -20,5 +20,8 @@
     sim <- multipart.default(lhs, rhs, index = index, scales = scales,
                              global = global, relative = relative,
                              nsimul = nsimul, ...)
+    call <- match.call()
+    call[[1]] <- as.name("multipart")
+    attr(sim, "call") <- call
     sim
 }
