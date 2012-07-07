@@ -1,6 +1,6 @@
-multipart.default <-
-function(y, x, index=c("renyi", "tsallis"), scales = 1,
-    global = FALSE, relative = FALSE, nsimul=99, ...)
+`multipart.default` <-
+    function(y, x, index=c("renyi", "tsallis"), scales = 1,
+             global = FALSE, relative = FALSE, nsimul=99, ...)
 {
     if (length(scales) > 1)
         stop("length of 'scales' must be 1")
@@ -123,7 +123,9 @@ function(y, x, index=c("renyi", "tsallis"), scales = 1,
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
         paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
-    attr(sim, "call") <- match.call()
+    call <- match.call()
+    call[[1]] <- as.name("multipart")
+    attr(sim, "call") <- call
     attr(sim, "index") <- index
     attr(sim, "scales") <- scales
     attr(sim, "global") <- TRUE
