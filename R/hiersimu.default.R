@@ -82,7 +82,9 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
 #    nam <- paste("level", 1:nlevs, sep=".")
 #    names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- tlab[1:nlevs]
-    attr(sim, "call") <- match.call()
+    call <- match.call()
+    call[[1]] <- as.name("hiersimu")
+    attr(sim, "call") <- call
     attr(sim, "FUN") <- FUN
     attr(sim, "location") <- location
     attr(sim, "n.levels") <- nlevs
