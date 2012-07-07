@@ -98,7 +98,9 @@ function(y, x, index=c("richness", "shannon", "simpson"),
     nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
              paste("beta", 1:(nlevs-1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
-    attr(sim, "call") <- match.call()
+    call <- match.call()
+    call[[1]] <- as.name("adipart")
+    attr(sim, "call") <- call
     attr(sim, "index") <- index
     attr(sim, "weights") <- weights
     attr(sim, "n.levels") <- nlevs
