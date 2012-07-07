@@ -9,6 +9,14 @@ Version 2.1-17 (opened June 18, 2012)
 
 	* biplot.rda: bug in specification of `type` argument if not supplied
 	by the user; should have been a vector of length == 2.
+
+	* adipart, hiersimu, multipart: default and formula methods of
+	these functions were identical (also for the calculations) except
+	in interpreting the input. Now the formula method only interprets
+	the formula and calls the default method for the actual
+	calculations without replicating its code. The "call" attribute of
+	these functions now returns the generic function name without
+	".default", ".formula" suffix.
 	
 Version 2.1-16 (closed June 18, 2012)
 
