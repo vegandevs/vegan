@@ -17,7 +17,11 @@
         stop("interactions are not allowed in formula")
     if (!all(attr(attr(rhs, "terms"), "dataClasses") == "factor"))
         stop("all right hand side variables in formula must be factors")
-    hiersimu.default(lhs, rhs, FUN = FUN, location = location,
-                     relative = relative, drop.highest = drop.highest,
-                     nsimul = nsimul, ...)
+    sim <- hiersimu.default(lhs, rhs, FUN = FUN, location = location,
+                            relative = relative, drop.highest = drop.highest,
+                            nsimul = nsimul, ...)
+    call <- match.call()
+    call[[1]] <- as.name("hiersimu")
+    attr(sim, "call") <- call
+    sim
 }

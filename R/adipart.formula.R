@@ -17,6 +17,10 @@
         stop("interactions are not allowed in formula")
     if (!all(attr(attr(rhs, "terms"), "dataClasses") == "factor"))
         stop("all right hand side variables in formula must be factors")
-    adipart.default(lhs, rhs, index = index, weights = weights,
-                    relative = relative, nsimul = nsimul, ...)
+    sim <- adipart.default(lhs, rhs, index = index, weights = weights,
+                           relative = relative, nsimul = nsimul, ...)
+    call <- match.call()
+    call[[1]] <- as.name("adipart")
+    attr(sim, "call") <- call
+    sim
 }
