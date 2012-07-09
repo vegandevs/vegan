@@ -101,11 +101,11 @@ function(y, x, index=c("richness", "shannon", "simpson"),
     call <- match.call()
     call[[1]] <- as.name("adipart")
     attr(sim, "call") <- call
-    attr(sim, "index") <- index
-    attr(sim, "weights") <- weights
+    attr(sim$oecosimu$simulated, "index") <- index
+    attr(sim$oecosimu$simulated, "weights") <- weights
     attr(sim, "n.levels") <- nlevs
     attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs
-    class(sim) <- c("adipart", "list")
+    class(sim) <- c("adipart", class(sim))
     sim
 }
