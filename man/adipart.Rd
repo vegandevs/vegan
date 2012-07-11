@@ -3,11 +3,10 @@
 \alias{adipart}
 \alias{adipart.default}
 \alias{adipart.formula}
-\alias{print.adipart}
 \alias{hiersimu}
 \alias{hiersimu.default}
 \alias{hiersimu.formula}
-\alias{print.hiersimu}
+
 \title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
 In additive diversity partitioning, mean values of alpha diversity at lower levels of a sampling 

@@ -8,7 +8,7 @@
         ncol(x$oecosimu$simulated), "simulations\n")
     if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
         att$dim <- NULL
-        cat(" with", paste(names(att), att, collapse=", "))
+        cat("options: ", paste(names(att), att, collapse=", "))
     }
     alt.char <- switch(x$oecosimu$alternative,
                        two.sided = "not equal to",
@@ -19,9 +19,10 @@
 
     cat("\n\n")
     cl <- class(x)
-    if (length(cl) > 1 && cl[2] != "list") {
-        NextMethod("print", x)
-        cat("\n")
+    if ((length(cl) > 1 && cl[2] != "list" ) &&
+        !any(cl %in% c("adipart", "hiersimu", "multipart"))) {
+            NextMethod("print", x)
+            cat("\n")
     }
     probs <- switch(x$oecosimu$alternative,
                     two.sided = c(0.025, 0.5, 0.975),

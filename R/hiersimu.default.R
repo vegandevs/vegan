@@ -90,6 +90,6 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
     attr(sim, "n.levels") <- nlevs
     attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs
-    class(sim) <- c("hiersimu", "list")
+    class(sim) <- c("hiersimu", class(sim))
     sim
 }

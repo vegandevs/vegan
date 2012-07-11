@@ -1,8 +1,8 @@
 
-R Under development (unstable) (2012-06-11 r59557) -- "Unsuffered Consequences"
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-16
+This is vegan 2.1-17
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-17. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2622380>
+<environment: 0x102410b90>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -491,8 +491,8 @@ Manure  3 85.762 1.1225     99   0.26
 > ### Name: adipart
 > ### Title: Additive Diversity Partitioning and Hierarchical Null Model
 > ###   Testing
-> ### Aliases: adipart adipart.default adipart.formula print.adipart hiersimu
-> ###   hiersimu.default hiersimu.formula print.hiersimu
+> ### Aliases: adipart adipart.default adipart.formula hiersimu
+> ###   hiersimu.default hiersimu.formula
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -523,58 +523,79 @@ Manure  3 85.762 1.1225     99   0.26
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
 > adipart(mite, index="richness", nsimul=19)
-adipart with 19 simulations using method “r2dtable” 
-with index richness, weights unif
+Call: adipart(y = mite, index = "richness", nsimul = 19)
 
-        statistic       z    2.5%     50%  97.5% Pr(sim.)  
-alpha.1    15.114 -38.430  22.032  22.300 22.608     0.05 *
-gamma      35.000   0.000  35.000  35.000 35.000     1.00  
-beta.1     19.886  38.430  12.392  12.700 12.968     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index richness, weights unif
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)  
+alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
+gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
+beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > adipart(mite ~ ., levsm, index="richness", nsimul=19)
-adipart with 19 simulations using method “r2dtable” 
-with index richness, weights unif
+Call: adipart(formula = mite ~ ., data = levsm, index = "richness",
+nsimul = 19)
 
-        statistic        z     2.5%      50%   97.5% Pr(sim.)  
-alpha.1   15.1143 -46.2370  22.1257  22.4429 22.6236     0.05 *
-alpha.2   29.7500 -21.7076  34.3625  35.0000 35.0000     0.05 *
-alpha.3   33.0000   0.0000  35.0000  35.0000 35.0000     0.05 *
-gamma     35.0000   0.0000  35.0000  35.0000 35.0000     1.00  
-beta.1    14.6357   9.0407  12.0075  12.4286 12.8743     0.05 *
-beta.2     3.2500  13.1373   0.0000   0.0000  0.6375     0.05 *
-beta.3     2.0000   0.0000   0.0000   0.0000  0.0000     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index richness, weights unif
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+alpha.1    15.114 -46.2370 22.39624 22.12571 22.44286 22.6236     0.05 *
+alpha.2    29.750 -21.7076 34.81579 34.36250 35.00000 35.0000     0.05 *
+alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *
+gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.0000     1.00  
+beta.1     14.636   9.0407 12.41955 12.00750 12.42857 12.8743     0.05 *
+beta.2      3.250  13.1373  0.18421  0.00000  0.00000  0.6375     0.05 *
+beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
 > hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
-hiersimu with 19 simulations
+Call: hiersimu(y = mite, FUN = diversity, relative = TRUE, nsimul = 19)
 
-        statistic         z      2.5%       50%  97.5% Pr(sim.)  
-level_1   0.76064 -71.19509   0.93487   0.93856 0.9444     0.05 *
-leve_2    1.00000   0.00000   1.00000   1.00000 1.0000     1.00  
+nullmodel method ‘r2dtable’ with 19 simulations
+
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic       z    mean    2.5%     50%  97.5% Pr(sim.)  
+level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
+leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
-hiersimu with 19 simulations
+Call: hiersimu(formula = mite ~ ., data = levsm, FUN = diversity,
+relative = TRUE, nsimul = 19)
 
-    statistic          z       2.5%        50%  97.5% Pr(sim.)  
-l1    0.76064  -75.13855    0.93389    0.93819 0.9427     0.05 *
-l2    0.89736 -110.96786    0.99699    0.99814 0.9999     0.05 *
-l3    0.92791 -417.33833    0.99904    0.99943 0.9996     0.05 *
-l4    1.00000    0.00000    1.00000    1.00000 1.0000     1.00  
+nullmodel method ‘r2dtable’ with 19 simulations
+
+alternative hypothesis: simulated median is not equal to the statistic
+
+   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)  
+l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
+l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
+l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
+l4   1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Hierarchical testing with the Morisita index
 > morfun <- function(x) dispindmorisita(x)$imst
 > hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
-hiersimu with 19 simulations
+Call: hiersimu(formula = mite ~ ., data = levsm, FUN = morfun,
+drop.highest = TRUE, nsimul = 19)
 
-   statistic        z     2.5%      50%   97.5% Pr(sim.)  
-l1   0.52070  8.52164  0.32262  0.35107  0.3848     0.05 *
-l2   0.60234 14.38537  0.09670  0.15043  0.1969     0.05 *
-l3   0.67509 20.31622 -0.23479 -0.19594 -0.0988     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+
+alternative hypothesis: simulated median is not equal to the statistic
+
+   statistic       z      mean      2.5%       50%   97.5% Pr(sim.)  
+l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
+l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
+l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -2552,7 +2573,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
+Run 18 stress 0.1843199 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > (fit <- envfit(ord, varechem, perm = 999))
@@ -3020,7 +3041,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
+Run 18 stress 0.1843199 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > stressplot(mod)
@@ -3946,7 +3967,7 @@ mso variogram:
 > 
 > ### Name: multipart
 > ### Title: Multiplicative Diversity Partitioning
-> ### Aliases: multipart multipart.default multipart.formula print.multipart
+> ### Aliases: multipart multipart.default multipart.formula
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3971,59 +3992,75 @@ mso variogram:
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 > ## Multiplicative diversity partitioning
 > multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
-multipart with 19 simulations
-with index renyi, scales 1, global TRUE
+Call: multipart(y = mite, x = levsm, index = "renyi", scales = 1,
+nsimul = 19)
 
-         statistic          z       2.5%        50%   97.5% Pr(sim.)  
-alpha.1    8.05548  -50.06937   12.06155   12.19041 12.3400     0.05 *
-alpha.2   11.23526  -91.66217   14.05255   14.08685 14.1485     0.05 *
-alpha.3   12.00644 -391.05300   14.13048   14.13932 14.1485     0.05 *
-gamma     14.16027    0.00000   14.16027   14.16027 14.1603     1.00  
-beta.1     1.35678   27.32039    1.14474    1.15859  1.1683     0.05 *
-beta.2     1.07103   30.43075    0.99912    1.00340  1.0059     0.05 *
-beta.3     1.17939  460.54976    1.00083    1.00148  1.0021     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index renyi, scales 1, global TRUE
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
+alpha.2   11.2353  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
+alpha.3   12.0064 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
+gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  
+beta.1     1.3568   27.320  1.15770  1.14474  1.15859  1.1683     0.05 *
+beta.2     1.0710   30.431  1.00339  0.99912  1.00340  1.0059     0.05 *
+beta.3     1.1794  460.550  1.00148  1.00083  1.00148  1.0021     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
-multipart with 19 simulations
-with index renyi, scales 1, global TRUE
+Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
+scales = 1, nsimul = 19)
 
-        statistic         z      2.5%       50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -66.6425   12.1143   12.2120 12.2910     0.05 *
-alpha.2   11.2353  -94.6265   14.0246   14.0917 14.1193     0.05 *
-alpha.3   12.0064 -355.9621   14.1283   14.1374 14.1485     0.05 *
-gamma     14.1603    0.0000   14.1603   14.1603 14.1603     1.00  
-beta.1     1.3568   35.0277    1.1478    1.1565  1.1660     0.05 *
-beta.2     1.0710   33.4227    1.0015    1.0035  1.0078     0.05 *
-beta.3     1.1794  419.1662    1.0008    1.0016  1.0023     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index renyi, scales 1, global TRUE
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
+alpha.1    8.0555  -66.643 12.2056 12.1143 12.2120 12.2910     0.05 *
+alpha.2   11.2353  -94.626 14.0818 14.0246 14.0917 14.1193     0.05 *
+alpha.3   12.0064 -355.962 14.1391 14.1283 14.1374 14.1485     0.05 *
+gamma     14.1603    0.000 14.1603 14.1603 14.1603 14.1603     1.00  
+beta.1     1.3568   35.028  1.1566  1.1478  1.1565  1.1660     0.05 *
+beta.2     1.0710   33.423  1.0041  1.0015  1.0035  1.0078     0.05 *
+beta.3     1.1794  419.166  1.0015  1.0008  1.0016  1.0023     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
-multipart with 19 simulations
-with index renyi, scales 1, global TRUE
+Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
+scales = 1, relative = TRUE, nsimul = 19)
 
-          statistic           z        2.5%         50%   97.5% Pr(sim.)  
-alpha.1    8.055481  -53.543897   12.071168   12.198307 12.3689     0.05 *
-alpha.2   11.235261  -99.506116   14.032767   14.076147 14.1247     0.05 *
-alpha.3   12.006443 -343.945577   14.123604   14.136297 14.1438     0.05 *
-gamma     14.160271    0.000000   14.160271   14.160271 14.1603     1.00  
-beta.1     0.078594   19.567843    0.067236    0.068392  0.0691     0.05 *
-beta.2     0.535514   35.965825    0.500294    0.502062  0.5035     0.05 *
-beta.3     0.589695  404.814230    0.500583    0.500848  0.5013     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index renyi, scales 1, global TRUE
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
+alpha.1  8.055481  -53.544 12.204883 12.071168 12.198307 12.3689     0.05 *
+alpha.2 11.235261  -99.506 14.079276 14.032767 14.076147 14.1247     0.05 *
+alpha.3 12.006443 -343.946 14.135245 14.123604 14.136297 14.1438     0.05 *
+gamma   14.160271    0.000 14.160271 14.160271 14.160271 14.1603     1.00  
+beta.1   0.078594   19.568  0.068267  0.067236  0.068392  0.0691     0.05 *
+beta.2   0.535514   35.966  0.501994  0.500294  0.502062  0.5035     0.05 *
+beta.3   0.589695  404.814  0.500885  0.500583  0.500848  0.5013     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
-multipart with 19 simulations
-with index renyi, scales 1, global TRUE
+Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
+scales = 1, global = TRUE, nsimul = 19)
 
-         statistic          z       2.5%        50%   97.5% Pr(sim.)  
-alpha.1    8.05548  -69.63045   12.09434   12.18504 12.3160     0.05 *
-alpha.2   11.23526  -81.67569   14.05248   14.09208 14.1625     0.05 *
-alpha.3   12.00644 -321.41937   14.12429   14.13991 14.1456     0.05 *
-gamma     14.16027    0.00000   14.16027   14.16027 14.1603     1.00  
-beta.1     1.75784  105.55202    1.14975    1.16210  1.1708     0.05 *
-beta.2     1.26034  102.69533    0.99985    1.00484  1.0077     0.05 *
-beta.3     1.17939  378.33472    1.00104    1.00144  1.0025     0.05 *
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index renyi, scales 1, global TRUE
+alternative hypothesis: simulated median is not equal to the statistic
+
+        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+alpha.1    8.0555  -69.630 12.19342 12.09434 12.18504 12.3160     0.05 *
+alpha.2   11.2353  -81.676 14.09224 14.05248 14.09208 14.1625     0.05 *
+alpha.3   12.0064 -321.419 14.13850 14.12429 14.13991 14.1456     0.05 *
+gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  
+beta.1     1.7578  105.552  1.16133  1.14975  1.16210  1.1708     0.05 *
+beta.2     1.2603  102.695  1.00483  0.99985  1.00484  1.0077     0.05 *
+beta.3     1.1794  378.335  1.00154  1.00104  1.00144  1.0025     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4056,8 +4093,11 @@ with matrix fill 0.2233333
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 > oecosimu(sipoo, nestedchecker, "quasiswap")
-oecosimu with 99 simulations
-simulation method ‘quasiswap’
+Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method =
+"quasiswap")
+
+nullmodel method ‘quasiswap’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
@@ -4067,8 +4107,11 @@ C-score (species mean): 2.258776
 statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
-oecosimu with 99 simulations
-simulation method ‘r00’
+Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r00",
+statistic = "C.score")
+
+nullmodel method ‘r00’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
@@ -4191,8 +4234,10 @@ Start = 11, End = 60, Thin = 5
 > data(sipoo)
 > ## Traditional nestedness statistics (number of checkerboard units)
 > oecosimu(sipoo, nestedchecker, "r0")
-oecosimu with 99 simulations
-simulation method ‘r0’
+Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r0")
+
+nullmodel method ‘r0’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
 Checkerboard Units    : 2767 
@@ -4206,8 +4251,11 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
 +    statistic="evals", alt = "less")
 > out
-oecosimu with 99 simulations
-simulation method ‘swap’ with thin 10, burnin 100
+Call: oecosimu(comm = sipoo, nestfun = decorana, method = "swap",
+burnin = 100, thin = 10, statistic = "evals", alternative = "less")
+
+nullmodel method ‘swap’ with 99 simulations
+options:  thin 10, burnin 100
 alternative hypothesis: simulated median is less than the statistic
 
 
@@ -4244,8 +4292,10 @@ Loading required package: lattice
 > meandist <- function(x) mean(vegdist(x, "bray"))
 > mbc1 <- oecosimu(dune, meandist, "r2dtable")
 > mbc1
-oecosimu with 99 simulations
-simulation method ‘r2dtable’
+Call: oecosimu(comm = dune, nestfun = meandist, method = "r2dtable")
+
+nullmodel method ‘r2dtable’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
           statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
@@ -4264,8 +4314,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
 +    mode = "double")
 > oecosimu(dune, meandist, cf)
-oecosimu with 99 simulations
-simulation method ‘myshuffle’
+Call: oecosimu(comm = dune, nestfun = meandist, method = cf)
+
+nullmodel method ‘myshuffle’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
           statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
@@ -4804,17 +4856,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-17. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x912fb60>
+<environment: 0x109e1d800>
 
 Estimated degrees of freedom:
-6.4351  total = 7.43507 
+6.4351  total = 7.435071 
 
 GCV score: 144.1236
 > 
@@ -4827,7 +4879,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9a7e380>
+<environment: 0x108eafe40>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -4839,13 +4891,13 @@ GCV score: 140.0949
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
+22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
          8          9         10         11         12         13         14 
-11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
+11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
         15         16         17         18         19         20         21 
-18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
+18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
         22         23         24 
- 3.0020415  9.8128952  7.3656934 
+ 3.0020413  9.8128952  7.3656932 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -4976,14 +5028,14 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-17. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x978d1e0>
+<environment: 0x107d94b18>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -4996,7 +5048,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x72ee4f8>
+<environment: 0x10a0ad580>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5009,7 +5061,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x97ecca8>
+<environment: 0x109de61b8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5775,8 +5827,8 @@ Rotation matrix:
 [2,] 0.1169579  0.9931369
 
 Translation of averages:
-            [,1]         [,2]
-[1,] 1.79048e-17 9.246476e-19
+             [,1]          [,2]
+[1,] 3.893131e-18 -9.725997e-18
 
 Scaling of target:
 [1] 0.6736868
@@ -6950,8 +7002,11 @@ Scaling: 2
 > ## Significance test using Null model communities.
 > ## The current choice fixes only site totals.
 > oecosimu(dune, treedive, "r0", tree = cl)
-oecosimu with 99 simulations
-simulation method ‘r0’
+Call: oecosimu(comm = dune, nestfun = treedive, method = "r0", tree =
+cl)
+
+nullmodel method ‘r0’ with 99 simulations
+
 alternative hypothesis: simulated median is not equal to the statistic
 
    statistic         z   mean   2.5%    50%  97.5% Pr(sim.)   
@@ -7371,7 +7426,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
+Run 18 stress 0.1843199 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > plot(ord, type = "t")
@@ -7541,14 +7596,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-17. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9a81d78>
+<environment: 0x10a886eb0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8028,7 +8083,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.377 0.088 25.548 0 0 
+Time elapsed:  78.943 1.479 80.482 0 0 
 > grDevices::dev.off()
 null device 
           1 

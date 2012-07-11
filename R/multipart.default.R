@@ -126,12 +126,12 @@
     call <- match.call()
     call[[1]] <- as.name("multipart")
     attr(sim, "call") <- call
-    attr(sim, "index") <- index
-    attr(sim, "scales") <- scales
-    attr(sim, "global") <- TRUE
+    attr(sim$oecosimu$simulated, "index") <- index
+    attr(sim$oecosimu$simulated, "scales") <- scales
+    attr(sim$oecosimu$simulated, "global") <- TRUE
     attr(sim, "n.levels") <- nlevs
     attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs
-    class(sim) <- c("multipart", "list")
+    class(sim) <- c("multipart", class(sim))
     sim
 }
