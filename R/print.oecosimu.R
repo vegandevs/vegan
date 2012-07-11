@@ -2,8 +2,10 @@
     function(x, ...)
 {
     attr(x$oecosimu$method, "permfun") <- NULL
-    cat("oecosimu with", ncol(x$oecosimu$simulated), "simulations\n")
-    cat("simulation method", sQuote(x$oecosimu$method))
+    writeLines(strwrap(pasteCall(attr(x, "call"))))
+    cat("\n")
+    cat("nullmodel method", sQuote(x$oecosimu$method), "with", 
+        ncol(x$oecosimu$simulated), "simulations\n")
     if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
         att$dim <- NULL
         cat(" with", paste(names(att), att, collapse=", "))

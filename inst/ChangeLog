@@ -17,6 +17,12 @@ Version 2.1-17 (opened June 18, 2012)
 	calculations without replicating its code. The "call" attribute of
 	these functions now returns the generic function name without
 	".default", ".formula" suffix.
+
+	* oecosimu: returns "call" attribute similarly as adipart(),
+	hiersimu() and multipart(). The print.oecosimu() output changed,
+	and shows the call. print.oecosimu() is able to display adipart(),
+	hiersimu() and multipart() results, but does not show all
+	informations that those dedicated functions showed about options. 
 	
 Version 2.1-16 (closed June 18, 2012)
 
