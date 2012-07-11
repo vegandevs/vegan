@@ -3,7 +3,6 @@
 \alias{multipart}
 \alias{multipart.default}
 \alias{multipart.formula}
-\alias{print.multipart}
 \title{Multiplicative Diversity Partitioning}
 
 \description{

@@ -16,7 +16,12 @@ Version 2.1-17 (opened June 18, 2012)
 	the formula and calls the default method for the actual
 	calculations without replicating its code. The "call" attribute of
 	these functions now returns the generic function name without
-	".default", ".formula" suffix.
+	".default", ".formula" suffix. 
+
+	Functions use now print.oecosimu() for displaying results and
+	their specific print.*() functions were deleted. This involved
+	changes in attributes: the printed attributes are now in
+	object$oecosimu$simulated instead of object.
 
 	* oecosimu: returns "call" attribute similarly as adipart(),
 	hiersimu() and multipart(). The print.oecosimu() output changed,
