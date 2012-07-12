@@ -15,7 +15,7 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
         colnames(rhs) <- paste("level", 1:nlevs, sep="_")
     tlab <- colnames(rhs)
 
-    ## part check proper design of the model frame
+    ## check proper design of the model frame
     l1 <- sapply(rhs, function(z) length(unique(z)))
     if (!any(sapply(2:nlevs, function(z) l1[z] <= l1[z-1])))
         stop("number of levels are inapropriate, check sequence")
