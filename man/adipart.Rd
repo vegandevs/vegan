@@ -36,10 +36,9 @@ hiersimu(...)
     all rows are in the same group in the second level.}
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
     is the community data matrix with samples as rows and species as column. Right 
-    hand side (\code{x}) must contain factors referring to levels of sampling hierarchy, 
+    hand side (\code{x}) must grouping vaiables referring to levels of sampling hierarchy, 
     terms from right to left will be treated as nested (first column is the lowest, 
-    last is the highest level). These variables must be factors in order to unambiguous 
-    handling. Interaction terms are not allowed.}
+    last is the highest level, at least two levels specified). Interaction terms are not allowed.}
   \item{data}{A data frame where to look for variables defined in the right hand side 
     of \code{formula}. If missing, variables are looked in the global environment.}
   \item{index}{Character, the diversity index to be calculated (see Details).}
@@ -127,10 +126,10 @@ cutter <- function (x, cut = seq(0, 10, by = 2.5)) {
     out <- rep(1, length(x))
     for (i in 2:(length(cut) - 1))
         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-    return(as.factor(out))}
+    return(out)}
 ## The hierarchy of sample aggregation
 levsm <- data.frame(
-    l1=as.factor(1:nrow(mite)),
+    l1=1:nrow(mite),
     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
