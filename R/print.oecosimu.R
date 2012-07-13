@@ -1,7 +1,9 @@
 `print.oecosimu` <-
     function(x, ...)
 {
+    xx <- x ## return unmodified input object
     attr(x$oecosimu$method, "permfun") <- NULL
+    cat(as.character(attr(x,"call")[[1]]), "object\n\n")
     writeLines(strwrap(pasteCall(attr(x, "call"))))
     cat("\n")
     cat("nullmodel method", sQuote(x$oecosimu$method), "with", 
@@ -38,5 +40,7 @@
         cat("\nNumber of NA cases removed from simulations:\n",
             nacount, "\n")
     }
-    invisible(x)   
+    invisible(xx)   
 }
+
+
