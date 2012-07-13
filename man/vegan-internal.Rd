@@ -84,8 +84,8 @@ hierParseFormula(formula, data)
 
   \code{hierParseFormula} returns a list of one matrix (left hand side)
   and a model frame with factors representing hierarchy levels 
-  to be used in \code{\link{adipart}}, \code{\link{multipart}}
-  and \code{\link{hiersimu}}.
+  (right hand side) to be used in \code{\link{adipart}}, 
+  \code{\link{multipart}} and \code{\link{hiersimu}}.
 }
 
 \keyword{internal }
