@@ -10,6 +10,7 @@
 \alias{ordiArrowMul}
 \alias{ordiArgAbsorber}
 \alias{veganCovEllipse}
+\alias{hierParseFormula}
 
 \title{Internal vegan functions}
 
@@ -31,6 +32,7 @@ centroids.cca(x, mf, wt)
 permuted.index(n, strata)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
+hierParseFormula(formula, data)
 }
 
 \details{ The description here is only intended for \pkg{vegan}
@@ -79,6 +81,11 @@ veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
 
   \code{veganCovEllipse} finds the coordinates for drawing a
   covariance ellipse.
+
+  \code{hierParseFormula} returns a list of one matrix (left hand side)
+  and a model frame with factors representing hierarchy levels 
+  to be used in \code{\link{adipart}}, \code{\link{multipart}}
+  and \code{\link{hiersimu}}.
 }
 
 \keyword{internal }
