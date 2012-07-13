@@ -3,20 +3,13 @@
              weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
 {
     ## evaluate formula
-    lhs <- formula[[2]]
     if (missing(data))
         data <- parent.frame()
-    lhs <- as.matrix(eval(lhs, data))
-    formula[[2]] <- NULL
-    rhs <- model.frame(formula, data, drop.unused.levels = TRUE)
+    tmp <- hierParseFormula(formula, data)
+    lhs <- tmp$lhs
+    rhs <- tmp$rhs
 
-    ## check proper design of the model frame
-    noint <- attr(attr(attr(rhs, "terms"), "factors"), "dimnames")[[1]]
-    int <- attr(attr(attr(rhs, "terms"), "factors"), "dimnames")[[2]]
-    if (!identical(noint, int))
-        stop("interactions are not allowed in formula")
-    if (!all(attr(attr(rhs, "terms"), "dataClasses") == "factor"))
-        stop("all right hand side variables in formula must be factors")
+    ## run simulations
     sim <- adipart.default(lhs, rhs, index = index, weights = weights,
                            relative = relative, nsimul = nsimul, ...)
     call <- match.call()

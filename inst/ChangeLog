@@ -28,7 +28,10 @@ Version 2.1-17 (opened June 18, 2012)
 	and shows the call. print.oecosimu() is able to display adipart(),
 	hiersimu() and multipart() results, but does not show all
 	informations that those dedicated functions showed about options. 
-	
+
+	* Formula methods for adipart/multipart/hiersimu functions
+	use a new internal (hierParseFormula) to interpret the formula.
+
 Version 2.1-16 (closed June 18, 2012)
 
 	* envfit: plot() gained new argument 'bg' that triggers labelling
