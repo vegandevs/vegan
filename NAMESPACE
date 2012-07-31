@@ -178,7 +178,7 @@ S3method(hiersimu, formula)
 # identify: graphics
 S3method(identify, ordiplot)
 # labels: base
-S3methods(labels, envfit)
+S3method(labels, envfit)
 # lines: graphics
 S3method(lines, humpfit)
 S3method(lines, permat)
