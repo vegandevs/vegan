@@ -3,11 +3,15 @@
               axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
+    ## get labels
+    labs <- list("v" = rownames(x$vectors$arrows),
+                 "f" = rownames(x$factors$centroids))
     vect <- NULL
     if (!is.null(p.max)) {
         if (!is.null(x$vectors)) {
             take <- x$vectors$pvals <= p.max
             x$vectors$arrows <- x$vectors$arrows[take, , drop = FALSE]
+            labs$v <- labs$v[take]
             x$vectors$r <- x$vectors$r[take]
             if (nrow(x$vectors$arrows) == 0)
                 x$vectors <- vect <- NULL
@@ -18,6 +22,7 @@
             take <- x$factors$var.id %in% nam
             x$factors$centroids <- x$factors$centroids[take,
                                                        , drop = FALSE]
+            labs$f <- labs$f[take]
             if (nrow(x$factors$centroids) == 0)
                 x$factors <- NULL
         }
@@ -42,16 +47,14 @@
         plot.new() ## needed for string widths and heights
         if(!is.null(vect)) {
             ## compute axis limits allowing space for labels
-            labs <- rownames(x$vectors$arrows)
-            sw <- strwidth(labs, ...)
-            sh <- strheight(labs, ...)
+            sw <- strwidth(labs$v, ...)
+            sh <- strheight(labs$v, ...)
             xlim <- range(at[1], vtext[,1] + sw, vtext[,1] - sw)
             ylim <- range(at[2], vtext[,2] + sh, vtext[,2] - sh)
             if(!is.null(x$factors)) {
                 ## if factors, also need to consider them
-                labs <- rownames(x$factors$centroids)
-                sw <- strwidth(labs, ...)
-                sh <- strheight(labs, ...)
+                sw <- strwidth(labs$f, ...)
+                sh <- strheight(labs$f, ...)
                 xlim <- range(xlim, x$factors$centroids[, choices[1]] + sw,
                               x$factors$centroids[, choices[1]] - sw)
                 ylim <- range(ylim, x$factors$centroids[, choices[2]] + sh,
@@ -66,9 +69,8 @@
             alabs <- colnames(vect)
             title(..., ylab = alabs[2], xlab = alabs[1])
         } else if (!is.null(x$factors)) {
-            labs <- rownames(x$factors$centroids)
-            sw <- strwidth(labs, ...)
-            sh <- strheight(labs, ...)
+            sw <- strwidth(labs$f, ...)
+            sh <- strheight(labs$f, ...)
             xlim <- range(at[1], x$factors$centroids[, choices[1]] + sw,
                           x$factors$centroids[, choices[1]] - sw)
             ylim <- range(at[2], x$factors$centroids[, choices[2]] + sh,
@@ -87,19 +89,17 @@
         arrows(at[1], at[2], vect[, 1], vect[, 2], len = 0.05,
                col = col)
         if (missing(bg))
-            text(vtext, rownames(x$vectors$arrows), col = col, ...)
+            text(vtext, labs$v, col = col, ...)
         else
-            ordilabel(vtext, labels = rownames(x$vectors$arrows),
-                      col = col, fill = bg, ...)
+            ordilabel(vtext, labels = labs$v, col = col, fill = bg, ...)
     }
     if (!is.null(x$factors)) {
         if (missing(bg))
             text(x$factors$centroids[, choices, drop = FALSE],
-                 rownames(x$factors$centroids), col = col, ...)
+                 labs$f, col = col, ...)
         else
             ordilabel(x$factors$centroids[, choices, drop = FALSE],
-                      labels = rownames(x$factors$centroids),
-                      col = col, fill = bg, ...)
+                      labels = labs$f, col = col, fill = bg, ...)
     }
     if (axis && !is.null(vect)) {
         axis(3, at = ax + at[1], labels = c(maxarr, 0, maxarr),
