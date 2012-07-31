@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-17
+This is vegan 2.1-18
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x102410b90>
+<environment: 0x102422ae8>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -508,10 +508,10 @@ Manure  3 85.762 1.1225     99   0.26
 +     out <- rep(1, length(x))
 +     for (i in 2:(length(cut) - 1))
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-+     return(as.factor(out))}
++     return(out)}
 > ## The hierarchy of sample aggregation
 > levsm <- data.frame(
-+     l1=as.factor(1:nrow(mite)),
++     l1=1:nrow(mite),
 +     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
 +     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
@@ -523,6 +523,8 @@ Manure  3 85.762 1.1225     99   0.26
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
 > adipart(mite, index="richness", nsimul=19)
+adipart object
+
 Call: adipart(y = mite, index = "richness", nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
@@ -536,6 +538,8 @@ beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > adipart(mite ~ ., levsm, index="richness", nsimul=19)
+adipart object
+
 Call: adipart(formula = mite ~ ., data = levsm, index = "richness",
 nsimul = 19)
 
@@ -556,6 +560,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
 > hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
+hiersimu object
+
 Call: hiersimu(y = mite, FUN = diversity, relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
@@ -568,6 +574,8 @@ leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
+hiersimu object
+
 Call: hiersimu(formula = mite ~ ., data = levsm, FUN = diversity,
 relative = TRUE, nsimul = 19)
 
@@ -585,6 +593,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Hierarchical testing with the Morisita index
 > morfun <- function(x) dispindmorisita(x)$imst
 > hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
+hiersimu object
+
 Call: hiersimu(formula = mite ~ ., data = levsm, FUN = morfun,
 drop.highest = TRUE, nsimul = 19)
 
@@ -2542,7 +2552,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit scores.envfit
+> ###   plot.envfit scores.envfit labels.envfit
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
@@ -2638,6 +2648,16 @@ pH       -0.31165145  0.3653619
 > ordispider(ord, Moisture, col="skyblue")
 > points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
 > plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
+> ## Use shorter labels for factor centroids
+> labels(fit)
+$vectors
+[1] "A1"
+
+$factors
+[1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"
+
+> plot(ord)
+> plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))), bg = rgb(1,1,0,0.5))
 > 
 > 
 > 
@@ -3983,15 +4003,17 @@ mso variogram:
 +     out <- rep(1, length(x))
 +     for (i in 2:(length(cut) - 1))
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-+     return(as.factor(out))}
++     return(out)}
 > ## The hierarchy of sample aggregation
 > levsm <- data.frame(
-+     l1=as.factor(1:nrow(mite)),
++     l1=1:nrow(mite),
 +     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
 +     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 > ## Multiplicative diversity partitioning
 > multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
+multipart object
+
 Call: multipart(y = mite, x = levsm, index = "renyi", scales = 1,
 nsimul = 19)
 
@@ -4010,6 +4032,8 @@ beta.3     1.1794  460.550  1.00148  1.00083  1.00148  1.0021     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+multipart object
+
 Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
 scales = 1, nsimul = 19)
 
@@ -4028,6 +4052,8 @@ beta.3     1.1794  419.166  1.0015  1.0008  1.0016  1.0023     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
+multipart object
+
 Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
 scales = 1, relative = TRUE, nsimul = 19)
 
@@ -4046,6 +4072,8 @@ beta.3   0.589695  404.814  0.500885  0.500583  0.500848  0.5013     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
+multipart object
+
 Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
 scales = 1, global = TRUE, nsimul = 19)
 
@@ -4093,6 +4121,8 @@ with matrix fill 0.2233333
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 > oecosimu(sipoo, nestedchecker, "quasiswap")
+oecosimu object
+
 Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method =
 "quasiswap")
 
@@ -4107,6 +4137,8 @@ C-score (species mean): 2.258776
 statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
+oecosimu object
+
 Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r00",
 statistic = "C.score")
 
@@ -4234,6 +4266,8 @@ Start = 11, End = 60, Thin = 5
 > data(sipoo)
 > ## Traditional nestedness statistics (number of checkerboard units)
 > oecosimu(sipoo, nestedchecker, "r0")
+oecosimu object
+
 Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r0")
 
 nullmodel method ‘r0’ with 99 simulations
@@ -4251,6 +4285,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
 +    statistic="evals", alt = "less")
 > out
+oecosimu object
+
 Call: oecosimu(comm = sipoo, nestfun = decorana, method = "swap",
 burnin = 100, thin = 10, statistic = "evals", alternative = "less")
 
@@ -4292,6 +4328,8 @@ Loading required package: lattice
 > meandist <- function(x) mean(vegdist(x, "bray"))
 > mbc1 <- oecosimu(dune, meandist, "r2dtable")
 > mbc1
+oecosimu object
+
 Call: oecosimu(comm = dune, nestfun = meandist, method = "r2dtable")
 
 nullmodel method ‘r2dtable’ with 99 simulations
@@ -4314,6 +4352,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
 +    mode = "double")
 > oecosimu(dune, meandist, cf)
+oecosimu object
+
 Call: oecosimu(comm = dune, nestfun = meandist, method = cf)
 
 nullmodel method ‘myshuffle’ with 99 simulations
@@ -4863,7 +4903,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109e1d800>
+<environment: 0x109c47348>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4879,7 +4919,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108eafe40>
+<environment: 0x109a2bc00>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5035,7 +5075,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107d94b18>
+<environment: 0x1070664b0>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5048,7 +5088,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a0ad580>
+<environment: 0x108ccc378>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5061,7 +5101,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109de61b8>
+<environment: 0x10a9493c8>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7002,6 +7042,8 @@ Scaling: 2
 > ## Significance test using Null model communities.
 > ## The current choice fixes only site totals.
 > oecosimu(dune, treedive, "r0", tree = cl)
+oecosimu object
+
 Call: oecosimu(comm = dune, nestfun = treedive, method = "r0", tree =
 cl)
 
@@ -7603,7 +7645,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a886eb0>
+<environment: 0x10a89acd8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8083,7 +8125,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  78.943 1.479 80.482 0 0 
+Time elapsed:  81.617 1.462 84.217 0 0 
 > grDevices::dev.off()
 null device 
           1 
