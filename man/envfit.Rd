@@ -19,8 +19,8 @@
 \method{envfit}{default}(ord, env, permutations = 999, strata, choices=c(1,2), 
    display = "sites", w  = weights(ord), na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
-\method{plot}{envfit}(x, choices = c(1,2), arrow.mul, at = c(0,0), axis = FALSE, 
-    p.max = NULL, col = "blue", bg, add = TRUE, ...)
+\method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
+   axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, ...)
 vectorfit(X, P, permutations = 0, strata, w, ...)
 factorfit(X, P, permutations = 0, strata, w, ...)
@@ -47,6 +47,13 @@ factorfit(X, P, permutations = 0, strata, w, ...)
     \code{na.rm = TRUE}.}
   \item{x}{A result object from \code{envfit}.}
   \item{choices}{Axes to plotted.}
+  \item{labels}{Change plotting labels. The argument should be a list
+    with elements \code{vectors} and \code{factors} which give the new
+    plotting labels. If either of these elements is omitted, the
+    default labels will be used. If there is only one type of elements
+    (only \code{vectors} or only \code{factors}), the labels can be
+    given as vector. The default labels can be displayed with
+    \code{labels} command.}
   \item{arrow.mul}{Multiplier for vector lengths. The arrows are
     automatically scaled similarly as in \code{\link{plot.cca}} if this
     is not given and \code{add = TRUE}.}
@@ -212,6 +219,10 @@ plot(ord, type = "n")
 ordispider(ord, Moisture, col="skyblue")
 points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
 plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
+## Use shorter labels for factor centroids
+labels(fit)
+plot(ord)
+plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))), bg = rgb(1,1,0,0.5))
 }
 \keyword{multivariate }
 \keyword{aplot}
