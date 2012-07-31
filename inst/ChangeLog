@@ -4,7 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-18 (opened July 30, 2012)
 
-	* envift: the plot() method gained argument 'labels' to change the
+	* envfit: the plot() method gained argument 'labels' to change the
 	default labels. The default labels are displayed with the new
 	labels() function.
 	
