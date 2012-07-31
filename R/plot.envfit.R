@@ -1,11 +1,30 @@
 `plot.envfit` <-
-    function (x, choices = c(1, 2), arrow.mul, at = c(0, 0),
+    function (x, choices = c(1, 2), labels, arrow.mul, at = c(0, 0),
               axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     ## get labels
     labs <- list("v" = rownames(x$vectors$arrows),
                  "f" = rownames(x$factors$centroids))
+    ## Change labels if user so wishes
+    if (!missing(labels)) {
+        ## input list of "vectors" and/or "factors"
+        if (is.list(labels)) {
+            if (!is.null(labs$v) && !is.null(labels$vectors))
+                labs$v <- labels$vectors
+            if (!is.null(labs$f) && !is.null(labels$factors))
+                labs$f <- labels$factors
+        } else {
+            ## input vector: either vectors or factors must be NULL,
+            ## and the existing set of labels is replaced
+            if (!is.null(labs$v) && !is.null(labs$f))
+                stop("needs a list with both 'vectors' and 'factors' labels")
+            if (!is.null(labs$v))
+                labs$v <- labels
+            else
+                labs$f <- labels
+        }
+    }
     vect <- NULL
     if (!is.null(p.max)) {
         if (!is.null(x$vectors)) {
