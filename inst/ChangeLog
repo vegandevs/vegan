@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-17 (opened June 18, 2012)
+Version 2.1-18 (opened July 30, 2012)
+
+	* envift: got labels() method that returns the labels used in
+	plot().
+	
+Version 2.1-17 (closed July 30, 2012)
 
 	* New version opened with the CRAN release of vegan 2.0-4 on June
 	18, 2012.
