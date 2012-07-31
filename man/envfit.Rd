@@ -6,6 +6,7 @@
 \alias{factorfit}
 \alias{plot.envfit}
 \alias{scores.envfit}
+\alias{labels.envfit}
 
 \title{Fits an Environmental Vector or Factor onto an Ordination }
 \description{
