@@ -1,75 +1,7 @@
-"cIndexKM" <- function (y, x, index = "all") 
+`cIndexKM` <-
+    function (y, x, index = "all") 
 {
     kmeans_res <- y
-#########################################
-    withinss <- function(kmeans_res, x) 
-    {
-        retval <- rep(0, nrow(kmeans_res$centers))
-        x <- (x - kmeans_res$centers[kmeans_res$cluster, ])^2
-        for (k in 1:nrow(kmeans_res$centers)) 
-        {
-            retval[k] <- sum(x[kmeans_res$cluster == k, ])
-        }
-        retval
-    }
-##########################################
-    varwithinss <- function(x, centers, cluster) 
-    {
-        nrow <- dim(centers)[1]
-        nvar <- dim(x)[2]
-        varwithins <- matrix(0, nrow, nvar)
-        x <- (x - centers[cluster, ])^2
-        for (l in 1:nvar) 
-        {
-            for (k in 1:nrow) 
-            {
-                varwithins[k, l] <- sum(x[cluster == k, l])
-            }
-        }
-        varwithins
-    }
-##########################################
-    maxmindist <- function(clsize, distscen) 
-    {
-        ncl <- length(clsize)
-        npairs <- 0
-        for (i in 1:ncl) npairs <- npairs + clsize[i] * (clsize[i] - 1)/2
-        mindw <- 0
-        nfound <- distscen[1]
-        i <- 1
-        while (nfound < npairs) 
-        {
-            if ((nfound + distscen[i + 1]) < npairs) 
-            {
-                mindw <- mindw + i * distscen[i + 1]
-                nfound <- nfound + distscen[i + 1]
-            }
-            else 
-            {
-                mindw <- mindw + i * (npairs - nfound)
-                nfound <- nfound + distscen[i + 1]
-            }
-            i <- i + 1
-        }
-        maxdw <- 0
-        nfound <- 0
-        i <- length(distscen) - 1
-        while (nfound < npairs) 
-        {
-            if ((nfound + distscen[i + 1]) < npairs) 
-            {
-                maxdw <- maxdw + i * distscen[i + 1]
-                nfound <- nfound + distscen[i + 1]
-            }
-            else 
-            {
-                maxdw <- maxdw + i * (npairs - nfound)
-                nfound <- nfound + distscen[i + 1]
-            }
-            i <- i - 1
-        }
-        list(mindw = mindw, maxdw = maxdw)
-    }
 #############################################
     gss <- function(x, clsize, withins) 
     {
@@ -83,39 +15,7 @@
         list(wgss = wgss, bgss = bgss)
     }
 #############################################
-    vargss <- function(x, clsize, varwithins) 
-    {
-        nvar <- dim(x)[2]
-        n <- sum(clsize)
-        k <- length(clsize)
-        varallmean <- rep(0, nvar)
-        varallmeandist <- rep(0, nvar)
-        varwgss <- rep(0, nvar)
-        for (l in 1:nvar) varallmean[l] <- mean(x[, l])
-        vardmean <- sweep(x, 2, varallmean, "-")
-        for (l in 1:nvar) 
-        {
-            varallmeandist[l] <- sum((vardmean[, l])^2)
-            varwgss[l] <- sum(varwithins[, l])
-        }
-        varbgss <- varallmeandist - varwgss
-        vartss <- varbgss + varwgss
-        list(vartss = vartss, varbgss = varbgss)
-    }
-		
-#################################################
-    count <- function(x) 
-    {
-        nr <- nrow(x)
-        nc <- ncol(x)
-        d <- integer(nc + 1)
-        retval <- .C("count", xrows = nr, xcols = nc, x = as.integer(x), 
-                     d = d, PACKAGE = "cclust")
-        d <- retval$d
-        names(d) <- 0:nc
-        d
-    }
-################################################
+
 ### Function modified by SD and PL from the original "cIndexKM" in "cclust" 
 ### to accommodate a single response variable as well as singleton groups
 ### and remove unwanted index.
