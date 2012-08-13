@@ -4,9 +4,30 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-18 (opened July 30, 2012)
 
+	* cIndexKM: internal function count() triggered a warning in R CMD
+	check with R-devel because the funtion used .C() call to an
+	unloaded packages "cclust". count() was never called in the
+	current cIndexKM() and was removed together with the following
+	currently unused functions: withinss(), varwithinss(),
+	maxmindist(), vargss(). These deletions should have absolutelty no
+	visible effects.
+
 	* envfit: the plot() method gained argument 'labels' to change the
 	default labels. The default labels are displayed with the new
 	labels() function.
+
+	* vignettes: building vignettes failed in CRAN and R-Forge. These
+	sites use TeXLive 2012 distribution which is not available in our
+	platforms so that we cannot reproduce these failures. It seems
+	that these errors come from our use of jss.cls class file with our
+	own amendments, and therefore we go back to more standard LaTeX
+	styles to avoid problems. In effect, the changes revert r1703. We
+	cannot reproduce the problems so that this is a blind watch makeer
+	fix.  Files FAQ-vegan and decision-vegan were handles without
+	problem, so we fixed only the failing intro-vegan at this stage;
+	diversity-vegan was not  processed at all as the process stopped
+	with intro-vegan so that it may still fail even if we managed to
+	blindly fix the intro.
 	
 Version 2.1-17 (closed July 30, 2012)
 
