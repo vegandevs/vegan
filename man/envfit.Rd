@@ -222,7 +222,8 @@ plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
 ## Use shorter labels for factor centroids
 labels(fit)
 plot(ord)
-plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))), bg = rgb(1,1,0,0.5))
+plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
+   bg = rgb(1,1,0,0.5))
 }
 \keyword{multivariate }
 \keyword{aplot}
