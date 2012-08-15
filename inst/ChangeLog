@@ -4,9 +4,26 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-18 (opened July 30, 2012)
 
+	* cIndexKM: internal function count() triggered a warning in R CMD
+	check with R-devel because the funtion used .C() call to an
+	unloaded packages "cclust". count() was never called in the
+	current cIndexKM() and was removed together with the following
+	currently unused functions: withinss(), varwithinss(),
+	maxmindist(), vargss(). These deletions should have absolutely no
+	visible effects.
+
 	* envfit: the plot() method gained argument 'labels' to change the
 	default labels. The default labels are displayed with the new
 	labels() function.
+
+	* vignettes: building vignettes failed in CRAN and R-Forge. These
+	sites use TeXLive 2012 distribution which was not yet used by any
+	vegan developer when vegan 2.0-4 was released. Ubuntu Linux still
+	stocks TeXLive 2009, and new version is promised first for the
+	12.10 release, and many other Linuxes are just as old. TeXLive
+	2012 for MacOS was released in July 2012 and with that we could
+	pin down the problem. There is hardly any user visible changes
+	except that building vegan succeeds with vignettes.
 	
 Version 2.1-17 (closed July 30, 2012)
 
