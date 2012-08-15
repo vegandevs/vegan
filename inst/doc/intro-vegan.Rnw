@@ -55,9 +55,8 @@ options("prompt" = "R> ", "continue" = "+  ")
 
 \tableofcontents
 
-\section*{~}
-
-\pkg{Vegan} is a package for community ecologists.  This
+~\\[2ex]
+\noindent \pkg{Vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
 performed in \pkg{vegan}.  The document only is a very basic
 introduction.  Another document (\emph{vegan tutorial})
