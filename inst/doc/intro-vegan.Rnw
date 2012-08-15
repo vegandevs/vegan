@@ -1,15 +1,12 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
-\documentclass[a4paper,10pt]{amsart}
-\usepackage{vegan}
-\usepackage{ucs}
+\documentclass[article,nojss]{jss}
+\usepackage{veganjss} % vegan settings
+\usepackage{ucs} %% needed for R output: signif stars etc, quotes
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
 \usepackage{sidecap}
-\setlength{\captionindent}{0pt}
-\usepackage{url}
-
+\usepackage{amsmath}
 
 \renewcommand{\floatpagefraction}{0.8}
 
@@ -18,29 +15,7 @@
 
 \author{Jari Oksanen}
 
-
-%% misuse of the address field for revision data
-\date{$ $Id$ $
-  processed with vegan
-\Sexpr{packageDescription("vegan", field="Version")}
-in \Sexpr{R.version.string} on \today}
-
-\begin{document}
-
-\setkeys{Gin}{width=0.55\linewidth}
-\SweaveOpts{strip.white=true}
-<<echo=false>>=
-par(mfrow=c(1,1))
-options(width=72)
-figset <- function() par(mar=c(4,4,1,1)+.1)
-options(SweaveHooks = list(fig = figset))
-options("prompt" = "R> ", "continue" = "+  ")
-@
-
-\maketitle
-
-\begin{abstract}
-  The document describes typical, simple work pathways of
+\Abstract{The document describes typical, simple work pathways of
   vegetation ordination. Unconstrained ordination uses as examples
   detrended correspondence analysis and non-metric multidimensional
   scaling, and shows how to interpret their results by fitting
@@ -52,13 +27,31 @@ options("prompt" = "R> ", "continue" = "+  ")
   correspondence analysis as an example. It is first shown how a model
   is defined, then the document discusses model building and
   signficance tests of the whole analysis, single constraints and
-  axes.
-\end{abstract}
+  axes.}
 
-\keywords{ordination, correspondence analysis, non-metric
+\Keywords{ordination, correspondence analysis, non-metric
   multidimensional scaling, CCA, RDA, NMDS, fitted environmental
   vector, fitted environmental surface, permutation tests}
 
+%% misuse of the address field for revision data
+\Address{$ $Id$ $
+  processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today}
+\Footername{About this version}
+
+%% need no \usepackage{Sweave}
+\begin{document}
+
+\setkeys{Gin}{width=0.55\linewidth}
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+par(mfrow=c(1,1))
+options(width=72)
+figset <- function() par(mar=c(4,4,1,1)+.1)
+options(SweaveHooks = list(fig = figset))
+options("prompt" = "R> ", "continue" = "+  ")
+@
 
 \tableofcontents
 
