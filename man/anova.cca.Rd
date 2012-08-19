@@ -8,6 +8,7 @@
 \alias{permutest}
 \alias{permutest.default}
 \alias{permutest.cca}
+\alias{density.permutest.cca}
 
 \title{Permutation Test for Constrained Correspondence Analysis,
   Redundancy Analysis and Constrained Analysis of Principal Coordinates }
@@ -138,12 +139,15 @@ permutest(x, ...)
   exit from the function.  
 }
 
-\value{
+\value{ 
   Function \code{permutest.cca} returns an object of class
-  \code{"permutest.cca"}, which has its own \code{print} method.  The
-  function \code{anova.cca} calls \code{permutest.cca}, fills an
-  \code{\link{anova}} table and uses \code{\link{print.anova}} for printing.
+  \code{"permutest.cca"}, which has its own \code{print} method. The
+  distribution of permuted \eqn{F} values can be inspected with
+  \code{density} function.  The function \code{anova.cca} calls
+  \code{permutest.cca}, fills an \code{\link{anova}} table and uses
+  \code{\link{print.anova}} for printing.  
 }
+
 \note{
   Some cases of \code{anova} need access to the original data on
   constraints (at least \code{by = "term"} and \code{by = "margin"}),

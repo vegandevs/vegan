@@ -133,6 +133,7 @@ S3method(confint, fisherfit)
 S3method(cophenetic, spantree)
 # density: stats
 S3method(density, oecosimu)
+S3method(density, permutest.cca)
 # densityplot: lattice
 S3method(densityplot, oecosimu)
 # deviance: stats
