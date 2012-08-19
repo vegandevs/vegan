@@ -13,7 +13,6 @@
 \usage{
 anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     parallel = getOption("mc.cores"))
-\method{density}{anosim}(x, ...)
 }
 
 \arguments{
@@ -34,7 +33,6 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package which is available only for \R 2.14.0 and later.}
-  \item{x}{\code{anosim} result object.}
 }
 \details{
   Analysis of similarities (ANOSIM) provides a way to test statistically
@@ -78,7 +76,8 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   \item{call }{Function call.}
   \item{statistic}{The value of ANOSIM statistic \eqn{R}}
   \item{signif}{Significance from permutation.}
-  \item{perm}{Permutation values of \eqn{R}}
+  \item{perm}{Permutation values of \eqn{R}. The distribution of
+    permutation values can be inspected with function \code{density}.}
   \item{class.vec}{Factor with value \code{Between} for dissimilarities
     between classes and class name for corresponding dissimilarity
     within class.}
