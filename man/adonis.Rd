@@ -219,10 +219,10 @@ ordihull(mod, group=dat$NO3, show="10", col=3)
 ordispider(mod, group=dat$field, lty=3, col="red")
 
 ### Correct hypothesis test (with strata)
-adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
+adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
 
 ### Incorrect (no strata)
-adonis(Y ~ NO3, data=dat, perm=1e3)
+adonis(Y ~ NO3, data=dat, perm=999)
 }
 
 \keyword{multivariate }
