@@ -2,6 +2,7 @@
 \alias{anosim}
 \alias{summary.anosim}
 \alias{plot.anosim}
+\alias{density.anosim}
 
 \title{ Analysis of Similarities }
 \description{
@@ -12,6 +13,7 @@
 \usage{
 anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     parallel = getOption("mc.cores"))
+\method{density}{anosim}(x, ...)
 }
 
 \arguments{
@@ -32,6 +34,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package which is available only for \R 2.14.0 and later.}
+  \item{x}{\code{anosim} result object.}
 }
 \details{
   Analysis of similarities (ANOSIM) provides a way to test statistically
@@ -56,10 +59,11 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   grouping.
 
   The statistical significance of observed \eqn{R} is assessed by
-  permuting the grouping vector to obtain the empirical
-  distribution of \eqn{R} under null-model.  See
-  \code{\link{permutations}} for additional details on permutation tests
-  in Vegan.
+  permuting the grouping vector to obtain the empirical distribution
+  of \eqn{R} under null-model.  See \code{\link{permutations}} for
+  additional details on permutation tests in Vegan. The distribution
+  of simulated values can be inspected with the \code{density}
+  function.
 
   The function has \code{summary} and \code{plot} methods.  These both
   show valuable information to assess the validity of the method:  The
