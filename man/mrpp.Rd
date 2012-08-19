@@ -3,6 +3,7 @@
 \alias{meandist}
 \alias{summary.meandist}
 \alias{plot.meandist}
+\alias{density.mrpp}
 
 \title{Multi Response Permutation Procedure and Mean Dissimilarity Matrix}
 
@@ -143,7 +144,8 @@ The function returns a list of class mrpp with following items:
     the dist object.}
   \item{weight.type}{The choice of group weights used.}
   \item{boot.deltas}{The vector of "permuted deltas," the deltas
-    calculated from each of the permuted datasets.}
+    calculated from each of the permuted datasets. The distribution of
+    this item can be inspected with \code{density} function.}
   \item{permutations}{The number of permutations used.}
 }
 \references{
