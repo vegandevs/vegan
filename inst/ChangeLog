@@ -2,7 +2,28 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-18 (opened July 30, 2012)
+Version 2.1-19 (opened August 20, 2012)
+ 
+	* density methods: all vegan functions that return simulated or
+	permuted statistics have now density() methods that directly
+	access the returned statistic. The functions can be used to plot
+	the empirical distribution of the statistics with
+	plot(density(<vegan-object>)). 
+
+	The density methods were made available for adonis, anosim,
+	mantel & partial.mantel, mrpp, permutest.cca and procrustes. The
+	anova.cca function does not return permutated statistics.
+
+	All density methods handle only one statistic. Function adonis()
+	can return a matrix of permuted F-values for each term, and it
+	gained a densityplot method (lattice package) that can handle all
+	these simultaneously.
+	
+	Functions adipart, hiersimu and multipart were made
+	oecosimu-compliant earlier and simultaneously they also gained the
+	density and densityplot methods.
+	
+Version 2.1-18 (closed August 20, 2012)
 
 	* cIndexKM: internal function count() triggered a warning in R CMD
 	check with R-devel because the funtion used .C() call to an
