@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{adonis}
 \alias{adonis}
+\alias{density.adonis}
 
 \title{Permutational Multivariate Analysis of Variance Using Distance Matrices}
 
@@ -134,10 +135,12 @@ overview of rules.
     sites; each column represents a fit of a sites distances (from all
     other sites) to the  linear model.These are what you get when you
     fit distances of one site to
-    your predictors. } 
+    your predictors. }   
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
-    statistics for each source of variation  based on \eqn{N}
-    permutations of the data.}
+    statistics for each source of variation based on \eqn{N}
+    permutations of the data. The distribution of a single term can be
+    inspected with \code{\link{density}} function, or all terms
+    simultaneously with \code{densityplot}.}
   \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
     side of the formula.}
   \item{terms}{The \code{\link{terms}} component of the model.}
@@ -216,10 +219,10 @@ ordihull(mod, group=dat$NO3, show="10", col=3)
 ordispider(mod, group=dat$field, lty=3, col="red")
 
 ### Correct hypothesis test (with strata)
-adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
+adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
 
 ### Incorrect (no strata)
-adonis(Y ~ NO3, data=dat, perm=1e3)
+adonis(Y ~ NO3, data=dat, perm=999)
 }
 
 \keyword{multivariate }

@@ -132,8 +132,15 @@ S3method(confint, fisherfit)
 # cophenetic: stats
 S3method(cophenetic, spantree)
 # density: stats
+S3method(density, adonis)
+S3method(density, anosim)
+S3method(density, mantel)
+S3method(density, mrpp)
 S3method(density, oecosimu)
+S3method(density, permutest.cca)
+S3method(density, protest)
 # densityplot: lattice
+S3method(densityplot, adonis)
 S3method(densityplot, oecosimu)
 # deviance: stats
 S3method(deviance, cca)
