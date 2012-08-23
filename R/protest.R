@@ -23,8 +23,7 @@
                    function(i, ...) procrustes(X, Y[permat[i,],],
                                                symmetric = TRUE)$ss)
     perm <- sqrt(1 - perm)
-    perm <- c(sol$t0, perm)
-    Pval <- sum(perm >= sol$t0)/(permutations + 1)
+    Pval <- (sum(perm >= sol$t0) + 1)/(permutations + 1)
     if (!missing(strata)) {
         strata <- deparse(substitute(strata))
         s.val <- strata

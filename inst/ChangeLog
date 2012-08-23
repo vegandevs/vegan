@@ -22,6 +22,9 @@ Version 2.1-19 (opened August 20, 2012)
 	Functions adipart, hiersimu and multipart were made
 	oecosimu-compliant earlier and simultaneously they also gained the
 	density and densityplot methods.
+
+	* protest: do not return the observed statistic as one of the
+	permuted values but separately.
 	
 Version 2.1-18 (closed August 20, 2012)
 
