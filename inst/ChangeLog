@@ -3,6 +3,13 @@ $Date$
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-19 (opened August 20, 2012)
+
+	* betadisper: An effective R stats .C function was used for double
+	centring, but it was removed from the API in r60360 | ripley |
+	2012-08-22 07:59:00 UTC (Wed, 22 Aug 2012). This removal stopped
+	betadisper() with error. Now we have a less efficient R code for
+	the same purpose. However, the effects in timing should be
+	negligible.
  
 	* density methods: all vegan functions that return simulated or
 	permuted statistics have now density() methods that directly
