@@ -142,9 +142,9 @@ The original method (Chazdon et al. 2011) has two major problems:
 \examples{
 data(mite)
 data(mite.env)
-x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
-summary(x)
-head(x)
-plot(x)
+sol <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
+summary(sol)
+head(sol)
+plot(sol)
 }
 \keyword{ htest }

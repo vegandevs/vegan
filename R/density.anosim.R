@@ -19,6 +19,9 @@
 `density.adonis` <-
     function(x, ...)
 {
+    cols <- ncol(x$f.perms)
+    if (cols > 1)
+        warning("'density' is meaningful only with one term, you have ", cols)
     out <- density(x$f.perms, ...)
     out$call <- match.call()
     out$call[[1]] <- as.name("density")

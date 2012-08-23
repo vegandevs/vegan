@@ -1,6 +1,16 @@
 `betadisper` <-
     function(d, group, type = c("median","centroid"), bias.adjust=FALSE)
 {
+    ## inline function for double centring. We used .C("dblcen", ...,
+    ## PACKAGE = "stats") which does not dublicate its argument, but
+    ## it was removed from R in r60360 | ripley | 2012-08-22 07:59:00
+    ## UTC (Wed, 22 Aug 2012) "more conversion to .Call, clean up".
+    dblcen <- function(x, na.rm = TRUE) {
+        cnt <- colMeans(x, na.rm = na.rm)
+        x <- sweep(x, 2L, cnt, check.margin = FALSE)
+        cnt <- rowMeans(x, na.rm = na.rm)
+        sweep(x, 1L, cnt, check.margin = FALSE)
+    }
     ## inline function for spatial medians
     spatialMed <- function(vectors, group, pos) {
         axes <- seq_len(NCOL(vectors))
@@ -60,7 +70,7 @@
     }
     x <- x + t(x)
     storage.mode(x) <- "double"
-    .C("dblcen", x, as.integer(n), DUP = FALSE, PACKAGE="stats")
+    x <- dblcen(x)
     e <- eigen(-x/2, symmetric = TRUE)
     vectors <- e$vectors
     eig <- e$values
