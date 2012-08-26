@@ -4,6 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-19 (opened August 20, 2012)
 
+	* adonis: Small changes in calculations. Simplified calculations
+	of matrix G as centred distance matrix, and does not keep n x n
+	matrices that are not needed (A) or used only once (identity
+	matrix I). These can make calculations marginally faster and
+	reduce the memory usage, but probably there are no observable
+	effects in most data sets. The new centring is probably more
+	accurate than older, and therefore the last significant digits can
+	slightly change (magnitude 1e-12 in tests).
+
 	* betadisper: An effective R stats .C function was used for double
 	centring, but it was removed from the API in r60360 | ripley |
 	2012-08-22 07:59:00 UTC (Wed, 22 Aug 2012). This removal stopped
