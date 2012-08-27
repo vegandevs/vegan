@@ -41,17 +41,18 @@
         dmat <- dist.lhs^2
     }
     n <- nrow(dmat)
-    I <- diag(n)
-    ones <- matrix(1,nrow=n)
-    A <- -(dmat)/2
-    G <- -.5 * dmat %*% (I - ones%*%t(ones)/n)
+    ## G is -dmat/2 centred by rows
+    G <- -sweep(dmat, 1, rowMeans(dmat))/2
     SS.Exp.comb <- sapply(H.s, function(hat) sum( G * t(hat)) )
     SS.Exp.each <- c(SS.Exp.comb - c(0,SS.Exp.comb[-nterms]) )
     H.snterm <- H.s[[nterms]]
+    ## t(I - H.snterm) is needed several times and we calculate it
+    ## here
+    tIH.snterm <- t(diag(n)-H.snterm)
     if (length(H.s) > 1)
         for (i in length(H.s):2)
             H.s[[i]] <- H.s[[i]] - H.s[[i-1]]
-    SS.Res <- sum( G * t(I-H.snterm))
+    SS.Res <- sum( G * tIH.snterm)
     df.Exp <- sapply(u.grps[-1], function(i) sum(grps==i) )
     df.Res <- n - qrhs$rank
     ## Get coefficients both for the species (if possible) and sites
@@ -65,8 +66,6 @@
     colnames(beta.spp) <- colnames(lhs)
     colnames(beta.sites) <- rownames(lhs)
     F.Mod <- (SS.Exp.each/df.Exp) / (SS.Res/df.Res)
-
-
 
     f.test <- function(tH, G, df.Exp, df.Res, tIH.snterm) {
       ## HERE I TRY CHANGING t(H)  TO tH, and
@@ -105,7 +104,6 @@
     }
 
     tH.s <- lapply(H.s, t)
-    tIH.snterm <- t(I-H.snterm)
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
     ## Set first parallel processing for all terms
