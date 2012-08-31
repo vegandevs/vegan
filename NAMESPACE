@@ -264,6 +264,7 @@ S3method(plot, specaccum)
 S3method(plot, taxondive)
 S3method(plot, varpart)
 S3method(plot, varpart234)
+S3method(plot, vegandensity)
 # points: graphics
 S3method(points, cca)
 S3method(points, decorana)

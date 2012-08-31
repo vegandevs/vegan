@@ -10,7 +10,9 @@
 {
     out <- density(x$perm, ...)
     out$call <- match.call()
+    out$observed <- x$statistic
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
 }
 
@@ -23,8 +25,10 @@
     if (cols > 1)
         warning("'density' is meaningful only with one term, you have ", cols)
     out <- density(x$f.perms, ...)
+    out$observed <- x$aov.tab$F.Model
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
 }
 
@@ -50,8 +54,10 @@
     function(x, ...)
 {
     out <- density(x$perm, ...)
+    out$observed <- x$statistic
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
 }
 
@@ -61,8 +67,10 @@
     function(x, ...)
 {
     out <- density(x$boot.deltas, ...)
+    out$observed <- x$delta
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
 }
 
@@ -74,8 +82,10 @@
     function(x, ...)
 {
     out <- density(x$F.perm, ...)
+    out$observed <- x$F.0
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
 }
 
@@ -85,7 +95,44 @@
     function(x, ...)
 {
     out <- density(x$t, ...)
+    out$observed <- x$t0
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
+    class(out) <- c("vegandensity", class(out))
     out
+}
+
+#### plot method: the following copies stats::plot.density() code but
+#### adds one new argument to draw abline(v=...) for the observed
+#### statistic
+
+`plot.vegandensity` <-
+    function (x, main = NULL, xlab = NULL, ylab = "Density", type = "l", 
+    zero.line = TRUE, obs.line = FALSE, ...) 
+{
+    if (is.null(xlab)) 
+        xlab <- paste("N =", x$n, "  Bandwidth =", formatC(x$bw))
+    if (is.null(main)) 
+        main <- deparse(x$call)
+    ## adjust xlim of obs.line if needed
+    if (obs.line) {
+        xlim <- range(c(x$x, x$observed), na.rm = TRUE)
+        ## change obs.line to col=2 (red) if it was logical TRUE
+        if (isTRUE(obs.line))
+            obs.line <- 2
+    } else {
+        xlim <- NULL
+    }
+    ## check for explicit xlim in the call and use it if specified
+    if(!is.null(match.call(expand.dots = FALSE)$...$xlim))
+        plot.default(x, main = main, xlab = xlab, ylab = ylab, type = type,
+                     ...)
+    else
+        plot.default(x, main = main, xlab = xlab, ylab = ylab, type = type,
+                     xlim = xlim, ...)
+    if (zero.line) 
+        abline(h = 0, lwd = 0.1, col = "gray")
+    if (obs.line)
+        abline(v = x$observed, col = obs.line)
+    invisible(NULL)
 }
