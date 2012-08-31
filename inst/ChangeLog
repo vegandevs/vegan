@@ -22,9 +22,12 @@ Version 2.1-19 (opened August 20, 2012)
  
 	* density methods: all vegan functions that return simulated or
 	permuted statistics have now density() methods that directly
-	access the returned statistic. The functions can be used to plot
-	the empirical distribution of the statistics with
-	plot(density(<vegan-object>)). 
+	access the returned statistic. The functions return an object of
+	class "vegandensity" that inherits from class "density". The
+	object is identical to class "density", but it is amended with
+	item "observed" that contains the observed statistic. It has a
+	plot.vegandensity() function that is similar to plot.density(),
+	but it also draws a vertical line for the observed statistic.
 
 	The density methods were made available for adonis, anosim,
 	mantel & partial.mantel, mrpp, permutest.cca and procrustes. The
