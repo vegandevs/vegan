@@ -2,7 +2,6 @@
 \alias{anosim}
 \alias{summary.anosim}
 \alias{plot.anosim}
-\alias{density.anosim}
 
 \title{ Analysis of Similarities }
 \description{
@@ -77,7 +76,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   \item{statistic}{The value of ANOSIM statistic \eqn{R}}
   \item{signif}{Significance from permutation.}
   \item{perm}{Permutation values of \eqn{R}. The distribution of
-    permutation values can be inspected with function \code{density}.}
+    permutation values can be inspected with function \code{\link{density.anosim}}.}
   \item{class.vec}{Factor with value \code{Between} for dissimilarities
     between classes and class name for corresponding dissimilarity
     within class.}

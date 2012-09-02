@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{adonis}
 \alias{adonis}
-\alias{density.adonis}
 
 \title{Permutational Multivariate Analysis of Variance Using Distance Matrices}
 
@@ -139,8 +138,8 @@ overview of rules.
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
     statistics for each source of variation based on \eqn{N}
     permutations of the data. The distribution of a single term can be
-    inspected with \code{\link{density}} function, or all terms
-    simultaneously with \code{densityplot}.}
+    inspected with \code{\link{density.adonis}} function, or all terms
+    simultaneously with \code{densityplot.adonis}.}
   \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
     side of the formula.}
   \item{terms}{The \code{\link{terms}} component of the model.}

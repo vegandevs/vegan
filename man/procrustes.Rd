@@ -9,7 +9,6 @@
 \alias{fitted.procrustes}
 \alias{predict.procrustes}
 \alias{protest}
-\alias{density.protest}
 
 \title{Procrustes Rotation of Two Configurations and PROTEST }
 \description{
@@ -163,7 +162,8 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   \item{t0}{This and the following items are only in class
     \code{protest}:  Procrustes correlation from non-permuted solution.}
   \item{t}{Procrustes correlations from permutations. The distribution
-    of these correlations can be ispected with \code{density} function.}
+    of these correlations can be inspected with \code{\link{density.protest}} 
+    function.}
   \item{signif}{`Significance' of \code{t}}
   \item{permutations}{Number of permutations.}
   \item{strata}{The name of the stratifying variable.}

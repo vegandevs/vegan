@@ -115,7 +115,7 @@
     if (is.null(main)) 
         main <- deparse(x$call)
     ## adjust xlim of obs.line if needed
-    if (obs.line) {
+    if (is.character(obs.line) || obs.line) {
         xlim <- range(c(x$x, x$observed), na.rm = TRUE)
         ## change obs.line to col=2 (red) if it was logical TRUE
         if (isTRUE(obs.line))
@@ -132,7 +132,7 @@
                      xlim = xlim, ...)
     if (zero.line) 
         abline(h = 0, lwd = 0.1, col = "gray")
-    if (obs.line)
+    if (is.character(obs.line) || obs.line)
         abline(v = x$observed, col = obs.line)
     invisible(NULL)
 }
