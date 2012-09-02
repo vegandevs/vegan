@@ -621,7 +621,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
-> ### Aliases: adonis density.adonis
+> ### Aliases: adonis
 > ### Keywords: multivariate nonparametric
 > 
 > ### ** Examples
@@ -726,7 +726,7 @@ detaching ‘package:lattice’
 > 
 > ### Name: anosim
 > ### Title: Analysis of Similarities
-> ### Aliases: anosim summary.anosim plot.anosim density.anosim
+> ### Aliases: anosim summary.anosim plot.anosim
 > ### Keywords: multivariate nonparametric htest
 > 
 > ### ** Examples
@@ -779,7 +779,6 @@ detaching ‘dune.env’
 > ###   Redundancy Analysis and Constrained Analysis of Principal Coordinates
 > ### Aliases: anova.cca anova.ccanull anova.ccabyaxis anova.ccabyterm
 > ###   anova.ccabymargin anova.prc permutest permutest.default permutest.cca
-> ###   density.permutest.cca
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -2200,6 +2199,34 @@ Ich.eri Cla.cer Cla.def Cla.phy
 > 
 > 
 > cleanEx()
+> nameEx("density.adonis")
+> ### * density.adonis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: density.adonis
+> ### Title: Kernel Density Estimation for Permutation Results in Vegan
+> ### Aliases: density.adonis density.anosim density.mantel density.mrpp
+> ###   density.permutest.cca density.protest plot.vegandensity
+> ###   densityplot.adonis
+> ### Keywords: distribution smooth
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- adonis(dune ~ Management, data = dune.env)
+> plot(density(mod))
+> library(lattice)
+> mod <- adonis(dune ~ Management * Moisture, dune.env)
+> densityplot(mod)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:lattice’
+
 > nameEx("designdist")
 > ### * designdist
 > 
@@ -3367,7 +3394,7 @@ attr(,"class")
 > 
 > ### Name: mantel
 > ### Title: Mantel and Partial Mantel Tests for Dissimilarity Matrices
-> ### Aliases: mantel mantel.partial density.mantel
+> ### Aliases: mantel mantel.partial
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -3767,7 +3794,7 @@ Stopped after 72 iterations: Stress nearly unchanged
 > ### Name: mrpp
 > ### Title: Multi Response Permutation Procedure and Mean Dissimilarity
 > ###   Matrix
-> ### Aliases: mrpp meandist summary.meandist plot.meandist density.mrpp
+> ### Aliases: mrpp meandist summary.meandist plot.meandist
 > ### Keywords: multivariate nonparametric htest
 > 
 > ### ** Examples
@@ -4879,7 +4906,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10aafba40>
+<environment: 0x109eec260>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4895,7 +4922,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1093858d8>
+<environment: 0x10ab8bb78>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5051,7 +5078,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10708cb78>
+<environment: 0x10566b408>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5064,7 +5091,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b37eb48>
+<environment: 0x109a7da08>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5077,7 +5104,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109042d90>
+<environment: 0x1098ed878>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -5804,7 +5831,6 @@ Chealb  1.5737337 0.7842538 -0.5503660 -0.35108333
 > ### Aliases: procrustes summary.procrustes plot.procrustes
 > ###   points.procrustes text.procrustes lines.procrustes
 > ###   residuals.procrustes fitted.procrustes predict.procrustes protest
-> ###   density.protest
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -7621,7 +7647,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108774e98>
+<environment: 0x109b19340>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8101,7 +8127,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  88.33 1.663 90.694 0 0 
+Time elapsed:  82.41 1.457 84.423 0 0 
 > grDevices::dev.off()
 null device 
           1 
