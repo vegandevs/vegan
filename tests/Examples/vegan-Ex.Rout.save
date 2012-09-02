@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-18
+This is vegan 2.1-19
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x10246d238>
+<environment: 0x102470f90>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -684,32 +684,32 @@ Run 2 stress 0.08556612
 > ordispider(mod, group=dat$field, lty=3, col="red")
 > 
 > ### Correct hypothesis test (with strata)
-> adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
+> adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
 
 Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 1000, strata = dat$field) 
+adonis(formula = Y ~ NO3, data = dat, permutations = 999, strata = dat$field) 
 
 Terms added sequentially (first to last)
 
-          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
-NO3        1  0.055856 0.055856  4.0281 0.28714 0.008991 **
-Residuals 10  0.138667 0.013867         0.71286            
-Total     11  0.194524                  1.00000            
+          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714  0.009 **
+Residuals 10  0.138667 0.013867         0.71286          
+Total     11  0.194524                  1.00000          
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > ### Incorrect (no strata)
-> adonis(Y ~ NO3, data=dat, perm=1e3)
+> adonis(Y ~ NO3, data=dat, perm=999)
 
 Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 1000) 
+adonis(formula = Y ~ NO3, data = dat, permutations = 999) 
 
 Terms added sequentially (first to last)
 
-          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
-NO3        1  0.055856 0.055856  4.0281 0.28714 0.004995 **
-Residuals 10  0.138667 0.013867         0.71286            
-Total     11  0.194524                  1.00000            
+          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714  0.005 **
+Residuals 10  0.138667 0.013867         0.71286          
+Total     11  0.194524                  1.00000          
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -1826,8 +1826,8 @@ attr(,"class")
 > 
 > data(mite)
 > data(mite.env)
-> x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
-> summary(x)
+> sol <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
+> summary(sol)
 Two Groups Species Classification Method (CLAM)
 
 Specialization threshold = 0.6666667
@@ -1846,7 +1846,7 @@ Generalist            10      0.286
 Specialist_FALSE      14      0.400
 Specialist_TRUE        4      0.114
 Too_rare               7      0.200
-> head(x)
+> head(sol)
   Species Total_FALSE Total_TRUE          Classes
 1  Brachy         534         77       Generalist
 2    PHTH          89          0 Specialist_FALSE
@@ -1854,7 +1854,7 @@ Too_rare               7      0.200
 4    RARD          85          0 Specialist_FALSE
 5    SSTR          22          0         Too_rare
 6 Protopl          26          0         Too_rare
-> plot(x)
+> plot(sol)
 > 
 > 
 > 
@@ -3434,10 +3434,10 @@ Based on 999 permutations
 > mite.hel.resid <- resid(lm(as.matrix(mite.hel) ~ ., data=mite.xy))
 > 
 > # Compute the detrended species distance matrix
-> mite.hel.D = dist(mite.hel.resid)
+> mite.hel.D <- dist(mite.hel.resid)
 > 
 > # Compute Mantel correlogram with cutoff, Pearson statistic
-> mite.correlog = mantel.correlog(mite.hel.D, XY=mite.xy, nperm=49)
+> mite.correlog <- mantel.correlog(mite.hel.D, XY=mite.xy, nperm=49)
 > summary(mite.correlog)
            Length Class  Mode     
 mantel.res 65     -none- numeric  
@@ -3475,34 +3475,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > plot(mite.correlog)
 > 
 > # Compute Mantel correlogram without cutoff, Spearman statistic
-> mite.correlog2 = mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
-+ r.type="spearman", nperm=49)
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
-Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
-  Cannot compute exact p-values with ties
+> mite.correlog2 <- mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
++    r.type="spearman", nperm=49)
 > summary(mite.correlog2)
            Length Class  Mode     
 mantel.res 65     -none- numeric  
@@ -4905,7 +4879,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a815200>
+<environment: 0x10aafba40>
 
 Estimated degrees of freedom:
 6.4351  total = 7.435071 
@@ -4921,7 +4895,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10acdc078>
+<environment: 0x1093858d8>
 
 Estimated degrees of freedom:
 6.1039  total = 7.103853 
@@ -5077,7 +5051,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107b67040>
+<environment: 0x10708cb78>
 
 Estimated degrees of freedom:
 8.9275  total = 9.927492 
@@ -5090,7 +5064,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10af199f8>
+<environment: 0x10b37eb48>
 
 Estimated degrees of freedom:
 7.7529  total = 8.75294 
@@ -5103,7 +5077,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a096db8>
+<environment: 0x109042d90>
 
 Estimated degrees of freedom:
 8.8962  total = 9.89616 
@@ -7647,7 +7621,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10aec3f08>
+<environment: 0x108774e98>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8127,7 +8101,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  153.286 4.277 466.257 0 0 
+Time elapsed:  88.33 1.663 90.694 0 0 
 > grDevices::dev.off()
 null device 
           1 
