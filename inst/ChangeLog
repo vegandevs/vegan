@@ -25,9 +25,15 @@ Version 2.1-19 (opened August 20, 2012)
 	access the returned statistic. The functions return an object of
 	class "vegandensity" that inherits from class "density". The
 	object is identical to class "density", but it is amended with
-	item "observed" that contains the observed statistic. It has a
-	plot.vegandensity() function that is similar to plot.density(),
-	but it also draws a vertical line for the observed statistic.
+	item "observed" that contains the observed statistic. The observed
+	statistic is also put among permuted values when estimating the
+	density. This can cause a pimple in density lines when the
+	observed statistic is very different from simulated values, but it
+	is consistent with the permutation tests.
+
+	The function has a plot.vegandensity() function that is similar to
+	plot.density(), but it also draws a vertical line for the observed
+	statistic.
 
 	The density methods were made available for adonis, anosim,
 	mantel & partial.mantel, mrpp, permutest.cca and procrustes. The
