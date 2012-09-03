@@ -66,9 +66,10 @@ scoverage(x, coverage.limit = 10)
      to presences, and \code{logbase = Inf} gives the presence/absence
      scaling. Please note this is \emph{not} \eqn{\log(x+1)}{log(x+1)}.
      Anderson et al. (2006) suggested this for their (strongly) modified
-     Gower distance, but the standardization can be used independently
-     of distance indices.
-   }
+     Gower distance (implemented as \code{method = "altGower"} in 
+     \code{\link{vegdist}}), but the standardization can be used 
+     independently of distance indices. 
+  }
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
 
