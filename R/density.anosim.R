@@ -8,9 +8,11 @@
 `density.anosim` <-
     function(x, ...)
 {
-    out <- density(x$perm, ...)
+    obs <- x$statistic
+    ## Put observed statistic among permutations
+    out <- density(c(obs, x$perm), ...)
     out$call <- match.call()
-    out$observed <- x$statistic
+    out$observed <- obs
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
     out
@@ -24,8 +26,10 @@
     cols <- ncol(x$f.perms)
     if (cols > 1)
         warning("'density' is meaningful only with one term, you have ", cols)
-    out <- density(x$f.perms, ...)
-    out$observed <- x$aov.tab$F.Model
+    obs <- x$aov.tab$F.Model
+    obs <- obs[!is.na(obs)]
+    out <- density(c(obs, x$f.perms), ...)
+    out$observed <- obs
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
@@ -36,8 +40,9 @@
     function(x, data, xlab = "Null", ...)
 {
     require(lattice) || stop("requires package 'lattice'")
-    sim <- x$f.perms
     obs <- x$aov.tab$F.Model
+    obs <- obs[!is.na(obs)]
+    sim <- rbind(obs, x$f.perms)
     nm <- rownames(x$aov.tab)[col(sim)]
     densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
                 xlab = xlab,
@@ -53,8 +58,9 @@
 `density.mantel` <-
     function(x, ...)
 {
-    out <- density(x$perm, ...)
-    out$observed <- x$statistic
+    obs <- x$statistic
+    out <- density(c(obs, x$perm), ...)
+    out$observed <- obs
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
@@ -66,8 +72,9 @@
 `density.mrpp` <-
     function(x, ...)
 {
-    out <- density(x$boot.deltas, ...)
-    out$observed <- x$delta
+    obs <- x$delta
+    out <- density(c(obs, x$boot.deltas), ...)
+    out$observed <- obs
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
@@ -81,8 +88,9 @@
 `density.permutest.cca` <-
     function(x, ...)
 {
-    out <- density(x$F.perm, ...)
-    out$observed <- x$F.0
+    obs <- x$F.0
+    out <- density(c(obs, x$F.perm), ...)
+    out$observed <- obs
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
@@ -94,8 +102,9 @@
 `density.protest` <-
     function(x, ...)
 {
-    out <- density(x$t, ...)
-    out$observed <- x$t0
+    obs <- x$t0
+    out <- density(c(obs, x$t), ...)
+    out$observed <- obs
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     class(out) <- c("vegandensity", class(out))
@@ -108,28 +117,17 @@
 
 `plot.vegandensity` <-
     function (x, main = NULL, xlab = NULL, ylab = "Density", type = "l", 
-    zero.line = TRUE, obs.line = FALSE, ...) 
+    zero.line = TRUE, obs.line = TRUE, ...) 
 {
     if (is.null(xlab)) 
         xlab <- paste("N =", x$n, "  Bandwidth =", formatC(x$bw))
     if (is.null(main)) 
         main <- deparse(x$call)
-    ## adjust xlim of obs.line if needed
-    if (is.character(obs.line) || obs.line) {
-        xlim <- range(c(x$x, x$observed), na.rm = TRUE)
-        ## change obs.line to col=2 (red) if it was logical TRUE
-        if (isTRUE(obs.line))
-            obs.line <- 2
-    } else {
-        xlim <- NULL
-    }
-    ## check for explicit xlim in the call and use it if specified
-    if(!is.null(match.call(expand.dots = FALSE)$...$xlim))
-        plot.default(x, main = main, xlab = xlab, ylab = ylab, type = type,
-                     ...)
-    else
-        plot.default(x, main = main, xlab = xlab, ylab = ylab, type = type,
-                     xlim = xlim, ...)
+    ## change obs.line to col=2 (red) if it was logical TRUE
+    if (isTRUE(obs.line))
+        obs.line <- 2
+    plot.default(x, main = main, xlab = xlab, ylab = ylab, type = type,
+                 ...)
     if (zero.line) 
         abline(h = 0, lwd = 0.1, col = "gray")
     if (is.character(obs.line) || obs.line)
