@@ -8,11 +8,15 @@
     xdis <- as.dist(xdis)
     ydis <- as.vector(as.dist(ydis))
     zdis <- as.vector(as.dist(zdis))
-    rxy <- cor.test(as.vector(xdis), ydis, method = method)
+    rxy <- cor(as.vector(xdis), ydis, method = method)
     rxz <- cor(as.vector(xdis), zdis, method = method)
     ryz <- cor(ydis, zdis, method = method)
-    variant <- rxy$method
-    rxy <- rxy$estimate
+    variant <- match.arg(method, eval(formals(cor)$method))
+    variant <- switch(variant,
+                      pearson = "Pearson's product-moment correlation",
+                      kendall = "Kendall's rank correlation tau",
+                      spearman = "Spearman's rank correlation rho",
+                      variant)
     statistic <- part.cor(rxy, rxz, ryz)
     N <- attr(xdis, "Size")
     if (length(permutations) == 1) {

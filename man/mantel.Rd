@@ -1,7 +1,6 @@
 \name{mantel}
 \alias{mantel}
 \alias{mantel.partial}
-\alias{density.mantel}
 
 \title{Mantel and Partial Mantel Tests for Dissimilarity Matrices }
 \description{
@@ -65,7 +64,8 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{statistic}{The Mantel statistic.}
   \item{signif}{Empirical significance level from permutations.}
   \item{perm}{A vector of permuted values. The distribution of
-    permuted values can be inspected with \code{density} funciton.}
+    permuted values can be inspected with \code{\link{density.mantel}} 
+    function.}
   \item{permutations}{Number of permutations.}
 }
 \references{ The test is due to Mantel, of course, but the

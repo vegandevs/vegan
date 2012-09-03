@@ -4,9 +4,13 @@
 {
     xdis <- as.dist(xdis)
     ydis <- as.vector(as.dist(ydis))
-    tmp <- cor.test(as.vector(xdis), ydis, method = method)
-    statistic <- as.numeric(tmp$estimate)
-    variant <- tmp$method
+    statistic <- cor(as.vector(xdis), ydis, method = method)
+    variant <- match.arg(method, eval(formals(cor)$method))
+    variant <- switch(variant,
+                      pearson = "Pearson's product-moment correlation",
+                      kendall = "Kendall's rank correlation tau",
+                      spearman = "Spearman's rank correlation rho",
+                      variant)
     N <- attr(xdis, "Size")
     if (length(permutations) == 1) {
         if (permutations > 0) {
