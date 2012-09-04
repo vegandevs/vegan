@@ -12,7 +12,7 @@
     if (na.rm)
         use <- "complete.obs"
     else
-        use = "all.obs"
+        use <- "all.obs"
     rxy <- cor(as.vector(xdis), ydis, method = method, use = use)
     rxz <- cor(as.vector(xdis), zdis, method = method, use = use)
     ryz <- cor(ydis, zdis, method = method, use = use)

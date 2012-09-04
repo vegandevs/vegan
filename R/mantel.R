@@ -8,7 +8,7 @@
     if (na.rm)
         use <- "complete.obs"
     else
-        use = "all.obs"
+        use <- "all.obs"
     statistic <- cor(as.vector(xdis), ydis, method = method, use = use)
     variant <- match.arg(method, eval(formals(cor)$method))
     variant <- switch(variant,
