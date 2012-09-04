@@ -48,10 +48,13 @@ Version 2.1-19 (opened August 20, 2012)
 	oecosimu-compliant earlier and simultaneously they also gained the
 	density and densityplot methods.
 
-	* mantel, mantel.partial: mixed cor.test() and cor(), but now only
-	use cor(). The use of cor.test() was only used to get the textual
-	presentation of the correlation 'method'. Internal changes that
-	should have no effect in results, but consistency is a good thing.
+	* mantel, mantel.partial: Gained argument na.rm (defaults FALSE)
+	to remove missing values from dissimilarities. To implement this,
+	there were some internal changes in functions (that should not
+	influence the results): The functions mixed cor.test() and cor(),
+	but now only use cor(). Function cor.test() was only used to get the
+	textual presentation of the correlation 'method', but this is now
+	found internally.
 
 	* protest: do not return the observed statistic as one of the
 	permuted values but separately.

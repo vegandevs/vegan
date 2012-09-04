@@ -1,6 +1,6 @@
 `mantel.partial` <-
   function (xdis, ydis, zdis, method = "pearson", permutations = 999, 
-            strata, parallel = getOption("mc.cores")) 
+            strata, na.rm = FALSE, parallel = getOption("mc.cores")) 
 {
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
@@ -8,9 +8,14 @@
     xdis <- as.dist(xdis)
     ydis <- as.vector(as.dist(ydis))
     zdis <- as.vector(as.dist(zdis))
-    rxy <- cor(as.vector(xdis), ydis, method = method)
-    rxz <- cor(as.vector(xdis), zdis, method = method)
-    ryz <- cor(ydis, zdis, method = method)
+    ## Handle missing values
+    if (na.rm)
+        use <- "complete.obs"
+    else
+        use = "all.obs"
+    rxy <- cor(as.vector(xdis), ydis, method = method, use = use)
+    rxz <- cor(as.vector(xdis), zdis, method = method, use = use)
+    ryz <- cor(ydis, zdis, method = method, use = use)
     variant <- match.arg(method, eval(formals(cor)$method))
     variant <- switch(variant,
                       pearson = "Pearson's product-moment correlation",
@@ -39,8 +44,8 @@
         asdist <- row(xmat) > col(xmat)
         ptest <- function(take, ...) {
             permvec <- (xmat[take, take])[asdist]
-            rxy <- cor(permvec, ydis, method = method)
-            rxz <- cor(permvec, zdis, method = method)
+            rxy <- cor(permvec, ydis, method = method, use = use)
+            rxz <- cor(permvec, zdis, method = method, use = use)
             part.cor(rxy, rxz, ryz)
         }
         ## parallel processing

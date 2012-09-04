@@ -14,9 +14,9 @@
 }
 \usage{
 mantel(xdis, ydis, method="pearson", permutations=999, strata,
-    parallel = getOption("mc.cores"))
+    na.rm = FALSE, parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
-    strata, parallel = getOption("mc.cores"))
+    strata, na.rm = FALSE, parallel = getOption("mc.cores"))
 }
 
 \arguments{
@@ -28,6 +28,10 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
+  \item{na.rm}{Remove missing values in calculation of Mantel
+    correlation. Use this option with care. When two dissimilarities
+    have both missing values in matching positions, these matches will
+    be broken in permutation tests can be biased.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}

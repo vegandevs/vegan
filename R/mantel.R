@@ -1,10 +1,15 @@
 `mantel` <-
   function (xdis, ydis, method = "pearson", permutations = 999, 
-            strata, parallel = getOption("mc.cores")) 
+            strata, na.rm = FALSE, parallel = getOption("mc.cores")) 
 {
     xdis <- as.dist(xdis)
     ydis <- as.vector(as.dist(ydis))
-    statistic <- cor(as.vector(xdis), ydis, method = method)
+    ## Handle missing values
+    if (na.rm)
+        use <- "complete.obs"
+    else
+        use = "all.obs"
+    statistic <- cor(as.vector(xdis), ydis, method = method, use = use)
     variant <- match.arg(method, eval(formals(cor)$method))
     variant <- switch(variant,
                       pearson = "Pearson's product-moment correlation",
@@ -33,7 +38,7 @@
         asdist <- row(xmat) > col(xmat)
         ptest <- function(take, ...) {
             permvec <- (xmat[take, take])[asdist]
-            drop(cor(permvec, ydis, method = method))
+            drop(cor(permvec, ydis, method = method, use = use))
         }
         ## Parallel processing
         if (is.null(parallel) && getRversion() >= "2.15.0")
