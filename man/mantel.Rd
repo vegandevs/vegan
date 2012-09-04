@@ -29,9 +29,9 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
     permutation. If supplied, observations are permuted only within the
     specified strata.}
   \item{na.rm}{Remove missing values in calculation of Mantel
-    correlation. Use this option with care. When two dissimilarities
-    have both missing values in matching positions, these matches will
-    be broken in permutation tests can be biased.}
+    correlation. Use this option with care: Permutation tests can
+    be biased, in particular if two matrices had missing values in
+    matching positions.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
