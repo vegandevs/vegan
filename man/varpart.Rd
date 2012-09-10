@@ -228,8 +228,12 @@ vegandocs("partition")
 # Formula shortcut "~ ." means: use all variables in 'data'.
 mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 mod
-showvarparts(2)
-plot(mod)
+
+## argument 'bg' is passed to circle drawing, and the following
+## defines semitransparent colours
+col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
+showvarparts(2, bg = col2)
+plot(mod, bg = col2)
 # Alternative way of to conduct this partitioning
 # Change the data frame with factors into numeric model matrix
 mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
