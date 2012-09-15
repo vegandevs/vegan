@@ -19,6 +19,9 @@
 \alias{rad.zipf}
 \alias{rad.zipfbrot}
 \alias{rad.null}
+\alias{predict.radline}
+\alias{predict.radfit}
+\alias{predict.radfit.frame}
 
 \title{ Rank -- Abundance or Dominance / Diversity Models}
 \description{

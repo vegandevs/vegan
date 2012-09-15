@@ -58,6 +58,12 @@ Version 2.1-19 (opened August 20, 2012)
 
 	* protest: do not return the observed statistic as one of the
 	permuted values but separately.
+
+	* radfit: gained a predict method which works for single models
+	('radline'), radfit, and radfit.frame. All predict functions
+	accept 'newdata' which need not be integer, but extrapolation may
+	fail for some models.  Needs still documentation. The function was
+	provided due to a user request.
 	
 Version 2.1-18 (closed August 20, 2012)
 
