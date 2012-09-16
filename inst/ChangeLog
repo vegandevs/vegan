@@ -2,7 +2,20 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-19 (opened August 20, 2012)
+Version 2.1-20 (opened September 16, 2012)
+
+	* anova.cca: Dr Sven Neulinger (Christian Albrecht University,
+	Kiel, Germany) reported several problems with anova.cca cases. All
+	these were problems in scoping. Two problems solved with this
+	commit were: (1) anova.cca(..., by = "axis") always failed in
+	partial analysis (with conditions), (2) anova.cca(..., by =
+	"term") failed in partial models when there was no 'data='
+	argument, but the variables were in the global workspace. In
+	addition, there is one unsolved problem with search order:
+	stats function C() is found instead of variable 'C' and this gives
+	an error message  "object is not a matrix".
+	
+Version 2.1-19 (closed September 16, 2012)
 
 	* adonis: Small changes in calculations. Simplified calculations
 	of matrix G as centred distance matrix, and does not keep n x n
