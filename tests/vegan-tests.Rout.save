@@ -1,6 +1,6 @@
 
-R version 2.13.0 beta (2011-04-04 r55296)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
@@ -367,6 +367,102 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > rm(df, spno, fla, m, p, q, tab, dis, foo, .Random.seed)
 > ### <--- END anova.cca test --->
 > 
+> ### Sven Neulinger <sneulinger@ifam.uni-kiel.de> reported failures in
+> ### partial analysis which (mostly) were fixed in r2087. Below his test.
+> 
+> set.seed(4711)
+> X <- matrix(rnorm(30*6), 30, 6)
+> 
+> A <- factor(rep(rep(c("a","b"), each=3),5))
+> B <- factor(rep(c("a","b","c"), 10))
+> ## Sven Neulinger's tests used 'C' below, but that fails still now due
+> ## to look-up order: function stats::C was found before matrix 'C'
+> CC <- factor(rep(c(1:5), each=6))
+> 
+> # partial db-RDA
+> cap.model.cond <- capscale(X ~ A + B + Condition(CC))
+> anova(cap.model.cond, by="axis", strata=CC)  # -> error pre r2287
+Model: capscale(formula = X ~ A + B + Condition(CC))
+         Df    Var      F N.Perm Pr(>F)
+CAP1      1 0.2682 1.3075     99   0.29
+CAP2      1 0.0685 0.3339     99   0.91
+CAP3      1 0.0455 0.2217     99   0.97
+Residual 22 4.5130                     
+> anova(cap.model.cond, by="terms", strata=CC)  # -> error pre r2287
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutations stratified within 'CC'
+
+Model: capscale(formula = X ~ A + B + Condition(CC))
+         Df    Var      F N.Perm Pr(>F)
+A         1 0.1316 0.6415     99   0.72
+B         2 0.2506 0.6108     99   0.84
+Residual 22 4.5130                     
+> 
+> # db-RDA without conditional factor
+> cap.model <- capscale(X ~ A + B)
+> anova(cap.model, by="axis", strata=CC)  # -> no error
+Model: capscale(formula = X ~ A + B)
+         Df    Var      F N.Perm Pr(>F)
+CAP1      1 0.2682 1.3267     99   0.18
+CAP2      1 0.0685 0.3388     99   0.96
+CAP3      1 0.0455 0.2249     99   0.95
+Residual 26 5.2565                     
+> anova(cap.model, by="terms", strata=CC)  # -> no error
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutations stratified within 'CC'
+
+Model: capscale(formula = X ~ A + B)
+         Df    Var      F N.Perm Pr(>F)
+A         1 0.1316 0.6509     99   0.62
+B         2 0.2506 0.6198     99   0.85
+Residual 26 5.2565                     
+> 
+> # partial RDA
+> rda.model.cond <- rda(X ~ A + B + Condition(CC))
+> anova(rda.model.cond, by="axis", strata=CC)  # -> no error
+Model: rda(formula = X ~ A + B + Condition(CC))
+         Df    Var      F N.Perm Pr(>F)
+RDA1      1 0.2682 1.3075     99   0.28
+RDA2      1 0.0685 0.3339     99   0.92
+RDA3      1 0.0455 0.2217     99   0.97
+Residual 22 4.5130                     
+> anova(rda.model.cond, by="terms", strata=CC)  # -> error pre r2287
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutations stratified within 'CC'
+
+Model: rda(formula = X ~ A + B + Condition(CC))
+         Df    Var      F N.Perm Pr(>F)
+A         1 0.1316 0.6415     99   0.65
+B         2 0.2506 0.6108     99   0.84
+Residual 22 4.5130                     
+> 
+> # RDA without conditional factor
+> rda.model <- rda(X ~ A + B)
+> anova(rda.model, by="axis", strata=CC)  # -> no error
+Model: rda(formula = X ~ A + B)
+         Df    Var      F N.Perm Pr(>F)
+RDA1      1 0.2682 1.3267     99   0.24
+RDA2      1 0.0685 0.3388     99   0.90
+RDA3      1 0.0455 0.2249     99   0.94
+Residual 26 5.2565                     
+> anova(rda.model, by="terms", strata=CC)  # -> no error
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutations stratified within 'CC'
+
+Model: rda(formula = X ~ A + B)
+         Df    Var      F N.Perm Pr(>F)
+A         1 0.1316 0.6509     99   0.69
+B         2 0.2506 0.6198     99   0.84
+Residual 26 5.2565                     
+> ## clean.up
+> rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
+> ### end Sven Neulinger's tests
+> 
+> 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
 > ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
 > x <- c(1,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0)
@@ -389,3 +485,6 @@ Matrix fill: 0.56
 > rm(x, m, m1, nodfq, nodf1)
 > ### end nestednodf
 > 
+> proc.time()
+   user  system elapsed 
+  8.594   0.128   8.695 

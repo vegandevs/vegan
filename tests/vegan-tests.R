@@ -86,6 +86,42 @@ tab[nrow(tab),1] == m$CA$rank
 rm(df, spno, fla, m, p, q, tab, dis, foo, .Random.seed)
 ### <--- END anova.cca test --->
 
+### Sven Neulinger <sneulinger@ifam.uni-kiel.de> reported failures in
+### partial analysis which (mostly) were fixed in r2087. Below his test.
+
+set.seed(4711)
+X <- matrix(rnorm(30*6), 30, 6)
+
+A <- factor(rep(rep(c("a","b"), each=3),5))
+B <- factor(rep(c("a","b","c"), 10))
+## Sven Neulinger's tests used 'C' below, but that fails still now due
+## to look-up order: function stats::C was found before matrix 'C'
+CC <- factor(rep(c(1:5), each=6))
+
+# partial db-RDA
+cap.model.cond <- capscale(X ~ A + B + Condition(CC))
+anova(cap.model.cond, by="axis", strata=CC)  # -> error pre r2287
+anova(cap.model.cond, by="terms", strata=CC)  # -> error pre r2287
+
+# db-RDA without conditional factor
+cap.model <- capscale(X ~ A + B)
+anova(cap.model, by="axis", strata=CC)  # -> no error
+anova(cap.model, by="terms", strata=CC)  # -> no error
+
+# partial RDA
+rda.model.cond <- rda(X ~ A + B + Condition(CC))
+anova(rda.model.cond, by="axis", strata=CC)  # -> no error
+anova(rda.model.cond, by="terms", strata=CC)  # -> error pre r2287
+
+# RDA without conditional factor
+rda.model <- rda(X ~ A + B)
+anova(rda.model, by="axis", strata=CC)  # -> no error
+anova(rda.model, by="terms", strata=CC)  # -> no error
+## clean.up
+rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
+### end Sven Neulinger's tests
+
+
 ### nestednodf: test case by Daniel Spitale in a comment to News on
 ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
 x <- c(1,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0)
