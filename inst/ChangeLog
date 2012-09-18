@@ -15,6 +15,9 @@ Version 2.1-20 (opened September 16, 2012)
 	that used to fail. In addition, there is one unsolved problem with
 	search order: stats function C() is found instead of variable 'C'
 	and this gives an error message "object is not a matrix".
+
+	* radfit: added fitted() method for radfit.frame objects similar
+	to predict.
 	
 Version 2.1-19 (closed September 16, 2012)
 

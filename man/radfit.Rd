@@ -6,6 +6,7 @@
 \alias{as.rad}
 \alias{coef.radfit}
 \alias{fitted.radfit}
+\alias{fitted.radfit.frame}
 \alias{lines.radline}
 \alias{plot.radfit.frame}
 \alias{plot.radfit}

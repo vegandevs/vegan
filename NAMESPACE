@@ -171,6 +171,7 @@ S3method(fitted, capscale)
 S3method(fitted, cca)
 S3method(fitted, procrustes)
 S3method(fitted, radfit)
+S3method(fitted, radfit.frame)
 S3method(fitted, rda)
 # goodness: vegan
 S3method(goodness, cca)
