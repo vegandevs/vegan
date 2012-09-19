@@ -18,7 +18,8 @@ Version 2.1-20 (opened September 16, 2012)
 
 	* radfit: added fitted() method for radfit.frame objects similar
 	to predict. The predict() method gained new argument to change the
-	expected 'total' size of communities.
+	expected 'total' size of communities. The fitted() returns now
+	named vectors or matrices.
 	
 Version 2.1-19 (closed September 16, 2012)
 

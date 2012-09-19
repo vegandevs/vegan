@@ -19,25 +19,22 @@
     adj <- total/sum(object$y)
     nobs <- length(object$y)
     p <- coef(object)
-    out <-
-        switch(object$model,
-               ## linear interpolation, no extrapolation
-               `Brokenstick` = approx(seq_len(nobs),
-               object$fitted.values, x, ...)$y * adj,
-               `Preemption` = exp(log(total) + log(p) + log(1 - p)*(x-1)),
-               ## NaN when rank outside proportional rank 0...1 
-               `Log-Normal` = {
-                   slope <- diff(range(ppoints(nobs)))/(nobs-1)
-                   intcpt <- 0.5 - slope * (nobs + 1) / 2
-                   xnorm <- -qnorm(intcpt + slope * x)
-                   exp(p[1] + p[2]*xnorm)*adj
-               },
-               `Zipf` = exp(log(total) + log(p[1]) + p[2]*log(x)),
-               `Zipf-Mandelbrot` = exp(log(total) + log(p[1]) +
-               p[2]*log(x + p[3]))
-               )
-    names(out) <- names(object$y)
-    out
+    switch(object$model,
+           ## linear interpolation, no extrapolation
+           `Brokenstick` = approx(seq_len(nobs),
+           object$fitted.values, x, ...)$y * adj,
+           `Preemption` = exp(log(total) + log(p) + log(1 - p)*(x-1)),
+           ## NaN when rank outside proportional rank 0...1 
+           `Log-Normal` = {
+               slope <- diff(range(ppoints(nobs)))/(nobs-1)
+               intcpt <- 0.5 - slope * (nobs + 1) / 2
+               xnorm <- -qnorm(intcpt + slope * x)
+               exp(p[1] + p[2]*xnorm)*adj
+           },
+           `Zipf` = exp(log(total) + log(p[1]) + p[2]*log(x)),
+           `Zipf-Mandelbrot` = exp(log(total) + log(p[1]) +
+           p[2]*log(x + p[3]))
+           )
 }
 
 `predict.radfit`<-
