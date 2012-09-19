@@ -17,7 +17,8 @@ Version 2.1-20 (opened September 16, 2012)
 	and this gives an error message "object is not a matrix".
 
 	* radfit: added fitted() method for radfit.frame objects similar
-	to predict.
+	to predict. The predict() method gained new argument to change the
+	expected 'total' size of communities.
 	
 Version 2.1-19 (closed September 16, 2012)
 
