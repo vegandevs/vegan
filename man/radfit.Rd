@@ -58,10 +58,10 @@ as.rad(x)
     Akaike's AIC. The penalty for a parameter is \eqn{k = \log(S)}{k =
       log(S)}  where \eqn{S} is the number of species, whereas AIC uses
     \eqn{k = 2}.} 
-  \item{model}{Show only the specified model. If missing, AIC is used to
-    select the model. The model names (which can be abbreviated) are
-    \code{Preemption}, \code{Lognormal}, \code{Veiled.LN},
-    \code{Zipf}, \code{Mandelbrot}. }
+  \item{model}{Show only the specified model. If missing, AIC is used
+    to select the model. The model names (which can be abbreviated)
+    are \code{Null}, \code{Preemption}, \code{Lognormal}, \code{Zipf},
+    \code{Mandelbrot}. }
   \item{legend}{Add legend of line colours.}
   \item{as.table}{Arrange panels starting from upper left corner (passed
     to \code{\link[lattice]{xyplot}}).}
@@ -73,7 +73,7 @@ as.rad(x)
     and fitted lines, \code{"p"} for only points, \code{"l"} for only
     fitted lines, and \code{"n"} for only setting the frame. }
   \item{log}{Use logarithmic scale for given axis. The default
-    \code{log =" y"} gives the traditional plot in community ecology
+    \code{log ="y"} gives the traditional plot of community ecology
     where the pre-emption model is a straight line, and with
     \code{log = "xy"} Zipf model is a straight line. With
     \code{log = ""} both axes are in the original arithmetic scale.}
@@ -137,22 +137,21 @@ as.rad(x)
   several alternative and contrasting mechanisms can produce
   similar models and a good fit does not imply a specific mechanism.
 
-  Log-Normal and Zipf models are generalized linear
-  models (\code{\link{glm}}) with logarithmic link function.
-  Zipf-Mandelbrot adds one
-  nonlinear parameter to the Zipf model, and is fitted using
+  Log-Normal and Zipf models are generalized linear models
+  (\code{\link{glm}}) with logarithmic link function.  Zipf-Mandelbrot
+  adds one nonlinear parameter to the Zipf model, and is fitted using
   \code{\link{nlm}} for the nonlinear parameter and estimating other
   parameters and log-Likelihood with \code{\link{glm}}. Pre-emption
   model is fitted as purely nonlinear model. There are no estimated
-  parameters in the Null model.  The default
-  \code{\link{family}} is \code{poisson} which is appropriate only for
-  genuine counts (integers), but other families that accept \code{link =
-    "log"} can be used. Family \code{\link{Gamma}} may be
-  appropriate for abundance data, such as cover. The ``best''
-  model is selected by \code{\link{AIC}}. Therefore ``quasi'' families
-  such as \code{\link{quasipoisson}} cannot be used: they do not
-  have \code{\link{AIC}} nor log-Likelihood needed in non-linear
-  models.
+  parameters in the Null model.  The default \code{\link{family}} is
+  \code{poisson} which is appropriate only for genuine counts
+  (integers), but other families that accept \code{link = "log"} can
+  be used. Family \code{\link{Gamma}} may be appropriate for abundance
+  data, such as cover. The ``best'' model is selected by
+  \code{\link{AIC}}. Therefore ``quasi'' families such as
+  \code{\link{quasipoisson}} cannot be used: they do not have
+  \code{\link{AIC}} nor log-Likelihood needed in non-linear models.
+
 }
 
 \value{
