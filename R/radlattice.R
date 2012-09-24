@@ -10,7 +10,7 @@
     Abundance <- rep(y, p)
     Rank <- rep(1:n, p)
     Model <- factor(rep(mods, each=n), levels = mods)
-    aic <- AIC(x, BIC = BIC)
+    aic <- AIC(x, AIC = BIC)
     col <- trellis.par.get("superpose.line")$col
     if (length(col) > 1)
         col <- col[2]

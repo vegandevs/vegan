@@ -16,10 +16,14 @@ Version 2.1-20 (opened September 16, 2012)
 	search order: stats function C() is found instead of variable 'C'
 	and this gives an error message "object is not a matrix".
 
-	* radfit: added fitted() method for radfit.frame objects similar
-	to predict. The predict() method gained new argument to change the
-	expected 'total' size of communities. The fitted() returns now
-	named vectors or matrices.
+	* radfit: The single radline methods (rad.null() etc.) and
+	radfit() for single sites and data frames are more consistent and
+	usually have the same methods.  The common methods to all include
+	now AIC(), deviance(), logLik(), predict() and fitted(). The
+	radfit() objects gained points() and lines() methods. The data
+	frame method also works with matrices.  The predict() method
+	gained new argument to change the expected 'total' size of
+	communities. The fitted() returns now named vectors or matrices.
 	
 Version 2.1-19 (closed September 16, 2012)
 

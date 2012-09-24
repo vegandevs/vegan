@@ -31,10 +31,9 @@
   Zipf and Zipf-Mandelbrot models of species abundance.
 }
 \usage{
-\method{radfit}{data.frame}(df, ...)
+\method{radfit}{default}(x, ...)
 \method{plot}{radfit.frame}(x, order.by, BIC = FALSE, model, legend = TRUE,
      as.table = TRUE, ...)
-\method{radfit}{default}(x, ...)
 \method{plot}{radfit}(x, BIC = FALSE, legend = TRUE, ...)  
 radlattice(x, BIC = FALSE, ...)
 rad.null(x, family=poisson, ...)
@@ -50,8 +49,7 @@ as.rad(x)
 }
 
 \arguments{
-  \item{df}{Data frame where sites are rows and species are columns.}
-  \item{x}{A vector giving species abundances in a site, or an object to
+  \item{x}{Data frame, matrix or a vector giving species abundances, or an object to
     be plotted.}
   \item{order.by}{A vector used for ordering sites in plots.}
   \item{BIC}{Use Bayesian Information Criterion, BIC, instead of

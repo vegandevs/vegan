@@ -74,6 +74,7 @@ S3method(adipart, default)
 S3method(adipart, formula)
 # AIC: stats
 S3method(AIC, radfit)
+S3method(AIC, radfit.frame)
 # RsquareAdj: vegan
 S3method(RsquareAdj, cca)
 S3method(RsquareAdj, default)
@@ -145,6 +146,8 @@ S3method(densityplot, oecosimu)
 # deviance: stats
 S3method(deviance, cca)
 S3method(deviance, rda)
+S3method(deviance, radfit)
+S3method(deviance, radfit.frame)
 # drop1: stats
 S3method(drop1, cca)
 # eigenvals: vegan
@@ -194,7 +197,11 @@ S3method(lines, preston)
 S3method(lines, prestonfit)
 S3method(lines, procrustes)
 S3method(lines, radline)
+S3method(lines, radfit)
 S3method(lines, spantree)
+## logLik: stats
+S3method(logLik, radfit)
+S3method(logLik, radfit.frame)
 # model.frame, model.matrix: stats
 S3method(model.frame, cca)
 S3method(model.matrix, cca)
@@ -275,6 +282,7 @@ S3method(points, ordiplot)
 S3method(points, orditkplot)
 S3method(points, procrustes)
 S3method(points, radline)
+S3method(points, radfit)
 # predict: stats
 S3method(predict, cca)
 S3method(predict, decorana)
@@ -354,6 +362,7 @@ S3method(profile, humpfit)
 # radfit: vegan
 S3method(radfit, data.frame)
 S3method(radfit, default)
+S3method(radfit, matrix)
 # rda: vegan
 S3method(rda, default)
 S3method(rda, formula)
