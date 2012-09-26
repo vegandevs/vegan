@@ -125,6 +125,7 @@ S3method(cca, formula)
 # coef: stats
 S3method(coef, cca)
 S3method(coef, radfit)
+S3method(coef, radfit.frame)
 S3method(coef, rda)
 # confint: stats -- also uses MASS:::confint.glm & MASS:::profile.glm
 # does this work with namespaces??

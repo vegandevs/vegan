@@ -3,7 +3,7 @@
 ### object$models is a list of radline objects
 
 `AIC.radfit` <-
-    function (object, AIC = TRUE, k = 2, ...) 
+    function (object, k = 2, ...) 
 {
     sapply(object$models, AIC, k = k, ...)
 }
@@ -23,7 +23,7 @@
 ### Define also for radfit.frames which are lists of radfit objects
 
 `AIC.radfit.frame` <-
-    function(object, AIC = TRUE, k = 2, ...)
+    function(object, k = 2, ...)
 {
     sapply(object, AIC, k = k, ...)
 }
