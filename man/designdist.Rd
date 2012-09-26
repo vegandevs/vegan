@@ -65,7 +65,7 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   The function \code{designdist} can implement most dissimilarity
   indices in \code{\link{vegdist}} or elsewhere, and it can also be
   used to implement many other indices, amongst them, most of those
-  described in Legendre & Legendre (1998). It can also be used to
+  described in Legendre & Legendre (2012). It can also be used to
   implement all indices of beta diversity described in Koleff et
   al. (2003), but there also is a specific function
   \code{\link{betadiver}} for the purpose.
@@ -85,7 +85,7 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   diversity for presence--absence data. \emph{J. Animal Ecol.}
   \strong{72}, 367--382. 
   
-  Legendre, P. and Legendre, L. (1998) \emph{Numerical Ecology}. 2nd
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd
   English ed. Elsevier
   }
 \author{ Jari Oksanen }

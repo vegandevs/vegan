@@ -28,6 +28,9 @@ Version 2.1-20 (opened September 16, 2012)
 	This has been wrong since the introduction of radlattice in r551
 	(2008-11-09).  Now radlattice also check that it gets the "radfit"
 	object it can handle.
+
+	* Rd: documentation files upgraded to the third English edition
+	(2012) of Legendre & Legendre.
 	
 Version 2.1-19 (closed September 16, 2012)
 

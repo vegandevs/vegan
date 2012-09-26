@@ -75,15 +75,15 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
 \references{ The test is due to Mantel, of course, but the
   current implementation is based on Legendre and Legendre.
 
-  Legendre, P. and Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   Edition. Elsevier.
   
 }
 
 \note{
-  Legendre & Legendre (1998) say that partial Mantel correlations 
-  often are difficult to interpret. 
-  }
+  Legendre & Legendre (2012, Box 10.4) warn against using partial
+  Mantel correlations.
+}
 
 \author{Jari Oksanen }
 

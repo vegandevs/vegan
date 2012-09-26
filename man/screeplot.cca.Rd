@@ -81,7 +81,7 @@ bstick(n, \dots)
 
   Function \code{bstick} gives the brokenstick values which are ordered
   random proportions, defined as  \eqn{p_i = (tot/n) \sum_{x=i}^n 
-    (1/x)}{p[i] = tot/n sum(from x=i to n) 1/x} (Legendre & Legendre 1998), where
+    (1/x)}{p[i] = tot/n sum(from x=i to n) 1/x} (Legendre & Legendre 2012), where
   \eqn{tot} is the total  and \eqn{n} is the number of brokenstick
   components (cf. \code{\link{radfit}}).  Broken stick has
   been recommended as a stopping rule in principal component analysis
@@ -113,7 +113,7 @@ bstick(n, \dots)
   analysis: a comparison of heuristical and statistical
   approaches. \emph{Ecology} 74, 2204--2214.
 
-  Legendre, P. and Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
   }
 \note{Function \code{screeplot} is generic from \code{R} version

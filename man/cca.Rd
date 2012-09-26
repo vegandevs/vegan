@@ -60,7 +60,7 @@
   Functions \code{cca} and \code{rda} are  similar to popular
   proprietary software \code{Canoco}, although the implementation is
   completely different.  The functions are based on Legendre &
-  Legendre's (1998) algorithm: in \code{cca}
+  Legendre's (2012) algorithm: in \code{cca}
   Chi-square transformed data matrix is subjected to weighted linear
   regression on constraining variables, and the fitted values are
   submitted to correspondence analysis performed via singular value
@@ -170,7 +170,7 @@
 \references{ The original method was by ter Braak, but the current
   implementations follows Legendre and Legendre.
 
-  Legendre, P. and Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
 
   McCune, B. (1997) Influence of noisy environmental data on canonical

@@ -192,7 +192,7 @@
   \code{cca.object} as well). 
 }
 \references{
-  Legendre, P. and Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
 }
 \author{ Jari Oksanen }
