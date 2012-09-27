@@ -76,7 +76,7 @@ as.rad(x)
 
   \item{order.by}{A vector used for ordering sites in plots.}
   \item{BIC}{Use Bayesian Information Criterion, BIC, instead of
-    Akaike's AIC. The penalty for a parameter is \eqn{k = \log(S)}{k =
+    Akaike's AIC. The penalty in BIC is \eqn{k = \log(S)}{k =
       log(S)}  where \eqn{S} is the number of species, whereas AIC uses
     \eqn{k = 2}.} 
   \item{model}{Show only the specified model. If missing, AIC is used
@@ -91,7 +91,7 @@ as.rad(x)
     and fitted lines, \code{"p"} for only points, \code{"l"} for only
     fitted lines, and \code{"n"} for only setting the frame. }
   \item{log}{Use logarithmic scale for given axis. The default
-    \code{log ="y"} gives the traditional plot of community ecology
+    \code{log = "y"} gives the traditional plot of community ecology
     where the pre-emption model is a straight line, and with
     \code{log = "xy"} Zipf model is a straight line. With
     \code{log = ""} both axes are in the original arithmetic scale.}
@@ -108,14 +108,11 @@ as.rad(x)
 
   Functions \code{rad.null}, \code{rad.preempt}, \code{rad.lognormal},
   \code{rad.zipf} and \code{zipfbrot} fit the individual models
-  (described below), and function \code{radfit} fits all models.  The
-  argument of the function \code{radfit} can be either a vector for a
-  single community or a data frame where each row represents a
-  distinct community.  There are grand narratives about ecological
-  mechanisms behind each model (Wilson 1991), but several alternative
-  and contrasting mechanisms can produce similar models and a good fit
-  does not imply a specific mechanism.
-
+  (described below) for a single vector (row of data frame), and
+  function \code{radfit} fits all models. The argument of the function
+  \code{radfit} can be either a vector for a single community or a data
+  frame where each row represents a distinct community.
+  
   Function \code{rad.null} fits a brokenstick model where the expected
   abundance of species at rank \eqn{r} is \eqn{a_r = (J/S)
   \sum_{x=r}^S (1/x)}{a[r] = J/S sum(from x=r to S) 1/x} (Pielou
@@ -147,7 +144,7 @@ as.rad(x)
   adds one nonlinear parameter to the Zipf model, and is fitted using
   \code{\link{nlm}} for the nonlinear parameter and estimating other
   parameters and log-Likelihood with \code{\link{glm}}. Preemption
-  model is fitted as purely nonlinear model. There are no estimated
+  model is fitted as a purely nonlinear model. There are no estimated
   parameters in the Null model.  
 
   The default \code{\link{family}} is \code{poisson} which is
@@ -159,15 +156,15 @@ as.rad(x)
   \code{\link{quasipoisson}} cannot be used: they do not have
   \code{\link{AIC}} nor log-Likelihood needed in non-linear models.
   
-  All these functions have their own \code{plot} functions. When the
-  argument is a data frame, \code{plot} uses
+  All these functions have their own \code{plot} functions. When
+  \code{radfit} was applied for a data frame, \code{plot} uses
   \code{\link[lattice]{Lattice}} graphics, and other \code{plot}
   functions use ordinary graphics. The ordinary graphics functions
-  return invisibly an \code{\link{ordiplot}} object for observed
-  points, and function \code{\link{identify.ordiplot}} can be used to
-  label selected species.   Alternatively, \code{radlattice} uses
-  \code{\link[lattice]{Lattice}} graphics to display each
-  \code{radfit} model in a separate panel together with their AIC or
+  return invisibly an \code{\link{ordiplot}} object for observed points,
+  and function \code{\link{identify.ordiplot}} can be used to label
+  selected species.  Alternatively, \code{radlattice} uses
+  \code{\link[lattice]{Lattice}} graphics to display each \code{radfit}
+  model of a single site in a separate panel together with their AIC or
   BIC values.
 
   Function \code{as.rad} is a base function to construct ordered RAD
@@ -187,13 +184,12 @@ as.rad(x)
 
   Function \code{radfit} fits all models either to a single site or to
   all rows of a data frame or a matrix. When fitted to a single site,
-  the function returns an object of class \code{"radfit"} which
-  returns items \code{y} (observed values), \code{\link{family}}, and
-  \code{models} which is a list of fitted \code{"radline"} models.
-  When applied for a data frame or matrix, \code{radfit} function
-  returns an object of class \code{"radfit.frame"} which is a list of
-  \code{"radfit"} objects, each item names by the corresponding row
-  name.
+  the function returns an object of class \code{"radfit"} with items
+  \code{y} (observed values), \code{\link{family}}, and \code{models}
+  which is a list of fitted \code{"radline"} models.  When applied for a
+  data frame or matrix, \code{radfit} function returns an object of
+  class \code{"radfit.frame"} which is a list of \code{"radfit"}
+  objects, each item names by the corresponding row name.
 
   All result objects (\code{"radline"}, \code{"radfit"},
   \code{"radfit.frame"}) can be accessed with same method functions.
