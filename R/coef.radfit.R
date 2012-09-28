@@ -1,4 +1,4 @@
-"coef.radfit" <-
+`coef.radfit` <-
     function (object, ...) 
 {
     out <- sapply(object$models, function(x) if (length(coef(x)) < 
@@ -8,4 +8,10 @@
     out <- t(out)
     colnames(out) <- paste("par", 1:3, sep = "")
     out
+}
+
+`coef.radfit.frame` <-
+    function(object, ...)
+{
+    lapply(object, coef, ...)
 }

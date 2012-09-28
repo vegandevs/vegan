@@ -62,7 +62,7 @@ constrained ordination model.
 
 \seealso{ \code{\link{add1}}, \code{\link{drop1}} and
   \code{\link{anova.cca}} for basic methods. You probably need these
-  functions with \code{\link{step}} and \code{link{ordistep}}. Functions
+  functions with \code{\link{step}} and \code{\link{ordistep}}. Functions
   \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} are used
   to produce the other arguments than test results in the
   output. Functions \code{\link{cca}}, \code{\link{rda}} and

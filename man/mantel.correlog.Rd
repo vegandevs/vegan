@@ -7,8 +7,8 @@
 \description{
   Function \code{mantel.correlog} computes a multivariate
   Mantel correlogram. Proposed by Sokal (1986) and Oden and Sokal
-  (1986), the method is also described in Legendre and Legendre (1998,
-  pp. 736-738).
+  (1986), the method is also described in Legendre and Legendre (2012,
+  pp. 819--821).
 }
 
 \usage{
@@ -119,7 +119,7 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 
 \references{
 
-  Legendre, P. and L. Legendre. 1998. Numerical ecology, 2nd English
+  Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English
   edition. Elsevier Science BV, Amsterdam.
 
   Mantel, N. 1967. The detection of disease clustering and a generalized

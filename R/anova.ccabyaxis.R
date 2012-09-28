@@ -1,8 +1,6 @@
 `anova.ccabyaxis` <-
     function (object, cutoff = 1,  ...) 
 {
-    if(inherits(object, "prc"))
-        stop("anova(..., by = 'axis') cannot be used for 'prc' results")
     cutoff <- cutoff + sqrt(.Machine$double.eps)
     rnk <- object$CCA$rank
     if (!max(rnk, 0)) 
@@ -51,8 +49,10 @@
     environment(object$terms) <- environment()
     fla <- paste(". ~ ", axnam[1], "+ Condition(",
                  paste(axnam[-1], collapse="+"),")")
-    if (!is.null(CondMat))
+    if (!is.null(CondMat)) {
         fla <- paste(fla, " + Condition(CondMat)")
+        lc$CondMat <- CondMat
+    }
     fla <- update(formula(object), fla)
     sol <- anova(update(object, fla, data=lc),  ...)
     out[c(1, rnk + 1), ] <- sol

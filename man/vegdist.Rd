@@ -170,26 +170,24 @@
   are divided by \eqn{\log(2)}{log(2)} so that the results will be in
   the conventional range \eqn{0 \dots 1}.
 
-  Raup--Crick dissimilarity (\code{method = "raup"}) is a
-  probabilistic index based on presence/absence data.  It is defined
-  as \eqn{1 - prob(j)}, or based on the probability of observing at
-  least \eqn{j} species in shared in compared communities.  Legendre &
-  Legendre (1998) suggest using simulations to assess the probability,
-  but the current function uses analytic result from hypergeometric
-  distribution (\code{\link{phyper}}) instead.  This probability (and
-  the index) is dependent on the number of species missing in both
+  Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
+  index based on presence/absence data.  It is defined as \eqn{1 -
+  prob(j)}, or based on the probability of observing at least \eqn{j}
+  species in shared in compared communities.  The current function uses
+  analytic result from hypergeometric distribution
+  (\code{\link{phyper}}) to find the probablities.  This probability
+  (and the index) is dependent on the number of species missing in both
   sites, and adding all-zero species to the data or removing missing
-  species from the data will influence the index.  The probability
-  (and the index) may be almost zero or almost one for a wide range of
+  species from the data will influence the index.  The probability (and
+  the index) may be almost zero or almost one for a wide range of
   parameter values.  The index is nonmetric: two communities with no
   shared species may have a dissimilarity slightly below one, and two
-  identical communities may have dissimilarity slightly above
-  zero. The index uses equal occurrence probabilities for all species,
-  but Raup and Crick originally suggested that sampling probabilities
-  should be proportional to species frequencies (Chase et al. 2011). A
-  simulation approach with unequal species sampling probabilities is
-  implemented in \code{\link{raupcrick}} function following Chase et
-  al. (2011).
+  identical communities may have dissimilarity slightly above zero. The
+  index uses equal occurrence probabilities for all species, but Raup
+  and Crick originally suggested that sampling probabilities should be
+  proportional to species frequencies (Chase et al. 2011). A simulation
+  approach with unequal species sampling probabilities is implemented in
+  \code{\link{raupcrick}} function following Chase et al. (2011).
   
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
@@ -274,9 +272,6 @@
 
   Krebs, C. J. (1999). \emph{Ecological Methodology.} Addison Wesley Longman.
 
-  Legendre, P, & Legendre, L. (1998) \emph{Numerical Ecology}. 2nd English
-  Edition. Elsevier.
-  
   Mountford, M. D. (1962). An index of similarity and its application to
   classification problems. In: P.W.Murphy (ed.),
   \emph{Progress in Soil Zoology}, 43--50. Butterworths.

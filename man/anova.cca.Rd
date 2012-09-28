@@ -162,7 +162,7 @@ permutest(x, ...)
   only when \code{model = "direct"}.  
 }
 \references{
-  Legendre, P. and Legendre, L. (1998). \emph{Numerical Ecology}. 2nd
+  Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
   English ed. Elsevier.
 
   Legendre, P., Oksanen, J. and ter Braak, C.J.F. (2011). Testing the

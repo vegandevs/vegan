@@ -150,7 +150,7 @@ overview of rules.
   by different within-group variation (dispersion) instead of different
   mean values of the groups (see Warton et al. 2012 for a general
   analysis). However, it seems that \code{adonis} is less sensitive to
-  dispersion effects than some of its alternatives (\code{link{anosim}},
+  dispersion effects than some of its alternatives (\code{\link{anosim}},
   \code{\link{mrpp}}). Function \code{\link{betadisper}} is a sister
   function to \code{adonis} to study the differences in dispersion
   within the same geometric framework.

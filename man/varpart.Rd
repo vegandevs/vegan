@@ -168,7 +168,7 @@ table. }
 Borcard, D., P. Legendre & P. Drapeau. 1992. Partialling out the spatial
 component of ecological variation. Ecology 73: 1045--1055.
 
-Legendre, P. & L. Legendre. 1998. Numerical ecology, 2nd English edition.
+Legendre, P. & L. Legendre. 2012. Numerical ecology, 3rd English edition.
 Elsevier Science BV, Amsterdam.
 
 (b) Reference on transformations for species data

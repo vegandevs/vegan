@@ -45,6 +45,7 @@
             aic <- NA
         rdf <- length(x) - 1
     }
+    names(fit) <- names(x)
     names(p) <- c("alpha")
     out <- list(model = "Preemption", family = fam, y = x, coefficients = p, 
                 fitted.values = fit, aic = aic, rank = 1, df.residual = rdf, 

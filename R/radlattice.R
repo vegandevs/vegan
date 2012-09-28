@@ -1,6 +1,8 @@
 `radlattice` <-
     function(x, BIC = FALSE, ...)
 {
+    if (!inherits(x, "radfit"))
+        stop("function only works with 'radfit' results for single site")
     require(lattice) || stop("requires package 'lattice'")
     y <- x$y
     fv <- unlist(fitted(x))
@@ -10,7 +12,11 @@
     Abundance <- rep(y, p)
     Rank <- rep(1:n, p)
     Model <- factor(rep(mods, each=n), levels = mods)
-    aic <- AIC(x, BIC = BIC)
+    if (BIC)
+        k <- log(length(y))
+    else
+        k <- 2
+    aic <- AIC(x, k = k)
     col <- trellis.par.get("superpose.line")$col
     if (length(col) > 1)
         col <- col[2]

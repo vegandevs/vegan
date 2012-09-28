@@ -28,7 +28,7 @@
     if (!is.null(object$call$data))
         modelframe <- ordiGetData(object$call, globalenv())
     else
-        modelframe <- NULL
+        modelframe <- model.frame(object)
     for (.ITRM in ntrm:2) {
         if (ntrm < 2) 
             break

@@ -6,7 +6,7 @@
 
 \description{ This function computes coefficients of dispersal direction
 between geographically connected areas, as defined by Legendre and
-Legendre (1984), and also described in Legendre and Legendre (1998,
+Legendre (1984), and also described in Legendre and Legendre (2012,
 section 13.3.4). }
 
 \usage{
@@ -72,7 +72,7 @@ asymmetry in \eqn{(b-c)}. }
   freshwater fishes in the Québec
   peninsula. \emph{Can. J. Fish. Aquat. Sci.} \strong{41}: 1781-1802.
   
-  Legendre, P. and L. Legendre. 1998. \emph{Numerical ecology}, 2nd
+  Legendre, P. and L. Legendre. 2012. \emph{Numerical ecology}, 3rd
   English edition. Elsevier Science BV, Amsterdam.
   
   Sokal, R. R. and F. J. Rohlf. 1995. \emph{Biometry. The principles and

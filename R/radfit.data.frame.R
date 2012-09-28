@@ -1,9 +1,9 @@
-"radfit.data.frame" <-
-    function(df, ...)
+`radfit.data.frame` <-
+    function(x, ...)
 {
-    ## df *must* have rownames
-    rownames(df) <- rownames(df, do.NULL = TRUE)
-    out <- apply(df, 1, radfit, ...)
+    ## x *must* have rownames
+    rownames(x) <- rownames(x, do.NULL = TRUE)
+    out <- apply(x, 1, radfit, ...)
     if (length(out) == 1)
         out <- out[[1]]
     else {
@@ -11,4 +11,10 @@
         class(out) <- "radfit.frame"
     }
     out
+}
+
+`radfit.matrix` <-
+    function(x, ...)
+{
+    radfit(as.data.frame(x), ...)
 }

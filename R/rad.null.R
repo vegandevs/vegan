@@ -21,6 +21,7 @@
     }
     residuals <- x - fit
     rdf <- nsp
+    names(fit) <- names(x)
     p <- NA
     names(p) <- "S"
     out <- list(model = "Brokenstick", family=fam, y = x, coefficients = p,

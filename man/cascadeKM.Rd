@@ -117,7 +117,7 @@ cIndexKM(y, x, index = "all")
   distance matrix. (3) The first principal coordinate is used as the new
   order of the objects in the graph. A simplified algorithm is used to
   compute the first principal coordinate only, using the iterative
-  algorithm described in Legendre & Legendre (1998, Table 9.10). The
+  algorithm described in Legendre & Legendre (2012). The
   full distance matrix among objects is never computed; this avoids
   the problem of storing it when the number of objects is
   large. Distance values are computed as they are needed by the
@@ -157,7 +157,7 @@ cIndexKM(y, x, index = "all")
   methods used in multivariate analysis. \emph{Biometrika} \strong{53}:
   325-338.
   
-  Legendre, P. & L. Legendre. 1998. \emph{Numerical ecology}, 2nd
+  Legendre, P. & L. Legendre. 2012. \emph{Numerical ecology}, 3rd
   English edition. Elsevier Science BV, Amsterdam.
   
   Milligan, G. W. & M. C. Cooper. 1985. An examination of procedures for

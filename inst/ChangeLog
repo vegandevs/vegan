@@ -2,7 +2,37 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-19 (opened August 20, 2012)
+Version 2.1-20 (opened September 16, 2012)
+
+	* anova.cca: Dr Sven Neulinger (Christian Albrecht University,
+	Kiel, Germany) reported several problems with anova.cca cases. All
+	these were problems in scoping. Two problems solved with this
+	commit were: (1) anova.cca(..., by = "axis") always failed in
+	partial analysis (with conditions), (2) anova.cca(..., by =
+	"term") failed in partial models when there was no 'data='
+	argument, but the variables were in the global workspace. The
+	first fix also seems to allow anova(<prc.object>, by = "axis")
+	that used to fail. In addition, there is one unsolved problem with
+	search order: stats function C() is found instead of variable 'C'
+	and this gives an error message "object is not a matrix".
+
+	* radfit: The methods are now more consistent over different
+	levels of radfit models (radline, radfit, radfit.frame).  The
+	common methods to all include now AIC(), coef, deviance(),
+	logLik(), predict() and fitted(). The radfit() objects gained
+	points() and lines() methods. The data frame method also works
+	with matrices.  The predict() method gained new argument to change
+	the expected 'total' size of communities. The fitted() returns now
+	named vectors or matrices. It seems that radlattice() never
+	displayed BIC contrary to documentation and labelling in graph.
+	This has been wrong since the introduction of radlattice in r551
+	(2008-11-09).  Now radlattice also check that it gets the "radfit"
+	object it can handle.
+
+	* Rd: documentation files upgraded to the third English edition
+	(2012) of Legendre & Legendre.
+	
+Version 2.1-19 (closed September 16, 2012)
 
 	* adonis: Small changes in calculations. Simplified calculations
 	of matrix G as centred distance matrix, and does not keep n x n
@@ -58,6 +88,12 @@ Version 2.1-19 (opened August 20, 2012)
 
 	* protest: do not return the observed statistic as one of the
 	permuted values but separately.
+
+	* radfit: gained a predict method which works for single models
+	('radline'), radfit, and radfit.frame. All predict functions
+	accept 'newdata' which need not be integer, but extrapolation may
+	fail for some models.  Needs still documentation. The function was
+	provided due to a user request.
 	
 Version 2.1-18 (closed August 20, 2012)
 
