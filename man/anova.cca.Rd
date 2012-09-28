@@ -14,7 +14,7 @@
 \description{
   The function performs an ANOVA like permutation test for Constrained
   Correspondence Analysis (\code{\link{cca}}), Redundancy Analysis
-  (\code{\link{rda}}) or Constrained Analysis of Principal Coordinates
+  (\code{\link{rda}}) or distance-based Redundancy Analysis
   (\code{\link{capscale}}) to assess the significance of constraints.
 }
 \usage{
@@ -70,42 +70,6 @@ permutest(x, ...)
   Function \code{permutest.cca} is the proper workhorse, but
   \code{anova.cca} passes all parameters to \code{permutest.cca}.
 
-  In \code{anova.cca} the number of permutations is controlled by
-  targeted \dQuote{critical} \eqn{P} value (\code{alpha}) and accepted Type
-  II or rejection error (\code{beta}).  If the results of permutations
-  differ from the targeted \code{alpha} at risk level given by
-  \code{beta}, the permutations are
-  terminated.  If the current estimate of \eqn{P} does not
-  differ significantly from \code{alpha} of the alternative hypothesis,
-  the permutations are
-  continued with \code{step} new permutations (at the first step, the
-  number of permutations is \code{step - 1}).  However, with \code{by =
-    "terms"} a fixed number of permutations will be used, and this 
-  is given by argument \code{permutations}, or if this is missing,
-  by \code{step}.  
-  
-  The function \code{permutest.cca} implements a permutation test for
-  the \dQuote{significance} of constraints in \code{\link{cca}},
-  \code{\link{rda}} or \code{\link{capscale}}.  Community data are
-  permuted with choice \code{model = "direct"}, residuals after
-  partial CCA/RDA/CAP with choice \code{model = "reduced"} (default),
-  and residuals after CCA/RDA/CAP under choice \code{model = "full"}.
-  If there is no partial CCA/RDA/CAP stage, \code{model = "reduced"}
-  simply permutes the data and is equivalent to \code{model = "direct"}. 
-  The test statistic is ``pseudo-\eqn{F}'',
-  which is the ratio of constrained and unconstrained total Inertia
-  (Chi-squares, variances or something similar), each divided by their
-  respective ranks.  If there are no conditions (\dQuote{partial} terms), the
-  sum of all eigenvalues remains constant, so that pseudo-\eqn{F} and
-  eigenvalues would give equal results.  In partial CCA/RDA/CAP, the
-  effect of conditioning variables (\dQuote{covariables}) is removed before
-  permutation, and these residuals are added to the non-permuted fitted
-  values of partial CCA (fitted values of \code{X ~ Z}).  Consequently,
-  the total Chi-square is not fixed, and test based on pseudo-\eqn{F}
-  would differ from the test based on plain eigenvalues. CCA is a
-  weighted method, and environmental data are re-weighted at each
-  permutation step using permuted weights. 
-
   The default test is for the sum of all constrained eigenvalues.
   Setting \code{first = TRUE} will perform a test for the first
   constrained eigenvalue.  Argument \code{first} can be set either in
@@ -136,6 +100,38 @@ permutest(x, ...)
   will start from the same \code{\link{.Random.seed}}, and the seed
   will be advanced to the value after the longest permutation at the
   exit from the function.  
+  
+  In \code{anova.cca} the number of permutations is controlled by
+  targeted \dQuote{critical} \eqn{P} value (\code{alpha}) and accepted
+  Type II or rejection error (\code{beta}).  If the results of
+  permutations differ from the targeted \code{alpha} at risk level given
+  by \code{beta}, the permutations are terminated.  If the current
+  estimate of \eqn{P} does not differ significantly from \code{alpha} of
+  the alternative hypothesis, the permutations are continued with
+  \code{step} new permutations (at the first step, the number of
+  permutations is \code{step - 1}).  However, with \code{by="terms"} a
+  fixed number of permutations will be used, and this is given by
+  argument \code{permutations}, or if this is missing, by \code{step}.
+  
+  Community data are permuted with choice \code{model = "direct"},
+  residuals after partial CCA/RDA/CAP with choice \code{model =
+  "reduced"} (default), and residuals after CCA/RDA/CAP under choice
+  \code{model = "full"}.  If there is no partial CCA/RDA/CAP stage,
+  \code{model = "reduced"} simply permutes the data and is equivalent to
+  \code{model = "direct"}.  The test statistic is ``pseudo-\eqn{F}'',
+  which is the ratio of constrained and unconstrained total Inertia
+  (Chi-squares, variances or something similar), each divided by their
+  respective ranks.  If there are no conditions (\dQuote{partial}
+  terms), the sum of all eigenvalues remains constant, so that
+  pseudo-\eqn{F} and eigenvalues would give equal results.  In partial
+  CCA/RDA/CAP, the effect of conditioning variables
+  (\dQuote{covariables}) is removed before permutation, and these
+  residuals are added to the non-permuted fitted values of partial CCA
+  (fitted values of \code{X ~ Z}).  Consequently, the total Chi-square
+  is not fixed, and test based on pseudo-\eqn{F} would differ from the
+  test based on plain eigenvalues. CCA is a weighted method, and
+  environmental data are re-weighted at each permutation step using
+  permuted weights.
 }
 
 \value{ 
@@ -154,9 +150,9 @@ permutest(x, ...)
   and they may fail if data are unavailable.
  
   The default permutation \code{model} changed from \code{"direct"} to
-  \code{"reduced"} in \pkg{vegan} version 1.14-11 (release version
-  1.15-0), and you must explicitly set \code{model = "direct"} for
-  compatibility with the old version.
+  \code{"reduced"} in \pkg{vegan} version 1.15-0, and you must
+  explicitly set \code{model = "direct"} for compatibility with the old
+  version.
 
   Tests \code{by = "terms"} and \code{by = "margin"} are consistent
   only when \code{model = "direct"}.  

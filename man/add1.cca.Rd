@@ -4,7 +4,7 @@
 
 \title{Add or Drop  Single Terms to a Constrained Ordination Model }
 \description{
-Compute all single terms that can be added or dropped from a
+Compute all single terms that can be added to or dropped from a
 constrained ordination model.
 }
 \usage{
@@ -19,7 +19,7 @@ constrained ordination model.
   \code{\link{cca}}, \code{\link{rda}} or \code{\link{capscale}}. }
   \item{scope}{ A formula giving the terms to be considered for adding
   or dropping; see \code{\link{add1}} for details.}
-  \item{test}{ Should a permutation test added using \code{\link{anova.cca}}. }
+  \item{test}{ Should a permutation test be added using \code{\link{anova.cca}}. }
   \item{pstep}{Number of permutations in one step, passed as argument
   \code{step} to \code{\link{anova.cca}}.}
   \item{perm.max}{ Maximum number of permutation in \code{\link{anova.cca}}. }
@@ -36,16 +36,16 @@ constrained ordination model.
   Function \code{add1.cca} will implement a test for single term
   additions that is not directly available in \code{\link{anova.cca}}.
 
-  Functions are used implicitly in \code{\link{step}} and
-  \code{\link{ordistep}}. The \code{\link{deviance.cca}} and
-  \code{\link{deviance.rda}} used in \code{\link{step}} have no firm
-  basis, and setting argument \code{test = "permutation"} may help in
-  getting useful insight into validity of model building. Function
-  \code{\link{ordistep}} calls alternately \code{drop1.cca} and
-  \code{add1.cca} with argument \code{test = "permutation"} and
-  selects variables by their permutation \eqn{P}-values.  Meticulous
-  use of \code{add1.cca} and \code{drop1.cca} will allow more
-  judicious model building.
+  Functions are used implicitly in \code{\link{step}},
+  \code{\link{ordiR2step}} and \code{\link{ordistep}}. The
+  \code{\link{deviance.cca}} and \code{\link{deviance.rda}} used in
+  \code{\link{step}} have no firm basis, and setting argument \code{test
+  = "permutation"} may help in getting useful insight into validity of
+  model building. Function \code{\link{ordistep}} calls alternately
+  \code{drop1.cca} and \code{add1.cca} with argument \code{test =
+  "permutation"} and selects variables by their permutation
+  \eqn{P}-values.  Meticulous use of \code{add1.cca} and
+  \code{drop1.cca} will allow more judicious model building.
 
   The default \code{perm.max} is set to a low value, because
   permutation tests can take a long time. It should be sufficient to

@@ -63,18 +63,17 @@ swan(x, maxit = Inf)
   conditioned probabilities and weighted averages.
 
   Beals smoothing was originally suggested as a method of data
-  transformation to remove excessive zeros (Beals 1984, McCune
-  1994).  However, it is not a suitable method for this purpose since it
-  does not maintain the information on species presences: a species may
-  have a higher probability of occurrence at a site where it does not
-  occur than at sites where it occurs. Moreover, it regularizes data
-  too strongly. The method may be useful in identifying species that
-  belong to the species pool (Ewald 2002) or to identify suitable
-  unoccupied patches in metapopulation analysis
-  (\enc{Münzbergová}{Munzbergova} & Herben 
-  2004). In this case, the function should be called with \code{include
-  = FALSE} for cross-validation smoothing for species; argument
-  \code{species} can be used if only one species is studied.
+  transformation to remove excessive zeros (Beals 1984, McCune 1994).
+  However, it is not a suitable method for this purpose since it does
+  not maintain the information on species presences: a species may have
+  a higher probability of occurrence at a site where it does not occur
+  than at sites where it occurs. Moreover, it regularizes data too
+  strongly. The method may be useful in identifying species that belong
+  to the species pool (Ewald 2002) or to identify suitable unoccupied
+  patches in metapopulation analysis (\enc{Münzbergová}{Munzbergova} &
+  Herben 2004). In this case, the function should be called with
+  \code{include=FALSE} for cross-validation smoothing for species;
+  argument \code{species} can be used if only one species is studied.
 
   Swan (1970) suggested replacing zero values with degrees of absence of
   a species in a community data matrix. Swan expressed the method in

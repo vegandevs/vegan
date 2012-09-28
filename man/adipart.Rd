@@ -32,88 +32,122 @@ hiersimu(...)
   \item{x}{A matrix with same number of rows as in \code{y}, columns
     coding the levels of sampling hierarchy. The number of groups within
     the hierarchy must decrease from left to right. If \code{x} is missing,
-    two levels are assumed: each row is a group in the first level, and
-    all rows are in the same group in the second level.}
-  \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
-    is the community data matrix with samples as rows and species as column. Right 
-    hand side (\code{x}) must grouping vaiables referring to levels of sampling hierarchy, 
-    terms from right to left will be treated as nested (first column is the lowest, 
-    last is the highest level, at least two levels specified). Interaction terms are not allowed.}
-  \item{data}{A data frame where to look for variables defined in the right hand side 
-    of \code{formula}. If missing, variables are looked in the global environment.}
+    function performs an overall decomposition into alpha, beta and
+    gamma diversities.}
+  \item{formula}{A two sided model formula in the form \code{y ~ x},
+    where \code{y} is the community data matrix with samples as rows and
+    species as column. Right hand side (\code{x}) must grouping vaiables
+    referring to levels of sampling hierarchy, terms from right to left
+    will be treated as nested (first column is the lowest, last is the
+    highest level, at least two levels specified). Interaction terms are
+    not allowed.}
+
+  \item{data}{A data frame where to look for variables defined in the
+    right hand side of \code{formula}. If missing, variables are looked
+    in the global environment.}
+
   \item{index}{Character, the diversity index to be calculated (see Details).}
-  \item{weights}{Character, \code{"unif"} for uniform weights, \code{"prop"} for 
-    weighting proportional to sample abundances to use in weighted averaging of individual 
-    alpha values within strata of a given level of the sampling hierarchy.}
-  \item{relative}{Logical, if \code{TRUE} then alpha and beta diversity values are given 
-    relative to the value of gamma for function \code{adipart}.}
-  \item{nsimul}{Number of permutation to use if \code{matr} is not of class 'permat'.
-    If \code{nsimul = 0}, only the \code{FUN} argument is evaluated. It is thus possible
-    to reuse the statistic values without using a null model.}
-  \item{FUN}{A function to be used by \code{hiersimu}. This must be fully specified,
-    because currently other arguments cannot be passed to this function via \code{\dots}.}
-  \item{location}{Character, identifies which function (mean or median) is to be used to 
-    calculate location of the samples.}
-  \item{drop.highest}{Logical, to drop the highest level or not. When \code{FUN} 
-    evaluates only arrays with at least 2 dimensions, highest level should be dropped, 
-    or not selected at all.}
-  \item{\dots}{Other arguments passed to functions, e.g. base of logarithm for 
-    Shannon diversity, or \code{method}, \code{thin} or \code{burnin} arguments for
-    \code{\link{oecosimu}}.}
+
+  \item{weights}{Character, \code{"unif"} for uniform weights,
+    \code{"prop"} for weighting proportional to sample abundances to use
+    in weighted averaging of individual alpha values within strata of a
+    given level of the sampling hierarchy.}
+
+  \item{relative}{Logical, if \code{TRUE} then alpha and beta diversity
+    values are given relative to the value of gamma for function
+    \code{adipart}.}
+
+  \item{nsimul}{Number of permutations to use if \code{matr} is not of
+    class 'permat'.  If \code{nsimul = 0}, only the \code{FUN} argument
+    is evaluated. It is thus possible to reuse the statistic values
+    without using a null model.}
+
+  \item{FUN}{A function to be used by \code{hiersimu}. This must be
+    fully specified, because currently other arguments cannot be passed
+    to this function via \code{\dots}.}
+
+  \item{location}{Character, identifies which function (mean or median)
+    is to be used to calculate location of the samples.}
+
+  \item{drop.highest}{Logical, to drop the highest level or not. When
+    \code{FUN} evaluates only arrays with at least 2 dimensions, highest
+    level should be dropped, or not selected at all.}
+
+  \item{\dots}{Other arguments passed to functions, e.g. base of
+    logarithm for Shannon diversity, or \code{method}, \code{thin} or
+    \code{burnin} arguments for \code{\link{oecosimu}}.}
 }
+
 \details{
-Additive diversity partitioning means that mean alpha and beta diversity adds up to gamma 
-diversity, thus beta diversity is measured in the same dimensions as alpha and gamma 
-(Lande 1996). This additive procedure is than extended across multiple scales in a 
-hierarchical sampling design with \eqn{i = 1, 2, 3, \ldots, m} levels of sampling 
-(Crist et al. 2003). Samples in lower hierarchical levels are nested within higher level 
-units, thus from \eqn{i=1} to \eqn{i=m} grain size is increasing under constant survey 
-extent. At each level \eqn{i}, \eqn{\alpha_i} denotes average diversity found within samples.
 
-At the highest sampling level, the diversity components are calculated as 
-\deqn{\beta_m = \gamma - \alpha_m}{beta_m = gamma - alpha_m} 
-For each lower sampling level as
-\deqn{\beta_i = \alpha_{i+1} - \alpha_i}{beta_i = alpha_i+1 - alpha_i}
-Then, the additive partition of diversity is 
-\deqn{\gamma = \alpha_1 + \sum_{i=1}^m \beta_i}{gamma = alpha_1 + sum(beta_i)}
+  Additive diversity partitioning means that mean alpha and beta
+  diversities add up to gamma diversity, thus beta diversity is measured
+  in the same dimensions as alpha and gamma (Lande 1996). This additive
+  procedure is then extended across multiple scales in a hierarchical
+  sampling design with \eqn{i = 1, 2, 3, \ldots, m} levels of sampling
+  (Crist et al. 2003). Samples in lower hierarchical levels are nested
+  within higher level units, thus from \eqn{i=1} to \eqn{i=m} grain size
+  is increasing under constant survey extent. At each level \eqn{i},
+  \eqn{\alpha_i} denotes average diversity found within samples.
 
-Average alpha components can be weighted uniformly (\code{weight="unif"}) to calculate 
-it as simple average, or proportionally to sample abundances (\code{weight="prop"}) to 
-calculate it as weighted average as follows
-\deqn{\alpha_i = \sum_{j=1}^{n_i} D_{ij} w_{ij}}{alpha_i = sum(D_ij*w_ij)}
-where \eqn{D_{ij}} is the diversity index and \eqn{w_{ij}} is the weight calculated for 
-the \eqn{j}th sample at the \eqn{i}th sampling level.
+  At the highest sampling level, the diversity components are calculated
+  as \deqn{\beta_m  = \gamma -  \alpha_m}{beta_m = gamma -  alpha_m} For
+  each  lower   sampling  level   as  \deqn{\beta_i  =   \alpha_{i+1}  -
+  \alpha_i}{beta_i =  alpha_i+1 - alpha_i} Then,  the additive partition
+  of diversity is \deqn{\gamma  = \alpha_1 + \sum_{i=1}^m \beta_i}{gamma
+  = alpha_1 + sum(beta_i)}
 
-The implementation of additive diversity partitioning in \code{adipart} follows Crist et 
-al. 2003. It is based on species richness (\eqn{S}, not \eqn{S-1}), Shannon's and 
-Simpson's diversity indices stated as the \code{index} argument.
+  Average alpha components can be weighted uniformly
+  (\code{weight="unif"}) to calculate it as simple average, or
+  proportionally to sample abundances (\code{weight="prop"}) to
+  calculate it as weighted average as follows \deqn{\alpha_i =
+  \sum_{j=1}^{n_i} D_{ij} w_{ij}}{alpha_i = sum(D_ij*w_ij)} where
+  \eqn{D_{ij}} is the diversity index and \eqn{w_{ij}} is the weight
+  calculated for the \eqn{j}th sample at the \eqn{i}th sampling level.
 
-The expected diversity components are calculated \code{nsimul} times by individual based 
-randomisation of the community data matrix. This is done by the \code{"r2dtable"} method
-in \code{\link{oecosimu}} by default.
+  The implementation of additive diversity partitioning in
+  \code{adipart} follows Crist et al. 2003. It is based on species
+  richness (\eqn{S}, not \eqn{S-1}), Shannon's and Simpson's diversity
+  indices stated as the \code{index} argument.
 
-\code{hiersimu} works almost the same as \code{adipart}, but without comparing the actual 
-statistic values returned by \code{FUN} to the highest possible value (cf. gamma diversity). 
-This is so, because in most of the cases, it is difficult to ensure additive properties of 
-the mean statistic values along the hierarchy.
+  The expected diversity components are calculated \code{nsimul} times
+  by individual based randomisation of the community data matrix. This
+  is done by the \code{"r2dtable"} method in \code{\link{oecosimu}} by
+  default.
+
+  \code{hiersimu} works almost in the same way as \code{adipart}, but
+  without comparing the actual statistic values returned by \code{FUN}
+  to the highest possible value (cf. gamma diversity).  This is so,
+  because in most of the cases, it is difficult to ensure additive
+  properties of the mean statistic values along the hierarchy.
+
 }
 \value{
-An object of class 'adipart' or 'hiersimu' with same structure as 'oecosimu' objects.
+
+  An object of class \code{"adipart"} or \code{"hiersimu"} with same
+  structure as \code{\link{oecosimu}} objects.
+
 }
+
 \references{
-Crist, T.O., Veech, J.A., Gering, J.C. and Summerville,
-K.S. (2003). Partitioning species diversity across landscapes and regions:
-a hierarchical analysis of \eqn{\alpha}, \eqn{\beta}, and
-\eqn{\gamma}-diversity.
-\emph{Am. Nat.}, \bold{162}, 734--743.
 
-Lande, R. (1996). Statistics and partitioning of species
-diversity, and similarity among multiple communities.
-\emph{Oikos}, \bold{76}, 5--13.
+  Crist,   T.O.,   Veech,    J.A.,   Gering,   J.C.   and   Summerville,
+  K.S.  (2003).  Partitioning species  diversity  across landscapes  and
+  regions:  a hierarchical  analysis of  \eqn{\alpha},  \eqn{\beta}, and
+  \eqn{\gamma}-diversity.  \emph{Am. Nat.}, \bold{162}, 734--743.
+
+  Lande, R.  (1996). Statistics and partitioning of species diversity,
+  and similarity among multiple communities.  \emph{Oikos}, \bold{76},
+  5--13.
+
 }
 
-\author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
-\seealso{See \code{\link{oecosimu}} for permutation settings and calculating \eqn{p}-values.}
+\author{
+
+  \enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
+  \seealso{See \code{\link{oecosimu}} for permutation settings and
+  calculating \eqn{p}-values.  }
+
 \examples{
 ## NOTE: 'nsimul' argument usually needs to be >= 99
 ## here much lower value is used for demonstration

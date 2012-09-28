@@ -7,7 +7,7 @@
 \description{Analysis of variance using distance matrices --- for
   partitioning distance matrices among sources of variation and fitting
   linear models (e.g., factors, polynomial regression) to distance 
-  matrices; uses a permutation test with pseudo-F ratios.}
+  matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
 adonis(formula, data, permutations = 999, method = "bray",
@@ -65,7 +65,7 @@ variance, Excoffier, Smouse, and Quattro, 1992;
 and nested factors.
 
 If the experimental design has nestedness, then use \code{strata} to
-test hypotheses. For instance, imagine we are testing the whether a
+test hypotheses. For instance, imagine we are testing whether a
 plant community is influenced by nitrate amendments, and we have two
 replicate plots at each of two levels of nitrate (0, 10 ppm). We have
 replicated the experiment in three fields with (perhaps) different
@@ -121,8 +121,8 @@ overview of rules.
 
   \item{aov.tab}{Typical AOV table showing sources of variation,
     degrees of freedom, sequential sums of squares, mean squares,
-    \eqn{F} statistics, partial R-squared and \eqn{P} values, based on \eqn{N}
-    permutations. }
+    \eqn{F} statistics, partial \eqn{R^2}{R-squared} and \eqn{P}
+    values, based on \eqn{N} permutations. }
   \item{coefficients}{ matrix of coefficients of the linear model, with
     rows representing sources of variation and columns representing
     species; each column represents a fit of a species abundance to the

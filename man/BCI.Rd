@@ -21,7 +21,7 @@
   The data frame contains only the Barro Colorado Island subset of the
   original data.
 
-  The quadrats are located in a regular grid. See\code{examples} for the
+  The quadrats are located in a regular grid. See \code{examples} for the
   coordinates. 
 
 }
