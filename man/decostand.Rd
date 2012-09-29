@@ -55,8 +55,7 @@ scoverage(x, coverage.limit = 10)
     distance, the distances should be similar to the
     Chi-square distance used in correspondence analysis. However, the
     results from \code{\link{cmdscale}} would still differ, since
-    CA is a weighted ordination method (default \code{MARGIN =
-      1}).
+    CA is a weighted ordination method (default \code{MARGIN = 1}).
     \item \code{hellinger}: square root of \code{method = "total"}
     (Legendre & Gallagher 2001).
     \item \code{log}: logarithmic transformation as suggested by

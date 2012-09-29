@@ -44,8 +44,8 @@
   
   \item{newdata}{New data frame to be used in prediction or in
     calibration.  Usually this a new community data frame, but with
-    \code{type = "lc"} and for constrained component with \code{type =
-    "response"} and \code{type = "working"} it must be an environment
+    \code{type = "lc"} and for constrained component with 
+    \code{type = "response"} and \code{type = "working"} it must be a 
     data frame.  The \code{newdata} must have the same number of rows as
     the original community data for a \code{\link{cca}} result with
     \code{type = "response"} or \code{type = "working"}.  If the
@@ -112,9 +112,9 @@
   \code{type = "lc"} the function finds the linear combination scores
   for sites from environmental data. In that case the new data frame
   must contain all constraining and conditioning environmental variables
-  of the model formula. With \code{type = "response"} or \code{type =
-  "working"} the new data must contain envinronmental variables if
-  constrained component is desired, and community data matrix if
+  of the model formula. With \code{type = "response"} or 
+  \code{type = "working"} the new data must contain envinronmental variables 
+  if constrained component is desired, and community data matrix if
   residual or unconstrained component is desired.  With these types, the
   function uses \code{newdata} to find new \code{"lc"} (constrained) or
   \code{"wa"} scores (unconstrained) and then finding the response or

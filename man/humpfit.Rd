@@ -93,9 +93,9 @@ humpfit(mass, spno, family = poisson, start)
   methods. In addition, it can be accessed by the following methods
   for \code{\link{glm}} objects: \code{\link{AIC}},
   \code{\link{extractAIC}}, \code{\link{deviance}},
-  \code{\link{coef}}, \code{\link{residuals.glm}} (except \code{type =
-  "partial"}), \code{\link{fitted}}, and perhaps some others. In
-  addition, function \code{\link[ellipse]{ellipse.glm}} (package
+  \code{\link{coef}}, \code{\link{residuals.glm}} (except 
+  \code{type = "partial"}), \code{\link{fitted}}, and perhaps some others. 
+  In addition, function \code{\link[ellipse]{ellipse.glm}} (package
   \pkg{ellipse}) can be used to draw approximate confidence ellipses
   for pairs of parameters, if the normal assumptions look appropriate.
   } 

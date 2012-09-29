@@ -39,8 +39,7 @@ fitspecaccum(object, model, method = "random", ...)
     expected richness following
     Coleman et al. 1982, and \code{"rarefaction"} finds the mean when
     accumulating individuals instead of sites.  }
-  \item{permutations}{Number of permutations with \code{method =
-      "random"}.}
+  \item{permutations}{Number of permutations with \code{method = "random"}.}
   \item{conditioned}{ Estimation of standard deviation is conditional on
     the empirical dataset for the exact SAC}
   \item{gamma}{Method for estimating the total extrapolated number of species in the
@@ -101,8 +100,8 @@ fitspecaccum(object, model, method = "random", ...)
   achieves this by applying function \code{\link{rarefy}} with number of individuals
   corresponding to average number of individuals per site.
 
-  The function has a \code{plot} method. In addition, \code{method =
-  "random"} has \code{summary} and \code{boxplot} methods. 
+  The function has a \code{plot} method. In addition, \code{method = "random"} 
+  has \code{summary} and \code{boxplot} methods. 
 
   Function \code{predict} can return the values corresponding to
   \code{newdata} using linear (\code{\link{approx}}) or spline

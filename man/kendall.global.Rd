@@ -53,15 +53,16 @@ kendall.post(Y, group, nperm = 999, mult = "holm")
   compute Ward's agglomerative clustering of a matrix of correlations
   among the species. In detail: (1.1) compute a Pearson or Spearman
   correlation matrix (\code{correl.matrix}) among the species; (1.2)
-  turn it into a distance matrix: \code{mat.D =
-  as.dist(1-correl.matrix)}; (1.3) carry out Ward's hierarchical
-  clustering of that matrix using \code{hclust}: \code{clust.ward =
-  hclust(mat.D, "ward")}; (1.4) plot the dendrogram:
+  turn it into a distance matrix: \code{mat.D = as.dist(1-correl.matrix)}; 
+  (1.3) carry out Ward's hierarchical
+  clustering of that matrix using \code{hclust}: 
+  \code{clust.ward = hclust(mat.D, "ward")}; (1.4) plot the dendrogram:
   \code{plot(clust.ward, hang=-1)}; (1.5) cut the dendrogram in two
-  groups, retrieve the vector of species membership: \code{group.2 =
-  cutree(clust.ward, k=2)}. (1.6) After steps 2 and 3 below, you may
-  have to come back and try divisions of the species into k = 3, 4, 5,
-  \dots groups.
+  groups, retrieve the vector of species membership: 
+  \code{group.2 = cutree(clust.ward, k=2)}. (1.6) After steps 2 and 3 below, 
+  you may
+  have to come back and try divisions of the species into k = \eqn{3, 4, 5, \dots} 
+  groups.
 
   (2) Compute global tests of significance of the 2 (or more) groups
   using the function \code{kendall.global} and the vector defining the

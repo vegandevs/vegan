@@ -46,8 +46,8 @@ stepacross(dis, path = "shortest", toolong = 1, trace = TRUE, ...)
   \code{toolong}. 
 
   De'ath (1999) suggested a simplified method known as extended
-  dissimilarities, which are calculated with \code{path =
-    "extended"}. In this method, dissimilarities that are
+  dissimilarities, which are calculated with \code{path = "extended"}. 
+  In this method, dissimilarities that are
   \code{toolong} or longer are first made \code{NA}, and then the function
   tries to replace these \code{NA} dissimilarities with a path through
   single stepping stone points. If not all \code{NA} could be 
@@ -68,8 +68,8 @@ stepacross(dis, path = "shortest", toolong = 1, trace = TRUE, ...)
   \code{toolong} is zero or negative, the function does not make any
   dissimilarities into \code{NA}. If there are no \code{NA}s in the
   input  and \code{toolong = 0}, \code{path = "shortest"}
-  will find shorter paths for semi-metric indices, and \code{path =
-    "extended"} will do nothing. Function \code{\link{no.shared}} can be
+  will find shorter paths for semi-metric indices, and \code{path = "extended"} 
+  will do nothing. Function \code{\link{no.shared}} can be
   used to set dissimilarities to \code{NA}.
   
   If the data are disconnected or there is no path between all points,
@@ -82,8 +82,8 @@ stepacross(dis, path = "shortest", toolong = 1, trace = TRUE, ...)
 
   Alternative \code{path = "shortest"} uses Dijkstra's method for
   finding flexible shortest paths, implemented as priority-first search
-  for dense graphs (Sedgewick 1990). Alternative \code{path =
-    "extended"} follows De'ath (1999), but implementation is simpler
+  for dense graphs (Sedgewick 1990). Alternative \code{path = "extended"} 
+  follows De'ath (1999), but implementation is simpler
   than in his code.
   
 }

@@ -28,8 +28,8 @@ make.cepnames(names, seconditem = FALSE)
   function first makes valid \R names using \code{\link{make.names}},
   and then splits these into elemets. The CEP name is made by taking
   the four first letters of the first element, and four first letters
-  of the last (default) or the second element (with \code{seconditem =
-  TRUE}). If there was only one name element, it is
+  of the last (default) or the second element (with 
+  \code{seconditem = TRUE}). If there was only one name element, it is
   \code{\link{abbreviate}}d to eight letters. Finally, the names are
   made unique which may add numbers to duplicated names.
   

@@ -114,8 +114,8 @@ permutest(x, ...)
   argument \code{permutations}, or if this is missing, by \code{step}.
   
   Community data are permuted with choice \code{model = "direct"},
-  residuals after partial CCA/RDA/CAP with choice \code{model =
-  "reduced"} (default), and residuals after CCA/RDA/CAP under choice
+  residuals after partial CCA/RDA/CAP with choice \code{model = "reduced"} 
+  (default), and residuals after CCA/RDA/CAP under choice
   \code{model = "full"}.  If there is no partial CCA/RDA/CAP stage,
   \code{model = "reduced"} simply permutes the data and is equivalent to
   \code{model = "direct"}.  The test statistic is ``pseudo-\eqn{F}'',

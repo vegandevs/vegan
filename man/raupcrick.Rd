@@ -85,8 +85,8 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
   \pkg{vegan}.  Chase et al. (2011) script with \code{split = TRUE}
   uses half of tied simulation values to calculate a distance measure,
   and that choice cannot be directly reproduced in vegan (it is the
-  average of \pkg{vegan} \code{raupcrick} results with \code{chase =
-  TRUE} and \code{chase = FALSE}).}
+  average of \pkg{vegan} \code{raupcrick} results with 
+  \code{chase = TRUE} and \code{chase = FALSE}).}
 
 \seealso{The function is based on \code{\link{oecosimu}}. Function
   \code{\link{vegdist}} with {method = "raup"} implements a related

@@ -42,8 +42,8 @@ constrained ordination model.
   \code{\link{step}} have no firm basis, and setting argument \code{test
   = "permutation"} may help in getting useful insight into validity of
   model building. Function \code{\link{ordistep}} calls alternately
-  \code{drop1.cca} and \code{add1.cca} with argument \code{test =
-  "permutation"} and selects variables by their permutation
+  \code{drop1.cca} and \code{add1.cca} with argument 
+  \code{test = "permutation"} and selects variables by their permutation
   \eqn{P}-values.  Meticulous use of \code{add1.cca} and
   \code{drop1.cca} will allow more judicious model building.
 

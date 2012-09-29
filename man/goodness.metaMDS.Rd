@@ -27,8 +27,8 @@
     number of points. }
   \item{p.col, l.col}{Point and line colours.}
   \item{lwd}{Line width. For \code{\link{monoMDS}} the default is
-    \code{lwd = 1} if more than two lines are drawn, and \code{lwd =
-    2} otherwise.}
+    \code{lwd = 1} if more than two lines are drawn, and \code{lwd = 2} 
+    otherwise.}
   \item{\dots}{Other parameters to functions, e.g. graphical parameters.}
 }
 \details{
