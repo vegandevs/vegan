@@ -15,7 +15,7 @@
   The function performs an ANOVA like permutation test for Constrained
   Correspondence Analysis (\code{\link{cca}}), Redundancy Analysis
   (\code{\link{rda}}) or distance-based Redundancy Analysis
-  (\code{\link{capscale}}) to assess the significance of constraints.
+  (dbRDA, \code{\link{capscale}}) to assess the significance of constraints.
 }
 \usage{
 \method{anova}{cca}(object, alpha=0.05, beta=0.01, step=100, perm.max=9999,
@@ -113,18 +113,18 @@ permutest(x, ...)
   fixed number of permutations will be used, and this is given by
   argument \code{permutations}, or if this is missing, by \code{step}.
   
-  Community data are permuted with choice \code{model = "direct"},
-  residuals after partial CCA/RDA/CAP with choice \code{model = "reduced"} 
-  (default), and residuals after CCA/RDA/CAP under choice
-  \code{model = "full"}.  If there is no partial CCA/RDA/CAP stage,
-  \code{model = "reduced"} simply permutes the data and is equivalent to
-  \code{model = "direct"}.  The test statistic is ``pseudo-\eqn{F}'',
+  Community data are permuted with choice \code{model="direct"},
+  residuals after partial CCA/ RDA/ dbRDA with choice \code{model="reduced"} 
+  (default), and residuals after CCA/ RDA/ dbRDA under choice
+  \code{model="full"}.  If there is no partial CCA/ RDA/ dbRDA stage,
+  \code{model="reduced"} simply permutes the data and is equivalent to
+  \code{model="direct"}.  The test statistic is \dQuote{pseudo-\eqn{F}},
   which is the ratio of constrained and unconstrained total Inertia
   (Chi-squares, variances or something similar), each divided by their
   respective ranks.  If there are no conditions (\dQuote{partial}
   terms), the sum of all eigenvalues remains constant, so that
   pseudo-\eqn{F} and eigenvalues would give equal results.  In partial
-  CCA/RDA/CAP, the effect of conditioning variables
+  CCA/ RDA/ dbRDA, the effect of conditioning variables
   (\dQuote{covariables}) is removed before permutation, and these
   residuals are added to the non-permuted fitted values of partial CCA
   (fitted values of \code{X ~ Z}).  Consequently, the total Chi-square
