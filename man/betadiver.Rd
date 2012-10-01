@@ -52,11 +52,10 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
 
   Function \code{betadiver} finds all indices reviewed by Koleff et
   al. (2003). All these indices could be found with function
-  \code{\link{designdist}} which uses different notation, but the
-  current function provides a conventional shortcut. The function
-  only finds the indices. The proper analysis must be done with
-  functions such as \code{\link{betadisper}}, \code{\link{adonis}} or
-  \code{\link{mantel}}. 
+  \code{\link{designdist}}, but the current function provides a
+  conventional shortcut. The function only finds the indices. The proper
+  analysis must be done with functions such as \code{\link{betadisper}},
+  \code{\link{adonis}} or \code{\link{mantel}}.
 
   The indices are directly taken from Table 1 of Koleff et al. (2003),
   and they can be selected either by the index number or the subscript
@@ -91,11 +90,6 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   severe user error. Functions 10 (\code{"j"}) and 11 (\code{"sor"})
   are two such similarity indices.
 }
-
-\note{The argument \code{method} was called \code{index} in older
-  versions of the function (upto \pkg{vegan} version
-  1.17-11). Argument \code{index} is deprecated, but still recognized
-  with a warning. }
 
 \references{
 

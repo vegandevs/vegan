@@ -48,22 +48,27 @@ and DD2 only are sought. }
 
 \value{
 Function \code{bgdispersal} returns a list containing the following matrices:
-\item{ DD1 }{ \eqn{DD1[j,k] = (a * (b - c))/((a + b + c)^2)} }
-\item{ DD2 }{ \eqn{DD2[j,k] = (2*a * (b - c))/((2*a + b + c) * (a + b +
+\item{ DD1 }{ \eqn{DD1_{j,k} = (a(b - c))/((a + b + c)^2)}{DD1[j,k] = (a * (b - c))/((a + b + c)^2)} }
+\item{ DD2 }{ \eqn{DD2_{j,k} = (2 a (b - c))/((2a + b + c)  (a + b +
+    c))}{DD2[j,k] = (2*a * (b - c))/((2*a + b + c) * (a + b +
     c))}
   where \eqn{a}, \eqn{b}, and \eqn{c} have the 
 same meaning as in the computation of binary 
 similarity coefficients. }
-\item{ DD3 }{ DD3[j,k] = \eqn{W*(A-B) / ((A+B-W)^2)} }
-\item{ DD4 }{ DD4[j,k] = \eqn{2*W*(A-B) / ((A+B)*(A+B-W)})
+\item{ DD3 }{ \eqn{DD3_{j,k} = {W(A-B) / (A+B-W)^2} }{DD3[j,k] = W*(A-B) / (A+B-W)^2} }
+\item{ DD4 }{ \eqn{DD4_{j,k} = 2W(A-B) / ((A+B)(A+B-W))}{DD4[j,k] = 2*W*(A-B) / ((A+B)*(A+B-W))}
 where \code{W = sum(pmin(vector1, vector2))}, \code{A = sum(vector1)},
 \code{B = sum(vector2)} }
+
 \item{ McNemar }{ McNemar chi-square statistic of asymmetry (Sokal and
-Rohlf 1995): \eqn{2*(b*log(b) + c*log(c) - (b+c)*log((b+c)/2)) / q}
-where \eqn{q = 1 + 1/(2*(b+c))} (Williams correction for continuity) }
+  Rohlf 1995):
+  \eqn{2(b \log(b) + c \log(c) - (b+c) \log((b+c)/2)) / q}{2*(b*log(b) + c*log(c) - (b+c)*log((b+c)/2)) / q},
+  where \eqn{q = 1 + 1/(2(b+c))}{q = 1 + 1/(2*(b+c))}
+  (Williams correction for continuity) }
 \item{ prob.McNemar }{ probabilities associated 
 with McNemar statistics, chi-square test. H0: no 
 asymmetry in \eqn{(b-c)}. }
+
 }
 
 

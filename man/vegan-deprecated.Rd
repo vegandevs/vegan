@@ -55,9 +55,9 @@ commsimulator(x, method, thin=1)
   \code{\link{simulate.nullmodel}}.  Approximately the same
   documentation for these models is found in
   \code{\link{make.commsim}}.  (However, the random number sequences
-  for model \code{r0} differ, and you must use \code{method =
-  "r0_old"} in \code{\link{make.commsim}} to reproduce the
-  \code{commsimulator} results.)
+  for model \code{r0} differ, and you must use \code{method = "r0_old"} 
+  in \code{\link{make.commsim}} to reproduce the \code{commsimulator} 
+  results.)
 
   Function \code{commsimulator} implements binary (presence/absence) 
   null models for community composition.

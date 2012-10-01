@@ -41,8 +41,7 @@ orglspider(object, groups, display = "sites", w = weights(object, display),
     text labels.}
   \item{ax.col}{Axis colour (concerns only the crossed axes through the
     origin).}
-  \item{text}{Text to override the default with \code{type =
-    "t"}.}
+  \item{text}{Text to override the default with \code{type = "t"}.}
   \item{envfit}{Fitted environmental variables from \code{\link{envfit}}
     displayed in the graph.}
   \item{xlab, ylab, zlab}{Axis labels passed to

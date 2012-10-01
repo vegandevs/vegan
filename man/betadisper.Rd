@@ -49,7 +49,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   \item{group}{vector describing the group structure, usually a factor
     or an object that can be coerced to a factor using
     \code{\link[base]{as.factor}}. Can consist of a factor with a single
-    level (i.e.~one group).}
+    level (i.e., one group).}
   \item{type}{the type of analysis to perform. Use the spatial median or
     the group centroid? The spatial median is now the default.}
   \item{bias.adjust}{logical: adjust for small sample bias in beta diversity estimates?}
@@ -100,10 +100,11 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   \sqrt{\Delta^2(u_{ij}^+, c_i^+) - \Delta^2(u_{ij}^-, c_i^-)},}{z[ij]^c
   = sqrt(Delta^2(u[ij]^+, c[i]^+) - Delta^2(u[ij]^-, c[i]^-)),} where
   \eqn{\Delta^2}{Delta^2} is the squared Euclidean distance between
-  \eqn{u_{ij}}{u[ij]}, the principal coordinate for the \eqn{j^{th}}{jth}
-  point in the \eqn{i^{th}}{ith} group, and \eqn{c_i}{c[i]}, the
-  coordinate of the centroid for the \eqn{i^{th}}{ith} group. The
-  super-scripted \eqn{+} and \eqn{-} indicate the real and imaginary
+  \eqn{u_{ij}}{u[ij]}, the principal coordinate for the \eqn{j}th
+  point in the \eqn{i}th group, and \eqn{c_i}{c[i]}, the
+  coordinate of the centroid for the \eqn{i}th group. The
+  super-scripted \sQuote{\eqn{+}} and \sQuote{\eqn{-}} indicate
+  the real and imaginary
   parts respectively. This is equation (3) in Anderson (2006). If the
   imaginary part is greater in magnitude than the real part, then we
   would be taking the square root of a negative value, resulting in
@@ -114,9 +115,9 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   
   To test if one or more groups is more variable than the others, ANOVA
   of the distances to group centroids can be performed and parametric
-  theory used to interpret the significance of F. An alternative is to
+  theory used to interpret the significance of \eqn{F}. An alternative is to
   use a permutation test. \code{\link{permutest.betadisper}} permutes model
-  residuals to generate a permutation distribution of F under the Null
+  residuals to generate a permutation distribution of \eqn{F} under the Null
   hypothesis of no difference in dispersion between groups.
 
   Pairwise comparisons of group mean dispersions can also be performed
@@ -186,12 +187,12 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   prior to performing the analysis.
 }
 \section{Warning}{
-  Stewart Schultz noticed that the permutation test for \code{type =
-  "centroid"} had the wrong type I error and was anti-conservative. As
-  such, the default for \code{type} has been changed to \code{"median"},
-  which uses the spatial median as the group centroid. Tests suggests
-  that the permutation test for this type of analysis gives the correct
-  error rates.
+  Stewart Schultz noticed that the permutation test for
+  \code{type="centroid"} had the wrong type I error and was
+  anti-conservative. As such, the default for \code{type} has been
+  changed to \code{"median"}, which uses the spatial median as the group
+  centroid. Tests suggests that the permutation test for this type of
+  analysis gives the correct error rates.
 }
 \references{
   Anderson, M. J. (2001) A new method for non-parametric multivariate 

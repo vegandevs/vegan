@@ -27,7 +27,7 @@
     in \code{\link{vegdist}}. This is ignored if \code{comm} are dissimilarities.}
   \item{upto}{Maximum number of parameters in studied subsets.}
   \item{formula, data}{Model \code{\link{formula}} and data.}
-  \item{trace}{Trace the advance of calculations }
+  \item{trace}{Trace the calculations }
   \item{partial}{Dissimilarities partialled out when inspecting
     variables in \code{env}.}
   \item{parallel}{Number of parallel processes or a predefined socket

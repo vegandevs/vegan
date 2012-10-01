@@ -66,9 +66,9 @@ treedist(x, tree, relative = TRUE, ...)
   species traits contain \code{\link{factor}} or \code{\link{ordered}}
   factor variables, it is recommended to use Gower distances for mixed
   data (function \code{\link[cluster]{daisy}} in package \pkg{cluster}),
-  and usually the recommended clustering method is UPGMA (\code{method =
-  "average"} in function \code{\link{hclust}}) (Podani and Schmera
-  2006).
+  and usually the recommended clustering method is UPGMA 
+  (\code{method = "average"} in function \code{\link{hclust}}) 
+  (Podani and Schmera 2006).
 
   It is possible to analyse the non-randomness of functional diversity
   using \code{\link{oecosimu}}. This needs specifying an adequate Null

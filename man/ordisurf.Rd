@@ -113,9 +113,9 @@
   Wood, 2011). The addition of this extra penalty is invoked by
   setting argument \code{select} to \code{TRUE}. The function plots
   the fitted contours with convex hull of data points either over an
-  existing ordination diagram or draws a new plot. If \code{select ==
-  TRUE} and the smooth is effectively penalised out of the model, no
-  contours will be plotted.
+  existing ordination diagram or draws a new plot. If 
+  \code{select = TRUE} and the smooth is effectively penalised out of 
+  the model, no contours will be plotted.
 
   \code{\link[mgcv]{gam}} determines the degree of smoothness for the
   fitted response surface during model fitting. Argument \code{method}

@@ -114,8 +114,7 @@ metaMDSredist(object, ...)
    \code{"fail"} or \code{"add"} a small positive value, or
    \code{"ignore"}. \code{\link{monoMDS}} accepts zero dissimilarities
    and the default is \code{zerodist = "ignore"}, but with
-   \code{\link[MASS]{isoMDS}} you may need to set \code{zerodist =
-   "add"}.}
+   \code{\link[MASS]{isoMDS}} you may need to set \code{zerodist = "add"}.}
 
  \item{distfun}{Dissimilarity function. Any function returning a
    \code{dist} object and accepting argument \code{method} can be used

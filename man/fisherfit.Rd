@@ -111,8 +111,8 @@ as.preston(x, tiesplit = TRUE, ...)
   second octave are transferred to the higher one as well, but this is
   usually not as large a number of species. This practise makes data
   look more lognormal by reducing the usually high lowest
-  octaves. This can be achieved by setting argument \code{tiesplit =
-  TRUE}. With \code{tiesplit = FALSE} the frequencies are not split,
+  octaves. This can be achieved by setting argument \code{tiesplit = TRUE}. 
+  With \code{tiesplit = FALSE} the frequencies are not split,
   but all ones are in the lowest octave, all twos in the second, etc.
   Williamson & Gaston (2005) discuss alternative definitions in
   detail, and they should be consulted for a critical review of
@@ -128,8 +128,8 @@ as.preston(x, tiesplit = TRUE, ...)
   on the left so that some rare species are not observed. Function
   \code{prestonfit} fits the truncated lognormal model as a second
   degree log-polynomial to the octave pooled data using Poisson (when
-  \eqn{tiesplit = FALSE}) or quasi-Poisson (when \eqn{tiesplit =
-  TRUE}).  error. Function \code{prestondistr} fits left-truncated
+  \code{tiesplit = FALSE}) or quasi-Poisson (when \code{tiesplit = TRUE})
+  error.  Function \code{prestondistr} fits left-truncated
   Normal distribution to \eqn{\log_2}{log2} transformed non-pooled
   observations with direct maximization of log-likelihood. Function
   \code{prestondistr} is modelled after function

@@ -40,8 +40,8 @@ rgl.isomap(x, web = "white", ...)
 
   \item{type}{Plot observations either as \code{"points"},
     \code{"text"} or use \code{"none"} to plot no observations. The
-    \code{"text"} will use \code{\link{ordilabel}} if \code{net =
-    TRUE} and \code{\link{ordiplot}} if \code{net = FALSE}, and pass
+    \code{"text"} will use \code{\link{ordilabel}} if \code{net = TRUE} 
+    and \code{\link{ordiplot}} if \code{net = FALSE}, and pass
     extra arguments to these functions.}
 
   \item{web}{Colour of the web in \pkg{rgl} graphics.}

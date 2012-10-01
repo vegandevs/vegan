@@ -48,8 +48,9 @@ Adjusted R-square
   \eqn{R^2}{R-squared}. The adjusted \eqn{R^2}{R-squared} is found as
   the difference of adjusted \eqn{R^2}{R-squared} values of joint effect
   of partial and constraining terms and partial term alone, and it is
-  the same as the adjusted \eqn{R^2}{R-squared} of component \code{[a] =
-  X1|X2} in two-component variation partition in \code{\link{varpart}}.
+  the same as the adjusted \eqn{R^2}{R-squared} of component 
+  \code{[a] = X1|X2} in two-component variation partition in 
+  \code{\link{varpart}}.
   }
 
 \value{ The functions return a list of items \code{r.squared} and
