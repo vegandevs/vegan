@@ -4,10 +4,10 @@
     t.statistic <- function(x, y) {
         m <- length(x)
         n <- length(y)
-        xbar <- mean(x) ## .Internal(mean(x))
-        ybar <- mean(y) ## .Internal(mean(y))
-        xvar <- var(x)  ## .Internal(cov(x, NULL, 1, FALSE))
-        yvar <- var(y)  ## .Internal(cov(y, NULL, 1, FALSE))
+        xbar <- mean(x)
+        ybar <- mean(y)
+        xvar <- var(x)
+        yvar <- var(y)
         pooled <- sqrt(((m-1)*xvar + (n-1)*yvar) / (m+n-2))
         (xbar - ybar) / (pooled * sqrt(1/m + 1/n))
     }
@@ -33,7 +33,6 @@
                         x$distances[x$group == z[2]])})
     }
     for(i in seq(along = res[-1])) {
-        ##perm <- permuted.index2(nobs, control = control)
         perm <- shuffle(nobs, control = control)
         perm.resid <- resids[perm]
         f <- qr.fitted(mod.Q, perm.resid)
