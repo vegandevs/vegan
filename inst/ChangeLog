@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-20 (opened September 16, 2012)
+Version 2.1-21 (opened October 8, 2012)
+
+	* New version opened with the CRAN release of vegan 2.0-5 on Oct
+	8, 2012.
+
+Version 2.1-20 (closed October 8, 2012)
 
 	* anova.cca: Dr Sven Neulinger (Christian Albrecht University,
 	Kiel, Germany) reported several problems with anova.cca cases. All
