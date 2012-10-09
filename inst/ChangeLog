@@ -7,6 +7,14 @@ Version 2.1-21 (opened October 8, 2012)
 	* New version opened with the CRAN release of vegan 2.0-5 on Oct
 	8, 2012.
 
+	* dispindmorisita: output gained a new column for Chi-square
+	based probabilities that the null hypothesis (random distribution)
+	is true.
+
+	* clamtest: output was wrong when some of the possible
+	species groups were missing (bug report submitted by R Telford).
+
+
 Version 2.1-20 (closed October 8, 2012)
 
 	* anova.cca: Dr Sven Neulinger (Christian Albrecht University,
