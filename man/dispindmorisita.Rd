@@ -6,33 +6,42 @@
 Calculates the Morisita index of dispersion, standardized index values, and the so called clumpedness and uniform indices.
 }
 \usage{
-dispindmorisita(x, unique.rm = FALSE, crit = 0.05)
+dispindmorisita(x, unique.rm = FALSE, crit = 0.05, na.rm = FALSE)
 }
 \arguments{
-  \item{x}{community data matrix, with sites (samples) as rows and species as columns.}
-  \item{unique.rm}{logical, if \code{TRUE}, unique species (occurring in only one sample) are removed from the result.}
-  \item{crit}{two-sided p-value used to calculate critical Chi-squared values.}
+  \item{x}{community data matrix, with sites (samples) as rows and 
+    species as columns.}
+  \item{unique.rm}{logical, if \code{TRUE}, unique species (occurring 
+    in only one sample) are removed from the result.}
+  \item{crit}{two-sided p-value used to calculate critical 
+    Chi-squared values.}
+  \item{na.rm}{logical. 
+    Should missing values (including \code{NaN}) be omitted from the 
+    calculations?}
 }
 \details{
 The Morisita index of dispersion is defined as (Morisita 1959, 1962):
 
 \code{Imor = n * (sum(xi^2) - sum(xi)) / (sum(xi)^2 - sum(xi))}
 
-where \eqn{xi} is the count of individuals in sample \eqn{i}, and \eqn{n} is the
-number of samples (\eqn{i = 1, 2, \ldots, n}). \eqn{Imor} has values from 0 to
-\eqn{n}. In uniform (hyperdispersed) patterns its value falls between 0 and
-1, in clumped patterns it falls between 1 and \eqn{n}. For increasing sample
-sizes (i.e. joining neighbouring quadrats), \eqn{Imor} goes to \eqn{n} as the
-quadrat size approaches clump size. For random patterns, \eqn{Imor = 1} and
-counts in the samples follow Poisson frequency distribution.
+where \eqn{xi} is the count of individuals in sample \eqn{i}, and 
+\eqn{n} is the number of samples (\eqn{i = 1, 2, \ldots, n}). 
+\eqn{Imor} has values from 0 to \eqn{n}. In uniform (hyperdispersed) 
+patterns its value falls between 0 and 1, in clumped patterns it falls 
+between 1 and \eqn{n}. For increasing sample sizes (i.e. joining 
+neighbouring quadrats), \eqn{Imor} goes to \eqn{n} as the
+quadrat size approaches clump size. For random patterns, 
+\eqn{Imor = 1} and counts in the samples follow Poisson 
+frequency distribution.
 
-The deviation from random expectation can be tested using critical
-values of the Chi-squared distribution with \eqn{n-1} degrees of
-freedom. Confidence interval around 1 can be calculated by the clumped
+The deviation from random expectation (null hypothesis)
+can be tested using criticalvalues of the Chi-squared 
+distribution with \eqn{n-1} degrees of freedom. 
+Confidence intervals around 1 can be calculated by the clumped
 \eqn{Mclu} and uniform \eqn{Muni} indices (Hairston et al. 1971, Krebs
 1999) (Chi2Lower and Chi2Upper refers to e.g. 0.025 and 0.975 quantile
 values of the Chi-squared distribution with \eqn{n-1} degrees of
-freedom, respectively, for \code{alpha = 0.05}):
+freedom, respectively, for \code{crit = 0.05}):
 
 \code{Mclu = (Chi2Lower - n + sum(xi)) / (sum(xi) - 1)}
 
@@ -54,13 +63,15 @@ to calculate the standardized index \eqn{Imst}:
 }
 
 \value{ Returns a data frame with as many rows as the number of columns
-in the input data, and with four columns. Columns are: \code{imor}
+in the input data, and with four columns. Columns are: \code{imor} the
 unstandardized Morisita index, \code{mclu} the clumpedness index,
-\code{muni} the uniform index, \code{imst} standardized Morisita index.
+\code{muni} the uniform index, \code{imst} the standardized Morisita 
+index, \code{pchisq} the Chi-squared based probability for the null
+hypothesis of random expectation.
 }
 
 \references{
-  
+
 Morisita, M. 1959. Measuring of the dispersion of individuals and
 analysis of the distributional patterns.  \emph{Mem. Fac. Sci. Kyushu
 Univ. Ser. E} 2, 215--235.
