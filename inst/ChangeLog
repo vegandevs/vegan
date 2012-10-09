@@ -7,7 +7,7 @@ Version 2.1-21 (opened October 8, 2012)
 	* New version opened with the CRAN release of vegan 2.0-5 on Oct
 	8, 2012.
 
-	* dispindmorisita: output gained a new column for Chi-square
+	* dispindmorisita: output gained a new column for Chi-squared
 	based probabilities that the null hypothesis (random distribution)
 	is true.
 
