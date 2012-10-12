@@ -2,6 +2,98 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-5}{
+
+  \subsection{BUG FIXES}{
+
+    \itemize{
+
+      \item \code{anova(<cca_object>, ...)} failed with \code{by =
+      "axis"} and \code{by = "term"}. The bug was reported by Dr Sven
+      Neulinger (Christian Albrecht University, Kiel, Germany).
+
+      \item \code{radlattice} did not honour argument \code{BIC = TRUE},
+      but always displayed AIC.
+
+    }
+
+  } % bug fixes
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item Most \pkg{vegan} functions with permutation tests have now a
+      \code{density} method that can be used to find empirical
+      probability distributions of permutations. There is a new
+      \code{plot} method for these functions that displays both the
+      density and the observed statistic. The \code{density} function is
+      available for \code{adonis}, \code{anosim}, \code{mantel},
+      \code{mantel.partial}, \code{mrpp}, \code{permutest.cca} and
+      \code{procrustes}.
+
+      Function \code{adonis} can return several statistics, and it has
+      now a \code{densityplot} method (based on \pkg{lattice}).
+
+      Function \code{oecosimu} already had \code{density} and
+      \code{densityplot}, but they are now similar to other \pkg{vegan}
+      methods, and also work with \code{adipart}, \code{hiersimu} and
+      \code{multipart}.
+
+      \item \code{radfit} functions got a \code{predict} method that
+      also accepts arguments \code{newdata} and \code{total} for new
+      ranks and site totals for prediction.  The functions can also
+      interpolate to non-integer \dQuote{ranks}, and in some models
+      also extrapolate.
+
+    }
+  } % new functions
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Labels can now be set in the \code{plot} of \code{envfit}
+      results. The labels must be given in the same order that the
+      function uses internally, and new support function \code{labels}
+      can be used to display the default labels in their correct order.
+
+      \item Mantel tests (functions \code{mantel} and
+      \code{mantel.partial}) gained argument \code{na.rm} which can be
+      used to remove missing values. This options should be used with
+      care: Permutation tests can be biased if the missing values were
+      originally in matching or fixed positions.
+
+      \item \code{radfit} results can be consistently accessed with
+      the same methods whether they were a single model for a single
+      site, all models for a single site or all models for all sites
+      in the data.  All functions now have methods \code{AIC},
+      \code{coef}, \code{deviance}, \code{logLik}, \code{fitted},
+      \code{predict} and \code{residuals}.
+
+    }
+
+  } % new features
+  
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item Building of \pkg{vegan} vignettes failed with the latest
+      version of LaTeX (TeXLive 2012).
+
+      \item \R{} versions later than 2.15-1 (including development
+      version) report warnings and errors when installing and checking
+      \pkg{vegan}, and you must upgrade \pkg{vegan} to this version.
+      The warnings concern functions \code{cIndexKM} and
+      \code{betadisper}, and the error occurs in \code{betadisper}.
+      These errors and warnings were triggered by internal changes in
+      \R.
+      
+    }
+  } % installation and building
+  
+
+} % version 2.0-5
+
+
 \section{Changes in version 2.0-4}{
 
   \subsection{BUG FIXES}{

@@ -24,7 +24,8 @@ Community matrix, consisting of counts.
 }
   \item{groups}{
 A vector identifying the two habitats. Must have exactly
-two unique values or levels.
+two unique values or levels. Habitat IDs in the grouping vector
+must match corresponding rows in the community matrix \code{comm}.
 }
   \item{coverage.limit}{
 Integer, the sample coverage based correction 
