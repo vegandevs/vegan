@@ -1,8 +1,8 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+R Under development (unstable) (2012-10-12 r60919) -- "Unsuffered Consequences"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-19
+This is vegan 2.1-21
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x102470f90>
+<environment: 0x2ab7cc0>
 Total model degrees of freedom 3 
 
 GCV score: 0.0427924
@@ -668,6 +668,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > library(lattice)
 > dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
 +         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
@@ -2345,71 +2349,71 @@ Eigenvalues for unconstrained axes:
 > data(dune)
 > x <- dispindmorisita(dune)
 > x
-             imor      mclu         muni        imst
-Belper  2.0512821  2.154361  0.158876373  0.45535255
-Empnig 20.0000000 14.852327 -9.093483518  1.00000000
-Junbuf  4.1025641  2.154361  0.158876373  0.55458486
-Junart  3.1372549  1.814843  0.406265675  0.53635966
-Airpra  8.0000000  4.463082 -1.523370880  0.61382303
-Elepal  3.7333333  1.577180  0.579438187  0.55851854
-Rumace  3.9215686  1.814843  0.406265675  0.55792432
-Viclat  3.3333333  5.617442 -2.364494506  0.25266513
-Brarut  1.1904762  1.288590  0.789719093  0.33001160
-Ranfla  2.4175824  2.065564  0.223578191  0.50981405
-Cirarv 20.0000000 14.852327 -9.093483518  1.00000000
-Hyprad  6.6666667  2.731541 -0.261685440  0.61393969
-Leoaut  0.9643606  1.261365  0.809556915 -0.09356972
-Potpal  6.6666667  5.617442 -2.364494506  0.53647558
-Poapra  1.1702128  1.294730  0.785245032  0.28876015
-Calcus  5.3333333  2.539147 -0.121498169  0.58001287
-Tripra  6.6666667  2.731541 -0.261685440  0.61393969
-Trirep  1.2210916  1.301138  0.780576445  0.36709402
-Antodo  2.6666667  1.692616  0.495325824  0.52660266
-Salrep  5.8181818  2.385233 -0.009348352  0.59744520
-Achmil  2.1666667  1.923488  0.327101099  0.50672636
-Poatri  1.4644137  1.223425  0.837201879  0.50641728
-Chealb        NaN       Inf         -Inf         NaN
-Elyrep  2.7692308  1.554093  0.596260659  0.53293787
-Sagpro  2.4210526  1.729070  0.468764025  0.51893672
-Plalan  2.4615385  1.554093  0.596260659  0.52459747
-Agrsto  1.8085106  1.294730  0.785245032  0.51373357
-Lolper  1.5849970  1.243023  0.822921342  0.50911591
-Alogen  2.5396825  1.395781  0.711614757  0.53074307
-Brohor  3.2380952  1.989452  0.279036892  0.53466422
+             imor      mclu         muni        imst       pchisq
+Belper  2.0512821  2.154361  0.158876373  0.45535255 3.451547e-02
+Empnig 20.0000000 14.852327 -9.093483518  1.00000000 5.934709e-03
+Junbuf  4.1025641  2.154361  0.158876373  0.55458486 1.503205e-05
+Junart  3.1372549  1.814843  0.406265675  0.53635966 2.066336e-05
+Airpra  8.0000000  4.463082 -1.523370880  0.61382303 3.571702e-04
+Elepal  3.7333333  1.577180  0.579438187  0.55851854 2.958285e-10
+Rumace  3.9215686  1.814843  0.406265675  0.55792432 1.530085e-07
+Viclat  3.3333333  5.617442 -2.364494506  0.25266513 1.301890e-01
+Brarut  1.1904762  1.288590  0.789719093  0.33001160 8.071762e-02
+Ranfla  2.4175824  2.065564  0.223578191  0.50981405 7.010483e-03
+Cirarv 20.0000000 14.852327 -9.093483518  1.00000000 5.934709e-03
+Hyprad  6.6666667  2.731541 -0.261685440  0.61393969 7.832274e-07
+Leoaut  0.9643606  1.261365  0.809556915 -0.09356972 5.823404e-01
+Potpal  6.6666667  5.617442 -2.364494506  0.53647558 1.055552e-02
+Poapra  1.1702128  1.294730  0.785245032  0.28876015 1.046531e-01
+Calcus  5.3333333  2.539147 -0.121498169  0.58001287 7.982634e-06
+Tripra  6.6666667  2.731541 -0.261685440  0.61393969 7.832274e-07
+Trirep  1.2210916  1.301138  0.780576445  0.36709402 6.335449e-02
+Antodo  2.6666667  1.692616  0.495325824  0.52660266 5.897217e-05
+Salrep  5.8181818  2.385233 -0.009348352  0.59744520 2.687397e-07
+Achmil  2.1666667  1.923488  0.327101099  0.50672636 9.157890e-03
+Poatri  1.4644137  1.223425  0.837201879  0.50641728 2.747301e-04
+Chealb        NaN       Inf         -Inf         NaN          NaN
+Elyrep  2.7692308  1.554093  0.596260659  0.53293787 1.180195e-06
+Sagpro  2.4210526  1.729070  0.468764025  0.51893672 4.956394e-04
+Plalan  2.4615385  1.554093  0.596260659  0.52459747 1.921730e-05
+Agrsto  1.8085106  1.294730  0.785245032  0.51373357 1.142619e-05
+Lolper  1.5849970  1.243023  0.822921342  0.50911591 5.873839e-05
+Alogen  2.5396825  1.395781  0.711614757  0.53074307 3.024441e-08
+Brohor  3.2380952  1.989452  0.279036892  0.53466422 1.170437e-04
 > y <- dispindmorisita(dune, unique.rm = TRUE)
 > y
-            imor     mclu         muni        imst
-Belper 2.0512821 2.154361  0.158876373  0.45535255
-Junbuf 4.1025641 2.154361  0.158876373  0.55458486
-Junart 3.1372549 1.814843  0.406265675  0.53635966
-Airpra 8.0000000 4.463082 -1.523370880  0.61382303
-Elepal 3.7333333 1.577180  0.579438187  0.55851854
-Rumace 3.9215686 1.814843  0.406265675  0.55792432
-Viclat 3.3333333 5.617442 -2.364494506  0.25266513
-Brarut 1.1904762 1.288590  0.789719093  0.33001160
-Ranfla 2.4175824 2.065564  0.223578191  0.50981405
-Hyprad 6.6666667 2.731541 -0.261685440  0.61393969
-Leoaut 0.9643606 1.261365  0.809556915 -0.09356972
-Potpal 6.6666667 5.617442 -2.364494506  0.53647558
-Poapra 1.1702128 1.294730  0.785245032  0.28876015
-Calcus 5.3333333 2.539147 -0.121498169  0.58001287
-Tripra 6.6666667 2.731541 -0.261685440  0.61393969
-Trirep 1.2210916 1.301138  0.780576445  0.36709402
-Antodo 2.6666667 1.692616  0.495325824  0.52660266
-Salrep 5.8181818 2.385233 -0.009348352  0.59744520
-Achmil 2.1666667 1.923488  0.327101099  0.50672636
-Poatri 1.4644137 1.223425  0.837201879  0.50641728
-Elyrep 2.7692308 1.554093  0.596260659  0.53293787
-Sagpro 2.4210526 1.729070  0.468764025  0.51893672
-Plalan 2.4615385 1.554093  0.596260659  0.52459747
-Agrsto 1.8085106 1.294730  0.785245032  0.51373357
-Lolper 1.5849970 1.243023  0.822921342  0.50911591
-Alogen 2.5396825 1.395781  0.711614757  0.53074307
-Brohor 3.2380952 1.989452  0.279036892  0.53466422
+            imor     mclu         muni        imst       pchisq
+Belper 2.0512821 2.154361  0.158876373  0.45535255 3.451547e-02
+Junbuf 4.1025641 2.154361  0.158876373  0.55458486 1.503205e-05
+Junart 3.1372549 1.814843  0.406265675  0.53635966 2.066336e-05
+Airpra 8.0000000 4.463082 -1.523370880  0.61382303 3.571702e-04
+Elepal 3.7333333 1.577180  0.579438187  0.55851854 2.958285e-10
+Rumace 3.9215686 1.814843  0.406265675  0.55792432 1.530085e-07
+Viclat 3.3333333 5.617442 -2.364494506  0.25266513 1.301890e-01
+Brarut 1.1904762 1.288590  0.789719093  0.33001160 8.071762e-02
+Ranfla 2.4175824 2.065564  0.223578191  0.50981405 7.010483e-03
+Hyprad 6.6666667 2.731541 -0.261685440  0.61393969 7.832274e-07
+Leoaut 0.9643606 1.261365  0.809556915 -0.09356972 5.823404e-01
+Potpal 6.6666667 5.617442 -2.364494506  0.53647558 1.055552e-02
+Poapra 1.1702128 1.294730  0.785245032  0.28876015 1.046531e-01
+Calcus 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
+Tripra 6.6666667 2.731541 -0.261685440  0.61393969 7.832274e-07
+Trirep 1.2210916 1.301138  0.780576445  0.36709402 6.335449e-02
+Antodo 2.6666667 1.692616  0.495325824  0.52660266 5.897217e-05
+Salrep 5.8181818 2.385233 -0.009348352  0.59744520 2.687397e-07
+Achmil 2.1666667 1.923488  0.327101099  0.50672636 9.157890e-03
+Poatri 1.4644137 1.223425  0.837201879  0.50641728 2.747301e-04
+Elyrep 2.7692308 1.554093  0.596260659  0.53293787 1.180195e-06
+Sagpro 2.4210526 1.729070  0.468764025  0.51893672 4.956394e-04
+Plalan 2.4615385 1.554093  0.596260659  0.52459747 1.921730e-05
+Agrsto 1.8085106 1.294730  0.785245032  0.51373357 1.142619e-05
+Lolper 1.5849970 1.243023  0.822921342  0.50911591 5.873839e-05
+Alogen 2.5396825 1.395781  0.711614757  0.53074307 3.024441e-08
+Brohor 3.2380952 1.989452  0.279036892  0.53466422 1.170437e-04
 > dim(x) ## with unique species
-[1] 30  4
+[1] 30  5
 > dim(y) ## unique species removed
-[1] 27  4
+[1] 27  5
 > 
 > 
 > 
@@ -2611,7 +2615,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > (fit <- envfit(ord, varechem, perm = 999))
@@ -3090,7 +3094,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > stressplot(mod)
@@ -4340,7 +4344,7 @@ nullmodel method ‘r2dtable’ with 99 simulations
 alternative hypothesis: simulated median is not equal to the statistic
 
           statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 13.06 0.46704 0.44057 0.46544 0.4924     0.01 **
+statistic   0.64565 14.66 0.46734 0.44069 0.46760 0.4903     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4364,7 +4368,7 @@ nullmodel method ‘myshuffle’ with 99 simulations
 alternative hypothesis: simulated median is not equal to the statistic
 
           statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
-statistic   0.64565 3.1188 0.63551 0.62983 0.63557 0.6416     0.03 *
+statistic   0.64565 3.1832 0.63514 0.63016 0.63441 0.6419     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4899,17 +4903,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109eec260>
+<environment: 0xa05c300>
 
 Estimated degrees of freedom:
-6.4351  total = 7.435071 
+6.44  total = 7.44 
 
 GCV score: 144.1236
 > 
@@ -4922,10 +4926,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10ab8bb78>
+<environment: 0x9df8f50>
 
 Estimated degrees of freedom:
-6.1039  total = 7.103853 
+6.1  total = 7.1 
 
 GCV score: 140.0949
 > 
@@ -4934,13 +4938,13 @@ GCV score: 140.0949
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
+22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
          8          9         10         11         12         13         14 
-11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
+11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
         15         16         17         18         19         20         21 
-18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
+18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
         22         23         24 
- 3.0020413  9.8128952  7.3656932 
+ 3.0020415  9.8128952  7.3656934 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -5045,6 +5049,10 @@ Loading required package: lattice
 > ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
 > ordicloud(ord, form = CA2 ~ CA3*CA1 | Management, groups = Manure,
 +    data = dune.env, auto.key = TRUE, type = c("p","h"))
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -5071,17 +5079,17 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10566b408>
+<environment: 0x702bcf8>
 
 Estimated degrees of freedom:
-8.9275  total = 9.927492 
+8.93  total = 9.93 
 
 GCV score: 0.001054656
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
@@ -5091,10 +5099,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109a7da08>
+<environment: 0x8de5c00>
 
 Estimated degrees of freedom:
-7.7529  total = 8.75294 
+7.75  total = 8.75 
 
 GCV score: 0.002284958
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
@@ -5104,10 +5112,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1098ed878>
+<environment: 0x80c4518>
 
 Estimated degrees of freedom:
-8.8962  total = 9.89616 
+8.9  total = 9.9 
 
 GCV score: 0.002508871
 > par(op)
@@ -5869,8 +5877,8 @@ Rotation matrix:
 [2,] 0.1169579  0.9931369
 
 Translation of averages:
-             [,1]          [,2]
-[1,] 3.893131e-18 -9.725997e-18
+             [,1]         [,2]
+[1,] 1.674651e-17 2.106557e-17
 
 Scaling of target:
 [1] 0.6736868
@@ -5917,10 +5925,14 @@ Scaling of target:
 > 
 > ### Name: radfit
 > ### Title: Rank - Abundance or Dominance / Diversity Models
-> ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit as.rad
-> ###   coef.radfit fitted.radfit lines.radline plot.radfit.frame plot.radfit
-> ###   plot.radline plot.rad radlattice points.radline summary.radfit.frame
-> ###   rad.preempt rad.lognormal rad.zipf rad.zipfbrot rad.null
+> ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit
+> ###   AIC.radfit.frame as.rad coef.radfit coef.radfit.frame deviance.radfit
+> ###   deviance.radfit.frame 'logLik, radfit' 'logLik, radfit.frame'
+> ###   fitted.radfit fitted.radfit.frame lines.radline lines.radfit
+> ###   plot.radfit.frame plot.radfit plot.radline plot.rad radlattice
+> ###   points.radline points.radfit summary.radfit.frame rad.preempt
+> ###   rad.lognormal rad.zipf rad.zipfbrot rad.null predict.radline
+> ###   predict.radfit predict.radfit.frame
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -5959,6 +5971,9 @@ Lognormal  29.2719 16.6588 17.078
 Zipf       50.1262 47.9108 30.936
 Mandelbrot  5.7342  5.5665 10.573
 > plot(mod, pch=".")
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[7L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -7243,8 +7258,12 @@ Individual fractions
 [d] = Residuals                         0.46206    FALSE
 ---
 Use function 'rda' to test significance of fractions of interest
-> showvarparts(2)
-> plot(mod)
+> 
+> ## argument 'bg' is passed to circle drawing, and the following
+> ## defines semitransparent colours
+> col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
+> showvarparts(2, bg = col2)
+> plot(mod, bg = col2)
 > # Alternative way of to conduct this partitioning
 > # Change the data frame with factors into numeric model matrix
 > mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
@@ -7470,7 +7489,7 @@ Run 16 stress 0.2109643
 Run 17 stress 0.1825664 
 ... New best solution
 ... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843199 
+Run 18 stress 0.1843201 
 Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > plot(ord, type = "t")
@@ -7640,14 +7659,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109b19340>
+<environment: 0xac90180>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8094,13 +8113,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
+-9.992007e-16 -1.665335e-16  6.661338e-16 -3.330669e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
+ 2.775558e-17  1.249001e-16  1.387779e-17  1.387779e-17  1.249001e-16 
          CA11          CA12          CA13          CA14          CA15 
- 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
+ 8.326673e-17  6.938894e-18 -1.387779e-17  2.775558e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
+-3.295975e-17  2.428613e-17  2.949030e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8109,7 +8128,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
-    0 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8127,7 +8146,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  82.41 1.457 84.423 0 0 
+Time elapsed:  25.917 0.18 26.257 0 0 
 > grDevices::dev.off()
 null device 
           1 
