@@ -14,6 +14,9 @@ Version 2.1-21 (opened October 8, 2012)
 	* clamtest: output was wrong when some of the possible
 	species groups were missing (bug report submitted by R Telford).
 
+	* procrustes: plot() of two-dimensional solutions often draw
+	original axes in a wrong angle. The problem was reported by
+	Elizabeth Ottesen (MIT).
 
 Version 2.1-20 (closed October 8, 2012)
 
