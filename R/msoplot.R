@@ -35,7 +35,8 @@
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
                   pch = 3, ...)
             ## Legend
-            legend(legend, c(label[c(2,3:b)+3], ci.lab, sign.lab),
+            legend(legend, 
+                   legend=c(label[c(2,3:b)+3], ci.lab, sign.lab),
                    lty=c(c(1,2,1,1,1)[2:b], 1, if(hasSig) NA),
                    pch=c(3, (6:(b+3))-6, NA, if(hasSig) 15)
                    )
@@ -56,7 +57,7 @@
                  label = c(vario$n), cex = 0.8)
             abline(v = max(object$H)/2, lty = 3, ...)
             legend(legend,
-                   c("Total variance","Global variance estimate",
+                   legend=c("Total variance","Global variance estimate",
                      if(hasSig) "Sign. autocorrelation"),
                    lty=c(1,5, if(hasSig) NA),
                    pch = if(hasSig) c(NA,NA,15) else NULL)
