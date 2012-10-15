@@ -14,7 +14,7 @@ of cca or rda results}
 
 \usage{
 mso(object.cca, object.xy, grain = 1, round.up = FALSE, permutations = FALSE)
-msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, ...)
+msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...)
 }
 \arguments{
   \item{object.cca}{ An object of class cca, created by the \code{\link{cca}} or
@@ -40,6 +40,9 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, ...)
   \item{explained}{ If false, suppresses the plotting of the variogram
     of explained variance.}
   \item{ylim}{Limits for y-axis.}
+  \item{legend}{The x and y co-ordinates to be used to position the legend. 
+    They can be specified by keyword or in any way which is accepted 
+    by \code{\link{legend}}.}
   \item{\dots}{Other arguments passed to functions.}
 }
 \details{

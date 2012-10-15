@@ -1,5 +1,6 @@
 `msoplot` <-
-    function (x, alpha = 0.05, explained = FALSE, ylim = NULL, ...) 
+    function (x, alpha = 0.05, explained = FALSE, ylim = NULL, 
+    legend = "topleft", ...) 
 {
     object.cca <- x
     if (is.data.frame(object.cca$vario)) {
@@ -34,7 +35,7 @@
             lines(vario$Dist, vario$Sum, type = "b", lty = 2, 
                   pch = 3, ...)
             ## Legend
-            legend("topleft", c(label[c(2,3:b)+3], ci.lab, sign.lab),
+            legend(legend, c(label[c(2,3:b)+3], ci.lab, sign.lab),
                    lty=c(c(1,2,1,1,1)[2:b], 1, if(hasSig) NA),
                    pch=c(3, (6:(b+3))-6, NA, if(hasSig) 15)
                    )
@@ -54,7 +55,7 @@
             text(x = c(vario$Dist), y = par("usr")[3], pos = 3, 
                  label = c(vario$n), cex = 0.8)
             abline(v = max(object$H)/2, lty = 3, ...)
-            legend("topleft",
+            legend(legend,
                    c("Total variance","Global variance estimate",
                      if(hasSig) "Sign. autocorrelation"),
                    lty=c(1,5, if(hasSig) NA),

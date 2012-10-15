@@ -18,6 +18,9 @@ Version 2.1-21 (opened October 8, 2012)
 	original axes in a wrong angle. The problem was reported by
 	Elizabeth Ottesen (MIT).
 
+	* msoplot: gained legend argument for positioning the legend
+	according to user needs.
+
 Version 2.1-20 (closed October 8, 2012)
 
 	* anova.cca: Dr Sven Neulinger (Christian Albrecht University,
