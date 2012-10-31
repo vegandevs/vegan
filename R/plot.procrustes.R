@@ -32,8 +32,9 @@
                 b <- abs(x$rotation[1,1])
                 EPS <- 1e-8
                 if (1 - b > EPS && b > EPS) {
-                    abline(0, tan(acos(x$rotation[1, 1])), lty = 1)
-                    abline(0, 1/tan(acos(-x$rotation[1, 1])), lty = 1)
+                    rot <- x$rotation
+                    abline(0, rot[1,2]/rot[1,1], lty = 1)
+                    abline(0, rot[2,2]/rot[2,1], lty = 1)
                 } else {
                     abline(v = 0, h = 0)
                 }
