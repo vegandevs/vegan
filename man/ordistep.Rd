@@ -19,7 +19,7 @@ ordistep(object, scope, direction = c("both", "backward", "forward"),
    Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50,
    trace = TRUE, ...)
 ordiR2step(object, scope, direction = c("both", "forward"),
-   Pin = 0.05, pstep = 100, perm.max = 1000,
+   Pin = 0.05, R2scope = TRUE, pstep = 100, perm.max = 1000,
    trace = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,6 +45,12 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   the model, or dropping (\code{Pout}) from the model. Term is added if
   \eqn{P \le}{P <=} \code{Pin}, and removed if \eqn{P >} \code{Pout}. 
 }
+
+  \item{R2scope}{
+  Use adjusted \eqn{R^2}{R2} as the stopping criterion: only models with
+  lower adjusted \eqn{R^2}{R2} than scope are accepted.
+  }
+
   \item{pstep}{
   Number of permutations in one step. See \code{\link{add1.cca}}.
 }
@@ -90,12 +96,16 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   stopping when the adjusted \eqn{R^2}{R2} starts to decrease, or the
   adjusted \eqn{R^2}{R2} of the \code{scope} is exceeded, or the
   selected permutation \eqn{P}-value is exceeded (Blanchet et
-  al. 2008). The \code{direction} has choices \code{"forward"} and
-  \code{"both"}, but it is very excepctional that a term is dropped with
-  the adjusted \eqn{R^2}{R2} criterion.  Function uses adjusted
-  \eqn{R^2}{R2} as the criterion, and it cannot be used if the criterion
-  cannot be calculated.  Therefore it is unavailable for
-  \code{\link{cca}}.
+  al. 2008). The second criterion is ignored with option
+  \code{R2step = FALSE}, and the third criterion can be ignored setting
+  \code{Pin = 1} (or higher).  The \code{direction} has choices
+  \code{"forward"} and \code{"both"}, but it is very excepctional that a
+  term is dropped with the adjusted \eqn{R^2}{R2} criterion.  Function
+  uses adjusted \eqn{R^2}{R2} as the criterion, and it cannot be used if
+  the criterion cannot be calculated.  Therefore it is unavailable for
+  \code{\link{cca}}.  Adjusted \eqn{R^2}{R2} cannot be calculated if the
+  number of predictors is higher than the number of observations, but
+  such models can be analysed with \code{R2scope = FALSE}.
 
   Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
   (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select

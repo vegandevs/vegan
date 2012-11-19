@@ -2,7 +2,21 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-21 (opened October 8, 2012)
+Version 2.1-22 (opened November 19, 2012)
+
+	* ordiR2step: gained argument 'R2scope' (default TRUE) which can
+	be used to turn off the criterion of stopping when the adj-R2 of
+	the current model exceeds that of scope.  This option allows model
+	building when the 'scope' would be overdetermined (number of
+	predictors higher than number of observations). Pierre Legendre
+	needed this option for some checks with huge AEM/PCNM scopes.
+
+	It should be checked how the function works with partial RDA: we
+	have introduces RsquareAdj() for partial RDA, but the current
+	testing still assumes that those models do not have adj-R2 (like
+	was the case when ordiR2step() was written).
+
+Version 2.1-21 (closed November 19, 2012)
 
 	* New version opened with the CRAN release of vegan 2.0-5 on Oct
 	8, 2012.
