@@ -4,7 +4,7 @@
 
 `ordiR2step` <-
     function(object, scope, direction = c("both", "forward"),
-             Pin = 0.05, pstep = 100, perm.max = 1000,
+             Pin = 0.05, R2scope = TRUE, pstep = 100, perm.max = 1000,
              trace = TRUE, ...)
 {
     direction <- match.arg(direction)
@@ -23,14 +23,13 @@
         scope <- delete.response(formula(scope))
     if (!inherits(scope, "formula"))
         scope <- reformulate(scope)
-    R2.all <- RsquareAdj(update(object, scope))
+    if (R2scope)
+        R2.all <- RsquareAdj(update(object, scope))
+    else
+        R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
-    if (is.na(R2.all$adj.r.squared)) {
-        if (R2.all$r.squared > 0.999)
-            stop("the upper scope cannot be fitted (too many terms?)")
-        else
-            stop("upper scope cannot be fitted (Condition() in scope?)")
-    }
+    if (is.na(R2.all$adj.r.squared) && R2scope) 
+        stop("the upper scope cannot be fitted (too many terms?)")
     R2.all <- R2.all$adj.r.squared
     ## Collect data to anotab returned as the 'anova' object
     anotab <-  list()
@@ -75,7 +74,8 @@
         ## See if the best should be kept
         ## First criterion: R2.adj improves and is still lower or
         ## equal than for the full model of the scope
-        if (R2.adds[best] > R2.previous && R2.adds[best] <= R2.all) {
+        if (R2.adds[best] > R2.previous &&
+            if (R2scope) R2.adds[best] <= R2.all else TRUE) {
             ## Second criterion: added variable is significant
             tst <- add1(object, scope = adds[best], test="permu",
                         pstep = pstep, perm.max = perm.max,
