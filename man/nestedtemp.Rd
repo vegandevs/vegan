@@ -8,6 +8,7 @@
 \alias{nestedbetasor}
 \alias{nestedbetajac}
 \alias{plot.nestedtemp}
+\alias{plot.nestednodf}
 
 \title{ Nestedness Indices for Communities of Islands or Patches }
 
@@ -28,6 +29,7 @@ nestedbetasor(comm)
 nestedbetajac(comm)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidence"),
     col=rev(heat.colors(100)),  names = FALSE, ...)
+\method{plot}{nestednodf}(x, col = "red", names = FALSE, ...)
 }
 
 \arguments{
