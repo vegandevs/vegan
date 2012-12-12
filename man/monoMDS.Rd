@@ -16,7 +16,7 @@
 \usage{
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"), 
     threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
-    scaling = TRUE, pc = TRUE, smin = 0.00001, sfgrmin = 0.00001, 
+    scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7, 
     sratmax=0.99999, ...) 
 \method{scores}{monoMDS}(x, choices = NA, ...)
 \method{plot}{monoMDS}(x, choices = c(1,2), type = "t", ...)

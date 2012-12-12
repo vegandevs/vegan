@@ -4,9 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-22 (opened November 19, 2012)
 
-	* monoMDS, metaMDS: scores() ignore now requests to scores beyond
-	those calculated instead of failing. scores.metaMDS() does not
-	drop dimensions.
+	* monoMDS, metaMDS: Default convergence criteria were changed in
+	monoMDS. Most importantly, now scale factor of the gradient is
+	sfgrmin = 1e-7. The former limit 1e-5 was much too slack with
+	large data sets and iterations stopped too early without getting
+	close to the solution. In addition, scores() ignore now requests
+	to scores beyond those calculated instead of failing, and
+	scores.metaMDS() does not drop dimensions.
 
 	* nestednodf: added plot() method modelled after
 	plot.nestedtemp().
