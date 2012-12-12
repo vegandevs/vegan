@@ -1,8 +1,8 @@
 
-R Under development (unstable) (2012-10-12 r60919) -- "Unsuffered Consequences"
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-21
+This is vegan 2.1-22
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,17 +154,17 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2ab7cc0>
+<environment: 0x102511068>
 Total model degrees of freedom 3 
 
-GCV score: 0.0427924
+GCV score: 0.04278782
 > 
 > 
 > 
@@ -668,17 +668,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > library(lattice)
 > dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
 +         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
-Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
-Run 0 stress 0.08556588 
-Run 1 stress 0.1560545 
-Run 2 stress 0.08556612 
-... procrustes: rmse 0.0001630123  max resid 0.0003642025 
+Run 0 stress 0.08556586 
+Run 1 stress 0.1560544 
+Run 2 stress 0.08556586 
+... New best solution
+... procrustes: rmse 1.094373e-06  max resid 1.88838e-06 
 *** Solution reached
 > plot(mod)
 > ### Hulls show treatment
@@ -2595,48 +2592,48 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843204 
-Run 1 stress 0.2455937 
-Run 2 stress 0.2169416 
-Run 3 stress 0.2313238 
-Run 4 stress 0.1974421 
-Run 5 stress 0.1858424 
-Run 6 stress 0.1948436 
-Run 7 stress 0.2265718 
-Run 8 stress 0.2225085 
-Run 9 stress 0.2023228 
+Run 0 stress 0.1843196 
+Run 1 stress 0.2455912 
+Run 2 stress 0.2169407 
+Run 3 stress 0.2313231 
+Run 4 stress 0.1974406 
+Run 5 stress 0.1858402 
+Run 6 stress 0.1948414 
+Run 7 stress 0.2265717 
+Run 8 stress 0.222507 
+Run 9 stress 0.2023215 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976154 
-Run 12 stress 0.1852405 
+Run 11 stress 0.1976151 
+Run 12 stress 0.1852397 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955872 
-Run 15 stress 0.2137414 
-Run 16 stress 0.2109643 
-Run 17 stress 0.1825664 
+Run 14 stress 0.1955867 
+Run 15 stress 0.2137409 
+Run 16 stress 0.2109638 
+Run 17 stress 0.1825658 
 ... New best solution
-... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
-Run 19 stress 0.2570123 
+... procrustes: rmse 0.04169825  max resid 0.1521436 
+Run 18 stress 0.1843197 
+Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
 > (fit <- envfit(ord, varechem, perm = 999))
 
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.056188 -0.998420 0.2542  0.046 *  
-P         0.618628  0.785684 0.1936  0.103    
-K         0.765142  0.643862 0.1809  0.143    
-Ca        0.683985  0.729496 0.4120  0.008 ** 
-Mg        0.631457  0.775411 0.4273  0.004 ** 
-S         0.190091  0.981767 0.1754  0.140    
-Al       -0.872443  0.488715 0.5270  0.001 ***
-Fe       -0.937013  0.349294 0.4452  0.002 ** 
-Mn        0.799058 -0.601253 0.5228  0.001 ***
-Zn        0.616932  0.787017 0.1878  0.125    
-Mo       -0.903112  0.429406 0.0609  0.539    
-Baresoil  0.926090 -0.377302 0.2509  0.038 *  
-Humdepth  0.933540 -0.358473 0.5198  0.002 ** 
-pH       -0.648970  0.760814 0.2306  0.060 .  
+N        -0.057194 -0.998363 0.2537  0.046 *  
+P         0.619593  0.784923 0.1938  0.103    
+K         0.766293  0.642492 0.1809  0.143    
+Ca        0.685057  0.728489 0.4119  0.008 ** 
+Mg        0.632400  0.774642 0.4271  0.004 ** 
+S         0.191230  0.981545 0.1752  0.140    
+Al       -0.871691  0.490056 0.5269  0.001 ***
+Fe       -0.936135  0.351641 0.4451  0.002 ** 
+Mn        0.798733 -0.601685 0.5230  0.001 ***
+Zn        0.617495  0.786575 0.1879  0.125    
+Mo       -0.903045  0.429546 0.0609  0.537    
+Baresoil  0.925034 -0.379885 0.2508  0.039 *  
+Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
+pH       -0.648094  0.761560 0.2308  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -2644,20 +2641,20 @@ P values based on 999 permutations.
 
 > scores(fit, "vectors")
                NMDS1      NMDS2
-N        -0.02832824 -0.5033758
-P         0.27221584  0.3457258
-K         0.32540799  0.2738285
-Ca        0.43903747  0.4682499
-Mg        0.41279593  0.5069011
-S         0.07961737  0.4112023
-Al       -0.63333130  0.3547724
-Fe       -0.62521305  0.2330634
-Mn        0.57778128 -0.4347530
-Zn        0.26732049  0.3410194
-Mo       -0.22283870  0.1059540
-Baresoil  0.46384359 -0.1889764
-Humdepth  0.67308687 -0.2584611
-pH       -0.31165145  0.3653619
+N        -0.02880854 -0.5028710
+P         0.27276629  0.3455503
+K         0.32594190  0.2732833
+Ca        0.43965251  0.4675260
+Mg        0.41327822  0.5062343
+S         0.08004855  0.4108725
+Al       -0.63277161  0.3557376
+Fe       -0.62453266  0.2345938
+Mn        0.57765765 -0.4351493
+Zn        0.26766914  0.3409611
+Mo       -0.22292390  0.1060370
+Baresoil  0.46323932 -0.1902392
+Humdepth  0.67274437 -0.2596855
+pH       -0.31133604  0.3658438
 > plot(ord)
 > plot(fit)
 > plot(fit, p.max = 0.05, col = "red")
@@ -3074,36 +3071,36 @@ Manure^4     -0.41602035  0.01685222
 > mod <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843204 
-Run 1 stress 0.2455937 
-Run 2 stress 0.2169416 
-Run 3 stress 0.2313238 
-Run 4 stress 0.1974421 
-Run 5 stress 0.1858424 
-Run 6 stress 0.1948436 
-Run 7 stress 0.2265718 
-Run 8 stress 0.2225085 
-Run 9 stress 0.2023228 
+Run 0 stress 0.1843196 
+Run 1 stress 0.2455912 
+Run 2 stress 0.2169407 
+Run 3 stress 0.2313231 
+Run 4 stress 0.1974406 
+Run 5 stress 0.1858402 
+Run 6 stress 0.1948414 
+Run 7 stress 0.2265717 
+Run 8 stress 0.222507 
+Run 9 stress 0.2023215 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976154 
-Run 12 stress 0.1852405 
+Run 11 stress 0.1976151 
+Run 12 stress 0.1852397 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955872 
-Run 15 stress 0.2137414 
-Run 16 stress 0.2109643 
-Run 17 stress 0.1825664 
+Run 14 stress 0.1955867 
+Run 15 stress 0.2137409 
+Run 16 stress 0.2109638 
+Run 17 stress 0.1825658 
 ... New best solution
-... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
-Run 19 stress 0.2570123 
+... procrustes: rmse 0.04169825  max resid 0.1521436 
+Run 18 stress 0.1843197 
+Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
 > stressplot(mod)
 > gof <- goodness(mod)
 > gof
- [1] 0.02985151 0.03513602 0.04181211 0.04601046 0.04005199 0.03443943
- [7] 0.03290447 0.03048909 0.03058684 0.02992410 0.03531117 0.02620375
-[13] 0.03833499 0.02979202 0.03376558 0.02225449 0.03559163 0.03504082
-[19] 0.06578666 0.03269039 0.03507122 0.02956140 0.05162094 0.04604686
+ [1] 0.02984480 0.03513719 0.04188277 0.04598591 0.04003418 0.03441705
+ [7] 0.03294386 0.03050002 0.03060565 0.02993891 0.03526891 0.02621276
+[13] 0.03831284 0.02980754 0.03370603 0.02225802 0.03561193 0.03505161
+[19] 0.06577544 0.03268484 0.03503582 0.02956571 0.05167231 0.04602312
 > plot(mod, display = "sites", type = "n")
 > points(mod, display = "sites", cex = 2*gof/mean(gof))
 > 
@@ -3568,13 +3565,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > # Global NMDS using monoMDS
 > sol <- metaMDS(dune)
-Run 0 stress 0.1192691 
-Run 1 stress 0.1808932 
-Run 2 stress 0.1808918 
-Run 3 stress 0.1808912 
-Run 4 stress 0.2035431 
-Run 5 stress 0.1192719 
-... procrustes: rmse 0.001450932  max resid 0.004117039 
+Run 0 stress 0.1192678 
+Run 1 stress 0.1808913 
+Run 2 stress 0.1808915 
+Run 3 stress 0.1808911 
+Run 4 stress 0.2035424 
+Run 5 stress 0.119268 
+... procrustes: rmse 0.0002214386  max resid 0.0006802088 
 *** Solution reached
 > sol
 
@@ -3587,7 +3584,7 @@ Data:     dune
 Distance: bray 
 
 Dimensions: 2 
-Stress:     0.1192691 
+Stress:     0.1192678 
 Stress type 1, weak ties
 Two convergent solutions found after 5 tries
 Scaling: centring, PC rotation, halfchange scaling 
@@ -3597,11 +3594,10 @@ Species: expanded scores based on ‘dune’
 > ## Start from previous best solution
 > sol <- metaMDS(dune, previous.best = sol)
 Starting from 2-dimensional configuration
-Run 0 stress 0.1192691 
-Run 1 stress 0.1939205 
-Run 2 stress 0.1192685 
-... New best solution
-... procrustes: rmse 0.000737655  max resid 0.001867068 
+Run 0 stress 0.1192678 
+Run 1 stress 0.1939203 
+Run 2 stress 0.119268 
+... procrustes: rmse 0.0002104822  max resid 0.0006474109 
 *** Solution reached
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
@@ -3628,9 +3624,10 @@ Species: expanded scores based on ‘dune’
 
 > ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 > sol <- metaMDS(dune, distfun = betadiver, distance = "z")
-Run 0 stress 0.106717 
-Run 1 stress 0.1067187 
-... procrustes: rmse 0.0004025738  max resid 0.001408067 
+Run 0 stress 0.1067169 
+Run 1 stress 0.1067169 
+... New best solution
+... procrustes: rmse 1.234853e-05  max resid 2.993581e-05 
 *** Solution reached
 > sol
 
@@ -3643,7 +3640,7 @@ Data:     dune
 Distance: beta.z 
 
 Dimensions: 2 
-Stress:     0.106717 
+Stress:     0.1067169 
 Stress type 1, weak ties
 Two convergent solutions found after 1 tries
 Scaling: centring, PC rotation, halfchange scaling 
@@ -3832,10 +3829,9 @@ Based on  999  permutations
 > layout(matrix(1:2,nr=1))
 > 
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-Run 0 stress 0.1192691 
-Run 1 stress 0.1192689 
-... New best solution
-... procrustes: rmse 0.0006819572  max resid 0.001730883 
+Run 0 stress 0.1192678 
+Run 1 stress 0.119268 
+... procrustes: rmse 8.18569e-05  max resid 0.0001982896 
 *** Solution reached
 > ordihull(dune.ord, dune.env$Management)
 > 
@@ -4110,7 +4106,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: nestedtemp
 > ### Title: Nestedness Indices for Communities of Islands or Patches
 > ### Aliases: nestedtemp nestedchecker nestedn0 nesteddisc nestednodf
-> ###   nestedbetasor nestedbetajac plot.nestedtemp
+> ###   nestedbetasor nestedbetajac plot.nestedtemp plot.nestednodf
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -4903,19 +4899,19 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa05c300>
+<environment: 0x109ecd740>
 
 Estimated degrees of freedom:
-6.44  total = 7.44 
+6.4512  total = 7.451249 
 
-GCV score: 144.1236
+GCV score: 144.0039
 > 
 > ## as above but with extra penalties on smooth terms:
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5, col = "blue",
@@ -4926,25 +4922,25 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9df8f50>
+<environment: 0x10aa363f0>
 
 Estimated degrees of freedom:
-6.1  total = 7.1 
+6.1234  total = 7.123433 
 
-GCV score: 140.0949
+GCV score: 139.9445
 > 
 > ## Cover of Cladina arbuscula
 > fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0644615  6.0132250  3.6350484  4.1019743  9.0030990  5.9202602  8.6399182 
+22.0596535  6.0185659  3.6298559  4.1000950  8.9833600  5.9067472  8.6617389 
          8          9         10         11         12         13         14 
-11.0719302  0.6561783 35.2282116 10.4346331  7.2900019  5.5710617 24.6503109 
+11.0812152  0.6432691 35.2567124 10.4452454  7.2748478  5.5780162 24.6561685 
         15         16         17         18         19         20         21 
-18.8754520 29.7286540  5.6158934  9.5869715  3.2876268  2.7111723 10.7832857 
+18.8879906 29.7642964  5.6095920  9.5945524  3.2753633  2.6966143 10.7869351 
         22         23         24 
- 3.0020415  9.8128952  7.3656934 
+ 2.9902832  9.8082237  7.3406581 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -5049,10 +5045,6 @@ Loading required package: lattice
 > ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
 > ordicloud(ord, form = CA2 ~ CA3*CA1 | Management, groups = Manure,
 +    data = dune.env, auto.key = TRUE, type = c("p","h"))
-Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -5079,17 +5071,17 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x702bcf8>
+<environment: 0x10b52c508>
 
 Estimated degrees of freedom:
-8.93  total = 9.93 
+8.9275  total = 9.927492 
 
 GCV score: 0.001054656
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
@@ -5099,10 +5091,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8de5c00>
+<environment: 0x10b144508>
 
 Estimated degrees of freedom:
-7.75  total = 8.75 
+7.7529  total = 8.75294 
 
 GCV score: 0.002284958
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
@@ -5112,10 +5104,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x80c4518>
+<environment: 0x10aa31460>
 
 Estimated degrees of freedom:
-8.9  total = 9.9 
+8.8962  total = 9.89616 
 
 GCV score: 0.002508871
 > par(op)
@@ -5854,7 +5846,7 @@ Call:
 procrustes(X = mds.alt, Y = mds.null) 
 
 Procrustes sum of squares:
-13.11 
+13.14 
 
 > summary(vare.proc)
 
@@ -5864,36 +5856,36 @@ procrustes(X = mds.alt, Y = mds.null)
 Number of objects: 24    Number of dimensions: 2 
 
 Procrustes sum of squares:  
- 13.10751 
+  13.1368 
 Procrustes root mean squared error: 
- 0.739017 
+ 0.7398422 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
-0.02322413 0.27259237 0.34146895 0.64121655 2.23350654 
+0.02033237 0.27686842 0.34124239 0.64358542 2.23460568 
 
 Rotation matrix:
           [,1]       [,2]
-[1,] 0.9931369 -0.1169579
-[2,] 0.1169579  0.9931369
+[1,] 0.9933117 -0.1154641
+[2,] 0.1154641  0.9933117
 
 Translation of averages:
              [,1]         [,2]
-[1,] 1.674651e-17 2.106557e-17
+[1,] 2.827507e-19 5.561347e-18
 
 Scaling of target:
-[1] 0.6736868
+[1] 0.6727804
 
 > plot(vare.proc)
 > plot(vare.proc, kind=2)
 > residuals(vare.proc)
         18         15         24         27         23         19         22 
-0.27803992 0.12847298 1.72993477 0.63690082 0.37244204 0.11829836 0.38555390 
+0.28003467 0.13180094 1.72990690 0.63953155 0.37177564 0.11807007 0.38558576 
         16         28         13         14         20         25          7 
-0.27735743 1.22675827 0.65416375 0.25829720 0.02322413 0.35904126 0.28489676 
+0.28008712 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
          5          6          3          4          2          9         12 
-0.69505200 0.19983445 0.29397151 0.50089415 2.23350654 0.31836035 0.21622926 
+0.69324047 0.20264726 0.29744269 0.50070811 2.23460568 0.31901411 0.21727135 
         10         11         21 
-0.32389663 0.56349530 0.77939208 
+0.32523080 0.56506437 0.78179902 
 > 
 > 
 > 
@@ -5971,9 +5963,6 @@ Lognormal  29.2719 16.6588 17.078
 Zipf       50.1262 47.9108 30.936
 Mandelbrot  5.7342  5.5665 10.573
 > plot(mod, pch=".")
-Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
-Warning in FUN(X[[7L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -7469,28 +7458,28 @@ Use function 'rda' to test significance of fractions of interest
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843204 
-Run 1 stress 0.2455937 
-Run 2 stress 0.2169416 
-Run 3 stress 0.2313238 
-Run 4 stress 0.1974421 
-Run 5 stress 0.1858424 
-Run 6 stress 0.1948436 
-Run 7 stress 0.2265718 
-Run 8 stress 0.2225085 
-Run 9 stress 0.2023228 
+Run 0 stress 0.1843196 
+Run 1 stress 0.2455912 
+Run 2 stress 0.2169407 
+Run 3 stress 0.2313231 
+Run 4 stress 0.1974406 
+Run 5 stress 0.1858402 
+Run 6 stress 0.1948414 
+Run 7 stress 0.2265717 
+Run 8 stress 0.222507 
+Run 9 stress 0.2023215 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976154 
-Run 12 stress 0.1852405 
+Run 11 stress 0.1976151 
+Run 12 stress 0.1852397 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955872 
-Run 15 stress 0.2137414 
-Run 16 stress 0.2109643 
-Run 17 stress 0.1825664 
+Run 14 stress 0.1955867 
+Run 15 stress 0.2137409 
+Run 16 stress 0.2109638 
+Run 17 stress 0.1825658 
 ... New best solution
-... procrustes: rmse 0.0421789  max resid 0.1544029 
-Run 18 stress 0.1843201 
-Run 19 stress 0.2570123 
+... procrustes: rmse 0.04169825  max resid 0.1521436 
+Run 18 stress 0.1843197 
+Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
 > plot(ord, type = "t")
 > ## Fit environmental variables
@@ -7500,20 +7489,20 @@ Run 20 stress 0.3760596
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.056188 -0.998420 0.2542  0.046 *  
-P         0.618628  0.785684 0.1936  0.103    
-K         0.765142  0.643862 0.1809  0.143    
-Ca        0.683985  0.729496 0.4120  0.008 ** 
-Mg        0.631457  0.775411 0.4273  0.004 ** 
-S         0.190091  0.981767 0.1754  0.140    
-Al       -0.872443  0.488715 0.5270  0.001 ***
-Fe       -0.937013  0.349294 0.4452  0.002 ** 
-Mn        0.799058 -0.601253 0.5228  0.001 ***
-Zn        0.616932  0.787017 0.1878  0.125    
-Mo       -0.903112  0.429406 0.0609  0.539    
-Baresoil  0.926090 -0.377302 0.2509  0.038 *  
-Humdepth  0.933540 -0.358473 0.5198  0.002 ** 
-pH       -0.648970  0.760814 0.2306  0.060 .  
+N        -0.057194 -0.998363 0.2537  0.046 *  
+P         0.619593  0.784923 0.1938  0.103    
+K         0.766293  0.642492 0.1809  0.143    
+Ca        0.685057  0.728489 0.4119  0.008 ** 
+Mg        0.632400  0.774642 0.4271  0.004 ** 
+S         0.191230  0.981545 0.1752  0.140    
+Al       -0.871691  0.490056 0.5269  0.001 ***
+Fe       -0.936135  0.351641 0.4451  0.002 ** 
+Mn        0.798733 -0.601685 0.5230  0.001 ***
+Zn        0.617495  0.786575 0.1879  0.125    
+Mo       -0.903045  0.429546 0.0609  0.537    
+Baresoil  0.925034 -0.379885 0.2508  0.039 *  
+Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
+pH       -0.648094  0.761560 0.2308  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -7659,14 +7648,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-21. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xac90180>
+<environment: 0x10a933c98>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8113,13 +8102,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--9.992007e-16 -1.665335e-16  6.661338e-16 -3.330669e-16 -1.110223e-16 
+-7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 2.775558e-17  1.249001e-16  1.387779e-17  1.387779e-17  1.249001e-16 
+ 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
          CA11          CA12          CA13          CA14          CA15 
- 8.326673e-17  6.938894e-18 -1.387779e-17  2.775558e-17  0.000000e+00 
+ 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.949030e-17  5.637851e-18 
+-3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8128,7 +8117,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
--4.263e-14 
+    0 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8146,7 +8135,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.917 0.18 26.257 0 0 
+Time elapsed:  81.69 1.562 86.604 0 0 
 > grDevices::dev.off()
 null device 
           1 
