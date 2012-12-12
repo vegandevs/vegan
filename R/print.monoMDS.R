@@ -44,8 +44,10 @@
 {
     if (any(is.na(choices)))
         x$points
-    else
+    else {
+        choices <- choices[choices <= x$ndim]
         x$points[, choices, drop = FALSE]
+    }
 }
 
 `plot.monoMDS` <-

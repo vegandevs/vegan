@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-22 (opened November 19, 2012)
 
+	* monoMDS: scores() ignores now requests to scores beyond those
+	calculated instead of failing.
+
 	* nestednodf: added plot() method modelled after
 	plot.nestedtemp().
 	
