@@ -115,6 +115,9 @@
                     plot(pro)
                 if (stry[[i]]$stress < s0$stress) {
                     s0 <- stry[[i]]
+                    ## New best solution has not converged unless
+                    ## proved later
+                    converged <- FALSE
                     if (trace) 
                         cat("... New best solution\n")
                 }

@@ -12,6 +12,20 @@ Version 2.1-22 (opened November 19, 2012)
 	to scores beyond those calculated instead of failing, and
 	scores.metaMDS() does not drop dimensions.
 
+	* metaMDS: Iteration sometimes finds a false convergence, or an
+	identical solution to the previous best although a better solution
+	can exist. These are undetected except sometimes in parallel
+	processing. Therefore we first label convergence false when we
+	find a new best solution, and then study if it really
+	converged. This is a rare effect, and can only be seen with
+	parallel processing. An example is
+
+	set.seed(7)
+	metaMDS(BCI, k=4, parallel=2)
+
+	which will converge in run 7 with the old code although run 8
+	would be better, but converges in run 18 with the new code.
+	
 	* nestednodf: added plot() method modelled after
 	plot.nestedtemp().
 	
