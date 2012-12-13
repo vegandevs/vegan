@@ -1,9 +1,11 @@
-"scores.metaMDS" <-
+`scores.metaMDS` <-
     function(x, display = c("sites", "species"), shrink = FALSE, choices, ...)
 {
     display <- match.arg(display)
     if (missing(choices))
         choices <- 1:x$ndim
+    else
+        choices <- choices[choices <= x$ndim]
     if (display == "sites")
         X <- x$points
     else if (display == "species") {
@@ -21,6 +23,6 @@
         }
     }
     colnames(X) <- paste("NMDS", 1:ncol(X), sep="")
-    X[, choices]
+    X[, choices, drop = FALSE]
 }
 
