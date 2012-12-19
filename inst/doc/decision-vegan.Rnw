@@ -64,7 +64,7 @@ The functions that are capable of parallel processing have argument
 \code{parallel}.  The normal default is \code{parallel = 1} which
 means that no parallel processing is performed.  It is possible to set
 parallel processing as the default in \pkg{vegan} (see
-\S~\ref{sec:parallel:default}). 
+\S\,\ref{sec:parallel:default}). 
 
 For parallel processing, the \code{parallel} argument can be either
 
@@ -77,7 +77,7 @@ For parallel processing, the \code{parallel} argument can be either
 \item A previously created socket cluster. This saves time as the
   cluster is not set up and closed repeatedly.  If the argument is a
   socket cluster, it will also be used in unix-like systems. Setting
-  up a socket cluster is discussed in \S~\ref{sec:parallel:socket}.
+  up a socket cluster is discussed in \S\,\ref{sec:parallel:socket}.
 \end{enumerate}
 
 \subsubsection{Using parallel processing as default}
@@ -191,7 +191,7 @@ your particular system: it is best to rely on your own experience.
 \subsection{Internals for developers}
 
 The implementation of the parallel processing should accord with the
-description of the user interface above (\S~\ref{sec:parallel:ui}).
+description of the user interface above (\S\,\ref{sec:parallel:ui}).
 Function \code{oecosimu} can be used as the reference implementation,
 and similar interpretation and order of interpretation of arguments
 should be followed.  All future implementations should be consistent

@@ -49,7 +49,7 @@ options("prompt" = "R> ", "continue" = "+  ")
 
 \tableofcontents
 
- ~\\[2ex]
+
 \noindent The \pkg{vegan} package has two major components:
 multivariate analysis (mainly ordination), and methods for diversity
 analysis of ecological communities.  This document gives an

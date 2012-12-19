@@ -55,7 +55,7 @@ options("prompt" = "R> ", "continue" = "+  ")
 
 \tableofcontents
 
-~\\[2ex]
+\vspace{3ex}
 \noindent \pkg{Vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
 performed in \pkg{vegan}.  The document only is a very basic
