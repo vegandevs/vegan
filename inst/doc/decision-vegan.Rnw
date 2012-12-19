@@ -44,7 +44,7 @@ require(vegan)
 \section{Parallel processing}
 
 Several \pkg{vegan} functions can perform parallel processing using
-the standard \R{} package \pkg{parallel}.\footnote{available since
+the standard \R{} package \pkg{parallel}.\footnote{Available since
   \R{} version 2.14.0.}  The \pkg{parallel} package in \R{} implements
 the functionality of earlier contributed packages \pkg{multicore} and
 \pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
@@ -97,11 +97,11 @@ non-parallel computation.  The \code{mc.cores} option can be set by
 the environmental variable \code{MC_CORES} when the \pkg{parallel}
 package is loaded.
 
-The \R{} development version\footnote{Probably released as \R-2.15.0
-  in October 2012.} allows setting up a default socket cluster
-(\code{setDefaultCluster}).  In that case \pkg{vegan} will perform
-parallel processing with that default cluster.  If the \code{mc.cores}
-is also set, it takes precedence.  
+\R{} allows\footnote{Since \R{} version 2.15.0.}
+setting up a default socket cluster (\code{setDefaultCluster}).  In
+that case \pkg{vegan} will perform parallel processing with that
+default cluster.  If the \code{mc.cores} is also set, it takes
+precedence.
 
 \subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
@@ -252,7 +252,8 @@ This gives the following precedence order for parallel processing
     \pkg{parallel} package, and it is always unset before first
     \code{require(parallel)}. \footnote{The behaviour of
       \code{mc.cores} option is untested in Windows.}
-  \item In \R-2.15.0 the default socket cluster will be used if set.
+  \item The default socket cluster will be used if
+    set.\footnote{Default cluster is available since \R{} 2.15.0.}
   \item The fall back behaviour is no parallel processing. 
 \end{enumerate}
 
