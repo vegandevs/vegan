@@ -13,7 +13,7 @@
         if (!na.rm)
             stop("missing values in data: consider na.rm = TRUE")
         X <- X[keep,, drop=FALSE]
-        env <- env[keep,, drop=FALSE]
+        env <- droplevels(env[keep,, drop=FALSE]) ## drop any lost levels
         na.action <- structure(seq_along(keep)[!keep], class="omit")
     }
     ## make permutation matrix for all variables handled in the next loop

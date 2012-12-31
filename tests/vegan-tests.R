@@ -134,3 +134,20 @@ m <- matrix(x, nrow=5, ncol=5, byrow=FALSE)
 identical(nodf1, nodfq)
 rm(x, m, m1, nodfq, nodf1)
 ### end nestednodf
+
+### envfit & plot.envfit: latter failed if na.action resulted in only
+### observation with a given factor level was removed. plot.envfit would
+### fail with error about too long subscript
+### fixed case where data presented to envfit also has extraneous levels
+data(dune)
+data(dune.env)
+## add a new level to one of the factors
+levels(dune.env$Management) <- c(levels(dune.env$Management), "foo")
+## fit nMDS and envfit
+set.seed(1)
+mod <- metaMDS(dune)
+ef <- envfit(mod, dune.env, permutations = 99)
+plot(mod)
+plot(ef, p.max = 0.1)
+rm(mod, ef)
+### end envfit & plot.envfit
