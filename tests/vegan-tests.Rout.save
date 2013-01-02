@@ -1,5 +1,5 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
 Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
@@ -485,6 +485,31 @@ Matrix fill: 0.56
 > rm(x, m, m1, nodfq, nodf1)
 > ### end nestednodf
 > 
+> ### envfit & plot.envfit: latter failed if na.action resulted in only
+> ### observation with a given factor level was removed. plot.envfit would
+> ### fail with error about too long subscript
+> ### fixed case where data presented to envfit also has extraneous levels
+> data(dune)
+> data(dune.env)
+> ## add a new level to one of the factors
+> levels(dune.env$Management) <- c(levels(dune.env$Management), "foo")
+> ## fit nMDS and envfit
+> set.seed(1)
+> mod <- metaMDS(dune)
+Run 0 stress 0.1192678 
+Run 1 stress 0.1808913 
+Run 2 stress 0.1808915 
+Run 3 stress 0.1808911 
+Run 4 stress 0.2035424 
+Run 5 stress 0.119268 
+... procrustes: rmse 0.0002214386  max resid 0.0006802088 
+*** Solution reached
+> ef <- envfit(mod, dune.env, permutations = 99)
+> plot(mod)
+> plot(ef, p.max = 0.1)
+> rm(mod, ef)
+> ### end envfit & plot.envfit
+> 
 > proc.time()
    user  system elapsed 
-  8.594   0.128   8.695 
+  9.214   0.150   9.408 
