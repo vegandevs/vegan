@@ -2,6 +2,7 @@
     function (X, P, permutations = 0, strata, w,  ...) 
 {
     P <- as.data.frame(P)
+    P <- droplevels(P) ## make sure only the used levels are present
     if (any(!sapply(P, is.factor))) 
         stop("All fitted variables must be factors")
     NR <- nrow(X)

@@ -36,6 +36,13 @@ Version 2.1-22 (opened November 19, 2012)
 	predictors higher than number of observations). Pierre Legendre
 	needed this option for some checks with huge AEM/PCNM scopes.
 
+	* envfit, plot.envfit: Plotting an object fitted by envfit() would fail
+	if p.max was used and there were un-used levels for one or more factor
+	constraints. The un-used levels could result from deletion of
+	observations with missing values or simply the result of supplying
+	a subset of a larger data set to envfit(). Both cases are now handled
+	through the use of droplevels().
+
 Version 2.1-21 (closed November 19, 2012)
 
 	* New version opened with the CRAN release of vegan 2.0-5 on Oct
