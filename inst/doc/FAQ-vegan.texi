@@ -84,6 +84,7 @@ Copyright @copyright{} 2008-2012 Jari Oksanen
 * How to report a bug in @pkg{vegan}?::  
 * Is it a bug or a feature?::   
 * Can I contribute to @pkg{vegan}?::  
+* Can I have write access to @pkg{vegan} repository?::  
 @end menu
 
 @node What is @pkg{vegan}?, What is R?, Introduction, Introduction
@@ -273,7 +274,7 @@ instance, function @code{vegdist} always calculates quantitative
 indices (when this is possible). If you expect it to calculate a
 binary index, you should use argument @code{binary = TRUE}.
 
-@node Can I contribute to @pkg{vegan}?,  , Is it a bug or a feature?, Introduction
+@node Can I contribute to @pkg{vegan}?, Can I have write access to @pkg{vegan} repository?, Is it a bug or a feature?, Introduction
 @section Can I contribute to @pkg{vegan}?
 
 @pkg{Vegan} is dependent on user contribution.  All feedback is welcome.  If
@@ -288,7 +289,22 @@ Contributed code and functions are welcome and more certain to be
 included than mere requests.  However, not all functions will be added,
 but I they must be suitable for @pkg{vegan}.  We also audit the code, and
 typically we edit the code in @pkg{vegan} style for easier maintenance.  All
-included contributions will be credited.  
+included contributions will be credited.
+
+@node Can I have write access to @pkg{vegan} repository?,  , Can I contribute to @pkg{vegan}?, Introduction
+@section Can I have write access to @pkg{vegan} repository?
+
+The @pkg{vegan} development happens mainly in
+@uref{http://r-forge.r-project.org/,,R-Forge} which uses subversion for
+version control.  Subversion is a centralized version control system,
+and only @pkg{vegan} developers can have write access to the central
+repository. However, the @uref{http://r-forge.r-project.org/,,R-Forge}
+is mirrored in
+@uref{https://github.com/jarioksa/vegan.git,,GitHub}. This is a
+distributed version control system and freely accessible for anybody. We
+suggest you develop your own ideas in
+@uref{https://github.com/jarioksa/vegan.git,,GitHub} and send a pull
+request to us for incorporating your changes in @pkg{vegan} releases.
 
 @node Ordination, Other analysis methods , Introduction, Top
 @chapter Ordination
@@ -300,6 +316,7 @@ included contributions will be credited.
 * Why NMDS stress is sometimes 0.1 and sometimes 10?::  
 * I get zero stress but no convergent solutions in @code{metaMDS}::  
 * Zero dissimilarities in isoMDS::  
+* I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::  
 * How the RDA results are scaled?::  
 * cca fails with ``data.frame expected'' or ``"site.env" missing''::  
 * Variance explained by ordination axes::  
@@ -388,7 +405,7 @@ However, higher number of dimensions can be used in metric scaling, both
 with @code{monoMDS} and in principal coordinates analysis
 (@code{cmdscale} in @pkg{stats}, @code{wcmdscale} in @pkg{vegan}).
 
-@node Zero dissimilarities in isoMDS, How the RDA results are scaled?, I get zero stress but no convergent solutions in @code{metaMDS}, Ordination
+@node Zero dissimilarities in isoMDS, I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, I get zero stress but no convergent solutions in @code{metaMDS}, Ordination
 @section Zero dissimilarities in isoMDS
 
 Function @code{metaMDS} uses function @code{monoMDS} as its default
@@ -406,7 +423,23 @@ non-unique sites can have zero dissimilarity, and you have to resort to
 the kluge (or work harder with your data). Usually it is better to use
 @code{monoMDS}.
 
-@node How the RDA results are scaled?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Zero dissimilarities in isoMDS, Ordination
+@node I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, How the RDA results are scaled?, Zero dissimilarities in isoMDS, Ordination
+@section I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
+
+Claims like this have indeed been at large in the Internet, but they are
+based on grave misunderstanding and are plainly wrong. @acronym{NMDS}
+ordination results are strictly metric, and in @pkg{vegan}
+@code{metaMDS} and @code{monoMDS} they are even strictly Euclidean. The
+method is called ``non-metric'' because the Euclidean distances in
+ordination space have a non-metric rank-order relationship to community
+dissimilarities. You can inspect this non-linear step curve using
+function @code{stressplot} in @pkg{vegan}. Because the ordination scores
+are strictly Euclidean, it is correct to use @pkg{vegan} functions
+@code{envfit} and @code{ordisurf} with @acronym{NMDS} results.
+
+
+
+@node How the RDA results are scaled?, cca fails with ``data.frame expected'' or ``"site.env" missing'', I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Ordination
 @section How the @acronym{RDA} results are scaled?
 
 The scaling or @acronym{RDA} results indeed differ from most other
