@@ -2,11 +2,20 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-22 (opened November 19, 2012)
+Version 2.1-23 (opened January 8, 2013)
 
-	* Bugfix in multipart: argument global was printed as TRUE
-	regardless of the actual argument value. This did not affect
-	calculations. Reported by Valerie Coudrain.
+	* capscale: It was wrongly assumed that eigenvalues could
+	be used in normalization of species scores, but this worked only
+	with Euclidean distances. Now normalization is done explicitly
+	with decostand() function. This change means that scaling of
+	species scores will change, and graphs can look different than
+	previously. All analyses should be redone. 
+	
+Version 2.1-22 (closed January 8, 2013)
+
+	* multipart: argument global was printed as TRUE regardless of the
+	actual argument value. This did not affect calculations. Reported
+	by Valerie Coudrain.
 
 	* monoMDS, metaMDS: Default convergence criteria were changed in
 	monoMDS. Most importantly, now scale factor of the gradient is
