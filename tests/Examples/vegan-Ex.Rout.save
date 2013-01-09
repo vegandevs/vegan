@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x12bef70>
+<environment: 0x3160ba8>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4910,7 +4910,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8b27e80>
+<environment: 0xa20afb0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4926,7 +4926,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x905b218>
+<environment: 0xa251f70>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5086,7 +5086,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8434c00>
+<environment: 0xa336010>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5099,7 +5099,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x98d3c30>
+<environment: 0xab88d18>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5112,7 +5112,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9b013d0>
+<environment: 0xab15780>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -6870,6 +6870,29 @@ Stepping across 190 dissimilarities...
 > 
 > 
 > cleanEx()
+> nameEx("stressplot.wcmdscale")
+> ### * stressplot.wcmdscale
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stressplot.wcmdscale
+> ### Title: Display Ordination Distances Against Observed Distances in
+> ###   Eigenvector Ordinations
+> ### Aliases: stressplot.wcmdscale stressplot.cca stressplot.rda
+> ###   stressplot.capscale
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(dune, dune.env)
+> mod <- rda(dune)
+> stressplot(mod)
+> mod <- rda(dune ~ Management, dune.env)
+> stressplot(mod, k=3)
+> 
+> 
+> 
+> cleanEx()
 > nameEx("taxondive")
 > ### * taxondive
 > 
@@ -7666,7 +7689,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa84c790>
+<environment: 0x950e978>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8146,7 +8169,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.141 0.1 26.342 0 0 
+Time elapsed:  26.121 0.156 26.372 0 0 
 > grDevices::dev.off()
 null device 
           1 

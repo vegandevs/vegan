@@ -66,13 +66,17 @@
 } 
 
 \value{ Function \code{goodness} returns a vector of values. Function
-  \code{stressplot} returns invisibly an object with itmes for
+  \code{stressplot} returns invisibly an object with items for
   original dissimilarities, ordination distances and fitted values.  }
 
 \author{Jari Oksanen. }
 
 \seealso{\code{\link{metaMDS}},  \code{\link{monoMDS}}, 
-  \code{\link[MASS]{isoMDS}}, \code{\link[MASS]{Shepard}}. }
+  \code{\link[MASS]{isoMDS}}, \code{\link[MASS]{Shepard}}. Similar
+  diagrams for eigenvector ordinations can be drawn with
+  \code{\link{stressplot.wcmdscale}}, \code{\link{stressplot.cca}},
+  \code{\link{stressplot.rda}} and \code{\link{stressplot.capscale}}.
+}
 
 \examples{
 data(varespec)
