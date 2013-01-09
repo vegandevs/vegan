@@ -401,6 +401,10 @@ S3method(str, nullmodel)
 # stressplot: vegan
 S3method(stressplot, default)
 S3method(stressplot, monoMDS)
+S3method(stressplot, wcmdscale)
+S3method(stressplot, capscale)
+S3method(stressplot, cca)
+S3method(stressplot, rda)
 # summary: base
 S3method(summary, anosim)
 S3method(summary, bioenv)

@@ -128,7 +128,7 @@
     attr(sim, "call") <- call
     attr(sim$oecosimu$simulated, "index") <- index
     attr(sim$oecosimu$simulated, "scales") <- scales
-    attr(sim$oecosimu$simulated, "global") <- TRUE
+    attr(sim$oecosimu$simulated, "global") <- global
     attr(sim, "n.levels") <- nlevs
     attr(sim, "terms") <- tlab
     attr(sim, "model") <- rhs

@@ -122,14 +122,12 @@
             comm <- qr.resid(sol$pCCA$QR, comm)
         if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
             sol$CCA$v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
-            sol$CCA$v <- sweep(sol$CCA$v.eig, 2, sqrt(sol$CCA$eig), 
-                               "/")
+            sol$CCA$v <- decostand(sol$CCA$v.eig, "normalize", MARGIN = 2)
             comm <- qr.resid(sol$CCA$QR, comm)
         }
         if (!is.null(sol$CA) && sol$CA$rank > 0) {
             sol$CA$v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
-            sol$CA$v <- sweep(sol$CA$v.eig, 2, sqrt(sol$CA$eig[1:poseig]), 
-                              "/")
+            sol$CA$v <- decostand(sol$CA$v.eig, "normalize", MARGIN = 2)
         }
     } else {
         ## input data were dissimilarities, and no 'comm' defined:
