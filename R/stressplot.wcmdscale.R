@@ -14,7 +14,14 @@
     dis <- dist(object$points)
     if (!is.null(object$negaxes))
         dis <- sqrt(dis^2 - dist(object$negaxes)^2)
-    ## Plot
+    ## additive constant is not implemented in wcmdscale (which
+    ## returns 'ac = NA'), but the next statement would take care of
+    ## that: we want to have the input distances as observed distances
+    ## so that we need to subtract 'ac' here, although ordination
+    ## distances 'odis' do not add up to 'dis' but to 'dis + ac'.
+    if (!is.na(object$ac))
+        dis <- dis - object$ac
+    ##Plot
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."
@@ -97,6 +104,8 @@
     dis <- dist(u %*% diag(const))
     if (!is.null(object$CA$imaginary.u.eig))
         dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
+    if (!is.null(object$ac))
+        dis <- dis - object$ac
     odis <- dist(u[,1:k, drop=FALSE] %*% diag(const[1:k], nrow = k))
     ## plot like above
         ## Plot
