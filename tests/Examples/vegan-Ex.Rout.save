@@ -1,8 +1,8 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R Under development (unstable) (2013-01-08 r61589) -- "Unsuffered Consequences"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-22
+This is vegan 2.1-23
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,14 +154,14 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x102511068>
+<environment: 0x12bef70>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -227,7 +227,7 @@ hump at min  4.9416 7.1367 0.02174 *
 hump at max  7.8160 9.0487 0.01191 *
 Combined                   0.03338 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mod)
 > par(op)
 > ## Confidence Limits
@@ -305,14 +305,14 @@ sipoo+ 14.5, 16.1 ,17.5, 28.7, 40.5, 104.5, 233)
 > marr <- nls(S ~ SSarrhenius(sipoo.area, k, z))
 > marr
 Nonlinear regression model
-  model:  S ~ SSarrhenius(sipoo.area, k, z) 
-   data:  parent.frame() 
+  model: S ~ SSarrhenius(sipoo.area, k, z)
+   data: parent.frame()
      k      z 
 3.4062 0.4364 
  residual sum-of-squares: 78.1
 
 Number of iterations to convergence: 5 
-Achieved convergence tolerance: 1.056e-06 
+Achieved convergence tolerance: 1.056e-06
 > ## confidence limits from profile likelihood
 > confint(marr)
 Waiting for profiling to be done...
@@ -348,14 +348,14 @@ Coefficients:
 > mlom <- nls(S ~ SSlomolino(sipoo.area, Smax, A50, Hill))
 > mlom
 Nonlinear regression model
-  model:  S ~ SSlomolino(sipoo.area, Smax, A50, Hill) 
-   data:  parent.frame() 
+  model: S ~ SSlomolino(sipoo.area, Smax, A50, Hill)
+   data: parent.frame()
   Smax    A50   Hill 
 53.493 94.697  2.018 
  residual sum-of-squares: 55.37
 
 Number of iterations to convergence: 6 
-Achieved convergence tolerance: 9.715e-07 
+Achieved convergence tolerance: 9.715e-07
 > lines(xtmp, predict(mlom, newdata=data.frame(sipoo.area=xtmp)), 
 +   lwd=2, col = 4)
 > ## One canned model of standard R:
@@ -402,7 +402,7 @@ dune ~ 1
 + Manure      4 88.832 1.5251    199  0.025 * 
 + Use         2 89.134 1.1431     99  0.250   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step:  AIC=86.61
 dune ~ Moisture
@@ -415,7 +415,7 @@ dune ~ Moisture
 + Manure      4 87.342 1.3143    199  0.090 . 
 - Moisture    3 87.657 2.2536    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
 
               Inertia Proportion Rank
@@ -453,7 +453,7 @@ Management  3 87.082 2.8400    199  0.005 **
 Use         2 91.032 1.1741     99  0.180   
 Manure      4 89.232 1.9539    199  0.010 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
          Df    AIC      F N.Perm Pr(>F)   
@@ -463,7 +463,7 @@ Moisture  3 85.567 1.9764    199  0.005 **
 Use       2 88.284 1.0510     99  0.430   
 Manure    3 87.517 1.3902    199  0.130   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Moisture)
 > ## -- included variables still significant?
 > drop1(m0, test="perm")
@@ -472,7 +472,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Management  3 87.707 2.1769    199  0.010 **
 Moisture    3 87.082 1.9764    199  0.015 * 
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > add1(m0, scope=formula(mbig), test="perm")
        Df    AIC      F N.Perm Pr(>F)
 <none>    85.567                     
@@ -536,7 +536,7 @@ alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
 gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
 beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > adipart(mite ~ ., levsm, index="richness", nsimul=19)
 adipart object
 
@@ -556,7 +556,7 @@ beta.1     14.636   9.0407 12.41955 12.00750 12.42857 12.8743     0.05 *
 beta.2      3.250  13.1373  0.18421  0.00000  0.00000  0.6375     0.05 *
 beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
 > hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
@@ -572,7 +572,7 @@ alternative hypothesis: simulated median is not equal to the statistic
 level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
 leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
 hiersimu object
 
@@ -589,7 +589,7 @@ l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
 l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
 l4   1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Hierarchical testing with the Morisita index
 > morfun <- function(x) dispindmorisita(x)$imst
 > hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
@@ -607,7 +607,7 @@ l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
 l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
 l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -642,7 +642,7 @@ Management:A1  3    0.5892 0.19639  1.3090 0.13705   0.18
 Residuals     12    1.8004 0.15003         0.41878          
 Total         19    4.2990                 1.00000          
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > ### Example of use with strata, for nested (e.g., block) designs.
@@ -668,6 +668,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > library(lattice)
 > dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
 +         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
@@ -675,7 +679,7 @@ Run 0 stress 0.08556586
 Run 1 stress 0.1560544 
 Run 2 stress 0.08556586 
 ... New best solution
-... procrustes: rmse 1.094373e-06  max resid 1.88838e-06 
+... procrustes: rmse 1.094382e-06  max resid 1.88838e-06 
 *** Solution reached
 > plot(mod)
 > ### Hulls show treatment
@@ -697,7 +701,7 @@ NO3        1  0.055856 0.055856  4.0281 0.28714  0.009 **
 Residuals 10  0.138667 0.013867         0.71286          
 Total     11  0.194524                  1.00000          
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ### Incorrect (no strata)
 > adonis(Y ~ NO3, data=dat, perm=999)
@@ -712,7 +716,7 @@ NO3        1  0.055856 0.055856  4.0281 0.28714  0.005 **
 Residuals 10  0.138667 0.013867         0.71286          
 Total     11  0.194524                  1.00000          
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -796,7 +800,7 @@ Model: cca(formula = varespec ~ Al + P + K, data = varechem)
 Model     3 0.6441 2.9840    199  0.005 **
 Residual 20 1.4391                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Test for axes
 > anova(vare.cca, by="axis", perm.max=500)
 Model: cca(formula = varespec ~ Al + P + K, data = varechem)
@@ -806,7 +810,7 @@ CCA2      1 0.1700 2.3621    199  0.010 **
 CCA3      1 0.1126 1.5651    399  0.100 . 
 Residual 20 1.4391                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Sequential test for terms
 > anova(vare.cca, by="terms", permu=200)
 Permutation test for cca under reduced model
@@ -819,7 +823,7 @@ P         1 0.1899 2.6393    199  0.015 *
 K         1 0.1561 2.1688    199  0.030 * 
 Residual 20 1.4391                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Marginal or Type III effects
 > anova(vare.cca, by="margin")
 Permutation test for cca under reduced model
@@ -832,7 +836,7 @@ P         1 0.1681 2.3362    199 0.01500 *
 K         1 0.1561 2.1688    599 0.02833 * 
 Residual 20 1.4391                         
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Marginal test knows 'scope'
 > anova(vare.cca, by = "m", scope="P")
 Permutation test for cca under reduced model
@@ -843,7 +847,7 @@ Model: cca(formula = varespec ~ Al + P + K, data = varechem)
 P         1 0.1681 2.3362    199  0.015 *
 Residual 20 1.4391                       
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -1137,7 +1141,7 @@ Response: Distances
 Groups     1 0.07931 0.079306  4.6156 0.04295 *
 Residuals 22 0.37801 0.017182                  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
 > permutest(mod, pairwise = TRUE)
@@ -1158,7 +1162,7 @@ Response: Distances
 Groups     1 0.07931 0.079306 4.6156    999   0.05 *
 Residuals 22 0.37801 0.017182                       
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
@@ -1286,7 +1290,7 @@ Response: Distances
 Groups     1 0.033468 0.033468 3.1749    100 0.06931 .
 Residuals 18 0.189749 0.010542                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > anova(mod3)
 Analysis of Variance Table
 
@@ -1295,7 +1299,7 @@ Response: Distances
 Groups     1 0.033468 0.033468  3.1749 0.09166 .
 Residuals 18 0.189749 0.010542                  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mod3)
 > boxplot(mod3)
 > plot(TukeyHSD(mod3))
@@ -1559,7 +1563,7 @@ Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem,
 Model     3 0.99717 2.2324    199  0.005 **
 Residual 19 2.82904                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Avoid negative eigenvalues with additive constant
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
 +                      dist="bray", add =TRUE)
@@ -2280,7 +2284,7 @@ Warning in chisq.test(dune) :
 
 	Pearson's Chi-squared test
 
-data:  dune 
+data:  dune
 X-squared = 1448.956, df = 551, p-value < 2.2e-16
 
 > deviance(cca(dune))
@@ -2635,7 +2639,7 @@ Baresoil  0.925034 -0.379885 0.2508  0.039 *
 Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
 pH       -0.648094  0.761560 0.2308  0.060 .  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 P values based on 999 permutations.
 
 
@@ -3497,7 +3501,7 @@ D.cl.11    7.797822 130.000000         NA         NA            NA
 D.cl.12    8.526186  66.000000         NA         NA            NA  
 D.cl.13    9.254550  32.000000         NA         NA            NA  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > # or: print(mite.correlog)
 > # or: print.mantel.correlog(mite.correlog)
 > plot(mite.correlog)
@@ -3536,7 +3540,7 @@ D.cl.11    7.797822 130.000000   0.036195       0.08          0.22
 D.cl.12    8.526186  66.000000  -0.054242       0.04          0.24  
 D.cl.13    9.254550  32.000000  -0.066677       0.02          0.26  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mite.correlog2)
 > 
 > # NOTE: 'nperm' argument usually needs to be larger than 49.
@@ -3627,7 +3631,7 @@ Species: expanded scores based on ‘dune’
 Run 0 stress 0.1067169 
 Run 1 stress 0.1067169 
 ... New best solution
-... procrustes: rmse 1.234853e-05  max resid 2.993581e-05 
+... procrustes: rmse 1.234853e-05  max resid 2.993582e-05 
 *** Solution reached
 > sol
 
@@ -3831,7 +3835,7 @@ Based on  999  permutations
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
 Run 0 stress 0.1192678 
 Run 1 stress 0.119268 
-... procrustes: rmse 8.18569e-05  max resid 0.0001982896 
+... procrustes: rmse 8.185687e-05  max resid 0.0001982896 
 *** Solution reached
 > ordihull(dune.ord, dune.env$Management)
 > 
@@ -4021,7 +4025,7 @@ Call: multipart(y = mite, x = levsm, index = "renyi", scales = 1,
 nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global TRUE
+options:  index renyi, scales 1, global FALSE
 alternative hypothesis: simulated median is not equal to the statistic
 
         statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
@@ -4033,7 +4037,7 @@ beta.1     1.3568   27.320  1.15770  1.14474  1.15859  1.1683     0.05 *
 beta.2     1.0710   30.431  1.00339  0.99912  1.00340  1.0059     0.05 *
 beta.3     1.1794  460.550  1.00148  1.00083  1.00148  1.0021     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
 multipart object
 
@@ -4041,7 +4045,7 @@ Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
 scales = 1, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global TRUE
+options:  index renyi, scales 1, global FALSE
 alternative hypothesis: simulated median is not equal to the statistic
 
         statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
@@ -4053,7 +4057,7 @@ beta.1     1.3568   35.028  1.1566  1.1478  1.1565  1.1660     0.05 *
 beta.2     1.0710   33.423  1.0041  1.0015  1.0035  1.0078     0.05 *
 beta.3     1.1794  419.166  1.0015  1.0008  1.0016  1.0023     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
 multipart object
 
@@ -4061,7 +4065,7 @@ Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
 scales = 1, relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global TRUE
+options:  index renyi, scales 1, global FALSE
 alternative hypothesis: simulated median is not equal to the statistic
 
         statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
@@ -4073,7 +4077,7 @@ beta.1   0.078594   19.568  0.068267  0.067236  0.068392  0.0691     0.05 *
 beta.2   0.535514   35.966  0.501994  0.500294  0.502062  0.5035     0.05 *
 beta.3   0.589695  404.814  0.500885  0.500583  0.500848  0.5013     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
 multipart object
 
@@ -4093,7 +4097,7 @@ beta.1     1.7578  105.552  1.16133  1.14975  1.16210  1.1708     0.05 *
 beta.2     1.2603  102.695  1.00483  0.99985  1.00484  1.0077     0.05 *
 beta.3     1.1794  378.335  1.00154  1.00104  1.00144  1.0025     0.05 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -4155,7 +4159,7 @@ C-score (species mean): 2.258776
         statistic      z   mean   2.5%    50%  97.5% Pr(sim.)   
 C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -4283,7 +4287,7 @@ C-score (species mean): 2.258776
           statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
 statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## sequential model, one-sided test, a vector statistic
 > out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
 +    statistic="evals", alt = "less")
@@ -4316,7 +4320,7 @@ DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
 DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
 DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
 > plot(as.ts(out))
 > lag.plot(as.ts(out))
@@ -4342,7 +4346,7 @@ alternative hypothesis: simulated median is not equal to the statistic
           statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
 statistic   0.64565 14.66 0.46734 0.44069 0.46760 0.4903     0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Define your own null model as a 'commsim' function: shuffle cells
 > ## in each row
@@ -4366,7 +4370,7 @@ alternative hypothesis: simulated median is not equal to the statistic
           statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
 statistic   0.64565 3.1832 0.63514 0.63016 0.63441 0.6419     0.03 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -4644,14 +4648,14 @@ Start: dune ~ 1
 + A1          1 89.591 1.9217    199  0.035 * 
 + Use         2 91.032 1.1741     99  0.310   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management 
 
              Df   AIC    F N.Perm Pr(>F)   
 - Management  3 89.62 2.84     99   0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F N.Perm Pr(>F)   
 + Moisture  3 85.567 1.9764    199  0.005 **
@@ -4659,7 +4663,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 + A1        1 87.424 1.2965     99  0.240   
 + Use       2 88.284 1.0510     99  0.480   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
@@ -4667,7 +4671,7 @@ Step: dune ~ Management + Moisture
 - Moisture    3 87.082 1.9764     99   0.02 * 
 - Management  3 87.707 2.1769     99   0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F N.Perm Pr(>F)
 + Manure  3 85.762 1.1225     99   0.26
@@ -4720,7 +4724,7 @@ Step: dune ~ Moisture + Management + Manure
 - Manure      3 85.567 1.1225     99   0.30  
 - Moisture    3 87.517 1.5788     99   0.03 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Moisture + Manure 
 
@@ -4728,7 +4732,7 @@ Step: dune ~ Moisture + Manure
 - Manure    4 87.707 1.8598     99   0.02 * 
 - Moisture  3 89.232 2.3275     99   0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Call: rda(formula = dune ~ Moisture + Manure, data = dune.env)
 
@@ -4778,7 +4782,7 @@ Call: mite.hel ~ 1
            Df     AIC     F N.Perm Pr(>F)   
 + WatrCont  1 -84.336 25.35    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: R2.adj= 0.2608453 
 Call: mite.hel ~ WatrCont 
@@ -4795,7 +4799,7 @@ Call: mite.hel ~ WatrCont
         Df     AIC     F N.Perm Pr(>F)   
 + Shrub  2 -88.034 3.836    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: R2.adj= 0.3177536 
 Call: mite.hel ~ WatrCont + Shrub 
@@ -4812,7 +4816,7 @@ Call: mite.hel ~ WatrCont + Shrub
             Df     AIC      F N.Perm Pr(>F)   
 + Substrate  6 -87.768 1.8251    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: R2.adj= 0.3653551 
 Call: mite.hel ~ WatrCont + Shrub + Substrate 
@@ -4829,7 +4833,7 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate
        Df     AIC      F N.Perm Pr(>F)   
 + Topo  1 -90.924 4.5095    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: R2.adj= 0.4004249 
 Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
@@ -4846,7 +4850,7 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo
            Df     AIC      F N.Perm Pr(>F)   
 + SubsDens  1 -94.489 4.7999    199  0.005 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: R2.adj= 0.4367038 
 Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens 
@@ -4869,7 +4873,7 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens
 + SubsDens      0.43670  1 -94.489  4.7999    199  0.005 **
 <All variables> 0.43670                                    
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Example of ordiR2step with direction = "forward"
 > ## Not run: 
@@ -4899,17 +4903,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109ecd740>
+<environment: 0x8b27e80>
 
 Estimated degrees of freedom:
-6.4512  total = 7.451249 
+6.45  total = 7.45 
 
 GCV score: 144.0039
 > 
@@ -4922,10 +4926,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10aa363f0>
+<environment: 0x905b218>
 
 Estimated degrees of freedom:
-6.1234  total = 7.123433 
+6.12  total = 7.12 
 
 GCV score: 139.9445
 > 
@@ -4934,13 +4938,13 @@ GCV score: 139.9445
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0596535  6.0185659  3.6298559  4.1000950  8.9833600  5.9067472  8.6617389 
+22.0596536  6.0185658  3.6298560  4.1000950  8.9833602  5.9067474  8.6617386 
          8          9         10         11         12         13         14 
-11.0812152  0.6432691 35.2567124 10.4452454  7.2748478  5.5780162 24.6561685 
+11.0812151  0.6432692 35.2567122 10.4452454  7.2748480  5.5780162 24.6561684 
         15         16         17         18         19         20         21 
-18.8879906 29.7642964  5.6095920  9.5945524  3.2753633  2.6966143 10.7869351 
+18.8879904 29.7642960  5.6095921  9.5945523  3.2753635  2.6966144 10.7869350 
         22         23         24 
- 2.9902832  9.8082237  7.3406581 
+ 2.9902833  9.8082238  7.3406584 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -5045,6 +5049,10 @@ Loading required package: lattice
 > ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
 > ordicloud(ord, form = CA2 ~ CA3*CA1 | Management, groups = Manure,
 +    data = dune.env, auto.key = TRUE, type = c("p","h"))
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -5071,17 +5079,17 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b52c508>
+<environment: 0x8434c00>
 
 Estimated degrees of freedom:
-8.9275  total = 9.927492 
+8.93  total = 9.93 
 
 GCV score: 0.001054656
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
@@ -5091,10 +5099,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b144508>
+<environment: 0x98d3c30>
 
 Estimated degrees of freedom:
-7.7529  total = 8.75294 
+7.75  total = 8.75 
 
 GCV score: 0.002284958
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
@@ -5104,10 +5112,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10aa31460>
+<environment: 0x9b013d0>
 
 Estimated degrees of freedom:
-8.8962  total = 9.89616 
+8.9  total = 9.9 
 
 GCV score: 0.002508871
 > par(op)
@@ -5335,7 +5343,7 @@ sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
 
 	Box-Pierce test
 
-data:  mar$residuals 
+data:  mar$residuals
 X-squared = 0.0011, df = 1, p-value = 0.9739
 
 > ## Graphical diagnostics
@@ -5398,7 +5406,7 @@ Response: Distances
 Groups     1 0.07931 0.079306  4.6156 0.04295 *
 Residuals 22 0.37801 0.017182                  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
 > permutest(mod, pairwise = TRUE)
@@ -5419,7 +5427,7 @@ Response: Distances
 Groups     1 0.07931 0.079306 4.6156    999   0.05 *
 Residuals 22 0.37801 0.017182                       
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
@@ -5699,7 +5707,7 @@ Model: prc(response = pyrifos, treatment = dose, time = week)
 RDA1      1  25.282 15.096     99   0.01 **
 Residual 77 128.959                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -5861,7 +5869,7 @@ Procrustes root mean squared error:
  0.7398422 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
-0.02033237 0.27686842 0.34124239 0.64358542 2.23460568 
+0.02033237 0.27686842 0.34124239 0.64358542 2.23460567 
 
 Rotation matrix:
           [,1]       [,2]
@@ -5870,7 +5878,7 @@ Rotation matrix:
 
 Translation of averages:
              [,1]         [,2]
-[1,] 2.827507e-19 5.561347e-18
+[1,] 3.038945e-17 1.218602e-17
 
 Scaling of target:
 [1] 0.6727804
@@ -5881,9 +5889,9 @@ Scaling of target:
         18         15         24         27         23         19         22 
 0.28003467 0.13180094 1.72990690 0.63953155 0.37177564 0.11807007 0.38558576 
         16         28         13         14         20         25          7 
-0.28008712 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
+0.28008711 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
          5          6          3          4          2          9         12 
-0.69324047 0.20264726 0.29744269 0.50070811 2.23460568 0.31901411 0.21727135 
+0.69324047 0.20264726 0.29744269 0.50070811 2.23460567 0.31901411 0.21727135 
         10         11         21 
 0.32523080 0.56506437 0.78179902 
 > 
@@ -5963,6 +5971,9 @@ Lognormal  29.2719 16.6588 17.078
 Zipf       50.1262 47.9108 30.936
 Mandelbrot  5.7342  5.5665 10.573
 > plot(mod, pch=".")
+Warning in FUN(X[[8L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[9L]], ...) : 'x' is NULL so the result will be NULL
+Warning in FUN(X[[7L]], ...) : 'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -6926,7 +6937,7 @@ Expected            74.594   71.431            79.644
 7        71.0050 76.2863 79.3749     3.2021   -0.0840 0.933019   
 Expected 74.5941 71.4315 79.6440                                 
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mod)
 > 
 > 
@@ -7079,7 +7090,7 @@ alternative hypothesis: simulated median is not equal to the statistic
 12    572.35  0.797098 531.20 425.46 527.19 642.86     0.33   
 7     646.54 -0.606963 678.97 576.15 681.57 770.51     0.53   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Clustering of tree distances
 > dtree <- treedist(dune, cl)
 > plot(hclust(dtree, "aver"))
@@ -7267,7 +7278,7 @@ Model: rda(X = decostand(mite, "hel"), Y = mm, Z = mite.pcnm)
 Model    11 0.053592 1.8453    199  0.005 **
 Residual 36 0.095050                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > # RsquareAdj gives the same result as component [a] of varpart
 > RsquareAdj(aFrac)
 $r.squared
@@ -7344,7 +7355,7 @@ Model: rda(formula = mite.hel ~ mm1 + Condition(mm2) + Condition(as.matrix(mite.
 Model     2 0.013771 2.6079    199  0.005 **
 Residual 36 0.095050                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > # Four explanatory tables
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
@@ -7504,7 +7515,7 @@ Baresoil  0.925034 -0.379885 0.2508  0.039 *
 Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
 pH       -0.648094  0.761560 0.2308  0.060 .  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 P values based on 999 permutations.
 
 
@@ -7565,14 +7576,14 @@ Start: dune ~ 1
 + A1          1 89.591 1.9217    999  0.045 * 
 + Use         2 91.032 1.1741     99  0.210   
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management 
 
              Df   AIC    F N.Perm Pr(>F)   
 - Management  3 89.62 2.84     99   0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F N.Perm Pr(>F)  
 + Moisture  3 85.567 1.9764    299 0.0200 *
@@ -7580,7 +7591,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 + A1        1 87.424 1.2965     99 0.1800  
 + Use       2 88.284 1.0510     99 0.4000  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
@@ -7588,7 +7599,7 @@ Step: dune ~ Management + Moisture
 - Moisture    3 87.082 1.9764     99   0.01 **
 - Management  3 87.707 2.1769     99   0.01 **
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F N.Perm Pr(>F)
 + Manure  3 85.762 1.1225     99   0.27
@@ -7624,7 +7635,7 @@ Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
 Model     6 46.425 2.6682    199  0.005 **
 Residual 13 37.699                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Permutation test of "type III" effects, or significance when a term
 > ## is added to the model after all other terms
 > anova(mod, by = "margin")
@@ -7637,7 +7648,7 @@ Management  3 18.938 2.1769    199  0.005 **
 Moisture    3 17.194 1.9764    199  0.005 **
 Residual   13 37.699                        
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Plot only sample plots, use different symbols and draw SD ellipses 
 > ## for Managemenet classes
 > plot(mod, display = "sites", type = "n")
@@ -7648,14 +7659,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a933c98>
+<environment: 0xa84c790>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7679,7 +7690,7 @@ Manure      3    0.4208 0.14026  1.0096 0.09787  0.490
 Residuals   7    0.9725 0.13893         0.22621          
 Total      19    4.2990                 1.00000          
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > adonis(dune ~ Management + Moisture, dune.env)
 
 Call:
@@ -7693,7 +7704,7 @@ Moisture    3    1.1516 0.38387  2.9726 0.26788  0.003 **
 Residuals  13    1.6788 0.12914         0.39051           
 Total      19    4.2990                 1.00000           
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -8102,13 +8113,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
+-9.992007e-16 -1.665335e-16  6.661338e-16 -3.330669e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
+ 2.775558e-17  1.249001e-16  1.387779e-17  1.387779e-17  1.249001e-16 
          CA11          CA12          CA13          CA14          CA15 
- 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
+ 8.326673e-17  6.938894e-18 -1.387779e-17  2.775558e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
+-3.295975e-17  2.428613e-17  2.949030e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8117,7 +8128,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
-    0 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8135,7 +8146,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  81.69 1.562 86.604 0 0 
+Time elapsed:  26.141 0.1 26.342 0 0 
 > grDevices::dev.off()
 null device 
           1 
