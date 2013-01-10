@@ -6,9 +6,15 @@
 
 \name{wcmdscale}
 \alias{wcmdscale}
+\alias{print.wcmdscale}
+\alias{scores.wcmdscale}
+\alias{plot.wcmdscale}
+
 \title{Weighted Classical (Metric) Multidimensional Scaling}
 \usage{
 wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
+\method{plot}{wcmdscale}(x, choices = c(1, 2), type = "t", ...)
+\method{scores}{wcmdscale}(x, choices = NA, ...) 
 }
 \description{
   Weighted classical multidimensional scaling, 
@@ -27,6 +33,13 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \item{x.ret}{indicates whether the doubly centred symmetric distance
     matrix should be returned.}
   \item{w}{Weights of points.}
+  \item{x}{The \code{wcmdscale} result object when the function was
+    called with options \code{eig = TRUE} or \code{x.ret = TRUE} (See
+    Details).}
+  \item{choices}{Axes to be returned; \code{NA} returns all real axes.}
+  \item{type}{Type of graph which may be \code{"t"}ext, \code{"p"}oints
+    or \code{"n"}one.}
+  \item{\dots}{Other arguments passed to graphical functions.}
 }
 \details{
   Function \code{wcmdscale} is based on function
@@ -34,7 +47,13 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   point weights. Points with high weights will have a stronger
   influence on the result than those with low weights. Setting equal
   weights \code{w = 1} will give ordinary multidimensional scaling.
-}
+
+  With default options, the function returns only a matrix of scores
+  scaled by eigenvalues for all real axes. If the function is called
+  with \code{eig = TRUE} or \code{x.ret = TRUE}, the function returns an
+  object of class \code{"wcmdscale"} with \code{print}, \code{plot},
+  \code{scores}, \code{\link{eigenvals}} and \code{\link{stressplot}}
+  methods, and described in section Value.  }
 
 \value{ If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a
   matrix with \code{k} columns whose rows give the coordinates of the
@@ -56,7 +75,8 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
      scaled by the absolute eigenvalues similarly as
      \code{points}. This is \code{NULL} if there are no negative
      eigenvalues or \code{k} was specified, and would not include
-     negative eigenvalues.}  
+     negative eigenvalues.}
+  \item{call}{Function call.}
 }
 
 \references{
@@ -69,10 +89,13 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \emph{Multivariate Analysis}, London: Academic Press.
 }
 
-\seealso{ \code{\link{cmdscale}}.  Also \code{\link{monoMDS}}, and
+\seealso{The function is modelled after \code{\link{cmdscale}}, but adds
+  weights (hence name) and handles negative eigenvalues differently.
+  \code{\link{eigenvals.wcmdscale}} and
+  \code{\link{stressplot.wcmdscale}} are some specific methods. Other
+  multidimensional scaling methods are \code{\link{monoMDS}}, and
   \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}} in package
-  \pkg{MASS}.  
-}
+  \pkg{MASS}.  }
 
 \examples{
 ## Correspondence analysis as a weighted principal coordinates
