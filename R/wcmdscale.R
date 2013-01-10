@@ -48,9 +48,10 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     GOF <- c(sum(ev)/sum(abs(e$values)),
              sum(ev)/sum(e$values[e$values > 0]))
     if (eig || x.ret || add) {
+        colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="") 
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = NA, GOF = GOF, weights = w,
-                    negaxes = negaxes)
+                    negaxes = negaxes, call = match.call())
         class(out) <- "wcmdscale"
     }
     else out <- points

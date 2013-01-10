@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2013-01-08 r61589) -- "Unsuffered Consequences"
+R Under development (unstable) (2013-01-09 r61595) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x3160ba8>
+<environment: 0x27d9338>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -1585,6 +1585,8 @@ Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
 1.4408 0.8523 0.6015 0.4888 0.4187 0.3538 0.2877 0.2160 
 (Showed only 8 of all 19 unconstrained eigenvalues)
+
+Constant added to distances: 0.2614286 
 
 > ## Avoid negative eigenvalues by taking square roots of dissimilarities
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
@@ -4910,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa20afb0>
+<environment: 0x9181780>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4926,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa251f70>
+<environment: 0x9cff1b8>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5086,7 +5088,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa336010>
+<environment: 0x782f2c8>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5099,7 +5101,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xab88d18>
+<environment: 0x9797dc8>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5112,7 +5114,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xab15780>
+<environment: 0x9786660>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7689,7 +7691,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x950e978>
+<environment: 0x876fd18>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8120,7 +8122,7 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > 
 > ### Name: wcmdscale
 > ### Title: Weighted Classical (Metric) Multidimensional Scaling
-> ### Aliases: wcmdscale
+> ### Aliases: wcmdscale print.wcmdscale scores.wcmdscale plot.wcmdscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8169,7 +8171,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.121 0.156 26.372 0 0 
+Time elapsed:  27.421 0.132 27.652 0 0 
 > grDevices::dev.off()
 null device 
           1 

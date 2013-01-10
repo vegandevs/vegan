@@ -275,6 +275,7 @@ S3method(plot, taxondive)
 S3method(plot, varpart)
 S3method(plot, varpart234)
 S3method(plot, vegandensity)
+S3method(plot, wcmdscale)
 # points: graphics
 S3method(points, cca)
 S3method(points, decorana)
@@ -356,6 +357,7 @@ S3method(print, tolerance.cca)
 S3method(print, varpart)
 S3method(print, varpart234)
 S3method(print, vectorfit)
+S3method(print, wcmdscale)
 # profile: stats
 # see note on 'confint'
 S3method(profile, MOStest)
@@ -386,6 +388,7 @@ S3method(scores, ordiplot)
 S3method(scores, orditkplot)
 S3method(scores, pcnm)
 S3method(scores, rda)
+S3method(scores, wcmdscale)
 # screeplot: stats
 S3method(screeplot, cca)
 S3method(screeplot, decorana)

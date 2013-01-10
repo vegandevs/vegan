@@ -5,7 +5,14 @@
     function(object, k = 2, pch,  p.col = "blue", l.col = "red", lwd = 2, ...)
 {
     ## NB: Ignores weights
-    
+
+    ## Check that original distances can be reconstructed: this
+    ## requires that all axes were calculated instead of 'k' first.
+    hasdims <- NCOL(object$points)
+    if (!is.null(object$negaxes))
+        hasdims <- hasdims + NCOL(object$negaxes)
+    if (hasdims < length(object$eig))
+        stop("observed distances cannot be reconstructed: all axes were not calculated")
     ## Get the ordination distances in k dimensions
     if (k > NCOL(object$points))
         stop("'k' cannot exceed the number of real dimensions")
