@@ -20,8 +20,8 @@ Version 2.1-23 (opened January 8, 2013)
 	2') against original observed distances.  These original distances
 	are found from the full space solution, and in capscale() and
 	wcmdscale() they are correct for the imaginary axes. The weights
-	are not used in wcmdscale() and cca(): I must first figure out if
-	they should be used or ignored.
+	are used in wcmdscale() and cca() so that their distances differ
+	from plotted ordinations, but agree with eigenvalues.
 
 	* wcmdscale: added method functions print(), plot() and
 	scores(). Now class "wcmdscale" results also retun the function
