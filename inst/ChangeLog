@@ -13,15 +13,15 @@ Version 2.1-23 (opened January 8, 2013)
 	the value of the additive constant with 'add = TRUE'.
 
 	* stressplot: added stressplot() methods for wcmdscale(),
-	capscale(), cca() and rda() results.  These also work with
-	constrained ordination, but not with the partial ordination (at
-	least not yet).  These methods display the ordination distances in
-	given number of dimensions (defaults 'k = 2') against original
-	observed distances.  These original distances are found from the
-	full space solution, and in capscale() and wcmdscale() they are
-	correct for the imaginary axes. The weights are not used in
-	wcmdscale() and cca(): I must first figure out if they should be
-	used or ignored.
+	capscale(), cca(), rda(), prcomp() and princomp() results.  These
+	also work with constrained ordination, but not with the partial
+	ordination (at least not yet).  These methods display the
+	ordination distances in given number of dimensions (defaults 'k =
+	2') against original observed distances.  These original distances
+	are found from the full space solution, and in capscale() and
+	wcmdscale() they are correct for the imaginary axes. The weights
+	are not used in wcmdscale() and cca(): I must first figure out if
+	they should be used or ignored.
 
 	* wcmdscale: added method functions print(), plot() and
 	scores(). Now class "wcmdscale" results also retun the function

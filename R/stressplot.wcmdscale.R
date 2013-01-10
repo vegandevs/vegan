@@ -126,3 +126,37 @@
     abline(0, 1, col = l.col, lwd = lwd, ...)
     invisible(odis)
 }
+
+## Standard R PCA functions
+
+`stressplot.prcomp` <-
+    function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
+{
+    dis <- dist(object$x)
+    odis <- dist(object$x[, 1:k, drop = FALSE])
+    if (missing(pch))
+        if (length(dis) > 5000)
+            pch <- "."
+        else
+            pch <- 1
+    plot(dis, odis, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
+         ylab = "Ordination Distance", ...)
+    abline(0, 1, col = l.col, lwd = lwd, ...)
+    invisible(odis)    
+}
+
+`stressplot.princomp` <-
+    function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
+{
+    dis <- dist(object$scores)
+    odis <- dist(object$scores[, 1:k, drop = FALSE])
+    if (missing(pch))
+        if (length(dis) > 5000)
+            pch <- "."
+        else
+            pch <- 1
+    plot(dis, odis, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
+         ylab = "Ordination Distance", ...)
+    abline(0, 1, col = l.col, lwd = lwd, ...)
+    invisible(odis)    
+}
