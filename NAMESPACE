@@ -408,6 +408,8 @@ S3method(stressplot, wcmdscale)
 S3method(stressplot, capscale)
 S3method(stressplot, cca)
 S3method(stressplot, rda)
+S3method(stressplot, prcomp)
+S3method(stressplot, princomp)
 # summary: base
 S3method(summary, anosim)
 S3method(summary, bioenv)

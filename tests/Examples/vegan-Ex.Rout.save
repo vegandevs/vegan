@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x27d9338>
+<environment: 0x2ca4338>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4912,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9181780>
+<environment: 0x94283c0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9cff1b8>
+<environment: 0x9c4f678>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5088,7 +5088,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x782f2c8>
+<environment: 0x8bcd578>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5101,7 +5101,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9797dc8>
+<environment: 0x9370d28>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5114,7 +5114,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9786660>
+<environment: 0x9b14638>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -6881,7 +6881,7 @@ Stepping across 190 dissimilarities...
 > ### Title: Display Ordination Distances Against Observed Distances in
 > ###   Eigenvector Ordinations
 > ### Aliases: stressplot.wcmdscale stressplot.cca stressplot.rda
-> ###   stressplot.capscale
+> ###   stressplot.capscale stressplot.prcomp stressplot.princomp
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7691,7 +7691,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x876fd18>
+<environment: 0x3ac4fa8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8171,7 +8171,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.421 0.132 27.652 0 0 
+Time elapsed:  26.573 0.116 26.874 0 0 
 > grDevices::dev.off()
 null device 
           1 

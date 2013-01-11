@@ -3,6 +3,8 @@
 \alias{stressplot.cca}
 \alias{stressplot.rda}
 \alias{stressplot.capscale}
+\alias{stressplot.prcomp}
+\alias{stressplot.princomp}
 
 \title{
   Display Ordination Distances Against Observed Distances in Eigenvector Ordinations
@@ -16,7 +18,8 @@
   with \code{\link{metaMDS}} or \code{\link{monoMDS}}), but shows the
   linear relationship of the eigenvector ordinations. The
   \code{stressplot} methods are available for \code{\link{wcmdscale}},
-  \code{\link{rda}}, \code{\link{cca}} and \code{\link{capscale}}. 
+  \code{\link{rda}}, \code{\link{cca}}, \code{\link{capscale}},
+  \code{\link{prcomp}} and \code{\link{princomp}}. 
 }
 
 \usage{
@@ -53,7 +56,10 @@
   \code{\link{wcmdscale}} or \code{\link{capscale}}) with negative
   eigenvalues the ordination distances can exceed the observed distances
   in real dimensions; the imaginary dimensions with negative eigenvalues
-  will correct these excess distances.
+  will correct these excess distances. If you have used
+  \code{\link{capscale}} with argument \code{add = TRUE} to avoid
+  negative eigenvalues, the ordination distances will exceed the
+  observed dissimilarities by the additive constant.
 }
 
 \value{
