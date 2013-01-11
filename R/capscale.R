@@ -88,8 +88,13 @@
     if (is.null(rownames(X$points))) 
         rownames(X$points) <- nm
     X$points <- adjust * X$points
-    if (adjust == 1)
+    ## We adjust eigenvalues to variances, and simultaneously the
+    ## possible negative axes must be adjusted similarly
+    if (adjust == 1) {
         X$eig <- X$eig/k
+        if (!is.null(X$negaxes))
+            X$negaxes <- X$negaxes/sqrt(k)
+    }
     sol <- rda.default(X$points, d$Y, d$Z, ...)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
