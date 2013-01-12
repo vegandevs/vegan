@@ -206,7 +206,8 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \code{squared} is added to the name of distance, unless data were
   square root transformed (argument \code{sqrt.dist = TRUE}). If an
   additive constant was used, keyword \code{euclidified} is added to the
-  the name of inertia (argument \code{add = TRUE}).
+  the name of inertia, and the value of the constant is printed
+ (argument \code{add = TRUE}).
 }
 
 
