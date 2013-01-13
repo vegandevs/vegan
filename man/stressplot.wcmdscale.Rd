@@ -60,6 +60,13 @@
   \code{\link{capscale}} with argument \code{add = TRUE} to avoid
   negative eigenvalues, the ordination distances will exceed the
   observed dissimilarities by the additive constant.
+
+  In partial ordination (\code{\link{cca}}, \code{\link{rda}} and
+  \code{\link{capscale}} with \code{Condition} in the formula), the
+  distances in the partial component are included both in the observed
+  distances and in ordination distances.  With \code{k=0}, the
+  ordination distances refer to the partial ordination.
+
 }
 
 \value{
