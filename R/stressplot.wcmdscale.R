@@ -43,18 +43,16 @@
 `stressplot.rda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Not yet done for pRDA
-    if (!is.null(object$pCCA))
-        stop("not implemented yet for partial RDA")
     ## Normalized scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
     ev <- c(object$CCA$eig, object$CA$eig)
     ## normalizing constant
     nr <- NROW(u)
     const <- sqrt(ev * (nr-1))
+    u <- u %*% diag(const)
     ## Distances
-    dis <- dist(u %*% diag(const))
-    odis <- dist(u[,1:k, drop=FALSE] %*% diag(const[1:k], nrow = k))
+    dis <- dist(cbind(u, object$pCCA$Fit))
+    odis <- dist(cbind(u[,seq_len(k), drop=FALSE], object$pCCA$Fit))
     ## plot like above
         ## Plot
     if (missing(pch))
