@@ -45,14 +45,21 @@
 {
     ## Normalized scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
+    v <- cbind(object$CCA$v, object$CA$v)
     ev <- c(object$CCA$eig, object$CA$eig)
     ## normalizing constant
     nr <- NROW(u)
     const <- sqrt(ev * (nr-1))
     u <- u %*% diag(const)
     ## Distances
-    dis <- dist(cbind(u, object$pCCA$Fit))
-    odis <- dist(cbind(u[,seq_len(k), drop=FALSE], object$pCCA$Fit))
+    Xbar <- u %*% t(v)
+    Xbark <- u[, seq_len(k), drop = FALSE] %*% t(v[, seq_len(k), drop = FALSE])
+    if (!is.null(object$pCCA)) {
+        Xbar <- Xbar + object$pCCA$Fit
+        Xbark <- Xbark + object$pCCA$Fit
+    }
+    dis <- dist(Xbar)
+    odis <- dist(Xbark)
     ## plot like above
         ## Plot
     if (missing(pch))
@@ -99,7 +106,7 @@
     ev <- c(object$CCA$eig, object$CA$eig)
     u <- u %*% diag(sqrt(ev))
     if (!is.null(object$pCCA))
-        pFit <- object$pCCA$Fit/sqrt(nrow(object$pCCA$Fit) - 1)
+        pFit <- object$pCCA$Fit/object$adjust
     else
         pFit <- NULL
     ## Distances
