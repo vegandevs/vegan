@@ -81,12 +81,18 @@
     sev <- sqrt(c(object$CCA$eig, object$CA$eig))
     w <- sqrt(object$rowsum)
     u <- diag(w) %*% u %*% diag(sev)
+    v <- cbind(object$CCA$v, object$CA$v)
+    v <- diag(sqrt(object$colsum)) %*% v
     ## Distances
-    dis <- dist(cbind(u, object$pCCA$Fit))
-    odis <- dist(cbind(u[,seq_len(k), drop = FALSE], object$pCCA$Fit))
-    ##odis <- dist(sweep(Xbar, 2, sqrt(object$colsum), "*"))
-    ## plot like above
-        ## Plot
+    Xbar <- u %*% t(v)
+    Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
+    if (!is.null(object$pCCA)) {
+        Xbar <- Xbar + object$pCCA$Fit
+        Xbark <- Xbark + object$pCCA$Fit
+    }
+    dis <- dist(Xbar)
+    odis <- dist(Xbark)
+    ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."
