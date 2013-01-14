@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-23 (opened January 8, 2013)
 
+	* clamtest: Richard Telford reported an extreme case 
+	{rbind(a=c(1,0,5,10,4),b=c(0,10,5,2,1))} where
+	clamtest failed due to inadequately setting up minimum
+	abundance thresholds for rare species. The issue is solved
+	by hard coding the minimum values to be 1 when no suitable 
+	solution is found. Also, clamtest failed when the community matrix 
+	had no column names, this is now fixed.
+
 	* capscale: It was wrongly assumed that eigenvalues could be used
 	in normalization of species scores, but this worked only with
 	Euclidean distances. Now normalization is done explicitly with
