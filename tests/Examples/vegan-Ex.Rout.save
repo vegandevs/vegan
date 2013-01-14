@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2013-01-09 r61595) -- "Unsuffered Consequences"
+R Under development (unstable) (2013-01-13 r61644) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2ca4338>
+<environment: 0x3df5138>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -752,7 +752,7 @@ ANOSIM statistic R: 0.2579
 
 Based on  999  permutations
 
-Empirical upper confidence limits of R:
+Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.116 0.160 0.203 0.233 
 
@@ -3421,7 +3421,7 @@ mantel(xdis = veg.dist, ydis = env.dist)
 Mantel statistic r: 0.3047 
       Significance: 0.001 
 
-Empirical upper confidence limits of r:
+Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.107 0.145 0.169 0.200 
 
@@ -3437,7 +3437,7 @@ mantel(xdis = veg.dist, ydis = env.dist, method = "spear")
 Mantel statistic r: 0.2838 
       Significance: 0.001 
 
-Empirical upper confidence limits of r:
+Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.108 0.141 0.169 0.196 
 
@@ -4912,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x94283c0>
+<environment: 0xb6d08b8>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9c4f678>
+<environment: 0xb45d698>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5088,7 +5088,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x8bcd578>
+<environment: 0x926fa88>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5101,7 +5101,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9370d28>
+<environment: 0xb4d7d30>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5114,7 +5114,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9b14638>
+<environment: 0x9deafc8>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7691,7 +7691,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x3ac4fa8>
+<environment: 0xb37bc20>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8171,7 +8171,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.573 0.116 26.874 0 0 
+Time elapsed:  26.901 0.172 27.2 0 0 
 > grDevices::dev.off()
 null device 
           1 

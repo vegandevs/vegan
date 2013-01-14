@@ -43,18 +43,23 @@
 `stressplot.rda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Not yet done for pRDA
-    if (!is.null(object$pCCA))
-        stop("not implemented yet for partial RDA")
     ## Normalized scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
+    v <- cbind(object$CCA$v, object$CA$v)
     ev <- c(object$CCA$eig, object$CA$eig)
     ## normalizing constant
     nr <- NROW(u)
     const <- sqrt(ev * (nr-1))
+    u <- u %*% diag(const)
     ## Distances
-    dis <- dist(u %*% diag(const))
-    odis <- dist(u[,1:k, drop=FALSE] %*% diag(const[1:k], nrow = k))
+    Xbar <- u %*% t(v)
+    Xbark <- u[, seq_len(k), drop = FALSE] %*% t(v[, seq_len(k), drop = FALSE])
+    if (!is.null(object$pCCA)) {
+        Xbar <- Xbar + object$pCCA$Fit
+        Xbark <- Xbark + object$pCCA$Fit
+    }
+    dis <- dist(Xbar)
+    odis <- dist(Xbark)
     ## plot like above
         ## Plot
     if (missing(pch))
@@ -71,20 +76,23 @@
 `stressplot.cca` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Not yet done for pCCA
-    if (!is.null(object$pCCA))
-        stop("not implemented yet for partial CCA")
     ## Normalized scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
     sev <- sqrt(c(object$CCA$eig, object$CA$eig))
     w <- sqrt(object$rowsum)
     u <- diag(w) %*% u %*% diag(sev)
+    v <- cbind(object$CCA$v, object$CA$v)
+    v <- diag(sqrt(object$colsum)) %*% v
     ## Distances
-    dis <- dist(u)
-    odis <- dist(u[,1:k, drop = FALSE])
-    ##odis <- dist(sweep(Xbar, 2, sqrt(object$colsum), "*"))
-    ## plot like above
-        ## Plot
+    Xbar <- u %*% t(v)
+    Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
+    if (!is.null(object$pCCA)) {
+        Xbar <- Xbar + object$pCCA$Fit
+        Xbark <- Xbark + object$pCCA$Fit
+    }
+    dis <- dist(Xbar)
+    odis <- dist(Xbark)
+    ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."
@@ -99,21 +107,21 @@
 `stressplot.capscale` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Not yet done for pRDA
-    if (!is.null(object$pCCA))
-        stop("not implemented yet for partial analysis")
-    ## Normalized scores to reconstruct data
+    ## Scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
     ev <- c(object$CCA$eig, object$CA$eig)
-    ## normalizing constant
-    const <- sqrt(ev)
+    u <- u %*% diag(sqrt(ev))
+    if (!is.null(object$pCCA))
+        pFit <- object$pCCA$Fit/object$adjust
+    else
+        pFit <- NULL
     ## Distances
-    dis <- dist(u %*% diag(const))
+    dis <- dist(cbind(u, pFit))
     if (!is.null(object$CA$imaginary.u.eig))
         dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
     if (!is.null(object$ac))
         dis <- dis - object$ac
-    odis <- dist(u[,1:k, drop=FALSE] %*% diag(const[1:k], nrow = k))
+    odis <- dist(cbind(u[,seq_len(k), drop=FALSE], pFit))
     ## plot like above
         ## Plot
     if (missing(pch))
