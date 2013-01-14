@@ -1,10 +1,10 @@
-"summary.anosim" <-
+`summary.anosim` <-
 function (object, ...) 
 {
    print(object)
    if (object$permutations) {
      out <- quantile(object$perm, c(0.9, 0.95, 0.975, 0.99))
-     cat("Empirical upper confidence limits of R:\n")
+     cat("Upper quantiles of permutations (null model):\n")
      print(out, digits=3)
    }
    cat("\n")
