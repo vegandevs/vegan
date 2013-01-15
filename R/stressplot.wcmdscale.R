@@ -110,18 +110,35 @@
     ## Scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
     ev <- c(object$CCA$eig, object$CA$eig)
-    u <- u %*% diag(sqrt(ev))
-    if (!is.null(object$pCCA))
-        pFit <- object$pCCA$Fit/object$adjust
+    if (object$adjust == 1)
+        const <- sqrt(NROW(u) - 1)
     else
-        pFit <- NULL
+        const <- 1
+    u <- u %*% diag(sqrt(ev) * const)
+    ## Constrained ordination needs also scores 'v' to reconstruct
+    ## 'data', but these are not returned by capscale() which replaces
+    ## original 'v' with weighted sums of 'comm' data.
+    if (!is.null(object$CCA)) 
+        v <- svd(object$CCA$Xbar - object$CA$Xbar, nu = 0, nv = object$CCA$qrank)$v
+    else
+        v <- NULL
+    if (!is.null(object$CA))
+        v <- cbind(v, svd(object$CA$Xbar, nu = 0, nv = object$CA$rank)$v)
+    ## Reconstruct Xbar and Xbark
+    Xbar <- u %*% t(v)
+    Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
+    if (!is.null(object$pCCA)) {
+        pFit <- object$pCCA$Fit/object$adjust
+        Xbar <- Xbar + pFit
+        Xbark <- Xbark + pFit
+    }
     ## Distances
-    dis <- dist(cbind(u, pFit))
+    dis <- dist(Xbar)
+    odis <- dist(Xbark)
     if (!is.null(object$CA$imaginary.u.eig))
         dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
     if (!is.null(object$ac))
         dis <- dis - object$ac
-    odis <- dist(cbind(u[,seq_len(k), drop=FALSE], pFit))
     ## plot like above
         ## Plot
     if (missing(pch))

@@ -4,6 +4,14 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-23 (opened January 8, 2013)
 
+	* clamtest: Richard Telford reported an extreme case 
+	{rbind(a=c(1,0,5,10,4),b=c(0,10,5,2,1))} where
+	clamtest failed due to inadequately setting up minimum
+	abundance thresholds for rare species. The issue is solved
+	by hard coding the minimum values to be 1 when no suitable 
+	solution is found. Also, clamtest failed when the community matrix 
+	had no column names, this is now fixed.
+
 	* capscale: It was wrongly assumed that eigenvalues could be used
 	in normalization of species scores, but this worked only with
 	Euclidean distances. Now normalization is done explicitly with
@@ -14,8 +22,7 @@ Version 2.1-23 (opened January 8, 2013)
 
 	* stressplot: added stressplot() methods for wcmdscale(),
 	capscale(), cca(), rda(), prcomp() and princomp() results.  These
-	also work with constrained ordination, but not with the partial
-	ordination (at least not yet).  These methods display the
+	also work with constrained ordination. These methods display the
 	ordination distances in given number of dimensions (defaults 'k =
 	2') against original observed distances.  These original distances
 	are found from the full space solution, and in capscale() and
@@ -24,6 +31,17 @@ Version 2.1-23 (opened January 8, 2013)
 	from plotted ordinations, but agree with eigenvalues. Partial
 	models (p-dbRDA, pRDA, pCCA) add the partial component both to the
 	original dissimilarities and the fit.
+
+	The row scores (u) alone will not correctly estimate original
+	dissimilarities in constrained (or partial) ordination. In
+	unconstrained ordination we can get the distances as dist(u %*%
+	diag(sqrt(eig))), but in constrained ordination this will not give
+	the observed dissimilarities with all axes. Currently we get the
+	ordination distances from a (low-rank) approximation of the data
+	as dist(u %*% diag(sqrt(eig)) %*% t(v)). However, it is not sure
+	that this the right thing to do, but perhaps we should acknowledge
+	the fact row ordination with constraints does not approximate
+	distances. So this may change.
 
 	* wcmdscale: added method functions print(), plot() and
 	scores(). Now class "wcmdscale" results also retun the function
