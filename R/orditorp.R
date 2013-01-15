@@ -17,6 +17,7 @@
         x <- .checkSelect(select, x)
         labels <- .checkSelect(select, labels)
         priority <- .checkSelect(select, priority)
+        kk <- .checkSelect(select, kk)
     }
     ## remove NA scores
     x <- x[kk,]
