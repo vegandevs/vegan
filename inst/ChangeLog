@@ -49,6 +49,10 @@ Version 2.1-23 (opened January 8, 2013)
 
 	* ordilabel: was missing ordiArgAbsorber() on the plotting calls
 	to text() and polygon(). Thus lots of warnings were raised in use.
+
+	* orditorp: added argument select, to choose which of the rows of
+	scores are plotted, so matches with ordilabel() and
+	ordipointlabel().
 	
 Version 2.1-22 (closed January 8, 2013)
 

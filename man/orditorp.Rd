@@ -11,7 +11,7 @@
 }
 \usage{
 orditorp(x, display, labels, choices = c(1, 2), priority,
-    cex = 0.7, pcex, col = par("col"), pcol,
+    select, cex = 0.7, pcex, col = par("col"), pcol,
     pch = par("pch"), air = 1, ...)
 }
 
@@ -27,6 +27,10 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
   \item{priority}{ Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same
     length as the number of items plotted.}
+  \item{select}{Items to be displayed.  This can either be a logical
+    vector which is \code{TRUE} for displayed items or a vector of indices
+    of displayed items. If a logical vector is used, it must have the
+    same length as the scores plotted.}
   \item{cex, pcex}{Text and point sizes, see \code{\link{plot.default}}..}
   \item{col, pcol}{Text and point colours, see \code{\link{plot.default}}.}
   \item{pch}{Plotting character, see \code{\link{points}}.}
@@ -72,6 +76,13 @@ cnam <- make.cepnames(names(BCI))
 plot(mod, dis="sp", type="n")
 stems <- colSums(BCI)
 orditorp(mod, "sp", label = cnam, priority=stems, pch="+", pcol="grey")
+
+## show select in action
+take <- sample(nrow(BCI), 50)
+plot(mod, dis="sp", type="n")
+stems <- colSums(BCI)
+orditorp(mod, "sp", label = cnam, priority=stems, select = take,
+         pch="+", pcol="grey")
 }
 \keyword{ aplot }
 \keyword{ hplot }
