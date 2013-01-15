@@ -78,7 +78,8 @@ stems <- colSums(BCI)
 orditorp(mod, "sp", label = cnam, priority=stems, pch="+", pcol="grey")
 
 ## show select in action
-take <- sample(nrow(BCI), 50)
+set.seed(1)
+take <- sample(ncol(BCI), 50)
 plot(mod, dis="sp", type="n")
 stems <- colSums(BCI)
 orditorp(mod, "sp", label = cnam, priority=stems, select = take,
