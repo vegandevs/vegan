@@ -22,8 +22,7 @@ Version 2.1-23 (opened January 8, 2013)
 
 	* stressplot: added stressplot() methods for wcmdscale(),
 	capscale(), cca(), rda(), prcomp() and princomp() results.  These
-	also work with constrained ordination, but not with the partial
-	ordination (at least not yet).  These methods display the
+	also work with constrained ordination. These methods display the
 	ordination distances in given number of dimensions (defaults 'k =
 	2') against original observed distances.  These original distances
 	are found from the full space solution, and in capscale() and
@@ -32,6 +31,17 @@ Version 2.1-23 (opened January 8, 2013)
 	from plotted ordinations, but agree with eigenvalues. Partial
 	models (p-dbRDA, pRDA, pCCA) add the partial component both to the
 	original dissimilarities and the fit.
+
+	The row scores (u) alone will not correctly estimate original
+	dissimilarities in constrained (or partial) ordination. In
+	unconstrained ordination we can get the distances as dist(u %*%
+	diag(sqrt(eig))), but in constrained ordination this will not give
+	the observed dissimilarities with all axes. Currently we get the
+	ordination distances from a (low-rank) approximation of the data
+	as dist(u %*% diag(sqrt(eig)) %*% t(v)). However, it is not sure
+	that this the right thing to do, but perhaps we should acknowledge
+	the fact row ordination with constraints does not approximate
+	distances. So this may change.
 
 	* wcmdscale: added method functions print(), plot() and
 	scores(). Now class "wcmdscale" results also retun the function
