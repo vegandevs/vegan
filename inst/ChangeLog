@@ -46,6 +46,9 @@ Version 2.1-23 (opened January 8, 2013)
 	* wcmdscale: added method functions print(), plot() and
 	scores(). Now class "wcmdscale" results also retun the function
 	call and dimensions have names.
+
+	* ordilabel: was missing ordiArgAbsorber() on the plotting calls
+	to text() and polygon(). Thus lots of warnings were raised in use.
 	
 Version 2.1-22 (closed January 8, 2013)
 
