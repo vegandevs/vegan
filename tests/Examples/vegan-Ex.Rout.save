@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2013-01-13 r61644) -- "Unsuffered Consequences"
+R Under development (unstable) (2013-01-14 r61648) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x3df5138>
+<environment: 0x39075a8>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4912,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb6d08b8>
+<environment: 0xb2bc310>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb45d698>
+<environment: 0xb1bcba8>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5014,6 +5014,14 @@ detaching ‘package:mgcv’
 > stems <- colSums(BCI)
 > orditorp(mod, "sp", label = cnam, priority=stems, pch="+", pcol="grey")
 > 
+> ## show select in action
+> set.seed(1)
+> take <- sample(ncol(BCI), 50)
+> plot(mod, dis="sp", type="n")
+> stems <- colSums(BCI)
+> orditorp(mod, "sp", label = cnam, priority=stems, select = take,
++          pch="+", pcol="grey")
+> 
 > 
 > 
 > cleanEx()
@@ -5088,7 +5096,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x926fa88>
+<environment: 0xa74d800>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5101,7 +5109,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb4d7d30>
+<environment: 0xaeb6538>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5114,7 +5122,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x9deafc8>
+<environment: 0xad7d4f8>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7691,7 +7699,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb37bc20>
+<environment: 0xb341970>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8171,7 +8179,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.901 0.172 27.2 0 0 
+Time elapsed:  26.077 0.164 26.359 0 0 
 > grDevices::dev.off()
 null device 
           1 
