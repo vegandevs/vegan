@@ -1,5 +1,5 @@
 `orditorp` <-
-    function (x, display, labels, choices = c(1, 2), priority,
+    function (x, display, labels, choices = c(1, 2), priority, select,
               cex = 0.7, pcex, col = par("col"),
               pcol, pch = par("pch"), air = 1, ...)
 {
@@ -13,6 +13,12 @@
         labels <- rownames(x)
     if (missing(priority))
         priority <- rowSums((scale(x)^2))
+    if (!missing(select)) {
+        x <- .checkSelect(select, x)
+        labels <- .checkSelect(select, labels)
+        priority <- .checkSelect(select, priority)
+        kk <- .checkSelect(select, kk)
+    }
     ## remove NA scores
     x <- x[kk,]
     priority <- priority[kk]
