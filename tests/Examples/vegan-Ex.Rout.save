@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2013-01-14 r61648) -- "Unsuffered Consequences"
+R Under development (unstable) (2013-01-21 r61719) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x39075a8>
+<environment: 0x2e94a50>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4912,7 +4912,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb2bc310>
+<environment: 0x9b271c0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4928,7 +4928,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb1bcba8>
+<environment: 0xa13f470>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5021,6 +5021,10 @@ detaching ‘package:mgcv’
 > stems <- colSums(BCI)
 > orditorp(mod, "sp", label = cnam, priority=stems, select = take,
 +          pch="+", pcol="grey")
+> ## Don't show: 
+> ## example(orditorp) should not set random seed in the user session
+> rm(.Random.seed)
+> ## End Don't show
 > 
 > 
 > 
@@ -5096,7 +5100,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xa74d800>
+<environment: 0xa1184a0>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5109,7 +5113,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xaeb6538>
+<environment: 0x9b48ba0>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5122,7 +5126,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xad7d4f8>
+<environment: 0x9dbf4a8>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7699,7 +7703,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0xb341970>
+<environment: 0xab27248>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8130,7 +8134,7 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > 
 > ### Name: wcmdscale
 > ### Title: Weighted Classical (Metric) Multidimensional Scaling
-> ### Aliases: wcmdscale print.wcmdscale scores.wcmdscale plot.wcmdscale
+> ### Aliases: wcmdscale scores.wcmdscale plot.wcmdscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8179,7 +8183,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.077 0.164 26.359 0 0 
+Time elapsed:  26.049 0.16 26.306 0 0 
 > grDevices::dev.off()
 null device 
           1 

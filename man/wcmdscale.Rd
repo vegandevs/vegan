@@ -6,7 +6,6 @@
 
 \name{wcmdscale}
 \alias{wcmdscale}
-\alias{print.wcmdscale}
 \alias{scores.wcmdscale}
 \alias{plot.wcmdscale}
 

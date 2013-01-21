@@ -84,6 +84,10 @@ plot(mod, dis="sp", type="n")
 stems <- colSums(BCI)
 orditorp(mod, "sp", label = cnam, priority=stems, select = take,
          pch="+", pcol="grey")
+\dontshow{
+## example(orditorp) should not set random seed in the user session
+rm(.Random.seed)
+}
 }
 \keyword{ aplot }
 \keyword{ hplot }
