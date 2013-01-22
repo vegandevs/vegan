@@ -81,6 +81,7 @@ Copyright @copyright{} 2008-2012 Jari Oksanen
 * How to cite @pkg{vegan}?::    
 * How to build @pkg{vegan} from sources?::  
 * Are there binaries for devel versions?::  
+* Can I use @pkg{vegan} in Mac?::  
 * How to report a bug in @pkg{vegan}?::  
 * Is it a bug or a feature?::   
 * Can I contribute to @pkg{vegan}?::  
@@ -231,7 +232,7 @@ documentation.  @pkg{Vegan} contains source files in C and @acronym{FORTRAN},
 and you need appropriate compilers (which may need more work in Windows
 and MacOS X).
 
-@node Are there binaries for devel versions?, How to report a bug in @pkg{vegan}?, How to build @pkg{vegan} from sources?, Introduction
+@node Are there binaries for devel versions?, Can I use @pkg{vegan} in Mac?, How to build @pkg{vegan} from sources?, Introduction
 @section Are there binaries for devel versions?
 
 @uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
@@ -242,7 +243,20 @@ packages within R with command
 If you use GUI menu entry, you must select or define the R-Forge
 repository. 
 
-@node How to report a bug in @pkg{vegan}?, Is it a bug or a feature?, Are there binaries for devel versions?, Introduction
+@node Can I use @pkg{vegan} in Mac?, How to report a bug in @pkg{vegan}?, Are there binaries for devel versions?, Introduction
+@section Can I use @pkg{vegan} in Mac?
+
+Yes, you can, and @pkg{vegan} binaries are available for Mac through
+@uref{http://cran.r-project.org,,CRAN}. However, in some cases you may
+need to install extra tools packages available in
+@uref{http://cran.r-project.org/bin/macosx/tools/,,MacOS tools} pages:
+If you use function such as @code{orditkplot} that need @code{Tcl/Tk}
+you may need to install @code{tcltk} package.  If you use @pkg{vegan}
+binaries from other places than from
+@uref{http://cran.r-project.org,,CRAN}, you may also need to install
+@code{gfortran} package.
+
+@node How to report a bug in @pkg{vegan}?, Is it a bug or a feature?, Can I use @pkg{vegan} in Mac?, Introduction
 @section How to report a bug in @pkg{vegan}?
 
 If you think you have found a bug in @pkg{vegan}, you should report it to
@@ -317,6 +331,7 @@ request to us for incorporating your changes in @pkg{vegan} releases.
 * I get zero stress but no convergent solutions in @code{metaMDS}::  
 * Zero dissimilarities in isoMDS::  
 * I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::  
+* Where can I find numerical scores of ordination axes?::  
 * How the RDA results are scaled?::  
 * cca fails with ``data.frame expected'' or ``"site.env" missing''::  
 * Variance explained by ordination axes::  
@@ -423,7 +438,7 @@ non-unique sites can have zero dissimilarity, and you have to resort to
 the kluge (or work harder with your data). Usually it is better to use
 @code{monoMDS}.
 
-@node I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, How the RDA results are scaled?, Zero dissimilarities in isoMDS, Ordination
+@node I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Where can I find numerical scores of ordination axes?, Zero dissimilarities in isoMDS, Ordination
 @section I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
 
 Claims like this have indeed been at large in the Internet, but they are
@@ -437,9 +452,22 @@ function @code{stressplot} in @pkg{vegan}. Because the ordination scores
 are strictly Euclidean, it is correct to use @pkg{vegan} functions
 @code{envfit} and @code{ordisurf} with @acronym{NMDS} results.
 
+@node Where can I find numerical scores of ordination axes?, How the RDA results are scaled?, I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Ordination
+@section Where can I find numerical scores of ordination axes?
 
+Normally you can use function @code{scores} to extract ordination scores
+for any ordination method. The @code{scores} function can also find
+ordination scores for many non-@pkg{vegan} functions such as for
+@code{prcomp} and @code{princomp} and for some @pkg{ade4} functions.
 
-@node How the RDA results are scaled?, cca fails with ``data.frame expected'' or ``"site.env" missing'', I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Ordination
+In some cases the ordination result object stores raw scores, and
+the axes are also scaled appropriate when you access them with
+@code{scores}.  For instance, in @code{cca} and @code{rda} the
+ordination object has only so-called normalized scores, and they are
+scaled for ordination plots or for other use when they are accessed with
+@code{scores}. 
+
+@node How the RDA results are scaled?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Where can I find numerical scores of ordination axes?, Ordination
 @section How the @acronym{RDA} results are scaled?
 
 The scaling or @acronym{RDA} results indeed differ from most other
