@@ -3,7 +3,9 @@
 {
   cat("\nCall:\n")
   cat(deparse(x$call), "\n\n")
-  cat("Correlation in a symmetric Procrustes rotation:  ")
+  cat("Procrustes Sum of Squares (m12 squared):        ")
+  cat(formatC(x$ss, digits=digits), "\n")
+  cat("Correlation in a symmetric Procrustes rotation: ")
   cat(formatC(x$t0, digits = digits), "\n")
   cat("Significance:  ")
   cat(format.pval(x$signif),"\n")
