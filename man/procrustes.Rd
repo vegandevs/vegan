@@ -140,7 +140,7 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   repeatedly to estimate the `significance' of the Procrustes
   statistic. Function \code{protest} uses a correlation-like statistic
   derived from the symmetric Procrustes sum of squares \eqn{ss} as
-  \eqn{r =\sqrt{(1-ss)}}{r = sqrt(1-ss)}, and also prints the sum of
+  \eqn{r =\sqrt{1-ss}}{r = sqrt(1-ss)}, and also prints the sum of
   squares of the symmetric analysis, sometimes called
   \eqn{m_{12}^2}{squared m12}. Function \code{protest} has own
   \code{print} method, but otherwise uses \code{procrustes}
