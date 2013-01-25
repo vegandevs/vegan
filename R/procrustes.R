@@ -11,7 +11,7 @@
         addcols <- ncol(Y) - ncol(X)
         for (i in 1:addcols) X <- cbind(X, 0)
     }
-    ctrace <- function(MAT) sum(diag(crossprod(MAT)))
+    ctrace <- function(MAT) sum(MAT^2)
     c <- 1
     if (symmetric) {
         X <- scale(X, scale = FALSE)

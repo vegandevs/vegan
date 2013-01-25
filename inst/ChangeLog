@@ -2,7 +2,21 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-23 (opened January 8, 2013)
+Version 2.1-24 (opened January 25, 2013)
+
+	* protest: huge speed-up. Instead of calling procrustes() in every
+	permutation step, we only calculate the goodness of fit statistic
+	in svd(). This avoids a huge overhead of procrustes(). In a test
+	with a 160 x 12 matrix (RDA scores from Bryce Canyon data
+	'bryceveg') with 9999 permutations, the time went down from 12 sec
+	to 0.8 sec in my desktop.
+
+	* procrustes: marginally faster way of getting sum of squares of a
+	matrix. This should not influence the results, but one metaMDS()
+	trace result has a small difference in nearly-zero rmse (was
+	1.094382e-06, is 1.09439e-06) in my desktop.
+	
+Version 2.1-23 (closed January 25, 2013)
 
 	* clamtest: Richard Telford reported an extreme case 
 	{rbind(a=c(1,0,5,10,4),b=c(0,10,5,2,1))} where
