@@ -136,15 +136,16 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
   function canot be used with \code{newdata} for \code{symmetric}
   analysis.
 
-  Function \code{protest} calls \code{procrustes(..., symmetric = TRUE)}
+  Function \code{protest} performs symmetric Procrustes analysis
   repeatedly to estimate the `significance' of the Procrustes
   statistic. Function \code{protest} uses a correlation-like statistic
   derived from the symmetric Procrustes sum of squares \eqn{ss} as
-  \eqn{r =\sqrt{(1-ss)}}, and sometimes called \eqn{m_{12}}. Function
-  \code{protest} has own \code{print} method, but otherwise uses
-  \code{procrustes} methods. Thus \code{plot} with a \code{protest} object
-  yields a ``Procrustean superimposition plot.''
-}
+  \eqn{r =\sqrt{(1-ss)}}{r = sqrt(1-ss)}, and also prints the sum of
+  squares of the symmetric analysis, sometimes called
+  \eqn{m_{12}^2}{squared m12}. Function \code{protest} has own
+  \code{print} method, but otherwise uses \code{procrustes}
+  methods. Thus \code{plot} with a \code{protest} object yields a
+  ``Procrustean superimposition plot.''  }
 
 \value{
   Function \code{procrustes} returns an object of class

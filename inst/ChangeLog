@@ -9,7 +9,9 @@ Version 2.1-24 (opened January 25, 2013)
 	in svd(). This avoids a huge overhead of procrustes(). In a test
 	with a 160 x 12 matrix (RDA scores from Bryce Canyon data
 	'bryceveg') with 9999 permutations, the time went down from 12 sec
-	to 0.8 sec in my desktop.
+	to 0.8 sec in my desktop. The analysis prints now also the 'ss'
+	term (residual sum of squares) which for symmetric analysis is
+	equal to squared m12.
 
 	* procrustes: marginally faster way of getting sum of squares of a
 	matrix. This should not influence the results, but one metaMDS()
