@@ -151,3 +151,16 @@ plot(mod)
 plot(ef, p.max = 0.1)
 rm(mod, ef)
 ### end envfit & plot.envfit
+
+### protest (& Procrustes analysis): Stability of the permutations and
+### other results. 
+data(mite)
+mod <- rda(mite)
+x <- scores(mod, display = "si", choices=1:6)
+set.seed(4711)
+xp <- x[sample(nrow(x)),]
+pro <- protest(x, xp, permutations = 99)
+pro
+pro$t
+rm(x, xp, pro)
+### end protest

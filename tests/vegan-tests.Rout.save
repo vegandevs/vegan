@@ -1,8 +1,8 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R Under development (unstable) (2013-01-24 r61741) -- "Unsuffered Consequences"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -63,7 +63,7 @@ Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.actio
 Model     6 1.3178 1.3341     99   0.07 .
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m, by="term", perm=100)
 Permutation test for cca under reduced model
 Terms added sequentially (first to last)
@@ -75,7 +75,7 @@ poly(A1, 2)  2 0.3581 1.0877     99   0.37
 spno         1 0.1558 0.9461     99   0.40  
 Residual     4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m, by="margin", perm=100)
 Permutation test for cca under reduced model
 Marginal effects of terms
@@ -97,7 +97,7 @@ CCA5      1 0.1035 0.6284     99   0.82
 CCA6      1 0.0681 0.4139     99   0.83  
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## capscale
 > p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 > anova(p, perm=100)
@@ -108,7 +108,7 @@ Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.
 Model     6 64.324 1.9652     99   0.01 **
 Residual  4 21.821                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="term", perm=100)
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -120,7 +120,7 @@ poly(A1, 2)  2 11.342 1.0395     99   0.37
 spno         1  7.462 1.3679     99   0.19   
 Residual     4 21.821                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="margin", perm=100)
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -132,7 +132,7 @@ poly(A1, 2)  2 10.861 0.9954     99   0.51
 spno         1  7.462 1.3679     99   0.31  
 Residual     4 21.821                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="axis", perm=100)
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df,      na.action = na.exclude, subset = structure(c(TRUE, TRUE,      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE,      FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2",      "13", "4", "16", "6", "1", "8", "5", "17", "15", "10", "11",      "9", "18", "3", "20", "14", "19", "12", "7")))
          Df     Var      F N.Perm Pr(>F)  
@@ -144,7 +144,7 @@ CAP5      1  4.0224 0.7373     99   0.59
 CAP6      1  2.7811 0.5098     99   0.87  
 Residual  4 21.8213                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## see that capscale can be updated and also works with 'dist' input
 > dis <- vegdist(dune)
 > p <- update(p, dis ~ .)
@@ -156,7 +156,7 @@ Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.a
 Model     6 1.55041 1.9024     99   0.06 .
 Residual  4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="term", perm=100)
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -168,7 +168,7 @@ poly(A1, 2)  2 0.29810 1.0973     99   0.44
 spno         1 0.20517 1.5105     99   0.21  
 Residual     4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="margin", perm=100)
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -190,7 +190,7 @@ CAP5      1 0.06416 0.4723     99   0.84
 CAP6      1 0.02458 0.1810     99   0.98  
 Residual  4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -212,7 +212,7 @@ poly(A1, 2)  2 0.3581 1.0877     99   0.36
 spno         1 0.1558 0.9461     99   0.43  
 Residual     4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(q, by="margin", perm=100)
 Permutation test for cca under reduced model
 Marginal effects of terms
@@ -234,7 +234,7 @@ CCA5      1 0.1035 0.6284     99   0.59
 CCA6      1 0.0681 0.4139     99   0.75  
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### Check that constrained ordination functions can be embedded.
 > ### The data.frame 'df' is still attach()ed.
 > foo <- function(bar, Y, X, ...)
@@ -358,7 +358,7 @@ CCA3      1 0.0876 0.9553     99   0.42
 CCA4      1 0.0562 0.6132     99   0.75   
 Residual 10 0.9170                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
 [1] TRUE
 > tab[nrow(tab),1] == m$CA$rank
@@ -510,6 +510,43 @@ Run 5 stress 0.119268
 > rm(mod, ef)
 > ### end envfit & plot.envfit
 > 
+> ### protest (& Procrustes analysis): Stability of the permutations and
+> ### other results. 
+> data(mite)
+> mod <- rda(mite)
+> x <- scores(mod, display = "si", choices=1:6)
+> set.seed(4711)
+> xp <- x[sample(nrow(x)),]
+> pro <- protest(x, xp, permutations = 99)
+> pro
+
+Call:
+protest(X = x, Y = xp, permutations = 99) 
+
+Procrustes Sum of Squares (m12 squared):        0.9147 
+Correlation in a symmetric Procrustes rotation: 0.292 
+Significance:  0.08 
+Based on 99 permutations.
+
+> pro$t
+ [1] 0.2056649 0.2008622 0.2062525 0.2656158 0.2739148 0.1990895 0.3124461
+ [8] 0.2287779 0.2033140 0.2396172 0.1868019 0.2736072 0.1830199 0.2026019
+[15] 0.2402570 0.2286169 0.2791609 0.2214468 0.2356083 0.2188325 0.2097262
+[22] 0.2596154 0.2560289 0.2190367 0.2174689 0.2438396 0.1991101 0.2374612
+[29] 0.2030745 0.2205115 0.2566758 0.1448623 0.2354268 0.2419134 0.3144177
+[36] 0.2368505 0.2442661 0.2272011 0.3184241 0.2200089 0.2598430 0.2301587
+[43] 0.2763337 0.2332606 0.1935269 0.2315727 0.2573623 0.2021127 0.2387335
+[50] 0.2419087 0.2213094 0.2231619 0.2577845 0.2828219 0.2554605 0.2830915
+[57] 0.2342396 0.2137396 0.2151201 0.2432896 0.1956238 0.2055716 0.2329736
+[64] 0.2086125 0.2039124 0.1955711 0.2038045 0.2358886 0.2579199 0.1808128
+[71] 0.2155189 0.2967100 0.2480105 0.2010537 0.2718478 0.2182713 0.2471893
+[78] 0.2310223 0.2007771 0.2902640 0.2392380 0.2551756 0.3476679 0.2632614
+[85] 0.2289929 0.2222382 0.2503562 0.1983700 0.2084773 0.2406556 0.2478302
+[92] 0.2136439 0.3251671 0.2048928 0.3098776 0.2501555 0.2677039 0.2427125
+[99] 0.2693285
+> rm(x, xp, pro)
+> ### end protest
+> 
 > proc.time()
    user  system elapsed 
-  9.214   0.150   9.408 
+  2.892   0.036   2.933 
