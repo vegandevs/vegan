@@ -82,15 +82,6 @@ treedist(x, tree, relative = TRUE, match.force = FALSE, ...)
   can be used similarly.  
 }
 
-\seealso{
-  Function \code{treedive} is similar to the phylogenetic diversity
-  function \code{\link[picante]{pd}} in \pkg{picante}, but excludes tree
-  root if that is not needed to connect species. Function
-  \code{treedist} is similar to the phylogenetic similarity
-  \code{\link[picante]{phylosor}} in \pkg{picante}, but excludes
-  unneeded tree root and returns distances instead of similarities.  
-}
-
 \references{
   Lozupone, C. and Knight, R. 2005. UniFrac: a new phylogenetic method
   for comparing microbial communities. \emph{Applied and Environmental
@@ -109,8 +100,17 @@ treedist(x, tree, relative = TRUE, match.force = FALSE, ...)
 
 \author{Jari Oksanen}
 
-\seealso{ \code{\link{taxondive}} is something very similar from
-another world. }
+\seealso{
+  Function \code{treedive} is similar to the phylogenetic
+  diversity function \code{\link[picante]{pd}} in \pkg{picante}, but
+  excludes tree root if that is not needed to connect species. Function
+  \code{treedist} is similar to the phylogenetic similarity
+  \code{\link[picante]{phylosor}} in \pkg{picante}, but excludes
+  unneeded tree root and returns distances instead of similarities.
+
+  \code{\link{taxondive}} is something very similar from another world.
+}
+
 \examples{
 ## There is no data set on species properties yet, and therefore
 ## the example uses taxonomy 
