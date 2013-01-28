@@ -17,6 +17,12 @@ Version 2.1-24 (opened January 25, 2013)
 	matrix. This should not influence the results, but one metaMDS()
 	trace result has a small difference in nearly-zero rmse (was
 	1.094382e-06, is 1.09439e-06) in my desktop.
+
+	* treedive, treedist: treedive() did not correctly match data and
+	tree when the tree contained species that did not occur in the
+	data. Function treedist() tries to match tree and data when their
+	sizes differ, and argument 'match.force' was added to force
+	matching even when sizes do not differ.
 	
 Version 2.1-23 (closed January 25, 2013)
 

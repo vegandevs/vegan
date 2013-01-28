@@ -1,9 +1,16 @@
 `treedist` <-
-    function(x, tree, relative = TRUE,  ...)
+    function(x, tree, relative = TRUE,  match.force = FALSE, ...)
 {
     n <- nrow(x)
     ABJ <- matrix(0, n , n)
     dmat <- as.matrix(cophenetic(tree))
+    ## match names
+    if (ncol(x) != ncol(dmat) || match.force) {
+        if(!match.force)
+            warning("Dimensions do not match between 'x' and 'tree' - matching by names")
+        nm <- colnames(x)
+        dmat <- dmat[nm, nm]
+    }
     for(j in 1:n) {
         for (k in j:n) {
             jk <- x[j,] > 0 | x[k,] > 0

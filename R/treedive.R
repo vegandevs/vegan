@@ -19,6 +19,7 @@
         if (!all(fnd))
             warning("not all names of 'tree' found in 'comm'")
         comm <- comm[, tree$labels[fnd]]
+        m <- m[tree$labels[fnd], tree$labels[fnd]]
         if (length(unique(tree$labels)) != length(tree$labels))
             stop("names not unique in 'tree': match wrong")
         if (length(unique(colnames(comm))) != ncol(comm))
