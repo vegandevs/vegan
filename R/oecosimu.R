@@ -6,6 +6,8 @@
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
+    if (length(statistic) > 1)
+        stop("only one 'statistic' is allowed")
     applynestfun <-
         function(x, fun = nestfun, statistic = "statistic", ...) {
             tmp <- fun(x, ...)
@@ -119,8 +121,12 @@
     if (any(is.na(z)))
         p[is.na(z)] <- NA
 
-    if (is.null(names(indstat)))
+    if (is.null(names(indstat)) && length(indstat) == 1)
         names(indstat) <- statistic
+    ## $oecosimu cannot be added to a data frame, but this gives
+    ## either an error or a mess
+    if (is.data.frame(ind))
+        ind <- as.list(ind)
     if (!is.list(ind))
         ind <- list(statistic = ind)
     ind$oecosimu <- list(z = z, means = means, pval = p, simulated=simind,
