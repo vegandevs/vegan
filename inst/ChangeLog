@@ -4,6 +4,20 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-24 (opened January 25, 2013)
 
+	* oecosimu: the 'oecosimu' list cannot be added to the result if
+	the nestfun() returns a data frame. In that case, the 'oecosimu'
+	list is treated like a variable, and this gives either an error of
+	wrong length or if the length matches, a mess.  Now data frame is
+	silently turned into a list which also means that it will not be
+	printed with the output. The name of the 'statistic' is not used
+	for unnamed vector output where it would only name the first item
+	(like would be the case if the 'statistic' was extracted from a
+	data frame). It is now checked that only one 'statistic' is given
+	and a comprehensible error message is issued instead of the
+	current confusing one. The changes were trickered in an attempt to
+	use picante::pd(), but this still fails because picante::pd()
+	needs column names that are not generated in nullmodel(). 
+
 	* protest: huge speed-up. Instead of calling procrustes() in every
 	permutation step, we only calculate the goodness of fit statistic
 	in svd(). This avoids a huge overhead of procrustes(). In a test
