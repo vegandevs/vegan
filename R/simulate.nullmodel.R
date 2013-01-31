@@ -60,5 +60,7 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
     attr(perm, "end") <- End
     attr(perm, "thin") <- as.integer(thin)
     class(perm) <- c("simmat", "array")
+    dimnames(perm) <- list(rownames(m), colnames(m),
+        paste("sim", seq_len(nsim), sep = "_"))
     perm
 }

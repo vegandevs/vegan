@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-24 (opened January 25, 2013)
 
+	* simulate.nullmodel: output array inherits dimnames after the
+	input data matrix, this is often required by oecosimu.
+	Dimension names are now only stored once for all nsim
+	simulations, so it is an improvement over the implementation
+	in commsimulator.
+
 	* oecosimu: the 'oecosimu' list cannot be added to the result if
 	the nestfun() returns a data frame. In that case, the 'oecosimu'
 	list is treated like a variable, and this gives either an error of
