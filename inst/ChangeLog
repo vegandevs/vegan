@@ -14,6 +14,11 @@ Version 2.1-25 (opened February 2, 2013)
 	but now it is only of type "oecosimu" with the original
 	"statistic" as a separate item. So "statistic" is now one level
 	deeper instead of being the main object.
+
+	* simulate: the simulate functions for "rda" and "cca" return
+	objects with original row and column names. Function capscale()
+	already did so, and simulate.nullmodel() was changed so in vegan
+	2.1-24 (r2396).
 	
 Version 2.1-24 (closed February 2, 2013)
 

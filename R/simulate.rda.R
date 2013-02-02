@@ -53,6 +53,8 @@
         ans <- ans[,,1]
         attributes(ans) <- attributes(ftd)
     } else {
+        dimnames(ans) <- list(rownames(ftd), colnames(ftd),
+                              paste("sim", seq_len(nsim), sep = "_"))
         attr(ans, "data") <- round(ftd + object$CA$Xbar, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
                                                         "parametric", "index"))
@@ -131,6 +133,8 @@
         ans <- ans[,,1]
         attributes(ans) <- attributes(ftd)
     } else {
+        dimnames(ans) <- list(rownames(ftd), colnames(ftd),
+                              paste("sim", seq_len(nsim), sep = "_"))
         obsdata <- ftd + object$CA$Xbar
         obsdata <- (obsdata * sqrt(rc) + rc) * object$grand.total
         attr(ans, "data") <- round(obsdata, 12)
