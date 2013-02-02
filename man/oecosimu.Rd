@@ -164,13 +164,22 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 }
 
 \value{ 
-  Function \code{oecosimu} returns the result of \code{nestfun} added
-  with a component called \code{oecosimu}. The \code{oecosimu}
-  component contains the simulated values of the statistic (item
-  \code{simulated}), the name of the \code{method}, \eqn{P} value
-  (with given \code{alternative}), \eqn{z}-value of the statistic
-  based on simulation (also known as standardized effect size), and
-  the mean of simulations.  
+
+  Function \code{oecosimu} returns an object of class
+  \code{"oecosimu"}.  The result object has items \code{statistic} and
+  \code{oecosimu}.  The \code{statistic} contains the complete object
+  returned by \code{nestedfun} for the original data.  The
+  \code{oecosimu} component contains the following items:
+  \item{statistic}{Observed values of the statistic.}
+  \item{simulated}{Simulated values of the statistic.}
+  \item{means}{Mean values of the statistic from simulations.}
+  \item{z}{\eqn{z}-values or the standardized effect sizes of the observed 
+     statistic based on simulations.}
+  \item{pval}{The \eqn{P}-values of the statistic based on simulations.}
+  \item{alternative}{The type of testing as given in argument \code{alternative}.}
+  \item{method}{The \code{method} used in \code{\link{nullmodel}}.}
+  \item{isSeq}{\code{TRUE} if \code{method} was sequential.}
+
 }
 
 \references{

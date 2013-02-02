@@ -2,7 +2,20 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-24 (opened January 25, 2013)
+Version 2.1-25 (opened February 2, 2013)
+
+	* oecosimu: changed the structure of the oecosimu() result
+	object. It now returns a list of two items: "statistic" is the
+	observed statistic, and "oecosimu" which contains the simulation
+	records. In previous version the function returned the statistic
+	and added item "oecosimu" there. Previously, the result object was
+	of type c("oecosimu", class(statistic)) as the original
+	"statistic" object was returned amended with an "oecosimu" item,
+	but now it is only of type "oecosimu" with the original
+	"statistic" as a separate item. So "statistic" is now one level
+	deeper instead of being the main object.
+	
+Version 2.1-24 (closed February 2, 2013)
 
 	* simulate.nullmodel: output array inherits dimnames after the
 	input data matrix, this is often required by oecosimu.
@@ -20,9 +33,8 @@ Version 2.1-24 (opened January 25, 2013)
 	(like would be the case if the 'statistic' was extracted from a
 	data frame). It is now checked that only one 'statistic' is given
 	and a comprehensible error message is issued instead of the
-	current confusing one. The changes were trickered in an attempt to
-	use picante::pd(), but this still fails because picante::pd()
-	needs column names that are not generated in nullmodel(). 
+	current confusing one. The changes were trickered when testing
+	picante::pd().
 
 	* protest: huge speed-up. Instead of calling procrustes() in every
 	permutation step, we only calculate the goodness of fit statistic

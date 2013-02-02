@@ -20,10 +20,10 @@
     ## dim attribute is always there, but print all others
 
     cat("\n\n")
-    cl <- class(x)
-    if ((length(cl) > 1 && cl[2] != "list" ) &&
-        !any(cl %in% c("adipart", "hiersimu", "multipart"))) {
-            NextMethod("print", x)
+
+    if (!inherits(x, c("adipart", "hiersimu", "multipart")) &&
+        !inherits(x$statistic, c("numeric", "list"))) {
+            print(x$statistic)
             cat("\n")
     }
     probs <- switch(x$oecosimu$alternative,

@@ -123,17 +123,12 @@
 
     if (is.null(names(indstat)) && length(indstat) == 1)
         names(indstat) <- statistic
-    ## $oecosimu cannot be added to a data frame, but this gives
-    ## either an error or a mess
-    if (is.data.frame(ind))
-        ind <- as.list(ind)
-    if (!is.list(ind))
-        ind <- list(statistic = ind)
-    ind$oecosimu <- list(z = z, means = means, pval = p, simulated=simind,
-                         method=method, statistic = indstat,
-                         alternative = alternative, isSeq = attr(x, "isSeq"))
-    attr(ind, "call") <- match.call()
-    class(ind) <- c("oecosimu", class(ind))
-    ind
+    oecosimu <- list(z = z, means = means, pval = p, simulated=simind,
+                     method=method, statistic = indstat,
+                     alternative = alternative, isSeq = attr(x, "isSeq"))
+    out <- list(statistic = ind, oecosimu = oecosimu)
+    attr(out, "call") <- match.call()
+    class(out) <- "oecosimu"
+    out
 }
 
