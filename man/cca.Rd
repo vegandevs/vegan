@@ -65,7 +65,10 @@
   regression on constraining variables, and the fitted values are
   submitted to correspondence analysis performed via singular value
   decomposition (\code{\link{svd}}). Function \code{rda} is similar, but uses
-  ordinary, unweighted linear regression and unweighted SVD.
+  ordinary, unweighted linear regression and unweighted SVD. Legendre &
+  Legendre (2012), Table 11.5 (p. 650) give a skeleton of the RDA
+  algorithm of \pgk{vegan}. The algorithm of CCA is similar, but
+  involves standardization by row and column weights.
 
   The functions can be called either with matrix-like entries for community
   data and constraints, or with formula interface.  In general, the
