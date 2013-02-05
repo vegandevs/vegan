@@ -8,6 +8,12 @@ Version 2.1-25 (opened February 2, 2013)
 	rda, capscale & adonis, and telling how to do this
 	approximately. Please comment and correct.
 
+	* predict.rda, predict.cca: The partial term is handled in
+	predict.rda(..., type = "response") and in predict.cca(..., type =
+	"working").  The partial term was earlier handled only in
+	corresponding simulate.rda(), simulate.cca() functions, but it was
+	now moved to these more basic functions.
+
 	* oecosimu: changed the structure of the oecosimu() result
 	object. It now returns a list of two items: "statistic" is the
 	observed statistic, and "oecosimu" which contains the simulation

@@ -30,9 +30,6 @@
     ## an array of response matrices
     
     ftd <- predict(object, type = "response", rank = rank)
-    ## pRDA: add partial Fit to the constrained
-    if (!is.null(object$pCCA))
-        ftd <- ftd + object$pCCA$Fit
     ## Generate an array
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
@@ -102,9 +99,6 @@
     sq.r <- sqrt(object$rowsum)
     ## Fitted value
     ftd <- predict(object, type = "working", rank = rank)
-    ## pCCA: add partial Fit to the constrained
-    if (!is.null(object$pCCA))
-        ftd <- ftd + object$pCCA$Fit
     ## Residual Xbar need weighting and back-weighting
     Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
     ## Simulation
