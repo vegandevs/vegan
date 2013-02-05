@@ -67,7 +67,7 @@
   decomposition (\code{\link{svd}}). Function \code{rda} is similar, but uses
   ordinary, unweighted linear regression and unweighted SVD. Legendre &
   Legendre (2012), Table 11.5 (p. 650) give a skeleton of the RDA
-  algorithm of \pgk{vegan}. The algorithm of CCA is similar, but
+  algorithm of \pkg{vegan}. The algorithm of CCA is similar, but
   involves standardization by row and column weights.
 
   The functions can be called either with matrix-like entries for community
