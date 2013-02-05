@@ -34,7 +34,7 @@
         rc <- outer(rs, cs)
         if (type == "response") {
             if (!is.null(object$pCCA)) 
-                warning("Conditional ('partial') component ignored")
+                Xbar <- Xbar + object$pCCA$Fit / sqrt(rc)
             out <- (Xbar + 1) * rc * gtot
         } else {                # type == "working"
             out <- Xbar * sqrt(rc)
