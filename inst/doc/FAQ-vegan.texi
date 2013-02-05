@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2012
+@set FAQ_YEAR 2013
 @afourpaper
 @c %**end of header
 
@@ -26,7 +26,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2008-2012 Jari Oksanen
+Copyright @copyright{} 2008-2013 Jari Oksanen
 @end quotation
 @end copying
 
@@ -324,7 +324,7 @@ request to us for incorporating your changes in @pkg{vegan} releases.
 @chapter Ordination
 
 @menu
-* I have only numeric and positive data but @pkg{vegan} still complaints::  
+* I have only numeric and positive data but @pkg{vegan} still complains::  
 * Can I analyse binary or cover class data?::  
 * Why dissimilarities in @pkg{vegan} differ from other sources?::  
 * Why NMDS stress is sometimes 0.1 and sometimes 10?::  
@@ -335,6 +335,7 @@ request to us for incorporating your changes in @pkg{vegan} releases.
 * How the RDA results are scaled?::  
 * cca fails with ``data.frame expected'' or ``"site.env" missing''::  
 * Variance explained by ordination axes::  
+* Can I have random effects in constrained ordination or in @code{adonis}?::  
 * Is it possible to have passive points in ordination?::  
 * Class variables and dummies::  
 * How are environmental arrows scaled?::  
@@ -348,9 +349,9 @@ request to us for incorporating your changes in @pkg{vegan} releases.
 * Can I zoom into an ordination plot?::  
 @end menu
 
-@node  I have only numeric and positive data but @pkg{vegan} still complaints, Can I analyse binary or cover class data?, Ordination, Ordination
+@node  I have only numeric and positive data but @pkg{vegan} still complains, Can I analyse binary or cover class data?, Ordination, Ordination
 @comment  node-name,  next,  previous,  up
-@section I have only numeric and positive data but @pkg{vegan} still complaints
+@section I have only numeric and positive data but @pkg{vegan} still complains
 
 You are wrong! Computers are painfully pedantic, and if they find
 non-numeric or negative data entries, you really have them. Check your
@@ -361,7 +362,7 @@ were interpreted as data (check argument @code{header = TRUE} in reading
 the data). Another common reason is that you had empty cells in your
 input data, and these were interpreted as missing values.
 
-@node Can I analyse binary or cover class data?, Why dissimilarities in @pkg{vegan} differ from other sources?, I have only numeric and positive data but @pkg{vegan} still complaints, Ordination
+@node Can I analyse binary or cover class data?, Why dissimilarities in @pkg{vegan} differ from other sources?, I have only numeric and positive data but @pkg{vegan} still complains, Ordination
 @section Can I analyse binary or cover class data?
 
 Yes. Most @pkg{vegan} methods can handle binary data or cover abundance data.
@@ -488,7 +489,7 @@ can use the @pkg{vegan} version using command @code{vegan::cca()}. If
 you do not need package @pkg{ade4}, you can detach it with command
 @code{detach(package:ade4)}.
 
-@node Variance explained by ordination axes, Is it possible to have passive points in ordination?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Ordination
+@node Variance explained by ordination axes, Can I have random effects in constrained ordination or in @code{adonis}?, cca fails with ``data.frame expected'' or ``"site.env" missing'', Ordination
 @section Variance explained by ordination axes.
 
 In general, @pkg{vegan} does not directly give any statistics on the
@@ -547,7 +548,46 @@ nonlinear fit and gives this statistic.
 
 @end itemize
 
-@node Is it possible to have passive points in ordination?, Class variables and dummies, Variance explained by ordination axes, Ordination
+@node Can I have random effects in constrained ordination or in @code{adonis}?, Is it possible to have passive points in ordination?, Variance explained by ordination axes, Ordination
+@section Can I have random effects in constrained ordination or in @code{adonis}?
+
+No. Strictly speaking, this is impossible. However, you can define
+models that respond to similar goals as random effects models, although
+they strictly speaking use only fixed effects.
+
+Constrained ordination functions @code{cca}, @code{rda} and
+@code{capscale} can have @code{Condition()} terms in their formula. The
+@code{Condition()} define partial terms that are fitted before other
+constraints and can be used to remove the effects of background
+variables, and their contribution to decomposing inertia (variance) is
+reported separately.  These partial terms are often regarded as similar
+to random effects, but they are still fitted in the same way as other
+terms and strictly speaking they are fixed terms.
+
+Function @code{adonis} evaluates terms sequentially. In a model with
+right-hand-side @code{~ A + B} the effects of @code{A} are evaluated
+first, and the effects of @code{B} after removing the effects of
+@code{A}. Sequential tests are also available in @code{anova} function
+for constrained ordination results by setting argument @code{by = "term"}.  
+In this way, the first terms can serve in a similar role as
+random effects, although they are fitted in the same way as all other
+terms, and strictly speaking they are fixed terms.
+
+The permutation tests can usually have a @code{strata} argument which
+restricts the permutations within levels of a factor given in the
+argument. This can be used to restrict the permutations within levels of
+factor regarded as a random term.  More structured permutations are
+available with the @pkg{permute} package.
+
+A major reason why real random effects models are impossible in most
+@pkg{vegan} functions is that their tests are based on the permutation
+of the data. The data are given, that is fixed, and therefore
+permutation tests are basically tests of fixed terms on fixed data.
+Random effect terms would require permutations of data with a random
+component instead of the given, fixed data, and such tests are not
+available in @pkg{vegan}.
+
+@node Is it possible to have passive points in ordination?, Class variables and dummies, Can I have random effects in constrained ordination or in @code{adonis}?, Ordination
 @section Is it possible to have passive points in ordination?
 
 @pkg{Vegan} does not have a concept of passive points, or a point that should
