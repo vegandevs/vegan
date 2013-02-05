@@ -33,7 +33,7 @@
             if (!is.null(object$pCCA))
                 warning("Conditional ('partial') component ignored")
             if (take > 0) {
-                out <- u %*% slam/sqrt(nr)
+                out <- u %*% slam/object$adjust
                 if (type == "response") {
                     out <- dist(out)
                     if (!is.null(object$ac))
