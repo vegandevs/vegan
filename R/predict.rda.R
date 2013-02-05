@@ -25,8 +25,6 @@
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
     if (type %in% c("response", "working")) {
-        if (!is.null(object$pCCA)) 
-            warning("Conditional ('partial') component ignored")
         if (!missing(newdata)) {
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                          newdata = newdata, rank = take)
@@ -52,7 +50,11 @@
                 if (!is.null(scal)) 
                     out <- sweep(out, 2, scal, "*")
                 out <- sweep(out, 2, cent, "+")
+                if (!is.null(object$pCCA))
+                    out <- out + object$pCCA$Fit
             } else {
+                if (!is.null(object$pCCA)) 
+                    warning("Conditional ('partial') component ignored")
                 out <- out/sqrt(nrow(out) - 1)
             }
         }
