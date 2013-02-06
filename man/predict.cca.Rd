@@ -136,14 +136,13 @@
   \code{\link{rda}} and \code{\link{capscale}}. This is often known as
   calibration, bioindication or environmental reconstruction.
   Basically, the method is similar to projecting site scores onto biplot
-  arrows, but it uses regression coefficients.  The function can be
-  called with \code{newdata} so that cross-validation is possible.  The
+  arrows, but it uses regression coefficients.  The function can be called
+  with \code{newdata} so that cross-validation is possible.  The
   \code{newdata} may contain new sites, but species must match in the
-  original and new data.  The function may not work with
-  \sQuote{partial} models with \code{Condition} term, or the partial
-  term may be ignored with a warning.  The function cannot be used with
-  \code{newdata} for \code{\link{capscale}} results.  The results may
-  only be interpretable for continuous variables.
+  original and new data  The function
+  does not work with \sQuote{partial} models with \code{Condition} term,
+  and it cannot be used with \code{newdata} for \code{\link{capscale}}
+  results.  The results may only be interpretable for continuous variables.
   
   Function \code{coef} will give the regression coefficients from centred
   environmental variables (constraints and conditions) to linear
