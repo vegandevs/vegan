@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2013-01-24 r61741) -- "Unsuffered Consequences"
+R Under development (unstable) (2013-02-05 r61841) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-unknown-linux-gnu (64-bit)
@@ -547,6 +547,36 @@ Based on 99 permutations.
 > rm(x, xp, pro)
 > ### end protest
 > 
+> ### Check that functions related to predict.rda work correctly for all
+> ### constrained ordination methods.
+> 
+> ### simulate.rda/cca/capscale: based on predict.* and the following
+> ### should get back the data
+> data(dune, dune.env)
+> ind <- seq_len(nrow(dune))
+> target <- as.matrix(dune)
+> ## rda
+> mod <- rda(dune ~ Condition(Moisture) + Management + A1, dune.env)
+> dat <- simulate(mod, indx = ind)
+> all.equal(dat, target, check.attributes = FALSE)
+[1] TRUE
+> ## cca
+> mod <- cca(dune ~ Condition(Moisture) + Management + A1, dune.env)
+> dat <- simulate(mod, indx = ind)
+> all.equal(dat, target, check.attributes = FALSE)
+[1] TRUE
+> ## capscale: Euclidean distances -- non-Euclidean distances have an
+> ## imaginary component and will not give back the data.
+> d <- dist(dune)
+> mod <- capscale(d ~ Condition(Moisture) + Management + A1, dune.env)
+> dat <- simulate(mod, indx = ind)
+> all.equal(dat, d, check.attributes = FALSE)
+[1] TRUE
+> ## clean up
+> rm(ind, target, mod, dat, d)
+> ### end simulate.*
+> 
+> 
 > proc.time()
    user  system elapsed 
-  2.892   0.036   2.933 
+  2.912   0.028   2.947 
