@@ -31,8 +31,6 @@
         }
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
-        if (!is.null(object$pCCA)) 
-            warning("Conditional ('partial') component ignored")
         rc <- outer(rs, cs)
         if (type == "response") 
             out <- (Xbar + 1) * rc * gtot

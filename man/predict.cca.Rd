@@ -38,23 +38,21 @@
   \item{object}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
-    (\code{"CA"}) results. For \code{\link{capscale}} this can also be 
-    \code{"Imaginary"} for imaginary components with negative
-    eigenvalues. }
-  
+    (\code{"CA"}) results. For \code{fitted} method of
+    \code{\link{capscale}} this can also be \code{"Imaginary"} for
+    imaginary components with negative eigenvalues. }
   \item{newdata}{New data frame to be used in prediction or in
     calibration.  Usually this a new community data frame, but with
-    \code{type = "lc"} and for constrained component with 
-    \code{type = "response"} and \code{type = "working"} it must be a 
-    data frame.  The \code{newdata} must have the same number of rows as
-    the original community data for a \code{\link{cca}} result with
+    \code{type = "lc"} and for constrained component with \code{type =
+    "response"} and \code{type = "working"} it must be a data frame of
+    constraints.  The \code{newdata} must have the same number of rows
+    as the original community data for a \code{\link{cca}} result with
     \code{type = "response"} or \code{type = "working"}.  If the
     original model had row or column names, then new data must contain
     rows or columns with the same names (row names for species scores,
     column names for \code{"wa"} scores and constraint names of
     \code{"lc"} scores). In other cases the rows or columns must match
     directly. }
-
   \item{type}{The type of prediction, fitted values or residuals:
     \code{"response"} scales results so that the same ordination gives
     the same results, and \code{"working"} gives the values used
@@ -71,28 +69,30 @@
   \item{rank}{The rank or the number of axes used in the approximation.
     The default is to use all axes (full rank) of the \code{"model"} or
     all available four axes in \code{predict.decorana}.}
-  \item{scaling}{Scaling or predicted scores
-  with the same  meaning as in \code{\link{cca}}, \code{\link{rda}} and
-  \code{\link{capscale}}.}
+  \item{scaling}{Scaling or predicted scores with the same meaning as
+    in \code{\link{cca}}, \code{\link{rda}} and
+    \code{\link{capscale}}.}
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
+
   Function \code{fitted} gives the approximation of the original data
-  matrix or dissimilarities from the ordination result either in the 
-  scale of the response
-  or as scaled internally by the function.  Function \code{residuals} gives
-  the approximation of the original data from the unconstrained
-  ordination.  With argument \code{type = "response"} the
-  \code{fitted.cca} and \code{residuals.cca} function 
+  matrix or dissimilarities from the ordination result either in the
+  scale of the response or as scaled internally by the function.
+  Function \code{residuals} gives the approximation of the original
+  data from the unconstrained ordination.  With argument \code{type =
+  "response"} the \code{fitted.cca} and \code{residuals.cca} function
   both give the same marginal totals as the original data matrix, and
-  their entries do not add up to the original data. 
-  Functions \code{fitted.capscale} and \code{residuals.capscale} give the
-  dissimilarities with \code{type = "response"}, but these are not additive,
-  but the \code{"working"} scores are additive. 
-  All variants of \code{fitted} and \code{residuals} are defined so
-  that for model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal
-  to constrained ordination, and \code{cca(residuals(mod))} is equal to
-  unconstrained part of the ordination.
+  fitted and residuals do not add up to the original data.  Functions
+  \code{fitted.capscale} and \code{residuals.capscale} give the
+  dissimilarities with \code{type = "response"}, but these are not
+  additive, but the \code{"working"} scores are additive.  All
+  variants of \code{fitted} and \code{residuals} are defined so that
+  for model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal
+  to constrained ordination, and \code{cca(residuals(mod))} is equal
+  to unconstrained part of the ordination.  The \code{Condition()}
+  terms or the partial component is always ignored and will not be
+  included in \code{predict}ed or \code{fitted} response.
 
   Function \code{predict} can find the estimate of the original data
   matrix or dissimilarities (\code{type = "response"}) with any rank.
@@ -105,8 +105,8 @@
   explicit \code{scaling} to add those scores to ordination
   diagrams. With \code{type = "wa"} the function finds the site scores
   from species scores. In that case, the new data can contain new sites,
-  but species must match in the original and new data.  With \code{type
-  = "sp"} the function finds species scores from site constraints
+  but species must match in the original and new data.  With \code{type="sp"} 
+  the function finds species scores from site constraints
   (linear combination scores). In that case the new data can contain new
   species, but sites must match in the original and new data. With
   \code{type = "lc"} the function finds the linear combination scores
@@ -117,7 +117,7 @@
   if constrained component is desired, and community data matrix if
   residual or unconstrained component is desired.  With these types, the
   function uses \code{newdata} to find new \code{"lc"} (constrained) or
-  \code{"wa"} scores (unconstrained) and then finding the response or
+  \code{"wa"} scores (unconstrained) and then finds the response or
   working data from these new row scores and species scores.  The
   original site (row) and species (column) weights are used for
   \code{type = "response"} and \code{type = "working"} in correspondence
@@ -127,7 +127,7 @@
   If a completely new data frame is created, extreme care is needed
   defining variables similarly as in the original model, in particular
   with (ordered) factors. If ordination was performed with the formula
-  interface, the \code{newdata} also can be a data frame or matrix, but
+  interface, the \code{newdata} can be a data frame or matrix, but
   extreme care is needed that the columns match in the original and
   \code{newdata}.
 

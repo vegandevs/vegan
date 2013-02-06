@@ -19,6 +19,15 @@ Version 2.1-25 (opened February 2, 2013)
 	"statistic" as a separate item. So "statistic" is now one level
 	deeper instead of being the main object.
 
+	* predict.cca, predict.rda: In rev2412, 2413 we studied including
+	partial (pCCA) component in predict(..., type="response") and
+	predict(..., type="working") models, but then adopted a policy of
+	never having partial component, but always returning only the
+	component requested for. Therefore warning messages of ignoring
+	pCCA component were removed. This log entry was made to emphasize
+	that there is a policy decision, and an alternative policy can be
+	tracked in the repository.
+
 	* simulate: the simulate functions for "rda" and "cca" return
 	objects with original row and column names. Function capscale()
 	already did so, and simulate.nullmodel() was changed so in vegan
