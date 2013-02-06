@@ -164,3 +164,30 @@ pro
 pro$t
 rm(x, xp, pro)
 ### end protest
+
+### Check that functions related to predict.rda work correctly for all
+### constrained ordination methods.
+
+### simulate.rda/cca/capscale: based on predict.* and the following
+### should get back the data
+data(dune, dune.env)
+ind <- seq_len(nrow(dune))
+target <- as.matrix(dune)
+## rda
+mod <- rda(dune ~ Condition(Moisture) + Management + A1, dune.env)
+dat <- simulate(mod, indx = ind)
+all.equal(dat, target, check.attributes = FALSE)
+## cca
+mod <- cca(dune ~ Condition(Moisture) + Management + A1, dune.env)
+dat <- simulate(mod, indx = ind)
+all.equal(dat, target, check.attributes = FALSE)
+## capscale: Euclidean distances -- non-Euclidean distances have an
+## imaginary component and will not give back the data.
+d <- dist(dune)
+mod <- capscale(d ~ Condition(Moisture) + Management + A1, dune.env)
+dat <- simulate(mod, indx = ind)
+all.equal(dat, d, check.attributes = FALSE)
+## clean up
+rm(ind, target, mod, dat, d)
+### end simulate.*
+
