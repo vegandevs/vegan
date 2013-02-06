@@ -1,9 +1,12 @@
-"fitted.rda" <-
-    function (object, model = c("CCA", "CA"), type = c("response", "working"), ...) 
+`fitted.rda` <-
+    function (object, model = c("CCA", "CA", "pCCA"), type = c("response", "working"), ...) 
 {
     type <- match.arg(type)
     model <- match.arg(model)
-    Xbar <- object[[model]]$Xbar
+    if (model == "pCCA")
+        Xbar <- object$pCCA$Fit
+    else
+        Xbar <- object[[model]]$Xbar
     if (model == "CCA") 
         Xbar <- qr.fitted(object$CCA$QR, Xbar)
     if (type == "response") {

@@ -21,9 +21,9 @@
   response data. 
 }
 \usage{
-\method{fitted}{cca}(object, model = c("CCA", "CA"),
+\method{fitted}{cca}(object, model = c("CCA", "CA", "pCCA"),
     type =  c("response", "working"), ...)
-\method{fitted}{capscale}(object, model = c("CCA", "CA", "Imaginary"),
+\method{fitted}{capscale}(object, model = c("CCA", "CA", "pCCA", "Imaginary"),
     type = c("response", "working"), ...)
 \method{residuals}{cca}(object, ...)
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
@@ -37,10 +37,11 @@
 \arguments{
   \item{object}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
-  \item{model}{Show constrained (\code{"CCA"}) or unconstrained
-    (\code{"CA"}) results. For \code{fitted} method of
-    \code{\link{capscale}} this can also be \code{"Imaginary"} for
-    imaginary components with negative eigenvalues. }
+  \item{model}{Show constrained (\code{"CCA"}), unconstrained
+    (\code{"CA"}) or conditioned \dQuote{partial} (\code{"pCCA"})
+    results. For \code{fitted} method of \code{\link{capscale}} this
+    can also be \code{"Imaginary"} for imaginary components with
+    negative eigenvalues. }
   \item{newdata}{New data frame to be used in prediction or in
     calibration.  Usually this a new community data frame, but with
     \code{type = "lc"} and for constrained component with \code{type =

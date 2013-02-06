@@ -1,5 +1,5 @@
-fitted.capscale <-
-    function(object, model = c("CCA", "CA", "Imaginary"),
+`fitted.capscale` <-
+    function(object, model = c("CCA", "CA", "pCCA", "Imaginary"),
              type = c("response", "working"), ...)
 {
     model <- match.arg(model)
@@ -8,7 +8,8 @@ fitted.capscale <-
     U <- switch(model,
                 CCA = object$CCA$u.eig,
                 CA = object$CA$u.eig,
-                Imaginary = object$CA$imaginary.u.eig)
+                Imaginary = object$CA$imaginary.u.eig,
+                pCCA = object$pCCA$Fit/object$adjust)
     ## Distances or working scores U
     if (type == "response") {
         U <- dist(U)

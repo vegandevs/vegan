@@ -28,6 +28,9 @@ Version 2.1-25 (opened February 2, 2013)
 	that there is a policy decision, and an alternative policy can be
 	tracked in the repository.
 
+	* fitted.[cca,rda,capscale]: can now return partial component with
+	argument 'model = "pCCA"'.
+
 	* simulate: the simulate functions for "rda" and "cca" return
 	objects with original row and column names. Function capscale()
 	already did so, and simulate.nullmodel() was changed so in vegan
