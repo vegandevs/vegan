@@ -9,10 +9,11 @@ Version 2.1-25 (opened February 2, 2013)
 	approximately. Please comment and correct.
 
 	* predict.rda, predict.cca: The partial term is handled in
-	predict.rda(..., type = "response") and in predict.cca(..., type =
-	"working").  The partial term was earlier handled only in
-	corresponding simulate.rda(), simulate.cca() functions, but it was
-	now moved to these more basic functions.
+	predict(..., type = "response") and in predict(..., type =
+	"working") for cca() and rda() result objects.  The partial term
+	was earlier handled only in corresponding simulate.rda(),
+	simulate.cca() functions, but it was now moved to these more basic
+	functions. The partial capscale() results are still unhandled.
 
 	* oecosimu: changed the structure of the oecosimu() result
 	object. It now returns a list of two items: "statistic" is the
