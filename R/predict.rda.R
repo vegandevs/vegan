@@ -30,8 +30,6 @@
                          newdata = newdata, rank = take)
         }
         if (inherits(object, "capscale")) {
-            if (!is.null(object$pCCA))
-                warning("Conditional ('partial') component ignored")
             if (take > 0) {
                 out <- u %*% slam/object$adjust
                 if (type == "response") {
@@ -52,11 +50,7 @@
                 if (!is.null(scal)) 
                     out <- sweep(out, 2, scal, "*")
                 out <- sweep(out, 2, cent, "+")
-                if (!is.null(object$pCCA))
-                    out <- out + object$pCCA$Fit
             } else {
-                if (!is.null(object$pCCA)) 
-                    out <- out + object$pCCA$Fit
                 out <- out/sqrt(nrow(out) - 1)
             }
         }

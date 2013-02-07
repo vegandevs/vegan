@@ -32,15 +32,10 @@
         if (take > 0) 
             Xbar <- u %*% slam %*% t(v)
         rc <- outer(rs, cs)
-        if (type == "response") {
-            if (!is.null(object$pCCA)) 
-                Xbar <- Xbar + object$pCCA$Fit / sqrt(rc)
+        if (type == "response") 
             out <- (Xbar + 1) * rc * gtot
-        } else {                # type == "working"
+        else                 # type == "working"
             out <- Xbar * sqrt(rc)
-            if (!is.null(object$pCCA))
-                out <- out + object$pCCA$Fit
-        }
     }
     else if (type == "lc") {
         if (model == "CA") 
