@@ -194,25 +194,61 @@
 }
 
 \seealso{
-  There is a special documentation for \code{\link{plot.cca}} and
-  \code{\link{summary.cca}} functions
-  with their helper functions (\code{\link{text.cca}},
-  \code{\link{points.cca}}, \code{\link{scores.cca}}).
-  Function \code{\link{anova.cca}} provides an ANOVA like permutation
-  test for the ``significance'' of constraints. Automatic model building
-  (dangerous!) is discussed in \code{\link{deviance.cca}}.  Diagnostic
-  tools, prediction and adding new points in ordination are discussed in
-  \code{\link{goodness.cca}} and \code{\link{predict.cca}}.
-  Function  \code{\link[ade4]{cca}} (library \pkg{ade4}) provide alternative
-  implementations of CCA (these are internally quite
-  different). Function \code{\link{capscale}} is a non-Euclidean generalization of
-  \code{rda}. The result object is described in
-  \code{\link{cca.object}}.
-  You can use \code{\link{as.mlm}} to refit ordination result as a
-  multiple response linear model to find some descriptive statistics.
-  Design decisions are explained in
-  \code{\link{vignette}} \file{decision-vegan} which also can be accessed
-  with \code{\link{vegandocs}}.  
+  
+  This help page describes two constrained ordination functions,
+  \code{cca} and \code{rda}.  A related method, distance-based
+  redundancy analysis (dbRDA) is described separately
+  (\code{\link{capscale}}). All these function return similar objects
+  (described in \code{\link{cca.object}}). There are numerous support
+  functions that can used to access the result object. In the list
+  below, functions of type \code{cca} will handle all ordination
+  objects, and functions of \code{rda} only handle \code{rda} and
+  \code{\link{capscale}} results.
+
+  The main plotting functions are \code{\link{plot.cca}} for all
+  methods, and \code{\link{biplot.rda}} for RDA and dbRDA.  However,
+  generic \pkg{vegan} plotting functions can also handle the results.
+  The scores can be accessed and scaled with \code{\link{scores.cca}},
+  and summarized with \code{\link{summary.cca}}. The eigenvalues can
+  be accessed with \code{\link{eigenvals.cca}} and the regression
+  coefficients for constraints with \code{\link{coef.cca}}.  The
+  eigenvalues can be plotted with \code{\link{screeplot.cca}}, and the
+  (adjusted) \eqn{R^2}{R-squared} can be found with
+  \code{\link{RsquareAdj.rda}}. The scores can be also calculated for
+  new data sets with \code{\link{predict.cca}} which allows adding
+  points to ordinations.  The values of constraints can be inferred
+  from ordination and community composition with
+  \code{\link{calibrate.cca}}.
+
+  Diagnostic statistics can be found with \code{\link{goodness.cca}},
+  \code{\link{inertcomp}}, \code{\link{spenvcor}},
+  \code{\link{intersetcor}} and \code{\link{vif.cca}}.  Function
+  \code{\link{as.mlm.cca}} refits the result object as a multiple
+  \code{\link{lm}} object, and this allows finding influence
+  statistics (\code{\link{lm.influence}}, \code{\link{cooks.distance}}
+  etc.).
+  
+  Permutation based signficance for the overall model, single
+  constraining variables or axes can be found with
+  \code{\link{anova.cca}}.  Automatic model building with \R{}
+  \code{\link{step}} function is possible with
+  \code{\link{deviance.cca}}, \code{\link{add1.cca}} and
+  \code{\link{drop1.cca}}.  Functions \code{\link{ordistep}} and
+  \code{\link{ordiR2step}} (for RDA) are special functions for
+  constrained ordination. Randomized data sets can be generated with
+  \code{\link{simulate.cca}}.
+
+  Separate methods based on constrained ordination model are principal
+  response curves (\code{\link{prc}}) and variance partioning between
+  several components (\code{\link{varpart}}).
+
+  Design decisions are explained in \code{\link{vignette}}
+  \file{decision-vegan} which also can be accessed with
+  \code{\link{vegandocs}}.
+
+  Package \pkg{ade4} provides alternative constrained ordination
+  functions \code{\link[ade4]{cca}} and \code{\link[ade4]{pcaiv}}.
+
 }
 
 \examples{
