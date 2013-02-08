@@ -210,7 +210,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   names in the References (and more in \code{\link{nestedtemp}}).  
 
   The internal structure of the function was radically changed in
-  \pkg{vegan 2.0-2} with introduction of \code{\link{commsim}} and
+  \pkg{vegan 2.2-0} with introduction of \code{\link{commsim}} and
   \code{\link{nullmodel}} and deprecation of
   \code{\link{commsimulator}}. However, the results and the basic user
   interface remain the same (except that \code{method = "r0_old"} must
