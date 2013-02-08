@@ -190,6 +190,10 @@
   linear model (\code{\link{lm}}) in order to more easily find some
   statistics (which in principle could be directly found from the
   \code{cca.object} as well). 
+
+  This section in \code{\link{cca}} gives a more complete list of
+  methods to handle the constrained ordination result object.
+
 }
 \references{
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English

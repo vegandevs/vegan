@@ -91,9 +91,7 @@
   variants of \code{fitted} and \code{residuals} are defined so that
   for model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal
   to constrained ordination, and \code{cca(residuals(mod))} is equal
-  to unconstrained part of the ordination.  The \code{Condition()}
-  terms or the partial component is always ignored and will not be
-  included in \code{predict}ed or \code{fitted} response.
+  to unconstrained part of the ordination.  
 
   Function \code{predict} can find the estimate of the original data
   matrix or dissimilarities (\code{type = "response"}) with any rank.
@@ -140,7 +138,7 @@
   arrows, but it uses regression coefficients.  The function can be called
   with \code{newdata} so that cross-validation is possible.  The
   \code{newdata} may contain new sites, but species must match in the
-  original and new data  The function
+  original and new data.  The function
   does not work with \sQuote{partial} models with \code{Condition} term,
   and it cannot be used with \code{newdata} for \code{\link{capscale}}
   results.  The results may only be interpretable for continuous variables.
