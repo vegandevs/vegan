@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-25 (opened February 2, 2013)
+Version 2.1-26 (opened February 11, 2013)
+
+	* New version opened with the release of vegan_2.0-6 on February
+	11, 2013.
+	
+Version 2.1-25 (closed February 11, 2013)
 
 	* FAQ: new entry on impossibility of using random effects in cca,
 	rda, capscale & adonis, and telling how to do this
