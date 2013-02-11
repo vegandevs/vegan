@@ -25,7 +25,7 @@ protest, radfit, radlattice, rankindex, rarefy, rarecurve, raupcrick,
 rda, renyiaccum, renyi, rrarefy, scores, scoverage,
 showvarparts, simper, spandepth,
 spantree, specaccum, specnumber, specpool2vect, specpool, spenvcor,
-stepacross, stressplot, swan, taxa2dist, taxondive, tolerance,
+stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, vegemite, veiledspec, wascores,
 wcmdscale, wisconsin)

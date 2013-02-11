@@ -1,16 +1,21 @@
 \name{vegemite}
 \alias{vegemite}
+\alias{tabasco}
 \alias{coverscale}
 
-\title{Prints a Compact, Ordered Vegetation Table }
+\title{Display Compact Ordered Community Tables }
 \description{
-  The function prints a compact vegetation table, where species are
-  rows, and each site takes only one column without spaces.  The
-  vegetation table can be ordered by explicit indexing, by environmental
-  variables or results from an ordination or cluster analysis.
+  The functions display compact community tables.  Function
+  \code{vegemite} prints text tables where species are rows, and each
+  site takes only one column without spaces.  Function \code{tabasco}
+  provides interface for \code{\link{heatmap}} for a colour map of
+  the data. The community table can be ordered by explicit indexing,
+  by environmental variables or results from an ordination or cluster
+  analysis.
 }
 \usage{
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
+tabasco(x, use, sp.ind = NULL, site.ind = NULL, select, ...) 
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
            maxabund)
 }
@@ -32,19 +37,28 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
     Data maximum in the \code{select}ed subset will be used if this is
     missing.}
-  \item{...}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}).}
+  \item{...}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}) in
+    \code{vegemite} and to \code{\link{heatmap}} in \code{tabasco}.}
 }
 \details{
-  The function prints a traditional vegetation table.
+  The function \code{vegemite} prints a traditional community table.
   Unlike in ordinary data matrices, species are used as rows and sites
   as columns.  The table is printed in compact form:  only one character
   can be used for abundance, and there are no spaces between
   columns. Species with no occurrences are dropped from the table.
 
+  Function \code{tabasco} produces a similar table as \code{vegemite}
+  using \code{\link{heatmap}}, where abundances are coded by heatmap
+  colours.
+
   The parameter \code{use} can be a vector or an object from
   \code{\link{hclust}}, a \code{\link{dendrogram}} or any ordination
   result recognized by \code{\link{scores}} (all ordination methods in
-  \pkg{vegan} and some of those not in \pkg{vegan}).
+  \pkg{vegan} and some of those not in \pkg{vegan}). The
+  \code{\link{hclust}} an \code{\link{dendrogram}} must be for
+  sites. The dendrogram is displayed in above the sites in
+  \code{tabasco}.
+
   If \code{use} is a vector, it is used
   for ordering sites.  If \code{use} is an object from ordination, both
   sites and species are arranged by the first axis.  
@@ -106,15 +120,19 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 }
 \author{Jari Oksanen}
 
-\seealso{\code{\link{cut}} and \code{\link{approx}} for making your own
-  `cover scales', \code{\link{wascores}} for weighted averages.
+\seealso{\code{\link{cut}} and \code{\link{approx}} for making your
+  own \sQuote{cover scales} for \code{vegemite}.  Function
+  \code{tabasco} is based on \code{\link{heatmap}}. Both functions
+  order species with weighted averages using \code{\link{wascores}}.
   }
 
-\note{ This function was called \code{vegetab} in older versions of
-  \code{vegan}.  The new name was chosen  because the output is so
-  compact (and to avoid confusion with the \code{vegtab} function in the
-  \pkg{labdsv} package).
-    }
+\note{   
+
+  The name \code{vegemite} was chosen because the output is so
+  compact, and the \code{tabasco} because it is just as compact, but
+  uses heat colours.
+    
+}
 \examples{
 data(varespec)
 ## Print only more common species 
@@ -129,6 +147,15 @@ cl <- cutree(clus, 3)
 sel <- vegemite(varespec, use=dca, select = cl == 3, scale="Br")
 # Re-create previous
 vegemite(varespec, sp=sel$sp, site=sel$site, scale="Hult")
+
+## Abundance values have such a wide range that they must be rescaled
+## or all abundances will not be shown in tabasco
+tabasco(decostand(varespec, "log"), clus)
+## reorder dendrogram by the first DCA axis
+clus <- as.dendrogram(clus)
+clus <- reorder(clus, scores(dca, choices=1, display="sites"))
+tabasco(decostand(varespec, "log"), clus)
+
 }
 \keyword{ print }
 \keyword{ manip }
