@@ -222,11 +222,11 @@
 
   Diagnostic statistics can be found with \code{\link{goodness.cca}},
   \code{\link{inertcomp}}, \code{\link{spenvcor}},
-  \code{\link{intersetcor}} and \code{\link{vif.cca}}.  Function
-  \code{\link{as.mlm.cca}} refits the result object as a multiple
-  \code{\link{lm}} object, and this allows finding influence
-  statistics (\code{\link{lm.influence}}, \code{\link{cooks.distance}}
-  etc.).
+  \code{\link{intersetcor}}, \code{\link{tolerance.cca}}, and
+  \code{\link{vif.cca}}.  Function \code{\link{as.mlm.cca}} refits the
+  result object as a multiple \code{\link{lm}} object, and this allows
+  finding influence statistics (\code{\link{lm.influence}},
+  \code{\link{cooks.distance}} etc.).
   
   Permutation based signficance for the overall model, single
   constraining variables or axes can be found with
