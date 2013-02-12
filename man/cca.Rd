@@ -105,9 +105,9 @@
   frames).
   The formula can include a special term \code{Condition}
   for conditioning variables (``covariables'') ``partialled out'' before
-  analysis.  So the following commands are equivalent: \code{cca(X, Y,
-    Z)}, \code{cca(X ~ Y + Condition(Z))}, where \code{Y} and \code{Z}
-  refer to constraints and conditions matrices respectively.
+  analysis.  So the following commands are equivalent:
+  \code{cca(X, Y, Z)},  \code{cca(X ~ Y + Condition(Z))}, where \code{Y}
+  and \code{Z} refer to constraints and conditions matrices respectively.
 
   Constrained correspondence analysis is indeed a constrained method:
   CCA does not try to display all variation in the
@@ -198,12 +198,12 @@
   This help page describes two constrained ordination functions,
   \code{cca} and \code{rda}.  A related method, distance-based
   redundancy analysis (dbRDA) is described separately
-  (\code{\link{capscale}}). All these function return similar objects
+  (\code{\link{capscale}}). All these functions return similar objects
   (described in \code{\link{cca.object}}). There are numerous support
-  functions that can used to access the result object. In the list
-  below, functions of type \code{cca} will handle all ordination
-  objects, and functions of \code{rda} only handle \code{rda} and
-  \code{\link{capscale}} results.
+  functions that can be used to access the result object. In the list
+  below, functions of type \code{cca} will handle all three constrained
+  ordination objects, and functions of \code{rda} only handle \code{rda}
+  and \code{\link{capscale}} results.
 
   The main plotting functions are \code{\link{plot.cca}} for all
   methods, and \code{\link{biplot.rda}} for RDA and dbRDA.  However,
