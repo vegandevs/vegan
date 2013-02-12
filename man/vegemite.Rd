@@ -25,7 +25,8 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \item{use}{Either a vector, or an object from \code{cca},
     \code{decorana} \emph{etc.} or \code{hclust} or a
     \code{\link{dendrogram}} for ordering sites and species.} 
-  \item{sp.ind}{Species indices. }
+  \item{sp.ind}{Species indices. In \code{tabasco}, this can also be an
+    \code{\link{hclust}} tree or a \code{\link{dendrogram}}. }
   \item{site.ind}{Site indices. }
   \item{zero}{Character used for zeros. }
   \item{select}{Select a subset of sites.  This can be a logical vector
@@ -55,9 +56,10 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{\link{hclust}}, a \code{\link{dendrogram}} or any ordination
   result recognized by \code{\link{scores}} (all ordination methods in
   \pkg{vegan} and some of those not in \pkg{vegan}). The
-  \code{\link{hclust}} an \code{\link{dendrogram}} must be for
-  sites. The dendrogram is displayed in above the sites in
-  \code{tabasco}.
+  \code{\link{hclust}} and \code{\link{dendrogram}} must be for
+  sites. The dendrogram is displayed above the sites in
+  \code{tabasco}.  No dendrogram for species is displayed, except when
+  given in \code{sp.ind}.
 
   If \code{use} is a vector, it is used
   for ordering sites.  If \code{use} is an object from ordination, both
@@ -73,12 +75,18 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   clustering, but in some cases species are still nicely ordered (please
   note that you can \code{\link{reorder.dendrogram}} to have such a
   natural order).
-  Alternatively, species and sites can be ordered explicitly giving
-  their indices or names in parameters \code{sp.ind} and
-  \code{site.ind}.  If these are given, they take precedence over
-  \code{use}. A subset of sites can be displayed using argument
-  \code{select}, but this cannot be used to order sites, but you still
-  must give \code{use} or \code{site.ind}.
+
+  Species and sites can be ordered explicitly giving their indices or
+  names in parameters \code{sp.ind} and \code{site.ind}.  If these are
+  given, they take precedence over \code{use}. A subset of sites can be
+  displayed using argument \code{select}, but this cannot be used to
+  order sites, but you still must give \code{use} or \code{site.ind}.
+  However, \code{tabasco} makes two exceptions: \code{site.ind} and
+  \code{select} cannot be used when \code{use} is an
+  \code{\link{hclust}} tree or a \code{\link{dendrogram}}. In addition,
+  the \code{sp.ind} can also be an \code{\link{hclust}} tree or a
+  \code{\link{dendrogram}}, and in that case the dendrogram is plotted
+  on the left side of the \code{\link{heatmap}}.
 
   If \code{scale} is given, \code{vegemite} calls
   \code{coverscale} to transform percent cover
@@ -102,13 +110,13 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   10 with \code{X} and positive values below 1 with \code{+}. 
 }
 \value{
-  The function is used mainly to print a table, but it returns
+  The functions are used mainly to display a table, but it returns
   (invisibly) a list
   with items:
   \item{species}{Ordered species indices}
   \item{sites}{Ordered site indices}
   These items can be used as arguments \code{sp.ind} and \code{site.ind}
-  to reproduce the table. In addition to the proper table, the function
+  to reproduce the table. In addition to the proper table, \code{vegemite}
   prints the numbers of species and sites and the name of the used cover
   scale at the end.
 }
