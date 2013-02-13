@@ -9,8 +9,7 @@ Version 2.1-26 (opened February 11, 2013)
 
 	* tabasco: a sister function of vegemite() to display a compact
 	community table using heatmap(). Both vegemite() and tabasco() can
-	handle cluster::agnes() trees, and tabasco() can handle
-	picante::phylo() trees for species.
+	handle cluster::agnes() trees.
 
 	* wcmdscale: return a full "wcmdscale" object if any argument is
 	set to non-default value. This also implies that if weights 'w'

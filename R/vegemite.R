@@ -1,4 +1,4 @@
-"vegemite" <-
+`vegemite` <-
     function (x, use, scale, sp.ind = NULL, site.ind = NULL, zero = ".", 
               select, ...) 
 {
@@ -10,8 +10,10 @@
                 sp.ind <- order(wascores(use, x))
         }
         else if (inherits(use, c("hclust", "twins"))) {
-            if (!inherits(use, "hclust"))
+            if (inherits(use, "twins")) {
+                require(cluster) || stop("package cluster needed for 'use'")
                 use <- as.hclust(use)
+            }
             if (is.null(site.ind)) 
                 site.ind <- use$order
             if (is.null(sp.ind)) 
