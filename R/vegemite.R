@@ -9,7 +9,9 @@
             if (is.null(sp.ind)) 
                 sp.ind <- order(wascores(use, x))
         }
-        else if (inherits(use, "hclust")) {
+        else if (inherits(use, c("hclust", "twins"))) {
+            if (!inherits(use, "hclust"))
+                use <- as.hclust(use)
             if (is.null(site.ind)) 
                 site.ind <- use$order
             if (is.null(sp.ind)) 

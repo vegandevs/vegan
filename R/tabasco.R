@@ -24,7 +24,9 @@
                 sp.ind <- order(wascores(order(site.ind), x))
             Colv <- as.dendrogram(use)
         }
-        else if (inherits(use, "dendrogram")) {
+        else if (inherits(use, c("dendrogram", "twins"))) {
+            if (!inherits(use, "dendrogram"))
+                use <- as.dendrogram(use)
             if (!is.null(site.ind))
                 stop("'dendrogram' cannot be 'use'd with 'site.ind'")
             site.ind <- seq_len(nrow(x))
@@ -53,7 +55,10 @@
         }
     }
     ## see if sp.ind is a dendrogram or hclust tree
-    if (inherits(sp.ind, c("hclust", "dendrogram"))) {
+    if (inherits(sp.ind, c("hclust", "dendrogram", "twins", "phylo"))) {
+        ## phylo trees are from picante: they only have as.hclust method
+        if (inherits(sp.ind, "phylo"))
+            sp.ind <- as.hclust(sp.ind)
         if (!inherits(sp.ind, "dendrogram"))
             sp.ind <- as.dendrogram(sp.ind)
         Rowv <- sp.ind
