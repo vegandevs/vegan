@@ -60,6 +60,8 @@
         sp.ind <- seq_len(ncol(x))
         names(sp.ind) <- colnames(x)
         sp.ind <- sp.ind[labels(Rowv)]
+        ## reverse: origin in the upper left corner
+        Rowv <- rev(Rowv)
     }
     if (!is.null(sp.ind) && is.logical(sp.ind))
         sp.ind <- (1:ncol(x))[sp.ind]
@@ -90,7 +92,8 @@
     else
         rind <- sort(site.ind)
     if (is.na(Rowv[1]))
-        cind <- sp.ind
+        ## reverse: origin in the upper left corner
+        cind <- rev(sp.ind)
     else
         cind <- sort(sp.ind)
     ## we assume t() changes data.frame to a matrix
