@@ -8,6 +8,9 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     }
     if (add)
         .NotYetUsed("add")
+    ## Force eig=TRUE if add, x.ret or !missing(w)
+    if(add || x.ret || !missing(w))
+        eig <- TRUE
     ZERO <- sqrt(.Machine$double.eps)
     if (!inherits(d, "dist")) {
         op <- options(warn = 2)
