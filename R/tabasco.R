@@ -8,7 +8,7 @@
     function (x, use, sp.ind = NULL, site.ind = NULL,  
               select, ...) 
 {
-    Rowv <- Colv <- NA
+    pltree <- sptree <- NA
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind)) 
@@ -18,11 +18,11 @@
         }
         else if (inherits(use, "hclust")) {
             if (!is.null(site.ind))
-                stop("'hclust' tree cannot be 'use'd with 'site.ind'")
+                stop("'site.ind' cannot be used with 'hclust' tree ")
             site.ind <- use$order
             if (is.null(sp.ind)) 
                 sp.ind <- order(wascores(order(site.ind), x))
-            Colv <- as.dendrogram(use)
+            pltree <- as.dendrogram(use)
         }
         else if (inherits(use, c("dendrogram", "twins"))) {
             if (inherits(use, "twins")) {
@@ -30,13 +30,13 @@
                 use <- as.dendrogram(use)
             }
             if (!is.null(site.ind))
-                stop("'dendrogram' cannot be 'use'd with 'site.ind'")
+                stop("'site.ind' cannot be used with dendrogram")
             site.ind <- seq_len(nrow(x))
             names(site.ind) <- rownames(x)
             site.ind <- site.ind[labels(use)]
             if (is.null(sp.ind)) 
                 sp.ind <- order(wascores(order(site.ind), x))
-            Colv <- use
+            pltree <- use
         }
         else if (is.list(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
@@ -62,12 +62,12 @@
             require("cluster") || stop("package cluster needed to handle 'sp.ind'")
         if (!inherits(sp.ind, "dendrogram"))
             sp.ind <- as.dendrogram(sp.ind)
-        Rowv <- sp.ind
+        sptree <- sp.ind
         sp.ind <- seq_len(ncol(x))
         names(sp.ind) <- colnames(x)
-        sp.ind <- sp.ind[labels(Rowv)]
+        sp.ind <- sp.ind[labels(sptree)]
         ## reverse: origin in the upper left corner
-        Rowv <- rev(Rowv)
+        sptree <- rev(sptree)
     }
     if (!is.null(sp.ind) && is.logical(sp.ind))
         sp.ind <- (1:ncol(x))[sp.ind]
@@ -93,11 +93,11 @@
     ## heatmap will reorder items by dendrogram so that we need to
     ## give indices in the unsorted order if rows or columns have a
     ## dendrogram
-    if (is.na(Colv[1]))
+    if (is.na(pltree[1]))
         rind <- site.ind
     else
         rind <- sort(site.ind)
-    if (is.na(Rowv[1]))
+    if (is.na(sptree[1]))
         ## reverse: origin in the upper left corner
         cind <- rev(sp.ind)
     else
@@ -106,7 +106,7 @@
     x <- t(x[rind, cind])
     sp.nam <- rownames(x)
     sp.len <- max(nchar(sp.nam))
-    heatmap((max(x) - x), Rowv, Colv,  scale = "none", ...)
+    heatmap((max(x) - x), sptree, pltree,  scale = "none", ...)
     out <- list(sites = site.ind, species = sp.ind)
     invisible(out)
 }
