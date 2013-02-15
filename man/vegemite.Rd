@@ -15,7 +15,8 @@
 }
 \usage{
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
-tabasco(x, use, sp.ind = NULL, site.ind = NULL, select, ...) 
+tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
+    Rowv = TRUE, Colv = TRUE, ...) 
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
            maxabund)
 }
@@ -33,7 +34,13 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     (\code{TRUE} for selected sites), or a vector of indices of selected
     sites.  The order of indices does not influence results, but you
     must specify \code{use} or \code{site.ind} to reorder sites.
-    }
+  }
+  \item{Rowv, Colv}{Reorder dendrograms for the rows (sites) or columns
+    (species) of \code{x}.  If the arguments are \code{TRUE}, row
+    dendrograms are ordered by the first axis of correspondence
+    analysis, and column dendrograms by the weighted average
+    (\code{\link{wascores}}) of the order in the row.  Alternatively
+    these can be vectors that are used to reorder the dendrogram. }
   \item{scale}{Cover scale used (can be abbreviated).}
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
     Data maximum in the \code{select}ed subset will be used if this is

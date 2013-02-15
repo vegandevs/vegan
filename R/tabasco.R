@@ -6,7 +6,7 @@
 
 `tabasco` <-
     function (x, use, sp.ind = NULL, site.ind = NULL,  
-              select, ...) 
+              select, Rowv = TRUE, Colv = TRUE, ...) 
 {
     pltree <- sptree <- NA
     if (!missing(use)) {
@@ -24,6 +24,19 @@
                 use <- as.dendrogram(use)
             if (!is.null(site.ind))
                 stop("'site.ind' cannot be used with dendrogram")
+            ## Reorder tree if Rowv specified
+            if (isTRUE(Rowv)) {
+                ## order by first CA axis -- decorana() is fastest
+                tmp <- decorana(x, ira = 1)
+                use <- reorder(use, scores(tmp, dis="sites", choices = 1),
+                               agglo.FUN = mean)
+            } else if (length(Rowv) > 1) {
+                ## Rowv is a vector
+                if (length(Rowv) != nrow(x))
+                    stop(gettextf("Rowv has length %d, but 'x' has %d rows",
+                                  length(Rowv), nrow(x)))
+                use <- reorder(use, Rowv, agglo.FUN = mean)
+            }
             site.ind <- seq_len(nrow(x))
             names(site.ind) <- rownames(x)
             site.ind <- site.ind[labels(use)]
@@ -56,6 +69,16 @@
         if (!inherits(sp.ind, "dendrogram"))
             sp.ind <- as.dendrogram(sp.ind)
         sptree <- sp.ind
+        ## Consider reordering species tree
+        if (isTRUE(Colv) && !is.null(site.ind)) {
+            sptree <- reorder(sptree, wascores(order(site.ind), x),
+                                  agglo.FUN = mean)
+        } else if (length(Colv) > 1) {
+            if (length(Colv) != ncol(x))
+                stop(gettextf("Colv has length %d, but 'x' has %d columns",
+                              length(Colv), ncol(x)))
+            sptree <- reorder(sptree, Colv, agglo.FUN = mean)
+        }
         sp.ind <- seq_len(ncol(x))
         names(sp.ind) <- colnames(x)
         sp.ind <- sp.ind[labels(sptree)]
@@ -71,7 +94,7 @@
     if (is.null(site.ind)) 
         site.ind <- 1:nrow(x)
     if (!missing(select)) {
-        if (!is.na(Colv))
+        if (!is.na(pltree))
             stop("sites cannot be 'select'ed with dendrograms or hclust trees")
         if (!is.logical(select))
             select <- sort(site.ind) %in% select
@@ -99,7 +122,8 @@
     x <- t(x[rind, cind])
     sp.nam <- rownames(x)
     sp.len <- max(nchar(sp.nam))
-    heatmap((max(x) - x), sptree, pltree,  scale = "none", ...)
+    heatmap((max(x) - x), Rowv = sptree, Colv = pltree,
+             scale = "none", ...)
     out <- list(sites = site.ind, species = sp.ind)
     invisible(out)
 }
