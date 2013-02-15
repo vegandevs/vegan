@@ -16,19 +16,12 @@
             if (is.null(sp.ind)) 
                 sp.ind <- order(wascores(use, x))
         }
-        else if (inherits(use, "hclust")) {
-            if (!is.null(site.ind))
-                stop("'site.ind' cannot be used with 'hclust' tree ")
-            site.ind <- use$order
-            if (is.null(sp.ind)) 
-                sp.ind <- order(wascores(order(site.ind), x))
-            pltree <- as.dendrogram(use)
-        }
-        else if (inherits(use, c("dendrogram", "twins"))) {
+        else if (inherits(use, c("dendrogram", "hclust", "twins"))) {
             if (inherits(use, "twins")) {
                 require(cluster) || stop("package cluster needed to handle 'use'")
-                use <- as.dendrogram(use)
             }
+            if (!inherits(use, "dendrogram"))
+                use <- as.dendrogram(use)
             if (!is.null(site.ind))
                 stop("'site.ind' cannot be used with dendrogram")
             site.ind <- seq_len(nrow(x))
