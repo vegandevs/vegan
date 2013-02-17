@@ -7803,7 +7803,7 @@ Warning: non-integer data: divided by smallest positive value
 > ### Name: vegemite
 > ### Title: Display Compact Ordered Community Tables
 > ### Aliases: vegemite tabasco coverscale
-> ### Keywords: print manip
+> ### Keywords: print manip hplot
 > 
 > ### ** Examples
 > 
@@ -8244,7 +8244,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  82.333 1.542 86.731 0 0 
+Time elapsed:  83.645 1.621 85.757 0 0 
 > grDevices::dev.off()
 null device 
           1 
