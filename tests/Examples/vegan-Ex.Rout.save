@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x10245b5b8>
+<environment: 0x10245a8e8>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4908,7 +4908,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10ac51d18>
+<environment: 0x10a9cc178>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4924,7 +4924,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109d00ed8>
+<environment: 0x10ac80208>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5092,7 +5092,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109cb80e8>
+<environment: 0x107e94708>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5105,7 +5105,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10adbb588>
+<environment: 0x10851f590>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5118,7 +5118,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108d98b90>
+<environment: 0x109432720>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7692,7 +7692,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b44d008>
+<environment: 0x10a8a53c8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7941,7 +7941,7 @@ scale:  Hill
   sites species 
       5      37 
 scale:  Braun.Blanquet 
-> # Re-create previous
+> ## Re-create previous
 > vegemite(varespec, sp=sel$sp, site=sel$site, scale="Hult")
               
           1 12
@@ -7986,17 +7986,78 @@ scale:  Braun.Blanquet
   sites species 
       5      37 
 scale:  Hult 
+> ## Re-order clusters by ordination
+> clus <- as.dendrogram(clus)
+> clus <- reorder(clus, scores(dca, choices=1, display="sites"), agglo.FUN = mean)
+> vegemite(varespec, clus, scale = "Hult")
+                                 
+           1   111  1211221212222
+         431567380922149306254578
+ Cet.niv 21.111.111....11........
+ Cla.ama .1.1...1................
+ Ste.sp  111211111....111.1.111.1
+ Pol.pil ..111..1......111..1....
+ Dip.mon .1...111.1...........1..
+ Cla.phy ..1.....11...1..........
+ Cla.ran 344544332133111223121121
+ Cla.cer 1.........1..........1..
+ Cla.ste 454121215555213111111.1.
+ Cla.arb 322344331111132222121111
+ Vac.uli 11...2.1........1.1..111
+ Cal.vul 111.1.311.11.1..11111...
+ Ich.eri ...1.1.......1...1......
+ Cla.sp  1...1.11.1......111..11.
+ Cla.coc 1111111111...1111111.1.1
+ Pin.syl 1.111.1111111111111111.1
+ Cla.chl .1..111.111.1.11..1.1...
+ Cet.isl 1.1...1.11.111...1.111.1
+ Cla.fim 11.11111111111111111.111
+ Pel.aph ..1...11.......1.....11.
+ Cet.eri 11.1111111...1..111111..
+ Cla.gra 11111111.111111111111111
+ Poh.nut 111..11111.1111111111.11
+ Pti.cil .11.1.11.11.2.11.1111111
+ Bar.lyc ......1.....1.11......1.
+ Cla.cor 111111111111111111111111
+ Vac.vit 113122132323412331223232
+ Cla.cri 111111111111111111111111
+ Emp.nig 111111122122312322111231
+ Cla.bot ......1.....1.111...1.11
+ Bet.pub ............1.....1..1..
+ Cla.unc 111111111111131111112111
+ Cla.def 11.111111111111111111111
+ Dic.pol ..11.1..11..1.1111.11..1
+ Pol.com ............111......11.
+ Led.pal ......1.....1.....1...11
+ Pol.jun 1.111111111.111111.112.1
+ Dic.fus 11111111111112111442.211
+ Ple.sch 113111111111123333444455
+ Vac.myr ......1..1..311..111..13
+ Nep.arc .1...1.1........1....1..
+ Dic.sp  ......1....11...111133.1
+ Des.fle 1....1......1.1...1..111
+ Hyl.spl ................1....122
+  sites species 
+     24      44 
+scale:  Hult 
 > 
 > ## Abundance values have such a wide range that they must be rescaled
 > ## or all abundances will not be shown in tabasco
-> tabasco(decostand(varespec, "log"), clus)
-Warning: non-integer data: divided by smallest positive value
-> ## reorder dendrogram by the first DCA axis
-> clus <- as.dendrogram(clus)
-> clus <- reorder(clus, scores(dca, choices=1, display="sites"))
-> tabasco(decostand(varespec, "log"), clus)
+> tabasco(decostand(varespec, "log"), dca)
 Warning: non-integer data: divided by smallest positive value
 > 
+> ## Classification trees for species
+> data(dune, dune.taxon)
+> taxontree <- hclust(taxa2dist(dune.taxon))
+> plotree <- hclust(vegdist(dune), "average")
+> ## Automatic reordering of clusters
+> tabasco(dune, plotree, sp.ind = taxontree)
+> ## No reordering of taxonomy
+> tabasco(dune, plotree, sp.ind = taxontree, Colv = FALSE)
+> ## Species cluster: most dissimilarity indices do a bad job when
+> ## comparing rare and common species, but Raup-Crick makes sense
+> sptree <- hclust(vegdist(t(dune), "raup"), "average")
+> tabasco(dune, plotree, sptree)
 > 
 > 
 > 
@@ -8183,7 +8244,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  104.54 1.972 107.111 0 0 
+Time elapsed:  82.333 1.542 86.731 0 0 
 > grDevices::dev.off()
 null device 
           1 
