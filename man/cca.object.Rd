@@ -177,19 +177,25 @@
   }
 }
   
-\seealso{The description here provides a hacker's interface.  For more
-  user friendly access to the \code{cca} object see
+\seealso{The description here provides a hacker's interface.  User
+  level functions for further analysis and handling of \code{cca}
+  objects are described in this section in \code{\link{cca}}. Also for
+  a hacker interface, it may be better to use following low level
+  functions to access the results:
+  \code{\link{scores.cca}} (which also scales results), 
+  \code{\link{predict.cca}} (which can also use \code{newdata}), 
+  \code{\link{fitted.cca}}, \code{\link{residuals.cca}},
   \code{\link{alias.cca}}, \code{\link{coef.cca}},
-  \code{\link{deviance.cca}}, \code{\link{predict.cca}},
-  \code{\link{scores.cca}}, 
-  \code{\link{summary.cca}},  \code{\link{vif.cca}},
-  \code{\link{weights.cca}}, \code{\link{spenvcor}} or \code{rda}
+  \code{\link{model.frame.cca}}, \code{\link{model.matrix.cca}},
+  \code{\link{deviance.cca}}, \code{\link{eigenvals.cca}},
+  \code{\link{RsquareAdj.cca}}, 
+  \code{\link{weights.cca}}, \code{\link{nobs.cca}}, or \code{rda}
   variants of these functions.
   You can use \code{\link{as.mlm}} to cast a \code{cca.object} into
   result of multiple response
   linear model (\code{\link{lm}}) in order to more easily find some
   statistics (which in principle could be directly found from the
-  \code{cca.object} as well). 
+  \code{cca} object as well). 
 
   This section in \code{\link{cca}} gives a more complete list of
   methods to handle the constrained ordination result object.
