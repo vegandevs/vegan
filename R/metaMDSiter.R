@@ -20,7 +20,7 @@
         lab <- switch(mod$icause,
                       "no. of iterations >= maxit",
                       "stress < smin",
-                      "change of stress < sratmax",
+                      "stress ratio > sratmax",
                       "scale factor of the gradient < sfgrmin")
         cat("   ", mod$iters, "iterations: ", lab, "\n")
     }

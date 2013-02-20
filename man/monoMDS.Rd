@@ -56,8 +56,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 
   \item{smin, sfgrmin, sratmax}{Convergence criteria: iterations stop
     when stress drops below \code{smin}, scale factor of the gradient
-    drops below \code{sfgrmin}, or stress ratio goes over
-    \code{sratmax} (but is still \eqn{< 1}).}
+    drops below \code{sfgrmin}, or stress ratio between two iterations
+    goes over \code{sratmax} (but is still \eqn{< 1}).}
 
   \item{x}{A \code{monoMDS} result.}
 

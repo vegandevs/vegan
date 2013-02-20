@@ -33,7 +33,7 @@
     stoplab <- switch(x$icause,
                       "Maximum number of iterations (maxit) reached",
                       "Stress nearly zero (< smin)",
-                      "Stress nearly unchanged (change < sratmax)",
+                      "Stress nearly unchanged (ratio > sratmax)",
                       "Scale factor of gradient nearly zero (< sfgrmin)")
     cat("Stopped after ", x$iters, " iterations: ", stoplab, "\n", sep="")
     invisible(x)
