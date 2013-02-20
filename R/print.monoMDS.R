@@ -31,10 +31,10 @@
         cat(", rotated to principal components")
     cat("\n")
     stoplab <- switch(x$icause,
-                      "Maximum number of iteration reached",
-                      "Stress nearly zero",
-                      "Stress nearly unchanged",
-                      "Scale factor of gradient nearly zero")
+                      "Maximum number of iterations (maxit) reached",
+                      "Stress nearly zero (< smin)",
+                      "Stress nearly unchanged (change < sratmax)",
+                      "Scale factor of gradient nearly zero (< sfgrmin)")
     cat("Stopped after ", x$iters, " iterations: ", stoplab, "\n", sep="")
     invisible(x)
 }
