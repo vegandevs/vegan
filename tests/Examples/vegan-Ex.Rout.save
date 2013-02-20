@@ -3783,7 +3783,7 @@ Dimensions: 2
 Stress:     0.07596768 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 72 iterations: Stress nearly unchanged
+Stopped after 72 iterations: Stress nearly unchanged (ratio > sratmax)
 > plot(m)
 > 
 > 
@@ -4908,7 +4908,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a9cc178>
+<environment: 0x109c07ae0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4924,7 +4924,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10ac80208>
+<environment: 0x10a86e558>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5092,7 +5092,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107e94708>
+<environment: 0x108ecf7b8>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5105,7 +5105,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10851f590>
+<environment: 0x107a54aa8>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5118,7 +5118,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109432720>
+<environment: 0x109d52b88>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -7692,7 +7692,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a8a53c8>
+<environment: 0x10b3653f0>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8244,7 +8244,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  83.645 1.621 85.757 0 0 
+Time elapsed:  84.383 1.68 86.786 0 0 
 > grDevices::dev.off()
 null device 
           1 
