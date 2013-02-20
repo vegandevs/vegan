@@ -8,8 +8,10 @@ Version 2.1-26 (opened February 11, 2013)
 	11, 2013.
 
 	* metaMDS: exposed argument 'maxit' in metaMDSiter() so that users
-	can set the number of iterations in monoMDS() or isoMDS(). After a
-	wish by Jon Bakker, Univ Washington (U.S.A.).
+	can set the number of iterations in monoMDS() or isoMDS().
+	metaMDS(..., trace = 2) show the stopping criterion used in with
+	engine = "monoMDS". After wishes by Jon Bakker, Univ Washington
+	(U.S.A.).
 
 	* tabasco: a sister function of vegemite() to display a compact
 	community table using heatmap(). Both vegemite() and tabasco() can

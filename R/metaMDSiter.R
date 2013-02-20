@@ -13,7 +13,17 @@
     RMSELIM <- 0.005
     SOL <- FALSE
     converged <- FALSE
+    ## set tracing for engines
     isotrace <- max(0, trace - 1)
+    monotrace <- engine == "monoMDS" && trace > 1
+    monostop <- function(mod) {
+        lab <- switch(mod$icause,
+                      "no. of iterations >= maxit",
+                      "stress < smin",
+                      "change of stress < sratmax",
+                      "scale factor of the gradient < sfgrmin")
+        cat("   ", mod$iters, "iterations: ", lab, "\n")
+    }
     ## Previous best or initial configuration 
     if (!missing(previous.best) && !is.null(previous.best)) {
         ## check if previous.best is from metaMDS or isoMDS
@@ -57,6 +67,8 @@
     }
     if (trace) 
         cat("Run 0 stress", s0$stress, "\n")
+    if (monotrace)
+        monostop(s0)
     tries <- 0
     ## Prepare for parallel processing
     if (is.null(parallel) && getRversion() >= "2.15.0")
@@ -109,9 +121,10 @@
         ## analyse results of 'nclus' tries
         for (i in 1:nclus) {
             tries <- tries + 1
-            if (trace) {
+            if (trace)
                 cat("Run", tries, "stress", stry[[i]]$stress, "\n")
-            }
+            if (monotrace)
+                monostop(stry[[i]])
             if ((s0$stress - stry[[i]]$stress) > -EPS) {
                 pro <- procrustes(s0, stry[[i]], symmetric = TRUE)
                 if (plot && k > 1) 
