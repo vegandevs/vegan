@@ -2,6 +2,17 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 2.1-27 (opened Februray 22, 2013)
+
+	* specaccum: gained argument 'w' for weights to give the sampling
+	effort. This resurrects a feature that was introduced in r1505 (22
+	Feb 2011) and 1507, and removed in r1606 (26 May 2011). It seems
+	that BiodiversityR::balanced.specaccum() provides the same feature
+	but we still try it here.  The feature was resurrected after a
+	user query by Bastien Mérigot (Univ Montpellier II). The working
+	of the new argument is still untested with specaccum() support
+	functions.
+	
 Version 2.1-26 (opened February 11, 2013)
 
 	* New version opened with the release of vegan_2.0-6 on February
