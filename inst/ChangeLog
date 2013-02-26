@@ -12,6 +12,10 @@ Version 2.1-27 (opened Februray 22, 2013)
 	user query by Bastien Mérigot (Univ Montpellier II). The working
 	of the new argument is still untested with specaccum() support
 	functions.
+
+	* text.cca, points.cca: gained argument 'axis.bp' (defaults TRUE)
+	to suppress drawing axes for scaled biplot arrows. Only effective
+	if 'bp' scores were requested.
 	
 Version 2.1-26 (opened February 11, 2013)
 

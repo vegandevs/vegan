@@ -1,6 +1,6 @@
 `points.cca` <-
     function (x, display = "sites", choices = c(1, 2), scaling = 2,
-              arrow.mul, head.arrow = 0.05, select, const, ...)
+              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     if (length(display) > 1)
@@ -28,10 +28,12 @@
         arrows(0, 0, pts[, 1], pts[, 2], length = head.arrow,
                ...)
         pts <- pts * 1.1
-        axis(3, at = c(-arrow.mul, 0, arrow.mul), labels = rep("",
-                                                  3))
-        axis(4, at = c(-arrow.mul, 0, arrow.mul), labels = c(-1,
-                                                  0, 1))
+        if (axis.bp) {
+            axis(3, at = c(-arrow.mul, 0, arrow.mul),
+                 labels = rep("", 3))
+            axis(4, at = c(-arrow.mul, 0, arrow.mul),
+                 labels = c(-1, 0, 1))
+        }
         return(invisible())
     }
     points(pts, ...)

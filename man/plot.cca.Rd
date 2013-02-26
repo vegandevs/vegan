@@ -21,9 +21,9 @@
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
          scaling = 2, type, xlim, ylim, const, ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, const, ...)
+    arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
 \method{points}{cca}(x, display = "sites", choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, const, ...)
+    arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
 \method{scores}{cca}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, ...)
 \method{scores}{rda}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, 
     const, ...)
@@ -74,6 +74,7 @@
     \samp{decision-vegan.pdf} with \code{\link{vegandocs}} for details
     and discussion). If \code{const} is a vector of two items, the first
     is used for species, and the second item for site scores.}
+  \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
   \item{n, head, tail}{Number of rows printed from the head and tail of
