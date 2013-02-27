@@ -48,7 +48,23 @@
     fillfun <- function(x, p) 1 - (1-(1-x)^p)^(1/p)
     intfun <- function(p, fill)
         integrate(fillfun, lower=0, upper=1, p=p)$value - fill
-    p <- uniroot(intfun, c(0,20), fill=fill)$root
+    ## 'p' will depend on 'fill', and fill = 0.0038 correspond to p =
+    ## 20. Sometimes the fill is lower, and therefore we try() to see
+    ## if we need to move the bracket up. We should need to do this
+    ## very rarely.
+    lo <- 0
+    hi <- 20
+    repeat{
+        sol <- try(uniroot(intfun, c(lo,hi), fill=fill), silent = TRUE)
+        if (inherits(sol, "try-error")) {
+            if (hi > 640) # bail out
+                stop(gettextf("matrix is too sparse, fill is %g"), fill)
+            lo <- hi
+            hi <- hi + hi
+        } else
+            break
+    }
+    p <- sol$root
     ## row coordinates of the fill line for all matrix entries
     out <- matrix(0, nrow=length(r), ncol=length(c))
     for (i in 1:length(r))

@@ -4,6 +4,12 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-27 (opened Februray 22, 2013)
 
+	* nestedtemp: function failed if the matrix fill was < 0.38%,
+	because the fill line parameter was outside the original
+	estimation bracket. Now bracket is moved up if the estimation
+	fails. The problem was reported by Carsten Dormann (Univ Freiburg)
+	and Benjamin A. Sikes (Lincoln University, NZ).
+	
 	* specaccum: gained argument 'w' for weights to give the sampling
 	effort. This resurrects a feature that was introduced in r1505 (22
 	Feb 2011) and 1507, and removed in r1606 (26 May 2011). It seems
