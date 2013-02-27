@@ -94,7 +94,7 @@
     })
     out <- list(call = match.call(), method = method, sites = sites,
                 richness = specaccum, sd = sdaccum, perm = perm)
-    if (!is.null(weights))
+    if (!is.null(w))
         out$weights <- weights
     if (method == "rarefaction")
         out$individuals <- ind
