@@ -200,6 +200,7 @@ S3method(lines, procrustes)
 S3method(lines, radline)
 S3method(lines, radfit)
 S3method(lines, spantree)
+S3method(lines, specaccum)
 ## logLik: stats
 S3method(logLik, radfit)
 S3method(logLik, radfit.frame)

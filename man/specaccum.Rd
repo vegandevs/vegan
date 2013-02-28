@@ -18,9 +18,10 @@
 \usage{
 specaccum(comm, method = "exact", permutations = 100,
           conditioned =TRUE, gamma = "jack1",  w = NULL, ...)
-\method{plot}{specaccum}(x, add = FALSE, ci = 2, ci.type = c("bar", "line", "polygon"), 
-    col = par("fg"), ci.col = col, ci.lty = 1, xlab, 
-    ylab = x$method, ylim, xvar = c("sites", "individuals"), ...)
+\method{plot}{specaccum}(x, add = FALSE, random = FALSE, ci = 2, 
+    ci.type = c("bar", "line", "polygon"), col = par("fg"), ci.col = col, 
+    ci.lty = 1, xlab, ylab = x$method, ylim, 
+    xvar = c("sites", "individuals", "effort"), ...)
 \method{boxplot}{specaccum}(x, add = FALSE, ...)
 fitspecaccum(object, model, method = "random", ...)
 \method{plot}{fitspecaccum}(x, col = par("fg"), lty = 1, xlab = "Sites", 
@@ -48,6 +49,7 @@ fitspecaccum(object, model, method = "random", ...)
     that may be removed).}
   \item{x}{A \code{specaccum} result object}
   \item{add}{Add to an existing graph.}
+  \item{random}{\dots}
   \item{ci}{Multiplier used to get confidence intervals from standard
     deviation (standard error of the estimate). Value \code{ci = 0}
     suppresses drawing confidence intervals.}

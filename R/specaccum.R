@@ -36,8 +36,17 @@
                 weights[,i] <- cumsum(w[ord])
         }
         sites <- 1:n
-        specaccum <- apply(perm, 1, mean)
-        sdaccum <- apply(perm, 1, sd)
+        if (is.null(w)) {
+            specaccum <- apply(perm, 1, mean)
+            sdaccum <- apply(perm, 1, sd)
+        } else {
+            sumw <- sum(w)
+            xout <- seq(sumw/n, sumw, length.out = n)
+            intx <- sapply(seq_len(n), function(i)
+                           approx(weights[,i], perm[,i], xout = xout)$y)
+            specaccum <- apply(intx, 1, mean)
+            sdaccum <- apply(intx, 1, sd)
+        }
     }, exact = {
         freq <- colSums(x > 0)
         freq <- freq[freq > 0]
@@ -94,8 +103,10 @@
     })
     out <- list(call = match.call(), method = method, sites = sites,
                 richness = specaccum, sd = sdaccum, perm = perm)
-    if (!is.null(w))
+    if (!is.null(w)) {
         out$weights <- weights
+        out$effort <- xout
+    }
     if (method == "rarefaction")
         out$individuals <- ind
     class(out) <- "specaccum"
