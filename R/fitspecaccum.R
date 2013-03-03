@@ -15,6 +15,7 @@ fitspecaccum <-
         x <- object$individuals
     else
         x <- object$sites
+    hasWeights <- !is.null(object$weights)
     NLSFUN <- function(y, x, model, ...) {
         switch(model,
         "arrhenius" = nls(y ~ SSarrhenius(x, k, z),  ...),
@@ -28,7 +29,10 @@ fitspecaccum <-
         "weibull" = nls(y ~ SSweibull(x, Asym, Drop, lrc, par), ...))
     }
     mods <- lapply(seq_len(NCOL(SpeciesRichness)),
-                  function(i, ...) NLSFUN(SpeciesRichness[,i], x, model, ...))
+                  function(i, ...)
+                   NLSFUN(SpeciesRichness[,i],
+                          if (hasWeights) object$weights[,i] else x,
+                          model, ...))
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
     object$coefficients <- drop(sapply(mods, coef))
@@ -44,8 +48,22 @@ fitspecaccum <-
     function(x, col = par("fg"), lty = 1, 
              xlab = "Sites", ylab = x$method, ...)
 {
-    fv <- fitted(x)
+    if (is.null(x$weights))
+        fv <- fitted(x)
+    else
+        fv <- sapply(x$models, predict, newdata = list(x = x$effort))
     matplot(x$sites, fv, col = col, lty = lty, pch = NA,
             xlab = xlab, ylab = ylab, type = "l", ...)
+    invisible()
+}
+
+`lines.fitspecaccum` <-
+    function(x, col = par("fg"), lty = 1, ...)
+{
+    if (is.null(x$weights))
+        fv <- fitted(x)
+    else
+        fv <- sapply(x$models, predict, newdata= list(x = x$effort))
+    matlines(x$sites, fv, col = col, lty = lty, pch = NA, type = "l", ...)
     invisible()
 }
