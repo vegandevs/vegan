@@ -15,26 +15,24 @@ fitspecaccum <-
         x <- object$individuals
     else
         x <- object$sites
-    mods <- switch(model,
-        "arrhenius" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSarrhenius(x, k, z), ...)),
-        "gleason" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSgleason(x, k, slope), ...)),
-        "gitay" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSgitay(x, k, slope), ...)),
-        "lomolino" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlomolino(x, Asym, xmid, slope), ...)),
-        "asymp" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal), ...)),
-        "gompertz" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSgompertz(x, Asym, xmid, scal), ...)),
-        "michaelis-menten" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSmicmen(x, Vm, K), ...)),
-        "logis" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSlogis(x, Asym, xmid, scal), ...)),
-        "weibull" = apply(SpeciesRichness, 2,
-             function(y) nls(y ~ SSweibull(x, Asym, Drop, lrc, par), ...))
-                   )
+    hasWeights <- !is.null(object$weights)
+    NLSFUN <- function(y, x, model, ...) {
+        switch(model,
+        "arrhenius" = nls(y ~ SSarrhenius(x, k, z),  ...),
+        "gleason" = nls(y ~ SSgleason(x, k, slope),  ...),
+        "gitay" = nls(y ~ SSgitay(x, k, slope), ...),
+        "lomolino" = nls(y ~ SSlomolino(x, Asym, xmid, slope), ...),
+        "asymp" = nls(y ~ SSlogis(x, Asym, xmid, scal), ...),
+        "gompertz" = nls(y ~ SSgompertz(x, Asym, xmid, scal), ...),
+        "michaelis-menten" = nls(y ~ SSmicmen(x, Vm, K),  ...),
+        "logis" = nls(y ~ SSlogis(x, Asym, xmid, scal),  ...),
+        "weibull" = nls(y ~ SSweibull(x, Asym, Drop, lrc, par), ...))
+    }
+    mods <- lapply(seq_len(NCOL(SpeciesRichness)),
+                  function(i, ...)
+                   NLSFUN(SpeciesRichness[,i],
+                          if (hasWeights) object$weights[,i] else x,
+                          model, ...))
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
     object$coefficients <- drop(sapply(mods, coef))
@@ -50,8 +48,22 @@ fitspecaccum <-
     function(x, col = par("fg"), lty = 1, 
              xlab = "Sites", ylab = x$method, ...)
 {
-    fv <- fitted(x)
+    if (is.null(x$weights))
+        fv <- fitted(x)
+    else
+        fv <- sapply(x$models, predict, newdata = list(x = x$effort))
     matplot(x$sites, fv, col = col, lty = lty, pch = NA,
             xlab = xlab, ylab = ylab, type = "l", ...)
+    invisible()
+}
+
+`lines.fitspecaccum` <-
+    function(x, col = par("fg"), lty = 1, ...)
+{
+    if (is.null(x$weights))
+        fv <- fitted(x)
+    else
+        fv <- sapply(x$models, predict, newdata= list(x = x$effort))
+    matlines(x$sites, fv, col = col, lty = lty, pch = NA, type = "l", ...)
     invisible()
 }
