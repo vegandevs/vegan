@@ -6,6 +6,8 @@
     if (x$method == "random") {
         cat(", with ", ncol(x$perm), " permutations", sep="")
     }
+    if (!is.null(x$weights))
+        cat(", weighted")
     cat("\n")
     cat("Call:", deparse(x$call), "\n\n")
     mat <- rbind(Sites = x$sites, Individuals = x$individuals, Effort = x$effort,
