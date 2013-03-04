@@ -19,6 +19,9 @@ Version 2.1-27 (opened Februray 22, 2013)
 	of the new argument is still untested with specaccum() support
 	functions.
 
+	* fitspecaccum: model = "asymp" was actually fitting logistic
+	regression (the same as model = "logis").
+
 	* text.cca, points.cca: gained argument 'axis.bp' (defaults TRUE)
 	to suppress drawing axes for scaled biplot arrows. Only effective
 	if 'bp' scores were requested.
