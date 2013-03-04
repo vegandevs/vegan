@@ -3,9 +3,11 @@
 \alias{print.specaccum}
 \alias{summary.specaccum}
 \alias{plot.specaccum}
+\alias{lines.specaccum}
 \alias{boxplot.specaccum}
 \alias{fitspecaccum}
 \alias{plot.fitspecaccum}
+\alias{lines.fitspecaccum}
 \alias{predict.specaccum}
 \alias{predict.fitspecaccum}
 
@@ -45,8 +47,7 @@ fitspecaccum(object, model, method = "random", ...)
     the empirical dataset for the exact SAC}
   \item{gamma}{Method for estimating the total extrapolated number of species in the
     survey area by function \code{\link{specpool}}}
-  \item{w}{Weights giving the sampling effort (an experimental feature
-    that may be removed).}
+  \item{w}{Weights giving the sampling effort.}
   \item{x}{A \code{specaccum} result object}
   \item{add}{Add to an existing graph.}
   \item{random}{\dots}
@@ -152,6 +153,8 @@ fitspecaccum(object, model, method = "random", ...)
     is the number of sites corresponding to a certain number of
     individuals and generally not an integer, and the average
     number of individuals is also returned in item \code{individuals}.} 
+  \item{effort}{Average sum of weights corresponding to the number of
+    sites when model was fitted with argument \code{w}}
   \item{richness}{The number of species corresponding to number of
     sites.  With \code{method = "collector"} this is the observed
     richness, for other methods the average or expected richness.}
@@ -162,7 +165,9 @@ fitspecaccum(object, model, method = "random", ...)
   \item{perm}{Permutation results with \code{method = "random"} and
     \code{NULL} in other cases. Each column in \code{perm} holds one
     permutation.}
-
+  \item{weights}{Matrix of accumulated weigths corresponding to the
+    columns of the \code{perm} matrix when model was fitted with
+    argument \code{w}.}
   \item{fitted, residuals, coefficients}{Only in \code{fitspecacum}:
      fitted values, residuals and nonlinear model coefficients. For
      \code{method = "random"} these are matrices with a column for
