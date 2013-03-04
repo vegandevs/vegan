@@ -22,7 +22,7 @@ fitspecaccum <-
         "gleason" = nls(y ~ SSgleason(x, k, slope),  ...),
         "gitay" = nls(y ~ SSgitay(x, k, slope), ...),
         "lomolino" = nls(y ~ SSlomolino(x, Asym, xmid, slope), ...),
-        "asymp" = nls(y ~ SSlogis(x, Asym, xmid, scal), ...),
+        "asymp" = nls(y ~ SSasymp(x, Asym, R0, lrc), ...),
         "gompertz" = nls(y ~ SSgompertz(x, Asym, xmid, scal), ...),
         "michaelis-menten" = nls(y ~ SSmicmen(x, Vm, K),  ...),
         "logis" = nls(y ~ SSlogis(x, Asym, xmid, scal),  ...),
