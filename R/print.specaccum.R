@@ -1,4 +1,4 @@
-"print.specaccum" <-
+`print.specaccum` <-
     function(x, ...)
 {
     cat("Species Accumulation Curve\n")
@@ -8,9 +8,9 @@
     }
     cat("\n")
     cat("Call:", deparse(x$call), "\n\n")
-    mat <- rbind(Sites = x$sites, Effort = x$effort, Richness = x$richness,
-                 sd=x$sd)
+    mat <- rbind(Sites = x$sites, Individuals = x$individuals, Effort = x$effort,
+                 Richness = x$richness, sd=x$sd)
     colnames(mat) <- rep("", ncol(mat))
-    print(mat)
+    print(zapsmall(mat))
     invisible(x)
 }
