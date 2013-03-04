@@ -2,6 +2,8 @@
     function (comm, method = "exact", permutations = 100, conditioned=TRUE,
               gamma="jack1", w = NULL, ...)
 {
+    METHODS <- c("collector", "random", "exact", "rarefaction", "coleman")
+    method <- match.arg(method, METHODS)
     if (!is.null(w) && !(method %in% c("random", "collector")))
         stop(gettextf("weights 'w' can be only used with methods 'random' and 'collector'"))
     x <- comm
@@ -17,14 +19,12 @@
     accumulator <- function(x, ind) {
         rowSums(apply(x[ind, ], 2, cumsum) > 0)
     }
-    METHODS <- c("collector", "random", "exact", "rarefaction", "coleman")
-    method <- match.arg(method, METHODS)
     specaccum <- sdaccum <- sites <- perm <- NULL
     if (n == 1 && method != "rarefaction")
         message("No actual accumulation since only 1 site provided")
     switch(method, collector = {
         sites <- 1:n
-        weights <- cumsum(w)
+        xout <- weights <- cumsum(w)
         specaccum <- accumulator(x, sites)
     }, random = {
         perm <- array(dim = c(n, permutations))
