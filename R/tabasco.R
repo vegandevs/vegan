@@ -8,6 +8,8 @@
     function (x, use, sp.ind = NULL, site.ind = NULL,  
               select, Rowv = TRUE, Colv = TRUE, ...) 
 {
+    if (any(x < 0))
+        stop("function cannot be used with negative data values")
     pltree <- sptree <- NA
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {

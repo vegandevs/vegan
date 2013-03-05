@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-26
+This is vegan 2.1-27
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x10245a8e8>
+<environment: 0x10245e040>
 Total model degrees of freedom 3 
 
 GCV score: 0.04278782
@@ -4908,7 +4908,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109c07ae0>
+<environment: 0x109f51310>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4924,7 +4924,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a86e558>
+<environment: 0x10ad8d908>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5092,7 +5092,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108ecf7b8>
+<environment: 0x10a846c38>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5105,7 +5105,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x107a54aa8>
+<environment: 0x10ad6a668>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5118,7 +5118,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109d52b88>
+<environment: 0x10aab6478>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -6555,8 +6555,8 @@ detaching ‘package:MASS’
 > ### Name: specaccum
 > ### Title: Species Accumulation Curves
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
-> ###   boxplot.specaccum fitspecaccum plot.fitspecaccum predict.specaccum
-> ###   predict.fitspecaccum
+> ###   lines.specaccum boxplot.specaccum fitspecaccum plot.fitspecaccum
+> ###   lines.fitspecaccum predict.specaccum predict.fitspecaccum
 > ### Keywords: univar models
 > 
 > ### ** Examples
@@ -6570,42 +6570,34 @@ Species Accumulation Curve
 Accumulation method: random, with 100 permutations
 Call: specaccum(comm = BCI, method = "random") 
 
-                                                                        
-Sites     1.00000   2.000000   3.000000   4.000000   5.000000   6.000000
-Richness 91.34000 121.010000 138.720000 150.540000 159.540000 166.500000
-sd        7.21001   6.928925   6.748109   6.509387   6.125654   5.934831
-                                                                          
-Sites      7.000000   8.000000   9.000000  10.000000  11.000000  12.000000
-Richness 171.820000 176.180000 179.790000 182.730000 185.950000 188.590000
-sd         5.603714   5.182293   5.129229   5.175418   4.719131   4.521766
-                                                                          
-Sites     13.000000  14.000000  15.000000  16.000000  17.000000  18.000000
-Richness 191.080000 193.100000 194.920000 196.870000 198.270000 199.670000
-sd         4.421435   4.372781   4.527536   4.421378   4.287296   4.032832
-                                                                          
-Sites     19.000000  20.000000  21.000000  22.000000  23.000000  24.000000
-Richness 201.000000 202.470000 203.950000 205.180000 206.210000 207.230000
-sd         4.005047   3.968194   3.952687   3.774931   3.682596   3.700546
-                                                                          
-Sites     25.000000  26.000000  27.000000  28.000000  29.000000  30.000000
-Richness 208.380000 209.390000 210.540000 211.430000 212.290000 213.230000
-sd         3.323561   3.323911   3.316381   3.156699   3.098696   2.957118
-                                                                          
-Sites     31.000000  32.000000  33.000000  34.000000  35.000000  36.000000
-Richness 214.100000 214.880000 215.620000 216.370000 217.000000 217.550000
-sd         2.761569   2.575251   2.529742   2.588455   2.486326   2.371442
-                                                                          
-Sites     37.000000  38.000000  39.000000  40.000000  41.000000  42.000000
-Richness 218.160000 218.770000 219.340000 219.970000 220.600000 221.210000
-sd         2.364382   2.210421   2.041093   2.071719   1.964328   1.945183
-                                                                      
-Sites     43.000000  44.00000  45.00  46.000000  47.000000  48.0000000
-Richness 221.850000 222.36000 222.89 223.320000 223.710000 224.1700000
-sd         1.771691   1.58605   1.49   1.476277   1.208514   0.9749903
-                        
-Sites     49.0000000  50
-Richness 224.6500000 225
-sd         0.6092718   0
+                                                                             
+Sites     1.00000   2.00000   3.00000   4.00000   5.00000   6.00000   7.00000
+Richness 91.34000 121.01000 138.72000 150.54000 159.54000 166.50000 171.82000
+sd        7.21001   6.92892   6.74811   6.50939   6.12565   5.93483   5.60371
+                                                                              
+Sites      8.00000   9.00000  10.00000  11.00000  12.00000  13.00000  14.00000
+Richness 176.18000 179.79000 182.73000 185.95000 188.59000 191.08000 193.10000
+sd         5.18229   5.12923   5.17542   4.71913   4.52177   4.42144   4.37278
+                                                                             
+Sites     15.00000  16.00000  17.0000  18.00000  19.00000  20.00000  21.00000
+Richness 194.92000 196.87000 198.2700 199.67000 201.00000 202.47000 203.95000
+sd         4.52754   4.42138   4.2873   4.03283   4.00505   3.96819   3.95269
+                                                                            
+Sites     22.00000  23.0000  24.00000  25.00000  26.00000  27.00000  28.0000
+Richness 205.18000 206.2100 207.23000 208.38000 209.39000 210.54000 211.4300
+sd         3.77493   3.6826   3.70055   3.32356   3.32391   3.31638   3.1567
+                                                                             
+Sites     29.0000  30.00000  31.00000  32.00000  33.00000  34.00000  35.00000
+Richness 212.2900 213.23000 214.10000 214.88000 215.62000 216.37000 217.00000
+sd         3.0987   2.95712   2.76157   2.57525   2.52974   2.58846   2.48633
+                                                                              
+Sites     36.00000  37.00000  38.00000  39.00000  40.00000  41.00000  42.00000
+Richness 217.55000 218.16000 218.77000 219.34000 219.97000 220.60000 221.21000
+sd         2.37144   2.36438   2.21042   2.04109   2.07172   1.96433   1.94518
+                                                                               
+Sites     43.00000  44.00000  45.00  46.00000  47.00000  48.00000  49.00000  50
+Richness 221.85000 222.36000 222.89 223.32000 223.71000 224.17000 224.65000 225
+sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
 > summary(sp2)
  1 sites          2 sites         3 sites         4 sites        
  Min.   : 77.00   Min.   :105.0   Min.   :123.0   Min.   :135.0  
@@ -7692,7 +7684,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b3653f0>
+<environment: 0x1095f6430>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8244,7 +8236,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  84.383 1.68 86.786 0 0 
+Time elapsed:  90.285 2.151 101.802 0 0 
 > grDevices::dev.off()
 null device 
           1 
