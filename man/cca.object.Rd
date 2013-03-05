@@ -106,22 +106,30 @@
       \code{\link{plot.cca}}, or their \code{rda} variants.   Only in
       \code{CCA} and \code{CA}.  In the \code{CCA} component these are
       the so-called linear combination scores. }
-    \item{\code{u.eig}}{\code{u} scaled by eigenvalues.  There is no
-      guarantee that any \code{.eig} variants of scores will be kept in
-      the future releases.}
+    
+     
+    \item{\code{u.eig}}{\code{u} scaled by eigenvalues.  This item
+      will be removed in future releases.}
+    
     \item{\code{v}}{(Weighted) orthonormal species scores.  If missing species
       were omitted from the analysis, this will contain
       attribute \code{\link{na.action}} that lists the
       omitted species. Only in \code{CCA} and \code{CA}.}
-    \item{\code{v.eig}}{\code{v} weighted by eigenvalues.}
+    
+    \item{\code{v.eig}}{\code{v} weighted by eigenvalues.  This item will
+       be removed in future releases.}
+    
     \item{\code{wa}}{Site scores found as weighted averages (\code{cca}) or
       weighted sums (\code{rda}) of 
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-    \item{\code{wa.eig}}{The direct result of weighted averaging or weighted
-      summation  (matrix multiplication)
-      with the resulting eigenvalue inflation.}
+
+    \item{\code{wa.eig}}{The direct result of weighted averaging or
+      weighted summation (matrix multiplication) with the resulting
+      eigenvalue inflation. This item will be removed in future
+      releases.}
+
     \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
       \code{na.action = na.exclude} in \code{CCA} and \code{CA}
       components if these could be calculated.}

@@ -1,7 +1,7 @@
 `goodness.rda` <-
-    function (object, display = c("species", "sites"), choices, model = c("CCA", 
-                                                                "CA"), statistic = c("explained", "distance"), summarize = FALSE, 
-              ...) 
+    function (object, display = c("species", "sites"), choices,
+              model = c("CCA", "CA"), statistic = c("explained", "distance"),
+              summarize = FALSE, ...) 
 {
     model <- match.arg(model)
     display <- match.arg(display)
@@ -13,11 +13,13 @@
         stop("model ", model, " is not available")
     statistic <- match.arg(statistic)
     cs <- weights(object, display = display)
+    lambda2 <- sqrt(object[[model]]$eig)
     if (display == "species") {
         if (is.null(object$CCA)) 
             Xbar <- object$CA$Xbar
         else Xbar <- object$CCA$Xbar
-        v <- object[[model]]$v.eig
+        v <- object[[model]]$v %*% diag(lambda2)
+        colnames(v) <- colnames(object[[model]]$v)
         tot <- diag(crossprod(Xbar)/(nrow(Xbar) - 1))
     }
     else {
@@ -31,7 +33,8 @@
             tot <- tot + diag(crossprod(t(Xbar)))/(nrow(Xbar) - 
                                                    1)
         }
-        v <- object[[model]]$u.eig
+        v <- object[[model]]$u %*% diag(lambda2)
+        colnames(v) <- colnames(object[[model]]$u)
     }
     if (!missing(choices)) 
         v <- v[, choices, drop = FALSE]
