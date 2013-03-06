@@ -16,8 +16,7 @@
         if (is.null(object$CCA)) 
             Xbar <- object$CA$Xbar
         else Xbar <- object$CCA$Xbar
-        v <- object[[model]]$v %*% diag(lambda2)
-        colnames(v) <- colnames(object[[model]]$v)
+        v <- sweep(object[[model]]$v, 2, lambda2, "*")
         tot <- diag(crossprod(Xbar))
     }
     else {
@@ -27,8 +26,7 @@
             Xbar <- qr.fitted(object$CCA$QR, Xbar)
             tot <- tot + diag(crossprod(t(Xbar)))
         }
-        v <- object[[model]]$u %*% diag(lambda2)
-        colnames(v) <- colnames(object[[model]]$u)
+        v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
     if (!missing(choices)) 
         v <- v[, choices, drop = FALSE]
