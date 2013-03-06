@@ -4,6 +4,17 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-27 (opened Februray 22, 2013)
 
+	* cca/rda/capscale: removed references to 'u.eig' and 'v.eig'
+	items in support functions. These now use 'u' and 'v' items and
+	scale these with 'eig' (or diag(sqrt(eig))) when needed. This
+	prepares for removing items 'u.eig', 'v.eig' and 'wa.eig' in vegan
+	2.3 and 2.4. Concerns fitted.capscale, goodness.cca and
+	goodness.rda. The documentation has warned about removing these
+	*.eig items for years, and most vegan functions already avoided
+	using them. We have no idea if any external packages depend on
+	these and therefore we delay the removal till vegan 2.3 and 2.4
+	release. 
+
 	* nestedtemp: function failed if the matrix fill was < 0.38%,
 	because the fill line parameter was outside the original
 	estimation bracket. Now bracket is moved up if the estimation

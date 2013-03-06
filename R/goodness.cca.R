@@ -1,7 +1,7 @@
 `goodness.cca` <-
-    function (object, display = c("species", "sites"), choices, model = c("CCA", 
-                                                                "CA"), statistic = c("explained", "distance"), summarize = FALSE, 
-              ...) 
+    function (object, display = c("species", "sites"), choices,
+              model = c("CCA", "CA"), statistic = c("explained", "distance"),
+              summarize = FALSE, ...) 
 {
     model <- match.arg(model)
     if (is.null(object$CCA)) 
@@ -11,11 +11,12 @@
     statistic <- match.arg(statistic)
     display <- match.arg(display)
     cs <- if(display == "species") object$colsum else object$rowsum
+    lambda2 <- sqrt(object[[model]]$eig)
     if (display == "species") {
         if (is.null(object$CCA)) 
             Xbar <- object$CA$Xbar
         else Xbar <- object$CCA$Xbar
-        v <- object[[model]]$v.eig
+        v <- sweep(object[[model]]$v, 2, lambda2, "*")
         tot <- diag(crossprod(Xbar))
     }
     else {
@@ -25,7 +26,7 @@
             Xbar <- qr.fitted(object$CCA$QR, Xbar)
             tot <- tot + diag(crossprod(t(Xbar)))
         }
-        v <- object[[model]]$u.eig
+        v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
     if (!missing(choices)) 
         v <- v[, choices, drop = FALSE]
