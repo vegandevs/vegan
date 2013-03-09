@@ -49,17 +49,18 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
 
   With default options, the function returns only a matrix of scores
   scaled by eigenvalues for all real axes. If the function is called
-  with \code{eig = TRUE} or \code{x.ret = TRUE} or with weights
-  \code{w}, the function returns an object of class \code{"wcmdscale"}
-  with \code{print}, \code{plot}, \code{scores}, \code{\link{eigenvals}}
-  and \code{\link{stressplot}} methods, and described in section Value.
-  }
+  with \code{eig = TRUE} or \code{x.ret = TRUE}, the function returns
+  an object of class \code{"wcmdscale"} with \code{print},
+  \code{plot}, \code{scores}, \code{\link{eigenvals}} and
+  \code{\link{stressplot}} methods, and described in section Value.  
+}
 
 \value{ If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a
-  matrix with \code{k} columns whose rows give the coordinates of the
-  points chosen to represent the dissimilarities.  Otherwise, an
-  object of class \code{wcmdscale} containing the components that are
-  mostly similar as in \code{\link{cmdscale}}:
+  matrix with \code{k} columns whose rows give the coordinates of
+  points corresponding to positive eignenvalues.  Otherwise, an object
+  of class \code{wcmdscale} containing the components that are mostly
+  similar as in \code{\link{cmdscale}}:
+  
   \item{points}{a matrix with \code{k} columns whose rows give the
     coordinates of the points chosen to represent the
     dissimilarities.}
