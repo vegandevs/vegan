@@ -9,7 +9,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     if (add)
         .NotYetUsed("add")
     ## Force eig=TRUE if add, x.ret or !missing(w)
-    if(add || x.ret || !missing(w))
+    if(x.ret)
         eig <- TRUE
     ZERO <- sqrt(.Machine$double.eps)
     if (!inherits(d, "dist")) {
@@ -50,7 +50,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     ## GOF for real and all axes
     GOF <- c(sum(ev)/sum(abs(e$values)),
              sum(ev)/sum(e$values[e$values > 0]))
-    if (eig || x.ret || add) {
+    if (eig || x.ret) {
         colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="") 
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = NA, GOF = GOF, weights = w,

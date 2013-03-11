@@ -36,6 +36,11 @@ Version 2.1-27 (opened Februray 22, 2013)
 	* text.cca, points.cca: gained argument 'axis.bp' (defaults TRUE)
 	to suppress drawing axes for scaled biplot arrows. Only effective
 	if 'bp' scores were requested.
+
+	* wcmdscale: setting only weights 'w' does not force full
+	"wcmdscale" output but returns only the matrix of coordinates of
+	real axes. Similarly, setting 'add = TRUE' would not force
+	"wcmdscale", but 'add' is not implemented.
 	
 Version 2.1-26 (opened February 11, 2013)
 
