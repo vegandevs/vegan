@@ -425,14 +425,14 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3 
-0.41868 0.13304 0.07659 
+  CCA1   CCA2   CCA3 
+0.4187 0.1330 0.0766 
 
 Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.409782 0.225913 0.176062 0.123389 0.108171 0.090751 0.085878 0.060894 
-     CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
-0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
+0.4098 0.2259 0.1761 0.1234 0.1082 0.0908 0.0859 0.0609 0.0566 0.0467 0.0419 
+  CA12   CA13   CA14   CA15   CA16 
+0.0201 0.0143 0.0099 0.0085 0.0080 
 
 > ## see ?ordistep to do the same, but based on permutation P-values
 > ## Not run: 
@@ -1545,10 +1545,10 @@ Eigenvalues for constrained axes:
 0.5413 0.3265 0.1293 
 
 Eigenvalues for unconstrained axes:
-    MDS1     MDS2     MDS3     MDS4     MDS5     MDS6     MDS7     MDS8 
-0.906518 0.512743 0.337915 0.262598 0.203220 0.161762 0.124174 0.085570 
-    MDS9    MDS10    MDS11    MDS12    MDS13    MDS14    MDS15 
-0.068881 0.058346 0.050083 0.027738 0.020839 0.007306 0.001345 
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
+0.9065 0.5127 0.3379 0.2626 0.2032 0.1618 0.1242 0.0856 0.0689 0.0583 0.0501 
+ MDS12  MDS13  MDS14  MDS15 
+0.0277 0.0208 0.0073 0.0013 
 
 > plot(vare.cap)
 > anova(vare.cap)
@@ -1691,16 +1691,14 @@ Unconstrained  0.6417     0.3080    9
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-    CCA1     CCA2     CCA3     CCA4     CCA5     CCA6     CCA7     CCA8 
-0.438870 0.291775 0.162847 0.142130 0.117952 0.089029 0.070295 0.058359 
-    CCA9    CCA10    CCA11    CCA12    CCA13    CCA14 
-0.031141 0.013294 0.008364 0.006538 0.006156 0.004733 
+  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
+0.4389 0.2918 0.1628 0.1421 0.1180 0.0890 0.0703 0.0584 0.0311 0.0133 0.0084 
+ CCA12  CCA13  CCA14 
+0.0065 0.0062 0.0047 
 
 Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.197765 0.141926 0.101174 0.070787 0.053303 0.033299 0.018868 0.015104 
-     CA9 
-0.009488 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 
+0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 
 
 > plot(vare.cca)
 > ## Formula interface and a better model
@@ -1716,8 +1714,8 @@ Unconstrained   1.038      0.498   17
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6 
-0.37563 0.23419 0.14067 0.13229 0.10675 0.05614 
+  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
+0.3756 0.2342 0.1407 0.1323 0.1068 0.0561 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
@@ -1736,12 +1734,12 @@ Unconstrained 1.92598    0.92453   22
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1 
-0.1572 
+   CCA1 
+0.15722 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
-0.47455 0.29389 0.21403 0.19541 0.17482 0.11711 0.11207 0.08797 
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
+0.4745 0.2939 0.2140 0.1954 0.1748 0.1171 0.1121 0.0880 
 (Showed only 8 of all 22 unconstrained eigenvalues)
 
 > cca(varespec ~ Ca + Condition(pH), varechem)
@@ -1755,12 +1753,12 @@ Unconstrained  1.7547     0.8423   21
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1 
-0.1827 
+   CCA1 
+0.18269 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
-0.38343 0.27487 0.21233 0.17599 0.17013 0.11613 0.10892 0.08797 
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
+0.3834 0.2749 0.2123 0.1760 0.1701 0.1161 0.1089 0.0880 
 (Showed only 8 of all 21 unconstrained eigenvalues)
 
 > ## RDA
@@ -2320,14 +2318,14 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3 
-0.41868 0.13304 0.07659 
+  CCA1   CCA2   CCA3 
+0.4187 0.1330 0.0766 
 
 Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.409782 0.225913 0.176062 0.123389 0.108171 0.090751 0.085878 0.060894 
-     CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
-0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
+0.4098 0.2259 0.1761 0.1234 0.1082 0.0908 0.0859 0.0609 0.0566 0.0467 0.0419 
+  CA12   CA13   CA14   CA15   CA16 
+0.0201 0.0143 0.0099 0.0085 0.0080 
 
 > 
 > 
@@ -2969,10 +2967,10 @@ Inertia is mean squared contingency coefficient
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
-0.46713 0.34102 0.17606 0.15317 0.09528 0.07027 0.05887 0.04993 0.03183 0.02596 
-  CCA11   CCA12 
-0.02282 0.01082 
+  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
+0.4671 0.3410 0.1761 0.1532 0.0953 0.0703 0.0589 0.0499 0.0318 0.0260 0.0228 
+ CCA12 
+0.0108 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7 
@@ -3929,8 +3927,8 @@ Unconstrained   1.164   34
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
-0.36621 0.13278 0.07232 0.06579 0.05587 0.04812 0.04183 0.03907 
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
+0.3662 0.1328 0.0723 0.0658 0.0559 0.0481 0.0418 0.0391 
 (Showed only 8 of all 34 unconstrained eigenvalues)
 
 mso variogram:
@@ -3961,10 +3959,10 @@ Unconstrained  0.6427     0.5522   34
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-    CCA1     CCA2     CCA3     CCA4     CCA5     CCA6     CCA7     CCA8 
-0.312067 0.066011 0.041167 0.029377 0.024385 0.015907 0.012008 0.007517 
-    CCA9    CCA10    CCA11 
-0.006115 0.003732 0.002837 
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
+0.31207 0.06601 0.04117 0.02938 0.02438 0.01591 0.01201 0.00752 0.00612 0.00373 
+  CCA11 
+0.00284 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
@@ -4689,10 +4687,8 @@ Eigenvalues for constrained axes:
 21.588 14.075  4.123  3.163  2.369  1.107 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
-  PC12   PC13 
-0.3107 0.2273 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
 
 > 
 > ## Example without scope. Default direction is "backward"
@@ -4745,10 +4741,8 @@ Eigenvalues for constrained axes:
 20.538 15.067  5.585  3.327  1.972  1.428  1.244 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-8.0368 6.1066 5.1262 3.5404 3.4157 2.6188 2.1608 1.3604 1.1717 0.8532 0.3513 
-  PC12 
-0.2208 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12 
+8.037 6.107 5.126 3.540 3.416 2.619 2.161 1.360 1.172 0.853 0.351 0.221 
 
 > 
 > ## Example of ordistep, forward
@@ -4908,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109f51310>
+<environment: 0x1093ac510>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4924,7 +4918,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10ad8d908>
+<environment: 0x109b1a9f0>
 
 Estimated degrees of freedom:
 6.12  total = 7.12 
@@ -5092,7 +5086,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10a846c38>
+<environment: 0x108f97b20>
 
 Estimated degrees of freedom:
 8.93  total = 9.93 
@@ -5105,7 +5099,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10ad6a668>
+<environment: 0x108cdacd0>
 
 Estimated degrees of freedom:
 7.75  total = 8.75 
@@ -5118,7 +5112,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10aab6478>
+<environment: 0x109fc3c00>
 
 Estimated degrees of freedom:
 8.9  total = 9.9 
@@ -5619,16 +5613,14 @@ Unconstrained 128.9589     0.4462   77
 Inertia is variance 
 
 Eigenvalues for constrained axes:
-   RDA1    RDA2    RDA3    RDA4    RDA5    RDA6    RDA7    RDA8    RDA9   RDA10 
-25.2823  8.2969  6.0442  4.7662  4.1482  3.8568  3.5875  3.3341  3.0874  2.5513 
-  RDA11   RDA12   RDA13   RDA14   RDA15   RDA16   RDA17   RDA18   RDA19   RDA20 
- 2.4664  2.2089  2.1287  1.9409  1.7987  1.6216  1.5787  1.4403  1.3984  1.2839 
-  RDA21   RDA22   RDA23   RDA24   RDA25   RDA26   RDA27   RDA28   RDA29   RDA30 
- 1.2108  1.1335  1.0011  0.9230  0.8625  0.7880  0.7497  0.7122  0.6847  0.6110 
-  RDA31   RDA32   RDA33   RDA34   RDA35   RDA36   RDA37   RDA38   RDA39   RDA40 
- 0.5844  0.5369  0.5159  0.4416  0.4174  0.4036  0.3678  0.3397  0.3391  0.3055 
-  RDA41   RDA42   RDA43   RDA44 
- 0.2788  0.2714  0.2046  0.1790 
+  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
+25.282  8.297  6.044  4.766  4.148  3.857  3.587  3.334  3.087  2.551  2.466 
+ RDA12  RDA13  RDA14  RDA15  RDA16  RDA17  RDA18  RDA19  RDA20  RDA21  RDA22 
+ 2.209  2.129  1.941  1.799  1.622  1.579  1.440  1.398  1.284  1.211  1.133 
+ RDA23  RDA24  RDA25  RDA26  RDA27  RDA28  RDA29  RDA30  RDA31  RDA32  RDA33 
+ 1.001  0.923  0.862  0.788  0.750  0.712  0.685  0.611  0.584  0.537  0.516 
+ RDA34  RDA35  RDA36  RDA37  RDA38  RDA39  RDA40  RDA41  RDA42  RDA43  RDA44 
+ 0.442  0.417  0.404  0.368  0.340  0.339  0.306  0.279  0.271  0.205  0.179 
 
 Eigenvalues for unconstrained axes:
    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 
@@ -5753,10 +5745,10 @@ Eigenvalues for constrained axes:
 0.24932 0.12090 0.08160 0.05904 
 
 Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
-     CA9     CA10     CA11     CA12 
-0.031058 0.021024 0.012542 0.009277 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
+0.30637 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871 0.03758 0.03106 0.02102 
+   CA11    CA12 
+0.01254 0.00928 
 
 > cca(fitted(mod))
 Call: cca(X = fitted(mod))
@@ -5779,10 +5771,10 @@ Unconstrained  0.9761   12
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for unconstrained axes:
-     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
-0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
-     CA9     CA10     CA11     CA12 
-0.031058 0.021024 0.012542 0.009277 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
+0.30637 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871 0.03758 0.03106 0.02102 
+   CA11    CA12 
+0.01254 0.00928 
 
 > # Remove rare species (freq==1) from 'cca' and find their scores
 > # 'passively'.
@@ -6467,10 +6459,8 @@ Eigenvalues for constrained axes:
 26.706 16.538  8.096  4.667  3.374  2.877 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-5.2767 4.0703 3.2553 2.4618 2.3414 1.9173 1.6654 1.3028 1.0773 0.7701 0.6705 
-  PC12   PC13 
-0.5398 0.1766 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+5.277 4.070 3.255 2.462 2.341 1.917 1.665 1.303 1.077 0.770 0.670 0.540 0.177 
 
 > ## An impression of confidence regions of site scores
 > plot(mod, display="sites")
@@ -7572,14 +7562,14 @@ Inertia is variance
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-   RDA1    RDA2    RDA3    RDA4    RDA5    RDA6    RDA7    RDA8    RDA9   RDA10 
-22.3955 16.2076  7.0389  4.0380  3.7602  2.6087  2.1669  1.8033  1.4042  0.9174 
-  RDA11   RDA12 
- 0.5815  0.2839 
+  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
+22.396 16.208  7.039  4.038  3.760  2.609  2.167  1.803  1.404  0.917  0.582 
+ RDA12 
+ 0.284 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7 
-6.6269 4.3091 3.5491 2.5465 2.3403 0.9335 0.6121 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7 
+6.627 4.309 3.549 2.546 2.340 0.934 0.612 
 
 > plot(mod1)
 > ## Automatic selection of variables by permutation P-values
@@ -7638,10 +7628,8 @@ Eigenvalues for constrained axes:
 21.588 14.075  4.123  3.163  2.369  1.107 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
-  PC12   PC13 
-0.3107 0.2273 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
 
 > plot(mod)
 > ## Permutation test for all variables
@@ -7684,7 +7672,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1095f6430>
+<environment: 0x10b1dddf8>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -8236,7 +8224,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  90.285 2.151 101.802 0 0 
+Time elapsed:  84.211 1.577 87.547 0 0 
 > grDevices::dev.off()
 null device 
           1 
