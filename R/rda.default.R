@@ -1,7 +1,7 @@
 `rda.default` <-
     function (X, Y, Z, scale = FALSE, ...) 
 {
-    ZERO <- 1e-04
+    ZERO <- 1e-05
     CCA <- NULL
     pCCA <- NULL
     CA <- NULL
@@ -39,7 +39,7 @@
         Y <- qr.fitted(Q, Xbar)
         sol <- svd(Y)
         ## it can happen that rank < qrank
-        rank <- min(rank, sum(sol$d > ZERO))
+        rank <- min(rank, sum(sol$d > (sol$d[1L] * ZERO)))
         sol$d <- sol$d/sqrt(NR)
         ax.names <- paste("RDA", 1:length(sol$d), sep = "")
         colnames(sol$u) <- ax.names
@@ -93,7 +93,7 @@
     names(sol$d) <- ax.names
     rownames(sol$u) <- rownames(X)
     rownames(sol$v) <- colnames(X)
-    rank <- min(Q$rank, sum(sol$d > ZERO))
+    rank <- min(Q$rank, sum(sol$d > (sol$d[1L] * ZERO)))
     if (rank) {
         CA <- list(eig = (sol$d[1:rank]^2))
         CA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
