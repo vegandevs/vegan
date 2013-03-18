@@ -2,7 +2,16 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-27 (opened Februray 22, 2013)
+Version 2.1-28 (opened March 17, 2013)
+
+	* rda: eigenvalues are now regarded as zero if they are very small
+	compared to the first eigenvalue. Earlier we used fixed limit of
+	1e-4, but now the limit is first eigenvalues * 1e-5. Similar
+	change was not made in cca, since there the theoretical maximum of
+	the eigenvalue is 1, and comparison to an absolute minimum
+	threshold of 1e-4 makes sense.
+	
+Version 2.1-27 (closed March 17, 2013)
 
 	* cca/rda/capscale: removed references to 'u.eig' and 'v.eig'
 	items in support functions. These now use 'u' and 'v' items and
@@ -13,7 +22,8 @@ Version 2.1-27 (opened Februray 22, 2013)
 	*.eig items for years, and most vegan functions already avoided
 	using them. We have no idea if any external packages depend on
 	these and therefore we delay the removal till vegan 2.3 and 2.4
-	release. 
+	release. However, we warn about this in NEWS for 2.0-7 and also
+	say this clearly in cca.object documentation.
 
 	* nestedtemp: function failed if the matrix fill was < 0.38%,
 	because the fill line parameter was outside the original
