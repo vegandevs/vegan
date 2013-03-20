@@ -2,6 +2,69 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0.7}{
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item \code{tabasco()} is a new function for graphical display
+      of community data matrix.  Technically it is an interface to \R
+      \code{heatmap}, but its use is closer to \pkg{vegan} function
+      \code{vegemite}. The function can reorder the community data
+      matrix similarly as \code{vegemite}, for instance, by ordination
+      results. Unlike \code{heatmap}, it only displays dendrograms if
+      supplied by the user, and it defaults to re-order the
+      dendrograms by correspondence analysis.  Species are ordered to
+      match site ordering or like determined by the user.
+
+    }
+  } % new functions
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Function \code{fitspecaccum(..., model = "asymp")} fitted
+      logistic model instead of asymptotic model (or the same as 
+      \code{model = "logis"}).
+
+      \item \code{nestedtemp()} failed with very sparse data (fill
+      \eqn{< 0.38}\%).
+
+    }
+  } % bug fixes 
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item The \code{plot} function for constrained ordination
+      results (\code{cca}, \code{rda}, \code{capscale}) gained
+      argument \code{axis.bp} (defaults \code{TRUE}) which can be used
+      to suppress axis scale for biplot arrays.
+
+      \item Number of iterations in nonmetric multidimensional scaling
+      (NMDS) can be set with keyword \code{maxit} (defaults
+      \code{200}) in \code{metaMDS}.
+
+    }
+  } % new features
+
+  \subsection{DEPRECATED}{
+
+    \itemize{
+
+      \item The result objects of \code{cca}, \code{rda} and
+      \code{capscale} will no longer have scores \code{u.eig},
+      \code{v.eig} and \code{wa.eig} in the future versions of
+      \pkg{vegan}. This change does not influence normal usage,
+      because \pkg{vegan} functions do not need these items.  However,
+      external scripts and packages may need changes in the future
+      versions of \pkg{vegan}.
+
+    }   
+  } % deprecated
+
+} % vegan 2.0-7
+
 \section{Changes in version 2.0-6}{
 
   \subsection{BUG FIXES}{
