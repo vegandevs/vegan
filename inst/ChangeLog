@@ -4,6 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-28 (opened March 17, 2013)
 
+	* betadisper: failed with type = "centroid" when there was only
+	one group (i.e., in estimating the overall beta diversity in the
+	data). Reported by Pierre Legendre.
+
 	* rda: eigenvalues are now regarded as zero if they are very small
 	compared to the first eigenvalue. Earlier we used fixed limit of
 	1e-4, but now the limit is first eigenvalues * 1e-5. Similar

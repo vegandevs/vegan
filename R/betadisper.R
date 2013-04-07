@@ -92,11 +92,13 @@
     ## Uses in-line Resids function as we want LAD residuals for
     ## median method, and LSQ residuals for centroid method
     dist.pos <- Resids(vectors[, pos, drop=FALSE],
-                       centroids[group, pos, drop=FALSE])
+                       if (is.vector(centroids)) centroids[pos]
+                       else centroids[group, pos, drop=FALSE])
     dist.neg <- 0
     if(any(!pos))
         dist.neg <- Resids(vectors[, !pos, drop=FALSE],
-                           centroids[group, !pos, drop=FALSE])
+                           if (is.vector(centroids)) centroids[!pos]
+                           else centroids[group, !pos, drop=FALSE])
 
     ## zij are the distances of each point to its group centroid
     zij <- sqrt(abs(dist.pos - dist.neg))
