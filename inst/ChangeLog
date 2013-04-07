@@ -8,6 +8,12 @@ Version 2.1-28 (opened March 17, 2013)
 	one group (i.e., in estimating the overall beta diversity in the
 	data). Reported by Pierre Legendre.
 
+	Now correctly reports distance to "mediod" in the print method
+	when type = "median". Reported by Pierre Legendre. The print
+	method also now shows only the first 8 eigenvalues.
+
+	* eigenvals: new method for class "betadisper".
+
 	* rda: eigenvalues are now regarded as zero if they are very small
 	compared to the first eigenvalue. Earlier we used fixed limit of
 	1e-4, but now the limit is first eigenvalues * 1e-5. Similar

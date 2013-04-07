@@ -28,7 +28,7 @@
     out
 }
 
-## squares of sdev 
+## squares of sdev
 `eigenvals.prcomp` <-
     function(x, ...)
 {
@@ -78,6 +78,13 @@
     out
 }
 
+## betadisper (vegan)
+`eigenvals.betadisper` <-  function(x, ...) {
+    out <- x$eig
+    class(out) <- "eigenvals"
+    out
+}
+
 ## dudi objects of ade4
 
 `eigenvals.dudi` <-
@@ -112,7 +119,7 @@
     class(out) <- "eigenvals"
     out
 }
-        
+
 
 `print.eigenvals` <-
     function(x, ...)
