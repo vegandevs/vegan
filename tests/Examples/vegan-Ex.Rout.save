@@ -1,6 +1,6 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R version 2.13.1 (2011-07-08)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
 
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-This is vegan 2.1-27
+This is vegan 2.1-1
 > 
 > assign(".oldSearch", search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -154,17 +154,17 @@ adj. RDA R squares -0.12553 -0.0250
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x10245e040>
+<environment: 0x102618388>
 Total model degrees of freedom 3 
 
-GCV score: 0.04278782
+GCV score: 0.0427924
 > 
 > 
 > 
@@ -425,19 +425,77 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3 
-0.4187 0.1330 0.0766 
+   CCA1    CCA2    CCA3 
+0.41868 0.13304 0.07659 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
-0.4098 0.2259 0.1761 0.1234 0.1082 0.0908 0.0859 0.0609 0.0566 0.0467 0.0419 
-  CA12   CA13   CA14   CA15   CA16 
-0.0201 0.0143 0.0099 0.0085 0.0080 
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.409782 0.225913 0.176062 0.123389 0.108171 0.090751 0.085878 0.060894 
+     CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
+0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
 
-> ## see ?ordistep to do the same, but based on permutation P-values
-> ## Not run: 
-> ##D ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
-> ## End(Not run)
+> ## The same, but based on permutation P-values
+> ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
+
+Start: dune ~ 1 
+
+             Df    AIC      F N.Perm Pr(>F)   
++ Moisture    3 86.608 2.2536    199  0.005 **
++ Management  3 86.935 2.1307    199  0.005 **
++ Manure      4 88.832 1.5251    199  0.025 * 
++ A1          1 87.411 2.1400    199  0.035 * 
++ Use         2 89.134 1.1431     99  0.130   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: dune ~ Moisture 
+
+           Df    AIC      F N.Perm Pr(>F)   
+- Moisture  3 87.657 2.2536     99   0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+             Df    AIC      F N.Perm Pr(>F)  
++ Management  3 86.813 1.4565    199  0.035 *
++ Use         2 87.259 1.2760    199  0.095 .
++ Manure      4 87.342 1.3143    199  0.095 .
++ A1          1 86.992 1.2624     99  0.170  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: dune ~ Moisture + Management 
+
+             Df    AIC      F N.Perm Pr(>F)  
+- Management  3 86.608 1.4565    199  0.035 *
+- Moisture    3 86.935 1.5518     99  0.020 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+         Df    AIC      F N.Perm Pr(>F)  
++ A1      1 86.190 1.6817    199   0.09 .
++ Manure  3 88.430 0.8167     99   0.58  
++ Use     2 88.245 0.7534     99   0.65  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Call: cca(formula = dune ~ Moisture + Management, data = dune.env)
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    1.0024     0.4739    6
+Unconstrained  1.1129     0.5261   13
+Inertia is mean squared contingency coefficient 
+
+Eigenvalues for constrained axes:
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6 
+0.44583 0.28869 0.11239 0.07166 0.04937 0.03444 
+
+Eigenvalues for unconstrained axes:
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.350396 0.152057 0.125084 0.109838 0.092209 0.077107 0.059441 0.047755 
+     CA9     CA10     CA11     CA12     CA13 
+0.036958 0.022266 0.020700 0.010827 0.008252 
+
 > ## Manual model building
 > ## -- define the maximal model for scope
 > mbig <- rda(dune ~  ., dune.env)
@@ -447,21 +505,21 @@ Eigenvalues for unconstrained axes:
 > add1(m0, scope=formula(mbig), test="perm")
            Df    AIC      F N.Perm Pr(>F)   
 <none>        89.620                        
-A1          1 89.591 1.9217    199  0.070 . 
+A1          1 89.591 1.9217    199  0.055 . 
 Moisture    3 87.707 2.5883    199  0.005 **
 Management  3 87.082 2.8400    199  0.005 **
-Use         2 91.032 1.1741     99  0.180   
+Use         2 91.032 1.1741     99  0.270   
 Manure      4 89.232 1.9539    199  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
-         Df    AIC      F N.Perm Pr(>F)   
-<none>      87.082                        
-A1        1 87.424 1.2965     99  0.240   
-Moisture  3 85.567 1.9764    199  0.005 **
-Use       2 88.284 1.0510     99  0.430   
-Manure    3 87.517 1.3902    199  0.130   
+         Df    AIC      F N.Perm Pr(>F)  
+<none>      87.082                       
+A1        1 87.424 1.2965     99   0.21  
+Moisture  3 85.567 1.9764    199   0.03 *
+Use       2 88.284 1.0510     99   0.41  
+Manure    3 87.517 1.3902    199   0.07 .
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > m0 <- update(m0, . ~ . + Moisture)
@@ -469,16 +527,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > drop1(m0, test="perm")
            Df    AIC      F N.Perm Pr(>F)   
 <none>        85.567                        
-Management  3 87.707 2.1769    199  0.010 **
-Moisture    3 87.082 1.9764    199  0.015 * 
+Management  3 87.707 2.1769    199  0.015 * 
+Moisture    3 87.082 1.9764    199  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > add1(m0, scope=formula(mbig), test="perm")
        Df    AIC      F N.Perm Pr(>F)
 <none>    85.567                     
-A1      1 86.220 0.8359     99   0.72
-Use     2 86.842 0.8027     99   0.77
-Manure  3 85.762 1.1225     99   0.26
+A1      1 86.220 0.8359     99   0.66
+Use     2 86.842 0.8027     99   0.66
+Manure  3 85.762 1.1225     99   0.31
 > 
 > 
 > 
@@ -491,8 +549,7 @@ Manure  3 85.762 1.1225     99   0.26
 > ### Name: adipart
 > ### Title: Additive Diversity Partitioning and Hierarchical Null Model
 > ###   Testing
-> ### Aliases: adipart adipart.default adipart.formula hiersimu
-> ###   hiersimu.default hiersimu.formula
+> ### Aliases: adipart hiersimu print.hiersimu
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -508,10 +565,10 @@ Manure  3 85.762 1.1225     99   0.26
 +     out <- rep(1, length(x))
 +     for (i in 2:(length(cut) - 1))
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-+     return(out)}
++     return(as.factor(out))}
 > ## The hierarchy of sample aggregation
 > levsm <- data.frame(
-+     l1=1:nrow(mite),
++     l1=as.factor(1:nrow(mite)),
 +     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
 +     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
@@ -522,90 +579,41 @@ Manure  3 85.762 1.1225     99   0.26
 > plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
-> adipart(mite, index="richness", nsimul=19)
-adipart object
+> adipart(mite ~., levsm, index="richness", nsimul=19)
+adipart with 19 simulations
+with index richness, weights unif
 
-Call: adipart(y = mite, index = "richness", nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index richness, weights unif
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)  
-alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
-gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
-beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-> adipart(mite ~ ., levsm, index="richness", nsimul=19)
-adipart object
-
-Call: adipart(formula = mite ~ ., data = levsm, index = "richness",
-nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index richness, weights unif
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
-alpha.1    15.114 -46.2370 22.39624 22.12571 22.44286 22.6236     0.05 *
-alpha.2    29.750 -21.7076 34.81579 34.36250 35.00000 35.0000     0.05 *
-alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *
-gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.0000     1.00  
-beta.1     14.636   9.0407 12.41955 12.00750 12.42857 12.8743     0.05 *
-beta.2      3.250  13.1373  0.18421  0.00000  0.00000  0.6375     0.05 *
-beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *
+        statistic        z     2.5%      50%  97.5% Pr(sim.)  
+alpha.1   15.1143 -38.7550  22.0321  22.3000 22.608     0.05 *
+alpha.2   29.7500 -27.1142  34.5000  34.7500 35.000     0.05 *
+alpha.3   33.0000   0.0000  35.0000  35.0000 35.000     0.05 *
+gamma     35.0000   0.0000  35.0000  35.0000 35.000     1.00  
+beta.1    14.6357   9.0433  12.1629  12.4500 12.955     0.05 *
+beta.2     3.2500  16.4371   0.0000   0.2500  0.500     0.05 *
+beta.3     2.0000   0.0000   0.0000   0.0000  0.000     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
-> hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
-hiersimu object
+> hiersimu(mite ~., levsm, diversity, relative=TRUE, nsimul=19)
+hiersimu with 19 simulations
 
-Call: hiersimu(y = mite, FUN = diversity, relative = TRUE, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic       z    mean    2.5%     50%  97.5% Pr(sim.)  
-level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
-leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-> hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
-hiersimu object
-
-Call: hiersimu(formula = mite ~ ., data = levsm, FUN = diversity,
-relative = TRUE, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)  
-l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
-l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
-l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
-l4   1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
+    statistic          z       2.5%        50%  97.5% Pr(sim.)  
+l1    0.76064  -65.47286    0.93511    0.93959 0.9437     0.05 *
+l2    0.89736 -127.77766    0.99635    0.99815 0.9989     0.05 *
+l3    0.92791 -516.33891    0.99921    0.99948 0.9997     0.05 *
+l4    1.00000    0.00000    1.00000    1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Hierarchical testing with the Morisita index
 > morfun <- function(x) dispindmorisita(x)$imst
 > hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
-hiersimu object
+hiersimu with 19 simulations
 
-Call: hiersimu(formula = mite ~ ., data = levsm, FUN = morfun,
-drop.highest = TRUE, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-   statistic       z      mean      2.5%       50%   97.5% Pr(sim.)  
-l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
-l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
-l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
+   statistic        z     2.5%      50%   97.5% Pr(sim.)  
+l1   0.52070  4.98527  0.31016  0.36570  0.4227     0.05 *
+l2   0.60234 12.33099  0.11979  0.17096  0.2283     0.05 *
+l3   0.67509 19.37352 -0.24164 -0.16761 -0.0895     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -632,8 +640,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Call:
 adonis(formula = dune ~ Management * A1, data = dune.env, permutations = 99) 
-
-Terms added sequentially (first to last)
 
               Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
 Management     3    1.4686 0.48953  3.2629 0.34161   0.01 **
@@ -671,12 +677,12 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
-Run 0 stress 0.08556586 
-Run 1 stress 0.1560544 
-Run 2 stress 0.08556586 
-... New best solution
-... procrustes: rmse 1.094365e-06  max resid 1.88838e-06 
+Run 0 stress 0.08556588 
+Run 1 stress 0.1560545 
+Run 2 stress 0.08556612 
+... procrustes: rmse 0.0001630123  max resid 0.0003642025 
 *** Solution reached
+
 > plot(mod)
 > ### Hulls show treatment
 > ordihull(mod, group=dat$NO3, show="0")
@@ -685,32 +691,28 @@ Run 2 stress 0.08556586
 > ordispider(mod, group=dat$field, lty=3, col="red")
 > 
 > ### Correct hypothesis test (with strata)
-> adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
+> adonis(Y ~ NO3, data=dat, strata=dat$field, perm=1e3)
 
 Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 999, strata = dat$field) 
+adonis(formula = Y ~ NO3, data = dat, permutations = 1000, strata = dat$field) 
 
-Terms added sequentially (first to last)
-
-          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
-NO3        1  0.055856 0.055856  4.0281 0.28714  0.009 **
-Residuals 10  0.138667 0.013867         0.71286          
-Total     11  0.194524                  1.00000          
+          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714 0.008991 **
+Residuals 10  0.138667 0.013867         0.71286            
+Total     11  0.194524                  1.00000            
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > ### Incorrect (no strata)
-> adonis(Y ~ NO3, data=dat, perm=999)
+> adonis(Y ~ NO3, data=dat, perm=1e3)
 
 Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 999) 
+adonis(formula = Y ~ NO3, data = dat, permutations = 1000) 
 
-Terms added sequentially (first to last)
-
-          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
-NO3        1  0.055856 0.055856  4.0281 0.28714  0.005 **
-Residuals 10  0.138667 0.013867         0.71286          
-Total     11  0.194524                  1.00000          
+          Df SumsOfSqs  MeanSqs F.Model      R2   Pr(>F)   
+NO3        1  0.055856 0.055856  4.0281 0.28714 0.004995 **
+Residuals 10  0.138667 0.013867         0.71286            
+Total     11  0.194524                  1.00000            
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -748,7 +750,7 @@ ANOSIM statistic R: 0.2579
 
 Based on  999  permutations
 
-Upper quantiles of permutations (null model):
+Empirical upper confidence limits of R:
   90%   95% 97.5%   99% 
 0.116 0.160 0.203 0.233 
 
@@ -1190,7 +1192,6 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > boxplot(mod)
 > 
 > ## simulate missing values in 'd' and 'group'
-> ## using spatial medians
 > groups[c(2,20)] <- NA
 > dis[c(2, 20)] <- NA
 > mod2 <- betadisper(dis, groups) ## warnings
@@ -1244,24 +1245,24 @@ Residuals 18 0.296910 0.016495
 > boxplot(mod2)
 > plot(TukeyHSD(mod2))
 > 
-> ## Using group centroids
-> mod3 <- betadisper(dis, groups, type = "centroid")
-Warning in betadisper(dis, groups, type = "centroid") :
+> ## Using spatial median
+> mod3 <- betadisper(dis, groups, type = "median")
+Warning in betadisper(dis, groups, type = "median") :
   Missing observations due to 'group' removed.
-Warning in betadisper(dis, groups, type = "centroid") :
+Warning in betadisper(dis, groups, type = "median") :
   Missing observations due to 'd' removed.
 > mod3
 
 	Homogeneity of multivariate dispersions
 
-Call: betadisper(d = dis, group = groups, type = "centroid")
+Call: betadisper(d = dis, group = groups, type = "median")
 
 No. of Positive Eigenvalues: 14
 No. of Negative Eigenvalues: 5
 
 Average distance to centroid:
   grazed ungrazed 
-  0.4001   0.3108 
+  0.3984   0.3008 
 
 Eigenvalues for PCoA axes:
   PCoA1   PCoA2   PCoA3   PCoA4   PCoA5   PCoA6   PCoA7   PCoA8   PCoA9  PCoA10 
@@ -1282,49 +1283,19 @@ Permutation type: free
 Mirrored permutations for Samples?: No 
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm  Pr(>F)  
-Groups     1 0.033468 0.033468 3.1749    100 0.06931 .
-Residuals 18 0.189749 0.010542                        
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.039979 0.039979 2.4237    100 0.1287
+Residuals 18 0.296910 0.016495                     
 > anova(mod3)
 Analysis of Variance Table
 
 Response: Distances
-          Df   Sum Sq  Mean Sq F value  Pr(>F)  
-Groups     1 0.033468 0.033468  3.1749 0.09166 .
-Residuals 18 0.189749 0.010542                  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+          Df   Sum Sq  Mean Sq F value Pr(>F)
+Groups     1 0.039979 0.039979  2.4237 0.1369
+Residuals 18 0.296910 0.016495               
 > plot(mod3)
 > boxplot(mod3)
 > plot(TukeyHSD(mod3))
-> 
-> ## try out bias correction; compare with mod3
-> (mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
-Warning in betadisper(dis, groups, type = "median", bias.adjust = TRUE) :
-  Missing observations due to 'group' removed.
-Warning in betadisper(dis, groups, type = "median", bias.adjust = TRUE) :
-  Missing observations due to 'd' removed.
-
-	Homogeneity of multivariate dispersions
-
-Call: betadisper(d = dis, group = groups, type = "median", bias.adjust
-= TRUE)
-
-No. of Positive Eigenvalues: 14
-No. of Negative Eigenvalues: 5
-
-Average distance to centroid:
-  grazed ungrazed 
-  0.4134   0.3295 
-
-Eigenvalues for PCoA axes:
-  PCoA1   PCoA2   PCoA3   PCoA4   PCoA5   PCoA6   PCoA7   PCoA8   PCoA9  PCoA10 
- 1.4755  0.8245  0.4218  0.3456  0.2159  0.1688  0.1150  0.1060  0.0912  0.0639 
- PCoA11  PCoA12  PCoA13  PCoA14  PCoA15  PCoA16  PCoA17  PCoA18  PCoA19 
- 0.0420  0.0267  0.0157  0.0020 -0.0025 -0.0215 -0.0221 -0.0486 -0.0592 
-> 
 > 
 > 
 > 
@@ -1545,10 +1516,10 @@ Eigenvalues for constrained axes:
 0.5413 0.3265 0.1293 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
-0.9065 0.5127 0.3379 0.2626 0.2032 0.1618 0.1242 0.0856 0.0689 0.0583 0.0501 
- MDS12  MDS13  MDS14  MDS15 
-0.0277 0.0208 0.0073 0.0013 
+    MDS1     MDS2     MDS3     MDS4     MDS5     MDS6     MDS7     MDS8 
+0.906518 0.512743 0.337915 0.262598 0.203220 0.161762 0.124174 0.085570 
+    MDS9    MDS10    MDS11    MDS12    MDS13    MDS14    MDS15 
+0.068881 0.058346 0.050083 0.027738 0.020839 0.007306 0.001345 
 
 > plot(vare.cap)
 > anova(vare.cap)
@@ -1581,8 +1552,6 @@ Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
 1.4408 0.8523 0.6015 0.4888 0.4187 0.3538 0.2877 0.2160 
 (Showed only 8 of all 19 unconstrained eigenvalues)
-
-Constant added to distances: 0.2614286 
 
 > ## Avoid negative eigenvalues by taking square roots of dissimilarities
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
@@ -1691,14 +1660,16 @@ Unconstrained  0.6417     0.3080    9
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
-0.4389 0.2918 0.1628 0.1421 0.1180 0.0890 0.0703 0.0584 0.0311 0.0133 0.0084 
- CCA12  CCA13  CCA14 
-0.0065 0.0062 0.0047 
+    CCA1     CCA2     CCA3     CCA4     CCA5     CCA6     CCA7     CCA8 
+0.438870 0.291775 0.162847 0.142130 0.117952 0.089029 0.070295 0.058359 
+    CCA9    CCA10    CCA11    CCA12    CCA13    CCA14 
+0.031141 0.013294 0.008364 0.006538 0.006156 0.004733 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 
-0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.197765 0.141926 0.101174 0.070787 0.053303 0.033299 0.018868 0.015104 
+     CA9 
+0.009488 
 
 > plot(vare.cca)
 > ## Formula interface and a better model
@@ -1714,8 +1685,8 @@ Unconstrained   1.038      0.498   17
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
-0.3756 0.2342 0.1407 0.1323 0.1068 0.0561 
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6 
+0.37563 0.23419 0.14067 0.13229 0.10675 0.05614 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
@@ -1734,12 +1705,12 @@ Unconstrained 1.92598    0.92453   22
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1 
-0.15722 
+  CCA1 
+0.1572 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
-0.4745 0.2939 0.2140 0.1954 0.1748 0.1171 0.1121 0.0880 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
+0.47455 0.29389 0.21403 0.19541 0.17482 0.11711 0.11207 0.08797 
 (Showed only 8 of all 22 unconstrained eigenvalues)
 
 > cca(varespec ~ Ca + Condition(pH), varechem)
@@ -1753,12 +1724,12 @@ Unconstrained  1.7547     0.8423   21
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1 
-0.18269 
+  CCA1 
+0.1827 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
-0.3834 0.2749 0.2123 0.1760 0.1701 0.1161 0.1089 0.0880 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
+0.38343 0.27487 0.21233 0.17599 0.17013 0.11613 0.10892 0.08797 
 (Showed only 8 of all 21 unconstrained eigenvalues)
 
 > ## RDA
@@ -1819,18 +1790,18 @@ attr(,"class")
 > 
 > ### Name: clamtest
 > ### Title: Multinomial Species Classification Method (CLAM)
-> ### Aliases: clamtest summary.clamtest plot.clamtest
+> ### Aliases: clamtest summary.clamtest print.summary.clamtest plot.clamtest
 > ### Keywords: htest
 > 
 > ### ** Examples
 > 
 > data(mite)
 > data(mite.env)
-> sol <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
-> summary(sol)
+> x <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005, specialization = 0.667)
+> summary(x)
 Two Groups Species Classification Method (CLAM)
 
-Specialization threshold = 0.6666667
+Specialization threshold = 0.667
 Alpha level = 0.005
 
 Estimated sample coverage:
@@ -1846,7 +1817,7 @@ Generalist            10      0.286
 Specialist_FALSE      14      0.400
 Specialist_TRUE        4      0.114
 Too_rare               7      0.200
-> head(sol)
+> head(x)
   Species Total_FALSE Total_TRUE          Classes
 1  Brachy         534         77       Generalist
 2    PHTH          89          0 Specialist_FALSE
@@ -1854,7 +1825,7 @@ Too_rare               7      0.200
 4    RARD          85          0 Specialist_FALSE
 5    SSTR          22          0         Too_rare
 6 Protopl          26          0         Too_rare
-> plot(sol)
+> plot(x)
 > 
 > 
 > 
@@ -1876,20 +1847,20 @@ Too_rare               7      0.200
 +     array(replicate(n, sample(x)), c(dim(x), n))
 > (cs <- commsim("r00", fun=f, binary=TRUE, 
 +     isSeq=FALSE, mode="integer"))
-An object of class “commsim” 
-‘r00’ method (binary, non-sequential, integer mode)
+An object of class "commsim"
+"r00" method (binary, non-sequential, integer mode)
 
 > 
 > ## retrieving the sequential swap algorithm
 > (cs <- make.commsim("swap"))
-An object of class “commsim” 
-‘swap’ method (binary, sequential, integer mode)
+An object of class "commsim"
+"swap" method (binary, sequential, integer mode)
 
 > 
 > ## feeding a commsim object as argument
 > make.commsim(cs)
-An object of class “commsim” 
-‘swap’ method (binary, sequential, integer mode)
+An object of class "commsim"
+"swap" method (binary, sequential, integer mode)
 
 > 
 > ## structural constraints
@@ -1906,46 +1877,46 @@ An object of class “commsim”
 +     y <- simulate(m, nsim=n)
 +     out <- rowMeans(sapply(1:dim(y)[3], 
 +         function(i) diagfun(attr(y, "data"), y[,,i])))
-+     z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq"),
-+         attr(y, "mode") == "double"))
-+     names(z) <- c("binary", "isSeq", "double")
++     z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq")))
++     names(z) <- c("binary", "isSeq")
 +     c(z, out)
 + }
 > x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
 > algos <- make.commsim()
 > a <- t(sapply(algos, evalfun, x=x, n=10))
+Warning in storage.mode(state) <- object$commsim$mode :
+  NAs introduced by coercion
 > print(as.table(ifelse(a==1,1,0)), zero.print = ".")
-                binary isSeq double sum fill rowSums colSums rowFreq colFreq
-r00                  1     .      .   1    1       .       .       .       .
-c0                   1     .      .   1    1       .       1       .       1
-r0                   1     .      .   1    1       1       .       1       .
-r0_old               1     .      .   1    1       1       .       1       .
-r1                   1     .      .   1    1       1       .       1       .
-r2                   1     .      .   1    1       1       .       1       .
-quasiswap            1     .      .   1    1       1       1       1       1
-swap                 1     1      .   1    1       1       1       1       1
-tswap                1     1      .   1    1       1       1       1       1
-backtrack            1     .      .   1    1       1       1       1       1
-r2dtable             .     .      .   1    .       1       1       .       .
-swap_count           .     1      .   1    1       1       1       .       .
-quasiswap_count      .     .      .   1    1       1       1       .       .
-swsh_samp            .     .      .   1    1       .       .       1       1
-swsh_both            .     .      .   1    1       .       .       1       1
-swsh_samp_r          .     .      .   1    1       1       .       1       1
-swsh_samp_c          .     .      .   1    1       .       1       1       1
-swsh_both_r          .     .      .   1    1       1       .       1       1
-swsh_both_c          .     .      .   1    1       .       1       1       1
-abuswap_r            .     1      1   1    1       1       .       1       1
-abuswap_c            .     1      1   1    1       .       1       1       1
-r00_samp             .     .      1   1    1       .       .       .       .
-c0_samp              .     .      1   1    1       .       1       .       1
-r0_samp              .     .      1   1    1       1       .       1       .
-r00_ind              .     .      .   1    .       .       .       .       .
-c0_ind               .     .      .   1    .       .       1       .       .
-r0_ind               .     .      .   1    .       1       .       .       .
-r00_both             .     .      .   1    1       .       .       .       .
-c0_both              .     .      .   1    1       .       1       .       1
-r0_both              .     .      .   1    1       1       .       1       .
+                binary isSeq sum fill rowSums colSums rowFreq colFreq
+r00                  1     .   1    1       .       .       .       .
+c0                   1     .   1    1       .       1       .       1
+r0                   1     .   1    1       1       .       1       .
+r1                   1     .   1    1       1       .       1       .
+r2                   1     .   1    1       1       .       1       .
+quasiswap            1     .   1    1       1       1       1       1
+swap                 1     1   1    1       1       1       1       1
+tswap                1     1   1    1       1       1       1       1
+backtrack            1     .   1    1       1       1       1       1
+r2dtable             .     .   1    .       1       1       .       .
+swap_count           .     1   .    .       .       .       .       .
+quasiswap_count      .     .   1    1       1       1       .       .
+swsh_samp            .     .   1    1       .       .       1       1
+swsh_both            .     .   1    1       .       .       1       1
+swsh_samp_r          .     .   1    1       1       .       1       1
+swsh_samp_c          .     .   1    1       .       1       1       1
+swsh_both_r          .     .   1    1       1       .       1       1
+swsh_both_c          .     .   1    1       .       1       1       1
+abuswap_r            .     1   1    1       1       .       1       1
+abuswap_c            .     1   1    1       .       1       1       1
+r00_samp             .     .   1    1       .       .       .       .
+c0_samp              .     .   1    1       .       1       .       1
+r0_samp              .     .   1    1       1       .       1       .
+r00_ind              .     .   1    .       .       .       .       .
+c0_ind               .     .   1    .       .       1       .       .
+r0_ind               .     .   1    .       1       .       .       .
+r00_both             .     .   1    1       .       .       .       .
+c0_both              .     .   1    1       .       1       .       1
+r0_both              .     .   1    1       1       .       1       .
 > 
 > 
 > 
@@ -2169,7 +2140,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin scoverage
+> ### Aliases: decostand wisconsin
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -2194,40 +2165,9 @@ Ich.eri Cla.cer Cla.def Cla.phy
 > sptrans <- decostand(varespec, "chi.square")
 > plot(procrustes(rda(sptrans), cca(varespec)))
 > 
-> data(mite)
-> sptrans <- scoverage(mite)
-> 
 > 
 > 
 > cleanEx()
-> nameEx("density.adonis")
-> ### * density.adonis
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: density.adonis
-> ### Title: Kernel Density Estimation for Permutation Results in Vegan
-> ### Aliases: density.adonis density.anosim density.mantel density.mrpp
-> ###   density.permutest.cca density.protest plot.vegandensity
-> ###   densityplot.adonis
-> ### Keywords: distribution smooth
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> mod <- adonis(dune ~ Management, data = dune.env)
-> plot(density(mod))
-> library(lattice)
-> mod <- adonis(dune ~ Management * Moisture, dune.env)
-> densityplot(mod)
-> 
-> 
-> 
-> cleanEx()
-
-detaching ‘package:lattice’
-
 > nameEx("designdist")
 > ### * designdist
 > 
@@ -2285,8 +2225,78 @@ X-squared = 1448.956, df = 551, p-value < 2.2e-16
 
 > deviance(cca(dune))
 [1] 1448.956
-> # Stepwise selection (forward from an empty model "dune ~ 1")
+> # Backward elimination from a complete model "dune ~ ."
 > ord <- cca(dune ~ ., dune.env)
+> ord
+Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure,
+data = dune.env)
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    1.5032     0.7106   12
+Unconstrained  0.6121     0.2894    7
+Inertia is mean squared contingency coefficient 
+Some constraints were aliased because they were collinear (redundant)
+
+Eigenvalues for constrained axes:
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
+0.46713 0.34102 0.17606 0.15317 0.09528 0.07027 0.05887 0.04993 0.03183 0.02596 
+  CCA11   CCA12 
+0.02282 0.01082 
+
+Eigenvalues for unconstrained axes:
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7 
+0.27237 0.10876 0.08975 0.06305 0.03489 0.02529 0.01798 
+
+> step(ord)
+Start:  AIC=86.86
+dune ~ A1 + Moisture + Management + Use + Manure
+
+             Df    AIC
+- Use         2 86.711
+<none>          86.857
+- Management  2 87.470
+- Manure      3 87.819
+- A1          1 88.181
+- Moisture    3 89.179
+
+Step:  AIC=86.71
+dune ~ A1 + Moisture + Management + Manure
+
+             Df    AIC
+- Manure      3 86.190
+- Management  2 86.446
+<none>          86.711
+- Moisture    3 87.873
+- A1          1 88.430
+
+Step:  AIC=86.19
+dune ~ A1 + Moisture + Management
+
+             Df    AIC
+<none>          86.190
+- Moisture    3 86.460
+- A1          1 86.813
+- Management  3 86.992
+Call: cca(formula = dune ~ A1 + Moisture + Management, data = dune.env)
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    1.1392     0.5385    7
+Unconstrained  0.9761     0.4615   12
+Inertia is mean squared contingency coefficient 
+
+Eigenvalues for constrained axes:
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7 
+0.44826 0.30014 0.14995 0.10733 0.05668 0.04335 0.03345 
+
+Eigenvalues for unconstrained axes:
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
+     CA9     CA10     CA11     CA12 
+0.031058 0.021024 0.012542 0.009277 
+
+> # Stepwise selection (forward from an empty model "dune ~ 1")
 > step(cca(dune ~ 1, dune.env), scope = formula(ord))
 Start:  AIC=87.66
 dune ~ 1
@@ -2318,15 +2328,28 @@ Unconstrained  1.4870     0.7030   16
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3 
-0.4187 0.1330 0.0766 
+   CCA1    CCA2    CCA3 
+0.41868 0.13304 0.07659 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
-0.4098 0.2259 0.1761 0.1234 0.1082 0.0908 0.0859 0.0609 0.0566 0.0467 0.0419 
-  CA12   CA13   CA14   CA15   CA16 
-0.0201 0.0143 0.0099 0.0085 0.0080 
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.409782 0.225913 0.176062 0.123389 0.108171 0.090751 0.085878 0.060894 
+     CA9     CA10     CA11     CA12     CA13     CA14     CA15     CA16 
+0.056606 0.046688 0.041926 0.020103 0.014335 0.009917 0.008505 0.008033 
 
+> # ANOVA: added variable + the first left out
+> anova(cca(dune ~ Moisture + Management, dune.env), permut=200,
++       by = "terms")
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+
+Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
+           Df  Chisq      F N.Perm Pr(>F)   
+Moisture    3 0.6283 2.4465    199  0.005 **
+Management  3 0.3741 1.4565    199  0.025 * 
+Residual   13 1.1129                        
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > 
 > 
@@ -2346,71 +2369,71 @@ Eigenvalues for unconstrained axes:
 > data(dune)
 > x <- dispindmorisita(dune)
 > x
-             imor      mclu         muni        imst       pchisq
-Belper  2.0512821  2.154361  0.158876373  0.45535255 3.451547e-02
-Empnig 20.0000000 14.852327 -9.093483518  1.00000000 5.934709e-03
-Junbuf  4.1025641  2.154361  0.158876373  0.55458486 1.503205e-05
-Junart  3.1372549  1.814843  0.406265675  0.53635966 2.066336e-05
-Airpra  8.0000000  4.463082 -1.523370880  0.61382303 3.571702e-04
-Elepal  3.7333333  1.577180  0.579438187  0.55851854 2.958285e-10
-Rumace  3.9215686  1.814843  0.406265675  0.55792432 1.530085e-07
-Viclat  3.3333333  5.617442 -2.364494506  0.25266513 1.301890e-01
-Brarut  1.1904762  1.288590  0.789719093  0.33001160 8.071762e-02
-Ranfla  2.4175824  2.065564  0.223578191  0.50981405 7.010483e-03
-Cirarv 20.0000000 14.852327 -9.093483518  1.00000000 5.934709e-03
-Hyprad  6.6666667  2.731541 -0.261685440  0.61393969 7.832274e-07
-Leoaut  0.9643606  1.261365  0.809556915 -0.09356972 5.823404e-01
-Potpal  6.6666667  5.617442 -2.364494506  0.53647558 1.055552e-02
-Poapra  1.1702128  1.294730  0.785245032  0.28876015 1.046531e-01
-Calcus  5.3333333  2.539147 -0.121498169  0.58001287 7.982634e-06
-Tripra  6.6666667  2.731541 -0.261685440  0.61393969 7.832274e-07
-Trirep  1.2210916  1.301138  0.780576445  0.36709402 6.335449e-02
-Antodo  2.6666667  1.692616  0.495325824  0.52660266 5.897217e-05
-Salrep  5.8181818  2.385233 -0.009348352  0.59744520 2.687397e-07
-Achmil  2.1666667  1.923488  0.327101099  0.50672636 9.157890e-03
-Poatri  1.4644137  1.223425  0.837201879  0.50641728 2.747301e-04
-Chealb        NaN       Inf         -Inf         NaN          NaN
-Elyrep  2.7692308  1.554093  0.596260659  0.53293787 1.180195e-06
-Sagpro  2.4210526  1.729070  0.468764025  0.51893672 4.956394e-04
-Plalan  2.4615385  1.554093  0.596260659  0.52459747 1.921730e-05
-Agrsto  1.8085106  1.294730  0.785245032  0.51373357 1.142619e-05
-Lolper  1.5849970  1.243023  0.822921342  0.50911591 5.873839e-05
-Alogen  2.5396825  1.395781  0.711614757  0.53074307 3.024441e-08
-Brohor  3.2380952  1.989452  0.279036892  0.53466422 1.170437e-04
+             imor      mclu         muni        imst
+Belper  2.0512821  2.154361  0.158876373  0.45535255
+Empnig 20.0000000 14.852327 -9.093483518  1.00000000
+Junbuf  4.1025641  2.154361  0.158876373  0.55458486
+Junart  3.1372549  1.814843  0.406265675  0.53635966
+Airpra  8.0000000  4.463082 -1.523370880  0.61382303
+Elepal  3.7333333  1.577180  0.579438187  0.55851854
+Rumace  3.9215686  1.814843  0.406265675  0.55792432
+Viclat  3.3333333  5.617442 -2.364494506  0.25266513
+Brarut  1.1904762  1.288590  0.789719093  0.33001160
+Ranfla  2.4175824  2.065564  0.223578191  0.50981405
+Cirarv 20.0000000 14.852327 -9.093483518  1.00000000
+Hyprad  6.6666667  2.731541 -0.261685440  0.61393969
+Leoaut  0.9643606  1.261365  0.809556915 -0.09356972
+Potpal  6.6666667  5.617442 -2.364494506  0.53647558
+Poapra  1.1702128  1.294730  0.785245032  0.28876015
+Calcus  5.3333333  2.539147 -0.121498169  0.58001287
+Tripra  6.6666667  2.731541 -0.261685440  0.61393969
+Trirep  1.2210916  1.301138  0.780576445  0.36709402
+Antodo  2.6666667  1.692616  0.495325824  0.52660266
+Salrep  5.8181818  2.385233 -0.009348352  0.59744520
+Achmil  2.1666667  1.923488  0.327101099  0.50672636
+Poatri  1.4644137  1.223425  0.837201879  0.50641728
+Chealb        NaN       Inf         -Inf         NaN
+Elyrep  2.7692308  1.554093  0.596260659  0.53293787
+Sagpro  2.4210526  1.729070  0.468764025  0.51893672
+Plalan  2.4615385  1.554093  0.596260659  0.52459747
+Agrsto  1.8085106  1.294730  0.785245032  0.51373357
+Lolper  1.5849970  1.243023  0.822921342  0.50911591
+Alogen  2.5396825  1.395781  0.711614757  0.53074307
+Brohor  3.2380952  1.989452  0.279036892  0.53466422
 > y <- dispindmorisita(dune, unique.rm = TRUE)
 > y
-            imor     mclu         muni        imst       pchisq
-Belper 2.0512821 2.154361  0.158876373  0.45535255 3.451547e-02
-Junbuf 4.1025641 2.154361  0.158876373  0.55458486 1.503205e-05
-Junart 3.1372549 1.814843  0.406265675  0.53635966 2.066336e-05
-Airpra 8.0000000 4.463082 -1.523370880  0.61382303 3.571702e-04
-Elepal 3.7333333 1.577180  0.579438187  0.55851854 2.958285e-10
-Rumace 3.9215686 1.814843  0.406265675  0.55792432 1.530085e-07
-Viclat 3.3333333 5.617442 -2.364494506  0.25266513 1.301890e-01
-Brarut 1.1904762 1.288590  0.789719093  0.33001160 8.071762e-02
-Ranfla 2.4175824 2.065564  0.223578191  0.50981405 7.010483e-03
-Hyprad 6.6666667 2.731541 -0.261685440  0.61393969 7.832274e-07
-Leoaut 0.9643606 1.261365  0.809556915 -0.09356972 5.823404e-01
-Potpal 6.6666667 5.617442 -2.364494506  0.53647558 1.055552e-02
-Poapra 1.1702128 1.294730  0.785245032  0.28876015 1.046531e-01
-Calcus 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
-Tripra 6.6666667 2.731541 -0.261685440  0.61393969 7.832274e-07
-Trirep 1.2210916 1.301138  0.780576445  0.36709402 6.335449e-02
-Antodo 2.6666667 1.692616  0.495325824  0.52660266 5.897217e-05
-Salrep 5.8181818 2.385233 -0.009348352  0.59744520 2.687397e-07
-Achmil 2.1666667 1.923488  0.327101099  0.50672636 9.157890e-03
-Poatri 1.4644137 1.223425  0.837201879  0.50641728 2.747301e-04
-Elyrep 2.7692308 1.554093  0.596260659  0.53293787 1.180195e-06
-Sagpro 2.4210526 1.729070  0.468764025  0.51893672 4.956394e-04
-Plalan 2.4615385 1.554093  0.596260659  0.52459747 1.921730e-05
-Agrsto 1.8085106 1.294730  0.785245032  0.51373357 1.142619e-05
-Lolper 1.5849970 1.243023  0.822921342  0.50911591 5.873839e-05
-Alogen 2.5396825 1.395781  0.711614757  0.53074307 3.024441e-08
-Brohor 3.2380952 1.989452  0.279036892  0.53466422 1.170437e-04
+            imor     mclu         muni        imst
+Belper 2.0512821 2.154361  0.158876373  0.45535255
+Junbuf 4.1025641 2.154361  0.158876373  0.55458486
+Junart 3.1372549 1.814843  0.406265675  0.53635966
+Airpra 8.0000000 4.463082 -1.523370880  0.61382303
+Elepal 3.7333333 1.577180  0.579438187  0.55851854
+Rumace 3.9215686 1.814843  0.406265675  0.55792432
+Viclat 3.3333333 5.617442 -2.364494506  0.25266513
+Brarut 1.1904762 1.288590  0.789719093  0.33001160
+Ranfla 2.4175824 2.065564  0.223578191  0.50981405
+Hyprad 6.6666667 2.731541 -0.261685440  0.61393969
+Leoaut 0.9643606 1.261365  0.809556915 -0.09356972
+Potpal 6.6666667 5.617442 -2.364494506  0.53647558
+Poapra 1.1702128 1.294730  0.785245032  0.28876015
+Calcus 5.3333333 2.539147 -0.121498169  0.58001287
+Tripra 6.6666667 2.731541 -0.261685440  0.61393969
+Trirep 1.2210916 1.301138  0.780576445  0.36709402
+Antodo 2.6666667 1.692616  0.495325824  0.52660266
+Salrep 5.8181818 2.385233 -0.009348352  0.59744520
+Achmil 2.1666667 1.923488  0.327101099  0.50672636
+Poatri 1.4644137 1.223425  0.837201879  0.50641728
+Elyrep 2.7692308 1.554093  0.596260659  0.53293787
+Sagpro 2.4210526 1.729070  0.468764025  0.51893672
+Plalan 2.4615385 1.554093  0.596260659  0.52459747
+Agrsto 1.8085106 1.294730  0.785245032  0.51373357
+Lolper 1.5849970 1.243023  0.822921342  0.50911591
+Alogen 2.5396825 1.395781  0.711614757  0.53074307
+Brohor 3.2380952 1.989452  0.279036892  0.53466422
 > dim(x) ## with unique species
-[1] 30  5
+[1] 30  4
 > dim(y) ## unique species removed
-[1] 27  5
+[1] 27  4
 > 
 > 
 > 
@@ -2452,8 +2475,7 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy rarecurve fisher.alpha
-> ###   specnumber
+> ### Aliases: diversity rarefy rrarefy drarefy fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2479,13 +2501,6 @@ Groups sizes
 > gamma/alpha - 1
        BF        HF        NM        SF 
 0.5483871 0.6666667 1.6250000 1.2909091 
-> ## Rarefaction
-> (raremax <- min(rowSums(BCI)))
-[1] 340
-> Srare <- rarefy(BCI, raremax)
-> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
-> abline(0, 1)
-> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -2581,7 +2596,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit scores.envfit labels.envfit
+> ###   plot.envfit scores.envfit
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
@@ -2592,48 +2607,48 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
-Run 3 stress 0.2313231 
-Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
+Run 0 stress 0.1843204 
+Run 1 stress 0.2455937 
+Run 2 stress 0.2169416 
+Run 3 stress 0.2313238 
+Run 4 stress 0.1974421 
+Run 5 stress 0.1858424 
+Run 6 stress 0.1948436 
+Run 7 stress 0.2265718 
+Run 8 stress 0.2225085 
+Run 9 stress 0.2023228 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976151 
-Run 12 stress 0.1852397 
+Run 11 stress 0.1976154 
+Run 12 stress 0.1852405 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
-Run 17 stress 0.1825658 
+Run 14 stress 0.1955872 
+Run 15 stress 0.2137414 
+Run 16 stress 0.2109643 
+Run 17 stress 0.1825664 
 ... New best solution
-... procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
+... procrustes: rmse 0.0421789  max resid 0.1544029 
+Run 18 stress 0.1843199 
+Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > (fit <- envfit(ord, varechem, perm = 999))
 
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.057194 -0.998363 0.2537  0.046 *  
-P         0.619593  0.784923 0.1938  0.103    
-K         0.766293  0.642492 0.1809  0.143    
-Ca        0.685057  0.728489 0.4119  0.008 ** 
-Mg        0.632400  0.774642 0.4271  0.004 ** 
-S         0.191230  0.981545 0.1752  0.140    
-Al       -0.871691  0.490056 0.5269  0.001 ***
-Fe       -0.936135  0.351641 0.4451  0.002 ** 
-Mn        0.798733 -0.601685 0.5230  0.001 ***
-Zn        0.617495  0.786575 0.1879  0.125    
-Mo       -0.903045  0.429546 0.0609  0.537    
-Baresoil  0.925034 -0.379885 0.2508  0.039 *  
-Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
-pH       -0.648094  0.761560 0.2308  0.060 .  
+N        -0.056188 -0.998420 0.2542  0.046 *  
+P         0.618628  0.785684 0.1936  0.103    
+K         0.765142  0.643862 0.1809  0.143    
+Ca        0.683985  0.729496 0.4120  0.008 ** 
+Mg        0.631457  0.775411 0.4273  0.004 ** 
+S         0.190091  0.981767 0.1754  0.140    
+Al       -0.872443  0.488715 0.5270  0.001 ***
+Fe       -0.937013  0.349294 0.4452  0.002 ** 
+Mn        0.799058 -0.601253 0.5228  0.001 ***
+Zn        0.616932  0.787017 0.1878  0.125    
+Mo       -0.903112  0.429406 0.0609  0.539    
+Baresoil  0.926090 -0.377302 0.2509  0.038 *  
+Humdepth  0.933540 -0.358473 0.5198  0.002 ** 
+pH       -0.648970  0.760814 0.2306  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -2641,20 +2656,20 @@ P values based on 999 permutations.
 
 > scores(fit, "vectors")
                NMDS1      NMDS2
-N        -0.02880854 -0.5028710
-P         0.27276629  0.3455503
-K         0.32594190  0.2732833
-Ca        0.43965251  0.4675260
-Mg        0.41327822  0.5062343
-S         0.08004855  0.4108725
-Al       -0.63277161  0.3557376
-Fe       -0.62453266  0.2345938
-Mn        0.57765765 -0.4351493
-Zn        0.26766914  0.3409611
-Mo       -0.22292390  0.1060370
-Baresoil  0.46323932 -0.1902392
-Humdepth  0.67274437 -0.2596855
-pH       -0.31133604  0.3658438
+N        -0.02832824 -0.5033758
+P         0.27221584  0.3457258
+K         0.32540799  0.2738285
+Ca        0.43903747  0.4682499
+Mg        0.41279593  0.5069011
+S         0.07961737  0.4112023
+Al       -0.63333130  0.3547724
+Fe       -0.62521305  0.2330634
+Mn        0.57778128 -0.4347530
+Zn        0.26732049  0.3410194
+Mo       -0.22283870  0.1059540
+Baresoil  0.46384359 -0.1889764
+Humdepth  0.67308687 -0.2584611
+pH       -0.31165145  0.3653619
 > plot(ord)
 > plot(fit)
 > plot(fit, p.max = 0.05, col = "red")
@@ -2665,29 +2680,16 @@ pH       -0.31133604  0.3658438
 > fit <- envfit(ord, varechem, perm = 999, display = "lc")
 > plot(fit, p.max = 0.05, col = "red")
 > ## Class variables, formula interface, and displaying the
-> ## inter-class variability with `ordispider', and semitransparent
-> ## white background for labels (semitransparent colours are not
-> ## supported by all graphics devices)
+> ## inter-class variability with `ordispider'
 > data(dune)
 > data(dune.env)
 > attach(dune.env)
 > ord <- cca(dune)
-> fit <- envfit(ord ~ Moisture + A1, dune.env, perm = 0)
+> fit <- envfit(ord ~ Moisture + A1, dune.env)
 > plot(ord, type = "n")
 > ordispider(ord, Moisture, col="skyblue")
 > points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
-> plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
-> ## Use shorter labels for factor centroids
-> labels(fit)
-$vectors
-[1] "A1"
-
-$factors
-[1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"
-
-> plot(ord)
-> plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
-+    bg = rgb(1,1,0,0.5))
+> plot(fit, cex=1.2, axis=TRUE)
 > 
 > 
 > 
@@ -2747,8 +2749,7 @@ detaching ‘dune.env’, ‘package:MASS’
 > ###   Abundance Data
 > ### Aliases: fisherfit as.fisher plot.fisherfit profile.fisherfit
 > ###   confint.fisherfit plot.profile.fisherfit prestonfit prestondistr
-> ###   as.preston plot.prestonfit lines.prestonfit plot.preston
-> ###   lines.preston plot.fisher veiledspec
+> ###   as.preston plot.prestonfit lines.prestonfit veiledspec
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -2967,10 +2968,10 @@ Inertia is mean squared contingency coefficient
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
-0.4671 0.3410 0.1761 0.1532 0.0953 0.0703 0.0589 0.0499 0.0318 0.0260 0.0228 
- CCA12 
-0.0108 
+   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
+0.46713 0.34102 0.17606 0.15317 0.09528 0.07027 0.05887 0.04993 0.03183 0.02596 
+  CCA11   CCA12 
+0.02282 0.01082 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7 
@@ -3071,36 +3072,36 @@ Manure^4     -0.41602035  0.01685222
 > mod <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
-Run 3 stress 0.2313231 
-Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
+Run 0 stress 0.1843204 
+Run 1 stress 0.2455937 
+Run 2 stress 0.2169416 
+Run 3 stress 0.2313238 
+Run 4 stress 0.1974421 
+Run 5 stress 0.1858424 
+Run 6 stress 0.1948436 
+Run 7 stress 0.2265718 
+Run 8 stress 0.2225085 
+Run 9 stress 0.2023228 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976151 
-Run 12 stress 0.1852397 
+Run 11 stress 0.1976154 
+Run 12 stress 0.1852405 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
-Run 17 stress 0.1825658 
+Run 14 stress 0.1955872 
+Run 15 stress 0.2137414 
+Run 16 stress 0.2109643 
+Run 17 stress 0.1825664 
 ... New best solution
-... procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
+... procrustes: rmse 0.0421789  max resid 0.1544029 
+Run 18 stress 0.1843199 
+Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > stressplot(mod)
 > gof <- goodness(mod)
 > gof
- [1] 0.02984480 0.03513719 0.04188277 0.04598591 0.04003418 0.03441705
- [7] 0.03294386 0.03050002 0.03060565 0.02993891 0.03526891 0.02621276
-[13] 0.03831284 0.02980754 0.03370603 0.02225802 0.03561193 0.03505161
-[19] 0.06577544 0.03268484 0.03503582 0.02956571 0.05167231 0.04602312
+ [1] 0.02985151 0.03513602 0.04181211 0.04601046 0.04005199 0.03443943
+ [7] 0.03290447 0.03048909 0.03058684 0.02992410 0.03531117 0.02620375
+[13] 0.03833499 0.02979202 0.03376558 0.02225449 0.03559163 0.03504082
+[19] 0.06578666 0.03269039 0.03507122 0.02956140 0.05162094 0.04604686
 > plot(mod, display = "sites", type = "n")
 > points(mod, display = "sites", cex = 2*gof/mean(gof))
 > 
@@ -3124,10 +3125,68 @@ Run 20 stress 0.3760596
 > ##
 > ## Data approximated from Al-Mufti et al. (1977)
 > ##
+> mass <- c(140,230,310,310,400,510,610,670,860,900,1050,1160,1900,2480)
+> spno <- c(1,  4,  3,  9, 18, 30, 20, 14,  3,  2,  3,  2,  5,  2)
+> sol <- humpfit(mass, spno)
+Warning in log(1 + p[2] * x/p[3]) : NaNs produced
+Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
+Warning in dpois(x, lambda, log) : NaNs produced
+Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
+  NA/Inf replaced by maximum positive value
+Warning in log(1 + p[2] * x/p[3]) : NaNs produced
+Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
+Warning in dpois(x, lambda, log) : NaNs produced
+Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
+  NA/Inf replaced by maximum positive value
+Warning in log(1 + p[2] * x/p[3]) : NaNs produced
+Warning in log(ifelse(y == 0, 1, y/mu)) : NaNs produced
+Warning in dpois(x, lambda, log) : NaNs produced
+Warning in nlm(hump, p = p, mass = mass, spno = spno, hessian = TRUE) :
+  NA/Inf replaced by maximum positive value
+> summary(sol) # Almost infinite alpha...
+
+Hump-backed Null model of richness vs. productivity
+
+Family: poisson 
+Link function: Fisher diversity
+
+Coefficients:
+
+        Estimate Std. Error
+hump  5.3767e+02 3.3533e+01
+scale 1.8393e+01 1.7634e+00
+alpha 9.2294e+06 3.4044e+07
+
+Dispersion parameter for poisson family taken to be 1 
+
+Deviance 41.44821 with 11 residual degrees of freedom
+AIC: 96.37774    BIC: 98.29492 
+
+Correlation of Coefficients:
+      hump  scale
+scale -0.20      
+alpha -0.05 -0.14
+
+Diagnostics from nlm:
+Number of iterations: 87, code: 5
+> plot(sol)
+> # confint is in MASS, and impicitly calls profile.humpfit.
+> # Parameter 3 (alpha) is too extreme for profile and confint, and we
+> # must use only "hump" and "scale".
+> library(MASS)
+> plot(profile(sol, parm=1:2))
+> confint(sol, parm=c(1,2))
+Waiting for profiling to be done...
+          2.5 %    97.5 %
+hump  494.14239 607.25824
+scale  15.17635  22.02856
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:MASS’
+
 > nameEx("indpower")
 > ### * indpower
 > 
@@ -3145,7 +3204,7 @@ Run 20 stress 0.3760596
 > ip <- indpower(dune)
 > ## and TIP values
 > diag(ip) <- NA
-> (TIP <- rowMeans(ip, na.rm=TRUE))
+> rowMeans(ip, na.rm=TRUE)
  i.Belper  i.Empnig  i.Junbuf  i.Junart  i.Airpra  i.Elepal  i.Rumace  i.Viclat 
 0.3432281 0.2016196 0.3331330 0.2915850 0.2168133 0.2414787 0.3484684 0.2605349 
  i.Brarut  i.Ranfla  i.Cirarv  i.Hyprad  i.Leoaut  i.Potpal  i.Poapra  i.Calcus 
@@ -3154,33 +3213,6 @@ Run 20 stress 0.3760596
 0.3145854 0.4503764 0.3567884 0.2898512 0.3186250 0.3929520 0.2095044 0.3263516 
  i.Sagpro  i.Plalan  i.Agrsto  i.Lolper  i.Alogen  i.Brohor 
 0.3788905 0.3426064 0.3342800 0.3998442 0.3416198 0.3665632 
-> 
-> ## p value calculation for a species
-> ## from Halme et al. 2009
-> ## i is ID for the species
-> i <- 1
-> fun <- function(x, i) indpower(x)[i,-i]
-> ## 'c0' randomizes species occurrences
-> os <- oecosimu(dune, fun, "c0", i=i, nsimul=99)
-> ## get z values from oecosimu output
-> z <- os$oecosimu$z
-> ## p-value
-> (p <- sum(z) / sqrt(length(z)))
-[1] 0.206007
-> ## 'heterogeneity' measure
-> (chi2 <- sum((z - mean(z))^2))
-[1] 57.9089
-> pchisq(chi2, df=length(z)-1)
-[1] 0.9992519
-> ## Halme et al.'s suggested output
-> out <- c(TIP=TIP[i], 
-+     significance=p,
-+     heterogeneity=chi2,
-+     minIP=min(fun(dune, i=i)),
-+     varIP=sd(fun(dune, i=i)^2))
-> out
- TIP.i.Belper  significance heterogeneity         minIP         varIP 
-    0.3432281     0.2060070    57.9088970     0.0000000     0.1932110 
 > 
 > 
 > 
@@ -3415,7 +3447,7 @@ mantel(xdis = veg.dist, ydis = env.dist)
 Mantel statistic r: 0.3047 
       Significance: 0.001 
 
-Upper quantiles of permutations (null model):
+Empirical upper confidence limits of r:
   90%   95% 97.5%   99% 
 0.107 0.145 0.169 0.200 
 
@@ -3431,7 +3463,7 @@ mantel(xdis = veg.dist, ydis = env.dist, method = "spear")
 Mantel statistic r: 0.2838 
       Significance: 0.001 
 
-Upper quantiles of permutations (null model):
+Empirical upper confidence limits of r:
   90%   95% 97.5%   99% 
 0.108 0.141 0.169 0.196 
 
@@ -3462,10 +3494,10 @@ Based on 999 permutations
 > mite.hel.resid <- resid(lm(as.matrix(mite.hel) ~ ., data=mite.xy))
 > 
 > # Compute the detrended species distance matrix
-> mite.hel.D <- dist(mite.hel.resid)
+> mite.hel.D = dist(mite.hel.resid)
 > 
 > # Compute Mantel correlogram with cutoff, Pearson statistic
-> mite.correlog <- mantel.correlog(mite.hel.D, XY=mite.xy, nperm=49)
+> mite.correlog = mantel.correlog(mite.hel.D, XY=mite.xy, nperm=49)
 > summary(mite.correlog)
            Length Class  Mode     
 mantel.res 65     -none- numeric  
@@ -3503,8 +3535,34 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > plot(mite.correlog)
 > 
 > # Compute Mantel correlogram without cutoff, Spearman statistic
-> mite.correlog2 <- mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
-+    r.type="spearman", nperm=49)
+> mite.correlog2 = mantel.correlog(mite.hel.D, XY=mite.xy, cutoff=FALSE, 
++ r.type="spearman", nperm=49)
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
+Warning in cor.test.default(as.vector(xdis), ydis, method = method) :
+  Cannot compute exact p-values with ties
 > summary(mite.correlog2)
            Length Class  Mode     
 mantel.res 65     -none- numeric  
@@ -3565,14 +3623,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > # Global NMDS using monoMDS
 > sol <- metaMDS(dune)
-Run 0 stress 0.1192678 
-Run 1 stress 0.1808913 
-Run 2 stress 0.1808915 
-Run 3 stress 0.1808911 
-Run 4 stress 0.2035424 
-Run 5 stress 0.119268 
-... procrustes: rmse 0.0002214386  max resid 0.0006802088 
+Run 0 stress 0.1192691 
+Run 1 stress 0.1808932 
+Run 2 stress 0.1808918 
+Run 3 stress 0.1808912 
+Run 4 stress 0.2035431 
+Run 5 stress 0.1192719 
+... procrustes: rmse 0.001450932  max resid 0.004117039 
 *** Solution reached
+
 > sol
 
 Call:
@@ -3584,7 +3643,7 @@ Data:     dune
 Distance: bray 
 
 Dimensions: 2 
-Stress:     0.1192678 
+Stress:     0.1192691 
 Stress type 1, weak ties
 Two convergent solutions found after 5 tries
 Scaling: centring, PC rotation, halfchange scaling 
@@ -3594,17 +3653,20 @@ Species: expanded scores based on ‘dune’
 > ## Start from previous best solution
 > sol <- metaMDS(dune, previous.best = sol)
 Starting from 2-dimensional configuration
-Run 0 stress 0.1192678 
-Run 1 stress 0.1939203 
-Run 2 stress 0.119268 
-... procrustes: rmse 0.0002104822  max resid 0.0006474109 
+Run 0 stress 0.1192691 
+Run 1 stress 0.1939205 
+Run 2 stress 0.1192685 
+... New best solution
+... procrustes: rmse 0.000737655  max resid 0.001867068 
 *** Solution reached
+
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
 Run 0 stress 0.1928489 
 Run 1 stress 0.1928527 
 ... procrustes: rmse 0.0004929149  max resid 0.001420577 
 *** Solution reached
+
 > sol2
 
 Call:
@@ -3624,11 +3686,11 @@ Species: expanded scores based on ‘dune’
 
 > ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 > sol <- metaMDS(dune, distfun = betadiver, distance = "z")
-Run 0 stress 0.1067169 
-Run 1 stress 0.1067169 
-... New best solution
-... procrustes: rmse 1.234853e-05  max resid 2.993581e-05 
+Run 0 stress 0.106717 
+Run 1 stress 0.1067187 
+... procrustes: rmse 0.0004025738  max resid 0.001408067 
 *** Solution reached
+
 > sol
 
 Call:
@@ -3640,7 +3702,7 @@ Data:     dune
 Distance: beta.z 
 
 Dimensions: 2 
-Stress:     0.1067169 
+Stress:     0.106717 
 Stress type 1, weak ties
 Two convergent solutions found after 1 tries
 Scaling: centring, PC rotation, halfchange scaling 
@@ -3781,7 +3843,7 @@ Dimensions: 2
 Stress:     0.07596768 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 72 iterations: Stress nearly unchanged (ratio > sratmax)
+Stopped after 72 iterations: Stress nearly unchanged
 > plot(m)
 > 
 > 
@@ -3829,10 +3891,12 @@ Based on  999  permutations
 > layout(matrix(1:2,nr=1))
 > 
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-Run 0 stress 0.1192678 
-Run 1 stress 0.119268 
-... procrustes: rmse 8.18569e-05  max resid 0.0001982896 
+Run 0 stress 0.1192691 
+Run 1 stress 0.1192689 
+... New best solution
+... procrustes: rmse 0.0006819572  max resid 0.001730883 
 *** Solution reached
+
 > ordihull(dune.ord, dune.env$Management)
 > 
 > with(dune.mrpp, {
@@ -3927,8 +3991,8 @@ Unconstrained   1.164   34
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
-0.3662 0.1328 0.0723 0.0658 0.0559 0.0481 0.0418 0.0391 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
+0.36621 0.13278 0.07232 0.06579 0.05587 0.04812 0.04183 0.03907 
 (Showed only 8 of all 34 unconstrained eigenvalues)
 
 mso variogram:
@@ -3959,10 +4023,10 @@ Unconstrained  0.6427     0.5522   34
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
-0.31207 0.06601 0.04117 0.02938 0.02438 0.01591 0.01201 0.00752 0.00612 0.00373 
-  CCA11 
-0.00284 
+    CCA1     CCA2     CCA3     CCA4     CCA5     CCA6     CCA7     CCA8 
+0.312067 0.066011 0.041167 0.029377 0.024385 0.015907 0.012008 0.007517 
+    CCA9    CCA10    CCA11 
+0.006115 0.003732 0.002837 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
@@ -3990,7 +4054,7 @@ mso variogram:
 > 
 > ### Name: multipart
 > ### Title: Multiplicative Diversity Partitioning
-> ### Aliases: multipart multipart.default multipart.formula
+> ### Aliases: multipart
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4006,92 +4070,54 @@ mso variogram:
 +     out <- rep(1, length(x))
 +     for (i in 2:(length(cut) - 1))
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
-+     return(out)}
++     return(as.factor(out))}
 > ## The hierarchy of sample aggregation
 > levsm <- data.frame(
-+     l1=1:nrow(mite),
++     l1=as.factor(1:nrow(mite)),
 +     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
 +     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
 +     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
 > ## Multiplicative diversity partitioning
-> multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
-multipart object
-
-Call: multipart(y = mite, x = levsm, index = "renyi", scales = 1,
-nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
-alpha.2   11.2353  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
-alpha.3   12.0064 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
-gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  
-beta.1     1.3568   27.320  1.15770  1.14474  1.15859  1.1683     0.05 *
-beta.2     1.0710   30.431  1.00339  0.99912  1.00340  1.0059     0.05 *
-beta.3     1.1794  460.550  1.00148  1.00083  1.00148  1.0021     0.05 *
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
-multipart object
+multipart with 19 simulations
+with index renyi, scales 1, global TRUE
 
-Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
-scales = 1, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -66.643 12.2056 12.1143 12.2120 12.2910     0.05 *
-alpha.2   11.2353  -94.626 14.0818 14.0246 14.0917 14.1193     0.05 *
-alpha.3   12.0064 -355.962 14.1391 14.1283 14.1374 14.1485     0.05 *
-gamma     14.1603    0.000 14.1603 14.1603 14.1603 14.1603     1.00  
-beta.1     1.3568   35.028  1.1566  1.1478  1.1565  1.1660     0.05 *
-beta.2     1.0710   33.423  1.0041  1.0015  1.0035  1.0078     0.05 *
-beta.3     1.1794  419.166  1.0015  1.0008  1.0016  1.0023     0.05 *
+         statistic          z       2.5%        50%   97.5% Pr(sim.)  
+alpha.1    8.05548  -50.70213   12.06155   12.17739 12.3400     0.05 *
+alpha.2   11.23526  -81.96187   14.03610   14.08098 14.1485     0.05 *
+alpha.3   12.00644 -352.92816   14.12822   14.13863 14.1485     0.05 *
+gamma     14.16027    0.00000   14.16027   14.16027 14.1603     1.00  
+beta.1     1.35678   27.78084    1.14474    1.15859  1.1683     0.05 *
+beta.2     1.07103   28.03171    0.99912    1.00368  1.0067     0.05 *
+beta.3     1.17939  415.61573    1.00083    1.00153  1.0023     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
-multipart object
+multipart with 19 simulations
+with index renyi, scales 1, global TRUE
 
-Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
-scales = 1, relative = TRUE, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
-alpha.1  8.055481  -53.544 12.204883 12.071168 12.198307 12.3689     0.05 *
-alpha.2 11.235261  -99.506 14.079276 14.032767 14.076147 14.1247     0.05 *
-alpha.3 12.006443 -343.946 14.135245 14.123604 14.136297 14.1438     0.05 *
-gamma   14.160271    0.000 14.160271 14.160271 14.160271 14.1603     1.00  
-beta.1   0.078594   19.568  0.068267  0.067236  0.068392  0.0691     0.05 *
-beta.2   0.535514   35.966  0.501994  0.500294  0.502062  0.5035     0.05 *
-beta.3   0.589695  404.814  0.500885  0.500583  0.500848  0.5013     0.05 *
+          statistic           z        2.5%         50%   97.5% Pr(sim.)  
+alpha.1    8.055481  -58.367006   12.114272   12.212001 12.3367     0.05 *
+alpha.2   11.235261 -101.405343   14.030529   14.092411 14.1193     0.05 *
+alpha.3   12.006443 -397.121850   14.130733   14.140903 14.1485     0.05 *
+gamma     14.160271    0.000000   14.160271   14.160271 14.1603     1.00  
+beta.1     0.078594   24.964962    0.067424    0.068173  0.0688     0.05 *
+beta.2     0.535514   34.653906    0.500756    0.501720  0.5039     0.05 *
+beta.3     0.589695  467.673224    0.500417    0.500685  0.5010     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
-multipart object
+multipart with 19 simulations
+with index renyi, scales 1, global TRUE
 
-Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
-scales = 1, global = TRUE, nsimul = 19)
-
-nullmodel method ‘r2dtable’ with 19 simulations
-options:  index renyi, scales 1, global TRUE
-alternative hypothesis: simulated median is not equal to the statistic
-
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -69.630 12.19342 12.09434 12.18504 12.3160     0.05 *
-alpha.2   11.2353  -81.676 14.09224 14.05248 14.09208 14.1625     0.05 *
-alpha.3   12.0064 -321.419 14.13850 14.12429 14.13991 14.1456     0.05 *
-gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  
-beta.1     1.7578  105.552  1.16133  1.14975  1.16210  1.1708     0.05 *
-beta.2     1.2603  102.695  1.00483  0.99985  1.00484  1.0077     0.05 *
-beta.3     1.1794  378.335  1.00154  1.00104  1.00144  1.0025     0.05 *
+        statistic         z      2.5%       50%   97.5% Pr(sim.)  
+alpha.1    8.0555  -51.9567   12.0474   12.1983 12.3527     0.05 *
+alpha.2   11.2353  -97.0303   14.0328   14.0761 14.1247     0.05 *
+alpha.3   12.0064 -369.9941   14.1236   14.1345 14.1428     0.05 *
+gamma     14.1603    0.0000   14.1603   14.1603 14.1603     1.00  
+beta.1     1.7578   78.6700    1.1463    1.1608  1.1754     0.05 *
+beta.2     1.2603  121.5731    1.0025    1.0060  1.0091     0.05 *
+beta.3     1.1794  435.4695    1.0012    1.0018  1.0026     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4106,7 +4132,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: nestedtemp
 > ### Title: Nestedness Indices for Communities of Islands or Patches
 > ### Aliases: nestedtemp nestedchecker nestedn0 nesteddisc nestednodf
-> ###   nestedbetasor nestedbetajac plot.nestedtemp plot.nestednodf
+> ###   plot.nestedtemp
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -4124,36 +4150,26 @@ with matrix fill 0.2233333
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 > oecosimu(sipoo, nestedchecker, "quasiswap")
-oecosimu object
-
-Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method =
-"quasiswap")
-
-nullmodel method ‘quasiswap’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
+oecosimu with 99 simulations
+simulation method quasiswap
+alternative hypothesis: true mean is not equal to the statistic
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
-statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
+           statistic          z       2.5%        50%  97.5% Pr(sim.)
+statistic 2767.00000    0.73182 2569.80000 2680.00000 2905.1     0.49
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
-oecosimu object
-
-Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r00",
-statistic = "C.score")
-
-nullmodel method ‘r00’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
+oecosimu with 99 simulations
+simulation method r00
+alternative hypothesis: true mean is not equal to the statistic
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)   
-C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
+        statistic        z     2.5%      50%  97.5% Pr(sim.)   
+C.score    2.2588 -26.3590   8.6760   9.2327 9.6403     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4168,43 +4184,43 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: nullmodel
 > ### Title: Null Model and Simulation
 > ### Aliases: nullmodel print.nullmodel simulate.nullmodel update.nullmodel
-> ###   str.nullmodel print.simmat
+> ###   print.simmat
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
 > 
-> x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
+> x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
 > 
 > ## non-sequential nullmodel
 > (nm <- nullmodel(x, "r00"))
-An object of class “nullmodel” 
-‘r00’ method (binary, non-sequential)
+An object of class "nullmodel"
+"r00" method (binary, non-sequential)
 12 x 10 matrix
 
 > (sm <- simulate(nm, nsim=10))
-An object of class “simmat” 
-‘r00’ method (binary, non-sequential)
+An object of class "simmat"
+"r00" method (binary, non-sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 
 > 
 > ## sequential nullmodel
 > (nm <- nullmodel(x, "swap"))
-An object of class “nullmodel” 
-‘swap’ method (binary, sequential)
+An object of class "nullmodel"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
 > (sm1 <- simulate(nm, nsim=10, thin=5))
-An object of class “simmat” 
-‘swap’ method (binary, sequential)
+An object of class "simmat"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 1, End = 50, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class “simmat” 
-‘swap’ method (binary, sequential)
+An object of class "simmat"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 51, End = 100, Thin = 5
@@ -4212,37 +4228,37 @@ Start = 51, End = 100, Thin = 5
 > 
 > ## sequential nullmodel with burnin and extra updating
 > (nm <- nullmodel(x, "swap"))
-An object of class “nullmodel” 
-‘swap’ method (binary, sequential)
+An object of class "nullmodel"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
 > (sm1 <- simulate(nm, burnin=10, nsim=10, thin=5))
-An object of class “simmat” 
-‘swap’ method (binary, sequential)
+An object of class "simmat"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 11, End = 60, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class “simmat” 
-‘swap’ method (binary, sequential)
+An object of class "simmat"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 1, End = 50, Thin = 5
+Start = 61, End = 110, Thin = 5
 
 > 
 > ## sequential nullmodel with separate initial burnin
 > (nm <- nullmodel(x, "swap"))
-An object of class “nullmodel” 
-‘swap’ method (binary, sequential)
+An object of class "nullmodel"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Iterations = 0 
 
-> nm <- update(nm, nsim=10)
+> update(nm, nsim=10)
 > (sm2 <- simulate(nm, nsim=10, thin=5))
-An object of class “simmat” 
-‘swap’ method (binary, sequential)
+An object of class "simmat"
+"swap" method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
 Start = 11, End = 60, Thin = 5
@@ -4257,45 +4273,21 @@ Start = 11, End = 60, Thin = 5
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: oecosimu
-> ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
-> ###   densityplot.oecosimu
-> ### Keywords: multivariate datagen nonparametric
+> ### Title: Null Models for Biological Communities
+> ### Aliases: oecosimu commsimulator as.ts.oecosimu as.mcmc.oecosimu
+> ###   density.oecosimu densityplot.oecosimu
+> ### Keywords: multivariate datagen
 > 
 > ### ** Examples
 > 
 > ## Use the first eigenvalue of correspondence analysis as an index
 > ## of structure: a model for making your own functions.
 > data(sipoo)
-> ## Traditional nestedness statistics (number of checkerboard units)
-> oecosimu(sipoo, nestedchecker, "r0")
-oecosimu object
-
-Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r0")
-
-nullmodel method ‘r0’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-Checkerboard Units    : 2767 
-C-score (species mean): 2.258776 
-
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
-statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-> ## sequential model, one-sided test, a vector statistic
-> out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
-+    statistic="evals", alt = "less")
+> out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, statistic="evals")
 > out
-oecosimu object
-
-Call: oecosimu(comm = sipoo, nestfun = decorana, method = "swap",
-burnin = 100, thin = 10, statistic = "evals", alternative = "less")
-
-nullmodel method ‘swap’ with 99 simulations
-options:  thin 10, burnin 100
-alternative hypothesis: simulated median is less than the statistic
+oecosimu with 99 simulations
+simulation method swap with thin 10, burnin 100
+alternative hypothesis: true mean is not equal to the statistic
 
 
 Call:
@@ -4310,11 +4302,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z     mean       0%      50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
+     statistic         z      2.5%       50%  97.5% Pr(sim.)   
+DCA1  0.382249  2.867094  0.265441  0.318296 0.3561     0.01 **
+DCA2  0.261208  1.876958  0.172847  0.217304 0.2594     0.05 * 
+DCA3  0.166788  0.394936  0.119616  0.158218 0.2019     0.67   
+DCA4  0.087226 -1.979239  0.084854  0.128229 0.1709     0.11   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Inspect the swap sequence as a time series object
@@ -4331,40 +4323,27 @@ Loading required package: lattice
 > meandist <- function(x) mean(vegdist(x, "bray"))
 > mbc1 <- oecosimu(dune, meandist, "r2dtable")
 > mbc1
-oecosimu object
+oecosimu with 99 simulations
+simulation method r2dtable
+alternative hypothesis: true mean is not equal to the statistic
 
-Call: oecosimu(comm = dune, nestfun = meandist, method = "r2dtable")
-
-nullmodel method ‘r2dtable’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-          statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 14.66 0.46734 0.44069 0.46760 0.4903     0.01 **
+          statistic        z     2.5%      50%  97.5% Pr(sim.)   
+statistic   0.64565 14.13820  0.44577  0.46758 0.4934     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-> 
-> ## Define your own null model as a 'commsim' function: shuffle cells
-> ## in each row
-> foo <- function(x, n, nr, nc, ...) {
-+    out <- array(0, c(nr, nc, n))
-+    for (k in seq_len(n))
-+       out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
-+    out
+> ## Define a custom function that shuffles
+> ## cells in each rows
+> f <- function(x) {
++     apply(x, 2, function(z) sample(z, length(z)))
 + }
-> cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
-+    mode = "double")
-> oecosimu(dune, meandist, cf)
-oecosimu object
+> mbc2 <- oecosimu(as.matrix(dune), meandist, f)
+> mbc2
+oecosimu with 99 simulations
+simulation method custom
+alternative hypothesis: true mean is not equal to the statistic
 
-Call: oecosimu(comm = dune, nestfun = meandist, method = cf)
-
-nullmodel method ‘myshuffle’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
-statistic   0.64565 3.1832 0.63514 0.63016 0.63441 0.6419     0.03 *
+          statistic       z    2.5%     50%  97.5% Pr(sim.)   
+statistic   0.64565 3.13782 0.62989 0.63525 0.6424     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
@@ -4450,8 +4429,7 @@ Area  0.1951715  0.59943363 1.7398193  1.0144372
 > ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
 > plot(mod, type="n", display = "sites")
 > text(mod, display="sites", labels = as.character(Management))
-> pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, draw = "polygon", 
-+   col="skyblue", border = "blue")
+> pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, col="blue")
 > summary(pl)
              BF         HF          NM         SF
 CCA1 -0.4312652 -0.5583211  1.87848340 -0.5601499
@@ -4532,35 +4510,21 @@ detaching ‘dune.env’
 > ## Examples are not run, because they need non-standard packages
 > ## 'scatterplot3d' and 'rgl' (and the latter needs user interaction).
 > #####
-> ### Default 'ordiplot3d'
+> #### Default 'ordiplot3d'
 > ## Not run: 
 > ##D data(dune)
 > ##D data(dune.env)
 > ##D ord <- cca(dune ~ A1 + Moisture, dune.env)
 > ##D ordiplot3d(ord)
-> ##D ### A boxed 'pin' version
+> ##D #### A boxed 'pin' version
 > ##D ordiplot3d(ord, type = "h")
-> ##D ### More user control
-> ##D pl <- ordiplot3d(ord, scaling = 3, angle=15, type="n")
+> ##D #### More user control
+> ##D pl <- ordiplot3d(ord, angle=15, type="n")
 > ##D points(pl, "points", pch=16, col="red", cex = 0.7)
-> ##D ### identify(pl, "arrows", col="blue") would put labels in better positions
+> ##D #### identify(pl, "arrows", col="blue") would put labels in better positions
 > ##D text(pl, "arrows", col="blue", pos=3)
-> ##D text(pl, "centroids", col="blue", pos=1, cex = 1)
-> ##D ### Add species using xyz.convert function returned by ordiplot3d
-> ##D sp <- scores(ord, choices=1:3, display="species", scaling=3)
-> ##D text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
-> ##D ### Two ways of adding fitted variables to ordination plots
-> ##D ord <- cca(dune)
-> ##D ef <- envfit(ord ~ Moisture + A1, dune.env, choices = 1:3)
-> ##D ### 1. use argument 'envfit'
-> ##D ordiplot3d(ord, envfit = ef)
-> ##D ### 2. use returned envfit.convert function for better user control
-> ##D pl3 <- ordiplot3d(ord)
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### envfit.convert() also handles different 'choices' of axes
-> ##D pl3 <- ordiplot3d(ord, choices = c(1,3,2))
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### ordirgl
+> ##D text(pl, "centroids", col="blue", pos=1, cex = 1.2)
+> ##D #### ordirgl
 > ##D ordirgl(ord, size=2)
 > ##D ordirgl(ord, display = "species", type = "t")
 > ##D rgl.quit()
@@ -4687,8 +4651,10 @@ Eigenvalues for constrained axes:
 21.588 14.075  4.123  3.163  2.369  1.107 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
-8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
+  PC12   PC13 
+0.3107 0.2273 
 
 > 
 > ## Example without scope. Default direction is "backward"
@@ -4741,14 +4707,62 @@ Eigenvalues for constrained axes:
 20.538 15.067  5.585  3.327  1.972  1.428  1.244 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12 
-8.037 6.107 5.126 3.540 3.416 2.619 2.161 1.360 1.172 0.853 0.351 0.221 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+8.0368 6.1066 5.1262 3.5404 3.4157 2.6188 2.1608 1.3604 1.1717 0.8532 0.3513 
+  PC12 
+0.2208 
 
 > 
 > ## Example of ordistep, forward
-> ## Not run: 
-> ##D ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
-> ## End(Not run)
+> ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
+
+Start: dune ~ 1 
+
+             Df    AIC      F N.Perm Pr(>F)   
++ Management  3 87.082 2.8400    199  0.005 **
++ Moisture    3 87.707 2.5883    199  0.005 **
++ Manure      4 89.232 1.9539    199  0.010 **
++ A1          1 89.591 1.9217    199  0.045 * 
++ Use         2 91.032 1.1741     99  0.350   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: dune ~ Management 
+
+           Df    AIC      F N.Perm Pr(>F)   
++ Moisture  3 85.567 1.9764    199  0.005 **
++ Manure    3 87.517 1.3902    199  0.095 . 
++ A1        1 87.424 1.2965     99  0.180   
++ Use       2 88.284 1.0510     99  0.380   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: dune ~ Management + Moisture 
+
+         Df    AIC      F N.Perm Pr(>F)
++ Manure  3 85.762 1.1225     99   0.32
++ A1      1 86.220 0.8359     99   0.61
++ Use     2 86.842 0.8027     99   0.66
+
+Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
+
+              Inertia Proportion Rank
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
+21.588 14.075  4.123  3.163  2.369  1.107 
+
+Eigenvalues for unconstrained axes:
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
+  PC12   PC13 
+0.3107 0.2273 
+
+> 
 > ### Mite data
 > data(mite)
 > data(mite.env)
@@ -4868,10 +4882,95 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > ## Example of ordiR2step with direction = "forward"
-> ## Not run: 
-> ##D step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
-> ##D step.res$anova  # Summary table
-> ## End(Not run)
+> step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
+Step: R2.adj= 0 
+Call: mite.hel ~ 1 
+ 
+                R2.adjusted
+<All variables>  0.43670383
++ WatrCont       0.26084533
++ Shrub          0.20716190
++ Topo           0.15205437
++ Substrate      0.07718348
++ SubsDens       0.02632468
+<none>           0.00000000
+
+           Df     AIC     F N.Perm Pr(>F)   
++ WatrCont  1 -84.336 25.35    199  0.005 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: R2.adj= 0.2608453 
+Call: mite.hel ~ WatrCont 
+ 
+                R2.adjusted
+<All variables>   0.4367038
++ Shrub           0.3177536
++ Topo            0.3120057
++ Substrate       0.3091579
++ SubsDens        0.3066715
+<none>            0.2608453
+
+        Df     AIC     F N.Perm Pr(>F)   
++ Shrub  2 -88.034 3.836    199  0.005 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: R2.adj= 0.3177536 
+Call: mite.hel ~ WatrCont + Shrub 
+ 
+                R2.adjusted
+<All variables>   0.4367038
++ Substrate       0.3653551
++ Topo            0.3525851
++ SubsDens        0.3446967
+<none>            0.3177536
+
+            Df     AIC      F N.Perm Pr(>F)   
++ Substrate  6 -87.768 1.8251    199   0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: R2.adj= 0.3653551 
+Call: mite.hel ~ WatrCont + Shrub + Substrate 
+ 
+                R2.adjusted
+<All variables>   0.4367038
++ Topo            0.4004249
++ SubsDens        0.3901844
+<none>            0.3653551
+
+       Df     AIC      F N.Perm Pr(>F)   
++ Topo  1 -90.924 4.5095    199  0.005 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: R2.adj= 0.4004249 
+Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
+ 
+                R2.adjusted
+<All variables>   0.4367038
++ SubsDens        0.4367038
+<none>            0.4004249
+
+           Df     AIC      F N.Perm Pr(>F)   
++ SubsDens  1 -94.489 4.7999    199  0.005 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+
+Step: R2.adj= 0.4367038 
+Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens 
+ 
+> step.res$anova  # Summary table
+                 R2.adj Df     AIC       F N.Perm Pr(>F)   
++ WatrCont      0.26085  1 -84.336 25.3499    199  0.005 **
++ Shrub         0.31775  2 -88.034  3.8360    199  0.005 **
++ Substrate     0.36536  6 -87.768  1.8251    199  0.010 **
++ Topo          0.40042  1 -90.924  4.5095    199  0.005 **
++ SubsDens      0.43670  1 -94.489  4.7999    199  0.005 **
+<All variables> 0.43670                                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > 
 > 
 > 
@@ -4895,19 +4994,19 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
 Loading required package: mgcv
-This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x1093ac510>
+<environment: 0x106e13f10>
 
 Estimated degrees of freedom:
-6.45  total = 7.45 
+6.4351  total = 7.435071 
 
-GCV score: 144.0039
+GCV score: 144.1236
 > 
 > ## as above but with extra penalties on smooth terms:
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5, col = "blue",
@@ -4918,25 +5017,25 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109b1a9f0>
+<environment: 0x107966f20>
 
 Estimated degrees of freedom:
-6.12  total = 7.12 
+6.1039  total = 7.103853 
 
-GCV score: 139.9445
+GCV score: 140.0949
 > 
 > ## Cover of Cladina arbuscula
 > fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
 > ## Get fitted values
 > calibrate(fit)
          1          2          3          4          5          6          7 
-22.0596535  6.0185659  3.6298559  4.1000950  8.9833600  5.9067472  8.6617389 
+22.0644614  6.0132251  3.6350483  4.1019742  9.0030989  5.9202601  8.6399184 
          8          9         10         11         12         13         14 
-11.0812152  0.6432691 35.2567124 10.4452454  7.2748478  5.5780162 24.6561685 
+11.0719303  0.6561781 35.2282118 10.4346331  7.2900018  5.5710617 24.6503110 
         15         16         17         18         19         20         21 
-18.8879906 29.7642964  5.6095920  9.5945524  3.2753633  2.6966143 10.7869351 
+18.8754521 29.7286543  5.6158934  9.5869716  3.2876267  2.7111721 10.7832857 
         22         23         24 
- 2.9902832  9.8082237  7.3406581 
+ 3.0020413  9.8128952  7.3656932 
 > 
 > ## Plot method
 > plot(fit, what = "contour")
@@ -5004,18 +5103,6 @@ detaching ‘package:mgcv’
 > stems <- colSums(BCI)
 > orditorp(mod, "sp", label = cnam, priority=stems, pch="+", pcol="grey")
 > 
-> ## show select in action
-> set.seed(1)
-> take <- sample(ncol(BCI), 50)
-> plot(mod, dis="sp", type="n")
-> stems <- colSums(BCI)
-> orditorp(mod, "sp", label = cnam, priority=stems, select = take,
-+          pch="+", pcol="grey")
-> ## Don't show: 
-> ## example(orditorp) should not set random seed in the user session
-> rm(.Random.seed)
-> ## End Don't show
-> 
 > 
 > 
 > cleanEx()
@@ -5079,17 +5166,17 @@ detaching ‘package:lattice’
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 Loading required package: mgcv
-This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108f97b20>
+<environment: 0x106f11ae8>
 
 Estimated degrees of freedom:
-8.93  total = 9.93 
+8.9275  total = 9.927492 
 
 GCV score: 0.001054656
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
@@ -5099,10 +5186,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x108cdacd0>
+<environment: 0x1078600d8>
 
 Estimated degrees of freedom:
-7.75  total = 8.75 
+7.7529  total = 8.75294 
 
 GCV score: 0.002284958
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
@@ -5112,10 +5199,10 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x109fc3c00>
+<environment: 0x107c58a30>
 
 Estimated degrees of freedom:
-8.9  total = 9.9 
+8.8962  total = 9.89616 
 
 GCV score: 0.002508871
 > par(op)
@@ -5146,8 +5233,9 @@ detaching ‘package:lattice’, ‘package:mgcv’
 > ### Name: permat
 > ### Title: Matrix Permutation Algorithms for Presence-Absence and Count
 > ###   Data
-> ### Aliases: permatfull permatswap summary.permat print.summary.permat
-> ###   print.permat plot.permat lines.permat as.ts.permat as.mcmc.permat
+> ### Aliases: permatfull permatfull1 permatswap permatswap1 summary.permat
+> ###   print.summary.permat print.permat plot.permat lines.permat
+> ###   as.ts.permat as.mcmc.permat
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
@@ -5170,7 +5258,7 @@ Call: permatswap(m = m, method = "quasiswap")
 
 Matrix type: count 
 Permutation type: swap
-Method: quasiswap_count, burnin: 0, thin: 1
+Method: quasiswap
 Restricted: FALSE 
 Fixed margins: both
 
@@ -5183,17 +5271,17 @@ Matrix sums retained: 100 %
 Matrix fill retained: 100 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    2.02 %
-Column incidences retained: 6.06 %
+Row incidences retained:    9.09 %
+Column incidences retained: 7.07 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3667  0.4333  0.4202  0.4667  0.6333 
+ 0.2000  0.3667  0.4000  0.4229  0.5000  0.6333 
 
-Chi-squared for original matrix: 18.55
+Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  15.63   19.38   21.19   21.53   23.44   29.08 
+  15.75   19.64   20.93   21.41   23.25   29.87 
 > ## Unrestricted permutation retaining
 > ## row/columns sums but not matrix fill:
 > x2 <- permatfull(m)
@@ -5204,7 +5292,6 @@ Call: permatfull(m = m)
 
 Matrix type: count 
 Permutation type: full
-Method: r2dtable
 Restricted: FALSE 
 Fixed margins: both
 
@@ -5214,20 +5301,20 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 18.18 %
+Matrix fill retained: 16.16 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    0 %
+Row incidences retained:    1.01 %
 Column incidences retained: 1.01 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.1667  0.3333  0.4000  0.3754  0.4333  0.5667 
+ 0.2000  0.3333  0.3667  0.3848  0.4333  0.5333 
 
-Chi-squared for original matrix: 18.55
+Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  7.857  12.640  15.650  16.410  20.240  33.150 
+  5.076  12.730  15.190  15.810  18.830  26.120 
 > ## Unrestricted permutation of presence-absence type
 > ## not retaining row/columns sums:
 > x3 <- permatfull(m, "none", mtype="prab")
@@ -5244,7 +5331,6 @@ Call: permatfull(m = m, fixedmar = "none", mtype = "prab")
 
 Matrix type: prab 
 Permutation type: full
-Method: r00
 Restricted: FALSE 
 Fixed margins: none
 Individuals and samples are shuffled
@@ -5256,19 +5342,19 @@ Number of permuted matrices: 99
 
 Matrix sums retained: 100 %
 Matrix fill retained: 100 %
-Row sums retained:    2.02 %
+Row sums retained:    3.03 %
 Column sums retained: 0 %
-Row incidences retained:    2.02 %
+Row incidences retained:    3.03 %
 Column incidences retained: 0 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3333  0.4000  0.3643  0.4000  0.5333 
+ 0.2000  0.3333  0.4000  0.3805  0.4000  0.5333 
 
-Chi-squared for original matrix: 8.4
+Chi-squared for original matrix: 8.4)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  8.354  13.340  15.060  15.280  17.180  21.330 
+  9.188  13.620  15.730  15.420  17.340  20.830 
 > ## Restricted permutation,
 > ## check sums within strata:
 > x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -5279,7 +5365,6 @@ Call: permatfull(m = m, strata = c(1, 1, 2, 2))
 
 Matrix type: count 
 Permutation type: full
-Method: r2dtable
 Restricted: TRUE 
 Fixed margins: both
 
@@ -5289,21 +5374,21 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 49.49 %
+Matrix fill retained: 38.38 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    7.07 %
-Column incidences retained: 3.03 %
+Row incidences retained:    2.02 %
+Column incidences retained: 5.05 %
 Sums within strata retained: 100 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.06667 0.20000 0.20000 0.21950 0.26670 0.40000 
+0.06667 0.20000 0.20000 0.21750 0.26670 0.33330 
 
-Chi-squared for original matrix: 18.55
+Chi-squared for original matrix: 18.55)
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  14.21   18.28   19.84   20.85   23.01   32.63 
+  14.21   18.20   21.27   21.18   23.45   37.88 
 > 
 > ## NOTE: 'times' argument usually needs to be >= 99
 > ## here much lower value is used for demonstration
@@ -5334,17 +5419,17 @@ arima(x = bc, order = c(1, 0, 0))
 
 Coefficients:
          ar1  intercept
-      0.9914     0.1847
-s.e.  0.0122     0.1343
+      0.9918     0.1835
+s.e.  0.0116     0.1364
 
-sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
+sigma^2 estimated as 0.0003259:  log likelihood = 47.26,  aic = -88.51
 > ## Ljung-Box test of residuals
 > Box.test(mar$residuals)
 
 	Box-Pierce test
 
 data:  mar$residuals 
-X-squared = 0.0011, df = 1, p-value = 0.9739
+X-squared = 0.1905, df = 1, p-value = 0.6625
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -5613,14 +5698,16 @@ Unconstrained 128.9589     0.4462   77
 Inertia is variance 
 
 Eigenvalues for constrained axes:
-  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
-25.282  8.297  6.044  4.766  4.148  3.857  3.587  3.334  3.087  2.551  2.466 
- RDA12  RDA13  RDA14  RDA15  RDA16  RDA17  RDA18  RDA19  RDA20  RDA21  RDA22 
- 2.209  2.129  1.941  1.799  1.622  1.579  1.440  1.398  1.284  1.211  1.133 
- RDA23  RDA24  RDA25  RDA26  RDA27  RDA28  RDA29  RDA30  RDA31  RDA32  RDA33 
- 1.001  0.923  0.862  0.788  0.750  0.712  0.685  0.611  0.584  0.537  0.516 
- RDA34  RDA35  RDA36  RDA37  RDA38  RDA39  RDA40  RDA41  RDA42  RDA43  RDA44 
- 0.442  0.417  0.404  0.368  0.340  0.339  0.306  0.279  0.271  0.205  0.179 
+   RDA1    RDA2    RDA3    RDA4    RDA5    RDA6    RDA7    RDA8    RDA9   RDA10 
+25.2823  8.2969  6.0442  4.7662  4.1482  3.8568  3.5875  3.3341  3.0874  2.5513 
+  RDA11   RDA12   RDA13   RDA14   RDA15   RDA16   RDA17   RDA18   RDA19   RDA20 
+ 2.4664  2.2089  2.1287  1.9409  1.7987  1.6216  1.5787  1.4403  1.3984  1.2839 
+  RDA21   RDA22   RDA23   RDA24   RDA25   RDA26   RDA27   RDA28   RDA29   RDA30 
+ 1.2108  1.1335  1.0011  0.9230  0.8625  0.7880  0.7497  0.7122  0.6847  0.6110 
+  RDA31   RDA32   RDA33   RDA34   RDA35   RDA36   RDA37   RDA38   RDA39   RDA40 
+ 0.5844  0.5369  0.5159  0.4416  0.4174  0.4036  0.3678  0.3397  0.3391  0.3055 
+  RDA41   RDA42   RDA43   RDA44 
+ 0.2788  0.2714  0.2046  0.1790 
 
 Eigenvalues for unconstrained axes:
    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 
@@ -5745,10 +5832,10 @@ Eigenvalues for constrained axes:
 0.24932 0.12090 0.08160 0.05904 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
-0.30637 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871 0.03758 0.03106 0.02102 
-   CA11    CA12 
-0.01254 0.00928 
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
+     CA9     CA10     CA11     CA12 
+0.031058 0.021024 0.012542 0.009277 
 
 > cca(fitted(mod))
 Call: cca(X = fitted(mod))
@@ -5771,10 +5858,10 @@ Unconstrained  0.9761   12
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for unconstrained axes:
-    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
-0.30637 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871 0.03758 0.03106 0.02102 
-   CA11    CA12 
-0.01254 0.00928 
+     CA1      CA2      CA3      CA4      CA5      CA6      CA7      CA8 
+0.306366 0.131911 0.115157 0.109469 0.077242 0.075754 0.048714 0.037582 
+     CA9     CA10     CA11     CA12 
+0.031058 0.021024 0.012542 0.009277 
 
 > # Remove rare species (freq==1) from 'cca' and find their scores
 > # 'passively'.
@@ -5837,6 +5924,7 @@ Chealb  1.5737337 0.7842538 -0.5503660 -0.35108333
 > ### Aliases: procrustes summary.procrustes plot.procrustes
 > ###   points.procrustes text.procrustes lines.procrustes
 > ###   residuals.procrustes fitted.procrustes predict.procrustes protest
+> ###   print.protest
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -5852,7 +5940,7 @@ Call:
 procrustes(X = mds.alt, Y = mds.null) 
 
 Procrustes sum of squares:
-13.14 
+13.11 
 
 > summary(vare.proc)
 
@@ -5862,36 +5950,36 @@ procrustes(X = mds.alt, Y = mds.null)
 Number of objects: 24    Number of dimensions: 2 
 
 Procrustes sum of squares:  
-  13.1368 
+ 13.10751 
 Procrustes root mean squared error: 
- 0.7398422 
+ 0.739017 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
-0.02033237 0.27686842 0.34124239 0.64358542 2.23460568 
+0.02322413 0.27259237 0.34146895 0.64121655 2.23350654 
 
 Rotation matrix:
           [,1]       [,2]
-[1,] 0.9933117 -0.1154641
-[2,] 0.1154641  0.9933117
+[1,] 0.9931369 -0.1169579
+[2,] 0.1169579  0.9931369
 
 Translation of averages:
-              [,1]          [,2]
-[1,] -9.421394e-19 -8.582272e-18
+             [,1]          [,2]
+[1,] 3.893131e-18 -9.725997e-18
 
 Scaling of target:
-[1] 0.6727804
+[1] 0.6736868
 
 > plot(vare.proc)
 > plot(vare.proc, kind=2)
 > residuals(vare.proc)
         18         15         24         27         23         19         22 
-0.28003467 0.13180094 1.72990690 0.63953155 0.37177564 0.11807007 0.38558576 
+0.27803992 0.12847298 1.72993477 0.63690082 0.37244204 0.11829836 0.38555390 
         16         28         13         14         20         25          7 
-0.28008712 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
+0.27735743 1.22675827 0.65416375 0.25829720 0.02322413 0.35904126 0.28489676 
          5          6          3          4          2          9         12 
-0.69324047 0.20264726 0.29744269 0.50070811 2.23460568 0.31901411 0.21727135 
+0.69505200 0.19983445 0.29397151 0.50089415 2.23350654 0.31836035 0.21622926 
         10         11         21 
-0.32523080 0.56506437 0.78179902 
+0.32389663 0.56349530 0.77939208 
 > 
 > 
 > 
@@ -5923,14 +6011,10 @@ Scaling of target:
 > 
 > ### Name: radfit
 > ### Title: Rank - Abundance or Dominance / Diversity Models
-> ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit
-> ###   AIC.radfit.frame as.rad coef.radfit coef.radfit.frame deviance.radfit
-> ###   deviance.radfit.frame 'logLik, radfit' 'logLik, radfit.frame'
-> ###   fitted.radfit fitted.radfit.frame lines.radline lines.radfit
-> ###   plot.radfit.frame plot.radfit plot.radline plot.rad radlattice
-> ###   points.radline points.radfit summary.radfit.frame rad.preempt
-> ###   rad.lognormal rad.zipf rad.zipfbrot rad.null predict.radline
-> ###   predict.radfit predict.radfit.frame
+> ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit as.rad
+> ###   coef.radfit fitted.radfit lines.radline plot.radfit.frame plot.radfit
+> ###   plot.radline plot.rad radlattice points.radline summary.radfit.frame
+> ###   rad.preempt rad.lognormal rad.zipf rad.zipfbrot rad.null
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -6165,268 +6249,6 @@ detaching ‘package:lattice’
 > 
 > 
 > cleanEx()
-> nameEx("simper")
-> ### * simper
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: simper
-> ### Title: Similarity Percentages
-> ### Aliases: simper summary.simper
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> (sim <- with(dune.env, simper(dune, Management)))
-cumulative contributions of most influential species:
-
-$BF_SF
-    Agrsto     Alogen     Lolper     Trirep     Poatri     Leoaut     Brohor 
-0.09824271 0.18254830 0.25956958 0.33367870 0.40734444 0.47729205 0.53120026 
-    Achmil     Plalan     Elyrep     Brarut 
-0.57946526 0.62522255 0.67016196 0.71098133 
-
-$BF_HF
-    Rumace     Poatri     Plalan     Brohor     Lolper     Elyrep     Trirep 
-0.08163219 0.15193797 0.21918333 0.27967181 0.33969561 0.39843338 0.45298204 
-    Antodo     Achmil     Brarut     Alogen     Tripra     Junart 
-0.50276849 0.55222648 0.60021994 0.64584333 0.69126471 0.73366621 
-
-$BF_NM
-   Lolper    Poatri    Poapra    Trirep    Brohor    Brarut    Elepal    Agrsto 
-0.1242718 0.1992126 0.2711756 0.3414609 0.3958520 0.4448077 0.4910724 0.5369083 
-   Achmil    Leoaut    Antodo    Plalan 
-0.5823926 0.6253645 0.6638182 0.7012577 
-
-$SF_HF
-    Agrsto     Alogen     Lolper     Plalan     Rumace     Elyrep     Poatri 
-0.08350879 0.16534834 0.23934930 0.30843624 0.37716139 0.43334492 0.48351753 
-    Brarut     Elepal     Poapra     Antodo     Sagpro     Tripra 
-0.52804045 0.57205850 0.61423981 0.65549838 0.69628951 0.73696831 
-
-$SF_NM
-   Poatri    Alogen    Agrsto    Lolper    Elepal    Poapra    Brarut    Elyrep 
-0.1013601 0.1935731 0.2667383 0.3377578 0.3999419 0.4526707 0.5044725 0.5505643 
-   Leoaut    Trirep    Sagpro    Salrep 
-0.5926117 0.6320111 0.6712478 0.7091528 
-
-$HF_NM
-    Poatri     Lolper     Rumace     Poapra     Plalan     Brarut     Elepal 
-0.09913221 0.17468460 0.23917190 0.29701331 0.35469313 0.40365488 0.44804851 
-    Agrsto     Trirep     Elyrep     Antodo     Junart     Tripra     Salrep 
-0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 0.68921695 0.72432408 
-
-> summary(sim)
-
-Contrast: BF_SF 
-
-          contr       sd  ratio   av.a   av.b  cumsum
-Agrsto 0.061374 0.034193 1.7949 0.0000 4.6667 0.09824
-Alogen 0.052667 0.036476 1.4439 0.6667 4.3333 0.18255
-Lolper 0.048116 0.039445 1.2198 6.0000 3.0000 0.25957
-Trirep 0.046297 0.025525 1.8138 4.6667 1.3333 0.33368
-Poatri 0.046020 0.033801 1.3615 3.6667 4.6667 0.40734
-Leoaut 0.043697 0.024922 1.7534 4.3333 1.3333 0.47729
-Brohor 0.033677 0.025860 1.3023 2.6667 0.5000 0.53120
-Achmil 0.030152 0.020821 1.4482 2.3333 0.1667 0.57947
-Plalan 0.028585 0.021549 1.3265 2.0000 0.0000 0.62522
-Elyrep 0.028074 0.029778 0.9428 1.3333 2.0000 0.67016
-Brarut 0.025501 0.023902 1.0669 2.0000 2.0000 0.71098
-Poapra 0.025129 0.023967 1.0485 4.0000 2.5000 0.75121
-Sagpro 0.024326 0.022149 1.0983 0.6667 1.8333 0.79014
-Belper 0.019859 0.017088 1.1622 1.6667 0.6667 0.82193
-Elepal 0.018611 0.042958 0.4333 0.0000 1.3333 0.85172
-Antodo 0.017543 0.025804 0.6798 1.3333 0.0000 0.87981
-Junbuf 0.016031 0.023708 0.6762 0.0000 1.1667 0.90547
-Viclat 0.014671 0.013306 1.1026 1.0000 0.0000 0.92895
-Hyprad 0.010286 0.015198 0.6768 0.6667 0.0000 0.94542
-Ranfla 0.009306 0.013595 0.6845 0.0000 0.6667 0.96031
-Junart 0.006979 0.016109 0.4333 0.0000 0.5000 0.97148
-Calcus 0.006979 0.016109 0.4333 0.0000 0.5000 0.98266
-Rumace 0.004526 0.010444 0.4333 0.0000 0.3333 0.98990
-Cirarv 0.003983 0.009185 0.4336 0.0000 0.3333 0.99628
-Chealb 0.002326 0.005370 0.4333 0.0000 0.1667 1.00000
-Empnig 0.000000 0.000000    NaN 0.0000 0.0000 1.00000
-Airpra 0.000000 0.000000    NaN 0.0000 0.0000 1.00000
-Potpal 0.000000 0.000000    NaN 0.0000 0.0000 1.00000
-Tripra 0.000000 0.000000    NaN 0.0000 0.0000 1.00000
-Salrep 0.000000 0.000000    NaN 0.0000 0.0000 1.00000
-
-Contrast: BF_HF 
-
-          contr      sd  ratio   av.a av.b  cumsum
-Rumace 0.038666 0.02606 1.4838 0.0000  3.2 0.08163
-Poatri 0.033301 0.02579 1.2911 3.6667  4.8 0.15194
-Plalan 0.031852 0.01830 1.7401 2.0000  3.0 0.21918
-Brohor 0.028651 0.01799 1.5926 2.6667  0.8 0.27967
-Lolper 0.028431 0.02215 1.2834 6.0000  4.0 0.33970
-Elyrep 0.027822 0.02959 0.9404 1.3333  2.0 0.39843
-Trirep 0.025838 0.01656 1.5603 4.6667  2.8 0.45298
-Antodo 0.023582 0.02042 1.1547 1.3333  1.8 0.50277
-Achmil 0.023426 0.01474 1.5893 2.3333  1.2 0.55223
-Brarut 0.022733 0.01802 1.2617 2.0000  2.8 0.60022
-Alogen 0.021610 0.02308 0.9363 0.6667  1.6 0.64584
-Tripra 0.021514 0.02207 0.9747 0.0000  1.8 0.69126
-Junart 0.020084 0.02555 0.7860 0.0000  1.6 0.73367
-Leoaut 0.019318 0.01356 1.4241 4.3333  2.8 0.77445
-Belper 0.018290 0.01486 1.2305 1.6667  0.4 0.81306
-Agrsto 0.017605 0.02284 0.7708 0.0000  1.4 0.85023
-Junbuf 0.015000 0.02066 0.7260 0.0000  1.2 0.88190
-Viclat 0.012848 0.01140 1.1274 1.0000  0.0 0.90903
-Sagpro 0.011685 0.01297 0.9008 0.6667  0.8 0.93369
-Elepal 0.010169 0.02111 0.4817 0.0000  0.8 0.95516
-Hyprad 0.008950 0.01312 0.6824 0.6667  0.0 0.97406
-Poapra 0.007203 0.01010 0.7133 4.0000  3.4 0.98927
-Ranfla 0.005084 0.01055 0.4817 0.0000  0.4 1.00000
-Empnig 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Airpra 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Cirarv 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Potpal 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Calcus 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Salrep 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-Chealb 0.000000 0.00000    NaN 0.0000  0.0 1.00000
-
-Contrast: BF_NM 
-
-          contr      sd  ratio   av.a   av.b cumsum
-Lolper 0.090681 0.02644 3.4292 6.0000 0.3333 0.1243
-Poatri 0.054684 0.04465 1.2248 3.6667 0.0000 0.1992
-Poapra 0.052511 0.01813 2.8966 4.0000 0.6667 0.2712
-Trirep 0.051287 0.02756 1.8611 4.6667 1.8333 0.3415
-Brohor 0.039689 0.02920 1.3590 2.6667 0.0000 0.3959
-Brarut 0.035723 0.02869 1.2452 2.0000 2.8333 0.4448
-Elepal 0.033759 0.03573 0.9449 0.0000 2.1667 0.4911
-Agrsto 0.033446 0.03473 0.9630 0.0000 2.1667 0.5369
-Achmil 0.033190 0.02338 1.4198 2.3333 0.3333 0.5824
-Leoaut 0.031356 0.02026 1.5480 4.3333 3.1667 0.6254
-Antodo 0.028060 0.03295 0.8517 1.3333 1.3333 0.6638
-Plalan 0.027319 0.02193 1.2458 2.0000 0.8333 0.7013
-Salrep 0.026770 0.02927 0.9145 0.0000 1.8333 0.7379
-Belper 0.023529 0.01909 1.2322 1.6667 0.3333 0.7702
-Hyprad 0.021721 0.02450 0.8864 0.6667 1.1667 0.8000
-Ranfla 0.020314 0.02275 0.8928 0.0000 1.3333 0.8278
-Elyrep 0.019993 0.02926 0.6833 1.3333 0.0000 0.8552
-Calcus 0.017833 0.02681 0.6653 0.0000 1.1667 0.8796
-Junart 0.017694 0.02600 0.6806 0.0000 1.1667 0.9039
-Viclat 0.015773 0.01447 1.0902 1.0000 0.1667 0.9255
-Sagpro 0.015432 0.01857 0.8310 0.6667 0.5000 0.9466
-Airpra 0.013410 0.01969 0.6809 0.0000 0.8333 0.9650
-Potpal 0.010739 0.01571 0.6835 0.0000 0.6667 0.9797
-Alogen 0.009997 0.01463 0.6833 0.6667 0.0000 0.9934
-Empnig 0.004787 0.01105 0.4332 0.0000 0.3333 1.0000
-Junbuf 0.000000 0.00000    NaN 0.0000 0.0000 1.0000
-Rumace 0.000000 0.00000    NaN 0.0000 0.0000 1.0000
-Cirarv 0.000000 0.00000    NaN 0.0000 0.0000 1.0000
-Tripra 0.000000 0.00000    NaN 0.0000 0.0000 1.0000
-Chealb 0.000000 0.00000    NaN 0.0000 0.0000 1.0000
-
-Contrast: SF_HF 
-
-          contr       sd  ratio   av.a av.b  cumsum
-Agrsto 0.047380 0.031273 1.5151 4.6667  1.4 0.08351
-Alogen 0.046433 0.032897 1.4115 4.3333  1.6 0.16535
-Lolper 0.041986 0.027007 1.5546 3.0000  4.0 0.23935
-Plalan 0.039198 0.033208 1.1804 0.0000  3.0 0.30844
-Rumace 0.038992 0.027369 1.4247 0.3333  3.2 0.37716
-Elyrep 0.031877 0.029550 1.0787 2.0000  2.0 0.43334
-Poatri 0.028466 0.021522 1.3227 4.6667  4.8 0.48352
-Brarut 0.025261 0.021044 1.2004 2.0000  2.8 0.52804
-Elepal 0.024974 0.038877 0.6424 1.3333  0.8 0.57206
-Poapra 0.023932 0.019180 1.2478 2.5000  3.4 0.61424
-Antodo 0.023409 0.021430 1.0923 0.0000  1.8 0.65550
-Sagpro 0.023144 0.020479 1.1301 1.8333  0.8 0.69629
-Tripra 0.023080 0.023432 0.9850 0.0000  1.8 0.73697
-Junart 0.022850 0.025677 0.8899 0.5000  1.6 0.77724
-Trirep 0.022383 0.019487 1.1486 1.3333  2.8 0.81669
-Junbuf 0.021643 0.022237 0.9733 1.1667  1.2 0.85484
-Leoaut 0.020509 0.016422 1.2489 1.3333  2.8 0.89099
-Achmil 0.015183 0.011393 1.3326 0.1667  1.2 0.91775
-Brohor 0.013375 0.014504 0.9222 0.5000  0.8 0.94132
-Ranfla 0.010661 0.013387 0.7964 0.6667  0.4 0.96011
-Belper 0.009991 0.012571 0.7948 0.6667  0.4 0.97772
-Calcus 0.006623 0.015076 0.4393 0.5000  0.0 0.98939
-Cirarv 0.003809 0.008669 0.4394 0.3333  0.0 0.99611
-Chealb 0.002208 0.005025 0.4393 0.1667  0.0 1.00000
-Empnig 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-Airpra 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-Viclat 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-Hyprad 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-Potpal 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-Salrep 0.000000 0.000000    NaN 0.0000  0.0 1.00000
-
-Contrast: SF_NM 
-
-          contr       sd  ratio   av.a   av.b cumsum
-Poatri 0.078284 0.040947 1.9118 4.6667 0.0000 0.1014
-Alogen 0.071219 0.046958 1.5167 4.3333 0.0000 0.1936
-Agrsto 0.056508 0.044176 1.2792 4.6667 2.1667 0.2667
-Lolper 0.054851 0.059914 0.9155 3.0000 0.3333 0.3378
-Elepal 0.048027 0.047168 1.0182 1.3333 2.1667 0.3999
-Poapra 0.040724 0.031790 1.2810 2.5000 0.6667 0.4527
-Brarut 0.040008 0.034398 1.1631 2.0000 2.8333 0.5045
-Elyrep 0.035598 0.038515 0.9243 2.0000 0.0000 0.5506
-Leoaut 0.032475 0.034813 0.9328 1.3333 3.1667 0.5926
-Trirep 0.030430 0.031634 0.9619 1.3333 1.8333 0.6320
-Sagpro 0.030304 0.030477 0.9943 1.8333 0.5000 0.6712
-Salrep 0.029275 0.032014 0.9144 0.0000 1.8333 0.7092
-Antodo 0.024541 0.036694 0.6688 0.0000 1.3333 0.7409
-Calcus 0.022763 0.029443 0.7731 0.5000 1.1667 0.7704
-Ranfla 0.022566 0.022819 0.9889 0.6667 1.3333 0.7996
-Junart 0.022543 0.028598 0.7883 0.5000 1.1667 0.8288
-Hyprad 0.020108 0.031291 0.6426 0.0000 1.1667 0.8548
-Junbuf 0.019860 0.029034 0.6840 1.1667 0.0000 0.8806
-Plalan 0.015420 0.022769 0.6772 0.0000 0.8333 0.9005
-Airpra 0.014883 0.021881 0.6802 0.0000 0.8333 0.9198
-Belper 0.012317 0.015921 0.7737 0.6667 0.3333 0.9357
-Potpal 0.011883 0.017407 0.6826 0.0000 0.6667 0.9511
-Achmil 0.009294 0.014931 0.6224 0.1667 0.3333 0.9632
-Brohor 0.007172 0.016333 0.4391 0.5000 0.0000 0.9724
-Rumace 0.005590 0.012751 0.4384 0.3333 0.0000 0.9797
-Empnig 0.005225 0.012001 0.4354 0.0000 0.3333 0.9864
-Cirarv 0.004782 0.010889 0.4391 0.3333 0.0000 0.9926
-Chealb 0.002893 0.006602 0.4382 0.1667 0.0000 0.9964
-Viclat 0.002792 0.006425 0.4345 0.0000 0.1667 1.0000
-Tripra 0.000000 0.000000    NaN 0.0000 0.0000 1.0000
-
-Contrast: HF_NM 
-
-          contr       sd  ratio av.a   av.b  cumsum
-Poatri 0.071553 0.013681 5.2302  4.8 0.0000 0.09913
-Lolper 0.054533 0.029625 1.8408  4.0 0.3333 0.17468
-Rumace 0.046546 0.030806 1.5109  3.2 0.0000 0.23917
-Poapra 0.041750 0.018852 2.2146  3.4 0.6667 0.29701
-Plalan 0.041633 0.029560 1.4084  3.0 0.8333 0.35469
-Brarut 0.035340 0.020104 1.7579  2.8 2.8333 0.40365
-Elepal 0.032043 0.032315 0.9916  0.8 2.1667 0.44805
-Agrsto 0.031915 0.028887 1.1048  1.4 2.1667 0.49227
-Trirep 0.030372 0.022871 1.3280  2.8 1.8333 0.53434
-Elyrep 0.029811 0.038676 0.7708  2.0 0.0000 0.57565
-Antodo 0.028717 0.024799 1.1580  1.8 1.3333 0.61543
-Junart 0.027414 0.028537 0.9607  1.6 1.1667 0.65341
-Tripra 0.025843 0.025972 0.9951  1.8 0.0000 0.68922
-Salrep 0.025340 0.027291 0.9285  0.0 1.8333 0.72432
-Alogen 0.024459 0.032399 0.7549  1.6 0.0000 0.75821
-Leoaut 0.020703 0.014125 1.4658  2.8 3.1667 0.78689
-Ranfla 0.019285 0.019939 0.9672  0.4 1.3333 0.81361
-Junbuf 0.018181 0.024648 0.7376  1.2 0.0000 0.83880
-Hyprad 0.017141 0.026548 0.6457  0.0 1.1667 0.86255
-Calcus 0.016833 0.024901 0.6760  0.0 1.1667 0.88587
-Achmil 0.016555 0.014900 1.1111  1.2 0.3333 0.90881
-Sagpro 0.015282 0.016535 0.9243  0.8 0.5000 0.92998
-Airpra 0.012605 0.018243 0.6910  0.0 0.8333 0.94744
-Brohor 0.012094 0.015169 0.7973  0.8 0.0000 0.96420
-Potpal 0.010105 0.014556 0.6942  0.0 0.6667 0.97820
-Belper 0.008801 0.013732 0.6409  0.4 0.3333 0.99039
-Empnig 0.004536 0.010325 0.4393  0.0 0.3333 0.99668
-Viclat 0.002399 0.005461 0.4393  0.0 0.1667 1.00000
-Cirarv 0.000000 0.000000    NaN  0.0 0.0000 1.00000
-Chealb 0.000000 0.000000    NaN  0.0 0.0000 1.00000
-> 
-> 
-> 
-> cleanEx()
 > nameEx("simulate.rda")
 > ### * simulate.rda
 > 
@@ -6459,19 +6281,14 @@ Eigenvalues for constrained axes:
 26.706 16.538  8.096  4.667  3.374  2.877 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
-5.277 4.070 3.255 2.462 2.341 1.917 1.665 1.303 1.077 0.770 0.670 0.540 0.177 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+5.2767 4.0703 3.2553 2.4618 2.3414 1.9173 1.6654 1.3028 1.0773 0.7701 0.6705 
+  PC12   PC13 
+0.5398 0.1766 
 
 > ## An impression of confidence regions of site scores
 > plot(mod, display="sites")
 > for (i in 1:5) lines(procrustes(mod, update(mod, simulate(mod) ~ .)), col="blue")
-> ## Simulate a set of null communities with permutation of residuals
-> simulate(mod, indx = shuffleSet(nrow(dune), 99))
-An object of class “simulate.rda” 
-‘simulate index’ method (abundance, non-sequential)
-20 x 30 matrix
-Number of permuted matrices = 99 
-
 > 
 > 
 > 
@@ -6545,8 +6362,8 @@ detaching ‘package:MASS’
 > ### Name: specaccum
 > ### Title: Species Accumulation Curves
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
-> ###   lines.specaccum boxplot.specaccum fitspecaccum plot.fitspecaccum
-> ###   lines.fitspecaccum predict.specaccum predict.fitspecaccum
+> ###   boxplot.specaccum fitspecaccum plot.fitspecaccum predict.specaccum
+> ###   predict.fitspecaccum
 > ### Keywords: univar models
 > 
 > ### ** Examples
@@ -6560,34 +6377,42 @@ Species Accumulation Curve
 Accumulation method: random, with 100 permutations
 Call: specaccum(comm = BCI, method = "random") 
 
-                                                                             
-Sites     1.00000   2.00000   3.00000   4.00000   5.00000   6.00000   7.00000
-Richness 91.34000 121.01000 138.72000 150.54000 159.54000 166.50000 171.82000
-sd        7.21001   6.92892   6.74811   6.50939   6.12565   5.93483   5.60371
-                                                                              
-Sites      8.00000   9.00000  10.00000  11.00000  12.00000  13.00000  14.00000
-Richness 176.18000 179.79000 182.73000 185.95000 188.59000 191.08000 193.10000
-sd         5.18229   5.12923   5.17542   4.71913   4.52177   4.42144   4.37278
-                                                                             
-Sites     15.00000  16.00000  17.0000  18.00000  19.00000  20.00000  21.00000
-Richness 194.92000 196.87000 198.2700 199.67000 201.00000 202.47000 203.95000
-sd         4.52754   4.42138   4.2873   4.03283   4.00505   3.96819   3.95269
-                                                                            
-Sites     22.00000  23.0000  24.00000  25.00000  26.00000  27.00000  28.0000
-Richness 205.18000 206.2100 207.23000 208.38000 209.39000 210.54000 211.4300
-sd         3.77493   3.6826   3.70055   3.32356   3.32391   3.31638   3.1567
-                                                                             
-Sites     29.0000  30.00000  31.00000  32.00000  33.00000  34.00000  35.00000
-Richness 212.2900 213.23000 214.10000 214.88000 215.62000 216.37000 217.00000
-sd         3.0987   2.95712   2.76157   2.57525   2.52974   2.58846   2.48633
-                                                                              
-Sites     36.00000  37.00000  38.00000  39.00000  40.00000  41.00000  42.00000
-Richness 217.55000 218.16000 218.77000 219.34000 219.97000 220.60000 221.21000
-sd         2.37144   2.36438   2.21042   2.04109   2.07172   1.96433   1.94518
-                                                                               
-Sites     43.00000  44.00000  45.00  46.00000  47.00000  48.00000  49.00000  50
-Richness 221.85000 222.36000 222.89 223.32000 223.71000 224.17000 224.65000 225
-sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
+                                                                        
+Sites     1.00000   2.000000   3.000000   4.000000   5.000000   6.000000
+Richness 91.34000 121.010000 138.720000 150.540000 159.540000 166.500000
+sd        7.21001   6.928925   6.748109   6.509387   6.125654   5.934831
+                                                                          
+Sites      7.000000   8.000000   9.000000  10.000000  11.000000  12.000000
+Richness 171.820000 176.180000 179.790000 182.730000 185.950000 188.590000
+sd         5.603714   5.182293   5.129229   5.175418   4.719131   4.521766
+                                                                          
+Sites     13.000000  14.000000  15.000000  16.000000  17.000000  18.000000
+Richness 191.080000 193.100000 194.920000 196.870000 198.270000 199.670000
+sd         4.421435   4.372781   4.527536   4.421378   4.287296   4.032832
+                                                                          
+Sites     19.000000  20.000000  21.000000  22.000000  23.000000  24.000000
+Richness 201.000000 202.470000 203.950000 205.180000 206.210000 207.230000
+sd         4.005047   3.968194   3.952687   3.774931   3.682596   3.700546
+                                                                          
+Sites     25.000000  26.000000  27.000000  28.000000  29.000000  30.000000
+Richness 208.380000 209.390000 210.540000 211.430000 212.290000 213.230000
+sd         3.323561   3.323911   3.316381   3.156699   3.098696   2.957118
+                                                                          
+Sites     31.000000  32.000000  33.000000  34.000000  35.000000  36.000000
+Richness 214.100000 214.880000 215.620000 216.370000 217.000000 217.550000
+sd         2.761569   2.575251   2.529742   2.588455   2.486326   2.371442
+                                                                          
+Sites     37.000000  38.000000  39.000000  40.000000  41.000000  42.000000
+Richness 218.160000 218.770000 219.340000 219.970000 220.600000 221.210000
+sd         2.364382   2.210421   2.041093   2.071719   1.964328   1.945183
+                                                                      
+Sites     43.000000  44.00000  45.00  46.000000  47.000000  48.0000000
+Richness 221.850000 222.36000 222.89 223.320000 223.710000 224.1700000
+sd         1.771691   1.58605   1.49   1.476277   1.208514   0.9749903
+                        
+Sites     49.0000000  50
+Richness 224.6500000 225
+sd         0.6092718   0
 > summary(sp2)
  1 sites          2 sites         3 sites         4 sites        
  Min.   : 77.00   Min.   :105.0   Min.   :123.0   Min.   :135.0  
@@ -6855,29 +6680,6 @@ Stepping across 190 dissimilarities...
 > 
 > 
 > cleanEx()
-> nameEx("stressplot.wcmdscale")
-> ### * stressplot.wcmdscale
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: stressplot.wcmdscale
-> ### Title: Display Ordination Distances Against Observed Distances in
-> ###   Eigenvector Ordinations
-> ### Aliases: stressplot.wcmdscale stressplot.cca stressplot.rda
-> ###   stressplot.capscale stressplot.prcomp stressplot.princomp
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> data(dune, dune.env)
-> mod <- rda(dune)
-> stressplot(mod)
-> mod <- rda(dune ~ Management, dune.env)
-> stressplot(mod, k=3)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("taxondive")
 > ### * taxondive
 > 
@@ -7067,36 +6869,31 @@ Scaling: 2
 > ## Significance test using Null model communities.
 > ## The current choice fixes only site totals.
 > oecosimu(dune, treedive, "r0", tree = cl)
-oecosimu object
+oecosimu with 99 simulations
+simulation method r0
+alternative hypothesis: true mean is not equal to the statistic
 
-Call: oecosimu(comm = dune, nestfun = treedive, method = "r0", tree =
-cl)
-
-nullmodel method ‘r0’ with 99 simulations
-
-alternative hypothesis: simulated median is not equal to the statistic
-
-   statistic         z   mean   2.5%    50%  97.5% Pr(sim.)   
-2     411.98 -3.174838 580.78 462.37 577.88 673.73     0.01 **
-13    548.85 -0.391605 569.18 464.45 565.90 664.40     0.71   
-4     606.91 -1.670683 693.49 584.49 694.01 791.24     0.13   
-16    479.26 -0.364249 500.03 364.52 502.30 591.24     0.53   
-6     572.35 -0.652353 610.06 510.25 609.22 717.05     0.63   
-1     249.31 -2.584802 362.63 264.70 367.28 435.37     0.05 * 
-8     692.17  0.891185 646.01 550.28 643.78 747.93     0.45   
-5     640.09 -1.331165 720.26 613.87 724.88 830.41     0.25   
-17    341.94 -2.279642 449.35 373.27 441.47 538.59     0.03 * 
-15    599.54  1.874784 494.62 395.85 491.71 599.54     0.09 . 
-10    563.59 -1.618219 648.58 553.80 660.83 723.46     0.11   
-11    564.06  0.531521 534.78 418.43 536.41 634.15     0.77   
-9     625.81 -1.015424 685.40 548.39 694.01 778.80     0.31   
-18    543.32  0.090292 538.71 411.82 543.32 626.68     1.00   
-3     489.40 -1.486983 575.24 460.48 567.28 673.73     0.15   
-20    578.80  1.595836 500.98 408.71 495.39 585.65     0.11   
-14    547.93  1.912479 457.16 370.97 462.21 544.19     0.07 . 
-19    593.09  0.978571 538.05 439.17 527.19 642.86     0.49   
-12    572.35  0.797098 531.20 425.46 527.19 642.86     0.33   
-7     646.54 -0.606963 678.97 576.15 681.57 770.51     0.53   
+   statistic         z      2.5%       50%  97.5% Pr(sim.)   
+2  411.98157  -2.99423 478.34101 575.57604 673.73     0.01 **
+13 548.84793  -0.51412 473.54839 574.19355 678.29     0.57   
+4  606.91244  -1.28888 569.12442 694.00922 791.24     0.23   
+16 479.26267  -0.15414 364.51613 491.70507 591.24     0.93   
+6  572.35023  -0.84373 502.18894 619.81567 711.45     0.51   
+1  249.30876  -2.28880 267.74194 367.28111 444.70     0.05 * 
+8  692.16590   0.95083 552.53456 642.39631 744.19     0.33   
+5  640.09217  -1.68020 627.14286 724.88479 798.69     0.09 . 
+17 341.93548  -2.06383 362.67281 441.47465 544.19     0.03 * 
+15 599.53917   2.12165 384.23963 493.08756 575.07     0.03 * 
+10 563.59447  -1.61592 545.27650 650.69124 739.63     0.15   
+11 564.05530   0.54226 436.86636 535.02304 647.42     0.77   
+9  625.80645  -1.24238 596.26728 693.08756 795.81     0.27   
+18 543.31797   0.16005 431.29032 543.31797 622.12     1.00   
+3  489.40092  -1.54810 488.47926 565.89862 649.26     0.11   
+20 578.80184   1.71999 393.54839 493.08756 575.07     0.07 . 
+14 547.92627   2.07286 362.67281 448.38710 539.63     0.05 * 
+19 593.08756   1.02914 431.29032 543.31797 622.12     0.49   
+12 572.35023   0.73286 426.72811 543.31797 622.12     0.51   
+7  646.54378  -0.67463 581.15207 683.41014 776.11     0.65   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Clustering of tree distances
@@ -7266,35 +7063,23 @@ Individual fractions
 [d] = Residuals                         0.46206    FALSE
 ---
 Use function 'rda' to test significance of fractions of interest
-> 
-> ## argument 'bg' is passed to circle drawing, and the following
-> ## defines semitransparent colours
-> col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
-> showvarparts(2, bg = col2)
-> plot(mod, bg = col2)
+> showvarparts(2)
+> plot(mod)
 > # Alternative way of to conduct this partitioning
 > # Change the data frame with factors into numeric model matrix
 > mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
 > mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-> # Test fraction [a] using partial RDA:
-> aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
-> anova(aFrac, step=200, perm.max=200)
+> # Test fraction [a] using RDA:
+> rda.result <- rda(decostand(mite, "hell"), mm, mite.pcnm)
+> anova(rda.result, step=200, perm.max=200)
 Permutation test for rda under reduced model
 
-Model: rda(X = decostand(mite, "hel"), Y = mm, Z = mite.pcnm)
+Model: rda(X = decostand(mite, "hell"), Y = mm, Z = mite.pcnm)
          Df      Var      F N.Perm Pr(>F)   
 Model    11 0.053592 1.8453    199  0.005 **
 Residual 36 0.095050                        
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
-> # RsquareAdj gives the same result as component [a] of varpart
-> RsquareAdj(aFrac)
-$r.squared
-[1] 0.1359251
-
-$adj.r.squared
-[1] 0.09140797
-
 > 
 > # Three explanatory matrices 
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
@@ -7477,28 +7262,28 @@ Use function 'rda' to test significance of fractions of interest
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
-Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
-Run 3 stress 0.2313231 
-Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
+Run 0 stress 0.1843204 
+Run 1 stress 0.2455937 
+Run 2 stress 0.2169416 
+Run 3 stress 0.2313238 
+Run 4 stress 0.1974421 
+Run 5 stress 0.1858424 
+Run 6 stress 0.1948436 
+Run 7 stress 0.2265718 
+Run 8 stress 0.2225085 
+Run 9 stress 0.2023228 
 Run 10 stress 0.2673177 
-Run 11 stress 0.1976151 
-Run 12 stress 0.1852397 
+Run 11 stress 0.1976154 
+Run 12 stress 0.1852405 
 Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
-Run 17 stress 0.1825658 
+Run 14 stress 0.1955872 
+Run 15 stress 0.2137414 
+Run 16 stress 0.2109643 
+Run 17 stress 0.1825664 
 ... New best solution
-... procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
+... procrustes: rmse 0.0421789  max resid 0.1544029 
+Run 18 stress 0.1843199 
+Run 19 stress 0.2570123 
 Run 20 stress 0.3760596 
 > plot(ord, type = "t")
 > ## Fit environmental variables
@@ -7508,20 +7293,20 @@ Run 20 stress 0.3760596
 ***VECTORS
 
              NMDS1     NMDS2     r2 Pr(>r)    
-N        -0.057194 -0.998363 0.2537  0.046 *  
-P         0.619593  0.784923 0.1938  0.103    
-K         0.766293  0.642492 0.1809  0.143    
-Ca        0.685057  0.728489 0.4119  0.008 ** 
-Mg        0.632400  0.774642 0.4271  0.004 ** 
-S         0.191230  0.981545 0.1752  0.140    
-Al       -0.871691  0.490056 0.5269  0.001 ***
-Fe       -0.936135  0.351641 0.4451  0.002 ** 
-Mn        0.798733 -0.601685 0.5230  0.001 ***
-Zn        0.617495  0.786575 0.1879  0.125    
-Mo       -0.903045  0.429546 0.0609  0.537    
-Baresoil  0.925034 -0.379885 0.2508  0.039 *  
-Humdepth  0.932909 -0.360112 0.5200  0.002 ** 
-pH       -0.648094  0.761560 0.2308  0.060 .  
+N        -0.056188 -0.998420 0.2542  0.046 *  
+P         0.618628  0.785684 0.1936  0.103    
+K         0.765142  0.643862 0.1809  0.143    
+Ca        0.683985  0.729496 0.4120  0.008 ** 
+Mg        0.631457  0.775411 0.4273  0.004 ** 
+S         0.190091  0.981767 0.1754  0.140    
+Al       -0.872443  0.488715 0.5270  0.001 ***
+Fe       -0.937013  0.349294 0.4452  0.002 ** 
+Mn        0.799058 -0.601253 0.5228  0.001 ***
+Zn        0.616932  0.787017 0.1878  0.125    
+Mo       -0.903112  0.429406 0.0609  0.539    
+Baresoil  0.926090 -0.377302 0.2509  0.038 *  
+Humdepth  0.933540 -0.358473 0.5198  0.002 ** 
+pH       -0.648970  0.760814 0.2306  0.060 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 P values based on 999 permutations.
@@ -7562,14 +7347,14 @@ Inertia is variance
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
-22.396 16.208  7.039  4.038  3.760  2.609  2.167  1.803  1.404  0.917  0.582 
- RDA12 
- 0.284 
+   RDA1    RDA2    RDA3    RDA4    RDA5    RDA6    RDA7    RDA8    RDA9   RDA10 
+22.3955 16.2076  7.0389  4.0380  3.7602  2.6087  2.1669  1.8033  1.4042  0.9174 
+  RDA11   RDA12 
+ 0.5815  0.2839 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7 
-6.627 4.309 3.549 2.546 2.340 0.934 0.612 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7 
+6.6269 4.3091 3.5491 2.5465 2.3403 0.9335 0.6121 
 
 > plot(mod1)
 > ## Automatic selection of variables by permutation P-values
@@ -7628,8 +7413,10 @@ Eigenvalues for constrained axes:
 21.588 14.075  4.123  3.163  2.369  1.107 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
-8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+8.2409 7.1380 5.3547 4.4086 3.1430 2.7697 1.8779 1.7409 0.9517 0.9088 0.6265 
+  PC12   PC13 
+0.3107 0.2273 
 
 > plot(mod)
 > ## Permutation test for all variables
@@ -7665,14 +7452,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 Loading required package: mgcv
-This is mgcv 1.7-22. For overview type 'help("mgcv-package")'.
+This is mgcv 1.7-6. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = knots)
-<environment: 0x10b1dddf8>
+<environment: 0x106f06710>
 
 Estimated degrees of freedom:
 2  total = 3 
@@ -7684,8 +7471,6 @@ GCV score: 0.07246275
 
 Call:
 adonis(formula = dune ~ ., data = dune.env) 
-
-Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
 A1          1    0.7230 0.72295  5.2038 0.16817  0.002 **
@@ -7701,8 +7486,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Call:
 adonis(formula = dune ~ Management + Moisture, data = dune.env) 
-
-Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 Management  3    1.4686 0.48953  3.7907 0.34161  0.001 ***
@@ -7781,9 +7564,9 @@ Warning: non-integer data: divided by smallest positive value
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: vegemite
-> ### Title: Display Compact Ordered Community Tables
-> ### Aliases: vegemite tabasco coverscale
-> ### Keywords: print manip hplot
+> ### Title: Prints a Compact, Ordered Vegetation Table
+> ### Aliases: vegemite coverscale
+> ### Keywords: print manip
 > 
 > ### ** Examples
 > 
@@ -7921,7 +7704,7 @@ scale:  Hill
   sites species 
       5      37 
 scale:  Braun.Blanquet 
-> ## Re-create previous
+> # Re-create previous
 > vegemite(varespec, sp=sel$sp, site=sel$site, scale="Hult")
               
           1 12
@@ -7966,78 +7749,6 @@ scale:  Braun.Blanquet
   sites species 
       5      37 
 scale:  Hult 
-> ## Re-order clusters by ordination
-> clus <- as.dendrogram(clus)
-> clus <- reorder(clus, scores(dca, choices=1, display="sites"), agglo.FUN = mean)
-> vegemite(varespec, clus, scale = "Hult")
-                                 
-           1   111  1211221212222
-         431567380922149306254578
- Cet.niv 21.111.111....11........
- Cla.ama .1.1...1................
- Ste.sp  111211111....111.1.111.1
- Pol.pil ..111..1......111..1....
- Dip.mon .1...111.1...........1..
- Cla.phy ..1.....11...1..........
- Cla.ran 344544332133111223121121
- Cla.cer 1.........1..........1..
- Cla.ste 454121215555213111111.1.
- Cla.arb 322344331111132222121111
- Vac.uli 11...2.1........1.1..111
- Cal.vul 111.1.311.11.1..11111...
- Ich.eri ...1.1.......1...1......
- Cla.sp  1...1.11.1......111..11.
- Cla.coc 1111111111...1111111.1.1
- Pin.syl 1.111.1111111111111111.1
- Cla.chl .1..111.111.1.11..1.1...
- Cet.isl 1.1...1.11.111...1.111.1
- Cla.fim 11.11111111111111111.111
- Pel.aph ..1...11.......1.....11.
- Cet.eri 11.1111111...1..111111..
- Cla.gra 11111111.111111111111111
- Poh.nut 111..11111.1111111111.11
- Pti.cil .11.1.11.11.2.11.1111111
- Bar.lyc ......1.....1.11......1.
- Cla.cor 111111111111111111111111
- Vac.vit 113122132323412331223232
- Cla.cri 111111111111111111111111
- Emp.nig 111111122122312322111231
- Cla.bot ......1.....1.111...1.11
- Bet.pub ............1.....1..1..
- Cla.unc 111111111111131111112111
- Cla.def 11.111111111111111111111
- Dic.pol ..11.1..11..1.1111.11..1
- Pol.com ............111......11.
- Led.pal ......1.....1.....1...11
- Pol.jun 1.111111111.111111.112.1
- Dic.fus 11111111111112111442.211
- Ple.sch 113111111111123333444455
- Vac.myr ......1..1..311..111..13
- Nep.arc .1...1.1........1....1..
- Dic.sp  ......1....11...111133.1
- Des.fle 1....1......1.1...1..111
- Hyl.spl ................1....122
-  sites species 
-     24      44 
-scale:  Hult 
-> 
-> ## Abundance values have such a wide range that they must be rescaled
-> ## or all abundances will not be shown in tabasco
-> tabasco(decostand(varespec, "log"), dca)
-Warning: non-integer data: divided by smallest positive value
-> 
-> ## Classification trees for species
-> data(dune, dune.taxon)
-> taxontree <- hclust(taxa2dist(dune.taxon))
-> plotree <- hclust(vegdist(dune), "average")
-> ## Automatic reordering of clusters
-> tabasco(dune, plotree, sp.ind = taxontree)
-> ## No reordering of taxonomy
-> tabasco(dune, plotree, sp.ind = taxontree, Colv = FALSE)
-> ## Species cluster: most dissimilarity indices do a bad job when
-> ## comparing rare and common species, but Raup-Crick makes sense
-> sptree <- hclust(vegdist(t(dune), "raup"), "average")
-> tabasco(dune, plotree, sptree)
 > 
 > 
 > 
@@ -8175,7 +7886,7 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > 
 > ### Name: wcmdscale
 > ### Title: Weighted Classical (Metric) Multidimensional Scaling
-> ### Aliases: wcmdscale scores.wcmdscale plot.wcmdscale
+> ### Aliases: wcmdscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8191,13 +7902,13 @@ Cla.phy  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--9.992007e-16 -1.665335e-16  6.661338e-16 -3.330669e-16 -1.110223e-16 
+-7.771561e-16 -2.220446e-16  6.106227e-16 -3.608225e-16 -1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 2.775558e-17  1.249001e-16  1.387779e-17  1.387779e-17  1.249001e-16 
+ 1.387779e-17  9.714451e-17  1.387779e-17  2.775558e-17  1.318390e-16 
          CA11          CA12          CA13          CA14          CA15 
- 8.326673e-17  6.938894e-18 -1.387779e-17  2.775558e-17  0.000000e+00 
+ 9.714451e-17  6.938894e-18 -6.938894e-18  3.122502e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--3.295975e-17  2.428613e-17  2.949030e-17  5.637851e-18 
+-3.295975e-17  2.428613e-17  2.862294e-17  5.637851e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8206,7 +7917,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
 
 Procrustes sum of squares:
--4.263e-14 
+    0 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling=1))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8224,7 +7935,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  84.211 1.577 87.547 0 0 
+Time elapsed:  124.131 1.575 130.101 0 0 
 > grDevices::dev.off()
 null device 
           1 
