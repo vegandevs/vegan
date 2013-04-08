@@ -260,7 +260,7 @@ boxplot(mod)
 scrs <- scores(mod)
 str(scrs)
 head(scores(mod, 1:4, display = "sites"))
-# group centroids/mediods 
+# group centroids/medoids 
 scores(mod, 1:4, display = "centroids")
 # eigenvalues from the underlying principal coordinates analysis
 eigenvals(mod) 

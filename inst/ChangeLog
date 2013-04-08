@@ -8,7 +8,7 @@ Version 2.1-28 (opened March 17, 2013)
 	one group (i.e., in estimating the overall beta diversity in the
 	data). Reported by Pierre Legendre.
 
-	Now correctly reports distance to "mediod" in the print method
+	Now correctly reports distance to "medoid" in the print method
 	when type = "median". Reported by Pierre Legendre. The print
 	method also now shows only the first 8 eigenvalues.
 
