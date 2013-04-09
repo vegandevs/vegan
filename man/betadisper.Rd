@@ -6,6 +6,7 @@
 \alias{plot.betadisper}
 \alias{boxplot.betadisper}
 \alias{TukeyHSD.betadisper}
+\alias{eigenvals.betadisper}
 \alias{ordimedian}
 
 \title{Multivariate homogeneity of groups dispersions (variances)}
@@ -32,6 +33,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \method{scores}{betadisper}(x, display = c("sites", "centroids"),
        choices = c(1,2), \dots)
+
+\method{eigenvals}{betadisper}(x, \dots)
 
 \method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7, hull = TRUE,
      ylab, xlab, main, sub, \dots)
@@ -160,6 +163,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   The \code{boxplot} function invisibly returns a list whose components
   are documented in \code{\link[graphics]{boxplot}}.
 
+  \code{eigenvals.betadisper} returns a named vector of eigenvalues.
+
   \code{TukeyHSD.betadisper} returns a list. See \code{\link{TukeyHSD}}
   for further details.
 
@@ -251,6 +256,23 @@ plot(mod, axes = c(3,1))
 ## Draw a boxplot of the distances to centroid for each group
 boxplot(mod)
 
+## `scores` and `eigenvals` also work
+scrs <- scores(mod)
+str(scrs)
+head(scores(mod, 1:4, display = "sites"))
+# group centroids/medoids 
+scores(mod, 1:4, display = "centroids")
+# eigenvalues from the underlying principal coordinates analysis
+eigenvals(mod) 
+
+## try out bias correction; compare with mod3
+(mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
+
+## should always work for a single group
+group <- factor(rep("grazed", NROW(varespec)))
+(tmp <- betadisper(dis, group, type = "median"))
+(tmp <- betadisper(dis, group, type = "centroid"))
+
 ## simulate missing values in 'd' and 'group'
 ## using spatial medians
 groups[c(2,20)] <- NA
@@ -271,9 +293,6 @@ anova(mod3)
 plot(mod3)
 boxplot(mod3)
 plot(TukeyHSD(mod3))
-
-## try out bias correction; compare with mod3
-(mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
 
 }
 \keyword{methods}

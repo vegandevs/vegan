@@ -152,6 +152,7 @@ S3method(deviance, radfit.frame)
 # drop1: stats
 S3method(drop1, cca)
 # eigenvals: vegan
+S3method(eigenvals, betadisper)
 S3method(eigenvals, cca)
 S3method(eigenvals, default)
 S3method(eigenvals, dudi)

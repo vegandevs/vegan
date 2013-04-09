@@ -18,6 +18,18 @@
         spMedNeg <- ordimedian(vectors, group, choices = axes[!pos])
         cbind(spMedPos, spMedNeg)
     }
+    ## inline function for centroids
+    centroidFUN <- function(vec, group) {
+        cent <- apply(vec, 2,
+                      function(x, group) tapply(x, INDEX = group, FUN = mean),
+                      group = group)
+        if(!is.matrix(cent)) { ## if only 1 group, cent is vector
+            cent <- matrix(cent, nrow = 1,
+                           dimnames = list(as.character(levels(group)),
+                           paste0("Dim", seq_len(NCOL(vec)))))
+        }
+        cent
+    }
     ## inline function for distance computation
     Resids <- function(x, c) {
         if(is.matrix(c))
@@ -69,7 +81,6 @@
         warning("Missing observations due to 'd' removed.")
     }
     x <- x + t(x)
-    storage.mode(x) <- "double"
     x <- dblcen(x)
     e <- eigen(-x/2, symmetric = TRUE)
     vectors <- e$vectors
@@ -84,7 +95,7 @@
     ## group centroids in PCoA space
     centroids <-
         switch(type,
-               centroid = apply(vectors, 2, function(x) tapply(x, group, mean)),
+               centroid = centroidFUN(vectors, group),
                median = spatialMed(vectors, group, pos)
                )
     ## for each of the groups, calculate distance to centroid for
