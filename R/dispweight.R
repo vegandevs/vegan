@@ -1,4 +1,4 @@
-`disp_weight` <-
+`dispweight` <-
     function(comm, group, nperm = 1000)
 {
     # number of replicates per group
@@ -53,7 +53,14 @@
     }
     # apply workhorse to every species
     out <- apply(comm, 2, dfun, group, nperm, nrep)
+    
     # format output
-    out <- do.call(rbind.data.frame, out)
+    weights <-  unlist(sapply(out, '[', 3))
+    out <- list(D = unlist(sapply(out, '[', 1)), 
+                p = unlist(sapply(out, '[', 2)),
+                weights = weights,
+                transformed = sweep(comm, MARGIN = 2, weights, `*`))
+    attr(out, "permutations") <- nperm
+    class(out) <- "dispweight"
     return(out)
 }
