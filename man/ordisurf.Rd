@@ -11,11 +11,12 @@
   plots the result on ordination diagram.
 }
 \usage{
-\method{ordisurf}{default}(x, y, choices=c(1, 2), knots=10, family="gaussian", col="red",
-     thinplate = TRUE, add = FALSE, display = "sites",
-     w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-     bubble = FALSE, cex = 1, select = FALSE, method = "GCV.Cp",
-     gamma = 1, plot = TRUE, ...)
+\method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
+         family = "gaussian", col = "red", isotropic = TRUE,
+         thinplate = TRUE, bs = "tp", add = FALSE, display = "sites",
+         w = weights(x), main, nlevels = 10, levels, npoints = 31,
+         labcex = 0.6, bubble = FALSE, cex = 1, select = TRUE,
+         method = "REML", gamma = 1, plot = TRUE, ...)
 
 \method{ordisurf}{formula}(formula, data, ...)
 
@@ -37,11 +38,23 @@
     more than degrees of freedom). If \code{knots = 0} or
     \code{knots = 1}  the function will fit a linear trend surface, and
     if \code{knots = 2} the function  will fit a quadratic trend surface
-    instead of a smooth surface. } 
-  \item{family}{ Error distribution in  \code{\link[mgcv]{gam}}. }
+    instead of a smooth surface. A vector of length 2 is allowed when
+    \code{isotropic = FALSE}, with the first and second elements of
+    \code{knots} refering to the first and second of the ordination
+    dimensions indicated by \code{choices}.}
+  \item{family}{Error distribution in \code{\link[mgcv]{gam}}.}
   \item{col}{ Colour of contours. }
-  \item{thinplate}{Use thinplate splines in \code{\link[mgcv]{gam}}.}
-  \item{add}{Add contours on an existing diagram or draw a new plot. }
+  \item{isotropic, thinplate}{Fit an isotropic smooth surface (i.e. same
+    smoothness in both ordination dimensions) via
+    \code{\link[mgcv]{gam}}. Use of \code{thinplate} is deprecated and
+    will be removed in a future version of the package.}
+  \item{bs}{a two letter character string indicating the smoothing basis
+    to use. (eg \code{"tp"} for thin plate regression spline,
+    \code{"cr"} for cubic regression spline). One of \code{c("tp", "ts",
+      "cr", "cs", "ds", "ps", "ad")}. See
+    \code{\link[mgcv]{smooth.terms}} for an over view of what these
+    refer to. The default is to use thin plate splines \code{"tp"}.}
+  \item{add}{Add contours to an existing diagram or draw a new plot.}
   \item{display}{Type of scores known by \code{\link{scores}}: typically
     "sites" for ordinary site scores or "lc" for linear combination scores.}
   \item{w}{Prior weights on the data. Concerns mainly \code{\link{cca}}
@@ -49,8 +62,11 @@
   \item{main}{The main title for the plot, or as default the name of
     plotted variable in a new plot.}
   \item{nlevels, levels}{Either a vector of \code{levels} for which contours
-    are drawn, or suggested number of contours in
-    \code{nlevels} if \code{levels} are not supplied.}
+    are drawn, or suggested number of contours in \code{nlevels} if
+    \code{levels} are not supplied.}
+  \item{npoints}{numeric; the number of locations at which to evaluate
+    the fitted surface. This represents the number of locations in each
+    dimension.}
   \item{labcex}{Label size in contours.  Setting this zero will suppress
     labels.}
   \item{bubble}{Use \dQuote{bubble plot} for points, or vary the point
@@ -83,7 +99,7 @@
     \code{ordisurf}? Useful if all you want is the fitted response
     surface model.}
   \item{formula, data}{Alternative definition of the fitted model as
-    \code{x ~ y}, or left-hand side is the ordination \code{x} and
+    \code{x ~ y}, where left-hand side is the ordination \code{x} and
     right-hand side the single fitted continuous variable
     \code{y}. The variable \code{y} must be in the working environment
     or in the data frame or environment given by \code{data}. All
@@ -104,17 +120,20 @@
 
 \details{ 
   
-  Function \code{ordisurf} fits a smooth surface using thinplate
+  Function \code{ordisurf} fits a smooth surface using penalised
   splines (Wood 2003) in \code{\link[mgcv]{gam}}, and uses
   \code{\link[mgcv]{predict.gam}} to find fitted values in a regular
   grid. The smooth surface can be fitted with an extra penalty that
   allows the entire smoother to be penalized back to 0 degrees of
   freedom, effectively removing the term from the model (see Marra &
   Wood, 2011). The addition of this extra penalty is invoked by
-  setting argument \code{select} to \code{TRUE}. The function plots
-  the fitted contours with convex hull of data points either over an
-  existing ordination diagram or draws a new plot. If 
-  \code{select = TRUE} and the smooth is effectively penalised out of 
+  setting argument \code{select} to \code{TRUE}. An alternative is to
+  use a spline basis that includes shrinkage (\code{bs = "ts"} or
+  \code{bs = "cs"}).
+
+  The function plots the fitted contours with convex hull of data points
+  either over an existing ordination diagram or draws a new plot. If
+  \code{select = TRUE} and the smooth is effectively penalised out of
   the model, no contours will be plotted.
 
   \code{\link[mgcv]{gam}} determines the degree of smoothness for the
@@ -128,14 +147,13 @@
   The function uses \code{\link{scores}} to extract ordination scores,
   and \code{x} can be any result object known by that function.
 
-  User can supply a vector of prior weights \code{w}. If the ordination
-  object has weights, these will be used. In practise this means that
-  the row totals are used as weights with
-  \code{\link{cca}} or
-  \code{\link{decorana}} results. If you do not like this, but want to give
-  equal weights to all sites, you should set \code{w = NULL}. The
-  behaviour is consistent with \code{\link{envfit}}. For complete
-  accordance with constrained \code{\link{cca}}, you should set
+  The user can supply a vector of prior weights \code{w}. If the
+  ordination object has weights, these will be used. In practise this
+  means that the row totals are used as weights with \code{\link{cca}}
+  or \code{\link{decorana}} results. If you do not like this, but want
+  to give equal weights to all sites, you should set \code{w =
+  NULL}. The behaviour is consistent with \code{\link{envfit}}. For
+  complete accordance with constrained \code{\link{cca}}, you should set
   \code{display = "lc"} (and possibly \code{scaling = 2}).
 
   Function \code{calibrate} returns the fitted values of the response
@@ -161,9 +179,21 @@
 
 \author{ Dave Roberts, Jari Oksanen and Gavin L. Simpson }
 \note{   
-  The default is to use thinplate splines.  These make sense in
-  ordination as they have equal smoothing in all directions and are
-  rotation invariant.
+  The default is to use an isotropic smoother via
+  \code{\link[mgcv]{s}} employing thin plate regression splines
+  (\code{bs = "tp"}). These make sense in ordination as they have
+  equal smoothing in all directions and are rotation invariant. However,
+  if different degrees of smoothness along one dimension, an anisotropic
+  smooth surface may be more applicable. This can be achieved through
+  the use of \code{isotropic = FALSE}, wherein the surface is fitted via
+  a tensor product smoother via \code{\link[mgcv]{te}} (unless \code{bs
+    = "ad"}, in which case separate splines for each dimension are
+  fitted using \code{\link[mgcv]{s}}).
+
+  Adaptive smooths (\code{bs = "ad"}), especially in two dimensions,
+  require a large number of observations; without many hundreds of
+  observations, the default complexities for the smoother will exceed
+  the number of observations and fitting will fail.
 
   Graphical arguments supplied to \code{plot.ordisurf} are passed on to
   the underlying plotting functions, \code{contour}, \code{persp}, and
@@ -217,6 +247,18 @@ plot(fit, what = "gam") ## 'col' and 'cex' not passed on
 ## or via plot.gam directly
 plot.gam(fit, cex = 2, pch = 1, col = "blue")
 ## 'col' effects all objects drawn...
+
+## Variable selection via additional shrinkage penalties
+## This allows non-significant smooths to be selected out
+## of the model not just to a linear surface. There are 2
+## options available:
+##  - option 1: `select = TRUE`
+with(varechem,
+     ordisurf(vare.mds, Baresoil, method = "REML", select = TRUE))
+##  - option 2: use a basis with shrinkage
+with(varechem,
+     ordisurf(vare.mds, Baresoil, method = "REML", bs = "ts"))
+## or bs = "cs"
 }
 \keyword{ multivariate }
 \keyword{ aplot }

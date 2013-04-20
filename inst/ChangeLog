@@ -2,7 +2,30 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-28 (opened March 17, 2013)
+Version 2.1-29 (opened April 19, 2013)
+
+	* ordisurf: significant changes were made to this function:
+
+	 - The default for `method` and `select` were changed to `"REML"`
+	and `TRUE` respectivelt.
+
+	 - Argument `thinplate` is deprecated in favour of `isotropic`. A
+	warning is now issued if `thinplate` is used.
+
+	 - The spline basis for the smoother can now be specified from a
+	subset of those implemented in the mgcv package. This is achieved
+	via the `bs` argument, which defaults to `"tp"` for thin plate
+	regression splines.
+
+	 - Argument `knots` and `bs` can now be a vector of length two, one
+	per ordination dimension considered. This is only of use with
+	anisotropic surfaces with `isotropic = FALSE`.
+
+	 - The number of locations in each ordination dimension at which the
+	fitted surface is evaluated can now be specified via new argument
+	`npoints`.
+
+Version 2.1-28 (closed April 19, 2013)
 
 	* betadisper: failed with type = "centroid" when there was only
 	one group (i.e., in estimating the overall beta diversity in the

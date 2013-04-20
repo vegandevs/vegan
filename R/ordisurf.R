@@ -17,17 +17,24 @@
 
 `ordisurf.default` <-
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
-              col = "red", thinplate = TRUE, add = FALSE, display = "sites",
-              w = weights(x), main, nlevels = 10, levels, labcex = 0.6,
-              bubble = FALSE, cex = 1, select = FALSE,
-              method = "GCV.Cp", gamma = 1, plot = TRUE, ...)
+              col = "red", isotropic = TRUE, thinplate = TRUE, bs = "tp",
+              add = FALSE, display = "sites",
+              w = weights(x), main, nlevels = 10, levels,
+              npoints = 31, labcex = 0.6,
+              bubble = FALSE, cex = 1, select = TRUE,
+              method = "REML", gamma = 1, plot = TRUE, ...)
 {
     weights.default <- function(object, ...) NULL
-    GRID = 31
+    if(!missing(thinplate)) {
+        warning("Use of 'thinplate' is deprecated and will soon be removed;\nuse 'isotropic' instead.")
+        isotropic <- thinplate
+    }
+    ## GRID no user-definable - why 31?
+    GRID <- npoints
     w <- eval(w)
     if (!is.null(w) && length(w) == 1)
         w <- NULL
-    require(mgcv)  || stop("Requires package 'mgcv'")
+    require(mgcv) || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
     ## The original name of 'y' may be lost in handling NA: save for
     ## plots
@@ -40,21 +47,52 @@
     }
     x1 <- X[, 1]
     x2 <- X[, 2]
-    if (knots <= 0)
+    ## handle knots - allow vector of length up to two
+    if (length(knots) > 2L)
+        warning("Number of knots supplied exceeds '2'. Only using the first two.")
+    ## expand knots robustly, no matter what length supplied
+    knots <- rep(knots, length.out = 2)
+    ## handle the bs - we only allow some of the possible options
+    if (length(bs) > 2L)
+        warning("Number of basis types supplied exceeds '2'. Only using the first two.")
+    bs <- rep(bs, length.out = 2)
+    ## check allowed types
+    BS <- c("tp","ts","cr","cs","ds","ps","ad")
+    want <- match(bs, BS)
+    user.bs <- bs ## store supplied (well expanded supplied ones)
+    bs <- BS[want]
+    if (any(wrong <- is.na(bs))) {
+        stop(paste("Supplied basis type of",
+                   paste(sQuote(unique(user.bs[wrong])), collapse = ", "),
+                   "not supported."))
+    }
+    ## linear fit - note we match something close to 0
+    if (knots[1] <= 0) {
         mod <- gam(y ~ x1 + x2, family = family, weights = w)
-    else if (knots == 1)
+    } else if (knots[1] == 1) { ## why do we treat this differently?
         mod <- gam(y ~ poly(x1, 1) + poly(x2, 1),
                    family = family, weights = w, method = method)
-    else if (knots == 2)
+    } else if (knots[1] == 2) {
         mod <- gam(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1),
                    family = family, weights = w, method = method)
-    else if (thinplate)
-        mod <- gam(y ~ s(x1, x2, k = knots), family = family,
+    } else if (isotropic) {
+        mod <- gam(y ~ s(x1, x2, k = knots[1], bs = bs[1]),
+                   family = family,
                    weights = w, select = select, method = method,
                    gamma = gamma)
-    else mod <- gam(y ~ s(x1, k = knots) + s(x2, k = knots), family = family,
-                    weights = w, select = select, method = method,
-                   gamma = gamma)
+    } else {
+        if (any(bs %in% c("ad"))) { ## only "ad" for now, but "fs" should also not be allowed
+            mod <- gam(y ~ s(x1, k = knots[1], bs = bs[1]) +
+                       s(x2, k = knots[2], bs[2]),
+                       family = family, weights = w, select = select,
+                       method = method, gamma = gamma)
+        } else {
+            mod <- gam(y ~ te(x1, x2, k = knots, bs = bs),
+                       family = family,
+                       weights = w, select = select, method = method,
+                       gamma = gamma)
+        }
+    }
     xn1 <- seq(min(x1), max(x1), len=GRID)
     xn2 <- seq(min(x2), max(x2), len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
