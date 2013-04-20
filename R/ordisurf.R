@@ -66,33 +66,33 @@
                    paste(sQuote(unique(user.bs[wrong])), collapse = ", "),
                    "not supported."))
     }
-    ## linear fit - note we match something close to 0
+    ## Build formula
     if (knots[1] <= 0) {
-        mod <- gam(y ~ x1 + x2, family = family, weights = w)
+        f <- formula(y ~ x1 + x2)
     } else if (knots[1] == 1) { ## why do we treat this differently?
-        mod <- gam(y ~ poly(x1, 1) + poly(x2, 1),
-                   family = family, weights = w, method = method)
+        f <- formula(y ~ poly(x1, 1) + poly(x2, 1))
     } else if (knots[1] == 2) {
-        mod <- gam(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1),
-                   family = family, weights = w, method = method)
+        f <- formula(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1))
     } else if (isotropic) {
-        mod <- gam(y ~ s(x1, x2, k = knots[1], bs = bs[1]),
-                   family = family,
-                   weights = w, select = select, method = method,
-                   gamma = gamma)
+        f <- formula(paste0("y ~ s(x1, x2, k = ", knots[1],
+                            ", bs = \"", bs[1], "\")"))
     } else {
-        if (any(bs %in% c("ad"))) { ## only "ad" for now, but "fs" should also not be allowed
-            mod <- gam(y ~ s(x1, k = knots[1], bs = bs[1]) +
-                       s(x2, k = knots[2], bs[2]),
-                       family = family, weights = w, select = select,
-                       method = method, gamma = gamma)
+        if (any(bs %in% c("ad"))) {
+            ## only "ad" for now, but "fs" should also not be allowed
+            f <- formula(paste0("y ~ s(x1, k = ", knots[1],
+                                ", bs = \"", bs[1], "\") + s(x2, k = ",
+                                knots[2], ", bs = \"", bs[1], "\")"))
         } else {
-            mod <- gam(y ~ te(x1, x2, k = knots, bs = bs),
-                       family = family,
-                       weights = w, select = select, method = method,
-                       gamma = gamma)
+            f <- formula(paste0("y ~ te(x1, x2, k = c(",
+                                paste0(knots, collapse = ", "),
+                                "), bs = c(",
+                                paste0("\"", bs, "\"", collapse = ", "),
+                                "))"))
         }
     }
+    ## fit model
+    mod <- gam(f, family = family, weights = w, select = select,
+               method = method, gamma = gamma)
     xn1 <- seq(min(x1), max(x1), len=GRID)
     xn2 <- seq(min(x2), max(x2), len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
@@ -100,14 +100,17 @@
     poly <- chull(cbind(x1,x2))
     ## Move out points of the convex hull to have contour for all data
     ## points
-    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * diff(range(x1))/(GRID - 1)
-    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * diff(range(x2))/(GRID - 1)
+    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) *
+        diff(range(x1))/(GRID - 1)
+    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) *
+        diff(range(x2))/(GRID - 1)
     npol <- length(poly)
     np <- nrow(newd)
     inpoly <- numeric(np)
-    inpoly <- .C("pnpoly", as.integer(npol), as.double(xhull1), as.double(xhull2),
-                 as.integer(np), as.double(newd[,1]), as.double(newd[,2]),
-                 inpoly = as.integer(inpoly), PACKAGE="vegan")$inpoly
+    inpoly <- .C("pnpoly", as.integer(npol), as.double(xhull1),
+                 as.double(xhull2), as.integer(np), as.double(newd[,1]),
+                 as.double(newd[,2]), inpoly = as.integer(inpoly),
+                 PACKAGE="vegan")$inpoly
     is.na(fit) <- inpoly == 0
     if(plot) {
         if (!add) {
@@ -126,7 +129,8 @@
         if (missing(levels))
             levels <- pretty(range(fit, finite = TRUE), nlevels)
         ## Only plot surface is select is FALSE or (TRUE and EDF is diff from 0)
-        if(!select || (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
+        if(!select ||
+           (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
             contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
                     levels = levels, labcex = labcex,
                     drawlabels = !is.null(labcex) && labcex > 0)

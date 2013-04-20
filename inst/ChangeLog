@@ -25,6 +25,10 @@ Version 2.1-29 (opened April 19, 2013)
 	fitted surface is evaluated can now be specified via new argument
 	`npoints`.
 
+	 - The formula passed to `gam` is now built in greater detail. When
+	the model is printed the user can see exactly how the smoother was
+	constructed.
+
 Version 2.1-28 (closed April 19, 2013)
 
 	* betadisper: failed with type = "centroid" when there was only
