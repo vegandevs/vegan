@@ -21,6 +21,11 @@ Version 2.1-29 (opened April 19, 2013)
 	per ordination dimension considered. This is only of use with
 	anisotropic surfaces with `isotropic = FALSE`.
 
+	 - New argument `fx`; indicates whether the smoothers are fixed
+	degrees of freedom regression splines (`fx = FALSE`) or a
+	penalised regression spline (`fx = TRUE`). Can be a vector of
+	length 2 for anisotropic surfaces (`isotropic = FALSE`).
+
 	 - The number of locations in each ordination dimension at which the
 	fitted surface is evaluated can now be specified via new argument
 	`npoints`.

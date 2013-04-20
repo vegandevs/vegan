@@ -18,11 +18,10 @@
 `ordisurf.default` <-
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
               col = "red", isotropic = TRUE, thinplate = TRUE, bs = "tp",
-              add = FALSE, display = "sites",
-              w = weights(x), main, nlevels = 10, levels,
-              npoints = 31, labcex = 0.6,
-              bubble = FALSE, cex = 1, select = TRUE,
-              method = "REML", gamma = 1, plot = TRUE, ...)
+              fx = FALSE, add = FALSE, display = "sites", w = weights(x),
+              main, nlevels = 10, levels, npoints = 31, labcex = 0.6,
+              bubble = FALSE, cex = 1, select = TRUE, method = "REML",
+              gamma = 1, plot = TRUE, ...)
 {
     weights.default <- function(object, ...) NULL
     if(!missing(thinplate)) {
@@ -49,9 +48,14 @@
     x2 <- X[, 2]
     ## handle knots - allow vector of length up to two
     if (length(knots) > 2L)
-        warning("Number of knots supplied exceeds '2'. Only using the first two.")
+        warning("Length of 'knots' supplied exceeds '2'. Using the first two.")
     ## expand knots robustly, no matter what length supplied
     knots <- rep(knots, length.out = 2)
+    ## handle fx - allow vector of length up to two
+    if (length(fx) > 2L)
+        warning("Length of 'fx' supplied exceeds '2'. Using the first two.")
+    ## expand fx robustly, no matter what length supplied
+    fx <- rep(fx, length.out = 2)
     ## handle the bs - we only allow some of the possible options
     if (length(bs) > 2L)
         warning("Number of basis types supplied exceeds '2'. Only using the first two.")
@@ -75,18 +79,22 @@
         f <- formula(y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1))
     } else if (isotropic) {
         f <- formula(paste0("y ~ s(x1, x2, k = ", knots[1],
-                            ", bs = \"", bs[1], "\")"))
+                            ", bs = \"", bs[1], "\", fx = ", fx[1],")"))
     } else {
         if (any(bs %in% c("ad"))) {
             ## only "ad" for now, but "fs" should also not be allowed
             f <- formula(paste0("y ~ s(x1, k = ", knots[1],
-                                ", bs = \"", bs[1], "\") + s(x2, k = ",
-                                knots[2], ", bs = \"", bs[1], "\")"))
+                                ", bs = \"", bs[1],
+                                "\", fx = ", fx[1], ") + s(x2, k = ",
+                                knots[2], ", bs = \"", bs[2],
+                                "\", fx = ", fx[2], ")"))
         } else {
             f <- formula(paste0("y ~ te(x1, x2, k = c(",
                                 paste0(knots, collapse = ", "),
                                 "), bs = c(",
                                 paste0("\"", bs, "\"", collapse = ", "),
+                                "), fx = c(",
+                                paste0(fx, collapse = ", "),
                                 "))"))
         }
     }

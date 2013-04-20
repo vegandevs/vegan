@@ -13,10 +13,11 @@
 \usage{
 \method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
-         thinplate = TRUE, bs = "tp", add = FALSE, display = "sites",
-         w = weights(x), main, nlevels = 10, levels, npoints = 31,
-         labcex = 0.6, bubble = FALSE, cex = 1, select = TRUE,
-         method = "REML", gamma = 1, plot = TRUE, ...)
+         thinplate = TRUE, bs = "tp", fx = FALSE, add = FALSE,
+         display = "sites", w = weights(x), main, nlevels = 10,
+         levels, npoints = 31, labcex = 0.6, bubble = FALSE,
+         cex = 1, select = TRUE, method = "REML", gamma = 1,
+         plot = TRUE, ...)
 
 \method{ordisurf}{formula}(formula, data, ...)
 
@@ -54,6 +55,10 @@
       "cr", "cs", "ds", "ps", "ad")}. See
     \code{\link[mgcv]{smooth.terms}} for an over view of what these
     refer to. The default is to use thin plate splines \code{"tp"}.}
+  \item{fx}{indicates whether the smoothers are fixed degree of freedom
+    regression splines (\code{fx = FALSE}) or penalised regression
+    splines (\code{fx = TRUE}). Can be a vector of length 2 for
+    anisotropic surfaces (\code{isotropic = FALSE}).}
   \item{add}{Add contours to an existing diagram or draw a new plot.}
   \item{display}{Type of scores known by \code{\link{scores}}: typically
     "sites" for ordinary site scores or "lc" for linear combination scores.}
