@@ -46,16 +46,27 @@
     }
     x1 <- X[, 1]
     x2 <- X[, 2]
+    ## handle fx - allow vector of length up to two
+    if(!(missfx <- missing(fx)) && missing(knots))
+        warning("Requested fixed d.f. splines but without specifying 'knots'.\nSwitching to 'fx = FALSE'.")
+    if (length(fx) > 2L)
+        warning("Length of 'fx' supplied exceeds '2'. Using the first two.")
+    ## expand fx robustly, no matter what length supplied
+    fx <- rep(fx, length.out = 2)
+    ## can't have `fx = TRUE` and `select = TRUE`
+    if(!missfx) { ## fx set by user
+        if((miss.select <- missing(select)) && any(fx)) {
+            warning("'fx = TRUE' requested; using 'select = FALSE'")
+            select <- FALSE
+        } else if(!miss.select && isTRUE(select)){
+            stop("Fixed d.f. splines ('fx = TRUE') incompatible with 'select = TRUE'")
+        }
+    }
     ## handle knots - allow vector of length up to two
     if (length(knots) > 2L)
         warning("Length of 'knots' supplied exceeds '2'. Using the first two.")
     ## expand knots robustly, no matter what length supplied
     knots <- rep(knots, length.out = 2)
-    ## handle fx - allow vector of length up to two
-    if (length(fx) > 2L)
-        warning("Length of 'fx' supplied exceeds '2'. Using the first two.")
-    ## expand fx robustly, no matter what length supplied
-    fx <- rep(fx, length.out = 2)
     ## handle the bs - we only allow some of the possible options
     if (length(bs) > 2L)
         warning("Number of basis types supplied exceeds '2'. Only using the first two.")
@@ -69,6 +80,10 @@
         stop(paste("Supplied basis type of",
                    paste(sQuote(unique(user.bs[wrong])), collapse = ", "),
                    "not supported."))
+    }
+    ## can't use "cr", "cs", "ps" in 2-d smoother with s()
+    if(isTRUE(isotropic) && any(bs %in% c("cr", "cs", "ps"))) {
+        stop("Bases \"cr\", \"cs\", and \"ps\" not allowed in isotropic smooths.")
     }
     ## Build formula
     if (knots[1] <= 0) {
