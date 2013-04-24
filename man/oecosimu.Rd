@@ -237,7 +237,7 @@ data(sipoo)
 oecosimu(sipoo, nestedchecker, "r0")
 ## sequential model, one-sided test, a vector statistic
 out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
-   statistic="evals", alt = "less")
+   statistic="evals", alt = "greater")
 out
 ## Inspect the swap sequence as a time series object
 plot(as.ts(out))

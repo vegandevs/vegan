@@ -1,8 +1,8 @@
 
-R version 2.15.3 (2013-03-01) -- "Security Blanket"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -161,7 +161,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x10242dc98>
+<environment: 0x1db31c0>
 Total model degrees of freedom 3 
 
 REML score: -3.185099
@@ -529,7 +529,7 @@ Call: adipart(y = mite, index = "richness", nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic      z   mean   2.5%    50%  97.5% Pr(sim.)  
 alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
@@ -545,7 +545,7 @@ nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    15.114 -46.2370 22.39624 22.12571 22.44286 22.6236     0.05 *
@@ -566,7 +566,7 @@ Call: hiersimu(y = mite, FUN = diversity, relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic       z    mean    2.5%     50%  97.5% Pr(sim.)  
 level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
@@ -581,7 +581,7 @@ relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
    statistic        z    mean    2.5%     50%  97.5% Pr(sim.)  
 l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
@@ -600,7 +600,7 @@ drop.highest = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
    statistic       z      mean      2.5%       50%   97.5% Pr(sim.)  
 l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
@@ -675,7 +675,7 @@ Run 0 stress 0.08556586
 Run 1 stress 0.1560544 
 Run 2 stress 0.08556586 
 ... New best solution
-... procrustes: rmse 1.094365e-06  max resid 1.88838e-06 
+... procrustes: rmse 1.09439e-06  max resid 1.88838e-06 
 *** Solution reached
 > plot(mod)
 > ### Hulls show treatment
@@ -3685,7 +3685,7 @@ Species: expanded scores based on ‘dune’
 Run 0 stress 0.1067169 
 Run 1 stress 0.1067169 
 ... New best solution
-... procrustes: rmse 1.234853e-05  max resid 2.993581e-05 
+... procrustes: rmse 1.234853e-05  max resid 2.993582e-05 
 *** Solution reached
 > sol
 
@@ -3889,7 +3889,7 @@ Based on  999  permutations
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
 Run 0 stress 0.1192678 
 Run 1 stress 0.119268 
-... procrustes: rmse 8.18569e-05  max resid 0.0001982896 
+... procrustes: rmse 8.185687e-05  max resid 0.0001982896 
 *** Solution reached
 > ordihull(dune.ord, dune.env$Management)
 > 
@@ -4080,7 +4080,7 @@ nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
@@ -4100,7 +4100,7 @@ scales = 1, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -66.643 12.2056 12.1143 12.2120 12.2910     0.05 *
@@ -4120,7 +4120,7 @@ scales = 1, relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
 alpha.1  8.055481  -53.544 12.204883 12.071168 12.198307 12.3689     0.05 *
@@ -4140,7 +4140,7 @@ scales = 1, global = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global TRUE
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
         statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -69.630 12.19342 12.09434 12.18504 12.3160     0.05 *
@@ -4189,7 +4189,7 @@ Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method =
 
 nullmodel method ‘quasiswap’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
@@ -4205,7 +4205,7 @@ statistic = "C.score")
 
 nullmodel method ‘r00’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
@@ -4333,7 +4333,7 @@ Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r0")
 
 nullmodel method ‘r0’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
@@ -4344,16 +4344,16 @@ statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## sequential model, one-sided test, a vector statistic
 > out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
-+    statistic="evals", alt = "less")
++    statistic="evals", alt = "greater")
 > out
 oecosimu object
 
 Call: oecosimu(comm = sipoo, nestfun = decorana, method = "swap",
-burnin = 100, thin = 10, statistic = "evals", alternative = "less")
+burnin = 100, thin = 10, statistic = "evals", alternative = "greater")
 
 nullmodel method ‘swap’ with 99 simulations
 options:  thin 10, burnin 100
-alternative hypothesis: simulated median is less than the statistic
+alternative hypothesis: statistic is greater than simulated values
 
 
 Call:
@@ -4368,11 +4368,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z     mean       0%      50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
+     statistic       z    mean      5%     50%   100% Pr(sim.)  
+DCA1  0.382249  1.8658 0.32404 0.27338 0.32373 0.3918     0.02 *
+DCA2  0.261208  1.5772 0.21939 0.17891 0.21617 0.2899     0.09 .
+DCA3  0.166788  0.5209 0.15594 0.12380 0.15572 0.2361     0.30  
+DCA4  0.087226 -1.9822 0.13015 0.10335 0.12649 0.2011     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
 > ## Inspect the swap sequence as a time series object
@@ -4395,7 +4395,7 @@ Call: oecosimu(comm = dune, nestfun = meandist, method = "r2dtable")
 
 nullmodel method ‘r2dtable’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
           statistic     z    mean    2.5%     50%  97.5% Pr(sim.)   
 statistic   0.64565 14.66 0.46734 0.44069 0.46760 0.4903     0.01 **
@@ -4419,7 +4419,7 @@ Call: oecosimu(comm = dune, nestfun = meandist, method = cf)
 
 nullmodel method ‘myshuffle’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
           statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
 statistic   0.64565 3.1832 0.63514 0.63016 0.63441 0.6419     0.03 *
@@ -4960,7 +4960,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10b539600>
+<environment: 0x8fd4ae0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4977,7 +4977,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x108c2ba38>
+<environment: 0x84775b0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4991,9 +4991,9 @@ GCV score: 144.0039
         1         2         3         4         5         6         7         8 
 21.253963  5.675210  3.679486  3.898355  9.643787  7.698255  7.729282  9.758092 
         9        10        11        12        13        14        15        16 
- 2.743202 29.700505 11.971987  8.310916  5.390556 24.906203 11.006871 25.330571 
+ 2.743203 29.700504 11.971986  8.310916  5.390556 24.906203 11.006871 25.330570 
        17        18        19        20        21        22        23        24 
- 6.520735  9.410672  4.519645  4.090900 11.558075  4.314814 11.693769 14.244150 
+ 6.520735  9.410672  4.519645  4.090901 11.558075  4.314814 11.693769 14.244150 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5008,7 +5008,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10af55c40>
+<environment: 0x8f8c7c8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5023,7 +5023,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x1097c4cd0>
+<environment: 0x81b54f8>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5049,7 +5049,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x10b7a61b8>
+<environment: 0x90eebb8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5065,7 +5065,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x10aa42df0>
+<environment: 0x93068f8>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5082,7 +5082,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x10b831308>
+<environment: 0x878fdd0>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5101,7 +5101,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x1096b7828>
+<environment: 0x9324410>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5248,7 +5248,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10b9719b8>
+<environment: 0x70d43c8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5261,7 +5261,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10a84cc60>
+<environment: 0x8def7e8>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5274,7 +5274,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10b84f910>
+<environment: 0x8f33320>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -6025,7 +6025,7 @@ Procrustes root mean squared error:
  0.7398422 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
-0.02033237 0.27686842 0.34124239 0.64358542 2.23460568 
+0.02033237 0.27686842 0.34124239 0.64358542 2.23460567 
 
 Rotation matrix:
           [,1]       [,2]
@@ -6033,8 +6033,8 @@ Rotation matrix:
 [2,] 0.1154641  0.9933117
 
 Translation of averages:
-              [,1]          [,2]
-[1,] -9.421394e-19 -8.582272e-18
+             [,1]         [,2]
+[1,] 3.038945e-17 1.218602e-17
 
 Scaling of target:
 [1] 0.6727804
@@ -6045,9 +6045,9 @@ Scaling of target:
         18         15         24         27         23         19         22 
 0.28003467 0.13180094 1.72990690 0.63953155 0.37177564 0.11807007 0.38558576 
         16         28         13         14         20         25          7 
-0.28008712 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
+0.28008711 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
          5          6          3          4          2          9         12 
-0.69324047 0.20264726 0.29744269 0.50070811 2.23460568 0.31901411 0.21727135 
+0.69324047 0.20264726 0.29744269 0.50070811 2.23460567 0.31901411 0.21727135 
         10         11         21 
 0.32523080 0.56506437 0.78179902 
 > 
@@ -7232,7 +7232,7 @@ cl)
 
 nullmodel method ‘r0’ with 99 simulations
 
-alternative hypothesis: simulated median is not equal to the statistic
+alternative hypothesis: statistic is less or greater than simulated values
 
    statistic         z   mean   2.5%    50%  97.5% Pr(sim.)   
 2     411.98 -3.174838 580.78 462.37 577.88 673.73     0.01 **
@@ -7830,7 +7830,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x10b4b0158>
+<environment: 0x90ccd10>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8382,7 +8382,7 @@ Procrustes sum of squares:
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  87.513 1.918 100.236 0 0 
+Time elapsed:  27.085 0.14 27.323 0 0 
 > grDevices::dev.off()
 null device 
           1 
