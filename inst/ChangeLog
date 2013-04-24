@@ -33,6 +33,12 @@ Version 2.1-29 (opened April 19, 2013)
 	 - The formula passed to `gam` is now built in greater detail. When
 	the model is printed the user can see exactly how the smoother was
 	constructed.
+ 
+	* oecosimu: the interpretation argument "alternative" was really
+	twisted. We now changed the test direction and have a much clearer
+	explanatory text in printed output. The issue was raised by Juan
+	Manual Barreneche (jumanbar) in GitHub (issue #14). NB. The
+	direction of the test changed from previous versions.
 
 Version 2.1-28 (closed April 19, 2013)
 

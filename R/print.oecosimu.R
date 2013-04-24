@@ -13,10 +13,10 @@
         cat("options: ", paste(names(att), att, collapse=", "))
     }
     alt.char <- switch(x$oecosimu$alternative,
-                       two.sided = "not equal to",
+                       two.sided = "less or greater than",
                        less = "less than",
                        greater = "greater than")
-    cat("\nalternative hypothesis: simulated median is", alt.char, "the statistic")
+    cat("\nalternative hypothesis: statistic is", alt.char, "simulated values")
     ## dim attribute is always there, but print all others
 
     cat("\n\n")
