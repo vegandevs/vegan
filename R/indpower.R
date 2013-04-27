@@ -8,7 +8,7 @@ function(x, type=0)
     if (!(type %in% 0:2))
         stop("'type' must be in c(0, 1, 2)")
     n <- nrow(x)
-    j <- t(x) %*% x
+    j <- crossprod(x) ## faster t(x) %*% x
     ip1 <- sweep(j, 1, diag(j), "/")
     ip2 <- 1 - sweep(-sweep(j, 2, diag(j), "-"), 1, n - diag(j), "/")
     out <- switch(as.character(type),
