@@ -12,7 +12,7 @@
     ## but is much slower
     sol <- oecosimu(comm, function(x) tcrossprod(x)[tri], method = null,
                     nsimul = nsimul,
-                    alternative = if (chase) "greater" else "less")
+                    alternative = if (chase) "less" else "greater")
     ## Chase et al. way, or the standard way
     if (chase)
         out <- 1 - sol$oecosimu$pval

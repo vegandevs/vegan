@@ -40,6 +40,9 @@ Version 2.1-29 (opened April 19, 2013)
 	Manual Barreneche (jumanbar) in GitHub (issue #14). NB. The
 	direction of the test changed from previous versions.
 
+	* raupcrick: adapted to the change in oecosimu() to define the
+	direction of the test.
+
 Version 2.1-28 (closed April 19, 2013)
 
 	* betadisper: failed with type = "centroid" when there was only
