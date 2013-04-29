@@ -8,7 +8,7 @@
 \usepackage{sidecap}
 \usepackage{amsmath}
 \usepackage{amssymb} % \gtrapprox
-
+\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
 

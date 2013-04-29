@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{sidecap}
 \usepackage{amsmath}
+\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1
 
 \renewcommand{\floatpagefraction}{0.8}
 
