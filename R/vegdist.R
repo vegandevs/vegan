@@ -7,7 +7,8 @@
         method <- "euclidean"
     METHODS <- c("manhattan", "euclidean", "canberra", "bray", 
                  "kulczynski", "gower", "morisita", "horn", "mountford", 
-                 "jaccard", "raup", "binomial", "chao", "altGower", "cao")
+                 "jaccard", "raup", "binomial", "chao", "altGower", "cao",
+                 "mahalanobis")
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method)) 
@@ -25,6 +26,8 @@
                 dQuote(inm))
     if (method == 6) # gower, but no altGower
         x <- decostand(x, "range", 2, na.rm = TRUE, ...)
+    if (method == 16) # mahalanobis
+        x <- veganMahatrans(scale(x, scale = FALSE))
     if (binary) 
         x <- decostand(x, "pa")
     N <- nrow(x <- as.matrix(x))

@@ -22,6 +22,8 @@ Version 2.1-30 (opened May 5, 2013)
 	variance (Euclidean) or range (Manhattan), and the scaling is
 	already inbuilt in Mahalanobis and Gower.
 
+	* vegdist: added Mahalanobis distance.
+
 Version 2.1-29 (closed April 19, 2013)
 
 	* ordisurf: significant changes were made to this function:

@@ -44,6 +44,7 @@
 #define CHAO 13
 #define GOWERDZ 14
 #define CAO 15
+#define MAHALANOBIS 16
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -125,7 +126,9 @@ double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
      return dist;
 }
 
-/* Euclidean distance: duplicates base R */
+/* Euclidean distance: duplicates base R. If Mahalanobis
+ * transformation was performred in the calling routine, this will
+ * give Mahalanobis distances. */
 
 double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
 {
@@ -631,6 +634,7 @@ void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method
 	distfun = veg_manhattan;
 	break;
     case EUCLIDEAN:
+    case MAHALANOBIS:
 	distfun = veg_euclidean;
 	break;
     case CANBERRA:
