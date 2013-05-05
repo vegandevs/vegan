@@ -1,14 +1,22 @@
 "rankindex" <-
 function (grad, veg, indices = c("euc", "man", "gow", "bra", 
-    "kul"), stepacross = FALSE, method = "spearman", ...) 
+    "kul"), stepacross = FALSE, method = "spearman",
+     metric = c("euclidean", "mahalanobis", "manhattan", "gower"), ...) 
 {
+    metric = match.arg(metric)
+    if (metric == "gower")
+        require(cluster) || stop("metric = 'gower' needs package 'cluster'")
     grad <- as.data.frame(grad)
     if (any(sapply(grad, is.factor))) {
         require(cluster) || stop("factors in 'grad' need package 'cluster'")
         message("'grad' included factors: used cluster:::daisy")
         span <- daisy(grad)
     } else {
-        span <- vegdist(grad, "eucl")
+        span <- switch(metric,
+                       "euclidean" = dist(scale(grad, scale=TRUE)),
+                       "mahalanobis" = dist(veganMahatrans(scale(grad, scale=FALSE))),
+                       "manhattan" = dist(decostand(grad, "range"), "manhattan"),
+                       "gower" = daisy(grad, metric = "gower"))
     }
     veg <- as.matrix(veg)
     res <- numeric(length(indices))

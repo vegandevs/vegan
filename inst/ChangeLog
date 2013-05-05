@@ -17,6 +17,11 @@ Version 2.1-30 (opened May 5, 2013)
 	is changed to show the 'metric' and the name of the 'method' is
 	fully expanded. No more fails if 'upto' is too large.
 
+	* rankindex: can now use Mahalanobis or Manhattan
+	distances. Scales automatically gradient variables to unit
+	variance (Euclidean) or range (Manhattan), and the scaling is
+	already inbuilt in Mahalanobis and Gower.
+
 Version 2.1-29 (closed April 19, 2013)
 
 	* ordisurf: significant changes were made to this function:

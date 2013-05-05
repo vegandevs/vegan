@@ -8,7 +8,9 @@
 }
 \usage{
 rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
-          stepacross = FALSE, method = "spearman", ...)
+          stepacross = FALSE, method = "spearman", 
+	  metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
+	  ...)
 }
 
 \arguments{
@@ -23,18 +25,24 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
     with no shared species are set \code{NA} using
     \code{\link{no.shared}} so that indices with no fixed
     upper limit can also be analysed.}
-  \item{method}{Correlation method used. }
+  \item{method}{Correlation method used.}
+  \item{metric}{Metric to evaluate the gradient separation. See Details.}
   \item{...}{Other parameters to \code{\link{stepacross}}.}
 }
 \details{
-  A good dissimilarity index for multidimensional scaling 
-  should have a high rank-order similarity with gradient separation.
-  The function compares most indices in \code{\link{vegdist}} against
-  gradient separation using rank correlation coefficients in
-  \code{\link{cor.test}}. The gradient separation between each
-  point is assessed as Euclidean distance for continuous variables, and
-  as Gower metric for mixed data using function
-  \code{\link[cluster]{daisy}} when \code{grad} has factors.
+  A good dissimilarity index for multidimensional scaling should have
+  a high rank-order similarity with gradient separation.  The function
+  compares most indices in \code{\link{vegdist}} against gradient
+  separation using rank correlation coefficients in
+  \code{\link{cor}}. The gradient separation between each point is
+  assessed using given \code{metric}. The default is to use Euclidean
+  distance of continuous variables scaled to unit variance, or to use
+  Gower metric for mixed data using function
+  \code{\link[cluster]{daisy}} when \code{grad} has factors. The other
+  alternatives are Mahalanabis distances which are based on
+  \code{grad} matrix scaled so that columns are orthogonal
+  (uncorrelated) and have unit variance, or Manhattan distances of
+  \code{grad} variables scaled to unit range.
 
   The \code{indices} argument can accept any dissimilarity 
   indices besides the ones calculated by the 
@@ -85,10 +93,9 @@ rankindex(grad, veg, indices = c("euc", "man", "gow", "bra", "kul"),
 \examples{
 data(varespec)
 data(varechem)
-## The next scales all environmental variables to unit variance.
-## Some would use PCA transformation.
-rankindex(scale(varechem), varespec)
-rankindex(scale(varechem), wisconsin(varespec))
+## The variables are automatically scaled
+rankindex(varechem, varespec)
+rankindex(varechem, wisconsin(varespec))
 ## Using non vegdist indices as functions
 funs <- list(Manhattan=function(x) dist(x, "manhattan"),
     Gower=function(x) cluster:::daisy(x, "gower"),
