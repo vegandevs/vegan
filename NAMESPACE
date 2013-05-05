@@ -58,7 +58,7 @@ export(metaMDSrotate)
 ## export(ade2vegancca, orderingKM, ordiArgAbsorber, ordiArrowMul,
 ## ordiGetData, ordimedian, ordiNAexclude, ordiNApredict,
 ## ordiParseFormula, ordiTerminfo, pregraphKM, simpleRDA2, varpart2,
-## varpart3, varpart4, veganCovEllipse)
+## varpart3, varpart4, veganCovEllipse, veganMahatrans)
 
 ## Registration of S3 methods
 import(stats)

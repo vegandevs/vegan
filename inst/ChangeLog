@@ -2,7 +2,22 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-29 (opened April 19, 2013)
+Version 2.1-30 (opened May 5, 2013)
+
+	* bioenv: can now use Mahalanobis, Manhattan and Gower distances
+	for environmental variables.  The Mahalanobis distances are based
+	on orthogonalized data, Manhattan distances give the direct sum of
+	differences of environmental variables, and Gower distances can
+	also handle factor variables. This involves adding internal
+	function veganMahatrans() for Mahalanobis transformation.  The
+	change was triggered by a recent email by Lydia Beaudrot (UC
+	Davis) to implement Mahalanobis distances, and in the same I
+	also implemented Robby Marotte's suggestion of using Gower
+	distances (vegan Forum item in R-Forge in July 2012). The output
+	is changed to show the 'metric' and the name of the 'method' is
+	fully expanded. No more fails if 'upto' is too large.
+
+Version 2.1-29 (closed April 19, 2013)
 
 	* ordisurf: significant changes were made to this function:
 

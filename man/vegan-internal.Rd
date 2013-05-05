@@ -11,6 +11,7 @@
 \alias{ordiArgAbsorber}
 \alias{veganCovEllipse}
 \alias{hierParseFormula}
+\alias{veganMahatrans}
 
 \title{Internal vegan functions}
 
@@ -32,6 +33,7 @@ centroids.cca(x, mf, wt)
 permuted.index(n, strata)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
+veganMahatrans(x, s2, tol = 1e-8)
 hierParseFormula(formula, data)
 }
 
@@ -81,6 +83,12 @@ hierParseFormula(formula, data)
 
   \code{veganCovEllipse} finds the coordinates for drawing a
   covariance ellipse.
+
+  \code{veganMahatrans} transforms data matrix so that its Euclidean
+  distances are Mahalanobis distances. The input data \code{x} must be
+  a matrix centred by columns, and \code{s2} its covariance matrix. If
+  \code{s2} is not given, covariance matrix is found from \code{x}
+  within the function.
 
   \code{hierParseFormula} returns a list of one matrix (left hand side)
   and a model frame with factors representing hierarchy levels 
