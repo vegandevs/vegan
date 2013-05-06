@@ -28,7 +28,7 @@
     \code{"euclidean"}, \code{"canberra"}, \code{"bray"}, \code{"kulczynski"},
      \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, \code{"morisita"}, 
      \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"}, 
-     \code{"chao"} or \code{"cao"}.}
+     \code{"chao"}, \code{"cao"} or \code{"mahalanobis"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -209,6 +209,13 @@
   Morisita index can be used with genuine count data (integers) only. Its
   Horn--Morisita variant is able to handle any abundance data.
 
+  Mahalanobis distances are Euclidean distances of a matrix where
+  columns are centred, have unit variance, and are uncorrelated.  The
+  index is not commonly used for community data, but it is sometimes
+  used for environmental variables. The calculation is based on
+  transforming data matrix and then using Euclidean distances
+  following Mardia et al. (1979).
+
   Euclidean and Manhattan dissimilarities are not good in gradient
   separation without proper standardization but are still included for
   comparison and special needs.
@@ -271,6 +278,9 @@
   of its properties. \emph{Biometrics} 27, 623--637.
 
   Krebs, C. J. (1999). \emph{Ecological Methodology.} Addison Wesley Longman.
+
+  Mardia, K.V., Kent, J.T. and Bibby, J.M. (1979). \emph{Multivariate analysis}.
+  Academic Press.
 
   Mountford, M. D. (1962). An index of similarity and its application to
   classification problems. In: P.W.Murphy (ed.),

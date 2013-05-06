@@ -14,6 +14,7 @@
 \usage{
 \method{bioenv}{default}(comm, env, method = "spearman", index = "bray",
        upto = ncol(env), trace = FALSE, partial = NULL, 
+       metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
        parallel = getOption("mc.cores"), ...)
 \method{bioenv}{formula}(formula, data, ...)
 }
@@ -30,6 +31,8 @@
   \item{trace}{Trace the calculations }
   \item{partial}{Dissimilarities partialled out when inspecting
     variables in \code{env}.}
+  \item{metric}{Metric used for distances of environmental distances. See 
+    Details.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -37,16 +40,32 @@
   \item{...}{Other arguments passed to \code{\link{cor}}.}
 }
 \details{
+  
   The function calculates a community dissimilarity matrix using
   \code{\link{vegdist}}.  Then it selects all possible subsets of
   environmental variables, \code{\link{scale}}s the variables, and
   calculates Euclidean distances for this subset using
-  \code{\link{dist}}.  Then it finds the correlation between community
-  dissimilarities and environmental distances, and for each size of
-  subsets, saves the best result. 
-  There are \eqn{2^p-1} subsets of \eqn{p} variables, and an exhaustive
-  search may take a very, very, very long time (parameter \code{upto} offers a
-  partial relief). 
+  \code{\link{dist}}.  The function finds the correlation between
+  community dissimilarities and environmental distances, and for each
+  size of subsets, saves the best result.  There are \eqn{2^p-1}
+  subsets of \eqn{p} variables, and an exhaustive search may take a
+  very, very, very long time (parameter \code{upto} offers a partial
+  relief).
+
+  The argument \code{metric} defines distances in the given set of
+  environmental variables.  With \code{metric = "euclidean"}, the
+  variables are scaled to unit variance and Euclidean distances are
+  calculated. With \code{metric = "mahalanobis"}, the Mahalanobis
+  distances are calculated: in addition to scaling to unit variance,
+  the matrix of the current set of environmental variables is also
+  made orthogonal (uncorrelated). With \code{metric = "manhanttan"},
+  the variables are scaled to unit range and Manhattan distances are
+  calculated, so that the distances are sums of differences of
+  environmental variables.  With \code{metric = "gower"}, the Gower
+  distances are calculated using function
+  \code{\link[cluster]{daisy}}. This allows also using factor
+  variables, but with continuous variables the results are equal to
+  \code{metric = "manhattan"}.
 
   The function can be called with a model \code{\link{formula}} where
   the LHS is the data matrix and RHS lists the environmental variables.

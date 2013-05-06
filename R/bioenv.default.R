@@ -1,8 +1,14 @@
 `bioenv.default` <-
 function (comm, env, method = "spearman", index = "bray", upto = ncol(env), 
-              trace = FALSE, partial = NULL, parallel = getOption("mc.cores"),
+          trace = FALSE, partial = NULL,
+          metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
+          parallel = getOption("mc.cores"),
           ...) 
 {
+    metric <- match.arg(metric)
+    method <- match.arg(method, eval(formals(cor)$method))
+    if (any(sapply(env, is.factor)) && metric != "gower")
+        stop("you have factors in 'env': only 'metric = \"gower\"' is allowed")
     if (is.null(partial)) {
         corfun <- function(dx, dy, dz, method) {
             cor(dx, dy, method=method)
@@ -26,13 +32,31 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     n <- ncol(env)
     ntake <- 2^n - 1
     ndone <- 0
+    upto <- min(upto, n)
     if (n > 8 || trace) {
         if (upto < n) 
             cat("Studying", nall <- sum(choose(n, 1:upto)), "of ")
         cat(ntake, "possible subsets (this may take time...)\n")
         flush.console()
     }
-    x <- scale(env)
+    ## Check metric and adapt data and distance function
+    if (metric == "euclidean") {
+        x <- scale(env, scale = TRUE)
+        distfun <- function(x) dist(x)
+    } else if (metric == "mahalanobis") {
+        x <- as.matrix(scale(env, scale = FALSE))
+        distfun <- function(x) dist(veganMahatrans(x))
+    } else if (metric == "gower") {
+        require(cluster) ||
+        stop("package 'cluster' needed for factor variables in 'env'")
+        x <- env
+        distfun <- function(x) daisy(x, metric = "gower")
+    } else if (metric == "manhattan") {
+        x <- decostand(env, "range")
+        distfun <- function(x) dist(x, "manhattan")
+    } else {
+        stop("unknown metric")
+    }
     best <- list()
     if (inherits(comm, "dist")) {
         comdis <- comm
@@ -77,18 +101,19 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         if (isParal && nrow(sets) >= CLUSLIM*nclus) {
             if (isMulticore) {
                 est <- unlist(mclapply(1:nrow(sets), function(j)
-                                       corfun(comdis, dist(x[,sets[j, ]]), partial,
-                                              method = method),
+                                       corfun(comdis,
+                                              distfun(x[,sets[j,],drop = FALSE]),
+                                              partial, method = method),
                                        mc.cores = parallel))
             } else {
                 est <- parSapply(parallel, 1:nrow(sets), function(j)
-                                  corfun(comdis, dist(x[,sets[j, ]]), partial,
-                                         method = method))
+                                  corfun(comdis, distfun(x[,sets[j,],drop = FALSE]),
+                                         partial, method = method))
             }
         } else {
             est <- sapply(1:nrow(sets), function(j) 
-                          corfun(comdis, dist(x[,sets[j, ]]), partial,
-                                 method = method))
+                          corfun(comdis, distfun(x[,sets[j,], drop=FALSE ]),
+                                 partial, method = method))
         }
         best[[i]] <- list(best = sets[which.max(est), ], est = max(est))
         if (trace) {
@@ -98,8 +123,9 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
             flush.console()
         }
     }
-    out <- list(names = colnames(env), method = method, index = index, 
-                upto = upto, models = best, partial = partpart)
+    out <- list(names = colnames(env), method = method, index = index,
+                metric = metric, upto = upto, models = best,
+                partial = partpart)
     out$call <- match.call()
     out$call[[1]] <- as.name("bioenv")
     class(out) <- "bioenv"
