@@ -12,7 +12,7 @@
     n <- nrow(x)
     if (missing(s2))
         s2 <- cov(x) 
-    e <- eigen(s2)
+    e <- eigen(s2, symmetric = TRUE)
     k <- e$values > tol
     sisqr <- e$vectors[,k, drop=FALSE] %*%
         (sqrt(1/e$values[k]) * t(e$vectors[,k, drop = FALSE]))
