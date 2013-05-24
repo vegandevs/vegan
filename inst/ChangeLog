@@ -11,11 +11,12 @@ Version 2.1-30 (opened May 5, 2013)
 	also handle factor variables. This involves adding internal
 	function veganMahatrans() for Mahalanobis transformation.  The
 	change was triggered by a recent email by Lydia Beaudrot (UC
-	Davis) to implement Mahalanobis distances, and in the same I
-	also implemented Robby Marotte's suggestion of using Gower
-	distances (vegan Forum item in R-Forge in July 2012). The output
-	is changed to show the 'metric' and the name of the 'method' is
-	fully expanded. No more fails if 'upto' is too large.
+	Davis) to implement Mahalanobis distances, and in the same I also
+	implemented Robby Marotte's suggestion of using Gower distances
+	(vegan Forum item in R-Forge in July 2012). The output is changed
+	to show the 'metric' and the name of the 'method' is fully
+	expanded. No more fails if 'upto' is too large. Passes "..." to
+	cor() like documented, but never done.
 
 	* rankindex: can now use Mahalanobis or Manhattan
 	distances. Scales automatically gradient variables to unit
