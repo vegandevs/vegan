@@ -93,7 +93,7 @@ hiersimu(...)
   At the highest sampling level, the diversity components are calculated
   as \deqn{\beta_m  = \gamma -  \alpha_m}{beta_m = gamma -  alpha_m} For
   each  lower   sampling  level   as  \deqn{\beta_i  =   \alpha_{i+1}  -
-  \alpha_i}{beta_i =  alpha_i+1 - alpha_i} Then,  the additive partition
+  \alpha_i}{beta_i =  alpha_(i+1) - alpha_i} Then,  the additive partition
   of diversity is \deqn{\gamma  = \alpha_1 + \sum_{i=1}^m \beta_i}{gamma
   = alpha_1 + sum(beta_i)}
 
