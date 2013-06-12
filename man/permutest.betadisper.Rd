@@ -10,7 +10,7 @@
 }
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
-         control = permControl(nperm = 999), \dots)
+         control = how(nperm = 999), \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,8 +18,7 @@
     call to \code{betadisper}.}
   \item{pairwise}{logical; perform pairwise comparisons of group means?}
   \item{control}{a list of control values for the permutations
-    to replace the default values returned by the function
-    \code{\link{permControl}}}
+    as returned by the function \code{\link[permute]{how}}}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
@@ -49,7 +48,7 @@
     pairwise comparisons of group mean distances (dispersions or variances).}
   \item{groups}{character; the levels of the grouping factor.}
   \item{control}{a list, the result of a call to
-    \code{\link{permControl}}.}
+    \code{\link{how}}.}
 }
 \references{
   Anderson, M.J. (2006) Distance-based tests for homogeneity of

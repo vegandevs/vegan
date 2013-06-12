@@ -2,6 +2,14 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 2.1-31
+
+	* Dependencies: Vegan now depends on a version equal to 0.7-4 or
+	later.
+
+	* betadisper, permutest.betadisper: Modified to use the new
+	permute package API (from version 0.7-3 onwards).
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances

@@ -1,12 +1,12 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 2.1-30
-Date: May 5, 2013
+Version: 2.1-31
+Date: June 12, 2013
 Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, 
    Peter R. Minchin, R. B. O'Hara, Gavin L. Simpson, Peter Solymos, 
    M. Henry H. Stevens, Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
-Depends: permute, R (>= 2.12.0)
+Depends: permute (>= 0.7-4), R (>= 2.12.0)
 Imports: lattice
 Suggests: MASS, mgcv, lattice, cluster, parallel, scatterplot3d, rgl, tcltk
 Description: Ordination methods, diversity analysis and other
