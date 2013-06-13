@@ -279,7 +279,7 @@ groups[c(2,20)] <- NA
 dis[c(2, 20)] <- NA
 mod2 <- betadisper(dis, groups) ## warnings
 mod2
-permutest(mod2, control = permControl(nperm = 100))
+permutest(mod2, control = how(nperm = 100))
 anova(mod2)
 plot(mod2)
 boxplot(mod2)
@@ -288,7 +288,7 @@ plot(TukeyHSD(mod2))
 ## Using group centroids
 mod3 <- betadisper(dis, groups, type = "centroid")
 mod3
-permutest(mod3, control = permControl(nperm = 100))
+permutest(mod3, control = how(nperm = 100))
 anova(mod3)
 plot(mod3)
 boxplot(mod3)
