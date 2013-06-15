@@ -10,6 +10,13 @@ Version 2.1-31
 	* betadisper, permutest.betadisper: Modified to use the new
 	permute package API (from version 0.7-3 onwards).
 
+	* protest: modified to use the new permute API. Gains argument
+	`control` which describes the design. As a result, `strata`
+	argument has been removed and `permutations` argument can only
+	be used to supply your own matrix of permutations. The number of
+	permutations and other features of the design are set via `control`
+	and function `how()` from permute.
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances

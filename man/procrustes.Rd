@@ -28,7 +28,8 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
 \method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
-protest(X, Y, scores = "sites", permutations = 999, strata, ...)
+protest(X, Y, scores = "sites", control = how(nperm = 999),
+        permutations = NULL, ...)
 }
 
 \arguments{
@@ -64,12 +65,10 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
     \code{truemean = FALSE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices. These are used to asses the
-    signficance of the symmetric Procrustes statistic.}
-  \item{strata}{An integer vector or factor specifying the strata for
-    permutation. If supplied, observations are permuted only within the
-    specified strata.}
+  \item{control}{a list defining the permutation design, from a call to
+    \code{\link{how}}.}
+  \item{permutations}{A permutation matrix where each row gives the
+    permuted indices. If this is supplied, \code{cotrol} is ignored.}
   \item{ar.col}{Arrow colour.}
   \item{len}{Width of the arrow head.}
   \item{labels}{Character vector of text labels. Rownames of the result 
@@ -167,8 +166,8 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
     function.}
   \item{signif}{`Significance' of \code{t}}
   \item{permutations}{Number of permutations.}
-  \item{strata}{The name of the stratifying variable.}
-  \item{stratum.values}{Values of the stratifying variable.}
+  \item{control}{the list passed to argument \code{control} describing
+    the permutation design.}
 }
 \references{
   Mardia, K.V., Kent, J.T. and Bibby,
@@ -187,7 +186,9 @@ protest(X, Y, scores = "sites", permutations = 999, strata, ...)
 
 \seealso{\code{\link{monoMDS}},  for obtaining
 objects for \code{procrustes}, and \code{\link{mantel}} for an
-alternative to \code{protest} without need of dimension reduction.} 
+alternative to \code{protest} without need of dimension reduction. See
+\code{\link[permute]{how}} for details on specifying the type of
+permutation required.} 
 
 \examples{
 data(varespec)
