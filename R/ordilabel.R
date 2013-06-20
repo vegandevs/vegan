@@ -29,10 +29,6 @@
         else
             col <- par("fg")
     for (i in 1:nrow(x)) {
-        ## polygon(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
-        ##         col = fill, border = border, xpd = xpd)
-        ## text(x[i,1], x[i,2], labels = labels[i], cex = cex, col = col,
-        ##      xpd = xpd, ...)
         ordiArgAbsorber(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
                         col = fill, border = border, xpd = xpd,
                         FUN = polygon, ...)
