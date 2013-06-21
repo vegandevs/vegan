@@ -75,6 +75,14 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 data(dune)
 ord <- cca(dune)
 ordipointlabel(ord)
+
+## set scaling - should be no warnings!
+ordipointlabel(ord, scaling = 1)
+
+## plot then add
+plot(ord, scaling = 3, type = "n")
+ordipointlabel(ord, display = "species", scaling = 3, add = TRUE)
+ordipointlabel(ord, display = "sites", scaling = 3, add = TRUE)
 }
 \keyword{ hplot }
 \keyword{ aplot }

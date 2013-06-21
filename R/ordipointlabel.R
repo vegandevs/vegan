@@ -88,9 +88,13 @@
     sol <- optim(par = pos, fn = fn, gr = gr, method="SANN",
                  control=list(maxit=nit))
     if (!add)
-        points(xy, pch = pch, col = col, cex=cex, ...)
+        ##points(xy, pch = pch, col = col, cex=cex, ...)
+        ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
+                        ...)
     lab <- xy + makeoff(sol$par, box)
-    text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
+    ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
+    ordiArgAbsorber(lab, labels=labels, col = col, cex = cex, font = font,
+                    FUN = text, ...)
     pl <- list(points = xy)
     pl$labels <- lab
     attr(pl$labels, "font") <- font

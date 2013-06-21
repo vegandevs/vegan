@@ -17,6 +17,9 @@ Version 2.1-31
 	permutations and other features of the design are set via `control`
 	and function `how()` from permute.
 
+	* ordipointlabel: now uses `ordiArgAbsorber()` to stop the warnings
+	about non-graphical paramters being passed to plotting functions.
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances
