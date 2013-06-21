@@ -21,7 +21,7 @@
               fx = FALSE, add = FALSE, display = "sites", w = weights(x),
               main, nlevels = 10, levels, npoints = 31, labcex = 0.6,
               bubble = FALSE, cex = 1, select = TRUE, method = "REML",
-              gamma = 1, plot = TRUE, ...)
+              gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
 {
     weights.default <- function(object, ...) NULL
     if(!missing(thinplate)) {
@@ -156,7 +156,8 @@
            (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
             contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
                     levels = levels, labcex = labcex,
-                    drawlabels = !is.null(labcex) && labcex > 0)
+                    drawlabels = !is.null(labcex) && labcex > 0,
+                    lwd = lwd.cl)
     }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))

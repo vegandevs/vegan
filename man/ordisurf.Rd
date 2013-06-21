@@ -17,7 +17,7 @@
          display = "sites", w = weights(x), main, nlevels = 10,
          levels, npoints = 31, labcex = 0.6, bubble = FALSE,
          cex = 1, select = TRUE, method = "REML", gamma = 1,
-         plot = TRUE, ...)
+         plot = TRUE, lwd.cl = par("lwd"), ...)
 
 \method{ordisurf}{formula}(formula, data, ...)
 
@@ -25,7 +25,7 @@
 
 \method{plot}{ordisurf}(x, what = c("contour","persp","gam"),
      add = FALSE, bubble = FALSE, col = "red", cex = 1,
-     nlevels = 10, levels, labcex = 0.6, \dots)
+     nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), \dots)
 }
 
 \arguments{
@@ -108,6 +108,8 @@
   \item{plot}{logical; should any plotting be done by
     \code{ordisurf}? Useful if all you want is the fitted response
     surface model.}
+  \item{lwd.cl}{numeric; the \code{lwd} (line width) parameter to use
+    when drawing the contour lines.}
   \item{formula, data}{Alternative definition of the fitted model as
     \code{x ~ y}, where left-hand side is the ordination \code{x} and
     right-hand side the single fitted continuous variable
