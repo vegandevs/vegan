@@ -23,6 +23,15 @@ Version 2.1-31
 	* ordisurf: can now pass in a line width for the contours via
 	argument `lwd.cl`.
 
+	* ordiArrowTextXY: New (internal) support function that finds
+	coordinates of text box at the point of the arrow so that the
+	arrow point just touches the text.  This should improve
+	positioning of the arrow labels and avoid writing labels over the
+	arrows. 
+
+	* plot.envfit, plot.cca, text.cca: use ordiArrowTextXY() for arrow
+	labels instead of expanding arrow heads by 10%.
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances

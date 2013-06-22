@@ -59,7 +59,8 @@
             ax <- -c(-1, 0, 1) * arrow.mul * maxarr
         }
         vect <- arrow.mul * vect
-        vtext <- sweep(1.1 * vect, 2, at, "+")
+        vtext <- ordiArrowTextXY(vect, labs$v, ...)
+        vtext <- sweep(vtext, 2, at, "+")
         vect <- sweep(vect, 2, at, "+")
     }
     if (!add) {
