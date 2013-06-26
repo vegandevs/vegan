@@ -27,7 +27,7 @@ Version 2.1-31
 	coordinates of text box at the point of the arrow so that the
 	arrow point just touches the text.  This should improve
 	positioning of the arrow labels and avoid writing labels over the
-	arrows. 
+	arrows.
 
 	* plot.envfit, plot.cca, text.cca: use ordiArrowTextXY() for arrow
 	labels instead of expanding arrow heads by 10%.
@@ -38,6 +38,11 @@ Version 2.1-31
 	the limits to the data values, string dimensions in user units
 	were poorly estimated. This became evident with new positioning of
 	arrow text based on string dimensions.
+
+        * plot.ordipointlabel: gains a plot method that is very similar to
+        `plot.orditkplot()` but which does not mess with graphical
+        parameters. This allows it to fit more naturally into a standard
+        R workflow (it plays nicely with `layout()` for example.
 
 Version 2.1-30 (opened May 5, 2013)
 
