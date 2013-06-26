@@ -32,6 +32,13 @@ Version 2.1-31
 	* plot.envfit, plot.cca, text.cca: use ordiArrowTextXY() for arrow
 	labels instead of expanding arrow heads by 10%.
 
+	* plot.envfit: plot(..., add = FALSE) estimated string (text)
+	dimensions after plot.new() but before plot.window(). Since
+	plot.new() sets xlim, ylim to c(0,1) and then plot.window resets
+	the limits to the data values, string dimensions in user units
+	were poorly estimated. This became evident with new positioning of
+	arrow text based on string dimensions.
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances
