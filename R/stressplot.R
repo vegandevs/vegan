@@ -61,9 +61,12 @@
     ## Stress as R2
     rstress <- 1 - object$stress^2
     ralscal <- if(object$iregn == 3) ralscal/2 else ralscal/object$ngrp
-    lab <- paste("Non-metric fit, R2 =", format(rstress, digits=3),
-                 "\nLinear fit, R2 =", format(ralscal, digits=3))
-    text(min(x), 0.95*max(y), lab, pos=4)
+    Rst <- format(rstress, digits = 3)
+    Ral <- format(ralscal, digits = 3)
+    lab1 <- bquote("Non-metric fit, " * R^2 == .(Rst))
+    lab2 <- bquote("Linear fit, " * R^2 == .(Ral))
+    text(min(x), 0.95*max(y), lab1, pos=4)
+    text(min(x), 0.95*max(y) - strheight(lab1), lab2, pos=4)
     invisible(list("x" = x, "y" = y, "yf" = yf))
 }
     
@@ -94,8 +97,11 @@
     plot(shep, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
          ylab = "Ordination Distance", ...)
     lines(shep$x, shep$yf, type = "S", col = l.col, lwd = lwd, ...)
-    lab <- paste("Non-metric fit, R2 =", format(rstress, digits=3),
-               "\nLinear fit, R2 =", format(ralscal, digits=3))
-    text(min(shep$x), 0.95*max(shep$y), lab, pos=4)
+    Rst <- format(rstress, digits = 3)
+    Ral <- format(ralscal, digits = 3)
+    lab1 <- bquote("Non-metric fit, " * R^2 == .(Rst))
+    lab2 <- bquote("Linear fit, " * R^2 == .(Ral))
+    text(min(shep$x), 0.95*max(shep$y), lab1, pos=4)
+    text(min(shep$x), 0.95*max(shep$y) - strheight(lab1), lab2, pos=4)
     invisible(shep)
 }

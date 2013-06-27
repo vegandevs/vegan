@@ -44,6 +44,9 @@ Version 2.1-31
         parameters. This allows it to fit more naturally into a standard
         R workflow (it plays nicely with `layout()` for example.
 
+	* stressplot: metaMDS and monoMDS stressplot() use now
+	expression(R^2) instead of ascii R2. 
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances
