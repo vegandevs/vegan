@@ -67,7 +67,9 @@
     lab2 <- bquote("Linear fit, " * R^2 == .(Ral))
     text(min(x), 0.95*max(y), lab1, pos=4)
     text(min(x), 0.95*max(y) - strheight(lab1), lab2, pos=4)
-    invisible(list("x" = x, "y" = y, "yf" = yf))
+    ## we want to have invisible return lists in the input order
+    o <- order(object$jidx, object$iidx)
+    invisible(list("x" = x[o], "y" = y[o], "yf" = yf[o]))
 }
     
 `stressplot.default` <-
