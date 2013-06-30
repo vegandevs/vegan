@@ -47,7 +47,11 @@ Version 2.1-31
 	* stressplot: metaMDS and monoMDS stressplot() use now
 	expression(R^2) instead of ascii R2.  The stressplot.monoMDS()
 	function returns the plotting structures in the original input
-	order.  
+	order. 
+
+	* vignettes: Brian Ripley urged as to remove
+	\usepackage{inconsolota} as this package is on the way to be
+	removed from CTAN.
 
 Version 2.1-30 (opened May 5, 2013)
 
