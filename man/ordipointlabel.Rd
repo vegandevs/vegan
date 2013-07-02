@@ -1,5 +1,6 @@
 \name{ordipointlabel}
 \alias{ordipointlabel}
+\alias{plot.ordipointlabel}
 
 \title{ Ordination Plots with Points and Optimized Locations for Text }
 \description{
@@ -13,10 +14,14 @@
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
    cex = c(0.8, 0.8), add = FALSE, select, ...)
+
+\method{plot}{ordipointlabel}(x, ...)
 }
 
 \arguments{
-  \item{x}{A result object from ordination. }
+  \item{x}{For \code{ordipointlabel()} a result object from an
+    ordination function. For \code{plot.ordipointlabel} an object
+    resulting from a call to \code{ordipointlabel()}.}
   \item{display}{Scores displayed in the plot. }
   \item{choices}{Axes shown. }
   \item{col, pch, font, cex}{Colours, point types, font style and
@@ -56,9 +61,14 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   label. In addition, it returns the result of \code{\link{optim}} as
   an attribute \code{"optim"}. The unit of overlap is the area
   of character \code{"m"}, and with variable \code{cex} it is the
-  smallest alternative. The result object inherits from
-  \code{\link{orditkplot}} result, and can be replotted with its
-  \code{plot} command. It may be possible to further edit the result
+  smallest alternative.
+
+  There is a \code{plot} method based on \code{orditkplot} but which
+  does not alter nor reset the graphical parameters via \code{par}.
+  
+  The result object from \code{ordipointlabel} inherits from
+  \code{\link{orditkplot}}, and can also be replotted with its
+  \code{plot} method. It may be possible to further edit the result
   object with \code{\link{orditkplot}}, but for good results it is
   necessary that the points span the whole horizontal axis without empty
   margins. 
@@ -74,7 +84,18 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 \examples{
 data(dune)
 ord <- cca(dune)
-ordipointlabel(ord)
+plt <- ordipointlabel(ord)
+
+## set scaling - should be no warnings!
+ordipointlabel(ord, scaling = 1)
+
+## plot then add
+plot(ord, scaling = 3, type = "n")
+ordipointlabel(ord, display = "species", scaling = 3, add = TRUE)
+ordipointlabel(ord, display = "sites", scaling = 3, add = TRUE)
+
+## redraw plot without rerunning SANN optimisation
+plot(plt)
 }
 \keyword{ hplot }
 \keyword{ aplot }

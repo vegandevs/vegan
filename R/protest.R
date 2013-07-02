@@ -1,5 +1,6 @@
 `protest` <-
-    function (X, Y, scores = "sites", permutations = 999, strata, ...)
+    function (X, Y, scores = "sites", control = how(nperm = 999),
+              permutations = NULL, ...)
 {
     X <- scores(X, display = scores, ...)
     Y <- scores(Y, display = scores, ...)
@@ -23,36 +24,28 @@
     ## procrustes() for each permutation. The following gives the
     ## Procrustes r directly.
     procr <- function(X, Y) sum(svd(crossprod(X, Y), nv=0, nu=0)$d)
-    
-    if (length(permutations) == 1) {
-        if (permutations > 0) {
-            arg <- if (missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
-                                  permuted.index(N, strata = arg)))
-        }
+
+    ## If permutations is NULL, work with control
+    if(is.null(permutations)) {
+        #np <- getNperm(control)
+        permutations <- shuffleSet(N, control = control)
     } else {
-        permat <- as.matrix(permutations)
-        if (ncol(permat) != N)
+        permutations <- as.matrix(permutations)
+        if (ncol(permutations) != N)
             stop(gettextf("'permutations' have %d columns, but data have %d observations",
-                          ncol(permat), N))
-        permutations <- nrow(permutations)
+                          ncol(permutations), N))
     }
-    perm <- sapply(1:permutations,
-                   function(i, ...) procr(X, Y[permat[i,],]))
-    Pval <- (sum(perm >= sol$t0) + 1)/(permutations + 1)
-    if (!missing(strata)) {
-        strata <- deparse(substitute(strata))
-        s.val <- strata
-    }
-    else {
-        strata <- NULL
-        s.val <- NULL
-    }
+    np <- nrow(permutations)
+
+    perm <- sapply(seq_len(np),
+                   function(i, ...) procr(X, Y[permutations[i,],]))
+
+    Pval <- (sum(perm >= sol$t0) + 1)/(np + 1)
+
     sol$t <- perm
     sol$signif <- Pval
-    sol$permutations <- permutations
-    sol$strata <- strata
-    sol$stratum.values <- s.val
+    sol$permutations <- np
+    sol$control <- control
     sol$call <- match.call()
     class(sol) <- c("protest", "procrustes")
     sol

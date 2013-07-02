@@ -10,6 +10,49 @@ Version 2.1-31
 	* betadisper, permutest.betadisper: Modified to use the new
 	permute package API (from version 0.7-3 onwards).
 
+	* protest: modified to use the new permute API. Gains argument
+	`control` which describes the design. As a result, `strata`
+	argument has been removed and `permutations` argument can only
+	be used to supply your own matrix of permutations. The number of
+	permutations and other features of the design are set via `control`
+	and function `how()` from permute.
+
+	* ordipointlabel: now uses `ordiArgAbsorber()` to stop the warnings
+	about non-graphical paramters being passed to plotting functions.
+
+	* ordisurf: can now pass in a line width for the contours via
+	argument `lwd.cl`.
+
+	* ordiArrowTextXY: New (internal) support function that finds
+	coordinates of text box at the point of the arrow so that the
+	arrow point just touches the text.  This should improve
+	positioning of the arrow labels and avoid writing labels over the
+	arrows.
+
+	* plot.envfit, plot.cca, text.cca: use ordiArrowTextXY() for arrow
+	labels instead of expanding arrow heads by 10%.
+
+	* plot.envfit: plot(..., add = FALSE) estimated string (text)
+	dimensions after plot.new() but before plot.window(). Since
+	plot.new() sets xlim, ylim to c(0,1) and then plot.window resets
+	the limits to the data values, string dimensions in user units
+	were poorly estimated. This became evident with new positioning of
+	arrow text based on string dimensions.
+
+        * plot.ordipointlabel: gains a plot method that is very similar to
+        `plot.orditkplot()` but which does not mess with graphical
+        parameters. This allows it to fit more naturally into a standard
+        R workflow (it plays nicely with `layout()` for example.
+
+	* stressplot: metaMDS and monoMDS stressplot() use now
+	expression(R^2) instead of ascii R2.  The stressplot.monoMDS()
+	function returns the plotting structures in the original input
+	order. 
+
+	* vignettes: Brian Ripley urged as to remove
+	\usepackage{inconsolota} as this package is on the way to be
+	removed from CTAN.
+
 Version 2.1-30 (opened May 5, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances

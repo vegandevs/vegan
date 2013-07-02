@@ -10,8 +10,7 @@
   cat("Significance:  ")
   cat(format.pval(x$signif),"\n")
   cat("Based on", x$permutations, "permutations")
-  if (!is.null(x$strata)) 
-    cat(", stratified within", x$strata)
+  print(x$control)
   cat(".\n\n")
   invisible(x)
 }
