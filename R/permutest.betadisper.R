@@ -1,5 +1,6 @@
 `permutest.betadisper` <- function(x, pairwise = FALSE,
-                                   control = how(nperm = 999), ...)
+                                   control = how(nperm = 999),
+                                   permutations = NULL, ...)
 {
     t.statistic <- function(x, y) {
         m <- length(x)
@@ -11,7 +12,7 @@
         pooled <- sqrt(((m-1)*xvar + (n-1)*yvar) / (m+n-2))
         (xbar - ybar) / (pooled * sqrt(1/m + 1/n))
     }
-    
+
     if(!inherits(x, "betadisper"))
         stop("Only for class \"betadisper\"")
     ## will issue error if only a single group
@@ -22,20 +23,29 @@
     p <- mod.Q$rank
     resids <- qr.resid(mod.Q, x$distances)
 
+    N <- nrow(x) ## number of observations
+
     ## extract groups
     group <- x$group
-    
-    ## get set of permutations - shuffleSet checks design
-    perms <- shuffleSet(length(group), control = control)
+
+    ## If permutations is NULL, work with control
+    if(is.null(permutations)) {
+        permutations <- shuffleSet(length(group), control = control)
+    } else {
+        permutations <- as.matrix(permutations)
+        if (ncol(permutations) != N)
+            stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                          ncol(permutations), N))
+    }
 
     ## number of permutations being performed, possibly adjusted after
     ## checking in shuffleSet
-    nperm <- nrow(perms)
+    nperm <- nrow(permutations)
 
     ## set-up objects to hold permuted results
     res <- numeric(length = nperm + 1)
     res[1] <- summary(mod)$fstatistic[1]
-    
+
     ## pairwise comparisons
     if(pairwise) {
         ## unique pairings
@@ -49,7 +59,7 @@
 
     ## begin loop over shuffleSet perms
     for(i in seq_len(nperm)) {
-        perm <- perms[i,] ## take current permutation from set
+        perm <- permutations[i,] ## take current permutation from set
         perm.resid <- resids[perm] ## permute residuals
         f <- qr.fitted(mod.Q, perm.resid) ## create new data
         mss <- sum((f - mean(f))^2)
@@ -58,7 +68,7 @@
         rdf <- nobs - p
         resvar <- rss / rdf
         res[i+1] <- (mss / (p - 1)) / resvar
-        
+
         ## pairwise comparisons
         if(pairwise) {
             for(j in seq_len(n.pairs)) {
@@ -71,7 +81,7 @@
 
     ## compute permutation p-value
     pval <- sum(res >= res[1]) / length(res)
-    
+
     if(pairwise) {
         df <- apply(combin, 2, function(z) {
             length(x$distances[group == z[1]]) +
@@ -84,7 +94,7 @@
     } else {
         pairwise <- NULL
     }
-    
+
     retval <- cbind(mod.aov[, 1:4], c(nperm, NA), c(pval, NA))
     dimnames(retval) <- list(c("Groups", "Residuals"),
                              c("Df", "Sum Sq", "Mean Sq", "F", "N.Perm",
