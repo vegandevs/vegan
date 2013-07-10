@@ -2,7 +2,44 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{Changes in version 2.0.7}{
+\section{Changes in version 2.0-8}{
+
+  \subsection{GENERAL}{
+     \itemize{
+
+       \item This is a maintenance release that fixes some issues
+       raised by changed in \R{} toolset for processing vignettes.  In
+       the same we also fix some typographic issues in the vignettes.
+
+     }
+  } % general
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{ordisurf} gained new arguments for more flexible
+      definition of fitted models to better utilize the
+      \pkg{mgcv}\code{::gam} function. 
+
+      The linewidth of contours can
+      now be set with the argument \code{lwd}.
+
+      \item Labels to arrows are positioned in a better way in
+      \code{plot} functions for the results of \code{envfit},
+      \code{cca}, \code{rda} and \code{capscale}. The labels should no
+      longer overlap the arrow tips.
+
+      \item The setting test direction is clearer in \code{oecosimu}.
+
+      \item \code{ordipointlabel} gained a \code{plot} method that can
+      be used to replot the saved result.
+
+    }
+  } % new features
+
+}
+
+\section{Changes in version 2.0-7}{
 
   \subsection{NEW FUNCTIONS}{
     \itemize{
