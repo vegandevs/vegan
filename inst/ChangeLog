@@ -5,6 +5,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 2.1-32 (opened July 10, 2013)
 
 	* opened a new version with the CRAN release of vegan 2.0-8.
+
+	* merged Eduard Szöcs's code on dispersion weighting of
+	overdispersed species following Clarke, K. R., M. G. Chapman,
+	P. J. Somerfield, and H. R. Needham.  2006. Dispersion-based
+	Weighting of Species Counts in Assemblage Analyses. _Marine
+	Ecology Progress Series_, 320, 11–27. The basic development was
+	made in github.com and merged to R-Forge.
 	
 Version 2.1-31 (closed July 10, 2013)
 
