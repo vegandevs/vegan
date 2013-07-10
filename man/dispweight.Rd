@@ -47,7 +47,7 @@ Clarke, K. R., M. G. Chapman, P. J. Somerfield, and H. R. Needham. 2006. Dispers
 data(dune)
 data(dune.env)
 # calculate weights
-dpw <- disp_weight(dune, dune.env$Management, nperm = 100)
+dpw <- dispweight(dune, dune.env$Management, nperm = 100)
 # transformed community data
 dpw$transformed
 }
