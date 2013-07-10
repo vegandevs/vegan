@@ -8,7 +8,9 @@ Version 2.1-31
 	later.
 
 	* betadisper, permutest.betadisper: Modified to use the new
-	permute package API (from version 0.7-3 onwards).
+	permute package API (from version 0.7-3 onwards). The `permutest`
+	method gains a new argument `permutations`, which takes a matrix
+	of permutations to be used.
 
 	* protest: modified to use the new permute API. Gains argument
 	`control` which describes the design. As a result, `strata`
@@ -47,7 +49,7 @@ Version 2.1-31
 	* stressplot: metaMDS and monoMDS stressplot() use now
 	expression(R^2) instead of ascii R2.  The stressplot.monoMDS()
 	function returns the plotting structures in the original input
-	order. 
+	order.
 
 	* vignettes: Brian Ripley urged as to remove
 	\usepackage{inconsolota} as this package is on the way to be

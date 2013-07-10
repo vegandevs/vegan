@@ -10,7 +10,8 @@
 }
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
-         control = how(nperm = 999), \dots)
+         control = how(nperm = 999), permutations = NULL,
+         \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,7 +19,9 @@
     call to \code{betadisper}.}
   \item{pairwise}{logical; perform pairwise comparisons of group means?}
   \item{control}{a list of control values for the permutations
-    as returned by the function \code{\link[permute]{how}}}
+    as returned by the function \code{\link[permute]{how}}.}
+  \item{permutations}{A permutation matrix where each row gives the
+    permuted indices. If this is supplied, \code{control} is ignored.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{

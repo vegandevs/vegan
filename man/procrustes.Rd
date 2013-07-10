@@ -68,7 +68,7 @@ protest(X, Y, scores = "sites", control = how(nperm = 999),
   \item{control}{a list defining the permutation design, from a call to
     \code{\link{how}}.}
   \item{permutations}{A permutation matrix where each row gives the
-    permuted indices. If this is supplied, \code{cotrol} is ignored.}
+    permuted indices. If this is supplied, \code{control} is ignored.}
   \item{ar.col}{Arrow colour.}
   \item{len}{Width of the arrow head.}
   \item{labels}{Character vector of text labels. Rownames of the result 
