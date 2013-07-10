@@ -1,5 +1,5 @@
 `disp_weight` <-
-    function(comm, group, nperm)
+    function(comm, group, nperm = 1000)
 {
     # number of replicates per group
     nrep <- tabulate(group) 
