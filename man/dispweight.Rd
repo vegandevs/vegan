@@ -10,7 +10,7 @@
 \arguments{
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure.}
-  \item{nperm}{Number of permutations}
+  \item{nperm}{Number of permutations.}
 }
 
 \details{
@@ -28,10 +28,11 @@ downweighted by 1/D, else the divisor is 1.
 }
 
 \value{
-A data.frame with three columns:
-    \item{D}{Average Dispersion index}
-    \item{p}{p-value of permutation test that D = 1}
-    \item{weights}{weights to apply to community data}
+A list of class \code{dispweight} with the following items:
+    \item{D}{Average Dispersion index.}
+    \item{p}{p-value of permutation test that D = 1.}
+    \item{weights}{weights applied to community data.}
+    \item{transformed}{transformed community data.}
 }
 
 \references{
@@ -47,8 +48,8 @@ data(dune)
 data(dune.env)
 # calculate weights
 dpw <- disp_weight(dune, dune.env$Management, nperm = 100)
-# calculate transformed data
-sweep(dune, MARGIN = 2, dpw$weights, `*`)
+# transformed community data
+dpw$transformed
 }
 
 
