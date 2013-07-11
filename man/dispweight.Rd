@@ -1,11 +1,11 @@
 \encoding{UTF-8}
-\name{disp_weight}
-\alias{disp_weight}
+\name{dispweight}
+\alias{dispweight}
 \title{Dispersion-based weighting of species counts}
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{disp_weight(comm, group, nperm = 1000)}
+\usage{dispweight(comm, group, nperm = 1000)}
 
 \arguments{
   \item{comm}{Community data matrix.}
@@ -17,20 +17,20 @@
 Dispersion weighting can be used when there are \emph{a priori} defined groups 
 (eg. lacation of samples). 
 
-The dispersion index (D) is calculated as ratio between 
+The dispersion index (\eqn{D}) is calculated as ratio between 
 variance and mean and averaged across groups. D can then be used as divisor to 
 downweight species abundances.
 
 However species should be only downweighted, when there is evidence for 
-over-dispersion (D > 1). This is tested using a permutational Chi-squared test. 
+over-dispersion (\eqn{D > 1}). This is tested using a permutational Chi-squared test. 
 If this test shows statistically significant over-dispersion then the species is 
-downweighted by 1/D, else the divisor is 1.
+downweighted by \eqn{1/D}, else the divisor is \eqn{1}.
 }
 
 \value{
 A list of class \code{dispweight} with the following items:
     \item{D}{Average Dispersion index.}
-    \item{p}{p-value of permutation test that D = 1.}
+    \item{p}{\eqn{p}-value of permutation test that \eqn{D = 1}.}
     \item{weights}{weights applied to community data.}
     \item{transformed}{transformed community data.}
 }

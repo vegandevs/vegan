@@ -2,7 +2,22 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-31
+Version 2.1-32 (opened July 10, 2013)
+
+	* opened a new version with the CRAN release of vegan 2.0-8.
+
+	* merged Eduard Szöcs's code on dispersion weighting of
+	overdispersed species following Clarke, K. R., M. G. Chapman,
+	P. J. Somerfield, and H. R. Needham.  2006. Dispersion-based
+	Weighting of Species Counts in Assemblage Analyses. _Marine
+	Ecology Progress Series_, 320, 11–27. The basic development was
+	made in github.com and merged to R-Forge.
+
+	* orditkplot: bmp has been available in unix-alike OSes since
+	2008, or a moth after writing orditkplot. Thanks to Brian Ripley
+	for informing us.
+	
+Version 2.1-31 (closed July 10, 2013)
 
 	* Dependencies: Vegan now depends on a version equal to 0.7-4 or
 	later.
@@ -55,7 +70,7 @@ Version 2.1-31
 	\usepackage{inconsolota} as this package is on the way to be
 	removed from CTAN.
 
-Version 2.1-30 (opened May 5, 2013)
+Version 2.1-30 (closed June 12, 2013)
 
 	* bioenv: can now use Mahalanobis, Manhattan and Gower distances
 	for environmental variables.  The Mahalanobis distances are based
