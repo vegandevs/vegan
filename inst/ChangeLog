@@ -12,6 +12,10 @@ Version 2.1-32 (opened July 10, 2013)
 	Weighting of Species Counts in Assemblage Analyses. _Marine
 	Ecology Progress Series_, 320, 11–27. The basic development was
 	made in github.com and merged to R-Forge.
+
+	* orditkplot: bmp has been available in unix-alike OSes since
+	2008, or a moth after writing orditkplot. Thanks to Brian Ripley
+	for informing us.
 	
 Version 2.1-31 (closed July 10, 2013)
 

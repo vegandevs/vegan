@@ -241,9 +241,6 @@
         ## Should work also in R < 2.8.0 with no capabilities("tiff")
         if (!isTRUE(unname(capabilities("tiff"))))
             falt["tiff"] <- FALSE
-        ## bmp lives only in Windows
-        if (.Platform$OS.type != "windows")
-            falt["bmp"] <- FALSE
         ftypes <- ftypes[falt]
         fname <- tkgetSaveFile(filetypes=ftypes)
         if(tclvalue(fname) == "")
