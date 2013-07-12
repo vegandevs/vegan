@@ -17,6 +17,8 @@
     isotrace <- max(0, trace - 1)
     monotrace <- engine == "monoMDS" && trace > 1
     monostop <- function(mod) {
+        if (mod$maxits == 0)
+            return(NULL)
         lab <- switch(mod$icause,
                       "no. of iterations >= maxit",
                       "stress < smin",
