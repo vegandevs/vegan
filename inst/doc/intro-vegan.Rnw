@@ -1,45 +1,15 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
-\documentclass[article,nojss]{jss}
-\usepackage{veganjss} % vegan settings
-\usepackage{ucs} %% needed for R output: signif stars etc, quotes
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{sidecap}
-\usepackage{amsmath}
-\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1
-
-\renewcommand{\floatpagefraction}{0.8}
-
+\documentclass[a4paper,10pt]{amsart}
+\usepackage{vegan} % vegan settings
 
 \title{Vegan: an introduction to ordination} 
-
 \author{Jari Oksanen}
 
-\Abstract{The document describes typical, simple work pathways of
-  vegetation ordination. Unconstrained ordination uses as examples
-  detrended correspondence analysis and non-metric multidimensional
-  scaling, and shows how to interpret their results by fitting
-  environmental vectors and factors or smooth environmental surfaces
-  to the graph. The basic plotting command, and more advanced plotting
-  commands for congested plots are also discussed, as well as adding
-  items such as ellipses, convex hulls, and other items for
-  classes. The constrained ordination uses constrained (canonical)
-  correspondence analysis as an example. It is first shown how a model
-  is defined, then the document discusses model building and
-  signficance tests of the whole analysis, single constraints and
-  axes.}
-
-\Keywords{ordination, correspondence analysis, non-metric
-  multidimensional scaling, CCA, RDA, NMDS, fitted environmental
-  vector, fitted environmental surface, permutation tests}
-
-%% misuse of the address field for revision data
-\Address{$ $Id$ $
+\date{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
-\Footername{About this version}
 
 %% need no \usepackage{Sweave}
 \begin{document}
@@ -54,6 +24,22 @@ options(SweaveHooks = list(fig = figset))
 options("prompt" = "R> ", "continue" = "+  ")
 @
 
+\maketitle
+\begin{abstract}
+  The document describes typical, simple work pathways of
+  vegetation ordination. Unconstrained ordination uses as examples
+  detrended correspondence analysis and non-metric multidimensional
+  scaling, and shows how to interpret their results by fitting
+  environmental vectors and factors or smooth environmental surfaces
+  to the graph. The basic plotting command, and more advanced plotting
+  commands for congested plots are also discussed, as well as adding
+  items such as ellipses, convex hulls, and other items for
+  classes. The constrained ordination uses constrained (canonical)
+  correspondence analysis as an example. It is first shown how a model
+  is defined, then the document discusses model building and
+  signficance tests of the whole analysis, single constraints and
+  axes.
+\end{abstract}
 \tableofcontents
 
 \vspace{3ex}

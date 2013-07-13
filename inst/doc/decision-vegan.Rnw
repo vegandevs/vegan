@@ -1,33 +1,18 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Design decisions and implementation}
 
-\documentclass[article,nojss]{jss}
-\usepackage{veganjss} % package options and redefinitions
-\usepackage{amsmath}
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-%\usepackage[T1]{fontenc}
-\usepackage{sidecap}
-\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1.
-\renewcommand{\floatpagefraction}{0.8}
+\documentclass[a4paper,10pt]{amsart}
+\usepackage{vegan} % package options and redefinitions
+\usepackage[round]{natbib}
 \renewcommand{\cite}{\citep}
-\newcommand{\R}{\textsf{R}}
 
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
-\Abstract{
-  This document describes design decisions, and discusses implementation
-and algorithmic details in some vegan functions. The proper FAQ is
-another document.
-  }
-\Keywords{parallel processing, nestdness, matrix temperature,
-    community null models, scaling of PCA and RDA, WA and LC scores}
- %% hijack Address for version info
-\Address{$ $Id$ $
+
+\date{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}
-\Footername{About this version}
 
 %% need no \usepackage{Sweave.sty}
 \begin{document}
@@ -39,6 +24,13 @@ options(SweaveHooks = list(fig = figset))
 options("prompt" = "R> ", "continue" = "+  ")
 require(vegan)
 @
+\maketitle
+
+\begin{abstract}
+  This document describes design decisions, and discusses implementation
+and algorithmic details in some vegan functions. The proper FAQ is
+another document.
+\end{abstract}
 
 \tableofcontents
 
@@ -95,7 +87,7 @@ options(mc.cores = 2)
 The \code{mc.cores} option is defined in the \pkg{parallel} package,
 but it is usually unset in which case \pkg{vegan} will default to
 non-parallel computation.  The \code{mc.cores} option can be set by
-the environmental variable \code{MC_CORES} when the \pkg{parallel}
+the environmental variable \verb|MC_CORES| when the \pkg{parallel}
 package is loaded.
 
 \R{} allows\footnote{Since \R{} version 2.15.0.}
@@ -249,7 +241,7 @@ This gives the following precedence order for parallel processing
     will mean creating and stopping socket clusters even when a
     default cluster is set if \code{mc.cores} is not
     \code{NULL}. Please note that the \code{mc.cores} is only set from
-    the environmental variable \code{MC_CORES} when you load the
+    the environmental variable \verb|MC_CORES| when you load the
     \pkg{parallel} package, and it is always unset before first
     \code{require(parallel)}. \footnote{The behaviour of
       \code{mc.cores} option is untested in Windows.}
@@ -798,6 +790,7 @@ possible. Therefore \pkg{vegan} calls LC scores as
 primarily WA scores in plotting.  However, the user makes the ultimate
 choice, since both scores are available.
 
+\bibliographystyle{plainnat}
 \bibliography{vegan}
 
 \end{document}

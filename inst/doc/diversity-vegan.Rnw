@@ -1,39 +1,14 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Diversity analysis in vegan}
-\documentclass[article,nojss]{jss}
-\usepackage{veganjss} %% vegan setup
-\usepackage{ucs}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{sidecap}
-\usepackage{amsmath}
-\usepackage{amssymb} % \gtrapprox
-\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1
+\documentclass[a4paper,10pt]{amsart}
+\usepackage{vegan} %% vegan setup
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
 
-\Abstract{ This document explains diversity related methods in
-  \pkg{vegan}. The methods are briefly described, and the equations
-  used them are given often in more detail than in their help
-  pages. The methods discussed include common diversity indices and
-  rarefaction, families of diversity indices, species abundance
-  models, species accumulation models and beta diversity, extrapolated
-  richness and probability of being a member of the species pool. The
-  document is still incomplete and does not cover all diversity
-  methods in \pkg{vegan}.}
 
-\Keywords{diversity, Shannon, Simpson, R{\'e}nyi, Hill number,
-  Tsallis, rarefaction, species accumulation, beta diversity, species
-  abundance, Fisher alpha, Fisher logarithmic series, Preston
-  log-normal model, species abundance models, Whittaker plots,
-  extended richness, taxonomic diversity, functional divesity, species
-  pool}
-
-%% misuse next for scm data
-\Address{$ $Id$ $
+\date{$ $Id$ $
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
   in \Sexpr{R.version.string} on \today}
-\Footername{About this version}
 
 %% need no \usepackage{Sweave}
 \begin{document}
@@ -47,6 +22,18 @@ options(SweaveHooks = list(fig = figset))
 options("prompt" = "R> ", "continue" = "+  ")
 @
 
+\maketitle
+\begin{abstract} 
+  This document explains diversity related methods in
+  \pkg{vegan}. The methods are briefly described, and the equations
+  used them are given often in more detail than in their help
+  pages. The methods discussed include common diversity indices and
+  rarefaction, families of diversity indices, species abundance
+  models, species accumulation models and beta diversity, extrapolated
+  richness and probability of being a member of the species pool. The
+  document is still incomplete and does not cover all diversity
+  methods in \pkg{vegan}.
+\end{abstract}
 \tableofcontents
 
 
