@@ -5,13 +5,15 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{sidecap}
-\setlength{\captionindent}{0pt} % sidecap needs this with amsart
+\@ifclassloaded{amsart}%
+{\setlength{\captionindent}{0pt}} % sidecap needs this with amsart
+{}
 \usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1.
 \renewcommand{\floatpagefraction}{0.8}
 \usepackage{Sweave}
 \usepackage{hyperref}
 %% macros
-\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\small\texttt{#1}}
 \newcommand{\pkg}[1]{\textbf{#1}}
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\R}{\proglang{R}}
