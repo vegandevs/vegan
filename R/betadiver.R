@@ -11,8 +11,8 @@
     }
     beta <- list("w"="(b+c)/(2*a+b+c)", "-1"="(b+c)/(2*a+b+c)", "c"="(b+c)/2",
                  "wb"="b+c", "r"="2*b*c/((a+b+c)^2-2*b*c)",
-                 "I"="log(2*a+b+c)-2*a*log(2)/(2*a+b+c)-((a+b)*log(a+b)+(a+c)*log(a+c))/(2*a+b+c)",
-                 "e"="exp(log(2*a+b+c)-2*a*log(2)/(2*a+b+c)-((a+b)*log(a+b)+(a+c)*log(a+c))/(2*a+b+c))-1",
+                 "I"="log(2*a+b+c) - 2*a*log(2)/(2*a+b+c) - ((a+b)*log(a+b) + (a+c)*log(a+c)) / (2*a+b+c)",
+                 "e"="exp(log(2*a+b+c) - 2*a*log(2)/(2*a+b+c) - ((a+b)*log(a+b) + (a+c)*log(a+c)) / (2*a+b+c))-1",
                  "t"="(b+c)/(2*a+b+c)", "me"="(b+c)/(2*a+b+c)",
                  "j"="a/(a+b+c)", "sor"="2*a/(2*a+b+c)",
                  "m"="(2*a+b+c)*(b+c)/(a+b+c)",
@@ -27,8 +27,9 @@
                  "z"="(log(2)-log(2*a+b+c)+log(a+b+c))/log(2)"
                  )
     if (help) {
-        for (i in 1:length(beta))
-            cat(i, " \"", names(beta[i]),"\" = ", beta[[i]], "\n", sep="")
+        for (i in 1:length(beta)) 
+            writeLines(strwrap(paste(i, " \"", names(beta[i]),
+                                     "\" = ", beta[[i]], "\n", sep="")))
         return(invisible(NULL))
     }
     x <- ifelse(x > 0, 1, 0)
