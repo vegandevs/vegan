@@ -16,6 +16,15 @@ Version 2.1-32 (opened July 10, 2013)
 	* orditkplot: bmp has been available in unix-alike OSes since
 	2008, or a moth after writing orditkplot. Thanks to Brian Ripley
 	for informing us.
+
+	* vignettes: vignettes use now standard article style instead of
+	hacked jss style. Decision and diversity vignettes are in two
+	columns, but intro in one (R output did not fit in one
+	column). The common packages, macros and definitions were moved to
+	new vegan.sty which is written so that it should work both with
+	amsart and article, and with one and two columns. Figures are now
+	in standard figure environment, but intro redefines this to use
+	sidecaption figures.  
 	
 Version 2.1-31 (closed July 10, 2013)
 

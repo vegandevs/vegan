@@ -1,7 +1,7 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Design decisions and implementation}
 
-\documentclass[a4paper,10pt]{amsart}
+\documentclass[a4paper,10pt,twocolumn]{article}
 \usepackage{vegan} % package options and redefinitions
 \usepackage[round]{natbib}
 \renewcommand{\cite}{\citep}
@@ -9,19 +9,20 @@
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
 
-\date{$ $Id$ $
+\date{\footnotesize{$ $Id$ $
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
-in \Sexpr{R.version.string} on \today}
+in \Sexpr{R.version.string} on \today}}
 
-%% need no \usepackage{Sweave.sty}
+%% need no \usepackage{Sweave}
 \begin{document}
 \SweaveOpts{strip.white=true}
-\setkeys{Gin}{width=0.55\linewidth}
+\setkeys{Gin}{width=\linewidth}
 <<echo=false,results=hide>>=
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
-options("prompt" = "R> ", "continue" = "+  ")
+options("prompt" = "> ", "continue" = "  ")
+options(width = 55) 
 require(vegan)
 @
 \maketitle
@@ -133,7 +134,8 @@ meandist <- function(x) mean(vegdist(x, "bray"))
 library(parallel)
 clus <- makeCluster(4)
 clusterEvalQ(clus, library(vegan))
-mbc1 <- oecosimu(dune, meandist, "r2dtable", parallel = clus)
+mbc1 <- oecosimu(dune, meandist, "r2dtable", 
+                 parallel = clus)
 stopCluster(clus)
 @ 
 Socket clusters are used for parallel processing in Windows, but you
@@ -214,11 +216,12 @@ following way:
   \code{parallel} will be either an integer or a socket cluster, and
   information on the type is saved in variable \code{hasClus}:
 <<eval=false>>=
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
-    if (is.null(parallel) || getRversion() < "2.14.0")
-        parallel <- 1
-    hasClus <- inherits(parallel, "cluster")
+if(is.null(parallel) && getRversion()>="2.15.0")
+   parallel <- get("default", 
+                   envir = parallel:::.reg)
+if (is.null(parallel) || getRversion()<"2.14.0")
+    parallel <- 1
+hasClus <- inherits(parallel, "cluster")
 @ 
 \item Integer: An integer value is taken as the number of created
   parallel processes.  In unix-like systems this is the number of
@@ -261,7 +264,7 @@ ways. Here I discuss the implementation in \pkg{vegan}.
 The matrix temperature is intuitively simple
 (Fig. \ref{fig:nestedtemp}), but the the exact calculations were not
 explained in the original publication \cite{AtmarPat93}.
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false,results=hide>>=
 data(sipoo)
 mod <- nestedtemp(sipoo)
@@ -284,7 +287,7 @@ arrows(x,y, r, f(r, mod$p), lwd=4)
   the fill line. The ``surprise'' for this point is $u = (d/D)^2$ and
   the matrix temperature is based on the sum of surprises: presences
   outside the fill line or absences within the fill line.}
-\end{SCfigure}
+\end{figure}
 The function can be implemented in many ways following the general
 principles.  \citet{RodGir06} have seen the original code and reveal
 more details of calculations, and their explanation is the basis of
@@ -446,7 +449,8 @@ components analysis in all cases, and in redundancy analysis, they
 apply to species scores and constraints or linear combination scores;
 weighted averaging scores have somewhat wider dispersion.
 
-\begin{table}
+\begin{table*}[t]
+  \centering
   \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
     in the functions \code{prcomp} and \code{princomp}, and the
     one used in the \pkg{vegan} function \code{rda} 
@@ -460,7 +464,8 @@ weighted averaging scores have somewhat wider dispersion.
     is derived
     dividing each  species by its standard deviation $s_j$ (possibly
     with some additional constant multiplier).  }
-\begin{tabular}{lcc}
+ \begin{tabular}{lcc}
+  \\
 & \textbf{Site scores} $u_{ik}^*$ &
 \textbf{Species scores} $v_{jk}^*$ \\
 \code{prcomp, princomp} &
@@ -491,7 +496,9 @@ $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 % $u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
 % $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
 \end{tabular}
-\end{table}
+\end{table*}
+
+
 
 In community ecology, it is common to plot both species and sites in
 the same graph.  If this graph is a graphical display of \textsc{svd},
@@ -539,21 +546,23 @@ the scaling constant to any desired values. It is also possible to
 have two separate scaling constants: the first for the species, and
 the second for sites and friends, and this allows getting scores of
 other software or \proglang{R} functions (Table \ref{tab:rdaconst}). 
-\begin{table}
+\begin{table*}[t]
+  \centering
   \caption{\label{tab:rdaconst} Values of the \code{const} argument in
     \textbf{vegan} to get the scores that are equal to those from
     other functions and software. Number of sites (rows) is $n$, 
     the number of species (columns) is $m$, and the sum of all
     eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
     \code{tot.chi} in the \code{rda} result)}.
-\begin{tabular}{lccc}
+ \begin{tabular}{lccc}
+  \\
 & \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
 \pkg{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
 \code{prcomp}, \code{princomp} & \code{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
 \proglang{Canoco\,v3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
 \proglang{Canoco\,v4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
 \end{tabular}
-\end{table}
+\end{table*}
 
 In this chapter, I used always centred data matrices.  In principle
 \textsc{svd} could be done with original, non-centred data, but
@@ -631,13 +640,13 @@ default. So we must specifically ask for LC scores
 <<a,fig=false>>=
 plot(orig, dis=c("lc","bp"))
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{LC scores in CCA of the original data.}
 \label{fig:ccalc}
-\end{SCfigure}
+\end{figure}
 
 What would happen to linear combinations of LC scores if we shuffle
 the ordering of sites in species data?  Function \code{sample()} below
@@ -646,26 +655,27 @@ shuffles the indices.
 i <- sample(nrow(varespec))
 shuff <- cca(varespec[i,] ~ Al + K, varechem)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 plot(shuff, dis=c("lc","bp"))
 @
 \caption{LC scores of shuffled species data.}
 \label{fig:ccashuff}
-\end{SCfigure}
+\end{figure}
 It seems that site scores are fairly similar, but oriented differently
 (Fig. \ref{fig:ccashuff}).  We can use Procrustes rotation to see how
 similar the site scores indeed are (Fig. \ref{fig:ccaproc}).
 <<a,fig=false>>=
-plot(procrustes(scores(orig, dis="lc"), scores(shuff, dis="lc")))
+plot(procrustes(scores(orig, dis="lc"), 
+                scores(shuff, dis="lc")))
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Procrustes rotation of LC scores from CCA of original and shuffled data.}
 \label{fig:ccaproc}
-\end{SCfigure}
+\end{figure}
 There is a small difference, but this will disappear if we use
 Redundancy Analysis (RDA) instead of CCA
 (Fig. \ref{fig:rdaproc}). Here we use a new shuffling as well.
@@ -674,13 +684,14 @@ tmp1 <- rda(varespec ~ Al + K, varechem)
 i <- sample(nrow(varespec)) # Different shuffling
 tmp2 <- rda(varespec[i,] ~ Al + K, varechem)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
-plot(procrustes(scores(tmp1, dis="lc"), scores(tmp2, dis="lc")))
+plot(procrustes(scores(tmp1, dis="lc"), 
+                scores(tmp2, dis="lc")))
 @
 \caption{Procrustes rotation of LC scores in RDA of the original and shuffled data.}
 \label{fig:rdaproc}
-\end{SCfigure}
+\end{figure}
 
 LC scores indeed are linear combinations of constraints (environmental
 variables) and \emph{independent of species data}: You can
@@ -701,14 +712,14 @@ shuff
 @
 Similarly their WA scores will be (probably) very different
 (Fig. \ref{fig:ccawa}).
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 plot(procrustes(orig, shuff))
 @
 \caption{Procrustes rotation of WA scores of CCA with the original and
   shuffled data.}
 \label{fig:ccawa}
-\end{SCfigure}
+\end{figure}
 
 The example used only two environmental variables so that we can
 easily plot all constrained axes.  With a larger number of
@@ -719,7 +730,8 @@ remain within numerical accuracy:
 <<>>=
 tmp1 <- rda(varespec ~ ., varechem)
 tmp2 <- rda(varespec[i,] ~ ., varechem)
-proc <- procrustes(scores(tmp1, dis="lc", choi=1:14), scores(tmp2, dis="lc", choi=1:14))
+proc <- procrustes(scores(tmp1, dis="lc", choi=1:14), 
+                   scores(tmp2, dis="lc", choi=1:14))
 max(residuals(proc))
 @
 In \code{cca} the difference would be somewhat larger than now
@@ -740,14 +752,14 @@ orig <- cca(dune ~ Moisture, dune.env)
 @
 When the results are plotted using LC scores, sample plots fall only
 in four alternative positions (Fig. \ref{fig:factorlc}).
-\begin{SCfigure}
+\begin{figure}
 <<fig=TRUE,echo=false>>=
 plot(orig, dis="lc")
 @
 \caption{LC scores of the dune meadow data using only one factor as a
   constraint.}
 \label{fig:factorlc}
-\end{SCfigure}
+\end{figure}
 In the previous chapter we saw that this happens because LC scores
 \emph{are} the environmental variables, and they can be distinct only
 if the environmental variables are distinct.  However, normally the user
@@ -765,14 +777,14 @@ plot(orig, display="wa", type="points")
 ordispider(orig, col="red")
 text(orig, dis="cn", col="blue")
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=TRUE,echo=false>>=
 <<a>>
 @
 \caption{A ``spider plot'' connecting WA scores to corresponding LC
   scores. The shorter the web segments, the better the ordination.}
 \label{fig:walcspider}
-\end{SCfigure}
+\end{figure}
 This is the standard way of displaying results of discriminant
 analysis, too.  Moisture classes \code{1} and \code{2} seem to be
 overlapping, and cannot be completely separated by their

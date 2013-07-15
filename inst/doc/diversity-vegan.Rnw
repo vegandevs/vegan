@@ -1,25 +1,24 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Diversity analysis in vegan}
-\documentclass[a4paper,10pt]{amsart}
+\documentclass[a4paper,10pt,twocolumn]{article}
 \usepackage{vegan} %% vegan setup
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
 
-
-\date{$ $Id$ $
+\date{\footnotesize{$ $Id$ $
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
-  in \Sexpr{R.version.string} on \today}
+  in \Sexpr{R.version.string} on \today}}
 
 %% need no \usepackage{Sweave}
 \begin{document}
-\setkeys{Gin}{width=0.55\linewidth}
+\setkeys{Gin}{width=\linewidth}
 \SweaveOpts{strip.white=true}
 <<echo=false>>=
 par(mfrow=c(1,1))
-options(width=72)
+options(width=55)
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
-options("prompt" = "R> ", "continue" = "+  ")
+options("prompt" = "> ", "continue" = "  ")
 @
 
 \maketitle
@@ -117,7 +116,7 @@ graphically using the standard \code{plot} function for the
 <<echo=false,results=hide>>=
 require(lattice, quietly=TRUE)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 print(plot(R))
 @
@@ -126,7 +125,7 @@ print(plot(R))
   show the values for sites, and the lines the extremes and median in
   the data set.}
 \label{fig:renyi}
-\end{SCfigure}
+\end{figure}
 
 Finally, the $\alpha$ parameter of Fisher's log-series can be used as
 a diversity index:
@@ -141,23 +140,23 @@ richness actually may be caused by differences in sample size.  To
 solve this problem, we may try to rarefy species richness to the same
 number of individuals.  Expected number of species in a community
 rarefied from $N$ to $n$ individuals is:
-\begin{equation}
+\begin{multline}
 \label{eq:rare}
-\hat S_n = \sum_{i=1}^S (1 - q_i),\quad \text{where} \quad q_i = {N-x_i
+\hat S_n = \sum_{i=1}^S (1 - q_i),\\ \text{where} \quad q_i = {N-x_i
   \choose n} \Bigm /{N \choose n}
-\end{equation}
+\end{multline}
 where $x_i$ is the count of species $i$, and ${N \choose n}$ is the
 binomial coefficient, or the number of ways we can choose $n$ from
 $N$, and $q_i$ give the probabilities that species $i$ does \emph{not} occur in a
 sample of size $n$.  This is defined only when $N-x_i > n$, but for
 other cases $q_i = 0$ or the species is sure to occur in the sample.
 The variance of rarefied richness is:
-\begin{equation}
+\begin{multline}
 \label{eq:rarevar}
-s^2 = q_i (1-q_i) + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
+s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
     \choose n} \Bigm / {N
     \choose n} - q_i q_j\right]
-\end{equation}
+\end{multline}
 Equation \ref{eq:rarevar} actually is of the same form as the variance
 of sum of correlated variables:
 \begin{equation}
@@ -260,7 +259,7 @@ data(dune.taxon)
 taxdis <- taxa2dist(dune.taxon, varstep=TRUE)
 mod <- taxondive(dune, taxdis)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 plot(mod)
 @
@@ -268,7 +267,7 @@ plot(mod)
   points are diversity values of single sites, and the funnel is their
   approximate confidence intervals ($2 \times$ standard error).}
 \label{fig:taxondive}
-\end{SCfigure}
+\end{figure}
 
 \subsection{Functional diversity: the height of property tree}
 
@@ -316,14 +315,14 @@ k <- sample(nrow(BCI), 1)
 fish <- fisherfit(BCI[k,])
 fish
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 plot(fish)
 @
 \caption{Fisher's log-series fitted to one randomly selected site
   (\Sexpr{k}).}
 \label{fig:fisher}
-\end{SCfigure}
+\end{figure}
 We already saw $\alpha$ as a diversity index.  Now we also obtained
 estimate of standard error of $\alpha$ (these also are optionally
 available in \code{fisher.alpha}).  The standard errors are based on
@@ -394,14 +393,14 @@ set gives (Fig. \ref{fig:rad}):
 rad <- radfit(BCI[k,])
 rad
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 print(radlattice(rad))
 @
 \caption{Ranked abundance distribution models for a random plot
   (no. \Sexpr{k}).  The best model has the lowest \textsc{aic}.}
 \label{fig:rad}
-\end{SCfigure}
+\end{figure}
 
 Function \code{radfit} compares the models using alternatively
 Akaike's or Schwartz's Bayesian information criteria.  These are based
@@ -433,18 +432,18 @@ they happen to be, and repeated accumulation in random order.  In
 addition, there are three analytic models.  Rarefaction pools
 individuals together, and applies rarefaction equation (\ref{eq:rare})
 to these individuals.  Kindt's exact accumulator resembles rarefaction:
-\begin{equation}
+\begin{multline}
 \label{eq:kindt}
-\hat S_n = \sum_{i=1}^S (1 - p_i), \, \text{where} \quad p_i = {N- f_i
+\hat S_n = \sum_{i=1}^S (1 - p_i), \, \\ \text{where} \quad  p_i = {N- f_i
 \choose n} \Bigm / {N \choose n}
-\end{equation}
+\end{multline}
 where $f_i$ is the frequency of species $i$.  Approximate variance
 estimator is:
-\begin{equation}
+\begin{multline}
 \label{eq:kindtvar}
-s^2 = p_i (1 - p_i) + 2 \sum_{i=1}^S \sum_{j>i} \left( r_{ij}
+s^2 = p_i (1 - p_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left( r_{ij}
   \sqrt{p_i(1-p_i)} \sqrt{p_j (1-p_j)}\right)
-\end{equation}
+\end{multline}
 where $r_{ij}$ is the correlation coefficient between species $i$ and
 $j$.  Both of these are unpublished: eq. \ref{eq:kindt} was developed
 by Roeland Kindt, and eq. \ref{eq:kindtvar} by Jari Oksanen. The third
@@ -463,13 +462,13 @@ The recommended is Kindt's exact method (Fig. \ref{fig:sac}):
 sac <- specaccum(BCI)
 plot(sac, ci.type="polygon", ci.col="yellow")
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Species accumulation curve for the BCI data; exact method.}
 \label{fig:sac}
-\end{SCfigure}
+\end{figure}
 
 \subsection{Beta diversity}
 
@@ -558,7 +557,7 @@ z <- betadiver(dune, "z")
 mod <- with(dune.env, betadisper(z, Management))
 mod
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 boxplot(mod)
 @
@@ -566,7 +565,7 @@ boxplot(mod)
   ($z$) of the species area curve in the Arrhenius model $S = cX^z$ in
   Management classes of dune meadows.}
 \label{fig:betadisper}
-\end{SCfigure}
+\end{figure}
 
 \section{Species pool}
 \subsection{Number of unseen species}
@@ -585,9 +584,9 @@ Function \code{specpool} implements the following models to estimate
 the pool size $S_p$:
 \begin{align}
 S_p &= S_o + \frac{f_1^2}{2 f_2} & \text{Chao}\\
-S_p &= S_o + f_1 \frac{N-1}{N} & \text{1st order Jackknife}\\
-S_p & = S_o + f_1 \frac{2N-3}{N} + f_2 \frac{(N-2)^2}{N(N-1)} &
-\text{2nd order Jackknife}\\
+S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
+S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
+& \text{2nd order Jackknife}\\
 S_p &= S_o + \sum_{i=1}^{S_o} (1-p_i)^N & \text{Bootstrap}
 \end{align}
 Here $S_o$ is the observed number of species, $f_1$ and $f_2$ are the
@@ -612,12 +611,9 @@ Variance of the second-order jackknife is not evaluated in
 \code{specpool} (but contributions are welcome).
 For the variance of bootstrap estimator, it is practical to define a
 new variable $q_i = (1-p_i)^N$ for each species:
-\begin{equation}
-\begin{split}
-s^2 = \sum_{i=1}^{S_o} q_i (1-q_i) + 2 \sum \sum Z_p , \quad \text{where} \\
-Z_p = \dots
-\end{split}
-\end{equation}
+\begin{multline}
+s^2 = \sum_{i=1}^{S_o} q_i (1-q_i) + 2 \sum \sum Z_p ,\\ \text{where}\; Z_p = \dots
+\end{multline}
 
 The extrapolated richness values for the whole BCI data are:
 <<>>=
@@ -647,7 +643,7 @@ equation. \textsc{ace} is based on rare species also:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
-\frac{a_1}{C_\mathrm{ACE}} \gamma^2 \quad \text{where}\\
+\frac{a_1}{C_\mathrm{ACE}} \gamma^2\, , \quad \text{where}\\
 C_\mathrm{ACE} &= 1 - \frac{a_1}{N_\mathrm{rare}}\\
 \gamma^2 &= \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} \sum_{i=1}^{10} i
 (i-1) a_1 \frac{N_\mathrm{rare} - 1}{N_\mathrm{rare}}
@@ -700,14 +696,16 @@ only one species, and to avoid circular reasoning we do not include
 the target species in the smoothing (Fig. \ref{fig:beals}):
 <<a>>=
 j <- which(colnames(BCI) == "Ceiba.pentandra")
-plot(beals(BCI, species=j, include=FALSE), BCI[,j], main="Ceiba pentandra", xlab="Probability of occurrence", ylab="Occurrence")
+plot(beals(BCI, species=j, include=FALSE), BCI[,j], 
+     main="Ceiba pentandra", xlab="Probability of occurrence",
+     ylab="Occurrence")
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Beals smoothing for \emph{Ceiba pentandra}.}
 \label{fig:beals}
-\end{SCfigure}
+\end{figure}
 
 \end{document}
