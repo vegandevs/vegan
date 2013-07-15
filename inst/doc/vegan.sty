@@ -21,5 +21,9 @@
 \newcommand{\VAR}{\mathsf{VAR}}
 \newcommand{\COV}{\mathsf{COV}}
 \newcommand{\Prob}{\mathsf{P}}
-%% smaller examples
-\renewenvironment{Schunk}{\par\small}{}
+%% smaller examples, size depends on the no. of columns
+\if@twocolumn
+  \renewenvironment{Schunk}{\par\footnotesize}{}
+\else
+  \renewenvironment{Schunk}{\par\small}{}
+\fi
