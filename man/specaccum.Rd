@@ -190,7 +190,7 @@ fitspecaccum(object, model, method = "random", ...)
   \item{perm}{Permutation results with \code{method = "random"} and
     \code{NULL} in other cases. Each column in \code{perm} holds one
     permutation.}
-  \item{weights}{Matrix of accumulated weigths corresponding to the
+  \item{weights}{Matrix of accumulated weights corresponding to the
     columns of the \code{perm} matrix when model was fitted with
     argument \code{w}.}
   \item{fitted, residuals, coefficients}{Only in \code{fitspecacum}:

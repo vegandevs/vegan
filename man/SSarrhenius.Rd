@@ -58,8 +58,8 @@ SSlomolino(area, Asym, xmid, slope)
   The Lomolino model (\code{SSlomolino}) is
   \code{Asym/(1 + slope^log(xmid/area))} (Lomolino 2000, Dengler 2009).
   Parameter \code{Asym} is the asymptotic maximum number of species,
-  \code{slope} is the maximum slope of increse of richness, and
-  \code{xmid} is the  area where half of the maximum richess is
+  \code{slope} is the maximum slope of increase of richness, and
+  \code{xmid} is the  area where half of the maximum richness is
   achieved. 
 
   In addition to these models, several other models studied by Dengler

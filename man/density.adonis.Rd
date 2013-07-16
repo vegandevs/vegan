@@ -72,10 +72,10 @@
   standard \code{plot} of \code{densiy} objects, but can also add a
   vertical line for the observed statistic.
 
-  Functions that can return several permuted statistics simultaenously
+  Functions that can return several permuted statistics simultaneously
   also have \code{\link[lattice]{densityplot}} method
-  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity partioning
-  functions based on \code{oecosimu}).  The standard
+  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity 
+  partitioning functions based on \code{oecosimu}).  The standard
   \code{\link{density}} can only handle univariate data, and a warning
   is issued if the function is used for a model with several observed
   statistics.  The \code{\link[lattice]{densityplot}} method is available

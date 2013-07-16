@@ -38,7 +38,7 @@
   \code{\link{isomap}}, \code{\link{metaMDS}}, \code{\link{pcnm}},
   \code{\link{procrustes}}, \code{\link{radfit}},
   \code{\link{varpart}} and \code{\link{wcmdscale}}.  } \value{ A
-  single number, normally an interger, giving the number of
+  single number, normally an integer, giving the number of
   observations.  }
 
 \author{

@@ -32,7 +32,7 @@ see Details.
 Logical, if the algorithm applies to presence-absence or count matrices.
 }
   \item{isSeq}{
-Logical, if the algorthm is sequential (needs burnin) or not.
+Logical, if the algorithm is sequential (needs burnin) or not.
 }
   \item{mode}{
 Character, storage mode of the community matrix, either 
@@ -59,7 +59,7 @@ and must take some of the following arguments:
   \item{\code{cf}: }{vector of column frequencies (non-zero cells),}
   \item{\code{s}: }{total sum of \code{x},}
   \item{\code{fill}: }{matrix fill (non-zero cells),}
-  \item{\code{thin}: }{thining value for sequential algorithms,}
+  \item{\code{thin}: }{thinning value for sequential algorithms,}
   \item{\code{...}: }{additional arguments.}
 }
 
@@ -77,7 +77,7 @@ The following algorithms are currently predefined:
     presences anywhere on the row with no respect to species (column)
     frequencies. Methods \code{"r0"} and \code{"r0_old"} implement the
     same method, but use different random number sequences; use
-    \code{"r0_old"} if you want to reproduce reusult in \pkg{vegan
+    \code{"r0_old"} if you want to reproduce results in \pkg{vegan
     2.0-0} or older using \code{commsimulator} (now deprecated). See
     Wright et al. (1998) for a review.}
 
@@ -205,7 +205,7 @@ The following algorithms are currently predefined:
 
   \item{\code{"abuswap_r"}: }{sequential algorithm for count 
     or nonnegative real valued (\code{mode = "double"}) matrices
-    (\code{"abuswap"} algorithm with fixed row freqencies,
+    (\code{"abuswap"} algorithm with fixed row frequencies,
     see help page of \code{\link{permatswap}}).
     The algorithm produces matrices by swapping
     2 x 2 submatrices. Each step changes the the corresponding
@@ -215,7 +215,7 @@ The following algorithms are currently predefined:
 
   \item{\code{"abuswap_c"}: }{sequential algorithm for count 
     or nonnegative real valued (\code{mode = "double"}) matrices. 
-    (\code{"abuswap"} algorithm with fixed column freqencies,
+    (\code{"abuswap"} algorithm with fixed column frequencies,
     see help page of \code{\link{permatswap}}).
     The algorithm produces matrices by swapping
     2 x 2 submatrices. Each step changes the the corresponding
@@ -231,15 +231,15 @@ The following algorithms are currently predefined:
 
   \item{\code{"r00_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
-    individuals are shullfled among cells of the matrix.}
+    individuals are shuffled among cells of the matrix.}
 
   \item{\code{"r0_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps row sums constant,
-    individuals are shullfled among cells of each row of the matrix.}
+    individuals are shuffled among cells of each row of the matrix.}
 
   \item{\code{"c0_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps column sums constant,
-    individuals are shullfled among cells of each column of the matrix.}
+    individuals are shuffled among cells of each column of the matrix.}
 
   \item{\code{"r00_samp"}: }{non-sequential algorithm for count 
     or nonnegative real valued (\code{mode = "double"}) matrices. 
