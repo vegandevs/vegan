@@ -169,3 +169,4 @@ plot(mite.correlog2)
 }
 
 \keyword{ multivariate }
+

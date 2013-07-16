@@ -108,3 +108,4 @@ adonis(dune ~ Management + Moisture, dune.env)
 \keyword{ nonparametric }
 \keyword{ htest }
 \keyword{ regression }
+
