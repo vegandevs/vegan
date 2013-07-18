@@ -19,7 +19,12 @@
 \usepackage{Sweave}
 \usepackage{hyperref}
 %% macros
-\newcommand{\code}[1]{\small\texttt{#1}}
+%% \code should handle _ ,  ~ and $ 
+\makeatletter
+\newcommand\code{\bgroup\@makeother\_\@makeother\~\@makeother\$\@codex}
+\def\@codex#1{{\normalfont\ttfamily\hyphenchar\font=-1 #1}\egroup}
+\makeatother
+%% simple macros
 \newcommand{\pkg}[1]{\textbf{#1}}
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\R}{\proglang{R}}
