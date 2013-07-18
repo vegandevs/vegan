@@ -3,9 +3,6 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage{vegan} % vegan settings
 
-%% one column and sidecaption figures
-\renewenvironment{figure}[1][tp]{\begin{SCfigure}[][#1]}{\end{SCfigure}}
-
 \title{Vegan: an introduction to ordination} 
 \author{Jari Oksanen}
 
@@ -17,7 +14,6 @@ in \Sexpr{R.version.string} on \today}}
 %% need no \usepackage{Sweave}
 \begin{document}
 
-\setkeys{Gin}{width=0.55\linewidth} % 0.55 for sidecaption
 \SweaveOpts{strip.white=true}
 <<echo=false>>=
 par(mfrow=c(1,1))

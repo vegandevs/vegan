@@ -1,4 +1,10 @@
-%% typeset vegan vignettes
+%% typeset vegan vignettes. Should work with article style in one and
+%% two columns, and with amsart style with one column (two columns are
+%% too narrow in amsart, but basically works).  In one column, sets
+%% sidecaption figures, and in two columns normal column-wide figures
+%% and smaller example font. R output width (options(width=)) probably
+%% needs correct setting in the Rnw file, and some formatting may need
+%% adjustment. 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{ucs}
@@ -21,9 +27,12 @@
 \newcommand{\VAR}{\mathsf{VAR}}
 \newcommand{\COV}{\mathsf{COV}}
 \newcommand{\Prob}{\mathsf{P}}
-%% smaller examples, size depends on the no. of columns
+%% layout depends on the number of columns
 \if@twocolumn
-  \renewenvironment{Schunk}{\par\footnotesize}{}
+  \renewenvironment{Schunk}{\par\footnotesize}{} % smaller examples
+  \setkeys{Gin}{width=\linewidth} % column wide figs
 \else
-  \renewenvironment{Schunk}{\par\small}{}
+  \renewenvironment{Schunk}{\par\small}{} % small examples
+  \setkeys{Gin}{width=0.55\linewidth} % narrow figs for sidecaps
+  \renewenvironment{figure}[1][tp]{\begin{SCfigure}[][#1]}{\end{SCfigure}} %sidecaps
 \fi

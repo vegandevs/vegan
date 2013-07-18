@@ -17,7 +17,7 @@ in \Sexpr{R.version.string} on \today}}
 %% need no \usepackage{Sweave}
 \begin{document}
 \SweaveOpts{strip.white=true}
-\setkeys{Gin}{width=\linewidth}
+
 <<echo=false,results=hide>>=
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))

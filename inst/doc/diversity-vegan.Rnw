@@ -11,11 +11,11 @@
 
 %% need no \usepackage{Sweave}
 \begin{document}
-\setkeys{Gin}{width=\linewidth}
+
 \SweaveOpts{strip.white=true}
 <<echo=false>>=
 par(mfrow=c(1,1))
-options(width=55)
+options(width=55) 
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
 options("prompt" = "> ", "continue" = "  ")
