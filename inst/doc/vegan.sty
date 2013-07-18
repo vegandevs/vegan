@@ -18,6 +18,15 @@
 \renewcommand{\floatpagefraction}{0.8}
 \usepackage{Sweave}
 \usepackage{hyperref}
+%% layout depends on the number of columns
+\if@twocolumn
+  \renewenvironment{Schunk}{\par\footnotesize}{} % smaller examples
+  \setkeys{Gin}{width=\linewidth} % column wide figs
+\else
+  \renewenvironment{Schunk}{\par\small}{} % small examples
+  \setkeys{Gin}{width=0.55\linewidth} % narrow figs for sidecaps
+  \renewenvironment{figure}[1][tp]{\begin{SCfigure}[][#1]}{\end{SCfigure}} %sidecaps
+\fi
 %% macros
 %% \code should handle _ ,  ~ and $ 
 \makeatletter
@@ -32,12 +41,4 @@
 \newcommand{\VAR}{\mathsf{VAR}}
 \newcommand{\COV}{\mathsf{COV}}
 \newcommand{\Prob}{\mathsf{P}}
-%% layout depends on the number of columns
-\if@twocolumn
-  \renewenvironment{Schunk}{\par\footnotesize}{} % smaller examples
-  \setkeys{Gin}{width=\linewidth} % column wide figs
-\else
-  \renewenvironment{Schunk}{\par\small}{} % small examples
-  \setkeys{Gin}{width=0.55\linewidth} % narrow figs for sidecaps
-  \renewenvironment{figure}[1][tp]{\begin{SCfigure}[][#1]}{\end{SCfigure}} %sidecaps
-\fi
+
