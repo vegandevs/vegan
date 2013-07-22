@@ -201,13 +201,12 @@ seem to be small.
 
 Simple diversity indices only consider species identity: all different
 species are equally different. In contrast, taxonomic and functional
-diversity indices judge the differences of species
-are. Taxonomic and functional diversities are used in different fields
-of science, but they really have very similar reasoning, and either
-could be used either with taxonomic or functional properties of
-species.
+diversity indices judge the differences of species. Taxonomic and
+functional diversities are used in different fields of science, but
+they really have very similar reasoning, and either could be used
+either with taxonomic or functional traits of species.
 
-\subsection{Taxonomic diversity: average distance of properties}
+\subsection{Taxonomic diversity: average distance of traits}
 
 The two basic indices are called taxonomic diversity ($\Delta$) and
 taxonomic distinctness ($\Delta^*$):
@@ -269,13 +268,13 @@ plot(mod)
 \label{fig:taxondive}
 \end{figure}
 
-\subsection{Functional diversity: the height of property tree}
+\subsection{Functional diversity: the height of trait tree}
 
 In taxonomic diversity the primary data were taxonomic trees which
 were transformed to pairwise distances among species. In functional
-diversity the primary data are species properties which are translated
-to pairwise distances among species and then to clustering trees of
-species properties. The argument for trees is that in this way a
+diversity the primary data are species traits which are translated to
+pairwise distances among species and then to clustering trees of
+species traits. The argument for using trees is that in this way a
 single deviant species will have a small influence, since its
 difference is evaluated only once instead of evaluating its distance
 to all other species.
@@ -350,7 +349,7 @@ with arbitrary choices of binning limits and treatment of ties. It
 seems that Preston split ties between adjacent octaves: only half of
 the species observed once were in the first octave, and half were
 transferred to the next octave, and the same for all species at the
-octave limits occuring 2, 4, 8, 16\ldots times. Function
+octave limits occurring 2, 4, 8, 16\ldots times. Function
 \code{prestonfit} can either split the ties or keep all limit cases in
 the lower octave.
 Function \code{prestondistr} directly

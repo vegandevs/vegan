@@ -258,9 +258,9 @@ This gives the following precedence order for parallel processing
 
 \section{Nestedness and Null models}
 
-Some indicators of nestedness and null models of communities are only
-described in general terms, and they could be implemented in various
-ways. Here I discuss the implementation in \pkg{vegan}.
+Some published indices of nestedness and null models of communities
+are only described in general terms, and they could be implemented in
+various ways. Here I discuss the implementation in \pkg{vegan}.
 
 \subsection{Matrix temperature}
 
@@ -305,12 +305,12 @@ in the source code of \code{nestedtemp}.
 
 \begin{itemize}
 \item Species and sites are put into unit square \citep{RodGir06}. The
-  coordinates for $n$ item will be $(k-0.5)/n$ for $k=1 \ldots n$, so
-  that there are no points in the corners or the margins of the unit
-  square, and a diagonal line can be drawn through any point. I do not
-  know how the rows and columns are converted to the unit square in
-  other software, and this may be a considerable source of differences
-  among implementations.
+  row and column coordinates will be $(k-0.5)/n$ for $k=1 \ldots n$,
+  so that there are no points in the corners or the margins of the
+  unit square, and a diagonal line can be drawn through any point. I
+  do not know how the rows and columns are converted to the unit
+  square in other software, and this may be a considerable source of
+  differences among implementations.
   \item Species and sites are ordered alternately using indices
     \citep{RodGir06}:
     \begin{equation}
@@ -349,7 +349,7 @@ in the source code of \code{nestedtemp}.
     \citep{RodGir06}. Small details in the fill line combined with
     differences in scores used in the unit square (especially in the
     corners) can cause large differences in the results.
-  \item A line with slope $-1$ is drawn through the point and the $x$
+  \item A line with slope\,$= -1$ is drawn through the point and the $x$
     coordinate of the intersection of this line and the fill line is
     found using function \code{uniroot}. The difference of this
     intersection and the row coordinate gives the argument $d$ of matrix
@@ -414,7 +414,7 @@ of singular value decomposition (\textsc{svd}).  Functions
 \code{rda} and \code{prcomp} even use \textsc{svd} internally in
 their algorithm.
 
-In \textsc{svd} a centred data matrix is decomposed into orthogonal
+In \textsc{svd} a centred data matrix $\mathbf{X} = \{x_{ij}\}$ is decomposed into orthogonal
 components so that $x_{ij} = \sum_k \sigma_k u_{ik} v_{jk}$, where
 $u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
 $\sigma_k$ are singular values.  Orthonormality means that sums of
@@ -440,7 +440,7 @@ data.  The orthonormal matrix $\mathbf{V}$ of \textsc{svd} can be
 found indirectly as well, so that we have the same components in both
 methods.
 
-The coefficients $u_{ik}$ and $v_{jk}$ are scaled similarly for all
+The coefficients $u_{ik}$ and $v_{jk}$ are scaled to unit length for all
 axes $k$. Singular values $\sigma_k$ or eigenvalues $\lambda_k$ give
 the information of the importance of axes, or the `axis lengths.'
 Instead of the orthonormal coefficients, or equal length axes, it is
@@ -469,8 +469,10 @@ weighted averaging scores have somewhat wider dispersion.
     with some additional constant multiplier).  }
  \begin{tabular}{lcc}
   \\
+  \toprule
 & \textbf{Site scores} $u_{ik}^*$ &
 \textbf{Species scores} $v_{jk}^*$ \\
+\midrule
 \code{prcomp, princomp} &
 $u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
 $v_{jk}$ \\
@@ -487,7 +489,7 @@ $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
 \code{rda, scaling < 0} &
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
-% \\
+\\
 % \code{Canoco 3, scaling=-1} &
 % $u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
 % $v_{jk} \sqrt{n}$ \\
@@ -498,6 +500,7 @@ $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 % \code{Canoco 3, scaling=-3} &
 % $u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
 % $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
+\bottomrule
 \end{tabular}
 \end{table*}
 
@@ -549,6 +552,7 @@ the scaling constant to any desired values. It is also possible to
 have two separate scaling constants: the first for the species, and
 the second for sites and friends, and this allows getting scores of
 other software or \proglang{R} functions (Table \ref{tab:rdaconst}). 
+
 \begin{table*}[t]
   \centering
   \caption{\label{tab:rdaconst} Values of the \code{const} argument in
@@ -559,11 +563,14 @@ other software or \proglang{R} functions (Table \ref{tab:rdaconst}).
     \code{tot.chi} in the \code{rda} result)}.
  \begin{tabular}{lccc}
   \\
+  \toprule
 & \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
+\midrule
 \pkg{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
 \code{prcomp}, \code{princomp} & \code{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
 \proglang{Canoco\,v3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
-\proglang{Canoco\,v4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$
+\proglang{Canoco\,v4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$\\
+\bottomrule
 \end{tabular}
 \end{table*}
 
@@ -600,25 +607,23 @@ WA or Weighted Averages Scores which are such weighted averages of
 species scores that are as similar to LC scores as possible.
 \end{itemize}
 Many computer programs for constrained ordinations give only or
-primarily LC scores, following Mike Palmer's recommendation
-\cite{Palmer93}.  However, functions \code{cca} and \code{rda} in
+primarily LC scores following recommendation of
+\citet{Palmer93}.  However, functions \code{cca} and \code{rda} in
 the \pkg{vegan} package use primarily WA scores. This chapter
 explains the reasons for this choice.
 
 Briefly, the main reasons are that
 \begin{itemize}
-\item
-LC scores \emph{are} linear combinations, so they give us only the
-(scaled) environmental variables. This means that they are
-independent of vegetation and cannot be found from the species
-composition.  Moreover, identical combinations of environmental
-variables give identical LC scores irrespective of vegetation.
-\item
-Bruce McCune has demonstrated that noisy environmental variables
-result in deteriorated LC scores whereas WA scores tolerate some errors
-in environmental variables \cite{McCune97}.  All environmental
-measurements contain some errors, and therefore it is safer to use WA
-scores.
+\item LC scores \emph{are} linear combinations, so they give us only
+  the (scaled) environmental variables. This means that they are
+  independent of vegetation and cannot be found from the species
+  composition.  Moreover, identical combinations of environmental
+  variables give identical LC scores irrespective of vegetation.
+\item \citet{McCune97} has demonstrated that noisy environmental
+  variables result in deteriorated LC scores whereas WA scores
+  tolerate some errors in environmental variables.  All environmental
+  measurements contain some errors, and therefore it is safer to use
+  WA scores.
 \end{itemize}
 This article studies mainly the first point.  The users of
 \pkg{vegan} have a choice of either LC or WA (default) scores, but
@@ -706,9 +711,7 @@ this can cause changes in LC scores.  The magnitude of changes depends
 on the variability of site totals.
 
 The original data and shuffled data differ in their goodness of
-fit\footnote{Or probably differ: The randomization is done while
-generating this article, and different versions may have different
-randomizations.}.
+fit:
 <<>>=
 orig
 shuff
@@ -750,7 +753,6 @@ following example uses the classical dune meadow data \cite{Jongman87}:
 <<>>=
 data(dune)
 data(dune.env)
-summary(dune.env)
 orig <- cca(dune ~ Moisture, dune.env)
 @
 When the results are plotted using LC scores, sample plots fall only
