@@ -3,8 +3,6 @@
 
 \documentclass[a4paper,10pt,twocolumn]{article}
 \usepackage{vegan} % package options and redefinitions
-\usepackage[round]{natbib}
-\renewcommand{\cite}{\citep}
 
 \author{Jari Oksanen}
 \title{Design decisions and implementation details in vegan}
@@ -16,6 +14,8 @@ in \Sexpr{R.version.string} on \today}}
 
 %% need no \usepackage{Sweave}
 \begin{document}
+\bibliographystyle{jss}
+
 \SweaveOpts{strip.white=true}
 
 <<echo=false,results=hide>>=
@@ -807,7 +807,6 @@ possible. Therefore \pkg{vegan} calls LC scores as
 primarily WA scores in plotting.  However, the user makes the ultimate
 choice, since both scores are available.
 
-\bibliographystyle{plainnat}
 \bibliography{vegan}
 
 \end{document}
