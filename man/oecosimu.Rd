@@ -29,7 +29,7 @@
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
-   parallel = getOption("mc.cores"), ...)
+   batchsize = NA, parallel = getOption("mc.cores"), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
 \method{density}{oecosimu}(x, ...)
@@ -75,6 +75,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     test is approximately two times higher than in the corresponding
     one-sided test (\code{"greater"} or \code{"less"} depending on the
     sign of the difference).}
+  \item{batchsize}{Size in Megabytes of largest simulation object. If
+    a larger structure would be produced, the analysis is broken
+    internally into batches. With default \code{NA} the analysis is
+    not broken into batches.  See Details.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -135,8 +139,22 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
       \code{method} and \code{nsimul} are ignored.  
   }
   The last case allows analysing several statistics with the same
-  simulations. However, be aware that the \code{\link{object.size}} of
-  the simulated communities may be large.
+  simulations.
+
+  The function first generates simulations with given
+  \code{\link{nullmodel}} and then analyses these using the
+  \code{nestfun}.  With large data sets and/or large number of
+  simulations, the generated objects can be very large, and if the
+  memory is exhausted, the analysis can become very slow and the
+  system can become unresponsive. The simulation will be broken into
+  several smaller batches if the simulated \code{\link{nullmodel}}
+  objective will be above the set \code{batchsize} to avoid memory
+  problems (see \code{\link{object.size}} for estimating the size of
+  the current data set). The parallel processing still increases the
+  memory needs.  The parallel processing is only used for evaluating
+  \code{nestfun}.  The main load may be in simulation of the
+  \code{\link{nullmodel}}, and \code{parallel} argument does not help
+  there.
 
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows

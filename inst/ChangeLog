@@ -13,6 +13,14 @@ Version 2.1-32 (opened July 10, 2013)
 	Ecology Progress Series_, 320, 11–27. The basic development was
 	made in github.com and merged to R-Forge.
 
+	* oecosimu: Gained argument 'batchsize' to set the maximum size of
+	simulated nullmodels (in Mb). If a larger object would be
+	produced, the analysis is broken into several batches to avoid
+	exceeding the maximum size. This avoids exhausting memory which
+	can make whole R unresponsive and analysis very, very slow. In
+	general, the argument is needed with large data sets and/or large
+	number of simulations.
+
 	* orditkplot: bmp has been available in unix-alike OSes since
 	2008, or a moth after writing orditkplot. Thanks to Brian Ripley
 	for informing us.
