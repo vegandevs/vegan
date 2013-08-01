@@ -13,6 +13,14 @@ Version 2.1-32 (opened July 10, 2013)
 	Ecology Progress Series_, 320, 11–27. The basic development was
 	made in github.com and merged to R-Forge.
 
+	* nullmodel: replaced internal indshuffle() function in
+	make.commsim() with much faster stats::rmultinom(). The
+	rmultinom() function takes argument 'n' for the number of random
+	vectors, and using this could be still faster, but we only
+	generate one vector in time. Using 'n' would require better
+	analysis of individual nullmodels. The commit changes random
+	sequences, but passes tests.
+
 	* oecosimu: Gained argument 'batchsize' to set the maximum size of
 	simulated nullmodels (in Mb). If a larger object would be
 	produced, the analysis is broken into several batches to avoid

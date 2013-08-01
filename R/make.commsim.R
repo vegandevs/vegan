@@ -199,10 +199,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             nz <- as.integer(x[x > 0])
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
@@ -256,10 +253,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             I <- seq_len(nr)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
@@ -281,10 +275,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             J <- seq_len(nc)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
@@ -357,10 +348,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- matrix(0L, nr * nc, n)
             for (k in seq_len(n))
@@ -372,10 +360,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- array(0L, c(nr, nc, n))
             J <- seq_len(nc)
@@ -388,10 +373,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- array(0L, c(nr, nc, n))
             I <- seq_len(nr)
@@ -404,10 +386,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- matrix(0L, nr * nc, n)
             for (k in seq_len(n)) {
@@ -421,10 +400,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- array(0L, c(nr, nc, n))
             J <- seq_len(nc)
@@ -439,10 +415,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             indshuffle <- function(x) {
-                out <- integer(length(x))
-                tmp <- table(sample.int(length(x), sum(x), replace = TRUE))
-                out[as.integer(names(tmp))] <- as.integer(tmp)
-                out
+                drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             out <- array(0L, c(nr, nc, n))
             I <- seq_len(nr)
