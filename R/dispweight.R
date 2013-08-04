@@ -1,6 +1,8 @@
 `dispweight` <-
     function(comm, group, nperm = 1000)
 {
+    if (missing(group))
+        group <- rep(1, nrow(comm))
     # number of replicates per group
     nrep <- tabulate(group) 
     # workhorse
