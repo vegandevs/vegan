@@ -58,11 +58,11 @@
     
     # format output
     weights <-  unlist(sapply(out, '[', 3))
-    out <- list(D = unlist(sapply(out, '[', 1)), 
-                p = unlist(sapply(out, '[', 2)),
-                weights = weights,
-                transformed = sweep(comm, MARGIN = 2, weights, `*`))
+    out = sweep(comm, MARGIN = 2, weights, `*`)
+    attr(out, "D") <- unlist(sapply(out, '[', 1)) 
+    attr(out, "p") <- unlist(sapply(out, '[', 2))
+    attr(out, "weights") <-  weights
     attr(out, "permutations") <- nperm
-    class(out) <- "dispweight"
+    class(out) <- c("dispweight", class(out))
     return(out)
 }
