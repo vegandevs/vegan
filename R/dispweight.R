@@ -1,12 +1,12 @@
 `dispweight` <-
-    function(comm, group, nperm = 1000)
+    function(comm, group, nsimul = 1000)
 {
     if (missing(group))
         group <- rep(1, nrow(comm))
     # number of replicates per group
     nrep <- tabulate(group) 
     # workhorse
-    dfun <- function(comm, group, nperm, nrep) {
+    dfun <- function(comm, group, nsimul, nrep) {
         ## Calc Dispersion
         # group means
         means <-  tapply(comm, group, mean)
@@ -45,16 +45,16 @@
         # realocate randomly individuals to replications
         perms <- vector('list', length(sums))
         for(i in seq_along(sums)) {
-            perms[[i]] <- rmultinom(n = nperm, size = sums[i], prob = rep(1, nrep[i]) / nrep[i])
+            perms[[i]] <- rmultinom(n = nsimul, size = sums[i], prob = rep(1, nrep[i]) / nrep[i])
         }
         perms <- t(do.call(rbind, perms))
         chi_p <- apply(perms, 1, pfun, sort(group))
-        p <- (sum(chi_p >= chi_o) + 1) / (nperm + 1)
+        p <- (sum(chi_p >= chi_o) + 1) / (nsimul + 1)
         out <- list(D = d_hat, p = p, weights = ifelse(p < 0.05, 1/d_hat, 1))
         return(out)
     }
     # apply workhorse to every species
-    out <- apply(comm, 2, dfun, group, nperm, nrep)
+    out <- apply(comm, 2, dfun, group, nsimul, nrep)
     
     # format output
     weights <-  unlist(sapply(out, '[', 3))
@@ -62,7 +62,7 @@
     attr(out, "D") <- unlist(sapply(out, '[', 1)) 
     attr(out, "p") <- unlist(sapply(out, '[', 2))
     attr(out, "weights") <-  weights
-    attr(out, "permutations") <- nperm
+    attr(out, "nsimul") <- nsimul
     class(out) <- c("dispweight", class(out))
     return(out)
 }
