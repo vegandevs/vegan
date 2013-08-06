@@ -1,6 +1,10 @@
 `dispweight` <-
     function(comm, group, nsimul = 1000)
 {
+    ## only applicable for counts
+    if (!identical(all.equal(comm, round(comm)), TRUE))
+        stop("function needs counts (integers)")
+    ## no groups
     if (missing(group))
         group <- rep(1, nrow(comm))
     # number of replicates per group
