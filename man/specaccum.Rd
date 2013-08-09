@@ -225,8 +225,8 @@ fitspecaccum(object, model, method = "random", ...)
   
   Kindt R., Van Damme, P. & Simons, A.J. (2006) Patterns of species
   richness at varying scales in western Kenya: planning for
-  agroecosystem diversification. \emph{Biodiversity and Conservation}, online
-  first: DOI 10.1007/s10531-005-0311-9 
+  agroecosystem diversification. \emph{Biodiversity and Conservation},
+  10: 3235--3249.
 
   Ugland, K.I., Gray, J.S. & Ellingsen, K.E. (2003). The
   species-accumulation curve and estimation of species richness. \emph{Journal
