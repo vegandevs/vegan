@@ -37,8 +37,8 @@
   of the original model are unavailable.
 }
 \value{
-  Returns a data frame (\code{model.frame}) or an unnnamed matrix or a list 
-  of two matrices called \code{Constraints} and \code{Conditions} 
+  Returns a data frame (\code{model.frame}) or an unnamed matrix or a 
+  list of two matrices called \code{Constraints} and \code{Conditions} 
   (\code{model.matrix}). 
 }
 \author{

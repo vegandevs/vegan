@@ -1,0 +1,47 @@
+%% typeset vegan vignettes. Should work with article style in one and
+%% two columns, and with amsart style with one column (two columns are
+%% too narrow in amsart, but basically works).  In one column, sets
+%% sidecaption figures, and in two columns normal column-wide figures
+%% and smaller example font. R output width (options(width=)) probably
+%% needs correct setting in the Rnw file, and some formatting may need
+%% adjustment. 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{sidecap}
+\@ifclassloaded{amsart}%
+{\setlength{\captionindent}{0pt}} % sidecap needs this with amsart
+{}
+\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1.
+\renewcommand{\floatpagefraction}{0.8}
+\usepackage{booktabs}
+\usepackage{Sweave}
+\usepackage{hyperref}
+\usepackage[round]{natbib}
+\renewcommand{\cite}{\citep}
+%% layout depends on the number of columns
+\if@twocolumn
+  \renewenvironment{Schunk}{\par\footnotesize}{} % smaller examples
+  \setkeys{Gin}{width=\linewidth} % column wide figs
+\else
+  \renewenvironment{Schunk}{\par\small}{} % small examples
+  \setkeys{Gin}{width=0.55\linewidth} % narrow figs for sidecaps
+  \renewenvironment{figure}[1][tp]{\begin{SCfigure}[][#1]}{\end{SCfigure}} %sidecaps
+\fi
+%% macros
+%% \code should handle _ ,  ~ and $ 
+\makeatletter
+\newcommand\code{\bgroup\@makeother\_\@makeother\~\@makeother\$\@codex}
+\def\@codex#1{{\normalfont\ttfamily\hyphenchar\font=-1 #1}\egroup}
+\makeatother
+%% simple macros
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\R}{\proglang{R}}
+\newcommand{\E}{\mathsf{E}}
+\newcommand{\VAR}{\mathsf{VAR}}
+\newcommand{\COV}{\mathsf{COV}}
+\newcommand{\Prob}{\mathsf{P}}
+

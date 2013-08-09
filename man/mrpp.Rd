@@ -103,7 +103,7 @@ meandist(dist, grouping, ...)
   counts. Function \code{summary} finds the within-class, between-class
   and overall means of these dissimilarities, and the MRPP statistics
   with all \code{weight.type} options and the Classification Strength,
-  CS (Van Sickle and Hughes, 2000). CS is defined for dissimiliraties as
+  CS (Van Sickle and Hughes, 2000). CS is defined for dissimilirities as
   \eqn{\bar{B} - \bar{W}}{Bbar-Wbar}, where \eqn{\bar{B}}{Bbar} is the
   mean between cluster dissimilarity and \eqn{\bar{W}}{Wbar} is the mean
   within cluster dissimilarity with \code{weight.type = 1}. The function
@@ -118,7 +118,7 @@ meandist(dist, grouping, ...)
   function \code{\link{hclust}}. The terminal segments hang to
   within-cluster dissimilarity. If some of the clusters are more
   heterogeneous than the combined class, the leaf segment are reversed.
-  The histograms are based on dissimilarites, but ore otherwise similar
+  The histograms are based on dissimilarities, but ore otherwise similar
   to those of Van Sickle and Hughes (2000): horizontal line is drawn at
   the level of mean between-cluster dissimilarity and vertical lines
   connect within-cluster dissimilarities to this line.  }

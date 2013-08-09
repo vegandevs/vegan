@@ -2,12 +2,15 @@
     function(comm, nestfun, method, nsimul=99,
              burnin=0, thin=1, statistic = "statistic",
              alternative = c("two.sided", "less", "greater"),
+             batchsize = NA,
              parallel = getOption("mc.cores"), ...)
 {
     alternative <- match.arg(alternative)
     nestfun <- match.fun(nestfun)
     if (length(statistic) > 1)
         stop("only one 'statistic' is allowed")
+    if (!is.na(batchsize))
+        batchsize <- batchsize * 1024 * 1024
     applynestfun <-
         function(x, fun = nestfun, statistic = "statistic", ...) {
             tmp <- fun(x, ...)
@@ -36,6 +39,23 @@
         }
         method <- nm$commsim$method
     }
+    ## Check the number of batches needed to run the requested number
+    ## of simulations without exceeding arg 'batchsize', and find the
+    ## size of each batch.
+    if (!simmat_in && !is.na(batchsize)) {
+        commsize <- object.size(comm)
+        totsize <- commsize * nsimul
+        if (totsize > batchsize) { 
+            nbatch <- ceiling(unclass(totsize/batchsize))
+            batches <- diff(round(seq(0, nsimul, by = nsimul/nbatch)))
+        } else {
+            nbatch <- 1
+        }
+    } else {
+        nbatch <- 1
+    }
+    if (nbatch == 1)
+        batches <- nsimul
     
     ind <- nestfun(comm, ...)
     indstat <-
@@ -43,9 +63,10 @@
             ind[[statistic]]
         else
             ind
-    if (!simmat_in) {
+    ## burnin of sequential models
+    if (!simmat_in && nm$commsim$isSeq) {
         ## estimate thinning for "tswap" (trial swap)
-        if (method == "tswap") {
+        if (nm$commsim$method == "tswap") {
             checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
                                       "binary"))
             M <- nm$ncol
@@ -54,9 +75,11 @@
             thin <- round(thin * checkbrd)
             burnin <- round(burnin * checkbrd)
         }
-        x <- simulate(nm, nsim = nsimul, burnin = burnin, thin = thin)
+        if (burnin > 0)
+            nm <- update(nm, burnin)
     }
-
+    ## start with empty simind
+    simind <- NULL
     ## Go to parallel processing if 'parallel > 1' or 'parallel' could
     ## be a pre-defined socket cluster or 'parallel = NULL' in which
     ## case it could be setDefaultCluster (or a user error)
@@ -68,12 +91,15 @@
     hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {
         if(.Platform$OS.type == "unix" && !hasClus) {
-            tmp <- mclapply(1:nsimul,
-                            function(i)
-                            applynestfun(x[,,i], fun=nestfun,
-                                         statistic = statistic, ...),
-                            mc.cores = parallel)
-            simind <- do.call(cbind, tmp)
+            for (i in seq_len(nbatch)) {
+                x <- simulate(nm, nsim = batches[i], thin = thin)
+                tmp <- mclapply(seq_len(batches[i]),
+                                function(j)
+                                applynestfun(x[,,j], fun=nestfun,
+                                             statistic = statistic, ...),
+                                mc.cores = parallel)
+                simind <- cbind(simind, do.call(cbind, tmp))
+            }
         } else {
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
@@ -81,22 +107,29 @@
                 ## make vegan functions available: others may be unavailable
                 clusterEvalQ(parallel, library(vegan))
             }
-            simind <- parApply(parallel, x, 3, function(z)
-                               applynestfun(z, fun = nestfun,
-                                            statistic = statistic, ...))
+            for(i in seq_len(nbatch)) {
+                x <- simulate(nm, nsim = batches[i], thin = thin)
+                simind <- cbind(simind,
+                                parApply(parallel, x, 3, function(z)
+                                         applynestfun(z, fun = nestfun,
+                                                      statistic = statistic, ...)))
+            }
             if (!hasClus)
                 stopCluster(parallel)
         }
     } else {
-        simind <- apply(x, 3, applynestfun, fun = nestfun,
-                        statistic = statistic, ...)
+        for(i in seq_len(nbatch)) {
+            x <- simulate(nm, nsim = batches[i], thin = thin)
+            simind <- cbind(simind, apply(x, 3, applynestfun, fun = nestfun,
+                                          statistic = statistic, ...))
+        }
     }
     
     simind <- matrix(simind, ncol = nsimul)
 
     if (attr(x, "isSeq")) {
         attr(simind, "thin") <- attr(x, "thin")
-        attr(simind, "burnin") <- attr(x, "start") - 1L
+        attr(simind, "burnin") <- burnin
     }
     
     sd <- apply(simind, 1, sd, na.rm = TRUE)

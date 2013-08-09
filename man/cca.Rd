@@ -228,7 +228,7 @@
   finding influence statistics (\code{\link{lm.influence}},
   \code{\link{cooks.distance}} etc.).
   
-  Permutation based signficance for the overall model, single
+  Permutation based significance for the overall model, single
   constraining variables or axes can be found with
   \code{\link{anova.cca}}.  Automatic model building with \R{}
   \code{\link{step}} function is possible with
@@ -239,7 +239,7 @@
   \code{\link{simulate.cca}}.
 
   Separate methods based on constrained ordination model are principal
-  response curves (\code{\link{prc}}) and variance partioning between
+  response curves (\code{\link{prc}}) and variance partitioning between
   several components (\code{\link{varpart}}).
 
   Design decisions are explained in \code{\link{vignette}}

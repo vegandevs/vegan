@@ -40,7 +40,7 @@
     default \code{\link{stressplot}}
 }
   \item{\dots}{
-    Other parameters to fuctions, e.g. graphical parameters.
+    Other parameters to functions, e.g. graphical parameters.
 }
 }
 

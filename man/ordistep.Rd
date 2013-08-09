@@ -99,7 +99,7 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   al. 2008). The second criterion is ignored with option
   \code{R2step = FALSE}, and the third criterion can be ignored setting
   \code{Pin = 1} (or higher).  The \code{direction} has choices
-  \code{"forward"} and \code{"both"}, but it is very excepctional that a
+  \code{"forward"} and \code{"both"}, but it is very exceptional that a
   term is dropped with the adjusted \eqn{R^2}{R2} criterion.  Function
   uses adjusted \eqn{R^2}{R2} as the criterion, and it cannot be used if
   the criterion cannot be calculated.  Therefore it is unavailable for

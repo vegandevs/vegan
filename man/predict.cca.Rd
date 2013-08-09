@@ -112,7 +112,7 @@
   for sites from environmental data. In that case the new data frame
   must contain all constraining and conditioning environmental variables
   of the model formula. With \code{type = "response"} or 
-  \code{type = "working"} the new data must contain envinronmental variables 
+  \code{type = "working"} the new data must contain environmental variables 
   if constrained component is desired, and community data matrix if
   residual or unconstrained component is desired.  With these types, the
   function uses \code{newdata} to find new \code{"lc"} (constrained) or

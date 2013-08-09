@@ -133,7 +133,7 @@ The original method (Chazdon et al. 2011) has two major problems:
   \item The original authors suggest that multiple testing adjustment
     for multiple testing should be based on the number of points
     (\code{npoints}) used to draw the critical lines on the plot,
-    whereas the adjustment should be based on the number tests (i.e,
+    whereas the adjustment should be based on the number tests (i.e.,
     tested species). The function uses the same numerical values as
     the original paper, but there is no automatic connection between
     \code{npoints} and \code{alpha} arguments, but you must work out

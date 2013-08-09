@@ -1,22 +1,31 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Introduction to ordination in vegan}
-\documentclass[article,nojss]{jss}
-\usepackage{veganjss} % vegan settings
-\usepackage{ucs} %% needed for R output: signif stars etc, quotes
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{sidecap}
-\usepackage{amsmath}
-\usepackage[english]{babel} % kluge to avoid visible ~ in Figure~1
-
-\renewcommand{\floatpagefraction}{0.8}
-
+\documentclass[a4paper,10pt]{article}
+\usepackage{vegan} % vegan settings
 
 \title{Vegan: an introduction to ordination} 
-
 \author{Jari Oksanen}
 
-\Abstract{The document describes typical, simple work pathways of
+\date{\footnotesize{$ $Id$ $
+  processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today}}
+
+%% need no \usepackage{Sweave}
+\begin{document}
+
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+par(mfrow=c(1,1))
+options(width=72)
+figset <- function() par(mar=c(4,4,1,1)+.1)
+options(SweaveHooks = list(fig = figset))
+options("prompt" = "> ", "continue" = "  ")
+@
+
+\maketitle
+\begin{abstract}
+  The document describes typical, simple work pathways of
   vegetation ordination. Unconstrained ordination uses as examples
   detrended correspondence analysis and non-metric multidimensional
   scaling, and shows how to interpret their results by fitting
@@ -28,32 +37,8 @@
   correspondence analysis as an example. It is first shown how a model
   is defined, then the document discusses model building and
   signficance tests of the whole analysis, single constraints and
-  axes.}
-
-\Keywords{ordination, correspondence analysis, non-metric
-  multidimensional scaling, CCA, RDA, NMDS, fitted environmental
-  vector, fitted environmental surface, permutation tests}
-
-%% misuse of the address field for revision data
-\Address{$ $Id$ $
-  processed with vegan
-\Sexpr{packageDescription("vegan", field="Version")}
-in \Sexpr{R.version.string} on \today}
-\Footername{About this version}
-
-%% need no \usepackage{Sweave}
-\begin{document}
-
-\setkeys{Gin}{width=0.55\linewidth}
-\SweaveOpts{strip.white=true}
-<<echo=false>>=
-par(mfrow=c(1,1))
-options(width=72)
-figset <- function() par(mar=c(4,4,1,1)+.1)
-options(SweaveHooks = list(fig = figset))
-options("prompt" = "R> ", "continue" = "+  ")
-@
-
+  axes.
+\end{abstract}
 \tableofcontents
 
 \vspace{3ex}
@@ -129,13 +114,13 @@ All ordination results of \pkg{vegan} can be displayed with a
 <<a>>=
 plot(ord)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Default ordination plot.}
 \label{fig:plot}
-\end{SCfigure}
+\end{figure}
 Default \code{plot} command uses either black circles for sites and
 red pluses for species, or black and red text for sites and species,
 resp.  The choices depend on the number of items in the plot and
@@ -151,14 +136,14 @@ plot(ord, type = "n")
 points(ord, display = "sites", cex = 0.8, pch=21, col="red", bg="yellow")
 text(ord, display = "spec", cex=0.7, col="blue")
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{A more colourful ordination plot where sites are points, and
   species are text.}
 \label{fig:plot.args}
-\end{SCfigure}
+\end{figure}
 
 All \pkg{vegan} ordination methods have a specific \code{plot}
 function.  In addition, \pkg{vegan} has an alternative plotting
@@ -228,14 +213,14 @@ ordiellipse(ord, Management, col=3,lwd=2)
 ordispider(ord, Management, col="red", label = TRUE)
 points(ord, disp="sites", pch=21, col="red", bg="yellow", cex=1.3)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Convex hull, standard error ellipse and a spider web diagram
   for Management levels in ordination.}
 \label{fig:ordihull}
-\end{SCfigure}
+\end{figure}
 In addition, you can overlay a cluster dendrogram from \code{hclust}
 using \code{ordicluster} or a minimum spanning tree from
 \code{spantree} with its \code{lines} function.  Segmented arrows
@@ -277,7 +262,7 @@ ordination, but it returns the result of the fitted thinplate spline
 <<b,fig=false>>=
 ordisurf(ord, A1, add=TRUE)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false,results=hide>>=
 <<a>>
 <<b>>
@@ -285,7 +270,7 @@ ordisurf(ord, A1, add=TRUE)
 \caption{Fitted vector and smooth surface for the thickness of A1
   horizon (\code{A1}, in cm), and centroids of Management levels.}
 \label{fig:envfit}
-\end{SCfigure}
+\end{figure}
 
 \section{Constrained ordination}
 
@@ -308,13 +293,13 @@ The results can be plotted with (Fig. \ref{fig:cca}):
 <<a>>=
 plot(ord)
 @
-\begin{SCfigure}
+\begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
 \caption{Default plot from constrained correspondence analysis.}
 \label{fig:cca}
-\end{SCfigure}
+\end{figure}
 There are three groups of items: sites, species and centroids (and
 biplot arrows) of environmental variables.  All these can be added
 individually to an empty plot, and all previously explained tricks of

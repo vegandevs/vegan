@@ -33,9 +33,9 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
   distance has a huge influence on the PCNM vectors. The default is to
   use the longest distance to keep data connected. The distances above
   truncation threshold are given an arbitrary value of 4 times
-  threshold.  For regular data, the first PCNM vectorsshow a wide scale
+  threshold.  For regular data, the first PCNM vectors show a wide scale
   variation and later PCNM vectors show smaller scale variation (Borcard
-  & Legendre 2002), but for irregular data the intepretation is not as
+  & Legendre 2002), but for irregular data the interpretation is not as
   clear.
 
   The PCNM functions are used to express distances in rectangular form
@@ -51,7 +51,7 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
   
   The function is based on \code{pcnm} function in Dray's unreleased
   \pkg{spacemakeR} package. The differences are that the current
-  function usesr \code{\link{spantree}} as an internal support
+  function uses \code{\link{spantree}} as an internal support
   function. The current function also can use prior weights for rows by
   using weighted metric scaling of \code{\link{wcmdscale}}. The use of
   row weights allows finding orthonormal PCNMs also for correspondence

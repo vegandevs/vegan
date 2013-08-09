@@ -34,7 +34,7 @@ This value was proposed by Mendes et al. (2008) as \eqn{q^*}{q*}.
 The \eqn{q^\ast}{q*} index represents the scale parameter of
 the one parameter Tsallis diversity family that leads to
 the greatest deviation from the maximum equitability given the relative 
-abundance vactor of a community.
+abundance vector of a community.
 
 The value of \eqn{q^\ast}{q*} is found by identifying the minimum
 of the evenness profile over scaling factor \eqn{q}{q} by

@@ -132,7 +132,7 @@ overview of rules.
   \item{coef.sites}{ matrix of coefficients of the linear model, with
     rows representing sources of variation and columns representing
     sites; each column represents a fit of a sites distances (from all
-    other sites) to the  linear model.These are what you get when you
+    other sites) to the  linear model. These are what you get when you
     fit distances of one site to
     your predictors. }   
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
