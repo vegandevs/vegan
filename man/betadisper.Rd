@@ -146,7 +146,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   will be biased downward. This bias matters most when comparing diversity
   among treatments with small, unequal numbers of samples.  Setting
   \code{bias.adjust=TRUE} when using \code{betadisper} imposes a 
-  \eqn{\sqrt{n/(n-1)}}{sqrt(n/(n-1))} correction (Stier et al. 2012).
+  \eqn{\sqrt{n/(n-1)}}{sqrt(n/(n-1))} correction (Stier et al. 2013).
 }
 \value{
   The \code{anova} method returns an object of class \code{"anova"}
@@ -214,9 +214,9 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   Test of Homogeneity of Variance. \emph{Australian & New Zealand Journal of 
   Statistics} \strong{42}, 81-–100.
 
-  Stier, A.C., Geange, S.W., Hanson, K.M., & Bolker, B.M. (2012) Predator 
-  density and timing of arrival affect reef fish community assembly. Ms.
-  in revision, \emph{Oikos}.
+  Stier, A.C., Geange, S.W., Hanson, K.M., & Bolker, B.M. (2013) Predator 
+  density and timing of arrival affect reef fish community
+  assembly. \emph{Ecology} \strong{94}, 1057--1068.
 }
 \author{Gavin L. Simpson; bias correction by Adrian Stier and Ben Bolker.}
 \seealso{\code{\link{permutest.betadisper}}, \code{\link[stats]{anova.lm}},
