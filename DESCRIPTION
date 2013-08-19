@@ -8,7 +8,7 @@ Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre,
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
 Depends: permute (>= 0.7-4), R (>= 2.12.0)
 Imports: lattice
-Suggests: MASS, mgcv, lattice, cluster, parallel, scatterplot3d, rgl, tcltk
+Suggests: MASS, mgcv, cluster, parallel, scatterplot3d, rgl, tcltk
 Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
 License: GPL-2 

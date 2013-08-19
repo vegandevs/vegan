@@ -63,8 +63,9 @@ export(metaMDSrotate)
 ## Registration of S3 methods
 import(stats)
 import(graphics)
+import(permute)
 importFrom(utils, head, tail, str)
-importFrom(lattice, densityplot)
+import(lattice)
 ## nobs only exists in R 2.13.0 -- import from permute with older R
 if (getRversion() < "2.13.0") {
     importFrom(permute, nobs)
