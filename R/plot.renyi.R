@@ -1,7 +1,6 @@
 `plot.renyi` <-
     function(x, ...)
 {
-    require(lattice) || stop("requires lattice")
     if (inherits(x, "data.frame")) {
         plt <- factor(rep(rownames(x), ncol(x)), levels=rownames(x))
         alp <- factor(rep(colnames(x), each=nrow(x)), levels=colnames(x))

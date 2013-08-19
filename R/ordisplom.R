@@ -3,7 +3,6 @@
              panel = "panel.ordi", type = "p", ...)
 {
   localSplom <- function(..., shrink, origin, scaling) splom(...)
-  require(lattice) || stop("requires package 'lattice'")
   x <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (is.null(data))
     data <- x

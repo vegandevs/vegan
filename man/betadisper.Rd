@@ -128,7 +128,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   comparison of group dispersions, is to calculate Tukey's Honest
   Significant Differences between groups, via
   \code{TukeyHSD.betadisper}. This is a simple wrapper to
-  \code{\link{TukeyHSD.aov}}. The user is directed to read the help file
+  \code{\link{TukeyHSD}}. The user is directed to read the help file
   for \code{\link{TukeyHSD}} before using this function. In particular,
   note the statement about using the function with 
   unbalanced designs.

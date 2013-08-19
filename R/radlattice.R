@@ -3,7 +3,6 @@
 {
     if (!inherits(x, "radfit"))
         stop("function only works with 'radfit' results for single site")
-    require(lattice) || stop("requires package 'lattice'")
     y <- x$y
     fv <- unlist(fitted(x))
     mods <- names(x$models)

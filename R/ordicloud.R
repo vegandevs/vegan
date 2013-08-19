@@ -4,7 +4,6 @@
              prepanel = "prepanel.ordi3d", ...)
 {
   localCloud <- function(..., shrink, origin, scaling) cloud(...)
-  require(lattice) || stop("requires package 'lattice'")
   x <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (!is.null(data))
     x <- cbind(x, data)
