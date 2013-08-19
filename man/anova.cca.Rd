@@ -139,9 +139,8 @@ permutest(x, ...)
   \code{"permutest.cca"}, which has its own \code{print} method. The
   distribution of permuted \eqn{F} values can be inspected with
   \code{\link{density.permutest.cca}} function.  The function
-  \code{anova.cca} calls \code{permutest.cca}, fills an
-  \code{\link{anova}} table and uses \code{\link{print.anova}} for
-  printing.
+  \code{anova.cca} calls \code{permutest.cca} and fills an
+  \code{\link{anova}} table.
 }
 
 \note{
