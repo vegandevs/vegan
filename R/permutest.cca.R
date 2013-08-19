@@ -110,7 +110,7 @@ permutest.default <- function(x, ...)
         else
             permutations <-
                 t(sapply(1:permutations,
-                         function(x) vegan:::permuted.index(N, strata=strata))) 
+                         function(x) permuted.index(N, strata=strata))) 
     }
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
