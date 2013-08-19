@@ -1,7 +1,6 @@
 `plot.poolaccum` <-
     function(x, alpha = 0.05, type = c("l","g"), ...)
 {
-    require(lattice) || stop("Needs package 'lattice'")
     m <- summary(x, alpha = alpha, ...)
     n <- nrow(m[[1]])
     Size <- as.vector(sapply(m, function(x) c(x[,1], x[,1], rev(x[,1]))))

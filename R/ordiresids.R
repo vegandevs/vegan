@@ -2,7 +2,6 @@
     function(x, kind = c("residuals", "scale", "qqmath"), residuals = "working",
              type = c("p", "smooth", "g"), formula, ...)
 {
-    require(lattice) || stop("requires package lattice")
     kind <- match.arg(kind)
     if (!inherits(x, "cca") || is.null(x$CCA) || x$CCA$rank == 0)
         stop("function is only available for constrained ordination")

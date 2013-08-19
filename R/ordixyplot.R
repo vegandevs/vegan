@@ -4,7 +4,6 @@
              type = c("p", "biplot"),  ...)
 {
   localXyplot <- function(..., shrink, origin, scaling) xyplot(...)
-  require(lattice) || stop("requires package 'lattice'")
   p <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (!is.null(data))
     p <- cbind(p, data)

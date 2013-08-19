@@ -261,8 +261,7 @@ out
 plot(as.ts(out))
 lag.plot(as.ts(out))
 acf(as.ts(out))
-## Density plot: needs lattice
-require(lattice)
+## Density plot
 densityplot(out, as.table = TRUE)
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities

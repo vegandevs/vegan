@@ -118,9 +118,6 @@ We can really regard a site more diverse if all of its R\'{e}nyi
 diversities are higher than in another site.  We can inspect this
 graphically using the standard \code{plot} function for the
 \code{renyi} result (Fig. \ref{fig:renyi}).
-<<echo=false,results=hide>>=
-require(lattice, quietly=TRUE)
-@
 \begin{figure}
 <<fig=true,echo=false>>=
 print(plot(R))

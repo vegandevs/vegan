@@ -1,7 +1,6 @@
 `plot.renyiaccum` <-
 function (x, what=c("mean", "Qnt 0.025", "Qnt 0.975"), type = "l", ...) 
 {
-	require(lattice) || stop("requires package lattice")
 	if (any(what %in% colnames(x[,1,])))
 	    x <- x[,,what]
 	dm <- dim(x)

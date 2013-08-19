@@ -106,7 +106,6 @@ data(dune)
 data(dune.env)
 mod <- adonis(dune ~ Management, data = dune.env)
 plot(density(mod))
-library(lattice)
 mod <- adonis(dune ~ Management * Moisture, dune.env)
 densityplot(mod)
 }
