@@ -65,6 +65,7 @@ import(stats)
 import(graphics)
 import(permute)
 importFrom(utils, head, tail, str)
+importFrom(tools, Rd2txt, startDynamicHelp)
 import(lattice)
 ## nobs only exists in R 2.13.0 -- import from permute with older R
 if (getRversion() < "2.13.0") {
