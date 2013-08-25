@@ -10,12 +10,13 @@
 
 \title{Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices }
 
-\description{ The function partitions the variation of response table Y
-with respect to two, three, or four explanatory tables, using
-redundancy analysis ordination (RDA). If Y contains a single
-vector, partitioning is by partial regression.  Collinear variables in the 
-explanatory tables do NOT have to be removed prior to 
-partitioning.
+\description{ 
+  The function partitions the variation of response table Y with
+  respect to two, three, or four explanatory tables, using adjusted
+  \eqn{R^2}{R-squared} in redundancy analysis ordination (RDA). If Y
+  contains a single vector, partitioning is by partial regression.
+  Collinear variables in the explanatory tables do NOT have to be
+  removed prior to partitioning.  
 }
 
 \usage{
@@ -65,17 +66,14 @@ table. }
   effects. If \code{Y} is a multicolumn data frame or
   matrix, the partitioning is based on redundancy analysis (RDA, see
   \code{\link{rda}}), and if \code{Y} is a single variable, the
-  partitioning is based on linear regression.   A simplified, fast
-  version of RDA is used (function \code{simpleRDA2}).  The actual
-  calculations are done in functions \code{varpart2} to \code{varpart4},
-  but these are not intended to be called directly by the user. 
+  partitioning is based on linear regression.  
 
-  The function primarily uses adjusted R squares to assess the partitions
-  explained by the explanatory tables and their combinations, because
-  this is the only unbiased method (Peres-Neto
-  et al., 2006). The raw R squares for basic fractions are also
-  displayed, but these are biased estimates of variation explained by
-  the explanatory table.
+  The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
+  the partitions explained by the explanatory tables and their
+  combinations, because this is the only unbiased method (Peres-Neto
+  et al., 2006). The raw \eqn{R^2}{R-squared} for basic fractions are
+  also displayed, but these are biased estimates of variation
+  explained by the explanatory table. 
 
   The identifiable fractions are designated by lower case alphabets. The
   meaning of the symbols can be found in the separate document
@@ -151,9 +149,9 @@ table. }
   \itemize{
   \item{Df}{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
-  \item{R.square}{Raw R-squared.  This is calculated only for
+  \item{R.square}{Raw \eqn{R^2}{R-squared}. This is calculated only for
     \code{fract} and this is \code{NA} in other items.}
-  \item{Adj.R.square}{Adjusted R-squared.}
+  \item{Adj.R.square}{Adjusted \eqn{R^2}{R-squared}.}
   \item{Testable}{If the fraction can be expressed as a (partial) RDA
     model, it is directly \code{Testable}, and this field is
     \code{TRUE}.  In that case the fraction label also gives the
@@ -186,35 +184,47 @@ Ecology 87: 2614--2625.
 \author{ Pierre Legendre, Departement de Sciences Biologiques, Universite de
 Montreal, Canada.  Adapted to \pkg{vegan} by Jari Oksanen. }
 
-\note{You can use command \code{\link{vegandocs}} to display document
-  "partitioning.pdf"  which  presents
-Venn diagrams showing the fraction names in partitioning the variation of
-Y with respect to 2, 3, and 4 tables of explanatory variables, as well
-as the equations used in variation partitioning.
+\note{
 
-The functions frequently give negative estimates of variation.  Adjusted
-R-squares can be negative for any fraction; 
-unadjusted R squares of testable fractions always will be non-negative.
-Non-testable fractions cannot be found directly, but by subtracting
-different models, and these subtraction results can be negative.
-The fractions are orthogonal, or linearly independent, but more
-complicated or nonlinear dependencies can cause negative non-testable
-fractions. 
+  You can use command \code{\link{vegandocs}} to display document
+  "partitioning.pdf" which presents Venn diagrams showing the fraction
+  names in partitioning the variation of Y with respect to 2, 3, and 4
+  tables of explanatory variables, as well as the equations used in
+  variation partitioning.
 
-The current function will only use RDA in multivariate partitioning. It
-is much more complicated to estimate the adjusted R-squares for CCA, and
-unbiased analysis of CCA is not currently implemented.
+  The functions frequently give negative estimates of variation.
+  Adjusted \eqn{R^2}{R-squared} can be negative for any fraction;
+  unadjusted \eqn{R^2}{R-squared} of testable fractions always will be
+  non-negative.  Non-testable fractions cannot be found directly, but
+  by subtracting different models, and these subtraction results can
+  be negative.  The fractions are orthogonal, or linearly independent,
+  but more complicated or nonlinear dependencies can cause negative
+  non-testable fractions.
+
+  The current function will only use RDA in multivariate
+  partitioning. It is much more complicated to estimate the adjusted
+  R-squares for CCA, and unbiased analysis of CCA is not currently
+  implemented.
+
+  A simplified, fast version of RDA is used (function
+  \code{simpleRDA2}).  The actual calculations are done in functions
+  \code{varpart2} to \code{varpart4}, but these are not intended to be
+  called directly by the user.
+
 }
 
-\seealso{
+\seealso{ 
   For analysing testable fractions, see \code{\link{rda}} and
   \code{\link{anova.cca}}. For data transformation, see
   \code{\link{decostand}}. Function \code{\link{inertcomp}} gives
   (unadjusted) components of variation for each species or site
-  separately.  
- }
+  separately.  Function \code{\link{rda}} displays unadjusted
+  components in its output, but \code{\link{RsquareAdj}} will give
+  adjusted \eqn{R^2}{R-squared} that are similar to the current
+  function also for partial models.  
+}
 
- \examples{
+\examples{
 data(mite)
 data(mite.env)
 data(mite.pcnm)
