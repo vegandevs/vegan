@@ -10,7 +10,8 @@
     ## Handle missing values in scores, both "omit" and "exclude" to
     ## match dims with data.
     if (!is.null(object$na.action)) {
-        u <- stats:::napredict.exclude(object$na.action, object$CCA$u)
+        u <- napredict(structure(object$na.action, class="exclude"),
+                       object$CCA$u)
     } else {
         u <- object$CCA$u
     }

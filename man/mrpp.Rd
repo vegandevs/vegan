@@ -103,7 +103,7 @@ meandist(dist, grouping, ...)
   counts. Function \code{summary} finds the within-class, between-class
   and overall means of these dissimilarities, and the MRPP statistics
   with all \code{weight.type} options and the Classification Strength,
-  CS (Van Sickle and Hughes, 2000). CS is defined for dissimilirities as
+  CS (Van Sickle and Hughes, 2000). CS is defined for dissimilarities as
   \eqn{\bar{B} - \bar{W}}{Bbar-Wbar}, where \eqn{\bar{B}}{Bbar} is the
   mean between cluster dissimilarity and \eqn{\bar{W}}{Wbar} is the mean
   within cluster dissimilarity with \code{weight.type = 1}. The function
