@@ -19,6 +19,9 @@ Version 2.1-34 (opened August 28, 2013)
 	* tweaks for R < 2.12.1 removed: code to fix buggy naming of
 	columns in qr.X before 2.12.1 (as.mlm.cca/rda, intersetcor), and
 	change in the cmdscale() output (eigenvals.default).
+
+	* tweak for R < 2.13.0 removed: change in cmdscale() output
+	(capscale).
 	
 Version 2.1-33 (closed August 28, 2013)
 
