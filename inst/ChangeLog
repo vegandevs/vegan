@@ -4,6 +4,8 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-34 (opened August 28, 2013)
 
+	* DESCRIPTION: dependent on R >= 2.14.0.
+	
 	* DESCRIPTION, vignettes: R 3.0.2-to-be checks with --as-cran
 	requires (with a NOTE) the vignettes source files (Rnw) to be in
 	vignettes/ directory.  Because Makefile is not executed in
@@ -12,9 +14,11 @@ Version 2.1-34 (opened August 28, 2013)
 	to move those to inst/doc after building. This also made
 	/.Rinstignore unnecessary. The vignettes directory was introduced
 	and made recommended in R 2.14.0 so that the this version of vegan
-	depends on R >= 2.14.0.  With this, some of the parallel code
-	that is also dependent on 2.14.0 could be simplified as no version
-	checking is necessary.
+	depends on R >= 2.14.0. 
+
+	* tweaks for R < 2.12.1 removed: code to fix buggy naming of
+	columns in qr.X before 2.12.1 (as.mlm.cca/rda, intersetcor), and
+	change in the cmdscale() output (eigenvals.default).
 	
 Version 2.1-33 (closed August 28, 2013)
 
@@ -22,7 +26,7 @@ Version 2.1-33 (closed August 28, 2013)
 	checks with NOTE on ':::' calls to tools:::httpdPort (to launch
 	reading vegan NEWS.html in existing browser window) and
 	parallel:::.reg to acces the defaultCluster in an unexported
-	function in parallel Namespace.
+	environment within 'parallel' Namespace.
 	
 Version 2.1-32 (closed August 19, 2013)
 
