@@ -2,10 +2,27 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-33 (opened August 23, 2013)
+Version 2.1-34 (opened August 28, 2013)
+
+	* DESCRIPTION, vignettes: R 3.0.2-to-be checks with --as-cran
+	requires (with a NOTE) the vignettes source files (Rnw) to be in
+	vignettes/ directory.  Because Makefile is not executed in
+	inst/doc if vignettes/ directory is present, all other sources had
+	to be moved to vignettes/ as well with vignettes/.install_extras
+	to move those to inst/doc after building. This also made
+	/.Rinstignore unnecessary. The vignettes directory was introduced
+	and made recommended in R 2.14.0 so that the this version of vegan
+	depends on R >= 2.14.0.  With this, some of the parallel code
+	that is also dependent on 2.14.0 could be simplified as no version
+	checking is necessary.
+	
+Version 2.1-33 (closed August 28, 2013)
 
 	* DESCRIPTION: new dependence on lattice. Passes new strict R
-	checks with NOTE on unavoidable ':::' calls.
+	checks with NOTE on ':::' calls to tools:::httpdPort (to launch
+	reading vegan NEWS.html in existing browser window) and
+	parallel:::.reg to acces the defaultCluster in an unexported
+	function in parallel Namespace.
 	
 Version 2.1-32 (closed August 19, 2013)
 

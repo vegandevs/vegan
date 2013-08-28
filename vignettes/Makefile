@@ -10,6 +10,6 @@ intro-vegan.pdf: intro-vegan.tex
 diversity-vegan.pdf: diversity-vegan.tex
 	"$(R_HOME)/bin/R" CMD texi2dvi --pdf --clean diversity-vegan.tex
 	-rm -f diversity-vegan-0*.* Rplots.*
-NEWS.html: ../NEWS.Rd
-	"$(R_HOME)/bin/R" CMD Rd2txt -t html ../NEWS.Rd -o NEWS.html
+NEWS.html: ../inst/NEWS.Rd
+	"$(R_HOME)/bin/R" CMD Rd2txt -t html ../inst/NEWS.Rd -o NEWS.html
 
