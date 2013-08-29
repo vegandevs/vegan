@@ -22,6 +22,10 @@ Version 2.1-34 (opened August 28, 2013)
 
 	* tweak for R < 2.13.0 removed: change in cmdscale() output
 	(capscale).
+
+	* vegandocs: does not use unexported tools:::httpdPort. Now only
+	remaining ':::' case is querying default cluster in the
+	environment parallel:::.reg.
 	
 Version 2.1-33 (closed August 28, 2013)
 

@@ -16,10 +16,9 @@
         ## Try html
         helptype <- getOption("help_type")
         if (length(helptype) && helptype == "html") {
-            if (!tools:::httpdPort)
-                startDynamicHelp()
-            browseURL(paste("http://127.0.0.1:", tools:::httpdPort,
-                            "/library/vegan/doc/NEWS.html", sep=""))
+            browseURL(paste("file://",
+                            system.file(package="vegan", "doc", "NEWS.html"),
+                            sep=""))
         } else {
             file.show(Rd2txt(file.path(system.file(package="vegan"),
                                                "NEWS.Rd"), tempfile()))
