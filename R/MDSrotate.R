@@ -36,7 +36,8 @@
     }
     ## Rotation loop
     for (k in 2:N) {
-        rot <- vectorfit(x[keep, c(1,k)], vec[keep], permutations=0)$arrows
+        arrs <- vectorfit(x[keep,], vec[keep], permutations = 0)$arrows
+        rot <- arrs[c(1,k)]/sqrt(sum(arrs[c(1,k)]^2))
         rot <- drop(rot)
         ## counterclockwise rotation matrix:
         ## [cos theta   -sin theta]
