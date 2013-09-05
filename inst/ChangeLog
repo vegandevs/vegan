@@ -2,7 +2,16 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-34 (opened August 28, 2013)
+Version 2.1-35 (opened September 5, 2013)
+
+	* MDSrotate: can now rotate a solution to more than one vector,
+	provided that the number of dimensions is higher than the number
+	of vectors. Because fitted vectors usually are correlated, only
+	the first vector is aligned to dimension 1, but second vector and
+	further are oblique to the corresponding axis. In any case they
+	will have zero correlation to all subsequent dimensions.
+
+Version 2.1-34 (closed September 5, 2013)
 
 	* DESCRIPTION: dependent on R >= 2.14.0.
 	
