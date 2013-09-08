@@ -501,8 +501,8 @@ It seems that the basic problem is in the @code{svd} function of
 @code{LAPACK} that is used for numerical analysis in R.  @code{LAPACK}
 is an external library that is beyond the control of package developers
 and R core team so that these problems may be unsolvable. It seems that
-the problems with the LAPACK code are so common that even the help page
-of @code{svd} warns about them
+the problems with the @code{LAPACK} code are so common that even the
+help page of @code{svd} warns about them
 
 Reducing the range of constraints (environmental variables) helps
 sometimes. For instance, multiplying constraints by a constant < 1. This
