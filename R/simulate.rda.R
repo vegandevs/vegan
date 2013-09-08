@@ -1,6 +1,10 @@
 `simulate.rda` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             iid = TRUE, ...) 
 {
+    ## is.null(indx) && !iid requires MASS
+    if(is.null(indx) && !iid)
+        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -33,15 +37,27 @@
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
+    ## if(is.null(indx)), we have parametric Gaussian simulation and
+    ## need to generate sd matrices. The residuals sd is always taken
+    ## from the unconstrained (residual) component $CA$Xbar. If iid,
+    ## we need only species sd's, but if non-independent, we also need
+    ## species covariances.
+    if (iid)
+        dev <- outer(rep(1, nrow(ftd)), apply(object$CA$Xbar, 2, sd))
+    else
+        dev <- cov(object$CA$Xbar)
     ## Generate an array
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
-        if (is.null(indx))
-            ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), apply(object$CA$Xbar, 2, sd))), 
-               nrow = nrow(ftd)))
-        else
+        if (!is.null(indx))
             ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
+        else if (iid)
+            ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), sd = dev),
+                                               nrow = nrow(ftd)))
+        else {
+            ans[,,i] <- apply(ftd, 1,
+                              function(x) mvrnorm(1, mu = x, Sigma = dev)) 
+        }
     }
     ## set RNG attributes
     if (is.null(indx))

@@ -12,7 +12,8 @@
  works similarly as \code{simulate.lm}.  }
 
 \usage{
-\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
+\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL,
+    rank = "full", iid = TRUE, ...)
 }
 \arguments{
 
@@ -40,6 +41,9 @@
 
   \item{rank}{The rank of the constrained component: passed to
     \code{\link{predict.rda}} or \code{\link{predict.cca}}. }
+
+  \item{iid}{Not yet documented (and implementation untested).}
+
   \item{\dots}{additional optional arguments (ignored). }
 }
 
