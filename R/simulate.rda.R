@@ -55,8 +55,8 @@
             ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), sd = dev),
                                                nrow = nrow(ftd)))
         else {
-            ans[,,i] <- apply(ftd, 1,
-                              function(x) mvrnorm(1, mu = x, Sigma = dev)) 
+            ans[,,i] <- t(apply(ftd, 1,
+                                function(x) mvrnorm(1, mu = x, Sigma = dev))) 
         }
     }
     ## set RNG attributes
