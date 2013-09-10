@@ -91,8 +91,11 @@
 ### still guarantee that all marginal totals are positive.
 
 `simulate.cca` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             correlated = FALSE, ...)
 {
+    if (is.null(indx) && correlated)
+        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -124,11 +127,17 @@
     ## Residual Xbar need weighting and back-weighting
     Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
     ## Simulation
+    if (correlated)
+        dev <- cov(Xbar)
+    else
+        dev <- outer(rep(1, nrow(ftd)), apply(Xbar, 2, sd))
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
         if (is.null(indx)) {
-            tmp <- matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), apply(Xbar, 2, sd))), 
+            if (correlated)
+                tmp <- mvrnorm(nrow(ftd), numeric(ncol(ftd)), Sigma = dev)
+            else
+                tmp <- matrix(rnorm(length(ftd), sd = dev), 
                           nrow = nrow(ftd))
             ans[,,i] <- as.matrix(ftd + sweep(tmp, 1, sq.r, "/"))
         }
@@ -176,8 +185,11 @@
 ### component.
 
 `simulate.capscale` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             correlated = FALSE, ...) 
 {
+    if (is.null(indx) && correlated)
+        warning("argument 'correlated' does not work and will be ignored")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)

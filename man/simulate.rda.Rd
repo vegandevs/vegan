@@ -45,8 +45,9 @@
   \item{correlated}{Are species regarded as correlated in parametric
     simulation or when \code{indx} is not given? If
     \code{correlated = TRUE}, multivariate Gaussian random error is
-    generated, and if \code{FALSE}, Gaussian random error is
-    generated separately for each species. }
+    generated, and if \code{FALSE}, Gaussian random error is generated
+    separately for each species. The argument has no effect in
+    \code{\link{capscale}} which has no information on species.}
 
   \item{\dots}{additional optional arguments (ignored). }
 }
