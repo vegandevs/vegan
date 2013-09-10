@@ -1,9 +1,9 @@
 `simulate.rda` <-
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
-             iid = TRUE, ...) 
+             correlated = FALSE, ...) 
 {
-    ## is.null(indx) && !iid requires MASS
-    if(is.null(indx) && !iid)
+    ## is.null(indx) && correlated requires MASS
+    if(is.null(indx) && correlated)
         require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
@@ -39,10 +39,10 @@
         ftd <- ftd + object$pCCA$Fit
     ## if(is.null(indx)), we have parametric Gaussian simulation and
     ## need to generate sd matrices. The residuals sd is always taken
-    ## from the unconstrained (residual) component $CA$Xbar. If iid,
-    ## we need only species sd's, but if non-independent, we also need
-    ## species covariances.
-    if (iid)
+    ## from the unconstrained (residual) component $CA$Xbar. If
+    ## species are uncorrelated, we need only species sd's, but if
+    ## correlated, we also need species covariances.
+    if (!correlated)
         dev <- outer(rep(1, nrow(ftd)), apply(object$CA$Xbar, 2, sd))
     else
         dev <- cov(object$CA$Xbar)
@@ -51,7 +51,7 @@
     for (i in seq_len(nsim)) {
         if (!is.null(indx))
             ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
-        else if (iid)
+        else if (!correlated)
             ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), sd = dev),
                                                nrow = nrow(ftd)))
         else {
