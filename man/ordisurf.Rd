@@ -42,7 +42,7 @@
     if \code{knots = 2} the function  will fit a quadratic trend surface
     instead of a smooth surface. A vector of length 2 is allowed when
     \code{isotropic = FALSE}, with the first and second elements of
-    \code{knots} refering to the first and second of ordination
+    \code{knots} referring to the first and second of ordination
     dimensions (as indicated by \code{choices}) respectively.}
   \item{family}{Error distribution in \code{\link[mgcv]{gam}}.}
   \item{col}{ Colour of contours. }

@@ -190,7 +190,7 @@ fitspecaccum(object, model, method = "random", ...)
   \item{perm}{Permutation results with \code{method = "random"} and
     \code{NULL} in other cases. Each column in \code{perm} holds one
     permutation.}
-  \item{weights}{Matrix of accumulated weigths corresponding to the
+  \item{weights}{Matrix of accumulated weights corresponding to the
     columns of the \code{perm} matrix when model was fitted with
     argument \code{w}.}
   \item{fitted, residuals, coefficients}{Only in \code{fitspecacum}:
@@ -225,8 +225,8 @@ fitspecaccum(object, model, method = "random", ...)
   
   Kindt R., Van Damme, P. & Simons, A.J. (2006) Patterns of species
   richness at varying scales in western Kenya: planning for
-  agroecosystem diversification. \emph{Biodiversity and Conservation}, online
-  first: DOI 10.1007/s10531-005-0311-9 
+  agroecosystem diversification. \emph{Biodiversity and Conservation},
+  10: 3235--3249.
 
   Ugland, K.I., Gray, J.S. & Ellingsen, K.E. (2003). The
   species-accumulation curve and estimation of species richness. \emph{Journal

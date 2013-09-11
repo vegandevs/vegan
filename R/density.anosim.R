@@ -39,7 +39,6 @@
 `densityplot.adonis` <-
     function(x, data, xlab = "Null", ...)
 {
-    require(lattice) || stop("requires package 'lattice'")
     obs <- x$aov.tab$F.Model
     obs <- obs[!is.na(obs)]
     sim <- rbind(obs, x$f.perms)

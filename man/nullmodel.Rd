@@ -59,7 +59,7 @@ random generator state, and return
 }
   \item{burnin}{
 Nonnegative integer, specifying the number of steps
-discarded befor starting simulation.
+discarded before starting simulation.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.
 }
@@ -85,7 +85,7 @@ The \code{simulate} method carries out the simulation,
 the simulated matrices are stored in an array.
 For sequential algorithms, the method updates the state
 of the input \code{nullmodel} object.
-Therefore, it is possible to do disgnostic
+Therefore, it is possible to do diagnostic
 tests on the returned \code{simmat} object,
 and make further simulations, or use
 increased thinning value if desired.
@@ -98,7 +98,7 @@ For non-sequential algorithms the method does nothing.
 \code{update} is the preferred way of making burnin iterations
 without sampling. Alternatively, burnin can be done
 via the \code{simulate} method. For convergence
-diagnistics, it is recommended to use the
+diagnostics, it is recommended to use the
 \code{simulate} method without burnin.
 The input nullmodel object is updated, so further
 samples can be simulated if desired without having
@@ -108,7 +108,7 @@ to start the process all over again. See Examples.
 The function \code{nullmodel} returns an object of class \code{nullmodel}.
 It is a set of objects sharing the same environment:
 \itemize{
-  \item{\code{data}: }{original matrix in ineger mode.}
+  \item{\code{data}: }{original matrix in integer mode.}
   \item{\code{nrow}: }{number of rows.}
   \item{\code{ncol}: }{number of columns.}
   \item{\code{rowSums}: }{row sums.}

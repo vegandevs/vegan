@@ -25,7 +25,7 @@ multipart(...)
     all rows are in the same group in the second level.}
   \item{formula}{A two sided model formula in the form \code{y ~ x}, where \code{y} 
     is the community data matrix with samples as rows and species as column. Right 
-    hand side (\code{x}) must grouping vaiables referring to levels of sampling hierarchy, 
+    hand side (\code{x}) must be grouping variables referring to levels of sampling hierarchy, 
     terms from right to left will be treated as nested (first column is the lowest, 
     last is the highest level, at least two levels specified). Interaction terms are not allowed.}
   \item{data}{A data frame where to look for variables defined in the right hand side 

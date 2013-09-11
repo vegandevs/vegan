@@ -18,7 +18,7 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
     ## check proper design of the model frame
     l1 <- sapply(rhs, function(z) length(unique(z)))
     if (!any(sapply(2:nlevs, function(z) l1[z] <= l1[z-1])))
-        stop("number of levels are inapropriate, check sequence")
+        stop("number of levels are inappropriate, check sequence")
     rval <- list()
     rval[[1]] <- rhs[,nlevs]
     nCol <- nlevs - 1

@@ -2,5 +2,5 @@
     function(xlim = xlim, ylim = ylim, zlim = zlim, aspect = c(1,1),  ...)
 {
     aspect = c(diff(ylim)/diff(xlim), diff(zlim)/diff(xlim))
-    lattice:::prepanel.default.cloud(xlim = xlim, ylim = ylim, zlim = zlim, aspect = aspect, ...)
+    prepanel.default.cloud(xlim = xlim, ylim = ylim, zlim = zlim, aspect = aspect, ...)
 }

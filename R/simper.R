@@ -175,3 +175,4 @@
         cat("P-values based on", np, "permutations\n")
     invisible(x)
 }
+

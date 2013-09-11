@@ -22,7 +22,7 @@
         warning("results may be meaningless because data have negative entries in method ",
                 dQuote(inm))
     if (method == 11 && any(colSums(x) == 0)) 
-        warning("data have empty species which influence the results im method ",
+        warning("data have empty species which influence the results in method ",
                 dQuote(inm))
     if (method == 6) # gower, but no altGower
         x <- decostand(x, "range", 2, na.rm = TRUE, ...)

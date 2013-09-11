@@ -20,8 +20,7 @@
         else if (length(x) == 3 && all(names(x) %in% c("d", "u", "v")))
             out <- x$d^2
         ## cmdscale() will return all eigenvalues from R  2.12.1
-        else if (getRversion() > "2.12.0" &&
-                 all(c("points","eig","GOF") %in% names(x)))
+        else if (all(c("points","eig","GOF") %in% names(x)))
             out <- x$eig
     }
     class(out) <- "eigenvals"

@@ -26,7 +26,7 @@ make.cepnames(names, seconditem = FALSE)
   formed by taking four first letters of the generic name and four
   first letters of the specific or subspecific epithet. The current
   function first makes valid \R names using \code{\link{make.names}},
-  and then splits these into elemets. The CEP name is made by taking
+  and then splits these into elements. The CEP name is made by taking
   the four first letters of the first element, and four first letters
   of the last (default) or the second element (with 
   \code{seconditem = TRUE}). If there was only one name element, it is

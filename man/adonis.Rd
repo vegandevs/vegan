@@ -132,7 +132,7 @@ overview of rules.
   \item{coef.sites}{ matrix of coefficients of the linear model, with
     rows representing sources of variation and columns representing
     sites; each column represents a fit of a sites distances (from all
-    other sites) to the  linear model.These are what you get when you
+    other sites) to the  linear model. These are what you get when you
     fit distances of one site to
     your predictors. }   
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
@@ -204,7 +204,6 @@ dat
 Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
 Schizachyrium <- with(dat, as.numeric(field) - as.numeric(NO3)+2) +rnorm(12)/2
 total <- Agropyron + Schizachyrium
-library(lattice)
 dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
 

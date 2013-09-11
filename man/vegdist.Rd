@@ -175,7 +175,7 @@
   prob(j)}, or based on the probability of observing at least \eqn{j}
   species in shared in compared communities.  The current function uses
   analytic result from hypergeometric distribution
-  (\code{\link{phyper}}) to find the probablities.  This probability
+  (\code{\link{phyper}}) to find the probabilities.  This probability
   (and the index) is dependent on the number of species missing in both
   sites, and adding all-zero species to the data or removing missing
   species from the data will influence the index.  The probability (and

@@ -2,7 +2,6 @@
     function (x, order.by, BIC = FALSE, model, legend = TRUE, as.table = TRUE, 
               ...) 
 {
-    require(lattice)
     modnam <- names(x[[1]]$models)
     if (!missing(model)) 
         pick <- pmatch(model, modnam, nomatch = FALSE)

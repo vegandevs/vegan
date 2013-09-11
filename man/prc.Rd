@@ -102,7 +102,7 @@ prc(response, treatment, time, ...)
 
 \section{Warning }{The first level of \code{treatment} must be the
   control: use function \code{\link{relevel}} to guarantee the correct
-  refence level. The current version will ignore user setting of
+  reference level. The current version will ignore user setting of
   \code{\link{contrasts}} and always use treatment contrasts
   (\code{\link{contr.treatment}}). The \code{time} must be an unordered
   factor.  }

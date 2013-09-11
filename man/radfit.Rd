@@ -197,7 +197,7 @@ as.rad(x)
   \code{\link{coef}}, \code{\link{deviance}}, \code{\link{logLik}}. In
   addition the fit results can be accessed with \code{\link{fitted}},
   \code{\link{predict}} and \code{\link{residuals}} (inheriting from
-  \code{\link{residuals.glm}}).The graphical functions were discussed
+  \code{\link{residuals.glm}}). The graphical functions were discussed
   above in Details.
 
 }
