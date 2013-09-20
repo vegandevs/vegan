@@ -4,6 +4,13 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-35 (opened September 5, 2013)
 
+	* ordilabel: colour arguments ('col', 'fill', 'borderä) can now be
+	vectors and will be recycled if needed. May need care if used with
+	'select', but should work with 'priority'. This was needed for a
+	function under development and testing: when labelling over lines,
+	it may be nice if the border has the same colour as the line
+	covered.
+
 	* MDSrotate: can now rotate a solution to more than one vector,
 	provided that the number of dimensions is higher than the number
 	of vectors. Because fitted vectors usually are correlated, only
