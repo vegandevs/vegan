@@ -284,17 +284,6 @@ the function returns names of all currently available
 null model algorithms as a character vector.
 }
 \references{
-  Hardy, O. J. (2008) 
-  Testing the spatial phylogenetic structure of local communities: 
-  statistical performances of different null models 
-  and test statistics on a locally neutral community. 
-  \emph{Journal of Ecology} 96, 914--926.
-
-  Patefield, W. M. (1981) Algorithm AS159. 
-  An efficient method of generating r x c tables with 
-  given row and column totals. 
-  \emph{Applied Statistics} 30, 91--97.
-
   Gotelli, N.J. & Entsminger, N.J. (2001). Swap and fill algorithms in
   null model analysis: rethinking the knight's tour. \emph{Oecologia}
   129, 281--291.
@@ -302,11 +291,21 @@ null model algorithms as a character vector.
   Gotelli, N.J. & Entsminger, N.J. (2003). Swap algorithms in null model
   analysis. \emph{Ecology} 84, 532--535.
 
+  Hardy, O. J. (2008) Testing the spatial phylogenetic structure of
+  local communities: statistical performances of different null models
+  and test statistics on a locally neutral community.  \emph{Journal of
+  Ecology} 96, 914--926.
+
   Jonsson, B.G. (2001) A null model for randomization tests of
   nestedness in species assemblages. \emph{Oecologia} 127, 309--313.
 
-  \enc{Miklós}{Miklos}, I. & Podani, J. (2004). Randomization of presence-absence
-  matrices: comments and new algorithms. \emph{Ecology} 85, 86--92.
+  \enc{Miklós}{Miklos}, I. & Podani, J. (2004). Randomization of
+  presence-absence matrices: comments and new algorithms. \emph{Ecology}
+  85, 86--92.
+
+  Patefield, W. M. (1981) Algorithm AS159.  An efficient method of
+  generating r x c tables with given row and column totals.
+  \emph{Applied Statistics} 30, 91--97.
 
   Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. & Atmar,
   W. (1998). A comparative analysis of nested subset patterns of species
