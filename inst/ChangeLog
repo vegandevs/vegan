@@ -2,7 +2,11 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-35 (opened September 5, 2013)
+Version 2.1-36 (opened September 25, 2013)
+
+	* opened with the release of vegan 2.0-9.
+	
+Version 2.1-35 (closed September 25, 2013)
 
 	* ordilabel: colour arguments ('col', 'fill', 'borderä) can now be
 	vectors and will be recycled if needed. May need care if used with
