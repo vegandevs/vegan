@@ -34,8 +34,13 @@
             comm <- comm$data
         } else {
             nm <- nullmodel(comm, method)
-            if (nm$commsim$binary)
+            if (nm$commsim$binary) {
+                ## sometimes people do not realize that null model
+                ## makes their data binary
+                if (max(abs(comm - nm$data)) > 0.1)
+                    warning("nullmodel transformed 'comm' to binary data")
                 comm <- nm$data
+            }
         }
         method <- nm$commsim$method
     }

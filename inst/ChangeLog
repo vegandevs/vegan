@@ -5,6 +5,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 Version 2.1-36 (opened September 25, 2013)
 
 	* opened with the release of vegan 2.0-9.
+
+	* oecosimu: warns user if the specified nullmodel 'method' changes
+	quantitative input data to binary data under cover. Some people
+	have not noticed this.
 	
 Version 2.1-35 (closed September 25, 2013)
 
