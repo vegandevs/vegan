@@ -6,6 +6,20 @@ Version 2.1-36 (opened September 25, 2013)
 
 	* opened with the release of vegan 2.0-9.
 
+	* nestednodf: matrix fill was wrongly calculated in weighted
+	analysis. The nominator was length of 'comm', and if input was a
+	data frame that was the number of columns instead of the number of
+	cells. The fill was correct in non-weighted analysis because there
+	data were transformed to a matrix, and the length of a matrix is
+	the number of cells (unlike in data frames).
+
+	* nestednodf: weighted analysis gave all statistics as zero if
+	binary data were supplied. Some ">" comparisons were changed to
+	">=" and now weighted analysis of binary data gives same results
+	as non-weighted analysis. However, this can change results of
+	weighted analysis of quantitative data. The change needs
+	endorsement by the function author Gustavo Carvalho.
+
 	* oecosimu: warns user if the specified nullmodel 'method' changes
 	quantitative input data to binary data under cover. Some people
 	have not noticed this.

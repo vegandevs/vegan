@@ -22,7 +22,7 @@
     }
     nr <- NROW(comm)
     nc <- NCOL(comm)
-    fill <- sum(rfill)/length(comm)
+    fill <- sum(rfill)/prod(dim(comm))
     N.paired.rows <- numeric(nr * (nr - 1)/2)
     N.paired.cols <- numeric(nc * (nc - 1)/2)
     counter <- 0
@@ -35,7 +35,7 @@
             if (weighted) {
                 second <- comm[j, ]
                 N.paired.rows[counter] <-
-                    sum(first - second > 0 & second > 0)/sum(second > 0)
+                    sum(first - second >= 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.rows[counter] <-
@@ -53,7 +53,7 @@
             if (weighted) {
                 second <- comm[, j]
                 N.paired.cols[counter] <-
-                    sum(first - second > 0 & second > 0)/sum(second > 0)
+                    sum(first - second >= 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.cols[counter] <-
