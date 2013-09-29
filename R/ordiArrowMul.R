@@ -5,7 +5,7 @@
 {
     u <- par("usr")
     u <- u - rep(at, each = 2)
-    r <- c(range(x[,1]), range(x[,2]))
+    r <- c(range(x[,1], na.rm = TRUE), range(x[,2], na.rm = TRUE))
     ## 'rev' takes care of reversed axes like xlim(1,-1)
     rev <- sign(diff(u))[-2]
     if (rev[1] < 0)

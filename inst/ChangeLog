@@ -6,6 +6,11 @@ Version 2.1-36 (opened September 25, 2013)
 
 	* opened with the release of vegan 2.0-9.
 
+	* envfit: if a variable is constant, no fitted vector can be
+	calculated and results will be given as NA (with
+	warnings). Plotting of all vectors will fail in such cases because
+	no finite scale was found for arrows. Fixed on ordiArrowMul.
+
 	* nestednodf: matrix fill was wrongly calculated in weighted
 	analysis. The nominator was length of 'comm', and if input was a
 	data frame that was the number of columns instead of the number of
