@@ -6,10 +6,20 @@ Version 2.1-36 (opened September 25, 2013)
 
 	* opened with the release of vegan 2.0-9.
 
+	* decostand(..., "normalize") uses now .Machine$double.eps to
+	replace zero sum of squares instead of matrix minimum.
+
 	* envfit: if a variable is constant, no fitted vector can be
-	calculated and results will be given as NA (with
-	warnings). Plotting of all vectors will fail in such cases because
-	no finite scale was found for arrows. Fixed on ordiArrowMul.
+	calculated and results will be given as NA (with warnings).
+	Plotting of all vectors will fail in such cases because no finite
+	scale was found for arrows. Fixed on ordiArrowMul.
+
+	* envfit: try to produce something sensible if fitted variable has
+	constant values (invariable vector, one-level factor). Report
+	arrow heads as all zero, and R2=0 for vectors, and the centroid to
+	the data centroid and R2=0 for factors. Tied values are now
+	treated differently in factorfit: now they support null
+	hypothesis, previously they decreased the P-values. 
 
 	* nestednodf: matrix fill was wrongly calculated in weighted
 	analysis. The nominator was length of 'comm', and if input was a
