@@ -1,12 +1,12 @@
-"fisherfit" <-
+`fisherfit` <-
     function (x, ...) 
 {
     Dev.logseries <- function(n.r, p, N) {
         r <- as.numeric(names(n.r))
         x <- N/(N + p)
         logmu <- log(p) + log(x) * r - log(r)
-        lhood <- -sum(n.r * (logmu - log(n.r)) + 1) - p * log(1 - 
-                                                              x)
+        lhood <- -sum(n.r * (logmu - log(n.r)) + 1) - p * log(1-x)
+        attr(lhood, "gradient") <- -sum(n.r)/p - log(1-x)
         lhood
     }
     tmp <- as.rad(x)

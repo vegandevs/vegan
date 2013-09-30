@@ -21,6 +21,8 @@ Version 2.1-36 (opened September 25, 2013)
 	treated differently in factorfit: now they support null
 	hypothesis, previously they decreased the P-values. 
 
+	* fisherfit: use analytic derivatives in non-linear minimizer nlm(). 
+
 	* nestednodf: matrix fill was wrongly calculated in weighted
 	analysis. The nominator was length of 'comm', and if input was a
 	data frame that was the number of columns instead of the number of
