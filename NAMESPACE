@@ -132,7 +132,6 @@ S3method(coef, rda)
 # confint: stats -- also uses MASS:::confint.glm & MASS:::profile.glm
 # does this work with namespaces??
 S3method(confint, MOStest)
-S3method(confint, fisherfit)
 # cophenetic: stats
 S3method(cophenetic, spantree)
 # density: stats
@@ -268,7 +267,6 @@ S3method(plot, prc)
 S3method(plot, preston)
 S3method(plot, prestonfit)
 S3method(plot, procrustes)
-S3method(plot, profile.fisherfit)
 S3method(plot, rad)
 S3method(plot, radfit)
 S3method(plot, radfit.frame)
@@ -367,7 +365,6 @@ S3method(print, wcmdscale)
 # profile: stats
 # see note on 'confint'
 S3method(profile, MOStest)
-S3method(profile, fisherfit)
 S3method(profile, humpfit)
 # radfit: vegan
 S3method(radfit, data.frame)

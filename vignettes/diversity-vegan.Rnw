@@ -326,18 +326,7 @@ plot(fish)
   (\Sexpr{k}).}
 \label{fig:fisher}
 \end{figure}
-We already saw $\alpha$ as a diversity index.  Now we also obtained
-estimate of standard error of $\alpha$ (these also are optionally
-available in \code{fisher.alpha}).  The standard errors are based on
-the second derivatives (curvature) of log-likelihood at the solution
-of $\alpha$.  The distribution of $\alpha$ is often non-normal
-and skewed, and standard errors are of not much use.  However,
-\code{fisherfit} has a \code{profile} method that can be used to
-inspect the validity of normal assumptions, and will be used in
-calculations of confidence intervals from profile deviance:
-<<>>=
-confint(fish)
-@
+We already saw $\alpha$ as a diversity index.
 
 Preston's log-normal model is the main challenger to Fisher's
 log-series \citep{Preston48}.  Instead of plotting species by

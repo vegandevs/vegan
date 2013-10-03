@@ -32,6 +32,7 @@ specnumber(x, groups, MARGIN = 1)
   \item{base}{ The logarithm \code{base} used in \code{shannon}.}
   \item{sample}{Subsample size for rarefying community, either a single
     value or a vector.}
+  \item{se}{Estimate standard errors.}
   \item{step}{Step size for sample sizes in rarefaction curves.}
   \item{xlab, ylab}{Axis labels in plots of rarefaction curves.}
   \item{label}{Label rarefaction curves by rownames of \code{x} (logical).}
