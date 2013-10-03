@@ -21,7 +21,18 @@ Version 2.1-36 (opened September 25, 2013)
 	treated differently in factorfit: now they support null
 	hypothesis, previously they decreased the P-values. 
 
-	* fisherfit: use analytic derivatives in non-linear minimizer nlm(). 
+	* fisherfit: completely rewritten and estimates of standard error
+	removed: I could not find no justification for these. Actually, it
+	seems that the value of Fisher alpha as estimated in the function
+	was independent of the abundance distribution of species, but will
+	be defined by the number of species (S) and number of individuals
+	(N). Now the Fisher alpha is estimated from the relationship S =
+	alpha*(1 + log(N/alpha)) using function uniroot(). Because of
+	this, standard errors cannot be estimated and they were
+	removed. In addition, functions confint.fisherfit,
+	profile.fisherfit and plot.profile.fisherfit were removed. The
+	estimation of standard errors was also removed in function
+	fisher.alpha (that only calls fisherfit).
 
 	* nestednodf: matrix fill was wrongly calculated in weighted
 	analysis. The nominator was length of 'comm', and if input was a
