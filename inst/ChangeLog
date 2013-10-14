@@ -2,7 +2,28 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-36 (opened September 25, 2013)
+Version 2.1-37 (opened October 14, 2013)
+
+	* permutest.cca: added new function permutest.ccalist() to compare
+	a sequence of models. The function is still experimental ("proof
+	of the concept") and unexported. If this stays in vegan, it should
+	eventually be called from anova.cca() or permutest.cca(). This
+	would bring along a change of API to, say, anova.cca(object, ...,
+	alpha=...): the dots must follow the first argument which turns of
+	positional and partial matching of arguments so that the function
+	can collect the "cca" models. We must decide whether the new
+	function is worth such a change that can make life harder for
+	ordinary users.
+
+	The function is based on calling permutest.cca for each model with
+	identical permutations. We can then compare the change in model
+	for each permutation and collect the test statistics for
+	differences. This requires that the models really are nested so
+	that residual deviance certainly decreases in bigger model
+	(testing theory requires nesting, but this is commonly violated by
+	users: here nesting is necessary). 
+	
+Version 2.1-36 (closed October 14, 2013)
 
 	* opened with the release of vegan 2.0-9.
 
