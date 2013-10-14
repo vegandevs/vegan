@@ -9,6 +9,16 @@ permutest.default <- function(x, ...)
               model = c("reduced", "direct", "full"), first = FALSE,
               strata = NULL, parallel = getOption("mc.cores") , ...) 
 {
+    ## do something sensible with insensible input (no constraints)
+    if (is.null(x$CCA)) {
+        sol <- list(call = match.call(), testcall = x$call, model = NA,
+                    F.0 = NA, F.perm = NA, chi = c(0, x$CA$tot.chi),
+                    num = 0, den = 0, df = c(0, nrow(x$CA$u) - 1),
+                    nperm = 0, method = x$method, first = FALSE,
+                    Random.seed = NA)
+        class(sol) <- "permutest.cca"
+        return(sol)
+    }
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
     isPartial <- !is.null(x$pCCA)
