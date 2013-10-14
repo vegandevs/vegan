@@ -50,6 +50,8 @@
     pscale <- mods[[big]]$den/resdf[big]
     ## Numerator of F
     pfvals <- sapply(mods, function(z) z$num)
+    if (is.list(pfvals))
+        pfvals <- do.call(cbind, pfvals)
     pfvals <- apply(pfvals, 1, diff)
     ## dropped to vector?
     if (!is.matrix(pfvals))
@@ -66,7 +68,7 @@
     ## Collect header information
     formulae <- sapply(x, function(z) deparse(formula(z)))
     head <- paste0("Permutation tests for ", x[[1]]$method, " under ",
-                  mods[[1]]$model, " model\nwith ", nperm,
+                  mods[[big]]$model, " model\nwith ", nperm,
                    " permutations\n")
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
