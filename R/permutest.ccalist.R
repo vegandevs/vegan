@@ -12,12 +12,30 @@
             x <- c(list(x), dotargs)
     }
     nmodels <- length(x)
-    ## No. of observations and check
+    ## check that input is valid
+    ## 1. All models must be fitted with the same method
+    method <- sapply(x, function(z) z$method)
+    if (!all(method == method[1]))
+        stop("same ordination method must be used in all models")
+    else
+        method <- method[1]
+    ## 2. Same response
+    resp <- sapply(x, function(z) deparse(formula(z)[[2]]))
+    if (!all(resp == resp[1]))
+        stop("response must be same in all models")
+    ## 3. Same no. of observations
     N <- sapply(x, nobs)
     if (!all(N = N[1]))
-        stop("models have different numbers of observations")
+        stop("number of observations must be same in all models")
     else
         N <- N[1]
+    ## 4. Terms must be nested
+    trms <- lapply(x, function(z) labels(terms(z)))
+    o  <- order(sapply(trms, length))
+    for(i in 2:nmodels) 
+        if(!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
+            stop("models must be nested")
+        
     ## Create permutation matrix if it does not exist. FIXME: should
     ## take arguments for restricted permutation
     if (length(permutations) == 1) 
