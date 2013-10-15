@@ -1,5 +1,5 @@
-`permutest.ccalist` <-
-    function(x, ..., permutations = 99)
+`anova.ccalist` <-
+    function(object, ..., permutations = 99)
 {
     ## Collect cca class objects. FIXME: Eventually this should be in
     ## a function that calls permutest.ccalist after collecting model
@@ -9,28 +9,28 @@
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
         dotargs <- dotargs[isCCA]
         if (length(dotargs))
-            x <- c(list(x), dotargs)
+            object <- c(list(object), dotargs)
     }
-    nmodels <- length(x)
+    nmodels <- length(object)
     ## check that input is valid
     ## 1. All models must be fitted with the same method
-    method <- sapply(x, function(z) z$method)
+    method <- sapply(object, function(z) z$method)
     if (!all(method == method[1]))
         stop("same ordination method must be used in all models")
     else
         method <- method[1]
     ## 2. Same response
-    resp <- sapply(x, function(z) deparse(formula(z)[[2]]))
+    resp <- sapply(object, function(z) deparse(formula(z)[[2]]))
     if (!all(resp == resp[1]))
         stop("response must be same in all models")
     ## 3. Same no. of observations
-    N <- sapply(x, nobs)
+    N <- sapply(object, nobs)
     if (!all(N = N[1]))
         stop("number of observations must be same in all models")
     else
         N <- N[1]
     ## 4. Terms must be nested
-    trms <- lapply(x, function(z) labels(terms(z)))
+    trms <- lapply(object, function(z) labels(terms(z)))
     o  <- order(sapply(trms, length))
     for(i in 2:nmodels) 
         if(!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
@@ -52,7 +52,7 @@
     ## models. This strictly requires nested models (not checked
     ## here): all terms of the smaller model must be included in the
     ## larger model. FIXME: should pass arguments to permutest.cca.
-    mods <- lapply(x, function(z)
+    mods <- lapply(object, function(z)
                    permutest(z, permutations = permutations))
     dfs <- sapply(mods, function(z) z$df)
     dev <- sapply(mods, function(z) z$chi)
@@ -84,8 +84,8 @@
     dimnames(table) <- list(1L:nmodels, c("Resid. Df", "Res. Chisq", 
                                           "Df", "Chisq", "F", "Pr(>F)"))
     ## Collect header information
-    formulae <- sapply(x, function(z) deparse(formula(z)))
-    head <- paste0("Permutation tests for ", x[[1]]$method, " under ",
+    formulae <- sapply(object, function(z) deparse(formula(z)))
+    head <- paste0("Permutation tests for ", method, " under ",
                   mods[[big]]$model, " model\nwith ", nperm,
                    " permutations\n")
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
