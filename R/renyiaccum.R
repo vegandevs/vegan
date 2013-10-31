@@ -1,6 +1,9 @@
 `renyiaccum` <-
-function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100, raw = FALSE, ...)
-{ 
+function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
+         raw = FALSE, subset, ...)
+{
+    if (!missing(subset))
+        x <- subset(x, subset)
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)

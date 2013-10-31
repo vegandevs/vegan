@@ -24,6 +24,9 @@ Version 2.1-37 (opened October 14, 2013)
 	that residual deviance certainly decreases in bigger model
 	(testing theory requires nesting, but this is commonly violated by
 	users: here nesting is necessary). 
+
+	* specaccum, renyiaccum, tsallisaccum: gained argument to select a
+	'subset' of sites (looks like my student would need them).
 	
 Version 2.1-36 (closed October 14, 2013)
 

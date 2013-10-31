@@ -1,11 +1,15 @@
 `specaccum` <-
     function (comm, method = "exact", permutations = 100, conditioned=TRUE,
-              gamma="jack1", w = NULL, ...)
+              gamma="jack1", w = NULL, subset, ...)
 {
     METHODS <- c("collector", "random", "exact", "rarefaction", "coleman")
     method <- match.arg(method, METHODS)
     if (!is.null(w) && !(method %in% c("random", "collector")))
         stop(gettextf("weights 'w' can be only used with methods 'random' and 'collector'"))
+    if (!missing(subset)) {
+        comm <- subset(comm, subset)
+        w <- subset(w, subset)
+    }
     x <- comm
     x <- as.matrix(x)
     x <- x[, colSums(x) > 0, drop=FALSE]
