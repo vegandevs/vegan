@@ -71,8 +71,6 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         comdis <- vegdist(comm, method = index)
     }
     ## Prepare for parallel processing
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
     if (is.null(parallel) || getRversion() < "2.14.0")
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")

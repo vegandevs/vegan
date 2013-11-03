@@ -25,6 +25,11 @@ Version 2.1-37 (opened October 14, 2013)
 	(testing theory requires nesting, but this is commonly violated by
 	users: here nesting is necessary). 
 
+	* parellel: default cluster defined by setDefaultCluster() is no
+	longer used in functions with parallel processing. Using default
+	cluster would need querying an unexported environment
+	parellel:::.reg, and this gives a NOTE in R CMD check.
+
 	* specaccum, renyiaccum, tsallisaccum: gained argument to select a
 	'subset' of sites (looks like my student would need them).
 	

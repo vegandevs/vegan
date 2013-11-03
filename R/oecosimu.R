@@ -86,11 +86,7 @@
     ## start with empty simind
     simind <- NULL
     ## Go to parallel processing if 'parallel > 1' or 'parallel' could
-    ## be a pre-defined socket cluster or 'parallel = NULL' in which
-    ## case it could be setDefaultCluster (or a user error)
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
-    ## still NULL? was not a defaultCluster, so make to non-parallel
+    ## be a pre-defined socket cluster or 'parallel = NULL'.
     if (is.null(parallel) || getRversion() < "2.14.0")
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")

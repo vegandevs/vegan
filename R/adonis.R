@@ -107,8 +107,6 @@
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
     ## Set first parallel processing for all terms
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
     if (is.null(parallel) || getRversion() < "2.14.0")
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")

@@ -92,10 +92,8 @@ the environmental variable \code{MC_CORES} when the \pkg{parallel}
 package is loaded.
 
 \R{} allows\footnote{Since \R{} version 2.15.0.}
-setting up a default socket cluster (\code{setDefaultCluster}).  In
-that case \pkg{vegan} will perform parallel processing with that
-default cluster.  If the \code{mc.cores} is also set, it takes
-precedence.
+setting up a default socket cluster (\code{setDefaultCluster}), but
+this will not be used in \pkg{vegan}. 
 
 \subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
@@ -201,31 +199,7 @@ the following way:
 \begin{enumerate} 
 \item \code{NULL}: The function is called with argument \code{parallel
     = getOption("mc.cores")}. The option \code{mc.cores} is normally
-  unset and then the default is \code{parallel = NULL}.  This is
-  interpreted as \code{parallel = 1} in \R-2.14.x.  In \R-2.15.x the
-  function inspects if a default socket cluster is defined.  \R-2.15.0
-  has a non-exported environment \code{parallel:::.reg} with variable
-  \code{default} that is either \code{NULL} (default) or a socket
-  cluster.  Querying this environment is an error in \R-2.14.x so that
-  we also need to test the \R{} version.  In the following
-  \code{oecosimu} code we first see if the default cluster is set when
-  \code{parallel = NULL}, and if it is unset, the \code{parallel} will
-  still be \code{NULL} and will be changed to \code{1}.  After this,
-  the value of \code{parallel} will be either an integer or a socket
-  cluster, and information on the type is saved in variable
-  \code{hasClus}:
-\begin{Schunk}
-\begin{Soutput}
-if(is.null(parallel) && 
-   getRversion() >= "2.15.0")
-     parallel <- get("default", 
-                 envir = parallel:::.reg)
-if (is.null(parallel) || 
-    getRversion() < "2.14.0")
-      parallel <- 1
-hasClus <- inherits(parallel, "cluster")
-\end{Soutput}
-\end{Schunk}
+  unset and then the default is \code{parallel = NULL}.  
 \item Integer: An integer value is taken as the number of created
   parallel processes.  In unix-like systems this is the number of
   forked multicore processes, and in Windows this is the number of
@@ -244,16 +218,12 @@ This gives the following precedence order for parallel processing
   \item Explicitly given argument value of \code{parallel} will always
     be used.
   \item If \code{mc.cores} is set, it will be used. In Windows this
-    means creating and stopping socket clusters even when a default
-    cluster is set if \code{mc.cores} is not \code{NULL}. Please note
+    means creating and stopping socket clusters. Please note
     that the \code{mc.cores} is only set from the environmental
     variable \code{MC_CORES} when you load the \pkg{parallel} package,
     and it is always unset before first
-    \code{require(parallel)}.\footnote{The behaviour of
-      \code{mc.cores} option is untested in Windows.}
-  \item The default socket cluster will be used if
-    set.\footnote{Default cluster is available since \R{} 2.15.0.}
-  \item The fall back behaviour is no parallel processing. 
+    \code{require(parallel)}.
+ \item The fall back behaviour is no parallel processing. 
 \end{enumerate}
 
 \section{Nestedness and Null models}
