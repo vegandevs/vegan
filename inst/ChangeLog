@@ -2,7 +2,19 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-37 (opened October 14, 2013)
+Version 2.1-38 (opened November 5, 2013)
+
+	* DESCRIPTION: depends on permute >= 0.7-5.
+
+	* permutest.cca: permutation test uses 'permute' package. The old
+	interface was retained, and 'permutations' can be a single number
+	or a permutation matrix (as previously), but now it can also be a
+	how() object of the 'permute' package. The argument 'strata' was
+	also retained, but it is planned to be deprecated in the future,
+	and it is recommended that users switch to defining 'blocks' in
+	how(). 
+	
+Version 2.1-37 (closed November 5, 2013)
 
 	* anova.cca: added new function anova.ccalist() to compare a
 	sequence of models. The function is still experimental ("proof of

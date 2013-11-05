@@ -5,7 +5,7 @@ permutest.default <- function(x, ...)
     stop("No default permutation test defined")
 
 `permutest.cca` <-
-    function (x, permutations = 99,
+    function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), first = FALSE,
               strata = NULL, parallel = getOption("mc.cores") , ...) 
 {
@@ -113,15 +113,23 @@ permutest.default <- function(x, ...)
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
     seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
-    ## permutations
+    ## permutations is either a single number, a how() structure or a
+    ## permutation matrix
     if (length(permutations) == 1) {
-        if (is.null(strata))
-            permutations <- shuffleSet(N, permutations)
-        else
-            permutations <-
-                t(sapply(1:permutations,
-                         function(x) permuted.index(N, strata=strata))) 
+        nperm <- permutations
+        permutations <- how(nperm = nperm)
     }
+    if (!is.null(strata)) {
+        if (!inherits(permutations, "how"))
+            stop("'strata' can be used only with simple permutation or with 'how()'")
+        if (!is.null(permutations$block))
+            stop("'strata' cannot be applied when 'blocks' are defined in 'how()'")
+        permutations <- update(permutations, blocks = strata)
+    }
+    ## now permutations is either a how() structure or a permutation
+    ## matrix. Make it to a matrix if it is "how"
+    if (inherits(permutations, "how"))
+        permutations <- shuffleSet(N, control = permutations)
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
     if (is.null(parallel) || getRversion() < "2.14.0")
