@@ -4,7 +4,15 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-38 (opened November 5, 2013)
 
-	* DESCRIPTION: depends on permute >= 0.7-5.
+	* DESCRIPTION: depends on permute >= 0.7-5, where the
+	permute::how() result object can be updated.
+
+	* bioenv: returns now the number of the best model ('whichbest'),
+	the standardized environmental data ('x') and the distance
+	function used for the environmental data ('distfun'). New function
+	bioenvdist() uses these to re-calculate the environmental
+	distances for the best model, or any other model selected by its
+	number.
 
 	* permutest.cca: permutation test uses 'permute' package. The old
 	interface was retained, and 'permutations' can be a single number

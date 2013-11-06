@@ -121,11 +121,31 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
             flush.console()
         }
     }
+    whichbest <- which.max(lapply(best, function(tmp) tmp$est))
     out <- list(names = colnames(env), method = method, index = index,
                 metric = metric, upto = upto, models = best,
-                partial = partpart)
+                whichbest = whichbest,
+                partial = partpart, x = x, distfun = distfun)
     out$call <- match.call()
     out$call[[1]] <- as.name("bioenv")
     class(out) <- "bioenv"
     out
 }
+
+## Function to extract the environmental distances used within
+## bioenv. The default is to take the best model, but any model can be
+## specified by its number.
+
+`bioenvdist`  <-
+    function(x, which = "best")
+{
+    ## any non-numeric argument is regarded as "best"
+    if(!is.numeric(which))
+        which <- x$whichbest
+    if (x$metric == "gower")
+        require(cluster) ||
+            stop("requires package 'cluster' for 'gower' metric")
+    x$distfun(x$x[, x$models[[which]]$best, drop = FALSE])
+}
+
+
