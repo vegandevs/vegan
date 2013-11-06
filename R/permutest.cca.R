@@ -124,7 +124,7 @@ permutest.default <- function(x, ...)
             stop("'strata' can be used only with simple permutation or with 'how()'")
         if (!is.null(permutations$block))
             stop("'strata' cannot be applied when 'blocks' are defined in 'how()'")
-        permutations <- update(permutations, plots = Plots(factor(strata)))
+        permutations <- update(permutations, blocks = strata)
     }
     ## now permutations is either a how() structure or a permutation
     ## matrix. Make it to a matrix if it is "how"
