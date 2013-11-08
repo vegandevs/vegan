@@ -23,7 +23,11 @@ Version 2.1-38 (opened November 5, 2013)
 	how(). 
 
 	* renyiaccum: plot() works also when only one index ('scales') was
-	used.
+	used. The function gained new argument 'collector = FALSE' to
+	accumulate sites in the order they are in the data set in addition
+	to the summary statistics of permutations. This can be used to
+	analyse the randomness of the particular order of sites (looks
+	like my student would need this).
 	
 Version 2.1-37 (closed November 5, 2013)
 

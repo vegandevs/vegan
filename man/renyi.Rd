@@ -18,8 +18,9 @@ renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
 \method{plot}{renyi}(x, ...)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100, 
-    raw = FALSE, subset, ...)
-\method{plot}{renyiaccum}(x, what = c("mean", "Qnt 0.025", "Qnt 0.975"), type = "l", 
+    raw = FALSE, collector = FALSE, subset, ...)
+\method{plot}{renyiaccum}(x, what = c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
+    type = "l", 
     ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
 rgl.renyiaccum(x, rgl.height = 0.2, ...)
@@ -34,6 +35,10 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
   \item{raw}{if \code{FALSE} then return summary statistics of
     permutations, and if \code{TRUE} then returns the individual
     permutations.}
+  \item{collector}{Accumulate the diversities in the order the sites are
+    in the data set, and the collector curve can be plotted against
+    summary of permutations. The argument is ignored if \code{raw = TRUE}.
+  }
   \item{subset}{logical expression indicating sites (rows) to keep: missing
     values are taken as \code{FALSE}.}
   \item{what}{Items to be plotted.}
