@@ -21,6 +21,9 @@ Version 2.1-38 (opened November 5, 2013)
 	also retained, but it is planned to be deprecated in the future,
 	and it is recommended that users switch to defining 'blocks' in
 	how(). 
+
+	* renyiaccum: plot() works also when only one index ('scales') was
+	used.
 	
 Version 2.1-37 (closed November 5, 2013)
 
