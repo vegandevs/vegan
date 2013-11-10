@@ -2,10 +2,6 @@
     function(object, ..., permutations = how(nperm=999), by = NULL,
              strata = NULL) 
 {
-    if (is.null(object$CA) || is.null(object$CCA) ||
-        object$CCA$rank == 0 || object$CA$rank == 0)
-        return(anova.ccanull(object))
-
     if (!exists(".Random.seed", envir = .GlobalEnv,
                 inherits = FALSE)) 
         runif(1)
@@ -26,7 +22,7 @@
     ## now permutations is either a how() structure or a permutation
     ## matrix. Make it to a matrix if it is "how"
     if (inherits(permutations, "how"))
-        permutations <- shuffleSet(nrow(object$CCA$u),
+        permutations <- shuffleSet(nrow(object$CA$u),
                                    control = permutations)
     else # we got a permutation matrix and seed is unknown
         seed <- NA
