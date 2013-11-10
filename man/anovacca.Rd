@@ -28,8 +28,11 @@ anovacca(object, ..., permutations = how(nperm=999),
 
 \arguments{
 
-  \item{object}{A result object from \code{\link{cca}},
-    \code{\link{rda}} or \code{\link{capscale}}. }
+  \item{object}{One or several result objects from \code{\link{cca}},
+    \code{\link{rda}} or \code{\link{capscale}}. If there are several
+    result objects, they are compared against each other in the ordre
+    they were supplied. For a single object, a test specified in
+    \code{by} or an overal test is given. }
  
   \item{permutations}{Either a \code{\link[permute]{how}} result
     defining permutations, or a permutation matrix with each row giving

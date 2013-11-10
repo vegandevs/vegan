@@ -1,16 +1,7 @@
 `anova.ccalist` <-
     function(object, ..., permutations = 99)
 {
-    ## Collect cca class objects. FIXME: Eventually this should be in
-    ## a function that calls permutest.ccalist after collecting model
-    ## objects from dotargs.
-    dotargs <- list(...)
-    if (length(dotargs)) {
-        isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
-        dotargs <- dotargs[isCCA]
-        if (length(dotargs))
-            object <- c(list(object), dotargs)
-    }
+    ## 'object' *must* be a list of cca objects
     nmodels <- length(object)
     ## check that input is valid
     ## 1. All models must be fitted with the same method

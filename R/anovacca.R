@@ -5,10 +5,7 @@
     if (is.null(object$CA) || is.null(object$CCA) ||
         object$CCA$rank == 0 || object$CA$rank == 0)
         return(anova.ccanull(object))
-    if (!is.null(by)) {
-        by <- match.arg(by, c("axis", "terms", "margin"))
-        .NotYetUsed("by")
-    }
+
     if (!exists(".Random.seed", envir = .GlobalEnv,
                 inherits = FALSE)) 
         runif(1)
@@ -35,6 +32,24 @@
         seed <- NA
     nperm <- nrow(permutations)
     ## stop permutations block
+    ## see if this was a list of ordination objects
+    dotargs <- list(...)
+    if (length(dotargs)) {
+        isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
+        dotargs <- dotargs[isCCA]
+        if (length(dotargs)) {
+            object <- c(list(object), dotargs)
+            sol <- anova.ccalist(object, ...,
+                                 permutations = permutations)
+            return(sol)
+        }
+    }
+    ## by cases
+    if (!is.null(by)) {
+        by <- match.arg(by, c("axis", "terms", "margin"))
+        .NotYetUsed("by")
+    }
+    ## basic overall test
     tst <- permutest.cca(object, permutations = permutations, ...)
     Fval <- c(tst$F.0, NA)
     Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
