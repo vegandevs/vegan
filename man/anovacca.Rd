@@ -23,7 +23,7 @@
 
 \usage{
 anovacca(object, ..., permutations = how(nperm=999),
-      by = NULL)
+      by = NULL, strata = NULL)
 }
 
 \arguments{
@@ -42,6 +42,14 @@ anovacca(object, ..., permutations = how(nperm=999),
     setting \code{by = "margin"} will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
     variables). Not yet implemented.}
+
+  \item{strata}{An integer vector or factor specifying the strata for
+    permutation. If supplied, observations are permuted only within
+    the specified strata. It is an error to use this when
+    \code{permutations} is a matrix, or a \code{\link[permute]{how}}
+    defines \code{blocks}. This is a legacy argument that will be
+    deprecated in the future: use 
+    \code{permutations = how(\dots, blocks)} instead. }
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
