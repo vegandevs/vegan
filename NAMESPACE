@@ -29,7 +29,8 @@ stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, vegemite, veiledspec, wascores,
 wcmdscale, wisconsin)
-
+## Export temporary function later intended to replace anova.cca()
+export(anovacca)  ## <-- REMOVE THIS WHEN anova.cca IS UPGRADED <--!!!
 ## export pasteCall for 'permute'
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
