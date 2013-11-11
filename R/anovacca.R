@@ -32,11 +32,24 @@
     dotargs <- list(...)
     if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
-        dotargs <- dotargs[isCCA]
-        if (length(dotargs)) {
+        if (any(isCCA)) {
+            ## we do not want to give dotargs to anova.ccalist, but we
+            ## evaluate 'parallel' and 'model' here
+            if (is.null(dotargs$model))
+                model <- "reduced"
+            else
+                model <- dotargs$model
+            if (is.null(dotargs$parallel))
+                parallel <- NULL
+            else
+                parallel <- dotargs$parallel
+            dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
-            sol <- anova.ccalist(object, ...,
-                                 permutations = permutations)
+            sol <-
+                anova.ccalist(object, 
+                              permutations = permutations,
+                              model = model,
+                              parallel = parallel)
             return(sol)
         }
     }

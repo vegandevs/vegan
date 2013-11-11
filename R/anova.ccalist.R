@@ -1,7 +1,10 @@
 `anova.ccalist` <-
-    function(object, ..., permutations = 99)
+    function(object, permutations, model, parallel)
 {
-    ## 'object' *must* be a list of cca objects
+    ## 'object' *must* be a list of cca objects, and 'permutations'
+    ## *must* be a permutation matrix -- we assume that calling
+    ## function takes care of this, and this function is not directly
+    ## called by users.
     nmodels <- length(object)
     ## check that input is valid
     ## 1. All models must be fitted with the same method
@@ -27,11 +30,7 @@
         if(!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
             stop("models must be nested")
         
-    ## Create permutation matrix if it does not exist. FIXME: should
-    ## take arguments for restricted permutation
-    if (length(permutations) == 1) 
-            permutations <- shuffleSet(N, permutations)
-    ## permutations is now matrix
+    ## Check permutation matrix
     nperm <- nrow(permutations)
     ## check
     if (ncol(permutations) != N)
@@ -42,9 +41,10 @@
     ## be used to assess the significance of differences of fitted
     ## models. This strictly requires nested models (not checked
     ## here): all terms of the smaller model must be included in the
-    ## larger model. FIXME: should pass arguments to permutest.cca.
+    ## larger model. 
     mods <- lapply(object, function(z)
-                   permutest(z, permutations = permutations))
+                   permutest.cca(z, permutations = permutations,
+                                 model = model, parallel = parallel))
     dfs <- sapply(mods, function(z) z$df)
     dev <- sapply(mods, function(z) z$chi)
     resdf <- dfs[2,]
