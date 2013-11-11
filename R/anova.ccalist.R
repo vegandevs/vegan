@@ -65,10 +65,10 @@
     ## dropped to vector?
     if (!is.matrix(pfvals))
         pfvals <- matrix(pfvals, nrow=1, ncol=nperm)
-    pval <- rowSums(sweep(pfvals, 1, fval, ">="))
-    pval <- (pval + 1)/(nperm+1)
     pfvals <- sweep(pfvals, 1, df, "/")
     pfvals <- sweep(pfvals, 2, pscale, "/")
+    pval <- rowSums(sweep(pfvals, 1, fval, ">="))
+    pval <- (pval + 1)/(nperm+1)
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
