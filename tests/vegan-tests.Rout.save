@@ -1,8 +1,7 @@
 
-R version 2.15.3 (2013-03-01) -- "Security Blanket"
+R Under development (unstable) (2013-11-15 r64218) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -63,7 +62,7 @@ Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.actio
 Model     6 1.3178 1.3341     99   0.07 .
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m, by="term", perm=100)
 Permutation test for cca under reduced model
 Terms added sequentially (first to last)
@@ -75,7 +74,7 @@ poly(A1, 2)  2 0.3581 1.0877     99   0.37
 spno         1 0.1558 0.9461     99   0.40  
 Residual     4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m, by="margin", perm=100)
 Permutation test for cca under reduced model
 Marginal effects of terms
@@ -97,7 +96,7 @@ CCA5      1 0.1035 0.6284     99   0.82
 CCA6      1 0.0681 0.4139     99   0.83  
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## capscale
 > p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 > anova(p, perm=100)
@@ -108,7 +107,7 @@ Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.
 Model     6 64.324 1.9652     99   0.01 **
 Residual  4 21.821                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="term", perm=100)
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -120,7 +119,7 @@ poly(A1, 2)  2 11.342 1.0395     99   0.37
 spno         1  7.462 1.3679     99   0.19   
 Residual     4 21.821                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="margin", perm=100)
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -132,7 +131,7 @@ poly(A1, 2)  2 10.861 0.9954     99   0.51
 spno         1  7.462 1.3679     99   0.31  
 Residual     4 21.821                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="axis", perm=100)
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df,      na.action = na.exclude, subset = structure(c(TRUE, TRUE,      TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE,      FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE), .Names = c("2",      "13", "4", "16", "6", "1", "8", "5", "17", "15", "10", "11",      "9", "18", "3", "20", "14", "19", "12", "7")))
          Df     Var      F N.Perm Pr(>F)  
@@ -144,7 +143,7 @@ CAP5      1  4.0224 0.7373     99   0.59
 CAP6      1  2.7811 0.5098     99   0.87  
 Residual  4 21.8213                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## see that capscale can be updated and also works with 'dist' input
 > dis <- vegdist(dune)
 > p <- update(p, dis ~ .)
@@ -156,7 +155,7 @@ Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.a
 Model     6 1.55041 1.9024     99   0.06 .
 Residual  4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="term", perm=100)
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -168,7 +167,7 @@ poly(A1, 2)  2 0.29810 1.0973     99   0.44
 spno         1 0.20517 1.5105     99   0.21  
 Residual     4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="margin", perm=100)
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -190,7 +189,7 @@ CAP5      1 0.06416 0.4723     99   0.84
 CAP6      1 0.02458 0.1810     99   0.98  
 Residual  4 0.54333                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -212,7 +211,7 @@ poly(A1, 2)  2 0.3581 1.0877     99   0.36
 spno         1 0.1558 0.9461     99   0.43  
 Residual     4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(q, by="margin", perm=100)
 Permutation test for cca under reduced model
 Marginal effects of terms
@@ -234,7 +233,7 @@ CCA5      1 0.1035 0.6284     99   0.59
 CCA6      1 0.0681 0.4139     99   0.75  
 Residual  4 0.6585                       
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### Check that constrained ordination functions can be embedded.
 > ### The data.frame 'df' is still attach()ed.
 > foo <- function(bar, Y, X, ...)
@@ -266,9 +265,9 @@ Eigenvalues for unconstrained axes:
 Call: rda(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
-Total         81.8333     1.0000     
-Constrained   28.0931     0.3433    3
-Unconstrained 53.7402     0.6567   14
+Total         81.8300     1.0000     
+Constrained   28.0900     0.3433    3
+Unconstrained 53.7400     0.6567   14
 Inertia is variance 
 2 observations deleted due to missingness 
 
@@ -286,9 +285,9 @@ Eigenvalues for unconstrained axes:
 Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
 
               Inertia Proportion Rank
-Total          5.2931     1.0000     
+Total          5.2930     1.0000     
 Constrained    1.5460     0.2921    3
-Unconstrained  3.7471     0.7079   14
+Unconstrained  3.7470     0.7079   14
 Inertia is squared Jaccard distance 
 2 observations deleted due to missingness 
 
@@ -306,11 +305,11 @@ Eigenvalues for unconstrained axes:
 Call: bar(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
-Total          3.9491                
-Real Total     4.1689     1.0000     
-Constrained    1.3488     0.3235    3
-Unconstrained  2.8201     0.6765   12
-Imaginary     -0.2198               5
+Total          3.9490                
+Real Total     4.1690     1.0000     
+Constrained    1.3490     0.3235    3
+Unconstrained  2.8200     0.6765   12
+Imaginary     -0.2200               5
 Inertia is squared Bray distance 
 2 observations deleted due to missingness 
 
@@ -358,7 +357,7 @@ CCA3      1 0.0876 0.9553     99   0.42
 CCA4      1 0.0562 0.6132     99   0.75   
 Residual 10 0.9170                        
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)
 [1] TRUE
 > tab[nrow(tab),1] == m$CA$rank
@@ -384,9 +383,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(cap.model.cond, by="axis", strata=CC)  # -> error pre r2287
 Model: capscale(formula = X ~ A + B + Condition(CC))
          Df    Var      F N.Perm Pr(>F)
-CAP1      1 0.2682 1.3075     99   0.29
-CAP2      1 0.0685 0.3339     99   0.91
-CAP3      1 0.0455 0.2217     99   0.97
+CAP1      1 0.2682 1.3075     99   0.22
+CAP2      1 0.0685 0.3339     99   0.95
+CAP3      1 0.0455 0.2217     99   0.94
 Residual 22 4.5130                     
 > anova(cap.model.cond, by="terms", strata=CC)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -395,7 +394,7 @@ Permutations stratified within 'CC'
 
 Model: capscale(formula = X ~ A + B + Condition(CC))
          Df    Var      F N.Perm Pr(>F)
-A         1 0.1316 0.6415     99   0.72
+A         1 0.1316 0.6415     99   0.71
 B         2 0.2506 0.6108     99   0.84
 Residual 22 4.5130                     
 > 
@@ -404,9 +403,9 @@ Residual 22 4.5130
 > anova(cap.model, by="axis", strata=CC)  # -> no error
 Model: capscale(formula = X ~ A + B)
          Df    Var      F N.Perm Pr(>F)
-CAP1      1 0.2682 1.3267     99   0.18
-CAP2      1 0.0685 0.3388     99   0.96
-CAP3      1 0.0455 0.2249     99   0.95
+CAP1      1 0.2682 1.3267     99   0.25
+CAP2      1 0.0685 0.3388     99   0.95
+CAP3      1 0.0455 0.2249     99   0.98
 Residual 26 5.2565                     
 > anova(cap.model, by="terms", strata=CC)  # -> no error
 Permutation test for capscale under reduced model
@@ -415,8 +414,8 @@ Permutations stratified within 'CC'
 
 Model: capscale(formula = X ~ A + B)
          Df    Var      F N.Perm Pr(>F)
-A         1 0.1316 0.6509     99   0.62
-B         2 0.2506 0.6198     99   0.85
+A         1 0.1316 0.6509     99   0.65
+B         2 0.2506 0.6198     99   0.84
 Residual 26 5.2565                     
 > 
 > # partial RDA
@@ -424,9 +423,9 @@ Residual 26 5.2565
 > anova(rda.model.cond, by="axis", strata=CC)  # -> no error
 Model: rda(formula = X ~ A + B + Condition(CC))
          Df    Var      F N.Perm Pr(>F)
-RDA1      1 0.2682 1.3075     99   0.28
-RDA2      1 0.0685 0.3339     99   0.92
-RDA3      1 0.0455 0.2217     99   0.97
+RDA1      1 0.2682 1.3075     99   0.31
+RDA2      1 0.0685 0.3339     99   0.85
+RDA3      1 0.0455 0.2217     99   0.98
 Residual 22 4.5130                     
 > anova(rda.model.cond, by="terms", strata=CC)  # -> error pre r2287
 Permutation test for rda under reduced model
@@ -435,8 +434,8 @@ Permutations stratified within 'CC'
 
 Model: rda(formula = X ~ A + B + Condition(CC))
          Df    Var      F N.Perm Pr(>F)
-A         1 0.1316 0.6415     99   0.65
-B         2 0.2506 0.6108     99   0.84
+A         1 0.1316 0.6415     99   0.63
+B         2 0.2506 0.6108     99   0.80
 Residual 22 4.5130                     
 > 
 > # RDA without conditional factor
@@ -444,9 +443,9 @@ Residual 22 4.5130
 > anova(rda.model, by="axis", strata=CC)  # -> no error
 Model: rda(formula = X ~ A + B)
          Df    Var      F N.Perm Pr(>F)
-RDA1      1 0.2682 1.3267     99   0.24
-RDA2      1 0.0685 0.3388     99   0.90
-RDA3      1 0.0455 0.2249     99   0.94
+RDA1      1 0.2682 1.3267     99   0.21
+RDA2      1 0.0685 0.3388     99   0.83
+RDA3      1 0.0455 0.2249     99   0.97
 Residual 26 5.2565                     
 > anova(rda.model, by="terms", strata=CC)  # -> no error
 Permutation test for rda under reduced model
@@ -455,8 +454,8 @@ Permutations stratified within 'CC'
 
 Model: rda(formula = X ~ A + B)
          Df    Var      F N.Perm Pr(>F)
-A         1 0.1316 0.6509     99   0.69
-B         2 0.2506 0.6198     99   0.84
+A         1 0.1316 0.6509     99   0.77
+B         2 0.2506 0.6198     99   0.83
 Residual 26 5.2565                     
 > ## clean.up
 > rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
@@ -511,22 +510,38 @@ Run 5 stress 0.119268
 > ### end envfit & plot.envfit
 > 
 > ### protest (& Procrustes analysis): Stability of the permutations and
-> ### other results. 
+> ### other results.
 > data(mite)
 > mod <- rda(mite)
 > x <- scores(mod, display = "si", choices=1:6)
 > set.seed(4711)
 > xp <- x[sample(nrow(x)),]
-> pro <- protest(x, xp, permutations = 99)
+> pro <- protest(x, xp, control = how(nperm = 99))
 > pro
 
 Call:
-protest(X = x, Y = xp, permutations = 99) 
+protest(X = x, Y = xp, control = how(nperm = 99)) 
 
 Procrustes Sum of Squares (m12 squared):        0.9147 
 Correlation in a symmetric Procrustes rotation: 0.292 
 Significance:  0.08 
-Based on 99 permutations.
+Based on 99 permutations
+Permutation Design:
+
+Blocks:
+  Defined by: none
+
+Plots:
+  Defined by: none
+
+Within Plots:
+  Permutation type: free
+
+Permutation details:
+  Number of permutations requested: 99
+  Max. number of permutations allowed: 9999
+  Evaluate all permutations?: No.  Activation limit: 99
+.
 
 > pro$t
  [1] 0.2056649 0.2008622 0.2062525 0.2656158 0.2739148 0.1990895 0.3124461
@@ -579,4 +594,4 @@ Based on 99 permutations.
 > 
 > proc.time()
    user  system elapsed 
-  9.182   0.136   9.543 
+  2.387   0.039   2.415 

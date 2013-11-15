@@ -15,6 +15,16 @@ Version 2.1-39 (opened November 10, 2013)
 
 	* oecosimu: change printed quantiles to match the direction of the
 	test as changed in r2495.
+
+	* tests: vegan examples and vegan-tests have been out of sync for
+	a long time. These have not been updated because most of the
+	changes seem to be triggered by switching to R 3.0-x, and we have
+	not had time to analyse the reasons. The differences also seem to
+	be platform specific, and Linux and MacOS give slightly different
+	results. In particular, there seem to be differences in
+	permutations, constrained ordination, in particular in capscale()
+	and rounding of output. We have also introduced some changes in
+	output that were not yet synced. 
 	
 Version 2.1-38 (closed November 10, 2013)
 
