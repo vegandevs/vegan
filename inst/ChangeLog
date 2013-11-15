@@ -12,6 +12,9 @@ Version 2.1-39 (opened November 10, 2013)
 	Instead, permute package is used to create a permutation matrix
 	used in all cases with fixed number of permutations. At the first
 	stage, only the overall test is provided.
+
+	* oecosimu: change printed quantiles to match the direction of the
+	test as changed in r2495.
 	
 Version 2.1-38 (closed November 10, 2013)
 
