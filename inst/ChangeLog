@@ -13,6 +13,12 @@ Version 2.1-39 (opened November 10, 2013)
 	used in all cases with fixed number of permutations. At the first
 	stage, only the overall test is provided.
 
+	* commsim: documentation (commsim.Rd) was restructured so that
+	nullmodels were collected under separate sections with a brief
+	introductory text and shorter specific text of the
+	algorithm. Hopefully this makes easier for an outsider to grasp
+	the width of the choices.
+
 	* oecosimu: change printed quantiles to match the direction of the
 	test as changed in r2495.
 

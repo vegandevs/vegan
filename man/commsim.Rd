@@ -63,39 +63,59 @@ and must take some of the following arguments:
   \item{\code{...}: }{additional arguments.}
 }
 
-The following algorithms are currently predefined:
-\itemize{
+  Several null model algorithm are pre-defined and can be called by
+  their name. The predefined algorithms are described in detail in the
+  following chapters. The binary null models produce matrices of zeros
+  (absences) and ones (presences) also when input matrix is
+  quantitative. There are two types of quantitative data: Counts are
+  integers with a natural unit so that individuals can be shuffled, but
+  abundances can have real (floating point) values and do not have a
+  natural subunit for shuffling. All quantitative models can handle
+  counts, but only some are able to handle real values. Some of the null
+  models are sequential so that the next matrix is derived from the
+  current one. This makes models dependent on each other, and usually
+  you must thin these matrices and study the sequences for stability:
+  see \code{oecosimu} for details and instructions.
+
+  See Examples for structural constraints imposed by each algorithm and
+  defining your own null model.
+
+}
 %% commsimulator
 
+\section{Binary null models}{
+
+  All binary null models retain fill: number of absences or conversely
+  the number of absences. The classic models may also column (species)
+  frequencies (\code{c0}) or row frequencies or species richness of each
+  site (\code{r0}) and take into account commonness and rarity of
+  species (\code{r1}, \code{r2}).  Algorithms \code{swap}, \code{tswap},
+  \code{quasiswap} and \code{backtracking} preserve both row and column
+  frequencies. Two first of these are sequential but the two latter are
+  non-sequential and produce independent matrices. Basic algorithms are
+  reviewed by Wright et al. (1998).
+
+\itemize{
   \item{\code{"r00"}: }{non-sequential algorithm for binary matrices
-    that maintains the number of presences but fills these anywhere so
-    that neither species (column) nor site (row) totals are
-    preserved. See Wright et al. (1998) for review.}
+    that only  maintains the number of presences (fill).}
 
   \item{\code{"r0", "r0_old"}: }{non-sequential algorithm for binary
-    matrices that maintains the site (row) frequencies, fills
-    presences anywhere on the row with no respect to species (column)
-    frequencies. Methods \code{"r0"} and \code{"r0_old"} implement the
+    matrices that maintains the site (row) frequencies.
+    Methods \code{"r0"} and \code{"r0_old"} implement the
     same method, but use different random number sequences; use
     \code{"r0_old"} if you want to reproduce results in \pkg{vegan
-    2.0-0} or older using \code{commsimulator} (now deprecated). See
-    Wright et al. (1998) for a review.}
+    2.0-0} or older using \code{commsimulator} (now deprecated).}
 
   \item{\code{"r1"}: }{non-sequential algorithm for binary matrices
-    that maintains the site (row) frequencies, uses column marginal
-    frequencies as probabilities.  It tries to simulate original
-    species frequencies, but it is not strictly constrained. See
-    Wright et al. (1998) for review.}
+    that maintains the site (row) frequencies, but uses column marginal
+    frequencies as probabilities of selecting species.}
 
   \item{\code{"r2"}: }{non-sequential algorithm for binary matrices
-    that maintains the site (row) frequencies, uses squared column
-    sums as as probabilities.  It tries to simulate original species
-    frequencies, but it is not strictly constrained. See Wright et
-    al. (1998) for review.}
+    that maintains the site (row) frequencies, and uses squared column
+    sums as as probabilities of selecting species.}
   
   \item{\code{"c0"}: }{non-sequential algorithm for binary matrices
-    that maintains species frequencies, but does not honour site (row)
-    frequencies (Jonsson 2001). }
+    that maintains species frequencies (Jonsson 2001). }
   
   \item{\code{"swap"}: }{sequential algorithm for binary matrices that
     changes the matrix structure, but does not influence marginal sums
@@ -103,8 +123,8 @@ The following algorithms are currently predefined:
     2} submatrices so long that a swap can be done.}
   
   \item{\code{"tswap"}: }{sequential algorithm for binary matrices.
-    Same as the \code{"swap"} algorithm, but it is trying a fixed
-    number of times and doing zero to many swaps at one step
+    Same as the \code{"swap"} algorithm, but it tries a fixed
+    number of times and performs zero to many swaps at one step
     (according the thin argument in later call). This
     approach was suggested by \enc{Miklós}{Miklos} & Podani (2004)
     because they found that ordinary swap may lead to biased
@@ -115,9 +135,10 @@ The following algorithms are currently predefined:
     honouring row and column totals, but with integers that may be
     larger than one.  Then the method inspects random \eqn{2 \times
     2}{2 by 2} matrices and performs a quasiswap on them. Quasiswap is
-    similar to ordinary swap, but it also can reduce numbers above one
+    similar to ordinary swap, but it can reduce numbers above one
     to ones maintaining marginal totals (\enc{Miklós}{Miklos} & Podani
-    2004). }
+    2004).  This is the recommended algorithm if you want to retain both
+    species and row frequencies.}
 
   \item{\code{"backtracking"}: }{non-sequential algorithm for binary
     matrices that implements a filling method with constraints both
@@ -127,108 +148,131 @@ The following algorithms are currently predefined:
     all incidences are filled in. After that begins "backtracking",
     where some of the points are removed, and then filling is started
     again, and this backtracking is done so may times that all
-    incidences will be filled into matrix.}
+    incidences will be filled into matrix. The function may be very slow
+    for some matrices.}
+}
+}
 
-%% permatswap
-  \item{\code{"swap_count"}: }{sequential algorithm for count matrices. 
-    This algorithm tries to find 2 x 2 submatrices 
-    (identified by 2 random row and 2 random column indices), 
-    that can be swapped in order to leave column and row totals 
-    and fill unchanged. First, the algorithm finds the largest 
-    value in the submatrix that can be swapped (\eqn{d}) 
-    and whether in diagonal or antidiagonal way. 
-    Submatrices that contain values larger than zero in either 
-    diagonal or antidiagonal position can be swapped. 
-    Swap means that the values in diagonal or antidiagonal 
-    positions are decreased by \eqn{d}, while remaining cells 
-    are increased by \eqn{d}. A swap is made only if fill doesn't change. 
-    \bold{WARNING}: according to simulations, 
-    this algorithm seems to be biased and non random, 
-    thus its use should be avoided!}
+\section{Quantitative Models for Counts with Fixed Marginal Sums}{
 
-  \item{\code{"quasiswap_count"}: }{non-sequential algorithm for count matrices. 
-    This algorithm uses the same trick as 
-    Carsten Dormann's \code{\link[bipartite]{swap.web}} 
-    function in the package \pkg{bipartite}. First, a 
-    random matrix is generated by the \code{\link{r2dtable}} 
-    function retaining row and column sums. 
-    Then the original matrix fill is reconstructed by 
-    sequential steps to increase or decrease matrix fill in 
-    the random matrix. These steps are based on swapping 2 x 2 
-    submatrices (see \code{"swap_count"} algorithm for details) 
-    to maintain row and column totals. }
+  These models shuffle individuals of counts but keep marginal sums
+  fixed, but marginal frequencies are not preserved. Algorithm
+  \code{r2dtable} uses standard \R function \code{\link{r2dtable}} also
+  used for simulated \eqn{P}-values in \code{\link{chisq.test}}.
+  Algorithm \code{quasiswap_count} uses the same, but retains the
+  original fill. Typically this means increasing numbers of zero cells
+  and the result is zero-inflated with respect to \code{r2dtable}. 
 
+\itemize{
+
+  \item{\code{"r2dtable"}: }{non-sequential algorithm for count
+    matrices.  This algorithm keeps matrix sum and row/column sums
+    constant. Based on \code{\link{r2dtable}}.}
+
+  \item{\code{"quasiswap_count"}: }{non-sequential algorithm for count
+    matrices.  This algorithm is similar as Carsten Dormann's
+    \code{\link[bipartite]{swap.web}} function in the package
+    \pkg{bipartite}. First, a random matrix is generated by the
+    \code{\link{r2dtable}} function retaining row and column sums.  Then
+    the original matrix fill is reconstructed by sequential steps to
+    increase or decrease matrix fill in the random matrix. These steps
+    are based on swapping \eqn{2 \times 2}{2 x 2} submatrices (see
+    \code{"swap_count"} algorithm for details) to maintain row and
+    column totals. }
+}
+}
+
+\section{Quantitative Swap Models}{
+
+  Quantitative swap models are similar to binary \code{swap}, but they
+  swap the largest permissible value. The models in this section all
+  maintain the fill and perform a quantitative swap only if this can be
+  done without changing the fill. Single step of swap often changes the
+  matrix very little. In particular, if cell counts are variable, high
+  values change very slowly. Checking the chain stability and
+  independence is even more crucial than in binary swap, and very strong
+  \code{thin}ning is often needed. These models should never be used
+  without inspecting their properties for the current data.
+
+ \itemize{ 
+
+   \item{\code{"swap_count"}: }{sequential algorithm for count matrices.
+    This algorithm find \eqn{2 \times 2}{2 x 2} submatrices that can be
+    swapped leaving column and row totals and fill unchanged. The
+    algorithm finds the largest value in the submatrix that can be
+    swapped (\eqn{d}). Swap means that the values in diagonal or
+    antidiagonal positions are decreased by \eqn{d}, while remaining
+    cells are increased by \eqn{d}. A swap is made only if fill does not
+    change.  }
+
+   \item{\code{"abuswap_r"}: }{sequential algorithm for count or
+    nonnegative real valued matrices with fixed row frequencies (see
+    also \code{\link{permatswap}}).  The algorithm is similar to
+    \code{swap_count}, but uses different swap value for each row of the
+    \eqn{2 \times 2}{2 x 2} submatrix. Each step changes the the
+    corresponding column sums, but honours matrix fill, row sums, and
+    row/column frequencies (Hardy 2008; randomization scheme 2x).}
+
+  \item{\code{"abuswap_c"}: }{sequential algorithm for count or
+    nonnegative real valued matrices with fixed column frequencies (see
+    also \code{\link{permatswap}}).  The algorithm is similar as the
+    previous one, but operates on columns.  2 x 2 submatrices. Each step
+    changes the the corresponding row sums, but honours matrix fill,
+    column sums, and row/column frequencies (Hardy 2008; randomization
+    scheme 3x).}  }
+}
+
+\section{Quantitative Swap and Shuffle Models}{
+
+  Quantitative Swap and Shuffle methods (\code{swhs} methods) preserve
+  fill and column and row frequencies, and also either row or column
+  sums. The methods first perform a binary \code{quasiswap} and then
+  shuffle original count data to non-zero cells. The \code{samp} methods
+  shuffle original non-zero cell values, and \code{both} methods
+  redistribute individuals randomly among non-zero cells. The shuffling
+  is either free over the whole matrix, or within rows (\code{r} methods)
+  or within columns (\code{c} methods). Shuffling within a row preserves
+  row sums, and shuffling within a column preserves column sums.
+
+\itemize{
   \item{\code{"swsh_samp"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix.}
+    Original non-zero values values are shuffled.}
 
   \item{\code{"swsh_both"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix, individuals of the
-    nonzero cells are also shuffled.}
+    Individuals are shuffled freely over non-zero cells.}
 
   \item{\code{"swsh_samp_r"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix, separately for each rows.}
+    Non-zero values (samples) are shuffled separately for each row.}
 
-  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix, separately for each columns.}
+  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for count
+    matrices.  Non-zero values (samples) are shuffled separately for
+    each column.}
 
   \item{\code{"swsh_both_r"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix, individuals of the
-    nonzero cells are also shuffled, separately for each rows.}
+    Individuals are shuffled freely for non-zero values within each row.}
 
   \item{\code{"swsh_both_c"}: }{non-sequential algorithm for count matrices. 
-    The algorithm is a hybrid algorithm. 
-    First, it makes binary quasiswaps to keep row and column 
-    incidences constant, then non-zero values are 
-    modified by shuffling original nonzero samples among the new
-    nonzero cells of the binary matrix, individuals of the
-    nonzero cells are also shuffled, separately for each columns.}
+    Individuals are shuffled freely for non-zero values with each column.}
+}
+}
 
-  \item{\code{"abuswap_r"}: }{sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices
-    (\code{"abuswap"} algorithm with fixed row frequencies,
-    see help page of \code{\link{permatswap}}).
-    The algorithm produces matrices by swapping
-    2 x 2 submatrices. Each step changes the the corresponding
-    column sums, but honours matrix fill, row sums,
-    and row/column frequencies, 
-    as described in Hardy (2008; randomization scheme 2x).}
+\section{Quantitative Shuffle Methods}{
 
-  \item{\code{"abuswap_c"}: }{sequential algorithm for count 
-    or nonnegative real valued (\code{mode = "double"}) matrices. 
-    (\code{"abuswap"} algorithm with fixed column frequencies,
-    see help page of \code{\link{permatswap}}).
-    The algorithm produces matrices by swapping
-    2 x 2 submatrices. Each step changes the the corresponding
-    row sums, but honours matrix fill, column sums,
-    and row/column frequencies, 
-    as described in Hardy (2008; randomization scheme 3x).}
+  Quantitative shuffle methods are generalizations of binary models
+  \code{r00}, \code{r0} and \code{c0}.  The \code{_ind} methods shuffle
+  individuals so that the grand sum, row sum or column sums are similar
+  as in the observed matrix. These methods are similar as
+  \code{r2dtable} but with still slacker constraints on marginal
+  sums. The \code{_samp} and \code{_both} methods first perform the
+  correspongind binary model with similar restriction on marginal
+  frequencies, and then distribute quantitative values over non-zero
+  cells. The \code{_samp} models shuffle original cell values and can
+  therefore handle also non-count real values. The \code{_both} models
+  shuffle individuals among non-zero values. The shuffling is over the
+  whole matrix in \code{r00_}, and within row in \code{r0_} and within
+  column in \code{c0_} in all cases.
 
-%% permatfull
-  \item{\code{"r2dtable"}: }{non-sequential algorithm for count matrices. 
-    This algorithm keeps matrix sum and row/column sums constant,
-    based on Patefield's (1981) algorithm, see help page of 
-    \code{\link{r2dtable}}.}
-
+\itemize{
   \item{\code{"r00_ind"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
     individuals are shuffled among cells of the matrix.}
@@ -254,7 +298,7 @@ The following algorithms are currently predefined:
   \item{\code{"c0_samp"}: }{non-sequential algorithm for count 
     or nonnegative real valued (\code{mode = "double"}) matrices. 
     This algorithm keeps column sums constant,
-    cells within each columns are shuffled.}
+    cells within each column are shuffled.}
 
   \item{\code{"r00_both"}: }{non-sequential algorithm for count matrices. 
     This algorithm keeps total sum constant,
@@ -268,8 +312,8 @@ The following algorithms are currently predefined:
     This algorithm keeps total sum constant,
     cells and individuals among cells of each column are shuffled.}
 }
-For structural constraints imposed by each algorithm, see Examples.
 }
+
 \value{
 An object of class \code{commsim} with elements 
 corresponding to the arguments (\code{method}, \code{binary}, 
@@ -311,13 +355,18 @@ null model algorithms as a character vector.
   W. (1998). A comparative analysis of nested subset patterns of species
   composition. \emph{Oecologia} 113, 1--20.
 }
+
 \author{
 Jari Oksanen and Peter Solymos
 }
-\seealso{
-\code{\link{permatfull}}, \code{\link{permatswap}},
-\code{\link{oecosimu}}.
-}
+
+\seealso{ See \code{\link{permatfull}}, \code{\link{permatswap}} for
+alternative specification of quantitative null models. Function
+\code{\link{oecosimu}} gives a higher-level interface for applying null
+models in hypothesis testing and analysis of models. Function
+\code{\link{nullmodel}} and \code{\link{simulate.nullmodel}} are used to
+generate arrays of simulated null model matrices.  }
+
 \examples{
 ## write the r00 algorithm
 f <- function(x, n, ...) 
