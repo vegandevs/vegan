@@ -38,8 +38,8 @@ another document.
 \section{Parallel processing}
 
 Several \pkg{vegan} functions can perform parallel processing using
-the standard \R{} package \pkg{parallel}.\footnote{Available since
-  \R{} version 2.14.0.}  The \pkg{parallel} package in \R{} implements
+the standard \R{} package \pkg{parallel}. 
+The \pkg{parallel} package in \R{} implements
 the functionality of earlier contributed packages \pkg{multicore} and
 \pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
 multiple cores, and \pkg{snow} functionality sets up a socket cluster

@@ -31,6 +31,13 @@ Version 2.1-39 (opened November 10, 2013)
 	permutations, constrained ordination, in particular in capscale()
 	and rounding of output. We have also introduced some changes in
 	output that were not yet synced. 
+
+	* janitorial: vegan has been dependent on R >= 2.14.0 since
+	version 2.1-34 (r2597 Wed 28-Aug-2013). Now superfluous references
+	and tests for the older R version were removed in R code and
+	documentation. FIXME: cca() returns residuals.zombie item that was
+	supposed to be needed in R < 2.13.0. This was not yet removed: we
+	must first check that this can be safely done.
 	
 Version 2.1-38 (closed November 10, 2013)
 

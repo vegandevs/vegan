@@ -87,7 +87,7 @@
     simind <- NULL
     ## Go to parallel processing if 'parallel > 1' or 'parallel' could
     ## be a pre-defined socket cluster or 'parallel = NULL'.
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {

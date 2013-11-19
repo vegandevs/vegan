@@ -38,7 +38,7 @@
     if (nperm > 0)
         perm.contr <- matrix(nrow=P, ncol=nperm)
     ## Parallel processing ?
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     isParal <- (hasClus || parallel > 1) && require(parallel)

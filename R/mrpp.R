@@ -50,7 +50,7 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
                           ncol(perms), N))
     }
     ## Parallel processing
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {
