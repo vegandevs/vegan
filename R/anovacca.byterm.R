@@ -17,15 +17,16 @@
     trmlab <- trmlab[trmlab %in% attr(terms(object$terminfo),
                                       "term.labels")]
     ntrm <- length(trmlab)
-    m0 <- update(object, . ~ 1)
+    m0 <- update(object, paste(".~.-", paste(trmlab, collapse="-")))
     mods <- list(m0)
     for(i in seq_along(trmlab)) {
         fla <- paste(". ~ . + ", trmlab[i])
         mods[[i+1]] <- update(mods[[i]], fla)
     }
-    ## The result. Should be reformatted
+    ## The result
     sol <- anova.ccalist(mods, permutations = permutations,
                          model = model, parallel = parallel)
+    ## Reformat
     out <- data.frame(c(sol[-1,3], sol[ntrm+1,1]),
                       c(sol[-1,4], sol[ntrm+1,2]),
                       c(sol[-1,5], NA),
