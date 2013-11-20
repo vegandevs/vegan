@@ -16,6 +16,7 @@
     trmlab <- attr(trms, "term.labels")
     trmlab <- trmlab[trmlab %in% attr(terms(object$terminfo),
                                       "term.labels")]
+    ntrm <- length(trmlab)
     m0 <- update(object, . ~ 1)
     mods <- list(m0)
     for(i in seq_along(trmlab)) {
@@ -23,7 +24,16 @@
         mods[[i+1]] <- update(mods[[i]], fla)
     }
     ## The result. Should be reformatted
-    anova.ccalist(mods, permutations = permutations, model = model, parallel = parallel)
+    sol <- anova.ccalist(mods, permutations = permutations,
+                         model = model, parallel = parallel)
+    out <- data.frame(c(sol[-1,3], sol[ntrm+1,1]),
+                      c(sol[-1,4], sol[ntrm+1,2]),
+                      c(sol[-1,5], NA),
+                      c(sol[-1,6], NA))
+    colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    rownames(out) <- c(trmlab, "Residual")
+    class(out) <- c("anova","data.frame")
+    out
 }
 
 ## by = margin: this is not a anova.ccalist case, but we omit each
