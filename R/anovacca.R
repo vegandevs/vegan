@@ -30,19 +30,19 @@
     ## stop permutations block
     ## see if this was a list of ordination objects
     dotargs <- list(...)
+    ## we do not want to give dotargs to anova.ccalist, but we
+    ## evaluate 'parallel' and 'model' here
+    if (is.null(dotargs$model))
+        model <- "reduced"
+    else
+        model <- dotargs$model
+    if (is.null(dotargs$parallel))
+        parallel <- NULL
+    else
+        parallel <- dotargs$parallel
     if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
         if (any(isCCA)) {
-            ## we do not want to give dotargs to anova.ccalist, but we
-            ## evaluate 'parallel' and 'model' here
-            if (is.null(dotargs$model))
-                model <- "reduced"
-            else
-                model <- dotargs$model
-            if (is.null(dotargs$parallel))
-                parallel <- NULL
-            else
-                parallel <- dotargs$parallel
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
             sol <-
@@ -55,8 +55,15 @@
     }
     ## by cases
     if (!is.null(by)) {
-        by <- match.arg(by, c("axis", "terms", "margin"))
-        .NotYetUsed("by")
+        by <- match.arg(by, c("terms", "margin"))
+        sol <- switch(by,
+                      "terms" = anovacca.byterm(object,
+                      permutations = permutations,
+                      model = model, parallel = parallel),
+                      "margin" = anovacca.bymargin(object,
+                      permutations = permutations,
+                      model = model, parallel = parallel))
+        return(sol)
     }
     ## basic overall test
     tst <- permutest.cca(object, permutations = permutations, ...)

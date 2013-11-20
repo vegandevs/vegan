@@ -10,8 +10,15 @@ Version 2.1-39 (opened November 10, 2013)
 	the function no more adapts the number of iterations for the
 	P-value, and arguments 'step' and 'perm.max' were removed.
 	Instead, permute package is used to create a permutation matrix
-	used in all cases with fixed number of permutations. At the first
-	stage, only the overall test is provided.
+	used in all cases with fixed number of permutations. 
+
+	In addition to the overall test, the function allows now testing
+	a sequence of models (anova.ccalist). Specific tests provided are
+	by = "term" (anovacca.byterm) which is fitted as a sequence of
+	models in anova.ccalist. Case by = "margin" directly calls
+	permutest.cca and gets the significances from differences of
+	residual variation similarly as anova.ccalist. Case by = "axis" is
+	not yet implemented.
 
 	* commsim: documentation (commsim.Rd) was restructured so that
 	nullmodels were collected under separate sections with a brief
