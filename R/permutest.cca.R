@@ -13,7 +13,8 @@ permutest.default <- function(x, ...)
     if (is.null(x$CCA)) {
         sol <- list(call = match.call(), testcall = x$call, model = NA,
                     F.0 = NA, F.perm = NA, chi = c(0, x$CA$tot.chi),
-                    num = 0, den = 0, df = c(0, nrow(x$CA$u) - 1),
+                    num = 0, den = 0,
+                    df = c(0, nrow(x$CA$u) - max(x$pCCA$rank,0) - 1),
                     nperm = 0, method = x$method, first = FALSE,
                     Random.seed = NA)
         class(sol) <- "permutest.cca"
