@@ -78,3 +78,32 @@
     class(out) <- c("anova", "data.frame")
     out
 }
+
+### Marginal test for axes
+
+`anovacca.byaxis` <-
+    function(object, permutations, model, parallel)
+{
+    nperm <- nrow(permutations)
+    ## Observed F-values and Df
+    eig <- object$CCA$eig
+    resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
+    Fstat <- eig/object$CA$tot.chi*resdf
+    Df <- rep(1, length(eig))
+    ## Marginal P-values
+    LC <- object$CCA$u
+    Pvals <- numeric(length(eig))
+    environment(object$terms) <- environment()
+    for (i in 1:length(eig)) {
+        Partial <- LC[,-i]
+        mod <- permutest(update(object, . ~ . + Condition(Partial)),
+                         model = model, parellel = parallel)
+        Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
+    }
+    out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
+                      c(Fstat, NA), c(Pvals,NA))
+    rownames(out) <- c(names(eig), "Residual")
+    colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    class(out) <- c("anova", "data.frame")
+    out
+}
