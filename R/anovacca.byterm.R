@@ -54,7 +54,10 @@
     dfbig <- big$df[2]
     chibig <- big$chi[2]
     scale <- big$den/dfbig
-    ## Collect all marginal models
+    ## Collect all marginal models. This differs from old version
+    ## (vegan 2.0) where other but 'nm' were partialled out within
+    ## Condition(). Now we only fit the model without 'nm' and compare
+    ## the difference against the complete model.
     mods <- lapply(trmlab, function(nm, ...)
            permutest(update(object, paste(".~.-", nm)),
                      permutations, ...))
@@ -97,7 +100,8 @@
     for (i in 1:length(eig)) {
         Partial <- LC[,-i]
         mod <- permutest(update(object, . ~ . + Condition(Partial)),
-                         model = model, parellel = parallel)
+                         permutations, model = model,
+                         parellel = parallel)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
     }
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
