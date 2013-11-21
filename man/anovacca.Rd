@@ -23,7 +23,8 @@
 
 \usage{
 anovacca(object, ..., permutations = how(nperm=999),
-      by = NULL, strata = NULL)
+      by = NULL, model = c("reduced", "direct", "full"), 
+      parallel = getOption("mc.cores"), strata = NULL)
 }
 
 \arguments{
@@ -45,6 +46,10 @@ anovacca(object, ..., permutations = how(nperm=999),
     setting \code{by = "margin"} will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
     variables). Not yet implemented.}
+
+  \item{model}{Model}
+
+  \item{parallel}{Parallel processing}
 
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within

@@ -18,7 +18,14 @@ Version 2.1-39 (opened November 10, 2013)
 	models in anova.ccalist. Case by = "margin" directly calls
 	permutest.cca and gets the significances from differences of
 	residual variation similarly as anova.ccalist. Case by = "axis" is
-	not yet implemented.
+	is implemented as a marginal model.
+
+	Simple permutations give identical results for "term" and "axis"
+	cases, but by = "margin" is different. Marginal models were
+	implemented as partial models with other parameters partialled out
+	in vegan 2.0 and earlier, but the current implementation is an
+	anova.ccalist model where the parameter in question was removed
+	and model compared against the complete model.
 
 	* commsim: documentation (commsim.Rd) was restructured so that
 	nullmodels were collected under separate sections with a brief
