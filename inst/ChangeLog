@@ -10,7 +10,7 @@ Version 2.1-39 (opened November 10, 2013)
 	the function no more adapts the number of iterations for the
 	P-value, and arguments 'step' and 'perm.max' were removed.
 	Instead, permute package is used to create a permutation matrix
-	used in all cases with fixed number of permutations. 
+	used in all cases with fixed number of permutations.
 
 	In addition to the overall test, the function allows now testing
 	a sequence of models (anova.ccalist). Specific tests provided are
@@ -36,6 +36,11 @@ Version 2.1-39 (opened November 10, 2013)
 	* oecosimu: change printed quantiles to match the direction of the
 	test as changed in r2495.
 
+	* permutest.betadisper: updated to the new permute API and operates
+	similarly to permutest.cca in respect of how the permutation test
+	can be defined. It currently doesn't support the parallel processing
+	of the cca method, however.
+
 	* tests: vegan examples and vegan-tests have been out of sync for
 	a long time. These have not been updated because most of the
 	changes seem to be triggered by switching to R 3.0-x, and we have
@@ -44,7 +49,7 @@ Version 2.1-39 (opened November 10, 2013)
 	results. In particular, there seem to be differences in
 	permutations, constrained ordination, in particular in capscale()
 	and rounding of output. We have also introduced some changes in
-	output that were not yet synced. 
+	output that were not yet synced.
 
 	* janitorial: vegan has been dependent on R >= 2.14.0 since
 	version 2.1-34 (r2597 Wed 28-Aug-2013). Now superfluous references
@@ -52,7 +57,9 @@ Version 2.1-39 (opened November 10, 2013)
 	documentation. FIXME: cca() returns residuals.zombie item that was
 	supposed to be needed in R < 2.13.0. This was not yet removed: we
 	must first check that this can be safely done.
-	
+
+	vegan also now depends on permute version 0.7-8 or later.
+
 Version 2.1-38 (closed November 10, 2013)
 
 	* DESCRIPTION: depends on permute >= 0.7-5, where the
