@@ -67,6 +67,9 @@
     Fstat <- (Chisq/Df)/(chibig/dfbig)
     ## Simulated F-values
     Fval <- sapply(mods, function(x) x$den)
+    ## Had we an empty model we need to clone the denominator
+    if (length(Fval) == 1)
+        Fval <- matrix(Fval, nrow=nperm)
     Fval <- sweep(Fval, 1, big$den, "-")
     Fval <- sweep(Fval, 2, Df, "/")
     Fval <- sweep(Fval, 1, scale, "/")
@@ -97,10 +100,16 @@
     Pvals <- numeric(length(eig))
     environment(object$terms) <- environment()
     for (i in 1:length(eig)) {
-        Partial <- LC[,-i]
-        mod <- permutest(update(object, . ~ . + Condition(Partial)),
-                         permutations, model = model,
-                         parellel = parallel)
+        Partial <- LC[,-i, drop = FALSE]
+        ## only one axis, and cannot partial out?
+        if (!ncol(Partial))
+            mod <- permutest(object, permutations, model = model,
+                             parallel = parallel)
+        else
+            mod <-
+                permutest(update(object, . ~ . + Condition(Partial)),
+                          permutations, model = model,
+                          parellel = parallel)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
     }
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
