@@ -111,9 +111,6 @@ permutest.default <- function(x, ...)
         if (isPartial)
             Zcol <- ncol(Z)
     }
-    if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE))
-        runif(1)
-    seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     ## permutations is either a single number, a how() structure or a
     ## permutation matrix
     if (length(permutations) == 1) {
@@ -167,7 +164,9 @@ permutest.default <- function(x, ...)
     sol <- list(call = Call, testcall = x$call, model = model,
                 F.0 = F.0, F.perm = F.perm,  chi = c(Chi.z, Chi.xz),
                 num = num, den = den, df = c(q, r), nperm = nperm,
-                method = x$method, first = first,  Random.seed = seed)
+                method = x$method, first = first)
+    sol$Random.seed <- attr(permutations, "seed")
+    sol$control <- attr(permutations, "control")
     if (!missing(strata)) {
         sol$strata <- deparse(substitute(strata))
         sol$stratum.values <- strata

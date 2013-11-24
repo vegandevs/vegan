@@ -4,10 +4,6 @@
              parallel = getOption("mc.cores"), strata = NULL) 
 {
     model <- match.arg(model)
-    if (!exists(".Random.seed", envir = .GlobalEnv,
-                inherits = FALSE)) 
-        runif(1)
-    seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
     ## permutations is either a single number, a how() structure or a
     ## permutation matrix
     if (length(permutations) == 1) {
@@ -23,11 +19,14 @@
     }
     ## now permutations is either a how() structure or a permutation
     ## matrix. Make it to a matrix if it is "how"
-    if (inherits(permutations, "how"))
+    if (inherits(permutations, "how")) {
         permutations <- shuffleSet(nrow(object$CA$u),
                                    control = permutations)
-    else # we got a permutation matrix and seed is unknown
-        seed <- NA
+        seed <- attr(permutations, "seed")
+        control <- attr(permutations, "control")
+    }
+    else # we got a permutation matrix and seed & control are unknown
+        seed <- control <- NULL
     nperm <- nrow(permutations)
     ## stop permutations block
     ## see if this was a list of ordination objects
@@ -44,6 +43,8 @@
                               permutations = permutations,
                               model = model,
                               parallel = parallel)
+            attr(sol, "Random.seed") <- seed
+            attr(sol, "control") <- control
             return(sol)
         }
     }
@@ -60,6 +61,8 @@
                       "axis" = anovacca.byaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel))
+        attr(sol, "Random.seed") <- seed
+        attr(sol, "control") <- control
         return(sol)
     }
     ## basic overall test
@@ -78,6 +81,7 @@
         head <- paste(head, "Permutations stratified within '", 
                       tst$strata, "'\n", sep = "")
     mod <- paste("Model:", c(object$call))
-    structure(table, heading = c(head, mod), Random.seed = seed, 
+    structure(table, heading = c(head, mod), Random.seed = seed,
+              control = control,
               class = c("anova.cca", "anova", "data.frame"))
 }
