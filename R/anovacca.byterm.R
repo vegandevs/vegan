@@ -45,9 +45,8 @@
 {
     nperm <- nrow(permutations)
     ## We need term labels but without Condition() terms
-    trms <- terms(object)
-    trmlab <- attr(trms, "term.labels")
-    trmlab <- trmlab[trmlab %in% attr(terms(object$terminfo),
+    trms <- drop.scope(object)
+    trmlab <- trms[trms %in% attr(terms(object$terminfo),
                                       "term.labels")]
     ## baseline: all terms
     big <- permutest(object, permutations, ...)
