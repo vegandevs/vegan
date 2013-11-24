@@ -33,7 +33,7 @@
     dotargs <- list(...)
     ## we do not want to give dotargs to anova.ccalist, but we
     ## evaluate 'parallel' and 'model' here
-     if (length(dotargs)) {
+    if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
         if (any(isCCA)) {
             dotargs <- dotargs[isCCA]
@@ -48,6 +48,10 @@
             return(sol)
         }
     }
+    ## We only have a single model: check if it is empty
+    if (is.null(object$CA) || is.null(object$CCA) ||
+        object$CCA$rank == 0 || object$CA$rank == 0)
+        return(anova.ccanull(object))
     ## by cases
     if (!is.null(by)) {
         by <- match.arg(by, c("terms", "margin", "axis"))
