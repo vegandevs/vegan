@@ -100,9 +100,18 @@
     Df <- rep(1, length(eig))
     ## Marginal P-values
     LC <- object$CCA$u
+    ## missing values?
     if (!is.null(object$na.action))
         LC <- napredict(structure(object$na.action,
                                   class="exclude"), LC)
+    ## subset?
+    if (!is.null(object$subset)) {
+        tmp <- matrix(NA, nrow=length(object$subset),
+                      ncol = ncol(LC))
+        tmp[object$subset,] <- LC
+        LC <- tmp
+        object <- update(object, subset = object$subset)
+    }
     LC <- as.data.frame(LC)
     fla <- reformulate(names(LC))
     Pvals <- numeric(length(eig))
