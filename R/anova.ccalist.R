@@ -19,7 +19,7 @@
         stop("response must be same in all models")
     ## 3. Same no. of observations
     N <- sapply(object, nobs)
-    if (!all(N = N[1]))
+    if (!all(N == N[1]))
         stop("number of observations must be same in all models")
     else
         N <- N[1]
