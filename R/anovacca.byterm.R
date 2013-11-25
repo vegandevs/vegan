@@ -44,6 +44,9 @@
     function(object, permutations, ...)
 {
     nperm <- nrow(permutations)
+    ## Refuse to handle models with missing data
+    if (!is.null(object$na.action))
+        stop("by = 'margin' models cannot handle missing data")
     ## We need term labels but without Condition() terms
     trms <- drop.scope(object)
     trmlab <- trms[trms %in% attr(terms(object$terminfo),
@@ -97,17 +100,24 @@
     Df <- rep(1, length(eig))
     ## Marginal P-values
     LC <- object$CCA$u
+    if (!is.null(object$na.action))
+        LC <- napredict(structure(object$na.action,
+                                  class="exclude"), LC)
+    LC <- as.data.frame(LC)
+    fla <- reformulate(names(LC))
     Pvals <- numeric(length(eig))
     environment(object$terms) <- environment()
     for (i in 1:length(eig)) {
-        Partial <- LC[,-i, drop = FALSE]
+        part <- paste("~ . +Condition(",
+                      paste(names(LC)[-i], collapse = "+"), ")")
+        upfla <- update(fla, part)
         ## only one axis, and cannot partial out?
-        if (!ncol(Partial))
+        if (length(eig) == 1)
             mod <- permutest(object, permutations, model = model,
                              parallel = parallel)
         else
             mod <-
-                permutest(update(object, . ~ . + Condition(Partial)),
+                permutest(update(object, upfla, data = LC),
                           permutations, model = model,
                           parellel = parallel)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
