@@ -20,7 +20,7 @@ rrarefy(x, sample)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
    label = TRUE, ...)
-fisher.alpha(x, MARGIN = 1, se = FALSE, ...)
+fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
 
@@ -86,11 +86,7 @@ specnumber(x, groups, MARGIN = 1)
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
   The estimation is possible only for genuine
-  counts of individuals. The function can optionally return standard
-  errors of \eqn{\alpha}.  These should be regarded only as rough
-  indicators of the accuracy: the confidence limits of \eqn{\alpha} are
-  strongly non-symmetric and the standard errors cannot be used in
-  Normal inference.
+  counts of individuals. 
   
   Function \code{specnumber} finds the number of species. With
   \code{MARGIN = 2}, it finds frequencies of species. If \code{groups}

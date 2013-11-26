@@ -27,7 +27,7 @@
     ## Remove "Proportion" if only one component
     if (is.null(x$CCA) && is.null(x$pCCA))
         tbl <- tbl[,-2]
-    printCoefmat(tbl, digits = digits, na.print = "")
+    printCoefmat(tbl, digits = digits, na.print = "", zap.ind = 1:2)
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")

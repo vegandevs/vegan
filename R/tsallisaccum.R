@@ -1,6 +1,9 @@
 tsallisaccum <-
-function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE, ...)
+function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE,
+          subset, ...)
 {
+    if (!missing(subset))
+        x <- subset(x, subset)
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)

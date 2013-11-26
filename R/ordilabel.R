@@ -18,6 +18,8 @@
         ord <- order(priority)
         x <- x[ord, ]
         labels <- labels[ord]
+    } else {
+        ord <- seq_along(labels)
     }
     em <- strwidth("m", cex = cex, ...)
     ex <- strheight("x", cex = cex, ...)
@@ -28,12 +30,15 @@
             col <- border
         else
             col <- par("fg")
+    col <- rep(col, length=nrow(x))[ord]
+    border <- rep(border, length=nrow(x))[ord]
+    fill <- rep(fill, length=nrow(x))[ord]
     for (i in 1:nrow(x)) {
         ordiArgAbsorber(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
-                        col = fill, border = border, xpd = xpd,
+                        col = fill[i], border = border[i], xpd = xpd,
                         FUN = polygon, ...)
         ordiArgAbsorber(x[i,1], x[i,2], labels = labels[i], cex = cex,
-                        col = col, xpd = xpd, FUN = text, ...)
+                        col = col[i], xpd = xpd, FUN = text, ...)
     }
     invisible(x)
 }

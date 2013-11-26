@@ -18,6 +18,7 @@
     H <- qr.fitted(Q, Pw)
     heads <- qr.coef(Q, Pw)
     r <- diag(cor(H, Pw)^2)
+    r[is.na(r)] <- 0
     heads <- decostand(heads, "norm", 2)
     heads <- t(heads)
     if (is.null(colnames(X))) 
@@ -54,7 +55,8 @@
         if (!is.matrix(permstore))
             permstore <- matrix(permstore, ncol=permutations)
         permstore <- sweep(permstore, 1, r, ">")
-        pvals <- (rowSums(permstore) + 1)/(permutations + 1)
+        validn <- rowSums(is.finite(permstore))
+        pvals <- (rowSums(permstore, na.rm = TRUE) + 1)/(validn + 1)
     }
     else pvals <- NULL
     sol <- list(arrows = heads, r = r, permutations = permutations, 

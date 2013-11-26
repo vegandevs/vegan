@@ -53,7 +53,7 @@
             }
             tmp <- sapply(1:permutations,
                           function(indx,...) ptest(permat[indx,], ...))
-            pval.this <- (sum(tmp > r.this) + 1)/(permutations + 1)
+            pval.this <- (sum(tmp >= r.this) + 1)/(permutations + 1)
             pval <- c(pval, pval.this)
         }
     }

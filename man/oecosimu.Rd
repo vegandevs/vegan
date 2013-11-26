@@ -186,7 +186,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   Function \code{oecosimu} returns an object of class
   \code{"oecosimu"}.  The result object has items \code{statistic} and
   \code{oecosimu}.  The \code{statistic} contains the complete object
-  returned by \code{nestedfun} for the original data.  The
+  returned by \code{nestfun} for the original data.  The
   \code{oecosimu} component contains the following items:
   \item{statistic}{Observed values of the statistic.}
   \item{simulated}{Simulated values of the statistic.}

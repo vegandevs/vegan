@@ -1,6 +1,9 @@
 `renyiaccum` <-
-function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100, raw = FALSE, ...)
-{ 
+function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
+         raw = FALSE, collector = FALSE, subset, ...)
+{
+    if (!missing(subset))
+        x <- subset(x, subset)
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
@@ -17,12 +20,16 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100, raw = FALSE, ...
         result[,,k] <- as.matrix(renyi((apply(x[sample(n),],2,cumsum)),
                                        scales=scales, ...))
     }
+    if (raw)
+        collector <- FALSE
+    if (collector)
+        ref <- as.matrix(renyi(apply(x, 2, cumsum), scales = scales, ...))
     if (raw) {
         if (m==1) {
             result <- result[,1,]
         }
     }else{
-        tmp <- array(dim=c(n,m,6))
+        tmp <- array(dim=c(n,m,6 + as.numeric(collector)))
         for (i in 1:n) {
             for (j in 1:m) {
                 tmp[i,j,1] <- mean(result[i,j,1:permutations]) 
@@ -31,12 +38,14 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100, raw = FALSE, ...
                 tmp[i,j,4] <- max(result[i,j,1:permutations])
                 tmp[i,j,5] <- quantile(result[i,j,1:permutations],0.025)
                 tmp[i,j,6] <- quantile(result[i,j,1:permutations],0.975)
+                if (collector)
+                    tmp[i,j,7] <- ref[i,j]
             }
         }
         result <- tmp
         dimnames(result) <- list(pooled.sites=c(1:n),
                                   scale=scales,
-                                  c("mean", "stdev", "min", "max", "Qnt 0.025", "Qnt 0.975"))
+                                  c("mean", "stdev", "min", "max", "Qnt 0.025", "Qnt 0.975", if (collector) "Collector"))
     }
     class(result) <- c("renyiaccum", class(result))
     result

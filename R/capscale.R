@@ -79,8 +79,6 @@
     if (add) {
         X <- cmdscale(X, k = k, eig = TRUE, add = add)
         ## All eigenvalues *should* be positive, but see that they are
-        if (getRversion() < "2.13.0")
-            X$points <- X$points[, X$eig[-(k+1)] > 0]
         X$eig <- X$eig[X$eig > 0]
     }
     else

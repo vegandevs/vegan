@@ -12,7 +12,8 @@
  works similarly as \code{simulate.lm}.  }
 
 \usage{
-\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
+\method{simulate}{rda}(object, nsim = 1, seed = NULL, indx = NULL,
+    rank = "full", correlated = FALSE, ...)
 }
 \arguments{
 
@@ -40,25 +41,33 @@
 
   \item{rank}{The rank of the constrained component: passed to
     \code{\link{predict.rda}} or \code{\link{predict.cca}}. }
+
+  \item{correlated}{Are species regarded as correlated in parametric
+    simulation or when \code{indx} is not given? If
+    \code{correlated = TRUE}, multivariate Gaussian random error is
+    generated, and if \code{FALSE}, Gaussian random error is generated
+    separately for each species. The argument has no effect in
+    \code{\link{capscale}} which has no information on species.}
+
   \item{\dots}{additional optional arguments (ignored). }
 }
 
 \details{ The implementation follows \code{"lm"} method of
-  \code{\link{simulate}}, and adds Gaussian (Normal) error to the
-  fitted values (\code{\link{fitted.rda}}) using function
-  \code{\link{rnorm}}. The standard deviations are estimated
-  independently for each species (column) from the residuals after
-  fitting the constraints. Alternatively, the function can take a
-  permutation index that is used to add permuted residuals
-  (unconstrained component) to the fitted values. Raw data are used in
-  \code{\link{rda}}. Internal Chi-square transformed data are used in
-  \code{\link{cca}} within the function, but the returned matrix is 
-  similar to the original input data. The simulation is performed on
-  internal metric scaling data in \code{\link{capscale}}, but the
-  function returns the Euclidean distances calculated from the simulated
-  data.  The simulation uses only the real components, and the imaginary
-  dimensions are ignored.
-}
+  \code{\link{simulate}}, and adds Gaussian (Normal) error to the fitted
+  values (\code{\link{fitted.rda}}) using function \code{\link{rnorm}}
+  if \code{correlated = FALSE} or \code{\link[MASS]{mvrnorm}} if
+  \code{correlated = TRUE}. The standard deviations (\code{\link{rnorm}})
+  or covariance matrices for species (\code{\link[MASS]{mvrnorm}}) are
+  estimated from the residuals after fitting the constraints.
+  Alternatively, the function can take a permutation index that is used
+  to add permuted residuals (unconstrained component) to the fitted
+  values. Raw data are used in \code{\link{rda}}. Internal Chi-square
+  transformed data are used in \code{\link{cca}} within the function,
+  but the returned matrix is similar to the original input data. The
+  simulation is performed on internal metric scaling data in
+  \code{\link{capscale}}, but the function returns the Euclidean
+  distances calculated from the simulated data.  The simulation uses
+  only the real components, and the imaginary dimensions are ignored.  }
 
 \value{ If \code{nsim = 1}, returns a matrix or dissimilarities (in
   \code{\link{capscale}}) with similar additional arguments on random
@@ -73,7 +82,8 @@
   \code{\link{lm}} objects, and \code{\link{simulate.nullmodel}} for
   community null model simulation. Functions \code{\link{fitted.rda}}
   and \code{\link{fitted.cca}} return fitted values without the error
-  component.  }
+  component. See \code{\link{rnorm}} and \code{\link[MASS]{mvrnorm}}
+  (\pkg{MASS} package) for simulating Gaussian random error. }
 
 \examples{
 data(dune)

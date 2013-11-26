@@ -1,6 +1,10 @@
 `simulate.rda` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             correlated = FALSE, ...) 
 {
+    ## is.null(indx) && correlated requires MASS
+    if(is.null(indx) && correlated)
+        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -33,15 +37,27 @@
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
         ftd <- ftd + object$pCCA$Fit
+    ## if(is.null(indx)), we have parametric Gaussian simulation and
+    ## need to generate sd matrices. The residuals sd is always taken
+    ## from the unconstrained (residual) component $CA$Xbar. If
+    ## species are uncorrelated, we need only species sd's, but if
+    ## correlated, we also need species covariances.
+    if (!correlated)
+        dev <- outer(rep(1, nrow(ftd)), apply(object$CA$Xbar, 2, sd))
+    else
+        dev <- cov(object$CA$Xbar)
     ## Generate an array
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
-        if (is.null(indx))
-            ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), apply(object$CA$Xbar, 2, sd))), 
-               nrow = nrow(ftd)))
-        else
+        if (!is.null(indx))
             ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
+        else if (!correlated)
+            ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), sd = dev),
+                                               nrow = nrow(ftd)))
+        else {
+            ans[,,i] <- t(apply(ftd, 1,
+                                function(x) mvrnorm(1, mu = x, Sigma = dev))) 
+        }
     }
     ## set RNG attributes
     if (is.null(indx))
@@ -75,8 +91,11 @@
 ### still guarantee that all marginal totals are positive.
 
 `simulate.cca` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...)
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             correlated = FALSE, ...)
 {
+    if (is.null(indx) && correlated)
+        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -108,11 +127,17 @@
     ## Residual Xbar need weighting and back-weighting
     Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
     ## Simulation
+    if (correlated)
+        dev <- cov(Xbar)
+    else
+        dev <- outer(rep(1, nrow(ftd)), apply(Xbar, 2, sd))
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
         if (is.null(indx)) {
-            tmp <- matrix(rnorm(length(ftd), 
-               sd = outer(rep(1,nrow(ftd)), apply(Xbar, 2, sd))), 
+            if (correlated)
+                tmp <- mvrnorm(nrow(ftd), numeric(ncol(ftd)), Sigma = dev)
+            else
+                tmp <- matrix(rnorm(length(ftd), sd = dev), 
                           nrow = nrow(ftd))
             ans[,,i] <- as.matrix(ftd + sweep(tmp, 1, sq.r, "/"))
         }
@@ -160,8 +185,11 @@
 ### component.
 
 `simulate.capscale` <-
-    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full", ...) 
+    function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
+             correlated = FALSE, ...) 
 {
+    if (is.null(indx) && correlated)
+        warning("argument 'correlated' does not work and will be ignored")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)

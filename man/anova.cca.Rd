@@ -23,7 +23,7 @@
 
 permutest(x, ...)
 
-\method{permutest}{cca}(x, permutations = 99,
+\method{permutest}{cca}(x, permutations = how(nperm=99),
           model = c("reduced", "direct", "full"),
           first = FALSE, strata = NULL, 
 	  parallel = getOption("mc.cores") , ...)
@@ -46,14 +46,23 @@ permutest(x, ...)
     \code{permutest.cca}. In \code{anova} with \code{by = "axis"} you
     can use argument \code{cutoff} (defaults \code{1}) which stops
     permutations after exceeding the given level. }
-  \item{permutations}{Number of permutations for assessing significance
-    of constraints.}
+  
+  \item{permutations}{Either a \code{\link[permute]{how}} result
+    defining permutations, or a permutation matrix with each row giving
+    the permutation indices, or the number of permutations for simple
+    permutations. See \code{\link{permutations}} for details.}
+
   \item{model}{Permutation model (partial match).}
   \item{first}{Assess only the significance of the first constrained
     eigenvalue; will be passed from \code{anova.cca}. }
+  
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
-    specified strata.}
+    specified strata. It is an error to use this when
+    \code{permutations} is a matrix, or a \code{\link[permute]{how}}
+    defines \code{blocks}. This is a legacy argument that will be
+    deprecated in the future: use \code{permutations = how(\dots, blocks)}
+    instead. }
 
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel

@@ -34,8 +34,13 @@
             comm <- comm$data
         } else {
             nm <- nullmodel(comm, method)
-            if (nm$commsim$binary)
+            if (nm$commsim$binary) {
+                ## sometimes people do not realize that null model
+                ## makes their data binary
+                if (max(abs(comm - nm$data)) > 0.1)
+                    warning("nullmodel transformed 'comm' to binary data")
                 comm <- nm$data
+            }
         }
         method <- nm$commsim$method
     }
@@ -81,12 +86,8 @@
     ## start with empty simind
     simind <- NULL
     ## Go to parallel processing if 'parallel > 1' or 'parallel' could
-    ## be a pre-defined socket cluster or 'parallel = NULL' in which
-    ## case it could be setDefaultCluster (or a user error)
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
-    ## still NULL? was not a defaultCluster, so make to non-parallel
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    ## be a pre-defined socket cluster or 'parallel = NULL'.
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {

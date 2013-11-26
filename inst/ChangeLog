@@ -2,10 +2,228 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-33 (opened August 23, 2013)
+Version 2.1-39 (opened November 10, 2013)
+
+	* anova.cca: started to rewrite the anova.cca family of functions
+	for permute package. At the first stage, a temporary development
+	function anovacca was created. The user interface was changed, and
+	the function no more adapts the number of iterations for the
+	P-value, and arguments 'step' and 'perm.max' were removed.
+	Instead, permute package is used to create a permutation matrix
+	used in all cases with fixed number of permutations.
+
+	In addition to the overall test, the function allows now testing
+	a sequence of models (anova.ccalist). Specific tests provided are
+	by = "term" (anovacca.byterm) which is fitted as a sequence of
+	models in anova.ccalist. Case by = "margin" directly calls
+	permutest.cca and gets the significances from differences of
+	residual variation similarly as anova.ccalist. Case by = "axis" is
+	is implemented as a marginal model.
+
+	Simple permutations give identical results for "term" and "axis"
+	cases, but by = "margin" is different. Marginal models were
+	implemented as partial models with other parameters partialled out
+	in vegan 2.0 and earlier, but the current implementation is an
+	anova.ccalist model where the parameter in question was removed
+	and model compared against the complete model.
+
+	* commsim: documentation (commsim.Rd) was restructured so that
+	nullmodels were collected under separate sections with a brief
+	introductory text and shorter specific text of the
+	algorithm. Hopefully this makes easier for an outsider to grasp
+	the width of the choices.
+
+	* oecosimu: change printed quantiles to match the direction of the
+	test as changed in r2495.
+
+	* permutest.betadisper: updated to the new permute API and operates
+	similarly to permutest.cca in respect of how the permutation test
+	can be defined. It currently doesn't support the parallel processing
+	of the cca method, however.
+
+	* tests: vegan examples and vegan-tests have been out of sync for
+	a long time. These have not been updated because most of the
+	changes seem to be triggered by switching to R 3.0-x, and we have
+	not had time to analyse the reasons. The differences also seem to
+	be platform specific, and Linux and MacOS give slightly different
+	results. In particular, there seem to be differences in
+	permutations, constrained ordination, in particular in capscale()
+	and rounding of output. We have also introduced some changes in
+	output that were not yet synced.
+
+	* janitorial: vegan has been dependent on R >= 2.14.0 since
+	version 2.1-34 (r2597 Wed 28-Aug-2013). Now superfluous references
+	and tests for the older R version were removed in R code and
+	documentation. FIXME: cca() returns residuals.zombie item that was
+	supposed to be needed in R < 2.13.0. This was not yet removed: we
+	must first check that this can be safely done.
+
+	vegan also now depends on permute version 0.7-8 or later.
+
+Version 2.1-38 (closed November 10, 2013)
+
+	* DESCRIPTION: depends on permute >= 0.7-5, where the
+	permute::how() result object can be updated.
+
+	* bioenv: returns now the number of the best model ('whichbest'),
+	the standardized environmental data ('x') and the distance
+	function used for the environmental data ('distfun'). New function
+	bioenvdist() uses these to re-calculate the environmental
+	distances for the best model, or any other model selected by its
+	number.
+
+	* permutest.cca: permutation test uses 'permute' package. The old
+	interface was retained, and 'permutations' can be a single number
+	or a permutation matrix (as previously), but now it can also be a
+	how() object of the 'permute' package. The argument 'strata' was
+	also retained, but it is planned to be deprecated in the future,
+	and it is recommended that users switch to defining 'blocks' in
+	how(). 
+
+	* renyiaccum: plot() works also when only one index ('scales') was
+	used. The function gained new argument 'collector = FALSE' to
+	accumulate sites in the order they are in the data set in addition
+	to the summary statistics of permutations. This can be used to
+	analyse the randomness of the particular order of sites (looks
+	like my student would need this).
+	
+Version 2.1-37 (closed November 5, 2013)
+
+	* anova.cca: added new function anova.ccalist() to compare a
+	sequence of models. The function is still experimental ("proof of
+	the concept") and unexported. If this stays in vegan, it should
+	eventually be called from anova.cca(). This would bring along a
+	change of API to anova.cca(object, ..., alpha=...): the dots must
+	follow the first argument which turns of positional and partial
+	matching of arguments so that the function can collect the "cca"
+	models. We must decide whether the new function is worth such a
+	change that can make life harder for ordinary users.
+
+	One potential advantage is that the code in anova.ccaby* functions
+	could be simplifed to a anova.ccabylist() calls.
+
+	The function is based on calling permutest.cca for each model with
+	identical permutations. We can then compare the change in model
+	for each permutation and collect the test statistics for
+	differences. This requires that the models really are nested so
+	that residual deviance certainly decreases in bigger model
+	(testing theory requires nesting, but this is commonly violated by
+	users: here nesting is necessary). 
+
+	* parellel: default cluster defined by setDefaultCluster() is no
+	longer used in functions with parallel processing. Using default
+	cluster would need querying an unexported environment
+	parellel:::.reg, and this gives a NOTE in R CMD check.
+
+	* specaccum, renyiaccum, tsallisaccum: gained argument to select a
+	'subset' of sites (looks like my student would need them).
+	
+Version 2.1-36 (closed October 14, 2013)
+
+	* opened with the release of vegan 2.0-9.
+
+	* decostand(..., "normalize") uses now .Machine$double.eps to
+	replace zero sum of squares instead of matrix minimum.
+
+	* envfit: if a variable is constant, no fitted vector can be
+	calculated and results will be given as NA (with warnings).
+	Plotting of all vectors will fail in such cases because no finite
+	scale was found for arrows. Fixed on ordiArrowMul.
+
+	* envfit: try to produce something sensible if fitted variable has
+	constant values (invariable vector, one-level factor). Report
+	arrow heads as all zero, and R2=0 for vectors, and the centroid to
+	the data centroid and R2=0 for factors. Tied values are now
+	treated differently in factorfit: now they support null
+	hypothesis, previously they decreased the P-values. 
+
+	* fisherfit: completely rewritten and estimates of standard error
+	removed: I could not find no justification for these. Actually, it
+	seems that the value of Fisher alpha as estimated in the function
+	was independent of the abundance distribution of species, but will
+	be defined by the number of species (S) and number of individuals
+	(N). Now the Fisher alpha is estimated from the relationship S =
+	alpha*(1 + log(N/alpha)) using function uniroot(). Because of
+	this, standard errors cannot be estimated and they were
+	removed. In addition, functions confint.fisherfit,
+	profile.fisherfit and plot.profile.fisherfit were removed. The
+	estimation of standard errors was also removed in function
+	fisher.alpha (that only calls fisherfit).
+
+	* nestednodf: matrix fill was wrongly calculated in weighted
+	analysis. The nominator was length of 'comm', and if input was a
+	data frame that was the number of columns instead of the number of
+	cells. The fill was correct in non-weighted analysis because there
+	data were transformed to a matrix, and the length of a matrix is
+	the number of cells (unlike in data frames).
+
+	* nestednodf: weighted analysis gave all statistics as zero if
+	binary data were supplied. Some ">" comparisons were changed to
+	">=" and now weighted analysis of binary data gives same results
+	as non-weighted analysis. However, this can change results of
+	weighted analysis of quantitative data. The change needs
+	endorsement by the function author Gustavo Carvalho.
+
+	* oecosimu: warns user if the specified nullmodel 'method' changes
+	quantitative input data to binary data under cover. Some people
+	have not noticed this.
+	
+Version 2.1-35 (closed September 25, 2013)
+
+	* ordilabel: colour arguments ('col', 'fill', 'borderä) can now be
+	vectors and will be recycled if needed. May need care if used with
+	'select', but should work with 'priority'. This was needed for a
+	function under development and testing: when labelling over lines,
+	it may be nice if the border has the same colour as the line
+	covered.
+
+	* MDSrotate: can now rotate a solution to more than one vector,
+	provided that the number of dimensions is higher than the number
+	of vectors. Because fitted vectors usually are correlated, only
+	the first vector is aligned to dimension 1, but second vector and
+	further are oblique to the corresponding axis. In any case they
+	will have zero correlation to all subsequent dimensions.
+
+	* simulate.rda, simulate.cca: gained argument 'correlated' for
+	using covariances of species in generating correlated multivariate
+	normal residuals in parametric simulations. The covariances are
+	estimated from the residual ordination of species. The argument
+	defaults FALSE which implements the old parametric simulation
+	where each species is simulated independently.  The argument has
+	no effect in capscale() which stores no information on species.
+	
+Version 2.1-34 (closed September 5, 2013)
+
+	* DESCRIPTION: dependent on R >= 2.14.0.
+	
+	* DESCRIPTION, vignettes: R 3.0.2-to-be checks with --as-cran
+	requires (with a NOTE) the vignettes source files (Rnw) to be in
+	vignettes/ directory.  Because Makefile is not executed in
+	inst/doc if vignettes/ directory is present, all other sources had
+	to be moved to vignettes/ as well with vignettes/.install_extras
+	to move those to inst/doc after building. This also made
+	/.Rinstignore unnecessary. The vignettes directory was introduced
+	and made recommended in R 2.14.0 so that the this version of vegan
+	depends on R >= 2.14.0. 
+
+	* tweaks for R < 2.12.1 removed: code to fix buggy naming of
+	columns in qr.X before 2.12.1 (as.mlm.cca/rda, intersetcor), and
+	change in the cmdscale() output (eigenvals.default).
+
+	* tweak for R < 2.13.0 removed: change in cmdscale() output
+	(capscale).
+
+	* vegandocs: does not use unexported tools:::httpdPort. Now only
+	remaining ':::' case is querying default cluster in the
+	environment parallel:::.reg.
+	
+Version 2.1-33 (closed August 28, 2013)
 
 	* DESCRIPTION: new dependence on lattice. Passes new strict R
-	checks with NOTE on unavoidable ':::' calls.
+	checks with NOTE on ':::' calls to tools:::httpdPort (to launch
+	reading vegan NEWS.html in existing browser window) and
+	parallel:::.reg to acces the defaultCluster in an unexported
+	environment within 'parallel' Namespace.
 	
 Version 2.1-32 (closed August 19, 2013)
 

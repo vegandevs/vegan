@@ -10,18 +10,18 @@
 }
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
-         control = how(nperm = 999), permutations = NULL,
-         \dots)
+          permutations = how(nperm = 999),
+          \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class \code{"betadisper"}, the result of a
     call to \code{betadisper}.}
   \item{pairwise}{logical; perform pairwise comparisons of group means?}
-  \item{control}{a list of control values for the permutations
-    as returned by the function \code{\link[permute]{how}}.}
-  \item{permutations}{A permutation matrix where each row gives the
-    permuted indices. If this is supplied, \code{control} is ignored.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
@@ -82,7 +82,7 @@ mod
 anova(mod)
 
 ## Permutation test for F
-permutest(mod, pairwise = TRUE)
+permutest(mod, permutations = 99, pairwise = TRUE)
 
 ## Tukey's Honest Significant Differences
 (mod.HSD <- TukeyHSD(mod))
