@@ -62,7 +62,7 @@
     ## the difference against the complete model.
     mods <- lapply(trmlab, function(nm, ...)
            permutest(update(object, paste(".~.-", nm)),
-                     permutations, ...))
+                     permutations, ...), ...)
     ## Chande in df
     Df <- sapply(mods, function(x) x$df[2]) - dfbig
     ## F of change
