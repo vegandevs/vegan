@@ -32,7 +32,7 @@ fitspecaccum <-
                   function(i, ...)
                    NLSFUN(SpeciesRichness[,i],
                           if (hasWeights) object$weights[,i] else x,
-                          model, ...))
+                          model, ...), ...)
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
     object$coefficients <- drop(sapply(mods, coef))
