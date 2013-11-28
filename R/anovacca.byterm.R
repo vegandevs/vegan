@@ -128,7 +128,7 @@
             mod <-
                 permutest(update(object, upfla, data = LC),
                           permutations, model = model,
-                          parellel = parallel)
+                          parallel = parallel)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
     }
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
