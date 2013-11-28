@@ -69,11 +69,11 @@
     Chisq <- sapply(mods, function(x) x$chi[2]) - chibig
     Fstat <- (Chisq/Df)/(chibig/dfbig)
     ## Simulated F-values
-    Fval <- sapply(mods, function(x) x$den)
+    Fval <- sapply(mods, function(x) x$num)
     ## Had we an empty model we need to clone the denominator
     if (length(Fval) == 1)
         Fval <- matrix(Fval, nrow=nperm)
-    Fval <- sweep(Fval, 1, big$den, "-")
+    Fval <- sweep(-Fval, 1, big$num, "+")
     Fval <- sweep(Fval, 2, Df, "/")
     Fval <- sweep(Fval, 1, scale, "/")
     ## Simulated P-values
