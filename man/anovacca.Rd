@@ -24,7 +24,8 @@
 \usage{
 anovacca(object, ..., permutations = how(nperm=999),
       by = NULL, model = c("reduced", "direct", "full"), 
-      parallel = getOption("mc.cores"), strata = NULL)
+      parallel = getOption("mc.cores"), strata = NULL,
+      cutoff = 1)
 }
 
 \arguments{
@@ -58,6 +59,9 @@ anovacca(object, ..., permutations = how(nperm=999),
     defines \code{blocks}. This is a legacy argument that will be
     deprecated in the future: use 
     \code{permutations = how(\dots, blocks)} instead. }
+
+  \item{cutoff}{Only effective with \code{by="axis"} where stops
+    permutations after an axis exceeds the \code{cutoff}.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with

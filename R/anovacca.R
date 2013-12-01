@@ -1,7 +1,8 @@
 `anovacca` <-
     function(object, ..., permutations = how(nperm=999), by = NULL,
              model = c("reduced", "direct", "full"),
-             parallel = getOption("mc.cores"), strata = NULL) 
+             parallel = getOption("mc.cores"), strata = NULL,
+             cutoff = 1) 
 {
     model <- match.arg(model)
     ## permutations is either a single number, a how() structure or a
@@ -64,7 +65,8 @@
                       model = model, parallel = parallel),
                       "axis" = anovacca.byaxis(object,
                       permutations = permutations,
-                      model = model, parallel = parallel))
+                      model = model, parallel = parallel,
+                      cutoff = cutoff))
         attr(sol, "Random.seed") <- seed
         attr(sol, "control") <- control
         return(sol)

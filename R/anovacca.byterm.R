@@ -100,7 +100,7 @@
 ### Marginal test for axes
 
 `anovacca.byaxis` <-
-    function(object, permutations, model, parallel)
+    function(object, permutations, model, parallel, cutoff = 1)
 {
     nperm <- nrow(permutations)
     ## Observed F-values and Df
@@ -124,7 +124,7 @@
     }
     LC <- as.data.frame(LC)
     fla <- reformulate(names(LC))
-    Pvals <- numeric(length(eig))
+    Pvals <- rep(NA, length(eig))
     environment(object$terms) <- environment()
     for (i in 1:length(eig)) {
         part <- paste("~ . +Condition(",
@@ -140,6 +140,8 @@
                           permutations, model = model,
                           parallel = parallel)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
+        if (Pvals[i] > cutoff)
+            break
     }
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
