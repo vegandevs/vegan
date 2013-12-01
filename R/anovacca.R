@@ -79,11 +79,9 @@
     is.rda <- inherits(object, "rda")
     colnames(table) <- c("Df", ifelse(is.rda, "Var", "Chisq"), 
                          "F", "N.Perm", "Pr(>F)")
-    head <- paste("Permutation test for", tst$method, "under", 
-                  tst$model, "model\n")
-    if (!is.null(tst$strata)) 
-        head <- paste(head, "Permutations stratified within '", 
-                      tst$strata, "'\n", sep = "")
+    head <- paste0("Permutation test for ", tst$method, " under ", 
+                  tst$model, " model\n", howHead(control),
+                   "Number of permutations: ", tst$nperm, "\n")
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed,
               control = control,

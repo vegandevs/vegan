@@ -1,0 +1,51 @@
+### Make a compact summary of permutations. This copies Gav Simpson's
+### permute:::print.how, but only displays non-default choices in how().
+`howHead` <- function(x, ...)
+{
+    ## this should always work
+    if (is.null(x) || !inherits(x, "how"))
+        stop("not a 'how' object: contact the package maintainer")
+    ## collect header
+    head <- NULL
+    ## blocks
+    if (!is.null(getBlocks(x))) 
+        head <- paste0(head, paste("Blocks: ", x$blocks.name, "\n"))
+    ## plots
+    plotStr <- getStrata(x, which = "plots")
+    if (!is.null(plotStr)) {
+        plots <- getPlots(x)
+        ptype <- getType(x, which = "plots")
+        head <- paste0(head, paste0("Plots: ", plots$plots.name, ", "))
+        head <- paste0(head, paste("plot permutation:", ptype))
+        if(getMirror(x, which = "plots") == "Yes")
+            head <- paste(head, "mirrored")
+        if (isTRUE(all.equal(ptype, "grid"))) {
+            nr <- getRow(x, which = "plots")
+            nc <- getCol(x, which = "plots")
+            head <- paste0(head, sprintf(ngettext(nr, " %d row", " %d rows"),
+                                        nr))
+            head <- paste0(head, sprintf(ngettext(nc, " %d column",
+                                                 " %d columns"), nc))
+        }
+        head <- paste0(head, "\n")
+    }
+    ## the fine level (within plots if any)
+    type <- getType(x, which = "within")
+    head <- paste0(head, "Permutation: ", type)
+    if (isTRUE(type %in% c("series", "grid"))) {
+        if(getMirror(x, which = "within") == "Yes")
+            head <- paste(head, "mirrored")
+        if(getConstant(x) == "Yes")
+            head <- paste0(head, " constant permutation within each Plot")
+    }
+    if (isTRUE(all.equal(type, "grid"))) {
+        nr <- getRow(x, which = "plots")
+        nc <- getCol(x, which = "plots")
+        head <- paste0(head, sprintf(ngettext(nr, " %d row", " %d rows"),
+                                    nr))
+        head <- paste0(head, sprintf(ngettext(nc, " %d column",
+                                             " %d columns"), nc))
+    }
+    head <- paste0(head, "\n")
+    head
+}
