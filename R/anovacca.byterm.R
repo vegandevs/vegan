@@ -35,7 +35,8 @@
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
-                   "Terms added sequentially (first to last)")
+                   "Terms added sequentially (first to last)\n",
+                   howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova","data.frame")
@@ -93,7 +94,8 @@
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    mods[[1]]$model, " model\n",
-                   "Marginal effects of terms")
+                   "Marginal effects of terms\n",
+                   howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova", "data.frame")
@@ -152,7 +154,8 @@
     colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
-                   "Marginal tests for axes")
+                   "Marginal tests for axes\n",
+                   howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova", "data.frame")
