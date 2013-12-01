@@ -46,14 +46,17 @@
 ## term in turn and compare against the complete model.
 
 `anovacca.bymargin` <-
-    function(object, permutations, ...)
+    function(object, permutations, scope, ...)
 {
     nperm <- nrow(permutations)
     ## Refuse to handle models with missing data
     if (!is.null(object$na.action))
         stop("by = 'margin' models cannot handle missing data")
     ## We need term labels but without Condition() terms
-    trms <- drop.scope(object)
+    if (!is.null(scope) && is.character(scope))
+        trms <- scope
+    else
+        trms <- drop.scope(object)
     trmlab <- trms[trms %in% attr(terms(object$terminfo),
                                       "term.labels")]
     ## baseline: all terms

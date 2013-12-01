@@ -2,7 +2,7 @@
     function(object, ..., permutations = how(nperm=999), by = NULL,
              model = c("reduced", "direct", "full"),
              parallel = getOption("mc.cores"), strata = NULL,
-             cutoff = 1) 
+             cutoff = 1, scope = NULL) 
 {
     model <- match.arg(model)
     ## permutations is either a single number, a how() structure or a
@@ -62,7 +62,8 @@
                       model = model, parallel = parallel),
                       "margin" = anovacca.bymargin(object,
                       permutations = permutations,
-                      model = model, parallel = parallel),
+                      model = model, parallel = parallel,
+                      scope = scope),
                       "axis" = anovacca.byaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,

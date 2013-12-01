@@ -25,7 +25,7 @@
 anovacca(object, ..., permutations = how(nperm=999),
       by = NULL, model = c("reduced", "direct", "full"), 
       parallel = getOption("mc.cores"), strata = NULL,
-      cutoff = 1)
+      cutoff = 1, scope = NULL)
 }
 
 \arguments{
@@ -62,6 +62,10 @@ anovacca(object, ..., permutations = how(nperm=999),
 
   \item{cutoff}{Only effective with \code{by="axis"} where stops
     permutations after an axis exceeds the \code{cutoff}.}
+
+  \item{scope}{Only effective with \code{by="margin"} where it can be
+    used to select the marginal terms for testing. The default is to
+    test all marginal terms in \code{\link{drop.scope}}.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
