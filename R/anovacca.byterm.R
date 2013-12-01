@@ -33,6 +33,11 @@
                       c(sol[-1,6], NA))
     colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
+    head <- paste0("Permutation test for ", object$method, " under ",
+                   model, " model\n",
+                   "Terms added sequentially (first to last)")
+    mod <- paste("Model:", c(object$call))
+    attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova","data.frame")
     out
 }
@@ -83,6 +88,11 @@
                       c(Fstat, NA), c(Pval, NA))
     colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
+    head <- paste0("Permutation test for ", object$method, " under ",
+                   mods[[1]]$model, " model\n",
+                   "Marginal effects of terms")
+    mod <- paste("Model:", c(object$call))
+    attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova", "data.frame")
     out
 }
@@ -135,6 +145,11 @@
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
     colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    head <- paste0("Permutation test for ", object$method, " under ",
+                   model, " model\n",
+                   "Marginal tests for axes")
+    mod <- paste("Model:", c(object$call))
+    attr(out, "heading") <- c(head, mod)
     class(out) <- c("anova", "data.frame")
     out
 }
