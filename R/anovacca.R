@@ -77,14 +77,12 @@
     Fval <- c(tst$F.0, NA)
     Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
-    nperm <- c(tst$nperm, NA)
-    table <- data.frame(tst$df, tst$chi, Fval, nperm, Pval)
+    table <- data.frame(tst$df, tst$chi, Fval, Pval)
     is.rda <- inherits(object, "rda")
     colnames(table) <- c("Df", ifelse(is.rda, "Var", "Chisq"), 
-                         "F", "N.Perm", "Pr(>F)")
+                         "F", "Pr(>F)")
     head <- paste0("Permutation test for ", tst$method, " under ", 
-                  tst$model, " model\n", howHead(control),
-                   "Number of permutations: ", tst$nperm, "\n")
+                  tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed,
               control = control,

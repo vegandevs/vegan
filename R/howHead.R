@@ -46,6 +46,6 @@
         head <- paste0(head, sprintf(ngettext(nc, " %d column",
                                              " %d columns"), nc))
     }
-    head <- paste0(head, "\n")
+    head <- paste0(head, "\nNumber of permutations: ", getNperm(x),  "\n")
     head
 }
