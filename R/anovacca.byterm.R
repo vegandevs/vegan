@@ -60,6 +60,8 @@
         trms <- drop.scope(object)
     trmlab <- trms[trms %in% attr(terms(object$terminfo),
                                       "term.labels")]
+    if(length(trmlab) == 0)
+        stop("the scope was empty: no available marginal terms")
     ## baseline: all terms
     big <- permutest(object, permutations, ...)
     dfbig <- big$df[2]
