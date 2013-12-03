@@ -11,11 +11,11 @@
     if (!is.null(by)) {
         by <- match.arg(by, c("axis", "terms", "margin"))
         if (by == "axis") 
-            sol <- anova.ccabyaxis(object, alpha = alpha, beta = beta, 
+            sol <- ccanova.byaxis(object, alpha = alpha, beta = beta, 
                                    step = step, perm.max = perm.max, by = NULL, 
                                    ...)
         else if (by == "margin") {
-            sol <- anova.ccabymargin(object, alpha = alpha, beta = beta,
+            sol <- ccanova.bymargin(object, alpha = alpha, beta = beta,
                                      step = step, perm.max = perm.max,
                                      by = NULL, ...)
             }
@@ -24,7 +24,7 @@
             if (!is.null(mf$...) && any(k <- pmatch(names(mf$...), 
                                                     "permutations", nomatch = FALSE))) 
                 step <- unlist(mf$...[k == 1])
-            sol <- anova.ccabyterm(object, step = step, ...)
+            sol <- ccanova.byterm(object, step = step, ...)
         }
         return(sol)
     }

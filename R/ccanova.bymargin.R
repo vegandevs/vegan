@@ -1,8 +1,8 @@
-`anova.ccabymargin` <-
+`ccanova.bymargin` <-
     function(object, step=100, scope, ...)
 {
     if(inherits(object, "prc"))
-        stop("anova(..., by = 'margin') cannot be used for 'prc' results")
+        stop("ccanova(..., by = 'margin') cannot be used for 'prc' results")
     if (!missing(scope) && is.character(scope))
         trms <- scope
     else
@@ -22,7 +22,7 @@
             fla <- update(fla, paste(". ~ . + ", updfla))
         }
         tmp <- update(object, fla)
-        tmp <- anova(tmp, step=step, ...)
+        tmp <- ccanova(tmp, step=step, ...)
         ## Start every permutation from the same seed, but get the
         ## seed of the longest simulation and reset the RNG to that
         ## state when exiting the function

@@ -1,9 +1,5 @@
-\name{anova.cca}
-\alias{anova.cca}
-\alias{anova.ccanull}
-\alias{anova.ccabyaxis}
-\alias{anova.ccabyterm}
-\alias{anova.ccabymargin}
+\name{ccanova}
+\alias{ccanova}
 \alias{anova.prc}
 
 \title{Permutation Test for Constrained Correspondence Analysis,
@@ -12,7 +8,7 @@
   This function is deprecated.
 }
 \usage{
-\method{anova}{cca}(object, alpha=0.05, beta=0.01, step=100, perm.max=9999,
+ccanova(object, alpha=0.05, beta=0.01, step=100, perm.max=9999,
       by = NULL, ...)
 }
 
@@ -36,18 +32,18 @@
 }
 \details{
   
-  This function contains a deprecated version of \code{anova.cca}.
-  The new function is completely rewritten. With the same random
-  number seed and the same number of permutations, the results are
-  mostly identical. The only difference is that marginal tests
-  (\code{by = "margin"}) are implemented differently. The most
-  important difference is that the new code is based on the
-  \pkg{permute} package and uses the fixed number of permutations in
-  all tests (cf. below). Both the new and old functions are based
-  \code{\link{permutest.cca}}, and the function can pass extra
-  arguments to \code{permutest.cca}.
+  Function \code{ccanova} is a deprecated version of \code{anova.cca}.
+  The new \code{link{\anova.cca}} function is completely
+  rewritten. With the same random number seed and the same number of
+  permutations, the results are mostly identical. The only difference
+  is that marginal tests (\code{by = "margin"}) are implemented
+  differently. The most important difference is that the new code is
+  based on the \pkg{permute} package and uses the fixed number of
+  permutations in all tests (cf. below). Both the new and old
+  functions are based \code{\link{permutest.cca}}, and the function
+  can pass extra arguments to \code{permutest.cca}.
 
-  In \code{anova.cca} the number of permutations is controlled by
+  In \code{ccanova} the number of permutations is controlled by
   targeted \dQuote{critical} \eqn{P} value (\code{alpha}) and accepted
   Type II or rejection error (\code{beta}).  If the results of
   permutations differ from the targeted \code{alpha} at risk level
@@ -68,10 +64,6 @@
 \references{
   Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
   English ed. Elsevier.
-
-  Legendre, P., Oksanen, J. and ter Braak, C.J.F. (2011). Testing the
-  significance of canonical axes in redundancy analysis. 
-  \emph{Methods in Ecology and Evolution} 2, 269--277.
 }
 \author{Jari Oksanen}
 

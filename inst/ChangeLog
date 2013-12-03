@@ -2,7 +2,13 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-39 (opened November 10, 2013)
+Version 2.1-40 (opened December 3, 2013)	
+	
+	* anova.cca: start deprecation of old anova.cca and rename it to
+	ccanova. Vegan should fail all tests while deprecation is
+	incomplete and new code is not yet in use.
+	
+Version 2.1-39 (closed December 3, 2013)
 
 	* anova.cca: started to rewrite the anova.cca family of functions
 	for permute package. At the first stage, a temporary development

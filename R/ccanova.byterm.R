@@ -1,4 +1,4 @@
-`anova.ccabyterm` <-
+`ccanova.byterm` <-
     function (object, step = 100, ...) 
 {
     ## Data set size may change during iteration if there are missing
