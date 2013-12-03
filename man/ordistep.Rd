@@ -16,7 +16,7 @@
 }
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"),
-   Pin = 0.05, Pout = 0.1, permutation = how(nperm = 199), steps = 50,
+   Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199), steps = 50,
    trace = TRUE, ...)
 ordiR2step(object, scope, direction = c("both", "forward"),
    Pin = 0.05, R2scope = TRUE, permutations = how(nperm = 499),
