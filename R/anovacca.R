@@ -79,7 +79,7 @@
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
     is.rda <- inherits(object, "rda")
-    colnames(table) <- c("Df", ifelse(is.rda, "Var", "Chisq"), 
+    colnames(table) <- c("Df", ifelse(is.rda, "Variance", "ChiSquare"), 
                          "F", "Pr(>F)")
     head <- paste0("Permutation test for ", tst$method, " under ", 
                   tst$model, " model\n", howHead(control))

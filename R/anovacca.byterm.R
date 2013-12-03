@@ -31,7 +31,9 @@
                       c(sol[-1,4], sol[ntrm+1,2]),
                       c(sol[-1,5], NA),
                       c(sol[-1,6], NA))
-    colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    isRDA <- inherits(object, "rda")
+    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
+                       "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
@@ -92,7 +94,9 @@
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
-    colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    isRDA <- inherits(object, "rda")
+    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
+                       "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    mods[[1]]$model, " model\n",
@@ -153,7 +157,9 @@
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
-    colnames(out) <- c("Df", "Chisq", "F", "Pr(>F)")
+    isRDA <- inherits(object, "rda")
+    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
+                       "F", "Pr(>F)")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
                    "Marginal tests for axes\n",
