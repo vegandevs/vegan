@@ -1,6 +1,6 @@
 `add1.cca`<-
     function(object, scope, test = c("none", "permutation"),
-             pstep = 100, perm.max = 200, ...)
+             permutations = how(nperm = 199), ...)
 {
     if (inherits(object, "prc"))
         stop("'step'/'add1' cannot be used for 'prc' objects")
@@ -27,7 +27,7 @@
             else
                 nfit <- update(object,
                                as.formula(paste(". ~ . +", tt)))
-            tmp <- anova(nfit, step = pstep, perm.max = perm.max, ...)
+            tmp <- anova(nfit,  permutations = permutations, ...)
             adds[i+1,] <- unlist(tmp[1,3:5])
         }
         colnames(adds) <- colnames(tmp)[3:5]

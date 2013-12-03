@@ -30,7 +30,7 @@ treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, vegemite, veiledspec, wascores,
 wcmdscale, wisconsin)
 ## Export temporary function later intended to replace anova.cca()
-export(anovacca)  ## <-- REMOVE THIS WHEN anova.cca IS UPGRADED <--!!!
+export(ccanova)  ## <-- REMOVE THIS WHEN ccanova IS REMOVED <--!!!
 ## export pasteCall for 'permute'
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there

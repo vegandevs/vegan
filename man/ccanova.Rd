@@ -33,7 +33,7 @@ ccanova(object, alpha=0.05, beta=0.01, step=100, perm.max=9999,
 \details{
   
   Function \code{ccanova} is a deprecated version of \code{anova.cca}.
-  The new \code{link{\anova.cca}} function is completely
+  The new \code{link{anova.cca}} function is completely
   rewritten. With the same random number seed and the same number of
   permutations, the results are mostly identical. The only difference
   is that marginal tests (\code{by = "margin"}) are implemented

@@ -1,4 +1,4 @@
-`anova.cca` <-
+`ccanova` <-
     function (object, alpha = 0.05, beta = 0.01, step = 100, perm.max = 9999, 
               by = NULL, ...) 
 {
