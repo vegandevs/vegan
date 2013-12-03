@@ -1,7 +1,8 @@
-"print.permutest.cca" <-
+`print.permutest.cca` <-
     function (x, ...) 
 {
     cat("\nPermutation test for", x$method, "\n\n")
+    cat(howHead(x$control), "\n")
     writeLines(strwrap(pasteCall(x$testcall)))
     Pval <- (sum(x$F.perm >= x$F.0) + 1)/(x$nperm + 1)
     cat("Permutation test for ")
@@ -12,10 +13,6 @@
     cat("Pseudo-F:\t", x$F.0, "(with", paste(x$df, collapse = ", "),
         "Degrees of Freedom)\n")
     cat("Significance:\t", format.pval(Pval), 
-        "\n")
-    cat("Based on", x$nperm, "permutations under", x$model, "model")
-    if (!is.null(x$strata)) 
-        cat(",\nstratified within factor", x$strata)
-    cat(".\n\n")
+        "\n\n")
     invisible(x)
 }
