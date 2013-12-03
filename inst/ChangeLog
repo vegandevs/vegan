@@ -19,6 +19,16 @@ Version 2.1-40 (opened December 3, 2013)
 	* add1.cca, drop1.cca, ordistep, ordiR2step: functions were
 	adapted to new anova.cca and this brought along similar changes in
 	API. 
+
+	* tests for cca/rda/capscale: commented out test that failed with
+	the anova.cca. Known issue was that 'by = "term"' and 'by =
+	"axis"' stop with error with missing data. This was designed and
+	and can be re-designed to handle missing data by listwise deletion
+	so that models will have the same number of observation for every
+	variable.  An unknown issue was that 'by = "margin"' failed in
+	capscale(). This may be a scoping issue an needs inspection. We
+	keep the old vegan-tests.Rout.save file so that we are reminded of
+	the problems at every check.
 	
 Version 2.1-39 (closed December 3, 2013)
 
