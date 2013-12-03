@@ -8,7 +8,7 @@
 ### by = terms builds models as a sequence of adding terms and submits
 ### this to anova.ccalist
 
-`anovacca.byterm` <-
+`anova.ccabyterm` <-
     function(object, permutations, model, parallel)
 {
     ## We need term labels but without Condition() terms
@@ -48,7 +48,7 @@
 ## by = margin: this is not a anova.ccalist case, but we omit each
 ## term in turn and compare against the complete model.
 
-`anovacca.bymargin` <-
+`anova.ccabymargin` <-
     function(object, permutations, scope, ...)
 {
     nperm <- nrow(permutations)
@@ -110,7 +110,7 @@
 
 ### Marginal test for axes
 
-`anovacca.byaxis` <-
+`anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
     nperm <- nrow(permutations)

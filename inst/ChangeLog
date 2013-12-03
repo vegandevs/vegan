@@ -4,9 +4,10 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-40 (opened December 3, 2013)	
 	
-	* anova.cca: start deprecation of old anova.cca and rename it to
-	ccanova. Vegan should fail all tests while deprecation is
-	incomplete and new code is not yet in use.
+	* anova.cca: Function is now based on the new code, and the old
+	(deprecated) code is called ccanova. Except several functions to
+	fail while they depend on the old interface (certainly add1.cca,
+	drop1.cca, ordistep, ordiR2step). 
 	
 Version 2.1-39 (closed December 3, 2013)
 

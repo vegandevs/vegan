@@ -1,4 +1,4 @@
-`anovacca` <-
+`anova.cca` <-
     function(object, ..., permutations = how(nperm=999), by = NULL,
              model = c("reduced", "direct", "full"),
              parallel = getOption("mc.cores"), strata = NULL,
@@ -57,14 +57,14 @@
     if (!is.null(by)) {
         by <- match.arg(by, c("terms", "margin", "axis"))
         sol <- switch(by,
-                      "terms" = anovacca.byterm(object,
+                      "terms" = anova.ccabyterm(object,
                       permutations = permutations,
                       model = model, parallel = parallel),
-                      "margin" = anovacca.bymargin(object,
+                      "margin" = anova.ccabymargin(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       scope = scope),
-                      "axis" = anovacca.byaxis(object,
+                      "axis" = anova.ccabyaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       cutoff = cutoff))

@@ -1,5 +1,5 @@
-\name{anovacca}
-\alias{anovacca}
+\name{anova.cca}
+\alias{anova.cca}
 %\alias{anova.ccanull}
 %\alias{anova.ccabyaxis}
 %\alias{anova.ccabyterm}
@@ -20,7 +20,7 @@
 }
 
 \usage{
-anovacca(object, ..., permutations = how(nperm=999),
+\method{anova}{cca}(object, ..., permutations = how(nperm=999),
      by = NULL, model = c("reduced", "direct", "full"), 
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL)
@@ -142,7 +142,7 @@ anovacca(object, ..., permutations = how(nperm=999),
   re-weighted at each permutation step using permuted weights.  }
 
 \value{ 
-  The function \code{anovacca} calls \code{permutest.cca} and fills an
+  The function \code{anova.cca} calls \code{permutest.cca} and fills an
   \code{\link{anova}} table.  
 }
 
@@ -173,7 +173,7 @@ data(varespec)
 data(varechem)
 vare.cca <- cca(varespec ~ Al + P + K, varechem)
 ## overall test
-anovacca(vare.cca)
+anova(vare.cca)
 }
 \keyword{ multivariate }
 \keyword{ htest }
