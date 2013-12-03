@@ -5,9 +5,9 @@
 %\alias{anova.ccabyterm}
 %\alias{anova.ccabymargin}
 %\alias{anova.prc}
-%\alias{permutest}
+\alias{permutest}
 %\alias{permutest.default}
-%\alias{permutest.cca}
+\alias{permutest.cca}
 
 \title{Permutation Test for Constrained Correspondence Analysis,
   Redundancy Analysis and Constrained Analysis of Principal Coordinates }
@@ -17,15 +17,16 @@
   Correspondence Analysis (\code{\link{cca}}), Redundancy Analysis
   (\code{\link{rda}}) or distance-based Redundancy Analysis (dbRDA,
   \code{\link{capscale}}) to assess the significance of constraints.
-
-  This function is still experimental and unstable, but is scheduled
-  to replace \code{\link{anova.cca}} in the future.  }
+}
 
 \usage{
 anovacca(object, ..., permutations = how(nperm=999),
-      by = NULL, model = c("reduced", "direct", "full"), 
-      parallel = getOption("mc.cores"), strata = NULL,
-      cutoff = 1, scope = NULL)
+     by = NULL, model = c("reduced", "direct", "full"), 
+     parallel = getOption("mc.cores"), strata = NULL,
+     cutoff = 1, scope = NULL)
+\method{permutest}{cca}(x, permutations = how(nperm = 99), 
+     model = c("reduced", "direct"), first = FALSE, strata = NULL, 
+     parallel = getOption("mc.cores"),  ...) 
 }
 
 \arguments{
@@ -34,7 +35,9 @@ anovacca(object, ..., permutations = how(nperm=999),
     \code{\link{rda}} or \code{\link{capscale}}. If there are several
     result objects, they are compared against each other in the ordre
     they were supplied. For a single object, a test specified in
-    \code{by} or an overal test is given. }
+    \code{by} or an overal test is given.}
+
+  \item{x}{A single ordination result object.}
  
   \item{permutations}{Either a \code{\link[permute]{how}} result
     defining permutations, or a permutation matrix with each row giving
@@ -46,11 +49,14 @@ anovacca(object, ..., permutations = how(nperm=999),
     significance for each term (sequentially from first to last), and
     setting \code{by = "margin"} will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
-    variables). Not yet implemented.}
+    variables)}
 
-  \item{model}{Model}
+  \item{model}{Permutation model: \code{model="direct"} permutes 
+    community data, and \code{model="reduced"} permutes residuals
+    of the community data after Conditions (partial model).}
 
-  \item{parallel}{Parallel processing}
+  \item{parallel}{Use parallel processing with the given number of
+    cores.}
 
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within
@@ -76,13 +82,17 @@ anovacca(object, ..., permutations = how(nperm=999),
 
 \details{
 
-  Functions \code{anova.cca} and \code{permutest.cca} implement an
-  ANOVA like permutation test for the joint effect of constraints in
+  Functions \code{anova.cca} and \code{permutest.cca} implement 
+  ANOVA like permutation tests for the joint effect of constraints in
   \code{\link{cca}}, \code{\link{rda}} or \code{\link{capscale}}.
   Functions \code{anova.cca} and \code{permutest.cca} differ in
   printout style and in interface.  Function \code{permutest.cca} is
   the proper workhorse, but \code{anova.cca} passes all parameters to
   \code{permutest.cca}.
+
+  Function \code{anova} can analyse a sequence of constrained
+  ordination models. The analysis is based on the differences in
+  residual deviances in permutations of nested models.
 
   The default test is for the sum of all constrained eigenvalues.
   Setting \code{first = TRUE} will perform a test for the first
@@ -110,15 +120,11 @@ anovacca(object, ..., permutations = how(nperm=999),
   the current function only evaluates marginal terms. It will, for
   instance, ignore main effects that are included in interaction
   terms. In calculating pseudo-\eqn{F}, all terms are compared to the
-  same residual of the full model. Permutations for all axes or terms
-  will start from the same \code{\link{.Random.seed}}, and the seed
-  will be advanced to the value after the longest permutation at the
-  exit from the function.  
+  same residual of the full model. 
   
   Community data are permuted with choice \code{model="direct"},
-  residuals after partial CCA/ RDA/ dbRDA with choice
-  \code{model="reduced"} (default), and residuals after CCA/ RDA/
-  dbRDA under choice \code{model="full"}.  If there is no partial CCA/
+  and residuals after partial CCA/ RDA/ dbRDA with choice
+  \code{model="reduced"} (default).   If there is no partial CCA/
   RDA/ dbRDA stage, \code{model="reduced"} simply permutes the data
   and is equivalent to \code{model="direct"}.  The test statistic is
   \dQuote{pseudo-\eqn{F}}, which is the ratio of constrained and
@@ -144,14 +150,6 @@ anovacca(object, ..., permutations = how(nperm=999),
   Some cases of \code{anova} need access to the original data on
   constraints (at least \code{by = "term"} and \code{by = "margin"}),
   and they may fail if data are unavailable.
- 
-  The default permutation \code{model} changed from \code{"direct"} to
-  \code{"reduced"} in \pkg{vegan} version 1.15-0, and you must
-  explicitly set \code{model = "direct"} for compatibility with the old
-  version.
-
-  Tests \code{by = "terms"} and \code{by = "margin"} are consistent
-  only when \code{model = "direct"}.  
 }
 \references{
   Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
