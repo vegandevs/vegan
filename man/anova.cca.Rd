@@ -73,6 +73,8 @@
     used to select the marginal terms for testing. The default is to
     test all marginal terms in \code{\link{drop.scope}}.}
 
+  \item{first}{Analyse only significance of the first axis.}
+
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
     \code{by = "axis"} you can use argument \code{cutoff} (defaults

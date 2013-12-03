@@ -16,7 +16,7 @@
         adds <- anova(object, by = "margin", scope = scope,
                       permutations = permutations, ...)
         nr <- nrow(adds)
-        out <- cbind(out, rbind(NA, adds[rn,3:5]))
+        out <- cbind(out, rbind(NA, adds[rn,3:4]))
         class(out) <- cl
     }
     out

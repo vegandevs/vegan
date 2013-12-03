@@ -68,8 +68,9 @@
         }
         ## Consider adding
         if (forward && length(scope$add)) {
-            aod <- add1(object, scope = scope$add, test = "perm", pstep = pstep,
-                        perm.max = perm.max, alpha = Pin, trace = trace, ...)
+            aod <- add1(object, scope = scope$add, test = "perm",
+                        permutations = permutations,
+                        alpha = Pin, trace = trace, ...)
             aod <- aod[-1,]
             o <- order(aod[,4], aod[,2])
             aod <- aod[o,]

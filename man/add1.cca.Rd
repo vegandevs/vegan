@@ -22,7 +22,7 @@ constrained ordination model.
   \item{test}{ Should a permutation test be added using \code{\link{anova.cca}}. }
  
  \item{permutations}{Permutation scheme as defined in
-   \code{\link[permute]{ho}}; the default defines a simple
+   \code{\link[permute]{how}}; the default defines a simple
    permutations (and could also be expressed as a single number). Any
    structure accepted by \code{\link{anova.cca}} acn be used.}
 

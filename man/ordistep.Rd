@@ -16,10 +16,10 @@
 }
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"),
-   Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000, steps = 50,
+   Pin = 0.05, Pout = 0.1, permutation = how(nperm = 199), steps = 50,
    trace = TRUE, ...)
 ordiR2step(object, scope, direction = c("both", "forward"),
-   Pin = 0.05, R2scope = TRUE, pstep = 100, perm.max = 1000,
+   Pin = 0.05, R2scope = TRUE, permutations = how(nperm = 499),
    trace = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.

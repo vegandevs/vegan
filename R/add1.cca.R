@@ -15,7 +15,7 @@
         if (!is.character(scope)) 
             scope <- add.scope(object, update.formula(object, scope))
         ns <- length(scope)
-        adds <- matrix(0, ns+1, 3)
+        adds <- matrix(0, ns+1, 2)
         adds[1, ] <- NA
         for (i in 1:ns) {
             tt <- scope[i]
@@ -28,9 +28,9 @@
                 nfit <- update(object,
                                as.formula(paste(". ~ . +", tt)))
             tmp <- anova(nfit,  permutations = permutations, ...)
-            adds[i+1,] <- unlist(tmp[1,3:5])
+            adds[i+1,] <- unlist(tmp[1,3:4])
         }
-        colnames(adds) <- colnames(tmp)[3:5]
+        colnames(adds) <- colnames(tmp)[3:4]
         out <- cbind(out, adds)
         class(out) <- cl
     }

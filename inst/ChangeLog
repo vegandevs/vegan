@@ -4,10 +4,21 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-40 (opened December 3, 2013)	
 	
-	* anova.cca: Function is now based on the new code, and the old
-	(deprecated) code is called ccanova. Except several functions to
-	fail while they depend on the old interface (certainly add1.cca,
-	drop1.cca, ordistep, ordiR2step). 
+	* anova.cca: Function is now based on the new code, but the old is
+	avaialable in a function called ccanova. The API changes:
+	arguments 'step' and 'perm.max' are gone and replaced with
+	'permutations' that accepts a how() object defining permutations,
+	or a single number like previously or a permutation matrix. The
+	new anova.cca adds an option of analysing a sequence of ordination
+	models. This also means that '...' is now the second argument and
+	the names of all arguments must be written in full. This change
+	can be expected to cause trouble outside vegan. Currently the
+	tests in examples are passed, but tests fail (looks like being
+	caused by the change in API). 
+
+	* add1.cca, drop1.cca, ordistep, ordiR2step: functions were
+	adapted to new anova.cca and this brought along similar changes in
+	API. 
 	
 Version 2.1-39 (closed December 3, 2013)
 
