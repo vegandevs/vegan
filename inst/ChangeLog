@@ -20,6 +20,15 @@ Version 2.1-40 (opened December 3, 2013)
 	adapted to new anova.cca and this brought along similar changes in
 	API. 
 
+	* envfit: function assumed that environmental variables are either
+	factors or numeric, and choked if they were neither but, say,
+	character strings. Now the function ignores variables which are
+	neither factors nor numeric (with a warning). This is one possible
+	reason for problems reported in
+	https://stat.ethz.ch/pipermail/r-sig-ecology/2013-December/004217.html,
+	although the reported case is irreproducible and we cannot be
+	sure.
+
 	* tests for cca/rda/capscale: commented out test that failed with
 	the anova.cca. Known issue was that 'by = "term"' and 'by =
 	"axis"' stop with error with missing data. This was designed and

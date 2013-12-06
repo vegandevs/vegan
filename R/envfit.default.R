@@ -1,4 +1,4 @@
-"envfit.default" <-
+`envfit.default` <-
     function (ord, env, permutations = 999, strata, choices = c(1, 2), 
              display = "sites", w = weights(ord), na.rm = FALSE, ...) 
 {
@@ -32,9 +32,13 @@
     }
     if (is.data.frame(env)) {
         facts <- sapply(env, is.factor)
+        vects <- sapply(env, is.numeric)
+        if (!all(facts | vects))
+            warning("the following variables are ignored because they are neither numeric nor factors:\n",
+                    paste(colnames(env)[!(facts | vects)], collapse=", "))
         if (sum(facts)) {  # have factors
             Pfac <- env[, facts, drop = FALSE]
-            P <- env[, !facts, drop = FALSE]
+            P <- env[, vects, drop = FALSE]
             if (length(P)) { # also have vectors
                 vectors <- vectorfit(X, P, permutations, strata, 
                                      choices, w = w, ...)
