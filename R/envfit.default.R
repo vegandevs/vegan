@@ -31,13 +31,9 @@
                           ncol(permat), nr))
     }
     if (is.data.frame(env)) {
-        facts <- sapply(env, is.factor)
         vects <- sapply(env, is.numeric)
-        if (!all(facts | vects))
-            warning("the following variables are ignored because they are neither numeric nor factors:\n",
-                    paste(colnames(env)[!(facts | vects)], collapse=", "))
-        if (sum(facts)) {  # have factors
-            Pfac <- env[, facts, drop = FALSE]
+        if (any(!vects)) {  # have factors
+            Pfac <- env[, !vects, drop = FALSE]
             P <- env[, vects, drop = FALSE]
             if (length(P)) { # also have vectors
                 vectors <- vectorfit(X, P, permutations, strata, 

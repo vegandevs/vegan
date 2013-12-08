@@ -2,9 +2,13 @@
     function (X, P, permutations = 0, strata, w,  ...) 
 {
     P <- as.data.frame(P)
+    ## Check that all variables are factors, and coerce if necessary
+    if(any(!sapply(P, is.factor)))
+        P <- data.frame(lapply(P, function(x)
+                        if (is.factor(x)) x else factor(x)))
     P <- droplevels(P) ## make sure only the used levels are present
     if (any(!sapply(P, is.factor))) 
-        stop("All fitted variables must be factors")
+        stop("All non-numeric variables must be factors")
     NR <- nrow(X)
     NC <- ncol(X)
     NF <- ncol(P)

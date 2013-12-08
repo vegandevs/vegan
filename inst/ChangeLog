@@ -22,12 +22,14 @@ Version 2.1-40 (opened December 3, 2013)
 
 	* envfit: function assumed that environmental variables are either
 	factors or numeric, and choked if they were neither but, say,
-	character strings. Now the function ignores variables which are
-	neither factors nor numeric (with a warning). This is one possible
-	reason for problems reported in
+	character strings. Now the function tries to coerce all
+	non-numeric variables into factors, including character strings
+	and logical. This is one possible reason for problems reported in
 	https://stat.ethz.ch/pipermail/r-sig-ecology/2013-December/004217.html,
 	although the reported case is irreproducible and we cannot be
-	sure.
+	sure. Also fixed handling of tied values in assessing the P-values
+	in vectorfit.
+
 
 	* tests for cca/rda/capscale: commented out test that failed with
 	the anova.cca. Known issue was that 'by = "term"' and 'by =
