@@ -1,4 +1,4 @@
-"envfit.default" <-
+`envfit.default` <-
     function (ord, env, permutations = 999, strata, choices = c(1, 2), 
              display = "sites", w = weights(ord), na.rm = FALSE, ...) 
 {
@@ -31,10 +31,10 @@
                           ncol(permat), nr))
     }
     if (is.data.frame(env)) {
-        facts <- sapply(env, is.factor)
-        if (sum(facts)) {  # have factors
-            Pfac <- env[, facts, drop = FALSE]
-            P <- env[, !facts, drop = FALSE]
+        vects <- sapply(env, is.numeric)
+        if (any(!vects)) {  # have factors
+            Pfac <- env[, !vects, drop = FALSE]
+            P <- env[, vects, drop = FALSE]
             if (length(P)) { # also have vectors
                 vectors <- vectorfit(X, P, permutations, strata, 
                                      choices, w = w, ...)

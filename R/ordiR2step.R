@@ -4,7 +4,7 @@
 
 `ordiR2step` <-
     function(object, scope, direction = c("both", "forward"),
-             Pin = 0.05, R2scope = TRUE, pstep = 100, perm.max = 1000,
+             Pin = 0.05, R2scope = TRUE, permutations = how(nperm=499),
              trace = TRUE, ...)
 {
     direction <- match.arg(direction)
@@ -78,7 +78,7 @@
             if (R2scope) R2.adds[best] <= R2.all else TRUE) {
             ## Second criterion: added variable is significant
             tst <- add1(object, scope = adds[best], test="permu",
-                        pstep = pstep, perm.max = perm.max,
+                        permutations = permutations,
                         alpha = Pin, trace = FALSE, ...)
             if (trace) {
                 print(tst[-1,])
@@ -95,7 +95,7 @@
         }
     }
     if (NROW(anotab) > 0) {
-        anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 5)))
+        anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 4)))
         class(anotab) <- c("anova", class(anotab))
         object$anova <- anotab
     }

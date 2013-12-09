@@ -1,6 +1,6 @@
 `ordistep` <-
     function(object, scope, direction =c("both", "backward", "forward"),
-             Pin = 0.05, Pout = 0.1, pstep = 100, perm.max = 1000,
+             Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199),
              steps=50, trace = TRUE, ...)
 {
     if (!inherits(object, "cca"))
@@ -43,17 +43,18 @@
         change <- NULL
         ## Consider dropping
         if (backward && length(scope$drop)) {
-            aod <- drop1(object, scope = scope$drop, test="perm", pstep = pstep,
-                         perm.max = perm.max, alpha = Pout, trace = trace, ...)
+            aod <- drop1(object, scope = scope$drop, test="perm",
+                         permutations = permutations,
+                         alpha = Pout, trace = trace, ...)
             aod <- aod[-1,]
-            o <- order(-aod[,5], aod[,4], aod[,2])
+            o <- order(-aod[,4], aod[,2])
             aod <- aod[o,]
             rownames(aod) <- paste("-", rownames(aod), sep = " ")
             if (trace) {
                 cat("\n")
                 print(aod)
             }
-            if (is.na(aod[1,5]) || aod[1,5] > Pout) {
+            if (is.na(aod[1,4]) || aod[1,4] > Pout) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- eval.parent(update(object, paste("~  .", change)))
@@ -67,17 +68,18 @@
         }
         ## Consider adding
         if (forward && length(scope$add)) {
-            aod <- add1(object, scope = scope$add, test = "perm", pstep = pstep,
-                        perm.max = perm.max, alpha = Pin, trace = trace, ...)
+            aod <- add1(object, scope = scope$add, test = "perm",
+                        permutations = permutations,
+                        alpha = Pin, trace = trace, ...)
             aod <- aod[-1,]
-            o <- order(aod[,5], aod[,4], aod[,2])
+            o <- order(aod[,4], aod[,2])
             aod <- aod[o,]
             rownames(aod) <- paste("+", rownames(aod), sep = " ")
             if (trace) {
                 cat("\n")
                 print(aod)
             }
-            if (!is.na(aod[1,5]) && aod[1,5] <= Pin) {
+            if (!is.na(aod[1,4]) && aod[1,4] <= Pin) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- eval.parent(update(object, paste( "~  .",change)))

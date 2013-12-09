@@ -54,7 +54,7 @@
         ## permutations are the matrix columns and variables are rows
         if (!is.matrix(permstore))
             permstore <- matrix(permstore, ncol=permutations)
-        permstore <- sweep(permstore, 1, r, ">")
+        permstore <- sweep(permstore, 1, r, ">=")
         validn <- rowSums(is.finite(permstore))
         pvals <- (rowSums(permstore, na.rm = TRUE) + 1)/(validn + 1)
     }

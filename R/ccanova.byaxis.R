@@ -1,4 +1,4 @@
-`anova.ccabyaxis` <-
+`ccanova.byaxis` <-
     function (object, cutoff = 1,  ...) 
 {
     cutoff <- cutoff + sqrt(.Machine$double.eps)
@@ -55,7 +55,7 @@
         lc$CondMat <- CondMat
     }
     fla <- update(formula(object), fla)
-    sol <- anova(update(object, fla, data=lc),  ...)
+    sol <- ccanova(update(object, fla, data=lc),  ...)
     out[c(1, rnk + 1), ] <- sol
     seed <- attr(sol, "Random.seed")
     attr(out, "names") <- attr(sol, "names")
@@ -73,7 +73,7 @@
             fla <- update(formula(object),  fla) 
             sol <- update(object, fla, data = lc)
             assign(".Random.seed", seed, envir = .GlobalEnv)
-            out[.ITRM, ] <- as.matrix(anova(sol, ...))[1,]
+            out[.ITRM, ] <- as.matrix(ccanova(sol, ...))[1,]
             if (out[.ITRM, "N.Perm"] > bigperm) {
                 bigperm <- out[.ITRM, "N.Perm"]
                 bigseed <- get(".Random.seed", envir = .GlobalEnv, 

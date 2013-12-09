@@ -72,13 +72,18 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    dimnames(table) <- list(1L:nmodels, c("Resid. Df", "Res. Chisq", 
-                                          "Df", "Chisq", "F", "Pr(>F)"))
+    isRDA <- method != "cca"
+    dimnames(table) <- list(1L:nmodels,
+                            c("Res.Df",
+                              ifelse(isRDA,"Res.Variance", "Res.ChiSquare"), 
+                              "Df",
+                              ifelse(isRDA,"Variance","ChiSquare"),
+                                     "F", "Pr(>F)"))
     ## Collect header information
     formulae <- sapply(object, function(z) deparse(formula(z)))
     head <- paste0("Permutation tests for ", method, " under ",
-                  mods[[big]]$model, " model\nwith ", nperm,
-                   " permutations\n")
+                  mods[[big]]$model, " model\n",
+                   howHead(attr(permutations, "control")))
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
     structure(table, heading=c(head,topnote), class = c("anova", "data.frame"))
