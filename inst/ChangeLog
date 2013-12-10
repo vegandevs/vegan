@@ -30,6 +30,9 @@ Version 2.1-40 (opened December 3, 2013)
 	sure. Also fixed handling of tied values in assessing the P-values
 	in vectorfit.
 
+	* ordispider: can now use spatial medians as centres instead of
+	the default centroids. The kind of centre is defined by new
+	argument 'spiders'.
 
 	* tests for cca/rda/capscale: commented out test that failed with
 	the anova.cca. Known issue was that 'by = "term"' and 'by =
