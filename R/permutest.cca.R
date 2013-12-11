@@ -5,10 +5,21 @@ permutest.default <- function(x, ...)
     stop("No default permutation test defined")
 
 `permutest.cca` <-
-    function (x, permutations = 99,
-              model = c("reduced", "direct", "full"), first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , ...) 
+    function (x, permutations = how(nperm=99),
+              model = c("reduced", "direct"), first = FALSE,
+              strata = NULL, parallel = getOption("mc.cores") , ...)
 {
+    ## do something sensible with insensible input (no constraints)
+    if (is.null(x$CCA)) {
+        sol <- list(call = match.call(), testcall = x$call, model = NA,
+                    F.0 = NA, F.perm = NA, chi = c(0, x$CA$tot.chi),
+                    num = 0, den = x$CA$tot.chi,
+                    df = c(0, nrow(x$CA$u) - max(x$pCCA$rank,0) - 1),
+                    nperm = 0, method = x$method, first = FALSE,
+                    Random.seed = NA)
+        class(sol) <- "permutest.cca"
+        return(sol)
+    }
     model <- match.arg(model)
     isCCA <- !inherits(x, "rda")
     isPartial <- !is.null(x$pCCA)
@@ -42,7 +53,7 @@ permutest.default <- function(x, ...)
                 Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
-            if (first) 
+            if (first)
                 cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
             else cca.ev <- sum(tmp * tmp)
             if (isPartial || first) {
@@ -63,15 +74,15 @@ permutest.default <- function(x, ...)
         Chi.z <- x$CCA$tot.chi
         names(Chi.z) <- "Model"
         q <- x$CCA$qrank
-    }  
-    ## Set up 
+    }
+    ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
     r <- nrow(x$CA$Xbar) - x$CCA$QR$rank - 1
-    if (model == "full") 
+    if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
-    if (!isCCA) 
+    if (!isCCA)
         Chi.tot <- Chi.tot * (nrow(x$CCA$Xbar) - 1)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
     Q <- x$CCA$QR
@@ -88,10 +99,10 @@ permutest.default <- function(x, ...)
             Z <- sweep(Z, 1, sqrt(w), "/")
         }
     }
-    if (model == "reduced" || model == "direct") 
+    if (model == "reduced" || model == "direct")
         E <- x$CCA$Xbar
     else E <- x$CA$Xbar
-    if (isPartial && model == "direct") 
+    if (isPartial && model == "direct")
         E <- E + Y.Z
     ## Save dimensions
     N <- nrow(E)
@@ -100,23 +111,26 @@ permutest.default <- function(x, ...)
         if (isPartial)
             Zcol <- ncol(Z)
     }
-    if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
-        runif(1)
-    seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
-    ## permutations
+    ## permutations is either a single number, a how() structure or a
+    ## permutation matrix
     if (length(permutations) == 1) {
-        if (is.null(strata))
-            permutations <- shuffleSet(N, permutations)
-        else
-            permutations <-
-                t(sapply(1:permutations,
-                         function(x) permuted.index(N, strata=strata))) 
+        nperm <- permutations
+        permutations <- how(nperm = nperm)
     }
+    if (!is.null(strata)) {
+        if (!inherits(permutations, "how"))
+            stop("'strata' can be used only with simple permutation or with 'how()'")
+        if (!is.null(getBlocks(permutations)))
+            stop("'strata' cannot be applied when 'blocks' are defined in 'how()'")
+        setBlocks(permutations) <- strata
+    }
+    ## now permutations is either a how() structure or a permutation
+    ## matrix. Make it to a matrix if it is "how"
+    if (inherits(permutations, "how"))
+        permutations <- shuffleSet(N, control = permutations)
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     if ((hasClus || parallel > 1)  && require(parallel)) {
@@ -150,7 +164,9 @@ permutest.default <- function(x, ...)
     sol <- list(call = Call, testcall = x$call, model = model,
                 F.0 = F.0, F.perm = F.perm,  chi = c(Chi.z, Chi.xz),
                 num = num, den = den, df = c(q, r), nperm = nperm,
-                method = x$method, first = first,  Random.seed = seed)
+                method = x$method, first = first)
+    sol$Random.seed <- attr(permutations, "seed")
+    sol$control <- attr(permutations, "control")
     if (!missing(strata)) {
         sol$strata <- deparse(substitute(strata))
         sol$stratum.values <- strata

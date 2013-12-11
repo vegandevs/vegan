@@ -31,14 +31,15 @@
 }
 }
 
-\details{ Function \code{nobs} is generic in \R version 2.13.0, and
+\details{ Function \code{nobs} is generic in \R, and
   \pkg{vegan} provides methods for objects from \code{\link{adonis}},
   \code{\link{betadisper}}, \code{\link{cca}} and other related
   methods, \code{\link{CCorA}}, \code{\link{decorana}},
   \code{\link{isomap}}, \code{\link{metaMDS}}, \code{\link{pcnm}},
   \code{\link{procrustes}}, \code{\link{radfit}},
-  \code{\link{varpart}} and \code{\link{wcmdscale}}.  } \value{ A
-  single number, normally an integer, giving the number of
+  \code{\link{varpart}} and \code{\link{wcmdscale}}.  }
+
+\value{ A single number, normally an integer, giving the number of
   observations.  }
 
 \author{

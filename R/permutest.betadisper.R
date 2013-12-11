@@ -1,6 +1,6 @@
 `permutest.betadisper` <- function(x, pairwise = FALSE,
-                                   control = how(nperm = 999),
-                                   permutations = NULL, ...)
+                                   permutations = how(nperm = 999),
+                                   ...)
 {
     t.statistic <- function(x, y) {
         m <- length(x)
@@ -17,27 +17,31 @@
         stop("Only for class \"betadisper\"")
     ## will issue error if only a single group
     mod.aov <- anova(x)
-    nobs <- length(x$distances)
+    nobs <- length(x$distances) ## number of observations
     mod <- lm(x$distances ~ x$group)
     mod.Q <- mod$qr
     p <- mod.Q$rank
     resids <- qr.resid(mod.Q, x$distances)
 
-    N <- nrow(x) ## number of observations
-
     ## extract groups
     group <- x$group
-
-    ## If permutations is NULL, work with control
-    if(is.null(permutations)) {
-        permutations <- shuffleSet(length(group), control = control)
-    } else {
-        permutations <- as.matrix(permutations)
-        if (ncol(permutations) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d observations",
-                          ncol(permutations), N))
+    ## permutations is either a single number, a how() structure or a
+    ## permutation matrix
+    if (length(permutations) == 1) {
+        nperm <- permutations
+        permutations <- how(nperm = nperm)
     }
 
+    ## permutations is either a single number, a how() structure or a
+    ## permutation matrix
+    if (length(permutations) == 1) {
+        nperm <- permutations
+        permutations <- how(nperm = nperm)
+    }
+    ## now permutations is either a how() structure or a permutation
+    ## matrix. Make it to a matrix if it is "how"
+    if (inherits(permutations, "how"))
+        permutations <- shuffleSet(nobs, control = permutations)
     ## number of permutations being performed, possibly adjusted after
     ## checking in shuffleSet
     nperm <- nrow(permutations)
@@ -45,7 +49,6 @@
     ## set-up objects to hold permuted results
     res <- numeric(length = nperm + 1)
     res[1] <- summary(mod)$fstatistic[1]
-
     ## pairwise comparisons
     if(pairwise) {
         ## unique pairings
@@ -95,12 +98,13 @@
         pairwise <- NULL
     }
 
-    retval <- cbind(mod.aov[, 1:4], c(nperm, NA), c(pval, NA))
+    retval <- cbind(mod.aov[, 1:4], c(nperm + 1, NA), c(pval, NA))
     dimnames(retval) <- list(c("Groups", "Residuals"),
                              c("Df", "Sum Sq", "Mean Sq", "F", "N.Perm",
                                "Pr(>F)"))
     retval <- list(tab = retval, pairwise = pairwise,
-                   groups = levels(group), control = control)
+                   groups = levels(group),
+                   control = attr(permutations, "control"))
     class(retval) <- "permutest.betadisper"
     retval
 }

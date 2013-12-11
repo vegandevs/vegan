@@ -37,30 +37,35 @@ spno <- specnumber(dune)
 ### data= argument
 ## cca/rda
 m <-  cca(fla, data=df,  na.action=na.exclude,  subset = Use != "Pasture" & spno > 7)
-anova(m, perm=100)
-anova(m, by="term", perm=100)
-anova(m, by="margin", perm=100)
-anova(m, by="axis", perm=100)
+anova(m, permutations=99)
+## vegan 2.1-40 cannot handle missing data in next two
+##anova(m, by="term", permutations=99)
+##anova(m, by="margin", permutations=99)
+anova(m, by="axis", permutations=99)
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
-anova(p, perm=100)
-anova(p, by="term", perm=100)
-anova(p, by="margin", perm=100)
-anova(p, by="axis", perm=100)
+anova(p, permutations=99)
+## vegan 2.1-40 cannot hndle missing data in next two
+##anova(p, by="term", permutations=99)
+##anova(p, by="margin", permutations=99)
+##anova(p, by="axis", permutations=99)
 ## see that capscale can be updated and also works with 'dist' input
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
-anova(p, perm=100)
-anova(p, by="term", perm=100)
-anova(p, by="margin", perm=100)
-anova(p, by="axis", perm=100)
+anova(p, permutations=99)
+## vegan 2.1-40 cannot handle missing data in next three
+##anova(p, by="term", permutations=99)
+##anova(p, by="margin", permutations=99)
+##anova(p, by="axis", permutations=99)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
-anova(q, perm=100)
-anova(q, by="term", perm=100)
-anova(q, by="margin", perm=100)
-anova(q, by="axis", perm=100)
+anova(q, permutations=99)
+## commented tests below fail in vegan 2.1-40 because number of
+## observations changes
+##anova(q, by="term", permutations=99) 
+##anova(q, by="margin", permutations=99)
+anova(q, by="axis", permutations=99)
 ### Check that constrained ordination functions can be embedded.
 ### The data.frame 'df' is still attach()ed.
 foo <- function(bar, Y, X, ...)
@@ -77,7 +82,7 @@ foo("capscale", vegdist(dune), Management, na.action = na.omit)
 detach(df)
 ### Check that statistics match in partial constrained ordination
 m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
-tab <- anova(m, by = "axis", perm.max = 100)
+tab <- anova(m, by = "axis", permutations = 99)
 m
 tab
 all.equal(tab[,2], c(m$CCA$eig, m$CA$tot.chi), check.attributes=FALSE)

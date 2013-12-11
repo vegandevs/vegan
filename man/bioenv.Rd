@@ -3,6 +3,7 @@
 \alias{bioenv.default}
 \alias{bioenv.formula}
 \alias{summary.bioenv}
+\alias{bioenvdist}
 
 \title{Best Subset of Environmental Variables with
   Maximum (Rank) Correlation with Community Dissimilarities }
@@ -17,6 +18,7 @@
        metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
        parallel = getOption("mc.cores"), ...)
 \method{bioenv}{formula}(formula, data, ...)
+bioenvdist(x, which = "best")
 }
 
 \arguments{
@@ -37,6 +39,9 @@
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package which is available only for \R 2.14.0 and later.}
+  \item{x}{\code{bioenv} result object.}
+  \item{which}{The number of the model for which the environmental
+    distances are evaluated, or the \code{"best"} model.}
   \item{...}{Other arguments passed to \code{\link{cor}}.}
 }
 \details{
@@ -77,6 +82,10 @@
   class \code{\link{dist}}. The
   \code{partial} item can be used with any correlation \code{method},
   but it is strictly correct only for Pearson.
+
+  Function \code{bioenvdist} recalculates the environmental distances
+  used within the function. The default is to calculate distances for
+  the best model, but the number of any model can be given.
   
   Clarke & Ainsworth (1993) suggested this method to be used for
   selecting the best subset of environmental variables in interpreting
@@ -92,10 +101,12 @@
   Windows).  In addition, Clarke & Ainsworth suggested a novel method of
   rank correlation which is not available in the current function.
 }
+
 \value{
   The function returns an object of class \code{bioenv} with a
   \code{summary} method.
 }
+
 \references{
   Clarke, K. R & Ainsworth, M. 1993. A method of linking multivariate
   community structure to environmental variables. \emph{Marine Ecology
@@ -103,17 +114,17 @@
 }
 \author{ Jari Oksanen }
 
-\note{
-  If you want to study the \sQuote{significance} of \code{bioenv}
+\note{ If you want to study the \sQuote{significance} of \code{bioenv}
   results, you can use function \code{\link{mantel}} or
   \code{\link{mantel.partial}} which use the same definition of
-  correlation. 
-  However, \code{bioenv} standardizes environmental variables to unit standard
-  deviation using function \code{\link{scale}} and you must do the same
-  in \code{\link{mantel}} for comparable results. Further, \code{bioenv}
-  selects variables to maximize the Mantel correlation, and significance
-  tests based on \emph{a priori} selection of variables are biased. 
-  }
+  correlation.  However, \code{bioenv} standardizes environmental
+  variables depending on the used metric, and you must do the same in
+  \code{\link{mantel}} for comparable results (the standardized data are
+  returned as item \code{x} in the result object). It is safest to use
+  \code{bioenvdist} to extract the environmental distances that really
+  were used within \code{bioenv}. NB., \code{bioenv} selects variables
+  to maximize the Mantel correlation, and significance tests based on
+  \emph{a priori} selection of variables are biased.  }
 
 \seealso{\code{\link{vegdist}}, \code{\link{dist}}, \code{\link{cor}}
   for underlying routines, \code{\link{monoMDS}} and

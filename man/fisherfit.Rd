@@ -2,9 +2,6 @@
 \alias{fisherfit}
 \alias{as.fisher}
 \alias{plot.fisherfit}
-\alias{profile.fisherfit}
-\alias{confint.fisherfit}
-\alias{plot.profile.fisherfit}
 \alias{prestonfit}
 \alias{prestondistr}
 \alias{as.preston}
@@ -25,9 +22,6 @@
 }
 \usage{
 fisherfit(x, ...)
-\method{confint}{fisherfit}(object, parm, level = 0.95, ...)
-\method{profile}{fisherfit}(fitted, alpha = 0.01, maxsteps = 20, del = zmax/5, 
-    ...)
 prestonfit(x, tiesplit = TRUE, ...)
 prestondistr(x, truncate = -1, ...)
 \method{plot}{prestonfit}(x, xlab = "Frequency", ylab = "Species", bar.col = "skyblue", 
@@ -45,12 +39,6 @@ as.preston(x, tiesplit = TRUE, ...)
 \arguments{
   \item{x}{Community data vector for fitting functions or their result
     object for \code{plot} functions.}
-  \item{object, fitted}{Fitted model.}
-  \item{parm}{Not used.}
-  \item{level}{The confidence level required.}
-  \item{alpha}{The extend of profiling as significance.}
-  \item{maxsteps}{Maximum number of steps in profiling.}
-  \item{del}{Step length.}
   \item{tiesplit}{Split frequencies \eqn{1, 2, 4, 8} etc between adjacent 
     octaves.}
   \item{truncate}{Truncation point for log-Normal model, in log2
@@ -73,9 +61,8 @@ as.preston(x, tiesplit = TRUE, ...)
 \details{
   In Fisher's logarithmic series the expected
   number of species \eqn{f} with \eqn{n} observed individuals is
-  \eqn{f_n = \alpha x^n / n} (Fisher et al. 1943). The estimation
-  follows Kempton & Taylor (1974) and uses function
-  \code{\link{nlm}}. The estimation is possible only for genuine
+  \eqn{f_n = \alpha x^n / n} (Fisher et al. 1943).
+  The estimation is possible only for genuine
   counts of individuals. The parameter \eqn{\alpha} is used as a
   diversity index, and \eqn{\alpha} and its standard error can be
   estimated with a separate function \code{\link{fisher.alpha}}. The
@@ -83,20 +70,6 @@ as.preston(x, tiesplit = TRUE, ...)
   estimated separately but taken to be \eqn{n/(n+\alpha)}. Helper
   function \code{as.fisher} transforms abundance data into Fisher
   frequency table.
-
-  Function  \code{fisherfit} estimates the standard error of
-  \eqn{\alpha}{alpha}. However, the confidence limits cannot be directly
-  estimated from the standard errors, but you should use function
-  \code{confint} based on profile likelihood. Function \code{confint}
-  uses function \code{\link[MASS]{confint.glm}} of the \pkg{MASS}
-  package, using \code{profile.fisherfit} for the profile
-  likelihood. Function \code{profile.fisherfit} follows
-  \code{\link[MASS]{profile.glm}} and finds the \eqn{\tau}{tau} parameter or
-  signed square root of two times log-Likelihood profile. The profile can
-  be inspected with a \code{plot} function which shows the \eqn{\tau}{tau}
-  and a dotted line corresponding to the Normal assumption: if standard
-  errors can be directly used in Normal inference these two lines
-  are similar.
 
   Preston (1948) was not satisfied with Fisher's model which seemed to
   imply infinite species richness, and postulated that rare species is
@@ -162,21 +135,14 @@ as.preston(x, tiesplit = TRUE, ...)
   \code{method}. Function \code{prestondistr} omits the entry
   \code{fitted}.  The function \code{fisherfit} returns the result of
   \code{\link{nlm}}, where item \code{estimate} is \eqn{\alpha}. The
-  result object is amended with the following items:
-  \item{df.residuals}{Residual degrees of freedom.}
-  \item{nuisance}{Parameter \eqn{x}.}  \item{fisher}{Observed data
-  from \code{as.fisher}.}
-
+  result object is amended with the \code{nuisance} parameter and item
+  \code{fisher} for the observed data from \code{as.fisher}
 }
 \references{
   Fisher, R.A., Corbet, A.S. & Williams, C.B. (1943). The relation
   between the number of species and the number of individuals in a
   random sample of animal population. \emph{Journal of Animal Ecology}
   12: 42--58.
-
-  Kempton, R.A. & Taylor, L.R. (1974). Log-series and log-normal
-  parameters as diversity discriminators for
-  Lepidoptera. \emph{Journal of Animal Ecology} 43: 381--399.
 
   Preston, F.W. (1948) The commonness and rarity of
   species. \emph{Ecology} 29, 254--283.
@@ -186,7 +152,7 @@ as.preston(x, tiesplit = TRUE, ...)
   distribution. \emph{Journal of Animal Ecology} 74, 409--422.
 }
 
-\author{Bob O'Hara (\code{fisherfit}) and Jari Oksanen. }
+\author{Bob O'Hara and Jari Oksanen. }
 
 \seealso{\code{\link{diversity}}, \code{\link{fisher.alpha}},
   \code{\link{radfit}}, \code{\link{specpool}}. Function
@@ -200,8 +166,6 @@ as.preston(x, tiesplit = TRUE, ...)
 data(BCI)
 mod <- fisherfit(BCI[5,])
 mod
-plot(profile(mod))
-confint(mod)
 # prestonfit seems to need large samples
 mod.oct <- prestonfit(colSums(BCI))
 mod.ll <- prestondistr(colSums(BCI))

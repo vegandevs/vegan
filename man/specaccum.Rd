@@ -19,7 +19,7 @@
 }
 \usage{
 specaccum(comm, method = "exact", permutations = 100,
-          conditioned =TRUE, gamma = "jack1",  w = NULL, ...)
+          conditioned =TRUE, gamma = "jack1",  w = NULL, subset, ...)
 \method{plot}{specaccum}(x, add = FALSE, random = FALSE, ci = 2, 
     ci.type = c("bar", "line", "polygon"), col = par("fg"), ci.col = col, 
     ci.lty = 1, xlab, ylab = x$method, ylim, 
@@ -48,6 +48,8 @@ fitspecaccum(object, model, method = "random", ...)
   \item{gamma}{Method for estimating the total extrapolated number of species in the
     survey area by function \code{\link{specpool}}}
   \item{w}{Weights giving the sampling effort.}
+  \item{subset}{logical expression indicating sites (rows) to keep: missing
+    values are taken as \code{FALSE}.}
   \item{x}{A \code{specaccum} result object}
   \item{add}{Add to an existing graph.}
   \item{random}{\dots}

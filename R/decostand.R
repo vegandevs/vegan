@@ -1,4 +1,4 @@
-"decostand" <-
+`decostand` <-
     function (x, method, MARGIN, range.global, logbase = 2, na.rm = FALSE, ...) 
 {
     wasDataFrame <- is.data.frame(x)
@@ -34,7 +34,7 @@
         if (missing(MARGIN)) 
             MARGIN <- 1
         tmp <- apply(x^2, MARGIN, sum, na.rm = na.rm)
-        tmp <- pmax(k, sqrt(tmp))
+        tmp <- pmax(.Machine$double.eps, sqrt(tmp))
         x <- sweep(x, MARGIN, tmp, "/")
     }, range = {
         if (missing(MARGIN)) 

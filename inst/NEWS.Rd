@@ -2,6 +2,21 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-9}{
+
+\itemize{
+
+   \item This version is released due to changes in programming
+   interface and testing procedures in \R{} 3.0.2. If you are using an
+   older version of \R, there is no need to upgrade \pkg{vegan}. There
+   are no new features nor bug fixes. The only user-visible changes
+   are in documentation and in output messages and formatting. Because
+   of \R{} changes, this version is dependent on \R{} version 2.14.0
+   or newer and on \pkg{lattice} package.
+
+   }
+}
+
 \section{Changes in version 2.0-8}{
 
   \subsection{GENERAL}{

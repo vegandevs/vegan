@@ -73,9 +73,7 @@
         monostop(s0)
     tries <- 0
     ## Prepare for parallel processing
-    if (is.null(parallel) && getRversion() >= "2.15.0")
-        parallel <- get("default", envir = parallel:::.reg)
-    if (is.null(parallel) || getRversion() < "2.14.0")
+    if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
     isParal <- (hasClus || parallel > 1) && require(parallel)

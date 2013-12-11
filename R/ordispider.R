@@ -1,8 +1,10 @@
 `ordispider` <-
     function (ord, groups, display = "sites", w = weights(ord, display),
+              spiders = c("centroid", "median"),
               show.groups, label = FALSE, ...)
 {
     weights.default <- function(object, ...) NULL
+    spiders <- match.arg(spiders)
     if (inherits(ord, "cca") && missing(groups)) {
         lc <- scores(ord, display = "lc", ...)
         wa <- scores(ord, display = "wa", ...)
@@ -30,6 +32,8 @@
         groups <- groups[take]
         w <- w[take]
     }
+    if (spiders == "median" && sd(w) > sqrt(.Machine$double.eps))
+        warning("weights are ignored with 'median' spiders")
     out <- seq(along = groups)
     inds <- names(table(groups))
     if (label) 
@@ -41,7 +45,10 @@
         if (length(gr) > 1) {
             X <- pts[gr, ]
             W <- w[gr]
-            ave <- apply(X, 2, weighted.mean, w = W)
+            ave <- switch(spiders,
+                          "centroid" = apply(X, 2, weighted.mean, w = W),
+                          "median" = ordimedian(X, rep(1, nrow(X)))
+                          )
             spids[,gr] <- ave
             ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
                             FUN = segments, ...)

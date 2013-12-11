@@ -49,9 +49,7 @@
             part.cor(rxy, rxz, ryz)
         }
         ## parallel processing
-        if (is.null(parallel) && getRversion() >= "2.15.0")
-            parallel <- get("default", envir = parallel:::.reg)
-        if (is.null(parallel) || getRversion() < "2.14.0")
+        if (is.null(parallel))
             parallel <- 1
         hasClus <- inherits(parallel, "cluster")
         if ((hasClus || parallel > 1)  && require(parallel)) {
@@ -59,7 +57,7 @@
                 perm <- do.call(rbind,
                                mclapply(1:permutations,
                                         function(i, ...) ptest(permat[i,],...),
-                                        mc.cores = parallel))
+                                        mc.cores = parallel, ...))
             } else {
                 if (!hasClus) {
                     parallel <- makeCluster(parallel)

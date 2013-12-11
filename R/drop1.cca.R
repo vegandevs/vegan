@@ -1,6 +1,6 @@
 `drop1.cca` <-
     function(object, scope, test = c("none", "permutation"),
-             pstep = 100, perm.max = 200, ...)
+             permutations = how(nperm = 199), ...)
 {
     if (inherits(object, "prc"))
         stop("'step'/'drop1' cannot be used for 'prc' objects")
@@ -13,10 +13,10 @@
             scope <- rn
         else if (!is.character(scope))
             scope <- drop.scope(scope)
-        adds <- anova(object, by = "margin", step = pstep,
-                      perm.max = perm.max, scope = scope, ...)
+        adds <- anova(object, by = "margin", scope = scope,
+                      permutations = permutations, ...)
         nr <- nrow(adds)
-        out <- cbind(out, rbind(NA, adds[rn,3:5]))
+        out <- cbind(out, rbind(NA, adds[rn,3:4]))
         class(out) <- cl
     }
     out

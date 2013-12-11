@@ -116,10 +116,7 @@ bstick(n, \dots)
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
   }
-\note{Function \code{screeplot} is generic from \code{R} version
-  2.5.0. In these versions you can use plain \code{screeplot} command
-  without suffices \code{cca}, \code{prcomp} etc.
-  }
+
 \author{Gavin L. Simpson}
 \seealso{
   \code{\link{cca}}, \code{\link{decorana}}, \code{\link{princomp}} and

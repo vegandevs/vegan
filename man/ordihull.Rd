@@ -24,7 +24,8 @@ ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
          col = NULL, alpha = 127, show.groups, label = FALSE, ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
-         show.groups, label = FALSE, ...)
+	 spiders = c("centroid", "median"),  show.groups, 
+         label = FALSE, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)
 \method{summary}{ordihull}(object, ...)
@@ -79,6 +80,9 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
     corresponding \code{sd} or \code{se} is multiplied with the
     corresponding value found from the Chi-squared distribution with
     2df. }
+
+  \item{spiders}{Are centres or spider bodies calculated either as
+    centroids (averages) or spatial medians.}
 
   \item{cluster}{Result of hierarchic cluster analysis, such as
     \code{\link{hclust}} or \code{\link[cluster]{agnes}}.}
