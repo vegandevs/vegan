@@ -100,7 +100,7 @@ data(dune.env)
 summary(sim)
 }
 \author{
-  Eduard Szöcs \email{szoe8822@uni-landau.de}
+  Eduard Szöcs \email{eduardszoecs@gmail.com}
 }
 
 \references{
