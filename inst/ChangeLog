@@ -2,7 +2,12 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-40 (opened December 3, 2013)	
+Version 2.1-41 (opened December 12, 2013)
+
+	* new version opened with the CRAN release of vegan_2.0-10 on
+	December 12, 2013.
+	
+Version 2.1-40 (closed December 12, 2013)	
 	
 	* anova.cca: Function is now based on the new code, but the old is
 	avaialable in a function called ccanova. The API changes:

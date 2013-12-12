@@ -2,6 +2,81 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.0-10}{
+
+  \subsection{GENERAL}{
+    \itemize{
+
+      \item This version is adapted to the changes in \pkg{permute}
+      package version 0.8-0 and no more triggers NOTEs in package
+      checks.  This release may be the last of the 2.0 series, and the
+      next \pkg{vegan} release is scheduled to be a major release with
+      newly designed \code{oecosimu} and community pattern simulation,
+      support for parallel processing, and full support of the
+      \pkg{permute} package. If you are interested in these
+      developments, you may try the development versions of
+      \pkg{vegan} in
+      \href{http://r-forge.r-project.org/projects/vegan/}{R-Forge} or
+      \href{https://github.com/jarioksa/vegan}{GitHub} and report the
+      problems and user experience to us.  }  } % end general
+
+  \subsection{BUG FIXES}{
+
+    \itemize{
+
+      \item \code{envfit} function assumed that all external variables
+      were either numeric or factors, and failed if they were, say,
+      character strings. Now only numeric variables are taken as
+      continuous vectors, and all other variables (character strings,
+      logical) are coerced to factors if possible. The function also
+      should work with degenerate data, like only one level of a
+      factor or a constant value of a continuous environmental
+      variable. The ties were wrongly in assessing permutation
+      \eqn{P}-values in \code{vectorfit}.
+
+      \item \code{nestednodf} with quantitative data was not
+      consistent with binary models, and the fill was wrongly
+      calculated with quantitative data.
+      
+      \item \code{oecosimu} now correctly adapts displayed quantiles
+      of simulated values to the \code{alternative} test direction.
+
+      \item \code{renyiaccum} plotting failed if only one level of
+      diversity \code{scale} was used.
+    
+    }
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{ 
+    \itemize{ 
+
+      \item The Kempton and Taylor algorithm was found unreliable in
+      \code{fisherfit} and \code{fisher.alpha}, and now the estimation
+      of Fisher \eqn{\alpha}{alpha} is only based on the number of
+      species and the number of individuals.  The estimation of
+      standard errors and profile confidence intervals also had to be
+      scrapped.
+
+      \item \code{renyiaccum}, \code{specaccum} and
+      \code{tsallisaccum} functions gained \code{subset} argument.
+
+      \item \code{renyiaccum} can now add a \code{collector} curve to
+      to the analysis. The collector curve is the diversity
+      accumulation in the order of the sampling units. With an
+      interesting ordering or sampling units this allows comparing
+      actual species accumulations with the expected randomized
+      accumulation.
+      
+      \item \code{specaccum} can now perform weighted accumulation
+      using the sampling effort as weights.
+
+      }
+
+  } % new features 
+
+
+} % end 2.0-10
+
 \section{Changes in version 2.0-9}{
 
 \itemize{
