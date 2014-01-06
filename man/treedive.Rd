@@ -3,12 +3,13 @@
 \alias{treeheight}
 \alias{treedist}  
 
-\title{ Functional Diversity estimated from a Species Dendrogram}
-\description{
-  Functional diversity is defined as the total branch length in a trait
-  dendrogram connecting all species, but excluding the unnecessary root
-  segments of the tree (Petchey and Gaston 2006).
-}
+\title{ Functional Diversity and Community Distances from Species Trees}
+
+\description{ Functional diversity is defined as the total branch
+  length in a trait dendrogram connecting all species, but excluding
+  the unnecessary root segments of the tree (Petchey and Gaston
+  2006). Tree distance is the increase in total branch length when
+  combining two sites.  }
 
 \usage{
 treedive(comm, tree, match.force = FALSE)
@@ -112,19 +113,22 @@ treedist(x, tree, relative = TRUE, match.force = FALSE, ...)
 }
 
 \examples{
-## There is no data set on species properties yet, and therefore
-## the example uses taxonomy 
+
+## There is no data set on species properties yet, and we demonstrate
+## the methods using phylogenetic trees
 data(dune)
-data(dune.taxon)
-d <- taxa2dist(dune.taxon, varstep=TRUE)
-cl <- hclust(d, "aver")
+data(dune.phylodis)
+cl <- hclust(dune.phylodis)
 treedive(dune, cl)
 ## Significance test using Null model communities.
-## The current choice fixes only site totals.
-oecosimu(dune, treedive, "r0", tree = cl)
-## Clustering of tree distances
+## The current choice fixes numbers of species and picks species
+## proportionally to their overall frequency
+oecosimu(dune, treedive, "r1", tree = cl)
+## Phylogenetically ordered community table
 dtree <- treedist(dune, cl)
-plot(hclust(dtree, "aver"))
+tabasco(dune, hclust(dtree), cl)
+## Use tree distances  in capscale
+capscale(dtree ~ 1, comm=dune)
 }
 
 \keyword{ univar }

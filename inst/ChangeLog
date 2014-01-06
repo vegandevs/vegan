@@ -13,6 +13,12 @@ Version 2.1-41 (opened December 12, 2013)
 	palustris -> Comarum (Potpal -> Comapalu). Rows are now arranged
 	numerically, and species names alphabetically, vascular plants
 	first, and then the two bryophytes.
+
+	Added data 'dune.phylodis' which are ages of dune species
+	extracted from
+	http://datadryad.org/resource/doi:10.5061/dryad.63q27 (Zanne AE et
+	al. 2014, Nature doi:10.1038/nature12872, published online Dec 22,
+	2013).
 	
 Version 2.1-40 (closed December 12, 2013)	
 	
