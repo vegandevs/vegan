@@ -6,6 +6,13 @@ Version 2.1-41 (opened December 12, 2013)
 
 	* new version opened with the CRAN release of vegan_2.0-10 on
 	December 12, 2013.
+
+	* dune data sets: use 4+4 letter CEP names for species instead of
+	old 3+3 names. Botanical nomenclature was updated: Leontodon
+	autumnalis -> Scorzoneroides (Leoaut -> Scorautu), Potentilla
+	palustris -> Comarum (Potpal -> Comapalu). Rows are now arranged
+	numerically, and species names alphabetically, vascular plants
+	first, and then the two bryophytes.
 	
 Version 2.1-40 (closed December 12, 2013)	
 	
