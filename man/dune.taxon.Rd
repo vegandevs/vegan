@@ -9,10 +9,9 @@
 }
 \usage{
   data(dune.taxon)
-  data(dune.phylodis}
+  data(dune.phylodis)
 }
 \format{
-
   \code{dune.taxon} is data frame with 30 species (rows) classified
   into five taxonomic levels (columns). \code{dune.phylodis} is a
   \code{\link{dist}} object of estimated coalescence ages extracted
