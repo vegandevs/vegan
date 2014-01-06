@@ -7,6 +7,24 @@ Version 2.1-41 (opened December 12, 2013)
 	* new version opened with the CRAN release of vegan_2.0-10 on
 	December 12, 2013.
 
+	* BCI: names checked after http://www.theplantlist.org, but kept
+	the old (alphabetic) order of species. The changes are: Abarema
+	macradenium -> A. macradenia, Apeiba aspera -> A. glabra,
+	Aspidosperma cruenta -> A. desmanthum, Chlorophora tinctoria ->
+	Maclura t., Coccoloba manzanillensis -> C. manzinellensis, Cupania
+	sylvatica -> C. seemannii, Dipteryx panamensis -> D. oleifera,
+	Eugenia coloradensis -> E. florida, Eugenia oerstedeana ->
+	E. oerstediana, Lonchocarpus latifolius -> L. heptaphyllus (this
+	is ambiguous, since Hebestichma cubense is another alternative),
+	Phoebe cinnamomifolia -> Cinnamomum triplinerve, Tabebuia guayacan
+	-> Handroanthus g. Guarea is ambiguous: data have three taxa
+	(fuzzy, grandifolia and guidonia), but theplanlist.org says
+	grandifolia is an ill. synonym of guidonia. This change allows
+	matching 206 of 225 BCI species with
+	http://datadryad.org/resource/doi:10.5061/dryad.63q27. In
+	addition, there are two vars of Swartzia simplex in BCI which
+	could be matched at species level.
+	
 	* dune data sets: use 4+4 letter CEP names for species instead of
 	old 3+3 names. Botanical nomenclature was updated: Leontodon
 	autumnalis -> Scorzoneroides (Leoaut -> Scorautu), Potentilla
