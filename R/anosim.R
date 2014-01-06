@@ -55,7 +55,7 @@
         if(.Platform$OS.type == "unix" && !hasClus) {
             perm <- unlist(mclapply(1:permutations, function(i, ...)
                                     ptest(permat[i,]),
-                                    mc.cores = parallel, ...))
+                                    mc.cores = parallel))
         } else {
             if (!hasClus) {
                 parallel <- makeCluster(parallel)

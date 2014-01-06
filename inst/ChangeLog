@@ -7,6 +7,10 @@ Version 2.1-41 (opened December 12, 2013)
 	* new version opened with the CRAN release of vegan_2.0-10 on
 	December 12, 2013.
 
+	* anosim, mantel, mantel.partial: R CMD check told that "... may
+	be used in an incorrect context". The dots were added in r2765,
+	and now removed.
+
 	* BCI: names checked after http://www.theplantlist.org, but kept
 	the old (alphabetic) order of species. The changes are: Abarema
 	macradenium -> A. macradenia, Apeiba aspera -> A. glabra,
