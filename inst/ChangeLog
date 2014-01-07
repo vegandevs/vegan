@@ -11,6 +11,15 @@ Version 2.1-41 (opened December 12, 2013)
 	be used in an incorrect context". The dots were added in r2765,
 	and now removed.
 
+	* ordiellipse: failed if all points were on a line. Now handles
+	these cases by drawing a line trhough the points, and issuing a
+	warning from chol(): "the matrix is either rank-deficient or
+	indefinite". Earlier we required at least three points for an
+	ellipse, but these could still be on a line and fail. Now we
+	accept two points, and draw the line with a warning. The problem
+	with three points was reported by Paul Bacquet (Louvain,
+	Belgium). 
+
 	* BCI: names checked after http://www.theplantlist.org, but kept
 	the old (alphabetic) order of species. The changes are: Abarema
 	macradenium -> A. macradenia, Apeiba aspera -> A. glabra,

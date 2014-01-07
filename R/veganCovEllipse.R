@@ -5,5 +5,8 @@
     theta <- (0:npoints) * 2 * pi/npoints
     Circle <- cbind(cos(theta), sin(theta))
     ## scale, center and cov must be calculated separately
-    t(center + scale * t(Circle %*% chol(cov)))
+    Q <- chol(cov, pivot = TRUE)
+    ## pivot takes care of cases when points are on a line
+    o <- attr(Q, "pivot")
+    t(center + scale * t(Circle %*% Q[,o]))
 }
