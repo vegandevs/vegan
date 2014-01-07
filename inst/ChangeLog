@@ -41,6 +41,14 @@ Version 2.1-41 (opened December 12, 2013)
 	http://datadryad.org/resource/doi:10.5061/dryad.63q27 (Zanne AE et
 	al. 2014, Nature doi:10.1038/nature12872, published online Dec 22,
 	2013).
+
+	* varespec: use 4+4 letter CEP names instead of 3+dot+3.
+	Nomenclature was cautiously fixed. Most important changes: Ledum
+	palustre -> Rhododendron tomentosum (Led.pal -> Rhodtome),
+	Cetraria nivalis -> Flavocetraria nivalis (Cet.niv ->
+	Flavniva). In addition, Dip.mon was corrected to Diphcomp
+	(Diphasiastrum complanatum, should perhaps be Lycopodium c.), and
+	Barbilophozia lycopodioides to B. hatcheri.
 	
 Version 2.1-40 (closed December 12, 2013)	
 	
