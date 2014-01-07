@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{dune.taxon}
 \alias{dune.taxon}
 \alias{dune.phylodis}
