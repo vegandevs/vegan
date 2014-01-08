@@ -31,7 +31,8 @@
         else
             col <- par("fg")
     col <- rep(col, length=nrow(x))[ord]
-    border <- rep(border, length=nrow(x))[ord]
+    if(!is.null(border))
+        border <- rep(border, length=nrow(x))[ord]
     fill <- rep(fill, length=nrow(x))[ord]
     for (i in 1:nrow(x)) {
         ordiArgAbsorber(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
