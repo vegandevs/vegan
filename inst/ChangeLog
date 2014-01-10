@@ -20,6 +20,10 @@ Version 2.1-41 (opened December 12, 2013)
 	with three points was reported by Paul Bacquet (Louvain,
 	Belgium). 
 
+	* treedive, treedist: default is now match.force = TRUE, and
+	treedive() gained new argument 'verbose' to turn of most messages
+	-- which is practical in oecosimu().
+
 	* BCI: names checked after http://www.theplantlist.org, but kept
 	the old (alphabetic) order of species. The changes are: Abarema
 	macradenium -> A. macradenia, Apeiba aspera -> A. glabra,
