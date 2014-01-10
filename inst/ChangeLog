@@ -11,6 +11,11 @@ Version 2.1-41 (opened December 12, 2013)
 	be used in an incorrect context". The dots were added in r2765,
 	and now removed.
 
+	* cascadeKM: Calinski index for one group will now be NA instead
+	of randomly chosen Inf, -Inf or NaN which can cause confusion (see
+        http://stackoverflow.com/questions/21022848/r-produces-different-result-after-io-on-file
+	
+
 	* ordiellipse: failed if all points were on a line. Now handles
 	these cases by drawing a line trhough the points, and issuing a
 	warning from chol(): "the matrix is either rank-deficient or
