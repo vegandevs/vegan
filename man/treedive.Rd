@@ -127,7 +127,7 @@ treedive(dune, cl)
 ## Significance test using Null model communities.
 ## The current choice fixes numbers of species and picks species
 ## proportionally to their overall frequency
-oecosimu(dune, treedive, "r1", tree = cl)
+oecosimu(dune, treedive, "r1", tree = cl, verbose = FALSE)
 ## Phylogenetically ordered community table
 dtree <- treedist(dune, cl)
 tabasco(dune, hclust(dtree), cl)
