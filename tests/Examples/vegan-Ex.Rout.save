@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-01-07 r64685) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-01-12 r64752) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -162,7 +162,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x2dd2b28>
+<environment: 0x1a4dcf8>
 Total model degrees of freedom 3 
 
 REML score: -3.185099
@@ -2627,8 +2627,6 @@ Groups sizes
 > plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
 > abline(0, 1)
 > rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -2820,10 +2818,6 @@ pH       -0.31133604  0.3658438
 > ordispider(ord, Moisture, col="skyblue")
 > points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
 > plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## Use shorter labels for factor centroids
 > labels(fit)
 $vectors
@@ -2835,10 +2829,6 @@ $factors
 > plot(ord)
 > plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
 +    bg = rgb(1,1,0,0.5))
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -4545,18 +4535,12 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > plot(mod, type = "n")
 > ## Annual succession by ditches
 > ordiarrows(mod, ditch, label = TRUE)
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## Show only control and highest Pyrifos treatment
 > plot(mod, type = "n")
 > ordiarrows(mod, ditch, label = TRUE, 
 +    show.groups = c("2", "3", "5", "11"))
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
 +    col = 2)
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
 > 
 > 
@@ -4594,8 +4578,6 @@ Area 0.1951715 0.59943363  1.7398193  1.0144372
 > plot(mod, type = "n")
 > pl <- ordihull(mod, Management, scaling = 3)
 > ordispider(pl, col="red", lty=3, label = TRUE )
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## ordispider to connect WA and LC scores
 > plot(mod, dis=c("wa","lc"), type="p")
 > ordispider(mod)
@@ -4634,12 +4616,8 @@ detaching ‘dune.env’
 > ord <- cca(dune)
 > plot(ord, type = "n")
 > ordilabel(ord, dis="sites", cex=1.2, font=3, fill="hotpink", col="blue")
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## You may prefer separate plots, but here species as well
 > ordilabel(ord, dis="sp", font=2, priority=colSums(dune))
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -5068,7 +5046,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8c0d4d0>
+<environment: 0x9968520>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5085,7 +5063,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb204180>
+<environment: 0xa291388>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -5116,7 +5094,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9f46190>
+<environment: 0xa202b48>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5131,7 +5109,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0xaec0d30>
+<environment: 0x99e3890>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5157,7 +5135,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xaed5ee8>
+<environment: 0x9f10bb8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5173,7 +5151,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xaa3b930>
+<environment: 0x8ba13d8>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5190,7 +5168,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xa78c100>
+<environment: 0x98f4090>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5209,7 +5187,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xb3284f0>
+<environment: 0x9a7a810>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5353,7 +5331,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9eb0078>
+<environment: 0x6b7a770>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5366,7 +5344,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xaed63b8>
+<environment: 0x9576da8>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5379,7 +5357,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa361e50>
+<environment: 0x987ebd8>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5865,10 +5843,13 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > 
 > ### ** Examples
 > 
-> # Chlorpyrifos experiment and experimental design
+> ## Chlorpyrifos experiment and experimental design: Pesticide
+> ## treatment in ditches (replicated) and followed over from 4 weeks
+> ## before to 24 weeks after exposure 
 > data(pyrifos)
 > week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 > dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
+> ditch <- gl(12, 1, length=132)
 > # PRC
 > mod <- prc(pyrifos, dose, week)
 > mod            # RDA
@@ -5963,63 +5944,20 @@ rows are dose, columns are week
 44  0.5704
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
-> # Permutations should be done only within one week, and we only
-> # are interested on the first axis
-> anova(mod, strata = week, first=TRUE, perm.max = 100)
+> ## Ditches are randomized, we have a time series, and are only
+> ## interested in the first axis
+> ctrl <- how(plots = Plots(strata = ditch,type = "free"),
++     within = Within(type = "series"), nperm = 99)
+> anova(mod, permutations = ctrl, first=TRUE)
 Permutation test for rda under reduced model
-Blocks:  structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, 3L, 3L, 3L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  3L, 3L, 3L, 3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  4L, 4L, 4L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 5L, 6L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  6L, 6L, 6L, 6L, 6L, 6L, 6L, 6L, 6L, 6L, 6L, 7L, 7L, 7L, 7L, 7L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  7L, 7L, 7L, 7L, 7L, 7L, 7L, 8L, 8L, 8L, 8L, 8L, 8L, 8L, 8L, 8L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  8L, 8L, 8L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 9L, 10L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  10L, 10L, 10L, 10L, 10L, 10L, 10L, 10L, 10L, 10L, 10L, 11L, 11L,  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  11L, 11L, 11L, 11L, 11L, 11L, 11L, 11L, 11L, 11L), .Label = c("-4",  
-Permutation: free
-Number of permutations: 999
-
-Permutation test for rda under reduced model
-Blocks:  "-1", "0.1", "1", "2", "4", "8", "12", "15", "19", "24"), class = "factor") 
-Permutation: free
-Number of permutations: 999
+Plots: ditch, plot permutation: free
+Permutation: series
+Number of permutations: 99
 
 Model: prc(response = pyrifos, treatment = dose, time = week)
-         Df Variance      F Pr(>F)    
-RDA1      1   25.282 15.096  0.001 ***
-Residual 77  128.959                  
+         Df Variance      F Pr(>F)   
+RDA1      1   25.282 15.096   0.01 **
+Residual 77  128.959                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -6824,8 +6762,6 @@ Number of permuted matrices = 99
 > ## Add tree to a metric scaling 
 > plot(tr, cmdscale(dis), type = "t")
 Loading required package: MASS
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## Find a configuration to display the tree neatly
 > plot(tr, type = "t")
 Initial stress        : 0.03111
@@ -6833,8 +6769,6 @@ stress after  10 iters: 0.01302, magic = 0.500
 stress after  20 iters: 0.01139, magic = 0.500
 stress after  30 iters: 0.01118, magic = 0.500
 stress after  40 iters: 0.01114, magic = 0.500
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > ## Depths of nodes
 > depths <- spandepth(tr)
 > plot(tr, type = "t", label = depths)
@@ -6843,8 +6777,6 @@ stress after  10 iters: 0.01302, magic = 0.500
 stress after  20 iters: 0.01139, magic = 0.500
 stress after  30 iters: 0.01118, magic = 0.500
 stress after  40 iters: 0.01114, magic = 0.500
-Warning in rep(border, length = nrow(x)) :
-  'x' is NULL so the result will be NULL
 > 
 > 
 > 
@@ -7372,6 +7304,7 @@ Scaling: 2
 > data(dune.phylodis)
 > cl <- hclust(dune.phylodis)
 > treedive(dune, cl)
+Forced matching of 'tree' labels and 'comm' names
         1         2         3         4         5         6         7         8 
  384.0913  568.8791 1172.9455 1327.9317 1426.9067 1391.1628 1479.5062 1523.0792 
         9        10        11        12        13        14        15        16 
@@ -7381,13 +7314,13 @@ Scaling: 2
 > ## Significance test using Null model communities.
 > ## The current choice fixes numbers of species and picks species
 > ## proportionally to their overall frequency
-> oecosimu(dune, treedive, "r1", tree = cl)
-Warning in oecosimu(dune, treedive, "r1", tree = cl) :
+> oecosimu(dune, treedive, "r1", tree = cl, verbose = FALSE)
+Warning in oecosimu(dune, treedive, "r1", tree = cl, verbose = FALSE) :
   nullmodel transformed 'comm' to binary data
 oecosimu object
 
 Call: oecosimu(comm = dune, nestfun = treedive, method = "r1", tree =
-cl)
+cl, verbose = FALSE)
 
 nullmodel method ‘r1’ with 99 simulations
 
@@ -8009,7 +7942,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb0d4008>
+<environment: 0x84b2db8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8562,7 +8495,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  39.125 0.116 39.243 0 0 
+Time elapsed:  27.424 0.147 27.577 0 0 
 > grDevices::dev.off()
 null device 
           1 
