@@ -60,6 +60,8 @@ Version 2.1-41 (opened December 12, 2013)
 	al. 2014, Nature doi:10.1038/nature12872, published online Dec 22,
 	2013).
 
+	dune.taxon was updated to APG III.
+
 	* varespec: use 4+4 letter CEP names instead of 3+dot+3.
 	Nomenclature was cautiously fixed. Most important changes: Ledum
 	palustre -> Rhododendron tomentosum (Led.pal -> Rhodtome),
