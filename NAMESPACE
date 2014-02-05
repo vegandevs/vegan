@@ -94,6 +94,8 @@ S3method(alias, cca)
 S3method(anova, betadisper)
 S3method(anova, cca)
 S3method(anova, prc)
+# as.hclust: stats
+S3method(as.hclust, spantree)
 ## Do not export as.mcmc now: would need import(coda)
 # as.mcmc: coda <======= rare
 #S3method(as.mcmc, oecosimu)
