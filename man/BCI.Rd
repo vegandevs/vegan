@@ -8,9 +8,15 @@
 }
 \usage{data(BCI)}
 \format{
-  A data frame with 50 plots (rows) of 1 hectare with counts of trees on each
-  plot with total of 225 species (columns). Full Latin names are used
-  for tree species.
+  
+  A data frame with 50 plots (rows) of 1 hectare with counts of trees
+  on each plot with total of 225 species (columns). Full Latin names
+  are used for tree species. The names were updated against
+  \url{http://www.theplantlist.org} in Jan 2014 (see ChangeLog 2.1-41
+  for details) which allows matching 206 of species against
+  \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27} (Zanne
+  et al., 2014).
+
  }
 \details{
   Data give the numbers of trees at least 10 cm in
@@ -28,11 +34,24 @@
 \source{
   \url{http://www.sciencemag.org/cgi/content/full/295/5555/666/DC1}
 }
+
 \references{
+  
   Condit, R, Pitman, N, Leigh, E.G., Chave, J., Terborgh, J., Foster,
-  R.B., \enc{Nuñez}{Nunez}, P., Aguilar, S., Valencia, R., Villa, G., Muller-Landau,
-  H.C., Losos, E. & Hubbell, S.P. (2002). Beta-diversity in tropical
-  forest trees. \emph{Science} 295, 666--669.
+  R.B., \enc{Nuñez}{Nunez}, P., Aguilar, S., Valencia, R., Villa, G.,
+  Muller-Landau, H.C., Losos, E. & Hubbell, S.P. (2002).
+  Beta-diversity in tropical forest trees. \emph{Science} 295,
+  666--669.
+
+  Zanne A.E., Tank D.C., Cornwell, W.K., Eastman J.M., Smith, S.A.,
+  FitzJohn, R.G., McGlinn, D.J., O’Meara, B.C., Moles, A.T., Reich,
+  P.B., Royer, D.L., Soltis, D.E., Stevens, P.F., Westoby, M., Wright,
+  I.J., Aarssen, L., Bertin, R.I., Calaminus, A., Govaerts, R.,
+  Hemmings, F., Leishman, M.R., Oleksyn, J., Soltis, P.S., Swenson,
+  N.G., Warman, L. & Beaulieu, J.M. (2014) Three keys to the radiation
+  of angiosperms into freezing environments. \emph{Nature}
+  doi:10.1038/nature12872 (published online Dec 22, 2013).
+
 }
 \seealso{\code{\link[BiodiversityR]{BCI.env}} in \pkg{BiodiversityR}
   package for environmental data  (coordinates are given below in the

@@ -2,7 +2,93 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-40 (opened December 3, 2013)	
+Version 2.1-41 (opened December 12, 2013)
+
+	* new version opened with the CRAN release of vegan_2.0-10 on
+	December 12, 2013.
+
+	* anosim, mantel, mantel.partial: R CMD check told that "... may
+	be used in an incorrect context". The dots were added in r2765,
+	and now removed.
+
+	* as.hclust.spantree: a new function to cast a "spantree" result
+	object to an "hclust" tree. 
+
+	* hclust: add reorder() and rev() methods for standard "hclust"
+	trees of R.  I have no clue why base R does not have these
+	methods, but I provide them now in vegan. An additional reason for
+	providing these methods is that reorder(<dendrogram-object>, wts,
+	agglo.FUN = mean) will use unweighted mean of merged groups even
+	when these are of very unequal sizes. The reorder method provided
+	here will use group sizes as weights and the value of the group
+	will be the mean of its leaves (terminal nodes).
+
+	* biplot.rda: failed in axis scaling with negative 'scaling'
+	values when some species had zero variance (and hence species
+	scores was 0/0 = NaN).
+	
+	* cascadeKM: Calinski index for one group will now be NA instead
+	of randomly chosen Inf, -Inf or NaN which can cause confusion (see
+        http://stackoverflow.com/questions/21022848/r-produces-different-result-after-io-on-file
+	
+	* ordiellipse: failed if all points were on a line. Now handles
+	these cases by drawing a line trhough the points, and issuing a
+	warning from chol(): "the matrix is either rank-deficient or
+	indefinite". Earlier we required at least three points for an
+	ellipse, but these could still be on a line and fail. Now we
+	accept two points, and draw the line with a warning. The problem
+	with three points was reported by Paul Bacquet (Louvain,
+	Belgium). 
+
+	* treedive, treedist: default is now match.force = TRUE, and
+	treedive() gained new argument 'verbose' to turn of most messages
+	-- which is practical in oecosimu().
+
+	* BCI: names checked after http://www.theplantlist.org, but kept
+	the old (alphabetic) order of species. The changes are: Abarema
+	macradenium -> A. macradenia, Apeiba aspera -> A. glabra,
+	Aspidosperma cruenta -> A. desmanthum, Cassipourea ellipitica ->
+	C. guianensis, Chlorophora tinctoria -> Maclura t., Coccoloba
+	manzanillensis -> C. manzinellensis, Cupania sylvatica ->
+	C. seemannii, Dipteryx panamensis -> D. oleifera, Eugenia
+	coloradensis -> E. florida, Eugenia oerstedeana -> E. oerstediana,
+	Inga marginata -> I. semialata, Lonchocarpus latifolius ->
+	L. heptaphyllus (this is ambiguous, since Hebestichma cubense is
+	another alternative), Maquira costaricana -> Maquira guianensis
+	var. costaricana, Phoebe cinnamomifolia -> Cinnamomum triplinerve,
+	Swartzia simplex var. ochnaceae -> var. continentalis, Tabebuia
+	guayacan -> Handroanthus g. Guarea is ambiguous: data have three
+	taxa (fuzzy, grandifolia and guidonia), but theplantlist.org says
+	grandifolia is an ill. synonym of guidonia. This change allows
+	matching 206 of 225 BCI species with
+	http://datadryad.org/resource/doi:10.5061/dryad.63q27. In
+	addition, there are two vars of Swartzia simplex in BCI which
+	could be matched at species level.
+	
+	* dune data sets: use 4+4 letter CEP names for species instead of
+	old 3+3 names. Botanical nomenclature was updated: Leontodon
+	autumnalis -> Scorzoneroides (Leoaut -> Scorautu), Potentilla
+	palustris -> Comarum (Potpal -> Comapalu). Rows are now arranged
+	numerically, and species names alphabetically, vascular plants
+	first, and then the two bryophytes.
+
+	Added data 'dune.phylodis' which are ages of dune species
+	extracted from
+	http://datadryad.org/resource/doi:10.5061/dryad.63q27 (Zanne AE et
+	al. 2014, Nature doi:10.1038/nature12872, published online Dec 22,
+	2013).
+
+	dune.taxon was updated to APG III.
+
+	* varespec: use 4+4 letter CEP names instead of 3+dot+3.
+	Nomenclature was cautiously fixed. Most important changes: Ledum
+	palustre -> Rhododendron tomentosum (Led.pal -> Rhodtome),
+	Cetraria nivalis -> Flavocetraria nivalis (Cet.niv ->
+	Flavniva). In addition, Dip.mon was corrected to Diphcomp
+	(Diphasiastrum complanatum, should perhaps be Lycopodium c.), and
+	Barbilophozia lycopodioides to B. hatcheri.
+	
+Version 2.1-40 (closed December 12, 2013)	
 	
 	* anova.cca: Function is now based on the new code, but the old is
 	avaialable in a function called ccanova. The API changes:
@@ -30,6 +116,9 @@ Version 2.1-40 (opened December 3, 2013)
 	sure. Also fixed handling of tied values in assessing the P-values
 	in vectorfit.
 
+	* ordispider: can now use spatial medians as centres instead of
+	the default centroids. The kind of centre is defined by new
+	argument 'spiders'.
 
 	* tests for cca/rda/capscale: commented out test that failed with
 	the anova.cca. Known issue was that 'by = "term"' and 'by =

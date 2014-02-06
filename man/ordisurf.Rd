@@ -277,7 +277,7 @@ with(varechem, ordisurf(vare.mds, Baresoil,col = "blue", add = TRUE,
                         select = FALSE, method = "GCV.Cp"))
 
 ## Cover of Cladina arbuscula
-fit <- with(varespec, ordisurf(vare.mds, Cla.arb, family=quasipoisson)) 
+fit <- with(varespec, ordisurf(vare.mds, Cladarbu, family=quasipoisson)) 
 ## Get fitted values
 calibrate(fit)
 

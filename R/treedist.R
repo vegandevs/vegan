@@ -1,5 +1,5 @@
 `treedist` <-
-    function(x, tree, relative = TRUE,  match.force = FALSE, ...)
+    function(x, tree, relative = TRUE,  match.force = TRUE, ...)
 {
     n <- nrow(x)
     ABJ <- matrix(0, n , n)

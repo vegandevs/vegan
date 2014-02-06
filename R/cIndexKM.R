@@ -26,7 +26,11 @@
     {
         n <- sum(clsize)
         k <- length(clsize)
-        zgss$bgss/(k - 1)/(zgss$wgss/(n - k))
+        ## undefined 0/0 for one class (or fewer in error cases)
+        if (k <= 1)
+            NA
+        else
+            zgss$bgss/(k - 1)/(zgss$wgss/(n - k))
     }
 ################################################
     ssi <- function(centers, clsize) 

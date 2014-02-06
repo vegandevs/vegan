@@ -10,13 +10,17 @@
 \description{
   The dune meadow vegetation data, \code{dune}, has cover class values
   of 30 species on 20 sites. The corresponding environmental data frame
-  \code{dune.env} has following entries:
-}
+  \code{dune.env} has following entries: } 
+
 \format{
-  For \code{dune}, a data frame of observations of 30 species at 20
-  sites.
+  \code{dune} is a data frame of observations of 30 species at 20
+  sites. The species names are abbreviated to 4+4 letters (see
+  \code{\link{make.cepnames}}). The following names are changed from
+  the original source (Jongman et al. 1987): \emph{Leontodon
+  autumnalis} to \emph{Scorzoneroides}, and \emph{Potentilla
+  palustris} to \emph{Comarum}.
   
-  For \code{dune.env}, a data frame of 20 observations on the following
+  \code{dune.env} is a data frame of 20 observations on the following
   5 variables:
   \describe{
     \item{A1:}{a numeric vector of thickness of soil A1 horizon.}
@@ -45,7 +49,6 @@
 }
 \examples{
 data(dune)
-
 data(dune.env)
 }
 \keyword{datasets}
