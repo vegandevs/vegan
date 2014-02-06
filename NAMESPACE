@@ -192,6 +192,9 @@ S3method(head, summary.cca)
 # hiersimu: vegan
 S3method(hiersimu, default)
 S3method(hiersimu, formula)
+# methods for hclust object in base R: these would be better in R
+S3method(reorder, hclust)
+S3method(rev, hclust)
 # identify: graphics
 S3method(identify, ordiplot)
 # labels: base
