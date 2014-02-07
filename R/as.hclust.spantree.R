@@ -67,22 +67,14 @@
     function(merge)
 {
     ## Get order of leaves with recursive search from the root
-    visited <- matrix(FALSE, nrow = nrow(merge), ncol=ncol(merge))
     order <- numeric(nrow(merge)+1)
     ind <- 0
-    ## "<<-" updates data only within this function, but outside the
-    ## visit() function.
+    ## "<<-" updates data only within hclustMergeOrder, but outside
+    ## the visit() function.
     visit <- function(i, j) {
-        if(visited[i,j])
-            return(NULL)
-        else {
-            visited[i,j] <<- TRUE
-        }
         if (merge[i,j] < 0) {
             ind <<- ind+1
             order[ind] <<- -merge[i,j]
-            if (j == 1)
-                visit(i, 2)
         } else {
             visit(merge[i,j], 1)
             visit(merge[i,j], 2)
