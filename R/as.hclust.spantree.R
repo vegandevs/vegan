@@ -75,7 +75,9 @@
 ### mean of its leaves.
 
 `reorder.hclust` <-
-    function(x, wts, agglo.FUN = c("mean", "min", "max", "sum"), ...)
+    function(x, wts,
+             agglo.FUN = c("mean", "min", "max", "sum", "uwmean"),
+             ...)
 {
     agglo.FUN <- match.arg(agglo.FUN)
     merge <- x$merge
@@ -103,7 +105,8 @@
                    "mean" = weighted.mean(pair, pairw),
                    "min" = min(pair),
                    "max" = max(pair),
-                   "sum" = sum(pair))
+                   "sum" = sum(pair),
+                   "uwmean" = mean(pair))
         counts[i] <- sum(pairw)
     }
     ## Get the 'order' of the reordered dendrogram
