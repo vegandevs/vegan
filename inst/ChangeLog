@@ -12,7 +12,7 @@ Version 2.1-41 (opened December 12, 2013)
 	and now removed.
 
 	* as.hclust.spantree: a new function to cast a "spantree" result
-	object to an "hclust" tree. 
+	object to an "hclust" tree.
 
 	* hclust: add reorder() and rev() methods for standard "hclust"
 	trees of R.  I have no clue why base R does not have these
@@ -22,6 +22,11 @@ Version 2.1-41 (opened December 12, 2013)
 	when these are of very unequal sizes. The reorder method provided
 	here will use group sizes as weights and the value of the group
 	will be the mean of its leaves (terminal nodes).
+
+	Add scores() method to extract coordinates of internal nodes or
+	leaves from a plotted hclust() tree. The function is whimsical and
+	may be removed before release (it is documented separately to make
+	this easier).
 
 	* biplot.rda: failed in axis scaling with negative 'scaling'
 	values when some species had zero variance (and hence species

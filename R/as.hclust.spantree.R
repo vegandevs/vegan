@@ -126,3 +126,33 @@
     x$order <- rev(x$order)
     x
 }
+
+### Get coordinates for internal or terminal nodes (leaves) that would
+### be used in plot.hclust
+
+`scores.hclust` <-
+    function(x, display = "internal", ...)
+{
+    extnam <- c("leaves", "terminal")
+    intnam <- c("internal")
+    display <- match.arg(display, c(extnam, intnam))
+    ## Terminal nodes (leaves): plot.hclust scales x-axis for n points
+    ## as 1..n. The y-value is the 'height' where the terminal node
+    ## was fused to the tree.
+    if(display %in% extnam) {
+        merge <- x$merge
+        y <- numeric(nrow(merge) + 1)
+        for(i in 1:nrow(merge))
+            for(j in 1:2)
+                if(merge[i,j] < 0)
+                    y[-merge[i,j]] <- x$height[i]
+        xx <- order(x$order)
+        xy <- cbind(`x` = xx, `height` = y)
+    } else {
+        ## Internal nodes are given in the order they were fused which
+        ## also is the order of 'height'
+        xx <- reorder(x, order(x$order), agglo.FUN = "uwmean")$value
+        xy <- cbind(`x`= xx, `height` = x$height)
+    }
+    xy
+}
