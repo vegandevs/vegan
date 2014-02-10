@@ -19,32 +19,44 @@
                 sp.ind <- order(wascores(use, x))
         }
         else if (inherits(use, c("dendrogram", "hclust", "twins"))) {
+            ## "twins" and "dendrogram" are treated as "dendrogram",
+            ## but "hclust" is kept as "hclust": they differ in
+            ## reorder()
             if (inherits(use, "twins")) {
                 require(cluster) || stop("package cluster needed to handle 'use'")
-            }
-            if (!inherits(use, "dendrogram"))
                 use <- as.dendrogram(use)
+            }
             if (!is.null(site.ind))
                 stop("'site.ind' cannot be used with dendrogram")
             ## Reorder tree if Rowv specified
             if (isTRUE(Rowv)) {
                 ## order by first CA axis -- decorana() is fastest
                 tmp <- decorana(x, ira = 1)
+                ## reorder() command is equal to all, but "dendrogram"
+                ## will use unweighted mean and "hclust" weighted
+                ## mean.
                 use <- reorder(use, scores(tmp, dis="sites", choices = 1),
-                               agglo.FUN = mean)
+                               agglo.FUN = "mean")
             } else if (length(Rowv) > 1) {
                 ## Rowv is a vector
                 if (length(Rowv) != nrow(x))
                     stop(gettextf("Rowv has length %d, but 'x' has %d rows",
                                   length(Rowv), nrow(x)))
-                use <- reorder(use, Rowv, agglo.FUN = mean)
+                use <- reorder(use, Rowv, agglo.FUN = "mean")
             }
-            site.ind <- seq_len(nrow(x))
-            names(site.ind) <- rownames(x)
-            site.ind <- site.ind[labels(use)]
+            if (inherits(use, "dendrogram")) { 
+                site.ind <- seq_len(nrow(x))
+                names(site.ind) <- rownames(x)
+                site.ind <- site.ind[labels(use)]
+            } else {
+                site.ind <- use$order
+            }
             if (is.null(sp.ind)) 
                 sp.ind <- order(wascores(order(site.ind), x))
             pltree <- use
+            ## heatmap needs a "dendrogram"
+            if(!inherits(pltree, "dendrogram"))
+                pltree <- as.dendrogram(pltree)
         }
         else if (is.list(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
@@ -66,24 +78,30 @@
     }
     ## see if sp.ind is a dendrogram or hclust tree
     if (inherits(sp.ind, c("hclust", "dendrogram", "twins"))) {
-        if (inherits(sp.ind, "twins"))
+        if (inherits(sp.ind, "twins")) {
             require("cluster") || stop("package cluster needed to handle 'sp.ind'")
-        if (!inherits(sp.ind, "dendrogram"))
             sp.ind <- as.dendrogram(sp.ind)
+        }
         sptree <- sp.ind
         ## Consider reordering species tree
         if (isTRUE(Colv) && !is.null(site.ind)) {
             sptree <- reorder(sptree, wascores(order(site.ind), x),
-                                  agglo.FUN = mean)
+                                  agglo.FUN = "mean")
         } else if (length(Colv) > 1) {
             if (length(Colv) != ncol(x))
                 stop(gettextf("Colv has length %d, but 'x' has %d columns",
                               length(Colv), ncol(x)))
-            sptree <- reorder(sptree, Colv, agglo.FUN = mean)
+            sptree <- reorder(sptree, Colv, agglo.FUN = "mean")
         }
-        sp.ind <- seq_len(ncol(x))
-        names(sp.ind) <- colnames(x)
-        sp.ind <- sp.ind[labels(sptree)]
+        if (inherits(sptree, "dendrogram")) {
+            sp.ind <- seq_len(ncol(x))
+            names(sp.ind) <- colnames(x)
+            sp.ind <- sp.ind[labels(sptree)]
+        } else {
+            sp.ind <- sptree$order
+        }
+        if (!inherits(sptree, "dendrogram"))
+            sptree <- as.dendrogram(sptree)
         ## reverse: origin in the upper left corner
         sptree <- rev(sptree)
     }

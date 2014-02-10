@@ -45,6 +45,13 @@ Version 2.1-41 (opened December 12, 2013)
 	with three points was reported by Paul Bacquet (Louvain,
 	Belgium). 
 
+	* tabasco: "hclust" objects (use, sp.ind) are reordered using
+	weighted means. This is a better method than the unweighted means
+	used for reordering of dendrograms. Earlier "hclust" objects were
+	changed to dendrograms, but now we provide reorder.hclust() and
+	rev.hclust() in vegan, and can use improved method of ordering the
+	table.
+
 	* treedive, treedist: default is now match.force = TRUE, and
 	treedive() gained new argument 'verbose' to turn of most messages
 	-- which is practical in oecosimu().
