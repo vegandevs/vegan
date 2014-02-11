@@ -11,6 +11,9 @@ Version 2.1-41 (opened December 12, 2013)
 	be used in an incorrect context". The dots were added in r2765,
 	and now removed.
 
+	* ordistep: add1.cca reported P=0 for redundant terms with 0 Df,
+	and this caused an error in ordistep.
+
 	* as.hclust.spantree: a new function to cast a "spantree" result
 	object to an "hclust" tree.
 

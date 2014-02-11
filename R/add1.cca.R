@@ -32,6 +32,11 @@
         }
         colnames(adds) <- colnames(tmp)[3:4]
         out <- cbind(out, adds)
+        ## check for redundant (0 Df) terms
+        if (any(nas <- out[,1] < 1)) {
+            out[[3]][nas] <- NA
+            out[[4]][nas] <- NA
+        }
         class(out) <- cl
     }
     out
