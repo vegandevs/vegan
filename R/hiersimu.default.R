@@ -32,7 +32,7 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
     rval <- as.data.frame(rval[rev(1:length(rval))])
     l2 <- sapply(rval, function(z) length(unique(z)))
     if (any(l1 != l2))
-        warning("levels are not perfectly nested")
+        stop("levels are not perfectly nested")
 
     ## aggregate response matrix
     fullgamma <-if (nlevels(rhs[,nlevs]) == 1)
