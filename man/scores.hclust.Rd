@@ -10,7 +10,7 @@
   plotted. These help in annotating the plotted dendrogram.  }
 
 \usage{
-scores.hclust(x, display = "internal", ...)
+\method{scores}{hclust}(x, display = "internal", ...)
 }
 
 \arguments{
