@@ -105,7 +105,12 @@ Version 2.1-41 (opened December 12, 2013)
 	Flavniva). In addition, Dip.mon was corrected to Diphcomp
 	(Diphasiastrum complanatum, should perhaps be Lycopodium c.), and
 	Barbilophozia lycopodioides to B. hatcheri.
-	
+
+	* plot.envfit: when `envfit()` is called as
+	`envfit(ord, foo[, "bar"])`, there are no useful rownames on the
+	objects returned. Hence the logic in `plot.envfit()` when called
+	with argument `labels` was failing.
+
 Version 2.1-40 (closed December 12, 2013)	
 	
 	* anova.cca: Function is now based on the new code, but the old is
