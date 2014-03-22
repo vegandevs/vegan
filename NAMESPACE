@@ -49,7 +49,7 @@ rad.preempt, rad.zipf, rad.zipfbrot, read.cep, rgl.isomap,
 rgl.renyiaccum, vif.cca)
 
 ## Export panel functions
-export(panel.ordi, panel.ordi3d, prepanel.ordi3d)
+export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Depracated functions (to be removed later)
 export(metaMDSrotate)
