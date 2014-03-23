@@ -56,7 +56,10 @@ Version 2.1-41 (opened December 12, 2013)
 	used for reordering of dendrograms. Earlier "hclust" objects were
 	changed to dendrograms, but now we provide reorder.hclust() and
 	rev.hclust() in vegan, and can use improved method of ordering the
-	table.
+	table. Dendrogram and hclust labels must match the community data
+	names, and now the community matrix is internally reordered to
+	match the dendrograms. This requires that the clusterings do have
+	labels attributes.
 
 	* treedive, treedist: default is now match.force = TRUE, and
 	treedive() gained new argument 'verbose' to turn of most messages

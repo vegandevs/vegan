@@ -28,6 +28,15 @@
             }
             if (!is.null(site.ind))
                 stop("'site.ind' cannot be used with dendrogram")
+            ## The tree/dendrogam and input data must be ordered
+            ## identically. It could be regarded as a "user error" if
+            ## they are not, but this could be really frustrating and
+            ## give obscure errors, and therefore we take care of
+            ## identical ordering here
+            if (inherits(use, "hclust") && !is.null(hclust$labels))
+                x <- x[use$labels,]
+            else # dendrogram
+                x <- x[labels(use),]
             ## Reorder tree if Rowv specified
             if (isTRUE(Rowv)) {
                 ## order by first CA axis -- decorana() is fastest
@@ -83,6 +92,11 @@
             sp.ind <- as.dendrogram(sp.ind)
         }
         sptree <- sp.ind
+        ## Reorder data to match order in the dendrogam (see 'use' above)
+        if (inherits(sptree, "hclust"))
+            x <- x[, sptree$labels]
+        else # dendrogram
+            x <- x[, labels(sptree)]
         ## Consider reordering species tree
         if (isTRUE(Colv) && !is.null(site.ind)) {
             sptree <- reorder(sptree, wascores(order(site.ind), x),
