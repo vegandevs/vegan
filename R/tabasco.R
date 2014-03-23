@@ -33,7 +33,7 @@
             ## they are not, but this could be really frustrating and
             ## give obscure errors, and therefore we take care of
             ## identical ordering here
-            if (inherits(use, "hclust") && !is.null(hclust$labels))
+            if (inherits(use, "hclust") && !is.null(use$labels))
                 x <- x[use$labels,]
             else # dendrogram
                 x <- x[labels(use),]
