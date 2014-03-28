@@ -51,6 +51,12 @@ Version 2.1-41 (opened December 12, 2013)
 	with three points was reported by Paul Bacquet (Louvain,
 	Belgium). 
 
+	* radfit: plotting of radfit frames of several communuties failed
+	if there were one-species or no-species (empty) rows. Part of this
+	was fitted.radfit that now returns sensible and consistent output
+	for these cases as well, and radfit.data.frame() completely
+	removes empty rows from the data (with a warning).
+
 	* tabasco: "hclust" objects (use, sp.ind) are reordered using
 	weighted means. This is a better method than the unweighted means
 	used for reordering of dendrograms. Earlier "hclust" objects were
