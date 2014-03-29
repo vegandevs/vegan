@@ -4,7 +4,7 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-41 (opened December 12, 2013)
 
-	* adipart, multipart, hiersimu: it is now an error to provide 
+	* adipart, multipart, hiersimu: it is now an error to provide
 	non-nested sampling hierarchy (used to be a warning).
 
 	* new version opened with the CRAN release of vegan_2.0-10 on
@@ -119,6 +119,10 @@ Version 2.1-41 (opened December 12, 2013)
 	`envfit(ord, foo[, "bar"])`, there are no useful rownames on the
 	objects returned. Hence the logic in `plot.envfit()` when called
 	with argument `labels` was failing.
+
+	* rarecurve: line colour and type for each sample can now be
+	specified through formal arguments `col` and `lty`. Incidental
+	wish of http://stackoverflow.com/q/22714775/429846.
 
 Version 2.1-40 (closed December 12, 2013)	
 	
