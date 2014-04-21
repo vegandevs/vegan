@@ -57,6 +57,10 @@ Version 2.1-41 (opened December 12, 2013)
 	for these cases as well, and radfit.data.frame() completely
 	removes empty rows from the data (with a warning).
 
+	* RsquareAdj: return list(NA, NA) for capscale objects with
+	imaginary component, and use rda method if there is no imaginary
+	component. 
+
 	* tabasco: "hclust" objects (use, sp.ind) are reordered using
 	weighted means. This is a better method than the unweighted means
 	used for reordering of dendrograms. Earlier "hclust" objects were

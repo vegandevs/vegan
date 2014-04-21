@@ -84,6 +84,7 @@ S3method(RsquareAdj, default)
 S3method(RsquareAdj, glm)
 S3method(RsquareAdj, lm)
 S3method(RsquareAdj, rda)
+S3method(RsquareAdj, capscale)
 # TukeyHSD: stats
 S3method(TukeyHSD, betadisper)
 # add1: stats
