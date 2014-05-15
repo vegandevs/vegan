@@ -187,7 +187,10 @@
   and Crick originally suggested that sampling probabilities should be
   proportional to species frequencies (Chase et al. 2011). A simulation
   approach with unequal species sampling probabilities is implemented in
-  \code{\link{raupcrick}} function following Chase et al. (2011).
+  \code{\link{raupcrick}} function following Chase et al. (2011).  The
+  index can be also used for transposed data to give a probabilistic
+  dissimilarity index of species co-occurrence (identical to Veech
+  2013).
   
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
@@ -285,6 +288,9 @@
   Mountford, M. D. (1962). An index of similarity and its application to
   classification problems. In: P.W.Murphy (ed.),
   \emph{Progress in Soil Zoology}, 43--50. Butterworths.
+
+  Veech, J. A. (2013). A probabilistic model for analysing species
+  co-occurrence. \emph{Global Ecology and Biogeography} 22, 252--260. 
 
   Wolda, H. (1981). Similarity indices, sample size and
   diversity. \emph{Oecologia} 50, 296--302.
