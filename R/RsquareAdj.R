@@ -33,6 +33,19 @@
     list(r.squared = R2, adj.r.squared = radj)
 }
 
+## dbRDA: Euclidean style distances with no imaginary component can be
+## handled as rda, but I have no idea how to handle objects with
+## imaginary inertia.
+
+`RsquareAdj.capscale` <-
+    function(x, ...)
+{
+    if (!is.null(x$CA$imaginary.chi))
+        list(r.squared = NA, adj.r.squared = NA)
+    else
+        NextMethod("RsquareAdj", x, ...)
+}
+
 ## cca result: no RsquareAdj
 RsquareAdj.cca <-
     function(x, ...)

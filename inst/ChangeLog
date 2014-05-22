@@ -4,6 +4,9 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-41 (opened December 12, 2013)
 
+	* adipart, multipart, hiersimu: it is now an error to provide
+	non-nested sampling hierarchy (used to be a warning).
+
 	* new version opened with the CRAN release of vegan_2.0-10 on
 	December 12, 2013.
 
@@ -11,8 +14,11 @@ Version 2.1-41 (opened December 12, 2013)
 	be used in an incorrect context". The dots were added in r2765,
 	and now removed.
 
+	* ordistep: add1.cca reported P=0 for redundant terms with 0 Df,
+	and this caused an error in ordistep.
+
 	* as.hclust.spantree: a new function to cast a "spantree" result
-	object to an "hclust" tree. 
+	object to an "hclust" tree.
 
 	* hclust: add reorder() and rev() methods for standard "hclust"
 	trees of R.  I have no clue why base R does not have these
@@ -22,6 +28,11 @@ Version 2.1-41 (opened December 12, 2013)
 	when these are of very unequal sizes. The reorder method provided
 	here will use group sizes as weights and the value of the group
 	will be the mean of its leaves (terminal nodes).
+
+	Add scores() method to extract coordinates of internal nodes or
+	leaves from a plotted hclust() tree. The function is whimsical and
+	may be removed before release (it is documented separately to make
+	this easier).
 
 	* biplot.rda: failed in axis scaling with negative 'scaling'
 	values when some species had zero variance (and hence species
@@ -39,6 +50,26 @@ Version 2.1-41 (opened December 12, 2013)
 	accept two points, and draw the line with a warning. The problem
 	with three points was reported by Paul Bacquet (Louvain,
 	Belgium). 
+
+	* radfit: plotting of radfit frames of several communuties failed
+	if there were one-species or no-species (empty) rows. Part of this
+	was fitted.radfit that now returns sensible and consistent output
+	for these cases as well, and radfit.data.frame() completely
+	removes empty rows from the data (with a warning).
+
+	* RsquareAdj: return list(NA, NA) for capscale objects with
+	imaginary component, and use rda method if there is no imaginary
+	component. 
+
+	* tabasco: "hclust" objects (use, sp.ind) are reordered using
+	weighted means. This is a better method than the unweighted means
+	used for reordering of dendrograms. Earlier "hclust" objects were
+	changed to dendrograms, but now we provide reorder.hclust() and
+	rev.hclust() in vegan, and can use improved method of ordering the
+	table. Dendrogram and hclust labels must match the community data
+	names, and now the community matrix is internally reordered to
+	match the dendrograms. This requires that the clusterings do have
+	labels attributes.
 
 	* treedive, treedist: default is now match.force = TRUE, and
 	treedive() gained new argument 'verbose' to turn of most messages
@@ -87,7 +118,16 @@ Version 2.1-41 (opened December 12, 2013)
 	Flavniva). In addition, Dip.mon was corrected to Diphcomp
 	(Diphasiastrum complanatum, should perhaps be Lycopodium c.), and
 	Barbilophozia lycopodioides to B. hatcheri.
-	
+
+	* plot.envfit: when `envfit()` is called as
+	`envfit(ord, foo[, "bar"])`, there are no useful rownames on the
+	objects returned. Hence the logic in `plot.envfit()` when called
+	with argument `labels` was failing.
+
+	* rarecurve: line colour and type for each sample can now be
+	specified through formal arguments `col` and `lty`. Incidental
+	wish of http://stackoverflow.com/q/22714775/429846.
+
 Version 2.1-40 (closed December 12, 2013)	
 	
 	* anova.cca: Function is now based on the new code, but the old is

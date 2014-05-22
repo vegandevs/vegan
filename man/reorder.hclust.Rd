@@ -18,7 +18,8 @@ Reorder a Hierarchical Clustering Tree
 }
 
 \usage{
-\method{reorder}{hclust}(x, wts, agglo.FUN = c("mean", "min", "max", "sum"), ...)
+\method{reorder}{hclust}(x, wts, 
+   agglo.FUN = c("mean", "min", "max", "sum", "uwmean"), ...)
 \method{rev}{hclust}(x)
 }
 
@@ -46,13 +47,15 @@ Reorder a Hierarchical Clustering Tree
   differently when the \code{agglo.FUN} is \code{"mean"}: the
   \code{\link{reorder.dendrogram}} will always take the direct mean of
   member groups ignoring their sizes, but this function will used
-  \code{\link{weighted.mean}} weighted by group sizes, so that the group
-  mean is always the mean of member leaves (terminal nodes).
+  \code{\link{weighted.mean}} weighted by group sizes, so that the
+  group mean is always the mean of member leaves (terminal nodes). If
+  you want to ignore group sizes, you can use unweighted mean with
+  \code{"uwmean"}. 
 
   The function accepts only a limited list of \code{agglo.FUN}
   functions for assessing the value of \code{wts} for groups. The
-  ordering is always ascending, but the order of leaves can be reversed
-  with \code{rev}.
+  ordering is always ascending, but the order of leaves can be
+  reversed with \code{rev}. 
 
 }
 
