@@ -19,7 +19,7 @@ rarefy(x, sample, se = FALSE, MARGIN = 1)
 rrarefy(x, sample)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
-   label = TRUE, ...)
+          label = TRUE, col, lty, ...)
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -35,7 +35,11 @@ specnumber(x, groups, MARGIN = 1)
   \item{se}{Estimate standard errors.}
   \item{step}{Step size for sample sizes in rarefaction curves.}
   \item{xlab, ylab}{Axis labels in plots of rarefaction curves.}
-  \item{label}{Label rarefaction curves by rownames of \code{x} (logical).}
+  \item{label}{Label rarefaction curves by rownames of \code{x}
+    (logical).}
+  \item{col, lty}{plotting colour and line type, see
+    \code{\link{par}}. Can be a vector of length \code{nrow(x)}, one per
+    sample, and will be extended to such a length internally.}
   \item{groups}{A grouping factor: if given, finds the total number of
     species in each group.}
   \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}}, 

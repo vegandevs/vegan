@@ -37,7 +37,7 @@
     kk <- complete.cases(pts)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 2) {
+        if (length(gr) > 1) {
             X <- pts[gr, ]
             W <- w[gr]
             mat <- cov.wt(X, W)

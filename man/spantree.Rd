@@ -1,6 +1,7 @@
 \name{spantree}
 \alias{spantree}
 \alias{cophenetic.spantree}
+\alias{as.hclust.spantree}
 \alias{plot.spantree}
 \alias{lines.spantree}
 \alias{spandepth}
@@ -13,6 +14,7 @@
 }
 \usage{
 spantree(d, toolong = 0)
+\method{as.hclust}{spantree}(x, ...)
 \method{cophenetic}{spantree}(x)
 spandepth(x)
 \method{plot}{spantree}(x, ord, cex = 0.7, type = "p", labels, dlim,
@@ -57,6 +59,15 @@ spandepth(x)
   the function will return a disconnected tree (or a forest), and the
   corresponding link is \code{NA}. Connected subtrees can be identified
   using \code{\link{distconnected}}.
+
+  Minimum spanning tree is closesly related to single linkage
+  clustering, a.k.a. nearest neighbour clustering, and in genetics as
+  neighbour joining tree available in \code{\link{hclust}} and
+  \code{\link[cluster]{agnes}} functions. The most important practical
+  difference is that minimum spanning tree has no concept of cluster
+  membership, but always joins individual points to each other. Function
+  \code{as.hclust} can change the \code{spantree} result into a
+  corresponding \code{\link{hclust}} object.
 
   Function \code{cophenetic} finds distances between all points along
   the tree segments. Function \code{spandepth} returns the depth of
@@ -132,6 +143,8 @@ plot(tr, type = "t")
 ## Depths of nodes
 depths <- spandepth(tr)
 plot(tr, type = "t", label = depths)
+## Plot as a dendrogram
+plot(as.hclust(tr))
 }
 \keyword{ multivariate}
 

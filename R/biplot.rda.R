@@ -31,9 +31,9 @@ biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
   if(length(type) < 2)
       type <- rep(type, 2)
   if (missing(xlim))
-      xlim <- range(g$species[, 1], g$sites[, 1])
+      xlim <- range(g$species[, 1], g$sites[, 1], na.rm = TRUE)
   if (missing(ylim))
-      ylim <- range(g$species[, 2], g$sites[, 2])
+      ylim <- range(g$species[, 2], g$sites[, 2], na.rm = TRUE)
   plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
        ...)
   abline(h = 0, lty = 3)
