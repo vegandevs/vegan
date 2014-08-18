@@ -6,12 +6,14 @@
         warning("you have empty rows: results may be meaningless")
     pfun <- function(x, comm, comp, i, contrp) {
         groupp <- group[perm[x,]]
-        ga <- comm[groupp == comp[i, 1], ] 
-        gb <- comm[groupp == comp[i, 2], ]
-        for(j in 1:n.b) {
-            for(k in 1:n.a) {
-                mdp <- abs(ga[k, ] - gb[j, ])
-                mep <- ga[k, ] + gb[j, ]
+        ga <- comm[groupp == comp[i, 1], , drop = FALSE] 
+        gb <- comm[groupp == comp[i, 2], , drop = FALSE]
+        n.a <- nrow(ga)
+        n.b <- nrow(gb)
+        for(j in seq_len(n.b)) {
+            for(k in seq_len(n.a)) {
+                mdp <- abs(ga[k, , drop = FALSE] - gb[j, , drop = FALSE])
+                mep <- ga[k, , drop = FALSE] + gb[j, , drop = FALSE]
                 contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
             }
         }
@@ -46,16 +48,16 @@
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)
     }
-    for (i in 1:nrow(comp)) {
-        group.a <- comm[group == comp[i, 1], ]
-        group.b <- comm[group == comp[i, 2], ]
+    for (i in seq_len(nrow(comp))) {
+        group.a <- comm[group == comp[i, 1], , drop = FALSE]
+        group.b <- comm[group == comp[i, 2], , drop = FALSE]
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
         contr <- matrix(ncol = P, nrow = n.a * n.b)
-        for (j in 1:n.b) {
-            for (k in 1:n.a) {
-                md <- abs(group.a[k, ] - group.b[j, ])
-                me <- group.a[k, ] + group.b[j, ]
+        for (j in seq_len(n.b)) {
+            for (k in seq_len(n.a)) {
+                md <- abs(group.a[k, , drop = FALSE] - group.b[j, , drop = FALSE])
+                me <- group.a[k, , drop = FALSE] + group.b[j, , drop = FALSE]
                 contr[(j-1)*n.a+k, ] <- md / sum(me)	
             }
         }
@@ -69,11 +71,11 @@
 
             if (isParal) {
                 if (isMulticore){
-                    perm.contr <- mclapply(1:nperm, function(d) 
+                    perm.contr <- mclapply(seq_len(nperm), function(d) 
                         pfun(d, comm, comp, i, contrp), mc.cores = parallel)
                     perm.contr <- do.call(cbind, perm.contr)
                 } else {
-                    perm.contr <- parSapply(parallel, 1:nperm, function(d) 
+                    perm.contr <- parSapply(parallel, seq_len(npmer), function(d) 
                         pfun(d, comm, comp, i, contrp))
                 }  
             } else {
