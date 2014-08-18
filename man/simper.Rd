@@ -19,7 +19,7 @@ simper(comm, group, permutations = 0, trace = FALSE,
 \arguments{
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure. Must have at
-    least 2 levels and each group must have at least two observations.}
+    least 2 levels.}
   \item{permutations}{Number of permutations or a permutation matrix
     where each row gives a permuted index for assessing the
     \dQuote{significance} of the average contribution. Default is set

@@ -2,16 +2,12 @@
     function(comm, group, permutations = 0, trace = FALSE,  
              parallel = getOption("mc.cores"), ...)
 {
-    if(any(table(x) <= 1))
-        stop("at least two observation per group needed.")
-    if(length(levels(x)) <=  1)
-        stop("at least two groups needed.")
     if (any(rowSums(comm, na.rm = TRUE) == 0)) 
         warning("you have empty rows: results may be meaningless.")
     pfun <- function(x, comm, comp, i, contrp) {
         groupp <- group[perm[x,]]
-        ga <- comm[groupp == comp[i, 1], ] 
-        gb <- comm[groupp == comp[i, 2], ]
+        ga <- comm[groupp == comp[i, 1], , drop = FALSE] 
+        gb <- comm[groupp == comp[i, 2], , drop = FALSE]
         for(j in 1:n.b) {
             for(k in 1:n.a) {
                 mdp <- abs(ga[k, ] - gb[j, ])
@@ -51,8 +47,8 @@
         parallel <- makeCluster(parallel)
     }
     for (i in 1:nrow(comp)) {
-        group.a <- comm[group == comp[i, 1], ]
-        group.b <- comm[group == comp[i, 2], ]
+        group.a <- comm[group == comp[i, 1], , drop = FALSE]
+        group.b <- comm[group == comp[i, 2], , drop = FALSE]
         n.a <- nrow(group.a)
         n.b <- nrow(group.b)
         contr <- matrix(ncol = P, nrow = n.a * n.b)
