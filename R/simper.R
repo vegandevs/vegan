@@ -75,7 +75,7 @@
                         pfun(d, comm, comp, i, contrp), mc.cores = parallel)
                     perm.contr <- do.call(cbind, perm.contr)
                 } else {
-                    perm.contr <- parSapply(parallel, seq_len(npmer), function(d) 
+                    perm.contr <- parSapply(parallel, seq_len(nperm), function(d) 
                         pfun(d, comm, comp, i, contrp))
                 }  
             } else {
