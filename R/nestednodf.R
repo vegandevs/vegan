@@ -35,7 +35,7 @@
             if (weighted) {
                 second <- comm[j, ]
                 N.paired.rows[counter] <-
-                    sum(first - second >= 0 & second > 0)/sum(second > 0)
+                    sum(first - second > 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.rows[counter] <-
@@ -53,7 +53,7 @@
             if (weighted) {
                 second <- comm[, j]
                 N.paired.cols[counter] <-
-                    sum(first - second >= 0 & second > 0)/sum(second > 0)
+                    sum(first - second > 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.cols[counter] <-
