@@ -22,13 +22,13 @@
 }
 
 \details{
-  The classification of vascular plants is adapted from AGP (2003), and
+  The classification of vascular plants is based on APG (2009), and
   that of mosses from Hill et al. (2006).
 }
 \references{
-  AGP [Angiosperm Phylogeny Group] (2003) An update of the Angiosperm
+  APG [Angiosperm Phylogeny Group] (2009) An update of the Angiosperm
   Phylogeny Group classification for the orders and families of flowering
-  plants: AGP II. \emph{Bot. J. Linnean Soc.} \strong{141}: 399--436.
+  plants: APG III. \emph{Bot. J. Linnean Soc.} \strong{161}: 105--121.
 
   Hill, M.O et al. (2006) An annotated checklist of the mosses of Europe
   and Macaronesia. \emph{J. Bryology} \strong{28}: 198--267.

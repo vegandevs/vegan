@@ -49,7 +49,7 @@ rad.preempt, rad.zipf, rad.zipfbrot, read.cep, rgl.isomap,
 rgl.renyiaccum, vif.cca)
 
 ## Export panel functions
-export(panel.ordi, panel.ordi3d, prepanel.ordi3d)
+export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Depracated functions (to be removed later)
 export(metaMDSrotate)
@@ -84,6 +84,7 @@ S3method(RsquareAdj, default)
 S3method(RsquareAdj, glm)
 S3method(RsquareAdj, lm)
 S3method(RsquareAdj, rda)
+S3method(RsquareAdj, capscale)
 # TukeyHSD: stats
 S3method(TukeyHSD, betadisper)
 # add1: stats
@@ -94,6 +95,8 @@ S3method(alias, cca)
 S3method(anova, betadisper)
 S3method(anova, cca)
 S3method(anova, prc)
+# as.hclust: stats
+S3method(as.hclust, spantree)
 ## Do not export as.mcmc now: would need import(coda)
 # as.mcmc: coda <======= rare
 #S3method(as.mcmc, oecosimu)
@@ -190,6 +193,9 @@ S3method(head, summary.cca)
 # hiersimu: vegan
 S3method(hiersimu, default)
 S3method(hiersimu, formula)
+# methods for hclust object in base R: these would be better in R
+S3method(reorder, hclust)
+S3method(rev, hclust)
 # identify: graphics
 S3method(identify, ordiplot)
 # labels: base
@@ -384,6 +390,7 @@ S3method(scores, cca)
 S3method(scores, decorana)
 S3method(scores, default)
 S3method(scores, envfit)
+S3method(scores, hclust)
 S3method(scores, lda)
 S3method(scores, metaMDS)
 S3method(scores, monoMDS)
