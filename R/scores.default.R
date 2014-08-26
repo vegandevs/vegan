@@ -42,6 +42,7 @@
         ## as.matrix() changes 1-row scores into 1-col matrix: this is
         ## a hack which may fail sometimes (but probably less often
         ## than without this hack):
+        if (!missing(choices))
         if (ncol(X) == 1 && nrow(X) == length(choices))
             X <- t(X)
     }
