@@ -42,16 +42,19 @@
     kk <- complete.cases(pts)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 1) {
-            X <- pts[gr, ]
+        if (length(gr)) {
+            X <- pts[gr, , drop = FALSE]
             W <- w[gr]
-            ave <- switch(spiders,
-                          "centroid" = apply(X, 2, weighted.mean, w = W),
-                          "median" = ordimedian(X, rep(1, nrow(X)))
-                          )
+            if (length(gr) > 1) {
+                ave <- switch(spiders,
+                              "centroid" = apply(X, 2, weighted.mean, w = W),
+                              "median" = ordimedian(X, rep(1, nrow(X))))
+                ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
+                                FUN = segments, ...)
+            } else {
+                ave <- X
+            }
             spids[,gr] <- ave
-            ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
-                            FUN = segments, ...)
             if (label) {
                 cntrs <- rbind(cntrs, ave)
                 names <- c(names, is)
