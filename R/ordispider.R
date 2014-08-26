@@ -52,8 +52,21 @@
             spids[,gr] <- ave
             ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
                             FUN = segments, ...)
+            ## draw the centroid
+            points(ave[1],ave[2], ...)
             if (label) {
                 cntrs <- rbind(cntrs, ave)
+                names <- c(names, is)
+            }
+        }
+        ## when there is only one observation in a group
+        ## draw the observation and the label 
+        else if (length(gr)==1){
+        	X <- pts[gr, ]
+        	points(X[1],X[2], ...)
+        	spids[, gr] <- X
+        	if (label) {
+                cntrs <- rbind(cntrs, X)
                 names <- c(names, is)
             }
         }
