@@ -22,11 +22,11 @@
 
     epsilon <- sqrt(.Machine$double.eps)
 	if(length(which(x$Eigenvalues > epsilon)) == 1)
-		stop("Plot of axes (", paste(plot.axes, collapse=","),
-			") not drawn because the solution has a single dimension.")
+		stop("plot of axes (", paste(plot.axes, collapse=","),
+			") not drawn because the solution has a single dimension")
 	if(max(plot.axes) > length(which(x$Eigenvalues > epsilon)))
-		stop("Plot of axes (", paste(plot.axes, collapse=","),
-			") not drawn because the solution has fewer dimensions.")
+		stop("plot of axes (", paste(plot.axes, collapse=","),
+			") not drawn because the solution has fewer dimensions")
 
 	if (missing(xlabs))
 		xlabs <- rownames(x$Cy)

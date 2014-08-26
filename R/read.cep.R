@@ -12,7 +12,7 @@
   if (trace) 
     cat("File", file, "\n")
   if (file.access(file, 4) < 0) {
-    stop("File does not exist or is not readable.")
+    stop("file does not exist or is not readable")
   }
   on.exit(.Fortran("cepclose", PACKAGE = "vegan"))
   cep <- .Fortran("cephead", file = file, kind = integer(1), 
@@ -66,8 +66,8 @@
                         PACKAGE = "vegan"))
   if (cd$ier) {
     if (cd$ier == 1) 
-      stop("Too many non-zero entries: increase maxdata.")
-    else stop("Unknown and obscure error: don't know what to do.")
+      stop("too many non-zero entries: increase maxdata")
+    else stop("unknown and obscure error: I do not know what to do")
   }
   if (trace) 
     cat("Read", cd$nsp, "species, ", cd$nst, "sites.\n")

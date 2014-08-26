@@ -8,11 +8,11 @@
     ZEROEIG <- 1e-7 # consider as zero eigenvalue
     veg <- as.matrix(veg)
     if (any(rowSums(veg) <= 0)) 
-        stop("All row sums must be >0 in the community matrix: remove empty sites.")
+        stop("all row sums must be >0 in the community matrix: remove empty sites")
     if (any(veg < 0))
         stop("'decorana' cannot handle negative data entries")
     if (any(colSums(veg) <= 0)) 
-        warning("Some species were removed because they were missing in the data.")
+        warning("some species were removed because they were missing in the data")
     nr <- nrow(veg)
     nc <- ncol(veg)
     mk <- mk + 4
