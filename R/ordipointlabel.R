@@ -15,7 +15,7 @@
         if(isTRUE(all.equal(length(display), 1L))) {
             xy[[1]] <- .checkSelect(select, xy[[1]])
         } else {
-            warning("'select' does not apply when plotting more than one set of scores.\n'select' was ignored.")
+            warning("'select' does not apply when plotting more than one set of scores--\n'select' was ignored")
         }
     }
     if (length(display) > 1) {

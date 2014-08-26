@@ -4,7 +4,7 @@
     if(!inherits(n, c("rda", "cca")))
         stop("'n' not of class \"cca\" or \"rda\"")
     if(!is.null(n$CCA) && n$CCA$rank > 0)
-        stop("'bstick' only for unconstrained models.")
+        stop("'bstick' only for unconstrained models")
     ## No idea how to define bstick for capscale with negative
     ## eigenvalues
     if (inherits(n, "capscale") && !is.null(n$CA$imaginary.rank))
