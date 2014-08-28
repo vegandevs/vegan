@@ -39,11 +39,21 @@
     }
     else if (is.numeric(x)) {
         X <- as.matrix(x)
-        ## as.matrix() changes 1-row scores into 1-col matrix: this is
+        ## as.matrix() changes a score vector to 1-col matrix: this is
         ## a hack which may fail sometimes (but probably less often
         ## than without this hack):
-        if (ncol(X) == 1 && nrow(X) == length(choices))
-            X <- t(X)
+
+        ## Removed this hack after an issue raised by
+        ## vanderleidebastiani in github. He was worried for getting
+        ## an error when 'choices' were not given with genuinely 1-dim
+        ## (1-col) results. At a second look, it seems that this hack
+        ## will fail both with missing 'choices', and also often with
+        ## 'choices' given because 'choices' are only applied later,
+        ## so that nrow(X) > length(choices). Only vectors (dim arg
+        ## missing) should fail here. Let's see...
+        
+        ##if (ncol(X) == 1 && nrow(X) == length(choices))
+        ##    X <- t(X)
     }
     if (is.null(rownames(X))) {
         root <- substr(display, 1, 4)

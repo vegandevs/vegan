@@ -27,7 +27,7 @@ tolerance.cca <- function(x, choices = 1:2,
                           which = c("species","sites"),
                           scaling = 2, useN2 = FALSE, ...) {
     if(inherits(x, "rda"))
-        stop("Tolerances only available for unimodal ordinations.")
+        stop("tolerances only available for unimodal ordinations")
     if(missing(which))
         which <- "species"
     ## reconstruct species/response matrix Y - up to machine precision!

@@ -23,7 +23,7 @@
 
 \details{
   The classification of vascular plants is based on APG (2009), and
-  that of mosses from Hill et al. (2006).
+  that of mosses on Hill et al. (2006).
 }
 \references{
   APG [Angiosperm Phylogeny Group] (2009) An update of the Angiosperm

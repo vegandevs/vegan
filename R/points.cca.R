@@ -4,7 +4,7 @@
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     if (length(display) > 1)
-        stop("Only one 'display' item can be added in one command.")
+        stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
                   const)
     if (!missing(select))
