@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-41 (opened December 12, 2013)
 
+	* ordiellipse, ordihull, ordispider: can now handle (omit) NA
+	cases in 'groups'. They were able to omit to NA cases in scores,
+	but having NA in 'groups' triggered really cryptic error
+	messages. 
+
 	* adipart, multipart, hiersimu: it is now an error to provide
 	non-nested sampling hierarchy (used to be a warning).
 
