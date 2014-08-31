@@ -34,7 +34,7 @@
     if (label)
         cntrs <- names <- NULL
     ## Remove NA scores
-    kk <- complete.cases(pts)
+    kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
         if (length(gr) > 1) {

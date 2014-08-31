@@ -38,8 +38,8 @@
     inds <- names(table(groups))
     if (label) 
     cntrs <- names <- NULL
-    ## 'kk' removes NA scores
-    kk <- complete.cases(pts)
+    ## 'kk' removes NA scores and NA groups
+    kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
         if (length(gr)) {
