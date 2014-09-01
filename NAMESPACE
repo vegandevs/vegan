@@ -73,10 +73,6 @@ import(tcltk)
 importFrom(MASS, Shepard, isoMDS, sammon, mvrnorm)
 import(rgl)
 importFrom(cluster, daisy)
-## nobs only exists in R 2.13.0 -- import from permute with older R
-if (getRversion() < "2.13.0") {
-    importFrom(permute, nobs)
-}
 ## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)
