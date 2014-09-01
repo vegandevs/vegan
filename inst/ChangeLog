@@ -4,6 +4,11 @@ VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
 Version 2.1-41 (opened December 12, 2013)
 
+	* ordiellipse, ordihull, ordispider: can now handle (omit) NA
+	cases in 'groups'. They were able to omit to NA cases in scores,
+	but having NA in 'groups' triggered really cryptic error
+	messages. 
+
 	* adipart, multipart, hiersimu: it is now an error to provide
 	non-nested sampling hierarchy (used to be a warning).
 
@@ -158,6 +163,14 @@ Version 2.1-40 (closed December 12, 2013)
 	although the reported case is irreproducible and we cannot be
 	sure. Also fixed handling of tied values in assessing the P-values
 	in vectorfit.
+
+	* nestednodf: vegan 2.1-36 (release 2.0-10) changed the function
+	so that weighted analysis of binary data was equal to unweighted
+	binary analysis, but this broke consinstency with the original
+	software and publication by Almeida-Neto & Ulrich. The fix was now
+	made optional, and the default is to follow published method by
+	adding argument 'wbinary' (defaults FALSE). Based on the
+	suggestion by Matt Barbour in GitHub.
 
 	* ordispider: can now use spatial medians as centres instead of
 	the default centroids. The kind of centre is defined by new
