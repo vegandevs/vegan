@@ -2,8 +2,8 @@
     function (object, display = "sites", choices = 1:3, type = "p", 
               ax.col = "red", arr.col = "yellow", text, envfit, ...) 
 {
-    if (!require(rgl)) 
-        stop("Requires package 'rgl'")
+    ##if (!require(rgl)) 
+    ##    stop("Requires package 'rgl'")
     x <- scores(object, display = display, choices = choices, 
                 ...)
     if (ncol(x) < 3) 

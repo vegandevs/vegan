@@ -11,7 +11,7 @@
         }
         else if (inherits(use, c("hclust", "twins"))) {
             if (inherits(use, "twins")) {
-                require(cluster) || stop("package cluster needed for 'use'")
+                ##require(cluster) || stop("package cluster needed for 'use'")
                 use <- as.hclust(use)
             }
             if (is.null(site.ind)) 

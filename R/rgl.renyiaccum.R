@@ -1,7 +1,7 @@
 `rgl.renyiaccum` <-
     function(x, rgl.height = 0.2,  ...)
 {
-    require(rgl) || stop("requires packages 'rgl'")
+    ##require(rgl) || stop("requires packages 'rgl'")
     y <- x[,,1] * rgl.height
     rgl.min = 0
     rgl.max = max(y)

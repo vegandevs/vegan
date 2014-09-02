@@ -1,7 +1,7 @@
 `rgl.isomap` <-
     function(x, web = "white", ...)
 {
-    require(rgl) || stop("requires package 'rgl'")
+    ##require(rgl) || stop("requires package 'rgl'")
     ordirgl(x, ...)
     z <- scores(x, ...)
     net <- x$net
