@@ -140,9 +140,6 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     ## any non-numeric argument is regarded as "best"
     if(!is.numeric(which))
         which <- x$whichbest
-    if (x$metric == "gower")
-        ##require(cluster) ||
-        ##    stop("requires package 'cluster' for 'gower' metric")
     x$distfun(x$x[, x$models[[which]]$best, drop = FALSE])
 }
 
