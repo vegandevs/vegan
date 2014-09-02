@@ -73,6 +73,7 @@ import(tcltk)
 importFrom(MASS, Shepard, isoMDS, sammon, mvrnorm)
 import(rgl)
 importFrom(cluster, daisy)
+importFrom(mgcv, gam)
 ## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)
