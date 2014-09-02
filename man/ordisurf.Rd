@@ -299,6 +299,7 @@ plot(fit, what = "contour")
 ## Plotting the "gam" object
 plot(fit, what = "gam") ## 'col' and 'cex' not passed on
 ## or via plot.gam directly
+library(mgcv)
 plot.gam(fit, cex = 2, pch = 1, col = "blue")
 ## 'col' effects all objects drawn...
 

@@ -4,12 +4,8 @@ function (grad, veg, indices = c("euc", "man", "gow", "bra",
      metric = c("euclidean", "mahalanobis", "manhattan", "gower"), ...) 
 {
     metric = match.arg(metric)
-    if (metric == "gower")
-        require(cluster) || stop("metric = 'gower' needs package 'cluster'")
     grad <- as.data.frame(grad)
     if (any(sapply(grad, is.factor))) {
-        require(cluster) || stop("factors in 'grad' need package 'cluster'")
-        message("'grad' included factors: used cluster:::daisy")
         span <- daisy(grad)
     } else {
         span <- switch(metric,

@@ -61,17 +61,20 @@ export(metaMDSrotate)
 ## ordiParseFormula, ordiTerminfo, pregraphKM, simpleRDA2, varpart2,
 ## varpart3, varpart4, veganCovEllipse, veganMahatrans)
 
-## Registration of S3 methods
+## Imports
 import(stats)
 import(graphics)
 import(permute)
 importFrom(utils, head, tail, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
 import(lattice)
-## nobs only exists in R 2.13.0 -- import from permute with older R
-if (getRversion() < "2.13.0") {
-    importFrom(permute, nobs)
-}
+import(parallel)
+import(tcltk)
+importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm)
+import(rgl)
+importFrom(cluster, daisy)
+importFrom(mgcv, gam)
+## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)
 S3method(adipart, formula)

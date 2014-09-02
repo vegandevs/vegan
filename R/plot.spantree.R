@@ -3,8 +3,6 @@
               ...) 
 {
     FUNname <- deparse(substitute(FUN))
-    if (length(FUNname) && FUNname %in% c("sammon", "isoMDS")) 
-        require(MASS) || stop(FUNname, "requires package MASS")
     FUN <- match.fun(FUN)
     n <- length(x$kid) + 1
     if (missing(ord)) {

@@ -23,7 +23,6 @@
             ## but "hclust" is kept as "hclust": they differ in
             ## reorder()
             if (inherits(use, "twins")) {
-                require(cluster) || stop("package cluster needed to handle 'use'")
                 use <- as.dendrogram(use)
             }
             if (!is.null(site.ind))
@@ -88,7 +87,6 @@
     ## see if sp.ind is a dendrogram or hclust tree
     if (inherits(sp.ind, c("hclust", "dendrogram", "twins"))) {
         if (inherits(sp.ind, "twins")) {
-            require("cluster") || stop("package cluster needed to handle 'sp.ind'")
             sp.ind <- as.dendrogram(sp.ind)
         }
         sptree <- sp.ind

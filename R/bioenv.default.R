@@ -47,8 +47,6 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         x <- as.matrix(scale(env, scale = FALSE))
         distfun <- function(x) dist(veganMahatrans(x))
     } else if (metric == "gower") {
-        require(cluster) ||
-        stop("package 'cluster' needed for factor variables in 'env'")
         x <- env
         distfun <- function(x) daisy(x, metric = "gower")
     } else if (metric == "manhattan") {
@@ -142,9 +140,6 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     ## any non-numeric argument is regarded as "best"
     if(!is.numeric(which))
         which <- x$whichbest
-    if (x$metric == "gower")
-        require(cluster) ||
-            stop("requires package 'cluster' for 'gower' metric")
     x$distfun(x$x[, x$models[[which]]$best, drop = FALSE])
 }
 

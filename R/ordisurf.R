@@ -33,7 +33,6 @@
     w <- eval(w)
     if (!is.null(w) && length(w) == 1)
         w <- NULL
-    require(mgcv) || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
     ## The original name of 'y' may be lost in handling NA: save for
     ## plots
