@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-01-12 r64752) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-09-03 r66516) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -153,26 +153,20 @@ adj. RDA R squares -0.12553 -0.0250
 > ef <- envfit(mod ~ pH, varechem, permutations = 0)
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1a4dcf8>
+<environment: 0x5c946e8>
 Total model degrees of freedom 3 
 
-REML score: -3.185099
+REML score: -3.185099     
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("MOStest")
 > ### * MOStest
 > 
@@ -236,7 +230,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
    2.5 %   97.5 % 
 5.255827 6.782979 
 > confint(mod)
-Loading required package: MASS
    2.5 %   97.5 % 
 5.816021 6.574378 
 > plot(profile(mod))
@@ -245,9 +238,6 @@ Loading required package: MASS
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("RsquareAdj")
 > ### * RsquareAdj
 > 
@@ -1240,9 +1230,9 @@ Eigenvalues for PCoA axes:
 > dis[c(2, 20)] <- NA
 > mod2 <- betadisper(dis, groups) ## warnings
 Warning in betadisper(dis, groups) :
-  Missing observations due to 'group' removed.
+  missing observations due to 'group' removed
 Warning in betadisper(dis, groups) :
-  Missing observations due to 'd' removed.
+  missing observations due to 'd' removed
 > mod2
 
 	Homogeneity of multivariate dispersions
@@ -1297,9 +1287,9 @@ Residuals 18 0.296910 0.016495
 > ## Using group centroids
 > mod3 <- betadisper(dis, groups, type = "centroid")
 Warning in betadisper(dis, groups, type = "centroid") :
-  Missing observations due to 'group' removed.
+  missing observations due to 'group' removed
 Warning in betadisper(dis, groups, type = "centroid") :
-  Missing observations due to 'd' removed.
+  missing observations due to 'd' removed
 > mod3
 
 	Homogeneity of multivariate dispersions
@@ -5037,21 +5027,18 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > vare.dist <- vegdist(varespec)
 > vare.mds <- monoMDS(vare.dist)
 > with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9968520>
+<environment: 0x77c4478>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 92.96761
+REML score: 92.96761     
 > 
 > ## as above but without the extra penalties on smooth terms,
 > ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
@@ -5063,23 +5050,23 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa291388>
+<environment: 0x8afa6c0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
 
-GCV score: 144.0039
+GCV score: 144.0039     
 > 
 > ## Cover of Cladina arbuscula
 > fit <- with(varespec, ordisurf(vare.mds, Cladarbu, family=quasipoisson)) 
 > ## Get fitted values
 > calibrate(fit)
         1         2         3         4         5         6         7         8 
-21.253963  5.675210  3.679486  3.898355  9.643787  7.698255  7.729282  9.758092 
+21.254026  5.675259  3.679616  3.898510  9.643821  7.698310  7.729203  9.758046 
         9        10        11        12        13        14        15        16 
- 2.743203 29.700504 11.971986  8.310916  5.390556 24.906203 11.006871 25.330570 
+ 2.743212 29.700556 11.971747  8.310960  5.390564 24.905994 11.007652 25.330656 
        17        18        19        20        21        22        23        24 
- 6.520735  9.410672  4.519645  4.090901 11.558075  4.314814 11.693769 14.244150 
+ 6.520708  9.410616  4.519672  4.090948 11.557930  4.314850 11.693692 14.243453 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5094,12 +5081,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa202b48>
+<environment: 0x97119c8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 92.96761
+REML score: 92.96761     
 > ##  - option 2: use a basis with shrinkage
 > with(varechem,
 +      ordisurf(vare.mds, Baresoil, method = "REML", bs = "ts"))
@@ -5109,12 +5096,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x99e3890>
+<environment: 0x7a3cfd0>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
 
-REML score: 96.2345
+REML score: 96.2345     
 > ## or bs = "cs" with `isotropic = FALSE`
 > 
 > ## Plot method
@@ -5123,6 +5110,9 @@ REML score: 96.2345
 > ## Plotting the "gam" object
 > plot(fit, what = "gam") ## 'col' and 'cex' not passed on
 > ## or via plot.gam directly
+> library(mgcv)
+Loading required package: nlme
+This is mgcv 1.8-2. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5135,12 +5125,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9f10bb8>
+<environment: 0x95af318>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 93.17149
+REML score: 93.17149     
 > 
 > ## A fixed degrees of freedom smooth, must use 'select = FALSE'
 > with(varechem, ordisurf(vare.mds, Baresoil, knots = 4,
@@ -5151,12 +5141,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x8ba13d8>
+<environment: 0x7bccf50>
 
 Estimated degrees of freedom:
 3  total = 4 
 
-REML score: 81.86011
+REML score: 81.86011     
 > 
 > ## An anisotropic smoother with cubic regression spline bases
 > with(varechem, ordisurf(vare.mds, Baresoil, isotropic = FALSE,
@@ -5168,12 +5158,12 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x98f4090>
+<environment: 0x8a73740>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
 
-REML score: 90.861
+REML score: 90.86099     
 > 
 > ## An anisotropic smoother with cubic regression spline with
 > ## shrinkage bases & different degrees of freedom in each dimension
@@ -5187,12 +5177,12 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x9a7a810>
+<environment: 0x86bea20>
 
 Estimated degrees of freedom:
 11  total = 12 
 
-REML score: 39.58245
+REML score: 39.58245     
 > 
 > 
 > 
@@ -5322,21 +5312,18 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > op <- par(mfrow=c(1,3))
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x6b7a770>
+<environment: 0x9eca308>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
 
-REML score: -120.7705
+REML score: -120.7705     
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
 
 Family: gaussian 
@@ -5344,12 +5331,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9576da8>
+<environment: 0x8adb928>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
 
-REML score: -103.4662
+REML score: -103.4662     
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
 
 Family: gaussian 
@@ -5357,12 +5344,12 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x987ebd8>
+<environment: 0x86d11e0>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
 
-REML score: -94.19053
+REML score: -94.19053     
 > par(op)
 > ## Plot first PCNMs against each other
 > ordisplom(pcnm1, choices=1:4)
@@ -5379,9 +5366,6 @@ REML score: -94.19053
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("permatfull")
 > ### * permatfull
 > 
@@ -6340,6 +6324,32 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > cleanEx()
+> nameEx("reorder.hclust")
+> ### * reorder.hclust
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: reorder.hclust
+> ### Title: Reorder a Hierarchical Clustering Tree
+> ### Aliases: reorder.hclust rev.hclust
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(mite, mite.env)
+> hc <- hclust(vegdist(wisconsin(sqrt(mite))))
+> ohc <- with(mite.env, reorder(hc, WatrCont))
+> plot(hc)
+> plot(ohc)
+> ## Slightly different from reordered 'dendrogram' which ignores group
+> ## sizes in assessing means.
+> den <- as.dendrogram(hc)
+> den <- with(mite.env, reorder(den, WatrCont, agglo.FUN = mean))
+> plot(den)
+> 
+> 
+> 
+> cleanEx()
 > nameEx("scores")
 > ### * scores
 > 
@@ -6380,6 +6390,28 @@ Manhattan     Gower    Ochiai
 10  64.9418975 -16.7633564
 11  11.5313633   3.9720890
 21  -3.4194194  -3.0130455
+> 
+> 
+> 
+> cleanEx()
+> nameEx("scores.hclust")
+> ### * scores.hclust
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scores.hclust
+> ### Title: Coordinates of Leaves and Internal Nodes in a hclust Tree
+> ### Aliases: scores.hclust
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> ## Show values that were used in reordering a tree
+> data(mite, mite.env)
+> hc <- hclust(vegdist(mite))
+> hc <- with(mite.env, reorder(hc, WatrCont))
+> with(mite.env, plot(hc, labels=round(WatrCont), cex=0.7))
+> ordilabel(scores(hc), label=round(hc$value), cex=0.7)
 > 
 > 
 > 
@@ -6750,8 +6782,8 @@ Number of permuted matrices = 99
 > 
 > ### Name: spantree
 > ### Title: Minimum Spanning Tree
-> ### Aliases: spantree cophenetic.spantree plot.spantree lines.spantree
-> ###   spandepth
+> ### Aliases: spantree cophenetic.spantree as.hclust.spantree plot.spantree
+> ###   lines.spantree spandepth
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -6761,7 +6793,6 @@ Number of permuted matrices = 99
 > tr <- spantree(dis)
 > ## Add tree to a metric scaling 
 > plot(tr, cmdscale(dis), type = "t")
-Loading required package: MASS
 > ## Find a configuration to display the tree neatly
 > plot(tr, type = "t")
 Initial stress        : 0.03111
@@ -6777,13 +6808,12 @@ stress after  10 iters: 0.01302, magic = 0.500
 stress after  20 iters: 0.01139, magic = 0.500
 stress after  30 iters: 0.01118, magic = 0.500
 stress after  40 iters: 0.01114, magic = 0.500
+> ## Plot as a dendrogram
+> plot(as.hclust(tr))
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("specaccum")
 > ### * specaccum
 > 
@@ -7146,50 +7176,50 @@ Stepping across 190 dissimilarities...
 > mod <- taxondive(dune, taxdis)
 > mod
           Species    Delta   Delta*  Lambda+   Delta+ S Delta+
-1           5.000   25.201   32.401 1583.249   51.705   258.53
-2          10.000   60.573   66.438 1415.833   66.779   667.79
-3          10.000   46.754   51.874 1385.449   70.835   708.35
-4          13.000   58.307   63.293 1249.469   73.461   954.99
-5          14.000   72.023   76.967 1013.850   77.581  1086.14
-6          11.000   76.352   83.052  856.565   80.779   888.57
-7          13.000   71.005   76.286  896.552   79.375  1031.87
-8          12.000   62.880   67.464  906.057   77.412   928.95
-9          13.000   60.341   64.619 1081.914   73.544   956.07
-10         12.000   68.919   74.532 1023.714   77.748   932.97
-11          9.000   76.140   85.057  553.804   82.412   741.71
-12          9.000   71.195   79.626  669.623   83.756   753.80
-13         10.000   57.210   65.101  848.964   77.901   779.01
-14          7.000   78.441   90.207  279.757   88.808   621.66
-15          8.000   77.813   87.496  330.572   88.150   705.20
-16          8.000   62.725   72.154  875.566   77.140   617.12
-17          7.000   64.823   72.409 1204.103   70.968   496.77
-18          9.000   76.626   85.656  599.550   81.260   731.34
-19          9.000   73.340   81.198  480.065   83.218   748.96
-20          8.000   79.807   88.993  390.726   89.385   715.08
-Expected            74.594   71.431            79.644         
+1           5.000   25.009   32.154 1592.777   51.545   257.73
+2          10.000   60.493   66.350 1426.590   66.687   666.87
+3          10.000   46.599   51.702 1395.603   70.748   707.47
+4          13.000   58.199   63.176 1258.772   73.403   954.24
+5          14.000   72.045   76.990 1018.677   77.602  1086.43
+6          11.000   76.415   83.121  858.170   80.843   889.27
+7          13.000   70.250   75.475  970.358   78.397  1019.17
+8          12.000   59.126   63.436 1079.722   74.787   897.44
+9          13.000   56.948   60.985 1220.760   71.160   925.08
+10         12.000   68.902   74.513 1028.527   77.762   933.14
+11          9.000   76.201   85.126  552.357   82.538   742.84
+12          9.000   69.555   77.792  760.886   82.614   743.52
+13         10.000   55.296   62.923  935.943   76.657   766.57
+14          7.000   77.609   89.250  341.499   88.182   617.27
+15          8.000   74.924   84.249  473.604   86.558   692.47
+16          8.000   57.843   66.539 1111.251   73.360   586.88
+17          7.000   64.823   72.408 1209.057   70.974   496.82
+18          9.000   76.731   85.773  596.607   81.401   732.61
+19          9.000   73.449   81.318  476.221   83.371   750.34
+20          8.000   78.076   87.063  520.623   87.922   703.38
+Expected            73.289   70.182            78.712         
 > summary(mod)
            Delta  Delta*  Delta+ sd(Delta+) z(Delta+) Pr(>|z|)   
-1        25.2010 32.4013 51.7051     8.9683   -3.1153 0.001837 **
-2        60.5731 66.4375 66.7793     4.2930   -2.9967 0.002729 **
-3        46.7535 51.8745 70.8346     4.2930   -2.0520 0.040165 * 
-4        58.3066 63.2933 73.4609     3.2021   -1.9310 0.053486 . 
-5        72.0231 76.9667 77.5814     2.9323   -0.7034 0.481792   
-6        76.3523 83.0524 80.7792     3.8687    0.2934 0.769200   
-7        71.0050 76.2863 79.3749     3.2021   -0.0840 0.933019   
-8        62.8802 67.4643 77.4124     3.5104   -0.6357 0.524956   
-9        60.3414 64.6193 73.5437     3.2021   -1.9051 0.056762 . 
-10       68.9193 74.5319 77.7475     3.5104   -0.5403 0.589023   
-11       76.1400 85.0573 82.4117     4.8067    0.5758 0.564763   
-12       71.1954 79.6265 83.7558     4.8067    0.8554 0.392326   
-13       57.2101 65.1011 77.9007     4.2930   -0.4061 0.684669   
-14       78.4412 90.2074 88.8084     6.2696    1.4617 0.143819   
-15       77.8128 87.4962 88.1501     5.4461    1.5619 0.118320   
-16       62.7252 72.1545 77.1396     5.4461   -0.4599 0.645611   
-17       64.8233 72.4091 70.9677     6.2696   -1.3839 0.166399   
-18       76.6264 85.6556 81.2596     4.8067    0.3361 0.736794   
-19       73.3403 81.1982 83.2181     4.8067    0.7436 0.457145   
-20       79.8067 88.9931 89.3845     5.4461    1.7885 0.073693 . 
-Expected 74.5941 71.4315 79.6440                                 
+1        25.0089 32.1543 51.5455     9.5637   -2.8405 0.004504 **
+2        60.4931 66.3497 66.6869     4.6664   -2.5769 0.009970 **
+3        46.5985 51.7024 70.7475     4.6664   -1.7067 0.087881 . 
+4        58.1988 63.1763 73.4033     3.5073   -1.5135 0.130150   
+5        72.0452 76.9903 77.6024     3.2187   -0.3446 0.730386   
+6        76.4148 83.1205 80.8430     4.2170    0.5054 0.613259   
+7        70.2500 75.4752 78.3974     3.5073   -0.0896 0.928626   
+8        59.1259 63.4363 74.7865     3.8361   -1.0232 0.306220   
+9        56.9481 60.9854 71.1597     3.5073   -2.1532 0.031303 * 
+10       68.9021 74.5133 77.7617     3.8361   -0.2476 0.804432   
+11       76.2014 85.1259 82.5379     5.2089    0.7346 0.462605   
+12       69.5554 77.7922 82.6136     5.2089    0.7491 0.453792   
+13       55.2961 62.9232 76.6566     4.6664   -0.4404 0.659657   
+14       77.6087 89.2500 88.1818     6.7459    1.4039 0.160362   
+15       74.9245 84.2485 86.5584     5.8818    1.3341 0.182178   
+16       57.8435 66.5389 73.3604     5.8818   -0.9098 0.362936   
+17       64.8225 72.4081 70.9740     6.7459   -1.1470 0.251377   
+18       76.7314 85.7730 81.4015     5.2089    0.5164 0.605570   
+19       73.4487 81.3182 83.3712     5.2089    0.8945 0.371029   
+20       78.0762 87.0634 87.9221     5.8818    1.5659 0.117368   
+Expected 73.2888 70.1816 78.7116                                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mod)
@@ -7933,21 +7963,18 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > with(dune.env, ordiellipse(mod, Management, label = TRUE))
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x84b2db8>
+<environment: 0x974c070>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
 
-REML score: 3.006229
+REML score: 3.00623     
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
 > adonis(dune ~ ., dune.env)
@@ -7985,9 +8012,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("vegandocs")
 > ### * vegandocs
 > 
@@ -8495,7 +8519,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.424 0.147 27.577 0 0 
+Time elapsed:  35.834 7.734 41.19 0 0.001 
 > grDevices::dev.off()
 null device 
           1 
