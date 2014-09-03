@@ -6,14 +6,17 @@
 Carabid beetle data with explanatory variables
 }
 \description{
-Carabid beetle data collected at 192 sites by Colin Bergeron in the summer of 2003 in Northwestern Alberta, Canada. See Bergeron et al. (2011, 2012) and Blanchet et al. (2013) for details.
+Carabid beetle data collected at 192 sites by Colin Bergeron in the 
+summer of 2003 in Northwestern Alberta, Canada. See Bergeron et al. 
+(2011, 2012) and Blanchet et al. (2013) for details.
 }
 \usage{
 data(beetle)
 data(beetle.expl)
 }
 \format{
-  The \code{beetle} data set is a data frame that contains the data on the following 37 carabid species:
+  The \code{beetle} data set is a data frame that contains the data on
+  the following 37 carabid species:
   \describe{
     \item{\code{Agongrat}}{\emph{Agonum gratiosum}}
     \item{\code{Agonplac}}{\emph{Agonum placidum}}
@@ -53,7 +56,9 @@ data(beetle.expl)
     \item{\code{Trecapic}}{\emph{Trechus apicalis}}
     \item{\code{Trecchal}}{\emph{Trechus chalybeus}}
 
-The \code{beetle.expl} data set is a data frame that contains the relative basal area of the 25 trees closest to the center of each sampled site. The relative basal area is presented by tree species. 
+The \code{beetle.expl} data set is a data frame that contains the 
+relative basal area of the 25 trees closest to the center of each 
+sampled site. The relative basal area is presented by tree species. 
 
     \item{\code{Pt}}{Aspen (\emph{Populus tremuloides})}
     \item{\code{Bp}}{White birch (\emph{Betula papyrifera})}
@@ -66,19 +71,39 @@ The \code{beetle.expl} data set is a data frame that contains the relative basal
   }
 }
 \details{
-In the \code{beetle} data, the abundance of carabids was divided by the number of days each trap was active in the field per sites. There were three traps per sites. This procedures was used to corrects for disturbances (such as destructions of traps), that may have occurred between visits.
+In the \code{beetle} data, the abundance of carabids was divided by the 
+number of days each trap was active in the field per sites. There were 
+three traps per sites. This procedures was used to corrects for 
+disturbances (such as destructions of traps), that may have occurred 
+between visits.
 }
 \source{
-All questions about these data should be adressed to Colin Bergeron (cb1[at]ualberta.ca).
+All questions about these data should be adressed to Colin Bergeron 
+(cb1[at]ualberta.ca).
 }
 \references{
-Bergeron J.A.C., J.R. Spence, and W.J.A. Volney. 2011. Landscape patterns of species-level associations between ground-beetles (Coleoptera: Carabidae) and overstory trees in boreal forests of western Canada (Coleoptera: Carabidae). In Erwin, TL (Ed), \emph{Proceedings of a Symposium honoring the careers of Ross and Joyce Bell and their contributions to scientific work}, Burlington, VT, 12-15 June 2010. \emph{ZooKeys} \strong{147}: 577--600.
+Bergeron J.A.C., J.R. Spence, and W.J.A. Volney. 2011. Landscape 
+patterns of species-level associations between ground-beetles 
+(Coleoptera: Carabidae) and overstory trees in boreal forests of western
+Canada (Coleoptera: Carabidae). In Erwin, TL (Ed), \emph{Proceedings of
+a Symposium honoring the careers of Ross and Joyce Bell and their 
+contributions to scientific work}, Burlington, VT, 12-15 June 2010. 
+\emph{ZooKeys} \strong{147}: 577--600.
 
-Bergeron J.A.C., F.G. Blanchet, J.R. Spence, and W.J.A. Volney. 2012. Ecosystem classification and inventory maps as surrogates for ground beetle assemblages in boreal forest. \emph{Journal of Plant Ecology} \strong{5}:97--108.
+Bergeron J.A.C., F.G. Blanchet, J.R. Spence, and W.J.A. Volney. 2012. 
+Ecosystem classification and inventory maps as surrogates for ground 
+beetle assemblages in boreal forest. \emph{Journal of Plant Ecology} 
+\strong{5}:97--108.
 
-Blanchet, F.G., J.A.C. Bergeron, J.R. Spence, and F. He. 2013. Landscape effects of disturbance, habitat heterogeneity and spatial autocorrelation for a ground beetle (Carabidae) assemblage in mature boreal forest. \emph{Ecography} \strong{36}:636--647.
+Blanchet, F.G., J.A.C. Bergeron, J.R. Spence, and F. He. 2013. Landscape
+ effects of disturbance, habitat heterogeneity and spatial 
+ autocorrelation for a ground beetle (Carabidae) assemblage in mature 
+ boreal forest. \emph{Ecography} \strong{36}:636--647.
 
-Blanchet, F.G., P. Legendre, J.A.C. Bergeron, and F. He. 2014. Consensus RDA across dissimilarity coefficients for canonical ordination of community composition data. \emph{Ecological Monographs} \strong{84}: 491--511.
+Blanchet, F.G., P. Legendre, J.A.C. Bergeron, and F. He. 2014. Consensus
+RDA across dissimilarity coefficients for canonical ordination of 
+community composition data. \emph{Ecological Monographs} 
+\strong{84}: 491--511.
 }
 \examples{
 data(beetle)
