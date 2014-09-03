@@ -79,7 +79,6 @@
     if (!(inherits(object, "metaMDS") ||
         all(c("points", "stress") %in% names(object))))
         stop("can be used only with objects that are compatible with MASS::isoMDS results")
-    require(MASS) || stop("Needs MASS package")
     if (missing(dis))
         if (inherits(object, "metaMDS"))
             dis <- metaMDSredist(object)

@@ -2,9 +2,6 @@
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
              correlated = FALSE, ...) 
 {
-    ## is.null(indx) && correlated requires MASS
-    if(is.null(indx) && correlated)
-        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -94,8 +91,6 @@
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
              correlated = FALSE, ...)
 {
-    if (is.null(indx) && correlated)
-        require(MASS) || stop("simulate options require MASS package")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)

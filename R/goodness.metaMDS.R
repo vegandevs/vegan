@@ -3,7 +3,6 @@
 {
     if (inherits(object, "monoMDS"))
         return(NextMethod("goodness", object, ...))
-    require(MASS) || stop("Needs MASS package")
     if (missing(dis))
         dis <- metaMDSredist(object)
     if(attr(dis, "Size") != nrow(object$points))
