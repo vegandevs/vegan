@@ -31,6 +31,7 @@
   they are no longer needed.
 }
 \usage{
+metaMDSrotate(object, vec, na.rm = FALSE, ...)
 %-- Removed from vegan 2.0-0: now in package permute
 getNumObs(object, \dots)
 \method{getNumObs}{default}(object, \dots)
@@ -45,6 +46,10 @@ permuted.index2(n, control = permControl())
   \pkg{permute} package replaces \code{permuted.index2} with
   \code{\link[permute]{shuffle}} and \code{getNumObs} with its specific
   \code{\link[permute]{nobs-methods}}.
+
+  Function \code{metaMDSrotate} is replaced with
+  \code{\link{MDSrotate}} which can handle \code{\link{monoMDS}}
+  results in addition to \code{\link{metaMDS}}.
 }
 
 \seealso{

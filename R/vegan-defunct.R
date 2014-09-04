@@ -6,3 +6,9 @@
 
 `getNumObs` <- function(object, ...) 
     .Defunct("nobs", package = "vegan")
+
+`metaMDSrotate` <-
+    function(object, vec, na.rm = FALSE, ...)
+{
+    .Defunct(new="MDSrotate", "vegan")
+}
