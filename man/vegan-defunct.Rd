@@ -3,7 +3,6 @@
 %    removed from vegan, but here we document only those that were
 %    renamed and are not documented in 'permute'
  
-\alias{permuted.index2}
 \alias{metaMDSrotate}
 
 \alias{vegan-defunct}
@@ -16,14 +15,9 @@
 }
 \usage{
 metaMDSrotate(object, vec, na.rm = FALSE, ...)
-permuted.index2(n, control = permControl())
 }
 
-\details{ The \dQuote{new} permutation functions were moved to the
-  \pkg{permute} package, and they are documented there.  The
-  \pkg{permute} package replaces \code{permuted.index2} with
-  \code{\link[permute]{shuffle}}.
-
+\details{ 
   Function \code{metaMDSrotate} is replaced with
   \code{\link{MDSrotate}} which can handle \code{\link{monoMDS}}
   results in addition to \code{\link{metaMDS}}.
