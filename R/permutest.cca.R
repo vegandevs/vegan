@@ -111,7 +111,7 @@ permutest.default <- function(x, ...)
         if (isPartial)
             Zcol <- ncol(Z)
     }
-    permutations <- GetPermuteMatrix(permutations, strata = strata)
+    permutations <- GetPermuteMatrix(permutations, N, strata = strata)
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
     if (is.null(parallel))
