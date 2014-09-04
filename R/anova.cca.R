@@ -11,14 +11,6 @@
     seed <- attr(permutations, "seed")
     control <- attr(permutations, "control")
     nperm <- nrow(permutations)
-    ## we want a howHead header even if we got a permutation matrix
-    ## without control attribute. This is kluge: should be handled
-    ## more cleanly.
-    if (is.null(control)) {
-        control <- structure(list(within=list(type="supplied matrix"),
-                             nperm = nperm), class = "how")
-        attr(permutations, "control") <- control
-    }
     ## see if this was a list of ordination objects
     dotargs <- list(...)
     ## we do not want to give dotargs to anova.ccalist, but we
