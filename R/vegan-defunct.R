@@ -4,9 +4,6 @@
 `permuted.index2` <- function (n, control = permControl()) 
     .Defunct("permute::shuffle", package="vegan")
 
-`getNumObs` <- function(object, ...) 
-    .Defunct("nobs", package = "vegan")
-
 `metaMDSrotate` <-
     function(object, vec, na.rm = FALSE, ...)
 {
