@@ -2,7 +2,17 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
-Version 2.1-41 (opened December 12, 2013)
+Version 2.1-42 (opened September 4, 2014)
+
+	* Opened a new version to prepare release 2.2-0.
+
+	* Moved main development from R-Forge to GitHub.com.
+
+	* NAMESPACE, DESCRIPTION: adapted to current R CMD check that has
+	more stringent tests on attaching and importing external packages
+	and using their functions.
+	
+Version 2.1-41 (closed September 4, 2014)
 
 	* ordiellipse, ordihull, ordispider: can now handle (omit) NA
 	cases in 'groups'. They were able to omit to NA cases in scores,
