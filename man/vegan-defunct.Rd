@@ -4,6 +4,7 @@
 %    renamed and are not documented in 'permute'
  
 \alias{permuted.index2}
+\alias{metaMDSrotate}
 
 \alias{vegan-defunct}
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
