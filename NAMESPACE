@@ -6,7 +6,7 @@ useDynLib(vegan)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
-cascadeKM, cca, commsimulator, contribdiv, clamtest, commsim, decorana,
+cascadeKM, cca, contribdiv, clamtest, commsim, decorana,
 decostand, designdist, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
@@ -38,7 +38,7 @@ export(anova.cca)
 ## Export as.mcmc for coda
 export(as.mcmc.oecosimu, as.mcmc.permat)
 ## DEFUNCT: export names defined in vegan-defunct
-export(permuted.index2, getNumObs)
+export(metaMDSrotate)
 
 ## export regular functions with dot names
 
@@ -52,7 +52,7 @@ rgl.renyiaccum, vif.cca)
 export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Depracated functions (to be removed later)
-export(metaMDSrotate)
+export(commsimulator)
 
 ## do NOT export the following internal functions
 
