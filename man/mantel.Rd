@@ -13,10 +13,10 @@
 
 }
 \usage{
-mantel(xdis, ydis, method="pearson", permutations=999, strata,
+mantel(xdis, ydis, method="pearson", permutations=999, strata = NULL,
     na.rm = FALSE, parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
-    strata, na.rm = FALSE, parallel = getOption("mc.cores"))
+    strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
 }
 
 \arguments{
