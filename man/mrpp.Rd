@@ -13,7 +13,7 @@ and between block dissimilarities.}
 
 \usage{
 mrpp(dat, grouping, permutations = 999, distance = "euclidean",
-     weight.type = 1, strata, parallel = getOption("mc.cores"))
+     weight.type = 1, strata = NULL, parallel = getOption("mc.cores"))
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
 \method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
