@@ -10,7 +10,7 @@
   of sampling units.
 }
 \usage{
-anosim(dat, grouping, permutations = 999, distance = "bray", strata,
+anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
     parallel = getOption("mc.cores"))
 }
 
