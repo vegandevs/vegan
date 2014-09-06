@@ -11,7 +11,7 @@ calculations in the case of very sparse and collinear matrices, and
 permutation test of Pillai's trace statistic. }
 
 \usage{
-CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, nperm = 0, ...)
+CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, permutations = 0, ...)
 
 \method{biplot}{CCorA}(x, plot.type="ov", xlabs, plot.axes = 1:2, int=0.5, 
    col.Y="red", col.X="blue", cex=c(0.7,0.9), ...)
@@ -22,9 +22,12 @@ CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, nperm = 0, ...)
   \item{X}{ Right matrix (object class: \code{matrix} or \code{data.frame}). }
   \item{stand.Y}{ Logical; should \code{Y} be standardized? }
   \item{stand.X}{ Logical; should \code{X} be standardized? }
-  \item{nperm}{ Numeric; number of permutations to evaluate the
-    significance of Pillai's trace, or a permutation matrix
-    where each row gives the permuted indices.} 
+  
+  \item{permutations}{ Number of permutations to evaluate the
+    significance of Pillai's trace, or a \code{\link[permute]{how}}
+    result defining permutations, or a permutation matrix where each
+    row gives the permuted indices.}
+  
   \item{x}{\code{CCoaR} result object.}
   \item{plot.type}{ A character string indicating which of the following 
     plots should be produced: \code{"objects"}, \code{"variables"}, \code{"ov"} 
