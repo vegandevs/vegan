@@ -90,19 +90,8 @@
           ) }
 
     ## Permutations
-    if (length(permutations) == 1) {
-        if (missing(strata))
-            strata <- NULL
-        p <- replicate(permutations,
-                       permuted.index(n, strata=strata))
-    } else {
-        p <- t(as.matrix(permutations))
-        if (nrow(p) != n)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(p), n))
-        permutations <- ncol(p)
-    }
-
+    p <- GetPermuteMatrix(permutations, n, strata = strata)
+    permutations <- nrow(p)
     tH.s <- lapply(H.s, t)
     ## Apply permutations for each term
     ## This is the new f.test (2011-06-15) that uses fewer arguments
@@ -120,21 +109,21 @@
             f.perms <-
                 sapply(1:nterms, function(i)
                        unlist(mclapply(1:permutations, function(j)
-                                       f.test(tH.s[[i]], G[p[,j], p[,j]],
+                                       f.test(tH.s[[i]], G[p[j,], p[j,]],
                                               df.Exp[i], df.Res, tIH.snterm),
                                        mc.cores = parallel)))
         } else {
             f.perms <-
                 sapply(1:nterms, function(i)
                        parSapply(parallel, 1:permutations, function(j)
-                                 f.test(tH.s[[i]], G[p[,j], p[,j]],
+                                 f.test(tH.s[[i]], G[p[j,], p[j,]],
                                         df.Exp[i], df.Res, tIH.snterm)))
         }
     } else {
         f.perms <-
             sapply(1:nterms, function(i) 
                    sapply(1:permutations, function(j) 
-                          f.test(tH.s[[i]], G[p[,j], p[,j]],
+                          f.test(tH.s[[i]], G[p[j,], p[j,]],
                                  df.Exp[i], df.Res, tIH.snterm)))
     }
     ## Close socket cluster if created here
