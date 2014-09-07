@@ -28,7 +28,8 @@
     ## Function to evaluate discrepancy
     FUN <- function(x) sum(comm[col(comm)[,x] <= rowSums(comm)] == 0) 
     Ad <- FUN(x)
-    ## Go through all le-items and permute ties
+    ## Go through all le-items and permute ties. Functions allPerms
+    ## and shuffleSet are in permute package.
     for (i in 1:length(le)) {
         if (le[i] > 1) {
             take <- x
@@ -49,7 +50,7 @@
             ## duplicated orders
             else {
                 ties <- TRUE
-                perm <- t(replicate(niter, permuted.index(le[i])))
+                perm <- shuffleSet(le[i], niter)
                 perm <- perm + cle[i]
             }
             vals <- sapply(1:nrow(perm), function(j) {
