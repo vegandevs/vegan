@@ -24,8 +24,8 @@
     sol <- centroids.cca(X, P, w)
     var.id <- rep(names(P), sapply(P, nlevels))
     ## make permutation matrix for all variables handled in the next loop
-    permat <- GetPermuteMatirx(permutations, NR, strata = strata)
-    permutations <- nrow(permutations)
+    permat <- GetPermuteMatrix(permutations, NR, strata = strata)
+    permutations <- nrow(permat)
 
     for (i in 1:length(P)) {
         A <- as.integer(P[[i]])

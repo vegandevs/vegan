@@ -18,7 +18,7 @@
   The second type of permutation test above is available if the function
   providing the test accepts an argument \code{strata} or passes
   additional arguments (via \code{\dots}) to
-  \code{\link{permuted.index}}.
+  \code{permuted.index}.
 
   The Null hypothesis for these two types of permutation test assumes
   free exchangeability of \emph{DATA} (within the levels of
@@ -114,7 +114,7 @@
 }
 
 \seealso{
-  \code{\link{permutest}}, \code{\link{permuted.index}}
+  \code{\link{permutest}}
 }
 %\references{
 %}

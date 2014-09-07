@@ -144,7 +144,7 @@ biplot(out, plot.type="biplots", xlabs = NULL) # Replace object names by numbers
 # Example using random numbers. No significant relationship is expected
 mat1 <- matrix(rnorm(60),20,3)
 mat2 <- matrix(rnorm(100),20,5)
-out2 = CCorA(mat1, mat2, nperm=99)
+out2 = CCorA(mat1, mat2, permutations=99)
 out2
 biplot(out2, "b")
 }

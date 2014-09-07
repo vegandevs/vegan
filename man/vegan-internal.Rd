@@ -3,7 +3,6 @@
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
-#\alias{permuted.index}
 \alias{GetPermuteMatrix}
 \alias{centroids.cca}
 \alias{ordiTerminfo}
