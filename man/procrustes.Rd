@@ -28,8 +28,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
 \method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
-protest(X, Y, scores = "sites", control = how(nperm = 999),
-        permutations = NULL, ...)
+protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
 }
 
 \arguments{
@@ -65,9 +64,9 @@ protest(X, Y, scores = "sites", control = how(nperm = 999),
     \code{truemean = FALSE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
-  \item{control}{a list defining the permutation design, from a call to
-    \code{\link{how}}.}
-  \item{permutations}{A permutation matrix where each row gives the
+  \item{permutations}{Number of permutations, or
+  \code{\link[permute]{how}} control structure that defines the
+    permutations, or a permutation matrix where each row gives the
     permuted indices. If this is supplied, \code{control} is ignored.}
   \item{ar.col}{Arrow colour.}
   \item{len}{Width of the arrow head.}
