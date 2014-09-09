@@ -164,7 +164,10 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
     of these correlations can be inspected with \code{\link{density.protest}} 
     function.}
   \item{signif}{`Significance' of \code{t}}
-  \item{permutations}{Number of permutations.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{control}{the list passed to argument \code{control} describing
     the permutation design.}
 }

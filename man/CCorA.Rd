@@ -23,9 +23,9 @@ CCorA(Y, X, stand.Y=FALSE, stand.X=FALSE, permutations = 0, ...)
   \item{stand.Y}{ Logical; should \code{Y} be standardized? }
   \item{stand.X}{ Logical; should \code{X} be standardized? }
   
-  \item{permutations}{ Number of permutations to evaluate the
-    significance of Pillai's trace, or a \code{\link[permute]{how}}
-    result defining permutations, or a permutation matrix where each
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
   
   \item{x}{\code{CCoaR} result object.}
