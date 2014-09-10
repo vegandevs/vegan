@@ -66,8 +66,9 @@
             object$H.test[, i] <- as.numeric(object$H == object$vario$H[i])
         }
         xdis <- as.matrix(dist(object$CA$Xbar)^2)
+        ## taking lower triangle is faster than as.dist() because it
+        ## does not set attributes
         ltri <- lower.tri(xdis)
-        N <- attr(xdis, "Size")
         statistic <- abs(cor(as.vector(xdis[ltri]), object$H.test))
         permfunc <- function(k) {
             permvec <- as.vector(xdis[k,k][ltri])
