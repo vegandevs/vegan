@@ -13,7 +13,7 @@ of cca or rda results}
   partitioning of the \code{"cca"} object.  }
 
 \usage{
-mso(object.cca, object.xy, grain = 1, round.up = FALSE, permutations = FALSE)
+mso(object.cca, object.xy, grain = 1, round.up = FALSE, permutations = 0)
 msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...)
 }
 \arguments{
@@ -27,9 +27,10 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...
   \item{round.up}{ Determines the choice of breaks. If false, distances
     are rounded to the nearest multiple of grain. If true, distances are
     rounded to the upper multiple of grain.} 
-  \item{permutations}{ If false, suppresses the permutation test. If an
-    integer, determines the number of permutations for the Mantel test
-    of spatial independence of residual inertia.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{x}{A result object of \code{mso}.}
   \item{alpha}{ Significance level for the two-sided permutation test of
     the Mantel statistic for spatial independence of residual inertia
@@ -125,14 +126,14 @@ data(mite.env)
 data(mite.xy)
 
 mite.cca <- cca(log(mite + 1))
-mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 100)
+mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 99)
 msoplot(mite.cca)
 mite.cca
 
 ## Constrained ordination with test for residual autocorrelation
 ## and scale-invariance of species-environment relationships
 mite.cca <- cca(log(mite + 1) ~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)
-mite.cca <- mso(mite.cca, mite.xy, permutations = 100)
+mite.cca <- mso(mite.cca, mite.xy, permutations = 99)
 msoplot(mite.cca)
 mite.cca
 }
