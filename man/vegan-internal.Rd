@@ -4,6 +4,7 @@
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
 \alias{GetPermuteMatrix}
+\alias{howHead}
 \alias{centroids.cca}
 \alias{ordiTerminfo}
 \alias{pasteCall}
@@ -32,7 +33,8 @@ ordiArrowTextXY(vect, labels, ...)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)
 centroids.cca(x, mf, wt)
-GetPermuteMatrix(perm, N, strata = NULL) 
+GetPermuteMatrix(perm, N, strata = NULL)
+howHead(x, ...)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
 veganMahatrans(x, s2, tol = 1e-8)
@@ -86,6 +88,12 @@ hierParseFormula(formula, data)
   \code{\link[permute]{how}} defining a permutation scheme or a
   permutation matrix. Function \code{permuted.index} was used earlier
   to generate permutations, but it is now deprecated.
+
+  \code{howHead} formats the permutation scheme of
+  \code{\link[permute]{how}} for display. The formatting is more
+  compact than the one used in \code{print} in the \pkg{permute}
+  package, and shows only non-default choices. This output is normally
+  used when printing the results of \pkg{vegan} permutations.
 
   \code{pasteCall} prints the function call so that it is nicely wrapped
   in \code{\link[utils]{Sweave}} output.
