@@ -69,7 +69,6 @@
         ltri <- lower.tri(xdis)
         N <- attr(xdis, "Size")
         statistic <- abs(cor(as.vector(xdis[ltri]), object$H.test))
-        perm <- matrix(0, length(statistic), nperm)
         permfunc <- function(k) {
             permvec <- as.vector(xdis[k,k][ltri])
             abs(cor(permvec, object$H.test))
