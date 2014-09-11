@@ -1,6 +1,6 @@
 `protest` <-
-    function (X, Y, scores = "sites", control = how(nperm = 999),
-              permutations = NULL, ...)
+    function (X, Y, scores = "sites", permutations = how(nperm = 999),
+              ...)
 {
     X <- scores(X, display = scores, ...)
     Y <- scores(Y, display = scores, ...)
@@ -25,16 +25,10 @@
     ## Procrustes r directly.
     procr <- function(X, Y) sum(svd(crossprod(X, Y), nv=0, nu=0)$d)
 
-    ## If permutations is NULL, work with control
-    if(is.null(permutations)) {
-        #np <- getNperm(control)
-        permutations <- shuffleSet(N, control = control)
-    } else {
-        permutations <- as.matrix(permutations)
-        if (ncol(permutations) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d observations",
-                          ncol(permutations), N))
-    }
+    permutations <- getPermuteMatrix(permutations, N)
+    if (ncol(permutations) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                      ncol(permutations), N))
     np <- nrow(permutations)
 
     perm <- sapply(seq_len(np),
@@ -45,7 +39,7 @@
     sol$t <- perm
     sol$signif <- Pval
     sol$permutations <- np
-    sol$control <- control
+    sol$control <- attr(permutations, "control")
     sol$call <- match.call()
     class(sol) <- c("protest", "procrustes")
     sol

@@ -1,6 +1,7 @@
-"mrpp" <-
-function (dat, grouping, permutations = 999, distance = "euclidean", 
-    weight.type = 1, strata, parallel = getOption("mc.cores")) 
+`mrpp` <-
+    function (dat, grouping, permutations = 999, distance = "euclidean", 
+              weight.type = 1, strata = NULL,
+              parallel = getOption("mc.cores")) 
 {
     classmean <- function(ind, dmat, indls) {
         sapply(indls, function(x)
@@ -37,18 +38,13 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
     ## significance test for it. Keep the item in reserve for
     ## possible later re-inclusion.
     CS <- NA
-    if (length(permutations) == 1) {
-        if (missing(strata)) 
-            strata <- NULL
-        perms <- sapply(1:permutations,
-                        function(x) grouping[permuted.index(N, strata = strata)])
-    } else {
-        perms <- apply(permutations, 1, function(indx) grouping[indx])
-        permutations <- ncol(perms)
-        if (nrow(perms) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(perms), N))
-    }
+    permutations <- getPermuteMatrix(permutations, N, strata = strata)
+    perms <- apply(permutations, 1, function(indx) grouping[indx])
+    permutations <- ncol(perms)
+    if (nrow(perms) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                      ncol(perms), N))
+
     ## Parallel processing
     if (is.null(parallel))
         parallel <- 1

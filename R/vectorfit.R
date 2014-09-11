@@ -1,5 +1,5 @@
 "vectorfit" <-
-    function (X, P, permutations = 0, strata, w, ...) 
+    function (X, P, permutations = 0, strata = NULL, w, ...) 
 {
     if (missing(w) || is.null(w)) 
         w <- 1
@@ -26,19 +26,12 @@
     else colnames(heads) <- colnames(X)
     ## make permutation matrix for all variables handled in the next loop
     nr <- nrow(X)
-    if (length(permutations) == 1) {
-        if (permutations > 0) {
-            arg <- if(missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
-                                  permuted.index(nr, strata = arg)))
-        }
-    } else {
-        permat <- as.matrix(permutations)
-        if (ncol(permat) != nr)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
+    permat <- getPermuteMatrix(permutations, nr, strata = strata)
+    if (ncol(permat) != nr)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
                           ncol(permat), nr))
-        permutations <- nrow(permutations)
-    }
+    permutations <- nrow(permat)
+
     if (permutations) {
         ptest <- function(indx, ...) {
             take <- P[indx, , drop = FALSE]

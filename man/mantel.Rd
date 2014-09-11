@@ -13,18 +13,20 @@
 
 }
 \usage{
-mantel(xdis, ydis, method="pearson", permutations=999, strata,
+mantel(xdis, ydis, method="pearson", permutations=999, strata = NULL,
     na.rm = FALSE, parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
-    strata, na.rm = FALSE, parallel = getOption("mc.cores"))
+    strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
 }
 
 \arguments{
   \item{xdis, ydis, zdis}{ Dissimilarity matrices or a \code{dist} objects. }
   \item{method}{ Correlation method, as accepted by \code{\link{cor}}:
     \code{"pearson"}, \code{"spearman"} or \code{"kendall"}. }
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}

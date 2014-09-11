@@ -1,6 +1,6 @@
 `mantel.partial` <-
   function (xdis, ydis, zdis, method = "pearson", permutations = 999, 
-            strata, na.rm = FALSE, parallel = getOption("mc.cores")) 
+            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores")) 
 {
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
@@ -24,19 +24,12 @@
                       variant)
     statistic <- part.cor(rxy, rxz, ryz)
     N <- attr(xdis, "Size")
-    if (length(permutations) == 1) {
-        if (permutations > 0) {
-            arg <- if(missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
-                                  permuted.index(N, strata = arg)))
-        }
-    } else {
-        permat <- as.matrix(permutations)
-        if (ncol(permat) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d observations",
-                          ncol(permat), N))
-        permutations <- nrow(permutations)
-    }
+    permat <- getPermuteMatrix(permutations, N, strata = strata)
+    if (ncol(permat) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                      ncol(permat), N))
+    permutations <- nrow(permat)
+
     if (permutations) {
         N <- attr(xdis, "Size")
         perm <- rep(0, permutations)

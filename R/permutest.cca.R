@@ -111,23 +111,7 @@ permutest.default <- function(x, ...)
         if (isPartial)
             Zcol <- ncol(Z)
     }
-    ## permutations is either a single number, a how() structure or a
-    ## permutation matrix
-    if (length(permutations) == 1) {
-        nperm <- permutations
-        permutations <- how(nperm = nperm)
-    }
-    if (!is.null(strata)) {
-        if (!inherits(permutations, "how"))
-            stop("'strata' can be used only with simple permutation or with 'how()'")
-        if (!is.null(getBlocks(permutations)))
-            stop("'strata' cannot be applied when 'blocks' are defined in 'how()'")
-        setBlocks(permutations) <- strata
-    }
-    ## now permutations is either a how() structure or a permutation
-    ## matrix. Make it to a matrix if it is "how"
-    if (inherits(permutations, "how"))
-        permutations <- shuffleSet(N, control = permutations)
+    permutations <- getPermuteMatrix(permutations, N, strata = strata)
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)
     if (is.null(parallel))

@@ -1,6 +1,7 @@
 "permuted.index" <-
     function (n, strata) 
 {
+    .Deprecated("permute package (shuffle or shuffleSet)")
     if (missing(strata) || is.null(strata)) 
         out <- sample.int(n, n)
     else {

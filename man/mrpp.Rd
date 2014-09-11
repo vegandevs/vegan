@@ -13,7 +13,7 @@ and between block dissimilarities.}
 
 \usage{
 mrpp(dat, grouping, permutations = 999, distance = "euclidean",
-     weight.type = 1, strata, parallel = getOption("mc.cores"))
+     weight.type = 1, strata = NULL, parallel = getOption("mc.cores"))
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
 \method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
@@ -25,8 +25,10 @@ meandist(dist, grouping, ...)
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.} 
   \item{grouping}{ Factor or numeric index for grouping observations.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices. These are used to assess 
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices. These are used to assess
     the significance of the MRPP statistic, \eqn{delta}.} 
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations . See \code{\link{vegdist}} for

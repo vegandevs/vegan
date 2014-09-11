@@ -24,9 +24,10 @@ adonis(formula, data, permutations = 999, method = "bray",
   Value below).} 
   \item{data}{ the data frame from which \code{A}, \code{B}, and
     \code{C} would be drawn.} 
-  \item{permutations}{ number of replicate permutations or a
-    permutation matrix where each row gives the permuted indices used
-    for the hypothesis tests (\eqn{F} tests).}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{method}{ the name of any method used in \code{\link{vegdist}} to
     calculate pairwise distances if the left hand side of the
     \code{formula} was a data frame or a matrix. } 
