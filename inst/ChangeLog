@@ -11,6 +11,9 @@ Version 2.1-42 (opened September 4, 2014)
 	* NAMESPACE, DESCRIPTION: adapted to current R CMD check that has
 	more stringent tests on attaching and importing external packages
 	and using their functions.
+
+	* getPermuteMatrix: routines have a common API based on the new
+	function.
 	
 Version 2.1-41 (closed September 4, 2014)
 
