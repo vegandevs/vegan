@@ -3,7 +3,6 @@
 \alias{isomapdist}
 \alias{plot.isomap}
 \alias{summary.isomap}
-\alias{rgl.isomap}
 
 \title{ Isometric Feature Mapping Ordination }
 \description{
@@ -18,7 +17,6 @@ isomap(dist, ndim=10, ...)
 isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
 \method{summary}{isomap}(object, axes = 4, ...)
 \method{plot}{isomap}(x, net = TRUE, n.col = "gray", type = "points", ...)
-rgl.isomap(x, web = "white", ...)
 }
 
 \arguments{
@@ -44,7 +42,6 @@ rgl.isomap(x, web = "white", ...)
     and \code{\link{ordiplot}} if \code{net = FALSE}, and pass
     extra arguments to these functions.}
 
-  \item{web}{Colour of the web in \pkg{rgl} graphics.}
   \item{\dots}{Other parameters passed to functions. }
 }
 \details{
@@ -72,12 +69,10 @@ rgl.isomap(x, web = "white", ...)
   The \code{plot} function uses internally \code{\link{ordiplot}},
   except that it adds text over net using \code{\link{ordilabel}}. The
   \code{plot} function passes extra arguments to these functions.  In
-  addition, function \code{rgl.isomap} can make dynamic 3D plots that
-  can be rotated on the screen. The functions is based on
-  \code{\link{ordirgl}}, but it adds the connecting lines. The function
-  passes extra arguments to \code{\link{scores}} or
-  \code{\link{ordirgl}} functions so that you can select axes, or define
-  colours and sizes of points.  }
+  addition, \pkg{vegan3d} package has function
+  \code{\link[vegan3d]{rgl.isomap}} to make dynamic 3D plots that can
+  be rotated on the screen.
+}
 
 \value{
   Function \code{isomapdist} returns a dissimilarity object similar to
@@ -131,10 +126,6 @@ lines(tr, pl, col="red")
 pl <- plot(isomap(dis, epsilon=0.45), main="isomap epsilon=0.45")
 lines(tr, pl, col="red")
 par(op)
-## The following command requires user interaction
-\dontrun{
-rgl.isomap(ord, size=4, color="hotpink")
-}
 }
 \keyword{ multivariate}
 
