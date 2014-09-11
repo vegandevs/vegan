@@ -156,7 +156,7 @@
     df2 <- (n - max(pp,qq) - 1)
     Fval  <- (PillaiTrace*df2)/((s-PillaiTrace)*df1)
     p.Pillai <- pf(Fval, s*df1, s*df2, lower.tail=FALSE)
-    permat <- GetPermuteMatrix(permutations, n, ...)
+    permat <- getPermuteMatrix(permutations, n, ...)
     nperm <- nrow(permat)
     if (ncol(permat) != n)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",

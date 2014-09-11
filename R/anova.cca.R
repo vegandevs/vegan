@@ -7,7 +7,7 @@
     model <- match.arg(model)
     ## permutation matrix
     N <- nrow(object$CA$u)
-    permutations <- GetPermuteMatrix(permutations, N, strata = strata)
+    permutations <- getPermuteMatrix(permutations, N, strata = strata)
     seed <- attr(permutations, "seed")
     control <- attr(permutations, "control")
     nperm <- nrow(permutations)

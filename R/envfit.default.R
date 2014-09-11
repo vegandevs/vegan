@@ -18,7 +18,7 @@
     }
     ## make permutation matrix for all variables handled in the next loop
     nr <- nrow(X)
-    permat <-  GetPermuteMatrix(permutations, nr, strata = strata)
+    permat <-  getPermuteMatrix(permutations, nr, strata = strata)
     if (ncol(permat) != nr)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
                       ncol(permat), nr))

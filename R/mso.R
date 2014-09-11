@@ -58,7 +58,7 @@
                                 H), mean)
         object$vario <- cbind(object$vario, All = test$ca, CA = test$ca)
     }
-    permat <- GetPermuteMatrix(permutations, nrow(object$CA$Xbar))
+    permat <- getPermuteMatrix(permutations, nrow(object$CA$Xbar))
     nperm <- nrow(permat)
     if (nperm) {
         object$H.test <- matrix(0, length(object$H), nrow(object$vario))

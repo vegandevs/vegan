@@ -25,7 +25,7 @@
     ## Procrustes r directly.
     procr <- function(X, Y) sum(svd(crossprod(X, Y), nv=0, nu=0)$d)
 
-    permutations <- GetPermuteMatrix(permutations, N)
+    permutations <- getPermuteMatrix(permutations, N)
     if (ncol(permutations) != N)
         stop(gettextf("'permutations' have %d columns, but data have %d observations",
                       ncol(permutations), N))

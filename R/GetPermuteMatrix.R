@@ -6,7 +6,7 @@
 ### as is. In addition, there can be a 'strata' argument which will
 ### modify case (1). The number of shuffled items must be given in 'N'.
 
-`GetPermuteMatrix` <-
+`getPermuteMatrix` <-
     function(perm, N,  strata = NULL)
 {
     ## 'perm' is either a single number, a how() structure or a

@@ -27,7 +27,7 @@
     group <- x$group
     ## permutations is either a single number, a how() structure or a
     ## permutation matrix
-    permutations <- GetPermuteMatrix(permutations, nobs)
+    permutations <- getPermuteMatrix(permutations, nobs)
     nperm <- nrow(permutations)
 
     ## set-up objects to hold permuted results

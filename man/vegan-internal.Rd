@@ -3,7 +3,7 @@
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
-\alias{GetPermuteMatrix}
+\alias{getPermuteMatrix}
 \alias{howHead}
 \alias{centroids.cca}
 \alias{ordiTerminfo}
@@ -33,7 +33,7 @@ ordiArrowTextXY(vect, labels, ...)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)
 centroids.cca(x, mf, wt)
-GetPermuteMatrix(perm, N, strata = NULL)
+getPermuteMatrix(perm, N, strata = NULL)
 howHead(x, ...)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
@@ -81,7 +81,7 @@ hierParseFormula(formula, data)
 
   \code{centroids.cca} finds the weighted centroids of variables.
 
-  \code{GetPermuteMatrix} interprets user input and returns a
+  \code{getPermuteMatrix} interprets user input and returns a
   permutation matrix where each row gives indices of observations for
   a permutation. The input \code{perm} can be a single number for the
   number of simple permutations, a result of

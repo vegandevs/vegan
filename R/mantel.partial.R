@@ -24,7 +24,7 @@
                       variant)
     statistic <- part.cor(rxy, rxz, ryz)
     N <- attr(xdis, "Size")
-    permat <- GetPermuteMatrix(permutations, N, strata = strata)
+    permat <- getPermuteMatrix(permutations, N, strata = strata)
     if (ncol(permat) != N)
         stop(gettextf("'permutations' have %d columns, but data have %d observations",
                       ncol(permat), N))

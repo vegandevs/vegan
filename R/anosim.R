@@ -35,7 +35,7 @@
         tmp.ave <- tapply(x.rank, tmp.within, mean)
         -diff(tmp.ave)/div
     }
-    permat <- GetPermuteMatrix(permutations, N, strata = strata)
+    permat <- getPermuteMatrix(permutations, N, strata = strata)
     if (ncol(permat) != N)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
                       ncol(permat), N))

@@ -90,7 +90,7 @@
           ) }
 
     ## Permutations
-    p <- GetPermuteMatrix(permutations, n, strata = strata)
+    p <- getPermuteMatrix(permutations, n, strata = strata)
     permutations <- nrow(p)
     tH.s <- lapply(H.s, t)
     ## Apply permutations for each term

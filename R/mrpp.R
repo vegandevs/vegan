@@ -38,7 +38,7 @@
     ## significance test for it. Keep the item in reserve for
     ## possible later re-inclusion.
     CS <- NA
-    permutations <- GetPermuteMatrix(permutations, N, strata = strata)
+    permutations <- getPermuteMatrix(permutations, N, strata = strata)
     perms <- apply(permutations, 1, function(indx) grouping[indx])
     permutations <- ncol(perms)
     if (nrow(perms) != N)
