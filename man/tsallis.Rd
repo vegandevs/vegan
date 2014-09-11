@@ -112,7 +112,7 @@ Jari Oksanen written for \code{renyi}}
 \seealso{ Plotting methods and accumulation routines are based on
 functions \code{\link{renyi}} and \code{\link{renyiaccum}}. An object
 of class 'tsallisaccum' can be used with function
-\code{\link{rgl.renyiaccum}} as well. See also settings for
+\code{\link[vegan3d]{rgl.renyiaccum}} as well. See also settings for
 \code{\link{persp}}.  }
 
 \examples{
