@@ -10,7 +10,7 @@
   occurrence probabilities proportional to species frequencies.  }
 
 \usage{
-raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
+raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE, ...)
 }
 
 \arguments{
@@ -26,6 +26,8 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE)
   \item{chase}{Use the Chase et al. (2011) method of tie handling (not
      recommended except for comparing the results against the Chase
      script).}
+
+ \item{\dots}{Other parameters passed to \code{\link{oecosimu}}.}
 
 }
 
