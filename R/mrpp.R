@@ -39,35 +39,42 @@
     ## possible later re-inclusion.
     CS <- NA
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
-    perms <- apply(permutations, 1, function(indx) grouping[indx])
-    permutations <- ncol(perms)
-    if (nrow(perms) != N)
+    if (ncol(permutations) != N)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                      ncol(perms), N))
+                      ncol(permutations), N))
 
-    ## Parallel processing
-    if (is.null(parallel))
-        parallel <- 1
-    hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && require(parallel)) {
-        if(.Platform$OS.type == "unix" && !hasClus) {
-            m.ds <- unlist(mclapply(1:permutations, function(i, ...)
-                                    mrpp.perms(perms[,i], dmat, indls, w),
-                                    mc.cores = parallel))
+
+    if(nrow(permutations)) {
+        perms <- apply(permutations, 1, function(indx) grouping[indx])
+        permutations <- ncol(perms)
+
+        ## Parallel processing
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if ((hasClus || parallel > 1)  && require(parallel)) {
+            if(.Platform$OS.type == "unix" && !hasClus) {
+                m.ds <- unlist(mclapply(1:permutations, function(i, ...)
+                                        mrpp.perms(perms[,i], dmat, indls, w),
+                                        mc.cores = parallel))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                }
+                m.ds <- parCapply(parallel, perms, function(x)
+                                  mrpp.perms(x, dmat, indls, w))
+                if (!hasClus)
+                    stopCluster(parallel)
+            }
         } else {
-            if (!hasClus) {
-                parallel <- makeCluster(parallel)
-             }
-            m.ds <- parCapply(parallel, perms, function(x)
-                              mrpp.perms(x, dmat, indls, w))
-            if (!hasClus)
-                stopCluster(parallel)
+            m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
         }
-    } else {
-        m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
+        p <- (1 + sum(del >= m.ds))/(permutations + 1)
+        r2 <- 1 - del/E.del
+    } else { # no permutations
+        m.ds <- p <- r2 <- NA
+        permutations <- 0
     }
-    p <- (1 + sum(del >= m.ds))/(permutations + 1)
-    r2 <- 1 - del/E.del
     out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
         n = ncl, classdelta = classdel,
                 Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
