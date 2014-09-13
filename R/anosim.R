@@ -41,27 +41,31 @@
                       ncol(permat), N))
     permutations <- nrow(permat)
 
-    ## Parallel processing
-    if (is.null(parallel))
-        parallel <- 1
-    hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && require(parallel)) {
-        if(.Platform$OS.type == "unix" && !hasClus) {
-            perm <- unlist(mclapply(1:permutations, function(i, ...)
-                                    ptest(permat[i,]),
-                                    mc.cores = parallel))
-        } else {
-            if (!hasClus) {
-                parallel <- makeCluster(parallel)
+    if (permutations) {
+        ## Parallel processing
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if ((hasClus || parallel > 1)  && require(parallel)) {
+            if(.Platform$OS.type == "unix" && !hasClus) {
+                perm <- unlist(mclapply(1:permutations, function(i, ...)
+                                        ptest(permat[i,]),
+                                        mc.cores = parallel))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                }
+                perm <- parRapply(parallel, permat, ptest)
+                if (!hasClus)
+                    stopCluster(parallel)
             }
-            perm <- parRapply(parallel, permat, ptest)
-            if (!hasClus)
-                stopCluster(parallel)
+        } else {
+            perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
         }
-    } else {
-        perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
+        p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
+    } else { # no permutations
+        p.val <- perm <- NA
     }
-    p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
     sol$signif <- p.val
     sol$perm <- perm
     sol$permutations <- permutations
