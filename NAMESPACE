@@ -74,7 +74,7 @@ importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm)
 import(rgl)
 importFrom(cluster, daisy)
 ## 's' must be imported in mgcv < 1.8-0 (not needed later)
-importFrom(mgcv, gam, s)
+importFrom(mgcv, gam, s, te)
 ## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)
