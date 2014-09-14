@@ -5,9 +5,7 @@
     printCoefmat(out, na.print = "",
                  zap.ind = seq_len(ncol(out)-2), ...)
     if (x$permutations) {
-        cat("P values based on", x$permutations, "permutations")
-        if (!is.null(x$strata)) 
-            cat(", stratified within", x$strata)
+        cat(howHead(x$control))
         cat(".\n")
     }
     invisible(x)

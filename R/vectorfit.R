@@ -54,10 +54,7 @@
     else pvals <- NULL
     sol <- list(arrows = heads, r = r, permutations = permutations, 
                 pvals = pvals)
-    if (!missing(strata)) {
-        sol$strata <- deparse(substitute(strata))
-        sol$stratum.values <- strata
-    }
+    sol$control <- attr(permat, "control")
     class(sol) <- "vectorfit"
     sol
 }
