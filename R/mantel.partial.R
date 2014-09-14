@@ -69,7 +69,8 @@
         perm <- NULL
     }
     res <- list(call = match.call(), method = variant, statistic = statistic, 
-                signif = signif, perm = perm, permutations = permutations)
+                signif = signif, perm = perm, permutations = permutations,
+                control = attr(permat, "control"))
     if (!missing(strata)) {
         res$strata <- deparse(substitute(strata))
         res$stratum.values <- strata

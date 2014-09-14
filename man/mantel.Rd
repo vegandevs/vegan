@@ -73,6 +73,8 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
     permuted values can be inspected with \code{\link{density.mantel}} 
     function.}
   \item{permutations}{Number of permutations.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{ The test is due to Mantel, of course, but the
   current implementation is based on Legendre and Legendre.
