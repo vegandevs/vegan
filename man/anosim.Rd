@@ -85,6 +85,8 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
   \item{dis.rank}{Rank of dissimilarity entry.}
   \item{dissimilarity}{The name of the dissimilarity index: the
     \code{"method"} entry of the \code{dist} object.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{
   Clarke, K. R. (1993). Non-parametric multivariate analysis of changes
