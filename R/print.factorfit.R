@@ -8,7 +8,6 @@
     if (x$permutations) {
         printCoefmat(out, has.Pvalue = TRUE, ...)
         cat(howHead(x$control))
-        cat(".\n")
     }
     else  printCoefmat(out, na.print = "", ...)
     invisible(x)

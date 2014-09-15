@@ -6,7 +6,6 @@
                  zap.ind = seq_len(ncol(out)-2), ...)
     if (x$permutations) {
         cat(howHead(x$control))
-        cat(".\n")
     }
     invisible(x)
 }
