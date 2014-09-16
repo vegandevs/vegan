@@ -28,9 +28,7 @@ function (x, digits = max(3, getOption("digits") - 3), ...)
         cat("Significance of delta:", format.pval(x$Pvalue), 
             "\n")
     }
-    cat("Based on ", nperm, " permutations")
-    if (!is.null(x$strata)) 
-        cat(", stratified within", x$strata)
-    cat("\n\n")
+    cat(howHead(x$control))
+    cat("\n")
     invisible(x)
 }

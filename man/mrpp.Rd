@@ -148,6 +148,8 @@ The function returns a list of class mrpp with following items:
     calculated from each of the permuted datasets. The distribution of
     this item can be inspected with \code{\link{density.mrpp}} function.}
   \item{permutations}{The number of permutations used.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{
   B. McCune and J. B. Grace. 2002. \emph{Analysis of Ecological

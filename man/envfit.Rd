@@ -162,6 +162,8 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   \item{centroids}{Class centroids from \code{factorfit}.}
   \item{r}{Goodness of fit statistic: Squared correlation coefficient}
   \item{permutations}{Number of permutations.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
   \item{pvals}{Empirical P-values for each variable.}
 
   Function \code{envfit} returns a list of class \code{envfit} with

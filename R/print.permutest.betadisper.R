@@ -5,7 +5,7 @@
     cat("\n")
     writeLines(strwrap("Permutation test for homogeneity of multivariate dispersions\n"))
     ##cat("\n")
-    print(x$control)
+    cat(howHead(x$control))
     nc <- dim(x$tab)[2]
     cn <- colnames(x$tab)
     has.P <- substr(cn[nc], 1, 3) == "Pr("

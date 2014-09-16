@@ -165,6 +165,8 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
     function.}
   \item{signif}{`Significance' of \code{t}}
   \item{permutations}{Number of permutations.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
   \item{control}{the list passed to argument \code{control} describing
     the permutation design.}
 }

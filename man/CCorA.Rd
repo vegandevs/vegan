@@ -105,6 +105,8 @@ to \code{\link{biplot.default}}; consult its help page for configuring biplots.
   \item{ corr.X.Cx }{ Scores of X variables in X biplot, computed as cor(X,Cx). }
   \item{ corr.Y.Cx }{ cor(Y,Cy) available for plotting variables Y in space of X manually. }
   \item{ corr.X.Cy }{ cor(X,Cx) available for plotting variables X in space of Y manually. }
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
   \item{ call }{ Call to the CCorA function. }
 }
 

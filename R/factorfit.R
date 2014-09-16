@@ -62,10 +62,7 @@
         names(pval) <- names(P)
     out <- list(centroids = sol, r = r, permutations = permutations, 
                 pvals = pval, var.id = var.id)
-    if (!missing(strata)) {
-        out$strata <- deparse(substitute(strata))
-        out$stratum.values <- strata
-    }
+    out$control <- attr(permat, "control")
     class(out) <- "factorfit"
     out
 }
