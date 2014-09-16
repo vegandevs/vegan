@@ -246,7 +246,7 @@ Function \code{envfit} can be called with a \code{formula}
 interface, and it optionally can assess the ``significance'' of the
 variables using permutation tests:
 <<>>=
-ord.fit <- envfit(ord ~ A1 + Management, data=dune.env, perm=1000)
+ord.fit <- envfit(ord ~ A1 + Management, data=dune.env, perm=999)
 ord.fit
 @
 The result can be drawn directly or added to an ordination diagram
@@ -345,11 +345,6 @@ Moreover, it is possible to analyse significance of each axis:
 <<a>>=
 anova(ord, by="axis", permutations=499)
 @
-Now the automatic selection works, but typically some of your axes
-will be very close to the critical value, and it may be useful to set
-a lower \code{perm.max} than the default $10000$ (typically you use
-higher limits than in these examples: we used lower limits to save
-time when this document is automatically generated with this package).
 
 \subsection{Conditioned or partial ordination}
 
