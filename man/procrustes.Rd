@@ -28,8 +28,7 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{residuals}{procrustes}(object, ...)
 \method{fitted}{procrustes}(object, truemean = TRUE, ...)
 \method{predict}{procrustes}(object, newdata, truemean = TRUE, ...)
-protest(X, Y, scores = "sites", control = how(nperm = 999),
-        permutations = NULL, ...)
+protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
 }
 
 \arguments{
@@ -65,10 +64,10 @@ protest(X, Y, scores = "sites", control = how(nperm = 999),
     \code{truemean = FALSE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
-  \item{control}{a list defining the permutation design, from a call to
-    \code{\link{how}}.}
-  \item{permutations}{A permutation matrix where each row gives the
-    permuted indices. If this is supplied, \code{control} is ignored.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{ar.col}{Arrow colour.}
   \item{len}{Width of the arrow head.}
   \item{labels}{Character vector of text labels. Rownames of the result 
@@ -162,7 +161,7 @@ protest(X, Y, scores = "sites", control = how(nperm = 999),
   \item{t0}{This and the following items are only in class
     \code{protest}:  Procrustes correlation from non-permuted solution.}
   \item{t}{Procrustes correlations from permutations. The distribution
-    of these correlations can be inspected with \code{\link{density.protest}} 
+    of these correlations can be inspected with \code{\link{density.protest}}
     function.}
   \item{signif}{`Significance' of \code{t}}
   \item{permutations}{Number of permutations.}

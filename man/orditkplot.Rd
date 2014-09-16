@@ -144,7 +144,7 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
 \seealso{ Function \code{\link{ordipointlabel}} is an automatic
   procedure with similar goals of avoiding overplotting. 	   
   See \code{\link{ordiplot}}, \code{\link{plot.cca}},
-  \code{\link{ordirgl}} and \code{\link{orditorp}} for alternative
+  \code{\link[vegan3d]{ordirgl}} and \code{\link{orditorp}} for alternative
   ordination plots, and \code{\link{scores}} for extracting ordination
   scores.  }
 \examples{

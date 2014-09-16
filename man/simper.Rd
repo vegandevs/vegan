@@ -20,11 +20,10 @@ simper(comm, group, permutations = 0, trace = FALSE,
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure. Must have at
     least 2 levels.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives a permuted index for assessing the
-    \dQuote{significance} of the average contribution. Default is set
-    to 0 (no permutation test), since computations may take long
-    time.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{trace}{Trace permutations.}
   \item{object}{an object returned by \code{simper}.}
   \item{ordered}{Logical; Should the species be ordered by their

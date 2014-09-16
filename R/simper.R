@@ -26,11 +26,7 @@
     P <- ncol(comm)
     nobs <- nrow(comm)
     ## Make permutation matrix
-    if (length(permutations) == 1) {
-        perm <- shuffleSet(nobs, permutations, ...)
-    } else {  # permutations is a matrix
-        perm <- permutations
-    }
+    perm <- getPermuteMatrix(permutations, nobs, ...)
     ## check dims (especially if permutations was a matrix)
     if (ncol(perm) != nobs)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",

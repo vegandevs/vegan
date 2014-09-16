@@ -16,10 +16,10 @@ metaMDSdist, metaMDSiter, metaMDSredist, MDSrotate, metaMDS, monoMDS,
 mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac, nestedbetasor, nestedchecker,
 nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel, oecosimu,
 ordiR2step, ordiarrows, ordicloud, ordicluster, ordiellipse, ordigrid,
-ordihull, ordilabel, ordiplot3d, ordiplot, ordipointlabel, ordiresids,
-ordirgl, ordisegments, ordispider, ordisplom, ordistep, ordisurf,
-orditkplot, orditorp, ordixyplot, orglpoints, orglsegments,
-orglspider, orgltext, pcnm, permatfull, permatswap, permutest,
+ordihull, ordilabel, ordiplot, ordipointlabel, ordiresids,
+ordisegments, ordispider, ordisplom, ordistep, ordisurf,
+orditkplot, orditorp, ordixyplot, 
+pcnm, permatfull, permatswap, permutest,
 poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
 protest, radfit, radlattice, rankindex, rarefy, rarecurve, raupcrick,
 rda, renyiaccum, renyi, rrarefy, scores, scoverage,
@@ -45,8 +45,8 @@ export(metaMDSrotate)
 export(as.fisher, as.mlm, as.preston, as.rad, fieller.MOStest,
 fisher.alpha, kendall.global, kendall.post, make.cepnames,
 mantel.correlog, mantel.partial, no.shared, rad.lognormal, rad.null,
-rad.preempt, rad.zipf, rad.zipfbrot, read.cep, rgl.isomap,
-rgl.renyiaccum, vif.cca)
+rad.preempt, rad.zipf, rad.zipfbrot, read.cep,
+vif.cca)
 
 ## Export panel functions
 export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
@@ -71,9 +71,9 @@ import(lattice)
 import(parallel)
 import(tcltk)
 importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm)
-import(rgl)
 importFrom(cluster, daisy)
-importFrom(mgcv, gam)
+## 's' must be imported in mgcv < 1.8-0 (not needed later)
+importFrom(mgcv, gam, s, te)
 ## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)

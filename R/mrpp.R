@@ -1,6 +1,7 @@
-"mrpp" <-
-function (dat, grouping, permutations = 999, distance = "euclidean", 
-    weight.type = 1, strata, parallel = getOption("mc.cores")) 
+`mrpp` <-
+    function (dat, grouping, permutations = 999, distance = "euclidean", 
+              weight.type = 1, strata = NULL,
+              parallel = getOption("mc.cores")) 
 {
     classmean <- function(ind, dmat, indls) {
         sapply(indls, function(x)
@@ -37,41 +38,43 @@ function (dat, grouping, permutations = 999, distance = "euclidean",
     ## significance test for it. Keep the item in reserve for
     ## possible later re-inclusion.
     CS <- NA
-    if (length(permutations) == 1) {
-        if (missing(strata)) 
-            strata <- NULL
-        perms <- sapply(1:permutations,
-                        function(x) grouping[permuted.index(N, strata = strata)])
-    } else {
+    permutations <- getPermuteMatrix(permutations, N, strata = strata)
+    if (ncol(permutations) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                      ncol(permutations), N))
+
+
+    if(nrow(permutations)) {
         perms <- apply(permutations, 1, function(indx) grouping[indx])
         permutations <- ncol(perms)
-        if (nrow(perms) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(perms), N))
-    }
-    ## Parallel processing
-    if (is.null(parallel))
-        parallel <- 1
-    hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && require(parallel)) {
-        if(.Platform$OS.type == "unix" && !hasClus) {
-            m.ds <- unlist(mclapply(1:permutations, function(i, ...)
-                                    mrpp.perms(perms[,i], dmat, indls, w),
-                                    mc.cores = parallel))
+
+        ## Parallel processing
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if ((hasClus || parallel > 1)  && require(parallel)) {
+            if(.Platform$OS.type == "unix" && !hasClus) {
+                m.ds <- unlist(mclapply(1:permutations, function(i, ...)
+                                        mrpp.perms(perms[,i], dmat, indls, w),
+                                        mc.cores = parallel))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                }
+                m.ds <- parCapply(parallel, perms, function(x)
+                                  mrpp.perms(x, dmat, indls, w))
+                if (!hasClus)
+                    stopCluster(parallel)
+            }
         } else {
-            if (!hasClus) {
-                parallel <- makeCluster(parallel)
-             }
-            m.ds <- parCapply(parallel, perms, function(x)
-                              mrpp.perms(x, dmat, indls, w))
-            if (!hasClus)
-                stopCluster(parallel)
+            m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
         }
-    } else {
-        m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
+        p <- (1 + sum(del >= m.ds))/(permutations + 1)
+        r2 <- 1 - del/E.del
+    } else { # no permutations
+        m.ds <- p <- r2 <- NA
+        permutations <- 0
     }
-    p <- (1 + sum(del >= m.ds))/(permutations + 1)
-    r2 <- 1 - del/E.del
     out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
         n = ncl, classdelta = classdel,
                 Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 

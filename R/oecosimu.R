@@ -93,7 +93,9 @@
     if ((hasClus || parallel > 1)  && require(parallel)) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             for (i in seq_len(nbatch)) {
-                x <- simulate(nm, nsim = batches[i], thin = thin)
+                ## simulate if no simmat_in
+                if(!simmat_in)
+                    x <- simulate(nm, nsim = batches[i], thin = thin)
                 tmp <- mclapply(seq_len(batches[i]),
                                 function(j)
                                 applynestfun(x[,,j], fun=nestfun,
@@ -109,7 +111,8 @@
                 clusterEvalQ(parallel, library(vegan))
             }
             for(i in seq_len(nbatch)) {
-                x <- simulate(nm, nsim = batches[i], thin = thin)
+                if (!simmat_in)
+                    x <- simulate(nm, nsim = batches[i], thin = thin)
                 simind <- cbind(simind,
                                 parApply(parallel, x, 3, function(z)
                                          applynestfun(z, fun = nestfun,
@@ -120,7 +123,9 @@
         }
     } else {
         for(i in seq_len(nbatch)) {
-            x <- simulate(nm, nsim = batches[i], thin = thin)
+            ## do not simulate if x was already a simulation
+            if(!simmat_in)
+                x <- simulate(nm, nsim = batches[i], thin = thin)
             simind <- cbind(simind, apply(x, 3, applynestfun, fun = nestfun,
                                           statistic = statistic, ...))
         }

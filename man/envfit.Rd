@@ -16,14 +16,14 @@
   the factors show the averages of factor levels.
 }
 \usage{
-\method{envfit}{default}(ord, env, permutations = 999, strata, choices=c(1,2), 
-   display = "sites", w  = weights(ord), na.rm = FALSE, ...)
+\method{envfit}{default}(ord, env, permutations = 999, strata = NULL, 
+   choices=c(1,2),  display = "sites", w  = weights(ord), na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
    axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, ...)
-vectorfit(X, P, permutations = 0, strata, w, ...)
-factorfit(X, P, permutations = 0, strata, w, ...)
+vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
+factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 }
 
 \arguments{
@@ -37,9 +37,11 @@ factorfit(X, P, permutations = 0, strata, w, ...)
   \item{P}{Data frame, matrix or vector of environmental
     variable(s). These must be continuous for \code{vectorfit} and
     factors or characters for \code{factorfit}. }
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices. Set \code{permutations = 0}
-    to skip the permutations.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices. Set \code{permutations = 0} to skip
+    permutations.}
   \item{formula, data}{Model  \code{\link{formula}} and data.  }
   \item{na.rm}{Remove points with missing values in ordination scores
     or environmental variables. The operation is casewise: the whole

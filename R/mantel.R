@@ -1,6 +1,6 @@
 `mantel` <-
   function (xdis, ydis, method = "pearson", permutations = 999, 
-            strata, na.rm = FALSE, parallel = getOption("mc.cores")) 
+            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores")) 
 {
     xdis <- as.dist(xdis)
     ydis <- as.vector(as.dist(ydis))
@@ -17,19 +17,12 @@
                       spearman = "Spearman's rank correlation rho",
                       variant)
     N <- attr(xdis, "Size")
-    if (length(permutations) == 1) {
-        if (permutations > 0) {
-            arg <- if (missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
-                                  permuted.index(N, strata = arg)))
-        }
-    } else {
-        permat <- as.matrix(permutations)
-        if (ncol(permat) != N)
-            stop(gettextf("'permutations' have %d columns, but data have %d observations",
-                          ncol(permat), N))
-        permutations <- nrow(permutations)
-    }
+    permat <- getPermuteMatrix(permutations, N, strata = strata)
+    if (ncol(permat) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d observations",
+                      ncol(permat), N))
+    permutations <- nrow(permat)
+
     if (permutations) {
         perm <- numeric(permutations)
         ## asdist as an index selects lower diagonal like as.dist,

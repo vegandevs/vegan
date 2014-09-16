@@ -10,7 +10,7 @@
   of sampling units.
 }
 \usage{
-anosim(dat, grouping, permutations = 999, distance = "bray", strata,
+anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
     parallel = getOption("mc.cores"))
 }
 
@@ -19,8 +19,10 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.}
   \item{grouping}{Factor for grouping observations.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations. See \code{\link{vegdist}} for
     options.  This will be used if \code{dat} was not a dissimilarity

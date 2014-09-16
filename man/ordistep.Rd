@@ -51,9 +51,11 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   lower adjusted \eqn{R^2}{R2} than scope are accepted.
   }
 
-  \item{permutations}{ Number or permutations, a permutation matrix or
-  a \code{\link[permute]{how}} object to define the permutations. This
-  is passed to \code{\link{anova.cca}}: see there for details.  }
+  \item{permutations}{a list of control values for the permutations as
+    returned by the function \code{\link[permute]{how}}, or the number
+    of permutations required, or a permutation matrix where each row
+    gives the permuted indices. This is passed to
+    \code{\link{anova.cca}}: see there for details.  }
 
   \item{steps}{
   Maximum number of iteration steps of dropping and adding terms.

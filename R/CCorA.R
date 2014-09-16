@@ -1,5 +1,5 @@
 `CCorA` <-
-    function(Y, X, stand.Y = FALSE, stand.X = FALSE, nperm = 0, ...)
+    function(Y, X, stand.Y = FALSE, stand.X = FALSE, permutations = 0, ...)
 {
     epsilon <- sqrt(.Machine$double.eps)
     ##
@@ -156,16 +156,12 @@
     df2 <- (n - max(pp,qq) - 1)
     Fval  <- (PillaiTrace*df2)/((s-PillaiTrace)*df1)
     p.Pillai <- pf(Fval, s*df1, s*df2, lower.tail=FALSE)
-    if (length(nperm) == 1) {
-        if (nperm > 0)
-            permat <- t(replicate(nperm, permuted.index(n, ...)))
-    } else  {
-        permat <- as.matrix(nperm)
-        if (ncol(permat) != n)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(permat), n))
-        nperm <- nrow(permat)
-    }
+    permat <- getPermuteMatrix(permutations, n, ...)
+    nperm <- nrow(permat)
+    if (ncol(permat) != n)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                      ncol(permat), n))
+
     if (nperm > 0) {
         p.perm <- sapply(1:nperm, function(indx, ...) 
                          probPillai(Y[permat[indx,],] , X, n, S11.inv, S22.inv, s,

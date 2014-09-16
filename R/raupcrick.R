@@ -1,5 +1,5 @@
 `raupcrick` <-
-    function(comm, null = "r1", nsimul = 999, chase = FALSE)
+    function(comm, null = "r1", nsimul = 999, chase = FALSE, ...)
 {
     comm <- as.matrix(comm)
     comm <- ifelse(comm > 0, 1, 0)
@@ -12,7 +12,8 @@
     ## but is much slower
     sol <- oecosimu(comm, function(x) tcrossprod(x)[tri], method = null,
                     nsimul = nsimul,
-                    alternative = if (chase) "less" else "greater")
+                    alternative = if (chase) "less" else "greater",
+                    ...)
     ## Chase et al. way, or the standard way
     if (chase)
         out <- 1 - sol$oecosimu$pval

@@ -27,23 +27,7 @@
     group <- x$group
     ## permutations is either a single number, a how() structure or a
     ## permutation matrix
-    if (length(permutations) == 1) {
-        nperm <- permutations
-        permutations <- how(nperm = nperm)
-    }
-
-    ## permutations is either a single number, a how() structure or a
-    ## permutation matrix
-    if (length(permutations) == 1) {
-        nperm <- permutations
-        permutations <- how(nperm = nperm)
-    }
-    ## now permutations is either a how() structure or a permutation
-    ## matrix. Make it to a matrix if it is "how"
-    if (inherits(permutations, "how"))
-        permutations <- shuffleSet(nobs, control = permutations)
-    ## number of permutations being performed, possibly adjusted after
-    ## checking in shuffleSet
+    permutations <- getPermuteMatrix(permutations, nobs)
     nperm <- nrow(permutations)
 
     ## set-up objects to hold permuted results

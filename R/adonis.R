@@ -90,58 +90,52 @@
           ) }
 
     ## Permutations
-    if (length(permutations) == 1) {
-        if (missing(strata))
-            strata <- NULL
-        p <- replicate(permutations,
-                       permuted.index(n, strata=strata))
-    } else {
-        p <- t(as.matrix(permutations))
-        if (nrow(p) != n)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(p), n))
-        permutations <- ncol(p)
-    }
-
-    tH.s <- lapply(H.s, t)
-    ## Apply permutations for each term
-    ## This is the new f.test (2011-06-15) that uses fewer arguments
-    ## Set first parallel processing for all terms
-    if (is.null(parallel))
-        parallel <- 1
-    hasClus <- inherits(parallel, "cluster")
-    isParal <- (hasClus || parallel > 1) && require(parallel)
-    isMulticore <- .Platform$OS.type == "unix" && !hasClus
-    if (isParal && !isMulticore && !hasClus) {
-        parallel <- makeCluster(parallel)
-    }
-    if (isParal) {
-        if (isMulticore) {
-            f.perms <-
-                sapply(1:nterms, function(i)
-                       unlist(mclapply(1:permutations, function(j)
-                                       f.test(tH.s[[i]], G[p[,j], p[,j]],
-                                              df.Exp[i], df.Res, tIH.snterm),
-                                       mc.cores = parallel)))
+    p <- getPermuteMatrix(permutations, n, strata = strata)
+    permutations <- nrow(p)
+    if (permutations) {
+        tH.s <- lapply(H.s, t)
+        ## Apply permutations for each term
+        ## This is the new f.test (2011-06-15) that uses fewer arguments
+        ## Set first parallel processing for all terms
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        isParal <- (hasClus || parallel > 1) && require(parallel)
+        isMulticore <- .Platform$OS.type == "unix" && !hasClus
+        if (isParal && !isMulticore && !hasClus) {
+            parallel <- makeCluster(parallel)
+        }
+        if (isParal) {
+            if (isMulticore) {
+                f.perms <-
+                    sapply(1:nterms, function(i)
+                           unlist(mclapply(1:permutations, function(j)
+                                           f.test(tH.s[[i]], G[p[j,], p[j,]],
+                                                  df.Exp[i], df.Res, tIH.snterm),
+                                           mc.cores = parallel)))
+            } else {
+                f.perms <-
+                    sapply(1:nterms, function(i)
+                           parSapply(parallel, 1:permutations, function(j)
+                                     f.test(tH.s[[i]], G[p[j,], p[j,]],
+                                            df.Exp[i], df.Res, tIH.snterm)))
+            }
         } else {
             f.perms <-
-                sapply(1:nterms, function(i)
-                       parSapply(parallel, 1:permutations, function(j)
-                                 f.test(tH.s[[i]], G[p[,j], p[,j]],
-                                        df.Exp[i], df.Res, tIH.snterm)))
+                sapply(1:nterms, function(i) 
+                       sapply(1:permutations, function(j) 
+                              f.test(tH.s[[i]], G[p[j,], p[j,]],
+                                     df.Exp[i], df.Res, tIH.snterm)))
         }
-    } else {
-        f.perms <-
-            sapply(1:nterms, function(i) 
-                   sapply(1:permutations, function(j) 
-                          f.test(tH.s[[i]], G[p[,j], p[,j]],
-                                 df.Exp[i], df.Res, tIH.snterm)))
+        ## Close socket cluster if created here
+        if (isParal && !isMulticore && !hasClus)
+            stopCluster(parallel)
+        ## Round to avoid arbitrary P-values with tied data
+        f.perms <- round(f.perms, 12)
+        P <- (rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1)
+    } else { # no permutations
+        f.perms <- P <- rep(NA, nterms)
     }
-    ## Close socket cluster if created here
-    if (isParal && !isMulticore && !hasClus)
-        stopCluster(parallel)
-    ## Round to avoid arbitrary P-values with tied data
-    f.perms <- round(f.perms, 12)
     F.Mod <- round(F.Mod, 12)
     SumsOfSqs = c(SS.Exp.each, SS.Res, sum(SS.Exp.each) + SS.Res)
     tab <- data.frame(Df = c(df.Exp, df.Res, n-1),
@@ -149,8 +143,7 @@
                       MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA),
                       F.Model = c(F.Mod, NA,NA),
                       R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)],
-                      P = c((rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1),
-                      NA, NA))
+                      P = c(P, NA, NA))
     rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
                        "Residuals", "Total")
     colnames(tab)[ncol(tab)] <- "Pr(>F)"

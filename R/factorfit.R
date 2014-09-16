@@ -1,5 +1,5 @@
 `factorfit` <-
-    function (X, P, permutations = 0, strata, w,  ...) 
+    function (X, P, permutations = 0, strata = NULL, w,  ...) 
 {
     P <- as.data.frame(P)
     ## Check that all variables are factors, and coerce if necessary
@@ -24,16 +24,9 @@
     sol <- centroids.cca(X, P, w)
     var.id <- rep(names(P), sapply(P, nlevels))
     ## make permutation matrix for all variables handled in the next loop
-    if (length(permutations) == 1) {
-        if (permutations > 0) {
-            arg <- if (missing(strata)) NULL else strata
-            permat <- t(replicate(permutations,
-                                  permuted.index(NR, strata=arg)))
-        }
-    } else {
-        permat <- as.matrix(permutations)
-        permutations <- nrow(permutations)
-    }
+    permat <- getPermuteMatrix(permutations, NR, strata = strata)
+    permutations <- nrow(permat)
+
     for (i in 1:length(P)) {
         A <- as.integer(P[[i]])
         NL <- nlevels(P[[i]])
