@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2013
+@set FAQ_YEAR 2014
 @afourpaper
 @c %**end of header
 
@@ -62,30 +62,30 @@ Copyright @copyright{} 2008-2013 Jari Oksanen
 
 
 @menu
-* Introduction::                
-* Ordination::                  
-* Other analysis methods ::     
+* Introduction::
+* Ordination::
+* Other analysis methods ::
 @end menu
 
 @node Introduction, Ordination, Top, Top
 @chapter Introduction
 
 @menu
-* What is @pkg{vegan}?::        
-* What is R?::                  
-* How to obtain @pkg{vegan} and R?::  
-* What R packages @pkg{vegan} depends on?::  
-* What other packages are available for ecologists?::  
-* What other documentation is available for @pkg{vegan}?::  
-* Is there a Graphical User Interface (GUI) for @pkg{vegan}?::  
-* How to cite @pkg{vegan}?::    
-* How to build @pkg{vegan} from sources?::  
-* Are there binaries for devel versions?::  
-* Can I use @pkg{vegan} in Mac?::  
-* How to report a bug in @pkg{vegan}?::  
-* Is it a bug or a feature?::   
-* Can I contribute to @pkg{vegan}?::  
-* Can I have write access to @pkg{vegan} repository?::  
+* What is @pkg{vegan}?::
+* What is R?::
+* How to obtain @pkg{vegan} and R?::
+* What R packages @pkg{vegan} depends on?::
+* What other packages are available for ecologists?::
+* What other documentation is available for @pkg{vegan}?::
+* Is there a Graphical User Interface (GUI) for @pkg{vegan}?::
+* How to cite @pkg{vegan}?::
+* How to build @pkg{vegan} from sources?::
+* Are there binaries for devel versions?::
+* Can I use @pkg{vegan} in Mac?::
+* How to report a bug in @pkg{vegan}?::
+* Is it a bug or a feature?::
+* Can I contribute to @pkg{vegan}?::
+* Can I have write access to @pkg{vegan} repository?::
 @end menu
 
 @node What is @pkg{vegan}?, What is R?, Introduction, Introduction
@@ -324,30 +324,30 @@ request to us for incorporating your changes in @pkg{vegan} releases.
 @chapter Ordination
 
 @menu
-* I have only numeric and positive data but @pkg{vegan} still complains::  
-* Can I analyse binary or cover class data?::  
-* Why dissimilarities in @pkg{vegan} differ from other sources?::  
-* Why NMDS stress is sometimes 0.1 and sometimes 10?::  
-* I get zero stress but no convergent solutions in @code{metaMDS}::  
-* Zero dissimilarities in isoMDS::  
-* I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::  
-* Where can I find numerical scores of ordination axes?::  
-* How the RDA results are scaled?::  
-* cca fails with ``data.frame expected'' or ``"site.env" missing''::  
-* Ordination fails with ``Error in La.svd''::  
-* Variance explained by ordination axes::  
-* Can I have random effects in constrained ordination or in @code{adonis}?::  
-* Is it possible to have passive points in ordination?::  
-* Class variables and dummies::  
-* How are environmental arrows scaled?::  
-* I want to use Helmert or sum contrasts::  
-* What are aliased variables and how to see them?::  
-* Plotting aliased variables::  
-* Constrained permutations in @pkg{vegan}::  
-* How to use different plotting symbols in ordination graphics?::  
-* How to avoid cluttered ordination graphs?::  
-* Can I flip an axis in ordination diagram?::  
-* Can I zoom into an ordination plot?::  
+* I have only numeric and positive data but @pkg{vegan} still complains::
+* Can I analyse binary or cover class data?::
+* Why dissimilarities in @pkg{vegan} differ from other sources?::
+* Why NMDS stress is sometimes 0.1 and sometimes 10?::
+* I get zero stress but no convergent solutions in @code{metaMDS}::
+* Zero dissimilarities in isoMDS::
+* I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::
+* Where can I find numerical scores of ordination axes?::
+* How the RDA results are scaled?::
+* cca fails with ``data.frame expected'' or ``"site.env" missing''::
+* Ordination fails with ``Error in La.svd''::
+* Variance explained by ordination axes::
+* Can I have random effects in constrained ordination or in @code{adonis}?::
+* Is it possible to have passive points in ordination?::
+* Class variables and dummies::
+* How are environmental arrows scaled?::
+* I want to use Helmert or sum contrasts::
+* What are aliased variables and how to see them?::
+* Plotting aliased variables::
+* Restricted permutations in @pkg{vegan}::
+* How to use different plotting symbols in ordination graphics?::
+* How to avoid cluttered ordination graphs?::
+* Can I flip an axis in ordination diagram?::
+* Can I zoom into an ordination plot?::
 @end menu
 
 @node  I have only numeric and positive data but @pkg{vegan} still complains, Can I analyse binary or cover class data?, Ordination, Ordination
@@ -596,11 +596,10 @@ In this way, the first terms can serve in a similar role as
 random effects, although they are fitted in the same way as all other
 terms, and strictly speaking they are fixed terms.
 
-The permutation tests can usually have a @code{strata} argument which
-restricts the permutations within levels of a factor given in the
-argument. This can be used to restrict the permutations within levels of
-factor regarded as a random term.  More structured permutations are
-available with the @pkg{permute} package.
+All permutation tests in @pkg{vegan} are based on the @pkg{permute}
+package that allows constructing various restricted permutation
+schemes. For instance, you can set levels of @code{plots} or
+@code{blocks} for a factor regarded as a random term.
 
 A major reason why real random effects models are impossible in most
 @pkg{vegan} functions is that their tests are based on the permutation
@@ -701,7 +700,7 @@ redundant levels of factors or whole variables.
 variables.  If you only want to see the names of aliased variables or
 levels in solution @code{sol}, use @code{alias(sol, names.only=TRUE)}.
 
-@node Plotting aliased variables, Constrained permutations in @pkg{vegan}, What are aliased variables and how to see them?, Ordination
+@node Plotting aliased variables, Restricted permutations in @pkg{vegan}, What are aliased variables and how to see them?, Ordination
 @section Plotting aliased variables
 
 You can fit vectors or class centroids for aliased variables using
@@ -709,22 +708,17 @@ You can fit vectors or class centroids for aliased variables using
 fitting, and the fitted vectors are identical to the vectors in
 correspondence analysis.
 
-@node Constrained permutations in @pkg{vegan}, How to use different plotting symbols in ordination graphics?, Plotting aliased variables, Ordination
-@section Constrained permutations in @pkg{vegan}
+@node Restricted permutations in @pkg{vegan}, How to use different plotting symbols in ordination graphics?, Plotting aliased variables, Ordination
+@section Restricted permutations in @pkg{vegan}
 
-You can constrain your permutations within @code{strata} or levels of
-factors. You can use stratified permutations in all @pkg{vegan}
-functions that use permutation, such as @code{adonis}, @code{anosim},
-@code{anova.cca}, @code{mantel}, @code{mrpp}, @code{envfit} and
-@code{protest}.
+@pkg{Vegan} uses @pkg{permute} package in all its permutation tests.
+The @pkg{permute} package will allow restricted permutation designs for
+time series, line transects, spatial grids and blocking factors. The
+construction of restricted permutation schemes is explained in the
+manual page @code{permutations} in @pkg{vegan} and in the documentation
+of the @pkg{permute} package.
 
-@pkg{Vegan} will move to use @pkg{permute} package in all its
-permutation tests, but currently this package is only used in
-@code{permutest.betadisper}. The @pkg{permute} package will allow
-restricted permutation designs for time series, line transects, spatial
-grids and blocking factors.
-
-@node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Constrained permutations in @pkg{vegan}, Ordination
+@node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Restricted permutations in @pkg{vegan}, Ordination
 @section How to use different plotting symbols in ordination graphics?
 
 The default ordination @code{plot} function is intended for fast
@@ -817,12 +811,12 @@ formats, or you can export the graph object back to R and use
 @chapter Other analysis methods
 
 @menu
-* Is there TWINSPAN?::          
-* Why strata do not influence adonis results?::  
-* How is deviance calculated?::  
+* Is there TWINSPAN?::
+* Why restricted permutation does not influence adonis results?::
+* How is deviance calculated?::
 @end menu
 
-@node Is there TWINSPAN?, Why strata do not influence adonis results?, Other analysis methods , Other analysis methods
+@node Is there TWINSPAN?, Why restricted permutation does not influence adonis results?, Other analysis methods , Other analysis methods
 @section Is there TWINSPAN?
 
 No.  It may be possible to port @acronym{TWINSPAN} to @pkg{vegan}, but it is
@@ -830,16 +824,15 @@ not among the @pkg{vegan} top priorities.  If anybody wants to try porting, I
 will be happy to help.  @acronym{TWINSPAN} has a very permissive
 license, and it would be completely legal to port the function into R.
 
-@node  Why strata do not influence adonis results?, How is deviance calculated?, Is there TWINSPAN?, Other analysis methods
+@node  Why restricted permutation does not influence adonis results?, How is deviance calculated?, Is there TWINSPAN?, Other analysis methods
 @comment  node-name,  next,  previous,  up
-@section Why strata do not influence adonis results?
-Permutation happens only within @code{strata} and this influences the
-permutation distribution of the statistics and probably the significance
-levels, but @code{strata} do not influence the calculation of the
-statistics.
+@section Why restricted permutation does not influence adonis results?
+The permutation scheme influences the permutation distribution of the
+statistics and probably the significance levels, but @code{strata} does
+not influence the calculation of the statistics.
 
 
-@node How is deviance calculated?,  , Why strata do not influence adonis results?, Other analysis methods
+@node How is deviance calculated?,  , Why restricted permutation does not influence adonis results?, Other analysis methods
 @section How is deviance calculated?
 
 Some @pkg{vegan} functions, such as @code{radfit} use base R facility of
