@@ -16,7 +16,6 @@
 @ifnottex
 This document contains answers to some of the most frequently asked
 questions about R package @pkg{vegan}. 
-This is version of $Date$.
 @end ifnottex
 
 @quotation
