@@ -40,7 +40,6 @@ Copyright @copyright{} 2008-2013 Jari Oksanen
 @titlepage
 @title @pkg{vegan} @acronym{FAQ}
 @subtitle Frequently Asked Questions on R package @pkg{vegan}
-@subtitle Version of $Date$ 
 @author Jari Oksanen
 
 @vskip 0pt plus 1fill
@@ -85,7 +84,6 @@ Copyright @copyright{} 2008-2013 Jari Oksanen
 * How to report a bug in @pkg{vegan}?::
 * Is it a bug or a feature?::
 * Can I contribute to @pkg{vegan}?::
-* Can I have write access to @pkg{vegan} repository?::
 @end menu
 
 @node What is @pkg{vegan}?, What is R?, Introduction, Introduction
@@ -121,9 +119,11 @@ official part of the @uref{http://www.gnu.org/, @acronym{GNU}} project
 Both R and latest release version of @pkg{vegan} can be obtained through
 @uref{http://cran.r-project.org,,CRAN}. Unstable development version of
 @pkg{vegan} can be obtained through
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}.
-
-
+@uref{https://github.com/vegandevs/vegan,,GitHub}. Formerly @pkg{vegan}
+was developed in 
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge},
+but after moving to @uref{https://github.com/vegandevs/vegan,,GitHub}
+that may be out of date.
 
 @node What R packages @pkg{vegan} depends on?, What other packages are available for ecologists?, How to obtain @pkg{vegan} and R?, Introduction
 @section What R packages @pkg{vegan} depends on?
@@ -132,26 +132,20 @@ Both R and latest release version of @pkg{vegan} can be obtained through
 advanced and flexible permutation routines for vegan (but currently only
 a small part of functions use @pkg{permute}). The @pkg{permute} package
 is developed together with @pkg{vegan} in
-@uref{http://vegan.r-forge.r-project.org/,,R-Forge}. 
+@uref{https://github.com/gavinsimpson/permute,,GitHub}. 
 
 Some individual @pkg{vegan} functions depend on packages @pkg{MASS},
 @pkg{mgcv}, @pkg{cluster}, @pkg{lattice} and @pkg{tcltk}.  These all are
 base or recommended R packages that should be available in every R
-installation.  In addition, some @pkg{vegan} functions @code{require}
+installation.  In addition, some @pkg{vegan} functions use some
 non-standard R packages.  @pkg{Vegan} declares these packages only as
-suggested ones, and you can install @pkg{vegan} and use most of its
-functions without these packages.  The non-standard packages needed by
-some @pkg{vegan} functions are:
-@itemize
+suggested or imported, and you can install @pkg{vegan} and use most of its
+functions without these packages.  
 
-@item Package @pkg{scatterplot3d}
-is needed by @code{ordiplot3d}
+@pkg{Vegan} is accompanied with a support package @pkg{vegan3d} for
+three-dimensional and dynamic plotting. The @pkg{vegan3d} package needs
+non-standard packages @pkg{rgl} and @pkg{scatterplot3d}.
 
-@item Package @pkg{rgl}
-is needed by @code{ordirgl}
-and @code{rgl.isomap}
-
-@end itemize
 
 @node What other packages are available for ecologists?, What other documentation is available for @pkg{vegan}?, What R packages @pkg{vegan} depends on?, Introduction
 @section What other packages are available for ecologists?
@@ -237,7 +231,9 @@ and MacOS X).
 
 @uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
 tests on the devel package, and if passed, it builds source package
-together with Windows and MacOS X binaries. You can install those
+together with Windows binaries. However, the R-Forge may be out of date,
+because main development happens in
+@uref{https://github.com/vegandevs/vegan,,GitHub}. You can install R-Forge
 packages within R with command 
 @code{install.packages("vegan", repos="http://r-forge.r-project.org/")}.
 If you use GUI menu entry, you must select or define the R-Forge
@@ -251,16 +247,15 @@ Yes, you can, and @pkg{vegan} binaries are available for Mac through
 need to install extra tools packages available in
 @uref{http://cran.r-project.org/bin/macosx/tools/,,MacOS tools} pages:
 If you use function such as @code{orditkplot} that need @code{Tcl/Tk}
-you may need to install @code{tcltk} package.  If you use @pkg{vegan}
-binaries from other places than from
-@uref{http://cran.r-project.org,,CRAN}, you may also need to install
-@code{gfortran} package.
+you may need to install @code{tcltk} package. 
 
 @node How to report a bug in @pkg{vegan}?, Is it a bug or a feature?, Can I use @pkg{vegan} in Mac?, Introduction
 @section How to report a bug in @pkg{vegan}?
 
 If you think you have found a bug in @pkg{vegan}, you should report it to
-@pkg{vegan} maintainers or developers.  The bug report should be so detailed
+@pkg{vegan} maintainers or developers.  The preferred forum to report
+bugs is @uref{https://github.com/vegandevs/vegan/issues,,GitHub}. The
+bug report should be so detailed 
 that the bug can be replicated and corrected.  Preferably, you should
 send an example that causes a bug.  If it needs a data set that is not
 available in R, you should send a minimal data set as well. You also
@@ -271,10 +266,6 @@ Bug reports are welcome: they are the only way to make @pkg{vegan} non-buggy.
 
 Please note that you shall not send bug reports to R mailing lists,
 since @pkg{vegan} is not a standard R package.
-
-There also is a bug reporting tool at
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}, but you
-need to register as a site user to report bugs (this is site policy).
 
 @node Is it a bug or a feature?, Can I contribute to @pkg{vegan}?, How to report a bug in @pkg{vegan}?, Introduction
 @section Is it a bug or a feature?
@@ -288,7 +279,7 @@ instance, function @code{vegdist} always calculates quantitative
 indices (when this is possible). If you expect it to calculate a
 binary index, you should use argument @code{binary = TRUE}.
 
-@node Can I contribute to @pkg{vegan}?, Can I have write access to @pkg{vegan} repository?, Is it a bug or a feature?, Introduction
+@node Can I contribute to @pkg{vegan}?,  , Is it a bug or a feature?, Introduction
 @section Can I contribute to @pkg{vegan}?
 
 @pkg{Vegan} is dependent on user contribution.  All feedback is welcome.  If
@@ -299,26 +290,8 @@ Feature requests also are welcome, but they are not necessarily
 fulfilled.  A new feature will be added if it is easy to do and it looks
 useful to me or in general, or if you submit code. 
 
-Contributed code and functions are welcome and more certain to be
-included than mere requests.  However, not all functions will be added,
-but I they must be suitable for @pkg{vegan}.  We also audit the code, and
-typically we edit the code in @pkg{vegan} style for easier maintenance.  All
-included contributions will be credited.
-
-@node Can I have write access to @pkg{vegan} repository?,  , Can I contribute to @pkg{vegan}?, Introduction
-@section Can I have write access to @pkg{vegan} repository?
-
-The @pkg{vegan} development happens mainly in
-@uref{http://r-forge.r-project.org/,,R-Forge} which uses subversion for
-version control.  Subversion is a centralized version control system,
-and only @pkg{vegan} developers can have write access to the central
-repository. However, the @uref{http://r-forge.r-project.org/,,R-Forge}
-is mirrored in
-@uref{https://github.com/jarioksa/vegan.git,,GitHub}. This is a
-distributed version control system and freely accessible for anybody. We
-suggest you develop your own ideas in
-@uref{https://github.com/jarioksa/vegan.git,,GitHub} and send a pull
-request to us for incorporating your changes in @pkg{vegan} releases.
+If you can write code yourself, the best forum to contribute to vegan is
+@uref{https://github.com/vegandevs/vegan,,GitHub}. 
 
 @node Ordination, Other analysis methods , Introduction, Top
 @chapter Ordination
