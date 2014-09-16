@@ -177,7 +177,8 @@
                 RDA.adj.Rsq=c(Rsquare.adj.Y.X, Rsquare.adj.X.Y),
                 nperm=nperm, p.Pillai=p.Pillai, p.perm=p.perm, Cy=Cy, Cx=Cx, 
                 corr.Y.Cy=corr.Y.Cy, corr.X.Cx=corr.X.Cx, corr.Y.Cx=corr.Y.Cx, 
-                corr.X.Cy=corr.X.Cy, call = match.call())
+                corr.X.Cy=corr.X.Cy, control = attr(permat, "control"),
+                call = match.call())
     class(out) <- "CCorA"
     out
 }

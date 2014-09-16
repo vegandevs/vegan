@@ -1,4 +1,4 @@
-"print.factorfit" <-
+`print.factorfit` <-
     function (x, ...) 
 {
     cat("Centroids:\n")
@@ -7,10 +7,7 @@
     out <- cbind(r2 = x$r, "Pr(>r)" = x$pvals)
     if (x$permutations) {
         printCoefmat(out, has.Pvalue = TRUE, ...)
-        cat("P values based on", x$permutations, "permutations")
-        if (!is.null(x$strata)) 
-            cat(", stratified within", x$strata)
-        cat(".\n")
+        cat(howHead(x$control))
     }
     else  printCoefmat(out, na.print = "", ...)
     invisible(x)

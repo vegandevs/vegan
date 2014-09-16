@@ -100,6 +100,7 @@
     if (isParal && !isMulticore && !hasClus)
         stopCluster(parallel)
     attr(outlist, "permutations") <- nperm
+    attr(outlist, "control") <- attr(perm, "control")
     class(outlist) <- "simper"
     outlist
 }
@@ -141,6 +142,7 @@
     }
     attr(out, "digits") <- digits
     attr(out, "permutations") <- attr(object, "permutations")
+    attr(out, "control") <- attr(object, "control")
     class(out) <- "summary.simper"
     out
 }
@@ -167,8 +169,8 @@
                             symbols = c("***", "**", "*", ".", " ")), "legend")
         cat("---\nSignif. codes: ", leg, "\n")
     }
-    if ((np <- attr(x, "permutations")) > 0)
-        cat("P-values based on", np, "permutations\n")
+    if (!is.null(attr(x, "control")))
+        cat(howHead(attr(x, "control")))
     invisible(x)
 }
 

@@ -8,7 +8,7 @@
   cat("Correlation in a symmetric Procrustes rotation: ")
   cat(formatC(x$t0, digits = digits), "\n")
   cat("Significance:  ")
-  cat(format.pval(x$signif),"\n")
+  cat(format.pval(x$signif),"\n\n")
   cat(howHead(x$control))
   cat("\n")
   invisible(x)

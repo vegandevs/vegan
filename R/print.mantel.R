@@ -16,11 +16,9 @@
     out <- quantile(x$perm, c(0.9, 0.95, 0.975, 0.99))
     cat("Upper quantiles of permutations (null model):\n")
     print(out, digits = 3)
-    cat("\nBased on", nperm, "permutations")
-    if (!is.null(x$strata)) 
-      cat(", stratified within", x$strata)
+    cat(howHead(x$control))
   }
-  cat("\n\n")
+  cat("\n")
   invisible(x)
 }
 

@@ -72,11 +72,8 @@
     sol$statistic <- as.numeric(statistic)
     sol$class.vec <- cl.vec
     sol$dis.rank <- x.rank
-    sol$dissimilarity <- attr(x, "method") 
-    if (!missing(strata)) {
-        sol$strata <- deparse(substitute(strata))
-        sol$stratum.values <- strata
-    }
+    sol$dissimilarity <- attr(x, "method")
+    sol$control <- attr(permat, "control")
     class(sol) <- "anosim"
     sol
 }

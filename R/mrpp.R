@@ -43,7 +43,7 @@
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
                       ncol(permutations), N))
 
-
+    control <- attr(permutations, "control")
     if(nrow(permutations)) {
         perms <- apply(permutations, 1, function(indx) grouping[indx])
         permutations <- ncol(perms)
@@ -76,13 +76,10 @@
         permutations <- 0
     }
     out <- list(call = match.call(), delta = del, E.delta = E.del, CS = CS,
-        n = ncl, classdelta = classdel,
-                Pvalue = p, A = r2, distance = distance, weight.type = weight.type, 
-        boot.deltas = m.ds, permutations = permutations)
-    if (!missing(strata) && !is.null(strata)) {
-        out$strata <- deparse(substitute(strata))
-        out$stratum.values <- strata
-    }
+                n = ncl, classdelta = classdel, Pvalue = p, A = r2,
+                distance = distance, weight.type = weight.type,
+                boot.deltas = m.ds, permutations = permutations,
+                control = control)
     class(out) <- "mrpp"
     out
 }

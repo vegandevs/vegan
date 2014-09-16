@@ -77,6 +77,7 @@
         perm <- sapply(1:nperm, function(take) permfunc(permat[take,]))
         object$vario$CA.signif <-
             (rowSums(sweep(perm, 1, statistic, ">=")) + 1)/(nperm + 1)
+        attr(object$vario, "control") <- attr(permat, "control")
     }
     object$call <- match.call()
     class(object) <- c("mso", class(object))
