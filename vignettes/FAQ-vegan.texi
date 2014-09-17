@@ -122,29 +122,26 @@ Both R and latest release version of @pkg{vegan} can be obtained through
 was developed in 
 @uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge},
 but after moving to @uref{https://github.com/vegandevs/vegan,,GitHub}
-that may be out of date.
+the R-Forge repository may be out of date.
 
 @node What R packages @pkg{vegan} depends on?, What other packages are available for ecologists?, How to obtain @pkg{vegan} and R?, Introduction
 @section What R packages @pkg{vegan} depends on?
 
 @pkg{Vegan} depends on the @pkg{permute} package which will provide
-advanced and flexible permutation routines for vegan (but currently only
-a small part of functions use @pkg{permute}). The @pkg{permute} package
-is developed together with @pkg{vegan} in
+advanced and flexible permutation routines for @pkg{vegan}. The
+@pkg{permute} package is developed together with @pkg{vegan} in
 @uref{https://github.com/gavinsimpson/permute,,GitHub}. 
 
 Some individual @pkg{vegan} functions depend on packages @pkg{MASS},
 @pkg{mgcv}, @pkg{cluster}, @pkg{lattice} and @pkg{tcltk}.  These all are
 base or recommended R packages that should be available in every R
-installation.  In addition, some @pkg{vegan} functions use some
-non-standard R packages.  @pkg{Vegan} declares these packages only as
-suggested or imported, and you can install @pkg{vegan} and use most of its
-functions without these packages.  
+installation. @pkg{Vegan} declares these as suggested or imported
+packages, and you can install @pkg{vegan} and use most of its functions
+without these packages.
 
-@pkg{Vegan} is accompanied with a support package @pkg{vegan3d} for
+@pkg{Vegan} is accompanied with a supporting package @pkg{vegan3d} for
 three-dimensional and dynamic plotting. The @pkg{vegan3d} package needs
 non-standard packages @pkg{rgl} and @pkg{scatterplot3d}.
-
 
 @node What other packages are available for ecologists?, What other documentation is available for @pkg{vegan}?, What R packages @pkg{vegan} depends on?, Introduction
 @section What other packages are available for ecologists?
@@ -188,7 +185,7 @@ Web documents outside the package include:
 @itemize
 
 @item
-@uref{http://vegan.r-forge.r-project.org/}: @pkg{vegan} homepage.
+@uref{https://github.com/vegandevs/vegan}: @pkg{vegan} homepage.
 @item
 @uref{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}: @pkg{vegan}
 tutorial.
@@ -231,7 +228,7 @@ and MacOS X).
 @uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
 tests on the devel package, and if passed, it builds source package
 together with Windows binaries. However, the R-Forge may be out of date,
-because main development happens in
+because @pkg{vegan} is mainly developed in
 @uref{https://github.com/vegandevs/vegan,,GitHub}. You can install R-Forge
 packages within R with command 
 @code{install.packages("vegan", repos="http://r-forge.r-project.org/")}.
@@ -246,7 +243,8 @@ Yes, you can, and @pkg{vegan} binaries are available for Mac through
 need to install extra tools packages available in
 @uref{http://cran.r-project.org/bin/macosx/tools/,,MacOS tools} pages:
 If you use function such as @code{orditkplot} that need @code{Tcl/Tk}
-you may need to install @code{tcltk} package. 
+you may need to install @code{tcltk} package. No Mac binaries of
+development versions are available in any repository we know. 
 
 @node How to report a bug in @pkg{vegan}?, Is it a bug or a feature?, Can I use @pkg{vegan} in Mac?, Introduction
 @section How to report a bug in @pkg{vegan}?
@@ -282,12 +280,12 @@ binary index, you should use argument @code{binary = TRUE}.
 @section Can I contribute to @pkg{vegan}?
 
 @pkg{Vegan} is dependent on user contribution.  All feedback is welcome.  If
-you have problem with @pkg{vegan}, it may be as simple as incomplete
-documentation, and we'll do our best to improve the documents.
+you have problems with @pkg{vegan}, it may be as simple as incomplete
+documentation, and we shall do our best to improve the documents.
 
 Feature requests also are welcome, but they are not necessarily
 fulfilled.  A new feature will be added if it is easy to do and it looks
-useful to me or in general, or if you submit code. 
+useful, or if you submit code. 
 
 If you can write code yourself, the best forum to contribute to vegan is
 @uref{https://github.com/vegandevs/vegan,,GitHub}. 
@@ -399,18 +397,17 @@ with @code{monoMDS} and in principal coordinates analysis
 
 Function @code{metaMDS} uses function @code{monoMDS} as its default
 method for @acronym{NMDS}, and this function can handle zero
-dissimilarities. The alternative function @code{isoMDS} was the only
-choice before @pkg{vegan} 2.0-0, and it cannot handle zero dissimilarities. If
-you want to use @code{isoMDS}, you can use argument @code{zerodist =
-"add"} in @code{metaMDS} to handle zero dissimilarities.  With this
-argument, zero dissimilarities are replaced with a small above zero
-value, and they can be handled in @code{isoMDS}.  This is a kluge, and
-some people do not like this. A more principal solution is to remove
-duplicate sites using R command @code{unique}.  However, after some
-standardizations or with some dissimilarity indices, originally
-non-unique sites can have zero dissimilarity, and you have to resort to
-the kluge (or work harder with your data). Usually it is better to use
-@code{monoMDS}.
+dissimilarities. Alternative function @code{isoMDS} cannot handle zero
+dissimilarities. If you want to use @code{isoMDS}, you can use argument
+@code{zerodist = "add"} in @code{metaMDS} to handle zero
+dissimilarities.  With this argument, zero dissimilarities are replaced
+with a small positive value, and they can be handled in @code{isoMDS}.
+This is a kluge, and some people do not like this. A more principal
+solution is to remove duplicate sites using R command @code{unique}.
+However, after some standardizations or with some dissimilarity indices,
+originally non-unique sites can have zero dissimilarity, and you have to
+resort to the kluge (or work harder with your data). Usually it is
+better to use @code{monoMDS}.
 
 @node I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Where can I find numerical scores of ordination axes?, Zero dissimilarities in isoMDS, Ordination
 @section I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
@@ -800,8 +797,8 @@ license, and it would be completely legal to port the function into R.
 @comment  node-name,  next,  previous,  up
 @section Why restricted permutation does not influence adonis results?
 The permutation scheme influences the permutation distribution of the
-statistics and probably the significance levels, but @code{strata} does
-not influence the calculation of the statistics.
+statistics and probably the significance levels, but does not influence
+the calculation of the statistics.
 
 
 @node How is deviance calculated?,  , Why restricted permutation does not influence adonis results?, Other analysis methods
