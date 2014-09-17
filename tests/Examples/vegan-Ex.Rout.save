@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-09-03 r66516) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-09-15 r66611) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.1-41
+This is vegan 2.1-43
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -83,8 +83,7 @@ Matrix Ranks 24 11
 Pillai's trace:  4.573009 
 
 Significance of Pillai's trace:
-from F-distribution:  0.0032737 
-
+from F-distribution:   0.0032737 
                        CanAxis1 CanAxis2 CanAxis3 CanAxis4 CanAxis5 CanAxis6
 Canonical Correlations  0.92810  0.82431  0.81209  0.74981  0.70795  0.65950
                        CanAxis7 CanAxis8 CanAxis9 CanAxis10 CanAxis11
@@ -104,13 +103,13 @@ adj. RDA R squares 0.20560 0.2910
 > # Example using random numbers. No significant relationship is expected
 > mat1 <- matrix(rnorm(60),20,3)
 > mat2 <- matrix(rnorm(100),20,5)
-> out2 = CCorA(mat1, mat2, nperm=99)
+> out2 = CCorA(mat1, mat2, permutations=99)
 > out2
 
 Canonical Correlation Analysis
 
 Call:
-CCorA(Y = mat1, X = mat2, nperm = 99) 
+CCorA(Y = mat1, X = mat2, permutations = 99) 
 
              Y X
 Matrix Ranks 3 5
@@ -118,9 +117,11 @@ Matrix Ranks 3 5
 Pillai's trace:  0.6455578 
 
 Significance of Pillai's trace:
-based on 99 permutations: 0.69 
-from F-distribution:  0.70352 
-
+from F-distribution:   0.70352 
+based on permutations: 0.69 
+Permutation: free
+Number of permutations: 99
+ 
                        CanAxis1 CanAxis2 CanAxis3
 Canonical Correlations  0.69691  0.38140     0.12
 
@@ -159,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x5c946e8>
+<environment: 0x4d09c38>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -624,6 +625,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call:
 adonis(formula = dune ~ Management * A1, data = dune.env, permutations = 99) 
 
+Permutation: free
+Number of permutations: 99
+
 Terms added sequentially (first to last)
 
               Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
@@ -680,6 +684,10 @@ Run 2 stress 0.08556586
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 999, strata = dat$field) 
 
+Blocks:  strata 
+Permutation: free
+Number of permutations: 999
+
 Terms added sequentially (first to last)
 
           Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
@@ -694,6 +702,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 999) 
+
+Permutation: free
+Number of permutations: 999
 
 Terms added sequentially (first to last)
 
@@ -733,7 +744,8 @@ Dissimilarity: bray
 ANOSIM statistic R: 0.2579 
       Significance: 0.017 
 
-Based on  999  permutations
+Permutation: free
+Number of permutations: 999
 
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
@@ -1081,22 +1093,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > permutest(mod, pairwise = TRUE)
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 999
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
@@ -1252,22 +1250,8 @@ Eigenvalues for PCoA axes:
 > permutest(mod2, control = how(nperm = 100))
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 999
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
@@ -1309,22 +1293,8 @@ Eigenvalues for PCoA axes:
 > permutest(mod3, control = how(nperm = 100))
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 999
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
@@ -2751,23 +2721,24 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.046 *  
-P         0.61959  0.78492 0.1938  0.103    
-K         0.76629  0.64249 0.1809  0.143    
-Ca        0.68506  0.72849 0.4119  0.008 ** 
-Mg        0.63240  0.77464 0.4271  0.004 ** 
-S         0.19123  0.98155 0.1752  0.140    
+N        -0.05719 -0.99836 0.2537  0.039 *  
+P         0.61959  0.78492 0.1938  0.129    
+K         0.76629  0.64249 0.1809  0.138    
+Ca        0.68506  0.72849 0.4119  0.005 ** 
+Mg        0.63240  0.77464 0.4271  0.005 ** 
+S         0.19123  0.98155 0.1752  0.133    
 Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.002 ** 
-Mn        0.79873 -0.60169 0.5230  0.001 ***
-Zn        0.61750  0.78657 0.1879  0.125    
-Mo       -0.90304  0.42955 0.0609  0.537    
-Baresoil  0.92503 -0.37988 0.2508  0.039 *  
-Humdepth  0.93291 -0.36011 0.5200  0.002 ** 
-pH       -0.64809  0.76156 0.2308  0.060 .  
+Fe       -0.93613  0.35164 0.4451  0.001 ***
+Mn        0.79873 -0.60169 0.5230  0.002 ** 
+Zn        0.61750  0.78657 0.1879  0.122    
+Mo       -0.90304  0.42955 0.0609  0.524    
+Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Humdepth  0.93291 -0.36011 0.5200  0.001 ***
+pH       -0.64809  0.76156 0.2308  0.064 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-P values based on 999 permutations.
+Permutation: free
+Number of permutations: 999
 
 
 > scores(fit, "vectors")
@@ -3316,7 +3287,7 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > 
 > ### Name: isomap
 > ### Title: Isometric Feature Mapping Ordination
-> ### Aliases: isomap isomapdist plot.isomap summary.isomap rgl.isomap
+> ### Aliases: isomap isomapdist plot.isomap summary.isomap
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3348,10 +3319,6 @@ Criterion: k = 3
 > pl <- plot(isomap(dis, epsilon=0.45), main="isomap epsilon=0.45")
 > lines(tr, pl, col="red")
 > par(op)
-> ## The following command requires user interaction
-> ## Not run: 
-> ##D rgl.isomap(ord, size=4, color="hotpink")
-> ## End(Not run)
 > 
 > 
 > 
@@ -3542,8 +3509,8 @@ Mantel statistic r: 0.3047
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.107 0.145 0.169 0.200 
-
-Based on 999 permutations
+Permutation: free
+Number of permutations: 999
 
 > mantel(veg.dist, env.dist, method="spear")
 
@@ -3558,8 +3525,8 @@ Mantel statistic r: 0.2838
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.108 0.141 0.169 0.196 
-
-Based on 999 permutations
+Permutation: free
+Number of permutations: 999
 
 > 
 > 
@@ -3950,7 +3917,8 @@ Chance corrected within-group agreement A: 0.1246
 Based on observed delta 11.15 and expected delta 12.74 
 
 Significance of delta: 0.002 
-Based on  999  permutations
+Permutation: free
+Number of permutations: 999
 
 > 
 > # Save and change plotting parameters
@@ -4029,6 +3997,7 @@ Classification strength 0.1127012
 > ## Canonical correspondence analysis (cca):
 > Example.cca <- cca(X, Y)
 > Example.cca <- mso(Example.cca, tmat)
+Set of permutations < 'minperm'. Generating entire set.
 > msoplot(Example.cca)
 > Example.cca$vario
   H Dist n  All       Sum         CA       CCA se
@@ -4037,6 +4006,7 @@ Classification strength 0.1127012
 > 
 > ## Correspondence analysis (ca):
 > Example.ca <- mso(cca(X), tmat)
+Set of permutations < 'minperm'. Generating entire set.
 > msoplot(Example.ca)
 > 
 > ## Unconstrained ordination with test for autocorrelation
@@ -4046,11 +4016,11 @@ Classification strength 0.1127012
 > data(mite.xy)
 > 
 > mite.cca <- cca(log(mite + 1))
-> mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 100)
+> mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 99)
 > msoplot(mite.cca)
 > mite.cca
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,
-permutations = 100)
+permutations = 99)
 
               Inertia Rank
 Total           1.164     
@@ -4065,23 +4035,27 @@ Eigenvalues for unconstrained axes:
 mso variogram:
 
     H   Dist   n    All     CA CA.signif
-0   0 0.3555  63 0.6250 0.6250      0.00
-1   1 1.0659 393 0.7556 0.7556      0.00
-2   2 2.0089 534 0.8931 0.8931      0.00
-3   3 2.9786 417 1.0988 1.0988      0.02
-4   4 3.9817 322 1.3321 1.3321      0.00
-5   5 5.0204 245 1.5109 1.5109      0.00
-10 10 6.8069 441 1.7466 1.7466      0.00
+0   0 0.3555  63 0.6250 0.6250      0.01
+1   1 1.0659 393 0.7556 0.7556      0.01
+2   2 2.0089 534 0.8931 0.8931      0.01
+3   3 2.9786 417 1.0988 1.0988      0.03
+4   4 3.9817 322 1.3321 1.3321      0.01
+5   5 5.0204 245 1.5109 1.5109      0.01
+10 10 6.8069 441 1.7466 1.7466      0.01
+
+Permutation: free
+Number of permutations: 99
+
 > 
 > ## Constrained ordination with test for residual autocorrelation
 > ## and scale-invariance of species-environment relationships
 > mite.cca <- cca(log(mite + 1) ~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)
-> mite.cca <- mso(mite.cca, mite.xy, permutations = 100)
+> mite.cca <- mso(mite.cca, mite.xy, permutations = 99)
 > msoplot(mite.cca)
 Error variance of regression model underestimated by 0.4 percent 
 > mite.cca
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =
-100)
+99)
 
               Inertia Proportion Rank
 Total          1.1638     1.0000     
@@ -4103,13 +4077,17 @@ Eigenvalues for unconstrained axes:
 mso variogram:
 
     H   Dist   n    All    Sum     CA    CCA      se CA.signif
-0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.00
-1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.16
+0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01
+1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.17
 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.71
-3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.44
+3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.46
 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.99
 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.42
-10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.20
+10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.21
+
+Permutation: free
+Number of permutations: 99
+
 > 
 > 
 > 
@@ -4643,58 +4621,6 @@ detaching ‘dune.env’
 > 
 > 
 > cleanEx()
-> nameEx("ordiplot3d")
-> ### * ordiplot3d
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: ordiplot3d
-> ### Title: Three-Dimensional and Dynamic Ordination Graphics
-> ### Aliases: ordiplot3d ordirgl orglpoints orgltext orglsegments orglspider
-> ### Keywords: hplot dynamic
-> 
-> ### ** Examples
-> 
-> ## Examples are not run, because they need non-standard packages
-> ## 'scatterplot3d' and 'rgl' (and the latter needs user interaction).
-> #####
-> ### Default 'ordiplot3d'
-> ## Not run: 
-> ##D data(dune)
-> ##D data(dune.env)
-> ##D ord <- cca(dune ~ A1 + Moisture, dune.env)
-> ##D ordiplot3d(ord)
-> ##D ### A boxed 'pin' version
-> ##D ordiplot3d(ord, type = "h")
-> ##D ### More user control
-> ##D pl <- ordiplot3d(ord, scaling = 3, angle=15, type="n")
-> ##D points(pl, "points", pch=16, col="red", cex = 0.7)
-> ##D ### identify(pl, "arrows", col="blue") would put labels in better positions
-> ##D text(pl, "arrows", col="blue", pos=3)
-> ##D text(pl, "centroids", col="blue", pos=1, cex = 1)
-> ##D ### Add species using xyz.convert function returned by ordiplot3d
-> ##D sp <- scores(ord, choices=1:3, display="species", scaling=3)
-> ##D text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
-> ##D ### Two ways of adding fitted variables to ordination plots
-> ##D ord <- cca(dune)
-> ##D ef <- envfit(ord ~ Moisture + A1, dune.env, choices = 1:3)
-> ##D ### 1. use argument 'envfit'
-> ##D ordiplot3d(ord, envfit = ef)
-> ##D ### 2. use returned envfit.convert function for better user control
-> ##D pl3 <- ordiplot3d(ord)
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### envfit.convert() also handles different 'choices' of axes
-> ##D pl3 <- ordiplot3d(ord, choices = c(1,3,2))
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### ordirgl
-> ##D ordirgl(ord, size=2)
-> ##D ordirgl(ord, display = "species", type = "t")
-> ##D rgl.quit()
-> ## End(Not run)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("ordipointlabel")
 > ### * ordipointlabel
 > 
@@ -5033,7 +4959,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x77c4478>
+<environment: 0xb279580>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5050,7 +4976,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8afa6c0>
+<environment: 0xa7c6dc0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -5081,7 +5007,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x97119c8>
+<environment: 0xab2f7e8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5096,7 +5022,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x7a3cfd0>
+<environment: 0xa4e68e0>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5125,7 +5051,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x95af318>
+<environment: 0xaa71098>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5141,7 +5067,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x7bccf50>
+<environment: 0xb2b2870>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5158,7 +5084,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x8a73740>
+<environment: 0xb11bd50>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5177,7 +5103,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x86bea20>
+<environment: 0xaf954b0>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5318,7 +5244,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9eca308>
+<environment: 0xa652028>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5331,7 +5257,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8adb928>
+<environment: 0x9701348>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5344,7 +5270,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x86d11e0>
+<environment: 0x9b23ce8>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5636,22 +5562,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > permutest(mod, permutations = 99, pairwise = TRUE)
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 99
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
@@ -6308,7 +6220,6 @@ Manhattan     Gower    Ochiai
 > ### Name: renyi
 > ### Title: Renyi and Hill Diversities and Corresponding Accumulation Curves
 > ### Aliases: renyi plot.renyi renyiaccum plot.renyiaccum persp.renyiaccum
-> ###   rgl.renyiaccum
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -6702,6 +6613,8 @@ Empenigr 0.004536 0.010325 0.4393  0.0 0.3333 0.99668
 Vicilath 0.002399 0.005461 0.4393  0.0 0.1667 1.00000
 Chenalbu 0.000000 0.000000    NaN  0.0 0.0000 1.00000
 Cirsarve 0.000000 0.000000    NaN  0.0 0.0000 1.00000
+Permutation: free
+Number of permutations: 0
 > 
 > 
 > 
@@ -7803,23 +7716,24 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.046 *  
-P         0.61959  0.78492 0.1938  0.103    
-K         0.76629  0.64249 0.1809  0.143    
-Ca        0.68506  0.72849 0.4119  0.008 ** 
-Mg        0.63240  0.77464 0.4271  0.004 ** 
-S         0.19123  0.98155 0.1752  0.140    
+N        -0.05719 -0.99836 0.2537  0.039 *  
+P         0.61959  0.78492 0.1938  0.129    
+K         0.76629  0.64249 0.1809  0.138    
+Ca        0.68506  0.72849 0.4119  0.005 ** 
+Mg        0.63240  0.77464 0.4271  0.005 ** 
+S         0.19123  0.98155 0.1752  0.133    
 Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.002 ** 
-Mn        0.79873 -0.60169 0.5230  0.001 ***
-Zn        0.61750  0.78657 0.1879  0.125    
-Mo       -0.90304  0.42955 0.0609  0.537    
-Baresoil  0.92503 -0.37988 0.2508  0.039 *  
-Humdepth  0.93291 -0.36011 0.5200  0.002 ** 
-pH       -0.64809  0.76156 0.2308  0.060 .  
+Fe       -0.93613  0.35164 0.4451  0.001 ***
+Mn        0.79873 -0.60169 0.5230  0.002 ** 
+Zn        0.61750  0.78657 0.1879  0.122    
+Mo       -0.90304  0.42955 0.0609  0.524    
+Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Humdepth  0.93291 -0.36011 0.5200  0.001 ***
+pH       -0.64809  0.76156 0.2308  0.064 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-P values based on 999 permutations.
+Permutation: free
+Number of permutations: 999
 
 
 > plot(ef, p.max = 0.05)
@@ -7875,9 +7789,9 @@ Start: dune ~ 1
              Df    AIC      F Pr(>F)   
 + Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
-+ Manure      4 89.232 1.9539  0.005 **
-+ A1          1 89.591 1.9217  0.050 * 
-+ Use         2 91.032 1.1741  0.265   
++ Manure      4 89.232 1.9539  0.015 * 
++ A1          1 89.591 1.9217  0.045 * 
++ Use         2 91.032 1.1741  0.295   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7889,25 +7803,25 @@ Step: dune ~ Management
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.005 **
-+ Manure    3 87.517 1.3902  0.120   
-+ A1        1 87.424 1.2965  0.210   
-+ Use       2 88.284 1.0510  0.390   
++ Moisture  3 85.567 1.9764  0.010 **
++ Manure    3 87.517 1.3902  0.045 * 
++ A1        1 87.424 1.2965  0.245   
++ Use       2 88.284 1.0510  0.400   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
              Df    AIC      F Pr(>F)   
-- Moisture    3 87.082 1.9764  0.010 **
+- Moisture    3 87.082 1.9764  0.015 * 
 - Management  3 87.707 2.1769  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.345
-+ A1      1 86.220 0.8359  0.640
-+ Use     2 86.842 0.8027  0.700
++ Manure  3 85.762 1.1225  0.255
++ A1      1 86.220 0.8359  0.625
++ Use     2 86.842 0.8027  0.780
 
 > mod
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
@@ -7949,8 +7863,8 @@ Number of permutations: 999
 
 Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
            Df Variance      F Pr(>F)   
-Management  3   18.938 2.1769  0.005 **
-Moisture    3   17.194 1.9764  0.006 **
+Management  3   18.938 2.1769  0.003 **
+Moisture    3   17.194 1.9764  0.005 **
 Residual   13   37.699                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -7969,7 +7883,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x974c070>
+<environment: 0x9990b88>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -7982,14 +7896,17 @@ REML score: 3.00623
 Call:
 adonis(formula = dune ~ ., data = dune.env) 
 
+Permutation: free
+Number of permutations: 999
+
 Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 A1          1    0.7230 0.72295  5.2038 0.16817  0.001 ***
-Moisture    3    1.1871 0.39569  2.8482 0.27613  0.004 ** 
-Management  3    0.9036 0.30121  2.1681 0.21019  0.026 *  
-Use         2    0.0921 0.04606  0.3315 0.02143  0.983    
-Manure      3    0.4208 0.14026  1.0096 0.09787  0.441    
+Moisture    3    1.1871 0.39569  2.8482 0.27613  0.006 ** 
+Management  3    0.9036 0.30121  2.1681 0.21019  0.023 *  
+Use         2    0.0921 0.04606  0.3315 0.02143  0.982    
+Manure      3    0.4208 0.14026  1.0096 0.09787  0.481    
 Residuals   7    0.9725 0.13893         0.22621           
 Total      19    4.2990                 1.00000           
 ---
@@ -7999,11 +7916,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call:
 adonis(formula = dune ~ Management + Moisture, data = dune.env) 
 
+Permutation: free
+Number of permutations: 999
+
 Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-Management  3    1.4686 0.48953  3.7907 0.34161  0.002 ** 
-Moisture    3    1.1516 0.38387  2.9726 0.26788  0.001 ***
+Management  3    1.4686 0.48953  3.7907 0.34161  0.001 ***
+Moisture    3    1.1516 0.38387  2.9726 0.26788  0.002 ** 
 Residuals  13    1.6788 0.12914         0.39051           
 Total      19    4.2990                 1.00000           
 ---
@@ -8519,7 +8439,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  35.834 7.734 41.19 0 0.001 
+Time elapsed:  35.902 8.181 41.58 0 0 
 > grDevices::dev.off()
 null device 
           1 

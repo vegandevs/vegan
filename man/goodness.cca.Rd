@@ -32,7 +32,7 @@ vif.cca(object)
 
 \arguments{
   \item{object}{A result object from \code{\link{cca}},
-    \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
+    \code{\link{rda}} or \code{\link{capscale}}. }
   \item{display}{Display \code{"species"} or \code{"sites"}. }
   \item{choices}{Axes shown. Default is to show all axes of the \code{"model"}. }
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
@@ -52,7 +52,7 @@ vif.cca(object)
   Function \code{goodness} gives the diagnostic statistics for species
   or sites. The alternative statistics are the cumulative proportion of
   inertia accounted for by the axes, and the residual distance left
-  unaccounted for.  The conditional (``partialled out'') constraints are
+  unaccounted for.  The conditional (\dQuote{partialled out}) constraints are
   always regarded as explained and included in the statistics.
 
   Function \code{inertcomp} decomposes the inertia into partial,
@@ -124,7 +124,7 @@ vif.cca(object)
 }
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}},
-  \code{\link{decorana}}, \code{\link[car]{vif}}. }
+  \code{\link[car]{vif}}. }
 \examples{
 data(dune)
 data(dune.env)
