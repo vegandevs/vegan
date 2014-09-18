@@ -18,17 +18,34 @@
     invisible(x)
 }
 
-### model after print.oecosimu
+### modelled after print.oecosimu (should perhaps have oecosimu() args
+### like 'alternative'
+
 `summary.permstats` <-
     function(object, ...)
 {
-    invisible(object)
+    ## cut levels for quantiles: these are two-sided
+    probs <- c(0.025, 0.5, 0.975)
+    sim <- t(object$simulations)
+    object$means <- rowMeans(sim)
+    sd <- apply(sim, 1, sd)
+    object$z <-
+        (object$statistic - object$means)/sd
+    object$quantile <-
+        apply(sim, 1, quantile, probs = probs, na.rm = TRUE)
+    ## not (yet) P-values...
+    class(object) <- "summary.permstats"
+    object
 }
 
 `print.summary.permstats` <-
     function(x, ...)
 {
-    print(str(x))
+    m <- cbind("statistic" = x$statistic,
+               "z" = x$z,
+               "mean" = x$means,
+               t(x$quantile))
+    printCoefmat(m, cs.ind = 3:6, ...)
     invisible(x)
 }
 
