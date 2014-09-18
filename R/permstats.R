@@ -4,14 +4,14 @@
 ## extract items as 'statistic' and 'simulations'. Specific methods
 ## towards the end of this file
 
-`permstats` <-
+`permustats` <-
     function(x, ...)
 {
-    UseMethod("permstats")
+    UseMethod("permustats")
 }
 
 ## something like str()
-`print.permstats` <-
+`print.permustats` <-
     function(x, ...)
 {
     print(str(x))
@@ -21,7 +21,7 @@
 ### modelled after print.oecosimu (should perhaps have oecosimu() args
 ### like 'alternative'
 
-`summary.permstats` <-
+`summary.permustats` <-
     function(object, ...)
 {
     ## cut levels for quantiles: these are two-sided
@@ -34,11 +34,11 @@
     object$quantile <-
         apply(sim, 1, quantile, probs = probs, na.rm = TRUE)
     ## not (yet) P-values...
-    class(object) <- "summary.permstats"
+    class(object) <- "summary.permustats"
     object
 }
 
-`print.summary.permstats` <-
+`print.summary.permustats` <-
     function(x, ...)
 {
     m <- cbind("statistic" = x$statistic,
@@ -51,16 +51,16 @@
 
 ### specific methods
 
-`permstats.anosim` <-
+`permustats.anosim` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$statistic,
         "simulations" = x$perm),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.adonis` <-
+`permustats.adonis` <-
     function(x, ...)
 {
     stat <- x$aov.tab$F.Model
@@ -68,86 +68,86 @@
     structure(list(
         "statistic" = stat,
         "simulations" = x$f.perms),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.mantel` <-
+`permustats.mantel` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$statistic,
         "simulations" = x$perm),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.mrpp` <-
+`permustats.mrpp` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$delta,
         "simulations" = x$boot.deltas),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.oecosimu` <-
+`permustats.oecosimu` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$oecosimu$statistic,
         "simulations" = t(x$oecosimu$simulated)),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.permutest.cca` <-
+`permustats.permutest.cca` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$F.0,
         "simulations" = x$F.perm),
-              class="permstats")
+              class="permustats")
 }
 
-`permstats.protest` <-
+`permustats.protest` <-
     function(x, ...)
 {
     structure(list(
         "statistic" = x$t.0,
         "simulations" = x$t),
-              class="permstats")
+              class="permustats")
 }
 
 ### the following do not return permutation data
-`permstats.CCorA` <-
+`permustats.CCorA` <-
     function(x, ...)
 {
     stop("no permutation data available")
 }
 
-`permstats.envfit` <-
+`permustats.envfit` <-
     function(x, ...)
 {
     stop("no permutation data available")
 }
 
-`permstats.factorfit` <-
+`permustats.factorfit` <-
     function(x, ...)
 {
     stop("no permutation data available")
 }
 
-`permstats.vectorfit` <-
+`permustats.vectorfit` <-
     function(x, ...)
 {
     stop("no permutation data available")
 }
 
-`permstats.mso` <-
+`permustats.mso` <-
     function(x, ...)
 {
     stop("no permutation data available")
 }
 
-`permstats.permutest.betadisper` <-
+`permustats.permutest.betadisper` <-
     function(x, ...)
 {
     stop("no permutation data available")

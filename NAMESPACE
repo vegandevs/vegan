@@ -41,8 +41,8 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 export(metaMDSrotate)
 
 
-## permstats is UNDER DEVELOPMENT
-export(permstats)
+## permustats is UNDER DEVELOPMENT
+export(permustats)
 
 
 ## export regular functions with dot names
@@ -245,24 +245,24 @@ S3method(nobs, wcmdscale)
 S3method(ordisurf, default)
 S3method(ordisurf, formula)
 
-## permstats methods: UNDER DEVELOPMENT
-S3method(permstats, adonis)
-S3method(permstats, anosim)
-S3method(permstats, mantel)
-S3method(permstats, mrpp)
-S3method(permstats, oecosimu)
-S3method(permstats, permutest.cca)
+## permustats methods: UNDER DEVELOPMENT
+S3method(permustats, adonis)
+S3method(permustats, anosim)
+S3method(permustats, mantel)
+S3method(permustats, mrpp)
+S3method(permustats, oecosimu)
+S3method(permustats, permutest.cca)
 ## these return an error: no permutation data
-S3method(permstats, CCorA)
-S3method(permstats, envfit)
-S3method(permstats, factorfit)
-S3method(permstats, vectorfit)
-S3method(permstats, mso)
-S3method(permstats, permutest.betadisper)
+S3method(permustats, CCorA)
+S3method(permustats, envfit)
+S3method(permustats, factorfit)
+S3method(permustats, vectorfit)
+S3method(permustats, mso)
+S3method(permustats, permutest.betadisper)
 
-S3method(print, permstats)
-S3method(summary, permstats)
-S3method(print, summary.permstats)
+S3method(print, permustats)
+S3method(summary, permustats)
+S3method(print, summary.permustats)
 
 # permutest: vegan
 S3method(permutest, betadisper)
