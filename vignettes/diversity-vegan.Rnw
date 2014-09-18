@@ -9,7 +9,7 @@
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
 
-\date{\footnotesize{$ $Id$ $
+\date{\footnotesize{
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
   in \Sexpr{R.version.string} on \today}}
 

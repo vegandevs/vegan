@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2013
+@set FAQ_YEAR 2014
 @afourpaper
 @c %**end of header
 
@@ -16,7 +16,6 @@
 @ifnottex
 This document contains answers to some of the most frequently asked
 questions about R package @pkg{vegan}. 
-This is version of $Date$.
 @end ifnottex
 
 @quotation
@@ -40,7 +39,6 @@ Copyright @copyright{} 2008-2013 Jari Oksanen
 @titlepage
 @title @pkg{vegan} @acronym{FAQ}
 @subtitle Frequently Asked Questions on R package @pkg{vegan}
-@subtitle Version of $Date$ 
 @author Jari Oksanen
 
 @vskip 0pt plus 1fill
@@ -62,30 +60,29 @@ Copyright @copyright{} 2008-2013 Jari Oksanen
 
 
 @menu
-* Introduction::                
-* Ordination::                  
-* Other analysis methods ::     
+* Introduction::
+* Ordination::
+* Other analysis methods ::
 @end menu
 
 @node Introduction, Ordination, Top, Top
 @chapter Introduction
 
 @menu
-* What is @pkg{vegan}?::        
-* What is R?::                  
-* How to obtain @pkg{vegan} and R?::  
-* What R packages @pkg{vegan} depends on?::  
-* What other packages are available for ecologists?::  
-* What other documentation is available for @pkg{vegan}?::  
-* Is there a Graphical User Interface (GUI) for @pkg{vegan}?::  
-* How to cite @pkg{vegan}?::    
-* How to build @pkg{vegan} from sources?::  
-* Are there binaries for devel versions?::  
-* Can I use @pkg{vegan} in Mac?::  
-* How to report a bug in @pkg{vegan}?::  
-* Is it a bug or a feature?::   
-* Can I contribute to @pkg{vegan}?::  
-* Can I have write access to @pkg{vegan} repository?::  
+* What is @pkg{vegan}?::
+* What is R?::
+* How to obtain @pkg{vegan} and R?::
+* What R packages @pkg{vegan} depends on?::
+* What other packages are available for ecologists?::
+* What other documentation is available for @pkg{vegan}?::
+* Is there a Graphical User Interface (GUI) for @pkg{vegan}?::
+* How to cite @pkg{vegan}?::
+* How to build @pkg{vegan} from sources?::
+* Are there binaries for devel versions?::
+* Can I use @pkg{vegan} in Mac?::
+* How to report a bug in @pkg{vegan}?::
+* Is it a bug or a feature?::
+* Can I contribute to @pkg{vegan}?::
 @end menu
 
 @node What is @pkg{vegan}?, What is R?, Introduction, Introduction
@@ -121,37 +118,30 @@ official part of the @uref{http://www.gnu.org/, @acronym{GNU}} project
 Both R and latest release version of @pkg{vegan} can be obtained through
 @uref{http://cran.r-project.org,,CRAN}. Unstable development version of
 @pkg{vegan} can be obtained through
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}.
-
-
+@uref{https://github.com/vegandevs/vegan,,GitHub}. Formerly @pkg{vegan}
+was developed in 
+@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge},
+but after moving to @uref{https://github.com/vegandevs/vegan,,GitHub}
+the R-Forge repository may be out of date.
 
 @node What R packages @pkg{vegan} depends on?, What other packages are available for ecologists?, How to obtain @pkg{vegan} and R?, Introduction
 @section What R packages @pkg{vegan} depends on?
 
 @pkg{Vegan} depends on the @pkg{permute} package which will provide
-advanced and flexible permutation routines for vegan (but currently only
-a small part of functions use @pkg{permute}). The @pkg{permute} package
-is developed together with @pkg{vegan} in
-@uref{http://vegan.r-forge.r-project.org/,,R-Forge}. 
+advanced and flexible permutation routines for @pkg{vegan}. The
+@pkg{permute} package is developed together with @pkg{vegan} in
+@uref{https://github.com/gavinsimpson/permute,,GitHub}. 
 
 Some individual @pkg{vegan} functions depend on packages @pkg{MASS},
 @pkg{mgcv}, @pkg{cluster}, @pkg{lattice} and @pkg{tcltk}.  These all are
 base or recommended R packages that should be available in every R
-installation.  In addition, some @pkg{vegan} functions @code{require}
-non-standard R packages.  @pkg{Vegan} declares these packages only as
-suggested ones, and you can install @pkg{vegan} and use most of its
-functions without these packages.  The non-standard packages needed by
-some @pkg{vegan} functions are:
-@itemize
+installation. @pkg{Vegan} declares these as suggested or imported
+packages, and you can install @pkg{vegan} and use most of its functions
+without these packages.
 
-@item Package @pkg{scatterplot3d}
-is needed by @code{ordiplot3d}
-
-@item Package @pkg{rgl}
-is needed by @code{ordirgl}
-and @code{rgl.isomap}
-
-@end itemize
+@pkg{Vegan} is accompanied with a supporting package @pkg{vegan3d} for
+three-dimensional and dynamic plotting. The @pkg{vegan3d} package needs
+non-standard packages @pkg{rgl} and @pkg{scatterplot3d}.
 
 @node What other packages are available for ecologists?, What other documentation is available for @pkg{vegan}?, What R packages @pkg{vegan} depends on?, Introduction
 @section What other packages are available for ecologists?
@@ -195,7 +185,7 @@ Web documents outside the package include:
 @itemize
 
 @item
-@uref{http://vegan.r-forge.r-project.org/}: @pkg{vegan} homepage.
+@uref{https://github.com/vegandevs/vegan}: @pkg{vegan} homepage.
 @item
 @uref{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}: @pkg{vegan}
 tutorial.
@@ -237,7 +227,9 @@ and MacOS X).
 
 @uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge} runs daily
 tests on the devel package, and if passed, it builds source package
-together with Windows and MacOS X binaries. You can install those
+together with Windows binaries. However, the R-Forge may be out of date,
+because @pkg{vegan} is mainly developed in
+@uref{https://github.com/vegandevs/vegan,,GitHub}. You can install R-Forge
 packages within R with command 
 @code{install.packages("vegan", repos="http://r-forge.r-project.org/")}.
 If you use GUI menu entry, you must select or define the R-Forge
@@ -251,16 +243,16 @@ Yes, you can, and @pkg{vegan} binaries are available for Mac through
 need to install extra tools packages available in
 @uref{http://cran.r-project.org/bin/macosx/tools/,,MacOS tools} pages:
 If you use function such as @code{orditkplot} that need @code{Tcl/Tk}
-you may need to install @code{tcltk} package.  If you use @pkg{vegan}
-binaries from other places than from
-@uref{http://cran.r-project.org,,CRAN}, you may also need to install
-@code{gfortran} package.
+you may need to install @code{tcltk} package. No Mac binaries of
+development versions are available in any repository we know. 
 
 @node How to report a bug in @pkg{vegan}?, Is it a bug or a feature?, Can I use @pkg{vegan} in Mac?, Introduction
 @section How to report a bug in @pkg{vegan}?
 
 If you think you have found a bug in @pkg{vegan}, you should report it to
-@pkg{vegan} maintainers or developers.  The bug report should be so detailed
+@pkg{vegan} maintainers or developers.  The preferred forum to report
+bugs is @uref{https://github.com/vegandevs/vegan/issues,,GitHub}. The
+bug report should be so detailed 
 that the bug can be replicated and corrected.  Preferably, you should
 send an example that causes a bug.  If it needs a data set that is not
 available in R, you should send a minimal data set as well. You also
@@ -271,10 +263,6 @@ Bug reports are welcome: they are the only way to make @pkg{vegan} non-buggy.
 
 Please note that you shall not send bug reports to R mailing lists,
 since @pkg{vegan} is not a standard R package.
-
-There also is a bug reporting tool at
-@uref{http://r-forge.r-project.org/projects/vegan/,,R-Forge}, but you
-need to register as a site user to report bugs (this is site policy).
 
 @node Is it a bug or a feature?, Can I contribute to @pkg{vegan}?, How to report a bug in @pkg{vegan}?, Introduction
 @section Is it a bug or a feature?
@@ -288,66 +276,48 @@ instance, function @code{vegdist} always calculates quantitative
 indices (when this is possible). If you expect it to calculate a
 binary index, you should use argument @code{binary = TRUE}.
 
-@node Can I contribute to @pkg{vegan}?, Can I have write access to @pkg{vegan} repository?, Is it a bug or a feature?, Introduction
+@node Can I contribute to @pkg{vegan}?,  , Is it a bug or a feature?, Introduction
 @section Can I contribute to @pkg{vegan}?
 
 @pkg{Vegan} is dependent on user contribution.  All feedback is welcome.  If
-you have problem with @pkg{vegan}, it may be as simple as incomplete
-documentation, and we'll do our best to improve the documents.
+you have problems with @pkg{vegan}, it may be as simple as incomplete
+documentation, and we shall do our best to improve the documents.
 
 Feature requests also are welcome, but they are not necessarily
 fulfilled.  A new feature will be added if it is easy to do and it looks
-useful to me or in general, or if you submit code. 
+useful, or if you submit code. 
 
-Contributed code and functions are welcome and more certain to be
-included than mere requests.  However, not all functions will be added,
-but I they must be suitable for @pkg{vegan}.  We also audit the code, and
-typically we edit the code in @pkg{vegan} style for easier maintenance.  All
-included contributions will be credited.
-
-@node Can I have write access to @pkg{vegan} repository?,  , Can I contribute to @pkg{vegan}?, Introduction
-@section Can I have write access to @pkg{vegan} repository?
-
-The @pkg{vegan} development happens mainly in
-@uref{http://r-forge.r-project.org/,,R-Forge} which uses subversion for
-version control.  Subversion is a centralized version control system,
-and only @pkg{vegan} developers can have write access to the central
-repository. However, the @uref{http://r-forge.r-project.org/,,R-Forge}
-is mirrored in
-@uref{https://github.com/jarioksa/vegan.git,,GitHub}. This is a
-distributed version control system and freely accessible for anybody. We
-suggest you develop your own ideas in
-@uref{https://github.com/jarioksa/vegan.git,,GitHub} and send a pull
-request to us for incorporating your changes in @pkg{vegan} releases.
+If you can write code yourself, the best forum to contribute to vegan is
+@uref{https://github.com/vegandevs/vegan,,GitHub}. 
 
 @node Ordination, Other analysis methods , Introduction, Top
 @chapter Ordination
 
 @menu
-* I have only numeric and positive data but @pkg{vegan} still complains::  
-* Can I analyse binary or cover class data?::  
-* Why dissimilarities in @pkg{vegan} differ from other sources?::  
-* Why NMDS stress is sometimes 0.1 and sometimes 10?::  
-* I get zero stress but no convergent solutions in @code{metaMDS}::  
-* Zero dissimilarities in isoMDS::  
-* I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::  
-* Where can I find numerical scores of ordination axes?::  
-* How the RDA results are scaled?::  
-* cca fails with ``data.frame expected'' or ``"site.env" missing''::  
-* Ordination fails with ``Error in La.svd''::  
-* Variance explained by ordination axes::  
-* Can I have random effects in constrained ordination or in @code{adonis}?::  
-* Is it possible to have passive points in ordination?::  
-* Class variables and dummies::  
-* How are environmental arrows scaled?::  
-* I want to use Helmert or sum contrasts::  
-* What are aliased variables and how to see them?::  
-* Plotting aliased variables::  
-* Constrained permutations in @pkg{vegan}::  
-* How to use different plotting symbols in ordination graphics?::  
-* How to avoid cluttered ordination graphs?::  
-* Can I flip an axis in ordination diagram?::  
-* Can I zoom into an ordination plot?::  
+* I have only numeric and positive data but @pkg{vegan} still complains::
+* Can I analyse binary or cover class data?::
+* Why dissimilarities in @pkg{vegan} differ from other sources?::
+* Why NMDS stress is sometimes 0.1 and sometimes 10?::
+* I get zero stress but no convergent solutions in @code{metaMDS}::
+* Zero dissimilarities in isoMDS::
+* I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores::
+* Where can I find numerical scores of ordination axes?::
+* How the RDA results are scaled?::
+* cca fails with ``data.frame expected'' or ``"site.env" missing''::
+* Ordination fails with ``Error in La.svd''::
+* Variance explained by ordination axes::
+* Can I have random effects in constrained ordination or in @code{adonis}?::
+* Is it possible to have passive points in ordination?::
+* Class variables and dummies::
+* How are environmental arrows scaled?::
+* I want to use Helmert or sum contrasts::
+* What are aliased variables and how to see them?::
+* Plotting aliased variables::
+* Restricted permutations in @pkg{vegan}::
+* How to use different plotting symbols in ordination graphics?::
+* How to avoid cluttered ordination graphs?::
+* Can I flip an axis in ordination diagram?::
+* Can I zoom into an ordination plot?::
 @end menu
 
 @node  I have only numeric and positive data but @pkg{vegan} still complains, Can I analyse binary or cover class data?, Ordination, Ordination
@@ -427,18 +397,17 @@ with @code{monoMDS} and in principal coordinates analysis
 
 Function @code{metaMDS} uses function @code{monoMDS} as its default
 method for @acronym{NMDS}, and this function can handle zero
-dissimilarities. The alternative function @code{isoMDS} was the only
-choice before @pkg{vegan} 2.0-0, and it cannot handle zero dissimilarities. If
-you want to use @code{isoMDS}, you can use argument @code{zerodist =
-"add"} in @code{metaMDS} to handle zero dissimilarities.  With this
-argument, zero dissimilarities are replaced with a small above zero
-value, and they can be handled in @code{isoMDS}.  This is a kluge, and
-some people do not like this. A more principal solution is to remove
-duplicate sites using R command @code{unique}.  However, after some
-standardizations or with some dissimilarity indices, originally
-non-unique sites can have zero dissimilarity, and you have to resort to
-the kluge (or work harder with your data). Usually it is better to use
-@code{monoMDS}.
+dissimilarities. Alternative function @code{isoMDS} cannot handle zero
+dissimilarities. If you want to use @code{isoMDS}, you can use argument
+@code{zerodist = "add"} in @code{metaMDS} to handle zero
+dissimilarities.  With this argument, zero dissimilarities are replaced
+with a small positive value, and they can be handled in @code{isoMDS}.
+This is a kluge, and some people do not like this. A more principal
+solution is to remove duplicate sites using R command @code{unique}.
+However, after some standardizations or with some dissimilarity indices,
+originally non-unique sites can have zero dissimilarity, and you have to
+resort to the kluge (or work harder with your data). Usually it is
+better to use @code{monoMDS}.
 
 @node I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores, Where can I find numerical scores of ordination axes?, Zero dissimilarities in isoMDS, Ordination
 @section I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
@@ -596,11 +565,10 @@ In this way, the first terms can serve in a similar role as
 random effects, although they are fitted in the same way as all other
 terms, and strictly speaking they are fixed terms.
 
-The permutation tests can usually have a @code{strata} argument which
-restricts the permutations within levels of a factor given in the
-argument. This can be used to restrict the permutations within levels of
-factor regarded as a random term.  More structured permutations are
-available with the @pkg{permute} package.
+All permutation tests in @pkg{vegan} are based on the @pkg{permute}
+package that allows constructing various restricted permutation
+schemes. For instance, you can set levels of @code{plots} or
+@code{blocks} for a factor regarded as a random term.
 
 A major reason why real random effects models are impossible in most
 @pkg{vegan} functions is that their tests are based on the permutation
@@ -701,7 +669,7 @@ redundant levels of factors or whole variables.
 variables.  If you only want to see the names of aliased variables or
 levels in solution @code{sol}, use @code{alias(sol, names.only=TRUE)}.
 
-@node Plotting aliased variables, Constrained permutations in @pkg{vegan}, What are aliased variables and how to see them?, Ordination
+@node Plotting aliased variables, Restricted permutations in @pkg{vegan}, What are aliased variables and how to see them?, Ordination
 @section Plotting aliased variables
 
 You can fit vectors or class centroids for aliased variables using
@@ -709,22 +677,17 @@ You can fit vectors or class centroids for aliased variables using
 fitting, and the fitted vectors are identical to the vectors in
 correspondence analysis.
 
-@node Constrained permutations in @pkg{vegan}, How to use different plotting symbols in ordination graphics?, Plotting aliased variables, Ordination
-@section Constrained permutations in @pkg{vegan}
+@node Restricted permutations in @pkg{vegan}, How to use different plotting symbols in ordination graphics?, Plotting aliased variables, Ordination
+@section Restricted permutations in @pkg{vegan}
 
-You can constrain your permutations within @code{strata} or levels of
-factors. You can use stratified permutations in all @pkg{vegan}
-functions that use permutation, such as @code{adonis}, @code{anosim},
-@code{anova.cca}, @code{mantel}, @code{mrpp}, @code{envfit} and
-@code{protest}.
+@pkg{Vegan} uses @pkg{permute} package in all its permutation tests.
+The @pkg{permute} package will allow restricted permutation designs for
+time series, line transects, spatial grids and blocking factors. The
+construction of restricted permutation schemes is explained in the
+manual page @code{permutations} in @pkg{vegan} and in the documentation
+of the @pkg{permute} package.
 
-@pkg{Vegan} will move to use @pkg{permute} package in all its
-permutation tests, but currently this package is only used in
-@code{permutest.betadisper}. The @pkg{permute} package will allow
-restricted permutation designs for time series, line transects, spatial
-grids and blocking factors.
-
-@node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Constrained permutations in @pkg{vegan}, Ordination
+@node How to use different plotting symbols in ordination graphics?, How to avoid cluttered ordination graphs?, Restricted permutations in @pkg{vegan}, Ordination
 @section How to use different plotting symbols in ordination graphics?
 
 The default ordination @code{plot} function is intended for fast
@@ -817,12 +780,12 @@ formats, or you can export the graph object back to R and use
 @chapter Other analysis methods
 
 @menu
-* Is there TWINSPAN?::          
-* Why strata do not influence adonis results?::  
-* How is deviance calculated?::  
+* Is there TWINSPAN?::
+* Why restricted permutation does not influence adonis results?::
+* How is deviance calculated?::
 @end menu
 
-@node Is there TWINSPAN?, Why strata do not influence adonis results?, Other analysis methods , Other analysis methods
+@node Is there TWINSPAN?, Why restricted permutation does not influence adonis results?, Other analysis methods , Other analysis methods
 @section Is there TWINSPAN?
 
 No.  It may be possible to port @acronym{TWINSPAN} to @pkg{vegan}, but it is
@@ -830,16 +793,15 @@ not among the @pkg{vegan} top priorities.  If anybody wants to try porting, I
 will be happy to help.  @acronym{TWINSPAN} has a very permissive
 license, and it would be completely legal to port the function into R.
 
-@node  Why strata do not influence adonis results?, How is deviance calculated?, Is there TWINSPAN?, Other analysis methods
+@node  Why restricted permutation does not influence adonis results?, How is deviance calculated?, Is there TWINSPAN?, Other analysis methods
 @comment  node-name,  next,  previous,  up
-@section Why strata do not influence adonis results?
-Permutation happens only within @code{strata} and this influences the
-permutation distribution of the statistics and probably the significance
-levels, but @code{strata} do not influence the calculation of the
-statistics.
+@section Why restricted permutation does not influence adonis results?
+The permutation scheme influences the permutation distribution of the
+statistics and probably the significance levels, but does not influence
+the calculation of the statistics.
 
 
-@node How is deviance calculated?,  , Why strata do not influence adonis results?, Other analysis methods
+@node How is deviance calculated?,  , Why restricted permutation does not influence adonis results?, Other analysis methods
 @section How is deviance calculated?
 
 Some @pkg{vegan} functions, such as @code{radfit} use base R facility of

@@ -6,7 +6,7 @@
 \title{Vegan: an introduction to ordination} 
 \author{Jari Oksanen}
 
-\date{\footnotesize{$ $Id$ $
+\date{\footnotesize{
   processed with vegan
 \Sexpr{packageDescription("vegan", field="Version")}
 in \Sexpr{R.version.string} on \today}}
@@ -246,7 +246,7 @@ Function \code{envfit} can be called with a \code{formula}
 interface, and it optionally can assess the ``significance'' of the
 variables using permutation tests:
 <<>>=
-ord.fit <- envfit(ord ~ A1 + Management, data=dune.env, perm=1000)
+ord.fit <- envfit(ord ~ A1 + Management, data=dune.env, perm=999)
 ord.fit
 @
 The result can be drawn directly or added to an ordination diagram
@@ -330,33 +330,21 @@ to give its name in full, because \proglang{R} automatically chooses the
 correct \code{anova} variant for the result of constrained
 ordination.
 
-The \code{anova.cca} function tries to be clever and lazy: it
-automatically stops if the observed permutation significance probably
-differs from the targeted critical value ($0.05$ as default), but it
-will continue long in uncertain cases.  You must set \code{step} and
-\code{perm.max} to same values to override this behaviour.
-
 It is also possible to analyse terms separately:
 <<>>=
-anova(ord, by="term", permu=200)
+anova(ord, by="term", permutations=199)
 @
-In this case, the function is unable to automatically select the
-number of iterations. This test is sequential: the terms are analysed
+This test is sequential: the terms are analysed
 in the order they happen to be in the model. You can also analyse
 significances of marginal effects (``Type III effects''):
 <<>>=
-anova(ord, by="mar")
+anova(ord, by="mar", permutations=199)
 @
 
 Moreover, it is possible to analyse significance of each axis:
 <<a>>=
-anova(ord, by="axis", perm=500)
+anova(ord, by="axis", permutations=499)
 @
-Now the automatic selection works, but typically some of your axes
-will be very close to the critical value, and it may be useful to set
-a lower \code{perm.max} than the default $10000$ (typically you use
-higher limits than in these examples: we used lower limits to save
-time when this document is automatically generated with this package).
 
 \subsection{Conditioned or partial ordination}
 
@@ -370,13 +358,17 @@ This partials out the effect of \code{Moisture} before analysing the
 effects of \code{A1} and \code{Management}.  This also influences
 the significances of the terms:
 <<>>=
-anova(ord, by="term", perm=500)
+anova(ord, by="term", permutations=499)
 @
 If we had a designed experiment, we may wish to restrict the
 permutations so that the observations only are permuted within levels
-of \code{strata}:
+of \code{Moisture}. Restricted permutation is based on the powerful
+\pkg{permute} package. Function \code{how()} can be used to define
+permutation schemes. In the following, we set the levels with
+\code{plots} argument:
 <<>>=
-anova(ord, by="term", perm=500, strata=Moisture)
+how <- how(nperm=499, plots = Plots(strata=dune.env$Moisture))
+anova(ord, by="term", permutations = how)
 @
 
 %%%%%%%%%%%%%%%%%%%
