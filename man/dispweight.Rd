@@ -5,12 +5,12 @@
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{dispweight(comm, group, nperm = 1000)}
+\usage{dispweight(comm, group, nsimul = 1000)}
 
 \arguments{
   \item{comm}{Community data matrix.}
   \item{group}{Factor describing the group structure.}
-  \item{nperm}{Number of permutations.}
+  \item{nsimul}{Number of simulations.}
 }
 
 \details{
@@ -32,6 +32,8 @@ Function returns transformed data with the following new attributes:
     \item{D}{Average Dispersion index.}
     \item{p}{\eqn{p}-value of permutation test that \eqn{D = 1}.}
     \item{weights}{weights applied to community data.}
+    \item{nsimul}{Number of simulations used to assess the \eqn{p}-value,
+       or \code{NA} when simulations were not performed.}
 }
 
 \references{
@@ -46,7 +48,7 @@ Clarke, K. R., M. G. Chapman, P. J. Somerfield, and H. R. Needham. 2006. Dispers
 data(dune)
 data(dune.env)
 ## transformed community data
-dpw <- dispweight(dune, dune.env$Management, nperm = 100)
+dpw <- dispweight(dune, dune.env$Management, nsimul = 100)
 }
 
 
