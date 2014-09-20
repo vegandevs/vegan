@@ -5,11 +5,11 @@
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{dispweight(comm, group, nsimul = 1000)}
+\usage{dispweight(comm, groups, nsimul = 1000)}
 
 \arguments{
   \item{comm}{Community data matrix.}
-  \item{group}{Factor describing the group structure.}
+  \item{groups}{Factor describing the group structure.}
   \item{nsimul}{Number of simulations.}
 }
 
