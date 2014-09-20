@@ -7,6 +7,9 @@
     ## no groups
     if (missing(groups))
         groups <- rep(1, nrow(comm))
+    ## Remove empty levels of 'groups' or this fails cryptically (and
+    ## take care 'groups' is a factor)
+    groups <- factor(groups)
     # number of replicates per group
     nrep <- tabulate(groups) 
     # workhorse
