@@ -13,6 +13,11 @@
     groups <- factor(groups)
     ## Statistic is the sum of squared differences by 'groups'
     means <- apply(comm, 2, function(x) tapply(x, groups, mean))
+    ## handle 1-level factors: all sites belong to the same 'groups'
+    if (is.null(dim(means)))
+        means <- matrix(means, nrow=1, ncol = length(means),
+                        dimnames = list(levels(groups), names(means)))
+    ## expand to matrix of species means
     fitted <- means[groups,]
     dhat <- colSums((comm - fitted)^2/fitted, na.rm = TRUE)
     ## Get df for non-zero blocks of species. Completely ignoring
