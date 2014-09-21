@@ -10,66 +10,43 @@
     ## Remove empty levels of 'groups' or this fails cryptically (and
     ## take care 'groups' is a factor)
     groups <- factor(groups)
-    # number of replicates per group
-    nrep <- tabulate(groups) 
-    # workhorse
-    dfun <- function(comm, groups, nsimul, nrep) {
-        ## Calc Dispersion
-        # group means
-        means <-  tapply(comm, groups, mean)
-        # omit groups with mean == 0
-        if(any(means == 0)) {
-            comm <- comm[means[groups] != 0]
-            groups <- groups[means[groups] != 0, drop = TRUE]
-            nrep <- nrep[means != 0]
-            means <- means[means != 0]
-        }
-        # group variances
-        vars <-  tapply(comm, groups, var)
-        # dispersion
-        d <- vars / means
-        # average dispersion 
-        d_hat <- sum(d * (nrep - 1)) / sum(nrep - 1)
-        
-        ## Test
-        # original chisq values
-        chi_o <- sum((comm - means[groups])^2 / means[groups])
-        
-        # permutations
-        # calculate chisq
-        pfun <- function(comm, groups){
-            means <-  tapply(comm, groups, mean)
-            if(any(means == 0)) {
-                comm <- comm[means[groups] != 0]
-                groups <- groups[means[groups] != 0, drop = TRUE]
-                means <- means[means != 0]
-            }
-            chi <- sum((comm - means[groups])^2 / means[groups])
-            return(chi)
-        }
-        # sum of individuals per group
-        sums <- tapply(comm, groups, sum)
-        # realocate randomly individuals to replications
-        perms <- vector('list', length(sums))
-        for(i in seq_along(sums)) {
-            perms[[i]] <- rmultinom(n = nsimul, size = sums[i], prob = rep(1, nrep[i]) / nrep[i])
-        }
-        perms <- t(do.call(rbind, perms))
-        chi_p <- apply(perms, 1, pfun, sort(groups))
-        p <- (sum(chi_p >= chi_o) + 1) / (nsimul + 1)
-        out <- list(D = d_hat, p = p, weights = ifelse(p < 0.05, 1/d_hat, 1))
-        return(out)
+    ## Statistic is the sum of squared differences by 'groups'
+    means <- apply(comm, 2, function(x) tapply(x, groups, mean))
+    fitted <- means[groups,]
+    dhat <- colSums((comm - fitted)^2/fitted, na.rm = TRUE)
+    ## Get df for non-zero blocks of species. Completely ignoring
+    ## all-zero blocks for species sounds strange, but was done in the
+    ## original paper, and we follow here. However, this was not done
+    ## for significance tests, and only concerns 'D' and 'weights'.
+    nreps <- table(groups)
+    div <- colSums(sweep(means > 0, 1, nreps - 1, "*"))
+    ## "significance" of overdispersion is assessed from Chi-square
+    ## evaluated separately for each species. This means fixing only
+    ## marginal totals for species but letting row marginals vary
+    ## freely, unlike in standard Chi-square where both margins are
+    ## fixed. In vegan this is achieved by nullmodel 'c0_ind'. Instead
+    ## of one overall simulation, nullmodel is generated separately
+    ## for each of 'groups'
+    chisq <- function(x) {
+        fitted <- colMeans(x)
+        colSums(sweep(x, 2, fitted)^2, na.rm = TRUE) / fitted
     }
-    # apply workhorse to every species
-    out <- apply(comm, 2, dfun, groups, nsimul, nrep)
-    
-    # format output
-    weights <-  unlist(sapply(out, '[', 3))
-    out = sweep(comm, MARGIN = 2, weights, `*`)
-    attr(out, "D") <- unlist(sapply(out, '[', 1)) 
-    attr(out, "p") <- unlist(sapply(out, '[', 2))
-    attr(out, "weights") <-  weights
-    attr(out, "nsimul") <- nsimul
-    class(out) <- c("dispweight", class(out))
-    return(out)
+    simulated <- matrix(0, nrow = ncol(comm), ncol = nsimul)
+    for (lev in levels(groups)) {
+        nm <- nullmodel(comm[groups == lev,], "c0_ind")
+        tmp <- apply(simulate(nm, nsimul), 3, chisq)
+        ok <- !is.na(tmp)
+        simulated[ok] <- simulated[ok] + tmp[ok] 
+    }
+    ## p value based on raw dhat, then we divide
+    p <- (rowSums(dhat <= simulated) + 1) / (nsimul + 1)
+    dhat <- dhat/div
+    weights <- ifelse(p <= 0.05, 1/dhat, 1)
+    comm <- sweep(comm, 2, weights, "*")
+    attr(comm, "D") <- dhat
+    attr(comm, "p") <- p
+    attr(comm, "weights") <-  weights
+    attr(comm, "nsimul") <- nsimul
+    class(comm) <- c("dispweight", class(comm))
+    comm
 }
