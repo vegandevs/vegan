@@ -76,7 +76,7 @@ assemblage analyses. \emph{Marine Ecology Progress Series}, 320,
 11–27.
 }
 \author{
-  Eduard Szöcs \email{szoe8822@uni-landau.de}
+  Eduard Szöcs \email{eduardszoesc@gmail.com} and Jari Oksanen.
 }
 
 
