@@ -11,6 +11,7 @@
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
           permutations = how(nperm = 999),
+          parallel = getOption("mc.cores"),
           \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -22,6 +23,10 @@
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package which is available only for \R 2.14.0 and later.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
@@ -39,6 +44,10 @@
   dispersions. An alternative to the classical comparison of group
   dispersions, is to calculate Tukey's Honest Significant Differences
   between groups, via \code{\link{TukeyHSD.betadisper}}.
+}
+\note{
+  Parallelism is not implemented for \code{pairwise = TRUE}. The
+  permutations for these tests will be done serially.
 }
 \value{
   \code{permutest.betadisper} returns a list of class
