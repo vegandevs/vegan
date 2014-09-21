@@ -1,6 +1,6 @@
 `permutest.betadisper` <- function(x, pairwise = FALSE,
                                    permutations = how(nperm = 999),
-                                   ...)
+                                   parallel = getOption("mc.cores"), ...)
 {
     t.statistic <- function(x, y) {
         m <- length(x)
@@ -13,8 +13,30 @@
         (xbar - ybar) / (pooled * sqrt(1/m + 1/n))
     }
 
+    permFun <- function(idx) {
+        if (!is.matrix(idx)) {
+            dim(i) <- c(1, length(idx))
+        }
+        R <- nrow(idx)
+        Fperm <- numeric(length = R)
+        ## iterate
+        for (i in seq_len(R)) {
+            take <- idx[i, ]                # current permutation from set
+            p.resid <- resids[take]         # permute residuals
+            f <- qr.fitted(mod.Q, p.resid) # create new data
+            mss <- sum((f - mean(f))^2)
+            r <- qr.resid(mod.Q, p.resid)
+            rss <- sum(r^2)
+            rdf <- nobs - p
+            resvar <- rss / rdf
+            Fperm[i] <- (mss / (p - 1)) / resvar
+        }
+        Fperm
+    }
+
     if(!inherits(x, "betadisper"))
         stop("Only for class \"betadisper\"")
+
     ## will issue error if only a single group
     mod.aov <- anova(x)
     nobs <- length(x$distances) ## number of observations
@@ -30,9 +52,37 @@
     permutations <- getPermuteMatrix(permutations, nobs)
     nperm <- nrow(permutations)
 
+    ## Parallel processing of permutations
+    if (is.null(parallel)) {
+        parallel <- 1
+    }
+    hasClus <- inherits(parallel, "cluster")
+    if ((hasClus || parallel > 1L) && requireNamespace("parallel")) {
+        if (.Platform$OS.type == "unix" && !hasClus) {
+            Fstats <- do.call("c",
+                           mclapply(seq_len(nperm),
+                                    function(x) permFun(permutations[x, , drop = FALSE]),
+                                    mc.cores = parallel))
+        } else {
+            ## if hasClus, don't set up and top a temporary cluster
+            if (!hasClus) {
+                parallel <- makeCluster(parallel)
+            }
+            Fstats <- parRapply(parallel, permutations, function(x) permFun(x))
+            if (!hasClus) {
+                stopCluster(parallel)
+            }
+        }
+    } else {
+        Fstats <- permFun(permutations)
+    }
+    F0 <- summary(mod)$fstatistic[1]
+    Fstats <- round(Fstats, 12)
+    F0 <- round(F0, 12)
+
     ## set-up objects to hold permuted results
-    res <- numeric(length = nperm + 1)
-    res[1] <- summary(mod)$fstatistic[1]
+    ## res <- numeric(length = nperm + 1)
+    ## res[1] <- summary(mod)$fstatistic[1]
     ## pairwise comparisons
     if(pairwise) {
         ## unique pairings
@@ -47,14 +97,14 @@
     ## begin loop over shuffleSet perms
     for(i in seq_len(nperm)) {
         perm <- permutations[i,] ## take current permutation from set
-        perm.resid <- resids[perm] ## permute residuals
-        f <- qr.fitted(mod.Q, perm.resid) ## create new data
-        mss <- sum((f - mean(f))^2)
-        r <- qr.resid(mod.Q, perm.resid)
-        rss <- sum(r^2)
-        rdf <- nobs - p
-        resvar <- rss / rdf
-        res[i+1] <- (mss / (p - 1)) / resvar
+        ## perm.resid <- resids[perm] ## permute residuals
+        ## f <- qr.fitted(mod.Q, perm.resid) ## create new data
+        ## mss <- sum((f - mean(f))^2)
+        ## r <- qr.resid(mod.Q, perm.resid)
+        ## rss <- sum(r^2)
+        ## rdf <- nobs - p
+        ## resvar <- rss / rdf
+        ## res[i+1] <- (mss / (p - 1)) / resvar
 
         ## pairwise comparisons
         if(pairwise) {
@@ -67,7 +117,8 @@
     }
 
     ## compute permutation p-value
-    pval <- sum(res >= res[1]) / length(res)
+    ## pval <- sum(res >= res[1]) / length(res)
+    pval <- (sum(Fstats >= F0) + 1) / (length(Fstats) + 1)
 
     if(pairwise) {
         df <- apply(combin, 2, function(z) {
