@@ -5,12 +5,21 @@
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{dispweight(comm, groups, nsimul = 999)}
+\usage{
+dispweight(comm, groups, nsimul = 999, nullmodel = "c0_ind",
+    plimit = 0.05)
+}
 
 \arguments{
   \item{comm}{Community data matrix.}
   \item{groups}{Factor describing the group structure.}
   \item{nsimul}{Number of simulations.}
+  \item{nullmodel}{The \code{\link{nullmodel}} used in
+    \code{\link{commsim}} within \code{groups}. The default
+    follows Clarke et al. (2006).}
+  \item{plimit}{Downweight species if their \eqn{p}-value is at or
+     below this limit.}
+
 }
 
 \details{

@@ -1,5 +1,6 @@
 `dispweight` <-
-    function(comm, groups, nsimul = 999)
+    function(comm, groups, nsimul = 999, nullmodel = "c0_ind",
+             plimit = 0.05)
 {
     ## only applicable for counts
     if (!identical(all.equal(comm, round(comm)), TRUE))
@@ -33,7 +34,7 @@
     }
     simulated <- matrix(0, nrow = ncol(comm), ncol = nsimul)
     for (lev in levels(groups)) {
-        nm <- nullmodel(comm[groups == lev,], "c0_ind")
+        nm <- nullmodel(comm[groups == lev,], nullmodel)
         tmp <- apply(simulate(nm, nsimul), 3, chisq)
         ok <- !is.na(tmp)
         simulated[ok] <- simulated[ok] + tmp[ok] 
@@ -41,7 +42,7 @@
     ## p value based on raw dhat, then we divide
     p <- (rowSums(dhat <= simulated) + 1) / (nsimul + 1)
     dhat <- dhat/div
-    weights <- ifelse(p <= 0.05, 1/dhat, 1)
+    weights <- ifelse(p <= plimit, 1/dhat, 1)
     comm <- sweep(comm, 2, weights, "*")
     attr(comm, "D") <- dhat
     attr(comm, "p") <- p
