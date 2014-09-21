@@ -5,7 +5,7 @@
 
 \description{Transform abundance data using dispersion-based weighting of species counts}
 
-\usage{dispweight(comm, groups, nsimul = 1000)}
+\usage{dispweight(comm, groups, nsimul = 999)}
 
 \arguments{
   \item{comm}{Community data matrix.}
@@ -48,7 +48,7 @@ Clarke, K. R., M. G. Chapman, P. J. Somerfield, and H. R. Needham. 2006. Dispers
 data(dune)
 data(dune.env)
 ## transformed community data
-dpw <- dispweight(dune, dune.env$Management, nsimul = 100)
+dpw <- dispweight(dune, dune.env$Management, nsimul = 99)
 }
 
 
