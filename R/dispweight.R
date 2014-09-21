@@ -2,10 +2,7 @@
     function(comm, groups, nsimul = 999, nullmodel = "c0_ind",
              plimit = 0.05)
 {
-    ## only applicable for counts
-    if (!identical(all.equal(comm, round(comm)), TRUE))
-        stop("function needs counts (integers)")
-    ## no groups
+    ## no groups?
     if (missing(groups))
         groups <- rep(1, nrow(comm))
     ## Remove empty levels of 'groups' or this fails cryptically (and
@@ -40,6 +37,8 @@
     simulated <- matrix(0, nrow = ncol(comm), ncol = nsimul)
     for (lev in levels(groups)) {
         nm <- nullmodel(comm[groups == lev,], nullmodel)
+        if (nm$commsim$binary)
+            stop("'binary' nullmodel cannot be used")
         tmp <- apply(simulate(nm, nsimul), 3, chisq)
         ok <- !is.na(tmp)
         simulated[ok] <- simulated[ok] + tmp[ok] 
