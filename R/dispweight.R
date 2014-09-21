@@ -1,5 +1,5 @@
 `dispweight` <-
-    function(comm, groups, nsimul = 1000)
+    function(comm, groups, nsimul = 999)
 {
     ## only applicable for counts
     if (!identical(all.equal(comm, round(comm)), TRUE))
