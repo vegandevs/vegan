@@ -53,6 +53,7 @@
     attr(comm, "p") <- p
     attr(comm, "weights") <-  weights
     attr(comm, "nsimul") <- nsimul
+    attr(comm, "nullmodel") <- nullmodel
     class(comm) <- c("dispweight", class(comm))
     comm
 }

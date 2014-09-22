@@ -44,5 +44,6 @@
     attr(comm, "p") <- p
     attr(comm, "weights") <- w
     attr(comm, "nsimul") <- NA
+    attr(comm, "nullmodel") <- NA
     comm
 }

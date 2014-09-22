@@ -67,7 +67,9 @@ Function returns transformed data with the following new attributes:
     \item{p}{\eqn{p}-value of permutation test that \eqn{D = 1}.}
     \item{weights}{weights applied to community data.}
     \item{nsimul}{Number of simulations used to assess the \eqn{p}-value,
-       or \code{NA} when simulations were not performed.}
+      or \code{NA} when simulations were not performed.}
+    \item{nullmodel}{The name of \code{\link{commsim}} null model, or
+      \code{NA} when simulations were not performed.}
 }
 
 \references{
