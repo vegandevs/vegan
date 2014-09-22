@@ -2,6 +2,7 @@
 \name{dispweight}
 \alias{dispweight}
 \alias{gdispweight}
+\alias{summary.dispweight}
 \title{Dispersion-based weighting of species counts}
 
 \description{Transform abundance data using dispersion-based weighting
@@ -11,6 +12,7 @@ of species counts}
 dispweight(comm, groups, nsimul = 999, nullmodel = "c0_ind",
     plimit = 0.05)
 gdispweight(formula, data, plimit = 0.05)
+\method{summary}{dispweight}(object, ...)
 }
 
 \arguments{
@@ -26,6 +28,9 @@ gdispweight(formula, data, plimit = 0.05)
     community data frame and right-hand side gives the explanatory
     variables. The explanatory variables are found in the data frame
     given in \code{data}.}
+  \item{object}{Result object from \code{dispweight} or
+    \code{gdispweight}.}
+  \item{\dots}{Other parameters passed to functions.}
 
 }
 
@@ -58,6 +63,9 @@ generalized function estimates the degrees of freedom as in
 \code{\link{glm}}. Apart from different way of estimating degrees of
 freedom, the downweighting is identical to the original method.
 
+Functions \code{dispweight} and \code{gdispweight} transform data, but
+they add information on overdispersion and weights as attributes. The
+\code{summary} can be used to extract and print that information.
 }
 
 \value{
