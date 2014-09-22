@@ -49,6 +49,7 @@
   Parallelism is not implemented for \code{pairwise = TRUE}. The
   permutations for these tests will be done serially.
 }
+
 \value{
   \code{permutest.betadisper} returns a list of class
   \code{"permutest.betadisper"} with the following components:
