@@ -24,11 +24,11 @@
     V <- family$variance
     ## fit models to all species separately and extract results
     mods <- lapply(comm, function(y) glm.fit(x, y, family = family))
-    y <- sapply(mods, function(x) x$y)
-    mu <- sapply(mods, function(x) x$fitted.values)
-    wts <- sapply(mods, function(x) x$prior.weights)
+    y <- sapply(mods, '[[', "y")
+    mu <- sapply(mods, fitted)
+    wts <- sapply(mods, '[[',  "prior.weights")
     res <- (y-mu) * sqrt(wts) / sqrt(V(mu))
-    df <- sapply(mods, function(x) x$df.residual)
+    df <- sapply(mods, df.residual)
     ## the same stats as in Clarke's original, but parametrically
     stat <- colSums(res^2)
     p <- pchisq(stat, df, lower.tail = FALSE)
