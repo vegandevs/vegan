@@ -17,7 +17,8 @@
     ## extract rhs
     if (missing(data))
         data <- environment(formula)
-    x <- model.matrix(delete.response(terms(formula)), data = data)
+    x <- model.matrix(delete.response(terms(formula, data = data)),
+                      data = data)
     ## Quasi-Poisson
     family <- quasipoisson()
     V <- family$variance
