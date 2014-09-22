@@ -10,7 +10,7 @@
 }
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
-          permutations = how(nperm = 999),
+          permutations = 999,
           parallel = getOption("mc.cores"),
           \dots)
 }
