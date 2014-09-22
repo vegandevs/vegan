@@ -2,6 +2,17 @@ $Date$
 
 VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
 
+Version 2.1-43
+
+	* betadisper Permutation tests via the `permutest()` method
+	are now parallelised. The number of cores to parallelise over
+	is specified by argument `parallel` in common with the
+	implementation for `cca()`.
+
+	Fix a couple of bugs in the examples; number of permutations
+	was specified using `control` which is not an argument to the
+	`permutest()` method for `betadisper()`.
+
 Version 2.1-42 (opened September 4, 2014)
 
 	* Opened a new version to prepare release 2.2-0.
