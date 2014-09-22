@@ -62,7 +62,8 @@ freedom, the downweighting is identical to the original method.
 
 \value{
 Function returns transformed data with the following new attributes:
-    \item{D}{Average Dispersion index.}
+    \item{D}{Dispersion index.}
+    \item{df}{Degrees of freedom for each species.}
     \item{p}{\eqn{p}-value of permutation test that \eqn{D = 1}.}
     \item{weights}{weights applied to community data.}
     \item{nsimul}{Number of simulations used to assess the \eqn{p}-value,

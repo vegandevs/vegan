@@ -49,6 +49,7 @@
     weights <- ifelse(p <= plimit, 1/dhat, 1)
     comm <- sweep(comm, 2, weights, "*")
     attr(comm, "D") <- dhat
+    attr(comm, "df") <- div
     attr(comm, "p") <- p
     attr(comm, "weights") <-  weights
     attr(comm, "nsimul") <- nsimul

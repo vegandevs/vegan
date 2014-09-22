@@ -39,6 +39,7 @@
     comm <- sweep(comm, 2, w, "*")
     class(comm) <- c("dispweight", class(comm))
     attr(comm, "D") <- dhat
+    attr(comm, "df") <- df
     attr(comm, "p") <- p
     attr(comm, "weights") <- w
     attr(comm, "nsimul") <- NA
