@@ -10,7 +10,8 @@
 }
 \usage{
 \method{permutest}{betadisper}(x, pairwise = FALSE,
-          permutations = how(nperm = 999),
+          permutations = 999,
+          parallel = getOption("mc.cores"),
           \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -22,6 +23,9 @@
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing.}
   \item{\dots}{Arguments passed to other methods.}
 }
 \details{
