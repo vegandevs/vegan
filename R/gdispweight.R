@@ -12,6 +12,9 @@
 `gdispweight` <-
     function(formula, data, plimit = 0.05)
 {
+    ## We do not handle missing values (yet?)
+    op <- options(na.action = "na.fail")
+    on.exit(op)
     ## extract response data
     comm <- eval(formula[[2]])
     ## extract rhs
