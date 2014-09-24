@@ -10,7 +10,7 @@ cascadeKM, cca, contribdiv, clamtest, commsim, decorana,
 decostand, designdist, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
-goodness, hiersimu, humpfit, indpower, inertcomp, initMDS,
+gdispweight,goodness, hiersimu, humpfit, indpower, inertcomp, initMDS,
 intersetcor, isomapdist, isomap, linestack, mantel, meandist,
 metaMDSdist, metaMDSiter, metaMDSredist, MDSrotate, metaMDS, monoMDS,
 mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac, nestedbetasor, nestedchecker,
@@ -356,6 +356,7 @@ S3method(print, summary.bioenv)
 S3method(print, summary.cca)
 S3method(print, summary.clamtest)
 S3method(print, summary.decorana)
+S3method(print, summary.dispweight)
 S3method(print, summary.humpfit)
 S3method(print, summary.isomap)
 S3method(print, summary.meandist)
@@ -428,6 +429,7 @@ S3method(summary, bioenv)
 S3method(summary, cca)
 S3method(summary, clamtest)
 S3method(summary, decorana)
+S3method(summary, dispweight)
 S3method(summary, eigenvals)
 S3method(summary, humpfit)
 S3method(summary, isomap)
