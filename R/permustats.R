@@ -27,8 +27,8 @@
     ## cut levels for quantiles: these are two-sided
     probs <- switch(object$alternative,
                     "two.sided" = c(0.025, 0.5, 0.975),
-                    "greater" = c(0, 0.5, 0.95),
-                    "less" = c(0.05, 0.5, 1)) 
+                    "greater" = c(0.5, 0.95),
+                    "less" = c(0.05, 0.5)) 
     sim <- t(object$simulations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)
@@ -49,7 +49,7 @@
                "mean" = x$means,
                t(x$quantile))
     rownames(m) <- x$name
-    printCoefmat(m, cs.ind = 3:6, ...)
+    printCoefmat(m, cs.ind = 3:ncol(m), ...)
     invisible(x)
 }
 
