@@ -25,7 +25,10 @@
     function(object, ...)
 {
     ## cut levels for quantiles: these are two-sided
-    probs <- c(0.025, 0.5, 0.975)
+    probs <- switch(object$alternative,
+                    "two.sided" = c(0.025, 0.5, 0.975),
+                    "greater" = c(0, 0.5, 0.95),
+                    "less" = c(0.05, 0.5, 1)) 
     sim <- t(object$simulations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)
@@ -45,6 +48,7 @@
                "z" = x$z,
                "mean" = x$means,
                t(x$quantile))
+    rownames(m) <- x$name
     printCoefmat(m, cs.ind = 3:6, ...)
     invisible(x)
 }
@@ -56,18 +60,22 @@
 {
     structure(list(
         "statistic" = x$statistic,
-        "simulations" = x$perm),
+        "simulations" = x$perm,
+        "name" = "R",
+        "alternative" = "greater"),
               class="permustats")
 }
 
 `permustats.adonis` <-
     function(x, ...)
 {
-    stat <- x$aov.tab$F.Model
-    stat <- stat[!is.na(stat)]
+    tab <- x$aov.tab
+    k <- !is.na(tab$F.Model)
     structure(list(
-        "statistic" = stat,
-        "simulations" = x$f.perms),
+        "statistic" = tab$F.Model[k],
+        "simulations" = x$f.perms,
+        "name" = rownames(tab)[k],
+        "alternative" = "greater"),
               class="permustats")
 }
 
@@ -76,7 +84,9 @@
 {
     structure(list(
         "statistic" = x$statistic,
-        "simulations" = x$perm),
+        "simulations" = x$perm,
+        "name" = "r",
+        "alternative" = "greater"),
               class="permustats")
 }
 
@@ -85,7 +95,9 @@
 {
     structure(list(
         "statistic" = x$delta,
-        "simulations" = x$boot.deltas),
+        "simulations" = x$boot.deltas,
+        "name" = "delta",
+        "alternative" = "less"),
               class="permustats")
 }
 
@@ -94,7 +106,9 @@
 {
     structure(list(
         "statistic" = x$oecosimu$statistic,
-        "simulations" = t(x$oecosimu$simulated)),
+        "simulations" = t(x$oecosimu$simulated),
+        "name" = names(x$oecosimu$statistic),
+        "alternative" = x$oecosimu$alternative),
               class="permustats")
 }
 
@@ -103,7 +117,9 @@
 {
     structure(list(
         "statistic" = x$F.0,
-        "simulations" = x$F.perm),
+        "simulations" = x$F.perm,
+        "name" = "F",
+        "alternative" = "greater"),
               class="permustats")
 }
 
@@ -111,8 +127,10 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$t.0,
-        "simulations" = x$t),
+        "statistic" = x$t0,
+        "simulations" = x$t,
+        "name" = "r",
+        "alternative" = "greater"),
               class="permustats")
 }
 
