@@ -53,6 +53,24 @@
     invisible(x)
 }
 
+### densityplot
+
+`densityplot.permustats` <-
+    function(x, xlab = "Permutations", ...)
+{
+    obs <- x$statistic
+    sim <- rbind(x$statistic, as.matrix(x$simulations))
+    nm <- x$name[col(sim)]
+    densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
+                xlab = xlab,
+                panel = function(x, ...) {
+                    panel.densityplot(x, ...)
+                    panel.abline(v = obs[panel.number()], ...)
+                },
+                ...)
+}
+
+
 ### specific methods
 
 `permustats.anosim` <-
