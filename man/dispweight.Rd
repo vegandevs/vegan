@@ -96,8 +96,11 @@ H. R. Needham. 2006. Dispersion-based weighting of species counts in
 assemblage analyses. \emph{Marine Ecology Progress Series}, 320,
 11–27.
 }
+
 \author{
-  Eduard Szöcs \email{eduardszoesc@gmail.com} and Jari Oksanen.
+  Eduard Szöcs \email{eduardszoesc@gmail.com} wrote the original
+  \code{dispweight}, Jari Oksanen significantly modified the code,
+  provided support functions and developed \code{gdispweight}.
 }
 
 
