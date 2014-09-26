@@ -1,4 +1,19 @@
-\name{density.adonis}
+\name{permustats}
+\alias{permustats.adonis}
+\alias{permustats.anosim}
+\alias{permustats.CCorA}
+\alias{permustats.envfit}
+\alias{permustats.factorfit}
+\alias{permustats.mantel}
+\alias{permustats.mrpp}
+\alias{permustats.mso}
+\alias{permustats.oecosimu}
+\alias{permustats.permutest.betadisper}
+\alias{permustats.permutest.cca}
+\alias{permustats.protest}
+\alias{permustats.vectorfit}
+\alias{summary.permustats}
+\alias{densityplot.permustats}
 \alias{density.adonis}
 \alias{density.anosim}
 \alias{density.mantel}
@@ -9,28 +24,26 @@
 \alias{densityplot.adonis}
 
 \title{
-  Kernel Density Estimation for Permutation Results in Vegan
+  Extract, Analyse and Display Densities of Permutation Results
 }
 
 \description{ 
-  The \code{density} functions can directly access the permutation
-  results of \pkg{vegan} functions, and \code{plot} can display the
-  densities. The \code{densityplot} method can access and display the
-  permutation results of functions that return permutations of several
-  statistics simultaneously.  
+  The \code{permustats} and \code{density} functions can directly
+  access the permutation results of \pkg{vegan} functions.
 }
 
 \usage{
+permustats(x, ...)
+\method{summary}{permustats}(object, ...)
+\method{densityplot}{permustats}(x, xlab = "Permutations", ...)
 \method{density}{adonis}(x, ...)
 \method{plot}{vegandensity}(x, main = NULL, xlab = NULL, ylab = "Density", 
    type = "l", zero.line = TRUE, obs.line = TRUE, ...)
+\method{densityplot}{adonis}(x, data, xlab = "Null", ...)
 }
 
 \arguments{
-  \item{x}{The object to be handled. For \code{density} and
-     \code{densityplot} this is an object containing permutations. For
-     \code{plot} this is a result of \pkg{vegan} \code{density}
-     function.}
+  \item{object, x}{The object to be handled.}
   \item{main, xlab, ylab, type, zero.line}{Arguments of
     \code{\link{plot.density}} and \code{\link[lattice]{densityplot}}
     functions.}
@@ -46,17 +59,36 @@
 
 \details{ 
 
-  The \code{density} and \code{densityplot} function can directly access
-  permutation results of most \pkg{vegan} functions.  The \code{density}
+  The \code{permustats} function extracts permutation results,
+  observed statistics, name of the statistic, and text direction from
+  the ordination results.  The \code{summary} estimate the \eqn{z}
+  values, also known as standardized effect size (SES) as the
+  difference of obseved statistic and mean of permutations divided by
+  the standard deviation of the permutations. It also prints the the
+  mean, median, and limits within which are 95\% of permutations. For
+  two-sided test these are (2.5\%, 97.5\%) and for one-sided tests
+  either 5\% or 95\% quantile depending on the text direction. The
+  \code{densityplot} method displays the density of permutations and
+  marks the observed statistic as a vertical line (see
+  \code{\link[lattice]{densityplot}}). The observed statistic is
+  always put among the permuted values so that the plot is consistnet
+  with significance tests. The \code{permustats} can extract
+  permutation statistics from the results of \code{\link{adonis}},
+  \code{\link{anosim}}, \code{\link{mantel}},
+  \code{\link{mantel.partial}}, \code{\link{mrpp}},
+  \code{\link{oecosimu}}, \code{\link{permutest.cca}}, and
+  \code{\link{protest}}.
+
+  The \code{density} function can directly access permutation results
+  of the same function as \code{permustats}.  The \code{density}
   function is identical to \code{\link{density.default}} and takes all
   its arguments, but adds the observed statistic to the result as item
   \code{"observed"}. The observed statistic is also put among the
   permuted values so that the results are consistent with significance
   tests. The \code{plot} method is similar to the default
-  \code{\link{plot.density}}, but can also add the observed statistic to
-  the graph as a vertical line.  The \code{densityplot} function is
-  based on the same function in the \pkg{lattice} package (see
-  \code{\link[lattice]{densityplot}}).
+  \code{\link{plot.density}}, but can also add the observed statistic
+  to the graph as a vertical line.  In \code{\link{adonis}} it is also
+  possible to use direclty \code{densityplot} function.
 
   The density methods are available for \pkg{vegan} functions
   \code{\link{adonis}}, \code{\link{anosim}}, \code{\link{mantel}},
@@ -74,18 +106,25 @@
 
   Functions that can return several permuted statistics simultaneously
   also have \code{\link[lattice]{densityplot}} method
-  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity 
+  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity
   partitioning functions based on \code{oecosimu}).  The standard
   \code{\link{density}} can only handle univariate data, and a warning
   is issued if the function is used for a model with several observed
-  statistics.  The \code{\link[lattice]{densityplot}} method is available
-  for \code{\link{adonis}} and \code{\link{oecosimu}} (documented
-  separately). NB, there is no \code{density} method for
+  statistics. However, you can use \code{densityplot} on
+  \code{permustats} result for these methods.  NB, there are no
+  \code{permustats} and \code{density} methods for
   \code{\link{anova.cca}}, but only for \code{\link{permutest.cca}}.
 
 }
 
 \value{
+  The \code{permustats} function return an object of class
+  \code{"permustats"}. This is a list of items \code{"statistic"} for
+  observed statistics, \code{permutations} which contains permuted
+  values, \code{name} which contains the name of the statistic, and
+  \code{alternative} which contains text defining the character of the
+  test (\code{"two.sided"}, \code{"less"} or \code{"greater"}.).
+
   The \code{density} function returns the standard \code{\link{density}}
   result object with one new item: \code{"observed"} for the observed
   value of the statistic. The functions have a specific \code{plot}
@@ -105,6 +144,11 @@
 data(dune)
 data(dune.env)
 mod <- adonis(dune ~ Management, data = dune.env)
+## use permustats
+perm <- permustats(mod)
+summary(perm)
+densityplot(perm)
+## direct use of density
 plot(density(mod))
 mod <- adonis(dune ~ Management * Moisture, dune.env)
 densityplot(mod)
