@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-09-15 r66611) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-09-26 r66683) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -20,6 +20,18 @@ Type 'q()' to quit R.
 > pkgname <- "vegan"
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
+> base::assign(".ExTimings", "vegan-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
@@ -32,6 +44,7 @@ This is vegan 2.1-43
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: BCI
 > ### Title: Barro Colorado Island Tree Counts
 > ### Aliases: BCI
@@ -46,12 +59,15 @@ This is vegan 2.1-43
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("BCI", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("CCorA")
 > ### * CCorA
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: CCorA
 > ### Title: Canonical Correlation Analysis
 > ### Aliases: CCorA biplot.CCorA
@@ -133,12 +149,15 @@ adj. RDA R squares -0.12553 -0.0250
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("CCorA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("MDSrotate")
 > ### * MDSrotate
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: MDSrotate
 > ### Title: Rotate First MDS Dimension Parallel to an External Variable
 > ### Aliases: MDSrotate
@@ -160,19 +179,22 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x4d09c38>
+<environment: 0x60d3a20>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("MDSrotate", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("MOStest")
 > ### * MOStest
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: MOStest
 > ### Title: Mitchell-Olds & Shaw Test for the Location of Quadratic Extreme
 > ### Aliases: MOStest plot.MOStest fieller.MOStest profile.MOStest
@@ -237,6 +259,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("MOStest", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("RsquareAdj")
@@ -244,6 +268,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: RsquareAdj
 > ### Title: Adjusted R-square
 > ### Aliases: RsquareAdj RsquareAdj.default RsquareAdj.rda RsquareAdj.cca
@@ -269,12 +294,15 @@ $adj.r.squared
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("RsquareAdj", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("SSarrhenius")
 > ### * SSarrhenius
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: SSarrhenius
 > ### Title: Self-Starting nls Species-Area Models
 > ### Aliases: SSarrhenius SSlomolino SSgitay SSgleason
@@ -366,12 +394,15 @@ Arrhenius   Gleason     Gitay  Lomolino    MicMen
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("SSarrhenius", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("add1.cca")
 > ### * add1.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: add1.cca
 > ### Title: Add or Drop Single Terms to a Constrained Ordination Model
 > ### Aliases: add1.cca drop1.cca
@@ -474,12 +505,15 @@ Manure  3 85.762 1.1225  0.320
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("add1.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("adipart")
 > ### * adipart
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: adipart
 > ### Title: Additive Diversity Partitioning and Hierarchical Null Model
 > ###   Testing
@@ -603,6 +637,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("adipart", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("adonis")
@@ -610,6 +646,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
@@ -717,12 +754,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("adonis", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("anosim")
 > ### * anosim
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: anosim
 > ### Title: Analysis of Similarities
 > ### Aliases: anosim summary.anosim plot.anosim
@@ -765,6 +805,8 @@ Warning in bxp(list(stats = c(4, 58.5, 104, 145.5, 188, 5, 15.25, 25.5,  :
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("anosim", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘dune.env’
@@ -774,6 +816,7 @@ detaching ‘dune.env’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: anova.cca
 > ### Title: Permutation Test for Constrained Correspondence Analysis,
 > ###   Redundancy Analysis and Constrained Analysis of Principal Coordinates
@@ -800,12 +843,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("anova.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("as.mlm")
 > ### * as.mlm
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: as.mlm.cca
 > ### Title: Refit Constrained Ordination as a Multiple Response Linear Model
 > ### Aliases: as.mlm as.mlm.cca as.mlm.rda
@@ -895,12 +941,15 @@ Influence measures of
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("as.mlm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("beals")
 > ### * beals
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: beals
 > ### Title: Beals Smoothing and Degree of Absence
 > ### Aliases: beals swan
@@ -1036,12 +1085,15 @@ Influence measures of
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("beals", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("betadisper")
 > ### * betadisper
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: betadisper
 > ### Title: Multivariate homogeneity of groups dispersions (variances)
 > ### Aliases: betadisper scores.betadisper anova.betadisper plot.betadisper
@@ -1090,15 +1142,15 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, pairwise = TRUE)
+> permutest(mod, pairwise = TRUE, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156   1000   0.05 *
+Groups     1 0.07931 0.079306 4.6156    100   0.04 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -1106,7 +1158,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed              0.053
+grazed               0.56
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -1247,15 +1299,15 @@ Average distance to median:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod2, control = how(nperm = 100))
+> permutest(mod2, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237   1000  0.115
+Groups     1 0.039979 0.039979 2.4237    100   0.19
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1290,18 +1342,16 @@ Average distance to centroid:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod3, control = how(nperm = 100))
+> permutest(mod3, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.033468 0.033468 3.1749   1000  0.084 .
-Residuals 18 0.189749 0.010542                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.033468 0.033468 3.1749    100    0.1
+Residuals 18 0.189749 0.010542                     
 > anova(mod3)
 Analysis of Variance Table
 
@@ -1318,12 +1368,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("betadisper", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("betadiver")
 > ### * betadiver
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: betadiver
 > ### Title: Indices of beta Diversity
 > ### Aliases: betadiver scores.betadiver plot.betadiver
@@ -1372,12 +1425,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("betadiver", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bgdispersal")
 > ### * bgdispersal
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bgdispersal
 > ### Title: Coefficients of Biogeographical Dispersal Direction
 > ### Aliases: bgdispersal
@@ -1434,12 +1490,15 @@ $prob.McNemar
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("bgdispersal", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("bioenv")
 > ### * bioenv
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: bioenv
 > ### Title: Best Subset of Environmental Variables with Maximum (Rank)
 > ###   Correlation with Community Dissimilarities
@@ -1479,12 +1538,15 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("bioenv", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("biplot.rda")
 > ### * biplot.rda
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: biplot.rda
 > ### Title: PCA biplot
 > ### Aliases: biplot.rda
@@ -1501,12 +1563,15 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("biplot.rda", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("capscale")
 > ### * capscale
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: capscale
 > ### Title: [Partial] Constrained Analysis of Principal Coordinates or
 > ###   distance-based RDA
@@ -1627,12 +1692,15 @@ metaMDSdist transformed data: wisconsin(sqrt(varespec))
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("capscale", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("cascadeKM")
 > ### * cascadeKM
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: cascadeKM
 > ### Title: K-means partitioning using a range of values of K
 > ### Aliases: cascadeKM cIndexKM plot.cascadeKM orderingKM pregraphKM
@@ -1659,12 +1727,15 @@ metaMDSdist transformed data: wisconsin(sqrt(varespec))
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("cascadeKM", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("cca")
 > ### * cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: cca
 > ### Title: [Partial] [Constrained] Correspondence Analysis and Redundancy
 > ###   Analysis
@@ -1770,12 +1841,15 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("cca.object")
 > ### * cca.object
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: cca.object
 > ### Title: Result Object from Constrained Ordination with cca, rda or
 > ###   capscale
@@ -1808,12 +1882,15 @@ attr(,"class")
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("cca.object", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("clamtest")
 > ### * clamtest
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: clamtest
 > ### Title: Multinomial Species Classification Method (CLAM)
 > ### Aliases: clamtest summary.clamtest plot.clamtest
@@ -1855,12 +1932,15 @@ Too_rare               7      0.200
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("clamtest", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("commsim")
 > ### * commsim
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: commsim
 > ### Title: Create a Object for Null Model Algorithms
 > ### Aliases: commsim make.commsim print.commsim
@@ -1946,12 +2026,15 @@ r0_both              .     .      .   1    1       1       .       1       .
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("commsim", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("contribdiv")
 > ### * contribdiv
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: contribdiv
 > ### Title: Contribution Diversity Approach
 > ### Aliases: contribdiv plot.contribdiv
@@ -2010,6 +2093,8 @@ C     0  0.00000000  0.00000000
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("contribdiv", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("decorana")
@@ -2017,6 +2102,7 @@ C     0  0.00000000  0.00000000
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: decorana
 > ### Title: Detrended Correspondence Analysis and Basic Reciprocal Averaging
 > ### Aliases: decorana summary.decorana print.summary.decorana plot.decorana
@@ -2157,6 +2243,8 @@ Site scores:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("decorana", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("decostand")
@@ -2164,6 +2252,7 @@ Site scores:
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
 > ### Aliases: decostand wisconsin scoverage
@@ -2198,12 +2287,15 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("decostand", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("density.adonis")
 > ### * density.adonis
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: density.adonis
 > ### Title: Kernel Density Estimation for Permutation Results in Vegan
 > ### Aliases: density.adonis density.anosim density.mantel density.mrpp
@@ -2222,12 +2314,15 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("density.adonis", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("designdist")
 > ### * designdist
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: designdist
 > ### Title: Design your own Dissimilarities
 > ### Aliases: designdist
@@ -2252,12 +2347,15 @@ Warning in ordiplot(cmdscale(dis)) : Species scores not available
 >   
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("designdist", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("deviance.cca")
 > ### * deviance.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: deviance.cca
 > ### Title: Statistics Resembling Deviance and AIC for Constrained
 > ###   Ordination
@@ -2325,12 +2423,15 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("deviance.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dispindmorisita")
 > ### * dispindmorisita
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dispindmorisita
 > ### Title: Morisita index of intraspecific aggregation
 > ### Aliases: dispindmorisita
@@ -2409,118 +2510,97 @@ Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("dispindmorisita", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dispweight")
 > ### * dispweight
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dispweight
 > ### Title: Dispersion-based weighting of species counts
-> ### Aliases: dispweight
-> ### Keywords: multivariate
+> ### Aliases: dispweight gdispweight summary.dispweight
+> ### Keywords: multivariate manip
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
-> # calculate weights
-> dpw <- dispweight(dune, dune.env$Management, nperm = 100)
-> # transformed community data
-> dpw$transformed
-    Achimill Agrostol Airaprae  Alopgeni  Anthodor Bellpere Bromhord Chenalbu
-1  0.7044025 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-2  2.1132075 0.000000        0 0.7938931 0.0000000 1.666667     1.76        0
-3  0.0000000 1.718139        0 2.7786260 0.0000000 1.111111     0.00        0
-4  0.0000000 3.436278        0 0.7938931 0.0000000 1.111111     1.32        0
-5  1.4088050 0.000000        0 0.0000000 1.4142857 1.111111     0.88        0
-6  1.4088050 0.000000        0 0.0000000 1.0607143 0.000000     0.00        0
-7  1.4088050 0.000000        0 0.0000000 0.7071429 0.000000     0.88        0
-8  0.0000000 1.718139        0 1.9847328 0.0000000 0.000000     0.00        0
-9  0.0000000 1.288604        0 1.1908397 0.0000000 0.000000     0.00        0
-10 2.8176101 0.000000        0 0.0000000 1.4142857 1.111111     1.76        0
-11 0.0000000 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-12 0.0000000 1.718139        0 3.1755725 0.0000000 0.000000     0.00        0
-13 0.0000000 2.147674        0 1.9847328 0.0000000 0.000000     0.00        1
-14 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-15 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-16 0.0000000 3.006743        0 1.5877863 0.0000000 0.000000     0.00        0
-17 1.4088050 0.000000        2 0.0000000 1.4142857 0.000000     0.00        0
-18 0.0000000 0.000000        0 0.0000000 0.0000000 1.111111     0.00        0
-19 0.0000000 0.000000        3 0.0000000 1.4142857 0.000000     0.00        0
-20 0.0000000 2.147674        0 0.0000000 0.0000000 0.000000     0.00        0
-   Cirsarve Comapalu  Eleopalu Elymrepe Empenigr  Hyporadi Juncarti  Juncbufo
-1         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-2         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-3         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-4         2        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-5         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-6         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-7         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.7172676
-8         0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-9         0        0 0.0000000 1.833333        0 0.0000000 1.351724 1.4345351
-10        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-11        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-12        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.4345351
-13        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.0759013
-14        0        2 0.8079911 0.000000        0 0.0000000 0.000000 0.0000000
-15        0        2 1.0099889 0.000000        0 0.0000000 1.013793 0.0000000
-16        0        0 1.6159822 0.000000        0 0.0000000 1.013793 0.0000000
-17        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-18        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-19        0        0 0.0000000 0.000000        2 1.6013072 0.000000 0.0000000
-20        0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-   Lolipere  Planlanc Poaprat Poatriv Ranuflam Rumeacet  Sagiproc Salirepe
-1  3.393939 0.0000000       4       2 0.000000 0.000000 0.0000000 0.000000
-2  2.424242 0.0000000       4       7 0.000000 0.000000 0.0000000 0.000000
-3  2.909091 0.0000000       5       6 0.000000 0.000000 0.0000000 0.000000
-4  2.424242 0.0000000       4       5 0.000000 0.000000 2.0754717 0.000000
-5  0.969697 2.3305085       2       6 0.000000 2.627737 0.0000000 0.000000
-6  2.909091 2.3305085       3       4 0.000000 3.153285 0.0000000 0.000000
-7  2.909091 2.3305085       4       5 0.000000 1.576642 0.0000000 0.000000
-8  1.939394 0.0000000       4       4 1.076923 0.000000 0.8301887 0.000000
-9  0.969697 0.0000000       4       5 0.000000 1.051095 0.8301887 0.000000
-10 2.909091 1.3983051       4       4 0.000000 0.000000 0.0000000 0.000000
-11 3.393939 1.3983051       4       0 0.000000 0.000000 0.8301887 0.000000
-12 0.000000 0.0000000       0       4 0.000000 1.051095 1.6603774 0.000000
-13 0.000000 0.0000000       2       9 1.076923 0.000000 0.8301887 0.000000
-14 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-15 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-16 0.000000 0.0000000       0       2 1.076923 0.000000 0.0000000 0.000000
-17 0.000000 0.9322034       1       0 0.000000 0.000000 0.0000000 0.000000
-18 0.969697 1.3983051       3       0 0.000000 0.000000 0.0000000 1.204380
-19 0.000000 0.0000000       0       0 0.000000 0.000000 1.2452830 1.204380
-20 0.000000 0.0000000       0       0 2.153846 0.000000 0.0000000 2.007299
-   Scorautu  Trifprat Trifrepe Vicilath Bracruta Callcusp
-1         0 0.0000000        0        0 0.000000 0.000000
-2         5 0.0000000        5        0 0.000000 0.000000
-3         2 0.0000000        2        0 1.196356 0.000000
-4         2 0.0000000        1        0 1.196356 0.000000
-5         3 0.8571429        2        0 1.196356 0.000000
-6         3 2.1428571        5        0 3.589067 0.000000
-7         3 0.8571429        2        0 1.196356 0.000000
-8         3 0.0000000        2        0 1.196356 0.000000
-9         2 0.0000000        3        0 1.196356 0.000000
-10        3 0.0000000        6        1 1.196356 0.000000
-11        5 0.0000000        3        2 2.392711 0.000000
-12        2 0.0000000        3        0 2.392711 0.000000
-13        2 0.0000000        2        0 0.000000 0.000000
-14        2 0.0000000        6        0 0.000000 1.359223
-15        2 0.0000000        1        0 2.392711 0.000000
-16        0 0.0000000        0        0 2.392711 1.019417
-17        2 0.0000000        0        0 0.000000 0.000000
-18        5 0.0000000        2        1 3.589067 0.000000
-19        6 0.0000000        2        0 1.794533 0.000000
-20        2 0.0000000        0        0 2.392711 1.019417
+> data(mite, mite.env)
+> ## dispweight and its summary
+> mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+> summary(mite.dw)
+         Dispersion    Weight Df Pr(Disp.)   
+Brachy       9.6908 0.1031909 67      0.01 **
+PHTH         3.2809 0.3047900 49      0.01 **
+HPAV         6.5263 0.1532264 67      0.01 **
+RARD         6.0477 0.1653525 49      0.01 **
+SSTR         2.2619 0.4421053 49      0.01 **
+Protopl      5.4229 0.1844031 49      0.01 **
+MEGR         4.5354 0.2204860 67      0.01 **
+MPRO         1.2687 1.0000000 67      0.07 . 
+TVIE         2.5956 0.3852706 67      0.01 **
+HMIN        10.0714 0.0992906 67      0.01 **
+HMIN2        7.5674 0.1321466 49      0.01 **
+NPRA         2.6743 0.3739344 67      0.01 **
+TVEL         9.6295 0.1038474 49      0.01 **
+ONOV        11.3628 0.0880064 67      0.01 **
+SUCT         8.7372 0.1144533 67      0.01 **
+LCIL       129.4436 0.0077254 67      0.01 **
+Oribatl1     4.1250 0.2424248 67      0.01 **
+Ceratoz1     1.7150 0.5830768 67      0.01 **
+PWIL         2.2943 0.4358538 67      0.01 **
+Galumna1     2.8777 0.3474943 49      0.01 **
+Stgncrs2     3.8242 0.2614953 49      0.01 **
+HRUF         1.7575 0.5690021 67      0.01 **
+Trhypch1    14.9225 0.0670128 67      0.01 **
+PPEL         1.3628 1.0000000 49      0.07 . 
+NCOR         2.5875 0.3864771 67      0.01 **
+SLAT         2.7857 0.3589744 49      0.01 **
+FSET         4.8901 0.2044944 49      0.01 **
+Lepidzts     1.6577 0.6032360 49      0.02 * 
+Eupelops     1.4611 0.6844033 67      0.03 * 
+Miniglmn     1.6505 0.6058733 49      0.01 **
+LRUG        12.0658 0.0828790 67      0.01 **
+PLAG2        3.2403 0.3086090 67      0.01 **
+Ceratoz3     3.5125 0.2846947 67      0.01 **
+Oppiminu     3.1680 0.3156525 67      0.01 **
+Trimalc2    10.5927 0.0944046 67      0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Based on 99 simulations on 'c0_ind' nullmodel
+> ## generalized dispersion weighting
+> mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
+> rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
+Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
+
+              Inertia Proportion Rank
+Total         38.1600     1.0000     
+Constrained    9.2100     0.2414    3
+Unconstrained 28.9500     0.7586   35
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+ RDA1  RDA2  RDA3 
+7.986 0.748 0.480 
+
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
+5.886 3.634 2.791 2.592 1.932 1.573 1.210 1.078 
+(Showed only 8 of all 35 unconstrained eigenvalues)
+
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("dispweight", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("distconnected")
 > ### * distconnected
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: distconnected
 > ### Title: Connectedness of Dissimilarities
 > ### Aliases: distconnected no.shared
@@ -2545,12 +2625,15 @@ Groups sizes
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("distconnected", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("diversity")
 > ### * diversity
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
 > ### Aliases: diversity rarefy rrarefy drarefy rarecurve fisher.alpha
@@ -2590,12 +2673,15 @@ Groups sizes
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("diversity", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dune")
 > ### * dune
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dune
 > ### Title: Vegetation and Environment in Dutch Dune Meadows.
 > ### Aliases: dune dune.env
@@ -2608,12 +2694,15 @@ Groups sizes
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("dune", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("dune.taxon")
 > ### * dune.taxon
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: dune.taxon
 > ### Title: Taxonomic Classification and Phylogeny of Dune Meadow Species
 > ### Aliases: dune.taxon dune.phylodis
@@ -2626,12 +2715,15 @@ Groups sizes
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("dune.taxon", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("eigenvals")
 > ### * eigenvals
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: eigenvals
 > ### Title: Extract Eigenvalues from an Ordination Object
 > ### Aliases: eigenvals eigenvals.default eigenvals.prcomp
@@ -2673,12 +2765,15 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("eigenvals", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("envfit")
 > ### * envfit
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
@@ -2793,6 +2888,8 @@ $factors
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("envfit", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘dune.env’, ‘package:MASS’
@@ -2802,6 +2899,7 @@ detaching ‘dune.env’, ‘package:MASS’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: eventstar
 > ### Title: Scale Parameter at the Minimum of the Tsallis Evenness Profile
 > ### Aliases: eventstar
@@ -2837,6 +2935,8 @@ detaching ‘dune.env’, ‘package:MASS’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("eventstar", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("fisherfit")
@@ -2844,6 +2944,7 @@ detaching ‘dune.env’, ‘package:MASS’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: fisherfit
 > ### Title: Fit Fisher's Logseries and Preston's Lognormal Model to
 > ###   Abundance Data
@@ -2914,12 +3015,15 @@ Extrapolated     Observed       Veiled
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("fisherfit", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("goodness.cca")
 > ### * goodness.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: goodness.cca
 > ### Title: Diagnostic Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
@@ -3143,12 +3247,15 @@ Manure^4      0.41602035 -0.01685222
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("goodness.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("goodness.metaMDS")
 > ### * goodness.metaMDS
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: goodness.metaMDS
 > ### Title: Goodness of Fit and Shepard Plot for Nonmetric Multidimensional
 > ###   Scaling
@@ -3197,12 +3304,15 @@ Run 20 stress 0.3760596
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("goodness.metaMDS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("humpfit")
 > ### * humpfit
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: humpfit
 > ### Title: No-interaction Model for Hump-backed Species Richness vs.
 > ###   Biomass
@@ -3218,12 +3328,15 @@ Run 20 stress 0.3760596
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("humpfit", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("indpower")
 > ### * indpower
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: indpower
 > ### Title: Indicator Power of Species
 > ### Aliases: indpower
@@ -3279,12 +3392,15 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("indpower", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("isomap")
 > ### * isomap
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: isomap
 > ### Title: Isometric Feature Mapping Ordination
 > ### Aliases: isomap isomapdist plot.isomap summary.isomap
@@ -3322,6 +3438,8 @@ Criterion: k = 3
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("isomap", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("kendall.global")
@@ -3329,6 +3447,7 @@ Criterion: k = 3
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: kendall.global
 > ### Title: Kendall coefficient of concordance
 > ### Aliases: kendall.global kendall.post
@@ -3432,12 +3551,15 @@ attr(,"class")
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("kendall.global", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("linestack")
 > ### * linestack
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: linestack
 > ### Title: Plots One-dimensional Diagrams without Overwriting Labels
 > ### Aliases: linestack
@@ -3454,12 +3576,15 @@ attr(,"class")
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("linestack", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("make.cepnames")
 > ### * make.cepnames
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: make.cepnames
 > ### Title: Abbreviates a Botanical or Zoological Latin Name into an
 > ###   Eight-character Name
@@ -3478,12 +3603,15 @@ attr(,"class")
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("make.cepnames", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mantel")
 > ### * mantel
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mantel
 > ### Title: Mantel and Partial Mantel Tests for Dissimilarity Matrices
 > ### Aliases: mantel mantel.partial
@@ -3531,12 +3659,15 @@ Number of permutations: 999
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mantel", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mantel.correlog")
 > ### * mantel.correlog
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mantel.correlog
 > ### Title: Mantel Correlogram
 > ### Aliases: mantel.correlog plot.mantel.correlog
@@ -3636,12 +3767,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mantel.correlog", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("metaMDS")
 > ### * metaMDS
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: metaMDS
 > ### Title: Nonmetric Multidimensional Scaling with Stable Solution from
 > ###   Random Starts, Axis Scaling and Species Scores
@@ -3745,12 +3879,15 @@ Species: expanded scores based on ‘dune’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("metaMDS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mite")
 > ### * mite
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mite
 > ### Title: Oribatid Mite Data with Explanatory Variables
 > ### Aliases: mite mite.env mite.pcnm mite.xy
@@ -3762,12 +3899,15 @@ Species: expanded scores based on ‘dune’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mite", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("model.matrix.cca")
 > ### * model.matrix.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: model.matrix.cca
 > ### Title: Reconstruct Model Frame and Model Matrices of Constrained
 > ###   Ordination
@@ -3847,12 +3987,15 @@ Species: expanded scores based on ‘dune’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("model.matrix.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("monoMDS")
 > ### * monoMDS
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: monoMDS
 > ### Title: Global and Local Non-metric Multidimensional Scaling and Linear
 > ###   and Hybrid Scaling
@@ -3882,12 +4025,15 @@ Stopped after 73 iterations: Stress nearly unchanged (ratio > sratmax)
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("monoMDS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("mrpp")
 > ### * mrpp
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mrpp
 > ### Title: Multi Response Permutation Procedure and Mean Dissimilarity
 > ###   Matrix
@@ -3975,6 +4121,8 @@ Classification strength 0.1127012
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mrpp", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("mso")
@@ -3982,6 +4130,7 @@ Classification strength 0.1127012
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: mso
 > ### Title: Functions for performing and displaying a spatial partitioning
 > ###   of cca or rda results
@@ -4091,12 +4240,15 @@ Number of permutations: 99
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mso", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("multipart")
 > ### * multipart
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: multipart
 > ### Title: Multiplicative Diversity Partitioning
 > ### Aliases: multipart multipart.default multipart.formula
@@ -4206,12 +4358,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("multipart", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("nestedtemp")
 > ### * nestedtemp
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: nestedtemp
 > ### Title: Nestedness Indices for Communities of Islands or Patches
 > ### Aliases: nestedtemp nestedchecker nestedn0 nesteddisc nestednodf
@@ -4268,12 +4423,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("nestedtemp", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("nullmodel")
 > ### * nullmodel
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: nullmodel
 > ### Title: Null Model and Simulation
 > ### Aliases: nullmodel print.nullmodel simulate.nullmodel update.nullmodel
@@ -4359,12 +4517,15 @@ Start = 11, End = 60, Thin = 5
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("nullmodel", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("oecosimu")
 > ### * oecosimu
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
 > ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
@@ -4477,12 +4638,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("oecosimu", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordiarrows")
 > ### * ordiarrows
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordiarrows
 > ### Title: Add Arrows and Line Segments to Ordination Diagrams
 > ### Aliases: ordiarrows ordisegments ordigrid
@@ -4513,12 +4677,15 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordiarrows", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordihull")
 > ### * ordihull
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordihull
 > ### Title: Display Groups or Factor Levels in Ordination Diagrams
 > ### Aliases: ordihull ordispider ordiellipse ordicluster weights.cca
@@ -4564,6 +4731,8 @@ Area 1.4327487 1.3741246  2.61236323  1.4678748
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordihull", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘dune.env’
@@ -4573,6 +4742,7 @@ detaching ‘dune.env’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordilabel
 > ### Title: Add Text on Non-transparent Label to an Ordination Plot.
 > ### Aliases: ordilabel
@@ -4589,12 +4759,15 @@ detaching ‘dune.env’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordilabel", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordiplot")
 > ### * ordiplot
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordiplot
 > ### Title: Alternative plot and identify Functions for Ordination
 > ### Aliases: ordiplot identify.ordiplot scores.ordiplot points.ordiplot
@@ -4620,12 +4793,15 @@ detaching ‘dune.env’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordiplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordipointlabel")
 > ### * ordipointlabel
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordipointlabel
 > ### Title: Ordination Plots with Points and Optimized Locations for Text
 > ### Aliases: ordipointlabel plot.ordipointlabel
@@ -4650,12 +4826,15 @@ detaching ‘dune.env’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordipointlabel", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordiresids")
 > ### * ordiresids
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordiresids
 > ### Title: Plots of Residuals and Fitted Values for Constrained Ordination
 > ### Aliases: ordiresids
@@ -4670,12 +4849,15 @@ detaching ‘dune.env’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordiresids", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordistep")
 > ### * ordistep
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordistep
 > ### Title: Choose a Model by Permutation Tests in Constrained Ordination
 > ### Aliases: ordistep ordiR2step
@@ -4934,12 +5116,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordistep", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordisurf")
 > ### * ordisurf
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordisurf
 > ### Title: Fit and Plot Smooth Surfaces of Variables on Ordination.
 > ### Aliases: ordisurf ordisurf.default ordisurf.formula calibrate.ordisurf
@@ -4959,7 +5144,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb279580>
+<environment: 0x97f7550>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4976,7 +5161,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa7c6dc0>
+<environment: 0xa4567d0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -5007,7 +5192,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xab2f7e8>
+<environment: 0x8928fc8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5022,7 +5207,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0xa4e68e0>
+<environment: 0x9ea6760>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5051,7 +5236,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xaa71098>
+<environment: 0xa746950>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5067,7 +5252,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xb2b2870>
+<environment: 0xa2c2760>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5084,7 +5269,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xb11bd50>
+<environment: 0xa63bda0>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5103,7 +5288,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xaf954b0>
+<environment: 0xac64da0>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5113,6 +5298,8 @@ REML score: 39.58245
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordisurf", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 
 detaching ‘package:mgcv’, ‘package:nlme’
@@ -5122,6 +5309,7 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: orditkplot
 > ### Title: Ordination Plot with Movable Labels
 > ### Aliases: orditkplot plot.orditkplot scores.orditkplot points.orditkplot
@@ -5145,12 +5333,15 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("orditkplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("orditorp")
 > ### * orditorp
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: orditorp
 > ### Title: Add Text or Points to Ordination Plots
 > ### Aliases: orditorp
@@ -5182,12 +5373,15 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("orditorp", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("ordixyplot")
 > ### * ordixyplot
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: ordixyplot
 > ### Title: Trellis (Lattice) Plots for Ordination
 > ### Aliases: ordixyplot ordisplom ordicloud panel.ordi panel.ordiarrows
@@ -5219,12 +5413,15 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ordixyplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("pcnm")
 > ### * pcnm
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: pcnm
 > ### Title: Principal Coordinates of Neighbourhood Matrix
 > ### Aliases: pcnm scores.pcnm
@@ -5244,7 +5441,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa652028>
+<environment: 0x9e0d9f8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5257,7 +5454,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9701348>
+<environment: 0x8ea6b20>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5270,7 +5467,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9b23ce8>
+<environment: 0x9d099a0>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5290,6 +5487,8 @@ REML score: -94.19053
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("pcnm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("permatfull")
@@ -5297,6 +5496,7 @@ REML score: -94.19053
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: permat
 > ### Title: Matrix Permutation Algorithms for Presence-Absence and Count
 > ###   Data
@@ -5505,6 +5705,8 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("permatfull", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("permutest.betadisper")
@@ -5512,6 +5714,7 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: permutest.betadisper
 > ### Title: Permutation test of multivariate homogeneity of groups
 > ###   dispersions (variances)
@@ -5575,7 +5778,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed               0.05
+grazed               0.56
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -5593,12 +5796,15 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("permutest.betadisper", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.cca")
 > ### * plot.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: plot.cca
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
@@ -5725,12 +5931,15 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > ## Not run: vegandocs("decision")
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("prc")
 > ### * prc
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: prc
 > ### Title: Principal Response Curves for Treatments with Repeated
 > ###   Observations
@@ -5859,12 +6068,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("prc", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("predict.cca")
 > ### * predict.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: predict.cca
 > ### Title: Prediction Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
@@ -5978,12 +6190,15 @@ Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("predict.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("procrustes")
 > ### * procrustes
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: procrustes
 > ### Title: Procrustes Rotation of Two Configurations and PROTEST
 > ### Aliases: procrustes summary.procrustes plot.procrustes
@@ -6047,12 +6262,15 @@ Scaling of target:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("procrustes", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("pyrifos")
 > ### * pyrifos
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: pyrifos
 > ### Title: Response of Aquatic Invertebrates to Insecticide Treatment
 > ### Aliases: pyrifos
@@ -6067,12 +6285,15 @@ Scaling of target:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("pyrifos", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("radfit")
 > ### * radfit
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: radfit
 > ### Title: Rank - Abundance or Dominance / Diversity Models
 > ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit
@@ -6123,12 +6344,15 @@ Mandelbrot  5.7342  5.5665 10.573
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("radfit", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("rankindex")
 > ### * rankindex
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: rankindex
 > ### Title: Compares Dissimilarity Indices for Gradient Detection
 > ### Aliases: rankindex
@@ -6155,12 +6379,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("rankindex", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("raupcrick")
 > ### * raupcrick
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: raupcrick
 > ### Title: Raup-Crick Dissimilarity with Unequal Sampling Densities of
 > ###   Species
@@ -6190,6 +6417,8 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("raupcrick", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("read.cep")
@@ -6197,6 +6426,7 @@ Manhattan     Gower    Ochiai
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: read.cep
 > ### Title: Reads a CEP (Canoco) data file
 > ### Aliases: read.cep
@@ -6211,12 +6441,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("read.cep", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("renyi")
 > ### * renyi
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: renyi
 > ### Title: Renyi and Hill Diversities and Corresponding Accumulation Curves
 > ### Aliases: renyi plot.renyi renyiaccum plot.renyiaccum persp.renyiaccum
@@ -6234,12 +6467,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("renyi", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("reorder.hclust")
 > ### * reorder.hclust
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: reorder.hclust
 > ### Title: Reorder a Hierarchical Clustering Tree
 > ### Aliases: reorder.hclust rev.hclust
@@ -6260,12 +6496,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("reorder.hclust", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("scores")
 > ### * scores
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: scores
 > ### Title: Get Species or Site Scores from an Ordination
 > ### Aliases: scores scores.default scores.lda
@@ -6304,12 +6543,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("scores", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("scores.hclust")
 > ### * scores.hclust
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: scores.hclust
 > ### Title: Coordinates of Leaves and Internal Nodes in a hclust Tree
 > ### Aliases: scores.hclust
@@ -6326,12 +6568,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("scores.hclust", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("screeplot.cca")
 > ### * screeplot.cca
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: screeplot.cca
 > ### Title: Screeplots for Ordination Results and Broken Stick Distributions
 > ### Aliases: screeplot.cca screeplot.princomp screeplot.prcomp
@@ -6354,12 +6599,15 @@ Manhattan     Gower    Ochiai
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("screeplot.cca", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("simper")
 > ### * simper
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: simper
 > ### Title: Similarity Percentages
 > ### Aliases: simper summary.simper
@@ -6618,12 +6866,15 @@ Number of permutations: 0
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("simper", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("simulate.rda")
 > ### * simulate.rda
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: simulate.rda
 > ### Title: Simulate Responses with Gaussian Error or Permuted Residuals for
 > ###   Constrained Ordination
@@ -6667,12 +6918,15 @@ Number of permuted matrices = 99
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("simulate.rda", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("sipoo")
 > ### * sipoo
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: sipoo
 > ### Title: Birds in the Archipelago of Sipoo (Sibbo)
 > ### Aliases: sipoo
@@ -6687,12 +6941,15 @@ Number of permuted matrices = 99
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("sipoo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("spantree")
 > ### * spantree
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: spantree
 > ### Title: Minimum Spanning Tree
 > ### Aliases: spantree cophenetic.spantree as.hclust.spantree plot.spantree
@@ -6726,12 +6983,15 @@ stress after  40 iters: 0.01114, magic = 0.500
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("spantree", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("specaccum")
 > ### * specaccum
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: specaccum
 > ### Title: Species Accumulation Curves
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
@@ -6904,12 +7164,15 @@ sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("specaccum", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("specpool")
 > ### * specpool
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: specpool
 > ### Title: Extrapolated Species Richness in a Species Pool
 > ### Aliases: specpool specpool2vect poolaccum summary.poolaccum
@@ -7008,6 +7271,8 @@ se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("specpool", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 
@@ -7018,6 +7283,7 @@ detaching ‘dune.env’
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: stepacross
 > ### Title: Stepacross as Flexible Shortest Paths or Extended
 > ###   Dissimilarities
@@ -7043,12 +7309,15 @@ Stepping across 190 dissimilarities...
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("stepacross", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("stressplot.wcmdscale")
 > ### * stressplot.wcmdscale
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: stressplot.wcmdscale
 > ### Title: Display Ordination Distances Against Observed Distances in
 > ###   Eigenvector Ordinations
@@ -7066,12 +7335,15 @@ Stepping across 190 dissimilarities...
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("stressplot.wcmdscale", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("taxondive")
 > ### * taxondive
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: taxondive
 > ### Title: Indices of Taxonomic Diversity and Distinctness
 > ### Aliases: taxondive summary.taxondive plot.taxondive taxa2dist
@@ -7139,12 +7411,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("taxondive", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("tolerance")
 > ### * tolerance
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: tolerance
 > ### Title: Species tolerances and sample heterogeneities
 > ### Aliases: tolerance tolerance.cca
@@ -7227,12 +7502,15 @@ Scaling: 2
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("tolerance", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("treedive")
 > ### * treedive
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: treedive
 > ### Title: Functional Diversity and Community Distances from Species Trees
 > ### Aliases: treedive treeheight treedist
@@ -7313,12 +7591,15 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("treedive", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("tsallis")
 > ### * tsallis
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: tsallis
 > ### Title: Tsallis Diversity and Corresponding Accumulation Curves
 > ### Aliases: tsallis tsallisaccum persp.tsallisaccum
@@ -7397,12 +7678,15 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("tsallis", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("varechem")
 > ### * varechem
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: varespec
 > ### Title: Vegetation and environment in lichen pastures
 > ### Aliases: varechem varespec
@@ -7415,12 +7699,15 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("varechem", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("varpart")
 > ### * varpart
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: varpart
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
@@ -7663,12 +7950,15 @@ Use function 'rda' to test significance of fractions of interest
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("varpart", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("vegan-package")
 > ### * vegan-package
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: vegan-package
 > ### Title: Community Ecology Package: Ordination, Diversity and
 > ###   Dissimilarities
@@ -7883,7 +8173,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9990b88>
+<environment: 0xac77fa0>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -7931,12 +8221,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("vegan-package", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("vegandocs")
 > ### * vegandocs
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: vegandocs
 > ### Title: Display Package Documentation
 > ### Aliases: vegandocs
@@ -7961,12 +8254,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("vegandocs", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("vegdist")
 > ### * vegdist
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Encoding: UTF-8
 > 
 > ### Name: vegdist
@@ -7988,12 +8284,15 @@ Warning: non-integer data: divided by smallest positive value
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("vegdist", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("vegemite")
 > ### * vegemite
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: vegemite
 > ### Title: Display Compact Ordered Community Tables
 > ### Aliases: vegemite tabasco coverscale
@@ -8255,12 +8554,15 @@ Warning: non-integer data: divided by smallest positive value
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("vegemite", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("wascores")
 > ### * wascores
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: wascores
 > ### Title: Weighted Averages Scores for Species
 > ### Aliases: wascores eigengrad
@@ -8381,12 +8683,15 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("wascores", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("wcmdscale")
 > ### * wcmdscale
 > 
 > flush(stderr()); flush(stdout())
 > 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: wcmdscale
 > ### Title: Weighted Classical (Metric) Multidimensional Scaling
 > ### Aliases: wcmdscale scores.wcmdscale plot.wcmdscale
@@ -8435,11 +8740,13 @@ Procrustes sum of squares:
 > 
 > 
 > 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("wcmdscale", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  35.902 8.181 41.58 0 0 
+Time elapsed:  34.78 8.356 40.719 0 0 
 > grDevices::dev.off()
 null device 
           1 
