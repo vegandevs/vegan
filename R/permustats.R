@@ -48,7 +48,6 @@
                "z" = x$z,
                "mean" = x$means,
                t(x$quantile))
-    rownames(m) <- x$name
     printCoefmat(m, cs.ind = 3:ncol(m), ...)
     invisible(x)
 }
@@ -60,7 +59,7 @@
 {
     obs <- x$statistic
     sim <- rbind(x$statistic, as.matrix(x$simulations))
-    nm <- x$name[col(sim)]
+    nm <- names(obs)[col(sim)]
     densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
                 xlab = xlab,
                 panel = function(x, ...) {
@@ -77,9 +76,8 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$statistic,
+        "statistic" = structure(x$statistic, names="R"),
         "simulations" = x$perm,
-        "name" = "R",
         "alternative" = "greater"),
               class="permustats")
 }
@@ -90,9 +88,8 @@
     tab <- x$aov.tab
     k <- !is.na(tab$F.Model)
     structure(list(
-        "statistic" = tab$F.Model[k],
+        "statistic" = structure(tab$F.Model[k], names = rownames(tab)[k]),
         "simulations" = x$f.perms,
-        "name" = rownames(tab)[k],
         "alternative" = "greater"),
               class="permustats")
 }
@@ -101,9 +98,8 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$statistic,
+        "statistic" = structure(x$statistic, names="r"),
         "simulations" = x$perm,
-        "name" = "r",
         "alternative" = "greater"),
               class="permustats")
 }
@@ -112,9 +108,8 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$delta,
+        "statistic" = structure(x$delta, names="delta"),
         "simulations" = x$boot.deltas,
-        "name" = "delta",
         "alternative" = "less"),
               class="permustats")
 }
@@ -125,7 +120,6 @@
     structure(list(
         "statistic" = x$oecosimu$statistic,
         "simulations" = t(x$oecosimu$simulated),
-        "name" = names(x$oecosimu$statistic),
         "alternative" = x$oecosimu$alternative),
               class="permustats")
 }
@@ -134,9 +128,8 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$F.0,
+        "statistic" = structure(x$F.0, names = "F"),
         "simulations" = x$F.perm,
-        "name" = "F",
         "alternative" = "greater"),
               class="permustats")
 }
@@ -145,9 +138,8 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = x$t0,
+        "statistic" = structure(x$t0, names = "r"),
         "simulations" = x$t,
-        "name" = "r",
         "alternative" = "greater"),
               class="permustats")
 }

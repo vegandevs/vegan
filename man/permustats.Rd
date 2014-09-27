@@ -59,9 +59,8 @@ permustats(x, ...)
 
 \details{ 
 
-  The \code{permustats} function extracts permutation results,
-  observed statistics, name of the statistic, and text direction from
-  the ordination results.  The \code{summary} estimate the \eqn{z}
+  The \code{permustats} function extracts permutation results and
+  observed statistics.  The \code{summary} estimate the \eqn{z}
   values, also known as standardized effect size (SES) as the
   difference of obseved statistic and mean of permutations divided by
   the standard deviation of the permutations. It also prints the the
@@ -121,9 +120,9 @@ permustats(x, ...)
   The \code{permustats} function return an object of class
   \code{"permustats"}. This is a list of items \code{"statistic"} for
   observed statistics, \code{permutations} which contains permuted
-  values, \code{name} which contains the name of the statistic, and
-  \code{alternative} which contains text defining the character of the
-  test (\code{"two.sided"}, \code{"less"} or \code{"greater"}.).
+  values, and \code{alternative} which contains text defining the
+  character of the test (\code{"two.sided"}, \code{"less"} or
+  \code{"greater"}.).
 
   The \code{density} function returns the standard \code{\link{density}}
   result object with one new item: \code{"observed"} for the observed
