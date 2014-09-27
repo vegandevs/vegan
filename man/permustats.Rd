@@ -1,4 +1,5 @@
 \name{permustats}
+\alias{permustats}
 \alias{permustats.adonis}
 \alias{permustats.anosim}
 \alias{permustats.CCorA}
@@ -53,6 +54,7 @@ permustats(x, ...)
     definition of the colour used for the line, either as a numerical
     value from the \code{\link[grDevices]{palette}} or as the name of
     the colour, or other normal definition of the colour.}
+  \item{data}{Ignored.}
   \item{\dots}{ Other arguments passed to the function. In
     \code{density} these are passed to \code{\link{density.default}}.}
 }
