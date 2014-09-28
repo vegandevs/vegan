@@ -15,6 +15,9 @@
 \alias{permustats.vectorfit}
 \alias{summary.permustats}
 \alias{densityplot.permustats}
+\alias{density.permustats}
+\alias{qqnorm.permustats}
+\alias{qqmath.permustats}
 \alias{density.adonis}
 \alias{density.anosim}
 \alias{density.mantel}
@@ -23,6 +26,7 @@
 \alias{density.protest}
 \alias{plot.vegandensity}
 \alias{densityplot.adonis}
+
 
 \title{
   Extract, Analyse and Display Densities of Permutation Results
@@ -36,7 +40,10 @@
 \usage{
 permustats(x, ...)
 \method{summary}{permustats}(object, ...)
-\method{densityplot}{permustats}(x, xlab = "Permutations", ...)
+\method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
+\method{density}{permustats}(x, observed = TRUE, ...)
+\method{qqnorm}{permustats}(y, observed = TRUE, ...)
+\method{qqmath}{permustats}(x, data, observed = TRUE, ylab = "Permutations", ...)
 \method{density}{adonis}(x, ...)
 \method{plot}{vegandensity}(x, main = NULL, xlab = NULL, ylab = "Density", 
    type = "l", zero.line = TRUE, obs.line = TRUE, ...)
@@ -44,16 +51,17 @@ permustats(x, ...)
 }
 
 \arguments{
-  \item{object, x}{The object to be handled.}
+  \item{object, x, y}{The object to be handled.}
   \item{main, xlab, ylab, type, zero.line}{Arguments of
-    \code{\link{plot.density}} and \code{\link[lattice]{densityplot}}
-    functions.}
+    \code{\link{plot.density}}, \code{\link[lattice]{densityplot}} and
+    \code{\link[lattice]{qqmath}} functions.}
   \item{obs.line}{Draw vertical line for the observed
     statistic. Logical value \code{TRUE} draws a red line, and
     \code{FALSE} draws nothing. Alternatively, \code{obs.line} can be a
     definition of the colour used for the line, either as a numerical
     value from the \code{\link[grDevices]{palette}} or as the name of
     the colour, or other normal definition of the colour.}
+  \item{observed}{Add observed statistic among permutations.}
   \item{data}{Ignored.}
   \item{\dots}{ Other arguments passed to the function. In
     \code{density} these are passed to \code{\link{density.default}}.}

@@ -55,7 +55,7 @@
 ### densityplot
 
 `densityplot.permustats` <-
-    function(x, xlab = "Permutations", ...)
+    function(x, data, xlab = "Permutations", ...)
 {
     obs <- x$statistic
     sim <- rbind(x$statistic, as.matrix(x$simulations))
@@ -69,8 +69,66 @@
                 ...)
 }
 
+### simple density: normally densityplot should be used (or I suggest
+### so), but we also offer basic density. This can be either with or
+### without observed statistic.
 
-### specific methods
+`density.permustats` <-
+    function(x, observed = TRUE, ...)
+{
+    ## only works with statistic
+    if (length(x$statistic) > 1)
+        stop(gettextf("only works with one statistic: you got %d",
+                      length(x$statistic)))
+    p <- x$simulations
+    if (observed)
+        p <- c(x$statistic, p)
+    out <- density(p)
+    out$call <- match.call()
+    out$call[[1]] <- as.name("density")
+    out
+}
+
+### QQ-plot against Guaussian distribution
+
+`qqnorm.permustats` <-
+    function(y, observed = TRUE, ...)
+{
+    ## only works with statistic
+    if (length(y$statistic) > 1)
+        stop(gettextf("only works with one statistic: you got %d",
+                      length(y$statistic)))
+    p <- y$simulations
+    if (observed)
+        p <- c(y$statistic, p)
+    q <- qqnorm(p, ...)
+    if (observed)
+        abline(h = y$statistic, ...)
+    invisible(q)
+}
+
+`qqmath.permustats` <-
+    function(x, data, observed = TRUE, ylab = "Permutations", ...)
+{
+    obs <- x$statistic
+    if (observed)
+        sim <- rbind(x$statistic, as.matrix(x$simulations))
+    else
+        sim <- as.matrix(x$simulations)
+    nm <- names(obs)[col(sim)]
+    qqmath( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
+                ylab = ylab,
+                panel = function(x, ...) {
+                    panel.qqmath(x, ...)
+                    if (observed)
+                        panel.abline(h = obs[panel.number()], ...)
+                },
+                ...)
+}
+
+###
+### specific methods to extract permustats
+###
 
 `permustats.anosim` <-
     function(x, ...)
