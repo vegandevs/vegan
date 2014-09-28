@@ -22,13 +22,14 @@
 ### like 'alternative'
 
 `summary.permustats` <-
-    function(object, ...)
+    function(object, probs, ...)
 {
-    ## cut levels for quantiles: these are two-sided
-    probs <- switch(object$alternative,
-                    "two.sided" = c(0.025, 0.5, 0.975),
-                    "greater" = c(0.5, 0.95),
-                    "less" = c(0.05, 0.5)) 
+    ## default cut levels for quantiles: these are two-sided
+    if (missing(probs))
+        probs <- switch(object$alternative,
+                        "two.sided" = c(0.025, 0.5, 0.975),
+                        "greater" = c(0.5, 0.95),
+                        "less" = c(0.05, 0.5)) 
     sim <- t(object$simulations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)

@@ -31,7 +31,7 @@
 
 \usage{
 permustats(x, ...)
-\method{summary}{permustats}(object, ...)
+\method{summary}{permustats}(object, probs, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
@@ -40,6 +40,11 @@ permustats(x, ...)
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
+  \item{probs}{Numeric vector of probabilities in [0,1] used in
+    \code{\link{quantile}} of permutations. If missing, default
+    quantiles will cover 95\% of permutations, and the values are
+    dependent on the test direction (either (0.025, 0.975), 0.05, or
+    0.95). In addition, default will give median (0.5). }
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
