@@ -1,6 +1,8 @@
 `density.oecosimu` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<oecosimu.result>))",
+                package="vegan") 
     cols <- nrow(x$oecosimu$simulated)
     if (cols > 1)
         warning("'density' is meaningful only with one statistic, you have ", cols)

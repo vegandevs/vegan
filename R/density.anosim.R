@@ -8,6 +8,8 @@
 `density.anosim` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<anosim.result>))",
+                package="vegan")
     obs <- x$statistic
     ## Put observed statistic among permutations
     out <- density(c(obs, x$perm), ...)
@@ -23,6 +25,8 @@
 `density.adonis` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<adonis.result>))",
+                package="vegan")
     cols <- ncol(x$f.perms)
     if (cols > 1)
         warning("'density' is meaningful only with one term, you have ", cols)
@@ -39,6 +43,8 @@
 `densityplot.adonis` <-
     function(x, data, xlab = "Null", ...)
 {
+    .Deprecated("densityplot(permustats(<adonis.result>))",
+                package="vegan")
     obs <- x$aov.tab$F.Model
     obs <- obs[!is.na(obs)]
     sim <- rbind(obs, x$f.perms)
@@ -57,6 +63,8 @@
 `density.mantel` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<mantel.result>))",
+                package="vegan")
     obs <- x$statistic
     out <- density(c(obs, x$perm), ...)
     out$observed <- obs
@@ -71,6 +79,8 @@
 `density.mrpp` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<mrpp.result>))",
+                package="vegan")
     obs <- x$delta
     out <- density(c(obs, x$boot.deltas), ...)
     out$observed <- obs
@@ -87,6 +97,8 @@
 `density.permutest.cca` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<permutest.result>))",
+                package="vegan")
     obs <- x$F.0
     out <- density(c(obs, x$F.perm), ...)
     out$observed <- obs
@@ -101,6 +113,8 @@
 `density.protest` <-
     function(x, ...)
 {
+    .Deprecated("densityplot(permustats(<protest.result>))",
+                package="vegan")
     obs <- x$t0
     out <- density(c(obs, x$t), ...)
     out$observed <- obs

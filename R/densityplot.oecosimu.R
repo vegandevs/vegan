@@ -1,6 +1,8 @@
 `densityplot.oecosimu` <-
     function(x, data, xlab = "Simulated", ...)
 {
+    .Deprecated("densityplot(permustats(<oecosimu.result>))",
+                package="vegan")
     obs <- x$oecosimu$statistic
     sim <- rbind(obs, t(x$oecosimu$simulated))
     nm <- names(obs)[col(sim)]
