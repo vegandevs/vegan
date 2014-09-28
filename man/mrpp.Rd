@@ -146,7 +146,7 @@ The function returns a list of class mrpp with following items:
   \item{weight.type}{The choice of group weights used.}
   \item{boot.deltas}{The vector of "permuted deltas," the deltas
     calculated from each of the permuted datasets. The distribution of
-    this item can be inspected with \code{\link{density.mrpp}} function.}
+    this item can be inspected with \code{\link{permustats}} function.}
   \item{permutations}{The number of permutations used.}
   \item{control}{A list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}.}

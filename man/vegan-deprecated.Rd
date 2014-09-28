@@ -9,6 +9,8 @@
 \alias{density.protest}
 \alias{plot.vegandensity}
 \alias{densityplot.adonis}
+\alias{density.oecosimu}
+\alias{densityplot.oecosimu}
 
 \alias{vegan-deprecated}
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!

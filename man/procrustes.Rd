@@ -161,7 +161,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
   \item{t0}{This and the following items are only in class
     \code{protest}:  Procrustes correlation from non-permuted solution.}
   \item{t}{Procrustes correlations from permutations. The distribution
-    of these correlations can be inspected with \code{\link{density.protest}}
+    of these correlations can be inspected with \code{\link{permustats}}
     function.}
   \item{signif}{`Significance' of \code{t}}
   \item{permutations}{Number of permutations.}
