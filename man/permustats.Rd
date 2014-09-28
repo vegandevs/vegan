@@ -24,8 +24,9 @@
 }
 
 \description{ 
-  The \code{permustats} and \code{density} functions can directly
-  access the permutation results of \pkg{vegan} functions.
+  The \code{permustats} can extract permutation results of \pkg{vegan}
+  functions. Its support functions can find quantiles and standardized
+  effect sizes, and plot densities and Q-Q plots.
 }
 
 \usage{
@@ -39,7 +40,6 @@ permustats(x, ...)
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
-  
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
@@ -52,28 +52,47 @@ permustats(x, ...)
 \details{ 
 
   The \code{permustats} function extracts permutation results and
-  observed statistics.  The \code{summary} estimate the \eqn{z}
-  values, also known as standardized effect size (SES) as the
+  observed statistics from several \pkg{vegan} functions performing
+  permuations or simulations.  
+
+  The \code{summary} of \code{permustats} estimates the \eqn{z}
+  values, also known as standardized effect sizes (SES) as the
   difference of obseved statistic and mean of permutations divided by
   the standard deviation of the permutations. It also prints the the
-  mean, median, and limits within which are 95\% of permutations. For
-  two-sided test these are (2.5\%, 97.5\%) and for one-sided tests
-  either 5\% or 95\% quantile depending on the text direction. The
-  \code{densityplot} method displays the density of permutations and
-  marks the observed statistic as a vertical line (see
-  \code{\link[lattice]{densityplot}}). The observed statistic is
-  always put among the permuted values so that the plot is consistnet
-  with significance tests. The \code{permustats} can extract
-  permutation statistics from the results of \code{\link{adonis}},
-  \code{\link{anosim}}, \code{\link{mantel}},
-  \code{\link{mantel.partial}}, \code{\link{mrpp}},
-  \code{\link{oecosimu}}, \code{\link{permutest.cca}}, and
-  \code{\link{protest}}.
+  mean, median, and limits within which contain 95\% of
+  permutations. For two-sided test these are (2.5\%, 97.5\%) and for
+  one-sided tests either 5\% or 95\% quantile depending on the text
+  direction.
 
-. However, you can use \code{densityplot} on
-  \code{permustats} result for these methods.  NB, there are no
-  \code{permustats} and \code{density} methods for
-  \code{\link{anova.cca}}, but only for \code{\link{permutest.cca}}.
+  The \code{density} and \code{densityplot} methods display the
+  density of permutations. When observed value of the statistic is put
+  among the permutations, the \code{densitplot} method marks the
+  observed statistic as a vertical line. However \code{density} method
+  uses its standard \code{plot} method} and cannot mark the obseved
+  value.
+
+  The \code{qqnorm} and \code{qqmath} display Q-Q plots of
+  permutations, optionally together with the observed value (default)
+  which is shown as horizontal line in plots. \code{qqnorm} and plots
+  permutations values against standard Normal variate. \code{qqmath}
+  defaults to the standard Normal as well, but can accept other
+  alternatives (see standard \code{\link[lattice]{qqmath}}).
+
+  Functions \code{\link{density}} and \code{\link{qqnorm}} are based
+  on standard \R methods and accept their functions. They only accept
+  one statistic, and cannot be used when several test statistic were
+  evaluaed. The \code{\link[lattice]{ensityplot}} and
+  \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
+  used both for one or more statistics.  All these functions pass
+  arguments to the underlying functions; see their documentation.
+
+  The \code{permustats} can extract permutation statistics from the
+  results of \code{\link{adonis}}, \code{\link{anosim}},
+  \code{\link{mantel}}, \code{\link{mantel.partial}},
+  \code{\link{mrpp}}, \code{\link{oecosimu}},
+  \code{\link{permutest.cca}}, and \code{\link{protest}}.  NB, there
+  is no \code{permustats} method for \code{\link{anova.cca}}, but only
+  for \code{\link{permutest.cca}}.
 
 }
 
@@ -98,7 +117,7 @@ permustats(x, ...)
 \examples{
 data(dune)
 data(dune.env)
-mod <- adonis(dune ~ Management, data = dune.env)
+mod <- adonis(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
