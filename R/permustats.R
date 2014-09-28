@@ -1,7 +1,7 @@
 ### Functions to extract permutation statististic or null model
 ### results from various vegan objects.
 
-## extract items as 'statistic' and 'simulations'. Specific methods
+## extract items as 'statistic' and 'permutations'. Specific methods
 ## towards the end of this file
 
 `permustats` <-
@@ -30,7 +30,7 @@
                         "two.sided" = c(0.025, 0.5, 0.975),
                         "greater" = c(0.5, 0.95),
                         "less" = c(0.05, 0.5)) 
-    sim <- t(object$simulations)
+    sim <- t(object$permutations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)
     object$z <-
@@ -59,7 +59,7 @@
     function(x, data, xlab = "Permutations", ...)
 {
     obs <- x$statistic
-    sim <- rbind(x$statistic, as.matrix(x$simulations))
+    sim <- rbind(x$statistic, as.matrix(x$permutations))
     nm <- names(obs)[col(sim)]
     densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
                 xlab = xlab,
@@ -81,7 +81,7 @@
     if (length(x$statistic) > 1)
         stop(gettextf("only works with one statistic: you got %d",
                       length(x$statistic)))
-    p <- x$simulations
+    p <- x$permutations
     if (observed)
         p <- c(x$statistic, p)
     out <- density(p)
@@ -99,7 +99,7 @@
     if (length(y$statistic) > 1)
         stop(gettextf("only works with one statistic: you got %d",
                       length(y$statistic)))
-    p <- y$simulations
+    p <- y$permutations
     if (observed)
         p <- c(y$statistic, p)
     q <- qqnorm(p, ...)
@@ -113,9 +113,9 @@
 {
     obs <- x$statistic
     if (observed)
-        sim <- rbind(x$statistic, as.matrix(x$simulations))
+        sim <- rbind(x$statistic, as.matrix(x$permutations))
     else
-        sim <- as.matrix(x$simulations)
+        sim <- as.matrix(x$permutations)
     nm <- names(obs)[col(sim)]
     qqmath( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
                 ylab = ylab,
@@ -136,7 +136,7 @@
 {
     structure(list(
         "statistic" = structure(x$statistic, names="R"),
-        "simulations" = x$perm,
+        "permutations" = x$perm,
         "alternative" = "greater"),
               class="permustats")
 }
@@ -148,7 +148,7 @@
     k <- !is.na(tab$F.Model)
     structure(list(
         "statistic" = structure(tab$F.Model[k], names = rownames(tab)[k]),
-        "simulations" = x$f.perms,
+        "permutations" = x$f.perms,
         "alternative" = "greater"),
               class="permustats")
 }
@@ -158,7 +158,7 @@
 {
     structure(list(
         "statistic" = structure(x$statistic, names="r"),
-        "simulations" = x$perm,
+        "permutations" = x$perm,
         "alternative" = "greater"),
               class="permustats")
 }
@@ -168,7 +168,7 @@
 {
     structure(list(
         "statistic" = structure(x$delta, names="delta"),
-        "simulations" = x$boot.deltas,
+        "permutations" = x$boot.deltas,
         "alternative" = "less"),
               class="permustats")
 }
@@ -178,7 +178,7 @@
 {
     structure(list(
         "statistic" = x$oecosimu$statistic,
-        "simulations" = t(x$oecosimu$simulated),
+        "permutations" = t(x$oecosimu$simulated),
         "alternative" = x$oecosimu$alternative),
               class="permustats")
 }
@@ -188,7 +188,7 @@
 {
     structure(list(
         "statistic" = structure(x$F.0, names = "F"),
-        "simulations" = x$F.perm,
+        "permutations" = x$F.perm,
         "alternative" = "greater"),
               class="permustats")
 }
@@ -198,7 +198,7 @@
 {
     structure(list(
         "statistic" = structure(x$t0, names = "r"),
-        "simulations" = x$t,
+        "permutations" = x$t,
         "alternative" = "greater"),
               class="permustats")
 }
