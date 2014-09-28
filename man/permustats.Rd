@@ -18,18 +18,9 @@
 \alias{density.permustats}
 \alias{qqnorm.permustats}
 \alias{qqmath.permustats}
-\alias{density.adonis}
-\alias{density.anosim}
-\alias{density.mantel}
-\alias{density.mrpp}
-\alias{density.permutest.cca}
-\alias{density.protest}
-\alias{plot.vegandensity}
-\alias{densityplot.adonis}
-
 
 \title{
-  Extract, Analyse and Display Densities of Permutation Results
+  Extract, Analyse and Display Permutation Results
 }
 
 \description{ 
@@ -44,23 +35,14 @@ permustats(x, ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
 \method{qqmath}{permustats}(x, data, observed = TRUE, ylab = "Permutations", ...)
-\method{density}{adonis}(x, ...)
-\method{plot}{vegandensity}(x, main = NULL, xlab = NULL, ylab = "Density", 
-   type = "l", zero.line = TRUE, obs.line = TRUE, ...)
-\method{densityplot}{adonis}(x, data, xlab = "Null", ...)
 }
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
-  \item{main, xlab, ylab, type, zero.line}{Arguments of
-    \code{\link{plot.density}}, \code{\link[lattice]{densityplot}} and
+  
+  \item{xlab, ylab}{Arguments of
+    \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
-  \item{obs.line}{Draw vertical line for the observed
-    statistic. Logical value \code{TRUE} draws a red line, and
-    \code{FALSE} draws nothing. Alternatively, \code{obs.line} can be a
-    definition of the colour used for the line, either as a numerical
-    value from the \code{\link[grDevices]{palette}} or as the name of
-    the colour, or other normal definition of the colour.}
   \item{observed}{Add observed statistic among permutations.}
   \item{data}{Ignored.}
   \item{\dots}{ Other arguments passed to the function. In
@@ -88,38 +70,7 @@ permustats(x, ...)
   \code{\link{oecosimu}}, \code{\link{permutest.cca}}, and
   \code{\link{protest}}.
 
-  The \code{density} function can directly access permutation results
-  of the same function as \code{permustats}.  The \code{density}
-  function is identical to \code{\link{density.default}} and takes all
-  its arguments, but adds the observed statistic to the result as item
-  \code{"observed"}. The observed statistic is also put among the
-  permuted values so that the results are consistent with significance
-  tests. The \code{plot} method is similar to the default
-  \code{\link{plot.density}}, but can also add the observed statistic
-  to the graph as a vertical line.  In \code{\link{adonis}} it is also
-  possible to use direclty \code{densityplot} function.
-
-  The density methods are available for \pkg{vegan} functions
-  \code{\link{adonis}}, \code{\link{anosim}}, \code{\link{mantel}},
-  \code{\link{mantel.partial}}, \code{\link{mrpp}},
-  \code{\link{permutest.cca}}, and \code{\link{protest}}.  The
-  \code{density} function for \code{\link{oecosimu}} is documented
-  separately, and it is also used for \code{\link{adipart}},
-  \code{\link{hiersimu}} and \code{\link{multipart}}.
-
-  All \pkg{vegan} \code{density} functions return an object of class
-  \code{"vegandensity"} inheriting from \code{\link{density}}, and can
-  be plotted with its \code{plot} method.  This is identical to the
-  standard \code{plot} of \code{densiy} objects, but can also add a
-  vertical line for the observed statistic.
-
-  Functions that can return several permuted statistics simultaneously
-  also have \code{\link[lattice]{densityplot}} method
-  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity
-  partitioning functions based on \code{oecosimu}).  The standard
-  \code{\link{density}} can only handle univariate data, and a warning
-  is issued if the function is used for a model with several observed
-  statistics. However, you can use \code{densityplot} on
+. However, you can use \code{densityplot} on
   \code{permustats} result for these methods.  NB, there are no
   \code{permustats} and \code{density} methods for
   \code{\link{anova.cca}}, but only for \code{\link{permutest.cca}}.
@@ -127,18 +78,12 @@ permustats(x, ...)
 }
 
 \value{
-  The \code{permustats} function return an object of class
+  The \code{permustats} function returns an object of class
   \code{"permustats"}. This is a list of items \code{"statistic"} for
   observed statistics, \code{permutations} which contains permuted
   values, and \code{alternative} which contains text defining the
   character of the test (\code{"two.sided"}, \code{"less"} or
   \code{"greater"}.).
-
-  The \code{density} function returns the standard \code{\link{density}}
-  result object with one new item: \code{"observed"} for the observed
-  value of the statistic. The functions have a specific \code{plot}
-  method, but otherwise they use methods for
-  \code{\link{density.default}}, such as \code{print} and \code{lines}.
 }
 
 \author{
@@ -146,7 +91,8 @@ permustats(x, ...)
 }
 
 \seealso{
-  \code{\link{density.default}}.
+  \code{\link{density}}, \code{\link[lattice]{densityplot}},
+  \code{\link{qqnorm}}, \code{\link[lattice]{qqmath}}.
 }
 
 \examples{
@@ -157,10 +103,7 @@ mod <- adonis(dune ~ Management, data = dune.env)
 perm <- permustats(mod)
 summary(perm)
 densityplot(perm)
-## direct use of density
-plot(density(mod))
-mod <- adonis(dune ~ Management * Moisture, dune.env)
-densityplot(mod)
+qqmath(perm)
 }
 
 \keyword{ distribution }
