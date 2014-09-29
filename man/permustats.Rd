@@ -23,10 +23,10 @@
   Extract, Analyse and Display Permutation Results
 }
 
-\description{ 
-  The \code{permustats} can extract permutation results of \pkg{vegan}
-  functions. Its support functions can find quantiles and standardized
-  effect sizes, and plot densities and Q-Q plots.
+\description{
+  The \code{permustats} function extracts permutation results of
+  \pkg{vegan} functions. Its support functions can find quantiles and
+  standardized effect sizes, plot densities and Q-Q plots.
 }
 
 \usage{
@@ -60,14 +60,15 @@ permustats(x, ...)
   observed statistics from several \pkg{vegan} functions performing
   permutations or simulations.  
 
-  The \code{summary} of \code{permustats} estimates the \eqn{z}
-  values, also known as standardized effect sizes (SES) as the
-  difference of obseved statistic and mean of permutations divided by
-  the standard deviation of the permutations. It also prints the the
-  mean, median, and limits within which contain 95\% of
-  permutations. For two-sided test these are (2.5\%, 97.5\%) and for
-  one-sided tests either 5\% or 95\% quantile depending on the text
-  direction.
+  The \code{summary} of \code{permustats} estimates the \eqn{z} values,
+  also known as standardized effect sizes (SES) as the difference of
+  obseved statistic and mean of permutations divided by the standard
+  deviation of permutations. It also prints the the mean, median, and
+  limits which contain 95\% of permutations. For two-sided test these
+  are (2.5\%, 97.5\%) and for one-sided tests either 5\% or 95\%
+  quantile depending on the test direction. The mean, quantiles and
+  \eqn{z} values are evaluated from permutations without observed
+  statistic.
 
   The \code{density} and \code{densityplot} methods display the
   density of permutations. When observed value of the statistic is put
@@ -78,18 +79,18 @@ permustats(x, ...)
 
   The \code{qqnorm} and \code{qqmath} display Q-Q plots of
   permutations, optionally together with the observed value (default)
-  which is shown as horizontal line in plots. \code{qqnorm} and plots
-  permutations values against standard Normal variate. \code{qqmath}
+  which is shown as horizontal line in plots. \code{qqnorm} plots
+  permutation values against standard Normal variate. \code{qqmath}
   defaults to the standard Normal as well, but can accept other
   alternatives (see standard \code{\link[lattice]{qqmath}}).
 
-  Functions \code{\link{density}} and \code{\link{qqnorm}} are based
-  on standard \R methods and accept their functions. They only accept
-  one statistic, and cannot be used when several test statistic were
-  evaluaed. The \code{\link[lattice]{densityplot}} and
+  Functions \code{\link{density}} and \code{\link{qqnorm}} are based on
+  standard \R methods and accept their arguments. They only handle one
+  statistic, and cannot be used when several test statistic were
+  evaluated. The \code{\link[lattice]{densityplot}} and
   \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
-  used both for one or more statistics.  All these functions pass
-  arguments to the underlying functions; see their documentation.
+  used both for one and several statistics.  All these functions pass
+  arguments to their underlying functions; see their documentation.
 
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis}}, \code{\link{anosim}},
@@ -107,7 +108,8 @@ permustats(x, ...)
   observed statistics, \code{permutations} which contains permuted
   values, and \code{alternative} which contains text defining the
   character of the test (\code{"two.sided"}, \code{"less"} or
-  \code{"greater"}.).
+  \code{"greater"}). The \code{\link{qqnorm}} and
+  \code{\link{density}} methods return their standard result objects.
 }
 
 \author{
