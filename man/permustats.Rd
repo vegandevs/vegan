@@ -86,7 +86,7 @@ permustats(x, ...)
   Functions \code{\link{density}} and \code{\link{qqnorm}} are based
   on standard \R methods and accept their functions. They only accept
   one statistic, and cannot be used when several test statistic were
-  evaluaed. The \code{\link[lattice]{ensityplot}} and
+  evaluaed. The \code{\link[lattice]{densityplot}} and
   \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
   used both for one or more statistics.  All these functions pass
   arguments to the underlying functions; see their documentation.
