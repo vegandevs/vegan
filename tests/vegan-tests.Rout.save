@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-01-12 r64752) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-09-27 r66695) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -468,32 +468,18 @@ Run 2 stress 0.1192678
 > x <- scores(mod, display = "si", choices=1:6)
 > set.seed(4711)
 > xp <- x[sample(nrow(x)),]
-> pro <- protest(x, xp, control = how(nperm = 99))
+> pro <- protest(x, xp, permutations = how(nperm = 99))
 > pro
 
 Call:
-protest(X = x, Y = xp, control = how(nperm = 99)) 
+protest(X = x, Y = xp, permutations = how(nperm = 99)) 
 
 Procrustes Sum of Squares (m12 squared):        0.9147 
 Correlation in a symmetric Procrustes rotation: 0.292 
 Significance:  0.08 
-Based on 99 permutations
-Permutation Design:
 
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 99
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
-.
+Permutation: free
+Number of permutations: 99
 
 > pro$t
  [1] 0.2056649 0.2008622 0.2062525 0.2656158 0.2739148 0.1990895 0.3124461
@@ -546,4 +532,4 @@ Permutation details:
 > 
 > proc.time()
    user  system elapsed 
-  3.319   0.031   3.342 
+  4.595   0.101   4.764 
