@@ -28,7 +28,9 @@
 suppressPackageStartupMessages(require(vegan))
 set.seed(4711)
 
-### start commsimulator
+### Prior to vegan 2.2-0 these were commsimulator() tests for binary
+### null model, but now commsimulator() is deprecated and calls were
+### replaced with corresponding simulate(nullmodel())
 
 ## expect fill, rowSums, colSums
 expect <- data.frame("r00" = c(TRUE, FALSE, FALSE),
@@ -38,7 +40,7 @@ expect <- data.frame("r00" = c(TRUE, FALSE, FALSE),
                      "c0" = c(TRUE, FALSE, TRUE),
                      "swap" = c(TRUE, TRUE, TRUE),
                      "tswap" = c(TRUE, TRUE, TRUE),
-                     "quasi" = c(TRUE, TRUE, TRUE))
+                     "quasiswap" = c(TRUE, TRUE, TRUE))
 margintest <- function(x, fill, rs, cs) {
     c(sum(x) == fill,
       all(rowSums(x) == rs),
@@ -52,11 +54,11 @@ rs <- rowSums(sipoo)
 cs <- colSums(sipoo)
 
 for(method in names(expect)) {
-    m <- commsimulator(sipoo, method = method, thin = 100)
+    m <- simulate(nullmodel(sipoo, method = method), thin = 100)
     cat("--> method:", method, "\n")
     cat("** margintest:")
     print(all(margintest(m, fill, rs, cs) == expect[, method]))
-    vegemite(m)
+    vegemite(drop(m)) 
 }
 ## clean
 rm(list = ls())
