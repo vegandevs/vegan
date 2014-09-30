@@ -38,6 +38,11 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 ## DEFUNCT: export names defined in vegan-defunct
 export(metaMDSrotate)
 
+
+## permustats is UNDER DEVELOPMENT
+export(permustats)
+
+
 ## export regular functions with dot names
 
 export(as.fisher, as.mlm, as.preston, as.rad, fieller.MOStest,
@@ -145,11 +150,13 @@ S3method(density, anosim)
 S3method(density, mantel)
 S3method(density, mrpp)
 S3method(density, oecosimu)
+S3method(density, permustats)
 S3method(density, permutest.cca)
 S3method(density, protest)
 # densityplot: lattice
 S3method(densityplot, adonis)
 S3method(densityplot, oecosimu)
+S3method(densityplot, permustats)
 # deviance: stats
 S3method(deviance, cca)
 S3method(deviance, rda)
@@ -237,6 +244,26 @@ S3method(nobs, wcmdscale)
 # ordisurf: vegan
 S3method(ordisurf, default)
 S3method(ordisurf, formula)
+
+## permustats methods: UNDER DEVELOPMENT
+S3method(permustats, adonis)
+S3method(permustats, anosim)
+S3method(permustats, mantel)
+S3method(permustats, mrpp)
+S3method(permustats, oecosimu)
+S3method(permustats, permutest.cca)
+## these return an error: no permutation data
+S3method(permustats, CCorA)
+S3method(permustats, envfit)
+S3method(permustats, factorfit)
+S3method(permustats, vectorfit)
+S3method(permustats, mso)
+S3method(permustats, permutest.betadisper)
+
+S3method(print, permustats)
+S3method(summary, permustats)
+S3method(print, summary.permustats)
+
 # permutest: vegan
 S3method(permutest, betadisper)
 S3method(permutest, cca)
@@ -375,6 +402,10 @@ S3method(print, wcmdscale)
 # see note on 'confint'
 S3method(profile, MOStest)
 S3method(profile, humpfit)
+## qqmath: lattice
+S3method(qqmath, permustats)
+## qqnorm: stats
+S3method(qqnorm, permustats)
 # radfit: vegan
 S3method(radfit, data.frame)
 S3method(radfit, default)
