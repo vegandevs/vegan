@@ -70,7 +70,7 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{statistic}{The Mantel statistic.}
   \item{signif}{Empirical significance level from permutations.}
   \item{perm}{A vector of permuted values. The distribution of
-    permuted values can be inspected with \code{\link{density.mantel}} 
+    permuted values can be inspected with \code{\link{permustats}} 
     function.}
   \item{permutations}{Number of permutations.}
   \item{control}{A list of control values for the permutations

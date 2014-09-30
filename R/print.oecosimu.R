@@ -28,13 +28,13 @@
     }
     probs <- switch(x$oecosimu$alternative,
                     two.sided = c(0.025, 0.5, 0.975),
-                    greater = c(0, 0.5, 0.95),
-                    less = c(0.05, 0.5, 1))
+                    greater = c(0.5, 0.95),
+                    less = c(0.05, 0.5))
     qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs, na.rm = TRUE)
     m <- cbind("statistic" = x$oecosimu$statistic,
                "z" = x$oecosimu$z, "mean" = x$oecosimu$means, t(qu),
                "Pr(sim.)"=x$oecosimu$pval)
-    printCoefmat(m, cs.ind = 3:6, ...)
+    printCoefmat(m, cs.ind = 3:(ncol(m)-1), ...)
     if (any(is.na(x$oecosimu$simulated))) {
         nacount <- rowSums(is.na(x$oecosimu$simulated))
         cat("\nNumber of NA cases removed from simulations:\n",

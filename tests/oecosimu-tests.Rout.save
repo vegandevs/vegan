@@ -1,8 +1,7 @@
 
-R version 2.15.3 (2013-03-01) -- "Security Blanket"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+R Under development (unstable) (2014-09-27 r66695) -- "Unsuffered Consequences"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -46,7 +45,9 @@ Type 'q()' to quit R.
 > suppressPackageStartupMessages(require(vegan))
 > set.seed(4711)
 > 
-> ### start commsimulator
+> ### Prior to vegan 2.2-0 these were commsimulator() tests for binary
+> ### null model, but now commsimulator() is deprecated and calls were
+> ### replaced with corresponding simulate(nullmodel())
 > 
 > ## expect fill, rowSums, colSums
 > expect <- data.frame("r00" = c(TRUE, FALSE, FALSE),
@@ -56,7 +57,7 @@ Type 'q()' to quit R.
 +                      "c0" = c(TRUE, FALSE, TRUE),
 +                      "swap" = c(TRUE, TRUE, TRUE),
 +                      "tswap" = c(TRUE, TRUE, TRUE),
-+                      "quasi" = c(TRUE, TRUE, TRUE))
++                      "quasiswap" = c(TRUE, TRUE, TRUE))
 > margintest <- function(x, fill, rs, cs) {
 +     c(sum(x) == fill,
 +       all(rowSums(x) == rs),
@@ -70,11 +71,11 @@ Type 'q()' to quit R.
 > cs <- colSums(sipoo)
 > 
 > for(method in names(expect)) {
-+     m <- commsimulator(sipoo, method = method, thin = 100)
++     m <- simulate(nullmodel(sipoo, method = method), thin = 100)
 +     cat("--> method:", method, "\n")
 +     cat("** margintest:")
 +     print(all(margintest(m, fill, rs, cs) == expect[, method]))
-+     vegemite(m)
++     vegemite(drop(m))  
 + }
 --> method: r00 
 ** margintest:[1] TRUE
@@ -150,58 +151,57 @@ Type 'q()' to quit R.
            oomodLkolddokaaesn
            llelsealmeelanrvra
            mmnmhdrmnttmrdiois
- Pandhali  ...............1..
- Falcsubb  .........1..1..1.1
- Tetrtetr  .1...............1
- Scolrust  .......1..........
- Colupalu  ............1.1..1
- Cucucano  ..1....11.1.1.1.11
- Apusapus  .....1..1..1.11.11
- Picucanu  .1..1..........11.
- Dryomart  ....1..........111
- Jynxtorq  ......1....1111111
- Deliurbi  .....1......11....
- Hirurust  ...........1....11
- Motaalba  .....1...1..111.11
- Anthtriv  ...........1....11
- Trogtrog  ...1......1......1
- Prunmodu  ..........1..1..11
- Turdpila  .......1......1..1
- Turdphil  .........11.....11
- Turdmeru  .........11..1...1
- Turdilia  .......1.......11.
- Eritrube  ....1.......1..11.
- Oenaoena  ..1....1.......11.
- Phoephoe  .......1....1...11
- Acroarun  ........1.1.....1.
- Acroscir  ..........1.1...11
- Hippicte  1....1.........111
- Sylvatri  .1...........1...1
- Sylvbori  ..1........1.11..1
- Sylvcurr  ...........1.11..1
- Sylvcomm  ......11..1..1....
- Phylsibi  ........1.1.1.1..1
- Phyltrocs .........11...1.1.
- Phyltrocd ..1..........1..1.
- Reguregu  1....1.....11...11
- Muscstri  .......1.........1
- Ficehypo  .1...............1
- Parumajo  .......1...1...1..
- Parucaer  .......1.1..1.1111
- Paruater  ....1....1.1...11.
- Parumont  1.1.1.........1111
- Cardchlo  1.......1........1
- Cardspin  ...1.........1..11
- Pyrrpyrr  ..........1.....1.
- Loxicurv  ..........11.11111
- Frincoel  .................1
- Sturvulg  ....1.1..1.....11.
- Orioorio  .............1..11
- Corvcoro  ..............1111
- Corvcora  ......1.......1.11
- Garrglan  .....1..1.1...11..
+ Pandhali  .........1..1..1.1
+ Falcsubb  .1................
+ Tetrtetr  .......1....1....1
+ Scolrust  ............1.1..1
+ Colupalu  ..1....11.1.....11
+ Cucucano  .....1..1..1.1111.
+ Apusapus  .1..1.......1..111
+ Picucanu  ...........1..1.11
+ Dryomart  .....11......1..11
+ Jynxtorq  ............1.1..1
+ Deliurbi  .....1...1.1.1...1
+ Hirurust  ............1....1
+ Motaalba  ..........11.1...1
+ Anthtriv  ...1......1...1..1
+ Trogtrog  .......1.1..11.111
+ Prunmodu  .........11....1..
+ Turdpila  .......1.........1
+ Turdphil  ............1....1
+ Turdmeru  ....1..1....1...11
+ Turdilia  ..1.......1..1.11.
+ Oenaoena  .....1..1.1.....11
+ Phoephoe  .............11..1
+ Acroarun  .............1....
+ Acroscir  111.......1..11...
+ Hippicte  ...........1....1.
+ Sylvatri  .......1..1...1..1
+ Sylvbori  .........1.11..111
+ Sylvcurr  ......111.....1.11
+ Sylvcomm  ..1..............1
+ Phylsibi  .......1...1....11
+ Phyltrocs .........11...1111
+ Phyltrocd 11...1......1.1...
+ Reguregu  .......1.....1..1.
+ Muscstri  ....1......1....11
+ Ficehypo  .............11111
+ Parumajo  1.1......1..1...1.
+ Parucaer  ...............111
+ Paruater  1...1...1.....111.
+ Parumont  ..............1.1.
+ Cardchlo  ...1..........1111
+ Cardspin  ....1............1
+ Pyrrpyrr  ......1..11....111
+ Loxicurv  ..........1..1..1.
+ Frincoel  .............1..11
+ Sturvulg  .....1.1.......111
+ Orioorio  ......1...11....1.
+ Corvcoro  ........1......111
+ Corvcora  ....1.....11.1111.
+ Garrglan  ...............111
   sites species 
-     18      50 
+     18      49 
 --> method: r1 
 ** margintest:[1] TRUE
                              
@@ -508,7 +508,7 @@ Type 'q()' to quit R.
  Garrglan  .................1
   sites species 
      18      50 
---> method: quasi 
+--> method: quasiswap 
 ** margintest:[1] TRUE
                              
            SLLS  FS AGH  KMK 
@@ -1979,4 +1979,4 @@ Warning messages:
 > 
 > proc.time()
    user  system elapsed 
-  2.317   0.220   2.504 
+  5.822   4.129   8.777 

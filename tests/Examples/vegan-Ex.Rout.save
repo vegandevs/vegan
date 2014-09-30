@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-09-15 r66611) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-09-30 r66697) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x4d09c38>
+<environment: 0x672f560>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -1090,15 +1090,15 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, pairwise = TRUE)
+> permutest(mod, pairwise = TRUE, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156   1000   0.05 *
+Groups     1 0.07931 0.079306 4.6156    100   0.04 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -1106,7 +1106,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed              0.053
+grazed               0.56
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -1247,15 +1247,15 @@ Average distance to median:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod2, control = how(nperm = 100))
+> permutest(mod2, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237   1000  0.115
+Groups     1 0.039979 0.039979 2.4237    100   0.19
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1290,18 +1290,16 @@ Average distance to centroid:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod3, control = how(nperm = 100))
+> permutest(mod3, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
 Permutation: free
-Number of permutations: 999
+Number of permutations: 99
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.033468 0.033468 3.1749   1000  0.084 .
-Residuals 18 0.189749 0.010542                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.033468 0.033468 3.1749    100    0.1
+Residuals 18 0.189749 0.010542                     
 > anova(mod3)
 Analysis of Variance Table
 
@@ -2199,30 +2197,6 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > 
 > cleanEx()
-> nameEx("density.adonis")
-> ### * density.adonis
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: density.adonis
-> ### Title: Kernel Density Estimation for Permutation Results in Vegan
-> ### Aliases: density.adonis density.anosim density.mantel density.mrpp
-> ###   density.permutest.cca density.protest plot.vegandensity
-> ###   densityplot.adonis
-> ### Keywords: distribution smooth
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> mod <- adonis(dune ~ Management, data = dune.env)
-> plot(density(mod))
-> mod <- adonis(dune ~ Management * Moisture, dune.env)
-> densityplot(mod)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("designdist")
 > ### * designdist
 > 
@@ -2417,101 +2391,74 @@ Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
 > 
 > ### Name: dispweight
 > ### Title: Dispersion-based weighting of species counts
-> ### Aliases: dispweight
-> ### Keywords: multivariate
+> ### Aliases: dispweight gdispweight summary.dispweight
+> ### Keywords: multivariate manip
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
-> # calculate weights
-> dpw <- dispweight(dune, dune.env$Management, nperm = 100)
-> # transformed community data
-> dpw$transformed
-    Achimill Agrostol Airaprae  Alopgeni  Anthodor Bellpere Bromhord Chenalbu
-1  0.7044025 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-2  2.1132075 0.000000        0 0.7938931 0.0000000 1.666667     1.76        0
-3  0.0000000 1.718139        0 2.7786260 0.0000000 1.111111     0.00        0
-4  0.0000000 3.436278        0 0.7938931 0.0000000 1.111111     1.32        0
-5  1.4088050 0.000000        0 0.0000000 1.4142857 1.111111     0.88        0
-6  1.4088050 0.000000        0 0.0000000 1.0607143 0.000000     0.00        0
-7  1.4088050 0.000000        0 0.0000000 0.7071429 0.000000     0.88        0
-8  0.0000000 1.718139        0 1.9847328 0.0000000 0.000000     0.00        0
-9  0.0000000 1.288604        0 1.1908397 0.0000000 0.000000     0.00        0
-10 2.8176101 0.000000        0 0.0000000 1.4142857 1.111111     1.76        0
-11 0.0000000 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-12 0.0000000 1.718139        0 3.1755725 0.0000000 0.000000     0.00        0
-13 0.0000000 2.147674        0 1.9847328 0.0000000 0.000000     0.00        1
-14 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-15 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-16 0.0000000 3.006743        0 1.5877863 0.0000000 0.000000     0.00        0
-17 1.4088050 0.000000        2 0.0000000 1.4142857 0.000000     0.00        0
-18 0.0000000 0.000000        0 0.0000000 0.0000000 1.111111     0.00        0
-19 0.0000000 0.000000        3 0.0000000 1.4142857 0.000000     0.00        0
-20 0.0000000 2.147674        0 0.0000000 0.0000000 0.000000     0.00        0
-   Cirsarve Comapalu  Eleopalu Elymrepe Empenigr  Hyporadi Juncarti  Juncbufo
-1         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-2         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-3         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-4         2        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-5         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-6         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-7         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.7172676
-8         0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-9         0        0 0.0000000 1.833333        0 0.0000000 1.351724 1.4345351
-10        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-11        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-12        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.4345351
-13        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.0759013
-14        0        2 0.8079911 0.000000        0 0.0000000 0.000000 0.0000000
-15        0        2 1.0099889 0.000000        0 0.0000000 1.013793 0.0000000
-16        0        0 1.6159822 0.000000        0 0.0000000 1.013793 0.0000000
-17        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-18        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-19        0        0 0.0000000 0.000000        2 1.6013072 0.000000 0.0000000
-20        0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-   Lolipere  Planlanc Poaprat Poatriv Ranuflam Rumeacet  Sagiproc Salirepe
-1  3.393939 0.0000000       4       2 0.000000 0.000000 0.0000000 0.000000
-2  2.424242 0.0000000       4       7 0.000000 0.000000 0.0000000 0.000000
-3  2.909091 0.0000000       5       6 0.000000 0.000000 0.0000000 0.000000
-4  2.424242 0.0000000       4       5 0.000000 0.000000 2.0754717 0.000000
-5  0.969697 2.3305085       2       6 0.000000 2.627737 0.0000000 0.000000
-6  2.909091 2.3305085       3       4 0.000000 3.153285 0.0000000 0.000000
-7  2.909091 2.3305085       4       5 0.000000 1.576642 0.0000000 0.000000
-8  1.939394 0.0000000       4       4 1.076923 0.000000 0.8301887 0.000000
-9  0.969697 0.0000000       4       5 0.000000 1.051095 0.8301887 0.000000
-10 2.909091 1.3983051       4       4 0.000000 0.000000 0.0000000 0.000000
-11 3.393939 1.3983051       4       0 0.000000 0.000000 0.8301887 0.000000
-12 0.000000 0.0000000       0       4 0.000000 1.051095 1.6603774 0.000000
-13 0.000000 0.0000000       2       9 1.076923 0.000000 0.8301887 0.000000
-14 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-15 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-16 0.000000 0.0000000       0       2 1.076923 0.000000 0.0000000 0.000000
-17 0.000000 0.9322034       1       0 0.000000 0.000000 0.0000000 0.000000
-18 0.969697 1.3983051       3       0 0.000000 0.000000 0.0000000 1.204380
-19 0.000000 0.0000000       0       0 0.000000 0.000000 1.2452830 1.204380
-20 0.000000 0.0000000       0       0 2.153846 0.000000 0.0000000 2.007299
-   Scorautu  Trifprat Trifrepe Vicilath Bracruta Callcusp
-1         0 0.0000000        0        0 0.000000 0.000000
-2         5 0.0000000        5        0 0.000000 0.000000
-3         2 0.0000000        2        0 1.196356 0.000000
-4         2 0.0000000        1        0 1.196356 0.000000
-5         3 0.8571429        2        0 1.196356 0.000000
-6         3 2.1428571        5        0 3.589067 0.000000
-7         3 0.8571429        2        0 1.196356 0.000000
-8         3 0.0000000        2        0 1.196356 0.000000
-9         2 0.0000000        3        0 1.196356 0.000000
-10        3 0.0000000        6        1 1.196356 0.000000
-11        5 0.0000000        3        2 2.392711 0.000000
-12        2 0.0000000        3        0 2.392711 0.000000
-13        2 0.0000000        2        0 0.000000 0.000000
-14        2 0.0000000        6        0 0.000000 1.359223
-15        2 0.0000000        1        0 2.392711 0.000000
-16        0 0.0000000        0        0 2.392711 1.019417
-17        2 0.0000000        0        0 0.000000 0.000000
-18        5 0.0000000        2        1 3.589067 0.000000
-19        6 0.0000000        2        0 1.794533 0.000000
-20        2 0.0000000        0        0 2.392711 1.019417
+> data(mite, mite.env)
+> ## dispweight and its summary
+> mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+> summary(mite.dw)
+         Dispersion    Weight Df Pr(Disp.)   
+Brachy       9.6908 0.1031909 67      0.01 **
+PHTH         3.2809 0.3047900 49      0.01 **
+HPAV         6.5263 0.1532264 67      0.01 **
+RARD         6.0477 0.1653525 49      0.01 **
+SSTR         2.2619 0.4421053 49      0.01 **
+Protopl      5.4229 0.1844031 49      0.01 **
+MEGR         4.5354 0.2204860 67      0.01 **
+MPRO         1.2687 1.0000000 67      0.07 . 
+TVIE         2.5956 0.3852706 67      0.01 **
+HMIN        10.0714 0.0992906 67      0.01 **
+HMIN2        7.5674 0.1321466 49      0.01 **
+NPRA         2.6743 0.3739344 67      0.01 **
+TVEL         9.6295 0.1038474 49      0.01 **
+ONOV        11.3628 0.0880064 67      0.01 **
+SUCT         8.7372 0.1144533 67      0.01 **
+LCIL       129.4436 0.0077254 67      0.01 **
+Oribatl1     4.1250 0.2424248 67      0.01 **
+Ceratoz1     1.7150 0.5830768 67      0.01 **
+PWIL         2.2943 0.4358538 67      0.01 **
+Galumna1     2.8777 0.3474943 49      0.01 **
+Stgncrs2     3.8242 0.2614953 49      0.01 **
+HRUF         1.7575 0.5690021 67      0.01 **
+Trhypch1    14.9225 0.0670128 67      0.01 **
+PPEL         1.3628 1.0000000 49      0.07 . 
+NCOR         2.5875 0.3864771 67      0.01 **
+SLAT         2.7857 0.3589744 49      0.01 **
+FSET         4.8901 0.2044944 49      0.01 **
+Lepidzts     1.6577 0.6032360 49      0.02 * 
+Eupelops     1.4611 0.6844033 67      0.03 * 
+Miniglmn     1.6505 0.6058733 49      0.01 **
+LRUG        12.0658 0.0828790 67      0.01 **
+PLAG2        3.2403 0.3086090 67      0.01 **
+Ceratoz3     3.5125 0.2846947 67      0.01 **
+Oppiminu     3.1680 0.3156525 67      0.01 **
+Trimalc2    10.5927 0.0944046 67      0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Based on 99 simulations on 'c0_ind' nullmodel
+> ## generalized dispersion weighting
+> mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
+> rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
+Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
+
+              Inertia Proportion Rank
+Total         38.1600     1.0000     
+Constrained    9.2100     0.2414    3
+Unconstrained 28.9500     0.7586   35
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+ RDA1  RDA2  RDA3 
+7.986 0.748 0.480 
+
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
+5.886 3.634 2.791 2.592 1.932 1.573 1.210 1.078 
+(Showed only 8 of all 35 unconstrained eigenvalues)
+
 > 
 > 
 > 
@@ -4367,8 +4314,7 @@ Start = 11, End = 60, Thin = 5
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
-> ###   densityplot.oecosimu
+> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu
 > ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
@@ -4419,11 +4365,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z     mean       0%      50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
+     statistic       z    mean     50%    95% Pr(sim.)  
+DCA1  0.382249  1.8658 0.32404 0.32373 0.3726     0.02 *
+DCA2  0.261208  1.5772 0.21939 0.21617 0.2637     0.09 .
+DCA3  0.166788  0.5209 0.15594 0.15572 0.1859     0.30  
+DCA4  0.087226 -1.9822 0.13015 0.12649 0.1649     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
@@ -4431,7 +4377,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
 > ## Density plot
-> densityplot(out, as.table = TRUE)
+> densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -4959,7 +4905,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb279580>
+<environment: 0xa4cab30>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4976,7 +4922,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa7c6dc0>
+<environment: 0x896d590>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -5007,7 +4953,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xab2f7e8>
+<environment: 0xa9078f0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5022,7 +4968,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0xa4e68e0>
+<environment: 0x994c6c8>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5051,7 +4997,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xaa71098>
+<environment: 0xb548290>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5067,7 +5013,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xb2b2870>
+<environment: 0xb001860>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5084,7 +5030,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xb11bd50>
+<environment: 0xabcaf90>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5103,7 +5049,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xaf954b0>
+<environment: 0xb78ae10>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5244,7 +5190,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa652028>
+<environment: 0xaf088d8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5257,7 +5203,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9701348>
+<environment: 0xa776088>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5270,7 +5216,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9b23ce8>
+<environment: 0xa4aaae0>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5507,6 +5453,39 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
+> nameEx("permustats")
+> ### * permustats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: permustats
+> ### Title: Extract, Analyse and Display Permutation Results
+> ### Aliases: permustats permustats.adonis permustats.anosim
+> ###   permustats.CCorA permustats.envfit permustats.factorfit
+> ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
+> ###   permustats.permutest.betadisper permustats.permutest.cca
+> ###   permustats.protest permustats.vectorfit summary.permustats
+> ###   densityplot.permustats density.permustats qqnorm.permustats
+> ###   qqmath.permustats
+> ### Keywords: distribution smooth
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> ## use permustats
+> perm <- permustats(mod)
+> summary(perm)
+           statistic      z    mean     50%    95%
+Management    3.0730 4.5815 1.04617 0.94704 1.8475
+A1            2.7676 2.6322 1.03640 0.88513 2.3280
+> densityplot(perm)
+> qqmath(perm)
+> 
+> 
+> 
+> cleanEx()
 > nameEx("permutest.betadisper")
 > ### * permutest.betadisper
 > 
@@ -5575,7 +5554,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed               0.05
+grazed               0.56
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -7883,7 +7862,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9990b88>
+<environment: 0xa4436d8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8439,7 +8418,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  35.902 8.181 41.58 0 0 
+Time elapsed:  34.229 8.176 39.961 0 0 
 > grDevices::dev.off()
 null device 
           1 

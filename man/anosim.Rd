@@ -61,7 +61,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
   permuting the grouping vector to obtain the empirical distribution
   of \eqn{R} under null-model.  See \code{\link{permutations}} for
   additional details on permutation tests in Vegan. The distribution
-  of simulated values can be inspected with the \code{density}
+  of simulated values can be inspected with the \code{\link{permustats}}
   function.
 
   The function has \code{summary} and \code{plot} methods.  These both
@@ -78,7 +78,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
   \item{statistic}{The value of ANOSIM statistic \eqn{R}}
   \item{signif}{Significance from permutation.}
   \item{perm}{Permutation values of \eqn{R}. The distribution of
-    permutation values can be inspected with function \code{\link{density.anosim}}.}
+    permutation values can be inspected with function \code{\link{permustats}}.}
   \item{class.vec}{Factor with value \code{Between} for dissimilarities
     between classes and class name for corresponding dissimilarity
     within class.}
