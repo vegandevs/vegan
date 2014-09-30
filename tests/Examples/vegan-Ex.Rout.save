@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x6faafa8>
+<environment: 0x672f560>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -2193,30 +2193,6 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > data(mite)
 > sptrans <- scoverage(mite)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("density.adonis")
-> ### * density.adonis
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: density.adonis
-> ### Title: Kernel Density Estimation for Permutation Results in Vegan
-> ### Aliases: density.adonis density.anosim density.mantel density.mrpp
-> ###   density.permutest.cca density.protest plot.vegandensity
-> ###   densityplot.adonis
-> ### Keywords: distribution smooth
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> mod <- adonis(dune ~ Management, data = dune.env)
-> plot(density(mod))
-> mod <- adonis(dune ~ Management * Moisture, dune.env)
-> densityplot(mod)
 > 
 > 
 > 
@@ -4338,8 +4314,7 @@ Start = 11, End = 60, Thin = 5
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
-> ###   densityplot.oecosimu
+> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu
 > ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
@@ -4390,11 +4365,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z     mean       0%      50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
+     statistic       z    mean     50%    95% Pr(sim.)  
+DCA1  0.382249  1.8658 0.32404 0.32373 0.3726     0.02 *
+DCA2  0.261208  1.5772 0.21939 0.21617 0.2637     0.09 .
+DCA3  0.166788  0.5209 0.15594 0.15572 0.1859     0.30  
+DCA4  0.087226 -1.9822 0.13015 0.12649 0.1649     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
@@ -4402,7 +4377,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
 > ## Density plot
-> densityplot(out, as.table = TRUE)
+> densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -4930,7 +4905,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa7bc438>
+<environment: 0xa4cab30>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4947,7 +4922,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb186ab8>
+<environment: 0x896d590>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4978,7 +4953,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9e15a80>
+<environment: 0xa9078f0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4993,7 +4968,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0xa9e9268>
+<environment: 0x994c6c8>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5022,7 +4997,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xae22860>
+<environment: 0xb548290>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5038,7 +5013,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xa86bed8>
+<environment: 0xb001860>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5055,7 +5030,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xae4bc40>
+<environment: 0xabcaf90>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5074,7 +5049,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x9dede90>
+<environment: 0xb78ae10>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5215,7 +5190,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xacb6678>
+<environment: 0xaf088d8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5228,7 +5203,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xab62fe0>
+<environment: 0xa776088>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5241,7 +5216,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xab603e0>
+<environment: 0xa4aaae0>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5477,6 +5452,39 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > 
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("permustats")
+> ### * permustats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: permustats
+> ### Title: Extract, Analyse and Display Permutation Results
+> ### Aliases: permustats permustats.adonis permustats.anosim
+> ###   permustats.CCorA permustats.envfit permustats.factorfit
+> ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
+> ###   permustats.permutest.betadisper permustats.permutest.cca
+> ###   permustats.protest permustats.vectorfit summary.permustats
+> ###   densityplot.permustats density.permustats qqnorm.permustats
+> ###   qqmath.permustats
+> ### Keywords: distribution smooth
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> ## use permustats
+> perm <- permustats(mod)
+> summary(perm)
+           statistic      z    mean     50%    95%
+Management    3.0730 4.5815 1.04617 0.94704 1.8475
+A1            2.7676 2.6322 1.03640 0.88513 2.3280
+> densityplot(perm)
+> qqmath(perm)
+> 
+> 
+> 
 > cleanEx()
 > nameEx("permutest.betadisper")
 > ### * permutest.betadisper
@@ -7854,7 +7862,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb29d498>
+<environment: 0xa4436d8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8410,7 +8418,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  35.003 7.831 40.361 0 0 
+Time elapsed:  34.229 8.176 39.961 0 0 
 > grDevices::dev.off()
 null device 
           1 
