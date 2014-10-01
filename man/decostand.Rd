@@ -2,7 +2,6 @@
 \name{decostand}
 \alias{decostand}
 \alias{wisconsin}
-\alias{scoverage}
 
 \title{Standardization Methods for Community Ecology}
 \description{
@@ -11,10 +10,7 @@ methods for community ecologists.
 }
 \usage{
 decostand(x, method, MARGIN, range.global, logbase = 2, na.rm=FALSE, ...)
-
 wisconsin(x)
-
-scoverage(x, coverage.limit = 10)
 }
 
 \arguments{
@@ -28,8 +24,6 @@ scoverage(x, coverage.limit = 10)
     \code{x}. }
   \item{logbase}{The logarithm base used in \code{method = "log"}.}
   \item{na.rm}{Ignore missing values in row or column standardizations.}
-  \item{coverage.limit}{Integer, the sample coverage based correction 
-    is applied to rare species with counts below this limit.}
   \item{\dots}{Other arguments to the function (ignored).}
 }
 \details{
@@ -86,16 +80,6 @@ scoverage(x, coverage.limit = 10)
   data. If there are empty sites or species (or constant with
   \code{method =  "range"}), many standardization will change these into
   \code{NaN}.  
-
-  \code{scoverage} calculates sample relative frequencies
-  (divide by row total, \code{method = "total"} in \code{decostand})
-  for species with abundances larger than or equal to \code{coverage.limit}.
-  The sample coverage based correction proposed by Turing (see Good 1953)
-  is calculated for species with abundances smaller than 
-  \code{coverage.limit}. The correction is based on the number of
-  singleton species in each row.
-  The function expects nonnegative integer values in the community matrix
-  with no empty rows.
 }
 \value{
   Returns the standardized data frame, and adds an attribute
@@ -103,8 +87,7 @@ scoverage(x, coverage.limit = 10)
   \code{"method"}.
 }
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
-  (\code{method = "log"}),
-  Peter Solymos (\code{scoverage}).}
+  (\code{method = "log"}).}
 \note{Common transformations can be made with standard \R functions.}
 
 \references{ 
@@ -112,10 +95,6 @@ scoverage(x, coverage.limit = 10)
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
   \strong{9}, 683--693.
-
-  Good, I. J. 1953. The population frequencies of species and the
-  estimation of population parameters. \emph{Biometrika}
-  \strong{40}, 237--264.
 
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
@@ -136,9 +115,6 @@ sptrans <- wisconsin(varespec)
 ## Use wcmdscale for weighted analysis and identical results.
 sptrans <- decostand(varespec, "chi.square")
 plot(procrustes(rda(sptrans), cca(varespec)))
-
-data(mite)
-sptrans <- scoverage(mite)
 }
 \keyword{ multivariate}
 \keyword{ manip }
