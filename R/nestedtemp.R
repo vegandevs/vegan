@@ -88,6 +88,7 @@
     temp <- 100*sum(u)/prod(dim(comm))/0.04145
     out <- list(comm = comm, u = u, r = r, c = c, p = p,
                 fill=fill,  statistic = temp, smooth=smo)
+    names(out$statistic) <- "temperature"
     class(out) <- "nestedtemp"
     out
 }

@@ -65,6 +65,7 @@
         }
     }
     out <- list(statistic=Ad, ties = ties, order = k[x])
+    names(out$statistic) <- "discrepancy"
     class(out) <- "nesteddisc"
     out
 }
