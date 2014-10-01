@@ -2,6 +2,12 @@
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
              correlated = FALSE, ...) 
 {
+    ## Fail if there is no constrained component (it could be possible
+    ## to change the function to handle unconstrained ordination, too,
+    ## when rank < "full", but that would require redesign)
+    if (is.null(object$CCA))
+        stop("function can be used only with constrained ordination")
+    
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -29,7 +35,7 @@
                           nsim, nrow(indx)))
     ## Proper simulation: very similar for simulate.lm, but produces
     ## an array of response matrices
-    
+
     ftd <- predict(object, type = "response", rank = rank)
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
@@ -91,6 +97,9 @@
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
              correlated = FALSE, ...)
 {
+    ## Fail if no CCA
+    if (is.null(object$CCA))
+        stop("function can be used only with constrained ordination")
     ## Handle RNG: code directly from stats::simulate.lm
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
         runif(1)
@@ -183,6 +192,9 @@
     function(object, nsim = 1, seed = NULL, indx = NULL, rank = "full",
              correlated = FALSE, ...) 
 {
+    ## Fail if no CCA component
+    if (is.null(object$CCA))
+        stop("function can be used only with constrained ordination")
     if (is.null(indx) && correlated)
         warning("argument 'correlated' does not work and will be ignored")
     ## Handle RNG: code directly from stats::simulate.lm
