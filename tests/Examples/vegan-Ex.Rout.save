@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x672f560>
+<environment: 0x640f490>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -1106,7 +1106,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed               0.56
+grazed               0.05
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -2164,7 +2164,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin scoverage
+> ### Aliases: decostand wisconsin
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -2190,9 +2190,6 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > ## Use wcmdscale for weighted analysis and identical results.
 > sptrans <- decostand(varespec, "chi.square")
 > plot(procrustes(rda(sptrans), cca(varespec)))
-> 
-> data(mite)
-> sptrans <- scoverage(mite)
 > 
 > 
 > 
@@ -4192,8 +4189,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
-statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
+              statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 oecosimu object
@@ -4335,8 +4332,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
-statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
+              statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
+checkerboards      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## sequential model, one-sided test, a vector statistic
@@ -4905,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa4cab30>
+<environment: 0xa8e2d20>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4922,7 +4919,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x896d590>
+<environment: 0xa0f4ee0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4953,7 +4950,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa9078f0>
+<environment: 0x9fe1070>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4968,7 +4965,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x994c6c8>
+<environment: 0x9c8d8d0>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4997,7 +4994,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xb548290>
+<environment: 0x9eb7d88>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5013,7 +5010,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xb001860>
+<environment: 0xaac1348>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5030,7 +5027,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xabcaf90>
+<environment: 0xaa638d0>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5049,7 +5046,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xb78ae10>
+<environment: 0xa8be370>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5190,7 +5187,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xaf088d8>
+<environment: 0x8b3ea98>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5203,7 +5200,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa776088>
+<environment: 0xa93f6e8>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5216,7 +5213,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa4aaae0>
+<environment: 0x9785868>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5554,7 +5551,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed               0.56
+grazed               0.05
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -7862,7 +7859,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa4436d8>
+<environment: 0x926b0a0>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8418,7 +8415,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  34.229 8.176 39.961 0 0 
+Time elapsed:  34.698 8.183 40.373 0 0 
 > grDevices::dev.off()
 null device 
           1 

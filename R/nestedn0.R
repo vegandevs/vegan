@@ -8,6 +8,7 @@ function(comm)
     for (i in 1:ncol(comm))
         n0[i] <- sum(comm[,i] == 0 & R > spmin[i])
     out <- list(spmin = spmin, n0 = n0, statistic = sum(n0))
+    names(out$statistic) <- "N0"
     class(out) <- "nestedn0"
     out
 }
