@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-09-30 r66697) -- "Unsuffered Consequences"
+R Under development (unstable) (2014-10-02 r66705) -- "Unsuffered Consequences"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x640f490>
+<environment: 0x51856a0>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4902,7 +4902,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa8e2d20>
+<environment: 0x95b4c10>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4919,7 +4919,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa0f4ee0>
+<environment: 0x78daba8>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4950,7 +4950,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9fe1070>
+<environment: 0x99492e0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4965,7 +4965,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x9c8d8d0>
+<environment: 0x8a46270>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4994,7 +4994,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9eb7d88>
+<environment: 0xa5c4cc8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5010,7 +5010,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xaac1348>
+<environment: 0xa076270>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5027,7 +5027,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xaa638d0>
+<environment: 0x9e57c18>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5046,7 +5046,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xa8be370>
+<environment: 0x9cf2df8>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5187,7 +5187,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8b3ea98>
+<environment: 0x8d2e078>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5200,7 +5200,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa93f6e8>
+<environment: 0x7c49338>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5213,7 +5213,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9785868>
+<environment: 0x89d2770>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -6218,16 +6218,23 @@ Manhattan     Gower    Ochiai
 > 
 > ### Name: reorder.hclust
 > ### Title: Reorder a Hierarchical Clustering Tree
-> ### Aliases: reorder.hclust rev.hclust
+> ### Aliases: reorder.hclust rev.hclust scores.hclust
 > ### Keywords: multivariate
 > 
 > ### ** Examples
 > 
+> ## reorder by water content of soil
 > data(mite, mite.env)
 > hc <- hclust(vegdist(wisconsin(sqrt(mite))))
 > ohc <- with(mite.env, reorder(hc, WatrCont))
 > plot(hc)
 > plot(ohc)
+> 
+> ## label leaves by the observed value, and each branching point
+> ## (internal node) by the cluster mean
+> with(mite.env, plot(ohc, labels=round(WatrCont), cex=0.7))
+> ordilabel(scores(ohc), label=round(ohc$value), cex=0.7)
+> 
 > ## Slightly different from reordered 'dendrogram' which ignores group
 > ## sizes in assessing means.
 > den <- as.dendrogram(hc)
@@ -6277,28 +6284,6 @@ Manhattan     Gower    Ochiai
 10  64.9418975 -16.7633564
 11  11.5313633   3.9720890
 21  -3.4194194  -3.0130455
-> 
-> 
-> 
-> cleanEx()
-> nameEx("scores.hclust")
-> ### * scores.hclust
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: scores.hclust
-> ### Title: Coordinates of Leaves and Internal Nodes in a hclust Tree
-> ### Aliases: scores.hclust
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> ## Show values that were used in reordering a tree
-> data(mite, mite.env)
-> hc <- hclust(vegdist(mite))
-> hc <- with(mite.env, reorder(hc, WatrCont))
-> with(mite.env, plot(hc, labels=round(WatrCont), cex=0.7))
-> ordilabel(scores(hc), label=round(hc$value), cex=0.7)
 > 
 > 
 > 
@@ -7859,7 +7844,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x926b0a0>
+<environment: 0xa1ed7f8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8415,7 +8400,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  34.698 8.183 40.373 0 0 
+Time elapsed:  32.74 5.5 36.398 0 0 
 > grDevices::dev.off()
 null device 
           1 
