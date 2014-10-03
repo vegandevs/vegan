@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2014-09-30 r66697) -- "Unsuffered Consequences"
+R version 3.1.1 Patched (2014-09-17 r66626) -- "Sock it to Me"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x640f490>
+<environment: 0x7448210>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -1098,7 +1098,7 @@ Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156    100   0.04 *
+Groups     1 0.07931 0.079306 4.6156     99   0.04 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -1255,7 +1255,7 @@ Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237    100   0.19
+Groups     1 0.039979 0.039979 2.4237     99   0.19
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1298,7 +1298,7 @@ Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.033468 0.033468 3.1749    100    0.1
+Groups     1 0.033468 0.033468 3.1749     99    0.1
 Residuals 18 0.189749 0.010542                     
 > anova(mod3)
 Analysis of Variance Table
@@ -1556,8 +1556,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Avoid negative eigenvalues with additive constant
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
 +                      dist="bray", add =TRUE)
-Warning in cmdscale(X, k = k, eig = TRUE, add = add) :
-  only 22 of the first 23 eigenvalues are > 0
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", add = TRUE)
 
@@ -3667,7 +3665,7 @@ Run 5 stress 0.1073149
 Run 6 stress 0.107471 
 Run 7 stress 0.1067169 
 ... New best solution
-... procrustes: rmse 4.525314e-06  max resid 1.281822e-05 
+... procrustes: rmse 4.525315e-06  max resid 1.281822e-05 
 *** Solution reached
 > sol
 
@@ -4833,30 +4831,13 @@ Step: R2.adj= 0.4004249
 Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
  
                 R2.adjusted
-<All variables>   0.4367038
 + SubsDens        0.4367038
+<All variables>   0.4367038
 <none>            0.4004249
 - Topo            0.3653551
 - Shrub           0.3591790
 - Substrate       0.3525851
 - WatrCont        0.3145444
-
-           Df     AIC      F Pr(>F)   
-+ SubsDens  1 -94.489 4.7999  0.002 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.4367038 
-Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens 
- 
-                R2.adjusted
-<All variables>   0.4367038
-<none>            0.4367038
-- Shrub           0.4079297
-- SubsDens        0.4004249
-- Substrate       0.3951235
-- Topo            0.3901844
-- WatrCont        0.3357858
 
 > step.res$anova  # Summary table
                  R2.adj Df     AIC       F Pr(>F)   
@@ -4864,7 +4845,6 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens
 + Shrub         0.31775  2 -88.034  3.8360  0.002 **
 + Substrate     0.36536  6 -87.768  1.8251  0.002 **
 + Topo          0.40042  1 -90.924  4.5095  0.004 **
-+ SubsDens      0.43670  1 -94.489  4.7999  0.002 **
 <All variables> 0.43670                             
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4902,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa8e2d20>
+<environment: 0x975bfa8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4919,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa0f4ee0>
+<environment: 0x89d2290>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4950,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9fe1070>
+<environment: 0x8fb08f0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4965,7 +4945,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x9c8d8d0>
+<environment: 0x78c4998>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4981,7 +4961,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-2. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-3. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -4994,7 +4974,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9eb7d88>
+<environment: 0x9fe91d8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5010,7 +4990,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xaac1348>
+<environment: 0x90fa158>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5027,7 +5007,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0xaa638d0>
+<environment: 0x89ebcd0>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5046,7 +5026,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xa8be370>
+<environment: 0x99a2720>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5187,7 +5167,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8b3ea98>
+<environment: 0xa7534d8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5200,7 +5180,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa93f6e8>
+<environment: 0x8b20660>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5213,7 +5193,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9785868>
+<environment: 0xb43c2c8>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5543,7 +5523,7 @@ Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156    100   0.04 *
+Groups     1 0.07931 0.079306 4.6156     99   0.04 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -6003,8 +5983,8 @@ Rotation matrix:
 [2,] 0.1154641  0.9933117
 
 Translation of averages:
-             [,1]         [,2]
-[1,] 3.038945e-17 1.218602e-17
+              [,1]         [,2]
+[1,] -3.278601e-18 9.393617e-18
 
 Scaling of target:
 [1] 0.6727804
@@ -6218,16 +6198,23 @@ Manhattan     Gower    Ochiai
 > 
 > ### Name: reorder.hclust
 > ### Title: Reorder a Hierarchical Clustering Tree
-> ### Aliases: reorder.hclust rev.hclust
+> ### Aliases: reorder.hclust rev.hclust scores.hclust
 > ### Keywords: multivariate
 > 
 > ### ** Examples
 > 
+> ## reorder by water content of soil
 > data(mite, mite.env)
 > hc <- hclust(vegdist(wisconsin(sqrt(mite))))
 > ohc <- with(mite.env, reorder(hc, WatrCont))
 > plot(hc)
 > plot(ohc)
+> 
+> ## label leaves by the observed value, and each branching point
+> ## (internal node) by the cluster mean
+> with(mite.env, plot(ohc, labels=round(WatrCont), cex=0.7))
+> ordilabel(scores(ohc), label=round(ohc$value), cex=0.7)
+> 
 > ## Slightly different from reordered 'dendrogram' which ignores group
 > ## sizes in assessing means.
 > den <- as.dendrogram(hc)
@@ -6277,28 +6264,6 @@ Manhattan     Gower    Ochiai
 10  64.9418975 -16.7633564
 11  11.5313633   3.9720890
 21  -3.4194194  -3.0130455
-> 
-> 
-> 
-> cleanEx()
-> nameEx("scores.hclust")
-> ### * scores.hclust
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: scores.hclust
-> ### Title: Coordinates of Leaves and Internal Nodes in a hclust Tree
-> ### Aliases: scores.hclust
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> ## Show values that were used in reordering a tree
-> data(mite, mite.env)
-> hc <- hclust(vegdist(mite))
-> hc <- with(mite.env, reorder(hc, WatrCont))
-> with(mite.env, plot(hc, labels=round(WatrCont), cex=0.7))
-> ordilabel(scores(hc), label=round(hc$value), cex=0.7)
 > 
 > 
 > 
@@ -7146,7 +7111,7 @@ Alopgeni 0.7709807 3.464157e-01
 Anthodor 1.0199113 7.575379e-01
 Bellpere 1.1104145 9.067794e-01
 Bromhord 1.0381512 5.515502e-01
-Chenalbu 0.6033850 6.883383e-15
+Chenalbu 0.6033850 3.996803e-15
 Cirsarve 1.3186022 1.010898e-09
 Comapalu 2.1945688 5.677653e-01
 Eleopalu 1.7007903 8.292822e-01
@@ -7859,7 +7824,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x926b0a0>
+<environment: 0xb0f94a8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8381,13 +8346,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 2.220446e-16 -1.276756e-15 -1.054712e-15  1.942890e-16  1.387779e-16 
+ 1.110223e-16 -6.106227e-16  2.775558e-16 -1.110223e-16  2.775558e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-16 -1.387779e-17 -1.387779e-16  2.359224e-16  2.775558e-17 
+-2.775558e-17 -1.387779e-16 -2.636780e-16  1.942890e-16 -6.938894e-18 
          CA11          CA12          CA13          CA14          CA15 
- 1.387779e-16  0.000000e+00  3.469447e-17  2.775558e-17  1.561251e-17 
+ 1.387779e-16  4.857226e-17  7.632783e-17  3.469447e-18  1.734723e-17 
          CA16          CA17          CA18          CA19 
- 0.000000e+00  1.734723e-18  1.127570e-17  1.196959e-16 
+ 0.000000e+00 -1.734723e-18 -2.602085e-17  4.336809e-18 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = 1)
@@ -8415,7 +8380,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  34.698 8.183 40.373 0 0 
+Time elapsed:  104.001 1.198 105.469 0 0 
 > grDevices::dev.off()
 null device 
           1 

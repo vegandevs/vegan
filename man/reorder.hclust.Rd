@@ -1,6 +1,7 @@
 \name{reorder.hclust}
 \alias{reorder.hclust}
 \alias{rev.hclust}
+\alias{scores.hclust}
 
 \title{
 Reorder a Hierarchical Clustering Tree
@@ -21,6 +22,7 @@ Reorder a Hierarchical Clustering Tree
 \method{reorder}{hclust}(x, wts, 
    agglo.FUN = c("mean", "min", "max", "sum", "uwmean"), ...)
 \method{rev}{hclust}(x)
+\method{scores}{hclust}(x, display = "internal", ...)
 }
 
 \arguments{
@@ -32,6 +34,10 @@ Reorder a Hierarchical Clustering Tree
 }
   \item{agglo.FUN}{
     a function for weights agglomeration, see below.
+}
+  \item{display}{
+  return \code{"internal"} nodes or \code{"terminal"} nodes (also
+  called \code{"leaves"}).
 }
   \item{\dots}{
     additional arguments (ignored).
@@ -55,7 +61,12 @@ Reorder a Hierarchical Clustering Tree
   The function accepts only a limited list of \code{agglo.FUN}
   functions for assessing the value of \code{wts} for groups. The
   ordering is always ascending, but the order of leaves can be
-  reversed with \code{rev}. 
+  reversed with \code{rev}.
+
+  Function \code{scores} finds the coordinates of nodes as a two-column
+  matrix. For terminal nodes (leaves) this the value at which the item
+  is merged to the tree, and the labels can still \code{hang} below this
+  level (see \code{\link{plot.hclust}}).
 
 }
 
@@ -81,11 +92,18 @@ Reorder a Hierarchical Clustering Tree
   alternative implementation.
 }
 \examples{
+## reorder by water content of soil
 data(mite, mite.env)
 hc <- hclust(vegdist(wisconsin(sqrt(mite))))
 ohc <- with(mite.env, reorder(hc, WatrCont))
 plot(hc)
 plot(ohc)
+
+## label leaves by the observed value, and each branching point
+## (internal node) by the cluster mean
+with(mite.env, plot(ohc, labels=round(WatrCont), cex=0.7))
+ordilabel(scores(ohc), label=round(ohc$value), cex=0.7)
+
 ## Slightly different from reordered 'dendrogram' which ignores group
 ## sizes in assessing means.
 den <- as.dendrogram(hc)

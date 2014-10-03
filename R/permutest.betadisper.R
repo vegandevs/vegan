@@ -131,7 +131,7 @@
         pairwise <- NULL
     }
 
-    retval <- cbind(mod.aov[, 1:4], c(nperm + 1, NA), c(pval, NA))
+    retval <- cbind(mod.aov[, 1:4], c(nperm, NA), c(pval, NA))
     dimnames(retval) <- list(c("Groups", "Residuals"),
                              c("Df", "Sum Sq", "Mean Sq", "F", "N.Perm",
                                "Pr(>F)"))
