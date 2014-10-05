@@ -68,11 +68,9 @@
                            1, 1/sqrt(rowsum), "*")
             CCA$v <- sweep(as.matrix(sol$v[, 1:rank, drop = FALSE]), 
                            1, 1/sqrt(colsum), "*")
-            CCA$u.eig <- sweep(CCA$u, 2, sol$d[1:rank], "*")
-            CCA$v.eig <- sweep(CCA$v, 2, sol$d[1:rank], "*")
-            CCA$wa.eig <- sweep(Xbar %*% sol$v[, 1:rank, drop = FALSE], 
-                                1, 1/sqrt(rowsum), "*")
-            CCA$wa <- sweep(CCA$wa.eig, 2, 1/sol$d[1:rank], "*")
+            wa.eig <- sweep(Xbar %*% sol$v[, 1:rank, drop = FALSE], 
+                            1, 1/sqrt(rowsum), "*")
+            CCA$wa <- sweep(wa.eig, 2, 1/sol$d[1:rank], "*")
             oo <- Q$pivot
             if (!is.null(pCCA$rank)) 
                 oo <- oo[-(1:pCCA$rank)] - ncol(Z.r)
@@ -92,15 +90,14 @@
                         QR = Q, Xbar = Xbar)
             u <- matrix(0, nrow=nrow(sol$u), ncol=0)
             v <- matrix(0, nrow=nrow(sol$v), ncol=0)
-            CCA$u <- CCA$u.eig <- CCA$wa <- CCA$wa.eig <- u
-            CCA$v <- CCA$v.eig <- v
+            CCA$u <- CCA$wa <- u
+            CCA$v <- v
             CCA$biplot <- matrix(0, 0, 0)
             CCA$alias <- colnames(Y.r)
         }
         Xbar <- qr.resid(Q, Xbar)
         if (exists("exclude.spec")) {
             attr(CCA$v, "na.action") <- exclude.spec
-            attr(CCA$v.eig, "na.action") <- exclude.spec
         }
         
     }
@@ -119,8 +116,6 @@
                       1, 1/sqrt(rowsum), "*")
         CA$v <- sweep(as.matrix(sol$v[, 1:rank, drop = FALSE]), 
                       1, 1/sqrt(colsum), "*")
-        CA$u.eig <- sweep(CA$u, 2, sol$d[1:rank], "*")
-        CA$v.eig <- sweep(CA$v, 2, sol$d[1:rank], "*")
         CA$rank <- rank
         CA$tot.chi <- sum(CA$eig)
         CA$Xbar <- Xbar
@@ -128,12 +123,11 @@
     } else {   # zero rank: no residual component
         CA <- list(eig = 0, rank = rank, tot.chi = 0,
                    Xbar = Xbar)
-        CA$u <- CA$u.eig <- matrix(0, nrow(sol$u), 0)
-        CA$v <- CA$v.eig <- matrix(0, nrow(sol$v), 0)
+        CA$u <- matrix(0, nrow(sol$u), 0)
+        CA$v <- matrix(0, nrow(sol$v), 0)
     }
     if (exists("exclude.spec")) {
         attr(CA$v, "na.action") <- exclude.spec
-        attr(CA$v.eig, "na.action") <- exclude.spec
     }
     call <- match.call()
     call[[1]] <- as.name("cca")
