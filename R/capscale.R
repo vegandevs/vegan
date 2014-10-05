@@ -124,20 +124,20 @@
         if (!is.null(sol$pCCA) && sol$pCCA$rank > 0) 
             comm <- qr.resid(sol$pCCA$QR, comm)
         if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-            sol$CCA$v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
-            sol$CCA$v <- decostand(sol$CCA$v.eig, "normalize", MARGIN = 2)
+            v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
+            sol$CCA$v <- decostand(v.eig, "normalize", MARGIN = 2)
             comm <- qr.resid(sol$CCA$QR, comm)
         }
         if (!is.null(sol$CA) && sol$CA$rank > 0) {
-            sol$CA$v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
-            sol$CA$v <- decostand(sol$CA$v.eig, "normalize", MARGIN = 2)
+            v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
+            sol$CA$v <- decostand(v.eig, "normalize", MARGIN = 2)
         }
     } else {
         ## input data were dissimilarities, and no 'comm' defined:
         ## species scores make no sense and are made NA
-        sol$CA$v.eig[] <- sol$CA$v[] <- NA
+        sol$CA$v[] <- NA
         if (!is.null(sol$CCA))
-            sol$CCA$v.eig[] <- sol$CCA$v[] <- NA
+            sol$CCA$v[] <- NA
         sol$colsum <- NA
     }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
