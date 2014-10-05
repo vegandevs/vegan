@@ -51,13 +51,9 @@
             CCA <- list(eig = sol$d[1:rank]^2)
             CCA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
             CCA$v <- as.matrix(sol$v)[, 1:rank, drop = FALSE]
-            CCA$u.eig <- sweep(as.matrix(CCA$u), 2, sol$d[1:rank], 
-                               "*")
-            CCA$v.eig <- sweep(as.matrix(CCA$v), 2, sol$d[1:rank], 
-                               "*")
-            CCA$wa.eig <- Xbar %*% sol$v[, 1:rank, drop = FALSE]
-            CCA$wa.eig <- CCA$wa.eig/sqrt(NR)
-            CCA$wa <- sweep(CCA$wa.eig, 2, 1/sol$d[1:rank], "*")
+            wa.eig <- Xbar %*% sol$v[, 1:rank, drop = FALSE]
+            wa.eig <- wa.eig/sqrt(NR)
+            CCA$wa <- sweep(wa.eig, 2, 1/sol$d[1:rank], "*")
             oo <- Q$pivot
             if (!is.null(pCCA$rank)) 
                 oo <- oo[-(1:pCCA$rank)] - ncol(Z.r)
@@ -78,8 +74,8 @@
                         QR = Q, Xbar = Xbar)
             u <- matrix(0, nrow=nrow(sol$u), ncol=0)
             v <- matrix(0, nrow=nrow(sol$v), ncol=0)
-            CCA$u <- CCA$u.eig <- CCA$wa <- CCA$wa.eig <- u
-            CCA$v <- CCA$v.eig <- v
+            CCA$u <- CCA$wa <- u
+            CCA$v <- v
             CCA$biplot <- matrix(0, 0, 0)
             CCA$alias <- colnames(Y.r)
         }
@@ -98,18 +94,14 @@
         CA <- list(eig = (sol$d[1:rank]^2))
         CA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
         CA$v <- as.matrix(sol$v)[, 1:rank, drop = FALSE]
-        CA$u.eig <- sweep(as.matrix(CA$u), 2, sol$d[1:rank], 
-                          "*")
-        CA$v.eig <- sweep(as.matrix(CA$v), 2, sol$d[1:rank], 
-                          "*")
         CA$rank <- rank
         CA$tot.chi <- sum(CA$eig)
         CA$Xbar <- Xbar
     } else {   # zero rank: no residual component
         CA <- list(eig = 0, rank = rank, tot.chi = 0,
                    Xbar = Xbar)
-        CA$u <- CA$u.eig <- matrix(0, nrow(sol$u), 0)
-        CA$v <- CA$v.eig <- matrix(0, nrow(sol$v), 0)
+        CA$u <- matrix(0, nrow(sol$u), 0)
+        CA$v <- matrix(0, nrow(sol$v), 0)
     }
     call <- match.call()
     call[[1]] <- as.name("rda")
