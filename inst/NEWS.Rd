@@ -2,6 +2,120 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.2-0}{
+
+  \subsection{GENERAL}{
+    \itemize{
+  
+      \item Parallel processing
+
+      \item Restricted permutations
+
+      \item New null models   
+  
+    } %end itemize
+  } % end general
+
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item Changes in NAMESPACE and passes tests
+
+      \item Split \pkg{vegan3d}
+
+     } %end itemize
+   } % end installation
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item Dispersion weighting \code{dispweight} plus a new method
+      for generalized dispersion weigthing \code{gdispweight}.
+
+      \item \code{hclust} support functions \code{reorder}, \code{rev}
+      and \code{scores}.
+
+      \item \code{permustats} to extract and inspect permutation
+      results with support functions \code{summary}, \code{density},
+      \code{densityplot}, \code{qqnorm} and \code{qqmath}.
+
+      \item \code{stressplot} functions.
+
+    } % end itemize
+  } % end new functions
+
+  \subsection{BUG FIXES}{
+  } % end bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{anova.cca} functions re-written, and added an option
+      of analysing a sequence of models against each other.
+
+      \item \code{simulate} functions for \code{cca} and \code{rda}
+      can return several simulations in a \code{nullmodel} compatible
+      object. The functions can produce simulations with correlated
+      errors (also for \code{capscale}).
+
+      \item \code{bioenv} can use Manhattan, Gower and Mahalanobis
+      distances in addition to Euclidean. New helper function
+      \code{bioenvdist} can extract the dissimilarities applied in
+      best model or any other model.
+
+      \item \code{MDSrotate} can rotate to multidimensional target.
+
+      \item \code{nestednodf} gained new option for defining weighted
+      nestedness statistic.
+
+      \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
+      distance in addition to Euclidean.
+
+      \item \code{spantree} gained a support function \code{as.hclust}
+      to change the minimum spannig tree into an \code{hclust} tree.
+
+      \item \code{fitspecaccum} can do weighted analysis.
+
+      \item \code{vegdist} gained Mahalanobis distance.
+
+      \item Nomenclature updated in plant community
+      data. \code{varespec} and \code{dune} use 8-character names (4
+      from genus + 4 from species epithet). New data set on
+      phylogenetic distances for \code{dune}.
+
+      \item User configurable plots for \code{rarecurve}.
+
+    } %end itemize
+  } % end new features
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item \code{strata} deprecated in permutations. It is still
+      accepted but will be phased out in next releases. Use \code{how}
+      of \pkg{permute} package.
+
+      \item \code{cca}, \code{rda} and \code{capscale} do not return
+      scores scaled by eigenvalues: use \code{scores} function to
+      extract scaled results.
+
+      \item \code{commsimulator} is deprecated. Replace
+      \code{commsimulator(x, method)} with \code{simulate(nullmodel(x,
+      method))}.
+
+      \item \code{density} and \code{densityplot} for permutation
+      results: use \code{density(permustats(<permutation-object))}.
+
+      \item \code{ordirgl} with its support functions, other \pkg{rgl}
+      functions and \code{ordiplot3d} were moved to the \pkg{vegan3d}
+      package.
+
+    } %end itemize
+  } % end deprecated
+  
+
+} % end version 2.2-0
+
 \section{Changes in version 2.0-10}{
 
   \subsection{GENERAL}{
