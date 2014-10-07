@@ -15,7 +15,7 @@
         perm <- how(nperm = perm) 
     }
     ## apply 'strata'
-    if (!is.null(strata)) {
+    if (!missing(strata) && !is.null(strata)) {
         if (!inherits(perm, "how"))  # 'perm' is a matrix
             stop("'strata' can be used only with simple permutation or with 'how()'")
         if (!is.null(getBlocks(perm)))

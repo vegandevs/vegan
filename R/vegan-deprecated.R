@@ -3,7 +3,8 @@
 "commsimulator" <-
 function (x, method, thin = 1) 
 {
-    .Deprecated("nullmodel", package="vegan")
+    ## Do not yet warn on deprecation to allow smooth transition
+    ##.Deprecated("nullmodel", package="vegan")
     method <- match.arg(method, 
                         c("r0","r1","r2","r00","c0","swap", "tswap",
                           "backtrack", "quasiswap"))
