@@ -45,6 +45,20 @@
   } % end new functions
 
   \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{ordiellipse} can handle points exactly on a line,
+      including only two points.
+
+      \item plotting \code{radfit} results for several species failed if
+      any of the communities had no species or had only one species.
+
+      \item \code{RsquareAdj} for \code{capscale} with negative
+      eigenvalues will now report \code{NA}.
+
+      \item \code{simper} failed when a group had only a single member.
+
+      }% end itemize
   } % end bug fixes
 
   \subsection{NEW FEATURES}{
@@ -63,10 +77,19 @@
       \code{bioenvdist} can extract the dissimilarities applied in
       best model or any other model.
 
+      \item \code{cascadeKM} of only one group will be \code{NA} instead
+      of a random value. 
+
       \item \code{MDSrotate} can rotate to multidimensional target.
 
       \item \code{nestednodf} gained new option for defining weighted
       nestedness statistic.
+
+      \item \code{ordiellipse}, \code{ordihull} and \code{ordiellipse}
+      can handle missing values in \code{groups}.
+
+      \item \code{ordispider} can now use spatial medians instead of
+      means. 
 
       \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
       distance in addition to Euclidean.
@@ -75,6 +98,14 @@
       to change the minimum spannig tree into an \code{hclust} tree.
 
       \item \code{fitspecaccum} can do weighted analysis.
+
+      \item \code{tabasco} uses now \code{reorder.hclust} for
+      \code{hclust} for better ordering than previously when it cast
+      trees to \code{dendrogram} objects.
+
+      \item \code{treedive} and \code{treedist} default now to
+      \code{match.force = TRUE} and can be silenced with
+      \code{verbose = FALSE}.
 
       \item \code{vegdist} gained Mahalanobis distance.
 
