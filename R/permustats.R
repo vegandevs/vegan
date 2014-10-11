@@ -29,7 +29,7 @@
         probs <- switch(object$alternative,
                         "two.sided" = c(0.025, 0.5, 0.975),
                         "greater" = c(0.5, 0.95),
-                        "less" = c(0.05, 0.5)) 
+                        "less" = c(0.05, 0.5))
     sim <- t(object$permutations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)
@@ -237,5 +237,8 @@
 `permustats.permutest.betadisper` <-
     function(x, ...)
 {
-    stop("no permutation data available")
+    structure(list("statistic" = x$statistic,
+                   "permutations" = x$perm,
+                   "alternative" = "greater"),
+              class ="permustats")
 }
