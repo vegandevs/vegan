@@ -58,7 +58,19 @@
       \code{mrpp}, \code{mso}, \code{permutest.betadisper},
       \code{protest} and \code{simper}.
 
-      \item nullmodels  
+      \item Community null model generation has been completely
+      redesigned and rewritten. The communities are constructed with
+      new \code{nullmodel} function and defined in a low level
+      \code{commsim} function. The actual null models are generated
+      with a \code{simulate} function that builds an array of null
+      models. The new null models include a wide array of quantitative
+      models in addition to the old binary models, and users can plug
+      in their own generating functions. The basic tool invoking and
+      analysing null models is \code{oecosimu}. The null models are
+      often used only for the analysis of nestedness, but the
+      implementation in \code{oecosimu} allows analysing any
+      statistic, and null models are better seen as an alternative to
+      permutation tests.
   
     } %end itemize
   } % end general
@@ -66,9 +78,14 @@
   \subsection{INSTALLATION}{
     \itemize{
 
-      \item Changes in NAMESPACE and passes tests
+      \item \pkg{vegan} package dependencies and namespace imports
+      were adapted to changes in \R, and no more trigger warnings and
+      notes in package tests.
 
-      \item Split \pkg{vegan3d}
+      \item Three-dimensional ordination graphics using
+      \pkg{scatterplot3d} for static plots and \pkg{rgl} for dynamic
+      plots were removed from \pkg{vegan} and moved to a companion
+      package \pkg{vegan3d}. The package is available in CRAN.
 
      } %end itemize
    } % end installation
@@ -76,11 +93,18 @@
   \subsection{NEW FUNCTIONS}{
     \itemize{
 
-      \item Dispersion weighting \code{dispweight} plus a new method
-      for generalized dispersion weigthing \code{gdispweight}.
+      \item Function \code{dispweight} implements dispersion weighting
+      of Clarke et al. (\emph{Marine Ecology Progress Series}, 320,
+      11--27).  In addition, we implemented a new method for
+      generalized dispersion weighting \code{gdispweight}.
 
-      \item \code{hclust} support functions \code{reorder}, \code{rev}
-      and \code{scores}.
+      \item New \code{hclust} support functions \code{reorder},
+      \code{rev} and \code{scores}. Functions \code{reorder} and
+      \code{rev} are similar as these functions for \code{dendrogram}
+      objects. However, \code{reorder} can use (and defaults to)
+      weighted mean. In weighted mean the node average is always the
+      mean of member leaves, whereas the \code{dendrogram} uses always
+      the unweighted means of joined branches.
 
       \item \code{permustats} to extract and inspect permutation
       results with support functions \code{summary}, \code{density},
