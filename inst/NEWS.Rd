@@ -70,7 +70,8 @@
       \item \code{simulate} functions for \code{cca} and \code{rda}
       can return several simulations in a \code{nullmodel} compatible
       object. The functions can produce simulations with correlated
-      errors (also for \code{capscale}).
+      errors (also for \code{capscale}) in parametric simulation with
+      Gaussian error.
 
       \item \code{bioenv} can use Manhattan, Gower and Mahalanobis
       distances in addition to Euclidean. New helper function
@@ -80,10 +81,13 @@
       \item \code{cascadeKM} of only one group will be \code{NA} instead
       of a random value. 
 
+      \item \code{metaMDS(..., trace = 2)} will show convergence
+      information with the default \code{monoMDS} engine.
+
       \item \code{MDSrotate} can rotate to multidimensional target.
 
-      \item \code{nestednodf} gained new option for defining weighted
-      nestedness statistic.
+      \item \code{nestednodf} gained new option for defining
+      alternatives of weighted nestedness statistic.
 
       \item \code{ordiellipse}, \code{ordihull} and \code{ordiellipse}
       can handle missing values in \code{groups}.
@@ -94,17 +98,21 @@
       \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
       distance in addition to Euclidean.
 
+      \item User can set colours and line types in unction
+      \code{rarecurve} for plotting rarefaction curves.
+
       \item \code{spantree} gained a support function \code{as.hclust}
       to change the minimum spannig tree into an \code{hclust} tree.
 
-      \item \code{fitspecaccum} can do weighted analysis.
+      \item \code{fitspecaccum} can do weighted analysis. Gained
+      \code{lines} method.
 
       \item \code{tabasco} uses now \code{reorder.hclust} for
       \code{hclust} for better ordering than previously when it cast
       trees to \code{dendrogram} objects.
 
       \item \code{treedive} and \code{treedist} default now to
-      \code{match.force = TRUE} and can be silenced with
+       \code{match.force = TRUE} and can be silenced with
       \code{verbose = FALSE}.
 
       \item \code{vegdist} gained Mahalanobis distance.
