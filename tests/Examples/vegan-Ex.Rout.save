@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x7448210>
+<environment: 0x5c04338>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4882,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x975bfa8>
+<environment: 0x95a2750>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4899,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x89d2290>
+<environment: 0x7b33e90>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4930,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8fb08f0>
+<environment: 0x8c32498>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4945,7 +4945,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x78c4998>
+<environment: 0x7666478>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4974,7 +4974,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9fe91d8>
+<environment: 0x97029a0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4990,7 +4990,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x90fa158>
+<environment: 0x9d3b250>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5007,7 +5007,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x89ebcd0>
+<environment: 0x8937b30>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5026,7 +5026,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x99a2720>
+<environment: 0x717c618>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5167,7 +5167,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa7534d8>
+<environment: 0x9e283b0>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5180,7 +5180,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8b20660>
+<environment: 0x5554008>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5193,7 +5193,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb43c2c8>
+<environment: 0xa0cf538>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5515,24 +5515,7 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, permutations = 99, pairwise = TRUE)
-
-Permutation test for homogeneity of multivariate dispersions
-Permutation: free
-Number of permutations: 99
-
-Response: Distances
-          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156     99   0.04 *
-Residuals 22 0.37801 0.017182                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Pairwise comparisons:
-(Observed p-value below diagonal, permuted p-value above diagonal)
-          grazed ungrazed
-grazed               0.05
-ungrazed 0.04295         
+> pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 > 
 > ## Tukey's Honest Significant Differences
 > (mod.HSD <- TukeyHSD(mod))
@@ -5546,6 +5529,11 @@ $group
 ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
+> 
+> ## Has permustats() method
+> pstat <- permustats(pmod)
+> densityplot(pstat)
+> qqmath(pstat)
 > 
 > 
 > 
@@ -7824,7 +7812,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb0f94a8>
+<environment: 0x9ee89f0>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8380,7 +8368,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  104.001 1.198 105.469 0 0 
+Time elapsed:  103.128 1.226 104.551 0 0 
 > grDevices::dev.off()
 null device 
           1 
