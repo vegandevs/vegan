@@ -7,11 +7,58 @@
   \subsection{GENERAL}{
     \itemize{
   
-      \item Parallel processing
+      \item Several \pkg{vegan} functions can now use parallel
+      processing for slow and repeating calculations. All these
+      functions have argument \code{parallel}. The argument can be an
+      integer giving the number of parallel processes. In unix-alikes
+      (Mac OS, Linux) this will launch \code{"multicore"} processing
+      and in Windows it will set up \code{"snow"} clusters as desribed
+      in the documentation of \pkg{parallel} package. If \code{option}
+      \code{"mc.cores"} is set to an integer > 1, this will be used to
+      automatically start parallel processing. Finally, the argument
+      can also be a previously set up \code{"snow"} cluster which will
+      be used both in Windows and in unix-alikes. \pkg{Vegan} vignette
+      on Design decision explains the implementation (use
+      \code{vegandocs("decission")}, and \pkg{parallel} package has more
+      extensive documentation on parallel processing in \R.
 
-      \item Restricted permutations
+      The following function use parallel processing in analysing
+      permutatin statistics: \code{adonis}, \code{anosim},
+      \code{anova.cca} (and \code{permutest.cca}), \code{mantel} (and
+      \code{mantel.partial}), \code{mrpp}, \code{permutest.betadisper}
+      and \code{simper}. In addition, \code{bioenv} can compare
+      several candidate sets of models in paralle, \code{metaMDS} can
+      launch several random starts in parallel, and \code{oecosimu}
+      can evaluate test statistics for several null models in
+      parallel.
 
-      \item New null models   
+      \item All permutation tests are based on the \pkg{permute}
+      package which offers strong tools for restricted
+      permutation. All these functions have argument
+      \code{permutations}. The default usage of simple non-restricted
+      permutations is achieved by giving a single integer number as
+      its argument. Restricted permutations can be defined using the
+      \code{how} function of the \pkg{permute} package. Finally, the
+      argument can be a permutation matrix where rows define
+      permutations. It is possible to use external or user constructed
+      permutations.
+
+      See \code{help(permutations)} for a brief introduction on
+      permutations in \pkg{vegan}, and \pkg{permute} package for the
+      full documention. The vignette of the \pkg{permute} package can
+      be read from \pkg{vegan} with command
+      \code{vegandocs("permutations")}.
+
+      The following functions use the \pkg{permute} package:
+      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca}
+      (plus associated \code{permutest.cca}, \code{add1.cca},
+      \code{drop1.cca}, \code{ordistep}, \code{ordiR2step}),
+      \code{envfit} (plus associated \code{factorfit} and
+      \code{vectorfit}), \code{mantel} (and \code{mantel.partial}),
+      \code{mrpp}, \code{mso}, \code{permutest.betadisper},
+      \code{protest} and \code{simper}.
+
+      \item nullmodels  
   
     } %end itemize
   } % end general
