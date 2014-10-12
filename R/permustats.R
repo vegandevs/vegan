@@ -25,18 +25,23 @@
     function(object, probs, ...)
 {
     ## default cut levels for quantiles: these are two-sided
-    if (missing(probs))
-        probs <- switch(object$alternative,
-                        "two.sided" = c(0.025, 0.5, 0.975),
-                        "greater" = c(0.5, 0.95),
-                        "less" = c(0.05, 0.5))
+    if (missing(probs)) {
+        TAB <- c("two.sided", "greater", "less")
+        PROBS <- list(two.sided = c(0.025, 0.5, 0.975),
+                      greater = c(0.5, 0.95),
+                      less = c(0.05, 0.5))
+        alt <- match(object$alternative, c("two.sided", "greater", "less"))
+        probs <- PROBS[alt]
+    }
     sim <- t(object$permutations)
     object$means <- rowMeans(sim)
     sd <- apply(sim, 1, sd)
     object$z <-
         (object$statistic - object$means)/sd
-    object$quantile <-
-        apply(sim, 1, quantile, probs = probs, na.rm = TRUE)
+    qFun <- function(i, sim, probs) {
+        quantile(sim[, i], probs = probs[[i]], na.rm = TRUE)
+    }
+    object$quantile <- lapply(seq_along(probs), qFun, sim = sim, probs = probs)
     ## not (yet) P-values...
     class(object) <- "summary.permustats"
     object
@@ -45,11 +50,15 @@
 `print.summary.permustats` <-
     function(x, ...)
 {
-    m <- cbind("statistic" = x$statistic,
-               "z" = x$z,
-               "mean" = x$means,
-               t(x$quantile))
-    printCoefmat(m, cs.ind = 3:ncol(m), ...)
+    for (i in seq_along(x$alternative)) {
+        writeLines(strwrap(paste("Alternative:", x$alternative[i]), initial = "\n"))
+        cat("\n")
+        m <- cbind("statistic" = x$statistic[i],
+                   "z" = x$z[i],
+                   "mean" = x$means[i],
+                   t(x$quantile[[i]]))
+        printCoefmat(m, cs.ind = 3:ncol(m), tst.ind = 1:2, ...)
+    }
     invisible(x)
 }
 
@@ -237,8 +246,14 @@
 `permustats.permutest.betadisper` <-
     function(x, ...)
 {
+    ntypes <- NCOL(x$perm)
+    alt <- if (ntypes > 1) {
+        c("greater", rep("two.sided", ntypes - 1))
+    } else {
+        "greater"
+    }
     structure(list("statistic" = x$statistic,
                    "permutations" = x$perm,
-                   "alternative" = "greater"),
+                   "alternative" = alt),
               class ="permustats")
 }

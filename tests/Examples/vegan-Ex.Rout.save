@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x5c04338>
+<environment: 0x5e92998>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4882,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x95a2750>
+<environment: 0x985e370>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4899,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x7b33e90>
+<environment: 0x7dc01f0>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4930,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8c32498>
+<environment: 0x899c248>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4945,7 +4945,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x7666478>
+<environment: 0x78f27d8>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4974,7 +4974,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x97029a0>
+<environment: 0x906e7d0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4990,7 +4990,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x9d3b250>
+<environment: 0xa1b0f70>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5007,7 +5007,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x8937b30>
+<environment: 0x9278cb0>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5026,7 +5026,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x717c618>
+<environment: 0x740aae8>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5167,7 +5167,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9e283b0>
+<environment: 0xa127dd0>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5180,7 +5180,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x5554008>
+<environment: 0x8056038>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5193,7 +5193,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa0cf538>
+<environment: 0x9b29d68>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5454,9 +5454,11 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
-           statistic      z    mean     50%    95%
-Management    3.0730 4.5815 1.04617 0.94704 1.8475
-A1            2.7676 2.6322 1.03640 0.88513 2.3280
+
+Alternative: greater
+
+           statistic      z   mean    50%    95%
+Management    3.0730 4.5815 1.0462 1.0538 1.1409
 > densityplot(perm)
 > qqmath(perm)
 > 
@@ -7812,7 +7814,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9ee89f0>
+<environment: 0x9ec2618>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8368,7 +8370,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.128 1.226 104.551 0 0 
+Time elapsed:  106.251 1.248 107.788 0 0 
 > grDevices::dev.off()
 null device 
           1 
