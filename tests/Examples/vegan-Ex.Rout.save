@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x5e92998>
+<environment: 0x60fb9d8>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4882,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x985e370>
+<environment: 0x9a6ff20>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4899,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x7dc01f0>
+<environment: 0x8029328>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4930,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x899c248>
+<environment: 0x8c05620>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4945,7 +4945,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x78f27d8>
+<environment: 0x7b5b910>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4974,7 +4974,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x906e7d0>
+<environment: 0x99eb790>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4990,7 +4990,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xa1b0f70>
+<environment: 0x9382280>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5007,7 +5007,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x9278cb0>
+<environment: 0x94e2088>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5026,7 +5026,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x740aae8>
+<environment: 0x7673c20>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5167,7 +5167,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa127dd0>
+<environment: 0xa3e66f8>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5180,7 +5180,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8056038>
+<environment: 0x5a4c890>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5193,7 +5193,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9b29d68>
+<environment: 0x96af028>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5454,13 +5454,32 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
+Warning in cbind(statistic = x$statistic, z = x$z, mean = x$means, x$quantile) :
+  number of rows of result is not a multiple of vector length (arg 1)
 
-Alternative: greater
+     statistic      z   mean lower median  upper
+[1,]    3.0730 4.5815 1.0462       1.0538 1.1409
 
-           statistic      z   mean    50%    95%
-Management    3.0730 4.5815 1.0462 1.0538 1.1409
+(Interval (Upper - Lower) = 0.95)
 > densityplot(perm)
 > qqmath(perm)
+> 
+> ## example of multiple types of statistic
+> mod <- with(dune.env, betadisper(vegdist(dune), Management))
+> pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
+> perm <- permustats(pmod)
+> summary(perm, interval = 0.90)
+
+      statistic       z       mean      lower     median      upper
+F        1.9506  0.6046  1.2060747             0.9699495  1.3838197
+BF-HF   -0.5634 -0.4179 -0.0584298 -0.7947565 -0.1024252  0.8503183
+BF-NM   -2.2387 -1.8228 -0.0941122 -0.8920782 -0.2706863  0.6200457
+BF-SF   -1.1675 -0.8886 -0.0928434 -1.0766959 -0.0050886  1.0554739
+HF-NM   -2.1017 -1.8899 -0.0158309 -1.3689128  0.1397953  1.0133132
+HF-SF   -0.8789 -0.7166 -0.0320534  0.3640292  2.8189291  3.6003012
+NM-SF    0.9485  0.8309 -0.0036166 -2.7151793  0.1200018  2.2221694
+
+(Interval (Upper - Lower) = 0.9)
 > 
 > 
 > 
@@ -7814,7 +7833,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9ec2618>
+<environment: 0xa5c1e80>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8370,7 +8389,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  106.251 1.248 107.788 0 0 
+Time elapsed:  116.577 1.304 118.334 0 0 
 > grDevices::dev.off()
 null device 
           1 
