@@ -22,6 +22,12 @@
 ### like 'alternative'
 
 `summary.permustats` <- function(object, interval = 0.95, ...) {
+    nalt <- length(object$alternative)
+    nstat <- length(object$statistic)
+    ## Replicate alternative to length of statistic
+    if ((nalt < nstat) && identical(nalt, 1L)) {
+        object$alternative <- rep(object$alternative, length.out = nstat)
+    }
     TAB <- c("two.sided", "greater", "less")
     compint <- (1 - interval) / 2
     PROBS <- list(two.sided = c(compint, 0.5, interval + compint),
