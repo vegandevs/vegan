@@ -31,7 +31,7 @@
 
 \usage{
 permustats(x, ...)
-\method{summary}{permustats}(object, probs, ...)
+\method{summary}{permustats}(object, interval = 0.95, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
@@ -40,17 +40,18 @@ permustats(x, ...)
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
-  \item{probs}{Numeric vector of probabilities in [0,1] used in
-    \code{\link{quantile}} of permutations. If missing, default
-    quantiles will cover 95\% of permutations, and the values are
-    dependent on the test direction (either (0.025, 0.975), 0.05, or
-    0.95). In addition, default will give median (0.5).
+  %%%%% \item{probs}{Numeric vector of probabilities in [0,1] used in
+  %%%%%   \code{\link{quantile}} of permutations. If missing, default
+  %%%%%   quantiles will cover 95\% of permutations, and the values are
+  %%%%%   dependent on the test direction (either (0.025, 0.975), 0.05, or
+  %%%%%   0.95). In addition, default will give median (0.5).
 
-    For \code{object}s that contain permuted values that are interpreted
-    via different alternative hypothesis, \code{probs} can be specified
-    as a list with one component per element of
-    \code{object$alternative}, each of which contains a vector of
-    quantiles as described above.}
+  %%%%%   For \code{object}s that contain permuted values that are interpreted
+  %%%%%   via different alternative hypothesis, \code{probs} can be specified
+  %%%%%   as a list with one component per element of
+  %%%%%   \code{object$alternative}, each of which contains a vector of
+  %%%%%   quantiles as described above.}
+  \item{interval}{numeric; the coverage interval reported.}
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
