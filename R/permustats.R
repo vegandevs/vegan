@@ -53,7 +53,7 @@
                x$quantile)
     cat("\n")
     printCoefmat(m, cs.ind = 3:ncol(m), tst.ind = 1:2, na.print = "", ...)
-    writeLines(strwrap(paste0("(Interval (Upper - Lower) = ", x$interval, ")", sep),
+    writeLines(strwrap(paste0("(Interval (Upper - Lower) = ", x$interval, ")", sep = ""),
                        initial = "\n"))
     invisible(x)
 }
