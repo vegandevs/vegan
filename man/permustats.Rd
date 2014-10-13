@@ -40,17 +40,6 @@ permustats(x, ...)
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
-  %%%%% \item{probs}{Numeric vector of probabilities in [0,1] used in
-  %%%%%   \code{\link{quantile}} of permutations. If missing, default
-  %%%%%   quantiles will cover 95\% of permutations, and the values are
-  %%%%%   dependent on the test direction (either (0.025, 0.975), 0.05, or
-  %%%%%   0.95). In addition, default will give median (0.5).
-
-  %%%%%   For \code{object}s that contain permuted values that are interpreted
-  %%%%%   via different alternative hypothesis, \code{probs} can be specified
-  %%%%%   as a list with one component per element of
-  %%%%%   \code{object$alternative}, each of which contains a vector of
-  %%%%%   quantiles as described above.}
   \item{interval}{numeric; the coverage interval reported.}
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
@@ -69,20 +58,21 @@ permustats(x, ...)
 
   The \code{summary} method of \code{permustats} estimates the \eqn{z}
   values, also known as standardized effect sizes (SES) as the
-  difference of obseved statistic and mean of permutations divided by
+  difference of observed statistic and mean of permutations divided by
   the standard deviation of permutations. It also prints the the mean,
-  median, and limits which contain 95\% of permutations. For two-sided
-  test these are (2.5\%, 97.5\%) and for one-sided tests either 5\% or
-  95\% quantile depending on the test direction. The mean, quantiles and
-  \eqn{z} values are evaluated from permutations without observed
+  median, and limits which contain \code{interval} percent of permuted
+  values. With the default (\code{interval = 0.95}), for two-sided test
+  these are (2.5\%, 97.5\%) and for one-sided tests either 5\% or 95\%
+  quantile depending on the test direction. The mean, quantiles and
+  \eqn{z} values are evaluated from permuted values without observed
   statistic.
 
   The \code{density} and \code{densityplot} methods display the
-  density of permutations. When observed value of the statistic is put
-  among the permutations, the \code{densityplot} method marks the
-  observed statistic as a vertical line. However the \code{density}
-  method uses its standard \code{plot} method and cannot mark the
-  obseved value.
+  kernel density estimates of permuted values. When observed value of
+  the statistic is included in the permuted values, the
+  \code{densityplot} method marks the observed statistic as a vertical
+  line. However the \code{density} method uses its standard \code{plot}
+  method and cannot mark the obseved value.
 
   The \code{qqnorm} and \code{qqmath} display Q-Q plots of
   permutations, optionally together with the observed value (default)
