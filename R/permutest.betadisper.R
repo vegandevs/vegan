@@ -105,7 +105,7 @@
     F0 <- summary(mod)$fstatistic[1]
     Fstats <- round(Pstats[, 1], 12)    # allow empty dim to be dropped
     statistic <- F0 <- round(F0, 12)
-    names(statistic) <- "F"
+    names(statistic) <- "Overall (F)"
 
     ## pairwise comparisons
     if(pairwise) {
@@ -128,8 +128,9 @@
             (NROW(Tstats) + 1)
         pairp <- list(observed = 2 * pt(-abs(T0), df),
                          permuted = pairp)
-        names(pairp$observed) <- names(pairp$permuted) <- names(statistic)[-1] <-
-            apply(combin, 2, paste, collapse = "-")
+        tnames <- apply(combin, 2, paste, collapse = "-")
+        names(pairp$observed) <- names(pairp$permuted) <- tnames
+        names(statistic)[-1] <- paste(tnames, "(t)")
     } else {
         pairp <- NULL
     }
