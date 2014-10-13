@@ -29,15 +29,14 @@
                   less = c(1 - interval, 0.5, NA))
     alt <- match(object$alternative, TAB)
     probs <- PROBS[alt]
-    sim <- t(object$permutations)
-    object$means <- rowMeans(sim)
-    sd <- apply(sim, 1, sd)
+    object$means <- colMeans(object$permutations)
+    sd <- apply(object$permutations, 2, sd)
     object$z <-
         (object$statistic - object$means)/sd
     qFun <- function(i, sim, probs) {
         quantile(sim[, i], probs = probs[[i]], na.rm = TRUE)
     }
-    object$quantile <- lapply(seq_along(probs), qFun, sim = sim, probs = probs)
+    object$quantile <- lapply(seq_along(probs), qFun, sim = object$permutations, probs = probs)
     object$quantile <- do.call("rbind", object$quantile)
     dimnames(object$quantile) <- list(NULL, c("lower", "median", "upper"))
     object$interval <- interval
@@ -52,7 +51,7 @@
                "mean" = x$means,
                x$quantile)
     cat("\n")
-    printCoefmat(m, cs.ind = 3:ncol(m), tst.ind = 1:2, na.print = "", ...)
+    printCoefmat(m, tst.ind = 1:ncol(m), na.print = "", ...)
     writeLines(strwrap(paste0("(Interval (Upper - Lower) = ", x$interval, ")", sep = ""),
                        initial = "\n"))
     invisible(x)
