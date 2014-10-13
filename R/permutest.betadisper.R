@@ -143,9 +143,9 @@
                    groups = levels(group),
                    statistic = statistic,
                    perm = if (pairwise) {
-                       structure(cbind(Fstats, Tstats), colnames = names(statistic))
+                       structure(cbind(Fstats, Tstats), dimnames = list(NULL, names(statistic)))
                    } else {
-                       structure(Fstats, colnames = names(statistic))
+                       structure(Fstats, names = names(statistic))
                    },
                    control = attr(permutations, "control"))
     class(retval) <- "permutest.betadisper"
