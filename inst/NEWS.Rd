@@ -7,11 +7,70 @@
   \subsection{GENERAL}{
     \itemize{
   
-      \item Parallel processing
+      \item Several \pkg{vegan} functions can now use parallel
+      processing for slow and repeating calculations. All these
+      functions have argument \code{parallel}. The argument can be an
+      integer giving the number of parallel processes. In unix-alikes
+      (Mac OS, Linux) this will launch \code{"multicore"} processing
+      and in Windows it will set up \code{"snow"} clusters as desribed
+      in the documentation of \pkg{parallel} package. If \code{option}
+      \code{"mc.cores"} is set to an integer > 1, this will be used to
+      automatically start parallel processing. Finally, the argument
+      can also be a previously set up \code{"snow"} cluster which will
+      be used both in Windows and in unix-alikes. \pkg{Vegan} vignette
+      on Design decision explains the implementation (use
+      \code{vegandocs("decission")}, and \pkg{parallel} package has more
+      extensive documentation on parallel processing in \R.
 
-      \item Restricted permutations
+      The following function use parallel processing in analysing
+      permutatin statistics: \code{adonis}, \code{anosim},
+      \code{anova.cca} (and \code{permutest.cca}), \code{mantel} (and
+      \code{mantel.partial}), \code{mrpp}, \code{permutest.betadisper}
+      and \code{simper}. In addition, \code{bioenv} can compare
+      several candidate sets of models in paralle, \code{metaMDS} can
+      launch several random starts in parallel, and \code{oecosimu}
+      can evaluate test statistics for several null models in
+      parallel.
 
-      \item New null models   
+      \item All permutation tests are based on the \pkg{permute}
+      package which offers strong tools for restricted
+      permutation. All these functions have argument
+      \code{permutations}. The default usage of simple non-restricted
+      permutations is achieved by giving a single integer number as
+      its argument. Restricted permutations can be defined using the
+      \code{how} function of the \pkg{permute} package. Finally, the
+      argument can be a permutation matrix where rows define
+      permutations. It is possible to use external or user constructed
+      permutations.
+
+      See \code{help(permutations)} for a brief introduction on
+      permutations in \pkg{vegan}, and \pkg{permute} package for the
+      full documention. The vignette of the \pkg{permute} package can
+      be read from \pkg{vegan} with command
+      \code{vegandocs("permutations")}.
+
+      The following functions use the \pkg{permute} package:
+      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca}
+      (plus associated \code{permutest.cca}, \code{add1.cca},
+      \code{drop1.cca}, \code{ordistep}, \code{ordiR2step}),
+      \code{envfit} (plus associated \code{factorfit} and
+      \code{vectorfit}), \code{mantel} (and \code{mantel.partial}),
+      \code{mrpp}, \code{mso}, \code{permutest.betadisper},
+      \code{protest} and \code{simper}.
+
+      \item Community null model generation has been completely
+      redesigned and rewritten. The communities are constructed with
+      new \code{nullmodel} function and defined in a low level
+      \code{commsim} function. The actual null models are generated
+      with a \code{simulate} function that builds an array of null
+      models. The new null models include a wide array of quantitative
+      models in addition to the old binary models, and users can plug
+      in their own generating functions. The basic tool invoking and
+      analysing null models is \code{oecosimu}. The null models are
+      often used only for the analysis of nestedness, but the
+      implementation in \code{oecosimu} allows analysing any
+      statistic, and null models are better seen as an alternative to
+      permutation tests.
   
     } %end itemize
   } % end general
@@ -19,9 +78,14 @@
   \subsection{INSTALLATION}{
     \itemize{
 
-      \item Changes in NAMESPACE and passes tests
+      \item \pkg{vegan} package dependencies and namespace imports
+      were adapted to changes in \R, and no more trigger warnings and
+      notes in package tests.
 
-      \item Split \pkg{vegan3d}
+      \item Three-dimensional ordination graphics using
+      \pkg{scatterplot3d} for static plots and \pkg{rgl} for dynamic
+      plots were removed from \pkg{vegan} and moved to a companion
+      package \pkg{vegan3d}. The package is available in CRAN.
 
      } %end itemize
    } % end installation
@@ -29,23 +93,50 @@
   \subsection{NEW FUNCTIONS}{
     \itemize{
 
-      \item Dispersion weighting \code{dispweight} plus a new method
-      for generalized dispersion weigthing \code{gdispweight}.
+      \item Function \code{dispweight} implements dispersion weighting
+      of Clarke et al. (\emph{Marine Ecology Progress Series}, 320,
+      11--27).  In addition, we implemented a new method for
+      generalized dispersion weighting \code{gdispweight}. Both
+      methods downweight species that are significantly
+      over-dispersed.
 
-      \item \code{hclust} support functions \code{reorder}, \code{rev}
-      and \code{scores}.
+      \item New \code{hclust} support functions \code{reorder},
+      \code{rev} and \code{scores}. Functions \code{reorder} and
+      \code{rev} are similar as these functions for \code{dendrogram}
+      objects. However, \code{reorder} can use (and defaults to)
+      weighted mean. In weighted mean the node average is always the
+      mean of member leaves, whereas the \code{dendrogram} uses always
+      the unweighted means of joined branches.
 
       \item \code{permustats} to extract and inspect permutation
       results with support functions \code{summary}, \code{density},
-      \code{densityplot}, \code{qqnorm} and \code{qqmath}.
+      \code{densityplot}, \code{qqnorm} and \code{qqmath}. The
+      \code{density} and \code{qqnorm} are standard \R{} tools that
+      only work with one statistic, and \code{densityplot} and
+      \code{qqmath} are \pkg{lattice} graphics that work with
+      univariate and multivariate statistics. The results of following
+      functions can be extracted: \code{anosim}, \code{adonis},
+      \code{mantel} (and \code{mantel.partial}), \code{mrpp},
+      \code{oecosimu}, \code{permustest.cca} (but not the
+      corresponding \code{anova} methods),
+      \code{permutest.betadisper}, and \code{protest}.
 
-      \item \code{stressplot} functions.
+      \item \code{stressplot} functions display the ordination
+      distances at given number of dimensions against original
+      distances.  These are a generalization of \code{stressplot} for
+      \code{metaMDS}, and always use the inherent distances of each
+      ordination method. The functions are available for the results
+      \code{capscale}, \code{cca}, \code{princomp}, \code{prcomp},
+      \code{rda}, and \code{wcmdscale}.
 
     } % end itemize
   } % end new functions
 
   \subsection{BUG FIXES}{
     \itemize{
+
+      \item \code{cascadeKM} of only one group will be \code{NA} instead
+      of a random value. 
 
       \item \code{ordiellipse} can handle points exactly on a line,
       including only two points.
@@ -54,7 +145,8 @@
       any of the communities had no species or had only one species.
 
       \item \code{RsquareAdj} for \code{capscale} with negative
-      eigenvalues will now report \code{NA}.
+      eigenvalues will now report \code{NA} instead of using biased
+      method of \code{rda} results.
 
       \item \code{simper} failed when a group had only a single member.
 
@@ -64,26 +156,39 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item \code{anova.cca} functions re-written, and added an option
-      of analysing a sequence of models against each other.
+      \item \code{anova.cca} functions were re-written to use the
+      \pkg{permute} package. Old results may not be exactly
+      reproduced, and models with missing data may fail in several
+      cases. There is a new option of analysing a sequence of models
+      against each other.
 
       \item \code{simulate} functions for \code{cca} and \code{rda}
       can return several simulations in a \code{nullmodel} compatible
       object. The functions can produce simulations with correlated
-      errors (also for \code{capscale}).
+      errors (also for \code{capscale}) in parametric simulation with
+      Gaussian error.
 
       \item \code{bioenv} can use Manhattan, Gower and Mahalanobis
-      distances in addition to Euclidean. New helper function
-      \code{bioenvdist} can extract the dissimilarities applied in
-      best model or any other model.
+      distances in addition to the default Euclidean. New helper
+      function \code{bioenvdist} can extract the dissimilarities
+      applied in best model or any other model.
 
-      \item \code{cascadeKM} of only one group will be \code{NA} instead
-      of a random value. 
+      \item \code{metaMDS(..., trace = 2)} will show convergence
+      information with the default \code{monoMDS} engine.
 
-      \item \code{MDSrotate} can rotate to multidimensional target.
+      \item Function \code{MDSrotate} can rotate a \eqn{k}-dimensional
+      ordination to \eqn{k-1} variables. When these variables are
+      correlated (like usually is the case), the vectors can also be
+      correlated to previously rotated dimensions, but will be
+      uncorrelated to all later ones.
 
-      \item \code{nestednodf} gained new option for defining weighted
-      nestedness statistic.
+      \item \pkg{vegan} 2.0-10 changed the weighted \code{nestednodf}
+      so that weighted analysis of binary data was equivalent to
+      binary analysis. However, this broke the equivalence to the
+      original method. Now the function has an argument \code{wbinary}
+      to select the method of analysis. The problem was reported and a
+      fix submitted by Vanderlei Debastiani (Universidade Federal do
+      Rio Grande do Sul, Brasil).
 
       \item \code{ordiellipse}, \code{ordihull} and \code{ordiellipse}
       can handle missing values in \code{groups}.
@@ -92,37 +197,44 @@
       means. 
 
       \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
-      distance in addition to Euclidean.
+      distance in addition to the default Euclidean.
+
+      \item User can set colours and line types in unction
+      \code{rarecurve} for plotting rarefaction curves.
 
       \item \code{spantree} gained a support function \code{as.hclust}
       to change the minimum spannig tree into an \code{hclust} tree.
 
-      \item \code{fitspecaccum} can do weighted analysis.
+      \item \code{fitspecaccum} can do weighted analysis. Gained
+      \code{lines} method.
 
       \item \code{tabasco} uses now \code{reorder.hclust} for
-      \code{hclust} for better ordering than previously when it cast
-      trees to \code{dendrogram} objects.
+      \code{hclust} object for better ordering than previously when it
+      cast trees to \code{dendrogram} objects.
 
       \item \code{treedive} and \code{treedist} default now to
-      \code{match.force = TRUE} and can be silenced with
+       \code{match.force = TRUE} and can be silenced with
       \code{verbose = FALSE}.
 
       \item \code{vegdist} gained Mahalanobis distance.
 
-      \item Nomenclature updated in plant community
-      data. \code{varespec} and \code{dune} use 8-character names (4
+      \item Nomenclature updated in plant community data with the help
+      of \pkg{Taxonstand} and \pkg{taxize} packages. The taxonomy of
+      the \code{dune} data was adapted to the same sources and APG
+      III.  \code{varespec} and \code{dune} use 8-character names (4
       from genus + 4 from species epithet). New data set on
-      phylogenetic distances for \code{dune}.
+      phylogenetic distances for \code{dune} was extracted from Zanne
+      et al. (\emph{Nature}, 2014).
 
       \item User configurable plots for \code{rarecurve}.
 
     } %end itemize
-  } % end new features
+  } % end new featuresq
 
   \subsection{DEPRECATED AND DEFUNCT}{
     \itemize{
 
-      \item \code{strata} deprecated in permutations. It is still
+      \item \code{strata} are deprecated in permutations. It is still
       accepted but will be phased out in next releases. Use \code{how}
       of \pkg{permute} package.
 
@@ -135,11 +247,8 @@
       method))}.
 
       \item \code{density} and \code{densityplot} for permutation
-      results: use \code{density(permustats(<permutation-object))}.
-
-      \item \code{ordirgl} with its support functions, other \pkg{rgl}
-      functions and \code{ordiplot3d} were moved to the \pkg{vegan3d}
-      package.
+      results: use \code{permustats} with its \code{density} and
+      \code{densityplot} method.
 
     } %end itemize
   } % end deprecated
