@@ -137,6 +137,14 @@ perm <- permustats(mod)
 summary(perm)
 densityplot(perm)
 qqmath(perm)
+
+## example of multiple types of statistic
+mod <- with(dune.env, betadisper(vegdist(dune), Management))
+pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
+perm <- permustats(pmod)
+summary(perm)
+summary(perm, probs = list(greater = c(0.5, 0.9, 0.95),
+                           two.sided = c(0.1, 0.5, 0.9)))
 }
 
 \keyword{ distribution }
