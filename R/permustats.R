@@ -25,13 +25,29 @@
     function(object, probs, ...)
 {
     ## default cut levels for quantiles: these are two-sided
+    TAB <- c("two.sided", "greater", "less")
     if (missing(probs)) {
-        TAB <- c("two.sided", "greater", "less")
         PROBS <- list(two.sided = c(0.025, 0.5, 0.975),
                       greater = c(0.5, 0.95),
                       less = c(0.05, 0.5))
-        alt <- match(object$alternative, c("two.sided", "greater", "less"))
+        alt <- match(object$alternative, TAB)
         probs <- PROBS[alt]
+    } else {
+        ## allow probs to be a named list of probs to use for each alternative
+        ## in set of {two.sided, greater, less}
+        if (is.list(probs) && !is.null(nams <- names(probs))) {
+            ## names must be one of allowed set
+            if (!all(take <- nams %in% TAB)) {
+                stop(paste(nams[take], "is not one of", TAB,
+                           "in 'names(probs)'"))
+            }
+            alt <- match(object$alternative, TAB)
+            probs <- probs[alt]
+        }
+        ## probs must be of the correct length
+        if (!identical(length(probs), length(object$alternative))) {
+            stop("'probs' supplied not equal in length to 'object$alternative'")
+        }
     }
     sim <- t(object$permutations)
     object$means <- rowMeans(sim)
@@ -42,6 +58,8 @@
         quantile(sim[, i], probs = probs[[i]], na.rm = TRUE)
     }
     object$quantile <- lapply(seq_along(probs), qFun, sim = sim, probs = probs)
+    object$quantile <- lapply(split(object$quantile, TAB[alt]),
+                              function(l) do.call("rbind", l))
     ## not (yet) P-values...
     class(object) <- "summary.permustats"
     object
@@ -50,13 +68,13 @@
 `print.summary.permustats` <-
     function(x, ...)
 {
-    for (i in seq_along(x$alternative)) {
+    for (i in seq_along(x$quantile)) {
         writeLines(strwrap(paste("Alternative:", x$alternative[i]), initial = "\n"))
         cat("\n")
         m <- cbind("statistic" = x$statistic[i],
                    "z" = x$z[i],
                    "mean" = x$means[i],
-                   t(x$quantile[[i]]))
+                   x$quantile[[i]])
         printCoefmat(m, cs.ind = 3:ncol(m), tst.ind = 1:2, ...)
     }
     invisible(x)
