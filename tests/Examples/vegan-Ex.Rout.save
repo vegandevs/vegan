@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x7448210>
+<environment: 0x6e29998>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4882,7 +4882,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x975bfa8>
+<environment: 0xa778b28>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4899,7 +4899,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x89d2290>
+<environment: 0x8d569d8>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4930,7 +4930,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8fb08f0>
+<environment: 0x99320b0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4945,7 +4945,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x78c4998>
+<environment: 0x8889030>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4974,7 +4974,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9fe91d8>
+<environment: 0xa0d12d0>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4990,7 +4990,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x90fa158>
+<environment: 0xa5300d0>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5007,7 +5007,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x89ebcd0>
+<environment: 0xa210368>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5026,7 +5026,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x99a2720>
+<environment: 0x83a12d0>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5167,7 +5167,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa7534d8>
+<environment: 0xa427628>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5180,7 +5180,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8b20660>
+<environment: 0x6779228>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5193,7 +5193,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb43c2c8>
+<environment: 0xac467e8>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5454,11 +5454,31 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
-           statistic      z    mean     50%    95%
-Management    3.0730 4.5815 1.04617 0.94704 1.8475
-A1            2.7676 2.6322 1.03640 0.88513 2.3280
+
+           statistic      z   mean lower median  upper
+Management    3.0730 4.5815 1.0462       0.9470 1.8475
+A1            2.7676 2.6322 1.0364       0.8851 2.3280
+
+(Interval (Upper - Lower) = 0.95)
 > densityplot(perm)
 > qqmath(perm)
+> 
+> ## example of multiple types of statistic
+> mod <- with(dune.env, betadisper(vegdist(dune), Management))
+> pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
+> perm <- permustats(pmod)
+> summary(perm, interval = 0.90)
+
+            statistic       z    mean   lower  median   upper
+Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743
+BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273
+BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339
+BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232
+HF-NM (t)     -2.1017 -1.8899 -0.0158 -1.8740  0.0412  1.6319
+HF-SF (t)     -0.8789 -0.7166 -0.0321 -1.8973 -0.0076  1.8362
+NM-SF (t)      0.9485  0.8309 -0.0036 -1.8411 -0.0531  1.9024
+
+(Interval (Upper - Lower) = 0.9)
 > 
 > 
 > 
@@ -5515,24 +5535,7 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, permutations = 99, pairwise = TRUE)
-
-Permutation test for homogeneity of multivariate dispersions
-Permutation: free
-Number of permutations: 99
-
-Response: Distances
-          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156     99   0.04 *
-Residuals 22 0.37801 0.017182                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Pairwise comparisons:
-(Observed p-value below diagonal, permuted p-value above diagonal)
-          grazed ungrazed
-grazed               0.05
-ungrazed 0.04295         
+> pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 > 
 > ## Tukey's Honest Significant Differences
 > (mod.HSD <- TukeyHSD(mod))
@@ -5546,6 +5549,11 @@ $group
 ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
+> 
+> ## Has permustats() method
+> pstat <- permustats(pmod)
+> densityplot(pstat)
+> qqmath(pstat)
 > 
 > 
 > 
@@ -7824,7 +7832,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb0f94a8>
+<environment: 0xab91b78>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8380,7 +8388,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  104.001 1.198 105.469 0 0 
+Time elapsed:  116.267 1.384 118.094 0 0 
 > grDevices::dev.off()
 null device 
           1 

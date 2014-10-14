@@ -31,7 +31,7 @@
 
 \usage{
 permustats(x, ...)
-\method{summary}{permustats}(object, probs, ...)
+\method{summary}{permustats}(object, interval = 0.95, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
@@ -40,11 +40,7 @@ permustats(x, ...)
 
 \arguments{
   \item{object, x, y}{The object to be handled.}
-  \item{probs}{Numeric vector of probabilities in [0,1] used in
-    \code{\link{quantile}} of permutations. If missing, default
-    quantiles will cover 95\% of permutations, and the values are
-    dependent on the test direction (either (0.025, 0.975), 0.05, or
-    0.95). In addition, default will give median (0.5). }
+  \item{interval}{numeric; the coverage interval reported.}
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
@@ -57,25 +53,26 @@ permustats(x, ...)
 \details{ 
 
   The \code{permustats} function extracts permutation results and
-  observed statistics from several \pkg{vegan} functions performing
+  observed statistics from several \pkg{vegan} functions that perform
   permutations or simulations.  
 
-  The \code{summary} of \code{permustats} estimates the \eqn{z} values,
-  also known as standardized effect sizes (SES) as the difference of
-  obseved statistic and mean of permutations divided by the standard
-  deviation of permutations. It also prints the the mean, median, and
-  limits which contain 95\% of permutations. For two-sided test these
-  are (2.5\%, 97.5\%) and for one-sided tests either 5\% or 95\%
+  The \code{summary} method of \code{permustats} estimates the \eqn{z}
+  values, also known as standardized effect sizes (SES) as the
+  difference of observed statistic and mean of permutations divided by
+  the standard deviation of permutations. It also prints the the mean,
+  median, and limits which contain \code{interval} percent of permuted
+  values. With the default (\code{interval = 0.95}), for two-sided test
+  these are (2.5\%, 97.5\%) and for one-sided tests either 5\% or 95\%
   quantile depending on the test direction. The mean, quantiles and
-  \eqn{z} values are evaluated from permutations without observed
+  \eqn{z} values are evaluated from permuted values without observed
   statistic.
 
   The \code{density} and \code{densityplot} methods display the
-  density of permutations. When observed value of the statistic is put
-  among the permutations, the \code{densityplot} method marks the
-  observed statistic as a vertical line. However \code{density} method
-  uses its standard \code{plot} method and cannot mark the obseved
-  value.
+  kernel density estimates of permuted values. When observed value of
+  the statistic is included in the permuted values, the
+  \code{densityplot} method marks the observed statistic as a vertical
+  line. However the \code{density} method uses its standard \code{plot}
+  method and cannot mark the obseved value.
 
   The \code{qqnorm} and \code{qqmath} display Q-Q plots of
   permutations, optionally together with the observed value (default)
@@ -96,9 +93,10 @@ permustats(x, ...)
   results of \code{\link{adonis}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{mantel.partial}},
   \code{\link{mrpp}}, \code{\link{oecosimu}},
-  \code{\link{permutest.cca}}, and \code{\link{protest}}.  NB, there
-  is no \code{permustats} method for \code{\link{anova.cca}}, but only
-  for \code{\link{permutest.cca}}.
+  \code{\link{permutest.cca}}, \code{\link{protest}}, and
+  \code{\link{permutest.betadisper}}. NB, there is no \code{permustats}
+  method for \code{\link{anova.cca}}, but only for
+  \code{\link{permutest.cca}}.
 
 }
 
@@ -113,7 +111,10 @@ permustats(x, ...)
 }
 
 \author{
-  Jari Oksanen
+  Jari Oksanen with contributions from Gavin L. Simpson
+  (\code{permustats.permutest.betadisper} method and related
+  modifications to \code{summary.permustats} and the \code{print}
+  method.
 }
 
 \seealso{
@@ -130,6 +131,12 @@ perm <- permustats(mod)
 summary(perm)
 densityplot(perm)
 qqmath(perm)
+
+## example of multiple types of statistic
+mod <- with(dune.env, betadisper(vegdist(dune), Management))
+pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
+perm <- permustats(pmod)
+summary(perm, interval = 0.90)
 }
 
 \keyword{ distribution }

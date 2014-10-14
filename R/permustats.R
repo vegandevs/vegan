@@ -21,35 +21,47 @@
 ### modelled after print.oecosimu (should perhaps have oecosimu() args
 ### like 'alternative'
 
-`summary.permustats` <-
-    function(object, probs, ...)
-{
-    ## default cut levels for quantiles: these are two-sided
-    if (missing(probs))
-        probs <- switch(object$alternative,
-                        "two.sided" = c(0.025, 0.5, 0.975),
-                        "greater" = c(0.5, 0.95),
-                        "less" = c(0.05, 0.5)) 
-    sim <- t(object$permutations)
-    object$means <- rowMeans(sim)
-    sd <- apply(sim, 1, sd)
+`summary.permustats` <- function(object, interval = 0.95, ...) {
+    nalt <- length(object$alternative)
+    nstat <- length(object$statistic)
+    ## Replicate alternative to length of statistic
+    if ((nalt < nstat) && identical(nalt, 1L)) {
+        object$alternative <- rep(object$alternative, length.out = nstat)
+    }
+    TAB <- c("two.sided", "greater", "less")
+    compint <- (1 - interval) / 2
+    PROBS <- list(two.sided = c(compint, 0.5, interval + compint),
+                  greater = c(NA, 0.5, interval),
+                  less = c(1 - interval, 0.5, NA))
+    alt <- match(object$alternative, TAB)
+    probs <- PROBS[alt]
+    ## take care that permutations are in a column matrix
+    permutations <- as.matrix(object$permutations)
+    object$means <- colMeans(permutations)
+    sd <- apply(permutations, 2, sd)
     object$z <-
         (object$statistic - object$means)/sd
-    object$quantile <-
-        apply(sim, 1, quantile, probs = probs, na.rm = TRUE)
+    qFun <- function(i, sim, probs) {
+        quantile(sim[, i], probs = probs[[i]], na.rm = TRUE)
+    }
+    object$quantile <- lapply(seq_along(probs), qFun, sim = permutations, probs = probs)
+    object$quantile <- do.call("rbind", object$quantile)
+    dimnames(object$quantile) <- list(NULL, c("lower", "median", "upper"))
+    object$interval <- interval
     ## not (yet) P-values...
     class(object) <- "summary.permustats"
     object
 }
 
-`print.summary.permustats` <-
-    function(x, ...)
-{
+`print.summary.permustats` <- function(x, ...) {
     m <- cbind("statistic" = x$statistic,
                "z" = x$z,
                "mean" = x$means,
-               t(x$quantile))
-    printCoefmat(m, cs.ind = 3:ncol(m), ...)
+               x$quantile)
+    cat("\n")
+    printCoefmat(m, tst.ind = 1:ncol(m), na.print = "", ...)
+    writeLines(strwrap(paste0("(Interval (Upper - Lower) = ", x$interval, ")", sep = ""),
+                       initial = "\n"))
     invisible(x)
 }
 
@@ -237,5 +249,14 @@
 `permustats.permutest.betadisper` <-
     function(x, ...)
 {
-    stop("no permutation data available")
+    ntypes <- NCOL(x$perm)
+    alt <- if (ntypes > 1) {
+        c("greater", rep("two.sided", ntypes - 1))
+    } else {
+        "greater"
+    }
+    structure(list("statistic" = x$statistic,
+                   "permutations" = x$perm,
+                   "alternative" = alt),
+              class ="permustats")
 }
