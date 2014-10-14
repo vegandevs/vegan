@@ -35,14 +35,16 @@
                   less = c(1 - interval, 0.5, NA))
     alt <- match(object$alternative, TAB)
     probs <- PROBS[alt]
-    object$means <- colMeans(object$permutations)
-    sd <- apply(object$permutations, 2, sd)
+    ## take care that permutations are in a column matrix
+    permutations <- as.matrix(object$permutations)
+    object$means <- colMeans(permutations)
+    sd <- apply(permutations, 2, sd)
     object$z <-
         (object$statistic - object$means)/sd
     qFun <- function(i, sim, probs) {
         quantile(sim[, i], probs = probs[[i]], na.rm = TRUE)
     }
-    object$quantile <- lapply(seq_along(probs), qFun, sim = object$permutations, probs = probs)
+    object$quantile <- lapply(seq_along(probs), qFun, sim = permutations, probs = probs)
     object$quantile <- do.call("rbind", object$quantile)
     dimnames(object$quantile) <- list(NULL, c("lower", "median", "upper"))
     object$interval <- interval
