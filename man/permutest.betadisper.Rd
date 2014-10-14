@@ -86,11 +86,16 @@ mod
 anova(mod)
 
 ## Permutation test for F
-permutest(mod, permutations = 99, pairwise = TRUE)
+pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 
 ## Tukey's Honest Significant Differences
 (mod.HSD <- TukeyHSD(mod))
 plot(mod.HSD)
+
+## Has permustats() method
+pstat <- permustats(pmod)
+densityplot(pstat)
+qqmath(pstat)
 }
 \keyword{methods}
 \keyword{multivariate}

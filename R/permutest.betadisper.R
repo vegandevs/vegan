@@ -104,7 +104,9 @@
     ## Process results
     F0 <- summary(mod)$fstatistic[1]
     Fstats <- round(Pstats[, 1], 12)    # allow empty dim to be dropped
-    F0 <- round(F0, 12)
+    statistic <- F0 <- round(F0, 12)
+    names(statistic) <- "Overall (F)"
+
     ## pairwise comparisons
     if(pairwise) {
         T0 <- apply(combn(levels(group), 2), 2, function(z) {
@@ -112,6 +114,7 @@
                         x$distances[group == z[2]])})
         Tstats <- round(Pstats[, -1, drop = FALSE], 12)
         T0 <- round(T0, 12)
+        statistic <- c(statistic, T0)
     }
 
     ## compute permutation p-value
@@ -123,20 +126,28 @@
                 length(x$distance[group == z[2]]) - 2})
         pairp <- (colSums(sweep(abs(Tstats), 2, abs(T0), '>=')) + 1) /
             (NROW(Tstats) + 1)
-        pairwise <- list(observed = 2 * pt(-abs(T0), df),
+        pairp <- list(observed = 2 * pt(-abs(T0), df),
                          permuted = pairp)
-        names(pairwise$observed) <- names(pairwise$permuted) <-
-            apply(combin, 2, paste, collapse = "-")
+        tnames <- apply(combin, 2, paste, collapse = "-")
+        names(pairp$observed) <- names(pairp$permuted) <- tnames
+        names(statistic)[-1] <- paste(tnames, "(t)")
     } else {
-        pairwise <- NULL
+        pairp <- NULL
     }
 
     retval <- cbind(mod.aov[, 1:4], c(nperm, NA), c(pval, NA))
     dimnames(retval) <- list(c("Groups", "Residuals"),
                              c("Df", "Sum Sq", "Mean Sq", "F", "N.Perm",
                                "Pr(>F)"))
-    retval <- list(tab = retval, pairwise = pairwise,
+    retval <- list(tab = retval,
+                   pairwise = pairp,
                    groups = levels(group),
+                   statistic = statistic,
+                   perm = if (pairwise) {
+                       structure(cbind(Fstats, Tstats), dimnames = list(NULL, names(statistic)))
+                   } else {
+                       structure(Fstats, names = names(statistic))
+                   },
                    control = attr(permutations, "control"))
     class(retval) <- "permutest.betadisper"
     retval
