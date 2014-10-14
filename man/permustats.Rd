@@ -111,7 +111,10 @@ permustats(x, ...)
 }
 
 \author{
-  Jari Oksanen
+  Jari Oksanen with contributions from Gavin L. Simpson
+  (\code{permustats.permutest.betadisper} method and related
+  modifications to \code{summary.permustats} and the \code{print}
+  method.
 }
 
 \seealso{
