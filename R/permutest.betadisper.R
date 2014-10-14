@@ -15,7 +15,7 @@
 
     permFun <- function(idx) {
         if (!is.matrix(idx)) {
-            dim(i) <- c(1, length(idx))
+            dim(idx) <- c(1, length(idx))
         }
         R <- nrow(idx)
         Fperm <- matrix(nrow = R, ncol = 1)
