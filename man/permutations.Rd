@@ -3,35 +3,54 @@
 
 \title{Permutation tests in Vegan}
 \description{
-  Unless stated otherwise, vegan currently provides for two types of
-  permutation test:
+  From version 2.2-0, \pkg{vegan} has significantly improved access to
+  restricted permutations which brings it into line with those offered
+  by Canoco. \pkg{vegan} currently provides for the following features within
+  permutation tests:
   \enumerate{
-    \item{Free permutation of \emph{DATA}, also known as randomisation,
-      and}
-    \item{Free permutation of \emph{DATA} within the levels of a factor
-      variable.}
+    \item{Free permutation of \emph{DATA}, also known as randomisation,}
+    \item{Free permutation of \emph{DATA} within the levels of a
+      grouping variable,}
+    \item{Restricted permutations for line transects or time series,}
+    \item{Permutation of groups of samples whilst retaining the
+      within-group ordering,}
+    \item{Restricted permutations for spatial grids,}
+    \item{Blocking factor, samples are never permuted \emph{between}
+      blocks, and}
+    \item{Split-plot designs, with permutation of whole plots, split
+      plots, or both.}
   }
-  We use \emph{DATA} to mean either the observed data themselves or some
-  function of the data, for example the residuals of an ordination model
-  in the presence of covariables.
+  Above, we use \emph{DATA} to mean either the observed data themselves
+  or some function of the data, for example the residuals of an
+  ordination model in the presence of covariables.
   
-  The second type of permutation test above is available if the function
-  providing the test accepts an argument \code{strata} or passes
-  additional arguments (via \code{\dots}) to
-  \code{permuted.index}.
+  These capabilities are provided by functions from the \pkg{permute}
+  package. The user can request a particular type of permutation by
+  supplying the \code{permutations} argument of a function with an
+  object returned by \code{\link{how}}, which defines how samples should
+  be permuted. Alternatively, the user can simply specify the required
+  number of permutations and a simple randomisation procedure will be
+  performed. Finally, the user can supply a matrix of permutations (with
+  number of rows equal to the number of permutations and number of
+  columns equal to the number of observations in the data) and \pkg{will}
+  use these permutations instead of generating new permutations.
+  
+  The majority of functions in \pkg{vegan} allow for the full range of
+  possibilities outlined above. The exceptions are
+  \code{\link{kendall.post}} and \code{\link{kendall.global}}.
 
-  The Null hypothesis for these two types of permutation test assumes
-  free exchangeability of \emph{DATA} (within the levels of
-  \code{strata} if specified). Dependence between observations, such as
-  that which arises due to spatial or temporal autocorrelation, or
-  more-complicated experimental designs, such as split-plot designs,
-  violates this fundamental assumption of the test and requires restricted
-  permutation test designs. The next major version of Vegan will include
-  infrastructure to handle these more complicated permutation designs.
+  The Null hypothesis for the first two types of permutation test list
+  above assumes free exchangeability of \emph{DATA} (within the levels
+  of the grouping variable, if specified). Dependence between
+  observations, such as that which arises due to spatial or temporal
+  autocorrelation, or more-complicated experimental designs, such as
+  split-plot designs, violates this fundamental assumption of the test
+  and requires more complex restricted permutation test designs. It is
+  these designs that are available via the \pkg{permute} package and to
+  which \pkg{vegan} provides access from version 2.2-0 onwards.
 
-  Again, unless otherwise stated in the help pages for specific
-  functions, permutation tests in Vegan all follow the same
-  format/structure:
+  Unless otherwise stated in the help pages for specific functions,
+  permutation tests in \pkg{vegan} all follow the same format/structure:
   \enumerate{
     \item{An appropriate test statistic is chosen. Which statistic is
       chosen should be described on the help pages for individual
@@ -45,58 +64,104 @@
     \item{Step 3 is repeated a total of \eqn{n} times, where \eqn{n} is
       the number of permutations requested. Denote these values as
       \eqn{x_i}{x[i]}, where \eqn{i = 1, ..., n}{{i = 1, \ldots, n}.}}
-    \item{The values of the test statistic for the \eqn{n} permutations
-      of the \emph{DATA} are added to the value of the test statistic
-      for the observed data. These \emph{n + 1} values represent the
-      \emph{Null} or \emph{randomisation} distribution of the test
-      statistic. The observed value for the test statistic is included
-      in the Null distribution because under the Null hypothesis being
-      tested, the observed value is just a typical value of the test
-      statistic, inherently no different from the values obtained via
-      permutation of \emph{DATA}.}
+    %% \item{The values of the test statistic for the \eqn{n} permutations
+    %%   of the \emph{DATA} are added to the value of the test statistic
+    %%   for the observed data. These \emph{n + 1} values represent the
+    %%   \emph{Null} or \emph{randomisation} distribution of the test
+    %%   statistic. The observed value for the test statistic is included
+    %%   in the Null distribution because under the Null hypothesis being
+    %%   tested, the observed value is just a typical value of the test
+    %%   statistic, inherently no different from the values obtained via
+    %%   permutation of \emph{DATA}.}
     \item{The number of times that a value of the test statistic in the
-      Null distribution is equal to or greater than the value of the
-      test statistic for the observed data is recorded. Note the point
-      mentioned in step 5 above; the Null distribution includes the
-      \strong{observed} value of the test statistic. Denote this count
-      as \eqn{N}.}
+      Null distribution as extreme as the value of the test statistic
+      for the observed data is recorded. Denote this count as \eqn{N}.
+      %%%%% Note the point mentioned in
+      %%%%% step 5 above; the Null distribution includes the \strong{observed}
+      %%%%% value of the test statistic. Denote this count as \eqn{N}.
+
+      We use the phrase \emph{as extreme} to include cases where a
+      two-sided test is performed and large negative values of the test
+      statistic should be considered.}
     \item{The permutation p-value is computed as
       \deqn{p = \frac{N}{n + 1}}{N / (n + 1)}}
   }
+  
   The above description illustrates why the default number of
-  permutations specified in Vegan functions takes values of 199 or 999
+  permutations specified in \pkg{vegan} functions takes values of 199 or 999
   for example. Once the observed value of the test statistic is added to
   this number of random permutations of \emph{DATA}, pretty p-values are
   achievable because \eqn{n + 1} becomes 200 or 1000, for example.
 
-  The minimum achievable p-value is
-  \deqn{p_{\mathrm{min}} = \frac{1}{n +1}}{p[min] = 1 / (n + 1)}
-  
-  A more common definition, in ecological circles, for \eqn{N} would be
-  the number of \eqn{x_i}{x[i]} greater than or equal to
-  \eqn{x_0}{x[0]}. The permutation p-value would then be defined as
-  \deqn{p = \frac{N + 1}{n + 1}}{(N + 1) / (n + 1)}
-  The + 1 in the numerator of the above equation represents the observed
-  statistic \eqn{x_0}{x[0]}. The minimum p-value would then be defined as
-  \deqn{p_{\mathrm{min}} = \frac{0 + 1}{n +1}}{p[min] = 0 + 1 / (n + 1)}
-  However this definition discriminates between the observed
-  statistic and the other \eqn{x_i}{x[i]}. Under the Null hypothesis
-  there is no such distinction, hence we prefer the definintion used in
-  the numbered steps above.
+  This simple, intuition for the presence of \eqn{+ 1} is that is
+  represents the inclusion of the observed value of the statistic in the
+  Null distribution of the statistic (e.g. Manly 2009). Smyth & Phipson
+  (2010) present a more compelling explanation for the inclusion of
+  \eqn{+ 1} in the numerator and denominator of the \emph{p} value
+  calculation.
 
-  One cannot simply increase the number of permutations
-  (\eqn{n}) to achieve a potentially lower p-value unless the number of
-  observations available permits such a number of permutations. This is
-  unlikely to be a problem for all but the smallest data sets when
-  free permutation (randomisation) is valid, but in designs where
-  \code{strata} is specified and there are a low number of observations
-  within each level of \code{strata}, there may not be as many actual
-  permutations of the data as you might want.
+  Fisher (1935) had in mind that a permutation would involve enumeration
+  of all possible permutation of the data yielding an exact
+  test. However, doing this complete enumeration may not be feasible in
+  practice owing to the potentially vast number of arrangements of the
+  data, even in modest data sizes with free permutation of samples. As a
+  result, we evaluate the \emph{p} value as the tail probability of the
+  Null distribution of the test statistic directly from the random
+  sample of possible permutations. Smyth & Phipson (2010) show that the
+  naive calculation of the permutation \emph{p} value is
+  \deqn{p = \frac{N}{n}}{p = (N / n)}, which leads to an invalid test with
+  incorrect type I error rate. They go on to show that by replacing the
+  unknown tail probability of the Null distribution with the biased
+  estimator \deqn{p = \frac{N+1}{n+1}}{p = (N + 1 / n + 1)}, the
+  positive bias induced is of just the right size to account for the
+  uncertainty in the estimation of the tail probability from the set of
+  randomly sampled permutations to yield a test with the correct type I
+  error rate.
+
+  The situation described above is correct for the situation where
+  permutations of the data are samples randomly \emph{without}
+  replacement. This is not strictly what happens in \pkg{vegan} because
+  permutations are drawn pseudo-randomly independently of one
+  another. Note that the actual chance of this happening is practice is
+  small but the functions in \pkg{permute} do not guarantee to generate
+  a unique set of permutations unless complete enumeration of
+  permutations is requested. This is not feasible for all but the
+  smallest data sets, but in such cases the chance of drawing a set of
+  permutations with repeats is lessened as the sample size, and thence
+  the size of set of all possible permutations, increases.
+
+  Under the situation of sampling permutations with replacement then,
+  the tail probability \eqn{p} calculated from the biased estimator
+  described above is somewhat \strong{conservative}, being too large by
+  an amount that depends on the number of possible values that the test
+  statistic can take under permutation of the data (Smyth & Phipson,
+  2010). This represents a slight loss of statistical power for the
+  conservative \emph{p} value calculation used here. However, unless
+  smaples sizes are small and the the permutation design such that the
+  set of values that the test statistic can take is small, this loss of
+  power is unlikely to be critical.
+
+  The minimum achievable p-value is
+  \deqn{p_{\mathrm{min}} = \frac{1}{n +1}}{p[min] = 1 / (n + 1)} hence
+  one cannot simply increase the number of permutations (\eqn{n}) to
+  achieve a potentially lower p-value unless the number of observations
+  available permits such a number of permutations. This is unlikely to
+  be a problem for all but the smallest data sets when free permutation
+  (randomisation) is valid, but in designs where \code{strata} is
+  specified and there are a low number of observations within each level
+  of \code{strata}, there may not be as many actual permutations of the
+  data as you might want.
   
   It is currently the responsibility of the user to determine the total
-  number of possible permutations for their \emph{DATA}. No checks are
-  made within Vegan functions to ensure a sensible number of
-  permutations is chosen.
+  number of possible permutations for their \emph{DATA}. The number of
+  possible permutations allowed under the specified design can be
+  calculated using \code{\link[permute]{numPerms}} from the
+  \pkg{permute} package. Heuristics employed within the
+  \code{\link[permute]{sampleSet}} function can be triggered to generate
+  the entire set of permutations. The settings controlling the
+  triggering of the complete enumeration step are found within a
+  permutation design created using \code{link[permute]{how}} and can be
+  set by the user.
 
   Limits on the total number of permutations of \emph{DATA} are more
   severe in temporally or spatially ordered data or experimental designs
@@ -107,16 +172,29 @@
   In situations where only a low number of permutations is possible due
   to the nature of \emph{DATA} or the experimental design, enumeration
   of all permutations becomes important and achievable
-  computationally. Currently, Vegan does not include functions to
-  perform complete enumeration of the set of possible
-  permutations. The next major release of Vegan will include such
-  functionality, however.
+  computationally.
+
+  Above, we have provided only a brief overview of the capbilities of
+  \pkg{vegan} and \pkg{permute}. To get the best out of the new
+  functionality and for details on how to set up permutation designs
+  using \code{\link[permute]{how}}, consult the vignette
+  \emph{Restricted permutations; using the permute package} supplied
+  with \pkg{permute} and accessible via \code{vignette("permutations",
+  package = "permute").}
 }
 
 \seealso{
   \code{\link{permutest}}
 }
-%\references{
-%}
-\author{ Gavin Simpson }
+\references{
+
+  Manly, B. F. J. (2006). \emph{Randomization, Bootstrap and Monte Carlo
+  Methods in Biology}, Third Edition. Chapman and Hall/CRC.
+  
+  Phipson, B., & Smyth, G. K. (2010). Permutation P-values should never
+  be zero: calculating exact P-values when permutations are randomly
+  drawn. \emph{Statistical Applications in Genetics and Molecular
+  Biology}, \strong{9}, Article 39. DOI: 10.2202/1544-6115.1585
+}
+\author{ Gavin L. Simpson }
 \keyword{multivariate}
