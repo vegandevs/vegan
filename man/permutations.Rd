@@ -82,10 +82,9 @@
   
   The above description illustrates why the default number of
   permutations specified in \pkg{vegan} functions takes values of 199 or
-  999 for example. Once the observed value of the test statistic is
-  added to this number of random permutations of \emph{DATA}, pretty
-  p-values are achievable because \eqn{n + 1} becomes 200 or 1000, for
-  example.
+  999 for example. Pretty \emph{p} values are achieved because the
+  \eqn{+ 1} in the denominator results in division by 200 or 1000, for
+  the 199 or 999 random permutations used in the test.
 
   The simple intuition behind the presence of \eqn{+ 1} in the numerator
   and denominator is that these represent the inclusion of the observed
@@ -95,7 +94,7 @@
   \emph{p} value calculation.
 
   Fisher (1935) had in mind that a permutation test would involve
-  enumeration of all possible permutation of the data yielding an exact
+  enumeration of all possible permutations of the data yielding an exact
   test. However, doing this complete enumeration may not be feasible in
   practice owing to the potentially vast number of arrangements of the
   data, even in modestly-sized data sets with free permutation of
@@ -113,7 +112,7 @@
 
   \deqn{p = \frac{N + 1}{n + 1}}{p = (N + 1 / n + 1)}
   
-  and that the positive bias induced is of just the right size to
+  that the positive bias induced is of just the right size to
   account for the  uncertainty in the estimation of the tail probability
   from the set of randomly sampled permutations to yield a test with the
   correct type I error rate.
