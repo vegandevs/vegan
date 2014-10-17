@@ -161,7 +161,7 @@
   possible permutations allowed under the specified design can be
   calculated using \code{\link[permute]{numPerms}} from the
   \pkg{permute} package. Heuristics employed within the
-  \code{\link[permute]{sampleSet}} function used by \pkg{vegan} can be
+  \code{\link[permute]{shuffleSet}} function used by \pkg{vegan} can be
   triggered to generate the entire set of permutations instead of a
   random set. The settings controlling the triggering of the complete
   enumeration step are contained within a permutation design created
