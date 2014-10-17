@@ -208,6 +208,11 @@
   
   ter Braak, C. J. F. (1990). \emph{Update notes: CANOCO version
     3.1}. Wageningen: Agricultural Mathematics Group. (UR).
+
+  See also:
+
+  Davison, A. C., & Hinkley, D. V. (1997). \emph{Bootstrap Methods and
+    their Application}. Cambridge University Press.
 }
 \author{ Gavin L. Simpson }
 \keyword{multivariate}
