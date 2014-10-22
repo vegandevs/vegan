@@ -2,7 +2,7 @@
     function(object, ..., permutations = how(nperm=999), by = NULL,
              model = c("reduced", "direct", "full"),
              parallel = getOption("mc.cores"), strata = NULL,
-             cutoff = 1, scope = NULL) 
+             cutoff = 1, scope = NULL)
 {
     model <- match.arg(model)
     ## permutation matrix
@@ -21,7 +21,7 @@
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
             sol <-
-                anova.ccalist(object, 
+                anova.ccalist(object,
                               permutations = permutations,
                               model = model,
                               parallel = parallel)
@@ -54,15 +54,17 @@
         return(sol)
     }
     ## basic overall test
-    tst <- permutest.cca(object, permutations = permutations, ...)
+    tst <- permutest.cca(object, permutations = permutations,
+                         model = model, parallel = parallel,
+                         strata = strata, ...)
     Fval <- c(tst$F.0, NA)
     Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
     is.rda <- inherits(object, "rda")
-    colnames(table) <- c("Df", ifelse(is.rda, "Variance", "ChiSquare"), 
+    colnames(table) <- c("Df", ifelse(is.rda, "Variance", "ChiSquare"),
                          "F", "Pr(>F)")
-    head <- paste0("Permutation test for ", tst$method, " under ", 
+    head <- paste0("Permutation test for ", tst$method, " under ",
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed,
