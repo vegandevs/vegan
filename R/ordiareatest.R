@@ -49,7 +49,21 @@
     }
     signif <- (rowSums(areas <= obs) + 1)/(nperm + 1)
     out <- list("areas" = obs, "pvalues" = signif, "permutations" = areas,
-                nperm = nperm)
+                nperm = nperm, control = attr(perm, "control"), "kind" = area)
     class(out) <- "ordiareatest"
     out
+}
+
+### print method
+
+`print.ordiareatest` <-
+    function(x, ...)
+{
+    qu <- apply(x$permutations, 1, quantile, probs=c(0.05, 0.5))
+    m <- cbind("Area" = x$areas, t(qu), "Pr(<sim)" = x$pvalues)
+    cat("\n")
+    cat(gettextf("Permutation test for the size of ordination %ss\nAlternative hypothesis: observed area is smaller than random %s\n\n", x$kind, x$kind))
+    cat(howHead(x$control), "\n")
+    printCoefmat(m, tst.ind=1:3)
+    invisible(x)
 }
