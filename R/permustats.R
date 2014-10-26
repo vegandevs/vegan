@@ -200,7 +200,7 @@
 {
     structure(list(
         "statistic" = x$areas,
-        "permutations" = x$permutations,
+        "permutations" = t(x$permutations),
         "alternative" = "less"),
               class = "permustats")
 }
