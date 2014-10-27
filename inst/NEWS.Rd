@@ -25,12 +25,12 @@
       The following function use parallel processing in analysing
       permutatin statistics: \code{adonis}, \code{anosim},
       \code{anova.cca} (and \code{permutest.cca}), \code{mantel} (and
-      \code{mantel.partial}), \code{mrpp}, \code{permutest.betadisper}
-      and \code{simper}. In addition, \code{bioenv} can compare
-      several candidate sets of models in paralle, \code{metaMDS} can
-      launch several random starts in parallel, and \code{oecosimu}
-      can evaluate test statistics for several null models in
-      parallel.
+      \code{mantel.partial}), \code{mrpp}, \code{ordiareatess},
+      \code{permutest.betadisper} and \code{simper}. In addition,
+      \code{bioenv} can compare several candidate sets of models in
+      paralle, \code{metaMDS} can launch several random starts in
+      parallel, and \code{oecosimu} can evaluate test statistics for
+      several null models in parallel.
 
       \item All permutation tests are based on the \pkg{permute}
       package which offers strong tools for restricted
@@ -50,13 +50,13 @@
       \code{vegandocs("permutations")}.
 
       The following functions use the \pkg{permute} package:
-      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca}
-      (plus associated \code{permutest.cca}, \code{add1.cca},
+      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca} (plus
+      associated \code{permutest.cca}, \code{add1.cca},
       \code{drop1.cca}, \code{ordistep}, \code{ordiR2step}),
       \code{envfit} (plus associated \code{factorfit} and
       \code{vectorfit}), \code{mantel} (and \code{mantel.partial}),
-      \code{mrpp}, \code{mso}, \code{permutest.betadisper},
-      \code{protest} and \code{simper}.
+      \code{mrpp}, \code{mso}, \code{ordiareatest},
+      \code{permutest.betadisper}, \code{protest} and \code{simper}.
 
       \item Community null model generation has been completely
       redesigned and rewritten. The communities are constructed with
@@ -107,6 +107,12 @@
       weighted mean. In weighted mean the node average is always the
       mean of member leaves, whereas the \code{dendrogram} uses always
       the unweighted means of joined branches.
+
+      \item Function \code{ordiareatest} supplements \code{ordihull} and
+      \code{ordiellipse} and provides a randomization test for the
+      one-sided alternative hypothesis that convex hulls or ellipses in
+      two-dimensional ordination space have smaller areas than with
+      randomized groups.
 
       \item \code{permustats} to extract and inspect permutation
       results with support functions \code{summary}, \code{density},
