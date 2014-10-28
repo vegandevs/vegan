@@ -306,7 +306,7 @@ plot.gam(fit, cex = 2, pch = 1, col = "blue")
 ordisurf(vare.mds ~ Baresoil, varechem, bs = "ds")
 
 ## A fixed degrees of freedom smooth, must use 'select = FALSE'
-ordisurf(vare.mds ~ Baresoil, varechem knots = 4,
+ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
                         fx = TRUE, select = FALSE)
 
 ## An anisotropic smoother with cubic regression spline bases

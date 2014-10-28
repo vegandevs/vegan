@@ -211,10 +211,10 @@ Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y)
 plot(mod)
 ### Hulls show treatment
-with(dat, ordihull(mod, group=NO3, show="0")
-with(dat, ordihull(mod, group=NO3, show="10", col=3)
+with(dat, ordihull(mod, group=NO3, show="0"))
+with(dat, ordihull(mod, group=NO3, show="10", col=3))
 ### Spider shows fields
-with(dat, ordispider(mod, group=field, lty=3, col="red")
+with(dat, ordispider(mod, group=field, lty=3, col="red"))
 
 ### Correct hypothesis test (with strata)
 adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
