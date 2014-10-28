@@ -227,12 +227,14 @@ and must take some of the following arguments:
   Quantitative Swap and Shuffle methods (\code{swhs} methods) preserve
   fill and column and row frequencies, and also either row or column
   sums. The methods first perform a binary \code{quasiswap} and then
-  shuffle original count data to non-zero cells. The \code{samp} methods
-  shuffle original non-zero cell values, and \code{both} methods
-  redistribute individuals randomly among non-zero cells. The shuffling
-  is either free over the whole matrix, or within rows (\code{r} methods)
-  or within columns (\code{c} methods). Shuffling within a row preserves
-  row sums, and shuffling within a column preserves column sums.
+  shuffle original quantitative data to non-zero cells. The \code{samp}
+  methods shuffle original non-zero cell values and can also be used
+  with non-integer data. The \code{both} methods redistribute
+  individuals randomly among non-zero cells and can only be used with
+  integer data. The shuffling is either free over the whole matrix, or
+  within rows (\code{r} methods) or within columns (\code{c}
+  methods). Shuffling within a row preserves row sums, and shuffling
+  within a column preserves column sums.
 
 \itemize{
   \item{\code{"swsh_samp"}: }{non-sequential algorithm for count matrices. 
