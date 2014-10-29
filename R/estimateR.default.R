@@ -28,8 +28,9 @@
     }
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function accepts only integers (counts)")
-    freq <- x[x > 0]
     X <- x[x > 0]
+    N <- sum(X)
+    SSC <- (N-1)/N # small-sample correction
     T.X <- table(X)
     S.obs <- length(X)
     S.rare <- sum(T.X[as.numeric(names(T.X)) <= 10])
@@ -44,14 +45,19 @@
     ## biased version should be used when a[2] > 0, and bias corrected
     ## when a[2] == 0
     if (a[2] > 0)
-        S.Chao1 <- a[1]^2/2/a[2]
+        S.Chao1 <- S.obs + SSC * a[1]^2/2/a[2]
+    else if (a[1] > 0)
+        S.Chao1 <- S.obs + SSC * a[1]*(a[1]-1) / (a[2]+1)/2
     else
-        S.Chao1 <- S.obs + a[1] * (a[1] - 1) / (a[2] + 1)/ 2
+        S.Chao1 <- S.obs
     Deriv.Ch1 <- gradF(a, i)
     if (a[2] > 0)
-        sd.Chao1 <- sqrt(a[2] * ((G^4)/4 + G^3 + (G^2)/2))
+        sd.Chao1 <- sqrt(a[2] * (SSC * (SSC * (G^4/4 + G^3) + G^2/2)))
+    else if (a[1] > 0)
+        sd.Chao1 <-
+            SSC^2 * a[1]*(2*a[1]-1)^2 + a[1]*(a[1]-1)/2 - a[1]^4/S.Chao1/4
     else
-        sd.Chao1 <- NA
+        sd.Chao1 <- 0
     C.ace <- 1 - a[1]/N.rare
     i <- 1:length(a)
     thing <- i * (i - 1) * a
