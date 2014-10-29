@@ -143,7 +143,7 @@ The original method (Chazdon et al. 2011) has two major problems:
 \examples{
 data(mite)
 data(mite.env)
-sol <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
+sol <- with(mite.env, clamtest(mite, Shrub=="None", alpha=0.005))
 summary(sol)
 head(sol)
 plot(sol)

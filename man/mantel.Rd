@@ -37,7 +37,7 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
 
 }
 \details{

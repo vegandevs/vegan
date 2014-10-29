@@ -162,16 +162,16 @@ cutter <- function (x, cut = seq(0, 10, by = 2.5)) {
         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
     return(out)}
 ## The hierarchy of sample aggregation
-levsm <- data.frame(
+levsm <- with(mite.xy, data.frame(
     l1=1:nrow(mite),
-    l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
-    l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
-    l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
+    l2=cutter(y, cut = seq(0, 10, by = 2.5)),
+    l3=cutter(y, cut = seq(0, 10, by = 5)),
+    l4=cutter(y, cut = seq(0, 10, by = 10))))
 ## Let's see in a map
 par(mfrow=c(1,3))
-plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1)
-plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1)
-plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
+plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1, asp = 1)
+plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1, asp = 1)
+plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1, asp = 1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
 adipart(mite, index="richness", nsimul=19)

@@ -32,8 +32,8 @@ simper(comm, group, permutations = 0, trace = FALSE,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later. See 
-    \code{\link{vegandocs}} \code{decision-vegan} for details.}
+    package. See \code{\link{vegandocs}} \code{decision-vegan} for
+    details.}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}

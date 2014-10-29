@@ -224,29 +224,34 @@ and must take some of the following arguments:
 
 \section{Quantitative Swap and Shuffle Models}{
 
-  Quantitative Swap and Shuffle methods (\code{swhs} methods) preserve
+  Quantitative Swap and Shuffle methods (\code{swsh} methods) preserve
   fill and column and row frequencies, and also either row or column
   sums. The methods first perform a binary \code{quasiswap} and then
-  shuffle original count data to non-zero cells. The \code{samp} methods
-  shuffle original non-zero cell values, and \code{both} methods
-  redistribute individuals randomly among non-zero cells. The shuffling
-  is either free over the whole matrix, or within rows (\code{r} methods)
-  or within columns (\code{c} methods). Shuffling within a row preserves
-  row sums, and shuffling within a column preserves column sums.
+  shuffle original quantitative data to non-zero cells. The
+  \code{samp} methods shuffle original non-zero cell values and can be
+  used also with non-integer data. The \code{both} methods
+  redistribute individuals randomly among non-zero cells and can only
+  be used with integer data. The shuffling is either free over the
+  whole matrix, or within rows (\code{r} methods) or within columns
+  (\code{c} methods). Shuffling within a row preserves row sums, and
+  shuffling within a column preserves column sums.
 
-\itemize{
-  \item{\code{"swsh_samp"}: }{non-sequential algorithm for count matrices. 
+\itemize{ 
+
+  \item{\code{"swsh_samp"}: }{non-sequential algorithm for
+    quantitative data (either integer counts or non-integer values).
     Original non-zero values values are shuffled.}
 
-  \item{\code{"swsh_both"}: }{non-sequential algorithm for count matrices. 
+  \item{\code{"swsh_both"}: }{non-sequential algorithm for count data. 
     Individuals are shuffled freely over non-zero cells.}
 
-  \item{\code{"swsh_samp_r"}: }{non-sequential algorithm for count matrices. 
-    Non-zero values (samples) are shuffled separately for each row.}
+  \item{\code{"swsh_samp_r"}: }{non-sequential algorithm for
+    quantitative data.  Non-zero values (samples) are shuffled
+    separately for each row.}
 
-  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for count
-    matrices.  Non-zero values (samples) are shuffled separately for
-    each column.}
+  \item{\code{"swsh_samp_c"}: }{non-sequential algorithm for
+    quantitative data.  Non-zero values (samples) are shuffled
+    separately for each column.}
 
   \item{\code{"swsh_both_r"}: }{non-sequential algorithm for count matrices. 
     Individuals are shuffled freely for non-zero values within each row.}

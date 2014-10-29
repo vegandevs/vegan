@@ -41,7 +41,7 @@ meandist(dist, grouping, ...)
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
   \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.
@@ -190,7 +190,7 @@ alternative.
 \examples{
 data(dune)
 data(dune.env)
-dune.mrpp <- mrpp(dune, dune.env$Management)
+dune.mrpp <- with(dune.env, mrpp(dune, Management))
 dune.mrpp
 
 # Save and change plotting parameters
@@ -198,7 +198,7 @@ def.par <- par(no.readonly = TRUE)
 layout(matrix(1:2,nr=1))
 
 plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-ordihull(dune.ord, dune.env$Management)
+with(dune.env, ordihull(dune.ord, Management))
 
 with(dune.mrpp, {
   fig.dist <- hist(boot.deltas, xlim=range(c(delta,boot.deltas)), 
