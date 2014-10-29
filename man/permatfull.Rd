@@ -283,7 +283,7 @@ lag.plot(bc)
 mar <- arima(bc, c(1,0,0))
 mar
 ## Ljung-Box test of residuals
-Box.test(mar$residuals)
+Box.test(residuals(mar))
 ## Graphical diagnostics
 tsdiag(mar)
 }

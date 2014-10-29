@@ -190,7 +190,7 @@ alternative.
 \examples{
 data(dune)
 data(dune.env)
-dune.mrpp <- mrpp(dune, dune.env$Management)
+dune.mrpp <- with(dune.env, mrpp(dune, Management))
 dune.mrpp
 
 # Save and change plotting parameters
@@ -198,7 +198,7 @@ def.par <- par(no.readonly = TRUE)
 layout(matrix(1:2,nr=1))
 
 plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-ordihull(dune.ord, dune.env$Management)
+with(dune.env, ordihull(dune.ord, Management))
 
 with(dune.mrpp, {
   fig.dist <- hist(boot.deltas, xlim=range(c(delta,boot.deltas)), 
