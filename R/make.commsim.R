@@ -183,14 +183,14 @@ function(method)
             out
         }),
         "swsh_samp" = commsim(method="swsh_samp", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            nz <- as.integer(x[x > 0])
+            nz <- x[x > 0]
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
-            storage.mode(out) <- "integer"
+            storage.mode(out) <- "double"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 out[,,k][out[,,k] > 0] <- sample(nz) # we assume that length(nz)>1
             }
             out
@@ -212,16 +212,16 @@ function(method)
             out
         }),
         "swsh_samp_r" = commsim(method="swsh_samp_r", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
-            storage.mode(out) <- "integer"
+            storage.mode(out) <- "double"
             I <- seq_len(nr)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 for (i in I) {
-                    nz <- as.integer(x[i,][x[i,] > 0])
+                    nz <- x[i,][x[i,] > 0]
                     if (length(nz) == 1)
                         out[i,,k][out[i,,k] > 0] <- nz
                     if (length(nz) > 1)
@@ -231,16 +231,16 @@ function(method)
             out
         }),
         "swsh_samp_c" = commsim(method="swsh_samp_c", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
-            storage.mode(out) <- "integer"
+            storage.mode(out) <- "double"
             J <- seq_len(nc)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap", 
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 for (j in J) {
-                    nz <- as.integer(x[,j][x[,j] > 0])
+                    nz <- x[,j][x[,j] > 0]
                     if (length(nz) == 1)
                         out[,j,k][out[,j,k] > 0] <- nz
                     if (length(nz) > 1)
