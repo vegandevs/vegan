@@ -604,8 +604,9 @@ Variance of the second-order jackknife is not evaluated in
 For the variance of bootstrap estimator, it is practical to define a
 new variable $q_i = (1-p_i)^N$ for each species \citep{SmithVanBelle84}:
 \begin{multline}
-s^2 = \sum_{i=1}^{S_o} q_i (1-q_i) + 2 \sum \sum Z_p ,\\ \text{where}\; Z_p = \dots
+s^2 = \sum_{i=1}^{S_o} q_i (1-q_i)  \\ +2 \sum_{i \neq j}^{S_o} \left[(Z_{ij}/N)^N - q_i q_j \right]
 \end{multline}
+where $Z_{ij}$ is the number of sites where both species are absent.
 
 The extrapolated richness values for the whole BCI data are:
 <<>>=
