@@ -59,11 +59,11 @@ estaccumR(x, permutations = 100)
   sites in the collection.  The variants of extrapolated richness in
   \code{specpool} are:
   \tabular{ll}{
-    Chao
-    \tab \eqn{S_P = S_0 + a1^2/(2*a2) * (N-1)/N}
+     Chao
+    \tab \eqn{S_P = S_0 + \frac{a_1^2}{2 a_2}\frac{N-1}{N}}{S_P = S_0 + a1^2/(2*a2) * (N-1)/N}
     \cr
     Chao bias-corrected
-    \tab \eqn{S_P = S_0 + a1*(a1-1)/(2*(a2+1)) * (N-1)/N}
+    \tab \eqn{S_P = S_0 + \frac{a_1(a_1-1)}{2(a_2+1)} \frac{N-1}{N}}{S_P = S_0 + a1*(a1-1)/(2*(a2+1)) * (N-1)/N}
     \cr
     First order jackknife
     \tab \eqn{S_P = S_0 + a_1 \frac{N-1}{N}}{S_P = S_0 + a1*(N-1)/N}
@@ -77,9 +77,9 @@ estaccumR(x, permutations = 100)
       (1-p_i)^N}
     }
     \code{specpool} normally uses basic Chao equation, but when there
-    are no doubletons (\eqn{a2==0}) it switches to bias-corrected
+    are no doubletons (\eqn{a2=0}) it switches to bias-corrected
     version. In that case the Chao equation reduces to
-    \eqn{S_0 + a1*(a1-1)/2}.
+    \eqn{S_0 + \frac{1}{2} a_1 (a_1-1)}{S_0 + a1*(a1-1)/2}.
 
     The abundance-based estimates in \code{estimateR} use counts
     (frequencies) of species in a single site. If called for a matrix
@@ -165,7 +165,7 @@ estaccumR(x, permutations = 100)
   extrapolation. \emph{Phil. Trans. Roy. Soc. London} B 345, 101--118.
 
   O'Hara, R.B. (2005). Species richness estimators: how many species
-  can danceon the head of a pin? \emph{J. Anim. Ecol.} 74, 375--386.
+  can dance on the head of a pin? \emph{J. Anim. Ecol.} 74, 375--386.
 
   Palmer, M.W. (1990). The estimation of species richness by
   extrapolation. \emph{Ecology} 71, 1195--1198.
