@@ -42,22 +42,26 @@
     }
     a <- sapply(i, COUNT, X)
     G <- a[1]/a[2]
-    ## biased version should be used when a[2] > 0, and bias corrected
-    ## when a[2] == 0
-    if (a[2] > 0)
-        S.Chao1 <- S.obs + SSC * a[1]^2/2/a[2]
-    else if (a[1] > 0)
-        S.Chao1 <- S.obs + SSC * a[1]*(a[1]-1) / (a[2]+1)/2
-    else
-        S.Chao1 <- S.obs
+    ## EstimateS uses basic Chao only if a[2] > 0, and switches to
+    ## bias-corrected version only if a[2] == 0. However, we always
+    ## use bias-corrected form. The switchin code is commented out so
+    ## that it is easy to put back.
+
+    ##if (a[2] > 0)
+    ##    S.Chao1 <- S.obs + SSC * a[1]^2/2/a[2]
+    ##else if (a[1] > 0)
+    ##
+    S.Chao1 <- S.obs + SSC * a[1]*(a[1]-1) / (a[2]+1)/2
+    ##else
+    ##    S.Chao1 <- S.obs
     Deriv.Ch1 <- gradF(a, i)
-    if (a[2] > 0)
-        sd.Chao1 <- sqrt(a[2] * (SSC * (SSC * (G^4/4 + G^3) + G^2/2)))
-    else if (a[1] > 0)
+    ##if (a[2] > 0)
+    ##    sd.Chao1 <- sqrt(a[2] * (SSC * (SSC * (G^4/4 + G^3) + G^2/2)))
+    ##else if (a[1] > 0)
         sd.Chao1 <-
             SSC^2 * a[1]*(2*a[1]-1)^2 + a[1]*(a[1]-1)/2 - a[1]^4/S.Chao1/4
-    else
-        sd.Chao1 <- 0
+    ##else
+    ##    sd.Chao1 <- 0
     C.ace <- 1 - a[1]/N.rare
     i <- 1:length(a)
     thing <- i * (i - 1) * a
