@@ -576,7 +576,7 @@ Function \code{specpool} implements the following models to estimate
 the pool size $S_p$ \citep{SmithVanBelle84, Chao87, ChiuEtal14}:
 \begin{align}
 S_p &= S_o + \frac{f_1^2}{2 f_2} \frac{N-1}{N} & \text{Chao}\\
-S_p &= S_o + \frac{f_1 (f_1 -1)}{f_2 (f_2+1)}  \frac{N-1}{N} & \text{Chao bias-corrected}\\
+S_p &= S_o + \frac{f_1 (f_1 -1)}{2 (f_2+1)}  \frac{N-1}{N} & \text{Chao bias-corrected}\\
 S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
 S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
 & \text{2nd order Jackknife}\\

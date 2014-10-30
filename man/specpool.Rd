@@ -79,7 +79,7 @@ estaccumR(x, permutations = 100)
     \code{specpool} normally uses basic Chao equation, but when there
     are no doubletons (\eqn{a2=0}) it switches to bias-corrected
     version. In that case the Chao equation reduces to
-    \eqn{S_0 + \frac{1}{2} a_1 (a_1-1)}{S_0 + a1*(a1-1)/2}.
+    \eqn{S_0 + \frac{1}{2} a_1 (a_1-1) \frac{N-1}{N}}{S_0 + (N-1)/N * a1*(a1-1)/2}.
 
     The abundance-based estimates in \code{estimateR} use counts
     (frequencies) of species in a single site. If called for a matrix
