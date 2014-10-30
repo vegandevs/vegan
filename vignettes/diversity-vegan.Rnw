@@ -573,9 +573,10 @@ species is related to the number of rare species, or species seen only
 once or twice.
 
 Function \code{specpool} implements the following models to estimate
-the pool size $S_p$ \citep{SmithVanBelle84, Chao87}:
+the pool size $S_p$ \citep{SmithVanBelle84, Chao87, ChiuEtal14}:
 \begin{align}
-S_p &= S_o + \frac{f_1^2}{2 f_2} & \text{Chao}\\
+S_p &= S_o + \frac{f_1^2}{2 f_2} \frac{N-1}{N} & \text{Chao}\\
+S_p &= S_o + \frac{f_1 (f_1 -1)}{f_2 (f_2+1)}  \frac{N-1}{N} & \text{Chao bias-corrected}\\
 S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
 S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
 & \text{2nd order Jackknife}\\
@@ -586,13 +587,23 @@ numbers of species observed once or twice, $N$ is the number of sites,
 and $p_i$ are proportions of species.  The idea in jackknife seems to
 be that we missed about as many species as we saw only once, and the
 idea in bootstrap that if we repeat sampling (with replacement) from
-the same data, we miss as many species as we missed originally.
+the same data, we miss as many species as we missed
+originally. Function \code {specpool} normally applies the basic Chao
+estimate, but when there are no doubletons ($f_2 = 0$) it switches to
+the bias-corrected form which then reduces to $S_p = S_o + f_1 (f_1
+-1) \frac{1}{2} \frac{N}{N-1}$.  \citet{ChiuEtal14} introduced the small-sample
+correction term $\frac{N}{N-1}$, but it was not originally used
+\citep{Chao87}.
 
-The variance the estimator of \citet{Chao87} is:
-\begin{equation}
-s^2 = f_2 \left(\frac{G^4}{4} + G^3 + \frac{G^2}{2} \right), \,
-\text{where}\quad G = \frac{f_1}{f_2}
-\end{equation}
+The variance the estimator of the basic Chao estimate is \citep{ChiuEtal14}:
+\begin{multline}
+s^2 = f_2 \left(A^2 \frac{G^4}{4} + A^2 G^3 + A \frac{G^2}{2} \right),\\
+\text{where}\; A = \frac{N-1}{N}\;\text{and}\; G = \frac{f_1}{f_2} 
+\end{multline}
+The variance of bias-corrected Chao estimate is \citep{ChiuEtal14}:
+\begin{multline}
+s^2 = \frac{1}{4} \frac{(N-1)^2}{N^2} f_1 (2f_1 -1)^2 \\+ \frac{1}{2} f_1 (f_1-1) - \frac{1}{4} \frac{f_1^4}{S_p}
+\end{multline}
 The variance of the first-order jackknife is based on the number of
 ``singletons'' $r$ (species occurring only once in the data) in sample
 plots \citep{SmithVanBelle84}:
@@ -630,9 +641,10 @@ species with low frequencies.  Function \code{estimateR} implements
 two of these methods:
 <<>>=
 estimateR(BCI[k,])
-@
-Chao's method is similar as above, but uses another, ``unbiased''
-equation. \textsc{ace} is based on rare species also:
+@ 
+Chao's method is similar as the bias-corrected model above, but it
+uses counts of individuals instead of incidences.  \textsc{ace} is
+based on rare species also:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
