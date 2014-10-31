@@ -58,8 +58,8 @@
     ##if (a[2] > 0)
     ##    sd.Chao1 <- sqrt(a[2] * (SSC * (SSC * (G^4/4 + G^3) + G^2/2)))
     ##else if (a[1] > 0)
-        sd.Chao1 <-
-            SSC^2 * a[1]*(2*a[1]-1)^2 + a[1]*(a[1]-1)/2 - a[1]^4/S.Chao1/4
+    sd.Chao1 <-
+        sqrt(SSC^2 * a[1]*(2*a[1]-1)^2 + a[1]*(a[1]-1)/2 - a[1]^4/S.Chao1/4)
     ##else
     ##    sd.Chao1 <- 0
     C.ace <- 1 - a[1]/N.rare
