@@ -42,6 +42,10 @@ Version 2.1-43 (opened September 11, 2014)
 	was specified using `control` which is not an argument to the
 	`permutest()` method for `betadisper()`.
 
+	* text.cca: was incorrectly testing if factor constraints were
+	in the biplot scores when user-suppiled lables for factors were
+	given.
+
 	* ccanova: removed from vegan. These were backup functions of old
 	anova.cca, and were completely rewritten for new vegan.
 
