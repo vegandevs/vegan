@@ -1,5 +1,5 @@
 `specpool` <-
-    function (x, pool) 
+    function (x, pool, smallsample = TRUE) 
 {
     x <- as.matrix(x)
     if (missing(pool)) 
@@ -25,7 +25,10 @@
         n <- length(gr)
         if (n <= 0)
             next
-        ssc <- (n-1)/n # small sample correction
+        if (smallsample)
+            ssc <- (n-1)/n
+        else
+            ssc <- 1
         X <- x[gr, , drop = FALSE]
         freq <- colSums(X > 0)
         p <- freq[freq > 0]/n

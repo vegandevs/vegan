@@ -19,7 +19,7 @@
   is based on abundances (counts) on single sample site. 
 }
 \usage{
-specpool(x, pool)
+specpool(x, pool smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
@@ -33,6 +33,8 @@ estaccumR(x, permutations = 100)
     for \code{plot} function.}
   \item{pool}{A vector giving a classification for pooling the sites in
     the species data. If missing, all sites are pooled together.}
+  \item{smallsample}{Use small sample correction \eqn{(N-1)/N}, where
+    \eqn{N} is the number of sites within the \code{pool}.}
   \item{X, object}{A \code{specpool} result object.}
   \item{index}{The selected index of extrapolated richness.}
   \item{permutations}{Number of permutations of sampling order of sites.}
@@ -182,6 +184,10 @@ estaccumR(x, permutations = 100)
   a consistent bias in the estimates. Even the bias-correction in Chao
   only reduces the bias, but does not remove it completely (Chiu et
   al. 2014).
+
+  Optional small sample correction was added to \code{specpool} in
+  \pkg{vegan} 2.2-0. It was not used in the older literature (Chao
+  1987), but it is recommended recently (Chiu et al. 2014).
 
   See \url{http://viceroy.eeb.uconn.edu/EstimateS} for a more complete
   (and positive) discussion and alternative software for some platforms.
