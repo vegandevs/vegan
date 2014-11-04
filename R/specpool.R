@@ -52,7 +52,7 @@
             var.chao[is] <- a2 * ssc * (0.5 + ssc * (1 + aa/4) * aa) * aa * aa
         else
             var.chao[is] <-
-                ssc^2 * a1*(2*a1-1)^2/4 + a1*(a1-1)/2 - a1^4/chao[is]/4
+                ssc * (ssc * (a1*(2*a1-1)^2/4 - a1^4/chao[is]/4) + a1*(a1-1)/2)
         if (!is.na(a1) && a1 > 0) {
             jf <- table(rowSums(X[, freq == 1, drop = FALSE] > 
                                 0))
