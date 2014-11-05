@@ -10,6 +10,9 @@
     ## specpool() is slow, but the vectorized versions below are
     ## pretty fast
     for (i in 1:permutations) {
+        ## It is a bad practice to replicate specpool equations here:
+        ## if we change specpool, this function gets out of sync. You
+        ## should be ashamed, Jari Oksanen!
         take <- sample.int(n, n)
         tmp <- apply(x[take,] > 0, 2, cumsum)
         S[,i] <- rowSums(tmp > 0)
@@ -20,7 +23,8 @@
         boot[,i] <- 2*S[,i] - m + rowSums(exp(sweep(log1p(-sweep(tmp, 1, N, "/")), 1, N, "*") ))
         a1 <- rowSums(tmp == 1)
         a2 <- rowSums(tmp == 2)
-        chao[, i] <- S[,i] + ifelse(a2 > 0, a1*a1/2/a2, 0)
+        chao[, i] <- S[,i] + ifelse(a2 > 0, (N-1)/N*a1*a1/2/a2,
+                                    (N-1)/N*a1*(a1-1)/2)
         jack1[,i] <- S[,i] + a1 * (N-1)/N
         jack2[,i] <- S[,i] + a1*(2*N-3)/N - a2*(N-2)^2/N/(N-1)
     }

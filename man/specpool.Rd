@@ -135,12 +135,14 @@ estaccumR(x, permutations = 100)
   data. The functions share \code{summary} and \code{plot}
   methods. The \code{summary} returns quantile envelopes of
   permutations corresponding the given level of \code{alpha} and
-  standard deviation of permutations for each sample size. The
+  standard deviation of permutations for each sample size. NB., these
+  are not based on standard deviations estimated within \code{specpool}
+  or \code{estimateR}, but they are based on permutations. The
   \code{plot} function shows the mean and envelope of permutations
   with given \code{alpha} for models. The selection of models can be
   restricted and order changes using the \code{display} argument in
   \code{summary} or \code{plot}. For configuration of \code{plot}
-  command, see \code{\link[lattice]{xyplot}}. 
+  command, see \code{\link[lattice]{xyplot}}.
 }
 
 \value{
