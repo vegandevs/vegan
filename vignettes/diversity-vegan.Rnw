@@ -573,9 +573,12 @@ species is related to the number of rare species, or species seen only
 once or twice.
 
 Function \code{specpool} implements the following models to estimate
-the pool size $S_p$ \citep{SmithVanBelle84, Chao87}:
+the pool size $S_p$ \citep{SmithVanBelle84, Chao87, ChiuEtal14}:
 \begin{align}
-S_p &= S_o + \frac{f_1^2}{2 f_2} & \text{Chao}\\
+\label{eq:chao-basic}
+S_p &= S_o + \frac{f_1^2}{2 f_2} \frac{N-1}{N} & \text{Chao}\\
+\label{eq:chao-bc}
+S_p &= S_o + \frac{f_1 (f_1 -1)}{2 (f_2+1)}  \frac{N-1}{N} & \text{Chao bias-corrected}\\
 S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
 S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
 & \text{2nd order Jackknife}\\
@@ -587,12 +590,36 @@ and $p_i$ are proportions of species.  The idea in jackknife seems to
 be that we missed about as many species as we saw only once, and the
 idea in bootstrap that if we repeat sampling (with replacement) from
 the same data, we miss as many species as we missed originally.
+\citet{ChiuEtal14} introduced the small-sample correction term
+$\frac{N}{N-1}$, but it was not originally used \citep{Chao87}.
 
-The variance the estimator of \citet{Chao87} is:
-\begin{equation}
-s^2 = f_2 \left(\frac{G^4}{4} + G^3 + \frac{G^2}{2} \right), \,
-\text{where}\quad G = \frac{f_1}{f_2}
-\end{equation}
+The variance the estimator of the basic Chao estimate is \citep{ChiuEtal14}:
+\begin{multline}
+\label{eq:var-chao-basic}
+s^2 = f_2 \left(A^2 \frac{G^4}{4} + A^2 G^3 + A \frac{G^2}{2} \right),\\
+\text{where}\; A = \frac{N-1}{N}\;\text{and}\; G = \frac{f_1}{f_2} 
+\end{multline}
+The variance of bias-corrected Chao estimate can be approximated by
+replacing the terms of eq.~\ref{eq:var-chao-basic} with the
+corresponding terms in eq.~\ref{eq:chao-bc}:
+\begin{multline}
+\label{eq:var-chao-bc}
+s^2 = A \frac{f_1(f_1-1)}{2(f_2+1)} + A^2 \frac{f_1(2 f_1+1)^2}{(f_2+1)^2}\\
+ + A^2 \frac{f_1^2 f_2 (f_1 -1)^2}{4 (f_2 + 1)^4}
+\end{multline}
+If we apply the bias-correction in the special case where there are no
+doubletons ($f_2 = 0$), the he variance is 
+\citep[who omit small-sample correction in some terms]{ChiuEtal14}:
+\begin{multline}
+\label{eq:var-chao-bc0}
+s^2 = \frac{1}{4} A^2 f_1 (2f_1 -1)^2 + \frac{1}{2} A f_1 (f_1-1) - \frac{1}{4}A^2 \frac{f_1^4}{S_p}
+\end{multline}
+Function \code{specpool} uses eq.~\ref{eq:chao-basic} and estimates
+its variance with eq.~\ref{eq:var-chao-basic} when $f_2 > 0$. When
+$f_2 = 0$, \code{specpool} applies eq.~\ref{eq:chao-bc} which reduces
+to $\frac{N-1}{N} \frac{1}{2} f_1 (f_1 - 1)$, and its variance
+estimator eq.~\ref{eq:var-chao-bc0}.
+
 The variance of the first-order jackknife is based on the number of
 ``singletons'' $r$ (species occurring only once in the data) in sample
 plots \citep{SmithVanBelle84}:
@@ -604,8 +631,9 @@ Variance of the second-order jackknife is not evaluated in
 For the variance of bootstrap estimator, it is practical to define a
 new variable $q_i = (1-p_i)^N$ for each species \citep{SmithVanBelle84}:
 \begin{multline}
-s^2 = \sum_{i=1}^{S_o} q_i (1-q_i) + 2 \sum \sum Z_p ,\\ \text{where}\; Z_p = \dots
+s^2 = \sum_{i=1}^{S_o} q_i (1-q_i)  \\ +2 \sum_{i \neq j}^{S_o} \left[(Z_{ij}/N)^N - q_i q_j \right]
 \end{multline}
+where $Z_{ij}$ is the number of sites where both species are absent.
 
 The extrapolated richness values for the whole BCI data are:
 <<>>=
@@ -629,9 +657,12 @@ species with low frequencies.  Function \code{estimateR} implements
 two of these methods:
 <<>>=
 estimateR(BCI[k,])
-@
-Chao's method is similar as above, but uses another, ``unbiased''
-equation. \textsc{ace} is based on rare species also:
+@ 
+Chao's method is similar as the bias-corrected model
+eq.~\ref{eq:chao-bc} with its variance estimator
+eq.~\ref{eq:var-chao-bc}, but it uses counts of individuals instead of
+incidences, and does not use small sample correction.  \textsc{ace} is
+based on rare species also:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
