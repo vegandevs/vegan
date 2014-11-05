@@ -195,6 +195,16 @@
               class="permustats")
 }
 
+`permustats.ordiareatest` <-
+    function(x, ...)
+{
+    structure(list(
+        "statistic" = x$areas,
+        "permutations" = t(x$permutations),
+        "alternative" = "less"),
+              class = "permustats")
+}
+
 `permustats.permutest.cca` <-
     function(x, ...)
 {
