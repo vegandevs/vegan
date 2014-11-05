@@ -660,8 +660,9 @@ estimateR(BCI[k,])
 @ 
 Chao's method is similar as the bias-corrected model
 eq.~\ref{eq:chao-bc} with its variance estimator
-eq.~\ref{eq:var-chao-bc}, but it uses counts of individuals instead
-of incidences.  \textsc{ace} is based on rare species also:
+eq.~\ref{eq:var-chao-bc}, but it uses counts of individuals instead of
+incidences, and does not use small sample correction.  \textsc{ace} is
+based on rare species also:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +

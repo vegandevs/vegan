@@ -80,16 +80,18 @@ estaccumR(x, permutations = 100)
     }
     \code{specpool} normally uses basic Chao equation, but when there
     are no doubletons (\eqn{a2=0}) it switches to bias-corrected
-    version. In that case the Chao equation reduces to
+    version. In that case the Chao equation simplifies to
     \eqn{S_0 + \frac{1}{2} a_1 (a_1-1) \frac{N-1}{N}}{S_0 + (N-1)/N * a1*(a1-1)/2}.
 
     The abundance-based estimates in \code{estimateR} use counts
-    (frequencies) of species in a single site. If called for a matrix
-    or data frame, the function will give separate estimates for each
-    site.  The two variants of extrapolated richness in
-    \code{estimateR} are bias-corrected Chao and ACE.  In the Chao
-    estimate \eqn{a_i} refers to number of species with abundance
-    \eqn{i} instead of incidence:
+    (numbers of individuals) of species in a single site. If called for
+    a matrix or data frame, the function will give separate estimates
+    for each site.  The two variants of extrapolated richness in
+    \code{estimateR} are bias-corrected Chao and ACE (O'Hara 2005, Chiu
+    et al. 2014).  The Chao estimate is similar as the bias corrected
+    one above, but \eqn{a_i} refers to the number of species with
+    abundance \eqn{i} instead of number of sites, and the small-sample
+    correction is not used. The ACE estimate is defined as:
 
     \tabular{ll}{
     ACE
@@ -138,7 +140,7 @@ estaccumR(x, permutations = 100)
   with given \code{alpha} for models. The selection of models can be
   restricted and order changes using the \code{display} argument in
   \code{summary} or \code{plot}. For configuration of \code{plot}
-  command, see \code{\link[lattice]{xyplot}}
+  command, see \code{\link[lattice]{xyplot}}. 
 }
 
 \value{

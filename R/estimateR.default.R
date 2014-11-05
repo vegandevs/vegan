@@ -30,7 +30,7 @@
         stop("function accepts only integers (counts)")
     X <- x[x > 0]
     N <- sum(X)
-    SSC <- (N-1)/N # small-sample correction
+    SSC <- 1 # (N-1)/N # do NOT use small-sample correction
     T.X <- table(X)
     S.obs <- length(X)
     S.rare <- sum(T.X[as.numeric(names(T.X)) <= 10])
