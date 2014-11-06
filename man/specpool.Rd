@@ -19,7 +19,7 @@
   is based on abundances (counts) on single sample site. 
 }
 \usage{
-specpool(x, pool smallsample = TRUE)
+specpool(x, pool, smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
