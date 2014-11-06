@@ -13,7 +13,7 @@
       integer giving the number of parallel processes. In unix-alikes
       (Mac OS, Linux) this will launch \code{"multicore"} processing
       and in Windows it will set up \code{"snow"} clusters as desribed
-      in the documentation of \pkg{parallel} package. If \code{option}
+      in the documentation of the \pkg{parallel} package. If \code{option}
       \code{"mc.cores"} is set to an integer > 1, this will be used to
       automatically start parallel processing. Finally, the argument
       can also be a previously set up \code{"snow"} cluster which will
@@ -23,21 +23,20 @@
       extensive documentation on parallel processing in \R.
 
       The following function use parallel processing in analysing
-      permutatin statistics: \code{adonis}, \code{anosim},
+      permutation statistics: \code{adonis}, \code{anosim},
       \code{anova.cca} (and \code{permutest.cca}), \code{mantel} (and
-      \code{mantel.partial}), \code{mrpp}, \code{permutest.betadisper}
-      and \code{simper}. In addition, \code{bioenv} can compare
-      several candidate sets of models in paralle, \code{metaMDS} can
-      launch several random starts in parallel, and \code{oecosimu}
-      can evaluate test statistics for several null models in
-      parallel.
+      \code{mantel.partial}), \code{mrpp}, \code{ordiareatest},
+      \code{permutest.betadisper} and \code{simper}. In addition,
+      \code{bioenv} can compare several candidate sets of models in
+      paralle, \code{metaMDS} can launch several random starts in
+      parallel, and \code{oecosimu} can evaluate test statistics for
+      several null models in parallel.
 
-      \item All permutation tests are based on the \pkg{permute}
-      package which offers strong tools for restricted
-      permutation. All these functions have argument
-      \code{permutations}. The default usage of simple non-restricted
-      permutations is achieved by giving a single integer number as
-      its argument. Restricted permutations can be defined using the
+      \item All permutation tests are based on the \pkg{permute} package
+      which offers strong tools for restricted permutation. All these
+      functions have argument \code{permutations}. The default usage of
+      simple non-restricted permutations is achieved by giving a single
+      integer number. Restricted permutations can be defined using the
       \code{how} function of the \pkg{permute} package. Finally, the
       argument can be a permutation matrix where rows define
       permutations. It is possible to use external or user constructed
@@ -50,13 +49,13 @@
       \code{vegandocs("permutations")}.
 
       The following functions use the \pkg{permute} package:
-      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca}
-      (plus associated \code{permutest.cca}, \code{add1.cca},
+      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca} (plus
+      associated \code{permutest.cca}, \code{add1.cca},
       \code{drop1.cca}, \code{ordistep}, \code{ordiR2step}),
       \code{envfit} (plus associated \code{factorfit} and
       \code{vectorfit}), \code{mantel} (and \code{mantel.partial}),
-      \code{mrpp}, \code{mso}, \code{permutest.betadisper},
-      \code{protest} and \code{simper}.
+      \code{mrpp}, \code{mso}, \code{ordiareatest},
+      \code{permutest.betadisper}, \code{protest} and \code{simper}.
 
       \item Community null model generation has been completely
       redesigned and rewritten. The communities are constructed with
@@ -103,27 +102,32 @@
       \item New \code{hclust} support functions \code{reorder},
       \code{rev} and \code{scores}. Functions \code{reorder} and
       \code{rev} are similar as these functions for \code{dendrogram}
-      objects. However, \code{reorder} can use (and defaults to)
-      weighted mean. In weighted mean the node average is always the
+      objects in base \R. However, \code{reorder} can use (and defaults
+      to) weighted mean. In weighted mean the node average is always the
       mean of member leaves, whereas the \code{dendrogram} uses always
-      the unweighted means of joined branches.
+      unweighted means of joined branches.
 
-      \item \code{permustats} to extract and inspect permutation
+      \item Function \code{ordiareatest} supplements \code{ordihull} and
+      \code{ordiellipse} and provides a randomization test for the
+      one-sided alternative hypothesis that convex hulls or ellipses in
+      two-dimensional ordination space have smaller areas than with
+      randomized groups.
+
+      \item Function \code{permustats} extracts and inspects permutation
       results with support functions \code{summary}, \code{density},
       \code{densityplot}, \code{qqnorm} and \code{qqmath}. The
-      \code{density} and \code{qqnorm} are standard \R{} tools that
-      only work with one statistic, and \code{densityplot} and
-      \code{qqmath} are \pkg{lattice} graphics that work with
-      univariate and multivariate statistics. The results of following
-      functions can be extracted: \code{anosim}, \code{adonis},
-      \code{mantel} (and \code{mantel.partial}), \code{mrpp},
-      \code{oecosimu}, \code{permustest.cca} (but not the
-      corresponding \code{anova} methods),
-      \code{permutest.betadisper}, and \code{protest}.
+      \code{density} and \code{qqnorm} are standard \R{} tools that only
+      work with one statistic, and \code{densityplot} and \code{qqmath}
+      are \pkg{lattice} graphics that work with univariate and
+      multivariate statistics. The results of following functions can be
+      extracted: \code{anosim}, \code{adonis}, \code{mantel} (and
+      \code{mantel.partial}), \code{mrpp}, \code{oecosimu},
+      \code{permustest.cca} (but not the corresponding \code{anova}
+      methods), \code{permutest.betadisper}, and \code{protest}.
 
-      \item \code{stressplot} functions display the ordination
-      distances at given number of dimensions against original
-      distances.  These are a generalization of \code{stressplot} for
+      \item \code{stressplot} functions display the ordination distances
+      at given number of dimensions against original distances.  The
+      method functins are similar to \code{stressplot} for
       \code{metaMDS}, and always use the inherent distances of each
       ordination method. The functions are available for the results
       \code{capscale}, \code{cca}, \code{princomp}, \code{prcomp},
@@ -139,7 +143,7 @@
       of a random value. 
 
       \item \code{ordiellipse} can handle points exactly on a line,
-      including only two points.
+      including only two points (with a warning).
 
       \item plotting \code{radfit} results for several species failed if
       any of the communities had no species or had only one species.
@@ -199,14 +203,40 @@
       \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
       distance in addition to the default Euclidean.
 
-      \item User can set colours and line types in unction
+      \item User can set colours and line types in function
       \code{rarecurve} for plotting rarefaction curves.
 
       \item \code{spantree} gained a support function \code{as.hclust}
-      to change the minimum spannig tree into an \code{hclust} tree.
+      to change the minimum spanning tree into an \code{hclust} tree.
 
       \item \code{fitspecaccum} can do weighted analysis. Gained
       \code{lines} method.
+
+      \item Functions for extrapolated number of species or for the size
+      of species pool using Chao method were modified following Chiu et
+      al., \emph{Biometrics} 70, 671--682 (2014).
+
+      Incidence based \code{specpool} can now use (and defaults to)
+      small sample correction with number of sites as the sample
+      size. Function uses basic Chao extrapolation based on the ratio of
+      singletons and doubletons, but switches now to bias corrected Chao
+      extrapolation if there are no doubletons (species found
+      twice). The variance formula for bias corrected Chao was derived
+      following the supporting
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online material}
+      and differs slightly from Chiu et al. (2014).
+
+      The \code{poolaccum} function was changed similarly, but the small
+      sample correction is used always.
+
+      The abundance based \code{estimateR} uses bias corrected Chao
+      extrapolation, but earlier it estimated its variance with classic
+      Chao model. Now we use the widespread
+      \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{approximate
+	equation} for variance.
+
+      With these changes these functions are more similar to
+            \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{EstimateS}.
 
       \item \code{tabasco} uses now \code{reorder.hclust} for
       \code{hclust} object for better ordering than previously when it
@@ -224,7 +254,7 @@
       III.  \code{varespec} and \code{dune} use 8-character names (4
       from genus + 4 from species epithet). New data set on
       phylogenetic distances for \code{dune} was extracted from Zanne
-      et al. (\emph{Nature}, 2014).
+      et al. (\emph{Nature} 506, 89--92; 2014).
 
       \item User configurable plots for \code{rarecurve}.
 
@@ -243,12 +273,12 @@
       extract scaled results.
 
       \item \code{commsimulator} is deprecated. Replace
-      \code{commsimulator(x, method)} with \code{simulate(nullmodel(x,
-      method))}.
+      \code{commsimulator(x, method)} with
+      \code{simulate(nullmodel(x, method))}.
 
       \item \code{density} and \code{densityplot} for permutation
-      results: use \code{permustats} with its \code{density} and
-      \code{densityplot} method.
+      results are deprecated: use \code{permustats} with its
+      \code{density} and \code{densityplot} method.
 
     } %end itemize
   } % end deprecated

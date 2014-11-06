@@ -9,6 +9,7 @@
 \alias{permustats.mrpp}
 \alias{permustats.mso}
 \alias{permustats.oecosimu}
+\alias{permustats.ordiareatest}
 \alias{permustats.permutest.betadisper}
 \alias{permustats.permutest.cca}
 \alias{permustats.protest}
@@ -92,7 +93,7 @@ permustats(x, ...)
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{mantel.partial}},
-  \code{\link{mrpp}}, \code{\link{oecosimu}},
+  \code{\link{mrpp}}, \code{\link{oecosimu}}, \code{\link{ordiareatest}},
   \code{\link{permutest.cca}}, \code{\link{protest}}, and
   \code{\link{permutest.betadisper}}. NB, there is no \code{permustats}
   method for \code{\link{anova.cca}}, but only for

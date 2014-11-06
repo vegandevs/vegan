@@ -19,7 +19,7 @@
   is based on abundances (counts) on single sample site. 
 }
 \usage{
-specpool(x, pool)
+specpool(x, pool, smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
@@ -33,6 +33,8 @@ estaccumR(x, permutations = 100)
     for \code{plot} function.}
   \item{pool}{A vector giving a classification for pooling the sites in
     the species data. If missing, all sites are pooled together.}
+  \item{smallsample}{Use small sample correction \eqn{(N-1)/N}, where
+    \eqn{N} is the number of sites within the \code{pool}.}
   \item{X, object}{A \code{specpool} result object.}
   \item{index}{The selected index of extrapolated richness.}
   \item{permutations}{Number of permutations of sampling order of sites.}
@@ -59,33 +61,39 @@ estaccumR(x, permutations = 100)
   sites in the collection.  The variants of extrapolated richness in
   \code{specpool} are:
   \tabular{ll}{
-    Chao
-    \tab \eqn{S_P = S_0 + a1^2/(2*a2)}
+     Chao
+    \tab \eqn{S_P = S_0 + \frac{a_1^2}{2 a_2}\frac{N-1}{N}}{S_P = S_0 + a1^2/(2*a2) * (N-1)/N}
+    \cr
+    Chao bias-corrected
+    \tab \eqn{S_P = S_0 + \frac{a_1(a_1-1)}{2(a_2+1)} \frac{N-1}{N}}{S_P = S_0 + a1*(a1-1)/(2*(a2+1)) * (N-1)/N}
     \cr
     First order jackknife
     \tab \eqn{S_P = S_0 + a_1 \frac{N-1}{N}}{S_P = S_0 + a1*(N-1)/N}
     \cr
     Second order jackknife
     \tab \eqn{S_P = S_0 + a_1 \frac{2N - 3}{N} - a_2 \frac{(N-2)^2}{N
-	(N-1)}}{S_P = S_0 + a1*(2*n-3)/n - a2*(n-2)^2/n/(n-1)}
+	(N-1)}}{S_P = S_0 + a1*(2*N-3)/N - a2*(N-2)^2/N/(N-1)}
     \cr
     Bootstrap
     \tab \eqn{S_P = S_0 + \sum_{i=1}^{S_0} (1 - p_i)^N}{S_P = S_0 + Sum
       (1-p_i)^N}
     }
+    \code{specpool} normally uses basic Chao equation, but when there
+    are no doubletons (\eqn{a2=0}) it switches to bias-corrected
+    version. In that case the Chao equation simplifies to
+    \eqn{S_0 + \frac{1}{2} a_1 (a_1-1) \frac{N-1}{N}}{S_0 + (N-1)/N * a1*(a1-1)/2}.
 
-    The abundance-based estimates in \code{estimateR} use counts (frequencies) of
-    species in a single site. If called for a matrix or data frame, the
-    function will give separate estimates for each site.  The two
-    variants of extrapolated richness in \code{estimateR} are Chao
-    (unbiased variant) and ACE.  In the Chao estimate
-    \eqn{a_i} refers to number of species with abundance \eqn{i} instead
-    of incidence: 
+    The abundance-based estimates in \code{estimateR} use counts
+    (numbers of individuals) of species in a single site. If called for
+    a matrix or data frame, the function will give separate estimates
+    for each site.  The two variants of extrapolated richness in
+    \code{estimateR} are bias-corrected Chao and ACE (O'Hara 2005, Chiu
+    et al. 2014).  The Chao estimate is similar as the bias corrected
+    one above, but \eqn{a_i} refers to the number of species with
+    abundance \eqn{i} instead of number of sites, and the small-sample
+    correction is not used. The ACE estimate is defined as:
+
     \tabular{ll}{
-    Chao
-    \tab \eqn{S_P = S_0 + \frac{a_1 (a_1 -1)}{2 (a_2 + 1)}}{S_P = S_0 +
-      a1*(a1-1)/(2*(a2+1))}
-    \cr
     ACE
     \tab \eqn{S_P = S_{abund} + \frac{S_{rare}}{C_{ace}}+ \frac{a_1}{C_{ace}}
       \gamma^2_{ace}}{S_P = S_abund + S_rare/C_ace + a1/C_ace * gamma^2}
@@ -108,16 +116,16 @@ estaccumR(x, permutations = 100)
 
     Functions estimate the standard errors of the estimates. These
     only concern the number of added species, and assume that there is
-    no variance in the observed richness.
-    The equations of standard errors are too complicated to be reproduced in
-    this help page, but they can be studied in the \R source code of the
-    function.
-    The standard error are based on the following sources: Chao (1987)
-    for the Chao estimate and Smith and van Belle (1984) for the
-    first-order Jackknife and the bootstrap (second-order jackknife is
-    still missing). 
-    The variance estimator of \eqn{S_{ace}}{S_ace} was
-    developed by Bob O'Hara (unpublished).
+    no variance in the observed richness.  The equations of standard
+    errors are too complicated to be reproduced in this help page, but
+    they can be studied in the \R source code of the function and are
+    discussed in the \code{\link{vignette}} \dQuote{diversity-vegan}
+    that can be read with the \code{\link{vegandocs}} command. The
+    standard error are based on the following sources: Chiu et
+    al. (2014) for the Chao estimates and Smith and van Belle (1984)
+    for the first-order Jackknife and the bootstrap (second-order
+    jackknife is still missing).  For the variance estimator of
+    \eqn{S_{ace}}{S_ace} see O'Hara (2005).
 
   Functions \code{poolaccum} and \code{estaccumR} are similar to
   \code{\link{specaccum}}, but estimate extrapolated richness indices
@@ -127,12 +135,14 @@ estaccumR(x, permutations = 100)
   data. The functions share \code{summary} and \code{plot}
   methods. The \code{summary} returns quantile envelopes of
   permutations corresponding the given level of \code{alpha} and
-  standard deviation of permutations for each sample size. The
+  standard deviation of permutations for each sample size. NB., these
+  are not based on standard deviations estimated within \code{specpool}
+  or \code{estimateR}, but they are based on permutations. The
   \code{plot} function shows the mean and envelope of permutations
   with given \code{alpha} for models. The selection of models can be
   restricted and order changes using the \code{display} argument in
   \code{summary} or \code{plot}. For configuration of \code{plot}
-  command, see \code{\link[lattice]{xyplot}}
+  command, see \code{\link[lattice]{xyplot}}.
 }
 
 \value{
@@ -151,10 +161,17 @@ estaccumR(x, permutations = 100)
 \references{
   Chao, A. (1987). Estimating the population size for capture-recapture
   data with unequal catchability. \emph{Biometrics} 43, 783--791.
+
+  Chiu, C.H., Wang, Y.T., Walther, B.A. & Chao, A. (2014). Improved
+  nonparametric lower bound of species richness via a modified
+  Good-Turing frequency formula. \emph{Biometrics} 70, 671--682.
   
   Colwell, R.K. & Coddington, J.A. (1994). Estimating terrestrial
   biodiversity through
   extrapolation. \emph{Phil. Trans. Roy. Soc. London} B 345, 101--118.
+
+  O'Hara, R.B. (2005). Species richness estimators: how many species
+  can dance on the head of a pin? \emph{J. Anim. Ecol.} 74, 375--386.
 
   Palmer, M.W. (1990). The estimation of species richness by
   extrapolation. \emph{Ecology} 71, 1195--1198.
@@ -163,11 +180,18 @@ estaccumR(x, permutations = 100)
   species richness. \emph{Biometrics} 40, 119--129.
 }
 \author{Bob O'Hara (\code{estimateR}) and Jari Oksanen.}
-\note{
-  The functions are based on assumption that there is a species pool:
-  The community is closed so that there is a fixed pool size \eqn{S_P}.
-  Such cases may exist, although I have not seen them yet.  All indices
-  are biased for open communities.
+
+\note{ The functions are based on assumption that there is a species
+  pool: The community is closed so that there is a fixed pool size
+  \eqn{S_P}.  In general, the functions give only the lower limit of
+  species richness: the real richness is \eqn{S >= S_P}, and there is
+  a consistent bias in the estimates. Even the bias-correction in Chao
+  only reduces the bias, but does not remove it completely (Chiu et
+  al. 2014).
+
+  Optional small sample correction was added to \code{specpool} in
+  \pkg{vegan} 2.2-0. It was not used in the older literature (Chao
+  1987), but it is recommended recently (Chiu et al. 2014).
 
   See \url{http://viceroy.eeb.uconn.edu/EstimateS} for a more complete
   (and positive) discussion and alternative software for some platforms.

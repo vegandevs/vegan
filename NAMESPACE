@@ -15,6 +15,7 @@ intersetcor, isomapdist, isomap, linestack, mantel, meandist,
 metaMDSdist, metaMDSiter, metaMDSredist, MDSrotate, metaMDS, monoMDS,
 mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac, nestedbetasor, nestedchecker,
 nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel, oecosimu,
+ordiareatest,
 ordiR2step, ordiarrows, ordicloud, ordicluster, ordiellipse, ordigrid,
 ordihull, ordilabel, ordiplot, ordipointlabel, ordiresids,
 ordisegments, ordispider, ordisplom, ordistep, ordisurf,
@@ -246,6 +247,7 @@ S3method(permustats, anosim)
 S3method(permustats, mantel)
 S3method(permustats, mrpp)
 S3method(permustats, oecosimu)
+S3method(permustats, ordiareatest)
 S3method(permustats, permutest.betadisper)
 S3method(permustats, permutest.cca)
 S3method(permustats, protest)
@@ -362,6 +364,7 @@ S3method(print, nestednodf)
 S3method(print, nestedtemp)
 S3method(print, nullmodel)
 S3method(print, oecosimu)
+S3method(print, ordiareatest)
 S3method(print, permat)
 S3method(print, permutest.betadisper)
 S3method(print, permutest.cca)
