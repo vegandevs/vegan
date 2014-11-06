@@ -214,6 +214,32 @@
       \item \code{fitspecaccum} can do weighted analysis. Gained
       \code{lines} method.
 
+      \item Functions for extrapolated number of species or for the size
+      of species pool using Chao method were modified following Chiu et
+      al., \emph{Biometrics} 70, 671--682 (2014).
+
+      Incidence based \code{specpool} can now use (and defaults to)
+      small sample correction with number of sites as the sample
+      size. Function uses basic Chao extrapolation based on the ratio of
+      singletons and doubletons, but switches now to bias corrected Chao
+      extrapolation if there are no doubletons (species found
+      twice). The variance formula for bias corrected Chao was derived
+      following the supporting
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online material}
+      and differs slightly from Chiu et al. (2014).
+
+      The \code{poolaccum} function was changed similarly, but the small
+      sample correction is used always.
+
+      The abundance based \code{estimateR} uses bias corrected Chao
+      extrapolation, but earlier it estimated its variance with classic
+      Chao model. Now we use the widespread
+      \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{approximate
+	equation} for variance.
+
+      With these changes these functions are more similar to
+            \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{EstimateS}.
+
       \item \code{tabasco} uses now \code{reorder.hclust} for
       \code{hclust} object for better ordering than previously when it
       cast trees to \code{dendrogram} objects.
