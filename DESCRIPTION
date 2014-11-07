@@ -11,5 +11,6 @@ Suggests: parallel, tcltk
 Imports: MASS, cluster, mgcv
 Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
-License: GPL-2 
-URL: http://vegan.r-forge.r-project.org/
+License: GPL-2
+BugReports: https://github.com/vegandevs/vegan/issues
+URL: https://github.com/vegandevs/vegan
