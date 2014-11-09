@@ -14,13 +14,10 @@
     if (length(perm) == 1) {
         perm <- how(nperm = perm) 
     }
-    ## apply 'strata'
+    ## apply 'strata', but only if possible: ignore silently other cases
     if (!missing(strata) && !is.null(strata)) {
-        if (!inherits(perm, "how"))  # 'perm' is a matrix
-            stop("'strata' can be used only with simple permutation or with 'how()'")
-        if (!is.null(getBlocks(perm)))
-            stop("'strata' cannot be applied when 'blocks' are defined in 'how()'")
-        setBlocks(perm) <- strata
+        if (inherits(perm, "how") && is.null(getBlocks(perm)))
+            setBlocks(perm) <- strata
     }
     ## now 'perm' is either a how() or a matrix
     if (inherits(perm, "how"))
