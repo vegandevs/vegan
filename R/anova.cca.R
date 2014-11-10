@@ -53,10 +53,10 @@
         attr(sol, "control") <- control
         return(sol)
     }
-    ## basic overall test
+    ## basic overall test: pass other arguments except 'strata'
+    ## because 'permutations' already is a permutationMatrix
     tst <- permutest.cca(object, permutations = permutations,
-                         model = model, parallel = parallel,
-                         strata = strata, ...)
+                         model = model, parallel = parallel, ...)
     Fval <- c(tst$F.0, NA)
     Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
