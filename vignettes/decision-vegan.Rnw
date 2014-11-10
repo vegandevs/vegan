@@ -428,8 +428,8 @@ weighted averaging scores have somewhat wider dispersion.
     in the functions \code{prcomp} and \code{princomp}, and the
     one used in the \pkg{vegan} function \code{rda} 
     and the proprietary software \proglang{Canoco}
-    scores in terms of orthonormal species ($u_{ik}$) and site scores
-    ($v_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
+    scores in terms of orthonormal species ($v_{ik}$) and site scores
+    ($u_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
     species standard deviations ($s_j$). In \code{rda},
     $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
     negative scaling in \pkg{vegan}
