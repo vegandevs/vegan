@@ -21,7 +21,7 @@
                 stop("needs a list with both 'vectors' and 'factors' labels")
             ## need to handle the case where both sets of labels are NULL
             ## such as when used with the default interface and single x
-            ln <- sapply(labs, is.null)
+            ln <- !sapply(labs, is.null)
             if (ln["v"])
                 labs$v <- labels
             if (ln["f"])
