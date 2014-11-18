@@ -123,6 +123,7 @@ S3method(bioenv, default)
 S3method(bioenv, formula)
 # biplot: stats
 S3method(biplot, CCorA)
+S3method(biplot, cca)
 S3method(biplot, rda)
 # boxplot: graphics
 S3method(boxplot, betadisper)
