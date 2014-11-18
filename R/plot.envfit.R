@@ -17,15 +17,14 @@
         } else {
             ## input vector: either vectors or factors must be NULL,
             ## and the existing set of labels is replaced
-            if (!is.null(labs$v) && !is.null(labs$f))
+            if (!is.null(x$vectors) && !is.null(x$factors))
                 stop("needs a list with both 'vectors' and 'factors' labels")
             ## need to handle the case where both sets of labels are NULL
             ## such as when used with the default interface and single x
-            ln <- !sapply(labs, is.null)
-            if (ln["v"])
-                labs$v <- labels
-            if (ln["f"])
+            if (!is.null(x$factors))
                 labs$f <- labels
+            else
+                labs$v <- labels
         }
     }
     vect <- NULL

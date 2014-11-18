@@ -1,5 +1,5 @@
 LICENSE
+^README\.md$
 ^\.travis\.yml$
 ^travis-tool\.sh
 ^appveyor\.yml$
-
