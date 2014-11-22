@@ -72,7 +72,7 @@
   if (trace) 
     cat("Read", cd$nsp, "species, ", cd$nst, "sites.\n")
   d <- matrix(0, cd$nst, cd$nsp)
-  for (i in seq_along(cd$i) d[cd$i[i], cd$j[i]] <- cd$y[i]
+  for (i in seq_along(cd$i)) d[cd$i[i], cd$j[i]] <- cd$y[i]
   nlines <- ceiling(cd$nsp/10)
   names <- NULL
   for (i in seq_len(nlines)) {
