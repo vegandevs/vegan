@@ -65,7 +65,7 @@
     ##else
     ##    sd.Chao1 <- 0
     C.ace <- 1 - a[1]/N.rare
-    i <- 1:length(a)
+    i <- seq_along(a)
     thing <- i * (i - 1) * a
     Gam <- sum(thing) * S.rare/(C.ace * N.rare * (N.rare - 1)) - 
         1
