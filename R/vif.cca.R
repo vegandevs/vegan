@@ -1,6 +1,8 @@
 `vif.cca` <-
     function(object) 
 {
+    if (is.null(object$CCA))
+        stop("can be used only with constrained ordination")
     Q <- object$CCA$QR
     out <- rep(NA, NCOL(Q$qr))
     names(out)[Q$pivot] <- colnames(Q$qr)

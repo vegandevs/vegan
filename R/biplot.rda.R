@@ -3,7 +3,16 @@
 ## draws pca biplots with species as arrows
 ##
 
-biplot.rda <- function(x, choices = c(1, 2), scaling = 2,
+`biplot.cca` <-
+    function(x, ...)
+{
+    if (!inherits(x, "rda"))
+        stop("biplot can be used only with linear ordination (e.g., PCA)")
+    else
+        NextMethod("biplot", x, ...)
+}
+
+`biplot.rda` <- function(x, choices = c(1, 2), scaling = 2,
                        display = c("sites", "species"),
                        type, xlim, ylim, col = c(1,2), const, ...) {
   if(!inherits(x, "rda"))
