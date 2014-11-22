@@ -109,5 +109,5 @@
     if (identical(const[1], const[2]))
         const <- const[1]
     attr(sol, "const") <- const
-    return(sol)
+    sol
 }
