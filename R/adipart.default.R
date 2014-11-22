@@ -32,7 +32,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
         rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
         nCol <- nCol - 1
     }
-    rval <- as.data.frame(rval[rev(1:length(rval))])
+    rval <- as.data.frame(rval[rev(seq_along(rval))])
     l2 <- sapply(rval, function(z) length(unique(z)))
     if (any(l1 != l2))
         stop("levels are not perfectly nested")
@@ -78,9 +78,9 @@ function(y, x, index=c("richness", "shannon", "simpson"),
         }
         ## weights will change in oecosimu thus need to be recalculated
         if (weights == "prop")
-            wt <- lapply(1:nlevs, function(i) apply(tmp[[i]], 1, function(z) sum(z) / sumMatr))
-        else wt <- lapply(1:nlevs, function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
-        a <- sapply(1:nlevs, function(i) sum(divfun(tmp[[i]]) * wt[[i]]))
+            wt <- lapply(seq_along(nlevs), function(i) apply(tmp[[i]], 1, function(z) sum(z) / sumMatr))
+        else wt <- lapply(seq_along(nlevs), function(i) rep(1 / NROW(tmp[[i]]), NROW(tmp[[i]])))
+        a <- sapply(seq_along(nlevs), function(i) sum(divfun(tmp[[i]]) * wt[[i]]))
         if (relative)
             a <- a / a[length(a)]
         b <- sapply(2:nlevs, function(i) a[i] - a[(i-1)])
