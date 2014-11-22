@@ -9,7 +9,7 @@
     if (!is.list(g))
         g <- list(default = g)
     ## Take care that there are names
-    for (i in seq_len(length(g))) {
+    for (i in seq_along(g)) {
         if (length(dim(g[[i]])) > 1)
             rownames(g[[i]]) <- rownames(g[[i]], do.NULL = FALSE,
                                          prefix = substr(names(g)[i], 1, 3))
