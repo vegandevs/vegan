@@ -31,7 +31,7 @@
         i <- rowpack(comm, j)
     }
     ## Improve eight times
-    for (k in 1:8) {
+    for (k in seq_len(8)) {
         j <- colpack(comm, i)
         i <- rowpack(comm, j)
     }
@@ -67,8 +67,8 @@
     p <- sol$root
     ## row coordinates of the fill line for all matrix entries
     out <- matrix(0, nrow=length(r), ncol=length(c))
-    for (i in 1:length(r))
-        for (j in 1:length(c)) {
+    for (i in seq_along(r))
+        for (j in seq_along(c)) {
             a <- c[j] - r[i]
             out[i,j] <- uniroot(function(x, ...) fillfun(x, p) - a -x,
                                 c(0,1), p = p)$root
