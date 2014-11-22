@@ -2,8 +2,8 @@
     function (x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1, 
               at = 0, add = FALSE, axis = FALSE, ...) 
 {
-    if (!missing(labels) && length(labels == 1) && pmatch(labels, 
-                                   c("right", "left"), nomatch = FALSE)) {
+    if (!missing(labels) && length(labels) == 1L &&
+        pmatch(labels, c("right", "left"), nomatch = FALSE)) {
         side <- labels
         labels <- NULL
         warning("argument 'label' is deprecated: use 'side'")
