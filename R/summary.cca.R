@@ -19,7 +19,7 @@
         names(summ) <- nms[display]
     }
     if (length(display) > 0) {
-        for (i in 1:length(summ)) {
+        for (i in seq_along(summ)) {
             if (is.matrix(summ[[i]]))
                 rownames(summ[[i]]) <-
                     rownames(summ[[i]], do.NULL = FALSE,
@@ -37,7 +37,7 @@
     summ$cont <- summary(eigenvals(object))
     if (!is.null(object$CCA))
         summ$concont <- summary(eigenvals(object, constrained = TRUE))
-    summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[1:axes]
+    summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[seq_len(axes)]
     summ$scaling <- scaling
     summ$digits <- digits
     summ$inertia <- object$inertia
