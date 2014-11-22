@@ -41,7 +41,7 @@
         ## it can happen that rank < qrank
         rank <- min(rank, sum(sol$d > (sol$d[1L] * ZERO)))
         sol$d <- sol$d/sqrt(NR)
-        ax.names <- paste("RDA", 1:length(sol$d), sep = "")
+        ax.names <- paste("RDA", seq_along(sol$d), sep = "")
         colnames(sol$u) <- ax.names
         colnames(sol$v) <- ax.names
         names(sol$d) <- ax.names
