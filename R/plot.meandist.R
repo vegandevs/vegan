@@ -14,7 +14,7 @@
             ylim <- range(c(w, tr, root), na.rm = TRUE)
         plot(cl, ylim = ylim, leaflab = "none", axes = axes, ...)
         seqw <- seq_along(w)
-        for (i in seq) {
+        for (i in seqw) {
             segments(i, tr[i], i, w[i])
         }
         pos <- ifelse(w < tr, 1, 3)
