@@ -102,5 +102,5 @@
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1) 
         sol <- sol[[1]]
-    return(sol)
+    sol
 }
