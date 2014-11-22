@@ -18,7 +18,7 @@
     }
     Nhm <- length(x)
     Abundance <- unlist(lapply(x, function(x) x$y))
-    Rank <- unlist(lapply(x, function(x) if (length(x$y) > 0) 1:length(x$y) else NULL))
+    Rank <- unlist(lapply(x, function(x) if (length(x$y) > 0) seq_along(x$y) else NULL))
     Site <- unlist(lapply(x, function(x) length(x$y)))
     N <- Site
     sitenames <- names(Site)
@@ -33,10 +33,10 @@
     take <- sapply(x, function(x) pickmod(x, pick, BIC))
     take <- rep(take, N)
     cols <- trellis.par.get("superpose.line")$col
-    cols <- cols[1:length(cols)]
+    cols <- cols[seq_along(cols)]
     if (legend) {
         mykey <- list(text = list(text = modnam), lines = list(lty = 1, 
-                                                  col = cols[1:length(modnam)], lwd = 2), columns = 3)
+                                                  col = cols[seq_along(modnam)], lwd = 2), columns = 3)
     }
     else {
         mykey <- NULL
