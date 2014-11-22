@@ -33,7 +33,7 @@
         abline(h = rare, lwd=0.5)
     }
     ## rarefaction curves
-    for (ln in seq_len(length(out))) {
+    for (ln in seq_along(out)) {
         N <- attr(out[[ln]], "Subsample")
         lines(N, out[[ln]], col = col[ln], lty = lty[ln], ...)
     }
