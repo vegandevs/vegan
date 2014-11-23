@@ -48,7 +48,7 @@
                             var = double(1), PACKAGE = "vegan")$var
                 1 - invar/totvar
             }
-            tmp <- sapply(seq_along(permutations),
+            tmp <- sapply(seq_len(permutations),
                           function(indx,...) ptest(permat[indx,], ...))
             pval.this <- (sum(tmp >= r.this) + 1)/(permutations + 1)
             pval <- c(pval, pval.this)
