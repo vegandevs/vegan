@@ -46,13 +46,13 @@
         }
     }
     if (!is.null(sp.ind) && is.logical(sp.ind))
-        sp.ind <- (1:ncol(x))[sp.ind]
+        sp.ind <- seq_len(ncol(x))[sp.ind]
     if (!is.null(site.ind) && is.logical(site.ind))
-        site.ind <- (1:nrow(x))[site.ind]
+        site.ind <- seq_len(nrow(x))[site.ind]
     if (is.null(sp.ind))
         sp.ind <- seq_len(ncol(x))
     if (is.null(site.ind))
-        site.ind <- seq_lennrow(x))
+        site.ind <- seq_len(nrow(x))
     if (!missing(select)) {
         if (!is.logical(select))
             select <- sort(site.ind) %in% select
