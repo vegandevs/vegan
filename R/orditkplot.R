@@ -13,7 +13,7 @@
 ############################
 ### Check and sanitize input
 ###########################
-    
+
     ## Graphical parameters and constants, and save some for later plotting
     p <- par()
     sparnam <- c("bg","cex", "cex.axis","cex.lab","col", "col.axis", "col.lab",
@@ -47,7 +47,7 @@
         x <- gsub("transparent", "", x)
         x[is.na(x)] <- ""
         x
-    } 
+    }
     p$bg <- sanecol(p$bg)
     p$fg <- sanecol(p$fg)
     p$col <- sanecol(p$col)
@@ -160,9 +160,9 @@
     ## Buttons
     buts <- tkframe(w)
     ## Copy current canvas to EPS using the standard Tcl/Tk utility
-    cp2eps <- tkbutton(buts, text="Copy to EPS", 
+    cp2eps <- tkbutton(buts, text="Copy to EPS",
                        command=function() tkpostscript(can, x=0, y=0,
-                       height=height, width=width, 
+                       height=height, width=width,
                        file=tkgetSaveFile(filetypes="{{EPS file} {.eps}}")))
     dismiss <- tkbutton(buts, text="Dismiss", command=function() tkdestroy(w))
     ## Dump current plot to an "orditkplot" object (internally)
@@ -191,7 +191,7 @@
                    dim = curdim)
         class(xy) <- "orditkplot"
         xy
-    }        
+    }
     ## Button to dump "orditkplot" object to the R session
     pDump <- function() {
         xy <- ordDump()
@@ -277,7 +277,7 @@
 ##########
 ### Canvas
 ##########
-    
+
     ## Make canvas
     sco <- try(scores(x, display=display, choices = choices, ...),
                silent = TRUE)
@@ -325,13 +325,13 @@
         ylim <- range(sco[,2], na.rm = TRUE)
     xpretty <- pretty(xlim)
     ypretty <- pretty(ylim)
-    ## Extend ranges by 4% 
+    ## Extend ranges by 4%
     xrange <- c(-0.04, 0.04) * diff(xlim) + xlim
     xpretty <- xpretty[xpretty >= xrange[1] & xpretty <= xrange[2]]
     yrange <- c(-0.04, 0.04) * diff(ylim) + ylim
     ypretty <- ypretty[ypretty >= yrange[1] & ypretty <= yrange[2]]
     ## Canvas like they were in the default devices when I last checked
-    if (missing(width)) 
+    if (missing(width))
         width <- p$din[1]
     width <- width * PPI * p2p
     ## Margin row width also varies with platform and devices
@@ -351,10 +351,10 @@
     ## User coordinates of an item
     xy2usr <- function(item) {
         xy <- as.numeric(tkcoords(can, item))
-        x <- xy[1] 
-        y <- xy[2] 
-        x <- xrange[1] + (x - mar[2])/xincr 
-        y <- yrange[2] - (y - mar[3])/yincr 
+        x <- xy[1]
+        y <- xy[2]
+        x <- xrange[1] + (x - mar[2])/xincr
+        y <- yrange[2] - (y - mar[3])/yincr
         c(x,y)
     }
     ## Canvas x or y to user coordinates
@@ -388,7 +388,7 @@
     tl <-  -p$tcl * rpix     # -p$tcl * p$ps * p2p
     axoff <- p$mgp[3] * rpix
     tmp <- xpretty
-    for (i in 1:length(tmp)) {
+    for (i in seq_along(tmp)) {
         x0 <- usr2xy(c(xpretty[1], yrange[1]))
         x1 <- usr2xy(c(xpretty[length(xpretty)], yrange[1]))
         tkcreate(can, "line", x0[1], x0[2]+axoff, x1[1], x1[2]+axoff,
@@ -403,7 +403,7 @@
     tkcreate(can, "text", xx[1], xx[2] + rpix * p$mgp[1],
              text=colnames(sco)[1], fill=p$col.lab, anchor="n", font=fnt.lab)
     tmp <- ypretty
-    for (i in 1:length(tmp)) {
+    for (i in seq_along(tmp)) {
         x0 <- usr2xy(c(xrange[1], tmp[1]))
         x1 <- usr2xy(c(xrange[1], tmp[length(tmp)]))
         tkcreate(can, "line", x0[1]-axoff, x0[2], x1[1]-axoff, x1[2])
@@ -446,7 +446,7 @@
 ##############################
 ### Mouse operations on canvas
 ##############################
-    
+
     ## Plotting and Moving
     ## Mouse enters a label
     pEnter <- function() {
@@ -562,7 +562,7 @@
                function() {tkdtag(can, "selected"); tkdelete(can, "ptr")})
     tkitembind(can, "label", "<B1-Motion>", pMove)
     ## Edit labels
-    tkitembind(can, "label", "<Double-Button-1>", pEdit) 
+    tkitembind(can, "label", "<Double-Button-1>", pEdit)
     ## Zoom (with one-button mouse)
     tkbind(can, "<Shift-Button-1>", pRect0)
     tkbind(can, "<Shift-B1-Motion>", pRect)
