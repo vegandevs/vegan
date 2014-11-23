@@ -163,7 +163,7 @@
                       ncol(permat), n))
 
     if (nperm > 0) {
-        p.perm <- sapply(1:nperm, function(indx, ...)
+        p.perm <- sapply(seq_len(nperm), function(indx, ...)
                          probPillai(Y[permat[indx,],] , X, n, S11.inv, S22.inv, s,
                                     df1, df2, epsilon, Fval, nperm, ...))
         p.perm <- (sum(p.perm) +1)/(nperm + 1)
