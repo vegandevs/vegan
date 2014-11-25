@@ -98,7 +98,7 @@
     qq <- temp$m
     rownames(X) <- rownoms
     ## Correction PL, 26dec10
-    if(max(pp,qq) >= (n-1)) 
+    if(max(pp,qq) >= (n-1))
     	stop("Not enough degrees of freedom: max(pp,qq) >= (n-1)")
     ## Covariance matrices, etc. from the PCA scores
     S11 <- cov(Y)
@@ -120,7 +120,7 @@
     if((p == q) & (var(K.svd$d) < epsilon))
     	cat("Warning: [nearly] circular covariance matrix. The solution may be meaningless.",'\n')
     ## K.svd$u %*% diag(K.svd$d) %*% t(K.svd$v)   # To check that K = U D V'
-    axenames <- paste("CanAxis",1:length(K.svd$d),sep="")
+    axenames <- paste("CanAxis",seq_along(K.svd$d),sep="")
     U <- K.svd$u
     V <- K.svd$v
     A <- S11.chol.inv %*% U
@@ -134,7 +134,7 @@
     corr.X.Cx <- cor(X.c, Cx)  # To plot X in biplot in space X
     ## Add row and column names
     rownames(Cy) <- rownames(Cx) <- rownoms
-	colnames(Cy) <- colnames(Cx) <- axenames    
+	colnames(Cy) <- colnames(Cx) <- axenames
     rownames(corr.Y.Cy) <- rownames(corr.Y.Cx) <- Ynoms
     rownames(corr.X.Cy) <- rownames(corr.X.Cx) <- Xnoms
     colnames(corr.Y.Cy) <- colnames(corr.Y.Cx) <- axenames
@@ -163,20 +163,20 @@
                       ncol(permat), n))
 
     if (nperm > 0) {
-        p.perm <- sapply(1:nperm, function(indx, ...) 
+        p.perm <- sapply(seq_len(nperm), function(indx, ...)
                          probPillai(Y[permat[indx,],] , X, n, S11.inv, S22.inv, s,
                                     df1, df2, epsilon, Fval, nperm, ...))
         p.perm <- (sum(p.perm) +1)/(nperm + 1)
     } else {
         p.perm <- NA
     }
-    
+
     out <- list(Pillai=PillaiTrace, Eigenvalues=Eigenvalues, CanCorr=K.svd$d,
-                Mat.ranks=c(RsquareX.Y$m, RsquareY.X$m), 
+                Mat.ranks=c(RsquareX.Y$m, RsquareY.X$m),
                 RDA.Rsquares=c(RsquareY.X$Rsquare, RsquareX.Y$Rsquare),
                 RDA.adj.Rsq=c(Rsquare.adj.Y.X, Rsquare.adj.X.Y),
-                nperm=nperm, p.Pillai=p.Pillai, p.perm=p.perm, Cy=Cy, Cx=Cx, 
-                corr.Y.Cy=corr.Y.Cy, corr.X.Cx=corr.X.Cx, corr.Y.Cx=corr.Y.Cx, 
+                nperm=nperm, p.Pillai=p.Pillai, p.perm=p.perm, Cy=Cy, Cx=Cx,
+                corr.Y.Cy=corr.Y.Cy, corr.X.Cx=corr.X.Cx, corr.Y.Cx=corr.Y.Cx,
                 corr.X.Cy=corr.X.Cy, control = attr(permat, "control"),
                 call = match.call())
     class(out) <- "CCorA"

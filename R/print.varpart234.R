@@ -16,7 +16,7 @@ function(x, digits = 5, ...)
     print(out)
     cat("---\nUse function 'rda' to test significance of fractions of interest\n")
     if (!is.null(x$bigwarning))
-        for (i in 1:length(x$bigwarning))
+        for (i in seq_along(x$bigwarning))
             warning("collinearity detected: redundant variable(s)  between tables ",
                     x$bigwarning[i],
                     "\nresults are probably incorrect: remove redundant variable(s) and repeat the analysis",

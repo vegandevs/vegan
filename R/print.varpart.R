@@ -1,5 +1,5 @@
 "print.varpart" <-
-function (x, ...) 
+function (x, ...)
 {
     cat("\nPartition of variation in RDA\n\n")
     writeLines(strwrap(pasteCall(x$call)))
@@ -9,7 +9,7 @@ function (x, ...)
         cat("Species transformation: ", x$transfo)
     cat("\n")
     cat("Explanatory tables:\n")
-    cat(paste(paste(paste("X", 1:length(x$tables), sep=""),":  ",
+    cat(paste(paste(paste("X", seq_along(x$tables), sep=""),":  ",
                     x$tables, sep=""), collapse="\n"), "\n\n")
     print(x$part, ...)
     invisible(x)

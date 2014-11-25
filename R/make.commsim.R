@@ -4,9 +4,9 @@
 ## so it can be used instead of match.arg(method) in other functions
 ## NOTE: very very long -- but it can be a central repository of algos
 ## NOTE 2: storage mode coercions are avoided here
-## (with no apparent effect on speed), it should be 
+## (with no apparent effect on speed), it should be
 ## handled by nullmodel and commsim characteristics
-make.commsim <- 
+make.commsim <-
 function(method)
 {
     algos <- list(
@@ -78,19 +78,19 @@ function(method)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n))
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
             out
         }),
-        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE, 
+        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("swap", 
+            out[,,1] <- .C("swap",
                 m = x, nr, nc, thin, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
-                out[,,k+1] <- .C("swap", 
-                    m = out[,,k], nr, nc, thin, 
+                out[,,k+1] <- .C("swap",
+                    m = out[,,k], nr, nc, thin,
                     PACKAGE = "vegan")$m
             out
         }),
@@ -98,10 +98,10 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("trialswap", 
+            out[,,1] <- .C("trialswap",
                 m = x, nr, nc, thin, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
-                out[,,k+1] <- .C("trialswap", 
+                out[,,k+1] <- .C("trialswap",
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
@@ -118,7 +118,7 @@ function(method)
                 ij <- sample(free, prob = prob)
                 i <- (ij - 1)%%nr + 1
                 j <- (ij - 1)%/%nr + 1
-                for (k in 1:length(ij)) {
+                for (k in seq_along(ij)) {
                     if (icount[i[k]] < rs[i[k]] && jcount[j[k]] < cs[j[k]]) {
                         out[ij[k]] <- 1L
                         icount[i[k]] <- icount[i[k]] + 1L
@@ -126,25 +126,25 @@ function(method)
                     }
                 }
                 ndrop <- 1
-                for (i in 1:10000) {
+                for (i in seq_len(10000)) {
                     oldout <- out
                     oldn <- sum(out)
                     drop <- sample(all[out == 1L], ndrop)
                     out[drop] <- 0L
                     candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0L
                     while (sum(candi) > 0) {
-                        if (sum(candi) > 1) 
+                        if (sum(candi) > 1)
                           ij <- sample(all[candi], 1)
                         else ij <- all[candi]
                         out[ij] <- 1L
                         candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0
                     }
-                    if (sum(out) >= fill) 
+                    if (sum(out) >= fill)
                         break
-                    if (oldn >= sum(out)) 
+                    if (oldn >= sum(out))
                         ndrop <- min(ndrop + 1, 4)
                     else ndrop <- 1
-                    if (oldn > sum(out)) 
+                    if (oldn > sum(out))
                         out <- oldout
                 }
                 out
@@ -165,10 +165,10 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("swapcount", 
+            out[,,1] <- .C("swapcount",
                 m = x, nr, nc, thin, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
-                out[,,k+1] <- .C("swapcount", 
+                out[,,k+1] <- .C("swapcount",
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
@@ -178,7 +178,7 @@ function(method)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n))
-                out[,,k] <- .C("rswapcount", 
+                out[,,k] <- .C("rswapcount",
                     m = out[,,k], nr, nc, fill, PACKAGE = "vegan")$m
             out
         }),
@@ -189,7 +189,7 @@ function(method)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "double"
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 out[,,k][out[,,k] > 0] <- sample(nz) # we assume that length(nz)>1
             }
@@ -205,7 +205,7 @@ function(method)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
                 out[,,k][out[,,k] > 0] <- indshuffle(nz - 1L) + 1L  # we assume that length(nz)>1
             }
@@ -218,7 +218,7 @@ function(method)
             storage.mode(out) <- "double"
             I <- seq_len(nr)
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 for (i in I) {
                     nz <- x[i,][x[i,] > 0]
@@ -237,7 +237,7 @@ function(method)
             storage.mode(out) <- "double"
             J <- seq_len(nc)
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
                 for (j in J) {
                     nz <- x[,j][x[,j] > 0]
@@ -259,7 +259,7 @@ function(method)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = out[,,k], nr, nc, PACKAGE = "vegan")$m
                 for (i in I) {
                     nz <- as.integer(x[i,][x[i,] > 0])
@@ -281,7 +281,7 @@ function(method)
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
-                out[,,k] <- .C("quasiswap", 
+                out[,,k] <- .C("quasiswap",
                     m = out[,,k], nr, nc,  PACKAGE = "vegan")$m
                 for (j in J) {
                     nz <- as.integer(x[,j][x[,j] > 0])
@@ -297,10 +297,10 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
-            out[,,1] <- .C("abuswap", 
+            out[,,1] <- .C("abuswap",
                 m = x, nr, nc, thin, 1L, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
-                out[,,k+1] <- .C("abuswap", 
+                out[,,k+1] <- .C("abuswap",
                     m = out[,,k], nr, nc, thin, 1L, PACKAGE = "vegan")$m
             out
         }),
@@ -308,10 +308,10 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
-            out[,,1] <- .C("abuswap", 
+            out[,,1] <- .C("abuswap",
                 m = x, nr, nc, thin, 0L, PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
-                out[,,k+1] <- .C("abuswap", 
+                out[,,k+1] <- .C("abuswap",
                     m = out[,,k], nr, nc, thin, 0L, PACKAGE = "vegan")$m
             out
         }),

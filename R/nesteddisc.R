@@ -26,11 +26,11 @@
     ## Range of row sums: only swaps between these have an effect
     rs <- range(rowSums(comm))
     ## Function to evaluate discrepancy
-    FUN <- function(x) sum(comm[col(comm)[,x] <= rowSums(comm)] == 0) 
+    FUN <- function(x) sum(comm[col(comm)[,x] <= rowSums(comm)] == 0)
     Ad <- FUN(x)
     ## Go through all le-items and permute ties. Functions allPerms
     ## and shuffleSet are in permute package.
-    for (i in 1:length(le)) {
+    for (i in seq_along(le)) {
         if (le[i] > 1) {
             take <- x
             idx <- (1:le[i]) + cle[i]
