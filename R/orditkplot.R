@@ -13,7 +13,7 @@
 ############################
 ### Check and sanitize input
 ###########################
-    
+
     ## Graphical parameters and constants, and save some for later plotting
     p <- par()
     sparnam <- c("bg","cex", "cex.axis","cex.lab","col", "col.axis", "col.lab",
@@ -36,7 +36,7 @@
     }
     savepar <- p[sparnam]
     PPI <- 72                                         # Points per Inch
-    p2p <- as.numeric(tclvalue(tcl("tk", "scaling"))) # Pixel per point
+    p2p <- as.numeric(tcltk::tclvalue(tcltk::tcl("tk", "scaling"))) # Pixel per point
     DIAM <- 2.7                               # diam of plotting symbol
     ## Plotting symbol diam
     diam <- round(pcex * DIAM * p2p, 1)
@@ -47,7 +47,7 @@
         x <- gsub("transparent", "", x)
         x[is.na(x)] <- ""
         x
-    } 
+    }
     p$bg <- sanecol(p$bg)
     p$fg <- sanecol(p$fg)
     p$col <- sanecol(p$col)
@@ -86,13 +86,13 @@
                "0" = Point(x, y, 22, col, fill = "", diam),
                "1" = Point(x, y, 21, col, fill = "", diam),
                "2" = Point(x, y, 24, col, fill = "", diam),
-               "3" = {tkcreate(can, "line",
+               "3" = {tcltk::tkcreate(can, "line",
                                x, y+SQ*diam, x, y-SQ*diam, fill=col)
-                      tkcreate(can, "line",
+                      tcltk::tkcreate(can, "line",
                                x+SQ*diam, y, x-SQ*diam, y, fill=col)},
-               "4" = {tkcreate(can, "line",
+               "4" = {tcltk::tkcreate(can, "line",
                                x-diam, y-diam, x+diam, y+diam, fill=col)
-                      tkcreate(can, "line",
+                      tcltk::tkcreate(can, "line",
                                x-diam, y+diam, x+diam, y-diam, fill=col)},
                "5" = Point(x, y, 23, col, fill = "", diam),
                "6" = Point(x, y, 25, col, fill = "", diam),
@@ -110,9 +110,9 @@
                        Point(x, y, 0, col, fill, diam)},
                "13" = {Point(x, y, 4, col, fill, diam)
                        Point(x, y, 1, col, fill, diam)},
-               "14" = {tkcreate(can, "line", x-diam, y-diam, x, y+diam,
+               "14" = {tcltk::tkcreate(can, "line", x-diam, y-diam, x, y+diam,
                                 fill = col)
-                       tkcreate(can, "line", x+diam, y-diam, x, y+diam,
+                       tcltk::tkcreate(can, "line", x+diam, y-diam, x, y+diam,
                                 fill = col)
                        Point(x, y, 0, col, fill, diam)},
                "15" = Point(x, y, 22, col = col, fill = col, diam),
@@ -121,22 +121,22 @@
                "18" = Point(x, y, 23, col = col, fill = col, diam/SQ),
                "19" = Point(x, y, 21, col = col, fill = col, diam),
                "20" = Point(x, y, 21, col = col, fill = col, diam/2),
-               "21" = tkcreate(can, "oval", x-diam, y-diam,
+               "21" = tcltk::tkcreate(can, "oval", x-diam, y-diam,
                x+diam, y+diam, outline = col, fill = fill),
-               "22" = tkcreate(can, "rectangle", x-diam, y-diam,
+               "22" = tcltk::tkcreate(can, "rectangle", x-diam, y-diam,
                x+diam, y+diam, outline = col, fill = fill),
-               "23" = tkcreate(can, "polygon", x, y+SQ*diam,
+               "23" = tcltk::tkcreate(can, "polygon", x, y+SQ*diam,
                x+SQ*diam, y, x, y-SQ*diam, x-SQ*diam, y,
                outline = col, fill = fill),
-               "24" = tkcreate(can, "polygon", x, y-SQ*diam,
+               "24" = tcltk::tkcreate(can, "polygon", x, y-SQ*diam,
                x+sqrt(6)/2*diam, y+SQ/2*diam, x-sqrt(6)/2*diam, y+SQ/2*diam,
                outline = col, fill = fill),
-               "25" = tkcreate(can, "polygon", x, y+SQ*diam,
+               "25" = tcltk::tkcreate(can, "polygon", x, y+SQ*diam,
                x+sqrt(6)/2*diam, y-SQ/2*diam, x-sqrt(6)/2*diam, y-SQ/2*diam,
                outline = col, fill = fill),
                "o" = Point(x, y, 1, col, fill, diam),
                ## default: text with dummy location of the label
-               {tkcreate(can, "text",
+               {tcltk::tkcreate(can, "text",
                         x, y, text = as.character(pch), fill = col)
                 Point(x, y, 21, col="", fill="", diam)}
                 )
@@ -147,31 +147,33 @@
 ############################
 
     ## toplevel
-    w <- tktoplevel()
-    tktitle(w) <- deparse(match.call())
+    w <- tcltk::tktoplevel()
+    tcltk::tktitle(w) <- deparse(match.call())
     ## Max dim of windows (depends on screen)
-    YSCR <- as.numeric(tkwinfo("screenheight", w)) - 150
-    XSCR <- as.numeric(tkwinfo("screenwidth", w))
+    YSCR <- as.numeric(tcltk::tkwinfo("screenheight", w)) - 150
+    XSCR <- as.numeric(tcltk::tkwinfo("screenwidth", w))
 
 ################################
 ### Buttons and button functions
 ################################
 
     ## Buttons
-    buts <- tkframe(w)
+    buts <- tcltk::tkframe(w)
     ## Copy current canvas to EPS using the standard Tcl/Tk utility
-    cp2eps <- tkbutton(buts, text="Copy to EPS", 
-                       command=function() tkpostscript(can, x=0, y=0,
-                       height=height, width=width, 
-                       file=tkgetSaveFile(filetypes="{{EPS file} {.eps}}")))
-    dismiss <- tkbutton(buts, text="Dismiss", command=function() tkdestroy(w))
+    cp2eps <- tcltk::tkbutton(buts, text="Copy to EPS",
+                       command=function() tcltk::tkpostscript(can, x=0, y=0,
+                       height=height, width=width,
+                       file=tcltk::tkgetSaveFile(
+                         filetypes="{{EPS file} {.eps}}")))
+    dismiss <- tcltk::tkbutton(buts, text="Dismiss",
+                               command=function() tcltk::tkdestroy(w))
     ## Dump current plot to an "orditkplot" object (internally)
     ordDump <- function() {
         xy <- matrix(0, nrow=nrow(sco), ncol=2)
         rownames(xy) <- rownames(sco)
         colnames(xy) <- colnames(sco)
         for(nm in names(pola)) {
-            xy[as.numeric(tclvalue(id[[nm]])),] <- xy2usr(nm)
+            xy[as.numeric(tcltk::tclvalue(id[[nm]])),] <- xy2usr(nm)
         }
         curdim <- round(c(width, height) /PPI/p2p, 2)
         ## Sanitize colours for R plot
@@ -191,37 +193,37 @@
                    dim = curdim)
         class(xy) <- "orditkplot"
         xy
-    }        
+    }
     ## Button to dump "orditkplot" object to the R session
     pDump <- function() {
         xy <- ordDump()
-        dumpVar <- tclVar("")
-        tt <- tktoplevel()
-        tktitle(tt) <- "R Dump"
-        entryDump <- tkentry(tt, width=20, textvariable=dumpVar)
-        tkgrid(tklabel(tt, text="Enter name for an R object"))
-        tkgrid(entryDump, pady="5m")
+        dumpVar <- tcltk::tclVar("")
+        tt <- tcltk::tktoplevel()
+        tcltk::tktitle(tt) <- "R Dump"
+        entryDump <- tcltk::tkentry(tt, width=20, textvariable=dumpVar)
+        tcltk::tkgrid(tcltk::tklabel(tt, text="Enter name for an R object"))
+        tcltk::tkgrid(entryDump, pady="5m")
         isDone <- function() {
-            dumpName <- tclvalue(dumpVar)
+            dumpName <- tcltk::tclvalue(dumpVar)
             if (exists(dumpName, envir=.GlobalEnv)) {
-                ok <- tkmessageBox(message=paste(sQuote(dumpName),
+                ok <- tcltk::tkmessageBox(message=paste(sQuote(dumpName),
                                    "exists.\nOK to overwrite?"),
                                    icon="warning", type="okcancel",
                                    default="ok")
-                if(tclvalue(ok) == "ok") {
+                if(tcltk::tclvalue(ok) == "ok") {
                     assign(dumpName, xy, envir=.GlobalEnv)
-                    tkdestroy(tt)
+                    tcltk::tkdestroy(tt)
                 }
             }
             else {
                 assign(dumpName, xy, envir=.GlobalEnv)
-                tkdestroy(tt)
+                tcltk::tkdestroy(tt)
             }
         }
-        tkbind(entryDump, "<Return>", isDone)
-        tkfocus(tt)
+        tcltk::tkbind(entryDump, "<Return>", isDone)
+        tcltk::tkfocus(tt)
     }
-    dump <- tkbutton(buts, text="Dump to R", command=pDump)
+    dump <- tcltk::tkbutton(buts, text="Dump to R", command=pDump)
     ## Button to write current "orditkplot" object to a graphical device
     devDump <- function() {
         xy <- ordDump()
@@ -242,10 +244,10 @@
         if (!isTRUE(unname(capabilities("tiff"))))
             falt["tiff"] <- FALSE
         ftypes <- ftypes[falt]
-        fname <- tkgetSaveFile(filetypes=ftypes)
-        if(tclvalue(fname) == "")
+        fname <- tcltk::tkgetSaveFile(filetypes=ftypes)
+        if(tcltk::tclvalue(fname) == "")
             return(NULL)
-        fname <- tclvalue(fname)
+        fname <- tcltk::tclvalue(fname)
         ftype <- unlist(strsplit(fname, "\\."))
         ftype <- ftype[length(ftype)]
         if (ftype == "jpeg")
@@ -254,7 +256,7 @@
             ftype <- "tiff"
         mess <- "is not a supported type: file not produced. Supported types are"
         if (!(ftype %in% names(ftypes))) {
-            tkmessageBox(message=paste(sQuote(ftype), mess, paste(names(ftypes),
+            tcltk::tkmessageBox(message=paste(sQuote(ftype), mess, paste(names(ftypes),
                          collapse=", ")), icon="warning")
             return(NULL)
         }
@@ -272,19 +274,19 @@
         plot.orditkplot(xy)
         dev.off()
     }
-    export <- tkbutton(buts, text="Export plot", command=devDump)
+    export <- tcltk::tkbutton(buts, text="Export plot", command=devDump)
 
 ##########
 ### Canvas
 ##########
-    
+
     ## Make canvas
     sco <- try(scores(x, display=display, choices = choices, ...),
                silent = TRUE)
     if (inherits(sco, "try-error")) {
-        tkmessageBox(message=paste("No ordination scores were found in",
+        tcltk::tkmessageBox(message=paste("No ordination scores were found in",
                      sQuote(deparse(substitute(x)))), icon="error")
-        tkdestroy(w)
+        tcltk::tkdestroy(w)
         stop("argument x did not contain ordination scores")
     }
     if (!missing(labels))
@@ -325,13 +327,13 @@
         ylim <- range(sco[,2], na.rm = TRUE)
     xpretty <- pretty(xlim)
     ypretty <- pretty(ylim)
-    ## Extend ranges by 4% 
+    ## Extend ranges by 4%
     xrange <- c(-0.04, 0.04) * diff(xlim) + xlim
     xpretty <- xpretty[xpretty >= xrange[1] & xpretty <= xrange[2]]
     yrange <- c(-0.04, 0.04) * diff(ylim) + ylim
     ypretty <- ypretty[ypretty >= yrange[1] & ypretty <= yrange[2]]
     ## Canvas like they were in the default devices when I last checked
-    if (missing(width)) 
+    if (missing(width))
         width <- p$din[1]
     width <- width * PPI * p2p
     ## Margin row width also varies with platform and devices
@@ -350,11 +352,11 @@
     }
     ## User coordinates of an item
     xy2usr <- function(item) {
-        xy <- as.numeric(tkcoords(can, item))
-        x <- xy[1] 
-        y <- xy[2] 
-        x <- xrange[1] + (x - mar[2])/xincr 
-        y <- yrange[2] - (y - mar[3])/yincr 
+        xy <- as.numeric(tcltk::tkcoords(can, item))
+        x <- xy[1]
+        y <- xy[2]
+        x <- xrange[1] + (x - mar[2])/xincr
+        y <- yrange[2] - (y - mar[3])/yincr
         c(x,y)
     }
     ## Canvas x or y to user coordinates
@@ -368,49 +370,51 @@
     height <- round((diff(yrange)/diff(xrange)) * xusr)
     height <- height + mar[1] + mar[3]
     ## Canvas, finally
-    can <- tkcanvas(w, relief="sunken", width=width, height=min(height,YSCR),
+    can <- tcltk::tkcanvas(w, relief="sunken", width=width, height=min(height,YSCR),
                     scrollregion=c(0,0,width,height))
     if (p$bg != "")
-        tkconfigure(can, bg=p$bg)
-    yscr <- tkscrollbar(w, command = function(...) tkyview(can, ...))
-    tkconfigure(can, yscrollcommand = function(...) tkset(yscr, ...))
+        tcltk::tkconfigure(can, bg=p$bg)
+    yscr <- tcltk::tkscrollbar(w, command =
+                               function(...) tcltk::tkyview(can, ...))
+    tcltk::tkconfigure(can, yscrollcommand =
+                       function(...) tcltk::tkset(yscr, ...))
     ## Pack it up
-    tkpack(buts, side="bottom", fill="x", pady="2m")
-    tkpack(can, side="left", fill="x")
-    tkpack(yscr, side="right", fill="y")
-    tkgrid(cp2eps, export, dump, dismiss, sticky="s")
+    tcltk::tkpack(buts, side="bottom", fill="x", pady="2m")
+    tcltk::tkpack(can, side="left", fill="x")
+    tcltk::tkpack(yscr, side="right", fill="y")
+    tcltk::tkgrid(cp2eps, export, dump, dismiss, sticky="s")
     ## Box
     x0 <- usr2xy(c(xrange[1], yrange[1]))
     x1 <- usr2xy(c(xrange[2], yrange[2]))
-    tkcreate(can, "rectangle", x0[1], x0[2], x1[1], x1[2], outline = p$fg,
+    tcltk::tkcreate(can, "rectangle", x0[1], x0[2], x1[1], x1[2], outline = p$fg,
              width = p$lwd)
     ## Axes and ticks
     tl <-  -p$tcl * rpix     # -p$tcl * p$ps * p2p
     axoff <- p$mgp[3] * rpix
     tmp <- xpretty
-    for (i in 1:length(tmp)) {
+    for (i in seq_along(tmp)) {
         x0 <- usr2xy(c(xpretty[1], yrange[1]))
         x1 <- usr2xy(c(xpretty[length(xpretty)], yrange[1]))
-        tkcreate(can, "line", x0[1], x0[2]+axoff, x1[1], x1[2]+axoff,
+        tcltk::tkcreate(can, "line", x0[1], x0[2]+axoff, x1[1], x1[2]+axoff,
                  fill=p$fg)
         xx <- usr2xy(c(tmp[i], yrange[1]))
-        tkcreate(can, "line", xx[1], xx[2] + axoff, xx[1], xx[2]+tl+axoff,
-                 fill=p$fg)
-        tkcreate(can, "text", xx[1], xx[2] + rpix * p$mgp[2], anchor="n",
+        tcltk::tkcreate(can, "line", xx[1], xx[2] + axoff, xx[1],
+                        xx[2]+tl+axoff, fill=p$fg)
+        tcltk::tkcreate(can, "text", xx[1], xx[2] + rpix * p$mgp[2], anchor="n",
                  text=as.character(tmp[i]), fill=p$col.axis, font=fnt.axis)
     }
     xx <- usr2xy(c(mean(xrange), yrange[1]))
-    tkcreate(can, "text", xx[1], xx[2] + rpix * p$mgp[1],
+    tcltk::tkcreate(can, "text", xx[1], xx[2] + rpix * p$mgp[1],
              text=colnames(sco)[1], fill=p$col.lab, anchor="n", font=fnt.lab)
     tmp <- ypretty
-    for (i in 1:length(tmp)) {
+    for (i in seq_along(tmp)) {
         x0 <- usr2xy(c(xrange[1], tmp[1]))
         x1 <- usr2xy(c(xrange[1], tmp[length(tmp)]))
-        tkcreate(can, "line", x0[1]-axoff, x0[2], x1[1]-axoff, x1[2])
+        tcltk::tkcreate(can, "line", x0[1]-axoff, x0[2], x1[1]-axoff, x1[2])
         yy <- usr2xy(c(xrange[1], tmp[i]))
-        tkcreate(can, "line", yy[1]-axoff, yy[2], yy[1]-tl-axoff, yy[2],
+        tcltk::tkcreate(can, "line", yy[1]-axoff, yy[2], yy[1]-tl-axoff, yy[2],
                  fill=p$fg )
-        tkcreate(can, "text", yy[1] - rpix * p$mgp[2] , yy[2], anchor="e",
+        tcltk::tkcreate(can, "text", yy[1] - rpix * p$mgp[2] , yy[2], anchor="e",
                  text=as.character(tmp[i]), fill = p$col.axis, font=fnt.axis)
     }
     ## Points and labels
@@ -425,19 +429,19 @@
         lsco <- sco
         laboff <- round(p2p * p$ps/2 + diam + 1)
     }
-    pola <- tclArray()        # points
-    labtext <- tclArray()     # text
-    id <- tclArray()          # index
+    pola <- tcltk::tclArray()        # points
+    labtext <- tcltk::tclArray()     # text
+    id <- tcltk::tclArray()          # index
     for (i in 1:nrow(sco)) {
         xy <- usr2xy(sco[i,])
         item <- Point(xy[1], xy[2], pch = pch[i], col = pcol[i],
                       fill = pbg[i], diam = diam[i])
         xy <- usr2xy(lsco[i,])
         fnt <- c(labfam[i], labsize[i], saneslant(labfnt[i]))
-        lab <- tkcreate(can, "text", xy[1], xy[2]-laboff[i], text=labs[i],
+        lab <- tcltk::tkcreate(can, "text", xy[1], xy[2]-laboff[i], text=labs[i],
                         fill = tcol[i], font=fnt)
-        tkaddtag(can, "point", "withtag", item)
-        tkaddtag(can, "label", "withtag", lab)
+        tcltk::tkaddtag(can, "point", "withtag", item)
+        tcltk::tkaddtag(can, "label", "withtag", lab)
         pola[[lab]] <- item
         labtext[[lab]] <- labs[i]
         id[[lab]] <- i
@@ -446,29 +450,30 @@
 ##############################
 ### Mouse operations on canvas
 ##############################
-    
+
     ## Plotting and Moving
     ## Mouse enters a label
     pEnter <- function() {
-        tkdelete(can, "box")
-        hbox <- tkcreate(can, "rectangle", tkbbox(can, "current"),
+        tcltk::tkdelete(can, "box")
+        hbox <- tcltk::tkcreate(can, "rectangle",
+                                tcltk::tkbbox(can, "current"),
                          outline = "red", fill = "yellow")
-        tkaddtag(can, "box", "withtag", hbox)
-        tkitemraise(can, "current")
+        tcltk::tkaddtag(can, "box", "withtag", hbox)
+        tcltk::tkitemraise(can, "current")
     }
     ## Mouse leaves a label
     pLeave <- function() {
-        tkdelete(can, "box")
+        tcltk::tkdelete(can, "box")
     }
     ## Select label
     pDown <- function(x, y) {
         x <- as.numeric(x)
         y <- as.numeric(y)
-        tkdtag(can, "selected")
-        tkaddtag(can, "selected", "withtag", "current")
-        tkitemraise(can, "current")
-        p <- as.numeric(tkcoords(can,
-                                 pola[[tkfind(can, "withtag", "current")]]))
+        tcltk::tkdtag(can, "selected")
+        tcltk::tkaddtag(can, "selected", "withtag", "current")
+        tcltk::tkitemraise(can, "current")
+        p <- as.numeric(tcltk::tkcoords(can,
+                             pola[[tcltk::tkfind(can, "withtag", "current")]]))
         .pX <<- (p[1]+p[3])/2
         .pY <<- (p[2]+p[4])/2
         .lastX <<- x
@@ -478,40 +483,41 @@
     pMove <- function(x, y) {
         x <- as.numeric(x)
         y <- as.numeric(y)
-        tkmove(can, "selected", x - .lastX, y - .lastY)
-        tkdelete(can, "ptr")
-        tkdelete(can, "box")
+        tcltk::tkmove(can, "selected", x - .lastX, y - .lastY)
+        tcltk::tkdelete(can, "ptr")
+        tcltk::tkdelete(can, "box")
         .lastX <<- x
         .lastY <<- y
         ## xadj,yadj: adjust for canvas scrolling
-        xadj <- as.numeric(tkcanvasx(can, 0))
-        yadj <- as.numeric(tkcanvasy(can, 0))
-        hbox <- tkcreate(can, "rectangle", tkbbox(can, "selected"),
-                         outline = "red")
-        tkaddtag(can, "box", "withtag", hbox)
-        conn <- tkcreate(can, "line", .lastX + xadj, .lastY+yadj,
+        xadj <- as.numeric(tcltk::tkcanvasx(can, 0))
+        yadj <- as.numeric(tcltk::tkcanvasy(can, 0))
+        hbox <- tcltk::tkcreate(can, "rectangle",
+                                tcltk::tkbbox(can, "selected"),
+                                outline = "red")
+        tcltk::tkaddtag(can, "box", "withtag", hbox)
+        conn <- tcltk::tkcreate(can, "line", .lastX + xadj, .lastY+yadj,
                          .pX, .pY, fill="red")
-        tkaddtag(can, "ptr", "withtag", conn)
+        tcltk::tkaddtag(can, "ptr", "withtag", conn)
     }
     ## Edit label
     pEdit <- function() {
-        tkdtag(can, "selected")
-        tkaddtag(can, "selected", "withtag", "current")
-        tkitemraise(can, "current")
-        click <- tkfind(can, "withtag", "current")
-        txt <- tclVar(labtext[[click]])
+        tcltk::tkdtag(can, "selected")
+        tcltk::tkaddtag(can, "selected", "withtag", "current")
+        tcltk::tkitemraise(can, "current")
+        click <- tcltk::tkfind(can, "withtag", "current")
+        txt <- tcltk::tclVar(labtext[[click]])
         i <- as.numeric(id[[click]])
-        tt <- tktoplevel()
-        labEd <- tkentry(tt, width=20, textvariable=txt)
-        tkgrid(tklabel(tt, text = "Edit label"))
-        tkgrid(labEd, pady="5m", padx="5m")
+        tt <- tcltk::tktoplevel()
+        labEd <- tcltk::tkentry(tt, width=20, textvariable=txt)
+        tcltk::tkgrid(tcltk::tklabel(tt, text = "Edit label"))
+        tcltk::tkgrid(labEd, pady="5m", padx="5m")
         isDone <- function() {
-            txt <- tclvalue(txt)
-            tkitemconfigure(can, click, text = txt)
+            txt <- tcltk::tclvalue(txt)
+            tcltk::tkitemconfigure(can, click, text = txt)
             rownames(sco)[i] <<- txt
-            tkdestroy(tt)
+            tcltk::tkdestroy(tt)
         }
-        tkbind(labEd, "<Return>", isDone)
+        tcltk::tkbind(labEd, "<Return>", isDone)
     }
     ## Zooming: draw rectangle and take its user coordinates
     ## Rectangle: first corner
@@ -519,7 +525,7 @@
         x <- as.numeric(x)
         y <- as.numeric(y)
         ## yadj here and below adjusts for canvas scrolling
-        yadj <- as.numeric(tkcanvasy(can, 0))
+        yadj <- as.numeric(tcltk::tkcanvasy(can, 0))
         .pX <<- x
         .pY <<- y + yadj
     }
@@ -527,13 +533,13 @@
     pRect <- function(x, y) {
         x <- as.numeric(x)
         y <- as.numeric(y)
-        tkdelete(can, "box")
-        yadj <- as.numeric(tkcanvasy(can, 0))
+        tcltk::tkdelete(can, "box")
+        yadj <- as.numeric(tcltk::tkcanvasy(can, 0))
         .lastX <<- x
         .lastY <<- y + yadj
-        rect <- tkcreate(can, "rectangle", .pX, .pY, .lastX, .lastY,
+        rect <- tcltk::tkcreate(can, "rectangle", .pX, .pY, .lastX, .lastY,
                          outline="blue")
-        tkaddtag(can, "box", "withtag", rect)
+        tcltk::tkaddtag(can, "box", "withtag", rect)
     }
     ## Redraw ordiktplot with new xlim and ylim
     pZoom <- function() {
@@ -555,20 +561,21 @@
     .pY <- 0
     ## Mouse bindings:
     ## Moving a label
-    tkitembind(can, "label", "<Any-Enter>", pEnter)
-    tkitembind(can, "label", "<Any-Leave>", pLeave)
-    tkitembind(can, "label", "<1>", pDown)
-    tkitembind(can, "label", "<ButtonRelease-1>",
-               function() {tkdtag(can, "selected"); tkdelete(can, "ptr")})
-    tkitembind(can, "label", "<B1-Motion>", pMove)
+    tcltk::tkitembind(can, "label", "<Any-Enter>", pEnter)
+    tcltk::tkitembind(can, "label", "<Any-Leave>", pLeave)
+    tcltk::tkitembind(can, "label", "<1>", pDown)
+    tcltk::tkitembind(can, "label", "<ButtonRelease-1>",
+               function() {tcltk::tkdtag(can, "selected")
+                           tcltk::tkdelete(can, "ptr")})
+    tcltk::tkitembind(can, "label", "<B1-Motion>", pMove)
     ## Edit labels
-    tkitembind(can, "label", "<Double-Button-1>", pEdit) 
+    tcltk::tkitembind(can, "label", "<Double-Button-1>", pEdit)
     ## Zoom (with one-button mouse)
-    tkbind(can, "<Shift-Button-1>", pRect0)
-    tkbind(can, "<Shift-B1-Motion>", pRect)
-    tkbind(can, "<Shift-ButtonRelease>", pZoom)
+    tcltk::tkbind(can, "<Shift-Button-1>", pRect0)
+    tcltk::tkbind(can, "<Shift-B1-Motion>", pRect)
+    tcltk::tkbind(can, "<Shift-ButtonRelease>", pZoom)
     ## Zoom (with right button)
-    tkbind(can, "<Button-3>", pRect0)
-    tkbind(can, "<B3-Motion>", pRect)
-    tkbind(can, "<ButtonRelease-3>", pZoom)
+    tcltk::tkbind(can, "<Button-3>", pRect0)
+    tcltk::tkbind(can, "<B3-Motion>", pRect)
+    tcltk::tkbind(can, "<ButtonRelease-3>", pZoom)
 }

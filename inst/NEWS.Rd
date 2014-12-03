@@ -2,6 +2,28 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.2-1}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{tolerance} function failed for unconstrained
+      correspondence analysis.
+
+    }
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{linestack} accepts now expressions (such as
+      mathematical notation) as labels.
+
+    }
+  } % new features
+
+} % v2.2-1
+
 \section{Changes in version 2.2-0}{
 
   \subsection{GENERAL}{
