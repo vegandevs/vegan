@@ -4,6 +4,16 @@
 
 \section{Changes in version 2.2-1}{
 
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item \pkg{vegan} can be installed and loaded without \pkg{tcltk}
+      package. The \pkg{tcltk} package is needed in \code{orditkplot}
+      function for interactive editing of ordination graphics.
+
+    }
+  }
+
   \subsection{BUG FIXES}{
     \itemize{
 
