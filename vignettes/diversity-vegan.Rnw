@@ -596,7 +596,7 @@ $\frac{N}{N-1}$, but it was not originally used \citep{Chao87}.
 The variance the estimator of the basic Chao estimate is \citep{ChiuEtal14}:
 \begin{multline}
 \label{eq:var-chao-basic}
-s^2 = f_2 \left(A^2 \frac{G^4}{4} + A^2 G^3 + A \frac{G^2}{2} \right),\\
+s^2 = f_1 \left(A^2 \frac{G^3}{4} + A^2 G^2 + A \frac{G}{2} \right),\\
 \text{where}\; A = \frac{N-1}{N}\;\text{and}\; G = \frac{f_1}{f_2} 
 \end{multline}
 The variance of bias-corrected Chao estimate can be approximated by
