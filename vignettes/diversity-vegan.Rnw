@@ -573,18 +573,25 @@ species is related to the number of rare species, or species seen only
 once or twice.
 
 Function \code{specpool} implements the following models to estimate
-the pool size $S_p$ \citep{SmithVanBelle84, Chao87, ChiuEtal14}:
+the pool size $S_p$. Chao estimator \citep{Chao87, ChiuEtal14} is:
+\begin{equation}
+\label{eq:chao}
+S_p = S_o + \begin{cases} 
+    \frac{f_1^2}{2 f_2} \frac{N-1}{N} &\text{if } f_2 > 0 \\
+\frac{f_1 (f_1 -1)}{2}  \frac{N-1}{N} & \text{if } f_2 = 0
+\end{cases}
+\end{equation}
+The latter case for $f_2=0$ is known as the bias-corrected form. The
+first and second order jackknife estimators \citep{SmithVanBelle84} are:
 \begin{align}
-\label{eq:chao-basic}
-S_p &= S_o + \frac{f_1^2}{2 f_2} \frac{N-1}{N} & \text{Chao}\\
-\label{eq:chao-bc}
-S_p &= S_o + \frac{f_1 (f_1 -1)}{2 (f_2+1)}  \frac{N-1}{N} & \text{Chao bias-corrected}\\
-S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
-S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
-& \text{2nd order Jackknife}\\
-S_p &= S_o + \sum_{i=1}^{S_o} (1-p_i)^N & \text{Bootstrap}
+S_p &= S_o + f_1 \frac{N-1}{N}  \\ 
+S_p & = S_o + f_1 \frac{2N-3}{N}  + f_2 \frac{(N-2)^2}{N(N-1)}
 \end{align}
-Here $S_o$ is the observed number of species, $f_1$ and $f_2$ are the
+The boostrap estimator \citep{SmithVanBelle84} is:
+\begin{equation}
+S_p = S_o + \sum_{i=1}^{S_o} (1-p_i)^N
+\end{equation}
+In all these, $S_o$ is the observed number of species, $f_1$ and $f_2$ are the
 numbers of species observed once or twice, $N$ is the number of sites,
 and $p_i$ are proportions of species.  The idea in jackknife seems to
 be that we missed about as many species as we saw only once, and the
@@ -599,26 +606,20 @@ The variance the estimator of the basic Chao estimate is \citep{ChiuEtal14}:
 s^2 = f_1 \left(A^2 \frac{G^3}{4} + A^2 G^2 + A \frac{G}{2} \right),\\
 \text{where}\; A = \frac{N-1}{N}\;\text{and}\; G = \frac{f_1}{f_2} 
 \end{multline}
-The variance of bias-corrected Chao estimate can be approximated by
-replacing the terms of eq.~\ref{eq:var-chao-basic} with the
-corresponding terms in eq.~\ref{eq:chao-bc}:
-\begin{multline}
-\label{eq:var-chao-bc}
-s^2 = A \frac{f_1(f_1-1)}{2(f_2+1)} + A^2 \frac{f_1(2 f_1+1)^2}{(f_2+1)^2}\\
- + A^2 \frac{f_1^2 f_2 (f_1 -1)^2}{4 (f_2 + 1)^4}
-\end{multline}
-If we apply the bias-correction in the special case where there are no
-doubletons ($f_2 = 0$), the he variance is 
+%% The variance of bias-corrected Chao estimate can be approximated by
+%% replacing the terms of eq.~\ref{eq:var-chao-basic} with the
+%% corresponding terms of the bias-correcter form of in eq.~\ref{eq:chao}:
+%% \begin{multline}
+%% \label{eq:var-chao-bc}
+%% s^2 = A \frac{f_1(f_1-1)}{2} + A^2 \frac{f_1(2 f_1+1)^2}{(f_2+1)^2}\\
+%%  + A^2 \frac{f_1^2 f_2 (f_1 -1)^2}{4 (f_2 + 1)^4}
+%% \end{multline}
+For the bias-corrected form of eq.~\ref{eq:chao}  (case $f_2 = 0$), the he variance is 
 \citep[who omit small-sample correction in some terms]{ChiuEtal14}:
 \begin{multline}
 \label{eq:var-chao-bc0}
 s^2 = \frac{1}{4} A^2 f_1 (2f_1 -1)^2 + \frac{1}{2} A f_1 (f_1-1) - \frac{1}{4}A^2 \frac{f_1^4}{S_p}
 \end{multline}
-Function \code{specpool} uses eq.~\ref{eq:chao-basic} and estimates
-its variance with eq.~\ref{eq:var-chao-basic} when $f_2 > 0$. When
-$f_2 = 0$, \code{specpool} applies eq.~\ref{eq:chao-bc} which reduces
-to $\frac{N-1}{N} \frac{1}{2} f_1 (f_1 - 1)$, and its variance
-estimator eq.~\ref{eq:var-chao-bc0}.
 
 The variance of the first-order jackknife is based on the number of
 ``singletons'' $r$ (species occurring only once in the data) in sample
@@ -658,11 +659,27 @@ two of these methods:
 <<>>=
 estimateR(BCI[k,])
 @ 
+In abundance based models $a_i$ denotes the number of species with $i$
+individuals, and takes the place of $f_i$ of previous models.
 Chao's method is similar as the bias-corrected model
-eq.~\ref{eq:chao-bc} with its variance estimator
-eq.~\ref{eq:var-chao-bc}, but it uses counts of individuals instead of
-incidences, and does not use small sample correction.  \textsc{ace} is
-based on rare species also:
+eq.~\ref{eq:chao} \citep{Chao87, ChiuEtal14}:
+\begin{equation}
+  \label{eq:chao-bc}
+  S_p = S_o + \frac{a_1 (a_1 - 1)}{2 (a_2 + 1)}
+\end{equation}
+with approximate variance estimator
+\begin{multline}
+  \label{eq:var-chao-bc}
+ s^2 = \frac{a_1(a_1-1)}{2} + \frac{a_1(2 a_1+1)^2}{(a_2+1)^2}\\
+  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4} \end{multline}
+When $f_2=0$, eq.~\ref{eq:chao-bc} reduces to the bias-corrected form
+of eq.~\ref{eq:chao}, but quantitative estimators are based on
+abundances and do not use small-sample correction. This is not usually
+needed because sample sizes are total numbers of individuals, and
+these are usually high, unlike in frequency based models, where the
+sample size is the number of sites \citep{ChiuEtal14}.
+
+\textsc{ace} is based on rare species also:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
