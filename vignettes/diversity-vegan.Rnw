@@ -671,7 +671,8 @@ with approximate variance estimator
 \begin{multline}
   \label{eq:var-chao-bc}
  s^2 = \frac{a_1(a_1-1)}{2} + \frac{a_1(2 a_1+1)^2}{(a_2+1)^2}\\
-  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4} \end{multline}
+  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4}
+\end{multline}
 When $f_2=0$, eq.~\ref{eq:chao-bc} reduces to the bias-corrected form
 of eq.~\ref{eq:chao}, but quantitative estimators are based on
 abundances and do not use small-sample correction. This is not usually
