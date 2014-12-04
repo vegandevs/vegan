@@ -52,7 +52,7 @@
             a1/a2
         else 0
         if (a2 > 0)
-            var.chao[is] <- a2 * ssc * (0.5 + ssc * (1 + aa/4) * aa) * aa * aa
+            var.chao[is] <- a1 * ssc * (0.5 + ssc * (1 + aa/4) * aa) * aa
         else
             var.chao[is] <-
                 ssc * (ssc * (a1*(2*a1-1)^2/4 - a1^4/chao[is]/4) + a1*(a1-1)/2)
