@@ -12,7 +12,9 @@
 {
     ## Order by the lengths of spanning tree links
     o <- order(x$dist)
-    npoints <- length(o) + 1
+    npoints <- x$n
+    if(npoints < 2)
+        stop("needs at least two points")
     ## Ordered indices of dads and kids
     dad <- (2:npoints)[o]
     kid <- x$kid[o]
