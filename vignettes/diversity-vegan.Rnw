@@ -572,11 +572,25 @@ with a single site.  Both functions assume that the number of unseen
 species is related to the number of rare species, or species seen only
 once or twice.
 
+The incidence-based functions group species by their number of
+occurrences $f_i = f_0, f_1, \ldots, f_N$, where $f$ is the number of
+species occuring in exactly $i$ sites in the data: $f_N$ is the number
+of species occurring on every $N$ site, $f_1$ the number of species
+occurring once, and $f_0$ the number of species in the species pool
+but not found in the sample. The total number of species in the pool
+$S_p$ is
+\begin{equation}
+S_p = \sum_{i=0}^N f_i = f_0+ S_o \,,
+\end{equation}
+where $S_o = \sum_{i>0} f_i$ is the observed number of species. The
+models for pool estimate the number of species missing in the sample
+$f_0$,.  
+
 Function \code{specpool} implements the following models to estimate
-the pool size $S_p$. Chao estimator \citep{Chao87, ChiuEtal14} is:
+the number of missing species $f_0$. Chao estimator \citep{Chao87, ChiuEtal14} is:
 \begin{equation}
 \label{eq:chao}
-S_p = S_o + \begin{cases} 
+\hat f_0 = \begin{cases} 
     \frac{f_1^2}{2 f_2} \frac{N-1}{N} &\text{if } f_2 > 0 \\
 \frac{f_1 (f_1 -1)}{2}  \frac{N-1}{N} & \text{if } f_2 = 0
 \end{cases}
@@ -584,26 +598,27 @@ S_p = S_o + \begin{cases}
 The latter case for $f_2=0$ is known as the bias-corrected form. The
 first and second order jackknife estimators \citep{SmithVanBelle84} are:
 \begin{align}
-S_p &= S_o + f_1 \frac{N-1}{N}  \\ 
-S_p & = S_o + f_1 \frac{2N-3}{N}  + f_2 \frac{(N-2)^2}{N(N-1)}
+\hat f_0 &=  f_1 \frac{N-1}{N}  \\ 
+\hat f_0 & =  f_1 \frac{2N-3}{N}  + f_2 \frac{(N-2)^2}{N(N-1)}
 \end{align}
 The boostrap estimator \citep{SmithVanBelle84} is:
 \begin{equation}
-S_p = S_o + \sum_{i=1}^{S_o} (1-p_i)^N
+\hat f_0 =  \sum_{i=1}^{S_o} (1-p_i)^N
 \end{equation}
-In all these, $S_o$ is the observed number of species, $f_1$ and $f_2$ are the
-numbers of species observed once or twice, $N$ is the number of sites,
-and $p_i$ are proportions of species.  The idea in jackknife seems to
-be that we missed about as many species as we saw only once, and the
-idea in bootstrap that if we repeat sampling (with replacement) from
-the same data, we miss as many species as we missed originally.
-\citet{ChiuEtal14} introduced the small-sample correction term
-$\frac{N}{N-1}$, but it was not originally used \citep{Chao87}.
+The idea in jackknife seems to be that we missed about as many species
+as we saw only once, and the idea in bootstrap that if we repeat
+sampling (with replacement) from the same data, we miss as many
+species as we missed originally.  \citet{ChiuEtal14} introduced the
+small-sample correction term $\frac{N}{N-1}$, but it was not
+originally used \citep{Chao87}.
 
-The variance the estimator of the basic Chao estimate is \citep{ChiuEtal14}:
+The variance estimaters only concern the estimated number of missing
+species $\hat f_0$, although they are often expressed as they would
+apply to the pool size $S_p$; this is only true if we assume that
+$\VAR(S_o) = 0$.  The variance of the Chao estimate is \citep{ChiuEtal14}:
 \begin{multline}
 \label{eq:var-chao-basic}
-s^2 = f_1 \left(A^2 \frac{G^3}{4} + A^2 G^2 + A \frac{G}{2} \right),\\
+\VAR(\hat f_0) = f_1 \left(A^2 \frac{G^3}{4} + A^2 G^2 + A \frac{G}{2} \right),\\
 \text{where}\; A = \frac{N-1}{N}\;\text{and}\; G = \frac{f_1}{f_2} 
 \end{multline}
 %% The variance of bias-corrected Chao estimate can be approximated by
@@ -618,21 +633,21 @@ For the bias-corrected form of eq.~\ref{eq:chao}  (case $f_2 = 0$), the he varia
 \citep[who omit small-sample correction in some terms]{ChiuEtal14}:
 \begin{multline}
 \label{eq:var-chao-bc0}
-s^2 = \frac{1}{4} A^2 f_1 (2f_1 -1)^2 + \frac{1}{2} A f_1 (f_1-1) - \frac{1}{4}A^2 \frac{f_1^4}{S_p}
+\VAR(\hat f_0) = \frac{1}{4} A^2 f_1 (2f_1 -1)^2 + \frac{1}{2} A f_1 (f_1-1) - \frac{1}{4}A^2 \frac{f_1^4}{S_p}
 \end{multline}
 
 The variance of the first-order jackknife is based on the number of
 ``singletons'' $r$ (species occurring only once in the data) in sample
 plots \citep{SmithVanBelle84}:
 \begin{equation}
-s^2 = \left(\sum_{i=1}^N r_i^2 - \frac{f_1}{N}\right) \frac{N-1}{N}
+\VAR(\hat f_0) = \left(\sum_{i=1}^N r_i^2 - \frac{f_1}{N}\right) \frac{N-1}{N}
 \end{equation}
 Variance of the second-order jackknife is not evaluated in
 \code{specpool} (but contributions are welcome).
 For the variance of bootstrap estimator, it is practical to define a
 new variable $q_i = (1-p_i)^N$ for each species \citep{SmithVanBelle84}:
 \begin{multline}
-s^2 = \sum_{i=1}^{S_o} q_i (1-q_i)  \\ +2 \sum_{i \neq j}^{S_o} \left[(Z_{ij}/N)^N - q_i q_j \right]
+\VAR(\hat f_0) = \sum_{i=1}^{S_o} q_i (1-q_i)  \\ +2 \sum_{i \neq j}^{S_o} \left[(Z_{ij}/N)^N - q_i q_j \right]
 \end{multline}
 where $Z_{ij}$ is the number of sites where both species are absent.
 
@@ -689,6 +704,7 @@ following \citet[web appendix]{ChiuEtal14}:
       a_1 a_2^2 -2 S_p a_2^3 \\+ 4 S_p a_1^2 + S_p a_1 a_2 -5 S_p a_2^2 - a_1^3 - 2
       a_1^2 a_2\\ - a_1 a_2^2 - 2 S_p a_1 - 4 S_p a_2 - S_p ) ]\,.
 \end{multline}
+These estimators only concern the number of unseen species like previously.
 
 The \textsc{ace} is estimator is defined as:
 \begin{equation}
