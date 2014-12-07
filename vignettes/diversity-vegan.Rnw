@@ -665,22 +665,32 @@ Chao's method is similar as the bias-corrected model
 eq.~\ref{eq:chao} \citep{Chao87, ChiuEtal14}:
 \begin{equation}
   \label{eq:chao-bc}
-  S_p = S_o + \frac{a_1 (a_1 - 1)}{2 (a_2 + 1)}
+  S_p = S_o + \frac{a_1 (a_1 - 1)}{2 (a_2 + 1)}\,.
 \end{equation}
-with approximate variance estimator
-\begin{multline}
-  \label{eq:var-chao-bc}
- s^2 = \frac{a_1(a_1-1)}{2} + \frac{a_1(2 a_1+1)^2}{(a_2+1)^2}\\
-  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4}
-\end{multline}
 When $f_2=0$, eq.~\ref{eq:chao-bc} reduces to the bias-corrected form
 of eq.~\ref{eq:chao}, but quantitative estimators are based on
 abundances and do not use small-sample correction. This is not usually
 needed because sample sizes are total numbers of individuals, and
 these are usually high, unlike in frequency based models, where the
-sample size is the number of sites \citep{ChiuEtal14}.
+sample size is the number of sites \citep{ChiuEtal14}. 
 
-\textsc{ace} is based on rare species also:
+A commonly used approximate variance estimator of eq.~\ref{eq:chao-bc} is:
+\begin{multline}
+  \label{eq:var-chao-bc}
+ s^2 = \frac{a_1(a_1-1)}{2} + \frac{a_1(2 a_1+1)^2}{(a_2+1)^2}\\
+  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4}
+\end{multline}
+However, \pkg{vegan} does not use this, but instead the following more
+exact form which was directly derived from eq.~\ref{eq:chao-bc}
+following \citet[web appendix]{ChiuEtal14}:
+\begin{multline}
+  s^2 = \frac{1}{4} \frac{1}{(a_2+1)^4 S_p} [a_1 (S_p a_1^3
+      a_2 + 4 S_p a_1^2 a_2^2 \\+  2 S_p a_1 a_2^3 + 6 S_p a_1^2 a_2 + 2 S_p
+      a_1 a_2^2 -2 S_p a_2^3 \\+ 4 S_p a_1^2 + S_p a_1 a_2 -5 S_p a_2^2 - a_1^3 - 2
+      a_1^2 a_2\\ - a_1 a_2^2 - 2 S_p a_1 - 4 S_p a_2 - S_p ) ]\,.
+\end{multline}
+
+The \textsc{ace} is estimator is defined as:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
