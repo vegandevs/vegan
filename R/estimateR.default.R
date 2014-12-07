@@ -62,6 +62,17 @@
         sqrt(SSC*(a[1]*(a[1]-1)/2/(a[2]+1) +
                   SSC*(a[1]*(2*a[1]-1)^2/4/(a[2]+1)^2 +
                        a[1]^2*a[2]*(a[1]-1)^2/4/(a[2]+1)^4)))
+    ## The commonly used variance estimator is wrong for bias-reduced
+    ## Chao estimate. It is based on the variance estimator of basic
+    ## Chao estimate, but replaces the basic terms with corresponding
+    ## terms in the bias-reduced estimate. The following is directly
+    ## derived from the bias-reduced estimate.
+    sd.Chao <- (a[1]*((-a[2]^2+(-2*a[2]-a[1])*a[1])*a[1] +
+                (-1+(-4+(-5-2*a[2])*a[2])*a[2] +
+                     (-2+(-1+(2*a[2]+2)*a[2])*a[2] +
+                      (4+(6+4*a[2])*a[2] + a[1]*a[2])*a[1])*a[1])*S.Chao1))/
+                          4/(a[2]+1)^4/S.Chao1
+    sd.Chao <- sqrt(sd.Chao)
     ##else
     ##    sd.Chao1 <- 0
     C.ace <- 1 - a[1]/N.rare
@@ -72,7 +83,8 @@
     S.ACE <- S.abund + S.rare/C.ace + max(Gam, 0) * a[1]/C.ace
     sd.ACE <- sqrt(sum(Deriv.Ch1 %*% t(Deriv.Ch1) * (diag(a) - 
                                                      a %*% t(a)/S.ACE)))
-    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1, 
+    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1,
+                se.chao = sd.Chao,
                 S.ACE = S.ACE, se.ACE = sd.ACE)
     out <- unlist(out)
     out
