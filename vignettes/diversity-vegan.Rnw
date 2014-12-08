@@ -142,11 +142,11 @@ richness actually may be caused by differences in sample size.  To
 solve this problem, we may try to rarefy species richness to the same
 number of individuals.  Expected number of species in a community
 rarefied from $N$ to $n$ individuals is \citep{Hurlbert71}:
-\begin{multline}
+\begin{equation}
 \label{eq:rare}
-\hat S_n = \sum_{i=1}^S (1 - q_i),\\ \text{where} \quad q_i = {N-x_i
-  \choose n} \Bigm /{N \choose n}
-\end{multline}
+\hat S_n = \sum_{i=1}^S (1 - q_i)\,, \quad\text{where }  q_i =
+\frac{{N-x_i \choose n}}{{N \choose n}} \,,
+\end{equation}
 where $x_i$ is the count of species $i$, and ${N \choose n}$ is the
 binomial coefficient, or the number of ways we can choose $n$ from
 $N$, and $q_i$ give the probabilities that species $i$ does \emph{not} occur in a
@@ -155,9 +155,9 @@ other cases $q_i = 0$ or the species is sure to occur in the sample.
 The variance of rarefied richness is \citep{HeckEtal75}:
 \begin{multline}
 \label{eq:rarevar}
-s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
-    \choose n} \Bigm / {N
-    \choose n} - q_i q_j\right]
+s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ \frac{{N- x_i - x_j
+    \choose n}}{ {N
+    \choose n}} - q_i q_j\right]
 \end{multline}
 Equation \ref{eq:rarevar} actually is of the same form as the variance
 of sum of correlated variables:
@@ -426,8 +426,8 @@ to these individuals.  Kindt's exact accumulator resembles rarefaction
 \citep{UglandEtal03}:
 \begin{multline}
 \label{eq:kindt}
-\hat S_n = \sum_{i=1}^S (1 - p_i), \, \\ \text{where} \quad  p_i = {N- f_i
-\choose n} \Bigm / {N \choose n}
+\hat S_n = \sum_{i=1}^S (1 - p_i), \,\quad \text{where }
+p_i = \frac{{N- f_i \choose n}}{{N \choose n}}
 \end{multline}
 where $f_i$ is the frequency of species $i$.  Approximate variance
 estimator is:
