@@ -103,8 +103,8 @@ Tsallis diversity of order $q$ is \citep{Tothmeresz95}:
 \begin{equation}
   H_q = \frac{1}{q-1} \left(1 - \sum_{i=1}^S p^q \right) \, .
 \end{equation}
-This corresponds to common diversity indices: $H_0 = S-1$, $H_1 = H'$,
-and $H_2 = D_2$, and can be converted to the Hill number:
+These correspond to common diversity indices: $H_0 = S-1$, $H_1 = H'$,
+and $H_2 = D_1$, and can be converted to Hill numbers:
 \begin{equation}
   N_q = (1 - (q-1) H_q )^\frac{1}{1-q} \, .
 \end{equation}
