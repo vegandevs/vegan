@@ -150,7 +150,7 @@ rarefied from $N$ to $n$ individuals is \citep{Hurlbert71}:
 where $x_i$ is the count of species $i$, and ${N \choose n}$ is the
 binomial coefficient, or the number of ways we can choose $n$ from
 $N$, and $q_i$ give the probabilities that species $i$ does \emph{not} occur in a
-sample of size $n$.  This is defined only when $N-x_i > n$, but for
+sample of size $n$.  This is positive only when $N-x_i \ge n$, but for
 other cases $q_i = 0$ or the species is sure to occur in the sample.
 The variance of rarefied richness is \citep{HeckEtal75}:
 \begin{multline}
@@ -775,8 +775,8 @@ the target species in the smoothing (Fig. \ref{fig:beals}):
 <<a>>=
 j <- which(colnames(BCI) == "Ceiba.pentandra")
 plot(beals(BCI, species=j, include=FALSE), BCI[,j], 
-     main="Ceiba pentandra", xlab="Probability of occurrence",
-     ylab="Occurrence")
+     ylab="Occurrence", main="Ceiba pentandra", 
+     xlab="Probability of occurrence")
 @
 \begin{figure}
 <<fig=true,echo=false>>=
