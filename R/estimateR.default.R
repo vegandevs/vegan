@@ -55,15 +55,26 @@
     ##else
     ##    S.Chao1 <- S.obs
     Deriv.Ch1 <- gradF(a, i)
-    ##if (a[2] > 0)
-    ##    sd.Chao1 <- sqrt(a[2] * (SSC * (SSC * (G^4/4 + G^3) + G^2/2)))
-    ##else if (a[1] > 0)
-    sd.Chao1 <-
-        sqrt(SSC*(a[1]*(a[1]-1)/2/(a[2]+1) +
-                  SSC*(a[1]*(2*a[1]-1)^2/4/(a[2]+1)^2 +
-                       a[1]^2*a[2]*(a[1]-1)^2/4/(a[2]+1)^4)))
-    ##else
-    ##    sd.Chao1 <- 0
+
+    ## The commonly used variance estimator is wrong for bias-reduced
+    ## Chao estimate. It is based on the variance estimator of basic
+    ## Chao estimate, but replaces the basic terms with corresponding
+    ## terms in the bias-reduced estimate. The following is directly
+    ## derived from the bias-reduced estimate.
+
+    ## The commonly used one (for instance, in EstimateS):
+    ##sd.Chao1 <-
+    ##    sqrt(SSC*(a[1]*(a[1]-1)/2/(a[2]+1) +
+    ##              SSC*(a[1]*(2*a[1]-1)^2/4/(a[2]+1)^2 +
+    ##                  a[1]^2*a[2]*(a[1]-1)^2/4/(a[2]+1)^4)))
+
+    sd.Chao1 <- (a[1]*((-a[2]^2+(-2*a[2]-a[1])*a[1])*a[1] +
+                       (-1+(-4+(-5-2*a[2])*a[2])*a[2] +
+                        (-2+(-1+(2*a[2]+2)*a[2])*a[2] +
+                         (4+(6+4*a[2])*a[2] + a[1]*a[2])*a[1])*a[1])*S.Chao1))/
+                             4/(a[2]+1)^4/S.Chao1
+    sd.Chao1 <- sqrt(sd.Chao1)
+
     C.ace <- 1 - a[1]/N.rare
     i <- seq_along(a)
     thing <- i * (i - 1) * a
@@ -72,7 +83,7 @@
     S.ACE <- S.abund + S.rare/C.ace + max(Gam, 0) * a[1]/C.ace
     sd.ACE <- sqrt(sum(Deriv.Ch1 %*% t(Deriv.Ch1) * (diag(a) - 
                                                      a %*% t(a)/S.ACE)))
-    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1, 
+    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1,
                 S.ACE = S.ACE, se.ACE = sd.ACE)
     out <- unlist(out)
     out
