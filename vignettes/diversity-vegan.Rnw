@@ -584,11 +584,11 @@ S_p = \sum_{i=0}^N f_i = f_0+ S_o \,,
 \end{equation}
 where $S_o = \sum_{i>0} f_i$ is the observed number of species.  The
 sampling proportion $i/N$ is an estimate for the commonness of the
-species in the community. When species is present in the community,
-$i=0$ is an obvious under-estimate, and consequently, for values $i>0$
-the species commonness is generally over-estimated \citep{Good53}. The
-models for pool estimate the number of species missing in the sample
-$f_0$.  
+species in the community. When species is present in the community but
+not in the sample, $i=0$ is an obvious under-estimate, and
+consequently, for values $i>0$ the species commonness is
+over-estimated \citep{Good53}. The models for the pool size estimate
+the number of species missing in the sample $f_0$.
 
 Function \code{specpool} implements the following models to estimate
 the number of missing species $f_0$. Chao estimator  is \citep{Chao87, ChiuEtal14}:
