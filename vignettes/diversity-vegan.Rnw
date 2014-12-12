@@ -117,7 +117,7 @@ R <- renyi(BCI[k,])
 We can really regard a site more diverse if all of its R\'{e}nyi
 diversities are higher than in another site.  We can inspect this
 graphically using the standard \code{plot} function for the
-\code{renyi} result (Fig. \ref{fig:renyi}).
+\code{renyi} result (Fig.~\ref{fig:renyi}).
 \begin{figure}
 <<fig=true,echo=false>>=
 print(plot(R))
@@ -159,7 +159,7 @@ s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ \frac{{N- x_i - x_j
     \choose n}}{ {N
     \choose n}} - q_i q_j\right] \,.
 \end{multline}
-Equation \ref{eq:rarevar} actually is of the same form as the variance
+Equation~\ref{eq:rarevar} actually is of the same form as the variance
 of sum of correlated variables:
 \begin{equation}
 \VAR \left(\sum x_i \right) = \sum \VAR (x_i) + 2 \sum_{i=1}^S
@@ -256,7 +256,7 @@ data in \pkg{vegan}\footnote{Actually I made such a classification,
   but taxonomic differences proved to be of little use in the Barro
   Colorado data: they only singled out sites with Monocots (palm
   trees) in the data.}
-but there is such a table for the Dune meadow data (Fig. \ref{fig:taxondive}):
+but there is such a table for the Dune meadow data (Fig.~\ref{fig:taxondive}):
 <<>>=
 data(dune)
 data(dune.taxon)
@@ -314,7 +314,7 @@ individuals is \citep{FisherEtal43}:
 where $\alpha$ is the diversity parameter, and $x$ is a nuisance
 parameter defined by $\alpha$ and total number
 of individuals $N$ in the site, $x = N/(N-\alpha)$.  Fisher's
-log-series for a randomly selected plot is (Fig. \ref{fig:fisher}):
+log-series for a randomly selected plot is (Fig.~\ref{fig:fisher}):
 <<>>=
 k <- sample(nrow(BCI), 1)
 fish <- fisherfit(BCI[k,])
@@ -381,7 +381,7 @@ It is customary to define the models for proportions $p_r$ instead of
 abundances $a_r$, but there is no reason for this, and \code{radfit}
 is able to work with the original abundance data.  We have count data,
 and the default Poisson error looks appropriate, and our example data
-set gives (Fig. \ref{fig:rad}):
+set gives (Fig.~\ref{fig:rad}):
 <<>>=
 rad <- radfit(BCI[k,])
 rad
@@ -439,8 +439,8 @@ s^2 = p_i (1 - p_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left( r_{ij}
   \sqrt{p_i(1-p_i)} \sqrt{p_j (1-p_j)}\right) \,,
 \end{multline}
 where $r_{ij}$ is the correlation coefficient between species $i$ and
-$j$.  Both of these are unpublished: eq. \ref{eq:kindt} was developed
-by Roeland Kindt, and eq. \ref{eq:kindtvar} by Jari Oksanen. The third
+$j$.  Both of these are unpublished: eq.~\ref{eq:kindt} was developed
+by Roeland Kindt, and eq.~\ref{eq:kindtvar} by Jari Oksanen. The third
 analytic method was suggested by \citet{Coleman82}:
 \begin{equation}
 \label{eq:cole}
@@ -448,11 +448,11 @@ S_n = \sum_{i=1}^S (1 - p_i), \quad \text{where }  p_i = \left(1 -
   \frac{1}{n}\right)^{f_i} \,,
 \end{equation}
 and the suggested variance is $s^2 = p_i (1-p_i)$ which ignores the
-covariance component.  In addition, eq. \ref{eq:cole} does not
+covariance component.  In addition, eq.~\ref{eq:cole} does not
 properly handle sampling without replacement and underestimates the
 species accumulation curve.
 
-The recommended is Kindt's exact method (Fig. \ref{fig:sac}):
+The recommended is Kindt's exact method (Fig.~\ref{fig:sac}):
 <<a>>=
 sac <- specaccum(BCI)
 plot(sac, ci.type="polygon", ci.col="yellow")
@@ -497,7 +497,7 @@ community.  \citet{Whittaker60} noticed this, and suggested the index
 to be found from pairwise comparison of sites. If the number of shared
 species in two sites is $a$, and the numbers of species unique to each
 site are $b$ and $c$, then $\bar \alpha = (2a + b + c)/2$ and $S =
-a+b+c$, and index \ref{eq:beta} can be expressed as:
+a+b+c$, and index~\ref{eq:beta} can be expressed as:
 \begin{equation}
   \label{eq:betabray}
   \beta = \frac{a+b+c}{(2a+b+c)/2} - 1 = \frac{b+c}{2a+b+c} \,.
@@ -544,7 +544,7 @@ Function \code{betadisper} can be used to analyse beta diversities
 with respect to classes or factors \citep{Anderson06, AndersonEtal06}.
 There is no such classification available for the Barro Colorado
 Island data, and the example studies beta diversities in the
-management classes of the dune meadows (Fig. \ref{fig:betadisper}):
+management classes of the dune meadows (Fig.~\ref{fig:betadisper}):
 <<>>=
 data(dune)
 data(dune.env)
@@ -776,7 +776,7 @@ smo <- beals(BCI)
 We may see how the estimated probability of occurrence and observed
 numbers of stems relate in one of the more familiar species. We study
 only one species, and to avoid circular reasoning we do not include
-the target species in the smoothing (Fig. \ref{fig:beals}):
+the target species in the smoothing (Fig.~\ref{fig:beals}):
 <<a>>=
 j <- which(colnames(BCI) == "Ceiba.pentandra")
 plot(beals(BCI, species=j, include=FALSE), BCI[,j], 
