@@ -638,7 +638,7 @@ $\VAR(S_o) = 0$.  The variance of the Chao estimate is \citep{ChiuEtal14}:
 %% s^2 = A \frac{f_1(f_1-1)}{2} + A^2 \frac{f_1(2 f_1+1)^2}{(f_2+1)^2}\\
 %%  + A^2 \frac{f_1^2 f_2 (f_1 -1)^2}{4 (f_2 + 1)^4}
 %% \end{multline}
-For the bias-corrected form of eq.~\ref{eq:chao}  (case $f_2 = 0$), the he variance is 
+For the bias-corrected form of eq.~\ref{eq:chao}  (case $f_2 = 0$), the variance is
 \citep[who omit small-sample correction in some terms]{ChiuEtal14}:
 \begin{multline}
 \label{eq:var-chao-bc0}
