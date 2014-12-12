@@ -26,8 +26,17 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item \code{linestack} accepts now expressions (such as
-      mathematical notation) as labels.
+      \item \code{estimateR} uses a more exact variance formula for
+      bias-corrected Chao estimate of extrapolated number of
+      species. The new formula may be unpublished, but it was derived
+      following the guidelines of Chiu, Wang, Walther & Chao,
+      \emph{Biometrics} 70, 671--682 (2014),
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online
+      supplementary material}.
+
+      \item \code{linestack} accepts now expressions as labels. This
+      allows using mathematical symbols and formula given as
+      mathematical expressions.
 
     }
   } % new features
