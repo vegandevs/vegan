@@ -161,7 +161,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   functions in the \code{\link{ordiplot}} family. 
 
   The \code{boxplot} function invisibly returns a list whose components
-  are documented in \code{\link[graphics]{boxplot}}.
+  are documented in \code{\link{boxplot}}.
 
   \code{eigenvals.betadisper} returns a named vector of eigenvalues.
 
@@ -217,7 +217,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 }
 \author{Gavin L. Simpson; bias correction by Adrian Stier and Ben Bolker.}
 \seealso{\code{\link{permutest.betadisper}}, \code{\link[stats]{anova.lm}},
-  \code{\link{scores}}, \code{\link[graphics]{boxplot}},
+  \code{\link{scores}}, \code{\link{boxplot}},
   \code{\link{TukeyHSD}}. Further measure of beta diversity
   can be found in \code{\link{betadiver}}.}
 \examples{
