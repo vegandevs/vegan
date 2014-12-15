@@ -51,7 +51,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     \code{\link{vegdist}}.}
   \item{group}{vector describing the group structure, usually a factor
     or an object that can be coerced to a factor using
-    \code{\link[base]{as.factor}}. Can consist of a factor with a single
+    \code{\link{as.factor}}. Can consist of a factor with a single
     level (i.e., one group).}
   \item{type}{the type of analysis to perform. Use the spatial median or
     the group centroid? The spatial median is now the default.}
