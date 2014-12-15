@@ -185,7 +185,7 @@ Peter R. Michin (Fortran core) and Jari Oksanen (R interface).
    (1987).  
 }
 
-\seealso{ \code{\link[vegan]{metaMDS}} for the \pkg{vegan} way of
+\seealso{ \code{\link{metaMDS}} for the \pkg{vegan} way of
   running NMDS, and \code{\link[MASS]{isoMDS}} and
   \code{\link[smacof]{smacofSym}} for some alternative implementations
   of NMDS. }
