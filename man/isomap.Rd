@@ -60,8 +60,8 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
   \code{\link{stepacross}}).
 
   De'ath (1999) actually published essentially the same method before
-  Tenenbaum et al. (2000), and De'ath's function is available in  
-  \code{\link[mvpart]{xdiss}} in package \pkg{mvpart}. The differences are that
+  Tenenbaum et al. (2000), and De'ath's function is available in function
+  \code{xdiss} in non-CRAN package \pkg{mvpart}. The differences are that
   \code{isomap} introduced the \code{k} criterion, whereas De'ath only
   used \code{epsilon} criterion.  In practice, De'ath also retains
   higher proportion of dissimilarities than typical \code{isomap}.
@@ -100,14 +100,17 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
   folds. If data do not have such a manifold structure, the results are
   very sensitive to parameter values. 
 }
+
 \seealso{The underlying functions that do the proper work are
-  \code{\link{stepacross}}, \code{\link{distconnected}} and \code{\link{cmdscale}}.  
-  Package \pkg{mvpart} provides a parallel (but a bit different) implementation
-  (\code{\link[mvpart]{xdiss}}).  Moreover, \pkg{vegan} function
-  \code{\link{metaMDS}} may trigger \code{\link{stepacross}}
-  transformation, but usually only  for longest dissimilarities.  The
-  \code{plot} method of \pkg{vegan} minimum spanning tree function
-  (\code{\link{spantree}}) has even more extreme way of isomapping things. }
+  \code{\link{stepacross}}, \code{\link{distconnected}} and
+  \code{\link{cmdscale}}.  Non-CRAN package \pkg{mvpart} provides a
+  parallel (but a bit different) implementation (\code{xdiss}).
+  Moreover, \pkg{vegan} function \code{\link{metaMDS}} may trigger
+  \code{\link{stepacross}} transformation, but usually only for longest
+  dissimilarities.  The \code{plot} method of \pkg{vegan} minimum
+  spanning tree function (\code{\link{spantree}}) has even more extreme
+  way of isomapping things. }
+
 \examples{
 ## The following examples also overlay minimum spanning tree to
 ## the graphics in red.
