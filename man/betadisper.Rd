@@ -47,7 +47,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \arguments{
   \item{d}{a distance structure such as that returned by 
-    \code{\link[stats]{dist}}, \code{\link{betadiver}} or 
+    \code{\link[stats]{dist}}, \code{\link{betadiver}} or
     \code{\link{vegdist}}.}
   \item{group}{vector describing the group structure, usually a factor
     or an object that can be coerced to a factor using
