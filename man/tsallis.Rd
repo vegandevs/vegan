@@ -22,9 +22,11 @@ tsallisaccum(x, scales = seq(0, 2, 0.2), permutations = 100,
     by their maximum (diversity value at equiprobability conditions).}
 
   \item{hill}{Calculate Hill numbers.}
-  
-  \item{permutations}{Number of random permutations in accumulating
-    sites.}
+
+  \item{permutations}{Usually an integer giving the number
+    permutations, but can also be a list of control values for the
+    permutations as returned by the function \code{\link[permute]{how}}, 
+    or a permutation matrix where each row gives the permuted indices.}
 
   \item{raw}{If \code{FALSE} then return summary statistics of
     permutations, and if TRUE then returns the individual
