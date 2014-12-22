@@ -31,14 +31,10 @@
         xout <- weights <- cumsum(w)
         specaccum <- accumulator(x, sites)
     }, random = {
-        perm <- array(dim = c(n, permutations))
+        permat <- getPermuteMatrix(permutations, n)
+        perm <- apply(permat, 1, accumulator, x = x)
         if (!is.null(w))
-            weights <- array(dim = c(n, permutations))
-        for (i in 1:permutations) {
-            perm[, i] <- accumulator(x, ord <- sample(n))
-            if(!is.null(w))
-                weights[,i] <- cumsum(w[ord])
-        }
+            weights <- apply(permat, 1, function(i) cumsum(w[i]))
         sites <- 1:n
         if (is.null(w)) {
             specaccum <- apply(perm, 1, mean)

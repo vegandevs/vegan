@@ -42,7 +42,12 @@ fitspecaccum(object, model, method = "random", ...)
     expected richness following
     Coleman et al. 1982, and \code{"rarefaction"} finds the mean when
     accumulating individuals instead of sites.  }
-  \item{permutations}{Number of permutations with \code{method = "random"}.}
+  \item{permutations}{Number of permutations with \code{method = "random"}.
+    Usually an integer giving the number permutations, but can also be a
+    list of control values for the permutations as returned by the
+    function \code{\link[permute]{how}}, or a permutation matrix where
+    each row gives the permuted indices.
+  }
   \item{conditioned}{ Estimation of standard deviation is conditional on
     the empirical dataset for the exact SAC}
   \item{gamma}{Method for estimating the total extrapolated number of species in the
