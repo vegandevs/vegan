@@ -18,7 +18,7 @@
     dimnames(result) <- list(pooled.sites = c(1:n), scale = scales, 
         permutation = c(1:permutations))
     for (k in 1:permutations) {
-        result[, , k] <- as.matrix(tsallis((apply(x[pmat[i,], 
+        result[, , k] <- as.matrix(tsallis((apply(x[pmat[k,], 
             ], 2, cumsum)), scales = scales, ...))
     }
     if (raw) {
