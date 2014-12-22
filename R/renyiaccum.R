@@ -10,7 +10,7 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     if (p==1) {
         x <- t(x)
         n <- nrow(x)
-        p <- ncol(x)        
+        p <- ncol(x)
     }
     pmat <- getPermuteMatrix(permutations, n)
     m <- length(scales)
@@ -18,7 +18,7 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     dimnames(result) <- list(pooled.sites=c(1:n), scale=scales,
                              permutation=c(1:permutations))
     for (k in 1:permutations) {
-        result[,,k] <- as.matrix(renyi((apply(x[pmat[i,],],2,cumsum)),
+        result[,,k] <- as.matrix(renyi((apply(x[pmat[k,],],2,cumsum)),
                                        scales=scales, ...))
     }
     if (raw)
