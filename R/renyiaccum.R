@@ -12,12 +12,13 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
         n <- nrow(x)
         p <- ncol(x)        
     }
+    pmat <- getPermuteMatrix(permutations, n)
     m <- length(scales)
     result <- array(dim=c(n,m,permutations))
     dimnames(result) <- list(pooled.sites=c(1:n), scale=scales,
                              permutation=c(1:permutations))
     for (k in 1:permutations) {
-        result[,,k] <- as.matrix(renyi((apply(x[sample(n),],2,cumsum)),
+        result[,,k] <- as.matrix(renyi((apply(x[pmat[i,],],2,cumsum)),
                                        scales=scales, ...))
     }
     if (raw)
