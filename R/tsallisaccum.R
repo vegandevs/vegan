@@ -44,6 +44,7 @@
         dimnames(result) <- list(pooled.sites = c(1:n), scale = scales, 
             c("mean", "stdev", "min", "max", "Qnt 0.025", "Qnt 0.975"))
     }
+    attr(result, "control") <- attr(pmat, "control")
     class(result) <- c("tsallisaccum", "renyiaccum", class(result))
     result
 }
