@@ -5,15 +5,18 @@
     n <- nrow(x)
     m <- ncol(x)
     N <- seq_len(n)
-    S <- chao <- boot <- jack1 <- jack2 <-
-        matrix(0, nrow=n, ncol=permutations)
     ## specpool() is slow, but the vectorized versions below are
-    ## pretty fast
-    for (i in 1:permutations) {
+    ## pretty fast. We do not set up parallel processing, but use
+    ## permute API.
+    permat <- getPermuteMatrix(permutations, n)
+    nperm <- nrow(permat)
+    S <- chao <- boot <- jack1 <- jack2 <-
+        matrix(0, nrow=n, ncol=nperm)
+    for (i in 1:nperm) {
         ## It is a bad practice to replicate specpool equations here:
         ## if we change specpool, this function gets out of sync. You
         ## should be ashamed, Jari Oksanen!
-        take <- sample.int(n, n)
+        take <- permat[i,]
         tmp <- apply(x[take,] > 0, 2, cumsum)
         S[,i] <- rowSums(tmp > 0)
         ## All-zero species are taken as *known* to be missing in
@@ -36,6 +39,7 @@
     out <- list(S = S[take,], chao = chao[take,], jack1 = jack1[take,],
                 jack2 = jack2[take,], boot = boot[take,], N = N[take],
                 means = means[take,])
+    attr(out, "control") <- attr(permat, "control")
     class(out) <- "poolaccum"
     out
 }

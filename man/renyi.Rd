@@ -28,8 +28,10 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   \item{x}{Community data matrix or plotting object. }
   \item{scales}{Scales of \enc{Rényi}{Renyi} diversity.}
   \item{hill}{Calculate Hill numbers.}
-  \item{permutations}{Number of random permutations in accumulating
-    sites.}
+  \item{permutations}{Usually an integer giving the number
+    permutations, but can also be a list of control values for the
+    permutations as returned by the function \code{\link[permute]{how}}, 
+    or a permutation matrix where each row gives the permuted indices.}
   \item{raw}{if \code{FALSE} then return summary statistics of
     permutations, and if \code{TRUE} then returns the individual
     permutations.}
