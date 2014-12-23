@@ -109,6 +109,8 @@
     }
     if (method == "rarefaction")
         out$individuals <- ind
+    if (method == "random")
+        attr(out, "control") <- attr(permat, "control")
     class(out) <- "specaccum"
     out
 }

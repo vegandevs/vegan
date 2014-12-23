@@ -48,6 +48,7 @@ function(x, scales=c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
                                   scale=scales,
                                   c("mean", "stdev", "min", "max", "Qnt 0.025", "Qnt 0.975", if (collector) "Collector"))
     }
+    attr(result, "control") <- attr(pmat, "control")
     class(result) <- c("renyiaccum", class(result))
     result
 }
