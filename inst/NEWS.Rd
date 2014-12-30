@@ -4,6 +4,15 @@
 
 \section{Changes in version 2.2-1}{
 
+  \subsection{GENERAL}{
+    \itemize{
+
+      \item This is a maintenance release to avoid warning messages
+      caused by changes in CRAN repository.
+    
+    }
+  }% end general
+
   \subsection{INSTALLATION}{
     \itemize{
 
@@ -12,7 +21,7 @@
       function for interactive editing of ordination graphics.
 
     }
-  }
+  } % installation
 
   \subsection{BUG FIXES}{
     \itemize{
