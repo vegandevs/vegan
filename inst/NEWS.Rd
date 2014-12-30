@@ -43,6 +43,16 @@
       \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online
       supplementary material}.
 
+      \item Diversity accumulation functions \code{specaccum},
+      \code{renyiaccum}, \code{tsallisaccum}, \code{poolaccum} and
+      \code{estaccumR} use now \pkg{permute} package for permutations
+      of the order of sampling sites. Normally these functions only
+      need simple random permutation of sites, but restricted
+      permutation of the \pkg{permute} package and user-supplied
+      permutation matrices can be used.
+
+      \item \code{estaccumR} function can use parallel processing.
+
       \item \code{linestack} accepts now expressions as labels. This
       allows using mathematical symbols and formula given as
       mathematical expressions.
