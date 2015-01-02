@@ -103,13 +103,11 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
 
 \seealso{The underlying functions that do the proper work are
   \code{\link{stepacross}}, \code{\link{distconnected}} and
-  \code{\link{cmdscale}}.  Non-CRAN package \pkg{mvpart} provides a
-  parallel (but a bit different) implementation (\code{xdiss}).
-  Moreover, \pkg{vegan} function \code{\link{metaMDS}} may trigger
-  \code{\link{stepacross}} transformation, but usually only for longest
-  dissimilarities.  The \code{plot} method of \pkg{vegan} minimum
-  spanning tree function (\code{\link{spantree}}) has even more extreme
-  way of isomapping things. }
+  \code{\link{cmdscale}}.  Function \code{\link{metaMDS}} may trigger
+  \code{\link{stepacross}} transformation, but usually only for
+  longest dissimilarities.  The \code{plot} method of \pkg{vegan}
+  minimum spanning tree function (\code{\link{spantree}}) has even
+  more extreme way of isomapping things. }
 
 \examples{
 ## The following examples also overlay minimum spanning tree to
