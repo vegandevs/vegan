@@ -1,5 +1,16 @@
 VEGAN DEVEL VERSIONS at https://github.com/vegandevs/vegan
 
+	ChangeLog provided a detailed development history of vegan, but it
+	is not updated after September 11, 2014. Vegan moved to git source
+	code management and linear ChangeLog is poorly suited for
+	branching git development. Use git log to track the history in
+	your current branch. The main upstream repository of vegan is
+	currently https://github.com/vegandevs/vegan.
+
+	ChangeLog gave technical details and was mainly provided for vegan
+	developers. Most important user-visible changes are listed in the
+	NEWS of the current release and its patched version.
+
 Version 2.1-43 (opened September 11, 2014)
 
 	* cca, rda, capscale: remove u.eig, v.eig and wa.eig items or
