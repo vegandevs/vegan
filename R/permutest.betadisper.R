@@ -84,17 +84,18 @@
     if ((hasClus || parallel > 1L) && requireNamespace("parallel")) {
         if (.Platform$OS.type == "unix" && !hasClus) {
             Pstats <- do.call("rbind",
-                           mclapply(seq_len(nperm),
+                           parallel::mclapply(seq_len(nperm),
                                     function(x) permFun(permutations[x, , drop = FALSE]),
                                     mc.cores = parallel))
         } else {
             ## if hasClus, don't set up and top a temporary cluster
             if (!hasClus) {
-                parallel <- makeCluster(parallel)
+                parallel <- parallel::makeCluster(parallel)
             }
-            Pstats <- parRapply(parallel, permutations, function(x) permFun(x))
+            Pstats <- parallel::parRapply(parallel, permutations,
+                                          function(x) permFun(x))
             if (!hasClus) {
-                stopCluster(parallel)
+                parallel::stopCluster(parallel)
             }
         }
     } else {
