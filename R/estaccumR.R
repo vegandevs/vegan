@@ -14,18 +14,18 @@
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && require(parallel)) {
+    if ((hasClus || parallel > 1)  && requireNamespace("parallel")) {
         if(.Platform$OS.type == "unix" && !hasClus) {
-            tmp <- mclapply(1:nperm, function(i)
+            tmp <- parallel::mclapply(1:nperm, function(i)
                             estFun(permat[i,]),
                             mc.cores = parallel)
         } else {
             if (!hasClus) {
-                parallel <- makeCluster(parallel)
+                parallel <- parallel::makeCluster(parallel)
             }
-            tmp <- parLapply(parallel, 1:nperm, function(i) estFun(permat[i,]))
+            tmp <- parallel::parLapply(parallel, 1:nperm, function(i) estFun(permat[i,]))
             if (!hasClus)
-                stopCluster(parallel)
+                parallel::stopCluster(parallel)
         }
     } else {
         tmp <- lapply(1:permutations, function(i) estFun(permat[i,]))

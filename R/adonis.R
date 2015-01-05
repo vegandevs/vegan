@@ -100,23 +100,23 @@
         if (is.null(parallel))
             parallel <- 1
         hasClus <- inherits(parallel, "cluster")
-        isParal <- (hasClus || parallel > 1) && require(parallel)
+        isParal <- hasClus || parallel > 1
         isMulticore <- .Platform$OS.type == "unix" && !hasClus
         if (isParal && !isMulticore && !hasClus) {
-            parallel <- makeCluster(parallel)
+            parallel <- parallel::makeCluster(parallel)
         }
         if (isParal) {
             if (isMulticore) {
                 f.perms <-
                     sapply(1:nterms, function(i)
-                           unlist(mclapply(1:permutations, function(j)
+                           unlist(parallel::mclapply(1:permutations, function(j)
                                            f.test(tH.s[[i]], G[p[j,], p[j,]],
                                                   df.Exp[i], df.Res, tIH.snterm),
                                            mc.cores = parallel)))
             } else {
                 f.perms <-
                     sapply(1:nterms, function(i)
-                           parSapply(parallel, 1:permutations, function(j)
+                           parallel::parSapply(parallel, 1:permutations, function(j)
                                      f.test(tH.s[[i]], G[p[j,], p[j,]],
                                             df.Exp[i], df.Res, tIH.snterm)))
             }
@@ -129,7 +129,7 @@
         }
         ## Close socket cluster if created here
         if (isParal && !isMulticore && !hasClus)
-            stopCluster(parallel)
+            parallel::stopCluster(parallel)
         ## Round to avoid arbitrary P-values with tied data
         f.perms <- round(f.perms, 12)
         P <- (rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1)
