@@ -90,7 +90,7 @@
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && requireNamespace("parallel")) {
+    if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             for (i in seq_len(nbatch)) {
                 ## simulate if no simmat_in
