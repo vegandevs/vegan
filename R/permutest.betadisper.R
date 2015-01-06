@@ -81,7 +81,7 @@
         parallel <- 1
     }
     hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1L) && requireNamespace("parallel")) {
+    if (hasClus || parallel > 1L) {
         if (.Platform$OS.type == "unix" && !hasClus) {
             Pstats <- do.call("rbind",
                            parallel::mclapply(seq_len(nperm),
