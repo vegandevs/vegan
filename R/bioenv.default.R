@@ -76,6 +76,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- parallel::makeCluster(parallel)
+        on.exit(parallel::stopCluster(parallel))
     }
     ## get the number of clusters
     if (inherits(parallel, "cluster"))
