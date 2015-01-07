@@ -8,7 +8,7 @@
 {
     if (!capabilities("tcltk"))
         stop("Your R has no capability for Tcl/Tk")
-    require(tcltk) || stop("requires package tcltk")
+    requireNamespace("tcltk") || stop("requires package tcltk")
 
 ############################
 ### Check and sanitize input

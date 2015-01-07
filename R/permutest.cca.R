@@ -117,21 +117,21 @@ permutest.default <- function(x, ...)
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    if ((hasClus || parallel > 1)  && require(parallel)) {
+    if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- do.call(rbind,
-                           mclapply(1:nperm,
+                           parallel::mclapply(1:nperm,
                                     function(i) getF(permutations[i,]),
                                     mc.cores = parallel))
         } else {
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
-                parallel <- makeCluster(parallel)
+                parallel <- parallel::makeCluster(parallel)
             }
-            tmp <- parRapply(parallel, permutations, function(i) getF(i))
+            tmp <- parallel::parRapply(parallel, permutations, function(i) getF(i))
             tmp <- matrix(tmp, ncol=3, byrow=TRUE)
             if (!hasClus)
-                stopCluster(parallel)
+                parallel::stopCluster(parallel)
         }
     } else {
         tmp <- getF(permutations)

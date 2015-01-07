@@ -74,11 +74,11 @@
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
-        parallel <- makeCluster(parallel)
-        clusterEvalQ(parallel, library(vegan))
+        parallel <-parallel:: makeCluster(parallel)
+        parallel::clusterEvalQ(parallel, library(vegan))
     }
     ## get the number of clusters
     if (inherits(parallel, "cluster"))
@@ -92,7 +92,7 @@
         if (isParal) {
             if (isMulticore) {
                 stry <-
-                    mclapply(1:nclus, function(i)
+                    parallel::mclapply(1:nclus, function(i)
                              switch(engine,
                                     "monoMDS" = monoMDS(dist, init[,,i], k = k,
                                     maxit = maxit, ...),
@@ -102,7 +102,7 @@
                              mc.cores = parallel)
             } else {
                 stry <-
-                    parLapply(parallel, 1:nclus, function(i)
+                    parallel::parLapply(parallel, 1:nclus, function(i)
                               switch(engine,
                                      "monoMDS" = monoMDS(dist, init[,,i], k = k,
                                      maxit = maxit, ...),
@@ -150,7 +150,7 @@
     }
     ## stop socket cluster
     if (isParal && !isMulticore && !hasClus)
-        stopCluster(parallel)
+        parallel::stopCluster(parallel)
     if (!missing(previous.best) && inherits(previous.best, "metaMDS")) {
         tries <- tries + previous.best$tries
     }

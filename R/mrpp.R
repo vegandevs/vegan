@@ -52,19 +52,19 @@
         if (is.null(parallel))
             parallel <- 1
         hasClus <- inherits(parallel, "cluster")
-        if ((hasClus || parallel > 1)  && require(parallel)) {
+        if (hasClus || parallel > 1) {
             if(.Platform$OS.type == "unix" && !hasClus) {
-                m.ds <- unlist(mclapply(1:permutations, function(i, ...)
+                m.ds <- unlist(parallel::mclapply(1:permutations, function(i, ...)
                                         mrpp.perms(perms[,i], dmat, indls, w),
                                         mc.cores = parallel))
             } else {
                 if (!hasClus) {
-                    parallel <- makeCluster(parallel)
+                    parallel <- parallel::makeCluster(parallel)
                 }
-                m.ds <- parCapply(parallel, perms, function(x)
+                m.ds <- parallel::parCapply(parallel, perms, function(x)
                                   mrpp.perms(x, dmat, indls, w))
                 if (!hasClus)
-                    stopCluster(parallel)
+                    parallel::stopCluster(parallel)
             }
         } else {
             m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))

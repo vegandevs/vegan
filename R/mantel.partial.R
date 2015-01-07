@@ -45,19 +45,19 @@
         if (is.null(parallel))
             parallel <- 1
         hasClus <- inherits(parallel, "cluster")
-        if ((hasClus || parallel > 1)  && require(parallel)) {
+        if (hasClus || parallel > 1) {
             if(.Platform$OS.type == "unix" && !hasClus) {
                 perm <- do.call(rbind,
-                               mclapply(1:permutations,
+                               parallel::mclapply(1:permutations,
                                         function(i, ...) ptest(permat[i,],...),
                                         mc.cores = parallel))
             } else {
                 if (!hasClus) {
-                    parallel <- makeCluster(parallel)
+                    parallel <- parallel::makeCluster(parallel)
                 }
-                perm <- parRapply(parallel, permat, ptest)
+                perm <- parallel::parRapply(parallel, permat, ptest)
                 if (!hasClus)
-                    stopCluster(parallel)
+                    parallel::stopCluster(parallel)
             }
         } else {
             perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
