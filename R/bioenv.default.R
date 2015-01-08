@@ -75,8 +75,8 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
-        parallel <- parallel::makeCluster(parallel)
-        on.exit(parallel::stopCluster(parallel))
+        parallel <- makeCluster(parallel)
+        on.exit(stopCluster(parallel))
     }
     ## get the number of clusters
     if (inherits(parallel, "cluster"))
@@ -97,13 +97,13 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
             sets <- as.matrix(t(sets))
         if (isParal && nrow(sets) >= CLUSLIM*nclus) {
             if (isMulticore) {
-                est <- unlist(parallel::mclapply(1:nrow(sets), function(j)
+                est <- unlist(mclapply(1:nrow(sets), function(j)
                                        corfun(comdis,
                                               distfun(x[,sets[j,],drop = FALSE]),
                                               partial, method = method, ...),
                                        mc.cores = parallel))
             } else {
-                est <- parallel::parSapply(parallel, 1:nrow(sets), function(j)
+                est <- parSapply(parallel, 1:nrow(sets), function(j)
                                   corfun(comdis, distfun(x[,sets[j,],drop = FALSE]),
                                          partial, method = method, ...))
             }

@@ -33,16 +33,16 @@
     if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             areas <- do.call(cbind,
-                             parallel::mclapply(1:permutations,
+                             mclapply(1:permutations,
                                       function(i, ...) pfun(perm[i,],...),
                                         mc.cores = parallel))
             } else {
                 if (!hasClus) {
-                    parallel <- parallel::makeCluster(parallel)
+                    parallel <- makeCluster(parallel)
                 }
-                areas <- parallel::parApply(parallel, perm, MARGIN=1, pfun)
+                areas <- parApply(parallel, perm, MARGIN=1, pfun)
                 if (!hasClus)
-                    parallel::stopCluster(parallel)
+                    stopCluster(parallel)
             }
     } else {
         areas <- sapply(1:permutations, function(i, ...) pfun(perm[i,], ...))
