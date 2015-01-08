@@ -96,7 +96,7 @@
                 ## simulate if no simmat_in
                 if(!simmat_in)
                     x <- simulate(nm, nsim = batches[i], thin = thin)
-                tmp <- parallel::mclapply(seq_len(batches[i]),
+                tmp <- mclapply(seq_len(batches[i]),
                                 function(j)
                                 applynestfun(x[,,j], fun=nestfun,
                                              statistic = statistic, ...),
@@ -106,20 +106,20 @@
         } else {
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
-                parallel <- parallel::makeCluster(parallel)
+                parallel <- makeCluster(parallel)
                 ## make vegan functions available: others may be unavailable
-                parallel::clusterEvalQ(parallel, library(vegan))
+                clusterEvalQ(parallel, library(vegan))
             }
             for(i in seq_len(nbatch)) {
                 if (!simmat_in)
                     x <- simulate(nm, nsim = batches[i], thin = thin)
                 simind <- cbind(simind,
-                                parallel::parApply(parallel, x, 3, function(z)
+                                parApply(parallel, x, 3, function(z)
                                          applynestfun(z, fun = nestfun,
                                                       statistic = statistic, ...)))
             }
             if (!hasClus)
-                parallel::stopCluster(parallel)
+                stopCluster(parallel)
         }
     } else {
         for(i in seq_len(nbatch)) {
