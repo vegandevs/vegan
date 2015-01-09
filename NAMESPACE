@@ -76,11 +76,12 @@ import(permute)
 importFrom(utils, head, tail, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
 import(lattice)
-import(parallel)
+importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
+           parApply, parLapply, parSapply, parRapply, parCapply)
 importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm)
 importFrom(cluster, daisy)
 ## 's' must be imported in mgcv < 1.8-0 (not needed later)
-importFrom(mgcv, gam, s, te)
+importFrom(mgcv, gam, s, te, predict.gam, summary.gam)
 ## Registration of S3 methods defined in vegan
 # adipart: vegan
 S3method(adipart, default)

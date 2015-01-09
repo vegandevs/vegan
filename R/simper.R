@@ -42,7 +42,7 @@
     isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
-        parallel <- parallel::makeCluster(parallel)
+        parallel <- makeCluster(parallel)
     }
     for (i in seq_len(nrow(comp))) {
         group.a <- comm[group == comp[i, 1], , drop = FALSE]
@@ -67,11 +67,11 @@
 
             if (isParal) {
                 if (isMulticore){
-                    perm.contr <- parallel::mclapply(seq_len(nperm), function(d)
+                    perm.contr <- mclapply(seq_len(nperm), function(d)
                         pfun(d, comm, comp, i, contrp), mc.cores = parallel)
                     perm.contr <- do.call(cbind, perm.contr)
                 } else {
-                    perm.contr <- parallel::parSapply(parallel, seq_len(nperm), function(d)
+                    perm.contr <- parSapply(parallel, seq_len(nperm), function(d)
                         pfun(d, comm, comp, i, contrp))
                 }
             } else {
@@ -98,7 +98,7 @@
     }
     ## Close socket cluster if created here
     if (isParal && !isMulticore && !hasClus)
-        parallel::stopCluster(parallel)
+        stopCluster(parallel)
     attr(outlist, "permutations") <- nperm
     attr(outlist, "control") <- attr(perm, "control")
     class(outlist) <- "simper"

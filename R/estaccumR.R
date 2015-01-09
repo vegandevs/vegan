@@ -16,16 +16,16 @@
     hasClus <- inherits(parallel, "cluster")
     if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
-            tmp <- parallel::mclapply(1:nperm, function(i)
+            tmp <- mclapply(1:nperm, function(i)
                             estFun(permat[i,]),
                             mc.cores = parallel)
         } else {
             if (!hasClus) {
-                parallel <- parallel::makeCluster(parallel)
+                parallel <- makeCluster(parallel)
             }
-            tmp <- parallel::parLapply(parallel, 1:nperm, function(i) estFun(permat[i,]))
+            tmp <- parLapply(parallel, 1:nperm, function(i) estFun(permat[i,]))
             if (!hasClus)
-                parallel::stopCluster(parallel)
+                stopCluster(parallel)
         }
     } else {
         tmp <- lapply(1:permutations, function(i) estFun(permat[i,]))
