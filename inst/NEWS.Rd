@@ -8,8 +8,10 @@
     \itemize{
 
       \item This is a maintenance release to avoid warning messages
-      caused by changes in CRAN repository.
-    
+      caused by changes in CRAN repository. The namespace usage is also
+      more stringent to avoid warnings and notes in development versions
+      of \R.
+
     }
   }% end general
 
@@ -25,6 +27,10 @@
 
   \subsection{BUG FIXES}{
     \itemize{
+
+      \item \code{ordisurf} failed if \pkg{gam} package was loaded due
+      to namespace issues: some support functions of \pkg{gam} were used
+      instead of \pkg{mgcv} functions.
 
       \item \code{tolerance} function failed for unconstrained
       correspondence analysis.
