@@ -21,7 +21,7 @@
 
 \usage{
 varpart(Y, X, ..., data, transfo, scale = FALSE)
-showvarparts(parts, labels, ...)
+showvarparts(parts, labels, bg = NULL, alpha = 63, ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
 }
 
@@ -53,6 +53,12 @@ table. }
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.}
+\item{bg}{Fill colours of circles or ellipses.}
+\item{alpha}{Transparency of the fill colour.  The argument takes
+    precedence over possible transparency definitions of the
+    colour. The value must be in range \eqn{0...255}, and low values
+    are more transparent.  Transparency is not available in all
+    graphics devices or file formats.}
 \item{x}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
@@ -239,11 +245,9 @@ vegandocs("partition")
 mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 mod
 
-## argument 'bg' is passed to circle drawing, and the following
-## defines semitransparent colours
-col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
-showvarparts(2, bg = col2)
-plot(mod, bg = col2)
+## Use fill colours
+showvarparts(2, bg = c("hotpink","skyblue")
+plot(mod, bg = c("hotpink","skyblue")
 # Alternative way of to conduct this partitioning
 # Change the data frame with factors into numeric model matrix
 mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
@@ -258,8 +262,8 @@ RsquareAdj(aFrac)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
 mod
-showvarparts(3)
-plot(mod)
+showvarparts(3, bg=2:4)
+plot(mod, bg=2:4)
 # An alternative formulation of the previous model using
 # matrices mm1 amd mm2 and Hellinger transformed species data
 mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
@@ -276,9 +280,9 @@ anova(rda.result, step=200, perm.max=200)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 mod
-plot(mod)
+plot(mod, bg=2:5)
 # Show values for all partitions by putting 'cutoff' low enough:
-plot(mod, cutoff = -Inf, cex = 0.7)
+plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 }
 
 \keyword{ multivariate }

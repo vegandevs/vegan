@@ -1,7 +1,13 @@
-"showvarparts" <-
-function(parts = 2, labels, ...)
+`showvarparts` <-
+    function(parts = 2, labels, bg = NULL, alpha=63, ...)
 {
     rad <- 0.725
+    ## transparent fill colours
+    if (!is.null(bg)) {
+        bg <- rgb(t(col2rgb(bg)), alpha = alpha, maxColorValue = 255)
+        if (length(bg) < parts)
+            bg <- rep(bg, length.out = parts)
+    }
     cp <- switch(parts,
                  c(0,0),
                  c(0,0, 1,0),
@@ -21,7 +27,7 @@ function(parts = 2, labels, ...)
     box()
     if (parts < 4) 
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
-                add=TRUE, ...)
+                add=TRUE, bg = bg, ...)
     else {
         ## Draw ellipses with veganCovEllipse. Supply 2x2
         ## matrix(c(d,a,a,d), 2, 2) which defines an ellipse of
@@ -39,7 +45,7 @@ function(parts = 2, labels, ...)
         cnt <- sqrt(W/2)
         e1 <- veganCovEllipse(matrix(c(d,-a,-a,d), 2, 2), c(-cnt, -cnt))
         e4 <- veganCovEllipse(matrix(c(d, a, a,d), 2, 2), c( cnt, -cnt))
-        polygon(rbind(e1,NA,e2,NA,e3,NA,e4), ...)
+        polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
     }
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))
