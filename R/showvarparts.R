@@ -9,12 +9,15 @@
             bg <- rep(bg, length.out = parts)
     }
     cp <- switch(parts,
-                 c(0,0),
-                 c(0,0, 1,0),
-                 c(0,0, 1,0, 0.5, -sqrt(3/4)),
-                 c(NA,NA)
+                 matrix(c(0,0), ncol=2, byrow=TRUE),
+                 matrix(c(0,0, 1,0), ncol=2, byrow=TRUE),
+                 matrix(c(0,0, 1,0, 0.5, -sqrt(3/4)), ncol=2, byrow=TRUE),
+                 structure(
+                     c(-1.2, -0.6, 0.6, 1.2, -0.7, 0, -0.7, 0, 0.7, 0.7,
+                       0.3, -0.4, 0.4, -0.3, 0, 0, 0.7, 0.7, 0, 0.3, 0.4,
+                       -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0, -0.7, -0.4),
+                     .Dim = c(15L, 2L))
                  )
-    cp <- matrix(cp, ncol=2, byrow=TRUE)
     if (parts < 4) {
         xlim <- range(cp[,1] + c(-rad, rad))
         ylim <- range(cp[,2] + c(-rad, rad))
@@ -57,11 +60,7 @@
            text(rbind(cp[1,], colMeans(cp), cp[2,]), labels[-nlabs], ...),
            text(rbind(cp, colMeans(cp[1:2,]), colMeans(cp[2:3,]),
                       colMeans(cp[c(1,3),]), colMeans(cp)), labels[-nlabs], ...),
-           text(structure(c(-1.2, -0.6, 0.6, 1.2, -0.7, 0, -0.7, 0,
-                            0.7, 0.7, 0.3, -0.4, 0.4, -0.3, 0, 0, 0.7, 0.7,
-                            0, 0.3, 0.4, -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0,
-                            -0.7, -0.4), .Dim = c(15L, 2L)),
-                labels[-nlabs], ...)
+           text(cp, labels[-nlabs], ...)
            )
     xy <- par("usr")
     text(xy[2] - 0.05*diff(xy[1:2]), xy[3] + 0.05*diff(xy[3:4]),
