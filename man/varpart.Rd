@@ -246,8 +246,8 @@ mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 mod
 
 ## Use fill colours
-showvarparts(2, bg = c("hotpink","skyblue")
-plot(mod, bg = c("hotpink","skyblue")
+showvarparts(2, bg = c("hotpink","skyblue"))
+plot(mod, bg = c("hotpink","skyblue"))
 # Alternative way of to conduct this partitioning
 # Change the data frame with factors into numeric model matrix
 mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
