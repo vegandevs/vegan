@@ -19,8 +19,8 @@
                      .Dim = c(15L, 2L))
                  )
     if (parts < 4) {
-        xlim <- range(cp[,1] + c(-rad, rad))
-        ylim <- range(cp[,2] + c(-rad, rad))
+        xlim <- range(cp[,1]) + c(-rad, rad)
+        ylim <- range(cp[,2]) + c(-rad, rad)
     } else {
         xlim <- c(-1.7, 1.7)
         ylim <- c(-1.7, 1.1)
