@@ -8,6 +8,8 @@
         if (length(bg) < parts)
             bg <- rep(bg, length.out = parts)
     }
+    ## centroids of circles (parts < 4) or individual fractions (parts
+    ## == 4)
     cp <- switch(parts,
                  matrix(c(0,0), ncol=2, byrow=TRUE),
                  matrix(c(0,0, 1,0), ncol=2, byrow=TRUE),
@@ -18,6 +20,7 @@
                        -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0, -0.7, -0.4),
                      .Dim = c(15L, 2L))
                  )
+    ## plot limits
     if (parts < 4) {
         xlim <- range(cp[,1]) + c(-rad, rad)
         ylim <- range(cp[,2]) + c(-rad, rad)
@@ -25,6 +28,7 @@
         xlim <- c(-1.7, 1.7)
         ylim <- c(-1.7, 1.1)
     }
+    ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n", 
          xlim = xlim, ylim = ylim)
     box()
@@ -50,6 +54,7 @@
         e4 <- veganCovEllipse(matrix(c(d, a, a,d), 2, 2), c( cnt, -cnt))
         polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
     }
+    ## label fractions
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))
         labels <- paste("[", letters[1:nlabs], "]", sep="")
