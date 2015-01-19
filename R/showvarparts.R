@@ -1,17 +1,6 @@
-showvarpartsX <-
+`showvarparts` <-
     function(parts = 2, labels, bg = NULL, alpha=63, ...)
 {
-### Internal function
-veganCovEllipse <-    
-function (cov, center = c(0, 0), scale = 1, npoints = 100) 
-# Call this function as    vegan:::veganCovEllipse
-{
-    theta <- (0:npoints) * 2 * pi/npoints
-    Circle <- cbind(cos(theta), sin(theta))
-    t(center + scale * t(Circle %*% chol(cov)))
-}
-### End internal function
-
     rad <- 0.725
     ## transparent fill colours
     if (!is.null(bg)) {
