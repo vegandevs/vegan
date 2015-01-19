@@ -1,6 +1,17 @@
-`showvarparts` <-
+showvarpartsX <-
     function(parts = 2, labels, bg = NULL, alpha=63, ...)
 {
+### Internal function
+veganCovEllipse <-    
+function (cov, center = c(0, 0), scale = 1, npoints = 100) 
+# Call this function as    vegan:::veganCovEllipse
+{
+    theta <- (0:npoints) * 2 * pi/npoints
+    Circle <- cbind(cos(theta), sin(theta))
+    t(center + scale * t(Circle %*% chol(cov)))
+}
+### End internal function
+
     rad <- 0.725
     ## transparent fill colours
     if (!is.null(bg)) {
@@ -31,6 +42,15 @@
     if (parts < 4) 
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
                 add=TRUE, bg = bg, ...)
+        # Explanatory data set names added by PL
+        if(parts==2) {
+            text(-0.65,0.65,labels="X1", cex=1.2)
+            text( 1.65,0.65,labels="X2", cex=1.2)
+        } else if(parts==3) {
+            text(-0.65,0.65,labels="X1", cex=1.2)
+            text( 1.65,0.65,labels="X2", cex=1.2)
+            text(-0.16,-1.5,labels="X3", cex=1.2)
+        }
     else {
         ## Draw ellipses with veganCovEllipse. Supply 2x2
         ## matrix(c(d,a,a,d), 2, 2) which defines an ellipse of
@@ -49,6 +69,11 @@
         e1 <- veganCovEllipse(matrix(c(d,-a,-a,d), 2, 2), c(-cnt, -cnt))
         e4 <- veganCovEllipse(matrix(c(d, a, a,d), 2, 2), c( cnt, -cnt))
         polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
+        # Explanatory data set names added by PL
+        text(-1.62,0.54,labels="X1", cex=1.2)
+        text(-1.10,1.00,labels="X2", cex=1.2)
+        text( 1.10,1.00,labels="X3", cex=1.2)
+        text( 1.62,0.54,labels="X4", cex=1.2)
     }
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))
@@ -67,4 +92,3 @@
          paste("Residuals =", labels[nlabs]), pos = 2, ...)
     invisible()
 }
-
