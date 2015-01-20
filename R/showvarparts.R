@@ -1,6 +1,17 @@
-`showvarparts` <-
-    function(parts = 2, labels, bg = NULL, alpha=63, ...)
+showvarpartsX <-
+    function(parts = 2, labels, bg = NULL, alpha=63, Xnames=c("X1","X2","X3","X4"), cex.main=1.2, ...)
 {
+### Internal function
+veganCovEllipse <-    
+function (cov, center = c(0, 0), scale = 1, npoints = 100) 
+# Call this function as    vegan:::veganCovEllipse
+{
+    theta <- (0:npoints) * 2 * pi/npoints
+    Circle <- cbind(cos(theta), sin(theta))
+    t(center + scale * t(Circle %*% chol(cov)))
+}
+### End internal function
+
     rad <- 0.725
     ## transparent fill colours
     if (!is.null(bg)) {
@@ -11,15 +22,15 @@
     ## centroids of circles (parts < 4) or individual fractions (parts
     ## == 4)
     cp <- switch(parts,
-                 matrix(c(0,0), ncol=2, byrow=TRUE),
-                 matrix(c(0,0, 1,0), ncol=2, byrow=TRUE),
-                 matrix(c(0,0, 1,0, 0.5, -sqrt(3/4)), ncol=2, byrow=TRUE),
-                 structure(
-                     c(-1.2, -0.6, 0.6, 1.2, -0.7, 0, -0.7, 0, 0.7, 0.7,
-                       0.3, -0.4, 0.4, -0.3, 0, 0, 0.7, 0.7, 0, 0.3, 0.4,
-                       -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0, -0.7, -0.4),
-                     .Dim = c(15L, 2L))
-                 )
+        matrix(c(0,0), ncol=2, byrow=TRUE),
+        matrix(c(0,0, 1,0), ncol=2, byrow=TRUE),
+        matrix(c(0,0, 1,0, 0.5, -sqrt(3/4)), ncol=2, byrow=TRUE),
+        structure(
+            c(-1.2, -0.6, 0.6, 1.2, -0.7, 0, -0.7, 0, 0.7, 0.7,
+            0.3, -0.4, 0.4, -0.3, 0, 0, 0.7, 0.7, 0, 0.3, 0.4,
+            -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0, -0.7, -0.4),
+            .Dim = c(15L, 2L))
+        )
     ## plot limits
     if (parts < 4) {
         xlim <- range(cp[,1]) + c(-rad, rad)
@@ -32,19 +43,17 @@
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n", 
          xlim = xlim, ylim = ylim)
     box()
-    if (parts < 4) 
+    if (parts < 4) {
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
                 add=TRUE, bg = bg, ...)
         # Explanatory data set names added by PL
         if(parts==2) {
-            text(-0.65,0.65,labels="X1", cex=1.2)
-            text( 1.65,0.65,labels="X2", cex=1.2)
-        } else if(parts==3) {
-            text(-0.65,0.65,labels="X1", cex=1.2)
-            text( 1.65,0.65,labels="X2", cex=1.2)
-            text(-0.16,-1.5,labels="X3", cex=1.2)
-        }
-    else {
+        	pos.names = matrix(c(-0.65,1.65,0.65,0.65),2,2)
+        	} else if(parts==3) {
+        	pos.names = matrix(c(-0.65,1.65,-0.16,0.65,0.65,-1.5),3,2)
+        	}
+        text(pos.names,labels=Xnames[1:parts], cex=cex.main)
+    } else {
         ## Draw ellipses with veganCovEllipse. Supply 2x2
         ## matrix(c(d,a,a,d), 2, 2) which defines an ellipse of
         ## semi-major axis length sqrt(d+a) semi-minor axis sqrt(d-a).
@@ -63,11 +72,10 @@
         e4 <- veganCovEllipse(matrix(c(d, a, a,d), 2, 2), c( cnt, -cnt))
         polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
         # Explanatory data set names added by PL
-        text(-1.62,0.54,labels="X1", cex=1.2)
-        text(-1.10,1.00,labels="X2", cex=1.2)
-        text( 1.10,1.00,labels="X3", cex=1.2)
-        text( 1.62,0.54,labels="X4", cex=1.2)
+        pos.names = matrix(c(-1.62,-1.10,1.10,1.62,0.54,1.00,1.00,0.54),4,2)
+        text(pos.names,labels=Xnames[1:4], cex=cex.main)
     }
+    
     ## label fractions
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))
