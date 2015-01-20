@@ -1,7 +1,10 @@
 `showvarparts` <-
-    function(parts = 2, labels, bg = NULL, alpha=63, Xnames=c("X1","X2","X3","X4"), cex.main=1.2, ...)
+    function(parts, labels, bg = NULL, alpha=63, Xnames, cex.main=1.2, ...)
 {
     rad <- 0.725
+    ## Default names
+    if (missing(Xnames))
+        Xnames <- paste("X", seq_len(parts), sep="")
     ## transparent fill colours
     if (!is.null(bg)) {
         bg <- rgb(t(col2rgb(bg)), alpha = alpha, maxColorValue = 255)
