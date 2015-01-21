@@ -22,7 +22,7 @@
 \usage{
 varpart(Y, X, ..., data, transfo, scale = FALSE)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
-    cex.main = 1.2,  ...)
+    id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
 }
 
@@ -61,13 +61,13 @@ table. }
     are more transparent.  Transparency is not available in all
     graphics devices or file formats.}
   
-\item{Xnames}{Explanatory file names. Default names are \code{X1},
+\item{Xnames}{Names for sources of variation. Default names are \code{X1},
   \code{X2}, \code{X3} and \code{X4}. \code{Xnames=NA},
   \code{Xnames=NULL} and \code{Xnames=""} produce no names. The names
   can be changed to other names. Use short names. }
 
-\item{cex.main}{A numerical value giving the amount by which characters
-  in the explanatory file names should be scaled }
+\item{id.size}{A numerical value giving the character expansion factor
+  for the names of circles or ellipses. }
 
 \item{x}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}

@@ -1,5 +1,5 @@
 `showvarparts` <-
-    function(parts, labels, bg = NULL, alpha=63, Xnames, cex.main=1.2, ...)
+    function(parts, labels, bg = NULL, alpha=63, Xnames, id.size=1.2, ...)
 {
     rad <- 0.725
     ## Default names
@@ -44,7 +44,7 @@
         } else if(parts==3) {
             pos.names = matrix(c(-0.65,1.65,-0.16,0.65,0.65,-1.5),3,2)
         }
-        text(pos.names,labels=Xnames[1:parts], cex=cex.main)
+        text(pos.names,labels=Xnames[1:parts], cex=id.size)
     } else {
         ## Draw ellipses with veganCovEllipse. Supply 2x2
         ## matrix(c(d,a,a,d), 2, 2) which defines an ellipse of
@@ -65,7 +65,7 @@
         polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
         ## Explanatory data set names added by PL
         pos.names = matrix(c(-1.62,-1.10,1.10,1.62,0.54,1.00,1.00,0.54),4,2)
-        text(pos.names,labels=Xnames[1:4], cex=cex.main)
+        text(pos.names,labels=Xnames[1:4], cex=id.size)
     }
     
     ## label fractions
