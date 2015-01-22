@@ -2,6 +2,22 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.2-2}{
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item The \code{varpart} plots of four-component models were
+      redesigned following Legendre, Borcard & Roberts \emph{Ecology}
+      93, 1234--1240 (2012), and they use now four ellipses instead of
+      three circles and two rectangles. The components are now labelled
+      in plots, and the circles and ellipses can be easily filled with
+      transparent background colour.
+
+    }
+  } % new features
+} % v2.2-2
+
 \section{Changes in version 2.2-1}{
 
   \subsection{GENERAL}{
