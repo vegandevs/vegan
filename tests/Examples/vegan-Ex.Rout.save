@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2014-12-10 r67145) -- "Unsuffered Consequences"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R Under development (unstable) (2015-01-21 r67569) -- "Unsuffered Consequences"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -160,7 +160,7 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x6dd5e88>
+<environment: 0x60aad90>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -4919,7 +4919,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8d22fc8>
+<environment: 0x9a6c570>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4936,7 +4936,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa809d10>
+<environment: 0x9594a80>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4966,7 +4966,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa2a9ac0>
+<environment: 0x9b50cd8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4980,7 +4980,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0xa196ab8>
+<environment: 0x93a0570>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -5009,7 +5009,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0xa5d9a48>
+<environment: 0x9abe468>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5025,7 +5025,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0xa893aa8>
+<environment: 0x95a9ea0>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5042,7 +5042,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x84373a0>
+<environment: 0x96cc318>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5061,7 +5061,7 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0xa6ce0d0>
+<environment: 0x89f06e8>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5201,7 +5201,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9fb4d68>
+<environment: 0x9591650>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5214,7 +5214,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9d3c460>
+<environment: 0x9863e70>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5227,7 +5227,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa5a75a8>
+<environment: 0x8df2e30>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -7454,11 +7454,9 @@ Individual fractions
 ---
 Use function 'rda' to test significance of fractions of interest
 > 
-> ## argument 'bg' is passed to circle drawing, and the following
-> ## defines semitransparent colours
-> col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
-> showvarparts(2, bg = col2)
-> plot(mod, bg = col2)
+> ## Use fill colours
+> showvarparts(2, bg = c("hotpink","skyblue"))
+> plot(mod, bg = c("hotpink","skyblue"))
 > # Alternative way of to conduct this partitioning
 > # Change the data frame with factors into numeric model matrix
 > mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
@@ -7532,8 +7530,8 @@ Controlling 1 table X
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
 Use function 'rda' to test significance of fractions of interest
-> showvarparts(3)
-> plot(mod)
+> showvarparts(3, bg=2:4)
+> plot(mod, bg=2:4)
 > # An alternative formulation of the previous model using
 > # matrices mm1 amd mm2 and Hellinger transformed species data
 > mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
@@ -7640,9 +7638,9 @@ Controlling 1 table X
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
 Use function 'rda' to test significance of fractions of interest
-> plot(mod)
+> plot(mod, bg=2:5)
 > # Show values for all partitions by putting 'cutoff' low enough:
-> plot(mod, cutoff = -Inf, cex = 0.7)
+> plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 > 
 > 
 > 
@@ -7866,7 +7864,7 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xb061198>
+<environment: 0xa460500>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8422,7 +8420,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.898 0.208 25.238 0 0 
+Time elapsed:  24.949 0.109 25.056 0 0 
 > grDevices::dev.off()
 null device 
           1 
