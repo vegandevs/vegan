@@ -164,7 +164,8 @@
                        command=function() tcltk::tkpostscript(can, x=0, y=0,
                        height=height, width=width,
                        file=tcltk::tkgetSaveFile(
-                         filetypes="{{EPS file} {.eps}}")))
+                         filetypes="{{EPS file} {.eps}}",
+                         defaultextension=".eps")))
     dismiss <- tcltk::tkbutton(buts, text="Dismiss",
                                command=function() tcltk::tkdestroy(w))
     ## Dump current plot to an "orditkplot" object (internally)
@@ -244,7 +245,18 @@
         if (!isTRUE(unname(capabilities("tiff"))))
             falt["tiff"] <- FALSE
         ftypes <- ftypes[falt]
-        fname <- tcltk::tkgetSaveFile(filetypes=ftypes)
+        ## External Tcl/Tk in Windows seems to buggy with type
+        ## extensions of the file name: the extension is not
+        ## automatically appended, but defaultextension is interpreted
+        ## wrongly so that its value is not used as extension but
+        ## correct appending is done if defaultextension has any
+        ## value. The following kluge is against Tcl/Tk documentation,
+        ## and should be corrected if Tcl/Tk is fixed.
+        if (.Platform$OS.type == "windows")
+            fname <- tcltk::tkgetSaveFile(filetypes=ftypes,
+                                          defaultextension = TRUE)
+        else
+            fname <- tcltk::tkgetSaveFile(filetypes=ftypes)
         if(tcltk::tclvalue(fname) == "")
             return(NULL)
         fname <- tcltk::tclvalue(fname)
