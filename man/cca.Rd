@@ -190,7 +190,7 @@
 }
 \author{
   The responsible author was Jari Oksanen, but the code borrows heavily
-  from Dave Roberts (\url{http://labdsv.nr.usu.edu/}).
+  from Dave Roberts (Montana State University, USA).
 }
 
 \seealso{
