@@ -145,7 +145,7 @@ cIndexKM(y, x, index = "all")
 \references{
 
   Calinski, T. and J. Harabasz. 1974. A dendrite method for cluster
-  analysis. \emph{Commun. Stat.} \strong{3}: 1-27.
+  analysis. \emph{Commun. Stat.} \strong{3}: 1--27.
 
   Dolnicar, S., K. Grabler and J. A. Mazanec. 1999.  A tale of three
   cities: perceptual charting for analyzing destination images. Pp.
@@ -155,18 +155,18 @@ cIndexKM(y, x, index = "all")
   
   Gower, J. C. 1966. Some distance properties of latent root and vector
   methods used in multivariate analysis. \emph{Biometrika} \strong{53}:
-  325-338.
+  325--338.
   
   Legendre, P. & L. Legendre. 2012. \emph{Numerical ecology}, 3rd
   English edition. Elsevier Science BV, Amsterdam.
   
   Milligan, G. W. & M. C. Cooper. 1985. An examination of procedures for
   determining the number of clusters in a data set. \emph{Psychometrika}
-  \strong{50}: 159-179.
+  \strong{50}: 159--179.
 
-  Weingessel, A., Dimitriadou, A. and Dolnicar, S. \emph{An Examination
-  Of Indexes For Determining The Number Of Clusters In Binary Data
-  Sets}, \url{http://www.wu-wien.ac.at/am/wp99.htm#29}
+  Weingessel, A., Dimitriadou, A. and Dolnicar, S. 2002. An examination
+  of indexes for determining the number of clusters in binary data
+  sets. \emph{Psychometrika} \strong{67}: 137--160.
 }
 
 \author{ Marie-Helene Ouellette
