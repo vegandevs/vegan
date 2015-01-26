@@ -47,9 +47,6 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
     h <- 1
     for(ii in inf.gr:sup.gr)
     {
-        ## Initialization
-        ## set.seed(ii)  
-        ## Set.seed ˆ ŽtŽ enlevŽ car il rend instable la fonction kmeans
         j <- ii - inf.gr + 1
         tmp <- kmeans(data, ii, iter.max = 50, nstart=iter)
         size[1:ii,h] <- tmp$size
