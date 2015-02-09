@@ -17,11 +17,10 @@
     pnam <- labels(tmp)
     out <- NULL
     if (ncol(x) == 1) {
-        for(i in seq_along(tmp)) {
-            names(tmp[[i]]) <- paste(pnam[i], names(tmp[[i]]), sep="")
-            out <- c(out, tmp[[i]])
-            out <- matrix(out, nrow=1, dimnames = list(NULL, names(out)))
-        }  
+        nm <- unlist(sapply(pnam,
+                            function(nm) paste(nm, names(tmp[[nm]]), sep="")),
+                     use.names=FALSE)
+        out <- matrix(unlist(tmp), nrow=1, dimnames = list(NULL, nm))
     } else {
         for (i in seq_along(tmp)) {
             colnames(tmp[[i]]) <- paste(pnam[i], colnames(tmp[[i]]), 
