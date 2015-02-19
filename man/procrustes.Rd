@@ -131,7 +131,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
   function). Function \code{predict} can be used to add new rotated
   coordinates to the target. The \code{predict} function will always
   translate coordinates to the original non-centred matrix. The
-  function canot be used with \code{newdata} for \code{symmetric}
+  function cannot be used with \code{newdata} for \code{symmetric}
   analysis.
 
   Function \code{protest} performs symmetric Procrustes analysis
