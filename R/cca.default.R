@@ -12,6 +12,11 @@
         attr(x, "centre") <- w.c
         x
     }
+    ## Protect against grave misuse: some people have used
+    ## dissimilarities instead of data
+    if (inherits(X, "dist") || NCOL(X) == NROW(X) &&
+        isTRUE(all.equal(X, t(X))))
+        stop("function cannot be used with (dis)similarities")
     X <- as.matrix(X)
     if (any(rowSums(X) <= 0)) 
         stop("All row sums must be >0 in the community data matrix")
