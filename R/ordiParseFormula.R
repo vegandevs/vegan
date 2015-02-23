@@ -7,7 +7,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     specdata <- formula[[2]]
-    X <- eval.parent(specdata, n = envdepth)
+    X <- eval(specdata, environment(formula), enclos=globalenv())
     ## X is usually a matrix, but it is "dist" with capscale():
     X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
