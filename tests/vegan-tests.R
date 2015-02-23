@@ -126,6 +126,23 @@ anova(rda.model, by="terms", strata=CC)  # -> no error
 rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
 ### end Sven Neulinger's tests
 
+### Benedicte Bachelot informed us that several anova.cca* functions
+### failed if community data name was the same as a function name: the
+### function name was found first, and used instead ofa data. This
+### seems to be related to the same problem that Sven Neulinger
+### communicated, and his examples still faile if Condition or strata
+### are function names. However, the following examples that failed
+### should work now:
+
+set.seed(4711)
+cca <- dune
+m <- cca(cca ~ ., dune.env)
+anova(m, by="term")
+m <- capscale(cca ~ ., dune.env)
+anova(m, by="term")
+rm(m, cca)
+
+### end Benedicte Bachelot tests
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on
 ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.

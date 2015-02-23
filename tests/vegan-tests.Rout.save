@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2014-09-27 r66695) -- "Unsuffered Consequences"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R Under development (unstable) (2015-02-23 r67879) -- "Unsuffered Consequences"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -415,6 +415,53 @@ Residual 26   5.2565
 > rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
 > ### end Sven Neulinger's tests
 > 
+> ### Benedicte Bachelot informed us that several anova.cca* functions
+> ### failed if community data name was the same as a function name: the
+> ### function name was found first, and used instead ofa data. This
+> ### seems to be related to the same problem that Sven Neulinger
+> ### communicated, and his examples still faile if Condition or strata
+> ### are function names. However, the following examples that failed
+> ### should work now:
+> 
+> set.seed(4711)
+> cca <- dune
+> m <- cca(cca ~ ., dune.env)
+> anova(m, by="term")
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+Model: cca(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
+           Df ChiSquare      F Pr(>F)   
+A1          1   0.22476 2.5704  0.010 **
+Moisture    3   0.51898 1.9783  0.008 **
+Management  3   0.39543 1.5074  0.064 . 
+Use         2   0.10910 0.6238  0.905   
+Manure      3   0.25490 0.9717  0.493   
+Residual    7   0.61210                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> m <- capscale(cca ~ ., dune.env)
+> anova(m, by="term")
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+Model: capscale(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
+           Df Variance      F Pr(>F)   
+A1          1   8.1148 2.7156  0.008 **
+Moisture    3  21.6497 2.4150  0.008 **
+Management  3  19.1153 2.1323  0.009 **
+Use         2   4.7007 0.7865  0.730   
+Manure      3   9.6257 1.0737  0.377   
+Residual    7  20.9175                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> rm(m, cca)
+> 
+> ### end Benedicte Bachelot tests
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
 > ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
@@ -532,4 +579,4 @@ Number of permutations: 99
 > 
 > proc.time()
    user  system elapsed 
-  4.595   0.101   4.764 
+  4.542   0.032   4.564 
