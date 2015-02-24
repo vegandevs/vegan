@@ -146,6 +146,20 @@ rm(m, cca)
 
 ### end Benedicte Bachelot tests
 
+### Richard Telford tweeted this example on 23/2/2015. Fails in 2.2-1,
+### but should work now. Also issue #100 in github.com/vegandevs/vegan.
+set.seed(4711)
+data(dune, dune.env)
+foo <- function(x, env) {
+    m <- rda(x ~ Manure + A1, data = env)
+    anova(m, by = "margin")
+}
+out <- lapply(dune, foo, env = dune.env)
+out$Poatriv
+rm(foo, out)
+### end Richard Telford test
+
+
 ### nestednodf: test case by Daniel Spitale in a comment to News on
 ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
 x <- c(1,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0)

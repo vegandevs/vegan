@@ -484,6 +484,32 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ### end Benedicte Bachelot tests
 > 
+> ### Richard Telford tweeted this example on 23/2/2015. Fails in 2.2-1,
+> ### but should work now. Also issue #100 in github.com/vegandevs/vegan.
+> set.seed(4711)
+> data(dune, dune.env)
+> foo <- function(x, env) {
++     m <- rda(x ~ Manure + A1, data = env)
++     anova(m, by = "margin")
++ }
+> out <- lapply(dune, foo, env = dune.env)
+> out$Poatriv
+Permutation test for rda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 999
+
+Model: rda(formula = x ~ Manure + A1, data = env)
+         Df Variance      F Pr(>F)   
+Manure    4   4.7257 5.7006  0.009 **
+A1        1   0.0153 0.0736  0.783   
+Residual 14   2.9014                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> rm(foo, out)
+> ### end Richard Telford test
+> 
+> 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
 > ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
 > x <- c(1,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0)
@@ -600,4 +626,4 @@ Number of permutations: 99
 > 
 > proc.time()
    user  system elapsed 
-  4.424   0.067   4.478 
+  7.633   0.047   7.668 
