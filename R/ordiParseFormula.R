@@ -1,5 +1,5 @@
-"ordiParseFormula" <-
-function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
+`ordiParseFormula` <-
+function (formula, data, xlev = NULL, na.action = na.fail,
           subset = NULL) 
 {
     if (missing(data))
