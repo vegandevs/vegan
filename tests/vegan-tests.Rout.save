@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-02-23 r67879) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-02-23 r67886) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -114,10 +114,11 @@ Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.a
          Df Variance      F Pr(>F)
 Model     6  1.54840 1.6423    0.1
 Residual  5  0.78568              
-> ## vegan 2.1-40 cannot handle missing data in next three
+> ## vegan 2.1-40 cannot handle missing data in next two
 > ##anova(p, by="term", permutations=99)
 > ##anova(p, by="margin", permutations=99)
-> ##anova(p, by="axis", permutations=99)
+> ## FIXME: next fails on object of type 'closure' is not subsettable
+> ##FIXME## anova(p, by="axis", permutations=99)
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -240,7 +241,26 @@ Eigenvalues for unconstrained axes:
  MDS12  MDS13 
 0.0011 0.0001 
 
-> ### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+> foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
+Call: bar(formula = Y ~ X, na.action = ..1)
+
+              Inertia Proportion Rank
+Total         85.1200     1.0000     
+Constrained   32.7800     0.3851    3
+Unconstrained 52.3400     0.6149   14
+Inertia is mean squared Euclidean distance 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+  CAP1   CAP2   CAP3 
+15.956 13.621  3.199 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
+14.893  9.136  6.042  5.674  3.638  2.865  2.504  1.968  1.888  1.239  0.959 
+ MDS12  MDS13  MDS14 
+ 0.779  0.501  0.255 
+
 > ###
 > detach(df)
 > ### Check that statistics match in partial constrained ordination
@@ -298,6 +318,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > B <- factor(rep(c("a","b","c"), 10))
 > ## Sven Neulinger's tests used 'C' below, but that fails still now due
 > ## to look-up order: function stats::C was found before matrix 'C'
+> ## FIXME: The following should work with factor 'C'
 > CC <- factor(rep(c(1:5), each=6))
 > 
 > # partial db-RDA
@@ -579,4 +600,4 @@ Number of permutations: 99
 > 
 > proc.time()
    user  system elapsed 
-  4.542   0.032   4.564 
+  4.424   0.067   4.478 

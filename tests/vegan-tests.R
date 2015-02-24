@@ -53,10 +53,11 @@ anova(p, permutations=99)
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
 anova(p, permutations=99)
-## vegan 2.1-40 cannot handle missing data in next three
+## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-##anova(p, by="axis", permutations=99)
+## FIXME: next fails on object of type 'closure' is not subsettable
+##FIXME## anova(p, by="axis", permutations=99)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -77,7 +78,7 @@ foo("cca", dune, Management, na.action = na.omit)
 foo("rda", dune, Management, na.action = na.omit)
 foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
-### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
 ###
 detach(df)
 ### Check that statistics match in partial constrained ordination
@@ -101,6 +102,7 @@ A <- factor(rep(rep(c("a","b"), each=3),5))
 B <- factor(rep(c("a","b","c"), 10))
 ## Sven Neulinger's tests used 'C' below, but that fails still now due
 ## to look-up order: function stats::C was found before matrix 'C'
+## FIXME: The following should work with factor 'C'
 CC <- factor(rep(c(1:5), each=6))
 
 # partial db-RDA
