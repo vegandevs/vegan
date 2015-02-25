@@ -16,8 +16,8 @@
     ## The following line was eval'ed in environment(formula), but
     ## that made update() fail. Rethink the line if capscale() fails
     ## mysteriously at this point.
-    X <- eval(formula[[2]], envir=parent.frame(),
-              enclos = environment(formula))
+    X <- eval(formula[[2]], envir=environment(formula),
+              enclos = globalenv())
     if (!inherits(X, "dist")) {
         comm <- X
         dfun <- match.fun(dfun)
@@ -50,7 +50,7 @@
     d <- ordiParseFormula(fla,
                           if(is.data.frame(data) && !is.null(comm)) cbind(data, comm)
                           else data,
-                          envdepth = 1, na.action = na.action,
+                          na.action = na.action,
                           subset = substitute(subset))
     ## ordiParseFormula subsets rows of dissimilarities: do the same
     ## for columns ('comm' is handled later)

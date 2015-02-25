@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2014-09-27 r66695) -- "Unsuffered Consequences"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R Under development (unstable) (2015-02-23 r67886) -- "Unsuffered Consequences"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -114,10 +114,11 @@ Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.a
          Df Variance      F Pr(>F)
 Model     6  1.54840 1.6423    0.1
 Residual  5  0.78568              
-> ## vegan 2.1-40 cannot handle missing data in next three
+> ## vegan 2.1-40 cannot handle missing data in next two
 > ##anova(p, by="term", permutations=99)
 > ##anova(p, by="margin", permutations=99)
-> ##anova(p, by="axis", permutations=99)
+> ## FIXME: next fails on object of type 'closure' is not subsettable
+> ##FIXME## anova(p, by="axis", permutations=99)
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -240,7 +241,26 @@ Eigenvalues for unconstrained axes:
  MDS12  MDS13 
 0.0011 0.0001 
 
-> ### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+> foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
+Call: bar(formula = Y ~ X, na.action = ..1)
+
+              Inertia Proportion Rank
+Total         85.1200     1.0000     
+Constrained   32.7800     0.3851    3
+Unconstrained 52.3400     0.6149   14
+Inertia is mean squared Euclidean distance 
+2 observations deleted due to missingness 
+
+Eigenvalues for constrained axes:
+  CAP1   CAP2   CAP3 
+15.956 13.621  3.199 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
+14.893  9.136  6.042  5.674  3.638  2.865  2.504  1.968  1.888  1.239  0.959 
+ MDS12  MDS13  MDS14 
+ 0.779  0.501  0.255 
+
 > ###
 > detach(df)
 > ### Check that statistics match in partial constrained ordination
@@ -298,6 +318,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > B <- factor(rep(c("a","b","c"), 10))
 > ## Sven Neulinger's tests used 'C' below, but that fails still now due
 > ## to look-up order: function stats::C was found before matrix 'C'
+> ## FIXME: The following should work with factor 'C'
 > CC <- factor(rep(c(1:5), each=6))
 > 
 > # partial db-RDA
@@ -414,6 +435,79 @@ Residual 26   5.2565
 > ## clean.up
 > rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
 > ### end Sven Neulinger's tests
+> 
+> ### Benedicte Bachelot informed us that several anova.cca* functions
+> ### failed if community data name was the same as a function name: the
+> ### function name was found first, and used instead ofa data. This
+> ### seems to be related to the same problem that Sven Neulinger
+> ### communicated, and his examples still faile if Condition or strata
+> ### are function names. However, the following examples that failed
+> ### should work now:
+> 
+> set.seed(4711)
+> cca <- dune
+> m <- cca(cca ~ ., dune.env)
+> anova(m, by="term")
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+Model: cca(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
+           Df ChiSquare      F Pr(>F)   
+A1          1   0.22476 2.5704  0.010 **
+Moisture    3   0.51898 1.9783  0.008 **
+Management  3   0.39543 1.5074  0.064 . 
+Use         2   0.10910 0.6238  0.905   
+Manure      3   0.25490 0.9717  0.493   
+Residual    7   0.61210                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> m <- capscale(cca ~ ., dune.env)
+> anova(m, by="term")
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+Model: capscale(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
+           Df Variance      F Pr(>F)   
+A1          1   8.1148 2.7156  0.008 **
+Moisture    3  21.6497 2.4150  0.008 **
+Management  3  19.1153 2.1323  0.009 **
+Use         2   4.7007 0.7865  0.730   
+Manure      3   9.6257 1.0737  0.377   
+Residual    7  20.9175                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> rm(m, cca)
+> 
+> ### end Benedicte Bachelot tests
+> 
+> ### Richard Telford tweeted this example on 23/2/2015. Fails in 2.2-1,
+> ### but should work now. Also issue #100 in github.com/vegandevs/vegan.
+> set.seed(4711)
+> data(dune, dune.env)
+> foo <- function(x, env) {
++     m <- rda(x ~ Manure + A1, data = env)
++     anova(m, by = "margin")
++ }
+> out <- lapply(dune, foo, env = dune.env)
+> out$Poatriv
+Permutation test for rda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 999
+
+Model: rda(formula = x ~ Manure + A1, data = env)
+         Df Variance      F Pr(>F)   
+Manure    4   4.7257 5.7006  0.009 **
+A1        1   0.0153 0.0736  0.783   
+Residual 14   2.9014                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> rm(foo, out)
+> ### end Richard Telford test
 > 
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
@@ -532,4 +626,4 @@ Number of permutations: 99
 > 
 > proc.time()
    user  system elapsed 
-  4.595   0.101   4.764 
+  7.633   0.047   7.668 

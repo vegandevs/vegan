@@ -23,8 +23,8 @@
 }
 \usage{
 ordiGetData(call, env)
-ordiParseFormula(formula, data, xlev = NULL, envdepth = 2, 
-   na.action = na.fail, subset = NULL)
+ordiParseFormula(formula, data, xlev = NULL,  na.action = na.fail,
+    subset = NULL)
 ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)
@@ -54,18 +54,13 @@ hierParseFormula(formula, data)
   matrices (dependent variables, and \code{\link{model.matrix}} of
   constraints and conditions, possibly \code{NULL}) needed in
   constrained ordination. Argument \code{xlev} is passed to
-  \code{\link{model.frame}} and argument \code{envdepth} specifies the
-  depth at which the community data (dependent data) are evaluated;
-  default \code{envdepth = 2} evaluates that in the environment of the
-  parent of the calling function, and \code{envdepth = 1} within the
-  calling function (see
-  \code{\link{eval.parent}}). \code{ordiTermInfo} finds the term
+  \code{\link{model.frame}}. \code{ordiTermInfo} finds the term
   information for constrained ordination as described in
   \code{\link{cca.object}}. \code{ordiNAexclude} implements
   \code{na.action = na.exclude} for constrained ordination finding WA
   scores of CCA components and site scores of unconstrained component
   from \code{excluded} rows of observations. Function
-  \code{ordiNApredict} puts pads the result object with these or with
+  \code{ordiNApredict} pads the result object with these or with
   WA scores similarly as \code{\link{napredict}}.
 
   \code{ordiArrowMul} finds a multiplier to scale a bunch of arrows to

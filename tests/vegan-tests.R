@@ -53,10 +53,11 @@ anova(p, permutations=99)
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
 anova(p, permutations=99)
-## vegan 2.1-40 cannot handle missing data in next three
+## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-##anova(p, by="axis", permutations=99)
+## FIXME: next fails on object of type 'closure' is not subsettable
+##FIXME## anova(p, by="axis", permutations=99)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -77,7 +78,7 @@ foo("cca", dune, Management, na.action = na.omit)
 foo("rda", dune, Management, na.action = na.omit)
 foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
-### FIXME: foo("capscale", dune, Management, data=dune.env) fails!
+foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
 ###
 detach(df)
 ### Check that statistics match in partial constrained ordination
@@ -101,6 +102,7 @@ A <- factor(rep(rep(c("a","b"), each=3),5))
 B <- factor(rep(c("a","b","c"), 10))
 ## Sven Neulinger's tests used 'C' below, but that fails still now due
 ## to look-up order: function stats::C was found before matrix 'C'
+## FIXME: The following should work with factor 'C'
 CC <- factor(rep(c(1:5), each=6))
 
 # partial db-RDA
@@ -125,6 +127,37 @@ anova(rda.model, by="terms", strata=CC)  # -> no error
 ## clean.up
 rm(X, A, B, CC, cap.model.cond, cap.model, rda.model.cond, rda.model)
 ### end Sven Neulinger's tests
+
+### Benedicte Bachelot informed us that several anova.cca* functions
+### failed if community data name was the same as a function name: the
+### function name was found first, and used instead ofa data. This
+### seems to be related to the same problem that Sven Neulinger
+### communicated, and his examples still faile if Condition or strata
+### are function names. However, the following examples that failed
+### should work now:
+
+set.seed(4711)
+cca <- dune
+m <- cca(cca ~ ., dune.env)
+anova(m, by="term")
+m <- capscale(cca ~ ., dune.env)
+anova(m, by="term")
+rm(m, cca)
+
+### end Benedicte Bachelot tests
+
+### Richard Telford tweeted this example on 23/2/2015. Fails in 2.2-1,
+### but should work now. Also issue #100 in github.com/vegandevs/vegan.
+set.seed(4711)
+data(dune, dune.env)
+foo <- function(x, env) {
+    m <- rda(x ~ Manure + A1, data = env)
+    anova(m, by = "margin")
+}
+out <- lapply(dune, foo, env = dune.env)
+out$Poatriv
+rm(foo, out)
+### end Richard Telford test
 
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on
