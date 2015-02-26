@@ -14,6 +14,8 @@
         warning("some dissimilarities are negative -- is this intentional?")
     sol <- c(call = match.call())
     grouping <- as.factor(grouping)
+    if (length(levels(grouping)) < 2)
+        stop("there should be more than one class level")
     matched <- function(irow, icol, grouping) {
         grouping[irow] == grouping[icol]
     }
