@@ -16,22 +16,22 @@
     ## The following line was eval'ed in environment(formula), but
     ## that made update() fail. Rethink the line if capscale() fails
     ## mysteriously at this point.
-    X <- eval(formula[[2]], envir=environment(formula),
+    .X <- eval(formula[[2]], envir=environment(formula),
               enclos = globalenv())
-    if (!inherits(X, "dist")) {
-        comm <- X
+    if (!inherits(.X, "dist")) {
+        comm <- .X
         dfun <- match.fun(dfun)
         if (metaMDSdist) {
             commname <- as.character(formula[[2]])
-            X <- metaMDSdist(comm, distance = distance, zerodist = "ignore",
+            .X <- metaMDSdist(comm, distance = distance, zerodist = "ignore",
                              commname = commname, distfun = dfun, ...)
-            commname <- attr(X, "commname")
+            commname <- attr(.X, "commname")
             comm <- eval.parent(parse(text=commname))
         } else {
-            X <- dfun(X, distance)
+            .X <- dfun(.X, distance)
         }
     }
-    inertia <- attr(X, "method")
+    inertia <- attr(.X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
     inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
@@ -45,7 +45,7 @@
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
     ## deleted due to missing values)
-    fla <- update(formula, X ~ .)
+    fla <- update(formula, .X ~ .)
     environment(fla) <- environment()
     d <- ordiParseFormula(fla,
                           if(is.data.frame(data) && !is.null(comm)) cbind(data, comm)
