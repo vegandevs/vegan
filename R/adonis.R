@@ -25,6 +25,8 @@
     grps <- grps[qrhs$pivot][1:qrhs$rank]
     u.grps <- unique(grps)
     nterms <- length(u.grps) - 1
+    if (nterms < 1)
+        stop("right-hand-side of formula has no usable terms")
     H.s <- lapply(2:length(u.grps),
                   function(j) {Xj <- rhs[, grps %in% u.grps[1:j] ]
                                qrX <- qr(Xj, tol=TOL)
