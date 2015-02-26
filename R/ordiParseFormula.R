@@ -19,8 +19,12 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
-        zmf <- model.frame(P.formula, data, na.action = na.pass, 
-            xlev = zlev)
+        zmf <- if (inherits(data, "environment"))
+            eval(substitute(
+                model.frame(P.formula, na.action = na.pass, xlev = zlev)),
+                 envir = data, enclos = .GlobalEnv)
+        else
+            model.frame(P.formula, data, na.action = na.pass, xlev = zlev)
         partterm <- sapply(partterm, function(x) deparse(x, width.cutoff=500))
         formula <- update(formula, paste("~.-", paste(partterm, 
             collapse = "-")))
@@ -31,8 +35,13 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     else {
         if (exists("Pterm")) 
             xlev <- xlev[!(names(xlev) %in% Pterm)]
-        ymf <- model.frame(formula, data, na.action = na.pass, 
-            xlev = xlev)
+
+        ymf <- if (inherits(data, "environment"))
+            eval(substitute(
+                model.frame(formula, na.action = na.pass, xlev = xlev)),
+                 envir=data, enclos=.GlobalEnv)
+        else
+            model.frame(formula, data, na.action = na.pass, xlev = xlev) 
     }
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {
