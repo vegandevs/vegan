@@ -16,22 +16,22 @@
     ## The following line was eval'ed in environment(formula), but
     ## that made update() fail. Rethink the line if capscale() fails
     ## mysteriously at this point.
-    .X <- eval(formula[[2]], envir=environment(formula),
+    X <- eval(formula[[2]], envir=environment(formula),
               enclos = globalenv())
-    if (!inherits(.X, "dist")) {
-        comm <- .X
+    if (!inherits(X, "dist")) {
+        comm <- X
         dfun <- match.fun(dfun)
         if (metaMDSdist) {
             commname <- as.character(formula[[2]])
-            .X <- metaMDSdist(comm, distance = distance, zerodist = "ignore",
+            X <- metaMDSdist(comm, distance = distance, zerodist = "ignore",
                              commname = commname, distfun = dfun, ...)
-            commname <- attr(.X, "commname")
+            commname <- attr(X, "commname")
             comm <- eval.parent(parse(text=commname))
         } else {
-            .X <- dfun(.X, distance)
+            X <- dfun(X, distance)
         }
     }
-    inertia <- attr(.X, "method")
+    inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
     inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
@@ -52,16 +52,15 @@
     ## ordiParseFormula subsets rows of dissimilarities: do the same
     ## for columns ('comm' is handled later). ordiParseFormula
     ## returned the original data, but we use instead the potentially
-    ## changed .X and discard d$X. However, same things must be done
-    ## to .X.
+    ## changed X and discard d$X.
     if (!is.null(d$subset)) {
-        .X <- as.matrix(.X)[d$subset, d$subset, drop = FALSE]
+        X <- as.matrix(X)[d$subset, d$subset, drop = FALSE]
     }
     ## Delete columns if rows were deleted due to missing values
     if (!is.null(d$na.action)) {
-        .X <- as.matrix(.X)[-d$na.action, -d$na.action, drop = FALSE]
+        X <- as.matrix(X)[-d$na.action, -d$na.action, drop = FALSE]
     }
-    X <- as.dist(.X)
+    X <- as.dist(X)
     k <- attr(X, "Size") - 1
     if (sqrt.dist)
         X <- sqrt(X)
