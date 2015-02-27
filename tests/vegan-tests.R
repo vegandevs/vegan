@@ -45,10 +45,10 @@ anova(m, by="axis", permutations=99)
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
-## vegan 2.1-40 cannot hndle missing data in next two
+## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-#FIXME#anova(p, by="axis", permutations=99)
+anova(p, by="axis", permutations=99)
 ## see that capscale can be updated and also works with 'dist' input
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
@@ -56,8 +56,7 @@ anova(p, permutations=99)
 ## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-## FIXME: next fails on object of type 'closure' is not subsettable
-## anova(p, by="axis", permutations=99)
+anova(p, by="axis", permutations=99)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -76,9 +75,9 @@ foo <- function(bar, Y, X, ...)
 }
 foo("cca", dune, Management, na.action = na.omit)
 foo("rda", dune, Management, na.action = na.omit)
-#FIXME# foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
-#FIXME#foo("capscale", vegdist(dune), Management, na.action = na.omit)
-#FIXME#foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
+foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
+foo("capscale", vegdist(dune), Management, na.action = na.omit)
+foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
 ###
 detach(df)
 ### Check that statistics match in partial constrained ordination
@@ -100,17 +99,17 @@ X <- matrix(rnorm(30*6), 30, 6)
 
 A <- factor(rep(rep(c("a","b"), each=3),5))
 B <- factor(rep(c("a","b","c"), 10))
-## Sven Neulinger's tests used 'C' below, but that fails still now due
-## to look-up order: function stats::C was found before matrix 'C'
-## FIXME: The following should work with factor 'C'
+## Sven Neulinger's tests failed still in 2.2-1, now due to look-up
+## order: function stats::C was found before matrix 'C'. The test was
+## OK when non-function name was used ('CC').
 C <- factor(rep(c(1:5), each=6))
 
-# partial db-RDA
-#FIXME#cap.model.cond <- capscale(X ~ A + B + Condition(C))
-#FIXME#anova(cap.model.cond, by="axis", strata=C)  # -> error pre r2287
-#FIXME#anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
+## partial db-RDA
+cap.model.cond <- capscale(X ~ A + B + Condition(C))
+anova(cap.model.cond, by="axis", strata=C)  # -> error pre r2287
+anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 
-# db-RDA without conditional factor
+## db-RDA without conditional factor
 cap.model <- capscale(X ~ A + B)
 anova(cap.model, by="axis", strata=C)  # -> no error
 anova(cap.model, by="terms", strata=C)  # -> no error
