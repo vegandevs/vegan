@@ -45,22 +45,23 @@
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
     ## deleted due to missing values)
-    fla <- update(formula, .X ~ .)
-    environment(fla) <- environment()
-    d <- ordiParseFormula(fla,
-                          if(is.data.frame(data) && !is.null(comm)) cbind(data, comm)
-                          else data,
+    d <- ordiParseFormula(formula,
+                          data,
                           na.action = na.action,
                           subset = substitute(subset))
     ## ordiParseFormula subsets rows of dissimilarities: do the same
-    ## for columns ('comm' is handled later)
-    if (!is.null(d$subset))
-        d$X <- d$X[, d$subset, drop = FALSE]
+    ## for columns ('comm' is handled later). ordiParseFormula
+    ## returned the original data, but we use instead the potentially
+    ## changed .X and discard d$X. However, same things must be done
+    ## to .X.
+    if (!is.null(d$subset)) {
+        .X <- as.matrix(.X)[d$subset, d$subset, drop = FALSE]
+    }
     ## Delete columns if rows were deleted due to missing values
     if (!is.null(d$na.action)) {
-        d$X <- d$X[, -d$na.action, drop = FALSE]
+        .X <- as.matrix(.X)[-d$na.action, -d$na.action, drop = FALSE]
     }
-    X <- as.dist(d$X)
+    X <- as.dist(.X)
     k <- attr(X, "Size") - 1
     if (sqrt.dist)
         X <- sqrt(X)
