@@ -38,7 +38,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     }
     n <- ncol(env)
     if (n < 1)
-        stop("no usable variables in ´env'")
+        stop("no usable variables in 'env'")
     ntake <- 2^n - 1
     ndone <- 0
     upto <- min(upto, n)
