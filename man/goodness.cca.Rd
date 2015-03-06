@@ -52,8 +52,10 @@ vif.cca(object)
   Function \code{goodness} gives the diagnostic statistics for species
   or sites. The alternative statistics are the cumulative proportion of
   inertia accounted for by the axes, and the residual distance left
-  unaccounted for.  The conditional (\dQuote{partialled out}) constraints are
-  always regarded as explained and included in the statistics.
+  unaccounted for.  The conditional (\dQuote{partialled out})
+  constraints are always regarded as explained and included in the
+  statistics of the constrained component with\code{model = "CCA"}
+  (but not in the residual component with \code{model = "CA"}).
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or

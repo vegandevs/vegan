@@ -39,7 +39,8 @@
                 Xbar <- t(Xbar)
             ptot <- diag(crossprod(Xbar))
             tot <- tot + ptot
-            vexp <- sweep(vexp, 1, ptot, "+")
+            if (model == "CCA")
+                vexp <- sweep(vexp, 1, ptot, "+")
         }
         vexp <- sweep(vexp, 1, tot, "/")
     }
