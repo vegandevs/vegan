@@ -15,7 +15,7 @@
     cs <- weights(object, display = display)
     lambda2 <- sqrt(object[[model]]$eig)
     if (display == "species") {
-        if (is.null(object$CCA)) 
+        if (is.null(object$CCA))
             Xbar <- object$CA$Xbar
         else Xbar <- object$CCA$Xbar
         v <- sweep(object[[model]]$v, 2, lambda2, "*")
@@ -43,7 +43,7 @@
             Xbar <- object$pCCA$Fit
             if (display == "sites") 
                 Xbar <- t(Xbar)
-            ptot <- diag(crossprod(Xbar))
+            ptot <- diag(crossprod(Xbar))/(nrow(Xbar)-1)
             tot <- tot + ptot
             vexp <- sweep(vexp, 1, ptot, "+")
         }
