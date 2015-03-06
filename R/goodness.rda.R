@@ -34,10 +34,13 @@
         }
         v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
-    if (!missing(choices)) 
-        v <- v[, choices, drop = FALSE]
-    vexp <- t(apply(v^2, 1, cumsum))
+    if (ncol(v) > 1)
+        vexp <- t(apply(v^2, 1, cumsum))
+    else
+        vexp <- v^2
     vexp <- sweep(vexp, 1, cs, "*")
+    if (!missing(choices)) 
+        vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
         if (!is.null(object$pCCA)) {
             Xbar <- object$pCCA$Fit
