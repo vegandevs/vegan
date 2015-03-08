@@ -28,9 +28,12 @@
         }
         v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
+    if (ncol(v) > 1)
+        vexp <- t(apply(v^2, 1, cumsum))
+    else
+        vexp <- v^2
     if (!missing(choices)) 
-        v <- v[, choices, drop = FALSE]
-    vexp <- t(apply(v^2, 1, cumsum))
+        vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
         vexp <- sweep(vexp, 1, cs, "*")
         if (!is.null(object$pCCA)) {
@@ -39,7 +42,8 @@
                 Xbar <- t(Xbar)
             ptot <- diag(crossprod(Xbar))
             tot <- tot + ptot
-            vexp <- sweep(vexp, 1, ptot, "+")
+            if (model == "CCA")
+                vexp <- sweep(vexp, 1, ptot, "+")
         }
         vexp <- sweep(vexp, 1, tot, "/")
     }

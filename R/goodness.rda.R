@@ -15,7 +15,7 @@
     cs <- weights(object, display = display)
     lambda2 <- sqrt(object[[model]]$eig)
     if (display == "species") {
-        if (is.null(object$CCA)) 
+        if (is.null(object$CCA))
             Xbar <- object$CA$Xbar
         else Xbar <- object$CCA$Xbar
         v <- sweep(object[[model]]$v, 2, lambda2, "*")
@@ -34,18 +34,22 @@
         }
         v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
-    if (!missing(choices)) 
-        v <- v[, choices, drop = FALSE]
-    vexp <- t(apply(v^2, 1, cumsum))
+    if (ncol(v) > 1)
+        vexp <- t(apply(v^2, 1, cumsum))
+    else
+        vexp <- v^2
     vexp <- sweep(vexp, 1, cs, "*")
+    if (!missing(choices)) 
+        vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
         if (!is.null(object$pCCA)) {
             Xbar <- object$pCCA$Fit
             if (display == "sites") 
                 Xbar <- t(Xbar)
-            ptot <- diag(crossprod(Xbar))
+            ptot <- diag(crossprod(Xbar))/(nrow(Xbar)-1)
             tot <- tot + ptot
-            vexp <- sweep(vexp, 1, ptot, "+")
+            if (model == "CCA")
+                vexp <- sweep(vexp, 1, ptot, "+")
         }
         vexp <- sweep(vexp, 1, tot, "/")
     }
