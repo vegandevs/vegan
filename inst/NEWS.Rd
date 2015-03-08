@@ -4,6 +4,30 @@
 
 \section{Changes in version 2.2-2}{
 
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Constrained ordination functions \code{cca}, \code{rda}
+      and \code{capscale} are now more robust. Scoping of data set
+      names and variable names is much improved.
+
+      \item Ordination functions \code{cca} and \code{rda} silently
+      accepted dissimilarities as input although their analysis makes
+      no sense with these methods. Dissimilarities should be analysed
+      with distance-based redundancy analysis (\code{capscale}).
+
+      \item The variance of the conditional component was
+      over-estimated in \code{goodness} of \code{rda} results, and
+      results were wrong for partial RDA. The \code{goodness}
+      functions for \code{cca} and \code{rda} were both redesigned so
+      that the variation of the partial component was only combined
+      with the constrained variance, but not with the unconstrained
+      component. Previously the conditional variation was combined
+      with both components.
+
+    }
+  } % bug fixes
+
   \subsection{NEW FEATURES}{
     \itemize{
 
