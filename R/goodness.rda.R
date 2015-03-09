@@ -1,7 +1,7 @@
 `goodness.rda` <-
     function (object, display = c("species", "sites"), choices,
               model = c("CCA", "CA"), statistic = c("explained", "distance"),
-              summarize = FALSE, ...) 
+              summarize = FALSE, addpartial = TRUE, ...) 
 {
     model <- match.arg(model)
     display <- match.arg(display)
@@ -45,6 +45,8 @@
         vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
         tot <- ptot + ctot + rtot
+        if (addpartial && model == "CCA" && !is.null(object$pCCA))
+            vexp <- sweep(vexp, 1, ptot, "+")
         vexp <- sweep(vexp, 1, tot, "/")
     }
     else {
