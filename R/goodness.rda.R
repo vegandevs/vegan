@@ -12,7 +12,6 @@
     if (is.null(object[[model]]) || object[[model]]$rank == 0) 
         stop("model ", model, " is not available")
     statistic <- match.arg(statistic)
-    cs <- weights(object, display = display)
     lambda2 <- sqrt(object[[model]]$eig)
     ## collect contributions to the variation and scores
     ptot <- ctot <- rtot <- 0
@@ -42,7 +41,6 @@
         vexp <- t(apply(v^2, 1, cumsum))
     else
         vexp <- v^2
-    vexp <- sweep(vexp, 1, cs, "*")
     if (!missing(choices)) 
         vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
@@ -55,7 +53,6 @@
             tot <- tot + ctot
         vexp <- sweep(-(vexp), 1, tot, "+")
         vexp[vexp < 0] <- 0
-        vexp <- sweep(sqrt(vexp), 1, cs, "/")
     }
     if (summarize) 
         vexp <- vexp[, ncol(vexp)]
