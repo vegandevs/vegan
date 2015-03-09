@@ -53,6 +53,7 @@
             tot <- tot + ctot
         vexp <- sweep(-(vexp), 1, tot, "+")
         vexp[vexp < 0] <- 0
+        vexp <- sqrt(vexp)
     }
     if (summarize) 
         vexp <- vexp[, ncol(vexp)]
