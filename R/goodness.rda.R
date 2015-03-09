@@ -14,24 +14,28 @@
     statistic <- match.arg(statistic)
     cs <- weights(object, display = display)
     lambda2 <- sqrt(object[[model]]$eig)
+    ## collect contributions to the variation and scores
+    ptot <- ctot <- rtot <- 0
     if (display == "species") {
-        if (is.null(object$CCA))
-            Xbar <- object$CA$Xbar
-        else Xbar <- object$CCA$Xbar
+        if (!is.null(object$pCCA))
+            ptot <- diag(crossprod(object$pCCA$Fit))/(nrow(object$pCCA$Fit)-1)
+        if (!is.null(object$CCA)) {
+            Xbar <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
+            ctot <- diag(crossprod(Xbar)) / (nrow(Xbar) - 1)
+        }
+        if (!is.null(object$CA))
+            rtot <- diag(crossprod(object$CA$Xbar)) / (nrow(object$CA$Xbar) - 1)
         v <- sweep(object[[model]]$v, 2, lambda2, "*")
-        tot <- diag(crossprod(Xbar)/(nrow(Xbar) - 1))
     }
     else {
-        Xbar <- object$CA$Xbar
-        tot <- diag(crossprod(t(Xbar)))
-        if (!is.null(tot)) 
-            tot <- tot/(nrow(Xbar) - 1)
+        if (!is.null(object$pCCA))
+            ptot <- diag(tcrossprod(object$pCCA$Fit))/(nrow(object$pCCA$Fit)-1)
         if (!is.null(object$CCA)) {
-            Xbar <- object$CCA$Xbar
-            Xbar <- qr.fitted(object$CCA$QR, Xbar)
-            tot <- tot + diag(crossprod(t(Xbar)))/(nrow(Xbar) - 
-                                                   1)
+            Xbar <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
+            ctot <- diag(tcrossprod(Xbar)) / (nrow(Xbar) - 1)
         }
+        if (!is.null(object$CA))
+            rtot <- diag(tcrossprod(object$CA$Xbar)) / (nrow(object$CA$Xbar) - 1)
         v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
     if (ncol(v) > 1)
@@ -42,20 +46,13 @@
     if (!missing(choices)) 
         vexp <- vexp[, choices, drop = FALSE]
     if (statistic == "explained") {
-        if (!is.null(object$pCCA)) {
-            Xbar <- object$pCCA$Fit
-            if (display == "sites") 
-                Xbar <- t(Xbar)
-            ptot <- diag(crossprod(Xbar))/(nrow(Xbar)-1)
-            tot <- tot + ptot
-            if (model == "CCA")
-                vexp <- sweep(vexp, 1, ptot, "+")
-        }
+        tot <- ptot + ctot + rtot
         vexp <- sweep(vexp, 1, tot, "/")
     }
     else {
-        if (display == "sites" && (!is.null(object$CCA) || !is.null(object$pCCA)))
-            stop("statistic 'distance' not available for sites in constrained analysis")
+        tot <- rtot
+        if (model == "CCA")
+            tot <- tot + ctot
         vexp <- sweep(-(vexp), 1, tot, "+")
         vexp[vexp < 0] <- 0
         vexp <- sweep(sqrt(vexp), 1, cs, "/")
