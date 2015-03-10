@@ -1,6 +1,5 @@
 \name{goodness.cca}
 \alias{goodness}
-\alias{goodness.rda}
 \alias{goodness.cca}
 \alias{inertcomp}
 \alias{spenvcor}

@@ -192,7 +192,6 @@ S3method(fitted, rda)
 S3method(goodness, cca)
 S3method(goodness, metaMDS)
 S3method(goodness, monoMDS)
-S3method(goodness, rda)
 # head: utils
 S3method(head, summary.cca)
 # hiersimu: vegan
