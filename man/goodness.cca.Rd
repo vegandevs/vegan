@@ -1,6 +1,5 @@
 \name{goodness.cca}
 \alias{goodness}
-\alias{goodness.rda}
 \alias{goodness.cca}
 \alias{inertcomp}
 \alias{spenvcor}
@@ -21,7 +20,7 @@
 \usage{
 \method{goodness}{cca}(object, display = c("species", "sites"), choices,
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, ...)
+    summarize = FALSE, addpartial = TRUE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), proportional = FALSE)
 spenvcor(object)
@@ -33,15 +32,26 @@ vif.cca(object)
 \arguments{
   \item{object}{A result object from \code{\link{cca}},
     \code{\link{rda}} or \code{\link{capscale}}. }
-  \item{display}{Display \code{"species"} or \code{"sites"}. }
-  \item{choices}{Axes shown. Default is to show all axes of the \code{"model"}. }
+
+  \item{display}{Display \code{"species"} or \code{"sites"}. Species
+    are not available in \code{\link{capscale}}. }
+
+  \item{choices}{Axes shown. Default is to show all axes of the
+    \code{"model"}. }
+
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. }
+
   \item{statistic}{Statistic used: \code{"explained"} gives the cumulative
-  percentage accounted for, \code{"distance"} shows the residual
-  distances. Distances are not available for sites in constrained or
-  partial analyses. }
-  \item{summarize}{Show only the accumulated total. }
+    percentage accounted for, \code{"distance"} shows the residual
+    distances. }
+
+  \item{summarize}{Show only the accumulated total.}
+
+  \item{addpartial}{Add the variation explained by conditions
+    (partialled out variation) to the constraints when
+    \code{statistic="explained"}.}
+
   \item{proportional}{Give the inertia components as proportional for
     the corresponding total.}
   \item{names.only}{Return only names of aliased variable(s) instead of
@@ -52,10 +62,7 @@ vif.cca(object)
   Function \code{goodness} gives the diagnostic statistics for species
   or sites. The alternative statistics are the cumulative proportion of
   inertia accounted for up to the axes, and the residual distance left
-  unaccounted for.  The conditional (\dQuote{partialled out})
-  constraints are always regarded as explained and included in the
-  statistics of the constrained component with\code{model = "CCA"}
-  (but not in the residual component with \code{model = "CA"}).
+  unaccounted for.
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or
@@ -117,12 +124,6 @@ vif.cca(object)
   total inertia is not a meaningful concept in \code{cca}, in particular
   for rare species.
 
-  Function \code{vif} is defined as generic in package \pkg{car}
-  (\code{\link[car]{vif}}), but if you have not loaded that package
-  you must specify the call as \code{vif.cca}.  Variance inflation
-  factor is useful diagnostic tool for  detecting nearly collinear
-  constraints, but these are not a problem with algorithm used in this
-  package to fit a constrained ordination.
 }
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}},
