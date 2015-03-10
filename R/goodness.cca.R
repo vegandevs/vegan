@@ -5,35 +5,46 @@
 {
     model <- match.arg(model)
     display <- match.arg(display)
+    if (inherits(object, "capscale") && display == "species") 
+        stop("display = \"species\" not available for 'capscale'")
+    if (inherits(object, "rda"))
+        NR <- nobs(object) - 1
+    else
+        NR <- 1
     if (is.null(object$CCA)) 
         model <- "CA"
     if (is.null(object[[model]]) || object[[model]]$rank == 0) 
         stop("model ", model, " is not available")
     statistic <- match.arg(statistic)
-    cs <- if (display == "species") object$colsum else object$rowsum
+    if (inherits(object, "rda"))
+        cs <- 1
+    else {
+        cs <-
+            if (display == "species") object$colsum else object$rowsum
+    }
     lambda2 <- sqrt(object[[model]]$eig)
     ## collect contributions to the variation and scores
     ptot <- ctot <- rtot <- 0
     if (display == "species") {
         if (!is.null(object$pCCA))
-            ptot <- diag(crossprod(object$pCCA$Fit))
+            ptot <- diag(crossprod(object$pCCA$Fit)) / NR
         if (!is.null(object$CCA)) {
             Xbar <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
-            ctot <- diag(crossprod(Xbar))
+            ctot <- diag(crossprod(Xbar)) / NR
         }
         if (!is.null(object$CA))
-            rtot <- diag(crossprod(object$CA$Xbar))
+            rtot <- diag(crossprod(object$CA$Xbar)) / NR
         v <- sweep(object[[model]]$v, 2, lambda2, "*")
     }
     else {
         if (!is.null(object$pCCA))
-            ptot <- diag(tcrossprod(object$pCCA$Fit))
+            ptot <- diag(tcrossprod(object$pCCA$Fit)) / NR
         if (!is.null(object$CCA)) {
             Xbar <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
-            ctot <- diag(tcrossprod(Xbar))
+            ctot <- diag(tcrossprod(Xbar)) / NR
         }
         if (!is.null(object$CA))
-            rtot <- diag(tcrossprod(object$CA$Xbar))
+            rtot <- diag(tcrossprod(object$CA$Xbar)) / NR
         v <- sweep(object[[model]]$u, 2, lambda2, "*")
     }
     v <- sweep(v, 1, sqrt(cs), "*")
