@@ -2,6 +2,8 @@
 \alias{ordiarrows}
 \alias{ordisegments}
 \alias{ordigrid}
+\alias{ordiArrowMul}
+\alias{ordiArrowTextXY}
 
 \title{Add Arrows and Line Segments to Ordination Diagrams}
 
@@ -17,6 +19,10 @@ ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
          show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
          col = c(1,1), lwd = c(1,1), ...)
+
+ordiArrowMul(x, at = c(0,0), fill = 0.75)
+
+ordiArrowTextXY(x, labels, ...)
 }
 
 \arguments{
@@ -56,18 +62,39 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
 
   \item{\dots}{Parameters passed to graphical functions such as
     \code{\link{lines}}, \code{\link{segments}}, \code{\link{arrows}},
-    or to \code{\link{scores}} to select axes and scaling etc. } 
+    or to \code{\link{scores}} to select axes and scaling etc. }
+
+  \item{x}{two-column matrix (or matrix-like object) containing the
+    coordinates of arrow heads on the two plot axes.}
+
+  \item{at}{numeric vector of coordinates for the origin of the arrows.}
+
+  \item{fill}{numeric; the proportion of the plot to fill by the span of
+    the arrows.}
+
+  \item{labels}{vector of character strings of length \code{nrow(x)}
+    that are to be used to label arrows.}
 }
 
 \details{ Function \code{ordiarrows} draws \code{\link{arrows}} and
   \code{ordisegments} draws line \code{\link{segments}} between
   successive items in the groups. Function \code{ordigrid} draws line
   \code{\link{segments}} both within the groups and for the
-  corresponding items among the groups.  }
+  corresponding items among the groups.
+
+  \code{ordiArrowMul} finds a multiplier to scale a bunch of arrows to
+  fill an ordination plot, and \code{ordiArrowTextXY} finds the
+  coordinates for labels of these arrows.  See \code{\link{envfit}} for
+  an application.
+}
 
 \note{These functions add graphical items to ordination graph: You must
   draw a graph first.
-  }
+
+  \code{ordiArrowTextXY} does not draw labels; it simply returns
+  coordinates at which the labels should be drawn for use with another
+  function, such as \code{\link{text}}.
+}
 \author{ Jari Oksanen }
 
 \seealso{The functions pass parameters to basic graphical functions, and
