@@ -20,7 +20,7 @@
 \usage{
 \method{goodness}{cca}(object, display = c("species", "sites"), choices,
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, addpartial = TRUE, ...)
+    summarize = FALSE, addprevious = TRUE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), proportional = FALSE)
 spenvcor(object)
@@ -48,9 +48,14 @@ vif.cca(object)
 
   \item{summarize}{Show only the accumulated total.}
 
-  \item{addpartial}{Add the variation explained by conditions
-    (partialled out variation) to the constraints when
-    \code{statistic="explained"}.}
+  \item{addprevious}{Add the variation explained by previous components
+     when \code{statistic="explained"}. For \code{model="CCA"} add
+     conditionened (partialled out) variation, and for \code{model="CA"}
+     add both conditioned and constrained variation. This will give
+     cumulative explanation. The argument has no effect when
+     \code{statistic="distance"}, but this will always show the residual
+     distance after current axis and all previous components.
+   }
 
   \item{proportional}{Give the inertia components as proportional for
     the corresponding total.}
