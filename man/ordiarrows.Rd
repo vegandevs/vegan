@@ -116,5 +116,21 @@ ordiarrows(mod, ditch, label = TRUE,
 ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
    col = 2)
 legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
+
+## Biplot arrows by hand
+data(varespec, varechem)
+ord <- cca(varespec ~ Al + P + K, varechem)
+plot(ord, display = c("species","sites"))
+## biplot scores
+bip <- scores(ord, choices = 1:2, display = "bp")
+## scaling factor for arrows to fill 80% of plot
+(mul <- ordiArrowMul(bip, fill = 0.8))
+bip.scl <- bip * mul                    # Scale the biplot scores
+labs <- c("Al","P","K")                 # Arrow labels
+## calculate coordinate of labels for arrows
+(bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
+## draw arrows and text labels
+arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
+text(bip.lab, labels = labs)
 }
 \keyword{aplot }
