@@ -8,7 +8,7 @@
 @setfilename FAQ-@pkg{vegan}.info
 @settitle @pkg{vegan} FAQ
 @setchapternewpage on
-@set FAQ_YEAR 2014
+@set FAQ_YEAR 2015
 @afourpaper
 @c %**end of header
 
@@ -25,7 +25,7 @@ License. To view a copy of this license, visit
 Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.
 
-Copyright @copyright{} 2008-2013 Jari Oksanen
+Copyright @copyright{} 2008-2015 vegan development team
 @end quotation
 @end copying
 
@@ -638,14 +638,14 @@ ordination @code{plot} command, you can see the value of the currently
 used @code{arrow.mul} which is saved as an attribute of @code{biplot}
 scores.
 
-An unexported function @code{ordiArrowMul} is used to find the scaling
-for the current plot. You can use this function to see how arrows would
-be scaled:
+Function @code{ordiArrowMul} is used to find the scaling for the
+current plot. You can use this function to see how arrows would be
+scaled:
 @example
 sol <- cca(varespec)
 ef <- envfit(sol ~ ., varechem)
 plot(sol)
-vegan:::ordiArrowMul(scores(ef, display="vectors"))
+ordiArrowMul(scores(ef, display="vectors"))
 @end example
 
 @node I want to use Helmert or sum contrasts, What are aliased variables and how to see them?, How are environmental arrows scaled?, Ordination
