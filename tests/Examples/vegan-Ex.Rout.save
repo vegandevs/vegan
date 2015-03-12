@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-01-21 r67569) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-03-11 r67980) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -160,7 +160,6 @@ Link function: identity
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x60aad90>
 Total model degrees of freedom 3 
 
 REML score: -3.185099     
@@ -2247,7 +2246,7 @@ Warning in chisq.test(dune) :
 	Pearson's Chi-squared test
 
 data:  dune
-X-squared = 1448.956, df = 551, p-value < 2.2e-16
+X-squared = 1449, df = 551, p-value < 2.2e-16
 
 > deviance(cca(dune))
 [1] 1448.956
@@ -2867,8 +2866,8 @@ Extrapolated     Observed       Veiled
 > ### Name: goodness.cca
 > ### Title: Diagnostic Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
-> ### Aliases: goodness goodness.rda goodness.cca inertcomp spenvcor
-> ###   intersetcor vif.cca alias.cca
+> ### Aliases: goodness goodness.cca inertcomp spenvcor intersetcor vif.cca
+> ###   alias.cca
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4445,7 +4444,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: ordiarrows
 > ### Title: Add Arrows and Line Segments to Ordination Diagrams
-> ### Aliases: ordiarrows ordisegments ordigrid
+> ### Aliases: ordiarrows ordisegments ordigrid ordiArrowMul ordiArrowTextXY
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -4470,6 +4469,27 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
 +    col = 2)
 > legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
+> 
+> ## Biplot arrows by hand
+> data(varespec, varechem)
+> ord <- cca(varespec ~ Al + P + K, varechem)
+> plot(ord, display = c("species","sites"))
+> ## biplot scores
+> bip <- scores(ord, choices = 1:2, display = "bp")
+> ## scaling factor for arrows to fill 80% of plot
+> (mul <- ordiArrowMul(bip, fill = 0.8))
+[1] 2.074256
+> bip.scl <- bip * mul                    # Scale the biplot scores
+> labs <- c("Al","P","K")                 # Arrow labels
+> ## calculate coordinate of labels for arrows
+> (bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
+         [,1]       [,2]
+Al  1.8804734 -0.3506655
+P  -0.9169247 -1.6419989
+K  -0.9932187 -0.3713153
+> ## draw arrows and text labels
+> arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
+> text(bip.lab, labels = labs)
 > 
 > 
 > 
@@ -4919,7 +4939,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9a6c570>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4936,7 +4955,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9594a80>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
@@ -4966,7 +4984,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9b50cd8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -4980,7 +4997,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x93a0570>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
@@ -4996,7 +5012,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-4. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-5. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5009,7 +5025,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9abe468>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
@@ -5025,7 +5040,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x95a9ea0>
 
 Estimated degrees of freedom:
 3  total = 4 
@@ -5042,7 +5056,6 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x96cc318>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
@@ -5061,7 +5074,6 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x89f06e8>
 
 Estimated degrees of freedom:
 11  total = 12 
@@ -5201,7 +5213,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9591650>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
@@ -5214,7 +5225,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9863e70>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
@@ -5227,7 +5237,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x8df2e30>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
@@ -5455,7 +5464,7 @@ sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
 	Box-Pierce test
 
 data:  residuals(mar)
-X-squared = 0.0011, df = 1, p-value = 0.9739
+X-squared = 0.0010721, df = 1, p-value = 0.9739
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -7864,7 +7873,6 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa460500>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
@@ -8420,7 +8428,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.949 0.109 25.056 0 0 
+Time elapsed:  23.608 0.137 23.789 0 0 
 > grDevices::dev.off()
 null device 
           1 
