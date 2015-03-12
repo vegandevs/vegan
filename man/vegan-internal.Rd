@@ -8,8 +8,6 @@
 \alias{centroids.cca}
 \alias{ordiTerminfo}
 \alias{pasteCall}
-\alias{ordiArrowMul}
-\alias{oridArrowTextXY}
 \alias{ordiArgAbsorber}
 \alias{veganCovEllipse}
 \alias{hierParseFormula}
@@ -28,8 +26,6 @@ ordiParseFormula(formula, data, xlev = NULL,  na.action = na.fail,
 ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)
-ordiArrowMul(x, at = c(0,0), fill = 0.75)
-ordiArrowTextXY(vect, labels, ...)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, FUN)
 centroids.cca(x, mf, wt)
@@ -62,11 +58,6 @@ hierParseFormula(formula, data)
   from \code{excluded} rows of observations. Function
   \code{ordiNApredict} pads the result object with these or with
   WA scores similarly as \code{\link{napredict}}.
-
-  \code{ordiArrowMul} finds a multiplier to scale a bunch of arrows to
-  fill an ordination plot, and \code{ordiArrowTextXY} finds the
-  coordinates for labels of these arrows.  See \code{\link{envfit}}
-  for an application.
 
   \code{ordiArgAbsorber} absorbs arguments of \code{\link{scores}}
   function of \pkg{vegan} so that these do not cause superfluous
