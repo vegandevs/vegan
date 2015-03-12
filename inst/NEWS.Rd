@@ -7,29 +7,62 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item Constrained ordination functions \code{cca}, \code{rda}
-      and \code{capscale} are now more robust. Scoping of data set
-      names and variable names is much improved.
+      \item Constrained ordination functions \code{cca}, \code{rda} and
+      \code{capscale} are now more robust. Scoping of data set names and
+      variable names is much improved. This should fix numerous
+      long-standing problems, for instance those reported by Benedicte
+      Bachelot (in email) and Richard Telford (in Twitter), as well as
+      issues \href{https://github.com/vegandevs/vegan/issues/16}{#16}
+      and \href{https://github.com/vegandevs/vegan/issues/100}{#100} in
+      GitHub.
 
       \item Ordination functions \code{cca} and \code{rda} silently
       accepted dissimilarities as input although their analysis makes
       no sense with these methods. Dissimilarities should be analysed
       with distance-based redundancy analysis (\code{capscale}).
 
-      \item The variance of the conditional component was
-      over-estimated in \code{goodness} of \code{rda} results, and
-      results were wrong for partial RDA. The \code{goodness}
-      functions for \code{cca} and \code{rda} were both redesigned so
-      that the variation of the partial component was only combined
-      with the constrained variance, but not with the unconstrained
-      component. Previously the conditional variation was combined
-      with both components.
+      \item The variance of the conditional component was over-estimated
+      in \code{goodness} of \code{rda} results, and results were wrong
+      for partial RDA. The problems were reported in an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-March/004936.html}{R-sig-ecology}
+      message by Christoph von Redwitz.
 
     }
   } % bug fixes
 
+  \subsection{WINDOWS}{
+    \itemize{
+
+      \item \code{orditkplot} did not add file type identifier to saved
+      graphics in Windows although that is required. The problem only
+      concerned Windows OS.
+
+    }
+  } % windows
+
   \subsection{NEW FEATURES}{
     \itemize{
+
+      \item \code{goodness} function for constrained ordination
+      (\code{cca}, \code{rda}, \code{capscale}) was redesigned. Function
+      gained argument \code{addprevious} to add the variation explained
+      by previous ordination components to axes when \code{statistic =
+      "explained"}. With this option, \code{model = "CCA"} will include
+      the variation explained by partialled-out conditions, and
+      \code{model = "CA"} will include the accumulated variation
+      explained by conditions and constraints. The former behaviour was
+      \code{addprevious = TRUE} for \code{model = "CCA"}, and
+      \code{addprevious = FALSE} for \code{model = "CA"}. The argument
+      will have no effect when \code{statistic = "distance"}, but this
+      will always show the residual distance after all previous
+      components. Formerly it displayed the residual distance only for
+      the currently analysed model.
+
+      \item Functions \code{ordiArrowMul} and \code{ordiArrowTextXY} are
+      exported and can be used in normal interactive sessions. These
+      functions are used to scale a bunch arrows to fit ordination
+      graphics, and formerly they were internal functions used within
+      other \pkg{vegan} functions.
 
       \item The \code{varpart} plots of four-component models were
       redesigned following Legendre, Borcard & Roberts \emph{Ecology}
