@@ -2,8 +2,6 @@
 \alias{ordiarrows}
 \alias{ordisegments}
 \alias{ordigrid}
-\alias{ordiArrowMul}
-\alias{ordiArrowTextXY}
 
 \title{Add Arrows and Line Segments to Ordination Diagrams}
 
@@ -19,10 +17,6 @@ ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
          show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
          col = c(1,1), lwd = c(1,1), ...)
-
-ordiArrowMul(x, at = c(0,0), fill = 0.75)
-
-ordiArrowTextXY(x, labels, ...)
 }
 
 \arguments{
@@ -63,17 +57,6 @@ ordiArrowTextXY(x, labels, ...)
   \item{\dots}{Parameters passed to graphical functions such as
     \code{\link{lines}}, \code{\link{segments}}, \code{\link{arrows}},
     or to \code{\link{scores}} to select axes and scaling etc. }
-
-  \item{x}{two-column matrix (or matrix-like object) containing the
-    coordinates of arrow heads on the two plot axes.}
-
-  \item{at}{numeric vector of coordinates for the origin of the arrows.}
-
-  \item{fill}{numeric; the proportion of the plot to fill by the span of
-    the arrows.}
-
-  \item{labels}{vector of character strings of length \code{nrow(x)}
-    that are to be used to label arrows.}
 }
 
 \details{ Function \code{ordiarrows} draws \code{\link{arrows}} and
@@ -82,18 +65,10 @@ ordiArrowTextXY(x, labels, ...)
   \code{\link{segments}} both within the groups and for the
   corresponding items among the groups.
 
-  \code{ordiArrowMul} finds a multiplier to scale a bunch of arrows to
-  fill an ordination plot, and \code{ordiArrowTextXY} finds the
-  coordinates for labels of these arrows.  See \code{\link{envfit}} for
-  an application.
 }
 
 \note{These functions add graphical items to ordination graph: You must
   draw a graph first.
-
-  \code{ordiArrowTextXY} does not draw labels; it simply returns
-  coordinates at which the labels should be drawn for use with another
-  function, such as \code{\link{text}}.
 }
 \author{ Jari Oksanen }
 
@@ -116,21 +91,5 @@ ordiarrows(mod, ditch, label = TRUE,
 ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
    col = 2)
 legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
-
-## Biplot arrows by hand
-data(varespec, varechem)
-ord <- cca(varespec ~ Al + P + K, varechem)
-plot(ord, display = c("species","sites"))
-## biplot scores
-bip <- scores(ord, choices = 1:2, display = "bp")
-## scaling factor for arrows to fill 80% of plot
-(mul <- ordiArrowMul(bip, fill = 0.8))
-bip.scl <- bip * mul                    # Scale the biplot scores
-labs <- c("Al","P","K")                 # Arrow labels
-## calculate coordinate of labels for arrows
-(bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
-## draw arrows and text labels
-arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-text(bip.lab, labels = labs)
 }
 \keyword{aplot }
