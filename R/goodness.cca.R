@@ -1,7 +1,7 @@
 `goodness.cca` <-
     function (object, display = c("species", "sites"), choices,
               model = c("CCA", "CA"), statistic = c("explained", "distance"),
-              summarize = FALSE, addprevious = TRUE, ...)
+              summarize = FALSE, addprevious = FALSE, ...)
 {
     model <- match.arg(model)
     display <- match.arg(display)
