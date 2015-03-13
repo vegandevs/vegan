@@ -20,7 +20,7 @@
 \usage{
 \method{goodness}{cca}(object, display = c("species", "sites"), choices,
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, addprevious = TRUE, ...)
+    summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), proportional = FALSE)
 spenvcor(object)
@@ -137,8 +137,8 @@ vif.cca(object)
 data(dune)
 data(dune.env)
 mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
-goodness(mod)
-goodness(mod, summ = TRUE)
+goodness(mod, addprevious = TRUE)
+goodness(mod, addprevious = TRUE, summ = TRUE)
 # Inertia components
 inertcomp(mod, prop = TRUE)
 inertcomp(mod, stat="d")
