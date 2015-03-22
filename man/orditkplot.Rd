@@ -69,27 +69,26 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
     passed to the new plot).
   }
 
-  In addition there are buttons
-  for the following tasks: \strong{Copy to EPS} copies the current plot
-  to an encapsulated postscript (eps) file using standard Tcl/Tk
-  utilities. The faithfulness of this copy is system dependent. Button
-  \strong{Export plot} uses \code{plot.orditkplot} function to redraw
-  the plot into graphical file formats. Depending on the system, the
-  following graphical formats may be available: eps, pdf, png, jpeg or
-  bmp. The file type is deduced from the file suffix or the selection of
-  the file type in the dialogue box. Alternatively, the same dialogue can be
-  used to save the plot to an editable \code{\link{xfig}} file. Button
-  \strong{Dump to R} writes the edited coordinates of labels and points
-  to the \R session for further processing, and the
-  \code{plot.orditkplot} function can be used to display the
-  results. For faithful replication of the plot, the graph must have
-  similar dimensions as the \code{orditkplot} canvas had originally. The
-  \code{plot} function cannot be configured, but it uses the same
-  settings as the original Tcl/Tk plot. However, \code{points} and
-  \code{text} functions are fully configurable, and unaware of the
-  original Tcl/Tk plot settings (probably you must set \code{cex} at
-  least to get a decent plot). Finally, button \strong{Dismiss} closes
-  the window.
+  In addition there are buttons for the following tasks: \strong{Copy
+  to EPS} copies the current plot to an encapsulated postscript (eps)
+  file using standard Tcl/Tk utilities. The faithfulness of this copy
+  is system dependent. Button \strong{Export plot} uses
+  \code{plot.orditkplot} function to redraw the plot into graphical
+  file formats. Depending on the system, the following graphical
+  formats may be available: eps, pdf, svg, png, jpeg, tiff, bmp or
+  xfig. Some of the output formats may be edited with external
+  software: svg files with Illustrator or Inkscape, and xfig with the
+  legacy program XFig. Button \strong{Dump to R} writes the edited
+  coordinates of labels and points to the \R session for further
+  processing, and the \code{plot.orditkplot} function can be used to
+  display the results. For faithful replication of the plot, the graph
+  must have similar dimensions as the \code{orditkplot} canvas had
+  originally. The \code{plot} function cannot be configured, but it
+  uses the same settings as the original Tcl/Tk plot. However,
+  \code{points} and \code{text} functions are fully configurable, and
+  unaware of the original Tcl/Tk plot settings (probably you must set
+  \code{cex} at least to get a decent plot). Finally, button
+  \strong{Dismiss} closes the window.
 
   The produced plot will have equal aspect ratio. The width of the
   horizontal axis is fixed, but vertical axes will be scaled to needed
