@@ -230,6 +230,7 @@
         xy <- ordDump()
         ftypes <- c("eps" = "{EPS File} {.eps}",
                     "pdf" = "{PDF File} {.pdf}",
+                    "svg" = "{SVG File} {.svg}",
                     "png" = "{PNG File} {.png}",
                     "jpg" = "{JPEG File} {.jpg .jpeg}",
                     "bmp" = "{BMP File} {.bmp}",
@@ -241,6 +242,8 @@
             falt["png"] <- FALSE
         if (!capabilities("jpeg"))
             falt["jpg"] <- FALSE
+        if (!capabilities("cairo"))
+            falt["svg"] <- FALSE
         ## Should work also in R < 2.8.0 with no capabilities("tiff")
         if (!isTRUE(unname(capabilities("tiff"))))
             falt["tiff"] <- FALSE
@@ -277,6 +280,7 @@
                eps = postscript(file=fname, width=xy$dim[1], height=xy$dim[2],
                paper="special", horizontal = FALSE),
                pdf = pdf(file=fname, width=xy$dim[1], height=xy$dim[2]),
+               svg = svg(filename=fname, width=xy$dim[1], height=xy$dim[2]),
                png = png(filename=fname, width=pixdim[1], height=pixdim[2]),
                jpg = jpeg(filename=fname, width=pixdim[1], height=pixdim[2],
                quality = 100),
