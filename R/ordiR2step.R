@@ -13,6 +13,9 @@
     ## Works only for rda(): cca() does not have (yet) R2.adjusted
     if (!inherits(object, "rda"))
         stop("can be used only with rda() or capscale()")
+    ## No R2 for capscale with negative eigenvalues
+    if (inherits(object, "capscale") && !is.null(object$CA$imaginary.chi))
+        stop("cannot be used when capscale() has negative eigenvalues")
     ## Get R2 of the original object
     if (is.null(object$CCA))
         R2.0 <- 0
