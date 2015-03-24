@@ -64,6 +64,10 @@
       graphics, and formerly they were internal functions used within
       other \pkg{vegan} functions.
 
+      \item \code{orditkplot} can export graphics in SVG format. SVG is
+      a vector graphics format which can be edited with several external
+      programs, such as Illustrator and Inkscape.
+
       \item The \code{varpart} plots of four-component models were
       redesigned following Legendre, Borcard & Roberts \emph{Ecology}
       93, 1234--1240 (2012), and they use now four ellipses instead of
