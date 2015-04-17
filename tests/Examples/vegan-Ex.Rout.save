@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-03-11 r67980) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-04-17 r68192) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -522,7 +522,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)  
+        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)  
 alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
 gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
 beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
@@ -538,7 +538,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    15.114 -46.2370 22.39624 22.12571 22.44286 22.6236     0.05 *
 alpha.2    29.750 -21.7076 34.81579 34.36250 35.00000 35.0000     0.05 *
 alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *
@@ -559,7 +559,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic       z    mean    2.5%     50%  97.5% Pr(sim.)  
+        statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  
 level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
 leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
@@ -574,7 +574,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)  
+   statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  
 l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
 l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
 l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
@@ -593,7 +593,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic       z      mean      2.5%       50%   97.5% Pr(sim.)  
+   statistic     SES      mean      2.5%       50%   97.5% Pr(sim.)  
 l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
 l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
 l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
@@ -2625,7 +2625,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit scores.envfit labels.envfit
+> ###   plot.envfit scores.envfit labels.envfit ordiArrowMul ordiArrowTextXY
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
@@ -2709,6 +2709,27 @@ pH       -0.31133604  0.3658438
 > plot(ord, type="p")
 > fit <- envfit(ord, varechem, perm = 999, display = "lc")
 > plot(fit, p.max = 0.05, col = "red")
+> ## Scale arrows by hand to fill 80% of the plot
+> ## Biplot arrows by hand
+> data(varespec, varechem)
+> ord <- cca(varespec ~ Al + P + K, varechem)
+> plot(ord, display = c("species","sites"))
+> ## biplot scores
+> bip <- scores(ord, choices = 1:2, display = "bp")
+> ## scaling factor for arrows to fill 80% of plot
+> (mul <- ordiArrowMul(bip, fill = 0.8))
+[1] 2.074256
+> bip.scl <- bip * mul                    # Scale the biplot scores
+> labs <- c("Al","P","K")                 # Arrow labels
+> ## calculate coordinate of labels for arrows
+> (bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
+         [,1]       [,2]
+Al  1.8804734 -0.3506655
+P  -0.9169247 -1.6419989
+K  -0.9932187 -0.3713153
+> ## draw arrows and text labels
+> arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
+> text(bip.lab, labels = labs)
 > ## Class variables, formula interface, and displaying the
 > ## inter-class variability with `ordispider', and semitransparent
 > ## white background for labels (semitransparent colours are not
@@ -2875,7 +2896,7 @@ Extrapolated     Observed       Veiled
 > data(dune)
 > data(dune.env)
 > mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
-> goodness(mod)
+> goodness(mod, addprevious = TRUE)
                CCA1      CCA2      CCA3      CCA4
 Achimill 0.36630013 0.3822685 0.3838616 0.4934158
 Agrostol 0.67247051 0.6724758 0.6779597 0.7773267
@@ -2907,7 +2928,7 @@ Trifrepe 0.03048149 0.2115857 0.3300132 0.4207437
 Vicilath 0.17824132 0.1784611 0.3762406 0.4279428
 Bracruta 0.15585567 0.1641095 0.1672797 0.2449864
 Callcusp 0.30771429 0.3143582 0.3308502 0.3518027
-> goodness(mod, summ = TRUE)
+> goodness(mod, addprevious = TRUE, summ = TRUE)
  Achimill  Agrostol  Airaprae  Alopgeni  Anthodor  Bellpere  Bromhord  Chenalbu 
 0.4934158 0.7773267 0.3908018 0.7212918 0.3609709 0.4849622 0.5505037 0.2885321 
  Cirsarve  Comapalu  Eleopalu  Elymrepe  Empenigr  Hyporadi  Juncarti  Juncbufo 
@@ -4093,7 +4114,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
 alpha.2   11.2353  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
 alpha.3   12.0064 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
@@ -4113,7 +4134,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
+        statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -66.643 12.2056 12.1143 12.2120 12.2910     0.05 *
 alpha.2   11.2353  -94.626 14.0818 14.0246 14.0917 14.1193     0.05 *
 alpha.3   12.0064 -355.962 14.1391 14.1283 14.1374 14.1485     0.05 *
@@ -4133,7 +4154,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
+        statistic      SES      mean      2.5%       50%   97.5% Pr(sim.)  
 alpha.1  8.055481  -53.544 12.204883 12.071168 12.198307 12.3689     0.05 *
 alpha.2 11.235261  -99.506 14.079276 14.032767 14.076147 14.1247     0.05 *
 alpha.3 12.006443 -343.946 14.135245 14.123604 14.136297 14.1438     0.05 *
@@ -4153,7 +4174,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global TRUE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -69.630 12.19342 12.09434 12.18504 12.3160     0.05 *
 alpha.2   11.2353  -81.676 14.09224 14.05248 14.09208 14.1625     0.05 *
 alpha.3   12.0064 -321.419 14.13850 14.12429 14.13991 14.1456     0.05 *
@@ -4205,7 +4226,7 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
 checkerboards      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
@@ -4221,7 +4242,7 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)   
+        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
 C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4348,7 +4369,7 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
 checkerboards      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4378,7 +4399,7 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z    mean     50%    95% Pr(sim.)  
+     statistic     SES    mean     50%    95% Pr(sim.)  
 DCA1  0.382249  1.8658 0.32404 0.32373 0.3726     0.02 *
 DCA2  0.261208  1.5772 0.21939 0.21617 0.2637     0.09 .
 DCA3  0.166788  0.5209 0.15594 0.15572 0.1859     0.30  
@@ -4405,7 +4426,7 @@ nullmodel method ‘r2dtable’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)   
+          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
 statistic   0.64565 16.876 0.46651 0.44565 0.46652 0.4826     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4429,7 +4450,7 @@ nullmodel method ‘myshuffle’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
+          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
 statistic   0.64565 2.7402 0.63542 0.62941 0.63519 0.6433     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4444,7 +4465,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: ordiarrows
 > ### Title: Add Arrows and Line Segments to Ordination Diagrams
-> ### Aliases: ordiarrows ordisegments ordigrid ordiArrowMul ordiArrowTextXY
+> ### Aliases: ordiarrows ordisegments ordigrid
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -4469,27 +4490,6 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
 +    col = 2)
 > legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
-> 
-> ## Biplot arrows by hand
-> data(varespec, varechem)
-> ord <- cca(varespec ~ Al + P + K, varechem)
-> plot(ord, display = c("species","sites"))
-> ## biplot scores
-> bip <- scores(ord, choices = 1:2, display = "bp")
-> ## scaling factor for arrows to fill 80% of plot
-> (mul <- ordiArrowMul(bip, fill = 0.8))
-[1] 2.074256
-> bip.scl <- bip * mul                    # Scale the biplot scores
-> labs <- c("Al","P","K")                 # Arrow labels
-> ## calculate coordinate of labels for arrows
-> (bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
-         [,1]       [,2]
-Al  1.8804734 -0.3506655
-P  -0.9169247 -1.6419989
-K  -0.9932187 -0.3713153
-> ## draw arrows and text labels
-> arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-> text(bip.lab, labels = labs)
 > 
 > 
 > 
@@ -7261,7 +7261,7 @@ nullmodel method ‘r1’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)   
+   statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)   
 1     384.09 -1.28273  781.41  382.13  664.87 1244.3     0.09 . 
 2     568.88 -2.29048 1245.21  648.63 1342.75 1602.9     0.01 **
 3    1172.95 -0.28386 1251.47  668.89 1353.45 1594.1     0.57   
@@ -8428,7 +8428,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.608 0.137 23.789 0 0 
+Time elapsed:  23.83 0.144 24.005 0 0 
 > grDevices::dev.off()
 null device 
           1 
