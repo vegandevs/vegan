@@ -177,8 +177,8 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{statistic}{Observed values of the statistic.}
   \item{simulated}{Simulated values of the statistic.}
   \item{means}{Mean values of the statistic from simulations.}
-  \item{z}{\eqn{z}-values or the standardized effect sizes of the observed 
-     statistic based on simulations.}
+  \item{z}{Standardized effect sizes (SES, a.k.a. the \eqn{z}-values)
+     of the observed statistic based on simulations.}
   \item{pval}{The \eqn{P}-values of the statistic based on simulations.}
   \item{alternative}{The type of testing as given in argument \code{alternative}.}
   \item{method}{The \code{method} used in \code{\link{nullmodel}}.}

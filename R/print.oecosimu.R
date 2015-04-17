@@ -32,7 +32,7 @@
                     less = c(0.05, 0.5))
     qu <- apply(x$oecosimu$simulated, 1, quantile, probs=probs, na.rm = TRUE)
     m <- cbind("statistic" = x$oecosimu$statistic,
-               "z" = x$oecosimu$z, "mean" = x$oecosimu$means, t(qu),
+               "SES" = x$oecosimu$z, "mean" = x$oecosimu$means, t(qu),
                "Pr(sim.)"=x$oecosimu$pval)
     printCoefmat(m, cs.ind = 3:(ncol(m)-1), ...)
     if (any(is.na(x$oecosimu$simulated))) {
