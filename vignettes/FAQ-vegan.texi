@@ -704,8 +704,11 @@ and characters.
 
 If there is a really high number of species or sites, the graphs often
 are congested and many labels are overwritten. It may be impossible to
-have complete readable graphics with some data sets. However, here are
-some tricks you can use:
+have complete readable graphics with some data sets. Below we give a
+brief overview of tricks you can use. Gavin Simpson's blog
+@uref{http://www.fromthebottomoftheheap.net,, From the bottom of the
+heap} has a series of articles on ``decluttering ordination plots'' with
+more detailed discussion and examples.
 @itemize
 
 @item 
@@ -723,19 +726,25 @@ Use points and add labels to desired points using interactive
 Add labels using function @code{ordilabel} which uses non-transparent
 background to the text. The labels still shadow each other, but the
 uppermost labels are readable. Argument @code{priority} will help in
-displaying the most interesting labels.
+displaying the most interesting labels (see
+@uref{http://www.fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/,,Decluttering
+blog, part 1}).
 
 @item 
 Use @code{orditorp} function that uses labels only if these can be
 added to a graph without overwriting other labels, and points otherwise,
 if you do not need to see all labels. You must first create an empty
 plot using  @code{plot(..., type="n")}, and then add labels or points
-with @code{orditorp}.  
+with @code{orditorp} (see
+@uref{http://www.fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/,,Decluttering
+blog}). 
 
 @item 
 Use @code{ordipointlabel} which uses points and text labels to the
 points, and tries to optimize the location of the text to minimize the
-overlap. 
+overlap (see
+@uref{http://www.fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/,,
+Decluttering blog}).
 
 @item
 Ordination @code{text} and @code{points} functions have argument
@@ -745,7 +754,9 @@ plotted as text or points.
 @item 
 Use interactive @code{orditkplot} function that lets you drag
 labels of points to better positions if you need to see all labels. Only
-one set of points can be used. 
+one set of points can be used (see
+@uref{http://www.fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/,,Decluttering
+blog}).
 
 @item 
 Most @code{plot} functions allow you to zoom to a part of the
