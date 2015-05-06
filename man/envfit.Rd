@@ -7,8 +7,6 @@
 \alias{plot.envfit}
 \alias{scores.envfit}
 \alias{labels.envfit}
-\alias{ordiArrowMul}
-\alias{ordiArrowTextXY}
 
 \title{Fits an Environmental Vector or Factor onto an Ordination }
 \description{
@@ -26,9 +24,6 @@
 \method{scores}{envfit}(x, display, choices, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
-## support functions
-ordiArrowMul(x, at = c(0,0), fill = 0.75)
-ordiArrowTextXY(x, labels, ...)
 }
 
 \arguments{
@@ -94,9 +89,6 @@ ordiArrowTextXY(x, labels, ...)
     (with synonyms \code{"bp"} or \code{"cn"}, resp.).}
   \item{w}{Weights used in fitting (concerns mainly \code{\link{cca}}
     and \code{\link{decorana}} results which have nonconstant weights).}
-
-  \item{fill}{numeric; the proportion of the plot to fill by the span of
-    the arrows.}
 
   \item{...}{Parameters passed to \code{\link{scores}}.}
 }
@@ -231,22 +223,7 @@ ord <- cca(varespec ~ Al + P + K, varechem)
 plot(ord, type="p")
 fit <- envfit(ord, varechem, perm = 999, display = "lc")
 plot(fit, p.max = 0.05, col = "red")
-## Scale arrows by hand to fill 80% of the plot
-## Biplot arrows by hand
-data(varespec, varechem)
-ord <- cca(varespec ~ Al + P + K, varechem)
-plot(ord, display = c("species","sites"))
-## biplot scores
-bip <- scores(ord, choices = 1:2, display = "bp")
-## scaling factor for arrows to fill 80% of plot
-(mul <- ordiArrowMul(bip, fill = 0.8))
-bip.scl <- bip * mul                    # Scale the biplot scores
-labs <- c("Al","P","K")                 # Arrow labels
-## calculate coordinate of labels for arrows
-(bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
-## draw arrows and text labels
-arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-text(bip.lab, labels = labs)
+
 ## Class variables, formula interface, and displaying the
 ## inter-class variability with `ordispider', and semitransparent
 ## white background for labels (semitransparent colours are not
@@ -265,6 +242,7 @@ labels(fit)
 plot(ord)
 plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
    bg = rgb(1,1,0,0.5))
+detach(dune.env)
 }
 \keyword{multivariate }
 \keyword{aplot}
