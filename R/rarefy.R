@@ -3,10 +3,10 @@
 {
     x <- as.matrix(x)
     minsample <- min(apply(x, MARGIN, sum))
-    if (sample > minsample)
+    if (min(sample) > minsample)
         warning(
             gettextf("sample = %d is larger than smallest site maximum (%d)",
-                     sample, minsample))
+                     min(sample), minsample))
     ## as.matrix changes an n-vector to a n x 1 matrix
     if (ncol(x) == 1 && MARGIN == 1)
         x <- t(x)
