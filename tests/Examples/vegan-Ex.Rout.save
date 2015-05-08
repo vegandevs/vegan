@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-04-17 r68192) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-04-28 r68270) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -2625,7 +2625,7 @@ Cumulative Proportion 0.998820 0.999750 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit scores.envfit labels.envfit ordiArrowMul ordiArrowTextXY
+> ###   plot.envfit scores.envfit labels.envfit
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
@@ -2709,27 +2709,7 @@ pH       -0.31133604  0.3658438
 > plot(ord, type="p")
 > fit <- envfit(ord, varechem, perm = 999, display = "lc")
 > plot(fit, p.max = 0.05, col = "red")
-> ## Scale arrows by hand to fill 80% of the plot
-> ## Biplot arrows by hand
-> data(varespec, varechem)
-> ord <- cca(varespec ~ Al + P + K, varechem)
-> plot(ord, display = c("species","sites"))
-> ## biplot scores
-> bip <- scores(ord, choices = 1:2, display = "bp")
-> ## scaling factor for arrows to fill 80% of plot
-> (mul <- ordiArrowMul(bip, fill = 0.8))
-[1] 2.074256
-> bip.scl <- bip * mul                    # Scale the biplot scores
-> labs <- c("Al","P","K")                 # Arrow labels
-> ## calculate coordinate of labels for arrows
-> (bip.lab <- ordiArrowTextXY(bip.scl, labels = labs))
-         [,1]       [,2]
-Al  1.8804734 -0.3506655
-P  -0.9169247 -1.6419989
-K  -0.9932187 -0.3713153
-> ## draw arrows and text labels
-> arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-> text(bip.lab, labels = labs)
+> 
 > ## Class variables, formula interface, and displaying the
 > ## inter-class variability with `ordispider', and semitransparent
 > ## white background for labels (semitransparent colours are not
@@ -2754,12 +2734,13 @@ $factors
 > plot(ord)
 > plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
 +    bg = rgb(1,1,0,0.5))
+> detach(dune.env)
 > 
 > 
 > 
 > cleanEx()
 
-detaching ‘dune.env’, ‘package:MASS’
+detaching ‘package:MASS’
 
 > nameEx("eventstar")
 > ### * eventstar
@@ -4458,6 +4439,51 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > cleanEx()
+> nameEx("ordiArrowTextXY")
+> ### * ordiArrowTextXY
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ordiArrowTextXY
+> ### Title: Support Functions for Drawing Vectors
+> ### Aliases: ordiArrowMul ordiArrowTextXY
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+>     ## Scale arrows by hand to fill 80% of the plot
+>     ## Biplot arrows by hand
+>     data(varespec, varechem)
+>     ord <- cca(varespec ~ Al + P + K, varechem)
+>     plot(ord, display = c("species","sites"))
+> 
+>     ## biplot scores
+>     bip <- scores(ord, choices = 1:2, display = "bp")
+> 
+>     ## scaling factor for arrows to fill 80% of plot
+>     (mul <- ordiArrowMul(bip, fill = 0.8))
+[1] 2.074256
+>     bip.scl <- bip * mul                    # Scale the biplot scores
+>     labs <- rownames(bip)                   # Arrow labels
+> 
+>     ## calculate coordinate of labels for arrows
+>     (bip.lab <- ordiArrowTextXY(bip.scl, rescale = FALSE, labels = labs))
+         [,1]       [,2]
+Al  1.8804734 -0.3506655
+P  -0.9169247 -1.6419989
+K  -0.9932187 -0.3713153
+> 
+>     ## draw arrows and text labels
+>     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
+>     text(bip.lab, labels = labs)
+> 
+>     ## Handling of ordination objects directly
+>     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
+>     stopifnot(all.equal(mul, mul2))
+> 
+> 
+> 
+> cleanEx()
 > nameEx("ordiarrows")
 > ### * ordiarrows
 > 
@@ -5012,7 +5038,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-5. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-6. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -8428,7 +8454,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.83 0.144 24.005 0 0 
+Time elapsed:  23.612 0.16 23.843 0 0 
 > grDevices::dev.off()
 null device 
           1 
