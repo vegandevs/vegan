@@ -154,13 +154,9 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   for the physical size of the plot, and the arrow lengths cannot be
   compared across plots. For similar scaling of arrows, you must
   explicitly set the \code{arrow.mul} argument in the \code{plot}
-  command.  \code{ordiArrowMul} finds a multiplier to scale a bunch of
-  arrows to fill an ordination plot, and \code{ordiArrowTextXY} finds
-  the coordinates for labels of these arrows. NB.,
-  \code{ordiArrowTextXY} does not draw labels; it simply returns
-  coordinates at which the labels should be drawn for use with another
-  function, such as \code{\link{text}}.
-
+  command; see \code{\link{ordiArrowMul}} and
+  \code{\link{ordiArrowTextXY}}.
+  
   The results can be accessed with \code{scores.envfit} function which
   returns either the fitted vectors scaled by correlation coefficient or
   the centroids of the fitted environmental variables.
