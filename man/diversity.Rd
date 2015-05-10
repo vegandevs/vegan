@@ -60,9 +60,9 @@ specnumber(x, groups, MARGIN = 1)
   Function \code{rarefy} gives the expected species richness in random
   subsamples of size \code{sample} from the community. The size of
   \code{sample} should be smaller than total community size, but the
-  function will silently work for larger \code{sample} as well and
-  return non-rarefied species richness (and standard error = 0). If
-  \code{sample} is a vector, rarefaction of all observations is
+  function will work for larger \code{sample} as well (with a warning)
+  and return non-rarefied species richness (and standard error =
+  0). If \code{sample} is a vector, rarefaction of all observations is
   performed for each sample size separately.  Rarefaction can be
   performed only with genuine counts of individuals.  The function
   \code{rarefy} is based on Hurlbert's (1971) formulation, and the
