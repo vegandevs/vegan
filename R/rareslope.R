@@ -12,8 +12,9 @@
 {
     x <- x[x>0]
     J <- sum(x)
-    d <- digamma(J-k+1) - digamma(J-x-k+1)
-    g <- lgamma(J-x+1) + lgamma(J-k+1) - lgamma(J-x-k+1)-lgamma(J+1)
+    d <- digamma(J-sample+1) - digamma(J-x-sample+1)
+    g <- lgamma(J-x+1) + lgamma(J-sample+1) -
+        lgamma(J-x-sample+1)-lgamma(J+1)
     d <- d*exp(g)
     sum(d[is.finite(d)])
 }
