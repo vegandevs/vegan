@@ -12,6 +12,9 @@
 `rareslope` <-
     function(x, sample)
 {
+    ## 'x' must be integers ('sample' need not be)
+    if (!identical(all.equal(x, round(x)), TRUE))
+        stop("community data 'x' must be integers (counts)")
     slope <- function(x, sample) {
         x <- x[x>0]
         J <- sum(x)
