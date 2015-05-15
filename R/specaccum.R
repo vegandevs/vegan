@@ -109,6 +109,9 @@
     }
     if (method == "rarefaction")
         out$individuals <- ind
+    ## return 'freq' for methods that are solely defined by them
+    if (method %in% c("exact", "rarefaction", "coleman"))
+        out$freq <- freq
     if (method == "random")
         attr(out, "control") <- attr(permat, "control")
     class(out) <- "specaccum"
