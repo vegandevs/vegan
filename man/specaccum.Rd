@@ -10,6 +10,7 @@
 \alias{lines.fitspecaccum}
 \alias{predict.specaccum}
 \alias{predict.fitspecaccum}
+\alias{specslope}
 
 \title{Species Accumulation Curves }
 \description{
@@ -30,6 +31,7 @@ fitspecaccum(object, model, method = "random", ...)
     ylab = x$method, ...) 
 \method{predict}{specaccum}(object, newdata, interpolation = c("linear", "spline"), ...)
 \method{predict}{fitspecaccum}(object, newdata, ...)
+specslope(object, at)
 }
 
 \arguments{
@@ -85,6 +87,9 @@ fitspecaccum(object, model, method = "random", ...)
   
   \item{interpolation}{Interpolation method used with \code{newdata}.}
 
+  \item{at}{Number of plots where the slope is evaluated. Can be a
+    real number.}
+
   \item{...}{Other parameters to functions.}
 }
 \details{
@@ -108,9 +113,10 @@ fitspecaccum(object, model, method = "random", ...)
   deviation following Coleman et al. (1982).  All these methods are
   based on sampling sites without replacement. In contrast, the
   \code{method = "rarefaction"} finds the expected species richness and
-  its standard deviation by sampling individuals instead of sites. It
-  achieves this by applying function \code{\link{rarefy}} with number of individuals
-  corresponding to average number of individuals per site.
+  its standard deviation by sampling individuals instead of sites.
+  It achieves this by applying function \code{\link{rarefy}} with
+  number of individuals corresponding to average number of individuals
+  per site.
 
   Methods \code{"random"} and \code{"collector"} can take weights
   (\code{w}) that give the sampling effort for each site.  The weights
@@ -169,6 +175,10 @@ fitspecaccum(object, model, method = "random", ...)
   Function \code{predict} uses \code{\link{predict.nls}}, and you can
   pass all arguments to that function. In addition, \code{fitted},
   \code{residuals} and \code{coef} work on the result object.
+
+  Function \code{specslope} evaluates the derivative of the species
+  accumulation curve at given number of sample plots. The function
+  works with \code{specaccum} result object.
 
   Nonlinear regression may fail for any reason, and some of the
   \code{fitspecaccum} models are fragile and may not succeed.  
