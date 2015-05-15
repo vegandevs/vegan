@@ -10,11 +10,22 @@
 `rareslope` <-
     function(x, sample)
 {
-    x <- x[x>0]
-    J <- sum(x)
-    d <- digamma(pmax(J-sample+1, 1)) - digamma(pmax(J-x-sample+1, 1))
-    g <- lgamma(pmax(J-x+1, 1)) + lgamma(pmax(J-sample+1, 1)) -
-        lgamma(pmax(J-x-sample+1, 1)) - lgamma(J+1)
-    d <- d*exp(g)
-    sum(d[is.finite(d)])
+    slope <- function(x, sample) {
+        x <- x[x>0]
+        J <- sum(x)
+        d <- digamma(pmax(J-sample+1, 1)) - digamma(pmax(J-x-sample+1, 1))
+        g <- lgamma(pmax(J-x+1, 1)) + lgamma(pmax(J-sample+1, 1)) -
+            lgamma(pmax(J-x-sample+1, 1)) - lgamma(J+1)
+        d <- d*exp(g)
+        sum(d[is.finite(d)])
+    }
+    out <- sapply(sample, function(n) apply(x, 1, slope, sample = n))
+    out <- drop(out)
+    if (length(sample) > 1) {
+        if (is.matrix(out))
+            colnames(out) <- paste0("N", sample)
+        else
+            names(out) <- paste0("N", sample)
+    }
+    out
 }
