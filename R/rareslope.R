@@ -4,8 +4,10 @@
 #' function at given sample size. The derivative was
 #' directly derived from the expression used in \code{rarefy}.
 #'
-#' @param x Community counts; a single integer vector
-#' @param sample Sample size where the derivative is evaluated; can be real
+#' @param x Community counts, either an integer vector for a single
+#' site or a data frame or matrix with each row giving site vectors.
+#' @param sample Sample sizes where the derivatives are evaluated; can
+#' be real
 #'
 `rareslope` <-
     function(x, sample)
@@ -13,6 +15,9 @@
     slope <- function(x, sample) {
         x <- x[x>0]
         J <- sum(x)
+        ## Replace Hurlbert's factorials with gamma() functions and do
+        ## some algebra for derivatives. NB., rarefy() does not use
+        ## factorials but lchoose directly.
         d <- digamma(pmax(J-sample+1, 1)) - digamma(pmax(J-x-sample+1, 1))
         g <- lgamma(pmax(J-x+1, 1)) + lgamma(pmax(J-sample+1, 1)) -
             lgamma(pmax(J-x-sample+1, 1)) - lgamma(J+1)
