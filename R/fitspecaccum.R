@@ -36,6 +36,7 @@ fitspecaccum <-
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
     object$coefficients <- drop(sapply(mods, coef))
+    object$SSmodel <- model
     object$models <- mods
     object$call <- match.call()
     class(object) <- c("fitspecaccum", class(object))
