@@ -30,7 +30,7 @@
     if (length(dim(x)) == 2)
         out <- sapply(sample, function(n) apply(x, 1, slope, sample = n))
     else
-        out <- slope(x, sample)
+        out <- sapply(sample, function(n) slope(x, sample=n))
     out <- drop(out)
     if (length(sample) > 1) {
         if (is.matrix(out))
