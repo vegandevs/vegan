@@ -141,13 +141,16 @@ specslope(object, at)
   The \code{summary} and \code{boxplot} methods are available for
   \code{method = "random"}.
 
-  Function \code{predict} can return the values corresponding to
-  \code{newdata} using linear (\code{\link{approx}}) or spline
-  (\code{\link{spline}}) interpolation. The function cannot
-  extrapolate with linear interpolation, and with spline the type and
-  sensibility of the extrapolation depends on argument \code{method}
-  which is passed to \code{\link{spline}}.  If \code{newdata} is not
-  given, the function returns the values corresponding to the data.
+  Function \code{predict} for \code{specaccum} can return the values
+  corresponding to \code{newdata}. With \code{method} \code{"exact"},
+  \code{"rarefaction"} and \code{"coleman"} the function uses analytic
+  equations for interpolated non-integer values, and for other methods
+  linear (\code{\link{approx}}) or spline (\code{\link{spline}})
+  interpolation. If \code{newdata} is not given, the function returns
+  the values corresponding to the data. NB., the fitted values with
+  \code{method="rarefaction"} are based on rounded integer counts, but
+  \code{predict} can use fractional non-integer counts with
+  \code{newdata} and give slightly different results.
 
   Function \code{fitspecaccum} fits a nonlinear (\code{\link{nls}})
   self-starting species accumulation model. The input \code{object}
@@ -172,9 +175,10 @@ specslope(object, at)
   individuals.  The \code{plot} is still based on sites, unless other
   alternative is selected with \code{xvar}.
 
-  Function \code{predict} uses \code{\link{predict.nls}}, and you can
-  pass all arguments to that function. In addition, \code{fitted},
-  \code{residuals} and \code{coef} work on the result object.
+  Function \code{predict} for \code{fitspecaccum} uses
+  \code{\link{predict.nls}}, and you can pass all arguments to that
+  function. In addition, \code{fitted}, \code{residuals} and
+  \code{coef} work on the result object.
 
   Function \code{specslope} evaluates the derivative of the species
   accumulation curve at given number of sample plots, and gives the
