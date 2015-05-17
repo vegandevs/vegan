@@ -27,7 +27,10 @@
         d <- d*exp(g)
         sum(d[is.finite(d)])
     }
-    out <- sapply(sample, function(n) apply(x, 1, slope, sample = n))
+    if (length(dim(x)) == 2)
+        out <- sapply(sample, function(n) apply(x, 1, slope, sample = n))
+    else
+        out <- slope(x, sample)
     out <- drop(out)
     if (length(sample) > 1) {
         if (is.matrix(out))
