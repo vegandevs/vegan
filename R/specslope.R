@@ -39,8 +39,9 @@
                sum(d[is.finite(d)])
            },
            rarefaction = {
-               ## fractional number of individuals at 'at'
-               rareslope(f, at/n*sum(f))
+               ## fractional number of individuals at 'at', and slope
+               ## for adding whole site instead of one individual
+               rareslope(f, at/n*sum(f)) * sum(f)/n
            },
            coleman = {
                sum((1 - at/n)^f*f/(n - at))
