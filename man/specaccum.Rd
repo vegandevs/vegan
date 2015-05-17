@@ -10,6 +10,8 @@
 \alias{lines.fitspecaccum}
 \alias{predict.specaccum}
 \alias{predict.fitspecaccum}
+\alias{AIC.fitspecaccum}
+\alias{deviance.fitspecaccum}
 \alias{specslope}
 
 \title{Species Accumulation Curves }
@@ -178,7 +180,8 @@ specslope(object, at)
   Function \code{predict} for \code{fitspecaccum} uses
   \code{\link{predict.nls}}, and you can pass all arguments to that
   function. In addition, \code{fitted}, \code{residuals} and
-  \code{coef} work on the result object.
+  \code{coef}, \code{AIC} and \code{deviance} work on the result
+  object.
 
   Function \code{specslope} evaluates the derivative of the species
   accumulation curve at given number of sample plots, and gives the
