@@ -442,6 +442,9 @@ S3method(simulate, capscale)
 S3method(simulate, cca)
 S3method(simulate, rda)
 S3method(simulate, nullmodel)
+# specslope: vegan
+S3method(specslope, specaccum)
+S3method(specslope, fitspecaccum)
 # str: utils
 S3method(str, nullmodel)
 # stressplot: vegan

@@ -177,8 +177,11 @@ specslope(object, at)
   \code{residuals} and \code{coef} work on the result object.
 
   Function \code{specslope} evaluates the derivative of the species
-  accumulation curve at given number of sample plots. The function
-  works with \code{specaccum} result object.
+  accumulation curve at given number of sample plots, and gives the
+  rate of increase in the number of species. The function works with
+  \code{specaccum} result object when this is based on analytic models
+  \code{"exact"}, \code{"rarefaction"} or \code{"coleman"}, and with
+  non-linear regression results of \code{fitspecaccum}.
 
   Nonlinear regression may fail for any reason, and some of the
   \code{fitspecaccum} models are fragile and may not succeed.  
