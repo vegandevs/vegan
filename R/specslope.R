@@ -12,11 +12,16 @@
 #' \code{"exact"}, \code{"rarefaction"} or \code{"coleman"}.
 #' @param at The sample size (number of sites) at which the slope is
 #' evaluated. This need not be an integer.
+
 `specslope` <-
     function(object, at)
 {
-    if (!inherits(object, "specaccum"))
-        stop("'object' should be a speccaccum() result")
+    UseMethod("specslope")
+}
+
+`specslope.specaccum` <-
+    function(object, at)
+{
     accepted <- c("exact", "rarefaction", "coleman")
     if (!(object$method %in% accepted))
         stop("accumulation method must be one of: ",
