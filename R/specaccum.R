@@ -34,7 +34,7 @@
         permat <- getPermuteMatrix(permutations, n)
         perm <- apply(permat, 1, accumulator, x = x)
         if (!is.null(w))
-            weights <- apply(permat, 1, function(i) cumsum(w[i]))
+            weights <- as.matrix(apply(permat, 1, function(i) cumsum(w[i])))
         sites <- 1:n
         if (is.null(w)) {
             specaccum <- apply(perm, 1, mean)
@@ -42,7 +42,7 @@
         } else {
             sumw <- sum(w)
             xout <- seq(sumw/n, sumw, length.out = n)
-            intx <- sapply(seq_len(n), function(i)
+            intx <- sapply(seq_len(NCOL(perm)), function(i)
                            approx(weights[,i], perm[,i], xout = xout)$y)
             specaccum <- apply(intx, 1, mean)
             sdaccum <- apply(intx, 1, sd)
