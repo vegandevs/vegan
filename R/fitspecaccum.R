@@ -16,6 +16,12 @@ fitspecaccum <-
     else
         x <- object$sites
     hasWeights <- !is.null(object$weights)
+    ## scale weights to correspond to the no. of sites
+    if (hasWeights) {
+        w <- as.matrix(object$weights)
+        n <- nrow(w)
+        w <- sweep(w, 2, w[n,], "/") * n
+    }
     NLSFUN <- function(y, x, model, ...) {
         switch(model,
         "arrhenius" = nls(y ~ SSarrhenius(x, k, z),  ...),
@@ -31,7 +37,7 @@ fitspecaccum <-
     mods <- lapply(seq_len(NCOL(SpeciesRichness)),
                   function(i, ...)
                    NLSFUN(SpeciesRichness[,i],
-                          if (hasWeights) object$weights[,i] else x,
+                          if (hasWeights) w[,i] else x,
                           model, ...), ...)
     object$fitted <- drop(sapply(mods, fitted))
     object$residuals <- drop(sapply(mods, residuals))
@@ -52,7 +58,7 @@ fitspecaccum <-
     if (is.null(x$weights))
         fv <- fitted(x)
     else
-        fv <- sapply(x$models, predict, newdata = list(x = x$effort))
+        fv <- sapply(x$models, predict, newdata = list(x = x$sites))
     matplot(x$sites, fv, col = col, lty = lty, pch = NA,
             xlab = xlab, ylab = ylab, type = "l", ...)
     invisible()
@@ -64,7 +70,7 @@ fitspecaccum <-
     if (is.null(x$weights))
         fv <- fitted(x)
     else
-        fv <- sapply(x$models, predict, newdata= list(x = x$effort))
+        fv <- sapply(x$models, predict, newdata= list(x = x$sites))
     matlines(x$sites, fv, col = col, lty = lty, pch = NA, type = "l", ...)
     invisible()
 }
