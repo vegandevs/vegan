@@ -30,6 +30,8 @@
         sites <- 1:n
         xout <- weights <- cumsum(w)
         specaccum <- accumulator(x, sites)
+        perm <- as.matrix(specaccum)
+        weights <- as.matrix(weights)
     }, random = {
         permat <- getPermuteMatrix(permutations, n)
         perm <- apply(permat, 1, accumulator, x = x)
