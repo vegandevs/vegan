@@ -61,7 +61,8 @@ specslope(object, at)
     values are taken as \code{FALSE}.}
   \item{x}{A \code{specaccum} result object}
   \item{add}{Add to an existing graph.}
-  \item{random}{\dots}
+  \item{random}{Draw each random simulation separately instead of
+    drawing their average and confidence intervals.}
   \item{ci}{Multiplier used to get confidence intervals from standard
     deviation (standard error of the estimate). Value \code{ci = 0}
     suppresses drawing confidence intervals.}
