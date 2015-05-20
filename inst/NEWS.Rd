@@ -40,7 +40,7 @@
     }
   } % windows
 
-  \subsection{NEW FEATURES}{
+  \subsection{NEW FEATURES AND FUNCTIONS}{
     \itemize{
 
       \item \code{goodness} function for constrained ordination
@@ -67,6 +67,38 @@
       \item \code{orditkplot} can export graphics in SVG format. SVG is
       a vector graphics format which can be edited with several external
       programs, such as Illustrator and Inkscape.
+
+      \item Rarefaction curve (\code{rarecurve}) and species
+      accumulation models (\code{specaccum}, \code{fitspecaccum})
+      gained new functions to estimate the slope of curve at given
+      location. Originally this was based on a response to an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-May/005038.html}{R-SIG-ecology}
+      query. For rarefaction curves, the function is \code{rareslope},
+      and for species accumulation models it is \code{specslope}.
+
+      The functions are based on analytic equations, and can also be
+      evaluated at interpolated non-integer values. In
+      \code{specaccum} models the functions can be only evaluated for
+      analytic models \code{"exact"}, \code{"rarefaction"} and
+      \code{"coleman"}. With \code{"random"} and \code{"collector"}
+      methods you can only use finite differences
+      (\code{diff(fitted(<result.object>))}). Analytic functions for
+      slope are used for all non-linear regression models known to
+      \code{fitspecaccum}.
+
+      \item Species accumulation models (\code{specaccum}) and
+      non-liner regression models for species accumulation
+      (\code{fitspecaccum}) work more consistently with weights. In
+      all cases, the models are defined using the number of sites as
+      independent variable, which with weights means that observations
+      can be non-integer numbers of virtual sites. The \code{predict}
+      models also use the number of sites with \code{newdata},
+      and for analytic models they can estimate the expected values
+      for non-integer number of sites, and for non-analytic randomized
+      or collector models they can interpolate on non-integer values.
+
+      \item \code{fitspecaccum} gained support functions \code{AIC}
+      and \code{deviance}.
 
       \item The \code{varpart} plots of four-component models were
       redesigned following Legendre, Borcard & Roberts \emph{Ecology}
