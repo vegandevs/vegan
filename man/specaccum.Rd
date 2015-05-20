@@ -10,6 +10,9 @@
 \alias{lines.fitspecaccum}
 \alias{predict.specaccum}
 \alias{predict.fitspecaccum}
+\alias{AIC.fitspecaccum}
+\alias{deviance.fitspecaccum}
+\alias{specslope}
 
 \title{Species Accumulation Curves }
 \description{
@@ -30,6 +33,7 @@ fitspecaccum(object, model, method = "random", ...)
     ylab = x$method, ...) 
 \method{predict}{specaccum}(object, newdata, interpolation = c("linear", "spline"), ...)
 \method{predict}{fitspecaccum}(object, newdata, ...)
+specslope(object, at)
 }
 
 \arguments{
@@ -57,7 +61,8 @@ fitspecaccum(object, model, method = "random", ...)
     values are taken as \code{FALSE}.}
   \item{x}{A \code{specaccum} result object}
   \item{add}{Add to an existing graph.}
-  \item{random}{\dots}
+  \item{random}{Draw each random simulation separately instead of
+    drawing their average and confidence intervals.}
   \item{ci}{Multiplier used to get confidence intervals from standard
     deviation (standard error of the estimate). Value \code{ci = 0}
     suppresses drawing confidence intervals.}
@@ -85,6 +90,9 @@ fitspecaccum(object, model, method = "random", ...)
   
   \item{interpolation}{Interpolation method used with \code{newdata}.}
 
+  \item{at}{Number of plots where the slope is evaluated. Can be a
+    real number.}
+
   \item{...}{Other parameters to functions.}
 }
 \details{
@@ -108,9 +116,10 @@ fitspecaccum(object, model, method = "random", ...)
   deviation following Coleman et al. (1982).  All these methods are
   based on sampling sites without replacement. In contrast, the
   \code{method = "rarefaction"} finds the expected species richness and
-  its standard deviation by sampling individuals instead of sites. It
-  achieves this by applying function \code{\link{rarefy}} with number of individuals
-  corresponding to average number of individuals per site.
+  its standard deviation by sampling individuals instead of sites.
+  It achieves this by applying function \code{\link{rarefy}} with
+  number of individuals corresponding to average number of individuals
+  per site.
 
   Methods \code{"random"} and \code{"collector"} can take weights
   (\code{w}) that give the sampling effort for each site.  The weights
@@ -135,13 +144,16 @@ fitspecaccum(object, model, method = "random", ...)
   The \code{summary} and \code{boxplot} methods are available for
   \code{method = "random"}.
 
-  Function \code{predict} can return the values corresponding to
-  \code{newdata} using linear (\code{\link{approx}}) or spline
-  (\code{\link{spline}}) interpolation. The function cannot
-  extrapolate with linear interpolation, and with spline the type and
-  sensibility of the extrapolation depends on argument \code{method}
-  which is passed to \code{\link{spline}}.  If \code{newdata} is not
-  given, the function returns the values corresponding to the data.
+  Function \code{predict} for \code{specaccum} can return the values
+  corresponding to \code{newdata}. With \code{method} \code{"exact"},
+  \code{"rarefaction"} and \code{"coleman"} the function uses analytic
+  equations for interpolated non-integer values, and for other methods
+  linear (\code{\link{approx}}) or spline (\code{\link{spline}})
+  interpolation. If \code{newdata} is not given, the function returns
+  the values corresponding to the data. NB., the fitted values with
+  \code{method="rarefaction"} are based on rounded integer counts, but
+  \code{predict} can use fractional non-integer counts with
+  \code{newdata} and give slightly different results.
 
   Function \code{fitspecaccum} fits a nonlinear (\code{\link{nls}})
   self-starting species accumulation model. The input \code{object}
@@ -166,9 +178,18 @@ fitspecaccum(object, model, method = "random", ...)
   individuals.  The \code{plot} is still based on sites, unless other
   alternative is selected with \code{xvar}.
 
-  Function \code{predict} uses \code{\link{predict.nls}}, and you can
-  pass all arguments to that function. In addition, \code{fitted},
-  \code{residuals} and \code{coef} work on the result object.
+  Function \code{predict} for \code{fitspecaccum} uses
+  \code{\link{predict.nls}}, and you can pass all arguments to that
+  function. In addition, \code{fitted}, \code{residuals} and
+  \code{coef}, \code{AIC} and \code{deviance} work on the result
+  object.
+
+  Function \code{specslope} evaluates the derivative of the species
+  accumulation curve at given number of sample plots, and gives the
+  rate of increase in the number of species. The function works with
+  \code{specaccum} result object when this is based on analytic models
+  \code{"exact"}, \code{"rarefaction"} or \code{"coleman"}, and with
+  non-linear regression results of \code{fitspecaccum}.
 
   Nonlinear regression may fail for any reason, and some of the
   \code{fitspecaccum} models are fragile and may not succeed.  

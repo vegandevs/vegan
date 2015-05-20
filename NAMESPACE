@@ -22,10 +22,10 @@ ordisegments, ordispider, ordisplom, ordistep, ordisurf,
 orditkplot, orditorp, ordixyplot,
 pcnm, permatfull, permatswap, permustats, permutest,
 poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
-protest, radfit, radlattice, rankindex, rarefy, rarecurve, raupcrick,
-rda, renyiaccum, renyi, rrarefy, scores,
-showvarparts, simper, spandepth,
-spantree, specaccum, specnumber, specpool2vect, specpool, spenvcor,
+protest, radfit, radlattice, rankindex, rarefy, rarecurve, rareslope,
+raupcrick, rda, renyiaccum, renyi, rrarefy, scores,
+showvarparts, simper, spandepth, spantree, specaccum, specslope,
+specnumber, specpool2vect, specpool, spenvcor,
 stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, vegemite, veiledspec, wascores,
@@ -87,6 +87,7 @@ importFrom(mgcv, gam, s, te, predict.gam, summary.gam)
 S3method(adipart, default)
 S3method(adipart, formula)
 # AIC: stats
+S3method(AIC, fitspecaccum)
 S3method(AIC, radfit)
 S3method(AIC, radfit.frame)
 # RsquareAdj: vegan
@@ -159,6 +160,7 @@ S3method(deviance, cca)
 S3method(deviance, rda)
 S3method(deviance, radfit)
 S3method(deviance, radfit.frame)
+S3method(deviance, fitspecaccum)
 # drop1: stats
 S3method(drop1, cca)
 # eigenvals: vegan
@@ -442,6 +444,9 @@ S3method(simulate, capscale)
 S3method(simulate, cca)
 S3method(simulate, rda)
 S3method(simulate, nullmodel)
+# specslope: vegan
+S3method(specslope, specaccum)
+S3method(specslope, fitspecaccum)
 # str: utils
 S3method(str, nullmodel)
 # stressplot: vegan
