@@ -2,7 +2,7 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{Changes in version 2.2-2}{
+\section{Changes in version 2.3-0}{
 
   \subsection{BUG FIXES}{
     \itemize{
