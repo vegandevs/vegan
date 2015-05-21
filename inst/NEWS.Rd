@@ -2,6 +2,181 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.2-2}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Constrained ordination functions \code{cca}, \code{rda} and
+      \code{capscale} are now more robust. Scoping of data set names and
+      variable names is much improved. This should fix numerous
+      long-standing problems, for instance those reported by Benedicte
+      Bachelot (in email) and Richard Telford (in Twitter), as well as
+      issues \href{https://github.com/vegandevs/vegan/issues/16}{#16}
+      and \href{https://github.com/vegandevs/vegan/issues/100}{#100} in
+      GitHub.
+
+      \item Ordination functions \code{cca} and \code{rda} silently
+      accepted dissimilarities as input although their analysis makes
+      no sense with these methods. Dissimilarities should be analysed
+      with distance-based redundancy analysis (\code{capscale}).
+
+      \item The variance of the conditional component was over-estimated
+      in \code{goodness} of \code{rda} results, and results were wrong
+      for partial RDA. The problems were reported in an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-March/004936.html}{R-sig-ecology}
+      message by Christoph von Redwitz.
+
+    }
+  } % bug fixes
+
+  \subsection{WINDOWS}{
+    \itemize{
+
+      \item \code{orditkplot} did not add file type identifier to saved
+      graphics in Windows although that is required. The problem only
+      concerned Windows OS.
+
+    }
+  } % windows
+
+  \subsection{NEW FEATURES AND FUNCTIONS}{
+    \itemize{
+
+      \item \code{goodness} function for constrained ordination
+      (\code{cca}, \code{rda}, \code{capscale}) was redesigned. Function
+      gained argument \code{addprevious} to add the variation explained
+      by previous ordination components to axes when \code{statistic =
+      "explained"}. With this option, \code{model = "CCA"} will include
+      the variation explained by partialled-out conditions, and
+      \code{model = "CA"} will include the accumulated variation
+      explained by conditions and constraints. The former behaviour was
+      \code{addprevious = TRUE} for \code{model = "CCA"}, and
+      \code{addprevious = FALSE} for \code{model = "CA"}. The argument
+      will have no effect when \code{statistic = "distance"}, but this
+      will always show the residual distance after all previous
+      components. Formerly it displayed the residual distance only for
+      the currently analysed model.
+
+      \item Functions \code{ordiArrowMul} and \code{ordiArrowTextXY} are
+      exported and can be used in normal interactive sessions. These
+      functions are used to scale a bunch arrows to fit ordination
+      graphics, and formerly they were internal functions used within
+      other \pkg{vegan} functions.
+
+      \item \code{orditkplot} can export graphics in SVG format. SVG is
+      a vector graphics format which can be edited with several external
+      programs, such as Illustrator and Inkscape.
+
+      \item Rarefaction curve (\code{rarecurve}) and species
+      accumulation models (\code{specaccum}, \code{fitspecaccum})
+      gained new functions to estimate the slope of curve at given
+      location. Originally this was based on a response to an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-May/005038.html}{R-SIG-ecology}
+      query. For rarefaction curves, the function is \code{rareslope},
+      and for species accumulation models it is \code{specslope}.
+
+      The functions are based on analytic equations, and can also be
+      evaluated at interpolated non-integer values. In
+      \code{specaccum} models the functions can be only evaluated for
+      analytic models \code{"exact"}, \code{"rarefaction"} and
+      \code{"coleman"}. With \code{"random"} and \code{"collector"}
+      methods you can only use finite differences
+      (\code{diff(fitted(<result.object>))}). Analytic functions for
+      slope are used for all non-linear regression models known to
+      \code{fitspecaccum}.
+
+      \item Species accumulation models (\code{specaccum}) and
+      non-liner regression models for species accumulation
+      (\code{fitspecaccum}) work more consistently with weights. In
+      all cases, the models are defined using the number of sites as
+      independent variable, which with weights means that observations
+      can be non-integer numbers of virtual sites. The \code{predict}
+      models also use the number of sites with \code{newdata},
+      and for analytic models they can estimate the expected values
+      for non-integer number of sites, and for non-analytic randomized
+      or collector models they can interpolate on non-integer values.
+
+      \item \code{fitspecaccum} gained support functions \code{AIC}
+      and \code{deviance}.
+
+      \item The \code{varpart} plots of four-component models were
+      redesigned following Legendre, Borcard & Roberts \emph{Ecology}
+      93, 1234--1240 (2012), and they use now four ellipses instead of
+      three circles and two rectangles. The components are now labelled
+      in plots, and the circles and ellipses can be easily filled with
+      transparent background colour.
+
+    }
+  } % new features
+} % v2.2-2
+
+\section{Changes in version 2.2-1}{
+
+  \subsection{GENERAL}{
+    \itemize{
+
+      \item This is a maintenance release to avoid warning messages
+      caused by changes in CRAN repository. The namespace usage is also
+      more stringent to avoid warnings and notes in development versions
+      of \R.
+
+    }
+  }% end general
+
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item \pkg{vegan} can be installed and loaded without \pkg{tcltk}
+      package. The \pkg{tcltk} package is needed in \code{orditkplot}
+      function for interactive editing of ordination graphics.
+
+    }
+  } % installation
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{ordisurf} failed if \pkg{gam} package was loaded due
+      to namespace issues: some support functions of \pkg{gam} were used
+      instead of \pkg{mgcv} functions.
+
+      \item \code{tolerance} function failed for unconstrained
+      correspondence analysis.
+
+    }
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{estimateR} uses a more exact variance formula for
+      bias-corrected Chao estimate of extrapolated number of
+      species. The new formula may be unpublished, but it was derived
+      following the guidelines of Chiu, Wang, Walther & Chao,
+      \emph{Biometrics} 70, 671--682 (2014),
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online
+      supplementary material}.
+
+      \item Diversity accumulation functions \code{specaccum},
+      \code{renyiaccum}, \code{tsallisaccum}, \code{poolaccum} and
+      \code{estaccumR} use now \pkg{permute} package for permutations
+      of the order of sampling sites. Normally these functions only
+      need simple random permutation of sites, but restricted
+      permutation of the \pkg{permute} package and user-supplied
+      permutation matrices can be used.
+
+      \item \code{estaccumR} function can use parallel processing.
+
+      \item \code{linestack} accepts now expressions as labels. This
+      allows using mathematical symbols and formula given as
+      mathematical expressions.
+
+    }
+  } % new features
+
+} % v2.2-1
+
 \section{Changes in version 2.2-0}{
 
   \subsection{GENERAL}{
