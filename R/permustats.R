@@ -55,7 +55,7 @@
 
 `print.summary.permustats` <- function(x, ...) {
     m <- cbind("statistic" = x$statistic,
-               "z" = x$z,
+               "SES" = x$z,
                "mean" = x$means,
                x$quantile)
     cat("\n")

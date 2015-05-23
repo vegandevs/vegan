@@ -57,16 +57,16 @@ permustats(x, ...)
   observed statistics from several \pkg{vegan} functions that perform
   permutations or simulations.  
 
-  The \code{summary} method of \code{permustats} estimates the \eqn{z}
-  values, also known as standardized effect sizes (SES) as the
-  difference of observed statistic and mean of permutations divided by
-  the standard deviation of permutations. It also prints the the mean,
-  median, and limits which contain \code{interval} percent of permuted
-  values. With the default (\code{interval = 0.95}), for two-sided test
-  these are (2.5\%, 97.5\%) and for one-sided tests either 5\% or 95\%
-  quantile depending on the test direction. The mean, quantiles and
-  \eqn{z} values are evaluated from permuted values without observed
-  statistic.
+  The \code{summary} method of \code{permustats} estimates the
+  standardized effect sizes (SES) as the difference of observed
+  statistic and mean of permutations divided by the standard deviation
+  of permutations (also known as \eqn{z}-values). It also prints the
+  the mean, median, and limits which contain \code{interval} percent
+  of permuted values. With the default (\code{interval = 0.95}), for
+  two-sided test these are (2.5\%, 97.5\%) and for one-sided tests
+  either 5\% or 95\% quantile depending on the test direction. The
+  mean, quantiles and \eqn{z} values are evaluated from permuted
+  values without observed statistic.
 
   The \code{density} and \code{densityplot} methods display the
   kernel density estimates of permuted values. When observed value of
