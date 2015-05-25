@@ -23,11 +23,9 @@ comprehensive package, and several other packages complement
 fields. Package \pkg{BiodiversityR} provides a GUI for a large subset
 of \pkg{vegan} functionality.
 
-The \pkg{vegan} package is developed at R-Forge
-(\url{http://vegan.r-forge.r-project.org}).  The R-Forge provides
-up-to-date information and mailing lists for help queries and bug
-reports. Bug reports can also be emailed to the function authors or to
-the package maintainers.
+The \pkg{vegan} package is developed at GitHub
+(\url{https://github.com/vegandevs/vegan/}).  GitHub provides up-to-date
+information and forums for bug reports.
 
 The \pkg{vegan} documents can be read with \code{\link{vegandocs}}
 function. In addition to \code{\link{vignette}}s of basic usage, you
