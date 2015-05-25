@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-04-28 r68270) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-05-25 r68405) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.3-0
+This is vegan 2.4-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -2496,8 +2496,8 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy rarecurve fisher.alpha
-> ###   specnumber
+> ### Aliases: diversity rarefy rrarefy drarefy rarecurve rareslope
+> ###   fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -5524,7 +5524,7 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > perm <- permustats(mod)
 > summary(perm)
 
-           statistic      z   mean lower median  upper
+           statistic    SES   mean lower median  upper
 Management    3.0730 4.5815 1.0462       0.9470 1.8475
 A1            2.7676 2.6322 1.0364       0.8851 2.3280
 
@@ -5538,7 +5538,7 @@ A1            2.7676 2.6322 1.0364       0.8851 2.3280
 > perm <- permustats(pmod)
 > summary(perm, interval = 0.90)
 
-            statistic       z    mean   lower  median   upper
+            statistic     SES    mean   lower  median   upper
 Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743
 BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273
 BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339
@@ -6755,6 +6755,7 @@ stress after  40 iters: 0.01114, magic = 0.500
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
 > ###   lines.specaccum boxplot.specaccum fitspecaccum plot.fitspecaccum
 > ###   lines.fitspecaccum predict.specaccum predict.fitspecaccum
+> ###   AIC.fitspecaccum deviance.fitspecaccum specslope
 > ### Keywords: univar models
 > 
 > ### ** Examples
@@ -8454,7 +8455,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.612 0.16 23.843 0 0 
+Time elapsed:  23.508 0.116 23.692 0 0 
 > grDevices::dev.off()
 null device 
           1 
