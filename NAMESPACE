@@ -36,8 +36,6 @@ export(pasteCall)
 export(anova.cca)
 ## Export as.mcmc for coda
 export(as.mcmc.oecosimu, as.mcmc.permat)
-## DEFUNCT: export names defined in vegan-defunct
-export(metaMDSrotate)
 
 ## export regular functions with dot names
 
@@ -52,6 +50,7 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Depracated functions (to be removed later)
 export(commsimulator)
+## Export .Defunct function names (on their way out)
 S3method(density, adonis)
 S3method(density, anosim)
 S3method(density, mantel)
@@ -313,7 +312,7 @@ S3method(plot, specaccum)
 S3method(plot, taxondive)
 S3method(plot, varpart)
 S3method(plot, varpart234)
-S3method(plot, vegandensity)
+S3method(plot, vegandensity) # <- .defunct in 2.4-0
 S3method(plot, wcmdscale)
 # points: graphics
 S3method(points, cca)
