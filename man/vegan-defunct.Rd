@@ -24,19 +24,6 @@
    type = "l", zero.line = TRUE, obs.line = TRUE, ...)
 \method{densityplot}{adonis}(x, data, xlab = "Null", ...)
 }
-%\arguments{
-%%  \item{x}{An object with permutation results.}
-%  \item{main, xlab, ylab, type, zero.line}{Arguments of
-%    \code{\link{plot.density}}, \code{\link[lattice]{densityplot}}.}
-%  \item{obs.line}{Draw vertical line for the observed
-%    statistic. Logical value \code{TRUE} draws a red line, and
-%    \code{FALSE} draws nothing. Alternatively, \code{obs.line} can be a
-%    definition of the colour used for the line, either as a numerical
-%%    value from the \code{\link[grDevices]{palette}} or as the name of
-%    the colour, or other normal definition of the colour.}
-%  \item{data}{Ignored.}
-%}
-
 
 \details{
   The deprecated \code{density} and \code{densityplot} methods are
