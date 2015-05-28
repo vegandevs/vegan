@@ -37,8 +37,15 @@
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 1) {
-            X <- pts[gr, ]
+        if (length(gr)) {
+            X <- pts[gr, , drop = FALSE]
+            ## one-point ellipses are labelled but not returned in the
+            ## result object (nor calculated)
+            if (length(gr) == 1) {
+                cntrs <- rbind(cntrs, X)
+                names <- c(names, is)
+                next
+            }
             W <- w[gr]
             mat <- cov.wt(X, W)
             if (kind == "se")
