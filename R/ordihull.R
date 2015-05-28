@@ -33,8 +33,13 @@
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 1) {
-            X <- pts[gr, ]
+        if (length(gr)) {
+            X <- pts[gr,, drop = FALSE]
+            if (length(gr) == 1) {
+                cntrs <- rbind(cntrs, X)
+                names <- c(names, is)
+                next
+            }
             hpts <- chull(X)
             hpts <- c(hpts, hpts[1])
             if (draw == "lines")
