@@ -1,17 +1,7 @@
 \encoding{UTF-8}
 \name{vegan-deprecated}
-\alias{commsimulator}
-\alias{density.adonis}
-\alias{density.anosim}
-\alias{density.mantel}
-\alias{density.mrpp}
-\alias{density.permutest.cca}
-\alias{density.protest}
-\alias{plot.vegandensity}
-\alias{densityplot.adonis}
-\alias{density.oecosimu}
-\alias{densityplot.oecosimu}
 
+\alias{commsimulator}
 \alias{vegan-deprecated}
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
 \title{Deprecated Functions in vegan package}
@@ -22,16 +12,10 @@
 }
 \usage{
 commsimulator(x, method, thin=1)
-\method{density}{adonis}(x, ...)
-\method{plot}{vegandensity}(x, main = NULL, xlab = NULL, ylab = "Density", 
-   type = "l", zero.line = TRUE, obs.line = TRUE, ...)
-\method{densityplot}{adonis}(x, data, xlab = "Null", ...)
 }
 
 \arguments{
- \item{x}{Community data for \code{commsimulator},or an object to be
-   handled by \code{density} or \code{densityplot}}
- ## commsimulator
+ \item{x}{Community data.}
  \item{method}{Null model method: either a name (character string) of
    a method defined in \code{\link{make.commsim}} or a
    \code{\link{commsim}} function.}
@@ -40,15 +24,7 @@ commsimulator(x, method, thin=1)
    \code{"swap"} and \code{"tswap"} (ignored with non-sequential
    methods)}
   ## density and densityplot
-  \item{main, xlab, ylab, type, zero.line}{Arguments of
-    \code{\link{plot.density}}, \code{\link[lattice]{densityplot}}.}
-  \item{obs.line}{Draw vertical line for the observed
-    statistic. Logical value \code{TRUE} draws a red line, and
-    \code{FALSE} draws nothing. Alternatively, \code{obs.line} can be a
-    definition of the colour used for the line, either as a numerical
-    value from the \code{\link[grDevices]{palette}} or as the name of
-    the colour, or other normal definition of the colour.}
-  \item{data}{Ignored.}
+
   \item{\dots}{ Other arguments passed to functions. }
 
 }
@@ -139,48 +115,6 @@ commsimulator(x, method, thin=1)
   backtracking is done so may times that all incidences will be filled
   into matrix. The \code{quasiswap} method is not sequential, but it produces
   a random incidence matrix with given marginal totals. 
-
-  The \code{density} function can directly access permutation results
-  of the same function as \code{permustats}.  The \code{density}
-  function is identical to \code{\link{density.default}} and takes all
-  its arguments, but adds the observed statistic to the result as item
-  \code{"observed"}. The observed statistic is also put among the
-  permuted values so that the results are consistent with significance
-  tests. The \code{plot} method is similar to the default
-  \code{\link{plot.density}}, but can also add the observed statistic
-  to the graph as a vertical line.  In \code{\link{adonis}} it is also
-  possible to use direclty \code{densityplot} function.
-
-  The deprecated \code{density} and \code{densityplot} methods are
-  replaced with similar methods for \code{\link{permustats}}. The
-  \code{\link{permustats}} offers more powerful analysis tools for
-  permutations, including \code{\link{summary.permustats}} giving
-  \eqn{z} values (a.k.a. standardized effect sizes, SES), and Q-Q
-  plots (\code{\link{qqnorm.permustats}},
-  \code{\link{qqmath.permustats}}. Below the old documentation: 
-
-  The density methods are available for \pkg{vegan} functions
-  \code{\link{adonis}}, \code{\link{anosim}}, \code{\link{mantel}},
-  \code{\link{mantel.partial}}, \code{\link{mrpp}},
-  \code{\link{permutest.cca}}, and \code{\link{protest}}.  The
-  \code{density} function for \code{\link{oecosimu}} is documented
-  separately, and it is also used for \code{\link{adipart}},
-  \code{\link{hiersimu}} and \code{\link{multipart}}.
-
-  All \pkg{vegan} \code{density} functions return an object of class
-  \code{"vegandensity"} inheriting from \code{\link{density}}, and can
-  be plotted with its \code{plot} method.  This is identical to the
-  standard \code{plot} of \code{densiy} objects, but can also add a
-  vertical line for the observed statistic.
-
-  Functions that can return several permuted statistics simultaneously
-  also have \code{\link[lattice]{densityplot}} method
-  (\code{\link{adonis}}, \code{\link{oecosimu}} and diversity
-  partitioning functions based on \code{oecosimu}).  The standard
-  \code{\link{density}} can only handle univariate data, and a warning
-  is issued if the function is used for a model with several observed
-  statistics
-
 }
 
 \references{
