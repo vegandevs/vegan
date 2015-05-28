@@ -138,7 +138,7 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   components so that the first dimension shows the major variation.
   It is possible to rotate the solution so that the first axis is
   parallel to a given environmental variable using function
-  \code{\link{metaMDSrotate}}.
+  \code{\link{MDSrotate}}.
 
 }
 
