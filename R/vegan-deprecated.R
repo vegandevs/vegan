@@ -4,7 +4,7 @@
 function (x, method, thin = 1) 
 {
     ## Do not yet warn on deprecation to allow smooth transition
-    .Deprecated("nullmodel", package="vegan")
+    .Deprecated("simulate(nullmodel(x, method))", package="vegan")
     method <- match.arg(method, 
                         c("r0","r1","r2","r00","c0","swap", "tswap",
                           "backtrack", "quasiswap"))
