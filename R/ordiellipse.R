@@ -39,21 +39,19 @@
         gr <- out[groups == is & kk]
         if (length(gr)) {
             X <- pts[gr, , drop = FALSE]
-            ## one-point ellipses are labelled but not returned in the
-            ## result object (nor calculated)
-            if (length(gr) == 1) {
-                cntrs <- rbind(cntrs, X)
-                names <- c(names, is)
-                next
-            }
             W <- w[gr]
             mat <- cov.wt(X, W)
+            if (mat$n.obs == 1)
+                mat$cov[] <- 0
             if (kind == "se")
                 mat$cov <- mat$cov/mat$n.obs
             if (missing(conf))
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
-            xy <- veganCovEllipse(mat$cov, mat$center, t)
+            if (mat$n.obs > 1)
+                xy <- veganCovEllipse(mat$cov, mat$center, t)
+            else
+                xy <- X
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines,
                                 col = if(is.null(col)) par("fg") else col,
