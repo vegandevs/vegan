@@ -27,8 +27,10 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
-    if (label)
-        cntrs <- names <- NULL
+    if (label) {
+        cntrs <- matrix(NA, nrow=length(inds), ncol=2)
+        rownames(cntrs) <- inds
+    }
     ## Remove NA scores
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
@@ -43,18 +45,17 @@
             else if (draw == "polygon")
                 ordiArgAbsorber(X[hpts,], FUN = polygon, col = col, ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, polycentre(X[hpts,]))
-                names <- c(names, is)
+                cntrs[is,] <- polycentre(X[hpts,])
             }
             res[[is]] <- X[hpts,]
         }
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = names,
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], 
                             col = col, FUN = text, ...)
         else
-            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+            ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"
