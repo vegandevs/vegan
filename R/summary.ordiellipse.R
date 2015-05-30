@@ -5,9 +5,11 @@
     function(object, ...)
 {
     cnts <- sapply(object, function(x) x$center)
-    ## two points are exactly on line and have zero area ellipses
+    ## 2nd eigenvalue should be zero if points are on line (like two
+    ## points), but sometimes it comes out negative, and area is NaN
     areas <- sapply(object,
-                    function(x) if (x$n.obs <= 2) 0 else
-                    prod(sqrt(eigen(x$cov)$values)) * pi * x$scale^2)
+                    function(x)
+                        prod(sqrt(pmax(0, eigen(x$cov)$values))) *
+                            pi * x$scale^2)
     rbind(cnts, `Area` = areas)
 }
