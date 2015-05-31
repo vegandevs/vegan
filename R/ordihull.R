@@ -52,7 +52,7 @@
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], 
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
                             col = col, FUN = text, ...)
         else
             ordiArgAbsorber(cntrs, col = NULL,
