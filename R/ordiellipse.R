@@ -31,8 +31,10 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
-    if (label)
-        cntrs <- names <- NULL
+    if (label) {
+        cntrs <- matrix(NA, nrow=length(inds), ncol=2)
+        rownames(cntrs) <- inds
+    }
     ## Remove NA scores
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
@@ -60,8 +62,7 @@
                 ordiArgAbsorber(xy[, 1], xy[, 2], col = col, FUN = polygon,
                                 ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, mat$center)
-                names <- c(names, is)
+                cntrs[is,] <- mat$center
             }
             mat$scale <- t
             res[[is]] <- mat
@@ -69,10 +70,10 @@
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels=names, col = col,  
-                            FUN = text, ...)
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
+                            col = col,  FUN = text, ...)
         else 
-            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+            ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)
     }
     class(res) <- "ordiellipse"
