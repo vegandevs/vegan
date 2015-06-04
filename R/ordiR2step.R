@@ -21,6 +21,11 @@
         R2.0 <- 0
     else
         R2.0 <- RsquareAdj(object)$adj.r.squared
+    ## only accepts upper scope
+    if (is.list(scope) && length(scope) <= 2L)
+        scope <- scope$upper
+    if (is.null(scope) || !length(add.scope(object, scope)))
+        stop("needs upper 'scope': no terms can be added")
     ## Get R2 of the scope
     if (inherits(scope, "rda")) 
         scope <- delete.response(formula(scope))
