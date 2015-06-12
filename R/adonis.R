@@ -134,11 +134,11 @@
             stopCluster(parallel)
         ## Round to avoid arbitrary P-values with tied data
         f.perms <- round(f.perms, 12)
+        F.Mod <- round(F.Mod, 12)
         P <- (rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1)
     } else { # no permutations
         f.perms <- P <- rep(NA, nterms)
     }
-    F.Mod <- round(F.Mod, 12)
     SumsOfSqs = c(SS.Exp.each, SS.Res, sum(SS.Exp.each) + SS.Res)
     tab <- data.frame(Df = c(df.Exp, df.Res, n-1),
                       SumsOfSqs = SumsOfSqs,
