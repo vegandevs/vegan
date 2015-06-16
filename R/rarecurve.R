@@ -2,6 +2,9 @@
     function(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
              label = TRUE, col, lty, ...)
 {
+    ## check input data: must be counts
+    if (!identical(all.equal(x, round(x)), TRUE))
+        stop("function accepts only integers (counts)")
     ## sort out col and lty
     if (missing(col))
         col <- par("col")
