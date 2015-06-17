@@ -12,6 +12,13 @@
         lty <- par("lty")
     tot <- rowSums(x)
     S <- specnumber(x)
+    ## remove empty rows or we fail
+    if (any(S <= 1)) {
+        message("empty rows removed")
+        x <- x[S > 0,, drop =FALSE]
+        tot <- tot[S > 0]
+        S <- S[S > 0]
+    }
     nr <- nrow(x)
     ## rep col and lty to appropriate length
     col <- rep(col, length.out = nr)
