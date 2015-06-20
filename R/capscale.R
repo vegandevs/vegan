@@ -77,12 +77,12 @@
     ## wcmdscale. If we have 'add = TRUE' there will be no negative
     ## eigenvalues and this is not a problem.
     if (add) {
-        X <- cmdscale(X, k = k, eig = TRUE, add = add)
+        X <- cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE)
         ## All eigenvalues *should* be positive, but see that they are
         X$eig <- X$eig[X$eig > 0]
     }
     else
-        X <- wcmdscale(X, eig = TRUE)
+        X <- wcmdscale(X, x.ret = TRUE)
     if (is.null(rownames(X$points))) 
         rownames(X$points) <- nm
     X$points <- adjust * X$points
@@ -94,6 +94,20 @@
             X$negaxes <- X$negaxes/sqrt(k)
     }
     sol <- rda.default(X$points, d$Y, d$Z, ...)
+    ## Get components of inertia with negative eigenvalues following
+    ## McArdle & Anderson (2001), section "Theory". G is their
+    ## double-centred Gower matrix, but instead of hat matrix, we use
+    ## use QR decomposition to get the components of inertia.
+    G <- -X$x/2
+    itot.chi <- sum(diag(G))
+    if (!is.null(sol$pCCA)) {
+        ipcca.tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
+        G <- qr.resid(sol$pCCA$QR, G)
+    } else {
+        ipcca.tot.chi <- NULL
+    }
+    icca.tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
+    ica.tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
@@ -165,6 +179,8 @@
         sol$metaMDSdist <- commname
     sol$subset <- d$subset
     sol$na.action <- d$na.action
+    sol$varcomps <- c("Total" = itot.chi, "pCCA" = ipcca.tot.chi,
+                      "CCA" = icca.tot.chi, "CA" = ica.tot.chi) 
     class(sol) <- c("capscale", class(sol))
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
