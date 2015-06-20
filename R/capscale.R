@@ -99,6 +99,8 @@
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## use QR decomposition to get the components of inertia.
     G <- -X$x/2
+    if (adjust == 1)
+        G <- G/k
     itot.chi <- sum(diag(G))
     if (!is.null(sol$pCCA)) {
         ipcca.tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
