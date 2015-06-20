@@ -101,15 +101,13 @@
     G <- -X$x/2
     if (adjust == 1)
         G <- G/k
-    itot.chi <- sum(diag(G))
+    sol$tot.chi <- sum(diag(G))
     if (!is.null(sol$pCCA)) {
-        ipcca.tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
+        sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
         G <- qr.resid(sol$pCCA$QR, G)
-    } else {
-        ipcca.tot.chi <- NULL
     }
-    icca.tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
-    ica.tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
+    sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
+    sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
@@ -124,7 +122,6 @@
     if (any(X$eig < 0)) {
         negax <- X$eig[X$eig < 0]
         sol$CA$imaginary.chi <- sum(negax)
-        sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
         sol$CA$imaginary.rank <- length(negax)
         sol$CA$imaginary.u.eig <- X$negaxes
     }
@@ -181,8 +178,6 @@
         sol$metaMDSdist <- commname
     sol$subset <- d$subset
     sol$na.action <- d$na.action
-    sol$varcomps <- c("Total" = itot.chi, "pCCA" = ipcca.tot.chi,
-                      "CCA" = icca.tot.chi, "CA" = ica.tot.chi) 
     class(sol) <- c("capscale", class(sol))
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
