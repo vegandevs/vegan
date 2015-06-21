@@ -4,7 +4,7 @@ dbRDA.D <- function(D, X, nperm=999, option=3, compute.eig=FALSE, coord=FALSE, r
 	D <- as.matrix(D)
 	X <- as.matrix(X)
 	n <- nrow(D)
-	epsilon <- .Machine$double.eps
+	epsilon <- sqrt(.Machine$double.eps)
 #
 # Gower centring, matrix formula. Legendre & Legendre (2012), equation 9.42
 	One <- matrix(1,n,n)
@@ -42,7 +42,7 @@ dbRDA.D <- function(D, X, nperm=999, option=3, compute.eig=FALSE, coord=FALSE, r
 			} else {
 			X.eig <- eigen(cov(X.c))
 			k <- length(which(X.eig$values > epsilon))
-			X.ortho <- X.c %*% X.eig$vectors[,1:k]  # F matrix of PCA
+                        X.ortho <- X.c %*% X.eig$vectors[,1:k]  # F matrix of PCA
 			XprX <- t(X.ortho) %*% X.ortho
 			H <- X.ortho %*% diag(diag(XprX)^(-1)) %*% t(X.ortho)
 			}
