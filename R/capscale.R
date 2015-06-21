@@ -107,9 +107,14 @@
         sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
         G <- qr.resid(sol$pCCA$QR, G)
     }
-    sol$CCA$G <- G
-    sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
-    sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
+        sol$CCA$G <- G
+        sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
+    }
+    if (!is.null(sol$CA) && !is.null(sol$CCA$QR))
+        sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
+    else
+        sol$CA$tot.chi <- sum(diag(G))
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
