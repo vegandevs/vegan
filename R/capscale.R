@@ -103,9 +103,11 @@
         G <- G/k
     sol$tot.chi <- sum(diag(G))
     if (!is.null(sol$pCCA)) {
+        sol$pCCA$G <- G
         sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
         G <- qr.resid(sol$pCCA$QR, G)
     }
+    sol$CCA$G <- G
     sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
     sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
