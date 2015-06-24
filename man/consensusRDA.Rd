@@ -8,7 +8,7 @@ Calculates a consensus RDA. That is, a consensus for a series of RDA
 performed on the same data using different association coefficients.
 }
 \usage{
-consensusRDA(ordires, ordisigniaxis, resp.var, expl.var, pval = 0.05, 
+consensusRDA(ordires, ordisigniaxis, X, Y, pval = 0.05, 
 scaling = 2)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -25,11 +25,11 @@ RDA (or db-RDA) given in \code{ordires} was tested for significance.
 This argument can also be a vector defining the number of significant 
 axes in each RDA. See details. 
 }
-  \item{resp.var}{
+  \item{X}{
  A matrix of the response variables (species) used to construct all the 
  RDAs (or db-RDAs) in \code{ordires}.
 }
-  \item{expl.var}{
+  \item{Y}{
  A matrix of the explanatory variables used to construct all the RDAs 
  (or db-RDAs) in \code{ordires}.
 }
@@ -79,11 +79,11 @@ ndis<-9
 ordiRes<-vector("list",length=ndis)
 
 ### RDA species profile
-sp<-beetle/apply(beetle,1,sum)
+sp<-decostand(beetle,method="total")
 ordiRes[[1]]<-rda(sp~.,data=beetle.expl)
 	
 ### RDA chord
-chord<-beetle/sqrt(apply(beetle^2,1,sum))
+chord<-decostand(beetle,method="normalize")
 ordiRes[[2]]<-rda(chord~.,data=beetle.expl)
 	
 ### RDA Hellinger
