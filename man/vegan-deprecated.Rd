@@ -1,8 +1,7 @@
 \encoding{UTF-8}
 \name{vegan-deprecated}
-\alias{metaMDSrotate}
-\alias{commsimulator}
 
+\alias{commsimulator}
 \alias{vegan-deprecated}
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
 \title{Deprecated Functions in vegan package}
@@ -12,18 +11,11 @@
   \pkg{vegan} only, and may be defunct as soon as the next release.
 }
 \usage{
-metaMDSrotate(object, vec, na.rm = FALSE, ...)
 commsimulator(x, method, thin=1)
 }
 
 \arguments{
- ## metaMDSrotate
- \item{object}{A result object from \code{metaMDS}.}
- \item{vec}{A continuous site variable (vector).}
- \item{na.rm}{Remove missing values from continuous variable \code{vec}.}
-  \item{\dots}{Other parameters passed to functions.}
- ## commsimulator
- \item{x}{Community data for \code{commsimulator}}
+ \item{x}{Community data.}
  \item{method}{Null model method: either a name (character string) of
    a method defined in \code{\link{make.commsim}} or a
    \code{\link{commsim}} function.}
@@ -31,6 +23,10 @@ commsimulator(x, method, thin=1)
    evaluations of nestedness statistic in sequential methods
    \code{"swap"} and \code{"tswap"} (ignored with non-sequential
    methods)}
+  ## density and densityplot
+
+  \item{\dots}{ Other arguments passed to functions. }
+
 }
 
 \details{
@@ -39,10 +35,6 @@ commsimulator(x, method, thin=1)
   %-- Or:
   %% explain *why* it's deprecated, and \code{\link{..}} to new
   
-  Function \code{metaMDSrotate} is replaced with
-  \code{\link{MDSrotate}} which can handle \code{\link{monoMDS}}
-  results in addition to \code{\link{metaMDS}}.
-
   Function \code{commsimulator} is replaced with
   \code{\link{make.commsim}} which defines the Null models, and
   functions \code{\link{nullmodel}} and
@@ -123,7 +115,6 @@ commsimulator(x, method, thin=1)
   backtracking is done so may times that all incidences will be filled
   into matrix. The \code{quasiswap} method is not sequential, but it produces
   a random incidence matrix with given marginal totals. 
-
 }
 
 \references{

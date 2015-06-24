@@ -131,7 +131,7 @@ metaMDSredist(object, ...)
    library(vegan))} to make available internal \pkg{vegan}
    functions. With \code{parallel = 1} uses ordinary, non-parallel
    processing. The parallel processing is done with \pkg{parallel}
-   package which is available only for \R 2.14.0 and later.}
+   package.}
 
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
   \item{pc}{Rotate to principal components. }

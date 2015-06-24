@@ -2,6 +2,465 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-0}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Constrained ordination functions \code{cca}, \code{rda} and
+      \code{capscale} are now more robust. Scoping of data set names and
+      variable names is much improved. This should fix numerous
+      long-standing problems, for instance those reported by Benedicte
+      Bachelot (in email) and Richard Telford (in Twitter), as well as
+      issues \href{https://github.com/vegandevs/vegan/issues/16}{#16}
+      and \href{https://github.com/vegandevs/vegan/issues/100}{#100} in
+      GitHub.
+
+      \item Ordination functions \code{cca} and \code{rda} silently
+      accepted dissimilarities as input although their analysis makes
+      no sense with these methods. Dissimilarities should be analysed
+      with distance-based redundancy analysis (\code{capscale}).
+
+      \item The variance of the conditional component was over-estimated
+      in \code{goodness} of \code{rda} results, and results were wrong
+      for partial RDA. The problems were reported in an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-March/004936.html}{R-sig-ecology}
+      message by Christoph von Redwitz.
+
+    }
+  } % bug fixes
+
+  \subsection{WINDOWS}{
+    \itemize{
+
+      \item \code{orditkplot} did not add file type identifier to saved
+      graphics in Windows although that is required. The problem only
+      concerned Windows OS.
+
+    }
+  } % windows
+
+  \subsection{NEW FEATURES AND FUNCTIONS}{
+    \itemize{
+
+      \item \code{goodness} function for constrained ordination
+      (\code{cca}, \code{rda}, \code{capscale}) was redesigned. Function
+      gained argument \code{addprevious} to add the variation explained
+      by previous ordination components to axes when \code{statistic =
+      "explained"}. With this option, \code{model = "CCA"} will include
+      the variation explained by partialled-out conditions, and
+      \code{model = "CA"} will include the accumulated variation
+      explained by conditions and constraints. The former behaviour was
+      \code{addprevious = TRUE} for \code{model = "CCA"}, and
+      \code{addprevious = FALSE} for \code{model = "CA"}. The argument
+      will have no effect when \code{statistic = "distance"}, but this
+      will always show the residual distance after all previous
+      components. Formerly it displayed the residual distance only for
+      the currently analysed model.
+
+      \item Functions \code{ordiArrowMul} and \code{ordiArrowTextXY} are
+      exported and can be used in normal interactive sessions. These
+      functions are used to scale a bunch arrows to fit ordination
+      graphics, and formerly they were internal functions used within
+      other \pkg{vegan} functions.
+
+      \item \code{orditkplot} can export graphics in SVG format. SVG is
+      a vector graphics format which can be edited with several external
+      programs, such as Illustrator and Inkscape.
+
+      \item Rarefaction curve (\code{rarecurve}) and species
+      accumulation models (\code{specaccum}, \code{fitspecaccum})
+      gained new functions to estimate the slope of curve at given
+      location. Originally this was based on a response to an
+      \href{https://stat.ethz.ch/pipermail/r-sig-ecology/2015-May/005038.html}{R-SIG-ecology}
+      query. For rarefaction curves, the function is \code{rareslope},
+      and for species accumulation models it is \code{specslope}.
+
+      The functions are based on analytic equations, and can also be
+      evaluated at interpolated non-integer values. In
+      \code{specaccum} models the functions can be only evaluated for
+      analytic models \code{"exact"}, \code{"rarefaction"} and
+      \code{"coleman"}. With \code{"random"} and \code{"collector"}
+      methods you can only use finite differences
+      (\code{diff(fitted(<result.object>))}). Analytic functions for
+      slope are used for all non-linear regression models known to
+      \code{fitspecaccum}.
+
+      \item Species accumulation models (\code{specaccum}) and
+      non-liner regression models for species accumulation
+      (\code{fitspecaccum}) work more consistently with weights. In
+      all cases, the models are defined using the number of sites as
+      independent variable, which with weights means that observations
+      can be non-integer numbers of virtual sites. The \code{predict}
+      models also use the number of sites with \code{newdata},
+      and for analytic models they can estimate the expected values
+      for non-integer number of sites, and for non-analytic randomized
+      or collector models they can interpolate on non-integer values.
+
+      \item \code{fitspecaccum} gained support functions \code{AIC}
+      and \code{deviance}.
+
+      \item The \code{varpart} plots of four-component models were
+      redesigned following Legendre, Borcard & Roberts \emph{Ecology}
+      93, 1234--1240 (2012), and they use now four ellipses instead of
+      three circles and two rectangles. The components are now labelled
+      in plots, and the circles and ellipses can be easily filled with
+      transparent background colour.
+
+    }
+  } % new features
+} % v2.2-2
+
+\section{Changes in version 2.2-1}{
+
+  \subsection{GENERAL}{
+    \itemize{
+
+      \item This is a maintenance release to avoid warning messages
+      caused by changes in CRAN repository. The namespace usage is also
+      more stringent to avoid warnings and notes in development versions
+      of \R.
+
+    }
+  }% end general
+
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item \pkg{vegan} can be installed and loaded without \pkg{tcltk}
+      package. The \pkg{tcltk} package is needed in \code{orditkplot}
+      function for interactive editing of ordination graphics.
+
+    }
+  } % installation
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{ordisurf} failed if \pkg{gam} package was loaded due
+      to namespace issues: some support functions of \pkg{gam} were used
+      instead of \pkg{mgcv} functions.
+
+      \item \code{tolerance} function failed for unconstrained
+      correspondence analysis.
+
+    }
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{estimateR} uses a more exact variance formula for
+      bias-corrected Chao estimate of extrapolated number of
+      species. The new formula may be unpublished, but it was derived
+      following the guidelines of Chiu, Wang, Walther & Chao,
+      \emph{Biometrics} 70, 671--682 (2014),
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online
+      supplementary material}.
+
+      \item Diversity accumulation functions \code{specaccum},
+      \code{renyiaccum}, \code{tsallisaccum}, \code{poolaccum} and
+      \code{estaccumR} use now \pkg{permute} package for permutations
+      of the order of sampling sites. Normally these functions only
+      need simple random permutation of sites, but restricted
+      permutation of the \pkg{permute} package and user-supplied
+      permutation matrices can be used.
+
+      \item \code{estaccumR} function can use parallel processing.
+
+      \item \code{linestack} accepts now expressions as labels. This
+      allows using mathematical symbols and formula given as
+      mathematical expressions.
+
+    }
+  } % new features
+
+} % v2.2-1
+
+\section{Changes in version 2.2-0}{
+
+  \subsection{GENERAL}{
+    \itemize{
+  
+      \item Several \pkg{vegan} functions can now use parallel
+      processing for slow and repeating calculations. All these
+      functions have argument \code{parallel}. The argument can be an
+      integer giving the number of parallel processes. In unix-alikes
+      (Mac OS, Linux) this will launch \code{"multicore"} processing
+      and in Windows it will set up \code{"snow"} clusters as desribed
+      in the documentation of the \pkg{parallel} package. If \code{option}
+      \code{"mc.cores"} is set to an integer > 1, this will be used to
+      automatically start parallel processing. Finally, the argument
+      can also be a previously set up \code{"snow"} cluster which will
+      be used both in Windows and in unix-alikes. \pkg{Vegan} vignette
+      on Design decision explains the implementation (use
+      \code{vegandocs("decission")}, and \pkg{parallel} package has more
+      extensive documentation on parallel processing in \R.
+
+      The following function use parallel processing in analysing
+      permutation statistics: \code{adonis}, \code{anosim},
+      \code{anova.cca} (and \code{permutest.cca}), \code{mantel} (and
+      \code{mantel.partial}), \code{mrpp}, \code{ordiareatest},
+      \code{permutest.betadisper} and \code{simper}. In addition,
+      \code{bioenv} can compare several candidate sets of models in
+      paralle, \code{metaMDS} can launch several random starts in
+      parallel, and \code{oecosimu} can evaluate test statistics for
+      several null models in parallel.
+
+      \item All permutation tests are based on the \pkg{permute} package
+      which offers strong tools for restricted permutation. All these
+      functions have argument \code{permutations}. The default usage of
+      simple non-restricted permutations is achieved by giving a single
+      integer number. Restricted permutations can be defined using the
+      \code{how} function of the \pkg{permute} package. Finally, the
+      argument can be a permutation matrix where rows define
+      permutations. It is possible to use external or user constructed
+      permutations.
+
+      See \code{help(permutations)} for a brief introduction on
+      permutations in \pkg{vegan}, and \pkg{permute} package for the
+      full documention. The vignette of the \pkg{permute} package can
+      be read from \pkg{vegan} with command
+      \code{vegandocs("permutations")}.
+
+      The following functions use the \pkg{permute} package:
+      \code{CCorA}, \code{adonis}, \code{anosim}, \code{anova.cca} (plus
+      associated \code{permutest.cca}, \code{add1.cca},
+      \code{drop1.cca}, \code{ordistep}, \code{ordiR2step}),
+      \code{envfit} (plus associated \code{factorfit} and
+      \code{vectorfit}), \code{mantel} (and \code{mantel.partial}),
+      \code{mrpp}, \code{mso}, \code{ordiareatest},
+      \code{permutest.betadisper}, \code{protest} and \code{simper}.
+
+      \item Community null model generation has been completely
+      redesigned and rewritten. The communities are constructed with
+      new \code{nullmodel} function and defined in a low level
+      \code{commsim} function. The actual null models are generated
+      with a \code{simulate} function that builds an array of null
+      models. The new null models include a wide array of quantitative
+      models in addition to the old binary models, and users can plug
+      in their own generating functions. The basic tool invoking and
+      analysing null models is \code{oecosimu}. The null models are
+      often used only for the analysis of nestedness, but the
+      implementation in \code{oecosimu} allows analysing any
+      statistic, and null models are better seen as an alternative to
+      permutation tests.
+  
+    } %end itemize
+  } % end general
+
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item \pkg{vegan} package dependencies and namespace imports
+      were adapted to changes in \R, and no more trigger warnings and
+      notes in package tests.
+
+      \item Three-dimensional ordination graphics using
+      \pkg{scatterplot3d} for static plots and \pkg{rgl} for dynamic
+      plots were removed from \pkg{vegan} and moved to a companion
+      package \pkg{vegan3d}. The package is available in CRAN.
+
+     } %end itemize
+   } % end installation
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item Function \code{dispweight} implements dispersion weighting
+      of Clarke et al. (\emph{Marine Ecology Progress Series}, 320,
+      11--27).  In addition, we implemented a new method for
+      generalized dispersion weighting \code{gdispweight}. Both
+      methods downweight species that are significantly
+      over-dispersed.
+
+      \item New \code{hclust} support functions \code{reorder},
+      \code{rev} and \code{scores}. Functions \code{reorder} and
+      \code{rev} are similar as these functions for \code{dendrogram}
+      objects in base \R. However, \code{reorder} can use (and defaults
+      to) weighted mean. In weighted mean the node average is always the
+      mean of member leaves, whereas the \code{dendrogram} uses always
+      unweighted means of joined branches.
+
+      \item Function \code{ordiareatest} supplements \code{ordihull} and
+      \code{ordiellipse} and provides a randomization test for the
+      one-sided alternative hypothesis that convex hulls or ellipses in
+      two-dimensional ordination space have smaller areas than with
+      randomized groups.
+
+      \item Function \code{permustats} extracts and inspects permutation
+      results with support functions \code{summary}, \code{density},
+      \code{densityplot}, \code{qqnorm} and \code{qqmath}. The
+      \code{density} and \code{qqnorm} are standard \R{} tools that only
+      work with one statistic, and \code{densityplot} and \code{qqmath}
+      are \pkg{lattice} graphics that work with univariate and
+      multivariate statistics. The results of following functions can be
+      extracted: \code{anosim}, \code{adonis}, \code{mantel} (and
+      \code{mantel.partial}), \code{mrpp}, \code{oecosimu},
+      \code{permustest.cca} (but not the corresponding \code{anova}
+      methods), \code{permutest.betadisper}, and \code{protest}.
+
+      \item \code{stressplot} functions display the ordination distances
+      at given number of dimensions against original distances.  The
+      method functins are similar to \code{stressplot} for
+      \code{metaMDS}, and always use the inherent distances of each
+      ordination method. The functions are available for the results
+      \code{capscale}, \code{cca}, \code{princomp}, \code{prcomp},
+      \code{rda}, and \code{wcmdscale}.
+
+    } % end itemize
+  } % end new functions
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{cascadeKM} of only one group will be \code{NA} instead
+      of a random value. 
+
+      \item \code{ordiellipse} can handle points exactly on a line,
+      including only two points (with a warning).
+
+      \item plotting \code{radfit} results for several species failed if
+      any of the communities had no species or had only one species.
+
+      \item \code{RsquareAdj} for \code{capscale} with negative
+      eigenvalues will now report \code{NA} instead of using biased
+      method of \code{rda} results.
+
+      \item \code{simper} failed when a group had only a single member.
+
+      }% end itemize
+  } % end bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{anova.cca} functions were re-written to use the
+      \pkg{permute} package. Old results may not be exactly
+      reproduced, and models with missing data may fail in several
+      cases. There is a new option of analysing a sequence of models
+      against each other.
+
+      \item \code{simulate} functions for \code{cca} and \code{rda}
+      can return several simulations in a \code{nullmodel} compatible
+      object. The functions can produce simulations with correlated
+      errors (also for \code{capscale}) in parametric simulation with
+      Gaussian error.
+
+      \item \code{bioenv} can use Manhattan, Gower and Mahalanobis
+      distances in addition to the default Euclidean. New helper
+      function \code{bioenvdist} can extract the dissimilarities
+      applied in best model or any other model.
+
+      \item \code{metaMDS(..., trace = 2)} will show convergence
+      information with the default \code{monoMDS} engine.
+
+      \item Function \code{MDSrotate} can rotate a \eqn{k}-dimensional
+      ordination to \eqn{k-1} variables. When these variables are
+      correlated (like usually is the case), the vectors can also be
+      correlated to previously rotated dimensions, but will be
+      uncorrelated to all later ones.
+
+      \item \pkg{vegan} 2.0-10 changed the weighted \code{nestednodf}
+      so that weighted analysis of binary data was equivalent to
+      binary analysis. However, this broke the equivalence to the
+      original method. Now the function has an argument \code{wbinary}
+      to select the method of analysis. The problem was reported and a
+      fix submitted by Vanderlei Debastiani (Universidade Federal do
+      Rio Grande do Sul, Brasil).
+
+      \item \code{ordiellipse}, \code{ordihull} and \code{ordiellipse}
+      can handle missing values in \code{groups}.
+
+      \item \code{ordispider} can now use spatial medians instead of
+      means. 
+
+      \item \code{rankindex} can use Manhattan, Gower and Mahalanobis
+      distance in addition to the default Euclidean.
+
+      \item User can set colours and line types in function
+      \code{rarecurve} for plotting rarefaction curves.
+
+      \item \code{spantree} gained a support function \code{as.hclust}
+      to change the minimum spanning tree into an \code{hclust} tree.
+
+      \item \code{fitspecaccum} can do weighted analysis. Gained
+      \code{lines} method.
+
+      \item Functions for extrapolated number of species or for the size
+      of species pool using Chao method were modified following Chiu et
+      al., \emph{Biometrics} 70, 671--682 (2014).
+
+      Incidence based \code{specpool} can now use (and defaults to)
+      small sample correction with number of sites as the sample
+      size. Function uses basic Chao extrapolation based on the ratio of
+      singletons and doubletons, but switches now to bias corrected Chao
+      extrapolation if there are no doubletons (species found
+      twice). The variance formula for bias corrected Chao was derived
+      following the supporting
+      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online material}
+      and differs slightly from Chiu et al. (2014).
+
+      The \code{poolaccum} function was changed similarly, but the small
+      sample correction is used always.
+
+      The abundance based \code{estimateR} uses bias corrected Chao
+      extrapolation, but earlier it estimated its variance with classic
+      Chao model. Now we use the widespread
+      \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{approximate
+	equation} for variance.
+
+      With these changes these functions are more similar to
+            \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{EstimateS}.
+
+      \item \code{tabasco} uses now \code{reorder.hclust} for
+      \code{hclust} object for better ordering than previously when it
+      cast trees to \code{dendrogram} objects.
+
+      \item \code{treedive} and \code{treedist} default now to
+       \code{match.force = TRUE} and can be silenced with
+      \code{verbose = FALSE}.
+
+      \item \code{vegdist} gained Mahalanobis distance.
+
+      \item Nomenclature updated in plant community data with the help
+      of \pkg{Taxonstand} and \pkg{taxize} packages. The taxonomy of
+      the \code{dune} data was adapted to the same sources and APG
+      III.  \code{varespec} and \code{dune} use 8-character names (4
+      from genus + 4 from species epithet). New data set on
+      phylogenetic distances for \code{dune} was extracted from Zanne
+      et al. (\emph{Nature} 506, 89--92; 2014).
+
+      \item User configurable plots for \code{rarecurve}.
+
+    } %end itemize
+  } % end new featuresq
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item \code{strata} are deprecated in permutations. It is still
+      accepted but will be phased out in next releases. Use \code{how}
+      of \pkg{permute} package.
+
+      \item \code{cca}, \code{rda} and \code{capscale} do not return
+      scores scaled by eigenvalues: use \code{scores} function to
+      extract scaled results.
+
+      \item \code{commsimulator} is deprecated. Replace
+      \code{commsimulator(x, method)} with
+      \code{simulate(nullmodel(x, method))}.
+
+      \item \code{density} and \code{densityplot} for permutation
+      results are deprecated: use \code{permustats} with its
+      \code{density} and \code{densityplot} method.
+
+    } %end itemize
+  } % end deprecated
+  
+
+} % end version 2.2-0
+
 \section{Changes in version 2.0-10}{
 
   \subsection{GENERAL}{

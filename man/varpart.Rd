@@ -21,7 +21,8 @@
 
 \usage{
 varpart(Y, X, ..., data, transfo, scale = FALSE)
-showvarparts(parts, labels, ...)
+showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
+    id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
 }
 
@@ -53,6 +54,21 @@ table. }
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.}
+\item{bg}{Fill colours of circles or ellipses.}
+\item{alpha}{Transparency of the fill colour.  The argument takes
+    precedence over possible transparency definitions of the
+    colour. The value must be in range \eqn{0...255}, and low values
+    are more transparent.  Transparency is not available in all
+    graphics devices or file formats.}
+  
+\item{Xnames}{Names for sources of variation. Default names are \code{X1},
+  \code{X2}, \code{X3} and \code{X4}. \code{Xnames=NA},
+  \code{Xnames=NULL} and \code{Xnames=""} produce no names. The names
+  can be changed to other names. Use short names. }
+
+\item{id.size}{A numerical value giving the character expansion factor
+  for the names of circles or ellipses. }
+
 \item{x}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
@@ -113,10 +129,17 @@ table. }
   \code{[n]}, and the joint fraction between all four tables is
   \code{[o]}.
 
-  There is a \code{plot} function that displays the Venn
-  diagram and labels each intersection (individual fraction) with the
-  adjusted R squared if this is higher than \code{cutoff}.  A helper
-  function \code{showvarpart} displays the fraction labels.
+  There is a \code{plot} function that displays the Venn diagram and
+  labels each intersection (individual fraction) with the adjusted R
+  squared if this is higher than \code{cutoff}.  A helper function
+  \code{showvarpart} displays the fraction labels. The circles and
+  ellipses are labelled by short default names or by names defined by
+  the user in argument \code{Xnames}. Longer explanatory file names can
+  be written on the varpart output plot as follows: use option
+  \code{Xnames=NA}, then add new names using the \code{text} function. A
+  bit of fiddling with coordinates (see \code{\link{locator}}) and
+  character size should allow users to place names of reasonably short
+  lengths on the \code{varpart} plot.
   
 }
 
@@ -239,11 +262,9 @@ vegandocs("partition")
 mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 mod
 
-## argument 'bg' is passed to circle drawing, and the following
-## defines semitransparent colours
-col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
-showvarparts(2, bg = col2)
-plot(mod, bg = col2)
+## Use fill colours
+showvarparts(2, bg = c("hotpink","skyblue"))
+plot(mod, bg = c("hotpink","skyblue"))
 # Alternative way of to conduct this partitioning
 # Change the data frame with factors into numeric model matrix
 mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
@@ -258,8 +279,8 @@ RsquareAdj(aFrac)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
 mod
-showvarparts(3)
-plot(mod)
+showvarparts(3, bg=2:4)
+plot(mod, bg=2:4)
 # An alternative formulation of the previous model using
 # matrices mm1 amd mm2 and Hellinger transformed species data
 mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
@@ -276,9 +297,9 @@ anova(rda.result, step=200, perm.max=200)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 mod
-plot(mod)
+plot(mod, bg=2:5)
 # Show values for all partitions by putting 'cutoff' low enough:
-plot(mod, cutoff = -Inf, cex = 0.7)
+plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 }
 
 \keyword{ multivariate }

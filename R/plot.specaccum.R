@@ -4,8 +4,10 @@
              ci.lty = 1, xlab, ylab = x$method, ylim,
              xvar = c("sites", "individuals", "effort"), ...)
 {
-    if(random && x$method != "random")
+    if(random && !(x$method %in% c("random", "collector")))
         stop("random = TRUE can be used only with method='random'")
+    if(x$method == "collector")
+        random <- TRUE
     xvar <- match.arg(xvar)
     ## adjust weights to number of sites
     if (random && !is.null(x$weights) && xvar == "sites") {

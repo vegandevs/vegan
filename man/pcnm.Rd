@@ -88,7 +88,7 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
 }
 
 \author{Jari Oksanen, based on the code of Stephane Dray.}
-\seealso{ \code{\link[vegan]{spantree}}. }
+\seealso{ \code{\link{spantree}}. }
 \examples{
 ## Example from Borcard & Legendre (2002)
 data(mite.xy)

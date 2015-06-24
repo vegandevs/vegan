@@ -3,6 +3,8 @@
 {
     type <- match.arg(type)
     model <- match.arg(model)
+    if (is.null(object[[model]]))
+        stop("component ", model, " does not exist")
     if (model == "pCCA")
         Xbar <- object$pCCA$Fit
     else

@@ -27,7 +27,7 @@
                  "z"="(log(2)-log(2*a+b+c)+log(a+b+c))/log(2)"
                  )
     if (help) {
-        for (i in 1:length(beta)) 
+        for (i in seq_along(beta)) 
             writeLines(strwrap(paste(i, " \"", names(beta[i]),
                                      "\" = ", beta[[i]], "\n", sep="")))
         return(invisible(NULL))

@@ -105,11 +105,11 @@ cutter <- function (x, cut = seq(0, 10, by = 2.5)) {
         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
     return(out)}
 ## The hierarchy of sample aggregation
-levsm <- data.frame(
+levsm <- with(mite.xy, data.frame(
     l1=1:nrow(mite),
-    l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
-    l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
-    l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
+    l2=cutter(y, cut = seq(0, 10, by = 2.5)),
+    l3=cutter(y, cut = seq(0, 10, by = 5)),
+    l4=cutter(y, cut = seq(0, 10, by = 10))))
 ## Multiplicative diversity partitioning
 multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)

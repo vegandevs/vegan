@@ -1,50 +1,38 @@
 \name{vegan-defunct}
-%--- The following functions were moved to the 'permute' package and
-%    removed from vegan, but here we document only those that were
-%    renamed and are not documented in 'permute'
- 
-%\alias{permCheck}
-%\alias{numPerms}
-%\alias{print.permCheck}
-%\alias{print.summary.permCheck}
-%\alias{summary.permCheck}
-\alias{getNumObs}
-%\alias{getNumObs.default}
-%\alias{getNumObs.integer}
-%\alias{getNumObs.numeric}
-%\alias{allPerms}
-%\alias{print.allPerms}
-%\alias{summary.allPerms}
-%\alias{print.summary.allPerms}
-%\alias{permuplot}
-\alias{permuted.index2}
-%\alias{permControl}
-%\alias{print.permControl}
-%\alias{permute}
 
+\alias{density.adonis}
+\alias{density.anosim}
+\alias{density.mantel}
+\alias{density.mrpp}
+\alias{density.permutest.cca}
+\alias{density.protest}
+\alias{plot.vegandensity}
+\alias{densityplot.adonis}
+\alias{density.oecosimu}
+\alias{densityplot.oecosimu}
 \alias{vegan-defunct}
-%------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
+%------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
 %------ PLEASE: one \alias{.} for EACH ! (+ one \usage{} & \arguments{} for all)
 \description{
-  The functions or variables listed here are no longer part of \pkg{vegan} as
-  they are no longer needed.
+  The functions or variables listed here are no longer part of
+  \pkg{vegan} as they are no longer needed.
 }
 \usage{
-%-- Removed from vegan 2.0-0: now in package permute
-getNumObs(object, \dots)
-\method{getNumObs}{default}(object, \dots)
-\method{getNumObs}{numeric}(object, \dots)
-\method{getNumObs}{integer}(object, \dots)
-
-permuted.index2(n, control = permControl())
+\method{density}{adonis}(x, ...)
+\method{plot}{vegandensity}(x, main = NULL, xlab = NULL, ylab = "Density", 
+   type = "l", zero.line = TRUE, obs.line = TRUE, ...)
+\method{densityplot}{adonis}(x, data, xlab = "Null", ...)
 }
 
-\details{ The \dQuote{new} permutation functions were moved to the
-  \pkg{permute} package, and they are documented there.  The
-  \pkg{permute} package replaces \code{permuted.index2} with
-  \code{\link[permute]{shuffle}} and \code{getNumObs} with its specific
-  \code{\link[permute]{nobs-methods}}.
+\details{
+  The deprecated \code{density} and \code{densityplot} methods are
+  replaced with similar methods for \code{\link{permustats}}. The
+  \code{\link{permustats}} offers more powerful analysis tools for
+  permutations, including \code{\link{summary.permustats}} giving
+  \eqn{z} values (a.k.a. standardized effect sizes, SES), and Q-Q
+  plots (\code{\link{qqnorm.permustats}},
+  \code{\link{qqmath.permustats}}.
 }
 
 \seealso{

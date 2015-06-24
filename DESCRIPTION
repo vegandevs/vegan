@@ -1,15 +1,16 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 2.1-41
-Date: December 12, 2013
+Version: 2.4-0
+Date: 2015-05-21
 Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, 
    Peter R. Minchin, R. B. O'Hara, Gavin L. Simpson, Peter Solymos, 
    M. Henry H. Stevens, Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
-Depends: permute (>= 0.7-8), lattice, R (>= 2.15.0)
-Suggests: parallel, scatterplot3d, tcltk
-Imports: MASS, rgl, cluster, mgcv
+Depends: permute (>= 0.8-0), lattice, R (>= 2.15.0)
+Suggests: parallel, tcltk
+Imports: MASS, cluster, mgcv
 Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
-License: GPL-2 
-URL: http://vegan.r-forge.r-project.org/
+License: GPL-2
+BugReports: https://github.com/vegandevs/vegan/issues
+URL: https://github.com/vegandevs/vegan

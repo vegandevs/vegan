@@ -1,5 +1,5 @@
-"ordiParseFormula" <-
-function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
+`ordiParseFormula` <-
+function (formula, data, xlev = NULL, na.action = na.fail,
           subset = NULL) 
 {
     if (missing(data))
@@ -7,7 +7,7 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     specdata <- formula[[2]]
-    X <- eval.parent(specdata, n = envdepth)
+    X <- eval(specdata, environment(formula), enclos=globalenv())
     ## X is usually a matrix, but it is "dist" with capscale():
     X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
@@ -19,8 +19,12 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
-        zmf <- model.frame(P.formula, data, na.action = na.pass, 
-            xlev = zlev)
+        zmf <- if (inherits(data, "environment"))
+            eval(substitute(
+                model.frame(P.formula, na.action = na.pass, xlev = zlev)),
+                 envir = data, enclos = .GlobalEnv)
+        else
+            model.frame(P.formula, data, na.action = na.pass, xlev = zlev)
         partterm <- sapply(partterm, function(x) deparse(x, width.cutoff=500))
         formula <- update(formula, paste("~.-", paste(partterm, 
             collapse = "-")))
@@ -31,8 +35,13 @@ function (formula, data, xlev = NULL, envdepth = 2, na.action = na.fail,
     else {
         if (exists("Pterm")) 
             xlev <- xlev[!(names(xlev) %in% Pterm)]
-        ymf <- model.frame(formula, data, na.action = na.pass, 
-            xlev = xlev)
+
+        ymf <- if (inherits(data, "environment"))
+            eval(substitute(
+                model.frame(formula, na.action = na.pass, xlev = xlev)),
+                 envir=data, enclos=.GlobalEnv)
+        else
+            model.frame(formula, data, na.action = na.pass, xlev = xlev) 
     }
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {

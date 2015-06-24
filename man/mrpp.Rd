@@ -13,7 +13,7 @@ and between block dissimilarities.}
 
 \usage{
 mrpp(dat, grouping, permutations = 999, distance = "euclidean",
-     weight.type = 1, strata, parallel = getOption("mc.cores"))
+     weight.type = 1, strata = NULL, parallel = getOption("mc.cores"))
 meandist(dist, grouping, ...)
 \method{summary}{meandist}(object, ...)
 \method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
@@ -25,8 +25,10 @@ meandist(dist, grouping, ...)
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.} 
   \item{grouping}{ Factor or numeric index for grouping observations.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices. These are used to assess 
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices. These are used to assess
     the significance of the MRPP statistic, \eqn{delta}.} 
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations . See \code{\link{vegdist}} for
@@ -39,7 +41,7 @@ meandist(dist, grouping, ...)
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
   \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.
@@ -144,8 +146,10 @@ The function returns a list of class mrpp with following items:
   \item{weight.type}{The choice of group weights used.}
   \item{boot.deltas}{The vector of "permuted deltas," the deltas
     calculated from each of the permuted datasets. The distribution of
-    this item can be inspected with \code{\link{density.mrpp}} function.}
+    this item can be inspected with \code{\link{permustats}} function.}
   \item{permutations}{The number of permutations used.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{
   B. McCune and J. B. Grace. 2002. \emph{Analysis of Ecological
@@ -186,7 +190,7 @@ alternative.
 \examples{
 data(dune)
 data(dune.env)
-dune.mrpp <- mrpp(dune, dune.env$Management)
+dune.mrpp <- with(dune.env, mrpp(dune, Management))
 dune.mrpp
 
 # Save and change plotting parameters
@@ -194,7 +198,7 @@ def.par <- par(no.readonly = TRUE)
 layout(matrix(1:2,nr=1))
 
 plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-ordihull(dune.ord, dune.env$Management)
+with(dune.env, ordihull(dune.ord, Management))
 
 with(dune.mrpp, {
   fig.dist <- hist(boot.deltas, xlim=range(c(delta,boot.deltas)), 

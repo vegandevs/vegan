@@ -95,10 +95,11 @@
      \code{CCA} components. Only in \code{CCA}.}
     \item{\code{tot.chi}}{Total inertia or the sum of all eigenvalues of the
       component.}
-    \item{\code{imaginary.chi}, \code{imaginary.rank}}{The sum and
-     rank (number) of negative eigenvalues in
-     \code{\link{capscale}}. Only in \code{CA} and only if negative
-     eigenvalues were found in \code{\link{capscale}}.}
+    \item{\code{imaginary.chi}, \code{imaginary.rank},
+     \code{imaginary.u.eig}}{The sum, rank (number) of negative
+     eigenvalues and scaled site scores for imaginary axes in
+     \code{\link{capscale}}. Only in \code{CA} item and only if
+     negative eigenvalues were found in \code{\link{capscale}}.}
     \item{\code{u}}{(Weighted) orthonormal site scores.  Please note that
       scaled scores are not stored in the \code{cca} object, but they
       are made when the object is accessed with functions like
@@ -107,28 +108,16 @@
       \code{CCA} and \code{CA}.  In the \code{CCA} component these are
       the so-called linear combination scores. }
     
-     
-    \item{\code{u.eig}}{\code{u} scaled by eigenvalues.  This item
-      will be removed in future releases.}
-    
     \item{\code{v}}{(Weighted) orthonormal species scores.  If missing species
       were omitted from the analysis, this will contain
       attribute \code{\link{na.action}} that lists the
       omitted species. Only in \code{CCA} and \code{CA}.}
-    
-    \item{\code{v.eig}}{\code{v} weighted by eigenvalues.  This item will
-       be removed in future releases.}
     
     \item{\code{wa}}{Site scores found as weighted averages (\code{cca}) or
       weighted sums (\code{rda}) of 
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-
-    \item{\code{wa.eig}}{The direct result of weighted averaging or
-      weighted summation (matrix multiplication) with the resulting
-      eigenvalue inflation. This item will be removed in future
-      releases.}
 
     \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
       \code{na.action = na.exclude} in \code{CCA} and \code{CA}
@@ -183,6 +172,16 @@
     \item{\code{adjust}}{Adjustment of dissimilarities: see
       \code{\link{capscale}}, section \dQuote{Notes}.}
   }
+}
+
+\note{
+  In old versions of \pkg{vegan} the object also included scores
+  scaled by eigenvalues (\code{u.eig}, \code{v.eig} and \code{wa.eig}),
+  but these were removed in \pkg{vegan} 2.2-0. The scores are scaled
+  when they are accessed with \code{\link{scores}} function. It is
+  advisable to always use \code{\link{scores}} in accessing the
+  results instead of directly accessing the elements of the the
+  \code{cca} object.
 }
   
 \seealso{The description here provides a hacker's interface.  User

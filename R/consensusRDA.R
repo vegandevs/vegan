@@ -1,5 +1,5 @@
 consensusRDA <-
-function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
+function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 ###
 ### Calculates a consensus results for a series of canonical ordinations performed with different association coefficients on the same data. This function is only available for ordinations performed with canonical redundancy analysis (RDA) or variant of RDA such as distance-based RDA and transformation-based RDA
 ###
@@ -7,8 +7,8 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 ###
 ### ordires : A list of "cca rda" object from the vegan package gathering a series of RDA performed with different association coefficients on the same data.
 ### ordisigniaxis : A list of anova.cca object where each axis was tested for each RDA in ordires or a vector defining the number of significant axes in the RDA. See details. 
-### resp.var : Matrix of response variables
-### expl.var : Matrix of explanatory variables
+### X : Matrix of response variables
+### Y : Matrix of explanatory variables
 ### pval : Numeric. P-value threshold to select the number of axes to use. This argument is only active if a list of anova.cca object is given for the argument ordisigniaxis, otherwise it is not considered.
 ### scaling : Type of scaling used to project the results. Default is 1 (distance).
 ###
@@ -25,9 +25,9 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 	#CC# Basic object
 	#----------------
 	#CC# Number of sites
-	nsites<-nrow(resp.var)
+	nsites<-nrow(X)
 	#CC# Number of species
-	nsp<-ncol(resp.var)
+	nsp<-ncol(X)
 	#CC# Number of juges (association coefficients)
 	njuges<-length(ordires)
 	
@@ -35,17 +35,17 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 	#CC# General checks
 	#------------------
 	#### Check if there are completely collinear explanatory variables and count the number of non-collinear variables
-	expl.var.tmp<-expl.var
-	deter<-det(cor(expl.var))
+	Y.tmp<-Y
+	deter<-det(cor(Y))
 	
 	#CC# threshold
 	tresh<-10^-8
 	
 	while(deter<= tresh){
-		expl.var.tmp<-expl.var.tmp[,-1]	
-		deter<-det(cor(expl.var.tmp))
+		Y.tmp<-Y.tmp[,-1]	
+		deter<-det(cor(Y.tmp))
 	}
-	nNoncolldesc<-ncol(expl.var.tmp)
+	nNoncolldesc<-ncol(Y.tmp)
 	
 	#### Check if ordires contains only RDAs
 	allRDA<-sapply(ordires,function(x) any(class(x)=="rda"))
@@ -58,7 +58,7 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 		stop("'ordires' is not the same length as 'ordisigniaxis'")
 	}
 	
-	ordisigniClass<-sapply(ordisigniaxis,function(x) class(x))
+	ordisigniClass<-sapply(ordisigniaxis, class)
 	
 	#### Check if the capscale objects have the right number of species
 	anycapscale<-which(sapply(ordires,function(x) any(class(x)=="capscale")))
@@ -81,9 +81,9 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 			stop("'pval' must range between 0 and 1")
 		}
 
-		allsigni<-sapply(ordisigniaxis,function(x) any(class(x)=="anova.cca"))
+		allsigni<-sapply(ordisigniaxis,function(x) any(class(x)=="anova"))
 		if(!all(allsigni)){
-			stop("One or more canonical ordination test in 'ordisigniaxis' is not an 'anova.cca' object")
+			stop("One or more canonical ordination test in 'ordisigniaxis' is not an 'anova' object")
 		}
 		
 		anovaname<-unique(unlist(strsplit(sapply(ordisigniaxis,function(x) rownames(x)[1]),"1")))
@@ -92,7 +92,7 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 		}
 		
 		#CC# Extract the number of signicant axes to use for each canonical ordinations
-		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,5]<=pval)))
+		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,4]<=pval)))
 	#### If ordisigniaxis is a vector
 	}else{
 		if(is.vector(ordisigniaxis)){
@@ -110,7 +110,7 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 	}
 	
 	#### Make sure that X is a matrix 
-	expl.var<-as.matrix(expl.var)
+	Y<-as.matrix(Y)
 		
 	#-------------------------------------------------------------
 	#CC# Extract all the significant axes of matrix Z in scaling 1
@@ -124,9 +124,9 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 	}
 	
 	#-------------------------------------------------
-	#CC# Perform an RDA between Zsignimat and expl.var
+	#CC# Perform an RDA between Zsignimat and Y
 	#-------------------------------------------------
-	Zrda<-rda(Zsignimat,expl.var)
+	Zrda<-rda(Zsignimat,Y)
 	ZrdaEigen<-eigenvals(Zrda)[1:nNoncolldesc]
 	naxes<-length(ZrdaEigen)
 	
@@ -138,7 +138,7 @@ function(ordires, ordisigniaxis,resp.var,expl.var,pval=0.05,scaling=2){
 	
 	#### This is the procedure proposed by Legendre and Legendre (2012, Subsection 9.3.3)
 	#### It is also the procedure proposed by Oksanen et al. in vegan and described in Blanchet et al. (submitted)
-	Uconsensus<-t(scale(resp.var,scale=FALSE))%*%Zconsensus%*%diag(ZrdaEigen^(-0.5))/sqrt(nsites-1)
+	Uconsensus<-t(scale(X,scale=FALSE))%*%Zconsensus%*%diag(ZrdaEigen^(-0.5))/sqrt(nsites-1)
 	
 	#----------------------
 	#CC# Ordination Scaling

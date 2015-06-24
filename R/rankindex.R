@@ -25,7 +25,7 @@ function (grad, veg, indices = c("euc", "man", "gow", "bra",
     names(res) <- nam
     ## indices is a list of functions which return dist objects
     if (is.list(indices)) {
-        for (i in 1:length(indices)) {
+        for (i in seq_along(indices)) {
             ## don't accept similarities
             if (indices[[i]](matrix(1, 2, 2)) != 0)
                 stop("define dissimilarity and not similarity")

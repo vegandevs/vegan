@@ -2,9 +2,9 @@
 ### permute:::print.how, but only displays non-default choices in how().
 `howHead` <- function(x, ...)
 {
-    ## this should always work
+    ## print nothing is this not 'how'
     if (is.null(x) || !inherits(x, "how"))
-        stop("not a 'how' object: contact the package maintainer")
+        return()
     ## collect header
     head <- NULL
     ## blocks

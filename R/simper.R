@@ -1,12 +1,12 @@
 `simper` <-
-    function(comm, group, permutations = 0, trace = FALSE,  
+    function(comm, group, permutations = 0, trace = FALSE,
              parallel = getOption("mc.cores"), ...)
 {
-    if (any(rowSums(comm, na.rm = TRUE) == 0)) 
+    if (any(rowSums(comm, na.rm = TRUE) == 0))
         warning("you have empty rows: results may be meaningless")
     pfun <- function(x, comm, comp, i, contrp) {
         groupp <- group[perm[x,]]
-        ga <- comm[groupp == comp[i, 1], , drop = FALSE] 
+        ga <- comm[groupp == comp[i, 1], , drop = FALSE]
         gb <- comm[groupp == comp[i, 2], , drop = FALSE]
         n.a <- nrow(ga)
         n.b <- nrow(gb)
@@ -14,7 +14,7 @@
             for(k in seq_len(n.a)) {
                 mdp <- abs(ga[k, , drop = FALSE] - gb[j, , drop = FALSE])
                 mep <- ga[k, , drop = FALSE] + gb[j, , drop = FALSE]
-                contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)  
+                contrp[(j-1)*n.a+k, ] <- mdp / sum(mep)
             }
         }
         colMeans(contrp)
@@ -26,11 +26,7 @@
     P <- ncol(comm)
     nobs <- nrow(comm)
     ## Make permutation matrix
-    if (length(permutations) == 1) {
-        perm <- shuffleSet(nobs, permutations, ...)
-    } else {  # permutations is a matrix
-        perm <- permutations
-    }
+    perm <- getPermuteMatrix(permutations, nobs, ...)
     ## check dims (especially if permutations was a matrix)
     if (ncol(perm) != nobs)
         stop(gettextf("'permutations' have %d columns, but data have %d rows",
@@ -43,7 +39,7 @@
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)
@@ -58,11 +54,11 @@
             for (k in seq_len(n.a)) {
                 md <- abs(group.a[k, , drop = FALSE] - group.b[j, , drop = FALSE])
                 me <- group.a[k, , drop = FALSE] + group.b[j, , drop = FALSE]
-                contr[(j-1)*n.a+k, ] <- md / sum(me)	
+                contr[(j-1)*n.a+k, ] <- md / sum(me)
             }
         }
         average <- colMeans(contr)
-        
+
         ## Apply permutations
         if(nperm > 0){
             if (trace)
@@ -71,28 +67,28 @@
 
             if (isParal) {
                 if (isMulticore){
-                    perm.contr <- mclapply(seq_len(nperm), function(d) 
+                    perm.contr <- mclapply(seq_len(nperm), function(d)
                         pfun(d, comm, comp, i, contrp), mc.cores = parallel)
                     perm.contr <- do.call(cbind, perm.contr)
                 } else {
-                    perm.contr <- parSapply(parallel, seq_len(nperm), function(d) 
+                    perm.contr <- parSapply(parallel, seq_len(nperm), function(d)
                         pfun(d, comm, comp, i, contrp))
-                }  
+                }
             } else {
-                perm.contr <- sapply(1:nperm, function(d) 
+                perm.contr <- sapply(1:nperm, function(d)
                     pfun(d, comm, comp, i, contrp))
             }
             p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
-        } 
+        }
         else {
           p <- NULL
         }
-        
+
         overall <- sum(average)
         sdi <- apply(contr, 2, sd)
         ratio <- average / sdi
         ava <- colMeans(group.a)
-        avb <- colMeans(group.b) 
+        avb <- colMeans(group.b)
         ord <- order(average, decreasing = TRUE)
         cusum <- cumsum(average[ord] / overall)
         out <- list(species = colnames(comm), average = average,
@@ -104,6 +100,7 @@
     if (isParal && !isMulticore && !hasClus)
         stopCluster(parallel)
     attr(outlist, "permutations") <- nperm
+    attr(outlist, "control") <- attr(perm, "control")
     class(outlist) <- "simper"
     outlist
 }
@@ -114,7 +111,7 @@
     cat("cumulative contributions of most influential species:\n\n")
     cusum <- lapply(x, function(z) z$cusum)
     spec <- lapply(x, function(z) z$species[z$ord])
-    for (i in 1:length(cusum)) {
+    for (i in seq_along(cusum)) {
         names(cusum[[i]]) <- spec[[i]]
     }
     ## this probably fails with empty or identical groups that have 0/0 = NaN
@@ -127,24 +124,25 @@
     function(object, ordered = TRUE, digits = max(3, getOption("digits") - 3), ...)
 {
     if (ordered) {
-        out <- lapply(object, function(z) 
-            data.frame(contr = z$average, sd = z$sd, ratio = z$ratio, 
+        out <- lapply(object, function(z)
+            data.frame(contr = z$average, sd = z$sd, ratio = z$ratio,
                        av.a = z$ava, av.b = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) z$cusum)
-        for(i in 1:length(out)) {
+        for(i in seq_along(out)) {
             out[[i]]$cumsum <- cusum[[i]]
             if(!is.null(object[[i]]$p)) {
                 out[[i]]$p <- object[[i]]$p[object[[i]]$ord]
             }
-        } 
-    } 
+        }
+    }
     else {
-        out <- lapply(object, function(z) 
-            data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio, 
+        out <- lapply(object, function(z)
+            data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio,
                              ava = z$ava, avb = z$avb, p = z$p)))
     }
     attr(out, "digits") <- digits
     attr(out, "permutations") <- attr(object, "permutations")
+    attr(out, "control") <- attr(object, "control")
     class(out) <- "summary.simper"
     out
 }
@@ -171,8 +169,8 @@
                             symbols = c("***", "**", "*", ".", " ")), "legend")
         cat("---\nSignif. codes: ", leg, "\n")
     }
-    if ((np <- attr(x, "permutations")) > 0)
-        cat("P-values based on", np, "permutations\n")
+    if (!is.null(attr(x, "control")))
+        cat(howHead(attr(x, "control")))
     invisible(x)
 }
 

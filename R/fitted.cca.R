@@ -4,6 +4,8 @@
 {
     type <- match.arg(type)
     model <- match.arg(model)
+    if (is.null(object[[model]]))
+        stop("component ", model, " does not exist")
     gtot <- object$grand.total
     rc <- object$rowsum %o% object$colsum
     if (model == "pCCA")

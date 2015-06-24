@@ -13,18 +13,20 @@
 
 }
 \usage{
-mantel(xdis, ydis, method="pearson", permutations=999, strata,
+mantel(xdis, ydis, method="pearson", permutations=999, strata = NULL,
     na.rm = FALSE, parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
-    strata, na.rm = FALSE, parallel = getOption("mc.cores"))
+    strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
 }
 
 \arguments{
   \item{xdis, ydis, zdis}{ Dissimilarity matrices or a \code{dist} objects. }
   \item{method}{ Correlation method, as accepted by \code{\link{cor}}:
     \code{"pearson"}, \code{"spearman"} or \code{"kendall"}. }
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
@@ -35,7 +37,7 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
 
 }
 \details{
@@ -68,9 +70,11 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{statistic}{The Mantel statistic.}
   \item{signif}{Empirical significance level from permutations.}
   \item{perm}{A vector of permuted values. The distribution of
-    permuted values can be inspected with \code{\link{density.mantel}} 
+    permuted values can be inspected with \code{\link{permustats}} 
     function.}
   \item{permutations}{Number of permutations.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{ The test is due to Mantel, of course, but the
   current implementation is based on Legendre and Legendre.

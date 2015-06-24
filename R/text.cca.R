@@ -7,13 +7,16 @@
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
                   const)
+    ## store rownames of pts for use later, otherwise if user supplies
+    ## labels, the checks in "cn" branch fail and "bp" branch will
+    ## be entered even if there should be no "bp" plotting
+    cnam <- rownames(pts)
     if (!missing(labels))
         rownames(pts) <- labels
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
-        cnam <- rownames(pts)
-        text(pts, labels = cnam, ...)
+        text(pts, labels = rownames(pts), ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
                       const)
         bnam <- rownames(pts)

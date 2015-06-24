@@ -8,7 +8,7 @@
     polycentre <- function(x) {
         n <- nrow(x)
         if (n < 4) 
-            return(colMeans(x[-n, ]))
+            return(colMeans(x[-n, , drop = FALSE]))
         xy <- x[-n, 1] * x[-1, 2] - x[-1, 1] * x[-n, 2]
         A <- sum(xy)/2
         xc <- sum((x[-n, 1] + x[-1, 1]) * xy)/A/6
@@ -27,14 +27,16 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
-    if (label)
-        cntrs <- names <- NULL
+    if (label) {
+        cntrs <- matrix(NA, nrow=length(inds), ncol=2)
+        rownames(cntrs) <- inds
+    }
     ## Remove NA scores
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 1) {
-            X <- pts[gr, ]
+        if (length(gr)) {
+            X <- pts[gr,, drop = FALSE]
             hpts <- chull(X)
             hpts <- c(hpts, hpts[1])
             if (draw == "lines")
@@ -43,18 +45,17 @@
             else if (draw == "polygon")
                 ordiArgAbsorber(X[hpts,], FUN = polygon, col = col, ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, polycentre(X[hpts,]))
-                names <- c(names, is)
+                cntrs[is,] <- polycentre(X[hpts,])
             }
             res[[is]] <- X[hpts,]
         }
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = names,
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
                             col = col, FUN = text, ...)
         else
-            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+            ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"

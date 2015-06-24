@@ -29,7 +29,16 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         partial <- dist(partial)
     if (!is.null(partial) && !pmatch(method, c("pearson", "spearman"), nomatch=FALSE))
         stop("method ", method, " invalid in partial bioenv")
+    ## remove constant variables
+    constant <- apply(env, 2, function(x) length(unique(x))) <= 1
+    if (any(constant)) {
+        warning("the following variables are constant and were removed: ",
+                paste(colnames(env)[constant], collapse=", "))
+        env <- env[, !constant, drop = FALSE]
+    }
     n <- ncol(env)
+    if (n < 1)
+        stop("no usable variables in 'env'")
     ntake <- 2^n - 1
     ndone <- 0
     upto <- min(upto, n)
@@ -72,10 +81,11 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)
+        on.exit(stopCluster(parallel))
     }
     ## get the number of clusters
     if (inherits(parallel, "cluster"))

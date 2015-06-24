@@ -21,10 +21,10 @@ constrained ordination model.
   or dropping; see \code{\link{add1}} for details.}
   \item{test}{ Should a permutation test be added using \code{\link{anova.cca}}. }
  
- \item{permutations}{Permutation scheme as defined in
-   \code{\link[permute]{how}}; the default defines a simple
-   permutations (and could also be expressed as a single number). Any
-   structure accepted by \code{\link{anova.cca}} acn be used.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
 
   \item{\dots}{Other arguments passed to \code{\link{add1.default}},
   \code{\link{drop1.default}}, and \code{\link{anova.cca}}.}

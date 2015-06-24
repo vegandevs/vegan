@@ -1,21 +1,24 @@
-"plot.spantree" <-
+`plot.spantree` <-
     function (x, ord, cex = 0.7, type = "p", labels, dlim, FUN = sammon, 
               ...) 
 {
     FUNname <- deparse(substitute(FUN))
     FUN <- match.fun(FUN)
-    n <- length(x$kid) + 1
+    n <- x$n
     if (missing(ord)) {
         d <- cophenetic(x)
         if (any(d<=0))
             d[d<=0] <- min(d>0)/10
         if (!missing(dlim)) 
             d[d > dlim ] <- dlim
-        y <- cmdscale(d)
-        dup <- duplicated(y)
-        if (any(dup))
-            y[dup, ] <- y[dup,] + runif(2*sum(dup), -0.01, 0.01) 
-        ord <- FUN(d, y)
+        if (n > 2) {
+            y <- cmdscale(d)
+            dup <- duplicated(y)
+            if (any(dup))
+            y[dup, ] <- y[dup,] + runif(2*sum(dup), -0.01, 0.01)
+            ord <- FUN(d, y)
+        } else
+            ord <- cbind(seq_len(n), rep(0,n))
     }
     ord <- scores(ord, display = "sites", ...)
     ordiArgAbsorber(ord, asp = 1, type = "n", FUN = "plot", ...)

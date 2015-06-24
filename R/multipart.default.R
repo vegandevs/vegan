@@ -7,7 +7,7 @@
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
-        x <- cbind(level_1=seq_len(nrow(lhs)), 
+        x <- cbind(level_1=seq_len(nrow(lhs)),
             leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
@@ -20,7 +20,7 @@
     if (any(lhs < 0))
         stop("data matrix contains negative entries")
     if (is.null(colnames(rhs)))
-        colnames(rhs) <- paste("level", 1:nlevs, sep="_")
+        colnames(rhs) <- paste("level", seq_len(nlevs), sep="_")
     tlab <- colnames(rhs)
 
      ## check proper design of the model frame
@@ -34,7 +34,7 @@
         rval[[i]] <- interaction(rhs[,nCol], rval[[(i-1)]], drop=TRUE)
         nCol <- nCol - 1
     }
-    rval <- as.data.frame(rval[rev(1:length(rval))])
+    rval <- as.data.frame(rval[rev(seq_along(rval))])
     l2 <- sapply(rval, function(z) length(unique(z)))
     if (any(l1 != l2))
         stop("levels are not perfectly nested")
@@ -45,7 +45,7 @@
 #    if (!fullgamma && !global)
 #        warning("gamma diversity value might be meaningless")
     ftmp <- vector("list", nlevs)
-    for (i in 1:nlevs) {
+    for (i in seq_len(nlevs)) {
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
@@ -77,37 +77,39 @@
     if (global) {
         wdivfun <- function(x) {
             if (fullgamma) {
-                tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp <- lapply(seq_len(nlevs - 1),
+                              function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
                 tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
             } else {
-                tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp <- lapply(seq_len(nlevs),
+                              function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
             }
-            raw <- sapply(1:nlevs, function(i) divfun(tmp[[i]]))
+            raw <- sapply(seq_len(nlevs), function(i) divfun(tmp[[i]]))
             a <- sapply(raw, mean)
             G <- a[nlevs]
-            b <- sapply(1:(nlevs-1), function(i) G / a[i])
+            b <- sapply(seq_len(nlevs - 1), function(i) G / a[i])
             if (relative)
-                b <- b / sapply(raw[1:(nlevs-1)], length)
+                b <- b / sapply(raw[seq_len(nlevs - 1)], length)
             c(a, b)
         }
     } else {
         wdivfun <- function(x) {
             if (fullgamma) {
-                tmp <- lapply(1:(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp <- lapply(seq_len(nlevs-1), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
                 tmp[[nlevs]] <- matrix(colSums(x), nrow = 1, ncol = ncol(x))
             } else {
-                tmp <- lapply(1:nlevs, function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
+                tmp <- lapply(seq_len(nlevs), function(i) t(model.matrix(ftmp[[i]], rhs)) %*% x)
             }
-            a <- sapply(1:nlevs, function(i) divfun(tmp[[i]]))
-            am <- lapply(1:(nlevs-1), function(i) {
-                    sapply(1:length(unique(id[[i]])), function(ii) {
+            a <- sapply(seq_len(nlevs), function(i) divfun(tmp[[i]]))
+            am <- lapply(seq_len(nlevs - 1), function(i) {
+                    sapply(seq_along(unique(id[[i]])), function(ii) {
                         mean(a[[i]][id[[i]]==ii])
                     })
                 })
-            b <- lapply(1:(nlevs-1), function(i) a[[(i+1)]] / am[[i]])
+            b <- lapply(seq_len(nlevs - 1), function(i) a[[(i+1)]] / am[[i]])
             bmax <- lapply(id, function(i) table(i))
             if (relative)
-                b <- lapply(1:(nlevs-1), function(i) b[[i]] / bmax[[i]])
+                b <- lapply(seq_len(nlevs - 1), function(i) b[[i]] / bmax[[i]])
             c(sapply(a, mean), sapply(b, mean))
         }
     }
@@ -120,8 +122,8 @@
             sim <- list(statistic = sim,
                 oecosimu = list(z = tmp, pval = tmp, method = NA, statistic = sim))
         }
-    nam <- c(paste("alpha", 1:(nlevs-1), sep="."), "gamma",
-        paste("beta", 1:(nlevs-1), sep="."))
+    nam <- c(paste("alpha", seq_len(nlevs - 1), sep="."), "gamma",
+        paste("beta", seq_len(nlevs - 1), sep="."))
     names(sim$statistic) <- attr(sim$oecosimu$statistic, "names") <- nam
     call <- match.call()
     call[[1]] <- as.name("multipart")

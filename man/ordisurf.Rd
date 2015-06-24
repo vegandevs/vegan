@@ -269,15 +269,15 @@ data(varespec)
 data(varechem)
 vare.dist <- vegdist(varespec)
 vare.mds <- monoMDS(vare.dist)
-with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
+ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 ## as above but without the extra penalties on smooth terms,
 ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
-with(varechem, ordisurf(vare.mds, Baresoil,col = "blue", add = TRUE,
-                        select = FALSE, method = "GCV.Cp"))
+ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
+                        select = FALSE, method = "GCV.Cp")
 
 ## Cover of Cladina arbuscula
-fit <- with(varespec, ordisurf(vare.mds, Cladarbu, family=quasipoisson)) 
+fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson) 
 ## Get fitted values
 calibrate(fit)
 
@@ -286,11 +286,9 @@ calibrate(fit)
 ## of the model not just to a linear surface. There are 2
 ## options available:
 ##  - option 1: `select = TRUE` --- the *default*
-with(varechem,
-     ordisurf(vare.mds, Baresoil, method = "REML", select = TRUE))
+ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", select = TRUE)
 ##  - option 2: use a basis with shrinkage
-with(varechem,
-     ordisurf(vare.mds, Baresoil, method = "REML", bs = "ts"))
+ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 ## or bs = "cs" with `isotropic = FALSE`
 
 ## Plot method
@@ -305,22 +303,21 @@ plot.gam(fit, cex = 2, pch = 1, col = "blue")
 
 ### controlling the basis functions used
 ## Use Duchon splines
-with(varechem, ordisurf(vare.mds, Baresoil, bs = "ds"))
+ordisurf(vare.mds ~ Baresoil, varechem, bs = "ds")
 
 ## A fixed degrees of freedom smooth, must use 'select = FALSE'
-with(varechem, ordisurf(vare.mds, Baresoil, knots = 4,
-                        fx = TRUE, select = FALSE))
+ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
+                        fx = TRUE, select = FALSE)
 
 ## An anisotropic smoother with cubic regression spline bases
-with(varechem, ordisurf(vare.mds, Baresoil, isotropic = FALSE,
-                        bs = "cr", knots = 4))
+ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
+                        bs = "cr", knots = 4)
 
 ## An anisotropic smoother with cubic regression spline with
 ## shrinkage bases & different degrees of freedom in each dimension
-with(varechem, ordisurf(vare.mds, Baresoil, isotropic = FALSE,
+ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
                         bs = "cs", knots = c(3,4), fx = TRUE,
-                        select = FALSE))
-
+                        select = FALSE)
 }
 \keyword{ multivariate }
 \keyword{ aplot }

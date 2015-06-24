@@ -137,7 +137,7 @@
     fla <- reformulate(names(LC))
     Pvals <- rep(NA, length(eig))
     environment(object$terms) <- environment()
-    for (i in 1:length(eig)) {
+    for (i in seq_along(eig)) {
         part <- paste("~ . +Condition(",
                       paste(names(LC)[-i], collapse = "+"), ")")
         upfla <- update(fla, part)

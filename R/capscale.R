@@ -16,8 +16,8 @@
     ## The following line was eval'ed in environment(formula), but
     ## that made update() fail. Rethink the line if capscale() fails
     ## mysteriously at this point.
-    X <- eval(formula[[2]], envir=parent.frame(),
-              enclos = environment(formula))
+    X <- eval(formula[[2]], envir=environment(formula),
+              enclos = globalenv())
     if (!inherits(X, "dist")) {
         comm <- X
         dfun <- match.fun(dfun)
@@ -45,22 +45,22 @@
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
     ## deleted due to missing values)
-    fla <- update(formula, X ~ .)
-    environment(fla) <- environment()
-    d <- ordiParseFormula(fla,
-                          if(is.data.frame(data) && !is.null(comm)) cbind(data, comm)
-                          else data,
-                          envdepth = 1, na.action = na.action,
+    d <- ordiParseFormula(formula,
+                          data,
+                          na.action = na.action,
                           subset = substitute(subset))
     ## ordiParseFormula subsets rows of dissimilarities: do the same
-    ## for columns ('comm' is handled later)
-    if (!is.null(d$subset))
-        d$X <- d$X[, d$subset, drop = FALSE]
+    ## for columns ('comm' is handled later). ordiParseFormula
+    ## returned the original data, but we use instead the potentially
+    ## changed X and discard d$X.
+    if (!is.null(d$subset)) {
+        X <- as.matrix(X)[d$subset, d$subset, drop = FALSE]
+    }
     ## Delete columns if rows were deleted due to missing values
     if (!is.null(d$na.action)) {
-        d$X <- d$X[, -d$na.action, drop = FALSE]
+        X <- as.matrix(X)[-d$na.action, -d$na.action, drop = FALSE]
     }
-    X <- as.dist(d$X)
+    X <- as.dist(X)
     k <- attr(X, "Size") - 1
     if (sqrt.dist)
         X <- sqrt(X)
@@ -124,20 +124,20 @@
         if (!is.null(sol$pCCA) && sol$pCCA$rank > 0) 
             comm <- qr.resid(sol$pCCA$QR, comm)
         if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-            sol$CCA$v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
-            sol$CCA$v <- decostand(sol$CCA$v.eig, "normalize", MARGIN = 2)
+            v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
+            sol$CCA$v <- decostand(v.eig, "normalize", MARGIN = 2)
             comm <- qr.resid(sol$CCA$QR, comm)
         }
         if (!is.null(sol$CA) && sol$CA$rank > 0) {
-            sol$CA$v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
-            sol$CA$v <- decostand(sol$CA$v.eig, "normalize", MARGIN = 2)
+            v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
+            sol$CA$v <- decostand(v.eig, "normalize", MARGIN = 2)
         }
     } else {
         ## input data were dissimilarities, and no 'comm' defined:
         ## species scores make no sense and are made NA
-        sol$CA$v.eig[] <- sol$CA$v[] <- NA
+        sol$CA$v[] <- NA
         if (!is.null(sol$CCA))
-            sol$CCA$v.eig[] <- sol$CCA$v[] <- NA
+            sol$CCA$v[] <- NA
         sol$colsum <- NA
     }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) 

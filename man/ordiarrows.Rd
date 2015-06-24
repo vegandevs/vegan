@@ -56,18 +56,20 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
 
   \item{\dots}{Parameters passed to graphical functions such as
     \code{\link{lines}}, \code{\link{segments}}, \code{\link{arrows}},
-    or to \code{\link{scores}} to select axes and scaling etc. } 
+    or to \code{\link{scores}} to select axes and scaling etc. }
 }
 
 \details{ Function \code{ordiarrows} draws \code{\link{arrows}} and
   \code{ordisegments} draws line \code{\link{segments}} between
   successive items in the groups. Function \code{ordigrid} draws line
   \code{\link{segments}} both within the groups and for the
-  corresponding items among the groups.  }
+  corresponding items among the groups.
+
+}
 
 \note{These functions add graphical items to ordination graph: You must
   draw a graph first.
-  }
+}
 \author{ Jari Oksanen }
 
 \seealso{The functions pass parameters to basic graphical functions, and

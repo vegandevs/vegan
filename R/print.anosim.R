@@ -1,4 +1,4 @@
-"print.anosim" <-
+`print.anosim` <-
     function (x, digits = max(3, getOption("digits") - 3), ...) 
 {
     cat("\nCall:\n")
@@ -10,10 +10,8 @@
     if (nperm) {
         cat("      Significance:", format.pval(x$signif), 
             "\n\n")
-        cat("Based on ", nperm, " permutations")
+        cat(howHead(x$control))
     }
-    if (!is.null(x$strata)) 
-        cat(", stratified within", x$strata)
-    cat("\n\n")
+    cat("\n")
     invisible(x)
 }

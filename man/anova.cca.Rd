@@ -39,10 +39,10 @@
 
   \item{x}{A single ordination result object.}
  
-  \item{permutations}{Either a \code{\link[permute]{how}} result
-    defining permutations, or a permutation matrix with each row giving
-    the permutation indices, or the number of permutations for simple
-    permutations. See \code{\link{permutations}} for details.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
 
   \item{by}{Setting \code{by = "axis"} will assess significance for
     each constrained axis, and setting \code{by = "terms"} will assess

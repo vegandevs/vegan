@@ -1,5 +1,5 @@
 `envfit.default` <-
-    function (ord, env, permutations = 999, strata, choices = c(1, 2), 
+    function (ord, env, permutations = 999, strata = NULL, choices = c(1, 2), 
              display = "sites", w = weights(ord), na.rm = FALSE, ...) 
 {
     weights.default <- function(object, ...) NULL
@@ -18,18 +18,11 @@
     }
     ## make permutation matrix for all variables handled in the next loop
     nr <- nrow(X)
-    if (length(permutations) == 1) {
-        if (permutations > 0 ) {
-            arg <- if (missing(strata)) NULL else strata
-            permutations <- t(replicate(permutations,
-                                  permuted.index(nr, strata=arg)))
-        }
-    } else {
-        permat <- as.matrix(permutations)
-        if (ncol(permat) != nr)
-            stop(gettextf("'permutations' have %d columns, but data have %d rows",
-                          ncol(permat), nr))
-    }
+    permat <-  getPermuteMatrix(permutations, nr, strata = strata)
+    if (ncol(permat) != nr)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                      ncol(permat), nr))
+
     if (is.data.frame(env)) {
         vects <- sapply(env, is.numeric)
         if (any(!vects)) {  # have factors
