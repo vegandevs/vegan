@@ -23,7 +23,7 @@
 
 \details{
   The classification of vascular plants is based on APG (2009), and
-  that of mosses from Hill et al. (2006).
+  that of mosses on Hill et al. (2006).
 }
 \references{
   APG [Angiosperm Phylogeny Group] (2009) An update of the Angiosperm
@@ -39,8 +39,7 @@
   I.J., Aarssen, L., Bertin, R.I., Calaminus, A., Govaerts, R.,
   Hemmings, F., Leishman, M.R., Oleksyn, J., Soltis, P.S., Swenson,
   N.G., Warman, L. & Beaulieu, J.M. (2014) Three keys to the radiation
-  of angiosperms into freezing environments. \emph{Nature}
-  doi:10.1038/nature12872 (published online Dec 22, 2013).
+  of angiosperms into freezing environments. \emph{Nature} 506, 89--92.
 
 }
 

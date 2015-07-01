@@ -24,7 +24,7 @@ nestedchecker(comm)
 nestedn0(comm)
 nesteddisc(comm, niter = 200)
 nestedtemp(comm, ...)
-nestednodf(comm, order = TRUE, weighted = FALSE)
+nestednodf(comm, order = TRUE, weighted = FALSE, wbinary = FALSE)
 nestedbetasor(comm)
 nestedbetajac(comm)
 \method{plot}{nestedtemp}(x, kind = c("temperature", "incidence"),
@@ -43,6 +43,8 @@ nestedbetajac(comm)
     returned accordingly.}
   \item{order}{Order rows and columns by frequencies.}
   \item{weighted}{Use species abundances as weights of interactions.}
+  \item{wbinary}{Modify original method so that binary data give the same 
+    result in weighted and and unweighted analysis. }
   \item{\dots}{Other arguments to functions.}
 }
 
@@ -112,7 +114,14 @@ nestedbetajac(comm)
   al. 2008). With \code{weighted = TRUE}, the function finds the
   weighted version of the index (Almeida-Neto & Ulrich,
   2011). However, this requires quantitative null models for adequate
-  testing.
+  testing. Almeida-Neto & Ulrich (2011) say that you have positive
+  nestedness if values in the first row/column are higher than in the
+  second.  With this condition, weighted analysis of binary data will
+  always give zero nestedness. With argument \code{wbinary = TRUE},
+  equality of rows/colums also indicates nestedness, and binary data
+  will give identical results in weighted and unweighted analysis.
+  However, this can also influence the results of weighted analysis so
+  that the results may differ from Almeida-Neto & Ulrich (2011).
 
   Functions \code{nestedbetasor} and \code{nestedbetajac} find
   multiple-site dissimilarities and decompose these into components of

@@ -17,17 +17,18 @@ function (x, digits = max(3, getOption("digits") - 3), ...)
         cat(formatC(x$CS, digits = digits), "\n")
     }
     cat("Chance corrected within-group agreement A: ")
-    cat(formatC(x$A, digits = digits), "\n")
+    if (!is.na(x$A))
+        cat(formatC(x$A, digits = digits), "\n")
+    else
+        cat("NA\n")
     cat("Based on observed delta", formatC(x$delta), "and expected delta",
         formatC(x$E.delta),"\n\n")
     nperm <- x$permutations
     if (nperm) {
         cat("Significance of delta:", format.pval(x$Pvalue), 
             "\n")
-        cat("Based on ", nperm, " permutations")
     }
-    if (!is.null(x$strata)) 
-        cat(", stratified within", x$strata)
-    cat("\n\n")
+    cat(howHead(x$control))
+    cat("\n")
     invisible(x)
 }

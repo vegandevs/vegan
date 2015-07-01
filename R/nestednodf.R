@@ -1,5 +1,5 @@
 `nestednodf` <- 
-    function(comm, order = TRUE, weighted = FALSE) 
+    function(comm, order = TRUE, weighted = FALSE, wbinary = FALSE) 
 {
     bin.comm <- ifelse(comm > 0, 1, 0)
     rfill <- rowSums(bin.comm)
@@ -34,8 +34,12 @@
                 next
             if (weighted) {
                 second <- comm[j, ]
-                N.paired.rows[counter] <-
-                    sum(first - second >= 0 & second > 0)/sum(second > 0)
+                if (!wbinary) 
+                    N.paired.rows[counter] <-
+                        sum(first - second > 0 & second > 0)/sum(second > 0)
+                else
+                    N.paired.rows[counter] <-
+                        sum(first - second >= 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.rows[counter] <-
@@ -52,8 +56,12 @@
                 next
             if (weighted) {
                 second <- comm[, j]
-                N.paired.cols[counter] <-
-                    sum(first - second >= 0 & second > 0)/sum(second > 0)
+                if (!wbinary)
+                    N.paired.cols[counter] <-
+                        sum(first - second > 0 & second > 0)/sum(second > 0)
+                else
+                    N.paired.cols[counter] <-
+                        sum(first - second >= 0 & second > 0)/sum(second > 0)
             }
             else {
                 N.paired.cols[counter] <-

@@ -2,6 +2,8 @@
     function(x, ...)
 {
     cat("Species Accumulation Curve\n")
+    if (inherits(x, "fitspecaccum"))
+        cat("Non-linear regression model:", x$SSmodel, "\n")
     cat("Accumulation method:", x$method)
     if (x$method == "random") {
         cat(", with ", ncol(x$perm), " permutations", sep="")

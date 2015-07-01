@@ -4,6 +4,8 @@
     NextMethod("print", x, digits = digits, ...)
     cat("mso variogram:\n\n")
     print(x$vario, digits = digits, ...)
+    if(!is.null(attr(x$vario, "control")))
+        cat("\n", howHead(attr(x$vario, "control")), "\n", sep="")
     invisible(x)
 }
 

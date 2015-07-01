@@ -5,7 +5,6 @@
 \alias{renyiaccum}
 \alias{plot.renyiaccum}
 \alias{persp.renyiaccum}
-\alias{rgl.renyiaccum}
 
 \title{Renyi and Hill Diversities and Corresponding Accumulation Curves }
 \description{
@@ -23,15 +22,16 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     type = "l", 
     ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
-rgl.renyiaccum(x, rgl.height = 0.2, ...)
 }
 
 \arguments{
   \item{x}{Community data matrix or plotting object. }
   \item{scales}{Scales of \enc{Rényi}{Renyi} diversity.}
   \item{hill}{Calculate Hill numbers.}
-  \item{permutations}{Number of random permutations in accumulating
-    sites.}
+  \item{permutations}{Usually an integer giving the number
+    permutations, but can also be a list of control values for the
+    permutations as returned by the function \code{\link[permute]{how}}, 
+    or a permutation matrix where each row gives the permuted indices.}
   \item{raw}{if \code{FALSE} then return summary statistics of
     permutations, and if \code{TRUE} then returns the individual
     permutations.}
@@ -49,7 +49,6 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
     and vector colours will be
     selected by the midpoint of a rectangle in \code{\link{persp}}. }
   \item{zlim}{Limits of vertical axis.}
-  \item{rgl.height}{Scaling of vertical axis.}
   \item{\dots}{Other arguments which are passed to \code{renyi} and
     to graphical functions.}
 
@@ -77,12 +76,13 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
   Function \code{renyiaccum} is similar to \code{\link{specaccum}} but
   finds \enc{Rényi}{Renyi} or Hill diversities at given \code{scales}
   for random permutations of accumulated sites.  Its \code{plot}
-  function uses \pkg{lattice} function \code{\link[lattice]{xyplot}} to
-  display the accumulation curves for each value of \code{scales} in a
-  separate panel.  In addition, it has a \code{persp} method to plot the
-  diversity surface against scale and number and sites. Dynamic graphics
-  with \code{rgl.renyiaccum} use \pkg{rgl} package, and produces similar
-  surface as \code{persp} with a mesh showing the empirical confidence levels.
+  function uses \pkg{lattice} function \code{\link[lattice]{xyplot}}
+  to display the accumulation curves for each value of \code{scales}
+  in a separate panel.  In addition, it has a \code{persp} method to
+  plot the diversity surface against scale and number and
+  sites. Similar dynamic graphics can be made with
+  \code{\link[vegan3d]{rgl.renyiaccum}} in \pkg{vegan3d} package.
+  
 }
 \value{
   Function \code{renyi} returns a data frame of selected
@@ -112,7 +112,8 @@ rgl.renyiaccum(x, rgl.height = 0.2, ...)
 \seealso{\code{\link{diversity}} for diversity indices, and
   \code{\link{specaccum}} for ordinary species accumulation curves, and
   \code{\link[lattice]{xyplot}}, \code{\link{persp}} and
-  \code{\link[rgl]{rgl}} for controlling graphics. } 
+  \code{\link[vegan3d]{rgl.renyiaccum}}. 
+} 
 \examples{
 data(BCI)
 i <- sample(nrow(BCI), 12)

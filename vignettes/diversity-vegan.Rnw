@@ -9,7 +9,7 @@
 
 \title{Vegan: ecological diversity} \author{Jari Oksanen} 
 
-\date{\footnotesize{$ $Id$ $
+\date{\footnotesize{
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
   in \Sexpr{R.version.string} on \today}}
 
@@ -67,7 +67,7 @@ indices \citep{Hill73number}:
 \begin{align}
 H &= - \sum_{i=1}^S p_i \log_b  p_i & \text{Shannon--Weaver}\\
 D_1 &= 1 - \sum_{i=1}^S p_i^2  &\text{Simpson}\\
-D_2 &= \frac{1}{\sum_{i=1}^S p_i^2}  &\text{inverse Simpson}
+D_2 &= \frac{1}{\sum_{i=1}^S p_i^2}  &\text{inverse Simpson}\,,
 \end{align}
 where $p_i$ is the proportion of species $i$, and $S$ is the number of
 species so that $\sum_{i=1}^S p_i = 1$, and $b$ is the base of the
@@ -92,9 +92,9 @@ the numbers of species.
 \pkg{vegan} also can estimate series of R\'{e}nyi and Tsallis
 diversities. R{\'e}nyi diversity of order $a$ is \citep{Hill73number}:
 \begin{equation}
-H_a = \frac{1}{1-a} \log \sum_{i=1}^S p_i^a
+H_a = \frac{1}{1-a} \log \sum_{i=1}^S p_i^a \,,
 \end{equation}
-or the corresponding Hill numbers $N_a = \exp(H_a)$.  Many common
+and the corresponding Hill number is $N_a = \exp(H_a)$.  Many common
 diversity indices are special cases of Hill numbers: $N_0 = S$, $N_1 =
 \exp(H')$, $N_2 = D_2$, and $N_\infty = 1/(\max p_i)$. The
 corresponding R\'{e}nyi diversities are $H_0 = \log(S)$, $H_1 = H'$, $H_2 =
@@ -103,8 +103,8 @@ Tsallis diversity of order $q$ is \citep{Tothmeresz95}:
 \begin{equation}
   H_q = \frac{1}{q-1} \left(1 - \sum_{i=1}^S p^q \right) \, .
 \end{equation}
-This corresponds to common diversity indices: $H_0 = S-1$, $H_1 = H'$,
-and $H_2 = D_2$, and can be converted to the Hill number:
+These correspond to common diversity indices: $H_0 = S-1$, $H_1 = H'$,
+and $H_2 = D_1$, and can be converted to Hill numbers:
 \begin{equation}
   N_q = (1 - (q-1) H_q )^\frac{1}{1-q} \, .
 \end{equation}
@@ -117,7 +117,7 @@ R <- renyi(BCI[k,])
 We can really regard a site more diverse if all of its R\'{e}nyi
 diversities are higher than in another site.  We can inspect this
 graphically using the standard \code{plot} function for the
-\code{renyi} result (Fig. \ref{fig:renyi}).
+\code{renyi} result (Fig.~\ref{fig:renyi}).
 \begin{figure}
 <<fig=true,echo=false>>=
 print(plot(R))
@@ -142,28 +142,28 @@ richness actually may be caused by differences in sample size.  To
 solve this problem, we may try to rarefy species richness to the same
 number of individuals.  Expected number of species in a community
 rarefied from $N$ to $n$ individuals is \citep{Hurlbert71}:
-\begin{multline}
+\begin{equation}
 \label{eq:rare}
-\hat S_n = \sum_{i=1}^S (1 - q_i),\\ \text{where} \quad q_i = {N-x_i
-  \choose n} \Bigm /{N \choose n}
-\end{multline}
-where $x_i$ is the count of species $i$, and ${N \choose n}$ is the
+\hat S_n = \sum_{i=1}^S (1 - q_i)\,, \quad\text{where }  q_i =
+\frac{{N-x_i \choose n}}{{N \choose n}} \,.
+\end{equation}
+Here $x_i$ is the count of species $i$, and ${N \choose n}$ is the
 binomial coefficient, or the number of ways we can choose $n$ from
 $N$, and $q_i$ give the probabilities that species $i$ does \emph{not} occur in a
-sample of size $n$.  This is defined only when $N-x_i > n$, but for
+sample of size $n$.  This is positive only when $N-x_i \ge n$, but for
 other cases $q_i = 0$ or the species is sure to occur in the sample.
 The variance of rarefied richness is \citep{HeckEtal75}:
 \begin{multline}
 \label{eq:rarevar}
-s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ {N- x_i - x_j
-    \choose n} \Bigm / {N
-    \choose n} - q_i q_j\right]
+s^2 = q_i (1-q_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left[ \frac{{N- x_i - x_j
+    \choose n}}{ {N
+    \choose n}} - q_i q_j\right] \,.
 \end{multline}
-Equation \ref{eq:rarevar} actually is of the same form as the variance
+Equation~\ref{eq:rarevar} actually is of the same form as the variance
 of sum of correlated variables:
 \begin{equation}
 \VAR \left(\sum x_i \right) = \sum \VAR (x_i) + 2 \sum_{i=1}^S
-\sum_{j>i} \COV (x_i, x_j)
+\sum_{j>i} \COV (x_i, x_j) \,.
 \end{equation}
 
 The number of stems per hectare varies in our
@@ -215,7 +215,8 @@ The two basic indices are called taxonomic diversity $\Delta$ and
 taxonomic distinctness $\Delta^*$ \citep{ClarkeWarwick98}:
 \begin{align}
   \Delta &= \frac{\sum \sum_{i<j} \omega_{ij} x_i x_j}{n (n-1) / 2}\\
-\Delta^* &= \frac{\sum \sum_{i<j} \omega_{ij} x_i x_j}{\sum \sum_{i<j} x_i x_j}
+\Delta^* &= \frac{\sum \sum_{i<j} \omega_{ij} x_i x_j}{\sum \sum_{i<j}
+  x_i x_j} \,.
 \end{align}
 These equations give the index values for a single site, and summation
 goes over species $i$ and $j$, and $\omega$ are the taxonomic
@@ -230,7 +231,8 @@ richness\footnote{This text normally uses upper case letter $S$ for
 to give $s \Delta^+$, or it can be used to estimate an index of
 variation in taxonomic distinctness $\Lambda^+$ \citep{ClarkeWarwick01}:
 \begin{equation}
-  \Lambda^+ = \frac{\sum \sum_{i<j} \omega_{ij}^2}{n (n-1) / 2} - (\Delta^+)^2
+  \Lambda^+ = \frac{\sum \sum_{i<j} \omega_{ij}^2}{n (n-1) / 2} -
+  (\Delta^+)^2 \,.
 \end{equation}
 
 We still need the taxonomic differences among species ($\omega$) to
@@ -254,7 +256,7 @@ data in \pkg{vegan}\footnote{Actually I made such a classification,
   but taxonomic differences proved to be of little use in the Barro
   Colorado data: they only singled out sites with Monocots (palm
   trees) in the data.}
-but there is such a table for the Dune meadow data (Fig. \ref{fig:taxondive}):
+but there is such a table for the Dune meadow data (Fig.~\ref{fig:taxondive}):
 <<>>=
 data(dune)
 data(dune.taxon)
@@ -307,12 +309,12 @@ several models for species abundance distribution.
 In Fisher's log-series, the expected number of species $\hat f$ with $n$
 individuals is \citep{FisherEtal43}:
 \begin{equation}
-\hat f_n = \frac{\alpha x^n}{n}
+\hat f_n = \frac{\alpha x^n}{n} \,,
 \end{equation}
 where $\alpha$ is the diversity parameter, and $x$ is a nuisance
 parameter defined by $\alpha$ and total number
 of individuals $N$ in the site, $x = N/(N-\alpha)$.  Fisher's
-log-series for a randomly selected plot is (Fig. \ref{fig:fisher}):
+log-series for a randomly selected plot is (Fig.~\ref{fig:fisher}):
 <<>>=
 k <- sample(nrow(BCI), 1)
 fish <- fisherfit(BCI[k,])
@@ -369,7 +371,7 @@ estimation:
 \hat a_r &= N \hat p_1 r^\gamma &\text{Zipf}\\
 \hat a_r &= N c (r + \beta)^\gamma &\text{Zipf--Mandelbrot}
 \end{align}
-Where $\hat a_r$ is the expected abundance of species at rank $r$, $S$
+In all these, $\hat a_r$ is the expected abundance of species at rank $r$, $S$
 is the number of species, $N$ is the number of individuals, $\Phi$ is
 a standard normal function, $\hat p_1$ is the estimated proportion of
 the most abundant species, and $\alpha$, $\mu$, $\sigma$, $\gamma$,
@@ -379,7 +381,7 @@ It is customary to define the models for proportions $p_r$ instead of
 abundances $a_r$, but there is no reason for this, and \code{radfit}
 is able to work with the original abundance data.  We have count data,
 and the default Poisson error looks appropriate, and our example data
-set gives (Fig. \ref{fig:rad}):
+set gives (Fig.~\ref{fig:rad}):
 <<>>=
 rad <- radfit(BCI[k,])
 rad
@@ -426,30 +428,31 @@ to these individuals.  Kindt's exact accumulator resembles rarefaction
 \citep{UglandEtal03}:
 \begin{multline}
 \label{eq:kindt}
-\hat S_n = \sum_{i=1}^S (1 - p_i), \, \\ \text{where} \quad  p_i = {N- f_i
-\choose n} \Bigm / {N \choose n}
+\hat S_n = \sum_{i=1}^S (1 - p_i), \,\quad \text{where }
+p_i = \frac{{N- f_i \choose n}}{{N \choose n}} \,,
 \end{multline}
-where $f_i$ is the frequency of species $i$.  Approximate variance
+and $f_i$ is the frequency of species $i$.  Approximate variance
 estimator is:
 \begin{multline}
 \label{eq:kindtvar}
 s^2 = p_i (1 - p_i)  \\ + 2 \sum_{i=1}^S \sum_{j>i} \left( r_{ij}
-  \sqrt{p_i(1-p_i)} \sqrt{p_j (1-p_j)}\right)
+  \sqrt{p_i(1-p_i)} \sqrt{p_j (1-p_j)}\right) \,,
 \end{multline}
 where $r_{ij}$ is the correlation coefficient between species $i$ and
-$j$.  Both of these are unpublished: eq. \ref{eq:kindt} was developed
-by Roeland Kindt, and eq. \ref{eq:kindtvar} by Jari Oksanen. The third
+$j$.  Both of these are unpublished: eq.~\ref{eq:kindt} was developed
+by Roeland Kindt, and eq.~\ref{eq:kindtvar} by Jari Oksanen. The third
 analytic method was suggested by \citet{Coleman82}:
 \begin{equation}
 \label{eq:cole}
-S_n = \sum_{i=1}^S (1 - p_i), \, \text{where} \quad p_i = \left(1 - \frac{1}{n}\right)^{f_i}
+S_n = \sum_{i=1}^S (1 - p_i), \quad \text{where }  p_i = \left(1 -
+  \frac{1}{n}\right)^{f_i} \,,
 \end{equation}
-and he suggested variance $s^2 = p_i (1-p_i)$ which ignores the
-covariance component.  In addition, eq. \ref{eq:cole} does not
+and the suggested variance is $s^2 = p_i (1-p_i)$ which ignores the
+covariance component.  In addition, eq.~\ref{eq:cole} does not
 properly handle sampling without replacement and underestimates the
 species accumulation curve.
 
-The recommended is Kindt's exact method (Fig. \ref{fig:sac}):
+The recommended is Kindt's exact method (Fig.~\ref{fig:sac}):
 <<a>>=
 sac <- specaccum(BCI)
 plot(sac, ci.type="polygon", ci.col="yellow")
@@ -478,7 +481,7 @@ number of species in a collection of sites $S$ and the average
 richness per one site $\bar \alpha$ \citep{Tuomisto10a}:
 \begin{equation}
   \label{eq:beta}
-  \beta = S/\bar \alpha - 1
+  \beta = S/\bar \alpha - 1 \,.
 \end{equation}
 Subtraction of one means that $\beta = 0$ when there are no excess
 species or no heterogeneity between sites. For this index, no specific
@@ -488,16 +491,16 @@ of \pkg{vegan} function \code{specnumber}:
 ncol(BCI)/mean(specnumber(BCI)) - 1
 @
 
-The index of eq. \ref{eq:beta} is problematic because $S$ increases
+The index of eq.~\ref{eq:beta} is problematic because $S$ increases
 with the number of sites even when sites are all subsets of the same
 community.  \citet{Whittaker60} noticed this, and suggested the index
 to be found from pairwise comparison of sites. If the number of shared
 species in two sites is $a$, and the numbers of species unique to each
 site are $b$ and $c$, then $\bar \alpha = (2a + b + c)/2$ and $S =
-a+b+c$, and index \ref{eq:beta} can be expressed as:
+a+b+c$, and index~\ref{eq:beta} can be expressed as:
 \begin{equation}
   \label{eq:betabray}
-  \beta = \frac{a+b+c}{(2a+b+c)/2} - 1 = \frac{b+c}{2a+b+c}
+  \beta = \frac{a+b+c}{(2a+b+c)/2} - 1 = \frac{b+c}{2a+b+c} \,.
 \end{equation}
 This is the S{\o}rensen index of dissimilarity, and it can be found
 for all sites using \pkg{vegan} function \code{vegdist} with
@@ -508,7 +511,7 @@ mean(beta)
 @
 
 There are many other definitions of beta diversity in addition to
-eq. \ref{eq:beta}.  All commonly used indices can be found using
+eq.~\ref{eq:beta}.  All commonly used indices can be found using
 \code{betadiver} \citep{KoleffEtal03}. The indices in \code{betadiver}
 can be referred to by subscript name, or index number:
 <<>>=
@@ -520,7 +523,7 @@ One of the more interesting indices is based
 on the Arrhenius species--area model
 \begin{equation}
   \label{eq:arrhenius}
-  \hat S = c X^z
+  \hat S = c X^z\,,
 \end{equation}
 where $X$ is the area (size) of the patch or site, and $c$ and $z$ are
 parameters. Parameter $c$ is uninteresting, but $z$ gives the
@@ -541,7 +544,7 @@ Function \code{betadisper} can be used to analyse beta diversities
 with respect to classes or factors \citep{Anderson06, AndersonEtal06}.
 There is no such classification available for the Barro Colorado
 Island data, and the example studies beta diversities in the
-management classes of the dune meadows (Fig. \ref{fig:betadisper}):
+management classes of the dune meadows (Fig.~\ref{fig:betadisper}):
 <<>>=
 data(dune)
 data(dune.env)
@@ -572,40 +575,94 @@ with a single site.  Both functions assume that the number of unseen
 species is related to the number of rare species, or species seen only
 once or twice.
 
-Function \code{specpool} implements the following models to estimate
-the pool size $S_p$ \citep{SmithVanBelle84, Chao87}:
-\begin{align}
-S_p &= S_o + \frac{f_1^2}{2 f_2} & \text{Chao}\\
-S_p &= S_o + f_1 \frac{N-1}{N}  & \text{1st order Jackknife}\\
-S_p & = S_o + f_1 \frac{2N-3}{N} \nonumber \\ & + f_2 \frac{(N-2)^2}{N(N-1)}
-& \text{2nd order Jackknife}\\
-S_p &= S_o + \sum_{i=1}^{S_o} (1-p_i)^N & \text{Bootstrap}
-\end{align}
-Here $S_o$ is the observed number of species, $f_1$ and $f_2$ are the
-numbers of species observed once or twice, $N$ is the number of sites,
-and $p_i$ are proportions of species.  The idea in jackknife seems to
-be that we missed about as many species as we saw only once, and the
-idea in bootstrap that if we repeat sampling (with replacement) from
-the same data, we miss as many species as we missed originally.
-
-The variance the estimator of \citet{Chao87} is:
+The incidence-based functions group species by their number of
+occurrences $f_i = f_0, f_1, \ldots, f_N$, where $f$ is the number of
+species occuring in exactly $i$ sites in the data: $f_N$ is the number
+of species occurring on every $N$ site, $f_1$ the number of species
+occurring once, and $f_0$ the number of species in the species pool
+but not found in the sample. The total number of species in the pool
+$S_p$ is
 \begin{equation}
-s^2 = f_2 \left(\frac{G^4}{4} + G^3 + \frac{G^2}{2} \right), \,
-\text{where}\quad G = \frac{f_1}{f_2}
+S_p = \sum_{i=0}^N f_i = f_0+ S_o \,,
 \end{equation}
+where $S_o = \sum_{i>0} f_i$ is the observed number of species.  The
+sampling proportion $i/N$ is an estimate for the commonness of the
+species in the community. When species is present in the community but
+not in the sample, $i=0$ is an obvious under-estimate, and
+consequently, for values $i>0$ the species commonness is
+over-estimated \citep{Good53}. The models for the pool size estimate
+the number of species missing in the sample $f_0$.
+
+Function \code{specpool} implements the following models to estimate
+the number of missing species $f_0$. Chao estimator  is \citep{Chao87, ChiuEtal14}:
+\begin{equation}
+\label{eq:chao}
+\hat f_0 = \begin{cases} 
+    \frac{f_1^2}{2 f_2} \frac{N-1}{N} &\text{if } f_2 > 0 \\
+\frac{f_1 (f_1 -1)}{2}  \frac{N-1}{N} & \text{if } f_2 = 0 \,.
+\end{cases}
+\end{equation}
+The latter case for $f_2=0$ is known as the bias-corrected
+form. \citet{ChiuEtal14} introduced the small-sample correction term
+$\frac{N}{N-1}$, but it was not originally used \citep{Chao87}.
+
+The first and second order jackknife estimators are
+\citep{SmithVanBelle84}:
+\begin{align}
+\hat f_0 &=  f_1 \frac{N-1}{N}  \\ 
+\hat f_0 & =  f_1 \frac{2N-3}{N}  + f_2 \frac{(N-2)^2}{N(N-1)} \,.
+\end{align}
+The boostrap estimator is \citep{SmithVanBelle84}:
+\begin{equation}
+\hat f_0 =  \sum_{i=1}^{S_o} (1-p_i)^N \,.
+\end{equation}
+The idea in jackknife seems to be that we missed about as many species
+as we saw only once, and the idea in bootstrap that if we repeat
+sampling (with replacement) from the same data, we miss as many
+species as we missed originally.
+
+The variance estimaters only concern the estimated number of missing
+species $\hat f_0$, although they are often expressed as they would
+apply to the pool size $S_p$; this is only true if we assume that
+$\VAR(S_o) = 0$.  The variance of the Chao estimate is \citep{ChiuEtal14}:
+\begin{multline}
+\label{eq:var-chao-basic}
+\VAR(\hat f_0) = f_1 \left(A^2 \frac{G^3}{4} + A^2 G^2 + A \frac{G}{2} \right),\\
+\text{where } A = \frac{N-1}{N}\;\text{and } G = \frac{f_1}{f_2} \,.
+\end{multline}
+%% The variance of bias-corrected Chao estimate can be approximated by
+%% replacing the terms of eq.~\ref{eq:var-chao-basic} with the
+%% corresponding terms of the bias-correcter form of in eq.~\ref{eq:chao}:
+%% \begin{multline}
+%% \label{eq:var-chao-bc}
+%% s^2 = A \frac{f_1(f_1-1)}{2} + A^2 \frac{f_1(2 f_1+1)^2}{(f_2+1)^2}\\
+%%  + A^2 \frac{f_1^2 f_2 (f_1 -1)^2}{4 (f_2 + 1)^4}
+%% \end{multline}
+For the bias-corrected form of eq.~\ref{eq:chao}  (case $f_2 = 0$), the variance is
+\citep[who omit small-sample correction in some terms]{ChiuEtal14}:
+\begin{multline}
+\label{eq:var-chao-bc0}
+\VAR(\hat f_0) = \tfrac{1}{4} A^2 f_1 (2f_1 -1)^2 + \tfrac{1}{2} A f_1
+(f_1-1) \\- \tfrac{1}{4}A^2 \frac{f_1^4}{S_p} \,.
+\end{multline}
+
 The variance of the first-order jackknife is based on the number of
 ``singletons'' $r$ (species occurring only once in the data) in sample
 plots \citep{SmithVanBelle84}:
 \begin{equation}
-s^2 = \left(\sum_{i=1}^N r_i^2 - \frac{f_1}{N}\right) \frac{N-1}{N}
+\VAR(\hat f_0) = \left(\sum_{i=1}^N r_i^2 - \frac{f_1}{N}\right)
+\frac{N-1}{N} \,.
 \end{equation}
 Variance of the second-order jackknife is not evaluated in
 \code{specpool} (but contributions are welcome).
-For the variance of bootstrap estimator, it is practical to define a
-new variable $q_i = (1-p_i)^N$ for each species \citep{SmithVanBelle84}:
+
+The variance of bootstrap estimator is\citep{SmithVanBelle84}:
 \begin{multline}
-s^2 = \sum_{i=1}^{S_o} q_i (1-q_i) + 2 \sum \sum Z_p ,\\ \text{where}\; Z_p = \dots
+\VAR(\hat f_0) = \sum_{i=1}^{S_o} q_i (1-q_i)  \\ +2 \sum_{i \neq
+  j}^{S_o} \left[(Z_{ij}/N)^N - q_i q_j \right] \\
+\text{where } q_i = (1-p_i)^N \, ,
 \end{multline}
+and $Z_{ij}$ is the number of sites where both species are absent.
 
 The extrapolated richness values for the whole BCI data are:
 <<>>=
@@ -629,16 +686,47 @@ species with low frequencies.  Function \code{estimateR} implements
 two of these methods:
 <<>>=
 estimateR(BCI[k,])
-@
-Chao's method is similar as above, but uses another, ``unbiased''
-equation. \textsc{ace} is based on rare species also:
+@ 
+In abundance based models $a_i$ denotes the number of species with $i$
+individuals, and takes the place of $f_i$ of previous models.
+Chao's method is similar as the bias-corrected model
+eq.~\ref{eq:chao} \citep{Chao87, ChiuEtal14}:
+\begin{equation}
+  \label{eq:chao-bc}
+  S_p = S_o + \frac{a_1 (a_1 - 1)}{2 (a_2 + 1)}\,.
+\end{equation}
+When $f_2=0$, eq.~\ref{eq:chao-bc} reduces to the bias-corrected form
+of eq.~\ref{eq:chao}, but quantitative estimators are based on
+abundances and do not use small-sample correction. This is not usually
+needed because sample sizes are total numbers of individuals, and
+these are usually high, unlike in frequency based models, where the
+sample size is the number of sites \citep{ChiuEtal14}. 
+
+A commonly used approximate variance estimator of eq.~\ref{eq:chao-bc} is:
+\begin{multline}
+  \label{eq:var-chao-bc}
+ s^2 = \frac{a_1(a_1-1)}{2} + \frac{a_1(2 a_1+1)^2}{(a_2+1)^2}\\
+  + \frac{a_1^2 a_2 (a_1 -1)^2}{4 (a_2 + 1)^4} \,.
+\end{multline}
+However, \pkg{vegan} does not use this, but instead the following more
+exact form which was directly derived from eq.~\ref{eq:chao-bc}
+following \citet[web appendix]{ChiuEtal14}:
+\begin{multline}
+  s^2 = \frac{1}{4} \frac{1}{(a_2+1)^4 S_p} [a_1 (S_p a_1^3
+      a_2 + 4 S_p a_1^2 a_2^2 \\+  2 S_p a_1 a_2^3 + 6 S_p a_1^2 a_2 + 2 S_p
+      a_1 a_2^2 -2 S_p a_2^3 \\+ 4 S_p a_1^2 + S_p a_1 a_2 -5 S_p a_2^2 - a_1^3 - 2
+      a_1^2 a_2\\ - a_1 a_2^2 - 2 S_p a_1 - 4 S_p a_2 - S_p ) ]\,.
+\end{multline}
+The variance estimators only concern the number of unseen species like previously.
+
+The \textsc{ace} is estimator is defined as \citep{OHara05}:
 \begin{equation}
 \begin{split}
 S_p &= S_\mathrm{abund} + \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} +
 \frac{a_1}{C_\mathrm{ACE}} \gamma^2\, , \quad \text{where}\\
 C_\mathrm{ACE} &= 1 - \frac{a_1}{N_\mathrm{rare}}\\
 \gamma^2 &= \frac{S_\mathrm{rare}}{C_\mathrm{ACE}} \sum_{i=1}^{10} i
-(i-1) a_1 \frac{N_\mathrm{rare} - 1}{N_\mathrm{rare}}
+(i-1) a_1 \frac{N_\mathrm{rare} - 1}{N_\mathrm{rare}}\,.
 \end{split}
 \end{equation}
 Now $a_1$ takes the place of $f_1$ above, and means the number of
@@ -646,7 +734,9 @@ species with only one individual.
 Here $S_\mathrm{abund}$ and $S_\mathrm{rare}$ are the numbers of
 species of abundant and rare species, with an arbitrary upper limit of
 10 individuals for a rare species, and $N_\mathrm{rare}$ is the total
-number of individuals in rare species.
+number of individuals in rare species. The variance estimator uses
+iterative solution, and it is best interpreted from the source code or
+following \citet{OHara05}.
 
 The pool size
 is estimated separately for each site, but if input is a data frame,
@@ -656,7 +746,7 @@ If log-normal abundance model is appropriate, it can be used to
 estimate the pool size.  Log-normal model has a finite number of
 species which can be found integrating the log-normal:
 \begin{equation}
-S_p = S_\mu \sigma \sqrt{2 \pi}
+S_p = S_\mu \sigma \sqrt{2 \pi} \,,
 \end{equation}
 where $S_\mu$ is the modal height or the expected number of species at
 maximum (at $\mu$), and $\sigma$ is the width.  Function
@@ -686,12 +776,12 @@ smo <- beals(BCI)
 We may see how the estimated probability of occurrence and observed
 numbers of stems relate in one of the more familiar species. We study
 only one species, and to avoid circular reasoning we do not include
-the target species in the smoothing (Fig. \ref{fig:beals}):
+the target species in the smoothing (Fig.~\ref{fig:beals}):
 <<a>>=
 j <- which(colnames(BCI) == "Ceiba.pentandra")
 plot(beals(BCI, species=j, include=FALSE), BCI[,j], 
-     main="Ceiba pentandra", xlab="Probability of occurrence",
-     ylab="Occurrence")
+     ylab="Occurrence", main="Ceiba pentandra", 
+     xlab="Probability of occurrence")
 @
 \begin{figure}
 <<fig=true,echo=false>>=

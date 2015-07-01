@@ -7,7 +7,7 @@
   ChangeLog in \pkg{vegan}, or vignettes in \pkg{permute}. }
 
 \usage{
-vegandocs(doc = c("NEWS", "ONEWS", "ChangeLog", "FAQ-vegan.pdf",
+vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan.pdf",
     "intro-vegan.pdf", "diversity-vegan.pdf", "decision-vegan.pdf",
     "partitioning.pdf", "permutations.pdf"))
 }
@@ -27,9 +27,6 @@ vegandocs(doc = c("NEWS", "ONEWS", "ChangeLog", "FAQ-vegan.pdf",
 
    \item \code{ONEWS}: old news about \pkg{vegan} version \code{1.*}
      before September 2011.
-
-   \item \code{ChangeLog}: similar to news, but intended for
-     developers wit more fine grained comments on internal changes.
 
    \item \code{FAQ-vegan}: Frequently Asked Questions. Consult here
      before writing to Mail groups.

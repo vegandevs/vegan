@@ -5,6 +5,7 @@
 \alias{rrarefy}
 \alias{drarefy}
 \alias{rarecurve}
+\alias{rareslope}
 \alias{fisher.alpha}
 \alias{specnumber}
 
@@ -20,6 +21,7 @@ rrarefy(x, sample)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
           label = TRUE, col, lty, ...)
+rareslope(x, sample)
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -60,9 +62,9 @@ specnumber(x, groups, MARGIN = 1)
   Function \code{rarefy} gives the expected species richness in random
   subsamples of size \code{sample} from the community. The size of
   \code{sample} should be smaller than total community size, but the
-  function will silently work for larger \code{sample} as well and
-  return non-rarefied species richness (and standard error = 0). If
-  \code{sample} is a vector, rarefaction of all observations is
+  function will work for larger \code{sample} as well (with a warning)
+  and return non-rarefied species richness (and standard error =
+  0). If \code{sample} is a vector, rarefaction of all observations is
   performed for each sample size separately.  Rarefaction can be
   performed only with genuine counts of individuals.  The function
   \code{rarefy} is based on Hurlbert's (1971) formulation, and the
@@ -86,6 +88,10 @@ specnumber(x, groups, MARGIN = 1)
   sample size.  If \code{sample} is specified, a vertical line is
   drawn at \code{sample} with horizontal lines for the rarefied
   species richnesses.
+
+  Function \code{rareslope} calculates the slope of \code{rarecurve}
+  (derivative of \code{rarefy}) at given \code{sample} size; the
+  \code{sample} need not be an integer.
 
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 

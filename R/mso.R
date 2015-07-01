@@ -1,6 +1,6 @@
 `mso` <-
     function (object.cca, object.xy, grain = 1, round.up = FALSE,
-              permutations = FALSE) 
+              permutations = 0) 
 {
     if (inherits(object.cca, "mso")) {
         rm <- which(class(object.cca) == "mso")
@@ -58,27 +58,28 @@
                                 H), mean)
         object$vario <- cbind(object$vario, All = test$ca, CA = test$ca)
     }
-    if (permutations) {
-        ##require(base)
+    permat <- getPermuteMatrix(permutations, nrow(object$CA$Xbar))
+    nperm <- nrow(permat)
+    if (nperm) {
         object$H.test <- matrix(0, length(object$H), nrow(object$vario))
         for (i in 1:nrow(object$vario)) {
             object$H.test[, i] <- as.numeric(object$H == object$vario$H[i])
         }
-        xdis <- dist(object$CA$Xbar)^2
-        N <- attr(xdis, "Size")
-        statistic <- abs(cor(as.vector(xdis), object$H.test))
-        perm <- matrix(0, length(statistic), permutations)
-        for (i in 1:permutations) {
-            take <- sample(N, N)
-            permvec <- as.vector(as.dist(as.matrix(xdis)[take, 
-                                                         take]))
-            perm[, i] <- abs(cor(permvec, object$H.test))
+        xdis <- as.matrix(dist(object$CA$Xbar)^2)
+        ## taking lower triangle is faster than as.dist() because it
+        ## does not set attributes
+        ltri <- lower.tri(xdis)
+        statistic <- abs(cor(as.vector(xdis[ltri]), object$H.test))
+        permfunc <- function(k) {
+            permvec <- as.vector(xdis[k,k][ltri])
+            abs(cor(permvec, object$H.test))
         }
-        object$vario$CA.signif <- apply((perm >= matrix(statistic, 
-                                         nrow(perm), ncol(perm)))/permutations, 1, sum)
+        perm <- sapply(1:nperm, function(take) permfunc(permat[take,]))
+        object$vario$CA.signif <-
+            (rowSums(sweep(perm, 1, statistic, ">=")) + 1)/(nperm + 1)
+        attr(object$vario, "control") <- attr(permat, "control")
     }
     object$call <- match.call()
     class(object) <- c("mso", class(object))
     object
 }
-

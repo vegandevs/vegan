@@ -12,7 +12,7 @@
   if (trace) 
     cat("File", file, "\n")
   if (file.access(file, 4) < 0) {
-    stop("File does not exist or is not readable.")
+    stop("file does not exist or is not readable")
   }
   on.exit(.Fortran("cepclose", PACKAGE = "vegan"))
   cep <- .Fortran("cephead", file = file, kind = integer(1), 
@@ -66,16 +66,16 @@
                         PACKAGE = "vegan"))
   if (cd$ier) {
     if (cd$ier == 1) 
-      stop("Too many non-zero entries: increase maxdata.")
-    else stop("Unknown and obscure error: don't know what to do.")
+      stop("too many non-zero entries: increase maxdata")
+    else stop("unknown and obscure error: I do not know what to do")
   }
   if (trace) 
     cat("Read", cd$nsp, "species, ", cd$nst, "sites.\n")
   d <- matrix(0, cd$nst, cd$nsp)
-  for (i in 1:length(cd$i)) d[cd$i[i], cd$j[i]] <- cd$y[i]
+  for (i in seq_along(cd$i)) d[cd$i[i], cd$j[i]] <- cd$y[i]
   nlines <- ceiling(cd$nsp/10)
   names <- NULL
-  for (i in 1:nlines) {
+  for (i in seq_len(nlines)) {
     tmpnames <- .Fortran("cepnames", character(1), PACKAGE = "vegan")
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8, 
@@ -84,10 +84,10 @@
   }
   names <- gsub(" ", "", names)
   names <- make.names(names, unique = TRUE)
-  colnames(d) <- names[1:ncol(d)]
+  colnames(d) <- names[seq_len(ncol(d))]
   nlines <- ceiling(cd$nst/10)
   names <- NULL
-  for (i in 1:nlines) {
+  for (i in seq_len(nlines)) {
     tmpnames <- .Fortran("cepnames", character(1), PACKAGE = "vegan")
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8, 
@@ -96,7 +96,7 @@
   }
   names <- gsub(" ", "", names)
   names <- make.names(names, unique = TRUE)
-  rownames(d) <- names[1:nrow(d)]
+  rownames(d) <- names[seq_len(nrow(d))]
   if (positive) {
     rsum <- apply(d, 1, sum)
     csum <- apply(d, 2, sum)

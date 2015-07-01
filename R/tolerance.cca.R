@@ -27,12 +27,16 @@ tolerance.cca <- function(x, choices = 1:2,
                           which = c("species","sites"),
                           scaling = 2, useN2 = FALSE, ...) {
     if(inherits(x, "rda"))
-        stop("Tolerances only available for unimodal ordinations.")
+        stop("tolerances only available for unimodal ordinations")
     if(missing(which))
         which <- "species"
     ## reconstruct species/response matrix Y - up to machine precision!
     partialFit <- ifelse(is.null(x$pCCA$Fit), 0, x$pCCA$Fit)
-    Y <- ((partialFit + x$CCA$Xbar) * sqrt(x$rowsum %o% x$colsum) +
+    if (is.null(x$CCA))
+        Xbar <- x$CA$Xbar
+    else
+        Xbar <- x$CCA$Xbar
+    Y <- ((partialFit + Xbar) * sqrt(x$rowsum %o% x$colsum) +
           x$rowsum %o% x$colsum) * x$grand.total
     which <- match.arg(which)
     siteScrTypes <- if(is.null(x$CCA)){ "sites" } else {"lc"}

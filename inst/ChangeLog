@@ -1,8 +1,86 @@
-$Date$
+VEGAN DEVEL VERSIONS at https://github.com/vegandevs/vegan
 
-VEGAN DEVEL VERSIONS at http://r-forge.r-project.org/
+	ChangeLog provided a detailed development history of vegan, but it
+	is not updated after September 11, 2014. Vegan moved to git source
+	code management and linear ChangeLog is poorly suited for
+	branching git development. Use git log to track the history in
+	your current branch. The main upstream repository of vegan is
+	currently https://github.com/vegandevs/vegan.
 
-Version 2.1-41 (opened December 12, 2013)
+	ChangeLog gave technical details and was mainly provided for vegan
+	developers. Most important user-visible changes are listed in the
+	NEWS of the current release and its patched version.
+
+Version 2.1-43 (opened September 11, 2014)
+
+	* cca, rda, capscale: remove u.eig, v.eig and wa.eig items or
+	scores scaled by eigenvectors. We have had a warning of their
+	eventual removal since vegan 1.6-8, and now we finally did
+	so. Scaling of scores happens when scores() function access
+	normalized score items of the results.
+
+	* commsimulator: commented out deprecation warning at the moment,
+	because this triggered warnings in CRAN packages bipartite and
+	metacom. Contacted the maintainers of these packages, and will put
+	back the warning in 2.2-1.
+
+	* getPermuteMatrix: works also when 'strata' are
+	missing. Triggered an error in CRAN package mpmcorrelogram.
+
+	* permustats: new function to extract permutation results from
+	vegan objects, with support functions summary, density,
+	densityplot, qqnorm and qqmath. Deprecated previous density and
+	densityplot methods directly accessing the same results.
+
+	* ordirgl, ordiplot3d: 3D functions using rgl or scatterplot3d
+	packages were removed from vegan and moved to a new CRAN package
+	vegan3d (released Oct 7, 2014).
+	
+	* scores.hclust: combined documentation with other hclust methods.
+	
+	* scoverage: removed from vegan.
+
+	* dispweight: veganified so that uses nullmodels. Added
+	gdispweight(): a new generalized method taking any glm() formula
+	instead of one grouping.
+	
+	* betadisper Permutation tests via the `permutest()` method
+	are now parallelised. The number of cores to parallelise over
+	is specified by argument `parallel` in common with the
+	implementation for `cca()`.
+
+	Fix a couple of bugs in the examples; number of permutations
+	was specified using `control` which is not an argument to the
+	`permutest()` method for `betadisper()`.
+
+	* text.cca: was incorrectly testing if factor constraints were
+	in the biplot scores when user-suppiled lables for factors were
+	given.
+
+	* ccanova: removed from vegan. These were backup functions of old
+	anova.cca, and were completely rewritten for new vegan.
+
+	* metaMDSrotate: made defunct (replaced with MDSrotate).
+
+Version 2.1-42 (closed September 11, 2014)
+
+	* Opened a new version to prepare release 2.2-0.
+
+	* Moved main development from R-Forge to GitHub.com.
+
+	* NAMESPACE, DESCRIPTION: adapted to current R CMD check that has
+	more stringent tests on attaching and importing external packages
+	and using their functions.
+
+	* getPermuteMatrix: routines have a common API based on the new
+	function.
+
+Version 2.1-41 (closed September 4, 2014)
+	
+	* ordiellipse, ordihull, ordispider: can now handle (omit) NA
+	cases in 'groups'. They were able to omit to NA cases in scores,
+	but having NA in 'groups' triggered really cryptic error
+	messages. 
 
 	* adipart, multipart, hiersimu: it is now an error to provide
 	non-nested sampling hierarchy (used to be a warning).
@@ -40,7 +118,7 @@ Version 2.1-41 (opened December 12, 2013)
 	
 	* cascadeKM: Calinski index for one group will now be NA instead
 	of randomly chosen Inf, -Inf or NaN which can cause confusion (see
-        http://stackoverflow.com/questions/21022848/r-produces-different-result-after-io-on-file
+	http://stackoverflow.com/questions/21022848/r-produces-different-result-after-io-on-file
 	
 	* ordiellipse: failed if all points were on a line. Now handles
 	these cases by drawing a line trhough the points, and issuing a
@@ -128,6 +206,9 @@ Version 2.1-41 (opened December 12, 2013)
 	specified through formal arguments `col` and `lty`. Incidental
 	wish of http://stackoverflow.com/q/22714775/429846.
 
+	* simper: now doesn't fail with obscure error when groups have a
+        single member.
+
 Version 2.1-40 (closed December 12, 2013)	
 	
 	* anova.cca: Function is now based on the new code, but the old is
@@ -155,6 +236,14 @@ Version 2.1-40 (closed December 12, 2013)
 	although the reported case is irreproducible and we cannot be
 	sure. Also fixed handling of tied values in assessing the P-values
 	in vectorfit.
+
+	* nestednodf: vegan 2.1-36 (release 2.0-10) changed the function
+	so that weighted analysis of binary data was equal to unweighted
+	binary analysis, but this broke consinstency with the original
+	software and publication by Almeida-Neto & Ulrich. The fix was now
+	made optional, and the default is to follow published method by
+	adding argument 'wbinary' (defaults FALSE). Based on the
+	suggestion by Matt Barbour in GitHub.
 
 	* ordispider: can now use spatial medians as centres instead of
 	the default centroids. The kind of centre is defined by new

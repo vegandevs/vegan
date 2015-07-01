@@ -1,6 +1,8 @@
 `alias.cca` <-
     function (object, names.only = FALSE, ...) 
 {
+    if (is.null(object$CCA$alias))
+        stop("no constrained component, 'alias' cannot be applied")
     if (names.only)
         return(object$CCA$alias)
     CompPatt <- function(x, ...) {

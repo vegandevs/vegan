@@ -2,6 +2,9 @@
     function(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
              label = TRUE, col, lty, ...)
 {
+    ## check input data: must be counts
+    if (!identical(all.equal(x, round(x)), TRUE))
+        stop("function accepts only integers (counts)")
     ## sort out col and lty
     if (missing(col))
         col <- par("col")
@@ -9,6 +12,13 @@
         lty <- par("lty")
     tot <- rowSums(x)
     S <- specnumber(x)
+    ## remove empty rows or we fail
+    if (any(S <= 1)) {
+        message("empty rows removed")
+        x <- x[S > 0,, drop =FALSE]
+        tot <- tot[S > 0]
+        S <- S[S > 0]
+    }
     nr <- nrow(x)
     ## rep col and lty to appropriate length
     col <- rep(col, length.out = nr)
@@ -33,7 +43,7 @@
         abline(h = rare, lwd=0.5)
     }
     ## rarefaction curves
-    for (ln in seq_len(length(out))) {
+    for (ln in seq_along(out)) {
         N <- attr(out[[ln]], "Subsample")
         lines(N, out[[ln]], col = col[ln], lty = lty[ln], ...)
     }

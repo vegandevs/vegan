@@ -15,10 +15,8 @@ oceanic distinction unclear from source).
   these unique). The example gives the areas of the studies islands in
   hectares. 
 }
+
 \source{
-\url{http://www.aics-research.com/nested/}
-}
-\references{
 Simberloff, D. & Martin, J.-L.  (1991). 
 Nestedness of insular avifaunas:
 simple summary statistics masking

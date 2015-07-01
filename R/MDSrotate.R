@@ -3,7 +3,7 @@
 `MDSrotate` <-
     function(object, vec, na.rm = FALSE, ...) 
 {
-    workswith <- c("metaMDS", "monoMDS")
+    workswith <- c("metaMDS", "monoMDS", "GO")
     if (!inherits(object, workswith))
         stop(gettextf("function works only with the results of: %s",
                       paste(workswith, collapse = ", ")))

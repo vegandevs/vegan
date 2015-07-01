@@ -12,7 +12,7 @@
     polycentre <- function(x) {
         n <- nrow(x)
         if (n < 4)
-            return(colMeans(x[-n,]))
+            return(colMeans(x[-n,, drop = FALSE]))
         xy <- x[-n,1]*x[-1,2] - x[-1,1]*x[-n,2]
         A <- sum(xy)/2
         xc <- sum((x[-n,1] + x[-1,1]) * xy)/A/6

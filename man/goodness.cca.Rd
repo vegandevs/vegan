@@ -1,6 +1,5 @@
 \name{goodness.cca}
 \alias{goodness}
-\alias{goodness.rda}
 \alias{goodness.cca}
 \alias{inertcomp}
 \alias{spenvcor}
@@ -21,7 +20,7 @@
 \usage{
 \method{goodness}{cca}(object, display = c("species", "sites"), choices,
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, ...)
+    summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), proportional = FALSE)
 spenvcor(object)
@@ -32,16 +31,32 @@ vif.cca(object)
 
 \arguments{
   \item{object}{A result object from \code{\link{cca}},
-    \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
-  \item{display}{Display \code{"species"} or \code{"sites"}. }
-  \item{choices}{Axes shown. Default is to show all axes of the \code{"model"}. }
+    \code{\link{rda}} or \code{\link{capscale}}. }
+
+  \item{display}{Display \code{"species"} or \code{"sites"}. Species
+    are not available in \code{\link{capscale}}. }
+
+  \item{choices}{Axes shown. Default is to show all axes of the
+    \code{"model"}. }
+
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. }
+
   \item{statistic}{Statistic used: \code{"explained"} gives the cumulative
-  percentage accounted for, \code{"distance"} shows the residual
-  distances. Distances are not available for sites in constrained or
-  partial analyses. }
-  \item{summarize}{Show only the accumulated total. }
+    percentage accounted for, \code{"distance"} shows the residual
+    distances. }
+
+  \item{summarize}{Show only the accumulated total.}
+
+  \item{addprevious}{Add the variation explained by previous components
+     when \code{statistic="explained"}. For \code{model="CCA"} add
+     conditionened (partialled out) variation, and for \code{model="CA"}
+     add both conditioned and constrained variation. This will give
+     cumulative explanation. The argument has no effect when
+     \code{statistic="distance"}, but this will always show the residual
+     distance after current axis and all previous components.
+   }
+
   \item{proportional}{Give the inertia components as proportional for
     the corresponding total.}
   \item{names.only}{Return only names of aliased variable(s) instead of
@@ -51,9 +66,8 @@ vif.cca(object)
 \details{
   Function \code{goodness} gives the diagnostic statistics for species
   or sites. The alternative statistics are the cumulative proportion of
-  inertia accounted for by the axes, and the residual distance left
-  unaccounted for.  The conditional (``partialled out'') constraints are
-  always regarded as explained and included in the statistics.
+  inertia accounted for up to the axes, and the residual distance left
+  unaccounted for.
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or
@@ -115,22 +129,16 @@ vif.cca(object)
   total inertia is not a meaningful concept in \code{cca}, in particular
   for rare species.
 
-  Function \code{vif} is defined as generic in package \pkg{car}
-  (\code{\link[car]{vif}}), but if you have not loaded that package
-  you must specify the call as \code{vif.cca}.  Variance inflation
-  factor is useful diagnostic tool for  detecting nearly collinear
-  constraints, but these are not a problem with algorithm used in this
-  package to fit a constrained ordination.
 }
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}},
-  \code{\link{decorana}}, \code{\link[car]{vif}}. }
+  \code{\link[car]{vif}}. }
 \examples{
 data(dune)
 data(dune.env)
 mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
-goodness(mod)
-goodness(mod, summ = TRUE)
+goodness(mod, addprevious = TRUE)
+goodness(mod, addprevious = TRUE, summ = TRUE)
 # Inertia components
 inertcomp(mod, prop = TRUE)
 inertcomp(mod, stat="d")

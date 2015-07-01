@@ -6,5 +6,5 @@ function (call, env)
     call$na.action <- na.pass
     call[[2]] <- NULL
     call[[1]] <- as.name("model.frame")
-    eval(call, env)
+    eval(call, env, enclos = .GlobalEnv)
 }

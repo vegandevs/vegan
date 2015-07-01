@@ -3,6 +3,8 @@
              type = c("response", "working"), ...)
 {
     model <- match.arg(model)
+    if (is.null(object[[model]]))
+        stop("component ", model, " does not exist")
     type <- match.arg(type)
     ## Return scaled eigenvalues
     U <- switch(model,

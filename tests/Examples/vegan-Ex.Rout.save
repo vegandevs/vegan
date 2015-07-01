@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2014-01-12 r64752) -- "Unsuffered Consequences"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R Under development (unstable) (2015-05-25 r68405) -- "Unsuffered Consequences"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.1-41
+This is vegan 2.4-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -83,8 +83,7 @@ Matrix Ranks 24 11
 Pillai's trace:  4.573009 
 
 Significance of Pillai's trace:
-from F-distribution:  0.0032737 
-
+from F-distribution:   0.0032737 
                        CanAxis1 CanAxis2 CanAxis3 CanAxis4 CanAxis5 CanAxis6
 Canonical Correlations  0.92810  0.82431  0.81209  0.74981  0.70795  0.65950
                        CanAxis7 CanAxis8 CanAxis9 CanAxis10 CanAxis11
@@ -104,13 +103,13 @@ adj. RDA R squares 0.20560 0.2910
 > # Example using random numbers. No significant relationship is expected
 > mat1 <- matrix(rnorm(60),20,3)
 > mat2 <- matrix(rnorm(100),20,5)
-> out2 = CCorA(mat1, mat2, nperm=99)
+> out2 = CCorA(mat1, mat2, permutations=99)
 > out2
 
 Canonical Correlation Analysis
 
 Call:
-CCorA(Y = mat1, X = mat2, nperm = 99) 
+CCorA(Y = mat1, X = mat2, permutations = 99) 
 
              Y X
 Matrix Ranks 3 5
@@ -118,9 +117,11 @@ Matrix Ranks 3 5
 Pillai's trace:  0.6455578 
 
 Significance of Pillai's trace:
-based on 99 permutations: 0.69 
-from F-distribution:  0.70352 
-
+from F-distribution:   0.70352 
+based on permutations: 0.69 
+Permutation: free
+Number of permutations: 99
+ 
                        CanAxis1 CanAxis2 CanAxis3
 Canonical Correlations  0.69691  0.38140     0.12
 
@@ -153,26 +154,19 @@ adj. RDA R squares -0.12553 -0.0250
 > ef <- envfit(mod ~ pH, varechem, permutations = 0)
 > plot(ef)
 > ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
-<environment: 0x1a4dcf8>
 Total model degrees of freedom 3 
 
-REML score: -3.185099
+REML score: -3.185099     
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("MOStest")
 > ### * MOStest
 > 
@@ -236,7 +230,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
    2.5 %   97.5 % 
 5.255827 6.782979 
 > confint(mod)
-Loading required package: MASS
    2.5 %   97.5 % 
 5.816021 6.574378 
 > plot(profile(mod))
@@ -245,9 +238,6 @@ Loading required package: MASS
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("RsquareAdj")
 > ### * RsquareAdj
 > 
@@ -511,16 +501,16 @@ Manure  3 85.762 1.1225  0.320
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
 +     return(out)}
 > ## The hierarchy of sample aggregation
-> levsm <- data.frame(
+> levsm <- with(mite.xy, data.frame(
 +     l1=1:nrow(mite),
-+     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
-+     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
-+     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
++     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
++     l3=cutter(y, cut = seq(0, 10, by = 5)),
++     l4=cutter(y, cut = seq(0, 10, by = 10))))
 > ## Let's see in a map
 > par(mfrow=c(1,3))
-> plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1)
-> plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1)
-> plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1)
+> plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1, asp = 1)
+> plot(mite.xy, main="l2", col=as.numeric(levsm$l2)+1, asp = 1)
+> plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1, asp = 1)
 > par(mfrow=c(1,1))
 > ## Additive diversity partitioning
 > adipart(mite, index="richness", nsimul=19)
@@ -532,7 +522,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)  
+        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)  
 alpha.1    15.114 -38.43 22.344 22.032 22.300 22.608     0.05 *
 gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
 beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
@@ -548,7 +538,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    15.114 -46.2370 22.39624 22.12571 22.44286 22.6236     0.05 *
 alpha.2    29.750 -21.7076 34.81579 34.36250 35.00000 35.0000     0.05 *
 alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *
@@ -569,7 +559,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic       z    mean    2.5%     50%  97.5% Pr(sim.)  
+        statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  
 level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
 leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
@@ -584,7 +574,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)  
+   statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  
 l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
 l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
 l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
@@ -603,7 +593,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic       z      mean      2.5%       50%   97.5% Pr(sim.)  
+   statistic     SES      mean      2.5%       50%   97.5% Pr(sim.)  
 l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
 l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
 l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
@@ -633,6 +623,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Call:
 adonis(formula = dune ~ Management * A1, data = dune.env, permutations = 99) 
+
+Permutation: free
+Number of permutations: 99
 
 Terms added sequentially (first to last)
 
@@ -679,16 +672,20 @@ Run 2 stress 0.08556586
 *** Solution reached
 > plot(mod)
 > ### Hulls show treatment
-> ordihull(mod, group=dat$NO3, show="0")
-> ordihull(mod, group=dat$NO3, show="10", col=3)
+> with(dat, ordihull(mod, group=NO3, show="0"))
+> with(dat, ordihull(mod, group=NO3, show="10", col=3))
 > ### Spider shows fields
-> ordispider(mod, group=dat$field, lty=3, col="red")
+> with(dat, ordispider(mod, group=field, lty=3, col="red"))
 > 
 > ### Correct hypothesis test (with strata)
 > adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
 
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 999, strata = dat$field) 
+
+Blocks:  strata 
+Permutation: free
+Number of permutations: 999
 
 Terms added sequentially (first to last)
 
@@ -704,6 +701,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Call:
 adonis(formula = Y ~ NO3, data = dat, permutations = 999) 
+
+Permutation: free
+Number of permutations: 999
 
 Terms added sequentially (first to last)
 
@@ -743,7 +743,8 @@ Dissimilarity: bray
 ANOSIM statistic R: 0.2579 
       Significance: 0.017 
 
-Based on  999  permutations
+Permutation: free
+Number of permutations: 999
 
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
@@ -1088,29 +1089,15 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, pairwise = TRUE)
+> permutest(mod, pairwise = TRUE, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156   1000   0.05 *
+Groups     1 0.07931 0.079306 4.6156     99   0.04 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -1118,7 +1105,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed              0.053
+grazed               0.05
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -1240,9 +1227,9 @@ Eigenvalues for PCoA axes:
 > dis[c(2, 20)] <- NA
 > mod2 <- betadisper(dis, groups) ## warnings
 Warning in betadisper(dis, groups) :
-  Missing observations due to 'group' removed.
+  missing observations due to 'group' removed
 Warning in betadisper(dis, groups) :
-  Missing observations due to 'd' removed.
+  missing observations due to 'd' removed
 > mod2
 
 	Homogeneity of multivariate dispersions
@@ -1259,29 +1246,15 @@ Average distance to median:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod2, control = how(nperm = 100))
+> permutest(mod2, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237   1000  0.115
+Groups     1 0.039979 0.039979 2.4237     99   0.19
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1297,9 +1270,9 @@ Residuals 18 0.296910 0.016495
 > ## Using group centroids
 > mod3 <- betadisper(dis, groups, type = "centroid")
 Warning in betadisper(dis, groups, type = "centroid") :
-  Missing observations due to 'group' removed.
+  missing observations due to 'group' removed
 Warning in betadisper(dis, groups, type = "centroid") :
-  Missing observations due to 'd' removed.
+  missing observations due to 'd' removed
 > mod3
 
 	Homogeneity of multivariate dispersions
@@ -1316,32 +1289,16 @@ Average distance to centroid:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 
-> permutest(mod3, control = how(nperm = 100))
+> permutest(mod3, permutations = 99)
 
 Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 999
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
+Permutation: free
+Number of permutations: 99
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.033468 0.033468 3.1749   1000  0.084 .
-Residuals 18 0.189749 0.010542                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.033468 0.033468 3.1749     99    0.1
+Residuals 18 0.189749 0.010542                     
 > anova(mod3)
 Analysis of Variance Table
 
@@ -1863,7 +1820,7 @@ attr(,"class")
 > 
 > data(mite)
 > data(mite.env)
-> sol <- clamtest(mite, mite.env$Shrub=="None", alpha=0.005)
+> sol <- with(mite.env, clamtest(mite, Shrub=="None", alpha=0.005))
 > summary(sol)
 Two Groups Species Classification Method (CLAM)
 
@@ -1966,10 +1923,10 @@ backtrack            1     .      .   1    1       1       1       1       1
 r2dtable             .     .      .   1    .       1       1       .       .
 swap_count           .     1      .   1    1       1       1       .       .
 quasiswap_count      .     .      .   1    1       1       1       .       .
-swsh_samp            .     .      .   1    1       .       .       1       1
+swsh_samp            .     .      1   1    1       .       .       1       1
 swsh_both            .     .      .   1    1       .       .       1       1
-swsh_samp_r          .     .      .   1    1       1       .       1       1
-swsh_samp_c          .     .      .   1    1       .       1       1       1
+swsh_samp_r          .     .      1   1    1       1       .       1       1
+swsh_samp_c          .     .      1   1    1       .       1       1       1
 swsh_both_r          .     .      .   1    1       1       .       1       1
 swsh_both_c          .     .      .   1    1       .       1       1       1
 abuswap_r            .     1      1   1    1       1       .       1       1
@@ -2206,7 +2163,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin scoverage
+> ### Aliases: decostand wisconsin
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -2232,33 +2189,6 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > ## Use wcmdscale for weighted analysis and identical results.
 > sptrans <- decostand(varespec, "chi.square")
 > plot(procrustes(rda(sptrans), cca(varespec)))
-> 
-> data(mite)
-> sptrans <- scoverage(mite)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("density.adonis")
-> ### * density.adonis
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: density.adonis
-> ### Title: Kernel Density Estimation for Permutation Results in Vegan
-> ### Aliases: density.adonis density.anosim density.mantel density.mrpp
-> ###   density.permutest.cca density.protest plot.vegandensity
-> ###   densityplot.adonis
-> ### Keywords: distribution smooth
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> mod <- adonis(dune ~ Management, data = dune.env)
-> plot(density(mod))
-> mod <- adonis(dune ~ Management * Moisture, dune.env)
-> densityplot(mod)
 > 
 > 
 > 
@@ -2316,7 +2246,7 @@ Warning in chisq.test(dune) :
 	Pearson's Chi-squared test
 
 data:  dune
-X-squared = 1448.956, df = 551, p-value < 2.2e-16
+X-squared = 1449, df = 551, p-value < 2.2e-16
 
 > deviance(cca(dune))
 [1] 1448.956
@@ -2457,101 +2387,74 @@ Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
 > 
 > ### Name: dispweight
 > ### Title: Dispersion-based weighting of species counts
-> ### Aliases: dispweight
-> ### Keywords: multivariate
+> ### Aliases: dispweight gdispweight summary.dispweight
+> ### Keywords: multivariate manip
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
-> # calculate weights
-> dpw <- dispweight(dune, dune.env$Management, nperm = 100)
-> # transformed community data
-> dpw$transformed
-    Achimill Agrostol Airaprae  Alopgeni  Anthodor Bellpere Bromhord Chenalbu
-1  0.7044025 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-2  2.1132075 0.000000        0 0.7938931 0.0000000 1.666667     1.76        0
-3  0.0000000 1.718139        0 2.7786260 0.0000000 1.111111     0.00        0
-4  0.0000000 3.436278        0 0.7938931 0.0000000 1.111111     1.32        0
-5  1.4088050 0.000000        0 0.0000000 1.4142857 1.111111     0.88        0
-6  1.4088050 0.000000        0 0.0000000 1.0607143 0.000000     0.00        0
-7  1.4088050 0.000000        0 0.0000000 0.7071429 0.000000     0.88        0
-8  0.0000000 1.718139        0 1.9847328 0.0000000 0.000000     0.00        0
-9  0.0000000 1.288604        0 1.1908397 0.0000000 0.000000     0.00        0
-10 2.8176101 0.000000        0 0.0000000 1.4142857 1.111111     1.76        0
-11 0.0000000 0.000000        0 0.0000000 0.0000000 0.000000     0.00        0
-12 0.0000000 1.718139        0 3.1755725 0.0000000 0.000000     0.00        0
-13 0.0000000 2.147674        0 1.9847328 0.0000000 0.000000     0.00        1
-14 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-15 0.0000000 1.718139        0 0.0000000 0.0000000 0.000000     0.00        0
-16 0.0000000 3.006743        0 1.5877863 0.0000000 0.000000     0.00        0
-17 1.4088050 0.000000        2 0.0000000 1.4142857 0.000000     0.00        0
-18 0.0000000 0.000000        0 0.0000000 0.0000000 1.111111     0.00        0
-19 0.0000000 0.000000        3 0.0000000 1.4142857 0.000000     0.00        0
-20 0.0000000 2.147674        0 0.0000000 0.0000000 0.000000     0.00        0
-   Cirsarve Comapalu  Eleopalu Elymrepe Empenigr  Hyporadi Juncarti  Juncbufo
-1         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-2         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-3         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-4         2        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-5         0        0 0.0000000 1.222222        0 0.0000000 0.000000 0.0000000
-6         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-7         0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.7172676
-8         0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-9         0        0 0.0000000 1.833333        0 0.0000000 1.351724 1.4345351
-10        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-11        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-12        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.4345351
-13        0        0 0.0000000 0.000000        0 0.0000000 0.000000 1.0759013
-14        0        2 0.8079911 0.000000        0 0.0000000 0.000000 0.0000000
-15        0        2 1.0099889 0.000000        0 0.0000000 1.013793 0.0000000
-16        0        0 1.6159822 0.000000        0 0.0000000 1.013793 0.0000000
-17        0        0 0.0000000 0.000000        0 0.6405229 0.000000 0.0000000
-18        0        0 0.0000000 0.000000        0 0.0000000 0.000000 0.0000000
-19        0        0 0.0000000 0.000000        2 1.6013072 0.000000 0.0000000
-20        0        0 0.8079911 0.000000        0 0.0000000 1.351724 0.0000000
-   Lolipere  Planlanc Poaprat Poatriv Ranuflam Rumeacet  Sagiproc Salirepe
-1  3.393939 0.0000000       4       2 0.000000 0.000000 0.0000000 0.000000
-2  2.424242 0.0000000       4       7 0.000000 0.000000 0.0000000 0.000000
-3  2.909091 0.0000000       5       6 0.000000 0.000000 0.0000000 0.000000
-4  2.424242 0.0000000       4       5 0.000000 0.000000 2.0754717 0.000000
-5  0.969697 2.3305085       2       6 0.000000 2.627737 0.0000000 0.000000
-6  2.909091 2.3305085       3       4 0.000000 3.153285 0.0000000 0.000000
-7  2.909091 2.3305085       4       5 0.000000 1.576642 0.0000000 0.000000
-8  1.939394 0.0000000       4       4 1.076923 0.000000 0.8301887 0.000000
-9  0.969697 0.0000000       4       5 0.000000 1.051095 0.8301887 0.000000
-10 2.909091 1.3983051       4       4 0.000000 0.000000 0.0000000 0.000000
-11 3.393939 1.3983051       4       0 0.000000 0.000000 0.8301887 0.000000
-12 0.000000 0.0000000       0       4 0.000000 1.051095 1.6603774 0.000000
-13 0.000000 0.0000000       2       9 1.076923 0.000000 0.8301887 0.000000
-14 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-15 0.000000 0.0000000       0       0 1.076923 0.000000 0.0000000 0.000000
-16 0.000000 0.0000000       0       2 1.076923 0.000000 0.0000000 0.000000
-17 0.000000 0.9322034       1       0 0.000000 0.000000 0.0000000 0.000000
-18 0.969697 1.3983051       3       0 0.000000 0.000000 0.0000000 1.204380
-19 0.000000 0.0000000       0       0 0.000000 0.000000 1.2452830 1.204380
-20 0.000000 0.0000000       0       0 2.153846 0.000000 0.0000000 2.007299
-   Scorautu  Trifprat Trifrepe Vicilath Bracruta Callcusp
-1         0 0.0000000        0        0 0.000000 0.000000
-2         5 0.0000000        5        0 0.000000 0.000000
-3         2 0.0000000        2        0 1.196356 0.000000
-4         2 0.0000000        1        0 1.196356 0.000000
-5         3 0.8571429        2        0 1.196356 0.000000
-6         3 2.1428571        5        0 3.589067 0.000000
-7         3 0.8571429        2        0 1.196356 0.000000
-8         3 0.0000000        2        0 1.196356 0.000000
-9         2 0.0000000        3        0 1.196356 0.000000
-10        3 0.0000000        6        1 1.196356 0.000000
-11        5 0.0000000        3        2 2.392711 0.000000
-12        2 0.0000000        3        0 2.392711 0.000000
-13        2 0.0000000        2        0 0.000000 0.000000
-14        2 0.0000000        6        0 0.000000 1.359223
-15        2 0.0000000        1        0 2.392711 0.000000
-16        0 0.0000000        0        0 2.392711 1.019417
-17        2 0.0000000        0        0 0.000000 0.000000
-18        5 0.0000000        2        1 3.589067 0.000000
-19        6 0.0000000        2        0 1.794533 0.000000
-20        2 0.0000000        0        0 2.392711 1.019417
+> data(mite, mite.env)
+> ## dispweight and its summary
+> mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+> summary(mite.dw)
+         Dispersion    Weight Df Pr(Disp.)   
+Brachy       9.6908 0.1031909 67      0.01 **
+PHTH         3.2809 0.3047900 49      0.01 **
+HPAV         6.5263 0.1532264 67      0.01 **
+RARD         6.0477 0.1653525 49      0.01 **
+SSTR         2.2619 0.4421053 49      0.01 **
+Protopl      5.4229 0.1844031 49      0.01 **
+MEGR         4.5354 0.2204860 67      0.01 **
+MPRO         1.2687 1.0000000 67      0.07 . 
+TVIE         2.5956 0.3852706 67      0.01 **
+HMIN        10.0714 0.0992906 67      0.01 **
+HMIN2        7.5674 0.1321466 49      0.01 **
+NPRA         2.6743 0.3739344 67      0.01 **
+TVEL         9.6295 0.1038474 49      0.01 **
+ONOV        11.3628 0.0880064 67      0.01 **
+SUCT         8.7372 0.1144533 67      0.01 **
+LCIL       129.4436 0.0077254 67      0.01 **
+Oribatl1     4.1250 0.2424248 67      0.01 **
+Ceratoz1     1.7150 0.5830768 67      0.01 **
+PWIL         2.2943 0.4358538 67      0.01 **
+Galumna1     2.8777 0.3474943 49      0.01 **
+Stgncrs2     3.8242 0.2614953 49      0.01 **
+HRUF         1.7575 0.5690021 67      0.01 **
+Trhypch1    14.9225 0.0670128 67      0.01 **
+PPEL         1.3628 1.0000000 49      0.07 . 
+NCOR         2.5875 0.3864771 67      0.01 **
+SLAT         2.7857 0.3589744 49      0.01 **
+FSET         4.8901 0.2044944 49      0.01 **
+Lepidzts     1.6577 0.6032360 49      0.02 * 
+Eupelops     1.4611 0.6844033 67      0.03 * 
+Miniglmn     1.6505 0.6058733 49      0.01 **
+LRUG        12.0658 0.0828790 67      0.01 **
+PLAG2        3.2403 0.3086090 67      0.01 **
+Ceratoz3     3.5125 0.2846947 67      0.01 **
+Oppiminu     3.1680 0.3156525 67      0.01 **
+Trimalc2    10.5927 0.0944046 67      0.01 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Based on 99 simulations on 'c0_ind' nullmodel
+> ## generalized dispersion weighting
+> mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
+> rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
+Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
+
+              Inertia Proportion Rank
+Total         38.1600     1.0000     
+Constrained    9.2100     0.2414    3
+Unconstrained 28.9500     0.7586   35
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+ RDA1  RDA2  RDA3 
+7.986 0.748 0.480 
+
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
+5.886 3.634 2.791 2.592 1.932 1.573 1.210 1.078 
+(Showed only 8 of all 35 unconstrained eigenvalues)
+
 > 
 > 
 > 
@@ -2593,8 +2496,8 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy rarecurve fisher.alpha
-> ###   specnumber
+> ### Aliases: diversity rarefy rrarefy drarefy rarecurve rareslope
+> ###   fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2761,23 +2664,24 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.046 *  
-P         0.61959  0.78492 0.1938  0.103    
-K         0.76629  0.64249 0.1809  0.143    
-Ca        0.68506  0.72849 0.4119  0.008 ** 
-Mg        0.63240  0.77464 0.4271  0.004 ** 
-S         0.19123  0.98155 0.1752  0.140    
+N        -0.05719 -0.99836 0.2537  0.039 *  
+P         0.61959  0.78492 0.1938  0.129    
+K         0.76629  0.64249 0.1809  0.138    
+Ca        0.68506  0.72849 0.4119  0.005 ** 
+Mg        0.63240  0.77464 0.4271  0.005 ** 
+S         0.19123  0.98155 0.1752  0.133    
 Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.002 ** 
-Mn        0.79873 -0.60169 0.5230  0.001 ***
-Zn        0.61750  0.78657 0.1879  0.125    
-Mo       -0.90304  0.42955 0.0609  0.537    
-Baresoil  0.92503 -0.37988 0.2508  0.039 *  
-Humdepth  0.93291 -0.36011 0.5200  0.002 ** 
-pH       -0.64809  0.76156 0.2308  0.060 .  
+Fe       -0.93613  0.35164 0.4451  0.001 ***
+Mn        0.79873 -0.60169 0.5230  0.002 ** 
+Zn        0.61750  0.78657 0.1879  0.122    
+Mo       -0.90304  0.42955 0.0609  0.524    
+Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Humdepth  0.93291 -0.36011 0.5200  0.001 ***
+pH       -0.64809  0.76156 0.2308  0.064 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-P values based on 999 permutations.
+Permutation: free
+Number of permutations: 999
 
 
 > scores(fit, "vectors")
@@ -2805,6 +2709,7 @@ pH       -0.31133604  0.3658438
 > plot(ord, type="p")
 > fit <- envfit(ord, varechem, perm = 999, display = "lc")
 > plot(fit, p.max = 0.05, col = "red")
+> 
 > ## Class variables, formula interface, and displaying the
 > ## inter-class variability with `ordispider', and semitransparent
 > ## white background for labels (semitransparent colours are not
@@ -2829,12 +2734,13 @@ $factors
 > plot(ord)
 > plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
 +    bg = rgb(1,1,0,0.5))
+> detach(dune.env)
 > 
 > 
 > 
 > cleanEx()
 
-detaching ‘dune.env’, ‘package:MASS’
+detaching ‘package:MASS’
 
 > nameEx("eventstar")
 > ### * eventstar
@@ -2962,8 +2868,8 @@ Extrapolated     Observed       Veiled
 > ### Name: goodness.cca
 > ### Title: Diagnostic Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
-> ### Aliases: goodness goodness.rda goodness.cca inertcomp spenvcor
-> ###   intersetcor vif.cca alias.cca
+> ### Aliases: goodness goodness.cca inertcomp spenvcor intersetcor vif.cca
+> ###   alias.cca
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2971,7 +2877,7 @@ Extrapolated     Observed       Veiled
 > data(dune)
 > data(dune.env)
 > mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
-> goodness(mod)
+> goodness(mod, addprevious = TRUE)
                CCA1      CCA2      CCA3      CCA4
 Achimill 0.36630013 0.3822685 0.3838616 0.4934158
 Agrostol 0.67247051 0.6724758 0.6779597 0.7773267
@@ -3003,7 +2909,7 @@ Trifrepe 0.03048149 0.2115857 0.3300132 0.4207437
 Vicilath 0.17824132 0.1784611 0.3762406 0.4279428
 Bracruta 0.15585567 0.1641095 0.1672797 0.2449864
 Callcusp 0.30771429 0.3143582 0.3308502 0.3518027
-> goodness(mod, summ = TRUE)
+> goodness(mod, addprevious = TRUE, summ = TRUE)
  Achimill  Agrostol  Airaprae  Alopgeni  Anthodor  Bellpere  Bromhord  Chenalbu 
 0.4934158 0.7773267 0.3908018 0.7212918 0.3609709 0.4849622 0.5505037 0.2885321 
  Cirsarve  Comapalu  Eleopalu  Elymrepe  Empenigr  Hyporadi  Juncarti  Juncbufo 
@@ -3326,7 +3232,7 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > 
 > ### Name: isomap
 > ### Title: Isometric Feature Mapping Ordination
-> ### Aliases: isomap isomapdist plot.isomap summary.isomap rgl.isomap
+> ### Aliases: isomap isomapdist plot.isomap summary.isomap
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3358,10 +3264,6 @@ Criterion: k = 3
 > pl <- plot(isomap(dis, epsilon=0.45), main="isomap epsilon=0.45")
 > lines(tr, pl, col="red")
 > par(op)
-> ## The following command requires user interaction
-> ## Not run: 
-> ##D rgl.isomap(ord, size=4, color="hotpink")
-> ## End(Not run)
 > 
 > 
 > 
@@ -3495,6 +3397,23 @@ attr(,"class")
 > linestack(scores(ord, choices=1, display="si"), side="left", add=TRUE)
 > title(main="DCA axis 1")
 > 
+> ## Expressions as labels
+> N <- 10					# Number of sites
+> df <- data.frame(Ca = rlnorm(N, 2), NO3 = rlnorm(N, 4),
++                  SO4 = rlnorm(N, 10), K = rlnorm(N, 3))
+> ord <- rda(df, scale = TRUE)
+> ### vector of expressions for labels
+> labs <- expression(Ca^{2+phantom()},
++                    NO[3]^{-phantom()},
++                    SO[4]^{-2},
++                    K^{+phantom()})
+> scl <- 1
+> linestack(scores(ord, choices = 1, display = "species", scaling = scl),
++           labels = labs, air = 2)
+> linestack(scores(ord, choices = 1, display = "site", scaling = scl),
++           side = "left", add = TRUE)
+> title(main = "PCA axis 1")
+> 
 > 
 > 
 > cleanEx()
@@ -3552,8 +3471,8 @@ Mantel statistic r: 0.3047
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.107 0.145 0.169 0.200 
-
-Based on 999 permutations
+Permutation: free
+Number of permutations: 999
 
 > mantel(veg.dist, env.dist, method="spear")
 
@@ -3568,8 +3487,8 @@ Mantel statistic r: 0.2838
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
 0.108 0.141 0.169 0.196 
-
-Based on 999 permutations
+Permutation: free
+Number of permutations: 999
 
 > 
 > 
@@ -3941,11 +3860,11 @@ Stopped after 73 iterations: Stress nearly unchanged (ratio > sratmax)
 > 
 > data(dune)
 > data(dune.env)
-> dune.mrpp <- mrpp(dune, dune.env$Management)
+> dune.mrpp <- with(dune.env, mrpp(dune, Management))
 > dune.mrpp
 
 Call:
-mrpp(dat = dune, grouping = dune.env$Management) 
+mrpp(dat = dune, grouping = Management) 
 
 Dissimilarity index: euclidean 
 Weights for groups:  n 
@@ -3960,7 +3879,8 @@ Chance corrected within-group agreement A: 0.1246
 Based on observed delta 11.15 and expected delta 12.74 
 
 Significance of delta: 0.002 
-Based on  999  permutations
+Permutation: free
+Number of permutations: 999
 
 > 
 > # Save and change plotting parameters
@@ -3974,7 +3894,7 @@ Run 2 stress 0.1192678
 ... New best solution
 ... procrustes: rmse 3.906075e-05  max resid 0.0001192009 
 *** Solution reached
-> ordihull(dune.ord, dune.env$Management)
+> with(dune.env, ordihull(dune.ord, Management))
 > 
 > with(dune.mrpp, {
 +   fig.dist <- hist(boot.deltas, xlim=range(c(delta,boot.deltas)), 
@@ -4039,6 +3959,7 @@ Classification strength 0.1127012
 > ## Canonical correspondence analysis (cca):
 > Example.cca <- cca(X, Y)
 > Example.cca <- mso(Example.cca, tmat)
+Set of permutations < 'minperm'. Generating entire set.
 > msoplot(Example.cca)
 > Example.cca$vario
   H Dist n  All       Sum         CA       CCA se
@@ -4047,6 +3968,7 @@ Classification strength 0.1127012
 > 
 > ## Correspondence analysis (ca):
 > Example.ca <- mso(cca(X), tmat)
+Set of permutations < 'minperm'. Generating entire set.
 > msoplot(Example.ca)
 > 
 > ## Unconstrained ordination with test for autocorrelation
@@ -4056,11 +3978,11 @@ Classification strength 0.1127012
 > data(mite.xy)
 > 
 > mite.cca <- cca(log(mite + 1))
-> mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 100)
+> mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 99)
 > msoplot(mite.cca)
 > mite.cca
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,
-permutations = 100)
+permutations = 99)
 
               Inertia Rank
 Total           1.164     
@@ -4075,23 +3997,27 @@ Eigenvalues for unconstrained axes:
 mso variogram:
 
     H   Dist   n    All     CA CA.signif
-0   0 0.3555  63 0.6250 0.6250      0.00
-1   1 1.0659 393 0.7556 0.7556      0.00
-2   2 2.0089 534 0.8931 0.8931      0.00
-3   3 2.9786 417 1.0988 1.0988      0.02
-4   4 3.9817 322 1.3321 1.3321      0.00
-5   5 5.0204 245 1.5109 1.5109      0.00
-10 10 6.8069 441 1.7466 1.7466      0.00
+0   0 0.3555  63 0.6250 0.6250      0.01
+1   1 1.0659 393 0.7556 0.7556      0.01
+2   2 2.0089 534 0.8931 0.8931      0.01
+3   3 2.9786 417 1.0988 1.0988      0.03
+4   4 3.9817 322 1.3321 1.3321      0.01
+5   5 5.0204 245 1.5109 1.5109      0.01
+10 10 6.8069 441 1.7466 1.7466      0.01
+
+Permutation: free
+Number of permutations: 99
+
 > 
 > ## Constrained ordination with test for residual autocorrelation
 > ## and scale-invariance of species-environment relationships
 > mite.cca <- cca(log(mite + 1) ~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)
-> mite.cca <- mso(mite.cca, mite.xy, permutations = 100)
+> mite.cca <- mso(mite.cca, mite.xy, permutations = 99)
 > msoplot(mite.cca)
 Error variance of regression model underestimated by 0.4 percent 
 > mite.cca
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =
-100)
+99)
 
               Inertia Proportion Rank
 Total          1.1638     1.0000     
@@ -4113,13 +4039,17 @@ Eigenvalues for unconstrained axes:
 mso variogram:
 
     H   Dist   n    All    Sum     CA    CCA      se CA.signif
-0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.00
-1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.16
+0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01
+1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.17
 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.71
-3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.44
+3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.46
 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.99
 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.42
-10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.20
+10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.21
+
+Permutation: free
+Number of permutations: 99
+
 > 
 > 
 > 
@@ -4149,11 +4079,11 @@ mso variogram:
 +         out[which(x > cut[i] & x <= cut[(i + 1)])] <- i
 +     return(out)}
 > ## The hierarchy of sample aggregation
-> levsm <- data.frame(
+> levsm <- with(mite.xy, data.frame(
 +     l1=1:nrow(mite),
-+     l2=cutter(mite.xy$y, cut = seq(0, 10, by = 2.5)),
-+     l3=cutter(mite.xy$y, cut = seq(0, 10, by = 5)),
-+     l4=cutter(mite.xy$y, cut = seq(0, 10, by = 10)))
++     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
++     l3=cutter(y, cut = seq(0, 10, by = 5)),
++     l4=cutter(y, cut = seq(0, 10, by = 10))))
 > ## Multiplicative diversity partitioning
 > multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 multipart object
@@ -4165,7 +4095,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
 alpha.2   11.2353  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
 alpha.3   12.0064 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
@@ -4185,7 +4115,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z    mean    2.5%     50%   97.5% Pr(sim.)  
+        statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -66.643 12.2056 12.1143 12.2120 12.2910     0.05 *
 alpha.2   11.2353  -94.626 14.0818 14.0246 14.0917 14.1193     0.05 *
 alpha.3   12.0064 -355.962 14.1391 14.1283 14.1374 14.1485     0.05 *
@@ -4205,7 +4135,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z      mean      2.5%       50%   97.5% Pr(sim.)  
+        statistic      SES      mean      2.5%       50%   97.5% Pr(sim.)  
 alpha.1  8.055481  -53.544 12.204883 12.071168 12.198307 12.3689     0.05 *
 alpha.2 11.235261  -99.506 14.079276 14.032767 14.076147 14.1247     0.05 *
 alpha.3 12.006443 -343.946 14.135245 14.123604 14.136297 14.1438     0.05 *
@@ -4225,7 +4155,7 @@ nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global TRUE
 alternative hypothesis: statistic is less or greater than simulated values
 
-        statistic        z     mean     2.5%      50%   97.5% Pr(sim.)  
+        statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
 alpha.1    8.0555  -69.630 12.19342 12.09434 12.18504 12.3160     0.05 *
 alpha.2   11.2353  -81.676 14.09224 14.05248 14.09208 14.1625     0.05 *
 alpha.3   12.0064 -321.419 14.13850 14.12429 14.13991 14.1456     0.05 *
@@ -4277,8 +4207,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)
-statistic      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 oecosimu object
@@ -4293,7 +4223,7 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic      z   mean   2.5%    50%  97.5% Pr(sim.)   
+        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
 C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4399,8 +4329,7 @@ Start = 11, End = 60, Thin = 5
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu density.oecosimu
-> ###   densityplot.oecosimu
+> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu
 > ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
@@ -4421,8 +4350,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-          statistic       z   mean   2.5%    50%  97.5% Pr(sim.)   
-statistic      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
+checkerboards      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## sequential model, one-sided test, a vector statistic
@@ -4451,11 +4380,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic       z     mean       0%      50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.324042 0.230869 0.323729 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.219388 0.149703 0.216169 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.155941 0.105269 0.155716 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.130151 0.066742 0.126492 0.1649     0.99  
+     statistic     SES    mean     50%    95% Pr(sim.)  
+DCA1  0.382249  1.8658 0.32404 0.32373 0.3726     0.02 *
+DCA2  0.261208  1.5772 0.21939 0.21617 0.2637     0.09 .
+DCA3  0.166788  0.5209 0.15594 0.15572 0.1859     0.30  
+DCA4  0.087226 -1.9822 0.13015 0.12649 0.1649     0.99  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
@@ -4463,7 +4392,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
 > ## Density plot
-> densityplot(out, as.table = TRUE)
+> densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -4478,7 +4407,7 @@ nullmodel method ‘r2dtable’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)   
+          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
 statistic   0.64565 16.876 0.46651 0.44565 0.46652 0.4826     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4502,10 +4431,55 @@ nullmodel method ‘myshuffle’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic      z    mean    2.5%     50%  97.5% Pr(sim.)  
+          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
 statistic   0.64565 2.7402 0.63542 0.62941 0.63519 0.6433     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ordiArrowTextXY")
+> ### * ordiArrowTextXY
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ordiArrowTextXY
+> ### Title: Support Functions for Drawing Vectors
+> ### Aliases: ordiArrowMul ordiArrowTextXY
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+>     ## Scale arrows by hand to fill 80% of the plot
+>     ## Biplot arrows by hand
+>     data(varespec, varechem)
+>     ord <- cca(varespec ~ Al + P + K, varechem)
+>     plot(ord, display = c("species","sites"))
+> 
+>     ## biplot scores
+>     bip <- scores(ord, choices = 1:2, display = "bp")
+> 
+>     ## scaling factor for arrows to fill 80% of plot
+>     (mul <- ordiArrowMul(bip, fill = 0.8))
+[1] 2.074256
+>     bip.scl <- bip * mul                    # Scale the biplot scores
+>     labs <- rownames(bip)                   # Arrow labels
+> 
+>     ## calculate coordinate of labels for arrows
+>     (bip.lab <- ordiArrowTextXY(bip.scl, rescale = FALSE, labels = labs))
+         [,1]       [,2]
+Al  1.8804734 -0.3506655
+P  -0.9169247 -1.6419989
+K  -0.9932187 -0.3713153
+> 
+>     ## draw arrows and text labels
+>     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
+>     text(bip.lab, labels = labs)
+> 
+>     ## Handling of ordination objects directly
+>     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
+>     stopifnot(all.equal(mul, mul2))
 > 
 > 
 > 
@@ -4555,7 +4529,7 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ### Title: Display Groups or Factor Levels in Ordination Diagrams
 > ### Aliases: ordihull ordispider ordiellipse ordicluster weights.cca
 > ###   weights.rda weights.decorana summary.ordihull scores.ordihull
-> ###   summary.ordiellipse
+> ###   summary.ordiellipse ordiareatest
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -4649,58 +4623,6 @@ detaching ‘dune.env’
 > ##D identify(fig, "spec")
 > ## End(Not run)
 > 
-> 
-> 
-> 
-> cleanEx()
-> nameEx("ordiplot3d")
-> ### * ordiplot3d
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: ordiplot3d
-> ### Title: Three-Dimensional and Dynamic Ordination Graphics
-> ### Aliases: ordiplot3d ordirgl orglpoints orgltext orglsegments orglspider
-> ### Keywords: hplot dynamic
-> 
-> ### ** Examples
-> 
-> ## Examples are not run, because they need non-standard packages
-> ## 'scatterplot3d' and 'rgl' (and the latter needs user interaction).
-> #####
-> ### Default 'ordiplot3d'
-> ## Not run: 
-> ##D data(dune)
-> ##D data(dune.env)
-> ##D ord <- cca(dune ~ A1 + Moisture, dune.env)
-> ##D ordiplot3d(ord)
-> ##D ### A boxed 'pin' version
-> ##D ordiplot3d(ord, type = "h")
-> ##D ### More user control
-> ##D pl <- ordiplot3d(ord, scaling = 3, angle=15, type="n")
-> ##D points(pl, "points", pch=16, col="red", cex = 0.7)
-> ##D ### identify(pl, "arrows", col="blue") would put labels in better positions
-> ##D text(pl, "arrows", col="blue", pos=3)
-> ##D text(pl, "centroids", col="blue", pos=1, cex = 1)
-> ##D ### Add species using xyz.convert function returned by ordiplot3d
-> ##D sp <- scores(ord, choices=1:3, display="species", scaling=3)
-> ##D text(pl$xyz.convert(sp), rownames(sp), cex=0.7, xpd=TRUE)
-> ##D ### Two ways of adding fitted variables to ordination plots
-> ##D ord <- cca(dune)
-> ##D ef <- envfit(ord ~ Moisture + A1, dune.env, choices = 1:3)
-> ##D ### 1. use argument 'envfit'
-> ##D ordiplot3d(ord, envfit = ef)
-> ##D ### 2. use returned envfit.convert function for better user control
-> ##D pl3 <- ordiplot3d(ord)
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### envfit.convert() also handles different 'choices' of axes
-> ##D pl3 <- ordiplot3d(ord, choices = c(1,3,2))
-> ##D plot(pl3$envfit.convert(ef), at = pl3$origin)
-> ##D ### ordirgl
-> ##D ordirgl(ord, size=2)
-> ##D ordirgl(ord, display = "species", type = "t")
-> ##D rgl.quit()
-> ## End(Not run)
 > 
 > 
 > 
@@ -5036,85 +4958,76 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(varechem)
 > vare.dist <- vegdist(varespec)
 > vare.mds <- monoMDS(vare.dist)
-> with(varechem, ordisurf(vare.mds, Baresoil, bubble = 5))
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
+> ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9968520>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 92.96761
+REML score: 92.96761     
 > 
 > ## as above but without the extra penalties on smooth terms,
 > ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
-> with(varechem, ordisurf(vare.mds, Baresoil,col = "blue", add = TRUE,
-+                         select = FALSE, method = "GCV.Cp"))
+> ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
++                         select = FALSE, method = "GCV.Cp")
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa291388>
 
 Estimated degrees of freedom:
 6.45  total = 7.45 
 
-GCV score: 144.0039
+GCV score: 144.0039     
 > 
 > ## Cover of Cladina arbuscula
-> fit <- with(varespec, ordisurf(vare.mds, Cladarbu, family=quasipoisson)) 
+> fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson) 
 > ## Get fitted values
 > calibrate(fit)
-        1         2         3         4         5         6         7         8 
-21.253963  5.675210  3.679486  3.898355  9.643787  7.698255  7.729282  9.758092 
-        9        10        11        12        13        14        15        16 
- 2.743203 29.700504 11.971986  8.310916  5.390556 24.906203 11.006871 25.330570 
-       17        18        19        20        21        22        23        24 
- 6.520735  9.410672  4.519645  4.090901 11.558075  4.314814 11.693769 14.244150 
+       18        15        24        27        23        19        22        16 
+21.254026  5.675259  3.679616  3.898510  9.643821  7.698310  7.729203  9.758046 
+       28        13        14        20        25         7         5         6 
+ 2.743212 29.700556 11.971747  8.310960  5.390564 24.905994 11.007652 25.330656 
+        3         4         2         9        12        10        11        21 
+ 6.520708  9.410616  4.519672  4.090948 11.557930  4.314850 11.693692 14.243453 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
 > ## of the model not just to a linear surface. There are 2
 > ## options available:
 > ##  - option 1: `select = TRUE` --- the *default*
-> with(varechem,
-+      ordisurf(vare.mds, Baresoil, method = "REML", select = TRUE))
+> ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", select = TRUE)
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0xa202b48>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 92.96761
+REML score: 92.96761     
 > ##  - option 2: use a basis with shrinkage
-> with(varechem,
-+      ordisurf(vare.mds, Baresoil, method = "REML", bs = "ts"))
+> ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
-<environment: 0x99e3890>
 
 Estimated degrees of freedom:
 4.43  total = 5.43 
 
-REML score: 96.2345
+REML score: 96.2345     
 > ## or bs = "cs" with `isotropic = FALSE`
 > 
 > ## Plot method
@@ -5123,44 +5036,45 @@ REML score: 96.2345
 > ## Plotting the "gam" object
 > plot(fit, what = "gam") ## 'col' and 'cex' not passed on
 > ## or via plot.gam directly
+> library(mgcv)
+Loading required package: nlme
+This is mgcv 1.8-6. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
 > ### controlling the basis functions used
 > ## Use Duchon splines
-> with(varechem, ordisurf(vare.mds, Baresoil, bs = "ds"))
+> ordisurf(vare.mds ~ Baresoil, varechem, bs = "ds")
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
-<environment: 0x9f10bb8>
 
 Estimated degrees of freedom:
 5.63  total = 6.63 
 
-REML score: 93.17149
+REML score: 93.17149     
 > 
 > ## A fixed degrees of freedom smooth, must use 'select = FALSE'
-> with(varechem, ordisurf(vare.mds, Baresoil, knots = 4,
-+                         fx = TRUE, select = FALSE))
+> ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
++                         fx = TRUE, select = FALSE)
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
-<environment: 0x8ba13d8>
 
 Estimated degrees of freedom:
 3  total = 4 
 
-REML score: 81.86011
+REML score: 81.86011     
 > 
 > ## An anisotropic smoother with cubic regression spline bases
-> with(varechem, ordisurf(vare.mds, Baresoil, isotropic = FALSE,
-+                         bs = "cr", knots = 4))
+> ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
++                         bs = "cr", knots = 4)
 
 Family: gaussian 
 Link function: identity 
@@ -5168,18 +5082,17 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE, 
     FALSE))
-<environment: 0x98f4090>
 
 Estimated degrees of freedom:
 2.99  total = 3.99 
 
-REML score: 90.861
+REML score: 90.86099     
 > 
 > ## An anisotropic smoother with cubic regression spline with
 > ## shrinkage bases & different degrees of freedom in each dimension
-> with(varechem, ordisurf(vare.mds, Baresoil, isotropic = FALSE,
+> ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
 +                         bs = "cs", knots = c(3,4), fx = TRUE,
-+                         select = FALSE))
++                         select = FALSE)
 
 Family: gaussian 
 Link function: identity 
@@ -5187,13 +5100,11 @@ Link function: identity
 Formula:
 y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE, 
     TRUE))
-<environment: 0x9a7a810>
 
 Estimated degrees of freedom:
 11  total = 12 
 
-REML score: 39.58245
-> 
+REML score: 39.58245     
 > 
 > 
 > 
@@ -5262,7 +5173,7 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > ## Don't show: 
 > ## example(orditorp) should not set random seed in the user session
 > rm(.Random.seed)
-> ## End Don't show
+> ## End(Don't show)
 > 
 > 
 > 
@@ -5322,21 +5233,17 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > op <- par(mfrow=c(1,3))
 > ## Map of PCNMs in the sample plot
 > ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x6b7a770>
 
 Estimated degrees of freedom:
 8.71  total = 9.71 
 
-REML score: -120.7705
+REML score: -120.7705     
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
 
 Family: gaussian 
@@ -5344,12 +5251,11 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x9576da8>
 
 Estimated degrees of freedom:
 7.18  total = 8.18 
 
-REML score: -103.4662
+REML score: -103.4662     
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
 
 Family: gaussian 
@@ -5357,12 +5263,11 @@ Link function: identity
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x987ebd8>
 
 Estimated degrees of freedom:
 8.32  total = 9.32 
 
-REML score: -94.19053
+REML score: -94.19053     
 > par(op)
 > ## Plot first PCNMs against each other
 > ordisplom(pcnm1, choices=1:4)
@@ -5379,9 +5284,6 @@ REML score: -94.19053
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("permatfull")
 > ### * permatfull
 > 
@@ -5583,12 +5485,12 @@ s.e.  0.0122     0.1343
 
 sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
 > ## Ljung-Box test of residuals
-> Box.test(mar$residuals)
+> Box.test(residuals(mar))
 
 	Box-Pierce test
 
-data:  mar$residuals
-X-squared = 0.0011, df = 1, p-value = 0.9739
+data:  residuals(mar)
+X-squared = 0.0010721, df = 1, p-value = 0.9739
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -5596,6 +5498,59 @@ X-squared = 0.0011, df = 1, p-value = 0.9739
 > 
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("permustats")
+> ### * permustats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: permustats
+> ### Title: Extract, Analyse and Display Permutation Results
+> ### Aliases: permustats permustats.adonis permustats.anosim
+> ###   permustats.CCorA permustats.envfit permustats.factorfit
+> ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
+> ###   permustats.ordiareatest permustats.permutest.betadisper
+> ###   permustats.permutest.cca permustats.protest permustats.vectorfit
+> ###   summary.permustats densityplot.permustats density.permustats
+> ###   qqnorm.permustats qqmath.permustats
+> ### Keywords: distribution smooth
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> ## use permustats
+> perm <- permustats(mod)
+> summary(perm)
+
+           statistic    SES   mean lower median  upper
+Management    3.0730 4.5815 1.0462       0.9470 1.8475
+A1            2.7676 2.6322 1.0364       0.8851 2.3280
+
+(Interval (Upper - Lower) = 0.95)
+> densityplot(perm)
+> qqmath(perm)
+> 
+> ## example of multiple types of statistic
+> mod <- with(dune.env, betadisper(vegdist(dune), Management))
+> pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
+> perm <- permustats(pmod)
+> summary(perm, interval = 0.90)
+
+            statistic     SES    mean   lower  median   upper
+Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743
+BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273
+BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339
+BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232
+HF-NM (t)     -2.1017 -1.8899 -0.0158 -1.8740  0.0412  1.6319
+HF-SF (t)     -0.8789 -0.7166 -0.0321 -1.8973 -0.0076  1.8362
+NM-SF (t)      0.9485  0.8309 -0.0036 -1.8411 -0.0531  1.9024
+
+(Interval (Upper - Lower) = 0.9)
+> 
+> 
+> 
 > cleanEx()
 > nameEx("permutest.betadisper")
 > ### * permutest.betadisper
@@ -5649,38 +5604,7 @@ Residuals 22 0.37801 0.017182
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## Permutation test for F
-> permutest(mod, permutations = 99, pairwise = TRUE)
-
-Permutation test for homogeneity of multivariate dispersions
-
-Permutation Design:
-
-Blocks:
-  Defined by: none
-
-Plots:
-  Defined by: none
-
-Within Plots:
-  Permutation type: free
-
-Permutation details:
-  Number of permutations requested: 99
-  Max. number of permutations allowed: 9999
-  Evaluate all permutations?: No.  Activation limit: 99
-
-Response: Distances
-          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156    100   0.04 *
-Residuals 22 0.37801 0.017182                       
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Pairwise comparisons:
-(Observed p-value below diagonal, permuted p-value above diagonal)
-          grazed ungrazed
-grazed               0.05
-ungrazed 0.04295         
+> pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 > 
 > ## Tukey's Honest Significant Differences
 > (mod.HSD <- TukeyHSD(mod))
@@ -5694,6 +5618,11 @@ $group
 ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
+> 
+> ## Has permustats() method
+> pstat <- permustats(pmod)
+> densityplot(pstat)
+> qqmath(pstat)
 > 
 > 
 > 
@@ -6324,7 +6253,6 @@ Manhattan     Gower    Ochiai
 > ### Name: renyi
 > ### Title: Renyi and Hill Diversities and Corresponding Accumulation Curves
 > ### Aliases: renyi plot.renyi renyiaccum plot.renyiaccum persp.renyiaccum
-> ###   rgl.renyiaccum
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -6336,6 +6264,39 @@ Manhattan     Gower    Ochiai
 > mod <- renyiaccum(BCI[i,])
 > plot(mod, as.table=TRUE, col = c(1, 2, 2))
 > persp(mod)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("reorder.hclust")
+> ### * reorder.hclust
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: reorder.hclust
+> ### Title: Reorder a Hierarchical Clustering Tree
+> ### Aliases: reorder.hclust rev.hclust scores.hclust
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> ## reorder by water content of soil
+> data(mite, mite.env)
+> hc <- hclust(vegdist(wisconsin(sqrt(mite))))
+> ohc <- with(mite.env, reorder(hc, WatrCont))
+> plot(hc)
+> plot(ohc)
+> 
+> ## label leaves by the observed value, and each branching point
+> ## (internal node) by the cluster mean
+> with(mite.env, plot(ohc, labels=round(WatrCont), cex=0.7))
+> ordilabel(scores(ohc), label=round(ohc$value), cex=0.7)
+> 
+> ## Slightly different from reordered 'dendrogram' which ignores group
+> ## sizes in assessing means.
+> den <- as.dendrogram(hc)
+> den <- with(mite.env, reorder(den, WatrCont, agglo.FUN = mean))
+> plot(den)
 > 
 > 
 > 
@@ -6670,6 +6631,8 @@ Empenigr 0.004536 0.010325 0.4393  0.0 0.3333 0.99668
 Vicilath 0.002399 0.005461 0.4393  0.0 0.1667 1.00000
 Chenalbu 0.000000 0.000000    NaN  0.0 0.0000 1.00000
 Cirsarve 0.000000 0.000000    NaN  0.0 0.0000 1.00000
+Permutation: free
+Number of permutations: 0
 > 
 > 
 > 
@@ -6750,8 +6713,8 @@ Number of permuted matrices = 99
 > 
 > ### Name: spantree
 > ### Title: Minimum Spanning Tree
-> ### Aliases: spantree cophenetic.spantree plot.spantree lines.spantree
-> ###   spandepth
+> ### Aliases: spantree cophenetic.spantree as.hclust.spantree plot.spantree
+> ###   lines.spantree spandepth
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -6761,7 +6724,6 @@ Number of permuted matrices = 99
 > tr <- spantree(dis)
 > ## Add tree to a metric scaling 
 > plot(tr, cmdscale(dis), type = "t")
-Loading required package: MASS
 > ## Find a configuration to display the tree neatly
 > plot(tr, type = "t")
 Initial stress        : 0.03111
@@ -6777,13 +6739,12 @@ stress after  10 iters: 0.01302, magic = 0.500
 stress after  20 iters: 0.01139, magic = 0.500
 stress after  30 iters: 0.01118, magic = 0.500
 stress after  40 iters: 0.01114, magic = 0.500
+> ## Plot as a dendrogram
+> plot(as.hclust(tr))
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("specaccum")
 > ### * specaccum
 > 
@@ -6794,6 +6755,7 @@ detaching ‘package:MASS’
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
 > ###   lines.specaccum boxplot.specaccum fitspecaccum plot.fitspecaccum
 > ###   lines.fitspecaccum predict.specaccum predict.fitspecaccum
+> ###   AIC.fitspecaccum deviance.fitspecaccum specslope
 > ### Keywords: univar models
 > 
 > ### ** Examples
@@ -6982,10 +6944,10 @@ sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
 > pool <- specpool(dune, Management)
 > pool
    Species     chao   chao.se    jack1 jack1.se    jack2     boot  boot.se n
-BF      16 17.78571  2.189126 19.33333 2.211083 19.83333 17.74074 1.646379 3
-HF      21 21.64286  1.119337 23.40000 1.876166 22.05000 22.56864 1.821518 5
-NM      21 23.25000  2.501562 26.00000 3.291403 25.73333 23.77696 2.300982 6
-SF      21 31.66667 10.270418 27.66667 3.496029 31.40000 23.99496 1.850288 6
+BF      16 17.19048 1.5895675 19.33333 2.211083 19.83333 17.74074 1.646379 3
+HF      21 21.51429 0.9511693 23.40000 1.876166 22.05000 22.56864 1.821518 5
+NM      21 22.87500 2.1582871 26.00000 3.291403 25.73333 23.77696 2.300982 6
+SF      21 29.88889 8.6447967 27.66667 3.496029 31.40000 23.99496 1.850288 6
 > op <- par(mfrow=c(1,2))
 > boxplot(specnumber(dune) ~ Management, col="hotpink", border="cyan3",
 +  notch=TRUE)
@@ -7002,54 +6964,54 @@ Warning in bxp(list(stats = c(0.46551724137931, 0.491379310344828, 0.51724137931
 > summary(pool, display = "chao")
 $chao
        N     Chao     2.5%    97.5%   Std.Dev
- [1,]  3 172.7563 152.1599 196.3056 12.208940
- [2,]  4 183.5551 161.5722 214.4091 13.919027
- [3,]  5 190.7628 167.7884 219.1380 13.843512
- [4,]  6 196.5129 175.4634 227.1945 12.973216
- [5,]  7 200.1963 179.6615 222.5834 11.410021
- [6,]  8 203.1348 182.5635 227.3143 12.181025
- [7,]  9 205.1392 189.3535 231.2194 11.190556
- [8,] 10 207.6757 188.7516 239.6994 12.928115
- [9,] 11 210.2703 192.4728 237.6241 12.661434
-[10,] 12 212.8117 193.0882 241.3068 12.090901
-[11,] 13 215.8629 196.3512 240.8443 12.030250
-[12,] 14 218.1111 195.7850 241.5357 11.972723
-[13,] 15 220.7276 197.1307 243.5615 12.728113
-[14,] 16 222.7318 200.6935 244.8005 12.388227
-[15,] 17 223.1776 202.2586 247.8048 11.861583
-[16,] 18 225.0125 204.5197 250.8447 12.261556
-[17,] 19 226.2302 206.3471 252.0306 11.713716
-[18,] 20 228.3419 209.3500 256.6167 13.618316
-[19,] 21 229.9199 209.2095 260.5780 13.243956
-[20,] 22 230.7501 210.3298 255.9066 12.306631
-[21,] 23 231.2660 213.4804 255.6486 11.140720
-[22,] 24 232.5672 214.3477 257.8048 11.403989
-[23,] 25 234.6178 215.0159 261.2450 12.183116
-[24,] 26 234.9201 217.9050 260.2000 11.762443
-[25,] 27 235.8194 219.1211 257.1280 10.480653
-[26,] 28 235.5075 221.1701 256.5897  9.715630
-[27,] 29 236.5717 220.2896 259.0239 10.525720
-[28,] 30 237.3196 223.2299 262.0306 10.251857
-[29,] 31 237.2093 223.3424 258.3133  9.082738
-[30,] 32 238.4396 222.2123 262.5060  9.893401
-[31,] 33 237.8504 223.8046 258.3737  9.303135
-[32,] 34 237.9578 222.0809 257.4894  9.815488
-[33,] 35 238.1394 221.7529 256.5942  9.575210
-[34,] 36 237.8067 222.5225 257.2090  9.052829
-[35,] 37 238.1066 222.7152 257.7423  9.613308
-[36,] 38 238.2176 223.1497 259.7648  9.679320
-[37,] 39 238.4522 225.0606 263.0132  9.706090
-[38,] 40 238.2193 225.1188 259.0867  8.834095
-[39,] 41 238.8296 226.3562 259.8818  8.773535
-[40,] 42 239.2565 225.9500 257.8491  9.946307
-[41,] 43 239.0951 226.2678 255.3670  8.492922
-[42,] 44 239.0842 228.5722 253.7702  7.649488
-[43,] 45 238.9399 229.7494 255.8298  6.703626
-[44,] 46 238.3576 229.5015 250.6229  5.623133
-[45,] 47 237.9875 230.2506 249.6616  4.946895
-[46,] 48 237.6443 232.5125 246.9577  4.024849
-[47,] 49 237.0655 234.5263 245.8333  2.424101
-[48,] 50 236.6053 236.6053 236.6053  0.000000
+ [1,]  3 161.4109 144.6126 178.9871  9.801654
+ [2,]  4 175.3013 156.0120 200.3193 11.771507
+ [3,]  5 184.5183 163.6632 208.8254 11.966732
+ [4,]  6 191.5108 172.6320 217.6871 11.433620
+ [5,]  7 196.1425 177.1485 216.1394 10.300755
+ [6,]  8 199.7655 180.8137 221.8030 11.050654
+ [7,]  9 202.3226 187.6958 226.0312 10.284834
+ [8,] 10 205.1811 187.1814 234.5619 11.982118
+ [9,] 11 208.0594 191.3298 233.2606 11.810585
+[10,] 12 210.7932 192.0850 237.1459 11.336662
+[11,] 13 213.9566 195.3646 237.5129 11.330362
+[12,] 14 216.3246 194.9807 238.0314 11.325669
+[13,] 15 219.0071 196.3220 240.6890 12.073741
+[14,] 16 221.1155 200.1056 241.8803 11.792394
+[15,] 17 221.7125 201.6610 245.1075 11.332692
+[16,] 18 223.6046 203.9908 248.0839 11.722007
+[17,] 19 224.9023 205.7025 249.4671 11.228833
+[18,] 20 227.0483 208.6850 254.0646 13.048967
+[19,] 21 228.6833 208.6412 258.0540 12.722020
+[20,] 22 229.5879 209.7609 253.7754 11.841663
+[21,] 23 230.1766 213.1453 253.7301 10.746815
+[22,] 24 231.5115 213.9103 255.8942 11.014966
+[23,] 25 233.5683 214.6193 259.3002 11.749781
+[24,] 26 233.9382 217.4818 258.2308 11.369741
+[25,] 27 234.8832 218.6546 255.4724 10.158710
+[26,] 28 234.6476 220.7203 255.0633  9.429129
+[27,] 29 235.7344 219.8494 257.2886 10.211869
+[28,] 30 236.5167 222.7719 260.5121  9.947075
+[29,] 31 236.4638 222.9289 256.9346  8.826309
+[30,] 32 237.7034 221.8471 261.0706  9.617682
+[31,] 33 237.1767 223.4613 257.0897  9.058297
+[32,] 34 237.3228 221.7998 256.3574  9.567790
+[33,] 35 237.5354 221.4743 255.5337  9.339085
+[34,] 36 237.2440 222.2844 256.1171  8.837235
+[35,] 37 237.5675 222.4925 256.7364  9.388989
+[36,] 38 237.7059 222.9352 258.7308  9.451033
+[37,] 39 237.9622 224.8405 261.9372  9.479366
+[38,] 40 237.7631 224.9289 258.1333  8.637200
+[39,] 41 238.3850 226.1408 258.9579  8.581810
+[40,] 42 238.8268 225.7357 257.0081  9.731966
+[41,] 43 238.6941 226.0755 254.6363  8.313701
+[42,] 44 238.7041 228.3762 253.0612  7.491410
+[43,] 45 238.5832 229.5340 255.1341  6.571046
+[44,] 46 238.0307 229.2938 250.0349  5.519841
+[45,] 47 237.6838 230.0538 249.1268  4.855208
+[46,] 48 237.3636 232.3044 246.4903  3.952778
+[47,] 49 236.8121 234.3115 245.4082  2.380487
+[48,] 50 236.3732 236.3732 236.3732  0.000000
 
 attr(,"class")
 [1] "summary.poolaccum"
@@ -7059,7 +7021,7 @@ attr(,"class")
                   1          2          3          4          5
 S.obs     93.000000  84.000000  90.000000  94.000000 101.000000
 S.chao1  117.473684 117.214286 141.230769 111.550000 136.000000
-se.chao1  12.578970  17.841763  26.075747   9.647692  16.882684
+se.chao1  11.583785  15.918953  23.001405   8.919663  15.467344
 S.ACE    122.848959 117.317307 134.669844 118.729941 137.114088
 se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 > 
@@ -7146,50 +7108,50 @@ Stepping across 190 dissimilarities...
 > mod <- taxondive(dune, taxdis)
 > mod
           Species    Delta   Delta*  Lambda+   Delta+ S Delta+
-1           5.000   25.201   32.401 1583.249   51.705   258.53
-2          10.000   60.573   66.438 1415.833   66.779   667.79
-3          10.000   46.754   51.874 1385.449   70.835   708.35
-4          13.000   58.307   63.293 1249.469   73.461   954.99
-5          14.000   72.023   76.967 1013.850   77.581  1086.14
-6          11.000   76.352   83.052  856.565   80.779   888.57
-7          13.000   71.005   76.286  896.552   79.375  1031.87
-8          12.000   62.880   67.464  906.057   77.412   928.95
-9          13.000   60.341   64.619 1081.914   73.544   956.07
-10         12.000   68.919   74.532 1023.714   77.748   932.97
-11          9.000   76.140   85.057  553.804   82.412   741.71
-12          9.000   71.195   79.626  669.623   83.756   753.80
-13         10.000   57.210   65.101  848.964   77.901   779.01
-14          7.000   78.441   90.207  279.757   88.808   621.66
-15          8.000   77.813   87.496  330.572   88.150   705.20
-16          8.000   62.725   72.154  875.566   77.140   617.12
-17          7.000   64.823   72.409 1204.103   70.968   496.77
-18          9.000   76.626   85.656  599.550   81.260   731.34
-19          9.000   73.340   81.198  480.065   83.218   748.96
-20          8.000   79.807   88.993  390.726   89.385   715.08
-Expected            74.594   71.431            79.644         
+1           5.000   25.009   32.154 1592.777   51.545   257.73
+2          10.000   60.493   66.350 1426.590   66.687   666.87
+3          10.000   46.599   51.702 1395.603   70.748   707.47
+4          13.000   58.199   63.176 1258.772   73.403   954.24
+5          14.000   72.045   76.990 1018.677   77.602  1086.43
+6          11.000   76.415   83.121  858.170   80.843   889.27
+7          13.000   70.250   75.475  970.358   78.397  1019.17
+8          12.000   59.126   63.436 1079.722   74.787   897.44
+9          13.000   56.948   60.985 1220.760   71.160   925.08
+10         12.000   68.902   74.513 1028.527   77.762   933.14
+11          9.000   76.201   85.126  552.357   82.538   742.84
+12          9.000   69.555   77.792  760.886   82.614   743.52
+13         10.000   55.296   62.923  935.943   76.657   766.57
+14          7.000   77.609   89.250  341.499   88.182   617.27
+15          8.000   74.924   84.249  473.604   86.558   692.47
+16          8.000   57.843   66.539 1111.251   73.360   586.88
+17          7.000   64.823   72.408 1209.057   70.974   496.82
+18          9.000   76.731   85.773  596.607   81.401   732.61
+19          9.000   73.449   81.318  476.221   83.371   750.34
+20          8.000   78.076   87.063  520.623   87.922   703.38
+Expected            73.289   70.182            78.712         
 > summary(mod)
            Delta  Delta*  Delta+ sd(Delta+) z(Delta+) Pr(>|z|)   
-1        25.2010 32.4013 51.7051     8.9683   -3.1153 0.001837 **
-2        60.5731 66.4375 66.7793     4.2930   -2.9967 0.002729 **
-3        46.7535 51.8745 70.8346     4.2930   -2.0520 0.040165 * 
-4        58.3066 63.2933 73.4609     3.2021   -1.9310 0.053486 . 
-5        72.0231 76.9667 77.5814     2.9323   -0.7034 0.481792   
-6        76.3523 83.0524 80.7792     3.8687    0.2934 0.769200   
-7        71.0050 76.2863 79.3749     3.2021   -0.0840 0.933019   
-8        62.8802 67.4643 77.4124     3.5104   -0.6357 0.524956   
-9        60.3414 64.6193 73.5437     3.2021   -1.9051 0.056762 . 
-10       68.9193 74.5319 77.7475     3.5104   -0.5403 0.589023   
-11       76.1400 85.0573 82.4117     4.8067    0.5758 0.564763   
-12       71.1954 79.6265 83.7558     4.8067    0.8554 0.392326   
-13       57.2101 65.1011 77.9007     4.2930   -0.4061 0.684669   
-14       78.4412 90.2074 88.8084     6.2696    1.4617 0.143819   
-15       77.8128 87.4962 88.1501     5.4461    1.5619 0.118320   
-16       62.7252 72.1545 77.1396     5.4461   -0.4599 0.645611   
-17       64.8233 72.4091 70.9677     6.2696   -1.3839 0.166399   
-18       76.6264 85.6556 81.2596     4.8067    0.3361 0.736794   
-19       73.3403 81.1982 83.2181     4.8067    0.7436 0.457145   
-20       79.8067 88.9931 89.3845     5.4461    1.7885 0.073693 . 
-Expected 74.5941 71.4315 79.6440                                 
+1        25.0089 32.1543 51.5455     9.5637   -2.8405 0.004504 **
+2        60.4931 66.3497 66.6869     4.6664   -2.5769 0.009970 **
+3        46.5985 51.7024 70.7475     4.6664   -1.7067 0.087881 . 
+4        58.1988 63.1763 73.4033     3.5073   -1.5135 0.130150   
+5        72.0452 76.9903 77.6024     3.2187   -0.3446 0.730386   
+6        76.4148 83.1205 80.8430     4.2170    0.5054 0.613259   
+7        70.2500 75.4752 78.3974     3.5073   -0.0896 0.928626   
+8        59.1259 63.4363 74.7865     3.8361   -1.0232 0.306220   
+9        56.9481 60.9854 71.1597     3.5073   -2.1532 0.031303 * 
+10       68.9021 74.5133 77.7617     3.8361   -0.2476 0.804432   
+11       76.2014 85.1259 82.5379     5.2089    0.7346 0.462605   
+12       69.5554 77.7922 82.6136     5.2089    0.7491 0.453792   
+13       55.2961 62.9232 76.6566     4.6664   -0.4404 0.659657   
+14       77.6087 89.2500 88.1818     6.7459    1.4039 0.160362   
+15       74.9245 84.2485 86.5584     5.8818    1.3341 0.182178   
+16       57.8435 66.5389 73.3604     5.8818   -0.9098 0.362936   
+17       64.8225 72.4081 70.9740     6.7459   -1.1470 0.251377   
+18       76.7314 85.7730 81.4015     5.2089    0.5164 0.605570   
+19       73.4487 81.3182 83.3712     5.2089    0.8945 0.371029   
+20       78.0762 87.0634 87.9221     5.8818    1.5659 0.117368   
+Expected 73.2888 70.1816 78.7116                                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > plot(mod)
@@ -7326,7 +7288,7 @@ nullmodel method ‘r1’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic        z    mean    2.5%     50%  97.5% Pr(sim.)   
+   statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)   
 1     384.09 -1.28273  781.41  382.13  664.87 1244.3     0.09 . 
 2     568.88 -2.29048 1245.21  648.63 1342.75 1602.9     0.01 **
 3    1172.95 -0.28386 1251.47  668.89 1353.45 1594.1     0.57   
@@ -7528,11 +7490,9 @@ Individual fractions
 ---
 Use function 'rda' to test significance of fractions of interest
 > 
-> ## argument 'bg' is passed to circle drawing, and the following
-> ## defines semitransparent colours
-> col2 <- rgb(c(1,1),c(1,0), c(0,1), 0.3)
-> showvarparts(2, bg = col2)
-> plot(mod, bg = col2)
+> ## Use fill colours
+> showvarparts(2, bg = c("hotpink","skyblue"))
+> plot(mod, bg = c("hotpink","skyblue"))
 > # Alternative way of to conduct this partitioning
 > # Change the data frame with factors into numeric model matrix
 > mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
@@ -7606,8 +7566,8 @@ Controlling 1 table X
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
 Use function 'rda' to test significance of fractions of interest
-> showvarparts(3)
-> plot(mod)
+> showvarparts(3, bg=2:4)
+> plot(mod, bg=2:4)
 > # An alternative formulation of the previous model using
 > # matrices mm1 amd mm2 and Hellinger transformed species data
 > mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
@@ -7714,9 +7674,9 @@ Controlling 1 table X
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
 Use function 'rda' to test significance of fractions of interest
-> plot(mod)
+> plot(mod, bg=2:5)
 > # Show values for all partitions by putting 'cutoff' low enough:
-> plot(mod, cutoff = -Inf, cex = 0.7)
+> plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 > 
 > 
 > 
@@ -7773,23 +7733,24 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.046 *  
-P         0.61959  0.78492 0.1938  0.103    
-K         0.76629  0.64249 0.1809  0.143    
-Ca        0.68506  0.72849 0.4119  0.008 ** 
-Mg        0.63240  0.77464 0.4271  0.004 ** 
-S         0.19123  0.98155 0.1752  0.140    
+N        -0.05719 -0.99836 0.2537  0.039 *  
+P         0.61959  0.78492 0.1938  0.129    
+K         0.76629  0.64249 0.1809  0.138    
+Ca        0.68506  0.72849 0.4119  0.005 ** 
+Mg        0.63240  0.77464 0.4271  0.005 ** 
+S         0.19123  0.98155 0.1752  0.133    
 Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.002 ** 
-Mn        0.79873 -0.60169 0.5230  0.001 ***
-Zn        0.61750  0.78657 0.1879  0.125    
-Mo       -0.90304  0.42955 0.0609  0.537    
-Baresoil  0.92503 -0.37988 0.2508  0.039 *  
-Humdepth  0.93291 -0.36011 0.5200  0.002 ** 
-pH       -0.64809  0.76156 0.2308  0.060 .  
+Fe       -0.93613  0.35164 0.4451  0.001 ***
+Mn        0.79873 -0.60169 0.5230  0.002 ** 
+Zn        0.61750  0.78657 0.1879  0.122    
+Mo       -0.90304  0.42955 0.0609  0.524    
+Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Humdepth  0.93291 -0.36011 0.5200  0.001 ***
+pH       -0.64809  0.76156 0.2308  0.064 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-P values based on 999 permutations.
+Permutation: free
+Number of permutations: 999
 
 
 > plot(ef, p.max = 0.05)
@@ -7845,9 +7806,9 @@ Start: dune ~ 1
              Df    AIC      F Pr(>F)   
 + Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
-+ Manure      4 89.232 1.9539  0.005 **
-+ A1          1 89.591 1.9217  0.050 * 
-+ Use         2 91.032 1.1741  0.265   
++ Manure      4 89.232 1.9539  0.015 * 
++ A1          1 89.591 1.9217  0.045 * 
++ Use         2 91.032 1.1741  0.295   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7859,25 +7820,25 @@ Step: dune ~ Management
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.005 **
-+ Manure    3 87.517 1.3902  0.120   
-+ A1        1 87.424 1.2965  0.210   
-+ Use       2 88.284 1.0510  0.390   
++ Moisture  3 85.567 1.9764  0.010 **
++ Manure    3 87.517 1.3902  0.045 * 
++ A1        1 87.424 1.2965  0.245   
++ Use       2 88.284 1.0510  0.400   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
              Df    AIC      F Pr(>F)   
-- Moisture    3 87.082 1.9764  0.010 **
+- Moisture    3 87.082 1.9764  0.015 * 
 - Management  3 87.707 2.1769  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.345
-+ A1      1 86.220 0.8359  0.640
-+ Use     2 86.842 0.8027  0.700
++ Manure  3 85.762 1.1225  0.255
++ A1      1 86.220 0.8359  0.625
++ Use     2 86.842 0.8027  0.780
 
 > mod
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
@@ -7919,8 +7880,8 @@ Number of permutations: 999
 
 Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
            Df Variance      F Pr(>F)   
-Management  3   18.938 2.1769  0.005 **
-Moisture    3   17.194 1.9764  0.006 **
+Management  3   18.938 2.1769  0.003 **
+Moisture    3   17.194 1.9764  0.005 **
 Residual   13   37.699                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -7933,21 +7894,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > with(dune.env, ordiellipse(mod, Management, label = TRUE))
 > ## add fitted surface of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
-Loading required package: mgcv
-Loading required package: nlme
-This is mgcv 1.7-27. For overview type 'help("mgcv-package")'.
 
 Family: gaussian 
 Link function: identity 
 
 Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-<environment: 0x84b2db8>
 
 Estimated degrees of freedom:
 1.28  total = 2.28 
 
-REML score: 3.006229
+REML score: 3.00623     
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
 > adonis(dune ~ ., dune.env)
@@ -7955,14 +7912,17 @@ REML score: 3.006229
 Call:
 adonis(formula = dune ~ ., data = dune.env) 
 
+Permutation: free
+Number of permutations: 999
+
 Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 A1          1    0.7230 0.72295  5.2038 0.16817  0.001 ***
-Moisture    3    1.1871 0.39569  2.8482 0.27613  0.004 ** 
-Management  3    0.9036 0.30121  2.1681 0.21019  0.026 *  
-Use         2    0.0921 0.04606  0.3315 0.02143  0.983    
-Manure      3    0.4208 0.14026  1.0096 0.09787  0.441    
+Moisture    3    1.1871 0.39569  2.8482 0.27613  0.006 ** 
+Management  3    0.9036 0.30121  2.1681 0.21019  0.023 *  
+Use         2    0.0921 0.04606  0.3315 0.02143  0.982    
+Manure      3    0.4208 0.14026  1.0096 0.09787  0.481    
 Residuals   7    0.9725 0.13893         0.22621           
 Total      19    4.2990                 1.00000           
 ---
@@ -7972,11 +7932,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call:
 adonis(formula = dune ~ Management + Moisture, data = dune.env) 
 
+Permutation: free
+Number of permutations: 999
+
 Terms added sequentially (first to last)
 
            Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-Management  3    1.4686 0.48953  3.7907 0.34161  0.002 ** 
-Moisture    3    1.1516 0.38387  2.9726 0.26788  0.001 ***
+Management  3    1.4686 0.48953  3.7907 0.34161  0.001 ***
+Moisture    3    1.1516 0.38387  2.9726 0.26788  0.002 ** 
 Residuals  13    1.6788 0.12914         0.39051           
 Total      19    4.2990                 1.00000           
 ---
@@ -7985,9 +7948,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > cleanEx()
-
-detaching ‘package:mgcv’, ‘package:nlme’
-
 > nameEx("vegandocs")
 > ### * vegandocs
 > 
@@ -8495,7 +8455,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.424 0.147 27.577 0 0 
+Time elapsed:  23.508 0.116 23.692 0 0 
 > grDevices::dev.off()
 null device 
           1 

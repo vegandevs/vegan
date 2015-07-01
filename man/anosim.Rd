@@ -10,7 +10,7 @@
   of sampling units.
 }
 \usage{
-anosim(dat, grouping, permutations = 999, distance = "bray", strata,
+anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
     parallel = getOption("mc.cores"))
 }
 
@@ -19,8 +19,10 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.}
   \item{grouping}{Factor for grouping observations.}
-  \item{permutations}{Number of permutations or a permutation matrix
-    where each row gives the permuted indices.}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations. See \code{\link{vegdist}} for
     options.  This will be used if \code{dat} was not a dissimilarity
@@ -31,7 +33,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
 }
 \details{
   Analysis of similarities (ANOSIM) provides a way to test statistically
@@ -59,7 +61,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   permuting the grouping vector to obtain the empirical distribution
   of \eqn{R} under null-model.  See \code{\link{permutations}} for
   additional details on permutation tests in Vegan. The distribution
-  of simulated values can be inspected with the \code{density}
+  of simulated values can be inspected with the \code{\link{permustats}}
   function.
 
   The function has \code{summary} and \code{plot} methods.  These both
@@ -76,13 +78,15 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata,
   \item{statistic}{The value of ANOSIM statistic \eqn{R}}
   \item{signif}{Significance from permutation.}
   \item{perm}{Permutation values of \eqn{R}. The distribution of
-    permutation values can be inspected with function \code{\link{density.anosim}}.}
+    permutation values can be inspected with function \code{\link{permustats}}.}
   \item{class.vec}{Factor with value \code{Between} for dissimilarities
     between classes and class name for corresponding dissimilarity
     within class.}
   \item{dis.rank}{Rank of dissimilarity entry.}
   \item{dissimilarity}{The name of the dissimilarity index: the
     \code{"method"} entry of the \code{dist} object.}
+  \item{control}{A list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}.}
 }
 \references{
   Clarke, K. R. (1993). Non-parametric multivariate analysis of changes

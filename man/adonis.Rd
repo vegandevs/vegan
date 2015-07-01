@@ -24,9 +24,10 @@ adonis(formula, data, permutations = 999, method = "bray",
   Value below).} 
   \item{data}{ the data frame from which \code{A}, \code{B}, and
     \code{C} would be drawn.} 
-  \item{permutations}{ number of replicate permutations or a
-    permutation matrix where each row gives the permuted indices used
-    for the hypothesis tests (\eqn{F} tests).}
+  \item{permutations}{a list of control values for the permutations
+    as returned by the function \code{\link[permute]{how}}, or the
+    number of permutations required, or a permutation matrix where each
+    row gives the permuted indices.}
   \item{method}{ the name of any method used in \code{\link{vegdist}} to
     calculate pairwise distances if the left hand side of the
     \code{formula} was a data frame or a matrix. } 
@@ -37,7 +38,7 @@ adonis(formula, data, permutations = 999, method = "bray",
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.}
+    package.}
   \item{\dots}{Other arguments passed to \code{vegdist}.}
 }
 
@@ -137,9 +138,8 @@ overview of rules.
     your predictors. }   
   \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
     statistics for each source of variation based on \eqn{N}
-    permutations of the data. The distribution of a single term can be
-    inspected with \code{\link{density.adonis}} function, or all terms
-    simultaneously with \code{densityplot.adonis}.}
+    permutations of the data. The permutations can be inspected with
+    \code{\link{permustats}} and its support functions.}
   \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
     side of the formula.}
   \item{terms}{The \code{\link{terms}} component of the model.}
@@ -211,10 +211,10 @@ Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y)
 plot(mod)
 ### Hulls show treatment
-ordihull(mod, group=dat$NO3, show="0")
-ordihull(mod, group=dat$NO3, show="10", col=3)
+with(dat, ordihull(mod, group=NO3, show="0"))
+with(dat, ordihull(mod, group=NO3, show="10", col=3))
 ### Spider shows fields
-ordispider(mod, group=dat$field, lty=3, col="red")
+with(dat, ordispider(mod, group=field, lty=3, col="red"))
 
 ### Correct hypothesis test (with strata)
 adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)

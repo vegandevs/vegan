@@ -4,12 +4,8 @@ function (grad, veg, indices = c("euc", "man", "gow", "bra",
      metric = c("euclidean", "mahalanobis", "manhattan", "gower"), ...) 
 {
     metric = match.arg(metric)
-    if (metric == "gower")
-        require(cluster) || stop("metric = 'gower' needs package 'cluster'")
     grad <- as.data.frame(grad)
     if (any(sapply(grad, is.factor))) {
-        require(cluster) || stop("factors in 'grad' need package 'cluster'")
-        message("'grad' included factors: used cluster:::daisy")
         span <- daisy(grad)
     } else {
         span <- switch(metric,
@@ -29,7 +25,7 @@ function (grad, veg, indices = c("euc", "man", "gow", "bra",
     names(res) <- nam
     ## indices is a list of functions which return dist objects
     if (is.list(indices)) {
-        for (i in 1:length(indices)) {
+        for (i in seq_along(indices)) {
             ## don't accept similarities
             if (indices[[i]](matrix(1, 2, 2)) != 0)
                 stop("define dissimilarity and not similarity")

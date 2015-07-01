@@ -28,8 +28,9 @@
     }
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function accepts only integers (counts)")
-    freq <- x[x > 0]
     X <- x[x > 0]
+    N <- sum(X)
+    SSC <- 1 # (N-1)/N # do NOT use small-sample correction
     T.X <- table(X)
     S.obs <- length(X)
     S.rare <- sum(T.X[as.numeric(names(T.X)) <= 10])
@@ -41,18 +42,48 @@
     }
     a <- sapply(i, COUNT, X)
     G <- a[1]/a[2]
-    S.Chao1 <- S.obs + a[1] * (a[1] - 1) / (a[2] + 1)/ 2
+    ## EstimateS uses basic Chao only if a[2] > 0, and switches to
+    ## bias-corrected version only if a[2] == 0. However, we always
+    ## use bias-corrected form. The switchin code is commented out so
+    ## that it is easy to put back.
+
+    ##if (a[2] > 0)
+    ##    S.Chao1 <- S.obs + SSC * a[1]^2/2/a[2]
+    ##else if (a[1] > 0)
+    ##
+    S.Chao1 <- S.obs + SSC * a[1]*(a[1]-1) / (a[2]+1)/2
+    ##else
+    ##    S.Chao1 <- S.obs
     Deriv.Ch1 <- gradF(a, i)
-    sd.Chao1 <- sqrt(a[2] * ((G^4)/4 + G^3 + (G^2)/2))
+
+    ## The commonly used variance estimator is wrong for bias-reduced
+    ## Chao estimate. It is based on the variance estimator of basic
+    ## Chao estimate, but replaces the basic terms with corresponding
+    ## terms in the bias-reduced estimate. The following is directly
+    ## derived from the bias-reduced estimate.
+
+    ## The commonly used one (for instance, in EstimateS):
+    ##sd.Chao1 <-
+    ##    sqrt(SSC*(a[1]*(a[1]-1)/2/(a[2]+1) +
+    ##              SSC*(a[1]*(2*a[1]-1)^2/4/(a[2]+1)^2 +
+    ##                  a[1]^2*a[2]*(a[1]-1)^2/4/(a[2]+1)^4)))
+
+    sd.Chao1 <- (a[1]*((-a[2]^2+(-2*a[2]-a[1])*a[1])*a[1] +
+                       (-1+(-4+(-5-2*a[2])*a[2])*a[2] +
+                        (-2+(-1+(2*a[2]+2)*a[2])*a[2] +
+                         (4+(6+4*a[2])*a[2] + a[1]*a[2])*a[1])*a[1])*S.Chao1))/
+                             4/(a[2]+1)^4/S.Chao1
+    sd.Chao1 <- sqrt(sd.Chao1)
+
     C.ace <- 1 - a[1]/N.rare
-    i <- 1:length(a)
+    i <- seq_along(a)
     thing <- i * (i - 1) * a
     Gam <- sum(thing) * S.rare/(C.ace * N.rare * (N.rare - 1)) - 
         1
     S.ACE <- S.abund + S.rare/C.ace + max(Gam, 0) * a[1]/C.ace
     sd.ACE <- sqrt(sum(Deriv.Ch1 %*% t(Deriv.Ch1) * (diag(a) - 
                                                      a %*% t(a)/S.ACE)))
-    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1, 
+    out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1,
                 S.ACE = S.ACE, se.ACE = sd.ACE)
     out <- unlist(out)
     out

@@ -4,8 +4,6 @@
               parallel = getOption("mc.cores"), ...) 
 {
     engine <- match.arg(engine, c("monoMDS", "isoMDS"))
-    if (engine == "isoMDS")
-        require(MASS) || stop("Needs package MASS (function isoMDS)")
     EPS <- 0.05
     if (engine == "monoMDS")
         EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100) 
@@ -76,7 +74,7 @@
     if (is.null(parallel))
         parallel <- 1
     hasClus <- inherits(parallel, "cluster")
-    isParal <- (hasClus || parallel > 1) && require(parallel)
+    isParal <- hasClus || parallel > 1
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)

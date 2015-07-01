@@ -25,7 +25,7 @@
 {
     weights.default <- function(object, ...) NULL
     if(!missing(thinplate)) {
-        warning("Use of 'thinplate' is deprecated and will soon be removed;\nuse 'isotropic' instead.")
+        warning("use of 'thinplate' is deprecated and will soon be removed;\nuse 'isotropic' instead")
         isotropic <- thinplate
     }
     ## GRID no user-definable - why 31?
@@ -33,7 +33,6 @@
     w <- eval(w)
     if (!is.null(w) && length(w) == 1)
         w <- NULL
-    require(mgcv) || stop("Requires package 'mgcv'")
     X <- scores(x, choices = choices, display = display, ...)
     ## The original name of 'y' may be lost in handling NA: save for
     ## plots
@@ -48,9 +47,9 @@
     x2 <- X[, 2]
     ## handle fx - allow vector of length up to two
     if(!(missfx <- missing(fx)) && missing(knots))
-        warning("Requested fixed d.f. splines but without specifying 'knots'.\nSwitching to 'fx = FALSE'.")
+        warning("requested fixed d.f. splines but without specifying 'knots':\nswitching to 'fx = FALSE'")
     if (length(fx) > 2L)
-        warning("Length of 'fx' supplied exceeds '2'. Using the first two.")
+        warning("length of 'fx' supplied exceeds '2': using the first two")
     ## expand fx robustly, no matter what length supplied
     fx <- rep(fx, length.out = 2)
     ## can't have `fx = TRUE` and `select = TRUE`
@@ -59,17 +58,17 @@
             warning("'fx = TRUE' requested; using 'select = FALSE'")
             select <- FALSE
         } else if(!miss.select && isTRUE(select)){
-            stop("Fixed d.f. splines ('fx = TRUE') incompatible with 'select = TRUE'")
+            stop("fixed d.f. splines ('fx = TRUE') incompatible with 'select = TRUE'")
         }
     }
     ## handle knots - allow vector of length up to two
     if (length(knots) > 2L)
-        warning("Length of 'knots' supplied exceeds '2'. Using the first two.")
+        warning("length of 'knots' supplied exceeds '2': using the first two")
     ## expand knots robustly, no matter what length supplied
     knots <- rep(knots, length.out = 2)
     ## handle the bs - we only allow some of the possible options
     if (length(bs) > 2L)
-        warning("Number of basis types supplied exceeds '2'. Only using the first two.")
+        warning("number of basis types supplied exceeds '2': only using the first two")
     bs <- rep(bs, length.out = 2)
     ## check allowed types
     BS <- c("tp","ts","cr","cs","ds","ps","ad")
@@ -83,7 +82,7 @@
     }
     ## can't use "cr", "cs", "ps" in 2-d smoother with s()
     if(isTRUE(isotropic) && any(bs %in% c("cr", "cs", "ps"))) {
-        stop("Bases \"cr\", \"cs\", and \"ps\" not allowed in isotropic smooths.")
+        stop("bases \"cr\", \"cs\", and \"ps\" not allowed in isotropic smooths")
     }
     ## Build formula
     if (knots[1] <= 0) {

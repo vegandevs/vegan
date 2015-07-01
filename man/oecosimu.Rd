@@ -3,8 +3,6 @@
 \alias{oecosimu}
 \alias{as.ts.oecosimu}
 \alias{as.mcmc.oecosimu}
-\alias{density.oecosimu}
-\alias{densityplot.oecosimu}
 
 \title{Evaluate Statistics with Null Models of Biological Communities }
 
@@ -32,8 +30,6 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    batchsize = NA, parallel = getOption("mc.cores"), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
-\method{density}{oecosimu}(x, ...)
-\method{densityplot}{oecosimu}(x, data, xlab = "Simulated", ...)
 }
 
 \arguments{
@@ -82,14 +78,12 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
-    package which is available only for \R 2.14.0 and later.  If you
-    define a \code{nestfun} in Windows that needs other \R packages
-    than \pkg{vegan} or \pkg{permute}, you must set up a scoket
-    cluster before the call. See \code{\link{vegandocs}}
+    package.  If you define a \code{nestfun} in Windows that needs other
+    \R packages than \pkg{vegan} or \pkg{permute}, you must set up a
+    socket cluster before the call. See \code{\link{vegandocs}}
     \code{decision-vegan} for details. }
   \item{x}{An \code{oecosimu} result object.}
-  \item{data}{Ignored argument of the generic function.}
-  \item{xlab}{Label of the x-axis.}
+
   \item{\dots}{Other arguments to functions.}
 }
 
@@ -167,18 +161,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   methods, and summary of the results. Please consult the
   documentation of the \pkg{coda} package.
 
-  Function \code{density} provides an interface to the
-  standard \code{\link{density}} function for the simulated
-  values. Function \code{densityplot} is an interface to the
-  \code{\link[lattice]{densityplot}} function of the \pkg{lattice}
-  package. The \code{density} can be used meaningfully only for single
-  statistics and must be plotted separately. The \code{densityplot}
-  function can handle multiple statistics, and it plots the results
-  directly. In addition to the density, the \code{densityplot} also
-  shows the observed value of the statistic (provided it is within the
-  graph limits). The \code{densityplot} function is defined as a
-  generic function in the \pkg{lattice} package and you must either
-  load the \pkg{lattice} library before calling \code{densityplot}.
+  Function \code{\link{permustats}} provides support to the standard
+  \code{\link{density}}, \code{\link[lattice]{densityplot}},
+  \code{\link{qqnorm}} and \code{\link[lattice]{qqmath}} functions for
+  the simulated values.
 }
 
 \value{ 
@@ -191,8 +177,8 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \item{statistic}{Observed values of the statistic.}
   \item{simulated}{Simulated values of the statistic.}
   \item{means}{Mean values of the statistic from simulations.}
-  \item{z}{\eqn{z}-values or the standardized effect sizes of the observed 
-     statistic based on simulations.}
+  \item{z}{Standardized effect sizes (SES, a.k.a. the \eqn{z}-values)
+     of the observed statistic based on simulations.}
   \item{pval}{The \eqn{P}-values of the statistic based on simulations.}
   \item{alternative}{The type of testing as given in argument \code{alternative}.}
   \item{method}{The \code{method} used in \code{\link{nullmodel}}.}
@@ -262,7 +248,7 @@ plot(as.ts(out))
 lag.plot(as.ts(out))
 acf(as.ts(out))
 ## Density plot
-densityplot(out, as.table = TRUE)
+densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)

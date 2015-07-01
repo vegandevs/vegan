@@ -1,6 +1,6 @@
-tsallisaccum <-
-function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE,
-          subset, ...)
+`tsallisaccum` <-
+    function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE,
+              subset, ...)
 {
     if (!missing(subset))
         x <- subset(x, subset)
@@ -12,12 +12,13 @@ function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE,
         n <- nrow(x)
         p <- ncol(x)
     }
+    pmat <- getPermuteMatrix(permutations, n)
     m <- length(scales)
     result <- array(dim = c(n, m, permutations))
     dimnames(result) <- list(pooled.sites = c(1:n), scale = scales, 
         permutation = c(1:permutations))
     for (k in 1:permutations) {
-        result[, , k] <- as.matrix(tsallis((apply(x[sample(n), 
+        result[, , k] <- as.matrix(tsallis((apply(x[pmat[k,], 
             ], 2, cumsum)), scales = scales, ...))
     }
     if (raw) {
@@ -43,6 +44,7 @@ function (x, scales = seq(0, 2, 0.2), permutations = 100, raw = FALSE,
         dimnames(result) <- list(pooled.sites = c(1:n), scale = scales, 
             c("mean", "stdev", "min", "max", "Qnt 0.025", "Qnt 0.975"))
     }
+    attr(result, "control") <- attr(pmat, "control")
     class(result) <- c("tsallisaccum", "renyiaccum", class(result))
     result
 }

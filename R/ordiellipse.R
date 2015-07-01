@@ -31,22 +31,29 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     res <- list()
-    if (label)
-        cntrs <- names <- NULL
+    if (label) {
+        cntrs <- matrix(NA, nrow=length(inds), ncol=2)
+        rownames(cntrs) <- inds
+    }
     ## Remove NA scores
-    kk <- complete.cases(pts)
+    kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
         gr <- out[groups == is & kk]
-        if (length(gr) > 1) {
-            X <- pts[gr, ]
+        if (length(gr)) {
+            X <- pts[gr, , drop = FALSE]
             W <- w[gr]
             mat <- cov.wt(X, W)
+            if (mat$n.obs == 1)
+                mat$cov[] <- 0
             if (kind == "se")
                 mat$cov <- mat$cov/mat$n.obs
             if (missing(conf))
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
-            xy <- veganCovEllipse(mat$cov, mat$center, t)
+            if (mat$n.obs > 1)
+                xy <- veganCovEllipse(mat$cov, mat$center, t)
+            else
+                xy <- X
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines,
                                 col = if(is.null(col)) par("fg") else col,
@@ -55,8 +62,7 @@
                 ordiArgAbsorber(xy[, 1], xy[, 2], col = col, FUN = polygon,
                                 ...)
             if (label && draw != "none") {
-                cntrs <- rbind(cntrs, mat$center)
-                names <- c(names, is)
+                cntrs[is,] <- mat$center
             }
             mat$scale <- t
             res[[is]] <- mat
@@ -64,10 +70,10 @@
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels=names, col = col,  
-                            FUN = text, ...)
+            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
+                            col = col,  FUN = text, ...)
         else 
-            ordiArgAbsorber(cntrs, labels = names, col = NULL,
+            ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)
     }
     class(res) <- "ordiellipse"

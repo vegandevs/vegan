@@ -5,8 +5,11 @@
     function(object, ...)
 {
     cnts <- sapply(object, function(x) x$center)
+    ## 2nd eigenvalue should be zero if points are on line (like two
+    ## points), but sometimes it comes out negative, and area is NaN
     areas <- sapply(object,
                     function(x)
-                    prod(sqrt(eigen(x$cov)$values)) * pi * x$scale^2)
+                        prod(sqrt(pmax(0, eigen(x$cov)$values))) *
+                            pi * x$scale^2)
     rbind(cnts, `Area` = areas)
 }
