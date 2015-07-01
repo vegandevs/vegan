@@ -136,6 +136,8 @@
     LC <- as.data.frame(LC)
     fla <- reformulate(names(LC))
     Pvals <- rep(NA, length(eig))
+    F.perm <- matrix(ncol = length(eig), nrow = nperm)
+    
     environment(object$terms) <- environment()
     for (i in seq_along(eig)) {
         part <- paste("~ . +Condition(",
@@ -150,7 +152,8 @@
                 permutest(update(object, upfla, data = LC),
                           permutations, model = model,
                           parallel = parallel)
-        Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1)/(nperm+1)
+        Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1) / (nperm + 1)
+        F.perm[ , i] <- mod$F.perm
         if (Pvals[i] > cutoff)
             break
     }
@@ -166,6 +169,7 @@
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
-    class(out) <- c("anova", "data.frame")
+    attr(out, "F.perm") <- F.perm
+    class(out) <- c("anova.cca", "anova", "data.frame")
     out
 }
