@@ -17,9 +17,9 @@
     trmlab <- trmlab[trmlab %in% attr(terms(object$terminfo),
                                       "term.labels")]
     ntrm <- length(trmlab)
-    m0 <- update(object, paste(".~.-", paste(trmlab, collapse="-")))
+    m0 <- update(object, paste(".~.-", paste(trmlab, collapse = "-")))
     mods <- list(m0)
-    for(i in seq_along(trmlab)) {
+    for (i in seq_along(trmlab)) {
         fla <- paste(". ~ . + ", trmlab[i])
         mods[[i+1]] <- update(mods[[i]], fla)
     }
@@ -27,10 +27,10 @@
     sol <- anova.ccalist(mods, permutations = permutations,
                          model = model, parallel = parallel)
     ## Reformat
-    out <- data.frame(c(sol[-1,3], sol[ntrm+1,1]),
-                      c(sol[-1,4], sol[ntrm+1,2]),
-                      c(sol[-1,5], NA),
-                      c(sol[-1,6], NA))
+    out <- data.frame(c(sol[-1, 3], sol[ntrm+1, 1]),
+                      c(sol[-1, 4], sol[ntrm+1, 2]),
+                      c(sol[-1, 5], NA),
+                      c(sol[-1, 6], NA))
     isRDA <- inherits(object, "rda")
     colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
                        "F", "Pr(>F)")
@@ -62,7 +62,7 @@
         trms <- drop.scope(object)
     trmlab <- trms[trms %in% attr(terms(object$terminfo),
                                       "term.labels")]
-    if(length(trmlab) == 0)
+    if (length(trmlab) == 0)
         stop("the scope was empty: no available marginal terms")
     ## baseline: all terms
     big <- permutest(object, permutations, ...)
@@ -85,7 +85,7 @@
     Fval <- sapply(mods, function(x) x$num)
     ## Had we an empty model we need to clone the denominator
     if (length(Fval) == 1)
-        Fval <- matrix(Fval, nrow=nperm)
+        Fval <- matrix(Fval, nrow = nperm)
     Fval <- sweep(-Fval, 1, big$num, "+")
     Fval <- sweep(Fval, 2, Df, "/")
     Fval <- sweep(Fval, 1, scale, "/")
@@ -104,7 +104,8 @@
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
-    class(out) <- c("anova", "data.frame")
+    attr(out, "F.perm") <- sapply(mods, function(y) y$F.perm)
+    class(out) <- c("anova.cca", "anova", "data.frame")
     out
 }
 
@@ -124,10 +125,10 @@
     ## missing values?
     if (!is.null(object$na.action))
         LC <- napredict(structure(object$na.action,
-                                  class="exclude"), LC)
+                                  class = "exclude"), LC)
     ## subset?
     if (!is.null(object$subset)) {
-        tmp <- matrix(NA, nrow=length(object$subset),
+        tmp <- matrix(NA, nrow = length(object$subset),
                       ncol = ncol(LC))
         tmp[object$subset,] <- LC
         LC <- tmp
