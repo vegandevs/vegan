@@ -116,7 +116,7 @@
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
-    attr(out, "F.perm") <- sapply(mods, function(y) y$F.perm)
+    attr(out, "F.perm") <- Fval
     class(out) <- c("anova.cca", "anova", "data.frame")
     out
 }
