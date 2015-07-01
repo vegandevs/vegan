@@ -254,6 +254,7 @@ S3method(permustats, ordiareatest)
 S3method(permustats, permutest.betadisper)
 S3method(permustats, permutest.cca)
 S3method(permustats, protest)
+S3method(permustats, anova.cca)
 ## these return an error: no permutation data
 S3method(permustats, CCorA)
 S3method(permustats, envfit)
