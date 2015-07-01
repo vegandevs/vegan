@@ -273,13 +273,15 @@
 
 `permustats.anova.cca` <-
     function(x, ...)
-    {
-       F.perm <- attr(x, "F.perm")
-       k <- !is.na(x$F)
-       F.0 <- x$F[k]
-       structure(list(
-           "statistic" = structure(F.0, names = rownames(x)[k]),
-           "permutations" = F.perm,
-           "alternative" = "greater"),
-           class = "permustats")
-    }
+{
+    if (is.null(attr(x, "F.perm")))
+        stop("no permutation data available")
+    F.perm <- attr(x, "F.perm")
+    k <- !is.na(x$F)
+    F.0 <- x$F[k]
+    structure(list(
+       "statistic" = structure(F.0, names = rownames(x)[k]),
+       "permutations" = F.perm,
+       "alternative" = "greater"),
+       class = "permustats")
+}
