@@ -73,8 +73,9 @@ S3method(densityplot, oecosimu)
 import(stats)
 import(graphics)
 import(permute)
-importFrom(utils, head, tail, str)
+importFrom(utils, browseURL, combn, flush.console, head, object.size, tail, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
+import(grDevices) ## too many functions to be listed separately
 import(lattice)
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply)
