@@ -27,8 +27,8 @@
     ## 4. Terms must be nested
     trms <- lapply(object, function(z) labels(terms(z)))
     o  <- order(sapply(trms, length))
-    for(i in 2:nmodels) 
-        if(!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
+    for (i in 2:nmodels) 
+        if (!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
             stop("models must be nested")
         
     ## Check permutation matrix
@@ -65,7 +65,7 @@
     pfvals <- apply(pfvals, 1, diff)
     ## dropped to vector?
     if (!is.matrix(pfvals))
-        pfvals <- matrix(pfvals, nrow=1, ncol=nperm)
+        pfvals <- matrix(pfvals, nrow = 1, ncol = nperm)
     pfvals <- sweep(pfvals, 1, df, "/")
     pfvals <- sweep(pfvals, 2, pscale, "/")
     pval <- rowSums(sweep(pfvals, 1, fval - EPS, ">="))
@@ -90,5 +90,7 @@
                    howHead(attr(permutations, "control")))
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
-    structure(table, heading=c(head,topnote), class = c("anova", "data.frame"))
+    structure(table, heading = c(head,topnote), 
+              F.perm = t(pfvals),
+              class = c("anova.cca", "anova", "data.frame"))
 }
