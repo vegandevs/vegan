@@ -270,3 +270,15 @@
                    "alternative" = alt),
               class ="permustats")
 }
+
+`permustats.anova.cca` <-
+    function(x, ...)
+    {
+       F.perm <- attr(x, "F.perm")
+       F.0 <- x$F[1]
+       structure(list(
+           "statistic" = structure(F.0, names = "F"),
+           "permutations" = F.perm,
+           "alternative" = "greater"),
+           class="permustats")
+    }
