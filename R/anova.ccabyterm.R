@@ -151,7 +151,6 @@
     fla <- reformulate(names(LC))
     Pvals <- rep(NA, length(eig))
     F.perm <- matrix(ncol = length(eig), nrow = nperm)
-    
     environment(object$terms) <- environment()
     for (i in seq_along(eig)) {
         part <- paste("~ . +Condition(",
