@@ -114,7 +114,7 @@ permustats(x, ...)
   Jari Oksanen with contributions from Gavin L. Simpson
   (\code{permustats.permutest.betadisper} method and related
   modifications to \code{summary.permustats} and the \code{print}
-  method) and Eduard Szöcs (\code{permustats.anova.cca).}
+  method) and Eduard Szoecs (\code{permustats.anova.cca).}
 }
 
 \seealso{
