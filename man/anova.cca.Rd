@@ -147,8 +147,8 @@
   The function \code{anova.cca} calls \code{permutest.cca} and fills an
   \code{\link{anova}} table. Additional attributes are 
   \code{Random.seed} (the random seeds used), 
-  \code{\link[=how]{control}} (the permutation design) and 
-  \code{F.perm} (the permutet test statistics).
+  \code{control} (the permutation design, see \link[permute]{how}) and 
+  \code{F.perm} (the permuted test statistics).
 }
 
 \note{
