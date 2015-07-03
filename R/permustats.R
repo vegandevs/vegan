@@ -147,10 +147,10 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = structure(x$statistic, names="R"),
+        "statistic" = structure(x$statistic, names = "R"),
         "permutations" = x$perm,
         "alternative" = "greater"),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.adonis` <-
@@ -162,27 +162,27 @@
         "statistic" = structure(tab$F.Model[k], names = rownames(tab)[k]),
         "permutations" = x$f.perms,
         "alternative" = "greater"),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.mantel` <-
     function(x, ...)
 {
     structure(list(
-        "statistic" = structure(x$statistic, names="r"),
+        "statistic" = structure(x$statistic, names = "r"),
         "permutations" = x$perm,
         "alternative" = "greater"),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.mrpp` <-
     function(x, ...)
 {
     structure(list(
-        "statistic" = structure(x$delta, names="delta"),
+        "statistic" = structure(x$delta, names = "delta"),
         "permutations" = x$boot.deltas,
         "alternative" = "less"),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.oecosimu` <-
@@ -192,7 +192,7 @@
         "statistic" = x$oecosimu$statistic,
         "permutations" = t(x$oecosimu$simulated),
         "alternative" = x$oecosimu$alternative),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.ordiareatest` <-
@@ -212,7 +212,7 @@
         "statistic" = structure(x$F.0, names = "F"),
         "permutations" = x$F.perm,
         "alternative" = "greater"),
-              class="permustats")
+              class = "permustats")
 }
 
 `permustats.protest` <-
@@ -222,7 +222,7 @@
         "statistic" = structure(x$t0, names = "r"),
         "permutations" = x$t,
         "alternative" = "greater"),
-              class="permustats")
+              class = "permustats")
 }
 
 ### the following do not return permutation data
@@ -268,5 +268,20 @@
     structure(list("statistic" = x$statistic,
                    "permutations" = x$perm,
                    "alternative" = alt),
-              class ="permustats")
+              class = "permustats")
+}
+
+`permustats.anova.cca` <-
+    function(x, ...)
+{
+    if (is.null(attr(x, "F.perm")))
+        stop("no permutation data available")
+    F.perm <- attr(x, "F.perm")
+    k <- !is.na(x$F)
+    F.0 <- x$F[k]
+    structure(list(
+       "statistic" = structure(F.0, names = rownames(x)[k]),
+       "permutations" = F.perm,
+       "alternative" = "greater"),
+       class = "permustats")
 }

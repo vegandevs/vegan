@@ -1,7 +1,9 @@
+\encoding{UTF-8}
 \name{permustats}
 \alias{permustats}
 \alias{permustats.adonis}
 \alias{permustats.anosim}
+\alias{permustats.anova.cca}
 \alias{permustats.CCorA}
 \alias{permustats.envfit}
 \alias{permustats.factorfit}
@@ -91,13 +93,11 @@ permustats(x, ...)
   arguments to their underlying functions; see their documentation.
 
   The \code{permustats} can extract permutation statistics from the
-  results of \code{\link{adonis}}, \code{\link{anosim}},
-  \code{\link{mantel}}, \code{\link{mantel.partial}},
+  results of \code{\link{adonis}}, \code{\link{anosim}}, 
+  \code{\link{anova.cca}}, \code{\link{mantel}}, \code{\link{mantel.partial}},
   \code{\link{mrpp}}, \code{\link{oecosimu}}, \code{\link{ordiareatest}},
   \code{\link{permutest.cca}}, \code{\link{protest}}, and
-  \code{\link{permutest.betadisper}}. NB, there is no \code{permustats}
-  method for \code{\link{anova.cca}}, but only for
-  \code{\link{permutest.cca}}.
+  \code{\link{permutest.betadisper}}. 
 
 }
 
@@ -115,7 +115,7 @@ permustats(x, ...)
   Jari Oksanen with contributions from Gavin L. Simpson
   (\code{permustats.permutest.betadisper} method and related
   modifications to \code{summary.permustats} and the \code{print}
-  method.
+  method) and Eduard \enc{Szöcs}{Szoecs} (\code{permustats.anova.cca).}
 }
 
 \seealso{
