@@ -13,7 +13,7 @@
     tot <- rowSums(x)
     S <- specnumber(x)
     ## remove empty rows or we fail
-    if (any(S <= 1)) {
+    if (any(S <= 0)) {
         message("empty rows removed")
         x <- x[S > 0,, drop =FALSE]
         tot <- tot[S > 0]
