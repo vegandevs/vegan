@@ -98,7 +98,7 @@
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## use QR decomposition to get the components of inertia.
-    hasNegEig <- any(sol$eig < 0)
+    hasNegEig <- any(X$eig < 0)
     G <- -X$x/2
     if (adjust == 1)
         G <- G/k
