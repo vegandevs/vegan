@@ -165,24 +165,31 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   experiments. \emph{Ecological Monographs} 69, 1--24.
 
   Legendre, P. & Legendre, L. (2012).  \emph{Numerical Ecology}. 3rd English
-  Edition. Elsevier
+  Edition. Elsevier.
+
+  McArdle, B.H. & Anderson, M.J. (2001). Fitting multivariate models
+  to community data: a comment on distance-based redundancy
+  analysis. \emph{Ecology} 82, 290--297.
 }
+
 \author{ Jari Oksanen }
 
 \note{ The function produces negative eigenvalues with non-Euclidean
-  dissimilarity indices. The non-Euclidean component of inertia is
-  given under the title \code{Imaginary} in the printed output. The
-  \code{Total} inertia is the sum of all eigenvalues, but the sum of
-  all non-negative eigenvalues is given as \code{Real Total} (which is
-  higher than the \code{Total}). The ordination is based only on the
-  real dimensions with positive eigenvalues, and therefore the
-  proportions of inertia components only apply to the \code{Real
-  Total} and ignore the \code{Imaginary} component. Permutation tests
-  with \code{\link{anova.cca}} use only the real solution of positive
-  eigenvalues. Function \code{\link{adonis}} gives similar
-  significance tests, but it also handles the imaginary dimensions
-  (negative eigenvalues) and therefore its results may differ from
-  permutation test results of \code{capscale}.
+  dissimilarity indices. The total inertia in the printed output
+  includes these negative eigenvalues and is therefore lower than the
+  sum of eigenvalues for real axes (McArdle & Anderson 2001). If there
+  are negative eigenvalues, the normal printed output will have a new
+  column that shows sums of eigenvalues for real axes and the sum of
+  negative eigenvalues of imaginary axes.
+
+  The ordination is based only on the real dimensions with positive
+  eigenvalues. Permutation tests with \code{\link{anova.cca}} use both
+  the real and imaginary axes.
+
+  In older version of \pkg{vegan} the total inertia and permutation tests
+  were based only on real axes, but in \pkg{vegan} 2.4-0 they also
+  include the imaginary components following McArdle & Anderson
+  (2001).
 
   If the negative eigenvalues are disturbing, you can
   use argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
