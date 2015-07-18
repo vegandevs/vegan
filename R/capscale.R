@@ -98,23 +98,35 @@
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## use QR decomposition to get the components of inertia.
+    hasNegEig <- any(sol$eig < 0)
     G <- -X$x/2
     if (adjust == 1)
         G <- G/k
+    if (hasNegEig)
+        sol$real.tot.chi <- sol$tot.chi
     sol$tot.chi <- sum(diag(G))
     if (!is.null(sol$pCCA)) {
         sol$pCCA$G <- G
-        sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
+        if (hasNegEig) {
+            sol$pCCA$real.tot.chi <- sol$pCCA$tot.chi
+            sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
+        }
         G <- qr.resid(sol$pCCA$QR, G)
     }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         sol$CCA$G <- G
-        sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
+        if (hasNegEig) {
+            sol$CCA$real.tot.chi <- sol$CCA$tot.chi
+            sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
+        }
     }
-    if (!is.null(sol$CA) && !is.null(sol$CCA$QR))
-        sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
-    else
-        sol$CA$tot.chi <- sum(diag(G))
+    if (hasNegEig) {
+        sol$CA$real.tot.chi <- sol$CA$tot.chi
+        if (!is.null(sol$CA) && !is.null(sol$CCA$QR))
+            sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
+        else
+            sol$CA$tot.chi <- sum(diag(G))
+    }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
