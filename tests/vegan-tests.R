@@ -48,7 +48,10 @@ anova(p, permutations=99)
 ## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-anova(p, by="axis", permutations=99)
+## The next will fail in vegan 2.4-0 which changes handling
+## of imaginary eigenvalues and explicitly refuses to run
+## anova(<capscale-object>, by = "axis")
+##anova(p, by="axis", permutations=99) 
 ## see that capscale can be updated and also works with 'dist' input
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
@@ -56,7 +59,7 @@ anova(p, permutations=99)
 ## vegan 2.1-40 cannot handle missing data in next two
 ##anova(p, by="term", permutations=99)
 ##anova(p, by="margin", permutations=99)
-anova(p, by="axis", permutations=99)
+##anova(p, by="axis", permutations=99) ## fails in vegan 2.4-0
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -106,12 +109,12 @@ C <- factor(rep(c(1:5), each=6))
 
 ## partial db-RDA
 cap.model.cond <- capscale(X ~ A + B + Condition(C))
-anova(cap.model.cond, by="axis", strata=C)  # -> error pre r2287
+## anova(cap.model.cond, by="axis", strata=C)  # error stop in vegan 2.4-0
 anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 
 ## db-RDA without conditional factor
 cap.model <- capscale(X ~ A + B)
-anova(cap.model, by="axis", strata=C)  # -> no error
+## anova(cap.model, by="axis", strata=C)  # error stop in vegan 2.4-0
 anova(cap.model, by="terms", strata=C)  # -> no error
 
 # partial RDA
