@@ -113,6 +113,8 @@
 `anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
+    if (!is.null(object$CA$imaginary.chi))
+        stop("by = 'axis' cannot be used when there are negative eigenvalues")
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig
