@@ -36,6 +36,8 @@ export(pasteCall)
 export(anova.cca)
 ## Export as.mcmc for coda
 export(as.mcmc.oecosimu, as.mcmc.permat)
+## export oldCapscale for compatibility after new capscale design
+export(oldCapscale)
 
 ## export regular functions with dot names
 
