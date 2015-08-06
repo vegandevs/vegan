@@ -11,12 +11,15 @@
 \title{Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices }
 
 \description{ 
-  The function partitions the variation of response table Y with
-  respect to two, three, or four explanatory tables, using adjusted
-  \eqn{R^2}{R-squared} in redundancy analysis ordination (RDA). If Y
-  contains a single vector, partitioning is by partial regression.
-  Collinear variables in the explanatory tables do NOT have to be
-  removed prior to partitioning.  
+
+  The function partitions the variation in community data or community
+  dissimilarities with respect to two, three, or four explanatory
+  tables, using adjusted \eqn{R^2}{R-squared} in redundancy analysis
+  ordination (RDA) or distance-based redundancy analysis. If response
+  is a single vector, partitioning is by partial regression. Collinear
+  variables in the explanatory tables do NOT have to be removed prior
+  to partitioning.
+
 }
 
 \usage{
@@ -27,9 +30,12 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 }
 
 \arguments{
-\item{Y}{ Data frame or matrix containing the response data
-table. In community ecology, that table is often a site-by-species
-table. }
+
+\item{Y}{ Data frame or matrix containing the response data table or
+  dissimilarity structure inheriting from \code{\link{dist}}. In
+  community ecology, that table is often a site-by-species table or a
+  dissimilarity object. }
+
 \item{X}{Two to four explanatory models, variables or tables.  These can
   be defined in three alternative ways: (1) one-sided model formulae
   beginning with \code{~} and then defining the model, (2) name of a
@@ -46,11 +52,16 @@ table. }
   }
 \item{data}{The data frame with the variables used in the formulae in
   \code{X}.} 
+
 \item{transfo}{ Transformation for \code{Y} (community data) using
-  \code{\link{decostand}}.  All alternatives in \code{decostand} can be
-    used, and those preserving Euclidean metric include
-    \code{"hellinger"}, \code{"chi.square"}, \code{"total"}, \code{"norm"}.}
-\item{scale}{Should the columns of \code{Y} be standardized to unit variance}
+  \code{\link{decostand}}.  All alternatives in \code{decostand} can
+  be used, and those preserving Euclidean metric include
+  \code{"hellinger"}, \code{"chi.square"}, \code{"total"},
+  \code{"norm"}. Ignored if \code{Y} are dissimilarities.}
+
+\item{scale}{Should the columns of \code{Y} be standardized to unit
+  variance. Ignored if \code{Y} are dissimilarities.}
+
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.}
@@ -77,12 +88,21 @@ table. }
 }
 
 \details{
+
   The functions partition the variation in \code{Y} into components
   accounted for by two to four explanatory tables and their combined
-  effects. If \code{Y} is a multicolumn data frame or
-  matrix, the partitioning is based on redundancy analysis (RDA, see
+  effects. If \code{Y} is a multicolumn data frame or matrix, the
+  partitioning is based on redundancy analysis (RDA, see
   \code{\link{rda}}), and if \code{Y} is a single variable, the
-  partitioning is based on linear regression.  
+  partitioning is based on linear regression.  If \code{Y} are
+  dissimilarities, the decomposition is based on distance-based
+  redundancy analysis (db-RDA, see \code{\link{capscale}}) following
+  McArdle & Anderson (2001). The input dissimilarities must inherit
+  from \code{"dist"} class. Function \code{\link{dist}},
+  \code{\link{vegdist}} and \code{\link{designdist}} produce such
+  objects, as do many other dissimilarity functions in \R
+  packages. However, symmetric square matrices must be transformed
+  with \code{\link{as.dist}}.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
@@ -97,14 +117,14 @@ table. }
   or can be displayed graphically using function
   \code{showvarparts}.
 
-  A fraction is testable if it can be directly
-  expressed as an RDA model.  In these cases the printed output also
-  displays the corresponding RDA model using notation where explanatory
-  tables after \code{|} are conditions (partialled out; see
-  \code{\link{rda}} for details). Although single fractions can be
-  testable, this does not mean that all fractions simultaneously can be
-  tested, since there number of  testable fractions  is higher than
-  the number of estimated models.
+  A fraction is testable if it can be directly expressed as an RDA or
+  db-RDA model.  In these cases the printed output also displays the
+  corresponding RDA model using notation where explanatory tables
+  after \code{|} are conditions (partialled out; see \code{\link{rda}}
+  for details). Although single fractions can be testable, this does
+  not mean that all fractions simultaneously can be tested, since
+  there number of testable fractions is higher than the number of
+  estimated models.
 
   An abridged explanation of the alphabetic symbols for the individual
   fractions follows, but computational details should be checked in
@@ -202,10 +222,17 @@ transformations for ordination of species data. Oecologia 129: 271--280.
 Peres-Neto, P., P. Legendre, S. Dray and D. Borcard. 2006. Variation partitioning
 of species data matrices: estimation and comparison of fractions.
 Ecology 87: 2614--2625.
- }
+
+(d) References on partitioning of dissimilarities
+
+McArdle, B.H. & Anderson, M.J. (2001). Fitting multivariate models
+to community data: a comment on distance-based redundancy
+analysis. Ecology 82, 290-297.
+
+}
 
 \author{ Pierre Legendre, Departement de Sciences Biologiques, Universite de
-Montreal, Canada.  Adapted to \pkg{vegan} by Jari Oksanen. }
+Montreal, Canada.  Further developed by Jari Oksanen. }
 
 \note{
 
