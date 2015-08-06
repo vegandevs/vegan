@@ -8,9 +8,15 @@
         stop("needs 2 to 4 explanatory tables")
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
+        inert <- attr(Y, "method")
+        inert <- paste0(toupper(substring(inert, 1, 1)), substring(inert, 2))
+        inert <- paste("squared", inert, "distance")
+        RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
             message("arguments 'transfo' and 'scale' are ignored with distances")
     } else {
+        inert <- "variance"
+        RDA <- "RDA"
         if (!missing(transfo)) {
             Y <- decostand(Y, transfo)
             transfo <- attr(Y, "decostand")
@@ -41,9 +47,15 @@
                        varpart2(Y, Sets[[1]], Sets[[2]]),
                        varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]]),
                        varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]]))
+    if (inherits(Y, "dist"))
+        out$part$ordination <- "capscale"
+    else
+        out$part$ordination <- "rda"
     out$scale <- scale
     if (!missing(transfo))
         out$transfo <- transfo
+    out$inert <- inert
+    out$RDA <- RDA
     out$call <- match.call()
     mx <- rep(" ", length(X))
     for (i in seq_along(X)) mx[i] <- deparse(out$call[[i+2]], width.cutoff = 500)
