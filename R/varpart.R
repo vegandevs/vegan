@@ -6,15 +6,21 @@
     X <- list(X, ...)
     if ((length(X) < 2 || length(X) > 4))
         stop("needs 2 to 4 explanatory tables")
-    if (!missing(transfo)) {
-        Y <- decostand(Y, transfo)
-        transfo <- attr(Y, "decostand")
+    ## transfo and scale can be used only with non-distance data
+    if (inherits(Y, "dist")) {
+        if(!missing(transfo) || !missing(scale))
+            message("arguments 'transfo' and 'scale' are ignored with distances")
+    } else {
+        if (!missing(transfo)) {
+            Y <- decostand(Y, transfo)
+            transfo <- attr(Y, "decostand")
+        }
+        if (!missing(transfo) && (is.null(dim(Y)) || ncol(Y) == 1))
+            warning("Transformations probably are meaningless to a single variable")
+        if (scale && !missing(transfo))
+            warning("Y should not be both transformed and scaled (standardized)")
+        Y <- scale(Y, center = TRUE, scale = scale)
     }
-    if (!missing(transfo) && (is.null(dim(Y)) || ncol(Y) == 1))
-        warning("Transformations probably are meaningless to a single variable")
-    if (scale && !missing(transfo))
-        warning("Y should not be both transformed and scaled (standardized)")
-    Y <- scale(Y, center = TRUE, scale = scale)
     Sets <- list()
     for (i in seq_along(X)) {
         if (inherits(X[[i]], "formula")) {
