@@ -9,7 +9,6 @@
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
         inert <- attr(Y, "method")
-        inert <- paste0(toupper(substring(inert, 1, 1)), substring(inert, 2))
         inert <- paste("squared", inert, "distance")
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
