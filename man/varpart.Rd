@@ -7,6 +7,7 @@
 \alias{plot.varpart}
 \alias{plot.varpart234}
 \alias{simpleRDA2}
+\alias{simpleDBRDA}
 
 \title{Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices }
 
@@ -97,12 +98,13 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   partitioning is based on linear regression.  If \code{Y} are
   dissimilarities, the decomposition is based on distance-based
   redundancy analysis (db-RDA, see \code{\link{capscale}}) following
-  McArdle & Anderson (2001). The input dissimilarities must inherit
-  from \code{"dist"} class. Function \code{\link{dist}},
-  \code{\link{vegdist}} and \code{\link{designdist}} produce such
+  McArdle & Anderson (2001). The input dissimilarities must be
+  compatible to the results of \code{\link{dist}}. \pkg{Vegan}
+  functions \code{\link{vegdist}}, \code{\link{designdist}},
+  \code{\link{raupcrick}} and \code{\link{betadiver}} produce such
   objects, as do many other dissimilarity functions in \R
-  packages. However, symmetric square matrices must be transformed
-  with \code{\link{as.dist}}.
+  packages. However, symmetric square matrices are not recognized as
+  dissimilarities but must be transformed with \code{\link{as.dist}}.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
@@ -244,22 +246,23 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
 
   The functions frequently give negative estimates of variation.
   Adjusted \eqn{R^2}{R-squared} can be negative for any fraction;
-  unadjusted \eqn{R^2}{R-squared} of testable fractions always will be
-  non-negative.  Non-testable fractions cannot be found directly, but
-  by subtracting different models, and these subtraction results can
-  be negative.  The fractions are orthogonal, or linearly independent,
-  but more complicated or nonlinear dependencies can cause negative
-  non-testable fractions.
+  unadjusted \eqn{R^2}{R-squared} of testable fractions of variances
+  will be non-negative.  Non-testable fractions cannot be found
+  directly, but by subtracting different models, and these subtraction
+  results can be negative.  The fractions are orthogonal, or linearly
+  independent, but more complicated or nonlinear dependencies can
+  cause negative non-testable fractions. Any fraction can be negative
+  for non-Euclidean dissimilarities.
 
   The current function will only use RDA in multivariate
   partitioning. It is much more complicated to estimate the adjusted
   R-squares for CCA, and unbiased analysis of CCA is not currently
   implemented.
 
-  A simplified, fast version of RDA is used (function
-  \code{simpleRDA2}).  The actual calculations are done in functions
-  \code{varpart2} to \code{varpart4}, but these are not intended to be
-  called directly by the user.
+  A simplified, fast version of RDA or dbRDA are used (functions
+  \code{simpleRDA2} and \code{simpleDBRDA}).  The actual calculations
+  are done in functions \code{varpart2} to \code{varpart4}, but these
+  are not intended to be called directly by the user.
 
 }
 
@@ -302,6 +305,8 @@ anova(aFrac, step=200, perm.max=200)
 # RsquareAdj gives the same result as component [a] of varpart
 RsquareAdj(aFrac)
 
+# Partition Bray-Curtis dissimilarities
+varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
 # Three explanatory matrices 
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
