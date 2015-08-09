@@ -12,7 +12,7 @@
 }
 
 ### Analogous function, but the input must be Gower double-centred
-### dissimilarities 'G = -GowerDblcen(as.matrix(dist(Y^2)))/2'. The
+### dissimilarities 'G = -GowerDblcen(as.matrix(dist(Y)^2))/2'. The
 ### math is based on McArdle & Anderson, Ecology 82: 290-297 (2001).
 `simpleDBRDA` <-
     function(G, X, SS.G, ...)
