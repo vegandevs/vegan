@@ -48,11 +48,9 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
-    frame. If this is not supplied, the ``species scores'' are the axes
-    of initial metric scaling (\code{\link{cmdscale}}) and may be
-    confusing.}
+    frame. If this is not supplied, the ``species scores'' unavailable.}
   \item{add}{Logical indicating if an additive constant should be
-     computed, and added to the non-diagonal dissimilarities such
+     computed and added to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying
      Principal Co-ordinates Analysis (see \code{\link{cmdscale}} 
      for details). This implements \dQuote{correction method 2} of
@@ -87,22 +85,20 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      \code{\link{metaMDSdist}}.  }
 }
 \details{
-  Canonical Analysis of Principal Coordinates (CAP) is simply a
-  Redundancy Analysis of results of Metric (Classical) Multidimensional
-  Scaling (Anderson & Willis 2003). Function capscale uses two steps:
-  (1) it ordinates the dissimilarity matrix using
-  \code{\link{cmdscale}} and (2) analyses these results using
-  \code{\link{rda}}. If the user supplied a community data frame instead
-  of dissimilarities, the function will find the needed dissimilarity
-  matrix using \code{\link{vegdist}} with specified
-  \code{distance}. However, the method will accept dissimilarity
-  matrices from \code{\link{vegdist}}, \code{\link{dist}}, or any
-  other method producing similar matrices. The constraining variables can be
-  continuous or factors or both, they can have interaction terms,
-  or they can be transformed in the call. Moreover, there can be a
-  special term
-  \code{Condition} just like in \code{\link{rda}} and \code{\link{cca}}
-  so that ``partial'' CAP can be performed.
+
+  Function capscale uses two steps: (1) it ordinates the dissimilarity
+  matrix using \code{\link{cmdscale}} and (2) analyses the real
+  components using \code{\link{rda}}. If the user supplied a community
+  data frame instead of dissimilarities, the function will find the
+  needed dissimilarity matrix using \code{\link{vegdist}} with
+  specified \code{distance}. However, the method will accept
+  dissimilarity matrices from \code{\link{vegdist}},
+  \code{\link{dist}}, or any other method producing similar
+  matrices. The constraining variables can be continuous or factors or
+  both, they can have interaction terms, or they can be transformed in
+  the call. Moreover, there can be a special term \code{Condition}
+  just like in \code{\link{rda}} and \code{\link{cca}} so that
+  ``partial'' analysis can be performed.
 
   The current implementation  differs from the method suggested by
   Anderson & Willis (2003) in three major points which actually make it
