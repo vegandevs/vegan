@@ -10,7 +10,7 @@
     function(object)
 {
     ## no imaginary component: nothing need be done
-    if (!is.null(object$CCA$imaginary.rank))
+    if (is.null(object$CA$imaginary.rank))
         return(object)
     ## inertia components based only on real dimensions
     object$tot.chi <- object$real.tot.chi
