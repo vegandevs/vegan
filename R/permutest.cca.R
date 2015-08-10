@@ -24,7 +24,8 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
-    isDB <- inherits(x, "capscale") # distance-based
+    isDB <- inherits(x, "capscale") &&
+        !inherits(x, "oldcapscale") # distance-based & new design
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
