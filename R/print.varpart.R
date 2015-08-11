@@ -1,7 +1,7 @@
-"print.varpart" <-
-function (x, ...)
+`print.varpart` <-
+    function (x, ...)
 {
-    cat("\nPartition of variation in RDA\n\n")
+    cat("\nPartition of", x$inert, "in", x$RDA, "\n\n")
     writeLines(strwrap(pasteCall(x$call)))
     if (x$scale)
         cat("Columns of Y were scaled to unit variance\n")

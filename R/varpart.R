@@ -6,15 +6,26 @@
     X <- list(X, ...)
     if ((length(X) < 2 || length(X) > 4))
         stop("needs 2 to 4 explanatory tables")
-    if (!missing(transfo)) {
-        Y <- decostand(Y, transfo)
-        transfo <- attr(Y, "decostand")
+    ## transfo and scale can be used only with non-distance data
+    if (inherits(Y, "dist")) {
+        inert <- attr(Y, "method")
+        inert <- paste("squared", inert, "distance")
+        RDA <- "dbRDA"
+        if(!missing(transfo) || !missing(scale))
+            message("arguments 'transfo' and 'scale' are ignored with distances")
+    } else {
+        inert <- "variance"
+        RDA <- "RDA"
+        if (!missing(transfo)) {
+            Y <- decostand(Y, transfo)
+            transfo <- attr(Y, "decostand")
+        }
+        if (!missing(transfo) && (is.null(dim(Y)) || ncol(Y) == 1))
+            warning("Transformations probably are meaningless to a single variable")
+        if (scale && !missing(transfo))
+            warning("Y should not be both transformed and scaled (standardized)")
+        Y <- scale(Y, center = TRUE, scale = scale)
     }
-    if (!missing(transfo) && (is.null(dim(Y)) || ncol(Y) == 1))
-        warning("Transformations probably are meaningless to a single variable")
-    if (scale && !missing(transfo))
-        warning("Y should not be both transformed and scaled (standardized)")
-    Y <- scale(Y, center = TRUE, scale = scale)
     Sets <- list()
     for (i in seq_along(X)) {
         if (inherits(X[[i]], "formula")) {
@@ -35,9 +46,15 @@
                        varpart2(Y, Sets[[1]], Sets[[2]]),
                        varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]]),
                        varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]]))
+    if (inherits(Y, "dist"))
+        out$part$ordination <- "capscale"
+    else
+        out$part$ordination <- "rda"
     out$scale <- scale
     if (!missing(transfo))
         out$transfo <- transfo
+    out$inert <- inert
+    out$RDA <- RDA
     out$call <- match.call()
     mx <- rep(" ", length(X))
     for (i in seq_along(X)) mx[i] <- deparse(out$call[[i+2]], width.cutoff = 500)

@@ -1,7 +1,16 @@
-"varpart2" <-
+`varpart2` <-
     function (Y, X1, X2) 
 {
-    Y <- as.matrix(Y)
+    if (inherits(Y, "dist")) {
+        Y <- GowerDblcen(as.matrix(Y^2), na.rm = FALSE)
+        Y <- -Y/2
+        SS.Y <- sum(diag(Y))
+        simpleRDA2 <- match.fun(simpleDBRDA)
+    } else {
+        Y <- as.matrix(Y)
+        Y <- scale(Y, center = TRUE, scale = FALSE)
+        SS.Y <- sum(Y * Y)
+    }
     X1 <- as.matrix(X1)
     X2 <- as.matrix(X2)
     n <- nrow(Y)
@@ -14,10 +23,8 @@
         stop("Y and X1 do not have the same number of rows")
     if (n2 != n) 
         stop("Y and X2 do not have the same number of rows")
-    Y <- scale(Y, center = TRUE, scale = FALSE)
     X1 <- scale(X1, center = TRUE, scale = FALSE)
     X2 <- scale(X2, center = TRUE, scale = FALSE)
-    SS.Y <- sum(Y * Y)
     dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
     ab.ua <- dummy$Rsquare
     m1 <- dummy$m
