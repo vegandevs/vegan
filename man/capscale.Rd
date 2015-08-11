@@ -1,16 +1,16 @@
 \name{capscale}
 \alias{capscale}
+\alias{oldCapscale}
 
-\title{[Partial] Constrained Analysis of Principal Coordinates or
-  distance-based RDA }
+\title{[Partial] Distance-based Redundancy Analysis }
 \description{
-  Constrained Analysis of Principal Coordinates (CAP) is an ordination method
+  Distance-based redundancy analysis (dbRDA) is an ordination method
   similar to Redundancy Analysis (\code{\link{rda}}), but it allows
   non-Euclidean dissimilarity indices, such as Manhattan or
   Bray--Curtis distance. Despite this non-Euclidean feature, the analysis
   is strictly linear and metric. If called with Euclidean distance,
   the results are identical to \code{\link{rda}}, but \code{capscale}
-  will be much more inefficient. Function \code{capscale} is a
+  will be less efficient. Function \code{capscale} is a
   constrained version of metric scaling, a.k.a. principal coordinates
   analysis, which is based on the Euclidean distance but can be used,
   and is more useful, with other dissimilarity measures. The function
@@ -48,11 +48,9 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
-    frame. If this is not supplied, the ``species scores'' are the axes
-    of initial metric scaling (\code{\link{cmdscale}}) and may be
-    confusing.}
+    frame. If this is not supplied, the ``species scores'' unavailable.}
   \item{add}{Logical indicating if an additive constant should be
-     computed, and added to the non-diagonal dissimilarities such
+     computed and added to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying
      Principal Co-ordinates Analysis (see \code{\link{cmdscale}} 
      for details). This implements \dQuote{correction method 2} of
@@ -87,51 +85,38 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      \code{\link{metaMDSdist}}.  }
 }
 \details{
-  Canonical Analysis of Principal Coordinates (CAP) is simply a
-  Redundancy Analysis of results of Metric (Classical) Multidimensional
-  Scaling (Anderson & Willis 2003). Function capscale uses two steps:
-  (1) it ordinates the dissimilarity matrix using
-  \code{\link{cmdscale}} and (2) analyses these results using
-  \code{\link{rda}}. If the user supplied a community data frame instead
-  of dissimilarities, the function will find the needed dissimilarity
-  matrix using \code{\link{vegdist}} with specified
-  \code{distance}. However, the method will accept dissimilarity
-  matrices from \code{\link{vegdist}}, \code{\link{dist}}, or any
-  other method producing similar matrices. The constraining variables can be
-  continuous or factors or both, they can have interaction terms,
-  or they can be transformed in the call. Moreover, there can be a
-  special term
-  \code{Condition} just like in \code{\link{rda}} and \code{\link{cca}}
-  so that ``partial'' CAP can be performed.
 
-  The current implementation  differs from the method suggested by
-  Anderson & Willis (2003) in three major points which actually make it
-  similar to distance-based redundancy analysis (Legendre & Anderson
-  1999):
-  \enumerate{
-    \item Anderson & Willis used the orthonormal solution of
-    \code{\link{cmdscale}}, whereas \code{capscale} uses axes
-    weighted by corresponding eigenvalues, so that the ordination
-    distances are the best approximations of original
-    dissimilarities. In the original method, later ``noise'' axes are
-    just as important as first major axes.
-    \item Anderson & Willis take only a subset of axes, whereas 
-    \code{capscale} uses all axes with positive eigenvalues. The use of
-    subset is necessary with orthonormal axes to chop off some
-    ``noise'', but the use of all axes guarantees that the results are
-    the best approximation of original dissimilarities.
-    \item Function \code{capscale} adds species scores as weighted sums
-    of (residual) community matrix (if the matrix is available), whereas
-    Anderson & Willis have no fixed method for adding species scores.
-  }
-  With these definitions, function \code{capscale} with Euclidean
-  distances will be identical to \code{\link{rda}} in eigenvalues and
-  in site, species and biplot scores (except for possible sign
-  reversal). 
-  However, it makes no sense to use \code{capscale} with
-  Euclidean distances, since direct use of \code{\link{rda}} is much more
-  efficient. Even with non-Euclidean dissimilarities, the
-  rest of the analysis will be metric and linear.
+  Function capscale uses two steps: (1) it ordinates the dissimilarity
+  matrix using \code{\link{cmdscale}} and (2) analyses the real
+  components using \code{\link{rda}}. If the user supplied a community
+  data frame instead of dissimilarities, the function will find the
+  needed dissimilarity matrix using \code{\link{vegdist}} with
+  specified \code{distance}. However, the method will accept
+  dissimilarity matrices from \code{\link{vegdist}},
+  \code{\link{dist}}, or any other method producing similar
+  matrices. The constraining variables can be continuous or factors or
+  both, they can have interaction terms, or they can be transformed in
+  the call. Moreover, there can be a special term \code{Condition}
+  just like in \code{\link{rda}} and \code{\link{cca}} so that
+  ``partial'' analysis can be performed.
+
+  Non-Euclidean dissimilarities can produce negative eigenvalues
+  (Legendre & Anderson 1999). If negative eigenvalues are present, the
+  ordination axes and their eigenvalues will be based only on the real
+  dimensions with positive eigenvalues. The \code{\link{anova.cca}}
+  tests on the significance of axes will also be based only on
+  positive eigenvalues. However, the total inertia and
+  \code{\link{anova.cca}} tests for constraints will also include the
+  effects of imaginary axes with negative eigenvalues following
+  McArdle & Anderson (2001). If there are negative eigenvalues, the
+  function will report their sums in a separate column. If these
+  negative eigenvalues are disturbing, you can distort the
+  dissimilarities so that only non-negative eigenvalues will be
+  produced using argument \code{add = TRUE} (this argument is passed
+  to \code{\link{cmdscale}}). Alternatively, with
+  \code{sqrt.dist = TRUE}, square roots of dissimilarities will be used
+  which may help in avoiding negative eigenvalues (Legendre & Anderson
+  1999).
 
   The function can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
@@ -165,31 +150,24 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   experiments. \emph{Ecological Monographs} 69, 1--24.
 
   Legendre, P. & Legendre, L. (2012).  \emph{Numerical Ecology}. 3rd English
-  Edition. Elsevier
+  Edition. Elsevier.
+
+  McArdle, B.H. & Anderson, M.J. (2001). Fitting multivariate models
+  to community data: a comment on distance-based redundancy
+  analysis. \emph{Ecology} 82, 290--297.
 }
+
 \author{ Jari Oksanen }
 
-\note{ The function produces negative eigenvalues with non-Euclidean
-  dissimilarity indices. The non-Euclidean component of inertia is
-  given under the title \code{Imaginary} in the printed output. The
-  \code{Total} inertia is the sum of all eigenvalues, but the sum of
-  all non-negative eigenvalues is given as \code{Real Total} (which is
-  higher than the \code{Total}). The ordination is based only on the
-  real dimensions with positive eigenvalues, and therefore the
-  proportions of inertia components only apply to the \code{Real
-  Total} and ignore the \code{Imaginary} component. Permutation tests
-  with \code{\link{anova.cca}} use only the real solution of positive
-  eigenvalues. Function \code{\link{adonis}} gives similar
-  significance tests, but it also handles the imaginary dimensions
-  (negative eigenvalues) and therefore its results may differ from
-  permutation test results of \code{capscale}.
-
-  If the negative eigenvalues are disturbing, you can
-  use argument \code{add = TRUE} passed to \code{\link{cmdscale}}, or,
-  preferably, a distance measure that does not cause these warnings.
-  Alternatively, after square root transformation of distances
-  (argument \code{sqrt.dist = TRUE}) many indices do not produce
-  negative eigenvalues.
+\note{ The function \code{capscale} was originally developed as a
+  variant of constrained analysis of proximities (Anderson & Willis
+  2003), but these developments made it became identical to dbRDA.  In
+  older version of \pkg{vegan} the total inertia and permutation tests
+  were based only on real axes, but in \pkg{vegan} 2.4-0 they also
+  include the imaginary components following McArdle & Anderson
+  (2001). For compatibility with the old versions of \pkg{vegan}, you
+  can use function \code{oldCapscale} to discard the effects of
+  imaginary dimensions (negative eigenvalues).
 
   The inertia is named after the dissimilarity index as defined in the
   dissimilarity data, or as \code{unknown distance} if such an

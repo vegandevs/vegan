@@ -95,6 +95,9 @@
      \code{CCA} components. Only in \code{CCA}.}
     \item{\code{tot.chi}}{Total inertia or the sum of all eigenvalues of the
       component.}
+    \item{\code{real.tot.chi}}{If there are negative eigenvalues in
+      \code{\link{capscale}}, these will be included in \code{tot.chi},
+      and the sum of positive eigenvalues will be given in these items.}
     \item{\code{imaginary.chi}, \code{imaginary.rank},
      \code{imaginary.u.eig}}{The sum, rank (number) of negative
      eigenvalues and scaled site scores for imaginary axes in
@@ -128,7 +131,12 @@
       after both \code{pCCA} and \code{CCA}. In \code{\link{cca}} the
       standardization is Chi-square, and in \code{\link{rda}} centring
       and optional scaling by species standard deviations using function
-      \code{\link{scale}}.} }
+      \code{\link{scale}}.}
+     \item{\code{G}}{Gower double-centred dissimilarity matrices will be
+      returned as item \code{G} in \code{\link{capscale}},
+      and these will be used in permutation tests instead of corresponding
+      \code{Xbar} items.}
+      }
   }
 }
 

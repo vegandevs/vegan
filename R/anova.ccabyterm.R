@@ -23,6 +23,9 @@
         fla <- paste(". ~ . + ", trmlab[i])
         mods[[i+1]] <- update(mods[[i]], fla)
     }
+    ## for compatibility with the old capscale design we need the following
+    if (inherits(object, "oldcapscale")) # uh -- get rid of this later
+        mods <- suppressMessages(lapply(mods, oldCapscale))
     ## The result
     sol <- anova.ccalist(mods, permutations = permutations,
                          model = model, parallel = parallel)
@@ -56,6 +59,9 @@
     ## Refuse to handle models with missing data
     if (!is.null(object$na.action))
         stop("by = 'margin' models cannot handle missing data")
+    ## Refuse to handle oldCapscale models
+    if (inherits(object, "oldcapscale"))
+        stop("by = 'margin' models cannot handle oldCapscale results")
     ## We need term labels but without Condition() terms
     if (!is.null(scope) && is.character(scope))
         trms <- scope
@@ -115,6 +121,11 @@
 `anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
+    ## capscale axes are still based only on real components and we
+    ## need to cast to old format to get the correct residual
+    ## variation. This should give a message().
+    if (!is.null(object$CA$imaginary.chi))
+        object <- oldCapscale(object)
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig
