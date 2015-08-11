@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2015-05-25 r68405) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-08-10 r68987) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1505,9 +1505,8 @@ log(N) P K Ca pH Al    6      0.2822
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: capscale
-> ### Title: [Partial] Constrained Analysis of Principal Coordinates or
-> ###   distance-based RDA
-> ### Aliases: capscale
+> ### Title: [Partial] Distance-based Redundancy Analysis
+> ### Aliases: capscale oldCapscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1521,13 +1520,12 @@ log(N) P K Ca pH Al    6      0.2822
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
-              Inertia Proportion Rank
-Total          4.5440                
-Real Total     4.8030     1.0000     
-Conditional    0.9770     0.2034    1
-Constrained    0.9970     0.2076    3
-Unconstrained  2.8290     0.5890   15
-Imaginary     -0.2590               8
+              Inertia Proportion Eigenvals Rank
+Total          4.5440     1.0000    4.8030     
+Conditional    0.9730     0.2140    0.9770    1
+Constrained    0.9730     0.2141    0.9970    3
+Unconstrained  2.5990     0.5718    2.8290   15
+Imaginary                          -0.2590    8
 Inertia is squared Bray distance 
 
 Eigenvalues for constrained axes:
@@ -1547,15 +1545,15 @@ Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df Variance      F Pr(>F)   
-Model     3  0.99717 2.2324  0.002 **
-Residual 19  2.82904                 
+         Df Variance      F Pr(>F)    
+Model     3  0.97314 2.3717  0.001 ***
+Residual 19  2.59866                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Avoid negative eigenvalues with additive constant
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
 +                      dist="bray", add =TRUE)
-Warning in cmdscale(X, k = k, eig = TRUE, add = add) :
+Warning in cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE) :
   only 22 of the first 23 eigenvalues are > 0
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", add = TRUE)
@@ -1607,11 +1605,10 @@ Wisconsin double standardization
 Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
 TRUE)
 
-              Inertia Rank
-Total          2.5475     
-Real Total     2.5950     
-Unconstrained  2.5950   19
-Imaginary     -0.0475    4
+              Inertia Eigenvals Rank
+Total          2.5475    2.5950     
+Unconstrained  2.5475    2.5950   19
+Imaginary               -0.0475    4
 Inertia is squared Bray distance 
 
 Eigenvalues for unconstrained axes:
@@ -5507,12 +5504,13 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > ### Name: permustats
 > ### Title: Extract, Analyse and Display Permutation Results
 > ### Aliases: permustats permustats.adonis permustats.anosim
-> ###   permustats.CCorA permustats.envfit permustats.factorfit
-> ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
-> ###   permustats.ordiareatest permustats.permutest.betadisper
-> ###   permustats.permutest.cca permustats.protest permustats.vectorfit
-> ###   summary.permustats densityplot.permustats density.permustats
-> ###   qqnorm.permustats qqmath.permustats
+> ###   permustats.anova.cca permustats.CCorA permustats.envfit
+> ###   permustats.factorfit permustats.mantel permustats.mrpp permustats.mso
+> ###   permustats.oecosimu permustats.ordiareatest
+> ###   permustats.permutest.betadisper permustats.permutest.cca
+> ###   permustats.protest permustats.vectorfit summary.permustats
+> ###   densityplot.permustats density.permustats qqnorm.permustats
+> ###   qqmath.permustats
 > ### Keywords: distribution smooth
 > 
 > ### ** Examples
@@ -7318,11 +7316,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > capscale(dtree ~ 1, comm=dune)
 Call: capscale(formula = dtree ~ 1, comm = dune)
 
-              Inertia Rank
-Total          2.1834     
-Real Total     2.3439     
-Unconstrained  2.3439   10
-Imaginary     -0.1605    9
+              Inertia Eigenvals Rank
+Total          2.1834    2.3439     
+Unconstrained  2.1834    2.3439   10
+Imaginary               -0.1605    9
 Inertia is squared Treedist distance 
 
 Eigenvalues for unconstrained axes:
@@ -8455,7 +8452,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.508 0.116 23.692 0 0 
+Time elapsed:  23.416 0.112 23.52 0 0 
 > grDevices::dev.off()
 null device 
           1 
