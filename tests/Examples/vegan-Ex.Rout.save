@@ -1521,10 +1521,10 @@ Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
               Inertia Proportion Eigenvals Rank
-Total          4.5440     1.0000    4.8030     
-Conditional    0.9730     0.2140    0.9770    1
-Constrained    0.9730     0.2141    0.9970    3
-Unconstrained  2.5990     0.5718    2.8290   15
+Total          4.5444     1.0000    4.8034     
+Conditional    0.9726     0.2140    0.9772    1
+Constrained    0.9731     0.2141    0.9972    3
+Unconstrained  2.5987     0.5718    2.8290   15
 Imaginary                          -0.2590    8
 Inertia is squared Bray distance 
 
@@ -1559,10 +1559,10 @@ Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", add = TRUE)
 
               Inertia Proportion Rank
-Total          8.9640     1.0000     
-Conditional    1.5050     0.1679    1
-Constrained    1.7170     0.1915    3
-Unconstrained  5.7420     0.6405   19
+Total          8.9643     1.0000     
+Conditional    1.5053     0.1679    1
+Constrained    1.7171     0.1915    3
+Unconstrained  5.7419     0.6405   19
 Inertia is squared Bray distance (euclidified) 
 
 Eigenvalues for constrained axes:
@@ -1584,9 +1584,9 @@ varechem, distance = "bray", sqrt.dist = TRUE)
 
               Inertia Proportion Rank
 Total          6.9500     1.0000     
-Conditional    0.9530     0.1372    1
-Constrained    1.2270     0.1765    3
-Unconstrained  4.7700     0.6863   19
+Conditional    0.9535     0.1372    1
+Constrained    1.2267     0.1765    3
+Unconstrained  4.7698     0.6863   19
 Inertia is Bray distance 
 
 Eigenvalues for constrained axes:
@@ -1605,10 +1605,10 @@ Wisconsin double standardization
 Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
 TRUE)
 
-              Inertia Eigenvals Rank
-Total          2.5475    2.5950     
-Unconstrained  2.5475    2.5950   19
-Imaginary               -0.0475    4
+               Inertia Eigenvals Rank
+Total          2.54753   2.59500     
+Unconstrained  2.54753   2.59500   19
+Imaginary               -0.04747    4
 Inertia is squared Bray distance 
 
 Eigenvalues for unconstrained axes:
@@ -1719,9 +1719,9 @@ Eigenvalues for unconstrained axes:
 Call: cca(formula = varespec ~ Ca, data = varechem)
 
               Inertia Proportion Rank
-Total          2.0832     1.0000     
-Constrained    0.1572     0.0755    1
-Unconstrained  1.9260     0.9245   22
+Total         2.08320    1.00000     
+Constrained   0.15722    0.07547    1
+Unconstrained 1.92598    0.92453   22
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
@@ -2438,9 +2438,9 @@ Based on 99 simulations on 'c0_ind' nullmodel
 Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
 
               Inertia Proportion Rank
-Total         38.1600     1.0000     
-Constrained    9.2100     0.2414    3
-Unconstrained 28.9500     0.7586   35
+Total         38.1640     1.0000     
+Constrained    9.2129     0.2414    3
+Unconstrained 28.9511     0.7586   35
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -4739,9 +4739,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -4793,9 +4793,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -5783,10 +5783,10 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 Call: prc(response = pyrifos, treatment = dose, time = week)
 
                Inertia Proportion Rank
-Total         288.9900     1.0000     
-Conditional    63.3500     0.2192   10
-Constrained    96.6800     0.3346   44
-Unconstrained 128.9600     0.4462   77
+Total         288.9920     1.0000     
+Conditional    63.3493     0.2192   10
+Constrained    96.6837     0.3346   44
+Unconstrained 128.9589     0.4462   77
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -6657,9 +6657,9 @@ Call: rda(formula = simulate(mod) ~ Moisture + Management, data =
 dune.env)
 
               Inertia Proportion Rank
-Total         82.8200     1.0000     
-Constrained   52.7000     0.6363    6
-Unconstrained 30.1300     0.3637   13
+Total         82.8232     1.0000     
+Constrained   52.6966     0.6363    6
+Unconstrained 30.1266     0.3637   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -7778,9 +7778,9 @@ Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure,
 data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   63.2100     0.7513   12
-Unconstrained 20.9200     0.2487    7
+Total         84.1237     1.0000     
+Constrained   63.2062     0.7513   12
+Unconstrained 20.9175     0.2487    7
 Inertia is variance 
 Some constraints were aliased because they were collinear (redundant)
 
@@ -7841,9 +7841,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -8452,7 +8452,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.416 0.112 23.52 0 0 
+Time elapsed:  23.068 0.14 23.198 0 0 
 > grDevices::dev.off()
 null device 
           1 
