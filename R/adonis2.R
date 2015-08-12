@@ -33,12 +33,10 @@
     qrhs <- qr(rhs)
     ## Take care of aliased variables and pivoting in rhs
     rhs <- rhs[, qrhs$pivot, drop=FALSE]
-    rhs <- rhs[, 1:qrhs$rank, drop=FALSE]
+    rhs <- rhs[, seq_len(qrhs$rank), drop=FALSE]
     grps <- grps[qrhs$pivot][1:qrhs$rank]
     u.grps <- unique(grps)
-    nterms <- length(u.grps) - 1
-    if (nterms < 1)
-        stop("right-hand-side of formula has no usable terms")
+    nterms <- length(u.grps)
     ## handle dissimilarities
     if (inherits(lhs, "dist")) {
         if (any(lhs < -TOL))
@@ -56,13 +54,16 @@
     Gfit <- qr.fitted(qrhs, G)
     Gres <- qr.resid(qrhs, G)
     ## collect data for the fit
-    CCA <- list(rank = qrhs$rank,
-                qrank = qrhs$rank,
-                tot.chi = sum(diag(Gfit)),
-                QR = qrhs,
-                G = G)
+    if(nterms) 
+        CCA <- list(rank = qrhs$rank,
+                    qrank = qrhs$rank,
+                    tot.chi = sum(diag(Gfit)),
+                    QR = qrhs,
+                    G = G)
+    else
+        CCA <- NULL # empty model
     ## collect data for the residuals
-    CA <- list(rank = n - qrhs$rank - 1,
+    CA <- list(rank = n - max(qrhs$rank, 0) - 1,
                u = matrix(0, nrow=n),
                tot.chi = sum(diag(Gres)),
                Xbar = Gres)
@@ -70,6 +71,6 @@
     sol$tot.chi <- sum(diag(G))
     sol$CCA <- CCA
     sol$CA <- CA
-    class(sol) <- c("adonis", "capscale", "rda", "cca")
+    class(sol) <- c("adonis2", "capscale", "rda", "cca")
     sol
 }
