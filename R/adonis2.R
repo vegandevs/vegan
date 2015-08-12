@@ -25,8 +25,11 @@
     op.c <- options()$contrasts
     options( contrasts=c(contr.unordered, contr.ordered) )
     rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
-    options(contrasts=op.c)
     grps <- attr(rhs, "assign")
+    rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
+    grps <- grps[-1]
+    rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
+    options(contrasts=op.c)
     qrhs <- qr(rhs)
     ## Take care of aliased variables and pivoting in rhs
     rhs <- rhs[, qrhs$pivot, drop=FALSE]
