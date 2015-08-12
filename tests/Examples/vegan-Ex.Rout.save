@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-08-10 r68987) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-08-11 r68999) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -7441,7 +7441,7 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
 > ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts plot.varpart
-> ###   plot.varpart234 simpleRDA2
+> ###   plot.varpart234 simpleRDA2 simpleDBRDA
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7460,7 +7460,7 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~., mite.pcnm, data = mite.env, transfo =
 "hel")
@@ -7485,7 +7485,7 @@ Individual fractions
 [c] = X2|X1          22                 0.10124     TRUE
 [d] = Residuals                         0.46206    FALSE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > 
 > ## Use fill colours
 > showvarparts(2, bg = c("hotpink","skyblue"))
@@ -7516,12 +7516,39 @@ $adj.r.squared
 [1] 0.09140797
 
 > 
+> # Partition Bray-Curtis dissimilarities
+> varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
+
+Partition of squared bray distance in dbRDA 
+
+Call: varpart(Y = vegdist(mite), X = ~., mite.pcnm, data = mite.env)
+
+Explanatory tables:
+X1:  ~.
+X2:  mite.pcnm 
+
+No. of explanatory tables: 2 
+Total variation (SS): 14.696 
+No. of observations: 70 
+
+Partition table:
+                     Df R.squared Adj.R.squared Testable
+[a+b] = X1           11   0.50512       0.41127     TRUE
+[b+c] = X2           22   0.60144       0.41489     TRUE
+[a+b+c] = X1+X2      33   0.74631       0.51375     TRUE
+Individual fractions                                    
+[a] = X1|X2          11                 0.09887     TRUE
+[b]                   0                 0.31240    FALSE
+[c] = X2|X1          22                 0.10249     TRUE
+[d] = Residuals                         0.48625    FALSE
+---
+Use function ‘capscale’ to test significance of fractions of interest
 > # Three explanatory matrices 
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
 +    mite.pcnm, data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~SubsDens + WatrCont, ~Substrate + Shrub +
 Topo, mite.pcnm, data = mite.env, transfo = "hel")
@@ -7562,7 +7589,7 @@ Controlling 1 table X
 [c+e] = X3 | X1       22               0.19303     TRUE
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
 > # An alternative formulation of the previous model using
@@ -7592,7 +7619,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 +   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~SubsDens + WatrCont, ~Substrate + Shrub +
 Topo, mite.pcnm[, 1:11], mite.pcnm[, 12:22], data = mite.env, transfo =
@@ -7670,7 +7697,7 @@ Controlling 1 table X
 [dhjn] = X4 | X2            11               0.02837     TRUE
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > plot(mod, bg=2:5)
 > # Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
@@ -8452,7 +8479,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.068 0.14 23.198 0 0 
+Time elapsed:  23.624 0.12 23.87 0 0 
 > grDevices::dev.off()
 null device 
           1 
