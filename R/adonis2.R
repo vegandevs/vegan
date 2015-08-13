@@ -31,12 +31,6 @@
     rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
     options(contrasts=op.c)
     qrhs <- qr(rhs)
-    ## Take care of aliased variables and pivoting in rhs
-    rhs <- rhs[, qrhs$pivot, drop=FALSE]
-    rhs <- rhs[, seq_len(qrhs$rank), drop=FALSE]
-    grps <- grps[qrhs$pivot][1:qrhs$rank]
-    u.grps <- unique(grps)
-    nterms <- length(u.grps)
     ## handle dissimilarities
     if (inherits(lhs, "dist")) {
         if (any(lhs < -TOL))
@@ -54,7 +48,7 @@
     Gfit <- qr.fitted(qrhs, G)
     Gres <- qr.resid(qrhs, G)
     ## collect data for the fit
-    if(nterms) 
+    if(!is.null(qrhs$rank) && qrhs$rank > 0) 
         CCA <- list(rank = qrhs$rank,
                     qrank = qrhs$rank,
                     tot.chi = sum(diag(Gfit)),
