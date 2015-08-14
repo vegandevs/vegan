@@ -1,4 +1,13 @@
 `adonis2` <-
+    function(formula, data, method = "bray", by = "term",
+             permutations = 999, parallel = getOption("mc.cores"), ...)
+{
+    environment(formula) <- environment()
+    sol <- adonis0(formula, data = data, method = "bray")
+    anova(sol, permutations = permutations, by = by,
+          parallel = parallel)
+}
+`adonis0` <-
     function(formula, data=NULL, method="bray", ...)
 {
     ## evaluate data
