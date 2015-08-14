@@ -1,6 +1,11 @@
 `adonis2` <-
     function(formula, data=NULL, method="bray", ...)
 {
+    ## evaluate data
+    if (missing(data))
+        data <- .GlobalEnv
+    else
+        data <- ordiGetData(match.call(), environment(formula))
     ## First we collect info for the uppermost level of the analysed
     ## object
     Trms <- terms(delete.response(formula), data = data)
