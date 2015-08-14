@@ -1,7 +1,7 @@
 `adonis2` <-
-    function(formula, data=NULL, permutations=999, method="bray", strata=NULL,
+    function(formula, data=NULL, method="bray",
              contr.unordered="contr.sum", contr.ordered="contr.poly",
-             parallel = getOption("mc.cores"), ...)
+             ...)
 {
     ## First we collect info for the uppermost level of the analysed
     ## object
