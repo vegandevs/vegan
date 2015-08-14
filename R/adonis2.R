@@ -1,7 +1,5 @@
 `adonis2` <-
-    function(formula, data=NULL, method="bray",
-             contr.unordered="contr.sum", contr.ordered="contr.poly",
-             ...)
+    function(formula, data=NULL, method="bray", ...)
 {
     ## First we collect info for the uppermost level of the analysed
     ## object
@@ -22,14 +20,14 @@
     lhs <- eval(lhs, data, parent.frame()) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
     rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
-    op.c <- options()$contrasts
-    options( contrasts=c(contr.unordered, contr.ordered) )
+    ##op.c <- options()$contrasts
+    ##options( contrasts=c(contr.unordered, contr.ordered) )
     rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
-    grps <- attr(rhs, "assign")
+    ##grps <- attr(rhs, "assign")
     rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
-    grps <- grps[-1]
+    ##grps <- grps[-1]
     rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
-    options(contrasts=op.c)
+    ##options(contrasts=op.c)
     qrhs <- qr(rhs)
     ## handle dissimilarities
     if (inherits(lhs, "dist")) {
