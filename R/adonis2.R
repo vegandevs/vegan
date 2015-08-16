@@ -1,6 +1,6 @@
 `adonis2` <-
-    function(formula, data, method = "bray", by = "term",
-             permutations = 999, parallel = getOption("mc.cores"), ...)
+    function(formula, data, permutations = 999, method = "bray",
+             by = "term", parallel = getOption("mc.cores"), ...)
 {
     environment(formula) <- environment()
     sol <- adonis0(formula, data = data, method = "bray")
