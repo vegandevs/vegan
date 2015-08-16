@@ -27,13 +27,18 @@
     sol <- anova.ccalist(mods, permutations = permutations,
                          model = model, parallel = parallel)
     ## Reformat
-    out <- data.frame(c(sol[-1,3], sol[ntrm+1,1]),
-                      c(sol[-1,4], sol[ntrm+1,2]),
-                      c(sol[-1,5], NA),
-                      c(sol[-1,6], NA))
-    isRDA <- inherits(object, "rda")
-    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
-                       "F", "Pr(>F)")
+    out <- data.frame(c(sol[-1, 3], sol[ntrm+1, 1]),
+                      c(sol[-1, 4], sol[ntrm+1, 2]),
+                      c(sol[-1, 5], NA),
+                      c(sol[-1, 6], NA))
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    colnames(out) <- c("Df", varname, "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
@@ -94,9 +99,14 @@
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
-    isRDA <- inherits(object, "rda")
-    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
-                       "F", "Pr(>F)")
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    colnames(out) <- c("Df", varname, "F", "Pr(>F)")
     rownames(out) <- c(trmlab, "Residual")
     head <- paste0("Permutation test for ", object$method, " under ",
                    mods[[1]]$model, " model\n",
