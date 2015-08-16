@@ -4,8 +4,13 @@
 {
     environment(formula) <- environment()
     sol <- adonis0(formula, data = data, method = "bray")
-    anova(sol, permutations = permutations, by = by,
-          parallel = parallel)
+    out <- anova(sol, permutations = permutations, by = by,
+                 parallel = parallel)
+    ## Fix method name in output
+    head <- attr(out, "heading")
+    head[2] <- sub("adonis0", "adonis2", head[2])
+    attr(out, "heading") <- head
+    out
 }
 `adonis0` <-
     function(formula, data=NULL, method="bray", ...)
