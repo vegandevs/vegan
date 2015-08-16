@@ -61,9 +61,14 @@
     Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
-    is.rda <- inherits(object, "rda")
-    colnames(table) <- c("Df", ifelse(is.rda, "Variance", "ChiSquare"),
-                         "F", "Pr(>F)")
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    colnames(table) <- c("Df", varname, "F", "Pr(>F)")
     head <- paste0("Permutation test for ", tst$method, " under ",
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
