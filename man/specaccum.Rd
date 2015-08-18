@@ -112,17 +112,14 @@ specslope(object, at)
   extrapolated number of species in the survey area (a.k.a. gamma
   diversity), as estimated by function \code{\link{specpool}}. The
   conditional standard deviation that was developed by Jari Oksanen (not
-  published, sd=0 for all samples). The unconditional standard deviation
-  is based on an estimation of the total extrapolated number of species
-  in the survey area (a.k.a. gamma diversity), as estimated by function
-  \code{\link{specpool}}.  Method \code{"coleman"} finds the expected
-  SAC and its standard deviation following Coleman et al. (1982).  All
-  these methods are based on sampling sites without replacement. In
-  contrast, the \code{method = "rarefaction"} finds the expected species
-  richness and its standard deviation by sampling individuals instead of
-  sites.  It achieves this by applying function \code{\link{rarefy}}
-  with number of individuals corresponding to average number of
-  individuals per site.
+  published, sd=0 for all samples). Method \code{"coleman"} finds the
+  expected SAC and its standard deviation following Coleman et
+  al. (1982).  All these methods are based on sampling sites without
+  replacement. In contrast, the \code{method = "rarefaction"} finds the
+  expected species richness and its standard deviation by sampling
+  individuals instead of sites.  It achieves this by applying function
+  \code{\link{rarefy}} with number of individuals corresponding to
+  average number of individuals per site.
 
   Methods \code{"random"} and \code{"collector"} can take weights
   (\code{w}) that give the sampling effort for each site.  The weights
