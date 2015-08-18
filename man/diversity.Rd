@@ -9,7 +9,7 @@
 \alias{fisher.alpha}
 \alias{specnumber}
 
-\title{ Ecological Diversity Indices and Rarefaction Species Richness }
+\title{Ecological Diversity Indices and Rarefaction Species Richness}
 
 \description{ Shannon, Simpson, and Fisher diversity indices
 and rarefied species richness for community ecologists.  }
@@ -128,12 +128,6 @@ specnumber(x, groups, MARGIN = 1)
 
   Function \code{rarecurve} returns \code{\link{invisible}} list of
   \code{rarefy} results corresponding each drawn curve.
-
-  With option \code{se = TRUE}, function \code{fisher.alpha} returns a
-  data frame with items for \eqn{\alpha} (\code{alpha}), its approximate
-  standard errors (\code{se}), residual degrees of freedom
-  (\code{df.residual}), and the \code{code} returned by
-  \code{\link{nlm}} on the success of estimation. 
 }
 
 \references{
