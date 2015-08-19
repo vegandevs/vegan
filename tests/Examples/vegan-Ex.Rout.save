@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-08-11 r68999) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-08-18 r69117) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -2492,9 +2492,8 @@ Groups sizes
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: diversity
-> ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy rarecurve rareslope
-> ###   fisher.alpha specnumber
+> ### Title: Ecological Diversity Indices
+> ### Aliases: diversity fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2503,7 +2502,7 @@ Groups sizes
 > H <- diversity(BCI)
 > simp <- diversity(BCI, "simpson")
 > invsimp <- diversity(BCI, "inv")
-> ## Unbiased Simpson of Hurlbert 1971 (eq. 5):
+> ## Unbiased Simpson (Hurlbert 1971, eq. 5) with rarefy:
 > unbias.simp <- rarefy(BCI, 2) - 1
 > ## Fisher alpha
 > alpha <- fisher.alpha(BCI)
@@ -2520,13 +2519,6 @@ Groups sizes
 > gamma/alpha - 1
        BF        HF        NM        SF 
 0.5483871 0.6666667 1.6250000 1.2909091 
-> ## Rarefaction
-> (raremax <- min(rowSums(BCI)))
-[1] 340
-> Srare <- rarefy(BCI, raremax)
-> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
-> abline(0, 1)
-> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -5035,7 +5027,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-7. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6183,6 +6175,30 @@ Mandelbrot  5.7342  5.5665 10.573
 > rankindex(scale(varechem), varespec, funs)
 Manhattan     Gower    Ochiai 
 0.2735087 0.2288358 0.1696862 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rarefy")
+> ### * rarefy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rarefy
+> ### Title: Rarefaction Species Richness
+> ### Aliases: rarefy rrarefy drarefy rarecurve rareslope
+> ### Keywords: univar
+> 
+> ### ** Examples
+> 
+> data(BCI)
+> S <- specnumber(BCI) # observed number of species
+> (raremax <- min(rowSums(BCI)))
+[1] 340
+> Srare <- rarefy(BCI, raremax)
+> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+> abline(0, 1)
+> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -8479,7 +8495,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.624 0.12 23.87 0 0 
+Time elapsed:  23.036 0.104 23.129 0 0 
 > grDevices::dev.off()
 null device 
           1 
