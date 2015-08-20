@@ -72,13 +72,13 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    isRDA <- method != "cca"
+    varname <- switch(method,
+                      "cca" = "ChiSquare",
+                      "rda" = "Variance",
+                      "capscale" = "SumOfSqs")
     dimnames(table) <- list(1L:nmodels,
-                            c("Res.Df",
-                              ifelse(isRDA,"Res.Variance", "Res.ChiSquare"), 
-                              "Df",
-                              ifelse(isRDA,"Variance","ChiSquare"),
-                                     "F", "Pr(>F)"))
+                            c("ResDf", paste0("Res", varname), "Df",
+                              varname, "F", "Pr(>F)"))
     ## Collect header information
     formulae <- sapply(object, function(z) deparse(formula(z)))
     head <- paste0("Permutation tests for ", method, " under ",
