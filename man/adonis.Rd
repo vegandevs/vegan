@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{adonis}
 \alias{adonis}
+\alias{adonis2}
 
 \title{Permutational Multivariate Analysis of Variance Using Distance Matrices}
 
@@ -11,8 +12,10 @@
 
 \usage{
 adonis(formula, data, permutations = 999, method = "bray",
-       strata = NULL, contr.unordered = "contr.sum",
-       contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
+    strata = NULL, contr.unordered = "contr.sum",
+    contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
+adonis2(formula, data, permutations = 999, method = "bray", by = "term",
+    parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{  
@@ -30,7 +33,13 @@ adonis(formula, data, permutations = 999, method = "bray",
     row gives the permuted indices.}
   \item{method}{ the name of any method used in \code{\link{vegdist}} to
     calculate pairwise distances if the left hand side of the
-    \code{formula} was a data frame or a matrix. } 
+    \code{formula} was a data frame or a matrix. }
+  \item{by}{\code{by = "terms"} will assess significance for each term
+    (sequentially from first to last), setting \code{by = "margin"}
+    will assess the marginal effects of the terms (each marginal term
+    analysed in a model with all other variables), and \code{by =
+    NULL} will assess the overall significance of all terms
+    together. The arguments is passed on to \code{\link{anova.cca}}.}
   \item{strata}{ groups (strata) within which to constrain permutations.  }
   \item{contr.unordered, contr.ordered}{contrasts used for the design
     matrix (default in R is dummy or treatment contrasts for unordered
@@ -46,14 +55,26 @@ adonis(formula, data, permutations = 999, method = "bray",
 sums of squares using semimetric and metric distance matrices. Insofar
 as it partitions sums of squares of a multivariate data set, it is
 directly analogous to MANOVA (multivariate analysis of
-variance). M.J. Anderson (McArdle and Anderson 2001, Anderson 2001) refers to the
-method as \dQuote{permutational manova} (formerly \dQuote{nonparametric manova}). Further, as its inputs are
-linear predictors, and a response matrix of an arbitrary number of
-columns (2 to millions), it is a robust alternative to both parametric
-MANOVA and to ordination methods for describing how variation is
-attributed to different experimental treatments or uncontrolled
-covariates. It is also analogous to redundancy analysis (Legendre and
+variance). McArdle and Anderson (2001) and Anderson (2001)
+refer to the method as \dQuote{permutational manova} (formerly
+\dQuote{nonparametric manova}). Further, as its inputs are linear
+predictors, and a response matrix of an arbitrary number of columns (2
+to millions), it is a robust alternative to both parametric MANOVA and
+to ordination methods for describing how variation is attributed to
+different experimental treatments or uncontrolled covariates. It is
+also analogous to distance-based redundancy analysis (Legendre and
 Anderson 1999).
+
+Function \code{adonis} is directly based on the algorithm of Anderson
+(2001) and performs a sequential test of terms. Function
+\code{adonis2} is based on the principles of McArdle & Anderson (2001)
+and can perform sequential, marginal and overall tests. Function
+\code{adonis2} can be much slower than \code{adonis}, in particular
+with several terms. With the same random permutation, sequential tests
+are identical in both functions, and the results are also identical to
+\code{\link{anova.cca}} of \code{\link{capscale}}. With Euclidean
+distances, the sequential tests are also identical to
+\code{\link{anova.cca}} of \code{\link{rda}}.
 
 Typical uses of \code{adonis} include analysis of ecological community
 data (samples X species matrices) or genetic data where we might have a
