@@ -167,9 +167,14 @@
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
-    isRDA <- inherits(object, "rda")
-    colnames(out) <- c("Df", ifelse(isRDA, "Variance", "ChiSquare"),
-                       "F", "Pr(>F)")
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    colnames(out) <- c("Df", varname, "F", "Pr(>F)")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
                    "Marginal tests for axes\n",
