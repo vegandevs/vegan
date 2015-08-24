@@ -60,6 +60,7 @@
 `anova.ccabymargin` <-
     function(object, permutations, scope, ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     nperm <- nrow(permutations)
     ## Refuse to handle models with missing data
     if (!is.null(object$na.action))
@@ -102,7 +103,7 @@
     Fval <- sweep(Fval, 2, Df, "/")
     Fval <- sweep(Fval, 1, scale, "/")
     ## Simulated P-values
-    Pval <- (colSums(sweep(Fval, 2, Fstat, ">=")) + 1)/(nperm + 1)
+    Pval <- (colSums(sweep(Fval, 2, Fstat - EPS, ">=")) + 1)/(nperm + 1)
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
@@ -131,6 +132,7 @@
 `anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
+    EPS <- sqrt(.Machine$double.eps)
     ## capscale axes are still based only on real components and we
     ## need to cast to old format to get the correct residual
     ## variation. This should give a message().
@@ -174,7 +176,7 @@
                 permutest(update(object, upfla, data = LC),
                           permutations, model = model,
                           parallel = parallel)
-        Pvals[i] <- (sum(mod$F.perm >= mod$F.0) + 1) / (nperm + 1)
+        Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         F.perm[ , i] <- mod$F.perm
         if (Pvals[i] > cutoff)
             break
