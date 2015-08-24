@@ -56,6 +56,7 @@
 `anova.ccabymargin` <-
     function(object, permutations, scope, ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     nperm <- nrow(permutations)
     ## Refuse to handle models with missing data
     if (!is.null(object$na.action))
@@ -95,7 +96,7 @@
     Fval <- sweep(Fval, 2, Df, "/")
     Fval <- sweep(Fval, 1, scale, "/")
     ## Simulated P-values
-    Pval <- (colSums(sweep(Fval, 2, Fstat, ">=")) + 1)/(nperm + 1)
+    Pval <- (colSums(sweep(Fval, 2, Fstat - EPS, ">=")) + 1)/(nperm + 1)
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
@@ -123,6 +124,7 @@
 `anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
+    EPS <- sqrt(.Machine$double.eps)
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig

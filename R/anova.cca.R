@@ -4,6 +4,7 @@
              parallel = getOption("mc.cores"), strata = NULL,
              cutoff = 1, scope = NULL)
 {
+    EPS <- sqrt(.Machine$double.eps) # for permutation P-values
     model <- match.arg(model)
     ## permutation matrix
     N <- nrow(object$CA$u)
@@ -58,7 +59,7 @@
     tst <- permutest.cca(object, permutations = permutations,
                          model = model, parallel = parallel, ...)
     Fval <- c(tst$F.0, NA)
-    Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
+    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
     if (inherits(object, "capscale") &&
