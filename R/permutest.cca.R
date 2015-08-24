@@ -139,10 +139,6 @@ permutest.default <- function(x, ...)
     num <- tmp[,1]
     den <- tmp[,2]
     F.perm <- tmp[,3]
-    ## Round to avoid arbitrary ordering of statistics due to
-    ## numerical inaccuracy
-    F.0 <- round(F.0, 12)
-    F.perm <- round(F.perm, 12)
     Call <- match.call()
     Call[[1]] <- as.name("permutest")
     sol <- list(call = Call, testcall = x$call, model = model,
