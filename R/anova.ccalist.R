@@ -72,10 +72,13 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    varname <- switch(method,
-                      "cca" = "ChiSquare",
-                      "rda" = "Variance",
-                      "capscale" = "SumOfSqs")
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
     dimnames(table) <- list(1L:nmodels,
                             c("ResDf", paste0("Res", varname), "Df",
                               varname, "F", "Pr(>F)"))
