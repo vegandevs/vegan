@@ -1,10 +1,11 @@
 `print.permutest.cca` <-
     function (x, ...) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     cat("\nPermutation test for", x$method, "\n\n")
     cat(howHead(x$control), "\n")
     writeLines(strwrap(pasteCall(x$testcall)))
-    Pval <- (sum(x$F.perm >= x$F.0) + 1)/(x$nperm + 1)
+    Pval <- (sum(x$F.perm >= x$F.0 - EPS) + 1)/(x$nperm + 1)
     cat("Permutation test for ")
     if (x$first)
         cat("first constrained eigenvalue\n")
