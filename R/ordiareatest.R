@@ -16,6 +16,7 @@
     function(ord, groups, area = c("hull", "ellipse"), permutations = 999,
              parallel = getOption("mc.cores"), ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     ## Function to find area
     area <- match.arg(area)
     areafun <- if (area == "hull") ordihull else ordiellipse
@@ -47,7 +48,7 @@
     } else {
         areas <- sapply(1:permutations, function(i, ...) pfun(perm[i,], ...))
     }
-    signif <- (rowSums(areas <= obs) + 1)/(nperm + 1)
+    signif <- (rowSums(areas <= obs + EPS) + 1)/(nperm + 1)
     out <- list("areas" = obs, "pvalues" = signif, "permutations" = areas,
                 nperm = nperm, control = attr(perm, "control"), "kind" = area)
     class(out) <- "ordiareatest"
