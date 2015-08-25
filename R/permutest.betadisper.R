@@ -2,6 +2,7 @@
                                    permutations = 999,
                                    parallel = getOption("mc.cores"), ...)
 {
+    EPS <- sqrt(.Machine$double.eps) # for P-value comparisons
     t.statistic <- function(x, y) {
         m <- length(x)
         n <- length(y)
@@ -119,7 +120,7 @@
     }
 
     ## compute permutation p-value
-    pval <- (sum(Fstats >= F0) + 1) / (length(Fstats) + 1)
+    pval <- (sum(Fstats >= F0 - EPS) + 1) / (length(Fstats) + 1)
 
     if(pairwise) {
         df <- apply(combin, 2, function(z) {
