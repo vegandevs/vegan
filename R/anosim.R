@@ -2,6 +2,7 @@
     function (dat, grouping, permutations = 999,
               distance = "bray", strata = NULL, parallel = getOption("mc.cores")) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     if (inherits(dat, "dist")) 
         x <- dat
     else if (is.matrix(dat) && nrow(dat) == ncol(dat) && all(dat[lower.tri(dat)] == 
@@ -65,7 +66,7 @@
         } else {
             perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
         }
-        p.val <- (1 + sum(perm >= statistic))/(1 + permutations)
+        p.val <- (1 + sum(perm >= statistic - EPS))/(1 + permutations)
     } else { # no permutations
         p.val <- perm <- NA
     }
