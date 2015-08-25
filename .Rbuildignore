@@ -3,3 +3,5 @@ LICENSE
 ^\.travis\.yml$
 ^travis-tool\.sh
 ^appveyor\.yml$
+^Makefile$
+
