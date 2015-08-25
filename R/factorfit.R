@@ -1,6 +1,7 @@
 `factorfit` <-
     function (X, P, permutations = 0, strata = NULL, w,  ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     P <- as.data.frame(P)
     ## Check that all variables are factors, and coerce if necessary
     if(any(!sapply(P, is.factor)))
@@ -50,7 +51,7 @@
             }
             tmp <- sapply(seq_len(permutations),
                           function(indx,...) ptest(permat[indx,], ...))
-            pval.this <- (sum(tmp >= r.this) + 1)/(permutations + 1)
+            pval.this <- (sum(tmp >= r.this - EPS) + 1)/(permutations + 1)
             pval <- c(pval, pval.this)
         }
     }
