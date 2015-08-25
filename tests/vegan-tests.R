@@ -228,3 +228,11 @@ all.equal(dat, d, check.attributes = FALSE)
 rm(ind, target, mod, dat, d)
 ### end simulate.*
 
+### test metaMDS works with long expression for comm
+### originally reported to GLS by Richard Telford
+data(varespec)
+set.seed(1)
+mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0))
+mod
+### The above should run without error & last lines tests changes to the
+### printed output
