@@ -143,8 +143,15 @@
     z <- (indstat - means)/sd
     if (any(sd < sqrt(.Machine$double.eps)))
         z[sd < sqrt(.Machine$double.eps)] <- 0
-    pless <- rowSums(indstat >= simind, na.rm = TRUE)
-    pmore <- rowSums(indstat <= simind, na.rm = TRUE)
+    ## results can be integers or real: comparisons differ
+    if (is.integer(indstat) && is.integer(simind)) {
+        pless <- rowSums(indstat >= simind, na.rm = TRUE)
+        pmore <- rowSums(indstat <= simind, na.rm = TRUE)
+    } else {
+        EPS <- sqrt(.Machine$double.eps)
+        pless <- rowSums(indstat + EPS >= simind, na.rm = TRUE)
+        pmore <- rowSums(indstat - EPS <= simind, na.rm = TRUE)
+    }
     if (any(is.na(simind))) {
         warning("some simulated values were NA and were removed")
         nsimul <- nsimul - rowSums(is.na(simind))
