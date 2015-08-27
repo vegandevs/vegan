@@ -7,6 +7,27 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item Recovery of original data in \code{metaMDS} when computing
+      WA scores for species would fail if the expression supplied to
+      argument \code{comm} was long & got deparsed to multiple
+      strings. \code{metaMDSdist} now returns the (possibly modified)
+      data frame of community data \code{comm} as attribute
+      \code{"comm"} of the returned \code{dist} object. \code{metaMDS}
+      now uses this to compute the WA species scores for the NMDS. In
+      addition, the deparsed expression for \code{comm} is now robust to
+      long expressions.  Reported by Richard Telford.
+
+    }
+
+  }
+
+}
+
+\section{Changes in version 2.3-0}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
       \item Constrained ordination functions \code{cca}, \code{rda} and
       \code{capscale} are now more robust. Scoping of data set names and
       variable names is much improved. This should fix numerous
