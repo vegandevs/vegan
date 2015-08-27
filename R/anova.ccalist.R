@@ -1,6 +1,7 @@
 `anova.ccalist` <-
     function(object, permutations, model, parallel)
 {
+    EPS <- sqrt(.Machine$double.eps)
     ## 'object' *must* be a list of cca objects, and 'permutations'
     ## *must* be a permutation matrix -- we assume that calling
     ## function takes care of this, and this function is not directly
@@ -67,7 +68,7 @@
         pfvals <- matrix(pfvals, nrow = 1, ncol = nperm)
     pfvals <- sweep(pfvals, 1, df, "/")
     pfvals <- sweep(pfvals, 2, pscale, "/")
-    pval <- rowSums(sweep(pfvals, 1, fval, ">="))
+    pval <- rowSums(sweep(pfvals, 1, fval - EPS, ">="))
     pval <- (pval + 1)/(nperm + 1)
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),

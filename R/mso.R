@@ -2,6 +2,7 @@
     function (object.cca, object.xy, grain = 1, round.up = FALSE,
               permutations = 0) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     if (inherits(object.cca, "mso")) {
         rm <- which(class(object.cca) == "mso")
         class(object.cca) <- class(object.cca)[-rm]
@@ -76,7 +77,8 @@
         }
         perm <- sapply(1:nperm, function(take) permfunc(permat[take,]))
         object$vario$CA.signif <-
-            (rowSums(sweep(perm, 1, statistic, ">=")) + 1)/(nperm + 1)
+            (rowSums(sweep(perm, 1, statistic - EPS, ">=")) + 1)/
+                (nperm + 1)
         attr(object$vario, "control") <- attr(permat, "control")
     }
     object$call <- match.call()
