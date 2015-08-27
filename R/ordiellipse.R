@@ -2,7 +2,7 @@
     function (ord, groups, display = "sites", kind = c("sd", "se"),
               conf, draw = c("lines", "polygon", "none"),
               w = weights(ord, display), col = NULL, alpha = 127,
-              show.groups, label = FALSE,  ...)
+              show.groups, label = FALSE, border=NULL,lty=NULL, lwd=NULL, ...)
 {
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
@@ -30,6 +30,15 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    
+    for(arg in c("col","border","lty","lwd")){
+      tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
+      if(is.null(tmp)) tmp <- 1
+      if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
+      assign(arg, tmp)
+      
+    }
+    
     res <- list()
     if (label) {
         cntrs <- matrix(NA, nrow=length(inds), ncol=2)
@@ -56,10 +65,15 @@
                 xy <- X
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines,
-                                col = if(is.null(col)) par("fg") else col,
-                                ...)
+                                col = if (is.null(col)) 
+                                  par("fg")
+                                else col[match(is, inds)],
+                                lty=lty[match(is,inds)],lwd=lwd[match(is,inds)], ...)
+                      
             else if (draw == "polygon") 
-                ordiArgAbsorber(xy[, 1], xy[, 2], col = col, FUN = polygon,
+                ordiArgAbsorber(xy[, 1], xy[, 2], col = col[match(is, inds)], border=border[match(is,inds)],
+                                lty=lty[match(is,inds)],lwd=lwd[match(is,inds)],
+                                FUN = polygon,
                                 ...)
             if (label && draw != "none") {
                 cntrs[is,] <- mat$center
