@@ -6,7 +6,13 @@
               plot = FALSE, previous.best,  ...) 
 {
     engine <- match.arg(engine)
-    commname <- deparse(substitute(comm))
+    ## This could be a character vector of length > 1L
+    commname <- deparse(substitute(comm), width.cutoff = 500L)
+    if (length(commname) > 1L) {
+        paste(commname, collapse = "", sep = "")
+        ## deparse can add more white space, so cull 2 or more spaces to a single space
+        commname <- gsub("[ ]{2,}", " ", commname)
+    }
     ## metaMDS was written for community data which should be all
     ## positive. Check this here, and set arguments so that they are
     ## suitable for non-negative data.
@@ -45,13 +51,14 @@
     points <- postMDS(out$points, dis, plot = max(0, plot - 1), ...)
     if (is.null(rownames(points))) 
         rownames(points) <- rownames(comm)
-    if (wascores) {
+    wa <- if (wascores) {
         ## transformed data
-        comm <- eval.parent(parse(text=attr(dis, "commname")))
-        wa <- wascores(points, comm, expand = expand)
+        ##comm <- eval.parent(parse(text=attr(dis, "commname")))
+        comm <- attr(dis, "comm")
+        wascores(points, comm, expand = expand)
+    } else {
+        NA
     }
-    else
-        wa <- NA
     out$points <- points
     out$species <- wa
     out$call <- match.call()
