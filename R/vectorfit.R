@@ -1,6 +1,7 @@
 "vectorfit" <-
     function (X, P, permutations = 0, strata = NULL, w, ...) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     if (missing(w) || is.null(w)) 
         w <- 1
     if (length(w) == 1) 
@@ -47,7 +48,7 @@
         ## permutations are the matrix columns and variables are rows
         if (!is.matrix(permstore))
             permstore <- matrix(permstore, ncol=permutations)
-        permstore <- sweep(permstore, 1, r, ">=")
+        permstore <- sweep(permstore, 1, r - EPS, ">=")
         validn <- rowSums(is.finite(permstore))
         pvals <- (rowSums(permstore, na.rm = TRUE) + 1)/(validn + 1)
     }

@@ -2,6 +2,7 @@
     function(comm, group, permutations = 0, trace = FALSE,
              parallel = getOption("mc.cores"), ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     if (any(rowSums(comm, na.rm = TRUE) == 0))
         warning("you have empty rows: results may be meaningless")
     pfun <- function(x, comm, comp, i, contrp) {
@@ -78,7 +79,7 @@
                 perm.contr <- sapply(1:nperm, function(d)
                     pfun(d, comm, comp, i, contrp))
             }
-            p <- (rowSums(apply(perm.contr, 2, function(x) x >= average)) + 1) / (nperm + 1)
+            p <- (rowSums(apply(perm.contr, 2, function(x) x >= average - EPS)) + 1) / (nperm + 1)
         }
         else {
           p <- NULL
