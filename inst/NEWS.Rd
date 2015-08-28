@@ -7,6 +7,20 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item Permutation tests did not always correctly recognize ties
+      with the observed statistic and this could result in too low
+      \eqn{P}-values. This would happen in particular when all predictor
+      variables were factors (classes). The changes concern functions
+      \code{adonis}, \code{anosim}, \code{anova} and \code{permutest}
+      functions for \code{cca}, \code{rda} and \code{capscale},
+      \code{permutest} for \code{betadisper}, \code{envfit},
+      \code{mantel} and \code{mantel.partial}, \code{mrpp}, \code{mso},
+      \code{oecosimu}, \code{ordiareatest}, \code{protest} and
+      \code{simper}. This also fixes issues
+      \href{https://github.com/vegandevs/vegan/issues/120}{#120} and
+      \href{https://github.com/vegandevs/vegan/issues/132}{#132} in
+      GitHub.
+
       \item Automated model building in constrained ordination
       (\code{cca}, \code{rda}, \code{capscale}) with \code{step},
       \code{ordistep} and \code{ordiR2step} could fail if there were
