@@ -6,9 +6,9 @@
   Draws a PCA biplot with species scores indicated by biplot arrows
 }
 \usage{
-\method{biplot}{rda}(x, choices = c(1, 2), scaling = 2,
+\method{biplot}{rda}(x, choices = c(1, 2), scaling = "species",
        display = c("sites", "species"), type, xlim, ylim, col = c(1,2), 
-       const, ...)
+       const, correlation = FALSE, ...)
 }
 
 \arguments{
@@ -21,7 +21,19 @@
     scaling values in \code{rda}, species scores are divided by standard
     deviation of each species and multiplied with an equalizing
     constant. Unscaled raw scores stored in the result can be accessed
-    with \code{scaling = 0}.}
+    with \code{scaling = 0}.
+
+    The type of scores can also be specified as one of \code{"none"},
+    \code{"sites"}, \code{"species"}, or \code{"symmetric"}, which
+    correspond to the values \code{0}, \code{1}, \code{2}, and \code{3}
+    respectively. Argument \code{correlation} can be used in combination
+    with these character descriptions to get the corresponding negative
+    value.
+  }
+  \item{correlation}{logical; if \code{scaling} is a character
+    description of the scaling type, \code{correlation} can be used to
+    select correlation-like scores for PCA. See argument \code{scaling}
+    for details.}
   \item{display}{Scores shown.  These must some of the alternatives
     \code{"species"} for species scores, and/or \code{"sites"} for site
     scores.}
@@ -68,9 +80,9 @@
 \examples{
 data(dune)
 mod <- rda(dune, scale = TRUE)
-biplot(mod, scaling = 3)
+biplot(mod, scaling = "symmetric")
 
 ## different type for species and site scores
-biplot(mod, scaling = 3, type = c("text", "points"))
+biplot(mod, scaling = "symmetric", type = c("text", "points"))
 }
 \keyword{hplot}
