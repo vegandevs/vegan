@@ -12,9 +12,10 @@
         NextMethod("biplot", x, ...)
 }
 
-`biplot.rda` <- function(x, choices = c(1, 2), scaling = 2,
-                       display = c("sites", "species"),
-                       type, xlim, ylim, col = c(1,2), const, ...) {
+`biplot.rda` <- function(x, choices = c(1, 2), scaling = "species",
+                         display = c("sites", "species"),
+                         type, xlim, ylim, col = c(1,2), const,
+                         correlation = FALSE, ...) {
   if(!inherits(x, "rda"))
       stop("'biplot.rda' is only for objects of class 'rda'")
   if(!is.null(x$CCA))
