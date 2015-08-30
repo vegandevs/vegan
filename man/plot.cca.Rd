@@ -27,13 +27,14 @@
 \method{points}{cca}(x, display = "sites", choices = c(1, 2),
        scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
        axis.bp = TRUE, correlation = FALSE, hill = FALSE, ...)
-\method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"), scaling = 2,
-       hill = FALSE, ...)
-\method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"), scaling = 2, 
-       const, correlation = FALSE, ...)
-\method{summary}{cca}(object, scaling = 2, axes = 6,
+\method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"),
+       scaling = "species", hill = FALSE, ...)
+\method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"),
+       scaling = "species", const, correlation = FALSE, ...)
+\method{summary}{cca}(object, scaling = "species", axes = 6,
         display = c("sp", "wa", "lc", "bp", "cn"),
-        digits = max(3, getOption("digits") - 3), ...)
+        digits = max(3, getOption("digits") - 3),
+        correlation = FALSE, hill = FALSE, ...)
 \method{print}{summary.cca}(x, digits = x$digits, head = NA, tail = head, ...)
 \method{head}{summary.cca}(x, n = 6, tail = 0, ...)
 \method{tail}{summary.cca}(x, n = 6, head = 0, ...)
