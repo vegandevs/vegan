@@ -1,6 +1,6 @@
 `scores.rda` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"), 
-              scaling = 2, const, correlation = FALSE, ...) 
+    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
+              scaling = "species", const, correlation = FALSE, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"

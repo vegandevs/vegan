@@ -1,6 +1,6 @@
 `scores.cca` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-              scaling = 2, hill = FALSE, ...)
+              scaling = "species", hill = FALSE, ...)
 {
     if(inherits(x, "pcaiv")) {
         warning("looks like ade4::cca object: you better use ade4 functions")
