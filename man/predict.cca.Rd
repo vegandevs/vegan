@@ -27,7 +27,11 @@
     type = c("response", "working"), ...)
 \method{residuals}{cca}(object, ...)
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
-    rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...)
+        rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+        hill = FALSE, ...)
+\method{predict}{rda}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
+        rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+        correlation = FALSE, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
@@ -70,9 +74,13 @@
   \item{rank}{The rank or the number of axes used in the approximation.
     The default is to use all axes (full rank) of the \code{"model"} or
     all available four axes in \code{predict.decorana}.}
-  \item{scaling}{Scaling or predicted scores with the same meaning as
-    in \code{\link{cca}}, \code{\link{rda}} and
-    \code{\link{capscale}}.}
+  \item{scaling}{logical, character, or numeric; Scaling or predicted
+    scores with the same meaning as in \code{\link{cca}},
+    \code{\link{rda}} and \code{\link{capscale}}. See \code{scores.cca}
+    for further details on acceptable values.}
+  \item{correlation, hill}{logical; correlation-like scores or Hill's
+    scaling as appropriate for RDA/\code{\link{capscale}} and CCA
+    respectively. See \code{\link{scores.cca}} for additional details.}
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
