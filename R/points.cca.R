@@ -1,19 +1,20 @@
 `points.cca` <-
-    function (x, display = "sites", choices = c(1, 2), scaling = 2,
-              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
+    function (x, display = "sites", choices = c(1, 2), scaling = "species",
+              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE,
+              correlation = FALSE, hill = FALSE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
-                  const)
+                  const, correlation = correlation, hill = hill)
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
         cnam <- rownames(pts)
         points(pts, ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
-                      const)
+                      const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
         pts <- pts[!(bnam %in% cnam), , drop = FALSE]
         if (nrow(pts) == 0)

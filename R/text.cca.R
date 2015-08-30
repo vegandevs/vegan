@@ -1,12 +1,13 @@
 `text.cca` <-
-    function (x, display = "sites", labels, choices = c(1, 2), scaling = 2,
-              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
+    function (x, display = "sites", labels, choices = c(1, 2), scaling = "species",
+              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE,
+              correlation = FALSE, hill = FALSE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
-                  const)
+                  const, correlation = correlation, hill = hill)
     ## store rownames of pts for use later, otherwise if user supplies
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
@@ -18,7 +19,7 @@
     if (display == "cn") {
         text(pts, labels = rownames(pts), ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
-                      const)
+                      const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
         pts <- pts[!(bnam %in% cnam), , drop = FALSE]
         if (nrow(pts) == 0)
