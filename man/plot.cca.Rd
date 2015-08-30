@@ -19,7 +19,8 @@
 }
 \usage{
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-     scaling = 2, type, xlim, ylim, const, ...)
+     scaling = "species", type, xlim, ylim, const,
+     correlation = FALSE, hill = FALSE, ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2), scaling = 2,
      arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
 \method{points}{cca}(x, display = "sites", choices = c(1, 2), scaling = 2,
