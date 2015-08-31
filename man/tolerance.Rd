@@ -7,8 +7,7 @@
 tolerance(x, \dots)
 
 \method{tolerance}{cca}(x, choices = 1:2, which = c("species","sites"),
-          scaling = "species", useN2 = FALSE, correlation = FALSE,
-          hill = FALSE, \dots)
+          scaling = "species", useN2 = FALSE, hill = FALSE, \dots)
 }
 \description{
   Species tolerances and sample heterogeneities.
@@ -32,10 +31,9 @@ tolerance(x, \dots)
     respectively are computed.}
   \item{scaling}{character or numeric; the ordination scaling to
     use. See \code{\link{scores.cca}} for details.}
-  \item{correlation, hill}{logical; if \code{scaling} is a character,
-    these control whether correlation-like scores or Hill's scaling is
-    used for PCA/RDA or (C)CA respectively. See \code{\link{scores.cca}}
-    for details.}
+  \item{hill}{logical; if \code{scaling} is a character,
+    these control whether Hill's scaling is used for (C)CA
+    respectively. See \code{\link{scores.cca}} for details.}
   \item{useN2}{logical; should the bias in the tolerances /
     heterogeneities be reduced via scaling by Hill's N2?}
   \item{\dots}{arguments passed to other methods.}

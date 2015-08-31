@@ -26,7 +26,7 @@
 tolerance.cca <- function(x, choices = 1:2,
                           which = c("species","sites"),
                           scaling = "species", useN2 = FALSE,
-                          correlation = FALSE, hill = FALSE, ...) {
+                          hill = FALSE, ...) {
     if(inherits(x, "rda"))
         stop("tolerances only available for unimodal ordinations")
     if(missing(which))
@@ -41,8 +41,8 @@ tolerance.cca <- function(x, choices = 1:2,
           x$rowsum %o% x$colsum) * x$grand.total
     which <- match.arg(which)
     siteScrTypes <- if(is.null(x$CCA)){ "sites" } else {"lc"}
-    ## Sort out scaling
-    scaling <- scalingType(scaling, correlation = correlation, hill = hill)
+    ## Sort out scaling; only for (C)CA so no correlation arg
+    scaling <- scalingType(scaling, hill = hill)
     scrs <- scores(x, display = c(siteScrTypes,"species"),
                    choices = choices, scaling = scaling, ...)
     ## compute N2 if useN2 == TRUE & only if
