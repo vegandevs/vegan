@@ -10,7 +10,7 @@
 ##' @param which character; one of \code{"species"} or \code{"sites"},
 ##' indicating whether species tolerances or sample heterogeneities
 ##' respectively are computed.
-##' @param scaling numeric; the ordination scaling to use.
+##' @param scaling numeric or character; the ordination scaling to use.
 ##' @param useN2 logical; should the bias in the tolerances /
 ##' heterogeneities be reduced via scaling by Hill's N2?
 ##' @param ... arguments passed to other methods
@@ -25,7 +25,8 @@
 ##'
 tolerance.cca <- function(x, choices = 1:2,
                           which = c("species","sites"),
-                          scaling = 2, useN2 = FALSE, ...) {
+                          scaling = "species", useN2 = FALSE,
+                          hill = FALSE, ...) {
     if(inherits(x, "rda"))
         stop("tolerances only available for unimodal ordinations")
     if(missing(which))
@@ -40,8 +41,10 @@ tolerance.cca <- function(x, choices = 1:2,
           x$rowsum %o% x$colsum) * x$grand.total
     which <- match.arg(which)
     siteScrTypes <- if(is.null(x$CCA)){ "sites" } else {"lc"}
+    ## Sort out scaling; only for (C)CA so no correlation arg
+    scaling <- scalingType(scaling, hill = hill)
     scrs <- scores(x, display = c(siteScrTypes,"species"),
-                   choices = choices, scaling = scaling)
+                   choices = choices, scaling = scaling, ...)
     ## compute N2 if useN2 == TRUE & only if
     doN2 <- isTRUE(useN2) && ((which == "species" && abs(scaling) == 2) ||
                               (which == "sites" && abs(scaling) == 1))

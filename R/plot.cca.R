@@ -1,9 +1,9 @@
-`plot.cca` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-              scaling = 2, type, xlim, ylim,  const, ...)
-{
+`plot.cca` <- function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
+                        scaling = "species", type, xlim, ylim, const,
+                        correlation = FALSE, hill = FALSE, ...) {
     TYPES <- c("text", "points", "none")
-    g <- scores(x, choices, display, scaling, const)
+    g <- scores(x, choices, display, scaling, const, correlation = correlation,
+                hill = hill)
     if (length(g) == 0 || all(is.na(g)))
       stop("nothing to plot: requested scores do not exist")
     if (!is.list(g))
