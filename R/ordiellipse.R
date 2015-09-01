@@ -31,6 +31,7 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     
+    # fill in graphical vectors with default values if unspecified and recycles shorter vectors 
     for(arg in c("col","border","lty","lwd")){
       tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
       if(is.null(tmp)) tmp <- 1
