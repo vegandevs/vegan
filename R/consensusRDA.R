@@ -1,26 +1,5 @@
 consensusRDA <-
 function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
-###
-### Calculates a consensus results for a series of canonical ordinations performed with different association coefficients on the same data. This function is only available for ordinations performed with canonical redundancy analysis (RDA) or variant of RDA such as distance-based RDA and transformation-based RDA
-###
-### Arguments :
-###
-### ordires : A list of "cca rda" object from the vegan package gathering a series of RDA performed with different association coefficients on the same data.
-### ordisigniaxis : A list of anova.cca object where each axis was tested for each RDA in ordires or a vector defining the number of significant axes in the RDA. See details. 
-### X : Matrix of response variables
-### Y : Matrix of explanatory variables
-### pval : Numeric. P-value threshold to select the number of axes to use. This argument is only active if a list of anova.cca object is given for the argument ordisigniaxis, otherwise it is not considered.
-### scaling : Type of scaling used to project the results. Default is 1 (distance).
-###
-###
-### Details
-### 
-### For the argument ordisigniaxis, if a vector of number of significant axes is given, for each RDA, it is assumed that the significant axes are selected in sequential order from the first axis.  
-### 
-### Although it is possible to apply a scaling 3 to the RDA (it is available in the vegan package), this scaling should only be used for canonical correspondence analysis (CCA), it does not make any sense to use in the RDA framework.
-###
-### F. Guillaume Blanchet - February 2012 (Modified November 2012, June 2013)
-################################################################################
 	#----------------
 	#CC# Basic object
 	#----------------
@@ -34,7 +13,8 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	#------------------
 	#CC# General checks
 	#------------------
-	#### Check if there are completely collinear explanatory variables and count the number of non-collinear variables
+	#### Check if there are completely collinear explanatory variables 
+	#### and count the number of non-collinear variables
 	Y.tmp<-Y
 	deter<-det(cor(Y))
 	
@@ -53,7 +33,8 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 		stop("One or more canonical ordination in 'ordires' is not an RDA")
 	}
 	
-	#### Check if ordires and ordisigniaxis have the same number of components
+	#### Check if ordires and ordisigniaxis have the same number of 
+	#### components
 	if(length(ordisigniaxis)!=length(ordires)){
 		stop("'ordires' is not the same length as 'ordisigniaxis'")
 	}
@@ -91,7 +72,8 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 			stop("anova.cca by axis should be either 'RDA' or 'CAP'")
 		}
 		
-		#CC# Extract the number of signicant axes to use for each canonical ordinations
+		#CC# Extract the number of signicant axes to use for each 
+		#CC# canonical ordinations
 		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,4]<=pval)))
 	#### If ordisigniaxis is a vector
 	}else{
@@ -111,7 +93,30 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	
 	#### Make sure that X is a matrix 
 	Y<-as.matrix(Y)
+	
+	#### Check that all RDAs in ordires were carried out on the same
+	#### Y data
+	checkCall<-sapply(ordires,function(x) class(x$call[[2]]))
+	if(!all(checkCall=="formula") | !all(checkCall=="call")){
+		stop("All ordinations in 'ordires' needs to be performed the same way, using 'formulas' or 'matrix' not a combination of both")
+	}
+	
+	if(all(checkCall=="formula")){
 		
+	}
+	
+	#### Check if the right side of the equation is the same for all 
+	#### ordination in ordires
+	checkY<-sapply(ordiRes,model.matrix)
+	if(!is.matrix(checkY)){
+		stop("One or more analysis does not have the same number of explanatory variables")
+	}
+	
+	if(!all(checkY[,1]==checkY)){
+		stop("One or more analysis was carried out on different explanatory variables")
+	}
+	
+	
 	#-------------------------------------------------------------
 	#CC# Extract all the significant axes of matrix Z in scaling 1
 	#-------------------------------------------------------------
@@ -123,9 +128,9 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 		Zsignimat<-cbind(Zsignimat,Zsigni[[i]])
 	}
 	
-	#-------------------------------------------------
+	#------------------------------------------
 	#CC# Perform an RDA between Zsignimat and Y
-	#-------------------------------------------------
+	#------------------------------------------
 	Zrda<-rda(Zsignimat,Y)
 	ZrdaEigen<-eigenvals(Zrda)[1:nNoncolldesc]
 	naxes<-length(ZrdaEigen)
@@ -136,8 +141,10 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	#CC# Extract the C consensus results from RDA
 	Cconsensus<-scores(Zrda,choice=1:nNoncolldesc,display="bp",scaling=1)
 	
-	#### This is the procedure proposed by Legendre and Legendre (2012, Subsection 9.3.3)
-	#### It is also the procedure proposed by Oksanen et al. in vegan and described in Blanchet et al. (submitted)
+	#### This is the procedure proposed by Legendre and 
+	#### Legendre (2012, Subsection 9.3.3). It is also the procedure 
+	#### proposed by Oksanen et al. in vegan and described in 
+	#### Blanchet et al. (2014)
 	Uconsensus<-t(scale(X,scale=FALSE))%*%Zconsensus%*%diag(ZrdaEigen^(-0.5))/sqrt(nsites-1)
 	
 	#----------------------

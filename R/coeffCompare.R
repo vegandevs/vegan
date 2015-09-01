@@ -1,26 +1,5 @@
 coeffCompare <-
 function(ordires, ordisigniaxis,pval=0.05){
-###
-### Compare a series of association coefficient calculated through an RDA
-###
-### Arguments :
-###
-### ordires : A list of "cca rda" object from the vegan package gathering a series of RDA performed with different association coefficients on the same data.
-### ordisigniaxis : A list of anova.cca object where each axis was tested for each RDA in ordires or a vector defining the number of significant axes in the RDA. See details 
-### pval : Numeric. P-value threshold to select the number of axes to use. This argument is only active if a list of anova.cca object is given for the argument ordisigniaxis, otherwise it is not considered.
-###
-###
-### Details :
-### 
-### For the argument ordisigniaxis, if a vector of number of significant axes is given, for each RDA, it is assumed that the significant axes are selected in sequential order from the first axis.  
-### 
-### Value :
-###
-### RVmat : A matrix of RV coefficients calculated for all pairs of association coefficients
-### mst : minimum spanning tree calculated on (1-RVmat)
-###
-### F. Guillaume Blanchet - February 2012. (Modified November 2012, June 2013)
-################################################################################
 	#----------------
 	#CC# Basic object
 	#----------------
@@ -38,7 +17,8 @@ function(ordires, ordisigniaxis,pval=0.05){
 		stop("One or more canonical ordination in 'ordires' is not an RDA")
 	}
 	
-	#### Check if ordires and ordisigniaxis have the same number of components
+	#### Check if ordires and ordisigniaxis have the same number of
+	#### components
 	if(length(ordisigniaxis)!=length(ordires)){
 		stop("'ordires' is not the same length as 'ordisigniaxis'")
 	}
@@ -66,7 +46,7 @@ function(ordires, ordisigniaxis,pval=0.05){
 			stop("'pval' must range between 0 and 1")
 		}
 	
-		allsigni<-sapply(ordisigniaxis,function(x) any(class(x)=="anova.cca"))
+		allsigni<-sapply(ordisigniaxis,function(x) any(class(x)=="anova"))
 		if(!all(allsigni)){
 			stop("One or more canonical ordination test in 'ordisigniaxis' is not an 'anova.cca' object")
 		}
@@ -76,8 +56,9 @@ function(ordires, ordisigniaxis,pval=0.05){
 			stop("anova.cca by axis should be either 'RDA' or 'CAP'")
 		}
 		
-		#CC# Extract the number of signicant axes to use for each canonical ordinations
-		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,5]<=pval)))
+		#CC# Extract the number of signicant axes to use for each 
+		#CC# canonical ordinations
+		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,4]<=pval)))
 	#### If ordisigniaxis is a vector
 	}else{
 		if(is.vector(ordisigniaxis)){
@@ -92,6 +73,17 @@ function(ordires, ordisigniaxis,pval=0.05){
 	#### If there are no significant axes
 	if(any(ordisigniaxis < 1)){
 		stop("One or more analysis does not have any significant axis remove it and start again")
+	}
+	
+	#### Check if the right side of the equation is the same for all 
+	#### ordination in ordires
+	checkY<-sapply(ordiRes,model.matrix)
+	if(!is.matrix(checkY)){
+		stop("One or more analysis does not have the same number of explanatory variables")
+	}
+	
+	if(!all(checkY[,1]==checkY)){
+		stop("One or more analysis was carried out on different explanatory variables")
 	}
 	
 	#-------------------------------------------------------------
