@@ -187,11 +187,9 @@ head(summary(mod), tail=2)
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)
-head(scrs)
 ## or correlation-based scores in PCA/RDA
 scrs <- scores(rda(dune ~ A1 + Moisture + Management, dune.env),
                scaling = "sites", correlation = TRUE)
-head(scrs)
 }
 \keyword{hplot}
 \keyword{aplot}
