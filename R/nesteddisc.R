@@ -38,13 +38,18 @@
             ## Can swaps influence discrepancy?
             if (idx[1] > rs[2] || idx[le[i]] < rs[1])
                 next
+            ## Following lines have some kluges to circumvent problems
+            ## in current permute release (0.8-5):
+            ## - suppressMessages(shuffleSet): future has queitly=TRUE arg
+            ## - minperm must be one too high: 5040 should suffice
+            ## - matrix(perm): shuffleSet(2) returns transposed matrix
             perm <- suppressMessages(shuffleSet(le[i], niter,
                                                 control = how(minperm=5041)))
-            perm <- perm + cle[i]
             ## maxperm is a double -- needs EPS -0.5, and original
             ## order is not iterated, so -1 totalling -1.5
             if ((attr(perm, "control")$maxperm - 1.5) > niter)
                 ties <- TRUE
+            perm <- matrix(perm, ncol = le[i]) + cle[i]
             vals <- sapply(1:nrow(perm), function(j) {
                 take[idx] <- perm[j,]
                 FUN(take)
