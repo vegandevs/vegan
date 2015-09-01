@@ -1,7 +1,7 @@
 `ordispider` <-
     function (ord, groups, display = "sites", w = weights(ord, display),
               spiders = c("centroid", "median"),
-              show.groups, label = FALSE, ...)
+              show.groups, label = FALSE,col=NULL, lty=NULL, lwd=NULL, ...)
 {
     weights.default <- function(object, ...) NULL
     spiders <- match.arg(spiders)
@@ -38,6 +38,15 @@
     inds <- names(table(groups))
     if (label) 
     cntrs <- names <- NULL
+    
+    # fill in graphical vectors with default values if unspecified and recycles shorter vectors    
+    for(arg in c("col","lty","lwd")){
+      tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
+      if(is.null(tmp)) tmp <- 1
+      if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
+      assign(arg, tmp)
+      
+    }
     ## 'kk' removes NA scores and NA groups
     kk <- complete.cases(pts) & !is.na(groups)
     for (is in inds) {
@@ -50,7 +59,8 @@
                               "centroid" = apply(X, 2, weighted.mean, w = W),
                               "median" = ordimedian(X, rep(1, nrow(X))))
                 ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
-                                FUN = segments, ...)
+                                FUN = segments, col[match(is, inds)],
+                                lty=lty[match(is,inds)],lwd=lwd[match(is,inds)],...)
             } else {
                 ave <- X
             }
