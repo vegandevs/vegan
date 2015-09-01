@@ -52,7 +52,10 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     \code{ordiellipse}.  When \code{draw = "polygon"}, the colour of
     bordering lines can be set with argument \code{border} of the
     \code{\link{polygon}} function. For other functions the effect
-    depends on the underlining functions this argument is passed to.}
+    depends on the underlining functions this argument is passed to.
+    When multiple values of \code{col} are specified these are used for
+    each element of \code{levels(factor(groups))} (in that order), shorter
+    vectors are recycled.}
 
   \item{alpha}{Transparency of the fill \code{col}our with \code{draw
     = "polygon"} in \code{ordihull} and \code{ordiellipse}.  The
