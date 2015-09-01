@@ -1,11 +1,12 @@
 `plot.prc` <-
-    function (x, species = TRUE, select, scaling = 3, axis = 1, type = "l",
-              xlab, ylab, ylim, lty = 1:5, col = 1:6, pch, legpos, cex = 0.8,
-              ...)
+    function (x, species = TRUE, select, scaling = "symmetric", axis = 1,
+              correlation = FALSE, type = "l", xlab, ylab, ylim, lty = 1:5,
+              col = 1:6, pch, legpos, cex = 0.8, ...)
 {
     ## save level names before getting the summary
     levs <- x$terminfo$xlev[[2]]
-    x <- summary(x, scaling = scaling, axis = axis)
+    x <- summary(x, scaling = scaling, axis = axis,
+                 correlation = correlation)
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar))
     b <- t(coef(x))

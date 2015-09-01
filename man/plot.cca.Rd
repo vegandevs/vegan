@@ -19,16 +19,22 @@
 }
 \usage{
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-         scaling = 2, type, xlim, ylim, const, ...)
-\method{text}{cca}(x, display = "sites", labels, choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
-\method{points}{cca}(x, display = "sites", choices = c(1, 2), scaling = 2,
-    arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE, ...)
-\method{scores}{cca}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, ...)
-\method{scores}{rda}(x, choices=c(1,2), display=c("sp","wa","cn"), scaling=2, 
-    const, ...)
-\method{summary}{cca}(object, scaling = 2, axes = 6, display = c("sp", "wa", 
-    "lc", "bp", "cn"), digits = max(3, getOption("digits") - 3), ...)
+     scaling = "species", type, xlim, ylim, const,
+     correlation = FALSE, hill = FALSE, ...)
+\method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
+     scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
+     axis.bp = TRUE, correlation = FALSE, hill = FALSE, ...)
+\method{points}{cca}(x, display = "sites", choices = c(1, 2),
+       scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
+       axis.bp = TRUE, correlation = FALSE, hill = FALSE, ...)
+\method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"),
+       scaling = "species", hill = FALSE, ...)
+\method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"),
+       scaling = "species", const, correlation = FALSE, ...)
+\method{summary}{cca}(object, scaling = "species", axes = 6,
+        display = c("sp", "wa", "lc", "bp", "cn"),
+        digits = max(3, getOption("digits") - 3),
+        correlation = FALSE, hill = FALSE, ...)
 \method{print}{summary.cca}(x, digits = x$digits, head = NA, tail = head, ...)
 \method{head}{summary.cca}(x, n = 6, tail = 0, ...)
 \method{tail}{summary.cca}(x, n = 6, head = 0, ...)
@@ -37,25 +43,36 @@
 \arguments{
   \item{x, object}{A \code{cca} result object.}
     \item{choices}{Axes shown.}
-  \item{display}{Scores shown.  These must include some of the alternatives
-    \code{species} or \code{sp} for species scores, \code{sites} or
-    \code{wa} for site scores, \code{lc} for linear constraints or ``LC
-    scores'', or \code{bp} for biplot arrows or \code{cn} for centroids
-    of factor constraints instead of an arrow.}
-   \item{scaling}{Scaling for species and site scores. Either species
+  \item{display}{Scores shown.  These must include some of the
+    alternatives \code{species} or \code{sp} for species scores,
+    \code{sites} or \code{wa} for site scores, \code{lc} for linear
+    constraints or ``LC scores'', or \code{bp} for biplot arrows or
+    \code{cn} for centroids of factor constraints instead of an arrow.}
+  \item{scaling}{Scaling for species and site scores. Either species
     (\code{2}) or site (\code{1}) scores are scaled by eigenvalues, and
     the other set of scores is left unscaled, or with \code{3} both are
     scaled symmetrically by square root of eigenvalues.  Corresponding
     negative values can be used in \code{cca} to additionally multiply
-    results with \eqn{\sqrt(1/(1-\lambda))}.  This scaling is know as
-    Hill scaling (although it has nothing to do
-    with Hill's rescaling of \code{\link{decorana}}). With corresponding
-    negative values in\code{rda},
-    species scores are divided by standard deviation of each species and
-    multiplied with an equalizing constant.
-    Unscaled raw scores stored in the result can be accessed with
-    \code{scaling = 0}. 
+    results with \eqn{\sqrt(1/(1-\lambda))}.  This scaling is know as Hill
+    scaling (although it has nothing to do with Hill's rescaling of
+    \code{\link{decorana}}). With corresponding negative values
+    in\code{rda}, species scores are divided by standard deviation of each
+    species and multiplied with an equalizing constant. Unscaled raw
+    scores stored in the result can be accessed with \code{scaling = 0}.
+
+    The type of scores can also be specified as one of \code{"none"},
+    \code{"sites"}, \code{"species"}, or \code{"symmetric"}, which
+    correspond to the values \code{0}, \code{1}, \code{2}, and \code{3}
+    respectively. Arguments \code{correlation} and \code{hill} in
+    \code{scores.rda} and \code{scores.cca} respectively can be used in
+    combination with these character descriptions to get the
+    corresponding negative value.
   }
+  \item{correlation, hill}{logical; if \code{scaling} is a character
+    description of the scaling type, \code{correlation} or \code{hill}
+    are used to select the corresponding negative scaling type; either
+    correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
+    respectively. See argument \code{scaling} for details.}
   \item{type}{Type of plot: partial match to \code{text}
     for text labels, \code{points} for points, and \code{none} for
     setting frames only.  If omitted, \code{text} is selected for
@@ -165,6 +182,14 @@ text(mod, "species", col="blue", cex=0.8)
 ## Limited output of 'summary'
 head(summary(mod), tail=2)
 ## Read description of scaling in RDA in vegan:
-\dontrun{vegandocs("decision")}}
+\dontrun{vegandocs("decision")}
+
+## Scaling can be numeric or more user-friendly names
+## e.g. Hill's scaling for (C)CA
+scrs <- scores(mod, scaling = "sites", hill = TRUE)
+## or correlation-based scores in PCA/RDA
+scrs <- scores(rda(dune ~ A1 + Moisture + Management, dune.env),
+               scaling = "sites", correlation = TRUE)
+}
 \keyword{hplot}
 \keyword{aplot}
