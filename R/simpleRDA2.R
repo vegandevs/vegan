@@ -24,3 +24,30 @@
     Rsquare <- SS/SS.G
     list(Rsquare = Rsquare, m = Q$rank)
 }
+
+### Redesign Legendre's dbRDA.D function using QR decomposition. d is
+### a "dist" object and X is a model matrix
+
+`dbRDA2` <-
+    function(d, X)
+{
+    ## basic manipulation
+    G <- -GowerDblcen(as.matrix(d^2))/2
+    X <- scale(X)
+    ## QR decomposition
+    Q <- qr(X, tol = 1e-6)
+    ## Collect goodness-of-fit statistics
+    SS <- sum(diag(G))
+    SSfit <- sum(diag(qr.fitted(Q, G)))
+    ## H is the hat matrix, and constrained ordination of LC scores is
+    ## the eigen solution of HGH
+    H <- tcrossprod(qr.Q(Q))
+    HGH <- H %*% G %*% H
+    e <- eigen(HGH, symmetric = TRUE)
+    ## output using similar names as dbRDA.D. pos will select only
+    ## above-zero eigenvalues and corresponding eigenvectors
+    pos <- e$values > sqrt(.Machine$double.eps)
+    sol <- list(SS.total = SS, SS.fit = SSfit, RDA.values = e$values[pos],
+                RDA.coord = e$vectors[,pos] %*% diag(sqrt(e$values[pos])))
+    sol
+}
