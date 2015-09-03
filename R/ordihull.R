@@ -56,7 +56,8 @@
                 par("fg")
                 else col[match(is, inds)], lty=lty[match(is,inds)],lwd=lwd[match(is,inds)], ...)
             else if (draw == "polygon") 
-              ordiArgAbsorber(X[hpts, ], border = border[match(is,inds)],FUN = polygon, col = col[match(is, inds)], ...)
+              ordiArgAbsorber(X[hpts, ], border = border[match(is,inds)],FUN = polygon, col = col[match(is, inds)],
+                              lty=lty[match(is,inds)],lwd=lwd[match(is,inds)],...)
             if (label && draw != "none") {
                 cntrs[is,] <- polycentre(X[hpts,])
             }
