@@ -66,9 +66,9 @@
     }
     if (label && draw != "none") {
       if (draw == "lines") 
-        ordiArgAbsorber(cntrs[, 1], cntrs[, 2], labels = names, 
+        ordiArgAbsorber(cntrs[, 1], cntrs[, 2], labels = rownames(cntrs), 
                         col = col[match(is, inds)], FUN = text, ...)
-      else ordiArgAbsorber(cntrs, labels = names, col = NULL, 
+      else ordiArgAbsorber(cntrs, labels = rownames(cntrs), col = col[match(is, inds)], 
                            FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"
