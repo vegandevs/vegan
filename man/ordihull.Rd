@@ -20,12 +20,12 @@
 
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         col = NULL, alpha = 127, show.groups, label = FALSE, lty=NULL,
+         col = NULL, alpha = 127, show.groups, label = FALSE,border=NULL, lty=NULL,
          lwd=NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
-         col = NULL, alpha = 127, show.groups, label = FALSE, lty=NULL,
-         lwd=NULL, border=NULL,...)
+         col = NULL, alpha = 127, show.groups, label = FALSE,border=NULL, lty=NULL,
+         lwd=NULL,...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col=NULL, lty=NULL, lwd=NULL, ...)
@@ -117,7 +117,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     processing. The parallel processing is done with \pkg{parallel}
     package.}
     
-  \item{lty, lwd, lwd, border}{Vectors of these parameters can be supplied
+  \item{lty, lwd, border}{Vectors of these parameters can be supplied
   and will be applied (if appropriate) for each element of \code{names(table(groups))}
   (in that order). Shorter vectors will be recycled.}
 
