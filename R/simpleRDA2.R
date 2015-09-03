@@ -44,10 +44,10 @@
     H <- tcrossprod(qr.Q(Q))
     HGH <- H %*% G %*% H
     e <- eigen(HGH, symmetric = TRUE)
-    ## output using similar names as dbRDA.D. pos will select only
-    ## above-zero eigenvalues and corresponding eigenvectors
-    pos <- e$values > sqrt(.Machine$double.eps)
-    sol <- list(SS.total = SS, SS.fit = SSfit, RDA.values = e$values[pos],
-                RDA.coord = e$vectors[,pos] %*% diag(sqrt(e$values[pos])))
+    ## output using similar names as dbRDA.D. nz will select only
+    ## non-zero eigenvalues and corresponding eigenvectors
+    nz <- abs(e$values) > sqrt(.Machine$double.eps)
+    sol <- list(SS.total = SS, SS.fit = SSfit, RDA.values = e$values[nz],
+                RDA.coord = e$vectors[,nz] %*% diag(sqrt(abs(e$values[nz]))))
     sol
 }
