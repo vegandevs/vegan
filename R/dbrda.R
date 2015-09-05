@@ -93,40 +93,17 @@
         if (!is.null(X$negaxes))
             X$negaxes <- X$negaxes/sqrt(k)
     }
-    sol <- rda.default(X$points, d$Y, d$Z, ...)
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
-    ## use QR decomposition to get the components of inertia.
+    ## QR decomposition to get the components of inertia.
     hasNegEig <- any(X$eig < 0)
     G <- -X$x/2
     if (adjust == 1)
         G <- G/k
-    if (hasNegEig)
-        sol$real.tot.chi <- sol$tot.chi
-    sol$tot.chi <- sum(diag(G))
-    if (!is.null(sol$pCCA)) {
-        sol$pCCA$G <- G
-        if (hasNegEig) {
-            sol$pCCA$real.tot.chi <- sol$pCCA$tot.chi
-            sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
-        }
-        G <- qr.resid(sol$pCCA$QR, G)
-    }
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        sol$CCA$G <- G
-        if (hasNegEig) {
-            sol$CCA$real.tot.chi <- sol$CCA$tot.chi
-            sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
-        }
-    }
-    if (hasNegEig) {
-        sol$CA$real.tot.chi <- sol$CA$tot.chi
-        if (!is.null(sol$CA) && !is.null(sol$CCA$QR))
-            sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
-        else
-            sol$CA$tot.chi <- sum(diag(G))
-    }
+    ## Solution
+    sol <- NULL
+    ##
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
@@ -136,42 +113,12 @@
         colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
             paste("MDS", 1:ncol(sol$CA$u), sep = "")
     }
-    ## update for negative eigenvalues
-    poseig <- length(sol$CA$eig)
-    if (any(X$eig < 0)) {
-        negax <- X$eig[X$eig < 0]
-        sol$CA$imaginary.chi <- sum(negax)
-        sol$CA$imaginary.rank <- length(negax)
-        sol$CA$imaginary.u.eig <- X$negaxes
-    }
-    if (!is.null(comm)) {
-        comm <- scale(comm, center = TRUE, scale = FALSE)
-        sol$colsum <- apply(comm, 2, sd)
-        ## take a 'subset' of the community after scale()
-        if (!is.null(d$subset))
-            comm <- comm[d$subset, , drop = FALSE]
-        ## NA action after 'subset'
-        if (!is.null(d$na.action))
-            comm <- comm[-d$na.action, , drop = FALSE]
-        if (!is.null(sol$pCCA) && sol$pCCA$rank > 0) 
-            comm <- qr.resid(sol$pCCA$QR, comm)
-        if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-            v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
-            sol$CCA$v <- decostand(v.eig, "normalize", MARGIN = 2)
-            comm <- qr.resid(sol$CCA$QR, comm)
-        }
-        if (!is.null(sol$CA) && sol$CA$rank > 0) {
-            v.eig <- t(comm) %*% sol$CA$u/sqrt(k)
-            sol$CA$v <- decostand(v.eig, "normalize", MARGIN = 2)
-        }
-    } else {
-        ## input data were dissimilarities, and no 'comm' defined:
-        ## species scores make no sense and are made NA
-        sol$CA$v[] <- NA
-        if (!is.null(sol$CCA))
-            sol$CCA$v[] <- NA
-        sol$colsum <- NA
-    }
+
+    ## input data were dissimilarities, and no 'comm' defined:
+    ## species scores make no sense and are made NA
+
+    sol$colsum <- NA
+
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
     if (!is.null(sol$CCA$alias)) 
@@ -197,7 +144,7 @@
         sol$metaMDSdist <- commname
     sol$subset <- d$subset
     sol$na.action <- d$na.action
-    class(sol) <- c("capscale", class(sol))
+    class(sol) <- c("dbrda", "rda")
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
     sol
