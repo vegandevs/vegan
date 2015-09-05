@@ -7,27 +7,30 @@
     }
     writeLines(strwrap(pasteCall(x$call)))
     cat("\n")
-    chi <- c(x$tot.chi, if (!is.null(x$CA$imaginary.chi)) x$tot.chi - x$CA$imaginary.chi,
-                            x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi,
-             x$CA$imaginary.chi)
-    ## Proportions of inertia only for Real dimensions in capscale
-    if (is.null(x$CA$imaginary.chi))
-        props <- chi/chi[1]
+    chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi)
+    props <- chi/chi[1]
+    rnk <- c(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank)
+    ## handle negative eigenvalues of capscale
+    if (!is.null(x$CA$imaginary.chi)) 
+        rchi <- c(x$real.tot.chi, x$pCCA$real.tot.chi,
+                  x$CCA$real.tot.chi, x$CA$real.tot.chi)
     else
-        props <- c(NA, chi[-c(1, length(chi))]/chi[2], NA)
-    rnk <- c(NA, if (!is.null(x$CA$imaginary.rank)) NA, x$pCCA$rank, x$CCA$rank, x$CA$rank,
-             x$CA$imaginary.rank)
-    tbl <- cbind(chi, props, rnk)
-    colnames(tbl) <- c("Inertia", "Proportion", "Rank")
-    rn <- c("Total", "Real Total",  "Conditional", "Constrained", "Unconstrained",
+        rchi <- NULL
+    tbl <- cbind(chi, props, rchi, rnk)
+    if (!is.null(rchi))
+        tbl <- rbind(tbl, c(NA, NA, x$CA$imaginary.chi,
+                            x$CA$imaginary.rank))
+    colnames(tbl) <- c("Inertia", "Proportion",
+                       if(!is.null(rchi)) "Eigenvals", "Rank")
+    rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
             "Imaginary")
-    rownames(tbl) <- rn[c(TRUE, !is.null(x$CA$imaginary.chi), !is.null(x$pCCA),
+    rownames(tbl) <- rn[c(TRUE,!is.null(x$pCCA),
                           !is.null(x$CCA),  !is.null(x$CA),
                           !is.null(x$CA$imaginary.chi))]
     ## Remove "Proportion" if only one component
     if (is.null(x$CCA) && is.null(x$pCCA))
         tbl <- tbl[,-2]
-    printCoefmat(tbl, digits = digits, na.print = "", zap.ind = 1:2)
+    printCoefmat(tbl, digits = digits, na.print = "")
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
