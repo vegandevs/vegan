@@ -106,7 +106,7 @@
     ## pCCA
     if (!is.null(d$Z)) {
         Q <- qr(scale(d$Z, scale = FALSE), tol = 1e-6)
-        H <- tcrossprod(qr.Q(Q))
+        H <- tcrossprod(qr.Q(Q)[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
         pCCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank)
         G <- G - HGH
@@ -114,7 +114,7 @@
     ## CCA
     if (!is.null(d$Y)) {
         Q <- qr(scale(cbind(d$Z, d$Y), scale = FALSE), tol = 1e-6)
-        H <- tcrossprod(qr.Q(Q))
+        H <- tcrossprod(qr.Q(Q)[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
         e <- eigen(HGH)
         CCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank, eig = e$values)
