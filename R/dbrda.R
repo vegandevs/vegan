@@ -101,35 +101,56 @@
     G <- -X$x/2
     if (adjust == 1)
         G <- G/k
-    ## Solution
-    sol <- NULL
-    ##
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
-            colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
-                paste("CAP", 1:ncol(sol$CCA$u), sep = "")
+    ## Solution: this shows the algorithmic steps
+    pCCA <- CCA <-  CA <- NULL
+    ## pCCA
+    if (!is.null(d$Z)) {
+        Q <- qr(scale(d$Z, scale = FALSE), tol = 1e-6)
+        H <- tcrossprod(qr.Q(Q))
+        HGH <- H %*% G %*% H
+        pCCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank)
+        G <- G - HGH
     }
-    if (!is.null(sol$CA) && sol$CA$rank > 0) {
-        colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
-            paste("MDS", 1:ncol(sol$CA$u), sep = "")
+    ## CCA
+    if (!is.null(d$Y)) {
+        Q <- qr(scale(cbind(d$Z, d$Y), scale = FALSE), tol = 1e-6)
+        H <- tcrossprod(qr.Q(Q))
+        HGH <- H %*% G %*% H
+        e <- eigen(HGH)
+        CCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank, eig = e$values)
+        G <- G - HGH
     }
+    ## CA
+    e <- eigen(G)
+    CA <- list(tot.chi = sum(diag(G)), eig = e$values)
+    ## output
+    sol <- list(pCCA = pCCA, CCA = CCA, CA = CA)
+    ##if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
+    ##   colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
+    ##      colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
+    ##         paste("CAP", 1:ncol(sol$CCA$u), sep = "")
+    ##}
+    ##if (!is.null(sol$CA) && sol$CA$rank > 0) {
+    ##    colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
+    ##        paste("MDS", 1:ncol(sol$CA$u), sep = "")
+    ##}
 
     ## input data were dissimilarities, and no 'comm' defined:
     ## species scores make no sense and are made NA
 
     sol$colsum <- NA
 
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
-        sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
-    if (!is.null(sol$CCA$alias)) 
-        sol$CCA$centroids <- unique(sol$CCA$centroids)
-    if (!is.null(sol$CCA$centroids)) {
-        rs <- rowSums(sol$CCA$centroids^2)
-        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
-                                               drop = FALSE]
-        if (nrow(sol$CCA$centroids) == 0)
-            sol$CCA$centroids <- NULL
-    }
+    ## if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
+    ##    sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
+    ## if (!is.null(sol$CCA$alias)) 
+    ##    sol$CCA$centroids <- unique(sol$CCA$centroids)
+    ## if (!is.null(sol$CCA$centroids)) {
+    ##    rs <- rowSums(sol$CCA$centroids^2)
+    ##    sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
+    ##                                           drop = FALSE]
+    ##    if (nrow(sol$CCA$centroids) == 0)
+    ##        sol$CCA$centroids <- NULL
+    ##}
     sol$call <- match.call()
     sol$terms <- terms(formula, "Condition", data = data)
     sol$terminfo <- ordiTerminfo(d, data)
