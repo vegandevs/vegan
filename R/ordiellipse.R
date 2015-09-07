@@ -36,9 +36,14 @@
       tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
       if(is.null(tmp)) tmp <- ifelse(suppressWarnings(is.null(par(arg))), par("fg"), par(arg))
       if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
-      assign(arg, tmp)
+      assign(paste(arg,".new", sep=""), tmp)
       
     }
+    # default colour for "polygon" fill is bg, for lines is fg
+    if(is.null(col) && draw=="polygon") {col.new <- rep_len(par("bg"), length(inds))} else
+      if(is.null(col) && draw=="lines") {col.new <- rep_len(par("fg"), length(inds))}
+      
+  
     
     res <- list()
     if (label) {
@@ -68,12 +73,12 @@
                 ordiArgAbsorber(xy, FUN = lines,
                                 col = if (is.null(col)) 
                                   par("fg")
-                                else col[match(is, inds)],
-                                lty=lty[match(is,inds)],lwd=lwd[match(is,inds)], ...)
+                                else col.new[match(is, inds)],
+                                lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)], ...)
                       
             else if (draw == "polygon") 
-                ordiArgAbsorber(xy[, 1], xy[, 2], col = col[match(is, inds)], border=border[match(is,inds)],
-                                lty=lty[match(is,inds)],lwd=lwd[match(is,inds)],
+                ordiArgAbsorber(xy[, 1], xy[, 2], col = col.new[match(is, inds)], border=border.new[match(is,inds)],
+                                lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)],
                                 FUN = polygon,
                                 ...)
             if (label && draw != "none") {
@@ -86,7 +91,7 @@
     if (label && draw != "none") {
         if (draw == "lines")
             ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
-                            col = col,  FUN = text, ...)
+                            col = col.new,  FUN = text, ...)
         else 
             ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)

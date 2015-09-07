@@ -29,14 +29,18 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     
-    # fill in graphical vectors with default values if unspecified and recycles shorter vectors    
+    # fill in graphical vectors with default values if unspecified and recycles shorter vectors 
     for(arg in c("col","border","lty","lwd")){
       tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
       if(is.null(tmp)) tmp <- ifelse(suppressWarnings(is.null(par(arg))), par("fg"), par(arg))
       if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
-      assign(arg, tmp)
+      assign(paste(arg,".new", sep=""), tmp)
       
     }
+    # default colour for "polygon" fill is bg, for lines is fg
+    if(is.null(col) && draw=="polygon") {col.new <- rep_len(par("bg"), length(inds))} else
+      if(is.null(col) && draw=="lines") {col.new <- rep_len(par("fg"), length(inds))}
+    
     
     res <- list()
     if (label) {
@@ -54,9 +58,9 @@
             if (draw == "lines") 
               ordiArgAbsorber(X[hpts, ], FUN = lines, col = if (is.null(col)) 
                 par("fg")
-                else col[match(is, inds)], lty=lty[match(is,inds)],lwd=lwd[match(is,inds)], ...)
+                else col.new[match(is, inds)], lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)], ...)
             else if (draw == "polygon") 
-              ordiArgAbsorber(X[hpts, ], border = border[match(is,inds)],FUN = polygon, col = col[match(is, inds)], ...)
+              ordiArgAbsorber(X[hpts, ], border = border.new[match(is,inds)],FUN = polygon, col = col.new[match(is, inds)], ...)
             if (label && draw != "none") {
                 cntrs[is,] <- polycentre(X[hpts,])
             }
@@ -66,7 +70,7 @@
     if (label && draw != "none") {
       if (draw == "lines") 
         ordiArgAbsorber(cntrs[, 1], cntrs[, 2], labels = names, 
-                        col = col[match(is, inds)], FUN = text, ...)
+                        col = col.new[match(is, inds)], FUN = text, ...)
       else ordiArgAbsorber(cntrs, labels = names, col = NULL, 
                            FUN = ordilabel, ...)
     }
