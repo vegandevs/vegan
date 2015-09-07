@@ -37,8 +37,8 @@
       assign(paste(arg,".new", sep=""), tmp)
       
     }
-    # default colour for "polygon" fill is bg, for lines is fg
-    if(is.null(col) && draw=="polygon") {col.new <- rep_len(par("bg"), length(inds))} else
+    # default colour for "polygon" fill is "transparent", for lines is par("fg")
+    if(is.null(col) && draw=="polygon") {col.new <- rep_len("transparent", length(inds))} else
       if(is.null(col) && draw=="lines") {col.new <- rep_len(par("fg"), length(inds))}
     
     
