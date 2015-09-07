@@ -195,7 +195,7 @@
         sol$metaMDSdist <- commname
     sol$subset <- d$subset
     sol$na.action <- d$na.action
-    class(sol) <- c("dbrda", "rda")
+    class(sol) <- c("dbrda", "rda", "cca")
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
     sol
