@@ -60,7 +60,10 @@
                 par("fg")
                 else col.new[match(is, inds)], lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)], ...)
             else if (draw == "polygon") 
-              ordiArgAbsorber(X[hpts, ], border = border.new[match(is,inds)],FUN = polygon, col = col.new[match(is, inds)], ...)
+
+              ordiArgAbsorber(X[hpts, ], border = border.new[match(is,inds)],FUN = polygon, col = col.new[match(is, inds)],
+                              lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)],...)
+
             if (label && draw != "none") {
                 cntrs[is,] <- polycentre(X[hpts,])
             }
@@ -69,9 +72,11 @@
     }
     if (label && draw != "none") {
       if (draw == "lines") 
-        ordiArgAbsorber(cntrs[, 1], cntrs[, 2], labels = names, 
+
+        ordiArgAbsorber(cntrs[, 1], cntrs[, 2], labels = rownames(cntrs), 
                         col = col.new[match(is, inds)], FUN = text, ...)
-      else ordiArgAbsorber(cntrs, labels = names, col = NULL, 
+      else ordiArgAbsorber(cntrs, labels = rownames(cntrs), col = NULL, 
+
                            FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"
