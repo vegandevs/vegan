@@ -102,29 +102,59 @@
     if (adjust == 1)
         G <- G/k
     ## Solution: this shows the algorithmic steps
+    tot.chi <- sum(diag(G))
     pCCA <- CCA <-  CA <- NULL
     ## pCCA
     if (!is.null(d$Z)) {
-        Q <- qr(scale(d$Z, scale = FALSE), tol = 1e-6)
+        d$Z <- scale(d$Z, scale = FALSE)
+        Q <- qr(d$Z, tol = 1e-6)
         H <- tcrossprod(qr.Q(Q)[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
-        pCCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank)
+        pCCA <- list(rank = Q$rank, tot.chi = sum(diag(HGH)), QR = Q,
+                     Fit = HGH, envcentre = attr(d$Z, "scaled:center"),
+                     G = G)
         G <- G - HGH
     }
     ## CCA
     if (!is.null(d$Y)) {
-        Q <- qr(scale(cbind(d$Z, d$Y), scale = FALSE), tol = 1e-6)
+        d$Y <- scale(d$Y, scale = FALSE) 
+        Q <- qr(cbind(d$Z, d$Y), tol = 1e-6)
         H <- tcrossprod(qr.Q(Q)[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
         e <- eigen(HGH)
-        CCA <- list(tot.chi = sum(diag(HGH)), rank = Q$rank, eig = e$values)
+        nz <- abs(e$values) > EPS
+        e$values <- e$values[nz]
+        e$vectors <- e$vectors[, nz, drop = FALSE]
+        pos <- e$values > 0
+        oo <- Q$pivot[seq_len(Q$rank)]
+        rank <- Q$rank
+        if (!is.null(pCCA)) {
+            oo <- oo[oo > pCCA$rank] - ncol(d$Z)
+            rank <- rank - pCCA$rank
+        }
+        CCA <- list(eig = e$values,
+                    u = e$vectors,
+                    v = NA, wa = NA,
+                    biplot = cor(d$Y[,oo, drop=FALSE],
+                    e$vectors[, pos, drop=FALSE]),
+                    qrank = rank, rank = rank,
+                    tot.chi = sum(diag(HGH)),
+                    QR = Q,
+                    envcentre = attr(d$Y, "scaled:center"),
+                    Xbar = G, G = G)
         G <- G - HGH
     }
     ## CA
-    e <- eigen(G)
-    CA <- list(tot.chi = sum(diag(G)), eig = e$values)
+    e <- eigen(G) 
+    nz <- abs(e$values) > EPS
+    CA <- list(eig = e$values[nz],
+               u = e$vectors[, nz, drop = FALSE],
+               v = NA,
+               rank = sum(nz),
+               tot.chi = sum(diag(G)),
+               Xbar = G)
     ## output
-    sol <- list(pCCA = pCCA, CCA = CCA, CA = CA)
+    sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     ##if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
     ##   colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
     ##      colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
