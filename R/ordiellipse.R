@@ -32,6 +32,7 @@
     inds <- names(table(groups))
     
     # fill in graphical vectors with default values if unspecified and recycles shorter vectors 
+    col.new <- border.new <- lty.new <- lwd.new <- NULL
     for(arg in c("col","border","lty","lwd")){
       tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
       if(is.null(tmp)) tmp <- ifelse(suppressWarnings(is.null(par(arg))), par("fg"), par(arg))
