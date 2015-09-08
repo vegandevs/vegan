@@ -1,7 +1,8 @@
 `dbrda` <-
-    function (formula, data, distance = "euclidean", sqrt.dist = FALSE,
-              comm = NULL, add = FALSE, dfun = vegdist,
-              metaMDSdist = FALSE, na.action = na.fail, subset = NULL, ...) 
+    function (formula, data, distance = "euclidean",
+              sqrt.dist = FALSE, comm = NULL, dfun = vegdist,
+              metaMDSdist = FALSE, na.action = na.fail,
+              subset = NULL, ...) 
 {
     EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula")) 
@@ -39,8 +40,6 @@
     inertia <- paste(inertia, "distance")
     if (!sqrt.dist)
         inertia <- paste("squared", inertia)
-    if (add) 
-        inertia <- paste(inertia, "(euclidified)")
 
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
@@ -72,33 +71,11 @@
         adjust <- sqrt(k)
     }
     nm <- attr(X, "Labels")    
-    ## cmdscale is only used if 'add = TRUE': it cannot properly
-    ## handle negative eigenvalues and therefore we normally use
-    ## wcmdscale. If we have 'add = TRUE' there will be no negative
-    ## eigenvalues and this is not a problem.
-    if (add) {
-        X <- cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE)
-        ## All eigenvalues *should* be positive, but see that they are
-        X$eig <- X$eig[X$eig > 0]
-    }
-    else
-        X <- wcmdscale(X, x.ret = TRUE)
-    if (is.null(rownames(X$points))) 
-        rownames(X$points) <- nm
-    X$points <- adjust * X$points
-    ## We adjust eigenvalues to variances, and simultaneously the
-    ## possible negative axes must be adjusted similarly
-    if (adjust == 1) {
-        X$eig <- X$eig/k
-        if (!is.null(X$negaxes))
-            X$negaxes <- X$negaxes/sqrt(k)
-    }
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## QR decomposition to get the components of inertia.
-    hasNegEig <- any(X$eig < 0)
-    G <- -X$x/2
+    G <- -GowerDblcen(as.matrix(X^2))/2
     if (adjust == 1)
         G <- G/k
     ## Solution: this shows the algorithmic steps
@@ -188,9 +165,7 @@
     sol$terminfo <- ordiTerminfo(d, data)
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
-    sol$method <- "capscale"
-    if (add)
-        sol$ac <- X$ac
+    sol$method <- "dbrda"
     sol$adjust <- adjust
     sol$inertia <- inertia
     if (metaMDSdist)
