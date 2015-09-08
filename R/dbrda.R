@@ -135,6 +135,8 @@
         CCA <- list(eig = e$values,
                     u = e$vectors,
                     v = NA, wa = NA,
+                    alias =  if (rank < ncol(d$Y))
+                                 colnames(d$Y)[-oo],
                     biplot = cor(d$Y[,oo, drop=FALSE],
                     e$vectors[, pos, drop=FALSE]),
                     qrank = rank, rank = rank,
