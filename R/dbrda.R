@@ -87,8 +87,9 @@
         Q <- qr(d$Z, tol = 1e-6)
         H <- tcrossprod(qr.Q(Q)[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
-        pCCA <- list(rank = Q$rank, tot.chi = sum(diag(HGH)), QR = Q,
-                     Fit = HGH, envcentre = attr(d$Z, "scaled:center"),
+        pCCA <- list(rank = Q$rank, tot.chi = sum(diag(HGH)),
+                     QR = Q, Fit = HGH,
+                     envcentre = attr(d$Z, "scaled:center"),
                      G = G)
         G <- G - HGH
     }
@@ -120,7 +121,7 @@
                     tot.chi = sum(diag(HGH)),
                     QR = Q,
                     envcentre = attr(d$Y, "scaled:center"),
-                    Xbar = G, G = G)
+                    Xbar = NA, G = G)
         G <- G - HGH
     }
     ## CA
@@ -131,7 +132,7 @@
                v = NA,
                rank = sum(nz),
                tot.chi = sum(diag(G)),
-               Xbar = G)
+               Xbar = NA)
     ## output
     sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
