@@ -141,10 +141,12 @@
                 paste("dbRDA", seq_len(ncol(sol$CCA$u)), sep = "")
         colnames(sol$CCA$biplot) <-
             names(sol$CCA$eig)[sol$CCA$eig > 0]
+        rownames(sol$CCA$u) <- rownames(d$X)
     }
     if (!is.null(sol$CA) && sol$CA$rank > 0) {
         colnames(sol$CA$u) <- names(sol$CA$eig) <-
             paste("MDS", seq_len(ncol(sol$CA$u)), sep = "")
+        rownames(sol$CA$u) <- rownames(d$X)
     }
 
     sol$colsum <- NA
