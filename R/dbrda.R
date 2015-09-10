@@ -112,6 +112,7 @@
         }
         CCA <- list(eig = e$values,
                     u = e$vectors,
+                    poseig = sum(pos),
                     v = NA, wa = NA,
                     alias =  if (rank < ncol(d$Y))
                                  colnames(d$Y)[-oo],
@@ -129,6 +130,7 @@
     nz <- abs(e$values) > EPS
     CA <- list(eig = e$values[nz],
                u = e$vectors[, nz, drop = FALSE],
+               poseig = sum(e$values[nz] > 0),
                v = NA,
                rank = sum(nz),
                tot.chi = sum(diag(G)),

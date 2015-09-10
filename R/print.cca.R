@@ -16,12 +16,19 @@
                   x$CCA$real.tot.chi, x$CA$real.tot.chi)
     else
         rchi <- NULL
-    tbl <- cbind(chi, props, rchi, rnk)
+    ## report no. of real axes in dbrda if any negative eigenvalues
+    if (inherits(x, "dbrda") &&
+        (x$CCA$poseig < x$CCA$qrank || x$CA$poseig < x$CA$rank))
+        poseig <- c(NA, if (!is.null(x$pCCA)) NA, x$CCA$poseig, x$CA$poseig)
+    else
+        poseig <- NULL
+    tbl <- cbind(chi, props, rchi, rnk, poseig)
     if (!is.null(rchi))
         tbl <- rbind(tbl, c(NA, NA, x$CA$imaginary.chi,
                             x$CA$imaginary.rank))
     colnames(tbl) <- c("Inertia", "Proportion",
-                       if(!is.null(rchi)) "Eigenvals", "Rank")
+                       if(!is.null(rchi)) "Eigenvals", "Rank",
+                       if (!is.null(poseig)) "RealDims")
     rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
             "Imaginary")
     rownames(tbl) <- rn[c(TRUE,!is.null(x$pCCA),
