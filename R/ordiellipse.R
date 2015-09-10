@@ -2,7 +2,8 @@
     function (ord, groups, display = "sites", kind = c("sd", "se"),
               conf, draw = c("lines", "polygon", "none"),
               w = weights(ord, display), col = NULL, alpha = 127,
-              show.groups, label = FALSE, border=NULL,lty=NULL, lwd=NULL, ...)
+              show.groups, label = FALSE, border = NULL, lty = NULL,
+              lwd = NULL, ...)
 {
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
@@ -31,20 +32,24 @@
     out <- seq(along = groups)
     inds <- names(table(groups))
     
-    # fill in graphical vectors with default values if unspecified and recycles shorter vectors 
+    ## fill in graphical vectors with default values if unspecified
+    ## and recycles shorter vectors
     col.new <- border.new <- lty.new <- lwd.new <- NULL
     for(arg in c("col","border","lty","lwd")){
       tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
-      if(is.null(tmp)) tmp <- ifelse(suppressWarnings(is.null(par(arg))), par("fg"), par(arg))
+      if(is.null(tmp))
+          tmp <- ifelse(suppressWarnings(is.null(par(arg))),
+                        par("fg"), par(arg))
       if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
       assign(paste(arg,".new", sep=""), tmp)
       
     }
-    # default colour for "polygon" fill is "transparent", for lines is par("fg")
-    if(is.null(col) && draw=="polygon") {col.new <- rep_len("transparent", length(inds))} else
-      if(is.null(col) && draw=="lines") {col.new <- rep_len(par("fg"), length(inds))}
-      
-  
+    ## default colour for "polygon" fill is "transparent", for lines
+    ## is par("fg")
+    if(is.null(col) && draw=="polygon")
+        col.new <- rep_len("transparent", length(inds))
+    else if(is.null(col) && draw=="lines")
+            col.new <- rep_len(par("fg"), length(inds))
     
     res <- list()
     if (label) {
@@ -73,13 +78,18 @@
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines,
                                 col = if (is.null(col)) 
-                                  par("fg")
-                                else col.new[match(is, inds)],
-                                lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)], ...)
+                                          par("fg")
+                                      else
+                                          col.new[match(is, inds)],
+                                lty=lty.new[match(is,inds)],
+                                lwd=lwd.new[match(is,inds)], ...)
                       
             else if (draw == "polygon") 
-                ordiArgAbsorber(xy[, 1], xy[, 2], col = col.new[match(is, inds)], border=border.new[match(is,inds)],
-                                lty=lty.new[match(is,inds)],lwd=lwd.new[match(is,inds)],
+                ordiArgAbsorber(xy[, 1], xy[, 2],
+                                col = col.new[match(is, inds)],
+                                border=border.new[match(is,inds)],
+                                lty = lty.new[match(is,inds)],
+                                lwd = lwd.new[match(is,inds)],
                                 FUN = polygon,
                                 ...)
             if (label && draw != "none") {
@@ -91,7 +101,8 @@
     }
     if (label && draw != "none") {
         if (draw == "lines")
-            ordiArgAbsorber(cntrs[,1], cntrs[,2], labels = rownames(cntrs),
+            ordiArgAbsorber(cntrs[,1], cntrs[,2],
+                            labels = rownames(cntrs),
                             col = col.new,  FUN = text, ...)
         else 
             ordiArgAbsorber(cntrs, col = NULL,

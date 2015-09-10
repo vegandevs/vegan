@@ -20,15 +20,15 @@
 
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         col = NULL, alpha = 127, show.groups, label = FALSE,border=NULL, lty=NULL,
-         lwd=NULL, ...)
+         col = NULL, alpha = 127, show.groups, label = FALSE,
+         border = NULL, lty = NULL, lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
-         col = NULL, alpha = 127, show.groups, label = FALSE,border=NULL, lty=NULL,
-         lwd=NULL,...)
+         col = NULL, alpha = 127, show.groups, label = FALSE,
+         border = NULL, lty = NULL, lwd=NULL, ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
-         label = FALSE, col=NULL, lty=NULL, lwd=NULL, ...)
+         label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), ...)
 \method{summary}{ordihull}(object, ...)
@@ -118,8 +118,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     package.}
     
   \item{lty, lwd, border}{Vectors of these parameters can be supplied
-  and will be applied (if appropriate) for each element of \code{names(table(groups))}
-  (in that order). Shorter vectors will be recycled.}
+    and will be applied (if appropriate) for each element of
+    \code{names(table(groups))} (in that order). Shorter vectors will be
+    recycled.}
 
   \item{\dots}{Parameters passed to graphical functions or to
     \code{\link{scores}} to select axes and scaling etc. } 
