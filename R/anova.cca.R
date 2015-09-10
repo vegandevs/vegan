@@ -4,6 +4,7 @@
              parallel = getOption("mc.cores"), strata = NULL,
              cutoff = 1, scope = NULL)
 {
+    EPS <- sqrt(.Machine$double.eps) # for permutation P-values
     model <- match.arg(model)
     ## permutation matrix
     N <- nrow(object$CA$u)
@@ -58,16 +59,21 @@
     tst <- permutest.cca(object, permutations = permutations,
                          model = model, parallel = parallel, ...)
     Fval <- c(tst$F.0, NA)
-    Pval <- (sum(tst$F.perm >= tst$F.0) + 1)/(tst$nperm + 1)
+    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
-    is.rda <- inherits(object, "rda")
-    colnames(table) <- c("Df", ifelse(is.rda, "Variance", "ChiSquare"),
-                         "F", "Pr(>F)")
+    if (inherits(object, "capscale") &&
+        (object$adjust != 1 || is.null(object$adjust)))
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    colnames(table) <- c("Df", varname, "F", "Pr(>F)")
     head <- paste0("Permutation test for ", tst$method, " under ",
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed,
-              control = control,
+              control = control, F.perm = tst$F.perm,
               class = c("anova.cca", "anova", "data.frame"))
 }

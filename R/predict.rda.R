@@ -1,6 +1,7 @@
 `predict.rda` <-
     function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
-              rank = "full", model = c("CCA", "CA"), scaling = FALSE, ...) 
+              rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+              correlation = FALSE, ...) 
 {
     type <- match.arg(type)
     model <- match.arg(model)
@@ -24,6 +25,12 @@
     if (is.null(w)) 
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
+    ## process sclaing arg, this will ignore hill if scaling = FALSE or a numeric.
+    ## scaling also used later so needs to be a numeric (or something
+    ## coercible to one (FALSE)
+    if (is.character(scaling)) {
+        scaling <- scalingType(scaling = scaling, correlation = correlation)
+    }
     if (type %in% c("response", "working")) {
         if (!missing(newdata)) {
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",

@@ -145,8 +145,10 @@ hiersimu(...)
 \author{
 
   \enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
-  \seealso{See \code{\link{oecosimu}} for permutation settings and
-  calculating \eqn{p}-values.  }
+
+\seealso{See \code{\link{oecosimu}} for permutation settings and
+  calculating \eqn{p}-values. \code{\link{multipart}} for multiplicative
+  diversity partitioning.}
 
 \examples{
 ## NOTE: 'nsimul' argument usually needs to be >= 99

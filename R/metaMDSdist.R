@@ -64,6 +64,7 @@
     }
     attr(dis, "maxdis") <- maxdis
     attr(dis, "commname") <- commname
+    attr(dis, "comm") <- comm
     attr(dis, "function") <- distname
     dis
 }

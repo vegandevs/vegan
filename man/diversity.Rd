@@ -1,27 +1,16 @@
 \encoding{UTF-8}
 \name{diversity}
 \alias{diversity}
-\alias{rarefy}
-\alias{rrarefy}
-\alias{drarefy}
-\alias{rarecurve}
-\alias{rareslope}
 \alias{fisher.alpha}
 \alias{specnumber}
 
-\title{ Ecological Diversity Indices and Rarefaction Species Richness }
+\title{Ecological Diversity Indices}
 
-\description{ Shannon, Simpson, and Fisher diversity indices
-and rarefied species richness for community ecologists.  }
+\description{ Shannon, Simpson, and Fisher diversity indices and species
+  richness.  }
 
 \usage{
 diversity(x, index = "shannon", MARGIN = 1, base = exp(1))
-rarefy(x, sample, se = FALSE, MARGIN = 1)
-rrarefy(x, sample)
-drarefy(x, sample)
-rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
-          label = TRUE, col, lty, ...)
-rareslope(x, sample)
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -32,20 +21,9 @@ specnumber(x, groups, MARGIN = 1)
     \code{"simpson"} or \code{"invsimpson"}.}
   \item{MARGIN}{Margin for which the index is computed. }
   \item{base}{ The logarithm \code{base} used in \code{shannon}.}
-  \item{sample}{Subsample size for rarefying community, either a single
-    value or a vector.}
-  \item{se}{Estimate standard errors.}
-  \item{step}{Step size for sample sizes in rarefaction curves.}
-  \item{xlab, ylab}{Axis labels in plots of rarefaction curves.}
-  \item{label}{Label rarefaction curves by rownames of \code{x}
-    (logical).}
-  \item{col, lty}{plotting colour and line type, see
-    \code{\link{par}}. Can be a vector of length \code{nrow(x)}, one per
-    sample, and will be extended to such a length internally.}
   \item{groups}{A grouping factor: if given, finds the total number of
     species in each group.}
-  \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}}, 
-    \code{\link{lines}} and \code{\link{ordilabel}} in \code{rarecurve}.}
+  \item{...}{Parameters passed to the function.}
 }
 \details{
   Shannon or Shannon--Weaver (or Shannon--Wiener) index is defined as
@@ -59,40 +37,6 @@ specnumber(x, groups, MARGIN = 1)
     sum p_i^2}. Choice \code{simpson} returns \eqn{1-D} and
   \code{invsimpson} returns \eqn{1/D}.
  
-  Function \code{rarefy} gives the expected species richness in random
-  subsamples of size \code{sample} from the community. The size of
-  \code{sample} should be smaller than total community size, but the
-  function will work for larger \code{sample} as well (with a warning)
-  and return non-rarefied species richness (and standard error =
-  0). If \code{sample} is a vector, rarefaction of all observations is
-  performed for each sample size separately.  Rarefaction can be
-  performed only with genuine counts of individuals.  The function
-  \code{rarefy} is based on Hurlbert's (1971) formulation, and the
-  standard errors on Heck et al. (1975).
-
-  Function \code{rrarefy} generates one randomly rarefied community data
-  frame or vector of given \code{sample} size. The \code{sample} can be
-  a vector giving the sample sizes for each row, and its values must be
-  less or equal to observed number of individuals. The random
-  rarefaction is made without replacement so that the variance of
-  rarefied communities is rather related to rarefaction proportion than
-  to to the size of the \code{sample}.
-
-  Function \code{drarefy} returns probabilities that species occur in a
-  rarefied community of size \code{sample}. The \code{sample} can be a
-  vector giving the sample sizes for each row.
-
-  Function \code{rarecurve} draws a rarefaction curve for each row of
-  the input data. The rarefaction curves are evaluated using the
-  interval of \code{step} sample sizes, always including 1 and total
-  sample size.  If \code{sample} is specified, a vertical line is
-  drawn at \code{sample} with horizontal lines for the rarefied
-  species richnesses.
-
-  Function \code{rareslope} calculates the slope of \code{rarecurve}
-  (derivative of \code{rarefy}) at given \code{sample} size; the
-  \code{sample} need not be an integer.
-
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
   The estimation is possible only for genuine
@@ -114,26 +58,11 @@ specnumber(x, groups, MARGIN = 1)
   inverse Simpson is asymptotically equal to rarefied species richness
   in sample of two individuals, and Fisher's \eqn{\alpha} is very
   similar to inverse Simpson.
+
 }
 
 \value{
-  A vector of diversity indices or rarefied species richness values. With
-  a single \code{sample} and \code{se = TRUE}, function \code{rarefy}
-  returns a 2-row matrix 
-  with rarefied richness (\code{S}) and its standard error
-  (\code{se}). If \code{sample} is a vector in \code{rarefy}, the
-  function returns a matrix with a column for each \code{sample} size,
-  and if \code{se = TRUE}, rarefied richness and its standard error are
-  on consecutive lines.
-
-  Function \code{rarecurve} returns \code{\link{invisible}} list of
-  \code{rarefy} results corresponding each drawn curve.
-
-  With option \code{se = TRUE}, function \code{fisher.alpha} returns a
-  data frame with items for \eqn{\alpha} (\code{alpha}), its approximate
-  standard errors (\code{se}), residual degrees of freedom
-  (\code{df.residual}), and the \code{code} returned by
-  \code{\link{nlm}} on the success of estimation. 
+  A vector of diversity indices or numbers of species. 
 }
 
 \references{
@@ -141,19 +70,21 @@ specnumber(x, groups, MARGIN = 1)
   between the number of species and the number of individuals in a
   random sample of animal population. \emph{Journal of Animal Ecology}
   \strong{12}, 42--58.
-
-  Heck, K.L., van Belle, G. & Simberloff, D. (1975). Explicit
-  calculation of the rarefaction diversity measurement and the
-  determination of sufficient sample size. \emph{Ecology} \strong{56},
-  1459--1461.  
   
   Hurlbert, S.H. (1971). The nonconcept of species diversity: a critique
   and alternative parameters. \emph{Ecology} \strong{52}, 577--586.
  
 }
 
-\seealso{Function \code{renyi} for generalized \enc{Rényi}{Renyi}
-  diversity and Hill numbers.}
+\seealso{These functions calculate only some basic indices, but many
+  others can be derived with them (see Examples). Facilities related to
+  diversity are discussed in a \pkg{vegan} vignette that can be read
+  with command \code{vegandocs("diversity")}.  Functions
+  \code{\link{renyi}} and \code{\link{tsallis}} estimate a series of
+  generalized diversity indices. Function \code{\link{rarefy}} finds
+  estimated number of species for given sample size. Beta diversity can
+  be estimated with \code{\link{betadiver}}. Diversities can be
+  partitioned with \code{\link{adipart}} and \code{\link{multipart}}. }
 
 \author{ Jari Oksanen  and  Bob O'Hara (\code{fisher.alpha}).}
 
@@ -162,7 +93,7 @@ data(BCI)
 H <- diversity(BCI)
 simp <- diversity(BCI, "simpson")
 invsimp <- diversity(BCI, "inv")
-## Unbiased Simpson of Hurlbert 1971 (eq. 5):
+## Unbiased Simpson (Hurlbert 1971, eq. 5) with rarefy:
 unbias.simp <- rarefy(BCI, 2) - 1
 ## Fisher alpha
 alpha <- fisher.alpha(BCI)
@@ -177,12 +108,6 @@ data(dune.env)
 alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
 gamma <- with(dune.env, specnumber(dune, Management))
 gamma/alpha - 1
-## Rarefaction
-(raremax <- min(rowSums(BCI)))
-Srare <- rarefy(BCI, raremax)
-plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
-abline(0, 1)
-rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 }
 \keyword{ univar }
 

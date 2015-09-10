@@ -14,7 +14,7 @@
 \alias{deviance.fitspecaccum}
 \alias{specslope}
 
-\title{Species Accumulation Curves }
+\title{Species Accumulation Curves}
 \description{
   Function \code{specaccum} finds species accumulation curves or the
   number of species for a certain number of sampled sites or
@@ -96,30 +96,30 @@ specslope(object, at)
   \item{...}{Other parameters to functions.}
 }
 \details{
-  Species accumulation curves (SAC) are used to compare diversity properties
-  of community data sets using different accumulator functions. The
-  classic method is \code{"random"} which finds the mean SAC and its
-  standard deviation from random permutations of the data, or
-  subsampling without replacement (Gotelli & Colwell 2001).
-  The \code{"exact"} method finds the
-  expected SAC using the method that was independently developed by
-  Ugland et al. (2003), Colwell et al. (2004) and Kindt et al. (2006). 
-  The unconditional standard deviation for the exact SAC represents a
-  moment-based estimation that is not conditioned on the empirical data
-  set (sd for all samples > 0), unlike the conditional standard deviation
-  that was developed by Jari Oksanen (not published, sd=0 for all
-  samples). The unconditional standard deviation is based on an estimation
-  of the total extrapolated number of species in the survey area
-  (a.k.a. gamma diversity), as estimated by
-  function \code{\link{specpool}}.
-  Method \code{"coleman"} finds the expected SAC and its standard
-  deviation following Coleman et al. (1982).  All these methods are
-  based on sampling sites without replacement. In contrast, the
-  \code{method = "rarefaction"} finds the expected species richness and
-  its standard deviation by sampling individuals instead of sites.
-  It achieves this by applying function \code{\link{rarefy}} with
-  number of individuals corresponding to average number of individuals
-  per site.
+
+  Species accumulation curves (SAC) are used to compare diversity
+  properties of community data sets using different accumulator
+  functions. The classic method is \code{"random"} which finds the mean
+  SAC and its standard deviation from random permutations of the data,
+  or subsampling without replacement (Gotelli & Colwell 2001).  The
+  \code{"exact"} method finds the expected SAC using sample-based
+  rarefaction method that has been independently developed numerous
+  times (Chiarucci et al. 2008) and it is often known as Mao Tau
+  estimate (Colwell et al. 2012).  The unconditional standard deviation
+  for the exact SAC represents a moment-based estimation that is not
+  conditioned on the empirical data set (sd for all samples > 0). The
+  unconditional standard deviation is based on an estimation of the
+  extrapolated number of species in the survey area (a.k.a. gamma
+  diversity), as estimated by function \code{\link{specpool}}. The
+  conditional standard deviation that was developed by Jari Oksanen (not
+  published, sd=0 for all samples). Method \code{"coleman"} finds the
+  expected SAC and its standard deviation following Coleman et
+  al. (1982).  All these methods are based on sampling sites without
+  replacement. In contrast, the \code{method = "rarefaction"} finds the
+  expected species richness and its standard deviation by sampling
+  individuals instead of sites.  It achieves this by applying function
+  \code{\link{rarefy}} with number of individuals corresponding to
+  average number of individuals per site.
 
   Methods \code{"random"} and \code{"collector"} can take weights
   (\code{w}) that give the sampling effort for each site.  The weights
@@ -232,34 +232,27 @@ specslope(object, at)
 }
 
 \references{
+  Chiarucci, A., Bacaro, G., Rocchini, D. & Fattorini,
+  L. (2008). Discovering and rediscovering the sample-based rarefaction
+  formula in the ecological literature. \emph{Commun. Ecol.} 9:
+  121--123.
+
   Coleman, B.D, Mares, M.A., Willis, M.R. & Hsieh,
   Y. (1982). Randomness, area and species richness. \emph{Ecology} 63:
   1121--1133. 
 
-  Colwell, R.K., Mao, C.X. & Chang, J. (2004). Interpolating,
-  extrapolating, and comparing incidence-based species accumulation
-  curves. \emph{Ecology} 85: 2717--2727.
+  Colwell, R.K., Chao, A., Gotelli, N.J., Lin, S.Y., Mao, C.X., Chazdon,
+  R.L. & Longino, J.T. (2012). Models and estimators linking
+  individual-based and sample-based rarefaction, extrapolation and
+  comparison of assemblages. \emph{J. Plant Ecol.} 5: 3--21.
 
   Dengler, J. (2009). Which function describes the species-area
   relationship best? A review and empirical evaluation. 
   \emph{Journal of Biogeography} 36, 728--744.
 
-  Gotellli, N.J. & Colwell, R.K. (2001). Quantifying biodiversity:
+  Gotelli, N.J. & Colwell, R.K. (2001). Quantifying biodiversity:
   procedures and pitfalls in measurement and comparison of species
   richness. \emph{Ecol. Lett.} 4, 379--391.
-
-  Kindt, R. (2003). Exact species richness for sample-based accumulation
-  curves. \emph{Manuscript.}
-  
-  Kindt R., Van Damme, P. & Simons, A.J. (2006) Patterns of species
-  richness at varying scales in western Kenya: planning for
-  agroecosystem diversification. \emph{Biodiversity and Conservation},
-  10: 3235--3249.
-
-  Ugland, K.I., Gray, J.S. & Ellingsen, K.E. (2003). The
-  species-accumulation curve and estimation of species richness. \emph{Journal
-  of Animal Ecology} 72: 888--897.
-  
 }
 \author{Roeland Kindt \email{r.kindt@cgiar.org} and Jari Oksanen.}
 \note{

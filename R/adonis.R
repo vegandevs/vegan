@@ -3,6 +3,7 @@
              contr.unordered="contr.sum", contr.ordered="contr.poly",
              parallel = getOption("mc.cores"), ...)
 {
+    EPS <- sqrt(.Machine$double.eps) ## use with >= in permutation P-values
     ## formula is model formula such as Y ~ A + B*C where Y is a data
     ## frame or a matrix, and A, B, and C may be factors or continuous
     ## variables.  data is the data frame from which A, B, and C would
@@ -132,10 +133,7 @@
         ## Close socket cluster if created here
         if (isParal && !isMulticore && !hasClus)
             stopCluster(parallel)
-        ## Round to avoid arbitrary P-values with tied data
-        f.perms <- round(f.perms, 12)
-        F.Mod <- round(F.Mod, 12)
-        P <- (rowSums(t(f.perms) >= F.Mod)+1)/(permutations+1)
+        P <- (rowSums(t(f.perms) >= F.Mod - EPS)+1)/(permutations+1)
     } else { # no permutations
         f.perms <- P <- rep(NA, nterms)
     }

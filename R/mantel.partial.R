@@ -2,6 +2,7 @@
   function (xdis, ydis, zdis, method = "pearson", permutations = 999, 
             strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores")) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
     }
@@ -62,7 +63,7 @@
         } else {
             perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
         }
-        signif <- (sum(perm >= statistic)+1)/(permutations + 1)
+        signif <- (sum(perm >= statistic - EPS)+1)/(permutations + 1)
     }
     else {
         signif <- NA

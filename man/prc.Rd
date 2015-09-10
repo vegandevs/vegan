@@ -17,10 +17,11 @@
 
 \usage{
 prc(response, treatment, time, ...)
-\method{summary}{prc}(object, axis = 1, scaling = 3, digits = 4, ...)
-\method{plot}{prc}(x, species = TRUE, select, scaling = 3, axis = 1, type = "l", 
-    xlab, ylab, ylim, lty = 1:5, col = 1:6, pch, legpos, cex = 0.8, 
-    ...)  
+\method{summary}{prc}(object, axis = 1, scaling = "symmetric",
+        digits = 4, correlation = FALSE, ...)
+\method{plot}{prc}(x, species = TRUE, select, scaling = "symmetric",
+     axis = 1, correlation = FALSE, type = "l", xlab, ylab, ylim,
+     lty = 1:5, col = 1:6, pch, legpos, cex = 0.8, ...)  
 }
 
 \arguments{
@@ -33,8 +34,20 @@ prc(response, treatment, time, ...)
   \item{object, x}{An \code{prc} result object.}
   \item{axis}{Axis shown (only one axis can be selected).}
   \item{scaling}{Scaling of species scores, identical to the
-    \code{scaling} in \code{\link{scores.rda}}.}
+    \code{scaling} in \code{\link{scores.rda}}.
+
+    The type of scores can also be specified as one of \code{"none"},
+    \code{"sites"}, \code{"species"}, or \code{"symmetric"}, which
+    correspond to the values \code{0}, \code{1}, \code{2}, and \code{3}
+    respectively. Argument \code{correlation} can be used in combination
+    with these character descriptions to get the corresponding negative
+    value.
+  }
   \item{digits}{Number of significant digits displayed.}
+  \item{correlation}{logical; if \code{scaling} is a character
+    description of the scaling type, \code{correlation} can be used to
+    select correlation-like scores for PCA. See argument \code{scaling}
+    for details.}
   \item{species}{Display species scores.}
   \item{select}{Vector to select displayed species. This can be a vector
     of indices or a logical vector which is \code{TRUE} for the selected

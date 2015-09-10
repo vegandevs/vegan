@@ -2,6 +2,7 @@
                                    permutations = 999,
                                    parallel = getOption("mc.cores"), ...)
 {
+    EPS <- sqrt(.Machine$double.eps) # for P-value comparisons
     t.statistic <- function(x, y) {
         m <- length(x)
         n <- length(y)
@@ -104,8 +105,8 @@
 
     ## Process results
     F0 <- summary(mod)$fstatistic[1]
-    Fstats <- round(Pstats[, 1], 12)    # allow empty dim to be dropped
-    statistic <- F0 <- round(F0, 12)
+    Fstats <- Pstats[, 1]    # allow empty dim to be dropped
+    statistic <- F0
     names(statistic) <- "Overall (F)"
 
     ## pairwise comparisons
@@ -113,13 +114,12 @@
         T0 <- apply(combn(levels(group), 2), 2, function(z) {
             t.statistic(x$distances[group == z[1]],
                         x$distances[group == z[2]])})
-        Tstats <- round(Pstats[, -1, drop = FALSE], 12)
-        T0 <- round(T0, 12)
+        Tstats <- Pstats[, -1, drop = FALSE]
         statistic <- c(statistic, T0)
     }
 
     ## compute permutation p-value
-    pval <- (sum(Fstats >= F0) + 1) / (length(Fstats) + 1)
+    pval <- (sum(Fstats >= F0 - EPS) + 1) / (length(Fstats) + 1)
 
     if(pairwise) {
         df <- apply(combin, 2, function(z) {

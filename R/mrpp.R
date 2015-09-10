@@ -3,6 +3,7 @@
               weight.type = 1, strata = NULL,
               parallel = getOption("mc.cores")) 
 {
+    EPS <- sqrt(.Machine$double.eps)
     classmean <- function(ind, dmat, indls) {
         sapply(indls, function(x)
                mean(c(dmat[ind == x, ind == x]),
@@ -69,7 +70,7 @@
         } else {
             m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))
         }
-        p <- (1 + sum(del >= m.ds))/(permutations + 1)
+        p <- (1 + sum(del + EPS >= m.ds))/(permutations + 1)
         r2 <- 1 - del/E.del
     } else { # no permutations
         m.ds <- p <- r2 <- NA

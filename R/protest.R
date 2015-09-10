@@ -2,6 +2,7 @@
     function (X, Y, scores = "sites", permutations = how(nperm = 999),
               ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     X <- scores(X, display = scores, ...)
     Y <- scores(Y, display = scores, ...)
     ## Centre and normalize X & Y here so that the permutations will
@@ -34,7 +35,7 @@
     perm <- sapply(seq_len(np),
                    function(i, ...) procr(X, Y[permutations[i,],]))
 
-    Pval <- (sum(perm >= sol$t0) + 1)/(np + 1)
+    Pval <- (sum(perm >= sol$t0 - EPS) + 1)/(np + 1)
 
     sol$t <- perm
     sol$signif <- Pval

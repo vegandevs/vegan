@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-02-26 r67895) -- "Unsuffered Consequences"
+R version 3.2.0 Patched (2015-05-01 r68289) -- "Full of Ingredients"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-unknown-linux-gnu (64-bit)
 
@@ -111,10 +111,10 @@ Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.
          Df Variance      F Pr(>F)  
 CAP1      1  25.0252 4.1487   0.03 *
 CAP2      1  15.8759 2.6319   0.07 .
-CAP3      1   8.0942 1.3419   0.25  
-CAP4      1   5.0675 0.8401   0.64  
-CAP5      1   3.5671 0.5914   0.85  
-CAP6      1   1.9520 0.3236   0.96  
+CAP3      1   8.0942 1.3419   0.27  
+CAP4      1   5.0675 0.8401   0.62  
+CAP5      1   3.5671 0.5914   0.76  
+CAP6      1   1.9520 0.3236   0.89  
 Residual  5  30.1605                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -127,27 +127,28 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
-         Df Variance      F Pr(>F)
-Model     6  1.54840 1.6423   0.11
-Residual  5  0.78568              
+         Df SumOfSqs      F Pr(>F)
+Model     6  1.52798 1.6548   0.11
+Residual  5  0.76948              
 > ## vegan 2.1-40 cannot handle missing data in next two
 > ##anova(p, by="term", permutations=99)
 > ##anova(p, by="margin", permutations=99)
 > anova(p, by="axis", permutations=99)
+imaginary variation was discarded
 Permutation test for capscale under reduced model
 Marginal tests for axes
 Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
-         Df Variance      F Pr(>F)  
-CAP1      1  0.77834 4.9533   0.02 *
-CAP2      1  0.45691 2.9078   0.03 *
-CAP3      1  0.14701 0.9355   0.51  
-CAP4      1  0.11879 0.7560   0.65  
-CAP5      1  0.04213 0.2681   0.94  
-CAP6      1  0.00522 0.0332   1.00  
-Residual  5  0.78568                
+         Df SumOfSqs      F Pr(>F)   
+CAP1      1  0.77834 4.9533   0.01 **
+CAP2      1  0.45691 2.9078   0.03 * 
+CAP3      1  0.14701 0.9355   0.54   
+CAP4      1  0.11879 0.7560   0.59   
+CAP5      1  0.04213 0.2681   0.87   
+CAP6      1  0.00522 0.0332   0.91   
+Residual  5  0.76948                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
@@ -214,9 +215,9 @@ Eigenvalues for unconstrained axes:
 Call: rda(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
-Total         85.1200     1.0000     
-Constrained   32.7800     0.3851    3
-Unconstrained 52.3400     0.6149   14
+Total         85.1176     1.0000     
+Constrained   32.7765     0.3851    3
+Unconstrained 52.3412     0.6149   14
 Inertia is variance 
 2 observations deleted due to missingness 
 
@@ -234,9 +235,9 @@ Eigenvalues for unconstrained axes:
 Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
 
               Inertia Proportion Rank
-Total          5.1430     1.0000     
-Constrained    1.6450     0.3199    3
-Unconstrained  3.4980     0.6801   14
+Total          5.1432     1.0000     
+Constrained    1.6453     0.3199    3
+Unconstrained  3.4979     0.6801   14
 Inertia is squared Jaccard distance 
 2 observations deleted due to missingness 
 
@@ -253,12 +254,11 @@ Eigenvalues for unconstrained axes:
 > foo("capscale", vegdist(dune), Management, na.action = na.omit)
 Call: bar(formula = Y ~ X, na.action = ..1)
 
-              Inertia Proportion Rank
-Total           3.765                
-Real Total      3.949      1.000     
-Constrained     1.446      0.366    3
-Unconstrained   2.504      0.634   13
-Imaginary      -0.184               4
+              Inertia Proportion Eigenvals Rank
+Total          3.7652     1.0000    3.9493     
+Constrained    1.4179     0.3766    1.4456    3
+Unconstrained  2.3473     0.6234    2.5037   13
+Imaginary                          -0.1841    4
 Inertia is squared Bray distance 
 2 observations deleted due to missingness 
 
@@ -276,9 +276,9 @@ Eigenvalues for unconstrained axes:
 Call: bar(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
-Total         85.1200     1.0000     
-Constrained   32.7800     0.3851    3
-Unconstrained 52.3400     0.6149   14
+Total         85.1176     1.0000     
+Constrained   32.7765     0.3851    3
+Unconstrained 52.3412     0.6149   14
 Inertia is mean squared Euclidean distance 
 2 observations deleted due to missingness 
 
@@ -363,9 +363,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3075  0.242
-CAP2      1   0.0685 0.3339  0.921
-CAP3      1   0.0455 0.2217  0.966
+CAP1      1   0.2682 1.3075  0.244
+CAP2      1   0.0685 0.3339  0.911
+CAP3      1   0.0455 0.2217  0.963
 Residual 22   4.5130              
 > anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -391,9 +391,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3267  0.240
-CAP2      1   0.0685 0.3388  0.913
-CAP3      1   0.0455 0.2249  0.964
+CAP1      1   0.2682 1.3267  0.241
+CAP2      1   0.0685 0.3388  0.908
+CAP3      1   0.0455 0.2249  0.961
 Residual 26   5.2565              
 > anova(cap.model, by="terms", strata=C)  # -> no error
 Permutation test for capscale under reduced model
@@ -654,7 +654,56 @@ Number of permutations: 99
 > rm(ind, target, mod, dat, d)
 > ### end simulate.*
 > 
+> ### test metaMDS works with long expression for comm
+> ### originally reported to GLS by Richard Telford
+> data(varespec)
+> set.seed(1)
+> mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0))
+Square root transformation
+Wisconsin double standardization
+Run 0 stress 0.1843196 
+Run 1 stress 0.2455912 
+Run 2 stress 0.2169407 
+Run 3 stress 0.2313231 
+Run 4 stress 0.1974406 
+Run 5 stress 0.1858402 
+Run 6 stress 0.1948414 
+Run 7 stress 0.2265717 
+Run 8 stress 0.222507 
+Run 9 stress 0.2023215 
+Run 10 stress 0.2673177 
+Run 11 stress 0.1976151 
+Run 12 stress 0.1852397 
+Run 13 stress 0.2341085 
+Run 14 stress 0.1955867 
+Run 15 stress 0.2137409 
+Run 16 stress 0.2109638 
+Run 17 stress 0.1825658 
+... New best solution
+... procrustes: rmse 0.04169825  max resid 0.1521436 
+Run 18 stress 0.1843197 
+Run 19 stress 0.2570119 
+Run 20 stress 0.3760596 
+> mod
+
+Call:
+metaMDS(comm = subset(varespec, select = colSums(varespec) >      0, subset = rowSums(varespec) > 0)) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     wisconsin(sqrt(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0))) 
+Distance: bray 
+
+Dimensions: 2 
+Stress:     0.1825658 
+Stress type 1, weak ties
+No convergent solutions - best solution after 20 tries
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on 'wisconsin(sqrt(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0)))' 
+
+> ### The above should run without error & last lines tests changes to the
+> ### printed output
 > 
 > proc.time()
    user  system elapsed 
-  7.769   0.040   7.797 
+ 56.931   0.274  57.512 

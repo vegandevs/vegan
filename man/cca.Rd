@@ -131,7 +131,7 @@
   constraints.  However, the curve artefact can be avoided only with a
   low number of constraints that do not have a curvilinear relation with
   each other.  The curve can reappear even with two badly chosen
-  constraints or a single factor.  Although the formula interface makes
+  constraints or a single factor.  Although the formula interface makes it
   easy to include polynomial or interaction terms, such terms often
   produce curved artefacts (that are difficult to interpret), these
   should probably be avoided.
@@ -171,7 +171,7 @@
   vignette with this package.
 }
 \references{ The original method was by ter Braak, but the current
-  implementations follows Legendre and Legendre.
+  implementation follows Legendre and Legendre.
 
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.

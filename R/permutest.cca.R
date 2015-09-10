@@ -21,18 +21,31 @@ permutest.default <- function(x, ...)
         return(sol)
     }
     model <- match.arg(model)
-    isCCA <- !inherits(x, "rda")
-    isPartial <- !is.null(x$pCCA)
+    ## special cases
+    isCCA <- !inherits(x, "rda")    # weighting
+    isPartial <- !is.null(x$pCCA)   # handle conditions
+    isDB <- inherits(x, "capscale") &&
+        !inherits(x, "oldcapscale") # distance-based & new design
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
+        getEV <- function(x, isDB=FALSE)
+        {
+            if (isDB)
+                sum(diag(x))
+            else
+                sum(x*x)
+        }
         if (!is.matrix(indx))
             dim(indx) <- c(1, length(indx))
         R <- nrow(indx)
         mat <- matrix(0, nrow = R, ncol = 3)
         for (i in seq_len(R)) {
             take <- indx[i,]
-            Y <- E[take, ]
+            if (isDB)
+                Y <- E[take, take]
+            else
+                Y <- E[take, ]
             if (isCCA)
                 wtake <- w[take]
             if (isPartial) {
@@ -54,11 +67,15 @@ permutest.default <- function(x, ...)
             }
             tmp <- qr.fitted(Q, Y)
             if (first)
-                cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-            else cca.ev <- sum(tmp * tmp)
+                if (isDB)
+                    cca.ev <- eigen(tmp)$values[1]
+                else
+                    cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
+            else
+                cca.ev <- getEV(tmp, isDB)
             if (isPartial || first) {
                 tmp <- qr.resid(Q, Y)
-                ca.ev <- sum(tmp * tmp)
+                ca.ev <- getEV(tmp, isDB)
             }
             else ca.ev <- Chi.tot - cca.ev
             mat[i,] <- cbind(cca.ev, ca.ev, (cca.ev/q)/(ca.ev/r))
@@ -82,7 +99,7 @@ permutest.default <- function(x, ...)
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
-    if (!isCCA)
+    if (!isCCA && !isDB)
         Chi.tot <- Chi.tot * (nrow(x$CCA$Xbar) - 1)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
     Q <- x$CCA$QR
@@ -100,10 +117,11 @@ permutest.default <- function(x, ...)
         }
     }
     if (model == "reduced" || model == "direct")
-        E <- x$CCA$Xbar
-    else E <- x$CA$Xbar
+        E <- if (isDB) x$CCA$G else x$CCA$Xbar
+    else E <- if (isDB) stop("capscale cannot be used with 'full' model")
+              else x$CA$Xbar
     if (isPartial && model == "direct")
-        E <- E + Y.Z
+        E <- if (isDB) x$pCCA$G else E + Y.Z
     ## Save dimensions
     N <- nrow(E)
     if (isCCA) {
@@ -139,10 +157,6 @@ permutest.default <- function(x, ...)
     num <- tmp[,1]
     den <- tmp[,2]
     F.perm <- tmp[,3]
-    ## Round to avoid arbitrary ordering of statistics due to
-    ## numerical inaccuracy
-    F.0 <- round(F.0, 12)
-    F.perm <- round(F.perm, 12)
     Call <- match.call()
     Call[[1]] <- as.name("permutest")
     sol <- list(call = Call, testcall = x$call, model = model,

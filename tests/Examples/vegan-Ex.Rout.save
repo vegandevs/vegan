@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2015-05-25 r68405) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-08-18 r69117) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1505,9 +1505,8 @@ log(N) P K Ca pH Al    6      0.2822
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: capscale
-> ### Title: [Partial] Constrained Analysis of Principal Coordinates or
-> ###   distance-based RDA
-> ### Aliases: capscale
+> ### Title: [Partial] Distance-based Redundancy Analysis
+> ### Aliases: capscale oldCapscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1521,13 +1520,12 @@ log(N) P K Ca pH Al    6      0.2822
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
-              Inertia Proportion Rank
-Total          4.5440                
-Real Total     4.8030     1.0000     
-Conditional    0.9770     0.2034    1
-Constrained    0.9970     0.2076    3
-Unconstrained  2.8290     0.5890   15
-Imaginary     -0.2590               8
+              Inertia Proportion Eigenvals Rank
+Total          4.5444     1.0000    4.8034     
+Conditional    0.9726     0.2140    0.9772    1
+Constrained    0.9731     0.2141    0.9972    3
+Unconstrained  2.5987     0.5718    2.8290   15
+Imaginary                          -0.2590    8
 Inertia is squared Bray distance 
 
 Eigenvalues for constrained axes:
@@ -1547,24 +1545,24 @@ Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df Variance      F Pr(>F)   
-Model     3  0.99717 2.2324  0.002 **
-Residual 19  2.82904                 
+         Df Variance      F Pr(>F)    
+Model     3  0.97314 2.3717  0.001 ***
+Residual 19  2.59866                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Avoid negative eigenvalues with additive constant
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
 +                      dist="bray", add =TRUE)
-Warning in cmdscale(X, k = k, eig = TRUE, add = add) :
+Warning in cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE) :
   only 22 of the first 23 eigenvalues are > 0
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", add = TRUE)
 
               Inertia Proportion Rank
-Total          8.9640     1.0000     
-Conditional    1.5050     0.1679    1
-Constrained    1.7170     0.1915    3
-Unconstrained  5.7420     0.6405   19
+Total          8.9643     1.0000     
+Conditional    1.5053     0.1679    1
+Constrained    1.7171     0.1915    3
+Unconstrained  5.7419     0.6405   19
 Inertia is squared Bray distance (euclidified) 
 
 Eigenvalues for constrained axes:
@@ -1586,9 +1584,9 @@ varechem, distance = "bray", sqrt.dist = TRUE)
 
               Inertia Proportion Rank
 Total          6.9500     1.0000     
-Conditional    0.9530     0.1372    1
-Constrained    1.2270     0.1765    3
-Unconstrained  4.7700     0.6863   19
+Conditional    0.9535     0.1372    1
+Constrained    1.2267     0.1765    3
+Unconstrained  4.7698     0.6863   19
 Inertia is Bray distance 
 
 Eigenvalues for constrained axes:
@@ -1607,11 +1605,10 @@ Wisconsin double standardization
 Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
 TRUE)
 
-              Inertia Rank
-Total          2.5475     
-Real Total     2.5950     
-Unconstrained  2.5950   19
-Imaginary     -0.0475    4
+               Inertia Eigenvals Rank
+Total          2.54753   2.59500     
+Unconstrained  2.54753   2.59500   19
+Imaginary               -0.04747    4
 Inertia is squared Bray distance 
 
 Eigenvalues for unconstrained axes:
@@ -1722,9 +1719,9 @@ Eigenvalues for unconstrained axes:
 Call: cca(formula = varespec ~ Ca, data = varechem)
 
               Inertia Proportion Rank
-Total          2.0832     1.0000     
-Constrained    0.1572     0.0755    1
-Unconstrained  1.9260     0.9245   22
+Total         2.08320    1.00000     
+Constrained   0.15722    0.07547    1
+Unconstrained 1.92598    0.92453   22
 Inertia is mean squared contingency coefficient 
 
 Eigenvalues for constrained axes:
@@ -2441,9 +2438,9 @@ Based on 99 simulations on 'c0_ind' nullmodel
 Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
 
               Inertia Proportion Rank
-Total         38.1600     1.0000     
-Constrained    9.2100     0.2414    3
-Unconstrained 28.9500     0.7586   35
+Total         38.1640     1.0000     
+Constrained    9.2129     0.2414    3
+Unconstrained 28.9511     0.7586   35
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -2495,9 +2492,8 @@ Groups sizes
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: diversity
-> ### Title: Ecological Diversity Indices and Rarefaction Species Richness
-> ### Aliases: diversity rarefy rrarefy drarefy rarecurve rareslope
-> ###   fisher.alpha specnumber
+> ### Title: Ecological Diversity Indices
+> ### Aliases: diversity fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2506,7 +2502,7 @@ Groups sizes
 > H <- diversity(BCI)
 > simp <- diversity(BCI, "simpson")
 > invsimp <- diversity(BCI, "inv")
-> ## Unbiased Simpson of Hurlbert 1971 (eq. 5):
+> ## Unbiased Simpson (Hurlbert 1971, eq. 5) with rarefy:
 > unbias.simp <- rarefy(BCI, 2) - 1
 > ## Fisher alpha
 > alpha <- fisher.alpha(BCI)
@@ -2523,13 +2519,6 @@ Groups sizes
 > gamma/alpha - 1
        BF        HF        NM        SF 
 0.5483871 0.6666667 1.6250000 1.2909091 
-> ## Rarefaction
-> (raremax <- min(rowSums(BCI)))
-[1] 340
-> Srare <- rarefy(BCI, raremax)
-> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
-> abline(0, 1)
-> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -4742,9 +4731,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -4796,9 +4785,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -5038,7 +5027,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-6. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-7. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5507,12 +5496,13 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > ### Name: permustats
 > ### Title: Extract, Analyse and Display Permutation Results
 > ### Aliases: permustats permustats.adonis permustats.anosim
-> ###   permustats.CCorA permustats.envfit permustats.factorfit
-> ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
-> ###   permustats.ordiareatest permustats.permutest.betadisper
-> ###   permustats.permutest.cca permustats.protest permustats.vectorfit
-> ###   summary.permustats densityplot.permustats density.permustats
-> ###   qqnorm.permustats qqmath.permustats
+> ###   permustats.anova.cca permustats.CCorA permustats.envfit
+> ###   permustats.factorfit permustats.mantel permustats.mrpp permustats.mso
+> ###   permustats.oecosimu permustats.ordiareatest
+> ###   permustats.permutest.betadisper permustats.permutest.cca
+> ###   permustats.protest permustats.vectorfit summary.permustats
+> ###   densityplot.permustats density.permustats qqnorm.permustats
+> ###   qqmath.permustats
 > ### Keywords: distribution smooth
 > 
 > ### ** Examples
@@ -5785,10 +5775,10 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 Call: prc(response = pyrifos, treatment = dose, time = week)
 
                Inertia Proportion Rank
-Total         288.9900     1.0000     
-Conditional    63.3500     0.2192   10
-Constrained    96.6800     0.3346   44
-Unconstrained 128.9600     0.4462   77
+Total         288.9920     1.0000     
+Conditional    63.3493     0.2192   10
+Constrained    96.6837     0.3346   44
+Unconstrained 128.9589     0.4462   77
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -6185,6 +6175,30 @@ Mandelbrot  5.7342  5.5665 10.573
 > rankindex(scale(varechem), varespec, funs)
 Manhattan     Gower    Ochiai 
 0.2735087 0.2288358 0.1696862 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rarefy")
+> ### * rarefy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rarefy
+> ### Title: Rarefaction Species Richness
+> ### Aliases: rarefy rrarefy drarefy rarecurve rareslope
+> ### Keywords: univar
+> 
+> ### ** Examples
+> 
+> data(BCI)
+> S <- specnumber(BCI) # observed number of species
+> (raremax <- min(rowSums(BCI)))
+[1] 340
+> Srare <- rarefy(BCI, raremax)
+> plot(S, Srare, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+> abline(0, 1)
+> rarecurve(BCI, step = 20, sample = raremax, col = "blue", cex = 0.6)
 > 
 > 
 > 
@@ -6659,9 +6673,9 @@ Call: rda(formula = simulate(mod) ~ Moisture + Management, data =
 dune.env)
 
               Inertia Proportion Rank
-Total         82.8200     1.0000     
-Constrained   52.7000     0.6363    6
-Unconstrained 30.1300     0.3637   13
+Total         82.8232     1.0000     
+Constrained   52.6966     0.6363    6
+Unconstrained 30.1266     0.3637   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -7318,11 +7332,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > capscale(dtree ~ 1, comm=dune)
 Call: capscale(formula = dtree ~ 1, comm = dune)
 
-              Inertia Rank
-Total          2.1834     
-Real Total     2.3439     
-Unconstrained  2.3439   10
-Imaginary     -0.1605    9
+              Inertia Eigenvals Rank
+Total          2.1834    2.3439     
+Unconstrained  2.1834    2.3439   10
+Imaginary               -0.1605    9
 Inertia is squared Treedist distance 
 
 Eigenvalues for unconstrained axes:
@@ -7444,7 +7457,7 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
 > ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts plot.varpart
-> ###   plot.varpart234 simpleRDA2
+> ###   plot.varpart234 simpleRDA2 simpleDBRDA
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7463,7 +7476,7 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~., mite.pcnm, data = mite.env, transfo =
 "hel")
@@ -7488,7 +7501,7 @@ Individual fractions
 [c] = X2|X1          22                 0.10124     TRUE
 [d] = Residuals                         0.46206    FALSE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > 
 > ## Use fill colours
 > showvarparts(2, bg = c("hotpink","skyblue"))
@@ -7519,12 +7532,39 @@ $adj.r.squared
 [1] 0.09140797
 
 > 
+> # Partition Bray-Curtis dissimilarities
+> varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
+
+Partition of squared bray distance in dbRDA 
+
+Call: varpart(Y = vegdist(mite), X = ~., mite.pcnm, data = mite.env)
+
+Explanatory tables:
+X1:  ~.
+X2:  mite.pcnm 
+
+No. of explanatory tables: 2 
+Total variation (SS): 14.696 
+No. of observations: 70 
+
+Partition table:
+                     Df R.squared Adj.R.squared Testable
+[a+b] = X1           11   0.50512       0.41127     TRUE
+[b+c] = X2           22   0.60144       0.41489     TRUE
+[a+b+c] = X1+X2      33   0.74631       0.51375     TRUE
+Individual fractions                                    
+[a] = X1|X2          11                 0.09887     TRUE
+[b]                   0                 0.31240    FALSE
+[c] = X2|X1          22                 0.10249     TRUE
+[d] = Residuals                         0.48625    FALSE
+---
+Use function ‘capscale’ to test significance of fractions of interest
 > # Three explanatory matrices 
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
 +    mite.pcnm, data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~SubsDens + WatrCont, ~Substrate + Shrub +
 Topo, mite.pcnm, data = mite.env, transfo = "hel")
@@ -7565,7 +7605,7 @@ Controlling 1 table X
 [c+e] = X3 | X1       22               0.19303     TRUE
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
 > # An alternative formulation of the previous model using
@@ -7595,7 +7635,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 +   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 > mod
 
-Partition of variation in RDA
+Partition of variance in RDA 
 
 Call: varpart(Y = mite, X = ~SubsDens + WatrCont, ~Substrate + Shrub +
 Topo, mite.pcnm[, 1:11], mite.pcnm[, 12:22], data = mite.env, transfo =
@@ -7673,7 +7713,7 @@ Controlling 1 table X
 [dhjn] = X4 | X2            11               0.02837     TRUE
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
-Use function 'rda' to test significance of fractions of interest
+Use function ‘rda’ to test significance of fractions of interest
 > plot(mod, bg=2:5)
 > # Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
@@ -7781,9 +7821,9 @@ Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure,
 data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   63.2100     0.7513   12
-Unconstrained 20.9200     0.2487    7
+Total         84.1237     1.0000     
+Constrained   63.2062     0.7513   12
+Unconstrained 20.9175     0.2487    7
 Inertia is variance 
 Some constraints were aliased because they were collinear (redundant)
 
@@ -7844,9 +7884,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
-Total         84.1200     1.0000     
-Constrained   46.4200     0.5519    6
-Unconstrained 37.7000     0.4481   13
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
 Inertia is variance 
 
 Eigenvalues for constrained axes:
@@ -8455,7 +8495,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.508 0.116 23.692 0 0 
+Time elapsed:  23.036 0.104 23.129 0 0 
 > grDevices::dev.off()
 null device 
           1 
