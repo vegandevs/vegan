@@ -59,8 +59,8 @@
     if (!is.null(d$na.action)) {
         X <- as.matrix(X)[-d$na.action, -d$na.action, drop = FALSE]
     }
-    X <- as.dist(X)
-    k <- attr(X, "Size") - 1
+    X <- as.matrix(X)
+    k <- NROW(X) - 1
     if (sqrt.dist)
         X <- sqrt(X)
     if (max(X) >= 4 + .Machine$double.eps) {
@@ -75,7 +75,7 @@
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## QR decomposition to get the components of inertia.
-    G <- -GowerDblcen(as.matrix(X^2))/2
+    G <- -GowerDblcen(X^2)/2
     if (adjust == 1)
         G <- G/k
     ## Solution: this shows the algorithmic steps
