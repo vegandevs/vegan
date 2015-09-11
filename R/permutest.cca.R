@@ -25,7 +25,8 @@ permutest.default <- function(x, ...)
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
     isDB <- inherits(x, "capscale") &&
-        !inherits(x, "oldcapscale") # distance-based & new design
+        !inherits(x, "oldcapscale") || # distance-based & new design
+            inherits(x, "dbrda")           # dbrda
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
@@ -95,7 +96,7 @@ permutest.default <- function(x, ...)
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
-    r <- nrow(x$CA$Xbar) - x$CCA$QR$rank - 1
+    r <- nobs(x) - x$CCA$QR$rank - 1
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
