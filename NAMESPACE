@@ -6,7 +6,7 @@ useDynLib(vegan)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
-cascadeKM, cca, contribdiv, clamtest, commsim, decorana,
+cascadeKM, cca, contribdiv, clamtest, commsim, dbrda, decorana,
 decostand, designdist, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
@@ -40,6 +40,8 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
+## testing & verifying dbrda
+export(dbRDA.D, dbRDA2)  # <--- REMOVE THESE WHEN DONE WITH dbrda
 
 ## export regular functions with dot names
 
