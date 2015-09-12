@@ -37,7 +37,9 @@
     ## Remove "Proportion" if only one component
     if (is.null(x$CCA) && is.null(x$pCCA))
         tbl <- tbl[,-2]
-    printCoefmat(tbl, digits = digits, na.print = "")
+    ## 'cs' columns before "Rank" are non-integer
+    cs <- which(colnames(tbl) == "Rank") - 1
+    printCoefmat(tbl, digits = digits, na.print = "", cs = seq_len(cs))
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
