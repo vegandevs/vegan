@@ -43,8 +43,8 @@
         scaling <- abs(scalingType(scaling = scaling))
     }
     if ("constraints" %in% take) {
-        u <- cbind(x$CCA$u[, seq_len(x$CCA$poseig)],
-                   x$CA$u[, seq_len(x$CA$poseig)])
+        u <- cbind(x$CCA$u[, seq_len(x$CCA$poseig), drop = FALSE],
+                   x$CA$u[, seq_len(x$CA$poseig)], drop = FALSE)
         choices <- choices[choices <= ncol(u)]
         u <- u[, choices, drop=FALSE]
         if (scaling) {
