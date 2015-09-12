@@ -2,6 +2,7 @@
 \alias{plot.cca}
 \alias{text.cca}
 \alias{points.cca}
+\alias{scores.dbrda}
 \alias{scores.cca}
 \alias{scores.rda}
 \alias{summary.cca}
