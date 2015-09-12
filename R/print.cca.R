@@ -39,7 +39,7 @@
         tbl <- tbl[,-2]
     ## 'cs' columns before "Rank" are non-integer
     cs <- which(colnames(tbl) == "Rank") - 1
-    printCoefmat(tbl, digits = digits, na.print = "", cs = seq_len(cs))
+    printCoefmat(tbl, digits = digits, na.print = "", cs.ind = seq_len(cs))
     cat("Inertia is", x$inertia, "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
