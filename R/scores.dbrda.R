@@ -51,7 +51,7 @@
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
             u <- sweep(u, 2, scal, "*")
         }
-        sol$sites <- u
+        sol$constraints <- u
     }
     if ("biplot" %in% take && !is.null(x$CCA$biplot)) {
         b <- matrix(0, nrow(x$CCA$biplot), length(choices))
