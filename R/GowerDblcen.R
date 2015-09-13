@@ -8,6 +8,8 @@
 GowerDblcen <- function(x, na.rm = TRUE) {
     cnt <- colMeans(x, na.rm = na.rm)
     x <- sweep(x, 2L, cnt, check.margin = FALSE)
-    cnt <- rowMeans(x, na.rm = na.rm)
-    sweep(x, 1L, cnt, check.margin = FALSE)
+    rcnt <- rowMeans(x, na.rm = na.rm)
+    x <- sweep(x, 1L, rcnt, check.margin = FALSE)
+    attr(x, "centre") <- rbind("cols" = cnt, "rows" = rcnt)
+    x
 }
