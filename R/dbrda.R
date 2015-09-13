@@ -104,6 +104,12 @@
         e$values <- e$values[nz]
         e$vectors <- e$vectors[, nz, drop = FALSE]
         pos <- e$values > 0
+        if (any(e$values < 0)) {
+            imaginary.u <- e$vectors[, !pos, drop = FALSE]
+            e$vectors <- e$vectors[, pos, drop = FALSE]
+        } else {
+            imaginary.u <- NULL
+        }
         oo <- Q$pivot[seq_len(Q$rank)]
         rank <- Q$rank
         if (!is.null(pCCA)) {
@@ -112,12 +118,12 @@
         }
         CCA <- list(eig = e$values,
                     u = e$vectors,
+                    imaginary.u = imaginary.u,
                     poseig = sum(pos),
                     v = NA, wa = NA,
                     alias =  if (rank < ncol(d$Y))
                                  colnames(d$Y)[-oo],
-                    biplot = cor(d$Y[,oo, drop=FALSE],
-                    e$vectors[, pos, drop=FALSE]),
+                    biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
                     qrank = rank, rank = rank,
                     tot.chi = sum(diag(HGH)),
                     QR = Q,
@@ -128,9 +134,18 @@
     ## CA
     e <- eigen(G) 
     nz <- abs(e$values) > EPS
-    CA <- list(eig = e$values[nz],
-               u = e$vectors[, nz, drop = FALSE],
-               poseig = sum(e$values[nz] > 0),
+    e$values <- e$values[nz]
+    e$vectors <- e$vectors[, nz, drop = FALSE]
+    if (any(e$values < 0)) {
+        imaginary.u <- e$vectors[, e$values < 0, drop = FALSE]
+        e$vectors <- e$vectors[, e$values > 0, drop = FALSE]
+    } else {
+        imaginary.u <- NULL
+    }
+    CA <- list(eig = e$values,
+               u = e$vectors,
+               imaginary.u = imaginary.u,
+               poseig = sum(e$values > 0),
                v = NA,
                rank = sum(nz),
                tot.chi = sum(diag(G)),
@@ -144,18 +159,21 @@
         colnames(sol$CCA$biplot) <-
             names(sol$CCA$eig)[sol$CCA$eig > 0]
         rownames(sol$CCA$u) <- rownames(d$X)
+        if (!is.null(sol$CCA$imaginary.u))
+            rownames(sol$CCA$imaginary.u) <- rownames(d$X)
     }
     if (!is.null(sol$CA) && sol$CA$rank > 0) {
         colnames(sol$CA$u) <- names(sol$CA$eig) <-
             paste("MDS", seq_len(ncol(sol$CA$u)), sep = "")
         rownames(sol$CA$u) <- rownames(d$X)
+        if (!is.null(sol$CA$imaginary.u))
+            rownames(sol$CA$imaginary.u) <- rownames(d$X)
     }
 
     sol$colsum <- NA
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
         sol$CCA$centroids <-
-            centroids.cca(sol$CCA$u[,sol$CCA$eig > 0, drop = FALSE],
-                          d$modelframe)
+            centroids.cca(sol$CCA$u, d$modelframe)
     if (!is.null(sol$CCA$alias)) 
         sol$CCA$centroids <- unique(sol$CCA$centroids)
     if (!is.null(sol$CCA$centroids)) {
