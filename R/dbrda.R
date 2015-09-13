@@ -149,7 +149,7 @@
                v = NA,
                rank = sum(nz),
                tot.chi = sum(diag(G)),
-               Xbar = NA)
+               Xbar = NA, G = G)
     ## output
     sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
