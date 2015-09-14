@@ -159,15 +159,25 @@
         colnames(sol$CCA$biplot) <-
             names(sol$CCA$eig)[sol$CCA$eig > 0]
         rownames(sol$CCA$u) <- rownames(d$X)
-        if (!is.null(sol$CCA$imaginary.u))
+        if (!is.null(sol$CCA$imaginary.u)) {
+            negax <- sol$CCA$eig < 0
+            negnm <- paste0("idbRDA", seq_len(sum(negax)))
+            names(sol$CCA$eig)[negax] <- negnm
+            colnames(sol$CCA$imaginary.u) <- negnm
             rownames(sol$CCA$imaginary.u) <- rownames(d$X)
+        }
     }
     if (!is.null(sol$CA) && sol$CA$rank > 0) {
         colnames(sol$CA$u) <- names(sol$CA$eig) <-
             paste("MDS", seq_len(ncol(sol$CA$u)), sep = "")
         rownames(sol$CA$u) <- rownames(d$X)
-        if (!is.null(sol$CA$imaginary.u))
+        if (!is.null(sol$CA$imaginary.u)) {
+            negax <- sol$CA$eig < 0
+            negnm <- paste0("iMDS", seq_len(sum(negax)))
+            names(sol$CA$eig)[negax] <- negnm
+            colnames(sol$CA$imaginary.u) <- negnm
             rownames(sol$CA$imaginary.u) <- rownames(d$X)
+        }
     }
 
     sol$colsum <- NA
