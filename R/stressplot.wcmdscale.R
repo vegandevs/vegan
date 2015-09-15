@@ -1,5 +1,5 @@
 ### stressplot() methods for eigenvector ordinations wcmdscale, rda,
-### cca, capscale
+### cca, capscale, dbrda
 
 `stressplot.wcmdscale` <-
     function(object, k = 2, pch,  p.col = "blue", l.col = "red", lwd = 2, ...)
@@ -141,6 +141,46 @@
         dis <- dis - object$ac
     ## plot like above
         ## Plot
+    if (missing(pch))
+        if (length(dis) > 5000)
+            pch <- "."
+        else
+            pch <- 1
+    plot(dis, odis, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
+         ylab = "Ordination Distance", ...)
+    abline(0, 1, col = l.col, lwd = lwd, ...)
+    invisible(odis)
+}
+
+`stressplot.dbrda` <-
+    function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
+{
+    ## Reconstruct original distances from Gower 'G'
+    dis <- if (is.null(object$CCA))
+                object$CA$G
+            else
+                object$CCA$G
+    if (!is.null(object$pCCA))
+        dis <- dis + object$pCCA$Fit
+    cntr <- attr(dis, "centre")
+    Means <- outer(cntr[2,], cntr[1,], "+")
+    dis <- -2 * dis + Means
+    dis <- sqrt(as.dist(dis))
+    ## Real scores for approximating data
+    Xbar <- cbind(object$CCA$u, object$CA$u)
+    eig <- c(object$CCA$eig, object$CA$eig)
+    eig <- eig[eig > 0]
+    ## check that 'k' does nt exceed real rank
+    k <- min(k, ncol(Xbar))
+    Xbar <- sweep(Xbar[, seq_len(k), drop=FALSE], 2,
+                  sqrt(eig[seq_len(k)]), "*")
+    odis <- dist(Xbar)
+    ## add partial Fit if needed
+    if(!is.null(object$pCCA)) {
+        pdis <- as.dist(-2 * object$pCCA$Fit + Means)
+        dis <- sqrt(odis^2 + pdis^2)
+    }
+    ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."

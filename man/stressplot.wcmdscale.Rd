@@ -3,6 +3,7 @@
 \alias{stressplot.cca}
 \alias{stressplot.rda}
 \alias{stressplot.capscale}
+\alias{stressplot.dbrda}
 \alias{stressplot.prcomp}
 \alias{stressplot.princomp}
 
@@ -19,7 +20,7 @@
   linear relationship of the eigenvector ordinations. The
   \code{stressplot} methods are available for \code{\link{wcmdscale}},
   \code{\link{rda}}, \code{\link{cca}}, \code{\link{capscale}},
-  \code{\link{prcomp}} and \code{\link{princomp}}. 
+  \code{\link{dbrda}}, \code{\link{prcomp}} and \code{\link{princomp}}. 
 }
 
 \usage{
