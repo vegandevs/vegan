@@ -191,6 +191,7 @@ S3method(extractAIC, cca)
 # fitted: stats
 S3method(fitted, capscale)
 S3method(fitted, cca)
+S3method(fitted, dbrda)
 S3method(fitted, procrustes)
 S3method(fitted, radfit)
 S3method(fitted, radfit.frame)
