@@ -1,6 +1,8 @@
 `calibrate.cca` <-
     function(object, newdata, rank = "full", ...)
 {
+    if (inherits(object, "dbrda"))
+        stop("cannot be used with ´dbrda´")
     if (!is.null(object$pCCA))
         stop("does not work with conditioned (partial) models")
     if (is.null(object$CCA) || object$CCA$rank == 0)
