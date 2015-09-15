@@ -128,7 +128,7 @@
                     tot.chi = sum(diag(HGH)),
                     QR = Q,
                     envcentre = attr(d$Y, "scaled:center"),
-                    Xbar = NA, G = HGH)
+                    Xbar = NA, G = G)
         G <- G - HGH
     }
     ## CA
