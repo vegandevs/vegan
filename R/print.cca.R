@@ -18,7 +18,8 @@
         rchi <- NULL
     ## report no. of real axes in dbrda if any negative eigenvalues
     if (inherits(x, "dbrda") &&
-        (x$CCA$poseig < x$CCA$qrank || x$CA$poseig < x$CA$rank))
+        (!is.null(x$CCA) && x$CCA$poseig < x$CCA$qrank ||
+             !is.null(x$CA) && x$CA$poseig < x$CA$rank))
         poseig <- c(NA, if (!is.null(x$pCCA)) NA, x$CCA$poseig, x$CA$poseig)
     else
         poseig <- NULL
