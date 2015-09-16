@@ -6,7 +6,12 @@
 ##' @param correlation logical; should correlation-like scores be returned?
 ##' @param hill logical; should Hill's scaling scores be returned?
 `scalingType` <- function(scaling = c("none", "sites", "species", "symmetric"),
-                          correlation = FALSE, hill = FALSE) {
+                          correlation = FALSE, hill = FALSE)
+{
+    ## numeric scaling: return as-is
+    if (is.numeric(scaling))
+        return(scaling)
+    ## non-numeric scaling: change to numeric
     tab <- c("none", "sites", "species", "symmetric")
     scaling <- match.arg(scaling)
     scl <- match(scaling, tab) - 1      # -1 as none == scaling 0
