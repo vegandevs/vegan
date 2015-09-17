@@ -50,8 +50,26 @@
       \href{http://stackoverflow.com/questions/30856909/error-while-using-rarecurve-in-r}{Stackoverflow (Error while using rarecurve)}.
 
     }
+  } % bug fixes
 
-  }
+  \subsection{NEW FEATURES AND FUNCTIONS}{
+    \itemize{
+      
+     \item Scaling of ordination axes in \code{cca}, \code{rda} and
+     \code{capscale} can now be expressed with descriptive strings
+     \code{"none"}, \code{"sites"}, \code{"species"} or
+     \code{"symmetric"} to tell which kind of scores should be scaled by
+     eigenvalues. These can be further modified with arguments
+     \code{hill} in \code{cca} and \code{correlation} in \code{rda}. The
+     old numeric scaling can still be used.
+
+     \item The permutation data can be extracted from \code{anova}
+     results of constrained ordination (\code{cca}, \code{rda},
+     \code{capscale}) and futher analysed with \code{permustats}
+     function.
+     
+   }
+  } % new features and functions
 
 }
 
