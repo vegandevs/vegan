@@ -74,6 +74,6 @@
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
     structure(table, heading = c(head, mod), Random.seed = seed,
-              control = control,
+              control = control, F.perm = tst$F.perm,
               class = c("anova.cca", "anova", "data.frame"))
 }
