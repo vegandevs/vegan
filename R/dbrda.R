@@ -92,7 +92,7 @@
                      QR = Q, Fit = HGH,
                      envcentre = attr(d$Z, "scaled:center"),
                      G = G)
-        H2 <- Q[, -seq_len(Q$rank), drop = FALSE
+        H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
         G <- H2 %*% G %*% H2
     }
     ## CCA
