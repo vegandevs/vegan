@@ -9,6 +9,6 @@
             inherits(object$na.action, "exclude"))
             n <- n + length(object$na.action)
     }
-    else n <- nobs(object)
+    else n <- max(ncol(object$CA$Xbar), ncol(object$CCA$Xbar))
     rep(1, n)
 }
