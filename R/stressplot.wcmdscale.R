@@ -152,32 +152,50 @@
     invisible(odis)
 }
 
+### dbrda() returns only row scores 'u' (LC scores for constraints,
+### site scores for unconstrained part), and these can be used to
+### reconstitute dissimilarities only in unconstrained ordination or
+### for constrained component.
+
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
+    if (!is.null(object$pCCA))
+        stop("function cannot be used in partial 'dbrda'")
     ## Reconstruct original distances from Gower 'G'
     dis <- if (is.null(object$CCA))
-                object$CA$G
-            else
-                object$CCA$G
-    if (!is.null(object$pCCA))
-        dis <- dis + object$pCCA$Fit
+               object$CA$G
+           else
+               object$CCA$G
+    if (object$adjust == 1)
+        const <- nobs(object) - 1
+    else
+        const <- 1
+    dis <- dis * const
     cntr <- attr(dis, "centre")
     Means <- outer(cntr[2,], cntr[1,], "+")
     dis <- -2 * dis + Means
     dis <- sqrt(as.dist(dis))
-    ## Real scores for approximating data
-    Xbar <- cbind(object$CCA$u, object$CA$u)
-    eig <- c(object$CCA$eig, object$CA$eig)
-    eig <- eig[eig > 0]
-    ## check that 'k' does nt exceed real rank
+    ## Approximate dissimilarities from real components, but we can
+    ## only have constraints if we have constrained ordination.
+    if (is.null(object$CCA)) {
+        Xbar <- object$CA$u
+        eig <- object$CA$eig
+    } else {
+        Xbar <- object$CCA$u
+        eig <- object$CCA$eig
+    }
+    eig <- eig[eig > 0] * const
+    ## check that 'k' does not exceed real rank
+    if (k > ncol(Xbar) && !is.null(object$CCA))
+        warning(gettextf("shows only %d constrained components", ncol(Xbar)))
     k <- min(k, ncol(Xbar))
     Xbar <- sweep(Xbar[, seq_len(k), drop=FALSE], 2,
                   sqrt(eig[seq_len(k)]), "*")
     odis <- dist(Xbar)
     ## add partial Fit if needed
     if(!is.null(object$pCCA)) {
-        pdis <- as.dist(-2 * object$pCCA$Fit + Means)
+        pdis <- as.dist(-2 * object$pCCA$Fit/object$adjust + Means)
         dis <- sqrt(odis^2 + pdis^2)
     }
     ## Plot
