@@ -160,8 +160,8 @@
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    if (!is.null(object$pCCA))
-        stop("function cannot be used in partial 'dbrda'")
+    ## Dubious
+    warning("stressplot is dubious for constrained 'dbrda'")
     ## Reconstruct original distances from Gower 'G'
     dis <- if (is.null(object$CCA))
                object$CA$G
@@ -171,33 +171,22 @@
         const <- nobs(object) - 1
     else
         const <- 1
-    dis <- dis * const
     cntr <- attr(dis, "centre")
-    Means <- outer(cntr[2,], cntr[1,], "+")
+    Means <- outer(cntr[2,], cntr[1,], "+")/const
     dis <- -2 * dis + Means
-    dis <- sqrt(as.dist(dis))
-    ## Approximate dissimilarities from real components, but we can
-    ## only have constraints if we have constrained ordination.
-    if (is.null(object$CCA)) {
-        Xbar <- object$CA$u
-        eig <- object$CA$eig
-    } else {
-        Xbar <- object$CCA$u
-        eig <- object$CCA$eig
-    }
-    eig <- eig[eig > 0] * const
+    dis <- sqrt(as.dist(dis) * const)
+    ## Approximate dissimilarities from real components
+    U <- cbind(object$CCA$u, object$CA$u)
+    eig <- c(object$CCA$eig, object$CA$eig)
+    eig <- eig[eig > 0] 
     ## check that 'k' does not exceed real rank
-    if (k > ncol(Xbar) && !is.null(object$CCA))
-        warning(gettextf("shows only %d constrained components", ncol(Xbar)))
-    k <- min(k, ncol(Xbar))
-    Xbar <- sweep(Xbar[, seq_len(k), drop=FALSE], 2,
-                  sqrt(eig[seq_len(k)]), "*")
-    odis <- dist(Xbar)
+    k <- min(k, ncol(U))
+    Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
+                  sqrt(eig[seq_len(k)]), "*"))
     ## add partial Fit if needed
-    if(!is.null(object$pCCA)) {
-        pdis <- as.dist(-2 * object$pCCA$Fit/object$adjust + Means)
-        dis <- sqrt(odis^2 + pdis^2)
-    }
+    if(!is.null(object$pCCA))
+        Gk <- Gk + object$pCCA$Fit/object$adjust
+    odis <- sqrt(as.dist(-2 * Gk + Means) * const)
     ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
