@@ -83,6 +83,7 @@
     pCCA <- CCA <-  CA <- NULL
     ## pCCA
     if (!is.null(d$Z)) {
+        att <- attributes(G) # save attributes -- "centre" in particular
         d$Z <- scale(d$Z, scale = FALSE)
         Q <- qr(d$Z, tol = 1e-6)
         Q12 <- qr.Q(Q, complete = TRUE) # comments below in CCA
@@ -94,6 +95,7 @@
                      G = G)
         H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
         G <- H2 %*% G %*% H2
+        attributes(G) <- att # get back lost attributes
     }
     ## CCA
     if (!is.null(d$Y)) {
