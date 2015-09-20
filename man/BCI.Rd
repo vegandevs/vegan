@@ -48,7 +48,7 @@ data(BCI.env)
   coordinates.
 
   A full description of the site information in \code{BCI.env} is given
-  in Pike et al (2001)
+  in Pyke et al (2001)
 
 }
 \source{
