@@ -8,18 +8,20 @@
 `scalingType` <- function(scaling = c("none", "sites", "species", "symmetric"),
                           correlation = FALSE, hill = FALSE) {
     ## Only process scaling further if it is character
-    if (is.character(scaling)) {
-        ## non-numeric scaling: change to numeric
+    if (is.numeric(scaling)) {
+        return(scaling)                 # numeric; return early
+    } else if (is.character(scaling)) {
+        ## non-numeric scaling: change to correct numeric code
+        scaling <- match.arg(scaling)   # match user choice
+        ## Keep `tab` as this is the order of numeric codes
+        ## Allows potential to change the default ordering of formal argument 'scaling'
         tab <- c("none", "sites", "species", "symmetric")
-        scaling <- match.arg(scaling)
         scaling <- match(scaling, tab) - 1      # -1 as none == scaling 0
-        if (scaling > 0 && (correlation || hill)) {
+        if (correlation || hill) {
             scaling <- -scaling
         }
     } else {
-        if (!is.numeric(scaling)) {
-            stop("'scaling' is neither 'numeric' nor 'character'.")
-        }
+        stop("'scaling' is not 'numeric' nor 'character'.")
     }
     scaling                             # return
 }
