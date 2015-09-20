@@ -21,9 +21,7 @@
     if (is.null(w)) 
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
-    ## process scaling arg, this will ignore hill if scaling = FALSE or a numeric.
-    ## scaling also used later so needs to be a numeric (or something
-    ## coercible to one (FALSE)
+    ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, hill = hill)
     if (type %in%  c("response", "working")) {
         Xbar <- 0
