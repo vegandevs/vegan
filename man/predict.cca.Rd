@@ -30,7 +30,7 @@
         rank = "full", model = c("CCA", "CA"), scaling = "none",
         hill = FALSE, ...)
 \method{predict}{rda}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
-        rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+        rank = "full", model = c("CCA", "CA"), scaling = "none",
         correlation = FALSE, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, ...)
