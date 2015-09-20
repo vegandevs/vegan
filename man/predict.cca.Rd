@@ -27,7 +27,7 @@
     type = c("response", "working"), ...)
 \method{residuals}{cca}(object, ...)
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
-        rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+        rank = "full", model = c("CCA", "CA"), scaling = "none",
         hill = FALSE, ...)
 \method{predict}{rda}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = FALSE,
