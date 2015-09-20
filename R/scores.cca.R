@@ -26,10 +26,8 @@
     slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices])
     rnk <- x$CCA$rank
     sol <- list()
-    ## check scaling for character & process it if so
-    if (is.character(scaling)) {
-        scaling <- scalingType(scaling = scaling, hill = hill)
-    }
+    ## process scaling; numeric scaling will just be returned as is
+    scaling <- scalingType(scaling = scaling, hill = hill)
     if ("species" %in% take) {
         v <- cbind(x$CCA$v, x$CA$v)[, choices, drop = FALSE]
         if (scaling) {
