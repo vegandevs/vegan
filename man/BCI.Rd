@@ -26,8 +26,8 @@ data(BCI.env)
   variables:
 
   \describe{
-    \item{\code{UTM.EW}: }{UTM coordinates East-West}
-    \item{\code{UTM.NS}: }{UTM coordinates North-South}
+    \item{\code{UTM.EW}: }{UTM coordinates (zone 17N) East-West}
+    \item{\code{UTM.NS}: }{UTM coordinates (zone 17N) North-South}
     \item{\code{Precipitation}: }{Precipitation in mm per year}
     \item{\code{Elevation}: }{Elevation in m above sea level}
     \item{\code{Age.cat}: }{Forest age category}
