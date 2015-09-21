@@ -74,7 +74,7 @@ data(BCI.env)
 
   Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
   composition across a climatic gradient in a neotropical lowland
-  forest. \emph{Journal of Vegetation Science}, 12(4), 553--566.
+  forest. \emph{Journal of Vegetation Science} 12, 553--566.
   doi:10.2307/3237007 
 
 }
