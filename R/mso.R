@@ -3,7 +3,7 @@
               permutations = 0) 
 {
     if (inherits(object.cca, "dbrda"))
-        stop("'mso' is not yet implemented for 'dbrda'")
+        stop("'mso' is not yet implemented for 'dbrda'\ncontact developers or submit a pull request with your code in github")
     EPS <- sqrt(.Machine$double.eps)
     if (inherits(object.cca, "mso")) {
         rm <- which(class(object.cca) == "mso")
