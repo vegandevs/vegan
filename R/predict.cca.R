@@ -1,6 +1,6 @@
 `predict.cca` <-
     function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
-              rank = "full", model = c("CCA", "CA"), scaling = FALSE,
+              rank = "full", model = c("CCA", "CA"), scaling = "none",
               hill = FALSE, ...) 
 {
     type <- match.arg(type)
@@ -21,12 +21,8 @@
     if (is.null(w)) 
         w <- u
     slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
-    ## process sclaing arg, this will ignore hill if scaling = FALSE or a numeric.
-    ## scaling also used later so needs to be a numeric (or something
-    ## coercible to one (FALSE)
-    if (is.character(scaling)) {
-        scaling <- scalingType(scaling = scaling, hill = hill)
-    }
+    ## process scaling arg, scaling used later so needs to be a numeric
+    scaling <- scalingType(scaling = scaling, hill = hill)
     if (type %in%  c("response", "working")) {
         Xbar <- 0
         if (!missing(newdata)) {
@@ -63,7 +59,7 @@
             u <- u[, 1:take, drop = FALSE]
         }
         out <- u
-        if (scaling) {
+        if (scaling) {      # implicit conversion "none" == 0 == FALSE
             scal <- list(diag(slam), 1, sqrt(diag(slam)))[[abs(scaling)]]
             out <- sweep(out, 2, scal, "*")
             if (scaling < 0) {
@@ -94,7 +90,7 @@
             w <- sweep(w, 2, diag(slam), "/")
         }
         out <- w
-        if (scaling) {
+        if (scaling) {      # implicit conversion "none" == 0 == FALSE
             scal <- list(diag(slam), 1, sqrt(diag(slam)))[[abs(scaling)]]
             out <- sweep(out, 2, scal, "*")
             if (scaling < 0) {
@@ -121,7 +117,7 @@
             v <- sweep(v, 2, diag(slam), "/")
         }
         out <- v
-        if (scaling) {
+        if (scaling) {      # implicit conversion "none" == 0 == FALSE
             scal <- list(1, diag(slam), sqrt(diag(slam)))[[abs(scaling)]]
             out <- sweep(out, 2, scal, "*")
             if (scaling < 0) {
