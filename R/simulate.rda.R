@@ -246,3 +246,14 @@
     ans
 }
 
+### simulate.dbrda cannot be done along similar lines as
+### simulate.capscale, because low-rank approximation needs column
+### scores v and cannot be found only from row scores u that are the
+### only ones we have in dbrda(). Residuals also need exra thinking,
+### and therefore we just disable simulate.dbrda()
+
+`simulate.dbrda` <-
+    function(object, nsim = 1, seed = NULL, ...)
+{
+    .NotYetImplemented()
+}
