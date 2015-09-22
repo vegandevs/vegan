@@ -132,12 +132,8 @@
       standardization is Chi-square, and in \code{\link{rda}} centring
       and optional scaling by species standard deviations using function
       \code{\link{scale}}.}
-     \item{\code{G}}{Gower double-centred dissimilarity matrices will be
-      returned as item \code{G} in \code{\link{capscale}},
-      and these will be used in permutation tests instead of corresponding
-      \code{Xbar} items.}
-      }
   }
+}
 }
 
 \section{NA Action and Subset}{
@@ -174,13 +170,26 @@
 \section{capscale}{
   Function \code{capscale} may add some items depending on its arguments:
   \describe{
+    \item{\code{real.tot.chi}}{Sum of positive eigenvalues if there are
+       negative eigenvalues. The item \code{tot.chi} gives the total
+       inertia with negative eigenvalues. This item is given for the
+       whole model and for each component \code{pCCA}, \code{CCA} and
+       \code{CA} if there are negative eigenvalues.}
     \item{\code{metaMDSdist}}{The data set name if 
        \code{metaMDSdist = TRUE}.} 
     \item{\code{ac}}{Additive constant used if \code{add = TRUE}.}
     \item{\code{adjust}}{Adjustment of dissimilarities: see
       \code{\link{capscale}}, section \dQuote{Notes}.}
+    \item{\code{G}}{The working structure of Gower transformed
+      dissimilarities defined as \eqn{-(D^2 - M)/2}, where \eqn{D} are
+      the dissimilarities and \eqn{M} is the centring matrix. This
+      structure is used to asses the total inertia, and it will be used
+      also in permutation tests. This is given for items \code{pCCA} and
+      \code{CCA}, and for \code{CCA} it is the residual \eqn{G} after
+      \code{pCCA}.}
   }
 }
+
 
 \note{
   In old versions of \pkg{vegan} the object also included scores
