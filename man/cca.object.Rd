@@ -167,8 +167,13 @@
   }
 }
 
-\section{capscale}{
-  Function \code{capscale} may add some items depending on its arguments:
+\section{capscale and dbrda}{
+
+  \pkg{Vegan} has two functions for distance-based Redundancy
+  analysis: \code{\link{capscale}} and \code{\link{dbrda}}.  Function
+  \code{\link{capscale}} uses \code{\link{rda}} and returns its result
+  object, but it may add some items depending on its arguments:
+  
   \describe{
     \item{\code{real.tot.chi}}{Sum of positive eigenvalues if there are
        negative eigenvalues. The item \code{tot.chi} gives the total
@@ -187,6 +192,36 @@
       also in permutation tests. This is given for items \code{pCCA} and
       \code{CCA}, and for \code{CCA} it is the residual \eqn{G} after
       \code{pCCA}.}
+  }
+
+  Function \code{\link{dbrda}} does not use \code{\link{rda}} but
+  provides a parallel implementation for dissimilarities. Its result
+  output is very similar to \code{\link{capscale}} described above
+  with the following differences:
+
+  \describe{
+  
+    \item{\code{Xbar}, \code{v}, \code{w}}{are \code{NA} because
+      they cannot be calculated from dissimilarities.}
+
+    \item{\code{Fit}}{ of \code{pCCA} is from Gower double centred
+      dissimilarities \code{G} instead of \code{Xbar} (that does not
+      exist).}
+      
+    \item{\code{G}}{ is returned with \code{pCCA}, \code{CCA} and
+      \code{CA} components. It always gives the transformed
+      dissimilarities as they enter the stage of analysis, i.e.,
+      before applying conditions or constraints.}
+
+    \item{\code{eig}}{lists also negative eigenvalues for \code{CCA}
+      and \code{pCCA}.}
+
+   \item{\code{u}}{or row scores only give real axes with positive
+      eigenvalues. The imaginary scores (if any) are in
+      \code{imaginary.u}. The number of columns of real scores
+      (positive eigenvalues) is given in item \code{poseig}. There is
+      no \code{imaginary.u.eig}.}
+      
   }
 }
 
