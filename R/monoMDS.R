@@ -10,7 +10,7 @@
           && ncol(dist) == nrow(dist)
           && isTRUE(all.equal(dist[lower.tri(dist)], t(dist)[lower.tri(dist)]))))
         stop("'dist' must be a distance object (class \"dist\") or a symmetric square matrix")
-    if (any(dist < -sqrt(.Machine$double.eps)))
+    if (any(dist < -sqrt(.Machine$double.eps), na.rm = TRUE))
         warning("some dissimilarities are negative -- is this intentional?")
     ## match.arg
     model <- match.arg(model)
