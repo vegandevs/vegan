@@ -76,7 +76,7 @@
         }
     }
     if (label) 
-        ordiArgAbsorber(cntrs, label = rownames(cntrs), FUN = ordilabel, ...)
+        ordiArgAbsorber(cntrs, label = names, FUN = ordilabel, ...)
     spids <- t(spids)
     class(spids) <- "ordispider"
     invisible(spids)
