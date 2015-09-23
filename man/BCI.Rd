@@ -1,12 +1,17 @@
 \encoding{UTF-8}
 \name{BCI}
 \alias{BCI}
+\alias{BCI.env}
 \docType{data}
 \title{Barro Colorado Island Tree Counts}
 \description{
-  Tree counts in 1-hectare plots in the Barro Colorado Island.
+  Tree counts in 1-hectare plots in the Barro Colorado Island and
+  associated site information.
 }
-\usage{data(BCI)}
+\usage{
+data(BCI)
+data(BCI.env)
+}
 \format{
   
   A data frame with 50 plots (rows) of 1 hectare with counts of trees
@@ -16,6 +21,18 @@
   for details) which allows matching 206 of species against
   \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27} (Zanne
   et al., 2014).
+
+  For \code{BCI.env}, a data frame with 50 plots (rows) and six site
+  variables:
+
+  \describe{
+    \item{\code{UTM.EW}: }{UTM coordinates (zone 17N) East-West}
+    \item{\code{UTM.NS}: }{UTM coordinates (zone 17N) North-South}
+    \item{\code{Precipitation}: }{Precipitation in mm per year}
+    \item{\code{Elevation}: }{Elevation in m above sea level}
+    \item{\code{Age.cat}: }{Forest age category}
+    \item{\code{Geology}: }{The Underlying geological formation}
+  }
 
  }
 \details{
@@ -27,8 +44,11 @@
   The data frame contains only the Barro Colorado Island subset of the
   original data.
 
-  The quadrats are located in a regular grid. See \code{examples} for the
-  coordinates. 
+  The quadrats are located in a regular grid. See \code{BCI.env} for the
+  coordinates.
+
+  A full description of the site information in \code{BCI.env} is given
+  in Pyke et al (2001)
 
 }
 \source{
@@ -52,14 +72,14 @@
   of angiosperms into freezing environments. \emph{Nature}
   doi:10.1038/nature12872 (published online Dec 22, 2013).
 
+  Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
+  composition across a climatic gradient in a neotropical lowland
+  forest. \emph{Journal of Vegetation Science} 12, 553--566.
+  doi:10.2307/3237007 
+
 }
-\seealso{\code{\link[BiodiversityR]{BCI.env}} in \pkg{BiodiversityR}
-  package for environmental data  (coordinates are given below in the
-  \code{examples}).}  
 \examples{
-data(BCI)
-## UTM Coordinates (in metres)
-UTM.EW <- rep(seq(625754, 626654, by=100), each=5)
-UTM.NS <- rep(seq(1011569,  1011969, by=100), len=50)
+data(BCI, BCI.env)
+head(BCI.env)
 }
 \keyword{datasets}
