@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-08-18 r69117) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-09-24 r69424) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -34,15 +34,20 @@ This is vegan 2.4-0
 > 
 > ### Name: BCI
 > ### Title: Barro Colorado Island Tree Counts
-> ### Aliases: BCI
+> ### Aliases: BCI BCI.env
 > ### Keywords: datasets
 > 
 > ### ** Examples
 > 
-> data(BCI)
-> ## UTM Coordinates (in metres)
-> UTM.EW <- rep(seq(625754, 626654, by=100), each=5)
-> UTM.NS <- rep(seq(1011569,  1011969, by=100), len=50)
+> data(BCI, BCI.env)
+> head(BCI.env)
+  UTM.EW  UTM.NS Precipitation Elevation Age.cat Geology
+1 625754 1011569          2530       120      c3      Tb
+2 625754 1011669          2530       120      c3      Tb
+3 625754 1011769          2530       120      c3      Tb
+4 625754 1011869          2530       120      c3      Tb
+5 625754 1011969          2530       120      c3      Tb
+6 625854 1011569          2530       120      c3      Tb
 > 
 > 
 > 
@@ -612,7 +617,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
-> ### Aliases: adonis
+> ### Aliases: adonis adonis2
 > ### Keywords: multivariate nonparametric
 > 
 > ### ** Examples
@@ -1491,10 +1496,10 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > data(dune)
 > mod <- rda(dune, scale = TRUE)
-> biplot(mod, scaling = 3)
+> biplot(mod, scaling = "symmetric")
 > 
 > ## different type for species and site scores
-> biplot(mod, scaling = 3, type = c("text", "points"))
+> biplot(mod, scaling = "symmetric", type = c("text", "points"))
 > 
 > 
 > 
@@ -1545,7 +1550,7 @@ Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df Variance      F Pr(>F)    
+         Df SumOfSqs      F Pr(>F)    
 Model     3  0.97314 2.3717  0.001 ***
 Residual 19  2.59866                  
 ---
@@ -5747,6 +5752,14 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > ## Read description of scaling in RDA in vegan:
 > ## Not run: vegandocs("decision")
 > 
+> ## Scaling can be numeric or more user-friendly names
+> ## e.g. Hill's scaling for (C)CA
+> scrs <- scores(mod, scaling = "sites", hill = TRUE)
+> ## or correlation-based scores in PCA/RDA
+> scrs <- scores(rda(dune ~ A1 + Moisture + Management, dune.env),
++                scaling = "sites", correlation = TRUE)
+> 
+> 
 > 
 > cleanEx()
 > nameEx("prc")
@@ -8495,7 +8508,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.036 0.104 23.129 0 0 
+Time elapsed:  24.352 0.14 24.489 0 0 
 > grDevices::dev.off()
 null device 
           1 
