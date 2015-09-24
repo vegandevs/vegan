@@ -25,8 +25,8 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
     na.action = na.fail, subset = NULL, ...)
 dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
-    comm = NULL, dfun = vegdist, metaMDSdist = FALSE,
-    na.action = na.fail, subset = NULL, ...)
+    dfun = vegdist, metaMDSdist = FALSE, na.action = na.fail,
+    subset = NULL, ...)
 }
 
 \arguments{

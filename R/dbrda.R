@@ -1,6 +1,6 @@
 `dbrda` <-
     function (formula, data, distance = "euclidean",
-              sqrt.dist = FALSE, comm = NULL, dfun = vegdist,
+              sqrt.dist = FALSE,  dfun = vegdist,
               metaMDSdist = FALSE, na.action = na.fail,
               subset = NULL, ...) 
 {
