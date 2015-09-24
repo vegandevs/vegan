@@ -16,7 +16,7 @@
   will be less efficient. Functions \code{capscale} and \code{dbrda} are
   constrained versions of metric scaling, a.k.a. principal coordinates
   analysis, which are based on the Euclidean distance but can be used,
-  and is more useful, with other dissimilarity measures. The functions
+  and are more useful, with other dissimilarity measures. The functions
   can also perform unconstrained principal coordinates analysis,
   optionally using extended dissimilarities.
 }
@@ -36,7 +36,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     LHS must be either a community data matrix or a dissimilarity matrix,
     e.g., from
     \code{\link{vegdist}} or \code{\link{dist}}.
-    If the LHS is a data matrix, function \code{\link{vegdist}}
+    If the LHS is a data matrix, function \code{\link{vegdist}} or
+    function given in \code{dfun}
     will be used to find the dissimilarities. The RHS defines the
     constraints. The constraints can be continuous variables or factors,
     they can be transformed within the formula, and they can have
@@ -50,7 +51,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     the LHS of the \code{formula} is a data frame instead of
     dissimilarity matrix.}
   \item{sqrt.dist}{Take square roots of dissimilarities. See section
-  \code{Notes} below.}
+    \code{Details} below.}
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
@@ -62,9 +63,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      for details). This implements \dQuote{correction method 2} of
      Legendre & Legendre (2012, p. 503). The negative eigenvalues are
      caused by using semi-metric or non-metric dissimilarities with
-     basically metric \code{\link{cmdscale}}. They are harmless and
-     ignored in \code{capscale}, but you also can avoid warnings with
-     this option. }
+     basically metric \code{\link{cmdscale}}. }
    \item{dfun}{Distance or dissimilarity function used. Any function
      returning standard \code{"dist"} and taking the index name as the
      first argument can be used. }
@@ -98,24 +97,23 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   ordinated using metric scaling, and the ordination results are
   analysed with \code{\link{rda}}. Function \code{dbrda} is based on
   McArdle & Anderson (2001) and directly decomposes
-  dissimilarities. It does not use \code{\link{rda}} but uses a
-  parallel implementation adapted for analysing dissimilarities and
-  returns a subset of \code{\link{rda}} items. With Euclidean
-  distances both results are identical with \code{\link{rda}}, but
-  dbRDA is less efficient. Other dissimmilarities may give negative
-  eigenvalues associated with imaginary axes. Negative eigenvalues are
-  handled differently: \code{capscale} ignores imaginary axes and
-  analyses only real axes with positive eigenvalues, and \code{dbrda}
-  directly analyses dissimilarities and can give negative eigenvalues
-  in any component. Both methods define total inertia of conditions,
-  constraints and residuals identically.
+  dissimilarities. It does not use \code{\link{rda}} but a parallel
+  implementation adapted for analysing dissimilarities and returns a
+  subset of \code{\link{rda}} items. With Euclidean distances both
+  results are identical to \code{\link{rda}}.  Other dissimmilarities
+  may give negative eigenvalues associated with imaginary
+  axes. Negative eigenvalues are handled differently: \code{capscale}
+  ignores imaginary axes and analyses only real axes with positive
+  eigenvalues, and \code{dbrda} directly analyses dissimilarities and
+  can give negative eigenvalues in any component. Both methods define
+  total inertia of conditions, constraints and residuals identically.
   
   If the user supplied a community data frame instead of
   dissimilarities, the functions will find dissimilarities using
   \code{\link{vegdist}} or distance function given in \code{dfun} with
   specified \code{distance}. The functions will accept distance
   objects from \code{\link{vegdist}}, \code{\link{dist}}, or any other
-  method producing similar matrices. The constraining variables can be
+  method producing similar objects. The constraining variables can be
   continuous or factors or both, they can have interaction terms, or
   they can be transformed in the call. Moreover, there can be a
   special term \code{Condition} just like in \code{\link{rda}} and
@@ -133,9 +131,10 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   are disturbing, \code{capscale} lets you to distort the
   dissimilarities so that only non-negative eigenvalues will be
   produced using argument \code{add = TRUE} (this argument is passed
-  to \code{\link{cmdscale}}). Alternatively, with \code{sqrt.dist =
-  TRUE}, square roots of dissimilarities will be used which may help
-  in avoiding negative eigenvalues (Legendre & Anderson 1999).
+  to \code{\link{cmdscale}}). Alternatively, with
+  \code{sqrt.dist = TRUE}, square roots of dissimilarities will be used
+  which may help in avoiding negative eigenvalues (Legendre & Anderson
+  1999).
 
   The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
