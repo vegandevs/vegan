@@ -49,7 +49,7 @@
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                          newdata = newdata, rank = take)
         }
-        if (inherits(object, "capscale") || inherits(object, "dbrda")) {
+        if (inherits(object, c("capscale", "dbrda"))) {
             if (take > 0) {
                 out <- u %*% slam/object$adjust
                 if (type == "response") {
@@ -103,8 +103,9 @@
     }
     else if (type == "wa") {
         if (!missing(newdata)) {
-            if (inherits(object, "capscale") || inherits(object, "dbrda"))
-                stop("'wa' scores not available in capscale with 'newdata'")
+            if (inherits(object, c("capscale", "dbrda")))
+                stop(gettextf("'wa' scores not available in %s with 'newdata'"),
+                     object$method)
             if (!is.null(object$pCCA)) 
                 stop("No 'wa' scores available (yet) in partial RDA")
             nm <- rownames(v)

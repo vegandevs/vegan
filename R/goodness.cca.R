@@ -89,8 +89,7 @@
     statistic <- match.arg(statistic)
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
-    if ((inherits(object, "capscale") || inherits(object, "dbrda")) &&
-        display == "species")
+    if (inherits(object, c("capscale", "dbrda")) && display == "species")
         stop(gettextf("cannot analyse species with '%s'", object$method))
     what <- if(display == "species") "v" else "u"
     w <- weights(object, display = display)
