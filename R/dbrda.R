@@ -104,7 +104,9 @@
         Q12 <- qr.Q(Q, complete = TRUE)
         ## H is hat matrix, and we found it from first rank columns of
         ## complete QR decomposition. The latter columns give similar
-        ## matrix for residuals.
+        ## matrix for residuals. We can actually replace the next two
+        ## lines and one previous with
+        ## HGH <- qr.fitted(Q, t(qr.fitted(Q, G))).
         H <- tcrossprod(Q12[, seq_len(Q$rank), drop=FALSE])
         HGH <- H %*% G %*% H
         e <- eigen(HGH)
@@ -138,7 +140,8 @@
                     envcentre = attr(d$Y, "scaled:center"),
                     Xbar = NA, G = G)
         ## Residuals from latter columns of Q matrix of QR
-        ## decomposition
+        ## decomposition. Alternatively, you can use
+        ## G <- qr.resid(Q, t(qr.resid(Q, G)))
         H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
         G <- H2 %*% G %*% H2
         attributes(G) <- att  # reset attributes lost in previous line
