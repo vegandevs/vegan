@@ -44,7 +44,7 @@
             !is.null(object$na.action) &&
             inherits(object$na.action, "exclude"))
             w <- w[-object$na.action]
-        out <- sweep(out, 1, w, "*")
+        out <- sweep(out, 1, w, "/")
     }
     if (proportional)
         out <- sweep(out, 1, rowSums(out), "/")
