@@ -41,7 +41,7 @@ export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
 ## testing & verifying dbrda
-export(dbRDA.D, dbRDA2)  # <--- REMOVE THESE WHEN DONE WITH dbrda
+export(dbRDA.D, dbRDA2, goodness2.cca)  # <--- REMOVE THESE WHEN DONE WITH dbrda
 
 ## export regular functions with dot names
 
@@ -450,6 +450,7 @@ S3method(screeplot, princomp)
 # simulate: stats
 S3method(simulate, capscale)
 S3method(simulate, cca)
+S3method(simulate, dbrda)
 S3method(simulate, rda)
 S3method(simulate, nullmodel)
 # specslope: vegan

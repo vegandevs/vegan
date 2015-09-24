@@ -1,6 +1,7 @@
 \name{goodness.cca}
 \alias{goodness}
 \alias{goodness.cca}
+\alias{goodness2.cca}
 \alias{inertcomp}
 \alias{spenvcor}
 \alias{intersetcor}
