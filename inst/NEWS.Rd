@@ -42,8 +42,8 @@
       addition, the deparsed expression for \code{comm} is now robust to
       long expressions.  Reported by Richard Telford.
 
-      \item \code{metaMDS} and \code{monoMDS} did not accept missing
-      values in dissimilarities.
+      \item \code{metaMDS} and \code{monoMDS} rejected dissimilarities
+      with missing values.
 
       \item Function \code{rarecurve} did not check its input and this
       could cause confusing error messages. Now function checks that
@@ -71,10 +71,10 @@
      \code{capscale}) and further analysed with \code{permustats}
      function.
 
-     \item Added environmental data set \code{BCI.env} to the Barro
-     Colorado Island tree data. Most useful variables are the UTM
-     coordinates of sample plots. Other variables are constant or nearly
-     constant and of little use in normal analysis.
+     \item New data set \code{BCI.env} of site information for the Barro
+     Colorado Island tree community data. Most useful variables are the
+     UTM coordinates of sample plots. Other variables are constant or
+     nearly constant and of little use in normal analysis.
      
    }
   } % new features and functions
