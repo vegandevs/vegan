@@ -160,8 +160,9 @@
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Dubious
-    warning("stressplot is dubious for constrained 'dbrda'")
+    ## Does not work correctly for p-dbRDA
+    if (!is.null(object$pCCA))
+        stop("cannot be used with partial dbrda")
     ## Reconstruct original distances from Gower 'G'
     dis <- if (is.null(object$CCA))
                object$CA$G
@@ -175,18 +176,24 @@
     Means <- outer(cntr[2,], cntr[1,], "+")/const
     dis <- -2 * dis + Means
     dis <- sqrt(as.dist(dis) * const)
-    ## Approximate dissimilarities from real components
-    U <- cbind(object$CCA$u, object$CA$u)
-    eig <- c(object$CCA$eig, object$CA$eig)
+    ## Approximate dissimilarities from real components. Can only be
+    ## used for one component.
+    if (is.null(object$CCA)) {
+        U <- object$CA$u
+        eig <- object$CA$eig
+    } else {
+        U <- object$CCA$u
+        eig <- object$CCA$eig
+    }
     eig <- eig[eig > 0] 
     ## check that 'k' does not exceed real rank
+    if (k > ncol(U))
+        warning(gettextf("max allowed rank is k = %d", ncol(U)))
     k <- min(k, ncol(U))
     Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
                   sqrt(eig[seq_len(k)]), "*"))
-    ## add partial Fit if needed
-    if(!is.null(object$pCCA))
-        Gk <- Gk + object$pCCA$Fit/object$adjust
-    odis <- sqrt(as.dist(-2 * Gk + Means) * const)
+    dia <- diag(Gk)
+    odis <- sqrt(as.dist(-2 * Gk + outer(dia, dia, "+")) * const)
     ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
