@@ -1,6 +1,9 @@
 \name{capscale}
 \alias{capscale}
 \alias{oldCapscale}
+\alias{dbrda}
+\alias{dbRDA.D}
+\alias{dbRDA2}
 
 \title{[Partial] Distance-based Redundancy Analysis }
 \description{
@@ -9,11 +12,11 @@
   non-Euclidean dissimilarity indices, such as Manhattan or
   Bray--Curtis distance. Despite this non-Euclidean feature, the analysis
   is strictly linear and metric. If called with Euclidean distance,
-  the results are identical to \code{\link{rda}}, but \code{capscale}
-  will be less efficient. Function \code{capscale} is a
-  constrained version of metric scaling, a.k.a. principal coordinates
-  analysis, which is based on the Euclidean distance but can be used,
-  and is more useful, with other dissimilarity measures. The function
+  the results are identical to \code{\link{rda}}, but dbRDA
+  will be less efficient. Functions \code{capscale} and \code{dbrda} are
+  constrained versions of metric scaling, a.k.a. principal coordinates
+  analysis, which are based on the Euclidean distance but can be used,
+  and are more useful, with other dissimilarity measures. The functions
   can also perform unconstrained principal coordinates analysis,
   optionally using extended dissimilarities.
 }
@@ -21,6 +24,9 @@
 capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
     na.action = na.fail, subset = NULL, ...)
+dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
+    dfun = vegdist, metaMDSdist = FALSE, na.action = na.fail,
+    subset = NULL, ...)
 }
 
 \arguments{
@@ -30,7 +36,8 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     LHS must be either a community data matrix or a dissimilarity matrix,
     e.g., from
     \code{\link{vegdist}} or \code{\link{dist}}.
-    If the LHS is a data matrix, function \code{\link{vegdist}}
+    If the LHS is a data matrix, function \code{\link{vegdist}} or
+    function given in \code{dfun}
     will be used to find the dissimilarities. The RHS defines the
     constraints. The constraints can be continuous variables or factors,
     they can be transformed within the formula, and they can have
@@ -44,7 +51,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     the LHS of the \code{formula} is a data frame instead of
     dissimilarity matrix.}
   \item{sqrt.dist}{Take square roots of dissimilarities. See section
-  \code{Notes} below.}
+    \code{Details} below.}
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
@@ -56,9 +63,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      for details). This implements \dQuote{correction method 2} of
      Legendre & Legendre (2012, p. 503). The negative eigenvalues are
      caused by using semi-metric or non-metric dissimilarities with
-     basically metric \code{\link{cmdscale}}. They are harmless and
-     ignored in \code{capscale}, but you also can avoid warnings with
-     this option. }
+     basically metric \code{\link{cmdscale}}. }
    \item{dfun}{Distance or dissimilarity function used. Any function
      returning standard \code{"dist"} and taking the index name as the
      first argument can be used. }
@@ -86,31 +91,44 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 }
 \details{
 
-  Function capscale uses two steps: (1) it ordinates the dissimilarity
-  matrix using \code{\link{cmdscale}} and (2) analyses the real
-  components using \code{\link{rda}}. If the user supplied a community
-  data frame instead of dissimilarities, the function will find the
-  needed dissimilarity matrix using \code{\link{vegdist}} with
-  specified \code{distance}. However, the method will accept
-  dissimilarity matrices from \code{\link{vegdist}},
-  \code{\link{dist}}, or any other method producing similar
-  matrices. The constraining variables can be continuous or factors or
-  both, they can have interaction terms, or they can be transformed in
-  the call. Moreover, there can be a special term \code{Condition}
-  just like in \code{\link{rda}} and \code{\link{cca}} so that
-  ``partial'' analysis can be performed.
+  Functions \code{capscale} and \code{dbrda} provide two alternative
+  implementations of dbRDA. Function \code{capscale} is based on
+  Legendre & Anderson (1999): the dissimilarity data are first
+  ordinated using metric scaling, and the ordination results are
+  analysed with \code{\link{rda}}. Function \code{dbrda} is based on
+  McArdle & Anderson (2001) and directly decomposes
+  dissimilarities. It does not use \code{\link{rda}} but a parallel
+  implementation adapted for analysing dissimilarities and returns a
+  subset of \code{\link{rda}} items. With Euclidean distances both
+  results are identical to \code{\link{rda}}.  Other dissimmilarities
+  may give negative eigenvalues associated with imaginary
+  axes. Negative eigenvalues are handled differently: \code{capscale}
+  ignores imaginary axes and analyses only real axes with positive
+  eigenvalues, and \code{dbrda} directly analyses dissimilarities and
+  can give negative eigenvalues in any component. Both methods define
+  total inertia of conditions, constraints and residuals identically.
+  
+  If the user supplied a community data frame instead of
+  dissimilarities, the functions will find dissimilarities using
+  \code{\link{vegdist}} or distance function given in \code{dfun} with
+  specified \code{distance}. The functions will accept distance
+  objects from \code{\link{vegdist}}, \code{\link{dist}}, or any other
+  method producing similar objects. The constraining variables can be
+  continuous or factors or both, they can have interaction terms, or
+  they can be transformed in the call. Moreover, there can be a
+  special term \code{Condition} just like in \code{\link{rda}} and
+  \code{\link{cca}} so that ``partial'' analysis can be performed.
 
   Non-Euclidean dissimilarities can produce negative eigenvalues
-  (Legendre & Anderson 1999). If negative eigenvalues are present, the
-  ordination axes and their eigenvalues will be based only on the real
-  dimensions with positive eigenvalues. The \code{\link{anova.cca}}
-  tests on the significance of axes will also be based only on
-  positive eigenvalues. However, the total inertia and
-  \code{\link{anova.cca}} tests for constraints will also include the
-  effects of imaginary axes with negative eigenvalues following
-  McArdle & Anderson (2001). If there are negative eigenvalues, the
-  function will report their sums in a separate column. If these
-  negative eigenvalues are disturbing, you can distort the
+  (Legendre & Anderson 1999, McArdle & Anderson 2001). The total
+  inertia and \code{\link{anova.cca}} tests for constraints will also
+  include the effects of imaginary axes with negative eigenvalues
+  following McArdle & Anderson (2001). If there are negative
+  eigenvalues, the printed output of \code{capscale} will add a column
+  with sums of positive eigenvalues and an item of sum of negative
+  eigenvalues, and \code{dbrda} will add a column giving the number of
+  real dimensions with postive eigenvalues.  If negative eigenvalues
+  are disturbing, \code{capscale} lets you to distort the
   dissimilarities so that only non-negative eigenvalues will be
   produced using argument \code{add = TRUE} (this argument is passed
   to \code{\link{cmdscale}}). Alternatively, with
@@ -118,7 +136,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   which may help in avoiding negative eigenvalues (Legendre & Anderson
   1999).
 
-  The function can be also used to perform ordinary metric scaling
+  The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
   constant on the left hand side, or \code{comm ~ 1}. With
   \code{metaMDSdist = TRUE}, the function can do automatic data
@@ -128,14 +146,11 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   
 }
 \value{
-  The function returns an object of class \code{capscale} which is
-  identical to the result of \code{\link{rda}}. At the moment,
-  \code{capscale} does not have specific methods, but it uses
-  \code{\link{cca}} and \code{\link{rda}} methods
-  \code{\link{plot.cca}},
-  \code{\link{scores.rda}}  etc. Moreover, you
-  can use \code{\link{anova.cca}} for permutation tests of
-  ``significance'' of the results.
+
+  The functions return an object of class \code{capscale} or
+  \code{dbrda} which inherits from \code{\link{rda}}. See
+  \code{\link{cca.object}} for description of the result object.
+
 }
 \references{
   Anderson, M.J. & Willis, T.J. (2003). Canonical analysis of principal
@@ -191,12 +206,12 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 \seealso{\code{\link{rda}}, \code{\link{cca}}, \code{\link{plot.cca}},
   \code{\link{anova.cca}}, \code{\link{vegdist}},
-  \code{\link{dist}}, \code{\link{cmdscale}}.
+  \code{\link{dist}}, \code{\link{cmdscale}}, \code{\link{wcmdscale}}.
 
   The function returns similar result object as \code{\link{rda}} (see
   \code{\link{cca.object}}). This section for \code{\link{rda}} gives a
   more complete list of functions that can be used to access and
-  analyse \code{capscale} results.
+  analyse dbRDA results.
 
 }
 \examples{

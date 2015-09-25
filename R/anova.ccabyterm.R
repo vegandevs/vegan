@@ -160,9 +160,16 @@
     }
     LC <- as.data.frame(LC)
     fla <- reformulate(names(LC))
-    Pvals <- rep(NA, length(eig))
-    F.perm <- matrix(ncol = length(eig), nrow = nperm)
+    Pvals <- rep(NA, ncol(LC))
+    F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
     environment(object$terms) <- environment()
+    ## in dbrda, some axes can be imaginary, but we only want to have
+    ## an analysis of real-valued dimensions, and we must adjust data
+    if (ncol(LC) < length(eig)) {
+        eig <- eig[seq_len(ncol(LC))]
+        Df <- Df[seq_len(ncol(LC))]
+        Fstat <- Fstat[seq_len(ncol(LC))]
+    }
     for (i in seq_along(eig)) {
         part <- paste("~ . +Condition(",
                       paste(names(LC)[-i], collapse = "+"), ")")

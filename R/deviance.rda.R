@@ -1,5 +1,5 @@
 `deviance.rda` <-
     function(object, ...)
 {
-    object$CA$tot.chi * (nrow(object$CA$Xbar) - 1)
+    object$CA$tot.chi * (nobs(object) - 1)
 }

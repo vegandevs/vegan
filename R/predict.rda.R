@@ -1,3 +1,13 @@
+### predict.rda handles rda plus distance-based capscale and
+### dbrda. Distance-based methods have some limitations:
+###
+### - type = "response" returns dissimilarities (and ignores imaginary dims)
+### - Euclidean distances type = "working" give type = "response"
+### - there are no meaningful species scores
+### - WA scores with newdata cannot be calculated in capscale.
+### - only type = "response", "working" and "lc" work with dbrda
+### - only type = "lc" can be used with newdata with dbrda
+
 `predict.rda` <-
     function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
               rank = "full", model = c("CCA", "CA"), scaling = "none",
@@ -7,23 +17,30 @@
     model <- match.arg(model)
     if (model == "CCA" && is.null(object$CCA)) 
         model <- "CA"
-    take <- object[[model]]$rank
+    if (inherits(object, "dbrda"))
+        take <- object[[model]]$poseig
+    else
+        take <- object[[model]]$rank
     if (take == 0)
         stop("model ", dQuote(model), " has rank 0")
     if (rank != "full") 
         take <- min(take, rank)
-    if (is.null(object$CCA)) 
-        tmp <- object$CA$Xbar
-    else tmp <- object$CCA$Xbar
-    cent <- attr(tmp, "scaled:center")
-    scal <- attr(tmp, "scaled:scale")
-    scaled.PCA <- !is.null(scal)
-    nr <- nrow(tmp) - 1
+    if (!inherits(object, "dbrda")) {
+        if (is.null(object$CCA))
+            tmp <- object$CA$Xbar
+        else tmp <- object$CCA$Xbar
+        cent <- attr(tmp, "scaled:center")
+        scal <- attr(tmp, "scaled:scale")
+        scaled.PCA <- !is.null(scal)
+    }
+    nr <- nobs(object) - 1
     u <- object[[model]]$u[, 1:take, drop = FALSE]
-    v <- object[[model]]$v[, 1:take, drop = FALSE]
-    w <- object[[model]]$wa[, 1:take, drop = FALSE]
-    if (is.null(w)) 
-        w <- u
+    if (!inherits(object, "dbrda")) {
+        v <- object[[model]]$v[, 1:take, drop = FALSE]
+        w <- object[[model]]$wa[, 1:take, drop = FALSE]
+        if (is.null(w))
+            w <- u
+    }
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
@@ -32,7 +49,7 @@
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                          newdata = newdata, rank = take)
         }
-        if (inherits(object, "capscale")) {
+        if (inherits(object, c("capscale", "dbrda"))) {
             if (take > 0) {
                 out <- u %*% slam/object$adjust
                 if (type == "response") {
@@ -86,8 +103,9 @@
     }
     else if (type == "wa") {
         if (!missing(newdata)) {
-            if (inherits(object, "capscale")) 
-                stop("'wa' scores not available in capscale with 'newdata'")
+            if (inherits(object, c("capscale", "dbrda")))
+                stop(gettextf("'wa' scores not available in %s with 'newdata'"),
+                     object$method)
             if (!is.null(object$pCCA)) 
                 stop("No 'wa' scores available (yet) in partial RDA")
             nm <- rownames(v)
@@ -115,6 +133,8 @@
     else if (type == "sp") {
         if (inherits(object, "capscale")) 
             warning("'sp' scores may be meaningless in 'capscale'")
+        if (inherits(object, "dbrda"))
+            stop("'sp' scores are not available in 'dbrda'")
         if (!missing(newdata)) {
             nm <- rownames(u)
             if (!is.null(nm)) {

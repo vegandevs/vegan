@@ -2,6 +2,7 @@
 \alias{fitted.cca}
 \alias{fitted.rda}
 \alias{fitted.capscale}
+\alias{fitted.dbrda}
 \alias{residuals.cca}
 \alias{predict.cca}
 \alias{predict.rda}

@@ -6,7 +6,7 @@ useDynLib(vegan)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
-cascadeKM, cca, contribdiv, clamtest, commsim, decorana,
+cascadeKM, cca, contribdiv, clamtest, commsim, dbrda, decorana,
 decostand, designdist, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
@@ -40,6 +40,8 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
+## testing & verifying dbrda
+export(dbRDA.D, dbRDA2, goodness2.cca)  # <--- REMOVE THESE WHEN DONE WITH dbrda
 
 ## export regular functions with dot names
 
@@ -189,6 +191,7 @@ S3method(extractAIC, cca)
 # fitted: stats
 S3method(fitted, capscale)
 S3method(fitted, cca)
+S3method(fitted, dbrda)
 S3method(fitted, procrustes)
 S3method(fitted, radfit)
 S3method(fitted, radfit.frame)
@@ -425,6 +428,7 @@ S3method(residuals, procrustes)
 S3method(scores, betadisper)
 S3method(scores, betadiver)
 S3method(scores, cca)
+S3method(scores, dbrda)
 S3method(scores, decorana)
 S3method(scores, default)
 S3method(scores, envfit)
@@ -446,6 +450,7 @@ S3method(screeplot, princomp)
 # simulate: stats
 S3method(simulate, capscale)
 S3method(simulate, cca)
+S3method(simulate, dbrda)
 S3method(simulate, rda)
 S3method(simulate, nullmodel)
 # specslope: vegan
@@ -458,6 +463,7 @@ S3method(stressplot, default)
 S3method(stressplot, monoMDS)
 S3method(stressplot, wcmdscale)
 S3method(stressplot, capscale)
+S3method(stressplot, dbrda)
 S3method(stressplot, cca)
 S3method(stressplot, rda)
 S3method(stressplot, prcomp)

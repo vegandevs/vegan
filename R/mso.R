@@ -2,6 +2,8 @@
     function (object.cca, object.xy, grain = 1, round.up = FALSE,
               permutations = 0) 
 {
+    if (inherits(object.cca, "dbrda"))
+        stop("'mso' is not yet implemented for 'dbrda'\ncontact developers or submit a pull request with your code in github")
     EPS <- sqrt(.Machine$double.eps)
     if (inherits(object.cca, "mso")) {
         rm <- which(class(object.cca) == "mso")
@@ -9,7 +11,7 @@
     }
     object <- object.cca
     xy <- object.xy
-    N <- nrow(object$CA$Xbar)
+    N <- nobs(object)
     if (inherits(object, "rda")) 
         N <- 1
     Dist <- dist(xy)

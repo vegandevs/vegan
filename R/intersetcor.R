@@ -1,9 +1,12 @@
-intersetcor <- function(object) 
+`intersetcor` <-
+    function(object) 
 {
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
     if (is.null(object$CCA))
         stop("can be used only with constrained ordination")
+    if (inherits(object, "dbrda"))
+        stop("cannot be used with 'dbrda'")
     wa <- object$CCA$wa
     if (!inherits(object, "rda")) {   # is CCA
         w <- object$rowsum
