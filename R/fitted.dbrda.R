@@ -5,6 +5,10 @@
 {
     type <- match.arg(type)
     model <- match.arg(model)
+    if (object$adjust == 1)
+        const <- nobs(object) - 1
+    else
+        const <- 1
     if (is.null(object[[model]]))
         stop("component ", model, " does not exist")
     if (type == "working") {
@@ -33,7 +37,7 @@
             U <- sweep(U, 2, sqrt(abs(eig[eig<0])), "*")
             D <- sqrt(D^2 - dist(U)^2)
         }
-        out <- D
+        out <- D * sqrt(const)
     }
     out
 }
