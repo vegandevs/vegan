@@ -14,7 +14,7 @@
         table[2,] <- c(nrow(object$CA$u) - 1, object$CA$tot.chi, NA, NA)
     }
     rownames(table) <- c("Model", "Residual")
-    if (inherits(object, "capscale") &&
+    if (inherits(object, c("capscale", "dbrda")) &&
         (object$adjust != 1 || is.null(object$adjust)))
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))

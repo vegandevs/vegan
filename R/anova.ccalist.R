@@ -73,7 +73,7 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    if (inherits(object, "capscale") &&
+    if (inherits(object, c("capscale", "dbrda")) &&
         (object$adjust != 1 || is.null(object$adjust)))
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))

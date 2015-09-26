@@ -24,9 +24,8 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
-    isDB <- inherits(x, "capscale") &&
-        !inherits(x, "oldcapscale") || # distance-based & new design
-            inherits(x, "dbrda")           # dbrda
+    isDB <- inherits(x, c("capscale", "dbrda")) &&
+        !inherits(x, "oldcapscale")  # distance-based & new design
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
@@ -119,8 +118,9 @@ permutest.default <- function(x, ...)
     }
     if (model == "reduced" || model == "direct")
         E <- if (isDB) x$CCA$G else x$CCA$Xbar
-    else E <- if (isDB) stop("capscale cannot be used with 'full' model")
-              else x$CA$Xbar
+    else E <-
+        if (isDB) stop(gettextf("%s cannot be used with 'full' model"), x$method)
+        else x$CA$Xbar
     if (isPartial && model == "direct")
         E <- if (isDB) x$pCCA$G else E + Y.Z
     ## Save dimensions

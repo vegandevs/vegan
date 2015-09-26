@@ -62,7 +62,7 @@
     Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + 1)/(tst$nperm + 1)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
-    if (inherits(object, "capscale") &&
+    if (inherits(object, c("capscale", "dbrda")) &&
         (object$adjust != 1 || is.null(object$adjust)))
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
