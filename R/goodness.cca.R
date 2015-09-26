@@ -100,6 +100,7 @@
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda"))
         CA <- cbind(CA, object[[model]][["imaginary.u"]])
+    att <- attributes(CA)
     if (inherits(object, "rda"))
         nr <- nobs(object) - 1
     else
@@ -139,5 +140,6 @@
     }
     if (summarize)
         CA <- CA[,ncol(CA)]
+    attributes(CA) <- att
     CA
 }
