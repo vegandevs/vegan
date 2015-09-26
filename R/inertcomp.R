@@ -13,6 +13,13 @@
     pCCA <- object$pCCA$Fit
     CCA <- object$CCA[[what]]
     CA <- object$CA[[what]]
+    ## row names will be lost later: save here
+    labels <- if(!is.null(CA))
+                  rownames(CCA)
+              else if(!is.null(CCA))
+                  rownames(CA)
+              else
+                  rownames(pCCA)
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda")) {
         CCA <- cbind(CCA, object$CCA$imaginary.u)
@@ -47,5 +54,7 @@
     }
     if (proportional)
         out <- sweep(out, 1, rowSums(out), "/")
+    ## get back names
+    rownames(out) <- labels
     out
 }
