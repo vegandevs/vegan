@@ -172,9 +172,8 @@
         const <- nobs(object) - 1
     else
         const <- 1
-    cntr <- attr(dis, "centre")
-    Means <- outer(cntr[2,], cntr[1,], "+")/const
-    dis <- -2 * dis + Means
+    dia <- diag(dis)
+    dis <- -2 * dis + outer(dia, dia, "+")
     dis <- sqrt(as.dist(dis) * const)
     ## Approximate dissimilarities from real components. Can only be
     ## used for one component.
