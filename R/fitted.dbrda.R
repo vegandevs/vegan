@@ -16,7 +16,6 @@
             G <- object$pCCA$Fit
         else
             G <- object[[model]]$G
-        centre <- attr(G, "centre")
         if (model == "CCA") {
             H <- tcrossprod(
                 qr.Q(object$CCA$QR)[, seq_len(object$CCA$QR$rank),
