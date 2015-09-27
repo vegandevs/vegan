@@ -81,7 +81,6 @@
     ## Solution: this shows the algorithmic steps
     tot.chi <- sum(diag(G))
     pCCA <- CCA <-  CA <- NULL
-    att <- attributes(G) # save attributes -- "centre" in particular
     ## pCCA
     if (!is.null(d$Z)) {
         d$Z <- scale(d$Z, scale = FALSE)
@@ -95,7 +94,6 @@
                      G = G)
         H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
         G <- H2 %*% G %*% H2
-        attributes(G) <- att # get back lost attributes
     }
     ## CCA
     if (!is.null(d$Y)) {
@@ -144,7 +142,6 @@
         ## G <- qr.resid(Q, t(qr.resid(Q, G)))
         H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
         G <- H2 %*% G %*% H2
-        attributes(G) <- att  # reset attributes lost in previous line
     }
     ## CA
     e <- eigen(G) 
