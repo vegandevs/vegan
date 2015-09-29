@@ -200,7 +200,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   square root transformed (argument \code{sqrt.dist = TRUE}). If an
   additive constant was used, keyword \code{euclidified} is added to the
   the name of inertia, and the value of the constant is printed
- (argument \code{add = TRUE}).
+  (argument \code{add = TRUE}).
 }
 
 
@@ -233,7 +233,7 @@ capscale(varespec ~ N + P + K + Condition(Al), varechem,
 capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
 ## dbrda
 dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist="bray)
+                     dist="bray")
 ## avoid negative eigenvalues also with Jaccard distances
 dbrda(varespec ~ N + P + K + Condition(Al), varechem,
                      dist="jaccard")
