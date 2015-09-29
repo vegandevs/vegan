@@ -231,6 +231,12 @@ capscale(varespec ~ N + P + K + Condition(Al), varechem,
                      dist = "bray", sqrt.dist= TRUE)
 ## Principal coordinates analysis with extended dissimilarities
 capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
+## dbrda
+dbrda(varespec ~ N + P + K + Condition(Al), varechem,
+                     dist="bray)
+## avoid negative eigenvalues also with Jaccard distances
+dbrda(varespec ~ N + P + K + Condition(Al), varechem,
+                     dist="jaccard")
 }
 \keyword{ multivariate }
 
