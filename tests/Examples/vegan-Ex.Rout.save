@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-09-24 r69424) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-09-30 r69442) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1511,7 +1511,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### Name: capscale
 > ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale oldCapscale
+> ### Aliases: capscale oldCapscale dbrda dbRDA.D dbRDA2
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1622,6 +1622,50 @@ Eigenvalues for unconstrained axes:
 (Showed only 8 of all 19 unconstrained eigenvalues)
 
 metaMDSdist transformed data: wisconsin(sqrt(varespec)) 
+
+> ## dbrda
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
++                      dist="bray")
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "bray")
+
+              Inertia Proportion Rank RealDims
+Total          4.5444     1.0000              
+Conditional    0.9726     0.2140    1         
+Constrained    0.9731     0.2141    3        3
+Unconstrained  2.5987     0.5718   19       13
+Inertia is squared Bray distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5362 0.3198 0.1171 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+0.9054 0.5070 0.3336 0.2581 0.2027 0.1605 0.1221 0.0825 
+(Showed only 8 of all 19 unconstrained eigenvalues)
+
+> ## avoid negative eigenvalues also with Jaccard distances
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
++                      dist="jaccard")
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "jaccard")
+
+              Inertia Proportion Rank
+Total          6.5044     1.0000     
+Conditional    1.0330     0.1588    1
+Constrained    1.2068     0.1855    3
+Unconstrained  4.2646     0.6557   19
+Inertia is squared Jaccard distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5992 0.3994 0.2082 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.0388 0.6441 0.4518 0.3759 0.3239 0.2785 0.2279 0.1644 
+(Showed only 8 of all 19 unconstrained eigenvalues)
 
 > 
 > 
@@ -2862,8 +2906,8 @@ Extrapolated     Observed       Veiled
 > ### Name: goodness.cca
 > ### Title: Diagnostic Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
-> ### Aliases: goodness goodness.cca inertcomp spenvcor intersetcor vif.cca
-> ###   alias.cca
+> ### Aliases: goodness goodness.cca goodness2.cca inertcomp spenvcor
+> ###   intersetcor vif.cca alias.cca
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -5630,8 +5674,9 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### Name: plot.cca
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
-> ### Aliases: plot.cca text.cca points.cca scores.cca scores.rda summary.cca
-> ###   print.summary.cca ade2vegancca head.summary.cca tail.summary.cca
+> ### Aliases: plot.cca text.cca points.cca scores.dbrda scores.cca
+> ###   scores.rda summary.cca print.summary.cca ade2vegancca
+> ###   head.summary.cca tail.summary.cca
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
@@ -5904,9 +5949,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: predict.cca
 > ### Title: Prediction Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
-> ### Aliases: fitted.cca fitted.rda fitted.capscale residuals.cca
-> ###   predict.cca predict.rda predict.decorana coef.cca coef.rda
-> ###   calibrate.cca calibrate
+> ### Aliases: fitted.cca fitted.rda fitted.capscale fitted.dbrda
+> ###   residuals.cca predict.cca predict.rda predict.decorana coef.cca
+> ###   coef.rda calibrate.cca calibrate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7099,7 +7144,8 @@ Stepping across 190 dissimilarities...
 > ### Title: Display Ordination Distances Against Observed Distances in
 > ###   Eigenvector Ordinations
 > ### Aliases: stressplot.wcmdscale stressplot.cca stressplot.rda
-> ###   stressplot.capscale stressplot.prcomp stressplot.princomp
+> ###   stressplot.capscale stressplot.dbrda stressplot.prcomp
+> ###   stressplot.princomp
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8508,7 +8554,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.352 0.14 24.489 0 0 
+Time elapsed:  23.792 0.164 24.032 0 0 
 > grDevices::dev.off()
 null device 
           1 
