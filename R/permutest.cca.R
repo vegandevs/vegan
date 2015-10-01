@@ -109,7 +109,7 @@ permutest.default <- function(x, ...)
         X <- sweep(X, 1, sqrt(w), "/")
     }
     if (isPartial) {
-        Y.Z <- x$pCCA$Fit
+        Y.Z <- if (isDB) x$pCCA$G else x$pCCA$Fit
         QZ <- x$pCCA$QR
         if (isCCA) {
             Z <- qr.X(QZ)

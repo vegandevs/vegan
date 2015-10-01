@@ -111,7 +111,7 @@
             sol$pCCA$real.tot.chi <- sol$pCCA$tot.chi
             sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
         }
-        G <- qr.resid(sol$pCCA$QR, G)
+        G <- qr.resid(sol$pCCA$QR, t(qr.resid(sol$pCCA$QR, G)))
     }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         sol$CCA$G <- G
