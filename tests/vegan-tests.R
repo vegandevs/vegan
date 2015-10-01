@@ -245,18 +245,18 @@ data(varespec, varechem)
 (mr <- rda(varespec ~ Al + P + Condition(pH), varechem))
 (md <- dbrda(varespec ~ Al + P + Condition(pH), varechem))
 (mc <- capscale(varespec ~ Al + P + Condition(pH), varechem))
-## the following two should be zero
+## the following two should be zero (within 1e-15)
 p <- shuffleSet(nrow(varespec), 999)
 range(permustats(anova(mr, permutations=p))$permutations -
           permustats(anova(md, permutations=p))$permutations)
 range(permustats(anova(mr, permutations=p))$permutations -
-          permustats(anova(mc, permutations=p))$permutations) ## FAILS!
+          permustats(anova(mc, permutations=p))$permutations)
 ## the following two should be equal
 d <- vegdist(wisconsin(sqrt(varespec)))
 (md <- dbrda(d ~ Al + P + Condition(pH), varechem))
 (mc <- capscale(d ~ Al + P + Condition(pH), varechem))
 (amd <- anova(md, permutations = p))
 (amc <- anova(mc, permutations = p))
-## should be zero -- FAILS NOW!!! FIX THIS!
+## should be zero (within 1e-15)
 range(permustats(amd)$permutations - permustats(amc)$permutations)
 rm(mr, md, mc, d, amd, amc)

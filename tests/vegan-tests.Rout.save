@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2015-10-01 r69444) -- "Unsuffered Consequences"
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
 Copyright (C) 2015 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -111,10 +111,10 @@ Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.
          Df Variance      F Pr(>F)  
 CAP1      1  25.0252 4.1487   0.03 *
 CAP2      1  15.8759 2.6319   0.07 .
-CAP3      1   8.0942 1.3419   0.27  
-CAP4      1   5.0675 0.8401   0.62  
-CAP5      1   3.5671 0.5914   0.76  
-CAP6      1   1.9520 0.3236   0.89  
+CAP3      1   8.0942 1.3419   0.25  
+CAP4      1   5.0675 0.8401   0.64  
+CAP5      1   3.5671 0.5914   0.85  
+CAP6      1   1.9520 0.3236   0.96  
 Residual  5  30.1605                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -141,14 +141,14 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
-         Df SumOfSqs      F Pr(>F)   
-CAP1      1  0.77834 4.9533   0.01 **
-CAP2      1  0.45691 2.9078   0.03 * 
-CAP3      1  0.14701 0.9355   0.54   
-CAP4      1  0.11879 0.7560   0.59   
-CAP5      1  0.04213 0.2681   0.87   
-CAP6      1  0.00522 0.0332   0.91   
-Residual  5  0.76948                 
+         Df SumOfSqs      F Pr(>F)  
+CAP1      1  0.77834 4.9533   0.02 *
+CAP2      1  0.45691 2.9078   0.03 *
+CAP3      1  0.14701 0.9355   0.50  
+CAP4      1  0.11879 0.7560   0.65  
+CAP5      1  0.04213 0.2681   0.98  
+CAP6      1  0.00522 0.0332   1.00  
+Residual  5  0.76948                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
@@ -363,9 +363,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3075  0.244
-CAP2      1   0.0685 0.3339  0.911
-CAP3      1   0.0455 0.2217  0.963
+CAP1      1   0.2682 1.3075  0.242
+CAP2      1   0.0685 0.3339  0.921
+CAP3      1   0.0455 0.2217  0.966
 Residual 22   4.5130              
 > anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -391,9 +391,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3267  0.241
-CAP2      1   0.0685 0.3388  0.908
-CAP3      1   0.0455 0.2249  0.961
+CAP1      1   0.2682 1.3267  0.240
+CAP2      1   0.0685 0.3388  0.913
+CAP3      1   0.0455 0.2249  0.964
 Residual 26   5.2565              
 > anova(cap.model, by="terms", strata=C)  # -> no error
 Permutation test for capscale under reduced model
@@ -775,7 +775,7 @@ Eigenvalues for unconstrained axes:
 [1] -1.776357e-15  5.329071e-15
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(mc, permutations=p))$permutations) ## FAILS!
-[1] -0.9285477  0.9547840
+[1] -1.776357e-15  4.884981e-15
 > ## the following two should be equal
 > d <- vegdist(wisconsin(sqrt(varespec)))
 > (md <- dbrda(d ~ Al + P + Condition(pH), varechem))
@@ -841,9 +841,9 @@ Residual 20  1.96003
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## should be zero -- FAILS NOW!!! FIX THIS!
 > range(permustats(amd)$permutations - permustats(amc)$permutations)
-[1] -0.2701899  0.2438730
+[1] -8.881784e-16  8.881784e-16
 > rm(mr, md, mc, d, amd, amc)
 > 
 > proc.time()
    user  system elapsed 
-  9.756   0.076   9.825 
+ 11.800   0.195  11.988 
