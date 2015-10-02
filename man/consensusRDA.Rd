@@ -8,8 +8,8 @@ Calculates a consensus RDA. That is, a consensus for a series of RDA
 performed on the same data using different association coefficients.
 }
 \usage{
-consensusRDA(ordires, ordisigniaxis, X, Y, pval = 0.05, 
-scaling = 2)
+consensusRDA(ordires, X, Y, ordisigniaxis=NULL, pval = 0.05, 
+scaling = 2,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,10 +20,9 @@ scaling = 2)
  same data.
 }
   \item{ordisigniaxis}{
- A list of \code{\link[vegan]{anova.cca}} object where each axis of each
-RDA (or db-RDA) given in \code{ordires} was tested for significance. 
-This argument can also be a vector defining the number of significant 
-axes in each RDA. See details. 
+ A vector defining the number of significant axes in each RDA. If the
+ argument is set to NULL, a permutation test is carried out to test
+  each RDA (or db-RDA) and evaluate the number of axes to select. See details. 
 }
   \item{X}{
  A matrix of the response variables (species) used to construct all the 
@@ -43,6 +42,9 @@ axes in each RDA. See details.
  Type of scaling used to project the consensus RDA result. A distance 
  scaling (scaling = 1) or a correlation scaling (scaling = 2) can be 
  used. Default is scaling = 1. See details for more information.
+}
+  \item{\dots}{Parameters passed to \code{anova.cca}. This argument
+  allows to pass \code{parallel} argument for the permutation test.
 }
 }
 \details{
@@ -117,23 +119,11 @@ beetleLog10<-decostand(beetle, "log",logbase=10)
 mGowerLog10<-vegdist(beetleLog10, "altGower")
 ordiRes[[9]]<-capscale(mGowerLog10~.,data=beetle.expl,comm=beetleLog10)
 
-#----------------
-### Test RDA axis 
-#----------------
-ordiResTest<-vector("list",length=ndis)
-
-\dontrun{
-for(i in 1:ndis){
-	ordiResTest[[i]]<-anova.cca(ordiRes[[i]],by="axis",
-	cutoff=0.1,perm.max=100)
-}
-}
-
-## This output is an alternative to the previous code
+## Significant axes for each RDA (or db-RDA)
 ordiResTest<-c(3,3,4,4,4,4,3,4,4)
 
 ### Consensus RDA
-consRDA<-consensusRDA(ordiRes,ordiResTest,beetle,beetle.expl)
+consRDA<-consensusRDA(ordiRes,beetle,beetle.expl,ordiResTest)
 summary(consRDA)
 XaxisLabels<-paste("Axis 1 - ",
 			round(consRDA$values[1]/sum(consRDA$values),4)*100,sep="")

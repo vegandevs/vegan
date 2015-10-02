@@ -11,7 +11,7 @@
    canonical coefficients. 
 }
 \usage{
-coeffCompare(ordires, ordisigniaxis, pval = 0.05)
+coeffCompare(ordires, ordisigniaxis=NULL, pval = 0.05,...)
 }
 
 \arguments{
@@ -22,16 +22,18 @@ coeffCompare(ordires, ordisigniaxis, pval = 0.05)
  data.
 }
   \item{ordisigniaxis}{
- A list of \code{\link[vegan]{anova.cca}} object where each axis of each
-RDA (or db-RDA) given in \code{ordires} was tested for significance. 
-This argument can also be a vector defining the number of significant 
-axes in each RDA. See details. 
+ A vector defining the number of significant axes in each RDA. If the
+ argument is set to NULL, a permutation test is carried out to test
+  each RDA (or db-RDA) and evaluate the number of axes to select. See details. 
 }
   \item{pval}{
  Numeric. P-value threshold to select the number of axes to use. This 
  argument is only active if a list of \code{\link[vegan]{anova.cca}} 
  object is given for the argument \code{ordisigniaxis}, otherwise it is 
  not considered. Default is 0.05.
+}
+  \item{\dots}{Parameters passed to \code{anova.cca}. This argument
+  allows to pass \code{parallel} argument for the permutation test.
 }
 }
 \details{

@@ -1,5 +1,5 @@
 coeffCompare <-
-function(ordires, ordisigniaxis,pval=0.05){
+function(ordires, ordisigniaxis=NULL,pval=0.05,...){
 	#----------------
 	#CC# Basic object
 	#----------------
@@ -17,8 +17,20 @@ function(ordires, ordisigniaxis,pval=0.05){
 		stop("One or more canonical ordination in 'ordires' is not an RDA")
 	}
 	
+        #-------------------------------------------------------------
+        #CC# Perform ANOVA by axis if ordisigniaxis is not a vector of
+        #CC# number of axes to consider
+        #-------------------------------------------------------------
+        if(!(is.vector(ordisigniaxis) && length(ordisigniaxis)!=length(ordires))){
+        	if(is.null(ordisigniaxis)){
+			ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
+        	}else{
+			stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
+        	}
+        }
+
 	#### Check if ordires and ordisigniaxis have the same number of
-	#### components
+        #### components
 	if(length(ordisigniaxis)!=length(ordires)){
 		stop("'ordires' is not the same length as 'ordisigniaxis'")
 	}
@@ -56,8 +68,8 @@ function(ordires, ordisigniaxis,pval=0.05){
 			stop("anova.cca by axis should be either 'RDA' or 'CAP'")
 		}
 		
-		#CC# Extract the number of signicant axes to use for each 
-		#CC# canonical ordinations
+		#CC# Extract the number of signicant axes to use for each
+                #CC# canonical ordinations
 		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,4]<=pval)))
 	#### If ordisigniaxis is a vector
 	}else{
@@ -74,7 +86,7 @@ function(ordires, ordisigniaxis,pval=0.05){
 	if(any(ordisigniaxis < 1)){
 		stop("One or more analysis does not have any significant axis remove it and start again")
 	}
-	
+
 	#### Check if the right side of the equation is the same for all 
 	#### ordination in ordires
 	checkY<-sapply(ordiRes,model.matrix)
@@ -85,7 +97,7 @@ function(ordires, ordisigniaxis,pval=0.05){
 	if(!all(checkY[,1]==checkY)){
 		stop("One or more analysis was carried out on different explanatory variables")
 	}
-	
+
 	#-------------------------------------------------------------
 	#CC# Extract all the significant axes of matrix Z in scaling 1
 	#-------------------------------------------------------------

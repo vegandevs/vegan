@@ -1,5 +1,5 @@
 consensusRDA <-
-function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
+function(ordires, X,Y,ordisigniaxis=NULL,pval=0.05,scaling=2,...){
 	#----------------
 	#CC# Basic object
 	#----------------
@@ -13,19 +13,10 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	#------------------
 	#CC# General checks
 	#------------------
-	#### Check if there are completely collinear explanatory variables 
-	#### and count the number of non-collinear variables
-	Y.tmp<-Y
-	deter<-det(cor(Y))
-	
-	#CC# threshold
-	tresh<-10^-8
-	
-	while(deter<= tresh){
-		Y.tmp<-Y.tmp[,-1]	
-		deter<-det(cor(Y.tmp))
-	}
-	nNoncolldesc<-ncol(Y.tmp)
+	#### Check if there are completely collinear explanatory variables
+        #### and count the number of non-collinear variables
+        Q <- qr(Y)
+        Y <- Y[, Q$pivot[seq_len(Q$rank)], drop = FALSE]
 	
 	#### Check if ordires contains only RDAs
 	allRDA<-sapply(ordires,function(x) any(class(x)=="rda"))
@@ -33,8 +24,20 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 		stop("One or more canonical ordination in 'ordires' is not an RDA")
 	}
 	
-	#### Check if ordires and ordisigniaxis have the same number of 
-	#### components
+	#-------------------------------------------------------------
+        #CC# Perform ANOVA by axis if ordisigniaxis is not a vector of
+        #CC# number of axes to consider
+        #-------------------------------------------------------------
+        if(!(is.vector(ordisigniaxis) && length(ordisigniaxis)==length(ordires))){
+        	if(is.null(ordisigniaxis)){
+			ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
+        	}else{
+			stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
+        	}
+        }
+
+        #### Check if ordires and ordisigniaxis have the same number of
+        #### components
 	if(length(ordisigniaxis)!=length(ordires)){
 		stop("'ordires' is not the same length as 'ordisigniaxis'")
 	}
@@ -55,7 +58,7 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 		}
 	}
 	
-	#### If ordisigniaxis is a list
+        #### If ordisigniaxis is a list
 	if(is.list(ordisigniaxis)){
 		#### Check P-values
 		if(pval < 0 | pval > 1){
@@ -72,8 +75,8 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 			stop("anova.cca by axis should be either 'RDA' or 'CAP'")
 		}
 		
-		#CC# Extract the number of signicant axes to use for each 
-		#CC# canonical ordinations
+		#CC# Extract the number of signicant axes to use for each
+                #CC# canonical ordinations
 		ordisigniaxis<-sapply(ordisigniaxis,function(x) length(which(x[,4]<=pval)))
 	#### If ordisigniaxis is a vector
 	}else{
@@ -91,20 +94,18 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 		stop("One or more analysis does not have any significant axis remove it and start again")
 	}
 	
-	#### Make sure that X is a matrix 
+	#### Make sure that Y is a matrix 
 	Y<-as.matrix(Y)
 	
 	#### Check that all RDAs in ordires were carried out on the same
 	#### Y data
 	checkCall<-sapply(ordires,function(x) class(x$call[[2]]))
-	if(!all(checkCall=="formula") | !all(checkCall=="call")){
-		stop("All ordinations in 'ordires' needs to be performed the same way, using 'formulas' or 'matrix' not a combination of both")
+	if(!all(checkCall=="formula")){
+		if(!all(checkCall=="call")){
+			stop("All ordinations in 'ordires' needs to be performed the same way, using 'formulas' or 'matrix' not a combination of both")
+                }
 	}
-	
-	if(all(checkCall=="formula")){
-		
-	}
-	
+        
 	#### Check if the right side of the equation is the same for all 
 	#### ordination in ordires
 	checkY<-sapply(ordiRes,model.matrix)
@@ -115,8 +116,7 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	if(!all(checkY[,1]==checkY)){
 		stop("One or more analysis was carried out on different explanatory variables")
 	}
-	
-	
+        
 	#-------------------------------------------------------------
 	#CC# Extract all the significant axes of matrix Z in scaling 1
 	#-------------------------------------------------------------
@@ -132,19 +132,20 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	#CC# Perform an RDA between Zsignimat and Y
 	#------------------------------------------
 	Zrda<-rda(Zsignimat,Y)
-	ZrdaEigen<-eigenvals(Zrda)[1:nNoncolldesc]
+        ZrdaAxes<-grep("RDA",names(eigenvals(Zrda)))
+        ZrdaEigen<-eigenvals(Zrda)[ZrdaAxes]
 	naxes<-length(ZrdaEigen)
 	
 	#CC# Extract the Z consensus results from RDA
-	Zconsensus<-scores(Zrda,choice=1:nNoncolldesc,display="lc",scaling=1)
+	Zconsensus<-scores(Zrda,choice=ZrdaAxes,display="lc",scaling=1)
 	
 	#CC# Extract the C consensus results from RDA
-	Cconsensus<-scores(Zrda,choice=1:nNoncolldesc,display="bp",scaling=1)
+	Cconsensus<-scores(Zrda,choice=ZrdaAxes,display="bp",scaling=1)
 	
-	#### This is the procedure proposed by Legendre and 
-	#### Legendre (2012, Subsection 9.3.3). It is also the procedure 
-	#### proposed by Oksanen et al. in vegan and described in 
-	#### Blanchet et al. (2014)
+	#### This is the procedure proposed by Legendre and
+        #### Legendre (2012, Subsection 9.3.3)  It is also the procedure
+	#### proposed by Oksanen et al. in vegan and described in
+        #### Blanchet et al. (2014)
 	Uconsensus<-t(scale(X,scale=FALSE))%*%Zconsensus%*%diag(ZrdaEigen^(-0.5))/sqrt(nsites-1)
 	
 	#----------------------
@@ -164,6 +165,7 @@ function(ordires, ordisigniaxis,X,Y,pval=0.05,scaling=2){
 	}
 	
 	res<-list(values=ZrdaEigen,siteConsensus=Zconsensus,spConsensus=Uconsensus,descConsensus=Cconsensus)
-	
+
+        class(res)<-"consensusRDA"
 	return(res)
 }
