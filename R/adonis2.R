@@ -3,6 +3,11 @@
              by = "term", parallel = getOption("mc.cores"), ...)
 {
     environment(formula) <- environment()
+    if (missing(data)) {
+        fla <- formula
+        fla[[2]] <- NULL
+        data <- model.frame(fla)
+    }
     sol <- adonis0(formula, data = data, method = "bray")
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
