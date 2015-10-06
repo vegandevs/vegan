@@ -1,8 +1,9 @@
 ### Random rarefied subsample: sample without replacement
 
 `rrarefy` <-
-    function(x, sample)
+    function(x, sample, small = c("fail", "asis", "NA", "remove"))
 {
+    small <- match.arg(small)
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function is meaningful only for integers (counts)")
     x <- as.matrix(x)
@@ -15,11 +16,25 @@
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
     for (i in 1:nrow(x)) {
-        row <- sample(rep(nm, times=x[i,]), sample[i])
-        row <- table(row)
-        ind <- names(row)
-        x[i,] <- 0
-        x[i,ind] <- row
+        if (sum(x[i,]) < sample[i])
+            switch(small,
+                   "fail" = stop(gettextf("sample too large (detected first in row %d with sample %d, row total %d)",
+                   i, sample[i], sum(x[i,]))),
+                   "asis" = next,
+                   "NA" = is.na(x[i,]) <- x[i,] > 0,
+                   "remove" =  x[i,] <- NA)
+        else {
+            row <- sample(rep(nm, times=x[i,]), sample[i])
+            row <- table(row)
+            ind <- names(row)
+            x[i,] <- 0
+            x[i,ind] <- row
+        }
+    }
+    if (small == "remove" && anyNA(x)) {
+        drop <- apply(x, 1, anyNA)
+        warning("dropped rows ", paste(which(drop), collapse=", "))
+        x <- x[!drop,, drop=FALSE]
     }
     x
 }
