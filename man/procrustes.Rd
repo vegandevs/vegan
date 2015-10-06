@@ -64,7 +64,8 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
     target and rotated configuration.}
   \item{truemean}{Use the original range of target matrix instead of
     centring the fitted values. Function \code{plot.procrustes} needs
-    \code{truemean = FALSE}.}
+    \code{truemean = FALSE}, and adding graphical items to the plots
+    from the original results may need \code{truemean = TRUE}.}
   \item{newdata}{Matrix of coordinates to be rotated and translated to
      the target.}
   \item{permutations}{a list of control values for the permutations
