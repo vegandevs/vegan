@@ -1,3 +1,3 @@
 `ordiArgAbsorber` <- function(..., shrink, origin, scaling, triangular,
-                              display, choices, const, FUN)
+                              display, choices, const, truemean, FUN)
     match.fun(FUN)(...)
