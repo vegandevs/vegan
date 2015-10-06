@@ -27,7 +27,7 @@ ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
-                display, choices, const, FUN)
+                display, choices, const, truemean, FUN)
 centroids.cca(x, mf, wt)
 getPermuteMatrix(perm, N, strata = NULL)
 howHead(x, ...)
