@@ -23,9 +23,9 @@ procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
     type = "p", xlab, ylab, main, ar.col = "blue", len=0.05, 
     cex = 0.7, ...)
 \method{points}{procrustes}(x, display = c("target", "rotated"),
-    truemean = FALSE, ...)
-\method{text}{procrustes}(x, display = c("target", "rotated"), labels,
-    truemean = FALSE, ...)
+    choices = c(1,2), truemean = FALSE, ...)
+\method{text}{procrustes}(x, display = c("target", "rotated"),
+    choices = c(1,2), labels, truemean = FALSE, ...)
 \method{lines}{procrustes}(x, type = c("segments", "arrows"),
     choices = c(1, 2), truemean = FALSE, ...)
 \method{residuals}{procrustes}(object, ...)
