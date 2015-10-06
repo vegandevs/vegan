@@ -15,6 +15,8 @@
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
     for (i in 1:nrow(x)) {
+        if (sum(x[i,]) <= sample[i]) ## nothing to rarefy: take all
+            next
         row <- sample(rep(nm, times=x[i,]), sample[i])
         row <- table(row)
         ind <- names(row)
