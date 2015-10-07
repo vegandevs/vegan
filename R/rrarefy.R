@@ -50,7 +50,7 @@
     ## dfun is kluge: first item of  vector x must be the sample size,
     ## and the rest  is the community data. This  seemed an easy trick
     ## to evaluate dfun in an apply() instead of a loop.
-    dfun <- function(x, sample) {
+    dfun <- function(x) {
         J <- sum(x[-1])
         sample <- min(x[1], J)
         1 - exp(lchoose(J - x[-1], sample) - lchoose(J, sample))
