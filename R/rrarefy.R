@@ -46,7 +46,7 @@
     else
         rs <- sum(x)
     if (any(rs) < sample)
-        warning("'sample' larger than community: all probabilities 0 or 1")
+        warning("(Some) 'sample' larger than community: probabilities either 0 or 1")
     ## dfun is kluge: first item of  vector x must be the sample size,
     ## and the rest  is the community data. This  seemed an easy trick
     ## to evaluate dfun in an apply() instead of a loop.
