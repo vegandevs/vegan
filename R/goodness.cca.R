@@ -138,8 +138,8 @@
         CA <- sqrt(CA)
         CA <- sweep(CA, 1, sqrt(w), "/")
     }
+    attributes(CA) <- att
     if (summarize)
         CA <- CA[,ncol(CA)]
-    attributes(CA) <- att
     CA
 }
