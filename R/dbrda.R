@@ -85,28 +85,18 @@
     if (!is.null(d$Z)) {
         d$Z <- scale(d$Z, scale = FALSE)
         Q <- qr(d$Z, tol = 1e-6)
-        Q12 <- qr.Q(Q, complete = TRUE) # comments below in CCA
-        H <- tcrossprod(Q12[, seq_len(Q$rank), drop=FALSE])
-        HGH <- H %*% G %*% H
+        HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
         pCCA <- list(rank = Q$rank, tot.chi = sum(diag(HGH)),
                      QR = Q, Fit = HGH,
                      envcentre = attr(d$Z, "scaled:center"),
                      G = G)
-        H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
-        G <- H2 %*% G %*% H2
+        G <- qr.resid(Q, t(qr.resid(Q, G)))
     }
     ## CCA
     if (!is.null(d$Y)) {
         d$Y <- scale(d$Y, scale = FALSE) 
         Q <- qr(cbind(d$Z, d$Y), tol = 1e-6)
-        Q12 <- qr.Q(Q, complete = TRUE)
-        ## H is hat matrix, and we found it from first rank columns of
-        ## complete QR decomposition. The latter columns give similar
-        ## matrix for residuals. We can actually replace the next two
-        ## lines and one previous with
-        ## HGH <- qr.fitted(Q, t(qr.fitted(Q, G))).
-        H <- tcrossprod(Q12[, seq_len(Q$rank), drop=FALSE])
-        HGH <- H %*% G %*% H
+        HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
         e <- eigen(HGH)
         nz <- abs(e$values) > EPS
         e$values <- e$values[nz]
@@ -137,11 +127,7 @@
                     QR = Q,
                     envcentre = attr(d$Y, "scaled:center"),
                     Xbar = NA, G = G)
-        ## Residuals from latter columns of Q matrix of QR
-        ## decomposition. Alternatively, you can use
-        ## G <- qr.resid(Q, t(qr.resid(Q, G)))
-        H2 <- tcrossprod(Q12[, -seq_len(Q$rank), drop = FALSE])
-        G <- H2 %*% G %*% H2
+        G <- qr.resid(Q, t(qr.resid(Q, G)))
     }
     ## CA
     e <- eigen(G) 
