@@ -47,17 +47,20 @@ rareslope(x, sample)
   \code{rarefy} is based on Hurlbert's (1971) formulation, and the
   standard errors on Heck et al. (1975).
 
-  Function \code{rrarefy} generates one randomly rarefied community data
-  frame or vector of given \code{sample} size. The \code{sample} can be
-  a vector giving the sample sizes for each row, and its values must be
-  less or equal to observed number of individuals. The random
-  rarefaction is made without replacement so that the variance of
-  rarefied communities is rather related to rarefaction proportion than
-  to to the size of the \code{sample}.
+  Function \code{rrarefy} generates one randomly rarefied community
+  data frame or vector of given \code{sample} size. The \code{sample}
+  can be a vector giving the sample sizes for each row.  If the
+  \code{sample} size is equal to or smaller than the observed number
+  of individuals, the non-rarefied community will be returned.  The
+  random rarefaction is made without replacement so that the variance
+  of rarefied communities is rather related to rarefaction proportion
+  than to the size of the \code{sample}.
 
-  Function \code{drarefy} returns probabilities that species occur in a
-  rarefied community of size \code{sample}. The \code{sample} can be a
-  vector giving the sample sizes for each row.
+  Function \code{drarefy} returns probabilities that species occur in
+  a rarefied community of size \code{sample}. The \code{sample} can be
+  a vector giving the sample sizes for each row. If the \code{sample}
+  is equal to or smaller than the observed number of individuals, all
+  observed species will have sampling probability 1.
 
   Function \code{rarecurve} draws a rarefaction curve for each row of
   the input data. The rarefaction curves are evaluated using the
