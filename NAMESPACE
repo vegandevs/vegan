@@ -41,7 +41,7 @@ export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
 ## testing & verifying dbrda
-export(dbRDA.D, dbRDA2, goodness2.cca)  # <--- REMOVE THESE WHEN DONE WITH dbrda
+export(dbRDA.D, goodness2.cca)  # <--- REMOVE THESE WHEN DONE WITH dbrda
 
 ## export regular functions with dot names
 
