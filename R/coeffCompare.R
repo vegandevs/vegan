@@ -1,5 +1,5 @@
 coeffCompare <-
-function(ordires, ordisigniaxis=NULL,pval=0.05,...){
+function(ordires, ordisigniaxis=NULL,pval=0.05,mst=TRUE,...){
 	#----------------
 	#CC# Basic object
 	#----------------
@@ -21,11 +21,11 @@ function(ordires, ordisigniaxis=NULL,pval=0.05,...){
         #CC# Perform ANOVA by axis if ordisigniaxis is not a vector of
         #CC# number of axes to consider
         #-------------------------------------------------------------
-        if(!(is.vector(ordisigniaxis) && length(ordisigniaxis)!=length(ordires))){
+        if(!(is.vector(ordisigniaxis) && length(ordisigniaxis)==length(ordires))){
         	if(is.null(ordisigniaxis)){
-			ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
+				ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
         	}else{
-			stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
+				stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
         	}
         }
 
@@ -109,10 +109,14 @@ function(ordires, ordisigniaxis=NULL,pval=0.05,...){
 	}
 	
 	#CC# Construct a minimum spanning tree
-	mst<-spantree(as.dist(1-RVassoCoeff))
-	
-	#CC# results
-	res<-list(RVmat=RVassoCoeff,mst=mst)
+	if(mst){
+		mst<-spantree(as.dist(1-RVassoCoeff))
+		#CC# results
+		res<-list(RVmat=RVassoCoeff,mst=mst)
+	}else{
+		#CC# results
+		res<-RVassoCoeff
+	}
 	class(res)<-"coeffCompare"
 	return(res)
 }

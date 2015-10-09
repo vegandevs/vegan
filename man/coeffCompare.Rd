@@ -11,7 +11,7 @@
    canonical coefficients. 
 }
 \usage{
-coeffCompare(ordires, ordisigniaxis=NULL, pval = 0.05,...)
+coeffCompare(ordires, ordisigniaxis=NULL, pval = 0.05,mst=TRUE,...)
 }
 
 \arguments{
@@ -31,6 +31,9 @@ coeffCompare(ordires, ordisigniaxis=NULL, pval = 0.05,...)
  argument is only active if a list of \code{\link[vegan]{anova.cca}} 
  object is given for the argument \code{ordisigniaxis}, otherwise it is 
  not considered. Default is 0.05.
+}
+  \item{mst}{Logical. Whether a minimum spanning tree should be calculated 
+  or not. Default is TRUE.
 }
   \item{\dots}{Parameters passed to \code{anova.cca}. This argument
   allows to pass \code{parallel} argument for the permutation test.

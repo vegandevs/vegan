@@ -30,9 +30,9 @@ function(ordires, X,Y,ordisigniaxis=NULL,pval=0.05,scaling=2,...){
         #-------------------------------------------------------------
         if(!(is.vector(ordisigniaxis) && length(ordisigniaxis)==length(ordires))){
         	if(is.null(ordisigniaxis)){
-			ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
+				ordisigniaxis<-lapply(ordires, anova, by = "axis", cutoff = pval,...)
         	}else{
-			stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
+				stop("'ordisigniaxis' needs to be a vector of number of axes to consider for each RDA or defined as 'NULL'")
         	}
         }
 
