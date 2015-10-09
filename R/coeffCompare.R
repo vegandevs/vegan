@@ -38,7 +38,7 @@ function(ordires, ordisigniaxis=NULL,pval=0.05,...){
 	ordisigniClass<-sapply(ordisigniaxis,function(x) class(x))
 	
 	#### Check if the capscale objects have the right number of species
-	spCheck<-sapply(ordiResID, function(x) nrow(scores(x,display="sp")))
+	spCheck<-sapply(ordires, function(x) nrow(scores(x,display="sp")))
 	if(!all(spCheck==spCheck[1])){
 		stop("The number of species differ for one analysis or one or more of the analysis performed with capscale() did not include a site by species matrix")
 	}
