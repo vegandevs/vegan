@@ -108,7 +108,7 @@ function(ordires, X,Y,ordisigniaxis=NULL,pval=0.05,scaling=2,...){
         
 	#### Check if the right side of the equation is the same for all 
 	#### ordination in ordires
-	checkY<-sapply(ordiRes,model.matrix)
+	checkY<-sapply(ordires,model.matrix)
 	if(!is.matrix(checkY)){
 		stop("One or more analysis does not have the same number of explanatory variables")
 	}
