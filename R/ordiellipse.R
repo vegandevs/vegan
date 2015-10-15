@@ -67,7 +67,7 @@
             if (mat$n.obs == 1)
                 mat$cov[] <- 0
             if (kind == "se")
-                mat$cov <- mat$cov/mat$n.obs
+                mat$cov <- mat$cov * sum(mat$wt^2)
             if (missing(conf))
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
