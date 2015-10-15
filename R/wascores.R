@@ -18,10 +18,8 @@
         x.w <- rowSums(w)
         ewa.w <- colSums(w[,i, drop=FALSE])
         ewa <- wa[i,, drop=FALSE]
-        x.cov <- cov.wt(x, x.w)
-        wa.cov <- cov.wt(ewa, ewa.w)
-        x.cov$cov <- x.cov$cov * (1 - sum(x.cov$wt^2))
-        wa.cov$cov <- wa.cov$cov * (1 - sum(wa.cov$wt^2))
+        x.cov <- cov.wt(x, x.w, method = "ML")
+        wa.cov <- cov.wt(ewa, ewa.w, method = "ML")
         mul <- sqrt(diag(x.cov$cov)/diag(wa.cov$cov))
         ewa <- sweep(ewa, 2, wa.cov$center, "-")
         ewa <- sweep(ewa, 2, mul, "*")

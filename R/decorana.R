@@ -157,10 +157,8 @@
     }
     else {
         evals.decorana <- evals
-        var.r <- cov.wt(rproj, aidot)
-        var.r <- diag(var.r$cov) * (1 - sum(var.r$wt^2))
-        var.c <- cov.wt(cproj, adotj)
-        var.c <- diag(var.c$cov) * (1 - sum(var.c$wt^2))
+        var.r <- diag(cov.wt(rproj, aidot, method = "ML")$cov)
+        var.c <- diag(cov.wt(cproj, adotj, method = "ML")$cov)
         evals <- var.r/var.c
         if (any(ze <- evals.decorana < ZEROEIG))
             evals[ze] <- 0
