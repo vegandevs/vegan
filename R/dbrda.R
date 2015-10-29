@@ -97,7 +97,7 @@
         d$Y <- scale(d$Y, scale = FALSE) 
         Q <- qr(cbind(d$Z, d$Y), tol = 1e-6)
         HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
-        e <- eigen(HGH)
+        e <- eigen(HGH, symmetric = TRUE)
         nz <- abs(e$values) > EPS
         e$values <- e$values[nz]
         e$vectors <- e$vectors[, nz, drop = FALSE]
@@ -130,7 +130,7 @@
         G <- qr.resid(Q, t(qr.resid(Q, G)))
     }
     ## CA
-    e <- eigen(G) 
+    e <- eigen(G, symmetric = TRUE)
     nz <- abs(e$values) > EPS
     e$values <- e$values[nz]
     e$vectors <- e$vectors[, nz, drop = FALSE]
