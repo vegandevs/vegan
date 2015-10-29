@@ -138,6 +138,11 @@
     ## variation. This should give a message().
     if (!is.null(object$CA$imaginary.chi))
         object <- oldCapscale(object)
+    ## Function assumes that dbrda(d ~ dbrda(d ~ x)$CCA$u) is equal to
+    ## dbrda(d ~ x), but this fails for dbrda with negative
+    ## eigenvalues.
+    if (inherits(object, "dbrda") && any(eigenvals(object) < 0))
+        stop("by = 'axis' cannot be used for dbrda with negative eigenvalues")
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig
