@@ -14,7 +14,7 @@
 ordiarrows(ord, groups, levels, replicates, order.by, display = "sites",
          col = 1, show.groups, startmark, label = FALSE, ...)
 ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
-         show.groups, label = FALSE, ...)
+         col = 1, show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
          col = c(1,1), lwd = c(1,1), ...)
 }
@@ -48,10 +48,10 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
     will draw a circle.  For other plotting characters, see \code{pch}
     in \code{\link{points}}. }
 
-  \item{col}{Colour of lines. In \code{ordiarrows} this can be a
-    vector recycled for \code{groups}, and in \code{ordigrid} it can
-    be a vector of length 2 used for \code{levels} and
-    \code{replicates}.}
+  \item{col}{Colour of lines. In \code{ordiarrows} and
+    \code{ordisegments} this can be a vector recycled for
+    \code{groups}, and in \code{ordigrid} it can be a vector of length
+    2 used for \code{levels} and \code{replicates}.}
 
   \item{lty, lwd}{Line type, line width used for 
     \code{level}s and \code{replicate}s in \code{ordigrid}.}
