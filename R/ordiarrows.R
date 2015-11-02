@@ -35,7 +35,7 @@
             X1 <- X[-1, , drop = FALSE]
             nseg <- nrow(X0)
             if (!missing(startmark))
-                points(X0[1,1], X0[1,2], pch=startmark, ...)
+                points(X0[1,1], X0[1,2], pch=startmark, col = col[is], ...)
             if (label) {
                 starts <- rbind(starts, X0[1,])
                 names <- c(names, is)
@@ -50,6 +50,7 @@
         }
     }
     if (label)
-        ordiArgAbsorber(starts, labels = names, FUN = ordilabel, ...)
+        ordiArgAbsorber(starts, labels = names, border = col, col = par("fg"),
+                        FUN = ordilabel, ...)
     invisible()
 }

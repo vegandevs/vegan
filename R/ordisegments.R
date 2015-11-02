@@ -41,6 +41,7 @@
         }
     }
     if (label)
-        ordiArgAbsorber(ends, labels = names, FUN = ordilabel, ...)
+        ordiArgAbsorber(ends, labels = names, border = col, col = par("fg"),
+                        FUN = ordilabel, ...)
     invisible()
 }
