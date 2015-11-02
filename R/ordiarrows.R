@@ -1,6 +1,7 @@
 `ordiarrows` <-
     function (ord, groups, levels, replicates, order.by, 
-              display = "sites", show.groups, startmark, label = FALSE, ...)
+              display = "sites", col = 1, show.groups, startmark,
+              label = FALSE, ...)
 {
     pts <- scores(ord, display = display, ...)
     npoints <- nrow(pts)
@@ -21,6 +22,10 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
+    if (is.factor(col))
+        col <- as.numeric(col)
+    col <- rep(col, length=length(inds))
+    names(col) <- inds
     starts <- names <- NULL
     for (is in inds) {
         gr <- out[groups == is]
@@ -37,8 +42,10 @@
             }
             if (nseg > 1)
                 ordiArgAbsorber(X0[-nseg,1], X0[-nseg,2], X1[-nseg,1],
-                                X1[-nseg,2], FUN = segments, ...)
-            ordiArgAbsorber(X0[nseg, 1], X0[nseg, 2], X1[nseg, 1], X1[nseg, 2],
+                                X1[-nseg,2], col = col[is],
+                                FUN = segments, ...)
+            ordiArgAbsorber(X0[nseg, 1], X0[nseg, 2], X1[nseg, 1],
+                            X1[nseg, 2], col = col[is],
                             FUN = arrows, ...)
         }
     }
