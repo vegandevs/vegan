@@ -12,7 +12,7 @@
 
 \usage{
 ordiarrows(ord, groups, levels, replicates, order.by, display = "sites",
-         col = 1, show.groups, startmark, label = FALSE, ...)
+         col = 1, show.groups, startmark, label = FALSE, length = 0.1, ...)
 ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
          col = 1, show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
@@ -53,6 +53,8 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
     \code{ordisegments}. This can be a vector recycled for
     \code{groups}. In \code{ordigrid} it can be a vector of length 2
     used for \code{levels} and \code{replicates}.}
+
+  \item{length}{Length of edges of the arrow head (in inches).}
 
   \item{lty, lwd}{Line type, line width used for 
     \code{level}s and \code{replicate}s in \code{ordigrid}.}

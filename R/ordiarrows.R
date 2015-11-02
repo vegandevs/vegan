@@ -1,7 +1,7 @@
 `ordiarrows` <-
     function (ord, groups, levels, replicates, order.by, 
               display = "sites", col = 1, show.groups, startmark,
-              label = FALSE, ...)
+              label = FALSE, length = 0.1, ...)
 {
     pts <- scores(ord, display = display, ...)
     npoints <- nrow(pts)
@@ -45,7 +45,7 @@
                                 X1[-nseg,2], col = col[is],
                                 FUN = segments, ...)
             ordiArgAbsorber(X0[nseg, 1], X0[nseg, 2], X1[nseg, 1],
-                            X1[nseg, 2], col = col[is],
+                            X1[nseg, 2], col = col[is], length = length,
                             FUN = arrows, ...)
         }
     }
