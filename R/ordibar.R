@@ -1,26 +1,29 @@
+### draws crossed error bars for classes in ordination. These are
+### oblique to axis because so are th clouds of the points and their
+### standard errors and confidence regions. The bars are principal
+### axes of corresponding ellipse (as drawn in ordiellipse), and found
+### as principal components of the associate covariance matrix. The
+### function is modelled after ordiellipse.
 `ordibar` <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
-              conf, 
-              w = weights(ord, display), col = 1,
-              show.groups, label = FALSE,
-              lwd = NULL, length = 0,  ...)
+              conf,  w = weights(ord, display), col = 1,
+              show.groups, label = FALSE, lwd = NULL, length = 0,  ...)
 {
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     draw <- TRUE
     pts <- scores(ord, display = display, ...)
-    ## ordiellipse only works with 2D data (2 columns)
+    ## ordibar only works with 2D data (2 columns)
     pts <- as.matrix(pts)
     if (ncol(pts) > 2)
         pts <- pts[ , 1:2, drop = FALSE]
     if (ncol(pts) < 2)
-        stop("ordiellipse needs two dimensions")
+        stop("ordibar needs two dimensions")
     w <- eval(w)
     if (length(w) == 1)
         w <- rep(1, nrow(pts))
     if (is.null(w))
         w <- rep(1, nrow(pts))
-    ## make semitransparent fill
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
         pts <- pts[take, , drop = FALSE]
@@ -72,6 +75,6 @@
         ordiArgAbsorber(cntrs, col = par("fg"), border = col, 
                         FUN = ordilabel, ...)
     }
-    class(res) <- "ordiellipse"
+    class(res) <- "ordibar"
     invisible(res)
 }
