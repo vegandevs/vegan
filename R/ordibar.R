@@ -55,17 +55,11 @@
                 eig <- eigen(mat$cov)
                 v <- sweep(eig$vectors, 2, sqrt(eig$values), "*") * t
                 cnt <- mat$center
-                ordiArgAbsorber(v[1,1] + cnt[1], v[2,1] + cnt[2],
-                                -v[1,1] + cnt[1], -v[2,1] + cnt[2],
+                ordiArgAbsorber(v[1,] + cnt[1], v[2,] + cnt[2],
+                                -v[1,] + cnt[1], -v[2,] + cnt[2],
                                 col = col[is], lwd = lwd,
-                                length = length, angle = 90, code = 3,
+                                length = length/2, angle = 90, code = 3,
                                 FUN = arrows, ...)
-                ordiArgAbsorber(v[1,2] + cnt[1], v[2,2] + cnt[2],
-                                -v[1,2] + cnt[1], -v[2,2] + cnt[2],
-                                col = col[is], lwd = lwd,
-                                length = length, angle = 90, code = 3,
-                                FUN = arrows, ...)
-                
             }
             if (label) {
                 cntrs[is,] <- mat$center
