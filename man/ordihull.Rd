@@ -232,8 +232,11 @@ plot(mod, type = "p", display="sites")
 ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
 plot(mod, type="n", display = "sites")
 text(mod, display="sites", labels = as.character(Management))
-pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, draw = "polygon", 
-  col="skyblue", border = "blue")
+## confidence ellipse: location of the class centroids
+pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2,
+  draw = "polygon", col="skyblue", border = "blue")
 summary(pl)
+## add confidence bars
+ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col="blue", label=TRUE)
 }
 \keyword{aplot }
