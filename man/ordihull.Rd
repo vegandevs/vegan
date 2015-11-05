@@ -2,6 +2,7 @@
 \alias{ordihull}
 \alias{ordispider}
 \alias{ordiellipse}
+\alias{ordibar}
 \alias{ordicluster}
 \alias{weights.cca}
 \alias{weights.rda}
@@ -26,6 +27,9 @@ ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
          col = NULL, alpha = 127, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd=NULL, ...)
+ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
+         w = weights(ord, display), col = 1, show.groups, label = FALSE,
+	 lwd = NULL, length = 0,  ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
@@ -122,6 +126,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     \code{names(table(groups))} (in that order). Shorter vectors will be
     recycled.}
 
+  \item{length}{Width (in inches) of the small (\dQuote{caps}) at the
+    ends of the bar segment (passed to \code{\link{arrows}}).}
+
   \item{\dots}{Parameters passed to graphical functions or to
     \code{\link{scores}} to select axes and scaling etc. } 
 }
@@ -139,6 +146,12 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   defines the direction of the principal axis of the ellipse. 
   An ellipsoid hull can be drawn with function
   \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
+
+  Function \code{ordibar} draws crossed \dQuote{error bars} using
+  either using either standard deviation of point scores or standard
+  error of the (weighted) average of scores. These are the principal
+  axes of the correspoding \code{ordiellipse}, and are found by
+  principal component analysis of the (weighted) covariance matrix.
 
   Function \code{ordihull} and \code{ordiellipse} return invisibly an
   object that has a \code{summary} method that returns the coordinates
