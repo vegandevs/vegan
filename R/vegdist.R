@@ -15,10 +15,10 @@
         stop("invalid distance method")
     if (method == -1) 
         stop("ambiguous distance method")
-    if (method > 2 && any(rowSums(x, na.rm = TRUE) == 0)) 
+    if (!method %in% c(1,2,6,16) && any(rowSums(x, na.rm = TRUE) == 0))
         warning("you have empty rows: their dissimilarities may be meaningless in method ",
                 dQuote(inm))
-    if (method > 2 && any(x < 0, na.rm = TRUE)) 
+    if (!method %in% c(1,2,6,16) && any(x < 0, na.rm = TRUE))
         warning("results may be meaningless because data have negative entries in method ",
                 dQuote(inm))
     if (method == 11 && any(colSums(x) == 0)) 
