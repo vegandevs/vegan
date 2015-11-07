@@ -34,14 +34,14 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
   \item{x, object}{An \code{isomap} result object.}
   \item{axes}{Number of axes displayed.}
   \item{net}{Draw the net of retained dissimilarities.}
-  \item{n.col}{Colour of drawn net segments.}
-
+  \item{n.col}{Colour of drawn net segments. This can also be a vector
+    that is recycled for points, and the colour of the net segment is
+    a mixture of joined points.}
   \item{type}{Plot observations either as \code{"points"},
     \code{"text"} or use \code{"none"} to plot no observations. The
     \code{"text"} will use \code{\link{ordilabel}} if \code{net = TRUE} 
     and \code{\link{ordiplot}} if \code{net = FALSE}, and pass
     extra arguments to these functions.}
-
   \item{\dots}{Other parameters passed to functions. }
 }
 \details{
