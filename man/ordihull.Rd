@@ -34,7 +34,7 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
-         w = weights(ord, display), ...)
+         w = weights(ord, display), col = 1, ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
