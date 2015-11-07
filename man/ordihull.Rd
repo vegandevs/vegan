@@ -53,15 +53,18 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     non-transparent. With \code{none} nothing is drawn, but the
     function returns the \code{\link{invisible}} plotting data.}
 
-  \item{col}{Colour of hull or ellipse lines (if \code{draw = "lines"})
-    or their fills (if \code{draw = "polygon"}) in \code{ordihull} and
-    \code{ordiellipse}.  When \code{draw = "polygon"}, the colour of
-    bordering lines can be set with argument \code{border} of the
-    \code{\link{polygon}} function. For other functions the effect
-    depends on the underlining functions this argument is passed to.
-    When multiple values of \code{col} are specified these are used for
-    each element of \code{names(table(groups))} (in that order), shorter
-    vectors are recycled.}
+  \item{col}{Colour of hull or ellipse lines (if \code{draw =
+    "lines"}) or their fills (if \code{draw = "polygon"}) in
+    \code{ordihull} and \code{ordiellipse}.  When \code{draw =
+    "polygon"}, the colour of bordering lines can be set with argument
+    \code{border} of the \code{\link{polygon}} function. For other
+    functions the effect depends on the underlining functions this
+    argument is passed to.  When multiple values of \code{col} are
+    specified these are used for each element of
+    \code{names(table(groups))} (in that order), shorter vectors are
+    recycled. Function \code{ordicluster} has no \code{groups}, and
+    there the argument will be recycled for points, and the colour of
+    connecting lines is a mixture of points in the cluster.}
 
   \item{alpha}{Transparency of the fill \code{col}our with \code{draw
     = "polygon"} in \code{ordihull} and \code{ordiellipse}.  The
