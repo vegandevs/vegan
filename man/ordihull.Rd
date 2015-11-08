@@ -34,7 +34,7 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
-         w = weights(ord, display), ...)
+         w = weights(ord, display), col = 1, ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
@@ -53,15 +53,18 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     non-transparent. With \code{none} nothing is drawn, but the
     function returns the \code{\link{invisible}} plotting data.}
 
-  \item{col}{Colour of hull or ellipse lines (if \code{draw = "lines"})
-    or their fills (if \code{draw = "polygon"}) in \code{ordihull} and
-    \code{ordiellipse}.  When \code{draw = "polygon"}, the colour of
-    bordering lines can be set with argument \code{border} of the
-    \code{\link{polygon}} function. For other functions the effect
-    depends on the underlining functions this argument is passed to.
-    When multiple values of \code{col} are specified these are used for
-    each element of \code{names(table(groups))} (in that order), shorter
-    vectors are recycled.}
+  \item{col}{Colour of hull or ellipse lines (if \code{draw =
+    "lines"}) or their fills (if \code{draw = "polygon"}) in
+    \code{ordihull} and \code{ordiellipse}.  When \code{draw =
+    "polygon"}, the colour of bordering lines can be set with argument
+    \code{border} of the \code{\link{polygon}} function. For other
+    functions the effect depends on the underlining functions this
+    argument is passed to.  When multiple values of \code{col} are
+    specified these are used for each element of
+    \code{names(table(groups))} (in that order), shorter vectors are
+    recycled. Function \code{ordicluster} has no \code{groups}, and
+    there the argument will be recycled for points, and the colour of
+    connecting lines is a mixture of points in the cluster.}
 
   \item{alpha}{Transparency of the fill \code{col}our with \code{draw
     = "polygon"} in \code{ordihull} and \code{ordiellipse}.  The
@@ -214,7 +217,6 @@ data(dune)
 data(dune.env)
 mod <- cca(dune ~ Management, dune.env)
 attach(dune.env)
-## pass non-graphical arguments without warnings
 plot(mod, type="n", scaling = 3)
 ## Catch the invisible result of ordihull...
 pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
@@ -222,21 +224,23 @@ pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
 summary(pl)
 ## use ordispider to label and mark the hull
 plot(mod, type = "n")
-pl <- ordihull(mod, Management, scaling = 3)
-ordispider(pl, col="red", lty=3, label = TRUE )
+pl <- ordihull(mod, Management, scaling = 3, col = 1:4, draw="polygon")
+ordispider(pl, col=1:4, label = TRUE, lwd=2)
 ## ordispider to connect WA and LC scores
 plot(mod, dis=c("wa","lc"), type="p")
 ordispider(mod)
 ## Other types of plots
 plot(mod, type = "p", display="sites")
-ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
-plot(mod, type="n", display = "sites")
-text(mod, display="sites", labels = as.character(Management))
+cl <- hclust(vegdist(dune))
+ordicluster(mod, cl, prune=3, col = cutree(cl, 4))
 ## confidence ellipse: location of the class centroids
+plot(mod, type="n", display = "sites")
+text(mod, display="sites", labels = as.character(Management),
+  col=as.numeric(Management))
 pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2,
-  draw = "polygon", col="skyblue", border = "blue")
+  draw = "polygon", col=1:4, border=1:4, alpha=63)
 summary(pl)
 ## add confidence bars
-ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col="blue", label=TRUE)
+ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col=1:4, label=TRUE)
 }
 \keyword{aplot }

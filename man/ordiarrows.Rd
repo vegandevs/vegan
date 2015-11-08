@@ -12,9 +12,9 @@
 
 \usage{
 ordiarrows(ord, groups, levels, replicates, order.by, display = "sites",
-         show.groups, startmark, label = FALSE, ...)
+         col = 1, show.groups, startmark, label = FALSE, length = 0.1, ...)
 ordisegments(ord, groups, levels, replicates, order.by, display = "sites",
-         show.groups, label = FALSE, ...)
+         col = 1, show.groups, label = FALSE, ...)
 ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1), 
          col = c(1,1), lwd = c(1,1), ...)
 }
@@ -48,8 +48,13 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
     will draw a circle.  For other plotting characters, see \code{pch}
     in \code{\link{points}}. }
 
-  \item{col}{Colour of lines in \code{ordigrid}.  This argument is
-    also passed to other functions to change the colour of lines.}
+  \item{col}{Colour of lines, \code{label} borders and
+    \code{startmark} in \code{ordiarrows} and
+    \code{ordisegments}. This can be a vector recycled for
+    \code{groups}. In \code{ordigrid} it can be a vector of length 2
+    used for \code{levels} and \code{replicates}.}
+
+  \item{length}{Length of edges of the arrow head (in inches).}
 
   \item{lty, lwd}{Line type, line width used for 
     \code{level}s and \code{replicate}s in \code{ordigrid}.}
@@ -82,8 +87,9 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
 example(pyrifos)
 mod <- rda(pyrifos)
 plot(mod, type = "n")
-## Annual succession by ditches
-ordiarrows(mod, ditch, label = TRUE)
+## Annual succession by ditches, colour by dose
+ordiarrows(mod, ditch, label = TRUE, col = as.numeric(dose))
+legend("topright", levels(dose), lty=1, col=1:5, title="Dose")
 ## Show only control and highest Pyrifos treatment
 plot(mod, type = "n")
 ordiarrows(mod, ditch, label = TRUE, 

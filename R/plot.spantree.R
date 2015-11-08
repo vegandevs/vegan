@@ -22,7 +22,7 @@
     }
     ord <- scores(ord, display = "sites", ...)
     ordiArgAbsorber(ord, asp = 1, type = "n", FUN = "plot", ...)
-    lines(x, ord)
+    lines(x, ord, ...)
     if (type == "p" || type == "b") 
         ordiArgAbsorber(ord, cex = cex, FUN = "points", ...)
     else if (type == "t") {

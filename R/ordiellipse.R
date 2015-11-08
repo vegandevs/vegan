@@ -20,7 +20,10 @@
         w <- rep(1, nrow(pts))
     if (is.null(w))
         w <- rep(1, nrow(pts))
-    ## make semitransparent fill
+    ## make semitransparent fill; alpha should be integer in 0..255,
+    ## but users may have given that as real in 0..1
+    if (alpha < 1)
+        alpha <- round(alpha * 255)
     if (draw == "polygon" && !is.null(col))
         col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
     if (!missing(show.groups)) {

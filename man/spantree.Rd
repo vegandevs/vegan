@@ -19,7 +19,7 @@ spantree(d, toolong = 0)
 spandepth(x)
 \method{plot}{spantree}(x, ord, cex = 0.7, type = "p", labels, dlim,
      FUN = sammon,  ...)
-\method{lines}{spantree}(x, ord, display="sites", ...)
+\method{lines}{spantree}(x, ord, display="sites", col = 1, ...)
 }
 
 \arguments{
@@ -47,7 +47,10 @@ spandepth(x)
   \item{FUN}{Ordination function to find the configuration from
     cophenetic dissimilarities. }
   \item{display}{Type of \code{\link{scores}} used for \code{ord}.}
-  \item{\dots}{Other parameters passed to functions.}
+  \item{col}{Colour of line segments. This can be a vector which is
+    recycled for points, and the line colour will be a mixture of two
+    joined points.}
+\item{\dots}{Other parameters passed to functions.}
 }
 \details{
   
@@ -144,7 +147,10 @@ plot(tr, type = "t")
 depths <- spandepth(tr)
 plot(tr, type = "t", label = depths)
 ## Plot as a dendrogram
-plot(as.hclust(tr))
+cl <- as.hclust(tr)
+plot(cl)
+## cut hclust tree to classes and show in colours in spantree
+plot(tr, col = cutree(cl, 5), pch=16)
 }
 \keyword{ multivariate}
 
