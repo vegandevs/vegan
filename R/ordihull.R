@@ -17,7 +17,10 @@
         yc <- sum((x[-n, 2] + x[-1, 2]) * xy)/A/6
         c(xc, yc)
     }
-    ## Make semitransparent fill colour
+    ## Make semitransparent fill colour; alpha should be integer
+    ## 0..255, but we also handle real values < 1
+    if (alpha < 1)
+        alpha <- round(alpha * 255)
     if (draw == "polygon" && !is.null(col))
         col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
     pts <- scores(ord, display = display, ...)
