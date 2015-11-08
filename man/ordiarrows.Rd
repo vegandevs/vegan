@@ -87,8 +87,9 @@ ordigrid(ord, levels, replicates, display = "sites",  lty = c(1,1),
 example(pyrifos)
 mod <- rda(pyrifos)
 plot(mod, type = "n")
-## Annual succession by ditches
-ordiarrows(mod, ditch, label = TRUE)
+## Annual succession by ditches, colour by dose
+ordiarrows(mod, ditch, label = TRUE, col = as.numeric(dose))
+legend("topright", levels(dose), lty=1, col=1:5, title="Dose")
 ## Show only control and highest Pyrifos treatment
 plot(mod, type = "n")
 ordiarrows(mod, ditch, label = TRUE, 
