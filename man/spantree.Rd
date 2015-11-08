@@ -147,7 +147,10 @@ plot(tr, type = "t")
 depths <- spandepth(tr)
 plot(tr, type = "t", label = depths)
 ## Plot as a dendrogram
-plot(as.hclust(tr))
+cl <- as.hclust(tr)
+plot(cl)
+## cut hclust tree to classes and show in colours in spantree
+plot(tr, col = cutree(cl, 5), pch=16)
 }
 \keyword{ multivariate}
 
