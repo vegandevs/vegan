@@ -127,6 +127,12 @@ lines(tr, pl, col="red")
 pl <- plot(isomap(dis, epsilon=0.45), main="isomap epsilon=0.45")
 lines(tr, pl, col="red")
 par(op)
+## colour points and web by the dominant species
+dom <- apply(BCI, 1, which.max)
+## need nine colours, but default palette  has only eight
+op <- palette(c(palette("default"), "sienna"))
+plot(ord, pch = 16, col = dom, n.col = dom) 
+palette(op)
 }
 \keyword{ multivariate}
 
