@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-09-30 r69442) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-11-08 r69614) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1511,7 +1511,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### Name: capscale
 > ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale oldCapscale dbrda dbRDA.D dbRDA2
+> ### Aliases: capscale oldCapscale dbrda dbRDA.D
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1550,9 +1550,9 @@ Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df SumOfSqs      F Pr(>F)    
-Model     3  0.97314 2.3717  0.001 ***
-Residual 19  2.59866                  
+         Df SumOfSqs      F Pr(>F)   
+Model     3  0.97314 2.3717  0.002 **
+Residual 19  2.59866                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Avoid negative eigenvalues with additive constant
@@ -2906,8 +2906,8 @@ Extrapolated     Observed       Veiled
 > ### Name: goodness.cca
 > ### Title: Diagnostic Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
-> ### Aliases: goodness goodness.cca goodness2.cca inertcomp spenvcor
-> ###   intersetcor vif.cca alias.cca
+> ### Aliases: goodness goodness.cca inertcomp spenvcor intersetcor vif.cca
+> ###   alias.cca
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3302,6 +3302,12 @@ Criterion: k = 3
 > pl <- plot(isomap(dis, epsilon=0.45), main="isomap epsilon=0.45")
 > lines(tr, pl, col="red")
 > par(op)
+> ## colour points and web by the dominant species
+> dom <- apply(BCI, 1, which.max)
+> ## need nine colours, but default palette  has only eight
+> op <- palette(c(palette("default"), "sienna"))
+> plot(ord, pch = 16, col = dom, n.col = dom) 
+> palette(op)
 > 
 > 
 > 
@@ -4545,8 +4551,9 @@ pyrifs> week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > mod <- rda(pyrifos)
 > plot(mod, type = "n")
-> ## Annual succession by ditches
-> ordiarrows(mod, ditch, label = TRUE)
+> ## Annual succession by ditches, colour by dose
+> ordiarrows(mod, ditch, label = TRUE, col = as.numeric(dose))
+> legend("topright", levels(dose), lty=1, col=1:5, title="Dose")
 > ## Show only control and highest Pyrifos treatment
 > plot(mod, type = "n")
 > ordiarrows(mod, ditch, label = TRUE, 
@@ -4565,9 +4572,9 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > 
 > ### Name: ordihull
 > ### Title: Display Groups or Factor Levels in Ordination Diagrams
-> ### Aliases: ordihull ordispider ordiellipse ordicluster weights.cca
-> ###   weights.rda weights.decorana summary.ordihull scores.ordihull
-> ###   summary.ordiellipse ordiareatest
+> ### Aliases: ordihull ordispider ordiellipse ordibar ordicluster
+> ###   weights.cca weights.rda weights.decorana summary.ordihull
+> ###   scores.ordihull summary.ordiellipse ordiareatest
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -4576,7 +4583,6 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > data(dune.env)
 > mod <- cca(dune ~ Management, dune.env)
 > attach(dune.env)
-> ## pass non-graphical arguments without warnings
 > plot(mod, type="n", scaling = 3)
 > ## Catch the invisible result of ordihull...
 > pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
@@ -4588,23 +4594,28 @@ CCA2 0.8632208 0.09419919  0.2681515 -0.8139398
 Area 0.1951715 0.59943363  1.7398193  1.0144372
 > ## use ordispider to label and mark the hull
 > plot(mod, type = "n")
-> pl <- ordihull(mod, Management, scaling = 3)
-> ordispider(pl, col="red", lty=3, label = TRUE )
+> pl <- ordihull(mod, Management, scaling = 3, col = 1:4, draw="polygon")
+> ordispider(pl, col=1:4, label = TRUE, lwd=2)
 > ## ordispider to connect WA and LC scores
 > plot(mod, dis=c("wa","lc"), type="p")
 > ordispider(mod)
 > ## Other types of plots
 > plot(mod, type = "p", display="sites")
-> ordicluster(mod, hclust(vegdist(dune)), prune=3, col = "blue")
+> cl <- hclust(vegdist(dune))
+> ordicluster(mod, cl, prune=3, col = cutree(cl, 4))
+> ## confidence ellipse: location of the class centroids
 > plot(mod, type="n", display = "sites")
-> text(mod, display="sites", labels = as.character(Management))
-> pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2, draw = "polygon", 
-+   col="skyblue", border = "blue")
+> text(mod, display="sites", labels = as.character(Management),
++   col=as.numeric(Management))
+> pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2,
++   draw = "polygon", col=1:4, border=1:4, alpha=63)
 > summary(pl)
             BF        HF          NM         SF
 CCA1 0.4312652 0.5583211 -1.87848340  0.5601499
 CCA2 1.3273917 0.6373120 -0.05503211 -1.3859924
-Area 1.4327487 1.3741246  2.61236323  1.4678748
+Area 1.4559842 1.3806668  2.73667419  1.5559135
+> ## add confidence bars
+> ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col=1:4, label=TRUE)
 > 
 > 
 > 
@@ -5076,7 +5087,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-7. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-9. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6812,7 +6823,15 @@ stress after  20 iters: 0.01139, magic = 0.500
 stress after  30 iters: 0.01118, magic = 0.500
 stress after  40 iters: 0.01114, magic = 0.500
 > ## Plot as a dendrogram
-> plot(as.hclust(tr))
+> cl <- as.hclust(tr)
+> plot(cl)
+> ## cut hclust tree to classes and show in colours in spantree
+> plot(tr, col = cutree(cl, 5), pch=16)
+Initial stress        : 0.03111
+stress after  10 iters: 0.01302, magic = 0.500
+stress after  20 iters: 0.01139, magic = 0.500
+stress after  30 iters: 0.01118, magic = 0.500
+stress after  40 iters: 0.01114, magic = 0.500
 > 
 > 
 > 
@@ -8554,7 +8573,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.792 0.164 24.032 0 0 
+Time elapsed:  24.136 0.172 24.322 0 0 
 > grDevices::dev.off()
 null device 
           1 
