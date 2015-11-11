@@ -26,10 +26,13 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     represented in; must be in \eqn{\{1,2,\ldots,n-1\}}{{1,2,\ldots,n-1}}. 
     If missing, all dimensions with above zero eigenvalue.}
   \item{eig}{indicates whether eigenvalues should be returned.}
-  \item{add}{logical indicating if an additive constant \eqn{c*} should
-    be computed, and added to the non-diagonal dissimilarities such that
-    all \eqn{n-1} eigenvalues are non-negative. \strong{Not implemented}. }
-  \item{x.ret}{indicates whether the doubly centred symmetric distance
+  \item{add}{an additive constant \eqn{c*} should be computed, and
+    added to the non-diagonal dissimilarities such that all \eqn{n-1}
+    eigenvalues are non-negative. Alternatives are \code{"lingoes"}
+    (default, also used with \code{TRUE}) and \code{"cailliez"} (which
+    is the only alternative in \code{\link{cmdscale}}. See Legendre &
+    Anderson (1999). }
+\item{x.ret}{indicates whether the doubly centred symmetric distance
     matrix should be returned.}
   \item{w}{Weights of points.}
   \item{x}{The \code{wcmdscale} result object when the function was
@@ -85,6 +88,10 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   Some distance properties of latent root and vector 
   methods used in multivariate analysis.  
   \emph{Biometrika} \bold{53}, 325--328.
+
+  Legendre, P. & Anderson, M. J. (1999). Distance-based redundancy
+    analysis: testing multispecies responses in multifactorial
+    ecological experiments. \emph{Ecology} \bold{69}, 1--24.
 
   Mardia, K. V., Kent, J. T. and Bibby, J. M. (1979).  Chapter 14 of
   \emph{Multivariate Analysis}, London: Academic Press.

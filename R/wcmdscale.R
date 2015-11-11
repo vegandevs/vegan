@@ -6,8 +6,6 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
         x <- sweep(x, 2, w.c, "-")
         x
     }
-    if (add)
-        .NotYetUsed("add")
     ## Force eig=TRUE if add, x.ret or !missing(w)
     if(x.ret)
         eig <- TRUE
@@ -18,6 +16,22 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
         d <- as.dist(d)
         options(op)
     }
+    ## handle add constant to make d Euclidean
+    if (is.logical(add) && isTRUE(add))
+        add <- "lingoes"
+    if (is.character(add)) {
+        add <- match.arg(add, c("lingoes", "cailliez"))
+        if (add == "lingoes") {
+            ac <- addLingoes(as.matrix(d))
+            d <- sqrt(d^2 + 2 * ac)
+        } else if (add == "cailliez") {
+            ac <- addCailliez(as.matrix(d))
+            d <- d + ac
+        }
+    } else {
+        ac <- NA
+    }
+    ## Gower centring
     m <- as.matrix(d^2)
     n <- nrow(m)
     if (missing(w))
@@ -53,8 +67,8 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     if (eig || x.ret) {
         colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="") 
         out <- list(points = points, eig = if (eig) e$values,
-                    x = if (x.ret) m, ac = NA, GOF = GOF, weights = w,
-                    negaxes = negaxes, call = match.call())
+                    x = if (x.ret) m, ac = ac, add = add, GOF = GOF,
+                    weights = w, negaxes = negaxes, call = match.call())
         class(out) <- "wcmdscale"
     }
     else out <- points
