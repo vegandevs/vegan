@@ -39,8 +39,8 @@
             head <- paste0(head, " constant permutation within each Plot")
     }
     if (isTRUE(all.equal(type, "grid"))) {
-        nr <- getRow(x, which = "plots")
-        nc <- getCol(x, which = "plots")
+        nr <- getRow(x, which = "within")
+        nc <- getCol(x, which = "within")
         head <- paste0(head, sprintf(ngettext(nr, " %d row", " %d rows"),
                                     nr))
         head <- paste0(head, sprintf(ngettext(nc, " %d column",
