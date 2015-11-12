@@ -183,6 +183,9 @@
     \item{\code{metaMDSdist}}{The data set name if 
        \code{metaMDSdist = TRUE}.} 
     \item{\code{ac}}{Additive constant used if \code{add = TRUE}.}
+    \item{\code{add}}{The adjustment method to find \code{ac}, either
+       \code{"lingoes"} or \code{"cailliez"} (Legendre & Legendre
+       2012).}
     \item{\code{adjust}}{Adjustment of dissimilarities: see
       \code{\link{capscale}}, section \dQuote{Notes}.}
     \item{\code{G}}{The working structure of Gower transformed

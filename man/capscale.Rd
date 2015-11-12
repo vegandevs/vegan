@@ -55,15 +55,14 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
     frame. If this is not supplied, the ``species scores'' unavailable.}
-  \item{add}{Logical indicating if an additive constant should be
-     computed and added to the non-diagonal dissimilarities such
-     that all eigenvalues are non-negative in the underlying
-     Principal Co-ordinates Analysis (see \code{\link{cmdscale}} 
-     for details). This implements \dQuote{correction method 2} of
-     Legendre & Legendre (2012, p. 503). The negative eigenvalues are
-     caused by using semi-metric or non-metric dissimilarities with
-     basically metric \code{\link{cmdscale}}. }
-   \item{dfun}{Distance or dissimilarity function used. Any function
+  \item{add}{Add a constant to the non-diagonal dissimilarities such
+     that all eigenvalues are non-negative in the underlying Principal
+     Co-ordinates Analysis (see \code{\link{wcmdscale}} for
+     details). Choice \code{"lingoes"} (or \code{TRUE}) use the
+     recommended method of Legendre & Anderson (1999: \dQuote{method
+     1}) and \code{"cailliez"} uses their \dQuote{method 2}. The
+     latter is the only one in \code{\link{cmdscale}}.}
+  \item{dfun}{Distance or dissimilarity function used. Any function
      returning standard \code{"dist"} and taking the index name as the
      first argument can be used. }
    \item{metaMDSdist}{Use \code{\link{metaMDSdist}} similarly as in
