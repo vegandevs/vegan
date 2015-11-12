@@ -139,8 +139,15 @@
     odis <- dist(Xbark)
     if (!is.null(object$CA$imaginary.u.eig))
         dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
-    if (!is.null(object$ac))
-        dis <- dis - object$ac
+    ## Remove additive constant to get original dissimilarities
+    if (!is.na(object$ac)) {
+        if (object$add == "lingoes")
+            dis <- sqrt(dis^2 - 2 * object$ac)
+        else if (object$add == "cailliez")
+            dis <- dis - object$ac
+        else
+            stop("unknown Euclidifying adjustment: no idea what to do")
+    }
     ## plot like above
         ## Plot
     if (missing(pch))
