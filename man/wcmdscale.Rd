@@ -26,13 +26,13 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     represented in; must be in \eqn{\{1,2,\ldots,n-1\}}{{1,2,\ldots,n-1}}. 
     If missing, all dimensions with above zero eigenvalue.}
   \item{eig}{indicates whether eigenvalues should be returned.}
-  \item{add}{an additive constant \eqn{c*} should be computed, and
-    added to the non-diagonal dissimilarities such that all \eqn{n-1}
-    eigenvalues are non-negative. Alternatives are \code{"lingoes"}
-    (default, also used with \code{TRUE}) and \code{"cailliez"} (which
-    is the only alternative in \code{\link{cmdscale}}. See Legendre &
-    Anderson (1999). }
-\item{x.ret}{indicates whether the doubly centred symmetric distance
+  \item{add}{an additive constant \eqn{c} is added to the non-diagonal
+    dissimilarities such that all \eqn{n-1} eigenvalues are
+    non-negative. Alternatives are \code{"lingoes"} (default, also
+    used with \code{TRUE}) and \code{"cailliez"} (which is the only
+    alternative in \code{\link{cmdscale}}). See Legendre & Anderson
+    (1999).}
+  \item{x.ret}{indicates whether the doubly centred symmetric distance
     matrix should be returned.}
   \item{w}{Weights of points.}
   \item{x}{The \code{wcmdscale} result object when the function was
@@ -55,7 +55,19 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   with \code{eig = TRUE} or \code{x.ret = TRUE}, the function returns
   an object of class \code{"wcmdscale"} with \code{print},
   \code{plot}, \code{scores}, \code{\link{eigenvals}} and
-  \code{\link{stressplot}} methods, and described in section Value.  
+  \code{\link{stressplot}} methods, and described in section Value.
+
+  The method is Euclidean, and with non-Euclidean dissimilarities some
+  eigenvalues can be negative. If this disturbs you, this can be
+  avoided by adding a constant to non-diagonal dissimilarities making
+  all eigenvalues non-negative. The function implements methods
+  discussed by Legndre & Anderson (1999): The method of Lingoes
+  (\code{add="lingoes"}) adds the constant \eqn{c} to squared
+  dissimilarities \eqn{d} using \eqn{\sqrt{d^2 + 2 c}}{sqrt(d^2 + 2*c)}
+  and the method of Cailliez (\code{add="cailliez"}) to
+  dissimilarities using \eqn{d + c}. Legendre & Anderson (1999)
+  recommend the method of Lingoes, and base \R{} function
+  \code{\link{cmdscale}} implements the method of Cailliez.
 }
 
 \value{ If \code{eig = FALSE} and \code{x.ret = FALSE} (default), a
@@ -70,7 +82,10 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \item{eig}{the \eqn{n-1} eigenvalues computed during the scaling
     process if \code{eig} is true.}
   \item{x}{the doubly centred and weighted distance matrix if
-  \code{x.ret} is true.}
+    \code{x.ret} is true.}
+  \item{ac, add}{additive constant and adjustment method used to avoid
+    negative eigenvalues. These are \code{NA} and \code{FALSE} if no
+    adjustment was done.}
   \item{GOF}{Goodness of fit statistics for \code{k} axes. The first
     value is based on the sum of absolute values of all eigenvalues,
     and the second value is based on the sum of positive eigenvalues}
