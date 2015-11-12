@@ -53,14 +53,14 @@
   space (with all ordination axes) are equal to observed distances, and
   the fit line shows this equality. In general, the fit line does not go
   through the points, but the points for observed distances approach the
-  fit line from below. However, with non-metric distances (in
+  fit line from below. However, with non-Euclidean distances (in
   \code{\link{wcmdscale}} or \code{\link{capscale}}) with negative
   eigenvalues the ordination distances can exceed the observed distances
   in real dimensions; the imaginary dimensions with negative eigenvalues
   will correct these excess distances. If you have used
-  \code{\link{capscale}} with argument \code{add = TRUE} to avoid
-  negative eigenvalues, the ordination distances will exceed the
-  observed dissimilarities by the additive constant.
+  \code{\link{capscale}} or \code{\link{wcmdscale}} with argument
+  \code{add} to avoid negative eigenvalues, the ordination distances
+  will exceed the observed dissimilarities by the additive constant.
 
   In partial ordination (\code{\link{cca}}, \code{\link{rda}} and
   \code{\link{capscale}} with \code{Condition} in the formula), the
@@ -71,7 +71,8 @@
 }
 
 \value{
-  Functions draw a graph and return invisibly the ordination distances.
+  Functions draw a graph and return invisibly the ordination distances
+  or the ordination distances.
 }
 
 \author{

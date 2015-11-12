@@ -21,13 +21,15 @@
     dis <- dist(u)
     if (!is.null(object$negaxes))
         dis <- sqrt(dis^2 - dist(diag(w) %*% object$negaxes)^2)
-    ## additive constant is not implemented in wcmdscale (which
-    ## returns 'ac = NA'), but the next statement would take care of
-    ## that: we want to have the input distances as observed distances
-    ## so that we need to subtract 'ac' here, although ordination
-    ## distances 'odis' do not add up to 'dis' but to 'dis + ac'.
-    if (!is.na(object$ac))
-        dis <- dis - object$ac
+    ## Remove additive constant to get original dissimilarities
+    if (!is.na(object$ac)) {
+        if (object$add == "lingoes")
+            dis <- sqrt(dis^2 - 2 * object$ac)
+        else if (object$add == "cailliez")
+            dis <- dis - object$ac
+        else
+            stop("unknown Euclidifying adjustment: no idea what to do")
+    }
     ##Plot
     if (missing(pch))
         if (length(dis) > 5000)
