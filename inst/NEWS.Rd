@@ -2,6 +2,41 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-2}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Display of gridded permutation results failed.
+
+      \item \code{ordicluster} joined the branches at wrong coordinates
+      in some cases.
+
+      \item \code{ordiellipse} ignored weights when calculating standard
+      errors (\code{kind = "se"}). This influenced plots of \code{cca},
+      and also influenced \code{ordiareatest}.
+
+    } % itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{text}, \code{points} and \code{lines} functions for
+      \code{procrustes} analysis gained new argument \code{truemean}
+      which allows adding \code{procrustes} items to the plots of
+      original analysis.
+
+      \item \code{rrarefy} returns observed non-rarefied communities
+      (with a warning) when users request subsamples that are larger
+      than the observed community instead of failing. Function
+      \code{drarefy} has been similar and returned sampling
+      probabilities of 1, but now it also issues a warning.
+
+    } % itemize
+  } % new features
+} %v2.3-2
+
 \section{Changes in version 2.3-1}{
 
   \subsection{BUG FIXES}{
