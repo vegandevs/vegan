@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2015-11-08 r69614) -- "Unsuffered Consequences"
+R Under development (unstable) (2015-11-12 r69625) -- "Unsuffered Consequences"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1558,28 +1558,26 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Avoid negative eigenvalues with additive constant
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
 +                      dist="bray", add =TRUE)
-Warning in cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE) :
-  only 22 of the first 23 eigenvalues are > 0
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", add = TRUE)
 
               Inertia Proportion Rank
-Total          8.9643     1.0000     
-Conditional    1.5053     0.1679    1
-Constrained    1.7171     0.1915    3
-Unconstrained  5.7419     0.6405   19
-Inertia is squared Bray distance (euclidified) 
+Total          6.2496     1.0000     
+Conditional    1.0468     0.1675    1
+Constrained    1.1956     0.1913    3
+Unconstrained  4.0073     0.6412   19
+Inertia is squared Bray distance (lingoes adjusted) 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
-0.8744 0.5676 0.2751 
+0.6103 0.3940 0.1913 
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-1.4408 0.8523 0.6015 0.4888 0.4187 0.3538 0.2877 0.2160 
+0.9796 0.5811 0.4077 0.3322 0.2769 0.2346 0.1962 0.1566 
 (Showed only 8 of all 19 unconstrained eigenvalues)
 
-Constant added to distances: 0.2614286 
+Constant added to distances: 0.07413903 
 
 > ## Avoid negative eigenvalues by taking square roots of dissimilarities
 > capscale(varespec ~ N + P + K + Condition(Al), varechem,
@@ -8573,7 +8571,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.136 0.172 24.322 0 0 
+Time elapsed:  23.004 0.148 23.139 0 0 
 > grDevices::dev.off()
 null device 
           1 
