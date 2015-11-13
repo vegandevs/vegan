@@ -33,7 +33,7 @@
       \code{drarefy} has been similar and returned sampling
       probabilities of 1, but now it also issues a warning. Fixes issue
       \href{https://github.com/vegandevs/vegan/issues/144}{#144} in
-      Github,
+      Github.
 
     } % itemize
   } % new features
