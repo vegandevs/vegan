@@ -39,8 +39,7 @@
     inertia <- paste(inertia, "distance")
     if (!sqrt.dist)
         inertia <- paste("squared", inertia)
-    if (add) 
-        inertia <- paste(inertia, "(euclidified)")
+    ## postpone info on euclidification till we have done so
 
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
@@ -72,17 +71,11 @@
         adjust <- sqrt(k)
     }
     nm <- attr(X, "Labels")    
-    ## cmdscale is only used if 'add = TRUE': it cannot properly
-    ## handle negative eigenvalues and therefore we normally use
-    ## wcmdscale. If we have 'add = TRUE' there will be no negative
-    ## eigenvalues and this is not a problem.
-    if (add) {
-        X <- cmdscale(X, k = k, eig = TRUE, add = add, x.ret = TRUE)
-        ## All eigenvalues *should* be positive, but see that they are
-        X$eig <- X$eig[X$eig > 0]
-    }
-    else
-        X <- wcmdscale(X, x.ret = TRUE)
+    ## wcmdscale, optionally with additive adjustment
+    X <- wcmdscale(X, x.ret = TRUE, add = add)
+    ## this may have been euclidified: update inertia
+    if (!is.na(X$ac) && X$ac > 0)
+        inertia <- paste(inertia, " (", X$add, " adjusted)", sep="")
     if (is.null(rownames(X$points))) 
         rownames(X$points) <- nm
     X$points <- adjust * X$points
@@ -189,8 +182,10 @@
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
     sol$method <- "capscale"
-    if (add)
+    if (!is.na(X$ac) && X$ac > 0) {
         sol$ac <- X$ac
+        sol$add <- X$add
+    }
     sol$adjust <- adjust
     sol$inertia <- inertia
     if (metaMDSdist)

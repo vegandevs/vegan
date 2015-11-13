@@ -16,8 +16,14 @@
     if (type == "response") {
         U <- dist(U)
         ## remove additive constant (if add = TRUE)
-        if (!is.null(object$ac))
-            U <- U - object$ac
+        if (!is.null(object$ac)) {
+            if (object$add == "lingoes")
+                U <- sqrt(U^2 - 2 * object$ac)
+            else if (object$add == "cailliez")
+                U <- U - object$ac
+            else
+                stop("unknown Euclidifying adjustment")
+        }
     }
     U
 }
