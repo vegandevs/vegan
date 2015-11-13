@@ -31,7 +31,9 @@
       (with a warning) when users request subsamples that are larger
       than the observed community instead of failing. Function
       \code{drarefy} has been similar and returned sampling
-      probabilities of 1, but now it also issues a warning.
+      probabilities of 1, but now it also issues a warning. Fixes issue
+      \href{https://github.com/vegandevs/vegan/issues/144}{#144} in
+      Github,
 
     } % itemize
   } % new features
