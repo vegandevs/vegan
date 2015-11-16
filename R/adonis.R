@@ -39,7 +39,7 @@
             stop("dissimilarities must be non-negative")
         dmat <- as.matrix(lhs^2)
     } else if (is.matrix(lhs) || is.data.frame(lhs) &&
-               NCOL(lhs) == NROW(lhs) && isTRUE(all.equal(lhs, t(lhs)))) {
+               isSymmetric(unname(as.matrix(lhs)))) {
         dmat <- as.matrix(lhs^2)
         lhs <- as.dist(lhs) # crazy: need not to calculate beta.sites
     } else {
