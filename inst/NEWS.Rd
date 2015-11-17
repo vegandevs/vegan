@@ -7,7 +7,8 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item Display of gridded permutation results failed.
+      \item Printing details of a gridded permutation design would fail
+      when the grid was at the within-plot level.
 
       \item \code{ordicluster} joined the branches at wrong coordinates
       in some cases.
