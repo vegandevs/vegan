@@ -12,7 +12,14 @@
     N <- nrow(object$CA$Xbar)
     if (inherits(object, "rda")) 
         N <- 1
-    Dist <- dist(xy)
+    ## we expect xy are coordinates and calculate distances, but a
+    ## swift user may have supplied distances, and we use them.
+    ## However, we won't test for distances in square matrices, but
+    ## treat that as a user mistake and let it go.
+    if (inherits(xy, "dist"))
+        Dist <- xy
+    else
+        Dist <- dist(xy)
     object$grain <- grain
     if (round.up) 
         H <- ceiling(Dist/grain) * grain

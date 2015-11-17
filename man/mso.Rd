@@ -18,12 +18,13 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...
 }
 \arguments{
   \item{object.cca}{ An object of class cca, created by the \code{\link{cca}} or
-    \code{\link{rda}} function.} 
-  \item{object.xy}{ A vector, matrix or data frame with the spatial
-    coordinates of the data represented by object.cca. Must have the
-    same number of rows as \code{object.cca$CA$Xbar} (see
-    \code{\link{cca.object}}). } 
-  \item{grain}{ Interval size for distance classes.}
+    \code{\link{rda}} function.}
+   \item{object.xy}{ A vector, matrix or data frame with the spatial
+    coordinates of the data represented by \code{object.cca}. The
+    number of rows must match the number of observations (as given by
+    \code{nobs}) in \code{cca.object}. Alternatively, interpoint
+    distances can be supplied as a \code{\link{dist}} object. }
+   \item{grain}{ Interval size for distance classes.}
   \item{round.up}{ Determines the choice of breaks. If false, distances
     are rounded to the nearest multiple of grain. If true, distances are
     rounded to the upper multiple of grain.} 
