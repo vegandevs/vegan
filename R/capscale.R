@@ -19,7 +19,7 @@
     X <- eval(formula[[2]], envir=environment(formula),
               enclos = globalenv())
     ## see if user supplied dissimilarities as a matrix
-    if (is.matrix(X) || is.data.frame(X) &&
+    if ((is.matrix(X) || is.data.frame(X)) &&
         isSymmetric(unname(as.matrix(X))))
         X <- as.dist(X)
     if (!inherits(X, "dist")) {
