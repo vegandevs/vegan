@@ -38,8 +38,11 @@
         if (any(lhs < -TOL))
             stop("dissimilarities must be non-negative")
         dmat <- as.matrix(lhs^2)
-    }
-    else {
+    } else if ((is.matrix(lhs) || is.data.frame(lhs)) &&
+               isSymmetric(unname(as.matrix(lhs)))) {
+        dmat <- as.matrix(lhs^2)
+        lhs <- as.dist(lhs) # crazy: need not to calculate beta.sites
+    } else {
         dist.lhs <- as.matrix(vegdist(lhs, method=method, ...))
         dmat <- dist.lhs^2
     }
