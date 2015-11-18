@@ -33,6 +33,10 @@
       \code{dist}, \code{vegdist} and other conforming functions. This
       is still the recommended safe method.
 
+      \item \code{mso} accepts now \code{"dist"} objects for the
+      distances among locations as an alternative to coordinates of
+      locations.
+
       \item \code{text}, \code{points} and \code{lines} functions for
       \code{procrustes} analysis gained new argument \code{truemean}
       which allows adding \code{procrustes} items to the plots of
