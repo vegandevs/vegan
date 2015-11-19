@@ -34,7 +34,7 @@
     TOL <- 1e-7
     Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
-    lhs <- eval(lhs, data, parent.frame()) # to force evaluation
+    lhs <- eval(lhs, .GlobalEnv, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
     rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
     rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
@@ -42,6 +42,9 @@
     rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
     qrhs <- qr(rhs)
     ## handle dissimilarities
+    if ((is.matrix(lhs) || is.data.frame(lhs)) &&
+        isSymmetric(unname(as.matrix(lhs))))
+        lhs <- as.dist(lhs)
     if (inherits(lhs, "dist")) {
         if (any(lhs < -TOL))
             stop("dissimilarities must be non-negative")
