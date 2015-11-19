@@ -5,8 +5,9 @@
 {
     ## metaMDSdist should get a raw data matrix, but if it gets a
     ## 'dist' object return that unchanged and quit silently.
-    if (inherits(comm, "dist")  || ncol(comm) == nrow(comm) &&
-        all(comm == t(comm)))
+    if (inherits(comm, "dist")  ||
+        ((is.matrix(comm) || is.data.frame(comm)) &&
+             isSymmetric(unname(as.matrix(comm)))))
         return(comm)
     distname <- deparse(substitute(distfun))
     distfun <- match.fun(distfun)
