@@ -23,19 +23,16 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item \code{adonis} and \code{capscale} functions can now
-      recognize symmetric square matrices as dissimilarities (like
-      expected by many users, see issue
+      \item \code{adonis} and \code{capscale} functions recognize
+      symmetric square matrices as dissimilarities. Formerly
+      dissimilarities had to be given as \code{"dist"} objects such as
+      produced by \code{dist} or \code{vegdist} functions, and data
+      frames and matrices were regarded as observations x variables
+      data which could confuse users (e.g., issue
       \href{https://github.com/vegandevs/vegan/issues/147}{#147}).
-      Formerly matrices and data frames were treated as sites x
-      species or sites x variables data, and dissimilarities had to be
-      supplied as \code{"dist"} objects such as produced by
-      \code{dist}, \code{vegdist} and other conforming functions. This
-      is still the recommended safe method.
 
-      \item \code{mso} accepts now \code{"dist"} objects for the
-      distances among locations as an alternative to coordinates of
-      locations.
+      \item \code{mso} accepts \code{"dist"} objects for the distances
+      among locations as an alternative to coordinates of locations.
 
       \item \code{text}, \code{points} and \code{lines} functions for
       \code{procrustes} analysis gained new argument \code{truemean}
