@@ -27,8 +27,8 @@
         if (is.null(attr(dis, "method")))
             attr(dis, "method") <- "user supplied"
         wascores <- FALSE
-    } else if (length(dim(comm) == 2) && ncol(comm) == nrow(comm) &&
-                all(comm == t(comm))) {
+    } else if ((is.matrix(comm) || is.data.frame(comm)) &&
+               isSymmetric(unname(as.matrix(comm)))) {
         dis <- as.dist(comm)
         attr(dis, "method") <- "user supplied"
         wascores <- FALSE

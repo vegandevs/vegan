@@ -14,8 +14,8 @@
     }
     if (inherits(dat, "dist")) 
         dmat <- dat
-    else if (is.matrix(dat) && nrow(dat) == ncol(dat) && all(dat[lower.tri(dat)] == 
-        t(dat)[lower.tri(dat)])) {
+    else if ((is.matrix(dat) || is.data.frame(dat)) &&
+               isSymmetric(unname(as.matrix(dat)))) {
         dmat <- dat
         attr(dmat, "method") <- "user supplied square matrix"
     }

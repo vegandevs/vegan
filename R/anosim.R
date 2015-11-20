@@ -5,12 +5,13 @@
     EPS <- sqrt(.Machine$double.eps)
     if (inherits(dat, "dist")) 
         x <- dat
-    else if (is.matrix(dat) && nrow(dat) == ncol(dat) && all(dat[lower.tri(dat)] == 
-        t(dat)[lower.tri(dat)])) {
-        x <- dat
+    else if ((is.matrix(dat) || is.data.frame(dat)) &&
+             isSymmetric(unname(as.matrix(dat)))) {
+        x <- as.dist(dat)
         attr(x, "method") <- "user supplied square matrix"
     }
-    else x <- vegdist(dat, method = distance)
+    else
+        x <- vegdist(dat, method = distance)
     if (any(x < -sqrt(.Machine$double.eps)))
         warning("some dissimilarities are negative -- is this intentional?")
     sol <- c(call = match.call())

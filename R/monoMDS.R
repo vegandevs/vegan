@@ -6,9 +6,9 @@
              sratmax=0.99999, ...) 
 {
     ## Check that 'dist' are distances or a symmetric square matrix
-    if (!(inherits(dist, "dist") || (is.matrix(dist) || is.data.frame(dist))
-          && ncol(dist) == nrow(dist)
-          && isTRUE(all.equal(dist[lower.tri(dist)], t(dist)[lower.tri(dist)]))))
+    if (!(inherits(dist, "dist") ||
+              ((is.matrix(dist) || is.data.frame(dist)) &&
+                   isSymmetric(unname(as.matrix(dist))))))
         stop("'dist' must be a distance object (class \"dist\") or a symmetric square matrix")
     if (any(dist < -sqrt(.Machine$double.eps), na.rm = TRUE))
         warning("some dissimilarities are negative -- is this intentional?")

@@ -70,8 +70,8 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         index <- attr(comdis, "method")
         if (is.null(index))
             index <- "unspecified"
-    } else if (is.matrix(comm) && nrow(comm) == ncol(comm) &&
-             isTRUE(all.equal(comm, t(comm)))) {
+    } else if ((is.matrix(comm) || is.data.frame(comm)) &&
+               isSymmetric(unname(as.matrix(comm)))) {
         comdis <- as.dist(comm)
         index <- "supplied square matrix"
     } else {

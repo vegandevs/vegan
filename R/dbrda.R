@@ -19,6 +19,9 @@
     ## mysteriously at this point.
     X <- eval(formula[[2]], envir=environment(formula),
               enclos = globalenv())
+    if ((is.matrix(X) || is.data.frame(X)) &&
+               isSymmetric(unname(as.matrix(X))))
+        X <- as.dist(X)
     if (!inherits(X, "dist")) {
         comm <- X
         dfun <- match.fun(dfun)
