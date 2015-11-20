@@ -1,15 +1,11 @@
 `pcnm` <- function(dis, threshold, w, dist.ret = FALSE) {
-    if (!inherits(dis, "dist")) {
-        dims <- dim(dis)
-        if (length(unique(dims)) >1) {
-            stop("'dis' does not appear to be a square distance matrix.")
-        }
+    ## square matrix to dist
+    if ((is.matrix(dis) || is.data.frame(dis)) &&
+        isSymmetric(unname(as.matrix(dis))))
         dis <- as.dist(dis)
-    }
+    if (!inherits(dis, "dist"))
+        stop("'dis' does not appear to be distances")
     EPS <- sqrt(.Machine$double.eps)
-    wa.old <- options(warn = -1)
-    on.exit(options(wa.old))
-    dis <- as.dist(dis)
     if (missing(threshold)) {
         threshold <- max(spantree(dis)$dist)
     }
