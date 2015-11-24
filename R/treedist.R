@@ -1,6 +1,7 @@
 `treedist` <-
     function(x, tree, relative = TRUE,  match.force = TRUE, ...)
 {
+    x <- as.matrix(x)
     n <- nrow(x)
     ABJ <- matrix(0, n , n)
     dmat <- as.matrix(cophenetic(tree))
