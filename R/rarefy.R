@@ -2,22 +2,23 @@
     function (x, sample, se = FALSE, MARGIN = 1) 
 {
     x <- as.matrix(x)
-    minsample <- min(apply(x, MARGIN, sum))
-    if (any(sample > minsample))
-        warning(
-            gettextf("Requested 'sample' was larger than smallest site maximum (%d)",
-                     minsample))
     ## as.matrix changes an n-vector to a n x 1 matrix
     if (ncol(x) == 1 && MARGIN == 1)
         x <- t(x)
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    minsample <- min(apply(x, MARGIN, sum))
     if (missing(sample)) {
-        sample <- min(apply(x, MARGIN, sum))
-        info <- paste("The size of 'sample' must be given --\nHint: Smallest site maximum", 
-                      sample)
-        stop(info)
+        stop(
+            gettextf(
+                "The size of 'sample' must be given --\nHint: Smallest site maximum %d",
+                minsample))
     }
+    if (any(sample > minsample))
+        warning(
+            gettextf(
+                "Requested 'sample' was larger than smallest site maximum (%d)",
+                minsample))
     rarefun <- function(x, sample) {
         x <- x[x > 0]
         J <- sum(x)
