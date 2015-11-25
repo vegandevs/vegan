@@ -1,6 +1,10 @@
-eventstar <- function(x, qmax=5) {
+`eventstar` <-
+    function(x, qmax=5)
+{
     if (is.null(dim(x)))
         x <- matrix(x, 1, length(x))
+    else
+        x <- as.matrix(x) # faster than data.frame
     lossfun <- function(q, x)
         tsallis(x, scales=q, norm=TRUE)
     qstarfun <- function(x) {

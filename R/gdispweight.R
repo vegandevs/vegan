@@ -26,6 +26,7 @@
     family <- quasipoisson()
     V <- family$variance
     ## fit models to all species separately and extract results
+    comm <- as.data.frame(comm)
     mods <- lapply(comm, function(y) glm.fit(x, y, family = family))
     y <- sapply(mods, '[[', "y")
     mu <- sapply(mods, fitted)

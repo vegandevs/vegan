@@ -2,6 +2,8 @@
     function(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
              label = TRUE, col, lty, ...)
 {
+    ## matrix is faster than data.frame
+    x <- as.matrix(x)
     ## check input data: must be counts
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
