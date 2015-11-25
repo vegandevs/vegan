@@ -9,6 +9,8 @@
 
     index <- match.arg(index)
 
+    comm <- as.matrix(comm) # faster than data.frame
+
     x <- comm[rowSums(comm) > 0, colSums(comm) > 0]
     n <- nrow(x)
     S <- ncol(x)
