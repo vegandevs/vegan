@@ -3,7 +3,7 @@
 {
     comm <- as.matrix(comm)
     if (!inherits(tree, c("hclust", "spantree")))
-        stop("'clus' must be an 'hclust' or 'spantree' result object")
+        stop("'tree' must be an 'hclust' or 'spantree' result object")
     if (inherits(tree, "hclust") && is.unsorted(tree$height))
         stop("tree with reversals cannot be handled")
     m <- as.matrix(cophenetic(tree))
