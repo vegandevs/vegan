@@ -2,8 +2,9 @@
     function(x, tree, relative = TRUE,  match.force = TRUE, ...)
 {
     ## we cannot reconstruct tree with reversals from cophenetic
-    if (is.unsorted(as.hclust(tree)$height))
-        stop("tree with reverasals cannot be handled")
+    tree <- as.hclust(tree)
+    if (any(diff(tree$height) < -sqrt(.Machine$double.eps)))
+        stop("tree with reversals cannot be handled")
     x <- as.matrix(x)
     n <- nrow(x)
     ABJ <- matrix(0, n , n)
