@@ -34,7 +34,7 @@
     if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             areas <- do.call(cbind,
-                             mclapply(1:permutations,
+                             mclapply(1:nperm,
                                       function(i, ...) pfun(perm[i,],...),
                                         mc.cores = parallel))
             } else {
@@ -46,7 +46,7 @@
                     stopCluster(parallel)
             }
     } else {
-        areas <- sapply(1:permutations, function(i, ...) pfun(perm[i,], ...))
+        areas <- sapply(1:nperm, function(i, ...) pfun(perm[i,], ...))
     }
     signif <- (rowSums(areas <= obs + EPS) + 1)/(nperm + 1)
     out <- list("areas" = obs, "pvalues" = signif, "permutations" = areas,
