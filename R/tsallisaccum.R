@@ -13,6 +13,7 @@
         p <- ncol(x)
     }
     pmat <- getPermuteMatrix(permutations, n)
+    permutations <- nrow(pmat)
     m <- length(scales)
     result <- array(dim = c(n, m, permutations))
     dimnames(result) <- list(pooled.sites = c(1:n), scale = scales, 
