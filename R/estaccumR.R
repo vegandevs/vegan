@@ -28,7 +28,7 @@
                 stopCluster(parallel)
         }
     } else {
-        tmp <- lapply(1:permutations, function(i) estFun(permat[i,]))
+        tmp <- lapply(1:nperm, function(i) estFun(permat[i,]))
     }
 
     S <- sapply(tmp, function(x) x[1,])
