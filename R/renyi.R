@@ -10,7 +10,10 @@
         n <- nrow(x)
         p <- ncol(x)
     }
-    x <- decostand(x, "total", 1)
+    ## do not make total=1 if not needed (diversity() does anyway,
+    ## species richness does not need)
+    if (!all(scales %in% c(0,1)))
+        x <- sweep(x, 1, rowSums(x), "/")
     m <- length(scales)
     result <- array(0, dim = c(n, m))
     dimnames(result) <- list(sites = rownames(x), scale = scales)
@@ -34,9 +37,10 @@
     }
     if (hill) 
         result <- exp(result)
-    result <- as.data.frame(result)
-    if (any(dim(result) == 1)) 
-        result <- unlist(result, use.names = TRUE)
+    if (any(dim(result) == 1))
+        result <- drop(result)
+    else
+        result <- as.data.frame(result)
     class(result) <- c("renyi", class(result))
     result
 }
