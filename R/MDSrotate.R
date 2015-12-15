@@ -15,6 +15,10 @@
     N <- NCOL(x)
     if (N < 2)
         stop(gettextf("needs at least 2 dimensions"))
+    ## check if vec is a factor and then use lda to find a matrix that
+    ## separates optimally factor levels
+    if (is.factor(vec) || is.character(vec))
+        vec <- predict(lda(x, vec), dimen = NCOL(x)-1)$x
     vec <- as.matrix(vec)
     NV <- NCOL(vec)
     if (NV >= N)
