@@ -19,10 +19,12 @@ MDSrotate(object, vec, na.rm = FALSE, ...)
  \item{object}{ A result object from \code{\link{metaMDS}} or
     \code{\link{monoMDS}}.}
 
-  \item{vec}{ A continuous environmental variable or a matrix of such
-    variables. The number of variables must be lower than the number of
-    dimensions, and the solution is rotated to these variables in the
-    order they appear in the matrix.}
+  \item{vec}{An environmental variable or a matrix of such
+    variables. The number of variables must be lower than the number
+    of dimensions, and the solution is rotated to these variables in
+    the order they appear in the matrix. Alternatively \code{vec} can
+    be a factor, and the solution is rotated to optimal separation of
+    factor levels using \code{\link[MASS]{lda}}.}
 
   \item{na.rm}{ Remove missing values from the continuous variable
     \code{vec}.}
@@ -46,13 +48,29 @@ MDSrotate(object, vec, na.rm = FALSE, ...)
   uncorrelated to later dimensions. There must be at least one free
   dimension: the number of external variables must be lower than the
   number of dimensions, and all used environmental variables are
-  uncorrelated with that free dimension.}
+  uncorrelated with that free dimension.
+
+  Alternatively the method can rotate to discriminate the levels of a
+  factor using linear discriminant analysis
+  (\code{\link[MASS]{lda}}). This is hardly meaningful for
+  two-dimensional solutions, since all rotations in two dimensions
+  have the same separation of cluster levels. However, the function
+  can be useful in finding a two-dimensional projection of clusters
+  from more than two dimensions. The last dimension will always show
+  the residual variation, and for \eqn{k} dimensions, only \eqn{k-1}
+  discrimination vectors are used.
+
+}
 
 \value{ Function returns the original ordination result, but with
   rotated scores (both site and species if available), and the
   \code{pc} attribute of scores set to \code{FALSE}.  
 }
 
+\note{Rotation to a factor variable is an experimental feature and may
+  be removed. The discriminant analysis weights dimensions by their
+  discriminating power, but \code{MDSrotate} performs a rigid
+  rotation. Therefore the solution may not be optimal.}
 
 \author{
   Jari Oksanen

@@ -15,6 +15,19 @@
     N <- NCOL(x)
     if (N < 2)
         stop(gettextf("needs at least 2 dimensions"))
+    ## check if vec is a factor and then use lda to find a matrix that
+    ## separates optimally factor levels
+    if (is.factor(vec) || is.character(vec)) {
+        da <- lda(x, vec)
+        vec <- predict(da, dimen = N - 1)$x
+        message(sprintf(ngettext(NCOL(vec),
+                         "Factor replaced with disciminant axis.",
+                         "Factor replaced with %d discriminant axes.",
+                                 ), NCOL(vec)))
+        if (NCOL(vec) > 1)
+            message("Proportional traces:", gettextf(" %.3f",
+                             da$svd[1:NCOL(vec)]^2/sum(da$svd^2)))
+    }
     vec <- as.matrix(vec)
     NV <- NCOL(vec)
     if (NV >= N)

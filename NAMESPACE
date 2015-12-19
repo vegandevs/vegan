@@ -85,7 +85,7 @@ import(grDevices) ## too many functions to be listed separately
 import(lattice)
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply)
-importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm)
+importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm, lda)
 importFrom(cluster, daisy)
 ## 's' must be imported in mgcv < 1.8-0 (not needed later)
 importFrom(mgcv, gam, s, te, predict.gam, summary.gam)
