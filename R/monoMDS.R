@@ -5,6 +5,11 @@
              scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
              sratmax=0.99999, ...) 
 {
+    ## monoMDS seems to fail if dissimilarities are very high: github
+    ## issue #152 reports a case where dissimilarities are inthe range
+    ## 2E22..2E85 (!). We scale dissimilarities down if they look very
+    ## long.
+    BADSCALING <- 1e6
     ## Check that 'dist' are distances or a symmetric square matrix
     if (!(inherits(dist, "dist") ||
               ((is.matrix(dist) || is.data.frame(dist)) &&
@@ -104,6 +109,9 @@
         ities <- 1
     else
         ities <- 2
+    ## check BADSCALING
+    if ((dmax <- max(dist)) > BADSCALING)
+        dist <- dist/dmax
     ## Fortran call
     sol <- .Fortran("monoMDS", nobj = as.integer(nobj), nfix=as.integer(0),
                  ndim = as.integer(k), ndis = as.integer(ndis),
@@ -119,6 +127,9 @@
                  stress = double(1), grstress = double(ngrp),
                  iters = integer(1), icause = integer(1),
                  PACKAGE = "vegan")
+    ## reset original scale of dissimilarities when BADSCALING
+    if (dmax > BADSCALING)
+        sol$diss <- dmax * sol$diss
     sol$call <- match.call()
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)
