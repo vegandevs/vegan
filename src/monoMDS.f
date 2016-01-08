@@ -10,6 +10,10 @@ C 1.00 March 28, 2011
 C 1.01 April 6, 2011  - added argument STRS(NGRP) to return the stress
 C                       for each of the NGRP groups of dissimilarities
 C                       i.e., from each separate regression.
+C 1.02 January 7, 2016 - fixed bug in MONREG so that huge 
+C                        dissimilarities are correctly handled in
+C                        creating the initial partition for monotone 
+C                        regression with primary tie treatment.
 C
 C Written by Dr. Peter R. Minchin
 C            Department of Biological Sciences
@@ -596,9 +600,9 @@ C OTHERWISE, UPDATE STEP SIZE.
 C
       ELSE
         FACTR1=4.0**COSAV
-        FACTR2=1.6/( (1.0+(MIN(1D0,SRATAV))**5) *
+        FACTR2=1.6/( (1.0+(MIN(1.0,SRATAV))**5) *
      .    (1.0+ACOSAV-ABS(COSAV)) )
-        FACTR3=SQRT(MIN(1D0,SRATIO))
+        FACTR3=SQRT(MIN(1.0,SRATIO))
         STEP=STEP*FACTR1*FACTR2*FACTR3
       ENDIF
       RETURN
@@ -900,7 +904,9 @@ C-----------------------------------------------------------------------
         IF (I.LT.N) THEN
           DNEXT=DISS(I+1)
         ELSE
-          DNEXT=DISS(I)+1.0
+C---Bug fix January 7, 2016: correctly handles huge dissimilarities
+C          DNEXT=DISS(I)+1.0
+          DNEXT=DISS(I)*2.0
         END IF
         IF (ABS(DNEXT-DISS(I)).GT.TOLER) THEN
 C---NTIE is the number of DISS values in the current group of tied values
