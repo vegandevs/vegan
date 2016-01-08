@@ -24,8 +24,8 @@
        instead of a data frame.
 
        \item Input dissimilarities supplied in symmetric matrices or
-       data frames are more robustly recognized by \code{anosim} and
-       \code{bioenv}.
+       data frames are more robustly recognized by \code{anosim},
+       \code{bioenv} and \code{mrpp}.
 
     } %itemize
   } % bug fixes
@@ -33,11 +33,13 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-       \item \code{treedist} and \code{treedive} can now handle trees
-       with reversals, i.e, higher levels are more homogeneous than
-       lower levels. Function \code{treedive} refuses to handle trees
-       with negative branch heights indicating negative
-       dissimilarities. Functions are now faster.
+       \item \code{treedist} and \code{treedive} refuse to handle
+       trees with reversals, i.e, higher levels are more homogeneous
+       than lower levels. Function \code{treeheight} will estimate
+       their total height with absolute values of branch
+       lengths. Function \code{treedive} refuses to handle trees with
+       negative branch heights indicating negative
+       dissimilarities. Function \code{treedive} is faster.
 
     } %itemize
   } %new features
