@@ -2,6 +2,48 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-3}{
+  \subsection{BUG FIXES}{
+     \itemize{
+
+	\item \code{metaMDS} and \code{monoMDS} could fail if input
+	dissimilarities were huge: in the reported case they were of
+	magnitude 1E85. Fixes issue
+	\href{https://github.com/vegandevs/vegan/issues/152}{#152} in
+	Github.
+
+       \item Permutations failed if they were defined as \pkg{permute}
+       control structures in \code{estaccum}, \code{ordiareatest},
+       \code{renyiaccum} and \code{tsallisaccum}. Reported by Dan
+       Gafta (Cluj-Napoca) for \code{renyiaccum}.
+
+       \item \code{rarefy} gave false warnings if input was a vector
+       or a single sampling unit.
+
+       \item \code{gdispweight} works when input data are in a matrix
+       instead of a data frame.
+
+       \item Input dissimilarities supplied in symmetric matrices or
+       data frames are more robustly recognized by \code{anosim} and
+       \code{bioenv}.
+
+    } %itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+       \item \code{treedist} and \code{treedive} can now handle trees
+       with reversals, i.e, higher levels are more homogeneous than
+       lower levels. Function \code{treedive} refuses to handle trees
+       with negative branch heights indicating negative
+       dissimilarities. Functions are now faster.
+
+    } %itemize
+  } %new features
+
+} %v2.3-3
+
 \section{Changes in version 2.3-2}{
 
   \subsection{BUG FIXES}{
