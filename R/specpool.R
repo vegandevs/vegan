@@ -35,23 +35,26 @@
         S[is] <- sum(freq > 0)
         if (S[is] == 0) 
             next
-        if (n >= 1) 
+        if (n >= 1L)
             a1 <- sum(freq == 1)
-        if (n >= 2) 
+        if (n >= 2L)
             a2 <- sum(freq == 2)
-        else 0
+        else
+            a2 <- 0
         chao[is] <- S[is] + if(!is.na(a2) && a2 > 0)
             ssc * a1 * a1/2/a2
         else
             ssc * a1 * (a1-1)/2
         jack.1[is] <- S[is] + a1 * (n - 1)/n
-        jack.2[is] <- S[is] + a1 * (2 * n - 3)/n - a2 * (n - 
-                                                         2)^2/n/(n - 1)
+        if (n > 1L)
+            jack.2[is] <- S[is] + a1 * (2 * n - 3)/n -
+                a2 * (n - 2)^2/n/(n - 1)
+        else
+            jack.2[is] <- S[is]
         bootS[is] <- S[is] + sum((1 - p)^n)
-        aa <- if (!is.na(a2) && a2 > 0) 
-            a1/a2
-        else 0
-        if (a2 > 0)
+        aa <- if (!is.na(a2) && a2 > 0) a1/a2
+              else 0
+        if (!is.na(a2) && a2 > 0)
             var.chao[is] <- a1 * ssc * (0.5 + ssc * (1 + aa/4) * aa) * aa
         else
             var.chao[is] <-
@@ -61,6 +64,8 @@
                                 0))
             var.jack1[is] <- (sum(as.numeric(names(jf))^2 * jf) - 
                               a1/n) * (n - 1)/n
+        } else {
+            var.jack1[is] <- 0
         }
         pn <- (1 - p)^n
         X <- X[, freq > 0, drop = FALSE]
