@@ -27,6 +27,16 @@
        data frames are more robustly recognized by \code{anosim},
        \code{bioenv} and \code{mrpp}.
 
+       \item Some extrapolated richness indices in \code{specpool}
+       needed the number of doubletons (= number of species occurring
+       in two sampling units), and these failed when only one sampling
+       unit was supplied.  The extrapolated richness cannot be
+       estimated from a single sampling unit, but now such cases are
+       handled smoothly instead of failing: observed non-extrapolated
+       richness with zero standard error will be reported. The issue
+       was reported in
+       \href{http://stackoverflow.com/questions/34027496/error-message-when-using-specpool-in-vegan-package}{StackOverflow}.
+
     } %itemize
   } % bug fixes
 
