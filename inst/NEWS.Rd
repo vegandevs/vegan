@@ -20,13 +20,6 @@
        \item \code{rarefy} gave false warnings if input was a vector
        or a single sampling unit.
 
-       \item \code{gdispweight} works when input data are in a matrix
-       instead of a data frame.
-
-       \item Input dissimilarities supplied in symmetric matrices or
-       data frames are more robustly recognized by \code{anosim},
-       \code{bioenv} and \code{mrpp}.
-
        \item Some extrapolated richness indices in \code{specpool}
        needed the number of doubletons (= number of species occurring
        in two sampling units), and these failed when only one sampling
@@ -50,6 +43,13 @@
        lengths. Function \code{treedive} refuses to handle trees with
        negative branch heights indicating negative
        dissimilarities. Function \code{treedive} is faster.
+
+       \item \code{gdispweight} works when input data are in a matrix
+       instead of a data frame.
+
+       \item Input dissimilarities supplied in symmetric matrices or
+       data frames are more robustly recognized by \code{anosim},
+       \code{bioenv} and \code{mrpp}.
 
     } %itemize
   } %new features
