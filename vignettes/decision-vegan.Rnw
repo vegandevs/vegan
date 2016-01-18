@@ -385,7 +385,7 @@ of singular value decomposition (\textsc{svd}).  Functions
 their algorithm.
 
 In \textsc{svd} a centred data matrix $\mathbf{X} = \{x_{ij}\}$ is decomposed into orthogonal
-components so that $x_{ij} = \sum_k \sigma_k u_{ik} v_{jk}$, where
+components so that $x_{ij} = \sum_k  u_{ik} \sigma_k v_{jk}$, where
 $u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
 $\sigma_k$ are singular values.  Orthonormality means that sums of
 squared columns is one and their cross-product is zero, or $\sum_i
@@ -446,17 +446,17 @@ weighted averaging scores have somewhat wider dispersion.
 \code{prcomp, princomp} &
 $u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
 $v_{jk}$ \\
-\code{rda, scaling=1} &
+\code{rda, scaling="sites"} &
 $u_{ik} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \times \mathrm{const}$
 \\
-\code{rda, scaling=2} &
+\code{rda, scaling="species"} &
 $u_{ik} \times \mathrm{const}$ &
 $v_{jk} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$  \\
-\code{rda, scaling=3} &
+\code{rda, scaling="symmetric"} &
 $u_{ik} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
-\code{rda, scaling < 0} &
+\code{rda, correlation=TRUE} &
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 \\
