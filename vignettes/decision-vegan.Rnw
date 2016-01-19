@@ -468,10 +468,10 @@ the same graph.  If this graph is a graphical display of \textsc{pca},
 or a graphical, low-dimensional approximation of the data, the graph
 is called a biplot.  The graph is a biplot if the transformed scores
 satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
-constant.  In functions \code{princomp}, \code{prcomp} and
-\code{rda}, $c=1$ and the plotted scores are a biplot so that the
-singular values (or eigenvalues) are expressed for sites, and species
-are left unscaled.  
+constant.  In functions \code{princomp}, \code{prcomp} and \code{rda}
+with \code{scaling = "sites"}, the plotted scores define a biplot so that
+the eigenvalues are expressed for sites, and species are left
+unscaled.
 % For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
 % \sqrt{\sum \lambda_k}$ with negative \proglang{Canoco} scaling
 % values. All these $c$ are constants for a matrix, so these are all
