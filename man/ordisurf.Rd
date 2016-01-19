@@ -172,7 +172,7 @@
   to give equal weights to all sites, you should set \code{w =
   NULL}. The behaviour is consistent with \code{\link{envfit}}. For
   complete accordance with constrained \code{\link{cca}}, you should set
-  \code{display = "lc"} (and possibly \code{scaling = 2}).
+  \code{display = "lc"}.
 
   Function \code{calibrate} returns the fitted values of the response
   variable. The \code{newdata} must be coordinates of points for which
