@@ -91,9 +91,8 @@ non-parallel computation.  The \code{mc.cores} option can be set by
 the environmental variable \code{MC_CORES} when the \pkg{parallel}
 package is loaded.
 
-\R{} allows\footnote{Since \R{} version 2.15.0.}
-setting up a default socket cluster (\code{setDefaultCluster}), but
-this will not be used in \pkg{vegan}. 
+\R{} allows setting up a default socket cluster
+(\code{setDefaultCluster}), but this will not be used in \pkg{vegan}.
 
 \subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
