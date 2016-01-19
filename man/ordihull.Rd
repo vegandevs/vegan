@@ -217,14 +217,15 @@ data(dune)
 data(dune.env)
 mod <- cca(dune ~ Management, dune.env)
 attach(dune.env)
-plot(mod, type="n", scaling = 3)
+plot(mod, type="n", scaling = "symmetric")
 ## Catch the invisible result of ordihull...
-pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
+pl <- ordihull(mod, Management, scaling = "symmetric", label = TRUE)
 ## ... and find centres and areas of the hulls
 summary(pl)
 ## use ordispider to label and mark the hull
 plot(mod, type = "n")
-pl <- ordihull(mod, Management, scaling = 3, col = 1:4, draw="polygon")
+pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
+  draw="polygon")
 ordispider(pl, col=1:4, label = TRUE, lwd=2)
 ## ordispider to connect WA and LC scores
 plot(mod, dis=c("wa","lc"), type="p")
