@@ -166,14 +166,14 @@ downweight(veg, fraction = 5)
 \seealso{
   For unconstrained ordination, non-metric multidimensional scaling in
   \code{\link{monoMDS}} may be more robust (see also
-  \code{\link{metaMDS}}).  Constrained (or
-  \sQuote{canonical}) correspondence analysis can be made with
-  \code{\link{cca}}.  Orthogonal correspondence analysis can be
-  made with \code{\link[MASS]{corresp}}, or with \code{decorana} or
+  \code{\link{metaMDS}}).  Constrained (or \sQuote{canonical})
+  correspondence analysis can be made with \code{\link{cca}}.
+  Orthogonal correspondence analysis can be made with
+  \code{\link[MASS]{corresp}}, or with \code{decorana} or
   \code{\link{cca}}, but the scaling of results vary (and the one in
-  \code{decorana} corresponds to \code{scaling = -1} in
-  \code{\link{cca}}.).
-  See \code{\link{predict.decorana}} for adding new points to an
+  \code{decorana} corresponds to \code{scaling = "sites"} and
+  \code{hill = TRUE} in \code{\link{cca}}.).  See
+  \code{\link{predict.decorana}} for adding new points to an
   ordination.
 }
 
