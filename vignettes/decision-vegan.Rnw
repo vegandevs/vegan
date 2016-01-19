@@ -446,6 +446,12 @@ weighted averaging scores have somewhat wider dispersion.
 \code{prcomp, princomp} &
 $u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
 $v_{jk}$ \\
+\code{stats::biplot} &
+$u_{ik}$ &
+$v_{jk} \sqrt{n} \sqrt{\lambda_k}$ \\
+\code{stats::biplot, pc.biplot=TRUE} &
+$u_{ik} \sqrt{n-1}$ &
+$v_{jk} \sqrt{\lambda_k}$\\
 \code{rda, scaling="sites"} &
 $u_{ik} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \times \mathrm{const}$
