@@ -91,9 +91,8 @@ non-parallel computation.  The \code{mc.cores} option can be set by
 the environmental variable \code{MC_CORES} when the \pkg{parallel}
 package is loaded.
 
-\R{} allows\footnote{Since \R{} version 2.15.0.}
-setting up a default socket cluster (\code{setDefaultCluster}), but
-this will not be used in \pkg{vegan}. 
+\R{} allows setting up a default socket cluster
+(\code{setDefaultCluster}), but this will not be used in \pkg{vegan}.
 
 \subsubsection{Setting up socket clusters}
 \label{sec:parallel:socket}
@@ -379,39 +378,23 @@ This chapter discusses the scaling of scores (results) in redundancy
 analysis and principal component analysis performed by function
 \code{rda} in the \pkg{vegan} library.  
 
-Principal component analysis, and hence redundancy analysis, is a case
-of singular value decomposition (\textsc{svd}).  Functions
-\code{rda} and \code{prcomp} even use \textsc{svd} internally in
-their algorithm.
-
-In \textsc{svd} a centred data matrix $\mathbf{X} = \{x_{ij}\}$ is decomposed into orthogonal
-components so that $x_{ij} = \sum_k \sigma_k u_{ik} v_{jk}$, where
-$u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
-$\sigma_k$ are singular values.  Orthonormality means that sums of
-squared columns is one and their cross-product is zero, or $\sum_i
-u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and $\sum_i u_{ik} u_{il} = \sum_j
-v_{jk} v_{jl} = 0$ for $k \neq l$. This is a decomposition, and the
-original matrix is found exactly from the singular vectors and
-corresponding singular values, and first two singular components give
-the rank $=2$ least squares estimate of the original matrix.
-
-Principal component analysis is often presented (and performed in
-legacy software) as an eigenanalysis of covariance matrices.  Instead
-of a data matrix, we analyse a matrix of covariances and variances
-$\mathbf{S}$.  The result are orthonormal coefficient matrix
-$\mathbf{U}$ and eigenvalues $\mathbf{\Lambda}$.  The coefficients
-$u_{ik}$ ares identical to \textsc{svd} (except for possible sign
-changes), and eigenvalues $\lambda_k$ are related to the corresponding
-singular values by $\lambda_k = \sigma_k^2 /(n-1)$.  With classical
-definitions, the sum of all eigenvalues equals the sum of variances of
-species, or $\sum_k \lambda_k = \sum_j s_j^2$, and it is often said
-that first axes explain a certain proportion of total variance in the
-data.  The orthonormal matrix $\mathbf{V}$ of \textsc{svd} can be
-found indirectly as well, so that we have the same components in both
-methods.
+Principal component analysis decomposes a centred data matrix
+$\mathbf{X} = \{x_{ij}\}$ into $K$ orthogonal components so that
+$x_{ij} = \sqrt{n-1} \sum_{k=1}^K u_{ik} \sqrt{\lambda_k} v_{jk}$,
+where $u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
+$\lambda_k$ are eigenvalues. In \pkg{vegan} the eigenvalues sum up to
+variance of the data, and therefore we need to multiply with the
+square root of degrees of freedom $n-1$.  Orthonormality means that
+sums of squared columns is one and their cross-product is zero, or
+$\sum_i u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and
+$\sum_i u_{ik} u_{il} = \sum_j v_{jk} v_{jl} = 0$ for $k \neq l$. This
+is a decomposition, and the original matrix is found exactly from the
+singular vectors and corresponding singular values, and first two
+singular components give the rank $=2$ least squares estimate of the
+original matrix.
 
 The coefficients $u_{ik}$ and $v_{jk}$ are scaled to unit length for all
-axes $k$. Singular values $\sigma_k$ or eigenvalues $\lambda_k$ give
+axes $k$. Eigenvalues $\lambda_k$ give
 the information of the importance of axes, or the `axis lengths.'
 Instead of the orthonormal coefficients, or equal length axes, it is
 customary to scale species (column) or site (row) scores or both by
@@ -446,17 +429,23 @@ weighted averaging scores have somewhat wider dispersion.
 \code{prcomp, princomp} &
 $u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
 $v_{jk}$ \\
-\code{rda, scaling=1} &
+\code{stats::biplot} &
+$u_{ik}$ &
+$v_{jk} \sqrt{n} \sqrt{\lambda_k}$ \\
+\code{stats::biplot, pc.biplot=TRUE} &
+$u_{ik} \sqrt{n-1}$ &
+$v_{jk} \sqrt{\lambda_k}$\\
+\code{rda, scaling="sites"} &
 $u_{ik} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \times \mathrm{const}$
 \\
-\code{rda, scaling=2} &
+\code{rda, scaling="species"} &
 $u_{ik} \times \mathrm{const}$ &
 $v_{jk} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$  \\
-\code{rda, scaling=3} &
+\code{rda, scaling="symmetric"} &
 $u_{ik} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
 $v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
-\code{rda, scaling < 0} &
+\code{rda, correlation=TRUE} &
 $u_{ik}^*$ &
 $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 \\
@@ -474,17 +463,15 @@ $\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
 \end{tabular}
 \end{table*}
 
-
-
 In community ecology, it is common to plot both species and sites in
-the same graph.  If this graph is a graphical display of \textsc{svd},
+the same graph.  If this graph is a graphical display of \textsc{pca},
 or a graphical, low-dimensional approximation of the data, the graph
 is called a biplot.  The graph is a biplot if the transformed scores
 satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
-constant.  In functions \code{princomp}, \code{prcomp} and
-\code{rda}, $c=1$ and the plotted scores are a biplot so that the
-singular values (or eigenvalues) are expressed for sites, and species
-are left unscaled.  
+constant.  In functions \code{princomp}, \code{prcomp} and \code{rda}
+with \code{scaling = "sites"}, the plotted scores define a biplot so that
+the eigenvalues are expressed for sites, and species are left
+unscaled.
 % For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
 % \sqrt{\sum \lambda_k}$ with negative \proglang{Canoco} scaling
 % values. All these $c$ are constants for a matrix, so these are all
@@ -496,22 +483,23 @@ are left unscaled.
 
 There is no natural way of scaling species and site scores to each
 other.  The eigenvalues in redundancy and principal components
-analysis are scale-dependent and change when the  data are
-multiplied by a constant.  If we have percent cover data, the
-eigenvalues are typically very high, and the scores scaled by
-eigenvalues will have much wider dispersion than the orthonormal set.
-If we express the percentages as proportions, and divide the matrix by
-$100$, the eigenvalues will be reduced by factor $100^2$, and the
-scores scaled by eigenvalues will have a narrower dispersion.  For
-graphical biplots we should be able to fix the relations of row and
-column scores to be invariant against scaling of data.  The solution
-in \proglang{R} standard function \code{biplot} is to scale site and species
-scores independently, and typically very differently, but plot each
-independently to fill the graph area.  The solution in \proglang{Canoco} and 
-\code{rda} is to use proportional eigenvalues $\lambda_k / \sum
-\lambda_k$ instead of original eigenvalues.  These proportions are
-invariant with scale changes, and typically they have a nice range for
-plotting two data sets in the same graph.
+analysis are scale-dependent and change when the data are multiplied
+by a constant.  If we have percent cover data, the eigenvalues are
+typically very high, and the scores scaled by eigenvalues will have
+much wider dispersion than the orthonormal set.  If we express the
+percentages as proportions, and divide the matrix by $100$, the
+eigenvalues will be reduced by factor $100^2$, and the scores scaled
+by eigenvalues will have a narrower dispersion.  For graphical biplots
+we should be able to fix the relations of row and column scores to be
+invariant against scaling of data.  The solution in \proglang{R}
+standard function \code{biplot} is to scale site and species scores
+independently, and typically very differently
+(Table~\ref{tab:scales}), but plot each independently to fill the
+graph area.  The solution in \proglang{Canoco} and \code{rda} is to
+use proportional eigenvalues $\lambda_k / \sum \lambda_k$ instead of
+original eigenvalues.  These proportions are invariant with scale
+changes, and typically they have a nice range for plotting two data
+sets in the same graph.
 
 The \textbf{vegan} package uses a scaling constant $c = \sqrt[4]{(n-1)
   \sum \lambda_k}$ in order to be able to use scaling by proportional
@@ -544,24 +532,19 @@ other software or \proglang{R} functions (Table \ref{tab:rdaconst}).
 \end{tabular}
 \end{table*}
 
-In this chapter, I used always centred data matrices.  In principle
-\textsc{svd} could be done with original, non-centred data, but
-there is no option for this in \code{rda}, because I think that
-non-centred analysis is dubious and I do not want to encourage its use
-(if you think you need it, you are certainly so good in programming
-that you can change that one line in \code{rda.default}).  I do
-think that the arguments for non-centred analysis are often twisted,
-and the method is not very good for its intended purpose, but there
-are better methods for finding fuzzy classes.  Normal, centred
-analysis moves the origin to the average of all species, and the
-dimensions describe differences from this average.  Non-centred
-analysis leaves the origin in the empty site with no species, and the
-first axis usually runs from the empty site to the average
-site. Second and third non-centred components are often very similar
-to first and second (etc.) centred components, and the best way to use
-non-centred analysis is to discard the first component and use only
-the rest. This is better done with directly centred analysis.
-
+The scaling is controlled by three arguments in the \code{scores}
+function in \pkg{vegan}:
+\begin{enumerate}
+  \item \code{scaling} with options \code{"sites"}, \code{"species"}
+    and \code{"symmetric"} defines the set of scores which is scaled
+    by eigenvalues (Table~\ref{tab:scales}).
+  \item \code{const} can be used to set the numeric scaling constant
+    to non-default values (Table~\ref{tab:rdaconst}).
+  \item \code{correlation} can be used to modify species scores so
+    that they show the relative change of species abundance, or their
+    correlation with the ordination (Table~\ref{tab:scales}). This is
+    no longer a biplot scaling.
+\end{enumerate}
 
 \section{Weighted average and linear combination scores}
 

@@ -56,7 +56,7 @@ labs <- expression(Ca^{2+phantom()},
                    NO[3]^{-phantom()},
                    SO[4]^{-2},
                    K^{+phantom()})
-scl <- 1
+scl <- "sites"
 linestack(scores(ord, choices = 1, display = "species", scaling = scl),
           labels = labs, air = 2)
 linestack(scores(ord, choices = 1, display = "site", scaling = scl),

@@ -191,7 +191,7 @@ cca(residuals(mod))
 freq <- specnumber(dune, MARGIN=2)
 freq
 mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
-predict(mod, type="sp", newdata=dune[, freq==1], scaling=2)
+predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
 # New sites
 predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
 # Calibration and residual plot

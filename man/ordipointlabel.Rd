@@ -87,12 +87,12 @@ ord <- cca(dune)
 plt <- ordipointlabel(ord)
 
 ## set scaling - should be no warnings!
-ordipointlabel(ord, scaling = 1)
+ordipointlabel(ord, scaling = "sites")
 
 ## plot then add
-plot(ord, scaling = 3, type = "n")
-ordipointlabel(ord, display = "species", scaling = 3, add = TRUE)
-ordipointlabel(ord, display = "sites", scaling = 3, add = TRUE)
+plot(ord, scaling = "symmetric", type = "n")
+ordipointlabel(ord, display = "species", scaling = "symm", add = TRUE)
+ordipointlabel(ord, display = "sites", scaling = "symm", add = TRUE)
 
 ## redraw plot without rerunning SANN optimisation
 plot(plt)

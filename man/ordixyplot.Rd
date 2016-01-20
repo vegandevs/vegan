@@ -131,7 +131,7 @@ ordisplom(ord, data=dune.env, form = ~ . | Management, groups=Manure)
 ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
   groups=Manure)
 ## Choose a different scaling
-ordixyplot(ord, scaling = 3)
+ordixyplot(ord, scaling = "symmetric")
 ## ... Slices of third axis
 ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4), type = c("g","p"))
 ## Display environemntal variables

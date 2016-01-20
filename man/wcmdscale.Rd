@@ -133,8 +133,8 @@ ca <- cca(dune)
 ca$CA$eig - ord$eig
 ## Configurations are similar when site scores are scaled by
 ## eigenvalues in CA
-procrustes(ord, ca, choices=1:19, scaling = 1)
-plot(procrustes(ord, ca, choices=1:2, scaling=1))
+procrustes(ord, ca, choices=1:19, scaling = "sites")
+plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 ## Reconstruction of non-Euclidean distances with negative eigenvalues
 d <- vegdist(dune)
 ord <- wcmdscale(d, eig = TRUE)

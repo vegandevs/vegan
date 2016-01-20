@@ -148,7 +148,7 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   arrows and class centroids in \code{\link{cca}}.
   For complete
   similarity between fitted vectors and biplot arrows, you should set
-  \code{display = "lc"} (and possibly \code{scaling = 2}).
+  \code{display = "lc"}.
 
   The lengths of arrows for fitted vectors are automatically adjusted
   for the physical size of the plot, and the arrow lengths cannot be
