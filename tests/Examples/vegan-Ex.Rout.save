@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2015-11-12 r69625) -- "Unsuffered Consequences"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R Under development (unstable) (2016-01-21 r69968) -- "Unsuffered Consequences"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -3449,7 +3449,7 @@ attr(,"class")
 +                    NO[3]^{-phantom()},
 +                    SO[4]^{-2},
 +                    K^{+phantom()})
-> scl <- 1
+> scl <- "sites"
 > linestack(scores(ord, choices = 1, display = "species", scaling = scl),
 +           labels = labs, air = 2)
 > linestack(scores(ord, choices = 1, display = "site", scaling = scl),
@@ -4581,9 +4581,9 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > data(dune.env)
 > mod <- cca(dune ~ Management, dune.env)
 > attach(dune.env)
-> plot(mod, type="n", scaling = 3)
+> plot(mod, type="n", scaling = "symmetric")
 > ## Catch the invisible result of ordihull...
-> pl <- ordihull(mod, Management, scaling = 3, label = TRUE)
+> pl <- ordihull(mod, Management, scaling = "symmetric", label = TRUE)
 > ## ... and find centres and areas of the hulls
 > summary(pl)
             BF         HF         NM         SF
@@ -4592,7 +4592,8 @@ CCA2 0.8632208 0.09419919  0.2681515 -0.8139398
 Area 0.1951715 0.59943363  1.7398193  1.0144372
 > ## use ordispider to label and mark the hull
 > plot(mod, type = "n")
-> pl <- ordihull(mod, Management, scaling = 3, col = 1:4, draw="polygon")
+> pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
++   draw="polygon")
 > ordispider(pl, col=1:4, label = TRUE, lwd=2)
 > ## ordispider to connect WA and LC scores
 > plot(mod, dis=c("wa","lc"), type="p")
@@ -4691,12 +4692,12 @@ detaching ‘dune.env’
 > plt <- ordipointlabel(ord)
 > 
 > ## set scaling - should be no warnings!
-> ordipointlabel(ord, scaling = 1)
+> ordipointlabel(ord, scaling = "sites")
 > 
 > ## plot then add
-> plot(ord, scaling = 3, type = "n")
-> ordipointlabel(ord, display = "species", scaling = 3, add = TRUE)
-> ordipointlabel(ord, display = "sites", scaling = 3, add = TRUE)
+> plot(ord, scaling = "symmetric", type = "n")
+> ordipointlabel(ord, display = "species", scaling = "symm", add = TRUE)
+> ordipointlabel(ord, display = "sites", scaling = "symm", add = TRUE)
 > 
 > ## redraw plot without rerunning SANN optimisation
 > plot(plt)
@@ -5085,7 +5086,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-9. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-10. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5249,7 +5250,7 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
 +   groups=Manure)
 > ## Choose a different scaling
-> ordixyplot(ord, scaling = 3)
+> ordixyplot(ord, scaling = "symmetric")
 > ## ... Slices of third axis
 > ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4), type = c("g","p"))
 > ## Display environemntal variables
@@ -6029,7 +6030,7 @@ Lolipere Planlanc  Poaprat  Poatriv Ranuflam Rumeacet Sagiproc Salirepe
 Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp 
       18        3       16        3       15        3 
 > mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
-> predict(mod, type="sp", newdata=dune[, freq==1], scaling=2)
+> predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
                CCA1       CCA2       CCA3       CCA4
 Chenalbu  1.5737337 -0.7842538  0.5503660 0.35108333
 Cirsarve  0.5945146 -0.3714228 -0.2862647 0.88373727
@@ -8546,15 +8547,15 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
  0.000000e+00  1.734723e-18  1.127570e-17  1.196959e-16 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
-> procrustes(ord, ca, choices=1:19, scaling = 1)
+> procrustes(ord, ca, choices=1:19, scaling = "sites")
 
 Call:
-procrustes(X = ord, Y = ca, choices = 1:19, scaling = 1) 
+procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
 -4.263e-14 
 
-> plot(procrustes(ord, ca, choices=1:2, scaling=1))
+> plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
 > d <- vegdist(dune)
 > ord <- wcmdscale(d, eig = TRUE)
@@ -8571,7 +8572,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.004 0.148 23.139 0 0 
+Time elapsed:  21.988 0.12 22.099 0 0 
 > grDevices::dev.off()
 null device 
           1 
