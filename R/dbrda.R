@@ -114,7 +114,7 @@
         oo <- Q$pivot[seq_len(Q$rank)]
         rank <- Q$rank
         if (!is.null(pCCA)) {
-            oo <- oo[oo > pCCA$rank] - ncol(d$Z)
+            oo <- oo[-seq_len(pCCA$rank)] - ncol(d$Z)
             rank <- rank - pCCA$rank
         }
         CCA <- list(eig = e$values,
