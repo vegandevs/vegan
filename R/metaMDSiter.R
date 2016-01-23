@@ -1,5 +1,5 @@
 `metaMDSiter` <-
-    function (dist, k = 2, trymax = 20, trace = 1, plot = FALSE, 
+    function (dist, k = 2, try = 6, trymax = 20, trace = 1, plot = FALSE,
               previous.best, engine = "monoMDS", maxit = 200,
               parallel = getOption("mc.cores"), ...) 
 {
@@ -86,7 +86,7 @@
     else
         nclus <- parallel
     ## proper iterations
-    while(tries < trymax && !converged) {
+    while(tries < try || tries < trymax && !converged) {
         init <- replicate(nclus, initMDS(dist, k = k))
         if (nclus > 1) isotrace <- FALSE
         if (isParal) {
