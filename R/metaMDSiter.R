@@ -137,17 +137,19 @@
                 }
                 summ <- summary(pro)
                 if (trace) 
-                    cat("... procrustes: rmse", summ$rmse, " max resid", 
+                    cat("... Procrustes: rmse", summ$rmse, " max resid",
                         max(summ$resid), "\n")
                 if (summ$rmse < RMSELIM && max(summ$resid) < RESLIM) {
                     if (trace) 
-                        cat("*** Solution reached\n")
+                        cat("... Similar to previous best\n")
                     converged <- TRUE
                 }
             }
             flush.console()
         }
     }
+    if (trace && converged)
+        cat("*** Solution reached\n")
     ## stop socket cluster
     if (isParal && !isMulticore && !hasClus)
         stopCluster(parallel)
