@@ -1,11 +1,13 @@
 `metaMDS` <-
-    function (comm, distance = "bray", k = 2, trymax = 20,
+    function (comm, distance = "bray", k = 2, try = 20, trymax = 20,
               engine = c("monoMDS", "isoMDS"), 
               autotransform = TRUE, noshare = (engine == "isoMDS"),
               wascores = TRUE, expand = TRUE, trace = 1,
               plot = FALSE, previous.best,  ...) 
 {
     engine <- match.arg(engine)
+    ## take care that trymax >= try
+    trymax <- max(trymax, try)
     ## This could be a character vector of length > 1L
     commname <- deparse(substitute(comm), width.cutoff = 500L)
     if (length(commname) > 1L) {
@@ -44,7 +46,8 @@
         previous.best <- NULL
     if (trace > 2)
         cat(">>> NMDS iterations\n")
-    out <- metaMDSiter(dis, k = k, trymax = trymax, trace = trace, 
+    out <- metaMDSiter(dis, k = k, try = try, trymax = trymax,
+                       trace = trace,
                        plot = plot, previous.best = previous.best,
                        engine = engine, ...)
     ## Nearly zero stress is usually not a good thing but a symptom of
