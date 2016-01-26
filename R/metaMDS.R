@@ -1,5 +1,5 @@
 `metaMDS` <-
-    function (comm, distance = "bray", k = 2, try = 6, trymax = 20,
+    function (comm, distance = "bray", k = 2, try = 20, trymax = 20,
               engine = c("monoMDS", "isoMDS"), 
               autotransform = TRUE, noshare = (engine == "isoMDS"),
               wascores = TRUE, expand = TRUE, trace = 1,

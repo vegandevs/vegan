@@ -1,5 +1,5 @@
 `metaMDSiter` <-
-    function (dist, k = 2, try = 6, trymax = 20, trace = 1, plot = FALSE,
+    function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
               previous.best, engine = "monoMDS", maxit = 200,
               parallel = getOption("mc.cores"), ...) 
 {
