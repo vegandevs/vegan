@@ -6,7 +6,7 @@
     ## no data? find variables in .GlobalEnv
     if (missing(data))
         data <- model.frame(delete.response(terms(formula)))
-    sol <- adonis0(formula, data = data, method = "bray")
+    sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
     ## Fix method name in output
