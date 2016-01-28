@@ -2,16 +2,31 @@
     function(formula, data, permutations = 999, method = "bray",
              by = "term", parallel = getOption("mc.cores"), ...)
 {
+    ## evaluate lhs
+    YVAR <- formula[[2]]
+    lhs <- eval(YVAR, environment(formula), globalenv())
     environment(formula) <- environment()
+    ## Take care that input lhs are dissimilarities
+    if ((is.matrix(lhs) || is.data.frame(lhs)) &&
+        isSymmetric(unname(as.matrix(lhs))))
+        lhs <- as.dist(lhs)
+    if (!inherits(lhs, "dist"))
+        lhs <- vegdist(as.matrix(lhs), method=method, ...)
+    ## adonis0 & anova.cca should see only dissimilarities (lhs)
+    if (!missing(data)) # expand and check terms
+        formula <- terms(formula, data=data)
+    formula <- update(formula, lhs ~ .)
     ## no data? find variables in .GlobalEnv
     if (missing(data))
         data <- model.frame(delete.response(terms(formula)))
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
-    ## Fix method name in output
+    ## Fix output header, sub() replaces only first occurrence
     head <- attr(out, "heading")
-    head[2] <- sub("adonis0", "adonis2", head[2])
+    call <- match.call()
+    call$formula[[3]] <- formula[[3]]
+    head[2] <- deparse(call, width.cutoff = 500L)
     attr(out, "heading") <- head
     out
 }
@@ -34,26 +49,19 @@
     TOL <- 1e-7
     Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
-    lhs <- eval(lhs, .GlobalEnv, environment(formula)) # to force evaluation
+    lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
     rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
     rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
     rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
     rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
     qrhs <- qr(rhs)
-    ## handle dissimilarities
-    if ((is.matrix(lhs) || is.data.frame(lhs)) &&
-        isSymmetric(unname(as.matrix(lhs))))
-        lhs <- as.dist(lhs)
-    if (inherits(lhs, "dist")) {
-        if (any(lhs < -TOL))
-            stop("dissimilarities must be non-negative")
-        dmat <- as.matrix(lhs^2)
-    }
-    else {
-        dist.lhs <- as.matrix(vegdist(lhs, method=method, ...))
-        dmat <- dist.lhs^2
-    }
+    ## input lhs should always be dissimilarities
+    if (!inherits(lhs, "dist"))
+        stop("internal error: contact developers")
+    if (any(lhs < -TOL))
+        stop("dissimilarities must be non-negative")
+    dmat <- as.matrix(lhs^2)
     n <- nrow(dmat)
     ## G is -dmat/2 centred
     G <- -GowerDblcen(dmat)/2
