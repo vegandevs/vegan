@@ -24,8 +24,9 @@
                  parallel = parallel)
     ## Fix output header, sub() replaces only first occurrence
     head <- attr(out, "heading")
-    head[2] <- sub("adonis0", "adonis2", head[2])
-    head[2] <- sub("lhs", deparse(YVAR), head[2])
+    call <- match.call()
+    call$formula[[3]] <- formula[[3]]
+    head[2] <- deparse(call, width.cutoff = 500L)
     attr(out, "heading") <- head
     out
 }
