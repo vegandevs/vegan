@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2015-11-12 r69625) -- "Unsuffered Consequences"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R Under development (unstable) (2016-01-29 r70039) -- "Unsuffered Consequences"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -578,7 +578,42 @@ Run 0 stress 0.1192678
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
 ... New best solution
-... procrustes: rmse 4.497004e-05  max resid 0.0001297349 
+... Procrustes: rmse 4.497004e-05  max resid 0.0001297349 
+... Similar to previous best
+Run 3 stress 0.1192678 
+... New best solution
+... Procrustes: rmse 1.801542e-05  max resid 5.078152e-05 
+... Similar to previous best
+Run 4 stress 0.1183186 
+... New best solution
+... Procrustes: rmse 0.02025988  max resid 0.06488321 
+Run 5 stress 0.1192685 
+Run 6 stress 0.1939202 
+Run 7 stress 0.1808919 
+Run 8 stress 0.1183186 
+... Procrustes: rmse 1.538285e-05  max resid 4.789705e-05 
+... Similar to previous best
+Run 9 stress 0.1192679 
+Run 10 stress 0.1183186 
+... New best solution
+... Procrustes: rmse 1.244871e-05  max resid 3.745684e-05 
+... Similar to previous best
+Run 11 stress 0.1192686 
+Run 12 stress 0.1192683 
+Run 13 stress 0.1886532 
+Run 14 stress 0.1183186 
+... Procrustes: rmse 2.260742e-06  max resid 5.293932e-06 
+... Similar to previous best
+Run 15 stress 0.1192678 
+Run 16 stress 0.1183186 
+... Procrustes: rmse 3.225938e-06  max resid 7.314283e-06 
+... Similar to previous best
+Run 17 stress 0.2075713 
+Run 18 stress 0.1192678 
+Run 19 stress 0.1192685 
+Run 20 stress 0.1183186 
+... Procrustes: rmse 2.295609e-05  max resid 6.384852e-05 
+... Similar to previous best
 *** Solution reached
 > ef <- envfit(mod, dune.env, permutations = 99)
 > plot(mod)
@@ -680,7 +715,7 @@ Run 15 stress 0.2137409
 Run 16 stress 0.2109638 
 Run 17 stress 0.1825658 
 ... New best solution
-... procrustes: rmse 0.04169825  max resid 0.1521436 
+... Procrustes: rmse 0.04169825  max resid 0.1521436 
 Run 18 stress 0.1843197 
 Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
@@ -846,4 +881,4 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > proc.time()
    user  system elapsed 
-  9.848   0.036   9.874 
+  9.764   0.072   9.825 
