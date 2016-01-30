@@ -22,11 +22,9 @@
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
-    ## Fix output header, sub() replaces only first occurrence
+    ## Fix output header to show the adonis2() call instead of adonis0()
     head <- attr(out, "heading")
-    call <- match.call()
-    call$formula[[3]] <- formula[[3]]
-    head[2] <- deparse(call, width.cutoff = 500L)
+    head[2] <- deparse(match.call(), width.cutoff = 500L)
     attr(out, "heading") <- head
     out
 }
