@@ -8,6 +8,8 @@
     if (misslab) {
         labels <- names(x)
     }
+    if (!is.character(labels))
+        labels <- as.character(labels)
     nlab <- length(labels)
     if (!misslab && nlab == 1L && pmatch(labels, c("right", "left"), nomatch = FALSE)) {
         side <- labels
@@ -30,7 +32,7 @@
         plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "", ...)
     }
     hoff <- hoff * strwidth("m")
-    ht <- air * strheight(names(x), cex = cex)
+    ht <- air * strheight(labels, cex = cex)
     mid <- (n + 1)%/%2
     pos[mid] <- x[mid]
     if (n > 1) {
