@@ -2,14 +2,19 @@
     function (x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
               at = 0, add = FALSE, axis = FALSE, ...)
 {
+    if (length(at) > 1 || length(hoff) > 1 || length(air) > 1 || length(cex) > 1)
+        stop("only one value accepted for arguments 'cex', 'hoff', 'air' and 'at'")
     x <- drop(x)
     n <- length(x)
     misslab <- missing(labels)
     if (misslab) {
         labels <- names(x)
     }
+    if (!is.character(labels))
+        labels <- as.character(labels)
     nlab <- length(labels)
-    if (!misslab && nlab == 1L && pmatch(labels, c("right", "left"), nomatch = FALSE)) {
+    if (!misslab && nlab == 1L && pmatch(labels, c("right", "left"),
+                    nomatch = FALSE)) {
         side <- labels
         labels <- NULL
         warning("argument 'label' is deprecated: use 'side'")
@@ -30,7 +35,7 @@
         plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "", ...)
     }
     hoff <- hoff * strwidth("m")
-    ht <- air * strheight(names(x), cex = cex)
+    ht <- air * strheight(labels, cex = cex)
     mid <- (n + 1)%/%2
     pos[mid] <- x[mid]
     if (n > 1) {
