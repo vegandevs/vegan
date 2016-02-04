@@ -126,8 +126,8 @@
 {
     if (ordered) {
         out <- lapply(object, function(z)
-            data.frame(contr = z$average, sd = z$sd, ratio = z$ratio,
-                       av.a = z$ava, av.b = z$avb)[z$ord, ])
+            data.frame(average = z$average, sd = z$sd, ratio = z$ratio,
+                       ava = z$ava, avb = z$avb)[z$ord, ])
         cusum <- lapply(object, function(z) z$cusum)
         for(i in seq_along(out)) {
             out[[i]]$cumsum <- cusum[[i]]
