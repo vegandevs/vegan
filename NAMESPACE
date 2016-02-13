@@ -1,6 +1,9 @@
 ## compiled code
 useDynLib(vegan)
 
+## Export from ordiconsensus
+export(coeffCompare,consensusRDA,RV,SADbin,simulSADcomm)
+
 ## Export regular function names (no dots)
 
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
