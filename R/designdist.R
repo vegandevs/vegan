@@ -31,8 +31,6 @@
     }
     ## beta diversity notation
     if (alphagamma) {
-        alpha1 <- A
-        alpha2 <- B
         alpha <- (A + B)/2
         gamma <- A + B - J
     }

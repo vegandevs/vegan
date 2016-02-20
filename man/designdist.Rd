@@ -39,8 +39,8 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
     and \eqn{d} is the number of species that occur on neither of the sites.}
   \item{alphagamma}{Use beta diversity notation with terms
     \code{alpha} for average alpha diversity for compared sites,
-    \code{gamma} for diversity in pooled sites, and \code{alpha1} and
-    \code{alpha2} for alpha diversities of compared sites.}
+    \code{gamma} for diversity in pooled sites. Terms \code{A} and
+    \code{B} refer to alpha diversities of compared sites.}
   \item{name}{The name you want to use for your index. The default is to
     combine the \code{method} equation and \code{terms} argument.}
 }
@@ -82,12 +82,12 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
 
   With \code{alphagamma = TRUE} it is possible to use beta diversity
   notation with terms \code{alpha} for average alpha diversity and
-  \code{gamma} for gamma diversity in two compared sites, and also
-  refer to alpha diversities of individual sites as \code{alpha1} and
-  \code{alpha2}. The terms are calculated as \code{alpha = (A + B)/2}
-  and \code{gamma = A + B - J}. They may make sense only for binary
-  terms, but they are calculated for quadratic or minimum terms as
-  well (with a warning).
+  \code{gamma} for gamma diversity in two compared sites. The terms
+  are calculated as \code{alpha = (A+B)/2} and \code{gamma = A+B-J}.
+  Terms \code{A} and \code{B} are also available and give the alpha
+  diversities of the individual compared sites.  The beta diversity
+  temrs may make sense only for binary terms, but they are calculated
+  for quadratic and minimum terms as well (with a warning).
 
 }
 
