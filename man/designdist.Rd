@@ -15,7 +15,7 @@
 \usage{
 designdist(x, method = "(A+B-2*J)/(A+B)",
            terms = c("binary", "quadratic", "minimum"), 
-           abcd = FALSE, name)
+           abcd = FALSE, alphagamma = FALSE, name)
 }
 
 \arguments{
@@ -34,9 +34,13 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
     data into binary form (shared number of species, and number of
     species for each row). }
   \item{abcd}{Use 2x2 contingency table notation for binary data:
-  \eqn{a} is the number of shared species, \eqn{b} and \eqn{c} are the
-  numbers of species occurring only one of the sites but not in both,
-  and \eqn{d} is the number of species that occur on neither of the sites.}
+    \eqn{a} is the number of shared species, \eqn{b} and \eqn{c} are the
+    numbers of species occurring only one of the sites but not in both,
+    and \eqn{d} is the number of species that occur on neither of the sites.}
+  \item{alphagamma}{Use beta diversity notation with terms
+    \code{alpha} for average alpha diversity for compared sites,
+    \code{gamma} for diversity in pooled sites. Terms \code{A} and
+    \code{B} refer to alpha diversities of compared sites.}
   \item{name}{The name you want to use for your index. The default is to
     combine the \code{method} equation and \code{terms} argument.}
 }
@@ -74,7 +78,17 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   contingency table notation, you can set \code{abcd = TRUE}. In this
   notation \code{a = J}, \code{b = A-J}, \code{c = B-J}, \code{d = P-A-B+J}. 
   This notation is often used instead of the more more
-  tangible default notation for reasons that are opaque to me. 
+  tangible default notation for reasons that are opaque to me.
+
+  With \code{alphagamma = TRUE} it is possible to use beta diversity
+  notation with terms \code{alpha} for average alpha diversity and
+  \code{gamma} for gamma diversity in two compared sites. The terms
+  are calculated as \code{alpha = (A+B)/2} and \code{gamma = A+B-J}.
+  Terms \code{A} and \code{B} are also available and give the alpha
+  diversities of the individual compared sites.  The beta diversity
+  temrs may make sense only for binary terms, but they are calculated
+  for quadratic and minimum terms as well (with a warning).
+
 }
 
 \value{
@@ -96,14 +110,20 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   function  using compiled code, it is better to use the canned
   alternative.
 }
-\seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}}. }
+\seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}},
+  \code{\link{raupcrick}}.}
 \examples{
+data(BCI)
+## Four ways of calculating the same Sørensen dissimilarity
+d0 <- vegdist(BCI, "bray", binary = TRUE)
+d1 <- designdist(BCI, "(A+B-2*J)/(A+B)")
+d2 <- designdist(BCI, "(b+c)/(2*a+b+c)", abcd = TRUE)
+d3 <- designdist(BCI, "gamma/alpha - 1", alphagamma = TRUE)
 ## Arrhenius dissimilarity: the value of z in the species-area model
 ## S = c*A^z when combining two sites of equal areas, where S is the
 ## number of species, A is the area, and c and z are model parameters.
 ## The A below is not the area (which cancels out), but number of
 ## species in one of the sites, as defined in designdist().
-data(BCI)
 dis <- designdist(BCI, "(log(A+B-J)-log(A+B)+log(2))/log(2)")
 ## This can be used in clustering or ordination...
 ordiplot(cmdscale(dis))
