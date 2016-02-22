@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-02-10 r70141) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-02-22 r70197) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1399,7 +1399,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 16 "g" = (b+c)/(a+b+c)
 17 "-3" = pmin(b,c)/(a+b+c)
 18 "l" = (b+c)/2
-19 "19" = 2*(b*c+1)/((a+b+c)^2+(a+b+c))
+19 "19" = 2*(b*c+1)/(a+b+c)/(a+b+c-1)
 20 "hk" = (b+c)/(2*a+b+c)
 21 "rlb" = a/(a+c)
 22 "sim" = pmin(b,c)/(pmin(b,c)+a)
@@ -2282,6 +2282,8 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > flush(stderr()); flush(stdout())
 > 
+> ### Encoding: UTF-8
+> 
 > ### Name: designdist
 > ### Title: Design your own Dissimilarities
 > ### Aliases: designdist
@@ -2289,12 +2291,17 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > 
 > ### ** Examples
 > 
+> data(BCI)
+> ## Four ways of calculating the same Sørensen dissimilarity
+> d0 <- vegdist(BCI, "bray", binary = TRUE)
+> d1 <- designdist(BCI, "(A+B-2*J)/(A+B)")
+> d2 <- designdist(BCI, "(b+c)/(2*a+b+c)", abcd = TRUE)
+> d3 <- designdist(BCI, "gamma/alpha - 1", alphagamma = TRUE)
 > ## Arrhenius dissimilarity: the value of z in the species-area model
 > ## S = c*A^z when combining two sites of equal areas, where S is the
 > ## number of species, A is the area, and c and z are model parameters.
 > ## The A below is not the area (which cancels out), but number of
 > ## species in one of the sites, as defined in designdist().
-> data(BCI)
 > dis <- designdist(BCI, "(log(A+B-J)-log(A+B)+log(2))/log(2)")
 > ## This can be used in clustering or ordination...
 > ordiplot(cmdscale(dis))
@@ -5316,7 +5323,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-10. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-11. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -8802,7 +8809,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.604 0.124 22.829 0 0 
+Time elapsed:  22.136 0.124 22.31 0 0 
 > grDevices::dev.off()
 null device 
           1 
