@@ -540,16 +540,13 @@ attribute of `biplot` scores.
 Function `ordiArrowMul` is used to find the scaling for the current
 plot. You can use this function to see how arrows would be scaled:
 
-<div class="example">
 
-``` {.example}
+```{r eval=FALSE}
 sol <- cca(varespec)
 ef <- envfit(sol ~ ., varechem)
 plot(sol)
 ordiArrowMul(scores(ef, display="vectors"))
 ```
-
-</div>
 
 ------------------------------------------------------------------------
 
