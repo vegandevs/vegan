@@ -1,3 +1,7 @@
+%\VignetteIndexEntry{vegan FAQ}
+%\VignetteEngine{knitr::knitr}
+%\VignetteEncoding{UTF-8}
+
 **vegan** FAQ
 =============
 

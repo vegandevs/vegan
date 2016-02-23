@@ -9,6 +9,7 @@ Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
 Depends: permute (>= 0.9-0), lattice, R (>= 3.0.0)
 Suggests: parallel, tcltk
 Imports: MASS, cluster, mgcv
+VignetteBuilder: knitr
 Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
 License: GPL-2
