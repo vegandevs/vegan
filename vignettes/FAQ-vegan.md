@@ -1,7 +1,4 @@
-**vegan** FAQ {.settitle align="center"}
-=============
-
-**vegan** FAQ {.top}
+**vegan** FAQ
 =============
 
 This document contains answers to some of the most frequently asked
@@ -17,12 +14,12 @@ questions about R package **vegan**.
 
 ------------------------------------------------------------------------
 
-Introduction {.chapter}
+Introduction
 ------------
 
 ------------------------------------------------------------------------
 
-### What is **vegan**? {.section}
+### What is **vegan**?
 
 **Vegan** is an R package for community ecologists. It contains the most
 popular methods of multivariate analysis needed in analysing ecological
@@ -35,7 +32,7 @@ under [GPL2 license](http://www.gnu.org/licenses/gpl.html).
 
 ------------------------------------------------------------------------
 
-### What is R? {.section}
+### What is R?
 
 R is a system for statistical computation and graphics. It consists of a
 language plus a run-time environment with graphics, a debugger, access
@@ -49,7 +46,7 @@ an official part of the [GNU](http://www.gnu.org/) project (“GNU S”).
 
 ------------------------------------------------------------------------
 
-### How to obtain **vegan** and R? {.section}
+### How to obtain **vegan** and R?
 
 Both R and latest release version of **vegan** can be obtained through
 [CRAN](http://cran.r-project.org). Unstable development version of
@@ -61,7 +58,7 @@ R-Forge repository may be out of date.
 
 ------------------------------------------------------------------------
 
-### What R packages **vegan** depends on? {.section}
+### What R packages **vegan** depends on?
 
 **Vegan** depends on the **permute** package which will provide advanced
 and flexible permutation routines for **vegan**. The **permute** package
@@ -80,7 +77,7 @@ non-standard packages **rgl** and **scatterplot3d**.
 
 ------------------------------------------------------------------------
 
-### What other packages are available for ecologists? {.section}
+### What other packages are available for ecologists?
 
 CRAN [Task Views](http://cran.r-project.org/src/contrib/Views/) include
 entries like `Environmetrics`, `Multivariate` and `Spatial` that
@@ -90,7 +87,7 @@ automatically install sets of most important packages.
 
 ------------------------------------------------------------------------
 
-### What other documentation is available for **vegan**? {.section}
+### What other documentation is available for **vegan**?
 
 **Vegan** is a fully documented R package with standard help pages.
 These are the most authoritative sources of documentation (and as a last
@@ -118,7 +115,7 @@ Web documents outside the package include:
 
 ------------------------------------------------------------------------
 
-### Is there a Graphical User Interface (GUI) for **vegan**? {.section}
+### Is there a Graphical User Interface (GUI) for **vegan**?
 
 Roeland Kindt has made package **BiodiversityR** which provides a GUI
 for **vegan**. The package is available at
@@ -131,14 +128,14 @@ in R. The GUI works on Windows, MacOS X and Linux.
 
 ------------------------------------------------------------------------
 
-### How to cite **vegan**? {.section}
+### How to cite **vegan**?
 
 Use command `citation("vegan")` in R to see the recommended citation to
 be used in publications.
 
 ------------------------------------------------------------------------
 
-### How to build **vegan** from sources? {.section}
+### How to build **vegan** from sources?
 
 In general, you do not need to build **vegan** from sources, but binary
 builds of release versions are available through
@@ -151,7 +148,7 @@ MacOS X).
 
 ------------------------------------------------------------------------
 
-### Are there binaries for devel versions? {.section}
+### Are there binaries for devel versions?
 
 [R-Forge](http://r-forge.r-project.org/projects/vegan/) runs daily tests
 on the devel package, and if passed, it builds source package together
@@ -165,7 +162,7 @@ repository.
 
 ------------------------------------------------------------------------
 
-### Can I use **vegan** in Mac? {.section}
+### Can I use **vegan** in Mac?
 
 Yes, you can, and **vegan** binaries are available for Mac through
 [CRAN](http://cran.r-project.org). However, in some cases you may need
@@ -177,7 +174,7 @@ in any repository we know.
 
 ------------------------------------------------------------------------
 
-### How to report a bug in **vegan**? {.section}
+### How to report a bug in **vegan**?
 
 If you think you have found a bug in **vegan**, you should report it to
 **vegan** maintainers or developers. The preferred forum to report bugs
@@ -196,7 +193,7 @@ since **vegan** is not a standard R package.
 
 ------------------------------------------------------------------------
 
-### Is it a bug or a feature? {.section}
+### Is it a bug or a feature?
 
 It is not necessarily a bug if some function gives different results
 than you expect: That may be a deliberate design decision. It may be
@@ -209,7 +206,7 @@ argument `binary = TRUE`.
 
 ------------------------------------------------------------------------
 
-### Can I contribute to **vegan**? {.section}
+### Can I contribute to **vegan**?
 
 **Vegan** is dependent on user contribution. All feedback is welcome. If
 you have problems with **vegan**, it may be as simple as incomplete
@@ -224,12 +221,12 @@ If you can write code yourself, the best forum to contribute to vegan is
 
 ------------------------------------------------------------------------
 
-Ordination {.chapter}
+Ordination
 ----------
 
 ------------------------------------------------------------------------
 
-### I have only numeric and positive data but **vegan** still complains {.section}
+### I have only numeric and positive data but **vegan** still complains
 
 You are wrong! Computers are painfully pedantic, and if they find
 non-numeric or negative data entries, you really have them. Check your
@@ -242,7 +239,7 @@ data, and these were interpreted as missing values.
 
 ------------------------------------------------------------------------
 
-### Can I analyse binary or cover class data? {.section}
+### Can I analyse binary or cover class data?
 
 Yes. Most **vegan** methods can handle binary data or cover abundance
 data. Most statistical tests are based on permutation, and do not make
@@ -252,7 +249,7 @@ integers, but they may be fooled by cover class data.
 
 ------------------------------------------------------------------------
 
-### Why dissimilarities in **vegan** differ from other sources? {.section}
+### Why dissimilarities in **vegan** differ from other sources?
 
 Most commonly the reason is that other software use presence–absence
 data whereas **vegan** used quantitative data. Usually **vegan** indices
@@ -267,7 +264,7 @@ because people use same names for different indices.
 
 ------------------------------------------------------------------------
 
-### Why NMDS stress is sometimes 0.1 and sometimes 10? {.section}
+### Why NMDS stress is sometimes 0.1 and sometimes 10?
 
 Stress is a proportional measure of badness of fit. The proportions can
 be expressed either as parts of one or as percents. Function `isoMDS`
@@ -280,7 +277,7 @@ correct.
 
 ------------------------------------------------------------------------
 
-### I get zero stress but no convergent solutions in `metaMDS` {.section}
+### I get zero stress but no convergent solutions in `metaMDS`
 
 Most common reason is that you have too few observations for your NMDS.
 For `n` observations (points) and `k` dimensions you need to estimate
@@ -304,7 +301,7 @@ higher number of dimensions can be used in metric scaling, both with
 
 ------------------------------------------------------------------------
 
-### Zero dissimilarities in isoMDS {.section}
+### Zero dissimilarities in isoMDS
 
 Function `metaMDS` uses function `monoMDS` as its default method for
 NMDS, and this function can handle zero dissimilarities. Alternative
@@ -321,7 +318,7 @@ your data). Usually it is better to use `monoMDS`.
 
 ------------------------------------------------------------------------
 
-### I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores {.section}
+### I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
 
 Claims like this have indeed been at large in the Internet, but they are
 based on grave misunderstanding and are plainly wrong. NMDS ordination
@@ -335,7 +332,7 @@ use **vegan** functions `envfit` and `ordisurf` with NMDS results.
 
 ------------------------------------------------------------------------
 
-### Where can I find numerical scores of ordination axes? {.section}
+### Where can I find numerical scores of ordination axes?
 
 Normally you can use function `scores` to extract ordination scores for
 any ordination method. The `scores` function can also find ordination
@@ -350,7 +347,7 @@ use when they are accessed with `scores`.
 
 ------------------------------------------------------------------------
 
-### How the RDA results are scaled? {.section}
+### How the RDA results are scaled?
 
 The scaling or RDA results indeed differ from most other software
 packages. The scaling of RDA is such a complicated issue that it cannot
@@ -360,7 +357,7 @@ read with **vegan** command `vegandocs("decision")`.
 
 ------------------------------------------------------------------------
 
-### cca fails with “data.frame expected” or “"site.env" missing” {.section}
+### cca fails with “data.frame expected” or “"site.env" missing”
 
 This is not a **vegan** error message, but it comes from the `cca`
 function in the **ade4** package. There is an unfortunate name clash,
@@ -371,7 +368,7 @@ can detach it with command `detach(package:ade4)`.
 
 ------------------------------------------------------------------------
 
-### Ordination fails with “Error in La.svd” {.section}
+### Ordination fails with “Error in La.svd”
 
 Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail
 with error message
@@ -394,7 +391,7 @@ and `LAPACK`.
 
 ------------------------------------------------------------------------
 
-### Variance explained by ordination axes. {.section}
+### Variance explained by ordination axes.
 
 In general, **vegan** does not directly give any statistics on the
 “variance explained” by ordination axes or by the constrained axes. This
@@ -447,7 +444,7 @@ for some methods:
 
 ------------------------------------------------------------------------
 
-### Can I have random effects in constrained ordination or in `adonis`? {.section}
+### Can I have random effects in constrained ordination or in `adonis`?
 
 No. Strictly speaking, this is impossible. However, you can define
 models that respond to similar goals as random effects models, although
@@ -485,7 +482,7 @@ of the given, fixed data, and such tests are not available in **vegan**.
 
 ------------------------------------------------------------------------
 
-### Is it possible to have passive points in ordination? {.section}
+### Is it possible to have passive points in ordination?
 
 **Vegan** does not have a concept of passive points, or a point that
 should only little influence the ordination results. However, you can
@@ -502,7 +499,7 @@ the following command makes row 3 “passive”:
 
 ------------------------------------------------------------------------
 
-### Class variables and dummies {.section}
+### Class variables and dummies
 
 You should define a class variable as an R `factor`, and **vegan** will
 automatically handle them with formula interface. You also can define
@@ -517,7 +514,7 @@ of these contrasts explained in standard R documentation.
 
 ------------------------------------------------------------------------
 
-### How are environmental arrows scaled? {.section}
+### How are environmental arrows scaled?
 
 The printed output of `envfit` gives the direction cosines which are the
 coordinates of unit length arrows. For plotting, these are scaled by
@@ -556,7 +553,7 @@ ordiArrowMul(scores(ef, display="vectors"))
 
 ------------------------------------------------------------------------
 
-### I want to use Helmert or sum contrasts {.section}
+### I want to use Helmert or sum contrasts
 
 `vegan` uses standard R utilities for defining contrasts. The default in
 standard installations is to use treatment contrasts, but you can change
@@ -565,7 +562,7 @@ the behaviour globally setting `options` or locally by using keyword
 
 ------------------------------------------------------------------------
 
-### What are aliased variables and how to see them? {.section}
+### What are aliased variables and how to see them?
 
 Aliased variable has no information because it can be expressed with the
 help of other variables. Such variables are automatically removed in
@@ -578,7 +575,7 @@ levels in solution `sol`, use `alias(sol, names.only=TRUE)`.
 
 ------------------------------------------------------------------------
 
-### Plotting aliased variables {.section}
+### Plotting aliased variables
 
 You can fit vectors or class centroids for aliased variables using
 `envfit` function. The `envfit` function uses weighted fitting, and the
@@ -586,7 +583,7 @@ fitted vectors are identical to the vectors in correspondence analysis.
 
 ------------------------------------------------------------------------
 
-### Restricted permutations in **vegan** {.section}
+### Restricted permutations in **vegan**
 
 **Vegan** uses **permute** package in all its permutation tests. The
 **permute** package will allow restricted permutation designs for time
@@ -597,7 +594,7 @@ manual page `permutations` in **vegan** and in the documentation of the
 
 ------------------------------------------------------------------------
 
-### How to use different plotting symbols in ordination graphics? {.section}
+### How to use different plotting symbols in ordination graphics?
 
 The default ordination `plot` function is intended for fast plotting and
 it is not very configurable. To use different plotting symbols, you
@@ -609,7 +606,7 @@ configurable, and allow different plotting symbols and characters.
 
 ------------------------------------------------------------------------
 
-### How to avoid cluttered ordination graphs? {.section}
+### How to avoid cluttered ordination graphs?
 
 If there is a really high number of species or sites, the graphs often
 are congested and many labels are overwritten. It may be impossible to
@@ -653,7 +650,7 @@ discussion and examples.
 
 ------------------------------------------------------------------------
 
-### Can I flip an axis in ordination diagram? {.section}
+### Can I flip an axis in ordination diagram?
 
 Use `xlim` or `ylim` with flipped limits. If you have model
 `mod <- cca(dune)` you can flip the first axis with
@@ -661,7 +658,7 @@ Use `xlim` or `ylim` with flipped limits. If you have model
 
 ------------------------------------------------------------------------
 
-### Can I zoom into an ordination plot? {.section}
+### Can I zoom into an ordination plot?
 
 You can use `xlim` and `ylim` arguments in `plot` or `ordiplot` to zoom
 into ordination diagrams. Normally you must set both `xlim` and `ylim`
@@ -675,12 +672,12 @@ results.
 
 ------------------------------------------------------------------------
 
-Other analysis methods {.chapter}
+Other analysis methods
 ----------------------
 
 ------------------------------------------------------------------------
 
-### Is there TWINSPAN? {.section}
+### Is there TWINSPAN?
 
 No. It may be possible to port TWINSPAN to **vegan**, but it is not
 among the **vegan** top priorities. If anybody wants to try porting, I
@@ -689,7 +686,7 @@ would be completely legal to port the function into R.
 
 ------------------------------------------------------------------------
 
-### Why restricted permutation does not influence adonis results? {.section}
+### Why restricted permutation does not influence adonis results?
 
 The permutation scheme influences the permutation distribution of the
 statistics and probably the significance levels, but does not influence
@@ -697,7 +694,7 @@ the calculation of the statistics.
 
 ------------------------------------------------------------------------
 
-### How is deviance calculated? {.section}
+### How is deviance calculated?
 
 Some **vegan** functions, such as `radfit` use base R facility of
 `family` in maximum likelihood estimation. This allows use of several
