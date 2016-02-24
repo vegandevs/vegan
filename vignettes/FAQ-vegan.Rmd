@@ -70,10 +70,11 @@ is developed together with **vegan** in
 [GitHub](https://github.com/gavinsimpson/permute).
 
 Some individual **vegan** functions depend on packages **MASS**,
-**mgcv**, **cluster**, **lattice** and **tcltk**. These all are base or
-recommended R packages that should be available in every R installation.
-**Vegan** declares these as suggested or imported packages, and you can
-install **vegan** and use most of its functions without these packages.
+**mgcv**, **parallel**, **cluster**, **lattice** and **tcltk**. These
+all are base or recommended R packages that should be available in
+every R installation.  **Vegan** declares these as suggested or
+imported packages, and you can install **vegan** and use most of its
+functions without these packages.
 
 **Vegan** is accompanied with a supporting package **vegan3d** for
 three-dimensional and dynamic plotting. The **vegan3d** package needs
@@ -101,15 +102,14 @@ read with `vegandocs` command (documented in the **vegan** help). The
 documents included in the **vegan** package are
 
 -   **Vegan** `NEWS`
--   **Vegan** `ChangeLog`.
--   This document (`FAQ-vegan.pdf`).
+-   This document (`FAQ-vegan`).
 -   Short introduction to basic ordination methods in **vegan**
-    (`intro-vegan.pdf`).
+    (`intro-vegan`).
 -   Introduction to diversity methods in **vegan**
-    (`diversity-vegan.pdf`).
--   Discussion on design decisions in **vegan** (`decision-vegan.pdf`).
+    (`diversity-vegan`).
+-   Discussion on design decisions in **vegan** (`decision-vegan`).
 -   Description of variance partition procedures in function `varpart`
-    (`partitioning.pdf`).
+    (`partitioning`).
 
 Web documents outside the package include:
 
@@ -163,18 +163,6 @@ packages within R with command
 `install.packages("vegan", repos="http://r-forge.r-project.org/")`. If
 you use GUI menu entry, you must select or define the R-Forge
 repository.
-
-------------------------------------------------------------------------
-
-### Can I use **vegan** in Mac?
-
-Yes, you can, and **vegan** binaries are available for Mac through
-[CRAN](http://cran.r-project.org). However, in some cases you may need
-to install extra tools packages available in [MacOS
-tools](http://cran.r-project.org/bin/macosx/tools/) pages: If you use
-function such as `orditkplot` that need `Tcl/Tk` you may need to install
-`tcltk` package. No Mac binaries of development versions are available
-in any repository we know.
 
 ------------------------------------------------------------------------
 
