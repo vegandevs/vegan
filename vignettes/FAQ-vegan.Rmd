@@ -123,7 +123,7 @@ Web documents outside the package include:
 
 Roeland Kindt has made package **BiodiversityR** which provides a GUI
 for **vegan**. The package is available at
-[CRAN](http://cran.r-project.org/src/contrib/Descriptions/BiodiversityR.html).
+[CRAN](https://cran.r-project.org/web/packages/BiodiversityR/index.html).
 It is not a mere GUI for **vegan**, but adds some new functions and
 complements **vegan** functions in order to provide a workbench for
 biodiversity analysis. You can install **BiodiversityR** using
