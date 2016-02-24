@@ -7,9 +7,8 @@
   ChangeLog in \pkg{vegan}, or vignettes in \pkg{permute}. }
 
 \usage{
-vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan.pdf",
-    "intro-vegan.pdf", "diversity-vegan.pdf", "decision-vegan.pdf",
-    "partitioning.pdf", "permutations.pdf"))
+vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan", "intro-vegan",
+    "diversity-vegan", "decision-vegan", "partitioning", "permutations"))
 }
 
 \arguments{
@@ -51,7 +50,8 @@ vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan.pdf",
      partitioning schemes used in \code{\link{varpart}}.
 
    \item \code{permutations}: a \code{\link{vignette}} in the
-     \pkg{permute} package giving an introduction to restricted
+   \pkg{permute} package giving an intro
+   duction to restricted
      permutation schemes. You can also read this using
      \code{vignette("permutations", package="permute")}.
 
@@ -62,13 +62,12 @@ vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan.pdf",
 
 \author{Jari Oksanen }
 
-\note{ Function \code{\link{vignette}} only works with vignettes
-  processed by \R, but the current function also shows other
-  \code{pdf} documents. You can extract \R code from
-  \code{\link{vignette}}s, but not from other documents (see
-  \code{Examples}).
+\note{
 
-  The \code{permutations.pdf} document is in the \pkg{permute}
+  For most cases, the function is a wrapper to \code{\link[utils]{news}}
+  and \code{\link[utils]{vignette}}.
+
+  The \code{permutations} document is in the \pkg{permute}
   package.
 
 }
