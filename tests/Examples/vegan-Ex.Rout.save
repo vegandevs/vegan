@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-02-22 r70197) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-02-24 r70217) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -8302,36 +8302,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > cleanEx()
-> nameEx("vegandocs")
-> ### * vegandocs
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: vegandocs
-> ### Title: Display Package Documentation
-> ### Aliases: vegandocs
-> ### Keywords: utilities documentation
-> 
-> ### ** Examples
-> 
-> ## Not run: 
-> ##D ## Read NEWS
-> ##D vegandocs()
-> ##D ## Alternatively (perhaps with different formatting)
-> ##D news(package="vegan")
-> ##D ## Read a vignette
-> ##D vegandocs("intro")
-> ##D ## with vignette()
-> ##D vignette("intro-vegan", package="vegan")
-> ##D ## extract R code
-> ##D vig <- vignette("intro-vegan", package="vegan")
-> ##D edit(vig)
-> ##D ##
-> ## End(Not run)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("vegdist")
 > ### * vegdist
 > 
@@ -8809,7 +8779,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.136 0.124 22.31 0 0 
+Time elapsed:  22.288 0.136 22.413 0 0 
 > grDevices::dev.off()
 null device 
           1 
