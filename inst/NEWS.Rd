@@ -2,6 +2,56 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-4}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{betadiver} index \code{19} had wrong sign in one of
+      its terms.
+
+      \item \code{linestack} failed when the \code{labels} were given,
+      but the input scores had no names. Reported by Jeff Wood (ANU,
+      Canberra, ACT).
+
+    } %itemize
+  } % bug fixes
+
+  \subsection{DEPRECATED}{
+    \itemize{
+
+      \item \code{vegandocs} is deprecated. Current \R{} provides better
+      tools for seeing extra documentation.
+
+    } %itemize
+  } %deprecated
+
+  \subsection{VIGNETTES}{
+    \itemize{
+
+      \item All vignettes are built with standard \R{} tools and can be
+      browsed with \code{browseVignettes}. Earlier \code{FAQ-vegan} and
+      \code{partitioning} were only accessible with \code{vegandocs}
+      function. 
+      
+    } %itemize
+  } %vignettes
+
+  \subsection{BUILDING}{
+    \itemize{
+
+      \item Dependence on external software \code{texi2dvi} was
+      removed. Version 6.1 of \code{texi2dvi} was incompatible with \R{}
+      and prevented building \pkg{vegan}. The \code{FAQ-vegan} that was
+      earlier built with \code{texi2dvi} uses now \pkg{knitr}. Because
+      of this, \pkg{vegan} is now dependent on \R-3.0.0.
+
+    } %itemize
+  } % building
+    
+  
+} % v2.3-4
+
 \section{Changes in version 2.3-3}{
   \subsection{BUG FIXES}{
      \itemize{
