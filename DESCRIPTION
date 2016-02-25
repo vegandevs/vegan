@@ -1,4 +1,4 @@
-Package: vegan
+2Package: vegan
 Title: Community Ecology Package
 Version: 2.3-4
 Date: 2016-02-26
@@ -14,4 +14,4 @@ Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
 License: GPL-2
 BugReports: https://github.com/vegandevs/vegan/issues
-URL: http://cran.r-project.org, https://github.com/vegandevs/vegan
+URL: https://cran.r-project.org, https://github.com/vegandevs/vegan
