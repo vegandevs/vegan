@@ -79,12 +79,12 @@ specnumber(x, groups, MARGIN = 1)
 \seealso{These functions calculate only some basic indices, but many
   others can be derived with them (see Examples). Facilities related to
   diversity are discussed in a \pkg{vegan} vignette that can be read
-  with command \code{vegandocs("diversity")}.  Functions
-  \code{\link{renyi}} and \code{\link{tsallis}} estimate a series of
-  generalized diversity indices. Function \code{\link{rarefy}} finds
-  estimated number of species for given sample size. Beta diversity can
-  be estimated with \code{\link{betadiver}}. Diversities can be
-  partitioned with \code{\link{adipart}} and \code{\link{multipart}}. }
+  with \code{browseVignettes("vegan")}.  Functions \code{\link{renyi}}
+  and \code{\link{tsallis}} estimate a series of generalized diversity
+  indices. Function \code{\link{rarefy}} finds estimated number of
+  species for given sample size. Beta diversity can be estimated with
+  \code{\link{betadiver}}. Diversities can be partitioned with
+  \code{\link{adipart}} and \code{\link{multipart}}. }
 
 \author{ Jari Oksanen  and  Bob O'Hara (\code{fisher.alpha}).}
 
