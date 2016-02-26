@@ -88,9 +88,10 @@
   \item{const}{General scaling constant to \code{rda} scores. The
     default is to use a constant that gives biplot scores, that is,
     scores that approximate original data (see \code{\link{vignette}}
-    \samp{decision-vegan.pdf} with \code{\link{vegandocs}} for details
-    and discussion). If \code{const} is a vector of two items, the first
-    is used for species, and the second item for site scores.}
+    on \sQuote{Design Decisions} with \code{browseVignettes("vegan")}
+    for details and discussion). If \code{const} is a vector of two
+    items, the first is used for species, and the second item for site
+    scores.}
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
