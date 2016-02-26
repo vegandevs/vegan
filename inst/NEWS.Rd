@@ -21,7 +21,8 @@
     \itemize{
 
       \item \code{vegandocs} is deprecated. Current \R{} provides better
-      tools for seeing extra documentation.
+      tools for seeing extra documentation (\code{news()} and
+      \code{browseVignettes()}).
 
     } %itemize
   } %deprecated
@@ -30,9 +31,9 @@
     \itemize{
 
       \item All vignettes are built with standard \R{} tools and can be
-      browsed with \code{browseVignettes}. Earlier \code{FAQ-vegan} and
+      browsed with \code{browseVignettes}. \code{FAQ-vegan} and
       \code{partitioning} were only accessible with \code{vegandocs}
-      function. 
+      function.
       
     } %itemize
   } %vignettes
@@ -44,7 +45,9 @@
       removed. Version 6.1 of \code{texi2dvi} was incompatible with \R{}
       and prevented building \pkg{vegan}. The \code{FAQ-vegan} that was
       earlier built with \code{texi2dvi} uses now \pkg{knitr}. Because
-      of this, \pkg{vegan} is now dependent on \R-3.0.0.
+      of this, \pkg{vegan} is now dependent on \R-3.0.0.  Fixes issue
+      \href{https://github.com/vegandevs/vegan/issues/158}{#158} in
+      Github.
 
     } %itemize
   } % building
