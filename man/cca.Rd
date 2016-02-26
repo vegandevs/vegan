@@ -271,10 +271,6 @@ data(dune)
 data(dune.env)
 dune.Manure <- rda(dune ~ Manure, dune.env)
 plot(dune.Manure) 
-## For further documentation:
-\dontrun{
-vegandocs("decision")
-}
 }
 \keyword{ multivariate }
 
