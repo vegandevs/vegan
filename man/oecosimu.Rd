@@ -80,8 +80,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     processing. The parallel processing is done with \pkg{parallel}
     package.  If you define a \code{nestfun} in Windows that needs other
     \R packages than \pkg{vegan} or \pkg{permute}, you must set up a
-    socket cluster before the call. See \code{\link{vegandocs}}
-    \code{decision-vegan} for details. }
+    socket cluster before the call. }
   \item{x}{An \code{oecosimu} result object.}
 
   \item{\dots}{Other arguments to functions.}

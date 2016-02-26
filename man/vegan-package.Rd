@@ -12,31 +12,26 @@ community ordination and dissimilarity analysis. Most of its
 multivariate tools can be used for other data types as well.  }
 
 \details{The functions in the \pkg{vegan} package contain tools for
-diversity analysis (see \code{\link{vignette}}
-\code{vegandocs("diversity")}), ordination and analysis of
-dissimilarities (see \code{\link{vignette}}
-\code{vegandocs("intro")}). Together with the \pkg{labdsv} package,
-the \pkg{vegan} package provides most standard tools of descriptive
-community analysis. Package \pkg{ade4} provides an alternative
-comprehensive package, and several other packages complement
-\pkg{vegan} and provide tools for deeper analysis in specific
-fields. Package \pkg{BiodiversityR} provides a GUI for a large subset
-of \pkg{vegan} functionality.
+diversity analysis, ordination methods and tools for the analysis of
+dissimilarities. Together with the \pkg{labdsv} package, the \pkg{vegan}
+package provides most standard tools of descriptive community
+analysis. Package \pkg{ade4} provides an alternative comprehensive
+package, and several other packages complement \pkg{vegan} and provide
+tools for deeper analysis in specific fields. Package
+\pkg{BiodiversityR} provides a GUI for a large subset of \pkg{vegan}
+functionality.
 
 The \pkg{vegan} package is developed at GitHub
 (\url{https://github.com/vegandevs/vegan/}).  GitHub provides up-to-date
 information and forums for bug reports.
 
-The \pkg{vegan} documents can be read with \code{\link{vegandocs}}
-function. In addition to \code{\link{vignette}}s of basic usage, you
-can read \code{NEWS} on the new features and bug fixes in the release
-version (\code{vegandocs("NEWS")}), and more technical and fine
-grained \code{ChangeLog} (\code{vegandocs("Change")}).  Several
-frequently asked questions really are answered in the vegan FAQ
-(\code{vegandocs("FAQ")}). The discussion on design decisions can be
-read with \code{vegandocs("decision")}.  A tutorial of the package at
-\url{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf}
-provides a more thorough introduction to the package.
+Most important changes in \pkg{vegan} documents can be read with
+\code{news(package="vegan")} and vignettes can be browsed with
+\code{browseVignettes("vegan")}. The vignettes include a \pkg{vegan}
+FAQ, discussion on design decisions, short introduction to ordination
+and discussion on diversity methods.  A tutorial of the package at
+\url{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf} provides
+a more thorough introduction to the package.
 
 To see the preferable citation of the package, type
 \code{citation("vegan")}.  

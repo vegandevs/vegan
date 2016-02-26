@@ -31,9 +31,7 @@ simper(comm, group, permutations = 0, trace = FALSE,
   \item{digits}{Number of digits in output.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
-    processing. The parallel processing is done with \pkg{parallel}
-    package. See \code{\link{vegandocs}} \code{decision-vegan} for
-    details.}
+    processing.}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}
