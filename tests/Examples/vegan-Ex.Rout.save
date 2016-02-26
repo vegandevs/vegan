@@ -1844,10 +1844,6 @@ Eigenvalues for unconstrained axes:
 > data(dune.env)
 > dune.Manure <- rda(dune ~ Manure, dune.env)
 > plot(dune.Manure) 
-> ## For further documentation:
-> ## Not run: 
-> ##D vegandocs("decision")
-> ## End(Not run)
 > 
 > 
 > 
@@ -7780,11 +7776,6 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > data(mite.env)
 > data(mite.pcnm)
 > 
-> ## See detailed documentation:
-> ## Not run: 
-> ##D vegandocs("partition")
-> ## End(Not run)
-> 
 > # Two explanatory matrices -- Hellinger-transform Y
 > # Formula shortcut "~ ." means: use all variables in 'data'.
 > mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
@@ -8779,7 +8770,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.288 0.136 22.413 0 0 
+Time elapsed:  22.528 0.1 22.662 0 0 
 > grDevices::dev.off()
 null device 
           1 
