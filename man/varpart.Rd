@@ -114,10 +114,9 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   explained by the explanatory table. 
 
   The identifiable fractions are designated by lower case alphabets. The
-  meaning of the symbols can be found in the separate document
-  "partitioning.pdf" (which can be read using \code{\link{vegandocs}}),
-  or can be displayed graphically using function
-  \code{showvarparts}.
+  meaning of the symbols can be found in the separate document (use
+  \code{browseVignettes("vegan")}), or can be displayed graphically
+  using function \code{showvarparts}.
 
   A fraction is testable if it can be directly expressed as an RDA or
   db-RDA model.  In these cases the printed output also displays the
@@ -129,9 +128,9 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   estimated models.
 
   An abridged explanation of the alphabetic symbols for the individual
-  fractions follows, but computational details should be checked in
-  "partitioning.pdf" (readable with \code{\link{vegandocs}}) or in the
-  source code. 
+  fractions follows, but computational details should be checked in the
+  vignette (readable with \code{browseVignettes("vegan")}) or in the
+  source code.
 
   With two explanatory tables, the fractions explained 
   uniquely by each of the two tables are \code{[a]} and
@@ -238,11 +237,11 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
 
 \note{
 
-  You can use command \code{\link{vegandocs}} to display document
-  "partitioning.pdf" which presents Venn diagrams showing the fraction
-  names in partitioning the variation of Y with respect to 2, 3, and 4
-  tables of explanatory variables, as well as the equations used in
-  variation partitioning.
+  You can use command \code{browseVignettes("vegan")} to display
+  document which presents Venn diagrams showing the fraction names in
+  partitioning the variation of Y with respect to 2, 3, and 4 tables of
+  explanatory variables, as well as the equations used in variation
+  partitioning.
 
   The functions frequently give negative estimates of variation.
   Adjusted \eqn{R^2}{R-squared} can be negative for any fraction;
@@ -281,11 +280,6 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
 data(mite)
 data(mite.env)
 data(mite.pcnm)
-
-## See detailed documentation:
-\dontrun{
-vegandocs("partition")
-}
 
 # Two explanatory matrices -- Hellinger-transform Y
 # Formula shortcut "~ ." means: use all variables in 'data'.
