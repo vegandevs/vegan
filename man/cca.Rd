@@ -243,8 +243,8 @@
   several components (\code{\link{varpart}}).
 
   Design decisions are explained in \code{\link{vignette}}
-  \file{decision-vegan} which also can be accessed with
-  \code{\link{vegandocs}}.
+  on \dQuote{Design decisions} which can be accessed with
+  \code{browseVignettes("vegan")}.
 
   Package \pkg{ade4} provides alternative constrained ordination
   functions \code{\link[ade4]{cca}} and \code{\link[ade4]{pcaiv}}.

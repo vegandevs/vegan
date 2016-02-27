@@ -182,9 +182,6 @@ points(mod, pch=21, col="red", bg="yellow", cex=1.2)
 text(mod, "species", col="blue", cex=0.8)
 ## Limited output of 'summary'
 head(summary(mod), tail=2)
-## Read description of scaling in RDA in vegan:
-\dontrun{vegandocs("decision")}
-
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)
