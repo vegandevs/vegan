@@ -69,7 +69,7 @@ showvarparts(4, bg = cls, Xnames=labs)
   
   [a] to [d] and subsets containing [a] to [d] can be tested for
   significance (5 canonical analyses per permutation to test [a] to
-  [d]). Fractions [e] to [o] cannot be tested for singly.}
+  [d]). Fractions [e] to [o] cannot be tested singly.}
 \label{fig:part4}
 \end{figure}
 \clearpage
