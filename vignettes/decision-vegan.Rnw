@@ -251,7 +251,6 @@ cross <- function(x, a, p) f(x,p) - a + x
 r <- uniroot(cross, c(0,1), a = x+y, p = mod$p)$root
 arrows(x,y, r, f(r, mod$p), lwd=4)
 @
-\label{fig:nestedtemp}
 \caption{Matrix temperature for \emph{Falco subbuteo} on Sibbo
   Svartholmen (dot). The curve is the fill line, and in a cold
   matrix, all presences (red squares) should be in the upper left
@@ -260,6 +259,7 @@ arrows(x,y, r, f(r, mod$p), lwd=4)
   the fill line. The ``surprise'' for this point is $u = (d/D)^2$ and
   the matrix temperature is based on the sum of surprises: presences
   outside the fill line or absences within the fill line.}
+\label{fig:nestedtemp}
 \end{figure}
 The function can be implemented in many ways following the general
 principles.  \citet{RodGir06} have seen the original code and reveal
