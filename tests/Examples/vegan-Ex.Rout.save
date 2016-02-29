@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-02-24 r70217) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-02-27 r70236) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -6037,9 +6037,6 @@ ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
 ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
 ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 
-> ## Read description of scaling in RDA in vegan:
-> ## Not run: vegandocs("decision")
-> 
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -8770,7 +8767,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.528 0.1 22.662 0 0 
+Time elapsed:  23.552 0.284 25.491 0 0 
 > grDevices::dev.off()
 null device 
           1 
