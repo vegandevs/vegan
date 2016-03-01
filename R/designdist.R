@@ -33,6 +33,7 @@
     if (alphagamma) {
         alpha <- (A + B)/2
         gamma <- A + B - J
+        delta <- abs(A - B)/2
     }
     dis <- eval(parse(text = method))
     attributes(dis) <- attributes(J)
