@@ -3,7 +3,7 @@
 ### (and usually) are negative, and we also skip those axes.
 `scores.dbrda` <-
     function (x, choices = c(1, 2), display = c("lc", "cn"),
-              scaling = "sites", ...)
+              scaling = "sites", const = 1, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
@@ -83,8 +83,12 @@
                              prefix = substr(names(sol)[i], 1, 3))
         }
     }
+    ## Apply const
+    if (const != 1)
+        sol <- lapply(sol, function(z) z * const)
     ## Only one type of scores: return a matrix instead of a list
-    if (length(sol) == 1) 
+    if (length(sol) == 1)
         sol <- sol[[1]]
+    attr(sol, "const") <- const
     sol
 }
