@@ -111,6 +111,7 @@
         } else {
             imaginary.u <- NULL
         }
+        wa <- G %*% e$vectors %*% diag(1/e$values[pos], sum(pos))
         oo <- Q$pivot[seq_len(Q$rank)]
         rank <- Q$rank
         if (!is.null(pCCA)) {
@@ -121,7 +122,7 @@
                     u = e$vectors,
                     imaginary.u = imaginary.u,
                     poseig = sum(pos),
-                    v = NA, wa = NA,
+                    v = NA, wa = wa,
                     alias =  if (rank < ncol(d$Y))
                                  colnames(d$Y)[-oo],
                     biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
