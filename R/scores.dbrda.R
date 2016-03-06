@@ -3,8 +3,20 @@
 ### (and usually) are negative, and we also skip those axes.
 `scores.dbrda` <-
     function (x, choices = c(1, 2), display = c("lc", "cn"),
-              scaling = "sites", const = 1, ...)
+              scaling = "sites", const, ...)
 {
+    ## 'const' can be a vector of length 2 in rda, but we accept only
+    ## one value. In rda, the second item is for sites & friends: take
+    ## only that if two given, and stop with error if there are more
+    ## than two items of const
+    if (missing(const))
+        const <- 1
+    if (length(const) > 1) {
+        if (length(const) == 2)
+            const <- const[2]
+        else
+            stop("'const' vector too long")
+    }
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
     if (!is.null(x$na.action) && inherits(x$na.action, "exclude"))
