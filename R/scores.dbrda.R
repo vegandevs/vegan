@@ -62,6 +62,7 @@
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
             u <- sweep(u, 2, scal, "*")
         }
+        u <- u * const
         sol$constraints <- u
     }
     if ("biplot" %in% take && !is.null(x$CCA$biplot)) {
@@ -83,6 +84,7 @@
                 scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
                 cn <- sweep(cn, 2, scal, "*")
             }
+            cn <- cn * const
             sol$centroids <- cn
         }
     }
@@ -95,9 +97,6 @@
                              prefix = substr(names(sol)[i], 1, 3))
         }
     }
-    ## Apply const
-    if (const != 1)
-        sol <- lapply(sol, function(z) z * const)
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1)
         sol <- sol[[1]]
