@@ -155,7 +155,8 @@
     ## output
     sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        colnames(sol$CCA$u) <- 
+        colnames(sol$CCA$u) <-
+            colnames(sol$CCA$wa) <-
             names(sol$CCA$eig) <-
                 paste("dbRDA", seq_len(ncol(sol$CCA$u)), sep = "")
         colnames(sol$CCA$biplot) <-
