@@ -1,6 +1,11 @@
 `calibrate.cca` <-
     function(object, newdata, rank = "full", ...)
 {
+    ## inversion solve(b) requires a square matrix, and we should
+    ## append imaginary dims to get those in dbrda with negative
+    ## constrained eigenvalues. Work is need to to verify this can be
+    ## done, and therefore we just disable calibrate with negative
+    ## eigenvalues in constraints.
     if (inherits(object, "dbrda") && object$CCA$poseig < object$CCA$qrank)
         stop("cannot be used with 'dbrda' with imaginary constrained dimensions")
     if (!is.null(object$pCCA))
