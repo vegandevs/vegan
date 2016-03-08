@@ -18,7 +18,7 @@
     qrank <- object$CCA$qrank
     b <- (coef(object))[object$CCA$QR$pivot[1:qrank], , drop=FALSE]
     b <- solve(b)
-    pred <- wa[ , 1:rank, drop=FALSE]  %*% b[1:qrank, , drop =FALSE]
+    pred <- wa[ , 1:rank, drop=FALSE]  %*% b[1:rank, , drop =FALSE]
     envcen <- object$CCA$envcentre[object$CCA$QR$pivot]
     envcen <- envcen[1:object$CCA$qrank]
     pred <- sweep(pred, 2, envcen, "+")
