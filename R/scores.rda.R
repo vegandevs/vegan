@@ -20,7 +20,12 @@
       display[display == "species"] <- "sp"
     take <- tabula[display]
     sumev <- x$tot.chi
-    slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices]/sumev)
+    ## dbrda can have negative eigenvalues, but have scores only for
+    ## positive
+    eigval <- eigenvals(x)
+    if (inherits(x, "dbrda") && any(eigval < 0))
+        eigval <- eigval[eigval > 0]
+    slam <- sqrt(eigval[choices]/sumev)
     nr <- if (is.null(x$CCA))
         nrow(x$CA$u)
     else
