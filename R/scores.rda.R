@@ -42,7 +42,11 @@
     if (length(const) == 1) {
         const <- c(const, const)
     }
-    rnk <- x$CCA$rank
+    ## in dbrda we only have scores for positive eigenvalues
+    if (inherits(x, "dbrda"))
+        rnk <- x$CCA$poseig
+    else
+        rnk <- x$CCA$rank
     sol <- list()
     ## process scaling; numeric scaling will just be returned as is
     scaling <- scalingType(scaling = scaling, correlation = correlation)
