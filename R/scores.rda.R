@@ -1,3 +1,6 @@
+### extract scores from rda, capscale and dbrda results. The two
+### latter can have special features which are commented below. cca
+### results are handled by scores.cca.
 `scores.rda` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
               scaling = "species", const, correlation = FALSE, ...)
