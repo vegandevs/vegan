@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-02-27 r70236) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-03-10 r70303) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -5917,9 +5917,8 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### Name: plot.cca
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
-> ### Aliases: plot.cca text.cca points.cca scores.dbrda scores.cca
-> ###   scores.rda summary.cca print.summary.cca ade2vegancca
-> ###   head.summary.cca tail.summary.cca
+> ### Aliases: plot.cca text.cca points.cca scores.cca scores.rda summary.cca
+> ###   print.summary.cca ade2vegancca head.summary.cca tail.summary.cca
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
@@ -8767,7 +8766,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.552 0.284 25.491 0 0 
+Time elapsed:  24.924 0.12 25.084 0 0 
 > grDevices::dev.off()
 null device 
           1 
