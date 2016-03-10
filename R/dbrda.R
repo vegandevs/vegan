@@ -111,6 +111,8 @@
         } else {
             imaginary.u <- NULL
         }
+        wa <- G %*% e$vectors %*% diag(1/e$values[pos], sum(pos))
+        v <- matrix(NA, ncol = ncol(wa))
         oo <- Q$pivot[seq_len(Q$rank)]
         rank <- Q$rank
         if (!is.null(pCCA)) {
@@ -121,7 +123,7 @@
                     u = e$vectors,
                     imaginary.u = imaginary.u,
                     poseig = sum(pos),
-                    v = NA, wa = NA,
+                    v = v, wa = wa,
                     alias =  if (rank < ncol(d$Y))
                                  colnames(d$Y)[-oo],
                     biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
@@ -143,18 +145,21 @@
     } else {
         imaginary.u <- NULL
     }
+    v <- matrix(NA, ncol = ncol(e$vectors))
     CA <- list(eig = e$values,
                u = e$vectors,
                imaginary.u = imaginary.u,
                poseig = sum(e$values > 0),
-               v = NA,
+               v = v,
                rank = sum(nz),
                tot.chi = sum(diag(G)),
                Xbar = NA, G = G)
     ## output
     sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        colnames(sol$CCA$u) <- 
+        colnames(sol$CCA$u) <-
+            colnames(sol$CCA$wa) <-
+            colnames(sol$CCA$v) <-
             names(sol$CCA$eig) <-
                 paste("dbRDA", seq_len(ncol(sol$CCA$u)), sep = "")
         colnames(sol$CCA$biplot) <-
@@ -169,7 +174,7 @@
         }
     }
     if (!is.null(sol$CA) && sol$CA$rank > 0) {
-        colnames(sol$CA$u) <- names(sol$CA$eig) <-
+        colnames(sol$CA$u) <- colnames(sol$CA$v) <- names(sol$CA$eig) <-
             paste("MDS", seq_len(ncol(sol$CA$u)), sep = "")
         rownames(sol$CA$u) <- rownames(d$X)
         if (!is.null(sol$CA$imaginary.u)) {

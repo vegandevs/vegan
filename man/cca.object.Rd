@@ -204,8 +204,8 @@
 
   \describe{
   
-    \item{\code{Xbar}, \code{v}, \code{w}}{are \code{NA} because
-      they cannot be calculated from dissimilarities.}
+    \item{\code{Xbar}, \code{v}}{are \code{NA} because they cannot be
+      calculated from dissimilarities.}
 
     \item{\code{Fit}}{ of \code{pCCA} is from Gower double centred
       dissimilarities \code{G} instead of \code{Xbar} (that does not

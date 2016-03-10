@@ -1,3 +1,6 @@
+### extract scores from rda, capscale and dbrda results. The two
+### latter can have special features which are commented below. cca
+### results are handled by scores.cca.
 `scores.rda` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
               scaling = "species", const, correlation = FALSE, ...)
@@ -20,7 +23,12 @@
       display[display == "species"] <- "sp"
     take <- tabula[display]
     sumev <- x$tot.chi
-    slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices]/sumev)
+    ## dbrda can have negative eigenvalues, but have scores only for
+    ## positive
+    eigval <- eigenvals(x)
+    if (inherits(x, "dbrda") && any(eigval < 0))
+        eigval <- eigval[eigval > 0]
+    slam <- sqrt(eigval[choices]/sumev)
     nr <- if (is.null(x$CCA))
         nrow(x$CA$u)
     else
@@ -37,7 +45,11 @@
     if (length(const) == 1) {
         const <- c(const, const)
     }
-    rnk <- x$CCA$rank
+    ## in dbrda we only have scores for positive eigenvalues
+    if (inherits(x, "dbrda"))
+        rnk <- x$CCA$poseig
+    else
+        rnk <- x$CCA$rank
     sol <- list()
     ## process scaling; numeric scaling will just be returned as is
     scaling <- scalingType(scaling = scaling, correlation = correlation)
