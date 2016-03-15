@@ -24,7 +24,8 @@
 }
 
 \usage{
-varpart(Y, X, ..., data, transfo, scale = FALSE)
+varpart(Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
+    sqrt.dist = FALSE)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
@@ -62,6 +63,18 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
 \item{scale}{Should the columns of \code{Y} be standardized to unit
   variance. Ignored if \code{Y} are dissimilarities.}
+
+\item{add}{Add a constant to the non-diagonal values to euclidify
+  dissimilarities (see \code{\link{wcmdscale}} for details). Choice
+  \code{"lingoes"} (or \code{TRUE}) use the recommended method of
+  Legendre & Anderson (1999: \dQuote{method 1}) and \code{"cailliez"}
+  uses their \dQuote{method 2}. The argument has an effect only when
+  \code{Y} are dissimilarities.}
+
+\item{sqrt.dist}{Take square root of dissimilarities. This often
+  euclidifies dissimilarities. NB., the argument name cannot be
+  abbreviated. THe argument has an effect only when \code{Y} are
+  dissimilarities.}
 
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
@@ -225,6 +238,10 @@ of species data matrices: estimation and comparison of fractions.
 Ecology 87: 2614--2625.
 
 (d) References on partitioning of dissimilarities
+
+Legendre, P. & Anderson, M. J. (1999). Distance-based redundancy
+analysis: testing multispecies responses in multifactorial ecological
+experiments. \emph{Ecological Monographs} 69, 1--24.
 
 McArdle, B.H. & Anderson, M.J. (2001). Fitting multivariate models
 to community data: a comment on distance-based redundancy
