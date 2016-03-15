@@ -1,5 +1,5 @@
 `varpart` <-
-    function (Y, X, ..., data, transfo, scale = FALSE)
+    function (Y, X, ..., data, transfo, scale = FALSE, add = FALSE)
 {
     if (missing(data))
         data <- parent.frame()
@@ -8,8 +8,21 @@
         stop("needs 2 to 4 explanatory tables")
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
-        inert <- attr(Y, "method")
-        inert <- paste("squared", inert, "distance")
+        inert <- paste(attr(Y, "method"), "distance")
+        if (is.logical(add) && isTRUE(add))
+            add <- "lingoes"
+        if (is.character(add)) {
+            add <- match.arg(add, c("lingoes", "cailliez"))
+            if (add == "lingoes") {
+                ac <- addLingoes(as.matrix(Y))
+                Y <- sqrt(Y^2 + 2 * ac)
+            } else if (add == "cailliez") {
+                ac <- addCailliez(as.matrix(Y))
+                Y <- Y + ac
+            }
+            if (ac > sqrt(.Machine$double.eps))
+                inert <- paste(add, "adjusted", inert)
+        }
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
             message("arguments 'transfo' and 'scale' are ignored with distances")
