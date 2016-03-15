@@ -1,5 +1,6 @@
 `varpart` <-
-    function (Y, X, ..., data, transfo, scale = FALSE, add = FALSE)
+    function (Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
+              sqrt.dist = FALSE)
 {
     if (missing(data))
         data <- parent.frame()
@@ -9,6 +10,12 @@
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
         inert <- paste(attr(Y, "method"), "distance")
+        ## sqrt of distances?
+        if (sqrt.dist)
+            Y <- sqrt(Y)
+        else
+            inert <- paste("squared", inert)
+        ## additive constant to euclidify distances?
         if (is.logical(add) && isTRUE(add))
             add <- "lingoes"
         if (is.character(add)) {
