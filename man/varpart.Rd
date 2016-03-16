@@ -24,7 +24,8 @@
 }
 
 \usage{
-varpart(Y, X, ..., data, transfo, scale = FALSE)
+varpart(Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
+    sqrt.dist = FALSE)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
@@ -63,6 +64,18 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{scale}{Should the columns of \code{Y} be standardized to unit
   variance. Ignored if \code{Y} are dissimilarities.}
 
+\item{add}{Add a constant to the non-diagonal values to euclidify
+  dissimilarities (see \code{\link{wcmdscale}} for details). Choice
+  \code{"lingoes"} (or \code{TRUE}) use the recommended method of
+  Legendre & Anderson (1999: \dQuote{method 1}) and \code{"cailliez"}
+  uses their \dQuote{method 2}. The argument has an effect only when
+  \code{Y} are dissimilarities.}
+
+\item{sqrt.dist}{Take square root of dissimilarities. This often
+  euclidifies dissimilarities. NB., the argument name cannot be
+  abbreviated. THe argument has an effect only when \code{Y} are
+  dissimilarities.}
+
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.}
@@ -85,7 +98,8 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
   places is at least one higher.}
-\item{...}{Other parameters passed to functions.}
+\item{...}{Other parameters passed to functions. NB, arguments after
+  dots cannot be abbreviated but they must be spelt out completely.}
 }
 
 \details{
@@ -99,12 +113,15 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   dissimilarities, the decomposition is based on distance-based
   redundancy analysis (db-RDA, see \code{\link{capscale}}) following
   McArdle & Anderson (2001). The input dissimilarities must be
-  compatible to the results of \code{\link{dist}}. \pkg{Vegan}
-  functions \code{\link{vegdist}}, \code{\link{designdist}},
+  compatible to the results of \code{\link{dist}}. \pkg{Vegan} functions
+  \code{\link{vegdist}}, \code{\link{designdist}},
   \code{\link{raupcrick}} and \code{\link{betadiver}} produce such
   objects, as do many other dissimilarity functions in \R
   packages. However, symmetric square matrices are not recognized as
   dissimilarities but must be transformed with \code{\link{as.dist}}.
+  Partitioning will be made to squared dissimilarities analogously to
+  using variance with rectangular data -- unless \code{sqrt.dist = TRUE}
+  was specified.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
@@ -120,12 +137,11 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   A fraction is testable if it can be directly expressed as an RDA or
   db-RDA model.  In these cases the printed output also displays the
-  corresponding RDA model using notation where explanatory tables
-  after \code{|} are conditions (partialled out; see \code{\link{rda}}
-  for details). Although single fractions can be testable, this does
-  not mean that all fractions simultaneously can be tested, since
-  there number of testable fractions is higher than the number of
-  estimated models.
+  corresponding RDA model using notation where explanatory tables after
+  \code{|} are conditions (partialled out; see \code{\link{rda}} for
+  details). Although single fractions can be testable, this does not
+  mean that all fractions simultaneously can be tested, since the number
+  of testable fractions is higher than the number of estimated models.
 
   An abridged explanation of the alphabetic symbols for the individual
   fractions follows, but computational details should be checked in the
@@ -191,12 +207,12 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   \code{indfract}, \code{contr1} and \code{contr2} are all data frames with
   items:
   \itemize{
-  \item{Df}{Degrees of freedom of numerator of the \eqn{F}-statistic
+  \item{\code{Df}: }{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
-  \item{R.square}{Raw \eqn{R^2}{R-squared}. This is calculated only for
+  \item{\code{R.square}: }{Raw \eqn{R^2}{R-squared}. This is calculated only for
     \code{fract} and this is \code{NA} in other items.}
-  \item{Adj.R.square}{Adjusted \eqn{R^2}{R-squared}.}
-  \item{Testable}{If the fraction can be expressed as a (partial) RDA
+  \item{\code{Adj.R.square}: }{Adjusted \eqn{R^2}{R-squared}.}
+  \item{\code{Testable}: }{If the fraction can be expressed as a (partial) RDA
     model, it is directly \code{Testable}, and this field is
     \code{TRUE}.  In that case the fraction label also gives the
     specification of the testable RDA model.}
@@ -226,6 +242,10 @@ Ecology 87: 2614--2625.
 
 (d) References on partitioning of dissimilarities
 
+Legendre, P. & Anderson, M. J. (1999). Distance-based redundancy
+analysis: testing multispecies responses in multifactorial ecological
+experiments. \emph{Ecological Monographs} 69, 1--24.
+
 McArdle, B.H. & Anderson, M.J. (2001). Fitting multivariate models
 to community data: a comment on distance-based redundancy
 analysis. Ecology 82, 290-297.
@@ -251,7 +271,15 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   results can be negative.  The fractions are orthogonal, or linearly
   independent, but more complicated or nonlinear dependencies can
   cause negative non-testable fractions. Any fraction can be negative
-  for non-Euclidean dissimilarities.
+  for non-Euclidean dissimilarities because the underlying db-RDA model
+  can yield negative eigenvalues (see \code{\link{capscale}},
+  \code{\link{dbrda}}). These negative eigenvalues in the underlying
+  analysis can be avoided with arguments \code{sqrt.dist} and \code{add}
+  which have a similar effect as in \code{\link{capscale}}: the square
+  roots of several dissimilarities do not have negative eigenvalues, and
+  no negative eigenvalues are produced after Lingoes or Cailliez
+  adjustment, which in effect add random variation to the
+  dissimilarities.
 
   The current function will only use RDA in multivariate
   partitioning. It is much more complicated to estimate the adjusted
