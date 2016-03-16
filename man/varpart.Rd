@@ -98,7 +98,8 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
   places is at least one higher.}
-\item{...}{Other parameters passed to functions.}
+\item{...}{Other parameters passed to functions. NB, arguments after
+  dots cannot be abbreviated but they must be spelt out completely.}
 }
 
 \details{
@@ -112,12 +113,15 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   dissimilarities, the decomposition is based on distance-based
   redundancy analysis (db-RDA, see \code{\link{capscale}}) following
   McArdle & Anderson (2001). The input dissimilarities must be
-  compatible to the results of \code{\link{dist}}. \pkg{Vegan}
-  functions \code{\link{vegdist}}, \code{\link{designdist}},
+  compatible to the results of \code{\link{dist}}. \pkg{Vegan} functions
+  \code{\link{vegdist}}, \code{\link{designdist}},
   \code{\link{raupcrick}} and \code{\link{betadiver}} produce such
   objects, as do many other dissimilarity functions in \R
   packages. However, symmetric square matrices are not recognized as
   dissimilarities but must be transformed with \code{\link{as.dist}}.
+  Partitioning will be made to squared dissimilarities analogously to
+  using variance with rectangular data -- unless \code{sqrt.dist = TRUE}
+  was specified.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
@@ -267,7 +271,15 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   results can be negative.  The fractions are orthogonal, or linearly
   independent, but more complicated or nonlinear dependencies can
   cause negative non-testable fractions. Any fraction can be negative
-  for non-Euclidean dissimilarities.
+  for non-Euclidean dissimilarities because the underlying db-RDA model
+  can yield negative eigenvalues (see \code{\link{capscale}},
+  \code{\link{dbrda}}). These negative eigenvalues in the underlying
+  analysis can be avoided with arguments \code{sqrt.dist} and \code{add}
+  which have a similar effect as in \code{\link{capscale}}: the square
+  roots of several dissimilarities do not have negative eigenvalues, and
+  no negative eigenvalues are produced after Lingoes or Cailliez
+  adjustment, which in effect add random variation to the
+  dissimilarities.
 
   The current function will only use RDA in multivariate
   partitioning. It is much more complicated to estimate the adjusted
