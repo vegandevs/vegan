@@ -133,12 +133,11 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   A fraction is testable if it can be directly expressed as an RDA or
   db-RDA model.  In these cases the printed output also displays the
-  corresponding RDA model using notation where explanatory tables
-  after \code{|} are conditions (partialled out; see \code{\link{rda}}
-  for details). Although single fractions can be testable, this does
-  not mean that all fractions simultaneously can be tested, since
-  there number of testable fractions is higher than the number of
-  estimated models.
+  corresponding RDA model using notation where explanatory tables after
+  \code{|} are conditions (partialled out; see \code{\link{rda}} for
+  details). Although single fractions can be testable, this does not
+  mean that all fractions simultaneously can be tested, since the number
+  of testable fractions is higher than the number of estimated models.
 
   An abridged explanation of the alphabetic symbols for the individual
   fractions follows, but computational details should be checked in the
@@ -204,12 +203,12 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   \code{indfract}, \code{contr1} and \code{contr2} are all data frames with
   items:
   \itemize{
-  \item{Df}{Degrees of freedom of numerator of the \eqn{F}-statistic
+  \item{\code{Df}: }{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
-  \item{R.square}{Raw \eqn{R^2}{R-squared}. This is calculated only for
+  \item{\code{R.square}: }{Raw \eqn{R^2}{R-squared}. This is calculated only for
     \code{fract} and this is \code{NA} in other items.}
-  \item{Adj.R.square}{Adjusted \eqn{R^2}{R-squared}.}
-  \item{Testable}{If the fraction can be expressed as a (partial) RDA
+  \item{\code{Adj.R.square}: }{Adjusted \eqn{R^2}{R-squared}.}
+  \item{\code{Testable}: }{If the fraction can be expressed as a (partial) RDA
     model, it is directly \code{Testable}, and this field is
     \code{TRUE}.  In that case the fraction label also gives the
     specification of the testable RDA model.}
