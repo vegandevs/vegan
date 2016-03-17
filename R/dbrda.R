@@ -1,6 +1,6 @@
 `dbrda` <-
     function (formula, data, distance = "euclidean",
-              sqrt.dist = FALSE,  dfun = vegdist,
+              sqrt.dist = FALSE,  add = FALSE, dfun = vegdist,
               metaMDSdist = FALSE, na.action = na.fail,
               subset = NULL, ...) 
 {
@@ -35,14 +35,13 @@
             X <- dfun(X, distance)
         }
     }
+    ## get the name of the inertia
     inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
     inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
                                                             2, 256), sep = "")
     inertia <- paste(inertia, "distance")
-    if (!sqrt.dist)
-        inertia <- paste("squared", inertia)
 
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
@@ -64,8 +63,29 @@
     }
     X <- as.matrix(X)
     k <- NROW(X) - 1
+    ## sqrt & add adjustments
     if (sqrt.dist)
         X <- sqrt(X)
+    if (is.logical(add) && isTRUE(add))
+        add <- "lingoes"
+    if (is.character(add)) {
+        add <- match.arg(add, c("lingoes", "cailliez"))
+        if (add == "lingoes") {
+            ac <- addLingoes(X)
+            X <- sqrt(X^2 + 2 * ac)
+        } else if (add == "cailliez") {
+            ac <- addCailliez(X)
+            X <- X + ac
+        }
+        diag(X) <- 0
+    } else {
+        ac <- 0
+    }
+    ## update the name of the inertia
+    if (!sqrt.dist)
+        inertia <- paste("squared", inertia)
+    if (ac > sqrt(.Machine$double.eps))
+        inertia <- paste(add, "adjusted", inertia)
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
         adjust <- 1
