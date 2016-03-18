@@ -85,7 +85,8 @@
     if (!sqrt.dist)
         inertia <- paste("squared", inertia)
     if (ac > sqrt(.Machine$double.eps))
-        inertia <- paste(add, "adjusted", inertia)
+        inertia <- paste(paste0(toupper(substring(add, 1, 1)),
+                              substring(add, 2)), "adjusted", inertia)
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
         adjust <- 1
