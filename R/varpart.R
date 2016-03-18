@@ -9,7 +9,9 @@
         stop("needs 2 to 4 explanatory tables")
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
-        inert <- paste(attr(Y, "method"), "distance")
+        inert <- attr(Y, "method")
+        inert <- paste(paste0(toupper(substring(inert, 1, 1)),
+                              substring(inert, 2)), "distance")
         ## sqrt of distances?
         if (sqrt.dist)
             Y <- sqrt(Y)
@@ -28,7 +30,8 @@
                 Y <- Y + ac
             }
             if (ac > sqrt(.Machine$double.eps))
-                inert <- paste(add, "adjusted", inert)
+                inert <- paste(paste0(toupper(substring(add, 1, 1)),
+                                    substring(add, 2)), "adjusted", inert)
         }
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
