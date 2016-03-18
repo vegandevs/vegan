@@ -38,8 +38,8 @@
     inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
-    inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
-                                                            2, 256), sep = "")
+    inertia <- paste(toupper(substr(inertia, 1, 1)),
+                     substring(inertia,  2), sep = "")
     inertia <- paste(inertia, "distance")
     if (!sqrt.dist)
         inertia <- paste("squared", inertia)
