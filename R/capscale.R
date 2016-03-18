@@ -78,8 +78,8 @@
     ## wcmdscale, optionally with additive adjustment
     X <- wcmdscale(X, x.ret = TRUE, add = add)
     ## this may have been euclidified: update inertia
-    if (!is.na(X$ac) && X$ac > 0)
-        inertia <- paste(inertia, " (", X$add, " adjusted)", sep="")
+    if (!is.na(X$ac) && X$ac > sqrt(.Machine$double.eps))
+        inertia <- paste(X$add, "adjusted", inertia)
     if (is.null(rownames(X$points))) 
         rownames(X$points) <- nm
     X$points <- adjust * X$points
