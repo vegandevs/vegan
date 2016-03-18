@@ -38,8 +38,8 @@
     inertia <- attr(X, "method")
     if (is.null(inertia))
         inertia <- "unknown"
-    inertia <- paste(toupper(substr(inertia, 1, 1)), substr(inertia, 
-                                                            2, 256), sep = "")
+    inertia <- paste(toupper(substr(inertia, 1, 1)),
+                     substring(inertia,  2), sep = "")
     inertia <- paste(inertia, "distance")
     if (!sqrt.dist)
         inertia <- paste("squared", inertia)
@@ -78,8 +78,10 @@
     ## wcmdscale, optionally with additive adjustment
     X <- wcmdscale(X, x.ret = TRUE, add = add)
     ## this may have been euclidified: update inertia
-    if (!is.na(X$ac) && X$ac > 0)
-        inertia <- paste(inertia, " (", X$add, " adjusted)", sep="")
+    if (!is.na(X$ac) && X$ac > sqrt(.Machine$double.eps))
+        inertia <- paste(paste0(toupper(substring(X$add, 1, 1)),
+                                substring(X$add, 2)),
+                         "adjusted", inertia)
     if (is.null(rownames(X$points))) 
         rownames(X$points) <- nm
     X$points <- adjust * X$points
