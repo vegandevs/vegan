@@ -4,6 +4,8 @@
 {
     if (inherits(object, "prc"))
         stop("'step'/'add1' cannot be used for 'prc' objects")
+    if (is.null(object$terms))
+        stop("ordination model must be fitted using formula")
     test <- match.arg(test)
     ## Default add1
     out <- NextMethod("add1", object, test = "none", ...)

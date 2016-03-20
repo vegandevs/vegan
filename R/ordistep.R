@@ -5,6 +5,8 @@
 {
     if (!inherits(object, "cca"))
         stop("function can be only used with 'cca' and related objects")
+    if (is.null(object$terms))
+        stop("ordination model must be fitted using formula")
     ## handling 'direction' and 'scope' directly copied from
     ## stats::step()
     md <- missing(direction)

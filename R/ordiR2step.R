@@ -8,6 +8,8 @@
              trace = TRUE, ...)
 {
     direction <- match.arg(direction)
+    if (is.null(object$terms))
+        stop("ordination model must be fitted using formula")
     if (missing(scope))
         stop("needs scope")
     ## Works only for rda(): cca() does not have (yet) R2.adjusted
