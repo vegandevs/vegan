@@ -15,7 +15,7 @@
     else
         method <- method[1]
     ## 2. All models must be fitted with formula interface
-    if (any(sapply(mods, function(x) is.null(x$terms))))
+    if (any(sapply(object, function(x) is.null(x$terms))))
         stop("all models must be fitted with formula interface")
     ## 3. Same response
     resp <- sapply(object, function(z) deparse(formula(z)[[2]]))
