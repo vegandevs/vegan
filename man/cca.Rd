@@ -34,7 +34,9 @@
     of the model formula.}
   \item{X}{ Community data matrix. }
   \item{Y}{ Constraining matrix, typically of environmental variables.
-    Can be missing. }
+    Can be missing. It is better to use \code{formula} instead of this
+    argument, and some further analyses only work when \code{formula}
+    was used.}
   \item{Z}{ Conditioning matrix, the effect of which is removed
     (`partialled out') before next step. Can be missing.}
   \item{scale}{Scale species to unit variance (like correlations).}
@@ -70,10 +72,13 @@
   algorithm of \pkg{vegan}. The algorithm of CCA is similar, but
   involves standardization by row and column weights.
 
-  The functions can be called either with matrix-like entries for community
-  data and constraints, or with formula interface.  In general, the
-  formula interface is preferred, because it allows a better control of
-  the model and allows factor constraints.
+  The functions can be called either with matrix-like entries for
+  community data and constraints, or with formula interface.  In
+  general, the formula interface is preferred, because it allows a
+  better control of the model and allows factor constraints. Some
+  analyses of ordination results are only possible if model was fitted
+  with formula (e.g., most cases of \code{\link{anova.cca}}, automatic
+  model building).
 
   In the following sections, \code{X}, \code{Y} and \code{Z}, although
   referred to as matrices, are more commonly data frames.
