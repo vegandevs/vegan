@@ -38,6 +38,8 @@
     ## by cases
     if (!is.null(by)) {
         by <- match.arg(by, c("terms", "margin", "axis"))
+        if (is.null(object$terms))
+            stop("model must be fitted with formula interface")
         sol <- switch(by,
                       "terms" = anova.ccabyterm(object,
                       permutations = permutations,

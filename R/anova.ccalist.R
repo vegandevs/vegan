@@ -14,17 +14,20 @@
         stop("same ordination method must be used in all models")
     else
         method <- method[1]
-    ## 2. Same response
+    ## 2. All models must be fitted with formula interface
+    if (any(sapply(object, function(x) is.null(x$terms))))
+        stop("all models must be fitted with formula interface")
+    ## 3. Same response
     resp <- sapply(object, function(z) deparse(formula(z)[[2]]))
     if (!all(resp == resp[1]))
         stop("response must be same in all models")
-    ## 3. Same no. of observations
+    ## 4. Same no. of observations
     N <- sapply(object, nobs)
     if (!all(N == N[1]))
         stop("number of observations must be same in all models")
     else
         N <- N[1]
-    ## 4. Terms must be nested
+    ## 5. Terms must be nested
     trms <- lapply(object, function(z) labels(terms(z)))
     o  <- order(sapply(trms, length))
     for (i in 2:nmodels) 
