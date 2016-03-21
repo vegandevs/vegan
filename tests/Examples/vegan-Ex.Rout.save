@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-03-10 r70303) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-03-19 r70355) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1606,7 +1606,7 @@ Total          6.2496     1.0000
 Conditional    1.0468     0.1675    1
 Constrained    1.1956     0.1913    3
 Unconstrained  4.0073     0.6412   19
-Inertia is squared Bray distance (lingoes adjusted) 
+Inertia is Lingoes adjusted squared Bray distance 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -5319,7 +5319,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-11. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-12. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -7836,7 +7836,7 @@ $adj.r.squared
 > # Partition Bray-Curtis dissimilarities
 > varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
 
-Partition of squared bray distance in dbRDA 
+Partition of squared Bray distance in dbRDA 
 
 Call: varpart(Y = vegdist(mite), X = ~., mite.pcnm, data = mite.env)
 
@@ -8766,7 +8766,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.924 0.12 25.084 0 0 
+Time elapsed:  22.74 0.132 23.037 0 0 
 > grDevices::dev.off()
 null device 
           1 
