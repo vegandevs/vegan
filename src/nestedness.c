@@ -186,7 +186,7 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *wrk1, int *wrk2)
 	i2rand(row, (*nr)-1);
 	/* Vectors of unique species for each random species */
 	for (j = 0, ind1 = -1, ind2 = -1; j < (*nc); j++) {
-	    jind <- j * (*nr)
+	    jind = j * (*nr);
 	    if (m[row[0] + jind] > 0 && m[row[1] + jind] == 0)
 		wrk1[++ind1] = j;
 	    if (m[row[1] + jind] > 0 && m[row[0] + jind] == 0)
