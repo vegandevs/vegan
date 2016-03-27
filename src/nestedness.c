@@ -200,21 +200,21 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *uniq1, int *uniq2)
 		for (j = ind1; j >= ind2; j--) {
 		    tmp = uniq1[j];
 		    itmp = IRAND(j);
-		    uniq1[itmp] = uniq1[j];
-		    uniq1[j] = tmp;
+		    uniq1[j] = uniq1[itmp];
+		    uniq1[itmp] = tmp;
 		}
 	    if (ind2 > ind1)
 		for (j = ind2; j >= ind1; j--)  {
 		    tmp = uniq2[j];
 		    itmp = IRAND(j);
-		    uniq2[itmp] = uniq2[j];
-		    uniq2[j] = tmp;
+		    uniq2[j] = uniq2[itmp];
+		    uniq2[itmp] = tmp;
 		}
 	}
 	/* Do swaps */
 	if (ind1 > ind2)
 	    ind1 = ind2;
-	for (j = 0; j < ind1; j++) {
+	for (j = 0; j <= ind1; j++) {
 	    m[INDX(row[0], uniq1[j], *nr)] = 0;
 	    m[INDX(row[0], uniq2[j], *nr)] = 1;
 	    m[INDX(row[1], uniq2[j], *nr)] = 0;
