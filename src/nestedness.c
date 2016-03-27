@@ -174,7 +174,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * and we also use this name here.
  */
 
-void curveball(int *m, int *nr, int *nc, int *thin, int *wrk1, int *wrk2)
+void curveball(int *m, int *nr, int *nc, int *thin, int *uniq1, int *uniq2)
 {
     int row[2], i, j, jind, ind1, ind2, itmp, tmp;
 
@@ -188,9 +188,9 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *wrk1, int *wrk2)
 	for (j = 0, ind1 = -1, ind2 = -1; j < (*nc); j++) {
 	    jind = j * (*nr);
 	    if (m[row[0] + jind] > 0 && m[row[1] + jind] == 0)
-		wrk1[++ind1] = j;
+		uniq1[++ind1] = j;
 	    if (m[row[1] + jind] > 0 && m[row[0] + jind] == 0)
-		wrk2[++ind2] = j;
+		uniq2[++ind2] = j;
 	}
 	/* If both rows had unique species, we swap the smaller number */
 	if (ind1 > -1 && ind2 > -1) {
@@ -198,27 +198,27 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *wrk1, int *wrk2)
 	     * subset for the longer one */
 	    if (ind1 > ind2)
 		for (j = ind1; j >= ind2; j--) {
-		    tmp = wrk1[j];
+		    tmp = uniq1[j];
 		    itmp = IRAND(j);
-		    wrk1[itmp] = wrk1[j];
-		    wrk1[j] = tmp;
+		    uniq1[itmp] = uniq1[j];
+		    uniq1[j] = tmp;
 		}
 	    if (ind2 > ind1)
 		for (j = ind2; j >= ind1; j--)  {
-		    tmp = wrk2[j];
+		    tmp = uniq2[j];
 		    itmp = IRAND(j);
-		    wrk2[itmp] = wrk2[j];
-		    wrk2[j] = tmp;
+		    uniq2[itmp] = uniq2[j];
+		    uniq2[j] = tmp;
 		}
 	}
 	/* Do swaps */
 	if (ind1 > ind2)
 	    ind1 = ind2;
 	for (j = 0; j < ind1; j++) {
-	    m[INDX(row[0], wrk1[j], *nr)] = 0;
-	    m[INDX(row[0], wrk2[j], *nr)] = 1;
-	    m[INDX(row[1], wrk2[j], *nr)] = 0;
-	    m[INDX(row[1], wrk1[j], *nr)] = 1;
+	    m[INDX(row[0], uniq1[j], *nr)] = 0;
+	    m[INDX(row[0], uniq2[j], *nr)] = 1;
+	    m[INDX(row[1], uniq2[j], *nr)] = 0;
+	    m[INDX(row[1], uniq1[j], *nr)] = 1;
 	}
     }
 
