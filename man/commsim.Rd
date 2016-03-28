@@ -130,6 +130,16 @@ and must take some of the following arguments:
     because they found that ordinary swap may lead to biased
     sequences, since some columns or rows may be more easily swapped.}
 
+  \item{\code{"rowswap"}: }{sequential method for binary matrices that
+    implements the \sQuote{Curveball} algorithm of Strona et
+    al. (2014). The algorithm selects two random rows and swaps all
+    items that can be swapped. Any unique species occurring only in
+    one of the two rows can be swapped against a unique species in the
+    other row, and the number of possible swaps is defined by the
+    lower number of unique species. The algorithm swaps zero to
+    several species in one step, and usually perturbs the matrix more
+    strongly than other sequential methods.}
+
   \item{\code{"quasiswap"}: }{non-sequential algorithm for binary
     matrices that implements a method where matrix is first filled
     honouring row and column totals, but with integers that may be
@@ -355,6 +365,12 @@ null model algorithms as a character vector.
   Patefield, W. M. (1981) Algorithm AS159.  An efficient method of
   generating r x c tables with given row and column totals.
   \emph{Applied Statistics} 30, 91--97.
+
+  Strona, G., Nappo, D., Boccacci, F., Fattorini, S. &
+  San-Miguel-Ayanz, J. (2014). A fast and unbiased procedure to
+  randomize ecological binary matrices with fixed row and column
+  totals. \emph{Nature Communications} 5:4114
+  \doi{10.1038/ncomms5114}.
 
   Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. & Atmar,
   W. (1998). A comparative analysis of nested subset patterns of species
