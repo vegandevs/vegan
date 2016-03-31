@@ -137,6 +137,17 @@
                         `Proportion Explained` = round(abs(vars), 5),
                         `Cumulative Proportion`= round(cumsum(abs(vars)), 5))
     out <- list(importance = importance)
-    class(out) <- c("summary.eigenvals", "summary.prcomp")
+    class(out) <- c("summary.eigenvals")
     out
+}
+
+## before R svn commit 70391 we used print.summary.prcomp, but now we
+## need our own version that is similar to pre-70391 R function
+
+`print.summary.eigenvals` <-
+    function(x, digits = max(3L, getOption("digits") - 3L), ...)
+{
+    cat("Importance of components:\n")
+    print(x$importance, digits = digits, ...)
+    invisible(x)
 }
