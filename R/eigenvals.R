@@ -130,12 +130,13 @@
 `summary.eigenvals` <-
     function(object, ...)
 {
-    ## abs(object) is to handle neg eigenvalues of wcmdscale and
-    ## capscale
-    vars <- object/sum(abs(object))
+    ## dbRDA can have negative eigenvalues: do not give cumulative
+    ## proportions
+    vars <- object/sum(object)
     importance <- rbind(`Eigenvalue` = object,
                         `Proportion Explained` = round(abs(vars), 5),
-                        `Cumulative Proportion`= round(cumsum(abs(vars)), 5))
+                        if (all(vars >= 0))
+                            `Cumulative Proportion`= round(cumsum(vars), 5))
     out <- list(importance = importance)
     class(out) <- c("summary.eigenvals")
     out
