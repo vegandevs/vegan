@@ -33,6 +33,12 @@
 {
     out <- x$sdev^2
     names(out) <- colnames(x$rotation)
+    ## honour prcomp(..., rank.=) which only requests rank. eigenvalues
+    if (ncol(x$rotation) < length(out)) {
+        sumev <- sum(out)
+        out <- out[seq_len(ncol(x$rotation))]
+        attr(out, "sumev") <- sumev
+    }
     class(out) <- "eigenvals"
     out
 }
@@ -132,10 +138,15 @@
 {
     ## dbRDA can have negative eigenvalues: do not give cumulative
     ## proportions
-    vars <- object/sum(object)
+    if(!is.null(attr(object, "sumev")))
+        sumev <- attr(object, "sumev")
+    else
+        sumev <- sum(object)
+    vars <- object/sumev
     importance <- rbind(`Eigenvalue` = object,
-                        `Proportion Explained` = round(abs(vars), 5),
-                        if (all(vars >= 0))
+                        `Proportion Explained` = round(abs(vars), 5))
+    if (all(vars >= 0))
+        importance <- rbind(importance,
                             `Cumulative Proportion`= round(cumsum(vars), 5))
     out <- list(importance = importance)
     class(out) <- c("summary.eigenvals")
