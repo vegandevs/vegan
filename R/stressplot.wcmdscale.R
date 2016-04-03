@@ -111,6 +111,10 @@
 {
     ## Scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
+    ## check rank
+    if (k > NCOL(u))
+        warning(gettextf("max allowed rank is k = %d", ncol(u)))
+    k <- min(k, ncol(u))
     ev <- c(object$CCA$eig, object$CA$eig)
     if (object$adjust == 1)
         const <- sqrt(NROW(u) - 1)
@@ -137,10 +141,15 @@
     ## Distances
     dis <- dist(Xbar)
     odis <- dist(Xbark)
-    if (!is.null(object$CA$imaginary.u.eig))
-        dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
+    if (!is.null(object$CA$imaginary.u.eig)) {
+        dis <- dis^2 - dist(object$CA$imaginary.u.eig)^2
+        if (all(dis > -sqrt(.Machine$double.eps)))
+            dis <- sqrt(pmax(dis, 0))
+        else # neg dis will be NaN with a warning
+            dis <- sqrt(dis)
+    }
     ## Remove additive constant to get original dissimilarities
-    if (!is.na(object$ac)) {
+    if (!is.null(object$ac)) {
         if (object$add == "lingoes")
             dis <- sqrt(dis^2 - 2 * object$ac)
         else if (object$add == "cailliez")
