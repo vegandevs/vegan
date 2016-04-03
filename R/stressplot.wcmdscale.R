@@ -111,6 +111,10 @@
 {
     ## Scores to reconstruct data
     u <- cbind(object$CCA$u, object$CA$u)
+    ## check rank
+    if (k > NCOL(u))
+        warning(gettextf("max allowed rank is k = %d", ncol(u)))
+    k <- min(k, ncol(u))
     ev <- c(object$CCA$eig, object$CA$eig)
     if (object$adjust == 1)
         const <- sqrt(NROW(u) - 1)
