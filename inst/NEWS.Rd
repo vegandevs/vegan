@@ -2,6 +2,22 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-5}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{eigenvals} fails with \code{prcomp} results in
+      \R-devel. The next version of \code{prcomp} will have an
+      argument to limit the number of eigenvalues shown
+      (\code{rank.}), and this breaks \code{eigenvals} in \pkg{vegan}.
+
+      \item \code{calibrate} failed for \code{cca} and friends if
+      \code{rank} was given.
+
+    } % itemise
+  } % bug fixes
+} % v2.3-5
+
 \section{Changes in version 2.3-4}{
 
   \subsection{BUG FIXES}{
