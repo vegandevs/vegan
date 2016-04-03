@@ -145,7 +145,7 @@
         dis <- dis^2 - dist(object$CA$imaginary.u.eig)^2
         if (all(dis > -sqrt(.Machine$double.eps)))
             dis <- sqrt(pmax(dis, 0))
-        else
+        else # neg dis will be NaN with a warning
             dis <- sqrt(dis)
     }
     ## Remove additive constant to get original dissimilarities
