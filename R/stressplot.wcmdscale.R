@@ -140,7 +140,7 @@
     if (!is.null(object$CA$imaginary.u.eig))
         dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
     ## Remove additive constant to get original dissimilarities
-    if (!is.na(object$ac)) {
+    if (!is.null(object$ac)) {
         if (object$add == "lingoes")
             dis <- sqrt(dis^2 - 2 * object$ac)
         else if (object$add == "cailliez")
