@@ -141,8 +141,13 @@
     ## Distances
     dis <- dist(Xbar)
     odis <- dist(Xbark)
-    if (!is.null(object$CA$imaginary.u.eig))
-        dis <- sqrt(dis^2 - dist(object$CA$imaginary.u.eig)^2)
+    if (!is.null(object$CA$imaginary.u.eig)) {
+        dis <- dis^2 - dist(object$CA$imaginary.u.eig)^2
+        if (all(dis > -sqrt(.Machine$double.eps)))
+            dis <- sqrt(pmax(dis, 0))
+        else
+            dis <- sqrt(dis)
+    }
     ## Remove additive constant to get original dissimilarities
     if (!is.null(object$ac)) {
         if (object$add == "lingoes")
