@@ -143,11 +143,13 @@
     else
         sumev <- sum(object)
     vars <- object/sumev
+    cumvars <- if (all(vars >= 0))
+                   cumsum(vars)
+               else
+                   NA
     importance <- rbind(`Eigenvalue` = object,
-                        `Proportion Explained` = round(abs(vars), 5))
-    if (all(vars >= 0))
-        importance <- rbind(importance,
-                            `Cumulative Proportion`= round(cumsum(vars), 5))
+                        `Proportion Explained` = round(abs(vars), 5),
+                        `Cumulative Proportion` = round(cumvars, 5))
     out <- list(importance = importance)
     class(out) <- c("summary.eigenvals")
     out
