@@ -132,7 +132,7 @@ and must take some of the following arguments:
     because they found that ordinary swap may lead to biased
     sequences, since some columns or rows are more easily swapped.}
 
-  \item{\code{"rowswap"}: }{sequential method for binary matrices that
+  \item{\code{"curveball"}: }{sequential method for binary matrices that
     implements the \sQuote{Curveball} algorithm of Strona et
     al. (2014). The algorithm selects two random rows and finds the set
     of unique species that occur only in one of these rows. The
