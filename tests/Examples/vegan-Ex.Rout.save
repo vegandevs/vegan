@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-03-28 r70390) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-04-04 r70420) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1939,7 +1939,7 @@ Too_rare               7      0.200
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: commsim
-> ### Title: Create a Object for Null Model Algorithms
+> ### Title: Create an Object for Null Model Algorithms
 > ### Aliases: commsim make.commsim print.commsim
 > ### Keywords: multivariate datagen
 > 
@@ -1999,10 +1999,10 @@ r2                   1     .      .   1    1       1       .       1       .
 quasiswap            1     .      .   1    1       1       1       1       1
 swap                 1     1      .   1    1       1       1       1       1
 tswap                1     1      .   1    1       1       1       1       1
-rowswap              1     1      .   1    1       1       1       1       1
+curveball            1     1      .   1    1       1       1       1       1
 backtrack            1     .      .   1    1       1       1       1       1
 r2dtable             .     .      .   1    .       1       1       .       .
-swap_count           .     1      .   1    1       1       1       1       .
+swap_count           .     1      .   1    1       1       1       .       .
 quasiswap_count      .     .      .   1    1       1       1       .       .
 swsh_samp            .     .      1   1    1       .       .       1       1
 swsh_both            .     .      .   1    1       .       .       1       1
@@ -8767,7 +8767,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.128 0.16 24.295 0 0 
+Time elapsed:  22.372 0.1 22.526 0 0 
 > grDevices::dev.off()
 null device 
           1 
