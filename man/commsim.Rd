@@ -132,15 +132,14 @@ and must take some of the following arguments:
     because they found that ordinary swap may lead to biased
     sequences, since some columns or rows are more easily swapped.}
 
-  \item{\code{"rowswap"}: }{sequential method for binary matrices that
+  \item{\code{"curveball"}: }{sequential method for binary matrices that
     implements the \sQuote{Curveball} algorithm of Strona et
-    al. (2014). The algorithm selects two random rows and swaps all
-    items that can be swapped. Any unique species occurring only in
-    one of the two rows can be swapped against a unique species in the
-    other row, and the number of possible swaps is defined by the
-    lower number of unique species. The algorithm swaps zero to
-    several species in one step, and usually perturbs the matrix more
-    strongly than other sequential methods.}
+    al. (2014). The algorithm selects two random rows and finds the set
+    of unique species that occur only in one of these rows. The
+    algorithm distributes the set of unique species to rows preserving
+    the original row frequencies.  Zero to several species are swapped
+    in one step, and usually the matrix is perturbed more strongly than
+    in other sequential methods.}
 
   \item{\code{"quasiswap"}: }{non-sequential algorithm for binary
     matrices that implements a method where matrix is first filled

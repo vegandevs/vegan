@@ -166,60 +166,57 @@ void swap(int *m, int *nr, int *nc, int *thin)
 /* Strona et al. 2014 (NATURE COMMUNICATIONS | 5:4114 |
  * DOI:10.1038/ncomms5114 | www.nature.com/naturecommunications)
  * suggested a boosted sequential binary swap method. Instead of
- * looking for random 2x2 submatrices, they look for 2 rows and swap
- * every swappable item in one sweep. Swappable item is a presense in
- * only one of the compared rows, and the maximum number of swappable
- * items is the smaller of unique presences in compared sites. They
- * used a bizarre name ("curveball") and narrative for their method,
- * and we also use this name here.
+ * looking for random 2x2 submatrices, they look for 2 rows and
+ * collect a list of unique species that occur only in one row, and
+ * allocate these randomly to the electer rows.
  */
 
-void curveball(int *m, int *nr, int *nc, int *thin, int *uniq1, int *uniq2)
+/* uniq is a work vector to hold indices of unique species (occurring
+ * only in one of two random rows). uniq must be allocated in the
+ * calling function, with safe size 2 * (max. number of species) or
+ * with belt and suspenders 2 * (*nc). */
+
+void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 {
-    int row[2], i, j, jind, ind1, ind2, itmp, tmp;
+    int row[2], i, j, jind, ind, nsp1, nsp2, itmp, tmp;
 
     /* Set RNG */
-    GetRNGstate();
+    GetRNGstate(); 
 
     for (i = 0; i < *thin; i++) {
 	/* Random sites */
 	i2rand(row, (*nr)-1);
-	/* Vectors of unique species for each random species */
-	for (j = 0, ind1 = -1, ind2 = -1; j < (*nc); j++) {
+	/* uniq is a vector of unique species for a random pair of
+	   rows, It need not be zeroed between thin loops because ind
+	   keeps track of used elements. */
+	for (j = 0, ind = -1, nsp1 = 0, nsp2 = 0; j < (*nc); j++) {
 	    jind = j * (*nr);
-	    if (m[row[0] + jind] > 0 && m[row[1] + jind] == 0)
-		uniq1[++ind1] = j;
-	    if (m[row[1] + jind] > 0 && m[row[0] + jind] == 0)
-		uniq2[++ind2] = j;
+	    if (m[row[0] + jind] > 0 && m[row[1] + jind] == 0) {
+		uniq[++ind] = j;
+		nsp1++;
+	    }
+	    if (m[row[1] + jind] > 0 && m[row[0] + jind] == 0) {
+		uniq[++ind] = j;
+		nsp2++;
+	    }
 	}
-	/* If both rows had unique species, we swap the smaller number */
-	if (ind1 > -1 && ind2 > -1) {
-	    /* All items of smaller set are swapped, but we need a
-	     * random subset for the longer one and shuffle items that
-	     * are beyond the length of shorter subset */
-	    if (ind1 > ind2)
-		for (j = ind1; j > ind2; j--) {
-		    tmp = uniq1[j];
-		    itmp = IRAND(j);
-		    uniq1[j] = uniq1[itmp];
-		    uniq1[itmp] = tmp;
-		}
-	    if (ind2 > ind1)
-		for (j = ind2; j > ind1; j--)  {
-		    tmp = uniq2[j];
-		    itmp = IRAND(j);
-		    uniq2[j] = uniq2[itmp];
-		    uniq2[itmp] = tmp;
-		}
-	}
-	/* Do swaps */
-	if (ind1 > ind2)
-	    ind1 = ind2;
-	for (j = 0; j <= ind1; j++) {
-	    m[INDX(row[0], uniq1[j], *nr)] = 0;
-	    m[INDX(row[0], uniq2[j], *nr)] = 1;
-	    m[INDX(row[1], uniq2[j], *nr)] = 0;
-	    m[INDX(row[1], uniq1[j], *nr)] = 1;
+	/* uniq contains indices of unique species: shuffle these and
+	 * allocate nsp1 first to row[0] and the rest to row[1] */
+	if (nsp1 > 0 && nsp2 > 0) { /* something to swap? */
+	    for (j = ind; j > 0; j--) {
+		tmp = uniq[j];
+		itmp = IRAND(j);
+		uniq[j] = uniq[itmp];
+		uniq[itmp] = tmp;
+	    }
+	    for (j = 0; j < nsp1; j++) {
+		m[INDX(row[0], uniq[j], *nr)] = 1;
+		m[INDX(row[1], uniq[j], *nr)] = 0;
+	    }
+	    for (j = nsp1; j <= ind; j++) {
+		m[INDX(row[0], uniq[j], *nr)] = 0;
+		m[INDX(row[1], uniq[j], *nr)] = 1;
+	    }
 	}
     }
 
