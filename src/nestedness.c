@@ -168,7 +168,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * suggested a boosted sequential binary swap method. Instead of
  * looking for random 2x2 submatrices, they look for 2 rows and
  * collect a list of unique species that occur only in one row, and
- * allocate these randomly to the electer rows.
+ * allocate these randomly to rows preserving counts.
  */
 
 /* uniq is a work vector to hold indices of unique species (occurring
@@ -203,7 +203,7 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 	/* uniq contains indices of unique species: shuffle these and
 	 * allocate nsp1 first to row[0] and the rest to row[1] */
 	if (nsp1 > 0 && nsp2 > 0) { /* something to swap? */
-	    for (j = ind; j > 0; j--) {
+	    for (j = ind; j >= nsp1; j--) {
 		tmp = uniq[j];
 		itmp = IRAND(j);
 		uniq[j] = uniq[itmp];
