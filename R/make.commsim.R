@@ -110,12 +110,12 @@ function(method)
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
             out[,,1] <- .C("curveball", m = x, nr, nc, thin,
-                           integer(nc), integer(nc),
+                           integer(2L*nc),
                            PACKAGE = "vegan")$m
             for (k in seq_len(n-1))
                 out[,,k+1] <- .C("curveball",
                                  m = out[,,k], nr, nc, thin,
-                                 integer(nc), integer(nc),
+                                 integer(2L*nc),
                                  PACKAGE = "vegan")$m
             out
         }),
