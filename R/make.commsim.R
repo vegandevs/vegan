@@ -143,15 +143,15 @@ function(method)
                 for (i in seq_len(10000)) {
                     oldout <- out
                     oldn <- sum(out)
-                    drop <- sample(all[out == 1L], ndrop)
+                    drop <- sample(all[as.logical(out)], ndrop)
                     out[drop] <- 0L
-                    candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0L
+                    candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
                     while (sum(candi) > 0) {
                         if (sum(candi) > 1)
-                          ij <- sample(all[candi], 1)
-                        else ij <- all[candi]
+                          ij <- sample(all[as.logical(candi)], 1)
+                        else ij <- all[as.logical(candi)]
                         out[ij] <- 1L
-                        candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0
+                        candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
                     }
                     if (sum(out) >= fill)
                         break
