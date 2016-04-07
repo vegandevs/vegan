@@ -145,13 +145,13 @@ function(method)
                     oldn <- sum(out)
                     drop <- sample(all[out == 1L], ndrop)
                     out[drop] <- 0L
-                    candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0L
+                    candi <- outer(rowSums(out) < rs, colSums(out) < cs) & out == 0L
                     while (sum(candi) > 0) {
                         if (sum(candi) > 1)
                           ij <- sample(all[candi], 1)
                         else ij <- all[candi]
                         out[ij] <- 1L
-                        candi <- outer(rowSums(out) < rs, colSums(out) < cs, "&") & out == 0
+                        candi <- outer(rowSums(out) < rs, colSums(out) < cs) & out == 0
                     }
                     if (sum(out) >= fill)
                         break
