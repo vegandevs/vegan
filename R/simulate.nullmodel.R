@@ -40,12 +40,17 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
         fill=object$fill,
         thin=as.integer(thin), ...)
     if (object$commsim$isSeq) {
-        Start <- as.integer(object$iter + 1L)
-        End <- as.integer(object$iter + nsim * thin)
+        Start <- object$iter + 1L
+        End <- object$iter + nsim * thin
+        ## sequence can overflow integer
+        if (Start <= .Machine$integer.max)
+            Start <- as.integer(Start)
+        if (End <= .Machine$integer.max)
+            End <- as.integer(End)
         state <- perm[,,nsim]
         storage.mode(state) <- object$commsim$mode
         assign("state", state, envir=object)
-        assign("iter", as.integer(End), envir=object)
+        assign("iter", End, envir=object)
     } else {
         Start <- 1L
         End <- as.integer(nsim)
