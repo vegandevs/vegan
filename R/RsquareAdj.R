@@ -42,8 +42,7 @@ RsquareAdj.cca <-
     rand_r2 <- rep(NA, nperm)
     Y_string <- as.character(x$terms[[2]])
     Y <- eval(parse(text=Y_string))
-    Y_name <- strsplit(as.character(x$call[2]), ' ~ ')[[1]][1]
-    x$call[2] <- sub(Y_name, 'Y_rand', x$call[2])
+    x$call[2] <- sub(Y_string, 'Y_rand', x$call[2])
     for (i in 1:nperm) {
         Y_rand <- Y[sample(n), ]
         cca_rand <- eval(parse(text=paste(x$call[1], '(',x$call[2], 
