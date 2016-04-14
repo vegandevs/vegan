@@ -17,6 +17,7 @@ Adjusted R-square
 \usage{
 \method{RsquareAdj}{default}(x, n, m, ...)
 \method{RsquareAdj}{rda}(x, ...)
+\method{RsquareAdj}{cca}(x, nperm, print_progress=TRUE, ...)
 }
 
 \arguments{
@@ -38,10 +39,13 @@ Adjusted R-square
   \code{\link{cca}}, \code{\link{lm}} and \code{\link{glm}}. Adjusted,
   or even unadjusted, R-squared may not be available in some cases,
   and then the functions will return \code{NA}. There is no adjusted
-  R-squared in \code{\link{cca}}, in partial \code{\link{rda}}, and
+  in partial \code{\link{rda}}, and
   R-squared values are available only for \code{\link{gaussian}}
   models in \code{\link{glm}}.
 
+  The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a 
+  permutation approach developed by Peres-Neto et al. (2006). 
+  
   The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
   proportion explained after removing the variation due to conditioning
   (partial) terms; Legendre et al. (2011) call this semi-partial
