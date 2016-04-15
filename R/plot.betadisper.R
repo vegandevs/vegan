@@ -1,4 +1,6 @@
-`plot.betadisper` <- function(x, axes = c(1,2), cex = 0.7, hull = TRUE,
+`plot.betadisper` <- function(x, axes = c(1,2), 
+                              cex = 0.7, pch = 1:ng,
+                              hull = TRUE,
                               ylab, xlab, main, sub, ...)
 {
     localAxis <- function(..., col, bg, pch, cex, lty, lwd) axis(...)
@@ -13,6 +15,7 @@
     if(missing(ylab))
         ylab <- paste("PCoA", axes[2])
     g <- scores(x, choices = axes)
+    ng <- length(levels(x$group))
     plot(g$sites, asp = 1, type = "n", axes = FALSE, ann = FALSE, ...)
     ## if more than 1 group level
     if(is.matrix(g$centroids)) {
@@ -42,7 +45,7 @@
         points(g$centroids[1L], g$centroids[1L],
                pch = 16, cex = 1, col = "red", ...)
     }
-    points(g$sites, pch = as.numeric(x$group), cex = cex, ...)
+    points(g$sites, pch = pch[x$group], cex = cex, ...)
     localTitle(main = main, xlab = xlab, ylab = ylab, sub = sub, ...)
     localAxis(1, ...)
     localAxis(2, ...)
