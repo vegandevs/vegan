@@ -36,7 +36,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \method{eigenvals}{betadisper}(x, \dots)
 
-\method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7, pch = as.numeric(x$group), 
+\method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7, 
+     pch = 1:ng, col=rep(palette()[-1], ng),
      hull = TRUE,
      ylab, xlab, main, sub, \dots)
 
@@ -64,6 +65,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
   \item{choices, axes}{the principal coordinate axes wanted.}
   \item{hull}{logical; should the convex hull for each group be plotted?}
   \item{pch}{plot symbols for the groups, a vector of length equal to the number of groups}
+  \item{col}{colors for the plot symbols for the groups, a vector of length equal to the number of groups}
   \item{cex, ylab, xlab, main, sub}{graphical parameters. For details,
     see \code{\link{plot.default}}.}
   \item{which}{A character vector listing terms in the fitted model for
