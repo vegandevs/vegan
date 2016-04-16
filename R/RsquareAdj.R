@@ -35,28 +35,11 @@
 
 ## cca result: no RsquareAdj
 RsquareAdj.cca <-
-    function(x, nperm, print_progress=TRUE, ...)
+    function (x, nperm = 1000) 
 {
-    r2 <- x$CCA$tot.chi/x$tot.chi
-    n <- nrow(x$CCA$u)
-    rand_r2 <- rep(NA, nperm)
-    Y_string <- as.character(x$terms[[2]])
-    Y <- eval(parse(text=Y_string))
-    x$call[2] <- sub(Y_string, 'Y_rand', x$call[2])
-    for (i in 1:nperm) {
-        Y_rand <- Y[sample(n), ]
-        cca_rand <- eval(parse(text=paste(x$call[1], '(',x$call[2], 
-                                         ', data=', x$call[3], ')', 
-                                         sep='')))
-        rand_r2[i] <- cca_rand$CCA$tot.chi / x$tot.chi
-        if (print_progress) {
-            if (i %% 100 == 0)  
-                print(paste('perm:', i, 'adj.r.squared:', 
-                            round(1 - ((1 - r2) / (1 - mean(rand_r2, na.rm=T))),3)))
-        }
-    }
-    # Eq 5 Peres-Neto et al. 2006
-    radj <- 1 - ((1 - r2) / (1 - mean(rand_r2)))
+    r2 <- x$CCA$tot.chi / x$tot.chi
+    p <- permutest(x, nperm)
+    radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
     list(r.squared = r2, adj.r.squared = radj)
 }
 
