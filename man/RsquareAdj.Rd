@@ -17,7 +17,7 @@ Adjusted R-square
 \usage{
 \method{RsquareAdj}{default}(x, n, m, ...)
 \method{RsquareAdj}{rda}(x, ...)
-\method{RsquareAdj}{cca}(x, nperm, print_progress=TRUE, ...)
+\method{RsquareAdj}{cca}(x, nperm = 1000, ...)
 }
 
 \arguments{
@@ -27,6 +27,9 @@ Adjusted R-square
   
   \item{n, m}{Number of observations and number of degrees of freedom
   in the fitted model.}
+  
+  \item{nperm}{Number of permutations to use when computing the adjusted 
+  R-squared for a cca.}
 
   \item{\dots}{ Other arguments (ignored).} 
 }
@@ -44,7 +47,8 @@ Adjusted R-square
   models in \code{\link{glm}}.
 
   The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a 
-  permutation approach developed by Peres-Neto et al. (2006). 
+  permutation approach developed by Peres-Neto et al. (2006). By default 1000
+  permutations are used.
   
   The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
   proportion explained after removing the variation due to conditioning
@@ -79,6 +83,9 @@ data(mite)
 data(mite.env)
 ## rda
 m <- rda(decostand(mite, "hell") ~  ., mite.env)
+RsquareAdj(m)
+## cca
+m <- cca(decostand(mite, "hell") ~  ., mite.env)
 RsquareAdj(m)
 ## default method
 RsquareAdj(0.8, 20, 5)
