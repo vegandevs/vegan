@@ -31,6 +31,7 @@ function(object, nsim=1, seed = NULL, ...)
 #        attr(state, "iter") <- iter
         out <- nullmodel(state, object$commsim)
         out$iter <- iter
+        out$data <- object$data
     } else {
 #        state <- NULL
         out <- object
