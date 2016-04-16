@@ -36,9 +36,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \method{eigenvals}{betadisper}(x, \dots)
 
-\method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7, 
-     pch = 1:ng, col=rep(palette()[-1], ng),
-     hull = TRUE,
+\method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7,
+     pch = seq_len(ng), col = NULL, hull = TRUE,
      ylab, xlab, main, sub, \dots)
 
 \method{boxplot}{betadisper}(x, ylab = "Distance to centroid", ...)
