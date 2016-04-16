@@ -225,6 +225,25 @@ smfun <- function(x, burnin, nsim, thin) {
 }
 smlist <- replicate(3, smfun(x, burnin=50, nsim=10, thin=5), simplify=FALSE)
 smbind(smlist, MARGIN=3) # Number of permuted matrices = 30
+
+\dontrun{
+## parallel null model calculations
+library(parallel)
+
+if (.Platform$OS.type == "unix") {
+## forking on Unix systems
+smlist <- mclapply(1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+smbind(smlist, MARGIN=3)
+}
+
+## socket type cluster, works on all platforms
+cl <- makeCluster(3)
+clusterEvalQ(cl, library(vegan))
+clusterExport(cl, c("smfun", "x"))
+smlist <- parLapply(cl, 1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+stopCluster(cl)
+smbind(smlist, MARGIN=3)
+}
 }
 \keyword{ multivariate }
 \keyword{ datagen }
