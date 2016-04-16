@@ -168,6 +168,9 @@ objects is sensible, but it is the user's responsibility
 to check independence of the simulated matrices
 and the null distribution has converged
 in case of sequential null model algorithms.
+The \code{strict = FALSE} setting can relax
+checking equality of time series attributes when for example
+subsequent samples are to be combined together (see Examples).
 }
 \author{
 Jari Oksanen and Peter Solymos
@@ -200,12 +203,18 @@ nm <- update(nm, nsim=10)
 
 ## combining multiple simmat objects
 
-## simple stratification
+## stratification
 nm1 <- nullmodel(x[1:6,], "r00")
 sm1 <- simulate(nm1, nsim=10)
 nm2 <- nullmodel(x[7:12,], "r00")
 sm2 <- simulate(nm2, nsim=10)
 smbind(sm1, sm2, MARGIN=1)
+
+## binding subsequent samples from sequential algorithms
+nm <- nullmodel(x, "swap")
+sm1 <- simulate(nm, nsim=10) # iterations 1:10
+sm2 <- simulate(nm, nsim=10) # iterations 11:20
+smbind(sm1, sm2, MARGIN=3, strict=FALSE)
 
 ## 'replicate' based usage which is similar to the output
 ## of 'parLapply' or 'mclapply' in the 'parallel' package
