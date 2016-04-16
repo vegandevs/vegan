@@ -145,11 +145,11 @@ and must take some of the following arguments:
     matrices that implements a method where matrix is first filled
     honouring row and column totals, but with integers that may be
     larger than one.  Then the method inspects random \eqn{2 \times
-    2}{2 by 2} matrices and performs a quasiswap on them. Quasiswap is
-    similar to ordinary swap, but it can reduce numbers above one
-    to ones preserving marginal totals (\enc{Miklós}{Miklos} & Podani
-    2004).  This is the recommended algorithm if you want to preserve both
-    species and row frequencies.}
+    2}{2 by 2} matrices and performs a quasiswap on them. In addition
+    to ordinary swaps, quasiswap can reduce numbers above one to ones
+    preserving marginal totals (\enc{Miklós}{Miklos} & Podani
+    2004). The algorithm can reduce biased matrices, but setting
+    \code{thin} reduces or removes the bias. }
 
   \item{\code{"backtracking"}: }{non-sequential algorithm for binary
     matrices that implements a filling method with constraints both
