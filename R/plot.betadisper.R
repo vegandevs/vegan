@@ -1,7 +1,7 @@
 `plot.betadisper` <- function(x, axes = c(1,2), cex = 0.7, pch = seq_len(ng),
                               col = NULL, hull = TRUE,
                               ellipse = FALSE, ellipse.type = c("sd","se"),
-                              ellipse.conf = NULL,
+                              ellipse.conf = NULL, ellipse.lwd=1,
                               ylab, xlab, main, sub, ...)
 {
     localAxis <- function(..., col, bg, pch, cex, lty, lwd) axis(...)
@@ -33,7 +33,7 @@
     conf <- if (missing(ellipse.conf)) {
         1
     } else {
-        sqrt(qchisq(conf, 2))
+        sqrt(qchisq(ellipse.conf, 2))
     }
     g <- scores(x, choices = axes)
     ng <- length(levels(x$group))
@@ -61,7 +61,7 @@
             }
             if (ellipse) {
                 Ellipse(g$sites[take, , drop = FALSE], type = ellipse.type,
-                        conf = conf, col = col[i], lty = 1, lwd = 1)
+                        conf = conf, col = col[i], lty = 1, lwd = ellipse.lwd)
             }
         }
         points(g$centroids, pch = 16, cex = 1, col = "red", ...)
