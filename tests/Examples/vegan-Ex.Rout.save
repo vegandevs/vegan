@@ -1183,7 +1183,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > plot(mod, ellipse = TRUE, hull = FALSE, ellipse.type = "sd")
 > 
 > ## can also specify which axes to plot, ordering respected
-> plot(mod, axes = c(3,1))
+> plot(mod, axes = c(3,1), seg.col = "forestgreen", seg.lty = "dashed")
 > 
 > ## Draw a boxplot of the distances to centroid for each group
 > boxplot(mod)
@@ -8779,7 +8779,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  103.602 0.172 103.811 0 0 
+Time elapsed:  99.079 0.15 99.27 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -37,9 +37,10 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 \method{eigenvals}{betadisper}(x, \dots)
 
 \method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7,
-     pch = seq_len(ng), col = NULL, hull = TRUE,
-     ellipse = FALSE, ellipse.type = c("sd", "se"),
-     ellipse.conf = NULL,
+     pch = seq_len(ng), col = NULL, lty = "solid", lwd = 1, hull = TRUE,
+     ellipse = FALSE, ellipse.type = c("sd", "se"), ellipse.conf = NULL,
+     segments = TRUE, seg.col = "grey", seg.lty = lty, seg.lwd = lwd,
+     label = TRUE, label.cex = 1,
      ylab, xlab, main, sub, \dots)
 
 \method{boxplot}{betadisper}(x, ylab = "Distance to centroid", ...)
@@ -58,7 +59,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     level (i.e., one group).}
   \item{type}{the type of analysis to perform. Use the spatial median or
     the group centroid? The spatial median is now the default.}
-  \item{bias.adjust}{logical: adjust for small sample bias in beta diversity estimates?}
+  \item{bias.adjust}{logical: adjust for small sample bias in beta
+    diversity estimates?}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a
@@ -74,14 +76,26 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     given, the corresponding \code{sd} or \code{se} is multiplied with
     the corresponding value found from the Chi-squared distribution with
     2df.}
-  \item{pch}{plot symbols for the groups, a vector of length equal to the number of groups}
-  \item{col}{colors for the plot symbols for the groups, a vector of length equal to the number of groups}
+  \item{pch}{plot symbols for the groups, a vector of length equal to
+    the number of groups.}
+  \item{col}{colors for the plot symbols for the groups, a vector of
+    length equal to the number of groups.}
+  \item{lty, lwd}{linetype, linewidth for convex hulls and confidence
+    ellipses.}
+  \item{segments}{logical; should segments joiing points to their
+    centroid be drawn?}
+  \item{seg.col}{colour to draw segments between points and their
+    centroid. Can be a vector, in which case one colour per group.}
+  \item{seg.lty, seg.lwd}{linetype and line width for segments.}
+  \item{label}{logical; should the centroids by labelled with their
+    respective factor label?}
+  \item{label.cex}{numeric; character expansion for centroid labels.}
   \item{cex, ylab, xlab, main, sub}{graphical parameters. For details,
     see \code{\link{plot.default}}.}
   \item{which}{A character vector listing terms in the fitted model for
     which the intervals should be calculated. Defaults to the grouping
     factor.}
-  \item{ordered}{Logical; see \code{\link{TukeyHSD}}.}
+  \item{ordered}{logical; see \code{\link{TukeyHSD}}.}
   \item{conf.level}{A numeric value between zero and one giving the
     family-wise confidence level to use.}
   \item{\dots}{arguments, including graphical parameters (for
@@ -265,7 +279,7 @@ plot(mod)
 plot(mod, ellipse = TRUE, hull = FALSE, ellipse.type = "sd")
 
 ## can also specify which axes to plot, ordering respected
-plot(mod, axes = c(3,1))
+plot(mod, axes = c(3,1), seg.col = "forestgreen", seg.lty = "dashed")
 
 ## Draw a boxplot of the distances to centroid for each group
 boxplot(mod)
