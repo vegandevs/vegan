@@ -36,7 +36,7 @@
     conf <- if (missing(ellipse.conf)) {
         1
     } else {
-        sqrt(qchisq(conf, 2))
+        sqrt(qchisq(ellipse.conf, 2))
     }
     g <- scores(x, choices = axes)
     ng <- length(levels(x$group))
