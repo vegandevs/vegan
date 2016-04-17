@@ -40,7 +40,7 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
         fill=object$fill,
         thin=as.integer(thin), ...)
     if (object$commsim$isSeq) {
-        Start <- object$iter + 1L
+        Start <- object$iter + thin
         End <- object$iter + nsim * thin
         ## sequence can overflow integer
         if (Start <= .Machine$integer.max)
