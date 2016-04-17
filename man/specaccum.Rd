@@ -24,8 +24,8 @@
 specaccum(comm, method = "exact", permutations = 100,
           conditioned =TRUE, gamma = "jack1",  w = NULL, subset, ...)
 \method{plot}{specaccum}(x, add = FALSE, random = FALSE, ci = 2, 
-    ci.type = c("bar", "line", "polygon"), col = par("fg"), ci.col = col, 
-    ci.lty = 1, xlab, ylab = x$method, ylim, 
+    ci.type = c("bar", "line", "polygon"), col = par("fg"), lty = 1,
+    ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim,
     xvar = c("sites", "individuals", "effort"), ...)
 \method{boxplot}{specaccum}(x, add = FALSE, ...)
 fitspecaccum(object, model, method = "random", ...)
@@ -70,6 +70,7 @@ specslope(object, at)
     draws vertical bars, \code{"line"} draws lines, and
     \code{"polygon"} draws a shaded area.}
   \item{col}{Colour for drawing lines.}
+  \item{lty}{line type (see \code{\link{par}}).}
   \item{ci.col}{Colour for drawing lines or filling the
     \code{"polygon"}.}
   \item{ci.lty}{Line type for confidence intervals or border of the
@@ -82,7 +83,6 @@ specslope(object, at)
     \code{method = "rarefaction"}. }
   \item{object}{Either a community data set or fitted \code{specaccum} model.}
   \item{model}{Nonlinear regression model (\code{\link{nls}}). See Details.}
-  \item{lty}{line type code (see \code{\link{par}}.}
   
   \item{newdata}{Optional data used in prediction interpreted as
     number of sampling units (sites). If missing, fitted values are
