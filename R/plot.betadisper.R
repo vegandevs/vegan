@@ -8,11 +8,11 @@
     localBox <- function(..., col, bg, pch, cex, lty, lwd) box(...)
     localTitle <- function(..., col, bg, pch, cex, lty, lwd) title(...)
     Ellipse <- function(scrs, type, conf, col, lty, lwd) {
-        mat <- cov.wt(scrs, wt = rep_len(1, nrow(scrs)))
+        mat <- cov.wt(scrs)
         if (mat$n.obs == 1)
             mat$cov[] <- 0
         if (type == "se") {
-            mat$cov <- mat$cov * sum(mat$wt^2)
+            mat$cov <- mat$cov / mat$n.obs
         }
         xy <- if (mat$n.obs > 1) {
                   veganCovEllipse(mat$cov, mat$center, conf)
