@@ -38,6 +38,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
 
 \method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7,
      pch = seq_len(ng), col = NULL, hull = TRUE,
+     ellipse = FALSE, ellipse.type = c("sd", "se"),
+     ellipse.conf = NULL,
      ylab, xlab, main, sub, \dots)
 
 \method{boxplot}{betadisper}(x, ylab = "Distance to centroid", ...)
@@ -63,6 +65,15 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     call to \code{betadisper}.}
   \item{choices, axes}{the principal coordinate axes wanted.}
   \item{hull}{logical; should the convex hull for each group be plotted?}
+  \item{ellipse}{logical; should the confidence ellipse for each group
+    be plotted?}
+  \item{ellipse.type}{Whether standard deviations of points
+    (\code{"sd"}) or standard deviations of their averages (\code{"se"})
+    are used.}
+  \item{ellipse.conf}{Confidence limit for ellipses, e.g. 0.95. If
+    given, the corresponding \code{sd} or \code{se} is multiplied with
+    the corresponding value found from the Chi-squared distribution with
+    2df.}
   \item{pch}{plot symbols for the groups, a vector of length equal to the number of groups}
   \item{col}{colors for the plot symbols for the groups, a vector of length equal to the number of groups}
   \item{cex, ylab, xlab, main, sub}{graphical parameters. For details,
@@ -249,6 +260,9 @@ plot(mod.HSD)
 ## Plot the groups and distances to centroids on the
 ## first two PCoA axes
 plot(mod)
+
+## with confidence ellipses instead of hulls
+plot(mod, ellipse = TRUE, hull = FALSE, ellipse.type = "sd")
 
 ## can also specify which axes to plot, ordering respected
 plot(mod, axes = c(3,1))

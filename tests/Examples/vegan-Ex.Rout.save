@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-04-04 r70420) -- "Unsuffered Consequences"
+R version 3.2.4 Patched (2016-03-16 r70339) -- "Very Secure Dishes"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1169,6 +1169,9 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ## Plot the groups and distances to centroids on the
 > ## first two PCoA axes
 > plot(mod)
+> 
+> ## with confidence ellipses instead of hulls
+> plot(mod, ellipse = TRUE, hull = FALSE, ellipse.type = "sd")
 > 
 > ## can also specify which axes to plot, ordering respected
 > plot(mod, axes = c(3,1))
@@ -8767,7 +8770,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.372 0.1 22.526 0 0 
+Time elapsed:  98.824 0.164 98.995 0 0 
 > grDevices::dev.off()
 null device 
           1 
