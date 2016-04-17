@@ -35,10 +35,10 @@
 
 ## cca result: no RsquareAdj
 RsquareAdj.cca <-
-    function (x, nperm = 1000) 
+    function (x, permutations = 1000, ...) 
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
-    p <- permutest(x, nperm)
+    p <- permutest(x, permutations, ...)
     radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
     list(r.squared = r2, adj.r.squared = radj)
 }

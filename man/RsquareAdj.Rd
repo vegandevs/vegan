@@ -17,7 +17,7 @@ Adjusted R-square
 \usage{
 \method{RsquareAdj}{default}(x, n, m, ...)
 \method{RsquareAdj}{rda}(x, ...)
-\method{RsquareAdj}{cca}(x, nperm = 1000, ...)
+\method{RsquareAdj}{cca}(x, permutations = 1000, ...)
 }
 
 \arguments{
@@ -28,10 +28,12 @@ Adjusted R-square
   \item{n, m}{Number of observations and number of degrees of freedom
   in the fitted model.}
   
-  \item{nperm}{Number of permutations to use when computing the adjusted 
-  R-squared for a cca.}
+  \item{permutations}{Number of permutations to use when computing the adjusted 
+  R-squared for a cca. The permutations can be calculated in parallel by
+  specifying the number of cores which is passed to \code{\link{permutest}}}
 
-  \item{\dots}{ Other arguments (ignored).} 
+  \item{\dots}{ Other arguments (ignored) except in the case of cca in 
+  which these arguments are passed to \code{\link{permutest}}.} 
 }
 
 \details{ The default method finds the adjusted
