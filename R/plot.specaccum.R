@@ -1,7 +1,7 @@
 `plot.specaccum` <-
     function(x, add = FALSE, random = FALSE, ci = 2,
-             ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col,
-             ci.lty = 1, xlab, ylab = x$method, ylim,
+             ci.type = c("bar","line","polygon"), col = par("fg"), lty = 1,
+             ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim,
              xvar = c("sites", "individuals", "effort"), ...)
 {
     if(random && !(x$method %in% c("random", "collector")))
@@ -51,7 +51,7 @@
                 lines(x$weights[,i]*adj, x$perm[,i], col=col, ...)
         }
     } else
-        lines(xaxvar, x$richness,col=col, ...)
+        lines(xaxvar, x$richness, col=col, lty = lty, ...)
     invisible()
 }
 
