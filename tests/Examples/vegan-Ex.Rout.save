@@ -267,6 +267,15 @@ $r.squared
 $adj.r.squared
 [1] 0.4367038
 
+> ## cca
+> m <- cca(decostand(mite, "hell") ~  ., mite.env)
+> RsquareAdj(m)
+$r.squared
+[1] 0.4471676
+
+$adj.r.squared
+[1] 0.34442
+
 > ## default method
 > RsquareAdj(0.8, 20, 5)
 [1] 0.7285714
@@ -4550,14 +4559,14 @@ An object of class “simmat”
 ‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 1, End = 50, Thin = 5
+Start = 5, End = 50, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
 An object of class “simmat” 
 ‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 51, End = 100, Thin = 5
+Start = 55, End = 100, Thin = 5
 
 > 
 > ## sequential nullmodel with burnin and extra updating
@@ -4572,14 +4581,14 @@ An object of class “simmat”
 ‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 11, End = 60, Thin = 5
+Start = 15, End = 60, Thin = 5
 
 > (sm2 <- simulate(nm, nsim=10, thin=5))
 An object of class “simmat” 
 ‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 1, End = 50, Thin = 5
+Start = 5, End = 50, Thin = 5
 
 > 
 > ## sequential nullmodel with separate initial burnin
@@ -4595,7 +4604,7 @@ An object of class “simmat”
 ‘swap’ method (binary, sequential)
 12 x 10 matrix
 Number of permuted matrices = 10 
-Start = 11, End = 60, Thin = 5
+Start = 15, End = 60, Thin = 5
 
 > 
 > 
@@ -8770,7 +8779,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  98.824 0.164 98.995 0 0 
+Time elapsed:  103.602 0.172 103.811 0 0 
 > grDevices::dev.off()
 null device 
           1 
