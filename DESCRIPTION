@@ -2,9 +2,9 @@ Package: vegan
 Title: Community Ecology Package
 Version: 2.4-0
 Date: 2015-11-10
-Author: Jari Oksanen, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, 
-   Peter R. Minchin, R. B. O'Hara, Gavin L. Simpson, Peter Solymos, 
-   M. Henry H. Stevens, Helene Wagner  
+Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
+   Pierre Legendre, Dan McGlinn, Peter R. Minchin, R. B. O'Hara,
+   Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Helene Wagner  
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
 Depends: permute (>= 0.9-0), lattice, R (>= 3.0.0)
 Suggests: parallel, tcltk, knitr
