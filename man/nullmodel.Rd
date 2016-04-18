@@ -83,8 +83,8 @@ Integer, indicating the dimansion over which multiple
 The other dimensions are expected to match across the objects.
 }
   \item{strict}{
-Logical, if identical time series attributes
-(\code{"start"}, \code{"end"}, \code{"thin"})
+Logical, if consistency of the time series attributes
+(\code{"start"}, \code{"end"}, \code{"thin"}, and number of simulated matrices)
 of \code{simmat} objects are strictly enforced when
 binding multiple objects together using \code{smbind}.
 Applies only to input objects based on sequential
@@ -161,7 +161,7 @@ The \code{smbind} function can be used to combine multiple
 \code{simmat} objects. This comes handy when null model
 simulations are stratified by sites (\code{MARGIN = 1})
 or by species (\code{MARGIN = 2}), or in the case when
-multiple objects are returned by identical settings
+multiple objects are returned by identical/consistent settings
 e.g. during parallel computations (\code{MARGIN = 3}).
 Sanity checks are made to ensure that combining multiple
 objects is sensible, but it is the user's responsibility
@@ -169,8 +169,8 @@ to check independence of the simulated matrices
 and the null distribution has converged
 in case of sequential null model algorithms.
 The \code{strict = FALSE} setting can relax
-checking equality of time series attributes when for example
-subsequent samples are to be combined together (see Examples).
+checks regarding start, end, and thinning values
+for sequential null models.
 }
 \author{
 Jari Oksanen and Peter Solymos
@@ -211,13 +211,17 @@ sm2 <- simulate(nm2, nsim=10)
 smbind(sm1, sm2, MARGIN=1)
 
 ## binding subsequent samples from sequential algorithms
+## start, end, thin retained
 nm <- nullmodel(x, "swap")
-sm1 <- simulate(nm, nsim=10) # iterations 1:10
-sm2 <- simulate(nm, nsim=10) # iterations 11:20
-smbind(sm1, sm2, MARGIN=3, strict=FALSE)
+nm <- update(nm, nsim=10)
+sm1 <- simulate(nm, nsim=10, thin=5)
+sm2 <- simulate(nm, nsim=20, thin=5)
+sm3 <- simulate(nm, nsim=10, thin=5)
+smbind(sm3, sm2, sm1, MARGIN=3)
 
 ## 'replicate' based usage which is similar to the output
 ## of 'parLapply' or 'mclapply' in the 'parallel' package
+## note: start, end, thin not retained (but checked)
 smfun <- function(x, burnin, nsim, thin) {
     nm <- nullmodel(x, "swap")
     nm <- update(nm, nsim=burnin)

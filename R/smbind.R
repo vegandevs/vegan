@@ -17,11 +17,11 @@
         obj <- list(object, ...)
     }
     l <- length(obj)
-    if (l < 2)
+    if (l < 2L)
         return(obj[[1L]])
     att <- lapply(obj, attributes)
     isSeq <- att[[1L]]$isSeq
-    OKstart <- OKend <- OKthin <- TRUE
+    startEq <- endEq <- thinEq <- OKseed <- TRUE
     for (i in 2L:l) {
         ## data must be identical when MARGIN=3
         if (MARGIN == 3L && !identical(att[[1L]][["data"]], att[[i]][["data"]]))
@@ -35,30 +35,84 @@
             if (!identical(att[[1L]][[NAM]], att[[i]][[NAM]]))
                 stop("'", NAM, "' attributes not identical")
         }
-        ## sequential algorithms need identical ts attributes
-        if (isSeq) {
-            for (NAM in c("start", "end", "thin")) {
-                if (strict && !identical(att[[1L]][[NAM]], att[[i]][[NAM]]))
-                    stop("'", NAM, "' attributes not identical")
-                if (!strict) {
-                    if (!identical(att[[1L]][[NAM]], att[[i]][[NAM]])) {
-                        warning("'", NAM, "' attributes not identical")
-                        if (NAM == "start")
-                            OKstart <- FALSE
-                        if (NAM == "end")
-                            OKend <- FALSE
-                        if (NAM == "thin")
-                            OKthin <- FALSE
-                    }
-                }
-            }
+        ## ts attributes are tricky: evaluate outside of the loop
+        for (NAM in c("start", "end", "thin")) {
+            if (!identical(att[[1L]][["start"]], att[[i]][["start"]]))
+                startEq <- FALSE
+            if (!identical(att[[1L]][["end"]], att[[i]][["end"]]))
+                endEq <- FALSE
+            if (!identical(att[[1L]][["thin"]], att[[i]][["thin"]]))
+                thinEq <- FALSE
         }
         ## seed is important when 'data' are the same (MARGIN=3)
         ## but it is up to the user
         ## return value has NULL seed attribute
-        if (MARGIN == 3L &&
-            identical(att[[1L]][["seed"]], att[[i]][["seed"]])) {
-            warning("identical 'seed' attributes found")
+        if (MARGIN == 3L && identical(att[[1L]][["seed"]], att[[i]][["seed"]])) {
+            OKseed <- FALSE
+        }
+    }
+    if (!OKseed)
+        warning("identical 'seed' attributes found")
+    if (isSeq) {
+        outStart <- outEnd <- outThin <- NA
+        type <- "none"
+        ## if MARGIN != 3
+        ##   all match or fail
+        ##   when all match: keep ts attributes, type: "strat"
+        ## if MARGIN==3
+        ##   sequential algorithms need identical ts attributes
+        ##   * if parallel (start/end/thin identical): "par"
+        ##   --> start=NA, end=NA, thin=NA
+        ##   * if subsequent (start/end/thin form a sequence): "seq"
+        ##   --> calculate start & end, thin same
+        ##   * all else: "none"
+        ##   --> fail unless strict=FALSE (when start=NA, end=NA, thin=NA)
+        if (MARGIN != 3L) {
+            if (startEq && endEq && thinEq) {
+                type <- "strat"
+                outStart <- att[[1L]]$start
+                outEnd <- att[[1L]]$end
+                outThin <- att[[1L]]$thin
+            }
+        } else {
+            if (startEq && endEq && thinEq)
+                type <- "par"
+            if (!startEq && !endEq && thinEq) {
+                stv <- sapply(att, "[[", "start")
+                o <- order(stv)
+                att <- att[o]
+                obj <- obj[o]
+                stv <- sapply(att, "[[", "start")
+                env <- sapply(att, "[[", "end")
+                thv <- att[[1L]]$thin
+                nsv <- sapply(obj, function(z) dim(z)[3L])
+                vals <- lapply(1:l, function(i)
+                    seq(stv[i], env[i], by=thv))
+                OK <- logical(4L)
+                if (length(stv) == length(unique(stv)))
+                    OK[1L] <- TRUE
+                if (length(env) == length(unique(env)))
+                    OK[2L] <- TRUE
+                if (all(nsv == sapply(vals, length)))
+                    OK[3L] <- TRUE
+                if (length(seq(stv[1], env[l], by=thv)) == length(unlist(vals)))
+                    OK[4L] <- TRUE
+                if (all(OK)) {
+                    if (all(seq(stv[1], env[l], by=thv) == unlist(vals))) {
+                            type <- "seq"
+                            outStart <- stv[1]
+                            outEnd <- env[l]
+                            outThin <- thv
+                    }
+                }
+            }
+        }
+        if (type == "none") {
+            if (strict) {
+                stop("incosistent 'start', 'end', 'thin' attributes")
+            } else {
+                warning("incosistent 'start', 'end', 'thin' attributes")
+            }
         }
     }
     ## set final dimensions
@@ -67,7 +121,7 @@
     cDIMs <- cumsum(DIMs)
     DIM[MARGIN] <- cDIMs[l]
     out <- array(NA, dim = DIM)
-    ## copy in the 1st object
+    ## copy the 1st object
     if (MARGIN == 1L)
         out[1L:dim(obj[[1L]])[1L],,] <- obj[[1L]]
     if (MARGIN == 2L)
@@ -99,12 +153,9 @@
     if (!isSeq)
         ratt$end <- cDIMs[l]
     if (isSeq) {
-        if (!OKstart)
-            ratt$start <- NA
-        if (!OKend)
-            ratt$end <- NA
-        if (!OKthin)
-            ratt$thin <- NA
+        ratt$start <- outStart
+        ratt$end <- outEnd
+        ratt$thin <- outThin
     }
     ratt$dimnames[[MARGIN]] <- make.names(unlist(lapply(att, function(z)
         z$dimnames[[MARGIN]])), unique = TRUE)
