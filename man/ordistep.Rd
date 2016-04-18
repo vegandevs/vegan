@@ -20,7 +20,7 @@ ordistep(object, scope, direction = c("both", "backward", "forward"),
    trace = TRUE, ...)
 ordiR2step(object, scope, direction = c("both", "forward"),
    Pin = 0.05, R2scope = TRUE, permutations = how(nperm = 499),
-   trace = TRUE, ...)
+   trace = TRUE, R2permutations = 1000, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,6 +64,12 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   If positive, information is printed during the model building. Larger
   values may give more information.
 }
+
+\item{R2permutations}{Number of permutations used in the estimation of
+  adjusted \eqn{R^2}{R2} for \code{\link{cca}} using
+  \code{\link{RsquareAdj}}.
+}
+
   \item{\dots}{
   Any additional arguments to \code{\link{add1.cca}} and 
   \code{\link{drop1.cca}}.
