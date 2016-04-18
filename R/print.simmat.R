@@ -14,7 +14,7 @@ print.simmat <- function(x, ...) {
     if (attr(x, "isSeq")) {
         chainInfo <- ""
         if (!is.null(attr(x, "chains")) && attr(x, "chains") > 1L)
-            chainInfo <- paste0("(", attr(x, "chains"), " chains)")
+            chainInfo <- paste0(" (", attr(x, "chains"), " chains)")
         cat("Start = ", attr(x, "start"), ", End = ", attr(x, "end"), 
             ", Thin = ", attr(x, "thin"), chainInfo, "\n\n", sep="") 
         } else cat("\n")
