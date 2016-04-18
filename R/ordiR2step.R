@@ -12,9 +12,6 @@
         stop("ordination model must be fitted using formula")
     if (missing(scope))
         stop("needs scope")
-    ## Works only for rda(): cca() does not have (yet) R2.adjusted
-    if (!inherits(object, "rda"))
-        stop("can be used only with rda() or capscale()")
     ## Get R2 of the original object
     if (is.null(object$CCA))
         R2.0 <- 0
