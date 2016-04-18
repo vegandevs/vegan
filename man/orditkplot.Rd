@@ -17,8 +17,10 @@
 orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim, 
    tcex = 0.8, tcol, pch = 1,  pcol, pbg, pcex = 0.7, labels,  ...)
 \method{plot}{orditkplot}(x, ...)
-\method{points}{orditkplot}(x, ...)
-\method{text}{orditkplot}(x, ...)
+\method{points}{orditkplot}(x, pch = x$args$pch, cex = x$args$pcex,
+       col = x$args$pcol, bg = x$args$pbg, ...)
+\method{text}{orditkplot}(x, cex = x$args$tcex, col = x$args$tcol,
+     font = attr(x$labels, "font"), ...)
 \method{scores}{orditkplot}(x, display, ...)
 }
 
@@ -39,10 +41,12 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
   \item{tcol}{Colour of text labels.}
   \item{pch, pcol, pbg}{Point type and outline and fill colours. 
     Defaults \code{pcol="black"}  and \code{pbg="transparent"}. 
-   Argument \code{pbg} has an effect
-    only in filled plotting characters \code{pch = 21} to \code{25}.  } 
+    Argument \code{pbg} has an effect only in filled plotting characters
+    \code{pch = 21} to \code{25}.} 
   \item{pcex}{Expansion factor for point size.}  
   \item{labels}{Labels used instead of row names.}
+  \item{cex, col, bg, font}{graphical parameters used in the
+    \code{points} and \code{text} methods. See \code{\link{par}}.}
   \item{\dots}{Other arguments passed to the function. These can be
     graphical parameters (see \code{\link{par}}) used in the plot, or
     extra arguments to \code{\link{scores}}. These arguments are
@@ -85,10 +89,10 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
   must have similar dimensions as the \code{orditkplot} canvas had
   originally. The \code{plot} function cannot be configured, but it
   uses the same settings as the original Tcl/Tk plot. However,
-  \code{points} and \code{text} functions are fully configurable, and
-  unaware of the original Tcl/Tk plot settings (probably you must set
-  \code{cex} at least to get a decent plot). Finally, button
-  \strong{Dismiss} closes the window.
+  \code{points} and \code{text} functions are fully configurable, but
+  use the stored defaults for consistency with \code{plot.orditkplot} if
+  non are supplied by the user. Finally, button \strong{Dismiss} closes
+  the window.
 
   The produced plot will have equal aspect ratio. The width of the
   horizontal axis is fixed, but vertical axes will be scaled to needed
