@@ -144,12 +144,15 @@ and must take some of the following arguments:
   \item{\code{"quasiswap"}: }{non-sequential algorithm for binary
     matrices that implements a method where matrix is first filled
     honouring row and column totals, but with integers that may be
-    larger than one.  Then the method inspects random \eqn{2 \times
-    2}{2 by 2} matrices and performs a quasiswap on them. In addition
-    to ordinary swaps, quasiswap can reduce numbers above one to ones
-    preserving marginal totals (\enc{Miklós}{Miklos} & Podani
-    2004). The algorithm can reduce biased matrices, but setting
-    \code{thin} reduces or removes the bias. }
+    larger than one.  Then the method inspects random
+    \eqn{2 \times 2}{2 by 2} matrices and performs a quasiswap on
+    them. In addition to ordinary swaps, quasiswap can reduce numbers
+    above one to ones preserving marginal totals (\enc{Miklós}{Miklos} &
+    Podani 2004). The method is non-sequential, but it accepts
+    \code{thin} argument: the convergence is checked at every
+    \code{thin} steps. This allows performing several ordinary swaps in
+    addition to fill changing swaps which helps in reducing or removing
+    the bias.}
 
   \item{\code{"backtracking"}: }{non-sequential algorithm for binary
     matrices that implements a filling method with constraints both
