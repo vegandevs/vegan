@@ -62,7 +62,7 @@
         ## if MARGIN==3
         ##   sequential algorithms need identical ts attributes
         ##   * if parallel (start/end/thin identical): "par"
-        ##   --> start=NA, end=NA, thin=NA
+        ##   --> original start, end, thin, + set chains attr
         ##   * if subsequent (start/end/thin form a sequence): "seq"
         ##   --> calculate start & end, thin same
         ##   * all else: "none"
@@ -75,8 +75,12 @@
                 outThin <- att[[1L]]$thin
             }
         } else {
-            if (startEq && endEq && thinEq)
+            if (startEq && endEq && thinEq) {
                 type <- "par"
+                outStart <- att[[1L]]$start
+                outEnd <- att[[1L]]$end
+                outThin <- att[[1L]]$thin
+            }
             if (!startEq && !endEq && thinEq) {
                 stv <- sapply(att, "[[", "start")
                 o <- order(stv)
@@ -156,6 +160,8 @@
         ratt$start <- outStart
         ratt$end <- outEnd
         ratt$thin <- outThin
+        if (type == "par")
+            ratt$chains <- l
     }
     ratt$dimnames[[MARGIN]] <- make.names(unlist(lapply(att, function(z)
         z$dimnames[[MARGIN]])), unique = TRUE)

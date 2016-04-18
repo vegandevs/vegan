@@ -221,7 +221,7 @@ smbind(sm3, sm2, sm1, MARGIN=3)
 
 ## 'replicate' based usage which is similar to the output
 ## of 'parLapply' or 'mclapply' in the 'parallel' package
-## note: start, end, thin not retained (but checked)
+## start, end, thin are set, also noting number of chains
 smfun <- function(x, burnin, nsim, thin) {
     nm <- nullmodel(x, "swap")
     nm <- update(nm, nsim=burnin)
