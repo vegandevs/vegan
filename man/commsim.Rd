@@ -163,7 +163,8 @@ and must take some of the following arguments:
     where some of the points are removed, and then filling is started
     again, and this backtracking is done so may times that all
     incidences will be filled into matrix. The function may be very slow
-    for some matrices.}
+    for some matrices. The results may be biased and should be inspected
+    carefully before use.}
 }
 }
 
