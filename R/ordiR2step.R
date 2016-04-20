@@ -5,21 +5,19 @@
 `ordiR2step` <-
     function(object, scope, direction = c("both", "forward"),
              Pin = 0.05, R2scope = TRUE, permutations = how(nperm=499),
-             trace = TRUE, ...)
+             trace = TRUE, R2permutations = 1000, ...)
 {
     direction <- match.arg(direction)
     if (is.null(object$terms))
         stop("ordination model must be fitted using formula")
     if (missing(scope))
         stop("needs scope")
-    ## Works only for rda(): cca() does not have (yet) R2.adjusted
-    if (!inherits(object, "rda"))
-        stop("can be used only with rda() or capscale()")
     ## Get R2 of the original object
     if (is.null(object$CCA))
         R2.0 <- 0
     else
-        R2.0 <- RsquareAdj(object)$adj.r.squared
+        R2.0 <- RsquareAdj(object,
+                           permutations = R2permutations, ...)$adj.r.squared
     ## only accepts upper scope
     if (is.list(scope) && length(scope) <= 2L)
         scope <- scope$upper
@@ -31,7 +29,8 @@
     if (!inherits(scope, "formula"))
         scope <- reformulate(scope)
     if (R2scope)
-        R2.all <- RsquareAdj(update(object, scope))
+        R2.all <- RsquareAdj(update(object, scope),
+                             permutations = R2permutations, ...)
     else
         R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
@@ -64,7 +63,8 @@
         ## Loop over add scope
         for (trm in seq_along(R2.adds)) {
             fla <- paste(". ~ .", names(R2.adds[trm]))
-            R2.tmp <- RsquareAdj(update(object, fla))$adj.r.squared
+            R2.tmp <- RsquareAdj(update(object, fla),
+                                 permutations = R2permutations, ...)$adj.r.squared
             if (!length(R2.tmp))
                 R2.tmp <- 0
             R2.adds[trm] <- R2.tmp
@@ -95,7 +95,8 @@
                 break
             fla <- paste("~  .", adds[best])
             object <- update(object, fla)
-            R2.previous <- RsquareAdj(object)$adj.r.squared
+            R2.previous <- RsquareAdj(object,
+                                      permutations = R2permutations, ...)$adj.r.squared
             anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
         } else {
             break
