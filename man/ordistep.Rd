@@ -97,21 +97,22 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   is often sensible to have \code{Pout} \eqn{>} \code{Pin} in stepwise
   models to avoid cyclic adds and drops of single terms. 
 
-  Function \code{ordiR2step} builds model so that it maximizes adjusted
-  \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at every step, and
-  stopping when the adjusted \eqn{R^2}{R2} starts to decrease, or the
-  adjusted \eqn{R^2}{R2} of the \code{scope} is exceeded, or the
-  selected permutation \eqn{P}-value is exceeded (Blanchet et
-  al. 2008). The second criterion is ignored with option \code{R2step =
-  FALSE}, and the third criterion can be ignored setting \code{Pin = 1}
-  (or higher).  The \code{direction} has choices \code{"forward"} and
-  \code{"both"}, but it is very exceptional that a term is dropped with
-  the adjusted \eqn{R^2}{R2} criterion. The \eqn{R^2}{R2} of
-  \code{\link{cca}} is based on simulations (see
-  \code{\link{RsquareAdj}}) and different runs of \code{ordiR2step} can
-  give different results.  Adjusted \eqn{R^2}{R2} cannot be calculated
-  if the number of predictors is higher than the number of observations,
-  but such models can be analysed with \code{R2scope = FALSE}.
+  Function \code{ordiR2step} builds model so that it maximizes
+  adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at every
+  step, and stopping when the adjusted \eqn{R^2}{R2} starts to
+  decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
+  exceeded, or the selected permutation \eqn{P}-value is exceeded
+  (Blanchet et al. 2008). The second criterion is ignored with option
+  \code{R2step = FALSE}, and the third criterion can be ignored
+  setting \code{Pin = 1} (or higher).  The \code{direction} has
+  choices \code{"forward"} and \code{"both"}, but it is very
+  exceptional that a term is dropped with the adjusted \eqn{R^2}{R2}
+  criterion. Adjusted \eqn{R^2}{R2} cannot be calculated if the number
+  of predictors is higher than the number of observations, but such
+  models can be analysed with \code{R2scope = FALSE}.  The
+  \eqn{R^2}{R2} of \code{\link{cca}} is based on simulations (see
+  \code{\link{RsquareAdj}}) and different runs of \code{ordiR2step}
+  can give different results.
 
   Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
   (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select
