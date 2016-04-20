@@ -21,11 +21,8 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
         x <- object$state
     } else {
         x <- m
-#        if (thin != 1)
-#            message("non-sequential model: 'thin' set to 1")
-        thin <- 1L
-#        if (burnin != 0)
-#            message("non-sequential model: 'burnin' set to 0")
+        ## non-sequential models have no burnin -- but they may have
+        ## thinning: set burnin=0, but leave thin like user set it.
         burnin <- 0L
     }
     perm <- object$commsim$fun(x=x,

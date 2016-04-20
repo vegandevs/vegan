@@ -79,7 +79,7 @@ function(method)
             storage.mode(out) <- "integer"
             for (k in seq_len(n))
                 out[,,k] <- .C("quasiswap",
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                    m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
         "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,

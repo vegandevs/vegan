@@ -35,7 +35,7 @@ void i2rand(int *vec, int imax)
 
 #define INDX(i, j, nr) (i) + (nr)*(j)
 
-void quasiswap(int *m, int *nr, int *nc)
+void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
     int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
 
@@ -56,26 +56,28 @@ void quasiswap(int *m, int *nr, int *nc)
     /* Quasiswap while there are entries > 1 */
 
     while (ss > mtot) {
-	i2rand(row, nr1);
-	i2rand(col, nc1);
-	/* a,b,c,d notation for a 2x2 table */
-	a = INDX(row[0], col[0], *nr);
-	b = INDX(row[0], col[1], *nr);
-	c = INDX(row[1], col[0], *nr);
-	d = INDX(row[1], col[1], *nr);
-	if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
-	    ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
-	    m[a]--;
-	    m[d]--;
-	    m[b]++;
-	    m[c]++;
-	} else if (m[b] > 0 && m[c] > 0 &&
-		   m[b] + m[c] - m[a] - m[d] >= 2) {
-	    ss -= 2 * (m[b] + m[c] - m[a] - m[d] - 2);
-	    m[a]++;
-	    m[d]++;
-	    m[b]--;
-	    m[c]--;
+	for (i = 0; i < *thin; i++) {
+	    i2rand(row, nr1);
+	    i2rand(col, nc1);
+	    /* a,b,c,d notation for a 2x2 table */
+	    a = INDX(row[0], col[0], *nr);
+	    b = INDX(row[0], col[1], *nr);
+	    c = INDX(row[1], col[0], *nr);
+	    d = INDX(row[1], col[1], *nr);
+	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+		ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
+		m[a]--;
+		m[d]--;
+		m[b]++;
+		m[c]++;
+	    } else if (m[b] > 0 && m[c] > 0 &&
+		       m[b] + m[c] - m[a] - m[d] >= 2) {
+		ss -= 2 * (m[b] + m[c] - m[a] - m[d] - 2);
+		m[a]++;
+		m[d]++;
+		m[b]--;
+		m[c]--;
+	    }
 	}
     }
 
