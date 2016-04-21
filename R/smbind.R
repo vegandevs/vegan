@@ -152,7 +152,7 @@
     ## assembling return object
     ratt <- att[[1L]]
     ratt$data <- DATA
-    ratt$seed <- NULL
+    ratt$seed <- NA
     ratt$dim <- DIM
     if (!isSeq)
         ratt$end <- cDIMs[l]
