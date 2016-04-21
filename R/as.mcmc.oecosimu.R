@@ -1,7 +1,13 @@
 `as.mcmc.oecosimu` <-
     function(x)
 {
+    ## mcmc only for sequential methods
+    if (!x$oecosimu$isSeq)
+        stop("as.mcmc available only for sequential null models")
+    ## named variables
+    varnames <- names(x$oecosimu$z)
     x <- x$oecosimu$simulated
+    rownames(x) <- varnames
     chains <- attr(x, "chains")
     ## chains: will make each chain as an mcmc object and combine
     ## these to an mcmc.list
