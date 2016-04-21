@@ -180,6 +180,7 @@ Jari Oksanen and Peter Solymos
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
 \examples{
+set.seed(123)
 x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 
 ## non-sequential nullmodel
