@@ -19,6 +19,7 @@
             else
                 tmp
     }
+    chains <- NULL
     if (inherits(comm, "simmat")) {
         x <- comm
         method <- attr(x, "method")
@@ -26,6 +27,9 @@
         if (nsimul == 1)
             stop("only one simulation in ", sQuote(deparse(substitute(comm))))
         comm <- attr(comm, "data")
+        #thin <- attr(comm, "thin")
+        burnin <- attr(x, "start") - attr(x, "thin")
+        chains <- attr(x, "chains")
         simmat_in <- TRUE
     } else {
         simmat_in <- FALSE
@@ -50,7 +54,7 @@
     if (!simmat_in && !is.na(batchsize)) {
         commsize <- object.size(comm)
         totsize <- commsize * nsimul
-        if (totsize > batchsize) { 
+        if (totsize > batchsize) {
             nbatch <- ceiling(unclass(totsize/batchsize))
             batches <- diff(round(seq(0, nsimul, by = nsimul/nbatch)))
         } else {
@@ -61,7 +65,7 @@
     }
     if (nbatch == 1)
         batches <- nsimul
-    
+
     ind <- nestfun(comm, ...)
     indstat <-
         if (is.list(ind))
@@ -72,7 +76,7 @@
     if (!simmat_in && nm$commsim$isSeq) {
         ## estimate thinning for "tswap" (trial swap)
         if (nm$commsim$method == "tswap") {
-            checkbrd <-sum(designdist(comm, "(J-A)*(J-B)", 
+            checkbrd <-sum(designdist(comm, "(J-A)*(J-B)",
                                       "binary"))
             M <- nm$ncol
             N <- nm$nrow
@@ -130,14 +134,15 @@
                                           statistic = statistic, ...))
         }
     }
-    
+
     simind <- matrix(simind, ncol = nsimul)
 
     if (attr(x, "isSeq")) {
         attr(simind, "thin") <- attr(x, "thin")
         attr(simind, "burnin") <- burnin
+        attr(simind, "chains") <- chains
     }
-    
+
     sd <- apply(simind, 1, sd, na.rm = TRUE)
     means <- rowMeans(simind, na.rm = TRUE)
     z <- (indstat - means)/sd
@@ -161,7 +166,7 @@
                 less = pless,
                 greater = pmore)
     p <- pmin(1, (p + 1)/(nsimul + 1))
-    
+
     ## ADDITION: if z is NA then it is not correct to calculate p values
     ## try e.g. oecosimu(dune, sum, "permat")
     if (any(is.na(z)))
