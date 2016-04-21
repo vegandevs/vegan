@@ -36,7 +36,7 @@ export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
 ## Export as.mcmc for coda
-export(as.mcmc.oecosimu, as.mcmc.permat)
+export(as.mcmc.oecosimu, as.mcmc.permat, as.mcmc.list)
 ## export oldCapscale for compatibility after new capscale design
 export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
