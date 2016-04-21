@@ -1,13 +1,31 @@
 `as.mcmc.oecosimu` <-
     function(x)
 {
-    chains <- attr(x$oecosimu$simulated, "chains")
-    if (!is.null(chains) && chains > 1)
-        stop("try as.mcmc.list for multiple chain")
-    x <- as.ts(x)
-    mcpar <- attr(x, "tsp")
-    mcpar[3] <- round(1/mcpar[3])
-    attr(x, "mcpar") <- mcpar
-    class(x) <- c("mcmc", class(x))
+    x <- x$oecosimu$simulated
+    chains <- attr(x, "chains")
+    ## chains: will make each chain as an mcmc object and combine
+    ## these to an mcmc.list
+    if (!is.null(chains) && chains > 1) {
+        nsim <- dim(x)[2]
+        niter <- nsim / chains
+        ## iterate over chains
+        x <- lapply(1:chains, function(i) {
+                        z <- x[, ((i-1) * niter + 1):(i * niter), drop = FALSE]
+                        attr(z, "mcpar") <-
+                            c(attr(x, "burnin") + attr(x, "thin"),
+                              attr(x, "burnin") + attr(x, "thin") * niter,
+                              attr(x, "thin"))
+                        attr(z, "class") <- c("mcmc", class(z))
+                        t(z)
+                    })
+        ## combine list of mcmc objects to a coda mcmc.list
+        x <- as.mcmc.list(x)
+    } else { # one chain: make to a single mcmc object
+        x <- as.ts(x)
+        mcpar <- attr(x, "tsp")
+        mcpar[3] <- round(1/mcpar[3])
+        attr(x, "mcpar") <- mcpar
+        class(x) <- c("mcmc", class(x))
+    }
     x
 }
