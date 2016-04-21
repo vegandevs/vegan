@@ -3,11 +3,12 @@
 \alias{oecosimu}
 \alias{as.ts.oecosimu}
 \alias{as.mcmc.oecosimu}
+\alias{as.mcmc.list.oecosimu}
 
 \title{Evaluate Statistics with Null Models of Biological Communities }
 
 \description{
- 
+
   Function evaluates a statistic or a vector of statistics in
   community and evaluates its significance in a series of simulated
   random communities.  The approach has been used traditionally for
@@ -26,10 +27,11 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
+   statistic = "statistic", alternative = c("two.sided", "less", "greater"),
    batchsize = NA, parallel = getOption("mc.cores"), ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{as.mcmc}{oecosimu}(x)
+\method{as.mcmc.list}{oecosimu}(x)
 }
 
 \arguments{
@@ -64,7 +66,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     with non-sequential methods or when \code{comm} is a \code{simmat}
     object).}
   \item{statistic}{The name of the statistic returned by
-    \code{nestfun}.} 
+    \code{nestfun}.}
   \item{alternative}{a character string specifying the alternative
     hypothesis, must be one of \code{"two.sided"} (default), \code{"greater"}
     or \code{"less"}. Please note that the \eqn{p}-value of two-sided
@@ -87,7 +89,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 }
 
 \details{
-  
+
   Function \code{oecosimu} is a wrapper that evaluates a statistic
   using function given by \code{nestfun}, and then simulates a series
   of null models based on \code{nullmodel}, and evaluates the
@@ -129,7 +131,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
       simulations, and argument \code{method} is ignored.
     \item A three-dimensional array of simulated communities generated
       with \code{\link{simulate.nullmodel}}, and arguments
-      \code{method} and \code{nsimul} are ignored.  
+      \code{method} and \code{nsimul} are ignored.
   }
   The last case allows analysing several statistics with the same
   simulations.
@@ -152,8 +154,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
-  examples). Function \code{as.mcmc} transforms the simulated results
-  of sequential methods into an \code{\link[coda]{mcmc}} object of the
+  examples). Functions \code{as.mcmc} and \code{as.mcmc.list}
+  transforms the simulated results
+  of sequential methods into an \code{\link[coda]{mcmc}}
+  of \code{\link[coda]{mcmc.list}} object of the
   \pkg{coda} package. The \pkg{coda} package provides functions for
   the analysis of stationarity, adequacy of sample size,
   autocorrelation, need of burn-in and much more for sequential
@@ -166,7 +170,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   the simulated values.
 }
 
-\value{ 
+\value{
 
   Function \code{oecosimu} returns an object of class
   \code{"oecosimu"}.  The result object has items \code{statistic} and
@@ -186,10 +190,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 }
 
 \references{
-  Hardy, O. J. (2008) 
-  Testing the spatial phylogenetic structure of local communities: 
-  statistical performances of different null models 
-  and test statistics on a locally neutral community. 
+  Hardy, O. J. (2008)
+  Testing the spatial phylogenetic structure of local communities:
+  statistical performances of different null models
+  and test statistics on a locally neutral community.
   \emph{Journal of Ecology} 96, 914--926.
 
   Gotelli, N.J. & Entsminger, N.J. (2003). Swap algorithms in null model
@@ -210,14 +214,14 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
 
 \note{
   If you wonder about the name of \code{oecosimu}, look at journal
-  names in the References (and more in \code{\link{nestedtemp}}).  
+  names in the References (and more in \code{\link{nestedtemp}}).
 
   The internal structure of the function was radically changed in
   \pkg{vegan 2.2-0} with introduction of \code{\link{commsim}} and
   \code{\link{nullmodel}} and deprecation of
   \code{\link{commsimulator}}. However, the results and the basic user
   interface remain the same (except that \code{method = "r0_old"} must
-  be used to reproduce the old results of \code{"method = r0"}).  
+  be used to reproduce the old results of \code{"method = r0"}).
 }
 
 \seealso{Function \code{oecosimu} currently defines null models with
@@ -230,7 +234,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   Function \code{\link[labdsv]{rndtaxa}}
   (\pkg{labdsv} package) randomizes a community table. See also
   \code{\link{nestedtemp}} (that also discusses other nestedness
-  functions) and \code{\link{treedive}} for another application. 
+  functions) and \code{\link{treedive}} for another application.
 }
 \examples{
 ## Use the first eigenvalue of correspondence analysis as an index
@@ -239,7 +243,7 @@ data(sipoo)
 ## Traditional nestedness statistics (number of checkerboard units)
 oecosimu(sipoo, nestedchecker, "r0")
 ## sequential model, one-sided test, a vector statistic
-out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
+out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10,
    statistic="evals", alt = "greater")
 out
 ## Inspect the swap sequence as a time series object
@@ -263,7 +267,7 @@ foo <- function(x, n, nr, nc, ...) {
       out[,,k] <- apply(x, 2, function(z) sample(z, length(z)))
    out
 }
-cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE, 
+cf <- commsim("myshuffle", foo, isSeq = FALSE, binary = FALSE,
    mode = "double")
 oecosimu(dune, meandist, cf)
 }
