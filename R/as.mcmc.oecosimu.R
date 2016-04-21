@@ -25,7 +25,8 @@
                         t(z)
                     })
         ## combine list of mcmc objects to a coda mcmc.list
-        x <- as.mcmc.list(x)
+        #x <- as.mcmc.list(x)
+        class(x) <- "mcmc.list"
     } else { # one chain: make to a single mcmc object
         x <- as.ts(x)
         mcpar <- attr(x, "tsp")
