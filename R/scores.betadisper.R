@@ -8,9 +8,9 @@
         sol$sites <- x$vectors[, choices]
     if("centroids" %in% display) {
         if(is.matrix(x$centroids))
-            sol$centroids <- x$centroids[, choices]
+            sol$centroids <- x$centroids[, choices, drop = FALSE]
         else
-            sol$centroids <- x$centroids[choices]
+            sol$centroids <- matrix(x$centroids[choices], ncol = length(choices), byrow = TRUE)
     }
     if (length(sol) == 1)
         sol <- sol[[1]]
