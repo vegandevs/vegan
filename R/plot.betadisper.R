@@ -10,8 +10,8 @@
     localAxis <- function(..., col, bg, pch, cex, lty, lwd) axis(...)
     localBox <- function(..., col, bg, pch, cex, lty, lwd) box(...)
     localTitle <- function(..., col, bg, pch, cex, lty, lwd) title(...)
-    Ellipse <- function(scrs, type, conf, col, lty, lwd, ...) {
-        mat <- cov.wt(scrs)
+    Ellipse <- function(scrs, centres, type, conf, col, lty, lwd, ...) {
+        mat <- cov.wt(scrs, center = centres)
         if (mat$n.obs == 1)
             mat$cov[] <- 0
         if (type == "se") {
@@ -67,16 +67,20 @@
                       lwd = lwd, ...)
             }
             if (ellipse) {
-                Ellipse(g$sites[take, , drop = FALSE], type = ellipse.type,
-                        conf = conf, col = col[i], lty = lty, lwd = lwd, ...)
+                Ellipse(g$sites[take, , drop = FALSE],
+                        centres = g$centroids[j, ],
+                        type = ellipse.type, conf = conf,
+                        col = col[i], lty = lty, lwd = lwd, ...)
             }
-            points(g$centroids[j, , drop = FALSE], pch = 16, cex = 1, col = col[i], ...)
+            points(g$centroids[j, , drop = FALSE], pch = 16, cex = 1,
+                   col = col[i], ...)
         }
     } else {
         ## single group
         if (segments) {
-            segments(g$centroids[1L], g$centroids[2L], g$sites[, 1L], g$sites[, 2L],
-                     col = seg.col, lty = seg.lty, ...)
+            segments(g$centroids[1L], g$centroids[2L],
+                     g$sites[, 1L], g$sites[, 2L], col = seg.col,
+                     lty = seg.lty, ...)
         }
         if(hull) {
             ch <- chull(g$sites)
