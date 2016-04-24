@@ -204,7 +204,8 @@ function(method)
             storage.mode(out) <- "double"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
+                               m = as.integer(out[,,k]), nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 out[,,k][out[,,k] > 0] <- sample(nz) # we assume that length(nz)>1
             }
             out
@@ -220,7 +221,8 @@ function(method)
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                               m = out[,,k], nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 out[,,k][out[,,k] > 0] <- indshuffle(nz - 1L) + 1L  # we assume that length(nz)>1
             }
             out
@@ -233,7 +235,8 @@ function(method)
             I <- seq_len(nr)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
+                               m = as.integer(out[,,k]), nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 for (i in I) {
                     nz <- x[i,][x[i,] > 0]
                     if (length(nz) == 1)
@@ -252,7 +255,8 @@ function(method)
             J <- seq_len(nc)
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = as.integer(out[,,k]), nr, nc, PACKAGE = "vegan")$m
+                               m = as.integer(out[,,k]), nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 for (j in J) {
                     nz <- x[,j][x[,j] > 0]
                     if (length(nz) == 1)
@@ -274,7 +278,8 @@ function(method)
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = out[,,k], nr, nc, PACKAGE = "vegan")$m
+                               m = out[,,k], nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 for (i in I) {
                     nz <- as.integer(x[i,][x[i,] > 0])
                     if (length(nz) == 1)
@@ -296,7 +301,8 @@ function(method)
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
-                    m = out[,,k], nr, nc,  PACKAGE = "vegan")$m
+                               m = out[,,k], nr, nc, thin,
+                               PACKAGE = "vegan")$m
                 for (j in J) {
                     nz <- as.integer(x[,j][x[,j] > 0])
                     if (length(nz) == 1)
