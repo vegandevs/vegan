@@ -38,7 +38,7 @@ void i2rand(int *vec, int imax)
 
 void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, ii, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
 
     nr1 = (*nr) - 1;
     nc1 = (*nc) - 1;
@@ -56,6 +56,7 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 
     /* Quasiswap while there are entries > 1 */
 
+    ii  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
 	    i2rand(row, nr1);
@@ -80,7 +81,10 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 		m[c]--;
 	    }
 	}
-	R_CheckUserInterrupt();
+	/* interrupt? */
+	if (ii % 1000 == 999)
+	    R_CheckUserInterrupt();
+	ii++;
     }
 
     /* Set R RNG */
@@ -133,13 +137,15 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
 void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2], sX;
+    int i, ii, a, b, c, d, row[2], col[2], sX;
 
     GetRNGstate();
 
-    for (i=0; i < *thin; i++) {
+    for (i=0, ii=0; i < *thin; i++) {
 	for(;;) {
-	    R_CheckUserInterrupt();
+	    if (ii % 10000 == 9999)
+		R_CheckUserInterrupt();
+	    ii++;
 	    i2rand(row, (*nr) - 1);
 	    i2rand(col, (*nc) - 1);
 	    a = INDX(row[0], col[0], *nr);
@@ -345,13 +351,14 @@ int isDiagFill(int *sm)
 
 void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, 
+    int row[2], col[2], k, ij[4], changed, ii,
 	pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
 
     GetRNGstate();
 
     changed = 0;
+    ii = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
 	i2rand(row, *nr - 1);
@@ -369,7 +376,9 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
 	}
-	R_CheckUserInterrupt();
+	if (ii % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	ii++;
     }
 
     PutRNGstate();
@@ -384,7 +393,7 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 
 void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
-    int row[2], col[2], i, k, ij[4], n, change, cfill,
+    int row[2], col[2], i, ii, k, ij[4], n, change, cfill,
        pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
 
@@ -398,6 +407,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
     GetRNGstate();
 
     /* Loop while fills differ */
+    ii = 0;
     while (cfill != *mfill) {
 	/* Select a random 2x2 matrix*/
 	i2rand(row, *nr - 1);
@@ -424,7 +434,9 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 		cfill += change;
 	    } 
 	}
-	R_CheckUserInterrupt();
+	if (ii % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	ii++;
     }
     PutRNGstate();
 }
@@ -470,12 +482,13 @@ int isDiagSimple(double *sm)
 
 void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], changed, ev;
+    int row[2], col[2], k, ij[4], ii, changed, ev;
     double sm[4];
 
     GetRNGstate();
 
     changed = 0;
+    ii = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
 	 i2rand(row, *nr - 1);
@@ -505,7 +518,9 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	      }
 	      changed++;
 	 }
-	 R_CheckUserInterrupt();
+	 if (ii % 10000 == 9999)
+	     R_CheckUserInterrupt();
+	 ii++;
     }
     
     PutRNGstate();
