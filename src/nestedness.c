@@ -1,5 +1,6 @@
 #include <R.h>
 #include <Rmath.h>
+#include <R_ext/Utils.h> /* interrupts */
 
 /* Utility functions */
 
@@ -79,6 +80,7 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 		m[c]--;
 	    }
 	}
+	R_CheckUserInterrupt();
     }
 
     /* Set R RNG */
@@ -137,6 +139,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
 
     for (i=0; i < *thin; i++) {
 	for(;;) {
+	    R_CheckUserInterrupt();
 	    i2rand(row, (*nr) - 1);
 	    i2rand(col, (*nc) - 1);
 	    a = INDX(row[0], col[0], *nr);
@@ -366,6 +369,7 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
 	}
+	R_CheckUserInterrupt();
     }
 
     PutRNGstate();
@@ -420,6 +424,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 		cfill += change;
 	    } 
 	}
+	R_CheckUserInterrupt();
     }
     PutRNGstate();
 }
@@ -500,6 +505,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	      }
 	      changed++;
 	 }
+	 R_CheckUserInterrupt();
     }
     
     PutRNGstate();
