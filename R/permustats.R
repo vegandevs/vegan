@@ -21,19 +21,26 @@
 ### modelled after print.oecosimu (should perhaps have oecosimu() args
 ### like 'alternative'
 
-`summary.permustats` <- function(object, interval = 0.95, ...) {
-    nalt <- length(object$alternative)
+`summary.permustats` <-
+    function(object, interval = 0.95, alternative, ...)
+{
+    TAB <- c("two.sided", "greater", "less")
+    if (missing(alternative))
+        alt <- match(object$alternative, TAB)
+    else
+        alt <- match.arg(alternative, TAB)
+    if (any(is.na(alt)))
+        stop("alternative missing")
     nstat <- length(object$statistic)
+    nalt <- length(alt)
     ## Replicate alternative to length of statistic
     if ((nalt < nstat) && identical(nalt, 1L)) {
-        object$alternative <- rep(object$alternative, length.out = nstat)
+        alt <- rep(alt, length.out = nstat)
     }
-    TAB <- c("two.sided", "greater", "less")
     compint <- (1 - interval) / 2
     PROBS <- list(two.sided = c(compint, 0.5, interval + compint),
                   greater = c(NA, 0.5, interval),
                   less = c(1 - interval, 0.5, NA))
-    alt <- match(object$alternative, TAB)
     probs <- PROBS[alt]
     ## take care that permutations are in a column matrix
     permutations <- as.matrix(object$permutations)

@@ -35,7 +35,7 @@
 
 \usage{
 permustats(x, ...)
-\method{summary}{permustats}(object, interval = 0.95, ...)
+\method{summary}{permustats}(object, interval = 0.95, alternative, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
@@ -45,6 +45,11 @@ permustats(x, ...)
 \arguments{
   \item{object, x, y}{The object to be handled.}
   \item{interval}{numeric; the coverage interval reported.}
+  \item{alternative}{A character string specifying the limits used for
+    the \code{interval}. Must be one of \code{"two.sided"} (both upper
+    and lower limit), \code{"greater"} (upper limit), \code{"less"}
+    (lower limit). Usually \code{alternative} is given in the result
+    object, but it can be specified with this argument.}
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
