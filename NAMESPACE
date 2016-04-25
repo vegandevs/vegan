@@ -142,6 +142,8 @@ S3method(bstick, decorana)
 S3method(bstick, default)
 S3method(bstick, prcomp)
 S3method(bstick, princomp)
+## c: base
+S3method(c, permustats)
 # calibrate: vegan
 S3method(calibrate, cca)
 S3method(calibrate, ordisurf)

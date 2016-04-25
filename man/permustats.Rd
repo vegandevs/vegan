@@ -17,6 +17,7 @@
 \alias{permustats.protest}
 \alias{permustats.vectorfit}
 \alias{summary.permustats}
+\alias{c.permustats}
 \alias{densityplot.permustats}
 \alias{density.permustats}
 \alias{qqnorm.permustats}
@@ -98,6 +99,11 @@ permustats(x, ...)
   \code{\link{mrpp}}, \code{\link{oecosimu}}, \code{\link{ordiareatest}},
   \code{\link{permutest.cca}}, \code{\link{protest}}, and
   \code{\link{permutest.betadisper}}. 
+
+  Several \code{permustats} objects can be combined together with
+  \code{c}. The function checks that statistics are equal, but
+  performs no other sanity tests, allowing users to combine objects
+  that should not be combined.
 
 }
 

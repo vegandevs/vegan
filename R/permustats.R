@@ -65,6 +65,34 @@
     invisible(x)
 }
 
+### combine permustats objects. Function checks that statistic field
+### is equal (name, value) before proceeding, sees if the alternative
+### is equal, and then combines permutations.
+
+`c.permustats` <-
+    function(..., recursive = FALSE)
+{
+    mods <- list(...)
+    ## check stats
+    stats <- lapply(mods, function(z) z$statistic)
+    if (!all(sapply(stats[-1], function(z) identical(stats[[1]], z))))
+        stop("statistics are not equal")
+    stats <- stats[[1]]
+    ## check alternative
+    alt <- lapply(mods, function(z) z$alternative)
+    if (all(sapply(alt[-1], function(z) identical(alt[[1]], z))))
+        alt <- alt[[1]]
+    else
+        alt <- NA
+    ## combine permutations
+    p <- do.call(rbind, lapply(mods, function(z) z$permutations))
+    ## return permustats
+    structure(list(statistic = stats,
+                   permutations = p,
+                   alternative = alt),
+              class = "permustats")
+}
+
 ### densityplot
 
 `densityplot.permustats` <-
