@@ -29,7 +29,7 @@
     if (missing(alternative))
         alt <- x$alternative
     else
-        alt <- match.arg(alternative, TAB)
+        alt <- match.arg(alternative, TAB, several.ok = TRUE)
     permutations <- as.matrix(x$permutations)
     ## P-values
     if (is.integer(x$statistic) && is.integer(permutations)) {
@@ -60,7 +60,7 @@
     if (missing(alternative))
         alt <- match(object$alternative, TAB)
     else
-        alt <- match.arg(alternative, TAB)
+        alt <- match.arg(alternative, TAB, several.ok = TRUE)
     if (any(is.na(alt)))
         stop("alternative missing")
     nstat <- length(object$statistic)
