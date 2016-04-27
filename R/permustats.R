@@ -119,9 +119,10 @@
     m <- cbind("statistic" = x$statistic,
                "SES" = x$z,
                "mean" = x$means,
-               x$quantile)
+               x$quantile,
+               "Pr(perm)" = x$p)
     cat("\n")
-    printCoefmat(m, tst.ind = 1:ncol(m), na.print = "", ...)
+    printCoefmat(m, tst.ind = 1:(ncol(m)-1), na.print = "", ...)
     writeLines(strwrap(paste0("(Interval (Upper - Lower) = ", x$interval, ")", sep = ""),
                        initial = "\n"))
     invisible(x)
