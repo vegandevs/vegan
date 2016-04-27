@@ -21,6 +21,38 @@
 ### modelled after print.oecosimu (should perhaps have oecosimu() args
 ### like 'alternative'
 
+`permutest.permustats` <-
+    function(x, alternative, ...)
+{
+    ## preliminaries
+    TAB <- c("two.sided", "greater", "less")
+    if (missing(alternative))
+        alt <- x$alternative
+    else
+        alt <- match.arg(alternative, TAB)
+    permutations <- as.matrix(x$permutations)
+    ## P-values
+    if (is.integer(x$statistic) && is.integer(permutations)) {
+        pless <- rowSums(x$statistic >= t(permutations), na.rm = TRUE)
+        pmore <- rowSums(x$statistic <= t(permutations), na.rm = TRUE)
+    } else {
+        EPS <- sqrt(.Machine$double.eps)
+        pless <- rowSums(x$statistic + EPS >= t(permutations), na.rm = TRUE)
+        pmore <- rowSums(x$statistic - EPS <= t(permutations), na.rm = TRUE)
+    }
+    nsimul <- nrow(permutations)
+    if (any(is.na(permutations))) {
+        warning("some simulated values were NA and were removed")
+        nsimul <- nsimul - colSums(is.na(permutations))
+    }
+    p <- switch(alt,
+                two.sided = 2*pmin(pless, pmore),
+                less = pless,
+                greater = pmore)
+    p <- pmin(1, (p + 1)/(nsimul + 1))
+    p
+}
+
 `summary.permustats` <-
     function(object, interval = 0.95, alternative, ...)
 {
