@@ -87,7 +87,30 @@
     object$quantile <- do.call("rbind", object$quantile)
     dimnames(object$quantile) <- list(NULL, c("lower", "median", "upper"))
     object$interval <- interval
-    ## not (yet) P-values...
+    ## P-values
+    if (is.integer(object$statistic) && is.integer(permutations)) {
+        pless <- rowSums(object$statistic >= t(permutations), na.rm = TRUE)
+        pmore <- rowSums(object$statistic <= t(permutations), na.rm = TRUE)
+    } else {
+        EPS <- sqrt(.Machine$double.eps)
+        pless <- rowSums(object$statistic + EPS >= t(permutations),
+                         na.rm = TRUE)
+        pmore <- rowSums(object$statistic - EPS <= t(permutations),
+                         na.rm = TRUE)
+    }
+    nsimul <- nrow(permutations)
+    if (any(is.na(permutations))) {
+        warning("some simulated values were NA and were removed")
+        nsimul <- nsimul - colSums(is.na(permutations))
+    }
+    p <- rep(NA, length(object$statistic))
+    for(i in seq_along(p)) 
+        p[i] <- switch(alt[i],
+                       two.sided = 2*pmin(pless[i], pmore[i]),
+                       less = pless[i],
+                       greater = pmore[i])
+    object$p <- pmin(1, (p + 1)/(nsimul + 1))
+    ## out
     class(object) <- "summary.permustats"
     object
 }
