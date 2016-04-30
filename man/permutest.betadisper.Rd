@@ -94,7 +94,7 @@ plot(mod.HSD)
 
 ## Has permustats() method
 pstat <- permustats(pmod)
-densityplot(pstat)
+densityplot(pstat, scales = list(x = list(relation = "free")))
 qqmath(pstat)
 }
 \keyword{methods}
