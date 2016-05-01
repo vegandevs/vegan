@@ -180,8 +180,15 @@
 }
 
 `qqmath.permustats` <-
-    function(x, data, observed = TRUE, ylab = "Permutations", ...)
+    function(x, data, observed = TRUE, sd.scale = FALSE,
+             ylab = "Permutations", ...)
 {
+    ## sd.scale: standardize before use
+    if (sd.scale) {
+        x$permutations <- scale(x$permutations)
+        x$statistic <- (x$statistic - attr(x$permutations, "scaled:center"))/
+            attr(x$permutations, "scaled:scale")
+    }
     obs <- x$statistic
     if (observed)
         sim <- rbind(x$statistic, as.matrix(x$permutations))

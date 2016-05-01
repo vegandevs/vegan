@@ -39,7 +39,8 @@ permustats(x, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
-\method{qqmath}{permustats}(x, data, observed = TRUE, ylab = "Permutations", ...)
+\method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
+    ylab = "Permutations", ...)
 }
 
 \arguments{
@@ -55,6 +56,8 @@ permustats(x, ...)
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
   \item{observed}{Add observed statistic among permutations.}
+  \item{sd.scale}{Scale permutations to unit standard deviation and observed
+    statistic to standardized effect size.}
   \item{data}{Ignored.}
   \item{\dots}{ Other arguments passed to the function. In
     \code{density} these are passed to \code{\link{density.default}}.}
