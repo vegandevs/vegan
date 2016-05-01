@@ -84,13 +84,18 @@ permustats(x, ...)
   defaults to the standard Normal as well, but can accept other
   alternatives (see standard \code{\link[lattice]{qqmath}}).
 
-  Functions \code{\link{density}} and \code{\link{qqnorm}} are based on
-  standard \R methods and accept their arguments. They only handle one
-  statistic, and cannot be used when several test statistic were
+  Functions \code{\link{density}} and \code{\link{qqnorm}} are based
+  on standard \R methods and accept their arguments. They only handle
+  one statistic, and cannot be used when several test statistic were
   evaluated. The \code{\link[lattice]{densityplot}} and
   \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
   used both for one and several statistics.  All these functions pass
-  arguments to their underlying functions; see their documentation.
+  arguments to their underlying functions; see their
+  documentation. Functions \code{\link[lattice]{qqmath}} and
+  \code{\link[lattice]{densityplot}} are Lattice methods, and their
+  default is to use same axis scaling in all subplots of the
+  lattice. You can use argumet \code{scales} to set indpendent scaling
+  for subplots when this is appropriate.
 
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis}}, \code{\link{anosim}}, 
