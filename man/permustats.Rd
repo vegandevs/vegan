@@ -17,6 +17,7 @@
 \alias{permustats.protest}
 \alias{permustats.vectorfit}
 \alias{summary.permustats}
+\alias{c.permustats}
 \alias{densityplot.permustats}
 \alias{density.permustats}
 \alias{qqnorm.permustats}
@@ -34,7 +35,7 @@
 
 \usage{
 permustats(x, ...)
-\method{summary}{permustats}(object, interval = 0.95, ...)
+\method{summary}{permustats}(object, interval = 0.95, alternative, ...)
 \method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
@@ -44,6 +45,12 @@ permustats(x, ...)
 \arguments{
   \item{object, x, y}{The object to be handled.}
   \item{interval}{numeric; the coverage interval reported.}
+  \item{alternative}{A character string specifying the limits used for
+    the \code{interval} and the direction of the test when evaluating
+    the \eqn{p}-values. Must be one of \code{"two.sided"} (both upper
+    and lower limit), \code{"greater"} (upper limit), \code{"less"}
+    (lower limit). Usually \code{alternative} is given in the result
+    object, but it can be specified with this argument.}
   \item{xlab, ylab}{Arguments of
     \code{\link[lattice]{densityplot}} and
     \code{\link[lattice]{qqmath}} functions.}
@@ -66,9 +73,15 @@ permustats(x, ...)
   the mean, median, and limits which contain \code{interval} percent
   of permuted values. With the default (\code{interval = 0.95}), for
   two-sided test these are (2.5\%, 97.5\%) and for one-sided tests
-  either 5\% or 95\% quantile depending on the test direction. The
-  mean, quantiles and \eqn{z} values are evaluated from permuted
-  values without observed statistic.
+  either 5\% or 95\% quantile and the \eqn{p}-value depending on the
+  test direction. The mean, quantiles and \eqn{z} values are evaluated
+  from permuted values without observed statistic, but the
+  \eqn{p}-value is evaluated with the observed statistic. The
+  intervals and the \eqn{p}-value are evaluated with the same test
+  direction as in the original test, but this can be changed with
+  argument \code{alternative}. Several \code{permustats} objects can
+  be combined with \code{c} function. The \code{c} function checks
+  that statistics are equal, but performs no other sanity tests.
 
   The \code{density} and \code{densityplot} methods display the
   kernel density estimates of permuted values. When observed value of
