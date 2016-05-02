@@ -1,5 +1,5 @@
 
-R version 3.2.4 Patched (2016-03-16 r70339) -- "Very Secure Dishes"
+R Under development (unstable) (2016-05-01 r70566) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -5806,8 +5806,8 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > ###   permustats.oecosimu permustats.ordiareatest
 > ###   permustats.permutest.betadisper permustats.permutest.cca
 > ###   permustats.protest permustats.vectorfit summary.permustats
-> ###   densityplot.permustats density.permustats qqnorm.permustats
-> ###   qqmath.permustats
+> ###   c.permustats densityplot.permustats density.permustats
+> ###   qqnorm.permustats qqmath.permustats
 > ### Keywords: distribution smooth
 > 
 > ### ** Examples
@@ -5819,9 +5819,9 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > perm <- permustats(mod)
 > summary(perm)
 
-           statistic    SES   mean lower median  upper
-Management    3.0730 4.5815 1.0462       0.9470 1.8475
-A1            2.7676 2.6322 1.0364       0.8851 2.3280
+           statistic    SES   mean lower median  upper Pr(perm)
+Management    3.0730 4.5815 1.0462       0.9470 1.8475    0.995
+A1            2.7676 2.6322 1.0364       0.8851 2.3280    0.976
 
 (Interval (Upper - Lower) = 0.95)
 > densityplot(perm)
@@ -5833,14 +5833,16 @@ A1            2.7676 2.6322 1.0364       0.8851 2.3280
 > perm <- permustats(pmod)
 > summary(perm, interval = 0.90)
 
-            statistic     SES    mean   lower  median   upper
-Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743
-BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273
-BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339
-BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232
-HF-NM (t)     -2.1017 -1.8899 -0.0158 -1.8740  0.0412  1.6319
-HF-SF (t)     -0.8789 -0.7166 -0.0321 -1.8973 -0.0076  1.8362
-NM-SF (t)      0.9485  0.8309 -0.0036 -1.8411 -0.0531  1.9024
+            statistic     SES    mean   lower  median   upper Pr(perm)  
+Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743    0.817  
+BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273    0.615  
+BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339    0.085 .
+BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232    0.333  
+HF-NM (t)     -2.1017 -1.8899 -0.0158 -1.8740  0.0412  1.6319    0.067 .
+HF-SF (t)     -0.8789 -0.7166 -0.0321 -1.8973 -0.0076  1.8362    0.431  
+NM-SF (t)      0.9485  0.8309 -0.0036 -1.8411 -0.0531  1.9024    0.367  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Interval (Upper - Lower) = 0.9)
 > 
@@ -5916,8 +5918,8 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > 
 > ## Has permustats() method
 > pstat <- permustats(pmod)
-> densityplot(pstat)
-> qqmath(pstat)
+> densityplot(pstat, scales = list(x = list(relation = "free")))
+> qqmath(pstat, scales = list(relation = "free"))
 > 
 > 
 > 
@@ -8779,7 +8781,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  99.079 0.15 99.27 0 0 
+Time elapsed:  23.848 0.144 24.032 0 0 
 > grDevices::dev.off()
 null device 
           1 
