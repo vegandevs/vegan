@@ -105,7 +105,7 @@ permustats(x, ...)
   one statistic, and cannot be used when several test statistic were
   evaluated. The \code{\link[lattice]{densityplot}} and
   \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
-  used both for one and several statistics.  All these functions pass
+  used either for one or for several statistics.  All these functions pass
   arguments to their underlying functions; see their
   documentation. Functions \code{\link[lattice]{qqmath}} and
   \code{\link[lattice]{densityplot}} are Lattice methods, and their
