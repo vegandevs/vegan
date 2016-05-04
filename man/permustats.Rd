@@ -98,20 +98,24 @@ permustats(x, ...)
   which is shown as horizontal line in plots. \code{qqnorm} plots
   permutation values against standard Normal variate. \code{qqmath}
   defaults to the standard Normal as well, but can accept other
-  alternatives (see standard \code{\link[lattice]{qqmath}}).
+  alternatives (see standard \code{\link[lattice]{qqmath}}). The
+  \code{qqmath} function can also plot observed statistic as
+  standardized effect size (SES) with standandized permutations
+  (argument \code{sd.scale}). The permutations are standardized
+  without the observed statistic, similarly as in \code{summary}.
 
   Functions \code{\link{density}} and \code{\link{qqnorm}} are based
   on standard \R methods and accept their arguments. They only handle
   one statistic, and cannot be used when several test statistic were
   evaluated. The \code{\link[lattice]{densityplot}} and
   \code{\link[lattice]{qqmath}} are \pkg{lattice} graphics, and can be
-  used either for one or for several statistics.  All these functions pass
-  arguments to their underlying functions; see their
+  used either for one or for several statistics.  All these functions
+  pass arguments to their underlying functions; see their
   documentation. Functions \code{\link[lattice]{qqmath}} and
-  \code{\link[lattice]{densityplot}} are Lattice methods, and their
-  default is to use same axis scaling in all subplots of the
-  lattice. You can use argumet \code{scales} to set indpendent scaling
-  for subplots when this is appropriate.
+  \code{\link[lattice]{densityplot}} default to use same axis scaling
+  in all subplots of the lattice. You can use argument \code{scales} to
+  set indpendent scaling for subplots when this is appropriate (see
+  \code{\link[lattice]{xyplot}} for an exhaustive list of arguments).
 
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis}}, \code{\link{anosim}}, 
