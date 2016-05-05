@@ -84,13 +84,14 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
 
   With \code{alphagamma = TRUE} it is possible to use beta diversity
   notation with terms \code{alpha} for average alpha diversity and
-  \code{gamma} for gamma diversity in two compared sites. The terms are
-  calculated as \code{alpha = (A+B)/2}, \code{gamma = A+B-J} and
+  \code{gamma} for gamma diversity in two compared sites. The terms
+  are calculated as \code{alpha = (A+B)/2}, \code{gamma = A+B-J} and
   \code{delta = abs(A-B)/2}.  Terms \code{A} and \code{B} are also
   available and give the alpha diversities of the individual compared
-  sites.  The beta diversity temrs may make sense only for binary terms,
-  but they are calculated for quadratic and minimum terms as well (with
-  a warning).
+  sites.  The beta diversity terms may make sense only for binary
+  terms (so that diversities are expressed in numbers of species), but
+  they are calculated for quadratic and minimum terms as well (with a
+  warning).
 
 }
 
