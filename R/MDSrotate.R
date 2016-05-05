@@ -21,7 +21,7 @@
         da <- lda(x, vec)
         vec <- predict(da, dimen = N - 1)$x
         message(sprintf(ngettext(NCOL(vec),
-                         "Factor replaced with disciminant axis.",
+                         "Factor replaced with discriminant axis.",
                          "Factor replaced with %d discriminant axes.",
                                  ), NCOL(vec)))
         if (NCOL(vec) > 1)
