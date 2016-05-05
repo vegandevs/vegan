@@ -82,7 +82,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     length equal to the number of groups.}
   \item{lty, lwd}{linetype, linewidth for convex hulls and confidence
     ellipses.}
-  \item{segments}{logical; should segments joiing points to their
+  \item{segments}{logical; should segments joining points to their
     centroid be drawn?}
   \item{seg.col}{colour to draw segments between points and their
     centroid. Can be a vector, in which case one colour per group.}
