@@ -60,7 +60,7 @@
   will correct these excess distances. If you have used
   \code{\link{capscale}} or \code{\link{wcmdscale}} with argument
   \code{add} to avoid negative eigenvalues, the ordination distances
-  will exceed the observed dissimilarities by the additive constant.
+  will exceed the observed dissimilarities.
 
   In partial ordination (\code{\link{cca}}, \code{\link{rda}} and
   \code{\link{capscale}} with \code{Condition} in the formula), the
