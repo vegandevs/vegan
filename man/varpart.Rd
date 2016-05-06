@@ -73,7 +73,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
 \item{sqrt.dist}{Take square root of dissimilarities. This often
   euclidifies dissimilarities. NB., the argument name cannot be
-  abbreviated. THe argument has an effect only when \code{Y} are
+  abbreviated. The argument has an effect only when \code{Y} are
   dissimilarities.}
 
 \item{parts}{Number of explanatory tables (circles) displayed.}
