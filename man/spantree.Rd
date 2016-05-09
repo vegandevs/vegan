@@ -45,7 +45,8 @@ spandepth(x)
     missing.}
   \item{dlim}{A ceiling value used to highest \code{cophenetic} dissimilarity.}
   \item{FUN}{Ordination function to find the configuration from
-    cophenetic dissimilarities. }
+    cophenetic dissimilarities. If the supplied \code{FUN} does not work,
+    supply ordination result as argument \code{ord}. }
   \item{display}{Type of \code{\link{scores}} used for \code{ord}.}
   \item{col}{Colour of line segments. This can be a vector which is
     recycled for points, and the line colour will be a mixture of two
