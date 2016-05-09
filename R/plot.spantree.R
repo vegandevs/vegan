@@ -12,11 +12,15 @@
         if (!missing(dlim)) 
             d[d > dlim ] <- dlim
         if (n > 2) {
-            y <- cmdscale(d)
-            dup <- duplicated(y)
-            if (any(dup))
-            y[dup, ] <- y[dup,] + runif(2*sum(dup), -0.01, 0.01)
-            ord <- FUN(d, y)
+            ## sammon needs extra care, for other cases we just try FUN(d)
+            if (FUNname == "sammon") {
+                y <- cmdscale(d)
+                dup <- duplicated(y)
+                if (any(dup))
+                    y[dup, ] <- y[dup,] + runif(2*sum(dup), -0.01, 0.01)
+                ord <- FUN(d, y = y)
+            } else
+                ord <- FUN(d)
         } else
             ord <- cbind(seq_len(n), rep(0,n))
     }
