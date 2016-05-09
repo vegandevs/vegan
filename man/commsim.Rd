@@ -91,11 +91,11 @@ and must take some of the following arguments:
   preserve column (species) frequencies (\code{c0}) or row frequencies
   or species richness of each site (\code{r0}) and take into account
   commonness and rarity of species (\code{r1}, \code{r2}).  Algorithms
-  \code{swap}, \code{tswap}, \code{quasiswap} and \code{backtracking}
-  preserve both row and column frequencies. Two first of these are
-  sequential but the two latter are non-sequential and produce
-  independent matrices. Basic algorithms are reviewed by Wright et
-  al. (1998).
+  \code{swap}, \code{tswap}, \code{curveball}, \code{quasiswap} and
+  \code{backtracking} preserve both row and column frequencies. Three
+  first ones are sequential but the two latter are non-sequential
+  and produce independent matrices. Basic algorithms are reviewed by
+  Wright et al. (1998).
 
 \itemize{
   \item{\code{"r00"}: }{non-sequential algorithm for binary matrices

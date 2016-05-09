@@ -61,7 +61,7 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   eigenvalues can be negative. If this disturbs you, this can be
   avoided by adding a constant to non-diagonal dissimilarities making
   all eigenvalues non-negative. The function implements methods
-  discussed by Legndre & Anderson (1999): The method of Lingoes
+  discussed by Legendre & Anderson (1999): The method of Lingoes
   (\code{add="lingoes"}) adds the constant \eqn{c} to squared
   dissimilarities \eqn{d} using \eqn{\sqrt{d^2 + 2 c}}{sqrt(d^2 + 2*c)}
   and the method of Cailliez (\code{add="cailliez"}) to

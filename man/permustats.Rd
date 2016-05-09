@@ -107,8 +107,8 @@ permustats(x, ...)
   documentation. Functions \code{\link[lattice]{qqmath}} and
   \code{\link[lattice]{densityplot}} are Lattice methods, and their
   default is to use same axis scaling in all subplots of the
-  lattice. You can use argumet \code{scales} to set indpendent scaling
-  for subplots when this is appropriate.
+  lattice. You can use argumet \code{scales} to set independent
+  scaling for subplots when this is appropriate.
 
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis}}, \code{\link{anosim}}, 
