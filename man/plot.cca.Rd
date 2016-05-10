@@ -56,7 +56,7 @@
     results with \eqn{\sqrt(1/(1-\lambda))}.  This scaling is know as Hill
     scaling (although it has nothing to do with Hill's rescaling of
     \code{\link{decorana}}). With corresponding negative values
-    in\code{rda}, species scores are divided by standard deviation of each
+    in \code{rda}, species scores are divided by standard deviation of each
     species and multiplied with an equalizing constant. Unscaled raw
     scores stored in the result can be accessed with \code{scaling = 0}.
 
