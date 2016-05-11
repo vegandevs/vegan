@@ -160,7 +160,7 @@
             cat("*** Solution reached\n")
         else if (engine == "monoMDS") {
             cat(gettextf(
-                "*** No convergence -- Applied %s stopping criteria:\n",
+                "*** No convergence -- %s stopping criteria:\n",
                 engine))
             for (i in seq_along(stopcoz))
                 if (stopcoz[i] > 0)
