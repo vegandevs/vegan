@@ -14,14 +14,15 @@
     ## set tracing for engines
     isotrace <- max(0, trace - 1)
     monotrace <- engine == "monoMDS" && trace > 1
+    ## explain monoMDS convergence codes (sol$icause)
+    monomsg <- c("no. of iterations >= maxit",
+                 "stress < smin",
+                 "stress ratio > sratmax",
+                 "scale factor of the gradient < sfgrmin")
     monostop <- function(mod) {
         if (mod$maxits == 0)
             return(NULL)
-        lab <- switch(mod$icause,
-                      "no. of iterations >= maxit",
-                      "stress < smin",
-                      "stress ratio > sratmax",
-                      "scale factor of the gradient < sfgrmin")
+        lab <- monomsg[mod$icause]
         cat("   ", mod$iters, "iterations: ", lab, "\n")
     }
     ## Previous best or initial configuration 
