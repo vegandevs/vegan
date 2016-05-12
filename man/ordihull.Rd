@@ -2,6 +2,7 @@
 \alias{ordihull}
 \alias{ordispider}
 \alias{ordiellipse}
+\alias{ordielliphull}
 \alias{ordibar}
 \alias{ordicluster}
 \alias{weights.cca}
@@ -23,6 +24,10 @@
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
          col = NULL, alpha = 127, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd = NULL, ...)
+ordielliphull(ord, groups, display = "sites",
+         draw = c("lines", "polygon", "none"), col = NULL, alpha = 127,
+	 show.groups, label = FALSE, border = NULL, lty = NULL,
+	 lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
          draw = c("lines","polygon", "none"), w = weights(ord, display),
          col = NULL, alpha = 127, show.groups, label = FALSE,
@@ -137,11 +142,17 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
 }
 
 \details{
+
   Function \code{ordihull} draws \code{\link{lines}} or
   \code{\link{polygon}}s for the convex
   hulls found by function \code{\link{chull}} encircling
   the items in the groups. 
-  
+
+  Function \code{ordielliphull} draws \code{\link{lines}} or
+  \code{\link{polygon}}s for ellipsoid hulls or minimum area ellipses
+  enclosing all items in the group. The function is based on
+  \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
+
   Function \code{ordiellipse} draws \code{\link{lines}} or
   \code{\link{polygon}}s for dispersion ellipses
   using either standard deviation of point scores or standard error of
@@ -156,11 +167,12 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   the correspoding \code{ordiellipse}, and are found by principal
   component analysis of the (weighted) covariance matrix.
 
-  Function \code{ordihull} and \code{ordiellipse} return invisibly an
-  object that has a \code{summary} method that returns the coordinates
-  of centroids and areas of the hulls or ellipses. Function
-  \code{ordiareatest} studies the one-sided hypothesis that these
-  areas are smaller than with randomized \code{groups}.
+  Function \code{ordihull}, \code{ordielliphull} and
+  \code{ordiellipse} return invisibly an object that has a
+  \code{summary} method that returns the coordinates of centroids and
+  areas of the hulls or ellipses. Function \code{ordiareatest} studies
+  the one-sided hypothesis that these areas are smaller than with
+  randomized \code{groups}.
 
   Function \code{ordispider} draws a \sQuote{spider} diagram where
   each point is connected to the group centroid with
@@ -190,16 +202,18 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
 
 \value{
 
-  Functions \code{ordihull}, \code{ordiellipse} and \code{ordispider}
-  return the \code{\link{invisible}} plotting structure. 
+  Functions \code{ordihull}, \code{ordielliphull}, \code{ordiellipse}
+  and \code{ordispider} return the \code{\link{invisible}} plotting
+  structure.
 
   Function \code{ordispider} return the coordinates to which each
   point is connected (centroids or \sQuote{LC} scores).
 
   Function \code{ordihull} returns a list of coordinates of the hulls
-  (which can be extracted with \code{scores}), and \code{ordiellipse}
-  returns a list of covariance matrices and scales used in drawing the
-  ellipses.
+  (which can be extracted with \code{scores}). Functions
+  \code{ordielliphull} and \code{ordiellipse} return identical objects
+  which is a list of covariance matrices, centres and scales used in
+  drawing the ellipses.
 
 }
 
