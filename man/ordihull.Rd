@@ -2,7 +2,6 @@
 \alias{ordihull}
 \alias{ordispider}
 \alias{ordiellipse}
-\alias{ordielliphull}
 \alias{ordibar}
 \alias{ordicluster}
 \alias{weights.cca}
@@ -24,10 +23,6 @@
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
          col = NULL, alpha = 127, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd = NULL, ...)
-ordielliphull(ord, groups, display = "sites",
-         draw = c("lines", "polygon", "none"), col = NULL, alpha = 127,
-	 show.groups, label = FALSE, border = NULL, lty = NULL,
-	 lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se", "ehull"),
          conf, draw = c("lines","polygon", "none"),
 	 w = weights(ord, display), col = NULL, alpha = 127, show.groups,
@@ -148,11 +143,6 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   hulls found by function \code{\link{chull}} encircling
   the items in the groups. 
 
-  Function \code{ordielliphull} draws \code{\link{lines}} or
-  \code{\link{polygon}}s for ellipsoid hulls or minimum area ellipses
-  enclosing all items in the group. The function is based on
-  \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
-
   Function \code{ordiellipse} draws \code{\link{lines}} or
   \code{\link{polygon}}s for ellipses by \code{groups}. The function
   can either draw standard deviation of point scores
@@ -160,7 +150,8 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   scores (\code{kind="sd"}), and the (weighted) correlation defines
   the direction of the principal axis of the ellipse. With
   \code{kind="ehull"} the function draws a polygon that encloses all
-  points within a group.
+  points within a group. The function is based on
+  \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
 
   Function \code{ordibar} draws crossed \dQuote{error bars} using
   either either standard deviation of point scores or standard error
@@ -168,12 +159,11 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   the correspoding \code{ordiellipse}, and are found by principal
   component analysis of the (weighted) covariance matrix.
 
-  Function \code{ordihull}, \code{ordielliphull} and
-  \code{ordiellipse} return invisibly an object that has a
-  \code{summary} method that returns the coordinates of centroids and
-  areas of the hulls or ellipses. Function \code{ordiareatest} studies
-  the one-sided hypothesis that these areas are smaller than with
-  randomized \code{groups}.
+  Function \code{ordihull} and \code{ordiellipse} return invisibly an
+  object that has a \code{summary} method that returns the coordinates
+  of centroids and areas of the hulls or ellipses. Function
+  \code{ordiareatest} studies the one-sided hypothesis that these
+  areas are smaller than with randomized \code{groups}.
 
   Function \code{ordispider} draws a \sQuote{spider} diagram where
   each point is connected to the group centroid with
@@ -203,18 +193,17 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
 
 \value{
 
-  Functions \code{ordihull}, \code{ordielliphull}, \code{ordiellipse}
-  and \code{ordispider} return the \code{\link{invisible}} plotting
-  structure.
+  Functions \code{ordihull}, \code{ordiellipse} and \code{ordispider}
+  return the \code{\link{invisible}} plotting structure.
 
   Function \code{ordispider} return the coordinates to which each
   point is connected (centroids or \sQuote{LC} scores).
 
-  Function \code{ordihull} returns a list of coordinates of the hulls
-  (which can be extracted with \code{scores}). Functions
-  \code{ordielliphull} and \code{ordiellipse} return identical objects
-  which is a list of covariance matrices, centres and scales used in
-  drawing the ellipses.
+  Function \code{ordihull} and \code{ordiellipse} return invisibly an
+  object that has a \code{summary} method that returns the coordinates
+  of centroids and areas of the hulls or ellipses. Function
+  \code{ordiareatest} studies the one-sided hypothesis that these
+  areas are smaller than with randomized \code{groups}.
 
 }
 
