@@ -28,10 +28,10 @@ ordielliphull(ord, groups, display = "sites",
          draw = c("lines", "polygon", "none"), col = NULL, alpha = 127,
 	 show.groups, label = FALSE, border = NULL, lty = NULL,
 	 lwd = NULL, ...)
-ordiellipse(ord, groups, display="sites", kind = c("sd","se"), conf,
-         draw = c("lines","polygon", "none"), w = weights(ord, display),
-         col = NULL, alpha = 127, show.groups, label = FALSE,
-         border = NULL, lty = NULL, lwd=NULL, ...)
+ordiellipse(ord, groups, display="sites", kind = c("sd","se", "ehull"),
+         conf, draw = c("lines","polygon", "none"),
+	 w = weights(ord, display), col = NULL, alpha = 127, show.groups,
+	 label = FALSE, border = NULL, lty = NULL, lwd=NULL, ...)
 ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
          w = weights(ord, display), col = 1, show.groups, label = FALSE,
 	 lwd = NULL, length = 0,  ...)
@@ -92,9 +92,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
     and \code{\link{decorana}} results, unless undone by the
     user. \code{w=NULL} sets equal weights to all points. }
 
-  \item{kind}{Whether standard deviations of points (\code{sd}) or
-    standard deviations of their (weighted) averages (\code{se}) are
-    used.}
+  \item{kind}{Draw standard deviations of points (\code{sd}), standard
+    errors (\code{se}) or ellipsoid hulls that enclose all points in
+    the group (\code{ehull}).}
 
   \item{conf}{Confidence limit for ellipses, e.g. 0.95. If given, the
     corresponding \code{sd} or \code{se} is multiplied with the
@@ -154,12 +154,13 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
 
   Function \code{ordiellipse} draws \code{\link{lines}} or
-  \code{\link{polygon}}s for dispersion ellipses
-  using either standard deviation of point scores or standard error of
-  the (weighted) average of scores, and the (weighted) correlation
-  defines the direction of the principal axis of the ellipse. 
-  An ellipsoid hull can be drawn with function
-  \code{\link[cluster]{ellipsoidhull}} of package \pkg{cluster}.
+  \code{\link{polygon}}s for ellipses by \code{groups}. The function
+  can either draw standard deviation of point scores
+  (\code{kind="sd"}) or standard error of the (weighted) average of
+  scores (\code{kind="sd"}), and the (weighted) correlation defines
+  the direction of the principal axis of the ellipse. With
+  \code{kind="ehull"} the function draws a polygon that encloses all
+  points within a group.
 
   Function \code{ordibar} draws crossed \dQuote{error bars} using
   either either standard deviation of point scores or standard error
