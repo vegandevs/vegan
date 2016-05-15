@@ -22,10 +22,10 @@
     areafun <- if (area == "hull") ordihull else ordiellipse
     areafun <- match.fun(areafun)
     ## Observed statistics
-    obs <- summary(areafun(ord, groups, draw = "none", kind = kind, ...))["Area",]
+    obs <- summary(areafun(ord, groups, draw = "none", kind = kind))["Area",]
     ## permutations
     pfun <- function(take, ...)
-        summary(areafun(ord, groups[take], draw = "none", kind = kind, ...))["Area",]
+        summary(areafun(ord, groups[take], draw = "none", kind = kind))["Area",]
     perm <- getPermuteMatrix(permutations, length(groups))
     nperm <- nrow(perm)
     if (is.null(parallel))
