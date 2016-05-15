@@ -198,9 +198,10 @@ methods you can try:
 
 \pkg{Vegan} has a group of functions for adding information about
 classification or grouping of points onto ordination diagrams.
-Function \code{ordihull} adds convex hulls, \code{ordiellipse}
-adds ellipses of standard deviation, standard error or confidence
-areas, and \code{ordispider} combines items to their centroid
+Function \code{ordihull} adds convex hulls, \code{ordiellipse} adds
+ellipses enclosing all points in the group (ellipsoid hulls) or
+ellipses of standard deviation, standard error or confidence areas,
+and \code{ordispider} combines items to their centroid
 (Fig. \ref{fig:ordihull}):
 <<>>=
 data(dune.env)
