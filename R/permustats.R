@@ -26,7 +26,7 @@
 {
     TAB <- c("two.sided", "greater", "less")
     if (missing(alternative))
-        alt <- match(object$alternative, TAB)
+        alt <- TAB[match(object$alternative, TAB)]
     else
         alt <- match.arg(alternative, TAB, several.ok = TRUE)
     if (any(is.na(alt)))
