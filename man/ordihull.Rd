@@ -150,8 +150,8 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   scores (\code{kind="sd"}), and the (weighted) correlation defines
   the direction of the principal axis of the ellipse. With
   \code{kind="ehull"} the function draws an ellipse that encloses all
-  points of a group. The function is based on
-  \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
+  points of a group using \code{\link[cluster]{ellipsoidhull}}
+  (\pkg{cluster} package).
 
   Function \code{ordibar} draws crossed \dQuote{error bars} using
   either either standard deviation of point scores or standard error
@@ -159,7 +159,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   the correspoding \code{ordiellipse}, and are found by principal
   component analysis of the (weighted) covariance matrix.
 
-  Function \code{ordihull} and \code{ordiellipse} return invisibly an
+  Functions \code{ordihull} and \code{ordiellipse} return invisibly an
   object that has a \code{summary} method that returns the coordinates
   of centroids and areas of the hulls or ellipses. Function
   \code{ordiareatest} studies the one-sided hypothesis that these
@@ -215,8 +215,10 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   and you may wish to change the default values in
   \code{\link{lines}}, \code{\link{segments}} and
   \code{\link{polygon}}. You can pass parameters to
-  \code{\link{scores}} as well. Underlying function for
-  \code{ordihull} is \code{\link{chull}}.  }
+  \code{\link{scores}} as well. Underlying functions for
+  \code{ordihull} is \code{\link{chull}}. The underlying function for
+  ellipsoid hulls in \code{ordiellipse} is
+  \code{\link[cluster]{ellipsoidhull}}. }
 
 \examples{
 data(dune)
@@ -228,7 +230,7 @@ plot(mod, type="n", scaling = "symmetric")
 pl <- ordihull(mod, Management, scaling = "symmetric", label = TRUE)
 ## ... and find centres and areas of the hulls
 summary(pl)
-## use more colours and add ellipsoid hulls to convec hulls
+## use more colours and add ellipsoid hulls
 plot(mod, type = "n")
 pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
   draw="polygon", label =TRUE)
