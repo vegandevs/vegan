@@ -37,8 +37,8 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
          w = weights(ord, display), col = 1, ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
-ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
-         parallel = getOption("mc.cores"), ...)
+ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
+         permutations = 999, parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{
@@ -163,7 +163,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), permutations = 999,
   object that has a \code{summary} method that returns the coordinates
   of centroids and areas of the hulls or ellipses. Function
   \code{ordiareatest} studies the one-sided hypothesis that these
-  areas are smaller than with randomized \code{groups}.
+  areas are smaller than with randomized \code{groups}. Argument
+  \code{kind} can be used to select the kind of ellipse, and has no
+  effect with convex hulls.
 
   Function \code{ordispider} draws a \sQuote{spider} diagram where
   each point is connected to the group centroid with
