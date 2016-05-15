@@ -228,11 +228,12 @@ plot(mod, type="n", scaling = "symmetric")
 pl <- ordihull(mod, Management, scaling = "symmetric", label = TRUE)
 ## ... and find centres and areas of the hulls
 summary(pl)
-## use ordispider to label and mark the hull
+## use more colours and add ellipsoid hulls to convec hulls
 plot(mod, type = "n")
 pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
-  draw="polygon")
-ordispider(pl, col=1:4, label = TRUE, lwd=2)
+  draw="polygon", label =TRUE)
+ordiellipse(mod, Management, scaling = "symmetric", kind = "ehull",
+  col = 1:4, lwd=3)
 ## ordispider to connect WA and LC scores
 plot(mod, dis=c("wa","lc"), type="p")
 ordispider(mod)
