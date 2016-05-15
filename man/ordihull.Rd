@@ -149,8 +149,8 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   (\code{kind="sd"}) or standard error of the (weighted) average of
   scores (\code{kind="sd"}), and the (weighted) correlation defines
   the direction of the principal axis of the ellipse. With
-  \code{kind="ehull"} the function draws a polygon that encloses all
-  points within a group. The function is based on
+  \code{kind="ehull"} the function draws an ellipse that encloses all
+  points of a group. The function is based on
   \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
 
   Function \code{ordibar} draws crossed \dQuote{error bars} using
