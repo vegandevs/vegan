@@ -87,7 +87,7 @@ import(lattice)
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply)
 importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm, lda)
-importFrom(cluster, daisy)
+importFrom(cluster, daisy, ellipsoidhull)
 ## 's' must be imported in mgcv < 1.8-0 (not needed later)
 importFrom(mgcv, gam, s, te, predict.gam, summary.gam)
 ## Registration of S3 methods defined in vegan

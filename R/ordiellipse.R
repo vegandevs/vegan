@@ -1,5 +1,5 @@
 `ordiellipse` <-
-    function (ord, groups, display = "sites", kind = c("sd", "se"),
+    function (ord, groups, display = "sites", kind = c("sd", "se", "ehull"),
               conf, draw = c("lines", "polygon", "none"),
               w = weights(ord, display), col = NULL, alpha = 127,
               show.groups, label = FALSE, border = NULL, lty = NULL,
@@ -66,14 +66,24 @@
         if (length(gr)) {
             X <- pts[gr, , drop = FALSE]
             W <- w[gr]
-            mat <- cov.wt(X, W)
+            if (kind == "ehull") {
+                tmp <- ellipsoidhull(X)
+                mat <- list(cov = tmp$cov,
+                            center = tmp$loc,
+                            n.obs = nrow(X))
+            } else
+                mat <- cov.wt(X, W)
             if (mat$n.obs == 1)
                 mat$cov[] <- 0
             if (kind == "se")
                 mat$cov <- mat$cov * sum(mat$wt^2)
-            if (missing(conf))
-                t <- 1
-            else t <- sqrt(qchisq(conf, 2))
+            if (kind == "ehull")
+                t <- sqrt(tmp$d2)
+            else {
+                if (missing(conf))
+                    t <- 1
+                else t <- sqrt(qchisq(conf, 2))
+            }
             if (mat$n.obs > 1)
                 xy <- veganCovEllipse(mat$cov, mat$center, t)
             else
