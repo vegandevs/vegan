@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-05-01 r70566) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-05-14 r70617) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -4836,11 +4836,12 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 CCA1 0.2917476 0.36826105 -1.3505642  0.2762936
 CCA2 0.8632208 0.09419919  0.2681515 -0.8139398
 Area 0.1951715 0.59943363  1.7398193  1.0144372
-> ## use ordispider to label and mark the hull
+> ## use more colours and add ellipsoid hulls
 > plot(mod, type = "n")
 > pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
-+   draw="polygon")
-> ordispider(pl, col=1:4, label = TRUE, lwd=2)
++   draw="polygon", label =TRUE)
+> ordiellipse(mod, Management, scaling = "symmetric", kind = "ehull",
++   col = 1:4, lwd=3)
 > ## ordispider to connect WA and LC scores
 > plot(mod, dis=c("wa","lc"), type="p")
 > ordispider(mod)
@@ -5819,9 +5820,11 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > perm <- permustats(mod)
 > summary(perm)
 
-           statistic    SES   mean lower median  upper Pr(perm)
-Management    3.0730 4.5815 1.0462       0.9470 1.8475    0.995
-A1            2.7676 2.6322 1.0364       0.8851 2.3280    0.976
+           statistic    SES   mean lower median  upper Pr(perm)   
+Management    3.0730 4.5815 1.0462       0.9470 1.8475    0.006 **
+A1            2.7676 2.6322 1.0364       0.8851 2.3280    0.025 * 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Interval (Upper - Lower) = 0.95)
 > densityplot(perm)
@@ -5834,7 +5837,7 @@ A1            2.7676 2.6322 1.0364       0.8851 2.3280    0.976
 > summary(perm, interval = 0.90)
 
             statistic     SES    mean   lower  median   upper Pr(perm)  
-Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743    0.817  
+Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743    0.184  
 BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273    0.615  
 BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339    0.085 .
 BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232    0.333  
@@ -8781,7 +8784,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.848 0.144 24.032 0 0 
+Time elapsed:  23.324 0.12 23.445 0 0 
 > grDevices::dev.off()
 null device 
           1 
