@@ -2751,6 +2751,8 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843197 
 Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
+*** No convergence -- monoMDS stopping criteria:
+    20: stress ratio > sratmax
 > (fit <- envfit(ord, varechem, perm = 999))
 
 ***VECTORS
@@ -3222,6 +3224,8 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843197 
 Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
+*** No convergence -- monoMDS stopping criteria:
+    20: stress ratio > sratmax
 > stressplot(mod)
 > gof <- goodness(mod)
 > gof
@@ -8084,6 +8088,8 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843197 
 Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
+*** No convergence -- monoMDS stopping criteria:
+    20: stress ratio > sratmax
 > plot(ord, type = "t")
 > ## Fit environmental variables
 > ef <- envfit(ord, varechem)
@@ -8784,7 +8790,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.324 0.12 23.445 0 0 
+Time elapsed:  23.34 0.12 23.523 0 0 
 > grDevices::dev.off()
 null device 
           1 
