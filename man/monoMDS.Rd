@@ -142,6 +142,43 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 
 }
 
+\section{Convergence Criteria}{
+
+  NMDS is iterative, and the function stops when any of its
+  convergence criteria is met. There is actually no criterion of
+  assured convergence, and any solution can be a local optimum. You
+  should compare several random starts (or use \code{monoMDS} via
+  \code{\link{metaMDS}}) to assess if the solutions is likely a global
+  optimum.
+
+  The stopping criteria are:
+  \describe{
+
+     \item{\code{maxit}:}{ Maximum number of iterations. Reaching this
+     criterion means that solutions was almost certainly not found,
+     and \code{maxit} should be increased.}
+
+     \item{\code{smin}:}{ Minimum stress. If stress is nearly zero,
+     the fit is almost perfect. Usually this means that data set is
+     too small for the requested analysis, and there may be several
+     different solutions that are almost as perfect. You should reduce
+     the number of dimensions (\code{k}), get more data (more
+     observations) or use some other method, such as metric scaling
+     (\code{\link{cmdscale}}, \code{\link{wcmdscale}}).}
+
+     \item{\code{sratmax}:}{ Change in stress. Values close to one
+     mean almost unchanged stress. This may mean a solution, but it
+     can also signal stranding on suboptimal solution with flat stress
+     surface.}
+
+     \item{\code{sfgrmin}:}{ Minimum scale factor. Values close to
+     zero mean almost unchanged configuration. This may mean a
+     solution, but will also happen in local optima.}
+
+  }
+
+}
+
 \value{ Returns an object of class \code{"monoMDS"}. The final scores
   are returned in item \code{points} (function \code{scores} extracts
   these results), and the stress in item \code{stress}. In addition,

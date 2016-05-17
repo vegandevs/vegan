@@ -14,16 +14,21 @@
     ## set tracing for engines
     isotrace <- max(0, trace - 1)
     monotrace <- engine == "monoMDS" && trace > 1
+    ## explain monoMDS convergence codes (sol$icause)
+    monomsg <- c("no. of iterations >= maxit",
+                 "stress < smin",
+                 "stress ratio > sratmax",
+                 "scale factor of the gradient < sfgrmin")
+    ## monoMDS trace >= 2
     monostop <- function(mod) {
         if (mod$maxits == 0)
             return(NULL)
-        lab <- switch(mod$icause,
-                      "no. of iterations >= maxit",
-                      "stress < smin",
-                      "stress ratio > sratmax",
-                      "scale factor of the gradient < sfgrmin")
+        lab <- monomsg[mod$icause]
         cat("   ", mod$iters, "iterations: ", lab, "\n")
     }
+    ## collect monoMDS convergence code for trace
+    if (trace && engine == "monoMDS")
+        stopcoz <- numeric(4)
     ## Previous best or initial configuration 
     if (!missing(previous.best) && !is.null(previous.best)) {
         ## check if previous.best is from metaMDS or isoMDS
@@ -121,6 +126,8 @@
             tries <- tries + 1
             if (trace)
                 cat("Run", tries, "stress", stry[[i]]$stress, "\n")
+            if (trace && engine == "monoMDS")
+                stopcoz[stry[[i]]$icause] <- stopcoz[stry[[i]]$icause] + 1L
             if (monotrace)
                 monostop(stry[[i]])
             if ((s0$stress - stry[[i]]$stress) > -EPS) {
@@ -148,8 +155,18 @@
             flush.console()
         }
     }
-    if (trace && converged)
-        cat("*** Solution reached\n")
+    if (trace) {
+        if (converged)
+            cat("*** Solution reached\n")
+        else if (engine == "monoMDS") {
+            cat(gettextf(
+                "*** No convergence -- %s stopping criteria:\n",
+                engine))
+            for (i in seq_along(stopcoz))
+                if (stopcoz[i] > 0)
+                    cat(gettextf("%6d: %s\n", stopcoz[i], monomsg[i]))
+        }
+    }
     ## stop socket cluster
     if (isParal && !isMulticore && !hasClus)
         stopCluster(parallel)
