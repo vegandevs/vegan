@@ -9,23 +9,27 @@
 
 \title{Additive Diversity Partitioning and Hierarchical Null Model Testing}
 \description{
-In additive diversity partitioning, mean values of alpha diversity at lower levels of a sampling 
-hierarchy are compared to the total diversity in the entire data set (gamma diversity). 
-In hierarchical null model testing, a statistic returned by a function is evaluated 
+In additive diversity partitioning, mean values of alpha diversity at lower levels of a sampling
+hierarchy are compared to the total diversity in the entire data set (gamma diversity).
+In hierarchical null model testing, a statistic returned by a function is evaluated
 according to a nested hierarchical sampling design (\code{hiersimu}).
 }
 \usage{
 adipart(...)
 \method{adipart}{default}(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 \method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 
 hiersimu(...)
 \method{hiersimu}{default}(y, x, FUN, location = c("mean", "median"),
-    relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
+    relative = FALSE, drop.highest = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 \method{hiersimu}{formula}(formula, data, FUN, location = c("mean", "median"),
-    relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
+    relative = FALSE, drop.highest = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 }
 \arguments{
   \item{y}{A community matrix.}
@@ -57,10 +61,16 @@ hiersimu(...)
     values are given relative to the value of gamma for function
     \code{adipart}.}
 
-  \item{nsimul}{Number of permutations to use if \code{matr} is not of
-    class 'permat'.  If \code{nsimul = 0}, only the \code{FUN} argument
-    is evaluated. It is thus possible to reuse the statistic values
-    without using a null model.}
+  \item{nsimul}{Number of permutations to use.  If \code{nsimul = 0},
+    only the \code{FUN} argument is evaluated.
+    It is thus possible to reuse the statistic values
+    without a null model.}
+
+  \item{method}{Null model method: either a name (character string) of
+    a method defined in \code{\link{make.commsim}} or a
+    \code{\link{commsim}} function.
+    The default \code{"r2dtable"} keeps row sums and column sums fixed.
+    See \code{\link{oecosimu}} for Details and Examples.}
 
   \item{FUN}{A function to be used by \code{hiersimu}. This must be
     fully specified, because currently other arguments cannot be passed

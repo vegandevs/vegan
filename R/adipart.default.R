@@ -1,11 +1,12 @@
 adipart.default <-
 function(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99, ...)
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 {
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
-        x <- cbind(level_1=seq_len(nrow(lhs)), 
+        x <- cbind(level_1=seq_len(nrow(lhs)),
             leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
@@ -45,9 +46,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
-    ## is there a method/burnin/thin in ... ?
-    method <- if (is.null(list(...)$method))
-        "r2dtable" else list(...)$method
+    ## is there burnin/thin in ... ?
     burnin <- if (is.null(list(...)$burnin))
         0 else list(...)$burnin
     thin <- if (is.null(list(...)$thin))

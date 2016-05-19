@@ -1,11 +1,12 @@
 hiersimu.default <-
 function(y, x, FUN, location = c("mean", "median"),
-relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
+         relative = FALSE, drop.highest = FALSE, nsimul=99,
+         method = "r2dtable", ...)
 {
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
-        x <- cbind(level_1=seq_len(nrow(lhs)), 
+        x <- cbind(level_1=seq_len(nrow(lhs)),
             leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
@@ -46,9 +47,7 @@ relative = FALSE, drop.highest = FALSE, nsimul=99, ...)
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
-    ## is there a method/burnin/thin in ... ?
-    method <- if (is.null(list(...)$method))
-        "r2dtable" else list(...)$method
+    ## is there burnin/thin in ... ?
     burnin <- if (is.null(list(...)$burnin))
         0 else list(...)$burnin
     thin <- if (is.null(list(...)$thin))
