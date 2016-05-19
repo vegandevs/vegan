@@ -1,6 +1,7 @@
 `multipart.default` <-
     function(y, x, index=c("renyi", "tsallis"), scales = 1,
-             global = FALSE, relative = FALSE, nsimul=99, ...)
+             global = FALSE, relative = FALSE, nsimul=99,
+             method = "r2dtable", ...)
 {
     if (length(scales) > 1)
         stop("length of 'scales' must be 1")
@@ -49,9 +50,7 @@
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))
     }
 
-    ## is there a method/burnin/thin in ... ?
-    method <- if (is.null(list(...)$method))
-        "r2dtable" else list(...)$method
+    ## is there burnin/thin in ... ?
     burnin <- if (is.null(list(...)$burnin))
         0 else list(...)$burnin
     thin <- if (is.null(list(...)$thin))
