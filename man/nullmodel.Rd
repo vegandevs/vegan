@@ -125,6 +125,21 @@ diagnostics, it is recommended to use the
 The input nullmodel object is updated, so further
 samples can be simulated if desired without having
 to start the process all over again. See Examples.
+
+The \code{smbind} function can be used to combine multiple
+\code{simmat} objects. This comes handy when null model
+simulations are stratified by sites (\code{MARGIN = 1})
+or by species (\code{MARGIN = 2}), or in the case when
+multiple objects are returned by identical/consistent settings
+e.g. during parallel computations (\code{MARGIN = 3}).
+Sanity checks are made to ensure that combining multiple
+objects is sensible, but it is the user's responsibility
+to check independence of the simulated matrices
+and the null distribution has converged
+in case of sequential null model algorithms.
+The \code{strict = FALSE} setting can relax
+checks regarding start, end, and thinning values
+for sequential null models.
 }
 \value{
 The function \code{nullmodel} returns an object of class \code{nullmodel}.
@@ -157,20 +172,7 @@ The \code{update} method returns the current state (last updated matrix)
 invisibly, and update the input object for sequential algorithms.
 For non sequential algorithms, it returns \code{NULL}.
 
-The \code{smbind} function can be used to combine multiple
-\code{simmat} objects. This comes handy when null model
-simulations are stratified by sites (\code{MARGIN = 1})
-or by species (\code{MARGIN = 2}), or in the case when
-multiple objects are returned by identical/consistent settings
-e.g. during parallel computations (\code{MARGIN = 3}).
-Sanity checks are made to ensure that combining multiple
-objects is sensible, but it is the user's responsibility
-to check independence of the simulated matrices
-and the null distribution has converged
-in case of sequential null model algorithms.
-The \code{strict = FALSE} setting can relax
-checks regarding start, end, and thinning values
-for sequential null models.
+The \code{smbind} function returns an object of class \code{simmat}.
 }
 \author{
 Jari Oksanen and Peter Solymos
