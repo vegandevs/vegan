@@ -2,7 +2,6 @@
 \alias{capscale}
 \alias{oldCapscale}
 \alias{dbrda}
-\alias{dbRDA.D}
 
 \title{[Partial] Distance-based Redundancy Analysis }
 \description{
