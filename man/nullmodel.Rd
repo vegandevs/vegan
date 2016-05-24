@@ -1,10 +1,12 @@
 \name{nullmodel}
 \alias{nullmodel}
+\alias{simmat}
 \alias{print.nullmodel}
 \alias{simulate.nullmodel}
 \alias{update.nullmodel}
 \alias{str.nullmodel}
 \alias{print.simmat}
+\alias{smbind}
 \title{
 Null Model and Simulation
 }
@@ -14,15 +16,17 @@ which can serve as a basis for Null Model simulation
 via the \code{\link{simulate}} method.
 The \code{\link{update}} method updates the nullmodel
 object without sampling (effective for sequential algorithms).
+\code{smbind} binds together multiple \code{simmat} objects.
 }
 \usage{
 nullmodel(x, method)
 \method{print}{nullmodel}(x, ...)
-\method{simulate}{nullmodel}(object, nsim = 1, 
+\method{simulate}{nullmodel}(object, nsim = 1,
 seed = NULL, burnin = 0, thin = 1, ...)
-\method{update}{nullmodel}(object, nsim = 1, 
+\method{update}{nullmodel}(object, nsim = 1,
 seed = NULL, ...)
 \method{print}{simmat}(x, ...)
+smbind(object, ..., MARGIN, strict = TRUE)
 }
 \arguments{
   \item{x}{
@@ -37,6 +41,8 @@ It can be a user supplied object of class \code{commsim}.
   \item{object}{
 An object of class \code{nullmodel} returned by
 the function \code{nullmodel}.
+In case of \code{smbind} it is a \code{simmat} object
+as returned by the \code{update} or \code{simulate} methods.
 }
   \item{nsim}{
 Positive integer, the number of simulated matrices to return.
@@ -45,17 +51,17 @@ burnin steps made for sequential algorithms
 to update the status of the input model \code{object}.
 }
   \item{seed}{
-An object specifying if and how the random number 
+An object specifying if and how the random number
 generator should be initialized ("seeded").
-Either \code{NULL} or an integer that will be 
-used in a call to \code{\link{set.seed}} before 
-simulating the matrices. 
-If set, the value is saved as the 
-\code{"seed"} attribute of the returned value. 
-The default, \code{NULL} will not change the 
-random generator state, and return 
+Either \code{NULL} or an integer that will be
+used in a call to \code{\link{set.seed}} before
+simulating the matrices.
+If set, the value is saved as the
+\code{"seed"} attribute of the returned value.
+The default, \code{NULL} will not change the
+random generator state, and return
 \code{\link{.Random.seed}} as the \code{"seed"}
- attribute, see Value. 
+ attribute, see Value.
 }
   \item{burnin}{
 Nonnegative integer, specifying the number of steps
@@ -69,8 +75,24 @@ made between each returned matrix.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.
 }
+  \item{MARGIN}{
+Integer, indicating the dimansion over which multiple
+\code{simmat} objects are to be boud together by \code{smbind}.
+1: matrices are stacked (row bound), 2: matrices are column bound,
+3: iterations are combined. Needs to be of length 1.
+The other dimensions are expected to match across the objects.
+}
+  \item{strict}{
+Logical, if consistency of the time series attributes
+(\code{"start"}, \code{"end"}, \code{"thin"}, and number of simulated matrices)
+of \code{simmat} objects are strictly enforced when
+binding multiple objects together using \code{smbind}.
+Applies only to input objects based on sequential
+null model algorithms.
+}
   \item{\dots}{
 Additional arguments supplied to algorithms.
+In case of \code{smbind} it can contain multiple \code{simmat} objects.
 }
 }
 \details{
@@ -91,7 +113,7 @@ and make further simulations, or use
 increased thinning value if desired.
 
 The \code{update} method makes burnin steps in case
-of sequential algorithms to update the status of the 
+of sequential algorithms to update the status of the
 input model without any attempt to return matrices.
 For non-sequential algorithms the method does nothing.
 
@@ -103,6 +125,21 @@ diagnostics, it is recommended to use the
 The input nullmodel object is updated, so further
 samples can be simulated if desired without having
 to start the process all over again. See Examples.
+
+The \code{smbind} function can be used to combine multiple
+\code{simmat} objects. This comes handy when null model
+simulations are stratified by sites (\code{MARGIN = 1})
+or by species (\code{MARGIN = 2}), or in the case when
+multiple objects are returned by identical/consistent settings
+e.g. during parallel computations (\code{MARGIN = 3}).
+Sanity checks are made to ensure that combining multiple
+objects is sensible, but it is the user's responsibility
+to check independence of the simulated matrices
+and the null distribution has converged
+in case of sequential null model algorithms.
+The \code{strict = FALSE} setting can relax
+checks regarding start, end, and thinning values
+for sequential null models.
 }
 \value{
 The function \code{nullmodel} returns an object of class \code{nullmodel}.
@@ -119,10 +156,10 @@ It is a set of objects sharing the same environment:
   \item{\code{fill}: }{number of nonzero cells in the matrix.}
   \item{\code{commsim}: }{the \code{commsim} object as a result
     of the \code{method} argument.}
-  \item{\code{state}: }{current state of the permutations, 
+  \item{\code{state}: }{current state of the permutations,
     a matrix similar to the original.
     It is \code{NULL} for non-sequential algorithms.}
-  \item{\code{iter}: }{current number of iterations 
+  \item{\code{iter}: }{current number of iterations
   for sequential algorithms.
     It is \code{NULL} for non-sequential algorithms.}
 }
@@ -134,15 +171,18 @@ corresponding to \code{nsim} argument).
 The \code{update} method returns the current state (last updated matrix)
 invisibly, and update the input object for sequential algorithms.
 For non sequential algorithms, it returns \code{NULL}.
+
+The \code{smbind} function returns an object of class \code{simmat}.
 }
 \author{
 Jari Oksanen and Peter Solymos
 }
 \seealso{
-\code{\link{commsim}}, \code{\link{make.commsim}}, 
+\code{\link{commsim}}, \code{\link{make.commsim}},
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
 \examples{
+set.seed(123)
 x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 
 ## non-sequential nullmodel
@@ -163,6 +203,54 @@ x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 (nm <- nullmodel(x, "swap"))
 nm <- update(nm, nsim=10)
 (sm2 <- simulate(nm, nsim=10, thin=5))
+
+## combining multiple simmat objects
+
+## stratification
+nm1 <- nullmodel(x[1:6,], "r00")
+sm1 <- simulate(nm1, nsim=10)
+nm2 <- nullmodel(x[7:12,], "r00")
+sm2 <- simulate(nm2, nsim=10)
+smbind(sm1, sm2, MARGIN=1)
+
+## binding subsequent samples from sequential algorithms
+## start, end, thin retained
+nm <- nullmodel(x, "swap")
+nm <- update(nm, nsim=10)
+sm1 <- simulate(nm, nsim=10, thin=5)
+sm2 <- simulate(nm, nsim=20, thin=5)
+sm3 <- simulate(nm, nsim=10, thin=5)
+smbind(sm3, sm2, sm1, MARGIN=3)
+
+## 'replicate' based usage which is similar to the output
+## of 'parLapply' or 'mclapply' in the 'parallel' package
+## start, end, thin are set, also noting number of chains
+smfun <- function(x, burnin, nsim, thin) {
+    nm <- nullmodel(x, "swap")
+    nm <- update(nm, nsim=burnin)
+    simulate(nm, nsim=nsim, thin=thin)
+}
+smlist <- replicate(3, smfun(x, burnin=50, nsim=10, thin=5), simplify=FALSE)
+smbind(smlist, MARGIN=3) # Number of permuted matrices = 30
+
+\dontrun{
+## parallel null model calculations
+library(parallel)
+
+if (.Platform$OS.type == "unix") {
+## forking on Unix systems
+smlist <- mclapply(1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+smbind(smlist, MARGIN=3)
+}
+
+## socket type cluster, works on all platforms
+cl <- makeCluster(3)
+clusterEvalQ(cl, library(vegan))
+clusterExport(cl, c("smfun", "x"))
+smlist <- parLapply(cl, 1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+stopCluster(cl)
+smbind(smlist, MARGIN=3)
+}
 }
 \keyword{ multivariate }
 \keyword{ datagen }

@@ -14,7 +14,7 @@ gdispweight,goodness, hiersimu, humpfit, indpower, inertcomp, initMDS,
 intersetcor, isomapdist, isomap, linestack, mantel, meandist,
 metaMDSdist, metaMDSiter, metaMDSredist, MDSrotate, metaMDS, monoMDS,
 mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac, nestedbetasor, nestedchecker,
-nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel, oecosimu,
+nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel, oecosimu, smbind,
 ordiareatest, ordiR2step,
 ordiarrows, ordiArrowMul, ordiArrowTextXY, ordibar, ordicloud,
 ordicluster, ordiellipse, ordigrid,
@@ -35,7 +35,6 @@ wcmdscale, wisconsin)
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
-## Export as.mcmc for coda
 export(as.mcmc.oecosimu, as.mcmc.permat)
 ## export oldCapscale for compatibility after new capscale design
 export(oldCapscale)
