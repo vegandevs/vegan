@@ -181,6 +181,12 @@ Jari Oksanen and Peter Solymos
 \code{\link{commsim}}, \code{\link{make.commsim}},
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
+\note{
+Care must be taken when the input matrix only contains a single
+row or column. Such input is invalid for swapping and hypergeometric
+distribution (calling \code{\link{r2dtable}}) based algorithms.
+This also applies to cases when the input is stratified into subsets.
+}
 \examples{
 data(mite)
 x <- as.matrix(mite)[1:12, 21:30]
