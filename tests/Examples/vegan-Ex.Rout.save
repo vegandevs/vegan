@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-05-14 r70617) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-05-24 r70661) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -4530,12 +4530,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: nullmodel
 > ### Title: Null Model and Simulation
-> ### Aliases: nullmodel print.nullmodel simulate.nullmodel update.nullmodel
-> ###   str.nullmodel print.simmat
+> ### Aliases: nullmodel simmat print.nullmodel simulate.nullmodel
+> ###   update.nullmodel str.nullmodel print.simmat smbind
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
 > 
+> set.seed(123)
 > x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
 > 
 > ## non-sequential nullmodel
@@ -4610,6 +4611,71 @@ An object of class “simmat”
 Number of permuted matrices = 10 
 Start = 15, End = 60, Thin = 5
 
+> 
+> ## combining multiple simmat objects
+> 
+> ## stratification
+> nm1 <- nullmodel(x[1:6,], "r00")
+> sm1 <- simulate(nm1, nsim=10)
+> nm2 <- nullmodel(x[7:12,], "r00")
+> sm2 <- simulate(nm2, nsim=10)
+> smbind(sm1, sm2, MARGIN=1)
+An object of class “simmat” 
+‘r00’ method (binary, non-sequential)
+12 x 10 matrix
+Number of permuted matrices = 10 
+
+> 
+> ## binding subsequent samples from sequential algorithms
+> ## start, end, thin retained
+> nm <- nullmodel(x, "swap")
+> nm <- update(nm, nsim=10)
+> sm1 <- simulate(nm, nsim=10, thin=5)
+> sm2 <- simulate(nm, nsim=20, thin=5)
+> sm3 <- simulate(nm, nsim=10, thin=5)
+> smbind(sm3, sm2, sm1, MARGIN=3)
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
+12 x 10 matrix
+Number of permuted matrices = 40 
+Start = 15, End = 210, Thin = 5
+
+> 
+> ## 'replicate' based usage which is similar to the output
+> ## of 'parLapply' or 'mclapply' in the 'parallel' package
+> ## start, end, thin are set, also noting number of chains
+> smfun <- function(x, burnin, nsim, thin) {
++     nm <- nullmodel(x, "swap")
++     nm <- update(nm, nsim=burnin)
++     simulate(nm, nsim=nsim, thin=thin)
++ }
+> smlist <- replicate(3, smfun(x, burnin=50, nsim=10, thin=5), simplify=FALSE)
+> smbind(smlist, MARGIN=3) # Number of permuted matrices = 30
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
+12 x 10 matrix
+Number of permuted matrices = 30 
+Start = 55, End = 100, Thin = 5 (3 chains)
+
+> 
+> ## Not run: 
+> ##D ## parallel null model calculations
+> ##D library(parallel)
+> ##D 
+> ##D if (.Platform$OS.type == "unix") {
+> ##D ## forking on Unix systems
+> ##D smlist <- mclapply(1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+> ##D smbind(smlist, MARGIN=3)
+> ##D }
+> ##D 
+> ##D ## socket type cluster, works on all platforms
+> ##D cl <- makeCluster(3)
+> ##D clusterEvalQ(cl, library(vegan))
+> ##D clusterExport(cl, c("smfun", "x"))
+> ##D smlist <- parLapply(cl, 1:3, function(i) smfun(x, burnin=50, nsim=10, thin=5))
+> ##D stopCluster(cl)
+> ##D smbind(smlist, MARGIN=3)
+> ## End(Not run)
 > 
 > 
 > 
@@ -8790,7 +8856,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.34 0.12 23.523 0 0 
+Time elapsed:  24.464 0.128 24.718 0 0 
 > grDevices::dev.off()
 null device 
           1 
