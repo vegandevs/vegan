@@ -1,4 +1,4 @@
-"postMDS" <-
+`postMDS` <-
     function (X, dist, pc = TRUE, center = TRUE, halfchange, 
               threshold = 0.8, nthreshold = 10, plot = FALSE, ...) 
 {
@@ -39,8 +39,8 @@
         }
     }
     if (!halfchange) {
-        scl <- max(dist, na.rm = TRUE)/max(vegdist(x, "euclidean"))
-        x <- x*scl
+        hc <- max(dist(x, "euclidean"))/max(dist, na.rm = TRUE)
+        x <- x/hc
     }
     if (plot && halfchange) {
         cross.lim <- 45
@@ -71,6 +71,7 @@
     attr(x, "centre") <- center
     attr(x, "pc") <- pc
     attr(x, "halfchange") <- halfchange
+    attr(x, "internalscaling") <- hc
     if (any(names(X) == "points")) 
         X$points <- x
     else X <- x
