@@ -110,8 +110,8 @@
     else if (type == "wa") {
         if (!missing(newdata)) {
             if (inherits(object, c("capscale", "dbrda")))
-                stop(gettextf("'wa' scores not available in %s with 'newdata'"),
-                     object$method)
+                stop(gettextf("'wa' scores not available in %s with 'newdata'",
+                     object$method))
             if (!is.null(object$pCCA)) 
                 stop("No 'wa' scores available (yet) in partial RDA")
             nm <- rownames(v)
