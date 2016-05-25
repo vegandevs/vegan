@@ -58,6 +58,11 @@
     if (trace > 2)
         cat(">>> Post-processing NMDS\n")
     points <- postMDS(out$points, dis, plot = max(0, plot - 1), ...)
+    ## rescale monoMDS scaling if postMDS scaled 'points'
+    if (!is.null(scl <- attr(points, "internalscaling"))) {
+        out$dist <- out$dist/scl
+        out$dhat <- out$dhat/scl
+    }
     if (is.null(rownames(points))) 
         rownames(points) <- rownames(comm)
     wa <- if (wascores) {
