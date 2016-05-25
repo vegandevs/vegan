@@ -35,11 +35,11 @@
     }
     nr <- nobs(object) - 1
     u <- object[[model]]$u[, 1:take, drop = FALSE]
+    w <- object[[model]]$wa[, 1:take, drop = FALSE]
+    if (is.null(w))
+        w <- u
     if (!inherits(object, "dbrda")) {
         v <- object[[model]]$v[, 1:take, drop = FALSE]
-        w <- object[[model]]$wa[, 1:take, drop = FALSE]
-        if (is.null(w))
-            w <- u
     }
     slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
     ## process scaling arg, scaling used later so needs to be a numeric
