@@ -157,24 +157,28 @@
     }
     ## CA
     e <- eigen(G, symmetric = TRUE)
-    nz <- abs(e$values) > EPS
-    e$values <- e$values[nz]
-    e$vectors <- e$vectors[, nz, drop = FALSE]
-    if (any(e$values < 0)) {
-        imaginary.u <- e$vectors[, e$values < 0, drop = FALSE]
-        e$vectors <- e$vectors[, e$values > 0, drop = FALSE]
+    nz <- abs(e$values) > EPS # positively or negatively non-zero
+    if (any(nz)) {
+        e$values <- e$values[nz]
+        e$vectors <- e$vectors[, nz, drop = FALSE]
+        v <- matrix(NA, ncol = ncol(e$vectors))
+        if (any(e$values < 0)) {
+            imaginary.u <- e$vectors[, e$values < 0, drop = FALSE]
+            e$vectors <- e$vectors[, e$values > 0, drop = FALSE]
+        } else {
+            imaginary.u <- NULL
+        }
+        CA <- list(eig = e$values,
+                   u = e$vectors,
+                   imaginary.u = imaginary.u,
+                   poseig = sum(e$values > 0),
+                   v = v,
+                   rank = sum(nz),
+                   tot.chi = sum(diag(G)),
+                   Xbar = NA, G = G)
     } else {
-        imaginary.u <- NULL
+        CA <- NULL
     }
-    v <- matrix(NA, ncol = ncol(e$vectors))
-    CA <- list(eig = e$values,
-               u = e$vectors,
-               imaginary.u = imaginary.u,
-               poseig = sum(e$values > 0),
-               v = v,
-               rank = sum(nz),
-               tot.chi = sum(diag(G)),
-               Xbar = NA, G = G)
     ## output
     sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
