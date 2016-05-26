@@ -123,36 +123,40 @@
         HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
         e <- eigen(HGH, symmetric = TRUE)
         nz <- abs(e$values) > EPS
-        e$values <- e$values[nz]
-        e$vectors <- e$vectors[, nz, drop = FALSE]
-        pos <- e$values > 0
-        if (any(e$values < 0)) {
-            imaginary.u <- e$vectors[, !pos, drop = FALSE]
-            e$vectors <- e$vectors[, pos, drop = FALSE]
+        if (any(nz)) {
+            e$values <- e$values[nz]
+            e$vectors <- e$vectors[, nz, drop = FALSE]
+            pos <- e$values > 0
+            if (any(e$values < 0)) {
+                imaginary.u <- e$vectors[, !pos, drop = FALSE]
+                e$vectors <- e$vectors[, pos, drop = FALSE]
+            } else {
+                imaginary.u <- NULL
+            }
+            wa <- G %*% e$vectors %*% diag(1/e$values[pos], sum(pos))
+            v <- matrix(NA, ncol = ncol(wa))
+            oo <- Q$pivot[seq_len(Q$rank)]
+            rank <- Q$rank
+            if (!is.null(pCCA)) {
+                oo <- oo[-seq_len(pCCA$rank)] - ncol(d$Z)
+                rank <- rank - pCCA$rank
+            }
+            CCA <- list(eig = e$values,
+                        u = e$vectors,
+                        imaginary.u = imaginary.u,
+                        poseig = sum(pos),
+                        v = v, wa = wa,
+                        alias =  if (rank < ncol(d$Y))
+                                     colnames(d$Y)[-oo],
+                        biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
+                        qrank = rank, rank = rank,
+                        tot.chi = sum(diag(HGH)),
+                        QR = Q,
+                        envcentre = attr(d$Y, "scaled:center"),
+                        Xbar = NA, G = G)
         } else {
-            imaginary.u <- NULL
+            CCA <- NULL
         }
-        wa <- G %*% e$vectors %*% diag(1/e$values[pos], sum(pos))
-        v <- matrix(NA, ncol = ncol(wa))
-        oo <- Q$pivot[seq_len(Q$rank)]
-        rank <- Q$rank
-        if (!is.null(pCCA)) {
-            oo <- oo[-seq_len(pCCA$rank)] - ncol(d$Z)
-            rank <- rank - pCCA$rank
-        }
-        CCA <- list(eig = e$values,
-                    u = e$vectors,
-                    imaginary.u = imaginary.u,
-                    poseig = sum(pos),
-                    v = v, wa = wa,
-                    alias =  if (rank < ncol(d$Y))
-                                 colnames(d$Y)[-oo],
-                    biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
-                    qrank = rank, rank = rank,
-                    tot.chi = sum(diag(HGH)),
-                    QR = Q,
-                    envcentre = attr(d$Y, "scaled:center"),
-                    Xbar = NA, G = G)
         G <- qr.resid(Q, t(qr.resid(Q, G)))
     }
     ## CA
@@ -161,13 +165,13 @@
     if (any(nz)) {
         e$values <- e$values[nz]
         e$vectors <- e$vectors[, nz, drop = FALSE]
-        v <- matrix(NA, ncol = ncol(e$vectors))
         if (any(e$values < 0)) {
             imaginary.u <- e$vectors[, e$values < 0, drop = FALSE]
             e$vectors <- e$vectors[, e$values > 0, drop = FALSE]
         } else {
             imaginary.u <- NULL
         }
+        v <- matrix(NA, ncol = ncol(e$vectors))
         CA <- list(eig = e$values,
                    u = e$vectors,
                    imaginary.u = imaginary.u,
