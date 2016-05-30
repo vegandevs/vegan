@@ -2,6 +2,7 @@
 \name{BCI}
 \alias{BCI}
 \alias{BCI.env}
+\alias{BCI.nomina}
 \docType{data}
 \title{Barro Colorado Island Tree Counts}
 \description{
@@ -17,10 +18,11 @@ data(BCI.env)
   A data frame with 50 plots (rows) of 1 hectare with counts of trees
   on each plot with total of 225 species (columns). Full Latin names
   are used for tree species. The names were updated against
-  \url{http://www.theplantlist.org} in Jan 2014 (see ChangeLog 2.1-41
-  for details) which allows matching 206 of species against
+  \url{http://www.theplantlist.org} and Kress et al. (2009) which
+  allows matching 207 of species against
   \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27} (Zanne
-  et al., 2014).
+  et al., 2014). The changed names can be listed with command
+  \code{BCI.nomina()}.
 
   For \code{BCI.env}, a data frame with 50 plots (rows) and six site
   variables:
@@ -62,6 +64,11 @@ data(BCI.env)
   Muller-Landau, H.C., Losos, E. & Hubbell, S.P. (2002).
   Beta-diversity in tropical forest trees. \emph{Science} 295,
   666--669.
+
+  Kress W.J., Erickson D.L, Jones F.A., Swenson N.G, Perez R., Sanjur
+  O. & Bermingham E. (2009) Plant DNA barcodes and a community
+  phylogeny of a tropical forest dynamics plot in Panama. \emph{PNAS}
+  106, 18621--18626.
 
   Zanne A.E., Tank D.C., Cornwell, W.K., Eastman J.M., Smith, S.A.,
   FitzJohn, R.G., McGlinn, D.J., O’Meara, B.C., Moles, A.T., Reich,

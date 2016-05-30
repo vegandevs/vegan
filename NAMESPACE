@@ -4,7 +4,7 @@ useDynLib(vegan)
 ## Export regular function names (no dots)
 
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
-SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
+SSlomolino, adipart, adonis, anosim, BCI.nomina, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
 cascadeKM, cca, contribdiv, clamtest, commsim, dbrda, decorana,
 decostand, designdist, coverscale, dispweight, dispindmorisita, distconnected,
