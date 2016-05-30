@@ -76,8 +76,8 @@ data(BCI.env)
   I.J., Aarssen, L., Bertin, R.I., Calaminus, A., Govaerts, R.,
   Hemmings, F., Leishman, M.R., Oleksyn, J., Soltis, P.S., Swenson,
   N.G., Warman, L. & Beaulieu, J.M. (2014) Three keys to the radiation
-  of angiosperms into freezing environments. \emph{Nature}
-  doi:10.1038/nature12872 (published online Dec 22, 2013).
+  of angiosperms into freezing environments. \emph{Nature} 506,
+  89--92.  doi:10.1038/nature12872 (published online Dec 22, 2013).
 
   Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
   composition across a climatic gradient in a neotropical lowland
