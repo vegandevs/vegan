@@ -24,17 +24,32 @@ data(BCI.env)
   et al., 2014). The changed names can be listed with command
   \code{BCI.nomina()}.
 
-  For \code{BCI.env}, a data frame with 50 plots (rows) and six site
-  variables:
+  For \code{BCI.env}, a data frame with 50 plots (rows) and nine site
+  variables derived from Pyke et al. (2001) and Harms et al. (2001):
 
   \describe{
-    \item{\code{UTM.EW}: }{UTM coordinates (zone 17N) East-West}
-    \item{\code{UTM.NS}: }{UTM coordinates (zone 17N) North-South}
-    \item{\code{Precipitation}: }{Precipitation in mm per year}
-    \item{\code{Elevation}: }{Elevation in m above sea level}
-    \item{\code{Age.cat}: }{Forest age category}
-    \item{\code{Geology}: }{The Underlying geological formation}
-  }
+    \item{\code{UTM.EW}: }{UTM coordinates (zone 17N) East-West.}
+    \item{\code{UTM.NS}: }{UTM coordinates (zone 17N) North-South.}
+    \item{\code{Precipitation}: }{Precipitation in mm per year.}
+    \item{\code{Elevation}: }{Elevation in m above sea level.}
+    \item{\code{Age.cat}: }{Forest age category.}
+    \item{\code{Geology}: }{The Underlying geological formation.}
+
+    \item{\code{Habitat}: }{Dominant habitat type based on the map of
+    habitat types in 25 grid cells in each plot (Harms et al. 2001,
+    excluding streamside habitat). The habitat types are \code{Young}
+    forests (\emph{ca.} 100 years), old forests on > 7 degree slopes
+    (\code{OldSlope}), old forests under 152 m elevation
+    (\code{OldLow}) and at higher elevation (\code{OldHigh}) and
+    \code{Swamp} forests.}
+
+    \item{\code{River}: }{\code{"Yes"} if there is streamside habitat
+    in the plot.}
+    \item{\code{EnvHet}: }{Environmental Heterogeneity assessed as the
+    Simpson diversity of frequencies of \code{Habitat} types in 25
+    grid cells in the plot.}
+
+}
 
  }
 \details{
@@ -49,8 +64,10 @@ data(BCI.env)
   The quadrats are located in a regular grid. See \code{BCI.env} for the
   coordinates.
 
-  A full description of the site information in \code{BCI.env} is given
-  in Pyke et al (2001)
+  A full description of the site information in \code{BCI.env} is
+  given in Pyke et al. (2001) and Harms et al. (2001). \emph{N.B.}
+  Pyke et al. (2001) and Harms et al. (2001) give conflicting
+  information about forest age categories and elevation.
 
 }
 \source{
@@ -64,6 +81,10 @@ data(BCI.env)
   Muller-Landau, H.C., Losos, E. & Hubbell, S.P. (2002).
   Beta-diversity in tropical forest trees. \emph{Science} 295,
   666--669.
+
+  Harms K.E., Condit R., Hubbell S.P. & Foster R.B. (2001) Habitat
+  associations of trees and shrubs in a 50-ha neotropical forest
+  plot. \emph{J. Ecol.} 89, 947--959.
 
   Kress W.J., Erickson D.L, Jones F.A., Swenson N.G, Perez R., Sanjur
   O. & Bermingham E. (2009) Plant DNA barcodes and a community
