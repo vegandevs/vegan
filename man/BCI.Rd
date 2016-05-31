@@ -2,7 +2,6 @@
 \name{BCI}
 \alias{BCI}
 \alias{BCI.env}
-\alias{BCI.nomina}
 \docType{data}
 \title{Barro Colorado Island Tree Counts}
 \description{
@@ -21,8 +20,8 @@ data(BCI.env)
   \url{http://www.theplantlist.org} and Kress et al. (2009) which
   allows matching 207 of species against
   \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27} (Zanne
-  et al., 2014). The changed names can be listed with command
-  \code{BCI.nomina()}.
+  et al., 2014). The original species names are available as attribute
+  \code{original.names} of \code{BCI}. See Examples for changed names.
 
   For \code{BCI.env}, a data frame with 50 plots (rows) and nine site
   variables derived from Pyke et al. (2001) and Harms et al. (2001):
@@ -109,5 +108,9 @@ data(BCI.env)
 \examples{
 data(BCI, BCI.env)
 head(BCI.env)
+## see changed species names
+oldnames <- attr(BCI, "original.names")
+taxa <- cbind("Old Names" = oldnames, "Current Names" = names(BCI))
+noquote(taxa[taxa[,1] != taxa[,2], ])
 }
 \keyword{datasets}
