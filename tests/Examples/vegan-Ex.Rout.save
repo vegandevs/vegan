@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-05-24 r70661) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-06-01 r70691) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -41,13 +41,39 @@ This is vegan 2.4-0
 > 
 > data(BCI, BCI.env)
 > head(BCI.env)
-  UTM.EW  UTM.NS Precipitation Elevation Age.cat Geology
-1 625754 1011569          2530       120      c3      Tb
-2 625754 1011669          2530       120      c3      Tb
-3 625754 1011769          2530       120      c3      Tb
-4 625754 1011869          2530       120      c3      Tb
-5 625754 1011969          2530       120      c3      Tb
-6 625854 1011569          2530       120      c3      Tb
+  UTM.EW  UTM.NS Precipitation Elevation Age.cat Geology  Habitat Stream EnvHet
+1 625754 1011569          2530       120      c3      Tb OldSlope    Yes 0.6272
+2 625754 1011669          2530       120      c3      Tb   OldLow    Yes 0.3936
+3 625754 1011769          2530       120      c3      Tb   OldLow     No 0.0000
+4 625754 1011869          2530       120      c3      Tb   OldLow     No 0.0000
+5 625754 1011969          2530       120      c3      Tb OldSlope     No 0.4608
+6 625854 1011569          2530       120      c3      Tb   OldLow     No 0.0768
+> ## see changed species names
+> oldnames <- attr(BCI, "original.names")
+> taxa <- cbind("Old Names" = oldnames, "Current Names" = names(BCI))
+> noquote(taxa[taxa[,1] != taxa[,2], ])
+      Old Names                     Current Names                 
+ [1,] Abarema.macradenium           Abarema.macradenia            
+ [2,] Acacia.melanoceras            Vachellia.melanoceras         
+ [3,] Apeiba.aspera                 Apeiba.glabra                 
+ [4,] Aspidosperma.cruenta          Aspidosperma.desmanthum       
+ [5,] Cassipourea.elliptica         Cassipourea.guianensis        
+ [6,] Cespedezia.macrophylla        Cespedesia.spathulata         
+ [7,] Chlorophora.tinctoria         Maclura.tinctoria             
+ [8,] Coccoloba.manzanillensis      Coccoloba.manzinellensis      
+ [9,] Coussarea.curvigemmia         Coussarea.curvigemma          
+[10,] Cupania.sylvatica             Cupania.seemannii             
+[11,] Dipteryx.panamensis           Dipteryx.oleifera             
+[12,] Eugenia.coloradensis          Eugenia.florida               
+[13,] Eugenia.oerstedeana           Eugenia.oerstediana           
+[14,] Guapira.standleyana           Guapira.myrtiflora            
+[15,] Hyeronima.alchorneoides       Hieronyma.alchorneoides       
+[16,] Inga.marginata                Inga.semialata                
+[17,] Lonchocarpus.latifolius       Lonchocarpus.heptaphyllus     
+[18,] Maquira.costaricana           Maquira.guianensis.costaricana
+[19,] Phoebe.cinnamomifolia         Cinnamomum.triplinerve        
+[20,] Swartzia.simplex.var.ochnacea Swartzia.simplex.continentalis
+[21,] Tabebuia.guayacan             Handroanthus.guayacan         
 > 
 > 
 > 
@@ -8856,7 +8882,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.464 0.128 24.718 0 0 
+Time elapsed:  22.636 0.088 22.772 0 0 
 > grDevices::dev.off()
 null device 
           1 
