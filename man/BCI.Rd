@@ -70,7 +70,18 @@ data(BCI.env)
 
 }
 \source{
-  \url{http://www.sciencemag.org/cgi/content/full/295/5555/666/DC1}
+  \url{http://www.sciencemag.org/cgi/content/full/295/5555/666/DC1} for
+  community data and References for environmental data.
+}
+
+\seealso{
+
+  Extra-CRAN package \pkg{natto}
+  (\url{https://github.com/jarioksa/natto}) has data set
+  \code{BCI.env2} with original grid data of Harms et al. (2001)
+  habitat classification, and data set \code{BCI.taxon} of APG III
+  classification of tree species.
+
 }
 
 \references{
