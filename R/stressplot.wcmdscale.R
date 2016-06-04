@@ -157,6 +157,9 @@
         else
             stop("unknown Euclidifying adjustment: no idea what to do")
     }
+    ## undo internal sqrt.dist
+    if (object$sqrt.dist)
+        dis <- dis^2
     ## plot like above
         ## Plot
     if (missing(pch))
@@ -193,6 +196,18 @@
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
     dis <- sqrt(as.dist(dis) * const)
+    ## Remove additive constant to get original dissimilarities
+    if (!is.null(object$ac)) {
+        if (object$add == "lingoes")
+            dis <- sqrt(dis^2 - 2 * object$ac)
+        else if (object$add == "cailliez")
+            dis <- dis - object$ac
+        else
+            stop("unknown Euclidifying adjustment: no idea what to do")
+    }
+    ## undo internal sqrt.dist
+    if (object$sqrt.dist)
+        dis <- dis^2
     ## Approximate dissimilarities from real components. Can only be
     ## used for one component.
     if (is.null(object$CCA)) {
