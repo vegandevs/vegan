@@ -181,7 +181,9 @@
        whole model and for each component \code{pCCA}, \code{CCA} and
        \code{CA} if there are negative eigenvalues.}
     \item{\code{metaMDSdist}}{The data set name if 
-       \code{metaMDSdist = TRUE}.} 
+       \code{metaMDSdist = TRUE}.}
+    \item{\code{sqrt.dist}}{Logical value, \code{TRUE} if squareroots of
+       dissimilarities were used.}
     \item{\code{ac}}{Additive constant used if \code{add = TRUE}.}
     \item{\code{add}}{The adjustment method to find \code{ac}, either
        \code{"lingoes"} or \code{"cailliez"} (Legendre & Legendre
