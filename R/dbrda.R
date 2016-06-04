@@ -234,6 +234,10 @@
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
     sol$method <- "dbrda"
+    if (!is.na(ac) && ac > 0) {
+        sol$ac <- ac
+        sol$add <- add
+    }
     sol$adjust <- adjust
     sol$inertia <- inertia
     if (metaMDSdist)
