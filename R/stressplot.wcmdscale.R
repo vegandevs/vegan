@@ -13,7 +13,8 @@
         stop("observed distances cannot be reconstructed: all axes were not calculated")
     ## Get the ordination distances in k dimensions
     if (k > NCOL(object$points))
-        stop("'k' cannot exceed the number of real dimensions")
+        warning(gettextf("max allowed rank is k = %d", NCOL(object$points)))
+    k <- min(NCOL(object$points), k)
     w <- sqrt(object$weights)
     u <- diag(w) %*% object$points
     odis <- dist(u[,1:k, drop = FALSE])
