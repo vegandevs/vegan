@@ -26,6 +26,10 @@
             else
                 stop("unknown Euclidifying adjustment")
         }
+        ## undo sqrt.dist -- sqrt.dist was applied first in capscale,
+        ## so it must be last here
+        if (object$sqrt.dist)
+            U <- U^2
     }
     U
 }

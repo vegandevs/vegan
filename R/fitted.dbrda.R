@@ -45,6 +45,9 @@
             U <- sweep(U, 2, sqrt(abs(eig[eig<0])), "*")
             D <- sqrt(D^2 - dist(U)^2)
         }
+        ## undo internal sqrt.dist
+        if (object$sqrt.dist)
+            D <- D^2
         out <- D * sqrt(const)
     }
     out
