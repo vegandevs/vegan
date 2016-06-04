@@ -1,6 +1,7 @@
 `adonis2` <-
     function(formula, data, permutations = 999, method = "bray",
-             by = "term", parallel = getOption("mc.cores"), ...)
+             sqrt.dist = FALSE, add = FALSE, by = "term",
+             parallel = getOption("mc.cores"), ...)
 {
     ## evaluate lhs
     YVAR <- formula[[2]]
@@ -12,6 +13,22 @@
         lhs <- as.dist(lhs)
     if (!inherits(lhs, "dist"))
         lhs <- vegdist(as.matrix(lhs), method=method, ...)
+    ## adjust distances if requested
+    if (sqrt.dist)
+        lhs <- sqrt(lhs)
+    if (is.logical(add) && isTRUE(add))
+        add <- "lingoes"
+    if (is.character(add)) {
+        add <- match.arg(add, c("lingoes", "cailliez"))
+        if (add == "lingoes") {
+            ac <- addLingoes(as.matrix(lhs))
+            lhs <- sqrt(lhs^2 + 2 * ac)
+        }
+        else if (add == "cailliez") {
+            ac <- addCailliez(as.matrix(lhs))
+            lhs <- lhs + ac
+        }
+    }
     ## adonis0 & anova.cca should see only dissimilarities (lhs)
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
