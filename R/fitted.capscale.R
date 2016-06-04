@@ -3,7 +3,7 @@
              type = c("response", "working"), ...)
 {
     model <- match.arg(model)
-    if (is.null(object[[model]]))
+    if (is.null(object[[model]]) && model != "Imaginary")
         stop("component ", model, " does not exist")
     type <- match.arg(type)
     ## Return scaled eigenvalues
@@ -12,6 +12,8 @@
                 CA = object$CA$u %*% diag(sqrt(object$CA$eig)),
                 Imaginary = object$CA$imaginary.u.eig,
                 pCCA = object$pCCA$Fit/object$adjust)
+    if (is.null(U))
+        stop("component ", model, " does not exist")
     ## Distances or working scores U
     if (type == "response") {
         U <- dist(U)
