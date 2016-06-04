@@ -31,6 +31,15 @@
         U <- object[[model]]$u
         U <- sweep(U, 2, sqrt(eig[eig>0]), "*")
         D <- dist(U)
+        ## remove additive constant
+        if (!is.null(object$ac)) {
+            if (object$add == "lingoes")
+                D <- sqrt(D^2 - 2 * object$ac)
+            else if (object$add == "cailliez")
+                D <- D - object$ac
+            else stop("unknown Euclidifying adjustment")
+        }
+        ## remove negative distances in imaginary space
         if (any(eig < 0)) {
             U <- object[[model]]$imaginary.u
             U <- sweep(U, 2, sqrt(abs(eig[eig<0])), "*")
