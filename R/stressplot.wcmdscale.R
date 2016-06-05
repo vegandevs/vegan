@@ -13,7 +13,8 @@
         stop("observed distances cannot be reconstructed: all axes were not calculated")
     ## Get the ordination distances in k dimensions
     if (k > NCOL(object$points))
-        stop("'k' cannot exceed the number of real dimensions")
+        warning(gettextf("max allowed rank is k = %d", NCOL(object$points)))
+    k <- min(NCOL(object$points), k)
     w <- sqrt(object$weights)
     u <- diag(w) %*% object$points
     odis <- dist(u[,1:k, drop = FALSE])
@@ -157,6 +158,9 @@
         else
             stop("unknown Euclidifying adjustment: no idea what to do")
     }
+    ## undo internal sqrt.dist
+    if (object$sqrt.dist)
+        dis <- dis^2
     ## plot like above
         ## Plot
     if (missing(pch))
@@ -193,6 +197,18 @@
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
     dis <- sqrt(as.dist(dis) * const)
+    ## Remove additive constant to get original dissimilarities
+    if (!is.null(object$ac)) {
+        if (object$add == "lingoes")
+            dis <- sqrt(dis^2 - 2 * object$ac)
+        else if (object$add == "cailliez")
+            dis <- dis - object$ac
+        else
+            stop("unknown Euclidifying adjustment: no idea what to do")
+    }
+    ## undo internal sqrt.dist
+    if (object$sqrt.dist)
+        dis <- dis^2
     ## Approximate dissimilarities from real components. Can only be
     ## used for one component.
     if (is.null(object$CCA)) {

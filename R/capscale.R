@@ -188,6 +188,7 @@
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
     sol$method <- "capscale"
+    sol$sqrt.dist <- sqrt.dist
     if (!is.na(X$ac) && X$ac > 0) {
         sol$ac <- X$ac
         sol$add <- X$add

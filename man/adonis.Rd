@@ -14,7 +14,8 @@
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
-adonis2(formula, data, permutations = 999, method = "bray", by = "term",
+adonis2(formula, data, permutations = 999, method = "bray",
+    sqrt.dist = FALSE, add = FALSE, by = "term",
     parallel = getOption("mc.cores"), ...)
 }
 
@@ -34,6 +35,14 @@ adonis2(formula, data, permutations = 999, method = "bray", by = "term",
   \item{method}{ the name of any method used in \code{\link{vegdist}} to
     calculate pairwise distances if the left hand side of the
     \code{formula} was a data frame or a matrix. }
+  \item{sqrt.dist}{Take square root of dissimilarities. This often
+    euclidifies dissimilarities.}
+  \item{add}{Add a constant to the non-diagonal dissimilarities such
+    that all eigenvalues are non-negative in the underlying Principal
+    Co-ordinates Analysis (see \code{\link{wcmdscale}} for
+    details). Choice \code{"lingoes"} (or \code{TRUE}) use the
+    recommended method of Legendre & Anderson (1999: \dQuote{method
+    1}) and \code{"cailliez"} uses their \dQuote{method 2}.}
   \item{by}{\code{by = "terms"} will assess significance for each term
     (sequentially from first to last), setting \code{by = "margin"}
     will assess the marginal effects of the terms (each marginal term

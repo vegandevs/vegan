@@ -27,7 +27,8 @@
   Tukey's 'Honest Significant Difference' method.
 }
 \usage{
-betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
+betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
+       sqrt.dist = FALSE, add = FALSE)
 
 \method{anova}{betadisper}(object, \dots)
 
@@ -61,6 +62,14 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE)
     the group centroid? The spatial median is now the default.}
   \item{bias.adjust}{logical: adjust for small sample bias in beta
     diversity estimates?}
+  \item{sqrt.dist}{Take square root of dissimilarities. This often
+    euclidifies dissimilarities.}
+  \item{add}{Add a constant to the non-diagonal dissimilarities such
+    that all eigenvalues are non-negative in the underlying Principal
+    Co-ordinates Analysis (see \code{\link{wcmdscale}} for
+    details). Choice \code{"lingoes"} (or \code{TRUE}) use the
+    recommended method of Legendre & Anderson (1999: \dQuote{method
+    1}) and \code{"cailliez"} uses their \dQuote{method 2}.}
   \item{display}{character; partial match to access scores for
     \code{"sites"} or \code{"species"}.}
   \item{object, x}{an object of class \code{"betadisper"}, the result of a

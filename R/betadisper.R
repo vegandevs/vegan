@@ -1,5 +1,6 @@
 `betadisper` <-
-    function(d, group, type = c("median","centroid"), bias.adjust=FALSE)
+    function(d, group, type = c("median","centroid"), bias.adjust=FALSE,
+             sqrt.dist = FALSE, add = FALSE)
 {
     ## inline function for double centring. We used .C("dblcen", ...,
     ## PACKAGE = "stats") which does not dublicate its argument, but
@@ -46,6 +47,22 @@
     ## Someone really tried to analyse correlation like object in range -1..+1
     if (any(d < -TOL, na.rm = TRUE))
         stop("dissimilarities 'd' must be non-negative")
+    ## adjust to avoid negative eigenvalues (if they disturb you)
+    if (sqrt.dist)
+        d <- sqrt(d)
+    if (is.logical(add) && isTRUE(add))
+        add <- "lingoes"
+    if (is.character(add)) {
+        add <- match.arg(add, c("lingoes", "cailliez"))
+        if (add == "lingoes") {
+            ac <- addLingoes(as.matrix(d))
+            d <- sqrt(d^2 + 2 * ac)
+        }
+        else if (add == "cailliez") {
+            ac <- addCailliez(as.matrix(d))
+            d <- d + ac
+        }
+    }
     if(missing(type))
         type <- "median"
     type <- match.arg(type)
