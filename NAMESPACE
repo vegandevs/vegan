@@ -236,6 +236,7 @@ S3method(multipart, formula)
 # nobs: stats
 S3method(nobs, CCorA)
 S3method(nobs, adonis)
+S3method(nobs, anova.cca)
 S3method(nobs, betadisper)
 S3method(nobs, cca)
 S3method(nobs, decorana)
