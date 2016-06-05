@@ -62,6 +62,8 @@
                         else
                             stop("unknown euclidifying adjustment")
                     }
+                    if (object$sqrt.dist)
+                        out <- out^2
                 }
             }
         } else {
