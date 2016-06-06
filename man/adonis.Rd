@@ -19,15 +19,20 @@ adonis(formula, data, permutations = 999, method = "bray",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 }
 
-\arguments{  
-  \item{formula}{a typical model formula such as \code{Y ~ A + B*C}, but
-    where \code{Y} is either a dissimilarity object (inheriting from
-    class \code{"dist"}) or data frame or a matrix; \code{A}, \code{B}, and
-    \code{C} may be factors or continuous variables. If a dissimilarity
-  object is supplied, no species coefficients can be calculated (see
-  Value below).} 
-  \item{data}{ the data frame from which \code{A}, \code{B}, and
-    \code{C} would be drawn.} 
+\arguments{
+
+  \item{formula}{Model formula. The LHS must be either a community
+    data matrix or a dissimilarity matrix, e.g., from
+    \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS is a data
+    matrix, function \code{\link{vegdist}} will be used to find the
+    dissimilarities. The RHS defines the independent variables. These
+    can be continuous variables or factors, they can be transformed
+    within the formula, and they can have interactions as in a typical
+    \code{\link{formula}}. If a dissimilarity object is supplied, no
+    species coefficients can be calculated in \code{adonis} (see Value
+    below).}
+
+  \item{data}{ the data frame for the independent variables.}
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
