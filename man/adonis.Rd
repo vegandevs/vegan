@@ -11,12 +11,12 @@
   matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
-adonis(formula, data, permutations = 999, method = "bray",
-    strata = NULL, contr.unordered = "contr.sum",
-    contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "term",
     parallel = getOption("mc.cores"), ...)
+adonis(formula, data, permutations = 999, method = "bray",
+    strata = NULL, contr.unordered = "contr.sum",
+    contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{  
@@ -60,12 +60,14 @@ adonis2(formula, data, permutations = 999, method = "bray",
   \item{\dots}{Other arguments passed to \code{vegdist}.}
 }
 
-\details{\code{adonis} is a function for the analysis and partitioning
-sums of squares using semimetric and metric distance matrices. Insofar
-as it partitions sums of squares of a multivariate data set, it is
-directly analogous to MANOVA (multivariate analysis of
-variance). McArdle and Anderson (2001) and Anderson (2001)
-refer to the method as \dQuote{permutational manova} (formerly
+\details{
+
+\code{adonis2} and \code{adonis} are functions for the analysis and
+partitioning sums of squares using semimetric and metric distance
+matrices. Insofar as it partitions sums of squares of a multivariate
+data set, it is directly analogous to MANOVA (multivariate analysis of
+variance). McArdle and Anderson (2001) and Anderson (2001) refer to
+the method as \dQuote{permutational manova} (formerly
 \dQuote{nonparametric manova}). Further, as its inputs are linear
 predictors, and a response matrix of an arbitrary number of columns (2
 to millions), it is a robust alternative to both parametric MANOVA and
@@ -78,17 +80,20 @@ Function \code{adonis} is directly based on the algorithm of Anderson
 (2001) and performs a sequential test of terms. Function
 \code{adonis2} is based on the principles of McArdle & Anderson (2001)
 and can perform sequential, marginal and overall tests. Function
-\code{adonis2} can be much slower than \code{adonis}, in particular
-with several terms. With the same random permutation, sequential tests
-are identical in both functions, and the results are also identical to
+\code{adonis2} also allows using additive constants or squareroot of
+dissimilarities to avoid negative eigenvalues. Function \code{adonis2}
+can be much slower than \code{adonis}, in particular with several
+terms. With the same random permutation, sequential tests are
+identical in both functions, and the results are also identical to
 \code{\link{anova.cca}} of \code{\link{capscale}}. With Euclidean
 distances, the sequential tests are also identical to
 \code{\link{anova.cca}} of \code{\link{rda}}.
 
-Typical uses of \code{adonis} include analysis of ecological community
-data (samples X species matrices) or genetic data where we might have a
-limited number of samples of individuals and thousands or millions of
-columns of gene expression data (e.g. Zapala and Schork 2006).
+Typical uses of \code{adonis2} or \code{adonis} include analysis of
+ecological community data (samples X species matrices) or genetic data
+where we might have a limited number of samples of individuals and
+thousands or millions of columns of gene expression data (e.g. Zapala
+and Schork 2006).
 
 \code{adonis} is an alternative to AMOVA (nested analysis of molecular
 variance, Excoffier, Smouse, and Quattro, 1992;
@@ -147,8 +152,10 @@ overview of rules.
 \code{print.adonis} shows the \code{aov.tab} component of the output.
 }
 \value{
-  This function returns typical, but limited, output for analysis of
-  variance (general linear models). 
+
+  Function \code{adonis2} returns an \code{\link{anova.cca}} result
+  object.  Function \code{adonis} returns an object of class
+  \code{"adonis"} with following components:
 
   \item{aov.tab}{Typical AOV table showing sources of variation,
     degrees of freedom, sequential sums of squares, mean squares,
@@ -215,9 +222,9 @@ distance matrices for testing associations between gene expression
 patterns and related variables. \emph{Proceedings of the National Academy of
 Sciences, USA}, \strong{103}:19430--19435.
 }
-\author{Martin Henry H. Stevens
-\email{HStevens@muohio.edu},
-  adapted to \pkg{vegan} by Jari Oksanen. }
+
+\author{Martin Henry H. Stevens (\code{adonis}) and Jari Oksanen
+  (\code{adonis2}). }
 
 \seealso{ \code{\link{mrpp}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{varpart}}. }
