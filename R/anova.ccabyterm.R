@@ -138,11 +138,12 @@
     ## variation. This should give a message().
     if (!is.null(object$CA$imaginary.chi))
         object <- oldCapscale(object)
-    ## Function assumes that dbrda(d ~ dbrda(d ~ x)$CCA$u) is equal to
-    ## dbrda(d ~ x), but this fails for dbrda with negative
-    ## eigenvalues.
-    if (inherits(object, "dbrda") && any(eigenvals(object) < 0))
-        stop("by = 'axis' cannot be used for dbrda with negative eigenvalues")
+    ## On 29/10/15 (983ba7726) we assumed that dbrda(d ~ dbrda(d ~
+    ## x)$CCA$u) is not equal to dbrda(d ~ x) when there are negative
+    ## eigenvalues, but it seems that it is OK if constrained
+    ## eigenvalues are non-negative
+    if (inherits(object, "dbrda") && any(object$CCA$eig < 0))
+        stop("by = 'axis' cannot be used when constraints have negative eigenvalues")
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig
