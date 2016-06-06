@@ -3,6 +3,9 @@
              sqrt.dist = FALSE, add = FALSE, by = "terms",
              parallel = getOption("mc.cores"), ...)
 {
+    ## we accept only by = "terms", "margin" or NULL
+    if (!is.null(by))
+        by <- match.arg(by, c("terms", "margin"))
     ## evaluate lhs
     YVAR <- formula[[2]]
     lhs <- eval(YVAR, environment(formula), globalenv())
