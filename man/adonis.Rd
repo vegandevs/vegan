@@ -12,7 +12,7 @@
 
 \usage{
 adonis2(formula, data, permutations = 999, method = "bray",
-    sqrt.dist = FALSE, add = FALSE, by = "term",
+    sqrt.dist = FALSE, add = FALSE, by = "terms",
     parallel = getOption("mc.cores"), ...)
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
