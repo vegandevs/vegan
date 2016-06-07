@@ -55,7 +55,7 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   \code{\link{designdist}}, but the current function provides a
   conventional shortcut. The function only finds the indices. The proper
   analysis must be done with functions such as \code{\link{betadisper}},
-  \code{\link{adonis}} or \code{\link{mantel}}.
+  \code{\link{adonis2}} or \code{\link{mantel}}.
 
   The indices are directly taken from Table 1 of Koleff et al. (2003),
   and they can be selected either by the index number or the subscript
@@ -82,7 +82,7 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   \code{"dist"} object which can be used in any function analysing
   dissimilarities. For beta diversity, particularly useful functions
   are \code{\link{betadisper}} to study the betadiversity in groups,
-  \code{\link{adonis}} for any model, and \code{\link{mantel}} to
+  \code{\link{adonis2}} for any model, and \code{\link{mantel}} to
   compare beta diversities to other dissimilarities or distances
   (including geographical distances). Although \code{betadiver}
   returns a \code{"dist"} object, some indices are similarities and
@@ -113,7 +113,7 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   functions, and also allows using notation with \code{alpha} and
   \code{gamma} diversities.  \code{\link{vegdist}} has some canned
   alternatives.  Functions \code{\link{betadisper}},
-  \code{\link{adonis}} and \code{\link{mantel}} can be used for
+  \code{\link{adonis2}} and \code{\link{mantel}} can be used for
   analysing beta diversity objects. The returned dissimilarities can
   be used in any distance-based methods, such as
   \code{\link{metaMDS}}, \code{\link{capscale}} and

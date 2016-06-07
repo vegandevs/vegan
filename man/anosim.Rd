@@ -105,7 +105,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
   and dispersion within groups and the results can be difficult to
   interpret (cf. Warton et al. 2012).  The function returns a lot of
   information to ease studying its performance. Most \code{anosim}
-  models could be analysed with \code{\link{adonis}} which seems to be a
+  models could be analysed with \code{\link{adonis2}} which seems to be a
   more robust alternative.
 
 }
@@ -115,7 +115,7 @@ dissimilarities instead of their ranks.
 \code{\link{dist}} and \code{\link{vegdist}} for obtaining
   dissimilarities, and \code{\link{rank}} for ranking real values.  For
   comparing dissimilarities against continuous variables, see
-  \code{\link{mantel}}. Function \code{\link{adonis}} is a more robust
+  \code{\link{mantel}}. Function \code{\link{adonis2}} is a more robust
   alternative that should preferred. }
 
 \examples{
