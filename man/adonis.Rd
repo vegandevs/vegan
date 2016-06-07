@@ -236,11 +236,12 @@ Sciences, USA}, \strong{103}:19430--19435.
 \examples{
 data(dune)
 data(dune.env)
-adonis(dune ~ Management*A1, data=dune.env, permutations=99)
-
+## default test by terms
+adonis2(dune ~ Management*A1, data = dune.env)
+## overall tests
+adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
 
 ### Example of use with strata, for nested (e.g., block) designs.
-
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
 dat
 Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
@@ -252,17 +253,18 @@ dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
 Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y)
 plot(mod)
-### Hulls show treatment
-with(dat, ordihull(mod, group=NO3, show="0"))
-with(dat, ordihull(mod, group=NO3, show="10", col=3))
+### Ellipsoid hulls show treatment
+with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
 ### Spider shows fields
-with(dat, ordispider(mod, group=field, lty=3, col="red"))
-
-### Correct hypothesis test (with strata)
-adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
+with(dat, ordispider(mod, field, lty=3, col="red"))
 
 ### Incorrect (no strata)
-adonis(Y ~ NO3, data=dat, perm=999)
+perm <- how(nperm = 199)
+adonis2 (Y ~ NO3, data = dat, permutations = perm)
+
+## Correct with strata
+setBlocks(perm) <- with(dat, field)
+adonis2(Y ~ NO3, data = dat, permutations = perm)
 }
 
 \keyword{multivariate }
