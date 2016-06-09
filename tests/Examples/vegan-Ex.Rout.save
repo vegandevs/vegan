@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-06-01 r70691) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-06-08 r70729) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -659,28 +659,35 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > data(dune)
 > data(dune.env)
-> adonis(dune ~ Management*A1, data=dune.env, permutations=99)
-
-Call:
-adonis(formula = dune ~ Management * A1, data = dune.env, permutations = 99) 
-
-Permutation: free
-Number of permutations: 99
-
+> ## default test by terms
+> adonis2(dune ~ Management*A1, data = dune.env)
+Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
 
-              Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
-Management     3    1.4686 0.48953  3.2629 0.34161   0.01 **
-A1             1    0.4409 0.44089  2.9387 0.10256   0.04 * 
-Management:A1  3    0.5892 0.19639  1.3090 0.13705   0.23   
-Residuals     12    1.8004 0.15003         0.41878          
-Total         19    4.2990                 1.00000          
+adonis2(formula = dune ~ Management * A1, data = dune.env)
+              Df SumOfSqs      F Pr(>F)   
+Management     3  1.46859 3.2629  0.002 **
+A1             1  0.44089 2.9387  0.022 * 
+Management:A1  3  0.58918 1.3090  0.191   
+Residual      12  1.80036                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## overall tests
+> adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
+Permutation test for adonis under reduced model
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)
+         Df SumOfSqs      F Pr(>F)   
+Model     7   2.4987 2.3792  0.003 **
+Residual 12   1.8004                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
-> 
 > ### Example of use with strata, for nested (e.g., block) designs.
-> 
 > dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
 > dat
    rep NO3 field
@@ -704,93 +711,88 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y)
-Run 0 stress 0.08556586 
-Run 1 stress 0.1560544 
-Run 2 stress 0.08556586 
+Run 0 stress 0.06065252 
+Run 1 stress 0.06065252 
 ... New best solution
-... Procrustes: rmse 1.09439e-06  max resid 1.88838e-06 
+... Procrustes: rmse 3.164024e-06  max resid 6.043669e-06 
 ... Similar to previous best
-Run 3 stress 0.1560554 
-Run 4 stress 0.2162345 
-Run 5 stress 0.2062595 
-Run 6 stress 0.08556586 
-... Procrustes: rmse 7.68807e-07  max resid 1.287727e-06 
+Run 2 stress 0.06065252 
+... Procrustes: rmse 1.938469e-06  max resid 3.61423e-06 
 ... Similar to previous best
-Run 7 stress 0.08556586 
-... Procrustes: rmse 2.69828e-06  max resid 4.983765e-06 
+Run 3 stress 0.142919 
+Run 4 stress 0.1670077 
+Run 5 stress 0.175151 
+Run 6 stress 0.1751507 
+Run 7 stress 0.06065252 
+... Procrustes: rmse 3.943561e-06  max resid 7.519499e-06 
 ... Similar to previous best
-Run 8 stress 0.08556586 
+Run 8 stress 0.06065252 
 ... New best solution
-... Procrustes: rmse 7.370052e-07  max resid 1.489693e-06 
+... Procrustes: rmse 2.172863e-06  max resid 4.032152e-06 
 ... Similar to previous best
-Run 9 stress 0.1571284 
-Run 10 stress 0.08556586 
-... Procrustes: rmse 6.229743e-07  max resid 1.397595e-06 
+Run 9 stress 0.1820814 
+Run 10 stress 0.06065252 
+... New best solution
+... Procrustes: rmse 1.026253e-06  max resid 1.4719e-06 
 ... Similar to previous best
-Run 11 stress 0.1199691 
-Run 12 stress 0.1802783 
-Run 13 stress 0.08556586 
-... Procrustes: rmse 1.74291e-06  max resid 3.208445e-06 
+Run 11 stress 0.06065252 
+... New best solution
+... Procrustes: rmse 1.828471e-06  max resid 3.763468e-06 
 ... Similar to previous best
-Run 14 stress 0.08556586 
-... Procrustes: rmse 1.507867e-06  max resid 3.183451e-06 
+Run 12 stress 0.06065252 
+... Procrustes: rmse 3.138136e-06  max resid 6.223657e-06 
 ... Similar to previous best
-Run 15 stress 0.1560558 
-Run 16 stress 0.08556586 
-... Procrustes: rmse 1.098887e-06  max resid 1.838775e-06 
+Run 13 stress 0.06065252 
+... Procrustes: rmse 3.415889e-06  max resid 6.880638e-06 
 ... Similar to previous best
-Run 17 stress 0.1945368 
-Run 18 stress 0.08556586 
-... Procrustes: rmse 7.149064e-07  max resid 1.69305e-06 
+Run 14 stress 0.06065252 
+... Procrustes: rmse 3.066271e-06  max resid 5.908388e-06 
 ... Similar to previous best
-Run 19 stress 0.08556586 
-... Procrustes: rmse 1.092224e-06  max resid 2.371851e-06 
+Run 15 stress 0.06065252 
+... Procrustes: rmse 1.945053e-06  max resid 3.557283e-06 
 ... Similar to previous best
-Run 20 stress 0.08556586 
-... Procrustes: rmse 2.703421e-06  max resid 4.734178e-06 
+Run 16 stress 0.06065252 
+... Procrustes: rmse 5.441366e-06  max resid 9.82099e-06 
 ... Similar to previous best
+Run 17 stress 0.1820814 
+Run 18 stress 0.1659224 
+Run 19 stress 0.1820814 
+Run 20 stress 0.2291418 
 *** Solution reached
 > plot(mod)
-> ### Hulls show treatment
-> with(dat, ordihull(mod, group=NO3, show="0"))
-> with(dat, ordihull(mod, group=NO3, show="10", col=3))
+> ### Ellipsoid hulls show treatment
+> with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
 > ### Spider shows fields
-> with(dat, ordispider(mod, group=field, lty=3, col="red"))
+> with(dat, ordispider(mod, field, lty=3, col="red"))
 > 
-> ### Correct hypothesis test (with strata)
-> adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
-
-Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 999, strata = dat$field) 
-
-Blocks:  strata 
-Permutation: free
-Number of permutations: 999
-
+> ### Incorrect (no strata)
+> perm <- how(nperm = 199)
+> adonis2 (Y ~ NO3, data = dat, permutations = perm)
+Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 199
 
-          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)  
-NO3        1  0.055856 0.055856  4.0281 0.28714  0.011 *
-Residuals 10  0.138667 0.013867         0.71286         
-Total     11  0.194524                  1.00000         
+adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
+         Df SumOfSqs      F Pr(>F)  
+NO3       1 0.036334 3.5509   0.04 *
+Residual 10 0.102324                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
-> ### Incorrect (no strata)
-> adonis(Y ~ NO3, data=dat, perm=999)
-
-Call:
-adonis(formula = Y ~ NO3, data = dat, permutations = 999) 
-
-Permutation: free
-Number of permutations: 999
-
+> ## Correct with strata
+> setBlocks(perm) <- with(dat, field)
+> adonis2(Y ~ NO3, data = dat, permutations = perm)
+Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
+Blocks:  with(dat, field) 
+Permutation: free
+Number of permutations: 199
 
-          Df SumsOfSqs  MeanSqs F.Model      R2 Pr(>F)   
-NO3        1  0.055856 0.055856  4.0281 0.28714  0.005 **
-Residuals 10  0.138667 0.013867         0.71286          
-Total     11  0.194524                  1.00000          
+adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
+         Df SumOfSqs      F Pr(>F)  
+NO3       1 0.036334 3.5509   0.02 *
+Residual 10 0.102324                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -1589,7 +1591,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### Name: capscale
 > ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale oldCapscale dbrda dbRDA.D
+> ### Aliases: capscale oldCapscale dbrda
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -5909,9 +5911,8 @@ X-squared = 0.0010721, df = 1, p-value = 0.9739
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
-> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> data(dune, dune.env)
+> mod <- adonis2(dune ~ Management + A1, data = dune.env)
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
@@ -8882,7 +8883,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.636 0.088 22.772 0 0 
+Time elapsed:  23.264 0.068 23.363 0 0 
 > grDevices::dev.off()
 null device 
           1 
