@@ -11,23 +11,28 @@
   matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
+adonis2(formula, data, permutations = 999, method = "bray",
+    sqrt.dist = FALSE, add = FALSE, by = "terms",
+    parallel = getOption("mc.cores"), ...)
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
-adonis2(formula, data, permutations = 999, method = "bray",
-    sqrt.dist = FALSE, add = FALSE, by = "term",
-    parallel = getOption("mc.cores"), ...)
 }
 
-\arguments{  
-  \item{formula}{a typical model formula such as \code{Y ~ A + B*C}, but
-    where \code{Y} is either a dissimilarity object (inheriting from
-    class \code{"dist"}) or data frame or a matrix; \code{A}, \code{B}, and
-    \code{C} may be factors or continuous variables. If a dissimilarity
-  object is supplied, no species coefficients can be calculated (see
-  Value below).} 
-  \item{data}{ the data frame from which \code{A}, \code{B}, and
-    \code{C} would be drawn.} 
+\arguments{
+
+  \item{formula}{Model formula. The LHS must be either a community
+    data matrix or a dissimilarity matrix, e.g., from
+    \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS is a data
+    matrix, function \code{\link{vegdist}} will be used to find the
+    dissimilarities. The RHS defines the independent variables. These
+    can be continuous variables or factors, they can be transformed
+    within the formula, and they can have interactions as in a typical
+    \code{\link{formula}}. If a dissimilarity object is supplied, no
+    species coefficients can be calculated in \code{adonis} (see Value
+    below).}
+
+  \item{data}{ the data frame for the independent variables.}
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
@@ -60,95 +65,46 @@ adonis2(formula, data, permutations = 999, method = "bray",
   \item{\dots}{Other arguments passed to \code{vegdist}.}
 }
 
-\details{\code{adonis} is a function for the analysis and partitioning
-sums of squares using semimetric and metric distance matrices. Insofar
-as it partitions sums of squares of a multivariate data set, it is
-directly analogous to MANOVA (multivariate analysis of
-variance). McArdle and Anderson (2001) and Anderson (2001)
-refer to the method as \dQuote{permutational manova} (formerly
-\dQuote{nonparametric manova}). Further, as its inputs are linear
-predictors, and a response matrix of an arbitrary number of columns (2
-to millions), it is a robust alternative to both parametric MANOVA and
-to ordination methods for describing how variation is attributed to
-different experimental treatments or uncontrolled covariates. It is
-also analogous to distance-based redundancy analysis (Legendre and
-Anderson 1999).
+\details{
 
-Function \code{adonis} is directly based on the algorithm of Anderson
-(2001) and performs a sequential test of terms. Function
-\code{adonis2} is based on the principles of McArdle & Anderson (2001)
-and can perform sequential, marginal and overall tests. Function
-\code{adonis2} can be much slower than \code{adonis}, in particular
-with several terms. With the same random permutation, sequential tests
-are identical in both functions, and the results are also identical to
-\code{\link{anova.cca}} of \code{\link{capscale}}. With Euclidean
-distances, the sequential tests are also identical to
-\code{\link{anova.cca}} of \code{\link{rda}}.
+\code{adonis2} and \code{adonis} are functions for the analysis and
+partitioning sums of squares using dissimilarities. Function
+\code{adonis} is directly based on the algorithm of Anderson (2001) and
+performs a sequential test of terms. Function \code{adonis2} is based on
+the principles of McArdle & Anderson (2001) and can perform sequential,
+marginal and overall tests. Function \code{adonis2} also allows using
+additive constants or squareroot of dissimilarities to avoid negative
+eigenvalues. but both functions can handle semimetric indices (such as
+Bray-Curtis) that produce negative eigenvalues. Function \code{adonis2}
+can be much slower than \code{adonis}, in particular with several
+terms. With the same random permutation, tests are identical in both
+functions, and the results are also identical to \code{\link{anova.cca}}
+of \code{\link{dbrda}} and \code{\link{capscale}}. With Euclidean
+distances, the tests are also identical to \code{\link{anova.cca}} of
+\code{\link{rda}}.
 
-Typical uses of \code{adonis} include analysis of ecological community
-data (samples X species matrices) or genetic data where we might have a
-limited number of samples of individuals and thousands or millions of
-columns of gene expression data (e.g. Zapala and Schork 2006).
+The functions partition sums of squares of a multivariate data set, and
+they are directly analogous to MANOVA (multivariate analysis of
+variance). McArdle and Anderson (2001) and Anderson (2001) refer to the
+method as \dQuote{permutational manova} (formerly \dQuote{nonparametric
+manova}). Further, as the inputs are linear predictors, and a response
+matrix of an arbitrary number of columns, they are a robust alternative
+to both parametric MANOVA and to ordination methods for describing how
+variation is attributed to different experimental treatments or
+uncontrolled covariates. Functions are also analogous to distance-based
+redundancy analysis in functions \code{\link{dbrda}} and
+\code{\link{capscale}} (Legendre and Anderson 1999).  Functions provide
+an alternative to AMOVA (nested analysis of molecular variance,
+Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
+\pkg{ade4} package) for both crossed and nested factors.
 
-\code{adonis} is an alternative to AMOVA (nested analysis of molecular
-variance, Excoffier, Smouse, and Quattro, 1992;
-\code{\link[ade4]{amova}} in the \pkg{ade4} package) for both crossed
-and nested factors.
-
-If the experimental design has nestedness, then use \code{strata} to
-test hypotheses. For instance, imagine we are testing whether a
-plant community is influenced by nitrate amendments, and we have two
-replicate plots at each of two levels of nitrate (0, 10 ppm). We have
-replicated the experiment in three fields with (perhaps) different
-average productivity. In this design, we would need to specify
-\code{strata = field} so that randomizations occur only \emph{within
-each field} and not across all fields . See example below.
-
-Like AMOVA (Excoffier et al. 1992), \code{adonis} relies on a
-long-understood phenomenon that allows one to partition sums of squared
-deviations from a centroid in two different ways (McArdle and Anderson
-2001). The most widely recognized method, used, e.g., for ANOVA and
-MANOVA, is to first identify the relevant centroids and then to
-calculated the squared deviations from these points. For a centered
-\eqn{n \times p}{n x p} response matrix \eqn{Y}, this method uses the
-\eqn{p \times p}{p x p} inner product matrix \eqn{Y'Y}. The less
-appreciated method is to use the \eqn{n \times n}{n x n} outer product
-matrix \eqn{YY'}. Both AMOVA and \code{adonis} use this latter
-method. This allows the use of any semimetric (e.g. Bray-Curtis, aka
-Steinhaus, Czekanowski, and \enc{Sørensen}{Sorensen}) or metric
-(e.g. Euclidean) distance matrix (McArdle and Anderson 2001). Using
-Euclidean distances with the second method results in the same analysis
-as the first method.
-
-Significance tests are done using \eqn{F}-tests based on sequential sums
-of squares from permutations of the raw data, and not permutations of
-residuals. Permutations of the raw data may have better small sample
-characteristics. Further, the precise meaning of hypothesis tests will
-depend upon precisely what is permuted. The strata argument keeps groups
-intact for a particular hypothesis test where one does not want to
-permute the data among particular groups. For instance, \code{strata = B} 
-causes permutations among levels of \code{A} but retains data within
-levels of \code{B} (no permutation among levels of \code{B}). See
-\code{\link{permutations}} for additional details on permutation tests
-in Vegan.
-
-The default \code{\link{contrasts}} are different than in \R in
-general. Specifically, they use \dQuote{sum} contrasts, sometimes known
-as \dQuote{ANOVA} contrasts. See a useful text (e.g. Crawley,
-2002) for a transparent introduction to linear model contrasts. This
-choice of contrasts is simply a personal
-pedagogical preference. The particular contrasts can be set to any
-\code{\link{contrasts}} specified in \R, including Helmert and treatment
-contrasts.
-
-Rules associated with formulae apply. See "An Introduction to R" for an
-overview of rules.
-
-\code{print.adonis} shows the \code{aov.tab} component of the output.
 }
+
 \value{
-  This function returns typical, but limited, output for analysis of
-  variance (general linear models). 
+
+  Function \code{adonis2} returns an \code{\link{anova.cca}} result
+  object.  Function \code{adonis} returns an object of class
+  \code{"adonis"} with following components:
 
   \item{aov.tab}{Typical AOV table showing sources of variation,
     degrees of freedom, sequential sums of squares, mean squares,
@@ -190,9 +146,6 @@ overview of rules.
 Anderson, M.J. 2001. A new method for non-parametric multivariate
 analysis of variance. \emph{Austral Ecology}, \strong{26}: 32--46.
 
-Crawley, M.J. 2002. \emph{Statistical Computing: An Introduction to Data
-  Analysis Using S-PLUS} 
-
 Excoffier, L., P.E. Smouse, and J.M. Quattro. 1992. Analysis of
 molecular variance inferred from metric distances among DNA haplotypes:
 Application to human mitochondrial DNA restriction data. \emph{Genetics},
@@ -209,26 +162,22 @@ analysis. \emph{Ecology}, \strong{82}: 290--297.
 Warton, D.I., Wright, T.W., Wang, Y. 2012. Distance-based multivariate
 analyses confound location and dispersion effects. \emph{Methods in
 Ecology and Evolution}, 3, 89--101.
-
-Zapala, M.A. and N.J. Schork. 2006. Multivariate regression analysis of
-distance matrices for testing associations between gene expression
-patterns and related variables. \emph{Proceedings of the National Academy of
-Sciences, USA}, \strong{103}:19430--19435.
 }
-\author{Martin Henry H. Stevens
-\email{HStevens@muohio.edu},
-  adapted to \pkg{vegan} by Jari Oksanen. }
+
+\author{Martin Henry H. Stevens (\code{adonis}) and Jari Oksanen
+  (\code{adonis2}). }
 
 \seealso{ \code{\link{mrpp}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{varpart}}. }
 \examples{
 data(dune)
 data(dune.env)
-adonis(dune ~ Management*A1, data=dune.env, permutations=99)
-
+## default test by terms
+adonis2(dune ~ Management*A1, data = dune.env)
+## overall tests
+adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
 
 ### Example of use with strata, for nested (e.g., block) designs.
-
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
 dat
 Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
@@ -240,17 +189,18 @@ dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
 Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y)
 plot(mod)
-### Hulls show treatment
-with(dat, ordihull(mod, group=NO3, show="0"))
-with(dat, ordihull(mod, group=NO3, show="10", col=3))
+### Ellipsoid hulls show treatment
+with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
 ### Spider shows fields
-with(dat, ordispider(mod, group=field, lty=3, col="red"))
-
-### Correct hypothesis test (with strata)
-adonis(Y ~ NO3, data=dat, strata=dat$field, perm=999)
+with(dat, ordispider(mod, field, lty=3, col="red"))
 
 ### Incorrect (no strata)
-adonis(Y ~ NO3, data=dat, perm=999)
+perm <- how(nperm = 199)
+adonis2 (Y ~ NO3, data = dat, permutations = perm)
+
+## Correct with strata
+setBlocks(perm) <- with(dat, field)
+adonis2(Y ~ NO3, data = dat, permutations = perm)
 }
 
 \keyword{multivariate }

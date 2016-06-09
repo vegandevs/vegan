@@ -118,11 +118,12 @@ permustats(x, ...)
   \code{\link[lattice]{xyplot}} for an exhaustive list of arguments).
 
   The \code{permustats} can extract permutation statistics from the
-  results of \code{\link{adonis}}, \code{\link{anosim}}, 
-  \code{\link{anova.cca}}, \code{\link{mantel}}, \code{\link{mantel.partial}},
-  \code{\link{mrpp}}, \code{\link{oecosimu}}, \code{\link{ordiareatest}},
+  results of \code{\link{adonis2}}, \code{\link{adonis}},
+  \code{\link{anosim}}, \code{\link{anova.cca}}, \code{\link{mantel}},
+  \code{\link{mantel.partial}}, \code{\link{mrpp}},
+  \code{\link{oecosimu}}, \code{\link{ordiareatest}},
   \code{\link{permutest.cca}}, \code{\link{protest}}, and
-  \code{\link{permutest.betadisper}}. 
+  \code{\link{permutest.betadisper}}.
 
 }
 
@@ -149,9 +150,8 @@ permustats(x, ...)
 }
 
 \examples{
-data(dune)
-data(dune.env)
-mod <- adonis(dune ~ Management + A1, data = dune.env)
+data(dune, dune.env)
+mod <- adonis2(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
