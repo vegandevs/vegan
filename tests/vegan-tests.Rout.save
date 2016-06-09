@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-01-29 r70039) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-06-08 r70729) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -719,6 +719,8 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843197 
 Run 19 stress 0.2570119 
 Run 20 stress 0.3760596 
+*** No convergence -- monoMDS stopping criteria:
+    20: stress ratio > sratmax
 > mod
 
 Call:
@@ -881,4 +883,4 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > proc.time()
    user  system elapsed 
-  9.764   0.072   9.825 
+  9.516   0.056   9.566 
