@@ -181,9 +181,15 @@ Jari Oksanen and Peter Solymos
 \code{\link{commsim}}, \code{\link{make.commsim}},
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
+\note{
+Care must be taken when the input matrix only contains a single
+row or column. Such input is invalid for swapping and hypergeometric
+distribution (calling \code{\link{r2dtable}}) based algorithms.
+This also applies to cases when the input is stratified into subsets.
+}
 \examples{
-set.seed(123)
-x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
+data(mite)
+x <- as.matrix(mite)[1:12, 21:30]
 
 ## non-sequential nullmodel
 (nm <- nullmodel(x, "r00"))
