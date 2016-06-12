@@ -2,6 +2,43 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-0}{
+  \subsection{DISTANCE-BASED ANALYSIS}{
+     \itemize{
+
+       \item \code{dbrda} is a new alternative function for
+       distance-based Redundancy Analysis following McArdle & Anderson
+       (\emph{Ecology} 82, 290--297; 2001). With metric
+       dissimilarities, the function is equivalent to old
+       \code{capscale}, but negative eigenvalues of semimetric indices
+       are handled differently. In \code{dbrda} the dissimilarities
+       are decomposed directly into conditions, constraints and
+       residuals with their negative eigenvalues, and any of the
+       components can have imaginary dimensions.
+
+       \item The old \code{capscale} function the ordination is still
+       based only on real components, but the total inertia of the
+       components is assessed with imaginary component (associated
+       with negative eigenvalues). The significance statistics in
+       \code{anova} and \code{permutest} are identical to the new
+       \code{dbrda} and they differ from the results in previous
+       versions of vegan.
+
+       \item \code{adonis2} is a new alternative function to
+       permutational anova of dissimilarities. It is based on the same
+       algorithms as the new \code{dbrda}. The function can perform
+       overall tests of all independent variables jointly as well as
+       sequential and marginal tests of each term. The previous
+       \code{adonis} is still available, but it can only perform
+       sequential tests.
+
+       \item Function \code{varpart} can partition dissimilarities
+       using the same algorithm as \code{dbrda}.
+
+     }
+  }
+} % v2.4-0
+
 \section{Changes in version 2.3-5}{
   \subsection{BUG FIXES}{
     \itemize{
