@@ -2,6 +2,257 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.3-5}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{eigenvals} fails with \code{prcomp} results in
+      \R-devel. The next version of \code{prcomp} will have an
+      argument to limit the number of eigenvalues shown
+      (\code{rank.}), and this breaks \code{eigenvals} in \pkg{vegan}.
+
+      \item \code{calibrate} failed for \code{cca} and friends if
+      \code{rank} was given.
+
+    } % itemise
+  } % bug fixes
+} % v2.3-5
+
+\section{Changes in version 2.3-4}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{betadiver} index \code{19} had wrong sign in one of
+      its terms.
+
+      \item \code{linestack} failed when the \code{labels} were given,
+      but the input scores had no names. Reported by Jeff Wood (ANU,
+      Canberra, ACT).
+
+    } %itemize
+  } % bug fixes
+
+  \subsection{DEPRECATED}{
+    \itemize{
+
+      \item \code{vegandocs} is deprecated. Current \R{} provides better
+      tools for seeing extra documentation (\code{news()} and
+      \code{browseVignettes()}).
+
+    } %itemize
+  } %deprecated
+
+  \subsection{VIGNETTES}{
+    \itemize{
+
+      \item All vignettes are built with standard \R{} tools and can be
+      browsed with \code{browseVignettes}. \code{FAQ-vegan} and
+      \code{partitioning} were only accessible with \code{vegandocs}
+      function.
+      
+    } %itemize
+  } %vignettes
+
+  \subsection{BUILDING}{
+    \itemize{
+
+      \item Dependence on external software \code{texi2dvi} was
+      removed. Version 6.1 of \code{texi2dvi} was incompatible with \R{}
+      and prevented building \pkg{vegan}. The \code{FAQ-vegan} that was
+      earlier built with \code{texi2dvi} uses now \pkg{knitr}. Because
+      of this, \pkg{vegan} is now dependent on \R-3.0.0.  Fixes issue
+      \href{https://github.com/vegandevs/vegan/issues/158}{#158} in
+      Github.
+
+    } %itemize
+  } % building
+    
+  
+} % v2.3-4
+
+\section{Changes in version 2.3-3}{
+  \subsection{BUG FIXES}{
+     \itemize{
+
+	\item \code{metaMDS} and \code{monoMDS} could fail if input
+	dissimilarities were huge: in the reported case they were of
+	magnitude 1E85. Fixes issue
+	\href{https://github.com/vegandevs/vegan/issues/152}{#152} in
+	Github.
+
+       \item Permutations failed if they were defined as \pkg{permute}
+       control structures in \code{estaccum}, \code{ordiareatest},
+       \code{renyiaccum} and \code{tsallisaccum}. Reported by Dan
+       Gafta (Cluj-Napoca) for \code{renyiaccum}.
+
+       \item \code{rarefy} gave false warnings if input was a vector
+       or a single sampling unit.
+
+       \item Some extrapolated richness indices in \code{specpool}
+       needed the number of doubletons (= number of species occurring
+       in two sampling units), and these failed when only one sampling
+       unit was supplied.  The extrapolated richness cannot be
+       estimated from a single sampling unit, but now such cases are
+       handled smoothly instead of failing: observed non-extrapolated
+       richness with zero standard error will be reported. The issue
+       was reported in
+       \href{http://stackoverflow.com/questions/34027496/error-message-when-using-specpool-in-vegan-package}{StackOverflow}.
+
+    } %itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+       \item \code{treedist} and \code{treedive} refuse to handle
+       trees with reversals, i.e, higher levels are more homogeneous
+       than lower levels. Function \code{treeheight} will estimate
+       their total height with absolute values of branch
+       lengths. Function \code{treedive} refuses to handle trees with
+       negative branch heights indicating negative
+       dissimilarities. Function \code{treedive} is faster.
+
+       \item \code{gdispweight} works when input data are in a matrix
+       instead of a data frame.
+
+       \item Input dissimilarities supplied in symmetric matrices or
+       data frames are more robustly recognized by \code{anosim},
+       \code{bioenv} and \code{mrpp}.
+
+    } %itemize
+  } %new features
+
+} %v2.3-3
+
+\section{Changes in version 2.3-2}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Printing details of a gridded permutation design would fail
+      when the grid was at the within-plot level.
+
+      \item \code{ordicluster} joined the branches at wrong coordinates
+      in some cases.
+
+      \item \code{ordiellipse} ignored weights when calculating standard
+      errors (\code{kind = "se"}). This influenced plots of \code{cca},
+      and also influenced \code{ordiareatest}.
+
+    } % itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{adonis} and \code{capscale} functions recognize
+      symmetric square matrices as dissimilarities. Formerly
+      dissimilarities had to be given as \code{"dist"} objects such as
+      produced by \code{dist} or \code{vegdist} functions, and data
+      frames and matrices were regarded as observations x variables
+      data which could confuse users (e.g., issue
+      \href{https://github.com/vegandevs/vegan/issues/147}{#147}).
+
+      \item \code{mso} accepts \code{"dist"} objects for the distances
+      among locations as an alternative to coordinates of locations.
+
+      \item \code{text}, \code{points} and \code{lines} functions for
+      \code{procrustes} analysis gained new argument \code{truemean}
+      which allows adding \code{procrustes} items to the plots of
+      original analysis.
+
+      \item \code{rrarefy} returns observed non-rarefied communities
+      (with a warning) when users request subsamples that are larger
+      than the observed community instead of failing. Function
+      \code{drarefy} has been similar and returned sampling
+      probabilities of 1, but now it also issues a warning. Fixes issue
+      \href{https://github.com/vegandevs/vegan/issues/144}{#144} in
+      Github.
+
+    } % itemize
+  } % new features
+} %v2.3-2
+
+\section{Changes in version 2.3-1}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Permutation tests did not always correctly recognize ties
+      with the observed statistic and this could result in too low
+      \eqn{P}-values. This would happen in particular when all predictor
+      variables were factors (classes). The changes concern functions
+      \code{adonis}, \code{anosim}, \code{anova} and \code{permutest}
+      functions for \code{cca}, \code{rda} and \code{capscale},
+      \code{permutest} for \code{betadisper}, \code{envfit},
+      \code{mantel} and \code{mantel.partial}, \code{mrpp}, \code{mso},
+      \code{oecosimu}, \code{ordiareatest}, \code{protest} and
+      \code{simper}. This also fixes issues
+      \href{https://github.com/vegandevs/vegan/issues/120}{#120} and
+      \href{https://github.com/vegandevs/vegan/issues/132}{#132} in
+      GitHub.
+
+      \item Automated model building in constrained ordination
+      (\code{cca}, \code{rda}, \code{capscale}) with \code{step},
+      \code{ordistep} and \code{ordiR2step} could fail if there were
+      aliased candidate variables, or constraints that were completely
+      explained by other variables already in the model. This was a
+      regression introduced in \pkg{vegan} 2.2-0.
+
+      \item Constrained ordination methods \code{cca}, \code{rda} and
+      \code{capscale} treat character variables as factors in analysis,
+      but did not return their centroids for plotting.
+
+      \item Recovery of original data in \code{metaMDS} when computing
+      WA scores for species would fail if the expression supplied to
+      argument \code{comm} was long & got deparsed to multiple
+      strings. \code{metaMDSdist} now returns the (possibly modified)
+      data frame of community data \code{comm} as attribute
+      \code{"comm"} of the returned \code{dist} object. \code{metaMDS}
+      now uses this to compute the WA species scores for the NMDS. In
+      addition, the deparsed expression for \code{comm} is now robust to
+      long expressions.  Reported by Richard Telford.
+
+      \item \code{metaMDS} and \code{monoMDS} rejected dissimilarities
+      with missing values.
+
+      \item Function \code{rarecurve} did not check its input and this
+      could cause confusing error messages. Now function checks that
+      input data are integers that can be interpreted as counts on
+      individuals and all sampling units have some species. Unchecked
+      bad inputs were the reason for problems reported in
+      \href{http://stackoverflow.com/questions/30856909/error-while-using-rarecurve-in-r}{Stackoverflow}.
+
+    }
+  } % bug fixes
+
+  \subsection{NEW FEATURES AND FUNCTIONS}{
+    \itemize{
+      
+     \item Scaling of ordination axes in \code{cca}, \code{rda} and
+     \code{capscale} can now be expressed with descriptive strings
+     \code{"none"}, \code{"sites"}, \code{"species"} or
+     \code{"symmetric"} to tell which kind of scores should be scaled by
+     eigenvalues. These can be further modified with arguments
+     \code{hill} in \code{cca} and \code{correlation} in \code{rda}. The
+     old numeric scaling can still be used.
+
+     \item The permutation data can be extracted from \code{anova}
+     results of constrained ordination (\code{cca}, \code{rda},
+     \code{capscale}) and further analysed with \code{permustats}
+     function.
+
+     \item New data set \code{BCI.env} of site information for the Barro
+     Colorado Island tree community data. Most useful variables are the
+     UTM coordinates of sample plots. Other variables are constant or
+     nearly constant and of little use in normal analysis.
+     
+   }
+  } % new features and functions
+
+}
+
 \section{Changes in version 2.3-0}{
 
   \subsection{BUG FIXES}{
