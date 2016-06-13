@@ -29,7 +29,7 @@
     if(missing(ylab))
         ylab <- paste("PCoA", axes[2])
     if (missing(ellipse.conf)) {
-        conf <- 1
+        conf <- 0.68
     }
     g <- scores(x, choices = axes)
     ng <- length(levels(x$group))
