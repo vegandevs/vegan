@@ -29,7 +29,11 @@
        with negative eigenvalues). The significance statistics in
        \code{anova} and \code{permutest} are identical to the new
        \code{dbrda} and they differ from the results in previous
-       versions of vegan.
+       versions of \pkg{vegan}.
+
+       Function \code{oldCapscale} will cast the \code{capscale}
+       result to a form that gives results that are similar as
+       previously.
 
        \item \code{adonis2} is a new alternative function to
        permutational anova of dissimilarities. It is based on the same
@@ -45,13 +49,13 @@
        \item Argument \code{sqrt.dist} makes function to take square
        roots of dissimilarities to change many popular semimetric
        indices to metric distances in \code{capscale}, \code{dbrda},
-       \code{adonis2}, \code{varpart}.
+       \code{adonis2}, \code{varpart} and \code{betadisper}
 
        \item Lingoes and Cailliez adjustments changes any
        dissimilarity into metric distance in \code{capscale},
-       \code{dbrda}, \code{adonis2}, \code{varpart} and
-       \code{wcmdscale}.  Earlier we had only in Cailliez adjustment
-       in \code{capscale}.
+       \code{dbrda}, \code{adonis2}, \code{varpart}, \code{betadisper}
+       and \code{wcmdscale}.  Earlier we had only in Cailliez
+       adjustment in \code{capscale}.
 
        \item \code{RsquareAdj} works with \code{capscale} and
        \code{dbrda} and this allows using \code{ordiR2step} in model
@@ -79,8 +83,10 @@
       \item Several \code{permustats} results can be combined with a
       new \code{c} function.
 
-      \item New function \code{smbind} to bind together null models
-      by row, column or iteration.
+      \item New function \code{smbind} to bind together null models by
+      row, column or iteration. If sequential models are bound
+      together, they can be treated as parallel chains in
+      subsequential analysis (e.g., after \code{as.mcmc}).
 
     } %itemize
   } % new functions
@@ -89,7 +95,8 @@
     \itemize{
 
       \item New \code{"curveball"} algorithm provides a new fast null
-      model with fixed row and column sums for binary matrices.
+      model with fixed row and column sums for binary matrices after
+      Strona et al. (\emph{Nature Commun.} 5: 4114).
 
       The \code{"quasiswap"} argument gained a new argument
       \code{thin} which can reduce the bias of null models.
@@ -114,7 +121,9 @@
       If there was no two convergent solution, \code{metaMDS} will now
       give a tabulation of stopping criteria (if \code{trace =
       TRUE}). This can help in deciding if any of the criteria should
-      be made more stringent or the number of iteration increased.
+      be made more stringent or the number of iteration increased. The
+      documentation for \code{monoMDS} and \code{metaMDS} gives more
+      detailed information on convergence criteria.
 
       \item The \code{summary} of \code{permustats} prints now
       \emph{P}-values, and the test direction (\code{alternative}) can
@@ -131,8 +140,9 @@
       expose argument \code{method} to specify the null model.
 
       \item \code{RsquareAdj} works with \code{cca} and this allows
-      using \code{ordiR2step} in model building. However, \code{cca}
-      still cannot be used in \code{varpart}.
+      using \code{ordiR2step} in model building. The code was
+      developed by Dan McGlinn. However, \code{cca} still cannot be
+      used in \code{varpart}.
 
       \item \code{ordiellipse} and \code{ordihull} allow setting
       colours, line types and other graphical parameters. The alpha
@@ -155,6 +165,16 @@
 
     } % features
   } %bug fixes
+
+  \subsection{DATA SETS}{
+    \itemize{
+
+      \item Environmental data for the Barro Colorado Island forest
+      plot gained new variables from Harms et al. (\emph{J. Ecol.} 89,
+      947--959; 2001).
+
+    } %itemize
+  } % data sets
 
   \subsection{DEPRECATED AND DEFUNCT}{
     \itemize{
