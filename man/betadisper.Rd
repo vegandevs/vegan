@@ -39,7 +39,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
 
 \method{plot}{betadisper}(x, axes = c(1,2), cex = 0.7,
      pch = seq_len(ng), col = NULL, lty = "solid", lwd = 1, hull = TRUE,
-     ellipse = FALSE, ellipse.conf = NULL,
+     ellipse = FALSE, conf,
      segments = TRUE, seg.col = "grey", seg.lty = lty, seg.lwd = lwd,
      label = TRUE, label.cex = 1,
      ylab, xlab, main, sub, \dots)
@@ -78,9 +78,11 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   \item{hull}{logical; should the convex hull for each group be plotted?}
   \item{ellipse}{logical; should the standard deviation data ellipse for
     each group be plotted?}
-  \item{ellipse.prop}{Proportion of data to enclose with data ellipses,
-    e.g. 0.95. The default is to draw a  1 standard deviation data
-    ellipse.}
+  \item{conf}{Expected fractions of data coverage for data ellipses,
+    e.g. 0.95. The default is to draw a 1 standard deviation data
+    ellipse, but if supplied, \code{conf} is multiplied with the
+    corresponding value found from the Chi-squared distribution with 2df
+    to provide the requested coverage (probability contour).}
   \item{pch}{plot symbols for the groups, a vector of length equal to
     the number of groups.}
   \item{col}{colors for the plot symbols for the groups, a vector of
@@ -280,8 +282,9 @@ plot(mod.HSD)
 ## first two PCoA axes
 plot(mod)
 
-## with confidence ellipses instead of hulls
-plot(mod, ellipse = TRUE, hull = FALSE)
+## with data ellipses instead of hulls
+plot(mod, ellipse = TRUE, hull = FALSE) # 1 sd data ellipse
+plot(mod, ellipse = TRUE, hull = FALSE, conf = 0.90) # 90% data ellipse
 
 ## can also specify which axes to plot, ordering respected
 plot(mod, axes = c(3,1), seg.col = "forestgreen", seg.lty = "dashed")

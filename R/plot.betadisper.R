@@ -1,6 +1,6 @@
 `plot.betadisper` <- function(x, axes = c(1,2), cex = 0.7, pch = seq_len(ng),
                               col = NULL, lty = "solid", lwd = 1, hull = TRUE,
-                              ellipse = FALSE, ellipse.conf = NULL,
+                              ellipse = FALSE, conf,
                               segments = TRUE, seg.col = "grey",
                               seg.lty = lty, seg.lwd = lwd,
                               label = TRUE, label.cex = 1,
@@ -28,8 +28,10 @@
         xlab <- paste("PCoA", axes[1])
     if(missing(ylab))
         ylab <- paste("PCoA", axes[2])
-    if (missing(ellipse.conf)) {
-        conf <- 0.68
+    t <- if (missing(conf)) {
+        1
+    } else {
+        sqrt(qchisq(conf, df = 2))
     }
     g <- scores(x, choices = axes)
     ng <- length(levels(x$group))
@@ -62,7 +64,7 @@
             if (ellipse) {
                 Ellipse(g$sites[take, , drop = FALSE],
                         centres = g$centroids[j, ],
-                        conf = conf,
+                        conf = t,
                         col = col[i], lty = lty, lwd = lwd, ...)
             }
             points(g$centroids[j, , drop = FALSE], pch = 16, cex = 1,
@@ -84,7 +86,7 @@
         if (ellipse) {
                 Ellipse(g$sites,
                         centres = g$centroids,
-                        conf = conf,
+                        conf = t,
                         col = col[1L], lty = lty, lwd = lwd,...)
         }
         points(g$centroids[, 1L], g$centroids[, 2L],
