@@ -76,11 +76,11 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
     call to \code{betadisper}.}
   \item{choices, axes}{the principal coordinate axes wanted.}
   \item{hull}{logical; should the convex hull for each group be plotted?}
-  \item{ellipse}{logical; should the confidence ellipse for each group
-    be plotted?}
-  \item{ellipse.conf}{Confidence limit for ellipses, e.g. 0.95. If
-    given, the corresponding \code{sd} is multiplied with the
-  corresponding value found from the Chi-squared distribution with 2df.}
+  \item{ellipse}{logical; should the standard deviation data ellipse for
+    each group be plotted?}
+  \item{ellipse.prop}{Proportion of data to enclose with data ellipses,
+    e.g. 0.95. The default is to draw a  1 standard deviation data
+    ellipse.}
   \item{pch}{plot symbols for the groups, a vector of length equal to
     the number of groups.}
   \item{col}{colors for the plot symbols for the groups, a vector of
