@@ -4564,8 +4564,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### ** Examples
 > 
-> set.seed(123)
-> x <- matrix(rbinom(12*10, 1, 0.5)*rpois(12*10, 3), 12, 10)
+> data(mite)
+> x <- as.matrix(mite)[1:12, 21:30]
 > 
 > ## non-sequential nullmodel
 > (nm <- nullmodel(x, "r00"))
@@ -8883,7 +8883,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.264 0.068 23.363 0 0 
+Time elapsed:  24.876 0.08 24.99 0 0 
 > grDevices::dev.off()
 null device 
           1 
