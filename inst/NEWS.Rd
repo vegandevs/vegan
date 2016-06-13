@@ -6,6 +6,13 @@
   \subsection{DISTANCE-BASED ANALYSIS}{
      \itemize{
 
+       \item Distance-based ordination and analyses can produce
+       negative eigenvalues with several popular semimetric
+       dissimilarity indices. McArdle & Anderson (\emph{Ecology} 82,
+       290--297; 2001) present methods to decompose such indices. Now
+       their method is implemented in general, and distance-based
+       analyses are all consistent.
+
        \item \code{dbrda} is a new alternative function for
        distance-based Redundancy Analysis following McArdle & Anderson
        (\emph{Ecology} 82, 290--297; 2001). With metric
@@ -35,8 +42,20 @@
        \item Function \code{varpart} can partition dissimilarities
        using the same algorithm as \code{dbrda}.
 
-     }
-  }
+       \item Argument \code{sqrt.dist} makes function to take square
+       roots of dissimilarities to change many popular semimetric
+       indices to metric distances in \code{capscale}, \code{dbrda},
+       \code{adonis2}, \code{varpart}.
+
+       \item Lingoes and Cailliez adjustments changes any
+       dissimilarity into metric distance in \code{capscale},
+       \code{dbrda}, \code{adonis2} and \code{varpart}.  Earlier we
+       had only in Cailliez adjustment in \code{capscale}.
+
+     } % itemize
+  } % distance-based
+
+
 } % v2.4-0
 
 \section{Changes in version 2.3-5}{
