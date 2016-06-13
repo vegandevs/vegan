@@ -49,12 +49,127 @@
 
        \item Lingoes and Cailliez adjustments changes any
        dissimilarity into metric distance in \code{capscale},
-       \code{dbrda}, \code{adonis2} and \code{varpart}.  Earlier we
-       had only in Cailliez adjustment in \code{capscale}.
+       \code{dbrda}, \code{adonis2}, \code{varpart} and
+       \code{wcmdscale}.  Earlier we had only in Cailliez adjustment
+       in \code{capscale}.
+
+       \item \code{RsquareAdj} works with \code{capscale} and
+       \code{dbrda} and this allows using \code{ordiR2step} in model
+       building.
 
      } % itemize
   } % distance-based
 
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{specaccum} \code{plot} failed if \code{lty} was
+      given.
+
+    } %itemize
+  } %bug fixes
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item \code{ordibar} is a new function to draw crosses of
+      standard deviations, standard errors etc. in ordination
+      diagrams.
+
+      \item Several \code{permustats} results can be combined with a
+      new \code{c} function.
+
+      \item New function \code{smbind} to bind together null models
+      by row, column or iteration.
+
+    } %itemize
+  } % new functions
+  
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item New \code{"curveball"} algorithm provides a new fast null
+      model with fixed row and column sums for binary matrices.
+
+      The \code{"quasiswap"} argument gained a new argument
+      \code{thin} which can reduce the bias of null models.
+
+      \code{"backtracking"} is now much faster, but it is still very
+      slow, and provided mainly for allowing comparison against better
+      and faster methods.
+
+      Compiled code can now be interrupted in null model simulations.
+
+      \item \code{designdist} can now use beta diversity notation with
+      \code{gamma}, \code{alpha} and \code{delta}. This allows for
+      easier definition of beta diversity indices.
+
+      \item \code{metaMDS} has new iteration strategy: Argument
+      \code{try} gives the minimum number of random starts, and
+      \code{trymax} the maximum number. Earlier we only hand
+      \code{try} which gave the maximum number, but now we run at
+      least \code{try} times. This reduces the risk of being trapped
+      in a local optimum.
+
+      If there was no two convergent solution, \code{metaMDS} will now
+      give a tabulation of stopping criteria (if \code{trace =
+      TRUE}). This can help in deciding if any of the criteria should
+      be made more stringent or the number of iteration increased.
+
+      \item The \code{summary} of \code{permustats} prints now
+      \emph{P}-values, and the test direction (\code{alternative}) can
+      be changed.
+
+      The \code{qqmath} function of \code{permustats} can now plot
+      standardized statistics.
+
+      \item \code{MDSrotate} can rotate ordination to show maximum
+      separation of factors (class variables) using \code{lda}
+      (\pkg{MASS} package).
+
+      \item \code{adipart}, \code{hiersimu} and \code{multipart}
+      expose argument \code{method} to specify the null model.
+
+      \item \code{RsquareAdj} works with \code{cca} and this allows
+      using \code{ordiR2step} in model building. However, \code{cca}
+      still cannot be used in \code{varpart}.
+
+      \item \code{ordiellipse} and \code{ordihull} allow setting
+      colours, line types and other graphical parameters. The alpha
+      channel can now be given also as a real number in 0..1 in
+      addition to integer 0..255.
+
+      \item \code{ordiellipse} can now draw ellipsoid hulls that
+      enclose points in a group.
+      
+      \item \code{ordicluster}, \code{ordisegments}, \code{ordispider}
+      and \code{lines} and \code{plot} functions for \code{isomap} and
+      \code{spantree} can use a mixture of point colours of connected
+      points. Their behaviour is similar as for analogous function in
+      \pkg{vegan3d} package.
+
+      \item \code{plot} of \code{betadisper} is more configurable.
+
+      \item \code{text} and \code{points} methods for
+      \code{orditkplot} respect stored graphical parameters.
+
+    } % features
+  } %bug fixes
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item Function \code{metaMDSrotate} was removed and replaced
+      with \code{MDSrotate}.
+
+      \item Specific \code{density} and \code{densityplot} methods for
+      \pkg{vegan} objects were deprecated and replaced with
+      \code{density} and \code{densityplot} for \code{permustats}.
+      Function \code{permustats} can extract the permutation and
+      simulation results of \pkg{vegan} result objects.
+
+    } %itemize
+  } % deprecated & defunct
 
 } % v2.4-0
 
