@@ -8,7 +8,7 @@
 
        \item Distance-based methods were redesigned and made
        consistent for ordination (\code{capscale}, new \code{dbrda}),
-       permutational MANOVA (new \code{adonis2}), multivariate
+       permutational ANOVA (new \code{adonis2}), multivariate
        dispersion (\code{betadisper}) and variation partitioning
        (\code{varpart}).  These methods can produce negative
        eigenvalues with several popular semimetric dissimilarity
@@ -25,7 +25,11 @@
        are decomposed directly into conditions, constraints and
        residuals with their negative eigenvalues, and any of the
        components can have imaginary dimensions. The function is based
-       on the code by Pierre Legendre.
+       on the code by Pierre Legendre. Function is mostly compatible
+       with \code{capscale} and other constrained ordination methods,
+       but full compatibility cannot be achieved (see issue
+       \href{https://github.com/vegandevs/vegan/issues/140}{#140} in
+       Github).
 
        \item The old \code{capscale} function for constrained
        ordination is still based only on real components, but the
@@ -43,7 +47,11 @@
        new \code{dbrda}. The function can perform overall tests of all
        independent variables jointly as well as sequential and
        marginal tests of each term. The previous \code{adonis} is
-       still available, but it can only perform sequential tests.
+       still available, but it can only perform sequential tests. With
+       same settings, \code{adonis} and \code{adonis2} give identical
+       results (but see Github issue
+       \href{https://github.com/vegandevs/vegan/issues/156}{#156} for
+       differences).
 
        \item Function \code{varpart} can partition dissimilarities
        using the same algorithm as \code{dbrda}.
@@ -52,13 +60,17 @@
        dissimilarities to change many popular semimetric indices to
        metric distances in \code{capscale}, \code{dbrda},
        \code{wcmdscale}, \code{adonis2}, \code{varpart} and
-       \code{betadisper}
+       \code{betadisper} (issue
+       \href{https://github.com/vegandevs/vegan/issues/179}{#179} in
+       Github).
 
        \item Lingoes and Cailliez adjustments changes any
        dissimilarity into metric distance in \code{capscale},
        \code{dbrda}, \code{adonis2}, \code{varpart}, \code{betadisper}
        and \code{wcmdscale}.  Earlier we had only Cailliez adjustment
-       in \code{capscale}.
+       in \code{capscale} (issue
+       \href{https://github.com/vegandevs/vegan/issues/179}{#179} in
+       Github).
 
        \item \code{RsquareAdj} works with \code{capscale} and
        \code{dbrda} and this allows using \code{ordiR2step} in model
@@ -89,7 +101,9 @@
       \item New function \code{smbind} binds together null models by
       row, column or iteration. If sequential models are bound
       together, they can be treated as parallel chains in
-      subsequential analysis (e.g., after \code{as.mcmc}).
+      subsequential analysis (e.g., after \code{as.mcmc}). See issue
+      \href{https://github.com/vegandevs/vegan/issues/164}{#164} in
+      Github.
 
     } %itemize
   } % new functions
@@ -121,7 +135,9 @@
       \code{trymax} the maximum number. Earlier we only hand
       \code{try} which gave the maximum number, but now we run at
       least \code{try} times. This reduces the risk of being trapped
-      in a local optimum.
+      in a local optimum (issue
+      \href{https://github.com/vegandevs/vegan/issues/154}{#154} in
+      Github).
 
       If there was no two convergent solution, \code{metaMDS} will now
       give a tabulation of stopping criteria (if \code{trace = TRUE}).
@@ -135,7 +151,9 @@
       be changed.
 
       The \code{qqmath} function of \code{permustats} can now plot
-      standardized statistics.
+      standardized statistics. This is a partial solution to issue
+      \href{https://github.com/vegandevs/vegan/issues/172}{#172} in
+      Github.
 
       \item \code{MDSrotate} can rotate ordination to show maximum
       separation of factors (class variables) using \code{lda}
@@ -146,8 +164,10 @@
 
       \item \code{RsquareAdj} works with \code{cca} and this allows
       using \code{ordiR2step} in model building. The code was
-      developed by Dan McGlinn. However, \code{cca} still cannot be
-      used in \code{varpart}.
+      developed by Dan McGlinn (issue
+      \href{https://github.com/vegandevs/vegan/issues/161}{#161} in
+      Github). However, \code{cca} still cannot be used in
+      \code{varpart}.
 
       \item \code{ordiellipse} and \code{ordihull} allow setting
       colours, line types and other graphical parameters. The alpha
@@ -161,9 +181,13 @@
       and \code{lines} and \code{plot} functions for \code{isomap} and
       \code{spantree} can use a mixture of colours of connected
       points. Their behaviour is similar as in analogous functions in
-      the \pkg{vegan3d} package.
+      the the \pkg{vegan3d} package.
 
-      \item \code{plot} of \code{betadisper} is more configurable.
+      \item \code{plot} of \code{betadisper} is more configurable. See
+      issues
+      \href{https://github.com/vegandevs/vegan/issues/128}{#128} and
+      \href{https://github.com/vegandevs/vegan/issues/166}{#166} in
+      Github for details.
 
       \item \code{text} and \code{points} methods for
       \code{orditkplot} respect stored graphical parameters.
@@ -176,7 +200,9 @@
 
       \item Environmental data for the Barro Colorado Island forest
       plot gained new variables from Harms et al. (\emph{J. Ecol.} 89,
-      947--959; 2001).
+      947--959; 2001). Issue
+      \href{https://github.com/vegandevs/vegan/issues/178}{#178} in
+      Github.
 
     } %itemize
   } % data sets
