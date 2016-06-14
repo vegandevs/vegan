@@ -1,7 +1,7 @@
 Package: vegan
 Title: Community Ecology Package
 Version: 2.4-0
-Date: 2016-06-14
+Date: 2016-06-15
 Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
    Pierre Legendre, Dan McGlinn, Peter R. Minchin, R. B. O'Hara,
    Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs,
@@ -15,4 +15,4 @@ Description: Ordination methods, diversity analysis and other
   functions for community and vegetation ecologists.
 License: GPL-2
 BugReports: https://github.com/vegandevs/vegan/issues
-URL: https://github.com/vegandevs/vegan
+URL: https://cran.r-project.org, https://github.com/vegandevs/vegan
