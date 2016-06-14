@@ -24,12 +24,12 @@
        are handled differently. In \code{dbrda} the dissimilarities
        are decomposed directly into conditions, constraints and
        residuals with their negative eigenvalues, and any of the
-       components can have imaginary dimensions. The function is based
-       on the code by Pierre Legendre. Function is mostly compatible
-       with \code{capscale} and other constrained ordination methods,
-       but full compatibility cannot be achieved (see issue
+       components can have imaginary dimensions. Function is mostly
+       compatible with \code{capscale} and other constrained
+       ordination methods, but full compatibility cannot be achieved
+       (see issue
        \href{https://github.com/vegandevs/vegan/issues/140}{#140} in
-       Github).
+       Github). The function is based on the code by Pierre Legendre.
 
        \item The old \code{capscale} function for constrained
        ordination is still based only on real components, but the
@@ -154,7 +154,7 @@
       Github.
 
       \item \code{MDSrotate} can rotate ordination to show maximum
-      separation of factors (classes) using linear discriminant
+      separation of factor levels (classes) using linear discriminant
       analysis (\code{lda} in \pkg{MASS} package).
 
       \item \code{adipart}, \code{hiersimu} and \code{multipart}
