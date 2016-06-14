@@ -6,12 +6,15 @@
   \subsection{DISTANCE-BASED ANALYSIS}{
      \itemize{
 
-       \item Distance-based ordination and analyses can produce
-       negative eigenvalues with several popular semimetric
-       dissimilarity indices. McArdle & Anderson (\emph{Ecology} 82,
-       290--297; 2001) present methods to decompose such indices. Now
-       their method is implemented in general, and distance-based
-       analyses are all consistent.
+       \item Distance-based methods were redesigned and made
+       consistent for ordination (\code{capscale}, new \code{dbrda}),
+       permutational MANOVA (new \code{adonis2}), multivariate
+       dispersion (\code{betadisper}) and variation partitioning
+       (\code{varpart}).  These methods can produce negative
+       eigenvalues with several popular semimetric dissimilarity
+       indices, and they were not handled similarly by all
+       functions. Now we follow McArdle & Anderson (\emph{Ecology} 82,
+       290--297; 2001) who explain how decompose such indices.
 
        \item \code{dbrda} is a new alternative function for
        distance-based Redundancy Analysis following McArdle & Anderson
@@ -21,41 +24,41 @@
        are handled differently. In \code{dbrda} the dissimilarities
        are decomposed directly into conditions, constraints and
        residuals with their negative eigenvalues, and any of the
-       components can have imaginary dimensions.
+       components can have imaginary dimensions. The function is based
+       on the code by Pierre Legendre.
 
-       \item The old \code{capscale} function the ordination is still
-       based only on real components, but the total inertia of the
-       components is assessed with imaginary component (associated
-       with negative eigenvalues). The significance statistics in
-       \code{anova} and \code{permutest} are identical to the new
-       \code{dbrda} and they differ from the results in previous
-       versions of \pkg{vegan}.
+       \item The old \code{capscale} function for constrained
+       ordination is still based only on real components, but the
+       total inertia of the components is assessed with imaginary
+       component (associated with negative eigenvalues) similarly as
+       in \code{dbrda}.
 
-       Function \code{oldCapscale} will cast the \code{capscale}
+       The significance tests will differ from the previous version,
+       but function \code{oldCapscale} will cast the \code{capscale}
        result to a form that gives results that are similar as
        previously.
 
-       \item \code{adonis2} is a new alternative function to
-       permutational anova of dissimilarities. It is based on the same
-       algorithms as the new \code{dbrda}. The function can perform
-       overall tests of all independent variables jointly as well as
-       sequential and marginal tests of each term. The previous
-       \code{adonis} is still available, but it can only perform
-       sequential tests.
+       \item \code{adonis2} is a new function for permutational ANOVA
+       of dissimilarities. It is based on the same algorithms as the
+       new \code{dbrda}. The function can perform overall tests of all
+       independent variables jointly as well as sequential and
+       marginal tests of each term. The previous \code{adonis} is
+       still available, but it can only perform sequential tests.
 
        \item Function \code{varpart} can partition dissimilarities
        using the same algorithm as \code{dbrda}.
 
-       \item Argument \code{sqrt.dist} makes function to take square
-       roots of dissimilarities to change many popular semimetric
-       indices to metric distances in \code{capscale}, \code{dbrda},
-       \code{adonis2}, \code{varpart} and \code{betadisper}
+       \item Argument \code{sqrt.dist} takes square roots of
+       dissimilarities to change many popular semimetric indices to
+       metric distances in \code{capscale}, \code{dbrda},
+       \code{wcmdscale}, \code{adonis2}, \code{varpart} and
+       \code{betadisper}
 
        \item Lingoes and Cailliez adjustments changes any
        dissimilarity into metric distance in \code{capscale},
        \code{dbrda}, \code{adonis2}, \code{varpart}, \code{betadisper}
-       and \code{wcmdscale}.  Earlier we had only in Cailliez
-       adjustment in \code{capscale}.
+       and \code{wcmdscale}.  Earlier we had only Cailliez adjustment
+       in \code{capscale}.
 
        \item \code{RsquareAdj} works with \code{capscale} and
        \code{dbrda} and this allows using \code{ordiR2step} in model
@@ -77,13 +80,13 @@
     \itemize{
 
       \item \code{ordibar} is a new function to draw crosses of
-      standard deviations, standard errors etc. in ordination
-      diagrams.
+      standard deviations, standard errors etc. in ordination diagrams
+      instead of corresponding ellipses.
 
       \item Several \code{permustats} results can be combined with a
       new \code{c} function.
 
-      \item New function \code{smbind} to bind together null models by
+      \item New function \code{smbind} binds together null models by
       row, column or iteration. If sequential models are bound
       together, they can be treated as parallel chains in
       subsequential analysis (e.g., after \code{as.mcmc}).
@@ -94,16 +97,18 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item New \code{"curveball"} algorithm provides a new fast null
+      \item Null model analysis was upgraded:
+
+      New \code{"curveball"} algorithm provides a new fast null
       model with fixed row and column sums for binary matrices after
-      Strona et al. (\emph{Nature Commun.} 5: 4114).
+      Strona et al. (\emph{Nature Commun.} 5: 4114; 2014).
 
       The \code{"quasiswap"} argument gained a new argument
       \code{thin} which can reduce the bias of null models.
 
       \code{"backtracking"} is now much faster, but it is still very
-      slow, and provided mainly for allowing comparison against better
-      and faster methods.
+      slow, and provided mainly to allow comparison against better and
+      faster methods.
 
       Compiled code can now be interrupted in null model simulations.
 
@@ -119,9 +124,9 @@
       in a local optimum.
 
       If there was no two convergent solution, \code{metaMDS} will now
-      give a tabulation of stopping criteria (if \code{trace =
-      TRUE}). This can help in deciding if any of the criteria should
-      be made more stringent or the number of iteration increased. The
+      give a tabulation of stopping criteria (if \code{trace = TRUE}).
+      This can help in deciding if any of the criteria should be made
+      more stringent or the number of iteration increased. The
       documentation for \code{monoMDS} and \code{metaMDS} gives more
       detailed information on convergence criteria.
 
@@ -154,9 +159,9 @@
       
       \item \code{ordicluster}, \code{ordisegments}, \code{ordispider}
       and \code{lines} and \code{plot} functions for \code{isomap} and
-      \code{spantree} can use a mixture of point colours of connected
-      points. Their behaviour is similar as for analogous function in
-      \pkg{vegan3d} package.
+      \code{spantree} can use a mixture of colours of connected
+      points. Their behaviour is similar as in analogous functions in
+      the \pkg{vegan3d} package.
 
       \item \code{plot} of \code{betadisper} is more configurable.
 
@@ -182,8 +187,8 @@
       \item Function \code{metaMDSrotate} was removed and replaced
       with \code{MDSrotate}.
 
-      \item Specific \code{density} and \code{densityplot} methods for
-      \pkg{vegan} objects were deprecated and replaced with
+      \item \code{density} and \code{densityplot} methods for
+      various \pkg{vegan} objects were deprecated and replaced with
       \code{density} and \code{densityplot} for \code{permustats}.
       Function \code{permustats} can extract the permutation and
       simulation results of \pkg{vegan} result objects.
