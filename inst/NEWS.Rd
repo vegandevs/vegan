@@ -81,7 +81,8 @@
     \itemize{
 
       \item \code{specaccum}: \code{plot} failed if line type
-      (\code{lty}) was given.
+      (\code{lty}) was given. Reported by Lila Nath Sharma (Univ
+      Bergen, Norway)
 
     } %itemize
   } %bug fixes
