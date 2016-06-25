@@ -6,7 +6,8 @@
 
 `tabasco` <-
     function (x, use, sp.ind = NULL, site.ind = NULL,  
-              select, Rowv = TRUE, Colv = TRUE, ...) 
+              select, Rowv = TRUE, Colv = TRUE, labRow = NULL,
+              labCol = NULL, ...)
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
@@ -152,10 +153,13 @@
         cind <- sort(sp.ind)
     ## we assume t() changes data.frame to a matrix
     x <- t(x[rind, cind])
-    sp.nam <- rownames(x)
-    sp.len <- max(nchar(sp.nam))
+    ## labels must be ordered if there is no dendrogram
+    if (!is.null(labRow))
+        labRow <- labRow[cind]
+    if (!is.null(labCol))
+        labCol <- labCol[rind]
     heatmap((max(x) - x), Rowv = sptree, Colv = pltree,
-             scale = "none", ...)
+             scale = "none", labRow = labRow, labCol = labCol, ...)
     out <- list(sites = site.ind, species = sp.ind)
     invisible(out)
 }
