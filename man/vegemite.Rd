@@ -17,7 +17,8 @@
 \usage{
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
-    Rowv = TRUE, Colv = TRUE, ...) 
+    Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
+    scale = c("none", "column", "row"), ...)
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
            maxabund)
 }
@@ -44,7 +45,18 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     weighted average (\code{\link{wascores}}) of the row order.
     Alternatively, the arguments can be vectors that are used to
     reorder the dendrogram. }
-  \item{scale}{Cover scale used (can be abbreviated).}
+
+  \item{labRow, labCol}{character vectors with row and column labels
+    used in the \code{\link{heatmap}} instead of the default. NB., the
+    input matrix is transposed so that row labels will be used for data
+    columns.}
+
+  \item{scale}{In \code{vegemite} and \code{coverscale}: cover scale
+    used (can be abbreviated). In \code{tabasco}: scaling of colours
+    in \code{\link{heatmap}}; if \code{"column"} or \code{"row"}, all
+    columns or rows are scaled to equal maximum colour (NB., these
+    refer to the transposed data of the \code{\link{heatmap}}). }
+
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
     Data maximum in the \code{select}ed subset will be used if this is
     missing.}

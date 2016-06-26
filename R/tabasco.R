@@ -5,12 +5,14 @@
 ### but only uses these for sites, and only if given as 'use'.
 
 `tabasco` <-
-    function (x, use, sp.ind = NULL, site.ind = NULL,  
-              select, Rowv = TRUE, Colv = TRUE, ...) 
+    function (x, use, sp.ind = NULL, site.ind = NULL,
+              select, Rowv = TRUE, Colv = TRUE, labRow = NULL,
+              labCol = NULL, scale = c("none", "column", "row"), ...)
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
     pltree <- sptree <- NA
+    scale <- match.arg(scale)
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind)) 
@@ -152,10 +154,17 @@
         cind <- sort(sp.ind)
     ## we assume t() changes data.frame to a matrix
     x <- t(x[rind, cind])
-    sp.nam <- rownames(x)
-    sp.len <- max(nchar(sp.nam))
+    ## labels must be ordered if there is no dendrogram
+    if (!is.null(labRow))
+        labRow <- labRow[cind]
+    if (!is.null(labCol))
+        labCol <- labCol[rind]
+    x <- switch(scale,
+                "none" = x,
+                "column" = decostand(x, "max", 2),
+                "row" = decostand(x, "max", 1))
     heatmap((max(x) - x), Rowv = sptree, Colv = pltree,
-             scale = "none", ...)
+             scale = "none", labRow = labRow, labCol = labCol, ...)
     out <- list(sites = site.ind, species = sp.ind)
     invisible(out)
 }
