@@ -89,6 +89,10 @@
         b[, choices <= rnk] <- x$CCA$biplot[, choices[choices <= rnk]]
         colnames(b) <- c(colnames(x$CCA$u), colnames(x$CA$u))[choices]
         rownames(b) <- rownames(x$CCA$biplot)
+        if (scaling) {
+            scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
+            b <- sweep(b, 2, scal, "*")
+        }
         sol$biplot <- b
     }
     if ("centroids" %in% take) {
