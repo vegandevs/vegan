@@ -24,7 +24,13 @@
     } else {
         env <- NULL
     }
-
+    ## plot polygon for all data plus superpose polygons for each panel
+    if ("polygon" %in% type) {
+        pol <- p[, all.vars(formula)[2:1]]
+        pol <- pol[chull(pol),]
+    } else {
+        pol <- NULL
+    }
     localXyplot(formula, data = p, panel = panel,  aspect = aspect,
-                biplot = env, type = type, ...)
+                biplot = env, polygon = pol, type = type, ...)
 }
