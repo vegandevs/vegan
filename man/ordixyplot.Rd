@@ -47,18 +47,25 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
   \item{envfit}{Result of \code{\link{envfit}} function displayed in
     \code{ordixyplot}. Please note that this needs same \code{choices}
     as \code{ordixyplot}.}
+
   \item{type}{The type of plot. This knows the same alternatives as
     \code{\link[lattice]{panel.xyplot}}. In addition \code{ordixyplot}
-    has alternatives \code{"biplot"} and \code{"arrows"}. The first
-    displays fitted vectors and 
-    factor centroids of \code{envfit}, or in constrained ordination, the
+    has alternatives \code{"biplot"}, \code{"arrows"} and
+    \code{"polygon"}. The first displays fitted vectors and factor
+    centroids of \code{envfit}, or in constrained ordination, the
     biplot arrows and factor centroids if \code{envfit} is not
     given. The second (\code{type = "arrows"}) is a trellis variant of
     \code{\link{ordiarrows}} and draws arrows by \code{groups}. The
     line parameters are controlled by
     \code{\link[lattice]{trellis.par.set}} for \code{superpose.line},
     and the user can set \code{length}, \code{angle} and \code{ends}
-    parameters of \code{\link[lattice]{panel.arrows}}.}
+    parameters of \code{\link[lattice]{panel.arrows}}.  The last one
+    (\code{type = "polygon"}) draws a polygon enclosing all points in
+    a panel over a polygon enclosing all points in the data. The
+    overall polygon is controlled by
+    \code{\link[lattice]{trellis.par.set}} for \code{plot.polygon},
+    and each panel polygon is controlled by \code{superpose.polygon}.}
+
   \item{\dots}{ Arguments passed to \code{\link{scores}} methods or
     \pkg{lattice} functions.}
 }
@@ -120,21 +127,21 @@ ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
   \code{\link[lattice]{panel.cloud}}
 }
 \examples{
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 ord <- cca(dune)
 ## Pairs plots
 ordisplom(ord)
 ordisplom(ord, data=dune.env, choices=1:2)
 ordisplom(ord, data=dune.env, form = ~ . | Management, groups=Manure)
-## Scatter plot
+## Scatter plot with polygons
 ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
-  groups=Manure)
+  groups=Manure, type = c("p","polygon"))
 ## Choose a different scaling
 ordixyplot(ord, scaling = "symmetric")
 ## ... Slices of third axis
-ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4), type = c("g","p"))
-## Display environemntal variables
+ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4),
+   type = c("g","p", "polygon"))
+## Display environmental variables
 ordixyplot(ord, envfit = envfit(ord ~ Management + A1, dune.env, choices=1:3))
 ## 3D Scatter plots
 ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
