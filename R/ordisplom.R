@@ -15,7 +15,7 @@
   else {
     formula <- as.formula(gsub("\\.", "x", deparse(formula)))
     pl <- localSplom(x = formula, data = data,  panel = panel, type = type,
-                     bitplot = env, ...)
+                     biplot = env, ...)
   }
   pl
 }
