@@ -4,7 +4,8 @@ function(x, y, biplot, polygon, type = type,  ...)
     tp <- trellis.par.get()
     sp <- tp$superpose.symbol
     ps <- tp$plot.symbol
-    if ("polygon" %in% type) {
+    ## ordixyplot passes polygon of all points, but ordisplom does not
+    if ("polygon" %in% type && !missing(polygon)) {
         ppar <- tp$plot.polygon
         lpolygon(polygon, col = ppar$col, border = ppar$border,
                  alpha = ppar$alpha, lty = ppar$lty, lwd = ppar$lwd, ...)
