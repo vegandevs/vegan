@@ -1,10 +1,20 @@
 panel.ordi <-
-function(x, y, biplot, type = type,  ...)
+function(x, y, biplot, polygon, type = type,  ...)
 {
-    panel.xyplot(x, y, type = type,  ...)
     tp <- trellis.par.get()
     sp <- tp$superpose.symbol
     ps <- tp$plot.symbol
+    ## ordixyplot passes polygon of all points, but ordisplom does not
+    if ("polygon" %in% type && !missing(polygon)) {
+        ppar <- tp$plot.polygon
+        lpolygon(polygon, col = ppar$col, border = ppar$border,
+                 alpha = ppar$alpha, lty = ppar$lty, lwd = ppar$lwd, ...)
+        inpol <- chull(x, y)
+        par <- tp$superpose.polygon
+        lpolygon(x[inpol], y[inpol], col = par$col, border = par$border,
+                 alpha = par$alpha, lty = par$lty, lwd = par$lwd, ...)
+    }
+    panel.xyplot(x, y, type = type,  ...)
     if ("biplot" %in% type && !is.null(biplot$arrows)) {
         panel.arrows(0, 0, biplot$arrows[,2], biplot$arrows[,1],
                      col=sp$col, ...)
