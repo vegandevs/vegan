@@ -125,15 +125,15 @@ nestedbetajac(comm)
 
   Functions \code{nestedbetasor} and \code{nestedbetajac} find
   multiple-site dissimilarities and decompose these into components of
-  turnover and nestedness following Baselga (2010). This can be seen
+  turnover and nestedness following Baselga (2012). This can be seen
   as a decomposition of beta diversity (see \code{\link{betadiver}}).
   Function \code{nestedbetasor} uses \enc{Sørensen}{Sorensen}
   dissimilarity and the turnover component is Simpson dissimilarity
-  (Baselga 2010), and \code{nestedbetajac} uses analogous methods with
+  (Baselga 2012), and \code{nestedbetajac} uses analogous methods with
   the Jaccard index. The functions return a vector of three items:
   turnover, nestedness and their sum which is the multiple
   \enc{Sørensen}{Sorensen} or Jaccard dissimilarity. The last one is
-  the total beta diversity (Baselga 2010). The functions will treat
+  the total beta diversity (Baselga 2012). The functions will treat
   data as presence/absence (binary) and they can be used with binary
   \code{\link{nullmodel}}). The overall dissimilarity is constant in
   all \code{\link{nullmodel}}s that fix species (column) frequencies
@@ -165,9 +165,9 @@ nestedbetajac(comm)
   disorder in the distribution of species in fragmented
   habitat. \emph{Oecologia} 96, 373--382.
 
-  Baselga, A. (2010). Partitioning the turnover and nestedness
-  components of beta diversity. \emph{Global Ecol. Biogeog.} 19,
-  134--143.
+  Baselga, A. (2012). The relationship between species replacement,
+  dissimilarity derived from nestedness, and nestedness. \emph{Global
+  Ecol. Biogeog.} 21, 1223--1232.
 
   Brualdi, R.A. & Sanderson, J.G. (1999). Nested species subsets, gaps,
   and discrepancy. \emph{Oecologia} 119, 256--264.
