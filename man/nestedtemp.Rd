@@ -125,21 +125,22 @@ nestedbetajac(comm)
 
   Functions \code{nestedbetasor} and \code{nestedbetajac} find
   multiple-site dissimilarities and decompose these into components of
-  turnover and nestedness following Baselga (2012). This can be seen
-  as a decomposition of beta diversity (see \code{\link{betadiver}}).
-  Function \code{nestedbetasor} uses \enc{Sørensen}{Sorensen}
-  dissimilarity and the turnover component is Simpson dissimilarity
-  (Baselga 2012), and \code{nestedbetajac} uses analogous methods with
-  the Jaccard index. The functions return a vector of three items:
-  turnover, nestedness and their sum which is the multiple
-  \enc{Sørensen}{Sorensen} or Jaccard dissimilarity. The last one is
-  the total beta diversity (Baselga 2012). The functions will treat
-  data as presence/absence (binary) and they can be used with binary
-  \code{\link{nullmodel}}). The overall dissimilarity is constant in
-  all \code{\link{nullmodel}}s that fix species (column) frequencies
-  (\code{"c0"}), and all components are constant if row columns are
-  also fixed (e.g., model \code{"quasiswap"}), and the functions are
-  not meaningful with these null models.
+  turnover and nestedness following Baselga (2012); the pairwise
+  dissimilarities can be found with \code{\link{designdist}}. This can
+  be seen as a decomposition of beta diversity (see
+  \code{\link{betadiver}}).  Function \code{nestedbetasor} uses
+  \enc{Sørensen}{Sorensen} dissimilarity and the turnover component is
+  Simpson dissimilarity (Baselga 2012), and \code{nestedbetajac} uses
+  analogous methods with the Jaccard index. The functions return a
+  vector of three items: turnover, nestedness and their sum which is
+  the multiple \enc{Sørensen}{Sorensen} or Jaccard dissimilarity. The
+  last one is the total beta diversity (Baselga 2012). The functions
+  will treat data as presence/absence (binary) and they can be used
+  with binary \code{\link{nullmodel}}). The overall dissimilarity is
+  constant in all \code{\link{nullmodel}}s that fix species (column)
+  frequencies (\code{"c0"}), and all components are constant if row
+  columns are also fixed (e.g., model \code{"quasiswap"}), and the
+  functions are not meaningful with these null models.
 
 }
 
