@@ -1,5 +1,5 @@
 
-R version 3.3.0 Patched (2016-05-12 r70603) -- "Supposedly Educational"
+R Under development (unstable) (2016-08-02 r71022) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.4-0
+This is vegan 2.5-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -5585,21 +5585,21 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > ord <- cca(dune)
 > ## Pairs plots
 > ordisplom(ord)
 > ordisplom(ord, data=dune.env, choices=1:2)
 > ordisplom(ord, data=dune.env, form = ~ . | Management, groups=Manure)
-> ## Scatter plot
+> ## Scatter plot with polygons
 > ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
-+   groups=Manure)
++   groups=Manure, type = c("p","polygon"))
 > ## Choose a different scaling
 > ordixyplot(ord, scaling = "symmetric")
 > ## ... Slices of third axis
-> ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4), type = c("g","p"))
-> ## Display environemntal variables
+> ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4),
++    type = c("g","p", "polygon"))
+> ## Display environmental variables
 > ordixyplot(ord, envfit = envfit(ord ~ Management + A1, dune.env, choices=1:3))
 > ## 3D Scatter plots
 > ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
@@ -8884,7 +8884,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  129.459 0.488 130.001 0 0 
+Time elapsed:  24.036 0.068 24.13 0 0 
 > grDevices::dev.off()
 null device 
           1 
