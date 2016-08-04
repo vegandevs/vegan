@@ -8,7 +8,7 @@
         total <- apply(x, MARGIN, sum)
         x <- sweep(x, MARGIN, total, "/")
     } else {
-        x <- x/sum(x)
+        x <- x/(total <- sum(x))
     }
     if (index == "shannon")
         x <- -x * log(x, base)
@@ -22,5 +22,8 @@
         H <- 1 - H
     else if (index == "invsimpson") 
         H <- 1/H
+    ## check NA in data
+    if (any(is.na(total)))
+        is.na(H) <- is.na(total)
     H
 }
