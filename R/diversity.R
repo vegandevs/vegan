@@ -2,6 +2,8 @@
   function (x, index = "shannon", MARGIN = 1, base = exp(1)) 
 {
     x <- drop(as.matrix(x))
+    if (any(x < 0, na.rm = TRUE))
+        stop("input data must be non-negative")
     INDICES <- c("shannon", "simpson", "invsimpson")
     index <- match.arg(index, INDICES)
     if (length(dim(x)) > 1) {
