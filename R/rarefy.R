@@ -33,7 +33,9 @@
             Jxx <- Jxx[ind]
             V <- V + 2 * sum(ifelse(Jxx < sample, 0, exp(lchoose(Jxx, 
                                                                  sample) - ldiv)) - outer(p1, p1)[ind])
-            out <- cbind(out, sqrt(V))
+            ## V is >= 0, but numerical zero can be negative (e.g,
+            ## -1e-16), and we avoid taking its square root
+            out <- cbind(out, sqrt(max(V, 0)))
         }
         out
     }
