@@ -33,8 +33,12 @@
         else
             pCCA <- diag(crossprod(pCCA))/nr
     }
-    CA <- t(apply(diag(w) %*% CA^2 %*% diag(eig), 1,
-                  cumsum))
+    CA <- t(apply(
+        diag(w, length(w)) %*% CA^2 %*% diag(eig, length(eig)),
+        1, cumsum))
+    ## rank=1 solutions comes out transposed: back transpose
+    if (length(eig) == 1)
+        CA <- t(CA)
     totals <- inertcomp(object, display = display)
     comps <- colnames(totals)
     if (statistic == "explained") {
