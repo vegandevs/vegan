@@ -2,6 +2,8 @@
 \alias{monoMDS}
 \alias{scores.monoMDS}
 \alias{plot.monoMDS}
+\alias{points.monoMDS}
+\alias{text.monoMDS}
 
 \title{ Global and Local Non-metric Multidimensional Scaling and
   Linear and Hybrid Scaling }
@@ -20,6 +22,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
     sratmax=0.99999, ...) 
 \method{scores}{monoMDS}(x, choices = NA, ...)
 \method{plot}{monoMDS}(x, choices = c(1,2), type = "t", ...)
+\method{points}{monoMDS}(x, choices = c(1,2), select, ...)
+\method{text}{monoMDS}(x, labels, choices = c(1,2), select, ...)
 }
 
 \arguments{
@@ -66,6 +70,12 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 
   \item{type}{The type of the plot: \code{"t"} for text, \code{"p"}
     for points, and \code{"n"} for none.}
+
+  \item{select}{Items to be displayed.  This can either be a logical
+          vector which is \code{TRUE} for displayed items or a vector of
+          indices of displayed items.}
+
+  \item{labels}{Labels to be use used instead of row names.}
 
   \item{\dots}{Other parameters to the functions (ignored in
     \code{monoMDS}, passed to graphical functions in \code{plot}.).}
