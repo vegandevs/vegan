@@ -56,3 +56,25 @@
     ordiplot(x, display = "sites", choices = choices, type = type, ...)
 }
 
+`points.monoMDS` <-
+    function(x, choices = c(1,2), select, ...)
+{
+    x <- scores(x, choices = choices)
+    if (!missing(select))
+        x <- .checkSelect(select, x)
+    points(x, ...)
+    invisible()
+}
+
+`text.monoMDS` <-
+    function(x, labels, choices = c(1,2), select, ...)
+{
+    x <- scores(x, choices = choices)
+    if (!missing(labels))
+        rownames(x) <- labels
+    if (!missing(select))
+        x <- .checkSelect(select, x)
+    text(x, labels = rownames(x), ...)
+    invisible()
+}
+
