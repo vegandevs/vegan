@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-02 r71022) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-08-15 r71100) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -4112,7 +4112,8 @@ Species: expanded scores based on ‘dune’
 > ### Name: monoMDS
 > ### Title: Global and Local Non-metric Multidimensional Scaling and Linear
 > ###   and Hybrid Scaling
-> ### Aliases: monoMDS scores.monoMDS plot.monoMDS
+> ### Aliases: monoMDS scores.monoMDS plot.monoMDS points.monoMDS
+> ###   text.monoMDS
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8884,7 +8885,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.036 0.068 24.13 0 0 
+Time elapsed:  22.772 0.128 22.901 0 0 
 > grDevices::dev.off()
 null device 
           1 
