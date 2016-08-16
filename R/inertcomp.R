@@ -40,9 +40,11 @@
             pCCA <- diag(crossprod(pCCA))/nr
     }
     if (!is.null(CCA))
-        CCA <- rowSums(diag(w) %*% CCA^2 %*% diag(object$CCA$eig))
+        CCA <- rowSums(diag(w, length(w)) %*% CCA^2 %*%
+                           diag(object$CCA$eig, length(object$CCA$eig)))
     if (!is.null(CA))
-        CA <- rowSums(diag(w) %*% CA^2 %*% diag(object$CA$eig))
+        CA <- rowSums(diag(w, length(w)) %*% CA^2 %*%
+                          diag(object$CA$eig, length(object$CA$eig)))
     out <- cbind(pCCA, CCA, CA)
     if (statistic == "distance" && !proportional) {
         w <- weights(object, display = display)
