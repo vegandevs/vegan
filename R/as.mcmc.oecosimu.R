@@ -5,13 +5,12 @@
     if (!x$oecosimu$isSeq)
         stop("as.mcmc available only for sequential null models")
     ## named variables
-    varnames <- names(x$oecosimu$z)
-    x <- x$oecosimu$simulated
-    rownames(x) <- varnames
-    chains <- attr(x, "chains")
+    rownames(x$oecosimu$simulated) <- names(x$oecosimu$z)
+    chains <- attr(x$oecosimu$simulated, "chains")
     ## chains: will make each chain as an mcmc object and combine
     ## these to an mcmc.list
     if (!is.null(chains) && chains > 1) {
+        x <- x$oecosimu$simulated
         nsim <- dim(x)[2]
         niter <- nsim / chains
         ## iterate over chains
