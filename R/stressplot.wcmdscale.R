@@ -53,7 +53,7 @@
     ## normalizing constant
     nr <- NROW(u)
     const <- sqrt(ev * (nr-1))
-    u <- u %*% diag(const)
+    u <- u %*% diag(const, length(const))
     ## Distances
     Xbar <- u %*% t(v)
     Xbark <- u[, seq_len(k), drop = FALSE] %*% t(v[, seq_len(k), drop = FALSE])
@@ -83,7 +83,7 @@
     u <- cbind(object$CCA$u, object$CA$u)
     sev <- sqrt(c(object$CCA$eig, object$CA$eig))
     w <- sqrt(object$rowsum)
-    u <- diag(w) %*% u %*% diag(sev)
+    u <- diag(w) %*% u %*% diag(sev, length(sev))
     v <- cbind(object$CCA$v, object$CA$v)
     v <- diag(sqrt(object$colsum)) %*% v
     ## Distances
@@ -121,7 +121,7 @@
         const <- sqrt(NROW(u) - 1)
     else
         const <- 1
-    u <- u %*% diag(sqrt(ev) * const)
+    u <- u %*% diag(sqrt(ev) * const, length(ev))
     ## Constrained ordination needs also scores 'v' to reconstruct
     ## 'data', but these are not returned by capscale() which replaces
     ## original 'v' with weighted sums of 'comm' data.
