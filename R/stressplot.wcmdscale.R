@@ -50,6 +50,11 @@
     u <- cbind(object$CCA$u, object$CA$u)
     v <- cbind(object$CCA$v, object$CA$v)
     ev <- c(object$CCA$eig, object$CA$eig)
+    ## check that k does not exceed rank
+    if (k > length(ev)) {
+        warning(gettextf("max allowed rank is k = %d", length(ev)))
+        k <- min(k, length(ev))
+    }
     ## normalizing constant
     nr <- NROW(u)
     const <- sqrt(ev * (nr-1))
@@ -86,6 +91,11 @@
     u <- diag(w) %*% u %*% diag(sev, length(sev))
     v <- cbind(object$CCA$v, object$CA$v)
     v <- diag(sqrt(object$colsum)) %*% v
+    ## check that k <= rank
+    if (k > length(sev)) {
+        warning(gettextf("max allowed rank is k = %d", length(sev)))
+        k <- min(k, length(sev))
+    }
     ## Distances
     Xbar <- u %*% t(v)
     Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
