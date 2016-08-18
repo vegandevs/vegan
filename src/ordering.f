@@ -75,7 +75,7 @@ C
       niter=1000
 C      Step 2: Take the column order as arbitrary initial site scores
       do 4 i=1,n
-    4 rowscore(i)=dfloat(i)
+    4 rowscore(i)=dble(i)
       oldS=0.
 C      Iterations starting
       do 20 it=1,niter
