@@ -25,10 +25,10 @@ C
 
       subroutine cephead(cepfile, kind, nitem, nst, fmt)
 
-      character*255 cepfile, fmt
+      character (len=255) cepfile, fmt
       integer kind, nitem, nst
 
-      character*80 title
+      character (len=80) title
       integer ni, nbrac
 
       ni=0
@@ -74,7 +74,7 @@ c
       subroutine cepopen(fmt, nitem, maxdat, nsp, nst, idplot, idspec, 
      X abund, work, ier)
 
-      character*255 fmt
+      character (len=255) fmt
       integer nitem, nsp, nst
       integer idplot(maxdat), idspec(maxdat)
       double precision abund(maxdat)
@@ -119,7 +119,7 @@ C
       subroutine cepcond(fmt, nitem, maxdat, nsp, nst, idplot, idspec, 
      X abund, work, item, ier)
 
-      character*255 fmt
+      character (len=255) fmt
       integer nitem, nsp, nst
       integer idplot(maxdat), idspec(maxdat)
       double precision abund(maxdat)
@@ -208,7 +208,7 @@ c     handled line by line.
 c
 
       subroutine cepnames(entname)
-      character*255 entname
+      character (len=255) entname
       read (1,1100, end=666) entname  
  1100 format (a80)
  666  continue
