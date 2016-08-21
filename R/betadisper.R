@@ -67,10 +67,10 @@
         type <- "median"
     type <- match.arg(type)
     ## checks for groups - need to be a factor for later
-    if(!is.factor(group)) {
-        group <- as.factor(group)
+    group <- if(!is.factor(group)) {
+        as.factor(group)
     } else { ## if already a factor, drop empty levels
-        group <- droplevels(group)
+        droplevels(group, exclude = NA) # need exclude = NA under Rdevel r71113
     }
     n <- attr(d, "Size")
     x <- matrix(0, ncol = n, nrow = n)
