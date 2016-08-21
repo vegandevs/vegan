@@ -1,6 +1,6 @@
 `envfit.default` <-
-    function (ord, env, permutations = 999, strata = NULL, choices = c(1, 2), 
-             display = "sites", w = weights(ord), na.rm = FALSE, ...) 
+    function (ord, env, permutations = 999, strata = NULL, choices = c(1, 2),
+             display = "sites", w = weights(ord), na.rm = FALSE, ...)
 {
     weights.default <- function(object, ...) NULL
     w < eval(w)
@@ -13,7 +13,8 @@
         if (!na.rm)
             stop("missing values in data: consider na.rm = TRUE")
         X <- X[keep,, drop=FALSE]
-        env <- droplevels(env[keep,, drop=FALSE]) ## drop any lost levels
+        ## drop any lost levels, explicitly don't include NA as a level
+        env <- droplevels(env[keep,, drop=FALSE], exclude = NA)
         na.action <- structure(seq_along(keep)[!keep], class="omit")
     }
     ## make permutation matrix for all variables handled in the next loop
@@ -29,14 +30,14 @@
             Pfac <- env[, !vects, drop = FALSE]
             P <- env[, vects, drop = FALSE]
             if (length(P)) { # also have vectors
-                vectors <- vectorfit(X, P, permutations, strata, 
+                vectors <- vectorfit(X, P, permutations, strata,
                                      choices, w = w, ...)
             }
             factors <- factorfit(X, Pfac, permutations, strata,
                                          choices, w = w, ...)
             sol <- list(vector = vectors, factors = factors)
             }
-        else vectors <- vectorfit(X, env, permutations, strata, 
+        else vectors <- vectorfit(X, env, permutations, strata,
                                   choices, w = w, ...)
     }
     else vectors <- vectorfit(X, env, permutations, strata,
