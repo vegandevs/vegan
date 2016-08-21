@@ -5,12 +5,14 @@
     if (!any(facts))
         return(NULL)
     mf <- mf[, facts, drop = FALSE]
-    mf <- droplevels(mf)
-    if (missing(wt)) 
+    ## Explicitly exclude NA as a level
+    mf <- droplevels(mf, exclude = NA)
+    if (missing(wt))
         wt <- rep(1, nrow(mf))
     ind <- seq_len(nrow(mf))
     workhorse <- function(x, wt)
         colSums(x * wt) / sum(wt)
+    ## As NA not a level, centroids only for non-NA levels of each factor
     tmp <- lapply(mf, function(fct)
                   tapply(ind, fct, function(i) workhorse(x[i,, drop=FALSE], wt[i])))
     tmp <- lapply(tmp, function(z) sapply(z, rbind))
@@ -23,7 +25,7 @@
         out <- matrix(unlist(tmp), nrow=1, dimnames = list(NULL, nm))
     } else {
         for (i in seq_along(tmp)) {
-            colnames(tmp[[i]]) <- paste(pnam[i], colnames(tmp[[i]]), 
+            colnames(tmp[[i]]) <- paste(pnam[i], colnames(tmp[[i]]),
                                         sep = "")
             out <- cbind(out, tmp[[i]])
         }
