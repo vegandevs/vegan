@@ -313,7 +313,7 @@ group <- factor(rep("grazed", NROW(varespec)))
 ## using spatial medians
 groups[c(2,20)] <- NA
 dis[c(2, 20)] <- NA
-mod2 <- betadisper(dis, groups) ## warnings
+mod2 <- betadisper(dis, groups) ## messages
 mod2
 permutest(mod2, permutations = 99)
 anova(mod2)

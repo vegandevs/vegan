@@ -85,7 +85,7 @@
         n <- n - sum(gr.na)
         ## update labels
         labs <- labs[!gr.na]
-        warning("missing observations due to 'group' removed")
+        message("Missing observations due to 'group' removed")
     }
     ## remove NA's in d
     if(any(x.na <- apply(x, 1, function(x) any(is.na(x))))) {
@@ -95,7 +95,7 @@
         n <- n - sum(x.na)
         ## update labels
         labs <- labs[!x.na]
-        warning("missing observations due to 'd' removed")
+        message("Missing observations due to 'd' removed")
     }
     x <- x + t(x)
     x <- dblcen(x)
