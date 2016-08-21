@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-15 r71100) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-08-20 r71124) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1311,11 +1311,9 @@ Eigenvalues for PCoA axes:
 > ## using spatial medians
 > groups[c(2,20)] <- NA
 > dis[c(2, 20)] <- NA
-> mod2 <- betadisper(dis, groups) ## warnings
-Warning in betadisper(dis, groups) :
-  missing observations due to 'group' removed
-Warning in betadisper(dis, groups) :
-  missing observations due to 'd' removed
+> mod2 <- betadisper(dis, groups) ## messages
+Missing observations due to 'group' removed
+Missing observations due to 'd' removed
 > mod2
 
 	Homogeneity of multivariate dispersions
@@ -1355,10 +1353,8 @@ Residuals 18 0.296910 0.016495
 > 
 > ## Using group centroids
 > mod3 <- betadisper(dis, groups, type = "centroid")
-Warning in betadisper(dis, groups, type = "centroid") :
-  missing observations due to 'group' removed
-Warning in betadisper(dis, groups, type = "centroid") :
-  missing observations due to 'd' removed
+Missing observations due to 'group' removed
+Missing observations due to 'd' removed
 > mod3
 
 	Homogeneity of multivariate dispersions
@@ -5433,7 +5429,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-12. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-13. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -8885,7 +8881,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.772 0.128 22.901 0 0 
+Time elapsed:  243.579 0.521 244.14 0 0 
 > grDevices::dev.off()
 null device 
           1 
