@@ -16,7 +16,7 @@
     pCCA <- object$pCCA$Fit
     CA <- object[[model]][[what]]
     if (is.null(CA))
-        stop(gettextf("model =  '%s' does not exist", model))
+        stop(gettextf("model = '%s' does not exist", model))
     eig <- object[[model]]$eig
     if (!inherits(object, "dbrda"))
         eig <- eig[eig > 0]
