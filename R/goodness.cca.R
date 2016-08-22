@@ -16,7 +16,8 @@
     pCCA <- object$pCCA$Fit
     CA <- object[[model]][[what]]
     eig <- object[[model]]$eig
-    eig <- eig[eig > 0]
+    if (!inherits(object, "dbrda"))
+        eig <- eig[eig > 0]
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda"))
         CA <- cbind(CA, object[[model]][["imaginary.u"]])
