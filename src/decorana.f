@@ -178,8 +178,8 @@ c (subroutine strtch).
       double precision qidat(nid)
       integer ibegin(mi),iend(mi),idat(nid),ix1(mi),ix2(mi),ix3(mi)
 c strings to print R warnings
-      character*64 warning
-      character*2 axnam
+      character (len=64) warning
+      character (len=2) axnam
       tot=0.0
       do 10 j=1,n
       tot=tot+adotj(j)
