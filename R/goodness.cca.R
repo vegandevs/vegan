@@ -20,6 +20,12 @@
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda"))
         CA <- cbind(CA, object[[model]][["imaginary.u"]])
+    ## take only chosen axes within the component
+    if (!missing(choices)) {
+        choices <- choices[choices <= ncol(CA)]
+        CA <- CA[, choices, drop = FALSE]
+        eig <- eig[choices]
+    }
     att <- attributes(CA)
     if (inherits(object, "rda"))
         nr <- nobs(object) - 1
