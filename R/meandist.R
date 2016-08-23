@@ -20,8 +20,10 @@
     take <- matrix(TRUE, nlevels(grouping), nlevels(grouping))
     diag(take) <- n > 1
     take[upper.tri(take)] <- FALSE
+    out <- matrix(NA, nlevels(grouping), nlevels(grouping))
     ## Get output matrix
-    out <- tapply(dist, list(cl1, cl2), mean)
+    tmp <- tapply(dist, list(cl1, cl2), mean)
+    out[take] <- tmp[!is.na(tmp)]
     out[upper.tri(out)] <- t(out)[upper.tri(out)]
     rownames(out) <- colnames(out) <- levels(grouping)
     class(out) <- c("meandist", "matrix")

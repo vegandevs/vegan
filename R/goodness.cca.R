@@ -15,8 +15,11 @@
     w <- weights(object, display = display)
     pCCA <- object$pCCA$Fit
     CA <- object[[model]][[what]]
+    if (is.null(CA))
+        stop(gettextf("model = '%s' does not exist", model))
     eig <- object[[model]]$eig
-    eig <- eig[eig > 0]
+    if (!inherits(object, "dbrda"))
+        eig <- eig[eig > 0]
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda"))
         CA <- cbind(CA, object[[model]][["imaginary.u"]])
