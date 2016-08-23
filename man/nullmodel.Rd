@@ -21,10 +21,9 @@ object without sampling (effective for sequential algorithms).
 \usage{
 nullmodel(x, method)
 \method{print}{nullmodel}(x, ...)
-\method{simulate}{nullmodel}(object, nsim = 1,
-seed = NULL, burnin = 0, thin = 1, ...)
-\method{update}{nullmodel}(object, nsim = 1,
-seed = NULL, ...)
+\method{simulate}{nullmodel}(object, nsim = 1, seed = NULL,
+    burnin = 0, thin = 1, ...)
+\method{update}{nullmodel}(object, nsim = 1, seed = NULL, ...)
 \method{print}{simmat}(x, ...)
 smbind(object, ..., MARGIN, strict = TRUE)
 }
