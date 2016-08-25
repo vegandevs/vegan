@@ -115,19 +115,12 @@
                                      maxit = maxit, tol = 1e-07, trace = isotrace)))
             }
         } else {
-            stry <- tryCatch(list(switch(engine,
-                                  "monoMDS" = monoMDS(dist, init[,,1], k = k,
-                                     maxit = maxit, ...),
-                                  "isoMDS" = isoMDS(dist, init[,,1], k = k,
-                                     maxit = maxit, tol = 1e-07, trace = isotrace))),
-                             interrupt =
-                                 function(arg) {cat("\n... interrupted ...\n"); arg})
+            stry <- list(switch(engine,
+                                "monoMDS" = monoMDS(dist, init[,,1], k = k,
+                                maxit = maxit, ...),
+                                "isoMDS" = isoMDS(dist, init[,,1], k = k,
+                                maxit = maxit, tol = 1e-07, trace = isotrace)))
         }
-        ## try to rescue the best result in case function was
-        ## interrupted during MDS iteration (will be lost if
-        ## interrupted at other stages).
-        if (inherits(stry, "interrupt"))
-            break
         ## analyse results of 'nclus' tries
         for (i in 1:nclus) {
             tries <- tries + 1
