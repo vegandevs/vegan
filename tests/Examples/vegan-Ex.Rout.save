@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-20 r71124) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-08-25 r71145) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -4820,6 +4820,54 @@ statistic   0.64565 2.7402 0.63542 0.62941 0.63519 0.6433     0.03 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
+> ## Use pre-built null model
+> nm <- simulate(nullmodel(sipoo, "curveball"), 99)
+> oecosimu(nm, nestedchecker)
+oecosimu object
+
+Call: oecosimu(comm = nm, nestfun = nestedchecker)
+
+nullmodel method ‘curveball’ with 99 simulations
+options:  thin 1, burnin 0
+alternative hypothesis: statistic is less or greater than simulated values
+
+Checkerboard Units    : 2767 
+C-score (species mean): 2.258776 
+
+              statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
+checkerboards      2767 0.74222 2721.3 2621.1 2707.0  2881     0.35
+> ## Several chains of a sequential model -- this can be generalized
+> ## for parallel processing (see ?smbind)
+> nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
++    thin=10, burnin=100), simplify = FALSE)
+> ## nm is now a list of nullmodels: use smbind to combine these into one
+> ## nullmodel with several chains
+> nm <- smbind(nm, MARGIN = 3)
+> nm
+An object of class “simmat” 
+‘swap’ method (binary, sequential)
+18 x 50 matrix
+Number of permuted matrices = 495 
+Start = 110, End = 1090, Thin = 10 (5 chains)
+
+> oecosimu(nm, nestedchecker)
+oecosimu object
+
+Call: oecosimu(comm = nm, nestfun = nestedchecker)
+
+nullmodel method ‘swap’ with 495 simulations
+options:  thin 10, burnin 100, chains 5
+alternative hypothesis: statistic is less or greater than simulated values
+
+Checkerboard Units    : 2767 
+C-score (species mean): 2.258776 
+
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 0.54699 2715.2 2575.7 2698.0 2963.2   0.5141
+> ## After this you can use as.mcmc() and tools in the coda package to
+> ## analyse the chains (these will show that thin, burnin and nsimul are
+> ## all too low for real analysis).
+> 
 > 
 > 
 > cleanEx()
@@ -5429,7 +5477,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-13. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-14. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -8881,7 +8929,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  243.579 0.521 244.14 0 0 
+Time elapsed:  24.324 0.12 24.502 0 0 
 > grDevices::dev.off()
 null device 
           1 
