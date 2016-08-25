@@ -173,12 +173,11 @@
     if (!missing(previous.best) && inherits(previous.best, "metaMDS")) {
         tries <- tries + previous.best$tries
     }
-    out <- s0
-    out$ndim = k
-    out$data <- attr(dist, "commname")
-    out$distance <- attr(dist, "method")
-    out$converged <- converged
-    out$tries <- tries
-    out$engine <- engine
-    out
+    s0$ndim = k
+    s0$data <- attr(dist, "commname")
+    s0$distance <- attr(dist, "method")
+    s0$converged <- converged
+    s0$tries <- tries
+    s0$engine <- engine
+    s0
 }
