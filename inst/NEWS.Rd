@@ -2,6 +2,54 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-1}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Several support functions for ordination methods failed if
+      the solution had only one ordination axis, for instance, if
+      there was only one constraining variable in CCA, RDA and
+      friends. This concerned \code{goodness} for constrained
+      ordination , \code{inertcomp}, \code{fitted} for
+      \code{capscale}, \code{stressplot} for RDA, CCA.
+
+      \item{goodness} for CCA & friends ignored \code{choices}
+      argument.
+
+      \item \code{goodness} function did not consider negative
+      eigenvalues of db-RDA (function \code{dbrda}).
+
+      \item Function \code{meandist} failed in some case when one of
+      the groups had only one element.
+
+      \item Nestedness measures \code{nestedbetajac} and
+      \code{nestedbetasor} expecting binary data did not cope with
+      quantitative input in evaluating Baselga's matrix-wide Jaccard
+      or Sørensen dissimilarity indices.
+
+      \item Function \code{as.mcmc} to cast \code{oecosimu} result to
+      a MCMC object failed if there was only one chain.
+
+    } % itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{diversity} function returns now \code{NA} if the
+      observation had \code{NA} values instead of returning
+      \code{0}. The function also checks that input and refuses to
+      handle data with negative values.
+
+      \item \code{rarefy} function will work more robustly in marginal
+      case when the user ask for only one individual which is
+      guaranteed to have exactly one species and zero variance.
+
+    } % itemize
+  } % new features
+
+} % 2.4-1
+
 \section{Changes in version 2.4-0}{
   \subsection{DISTANCE-BASED ANALYSIS}{
      \itemize{
