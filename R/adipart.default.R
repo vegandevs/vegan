@@ -10,7 +10,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
             leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
-    rhs[] <- lapply(rhs, droplevels)
+    rhs[] <- lapply(rhs, droplevels, exclude = NA)
     nlevs <- ncol(rhs)
     if (nlevs < 2)
         stop("provide at least two level hierarchy")

@@ -10,7 +10,7 @@ function(y, x, FUN, location = c("mean", "median"),
             leve_2=rep(1, nrow(lhs)))
     rhs <- data.frame(x)
     rhs[] <- lapply(rhs, as.factor)
-    rhs[] <- lapply(rhs, droplevels)
+    rhs[] <- lapply(rhs, droplevels, exclude = NA)
     nlevs <- ncol(rhs)
     if (is.null(colnames(rhs)))
         colnames(rhs) <- paste("level", 1:nlevs, sep="_")
