@@ -11,10 +11,12 @@
       there was only one constraining variable in CCA, RDA and
       friends. This concerned \code{goodness} for constrained
       ordination , \code{inertcomp}, \code{fitted} for
-      \code{capscale}, \code{stressplot} for RDA, CCA.
+      \code{capscale}, \code{stressplot} for RDA, CCA.  GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/189}{#189}
 
       \item{goodness} for CCA & friends ignored \code{choices}
-      argument.
+      argument (GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/190}{#190}).
 
       \item \code{goodness} function did not consider negative
       eigenvalues of db-RDA (function \code{dbrda}).
@@ -39,11 +41,12 @@
       \item \code{diversity} function returns now \code{NA} if the
       observation had \code{NA} values instead of returning
       \code{0}. The function also checks that input and refuses to
-      handle data with negative values.
+      handle data with negative values.  GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/187}{#187}
 
       \item \code{rarefy} function will work more robustly in marginal
-      case when the user ask for only one individual which is
-      guaranteed to have exactly one species and zero variance.
+      case when the user ask for only one individual which can only
+      hanve one species and zero variance.
 
     } % itemize
   } % new features
