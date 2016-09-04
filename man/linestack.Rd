@@ -9,7 +9,7 @@
 }
 \usage{
 linestack(x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
-          at = 0, add = FALSE, axis = FALSE, ...)
+          at = 0, add = FALSE, axis = FALSE, font = 1, ...)
 }
 
 \arguments{
@@ -26,6 +26,12 @@ linestack(x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
   \item{at}{Position of plot in horizontal axis. }
   \item{add}{Add to an existing plot. }
   \item{axis}{Add axis to the plot. }
+  \item{font}{An integer which specifies which font to use for text. See
+    \code{\link{par}} for details. Note: if \code{add} is \code{FALSE},
+    the default, then only the first element of \code{font} will be
+    passed to \code{plot} when setting up the plot window. Otherwise an
+    integer vector may be supplied and is passed to \code{\link{text}}
+    when drawing the sample and variable labels on the plot.}
   \item{\dots}{Other graphical parameters to labels.}
 }
 \value{
@@ -43,6 +49,11 @@ linestack(x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
 data(dune)
 ord <- decorana(dune)
 linestack(scores(ord, choices=1, display="sp"))
+linestack(scores(ord, choices=1, display="si"), side="left", add=TRUE)
+title(main="DCA axis 1")
+
+## Italics for species names
+linestack(scores(ord, choices=1, display="sp"), font = 3)
 linestack(scores(ord, choices=1, display="si"), side="left", add=TRUE)
 title(main="DCA axis 1")
 

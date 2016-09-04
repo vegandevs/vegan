@@ -1,6 +1,6 @@
 "linestack" <-
     function (x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
-              at = 0, add = FALSE, axis = FALSE, ...)
+              at = 0, add = FALSE, axis = FALSE, font = 1, ...)
 {
     if (length(at) > 1 || length(hoff) > 1 || length(air) > 1 || length(cex) > 1)
         stop("only one value accepted for arguments 'cex', 'hoff', 'air' and 'at'")
@@ -33,10 +33,10 @@
     labels <- labels[ord]
     pos <- numeric(n)
     if (!add) {
-        plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "", ...)
+        plot(pos, x, type = "n", axes = FALSE, xlab = "", ylab = "", font = font[1], ...)
     }
-    hoff <- hoff * strwidth("m")
-    ht <- air * strheight(labels, cex = cex)
+    hoff <- hoff * strwidth("m", font = font[1])
+    ht <- air * strheight(labels, cex = cex, font = font)
     mid <- (n + 1)%/%2
     pos[mid] <- x[mid]
     if (n > 1) {
@@ -52,12 +52,12 @@
     segments(at, x[1], at, x[n])
     if (side == "right") {
         text(at + hoff, pos, labels, pos = 4, cex = cex, offset = 0.2,
-             ...)
+             font = font, ...)
         segments(at, x, at + hoff, pos)
     }
     else if (side == "left") {
         text(at - hoff, pos, labels, pos = 2, cex = cex, offset = 0.2,
-             ...)
+             font = font, ...)
         segments(at, x, at - hoff, pos)
     }
     if (axis)
