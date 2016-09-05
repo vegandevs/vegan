@@ -74,22 +74,26 @@ C
      +       oldrowsc(n)
       niter=1000
 C      Step 2: Take the column order as arbitrary initial site scores
-      do 4 i=1,n
-    4 rowscore(i)=dble(i)
+      do i=1,n
+         rowscore(i)=dble(i)
+      end do
       oldS=0.
-C      Iterations starting
+C      Iterations starting: this is a LONG loop
       do 20 it=1,niter
 C      Step 3: Calculate new variable scores (equation 5.8, p. 119)
-      do 6 i=1,n
-    6 colscore(i)=rowscore(i)  
+      do i=1,n
+       colscore(i)=rowscore(i)
+      end do
 C      Step 4: Calculate new site scores (equation 5.9, p. 122)
-      do 8 i=1,n
-      rowscore(i)=0.
-      do 8 j=1,n
-         call SM(mat, n, k, i, j, d)
-         d = -0.5*d**2
-         d = d-sumrow(i)-sumrow(j)+sumtot
-    8    rowscore(i)=rowscore(i)+d*colscore(j)
+      do i=1,n
+         rowscore(i)=0.
+         do j=1,n
+            call SM(mat, n, k, i, j, d)
+            d = -0.5*d**2
+            d = d-sumrow(i)-sumrow(j)+sumtot
+            rowscore(i)=rowscore(i)+d*colscore(j)
+         end do
+      end do
 C      Step 6: Normalize the site scores
       call NormTWWS(rowscore,n,newS)
       if(newS.lt.epsilon) then
@@ -104,8 +108,9 @@ C      write(*,*) 'oldS-newS', oldS-newS
 C        write(*,105) toler, it 
         goto 22
         endif
-      do 18 i=1,n
-   18 oldrowsc(i)=rowscore(i)
+      do i=1,n
+         oldrowsc(i)=rowscore(i)
+      end do
       oldS=newS
    20 continue
 C      End of iterations for estimating eigenvalues and eigenvectors
@@ -117,8 +122,9 @@ C      End of main loop on axes
    52 continue
 C
 C      Normalize the principal coordinates to variance = eigenvalue
-      do 60 i=1,n
-   60 rowscore(i)=rowscore(i)*dsqrt(newS)
+      do i=1,n
+         rowscore(i)=rowscore(i)*dsqrt(newS)
+      end do
 C      write(*,*) rowscore   
 C  101 format(' Convergence not reached for axis:',i3/
 C     +       ' Increase NITER or lower TOLER')
@@ -142,10 +148,12 @@ C      S = eigenvalue*(p-1) = contraction of vector rowscore in final
 C      iteration
 C
       s2=0.0
-      do 10 i=1,n
-   10 s2=s2+rowscore(i)**2
+      do i=1,n
+         s2=s2+rowscore(i)**2
+      end do
       newS=dsqrt(s2)
-      do 20 i=1,n
-   20 rowscore(i)=rowscore(i)/newS
+      do i=1,n
+         rowscore(i)=rowscore(i)/newS
+      end do
       return
       end
