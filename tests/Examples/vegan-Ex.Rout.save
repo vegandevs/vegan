@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-25 r71145) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-09-05 r71210) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -5812,7 +5812,7 @@ Bray-Curtis dissimilarities among original and permuted matrices:
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  7.857  12.640  15.650  16.410  20.240  33.150 
+  7.857  12.645  15.649  16.407  20.239  33.149 
 > ## Unrestricted permutation of presence-absence type
 > ## not retaining row/columns sums:
 > x3 <- permatfull(m, "none", mtype="prab")
@@ -5853,7 +5853,7 @@ Bray-Curtis dissimilarities among original and permuted matrices:
 Chi-squared for original matrix: 8.4
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  8.354  13.340  15.060  15.280  17.180  21.330 
+  8.354  13.344  15.062  15.281  17.177  21.333 
 > ## Restricted permutation,
 > ## check sums within strata:
 > x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -5883,7 +5883,7 @@ Sums within strata retained: 100 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.06667 0.20000 0.20000 0.21950 0.26670 0.40000 
+0.06667 0.20000 0.20000 0.21953 0.26667 0.40000 
 
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
@@ -8929,7 +8929,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.324 0.12 24.502 0 0 
+Time elapsed:  23.164 0.12 23.284 0 0 
 > grDevices::dev.off()
 null device 
           1 
