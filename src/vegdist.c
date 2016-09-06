@@ -628,7 +628,8 @@ static double (*distfun)(double*, int, int, int, int);
 
 void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method)
 {
-    int dc, i, j, ij;
+    int dc, i, j;
+    size_t ij; /* can be a long vector exceeding int maximum */
     switch(*method) {
     case MANHATTAN:
 	distfun = veg_manhattan;
