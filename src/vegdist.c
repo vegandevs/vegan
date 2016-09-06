@@ -693,4 +693,23 @@ void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method
 }
 
 
+/* .Call interface to veg_distance */
 
+#include <Rinternals.h>
+
+SEXP vegandist(SEXP x, SEXP method)
+{
+    SEXP dist;
+    int nr, nc, imethod = asInteger(method), diag=0;
+    nr = nrows(x);
+    nc = ncols(x);
+    R_xlen_t ndis;
+    ndis = (R_xlen_t) nr * (nr-1)/2;
+    PROTECT(dist = allocVector(REALSXP, ndis));
+    if(TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+    veg_distance(REAL(x), &nr, &nc, REAL(dist), &diag, &imethod);
+    UNPROTECT(2);
+    return dist;
+}
