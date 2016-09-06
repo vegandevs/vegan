@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-25 r71145) -- "Unsuffered Consequences"
+R version 3.3.0 Patched (2016-05-12 r70603) -- "Supposedly Educational"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -3532,7 +3532,7 @@ attr(,"class")
 > ### vector of expressions for labels
 > labs <- expression(Ca^{2+phantom()},
 +                    NO[3]^{-phantom()},
-+                    SO[4]^{-2},
++                    SO[4]^{2-phantom()},
 +                    K^{+phantom()})
 > scl <- "sites"
 > linestack(scores(ord, choices = 1, display = "species", scaling = scl),
@@ -8929,7 +8929,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  24.324 0.12 24.502 0 0 
+Time elapsed:  126.336 0.794 127.205 0 0 
 > grDevices::dev.off()
 null device 
           1 
