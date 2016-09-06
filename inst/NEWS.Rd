@@ -7,7 +7,7 @@
     \itemize{
 
       \item Fortran code was modernized to avoid warnings in latest
-      \R. The modernization should have no visible effects in
+      \R. The modernization should have no visible effect in
       functions. Please report all suspect cases as
       \href{https://github.com/vegandevs/vegan/issues/}{vegan issues}.
 
@@ -24,7 +24,7 @@
       friends. This concerned \code{goodness} for constrained
       ordination, \code{inertcomp}, \code{fitted} for
       \code{capscale}, \code{stressplot} for RDA, CCA.  GitHub issue
-      \href{https://github.com/vegandevs/vegan/issues/189}{#189}
+      \href{https://github.com/vegandevs/vegan/issues/189}{#189}.
 
       \item{goodness} for CCA & friends ignored \code{choices}
       argument (GitHub issue
@@ -54,11 +54,19 @@
       observation had \code{NA} values instead of returning
       \code{0}. The function also checks the input and refuses to
       handle data with negative values.  GitHub issue
-      \href{https://github.com/vegandevs/vegan/issues/187}{#187}
+      \href{https://github.com/vegandevs/vegan/issues/187}{#187}.
 
       \item \code{rarefy} function will work more robustly in marginal
       case when the user asks for only one individual which can only
       be one species with zero variance.
+
+      \item Several functions are more robust if their factor arguments
+      contain missing values (\code{NA}): \code{betadisper},
+      \code{adipart}, \code{multipart}, \code{hiersimu}, \code{envfit}
+      and constrained ordination methods \code{cca}, \code{rda},
+      \code{capscale} and \code{dbrda}. GitHub issues
+      \href{https://github.com/vegandevs/vegan/issues/192}{#192} and
+      \href{https://github.com/vegandevs/vegan/issues/193}{#193}.
 
     } % itemize
   } % new features
