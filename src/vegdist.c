@@ -60,7 +60,7 @@ double veg_manhattan(double *x, int nr, int nc, int i1, int i2)
      dist = 0.0;
      count = 0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       dist += fabs( x[i1] - x[i2] );
 	       count++;
 	  }
@@ -85,7 +85,7 @@ double veg_gower(double *x, int nr, int nc, int i1, int i2)
      dist = 0.0;
      count = 0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       dist += fabs( x[i1] - x[i2] );
 	       count++;
 	  }
@@ -112,7 +112,7 @@ double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
      dist = 0.0;
      count = 0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	      if (x[i1] > 0 || x[i2] > 0) {
 		  dist += fabs( x[i1] - x[i2] );
 		  count++;
@@ -138,7 +138,7 @@ double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      dist = 0.0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       dev = x[i1] - x[i2];
 	       dist += dev*dev;
 	       count++;
@@ -162,7 +162,7 @@ double veg_canberra(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      dist = 0.0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       if (x[i1] != 0 || x[i2] != 0) {
 		    count++;
 		    denom = x[i1] + x[i2];
@@ -200,7 +200,7 @@ double veg_bray(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      dist = 0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       dist += fabs(x[i1] - x[i2]);
 	       total += x[i1] + x[i2];
 	       count++;
@@ -225,7 +225,7 @@ double veg_kulczynski(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      sim = 0.0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       sim += (x[i1] < x[i2]) ? x[i1] : x[i2] ;
 	       t1 += x[i1];
 	       t2 += x[i2];
@@ -257,7 +257,7 @@ double veg_morisita(double *x, int nr, int nc, int i1, int i2)
      tlam1 = 0.0;
      tlam2 = 0.0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       sim += x[i1]*x[i2];
 	       t1 += x[i1];
 	       t2 += x[i2];
@@ -289,7 +289,7 @@ double veg_horn(double *x, int nr, int nc, int i1, int i2)
      sq1 = 0.0;
      sq2 = 0.0;
      for (j=0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       sim += x[i1]*x[i2];
 	       t1 += x[i1];
 	       t2 += x[i2];
@@ -339,7 +339,7 @@ double veg_mountford(double *x, int nr, int nc, int i1, int i2)
      t2 = 0;
      count = 0;
      for (j = 0; j < nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       if (x[i1] > 0.0 && x[i2] > 0.0)
 		    sim++;
 	       if (x[i1] > 0)
@@ -407,7 +407,7 @@ double veg_raup(double *x, int nr, int nc, int i1, int i2)
 	t2 = 0;
 	count = 0;
 	for (j = 0; j < nc; j++) {
-		if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+		if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 			if (x[i1] > 0.0 && x[i2] > 0.0)
 				sim++;
 			if (x[i1] > 0)
@@ -443,7 +443,7 @@ double veg_millar(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      dist = 0;
      for (j=0; j<nc; j++, i1 += nr, i2 += nr) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       nk = x[i1] + x[i2];
 	       if (nk == 0) continue;
 	       lognk = log(nk);
@@ -482,7 +482,7 @@ double veg_chao(double *x, int nr, int nc, int i1, int i2)
     jshar1 = 0;
     count = 0;
     for (j=0; j<nc; j++) {
-	if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	    count++;
 	    itot += x[i1];
 	    jtot += x[i2];
@@ -543,7 +543,7 @@ double veg_cao(double *x, int nr, int nc, int i1, int i2)
      count = 0;
      dist = 0;
      for (j=0; j<nc; j++, i1 += nr, i2 += nr) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       /* skip the rest of the loop if both species are
 		  absent */
 	       if (x[i1] == 0 && x[i2] == 0) continue;
@@ -584,7 +584,7 @@ double veg_noshared(double *x, int nr, int nc, int i1, int i2)
      dist = 1;
      count = 0;
      for (j = 0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       count++;
 	       if (x[i1] > 0 && x[i2] > 0) {
 		    dist = 0;
@@ -609,7 +609,7 @@ double veg_matching(double *x, int nr, int nc, int i1, int i2)
      matches = 0;
      count = 0;
      for (j = 0; j<nc; j++) {
-	  if (R_FINITE(x[i1]) && R_FINITE(x[i2])) {
+	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       count++;
 	       if (x[i1] == x[i2])
 		    matches++;
