@@ -3,6 +3,18 @@
 \encoding{UTF-8}
 
 \section{Changes in version 2.4-1}{
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item Fortran code was modernized to avoid warnings in latest
+      \R. The modernization should have no visible effects in
+      functions. Please report all suspect cases as
+      \href{https://github.com/vegandevs/vegan/issues/}{vegan issues}.
+
+    } %itemize
+  } % installation
+
+  
   \subsection{BUG FIXES}{
     \itemize{
 
