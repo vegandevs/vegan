@@ -52,7 +52,7 @@
 
 /* Manhattan distance: duplicates base R */
 
-double veg_manhattan(double *x, int nr, int nc, int i1, int i2)
+static double veg_manhattan(double *x, int nr, int nc, int i1, int i2)
 {
      double dist;
      int count, j;
@@ -77,7 +77,7 @@ double veg_manhattan(double *x, int nr, int nc, int i1, int i2)
  * Some extra manipulations are needed in the calling R function.
  */
 
-double veg_gower(double *x, int nr, int nc, int i1, int i2)
+static double veg_gower(double *x, int nr, int nc, int i1, int i2)
 {
      double dist;
      int count, j;
@@ -104,7 +104,7 @@ double veg_gower(double *x, int nr, int nc, int i1, int i2)
  * presence/absence data this gives Jaccard of binary data.
  */
 
-double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
+static double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
 {
      double dist;
      int count, j;
@@ -130,7 +130,7 @@ double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
  * transformation was performred in the calling routine, this will
  * give Mahalanobis distances. */
 
-double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
+static double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
 {
      double dist, dev;
      int count, j;
@@ -154,7 +154,7 @@ double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
  * 0...1  
 */
 
-double veg_canberra(double *x, int nr, int nc, int i1, int i2)
+static double veg_canberra(double *x, int nr, int nc, int i1, int i2)
 {
      double numer, denom, dist;
      int count, j;
@@ -191,7 +191,7 @@ double veg_canberra(double *x, int nr, int nc, int i1, int i2)
  * redundant, but since people ask for Jaccard, they get it.
  */
 
-double veg_bray(double *x, int nr, int nc, int i1, int i2)
+static double veg_bray(double *x, int nr, int nc, int i1, int i2)
 {
      double dist, total;
      int count, j;
@@ -215,7 +215,7 @@ double veg_bray(double *x, int nr, int nc, int i1, int i2)
 
 /* Kulczynski index */
 
-double veg_kulczynski(double *x, int nr, int nc, int i1, int i2)
+static double veg_kulczynski(double *x, int nr, int nc, int i1, int i2)
 {
      double sim, dist, t1, t2;
      int count, j;
@@ -245,7 +245,7 @@ double veg_kulczynski(double *x, int nr, int nc, int i1, int i2)
  * fail with unfortunate pairs of species occurring only once.
  */
 
-double veg_morisita(double *x, int nr, int nc, int i1, int i2)
+static double veg_morisita(double *x, int nr, int nc, int i1, int i2)
 {
      double sim, dist, t1, t2, tlam1, tlam2;
      int count, j;
@@ -277,7 +277,7 @@ double veg_morisita(double *x, int nr, int nc, int i1, int i2)
 
 /* Horn-Morisita index */
 
-double veg_horn(double *x, int nr, int nc, int i1, int i2)
+static double veg_horn(double *x, int nr, int nc, int i1, int i2)
 {
      double sim, dist,  t1, t2, sq1, sq2;
      int count, j;
@@ -319,17 +319,17 @@ double veg_horn(double *x, int nr, int nc, int i1, int i2)
 #define EPS 1e-12
 #define TOL 1e-5
 
-double mount_fun(double theta, double j, double a, double b) 
+static double mount_fun(double theta, double j, double a, double b)
 {
      return(exp(theta*a) + exp(theta*b) - exp(theta*(a+b-j)) - 1);
 }
 
-double mount_der(double theta, double j, double a, double b) 
+static double mount_der(double theta, double j, double a, double b)
 {
      return(a*exp(theta*a) + b*exp(theta*b) - (a+b-j)*exp(theta*(a+b-j)));
 }
 
-double veg_mountford(double *x, int nr, int nc, int i1, int i2)
+static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
 {
      double dist, oldist, A,  B, J;
      int sim, t1, t2, j, count;
@@ -397,7 +397,7 @@ double veg_mountford(double *x, int nr, int nc, int i1, int i2)
  * This is a direct port from Bedward's R to C (Jari Oksanen, May 2005).
  */
 
-double veg_raup(double *x, int nr, int nc, int i1, int i2)
+static double veg_raup(double *x, int nr, int nc, int i1, int i2)
 {
 	double dist, J, A, B;
 	int sim, t1, t2, j, count;
@@ -435,7 +435,7 @@ double veg_raup(double *x, int nr, int nc, int i1, int i2)
  * to, say, Poisson case.
  */
 
-double veg_millar(double *x, int nr, int nc, int i1, int i2)
+static double veg_millar(double *x, int nr, int nc, int i1, int i2)
 {
      double dist, t1, t2, nk, lognk;
      int count, j;
@@ -464,7 +464,7 @@ double veg_millar(double *x, int nr, int nc, int i1, int i2)
  * estimating the number of unseen species. June 2006.
  */
 
-double veg_chao(double *x, int nr, int nc, int i1, int i2)
+static double veg_chao(double *x, int nr, int nc, int i1, int i2)
 {
     double ionce, itwice, jonce, jtwice, itot, jtot, ishare, jshare, ishar1, jshar1;
     double dist, U, V;
@@ -535,7 +535,7 @@ double veg_chao(double *x, int nr, int nc, int i1, int i2)
  *   Appl 14, 1921-1935; 2004 use different but equal formulation.
  */
 
-double veg_cao(double *x, int nr, int nc, int i1, int i2)
+static double veg_cao(double *x, int nr, int nc, int i1, int i2)
 {
      double dist, x1, x2, t1, t2;
      int count, j;
@@ -577,7 +577,7 @@ double veg_cao(double *x, int nr, int nc, int i1, int i2)
  * should be fast).
  */
 
-double veg_noshared(double *x, int nr, int nc, int i1, int i2)
+static double veg_noshared(double *x, int nr, int nc, int i1, int i2)
 {
      double dist;
      int j, count;
@@ -602,7 +602,7 @@ double veg_noshared(double *x, int nr, int nc, int i1, int i2)
  * vegdist, but must be called separately.
  */
 
-double veg_matching(double *x, int nr, int nc, int i1, int i2)
+static double veg_matching(double *x, int nr, int nc, int i1, int i2)
 {
      double dist;
      int j, count, matches;

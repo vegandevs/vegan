@@ -10,7 +10,7 @@
 
 /* 2 different random integers */
 
-void i2rand(int *vec, int imax)
+static void i2rand(int *vec, int imax)
 {
     if (imax < 1)
 	error("needs at least 2 items");
@@ -247,7 +247,7 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
  * way. The input is a 2x2 submatrix 'sm'.
 */
 
-int isDiag(int *sm, int *change)
+static int isDiag(int *sm, int *change)
 {
     int i, sX;
     int retval;
@@ -307,7 +307,7 @@ int isDiag(int *sm, int *change)
  * fill-neutral swapping
  */
 
-int isDiagFill(int *sm)
+static int isDiagFill(int *sm)
 {
     int i, sX;
     int retval;
@@ -445,7 +445,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 
 /* 'isDiagSimple' needed for 'abuswap' */
 
-int isDiagSimple(double *sm)
+static int isDiagSimple(double *sm)
 {
     int i, sX;
     int retval = 0;
