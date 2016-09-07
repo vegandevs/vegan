@@ -23,10 +23,10 @@
       there was only one constraining variable in CCA, RDA and
       friends. This concerned \code{goodness} for constrained
       ordination, \code{inertcomp}, \code{fitted} for
-      \code{capscale}, \code{stressplot} for RDA, CCA.  GitHub issue
-      \href{https://github.com/vegandevs/vegan/issues/189}{#189}.
+      \code{capscale}, \code{stressplot} for RDA, CCA (GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/189}{#189}).
 
-      \item{goodness} for CCA & friends ignored \code{choices}
+      \item \code{goodness} for CCA & friends ignored \code{choices}
       argument (GitHub issue
       \href{https://github.com/vegandevs/vegan/issues/190}{#190}).
 
@@ -36,13 +36,18 @@
       \item Function \code{meandist} failed in some cases when one of
       the groups had only one observation.
 
+      \item \code{linestack} could not handle expressions in
+      \code{labels}. This regression is discussed in GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/195}{#195}.
+
       \item Nestedness measures \code{nestedbetajac} and
       \code{nestedbetasor} expecting binary data did not cope with
       quantitative input in evaluating Baselga's matrix-wide Jaccard
       or Sørensen dissimilarity indices.
 
-      \item Function \code{as.mcmc} to cast \code{oecosimu} result to
-      an MCMC object failed if there was only one chain.
+      \item Function \code{as.mcmc} to cast \code{oecosimu} result to an
+      MCMC object (\pkg{coda} package) failed if there was only one
+      chain.
 
     } % itemize
   } % bug fixes
