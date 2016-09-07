@@ -31,10 +31,7 @@
                                    sc=as.double(scores),
                                    PACKAGE="vegan")$sc)
     } else {
-        d <- .C("veg_distance", x = as.double(mat), nr = nb.obj,
-                nc = nb.desc, d = double(nb.obj * (nb.obj - 1)/2),
-                diag = as.integer(FALSE), method = as.integer(50),
-                PACKAGE = "vegan")$d
+        d <- .Call("vegandist", as.matrix(x), as.integer(50), PACKAGE = "vegan")
         attr(d, "Size") <- nb.obj
         attr(d, "Labels") <- dimnames(mat)[[1]]
         attr(d, "Diag") <- FALSE
@@ -42,7 +39,6 @@
         attr(d, "method") <- "matching"
         class(d) <- "dist"
         scores <- cmdscale(d, k = 1)[,1]
-
     }
     scores <- order(scores)
     mat<-mat[scores,]
