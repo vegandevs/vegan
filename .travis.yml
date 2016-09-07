@@ -17,6 +17,9 @@ r_github_packages:
 after_success:
   - Rscript -e 'covr::codecov()'
 
+before_install:
+  - tlmgr install sidecap
+
 r_build_args: " --compact-vignettes=gs+qpdf"
 
 notifications:
