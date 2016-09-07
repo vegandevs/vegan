@@ -10,11 +10,12 @@
     if (misslab) {
         labels <- names(x)
     }
-    if (!is.character(labels))
-        labels <- as.character(labels)
+    if (!is.expression(labels) && !is.character(labels)) {
+        labels <- as.character(labels)  # coerce to character only if not expressions
+    }
     nlab <- length(labels)
     if (!misslab && nlab == 1L && pmatch(labels, c("right", "left"),
-                    nomatch = FALSE)) {
+                                         nomatch = FALSE)) {
         side <- labels
         labels <- NULL
         warning("argument 'label' is deprecated: use 'side'")
