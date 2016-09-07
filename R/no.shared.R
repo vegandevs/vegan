@@ -2,7 +2,7 @@
     function(x)
 {
     x <- as.matrix(x)
-    d <- .Call("vegandist", x, as.integer(99))
+    d <- .Call("vegandist", x, as.integer(99), PACKAGE = "vegan")
     d <- as.logical(d)
     attr(d, "Size") <- NROW(x)
     attr(d, "Labels") <- dimnames(x)[[1]]
@@ -11,5 +11,5 @@
     attr(d, "method") <- "no.shared"
     attr(d, "call") <- match.call()
     class(d) <- "dist"
-    d        
+    d
 }
