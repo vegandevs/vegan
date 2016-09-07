@@ -45,7 +45,7 @@ language plus a run-time environment with graphics, a debugger, access
 to certain system functions, and the ability to run programs stored in
 script files.
 
-R has a home page at <http://www.R-project.org/>. It is [free
+R has a home page at <https://www.R-project.org/>. It is [free
 software](http://www.gnu.org/philosophy/free-sw.html) distributed under
 a GNU-style [copyleft](http://www.gnu.org/copyleft/copyleft.html), and
 an official part of the [GNU](http://www.gnu.org/) project (“GNU S”).
@@ -55,7 +55,7 @@ an official part of the [GNU](http://www.gnu.org/) project (“GNU S”).
 ### How to obtain **vegan** and R?
 
 Both R and latest release version of **vegan** can be obtained through
-[CRAN](http://cran.r-project.org). Unstable development version of
+[CRAN](https://cran.r-project.org). Unstable development version of
 **vegan** can be obtained through
 [GitHub](https://github.com/vegandevs/vegan). Formerly **vegan** was
 developed in [R-Forge](http://r-forge.r-project.org/projects/vegan/),
@@ -86,7 +86,7 @@ non-standard packages **rgl** and **scatterplot3d**.
 
 ### What other packages are available for ecologists?
 
-CRAN [Task Views](http://cran.r-project.org/src/contrib/Views/) include
+CRAN [Task Views](https://cran.r-project.org/src/contrib/Views/) include
 entries like `Environmetrics`, `Multivariate` and `Spatial` that
 describe several useful packages and functions. If you install R package
 **ctv**, you can inspect Task Views from your R session, and
@@ -145,7 +145,7 @@ be used in publications.
 
 In general, you do not need to build **vegan** from sources, but binary
 builds of release versions are available through
-[CRAN](http://cran.r-project.org/) for Windows and MacOS X. If you use
+[CRAN](https://cran.r-project.org/) for Windows and MacOS X. If you use
 some other operating systems, you may have to use source packages.
 **Vegan** is a standard R package, and can be built like instructed in R
 documentation. **Vegan** contains source files in C and FORTRAN, and you
