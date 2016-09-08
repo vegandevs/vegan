@@ -35,9 +35,7 @@
                                                      as.vector(x)), TRUE)) 
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
-    d <- .C("veg_distance", x = as.double(x), nr = N, nc = ncol(x), 
-            d = double(N * (N - 1)/2), diag = as.integer(FALSE), 
-            method = as.integer(method), NAOK = na.rm, PACKAGE = "vegan")$d
+    d <- .Call("vegandist", as.matrix(x), as.integer(method), PACKAGE = "vegan")
     if (method == 10) 
         d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0
