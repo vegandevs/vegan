@@ -107,12 +107,14 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   English ed. Elsevier
   }
 \author{ Jari Oksanen }
-\note{  
-  \code{designdist} does not use compiled code, and may be slow or use
-  plenty of memory in large data sets. It is very easy to make errors
-  when  defining a function by hand. If an index is available in a
-  function  using compiled code, it is better to use the canned
-  alternative.
+\note{
+  \code{designdist} does not use compiled code, but it is based on
+  vectorized \R{} code. The \code{designdist} function can be much
+  faster than \code{\link{vegdist}} with \code{terms = "quadratic"} or
+  \code{terms = "binary"}, and nearly as fast as \code{\link{vegdist}}
+  with \code{terms = "minimum"}, although the latter uses compiled
+  code. However, \code{designdist} cannot handle missing values and uses
+  much more memory during calculations.
 }
 \seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}},
   \code{\link{raupcrick}}.}
