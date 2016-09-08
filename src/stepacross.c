@@ -91,7 +91,7 @@ void stepacross(double *dist, int *n, double *toolong, int *trace)
  * defined above.
  */
 
-void visitabyss(int k, int id, int *val, int n, double *dist)
+static void visitabyss(int k, int id, int *val, int n, double *dist)
 {
      int t, ki;
 
