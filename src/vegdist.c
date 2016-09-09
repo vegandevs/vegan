@@ -626,7 +626,8 @@ static double veg_matching(double *x, int nr, int nc, int i1, int i2)
 
 static double (*distfun)(double*, int, int, int, int);
 
-void veg_distance(double *x, int *nr, int *nc, double *d, int *diag, int *method)
+static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
+			 int *method)
 {
     int dc, i, j;
     size_t ij; /* can be a long vector exceeding int maximum */
