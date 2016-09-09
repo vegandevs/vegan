@@ -719,3 +719,38 @@ SEXP vegandist(SEXP x, SEXP method)
     UNPROTECT(2);
     return dist;
 }
+
+/* Minimum terms for designdist. Returns a matrix where diagonal
+ * contains row sums and off-diagonal elements the sum of minima for
+ * rows. Input x must be a double matrix.
+ */
+
+SEXP minterms(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x), i, j, k;
+    double t1, t2, sum;
+
+    SEXP terms = PROTECT(allocMatrix(REALSXP, nr, nr));
+    double *rterm = REAL(terms);
+    if(TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+    double *rx = REAL(x);
+
+    for(i = 0; i < nr; i++) {
+	for(j = i; j < nr; j++) {
+	    sum = 0.0;
+	    /* allow for NA result and do not check ISNAN */
+	    for(k = 0; k < nc; k++) {
+		t1 = rx[i + nr*k];
+		t2 = rx[j + nr*k];
+		sum += (t1 < t2) ? t1 : t2;
+	    }
+	    /* fill the lower triangle and the diagonal; upper
+	     * triangle will contain rubbish */
+	    rterm[j + nr*i] = sum;
+	}
+    }
+    UNPROTECT(2);
+    return terms;
+}
