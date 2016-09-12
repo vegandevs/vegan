@@ -10,7 +10,7 @@
 
 /* 2 different random integers */
 
-static void i2rand(int *vec, int imax)
+static inline void i2rand(int *vec, int imax)
 {
     if (imax < 1)
 	error("needs at least 2 items");
