@@ -530,3 +530,31 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 
 #undef IRAND
 #undef INDX
+
+/* .Call wrappers to nestedness functions for make.commsim.R */
+
+#include <Rinternals.h>
+
+SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin);
+    int i, j, ij, N = nr*nc;
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
+    int *iout = INTEGER(out);
+    SEXP tmp = PROTECT(allocVector(INTSXP, N));
+    int *itmp = INTEGER(tmp);
+    if(TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+
+    for(i = 0; i < N; i++)
+	itmp[i] = INTEGER(x)[i];
+    for(i = 0, ij = 0; i < ny; i++) {
+	trialswap(itmp, &nr, &nc, &ithin);
+	for(j = 0; j < N; j++)
+	    iout[ij++] = itmp[j];
+    }
+    UNPROTECT(3);
+    return out;
+}

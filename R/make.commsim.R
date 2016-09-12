@@ -107,6 +107,11 @@ function(method)
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
+        "dotswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
+        mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call("do_tswap", as.matrix(x), n, thin, PACKAGE = "vegan")
+        }),
         "curveball" = commsim(method="curveball", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
