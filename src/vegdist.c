@@ -720,9 +720,9 @@ SEXP vegandist(SEXP x, SEXP method)
     return dist;
 }
 
-/* Minimum terms for designdist. Returns a matrix where diagonal
- * contains row sums and off-diagonal elements the sum of minima for
- * rows. Input x must be a double matrix.
+/* Minimum terms for designdist. Returns a matrix where the diagonal
+ * contains row sums and below-diagonal elements the sums of pairwise
+ * minima for rows. Input x must be a matrix.
  */
 
 SEXP minterms(SEXP x)
@@ -737,6 +737,7 @@ SEXP minterms(SEXP x)
     PROTECT(x);
     double *rx = REAL(x);
 
+    /* end R house keeping, start actual work */
     for(i = 0; i < nr; i++) {
 	for(j = i; j < nr; j++) {
 	    sum = 0.0;
@@ -751,6 +752,14 @@ SEXP minterms(SEXP x)
 	    rterm[j + nr*i] = sum;
 	}
     }
-    UNPROTECT(2);
+
+    /* back to R house keeping: set dimnames */
+    SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
+    SEXP rnames = PROTECT(VECTOR_ELT(getAttrib(x, R_DimNamesSymbol), 0));
+    SET_VECTOR_ELT(dimnames, 0, rnames);
+    SET_VECTOR_ELT(dimnames, 1, rnames);
+    setAttrib(terms, R_DimNamesSymbol, dimnames);
+
+    UNPROTECT(4);
     return terms;
 }
