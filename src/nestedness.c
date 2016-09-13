@@ -557,20 +557,22 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
     int i, j, ij, N = nr*nc;
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
-    SEXP tmp = PROTECT(allocVector(INTSXP, N));
-    int *itmp = INTEGER(tmp);
     if(TYPEOF(x) != INTSXP)
 	x = coerceVector(x, INTSXP);
     PROTECT(x);
 
-    for(i = 0; i < N; i++)
-	itmp[i] = INTEGER(x)[i];
-    for(i = 0, ij = 0; i < ny; i++) {
-	trialswap(itmp, &nr, &nc, &ithin);
-	for(j = 0; j < N; j++)
-	    iout[ij++] = itmp[j];
+    /* Init with observed data and overwrite with swap */
+    for(j = 0; j < N; j++)
+	iout[j] = INTEGER(x)[j];
+    trialswap(iout, &nr, &nc, &ithin);
+    /* Copy previous solution to next and overwrite with swap */
+    for(i = 1, ij = 0; i < ny; i++) {
+	for (j = 0; j < N; j++)
+	    iout[ij + N + j] = iout[ij + j];
+	ij = i * N;
+	trialswap(iout + ij, &nr, &nc, &ithin);
     }
-    UNPROTECT(3);
+    UNPROTECT(2);
     return out;
 }
 
