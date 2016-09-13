@@ -13,11 +13,8 @@
         x <- ifelse(x > 0, 1, 0)
     if (terms == "binary" || terms == "quadratic") 
         x <- tcrossprod(x)
-    if (terms == "minimum") {
-        r <- rowSums(x)
-        x <- dist(x, "manhattan")
-        x <- (outer(r, r, "+") - as.matrix(x))/2
-    }
+    if (terms == "minimum")
+        x <- .Call("minterms", as.matrix(x), PACKAGE = "vegan")
     d <- diag(x)
     A <- as.dist(outer(rep(1, N), d))
     B <- as.dist(outer(d, rep(1, N)))

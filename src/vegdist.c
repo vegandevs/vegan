@@ -719,3 +719,50 @@ SEXP vegandist(SEXP x, SEXP method)
     UNPROTECT(2);
     return dist;
 }
+
+/* Minimum terms for designdist. Returns a matrix where the diagonal
+ * contains row sums and below-diagonal elements the sums of pairwise
+ * minima for rows. Input x must be a matrix.
+ */
+
+SEXP minterms(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x), i, j, k;
+    double t1, t2, sum;
+
+    SEXP terms = PROTECT(allocMatrix(REALSXP, nr, nr));
+    double *rterm = REAL(terms);
+    if(TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+    double *rx = REAL(x);
+
+    /* end R house keeping, start actual work */
+    for(i = 0; i < nr; i++) {
+	for(j = i; j < nr; j++) {
+	    sum = 0.0;
+	    /* allow for NA result and do not check ISNAN */
+	    for(k = 0; k < nc; k++) {
+		t1 = rx[i + nr*k];
+		t2 = rx[j + nr*k];
+		sum += (t1 < t2) ? t1 : t2;
+	    }
+	    /* fill the lower triangle and the diagonal; upper
+	     * triangle will contain rubbish */
+	    rterm[j + nr*i] = sum;
+	}
+    }
+
+    /* back to R house keeping: set dimnames */
+    SEXP rnames = getAttrib(x, R_DimNamesSymbol);
+    if (!isNull(rnames) && !isNull(VECTOR_ELT(rnames, 0))) {
+	SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
+	SET_VECTOR_ELT(dimnames, 0, duplicate(VECTOR_ELT(rnames, 0)));
+	SET_VECTOR_ELT(dimnames, 1, duplicate(VECTOR_ELT(rnames, 0)));
+	setAttrib(terms, R_DimNamesSymbol, dimnames);
+	UNPROTECT(1);
+    }
+
+    UNPROTECT(2);
+    return terms;
+}
