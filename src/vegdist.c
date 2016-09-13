@@ -754,12 +754,15 @@ SEXP minterms(SEXP x)
     }
 
     /* back to R house keeping: set dimnames */
-    SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
-    SEXP rnames = PROTECT(VECTOR_ELT(getAttrib(x, R_DimNamesSymbol), 0));
-    SET_VECTOR_ELT(dimnames, 0, rnames);
-    SET_VECTOR_ELT(dimnames, 1, rnames);
-    setAttrib(terms, R_DimNamesSymbol, dimnames);
+    SEXP rnames = getAttrib(x, R_DimNamesSymbol);
+    if (!isNull(rnames) && !isNull(VECTOR_ELT(rnames, 0))) {
+	SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
+	SET_VECTOR_ELT(dimnames, 0, duplicate(VECTOR_ELT(rnames, 0)));
+	SET_VECTOR_ELT(dimnames, 1, duplicate(VECTOR_ELT(rnames, 0)));
+	setAttrib(terms, R_DimNamesSymbol, dimnames);
+	UNPROTECT(1);
+    }
 
-    UNPROTECT(4);
+    UNPROTECT(2);
     return terms;
 }
