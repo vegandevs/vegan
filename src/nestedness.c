@@ -576,6 +576,35 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
     return out;
 }
 
+/* Alternative idea for trialswap for timing and testing */
+
+SEXP do_2tswap(SEXP x, SEXP nsim, SEXP thin)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin);
+    int i, j, ij, N = nr*nc;
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
+    int *iout = INTEGER(out);
+    if(TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *tmp = (int *) R_alloc(N, sizeof(int));
+
+    /* Init tmp with observed data */
+    for(j = 0; j < N; j++)
+	tmp[j] = INTEGER(x)[j];
+    /* sequential trialswap of tmp and save result to the iout
+       array */
+    for(i = 0, ij = 0; i < ny; i++) {
+	trialswap(tmp, &nr, &nc, &ithin);
+	for (j = 0; j < N; j++)
+	    iout[ij++] = tmp[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
+
+
 /* Non-sequential methods:
 
 void  quasiswap(int *m, int *nr, int *nc, int *thin)
