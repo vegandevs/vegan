@@ -535,6 +535,21 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 
 #include <Rinternals.h>
 
+/* Sequential methods:
+
+void trialswap(int *m,    int *nr, int *nc, int *thin)
+void      swap(int *m,    int *nr, int *nc, int *thin)
+void swapcount(int *m,    int *nr, int *nc, int *thin)
+void curveball(int *m,    int *nr, int *nc, int *thin, int *uniq)
+void   abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
+
+*/
+
+
+/* Trialswap. Other sequential methods can either copy this or this
+ * can be made more general and call other methods.
+*/
+
 SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
@@ -558,3 +573,10 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
     UNPROTECT(3);
     return out;
 }
+
+/* Non-sequential methods:
+
+void  quasiswap(int *m, int *nr, int *nc, int *thin)
+void rswapcount(int *m, int *nr, int *nc, int *mfill)
+
+*/
