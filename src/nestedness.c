@@ -582,3 +582,25 @@ void  quasiswap(int *m, int *nr, int *nc, int *thin)
 void rswapcount(int *m, int *nr, int *nc, int *mfill)
 
 */
+
+
+/* SEXP x should be 3D array from r2dtable. This will be changed in
+   situ, and the original data will be overwritten with quasiswapped
+   data. The function does not duplicate its argument, and input x
+   will be overwritten.
+*/
+
+SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	iarg4 = asInteger(arg4);
+    int i, ij, N = nr*nc;
+
+    int *ix = INTEGER(x);
+
+    for(i = 0, ij = 0; i < ny; i++) {
+	ij = i * N;
+	quasiswap(ix + ij, &nr, &nc, &iarg4);
+    }
+    return x;
+}
