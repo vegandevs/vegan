@@ -2,7 +2,7 @@
     function(x)
 {
     x <- as.matrix(x)
-    d <- .Call("vegandist", x, as.integer(99), PACKAGE = "vegan")
+    d <- .Call("do_vegdist", x, as.integer(99), PACKAGE = "vegan")
     d <- as.logical(d)
     attr(d, "Size") <- NROW(x)
     attr(d, "Labels") <- dimnames(x)[[1]]
