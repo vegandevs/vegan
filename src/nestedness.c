@@ -554,7 +554,8 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin);
-    int i, j, ij, N = nr*nc;
+    int i, j, N = nr*nc;
+    size_t ij;
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
     if(TYPEOF(x) != INTSXP)
@@ -569,7 +570,7 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
     for(i = 1, ij = 0; i < ny; i++) {
 	for (j = 0; j < N; j++)
 	    iout[ij + N + j] = iout[ij + j];
-	ij = i * N;
+	ij = (size_t) i * N;
 	trialswap(iout + ij, &nr, &nc, &ithin);
     }
     UNPROTECT(2);
@@ -582,7 +583,8 @@ SEXP do_2tswap(SEXP x, SEXP nsim, SEXP thin)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin);
-    int i, j, ij, N = nr*nc;
+    int i, j, N = nr*nc;
+    size_t ij;
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
     if(TYPEOF(x) != INTSXP)
@@ -623,12 +625,13 @@ SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	iarg4 = asInteger(arg4);
-    int i, ij, N = nr*nc;
+    int i, N = nr*nc;
+    size_t ij; /* pointer to the third facet of the 3D array */
 
     int *ix = INTEGER(x);
 
-    for(i = 0, ij = 0; i < ny; i++) {
-	ij = i * N;
+    for(i = 0; i < ny; i++) {
+	ij = (size_t) i * N;
 	quasiswap(ix + ij, &nr, &nc, &iarg4);
     }
     return x;
