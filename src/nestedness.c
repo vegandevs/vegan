@@ -40,7 +40,8 @@ static inline void i2rand(int *vec, int imax)
 
 void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, intcheck, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    size_t intcheck;
 
     nr1 = (*nr) - 1;
     nc1 = (*nc) - 1;
@@ -84,7 +85,7 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 	    }
 	}
 	/* interrupt? */
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -139,13 +140,14 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
 void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, intcheck, a, b, c, d, row[2], col[2], sX;
+    int i, a, b, c, d, row[2], col[2], sX;
+    size_t intcheck;
 
     GetRNGstate();
 
     for (i=0, intcheck=0; i < *thin; i++) {
 	for(;;) {
-	    if (intcheck % 1000 == 999)
+	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
 	    i2rand(row, (*nr) - 1);
@@ -353,9 +355,10 @@ static int isDiagFill(int *sm)
 
 void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, intcheck,
+    int row[2], col[2], k, ij[4], changed,
 	pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
+    size_t intcheck;
 
     GetRNGstate();
 
@@ -378,7 +381,7 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
 	}
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -395,9 +398,10 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 
 void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
-    int row[2], col[2], i, intcheck, k, ij[4], n, change, cfill,
+    int row[2], col[2], i, k, ij[4], n, change, cfill,
        pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
+    size_t intcheck;
 
     /* Get the current fill 'cfill' */
     n = (*nr) * (*nc);
@@ -436,7 +440,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 		cfill += change;
 	    } 
 	}
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -484,7 +488,8 @@ static int isDiagSimple(double *sm)
 
 void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], intcheck, changed, ev;
+    int row[2], col[2], k, ij[4], changed, ev;
+    size_t intcheck;
     double sm[4];
 
     GetRNGstate();
@@ -520,7 +525,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	      }
 	      changed++;
 	 }
-	 if (intcheck % 1000 == 999)
+	 if (intcheck % 10000 == 9999)
 	     R_CheckUserInterrupt();
 	 intcheck++;
     }
