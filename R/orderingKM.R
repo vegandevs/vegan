@@ -31,7 +31,7 @@
                                    sc=as.double(scores),
                                    PACKAGE="vegan")$sc)
     } else {
-        d <- .Call("vegandist", as.matrix(mat), as.integer(50),
+        d <- .Call("do_vegdist", as.matrix(mat), as.integer(50),
                    PACKAGE = "vegan")
         attr(d, "Size") <- nb.obj
         attr(d, "Labels") <- dimnames(mat)[[1]]

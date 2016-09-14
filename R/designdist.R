@@ -1,7 +1,7 @@
 `designdist` <-
     function (x, method = "(A+B-2*J)/(A+B)",
               terms = c("binary", "quadratic", "minimum"),
-              abcd = FALSE, alphagamma = FALSE, name) 
+              abcd = FALSE, alphagamma = FALSE, name)
 {
     terms <- match.arg(terms)
     if ((abcd || alphagamma) && terms != "binary")
@@ -14,7 +14,7 @@
     if (terms == "binary" || terms == "quadratic") 
         x <- tcrossprod(x)
     if (terms == "minimum")
-        x <- .Call("minterms", as.matrix(x), PACKAGE = "vegan")
+        x <- .Call("do_minterms", as.matrix(x), PACKAGE = "vegan")
     d <- diag(x)
     A <- as.dist(outer(rep(1, N), d))
     B <- as.dist(outer(d, rep(1, N)))

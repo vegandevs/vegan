@@ -699,7 +699,7 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 
 #include <Rinternals.h>
 
-SEXP vegandist(SEXP x, SEXP method)
+SEXP do_vegdist(SEXP x, SEXP method)
 {
     SEXP dist;
     int nr, nc, imethod = asInteger(method), diag=0;
@@ -725,7 +725,7 @@ SEXP vegandist(SEXP x, SEXP method)
  * minima for rows. Input x must be a matrix.
  */
 
-SEXP minterms(SEXP x)
+SEXP do_minterms(SEXP x)
 {
     int nr = nrows(x), nc = ncols(x), i, j, k;
     double t1, t2, sum;
