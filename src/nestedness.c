@@ -12,8 +12,6 @@
 
 void i2rand(int *vec, int imax)
 {
-    if (imax < 1)
-	error("needs at least 2 items");
     vec[0] = IRAND(imax);
     do {
 	vec[1] = IRAND(imax);
