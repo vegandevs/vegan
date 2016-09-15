@@ -10,6 +10,9 @@
 
 /* 2 different random integers */
 
+#define I2RAND(vec, m) vec[0] = IRAND(m); \
+    do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
+
 static inline void i2rand(int *vec, int imax)
 {
     vec[0] = IRAND(imax);
@@ -60,8 +63,8 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    i2rand(row, nr1);
-	    i2rand(col, nc1);
+	    I2RAND(row, nr1);
+	    I2RAND(col, nc1);
 	    /* a,b,c,d notation for a 2x2 table */
 	    a = INDX(row[0], col[0], *nr);
 	    b = INDX(row[0], col[1], *nr);
