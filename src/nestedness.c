@@ -596,17 +596,14 @@ SEXP do_2tswap(SEXP x, SEXP nsim, SEXP thin)
     if(TYPEOF(x) != INTSXP)
 	x = coerceVector(x, INTSXP);
     PROTECT(x);
-    int *tmp = (int *) R_alloc(N, sizeof(int));
+    int *ix = INTEGER(x);
 
-    /* Init tmp with observed data */
-    for(j = 0; j < N; j++)
-	tmp[j] = INTEGER(x)[j];
-    /* sequential trialswap of tmp and save result to the iout
+    /* sequential trialswap of ix and save result to the iout
        array */
     for(i = 0, ij = 0; i < ny; i++) {
-	trialswap(tmp, &nr, &nc, &ithin);
+	trialswap(ix, &nr, &nc, &ithin);
 	for (j = 0; j < N; j++)
-	    iout[ij++] = tmp[j];
+	    iout[ij++] = ix[j];
     }
     UNPROTECT(2);
     return out;
