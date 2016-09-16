@@ -628,7 +628,7 @@ SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	iarg4 = asInteger(arg4);
-    int i, N = nr*nc;
+    size_t i, N = nr*nc;
     size_t ij; /* pointer to the third facet of the 3D array */
 
     /* we must check that input x is integer: some null models set
@@ -639,7 +639,7 @@ SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
     int *ix = INTEGER(x);
 
     for(i = 0; i < ny; i++) {
-	ij = (size_t) i * N;
+	ij = i * N;
 	quasiswap(ix + ij, &nr, &nc, &iarg4);
     }
     UNPROTECT(1);
