@@ -142,8 +142,8 @@ void ftrialswap(int *m, int *nr, int *nc, int *thin)
     GetRNGstate();
 
     for (i=0; i < *thin; i++) {
-	i2rand(row, (*nr) - 1);
-	i2rand(col, (*nc) - 1);
+	I2RAND(row, (*nr) - 1);
+	I2RAND(col, (*nc) - 1);
 	a = INDX(row[0], col[0], *nr);
 	b = INDX(row[0], col[1], *nr);
 	c = INDX(row[1], col[0], *nr);
