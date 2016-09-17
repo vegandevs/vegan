@@ -133,6 +133,43 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
     PutRNGstate();
 }
 
+/* an idea for potentially faster trialwap */
+
+void ftrialswap(int *m, int *nr, int *nc, int *thin)
+{
+    int i, a, b, c, d, row[2], col[2];
+
+    GetRNGstate();
+
+    for (i=0; i < *thin; i++) {
+	i2rand(row, (*nr) - 1);
+	i2rand(col, (*nc) - 1);
+	a = INDX(row[0], col[0], *nr);
+	b = INDX(row[0], col[1], *nr);
+	c = INDX(row[1], col[0], *nr);
+	d = INDX(row[1], col[1], *nr);
+        /* there are 16 possible matrices, but only two can be swapped */
+	switch(m[a] + 2*m[b] + 4*m[c] + 8*m[d]) {
+	case 6: /* 0110 -> 1001 */
+	    m[a] = 1;
+	    m[b] = 0;
+	    m[c] = 0;
+	    m[d] = 1;
+	    break;
+	case 9: /* 1001 -> 0110 */
+	    m[a] = 0;
+	    m[b] = 1;
+	    m[c] = 1;
+	    m[d] = 0;
+	    break;
+	default:
+	    break;
+	}
+    }
+
+    PutRNGstate();
+}
+
 /* Ordinary swap: swap if you can, stop after you swapped, or repeat
  * thin times. The data matrix 'm' must be binary: this is not
  * checked.

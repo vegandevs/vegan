@@ -116,6 +116,17 @@ function(method)
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
+        "ftswap" =  commsim(method="tswap", binary=TRUE, isSeq=TRUE,
+        mode="integer",
+        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            out <- array(0L, c(nr, nc, n))
+            out[,,1] <- .C("ftrialswap",
+                m = x, nr, nc, thin, PACKAGE = "vegan")$m
+            for (k in seq_len(n-1))
+                out[,,k+1] <- .C("ftrialswap",
+                    m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
+            out
+        }),
         "dotswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
