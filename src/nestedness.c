@@ -149,7 +149,7 @@ void ftrialswap(int *m, int *nr, int *nc, int *thin)
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
         /* there are 16 possible matrices, but only two can be swapped */
-	switch(m[a] + 2*m[b] + 4*m[c] + 8*m[d]) {
+	switch(m[a] | m[b] << 1 | m[c] << 2 | m[d] << 3) {
 	case 6: /* 0110 -> 1001 */
 	    m[a] = 1;
 	    m[b] = 0;
