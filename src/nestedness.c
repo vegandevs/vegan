@@ -101,42 +101,6 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 
 void trialswap(int *m, int *nr, int *nc, int *thin)
 {
-
-    int i, a, b, c, d, row[2], col[2], sX;
-
-    GetRNGstate();
-
-    for (i=0; i < *thin; i++) {
-	i2rand(row, (*nr) - 1);
-	i2rand(col, (*nc) - 1);
-	a = INDX(row[0], col[0], *nr);
-	b = INDX(row[0], col[1], *nr);
-	c = INDX(row[1], col[0], *nr);
-	d = INDX(row[1], col[1], *nr);
-        /* only two filled items can be swapped */
-	sX = m[a] + m[b] + m[c] + m[d];
-	if (sX != 2)
-	    continue;
-	if (m[a] == 1 && m[d] == 1) {
-	    m[a] = 0;
-	    m[d] = 0;
-	    m[b] = 1;
-	    m[c] = 1;
-	} else if (m[c] == 1 && m[b] == 1) {
-	    m[a] = 1;
-	    m[d] = 1;
-	    m[b] = 0;
-	    m[c] = 0;
-	}
-    }
-
-    PutRNGstate();
-}
-
-/* an idea for potentially faster trialwap */
-
-void ftrialswap(int *m, int *nr, int *nc, int *thin)
-{
     int i, a, b, c, d, row[2], col[2];
 
     GetRNGstate();
@@ -148,7 +112,9 @@ void ftrialswap(int *m, int *nr, int *nc, int *thin)
 	b = INDX(row[0], col[1], *nr);
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
-        /* there are 16 possible matrices, but only two can be swapped */
+        /* there are 16 possible matrices, but only two can be
+	 * swapped. Find signature of each matrix with bitwise shift
+	 * and OR. */
 	switch(m[a] | m[b] << 1 | m[c] << 2 | m[d] << 3) {
 	case 6: /* 0110 -> 1001 */
 	    m[a] = 1;
