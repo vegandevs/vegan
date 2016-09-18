@@ -121,11 +121,6 @@ function(method)
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_tswap", as.matrix(x), n, thin, PACKAGE = "vegan")
         }),
-        "do2tswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
-        mode = "integer",
-        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            .Call("do_2tswap", as.matrix(x), n, thin, PACKAGE = "vegan")
-        }),
         "curveball" = commsim(method="curveball", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {

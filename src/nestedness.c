@@ -564,35 +564,6 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
 	x = coerceVector(x, INTSXP);
     PROTECT(x);
 
-    /* Init with observed data and overwrite with swap */
-    for(j = 0; j < N; j++)
-	iout[j] = INTEGER(x)[j];
-    trialswap(iout, &nr, &nc, &ithin);
-    /* Copy previous solution to next and overwrite with swap */
-    for(i = 1, ij = 0; i < ny; i++) {
-	for (j = 0; j < N; j++)
-	    iout[ij + N + j] = iout[ij + j];
-	ij = (size_t) i * N;
-	trialswap(iout + ij, &nr, &nc, &ithin);
-    }
-    UNPROTECT(2);
-    return out;
-}
-
-/* Alternative idea for trialswap for timing and testing */
-
-SEXP do_2tswap(SEXP x, SEXP nsim, SEXP thin)
-{
-    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
-	ithin = asInteger(thin);
-    int i, j, N = nr*nc;
-    size_t ij;
-    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
-    int *iout = INTEGER(out);
-    if(TYPEOF(x) != INTSXP)
-	x = coerceVector(x, INTSXP);
-    PROTECT(x);
-
     int *ix = (int *) R_alloc(N, sizeof(int));
 
     /* sequential trialswap of ix and save result to the iout
