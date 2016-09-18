@@ -160,17 +160,19 @@ void swap(int *m, int *nr, int *nc, int *thin)
 	    b = INDX(row[0], col[1], *nr);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    sX = m[a] + m[b] + m[c] + m[d];
-	    if (sX != 2)
-		continue;
-	    if (m[a] == 1 && m[d] == 1) {
+	    /* there are 16 possible 2x2 matrices, and 2 of these are
+	     * swappable. Get the signature of the matrix and swap
+	     * those two that can be swapped to each other, then
+	     * break from for(;;). */
+	    sX = m[a] | m[b] << 1 | m[c] << 2 | m[d] << 3;
+	    if (sX == 9) { /* 9 -> 6: 1001 -> 0110 */
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1) {
+	    if (sX == 6) { /* 6 -> 9: 0110 -> 1001 */
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
