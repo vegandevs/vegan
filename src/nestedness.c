@@ -13,15 +13,6 @@
 #define I2RAND(vec, m) vec[0] = IRAND(m); \
     do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
 
-static inline void i2rand(int *vec, int imax)
-{
-    vec[0] = IRAND(imax);
-    do {
-	vec[1] = IRAND(imax);
-    } while (vec[1] == vec[0]);
-}
-
-
 /*
  * Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
  * step takes a random 2x2 submatrix and adds (-1,+1,+1,-1). If the submatrix
@@ -154,8 +145,8 @@ void swap(int *m, int *nr, int *nc, int *thin)
 	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
-	    i2rand(row, (*nr) - 1);
-	    i2rand(col, (*nc) - 1);
+	    I2RAND(row, (*nr) - 1);
+	    I2RAND(col, (*nc) - 1);
 	    a = INDX(row[0], col[0], *nr);
 	    b = INDX(row[0], col[1], *nr);
 	    c = INDX(row[1], col[0], *nr);
@@ -206,7 +197,7 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 
     for (i = 0; i < *thin; i++) {
 	/* Random sites */
-	i2rand(row, (*nr)-1);
+	I2RAND(row, (*nr)-1);
 	/* uniq is a vector of unique species for a random pair of
 	   rows, It need not be zeroed between thin loops because ind
 	   keeps track of used elements. */
@@ -372,8 +363,8 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	i2rand(row, *nr - 1);
-	i2rand(col, *nc - 1);
+	I2RAND(row, *nr - 1);
+	I2RAND(col, *nc - 1);
 	ij[0] = INDX(row[0], col[0], *nr);
 	ij[1] = INDX(row[1], col[0], *nr);
 	ij[2] = INDX(row[0], col[1], *nr);
@@ -422,8 +413,8 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
     intcheck = 0;
     while (cfill != *mfill) {
 	/* Select a random 2x2 matrix*/
-	i2rand(row, *nr - 1);
-	i2rand(col, *nc - 1);
+	I2RAND(row, *nr - 1);
+	I2RAND(col, *nc - 1);
 	ij[0] = INDX(row[0], col[0], *nr);
 	ij[1] = INDX(row[1], col[0], *nr);
 	ij[2] = INDX(row[0], col[1], *nr);
@@ -504,8 +495,8 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	 i2rand(row, *nr - 1);
-	 i2rand(col, *nc - 1);
+	 I2RAND(row, *nr - 1);
+	 I2RAND(col, *nc - 1);
 	 ij[0] = INDX(row[0], col[0], *nr);
 	 ij[1] = INDX(row[1], col[0], *nr);
 	 ij[2] = INDX(row[0], col[1], *nr);
