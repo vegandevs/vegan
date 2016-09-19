@@ -536,6 +536,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 /* .Call wrappers to nestedness functions for make.commsim.R */
 
 #include <Rinternals.h>
+#include <string.h>
 
 /* Sequential methods:
 
@@ -552,12 +553,26 @@ void   abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
  * can be made more general and call other methods.
 */
 
-SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
+static void (*swap_fun)(int*, int*, int*, int*);
+
+SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin);
     int i, j, N = nr*nc;
     size_t ij;
+
+    /* trialswap, swap and swapcount have identical function signature */
+    const char *cmethod = CHAR(STRING_ELT(method, 0));
+    if (strncmp("trialswap", cmethod, 4) == 0)
+	swap_fun = trialswap;
+    else if (strcmp("swap", cmethod) == 0)
+	swap_fun = swap;
+    else if (strcmp("swapcount", cmethod) == 0)
+	swap_fun = swapcount;
+    else
+	error("unknonw sequential null model \"%s\"", cmethod);
+
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
     if(TYPEOF(x) != INTSXP)
@@ -571,7 +586,7 @@ SEXP do_tswap(SEXP x, SEXP nsim, SEXP thin)
     for(j = 0; j < N; j++)
 	ix[j] = INTEGER(x)[j];
     for(i = 0, ij = 0; i < ny; i++) {
-	trialswap(ix, &nr, &nc, &ithin);
+	swap_fun(ix, &nr, &nc, &ithin);
 	for (j = 0; j < N; j++)
 	    iout[ij++] = ix[j];
     }

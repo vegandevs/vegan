@@ -105,6 +105,12 @@ function(method)
                     PACKAGE = "vegan")$m
             out
         }),
+        "doswap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
+        mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call("do_swap", as.matrix(x), n, thin, "swap",
+                  PACKAGE = "vegan")
+        }),
         "tswap" = commsim(method="tswap", binary=TRUE, isSeq=TRUE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
@@ -119,7 +125,8 @@ function(method)
         "dotswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            .Call("do_tswap", as.matrix(x), n, thin, PACKAGE = "vegan")
+            .Call("do_swap", as.matrix(x), n, thin, "trialswap",
+                  PACKAGE = "vegan")
         }),
         "curveball" = commsim(method="curveball", binary=TRUE, isSeq=TRUE,
         mode="integer",
@@ -207,6 +214,12 @@ function(method)
                 out[,,k+1] <- .C("swapcount",
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
+        }),
+        "doswap_count" = commsim(method="swap_count", binary = TRUE,
+        isSeq=TRUE, mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call("do_swap", as.matrix(x), n, thin, "swapcount",
+                  PACKAGE = "vegan")
         }),
         "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE, isSeq=FALSE,
         mode="integer",
