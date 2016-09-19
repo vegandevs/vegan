@@ -142,6 +142,11 @@ function(method)
                                  PACKAGE = "vegan")$m
             out
         }),
+        "docurveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
+        mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call("do_curveball", as.matrix(x), n, thin, PACKAGE = "vegan")
+        }),
         "backtrack" = commsim(method="backtrack", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {

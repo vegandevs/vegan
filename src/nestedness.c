@@ -594,6 +594,41 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
     return out;
 }
 
+/* curveball has five arguments and needs a work vector, but otherwise
+ * the code below mostly duplicate do_swap. Curveball could be
+ * combined to do_swap with a couple of if's. */
+
+SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin);
+    int i, j, N = nr*nc;
+    size_t ij;
+
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
+    int *iout = INTEGER(out);
+    if(TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+
+    /* difference to do_swap: need a work vector */
+    int *iwork = (int *) R_alloc(2*nc, sizeof(int));
+    int *ix = (int *) R_alloc(N, sizeof(int));
+
+    /* sequential trialswap of ix and save result to the iout
+       array */
+    for(j = 0; j < N; j++)
+	ix[j] = INTEGER(x)[j];
+    for(i = 0, ij = 0; i < ny; i++) {
+	/* different call than in do_swap */
+	curveball(ix, &nr, &nc, &ithin, iwork);
+	for (j = 0; j < N; j++)
+	    iout[ij++] = ix[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
+
 
 /* Non-sequential methods:
 
