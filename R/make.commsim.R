@@ -91,7 +91,7 @@ function(method)
                 stop("needs at least 2 items")
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
-            .Call("do_quasiswap", out, n, thin, PACKAGE = "vegan")
+            .Call("do_qswap", out, n, thin, "quasiswap", PACKAGE = "vegan")
         }),
         "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,
         mode="integer",
@@ -237,6 +237,15 @@ function(method)
                 out[,,k] <- .C("rswapcount",
                     m = out[,,k], nr, nc, fill, PACKAGE = "vegan")$m
             out
+        }),
+        "doquasiswap_count" = commsim(method="quasiswap", binary=FALSE, isSeq=FALSE,
+        mode="integer",
+        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nr < 2L || nc < 2)
+                stop("needs at least 2 items")
+            out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
+            storage.mode(out) <- "integer"
+            .Call("do_qswap", out, n, fill, "rswapcount", PACKAGE = "vegan")
         }),
         "swsh_samp" = commsim(method="swsh_samp", binary=FALSE, isSeq=FALSE,
         mode="double",

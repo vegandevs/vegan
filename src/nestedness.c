@@ -564,7 +564,7 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
 
     /* trialswap, swap and swapcount have identical function signature */
     const char *cmethod = CHAR(STRING_ELT(method, 0));
-    if (strncmp("trialswap", cmethod, 4) == 0)
+    if (strcmp("trialswap", cmethod) == 0)
 	swap_fun = trialswap;
     else if (strcmp("swap", cmethod) == 0)
 	swap_fun = swap;
@@ -674,12 +674,24 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
    will be overwritten.
 */
 
-SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
+static void (*qswap_fun)(int *, int *, int *, int *);
+
+SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
 {
+    /* arg4 is thin for quasiswap and fill for rswapcount */
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	iarg4 = asInteger(arg4);
     size_t i, N = nr*nc;
     size_t ij; /* pointer to the third facet of the 3D array */
+
+    /* quasiswap and rswapcount have identical function signatures */
+    const char *cmethod = CHAR(STRING_ELT(method, 0));
+    if (strcmp("quasiswap", cmethod) == 0)
+	qswap_fun = quasiswap;
+    else if (strcmp("rswapcount", cmethod) == 0)
+	qswap_fun = rswapcount;
+    else
+	error("unknonw null model \"%s\"", cmethod);
 
     /* we must check that input x is integer: some null models set
      * storage.mode "double". */
@@ -690,7 +702,7 @@ SEXP do_quasiswap(SEXP x, SEXP nsim, SEXP arg4)
 
     for(i = 0; i < ny; i++) {
 	ij = i * N;
-	quasiswap(ix + ij, &nr, &nc, &iarg4);
+	qswap_fun(ix + ij, &nr, &nc, &iarg4);
     }
     UNPROTECT(1);
     return x;
