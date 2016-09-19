@@ -389,6 +389,16 @@ function(method)
                     m = out[,,k], nr, nc, thin, 0L, PACKAGE = "vegan")$m
             out
         }),
+        "doabuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
+        mode="double",
+        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
+            .Call("do_abuswap", as.matrix(x), n, thin, 1L, PACKAGE = "vegan")
+        }),
+        "doabuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
+        mode="double",
+        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
+            .Call("do_abuswap", as.matrix(x), n, thin, 0L, PACKAGE = "vegan")
+        }),
         "r00_samp" = commsim(method="r00_samp", binary=FALSE, isSeq=FALSE,
         mode="double",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {

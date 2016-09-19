@@ -629,6 +629,36 @@ SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
     return out;
 }
 
+/* Mostly similar to do_swap, but works on REALSXP instead of INTSXP,
+ * and has five arguments (and the last is input, unlike in
+ * curveball) */
+
+SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin), idirect = asInteger(direct);
+    int i, j, N = nr*nc;
+    size_t ij;
+
+    SEXP out = PROTECT(alloc3DArray(REALSXP, nr, nc, ny));
+    double *rout = REAL(out);
+    if(TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+
+    double *rx = (double *) R_alloc(N, sizeof(double));
+
+    /* sequential swap as in do_swap */
+    for(j = 0; j < N; j++)
+	rx[j] = REAL(x)[j];
+    for(i = 0, ij = 0; i < ny; i++) {
+	abuswap(rx, &nr, &nc, &ithin, &idirect);
+	for (j = 0; j < N; j++)
+	    rout[ij++] = rx[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
 
 /* Non-sequential methods:
 
