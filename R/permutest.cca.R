@@ -66,6 +66,8 @@ permutest.default <- function(x, ...)
                 Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
+            if (isDB)
+                tmp <- qr.fitted(Q, t(tmp))
             if (first)
                 if (isDB)
                     cca.ev <- eigen(tmp)$values[1]
