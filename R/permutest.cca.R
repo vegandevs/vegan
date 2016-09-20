@@ -57,6 +57,8 @@ permutest.default <- function(x, ...)
                     QZ <- qr(XZ)
                 }
                 Y <- qr.resid(QZ, Y)
+                if (isDB)
+                    Y <- qr.resid(QZ, t(Y))
             }
             if (isCCA) {
                 XY <- .C("wcentre", x = as.double(X), as.double(wtake),
