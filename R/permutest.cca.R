@@ -72,14 +72,13 @@ permutest.default <- function(x, ...)
                 Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
-            if (isDB)
-                tmp <- qr.fitted(Q, t(tmp))
-            if (first)
-                if (isDB)
-                    cca.ev <- eigen(tmp)$values[1]
-                else
+            if (first) {
+                if (isDB) {
+                    tmp <- qr.fitted(Q, t(tmp)) # eigen needs symmetric tmp
+                    cca.ev <- eigen(tmp, symmetric = TRUE)$values[1]
+                } else
                     cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-            else
+            } else
                 cca.ev <- getEV(tmp, isDB)
             if (isPartial || first) {
                 tmp <- qr.resid(Q, Y)
