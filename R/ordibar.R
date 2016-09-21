@@ -55,7 +55,7 @@
                 t <- 1
             else t <- sqrt(qchisq(conf, 2))
             if (mat$n.obs > 1) {
-                eig <- eigen(mat$cov)
+                eig <- eigen(mat$cov, symmetric = TRUE)
                 v <- sweep(eig$vectors, 2, sqrt(eig$values), "*") * t
                 cnt <- mat$center
                 ordiArgAbsorber(v[1,] + cnt[1], v[2,] + cnt[2],
