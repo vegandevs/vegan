@@ -24,6 +24,10 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
+    ## first eigenvalue cannot be analysed with capscale which had
+    ## discarded imaginary values: cast to old before evaluating isDB
+    if (first && inherits(x, "capscale"))
+        x <- oldCapscale(x)
     isDB <- inherits(x, c("capscale", "dbrda")) &&
         !inherits(x, "oldcapscale")  # distance-based & new design
     ## Function to get the F statistics in one loop
@@ -87,6 +91,7 @@ permutest.default <- function(x, ...)
         mat
     }
     ## end getF()
+
     if (first) {
         Chi.z <- x$CCA$eig[1]
         q <- 1
