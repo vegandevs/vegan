@@ -571,7 +571,7 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
     else if (strcmp("swapcount", cmethod) == 0)
 	swap_fun = swapcount;
     else
-	error("unknonw sequential null model \"%s\"", cmethod);
+	error("unknown sequential null model \"%s\"", cmethod);
 
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
@@ -691,7 +691,7 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     else if (strcmp("rswapcount", cmethod) == 0)
 	qswap_fun = rswapcount;
     else
-	error("unknonw null model \"%s\"", cmethod);
+	error("unknown null model \"%s\"", cmethod);
 
     /* we must check that input x is integer: some null models set
      * storage.mode "double". */
