@@ -135,7 +135,7 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
 void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2], sX;
+    int i, a, b, c, d, row[2], col[2];
     size_t intcheck;
 
     GetRNGstate();
@@ -151,8 +151,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
 	    b = INDX(row[0], col[1], *nr);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    sX = m[a] + m[b] + m[c] + m[d];
-	    if (sX != 2)
+	    if(m[a] + m[b] + m[c] + m[d] != 2)
 		continue;
 	    if (m[a] == 1 && m[d] == 1) {
 		m[a] = 0;
