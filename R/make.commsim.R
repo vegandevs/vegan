@@ -220,7 +220,7 @@ function(method)
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
-        "doswap_count" = commsim(method="swap_count", binary = TRUE,
+        "doswap_count" = commsim(method="swap_count", binary = FALSE,
         isSeq=TRUE, mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_swap", as.matrix(x), n, thin, "swapcount",
