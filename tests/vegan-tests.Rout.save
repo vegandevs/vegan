@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-06-08 r70729) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-09-21 r71333) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -809,10 +809,10 @@ Eigenvalues for unconstrained axes:
 > p <- shuffleSet(nrow(varespec), 999)
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(md, permutations=p))$permutations)
-[1] -1.776357e-15  3.996803e-15
+[1] -1.776357e-15  3.552714e-15
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(mc, permutations=p))$permutations)
-[1] -1.776357e-15  4.884981e-15
+[1] -2.220446e-15  3.552714e-15
 > ## the following two should be equal
 > d <- vegdist(wisconsin(sqrt(varespec)))
 > (md <- dbrda(d ~ Al + P + Condition(pH), varechem))
@@ -878,9 +878,9 @@ Residual 20  1.96003
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## should be zero (within 1e-15)
 > range(permustats(amd)$permutations - permustats(amc)$permutations)
-[1] -8.881784e-16  6.661338e-16
+[1] -4.440892e-16  8.881784e-16
 > rm(mr, md, mc, d, amd, amc)
 > 
 > proc.time()
    user  system elapsed 
-  9.516   0.056   9.566 
+ 10.508   0.056  10.561 
