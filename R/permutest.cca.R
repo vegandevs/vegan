@@ -24,6 +24,10 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
+    ## first eigenvalue cannot be analysed with capscale which had
+    ## discarded imaginary values: cast to old before evaluating isDB
+    if (first && inherits(x, "capscale"))
+        x <- oldCapscale(x)
     isDB <- inherits(x, c("capscale", "dbrda")) &&
         !inherits(x, "oldcapscale")  # distance-based & new design
     ## Function to get the F statistics in one loop
@@ -57,6 +61,8 @@ permutest.default <- function(x, ...)
                     QZ <- qr(XZ)
                 }
                 Y <- qr.resid(QZ, Y)
+                if (isDB)
+                    Y <- qr.resid(QZ, t(Y))
             }
             if (isCCA) {
                 XY <- .C("wcentre", x = as.double(X), as.double(wtake),
@@ -66,12 +72,13 @@ permutest.default <- function(x, ...)
                 Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
-            if (first)
-                if (isDB)
-                    cca.ev <- eigen(tmp)$values[1]
-                else
+            if (first) {
+                if (isDB) {
+                    tmp <- qr.fitted(Q, t(tmp)) # eigen needs symmetric tmp
+                    cca.ev <- eigen(tmp, symmetric = TRUE)$values[1]
+                } else
                     cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-            else
+            } else
                 cca.ev <- getEV(tmp, isDB)
             if (isPartial || first) {
                 tmp <- qr.resid(Q, Y)
@@ -83,6 +90,7 @@ permutest.default <- function(x, ...)
         mat
     }
     ## end getF()
+
     if (first) {
         Chi.z <- x$CCA$eig[1]
         q <- 1
