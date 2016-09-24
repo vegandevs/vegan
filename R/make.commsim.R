@@ -97,12 +97,10 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("swap",
-                m = x, nr, nc, thin, PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("swap",
-                    m = out[,,k], nr, nc, thin,
-                    PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("swap", m = x, nr, nc, thin, PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "doswap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
@@ -115,11 +113,10 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("trialswap",
-                m = x, nr, nc, thin, PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("trialswap",
-                    m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("trialswap", m = x, nr, nc, thin, PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "dotswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
@@ -132,14 +129,11 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("curveball", m = x, nr, nc, thin,
-                           integer(2L*nc),
-                           PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("curveball",
-                                 m = out[,,k], nr, nc, thin,
-                                 integer(2L*nc),
-                                 PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("curveball", m = x, nr, nc, thin,
+                        integer(2L*nc), PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "docurveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
@@ -213,11 +207,10 @@ function(method)
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
             out <- array(0L, c(nr, nc, n))
-            out[,,1] <- .C("swapcount",
-                m = x, nr, nc, thin, PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("swapcount",
-                    m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("swapcount", m = x, nr, nc, thin, PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "doswap_count" = commsim(method="swap_count", binary = FALSE,
@@ -380,22 +373,20 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
-            out[,,1] <- .C("abuswap",
-                m = x, nr, nc, thin, 1L, PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("abuswap",
-                    m = out[,,k], nr, nc, thin, 1L, PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("abuswap", m = x, nr, nc, thin, 1L, PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             out <- array(0, c(nr, nc, n))
-            out[,,1] <- .C("abuswap",
-                m = x, nr, nc, thin, 0L, PACKAGE = "vegan")$m
-            for (k in seq_len(n-1))
-                out[,,k+1] <- .C("abuswap",
-                    m = out[,,k], nr, nc, thin, 0L, PACKAGE = "vegan")$m
+            for (k in seq_len(n)) {
+                x <- .C("abuswap", m = x, nr, nc, thin, 0L, PACKAGE = "vegan")$m
+                out[,,k] <- x
+            }
             out
         }),
         "doabuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
