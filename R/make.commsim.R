@@ -176,20 +176,8 @@ function(method)
             .Call("do_swap", as.matrix(x), n, thin, "swapcount",
                   PACKAGE = "vegan")
         }),
-        "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE, isSeq=FALSE,
-        mode="integer",
-        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
-            out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
-            storage.mode(out) <- "integer"
-            for (k in seq_len(n))
-                out[,,k] <- .C("rswapcount",
-                    m = out[,,k], nr, nc, fill, PACKAGE = "vegan")$m
-            out
-        }),
-        "doquasiswap_count" = commsim(method="quasiswap", binary=FALSE, isSeq=FALSE,
-        mode="integer",
+        "quasiswap_count" = commsim(method="quasiswap", binary=FALSE,
+        isSeq=FALSE, mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
