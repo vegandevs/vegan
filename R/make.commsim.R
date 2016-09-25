@@ -93,50 +93,19 @@ function(method)
             storage.mode(out) <- "integer"
             .Call("do_qswap", out, n, thin, "quasiswap", PACKAGE = "vegan")
         }),
-        "swap" = commsim(method="swap", binary=TRUE, isSeq=TRUE,
-        mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("swap", m = x, nr, nc, thin, PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "doswap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
+        "swap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_swap", as.matrix(x), n, thin, "swap",
                   PACKAGE = "vegan")
         }),
-        "tswap" = commsim(method="tswap", binary=TRUE, isSeq=TRUE,
-        mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("trialswap", m = x, nr, nc, thin, PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "dotswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
+        "tswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_swap", as.matrix(x), n, thin, "trialswap",
                   PACKAGE = "vegan")
         }),
-        "curveball" = commsim(method="curveball", binary=TRUE, isSeq=TRUE,
-        mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("curveball", m = x, nr, nc, thin,
-                        integer(2L*nc), PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "docurveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
+        "curveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_curveball", as.matrix(x), n, thin, PACKAGE = "vegan")
@@ -201,19 +170,7 @@ function(method)
             storage.mode(out) <- "integer"
             out
         }),
-        "swap_count" = commsim(method="swap_count", binary=FALSE, isSeq=TRUE,
-        mode="integer",
-        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("swapcount", m = x, nr, nc, thin, PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "doswap_count" = commsim(method="swap_count", binary = FALSE,
+        "swap_count" = commsim(method="swap_count", binary = FALSE,
         isSeq=TRUE, mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call("do_swap", as.matrix(x), n, thin, "swapcount",
@@ -372,29 +329,9 @@ function(method)
         "abuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            out <- array(0, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("abuswap", m = x, nr, nc, thin, 1L, PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
-        mode="double",
-        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            out <- array(0, c(nr, nc, n))
-            for (k in seq_len(n)) {
-                x <- .C("abuswap", m = x, nr, nc, thin, 0L, PACKAGE = "vegan")$m
-                out[,,k] <- x
-            }
-            out
-        }),
-        "doabuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
-        mode="double",
-        fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             .Call("do_abuswap", as.matrix(x), n, thin, 1L, PACKAGE = "vegan")
         }),
-        "doabuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
+        "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             .Call("do_abuswap", as.matrix(x), n, thin, 0L, PACKAGE = "vegan")
