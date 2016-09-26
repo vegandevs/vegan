@@ -90,7 +90,7 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
  * to many swaps for one call.
  */
 
-void trialswap(int *m, int *nr, int *nc, int *thin)
+static void trialswap(int *m, int *nr, int *nc, int *thin)
 {
     int i, a, b, c, d, row[2], col[2];
 
@@ -132,7 +132,7 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
  * checked.
  */
 
-void swap(int *m, int *nr, int *nc, int *thin)
+static void swap(int *m, int *nr, int *nc, int *thin)
 {
 
     int i, a, b, c, d, row[2], col[2];
@@ -185,7 +185,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * calling function, with safe size 2 * (max. number of species) or
  * with belt and suspenders 2 * (*nc). */
 
-void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
+static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 {
     int row[2], i, j, jind, ind, nsp1, nsp2, itmp, tmp;
 
@@ -347,7 +347,7 @@ static int isDiagFill(int *sm)
     return retval;
 }
 
-void swapcount(int *m, int *nr, int *nc, int *thin)
+static void swapcount(int *m, int *nr, int *nc, int *thin)
 {
     int row[2], col[2], k, ij[4], changed,
 	pm[4] = {1, -1, -1, 1} ;
@@ -390,7 +390,7 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
  * is similar as quasiswap for presence/absence data.
  */
 
-void rswapcount(int *m, int *nr, int *nc, int *mfill)
+static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
     int row[2], col[2], i, k, ij[4], n, change, cfill,
        pm[4] = {1, -1, -1, 1} ;
@@ -480,7 +480,7 @@ static int isDiagSimple(double *sm)
 
 /* 'abuswap' to do Hardy 2008 J Ecol 96: 914-926 */
 
-void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
+static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
     int row[2], col[2], k, ij[4], changed, ev;
     size_t intcheck;
