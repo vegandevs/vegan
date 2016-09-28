@@ -1,8 +1,22 @@
+/* C functions for null model simulation.
+
+   These functions are intended to be called via R functions. The main
+   vehicle is make.commsim.R that defines null models.
+
+   The static functions are only visible to other C functions in this
+   file and cannot be called from R or from C code in other files
+   ("translation units"). The void functions (if there are any) can be
+   called from R using .C() interface. The SEXP functions can be
+   called from R using .Call() interface. Most actual null models are
+   static void and are intended to be called via SEXP functions.
+
+*/
+
 #include <R.h>
 #include <Rmath.h>
 #include <R_ext/Utils.h> /* check user interrupts */
 
-/* Utility functions */
+/* Utility functions as macros */
 
 /* Random integer 0..imax */
 
@@ -546,8 +560,9 @@ void   abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 */
 
 
-/* Trialswap. Other sequential methods can either copy this or this
- * can be made more general and call other methods.
+/*  Sequential swap models: static void functions trialswap, swap and
+ *  swapcount have identical signatures and all called via do_swap
+ *  with .Call() interface in the R code.
 */
 
 static void (*swap_fun)(int*, int*, int*, int*);
