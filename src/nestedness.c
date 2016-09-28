@@ -1,8 +1,22 @@
+/* C functions for null model simulation.
+
+   These functions are intended to be called via R functions. The main
+   vehicle is make.commsim.R that defines null models.
+
+   The static functions are only visible to other C functions in this
+   file and cannot be called from R or from C code in other files
+   ("translation units"). The void functions (if there are any) can be
+   called from R using .C() interface. The SEXP functions can be
+   called from R using .Call() interface. Most actual null models are
+   static void and are intended to be called via SEXP functions.
+
+*/
+
 #include <R.h>
 #include <Rmath.h>
 #include <R_ext/Utils.h> /* check user interrupts */
 
-/* Utility functions */
+/* Utility functions as macros */
 
 /* Random integer 0..imax */
 
@@ -10,16 +24,8 @@
 
 /* 2 different random integers */
 
-static inline void i2rand(int *vec, int imax)
-{
-    if (imax < 1)
-	error("needs at least 2 items");
-    vec[0] = IRAND(imax);
-    do {
-	vec[1] = IRAND(imax);
-    } while (vec[1] == vec[0]);
-}
-
+#define I2RAND(vec, m) vec[0] = IRAND(m); \
+    do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
 
 /*
  * Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
@@ -40,7 +46,8 @@ static inline void i2rand(int *vec, int imax)
 
 void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, intcheck, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    size_t intcheck;
 
     nr1 = (*nr) - 1;
     nc1 = (*nc) - 1;
@@ -61,8 +68,8 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    i2rand(row, nr1);
-	    i2rand(col, nc1);
+	    I2RAND(row, nr1);
+	    I2RAND(col, nc1);
 	    /* a,b,c,d notation for a 2x2 table */
 	    a = INDX(row[0], col[0], *nr);
 	    b = INDX(row[0], col[1], *nr);
@@ -84,7 +91,7 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 	    }
 	}
 	/* interrupt? */
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -97,34 +104,37 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
  * to many swaps for one call.
  */
 
-void trialswap(int *m, int *nr, int *nc, int *thin)
+static void trialswap(int *m, int *nr, int *nc, int *thin)
 {
-
-    int i, a, b, c, d, row[2], col[2], sX;
+    int i, a, b, c, d, row[2], col[2];
 
     GetRNGstate();
 
     for (i=0; i < *thin; i++) {
-	i2rand(row, (*nr) - 1);
-	i2rand(col, (*nc) - 1);
+	I2RAND(row, (*nr) - 1);
+	I2RAND(col, (*nc) - 1);
 	a = INDX(row[0], col[0], *nr);
 	b = INDX(row[0], col[1], *nr);
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
-        /* only two filled items can be swapped */
-	sX = m[a] + m[b] + m[c] + m[d];
-	if (sX != 2)
-	    continue;
-	if (m[a] == 1 && m[d] == 1) {
-	    m[a] = 0;
-	    m[d] = 0;
-	    m[b] = 1;
-	    m[c] = 1;
-	} else if (m[c] == 1 && m[b] == 1) {
+        /* there are 16 possible matrices, but only two can be
+	 * swapped. Find signature of each matrix with bitwise shift
+	 * and OR. */
+	switch(m[a] | m[b] << 1 | m[c] << 2 | m[d] << 3) {
+	case 6: /* 0110 -> 1001 */
 	    m[a] = 1;
-	    m[d] = 1;
 	    m[b] = 0;
 	    m[c] = 0;
+	    m[d] = 1;
+	    break;
+	case 9: /* 1001 -> 0110 */
+	    m[a] = 0;
+	    m[b] = 1;
+	    m[c] = 1;
+	    m[d] = 0;
+	    break;
+	default:
+	    break;
 	}
     }
 
@@ -136,26 +146,26 @@ void trialswap(int *m, int *nr, int *nc, int *thin)
  * checked.
  */
 
-void swap(int *m, int *nr, int *nc, int *thin)
+static void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, intcheck, a, b, c, d, row[2], col[2], sX;
+    int i, a, b, c, d, row[2], col[2];
+    size_t intcheck;
 
     GetRNGstate();
 
     for (i=0, intcheck=0; i < *thin; i++) {
 	for(;;) {
-	    if (intcheck % 1000 == 999)
+	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
-	    i2rand(row, (*nr) - 1);
-	    i2rand(col, (*nc) - 1);
+	    I2RAND(row, (*nr) - 1);
+	    I2RAND(col, (*nc) - 1);
 	    a = INDX(row[0], col[0], *nr);
 	    b = INDX(row[0], col[1], *nr);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    sX = m[a] + m[b] + m[c] + m[d];
-	    if (sX != 2)
+	    if(m[a] + m[b] + m[c] + m[d] != 2)
 		continue;
 	    if (m[a] == 1 && m[d] == 1) {
 		m[a] = 0;
@@ -189,7 +199,7 @@ void swap(int *m, int *nr, int *nc, int *thin)
  * calling function, with safe size 2 * (max. number of species) or
  * with belt and suspenders 2 * (*nc). */
 
-void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
+static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 {
     int row[2], i, j, jind, ind, nsp1, nsp2, itmp, tmp;
 
@@ -198,7 +208,7 @@ void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 
     for (i = 0; i < *thin; i++) {
 	/* Random sites */
-	i2rand(row, (*nr)-1);
+	I2RAND(row, (*nr)-1);
 	/* uniq is a vector of unique species for a random pair of
 	   rows, It need not be zeroed between thin loops because ind
 	   keeps track of used elements. */
@@ -351,11 +361,12 @@ static int isDiagFill(int *sm)
     return retval;
 }
 
-void swapcount(int *m, int *nr, int *nc, int *thin)
+static void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed, intcheck,
+    int row[2], col[2], k, ij[4], changed,
 	pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
+    size_t intcheck;
 
     GetRNGstate();
 
@@ -363,8 +374,8 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	i2rand(row, *nr - 1);
-	i2rand(col, *nc - 1);
+	I2RAND(row, *nr - 1);
+	I2RAND(col, *nc - 1);
 	ij[0] = INDX(row[0], col[0], *nr);
 	ij[1] = INDX(row[1], col[0], *nr);
 	ij[2] = INDX(row[0], col[1], *nr);
@@ -378,7 +389,7 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
 			m[ij[k]] += pm[k]*ev;
 		changed++;
 	}
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -393,11 +404,12 @@ void swapcount(int *m, int *nr, int *nc, int *thin)
  * is similar as quasiswap for presence/absence data.
  */
 
-void rswapcount(int *m, int *nr, int *nc, int *mfill)
+static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
-    int row[2], col[2], i, intcheck, k, ij[4], n, change, cfill,
+    int row[2], col[2], i, k, ij[4], n, change, cfill,
        pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
+    size_t intcheck;
 
     /* Get the current fill 'cfill' */
     n = (*nr) * (*nc);
@@ -412,8 +424,8 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
     intcheck = 0;
     while (cfill != *mfill) {
 	/* Select a random 2x2 matrix*/
-	i2rand(row, *nr - 1);
-	i2rand(col, *nc - 1);
+	I2RAND(row, *nr - 1);
+	I2RAND(col, *nc - 1);
 	ij[0] = INDX(row[0], col[0], *nr);
 	ij[1] = INDX(row[1], col[0], *nr);
 	ij[2] = INDX(row[0], col[1], *nr);
@@ -436,7 +448,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 		cfill += change;
 	    } 
 	}
-	if (intcheck % 1000 == 999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
@@ -482,9 +494,10 @@ static int isDiagSimple(double *sm)
 
 /* 'abuswap' to do Hardy 2008 J Ecol 96: 914-926 */
 
-void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
+static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], intcheck, changed, ev;
+    int row[2], col[2], k, ij[4], changed, ev;
+    size_t intcheck;
     double sm[4];
 
     GetRNGstate();
@@ -493,8 +506,8 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	 i2rand(row, *nr - 1);
-	 i2rand(col, *nc - 1);
+	 I2RAND(row, *nr - 1);
+	 I2RAND(col, *nc - 1);
 	 ij[0] = INDX(row[0], col[0], *nr);
 	 ij[1] = INDX(row[1], col[0], *nr);
 	 ij[2] = INDX(row[0], col[1], *nr);
@@ -520,7 +533,7 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	      }
 	      changed++;
 	 }
-	 if (intcheck % 1000 == 999)
+	 if (intcheck % 10000 == 9999)
 	     R_CheckUserInterrupt();
 	 intcheck++;
     }
@@ -530,3 +543,179 @@ void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 
 #undef IRAND
 #undef INDX
+
+/* .Call wrappers to nestedness functions for make.commsim.R */
+
+#include <Rinternals.h>
+#include <string.h>
+
+/* Sequential methods:
+
+void trialswap(int *m,    int *nr, int *nc, int *thin)
+void      swap(int *m,    int *nr, int *nc, int *thin)
+void swapcount(int *m,    int *nr, int *nc, int *thin)
+void curveball(int *m,    int *nr, int *nc, int *thin, int *uniq)
+void   abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
+
+*/
+
+
+/*  Sequential swap models: static void functions trialswap, swap and
+ *  swapcount have identical signatures and all called via do_swap
+ *  with .Call() interface in the R code.
+*/
+
+static void (*swap_fun)(int*, int*, int*, int*);
+
+SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin);
+    int i, j, N = nr*nc;
+    size_t ij;
+
+    /* trialswap, swap and swapcount have identical function signature */
+    const char *cmethod = CHAR(STRING_ELT(method, 0));
+    if (strcmp("trialswap", cmethod) == 0)
+	swap_fun = trialswap;
+    else if (strcmp("swap", cmethod) == 0)
+	swap_fun = swap;
+    else if (strcmp("swapcount", cmethod) == 0)
+	swap_fun = swapcount;
+    else
+	error("unknown sequential null model \"%s\"", cmethod);
+
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
+    int *iout = INTEGER(out);
+    if(TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+
+    int *ix = (int *) R_alloc(N, sizeof(int));
+
+    /* sequential trialswap of ix and save result to the iout
+       array */
+    for(j = 0; j < N; j++)
+	ix[j] = INTEGER(x)[j];
+    for(i = 0, ij = 0; i < ny; i++) {
+	swap_fun(ix, &nr, &nc, &ithin);
+	for (j = 0; j < N; j++)
+	    iout[ij++] = ix[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
+
+/* curveball has five arguments and needs a work vector, but otherwise
+ * the code below mostly duplicate do_swap. Curveball could be
+ * combined to do_swap with a couple of if's. */
+
+SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin);
+    int i, j, N = nr*nc;
+    size_t ij;
+
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
+    int *iout = INTEGER(out);
+    if(TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+
+    /* difference to do_swap: need a work vector */
+    int *iwork = (int *) R_alloc(2*nc, sizeof(int));
+    int *ix = (int *) R_alloc(N, sizeof(int));
+
+    /* sequential trialswap of ix and save result to the iout
+       array */
+    for(j = 0; j < N; j++)
+	ix[j] = INTEGER(x)[j];
+    for(i = 0, ij = 0; i < ny; i++) {
+	/* different call than in do_swap */
+	curveball(ix, &nr, &nc, &ithin, iwork);
+	for (j = 0; j < N; j++)
+	    iout[ij++] = ix[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
+
+/* Mostly similar to do_swap, but works on REALSXP instead of INTSXP,
+ * and has five arguments (and the last is input, unlike in
+ * curveball) */
+
+SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
+{
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	ithin = asInteger(thin), idirect = asInteger(direct);
+    int i, j, N = nr*nc;
+    size_t ij;
+
+    SEXP out = PROTECT(alloc3DArray(REALSXP, nr, nc, ny));
+    double *rout = REAL(out);
+    if(TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+
+    double *rx = (double *) R_alloc(N, sizeof(double));
+
+    /* sequential swap as in do_swap */
+    for(j = 0; j < N; j++)
+	rx[j] = REAL(x)[j];
+    for(i = 0, ij = 0; i < ny; i++) {
+	abuswap(rx, &nr, &nc, &ithin, &idirect);
+	for (j = 0; j < N; j++)
+	    rout[ij++] = rx[j];
+    }
+    UNPROTECT(2);
+    return out;
+}
+
+/* Non-sequential methods:
+
+void  quasiswap(int *m, int *nr, int *nc, int *thin)
+void rswapcount(int *m, int *nr, int *nc, int *mfill)
+
+*/
+
+
+/* SEXP x should be 3D array from r2dtable. This will be changed in
+   situ, and the original data will be overwritten with quasiswapped
+   data. The function does not duplicate its argument, and input x
+   will be overwritten.
+*/
+
+static void (*qswap_fun)(int *, int *, int *, int *);
+
+SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
+{
+    /* arg4 is thin for quasiswap and fill for rswapcount */
+    int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
+	iarg4 = asInteger(arg4);
+    size_t i, N = nr*nc;
+    size_t ij; /* pointer to the third facet of the 3D array */
+
+    /* quasiswap and rswapcount have identical function signatures */
+    const char *cmethod = CHAR(STRING_ELT(method, 0));
+    if (strcmp("quasiswap", cmethod) == 0)
+	qswap_fun = quasiswap;
+    else if (strcmp("rswapcount", cmethod) == 0)
+	qswap_fun = rswapcount;
+    else
+	error("unknown null model \"%s\"", cmethod);
+
+    /* we must check that input x is integer: some null models set
+     * storage.mode "double". */
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    for(i = 0; i < ny; i++) {
+	ij = i * N;
+	qswap_fun(ix + ij, &nr, &nc, &iarg4);
+    }
+    UNPROTECT(1);
+    return x;
+}
