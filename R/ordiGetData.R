@@ -1,10 +1,5 @@
 `ordiGetData` <-
-function (call, env) 
+function (call, env)
 {
-    call$scale <- call$distance <- call$comm <- call$add <- call$method <- 
-        call$dfun <- call$sqrt.dist <- call$metaMDSdist <- call$subset <- NULL
-    call$na.action <- na.pass
-    call[[2]] <- NULL
-    call[[1]] <- as.name("model.frame")
-    eval(call, env, enclos = .GlobalEnv)
+    eval(call$data, env, enclos = .GlobalEnv)
 }
