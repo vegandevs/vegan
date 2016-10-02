@@ -55,7 +55,8 @@
     if (missing(data))
         data <- .GlobalEnv
     else
-        data <- ordiGetData(match.call(), environment(formula))
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
     ## First we collect info for the uppermost level of the analysed
     ## object
     Trms <- terms(delete.response(formula), data = data)
@@ -87,7 +88,7 @@
     Gfit <- qr.fitted(qrhs, G)
     Gres <- qr.resid(qrhs, G)
     ## collect data for the fit
-    if(!is.null(qrhs$rank) && qrhs$rank > 0) 
+    if(!is.null(qrhs$rank) && qrhs$rank > 0)
         CCA <- list(rank = qrhs$rank,
                     qrank = qrhs$rank,
                     tot.chi = sum(diag(Gfit)),
