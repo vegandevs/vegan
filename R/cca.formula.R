@@ -4,7 +4,8 @@
     if (missing(data)) {
         data <- parent.frame()
     } else {
-        data <- ordiGetData(match.call(), environment(formula))
+        data <- eval(data, environment(formula),
+                     enclos = .GlobalEnv)
     }
     d <- ordiParseFormula(formula, data, na.action = na.action,
                           subset = substitute(subset))
