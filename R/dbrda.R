@@ -50,7 +50,8 @@
     d <- ordiParseFormula(formula,
                           data,
                           na.action = na.action,
-                          subset = substitute(subset))
+                          subset = substitute(subset),
+                          X = X)
     ## ordiParseFormula subsets rows of dissimilarities: do the same
     ## for columns ('comm' is handled later). ordiParseFormula
     ## returned the original data, but we use instead the potentially
