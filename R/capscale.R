@@ -1,16 +1,17 @@
 `capscale` <-
     function (formula, data, distance = "euclidean", sqrt.dist = FALSE,
               comm = NULL, add = FALSE, dfun = vegdist,
-              metaMDSdist = FALSE, na.action = na.fail, subset = NULL, ...) 
+              metaMDSdist = FALSE, na.action = na.fail, subset = NULL, ...)
 {
     EPS <- sqrt(.Machine$double.eps)
-    if (!inherits(formula, "formula")) 
+    if (!inherits(formula, "formula"))
         stop("Needs a model formula")
     if (missing(data)) {
         data <- parent.frame()
     }
     else {
-        data <- ordiGetData(match.call(), environment(formula))
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
     }
     formula <- formula(terms(formula, data = data))
     ## The following line was eval'ed in environment(formula), but
@@ -74,7 +75,7 @@
     else {
         adjust <- sqrt(k)
     }
-    nm <- attr(X, "Labels")    
+    nm <- attr(X, "Labels")
     ## wcmdscale, optionally with additive adjustment
     X <- wcmdscale(X, x.ret = TRUE, add = add)
     ## this may have been euclidified: update inertia
@@ -82,7 +83,7 @@
         inertia <- paste(paste0(toupper(substring(X$add, 1, 1)),
                                 substring(X$add, 2)),
                          "adjusted", inertia)
-    if (is.null(rownames(X$points))) 
+    if (is.null(rownames(X$points)))
         rownames(X$points) <- nm
     X$points <- adjust * X$points
     ## We adjust eigenvalues to variances, and simultaneously the
@@ -152,7 +153,7 @@
         ## NA action after 'subset'
         if (!is.null(d$na.action))
             comm <- comm[-d$na.action, , drop = FALSE]
-        if (!is.null(sol$pCCA) && sol$pCCA$rank > 0) 
+        if (!is.null(sol$pCCA) && sol$pCCA$rank > 0)
             comm <- qr.resid(sol$pCCA$QR, comm)
         if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
             v.eig <- t(comm) %*% sol$CCA$u/sqrt(k)
@@ -171,13 +172,13 @@
             sol$CCA$v[] <- NA
         sol$colsum <- NA
     }
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0)
         sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
-    if (!is.null(sol$CCA$alias)) 
+    if (!is.null(sol$CCA$alias))
         sol$CCA$centroids <- unique(sol$CCA$centroids)
     if (!is.null(sol$CCA$centroids)) {
         rs <- rowSums(sol$CCA$centroids^2)
-        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
+        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, ,
                                                drop = FALSE]
         if (nrow(sol$CCA$centroids) == 0)
             sol$CCA$centroids <- NULL
