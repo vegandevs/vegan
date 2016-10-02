@@ -2,16 +2,17 @@
     function (formula, data, distance = "euclidean",
               sqrt.dist = FALSE,  add = FALSE, dfun = vegdist,
               metaMDSdist = FALSE, na.action = na.fail,
-              subset = NULL, ...) 
+              subset = NULL, ...)
 {
     EPS <- sqrt(.Machine$double.eps)
-    if (!inherits(formula, "formula")) 
+    if (!inherits(formula, "formula"))
         stop("Needs a model formula")
     if (missing(data)) {
         data <- parent.frame()
     }
     else {
-        data <- ordiGetData(match.call(), environment(formula))
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
     }
     formula <- formula(terms(formula, data = data))
     ## The following line was eval'ed in environment(formula), but
@@ -94,7 +95,7 @@
     else {
         adjust <- sqrt(k)
     }
-    nm <- attr(X, "Labels")    
+    nm <- attr(X, "Labels")
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
@@ -118,7 +119,7 @@
     }
     ## CCA
     if (!is.null(d$Y)) {
-        d$Y <- scale(d$Y, scale = FALSE) 
+        d$Y <- scale(d$Y, scale = FALSE)
         Q <- qr(cbind(d$Z, d$Y), tol = 1e-6)
         HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
         e <- eigen(HGH, symmetric = TRUE)
@@ -216,14 +217,14 @@
     }
 
     sol$colsum <- NA
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) 
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0)
         sol$CCA$centroids <-
             centroids.cca(sol$CCA$u, d$modelframe)
-    if (!is.null(sol$CCA$alias)) 
+    if (!is.null(sol$CCA$alias))
         sol$CCA$centroids <- unique(sol$CCA$centroids)
     if (!is.null(sol$CCA$centroids)) {
         rs <- rowSums(sol$CCA$centroids^2)
-        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, , 
+        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, ,
                                                drop = FALSE]
         if (nrow(sol$CCA$centroids) == 0)
             sol$CCA$centroids <- NULL
