@@ -22,13 +22,26 @@
 }
 
 \details{
-  The classification of vascular plants is based on APG (2009), and
-  that of mosses on Hill et al. (2006).
+
+  The families and orders are based on APG IV (2016) in vascular
+  plants and on Hill et al. (2006) in mosses. The higher levels
+  (superorder and subclass) are based on Chase & Reveal (2009). Chase
+  & Reveal (2009) treat Angiosperms and mosses as subclasses of class
+  Equisetopsida (land plants), but brylogists have traditionally used
+  much more inflated levels which are adjusted here to match
+  Angiosperm classification.
+
 }
 \references{
-  APG [Angiosperm Phylogeny Group] (2009) An update of the Angiosperm
-  Phylogeny Group classification for the orders and families of flowering
-  plants: APG III. \emph{Bot. J. Linnean Soc.} \strong{161}: 105--121.
+
+  APG IV [Angiosperm Phylogeny Group] (2016) An update of the
+  Angiosperm Phylogeny Group classification for the orders and
+  families of flowering plants: APG IV. \emph{Bot. J. Linnean Soc.}
+  \strong{181}: 1--20.
+
+  Chase, M.W. & Reveal, J. L. (2009) A phylogenetic classification of
+  the land plants to accompany APG III. \emph{Bot. J. Linnean Soc.}
+  \strong{161}: 122--127.
 
   Hill, M.O et al. (2006) An annotated checklist of the mosses of Europe
   and Macaronesia. \emph{J. Bryology} \strong{28}: 198--267.
@@ -39,7 +52,8 @@
   I.J., Aarssen, L., Bertin, R.I., Calaminus, A., Govaerts, R.,
   Hemmings, F., Leishman, M.R., Oleksyn, J., Soltis, P.S., Swenson,
   N.G., Warman, L. & Beaulieu, J.M. (2014) Three keys to the radiation
-  of angiosperms into freezing environments. \emph{Nature} 506, 89--92.
+  of angiosperms into freezing environments. \emph{Nature}
+  \strong{506}: 89--92.
 
 }
 
