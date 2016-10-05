@@ -1,14 +1,18 @@
 `ordiParseFormula` <-
 function (formula, data, xlev = NULL, na.action = na.fail,
-          subset = NULL) 
+          subset = NULL, X)
 {
     if (missing(data))
         data <- environment(formula)
     Terms <- terms(formula, "Condition", data = data)
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
-    specdata <- formula[[2]]
-    X <- eval(specdata, environment(formula), enclos=globalenv())
-    ## X is usually a matrix, but it is "dist" with capscale():
+    ## distance-based methods (capscale, dbrda) evaluate specdata (LHS
+    ## in formula) within their code, and the handling in
+    ## ordiParseFormula is redundand and can be expensive
+    if (missing(X)) {
+        specdata <- formula[[2]]
+        X <- eval(specdata, environment(formula), enclos=globalenv())
+    }
     X <- as.matrix(X)
     indPartial <- attr(Terms, "specials")$Condition
     zmf <- ymf <- Y <- Z <- NULL
@@ -26,14 +30,14 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         else
             model.frame(P.formula, data, na.action = na.pass, xlev = zlev)
         partterm <- sapply(partterm, function(x) deparse(x, width.cutoff=500))
-        formula <- update(formula, paste("~.-", paste(partterm, 
+        formula <- update(formula, paste("~.-", paste(partterm,
             collapse = "-")))
         flapart <- update(formula, paste(" ~ . +", Pterm))
     }
-    if (formula[[2]] == "1" || formula[[2]] == "0") 
+    if (formula[[2]] == "1" || formula[[2]] == "0")
         Y <- NULL
     else {
-        if (exists("Pterm")) 
+        if (exists("Pterm"))
             xlev <- xlev[!(names(xlev) %in% Pterm)]
 
         ymf <- if (inherits(data, "environment"))
@@ -41,7 +45,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
                 model.frame(formula, na.action = na.pass, xlev = xlev)),
                  envir=data, enclos=.GlobalEnv)
         else
-            model.frame(formula, data, na.action = na.pass, xlev = xlev) 
+            model.frame(formula, data, na.action = na.pass, xlev = xlev)
     }
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {
@@ -106,7 +110,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         rownames(Z) <- rownames(Z, do.NULL = FALSE)
         colnames(Z) <- colnames(Z, do.NULL = FALSE)
     }
-    list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500), 
+    list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500),
          terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
          subset = subset, na.action = nas, excluded = excluded)
 }

@@ -4,9 +4,10 @@
     if (missing(data)) {
         data <- parent.frame()
     } else {
-        data <- ordiGetData(match.call(), environment(formula))
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
     }
-    d <- ordiParseFormula(formula, data, na.action = na.action,
+    d <- ordiParseFormula(formula, data = data, na.action = na.action,
                           subset = substitute(subset))
     sol <- cca.default(d$X, d$Y, d$Z)
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) 

@@ -1,5 +1,4 @@
 \name{vegan-internal}
-\alias{ordiGetData}
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
@@ -23,9 +22,8 @@
   but only within other functions.
 }
 \usage{
-ordiGetData(call, env)
 ordiParseFormula(formula, data, xlev = NULL,  na.action = na.fail,
-    subset = NULL)
+    subset = NULL, X)
 ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)
@@ -50,20 +48,20 @@ addCailliez(d)
   \code{\link{get}} or \code{\link{:::}} to directly call these
   functions.
   
-  \code{ordiGetData} finds the model frame of constraints and
-  conditions in constrained ordination in the defined
-  \code{env}ironment.  \code{ordiParseFormula} returns a list of three
-  matrices (dependent variables, and \code{\link{model.matrix}} of
-  constraints and conditions, possibly \code{NULL}) needed in
-  constrained ordination. Argument \code{xlev} is passed to
-  \code{\link{model.frame}}. \code{ordiTermInfo} finds the term
+  \code{ordiParseFormula} returns a list of three matrices (dependent
+  variables, and \code{\link{model.matrix}} of constraints and
+  conditions, possibly \code{NULL}) needed in constrained
+  ordination. Argument \code{xlev} is passed to
+  \code{\link{model.frame}}. If the left-hand-side was already
+  evaluated in calling code, it can be given as argument \code{X} and
+  will not be re-evaluated. \code{ordiTermInfo} finds the term
   information for constrained ordination as described in
   \code{\link{cca.object}}. \code{ordiNAexclude} implements
   \code{na.action = na.exclude} for constrained ordination finding WA
   scores of CCA components and site scores of unconstrained component
   from \code{excluded} rows of observations. Function
-  \code{ordiNApredict} pads the result object with these or with
-  WA scores similarly as \code{\link{napredict}}.
+  \code{ordiNApredict} pads the result object with these or with WA
+  scores similarly as \code{\link{napredict}}.
 
   \code{ordiArgAbsorber} absorbs arguments of \code{\link{scores}}
   function of \pkg{vegan} so that these do not cause superfluous
