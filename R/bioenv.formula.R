@@ -2,7 +2,7 @@
     function (formula, data, ...)
 {
     if (missing(data))
-        data <- parent.frame()
+        data <- environment(formula)
     fla <- formula
     comm <- formula[[2]]
     comm <- eval(comm, environment(formula), parent.frame())
