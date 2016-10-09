@@ -10,6 +10,13 @@
    called from R using .Call() interface. Most actual null models are
    static void and are intended to be called via SEXP functions.
 
+   Note on RNG: static void functions are called by other C functions
+   (SEXP functions with .Call interface in R), and we should
+   GetRNGstate and PutRNGstate only once in that calling function
+   instead of getting and putting RNGstate at every function call. The
+   non-static functions can be called directly in R code (with .C
+   interface) and they must get and put RNGstate within their code.
+
 */
 
 #include <R.h>
@@ -43,6 +50,9 @@
 /* row & col indices to a vector index */
 
 #define INDX(i, j, nr) (i) + (nr)*(j)
+
+/* quasiswap is now a public function that can be called directly from
+ * R using .C() interface. */
 
 void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
@@ -205,8 +215,8 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 {
     int row[2], i, j, jind, ind, nsp1, nsp2, itmp, tmp;
 
-    /* Set RNG */
-    GetRNGstate(); 
+    /* Set RNG in calling C code */
+    /* GetRNGstate(); */
 
     for (i = 0; i < *thin; i++) {
 	/* Random sites */
@@ -245,7 +255,7 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 	}
     }
 
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
@@ -419,8 +429,8 @@ static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 	if (m[i] > 0) 
 	    cfill++;
     }
- 
-    GetRNGstate();
+    /* GetRNGstate in calling C code */
+    /* GetRNGstate(); */
 
     /* Loop while fills differ */
     intcheck = 0;
@@ -454,7 +464,7 @@ static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 /* 'isDiagSimple' needed for 'abuswap' */
@@ -502,7 +512,8 @@ static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
     size_t intcheck;
     double sm[4];
 
-    GetRNGstate();
+    /* GetRNGstate in calling C code */
+    /* GetRNGstate(); */
 
     changed = 0;
     intcheck = 0;
@@ -540,7 +551,7 @@ static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 	 intcheck++;
     }
     
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 #undef IRAND
@@ -636,12 +647,15 @@ SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
        array */
     for(j = 0; j < N; j++)
 	ix[j] = INTEGER(x)[j];
+
+    GetRNGstate();
     for(i = 0, ij = 0; i < ny; i++) {
 	/* different call than in do_swap */
 	curveball(ix, &nr, &nc, &ithin, iwork);
 	for (j = 0; j < N; j++)
 	    iout[ij++] = ix[j];
     }
+    PutRNGstate();
     UNPROTECT(2);
     return out;
 }
@@ -668,11 +682,14 @@ SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
     /* sequential swap as in do_swap */
     for(j = 0; j < N; j++)
 	rx[j] = REAL(x)[j];
+
+    GetRNGstate();
     for(i = 0, ij = 0; i < ny; i++) {
 	abuswap(rx, &nr, &nc, &ithin, &idirect);
 	for (j = 0; j < N; j++)
 	    rout[ij++] = rx[j];
     }
+    PutRNGstate();
     UNPROTECT(2);
     return out;
 }
@@ -717,10 +734,12 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     PROTECT(x);
     int *ix = INTEGER(x);
 
+    GetRNGstate();
     for(i = 0; i < ny; i++) {
 	ij = i * N;
 	qswap_fun(ix + ij, &nr, &nc, &iarg4);
     }
+    PutRNGstate();
     UNPROTECT(1);
     return x;
 }
