@@ -108,7 +108,8 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 {
     int i, a, b, c, d, row[2], col[2];
 
-    GetRNGstate();
+    /* Get and Set RNG in calling C function */
+    /* GetRNGstate(); */
 
     for (i=0; i < *thin; i++) {
 	I2RAND(row, (*nr) - 1);
@@ -138,7 +139,7 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 	}
     }
 
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 /* Ordinary swap: swap if you can, stop after you swapped, or repeat
@@ -152,7 +153,8 @@ static void swap(int *m, int *nr, int *nc, int *thin)
     int i, a, b, c, d, row[2], col[2];
     size_t intcheck;
 
-    GetRNGstate();
+    /* Get and Put RNG in calling C function */
+    /* GetRNGstate(); */
 
     for (i=0, intcheck=0; i < *thin; i++) {
 	for(;;) {
@@ -183,7 +185,7 @@ static void swap(int *m, int *nr, int *nc, int *thin)
 	    }
 	}
     }
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 /* Strona et al. 2014 (NATURE COMMUNICATIONS | 5:4114 |
@@ -368,7 +370,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
     int sm[4], ev;
     size_t intcheck;
 
-    GetRNGstate();
+    /* GetRNGstate(); */
 
     changed = 0;
     intcheck = 0;
@@ -394,7 +396,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
 	intcheck++;
     }
 
-    PutRNGstate();
+    /* PutRNGstate(); */
 }
 
 /* rswapcount for "reducing swap of count data" is a minor variant of
@@ -597,11 +599,14 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
        array */
     for(j = 0; j < N; j++)
 	ix[j] = INTEGER(x)[j];
+
+    GetRNGstate();
     for(i = 0, ij = 0; i < ny; i++) {
 	swap_fun(ix, &nr, &nc, &ithin);
 	for (j = 0; j < N; j++)
 	    iout[ij++] = ix[j];
     }
+    PutRNGstate();
     UNPROTECT(2);
     return out;
 }
