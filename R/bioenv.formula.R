@@ -1,11 +1,11 @@
 `bioenv.formula` <-
-    function (formula, data, ...) 
+    function (formula, data, ...)
 {
-    if (missing(data)) 
-        data <- parent.frame()
+    if (missing(data))
+        data <- environment(formula)
     fla <- formula
     comm <- formula[[2]]
-    comm <- eval(comm, data, parent.frame())
+    comm <- eval(comm, environment(formula), parent.frame())
     formula[[2]] <- NULL
     env <- model.frame(formula, data, na.action = NULL)
     out <- bioenv(comm, env, ...)
