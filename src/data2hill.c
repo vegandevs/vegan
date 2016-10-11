@@ -61,4 +61,84 @@ void data2hill(double *x,
 /*    list(mi=nr, n=nc, nid=nz, ibegin=ibegin, iend=iend, idat=idat, qidat=qidat) */
 /*  } */
 
+/* C interface to hide the ugly calls to decorana.f */
 
+#include <R.h>
+#include <Rinternals.h>
+
+/* Fortran routines called from decorana.f */
+
+void F77_NAME(eigy)(double*, double*, double*, int*, int*, int*, double*,
+		    int*, int*, int*, int*, int*, int*, int*, double*,
+		    double*, double*, double*, double*, double*, double*,
+		    double*, int*, int*, int*, double*, double*);
+void F77_NAME(cutup)(double*, int*, int*, int*);
+void F77_NAME(yxmult)(double*, double*, int*, int*, int*, int*, int*,
+		      int*, double*);
+
+SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
+		 SEXP aidot, SEXP adotj)
+{
+    /* decorana CONSTANTS */
+    int NAXES = 4;
+    double ZEROEIG = 1e-7;
+    /* input parameters */
+    int ra = asInteger(ira), resc = asInteger(iresc), mk = asInteger(imk);
+    double xshort = asReal(rshort);
+    /* internal parameters */
+    int nr = nrows(veg), nc = ncols(veg), nid;
+    int i, j;
+
+    /* PART 1: R data matrix to CEP condensed format */
+
+    /* check type of veg */
+    if (TYPEOF(veg) != REALSXP)
+	veg = coerceVector(veg, REALSXP);
+    PROTECT(veg);
+    double *xveg = REAL(veg);
+    /* No. of non-zero items in veg */
+    for (i = 0, nid = 0; i < nr*nc; i++)
+	if (xveg[i] > 0)
+	    nid++;
+    /* allocate vectors for the CEP format */
+    int *ibegin = (int *) R_alloc(nr, sizeof(int));
+    int *iend = (int *) R_alloc(nr, sizeof(int));
+    int *idat = (int *) R_alloc(nid, sizeof(int));
+    double *qidat = (double *) R_alloc(nid, sizeof(double));
+    /* data to internal CEP format */
+    data2hill(xveg, &nr, &nc, &nid, ibegin, iend, idat, qidat);
+    UNPROTECT(1); /* veg */
+
+    /* PART 2: Call decorana Fortran functions */
+
+    /* return objects */
+    SEXP xeig = PROTECT(allocMatrix(REALSXP, nr, NAXES));
+    SEXP yeig = PROTECT(allocMatrix(REALSXP, nc, NAXES));
+    SEXP eig = PROTECT(allocVector(REALSXP, NAXES));
+    double *rxeig = REAL(xeig);
+    double *ryeig = REAL(yeig);
+    double *reig = REAL(eig);
+    /* internal vectors for decorana */
+    int *ix = (int *) R_alloc(3 * nr, sizeof(int));
+    double *ywork = (double *) R_alloc(4 * nc, sizeof(double));
+
+    /* Call decorana.f functions */
+    for (i = 0; i < NAXES; i++) {
+	F77_CALL(eigy)(rxeig + i*nr, ryeig + i*nc, reig + i, &i, &ra, &resc,
+		       &xshort, &nr, &mk, &nc, &nid, ibegin, iend, idat, qidat,
+		       ywork, ywork + nc, ywork + 2*nc, ywork + 3*nc,
+		       rxeig, rxeig + nr, rxeig + 2*nr,
+		       ix, ix + nr, ix + 2*nr,
+		       REAL(aidot), REAL(adotj));
+	// add checking of zero-eigenvalues
+	if (!ra && i != NAXES - 1)
+	    F77_CALL(cutup)(rxeig + i*nr, ix + i*nr, &nr, &mk);
+	F77_CALL(yxmult)(ryeig + i*nc, rxeig + i*nr, &nr, &nc, &nid,
+			 ibegin, iend, idat, qidat);
+	for (j = 0; j < nr; j++)
+	    rxeig[i*nr + j] /= REAL(aidot)[j];
+    }
+
+    UNPROTECT(3); /* xeig, yeig, eig */
+    return xeig; /* just return something to check the results */
+}
