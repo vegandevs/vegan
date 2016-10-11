@@ -34,7 +34,7 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
-         w = weights(ord, display), col = 1, ...)
+            w = weights(ord, display), col = 1, plot = TRUE, ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
@@ -105,6 +105,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   \item{prune}{Number of upper level hierarchies removed from the
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be
     disconnected.}
+
+  \item{plot}{logical; for \code{ordicluster}, whether to draw anything
+    on the current device.}
 
   \item{object}{A result object from \code{ordihull} or
     \code{ordiellipse}. The result is \code{\link{invisible}}, but it
