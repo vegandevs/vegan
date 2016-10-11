@@ -115,6 +115,7 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
     SEXP xeig = PROTECT(allocMatrix(REALSXP, nr, NAXES));
     SEXP yeig = PROTECT(allocMatrix(REALSXP, nc, NAXES));
     SEXP eig = PROTECT(allocVector(REALSXP, NAXES));
+    SEXP result = PROTECT(allocVector(VECSXP, 3));
     double *rxeig = REAL(xeig);
     double *ryeig = REAL(yeig);
     double *reig = REAL(eig);
@@ -138,7 +139,10 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 	for (j = 0; j < nr; j++)
 	    rxeig[i*nr + j] /= REAL(aidot)[j];
     }
+    SET_VECTOR_ELT(result, 0, eig);
+    SET_VECTOR_ELT(result, 1, xeig);
+    SET_VECTOR_ELT(result, 2, yeig);
 
-    UNPROTECT(3); /* xeig, yeig, eig */
-    return xeig; /* just return something to check the results */
+    UNPROTECT(4); /* xeig, yeig, eig, result */
+    return result;
 }
