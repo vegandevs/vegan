@@ -10,8 +10,8 @@
         stop("Dimensions do not match in 'ord' and 'cluster'")
     if (length(w) == 1) w <- rep(w, nrow(ord))
     n <- if (is.null(w)) rep(1, nrow(ord)) else w
-    noden <- numeric(nrow(ord))
-    go <- ord
+    noden <- numeric(nrow(mrg) - prune)
+    go <- matrix(0, nrow(mrg) - prune, 2)
     ## recycle colours for points and prepare to get node colours
     col <- rep(col, length = nrow(ord))
     col <- col2rgb(col)/255
