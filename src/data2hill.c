@@ -134,6 +134,8 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 	// add checking of zero-eigenvalues
 	if (!ra && i != NAXES - 1)
 	    F77_CALL(cutup)(rxeig + i*nr, ix + i*nr, &nr, &mk);
+    }
+    for (i = 0; i < NAXES; i++) {
 	F77_CALL(yxmult)(ryeig + i*nc, rxeig + i*nr, &nr, &nc, &nid,
 			 ibegin, iend, idat, qidat);
 	for (j = 0; j < nr; j++)
