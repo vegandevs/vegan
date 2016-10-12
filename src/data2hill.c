@@ -115,10 +115,10 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
     SEXP xeig = PROTECT(allocMatrix(REALSXP, nr, NAXES));
     SEXP yeig = PROTECT(allocMatrix(REALSXP, nc, NAXES));
     SEXP eig = PROTECT(allocVector(REALSXP, NAXES));
-    SEXP result = PROTECT(allocVector(VECSXP, 3));
     double *rxeig = REAL(xeig);
     double *ryeig = REAL(yeig);
     double *reig = REAL(eig);
+
     /* internal vectors for decorana */
     int *ix = (int *) R_alloc(3 * nr, sizeof(int));
     double *ywork = (double *) R_alloc(4 * nc, sizeof(double));
@@ -141,6 +141,15 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 	for (j = 0; j < nr; j++)
 	    rxeig[i*nr + j] /= REAL(aidot)[j];
     }
+
+    /* result object */
+    SEXP result = PROTECT(allocVector(VECSXP, 3));
+    SEXP names = PROTECT(allocVector(STRSXP, 3));
+    SET_STRING_ELT(names, 0, mkChar("evals"));
+    SET_STRING_ELT(names, 1, mkChar("rproj"));
+    SET_STRING_ELT(names, 2, mkChar("cproj"));
+    setAttrib(result, R_NamesSymbol, names);
+    UNPROTECT(1); /* names */
     SET_VECTOR_ELT(result, 0, eig);
     SET_VECTOR_ELT(result, 1, xeig);
     SET_VECTOR_ELT(result, 2, yeig);
