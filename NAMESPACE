@@ -40,6 +40,8 @@ export(as.mcmc.oecosimu, as.mcmc.permat)
 export(oldCapscale)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
+## export for testing: remove when no more needed
+export(decorana2)
 
 ## export regular functions with dot names
 
