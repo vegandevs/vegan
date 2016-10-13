@@ -6,11 +6,13 @@
     Const2 <- 5
     Const3 <- 1e-11
     veg <- as.matrix(veg)
-    if (any(rowSums(veg) <= 0))
+    aidot <- rowSums(veg)
+    if (any(aidot <= 0))
         stop("all row sums must be >0 in the community matrix: remove empty sites")
     if (any(veg < 0))
         stop("'decorana' cannot handle negative data entries")
-    if (any(colSums(veg) <= 0))
+    adotj <- colSums(veg)
+    if (any(adotj <= 0))
         warning("some species were removed because they were missing in the data")
     if (mk < 10)
         mk <- 10
@@ -34,9 +36,7 @@
     }
     v <- attr(veg, "v")
     v.fraction <- attr(veg, "fraction")
-    adotj <- colSums(veg)
     adotj[adotj < Const3] <- Const3
-    aidot <- rowSums(veg)
     CA <- .Call("do_decorana", veg, ira, iresc, short, mk, as.double(aidot),
                 as.double(adotj), PACKAGE = "vegan")
     if (ira)
