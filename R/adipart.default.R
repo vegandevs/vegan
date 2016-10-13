@@ -59,7 +59,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
     weights <- match.arg(weights)
     switch(index,
            "richness" = {
-               divfun <- function(x) apply(x > 0, 1, sum)},
+               divfun <- function(x) rowSums(x > 0)},
            "shannon" = {
                divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
            "simpson" = {
