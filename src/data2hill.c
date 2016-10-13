@@ -152,6 +152,7 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
     /* decorana object */
     SEXP result = PROTECT(allocVector(VECSXP, 9));
     SEXP names = PROTECT(allocVector(STRSXP, 9));
+    SEXP class = PROTECT(allocVector(STRSXP, 1));
     SET_STRING_ELT(names, 0, mkChar("evals"));
     SET_STRING_ELT(names, 1, mkChar("rproj"));
     SET_STRING_ELT(names, 2, mkChar("cproj"));
@@ -162,7 +163,9 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
     SET_STRING_ELT(names, 7, mkChar("short"));
     SET_STRING_ELT(names, 8, mkChar("mk"));
     setAttrib(result, R_NamesSymbol, names);
-    UNPROTECT(1); /* names */
+    SET_STRING_ELT(class, 0, mkChar("decorana"));
+    classgets(result, class);
+    UNPROTECT(2); /* class, names */
     SET_VECTOR_ELT(result, 0, eig);
     SET_VECTOR_ELT(result, 1, xeig);
     SET_VECTOR_ELT(result, 2, yeig);
