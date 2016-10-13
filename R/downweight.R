@@ -6,7 +6,7 @@
         fraction <- 1/fraction
     veg <- as.matrix(veg)
     yeig1 <- colSums(veg)
-    y2 <- apply(veg^2, 2, sum) + Const1
+    y2 <- colSums(veg^2) + Const1
     y2 <- yeig1^2/y2
     amax <- max(y2)/fraction
     v <- rep(1, ncol(veg))
