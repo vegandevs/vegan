@@ -61,9 +61,9 @@
     }
     CA <- list(rproj = CA$rproj, cproj = CA$cproj, evals = CA$evals,
                evals.decorana = evals.decorana,
-               origin = origin, v = v, fraction = v.fraction, adotj = adotj,
-               aidot = aidot, iweigh = iweigh, iresc = iresc, ira = ira,
-               mk = mk, short = short, before = before, after = after,
+               origin = origin, v = v, fraction = v.fraction, adotj = CA$adotj,
+               aidot = CA$aidot, iweigh = iweigh, iresc = CA$iresc, ira = CA$ira,
+               mk = CA$mk, short = CA$short, before = before, after = after,
                call = match.call())
     class(CA) <- "decorana"
     CA

@@ -149,17 +149,29 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 	    rxeig[i*nr + j] /= REAL(aidot)[j];
     }
 
-    /* result object */
-    SEXP result = PROTECT(allocVector(VECSXP, 3));
-    SEXP names = PROTECT(allocVector(STRSXP, 3));
+    /* decorana object */
+    SEXP result = PROTECT(allocVector(VECSXP, 9));
+    SEXP names = PROTECT(allocVector(STRSXP, 9));
     SET_STRING_ELT(names, 0, mkChar("evals"));
     SET_STRING_ELT(names, 1, mkChar("rproj"));
     SET_STRING_ELT(names, 2, mkChar("cproj"));
+    SET_STRING_ELT(names, 3, mkChar("adotj"));
+    SET_STRING_ELT(names, 4, mkChar("aidot"));
+    SET_STRING_ELT(names, 5, mkChar("ira"));
+    SET_STRING_ELT(names, 6, mkChar("iresc"));
+    SET_STRING_ELT(names, 7, mkChar("short"));
+    SET_STRING_ELT(names, 8, mkChar("mk"));
     setAttrib(result, R_NamesSymbol, names);
     UNPROTECT(1); /* names */
     SET_VECTOR_ELT(result, 0, eig);
     SET_VECTOR_ELT(result, 1, xeig);
     SET_VECTOR_ELT(result, 2, yeig);
+    SET_VECTOR_ELT(result, 3, adotj);
+    SET_VECTOR_ELT(result, 4, aidot);
+    SET_VECTOR_ELT(result, 5, ira);
+    SET_VECTOR_ELT(result, 6, iresc);
+    SET_VECTOR_ELT(result, 7, rshort);
+    SET_VECTOR_ELT(result, 8, imk);
 
     UNPROTECT(4); /* xeig, yeig, eig, result */
     return result;
