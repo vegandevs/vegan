@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-09-21 r71333) -- "Unsuffered Consequences"
+R version 3.3.1 Patched (2016-10-10 r71494) -- "Bug in Your Hair"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -881,6 +881,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 [1] -4.440892e-16  8.881784e-16
 > rm(mr, md, mc, d, amd, amc)
 > 
+> ## eigenvals returns a list now (>= 2.5-0)
+> data(varespec, varechem)
+> mod <- cca(varespec ~ Al + P + Condition(pH), varechem)
+> ev <- summary(eigenvals(mod))
+> stopifnot(inherits(ev, "matrix"))
+> stopifnot(!is.list(ev))
+> 
 > proc.time()
    user  system elapsed 
- 10.508   0.056  10.561 
+111.551   0.207 111.759 

@@ -133,25 +133,24 @@
     invisible(x)
 }
 
-`summary.eigenvals` <-
-    function(object, ...)
-{
+`summary.eigenvals` <- function(object, ...) {
     ## dbRDA can have negative eigenvalues: do not give cumulative
     ## proportions
-    if(!is.null(attr(object, "sumev")))
+    if (!is.null(attr(object, "sumev"))) {
         sumev <- attr(object, "sumev")
-    else
+    } else {
         sumev <- sum(object)
+    }
     vars <- object/sumev
-    cumvars <- if (all(vars >= 0))
-                   cumsum(vars)
-               else
-                   NA
-    importance <- rbind(`Eigenvalue` = object,
-                        `Proportion Explained` = round(abs(vars), 5),
-                        `Cumulative Proportion` = round(cumvars, 5))
-    out <- list(importance = importance)
-    class(out) <- c("summary.eigenvals")
+    cumvars <- if (all(vars >= 0)) {
+        cumsum(vars)
+    } else {
+        NA
+    }
+    out <- rbind(`Eigenvalue` = object,
+                 `Proportion Explained` = round(abs(vars), 5),
+                 `Cumulative Proportion` = round(cumvars, 5))
+    class(out) <- c("summary.eigenvals", "matrix")
     out
 }
 
@@ -162,6 +161,8 @@
     function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
     cat("Importance of components:\n")
-    print(x$importance, digits = digits, ...)
+    cls <- class(x)
+    class(x) <- cls[cls == "matrix"]
+    print(x, digits = digits, ...)
     invisible(x)
 }
