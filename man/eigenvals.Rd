@@ -71,7 +71,11 @@ eigenvals(x, ...)
 }
 
 \value{
-  An object of class \code{"eigenvals"} which is a vector of eigenvalues.
+  An object of class \code{"eigenvals"}, which is a vector of
+  eigenvalues.
+
+  The \code{summary} method returns an object of class
+  \code{"summary.eigenvals"}, which is a matrix.
 }
 
 \author{
