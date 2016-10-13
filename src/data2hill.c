@@ -80,10 +80,11 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 		 SEXP aidot, SEXP adotj)
 {
     /* decorana CONSTANTS */
-    int NAXES = 4;
+    int NAXES = 4, MKPAD = 4;
     double ZEROEIG = 1e-7;
     /* input parameters */
-    int ra = asInteger(ira), resc = asInteger(iresc), mk = asInteger(imk);
+    int ra = asInteger(ira), resc = asInteger(iresc),
+	mk = asInteger(imk) + MKPAD;
     double xshort = asReal(rshort);
     /* internal parameters */
     int nr = nrows(veg), nc = ncols(veg), nid;

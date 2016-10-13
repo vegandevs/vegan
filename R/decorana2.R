@@ -12,11 +12,10 @@
         stop("'decorana' cannot handle negative data entries")
     if (any(colSums(veg) <= 0))
         warning("some species were removed because they were missing in the data")
-    mk <- mk + 4
-    if (mk < 14)
-        mk <- 14
-    if (mk > 50)
-        mk <- 50
+    if (mk < 10)
+        mk <- 10
+    if (mk > 46)
+        mk <- 46
     if (ira)
         iresc <- 0
     if (!is.null(before)) {
@@ -64,7 +63,7 @@
                evals.decorana = evals.decorana,
                origin = origin, v = v, fraction = v.fraction, adotj = adotj,
                aidot = aidot, iweigh = iweigh, iresc = iresc, ira = ira,
-               mk = mk - 4, short = short, before = before, after = after,
+               mk = mk, short = short, before = before, after = after,
                call = match.call())
     class(CA) <- "decorana"
     CA
