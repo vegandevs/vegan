@@ -23,7 +23,7 @@
         }
         else {
             if (scales[a] == 0) {
-                result[, a] <- log(apply(x > 0, 1, sum))
+                result[, a] <- log(rowSums(x > 0))
             }
             else if (scales[a] == Inf) {
                 result[, a] <- -log(apply(x, 1, max))
