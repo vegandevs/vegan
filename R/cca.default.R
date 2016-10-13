@@ -28,8 +28,8 @@
     }
     gran.tot <- sum(X)
     X <- X/gran.tot
-    rowsum <- apply(X, 1, sum)
-    colsum <- apply(X, 2, sum)
+    rowsum <- rowSums(X)
+    colsum <- colSums(X)
     rc <- outer(rowsum, colsum)
     Xbar <- (X - rc)/sqrt(rc)
     tot.chi <- sum(svd(Xbar, nu = 0, nv = 0)$d^2)
