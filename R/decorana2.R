@@ -59,12 +59,11 @@
         if (any(ze <- evals.decorana <= 0))
             CA$evals[ze] <- 0
     }
-    CA <- list(rproj = CA$rproj, cproj = CA$cproj, evals = CA$evals,
-               evals.decorana = evals.decorana,
-               origin = origin, v = v, fraction = v.fraction, adotj = CA$adotj,
-               aidot = CA$aidot, iweigh = iweigh, iresc = CA$iresc, ira = CA$ira,
-               mk = CA$mk, short = CA$short, before = before, after = after,
-               call = match.call())
-    class(CA) <- "decorana"
+    additems <- list(evals.decorana = evals.decorana, origin = origin,
+                     v = v, fraction = v.fraction, iweigh = iweigh,
+                     before = before, after = after,
+                     call = match.call())
+    CA <- c(CA, additems)
+    class(CA) <- "decorana" # c() strips class
     CA
 }
