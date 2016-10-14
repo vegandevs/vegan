@@ -65,3 +65,37 @@ void wcentre(double *x, double *w, int *nr, int *nc)
 	  }
      }
 }
+
+/* .Call interfaces */
+
+#include <Rinternals.h>
+
+SEXP do_wcentre(SEXP x, SEXP w)
+{
+    int nr = nrows(x), nc = ncols(x);
+    SEXP rx = PROTECT(duplicate(x));
+    wcentre(REAL(rx), REAL(w), &nr, &nc);
+    UNPROTECT(1);
+    return rx;
+}
+
+SEXP do_goffactor(SEXP x, SEXP factor, SEXP nlevels, SEXP w)
+{
+    int i, nr = nrows(x), nc = ncols(x), nl = asInteger(nlevels);
+    /* return variance */
+    SEXP var = PROTECT(allocVector(REALSXP, 1));
+    if (TYPEOF(factor) != INTSXP)
+	factor = coerceVector(factor, INTSXP);
+    PROTECT(factor);
+    SEXP fac1 = PROTECT(duplicate(factor));
+    /* goffactor assume factors start from 0 */
+    for (i = 0; i < nr; i++)
+	INTEGER(fac1)[i]--;
+    double *work1 = (double *) R_alloc(nl, sizeof(double));
+    double *work2 = (double *) R_alloc(nl, sizeof(double));
+    double *work3 = (double *) R_alloc(nl, sizeof(double));
+    goffactor(REAL(x), INTEGER(fac1), REAL(w), &nr, &nc, &nl,
+	      work1, work2, work3, REAL(var));
+    UNPROTECT(3);
+    return var;
+}
