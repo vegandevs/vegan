@@ -100,8 +100,8 @@
         }
         result <- 1 - result
         sites <- 1:n
-        specaccum <- apply(result, 1, sum)
-        sdaccum <- sqrt(apply(result * (1 - result), 1, sum))
+        specaccum <- rowSums(result)
+        sdaccum <- sqrt(rowSums(result * (1 - result)))
     })
     out <- list(call = match.call(), method = method, sites = sites,
                 richness = specaccum, sd = sdaccum, perm = perm)

@@ -1,6 +1,6 @@
 `renyi` <-
-    function (x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 
-                 Inf), hill = FALSE) 
+    function (x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64,
+                 Inf), hill = FALSE)
 {
     x <- as.matrix(x)
     n <- nrow(x)
@@ -18,14 +18,12 @@
     result <- array(0, dim = c(n, m))
     dimnames(result) <- list(sites = rownames(x), scale = scales)
     for (a in 1:m) {
-        if (scales[a] != 0 && scales[a] != 1 && scales[a] != 
-            Inf) {
-            result[, a] <- log(apply(x^scales[a], 1, sum))/(1 - 
-                                                            scales[a])
+        if (scales[a] != 0 && scales[a] != 1 && scales[a] !=  Inf) {
+            result[, a] <- log(rowSums(x^scales[a]))/(1 - scales[a])
         }
         else {
             if (scales[a] == 0) {
-                result[, a] <- log(apply(x > 0, 1, sum))
+                result[, a] <- log(rowSums(x > 0))
             }
             else if (scales[a] == Inf) {
                 result[, a] <- -log(apply(x, 1, max))
@@ -35,7 +33,7 @@
             }
         }
     }
-    if (hill) 
+    if (hill)
         result <- exp(result)
     if (any(dim(result) == 1))
         result <- drop(result)

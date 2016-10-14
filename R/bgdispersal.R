@@ -1,4 +1,4 @@
-bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE) 
+bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
 {
     mat <- as.matrix(mat)
     names <- rownames(mat)
@@ -37,7 +37,7 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
                 ## McNemar = 2*(b*log(b) + c*log(c) - (b+c)*log((b+c)/2))
                 McNemar[j, jj] = 2*(B + C - (bb+cc)*log((bb+cc)/2)) / q
                 pP.Mc[j, jj] <- pchisq(McNemar[j, jj], 1, lower.tail = FALSE)
-                if ((b[j, jj] + c[j, jj]) == 0) 
+                if ((b[j, jj] + c[j, jj]) == 0)
                     pP.Mc[j, jj] <- 1
             }
         }
@@ -45,7 +45,7 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
     if (!PAonly) {
         DD3 <- matrix(0, n, n, dimnames=list(names,names))
         DD4 <- matrix(0, n, n, dimnames=list(names,names))
-        row.sum <- apply(mat2, 1, sum)
+        row.sum <- rowSums(mat2)
         for (j in 1:(n - 1)) {
             for (jj in (j + 1):n) {
                 W <- sum(apply(mat2[c(j, jj), ], 2, min))
@@ -59,11 +59,11 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
                 DD4[jj, j] <- -temp4
             }
         }
-        out <- list(DD1 = DD1, DD2 = DD2, DD3 = DD3, DD4 = DD4, 
+        out <- list(DD1 = DD1, DD2 = DD2, DD3 = DD3, DD4 = DD4,
                     McNemar = McNemar, prob.McNemar = pP.Mc)
     }
     else {
-        out <- list(DD1 = DD1, DD2 = DD2, McNemar = McNemar, 
+        out <- list(DD1 = DD1, DD2 = DD2, McNemar = McNemar,
                     prob.McNemar = pP.Mc)
     }
     if (abc) {

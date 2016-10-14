@@ -1,5 +1,5 @@
-tsallis <-
-function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
+`tsallis` <-
+    function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
 {
     if (norm && hill)
         stop("'norm = TRUE' and 'hill = TRUE' should not be used at the same time")
@@ -17,7 +17,7 @@ function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
     dimnames(result) <- list(sites = rownames(x), scale = scales)
     for (a in 1:m) {
         if (scales[a] != 1 && scales[a] != 0) {
-                result[, a] <- (1-(apply(x^scales[a], 1, sum)))/(scales[a] - 1)
+                result[, a] <- (1-(rowSums(x^scales[a])))/(scales[a] - 1)
         }
         else {
             if (scales[a] == 1) result[, a] <- diversity(x, "shannon")
@@ -37,7 +37,7 @@ function (x, scales = seq(0, 2, 0.2), norm=FALSE, hill=FALSE)
         }
     }
     result <- as.data.frame(result)
-    if (any(dim(result) == 1)) 
+    if (any(dim(result) == 1))
         result <- unlist(result, use.names = TRUE)
     class(result) <- c("tsallis", "renyi", class(result))
     result

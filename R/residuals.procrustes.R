@@ -1,8 +1,8 @@
 "residuals.procrustes" <-
-  function (object, ...) 
+  function (object, ...)
 {
   distance <- object$X - object$Yrot
-  resid <- apply(distance^2, 1, sum)
+  resid <- rowSums(distance^2)
   resid <- sqrt(resid)
   resid
 }
