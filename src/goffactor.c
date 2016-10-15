@@ -10,8 +10,9 @@
 
 #include <R.h>
 
-void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim, int *nlev, 
-	       double *sw, double *swx, double *swxx, double *var)
+static void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim,
+		      int *nlev,  double *sw, double *swx, double *swxx,
+		      double *var)
 {
      int i, j, k;
      
@@ -46,7 +47,7 @@ void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim, int *nlev,
 
 #include <math.h> /* sqrt */
 
-void wcentre(double *x, double *w, int *nr, int *nc)
+static void wcentre(double *x, double *w, int *nr, int *nc)
 {
      int i, j, ij;
      double sw, swx;
