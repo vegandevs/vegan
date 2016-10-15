@@ -54,10 +54,7 @@ permutest.default <- function(x, ...)
                 wtake <- w[take]
             if (isPartial) {
                 if (isCCA) {
-                    XZ <- .C("wcentre", x = as.double(Z), as.double(wtake),
-                             as.integer(N), as.integer(Zcol),
-                             PACKAGE = "vegan")$x
-                    dim(XZ) <- c(N, Zcol)
+                    XZ <- .Call("do_wcentre", Z, wtake, PACKAGE = "vegan")
                     QZ <- qr(XZ)
                 }
                 Y <- qr.resid(QZ, Y)
@@ -65,10 +62,7 @@ permutest.default <- function(x, ...)
                     Y <- qr.resid(QZ, t(Y))
             }
             if (isCCA) {
-                XY <- .C("wcentre", x = as.double(X), as.double(wtake),
-                         as.integer(N), as.integer(Xcol),
-                         PACKAGE = "vegan")$x
-                dim(XY) <- c(N, Xcol)
+                XY <- .Call("do_wcentre", X, wtake, PACKAGE = "vegan")
                 Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
