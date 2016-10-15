@@ -42,10 +42,8 @@
     if (ira)
         dnames <- paste("RA", 1:4, sep = "")
     else dnames <- paste("DCA", 1:4, sep = "")
-    rownames(CA$rproj) <- rownames(veg)
-    colnames(CA$rproj) <- dnames
-    rownames(CA$cproj) <- colnames(veg)
-    colnames(CA$cproj) <- dnames
+    dimnames(CA$rproj) <- list(rownames(veg), dnames)
+    dimnames(CA$cproj) <- list(colnames(veg), dnames)
     names(CA$evals) <- dnames
     origin <- apply(CA$rproj, 2, weighted.mean, aidot)
     if (ira) {
