@@ -1,5 +1,5 @@
 `rda.default` <-
-    function (X, Y, Z, scale = FALSE, ...) 
+    function (X, Y, Z, scale = FALSE, ...)
 {
     ZERO <- 1e-05
     CCA <- NULL
@@ -14,7 +14,7 @@
     NR <- nrow(X) - 1
     Xbar <- scale(X, center = TRUE, scale = scale)
     SD <- apply(Xbar, 2, sd)
-    if (scale) 
+    if (scale)
         Xbar[is.nan(Xbar)] <- 0
     tot.chi <- sum(svd(Xbar, nu = 0, nv = 0)$d^2)/NR
     if (!missing(Z) && !is.null(Z)) {
@@ -24,7 +24,7 @@
         Z <- qr.fitted(Q, Xbar)
         tmp <- sum(svd(Z, nu = 0, nv = 0)$d^2)/NR
         if (Q$rank) {
-            pCCA <- list(rank = Q$rank, tot.chi = tmp, QR = Q, 
+            pCCA <- list(rank = Q$rank, tot.chi = tmp, QR = Q,
                          Fit = Z, envcentre = attr(Z.r, "scaled:center"))
             Xbar <- qr.resid(Q, Xbar)
         }
@@ -36,7 +36,7 @@
         Y <- as.matrix(Y)
         Y.r <- scale(Y, center = TRUE, scale = FALSE)
         Q <- qr(cbind(Z.r, Y.r), tol = ZERO)
-        if (is.null(pCCA)) 
+        if (is.null(pCCA))
             rank <- Q$rank
         else rank <- Q$rank - pCCA$rank
         ## qrank saves the rank of the constraints
@@ -47,11 +47,9 @@
         rank <- min(rank, sum(sol$d > (sol$d[1L] * ZERO)))
         sol$d <- sol$d/sqrt(NR)
         ax.names <- paste("RDA", seq_along(sol$d), sep = "")
-        colnames(sol$u) <- ax.names
-        colnames(sol$v) <- ax.names
         names(sol$d) <- ax.names
-        rownames(sol$u) <- rownames(X)
-        rownames(sol$v) <- colnames(X)
+        dimnames(sol$u) <- list(rownames(X), ax.names)
+        dimnames(sol$v) <- list(colnames(X), ax.names)
         if (rank) {
             CCA <- list(eig = sol$d[1:rank]^2)
             CCA$u <- as.matrix(sol$u)[, 1:rank, drop = FALSE]
@@ -60,12 +58,12 @@
             wa.eig <- wa.eig/sqrt(NR)
             CCA$wa <- sweep(wa.eig, 2, 1/sol$d[1:rank], "*")
             oo <- Q$pivot
-            if (!is.null(pCCA$rank)) 
+            if (!is.null(pCCA$rank))
                 oo <- oo[-(1:pCCA$rank)] - ncol(Z.r)
             oo <- oo[1:qrank]
-            if (length(oo) < ncol(Y.r)) 
+            if (length(oo) < ncol(Y.r))
                 CCA$alias <- colnames(Y.r)[-oo]
-            CCA$biplot <- cor(Y.r[, oo, drop = FALSE], sol$u[, 
+            CCA$biplot <- cor(Y.r[, oo, drop = FALSE], sol$u[,
                                         1:rank, drop = FALSE])
             CCA$rank <- rank
             CCA$qrank <- qrank
@@ -89,11 +87,9 @@
     sol <- svd(Xbar)
     sol$d <- sol$d/sqrt(NR)
     ax.names <- paste("PC", 1:length(sol$d), sep = "")
-    colnames(sol$u) <- ax.names
-    colnames(sol$v) <- ax.names
     names(sol$d) <- ax.names
-    rownames(sol$u) <- rownames(X)
-    rownames(sol$v) <- colnames(X)
+    dimnames(sol$u) <- list(rownames(X), ax.names)
+    dimnames(sol$v) <- list(colnames(X), ax.names)
     rank <- min(Q$rank, sum(sol$d > (sol$d[1L] * ZERO)))
     if (rank) {
         CA <- list(eig = (sol$d[1:rank]^2))
@@ -110,10 +106,10 @@
     }
     call <- match.call()
     call[[1]] <- as.name("rda")
-    sol <- list(call = call, grand.total = NA, rowsum = NA, colsum = SD, 
+    sol <- list(call = call, grand.total = NA, rowsum = NA, colsum = SD,
                 tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
     sol$method <- "rda"
-    sol$inertia <- if (scale) 
+    sol$inertia <- if (scale)
         "correlations"
     else "variance"
     class(sol) <- c("rda", "cca")

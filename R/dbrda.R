@@ -212,8 +212,7 @@
             negax <- sol$CA$eig < 0
             negnm <- paste0("iMDS", seq_len(sum(negax)))
             names(sol$CA$eig)[negax] <- negnm
-            colnames(sol$CA$imaginary.u) <- negnm
-            rownames(sol$CA$imaginary.u) <- rownames(d$X)
+            dimnames(sol$CA$imaginary.u) <- list(rownames(d$X), negnm)
         }
     }
 

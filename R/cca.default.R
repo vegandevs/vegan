@@ -62,11 +62,9 @@
         ## rank of svd can be < qrank
         rank <- min(rank, sum(sol$d > ZERO))
         ax.names <- paste("CCA", seq_along(sol$d), sep = "")
-        colnames(sol$u) <- ax.names
-        colnames(sol$v) <- ax.names
+        dimnames(sol$u) <- list(rownames(X), ax.names)
+        dimnames(sol$v) <- list(colnames(X), ax.names)
         names(sol$d) <- ax.names
-        rownames(sol$u) <- rownames(X)
-        rownames(sol$v) <- colnames(X)
         if (rank) {
             CCA <- list(eig = sol$d[1:rank]^2)
             CCA$u <- sweep(as.matrix(sol$u[, 1:rank, drop = FALSE]),
@@ -109,11 +107,9 @@
     Q <- qr(Xbar)
     sol <- svd(Xbar)
     ax.names <- paste("CA", seq_along(sol$d), sep = "")
-    colnames(sol$u) <- ax.names
-    colnames(sol$v) <- ax.names
+    dimnames(sol$u) <- list(rownames(X), ax.names)
+    dimnames(sol$v) <- list(colnames(X), ax.names)
     names(sol$d) <- ax.names
-    rownames(sol$u) <- rownames(X)
-    rownames(sol$v) <- colnames(X)
     rank <- min(Q$rank, sum(sol$d > ZERO))
     if (rank) {
         CA <- list(eig = sol$d[seq_len(rank)]^2)
