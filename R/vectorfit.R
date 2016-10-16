@@ -1,18 +1,14 @@
-"vectorfit" <-
-    function (X, P, permutations = 0, strata = NULL, w, ...) 
+`vectorfit` <-
+    function (X, P, permutations = 0, strata = NULL, w, ...)
 {
     EPS <- sqrt(.Machine$double.eps)
-    if (missing(w) || is.null(w)) 
+    if (missing(w) || is.null(w))
         w <- 1
-    if (length(w) == 1) 
+    if (length(w) == 1)
         w <- rep(w, nrow(X))
-    Xw <- .C("wcentre", x = as.double(X), as.double(w), as.integer(nrow(X)),
-             as.integer(ncol(X)), PACKAGE = "vegan")$x
-    dim(Xw) <- dim(X)
+    Xw <- .Call("do_wcentre", X, w, PACKAGE = "vegan")
     P <- as.matrix(P)
-    Pw <- .C("wcentre", x = as.double(P), as.double(w), as.integer(nrow(P)),
-             as.integer(ncol(P)), PACKAGE = "vegan")$x
-    dim(Pw) <- dim(P)
+    Pw <- .Call("do_wcentre", P, w, PACKAGE = "vegan")
     colnames(Pw) <- colnames(P)
     nc <- ncol(X)
     Q <- qr(Xw)
@@ -22,7 +18,7 @@
     r[is.na(r)] <- 0
     heads <- decostand(heads, "norm", 2)
     heads <- t(heads)
-    if (is.null(colnames(X))) 
+    if (is.null(colnames(X)))
         colnames(heads) <- paste("Dim", 1:nc, sep = "")
     else colnames(heads) <- colnames(X)
     ## make permutation matrix for all variables handled in the next loop
@@ -36,10 +32,7 @@
     if (permutations) {
         ptest <- function(indx, ...) {
             take <- P[indx, , drop = FALSE]
-            take <- .C("wcentre", x = as.double(take), as.double(w),
-                       as.integer(nrow(take)), as.integer(ncol(take)),
-                       PACKAGE = "vegan")$x
-            dim(take) <- dim(P)
+            take <- .Call("do_wcentre", take, w, PACKAGE = "vegan")
             Hperm <- qr.fitted(Q, take)
             diag(cor(Hperm, take))^2
         }
@@ -53,7 +46,7 @@
         pvals <- (rowSums(permstore, na.rm = TRUE) + 1)/(validn + 1)
     }
     else pvals <- NULL
-    sol <- list(arrows = heads, r = r, permutations = permutations, 
+    sol <- list(arrows = heads, r = r, permutations = permutations,
                 pvals = pvals)
     sol$control <- attr(permat, "control")
     class(sol) <- "vectorfit"
