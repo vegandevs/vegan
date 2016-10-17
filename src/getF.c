@@ -39,7 +39,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
 {
     int i, j, k, ki, nperm = nrows(perms),
 	nr = nrows(E), nc = ncols(E);
-    SEXP ans = PROTECT(allocMatrix(REALSXP, nr, nc));
+    SEXP ans = PROTECT(allocVector(REALSXP, nperm));
+    double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
 
@@ -56,8 +57,6 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
     int info, qrfit = 1;
 
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
-
-    /* Elements for LINPACK QR decomposition */
 
     /* permutation matrix must be duplicated */
     SEXP dperms = PROTECT(duplicate(perms));
@@ -84,9 +83,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, &dummy,
 			    rY + i*nr, &dummy, &dummy, fitted + i*nr, &qrfit,
 			    &info);
-	/* copy ans for checking */
-	for(i = 0; i < nr*nc; i++)
-	    REAL(ans)[i] = fitted[i];
+
+	/* Eigenvalues: only sum of all, first ev not yet implemented */
+
+	rans[k] = getEV(fitted, nr, nc, 0);
 
     } /* end permutation loop */
 
