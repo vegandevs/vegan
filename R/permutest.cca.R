@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct"), first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , ...)
+              strata = NULL, parallel = getOption("mc.cores") , C = FALSE, ...)
 {
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA)) {
@@ -84,6 +84,16 @@ permutest.default <- function(x, ...)
         mat
     }
     ## end getF()
+    CgetF <- function(indx, ...)
+    {
+        out <- .Call("do_getF", indx, E, Q, QZ, isPartial)
+        if (!isPartial && !first)
+            out[,2] <- Chi.tot - out[,1]
+        out <- cbind(out, (out[,1]/q)/(out[,2]/r))
+        out
+    }
+    if (C)
+        getF <- CgetF
 
     if (first) {
         Chi.z <- x$CCA$eig[1]
