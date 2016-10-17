@@ -133,6 +133,8 @@ permutest.default <- function(x, ...)
             Z <- qr.X(QZ)
             Z <- sweep(Z, 1, sqrt(w), "/")
         }
+    } else {
+        QZ <- NULL
     }
     if (model == "reduced" || model == "direct")
         E <- if (isDB) x$CCA$G else x$CCA$Xbar
