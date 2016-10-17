@@ -35,11 +35,17 @@ double getEV(double *x, int nr, int nc, int isDB)
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD */
 
-SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
+/* LINPACK uses the same function to find fit and/or residuals with
+ * the following switches */
+#define FIT 1
+#define RESID 10
+
+SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 {
-    int i, j, k, ki, nperm = nrows(perms),
-	nr = nrows(E), nc = ncols(E);
-    SEXP ans = PROTECT(allocVector(REALSXP, nperm));
+    int i, j, k, ki,
+	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
+	PARTIAL = asInteger(isPartial);
+    SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
     double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
@@ -49,12 +55,19 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
     double *qr = REAL(VECTOR_ELT(QR, 0));
     int qrank = asInteger(VECTOR_ELT(QR, 1));
     double *qraux = REAL(VECTOR_ELT(QR, 2));
-    /* int *pivot = INTEGER(VECTOR_ELT(QR, 3)); */
+    double *Zqr, *Zqraux;
+    int Zqrank;
+    if (PARTIAL) {
+	Zqr = REAL(VECTOR_ELT(QZ, 0));
+	Zqrank = asInteger(VECTOR_ELT(QZ, 1));
+	Zqraux = REAL(VECTOR_ELT(QZ, 2));
+    }
 
     double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
-    /* int *ny = (int *) R_alloc(nc, sizeof(int)); */
+    double *resid = (double *) R_alloc(nr * nc, sizeof(double));
+    double *qrwork = (double *) R_alloc(nr, sizeof(double));
     double dummy;
-    int info, qrfit = 1;
+    int info, qrkind;
 
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
 
@@ -76,20 +89,35 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
 	    }
 	}
 
-	/* Partial models not yet implemented: put them here */
+	/* Partial model: qr.resid(QZ, Y) with LINPACK */
+	if (PARTIAL) {
+	    qrkind = RESID;
+	    for(i = 0; i < nc; i++)
+		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
+				&dummy, qrwork, &dummy, rY + i*nr, &dummy,
+				&qrkind, &info);
+	}
 
-	/* qr.fitted(QR, Y) with LINPACK */
+	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
+	if (PARTIAL)
+	    qrkind = FIT + RESID;
+	else
+	    qrkind = FIT;
 	for (i = 0; i < nc; i++)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, &dummy,
-			    rY + i*nr, &dummy, &dummy, fitted + i*nr, &qrfit,
-			    &info);
+			    qrwork, &dummy, resid + i*nr, fitted + i*nr,
+			    &qrkind, &info);
 
-	/* Eigenvalues: only sum of all, first ev not yet implemented */
+	/* Eigenvalues: only sum of all, first ev not yet
+	 * implemented. If the sum of all eigenvalues does not change,
+	 * we have only ev of CCA component. */
 
 	rans[k] = getEV(fitted, nr, nc, 0);
+	if (PARTIAL)
+	    rans[k + nperm] = getEV(resid, nr, nc, 0);
 
     } /* end permutation loop */
 
     UNPROTECT(3);
-    return ans; /* return to check permutations */
+    return ans;
 }
