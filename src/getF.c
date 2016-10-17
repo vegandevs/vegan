@@ -42,11 +42,13 @@ SEXP do_getF(SEXP perms, SEXP E)
     /* SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 3)); */
     SEXP Y = PROTECT(duplicate(E));
 
-    int *iperm = INTEGER(perms);
-
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
 
     /* Elements for LINPACK QR decomposition */
+
+    /* permutation matrix must be duplicated */
+    SEXP dperms = PROTECT(duplicate(perms));
+    int *iperm = INTEGER(dperms);
 
     /* permutations to zero base */
     for(i = 0; i < nperm * nr; i++)
@@ -60,6 +62,6 @@ SEXP do_getF(SEXP perms, SEXP E)
 	    }
 	}
     }
-    UNPROTECT(1);
+    UNPROTECT(2);
     return Y; /* return to check permutations */
 }
