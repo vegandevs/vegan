@@ -35,13 +35,25 @@ double getEV(double *x, int nr, int nc, int isDB)
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD */
 
-SEXP do_getF(SEXP perms, SEXP E)
+SEXP do_getF(SEXP perms, SEXP E, SEXP QR)
 {
     int i, j, k, ki, nperm = nrows(perms),
 	nr = nrows(E), nc = ncols(E);
-    /* SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 3)); */
+    SEXP ans = PROTECT(allocMatrix(REALSXP, nr, nc));
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
+
+    /* pointers and new objects to the QR decomposition */
+
+    double *qr = REAL(VECTOR_ELT(QR, 0));
+    int qrank = asInteger(VECTOR_ELT(QR, 1));
+    double *qraux = REAL(VECTOR_ELT(QR, 2));
+    /* int *pivot = INTEGER(VECTOR_ELT(QR, 3)); */
+
+    double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
+    /* int *ny = (int *) R_alloc(nc, sizeof(int)); */
+    double dummy;
+    int info, qrfit = 1;
 
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
 
@@ -67,9 +79,17 @@ SEXP do_getF(SEXP perms, SEXP E)
 
 	/* Partial models not yet implemented: put them here */
 
+	/* qr.fitted(QR, Y) with LINPACK */
+	for (i = 0; i < nc; i++)
+	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, &dummy,
+			    rY + i*nr, &dummy, &dummy, fitted + i*nr, &qrfit,
+			    &info);
+	/* copy ans for checking */
+	for(i = 0; i < nr*nc; i++)
+	    REAL(ans)[i] = fitted[i];
 
     } /* end permutation loop */
 
-    UNPROTECT(2);
-    return Y; /* return to check permutations */
+    UNPROTECT(3);
+    return ans; /* return to check permutations */
 }
