@@ -86,6 +86,12 @@ permutest.default <- function(x, ...)
     ## end getF()
     CgetF <- function(indx, ...)
     {
+        if (first)
+            stop("argument 'first = TRUE' is not yet implemented")
+        if (isCCA)
+            stop("analysis of CCA models is not yet implemented")
+        if (isDB)
+            stop("analysis of distance-based models is not yet implemented")
         out <- .Call("do_getF", indx, E, Q, QZ, isPartial)
         if (!isPartial && !first)
             out[,2] <- Chi.tot - out[,1]
