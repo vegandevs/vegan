@@ -27,7 +27,7 @@ double getEV(double *x, int nr, int nc, int isDB)
     return sumev;
 }
 
-/* do_getF: get the F value. Input data will be
+/* do_getF: get the F value. At the first pass *only* for RDA.
 
  */
 #include <R.h>
@@ -41,6 +41,7 @@ SEXP do_getF(SEXP perms, SEXP E)
 	nr = nrows(E), nc = ncols(E);
     /* SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 3)); */
     SEXP Y = PROTECT(duplicate(E));
+    double *rY = REAL(Y);
 
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
 
@@ -54,14 +55,21 @@ SEXP do_getF(SEXP perms, SEXP E)
     for(i = 0; i < nperm * nr; i++)
 	iperm[i]--;
 
+    /* loop over rows of permutation matrix */
     for (k = 0; k < nperm; k++) {
+	/* Y will be permuted data */
 	for (i = 0; i < nr; i++) {
 	    ki = iperm[k + nperm * i];
 	    for(j = 0; j < nc; j++) {
-		REAL(Y)[i + nr * j] = REAL(E)[ki + nr * j];
+		rY[i + nr * j] = REAL(E)[ki + nr * j];
 	    }
 	}
-    }
+
+	/* Partial models not yet implemented: put them here */
+
+
+    } /* end permutation loop */
+
     UNPROTECT(2);
     return Y; /* return to check permutations */
 }
