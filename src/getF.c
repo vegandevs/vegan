@@ -84,11 +84,13 @@ SEXP test_svd(SEXP x)
 #define FIT 1
 #define RESID 10
 
-SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
+SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
+	     SEXP isPartial)
 {
     int i, j, k, ki,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
-	PARTIAL = asInteger(isPartial);
+	FIRST = asInteger(first), PARTIAL = asInteger(isPartial);
+    double ev1;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
     double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
@@ -143,7 +145,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 	}
 
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
-	if (PARTIAL)
+	if (PARTIAL || FIRST)
 	    qrkind = FIT + RESID;
 	else
 	    qrkind = FIT;
@@ -152,12 +154,19 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 			    qty, &dummy, resid + i*nr, fitted + i*nr,
 			    &qrkind, &info);
 
-	/* Eigenvalues: only sum of all, first ev not yet
-	 * implemented. If the sum of all eigenvalues does not change,
-	 * we have only ev of CCA component. */
+	/* Eigenvalues: either sum of all or the first If the sum of
+	 * all eigenvalues does not change, we have only ev of CCA
+	 * component in the first column, and the second column is
+	 * rubbish that should be filled in the calling R function
+	 * with the correct value. */
 
-	rans[k] = getEV(fitted, nr, nc, 0);
-	if (PARTIAL)
+	if (FIRST) {
+	    ev1 = svdfirst(fitted, nr, nc);
+	    rans[k] = ev1 * ev1;
+	} else {
+	    rans[k] = getEV(fitted, nr, nc, 0);
+	}
+	if (PARTIAL || FIRST)
 	    rans[k + nperm] = getEV(resid, nr, nc, 0);
 
     } /* end permutation loop */
