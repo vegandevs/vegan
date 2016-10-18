@@ -5,10 +5,25 @@
  * considerable impact in running time.
  */
 
+#include <R.h>
+#include <Rinternals.h>
+#include <R_ext/Linpack.h> /* QR */
+#include <R_ext/Lapack.h>  /* SVD */
+
+/* LINPACK uses the same function (dqrsl) to find derived results from
+ * the QR decomposition. It uses decimal coding to define the kind of
+ * output with following alternatives (although we will not use all of
+ * these): */
+
+#define FIT 1
+#define RESID 10
+#define COEF 100
+#define QTY 1000
+#define QY 10000
 
 /* Function called form getF to evaluate the sum of all eigenvalues */
 
-double getEV(double *x, int nr, int nc, int isDB)
+static double getEV(double *x, int nr, int nc, int isDB)
 {
     int i, ii;
     double sumev;
@@ -27,17 +42,9 @@ double getEV(double *x, int nr, int nc, int isDB)
     return sumev;
 }
 
-/* do_getF: get the F value. At the first pass *only* for RDA.
+/* LAPACK function dgesdd for SVD. Returns first singular value */
 
- */
-#include <R.h>
-#include <Rinternals.h>
-#include <R_ext/Linpack.h> /* QR */
-#include <R_ext/Lapack.h>  /* SVD */
-
-/* LAPACK function for SVD. Returns first singular value */
-
-double svdfirst(double *x, int nr, int nc)
+static double svdfirst(double *x, int nr, int nc)
 {
     char jobz[2] = "N";
     int minrc = (nr < nc) ? nr : nc;
@@ -79,10 +86,9 @@ SEXP test_svd(SEXP x)
     return ans;
 }
 
-/* LINPACK uses the same function to find fit and/or residuals with
- * the following switches */
-#define FIT 1
-#define RESID 10
+/* Function do_getF is modelled after R function getF embedded in
+ * permutest.cca. The do_getF provides a drop-in replacement to the R
+ * function, and is called directly the R function */
 
 SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	     SEXP isPartial)
