@@ -35,6 +35,50 @@ double getEV(double *x, int nr, int nc, int isDB)
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD */
 
+/* LAPACK function for SVD. Returns first singular value */
+
+double svdfirst(double *x, int nr, int nc)
+{
+    char jobz[2] = "N";
+    int minrc = (nr < nc) ? nr : nc;
+    int i, len = nr*nc, info, lwork;
+    double dummy = 0, query;
+
+    /* copy data: dgesdd will destroy the original */
+    double *xwork = (double *) R_alloc(len, sizeof(double));
+    for(i = 0; i < len; i++)
+	xwork[i] = x[i];
+    /* singular values */
+    double *sigma = (double *) R_alloc(minrc, sizeof(double));
+
+    int *iwork = (int *) R_alloc(8 * minrc, sizeof(int));
+    /* query and set optimal work array */
+    info = 0;
+    lwork = -1;
+    F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
+		     &nr, &dummy, &nc, &query, &lwork, iwork, &info);
+    if (info != 0)
+	error("error %d from Lapack dgesdd", info);
+    lwork = (int) query;
+    double *work = (double *) R_alloc(lwork, sizeof(double));
+    /* call svd */
+    F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
+		     &nr, &dummy, &nc, work, &lwork, iwork, &info);
+    if (info != 0)
+	error("error %d from Lapack dgesdd, pos 2", info);
+    return sigma[0];
+}
+
+/* function to test previous from R */
+SEXP test_svd(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x);
+    SEXP ans = PROTECT(allocVector(REALSXP, 1));
+    REAL(ans)[0] = svdfirst(REAL(x), nr, nc);
+    UNPROTECT(1);
+    return ans;
+}
+
 /* LINPACK uses the same function to find fit and/or residuals with
  * the following switches */
 #define FIT 1
