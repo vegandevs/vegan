@@ -65,7 +65,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 
     double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
     double *resid = (double *) R_alloc(nr * nc, sizeof(double));
-    double *qrwork = (double *) R_alloc(nr, sizeof(double));
+    double *qty = (double *) R_alloc(nr, sizeof(double));
     double dummy;
     int info, qrkind;
 
@@ -94,7 +94,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 	    qrkind = RESID;
 	    for(i = 0; i < nc; i++)
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
-				&dummy, qrwork, &dummy, rY + i*nr, &dummy,
+				&dummy, qty, &dummy, rY + i*nr, &dummy,
 				&qrkind, &info);
 	}
 
@@ -105,7 +105,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP isPartial)
 	    qrkind = FIT;
 	for (i = 0; i < nc; i++)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, &dummy,
-			    qrwork, &dummy, resid + i*nr, fitted + i*nr,
+			    qty, &dummy, resid + i*nr, fitted + i*nr,
 			    &qrkind, &info);
 
 	/* Eigenvalues: only sum of all, first ev not yet
