@@ -27,16 +27,13 @@ static double getEV(double *x, int nr, int nc, int isDB)
 {
     int i;
     double sumev;
-    switch(isDB) {
-    case 1:
+    if (isDB)
 	for(i = 0, sumev = 0; i < nr; i++)
 	    sumev += x[i * nr + i];
-	break;
-    case 0:
+    else
 	for(i = 0, sumev = 0; i < nr * nc; i++)
 	    sumev += x[i] * x[i];
-	break;
-    }
+
     return sumev;
 }
 
