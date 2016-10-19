@@ -86,6 +86,27 @@ SEXP test_svd(SEXP x)
     return ans;
 }
 
+/* transpose a matrix. */
+
+static void transpose(double *x, double *tx, int nr, int nc)
+{
+    int ij, i, j;
+    for (i = 0, ij = 0; i < nr; i++)
+	for (j = 0; j < nc; j++)
+	    tx[ij++] = x[j * nr + i];
+}
+
+/* test transpose from an R session */
+
+SEXP test_trans(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x);
+    SEXP tx = PROTECT(allocMatrix(REALSXP, nc, nr));
+    transpose(REAL(x), REAL(tx), nr, nc);
+    UNPROTECT(1);
+    return tx;
+}
+
 /* Reconstruct data X from its QR decomposition. */
 
 static void qrX(double *qr, int rank, double *qraux, double *X, int nr,
