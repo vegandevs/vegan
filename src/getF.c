@@ -86,6 +86,46 @@ SEXP test_svd(SEXP x)
     return ans;
 }
 
+/* Reconstruct data X from its QR decomposition. */
+
+static void qrX(double *qr, int rank, double *qraux, double *X, int nr,
+		int nc)
+{
+    int i, j, ij, len = nr*nc, info = 0, qrkind;
+    double dummy = 0;
+    /* Extract  R from qr into upper triangle of X */
+    for(i = 0; i < len; i++)
+	X[i] = 0;
+    for(j = 0; j < nc; j++)
+	for(i = 0; i <= j; i++) {
+	    ij = i + nr*j;
+	    X[ij] = qr[ij];
+	}
+    /* Find data as Qy: if y = R then X = QR. The data will over-write
+       R. No pivoting, and aliased variables will be moved to last
+       columns. Uses Linpack. */
+    qrkind = QY;
+    for(j = 0; j < nc; j++)
+	F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, X + j*nr, X + j*nr,
+			&dummy, &dummy, &dummy, &dummy, &qrkind, &info);
+}
+
+/* function to test qrX from R */
+
+SEXP test_qrX(SEXP QR)
+{
+    int nc, nr;
+    double *qr = REAL(VECTOR_ELT(QR, 0));
+    int rank = asInteger(VECTOR_ELT(QR, 1));
+    double *qraux = REAL(VECTOR_ELT(QR, 2));
+    nr = nrows(VECTOR_ELT(QR, 0));
+    nc = ncols(VECTOR_ELT(QR, 0));
+    SEXP X = PROTECT(allocMatrix(REALSXP, nr, nc));
+    qrX(qr, rank, qraux, REAL(X), nr, nc);
+    UNPROTECT(1);
+    return X;
+}
+
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
