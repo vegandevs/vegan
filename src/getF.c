@@ -160,7 +160,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
 	DISTBASED = asInteger(isDB);
-    double ev1, *transY;
+    double ev1;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
     double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
@@ -186,6 +186,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
     int info, qrkind;
 
     /* distance-based methods need to transpose data */
+    double *transY;
     if (DISTBASED)
 	transY = (double *) R_alloc(nr * nr, sizeof(double));
 
@@ -205,9 +206,9 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	for (i = 0; i < nr; i++) {
 	    ki = iperm[k + nperm * i];
 	    for(j = 0; j < nc; j++) {
-		if (DISTBASED)
+		if (DISTBASED)    /* shuffle rows & cols symmetrically */
 		    rY[i + nr*j] = REAL(E)[ki + nr * iperm[k + nperm*j]];
-		else
+		else   /* shuffle rows */
 		    rY[i + nr*j] = REAL(E)[ki + nr*j];
 	    }
 	}
