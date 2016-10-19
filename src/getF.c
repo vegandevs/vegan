@@ -25,14 +25,12 @@
 
 static double getEV(double *x, int nr, int nc, int isDB)
 {
-    int i, ii;
+    int i;
     double sumev;
     switch(isDB) {
     case 1:
-	for(i = 0, sumev = 0; i < nr; i++) {
-	    ii = i * nr + i;
-	    sumev += x[ii] * x[ii];
-	}
+	for(i = 0, sumev = 0; i < nr; i++)
+	    sumev += x[i * nr + i];
 	break;
     case 0:
 	for(i = 0, sumev = 0; i < nr * nc; i++)
@@ -74,6 +72,13 @@ static double svdfirst(double *x, int nr, int nc)
     if (info != 0)
 	error("error %d from Lapack dgesdd, pos 2", info);
     return sigma[0];
+}
+
+/* LAPACK function to return the first eigenvalue */
+
+static double eigenfirst(double *x, int nr)
+{
+    error("'first=TRUE' not yet implemented for distance-based ordination");
 }
 
 /* function to test previous from R */
@@ -152,12 +157,13 @@ SEXP test_qrX(SEXP QR)
  * function, and is called directly the R function */
 
 SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
-	     SEXP isPartial)
+	     SEXP isPartial, SEXP isDB)
 {
     int i, j, k, ki,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
-	FIRST = asInteger(first), PARTIAL = asInteger(isPartial);
-    double ev1;
+	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
+	DISTBASED = asInteger(isDB);
+    double ev1, *transY;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
     double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
@@ -182,6 +188,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
     double dummy;
     int info, qrkind;
 
+    /* distance-based methods need to transpose data */
+    if (DISTBASED)
+	transY = (double *) R_alloc(nr * nr, sizeof(double));
+
     /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
 
     /* permutation matrix must be duplicated */
@@ -198,7 +208,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	for (i = 0; i < nr; i++) {
 	    ki = iperm[k + nperm * i];
 	    for(j = 0; j < nc; j++) {
-		rY[i + nr * j] = REAL(E)[ki + nr * j];
+		if (DISTBASED)
+		    rY[i + nr*j] = REAL(E)[ki + nr * iperm[k + nperm*j]];
+		else
+		    rY[i + nr*j] = REAL(E)[ki + nr*j];
 	    }
 	}
 
@@ -209,6 +222,15 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
 				&dummy, qty, &dummy, rY + i*nr, &dummy,
 				&qrkind, &info);
+	    /* distances need symmetric residuals */
+	    if (DISTBASED) {
+		transpose(rY, transY, nr, nr);
+		qrkind = RESID;
+		for(i = 0; i < nc; i++)
+		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+				    transY + i*nr, &dummy, qty, &dummy,
+				    rY + i*nr, &dummy, &qrkind, &info);
+	    }
 	}
 
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
@@ -228,13 +250,24 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	 * with the correct value. */
 
 	if (FIRST) {
-	    ev1 = svdfirst(fitted, nr, nc);
-	    rans[k] = ev1 * ev1;
+	    if (DISTBASED) { /* needs symmetric matrix */
+		transpose(fitted, transY, nr, nr);
+		qrkind = FIT;
+		for(i = 0; i < nc; i++)
+		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+				    transY + i*nr, &dummy, qty, &dummy,
+				    &dummy, fitted + i*nr, &qrkind, &info);
+		ev1 = eigenfirst(fitted, nr);
+	    } else {
+		ev1 = svdfirst(fitted, nr, nc);
+		ev1 = ev1 * ev1;
+	    }
+	    rans[k] = ev1;
 	} else {
-	    rans[k] = getEV(fitted, nr, nc, 0);
+	    rans[k] = getEV(fitted, nr, nc, DISTBASED);
 	}
 	if (PARTIAL || FIRST)
-	    rans[k + nperm] = getEV(resid, nr, nc, 0);
+	    rans[k + nperm] = getEV(resid, nr, nc, DISTBASED);
 
     } /* end permutation loop */
 
