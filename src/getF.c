@@ -71,19 +71,64 @@ static double svdfirst(double *x, int nr, int nc)
     return sigma[0];
 }
 
-/* LAPACK function to return the first eigenvalue */
+/* LAPACK function to return the first eigenvalue of symmetric
+   matrix */
 
 static double eigenfirst(double *x, int nr)
 {
-    error("'first=TRUE' not yet implemented for distance-based ordination");
+    /* no eigenvectors (jobz), range of eigenvalus (range), lower
+       triagle (uplo) */
+    char jobz[2] = "N", range[2] = "I", uplo[2] = "L";
+    double vl = 0.0, vu = 0.0; /* range of ev magnitudes, not used */
+    double abstol = 0.0, dummy = 0.0;
+    /* il, iu: we want only largest eigenvalue, and they come in
+       *ascending* order */
+    int il = nr, iu = nr, naxes = 1;
+    double *eval = (double *) R_alloc(nr, sizeof(double));
+    int i, len = nr*nr;
+
+    /* work arrays, their sizes and info. */
+    int *isuppz = (int *) R_alloc(2 * nr, sizeof(int));
+    double *work, tmp;
+    int lwork, *iwork, liwork, info, itmp;
+
+    /* input will be destroyed: copy here */
+    double *rx = (double *) R_alloc(len, sizeof(double));
+    for(i = 0; i < len; i++)
+	rx[i] = x[i];
+
+    /* query and set optimal work arrays */
+    lwork = -1;
+    liwork = -1;
+    F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
+		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
+		     &tmp, &lwork, &itmp, &liwork, &info);
+    if (info != 0)
+	error("error %d in work query in LAPACK routine dsyevr", info);
+    lwork = (int) tmp;
+    liwork = itmp;
+    work = (double *) R_alloc(lwork, sizeof(double));
+    iwork = (int *) R_alloc(liwork, sizeof(int));
+
+    /* Finally run the eigenanalysis */
+    F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
+		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
+		     work, &lwork, iwork, &liwork, &info);
+    if (info != 0)
+	error("error %d in LAPACK routine dsyever", info);
+    return eval[0];
 }
 
-/* function to test previous from R */
-SEXP test_svd(SEXP x)
+/* function to test svdfirst & eigenfirst from R */
+SEXP test_ev(SEXP x, SEXP svd)
 {
+    int KIND = asInteger(svd);
     int nr = nrows(x), nc = ncols(x);
     SEXP ans = PROTECT(allocVector(REALSXP, 1));
-    REAL(ans)[0] = svdfirst(REAL(x), nr, nc);
+    if (KIND)
+	REAL(ans)[0] = svdfirst(REAL(x), nr, nc);
+    else
+	REAL(ans)[0] = eigenfirst(REAL(x), nr);
     UNPROTECT(1);
     return ans;
 }
@@ -252,7 +297,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 		transpose(fitted, transY, nr, nr);
 		qrkind = FIT;
 		for(i = 0; i < nc; i++)
-		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+		    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux,
 				    transY + i*nr, &dummy, qty, &dummy,
 				    &dummy, fitted + i*nr, &qrkind, &info);
 		ev1 = eigenfirst(fitted, nr);
