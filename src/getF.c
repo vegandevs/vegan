@@ -225,7 +225,11 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
     }
 
     double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
-    double *resid = (double *) R_alloc(nr * nc, sizeof(double));
+    /* separate resid needed only in some cases */
+    double *resid;
+    if (PARTIAL || FIRST)
+	resid = (double *) R_alloc(nr * nc, sizeof(double));
+    /* work array and variables for QR decomposition */
     double *qty = (double *) R_alloc(nr, sizeof(double));
     double dummy;
     int info, qrkind;
