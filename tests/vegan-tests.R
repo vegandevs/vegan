@@ -267,3 +267,4 @@ mod <- cca(varespec ~ Al + P + Condition(pH), varechem)
 ev <- summary(eigenvals(mod))
 stopifnot(inherits(ev, "matrix"))
 stopifnot(!is.list(ev))
+ev

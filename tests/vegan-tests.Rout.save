@@ -1,5 +1,5 @@
 
-R version 3.3.1 Patched (2016-10-10 r71494) -- "Bug in Your Hair"
+R version 3.3.1 Patched (2016-09-30 r71426) -- "Bug in Your Hair"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -887,7 +887,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ev <- summary(eigenvals(mod))
 > stopifnot(inherits(ev, "matrix"))
 > stopifnot(!is.list(ev))
+> ev
+Importance of components:
+                        CCA1    CCA2    CA1    CA2    CA3     CA4     CA5
+Eigenvalue            0.2756 0.13713 0.3504 0.2220 0.2010 0.17366 0.13219
+Proportion Explained  0.1423 0.07078 0.1809 0.1146 0.1038 0.08964 0.06823
+Cumulative Proportion 0.1423 0.21304 0.3939 0.5085 0.6123 0.70193 0.77016
+                          CA6     CA7     CA8     CA9    CA10    CA11    CA12
+Eigenvalue            0.09979 0.09005 0.07377 0.05072 0.03499 0.02761 0.02337
+Proportion Explained  0.05151 0.04648 0.03808 0.02618 0.01806 0.01425 0.01206
+Cumulative Proportion 0.82167 0.86815 0.90623 0.93241 0.95047 0.96472 0.97678
+                         CA13     CA14     CA15     CA16     CA17     CA18
+Eigenvalue            0.01405 0.009628 0.007234 0.005155 0.003573 0.002545
+Proportion Explained  0.00725 0.004970 0.003730 0.002660 0.001840 0.001310
+Cumulative Proportion 0.98403 0.989000 0.992730 0.995400 0.997240 0.998550
+                          CA19      CA20
+Eigenvalue            0.001807 0.0009945
+Proportion Explained  0.000930 0.0005100
+Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-111.551   0.207 111.759 
+ 63.221   0.312  63.520 
