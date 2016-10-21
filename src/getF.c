@@ -10,6 +10,9 @@
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD, eigen */
 
+#include <math.h> /* sqrt */
+#include <string.h> /* memcpy */
+
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
  * output with following alternatives (although we will not use all of
@@ -48,8 +51,8 @@ static double svdfirst(double *x, int nr, int nc)
 
     /* copy data: dgesdd will destroy the original */
     double *xwork = (double *) R_alloc(len, sizeof(double));
-    for(i = 0; i < len; i++)
-	xwork[i] = x[i];
+    memcpy(xwork, x, len * sizeof(double));
+
     /* singular values */
     double *sigma = (double *) R_alloc(minrc, sizeof(double));
 
@@ -94,8 +97,7 @@ static double eigenfirst(double *x, int nr)
 
     /* input will be destroyed: copy here */
     double *rx = (double *) R_alloc(len, sizeof(double));
-    for(i = 0; i < len; i++)
-	rx[i] = x[i];
+    memcpy(rx, x, len * sizeof(double));
 
     /* query and set optimal work arrays */
     lwork = -1;
@@ -158,8 +160,6 @@ SEXP test_trans(SEXP x)
    only for CCA, and there the data are weighted by row sums, but we
    need the original unweighted data. So we do here both qrX and
    de-weighting. */
-
-#include <math.h> /* sqrt */
 
 static void qrXw(double *qr, int rank, double *qraux, double *X, double *w,
 		 int nr, int nc)
