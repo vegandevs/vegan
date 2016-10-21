@@ -8,7 +8,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Linpack.h> /* QR */
-#include <R_ext/Lapack.h>  /* SVD */
+#include <R_ext/Lapack.h>  /* SVD, eigen */
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -154,13 +154,18 @@ SEXP test_trans(SEXP x)
     return tx;
 }
 
-/* Reconstruct data X from its QR decomposition. */
+/* Reconstruct data X from weighted QR decomposition. We need this
+   only for CCA, and there the data are weighted by row sums, but we
+   need the original unweighted data. So we do here both qrX and
+   de-weighting. */
 
-static void qrX(double *qr, int rank, double *qraux, double *X, int nr,
-		int nc)
+#include <math.h> /* sqrt */
+
+static void qrXw(double *qr, int rank, double *qraux, double *X, double *w,
+		 int nr, int nc)
 {
     int i, j, ij, len = nr*nc, info = 0, qrkind;
-    double dummy = 0;
+    double dummy = 0, wsqrt;
     /* Extract  R from qr into upper triangle of X */
     for(i = 0; i < len; i++)
 	X[i] = 0;
@@ -176,11 +181,19 @@ static void qrX(double *qr, int rank, double *qraux, double *X, int nr,
     for(j = 0; j < nc; j++)
 	F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, X + j*nr, X + j*nr,
 			&dummy, &dummy, &dummy, &dummy, &qrkind, &info);
+
+    /* de-weight X */
+    for(i = 0; i < nr; i++) {
+	wsqrt = sqrt(w[i]);
+	for (j = 0; j < nc; j++)
+	    X[i + nr*j] /= wsqrt;
+    }
 }
 
-/* function to test qrX from R */
+/* function to test qrX from R. Use with CCA model 'm' as
+   .Call("test_qrXw", m$CCA$QR, weights(m)) */
 
-SEXP test_qrX(SEXP QR)
+SEXP test_qrXw(SEXP QR, SEXP w)
 {
     int nc, nr;
     double *qr = REAL(VECTOR_ELT(QR, 0));
@@ -189,7 +202,7 @@ SEXP test_qrX(SEXP QR)
     nr = nrows(VECTOR_ELT(QR, 0));
     nc = ncols(VECTOR_ELT(QR, 0));
     SEXP X = PROTECT(allocMatrix(REALSXP, nr, nc));
-    qrX(qr, rank, qraux, REAL(X), nr, nc);
+    qrXw(qr, rank, qraux, REAL(X), REAL(w), nr, nc);
     UNPROTECT(1);
     return X;
 }
