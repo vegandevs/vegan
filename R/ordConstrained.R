@@ -33,7 +33,8 @@
 {
     Y <- as.matrix(Y)
     Y <- scale(Y, scale = scale)
-    ## we want variance based model when scale = FALSE
+    ## we want variance based model when scale = FALSE -- this will
+    ## break Xbar where we want to have back the original scaling
     if (!scale)
         Y <- Y / sqrt(nrow(Y) - 1)
     attr(Y, "METHOD") <- "PCA"
@@ -69,12 +70,58 @@
     Y
 }
 
+### THE RESIDUAL METHOD
+
+### Finds the unconstrained ordination after (optionally) removing the
+### variation that could be explained by partial and constrained
+### models.
+
+`ordResid` <-
+    function(Y)
+{
+    ## get attributes
+    DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
+    rw <- attr(Y, "RW")
+    cw <- attr(Y, "CW")
+    ## Ordination
+    if (DISTBASED) {
+        sol <- eigen(Y)
+        lambda <- sol$values
+        u <- sol$vectors
+        v <- NULL
+    } else {
+        sol <- svd(Y)
+        lambda <- sol$d^2
+        u <- sol$u
+        v <- sol$v
+    }
+    ## handle zero and negative eigenvalues... not yet implemented
+
+    ## de-weight
+    if (!is.null(rw)) {
+        u <- sweep(u, 1, sqrt(rw), "/")
+    }
+    if (!is.null(cw)) {
+        v <- sweep(v, 1, sqrt(cw), "/")
+    }
+    ## out
+    out <- list(
+        "eig" = lambda,
+        "u" = u,
+        "v" = v,
+        "rank" = length(lambda),
+        "tot.chi" = sum(lambda),
+        "Xbar" = Y)
+    out
+}
+
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
              method = c("cca", "rda", "capscale", "dbrda"),
              scale = FALSE)
 {
     method = match.arg(method)
+    partial <- constraint <- resid <- NULL
     ## init
     Y <- switch(method,
                 "cca" = initCA(Y),
@@ -88,6 +135,13 @@
     if (!is.null(X))
         stop("Constrained models are not yet implemented")
     ## Residuals
-    ## not yet implemented: so return only Y
-    Y
+    resid <- ordResid(Y)
+    ## return a CCA object
+    out <- list("pCCA" = partial, "CCA" = constraint, "CA" = resid)
+    class(out) <- switch(method,
+                         "cca" = "cca",
+                         "rda" = c("rda", "cca"),
+                         "capscale" = c("capscale", "rda", "cca"),
+                         "dbrda" = c("dbrda", "rda", "cca"))
+    out
 }
