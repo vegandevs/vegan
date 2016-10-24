@@ -70,6 +70,30 @@
     Y
 }
 
+### COMMON HEADER INFORMATION FOR ORDINATION MODELS
+
+`ordHead`<- function(Y)
+{
+    warning("ordination header not yet implemented: print etc will fail")
+}
+
+### THE PARTIAL MODEL
+
+`ordPartial` <-
+    function(Y, Z)
+{
+    if (is.null(Z))
+        stop("Partial models are not yet implemented")
+}
+
+### THE CONSTRAINTS
+
+`ordConstraints` <- function(Y, X, Z)
+{
+    if (is.null(X))
+        stop("Constrained models are not yet implemented")
+}
+
 ### THE RESIDUAL METHOD
 
 ### Finds the unconstrained ordination after (optionally) removing the
@@ -128,12 +152,20 @@
                 "rda" = initPCA(Y, scale = scale),
                 "capscale" = initPCA(Y, scale = FALSE),
                 "dbrda" = initDBRDA(Y))
+    ## header info for the model
+    head <- ordHead(Y)
     ## Partial
-    if (!is.null(Z))
-        stop("Partial models are not yet implemented")
+    if (!is.null(Z)) {
+        out <- ordPartial(Y, Z)
+        Y <- out$Y
+        partial <- out$result
+    }
     ## Constraints
-    if (!is.null(X))
-        stop("Constrained models are not yet implemented")
+    if (!is.null(X)) {
+        out <- ordConstrained(Y, X, Z)
+        Y <- out$Y
+        constraint <- out$result
+    }
     ## Residuals
     resid <- ordResid(Y)
     ## return a CCA object
