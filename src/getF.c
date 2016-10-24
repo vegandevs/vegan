@@ -207,6 +207,63 @@ SEXP test_qrXw(SEXP QR, SEXP w)
     return X;
 }
 
+/* QR decomposition. Actually R does not use this function, but an
+   edited version. From the user point of view, the main difference is
+   that the R function returns rank, but this does not do so
+   directly. So we test here if we can make this compatible with
+   R. This function can be called as .Call("do_QR", x, 1), where x is
+   a (centred) matrix, and the second argument controls pivoting (1:
+   pivot, 0: do not pivot but keep the original order of columns). The
+   function returns an object of class "qr" and similar to R::qr()
+   result object, expect that the rank is not correct, and the order
+   of columns (pivoting) is different than in R.  */
+
+SEXP do_QR(SEXP x, SEXP dopivot)
+{
+    /* set up */
+    int i;
+    int nr = nrows(x), nx = ncols(x);
+    int pivoting = asInteger(dopivot);
+    SEXP qraux = PROTECT(allocVector(REALSXP, nx));
+    SEXP pivot = PROTECT(allocVector(INTSXP, nx));
+    /* do pivoting or keep the order of columns? */
+    if (pivoting)
+	memset(INTEGER(pivot), 0, nx * sizeof(int));
+    else
+	for(i = 0; i < nx; i++)
+	    INTEGER(pivot)[i] = i+1;
+    double *work = (double *) R_alloc(nx, sizeof(double));
+    int job = 1;
+    x = PROTECT(duplicate(x));
+
+    /* QR decomposition with Linpack */
+    F77_CALL(dqrdc)(REAL(x), &nr, &nr, &nx, REAL(qraux),
+		    INTEGER(pivot), work, &job);
+
+    /* pack up */
+    SEXP qr = PROTECT(allocVector(VECSXP, 4));
+    SEXP rank = PROTECT(allocVector(INTSXP, 1));
+    INTEGER(rank)[0] = nx;
+    SEXP labs = PROTECT(allocVector(STRSXP, 4));
+    SET_STRING_ELT(labs, 0, mkChar("qr"));
+    SET_STRING_ELT(labs, 1, mkChar("rank")); 
+    SET_STRING_ELT(labs, 2, mkChar("qraux"));
+    SET_STRING_ELT(labs, 3, mkChar("pivot"));
+    setAttrib(qr, R_NamesSymbol, labs);
+    SEXP cl = PROTECT(allocVector(STRSXP, 1));
+    SET_STRING_ELT(cl, 0, mkChar("qr"));
+    classgets(qr, cl);
+    UNPROTECT(2); /* cl, labs */
+    SET_VECTOR_ELT(qr, 0, x);
+    SET_VECTOR_ELT(qr, 1, rank); /* not really the rank, but no. of columns */
+    SET_VECTOR_ELT(qr, 2, qraux);
+    SET_VECTOR_ELT(qr, 3, pivot);
+    UNPROTECT(5); /* rank, qr, x, pivot, qraux */
+    return qr;
+}
+
+
+
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
