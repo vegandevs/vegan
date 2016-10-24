@@ -242,8 +242,6 @@ SEXP do_QR(SEXP x, SEXP dopivot)
 
     /* pack up */
     SEXP qr = PROTECT(allocVector(VECSXP, 4));
-    SEXP rank = PROTECT(allocVector(INTSXP, 1));
-    INTEGER(rank)[0] = nx;
     SEXP labs = PROTECT(allocVector(STRSXP, 4));
     SET_STRING_ELT(labs, 0, mkChar("qr"));
     SET_STRING_ELT(labs, 1, mkChar("rank")); 
@@ -255,10 +253,11 @@ SEXP do_QR(SEXP x, SEXP dopivot)
     classgets(qr, cl);
     UNPROTECT(2); /* cl, labs */
     SET_VECTOR_ELT(qr, 0, x);
-    SET_VECTOR_ELT(qr, 1, rank); /* not really the rank, but no. of columns */
+    SET_VECTOR_ELT(qr, 1, ScalarInteger(nx)); /* not really the rank,
+						 but no. of columns */
     SET_VECTOR_ELT(qr, 2, qraux);
     SET_VECTOR_ELT(qr, 3, pivot);
-    UNPROTECT(5); /* rank, qr, x, pivot, qraux */
+    UNPROTECT(4); /* qr, x, pivot, qraux */
     return qr;
 }
 
