@@ -86,11 +86,10 @@ permutest.default <- function(x, ...)
     ## end getF()
     CgetF <- function(indx, ...)
     {
-        if (isCCA)
-            stop("analysis of CCA models is not yet implemented")
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
-        out <- .Call("do_getF", indx, E, Q, QZ, first, isPartial, isDB)
+        out <- .Call("do_getF", indx, E, Q, QZ, w, first, isPartial,
+                     isCCA, isDB)
         if (!isPartial && !first)
             out[,2] <- Chi.tot - out[,1]
         out <- cbind(out, (out[,1]/q)/(out[,2]/r))
@@ -123,6 +122,8 @@ permutest.default <- function(x, ...)
         w <- x$rowsum # works with any na.action, weights(x) won't
         X <- qr.X(Q, ncol=length(Q$pivot))
         X <- sweep(X, 1, sqrt(w), "/")
+    } else {
+        w <- NULL
     }
     if (isPartial) {
         Y.Z <- if (isDB) x$pCCA$G else x$pCCA$Fit

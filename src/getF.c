@@ -9,9 +9,15 @@
 #include <Rinternals.h>
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD, eigen */
+#include <R_ext/Applic.h> /* R version of QR decomposition dqrdc2: not
+			     in public API */
 
 #include <math.h> /* sqrt */
 #include <string.h> /* memcpy */
+
+/* The following file is in goffactor.c file in vegan */
+extern
+void wcentre(double *, double *, int *, int *);
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -261,27 +267,25 @@ SEXP do_QR(SEXP x, SEXP dopivot)
     return qr;
 }
 
-
-
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
 
-SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
-	     SEXP isPartial, SEXP isDB)
+SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP w, SEXP first,
+	     SEXP isPartial, SEXP isCCA, SEXP isDB)
 {
     int i, j, k, ki,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
-	DISTBASED = asInteger(isDB);
+	WEIGHTED = asInteger(isCCA), DISTBASED = asInteger(isDB);
     double ev1;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
     double *rans = REAL(ans);
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
-
+    
     /* pointers and new objects to the QR decomposition */
-
+    
     double *qr = REAL(VECTOR_ELT(QR, 0));
     int qrank = asInteger(VECTOR_ELT(QR, 1));
     double *qraux = REAL(VECTOR_ELT(QR, 2));
@@ -292,7 +296,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	Zqrank = asInteger(VECTOR_ELT(QZ, 1));
 	Zqraux = REAL(VECTOR_ELT(QZ, 2));
     }
-
+    
     double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
     /* separate resid needed only in some cases */
     double *resid;
@@ -302,18 +306,37 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
     double *qty = (double *) R_alloc(nr, sizeof(double));
     double dummy;
     int info, qrkind;
+    /* Weighted methods currently need re-evaluation of QR
+       decomposition (probably changed in the future, but now for the
+       compatibility with the current code). For this we need to
+       reconstruct constraints and conditions. */
+    int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *pivot, *zpivot;
+    double *wperm, *Xorig, *Zorig, *qrwork, *zqrwork, qrtol=1e-7; 
+    if (WEIGHTED) {
+	if (PARTIAL) {
+	    nz = ncols(VECTOR_ELT(QZ, 0));
+	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
+	    qrXw(Zqr, Zqrank, Zqraux, Zorig, REAL(w), nr, nz);
+	    zpivot = (int *) R_alloc(nz, sizeof(int));
+	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
+	}
+	pivot = (int *) R_alloc(nx > nz ? nx : nz, sizeof(int));
+	wperm = (double *) R_alloc(nr, sizeof(double));
+	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
+	qrXw(qr, qrank, qraux, Xorig, REAL(w), nr, nx);
+	pivot = (int *) R_alloc(nx, sizeof(int));
+	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
+    }
 
     /* distance-based methods need to transpose data */
     double *transY;
     if (DISTBASED)
 	transY = (double *) R_alloc(nr * nr, sizeof(double));
 
-    /* double *wtake = (double *) R_alloc(nr, sizeof(double)); */
-
     /* permutation matrix must be duplicated */
     SEXP dperms = PROTECT(duplicate(perms));
     int *iperm = INTEGER(dperms);
-
+    
     /* permutations to zero base */
     for(i = 0; i < nperm * nr; i++)
 	iperm[i]--;
@@ -329,14 +352,25 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 		else   /* shuffle rows */
 		    rY[i + nr*j] = REAL(E)[ki + nr*j];
 	    }
+	    if (WEIGHTED)
+		wperm[i] = REAL(w)[ki];
 	}
 
 	/* Partial model: qr.resid(QZ, Y) with LINPACK */
 	if (PARTIAL) {
+	    /* Re-do QR decomposition with changed weights */
+	    if (WEIGHTED) {
+	        memcpy(Zqr, Zorig, nr * nz * sizeof(double));
+		/* wcentre is in goffactor.c file */
+		wcentre(Zqr, wperm, &nr, &nz);
+		/* dqrdc2 is not in R API */
+		F77_CALL(dqrdc2)(Zqr, &nr, &nr, &nz, &qrtol, &Zqrank,
+	                         Zqraux, zpivot, zqrwork);
+	    }
 	    qrkind = RESID;
 	    for(i = 0; i < nc; i++)
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
-				&dummy, qty, &dummy, rY + i*nr, &dummy,
+	                        &dummy, qty, &dummy, rY + i*nr, &dummy,
 				&qrkind, &info);
 	    /* distances need symmetric residuals */
 	    if (DISTBASED) {
@@ -349,6 +383,16 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	    }
 	}
 
+	/* CONSTRAINED COMPONENT */
+
+	/* Re-weight constraints are re-do QR */
+	if (WEIGHTED) {
+	    memcpy(qr, Xorig, nr * nx * sizeof(double));
+	    wcentre(qr, wperm, &nr, &nx);
+	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
+			     qraux, pivot, qrwork);  
+	}
+	
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
 	if (PARTIAL || FIRST)
 	    qrkind = FIT + RESID;
