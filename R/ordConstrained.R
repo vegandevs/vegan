@@ -87,7 +87,6 @@
     ## attributes
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
     RW <- attr(Y, "RW")
-    CW <- attr(Y, "CW")
     ## centre Z
     if (!is.null(RW)) {
         envcentre <- apply(Z, 2, weighted.mean, w = RW)
@@ -123,8 +122,79 @@
 
 `ordConstraints` <- function(Y, X, Z)
 {
-    if (is.null(X))
-        stop("Constrained models are not yet implemented")
+    ## attributes & constants
+    DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
+    RW <- attr(Y, "RW")
+    CW <- attr(Y, "CW")
+    ZERO <- 1e-5
+    ## combine conditions and constraints if necessary
+    if (!is.null(Z)) {
+        X <- cbind(Z, X)
+        zcol <- ncol(Z)
+    } else {
+        zcol <- 0
+    }
+    ## centre
+    if (!is.null(RW)) {
+        envcentre <- apply(X, 2, weighted.mean, w = RW)
+        X <- scale(X, center = envcentre, scale = FALSE)
+        X <- sweep(X, 1, sqrt(RW), "*")
+    } else {
+        envcentre <- colMeans(X)
+        X <- scale(X, center = envcentre, scale = FALSE)
+    }
+    ## QR
+    Q <- qr(X)
+    ## we need to see how much rank grows over rank of conditions
+    rank <- sum(Q$pivot[seq_len(Q$rank)] > zcol)
+    ## eigen solution
+    Yfit <- qr.fitted(Q, Y)
+    if (DISTBASED) {
+        Yfit <- qr.fitted(Q, t(Yfit))
+        sol <- eigen(Yfit, symmetric = TRUE)
+        lambda <- sol$values
+        u <- sol$vectors
+    } else {
+        sol <- svd(Yfit)
+        lambda <- sol$d^2
+        u <- sol$u
+        v <- sol$v
+    }
+    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    zeroev <- abs(lambda) < ZERO * lambda[1]
+    if (any(zeroev)) {
+        lambda <- lambda[!zeroev]
+        u <- u[, !zeroev]
+        v <- v[, !zeroev]
+    }
+    ## de-weight
+    if (!is.null(RW)) {
+        u <- sweep(u, 1, sqrt(RW), "/")
+    }
+    if (!is.null(CW)) {
+        v <- sweep(v, 1, sqrt(CW), "/")
+    }
+
+    ## out -- terms not yet implemented are NA
+    result <- list(
+        eig = lambda,
+        u = u,
+        v = v,
+        wa = NA,
+        alias = NA,
+        biplot = NA,
+        rank = rank,
+        qrank = Q$rank,
+        tot.chi = sum(lambda),
+        QR = Q,
+        envcentre = envcentre,
+        Xbar = Y)
+    ## residual of Y
+    Y <- qr.resid(Q, Y)
+    if (DISTBASED)
+        Y <- qr.resid(Q, t(Y))
+    ## out
+    list(Y = Y, result = result)
 }
 
 ### THE RESIDUAL METHOD
@@ -138,8 +208,8 @@
 {
     ## get attributes
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
-    rw <- attr(Y, "RW")
-    cw <- attr(Y, "CW")
+    RW <- attr(Y, "RW")
+    CW <- attr(Y, "CW")
     ## Ordination
     ZERO <- 1e-5
     if (DISTBASED) {
@@ -162,11 +232,11 @@
     }
 
     ## de-weight
-    if (!is.null(rw)) {
-        u <- sweep(u, 1, sqrt(rw), "/")
+    if (!is.null(RW)) {
+        u <- sweep(u, 1, sqrt(RW), "/")
     }
-    if (!is.null(cw)) {
-        v <- sweep(v, 1, sqrt(cw), "/")
+    if (!is.null(CW)) {
+        v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## out
     out <- list(
@@ -205,7 +275,7 @@
     }
     ## Constraints
     if (!is.null(X)) {
-        out <- ordConstrained(Y, X, Z)
+        out <- ordConstraints(Y, X, Z)
         Y <- out$Y
         constraint <- out$result
     }
