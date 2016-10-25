@@ -141,6 +141,7 @@
     rw <- attr(Y, "RW")
     cw <- attr(Y, "CW")
     ## Ordination
+    ZERO <- 1e-5
     if (DISTBASED) {
         sol <- eigen(Y)
         lambda <- sol$values
@@ -152,7 +153,13 @@
         u <- sol$u
         v <- sol$v
     }
-    ## handle zero and negative eigenvalues... not yet implemented
+    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    zeroev <- abs(lambda) < ZERO * lambda[1]
+    if (any(zeroev)) {
+        lambda <- lambda[!zeroev]
+        u <- u[, !zeroev]
+        v <- v[, !zeroev]
+    }
 
     ## de-weight
     if (!is.null(rw)) {
