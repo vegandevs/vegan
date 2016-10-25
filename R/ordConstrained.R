@@ -120,7 +120,7 @@
 
 ### THE CONSTRAINTS
 
-`ordConstraints` <- function(Y, X, Z)
+`ordConstrain` <- function(Y, X, Z)
 {
     ## attributes & constants
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
@@ -278,7 +278,7 @@
     }
     ## Constraints
     if (!is.null(X)) {
-        out <- ordConstraints(Y, X, Z)
+        out <- ordConstrain(Y, X, Z)
         Y <- out$Y
         constraint <- out$result
     }
