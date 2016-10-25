@@ -154,6 +154,7 @@
         sol <- eigen(Yfit, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
+        v <- NULL
     } else {
         sol <- svd(Yfit)
         lambda <- sol$d^2
@@ -165,13 +166,14 @@
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev]
-        v <- v[, !zeroev]
+        if (!is.null(v))
+            v <- v[, !zeroev]
     }
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW)) {
+    if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
 
@@ -228,14 +230,15 @@
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev]
-        v <- v[, !zeroev]
+        if (!is.null(v))
+            v <- v[, !zeroev]
     }
 
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW)) {
+    if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## out
