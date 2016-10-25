@@ -82,8 +82,39 @@
 `ordPartial` <-
     function(Y, Z)
 {
-    if (is.null(Z))
-        stop("Partial models are not yet implemented")
+    ## attributes
+    DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
+    RW <- attr(Y, "RW")
+    CW <- attr(Y, "CW")
+    ## centre Z
+    if (!is.null(RW)) {
+        envcentre <- apply(Z, 2, weighted.mean, w = RW)
+        Z <- scale(Z, center = envcentre, scale = FALSE)
+        Z <- sweep(Z, 1, sqrt(RW), "*")
+    } else {
+        envcentre <- colMeans(Z)
+        Z <- scale(Z, center = envcentre, scale = FALSE)
+    }
+    ## QR decomposition
+    Q <- qr(Z)
+    ## partialled out variation as a trace of Yfit
+    Yfit <- qr.fitted(Q, Y)
+    if (DISTBASED)
+        totvar <- sum(diag(Yfit))
+    else
+        totvar <- sum(Yfit^2)
+    ## residuals of Y
+    Y <- qr.resid(Q, Y)
+    if (DISTBASED)
+        Y <- qr.resid(Q, t(Y))
+    ## result object like in current cca, rda
+    result <- list(
+        rank = Q$rank,
+        tot.chi = totvar,
+        QR = Q,
+        Fit = Yfit,
+        envcentre = envcentre)
+    list(Y = Y, result = result)
 }
 
 ### THE CONSTRAINTS
@@ -138,6 +169,9 @@
         "Xbar" = Y)
     out
 }
+
+## The actual function that calls all previous and returns the fitted
+## ordination model
 
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
