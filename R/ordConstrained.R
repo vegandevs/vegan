@@ -74,7 +74,9 @@
 
 `ordHead`<- function(Y)
 {
-    warning("ordination header not yet implemented: print etc will fail")
+    totvar <- sum(Y^2)
+    head <- list("tot.chi" = totvar)
+    head
 }
 
 ### THE PARTIAL MODEL
@@ -203,7 +205,8 @@
     ## Residuals
     resid <- ordResid(Y)
     ## return a CCA object
-    out <- list("pCCA" = partial, "CCA" = constraint, "CA" = resid)
+    out <- c(head,
+             list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
     class(out) <- switch(method,
                          "cca" = "cca",
                          "rda" = c("rda", "cca"),
