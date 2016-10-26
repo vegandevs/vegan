@@ -215,7 +215,7 @@
     ## Ordination
     ZERO <- 1e-5
     if (DISTBASED) {
-        sol <- eigen(Y)
+        sol <- eigen(Y, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
         v <- NULL
