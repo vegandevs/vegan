@@ -25,7 +25,7 @@
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL)
 \method{permutest}{cca}(x, permutations = how(nperm = 99), 
-     model = c("reduced", "direct"), first = FALSE, strata = NULL, 
+     model = c("reduced", "direct", "full"), first = FALSE, strata = NULL,
      parallel = getOption("mc.cores"), C = FALSE, ...)
 }
 
@@ -52,8 +52,10 @@
     variables)}
 
   \item{model}{Permutation model: \code{model="direct"} permutes 
-    community data, and \code{model="reduced"} permutes residuals
-    of the community data after Conditions (partial model).}
+    community data, \code{model="reduced"} permutes residuals
+    of the community data after Conditions (partial model),
+    \code{model = "full"} permutes residuals after Conditions and
+    Constraints.}
 
   \item{parallel}{Use parallel processing with the given number of
     cores.}
