@@ -52,7 +52,7 @@ static double svdfirst(double *x, int nr, int nc)
 {
     char jobz[2] = "N";
     int minrc = (nr < nc) ? nr : nc;
-    int i, len = nr*nc, info, lwork;
+    int len = nr*nc, info, lwork;
     double dummy = 0, query;
 
     /* copy data: dgesdd will destroy the original */
@@ -94,7 +94,7 @@ static double eigenfirst(double *x, int nr)
        *ascending* order */
     int il = nr, iu = nr, naxes = 1;
     double *eval = (double *) R_alloc(nr, sizeof(double));
-    int i, len = nr*nr;
+    int len = nr*nr;
 
     /* work arrays, their sizes and info. */
     int *isuppz = (int *) R_alloc(2 * nr, sizeof(int));
