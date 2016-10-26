@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct"), first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , ...)
+              strata = NULL, parallel = getOption("mc.cores") , C = FALSE, ...)
 {
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA)) {
@@ -84,6 +84,19 @@ permutest.default <- function(x, ...)
         mat
     }
     ## end getF()
+    CgetF <- function(indx, ...)
+    {
+        if (!is.matrix(indx))
+            indx <- matrix(indx, nrow=1)
+        out <- .Call("do_getF", indx, E, Q, QZ, w, first, isPartial,
+                     isCCA, isDB)
+        if (!isPartial && !first)
+            out[,2] <- Chi.tot - out[,1]
+        out <- cbind(out, (out[,1]/q)/(out[,2]/r))
+        out
+    }
+    if (C)
+        getF <- CgetF
 
     if (first) {
         Chi.z <- x$CCA$eig[1]
@@ -109,6 +122,8 @@ permutest.default <- function(x, ...)
         w <- x$rowsum # works with any na.action, weights(x) won't
         X <- qr.X(Q, ncol=length(Q$pivot))
         X <- sweep(X, 1, sqrt(w), "/")
+    } else {
+        w <- NULL
     }
     if (isPartial) {
         Y.Z <- if (isDB) x$pCCA$G else x$pCCA$Fit
@@ -117,6 +132,8 @@ permutest.default <- function(x, ...)
             Z <- qr.X(QZ)
             Z <- sweep(Z, 1, sqrt(w), "/")
         }
+    } else {
+        QZ <- NULL
     }
     if (model == "reduced" || model == "direct")
         E <- if (isDB) x$CCA$G else x$CCA$Xbar
