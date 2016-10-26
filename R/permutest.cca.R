@@ -78,8 +78,7 @@ permutest.default <- function(x, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
-        out <- .Call("do_getF", indx, E, Q, QZ, w, first, isPartial,
-                     isCCA, isDB)
+        out <- .Call("do_getF", indx, E, Q, QZ, first, isPartial, isDB)
         if (!isPartial && !first)
             out[,2] <- Chi.tot - out[,1]
         out <- cbind(out, (out[,1]/q)/(out[,2]/r))
