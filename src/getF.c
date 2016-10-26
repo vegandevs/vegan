@@ -145,17 +145,6 @@ static void transpose(double *x, double *tx, int nr, int nc)
 	    tx[ij++] = x[j * nr + i];
 }
 
-/* test transpose from an R session */
-
-SEXP test_trans(SEXP x)
-{
-    int nr = nrows(x), nc = ncols(x);
-    SEXP tx = PROTECT(allocMatrix(REALSXP, nc, nr));
-    transpose(REAL(x), REAL(tx), nr, nc);
-    UNPROTECT(1);
-    return tx;
-}
-
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
