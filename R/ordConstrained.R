@@ -21,6 +21,18 @@
 ### its analysis. The handling of the function is mainly similar, but
 ### there is some variation depending on the attributes of Y.
 
+### THE USAGE
+
+### Function prototype is ordConstrained(Y, X=NULL, Z=NULL, method),
+### where Y is the dependent community data set, X is the model matrix
+### of constraints, Z the model matrix of conditions, method is "cca",
+### "rda", "capscale" or "dbrda" (the last two may not work, and
+### "capscale" may not work in the way you assume). The function
+### returns a large subset of correspoding constrained ordination
+### method. For instance, with method = "dbrda", the result is mainly
+### correct, but it differs so much from the current dbrda that it
+### cannot be printed cleanly.
+
 ### THE INIT METHODS
 
 ### The init methods transform the dependent data specifically to the
@@ -194,7 +206,7 @@
         v <- sweep(v, 1, sqrt(CW), "/")
     }
 
-    ## out -- terms not yet implemented are NA
+    ## out
     result <- list(
         eig = lambda,
         u = u,
