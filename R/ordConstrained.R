@@ -152,6 +152,8 @@
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
     else
         alias <- NULL
+    ## kept constraints
+    kept <- seq_along(Q$pivot) <= Q$rank & Q$pivot > zcol
     ## eigen solution
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -180,7 +182,8 @@
     } else {
         wa <- Y %*% v %*% diag(1/sqrt(lambda), length(lambda))
     }
-
+    ## biplot scores
+    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u)
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
@@ -198,7 +201,7 @@
         v = v,
         wa = wa,
         alias = alias,
-        biplot = NA,
+        biplot = bp,
         rank = rank,
         qrank = Q$rank,
         tot.chi = sum(lambda),
