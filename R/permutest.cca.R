@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , C = FALSE, ...)
+              strata = NULL, parallel = getOption("mc.cores") , C = TRUE, ...)
 {
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA)) {
