@@ -1,5 +1,5 @@
 
-R version 3.3.1 Patched (2016-09-30 r71426) -- "Bug in Your Hair"
+R Under development (unstable) (2016-10-26 r71594) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -61,7 +61,7 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)  
-Model     6   1.25838 1.3106   0.07 .
+Model     6   1.25838 1.3106   0.09 .
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -77,11 +77,11 @@ Number of permutations: 99
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
          Df ChiSquare      F Pr(>F)   
 CCA1      1   0.46993 2.9366   0.01 **
-CCA2      1   0.26217 1.6384   0.15   
+CCA2      1   0.26217 1.6384   0.18   
 CCA3      1   0.19308 1.2066   0.29   
-CCA4      1   0.18345 1.1464   0.37   
-CCA5      1   0.08871 0.5544   0.77   
-CCA6      1   0.06104 0.3815   0.90   
+CCA4      1   0.18345 1.1464   0.38   
+CCA5      1   0.08871 0.5544   0.76   
+CCA6      1   0.06104 0.3815   0.88   
 Residual  5   0.80011                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -161,7 +161,7 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)
-Model     6   1.25838 1.3106   0.12
+Model     6   1.25838 1.3106   0.16
 Residual  5   0.80011              
 > ## commented tests below fail in vegan 2.1-40 because number of
 > ## observations changes
@@ -176,11 +176,11 @@ Number of permutations: 99
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = object$subset)
          Df ChiSquare      F Pr(>F)  
 CCA1      1   0.46993 2.9366   0.03 *
-CCA2      1   0.26217 1.6384   0.20  
-CCA3      1   0.19308 1.2066   0.34  
-CCA4      1   0.18345 1.1464   0.33  
-CCA5      1   0.08871 0.5544   0.69  
-CCA6      1   0.06104 0.3815   0.89  
+CCA2      1   0.26217 1.6384   0.22  
+CCA3      1   0.19308 1.2066   0.31  
+CCA4      1   0.18345 1.1464   0.32  
+CCA5      1   0.08871 0.5544   0.70  
+CCA6      1   0.06104 0.3815   0.88  
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -325,9 +325,9 @@ Number of permutations: 99
 Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env, subset = object$subset)
          Df ChiSquare      F Pr(>F)  
 CCA1      1   0.27109 2.9561   0.04 *
-CCA2      1   0.14057 1.5329   0.21  
-CCA3      1   0.08761 0.9553   0.72  
-CCA4      1   0.05624 0.6132   0.97  
+CCA2      1   0.14057 1.5329   0.22  
+CCA3      1   0.08761 0.9553   0.71  
+CCA4      1   0.05624 0.6132   0.98  
 Residual 10   0.91705                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -487,10 +487,10 @@ Number of permutations: 999
 Model: cca(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
            Df ChiSquare      F Pr(>F)   
 A1          1   0.22476 2.5704  0.010 **
-Moisture    3   0.51898 1.9783  0.008 **
+Moisture    3   0.51898 1.9783  0.009 **
 Management  3   0.39543 1.5074  0.064 . 
-Use         2   0.10910 0.6238  0.905   
-Manure      3   0.25490 0.9717  0.493   
+Use         2   0.10910 0.6238  0.922   
+Manure      3   0.25490 0.9717  0.519   
 Residual    7   0.61210                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -908,4 +908,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
- 63.221   0.312  63.520 
+ 10.696   0.080  10.768 
