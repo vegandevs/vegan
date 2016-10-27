@@ -26,7 +26,7 @@
      cutoff = 1, scope = NULL)
 \method{permutest}{cca}(x, permutations = how(nperm = 99), 
      model = c("reduced", "direct", "full"), first = FALSE, strata = NULL,
-     parallel = getOption("mc.cores"), C = FALSE, ...)
+     parallel = getOption("mc.cores"), C = TRUE, ...)
 }
 
 \arguments{
@@ -77,9 +77,9 @@
 
   \item{first}{Analyse only significance of the first axis.}
 
-  \item{C}{Use \strong{experimental} compiled code in permutations
-    instead of the established \R{} code. The compiled code is
-    experimental and does not work with all constrained models.}
+  \item{C}{Use compiled code in permutations instead of the \R{}
+    code. The compiled code is still experimental and if it fails, you
+    can turn it off in \code{permutest}.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
