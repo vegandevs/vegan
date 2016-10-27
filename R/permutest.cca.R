@@ -6,7 +6,7 @@ permutest.default <- function(x, ...)
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
-              model = c("reduced", "direct"), first = FALSE,
+              model = c("reduced", "direct", "full"), first = FALSE,
               strata = NULL, parallel = getOption("mc.cores") , C = FALSE, ...)
 {
     ## do something sensible with insensible input (no constraints)
@@ -50,20 +50,10 @@ permutest.default <- function(x, ...)
                 Y <- E[take, take]
             else
                 Y <- E[take, ]
-            if (isCCA)
-                wtake <- w[take]
             if (isPartial) {
-                if (isCCA) {
-                    XZ <- .Call("do_wcentre", Z, wtake, PACKAGE = "vegan")
-                    QZ <- qr(XZ)
-                }
                 Y <- qr.resid(QZ, Y)
                 if (isDB)
                     Y <- qr.resid(QZ, t(Y))
-            }
-            if (isCCA) {
-                XY <- .Call("do_wcentre", X, wtake, PACKAGE = "vegan")
-                Q <- qr(XY)
             }
             tmp <- qr.fitted(Q, Y)
             if (first) {
@@ -88,8 +78,7 @@ permutest.default <- function(x, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
-        out <- .Call("do_getF", indx, E, Q, QZ, w, first, isPartial,
-                     isCCA, isDB)
+        out <- .Call("do_getF", indx, E, Q, QZ, first, isPartial, isDB)
         if (!isPartial && !first)
             out[,2] <- Chi.tot - out[,1]
         out <- cbind(out, (out[,1]/q)/(out[,2]/r))
@@ -118,20 +107,9 @@ permutest.default <- function(x, ...)
         Chi.tot <- Chi.tot * (nrow(x$CCA$Xbar) - 1)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
     Q <- x$CCA$QR
-    if (isCCA) {
-        w <- x$rowsum # works with any na.action, weights(x) won't
-        X <- qr.X(Q, ncol=length(Q$pivot))
-        X <- sweep(X, 1, sqrt(w), "/")
-    } else {
-        w <- NULL
-    }
     if (isPartial) {
         Y.Z <- if (isDB) x$pCCA$G else x$pCCA$Fit
         QZ <- x$pCCA$QR
-        if (isCCA) {
-            Z <- qr.X(QZ)
-            Z <- sweep(Z, 1, sqrt(w), "/")
-        }
     } else {
         QZ <- NULL
     }
@@ -144,11 +122,6 @@ permutest.default <- function(x, ...)
         E <- if (isDB) x$pCCA$G else E + Y.Z
     ## Save dimensions
     N <- nrow(E)
-    if (isCCA) {
-        Xcol <- ncol(X)
-        if (isPartial)
-            Zcol <- ncol(Z)
-    }
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
     nperm <- nrow(permutations)
     ## Parallel processing (similar as in oecosimu)

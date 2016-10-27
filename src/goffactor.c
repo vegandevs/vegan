@@ -47,7 +47,7 @@ static void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim,
 
 #include <math.h> /* sqrt */
 
-void wcentre(double *x, double *w, int *nr, int *nc)
+static void wcentre(double *x, double *w, int *nr, int *nc)
 {
      int i, j, ij;
      double sw, swx;
