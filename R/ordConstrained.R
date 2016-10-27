@@ -169,9 +169,18 @@
         if (!is.null(v))
             v <- v[, !zeroev]
     }
+    ## wa scores
+    if (DISTBASED) { # not yet implemented
+        wa <- NA
+    } else {
+        wa <- Y %*% v %*% diag(1/sqrt(lambda), length(lambda))
+    }
+
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
+        if (all(!is.na(wa)))
+            wa <- sweep(wa, 1, sqrt(RW), "/")
     }
     if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
@@ -182,7 +191,7 @@
         eig = lambda,
         u = u,
         v = v,
-        wa = NA,
+        wa = wa,
         alias = NA,
         biplot = NA,
         rank = rank,
