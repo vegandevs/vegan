@@ -147,6 +147,11 @@
     Q <- qr(X)
     ## we need to see how much rank grows over rank of conditions
     rank <- sum(Q$pivot[seq_len(Q$rank)] > zcol)
+    ## check for aliased terms
+    if (length(Q$pivot) > Q$rank)
+        alias <- colnames(Q$qr)[-seq_len(Q$rank)]
+    else
+        alias <- NULL
     ## eigen solution
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -192,7 +197,7 @@
         u = u,
         v = v,
         wa = wa,
-        alias = NA,
+        alias = alias,
         biplot = NA,
         rank = rank,
         qrank = Q$rank,
