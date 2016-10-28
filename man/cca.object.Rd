@@ -1,5 +1,6 @@
 \name{cca.object}
 \alias{cca.object}
+\alias{ordConstrained} % a common interface, not really documented
 
 \title{Result Object from Constrained Ordination with cca, rda or capscale }
 \description{
