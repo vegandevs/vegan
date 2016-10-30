@@ -57,11 +57,13 @@
     function(Y)
 {
     Y <- as.matrix(Y)
-    Y <- Y/sum(Y)
+    tot <- sum(Y)
+    Y <- Y/tot
     rw <- rowSums(Y)
     cw <- colSums(Y)
     rc <- outer(rw, cw)
     Y <- (Y - rc)/sqrt(rc)
+    attr(Y, "tot") <- tot
     attr(Y, "RW") <- rw
     attr(Y, "CW") <- cw
     attr(Y, "METHOD") <- "CA"
@@ -84,10 +86,15 @@
 
 ### COMMON HEADER INFORMATION FOR ORDINATION MODELS
 
-`ordHead`<- function(Y)
+`ordHead`<- function(Y, method)
 {
     totvar <- sum(Y^2)
     head <- list("tot.chi" = totvar)
+    if (method == "cca")
+        head <- c(list("grand.total" = attr(Y, "tot"),
+                       "rowsum" = attr(Y, "RW"),
+                       "colsum" = attr(Y, "CW")),
+                  head)
     head
 }
 
@@ -298,7 +305,7 @@
                 "capscale" = initPCA(Y, scale = FALSE),
                 "dbrda" = initDBRDA(Y))
     ## header info for the model
-    head <- ordHead(Y)
+    head <- ordHead(Y, method)
     ## Partial
     if (!is.null(Z)) {
         out <- ordPartial(Y, Z)
