@@ -7,6 +7,10 @@
         isTRUE(all.equal(X, t(X))))
         stop("function cannot be used with (dis)similarities")
     X <- as.matrix(X)
+    if (!is.null(Y))
+        Y <- as.matrix(Y)
+    if (!is.null(Z))
+        Z <- as.matrix(Z)
     if (any(rowSums(X) <= 0))
         stop("All row sums must be >0 in the community data matrix")
     if (any(tmp <- colSums(X) <= 0)) {
