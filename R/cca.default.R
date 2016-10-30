@@ -1,5 +1,5 @@
 `cca.default` <-
-    function (X, Y, Z, ...)
+    function (X, Y = NULL, Z = NULL, ...)
 {
     ## Protect against grave misuse: some people have used
     ## dissimilarities instead of data
