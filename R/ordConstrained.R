@@ -191,9 +191,9 @@
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
-        u <- u[, !zeroev]
+        u <- u[, !zeroev, drop = FALSE]
         if (!is.null(v))
-            v <- v[, !zeroev]
+            v <- v[, !zeroev, drop = FALSE]
     }
     ## wa scores
     if (DISTBASED) { # not yet implemented
@@ -265,9 +265,9 @@
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
-        u <- u[, !zeroev]
+        u <- u[, !zeroev, drop = FALSE]
         if (!is.null(v))
-            v <- v[, !zeroev]
+            v <- v[, !zeroev, drop = FALSE]
     }
 
     ## de-weight
