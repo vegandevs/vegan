@@ -212,7 +212,21 @@
     if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
-
+    ## set names
+    axnam <- paste0(switch(attr(Y, "METHOD"),
+                           "PCA" = "RDA",
+                           "CA" = "CCA",
+                           "DISTBASED" = "dbRDA"),
+                    seq_len(length(lambda)))
+    dnam <- dimnames(Y)
+    names(lambda) <- axnam
+    dimnames(u) <- list(dnam[[1]], axnam)
+    if (!is.null(v))
+        dimnames(v) <- list(dnam[[2]], axnam)
+    if (!is.null(wa))
+        colnames(wa) <- axnam
+    if (!is.null(bp))
+        colnames(bp) <- axnam
     ## out
     result <- list(
         eig = lambda,
@@ -277,6 +291,17 @@
     if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
+    ## set names
+    axnam <- paste0(switch(attr(Y, "METHOD"),
+                           "PCA" = "PC",
+                           "CA" = "CA",
+                           "DISTBASED" = "MDS"),
+                    seq_len(length(lambda)))
+    dnam <- dimnames(Y)
+    names(lambda) <- axnam
+    dimnames(u) <- list(dnam[[1]], axnam)
+    if (!is.null(v))
+        dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
         "eig" = lambda,
