@@ -1,6 +1,8 @@
 `centroids.cca` <-
     function(x, mf, wt)
 {
+    if (is.null(mf) || is.null(x))
+        return(NULL)
     facts <- sapply(mf, is.factor) | sapply(mf, is.character)
     if (!any(facts))
         return(NULL)
