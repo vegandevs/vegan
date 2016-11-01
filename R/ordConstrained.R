@@ -171,8 +171,10 @@
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
     else
         alias <- NULL
-    ## kept constraints
+    ## kept constraints and their means
     kept <- seq_along(Q$pivot) <= Q$rank & Q$pivot > zcol
+    if (zcol > 0)
+        envcentre <- envcentre[-seq_len(zcol)]
     ## eigen solution
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
