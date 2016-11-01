@@ -57,11 +57,13 @@
     function(Y)
 {
     Y <- as.matrix(Y)
-    Y <- Y/sum(Y)
+    tot <- sum(Y)
+    Y <- Y/tot
     rw <- rowSums(Y)
     cw <- colSums(Y)
     rc <- outer(rw, cw)
     Y <- (Y - rc)/sqrt(rc)
+    attr(Y, "tot") <- tot
     attr(Y, "RW") <- rw
     attr(Y, "CW") <- cw
     attr(Y, "METHOD") <- "CA"
@@ -84,10 +86,15 @@
 
 ### COMMON HEADER INFORMATION FOR ORDINATION MODELS
 
-`ordHead`<- function(Y)
+`ordHead`<- function(Y, method)
 {
     totvar <- sum(Y^2)
     head <- list("tot.chi" = totvar)
+    if (method == "cca")
+        head <- c(list("grand.total" = attr(Y, "tot"),
+                       "rowsum" = attr(Y, "RW"),
+                       "colsum" = attr(Y, "CW")),
+                  head)
     head
 }
 
@@ -164,8 +171,10 @@
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
     else
         alias <- NULL
-    ## kept constraints
+    ## kept constraints and their means
     kept <- seq_along(Q$pivot) <= Q$rank & Q$pivot > zcol
+    if (zcol > 0)
+        envcentre <- envcentre[-seq_len(zcol)]
     ## eigen solution
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -184,9 +193,9 @@
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
-        u <- u[, !zeroev]
+        u <- u[, !zeroev, drop = FALSE]
         if (!is.null(v))
-            v <- v[, !zeroev]
+            v <- v[, !zeroev, drop = FALSE]
     }
     ## wa scores
     if (DISTBASED) { # not yet implemented
@@ -205,7 +214,21 @@
     if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
-
+    ## set names
+    axnam <- paste0(switch(attr(Y, "METHOD"),
+                           "PCA" = "RDA",
+                           "CA" = "CCA",
+                           "DISTBASED" = "dbRDA"),
+                    seq_len(length(lambda)))
+    dnam <- dimnames(Y)
+    names(lambda) <- axnam
+    dimnames(u) <- list(dnam[[1]], axnam)
+    if (!is.null(v))
+        dimnames(v) <- list(dnam[[2]], axnam)
+    if (!is.null(wa))
+        colnames(wa) <- axnam
+    if (!is.null(bp))
+        colnames(bp) <- axnam
     ## out
     result <- list(
         eig = lambda,
@@ -214,8 +237,8 @@
         wa = wa,
         alias = alias,
         biplot = bp,
-        rank = rank,
-        qrank = Q$rank,
+        rank = length(lambda),
+        qrank = rank,
         tot.chi = sum(lambda),
         QR = Q,
         envcentre = envcentre,
@@ -258,9 +281,9 @@
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
-        u <- u[, !zeroev]
+        u <- u[, !zeroev, drop = FALSE]
         if (!is.null(v))
-            v <- v[, !zeroev]
+            v <- v[, !zeroev, drop = FALSE]
     }
 
     ## de-weight
@@ -270,6 +293,17 @@
     if (!is.null(CW) && !is.null(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
+    ## set names
+    axnam <- paste0(switch(attr(Y, "METHOD"),
+                           "PCA" = "PC",
+                           "CA" = "CA",
+                           "DISTBASED" = "MDS"),
+                    seq_len(length(lambda)))
+    dnam <- dimnames(Y)
+    names(lambda) <- axnam
+    dimnames(u) <- list(dnam[[1]], axnam)
+    if (!is.null(v))
+        dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
         "eig" = lambda,
@@ -298,7 +332,7 @@
                 "capscale" = initPCA(Y, scale = FALSE),
                 "dbrda" = initDBRDA(Y))
     ## header info for the model
-    head <- ordHead(Y)
+    head <- ordHead(Y, method)
     ## Partial
     if (!is.null(Z)) {
         out <- ordPartial(Y, Z)
