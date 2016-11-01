@@ -21,7 +21,10 @@
     }
     sol <- ordConstrained(X, Y, Z, method = "cca")
     if (exists("exclude.spec")) {
-        attr(sol$CA$v, "na.action") <- exclude.spec
+        if (!is.null(sol$CCA$v))
+            attr(sol$CCA$v, "na.action") <- exclude.spec
+        if (!is.null(sol$CA$v))
+            attr(sol$CA$v, "na.action") <- exclude.spec
     }
     call <- match.call()
     call[[1]] <- as.name("cca")
