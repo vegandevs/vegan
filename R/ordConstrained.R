@@ -45,6 +45,8 @@
 {
     Y <- as.matrix(Y)
     Y <- scale(Y, scale = scale)
+    if (scale && any(is.nan(Y)))
+        Y[is.nan(Y)] <- 0
     ## we want variance based model when scale = FALSE -- this will
     ## break Xbar where we want to have back the original scaling
     if (!scale)
@@ -95,6 +97,9 @@
                        "rowsum" = attr(Y, "RW"),
                        "colsum" = attr(Y, "CW")),
                   head)
+    else if (method == "rda")
+        head <- c(list("colsum" = apply(Y, 2, sd)),
+                 head)
     head
 }
 
