@@ -47,10 +47,10 @@
     Y <- scale(Y, scale = scale)
     if (scale && any(is.nan(Y)))
         Y[is.nan(Y)] <- 0
-    ## we want variance based model when scale = FALSE -- this will
-    ## break Xbar where we want to have back the original scaling
-    if (!scale)
-        Y <- Y / sqrt(nrow(Y) - 1)
+    ## we want models based on variance or correlations -- this will
+    ## break methods depending on unscaled Xbar (and which do this
+    ## very same scaling internally) with scale = FALSE.
+    Y <- Y / sqrt(nrow(Y) - 1)
     attr(Y, "METHOD") <- "PCA"
     Y
 }
