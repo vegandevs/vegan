@@ -11,25 +11,32 @@
     d <- ordiParseFormula(formula, data = data, na.action = na.action,
                           subset = substitute(subset))
     sol <- rda.default(d$X, d$Y, d$Z, scale)
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0)
-        sol$CCA$centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
-    if (!is.null(sol$CCA$alias))
-        sol$CCA$centroids <- unique(sol$CCA$centroids)
-    if (!is.null(sol$CCA$centroids)) {
-        rs <- rowSums(sol$CCA$centroids^2)
-        sol$CCA$centroids <- sol$CCA$centroids[rs > 1e-04, ,
-            drop = FALSE]
-        if (length(sol$CCA$centroids) == 0)
-            sol$CCA$centroids <- NULL
+    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
+        centroids <- centroids.cca(sol$CCA$wa, d$modelframe)
+        if (!is.null(sol$CCA$alias))
+            centroids <- unique(centroids)
+        if (!is.null(centroids)) {
+            rs <- rowSums(centroids^2)
+            centroids <- centroids[rs > 1e-04,, drop = FALSE]
+            if (length(centroids) == 0)
+                centroids <- NULL
+        }
+        if (!is.null(centroids))
+            sol$CCA$centroids <- centroids
     }
-    sol$terms <- d$terms
-    sol$terminfo <- ordiTerminfo(d, d$modelframe)
-    sol$subset <- d$subset
-    sol$na.action <- d$na.action
-    sol$call <- match.call()
-    sol$call[[1]] <- as.name("rda")
-    sol$call$formula <- formula(d$terms, width.cutoff = 500)
+    ## replace rda.default call
+    call <- match.call()
+    call[[1]] <- as.name("rda")
+    call$formula <- formula(d$terms)
+    sol$call <- call
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
+    ## drops class in c()
+    sol <- c(sol,
+             list(terms = d$terms,
+                  terminfo = ordiTerminfo(d, d$modelframe),
+                  subset = d$subset,
+                  na.action = d$na.action))
+    class(sol) <- c("rda", "cca")
     sol
 }
