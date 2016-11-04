@@ -22,8 +22,6 @@
         Xbar <- Xbar * sqrt(nrow(Xbar) - 1)
         Xbar <- sweep(Xbar, 2, cent, "+")
         attr(Xbar, "scaled:center") <- NULL
-    } else {
-        Xbar <- Xbar
     }
     Xbar
 }
