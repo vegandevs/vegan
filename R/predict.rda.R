@@ -9,13 +9,13 @@
 ### - only type = "lc" can be used with newdata with dbrda
 
 `predict.rda` <-
-    function (object, newdata, type = c("response", "wa", "sp", "lc", "working"), 
+    function (object, newdata, type = c("response", "wa", "sp", "lc", "working"),
               rank = "full", model = c("CCA", "CA"), scaling = "none",
-              correlation = FALSE, ...) 
+              correlation = FALSE, ...)
 {
     type <- match.arg(type)
     model <- match.arg(model)
-    if (model == "CCA" && is.null(object$CCA)) 
+    if (model == "CCA" && is.null(object$CCA))
         model <- "CA"
     if (inherits(object, "dbrda"))
         take <- object[[model]]$poseig
@@ -23,7 +23,7 @@
         take <- object[[model]]$rank
     if (take == 0)
         stop("model ", dQuote(model), " has rank 0")
-    if (rank != "full") 
+    if (rank != "full")
         take <- min(take, rank)
     if (!inherits(object, "dbrda")) {
         if (is.null(object$CCA))
@@ -41,7 +41,7 @@
     if (!inherits(object, "dbrda")) {
         v <- object[[model]]$v[, 1:take, drop = FALSE]
     }
-    slam <- diag(sqrt(object[[model]]$eig[1:take] * nr), nrow = take)
+    slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
     if (type %in% c("response", "working")) {
@@ -67,7 +67,7 @@
                 }
             }
         } else {
-            if (take > 0) 
+            if (take > 0)
                 out <- u %*% slam %*% t(v)
             else {
                 out <- matrix(0, nrow = nrow(u), ncol = nrow(v))
@@ -75,36 +75,35 @@
                 colnames(out) <- rownames(v)
             }
             if (type == "response") {
-                if (!is.null(scal)) 
+                if (!is.null(scal))
                     out <- sweep(out, 2, scal, "*")
+                out <- out * sqrt(nr)
                 out <- sweep(out, 2, cent, "+")
-            } else {
-                out <- out/sqrt(nrow(out) - 1)
             }
         }
     }
     else if (type == "lc") {
-        if (model == "CA") 
+        if (model == "CA")
             stop("'lc' scores not available for unconstrained ordination")
         if (!missing(newdata)) {
-            if (is.null(object$terminfo)) 
+            if (is.null(object$terminfo))
                 E <- as.matrix(newdata)
             else {
-                d <- ordiParseFormula(formula(object), newdata, 
+                d <- ordiParseFormula(formula(object), newdata,
                                       object$terminfo$xlev)
                 E <- cbind(d$Z, d$Y)
             }
             Q <- object[[model]]$QR
             p1 <- Q$pivot[1:Q$rank]
-            E <- sweep(E, 2, c(object$pCCA$envcentre, object$CCA$envcentre), 
+            E <- sweep(E, 2, c(object$pCCA$envcentre, object$CCA$envcentre),
                        "-")
-            u <- E[, p1, drop = FALSE] %*% coef(object)[p1, , 
+            u <- E[, p1, drop = FALSE] %*% coef(object)[p1, ,
                          drop = FALSE]
             u <- u[, 1:take, drop = FALSE]
         }
         out <- u
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi * nr)
+            tot <- sqrt(object$tot.chi)
             lam <- list(diag(slam)/tot, 1, sqrt(diag(slam)/tot))[[abs(scaling)]]
             out <- sqrt(tot) * sweep(out, 2, lam, "*")
         }
@@ -114,7 +113,7 @@
             if (inherits(object, c("capscale", "dbrda")))
                 stop(gettextf("'wa' scores not available in %s with 'newdata'",
                      object$method))
-            if (!is.null(object$pCCA)) 
+            if (!is.null(object$pCCA))
                 stop("No 'wa' scores available (yet) in partial RDA")
             nm <- rownames(v)
             if (!is.null(nm)) {
@@ -133,13 +132,13 @@
         }
         out <- w
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi * nr)
+            tot <- sqrt(object$tot.chi)
             lam <- list(diag(slam)/tot, 1, sqrt(diag(slam)/tot))[[abs(scaling)]]
             out <- sqrt(tot) * sweep(out, 2, lam, "*")
         }
     }
     else if (type == "sp") {
-        if (inherits(object, "capscale")) 
+        if (inherits(object, "capscale"))
             warning("'sp' scores may be meaningless in 'capscale'")
         if (inherits(object, "dbrda"))
             stop("'sp' scores are not available in 'dbrda'")
@@ -152,16 +151,17 @@
             }
             Xbar <- as.matrix(newdata)
             Xbar <- scale(Xbar, center = TRUE, scale = scaled.PCA)
-            if (!is.null(object$pCCA)) 
+            Xbar <- Xbar/sqrt(nr)
+            if (!is.null(object$pCCA))
                 Xbar <- qr.resid(object$pCCA$QR, Xbar)
             v <- t(Xbar) %*% u
             v <- sweep(v, 2, diag(slam), "/")
         }
         out <- v
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi * nr)
+            tot <- sqrt(object$tot.chi)
             scal <- list(1, diag(slam)/tot, sqrt(diag(slam)/tot))[[abs(scaling)]]
-            out <- sqrt(tot) * sweep(out, 2, scal, "*")
+            out <- sweep(out, 2, scal, "*")
         }
     }
     out
