@@ -25,19 +25,13 @@
         CCA <- cbind(CCA, object$CCA$imaginary.u)
         CA <- cbind(CA, object$CA$imaginary.u)
     }
-    if (inherits(object, "rda")) {
-        nr <- nobs(object) - 1
-    }
-    else {
-        nr <- 1
-    }
     if (!is.null(pCCA)) {
         if (display == "sites")
             pCCA <- t(pCCA)
         if (inherits(object, "dbrda"))
             pCCA <- diag(pCCA)
         else
-            pCCA <- diag(crossprod(pCCA))/nr
+            pCCA <- diag(crossprod(pCCA))
     }
     if (!is.null(CCA))
         CCA <- rowSums(diag(w, length(w)) %*% CCA^2 %*%
