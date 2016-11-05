@@ -30,17 +30,13 @@
         eig <- eig[choices]
     }
     att <- attributes(CA)
-    if (inherits(object, "rda"))
-        nr <- nobs(object) - 1
-    else
-        nr <- 1
     if (!is.null(pCCA)) {
         if (display == "sites")
             pCCA <- t(pCCA)
         if (inherits(object, "dbrda"))
             pCCA <- diag(pCCA)
         else
-            pCCA <- diag(crossprod(pCCA))/nr
+            pCCA <- diag(crossprod(pCCA))
     }
     CA <- t(apply(
         diag(w, length(w)) %*% CA^2 %*% diag(eig, length(eig)),
