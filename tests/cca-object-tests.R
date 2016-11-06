@@ -21,10 +21,11 @@ sort(names(mrda))
 sort(names(mcap))
 sort(names(mdb))
 ## overall results
-str(mcca, max.level = 2)
-str(mrda, max.level = 2)
-str(mcap, max.level = 2)
-str(mdb, max.level=2)
+head(summary(mcca))
+head(summary(mrda))
+head(summary(mrda1))
+head(summary(mcap))
+head(summary(mdb))
 
 ## diagnostics
 
@@ -40,11 +41,11 @@ head(inertcomp(mrda1))
 head(inertcomp(mcap, display="sites"))
 head(inertcomp(mdb, display = "sites"))
 
-intersetcor(mcca)
-intersetcor(mrda)
-intersetcor(mrda1)
-intersetcor(mcap)
-intersetcor(mdb)
+zapsmall(intersetcor(mcca))
+zapsmall(intersetcor(mrda))
+zapsmall(intersetcor(mrda1))
+zapsmall(intersetcor(mcap))
+zapsmall(intersetcor(mdb))
 
 tolerance(mcca)
 
@@ -159,6 +160,4 @@ head(calibrate(mdb))
 head(calibrate(mcca, newdata=dune[11:15,]))
 head(calibrate(mrda, newdata=dune[11:15,]))
 head(calibrate(mrda1, newdata=dune[11:15,]))
-
-
 

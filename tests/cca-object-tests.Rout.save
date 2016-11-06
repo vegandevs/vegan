@@ -134,349 +134,474 @@ Eigenvalues for unconstrained axes:
  [1] "CA"        "CCA"       "adjust"    "call"      "colsum"    "inertia"  
  [7] "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"     "tot.chi"  
 > ## overall results
-> str(mcca, max.level = 2)
-List of 12
- $ call       : language cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
- $ grand.total: num 685
- $ rowsum     : Named num [1:20] 0.0263 0.0613 0.0584 0.0657 0.0628 ...
-  ..- attr(*, "names")= chr [1:20] "1" "2" "3" "4" ...
- $ colsum     : Named num [1:30] 0.0234 0.0701 0.0073 0.0526 0.0307 ...
-  ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
- $ tot.chi    : num 2.12
- $ pCCA       :List of 5
-  ..$ rank     : int 3
-  ..$ tot.chi  : num 0.604
-  ..$ QR       :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ Fit      : num [1:20, 1:30] -0.01958 0.05909 -0.02918 -0.03095 0.00789 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ envcentre: Named num [1:3] 0.311 0.22 0.298
-  .. ..- attr(*, "names")= chr [1:3] "ManagementHF" "ManagementNM" "ManagementSF"
- $ CCA        :List of 13
-  ..$ eig      : Named num [1:4] 0.2226 0.1226 0.0639 0.0406
-  .. ..- attr(*, "names")= chr [1:4] "CCA1" "CCA2" "CCA3" "CCA4"
-  ..$ u        : num [1:20, 1:4] -1.595 -0.482 -0.852 -0.901 0.285 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v        : num [1:30, 1:4] -0.64 0.969 -2.215 0.506 -0.833 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ wa       : num [1:20, 1:4] -1.965 0.0155 -0.7106 -0.8792 -0.66 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ alias    : chr "Manure^4"
-  ..$ biplot   : num [1:4, 1:4] -0.0925 -0.236 -0.3644 0.7361 -0.2777 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank     : int 4
-  ..$ qrank    : int 4
-  ..$ tot.chi  : num 0.45
-  ..$ QR       :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ envcentre: Named num [1:5] -0.0309 -0.0355 -0.0489 0.0366 4.685
-  .. ..- attr(*, "names")= chr [1:5] "Manure.L" "Manure.Q" "Manure.C" "Manure^4" ...
-  ..$ Xbar     : num [1:20, 1:30] 0.05373 0.01879 -0.00775 -0.00822 0.03007 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ centroids: num [1:4, 1:4] 0.103 -0.241 0.902 -1.003 0.374 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ CA         :List of 6
-  ..$ eig    : Named num [1:12] 0.3176 0.1586 0.1397 0.1161 0.0791 ...
-  .. ..- attr(*, "names")= chr [1:12] "CA1" "CA2" "CA3" "CA4" ...
-  ..$ u      : num [1:20, 1:12] 0.1682 0.6562 -0.0114 -0.0572 -0.649 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v      : num [1:30, 1:12] -0.835 0.823 -4.332 0.237 -2.133 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank   : int 12
-  ..$ tot.chi: num 1.06
-  ..$ Xbar   : num [1:20, 1:30] 0.0443 -0.0147 -0.0137 -0.0151 0.0226 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ method     : chr "cca"
- $ inertia    : chr "mean squared contingency coefficient"
- $ terms      :Classes 'terms', 'formula'  language dune ~ Condition(Management) + Manure + A1
-  .. ..- attr(*, "variables")= language list(dune, Condition(Management), Manure, A1)
-  .. ..- attr(*, "factors")= int [1:4, 1:3] 0 1 0 0 0 0 1 0 0 0 ...
-  .. .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "term.labels")= chr [1:3] "Condition(Management)" "Manure" "A1"
-  .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. ..- attr(*, "intercept")= int 1
-  .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
- $ terminfo   :List of 3
-  ..$ terms  :Classes 'terms', 'formula'  language ~Manure + A1 + Management
-  .. .. ..- attr(*, "variables")= language list(Manure, A1, Management)
-  .. .. ..- attr(*, "factors")= int [1:3, 1:3] 1 0 0 0 1 0 0 0 1
-  .. .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..- attr(*, "term.labels")= chr [1:3] "Manure" "A1" "Management"
-  .. .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. .. ..- attr(*, "intercept")= int 1
-  .. .. ..- attr(*, "response")= int 0
-  .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-  ..$ xlev   :List of 2
-  ..$ ordered: Named logi [1:3] FALSE TRUE FALSE
-  .. ..- attr(*, "names")= chr [1:3] "Management" "Manure" "A1"
- - attr(*, "class")= chr "cca"
-> str(mrda, max.level = 2)
-List of 12
- $ call       : language rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
- $ grand.total: logi NA
- $ rowsum     : logi NA
- $ colsum     : Named num [1:30] 1.24 2.683 0.786 2.628 1.701 ...
-  ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
- $ tot.chi    : num 84.1
- $ pCCA       :List of 5
-  ..$ rank     : int 3
-  ..$ tot.chi  : num 29.2
-  ..$ QR       :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ Fit      : num [1:20, 1:30] -0.633 1.533 -0.633 -0.633 0.4 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:30] 0.8 2.4 0.25 1.8 1.05 0.65 0.75 0.05 0.1 0.2 ...
-  .. .. ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
-  ..$ envcentre: Named num [1:3] 0.25 0.3 0.3
-  .. ..- attr(*, "names")= chr [1:3] "ManagementHF" "ManagementNM" "ManagementSF"
- $ CCA        :List of 13
-  ..$ eig      : Named num [1:4] 8.54 4.33 2.21 1.72
-  .. ..- attr(*, "names")= chr [1:4] "RDA1" "RDA2" "RDA3" "RDA4"
-  ..$ u        : num [1:20, 1:4] -0.414 -0.0984 -0.3462 -0.3507 -0.0116 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v        : num [1:30, 1:4] -0.0722 0.26 -0.0404 0.2356 -0.0753 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ wa       : num [1:20, 1:4] -0.538 -0.0225 -0.2954 -0.2775 -0.123 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ alias    : chr "Manure^4"
-  ..$ biplot   : num [1:4, 1:4] -0.215 -0.44 -0.465 0.52 -0.242 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank     : int 4
-  ..$ qrank    : int 4
-  ..$ tot.chi  : num 16.8
-  ..$ QR       :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ envcentre: Named num [1:5] -0.0791 0.0401 -0.0791 0.0299 4.85
-  .. ..- attr(*, "names")= chr [1:5] "Manure.L" "Manure.Q" "Manure.C" "Manure^4" ...
-  ..$ Xbar     : num [1:20, 1:30] 0.833 0.667 -0.167 -0.167 0.8 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:30] 0.8 2.4 0.25 1.8 1.05 0.65 0.75 0.05 0.1 0.2 ...
-  .. .. ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
-  ..$ centroids: num [1:4, 1:4] 0.04047 0.00869 0.23869 -0.37031 -0.02055 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ CA         :List of 6
-  ..$ eig    : Named num [1:12] 10.25 8.21 4.95 3.36 3.12 ...
-  .. ..- attr(*, "names")= chr [1:12] "PC1" "PC2" "PC3" "PC4" ...
-  ..$ u      : num [1:20, 1:12] -0.1741 0.3072 0.0454 0.1286 -0.1567 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v      : num [1:30, 1:12] -0.1326 0.4596 -0.0588 0.2862 -0.2917 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank   : int 12
-  ..$ tot.chi: num 38.1
-  ..$ Xbar   : num [1:20, 1:30] 0.578 -0.311 -0.285 -0.294 0.45 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:30] 0.8 2.4 0.25 1.8 1.05 0.65 0.75 0.05 0.1 0.2 ...
-  .. .. ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
- $ method     : chr "rda"
- $ inertia    : chr "variance"
- $ terms      :Classes 'terms', 'formula'  language dune ~ Condition(Management) + Manure + A1
-  .. ..- attr(*, "variables")= language list(dune, Condition(Management), Manure, A1)
-  .. ..- attr(*, "factors")= int [1:4, 1:3] 0 1 0 0 0 0 1 0 0 0 ...
-  .. .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "term.labels")= chr [1:3] "Condition(Management)" "Manure" "A1"
-  .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. ..- attr(*, "intercept")= int 1
-  .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
- $ terminfo   :List of 3
-  ..$ terms  :Classes 'terms', 'formula'  language ~Manure + A1 + Management
-  .. .. ..- attr(*, "variables")= language list(Manure, A1, Management)
-  .. .. ..- attr(*, "factors")= int [1:3, 1:3] 1 0 0 0 1 0 0 0 1
-  .. .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..- attr(*, "term.labels")= chr [1:3] "Manure" "A1" "Management"
-  .. .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. .. ..- attr(*, "intercept")= int 1
-  .. .. ..- attr(*, "response")= int 0
-  .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-  ..$ xlev   :List of 2
-  ..$ ordered: Named logi [1:3] FALSE TRUE FALSE
-  .. ..- attr(*, "names")= chr [1:3] "Management" "Manure" "A1"
- - attr(*, "class")= chr [1:2] "rda" "cca"
-> str(mcap, max.level = 2)
-List of 15
- $ call        : language capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      distance = "bray")
- $ grand.total : logi NA
- $ rowsum      : logi NA
- $ colsum      : Named num [1:30] 1.24 2.683 0.786 2.628 1.701 ...
-  ..- attr(*, "names")= chr [1:30] "Achimill" "Agrostol" "Airaprae" "Alopgeni" ...
- $ tot.chi     : num 4.3
- $ pCCA        :List of 7
-  ..$ rank        : int 3
-  ..$ tot.chi     : num 1.47
-  ..$ QR          :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ Fit         : num [1:20, 1:14] 0.283 -1.174 0.283 0.283 -0.588 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:14] 1.21e-16 -8.88e-17 -3.23e-16 -1.28e-16 -3.45e-16 ...
-  .. .. ..- attr(*, "names")= chr [1:14] "Dim1" "Dim2" "Dim3" "Dim4" ...
-  ..$ envcentre   : Named num [1:3] 0.25 0.3 0.3
-  .. ..- attr(*, "names")= chr [1:3] "ManagementHF" "ManagementNM" "ManagementSF"
-  ..$ G           : num [1:20, 1:20] 0.3368 0.1438 0.1172 0.0959 0.0461 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ real.tot.chi: num 1.5
- $ CCA         :List of 15
-  ..$ eig         : Named num [1:4] 0.6737 0.243 0.1046 0.0514
-  .. ..- attr(*, "names")= chr [1:4] "CAP1" "CAP2" "CAP3" "CAP4"
-  ..$ u           : num [1:20, 1:4] -0.3811 -0.1374 -0.2691 -0.2766 0.0172 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v           : num [1:30, 1:4] -0.0901 0.3238 -0.0686 0.2072 -0.1171 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "decostand")= chr "normalize"
-  ..$ wa          : num [1:20, 1:4] -0.5824 -0.0144 -0.1539 -0.1905 -0.2034 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ alias       : chr "Manure^4"
-  ..$ biplot      : num [1:4, 1:4] -0.182 -0.35 -0.382 0.675 0.264 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank        : int 4
-  ..$ qrank       : int 4
-  ..$ tot.chi     : num 1.03
-  ..$ QR          :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ envcentre   : Named num [1:5] -0.0791 0.0401 -0.0791 0.0299 4.85
-  .. ..- attr(*, "names")= chr [1:5] "Manure.L" "Manure.Q" "Manure.C" "Manure^4" ...
-  ..$ Xbar        : num [1:20, 1:14] -1.829 -0.11 -0.6 -0.585 -0.75 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:14] 1.21e-16 -8.88e-17 -3.23e-16 -1.28e-16 -3.45e-16 ...
-  .. .. ..- attr(*, "names")= chr [1:14] "Dim1" "Dim2" "Dim3" "Dim4" ...
-  ..$ G           : num [1:20, 1:20] 0.32591 0.00316 0.07613 0.05875 0.03197 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ real.tot.chi: num 1.07
-  ..$ centroids   : num [1:4, 1:4] 0.058 -0.025 0.213 -0.309 -0.043 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ CA          :List of 10
-  ..$ eig            : Named num [1:12] 0.749 0.338 0.308 0.213 0.137 ...
-  .. ..- attr(*, "names")= chr [1:12] "MDS1" "MDS2" "MDS3" "MDS4" ...
-  ..$ u              : num [1:20, 1:12] -0.0932 0.192 0.037 0.0562 -0.2309 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ v              : num [1:30, 1:12] -0.1508 0.4521 -0.0998 0.2053 -0.3333 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "decostand")= chr "normalize"
-  ..$ rank           : int 12
-  ..$ tot.chi        : num 1.8
-  ..$ Xbar           : num [1:20, 1:14] -0.585 0.468 0.272 0.312 -0.7 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "scaled:center")= Named num [1:14] 1.21e-16 -8.88e-17 -3.23e-16 -1.28e-16 -3.45e-16 ...
-  .. .. ..- attr(*, "names")= chr [1:14] "Dim1" "Dim2" "Dim3" "Dim4" ...
-  ..$ real.tot.chi   : num 2.02
-  ..$ imaginary.chi  : num -0.295
-  ..$ imaginary.rank : int 5
-  ..$ imaginary.u.eig: num [1:20, 1:5] 0.00281 0.03652 0.0098 -0.04213 -0.01078 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ method      : chr "capscale"
- $ inertia     : chr "squared Bray distance"
- $ real.tot.chi: num 4.59
- $ terms       :Classes 'terms', 'formula'  language dune ~ Condition(Management) + Manure + A1
-  .. ..- attr(*, "variables")= language list(dune, Condition(Management), Manure, A1)
-  .. ..- attr(*, "factors")= int [1:4, 1:3] 0 1 0 0 0 0 1 0 0 0 ...
-  .. .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "term.labels")= chr [1:3] "Condition(Management)" "Manure" "A1"
-  .. ..- attr(*, "specials")=Dotted pair list of 1
-  .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. ..- attr(*, "intercept")= int 1
-  .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
- $ terminfo    :List of 3
-  ..$ terms  :Classes 'terms', 'formula'  language ~Manure + A1 + Management
-  .. .. ..- attr(*, "variables")= language list(Manure, A1, Management)
-  .. .. ..- attr(*, "factors")= int [1:3, 1:3] 1 0 0 0 1 0 0 0 1
-  .. .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..- attr(*, "term.labels")= chr [1:3] "Manure" "A1" "Management"
-  .. .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. .. ..- attr(*, "intercept")= int 1
-  .. .. ..- attr(*, "response")= int 0
-  .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-  ..$ xlev   :List of 2
-  ..$ ordered: Named logi [1:3] FALSE TRUE FALSE
-  .. ..- attr(*, "names")= chr [1:3] "Management" "Manure" "A1"
- $ sqrt.dist   : logi FALSE
- $ adjust      : num 4.36
- - attr(*, "class")= chr [1:3] "capscale" "rda" "cca"
-> str(mdb, max.level=2)
-List of 12
- $ tot.chi  : num 4.3
- $ pCCA     :List of 6
-  ..$ rank     : int 3
-  ..$ tot.chi  : num 1.47
-  ..$ QR       :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ Fit      : num [1:20, 1:20] 0.05838 -0.02456 0.05838 0.05838 -0.00154 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ envcentre: Named num [1:3] 0.25 0.3 0.3
-  .. ..- attr(*, "names")= chr [1:3] "ManagementHF" "ManagementNM" "ManagementSF"
-  ..$ G        : num [1:20, 1:20] 0.3368 0.1438 0.1172 0.0959 0.0461 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ CCA      :List of 16
-  ..$ eig        : Named num [1:4] 0.6666 0.2385 0.091 0.0384
-  .. ..- attr(*, "names")= chr [1:4] "dbRDA1" "dbRDA2" "dbRDA3" "dbRDA4"
-  ..$ u          : num [1:20, 1:4] -0.3803 -0.136 -0.2678 -0.2753 0.0167 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ imaginary.u: NULL
-  ..$ poseig     : int 4
-  ..$ v          : logi [1, 1:4] NA NA NA NA
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ wa         : num [1:20, 1:4] -0.5943 -0.00567 -0.14638 -0.18267 -0.22053 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ alias      : chr "Manure^4"
-  ..$ biplot     : num [1:4, 1:4] -0.179 -0.348 -0.385 0.677 -0.267 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ qrank      : int 4
-  ..$ rank       : int 4
-  ..$ tot.chi    : num 1.03
-  ..$ QR         :List of 4
-  .. ..- attr(*, "class")= chr "qr"
-  ..$ envcentre  : Named num [1:5] -0.0791 0.0401 -0.0791 0.0299 4.85
-  .. ..- attr(*, "names")= chr [1:5] "Manure.L" "Manure.Q" "Manure.C" "Manure^4" ...
-  ..$ Xbar       : logi NA
-  ..$ G          : num [1:20, 1:20] 0.32591 0.00316 0.07613 0.05875 0.03197 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ centroids  : num [1:4, 1:4] 0.0564 -0.026 0.2145 -0.3078 0.0591 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ CA       :List of 9
-  ..$ eig        : Named num [1:12] 0.742 0.337 0.307 0.206 0.133 ...
-  .. ..- attr(*, "names")= chr [1:12] "MDS1" "MDS2" "MDS3" "MDS4" ...
-  ..$ u          : num [1:20, 1:9] -0.0859 0.1913 0.0307 0.0552 -0.2305 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ imaginary.u: num [1:20, 1:3] -0.00975 0.02438 -0.22845 0.2382 -0.34372 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ poseig     : int 9
-  ..$ v          : logi [1, 1:9] NA NA NA NA NA NA ...
-  .. ..- attr(*, "dimnames")=List of 2
-  ..$ rank       : int 12
-  ..$ tot.chi    : num 1.8
-  ..$ Xbar       : logi NA
-  ..$ G          : num [1:20, 1:20] 0.0808 -0.0075 -0.02644 -0.05435 0.00282 ...
-  .. ..- attr(*, "dimnames")=List of 2
- $ colsum   : logi NA
- $ call     : language dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      distance = "bray")
- $ terms    :Classes 'terms', 'formula'  language dune ~ Condition(Management) + Manure + A1
-  .. ..- attr(*, "variables")= language list(dune, Condition(Management), Manure, A1)
-  .. ..- attr(*, "factors")= int [1:4, 1:3] 0 1 0 0 0 0 1 0 0 0 ...
-  .. .. ..- attr(*, "dimnames")=List of 2
-  .. ..- attr(*, "term.labels")= chr [1:3] "Condition(Management)" "Manure" "A1"
-  .. ..- attr(*, "specials")=Dotted pair list of 1
-  .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. ..- attr(*, "intercept")= int 1
-  .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
- $ terminfo :List of 3
-  ..$ terms  :Classes 'terms', 'formula'  language ~Manure + A1 + Management
-  .. .. ..- attr(*, "variables")= language list(Manure, A1, Management)
-  .. .. ..- attr(*, "factors")= int [1:3, 1:3] 1 0 0 0 1 0 0 0 1
-  .. .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..- attr(*, "term.labels")= chr [1:3] "Manure" "A1" "Management"
-  .. .. ..- attr(*, "order")= int [1:3] 1 1 1
-  .. .. ..- attr(*, "intercept")= int 1
-  .. .. ..- attr(*, "response")= int 0
-  .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-  ..$ xlev   :List of 2
-  ..$ ordered: Named logi [1:3] FALSE TRUE FALSE
-  .. ..- attr(*, "names")= chr [1:3] "Management" "Manure" "A1"
- $ method   : chr "dbrda"
- $ sqrt.dist: logi FALSE
- $ adjust   : num 4.36
- $ inertia  : chr "squared Bray distance"
- - attr(*, "class")= chr [1:3] "dbrda" "rda" "cca"
+> head(summary(mcca))
+
+Call:
+cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env) 
+
+Partitioning of mean squared contingency coefficient:
+              Inertia Proportion
+Total          2.1153     1.0000
+Conditioned    0.6038     0.2855
+Constrained    0.4496     0.2126
+Unconstrained  1.0618     0.5020
+
+Eigenvalues, and their contribution to the mean squared contingency coefficient 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                        CCA1    CCA2    CCA3    CCA4    CA1    CA2    CA3
+Eigenvalue            0.2226 0.12260 0.06390 0.04055 0.3176 0.1586 0.1397
+Proportion Explained  0.1473 0.08111 0.04228 0.02683 0.2101 0.1049 0.0924
+Cumulative Proportion 0.1473 0.22837 0.27065 0.29748 0.5076 0.6125 0.7049
+                         CA4     CA5     CA6     CA7     CA8     CA9    CA10
+Eigenvalue            0.1161 0.07907 0.07534 0.04527 0.04018 0.03777 0.02799
+Proportion Explained  0.0768 0.05232 0.04985 0.02996 0.02658 0.02499 0.01852
+Cumulative Proportion 0.7817 0.83407 0.88391 0.91387 0.94045 0.96544 0.98396
+                         CA11    CA12
+Eigenvalue            0.01267 0.01158
+Proportion Explained  0.00838 0.00766
+Cumulative Proportion 0.99234 1.00000
+
+Accumulated constrained eigenvalues
+Importance of components:
+                        CCA1   CCA2   CCA3    CCA4
+Eigenvalue            0.2226 0.1226 0.0639 0.04055
+Proportion Explained  0.4950 0.2727 0.1421 0.09019
+Cumulative Proportion 0.4950 0.7677 0.9098 1.00000
+
+Scaling 2 for species and site scores
+* Species are scaled proportional to eigenvalues
+* Sites are unscaled: weighted dispersion equal on all dimensions
+
+
+Species scores
+
+            CCA1     CCA2    CCA3     CCA4      CA1     CA2
+Achimill -0.3020 -0.03039  0.1739 -0.29050 -0.47035  0.4053
+Agrostol  0.4570 -0.06915 -0.1150  0.06489  0.46395 -0.2476
+Airaprae -1.0449  0.77758 -0.2904 -0.23687 -2.44144 -1.1078
+Alopgeni  0.2386  0.32932  0.1001 -0.03812  0.13379 -0.4529
+Anthodor -0.3932  0.23278  0.1235 -0.03880 -1.20221  0.1624
+Bellpere -0.4034 -0.53647  0.2775 -0.19005  0.02897  0.1588
+....                                                       
+
+
+Site scores (weighted averages of species scores)
+
+         CCA1      CCA2    CCA3    CCA4      CA1      CA2
+1    -1.96500 -2.647979 -1.6413  0.7526  0.16816  1.04046
+2     0.01548 -0.648315  0.6587 -0.6812  0.65622 -1.25162
+3    -0.71057 -0.840749  0.0553 -0.2768 -0.01137  0.02309
+4    -0.87923 -1.474951 -0.3516  0.4807 -0.05715 -0.43671
+5    -0.66004 -0.536002  1.6369 -0.9516 -0.64903  0.33149
+6    -0.42088 -0.006203  1.8524 -1.2119  0.02111  1.12577
+....                                                     
+
+
+Site constraints (linear combinations of constraining variables)
+
+        CCA1     CCA2    CCA3     CCA4      CA1      CA2
+1    -1.5955 -0.99312 -0.5835  0.09984  0.16816  1.04046
+2    -0.4818 -0.30770  1.2088 -1.78670  0.65622 -1.25162
+3    -0.8519 -1.54647 -0.3768  0.26840 -0.01137  0.02309
+4    -0.9014 -1.50958 -0.3906  0.25716 -0.05715 -0.43671
+5     0.2849 -0.66306  1.6297  0.07742 -0.64903  0.33149
+6    -0.7065  0.07475  1.3541 -0.14734  0.02111  1.12577
+....                                                    
+
+
+Biplot scores for constraining variables
+
+             CCA1    CCA2     CCA3    CCA4 CA1 CA2
+Manure.L -0.09246 -0.2777 -0.16360 -0.3007   0   0
+Manure.Q -0.23596 -0.4065 -0.33840  0.1174   0   0
+Manure.C -0.36444 -0.2344  0.09316  0.7255   0   0
+A1        0.73608 -0.2785  0.41827  0.1096   0   0
+
+
+Centroids for factor constraints
+
+           CCA1    CCA2    CCA3    CCA4 CA1 CA2
+Manure1  0.1028  0.3739 -0.6488  1.5695   0   0
+Manure2 -0.2406  0.1422  1.5507 -0.3733   0   0
+Manure3  0.9024  0.5482 -0.9689 -0.9932   0   0
+Manure4 -1.0035 -1.4337 -0.4190  0.2340   0   0
+
+> head(summary(mrda))
+
+Call:
+rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env) 
+
+Partitioning of variance:
+              Inertia Proportion
+Total           84.12     1.0000
+Conditioned     29.23     0.3475
+Constrained     16.79     0.1996
+Unconstrained   38.10     0.4529
+
+Eigenvalues, and their contribution to the variance 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                        RDA1    RDA2    RDA3    RDA4     PC1    PC2     PC3
+Eigenvalue            8.5394 4.32972 2.20612 1.71619 10.2523 8.2069 4.95252
+Proportion Explained  0.1556 0.07888 0.04019 0.03126  0.1868 0.1495 0.09022
+Cumulative Proportion 0.1556 0.23444 0.27463 0.30589  0.4927 0.6422 0.73239
+                          PC4     PC5     PC6     PC7     PC8     PC9    PC10
+Eigenvalue            3.35769 3.12261 2.49407 1.86596 1.25786 1.01862 0.74284
+Proportion Explained  0.06117 0.05689 0.04544 0.03399 0.02291 0.01856 0.01353
+Cumulative Proportion 0.79356 0.85044 0.89588 0.92987 0.95279 0.97134 0.98487
+                         PC11    PC12
+Eigenvalue            0.48145 0.34882
+Proportion Explained  0.00877 0.00635
+Cumulative Proportion 0.99365 1.00000
+
+Accumulated constrained eigenvalues
+Importance of components:
+                        RDA1   RDA2   RDA3   RDA4
+Eigenvalue            8.5394 4.3297 2.2061 1.7162
+Proportion Explained  0.5086 0.2579 0.1314 0.1022
+Cumulative Proportion 0.5086 0.7664 0.8978 1.0000
+
+Scaling 2 for species and site scores
+* Species are scaled proportional to eigenvalues
+* Sites are unscaled: weighted dispersion equal on all dimensions
+* General scaling constant of scores:  6.322924 
+
+
+Species scores
+
+             RDA1     RDA2      RDA3     RDA4      PC1      PC2
+Achimill -0.14550  0.13153  0.130591 -0.18255 -0.29276 -0.06031
+Agrostol  0.52375 -0.46961  0.054758  0.21830  1.01439  0.05307
+Airaprae -0.08147  0.11025 -0.144870 -0.10175 -0.12976 -0.13252
+Alopgeni  0.47459  0.21414 -0.004781 -0.04047  0.63179 -0.50591
+Anthodor -0.15175  0.31064 -0.067197 -0.09460 -0.64397 -0.06438
+Bellpere -0.27809  0.02717  0.245698 -0.05426  0.03467 -0.19891
+....                                                           
+
+
+Site scores (weighted sums of species scores)
+
+       RDA1    RDA2    RDA3    RDA4     PC1     PC2
+1    -3.402 -1.1290 -0.9821 -0.1855 -1.1005  1.2222
+2    -0.142 -0.2142  2.7695 -0.2806  1.9422 -1.8707
+3    -1.868 -0.4323  1.1228 -0.1835  0.2872 -0.8173
+4    -1.755 -1.2670  0.6715  1.7718  0.8134 -0.4049
+5    -0.778  2.0101  2.6716 -1.2709 -0.9906 -0.2655
+6    -0.848  2.2170  2.0765 -1.0842 -1.3093  2.3704
+....                                               
+
+
+Site constraints (linear combinations of constraining variables)
+
+         RDA1   RDA2    RDA3     RDA4     PC1     PC2
+1    -2.61763 -0.569 -0.2204  0.12268 -1.1005  1.2222
+2    -0.62199  1.011  2.3626 -2.44309  1.9422 -1.8707
+3    -2.18907 -1.149  0.5417  0.65792  0.2872 -0.8173
+4    -2.21764 -1.110  0.4909  0.62224  0.8134 -0.4049
+5    -0.07305  1.172  2.3291  0.64921 -0.9906 -0.2655
+6    -0.64445  1.946  1.3130 -0.06445 -1.3093  2.3704
+....                                                 
+
+
+Biplot scores for constraining variables
+
+            RDA1    RDA2     RDA3    RDA4 PC1 PC2
+Manure.L -0.2149 -0.2419  0.09302 -0.2225   0   0
+Manure.Q -0.4401 -0.3373 -0.08826  0.1125   0   0
+Manure.C -0.4646  0.1488 -0.09362  0.6665   0   0
+A1        0.5201 -0.2136  0.60923  0.3502   0   0
+
+
+Centroids for factor constraints
+
+            RDA1    RDA2    RDA3    RDA4 PC1 PC2
+Manure1  0.25589 -0.1299 -1.6158  1.9549   0   0
+Manure2  0.05495  1.9587  1.6768 -0.3089   0   0
+Manure3  1.50921 -1.1542 -0.6679 -1.5080   0   0
+Manure4 -2.34145 -0.9428  0.2708  0.4676   0   0
+
+> head(summary(mrda1))
+
+Call:
+rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      scale = TRUE) 
+
+Partitioning of correlations:
+              Inertia Proportion
+Total          30.000     1.0000
+Conditioned     8.780     0.2927
+Constrained     6.141     0.2047
+Unconstrained  15.079     0.5026
+
+Eigenvalues, and their contribution to the correlations 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                        RDA1    RDA2    RDA3    RDA4    PC1    PC2     PC3
+Eigenvalue            2.6117 1.69906 1.10393 0.72605 3.4684 2.5471 2.11575
+Proportion Explained  0.1231 0.08007 0.05202 0.03422 0.1635 0.1200 0.09971
+Cumulative Proportion 0.1231 0.20315 0.25517 0.28939 0.4528 0.5729 0.67258
+                          PC4     PC5     PC6     PC7     PC8     PC9    PC10
+Eigenvalue            1.72233 1.44262 0.96108 0.80894 0.73780 0.49031 0.38048
+Proportion Explained  0.08117 0.06799 0.04529 0.03812 0.03477 0.02311 0.01793
+Cumulative Proportion 0.75375 0.82173 0.86703 0.90515 0.93992 0.96302 0.98095
+                         PC11   PC12
+Eigenvalue            0.24717 0.1570
+Proportion Explained  0.01165 0.0074
+Cumulative Proportion 0.99260 1.0000
+
+Accumulated constrained eigenvalues
+Importance of components:
+                        RDA1   RDA2   RDA3   RDA4
+Eigenvalue            2.6117 1.6991 1.1039 0.7261
+Proportion Explained  0.4253 0.2767 0.1798 0.1182
+Cumulative Proportion 0.4253 0.7020 0.8818 1.0000
+
+Scaling 2 for species and site scores
+* Species are scaled proportional to eigenvalues
+* Sites are unscaled: weighted dispersion equal on all dimensions
+* General scaling constant of scores:  4.886172 
+
+
+Species scores
+
+            RDA1    RDA2     RDA3     RDA4      PC1      PC2
+Achimill -0.2015  0.0240  0.15674 -0.17627  0.18039  0.27693
+Agrostol  0.3092 -0.1517 -0.08093  0.04138 -0.38182 -0.27286
+Airaprae -0.1885  0.2941 -0.08865 -0.07686  0.49477 -0.23646
+Alopgeni  0.1979  0.1257  0.10439 -0.01677 -0.12026 -0.33195
+Anthodor -0.1755  0.1933  0.09312 -0.01215  0.52322  0.20241
+Bellpere -0.3524 -0.2243  0.18857 -0.09393  0.01088 -0.09491
+....                                                        
+
+
+Site scores (weighted sums of species scores)
+
+        RDA1    RDA2      RDA3     RDA4      PC1     PC2
+1    -1.4695 -0.7614 -1.171234  0.06443 -0.16939  1.2128
+2    -0.4414 -1.0286  1.114025 -1.42116 -0.83505 -1.6447
+3    -1.2767 -0.8366  0.004919 -0.11192  0.01951  0.1068
+4    -1.8532 -1.6510 -0.635210  0.97258  0.14988 -1.3196
+5    -1.1089 -0.2520  1.932064 -1.06386  0.67670  0.3455
+6    -0.6971  0.4364  2.582649 -0.57390  0.21765  1.8887
+....                                                    
+
+
+Site constraints (linear combinations of constraining variables)
+
+        RDA1    RDA2    RDA3     RDA4      PC1     PC2
+1    -1.8332 -0.6149 -0.7416  0.18601 -0.16939  1.2128
+2    -0.8742 -0.2751  1.6994 -2.00294 -0.83505 -1.6447
+3    -1.3676 -1.3413 -0.5226  0.37587  0.01951  0.1068
+4    -1.3986 -1.2929 -0.5372  0.36322  0.14988 -1.3196
+5    -0.2379 -0.6507  1.9351  0.30032  0.67670  0.3455
+6    -0.8587  0.3179  1.6431  0.04717  0.21765  1.8887
+....                                                  
+
+
+Biplot scores for constraining variables
+
+            RDA1     RDA2     RDA3     RDA4 PC1 PC2
+Manure.L -0.1739 -0.21917 -0.13309 -0.25862   0   0
+Manure.Q -0.3302 -0.29212 -0.35204  0.09809   0   0
+Manure.C -0.4113 -0.08236 -0.02067  0.71730   0   0
+A1        0.5843 -0.52307  0.41469  0.15159   0   0
+
+
+Centroids for factor constraints
+
+           RDA1    RDA2    RDA3    RDA4 PC1 PC2
+Manure1  0.3905  0.4160 -0.8928  1.6637   0   0
+Manure2 -0.3631  0.2937  1.9393 -0.2230   0   0
+Manure3  1.2201  0.2066 -0.8193 -1.2560   0   0
+Manure4 -1.5331 -1.0830 -0.6005  0.3084   0   0
+
+> head(summary(mcap))
+
+Call:
+capscale(formula = dune ~ Condition(Management) + Manure + A1,      data = dune.env, distance = "bray") 
+
+Partitioning of squared Bray distance:
+              Inertia Proportion
+Total           4.594     1.0000
+Conditioned     1.469     0.3197
+Constrained     1.035     0.2252
+Unconstrained   1.796     0.3909
+
+Eigenvalues, and their contribution to the squared Bray distance 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                        CAP1    CAP2   CAP3    CAP4   MDS1   MDS2    MDS3
+Eigenvalue            0.6737 0.24300 0.1046 0.05136 0.7489 0.3380 0.30841
+Proportion Explained  0.2178 0.07854 0.0338 0.01660 0.2421 0.1092 0.09969
+Cumulative Proportion 0.2178 0.29630 0.3301 0.34670 0.5888 0.6980 0.79770
+                        MDS4    MDS5    MDS6    MDS7    MDS8    MDS9   MDS10
+Eigenvalue            0.2132 0.13698 0.13604 0.06196 0.03929 0.01687 0.01110
+Proportion Explained  0.0689 0.04428 0.04397 0.02003 0.01270 0.00545 0.00359
+Cumulative Proportion 0.8666 0.91088 0.95485 0.97487 0.98757 0.99303 0.99661
+                         MDS11    MDS12
+Eigenvalue            0.006462 0.004016
+Proportion Explained  0.002090 0.001300
+Cumulative Proportion 0.998700 1.000000
+
+Accumulated constrained eigenvalues
+Importance of components:
+                        CAP1   CAP2    CAP3    CAP4
+Eigenvalue            0.6737 0.2430 0.10457 0.05136
+Proportion Explained  0.6281 0.2265 0.09749 0.04788
+Cumulative Proportion 0.6281 0.8546 0.95212 1.00000
+
+Scaling 2 for species and site scores
+* Species are scaled proportional to eigenvalues
+* Sites are unscaled: weighted dispersion equal on all dimensions
+* General scaling constant of scores:  3.00629 
+
+
+Species scores
+
+             CAP1     CAP2     CAP3      CAP4     MDS1      MDS2
+Achimill -0.10723 -0.02762 -0.06497  0.061214 -0.18926  0.189295
+Agrostol  0.38537  0.16664  0.06650 -0.031455  0.56724  0.002715
+Airaprae -0.08164 -0.07543  0.03695  0.015634 -0.12521 -0.012439
+Alopgeni  0.24656 -0.15983 -0.02564  0.022079  0.25760 -0.250870
+Anthodor -0.13935 -0.13763 -0.03132  0.008705 -0.41826  0.137366
+Bellpere -0.15065  0.06935 -0.09839  0.026235 -0.01959 -0.094694
+....                                                            
+
+
+Site scores (weighted sums of species scores)
+
+         CAP1    CAP2    CAP3    CAP4     MDS1    MDS2
+1    -1.75091  1.4325  0.9988 -0.1880 -0.28006  0.9259
+2    -0.04337  0.6007 -1.0699  0.6351  0.57727  0.0195
+3    -0.46252  0.4417 -0.7228 -0.3457  0.11120 -0.4459
+4    -0.57266  0.4128 -0.2832 -0.2175  0.16886 -0.4800
+5    -0.61137 -0.4570 -1.4115  1.1267 -0.69415  0.1504
+6    -0.35926 -0.4786 -1.0118  0.7461 -0.05716  0.4106
+....                                                  
+
+
+Site constraints (linear combinations of constraining variables)
+
+         CAP1     CAP2     CAP3     CAP4     MDS1    MDS2
+1    -1.14568  0.52204  0.13998 -0.17847 -0.28006  0.9259
+2    -0.41299 -0.08520 -1.05218  1.28256  0.57727  0.0195
+3    -0.80898  0.89489 -0.08091 -0.29002  0.11120 -0.4459
+4    -0.83143  0.87003 -0.06619 -0.28258  0.16886 -0.4800
+5     0.05176  0.02045 -1.27141 -0.11767 -0.69415  0.1504
+6    -0.39716 -0.47668 -0.97690  0.03106 -0.05716  0.4106
+....                                                     
+
+
+Biplot scores for constraining variables
+
+            CAP1    CAP2     CAP3    CAP4 MDS1 MDS2
+Manure.L -0.1818 0.26436  0.04782  0.2401    0    0
+Manure.Q -0.3503 0.38834  0.18993 -0.1354    0    0
+Manure.C -0.3820 0.06479 -0.10533 -0.7278    0    0
+A1        0.6755 0.35212 -0.46328 -0.1227    0    0
+
+
+Centroids for factor constraints
+
+            CAP1    CAP2      CAP3    CAP4 MDS1 MDS2
+Manure1  0.17436 -0.1293  0.575731 -1.0461    0    0
+Manure2 -0.07502 -0.5180 -1.097593  0.2154    0    0
+Manure3  0.64077  0.0433  0.667576  0.7569    0    0
+Manure4 -0.92870  0.7623 -0.002374 -0.2504    0    0
+
+> head(summary(mdb))
+
+Call:
+dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      distance = "bray") 
+
+Partitioning of squared Bray distance:
+              Inertia Proportion
+Total           4.299     1.0000
+Conditioned     1.469     0.3416
+Constrained     1.035     0.2407
+Unconstrained   1.796     0.4177
+
+Eigenvalues, and their contribution to the squared Bray distance 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                      dbRDA1  dbRDA2  dbRDA3  dbRDA4   MDS1   MDS2   MDS3
+Eigenvalue            0.6666 0.23850 0.09102 0.03844 0.7420 0.3367 0.3066
+Proportion Explained  0.2355 0.08426 0.03216 0.01358 0.2622 0.1190 0.1083
+Cumulative Proportion     NA      NA      NA      NA     NA     NA     NA
+                         MDS4    MDS5    MDS6    MDS7    MDS8      MDS9
+Eigenvalue            0.20627 0.13339 0.12829 0.03980 0.02745 0.0004132
+Proportion Explained  0.07288 0.04713 0.04533 0.01406 0.00970 0.0001500
+Cumulative Proportion      NA      NA      NA      NA      NA        NA
+                         iMDS1    iMDS2    iMDS3
+Eigenvalue            -0.01985 -0.04601 -0.05923
+Proportion Explained   0.00701  0.01626  0.02093
+Cumulative Proportion       NA       NA       NA
+
+Accumulated constrained eigenvalues
+Importance of components:
+                      dbRDA1 dbRDA2  dbRDA3  dbRDA4
+Eigenvalue            0.6666 0.2385 0.09102 0.03844
+Proportion Explained  0.6443 0.2305 0.08798 0.03716
+Cumulative Proportion 0.6443 0.8749 0.96284 1.00000
+
+Scaling 2 for species and site scores
+* Species are scaled proportional to eigenvalues
+* Sites are unscaled: weighted dispersion equal on all dimensions
+* General scaling constant of scores:  3.00629 
+
+
+Species scores
+
+     dbRDA1 dbRDA2 dbRDA3 dbRDA4 MDS1 MDS2
+spe1                                      
+
+
+Site scores (weighted sums of species scores)
+
+       dbRDA1  dbRDA2  dbRDA3   dbRDA4     MDS1     MDS2
+1    -1.78665 -1.5160 -1.5583 -1.09080 -0.25833  0.92271
+2    -0.01705 -0.6581  0.9301  0.28816  0.57516  0.05239
+3    -0.44007 -0.3970  1.1270  0.21113  0.09235 -0.44842
+4    -0.54915 -0.3741  0.4416  0.09204  0.16597 -0.47429
+5    -0.66299  0.3274  1.2512  2.07857 -0.69303  0.11522
+6    -0.34304  0.4884  1.1823  1.87243 -0.05482  0.40479
+....                                                    
+
+
+Site constraints (linear combinations of constraining variables)
+
+       dbRDA1    dbRDA2   dbRDA3   dbRDA4     MDS1     MDS2
+1    -1.14324 -0.517750 -0.13719 -0.20653 -0.25833  0.92271
+2    -0.40891  0.006731  0.84283  1.43257  0.57516  0.05239
+3    -0.80504 -0.897322  0.08099 -0.29345  0.09235 -0.44842
+4    -0.82758 -0.872017  0.06645 -0.28765  0.16597 -0.47429
+5     0.05034 -0.082513  1.27197  0.07874 -0.69303  0.11522
+6    -0.40060  0.423583  0.98106  0.19462 -0.05482  0.40479
+....                                                       
+
+
+Biplot scores for constraining variables
+
+          dbRDA1   dbRDA2   dbRDA3   dbRDA4 MDS1 MDS2
+Manure.L -0.1792 -0.26684 -0.09723  0.22382    0    0
+Manure.Q -0.3484 -0.37781 -0.18544 -0.17142    0    0
+Manure.C -0.3848 -0.05946  0.21300 -0.70283    0    0
+A1        0.6766 -0.36898  0.46068 -0.06145    0    0
+
+
+Centroids for factor constraints
+
+          dbRDA1   dbRDA2    dbRDA3  dbRDA4 MDS1 MDS2
+Manure1  0.16965  0.17776 -0.399584 -1.1193    0    0
+Manure2 -0.07803  0.45741  1.074105  0.3951    0    0
+Manure3  0.64476 -0.01896 -0.776980  0.6413    0    0
+Manure4 -0.92529 -0.76236  0.003417 -0.2625    0    0
+
 > 
 > ## diagnostics
 > 
@@ -562,56 +687,56 @@ Bellpere 0.1954582 0.27505507 0.5294867
 5 0.04226830 0.01668742 0.06324705
 6 0.04226830 0.02642583 0.05138205
 > 
-> intersetcor(mcca)
-                      CCA1          CCA2          CCA3          CCA4
-ManagementHF -1.933735e-04 -7.992007e-04 -1.090589e-03  6.051339e-04
-ManagementNM  2.753313e-04  1.137927e-03  1.552816e-03 -8.616089e-04
-ManagementSF  9.548564e-06  3.946363e-05  5.385208e-05 -2.988083e-05
-Manure.L     -7.338934e-02 -2.393186e-01 -1.243256e-01 -2.126245e-01
-Manure.Q     -1.839348e-01 -3.480167e-01 -2.558186e-01  8.253202e-02
-Manure.C     -2.865120e-01 -2.018253e-01  7.032891e-02  5.143306e-01
-Manure^4     -2.702318e-01 -1.604848e-01  6.766542e-01 -1.341245e-01
-A1            5.782682e-01 -2.385266e-01  3.171928e-01  7.733074e-02
-> intersetcor(mrda)
-                      RDA1          RDA2          RDA3          RDA4
-ManagementHF  3.038758e-16  1.245392e-16  1.093453e-16 -1.134771e-16
-ManagementNM -1.253869e-16 -5.824161e-17 -1.021731e-16 -1.648586e-17
-ManagementSF -4.820337e-17 -6.039165e-17 -8.384860e-17  1.258934e-16
-Manure.L     -1.814866e-01 -1.833436e-01  6.881833e-02 -1.685000e-01
-Manure.Q     -3.716830e-01 -2.556442e-01 -6.529687e-02  8.520616e-02
-Manure.C     -3.923337e-01  1.127663e-01 -6.926076e-02  5.046733e-01
-Manure^4     -2.707780e-01  4.738701e-01  5.124789e-01 -3.939229e-02
-A1            4.392760e-01 -1.618521e-01  4.507210e-01  2.651417e-01
-> intersetcor(mrda1)
-                      RDA1          RDA2          RDA3          RDA4
-ManagementHF  9.323254e-17  7.168123e-17  1.203161e-16  1.637264e-17
-ManagementNM  2.073245e-17  7.865027e-18 -9.189566e-19  4.432101e-17
-ManagementSF -5.094079e-17  8.835835e-18 -6.414317e-17 -4.493435e-17
-Manure.L     -1.440753e-01 -1.789975e-01 -1.056852e-01 -2.024219e-01
-Manure.Q     -2.735856e-01 -2.385795e-01 -2.795427e-01  7.677537e-02
-Manure.C     -3.407875e-01 -6.726469e-02 -1.640986e-02  5.614188e-01
-Manure^4     -3.917467e-01 -4.629052e-02  6.861259e-01 -4.237532e-02
-A1            4.840744e-01 -4.272000e-01  3.292941e-01  1.186471e-01
-> intersetcor(mcap)
-                      CAP1          CAP2          CAP3          CAP4
-ManagementHF  2.237673e-16 -1.273353e-16 -1.255751e-16 -9.080988e-17
-ManagementNM -1.253043e-16  1.422301e-16  4.954010e-17  5.749876e-17
-ManagementSF -5.537328e-17 -7.538432e-17  1.162389e-16 -1.083257e-17
-Manure.L     -1.389432e-01  1.892092e-01  3.259546e-02  1.333797e-01
-Manure.Q     -2.676678e-01  2.779449e-01  1.294648e-01 -7.522979e-02
-Manure.C     -2.918733e-01  4.637253e-02 -7.180004e-02 -4.043456e-01
-Manure^4     -2.649837e-01 -1.361457e-01 -6.134655e-01  5.532514e-02
-A1            5.161159e-01  2.520227e-01 -3.157993e-01 -6.818344e-02
-> intersetcor(mdb)
-                    dbRDA1        dbRDA2        dbRDA3        dbRDA4
-ManagementHF  3.110771e-16  2.412378e-16  2.270265e-16  2.206969e-16
-ManagementNM -1.447739e-16 -8.324891e-17 -4.167613e-17 -1.013178e-16
-ManagementSF -8.351070e-17 -1.140679e-16 -2.456312e-16  7.472530e-18
-Manure.L     -1.357474e-01 -1.892798e-01 -5.872690e-02  7.938081e-02
-Manure.Q     -2.639013e-01 -2.679963e-01 -1.120040e-01 -6.079869e-02
-Manure.C     -2.914039e-01 -4.218063e-02  1.286504e-01 -2.492729e-01
-Manure^4     -2.637197e-01  9.968176e-02  5.321555e-01  8.620047e-02
-A1            5.124254e-01 -2.617333e-01  2.782520e-01 -2.179329e-02
+> zapsmall(intersetcor(mcca))
+                   CCA1       CCA2       CCA3       CCA4
+ManagementHF -0.0001934 -0.0007992 -0.0010906  0.0006051
+ManagementNM  0.0002753  0.0011379  0.0015528 -0.0008616
+ManagementSF  0.0000095  0.0000395  0.0000539 -0.0000299
+Manure.L     -0.0733893 -0.2393186 -0.1243256 -0.2126245
+Manure.Q     -0.1839348 -0.3480167 -0.2558186  0.0825320
+Manure.C     -0.2865120 -0.2018253  0.0703289  0.5143306
+Manure^4     -0.2702318 -0.1604848  0.6766542 -0.1341245
+A1            0.5782682 -0.2385266  0.3171928  0.0773307
+> zapsmall(intersetcor(mrda))
+                   RDA1       RDA2       RDA3       RDA4
+ManagementHF  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementNM  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementSF  0.0000000  0.0000000  0.0000000  0.0000000
+Manure.L     -0.1814866 -0.1833436  0.0688183 -0.1685000
+Manure.Q     -0.3716830 -0.2556442 -0.0652969  0.0852062
+Manure.C     -0.3923337  0.1127663 -0.0692608  0.5046733
+Manure^4     -0.2707780  0.4738701  0.5124789 -0.0393923
+A1            0.4392760 -0.1618521  0.4507210  0.2651417
+> zapsmall(intersetcor(mrda1))
+                   RDA1       RDA2       RDA3       RDA4
+ManagementHF  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementNM  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementSF  0.0000000  0.0000000  0.0000000  0.0000000
+Manure.L     -0.1440753 -0.1789975 -0.1056852 -0.2024219
+Manure.Q     -0.2735856 -0.2385795 -0.2795427  0.0767754
+Manure.C     -0.3407875 -0.0672647 -0.0164099  0.5614188
+Manure^4     -0.3917467 -0.0462905  0.6861259 -0.0423753
+A1            0.4840744 -0.4272000  0.3292941  0.1186471
+> zapsmall(intersetcor(mcap))
+                   CAP1       CAP2       CAP3       CAP4
+ManagementHF  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementNM  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementSF  0.0000000  0.0000000  0.0000000  0.0000000
+Manure.L     -0.1389432  0.1892092  0.0325955  0.1333797
+Manure.Q     -0.2676678  0.2779449  0.1294648 -0.0752298
+Manure.C     -0.2918733  0.0463725 -0.0718000 -0.4043456
+Manure^4     -0.2649837 -0.1361457 -0.6134655  0.0553251
+A1            0.5161159  0.2520227 -0.3157993 -0.0681834
+> zapsmall(intersetcor(mdb))
+                 dbRDA1     dbRDA2     dbRDA3     dbRDA4
+ManagementHF  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementNM  0.0000000  0.0000000  0.0000000  0.0000000
+ManagementSF  0.0000000  0.0000000  0.0000000  0.0000000
+Manure.L     -0.1357474 -0.1892798 -0.0587269  0.0793808
+Manure.Q     -0.2639013 -0.2679963 -0.1120040 -0.0607987
+Manure.C     -0.2914039 -0.0421806  0.1286504 -0.2492729
+Manure^4     -0.2637197  0.0996818  0.5321555  0.0862005
+A1            0.5124254 -0.2617333  0.2782520 -0.0217933
 > 
 > tolerance(mcca)
 
@@ -1460,8 +1585,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 15 10.361506
 > 
 > 
-> 
-> 
 > proc.time()
    user  system elapsed 
-  2.465   0.091   2.559 
+  2.434   0.101   2.542 
