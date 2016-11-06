@@ -123,6 +123,7 @@
             }
             Xbar <- as.matrix(newdata)
             Xbar <- sweep(Xbar, 2, cent, "-")
+            Xbar <- Xbar / sqrt(nr)
             if (!is.null(scal)) {
                 nz <- scal > 0
                 Xbar[,nz] <- sweep(Xbar[,nz], 2, scal[nz], "/")
