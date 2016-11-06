@@ -103,8 +103,6 @@ permutest.default <- function(x, ...)
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
-    if (!isCCA && !isDB)
-        Chi.tot <- Chi.tot * (nrow(x$CCA$Xbar) - 1)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
     Q <- x$CCA$QR
     if (isPartial) {
