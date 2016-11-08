@@ -98,7 +98,7 @@
                        "colsum" = attr(Y, "CW")),
                   head)
     else if (method == "rda")
-        head <- c(list("colsum" = apply(Y, 2, sd)),
+        head <- c(list("colsum" = sqrt(colSums(Y^2))),
                  head)
     head
 }
