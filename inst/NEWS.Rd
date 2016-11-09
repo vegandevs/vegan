@@ -32,6 +32,11 @@
       than \code{stats::dist}, but now it is nearly equally fast for the
       same dissimilarity measure.
 
+      \item Handling of \code{data=} in formula interface is more
+      robust, and messages on user errors are improved. This fixes
+      points raised in issue
+      \href{https://github.com/vegandevs/vegan/issues/200}{#200}.
+
       \item The taxonomic data in \code{dune.taxon} were updated to APG
       IV (\emph{Bot J Linnean Soc} \strong{181,} 1--20; 2016) and a
       corresponding classification for higher levels (Chase & Reveal,
