@@ -25,7 +25,7 @@
 #include <R.h>
 #include <Rmath.h>
 #include <float.h>
-
+#include <string.h> /* memset */
 
 /* Indices */
 
@@ -732,6 +732,7 @@ SEXP do_minterms(SEXP x)
 
     SEXP terms = PROTECT(allocMatrix(REALSXP, nr, nr));
     double *rterm = REAL(terms);
+    memset(rterm, 0, nr * nr * sizeof(double));
     if(TYPEOF(x) != REALSXP)
 	x = coerceVector(x, REALSXP);
     PROTECT(x);
@@ -747,8 +748,7 @@ SEXP do_minterms(SEXP x)
 		t2 = rx[j + nr*k];
 		sum += (t1 < t2) ? t1 : t2;
 	    }
-	    /* fill the lower triangle and the diagonal; upper
-	     * triangle will contain rubbish */
+	    /* fill the lower triangle and the diagonal */
 	    rterm[j + nr*i] = sum;
 	}
     }

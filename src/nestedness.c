@@ -584,8 +584,7 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin);
-    int i, j, N = nr*nc;
-    size_t ij;
+    size_t i, N = nr*nc;
 
     /* trialswap, swap and swapcount have identical function signature */
     const char *cmethod = CHAR(STRING_ELT(method, 0));
@@ -608,14 +607,11 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
 
     /* sequential trialswap of ix and save result to the iout
        array */
-    for(j = 0; j < N; j++)
-	ix[j] = INTEGER(x)[j];
-
+    memcpy(ix, INTEGER(x), N * sizeof(int));
     GetRNGstate();
-    for(i = 0, ij = 0; i < ny; i++) {
+    for(i = 0; i < ny; i++) {
 	swap_fun(ix, &nr, &nc, &ithin);
-	for (j = 0; j < N; j++)
-	    iout[ij++] = ix[j];
+	memcpy(iout + i * N, ix, N * sizeof(int));
     }
     PutRNGstate();
     UNPROTECT(2);
@@ -630,8 +626,7 @@ SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin);
-    int i, j, N = nr*nc;
-    size_t ij;
+    size_t i, N = nr*nc;
 
     SEXP out = PROTECT(alloc3DArray(INTSXP, nr, nc, ny));
     int *iout = INTEGER(out);
@@ -645,15 +640,12 @@ SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
 
     /* sequential trialswap of ix and save result to the iout
        array */
-    for(j = 0; j < N; j++)
-	ix[j] = INTEGER(x)[j];
-
+    memcpy(ix, INTEGER(x), N * sizeof(int));
     GetRNGstate();
-    for(i = 0, ij = 0; i < ny; i++) {
+    for(i = 0; i < ny; i++) {
 	/* different call than in do_swap */
 	curveball(ix, &nr, &nc, &ithin, iwork);
-	for (j = 0; j < N; j++)
-	    iout[ij++] = ix[j];
+	memcpy(iout + i * N, ix, N * sizeof(int));
     }
     PutRNGstate();
     UNPROTECT(2);
@@ -668,8 +660,7 @@ SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
 {
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	ithin = asInteger(thin), idirect = asInteger(direct);
-    int i, j, N = nr*nc;
-    size_t ij;
+    size_t i, N = nr*nc;
 
     SEXP out = PROTECT(alloc3DArray(REALSXP, nr, nc, ny));
     double *rout = REAL(out);
@@ -680,14 +671,11 @@ SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
     double *rx = (double *) R_alloc(N, sizeof(double));
 
     /* sequential swap as in do_swap */
-    for(j = 0; j < N; j++)
-	rx[j] = REAL(x)[j];
-
+    memcpy(rx, REAL(x), N * sizeof(double));
     GetRNGstate();
-    for(i = 0, ij = 0; i < ny; i++) {
+    for(i = 0; i < ny; i++) {
 	abuswap(rx, &nr, &nc, &ithin, &idirect);
-	for (j = 0; j < N; j++)
-	    rout[ij++] = rx[j];
+	memcpy(rout + i * N, rx, N * sizeof(double));
     }
     PutRNGstate();
     UNPROTECT(2);
@@ -716,7 +704,6 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     int nr = nrows(x), nc = ncols(x), ny = asInteger(nsim),
 	iarg4 = asInteger(arg4);
     size_t i, N = nr*nc;
-    size_t ij; /* pointer to the third facet of the 3D array */
 
     /* quasiswap and rswapcount have identical function signatures */
     const char *cmethod = CHAR(STRING_ELT(method, 0));
@@ -736,8 +723,7 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
 
     GetRNGstate();
     for(i = 0; i < ny; i++) {
-	ij = i * N;
-	qswap_fun(ix + ij, &nr, &nc, &iarg4);
+	qswap_fun(ix + i * N, &nr, &nc, &iarg4);
     }
     PutRNGstate();
     UNPROTECT(1);
