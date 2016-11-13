@@ -55,6 +55,21 @@
     Y
 }
 
+`initCAP` <-
+    function(Y, adjust = FALSE)
+{
+    Y <- as.matrix(Y)
+    Y <- scale(Y, scale = FALSE)
+    if (adjust) {
+        adj <- Y / sqrt(nrow(Y) - 1)
+        Y <- Y / adj
+    } else {
+        adj <- 1
+    }
+    attr(Y, "METHOD") <- "CAPSCALE"
+    attr(Y, "adjust") <- adj
+}
+
 `initCA` <-
     function(Y)
 {
@@ -99,7 +114,10 @@
                   head)
     else if (method == "rda")
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
-                 head)
+                  head)
+    else if (method == "capscale")
+        head <- c(list("adjust" = attr(Y, "adjust")),
+                  head)
     head
 }
 
@@ -326,15 +344,15 @@
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
              method = c("cca", "rda", "capscale", "dbrda"),
-             scale = FALSE)
+             arg = FALSE)
 {
     method = match.arg(method)
     partial <- constraint <- resid <- NULL
     ## init
     Y <- switch(method,
                 "cca" = initCA(Y),
-                "rda" = initPCA(Y, scale = scale),
-                "capscale" = initPCA(Y, scale = FALSE),
+                "rda" = initPCA(Y, scale = arg),
+                "capscale" = initCAP(Y, adjust = arg),
                 "dbrda" = initDBRDA(Y))
     ## header info for the model
     head <- ordHead(Y, method)

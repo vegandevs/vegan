@@ -8,7 +8,7 @@
         stop("function cannot be used with (dis)similarities")
     X <- as.matrix(X)
 
-    sol <- ordConstrained(X, Y, Z, scale = scale, method = "rda")
+    sol <- ordConstrained(X, Y, Z, arg = scale, method = "rda")
 
     call <- match.call()
     call[[1]] <- as.name("rda")
