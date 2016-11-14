@@ -135,7 +135,7 @@
     ## Constrained ordination needs also scores 'v' to reconstruct
     ## 'data', but these are not returned by capscale() which replaces
     ## original 'v' with weighted sums of 'comm' data.
-    if (!is.null(object$CCA)) 
+    if (!is.null(object$CCA))
         v <- svd(object$CCA$Xbar - object$CA$Xbar, nu = 0, nv = object$CCA$qrank)$v
     else
         v <- NULL
@@ -228,7 +228,7 @@
         U <- object$CCA$u
         eig <- object$CCA$eig
     }
-    eig <- eig[eig > 0] 
+    eig <- eig[eig > 0]
     ## check that 'k' does not exceed real rank
     if (k > ncol(U))
         warning(gettextf("max allowed rank is k = %d", ncol(U)))
@@ -264,7 +264,7 @@
     plot(dis, odis, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
          ylab = "Ordination Distance", ...)
     abline(0, 1, col = l.col, lwd = lwd, ...)
-    invisible(odis)    
+    invisible(odis)
 }
 
 `stressplot.princomp` <-
@@ -280,5 +280,5 @@
     plot(dis, odis, pch = pch, col = p.col, xlab = "Observed Dissimilarity",
          ylab = "Ordination Distance", ...)
     abline(0, 1, col = l.col, lwd = lwd, ...)
-    invisible(odis)    
+    invisible(odis)
 }
