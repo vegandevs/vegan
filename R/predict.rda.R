@@ -51,7 +51,7 @@
         }
         if (inherits(object, c("capscale", "dbrda"))) {
             if (take > 0) {
-                out <- u %*% slam/object$adjust
+                out <- u %*% slam
                 if (type == "response") {
                     out <- dist(out)
                     if (!is.null(object$ac)) {
