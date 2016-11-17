@@ -167,7 +167,7 @@ function(method)
             .Call("do_swap", as.matrix(x), n, thin, "swapcount",
                   PACKAGE = "vegan")
         }),
-        "quasiswap_count" = commsim(method="quasiswap", binary=FALSE,
+        "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE,
         isSeq=FALSE, mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2)
