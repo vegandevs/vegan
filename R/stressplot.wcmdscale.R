@@ -127,11 +127,7 @@
         warning(gettextf("max allowed rank is k = %d", ncol(u)))
     k <- min(k, ncol(u))
     ev <- c(object$CCA$eig, object$CA$eig)
-    if (object$adjust == 1)
-        const <- sqrt(NROW(u) - 1)
-    else
-        const <- 1
-    u <- u %*% diag(sqrt(ev) * const, length(ev))
+    u <- u %*% diag(sqrt(ev) * object$adjust, length(ev))
     ## Constrained ordination needs also scores 'v' to reconstruct
     ## 'data', but these are not returned by capscale() which replaces
     ## original 'v' with weighted sums of 'comm' data.
@@ -200,13 +196,9 @@
                object$CA$G
            else
                object$CCA$G
-    if (object$adjust == 1)
-        const <- nobs(object) - 1
-    else
-        const <- 1
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
-    dis <- sqrt(as.dist(dis) * const)
+    dis <- sqrt(as.dist(dis)) * object$adjust
     ## Remove additive constant to get original dissimilarities
     if (!is.null(object$ac)) {
         if (object$add == "lingoes")
@@ -236,7 +228,7 @@
     Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
                   sqrt(eig[seq_len(k)]), "*"))
     dia <- diag(Gk)
-    odis <- sqrt(as.dist(-2 * Gk + outer(dia, dia, "+")) * const)
+    odis <- sqrt(as.dist(-2 * Gk + outer(dia, dia, "+")) * object$adjust)
     ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
