@@ -189,8 +189,10 @@
     \item{\code{add}}{The adjustment method to find \code{ac}, either
        \code{"lingoes"} or \code{"cailliez"} (Legendre & Legendre
        2012).}
-    \item{\code{adjust}}{Adjustment of dissimilarities: see
-      \code{\link{capscale}}, section \dQuote{Notes}.}
+    \item{\code{adjust}}{Adjustment to base analysis on variance instead
+      of sum of squares. For \eqn{n} observations this is
+      \eqn{\sqrt{n-1}}{sqrt(n-1)} or \eqn{1} if adjustment was not
+      done.}
     \item{\code{G}}{The working structure of Gower transformed
       dissimilarities defined as \eqn{-(D^2 - M)/2}, where \eqn{D} are
       the dissimilarities and \eqn{M} is the centring matrix. This

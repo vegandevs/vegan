@@ -183,21 +183,16 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
   The inertia is named after the dissimilarity index as defined in the
   dissimilarity data, or as \code{unknown distance} if such an
-  information is missing.  Function \code{\link{rda}} usually divides
-  the ordination scores by number of sites minus one. In this way, the
-  inertia is variance instead of sum of squares, and the eigenvalues sum
-  up to variance. Many dissimilarity measures are in the range 0 to 1,
-  so they have already made a similar division. If the largest original
-  dissimilarity is less than or equal to 4 (allowing for
-  \code{\link{stepacross}}), this division is undone in \code{capscale}
-  and original dissimilarities are used. Keyword \code{mean} is added to
-  the inertia in cases where division was made, e.g. in Euclidean and
-  Manhattan distances.  Inertia is based on squared index, and keyword
-  \code{squared} is added to the name of distance, unless data were
-  square root transformed (argument \code{sqrt.dist = TRUE}). If an
-  additive constant was used with argument \code{add},
-  \code{Lingoes adjusted} or \code{Cailliez adjusted} is added to the
-  the name of inertia, and the value of the constant is printed.  }
+  information is missing. If the largest original dissimilarity was
+  larger than 4, \code{capscale} handles input similarly as \code{rda}
+  and bases its analysis on variance instead of sum of squares. Keyword
+  \code{mean} is added to the inertia in these cases, e.g. with
+  Euclidean and Manhattan distances.  Inertia is based on squared index,
+  and keyword \code{squared} is added to the name of distance, unless
+  data were square root transformed (argument \code{sqrt.dist=TRUE}). If
+  an additive constant was used with argument \code{add}, \code{Lingoes}
+  or \code{Cailliez adjusted} is added to the the name of inertia, and
+  the value of the constant is printed.}
 
 
 \seealso{\code{\link{rda}}, \code{\link{cca}}, \code{\link{plot.cca}},
