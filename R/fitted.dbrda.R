@@ -1,14 +1,10 @@
 ### 'working' will be Gower's G = -GowerDblcen(dis^2)/2
 `fitted.dbrda` <-
     function (object, model = c("CCA", "CA", "pCCA"),
-              type = c("response", "working"), ...) 
+              type = c("response", "working"), ...)
 {
     type <- match.arg(type)
     model <- match.arg(model)
-    if (object$adjust == 1)
-        const <- nobs(object) - 1
-    else
-        const <- 1
     if (is.null(object[[model]]))
         stop("component ", model, " does not exist")
     if (type == "working") {
@@ -48,7 +44,7 @@
         ## undo internal sqrt.dist
         if (object$sqrt.dist)
             D <- D^2
-        out <- D * sqrt(const)
+        out <- D * object$adjust
     }
     out
 }
