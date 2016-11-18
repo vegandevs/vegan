@@ -195,10 +195,9 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   Manhattan distances.  Inertia is based on squared index, and keyword
   \code{squared} is added to the name of distance, unless data were
   square root transformed (argument \code{sqrt.dist = TRUE}). If an
-  additive constant was used, keyword \code{euclidified} is added to the
-  the name of inertia, and the value of the constant is printed
-  (argument \code{add = TRUE}).
-}
+  additive constant was used with argument \code{add},
+  \code{Lingoes adjusted} or \code{Cailliez adjusted} is added to the
+  the name of inertia, and the value of the constant is printed.  }
 
 
 \seealso{\code{\link{rda}}, \code{\link{cca}}, \code{\link{plot.cca}},
