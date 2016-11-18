@@ -245,8 +245,7 @@
     else
         ans <- ftd + object$CA$Xbar[indx,]
     ## return Euclidean distances
-    if (object$adjust == 1)
-        ans <- ans * sqrt(nrow(ans) - 1)
+    ans <- ans * object$adjust
     ans <- dist(ans)
     ## remove adjustment done in capscale and put dissimilarities to
     ## (approximately) original scale
