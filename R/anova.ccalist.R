@@ -30,10 +30,10 @@
     ## 5. Terms must be nested
     trms <- lapply(object, function(z) labels(terms(z)))
     o  <- order(sapply(trms, length))
-    for (i in 2:nmodels) 
+    for (i in 2:nmodels)
         if (!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
             stop("models must be nested")
-        
+
     ## Check permutation matrix
     nperm <- nrow(permutations)
     ## check
@@ -45,7 +45,7 @@
     ## be used to assess the significance of differences of fitted
     ## models. This strictly requires nested models (not checked
     ## here): all terms of the smaller model must be included in the
-    ## larger model. 
+    ## larger model.
     mods <- lapply(object, function(z)
                    permutest.cca(z, permutations = permutations,
                                  model = model, parallel = parallel))
@@ -76,8 +76,7 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    if (inherits(object, c("capscale", "dbrda")) &&
-        (object$adjust != 1 || is.null(object$adjust)))
+    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
         varname <- "Variance"
@@ -93,7 +92,7 @@
                    howHead(attr(permutations, "control")))
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
-    structure(table, heading = c(head,topnote), 
+    structure(table, heading = c(head,topnote),
               F.perm = t(pfvals),
               class = c("anova.cca", "anova", "data.frame"))
 }
