@@ -91,10 +91,10 @@
                               substring(add, 2)), "adjusted", inertia)
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
-        adjust <- 1
+        adjust <- sqrt(k)
     }
     else {
-        adjust <- sqrt(k)
+        adjust <- 1
     }
     nm <- attr(X, "Labels")
     ## Get components of inertia with negative eigenvalues following
@@ -102,7 +102,7 @@
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## QR decomposition to get the components of inertia.
     G <- -GowerDblcen(X^2)/2
-    if (adjust == 1)
+    if (adjust > 1)
         G <- G/k
     ## Solution: this shows the algorithmic steps
     tot.chi <- sum(diag(G))
