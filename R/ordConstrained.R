@@ -56,18 +56,11 @@
 }
 
 `initCAP` <-
-    function(Y, adjust = FALSE)
+    function(Y)
 {
     Y <- as.matrix(Y)
     Y <- scale(Y, scale = FALSE)
-    if (adjust) {
-        adj <- Y / sqrt(nrow(Y) - 1)
-        Y <- Y / adj
-    } else {
-        adj <- 1
-    }
     attr(Y, "METHOD") <- "CAPSCALE"
-    attr(Y, "adjust") <- adj
 }
 
 `initCA` <-
@@ -114,9 +107,6 @@
                   head)
     else if (method == "rda")
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
-                  head)
-    else if (method == "capscale")
-        head <- c(list("adjust" = attr(Y, "adjust")),
                   head)
     head
 }
