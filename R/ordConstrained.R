@@ -61,6 +61,7 @@
     Y <- as.matrix(Y)
     Y <- scale(Y, scale = FALSE)
     attr(Y, "METHOD") <- "CAPSCALE"
+    Y
 }
 
 `initCA` <-
@@ -342,7 +343,7 @@
     Y <- switch(method,
                 "cca" = initCA(Y),
                 "rda" = initPCA(Y, scale = arg),
-                "capscale" = initCAP(Y, adjust = arg),
+                "capscale" = initCAP(Y),
                 "dbrda" = initDBRDA(Y))
     ## header info for the model
     head <- ordHead(Y, method)
