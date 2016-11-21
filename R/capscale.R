@@ -71,10 +71,11 @@
         X <- sqrt(X)
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
-        adjust <- 1
+        adjust <- sqrt(k)
+        X <- X/adjust
     }
     else {
-        adjust <- sqrt(k)
+        adjust <- 1
     }
     nm <- attr(X, "Labels")
     ## wcmdscale, optionally with additive adjustment
@@ -86,23 +87,14 @@
                          "adjusted", inertia)
     if (is.null(rownames(X$points)))
         rownames(X$points) <- nm
-    X$points <- adjust * X$points
-    ## We adjust eigenvalues to variances, and simultaneously the
-    ## possible negative axes must be adjusted similarly
-    if (adjust == 1) {
-        X$eig <- X$eig/k
-        if (!is.null(X$negaxes))
-            X$negaxes <- X$negaxes/sqrt(k)
-    }
-    sol <- rda.default(X$points, d$Y, d$Z, ...)
+
+    sol <- ordConstrained(X$points, d$Y, d$Z, method = "capscale")
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## use QR decomposition to get the components of inertia.
     hasNegEig <- any(X$eig < 0)
     G <- -X$x/2
-    if (adjust == 1)
-        G <- G/k
     if (hasNegEig)
         sol$real.tot.chi <- sol$tot.chi
     sol$tot.chi <- sum(diag(G))

@@ -34,8 +34,7 @@
                       c(sol[-1, 4], sol[ntrm+1, 2]),
                       c(sol[-1, 5], NA),
                       c(sol[-1, 6], NA))
-    if (inherits(object, c("capscale", "dbrda")) &&
-        (object$adjust != 1 || is.null(object$adjust)))
+    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
         varname <- "Variance"
@@ -107,8 +106,7 @@
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
-    if (inherits(object, c("capscale", "dbrda")) &&
-        (object$adjust != 1 || is.null(object$adjust)))
+    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
         varname <- "Variance"
@@ -197,8 +195,7 @@
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
-    if (inherits(object, c("capscale", "dbrda")) &&
-        (object$adjust != 1 || is.null(object$adjust)))
+    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
         varname <- "Variance"

@@ -13,7 +13,7 @@
                 CA = object$CA$u %*% diag(sqrt(object$CA$eig),
                                           nrow = length(object$CA$eig)),
                 Imaginary = object$CA$imaginary.u.eig,
-                pCCA = object$pCCA$Fit/object$adjust)
+                pCCA = object$pCCA$Fit)
     if (is.null(U))
         stop("component ", model, " does not exist")
     ## Distances or working scores U
