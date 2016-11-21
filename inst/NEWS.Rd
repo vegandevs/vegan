@@ -1,4 +1,4 @@
-\name{NEWS}
+ \name{NEWS}
 \title{vegan News}
 \encoding{UTF-8}
 
@@ -16,6 +16,14 @@
       \href{https://github.com/vegandevs/vegan/issues/198}{#198} and
       pull request
       \href{https://github.com/vegandevs/vegan/pull/199}{#199}.
+
+      \item Some support functions for \code{dbrda} or \code{capscale}
+      gave results or some of their components in wrong scale. Fixes in
+      \code{stressplot}, \code{simulate}, \code{predict} and
+      \code{fitted} functions.
+
+      \item \code{intersetcor} did not use correct weighting for
+      \code{cca} and the results were slightly off.
 
     } %itemize
   } % bug fixes
