@@ -133,10 +133,12 @@
     Q <- qr(Z)
     ## partialled out variation as a trace of Yfit
     Yfit <- qr.fitted(Q, Y)
-    if (DISTBASED)
+    if (DISTBASED) {
+        Yfit <- qr.fitted(Q, t(Yfit))
         totvar <- sum(diag(Yfit))
-    else
+    } else {
         totvar <- sum(Yfit^2)
+    }
     ## residuals of Y
     Y <- qr.resid(Q, Y)
     if (DISTBASED)
