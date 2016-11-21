@@ -239,7 +239,7 @@
     dimnames(u) <- list(dnam[[1]], axnam)
     if (!is.null(v))
         dimnames(v) <- list(dnam[[2]], axnam)
-    if (!is.null(wa))
+    if (!is.na(wa))
         colnames(wa) <- axnam
     if (!is.null(bp))
         colnames(bp) <- axnam
