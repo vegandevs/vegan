@@ -205,7 +205,7 @@
         u <- sol$u
         v <- sol$v
     }
-    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    ## handle zero  eigenvalues and negative eigenvalues
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
@@ -213,14 +213,16 @@
         if (!is.null(v))
             v <- v[, !zeroev, drop = FALSE]
     }
+    posev <- lambda > 0
     ## wa scores
-    if (DISTBASED) { # not yet implemented
-        wa <- NA
+    if (DISTBASED) {
+        wa <- Y %*% u[, posev, drop = FALSE] %*%
+            diag(1/lambda[posev], sum(posev))
     } else {
-        wa <- Y %*% v %*% diag(1/sqrt(lambda), length(lambda))
+        wa <- Y %*% v %*% diag(1/sqrt(lambda), sum(posev))
     }
     ## biplot scores
-    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u)
+    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u[, posev, drop=FALSE])
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
@@ -235,19 +237,24 @@
                            "PCA" = "RDA",
                            "CA" = "CCA",
                            "DISTBASED" = "dbRDA"),
-                    seq_len(length(lambda)))
+                    seq_len(sum(posev)))
+    if (DISTBASED && any(!posev))
+        negnam <- paste0("idbRDA", seq_len(sum(!posev)))
+    else
+        negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- axnam
-    dimnames(u) <- list(dnam[[1]], axnam)
-    if (!is.null(v))
+    names(lambda) <- c(axnam, negnam)
+    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (!is.null(v))     # only in !DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
-    if (!is.na(wa))
+    if (all(!is.na(wa))) # only for posev
         colnames(wa) <- axnam
-    if (!is.null(bp))
+    if (!is.null(bp))    # only for posev
         colnames(bp) <- axnam
     ## out
     result <- list(
         eig = lambda,
+        poseig = if (DISTBASED) sum(posev) else NULL,
         u = u,
         v = v,
         wa = wa,
@@ -293,7 +300,7 @@
         u <- sol$u
         v <- sol$v
     }
-    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    ## handle zero and negative eigenvalues
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
@@ -301,7 +308,7 @@
         if (!is.null(v))
             v <- v[, !zeroev, drop = FALSE]
     }
-
+    posev <- lambda > 0
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
@@ -314,15 +321,20 @@
                            "PCA" = "PC",
                            "CA" = "CA",
                            "DISTBASED" = "MDS"),
-                    seq_len(length(lambda)))
+                    seq_len(sum(posev)))
+    if (DISTBASED && any(!posev))
+        negnam <- paste0("iMDS", seq_len(sum(!posev)))
+    else
+        negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- axnam
-    dimnames(u) <- list(dnam[[1]], axnam)
-    if (!is.null(v))
+    names(lambda) <- c(axnam, negnam)
+    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (!is.null(v)) # only in !DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
         "eig" = lambda,
+        "poseig" = if (DISTBASED) sum(posev) else NULL,
         "u" = u,
         "v" = v,
         "rank" = length(lambda),
