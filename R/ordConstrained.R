@@ -99,7 +99,10 @@
 
 `ordHead`<- function(Y, method)
 {
-    totvar <- sum(Y^2)
+    if (method == "dbrda")
+        totvar <- sum(diag(Y))
+    else
+        totvar <- sum(Y^2)
     head <- list("tot.chi" = totvar)
     if (method == "cca")
         head <- c(list("grand.total" = attr(Y, "tot"),
