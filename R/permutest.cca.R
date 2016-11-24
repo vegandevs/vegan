@@ -28,8 +28,7 @@ permutest.default <- function(x, ...)
     ## discarded imaginary values: cast to old before evaluating isDB
     if (first && inherits(x, "capscale"))
         x <- oldCapscale(x)
-    isDB <- inherits(x, c("capscale", "dbrda")) &&
-        !inherits(x, "oldcapscale")  # distance-based & new design
+    isDB <- inherits(x, c("dbrda"))
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
