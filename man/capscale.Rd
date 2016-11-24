@@ -1,6 +1,5 @@
 \name{capscale}
 \alias{capscale}
-\alias{oldCapscale}
 \alias{dbrda}
 
 \title{[Partial] Distance-based Redundancy Analysis }
@@ -50,10 +49,13 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     dissimilarity matrix.}
   \item{sqrt.dist}{Take square roots of dissimilarities. See section
     \code{Details} below.}
+
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
-    frame. If this is not supplied, the ``species scores'' unavailable.}
+    frame. If this is not supplied, the ``species scores'' are
+    unavailable. N.B., this is only available in \code{capscale}.}
+
   \item{add}{Add a constant to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying Principal
      Co-ordinates Analysis (see \code{\link{wcmdscale}} for
@@ -102,8 +104,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   axes. Negative eigenvalues are handled differently: \code{capscale}
   ignores imaginary axes and analyses only real axes with positive
   eigenvalues, and \code{dbrda} directly analyses dissimilarities and
-  can give negative eigenvalues in any component. Both methods define
-  total inertia of conditions, constraints and residuals identically.
+  can give negative eigenvalues in any component.
   
   If the user supplied a community data frame instead of
   dissimilarities, the functions will find dissimilarities using
@@ -125,9 +126,9 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   with sums of positive eigenvalues and an item of sum of negative
   eigenvalues, and \code{dbrda} will add a column giving the number of
   real dimensions with postive eigenvalues.  If negative eigenvalues
-  are disturbing, \code{capscale} lets you to distort the
+  are disturbing, functions let you to distort the
   dissimilarities so that only non-negative eigenvalues will be
-  produced using argument \code{add = TRUE} (this argument is passed
+  produced with argument \code{add = TRUE} (this argument is passed
   to \code{\link{cmdscale}}). Alternatively, with
   \code{sqrt.dist = TRUE}, square roots of dissimilarities will be used
   which may help in avoiding negative eigenvalues (Legendre & Anderson
@@ -173,13 +174,10 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 \note{ The function \code{capscale} was originally developed as a
   variant of constrained analysis of proximities (Anderson & Willis
-  2003), but these developments made it became identical to dbRDA.  In
-  older version of \pkg{vegan} the total inertia and permutation tests
-  were based only on real axes, but in \pkg{vegan} 2.4-0 they also
-  include the imaginary components following McArdle & Anderson
-  (2001). For compatibility with the old versions of \pkg{vegan}, you
-  can use function \code{oldCapscale} to discard the effects of
-  imaginary dimensions (negative eigenvalues).
+  2003), but these developments made it similar to dbRDA. However, it
+  discards the imaginary dimensions with negative eigenvalues and
+  ordination and significance tests area only based on real dimensions
+  and positive eigenvalus.
 
   The inertia is named after the dissimilarity index as defined in the
   dissimilarity data, or as \code{unknown distance} if such an
