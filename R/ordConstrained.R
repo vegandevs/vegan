@@ -201,7 +201,6 @@
         sol <- eigen(Yfit, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
-        v <- NULL
     } else {
         sol <- svd(Yfit)
         lambda <- sol$d^2
@@ -213,7 +212,7 @@
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
-        if (!is.null(v))
+        if (!DISTBASED)
             v <- v[, !zeroev, drop = FALSE]
     }
     posev <- lambda > 0
@@ -221,6 +220,7 @@
     if (DISTBASED) {
         wa <- Y %*% u[, posev, drop = FALSE] %*%
             diag(1/lambda[posev], sum(posev))
+        v <- matrix(NA, 0, sum(posev))
     } else {
         wa <- Y %*% v %*% diag(1/sqrt(lambda), sum(posev))
     }
@@ -232,7 +232,7 @@
         if (all(!is.na(wa)))
             wa <- sweep(wa, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW) && !is.null(v)) {
+    if (!is.null(CW) && nrow(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## set names
@@ -248,7 +248,7 @@
     dnam <- dimnames(Y)
     names(lambda) <- c(axnam, negnam)
     dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (!is.null(v))     # only in !DISTBASED
+    if (nrow(v))     # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     if (all(!is.na(wa))) # only for posev
         colnames(wa) <- axnam
@@ -296,7 +296,6 @@
         sol <- eigen(Y, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
-        v <- NULL
     } else {
         sol <- svd(Y)
         lambda <- sol$d^2
@@ -308,15 +307,17 @@
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
-        if (!is.null(v))
+        if (!DISTBASED) # no v in DISTBASED
             v <- v[, !zeroev, drop = FALSE]
     }
     posev <- lambda > 0
+    if (DISTBASED) # no species scores in DISTBASED
+        v <- matrix(NA, 0, sum(posev))
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW) && !is.null(v)) {
+    if (!is.null(CW) && nrow(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## set names
@@ -332,7 +333,7 @@
     dnam <- dimnames(Y)
     names(lambda) <- c(axnam, negnam)
     dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (!is.null(v)) # only in !DISTBASED
+    if (nrow(v)) # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
