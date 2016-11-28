@@ -92,6 +92,7 @@
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
         adjust <- sqrt(k)
+        X <- X/adjust
     }
     else {
         adjust <- 1
@@ -102,8 +103,7 @@
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## QR decomposition to get the components of inertia.
     G <- -GowerDblcen(X^2)/2
-    if (adjust > 1)
-        G <- G/k
+
     ## Solution: this shows the algorithmic steps
     tot.chi <- sum(diag(G))
     pCCA <- CCA <-  CA <- NULL
