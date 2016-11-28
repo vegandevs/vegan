@@ -105,6 +105,18 @@
     sol <- ordConstrained(X, d$Y, d$Z, method = "dbrda")
 
     sol$colsum <- NA
+    ## separate eigenvectors associated with negative eigenvalues from
+    ## u into imaginary.u
+    if (sol$CCA$rank > sol$CCA$poseig) {
+        sol$CCA$imaginary.u <- sol$CCA$u[, -seq_len(sol$CCA$poseig),
+                                         drop = FALSE]
+        sol$CCA$u <- sol$CCA$u[, seq_len(sol$CCA$poseig), drop = FALSE]
+    }
+    if (sol$CA$rank > sol$CA$poseig) {
+        sol$CA$imaginary.u <- sol$CA$u[, -seq_len(sol$CA$poseig),
+                                       drop = FALSE]
+        sol$CA$u <- sol$CA$u[, seq_len(sol$CA$poseig), drop = FALSE]
+    }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0)
         sol$CCA$centroids <-
             centroids.cca(sol$CCA$u, d$modelframe)
