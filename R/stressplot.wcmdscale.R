@@ -193,9 +193,9 @@
         stop("cannot be used with partial dbrda")
     ## Reconstruct original distances from Gower 'G'
     dis <- if (is.null(object$CCA))
-               object$CA$G
+               object$CA$Xbar
            else
-               object$CCA$G
+               object$CCA$Xbar
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
     dis <- sqrt(as.dist(dis)) * object$adjust
