@@ -93,7 +93,7 @@
                     qrank = qrhs$rank,
                     tot.chi = sum(diag(Gfit)),
                     QR = qrhs,
-                    G = G)
+                    Xbar = G)
     else
         CCA <- NULL # empty model
     ## collect data for the residuals
