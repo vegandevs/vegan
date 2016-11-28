@@ -106,6 +106,6 @@
     sol$adjust <- 1
     sol$CCA <- CCA
     sol$CA <- CA
-    class(sol) <- c("adonis2", "capscale", "rda", "cca")
+    class(sol) <- c("adonis2", "dbrda", "rda", "cca")
     sol
 }

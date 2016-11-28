@@ -89,37 +89,7 @@
         rownames(X$points) <- nm
 
     sol <- ordConstrained(X$points, d$Y, d$Z, method = "capscale")
-    ## Get components of inertia with negative eigenvalues following
-    ## McArdle & Anderson (2001), section "Theory". G is their
-    ## double-centred Gower matrix, but instead of hat matrix, we use
-    ## use QR decomposition to get the components of inertia.
-    hasNegEig <- any(X$eig < 0)
-    G <- -X$x/2
-    if (hasNegEig)
-        sol$real.tot.chi <- sol$tot.chi
-    sol$tot.chi <- sum(diag(G))
-    if (!is.null(sol$pCCA)) {
-        sol$pCCA$G <- G
-        if (hasNegEig) {
-            sol$pCCA$real.tot.chi <- sol$pCCA$tot.chi
-            sol$pCCA$tot.chi <- sum(diag(qr.fitted(sol$pCCA$QR, G)))
-        }
-        G <- qr.resid(sol$pCCA$QR, t(qr.resid(sol$pCCA$QR, G)))
-    }
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        sol$CCA$G <- G
-        if (hasNegEig) {
-            sol$CCA$real.tot.chi <- sol$CCA$tot.chi
-            sol$CCA$tot.chi <- sum(diag(qr.fitted(sol$CCA$QR, G)))
-        }
-    }
-    if (hasNegEig) {
-        sol$CA$real.tot.chi <- sol$CA$tot.chi
-        if (!is.null(sol$CA) && !is.null(sol$CCA$QR))
-            sol$CA$tot.chi <- sum(diag(qr.resid(sol$CCA$QR, G)))
-        else
-            sol$CA$tot.chi <- sum(diag(G))
-    }
+
     if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
         colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
             colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
@@ -134,6 +104,7 @@
     if (any(X$eig < 0)) {
         negax <- X$eig[X$eig < 0]
         sol$CA$imaginary.chi <- sum(negax)
+        sol$tot.chi <- sol$tot.chi + sol$CA$imaginary.chi
         sol$CA$imaginary.rank <- length(negax)
         sol$CA$imaginary.u.eig <- X$negaxes
     }
