@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-10-26 r71594) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-11-22 r71678) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -128,13 +128,12 @@ Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df SumOfSqs      F Pr(>F)
-Model     6  1.52798 1.6548   0.11
-Residual  5  0.76948              
+Model     6  1.54840 1.6423   0.11
+Residual  5  0.78568              
 > ## vegan 2.1-40 cannot handle missing data in next two
 > ##anova(p, by="term", permutations=99)
 > ##anova(p, by="margin", permutations=99)
 > anova(p, by="axis", permutations=99)
-imaginary variation was discarded
 Permutation test for capscale under reduced model
 Marginal tests for axes
 Permutation: free
@@ -144,11 +143,11 @@ Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.a
          Df SumOfSqs      F Pr(>F)  
 CAP1      1  0.77834 4.9533   0.02 *
 CAP2      1  0.45691 2.9078   0.03 *
-CAP3      1  0.14701 0.9355   0.50  
+CAP3      1  0.14701 0.9355   0.51  
 CAP4      1  0.11879 0.7560   0.65  
-CAP5      1  0.04213 0.2681   0.98  
+CAP5      1  0.04213 0.2681   0.94  
 CAP6      1  0.00522 0.0332   1.00  
-Residual  5  0.76948                
+Residual  5  0.78568                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
@@ -254,11 +253,11 @@ Eigenvalues for unconstrained axes:
 > foo("capscale", vegdist(dune), Management, na.action = na.omit)
 Call: bar(formula = Y ~ X, na.action = ..1)
 
-              Inertia Proportion Eigenvals Rank
-Total          3.7652     1.0000    3.9493     
-Constrained    1.4179     0.3766    1.4456    3
-Unconstrained  2.3473     0.6234    2.5037   13
-Imaginary                          -0.1841    4
+              Inertia Proportion Rank
+Total          3.7652     1.0000     
+Constrained    1.4456     0.3840    3
+Unconstrained  2.5037     0.6650   13
+Imaginary     -0.1841    -0.0489    4
 Inertia is squared Bray distance 
 2 observations deleted due to missingness 
 
@@ -809,10 +808,10 @@ Eigenvalues for unconstrained axes:
 > p <- shuffleSet(nrow(varespec), 999)
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(md, permutations=p))$permutations)
-[1] -1.776357e-15  3.552714e-15
+[1] -1.509903e-14  1.110223e-14
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(mc, permutations=p))$permutations)
-[1] -2.220446e-15  3.552714e-15
+[1] -1.421085e-14  1.287859e-14
 > ## the following two should be equal
 > d <- vegdist(wisconsin(sqrt(varespec)))
 > (md <- dbrda(d ~ Al + P + Condition(pH), varechem))
@@ -837,12 +836,12 @@ Eigenvalues for unconstrained axes:
 > (mc <- capscale(d ~ Al + P + Condition(pH), varechem))
 Call: capscale(formula = d ~ Al + P + Condition(pH), data = varechem)
 
-               Inertia Proportion Eigenvals Rank
-Total          2.54753    1.00000   2.59500     
-Conditional    0.18911    0.07423   0.19141    1
-Constrained    0.39839    0.15638   0.39920    2
-Unconstrained  1.96003    0.76939   2.00439   19
-Imaginary                          -0.04747    4
+               Inertia Proportion Rank
+Total          2.54753    1.00000     
+Conditional    0.19141    0.07513    1
+Constrained    0.39920    0.15670    2
+Unconstrained  2.00439    0.78680   19
+Imaginary     -0.04747   -0.01863    4
 Inertia is squared Bray distance 
 
 Eigenvalues for constrained axes:
@@ -872,13 +871,13 @@ Number of permutations: 999
 
 Model: capscale(formula = d ~ Al + P + Condition(pH), data = varechem)
          Df SumOfSqs      F Pr(>F)   
-Model     2  0.39839 2.0325  0.002 **
-Residual 20  1.96003                 
+Model     2   0.3992 1.9916  0.002 **
+Residual 20   2.0044                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## should be zero (within 1e-15)
 > range(permustats(amd)$permutations - permustats(amc)$permutations)
-[1] -4.440892e-16  8.881784e-16
+[1] -0.07679289  0.04313638
 > rm(mr, md, mc, d, amd, amc)
 > 
 > ## eigenvals returns a list now (>= 2.5-0)
@@ -908,4 +907,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
- 10.696   0.080  10.768 
+  6.044   0.056   6.096 

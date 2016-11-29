@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-10-26 r71594) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-11-22 r71678) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1588,7 +1588,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### Name: capscale
 > ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale oldCapscale dbrda
+> ### Aliases: capscale dbrda
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -1602,12 +1602,12 @@ log(N) P K Ca pH Al    6      0.2822
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
-              Inertia Proportion Eigenvals Rank
-Total          4.5444     1.0000    4.8034     
-Conditional    0.9726     0.2140    0.9772    1
-Constrained    0.9731     0.2141    0.9972    3
-Unconstrained  2.5987     0.5718    2.8290   15
-Imaginary                          -0.2590    8
+               Inertia Proportion Rank
+Total          4.54444    1.00000     
+Conditional    0.97719    0.21503    1
+Constrained    0.99717    0.21943    3
+Unconstrained  2.82904    0.62253   15
+Imaginary     -0.25896   -0.05698    8
 Inertia is squared Bray distance 
 
 Eigenvalues for constrained axes:
@@ -1628,8 +1628,8 @@ Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
          Df SumOfSqs      F Pr(>F)   
-Model     3  0.97314 2.3717  0.002 **
-Residual 19  2.59866                 
+Model     3  0.99717 2.2324  0.002 **
+Residual 19  2.82904                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Avoid negative eigenvalues with additive constant
@@ -1685,10 +1685,10 @@ Wisconsin double standardization
 Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
 TRUE)
 
-               Inertia Eigenvals Rank
-Total          2.54753   2.59500     
-Unconstrained  2.54753   2.59500   19
-Imaginary               -0.04747    4
+               Inertia Rank
+Total          2.54753     
+Unconstrained  2.59500   19
+Imaginary     -0.04747    4
 Inertia is squared Bray distance 
 
 Eigenvalues for unconstrained axes:
@@ -1893,7 +1893,7 @@ Eigenvalues for unconstrained axes:
 > ### Name: cca.object
 > ### Title: Result Object from Constrained Ordination with cca, rda or
 > ###   capscale
-> ### Aliases: cca.object
+> ### Aliases: cca.object ordConstrained
 > ### Keywords: models multivariate
 > 
 > ### ** Examples
@@ -3163,47 +3163,47 @@ Management 0 1 2 3 4
 0.8747389 0.6096594 0.6637148 0.7579916 
 > intersetcor(mod)
                    CCA1        CCA2        CCA3         CCA4        CCA5
-A1           -0.5321996 -0.13912207 -0.48150939 -0.259433707  0.09911786
-Moisture.L   -0.8785172 -0.18040189  0.03644505  0.182602811  0.09837305
-Moisture.Q   -0.1946874  0.32977037 -0.27391819 -0.180009911 -0.26613363
-Moisture.C   -0.2019848  0.09650383  0.28577179 -0.261556870  0.49109525
-ManagementHF  0.3451922 -0.01403625 -0.51180235  0.193533258 -0.30824886
-ManagementNM -0.5683132  0.61018732  0.14614372 -0.012375462 -0.04575256
-ManagementSF -0.1197518 -0.64162158  0.19778688  0.134961914  0.09680582
-Use.L        -0.1875733 -0.33013591 -0.30944066 -0.372831885 -0.09587365
-Use.Q        -0.1814760  0.48858573 -0.02033145 -0.009560403 -0.04810528
-Manure.L      0.3156026 -0.65867454  0.03849174 -0.026284481  0.04074238
-Manure.Q     -0.4052775  0.20889368  0.49284523 -0.175984063 -0.11995731
-Manure.C      0.4667289 -0.11239457  0.29234452 -0.174073605 -0.14234406
-Manure^4      0.2220470  0.12845556 -0.12903663  0.108230657  0.02558063
-                    CCA6        CCA7        CCA8        CCA9        CCA10
-A1           -0.15308984 -0.25797100 -0.19234827  0.27570098 -0.116893686
-Moisture.L   -0.02975258 -0.07850852  0.10802259 -0.07239493  0.094640487
-Moisture.Q   -0.11254617 -0.05055234  0.48336992 -0.06243695 -0.205959907
-Moisture.C   -0.23606190  0.38701844  0.10155264  0.21874286  0.187345861
-ManagementHF -0.24233160 -0.16420200  0.14035917 -0.30903312  0.132635464
-ManagementNM -0.06594907 -0.23981367 -0.14368858  0.26879033 -0.001606144
-ManagementSF -0.01616968  0.49727982 -0.08071454  0.30247100 -0.138224363
-Use.L         0.19132865  0.44624441  0.18449673 -0.12952535  0.045337916
-Use.Q         0.13464687 -0.10362907  0.11033206 -0.41344859 -0.077048641
-Manure.L     -0.22218417  0.49678602  0.16957558  0.04161905 -0.003418114
-Manure.Q     -0.19580363  0.12001390 -0.17608393  0.43863133  0.089074448
-Manure.C      0.14824215 -0.07859941 -0.37823472 -0.10058265  0.106319365
-Manure^4     -0.36675058 -0.05957188 -0.40937365  0.06097317 -0.149858571
+A1           -0.5332506 -0.13691202 -0.47996401 -0.259859587  0.09894964
+Moisture.L   -0.8785505 -0.17867589  0.03714134  0.181952935  0.09826534
+Moisture.Q   -0.1956664  0.33044917 -0.27321286 -0.180333890 -0.26609291
+Moisture.C   -0.2023782  0.09698397  0.28596824 -0.261712720  0.49103002
+ManagementHF  0.3473460 -0.01680324 -0.51205769  0.194144965 -0.30752664
+ManagementNM -0.5699549  0.61111645  0.14751127 -0.013777789 -0.04571982
+ManagementSF -0.1197499 -0.64084416  0.19780650  0.134892908  0.09679992
+Use.L        -0.1871999 -0.32990444 -0.30941161 -0.372747011 -0.09586963
+Use.Q        -0.1820298  0.48874152 -0.01997442 -0.009812946 -0.04812588
+Manure.L      0.3175126 -0.65945634  0.03724864 -0.025383543  0.04077470
+Manure.Q     -0.4075615  0.21149073  0.49297244 -0.176686201 -0.11973190
+Manure.C      0.4676279 -0.11376054  0.29132473 -0.173382982 -0.14219924
+Manure^4      0.2222349  0.12789494 -0.12921227  0.108367170  0.02559567
+                    CCA6        CCA7        CCA8        CCA9         CCA10
+A1           -0.15225816 -0.25788462 -0.19247720  0.27694466 -0.1158449480
+Moisture.L   -0.02923342 -0.07858647  0.10772510 -0.07101300  0.0952517164
+Moisture.Q   -0.11211675 -0.05062810  0.48302647 -0.06138704 -0.2053304965
+Moisture.C   -0.23581275  0.38693407  0.10144580  0.21907160  0.1875632770
+ManagementHF -0.24278705 -0.16364055  0.14053438 -0.31066725  0.1310215145
+ManagementNM -0.06430101 -0.23917584 -0.14375754  0.27103732  0.0002768613
+ManagementSF -0.01611984  0.49726250 -0.08073472  0.30235728 -0.1381281272
+Use.L         0.19127262  0.44624831  0.18450714 -0.12950951  0.0452826749
+Use.Q         0.13485545 -0.10367354  0.11020112 -0.41245485 -0.0766932005
+Manure.L     -0.22265819  0.49627772  0.16971786  0.03943343 -0.0045229147
+Manure.Q     -0.19402211  0.11937394 -0.17611673  0.44002593  0.0903998202
+Manure.C      0.14760330 -0.07842345 -0.37774417 -0.10181374  0.1055057288
+Manure^4     -0.36683782 -0.05953330 -0.40927409  0.06054381 -0.1500198368
                    CCA11       CCA12
-A1            0.03742925  0.08998648
-Moisture.L   -0.06274844  0.08674397
-Moisture.Q    0.21943291 -0.16867562
-Moisture.C   -0.13658737  0.14298295
-ManagementHF -0.17603113 -0.13480899
-ManagementNM  0.01749194 -0.09355925
-ManagementSF  0.01483251  0.06624422
-Use.L         0.08583483 -0.32574274
-Use.Q        -0.41869776 -0.04845019
-Manure.L     -0.02629234 -0.13200710
-Manure.Q     -0.12708874 -0.06972694
-Manure.C     -0.05332901  0.41503090
-Manure^4      0.41602035 -0.01685222
+A1            0.03550223  0.08881387
+Moisture.L   -0.06404776  0.08587882
+Moisture.Q    0.21810558 -0.16917878
+Moisture.C   -0.13701079  0.14260914
+ManagementHF -0.17283125 -0.13296499
+ManagementNM  0.01358436 -0.09533598
+ManagementSF  0.01468592  0.06614834
+Use.L         0.08584883 -0.32559307
+Use.Q        -0.41893616 -0.04881247
+Manure.L     -0.02396993 -0.13049087
+Manure.Q     -0.12987366 -0.07137031
+Manure.C     -0.05176927  0.41550238
+Manure^4      0.41603287 -0.01661279
 > 
 > 
 > 
@@ -5335,30 +5335,13 @@ Step: R2.adj= 0.4004249
 Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
  
                 R2.adjusted
-<All variables>   0.4367038
 + SubsDens        0.4367038
+<All variables>   0.4367038
 <none>            0.4004249
 - Topo            0.3653551
 - Shrub           0.3591790
 - Substrate       0.3525851
 - WatrCont        0.3145444
-
-           Df     AIC      F Pr(>F)   
-+ SubsDens  1 -94.489 4.7999  0.002 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.4367038 
-Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens 
- 
-                R2.adjusted
-<All variables>   0.4367038
-<none>            0.4367038
-- Shrub           0.4079297
-- SubsDens        0.4004249
-- Substrate       0.3951235
-- Topo            0.3901844
-- WatrCont        0.3357858
 
 > step.res$anova  # Summary table
                  R2.adj Df     AIC       F Pr(>F)   
@@ -5366,7 +5349,6 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo + SubsDens
 + Shrub         0.31775  2 -88.034  3.8360  0.002 **
 + Substrate     0.36536  6 -87.768  1.8251  0.002 **
 + Topo          0.40042  1 -90.924  4.5095  0.004 **
-+ SubsDens      0.43670  1 -94.489  4.7999  0.002 **
 <All variables> 0.43670                             
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -5431,11 +5413,11 @@ GCV score: 144.0039
 > ## Get fitted values
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
-21.254026  5.675259  3.679616  3.898510  9.643821  7.698310  7.729203  9.758046 
+21.254022  5.675257  3.679611  3.898504  9.643820  7.698309  7.729206  9.758047 
        28        13        14        20        25         7         5         6 
- 2.743212 29.700556 11.971747  8.310960  5.390564 24.905994 11.007652 25.330656 
+ 2.743213 29.700549 11.971757  8.310959  5.390564 24.906002 11.007615 25.330649 
         3         4         2         9        12        10        11        21 
- 6.520708  9.410616  4.519672  4.090948 11.557930  4.314850 11.693692 14.243453 
+ 6.520710  9.410618  4.519672  4.090948 11.557937  4.314850 11.693696 14.243487 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5477,7 +5459,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-15. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-16. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -7799,10 +7781,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > capscale(dtree ~ 1, comm=dune)
 Call: capscale(formula = dtree ~ 1, comm = dune)
 
-              Inertia Eigenvals Rank
-Total          2.1834    2.3439     
-Unconstrained  2.1834    2.3439   10
-Imaginary               -0.1605    9
+              Inertia Rank
+Total          2.1834     
+Unconstrained  2.3439   10
+Imaginary     -0.1605    9
 Inertia is squared Treedist distance 
 
 Eigenvalues for unconstrained axes:
@@ -8020,7 +8002,7 @@ Individual fractions
 [c] = X2|X1          22                 0.10249     TRUE
 [d] = Residuals                         0.48625    FALSE
 ---
-Use function ‘capscale’ to test significance of fractions of interest
+Use function ‘dbrda’ to test significance of fractions of interest
 > # Three explanatory matrices 
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
 +    mite.pcnm, data=mite.env, transfo="hel")
@@ -8910,7 +8892,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--4.263e-14 
+-7.105e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -8929,7 +8911,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.412 0.116 25.529 0 0 
+Time elapsed:  32.968 0.1 33.075 0 0 
 > grDevices::dev.off()
 null device 
           1 
