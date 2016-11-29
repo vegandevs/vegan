@@ -3,27 +3,34 @@
 \alias{ordConstrained} % a common interface, not really documented
 
 \title{Result Object from Constrained Ordination with cca, rda or capscale }
+
 \description{
-  Ordination methods \code{\link{cca}}, \code{\link{rda}} and
-  \code{\link{capscale}} return similar result objects.  Function
-  \code{capscale} \code{\link{inherits}} from \code{rda} and \code{rda}
-  inherits from \code{cca}.  This inheritance structure is due to
-  historic reasons: \code{cca} was the first of these implemented in
-  vegan. Hence the nomenclature in \code{cca.object} reflects
-  \code{cca}.  This help page describes the internal structure of the
-  \code{cca} object for programmers.
-}
+
+  Ordination methods \code{\link{cca}}, \code{\link{rda}},
+  \code{\link{dbrda}} and \code{\link{capscale}} return similar result
+  objects. All these methods use the same internal function
+  \code{ordConstrained}. They differ only in (1) initial transformation
+  of the data and inertia, (2) weighting, and (3) the use of rectangular
+  rows \eqn{\times}{x} columns data or symmetric rows \eqn{\times}{x}
+  rows dissimilarities: \code{\link{rda}} initializes data to give
+  variance or correlations as inertia, \code{\link{cca}} is based on
+  double-standardized data to give Chi-square related inertia, and uses
+  row and column weights, and \code{\link{dbrda}} performs an RDA-like
+  analysis based on symmetric dissimilarities. Function
+  \code{ordConstrained} returns the same result components for all these
+  methods, and the calling function may set some more components for the
+  final result. This help page describes the internal structure of the
+  \code{cca} result object for programmers. This knowledge is not needed
+  in normal use, but it is better to use support functions to access the
+  result, because these should work even if the internal structure of
+  the result object changes.}
 
 \value{
   A \code{cca} object has the following elements:
   \item{call }{the function call.}
-  \item{colsum, rowsum, rowsum.excluded }{Column and row sums in
-    \code{cca}.  In \code{rda}, item \code{colsum} contains standard
-    deviations of species and \code{rowsum} is \code{NA}. If some data
-    were removed in \code{\link{na.action}}, the row sums of excluded
-    observations are in item \code{rowsum.excluded} in \code{cca} (but
-    not in \code{rda}). The \code{rowsum.excluded} add to the total
-    (one) of \code{rowsum}. }
+  \item{colsum, rowsum }{Column and row sums in \code{cca}.  In
+    \code{rda}, item \code{colsum} contains standard deviations of
+    species and \code{rowsum} is \code{NA}. }
   \item{grand.total}{Grand total of community data in \code{cca} and
     \code{NA} in \code{rda}.}
   \item{inertia}{Text used as the name of inertia.}
@@ -50,13 +57,18 @@
 
   \item{pCCA, CCA, CA}{Actual ordination results for conditioned
     (partial), constrained and unconstrained components of the
-    model. If constraints or conditions are not given, the
-    corresponding components \code{CCA} and \code{pCCA} are
-    \code{NULL}. If they are specified but have zero rank and zero
-    eigenvalue (e.g., due to aliasing), they have a standard structure
-    like described below, but the result scores have zero columns, but
-    the correct number of rows. The residual component is never
-    \code{NULL}, and if there is no residual variation (like in
+    model. The components are called \code{pCCA}, \code{CCA} and
+    \code{CA} for historic reasons, because \code{\link{cca}} was the
+    first, and for long the only, constrained ordination method in
+    \pkg{vegan}. This naming may change in the future and should not be
+    trusted: it is safer to always use accessor functions instead of
+    directly using these names in your own code. If constraints or
+    conditions are not given, the corresponding components \code{CCA}
+    and \code{pCCA} are \code{NULL}. If they are specified but have zero
+    rank and zero eigenvalue (e.g., due to aliasing), they have a
+    standard structure like described below, but the result scores have
+    zero columns, but the correct number of rows. The residual component
+    is never \code{NULL}, and if there is no residual variation (like in
     overdefined model), its scores have zero columns. The standard
     \code{print} command does not show \code{NULL} components, but it
     prints zeros for zeroed components. Items \code{pCCA}, \code{CCA}
@@ -96,9 +108,6 @@
      \code{CCA} components. Only in \code{CCA}.}
     \item{\code{tot.chi}}{Total inertia or the sum of all eigenvalues of the
       component.}
-    \item{\code{real.tot.chi}}{If there are negative eigenvalues in
-      \code{\link{capscale}}, these will be included in \code{tot.chi},
-      and the sum of positive eigenvalues will be given in these items.}
     \item{\code{imaginary.chi}, \code{imaginary.rank},
      \code{imaginary.u.eig}}{The sum, rank (number) of negative
      eigenvalues and scaled site scores for imaginary axes in
@@ -111,31 +120,24 @@
       \code{\link{plot.cca}}, or their \code{rda} variants.   Only in
       \code{CCA} and \code{CA}.  In the \code{CCA} component these are
       the so-called linear combination scores. }
-    
-    \item{\code{v}}{(Weighted) orthonormal species scores.  If missing species
-      were omitted from the analysis, this will contain
-      attribute \code{\link{na.action}} that lists the
-      omitted species. Only in \code{CCA} and \code{CA}.}
-    
+    \item{\code{v}}{(Weighted) orthonormal species scores.  If missing
+      species were omitted from the analysis, this will contain
+      attribute \code{\link{na.action}} that lists the omitted
+      species. Only in \code{CCA} and \code{CA}. This is a zero-row
+      matrix in \code{\link{dbrda}} which has no information on
+      species.}
     \item{\code{wa}}{Site scores found as weighted averages (\code{cca}) or
       weighted sums (\code{rda}) of 
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-
     \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
       \code{na.action = na.exclude} in \code{CCA} and \code{CA}
       components if these could be calculated.}
-    \item{\code{Xbar}}{The standardized data matrix after previous stages of
-      analysis. In \code{CCA} this is after possible \code{pCCA} or
-      after partialling out the effects of conditions, and in \code{CA}
-      after both \code{pCCA} and \code{CCA}. In \code{\link{cca}} the
-      standardization is Chi-square, and in \code{\link{rda}} centring
-      and optional scaling by species standard deviations using function
-      \code{\link{scale}}.}
-  }
-}
-}
+    \item{\code{Xbar}}{The initialized working response matrix after
+      previous stages of analysis. In \code{CCA} this is after possible
+      \code{pCCA} or after partialling out the effects of conditions,
+      and in \code{CA} after both \code{pCCA} and \code{CCA}.}  } } }
 
 \section{NA Action and Subset}{
   If the constraints had missing values or subsets, and \code{\link{na.action}}
@@ -170,17 +172,12 @@
 
 \section{capscale and dbrda}{
 
-  \pkg{Vegan} has two functions for distance-based Redundancy
+  \pkg{vegan} has two functions for distance-based Redundancy
   analysis: \code{\link{capscale}} and \code{\link{dbrda}}.  Function
   \code{\link{capscale}} uses \code{\link{rda}} and returns its result
   object, but it may add some items depending on its arguments:
   
   \describe{
-    \item{\code{real.tot.chi}}{Sum of positive eigenvalues if there are
-       negative eigenvalues. The item \code{tot.chi} gives the total
-       inertia with negative eigenvalues. This item is given for the
-       whole model and for each component \code{pCCA}, \code{CCA} and
-       \code{CA} if there are negative eigenvalues.}
     \item{\code{metaMDSdist}}{The data set name if 
        \code{metaMDSdist = TRUE}.}
     \item{\code{sqrt.dist}}{Logical value, \code{TRUE} if squareroots of
@@ -193,13 +190,6 @@
       of sum of squares. For \eqn{n} observations this is
       \eqn{\sqrt{n-1}}{sqrt(n-1)} or \eqn{1} if adjustment was not
       done.}
-    \item{\code{G}}{The working structure of Gower transformed
-      dissimilarities defined as \eqn{-(D^2 - M)/2}, where \eqn{D} are
-      the dissimilarities and \eqn{M} is the centring matrix. This
-      structure is used to asses the total inertia, and it will be used
-      also in permutation tests. This is given for items \code{pCCA} and
-      \code{CCA}, and for \code{CCA} it is the residual \eqn{G} after
-      \code{pCCA}.}
   }
 
   Function \code{\link{dbrda}} does not use \code{\link{rda}} but
@@ -209,40 +199,16 @@
 
   \describe{
   
-    \item{\code{Xbar}, \code{v}}{are \code{NA} because they cannot be
-      calculated from dissimilarities.}
-
-    \item{\code{Fit}}{ of \code{pCCA} is from Gower double centred
-      dissimilarities \code{G} instead of \code{Xbar} (that does not
-      exist).}
-      
-    \item{\code{G}}{ is returned with \code{pCCA}, \code{CCA} and
-      \code{CA} components. It always gives the transformed
-      dissimilarities as they enter the stage of analysis, i.e.,
-      before applying conditions or constraints.}
-
-    \item{\code{eig}}{lists also negative eigenvalues for \code{CCA}
-      and \code{pCCA}.}
-
    \item{\code{u}}{or row scores only give real axes with positive
       eigenvalues. The imaginary scores (if any) are in
-      \code{imaginary.u}. The number of columns of real scores
-      (positive eigenvalues) is given in item \code{poseig}. There is
-      no \code{imaginary.u.eig}.}
+      \code{imaginary.u}. The number of columns of real scores (positive
+      eigenvalues) is given in item \code{poseig}. There is no
+      \code{imaginary.u.eig}. The \code{ordConstrained} function returns
+      all eigen vectors in one matrix, and the split is only made in the
+      \code{\link{dbrda}} function that calls \code{ordConstrained}}. }
       
   }
-}
 
-
-\note{
-  In old versions of \pkg{vegan} the object also included scores
-  scaled by eigenvalues (\code{u.eig}, \code{v.eig} and \code{wa.eig}),
-  but these were removed in \pkg{vegan} 2.2-0. The scores are scaled
-  when they are accessed with \code{\link{scores}} function. It is
-  advisable to always use \code{\link{scores}} in accessing the
-  results instead of directly accessing the elements of the the
-  \code{cca} object.
-}
   
 \seealso{The description here provides a hacker's interface.  User
   level functions for further analysis and handling of \code{cca}
