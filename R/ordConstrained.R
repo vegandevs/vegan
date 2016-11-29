@@ -239,6 +239,7 @@
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "RDA",
                            "CA" = "CCA",
+                           "CAPSCALE" = "CAP",
                            "DISTBASED" = "dbRDA"),
                     seq_len(sum(posev)))
     if (DISTBASED && any(!posev))
@@ -324,6 +325,7 @@
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "PC",
                            "CA" = "CA",
+                           "CAPSCALE" = "MDS",
                            "DISTBASED" = "MDS"),
                     seq_len(sum(posev)))
     if (DISTBASED && any(!posev))
@@ -381,11 +383,8 @@
     resid <- ordResid(Y)
     ## return a CCA object
     out <- c(head,
+             call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
-    class(out) <- switch(method,
-                         "cca" = "cca",
-                         "rda" = c("rda", "cca"),
-                         "capscale" = c("capscale", "rda", "cca"),
-                         "dbrda" = c("dbrda", "rda", "cca"))
+    class(out) <- c("ordConstrained", "cca")
     out
 }
