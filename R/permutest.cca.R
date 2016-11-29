@@ -24,12 +24,7 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
-    ## first eigenvalue cannot be analysed with capscale which had
-    ## discarded imaginary values: cast to old before evaluating isDB
-    if (first && inherits(x, "capscale"))
-        x <- oldCapscale(x)
-    isDB <- inherits(x, c("capscale", "dbrda")) &&
-        !inherits(x, "oldcapscale")  # distance-based & new design
+    isDB <- inherits(x, c("dbrda"))
     ## Function to get the F statistics in one loop
     getF <- function (indx, ...)
     {
@@ -106,18 +101,18 @@ permutest.default <- function(x, ...)
     F.0 <- (Chi.z/q)/(Chi.xz/r)
     Q <- x$CCA$QR
     if (isPartial) {
-        Y.Z <- if (isDB) x$pCCA$G else x$pCCA$Fit
+        Y.Z <- x$pCCA$Fit
         QZ <- x$pCCA$QR
     } else {
         QZ <- NULL
     }
     if (model == "reduced" || model == "direct")
-        E <- if (isDB) x$CCA$G else x$CCA$Xbar
+        E <- x$CCA$Xbar
     else E <-
         if (isDB) stop(gettextf("%s cannot be used with 'full' model"), x$method)
         else x$CA$Xbar
     if (isPartial && model == "direct")
-        E <- if (isDB) x$pCCA$G else E + Y.Z
+        E <- E + Y.Z
     ## Save dimensions
     N <- nrow(E)
     permutations <- getPermuteMatrix(permutations, N, strata = strata)

@@ -70,7 +70,7 @@
                        varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]]),
                        varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]]))
     if (inherits(Y, "dist"))
-        out$part$ordination <- "capscale"
+        out$part$ordination <- "dbrda"
     else
         out$part$ordination <- "rda"
     out$scale <- scale

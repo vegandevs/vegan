@@ -92,6 +92,7 @@
     if (max(X) >= 4 + .Machine$double.eps) {
         inertia <- paste("mean", inertia)
         adjust <- sqrt(k)
+        X <- X/adjust
     }
     else {
         adjust <- 1
@@ -101,122 +102,21 @@
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
     ## QR decomposition to get the components of inertia.
-    G <- -GowerDblcen(X^2)/2
-    if (adjust > 1)
-        G <- G/k
-    ## Solution: this shows the algorithmic steps
-    tot.chi <- sum(diag(G))
-    pCCA <- CCA <-  CA <- NULL
-    ## pCCA
-    if (!is.null(d$Z)) {
-        d$Z <- scale(d$Z, scale = FALSE)
-        Q <- qr(d$Z, tol = 1e-6)
-        HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
-        pCCA <- list(rank = Q$rank, tot.chi = sum(diag(HGH)),
-                     QR = Q, Fit = HGH,
-                     envcentre = attr(d$Z, "scaled:center"),
-                     G = G)
-        G <- qr.resid(Q, t(qr.resid(Q, G)))
-    }
-    ## CCA
-    if (!is.null(d$Y)) {
-        d$Y <- scale(d$Y, scale = FALSE)
-        Q <- qr(cbind(d$Z, d$Y), tol = 1e-6)
-        HGH <- qr.fitted(Q, t(qr.fitted(Q, G)))
-        e <- eigen(HGH, symmetric = TRUE)
-        nz <- abs(e$values) > EPS
-        if (any(nz)) {
-            e$values <- e$values[nz]
-            e$vectors <- e$vectors[, nz, drop = FALSE]
-            pos <- e$values > 0
-            if (any(e$values < 0)) {
-                imaginary.u <- e$vectors[, !pos, drop = FALSE]
-                e$vectors <- e$vectors[, pos, drop = FALSE]
-            } else {
-                imaginary.u <- NULL
-            }
-            wa <- G %*% e$vectors %*% diag(1/e$values[pos], sum(pos))
-            v <- matrix(NA, ncol = ncol(wa))
-            oo <- Q$pivot[seq_len(Q$rank)]
-            rank <- Q$rank
-            if (!is.null(pCCA)) {
-                oo <- oo[-seq_len(pCCA$rank)] - ncol(d$Z)
-                rank <- rank - pCCA$rank
-            }
-            CCA <- list(eig = e$values,
-                        u = e$vectors,
-                        imaginary.u = imaginary.u,
-                        poseig = sum(pos),
-                        v = v, wa = wa,
-                        alias =  if (rank < ncol(d$Y))
-                                     colnames(d$Y)[-oo],
-                        biplot = cor(d$Y[,oo, drop=FALSE], e$vectors),
-                        qrank = rank, rank = rank,
-                        tot.chi = sum(diag(HGH)),
-                        QR = Q,
-                        envcentre = attr(d$Y, "scaled:center"),
-                        Xbar = NA, G = G)
-        } else {
-            CCA <- NULL
-        }
-        G <- qr.resid(Q, t(qr.resid(Q, G)))
-    }
-    ## CA
-    e <- eigen(G, symmetric = TRUE)
-    nz <- abs(e$values) > EPS # positively or negatively non-zero
-    if (any(nz)) {
-        e$values <- e$values[nz]
-        e$vectors <- e$vectors[, nz, drop = FALSE]
-        if (any(e$values < 0)) {
-            imaginary.u <- e$vectors[, e$values < 0, drop = FALSE]
-            e$vectors <- e$vectors[, e$values > 0, drop = FALSE]
-        } else {
-            imaginary.u <- NULL
-        }
-        v <- matrix(NA, ncol = ncol(e$vectors))
-        CA <- list(eig = e$values,
-                   u = e$vectors,
-                   imaginary.u = imaginary.u,
-                   poseig = sum(e$values > 0),
-                   v = v,
-                   rank = sum(nz),
-                   tot.chi = sum(diag(G)),
-                   Xbar = NA, G = G)
-    } else {
-        CA <- NULL
-    }
-    ## output
-    sol <- list(tot.chi = tot.chi, pCCA = pCCA, CCA = CCA, CA = CA)
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        colnames(sol$CCA$u) <-
-            colnames(sol$CCA$wa) <-
-            colnames(sol$CCA$v) <-
-            names(sol$CCA$eig) <-
-                paste("dbRDA", seq_len(ncol(sol$CCA$u)), sep = "")
-        colnames(sol$CCA$biplot) <-
-            names(sol$CCA$eig)[sol$CCA$eig > 0]
-        rownames(sol$CCA$u) <- rownames(d$X)
-        if (!is.null(sol$CCA$imaginary.u)) {
-            negax <- sol$CCA$eig < 0
-            negnm <- paste0("idbRDA", seq_len(sum(negax)))
-            names(sol$CCA$eig)[negax] <- negnm
-            colnames(sol$CCA$imaginary.u) <- negnm
-            rownames(sol$CCA$imaginary.u) <- rownames(d$X)
-        }
-    }
-    if (!is.null(sol$CA) && sol$CA$rank > 0) {
-        colnames(sol$CA$u) <- colnames(sol$CA$v) <- names(sol$CA$eig) <-
-            paste("MDS", seq_len(ncol(sol$CA$u)), sep = "")
-        rownames(sol$CA$u) <- rownames(d$X)
-        if (!is.null(sol$CA$imaginary.u)) {
-            negax <- sol$CA$eig < 0
-            negnm <- paste0("iMDS", seq_len(sum(negax)))
-            names(sol$CA$eig)[negax] <- negnm
-            dimnames(sol$CA$imaginary.u) <- list(rownames(d$X), negnm)
-        }
-    }
+    sol <- ordConstrained(X, d$Y, d$Z, method = "dbrda")
 
     sol$colsum <- NA
+    ## separate eigenvectors associated with negative eigenvalues from
+    ## u into imaginary.u
+    if (!is.null(sol$CCA) && sol$CCA$rank > sol$CCA$poseig) {
+        sol$CCA$imaginary.u <- sol$CCA$u[, -seq_len(sol$CCA$poseig),
+                                         drop = FALSE]
+        sol$CCA$u <- sol$CCA$u[, seq_len(sol$CCA$poseig), drop = FALSE]
+    }
+    if (!is.null(sol$CA) && sol$CA$rank > sol$CA$poseig) {
+        sol$CA$imaginary.u <- sol$CA$u[, -seq_len(sol$CA$poseig),
+                                       drop = FALSE]
+        sol$CA$u <- sol$CA$u[, seq_len(sol$CA$poseig), drop = FALSE]
+    }
     if (!is.null(sol$CCA) && sol$CCA$rank > 0)
         sol$CCA$centroids <-
             centroids.cca(sol$CCA$u, d$modelframe)

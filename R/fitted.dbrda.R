@@ -11,7 +11,7 @@
         if (model == "pCCA")
             G <- object$pCCA$Fit
         else
-            G <- object[[model]]$G
+            G <- object[[model]]$Xbar
         if (model == "CCA") {
             H <- tcrossprod(
                 qr.Q(object$CCA$QR)[, seq_len(object$CCA$QR$rank),

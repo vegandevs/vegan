@@ -93,7 +93,7 @@
                     qrank = qrhs$rank,
                     tot.chi = sum(diag(Gfit)),
                     QR = qrhs,
-                    G = G)
+                    Xbar = G)
     else
         CCA <- NULL # empty model
     ## collect data for the residuals
@@ -106,6 +106,6 @@
     sol$adjust <- 1
     sol$CCA <- CCA
     sol$CA <- CA
-    class(sol) <- c("adonis2", "capscale", "rda", "cca")
+    class(sol) <- c("adonis2", "dbrda", "rda", "cca")
     sol
 }

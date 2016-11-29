@@ -99,7 +99,10 @@
 
 `ordHead`<- function(Y, method)
 {
-    totvar <- sum(Y^2)
+    if (method == "dbrda")
+        totvar <- sum(diag(Y))
+    else
+        totvar <- sum(Y^2)
     head <- list("tot.chi" = totvar)
     if (method == "cca")
         head <- c(list("grand.total" = attr(Y, "tot"),
@@ -133,10 +136,12 @@
     Q <- qr(Z)
     ## partialled out variation as a trace of Yfit
     Yfit <- qr.fitted(Q, Y)
-    if (DISTBASED)
+    if (DISTBASED) {
+        Yfit <- qr.fitted(Q, t(Yfit))
         totvar <- sum(diag(Yfit))
-    else
+    } else {
         totvar <- sum(Yfit^2)
+    }
     ## residuals of Y
     Y <- qr.resid(Q, Y)
     if (DISTBASED)
@@ -196,36 +201,38 @@
         sol <- eigen(Yfit, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
-        v <- NULL
     } else {
         sol <- svd(Yfit)
         lambda <- sol$d^2
         u <- sol$u
         v <- sol$v
     }
-    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    ## handle zero  eigenvalues and negative eigenvalues
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
-        if (!is.null(v))
+        if (!DISTBASED)
             v <- v[, !zeroev, drop = FALSE]
     }
+    posev <- lambda > 0
     ## wa scores
-    if (DISTBASED) { # not yet implemented
-        wa <- NA
+    if (DISTBASED) {
+        wa <- Y %*% u[, posev, drop = FALSE] %*%
+            diag(1/lambda[posev], sum(posev))
+        v <- matrix(NA, 0, sum(posev))
     } else {
-        wa <- Y %*% v %*% diag(1/sqrt(lambda), length(lambda))
+        wa <- Y %*% v %*% diag(1/sqrt(lambda), sum(posev))
     }
     ## biplot scores
-    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u)
+    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u[, posev, drop=FALSE])
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
         if (all(!is.na(wa)))
             wa <- sweep(wa, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW) && !is.null(v)) {
+    if (!is.null(CW) && nrow(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## set names
@@ -233,19 +240,24 @@
                            "PCA" = "RDA",
                            "CA" = "CCA",
                            "DISTBASED" = "dbRDA"),
-                    seq_len(length(lambda)))
+                    seq_len(sum(posev)))
+    if (DISTBASED && any(!posev))
+        negnam <- paste0("idbRDA", seq_len(sum(!posev)))
+    else
+        negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- axnam
-    dimnames(u) <- list(dnam[[1]], axnam)
-    if (!is.null(v))
+    names(lambda) <- c(axnam, negnam)
+    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v))     # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
-    if (!is.null(wa))
+    if (all(!is.na(wa))) # only for posev
         colnames(wa) <- axnam
-    if (!is.null(bp))
+    if (!is.null(bp))    # only for posev
         colnames(bp) <- axnam
     ## out
     result <- list(
         eig = lambda,
+        poseig = if (DISTBASED) sum(posev) else NULL,
         u = u,
         v = v,
         wa = wa,
@@ -284,27 +296,28 @@
         sol <- eigen(Y, symmetric = TRUE)
         lambda <- sol$values
         u <- sol$vectors
-        v <- NULL
     } else {
         sol <- svd(Y)
         lambda <- sol$d^2
         u <- sol$u
         v <- sol$v
     }
-    ## handle zero  eigenvalues ... negative eigenvalues not yet implemented
+    ## handle zero and negative eigenvalues
     zeroev <- abs(lambda) < ZERO * lambda[1]
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
-        if (!is.null(v))
+        if (!DISTBASED) # no v in DISTBASED
             v <- v[, !zeroev, drop = FALSE]
     }
-
+    posev <- lambda > 0
+    if (DISTBASED) # no species scores in DISTBASED
+        v <- matrix(NA, 0, sum(posev))
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
     }
-    if (!is.null(CW) && !is.null(v)) {
+    if (!is.null(CW) && nrow(v)) {
         v <- sweep(v, 1, sqrt(CW), "/")
     }
     ## set names
@@ -312,15 +325,20 @@
                            "PCA" = "PC",
                            "CA" = "CA",
                            "DISTBASED" = "MDS"),
-                    seq_len(length(lambda)))
+                    seq_len(sum(posev)))
+    if (DISTBASED && any(!posev))
+        negnam <- paste0("iMDS", seq_len(sum(!posev)))
+    else
+        negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- axnam
-    dimnames(u) <- list(dnam[[1]], axnam)
-    if (!is.null(v))
+    names(lambda) <- c(axnam, negnam)
+    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v)) # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
         "eig" = lambda,
+        "poseig" = if (DISTBASED) sum(posev) else NULL,
         "u" = u,
         "v" = v,
         "rank" = length(lambda),
