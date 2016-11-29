@@ -90,15 +90,6 @@
 
     sol <- ordConstrained(X$points, d$Y, d$Z, method = "capscale")
 
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        colnames(sol$CCA$u) <- colnames(sol$CCA$biplot) <- names(sol$CCA$eig) <-
-            colnames(sol$CCA$wa) <- colnames(sol$CCA$v) <-
-                paste("CAP", 1:ncol(sol$CCA$u), sep = "")
-    }
-    if (!is.null(sol$CA) && sol$CA$rank > 0) {
-        colnames(sol$CA$u) <- names(sol$CA$eig) <- colnames(sol$CA$v) <-
-            paste("MDS", 1:ncol(sol$CA$u), sep = "")
-    }
     ## update for negative eigenvalues
     poseig <- length(sol$CA$eig)
     if (any(X$eig < 0)) {

@@ -239,6 +239,7 @@
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "RDA",
                            "CA" = "CCA",
+                           "CAPSCALE" = "CAP",
                            "DISTBASED" = "dbRDA"),
                     seq_len(sum(posev)))
     if (DISTBASED && any(!posev))
@@ -324,6 +325,7 @@
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "PC",
                            "CA" = "CA",
+                           "CAPSCALE" = "MDS",
                            "DISTBASED" = "MDS"),
                     seq_len(sum(posev)))
     if (DISTBASED && any(!posev))
