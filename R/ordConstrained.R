@@ -383,11 +383,8 @@
     resid <- ordResid(Y)
     ## return a CCA object
     out <- c(head,
+             call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
-    class(out) <- switch(method,
-                         "cca" = "cca",
-                         "rda" = c("rda", "cca"),
-                         "capscale" = c("capscale", "rda", "cca"),
-                         "dbrda" = c("dbrda", "rda", "cca"))
+    class(out) <- c("ordConstrained", "cca")
     out
 }
