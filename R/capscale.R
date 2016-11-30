@@ -155,7 +155,7 @@
         sol$metaMDSdist <- commname
     sol$subset <- d$subset
     sol$na.action <- d$na.action
-    class(sol) <- c("capscale", class(sol))
+    class(sol) <- c("capscale", "rda", "cca")
     if (!is.null(sol$na.action))
         sol <- ordiNAexclude(sol, d$excluded)
     sol

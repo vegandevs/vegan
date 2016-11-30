@@ -385,6 +385,5 @@
     out <- c(head,
              call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
-    class(out) <- c("ordConstrained", "cca")
     out
 }
