@@ -106,6 +106,9 @@
     \item{\code{qrank}}{The rank of the constraints which is the
      difference of the ranks of QR decompositions in \code{pCCA} and
      \code{CCA} components. Only in \code{CCA}.}
+    \item{\code{poseig}}{Number of positive eigenvalues in the
+      ordination component. In most methods this is equal to
+      \code{rank}, but \code{\link{dbrda}} can have negative eigenvalues.}
     \item{\code{tot.chi}}{Total inertia or the sum of all eigenvalues of the
       component.}
     \item{\code{imaginary.chi}, \code{imaginary.rank},
@@ -131,9 +134,6 @@
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-    \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
-      \code{na.action = na.exclude} in \code{CCA} and \code{CA}
-      components if these could be calculated.}
     \item{\code{Xbar}}{The initialized working response matrix after
       previous stages of analysis. In \code{CCA} this is after possible
       \code{pCCA} or after partialling out the effects of conditions,
@@ -205,7 +205,7 @@
       eigenvalues) is given in item \code{poseig}. There is no
       \code{imaginary.u.eig}. The \code{ordConstrained} function returns
       all eigen vectors in one matrix, and the split is only made in the
-      \code{\link{dbrda}} function that calls \code{ordConstrained}}. }
+      \code{\link{dbrda}} function that calls \code{ordConstrained}.} }
       
   }
 
