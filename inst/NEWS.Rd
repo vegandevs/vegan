@@ -25,6 +25,11 @@
       \item \code{intersetcor} did not use correct weighting for
       \code{cca} and the results were slightly off.
 
+      \item \code{ordicluster} should return invisibly only the
+      coordinates of internal points (where clusters or points are
+      joined), but last rows contained coordinates of external points
+      (ordination scores of points).
+
     } %itemize
   } % bug fixes
 
