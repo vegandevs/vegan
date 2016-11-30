@@ -38,9 +38,6 @@ export(anova.cca)
 export(as.mcmc.oecosimu, as.mcmc.permat)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
-## the following function will be finally internal, but for easier
-## testing we export it now
-export(ordConstrained)
 
 ## export regular functions with dot names
 
