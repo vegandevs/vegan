@@ -303,6 +303,8 @@ eigenvals(mod)
 
 ## try out bias correction; compare with mod3
 (mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
+anova(mod3B)
+permutest(mod3B, permutations = 99)
 
 ## should always work for a single group
 group <- factor(rep("grazed", NROW(varespec)))
