@@ -6,7 +6,7 @@ permutest.default <- function(x, ...)
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
-              model = c("reduced", "direct", "full"), first = FALSE,
+              model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
               strata = NULL, parallel = getOption("mc.cores") , C = TRUE, ...)
 {
     ## do something sensible with insensible input (no constraints)
@@ -73,10 +73,15 @@ permutest.default <- function(x, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
-        out <- .Call("do_getF", indx, E, Q, QZ, q, first, isPartial, isDB)
+        out <- .Call("do_getF", indx, E, Q, QZ, effects, first, isPartial, isDB)
+        p <- length(effects)
         if (!isPartial && !first)
-            out[,2] <- Chi.tot - out[,1]
-        out <- cbind(out, (out[,1]/q)/(out[,2]/r))
+            out[,p+1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])
+        if (p > 1) # assume 1-df effects
+            out <- cbind(out, sweep(out[,seq_len(p), drop=FALSE], 1,
+                                    out[,p+1]/r, "/"))
+        else
+            out <- cbind(out, (out[,1]/q)/(out[,2]/r))
         out
     }
     if (C)
@@ -91,6 +96,11 @@ permutest.default <- function(x, ...)
         names(Chi.z) <- "Model"
         q <- x$CCA$qrank
     }
+    ## effects
+    if (!is.null(by))
+        effects <- seq_len(q)
+    else
+        effects <- q
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
@@ -140,9 +150,15 @@ permutest.default <- function(x, ...)
     } else {
         tmp <- getF(permutations)
     }
-    num <- tmp[,1]
-    den <- tmp[,2]
-    F.perm <- tmp[,3]
+    if ((p <- length(effects)) > 1) {
+        num <- tmp[,seq_len(p)]
+        den <- tmp[,p+1]
+        F.perm <- tmp[, seq_len(p) + p + 1]
+    } else {
+        num <- tmp[,1]
+        den <- tmp[,2]
+        F.perm <- tmp[,3]
+    }
     Call <- match.call()
     Call[[1]] <- as.name("permutest")
     sol <- list(call = Call, testcall = x$call, model = model,

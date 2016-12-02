@@ -152,7 +152,7 @@ static void transpose(double *x, double *tx, int nr, int nc)
 SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
 	     SEXP first, SEXP isPartial, SEXP isDB)
 {
-    int i, j, k, ki, p, nterms = LENGTH(effects),
+    int i, j, k, ki, p, nterms = length(effects),
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
 	DISTBASED = asInteger(isDB);
