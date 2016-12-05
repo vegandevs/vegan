@@ -11,7 +11,7 @@
 #include <R_ext/Lapack.h>  /* SVD, eigen */
 
 #include <math.h> /* sqrt */
-#include <string.h> /* memcpy */
+#include <string.h> /* memcpy, memset */
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -159,6 +159,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
     double ev1, ev0, ev;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);
+    memset(rans, 0, nperm * (nterms + 1) * sizeof(double));
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
     if (TYPEOF(effects) != INTSXP)
