@@ -1271,6 +1271,25 @@ Average distance to median:
 Eigenvalues for PCoA axes:
  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 
 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 
+> anova(mod3B)
+Analysis of Variance Table
+
+Response: Distances
+          Df  Sum Sq  Mean Sq F value  Pr(>F)  
+Groups     1 0.07193 0.071927  3.7826 0.06468 .
+Residuals 22 0.41834 0.019015                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> permutest(mod3B, permutations = 99)
+
+Permutation test for homogeneity of multivariate dispersions
+Permutation: free
+Number of permutations: 99
+
+Response: Distances
+          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.07193 0.071927 3.7826     99   0.11
+Residuals 22 0.41834 0.019015                     
 > 
 > ## should always work for a single group
 > group <- factor(rep("grazed", NROW(varespec)))
@@ -1338,7 +1357,7 @@ Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237     99   0.19
+Groups     1 0.039979 0.039979 2.4237     99   0.18
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1379,7 +1398,7 @@ Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.033468 0.033468 3.1749     99    0.1
+Groups     1 0.033468 0.033468 3.1749     99   0.12
 Residuals 18 0.189749 0.010542                     
 > anova(mod3)
 Analysis of Variance Table
@@ -8911,7 +8930,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  32.968 0.1 33.075 0 0 
+Time elapsed:  33.176 0.168 33.436 0 0 
 > grDevices::dev.off()
 null device 
           1 
