@@ -25,6 +25,12 @@
       \item \code{intersetcor} did not use correct weighting for
       \code{cca} and the results were slightly off.
 
+      \item \code{anova} and \code{permutest} failed when
+      \code{betadisper} was fitted with argument
+      \code{bias.adjust = TRUE}. Fixes Github issue
+      \href{https://github.com/vegandevs/vegan/issues/219}{#219}
+      reported by Ross Cunning, O'ahu, Hawaii.
+
       \item \code{ordicluster} should return invisibly only the
       coordinates of internal points (where clusters or points are
       joined), but last rows contained coordinates of external points
@@ -47,11 +53,11 @@
 
       \item Handling of \code{data=} in formula interface is more
       robust, and messages on user errors are improved. This fixes
-      points raised in issue
+      points raised in Github issue
       \href{https://github.com/vegandevs/vegan/issues/200}{#200}.
 
-      \item The taxonomic data in \code{dune.taxon} were updated to APG
-      IV (\emph{Bot J Linnean Soc} \strong{181,} 1--20; 2016) and a
+      \item The families and orders in \code{dune.taxon} were updated to
+      APG IV (\emph{Bot J Linnean Soc} \strong{181,} 1--20; 2016) and a
       corresponding classification for higher levels (Chase & Reveal,
       \emph{Bot J Linnean Soc} \strong{161,} 122-127; 2009).
 
