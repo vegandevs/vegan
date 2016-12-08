@@ -740,33 +740,6 @@ C
       RETURN
       END SUBROUTINE MAINIT
 
-      SUBROUTINE MAMAB (A,B,L,M,N,MAXL1,MAXM,C,MAXL2)
-C
-C MATRIX MULTIPLICATION C=A.B
-C
-C MATRIX A(L,M) is multiplied by B(M,N) to give C(L,N)
-C
-C Written by Dr. Peter R. Minchin
-C            Department of Biological Sciences
-C            Southern Illinois University Edwardsville
-C            PO Box 1651
-C            Edwardsville, IL 62026-1651, U.S.A.
-C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
-C            Email: pminchi@siue.edu
-C
-      DOUBLE PRECISION A(MAXL1,M), B(MAXM,N), C(MAXL2,N)
-C
-      DO I=1,L
-        DO J=1,N
-          C(I,J)=0.0
-          DO K=1,M
-            C(I,J)=C(I,J)+A(I,K)*B(K,J)
-          ENDDO
-        ENDDO
-      ENDDO
-      RETURN
-      END SUBROUTINE MAMAB
-
       SUBROUTINE MAMAS (A,MAXL,L,M,S)
 C
 C MULTIPLY MATRIX A(L,M) BY THE SCALAR S
@@ -788,88 +761,6 @@ C
       ENDDO
       RETURN
       END SUBROUTINE MAMAS
-
-      SUBROUTINE MAMATA (A,L,M,MAXL,B,MAXM)
-C
-C MATRIX MULTIPLICATION B=A'.A
-C
-C The transpose of matrix A(L,M) is multiplied A(L,M) to give B(M,M)
-C
-C Written by Dr. Peter R. Minchin
-C            Department of Biological Sciences
-C            Southern Illinois University Edwardsville
-C            PO Box 1651
-C            Edwardsville, IL 62026-1651, U.S.A.
-C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
-C            Email: pminchi@siue.edu
-C
-      DOUBLE PRECISION A(MAXL,M), B(MAXM,M)
-C
-C COMPUTE B
-C
-      DO I=1,M
-        DO J=1,I
-          B(I,J)=0.0
-          DO K=1,L
-            B(I,J)=B(I,J)+A(K,I)*A(K,J)
-          ENDDO
-          B(J,I)=B(I,J)
-        ENDDO
-      ENDDO
-      RETURN
-      END SUBROUTINE MAMATA
-
-      SUBROUTINE MANORM (A,MAXL,L,M,IOP)
-C
-C NORMALIZE THE ROWS (IOP=1) OR COLUMNS (IOP=2) OF THE MATRIX A(L,M)
-C   (I.E. ADJUST THE SUMS OF SQUARED ELEMENTS TO 1.0).
-C
-C Written by Dr. Peter R. Minchin
-C            Department of Biological Sciences
-C            Southern Illinois University Edwardsville
-C            PO Box 1651
-C            Edwardsville, IL 62026-1651, U.S.A.
-C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
-C            Email: pminchi@siue.edu
-C
-      DOUBLE PRECISION A(MAXL,M), SUMSQ, FACTOR, SMALL
-C
-      SMALL=SQRT(EPSILON(SUMSQ))
-C
-C NORMALIZE ROWS
-C
-      IF (IOP.EQ.1) THEN
-        DO I=1,L
-          SUMSQ=0.0D0
-          DO J=1,M
-            SUMSQ=SUMSQ+A(I,J)*A(I,J)
-          ENDDO
-          IF (SUMSQ.GT.SMALL) THEN
-            FACTOR=1.0/SQRT(SUMSQ)
-            DO J=1,M
-              A(I,J)=A(I,J)*FACTOR
-            ENDDO
-          ENDIF
-        ENDDO
-C
-C NORMALIZE COLUMNS
-C
-      ELSE
-        DO J=1,M
-          SUMSQ=0.0D0
-          DO I=1,L
-            SUMSQ=SUMSQ+A(I,J)*A(I,J)
-          ENDDO
-          IF (SUMSQ.GT.SMALL) THEN
-            FACTOR=1.0/SQRT(SUMSQ)
-            DO I=1,L
-              A(I,J)=A(I,J)*FACTOR
-            ENDDO
-          ENDIF
-        ENDDO
-      ENDIF
-      RETURN
-      END SUBROUTINE MANORM
  
       SUBROUTINE MONREG (DISS,DIST,DHAT,IIDX,JIDX,IWORK,N,ITIES)
 C
