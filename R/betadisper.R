@@ -129,7 +129,7 @@
     ## zij are the distances of each point to its group centroid
     zij <- sqrt(abs(dist.pos - dist.neg))
     if (bias.adjust) {
-        n.group <- table(group)
+        n.group <- as.vector(table(group))
         zij <- zij*sqrt(n.group[group]/(n.group[group]-1))
     }
     ## add in correct labels
