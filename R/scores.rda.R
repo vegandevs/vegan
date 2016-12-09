@@ -64,7 +64,10 @@
             }
             v <- const[1] * v
         }
-        sol$species <- v
+        if (nrow(v) > 0)
+            sol$species <- v
+        else
+            sol$species <- NULL
     }
     if ("sites" %in% take) {
         wa <- cbind(x$CCA$wa, x$CA$u)[, choices, drop=FALSE]
