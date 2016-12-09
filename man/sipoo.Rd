@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{sipoo}
 \alias{sipoo}
 \alias{sipoo.map}
