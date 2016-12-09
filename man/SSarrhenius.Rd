@@ -97,41 +97,41 @@ SSlomolino(area, Asym, xmid, slope)
   \code{\link{nls}}, \code{\link{fitspecaccum}}. 
 }
 \examples{
-## Get species area data: sipoo.area gives the areas of islands
-example(sipoo)
+## Get species area data: sipoo.map gives the areas of islands
+data(sipoo, sipoo.map)
 S <- specnumber(sipoo)
-plot(S ~ sipoo.area, xlab = "Island Area (ha)", ylab = "Number of Species",
-    ylim = c(1, max(S)))
+plot(S ~ area, sipoo.map,  xlab = "Island Area (ha)",
+  ylab = "Number of Species", ylim = c(1, max(S)))
 ## The Arrhenius model
-marr <- nls(S ~ SSarrhenius(sipoo.area, k, z))
+marr <- nls(S ~ SSarrhenius(area, k, z), data=sipoo.map)
 marr
 ## confidence limits from profile likelihood
 confint(marr)
 ## draw a line
-xtmp <- seq(min(sipoo.area), max(sipoo.area), len=51)
-lines(xtmp, predict(marr, newdata=data.frame(sipoo.area = xtmp)), lwd=2)
+xtmp <- with(sipoo.map, seq(min(area), max(area), len=51))
+lines(xtmp, predict(marr, newdata=data.frame(area = xtmp)), lwd=2)
 ## The normal way is to use linear regression on log-log data,
 ## but this will be different from the previous:
-mloglog <- lm(log(S) ~ log(sipoo.area))
+mloglog <- lm(log(S) ~ log(area), data=sipoo.map)
 mloglog
-lines(xtmp, exp(predict(mloglog, newdata=data.frame(sipoo.area=xtmp))),
+lines(xtmp, exp(predict(mloglog, newdata=data.frame(area=xtmp))),
    lty=2)
 ## Gleason: log-linear
-mgle <- nls(S ~ SSgleason(sipoo.area, k, slope))
-lines(xtmp, predict(mgle, newdata=data.frame(sipoo.area=xtmp)),
+mgle <- nls(S ~ SSgleason(area, k, slope), sipoo.map)
+lines(xtmp, predict(mgle, newdata=data.frame(area=xtmp)),
   lwd=2, col=2)
 ## Gitay: quadratic of log-linear
-mgit <- nls(S ~ SSgitay(sipoo.area, k, slope))
-lines(xtmp, predict(mgit, newdata=data.frame(sipoo.area=xtmp)), 
+mgit <- nls(S ~ SSgitay(area, k, slope), sipoo.map)
+lines(xtmp, predict(mgit, newdata=data.frame(area=xtmp)),
   lwd=2, col = 3)
 ## Lomolino: using original names of the parameters (Lomolino 2000):
-mlom <- nls(S ~ SSlomolino(sipoo.area, Smax, A50, Hill))
+mlom <- nls(S ~ SSlomolino(area, Smax, A50, Hill), sipoo.map)
 mlom
-lines(xtmp, predict(mlom, newdata=data.frame(sipoo.area=xtmp)), 
+lines(xtmp, predict(mlom, newdata=data.frame(area=xtmp)),
   lwd=2, col = 4)
 ## One canned model of standard R:
-mmic <- nls(S ~ SSmicmen(sipoo.area, slope, Asym))
-lines(xtmp, predict(mmic, newdata = data.frame(sipoo.area=xtmp)),
+mmic <- nls(S ~ SSmicmen(area, slope, Asym), sipoo.map)
+lines(xtmp, predict(mmic, newdata = data.frame(area=xtmp)),
   lwd =2, col = 5)
 legend("bottomright", c("Arrhenius", "log-log linear", "Gleason", "Gitay", 
   "Lomolino", "Michaelis-Menten"), col=c(1,1,2,3,4,5), lwd=c(2,1,2,2,2,2), 
