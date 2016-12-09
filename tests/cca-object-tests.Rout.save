@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-11-22 r71678) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-12-09 r71763) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -169,9 +169,9 @@ Eigenvalues for unconstrained axes:
 
 > ## names
 > sort(names(mcca))
- [1] "CA"          "CCA"         "call"        "colsum"      "grand.total"
- [6] "inertia"     "method"      "na.action"   "pCCA"        "rowsum"     
-[11] "subset"      "terminfo"    "terms"       "tot.chi"    
+ [1] "CA"          "CCA"         "call"        "call"        "colsum"     
+ [6] "grand.total" "inertia"     "method"      "na.action"   "pCCA"       
+[11] "rowsum"      "subset"      "terminfo"    "terms"       "tot.chi"    
 > sort(names(mrda))
  [1] "CA"        "CCA"       "call"      "colsum"    "inertia"   "method"   
  [7] "na.action" "pCCA"      "subset"    "terminfo"  "terms"     "tot.chi"  
@@ -603,11 +603,6 @@ Scaling 2 for species and site scores
 * General scaling constant of scores:  3.00629 
 
 
-Species scores
-
-     [,1] [,2] [,3] [,4] [,5] [,6]
-
-
 Site scores (weighted sums of species scores)
 
        dbRDA1  dbRDA2  dbRDA3   dbRDA4     MDS1     MDS2
@@ -784,11 +779,6 @@ Scaling 2 for species and site scores
 * Species are scaled proportional to eigenvalues
 * Sites are unscaled: weighted dispersion equal on all dimensions
 * General scaling constant of scores:  11.72317 
-
-
-Species scores
-
-     [,1] [,2] [,3] [,4] [,5] [,6]
 
 
 Site scores (weighted sums of species scores)
@@ -2258,4 +2248,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  4.280   0.056   4.333 
+  3.452   0.060   3.509 
