@@ -18,7 +18,7 @@
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
     Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
-    scale = c("none", "column", "row"), ...)
+    scale = c("none", "column", "row"), col = heat.colors(12), ...)
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
            maxabund)
 }
@@ -56,6 +56,8 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     in \code{\link{heatmap}}; if \code{"column"} or \code{"row"}, all
     columns or rows are scaled to equal maximum colour (NB., these
     refer to the transposed data of the \code{\link{heatmap}}). }
+
+  \item{col}{A vector of colours used for above-zero abundance values.}
 
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
     Data maximum in the \code{select}ed subset will be used if this is
