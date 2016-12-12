@@ -41,12 +41,11 @@ cutreeord(tree, k = NULL, h = NULL)
   return \code{"internal"} nodes or \code{"terminal"} nodes (also
   called \code{"leaves"}).
 }
-
-  \item{k, h}{scalars giving the number of desired groups or the height
+\item{k, h}{
+  scalars or vectors giving the numbers of desired groups or the heights
   where the tree should be cut (passed to function
   \code{\link{cutree}}).
 }
-
   \item{\dots}{
     additional arguments (ignored).
 }

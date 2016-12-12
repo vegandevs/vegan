@@ -169,8 +169,13 @@
 {
     cut <- cutree(tree, k, h)
     ## order of classes in the tree
-    cl <- unique(cut[tree$order])
-    cut <- order(cl)[cut]
-    names(cut) <- tree$labels
+    if (!is.matrix(cut)) {
+        cut <- order(unique(cut[tree$order]))[cut]
+        names(cut) <- tree$labels
+    } else {
+        for(i in seq_len(ncol(cut))) {
+            cut[,i] <- order(unique(cut[tree$order,i]))[cut[,i]]
+        }
+    }
     cut
 }
