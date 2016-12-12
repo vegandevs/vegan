@@ -1,6 +1,7 @@
 \name{reorder.hclust}
 \alias{reorder.hclust}
 \alias{rev.hclust}
+\alias{cutreeord}
 \alias{scores.hclust}
 
 \title{
@@ -23,10 +24,11 @@ Reorder a Hierarchical Clustering Tree
    agglo.FUN = c("mean", "min", "max", "sum", "uwmean"), ...)
 \method{rev}{hclust}(x)
 \method{scores}{hclust}(x, display = "internal", ...)
+cutreeord(tree, k = NULL, h = NULL)
 }
 
 \arguments{
-  \item{x}{
+  \item{x, tree}{
     hierarchical clustering from \code{\link{hclust}}.
 }
   \item{wts}{
@@ -38,6 +40,11 @@ Reorder a Hierarchical Clustering Tree
   \item{display}{
   return \code{"internal"} nodes or \code{"terminal"} nodes (also
   called \code{"leaves"}).
+}
+\item{k, h}{
+  scalars or vectors giving the numbers of desired groups or the heights
+  where the tree should be cut (passed to function
+  \code{\link{cutree}}).
 }
   \item{\dots}{
     additional arguments (ignored).
@@ -68,6 +75,10 @@ Reorder a Hierarchical Clustering Tree
   is merged to the tree, and the labels can still \code{hang} below this
   level (see \code{\link{plot.hclust}}).
 
+  Function \code{cutreeord} cuts a tree to groups numbered from left to
+  right in the tree. It is based on the standard function
+  \code{\link{cutree}} which numbers the groups in the order they appear
+  in the input data instead of the order in the tree.
 }
 
 \value{
