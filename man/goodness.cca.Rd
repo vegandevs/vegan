@@ -22,7 +22,8 @@
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
     summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
-    statistic = c("explained", "distance"), proportional = FALSE)
+    statistic = c("explained", "distance"), unity = FALSE,
+    proportional = FALSE)
 spenvcor(object)
 intersetcor(object)
 vif.cca(object)
@@ -57,8 +58,11 @@ vif.cca(object)
      distance after current axis and all previous components.
    }
 
+  \item{unity}{Scale inertia components to unit sum (sum of all items is
+    1).}
   \item{proportional}{Give the inertia components as proportional for
-    the corresponding total.}
+    the corresponding total of the item (sum of each row is 1). This
+    option takes precedence over \code{unity}.}
   \item{names.only}{Return only names of aliased variable(s) instead of
     defining equations.}
   \item{\dots}{Other parameters to the functions.}
