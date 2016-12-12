@@ -31,7 +31,7 @@
     }
 
     order <- hclustMergeOrder(merge)
-      
+
     out <- list(merge = merge, height = x$dist[o], order = order,
                 labels = x$labels, method = "spantree", call =
                 match.call())
@@ -157,4 +157,20 @@
         xy <- cbind(`x`= xx, `height` = x$height)
     }
     xy
+}
+
+## variant of stats::cutree() that numbers the clusters in the order
+## they appear in the dendrogram (left to right). The stats::cutree
+## numbers the clusters in the order the elements appear in the data
+## set.
+
+`cutreeord` <-
+    function(tree, k = NULL, h = NULL)
+{
+    cut <- cutree(tree, k, h)
+    ## order of classes in the tree
+    cl <- unique(cut[tree$order])
+    cut <- order(cl)[cut]
+    names(cut) <- tree$labels
+    cut
 }
