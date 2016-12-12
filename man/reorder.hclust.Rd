@@ -28,7 +28,7 @@ cutreeord(tree, k = NULL, h = NULL)
 }
 
 \arguments{
-  \item{x}{
+  \item{x, tree}{
     hierarchical clustering from \code{\link{hclust}}.
 }
   \item{wts}{
