@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{goodness.cca}
 \alias{goodness}
 \alias{goodness.cca}
@@ -22,7 +23,8 @@
     model = c("CCA", "CA"), statistic = c("explained", "distance"),
     summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
-    statistic = c("explained", "distance"), proportional = FALSE)
+    statistic = c("explained", "distance"), unity = FALSE,
+    proportional = FALSE)
 spenvcor(object)
 intersetcor(object)
 vif.cca(object)
@@ -57,8 +59,11 @@ vif.cca(object)
      distance after current axis and all previous components.
    }
 
+  \item{unity}{Scale inertia components to unit sum (sum of all items is
+    1).}
   \item{proportional}{Give the inertia components as proportional for
-    the corresponding total.}
+    the corresponding total of the item (sum of each row is 1). This
+    option takes precedence over \code{unity}.}
   \item{names.only}{Return only names of aliased variable(s) instead of
     defining equations.}
   \item{\dots}{Other parameters to the functions.}
@@ -72,7 +77,14 @@ vif.cca(object)
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or
   species. Instead of inertia, the function can give the total
-  dispersion or distances from the centroid for each component.
+  dispersion or distances from the centroid for each component. Legendre
+  & De \enc{Cáceres}{Caceres} (2012) called these inertia components as
+  local contributions to beta-diversity (LCBD) and species contributions
+  to beta-diversity (SCBD), and they give these as relative
+  contributions summing up to unity (argument \code{unity = TRUE}). For
+  this interpretation, appropriate dissimilarity measures should be used
+  in \code{\link{dbrda}} or appropriate standardization in
+  \code{\link{rda}} (Legendre &  De \enc{Cáceres}{Caceres} 2012).
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
     environment correlation} or (weighted) correlation of 
@@ -116,7 +128,12 @@ vif.cca(object)
   analysis. Academic Press, London.
 
   Gross, J. (2003). Variance inflation factors. \emph{R News} 3(1),
-  13--15. 
+  13--15.
+
+  Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
+  the variance of community data: dissimilarity coefficients and
+  partitioning. \emph{Ecology Letters} 16, 951--963.
+  [doi:10.1111/ele.12141]
 }
 \author{Jari Oksanen. The \code{vif.cca} relies heavily on the code by
   W. N. Venables. \code{alias.cca} is a simplified version of

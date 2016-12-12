@@ -1,6 +1,7 @@
 `inertcomp` <-
     function (object, display = c("species", "sites"),
-              statistic = c("explained", "distance"), proportional = FALSE)
+              statistic = c("explained", "distance"),
+              unity = FALSE, proportional = FALSE)
 {
     display <- match.arg(display)
     statistic <- match.arg(statistic)
@@ -48,6 +49,8 @@
             w <- w[-object$na.action]
         out <- sweep(out, 1, w, "/")
     }
+    if (unity)
+        out <- out/sum(out)
     if (proportional)
         out <- sweep(out, 1, rowSums(out), "/")
     ## get back names
