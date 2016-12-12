@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{goodness.cca}
 \alias{goodness}
 \alias{goodness.cca}
@@ -76,7 +77,14 @@ vif.cca(object)
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or
   species. Instead of inertia, the function can give the total
-  dispersion or distances from the centroid for each component.
+  dispersion or distances from the centroid for each component. Legendre
+  & De \enc{Cáceres}{Caceres} (2012) called these inertia components as
+  local contributions to beta-diversity (LCBD) and species contributions
+  to beta-diversity (SCBD), and they give these as relative
+  contributions summing up to unity (argument \code{unity = TRUE}). For
+  this interpretation, appropriate dissimilarity measures should be used
+  in \code{\link{dbrda}} or appropriate standardization in
+  \code{\link{rda}} (Legendre &  De \enc{Cáceres}{Caceres} 2012).
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
     environment correlation} or (weighted) correlation of 
@@ -120,7 +128,12 @@ vif.cca(object)
   analysis. Academic Press, London.
 
   Gross, J. (2003). Variance inflation factors. \emph{R News} 3(1),
-  13--15. 
+  13--15.
+
+  Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
+  the variance of community data: dissimilarity coefficients and
+  partitioning. \emph{Ecology Letters} 16, 951--963.
+  [doi:10.1111/ele.12141]
 }
 \author{Jari Oksanen. The \code{vif.cca} relies heavily on the code by
   W. N. Venables. \code{alias.cca} is a simplified version of
