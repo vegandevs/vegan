@@ -45,6 +45,7 @@
 #define GOWERDZ 14
 #define CAO 15
 #define MAHALANOBIS 16
+#define CLARK 17
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -181,6 +182,42 @@ static double veg_canberra(double *x, int nr, int nc, int i1, int i2)
      if (count == 0) return NA_REAL;
      dist /= (double)count;
      return dist;
+}
+
+/* Clark's (1952) coefficient of divergence is similar to Canberra
+ * index, but uses squared terms instead of minimum terms. This is one
+ * of the indices discussed by Legendre & De Caceres, Ecol Lett 16,
+ * 951-963 (2012) and therefore implemented here. Discussed as index
+ * D11 in Legendre & Legendre 2012, Numerical Ecology.
+ */
+
+static double veg_clark(double *x, int nr, int nc, int i1, int i2)
+{
+    double t1, denom, dist;
+    int count, j;
+
+    count = 0;
+    dist = 0.0;
+    for (j=0; j<nc; j++) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
+	    if (x[i1] != 0 || x[i2] != 0) {
+		count++;
+		denom = x[i1] + x[i2];
+		if (denom > 0.0) {
+		    t1 = (x[i1] - x[i2])/denom;
+		    dist += t1 * t1;
+		}
+		else {
+		    dist += R_PosInf;
+		}
+	    }
+	}
+	i1 += nr;
+	i2 += nr;
+    }
+    if (count == 0) return NA_REAL;
+    dist /= (double)count;
+    return sqrt(dist);
 }
 
 /*  Bray-Curtis and Jaccard indices:
@@ -676,6 +713,9 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     case CAO:
         distfun = veg_cao;
         break;
+    case CLARK:
+	distfun = veg_clark;
+	break;
     case MATCHING:
 	distfun = veg_matching;
 	break;

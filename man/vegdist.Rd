@@ -5,19 +5,19 @@
 \description{
   The function computes dissimilarity indices that are useful for or
   popular with community ecologists. All indices use quantitative data,
-  although they would be named by the corresponding binary index, but you
-  can calculate the binary index using an appropriate argument.
-  If you do not find your favourite
-  index here, you can see if it can be implemented using
-  \code{\link{designdist}}. 
-  Gower, Bray--Curtis, Jaccard and
-  Kulczynski indices are good in detecting underlying
+  although they would be named by the corresponding binary index, but
+  you can calculate the binary index using an appropriate argument.  If
+  you do not find your favourite index here, you can see if it can be
+  implemented using \code{\link{designdist}}.  Gower, Bray--Curtis,
+  Jaccard and Kulczynski indices are good in detecting underlying
   ecological gradients (Faith et al. 1987). Morisita, Horn--Morisita,
-  Binomial, Cao and Chao
-  indices should be able to handle different sample sizes (Wolda 1981,
-  Krebs 1999, Anderson & Millar 2004),
-  and Mountford (1962) and Raup-Crick indices for presence--absence data should
-  be able to handle unknown (and variable) sample sizes.
+  Binomial, Cao and Chao indices should be able to handle different
+  sample sizes (Wolda 1981, Krebs 1999, Anderson & Millar 2004), and
+  Mountford (1962) and Raup-Crick indices for presence--absence data
+  should be able to handle unknown (and variable) sample sizes. Most of
+  these indices are discussed by Krebs (1999) and Legendre & Legendre
+  (2012), and their properties further compared by Wolda (1981) and
+  Legendre & De \enc{Cáceres}{Caceres} (2012).
 }
 
 \usage{vegdist(x, method="bray", binary=FALSE, diag=FALSE, upper=FALSE,
@@ -25,10 +25,10 @@
 \arguments{
   \item{x}{Community data matrix.}
   \item{method}{Dissimilarity index, partial match to  \code{"manhattan"},
-    \code{"euclidean"}, \code{"canberra"}, \code{"bray"}, \code{"kulczynski"},
-     \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, \code{"morisita"}, 
-     \code{"horn"}, \code{"mountford"}, \code{"raup"} , \code{"binomial"}, 
-     \code{"chao"}, \code{"cao"} or \code{"mahalanobis"}.}
+    \code{"euclidean"}, \code{"canberra"}, \code{"clark"}, \code{"bray"},
+    \code{"kulczynski"}, \code{"jaccard"}, \code{"gower"}, \code{"altGower"}, 
+    \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
+    \code{"binomial"},  \code{"chao"}, \code{"cao"} or \code{"mahalanobis"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -79,6 +79,13 @@
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
       \frac{|x_{ij}-x_{ik}|}{x_{ij}+x_{ik}}}{d[jk] = (1/NZ) sum ((x[ij]-x[ik])/(x[ij]+x[ik]))}
+    \cr
+    \tab where \eqn{NZ} is the number of non-zero entries.
+    \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
+    \cr
+    \code{clark}
+    \tab \eqn{d_{jk}=\sqrt{\frac{1}{NZ} \sum_i
+      (\frac{x_{ij}-x_{ik}}{x_{ij}+x_{ik}})^2}}{d[jk] = sqrt( (1/NZ) sum (((x[ij]-x[ik])/(x[ij]+x[ik]))^2))}
     \cr
     \tab where \eqn{NZ} is the number of non-zero entries.
     \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
@@ -280,7 +287,16 @@
   Gower, J. C. (1971). A general coefficient of similarity and some
   of its properties. \emph{Biometrics} 27, 623--637.
 
-  Krebs, C. J. (1999). \emph{Ecological Methodology.} Addison Wesley Longman.
+  Krebs, C. J. (1999). \emph{Ecological Methodology.} Addison Wesley
+  Longman.
+
+  Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
+  the variance of community data: dissimilarity coefficients and
+  partitioning. \emph{Ecology Letters} 16, 951--963.
+  [doi:10.1111/ele.12141]
+
+  Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
+  ed. Elsevier.
 
   Mardia, K.V., Kent, J.T. and Bibby, J.M. (1979). \emph{Multivariate analysis}.
   Academic Press.
