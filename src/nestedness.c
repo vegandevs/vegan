@@ -696,6 +696,13 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
    will be overwritten.
 */
 
+/* NOTE: Current input 'x' is a 3D array from R function r2dtable
+ *  (which is pretty fast). The underlying C function 'rcont2' was
+ *  made user callable in R-devel subversion commit 71765 ( hornik |
+ *  2016-12-09 17:58:47 +0200 (Fri, 09 Dec 2016) ) and we may consider
+ *  calling it directly here in the future.
+ */
+
 static void (*qswap_fun)(int *, int *, int *, int *);
 
 SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
