@@ -14,7 +14,7 @@
 }
 \usage{
 beals(x, species = NA, reference = x, type = 0, include = TRUE)
-swan(x, maxit = Inf)
+swan(x, maxit = Inf, type = 0)
 }
 \arguments{
   \item{x}{Community data frame or matrix. }
