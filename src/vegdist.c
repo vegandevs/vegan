@@ -27,7 +27,7 @@
 #include <float.h>
 #include <string.h> /* memset */
 
-/* Indices */
+/* Indices: The numbers here MUST match the order of indices in vegdist.R */
 
 #define MANHATTAN 1
 #define EUCLIDEAN 2
@@ -46,6 +46,8 @@
 #define CAO 15
 #define MAHALANOBIS 16
 #define CLARK 17
+#define CHAOSORENSEN 18
+#define CHAOOCHIAI 19
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -555,7 +557,7 @@ static void chaoterms(double *x, int nr, int nc, int i1, int i2,
     return;
 }
 
-static double veg_chao(double *x, int nr, int nc, int i1, int i2)
+static double veg_chaojaccard(double *x, int nr, int nc, int i1, int i2)
 {
     double dist, U, V;
     chaoterms(x, nr, nc, i1, i2, &U, &V);
@@ -567,6 +569,33 @@ static double veg_chao(double *x, int nr, int nc, int i1, int i2)
 	dist = 0;
     return dist;
 }
+
+static double veg_chaosorensen(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, U, V;
+    chaoterms(x, nr, nc, i1, i2, &U, &V);
+    if (U <= 0 || V <= 0)
+	dist = 1;
+    else
+	dist = 1 - 2*U*V/(U + V);
+    if (dist < 0)
+	dist = 0;
+    return dist;
+}
+
+static double veg_chaoochiai(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, U, V;
+    chaoterms(x, nr, nc, i1, i2, &U, &V);
+    if (U <= 0 || V <= 0)
+	dist = 1;
+    else
+	dist = 1 - sqrt(U*V);
+    if (dist < 0)
+	dist = 0;
+    return dist;
+}
+
 
 /* veg_cao implements Cao index (CYd) of Cao Y, Williams WP, Bark AW:
  *   Water Envir Res 69, 95-106; 1997. Anderson MJ & Thompson AA: Ecol
@@ -706,7 +735,7 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	distfun = veg_millar;
 	break;
     case CHAO:
-	distfun = veg_chao;
+	distfun = veg_chaojaccard;
 	break;
     case GOWERDZ:
 	distfun = veg_gowerDZ;
@@ -716,6 +745,12 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
         break;
     case CLARK:
 	distfun = veg_clark;
+	break;
+    case CHAOSORENSEN:
+	distfun = veg_chaosorensen;
+	break;
+    case CHAOOCHIAI:
+	distfun = veg_chaoochiai;
 	break;
     case MATCHING:
 	distfun = veg_matching;
