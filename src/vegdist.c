@@ -501,23 +501,13 @@ static double veg_millar(double *x, int nr, int nc, int i1, int i2)
  * estimating the number of unseen species. June 2006.
  */
 
-static double veg_chao(double *x, int nr, int nc, int i1, int i2)
+static void chaoterms(double *x, int nr, int nc, int i1, int i2,
+		      double *U, double *V)
 {
-    double ionce, itwice, jonce, jtwice, itot, jtot, ishare, jshare, ishar1, jshar1;
-    double dist, U, V;
-    int count, j;
+    double ionce = 0, itwice = 0, jonce = 0, jtwice = 0, itot = 0, jtot = 0,
+	ishare = 0, jshare = 0, ishar1 = 0, jshar1 = 0;
+    int count = 0, j;
   
-    itot = 0;
-    jtot = 0;
-    ionce = 0;
-    jonce = 0;
-    itwice = 0;
-    jtwice = 0;
-    ishare = 0;
-    jshare = 0;
-    ishar1 = 0;
-    jshar1 = 0;
-    count = 0;
     for (j=0; j<nc; j++) {
 	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	    count++;
@@ -543,21 +533,32 @@ static double veg_chao(double *x, int nr, int nc, int i1, int i2)
 	i1 += nr;
 	i2 += nr;
     }
-    if (count==0) return NA_REAL;
-    U = ishare/itot;
+    if (count==0) {
+	*U = NA_REAL;
+	*V = NA_REAL;
+	return;
+    }
+    *U = ishare/itot;
     if (ishar1 > 0) {
 	if (jonce < 1) jonce = 1; /* Never true if got here? */
 	if (jtwice < 1) jtwice = 1;
-	U += (jtot - 1)/jtot * jonce/jtwice/2.0 * ishar1/itot;
+	*U += (jtot - 1)/jtot * jonce/jtwice/2.0 * ishar1/itot;
     }
-    if (U > 1) U = 1;
-    V = jshare/jtot;
+    if (*U > 1) *U = 1;
+    *V = jshare/jtot;
     if (jshar1 > 0) {
 	if (ionce < 1) ionce = 1; /* This never true? */
 	if (itwice < 1) itwice = 1;
-	V += (itot - 1)/itot * ionce/itwice/2.0 * jshar1/jtot;
+	*V += (itot - 1)/itot * ionce/itwice/2.0 * jshar1/jtot;
     }
-    if (V > 1) V = 1;
+    if (*V > 1) *V = 1;
+    return;
+}
+
+static double veg_chao(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, U, V;
+    chaoterms(x, nr, nc, i1, i2, &U, &V);
     if (U <= 0 || V <= 0)
 	dist = 1;
     else
