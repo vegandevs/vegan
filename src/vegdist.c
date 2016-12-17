@@ -842,3 +842,44 @@ SEXP do_minterms(SEXP x)
     UNPROTECT(2);
     return terms;
 }
+
+/* Extract Chao terms U & V for designdist */
+
+SEXP do_chaoterms(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x);
+    R_xlen_t nterms, i, j, ij;
+    nterms = (R_xlen_t) nr * (nr-1)/2;
+
+    if (TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+
+    SEXP U = PROTECT(allocVector(REALSXP, nterms));
+    SEXP V = PROTECT(allocVector(REALSXP, nterms));
+    double *ru = REAL(U);
+    double *rv = REAL(V);
+
+    /* collect U & V */
+
+    ij = 0;
+    for (j = 0; j < nr; j++)
+	for (i = j + 1; i < nr; i++) {
+	    chaoterms(REAL(x), nr, nc, i, j, ru + ij, rv + ij);
+	    ij++;
+	}
+
+    /* out */
+
+    SEXP out = PROTECT(allocVector(VECSXP, 2));
+    SEXP names = PROTECT(allocVector(STRSXP, 2));
+    SET_STRING_ELT(names, 0, mkChar("U"));
+    SET_STRING_ELT(names, 1, mkChar("V"));
+    setAttrib(out, R_NamesSymbol, names);
+    UNPROTECT(1); /* names */
+    SET_VECTOR_ELT(out, 0, U);
+    SET_VECTOR_ELT(out, 1, V);
+
+    UNPROTECT(4);
+    return out;
+}
