@@ -1,31 +1,40 @@
 \encoding{UTF-8}
 \name{designdist}
 \alias{designdist}
+\alias{chaodist}
 
 \title{Design your own Dissimilarities }
 \description{
-  You can define your own dissimilarities using terms for shared and
-  total quantities, number of rows and number of columns. The shared and
-  total quantities can be binary, quadratic or minimum terms. In
-  binary terms, the shared component is number of shared species, and
-  totals are numbers of species on sites. The quadratic terms
-  are cross-products and sums of squares, and minimum terms 
-  are sums of parallel minima and row totals.
+
+  Functin \code{designdist} lets you define your own dissimilarities
+  using terms for shared and total quantities, number of rows and
+  number of columns. The shared and total quantities can be binary,
+  quadratic or minimum terms. In binary terms, the shared component is
+  number of shared species, and totals are numbers of species on
+  sites. The quadratic terms are cross-products and sums of squares,
+  and minimum terms are sums of parallel minima and row
+  totals. Function \code{chaodist} lets you define your own
+  dissimilarities using terms that are supposed to take into account
+  the \dQuote{unseen species} (see Chao et al., 2005 and Details in
+  \code{\link{vegdist}}).
+
 }
 \usage{
 designdist(x, method = "(A+B-2*J)/(A+B)",
            terms = c("binary", "quadratic", "minimum"), 
            abcd = FALSE, alphagamma = FALSE, name)
+chaodist(x, method = "1 - 2*U*V/(U+V)", name)
 }
 
 \arguments{
   \item{x}{Input data. }
   \item{method}{Equation for your dissimilarities. This can use terms
     \code{J} for shared quantity, \code{A} and \code{B} for totals,
-    \code{N} for the number of rows (sites) and \code{P} for the number of
-    columns (species). The equation can also contain any \R functions
-    that accepts vector arguments and returns vectors of the same
-    length. }
+    \code{N} for the number of rows (sites) and \code{P} for the
+    number of columns (species) or in \code{chaodist} it can use terms
+    \code{U} and \code{V}. The equation can also contain any \R
+    functions that accepts vector arguments and returns vectors of the
+    same length. }
   \item{terms}{How shared and total components are found. For vectors
     \code{x} and \code{y} the  \code{"quadratic"} terms are \code{J = sum(x*y)},
     \code{A = sum(x^2)}, \code{B = sum(y^2)}, and \code{"minimum"} terms
@@ -68,6 +77,15 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
     \code{1-phyper(J-1, A, P-A, B)} \tab \code{"binary"} \tab Raup-Crick (but see \code{\link{raupcrick}})
   }
 
+  Function \code{chaodist} can implement any commonly used Chao et
+  al. (2005) style dissimilarity:
+  \tabular{ll}{
+  \code{1 - 2*U*V/(U+V)} \tab \enc{Sørensen}{Sorensen} type \cr
+  \code{1 - U*V/(U+V-U*V)} \tab Jaccard type \cr
+  \code{1 - sqrt(U*V)} \tab Ochiai type \cr
+  \code{(pmin(U,V) - U*V)/pmin(U,V)} \tab Simpson type
+  }
+
   The function \code{designdist} can implement most dissimilarity
   indices in \code{\link{vegdist}} or elsewhere, and it can also be
   used to implement many other indices, amongst them, most of those
@@ -93,12 +111,22 @@ designdist(x, method = "(A+B-2*J)/(A+B)",
   they are calculated for quadratic and minimum terms as well (with a
   warning).
 
+  Function \code{\link{vegdist}} implements some types of Chao
+  distances, and its documentation contains more complete discussion
+  on calculation of terms (Chao et al. 2005).
+
 }
 
 \value{
   \code{designdist} returns an object of class \code{\link{dist}}.
 }
 \references{
+
+  Chao, A., Chazdon, R. L., Colwell, R. K. and Shen, T. (2005) A new
+  statistical approach for assessing similarity of species composition
+  with incidence and abundance data. \emph{Ecology Letters} \strong{8},
+  148--159.
+
   Koleff, P., Gaston, K.J. and Lennon, J.J. (2003) Measuring beta
   diversity for presence--absence data. \emph{J. Animal Ecol.}
   \strong{72}, 367--382. 
