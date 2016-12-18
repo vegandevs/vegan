@@ -29,8 +29,7 @@
     \code{"clark"}, \code{"bray"}, \code{"kulczynski"},
     \code{"jaccard"}, \code{"gower"}, \code{"altGower"},
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
-    \code{"binomial"}, \code{"chaoJaccard"}, \code{"chaoSorensen"},
-    \code{"chaoOchiai"}, \code{"cao"} or \code{"mahalanobis"}.}
+    \code{"binomial"}, \code{"chao"}, \code{"cao"} or \code{"mahalanobis"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -203,20 +202,20 @@
   
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
-  \code{\link{specpool}}. Function \code{vegdist} implements a Jaccard,
-  \enc{Sørensen}{Sorensen} and Ochiai style indices defined as \eqn{1 -
-  U*V/(U + V - U*V} (Jaccard), \eqn{1 - U*V/(U + V)}
-  (\enc{Sørensen}{Sorensen}) and \eqn{1 - sqrt(U*V)} (Ochiai). Here
-  \eqn{U = C_j/N_j + (N_k - 1)/N_k \times a_1/(2 a_2) \times S_j/N_j}{U
-  = C[j]/N[j] + (N[k] -1)/N[k] * a1/(2*a2) * S[j]/N[j]}, and \eqn{V} is
-  similar except for site index \eqn{k}. \eqn{C_j}{C[j]} is the
-  total number of individuals in the species of site \eqn{j} that are
-  shared with site \eqn{k}, \eqn{N_j}{N[j]} is the total number of
-  individuals at site \eqn{j}, \eqn{a_1}{a1} (and \eqn{a_2}{a2}) are the
-  number of species occurring in site \eqn{j} that have only one (or
-  two) individuals in site \eqn{k}, and \eqn{S_j}{S[j]} is the total
-  number of individuals in the species present at site \eqn{j} that
-  occur with only one individual in site \eqn{k} (Chao et al. 2005).
+  \code{\link{specpool}}. Function \code{vegdist} implements a
+  Jaccard, index defined as \eqn{1 - U*V/(U + V - U*V}; other types
+  can be defined with function \code{\link{chaodist}}. In Chao
+  equation, \eqn{U = C_j/N_j + (N_k - 1)/N_k \times a_1/(2 a_2) \times
+  S_j/N_j}{U = C[j]/N[j] + (N[k] -1)/N[k] * a1/(2*a2) * S[j]/N[j]},
+  and \eqn{V} is similar except for site index
+  \eqn{k}. \eqn{C_j}{C[j]} is the total number of individuals in the
+  species of site \eqn{j} that are shared with site \eqn{k},
+  \eqn{N_j}{N[j]} is the total number of individuals at site \eqn{j},
+  \eqn{a_1}{a1} (and \eqn{a_2}{a2}) are the number of species
+  occurring in site \eqn{j} that have only one (or two) individuals in
+  site \eqn{k}, and \eqn{S_j}{S[j]} is the total number of individuals
+  in the species present at site \eqn{j} that occur with only one
+  individual in site \eqn{k} (Chao et al. 2005).
 
   Morisita index can be used with genuine count data (integers) only. Its
   Horn--Morisita variant is able to handle any abundance data.
