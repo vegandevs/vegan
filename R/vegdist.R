@@ -9,9 +9,8 @@
     ## in vegdist.c
     METHODS <- c("manhattan", "euclidean", "canberra", "bray",
                  "kulczynski", "gower", "morisita", "horn",
-                 "mountford", "jaccard", "raup", "binomial",
-                 "chaoJaccard", "altGower", "cao", "mahalanobis",
-                 "clark", "chaoSorensen", "chaoOchiai")
+                 "mountford", "jaccard", "raup", "binomial", "chao",
+                 "altGower", "cao", "mahalanobis", "clark")
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
