@@ -6,17 +6,16 @@
 \title{Design your own Dissimilarities }
 \description{
 
-  Functin \code{designdist} lets you define your own dissimilarities
-  using terms for shared and total quantities, number of rows and
-  number of columns. The shared and total quantities can be binary,
-  quadratic or minimum terms. In binary terms, the shared component is
-  number of shared species, and totals are numbers of species on
-  sites. The quadratic terms are cross-products and sums of squares,
-  and minimum terms are sums of parallel minima and row
-  totals. Function \code{chaodist} lets you define your own
-  dissimilarities using terms that are supposed to take into account
-  the \dQuote{unseen species} (see Chao et al., 2005 and Details in
-  \code{\link{vegdist}}).
+  Function \code{designdist} lets you define your own dissimilarities
+  using terms for shared and total quantities, number of rows and number
+  of columns. The shared and total quantities can be binary, quadratic
+  or minimum terms. In binary terms, the shared component is number of
+  shared species, and totals are numbers of species on sites. The
+  quadratic terms are cross-products and sums of squares, and minimum
+  terms are sums of parallel minima and row totals. Function
+  \code{chaodist} lets you define your own dissimilarities using terms
+  that are supposed to take into account the \dQuote{unseen species}
+  (see Chao et al., 2005 and Details in \code{\link{vegdist}}).
 
 }
 \usage{
