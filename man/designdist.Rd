@@ -75,16 +75,6 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
     complement \cr
     \code{1-phyper(J-1, A, P-A, B)} \tab \code{"binary"} \tab Raup-Crick (but see \code{\link{raupcrick}})
   }
-
-  Function \code{chaodist} can implement any commonly used Chao et
-  al. (2005) style dissimilarity:
-  \tabular{ll}{
-  \code{1 - 2*U*V/(U+V)} \tab \enc{Sørensen}{Sorensen} type \cr
-  \code{1 - U*V/(U+V-U*V)} \tab Jaccard type \cr
-  \code{1 - sqrt(U*V)} \tab Ochiai type \cr
-  \code{(pmin(U,V) - U*V)/pmin(U,V)} \tab Simpson type
-  }
-
   The function \code{designdist} can implement most dissimilarity
   indices in \code{\link{vegdist}} or elsewhere, and it can also be
   used to implement many other indices, amongst them, most of those
@@ -110,9 +100,23 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
   they are calculated for quadratic and minimum terms as well (with a
   warning).
 
-  Function \code{\link{vegdist}} implements some types of Chao
-  distances, and its documentation contains more complete discussion
-  on calculation of terms (Chao et al. 2005).
+  Function \code{chaodist} is similar to \code{designgist}, but uses
+  terms \code{U} and \code{V} of Chao et al. (2005). These terms are
+  supposed to take into account the effects of unseen species. Both
+  \code{U} and \code{V} are scaled to range \eqn{0 \dots 1}. They take
+  the place of \code{A} and \code{B} and the product \code{U*V} is used
+  in the place of \code{J} of \code{designdist}.  Function
+  \code{chaodist} can implement any commonly used Chao et al. (2005)
+  style dissimilarity:
+  \tabular{ll}{
+  \code{1 - 2*U*V/(U+V)} \tab \enc{Sørensen}{Sorensen} type \cr
+  \code{1 - U*V/(U+V-U*V)} \tab Jaccard type \cr
+  \code{1 - sqrt(U*V)} \tab Ochiai type \cr
+  \code{(pmin(U,V) - U*V)/pmin(U,V)} \tab Simpson type
+  }
+  Function \code{\link{vegdist}} implements Jaccard-type Chao distance,
+  and its documentation contains more complete discussion on the
+  calculation of the terms.
 
 }
 
