@@ -27,7 +27,7 @@
 #include <float.h>
 #include <string.h> /* memset */
 
-/* Indices */
+/* Indices: The numbers here MUST match the order of indices in vegdist.R */
 
 #define MANHATTAN 1
 #define EUCLIDEAN 2
@@ -45,6 +45,7 @@
 #define GOWERDZ 14
 #define CAO 15
 #define MAHALANOBIS 16
+#define CLARK 17
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -181,6 +182,42 @@ static double veg_canberra(double *x, int nr, int nc, int i1, int i2)
      if (count == 0) return NA_REAL;
      dist /= (double)count;
      return dist;
+}
+
+/* Clark's (1952) coefficient of divergence is similar to Canberra
+ * index, but uses squared terms instead of minimum terms. This is one
+ * of the indices discussed by Legendre & De Caceres, Ecol Lett 16,
+ * 951-963 (2012) and therefore implemented here. Discussed as index
+ * D11 in Legendre & Legendre 2012, Numerical Ecology.
+ */
+
+static double veg_clark(double *x, int nr, int nc, int i1, int i2)
+{
+    double t1, denom, dist;
+    int count, j;
+
+    count = 0;
+    dist = 0.0;
+    for (j=0; j<nc; j++) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
+	    if (x[i1] != 0 || x[i2] != 0) {
+		count++;
+		denom = x[i1] + x[i2];
+		if (denom > 0.0) {
+		    t1 = (x[i1] - x[i2])/denom;
+		    dist += t1 * t1;
+		}
+		else {
+		    dist += R_PosInf;
+		}
+	    }
+	}
+	i1 += nr;
+	i2 += nr;
+    }
+    if (count == 0) return NA_REAL;
+    dist /= (double)count;
+    return sqrt(dist);
 }
 
 /*  Bray-Curtis and Jaccard indices:
@@ -464,23 +501,13 @@ static double veg_millar(double *x, int nr, int nc, int i1, int i2)
  * estimating the number of unseen species. June 2006.
  */
 
-static double veg_chao(double *x, int nr, int nc, int i1, int i2)
+static void chaoterms(double *x, int nr, int nc, int i1, int i2,
+		      double *U, double *V)
 {
-    double ionce, itwice, jonce, jtwice, itot, jtot, ishare, jshare, ishar1, jshar1;
-    double dist, U, V;
-    int count, j;
+    double ionce = 0, itwice = 0, jonce = 0, jtwice = 0, itot = 0, jtot = 0,
+	ishare = 0, jshare = 0, ishar1 = 0, jshar1 = 0;
+    int count = 0, j;
   
-    itot = 0;
-    jtot = 0;
-    ionce = 0;
-    jonce = 0;
-    itwice = 0;
-    jtwice = 0;
-    ishare = 0;
-    jshare = 0;
-    ishar1 = 0;
-    jshar1 = 0;
-    count = 0;
     for (j=0; j<nc; j++) {
 	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	    count++;
@@ -506,21 +533,32 @@ static double veg_chao(double *x, int nr, int nc, int i1, int i2)
 	i1 += nr;
 	i2 += nr;
     }
-    if (count==0) return NA_REAL;
-    U = ishare/itot;
+    if (count==0) {
+	*U = NA_REAL;
+	*V = NA_REAL;
+	return;
+    }
+    *U = ishare/itot;
     if (ishar1 > 0) {
 	if (jonce < 1) jonce = 1; /* Never true if got here? */
 	if (jtwice < 1) jtwice = 1;
-	U += (jtot - 1)/jtot * jonce/jtwice/2.0 * ishar1/itot;
+	*U += (jtot - 1)/jtot * jonce/jtwice/2.0 * ishar1/itot;
     }
-    if (U > 1) U = 1;
-    V = jshare/jtot;
+    if (*U > 1) *U = 1;
+    *V = jshare/jtot;
     if (jshar1 > 0) {
 	if (ionce < 1) ionce = 1; /* This never true? */
 	if (itwice < 1) itwice = 1;
-	V += (itot - 1)/itot * ionce/itwice/2.0 * jshar1/jtot;
+	*V += (itot - 1)/itot * ionce/itwice/2.0 * jshar1/jtot;
     }
-    if (V > 1) V = 1;
+    if (*V > 1) *V = 1;
+    return;
+}
+
+static double veg_chaojaccard(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, U, V;
+    chaoterms(x, nr, nc, i1, i2, &U, &V);
     if (U <= 0 || V <= 0)
 	dist = 1;
     else
@@ -668,7 +706,7 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	distfun = veg_millar;
 	break;
     case CHAO:
-	distfun = veg_chao;
+	distfun = veg_chaojaccard;
 	break;
     case GOWERDZ:
 	distfun = veg_gowerDZ;
@@ -676,6 +714,9 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     case CAO:
         distfun = veg_cao;
         break;
+    case CLARK:
+	distfun = veg_clark;
+	break;
     case MATCHING:
 	distfun = veg_matching;
 	break;
@@ -765,4 +806,45 @@ SEXP do_minterms(SEXP x)
 
     UNPROTECT(2);
     return terms;
+}
+
+/* Extract Chao terms U & V for designdist */
+
+SEXP do_chaoterms(SEXP x)
+{
+    int nr = nrows(x), nc = ncols(x);
+    R_xlen_t nterms, i, j, ij;
+    nterms = (R_xlen_t) nr * (nr-1)/2;
+
+    if (TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+
+    SEXP U = PROTECT(allocVector(REALSXP, nterms));
+    SEXP V = PROTECT(allocVector(REALSXP, nterms));
+    double *ru = REAL(U);
+    double *rv = REAL(V);
+
+    /* collect U & V */
+
+    ij = 0;
+    for (j = 0; j < nr; j++)
+	for (i = j + 1; i < nr; i++) {
+	    chaoterms(REAL(x), nr, nc, i, j, ru + ij, rv + ij);
+	    ij++;
+	}
+
+    /* out */
+
+    SEXP out = PROTECT(allocVector(VECSXP, 2));
+    SEXP names = PROTECT(allocVector(STRSXP, 2));
+    SET_STRING_ELT(names, 0, mkChar("U"));
+    SET_STRING_ELT(names, 1, mkChar("V"));
+    setAttrib(out, R_NamesSymbol, names);
+    UNPROTECT(1); /* names */
+    SET_VECTOR_ELT(out, 0, U);
+    SET_VECTOR_ELT(out, 1, V);
+
+    UNPROTECT(4);
+    return out;
 }
