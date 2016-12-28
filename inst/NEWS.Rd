@@ -42,6 +42,11 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
+      \item Linear combination scores are scaled similarly as other
+      ordination scores in constrained ordination methods \code{cca},
+      \code{rda}, \code{capscale} and \code{dbrda}. Earlier they were
+      unscaled (or more technically, had unit scaling on all axes).
+
       \item \code{tabasco} adds argument to \code{scale} the colours
       by rows or columns in addition to the old equal scale over the
       whole plot. New arguments \code{labRow} and \code{labCex} can be
