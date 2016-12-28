@@ -287,7 +287,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
 		getEV(fitted, nr, nc, DISTBASED) - ev0;
 	}
 	if (PARTIAL || FIRST)
-	    rans[k + nperm] = getEV(resid, nr, nc, DISTBASED);
+	    rans[k + nterms * nperm] = getEV(resid, nr, nc, DISTBASED);
 
     } /* end permutation loop */
 
