@@ -97,8 +97,11 @@ permutest.default <- function(x, ...)
         q <- x$CCA$qrank
     }
     ## effects
-    if (!is.null(by))
+    if (!is.null(by)) {
         effects <- seq_len(q)
+        if (isPartial)
+            effects <- effects + x$pCCA$rank
+    }
     else
         effects <- q
     ## Set up
