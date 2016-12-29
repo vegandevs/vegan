@@ -20,6 +20,9 @@ permutest.default <- function(x, ...)
         class(sol) <- "permutest.cca"
         return(sol)
     }
+    ## compatible arguments?
+    if (!is.null(by) && (first || !C))
+        stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
     model <- match.arg(model)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
