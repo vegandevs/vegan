@@ -99,11 +99,17 @@ permutest.default <- function(x, ...)
     ## effects
     if (!is.null(by)) {
         effects <- seq_len(q)
+        q <- diff(c(0, effects)) # d.o.f.
         if (isPartial)
             effects <- effects + x$pCCA$rank
+        F.0 <- numeric(length(effects))
+        for (k in seq_along(effects)) {
+            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
+        }
     }
     else
-        effects <- q
+        effects <- 0
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
@@ -111,7 +117,17 @@ permutest.default <- function(x, ...)
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
-    F.0 <- (Chi.z/q)/(Chi.xz/r)
+    if (is.null(by))
+        F.0 <- (Chi.z/q)/(Chi.xz/r)
+    else {
+        Chi.z <- numeric(length(effects))
+        for (k in seq_along(effects)) {
+            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            Chi.z[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
+        }
+        Chi.z <- diff(c(0, F.0))
+        F.0 <- Chi.z/q * r/Chi.xz
+    }
     Q <- x$CCA$QR
     if (isPartial) {
         Y.Z <- x$pCCA$Fit
