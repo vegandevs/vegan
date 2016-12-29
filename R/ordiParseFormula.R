@@ -94,10 +94,15 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     }
     if (NROW(mf) > 0) {
         Y <- model.matrix(formula, mf)
+        ## save assign attribute
+        assign <- attr(Y, "assign")
+        assign <- assign[assign > 0]
         if (any(colnames(Y) == "(Intercept)"))
             Y <- Y[, -which(colnames(Y) == "(Intercept)"), drop = FALSE]
         if (NCOL(Y) == 0)
             Y <- NULL
+        else
+            attr(Y, "assign") <- assign
     }
     X <- as.matrix(X)
     rownames(X) <- rownames(X, do.NULL = FALSE)

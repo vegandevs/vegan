@@ -1,4 +1,4 @@
-"ordiTerminfo" <-
+`ordiTerminfo` <-
     function(d, data)
 {
     Terms <- delete.response(d$terms.expand)
@@ -8,5 +8,6 @@
         mf <- d$modelframe
     xlev <- .getXlevels(Terms, mf)
     ordered <- sapply(mf, is.ordered)
-    list(terms = Terms, xlev = xlev, ordered = ordered)
+    assign <- attr(d$Y, "assign")
+    list(terms = Terms, assign = assign, xlev = xlev, ordered = ordered)
 }
