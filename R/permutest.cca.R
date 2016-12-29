@@ -176,7 +176,7 @@ permutest.default <- function(x, ...)
     } else {
         num <- tmp[,1]
         den <- tmp[,2]
-        F.perm <- tmp[,3]
+        F.perm <- tmp[,3, drop=FALSE]
     }
     Call <- match.call()
     Call[[1]] <- as.name("permutest")
