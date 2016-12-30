@@ -110,15 +110,24 @@ permutest.default <- function(x, ...)
     }
     ## effects
     if (!is.null(by)) {
-        if (by == "onedf")
+        if (by == "onedf") {
             effects <- seq_len(q)
-        else {                   # by = "terms"
+            termlabs <-
+                if (isPartial)
+                    colnames(x$CCA$QR$qr)[effects + x$pCCA$rank]
+                else
+                    colnames(x$CCA$QR$qr)[effects]
+        } else {                   # by = "terms"
             ass <- x$terminfo$assign
             pivot <- x$CCA$QR$pivot
             if (isPartial)
                 pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
             ass <- ass[pivot[seq_len(x$CCA$qrank)]]
             effects <- cumsum(rle(ass)$length)
+            termlabs <- labels(terms(x$terminfo))
+            if (isPartial)
+                termlabs <- termlabs[termlabs %in% labels(terms(x))]
+            termlabs <-termlabs[unique(ass)]
         }
         q <- diff(c(0, effects)) # d.o.f.
         if (isPartial)
@@ -129,8 +138,10 @@ permutest.default <- function(x, ...)
             F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
     }
-    else
+    else {
         effects <- 0
+        termlabs <- "Model"
+    }
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
@@ -204,7 +215,7 @@ permutest.default <- function(x, ...)
     sol <- list(call = Call, testcall = x$call, model = model,
                 F.0 = F.0, F.perm = F.perm,  chi = c(Chi.z, Chi.xz),
                 num = num, den = den, df = c(q, r), nperm = nperm,
-                method = x$method, first = first)
+                method = x$method, first = first, termlabels = termlabs)
     sol$Random.seed <- attr(permutations, "seed")
     sol$control <- attr(permutations, "control")
     if (!missing(strata)) {
