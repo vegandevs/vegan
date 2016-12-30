@@ -49,7 +49,9 @@
     significance for each term (sequentially from first to last), and
     setting \code{by = "margin"} will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
-    variables)}
+    variables). Function \code{permutest} accepts choices
+    \code{"terms"} for sequential test of terms, and \code{"onedf"}
+    for sequential test of one-degree-of-freedom constrasts.}
 
   \item{model}{Permutation model: \code{model="direct"} permutes 
     community data, \code{model="reduced"} permutes residuals
