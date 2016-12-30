@@ -21,8 +21,13 @@ permutest.default <- function(x, ...)
         return(sol)
     }
     ## compatible arguments?
-    if (!is.null(by) && (first || !C))
-        stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
+    if (!is.null(by)) {
+        if (first || !C)
+            stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
+        by <- match.arg(by, c("onedf", "terms"))
+        if (by == "terms" && is.null(x$terminfo))
+            stop("by='terms' needs a model fitted with a formula")
+    }
     model <- match.arg(model)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
@@ -80,9 +85,13 @@ permutest.default <- function(x, ...)
         p <- length(effects)
         if (!isPartial && !first)
             out[,p+1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])
-        if (p > 1) # assume 1-df effects
+        if (p > 1) {
+            if (by == "terms")
+                out[, seq_len(p)] <- sweep(out[, seq_len(p), drop = FALSE],
+                                               2, q, "/")
             out <- cbind(out, sweep(out[,seq_len(p), drop=FALSE], 1,
                                     out[,p+1]/r, "/"))
+        }
         else
             out <- cbind(out, (out[,1]/q)/(out[,2]/r))
         out
@@ -101,7 +110,16 @@ permutest.default <- function(x, ...)
     }
     ## effects
     if (!is.null(by)) {
-        effects <- seq_len(q)
+        if (by == "onedf")
+            effects <- seq_len(q)
+        else {                   # by = "terms"
+            ass <- x$terminfo$assign
+            pivot <- x$CCA$QR$pivot
+            if (isPartial)
+                pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
+            ass <- ass[pivot[seq_len(x$CCA$qrank)]]
+            effects <- cumsum(rle(ass)$length)
+        }
         q <- diff(c(0, effects)) # d.o.f.
         if (isPartial)
             effects <- effects + x$pCCA$rank
