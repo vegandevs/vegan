@@ -109,12 +109,13 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   terms were defined in the formula.
 
   The ordination results are extracted with \code{\link{scores}} and
-  all extra arguments are passed to the scores. The fitted models only
-  apply to the results defined when extracting the scores. For
-  instance, \code{scaling} in constrained ordination (see
-  \code{\link{scores.rda}}, \code{\link{scores.cca}}) in hte same way
-  in \code{envfit} and in the \code{plot} or the ordination results
-  (see Examples).
+  all extra arguments are passed to the \code{scores}. The fitted
+  models only apply to the results defined when extracting the scores
+  when using \code{envfit}. For instance, \code{scaling} in
+  constrained ordination (see \code{\link{scores.rda}},
+  \code{\link{scores.cca}}) must be set in the same way in
+  \code{envfit} and in the \code{plot} or the ordination results (see
+  Examples).
 
   The printed output of continuous variables (vectors) gives the
   direction cosines which are the coordinates of the heads of unit
@@ -226,7 +227,7 @@ ord <- cca(varespec ~ Al + P + K, varechem)
 plot(ord, type="p")
 fit <- envfit(ord, varechem, perm = 999, display = "lc")
 plot(fit, p.max = 0.05, col = "red")
-## 'scaling' must be set similarly in envfit and in plot
+## 'scaling' must be set similarly in envfit and in ordination plot
 plot(ord, type = "p", scaling = "sites")
 fit <- envfit(ord, varechem, perm = 0, display = "lc", scaling = "sites")
 plot(fit, col = "red")
