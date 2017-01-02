@@ -106,7 +106,16 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   side lists the environmental variables. The formula interface can be
   used for easier selection and/or transformation of environmental
   variables. Only the main effects will be analysed even if interaction
-  terms were defined in the formula. 
+  terms were defined in the formula.
+
+  The ordination results are extracted with \code{\link{scores}} and
+  all extra arguments are passed to the \code{scores}. The fitted
+  models only apply to the results defined when extracting the scores
+  when using \code{envfit}. For instance, \code{scaling} in
+  constrained ordination (see \code{\link{scores.rda}},
+  \code{\link{scores.cca}}) must be set in the same way in
+  \code{envfit} and in the \code{plot} or the ordination results (see
+  Examples).
 
   The printed output of continuous variables (vectors) gives the
   direction cosines which are the coordinates of the heads of unit
@@ -204,8 +213,7 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   }
 
 \examples{
-data(varespec)
-data(varechem)
+data(varespec, varechem)
 library(MASS)
 ord <- metaMDS(varespec)
 (fit <- envfit(ord, varechem, perm = 999))
@@ -219,6 +227,10 @@ ord <- cca(varespec ~ Al + P + K, varechem)
 plot(ord, type="p")
 fit <- envfit(ord, varechem, perm = 999, display = "lc")
 plot(fit, p.max = 0.05, col = "red")
+## 'scaling' must be set similarly in envfit and in ordination plot
+plot(ord, type = "p", scaling = "sites")
+fit <- envfit(ord, varechem, perm = 0, display = "lc", scaling = "sites")
+plot(fit, col = "red")
 
 ## Class variables, formula interface, and displaying the
 ## inter-class variability with `ordispider', and semitransparent
