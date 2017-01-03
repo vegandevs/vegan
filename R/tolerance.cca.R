@@ -93,7 +93,7 @@ tolerance.cca <- function(x, choices = 1:2,
     class(res) <- c("tolerance.cca", "tolerance","matrix")
     attr(res, "which") <- which
     attr(res, "scaling") <- scaling
-    attr(res, "N2") <- NULL
+    attr(res, "N2") <- NA
     if(doN2) {
         attr(res, "N2") <- N2
     }
