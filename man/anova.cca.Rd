@@ -33,9 +33,9 @@
 
   \item{object}{One or several result objects from \code{\link{cca}},
     \code{\link{rda}} or \code{\link{capscale}}. If there are several
-    result objects, they are compared against each other in the ordre
+    result objects, they are compared against each other in the order
     they were supplied. For a single object, a test specified in
-    \code{by} or an overal test is given.}
+    \code{by} or an overall test is given.}
 
   \item{x}{A single ordination result object.}
  
@@ -94,7 +94,7 @@
 
   Function \code{anova} can analyse a sequence of constrained
   ordination models. The analysis is based on the differences in
-  residual deviances in permutations of nested models.
+  residual deviance in permutations of nested models.
 
   The default test is for the sum of all constrained eigenvalues.
   Setting \code{first = TRUE} will perform a test for the first
@@ -113,7 +113,7 @@
   perform separate significance test for each term (constraining
   variable). The terms are assessed sequentially from first to last,
   and the order of the terms will influence their
-  significances. Setting \code{by = "margin"} will perform separate
+  significance. Setting \code{by = "margin"} will perform separate
   significance test for each marginal term in a model with all other
   terms. The marginal test also accepts a \code{scope} argument for
   the \code{\link{drop.scope}} which can be a character vector of term
