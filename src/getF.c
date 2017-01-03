@@ -11,7 +11,7 @@
 #include <R_ext/Lapack.h>  /* SVD, eigen */
 
 #include <math.h> /* sqrt */
-#include <string.h> /* memcpy */
+#include <string.h> /* memcpy, memset */
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -149,18 +149,23 @@ static void transpose(double *x, double *tx, int nr, int nc)
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
 
-SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
-	     SEXP isPartial, SEXP isDB)
+SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
+	     SEXP first, SEXP isPartial, SEXP isDB)
 {
-    int i, j, k, ki,
+    int i, j, k, ki, p, nterms = length(effects),
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
 	DISTBASED = asInteger(isDB);
-    double ev1;
-    SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, 2));
+    double ev1, ev0, ev;
+    SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);
+    memset(rans, 0, nperm * (nterms + 1) * sizeof(double));
     SEXP Y = PROTECT(duplicate(E));
     double *rY = REAL(Y);
+    if (TYPEOF(effects) != INTSXP)
+	effects = coerceVector(effects, INTSXP);
+    PROTECT(effects);
+    int *term = INTEGER(effects);
     
     /* pointers and new objects to the QR decomposition */
     
@@ -232,6 +237,22 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	/* CONSTRAINED COMPONENT */
 
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
+
+	/* If there are effects, we go for all but the full rank first */
+	ev0 = 0; /* must be set for later use outside the loop */
+	if (nterms > 1) {
+	    qrkind = FIT;
+	    for (p = 0; p < (nterms - 1); p++) {
+		for (i = 0; i < nc; i++)
+		    F77_CALL(dqrsl)(qr, &nr, &nr, term + p, qraux, rY + i*nr,
+				    &dummy, qty, &dummy, &dummy, fitted + i*nr,
+				    &qrkind, &info);
+		ev = getEV(fitted, nr, nc, DISTBASED);
+		rans[k + p*nperm] = ev - ev0;
+		ev0 = ev;
+	    }
+	}
+	/* Evaluate full-rank model */
 	if (PARTIAL || FIRST)
 	    qrkind = FIT + RESID;
 	else
@@ -262,13 +283,14 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP first,
 	    }
 	    rans[k] = ev1;
 	} else {
-	    rans[k] = getEV(fitted, nr, nc, DISTBASED);
+	    rans[k + (nterms - 1) * nperm] =
+		getEV(fitted, nr, nc, DISTBASED) - ev0;
 	}
 	if (PARTIAL || FIRST)
-	    rans[k + nperm] = getEV(resid, nr, nc, DISTBASED);
+	    rans[k + nterms * nperm] = getEV(resid, nr, nc, DISTBASED);
 
     } /* end permutation loop */
 
-    UNPROTECT(3);
+    UNPROTECT(4);
     return ans;
 }

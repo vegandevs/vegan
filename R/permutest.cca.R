@@ -6,7 +6,7 @@ permutest.default <- function(x, ...)
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
-              model = c("reduced", "direct", "full"), first = FALSE,
+              model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
               strata = NULL, parallel = getOption("mc.cores") , C = TRUE, ...)
 {
     ## do something sensible with insensible input (no constraints)
@@ -19,6 +19,14 @@ permutest.default <- function(x, ...)
                     Random.seed = NA)
         class(sol) <- "permutest.cca"
         return(sol)
+    }
+    ## compatible arguments?
+    if (!is.null(by)) {
+        if (first || !C)
+            stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
+        by <- match.arg(by, c("onedf", "terms"))
+        if (by == "terms" && is.null(x$terminfo))
+            stop("by='terms' needs a model fitted with a formula")
     }
     model <- match.arg(model)
     ## special cases
@@ -73,10 +81,19 @@ permutest.default <- function(x, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
-        out <- .Call("do_getF", indx, E, Q, QZ, first, isPartial, isDB)
+        out <- .Call("do_getF", indx, E, Q, QZ, effects, first, isPartial, isDB)
+        p <- length(effects)
         if (!isPartial && !first)
-            out[,2] <- Chi.tot - out[,1]
-        out <- cbind(out, (out[,1]/q)/(out[,2]/r))
+            out[,p+1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])
+        if (p > 1) {
+            if (by == "terms")
+                out[, seq_len(p)] <- sweep(out[, seq_len(p), drop = FALSE],
+                                               2, q, "/")
+            out <- cbind(out, sweep(out[,seq_len(p), drop=FALSE], 1,
+                                    out[,p+1]/r, "/"))
+        }
+        else
+            out <- cbind(out, (out[,1]/q)/(out[,2]/r))
         out
     }
     if (C)
@@ -91,6 +108,40 @@ permutest.default <- function(x, ...)
         names(Chi.z) <- "Model"
         q <- x$CCA$qrank
     }
+    ## effects
+    if (!is.null(by)) {
+        if (by == "onedf") {
+            effects <- seq_len(q)
+            termlabs <-
+                if (isPartial)
+                    colnames(x$CCA$QR$qr)[effects + x$pCCA$rank]
+                else
+                    colnames(x$CCA$QR$qr)[effects]
+        } else {                   # by = "terms"
+            ass <- x$terminfo$assign
+            pivot <- x$CCA$QR$pivot
+            if (isPartial)
+                pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
+            ass <- ass[pivot[seq_len(x$CCA$qrank)]]
+            effects <- cumsum(rle(ass)$length)
+            termlabs <- labels(terms(x$terminfo))
+            if (isPartial)
+                termlabs <- termlabs[termlabs %in% labels(terms(x))]
+            termlabs <-termlabs[unique(ass)]
+        }
+        q <- diff(c(0, effects)) # d.o.f.
+        if (isPartial)
+            effects <- effects + x$pCCA$rank
+        F.0 <- numeric(length(effects))
+        for (k in seq_along(effects)) {
+            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
+        }
+    }
+    else {
+        effects <- 0
+        termlabs <- "Model"
+    }
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
@@ -98,7 +149,17 @@ permutest.default <- function(x, ...)
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
-    F.0 <- (Chi.z/q)/(Chi.xz/r)
+    if (is.null(by))
+        F.0 <- (Chi.z/q)/(Chi.xz/r)
+    else {
+        Chi.z <- numeric(length(effects))
+        for (k in seq_along(effects)) {
+            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            Chi.z[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
+        }
+        Chi.z <- diff(c(0, F.0))
+        F.0 <- Chi.z/q * r/Chi.xz
+    }
     Q <- x$CCA$QR
     if (isPartial) {
         Y.Z <- x$pCCA$Fit
@@ -140,15 +201,21 @@ permutest.default <- function(x, ...)
     } else {
         tmp <- getF(permutations)
     }
-    num <- tmp[,1]
-    den <- tmp[,2]
-    F.perm <- tmp[,3]
+    if ((p <- length(effects)) > 1) {
+        num <- tmp[,seq_len(p)]
+        den <- tmp[,p+1]
+        F.perm <- tmp[, seq_len(p) + p + 1]
+    } else {
+        num <- tmp[,1]
+        den <- tmp[,2]
+        F.perm <- tmp[,3, drop=FALSE]
+    }
     Call <- match.call()
     Call[[1]] <- as.name("permutest")
     sol <- list(call = Call, testcall = x$call, model = model,
                 F.0 = F.0, F.perm = F.perm,  chi = c(Chi.z, Chi.xz),
                 num = num, den = den, df = c(q, r), nperm = nperm,
-                method = x$method, first = first)
+                method = x$method, first = first, termlabels = termlabs)
     sol$Random.seed <- attr(permutations, "seed")
     sol$control <- attr(permutations, "control")
     if (!missing(strata)) {

@@ -38,15 +38,15 @@
   \item{terms}{The \code{\link{terms}} component of the
     \code{\link{formula}}. This is missing if the ordination was not called
     with \code{formula}.}
-  \item{terminfo}{Further information on terms with three subitems:
+  \item{terminfo}{Further information on terms with four subitems:
     \code{terms} which is like the \code{terms} component above, but
-    lists conditions and constraints similarly;  \code{xlev}
-    which lists the factor levels, and \code{ordered} which is
-    \code{TRUE} to ordered factors.
-    This is produced by \pkg{vegan} internal function
-    \code{\link{ordiTerminfo}}, and it is needed in
-    \code{\link{predict.cca}} with \code{newdata}.  This is missing if
-    the ordination was not called with \code{formula}.}
+    lists conditions and constraints similarly; \code{assign} which is
+    the \code{assign} attribute of constraining
+    \code{\link{model.matrix}}, \code{xlev} which lists the factor
+    levels, and \code{ordered} which is \code{TRUE} to ordered
+    factors.  This is produced by \pkg{vegan} internal function
+    \code{\link{ordiTerminfo}}, and is missing if the ordination
+    was not called with \code{formula}.}
   \item{tot.chi}{Total inertia or the sum of all eigenvalues.}
   \item{na.action}{The result of \code{\link{na.action}} if missing
     values in constraints were handled by \code{\link{na.omit}} or
