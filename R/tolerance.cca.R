@@ -16,7 +16,7 @@
 ##' @param ... arguments passed to other methods
 ##' @return matrix of tolerances/heterogeneities with some additional
 ##'   attributes.
-##' @author Gavin Simpson \email{gavin.simpson AT ucl.ac.uk}
+##' @author Gavin L. Simpson
 ##' @examples
 ##' data(dune)
 ##' data(dune.env)
@@ -25,77 +25,90 @@
 ##'
 tolerance.cca <- function(x, choices = 1:2,
                           which = c("species","sites"),
-                          scaling = "species", useN2 = FALSE,
+                          scaling = "species", useN2 = TRUE,
                           hill = FALSE, ...) {
-    if(inherits(x, "rda"))
+    if(inherits(x, "rda")) {
         stop("tolerances only available for unimodal ordinations")
-    if(missing(which))
+    }
+    if(missing(which)) {
         which <- "species"
+    }
     ## reconstruct species/response matrix Y - up to machine precision!
     partialFit <- ifelse(is.null(x$pCCA$Fit), 0, x$pCCA$Fit)
-    if (is.null(x$CCA))
+    if (is.null(x$CCA)) {
         Xbar <- x$CA$Xbar
-    else
+    } else {
         Xbar <- x$CCA$Xbar
+    }
     Y <- ((partialFit + Xbar) * sqrt(x$rowsum %o% x$colsum) +
           x$rowsum %o% x$colsum) * x$grand.total
     which <- match.arg(which)
-    siteScrTypes <- if(is.null(x$CCA)){ "sites" } else {"lc"}
+    siteScrTypes <- if (is.null(x$CCA)) {
+                        "sites"
+                    } else {
+                        "lc"
+                    }
     ## Sort out scaling; only for (C)CA so no correlation arg
     scaling <- scalingType(scaling, hill = hill)
-    scrs <- scores(x, display = c(siteScrTypes,"species"),
+    scrs <- scores(x, display = c(siteScrTypes, "species"),
                    choices = choices, scaling = scaling, ...)
     ## compute N2 if useN2 == TRUE & only if
     doN2 <- isTRUE(useN2) && ((which == "species" && abs(scaling) == 2) ||
                               (which == "sites" && abs(scaling) == 1))
-
-    ## this gives the x_i - u_k on axis j
-    ## outer(scrs$sites, scrs$species, "-")[,2,,j]
     siteScrs <- which(names(scrs) %in% c("sites","constraints"))
-    xiuk <- outer(scrs[[siteScrs]], scrs$species, "-")
     if(isTRUE(all.equal(which, "sites"))) {
-        ## need to permute the array as rowSums has different idea of what rows
-        ## are that doesn't correspond to colSums. So flip dimensions 1 and 2
-        ## with aperm and use colSums.
-        res <- sqrt(sweep(colSums(aperm(sweep(xiuk[ , 2, , choices]^2, c(1:2),
-                                              data.matrix(Y), "*"),
-                                        c(2,1,3))),
-                          1, rowSums(Y), "/"))
+        res <- matrix(ncol = length(choices), nrow = nrow(scrs[[siteScrs]]))
+        Ytot <- rowSums(Y)
+        for (i in seq_len(NROW(res))) {
+            XiUk <- apply(scrs[["species"]], 1L, `-`, scrs[[siteScrs]][i,])
+            YXiUk <- sweep(XiUk^2, 2L, Y[i,], "*")
+            res[i, ] <- sqrt(rowSums(YXiUk) / Ytot[i])
+        }
+        rownames(res) <- rownames(scrs[[siteScrs]])
+        colnames(res) <- colnames(scrs[[siteScrs]])
+
         if(doN2) {
-            tot <- rowSums(Y)
-            y <- sweep(Y, 1, tot, "/")^2
+            y <- sweep(Y, 1, Ytot, "/")^2
             N2 <- 1 / rowSums(y, na.rm = TRUE) ## 1/H
             res <- sweep(res, 1, sqrt(1 - (1/N2)), "/")
         }
     } else {
-        res <- sqrt(sweep(colSums(sweep(xiuk[ , 2, , choices]^2, c(1:2),
-                                        data.matrix(Y), "*")),
-                          1, colSums(Y), "/"))
+        res <- matrix(ncol = length(choices), nrow = ncol(Y))
+        Ytot <- colSums(Y)
+        for (i in seq_len(NROW(res))) {
+            XiUk <- apply(scrs[[siteScrs]], 1L, `-`, scrs[["species"]][i,])
+            YXiUk <- sweep(XiUk^2, 2L, Y[,i], "*")
+            res[i, ] <- sqrt(rowSums(YXiUk) / Ytot[i])
+        }
+        rownames(res) <- colnames(Y)
+        colnames(res) <- colnames(scrs[["species"]])
+
         if(doN2) {
-            tot <- colSums(Y)
-            y <- sweep(Y, 2, tot, "/")^2
-            N2 <- 1 / colSums(y, na.rm = TRUE) ## 1/H
+            y <- sweep(Y, 2, Ytot, "/")^2
+            N2 <- 1 / colSums(y, na.rm = TRUE) # 1/H
             res <- sweep(res, 1, sqrt(1 - (1/N2)), "/")
         }
     }
-    class(res) <- c("tolerance.cca","tolerance","matrix")
+    res[is.infinite(res)] <- 0 # some values can be Inf but are really 0
+    class(res) <- c("tolerance.cca", "tolerance","matrix")
     attr(res, "which") <- which
     attr(res, "scaling") <- scaling
     attr(res, "N2") <- NULL
-    if(doN2)
+    if(doN2) {
         attr(res, "N2") <- N2
+    }
     attr(res, "model") <- deparse(substitute(mod))
-    return(res)
+    res                                 # return
 }
 
 `print.tolerance.cca` <- function(x, ...) {
     cat("\n")
-    msg <- ifelse(attr(x, "which") == "species", "Species Tolerances",
-                  "Sample Heterogeneities")
-    writeLines(strwrap(msg, prefix = "\t"), sep = "\n\n")
+    msg <- ifelse(attr(x, "which") == "species", "Species Tolerance",
+                  "Sample Heterogeneity")
+    writeLines(msg, sep = "\n\n")
     msg <- paste("Scaling:", attr(x, "scaling"))
     writeLines(strwrap(msg), sep = "\n\n")
-    attr(x, "model") <- attr(x, "scaling") <- attr(x, "which") <- NULL
+    attr(x, "model") <- attr(x, "scaling") <- attr(x, "which") <- attr(x, "N2") <- NULL
     print(unclass(x), ...)
     cat("\n")
 }
