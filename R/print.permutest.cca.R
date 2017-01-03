@@ -4,7 +4,7 @@
     EPS <- sqrt(.Machine$double.eps)
     cat("\nPermutation test for", x$method, "under", x$model, "model", "\n\n")
     cat(howHead(x$control), "\n")
-    writeLines(strwrap(pasteCall(x$testcall)))
+    writeLines(strwrap(pasteCall(x$testcall, prefix = "Model:")))
     Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
     cat("Permutation test for ")
     if (x$first)
