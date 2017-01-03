@@ -6,7 +6,7 @@
 ##'
 ##' @param x object of class \code{"cca"}.
 ##' @param choices numeric; which ordination axes to compute
-##' tolerances   and heterogeneities for. Defaults to axes 1 and 2.
+##' tolerances  and heterogeneities for. Defaults to axes 1 and 2.
 ##' @param which character; one of \code{"species"} or \code{"sites"},
 ##' indicating whether species tolerances or sample heterogeneities
 ##' respectively are computed.
@@ -15,7 +15,7 @@
 ##' heterogeneities be reduced via scaling by Hill's N2?
 ##' @param ... arguments passed to other methods
 ##' @return matrix of tolerances/heterogeneities with some additional
-##'   attributes.
+##'   attributes: \code{which}, \code{scaling}, and \code{N2}, the latter of which will be \code{NA} if \code{useN2 = FALSE}.
 ##' @author Gavin L. Simpson
 ##' @examples
 ##' data(dune)
@@ -93,11 +93,10 @@ tolerance.cca <- function(x, choices = 1:2,
     class(res) <- c("tolerance.cca", "tolerance","matrix")
     attr(res, "which") <- which
     attr(res, "scaling") <- scaling
-    attr(res, "N2") <- NULL
+    attr(res, "N2") <- NA
     if(doN2) {
         attr(res, "N2") <- N2
     }
-    attr(res, "model") <- deparse(substitute(mod))
     res                                 # return
 }
 
