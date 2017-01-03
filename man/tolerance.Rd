@@ -7,7 +7,7 @@
 tolerance(x, \dots)
 
 \method{tolerance}{cca}(x, choices = 1:2, which = c("species","sites"),
-          scaling = "species", useN2 = FALSE, hill = FALSE, \dots)
+          scaling = "species", useN2 = TRUE, hill = FALSE, \dots)
 }
 \description{
   Species tolerances and sample heterogeneities.
