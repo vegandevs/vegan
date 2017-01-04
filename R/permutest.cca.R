@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , C = TRUE, ...)
+              strata = NULL, parallel = getOption("mc.cores") ,  ...)
 {
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA)) {
@@ -22,8 +22,8 @@ permutest.default <- function(x, ...)
     }
     ## compatible arguments?
     if (!is.null(by)) {
-        if (first || !C)
-            stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
+        if (first)
+            stop("'by' cannot be used with option 'first=TRUE'")
         by <- match.arg(by, c("onedf", "terms"))
         if (by == "terms" && is.null(x$terminfo))
             stop("by='terms' needs a model fitted with a formula")
@@ -33,51 +33,8 @@ permutest.default <- function(x, ...)
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
     isDB <- inherits(x, c("dbrda"))
-    ## Function to get the F statistics in one loop
-    getF <- function (indx, ...)
-    {
-        getEV <- function(x, isDB=FALSE)
-        {
-            if (isDB)
-                sum(diag(x))
-            else
-                sum(x*x)
-        }
-        if (!is.matrix(indx))
-            dim(indx) <- c(1, length(indx))
-        R <- nrow(indx)
-        mat <- matrix(0, nrow = R, ncol = 3)
-        for (i in seq_len(R)) {
-            take <- indx[i,]
-            if (isDB)
-                Y <- E[take, take]
-            else
-                Y <- E[take, ]
-            if (isPartial) {
-                Y <- qr.resid(QZ, Y)
-                if (isDB)
-                    Y <- qr.resid(QZ, t(Y))
-            }
-            tmp <- qr.fitted(Q, Y)
-            if (first) {
-                if (isDB) {
-                    tmp <- qr.fitted(Q, t(tmp)) # eigen needs symmetric tmp
-                    cca.ev <- eigen(tmp, symmetric = TRUE)$values[1]
-                } else
-                    cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-            } else
-                cca.ev <- getEV(tmp, isDB)
-            if (isPartial || first) {
-                tmp <- qr.resid(Q, Y)
-                ca.ev <- getEV(tmp, isDB)
-            }
-            else ca.ev <- Chi.tot - cca.ev
-            mat[i,] <- cbind(cca.ev, ca.ev, (cca.ev/q)/(ca.ev/r))
-        }
-        mat
-    }
-    ## end getF()
-    CgetF <- function(indx, ...)
+    ## C function to get the statististics in one loop
+    getF <- function(indx, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
@@ -96,8 +53,7 @@ permutest.default <- function(x, ...)
             out <- cbind(out, (out[,1]/q)/(out[,2]/r))
         out
     }
-    if (C)
-        getF <- CgetF
+    ## end getF
 
     if (first) {
         Chi.z <- x$CCA$eig[1]

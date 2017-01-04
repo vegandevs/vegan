@@ -26,7 +26,7 @@
      cutoff = 1, scope = NULL)
 \method{permutest}{cca}(x, permutations = how(nperm = 99), 
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
-     strata = NULL, parallel = getOption("mc.cores"), C = TRUE, ...)
+     strata = NULL, parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{
@@ -78,10 +78,6 @@
     test all marginal terms in \code{\link{drop.scope}}.}
 
   \item{first}{Analyse only significance of the first axis.}
-
-  \item{C}{Use compiled code in permutations instead of the \R{}
-    code. The compiled code is still experimental and if it fails, you
-    can turn it off in \code{permutest}.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
