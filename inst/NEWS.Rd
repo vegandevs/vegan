@@ -36,6 +36,12 @@
       joined), but last rows contained coordinates of external points
       (ordination scores of points).
 
+      \item The \code{cca} method of \code{tolerance} was returning
+      incorrect values for all but the second axis for sample
+      heterogeneities and species tolerances. See issue 
+      \href{https://github.com/vegandevs/vegan/issues/216}{#216} for
+      details.
+
     } %itemize
   } % bug fixes
 
