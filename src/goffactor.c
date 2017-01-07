@@ -74,9 +74,14 @@ static void wcentre(double *x, double *w, int *nr, int *nc)
 SEXP do_wcentre(SEXP x, SEXP w)
 {
     int nr = nrows(x), nc = ncols(x);
+    if (TYPEOF(x) != REALSXP)
+	x  = coerceVector(x, REALSXP);
     SEXP rx = PROTECT(duplicate(x));
+    if (TYPEOF(x) != REALSXP)
+	w = coerceVector(w, REALSXP);
+    PROTECT(w);
     wcentre(REAL(rx), REAL(w), &nr, &nc);
-    UNPROTECT(1);
+    UNPROTECT(2);
     return rx;
 }
 
