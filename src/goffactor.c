@@ -94,6 +94,12 @@ SEXP do_goffactor(SEXP x, SEXP factor, SEXP nlevels, SEXP w)
 	factor = coerceVector(factor, INTSXP);
     PROTECT(factor);
     SEXP fac1 = PROTECT(duplicate(factor));
+    if (TYPEOF(x) != REALSXP)
+	x = coerceVector(x, REALSXP);
+    PROTECT(x);
+    if (TYPEOF(w) != REALSXP)
+	w = coerceVector(w, REALSXP);
+    PROTECT(w);
     /* goffactor assume factors start from 0 */
     for (i = 0; i < nr; i++)
 	INTEGER(fac1)[i]--;
@@ -102,6 +108,6 @@ SEXP do_goffactor(SEXP x, SEXP factor, SEXP nlevels, SEXP w)
     double *work3 = (double *) R_alloc(nl, sizeof(double));
     goffactor(REAL(x), INTEGER(fac1), REAL(w), &nr, &nc, &nl,
 	      work1, work2, work3, REAL(var));
-    UNPROTECT(3);
+    UNPROTECT(5);
     return var;
 }
