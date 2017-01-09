@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2016-12-09 r71763) -- "Unsuffered Consequences"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R Under development (unstable) (2017-01-08 r71938) -- "Unsuffered Consequences"
+Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -1013,45 +1013,53 @@ A1            0.3195860 -0.1834593  0.4435867 -0.0563582
 > 
 > tolerance(mcca)
 
-	Species Tolerances
+Species Tolerance
 
 Scaling: 2
 
-              CCA1       CCA2
-Achimill 0.7502275  0.7157100
-Agrostol 1.2853383  1.1570061
-Airaprae       NaN 11.5634285
-Alopgeni 1.0273044  1.0055154
-Anthodor 0.9668769  0.5098809
-Bellpere       NaN        NaN
-Bromhord 0.8311660  0.6685054
-Chenalbu 2.7043082  2.3500218
-Cirsarve 2.4895294  3.2726524
-Comapalu       NaN  5.7190733
-Eleopalu 1.9046374  1.3237573
-Elymrepe 0.1542189  0.1078939
-Empenigr 0.5787202  2.2381007
-Hyporadi 1.8124576        NaN
-Juncarti 1.2921393  1.2932744
-Juncbufo       NaN        NaN
-Lolipere 0.6907463  0.6909286
-Planlanc 0.7978280  0.7455048
-Poaprat  0.7789834  0.7826129
-Poatriv  0.9790234  0.9780299
-Ranuflam 1.2766000  1.1590746
-Rumeacet 1.1430153  1.0478752
-Sagiproc 1.1506476  0.9598708
-Salirepe 2.1948038        NaN
-Scorautu 0.9516102  0.9365612
-Trifprat 0.5868068  0.6204464
-Trifrepe 1.0692801  1.0389263
-Vicilath 1.9008962  2.0758904
-Bracruta 1.0491579  1.0252364
-Callcusp 0.2652331  0.5049434
+              CCA1      CCA2
+Achimill 0.6164695 0.9021545
+Agrostol 1.1460625 1.2322356
+Airaprae       NaN       NaN
+Alopgeni 0.8490779 1.1080299
+Anthodor       NaN 0.6934171
+Bellpere       NaN       NaN
+Bromhord 0.8603496 1.0339841
+Chenalbu 4.0339092 3.6268599
+Cirsarve       NaN       NaN
+Comapalu       NaN       NaN
+Eleopalu       NaN 1.9983226
+Elymrepe       NaN 0.1365308
+Empenigr       NaN       NaN
+Hyporadi       NaN       NaN
+Juncarti 2.2708807 2.2510164
+Juncbufo       NaN       NaN
+Lolipere 0.8593699 0.7290487
+Planlanc 0.5016815 0.8711620
+Poaprat  0.8435661 0.8185454
+Poatriv  1.0631836 1.0204918
+Ranuflam 1.1992674 2.2754677
+Rumeacet 0.8319435 1.3428958
+Sagiproc       NaN 1.2700568
+Salirepe       NaN       NaN
+Scorautu 0.8264700 0.9718458
+Trifprat       NaN       NaN
+Trifrepe 0.9846229 1.0924363
+Vicilath       NaN       NaN
+Bracruta 1.0247652 1.0857372
+Callcusp       NaN       NaN
 
-Warning message:
-In sqrt(sweep(colSums(sweep(xiuk[, 2, , choices]^2, c(1:2), data.matrix(Y),  :
-  NaNs produced
+Warning messages:
+1: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+2: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+3: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+4: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+5: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+6: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+7: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+8: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+9: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
+10: In sqrt(1 - (1/N2)) : NaNs produced
 > 
 > vif.cca(mcca)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
@@ -1391,95 +1399,101 @@ A1             0.074999  -0.084173   0.048383  -0.019273
 > per <- shuffleSet(nrow(dune), 49)
 > permutest(mcca, per)
 
-Permutation test for cca 
+Permutation test for cca under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.270342 (with 4, 12 Degrees of Freedom)
-Significance:	 0.14 
-
+         Df Inertia      F Pr(>F)
+Model     4 0.44962 1.2703   0.14
+Residual 12 1.06181              
 > permutest(mrda, per)
 
-Permutation test for rda 
+Permutation test for rda under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.322103 (with 4, 12 Degrees of Freedom)
-Significance:	 0.12 
-
+         Df Inertia      F Pr(>F)
+Model     4  16.791 1.3221   0.12
+Residual 12  38.102              
 > permutest(mrda1, per)
 
-Permutation test for rda 
+Permutation test for rda under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, scale = TRUE)
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.221715 (with 4, 12 Degrees of Freedom)
-Significance:	 0.14 
-
+         Df Inertia      F Pr(>F)
+Model     4  6.1407 1.2217   0.14
+Residual 12 15.0789              
 > permutest(mcap, per)
 
-Permutation test for capscale 
+Permutation test for capscale under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.592082 (with 4, 12 Degrees of Freedom)
-Significance:	 0.08 
-
+         Df Inertia      F Pr(>F)  
+Model     4  1.0726 1.5921   0.08 .
+Residual 12  2.0212                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mdb, per)
 
-Permutation test for dbrda 
+Permutation test for dbrda under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.728242 (with 4, 12 Degrees of Freedom)
-Significance:	 0.08 
-
+         Df Inertia      F Pr(>F)  
+Model     4  1.0346 1.7282   0.08 .
+Residual 12  1.7959                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mancap, per)
 
-Permutation test for capscale 
+Permutation test for capscale under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.413417 (with 4, 12 Degrees of Freedom)
-Significance:	 0.1 
-
+         Df Inertia      F Pr(>F)
+Model     4  213.08 1.4134    0.1
+Residual 12  452.26              
 > permutest(mandb, per)
 
-Permutation test for dbrda 
+Permutation test for dbrda under reduced model 
 
 Permutation: free
 Number of permutations: 49
  
-Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
-Pseudo-F:	 1.568546 (with 4, 12 Degrees of Freedom)
-Significance:	 0.08 
-
+         Df Inertia      F Pr(>F)  
+Model     4  202.58 1.5685   0.08 .
+Residual 12  387.45                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > drop1(mcca, test="permutation", permutations=per)
                       Df    AIC      F Pr(>F)  
@@ -2248,4 +2262,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.452   0.060   3.509 
+  3.672   0.052   3.721 
