@@ -119,15 +119,19 @@
   \code{text} and unlabelled with \code{points}. The arrows have
   basically unit scaling, but if sites were scaled (\code{scaling}
   \code{"sites"} or \code{"symmetric"}), the scores of requested axes
-  are adjusted relative to the axis with highest eigenvalue. The basic
-  \code{plot} function uses a simple heuristics for adjusting the
-  unit-length arrows to the current plot area, but the user can give
-  the expansion factor in \code{mul.arrow}.  With \code{display="cn"}
-  the centroids of levels of \code{\link{factor}} variables are
-  displayed (these are available only if there were factors and a
-  formula interface was used in \code{\link{cca}} or
-  \code{\link{rda}}). With this option continuous variables still are
-  presented as arrows and ordered factors as arrows and centroids.
+  are adjusted relative to the axis with highest eigenvalue.  With
+  \code{scaling = "species"} or \code{scaling = "none"}, the arrows will
+  be consistent with vectors fitted to linear combination scores
+  (\code{display = "lc"} in function \code{\link{envfit}}), but with
+  other scaling alternatives they will differ. The basic \code{plot}
+  function uses a simple heuristics for adjusting the unit-length arrows
+  to the current plot area, but the user can give the expansion factor
+  in \code{mul.arrow}.  With \code{display="cn"} the centroids of levels
+  of \code{\link{factor}} variables are displayed (these are available
+  only if there were factors and a formula interface was used in
+  \code{\link{cca}} or \code{\link{rda}}). With this option continuous
+  variables still are presented as arrows and ordered factors as arrows
+  and centroids.
 
   If you want to have still a better control of plots, it is better to
   produce them using primitive \code{plot} commands. Function
