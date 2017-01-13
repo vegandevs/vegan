@@ -1,32 +1,46 @@
 ### Random rarefied subsample: sample without replacement
 
 `rrarefy` <-
-    function(x, sample)
+    function(x, sample, iterations = 1)
 {
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function is meaningful only for integers (counts)")
     x <- as.matrix(x)
-    if (ncol(x) == 1)
+    if (ncol(x) == 1) 
         x <- t(x)
-    if (length(sample) > 1 && length(sample) != nrow(x))
-        stop(gettextf(
-             "length of 'sample' and number of rows of 'x' do not match"))
-    sample <- rep(sample, length=nrow(x))
+    if (length(sample) > 1 && length(sample) != nrow(x)) 
+        stop(gettextf("length of 'sample' and number of rows of 'x' do not match"))
+    sample <- rep(sample, length = nrow(x))
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
-    ## warn if something cannot be rarefied
-    if (any(rowSums(x) < sample))
+    if (any(rowSums(x) < sample)) 
         warning("Some row sums < 'sample' and are not rarefied")
     for (i in 1:nrow(x)) {
-        if (sum(x[i,]) <= sample[i]) ## nothing to rarefy: take all
+        if (sum(x[i, ]) <= sample[i]) 
             next
-        row <- sample(rep(nm, times=x[i,]), sample[i])
+        row <- sample(rep(nm, times = x[i, ]), sample[i])
         row <- table(row)
         ind <- names(row)
-        x[i,] <- 0
-        x[i,ind] <- row
+        y <- x
+        y[i, ] <- 0
+        y[i, ind] <- row
+        counter <- 1
+        if(iterations > 1) {
+            z <- x
+            itr <- iterations-1
+            for(k in c(1:itr)) {
+                row <- sample(rep(nm, times = x[i, ]), sample[i])
+                row <- table(row)
+                ind <- names(row)
+                z[i, ] <- 0
+                z[i, ind] <- row
+                z[i,] <- y[i,] + (1/(counter + 1)) * (z[i,] - y[i,])
+                y[i,] <- z[i,]
+                counter <- counter + 1
+            }
+        }
     }
-    x
+    y
 }
 
 ### Probabilities that species occur in a rarefied 'sample'
