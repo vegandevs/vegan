@@ -15,13 +15,13 @@
     nm <- colnames(x)
     if (any(rowSums(x) < sample)) 
         warning("Some row sums < 'sample' and are not rarefied")
+    y <- x
     for (i in 1:nrow(x)) {
         if (sum(x[i, ]) <= sample[i]) 
             next
         row <- sample(rep(nm, times = x[i, ]), sample[i])
         row <- table(row)
         ind <- names(row)
-        y <- x
         y[i, ] <- 0
         y[i, ind] <- row
         counter <- 1
