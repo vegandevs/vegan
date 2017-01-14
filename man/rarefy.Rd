@@ -11,7 +11,7 @@
 
 \usage{
 rarefy(x, sample, se = FALSE, MARGIN = 1)
-rrarefy(x, sample)
+rrarefy(x, sample, iterations = 1)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
           label = TRUE, col, lty, ...)
