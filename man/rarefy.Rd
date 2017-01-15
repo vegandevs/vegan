@@ -11,7 +11,7 @@
 
 \usage{
 rarefy(x, sample, se = FALSE, MARGIN = 1)
-rrarefy(x, sample, iterations = 1)
+rrarefy(x, sample, average = FALSE)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
           label = TRUE, col, lty, ...)
@@ -24,7 +24,7 @@ rareslope(x, sample)
   \item{sample}{Subsample size for rarefying community, either a single
     value or a vector.}
   \item{se}{Estimate standard errors.}
-  \item{iterations}{Number of iterations for averaging subsampling.}
+  \item{average}{Calculate the equalized averages whe subsampling (logical).}
   \item{step}{Step size for sample sizes in rarefaction curves.}
   \item{xlab, ylab}{Axis labels in plots of rarefaction curves.}
   \item{label}{Label rarefaction curves by rownames of \code{x}
