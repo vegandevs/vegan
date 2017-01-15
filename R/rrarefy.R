@@ -22,6 +22,7 @@
             next
         if (average) {
             x <- x / rowSums(x) * sample
+            x <- ifelse(x >= (sample)^-1, x, 0)
         } else {
             row <- sample(rep(nm, times=x[i,]), sample[i])
             row <- table(row)
