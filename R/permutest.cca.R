@@ -54,7 +54,15 @@ permutest.default <- function(x, ...)
         out
     }
     ## end getF
-
+    ## QR decomposition
+        Q <- x$CCA$QR
+    if (isPartial) {
+        Y.Z <- x$pCCA$Fit
+        QZ <- x$pCCA$QR
+    } else {
+        QZ <- NULL
+    }
+    ## statistics: overall tests
     if (first) {
         Chi.z <- x$CCA$eig[1]
         q <- 1
@@ -70,12 +78,12 @@ permutest.default <- function(x, ...)
             effects <- seq_len(q)
             termlabs <-
                 if (isPartial)
-                    colnames(x$CCA$QR$qr)[effects + x$pCCA$rank]
+                    colnames(Q$qr)[effects + x$pCCA$rank]
                 else
-                    colnames(x$CCA$QR$qr)[effects]
+                    colnames(Q$qr)[effects]
         } else {                   # by = "terms"
             ass <- x$terminfo$assign
-            pivot <- x$CCA$QR$pivot
+            pivot <- Q$pivot
             if (isPartial)
                 pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
             ass <- ass[pivot[seq_len(x$CCA$qrank)]]
@@ -90,7 +98,7 @@ permutest.default <- function(x, ...)
             effects <- effects + x$pCCA$rank
         F.0 <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, x$CCA$Xbar, k = effects[k])
             F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
     }
@@ -101,7 +109,7 @@ permutest.default <- function(x, ...)
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
-    r <- nobs(x) - x$CCA$QR$rank - 1
+    r <- nobs(x) - Q$rank - 1
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
@@ -110,19 +118,13 @@ permutest.default <- function(x, ...)
     else {
         Chi.z <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, x$CCA$Xbar, k = effects[k])
             Chi.z[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
         Chi.z <- diff(c(0, F.0))
         F.0 <- Chi.z/q * r/Chi.xz
     }
-    Q <- x$CCA$QR
-    if (isPartial) {
-        Y.Z <- x$pCCA$Fit
-        QZ <- x$pCCA$QR
-    } else {
-        QZ <- NULL
-    }
+
     if (model == "reduced" || model == "direct")
         E <- x$CCA$Xbar
     else E <-
