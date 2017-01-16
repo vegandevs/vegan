@@ -275,7 +275,7 @@
     function(x, ...)
 {
     structure(list(
-        "statistic" = structure(x$F.0, names = "F"),
+        "statistic" = structure(x$F.0, names = x$termlabels),
         "permutations" = x$F.perm,
         "alternative" = "greater"),
               class = "permustats")
