@@ -48,8 +48,8 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item Biplot scores are scaled similarly as other ordination
-      scores in constrained ordination methods \code{cca}, \code{rda},
+      \item Biplot scores are scaled similarly as site scores in
+      constrained ordination methods \code{cca}, \code{rda},
       \code{capscale} and \code{dbrda}. Earlier they were unscaled (or
       more technically, had equal scaling on all axes).
 
