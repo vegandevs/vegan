@@ -147,17 +147,16 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   squares. See \code{\link{permutations}} for additional details on
   permutation tests in Vegan.
 
-  User can supply a vector of prior  weights \code{w}. If the ordination
+  User can supply a vector of prior weights \code{w}. If the ordination
   object has weights, these will be used. In practise this means that
-  the row totals are used as weights with
-  \code{\link{cca}} or \code{\link{decorana}} results. If you do not
-  like this, but want to give 
-  equal weights to all sites, you should set \code{w = NULL}.
-  The weighted fitting gives similar results to biplot
-  arrows and class centroids in \code{\link{cca}}.
-  For complete
-  similarity between fitted vectors and biplot arrows, you should set
-  \code{display = "lc"}.
+  the row totals are used as weights with \code{\link{cca}} or
+  \code{\link{decorana}} results. If you do not like this, but want to
+  give equal weights to all sites, you should set \code{w = NULL}.  The
+  fitted vectors are similar to biplot arrows in constrained ordination
+  only when fitted to LC scores (\code{display = "lc"}) and you set
+  \code{scaling = "species"} (see \code{\link{scores.cca}}).  The
+  weighted fitting gives similar results to biplot arrows and class
+  centroids in \code{\link{cca}}.
 
   The lengths of arrows for fitted vectors are automatically adjusted
   for the physical size of the plot, and the arrow lengths cannot be
