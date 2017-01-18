@@ -97,11 +97,11 @@ automatically install sets of most important packages.
 ### What other documentation is available for **vegan**?
 
 **Vegan** is a fully documented R package with standard help pages.
-These are the most authoritative sources of documentation (and as a last
-resource you can use the force and the read the source, as **vegan** is
-open source). **Vegan** package ships with other documents which can be
-read with `vegandocs` command (documented in the **vegan** help). The
-documents included in the **vegan** package are
+These are the most authoritative sources of documentation (and as a
+last resource you can use the force and the read the source, as
+**vegan** is open source). **Vegan** package ships with other
+documents which can be read with `browseVignettes("vegan")`
+command. The documents included in the **vegan** package are
 
 -   **Vegan** `NEWS`
 -   This document (`FAQ-vegan`).
@@ -347,7 +347,7 @@ The scaling or RDA results indeed differ from most other software
 packages. The scaling of RDA is such a complicated issue that it cannot
 be explained in this FAQ, but it is explained in a separate pdf document
 on “Design decision and implementation details in vegan” that you can
-read with **vegan** command `vegandocs("decision")`.
+read with command `browseVignettes("vegan")`.
 
 ------------------------------------------------------------------------
 
