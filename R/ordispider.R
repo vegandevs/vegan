@@ -8,8 +8,11 @@
     if (inherits(ord, "cca") && missing(groups)) {
         lc <- scores(ord, display = "lc", ...)
         wa <- scores(ord, display = "wa", ...)
+        if (is.null(col))
+            col <- par("fg")
         ordiArgAbsorber(lc[, 1], lc[, 2], wa[, 1], wa[, 2],
-                        FUN = segments, ...)
+                        FUN = segments, col = col, lty = lty, lwd = lwd,
+                        ...)
         class(lc) <- "ordispider"
         return(invisible(lc))
     }
@@ -36,9 +39,9 @@
         warning("weights are ignored with 'median' spiders")
     out <- seq(along = groups)
     inds <- names(table(groups))
-    if (label) 
+    if (label)
     cntrs <- names <- NULL
-    
+
     ## fill in graphical vectors with default values if unspecified
     ## and recycles shorter vectors
     for(arg in c("col","lty","lwd")) {
@@ -75,7 +78,7 @@
             }
         }
     }
-    if (label) 
+    if (label)
         ordiArgAbsorber(cntrs, label = names, FUN = ordilabel, ...)
     spids <- t(spids)
     class(spids) <- "ordispider"
