@@ -1,10 +1,10 @@
 `as.mlm.cca` <-
-    function (x) 
+    function (x)
 {
     w <- x$rowsum
-    wa <- x$CCA$wa
-    wa <- sweep(wa, 1, sqrt(w), "*")
+    WA <- x$CCA$wa
+    WA <- sweep(WA, 1, sqrt(w), "*")
     X <- qr.X(x$CCA$QR)
-    lm(wa ~ . - 1, data = as.data.frame(X))
+    lm(wa ~ ., data = as.data.frame(X))
 }
 
