@@ -1,5 +1,5 @@
 `spenvcor` <-
-    function (object) 
+    function (object)
 {
     if (is.null(object$CCA))
         stop("Needs results from constrained ordination")
@@ -9,7 +9,10 @@
         r <- sqrt(object$rowsum)
         u <- sweep(u, 1, r, "*")
         wa <- sweep(wa, 1, r, "*")
+        diag(cor(u, wa)) ## does new centring
+    } else { # not CCA, no weights
+    ## because sum(u*u) = 1, we can simplify diag(cor(u, wa))
+        colSums(u * wa)/sqrt(colSums(wa^2))
     }
-    diag(cor(u, wa))
 }
 
