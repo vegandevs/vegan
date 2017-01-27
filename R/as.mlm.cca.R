@@ -5,6 +5,6 @@
     WA <- x$CCA$wa
     WA <- sweep(WA, 1, sqrt(w), "*")
     X <- qr.X(x$CCA$QR)
-    lm(wa ~ ., data = as.data.frame(X))
+    lm(WA ~ ., data = as.data.frame(X))
 }
 
