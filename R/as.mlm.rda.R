@@ -1,8 +1,8 @@
 `as.mlm.rda` <-
     function (x)
 {
-    X <- qr.X(x$CCA$QR)
+    X <- as.data.frame(qr.X(x$CCA$QR))
     WA <- x$CCA$wa
-    lm(WA ~ . , data = as.data.frame(X))
+    lm(WA ~ . , data = X)
 }
 

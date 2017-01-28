@@ -6,6 +6,7 @@
     X <- qr.X(x$CCA$QR)
     ## shall use weighted regression: deweight X
     X <- (1/sqrt(w)) * X
-    lm(WA ~ ., data = as.data.frame(X), weights = w)
+    X <- as.data.frame(X)
+    lm(WA ~ ., data = X, weights = w)
 }
 
