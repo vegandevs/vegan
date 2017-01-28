@@ -9,10 +9,9 @@
         r <- sqrt(object$rowsum)
         u <- r * u
         wa <- r * wa
-        diag(cor(u, wa)) ## does new centring
-    } else { # not CCA, no weights
-    ## because sum(u*u) = 1, we can simplify diag(cor(u, wa))
-        colSums(u * wa)/sqrt(colSums(wa^2))
     }
+    ## because colSums(u*u) = 1, we can simplify diag(cor(u, wa)) --
+    ## and we must for weighted CA
+    colSums(u * wa)/sqrt(colSums(wa^2))
 }
 
