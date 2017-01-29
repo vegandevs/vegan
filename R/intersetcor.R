@@ -7,6 +7,9 @@
         stop("can be used only with constrained ordination")
     lc <- object$CCA$u
     X <- qr.X(object$CCA$QR)
+    ## remove conditions (partial terms)
+    if (!is.null(object$pCCA))
+        X <- X[, -seq_along(object$pCCA$envcentre), drop = FALSE]
     if (inherits(object, "rda"))
         cor(X, lc)
     else { # cca: weighted analysis, terms already weighted-centred
