@@ -85,7 +85,7 @@
             ## cor() re-centres Y.r & u: use crossprod() of cor equation
             xx <- Y.r[, oo, drop = FALSE]
             CCA$biplot <- (1/sqrt(colSums(xx^2))) *
-                crossprod(xx, u[, seq_along(rank), drop = FALSE])
+                crossprod(xx, sol$u[, seq_len(rank), drop = FALSE])
             CCA$rank <- rank
             CCA$qrank <- qrank
             CCA$tot.chi <- sum(CCA$eig)
