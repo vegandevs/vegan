@@ -24,7 +24,7 @@
     if (is.null(scope) || !length(add.scope(object, scope)))
         stop("needs upper 'scope': no terms can be added")
     ## Get R2 of the scope
-    if (inherits(scope, "rda")) 
+    if (inherits(scope, "rda"))
         scope <- delete.response(formula(scope))
     if (!inherits(scope, "formula"))
         scope <- reformulate(scope)
@@ -34,7 +34,7 @@
     else
         R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
-    if (is.na(R2.all$adj.r.squared) && R2scope) 
+    if (is.na(R2.all$adj.r.squared) && R2scope)
         stop("the upper scope cannot be fitted (too many terms?)")
     R2.all <- R2.all$adj.r.squared
     ## Collect data to anotab returned as the 'anova' object
@@ -59,7 +59,7 @@
             adds <- paste("+", adds)
         if (length(drops))
             drops <- paste("-", drops)
-        names(R2.adds) <- c(adds, drops) 
+        names(R2.adds) <- c(adds, drops)
         ## Loop over add scope
         for (trm in seq_along(R2.adds)) {
             fla <- paste(". ~ .", names(R2.adds[trm]))
@@ -83,17 +83,24 @@
         ## equal than for the full model of the scope
         if (R2.adds[best] > R2.previous &&
             if (R2scope) R2.adds[best] <= R2.all else TRUE) {
-            ## Second criterion: added variable is significant
-            tst <- add1(object, scope = adds[best], test="permu",
-                        permutations = permutations,
-                        alpha = Pin, trace = FALSE, ...)
-            if (trace) {
-                print(tst[-1,])
-                cat("\n")
+            directionmark <- substr(names(R2.adds[best]), 1, 1)
+            ## drop: always when first criterion OK (and it is when we
+            ## are here)
+            if (directionmark == "-") {
+                fla <- paste("~ . ", names(R2.adds[best]))
+            } else { ## consider add
+                ## Second criterion: added variable is significant
+                tst <- add1(object, scope = adds[best], test="permu",
+                            permutations = permutations,
+                            alpha = Pin, trace = FALSE, ...)
+                if (trace) {
+                    print(tst[-1,])
+                    cat("\n")
+                }
+                if (tst[,"Pr(>F)"][2] > Pin)
+                    break
+                fla <- paste("~  .", adds[best])
             }
-            if (tst[,"Pr(>F)"][2] > Pin)
-                break
-            fla <- paste("~  .", adds[best])
             object <- update(object, fla)
             R2.previous <- RsquareAdj(object,
                                       permutations = R2permutations, ...)$adj.r.squared
