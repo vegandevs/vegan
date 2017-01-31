@@ -21,7 +21,7 @@
     ## only accepts upper scope
     if (is.list(scope) && length(scope) <= 2L)
         scope <- scope$upper
-    if (is.null(scope) || !length(add.scope(object, scope)))
+    if (is.null(scope))
         stop("needs upper 'scope': no terms can be added")
     ## Get R2 of the scope
     if (inherits(scope, "rda"))
@@ -81,14 +81,21 @@
         ## See if the best should be kept
         ## First criterion: R2.adj improves and is still lower or
         ## equal than for the full model of the scope
-        if (R2.adds[best] > R2.previous &&
-            if (R2scope) R2.adds[best] <= R2.all else TRUE) {
-            directionmark <- substr(names(R2.adds[best]), 1, 1)
-            ## drop: always when first criterion OK (and it is when we
-            ## are here)
-            if (directionmark == "-") {
-                fla <- paste("~ . ", names(R2.adds[best]))
-            } else { ## consider add
+        trm <- names(R2.adds[best])
+        directionmark <- substr(trm, 1, 1)
+        ## case: drop if model improved or above R2scope
+        if (directionmark == "-") {
+            if (R2.adds[best] > R2.previous ||
+                R2scope && R2.adds[best] >= R2.all) {
+                fla <- paste("~ . ", trm)
+                object <- update(object, fla)
+            } else {
+                break
+            }
+        } else {
+            ## case: add if better and below R2scope
+            if (R2.adds[best] > R2.previous &&
+                (!R2scope || R2scope && R2.adds[best] <= R2.all)) {
                 ## Second criterion: added variable is significant
                 tst <- add1(object, scope = adds[best], test="permu",
                             permutations = permutations,
@@ -97,23 +104,26 @@
                     print(tst[-1,])
                     cat("\n")
                 }
-                if (tst[,"Pr(>F)"][2] > Pin)
+                if (tst[,"Pr(>F)"][2] <= Pin) {
+                    fla <- paste("~  .", trm)
+                    object <-  update(object, fla)
+                } else {
                     break
-                fla <- paste("~  .", adds[best])
+                }
+            } else {
+                break
             }
-            object <- update(object, fla)
-            R2.previous <- RsquareAdj(object,
-                                      permutations = R2permutations, ...)$adj.r.squared
-            if (NROW(anotab))
-                anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
-        } else {
-            break
         }
-    }
-    if (NROW(anotab) > 0) {
-        anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 4)))
-        class(anotab) <- c("anova", class(anotab))
-        object$anova <- anotab
+        R2.previous <- RsquareAdj(object,
+                                  permutations = R2permutations,
+                                  ...)$adj.r.squared
+        if (NROW(anotab)) {
+            anotab <- rbind(anotab,
+                            cbind("R2.adj" = R2.previous, tst[2,]))
+            anotab <- rbind(anotab, "<All variables>" = c(R2.all, rep(NA, 4)))
+            class(anotab) <- c("anova", class(anotab))
+            object$anova <- anotab
+        }
     }
     object
 }
