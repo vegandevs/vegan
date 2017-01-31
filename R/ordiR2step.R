@@ -104,7 +104,8 @@
             object <- update(object, fla)
             R2.previous <- RsquareAdj(object,
                                       permutations = R2permutations, ...)$adj.r.squared
-            anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
+            if (NROW(anotab))
+                anotab <- rbind(anotab, cbind("R2.adj" = R2.previous, tst[2,]))
         } else {
             break
         }
