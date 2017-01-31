@@ -82,8 +82,10 @@
             oo <- oo[1:qrank]
             if (length(oo) < ncol(Y.r))
                 CCA$alias <- colnames(Y.r)[-oo]
-            CCA$biplot <- cor(Y.r[, oo, drop = FALSE], sol$u[,
-                                        1:rank, drop = FALSE])
+            ## cor() re-centres Y.r & u: use crossprod() of cor equation
+            xx <- Y.r[, oo, drop = FALSE]
+            CCA$biplot <- (1/sqrt(colSums(xx^2))) *
+                crossprod(xx, sol$u[, seq_len(rank), drop = FALSE])
             CCA$rank <- rank
             CCA$qrank <- qrank
             CCA$tot.chi <- sum(CCA$eig)
