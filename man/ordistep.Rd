@@ -103,7 +103,7 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
   exceeded, or the selected permutation \eqn{P}-value is exceeded
   (Blanchet et al. 2008). The second criterion is ignored with option
-  \code{R2step = FALSE}, and the third criterion can be ignored
+  \code{R2scope = FALSE}, and the third criterion can be ignored
   setting \code{Pin = 1} (or higher).  The \code{direction} has
   choices \code{"forward"} and \code{"both"}, but it is very
   exceptional that a term is dropped with the adjusted \eqn{R^2}{R2}
