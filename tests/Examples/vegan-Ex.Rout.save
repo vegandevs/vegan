@@ -5309,7 +5309,6 @@ Call: mite.hel ~ WatrCont
 + Substrate       0.3091579
 + SubsDens        0.3066715
 <none>            0.2608453
-- WatrCont        0.0000000
 
         Df     AIC     F Pr(>F)   
 + Shrub  2 -88.034 3.836  0.002 **
@@ -5325,8 +5324,6 @@ Call: mite.hel ~ WatrCont + Shrub
 + Topo            0.3525851
 + SubsDens        0.3446967
 <none>            0.3177536
-- Shrub           0.2608453
-- WatrCont        0.2071619
 
             Df     AIC      F Pr(>F)   
 + Substrate  6 -87.768 1.8251  0.002 **
@@ -5341,9 +5338,6 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate
 + Topo            0.4004249
 + SubsDens        0.3901844
 <none>            0.3653551
-- Substrate       0.3177536
-- Shrub           0.3091579
-- WatrCont        0.2616484
 
        Df     AIC      F Pr(>F)   
 + Topo  1 -90.924 4.5095  0.004 **
@@ -5357,10 +5351,6 @@ Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo
 + SubsDens        0.4367038
 <All variables>   0.4367038
 <none>            0.4004249
-- Topo            0.3653551
-- Shrub           0.3591790
-- Substrate       0.3525851
-- WatrCont        0.3145444
 
 > step.res$anova  # Summary table
                  R2.adj Df     AIC       F Pr(>F)   
@@ -8929,7 +8919,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.62 0.116 25.735 0 0 
+Time elapsed:  25.764 0.144 26.002 0 0 
 > grDevices::dev.off()
 null device 
           1 
