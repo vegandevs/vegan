@@ -34,7 +34,7 @@ tolerance.cca <- function(x, choices = 1:2,
         which <- "species"
     }
     ## reconstruct species/response matrix Y - up to machine precision!
-    partialFit <- ifelse(is.null(x$pCCA$Fit), 0, x$pCCA$Fit)
+    partialFit <- if(is.null(x$pCCA$Fit)) 0 else x$pCCA$Fit
     if (is.null(x$CCA)) {
         Xbar <- x$CA$Xbar
     } else {
