@@ -20,8 +20,7 @@
 }
 \usage{
 \method{goodness}{cca}(object, display = c("species", "sites"), choices,
-    model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, addprevious = FALSE, ...)
+    model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), unity = FALSE,
     proportional = FALSE)
@@ -69,10 +68,8 @@ vif.cca(object)
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
-  Function \code{goodness} gives the diagnostic statistics for species
-  or sites. The alternative statistics are the cumulative proportion of
-  inertia accounted for up to the axes, and the residual distance left
-  unaccounted for.
+  Function \code{goodness} gives cumulative proportion of inertia
+  accounted for up to the given axes for species or sites.
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or

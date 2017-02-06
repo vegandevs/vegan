@@ -1,12 +1,10 @@
 `goodness.cca` <-
     function (object, display = c("species", "sites"), choices,
               model = c("CCA", "CA"),
-              statistic = c("explained", "distance"),
               summarize = FALSE, addprevious = FALSE, ...)
 {
     display <- match.arg(display)
     model <- match.arg(model)
-    statistic <- match.arg(statistic)
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
@@ -46,27 +44,16 @@
         CA <- t(CA)
     totals <- inertcomp(object, display = display)
     comps <- colnames(totals)
-    if (statistic == "explained") {
-        tot <- rowSums(totals)
-        if (addprevious) {
-            if ("pCCA" %in% comps)
-                CA <- sweep(CA, 1, totals[,"pCCA"], "+")
-            if (model == "CA" && "CCA" %in% comps)
-                CA <- sweep(CA, 1, totals[, "CCA"], "+")
-        }
-        CA <- sweep(CA, 1, tot, "/")
-    } else {
-        if ("CA" %in% comps)
-            tot <- totals[,"CA"]
-        else
-            tot <- 0
-        if (model == "CCA" && "CCA" %in% comps)
-            tot <- totals[,"CCA"] + tot
-        CA <- sweep(-CA, 1, tot, "+")
-        CA[CA < 0] <- 0
-        CA <- sqrt(CA)
-        CA <- sweep(CA, 1, sqrt(w), "/")
+    ## statistic: explained variation
+    tot <- rowSums(totals)
+    if (addprevious) {
+        if ("pCCA" %in% comps)
+            CA <- sweep(CA, 1, totals[,"pCCA"], "+")
+        if (model == "CA" && "CCA" %in% comps)
+            CA <- sweep(CA, 1, totals[, "CCA"], "+")
     }
+    CA <- sweep(CA, 1, tot, "/")
+    ## out
     attributes(CA) <- att
     if (summarize)
         CA <- CA[,ncol(CA)]
