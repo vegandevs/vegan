@@ -63,7 +63,7 @@ tolerance.cca <- function(x, choices = 1:2,
             XiUk <- apply(scrs[["species"]], 1L, `-`, scrs[[siteScrs]][i,])
             YXiUk <- sweep(XiUk^2, 2L, Y[i,], "*")
             if(any(neg <- YXiUk < 0))
-                YXiUK[neg] <- 0
+                YXiUk[neg] <- 0
             res[i, ] <- sqrt(rowSums(YXiUk) / Ytot[i])
         }
         rownames(res) <- rownames(scrs[[siteScrs]])
