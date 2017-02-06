@@ -48,11 +48,11 @@
     tot <- rowSums(totals)
     if (addprevious) {
         if ("pCCA" %in% comps)
-            CA <- sweep(CA, 1, totals[,"pCCA"], "+")
+            CA <- CA + totals[,"pCCA"]
         if (model == "CA" && "CCA" %in% comps)
-            CA <- sweep(CA, 1, totals[, "CCA"], "+")
+            CA <- CA + totals[, "CCA"]
     }
-    CA <- sweep(CA, 1, tot, "/")
+    CA <- CA/tot
     ## out
     attributes(CA) <- att
     if (summarize)
