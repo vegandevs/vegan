@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-01-30 r72060) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-02-06 r72123) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -996,49 +996,38 @@ Species Tolerance
 
 Scaling: 2
 
-              CCA1      CCA2
-Achimill 0.6164695 0.9021545
-Agrostol 1.1460625 1.2322356
-Airaprae       NaN       NaN
-Alopgeni 0.8490779 1.1080299
-Anthodor       NaN 0.6934171
-Bellpere       NaN       NaN
-Bromhord 0.8603496 1.0339841
-Chenalbu 4.0339092 3.6268599
-Cirsarve       NaN       NaN
-Comapalu       NaN       NaN
-Eleopalu       NaN 1.9983226
-Elymrepe       NaN 0.1365308
-Empenigr       NaN       NaN
-Hyporadi       NaN       NaN
-Juncarti 2.2708807 2.2510164
-Juncbufo       NaN       NaN
-Lolipere 0.8593699 0.7290487
-Planlanc 0.5016815 0.8711620
-Poaprat  0.8435661 0.8185454
-Poatriv  1.0631836 1.0204918
-Ranuflam 1.1992674 2.2754677
-Rumeacet 0.8319435 1.3428958
-Sagiproc       NaN 1.2700568
-Salirepe       NaN       NaN
-Scorautu 0.8264700 0.9718458
-Trifprat       NaN       NaN
-Trifrepe 0.9846229 1.0924363
-Vicilath       NaN       NaN
-Bracruta 1.0247652 1.0857372
-Callcusp       NaN       NaN
+              CCA1       CCA2
+Achimill 0.6100721 0.50357757
+Agrostol 1.3569391 1.44964565
+Airaprae 0.1051587 0.07825593
+Alopgeni 0.9836820 1.39874107
+Anthodor 0.6496618 0.56821906
+Bellpere 0.5090218 0.82477118
+Bromhord 0.5137557 0.71551162
+Chenalbu 1.8536436 1.23779298
+Cirsarve 0.0000000 0.00000000
+Comapalu 0.7711636 0.57387680
+Eleopalu 1.3896704 1.52709395
+Elymrepe 0.6373285 0.92784384
+Empenigr 1.3585472 1.38540014
+Hyporadi 0.7538385 0.36112794
+Juncarti 1.4907966 1.27973184
+Juncbufo 0.8316038 0.65059020
+Lolipere 0.7089658 0.73539504
+Planlanc 0.5156269 0.43602324
+Poaprat  0.7730543 0.83333248
+Poatriv  0.9121139 1.06049325
+Ranuflam 1.5514282 1.37479741
+Rumeacet 0.4660987 0.82199222
+Sagiproc 0.9131350 1.31268575
+Salirepe 0.2864257 0.21314943
+Scorautu 0.9767288 0.90657838
+Trifprat 0.5676829 0.41926731
+Trifrepe 0.9560902 0.94139149
+Vicilath 0.5238493 0.18752410
+Bracruta 1.1440419 1.09101852
+Callcusp 1.5762695 1.44628190
 
-Warning messages:
-1: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-2: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-3: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-4: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-5: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-6: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-7: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-8: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-9: In sqrt(rowSums(YXiUk)/Ytot[i]) : NaNs produced
-10: In sqrt(1 - (1/N2)) : NaNs produced
 > 
 > vif.cca(mcca)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
@@ -2246,4 +2235,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.452   0.056   3.503 
+  3.500   0.060   3.555 
