@@ -22,8 +22,7 @@
 \method{goodness}{cca}(object, choices,
     model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
-    statistic = c("explained", "distance"), unity = FALSE,
-    proportional = FALSE)
+    unity = FALSE, proportional = FALSE)
 spenvcor(object)
 intersetcor(object)
 vif.cca(object)
@@ -42,10 +41,6 @@ vif.cca(object)
 
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. }
-
-  \item{statistic}{Statistic used: \code{"explained"} gives the cumulative
-    percentage accounted for, \code{"distance"} shows the residual
-    distances. }
 
   \item{summarize}{Show only the accumulated total.}
 
@@ -155,7 +150,7 @@ goodness(mod, addprevious = TRUE)
 goodness(mod, addprevious = TRUE, summ = TRUE)
 # Inertia components
 inertcomp(mod, prop = TRUE)
-inertcomp(mod, stat="d")
+inertcomp(mod)
 # vif.cca 
 vif.cca(mod)
 # Aliased constraints
