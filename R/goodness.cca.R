@@ -1,20 +1,19 @@
 `goodness.cca` <-
-    function (object, choices,
+    function (object, choices, display = c("species", "sites"),
               model = c("CCA", "CA"),
               summarize = FALSE, addprevious = FALSE, ...)
 {
-    display <- "species"  ## match.arg(display)
+    display <- match.arg(display)
     model <- match.arg(model)
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
         stop(gettextf("cannot analyse species with '%s'", object$method))
-    what <- if(display == "species") "v" else "u"
-    w <- weights(object, display = display)
-    pCCA <- object$pCCA$Fit
-    CA <- object[[model]][[what]]
-    if (is.null(CA))
-        stop(gettextf("model = '%s' does not exist", model))
+    v <- sqrt(weights(object, display="species")) * object[[model]]$v
+    if (is.null(v))
+        stop(gettextf("model = '%s' deos not exist", model))
+    if (display == "sites")
+        u <- sqrt(weights(object, display="sites")) * object[[model]]$u
     eig <- object[[model]]$eig
     if (!inherits(object, "dbrda"))
         eig <- eig[eig > 0]
@@ -24,38 +23,32 @@
     ## take only chosen axes within the component
     if (!missing(choices)) {
         choices <- choices[choices <= ncol(CA)]
-        CA <- CA[, choices, drop = FALSE]
+        v <- v[, choices, drop = FALSE]
+        if (display == "sites")
+            u <- u[, choices, drop = FALSE]
         eig <- eig[choices]
     }
-    att <- attributes(CA)
-    if (!is.null(pCCA)) {
-        if (display == "sites")
-            pCCA <- t(pCCA)
-        if (inherits(object, "dbrda"))
-            pCCA <- diag(pCCA)
-        else
-            pCCA <- diag(crossprod(pCCA))
-    }
-    CA <- t(apply(
-        diag(w, length(w)) %*% CA^2 %*% diag(eig, length(eig)),
-        1, cumsum))
-    ## rank=1 solutions comes out transposed: back transpose
-    if (length(eig) == 1)
-        CA <- t(CA)
-    totals <- inertcomp(object, display = display)
-    comps <- colnames(totals)
-    ## statistic: explained variation
-    tot <- rowSums(totals)
     if (addprevious) {
-        if ("pCCA" %in% comps)
-            CA <- CA + totals[,"pCCA"]
-        if (model == "CA" && "CCA" %in% comps)
-            CA <- CA + totals[, "CCA"]
+        if (!is.null(object$pCCA))
+            prev <- prev$pCCA$Fit
+        else
+            prev <- 0
+        if (model == "CA" && !is.null(object$CCA))
+            prev <- prev + qr.fitted(object$CCA$QR, object$CCA$Xbar)
     }
-    CA <- CA/tot
-    ## out
-    attributes(CA) <- att
-    if (summarize)
-        CA <- CA[,ncol(CA)]
-    CA
+    if (display == "species") {
+        out <- t(apply(v^2 %*% diag(eig), 1, cumsum))
+        if (addprevious)
+            out <- out + colSums(prev^2)
+    } else {
+        out <- matrix(0, nrow(u), ncol(u))
+        for (i in seq_len(ncol(u))) {
+            mat <- tcrossprod(u[,i], v[,i])
+            out[,i] <- rowSums(mat^2) * eig[i]
+        }
+        out <- t(apply(out, 1, cumsum))
+        if (addprevious)
+            out <- out + prev
+    }
+    out
 }
