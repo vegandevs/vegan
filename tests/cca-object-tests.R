@@ -38,13 +38,15 @@ head(summary(mandb))
 
 ## diagnostics
 
-head(goodness(mcca, display = "sites"))
-head(goodness(mrda, display = "sites"))
-head(goodness(mrda1, display = "sites"))
-head(goodness(mcap, display = "sites"))
-head(goodness(mdb, display="sites"))
-head(goodness(mancap, display="sites"))
-head(goodness(mandb, display="sites"))
+## goodness(..., display = "sites") is disabled
+
+##head(goodness(mcca, display = "sites"))
+##head(goodness(mrda, display = "sites"))
+##head(goodness(mrda1, display = "sites"))
+##head(goodness(mcap, display = "sites"))
+##head(goodness(mdb, display="sites"))
+##head(goodness(mancap, display="sites"))
+##head(goodness(mandb, display="sites"))
 
 
 head(inertcomp(mcca))

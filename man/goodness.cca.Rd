@@ -19,7 +19,7 @@
   
 }
 \usage{
-\method{goodness}{cca}(object, display = c("species", "sites"), choices,
+\method{goodness}{cca}(object, choices,
     model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
     statistic = c("explained", "distance"), unity = FALSE,
@@ -69,7 +69,7 @@ vif.cca(object)
 }
 \details{
   Function \code{goodness} gives cumulative proportion of inertia
-  accounted for up to the given axes for species or sites.
+  accounted by species up to chosen axes.
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or

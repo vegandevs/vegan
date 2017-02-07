@@ -1,9 +1,9 @@
 `goodness.cca` <-
-    function (object, display = c("species", "sites"), choices,
+    function (object, choices,
               model = c("CCA", "CA"),
               summarize = FALSE, addprevious = FALSE, ...)
 {
-    display <- match.arg(display)
+    display <- "species"  ## match.arg(display)
     model <- match.arg(model)
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
