@@ -50,13 +50,14 @@
         dimnames(out) <- dimnames(v)
     } else {
         out <- matrix(0, nrow(u), ncol(u))
-        mat <- 0
+        if (addprevious)
+            mat <- prev
+        else
+            mat <- 0
         for (i in seq_len(ncol(u))) {
             mat <- tcrossprod(u[,i], v[,i]) * sqrt(eig[i]) + mat
             out[,i] <- rowSums(mat^2)
         }
-        if (addprevious)
-            out <- out + prev
         dimnames(out) <- dimnames(u)
     }
     out/tot
