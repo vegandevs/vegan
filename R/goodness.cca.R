@@ -52,7 +52,7 @@
         out <- matrix(0, nrow(u), ncol(u))
         mat <- 0
         for (i in seq_len(ncol(u))) {
-            mat <- tcrossprod(u[,i], v[,i]) * eig[1] + mat
+            mat <- tcrossprod(u[,i], v[,i]) * sqrt(eig[i]) + mat
             out[,i] <- rowSums(mat^2)
         }
         if (addprevious)
