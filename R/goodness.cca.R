@@ -30,7 +30,7 @@
     }
     if (addprevious) {
         if (!is.null(object$pCCA))
-            prev <- prev$pCCA$Fit
+            prev <- object$pCCA$Fit
         else
             prev <- 0
         if (model == "CA" && !is.null(object$CCA))
@@ -42,11 +42,11 @@
             out <- out + colSums(prev^2)
     } else {
         out <- matrix(0, nrow(u), ncol(u))
+        mat <- 0
         for (i in seq_len(ncol(u))) {
-            mat <- tcrossprod(u[,i], v[,i])
-            out[,i] <- rowSums(mat^2) * eig[i]
+            mat <- tcrossprod(u[,i], v[,i]) * eig[1] + mat
+            out[,i] <- rowSums(mat^2)
         }
-        out <- t(apply(out, 1, cumsum))
         if (addprevious)
             out <- out + prev
     }
