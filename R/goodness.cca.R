@@ -47,6 +47,7 @@
         out <- t(apply(v^2 %*% diag(eig), 1, cumsum))
         if (addprevious)
             out <- out + colSums(prev^2)
+        dimnames(out) <- dimnames(v)
     } else {
         out <- matrix(0, nrow(u), ncol(u))
         mat <- 0
@@ -56,6 +57,7 @@
         }
         if (addprevious)
             out <- out + prev
+        dimnames(out) <- dimnames(u)
     }
     out/tot
 }
