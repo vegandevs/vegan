@@ -20,6 +20,13 @@
     ## imaginary dimensions for dbrda
     if (inherits(object, "dbrda"))
         CA <- cbind(CA, object[[model]][["imaginary.u"]])
+    ## get the total variation
+    All <- if (is.null(object$CCA)) object$CA$Xbar else object$CCA$Xbar
+    if (!is.null(object$pCCA))
+        All <- All + object$pCCA$Fit
+    tot <- switch(display,
+                  "species" = colSums(All^2),
+                  "sites" = rowSums(All^2))
     ## take only chosen axes within the component
     if (!missing(choices)) {
         choices <- choices[choices <= ncol(CA)]
@@ -50,5 +57,5 @@
         if (addprevious)
             out <- out + prev
     }
-    out
+    out/tot
 }
