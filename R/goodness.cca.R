@@ -63,6 +63,8 @@
         }
         dimnames(out) <- dimnames(u)
     } else { # dbrda
+        if (!is.null(object$pCCA))
+            stop("cannot be used with partial dbrda")
         out <- matrix(0, nrow(u), ncol(u))
         mat <- 0
         for (i in seq_len(ncol(u))) {

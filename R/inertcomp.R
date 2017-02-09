@@ -7,8 +7,11 @@
         stop("can be used only with objects inheriting from 'cca'")
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
         stop(gettextf("cannot analyse species with '%s'", object$method))
-    if (inherits(object, "dbrda"))
+    if (inherits(object, "dbrda")) {
+        if (proportional)
+            stop("proportional=TRUE cannot be used with partial dbrda")
         display <- "dbrda"
+    }
     ## function to get the eigenvalues
     getComps <- function(x, display) {
         if(!is.null(x))
