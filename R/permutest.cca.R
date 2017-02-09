@@ -130,8 +130,11 @@ permutest.default <- function(x, ...)
     else E <-
         if (isDB) stop(gettextf("%s cannot be used with 'full' model"), x$method)
         else x$CA$Xbar
-    if (isPartial && model == "direct")
+    if (isPartial && model == "direct") {
+        if (inherits(x, "dbrda"))
+            stop("model='direct' cannot be used with partial dbrda")
         E <- E + Y.Z
+    }
     ## Save dimensions
     N <- nrow(E)
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
