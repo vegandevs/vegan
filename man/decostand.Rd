@@ -40,6 +40,10 @@ wisconsin(x)
     \item \code{range}: standardize values into range 0 \dots 1 (default
     \code{MARGIN = 2}).  If all values are constant, they will be
     transformed to 0.
+    
+    \item \code{rank}: replace abundance values by their increasing
+    ranks leaving zeros unchanged (default \code{MARGIN = 1}).
+
     \item \code{standardize}: scale \code{x} to zero mean and unit variance
     (default \code{MARGIN = 2}).
     \item \code{pa}: scale \code{x} to presence/absence scale (0/1).
