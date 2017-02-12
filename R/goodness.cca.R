@@ -11,7 +11,7 @@
         stop(gettextf("cannot analyse species with '%s'", object$method))
     v <- sqrt(weights(object, display="species")) * object[[model]]$v
     if (is.null(v))
-        stop(gettextf("model = '%s' deos not exist", model))
+        stop(gettextf("model = '%s' does not exist", model))
     if (display == "sites")
         u <- sqrt(weights(object, display="sites")) * object[[model]]$u
     eig <- object[[model]]$eig
