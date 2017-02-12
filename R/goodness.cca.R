@@ -32,9 +32,10 @@
                   "dbrda" = diag(All))
     ## take only chosen axes within the component
     if (!missing(choices)) {
-        choices <- choices[choices <= ncol(CA)]
-        v <- v[, choices, drop = FALSE]
-        if (display == "sites")
+        choices <- choices[choices <= length(eig)]
+        if (display != "dbrda")
+            v <- v[, choices, drop = FALSE]
+        if (display %in% c("sites", "dbrda"))
             u <- u[, choices, drop = FALSE]
         eig <- eig[choices]
     }
