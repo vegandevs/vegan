@@ -19,7 +19,7 @@
   
 }
 \usage{
-\method{goodness}{cca}(object, choices,
+\method{goodness}{cca}(object, choices, display = c("species", "sites"),
     model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
     unity = FALSE, proportional = FALSE)
@@ -34,7 +34,7 @@ vif.cca(object)
     \code{\link{rda}} or \code{\link{capscale}}. }
 
   \item{display}{Display \code{"species"} or \code{"sites"}. Species
-    are not available in \code{\link{capscale}}. }
+    are not available in \code{\link{dbrda}} and \code{\link{capscale}}. }
 
   \item{choices}{Axes shown. Default is to show all axes of the
     \code{"model"}. }
@@ -67,16 +67,15 @@ vif.cca(object)
   accounted by species up to chosen axes.
 
   Function \code{inertcomp} decomposes the inertia into partial,
-  constrained and unconstrained components for each site or
-  species. Instead of inertia, the function can give the total
-  dispersion or distances from the centroid for each component. Legendre
-  & De \enc{Cáceres}{Caceres} (2012) called these inertia components as
-  local contributions to beta-diversity (LCBD) and species contributions
-  to beta-diversity (SCBD), and they give these as relative
-  contributions summing up to unity (argument \code{unity = TRUE}). For
-  this interpretation, appropriate dissimilarity measures should be used
-  in \code{\link{dbrda}} or appropriate standardization in
-  \code{\link{rda}} (Legendre &  De \enc{Cáceres}{Caceres} 2012).
+  constrained and unconstrained components for each site or species.
+  Legendre & De \enc{Cáceres}{Caceres} (2012) called these inertia
+  components as local contributions to beta-diversity (LCBD) and
+  species contributions to beta-diversity (SCBD), and they give these
+  as relative contributions summing up to unity (argument \code{unity
+  = TRUE}). For this interpretation, appropriate dissimilarity
+  measures should be used in \code{\link{dbrda}} or appropriate
+  standardization in \code{\link{rda}} (Legendre & De
+  \enc{Cáceres}{Caceres} 2012).
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
     environment correlation} or (weighted) correlation of 
