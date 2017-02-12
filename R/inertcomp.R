@@ -3,6 +3,9 @@
               unity = FALSE, proportional = FALSE)
 {
     display <- match.arg(display)
+    ## unity and proportional are conflicting arguments
+    if (unity && proportional)
+        stop("arguments 'unity' and 'proportional' cannot be both TRUE")
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
@@ -33,8 +36,8 @@
     out <- cbind("pCCA" = getComps(pCCA, display),
                  "CCA" = getComps(CCA, display),
                  "CA" = getComps(CA, display))
-    if (unity)
-        out <- out/sum(out)
+    if (unity) ## each column sums to 1
+        out <- sweep(out, 2, colSums(out), "/")
     if (proportional)
         out <- out/getComps(tot, display)
     out
