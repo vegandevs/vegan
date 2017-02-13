@@ -849,29 +849,9 @@ Manure4 -3.959 -2.2261 -0.5586 -1.402    0    0
 4 0.098854458 0.15380657 0.1599717 0.1618251
 5 0.004995371 0.02930246 0.1689890 0.1712017
 6 0.039132550 0.04262177 0.1031921 0.1032250
-> head(goodness(mcap, display = "sites"))
-         CAP1        CAP2       CAP3       CAP4
-1 0.274802760 0.326813712 0.32613035 0.33093892
-2 0.067219572 0.064770597 0.15133177 0.17370489
-3 0.420416509 0.722708407 0.72209440 0.74022583
-4 0.372098045 0.616800742 0.61646333 0.63158468
-5 0.001079652 0.001033368 0.09869415 0.09928923
-6 0.068411468 0.083346672 0.18395601 0.18322360
-Warning message:
-In sqrt(weights(object, display = "species")) * object[[model]]$v :
-  longer object length is not a multiple of shorter object length
+> ## head(goodness(mcap, display = "sites")) # currently disabled
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
-> head(goodness(mancap, display="sites"))
-        CAP1       CAP2       CAP3       CAP4
-1 0.59099313 0.63751213 0.70889331 0.72221892
-2 0.10206875 0.10432660 0.11263310 0.13536426
-3 0.34732250 0.44114709 0.44317523 0.46775520
-4 0.22570911 0.28238855 0.28552661 0.30052718
-5 0.02158440 0.03192946 0.07215499 0.07361172
-6 0.05557399 0.09090994 0.09464466 0.09442614
-Warning message:
-In sqrt(weights(object, display = "species")) * object[[model]]$v :
-  longer object length is not a multiple of shorter object length
+> ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
 > 
 > 
@@ -2227,4 +2207,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  2.403   0.090   2.478 
+  2.472   0.096   2.560 
