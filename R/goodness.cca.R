@@ -7,6 +7,11 @@
     model <- match.arg(model)
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
+    ## See stressplot.capscale for a model to implement goodness() --
+    ## this can be done, but we don't care to do it for now and we
+    ## just disable this.
+    if (inherits(object, "capscale"))
+        stop("not implemented for 'capscale'")
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
         stop(gettextf("cannot analyse species with '%s'", object$method))
     v <- sqrt(weights(object, display="species")) * object[[model]]$v
