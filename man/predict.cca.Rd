@@ -34,7 +34,7 @@
         rank = "full", model = c("CCA", "CA"), scaling = "none",
         correlation = FALSE, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
-\method{coef}{cca}(object, ...)
+\method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
 }
@@ -82,6 +82,10 @@
   \item{correlation, hill}{logical; correlation-like scores or Hill's
     scaling as appropriate for RDA/\code{\link{capscale}} and CCA
     respectively. See \code{\link{scores.cca}} for additional details.}
+
+  \item{norm}{Coefficients for variables that are centred and scaled
+    to unit norm.}
+
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
