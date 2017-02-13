@@ -1,5 +1,5 @@
-"coef.rda" <-
-function (object, ...) 
+`coef.rda` <-
+    function (object, ...)
 {
     if(is.null(object$CCA))
         stop("unconstrained models do not have coefficients")
