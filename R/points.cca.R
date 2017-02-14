@@ -1,6 +1,6 @@
 `points.cca` <-
     function (x, display = "sites", choices = c(1, 2), scaling = "species",
-              arrow.mul, head.arrow = 0.05, select, const, axis.bp = TRUE,
+              arrow.mul, head.arrow = 0.05, select, const, axis.bp = FALSE,
               correlation = FALSE, hill = FALSE, ...)
 {
     formals(arrows) <- c(formals(arrows), alist(... = ))
