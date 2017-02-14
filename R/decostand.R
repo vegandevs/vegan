@@ -4,11 +4,13 @@
     wasDataFrame <- is.data.frame(x)
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
-                 "standardize", "pa", "chi.square", "hellinger", "log")
+                 "rrank", "standardize", "pa", "chi.square", "hellinger",
+                 "log")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
-        if (method %in% c("total", "frequency", "pa", "chi.square", "rank")) {
+        if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
+                          "rrank")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
@@ -59,7 +61,10 @@
         if (MARGIN == 1) # gives transposed x
             x <- t(x)
         x[is.na(x)] <- 0
-        ## missing: rank equalization
+    }, rrank = {
+        if (missing(MARGIN)) MARGIN <- 1
+        x <- decostand(x, "rank", MARGIN = MARGIN)
+        x <- sweep(x, MARGIN, specnumber(x, MARGIN = MARGIN), "/")
     }, standardize = {
         if (!missing(MARGIN) && MARGIN == 1)
             x <- t(scale(t(x)))

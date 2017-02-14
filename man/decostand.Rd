@@ -41,8 +41,10 @@ wisconsin(x)
     \code{MARGIN = 2}).  If all values are constant, they will be
     transformed to 0.
     
-    \item \code{rank}: replace abundance values by their increasing
-    ranks leaving zeros unchanged (default \code{MARGIN = 1}).
+    \item \code{rank, rrank}: \code{rank} replaces abundance values by
+    their increasing ranks leaving zeros unchanged, and \code{rrank} is
+    similar but uses relative ranks with maximum 1 (default
+    \code{MARGIN = 1}). Average ranks are used for tied values.
 
     \item \code{standardize}: scale \code{x} to zero mean and unit variance
     (default \code{MARGIN = 2}).
