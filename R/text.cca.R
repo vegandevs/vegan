@@ -26,7 +26,7 @@
             return(invisible())
         else display <- "bp"
     }
-    if (display == "bp") {
+    if (display %in% c("bp", "reg", "re", "r")) {
         if (missing(arrow.mul)) {
             arrow.mul <- ordiArrowMul(pts)
         }
