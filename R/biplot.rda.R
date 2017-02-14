@@ -25,7 +25,7 @@
   if (length(col) == 1)
       col <- c(col,col)
   g <- scores(x, choices = choices, display = display,
-              scaling = scaling, const)
+              scaling = scaling, correlation = correlation, const)
   if (!is.list(g)) {
       g <- list(default = g)
       names(g) <- display
