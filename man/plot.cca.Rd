@@ -133,16 +133,16 @@
   only if there were factors and a formula interface was used in
   \code{\link{cca}} or \code{\link{rda}}). With this option continuous
   variables still are presented as arrows and ordered factors as arrows
-  and centroids. With \code{display = "reg"} arrows will be drawn
+  and centroids. With \code{display = "reg"} arrows will be drawn for
   regression coefficients (a.k.a. canonical coefficients) of constraints
-  and conditions. Biplot arrows could be interpreted individually, but
-  regression coefficients must be interpreted togethere: the LC score
+  and conditions. Biplot arrows can be interpreted individually, but
+  regression coefficients must be interpreted all together: the LC score
   for each site is the sum of regressions displayed by arrows. The
   partialled out conditions are zero and not shown in biplot arrows, but
-  they are shown for regressions, and show the regression that must be
-  performed to partial out those effects to get the LC scores. The
-  biplot arrows are more standard and more easily interpreted, and
-  regression arrows should be used only if you know that you need them.
+  they are shown for regressions, and show the effect that must be
+  partialled out to get the LC scores. The biplot arrows are more
+  standard and more easily interpreted, and regression arrows should be
+  used only if you know that you need them.
 
   If you want to have still a better control of plots, it is better to
   produce them using primitive \code{plot} commands. Function
