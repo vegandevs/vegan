@@ -72,7 +72,6 @@
         rownames(b) <- rownames(x$CCA$biplot)
         if (scaling) {
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
-            scal <- scal/max(scal) # scale proportionally to the "best" dim
             b <- sweep(b, 2, scal, "*")
         }
         sol$biplot <- b
