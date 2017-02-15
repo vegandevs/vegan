@@ -17,10 +17,10 @@
 
 \usage{
 prc(response, treatment, time, ...)
-\method{summary}{prc}(object, axis = 1, scaling = "symmetric",
+\method{summary}{prc}(object, axis = 1, scaling = "symmetric", const,
         digits = 4, correlation = FALSE, ...)
 \method{plot}{prc}(x, species = TRUE, select, scaling = "symmetric",
-     axis = 1, correlation = FALSE, type = "l", xlab, ylab, ylim,
+     axis = 1, correlation = FALSE, const, type = "l", xlab, ylab, ylim,
      lty = 1:5, col = 1:6, pch, legpos, cex = 0.8, ...)  
 }
 
@@ -43,6 +43,10 @@ prc(response, treatment, time, ...)
     with these character descriptions to get the corresponding negative
     value.
   }
+  \item{const}{General scaling constant for species scores (see
+    \code{\link{scores.rda}} for details). Lower values will reduce the
+    range of species scores, but will not influence the regression
+    coefficients.}
   \item{digits}{Number of significant digits displayed.}
   \item{correlation}{logical; if \code{scaling} is a character
     description of the scaling type, \code{correlation} can be used to

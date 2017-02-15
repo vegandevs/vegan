@@ -103,8 +103,18 @@
                length = 0.05, col = "blue")
         biplabs <- ordiArrowTextXY(mul * g$biplot, rownames(g$biplot))
         text(biplabs, rownames(g$biplot), col = "blue")
-        axis(3, at = c(-mul, 0, mul), labels = rep("", 3), col = "blue")
-        axis(4, at = c(-mul, 0, mul), labels = c(-1, 0, 1), col = "blue")
+    }
+    if (!is.null(g$regression) && nrow(g$regression > 0) && type != "none") {
+        rcol <- "purple4"
+        if (length(display) > 1) {
+            mul <- ordiArrowMul(g$regression)
+        }
+        else mul <- 1
+        attr(g$regression, "arrow.mul") <- mul
+        arrows(0, 0, mul * g$regression[, 1], mul * g$regression[, 2],
+               length = 0.05, col = rcol)
+        biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression))
+        text(biplabs, rownames(g$regression), col = rcol)
     }
     if (!is.null(g$centroids) && !is.na(g$centroids) && type !=
         "none") {
