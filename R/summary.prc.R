@@ -2,7 +2,6 @@
                            digits = 4, correlation = FALSE, ...) {
     sc = scores(object, scaling = scaling, display = c("sp", "reg"), const,
                 choices = axis, correlation = correlation, ...)
-    ## coef for scaled sites (coef(object) gives for orthonormal)
     b <- sc$regression
     prnk <- object$pCCA$rank
     lentreat <- length(object$terminfo$xlev[[2]])
