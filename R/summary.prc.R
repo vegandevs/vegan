@@ -1,9 +1,9 @@
 `summary.prc` <- function (object, axis = 1, scaling = "symmetric",
                            digits = 4, correlation = FALSE, ...) {
-    sc = scores(object, scaling = scaling, display = c("sp", "lc"),
+    sc = scores(object, scaling = scaling, display = c("sp", "reg"),
                 choices = axis, correlation = correlation, ...)
     ## coef for scaled sites (coef(object) gives for orthonormal)
-    b <- qr.coef(object$CCA$QR, sc$constraints)
+    b <- sc$regression
     prnk <- object$pCCA$rank
     lentreat <- length(object$terminfo$xlev[[2]])
     b = matrix(b[-(1:prnk)], nrow = lentreat-1, byrow = TRUE)
