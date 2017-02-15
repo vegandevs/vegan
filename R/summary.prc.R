@@ -1,6 +1,6 @@
-`summary.prc` <- function (object, axis = 1, scaling = "symmetric",
+`summary.prc` <- function (object, axis = 1, scaling = "symmetric", const,
                            digits = 4, correlation = FALSE, ...) {
-    sc = scores(object, scaling = scaling, display = c("sp", "reg"),
+    sc = scores(object, scaling = scaling, display = c("sp", "reg"), const,
                 choices = axis, correlation = correlation, ...)
     ## coef for scaled sites (coef(object) gives for orthonormal)
     b <- sc$regression
