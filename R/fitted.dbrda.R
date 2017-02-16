@@ -12,12 +12,8 @@
             G <- object$pCCA$Fit
         else
             G <- object[[model]]$Xbar
-        if (model == "CCA") {
-            H <- tcrossprod(
-                qr.Q(object$CCA$QR)[, seq_len(object$CCA$QR$rank),
-                                    drop=FALSE])
-            G <- H %*% G %*% H
-        }
+        if (model == "CCA")
+            G <- qr.fitted(object$CCA$QR, t(qr.fitted(object$CCA$QR, G)))
         out <- G
     }
     if (type == "response") {
