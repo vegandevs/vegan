@@ -57,7 +57,7 @@
         else if (!is.null(x$pCCA)) {
             Ybar <- qr.resid(x$pCCA$QR, Ybar)
             if (isDB)
-                Ybar <- qr.resd(x$pCCA$QR, t(Ybar))
+                Ybar <- qr.resid(x$pCCA$QR, t(Ybar))
         }
     })
     Ybar
