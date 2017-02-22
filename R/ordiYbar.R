@@ -13,7 +13,10 @@
 {
     model <- match.arg(model)
     isDB <- inherits(x, "dbrda")
-    Ybar <- x$Ybar
+    if (!is.null(x$Ybar))
+        Ybar <- x$Ybar
+    else
+        return(vegan24Xbar(x, model))
     if (model == "initial")
         return(Ybar)
     ## return NULL for missing elements
