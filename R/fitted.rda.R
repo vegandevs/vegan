@@ -6,12 +6,7 @@
     model <- match.arg(model)
     if (is.null(object[[model]]))
         stop("component ", model, " does not exist")
-    if (model == "pCCA")
-        Xbar <- object$pCCA$Fit
-    else
-        Xbar <- object[[model]]$Xbar
-    if (model == "CCA")
-        Xbar <- qr.fitted(object$CCA$QR, Xbar)
+    Xbar <- ordiYbar(object, model)
     if (type == "response") {
         cent <- attr(Xbar, "scaled:center")
         scal <- attr(Xbar, "scaled:scale")
