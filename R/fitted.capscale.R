@@ -8,12 +8,10 @@
     type <- match.arg(type)
     ## Return scaled eigenvalues
     U <- switch(model,
-                CCA = object$CCA$u %*% diag(sqrt(object$CCA$eig),
-                                            nrow = length(object$CCA$eig)),
-                CA = object$CA$u %*% diag(sqrt(object$CA$eig),
-                                          nrow = length(object$CA$eig)),
+                CCA = ordiYbar(object, "CCA"),
+                CA = ordiYbar(object, "CA"),
                 Imaginary = object$CA$imaginary.u.eig,
-                pCCA = object$pCCA$Fit)
+                pCCA = ordiYbar(object, "pCCA"))
     if (is.null(U))
         stop("component ", model, " does not exist")
     ## Distances or working scores U
