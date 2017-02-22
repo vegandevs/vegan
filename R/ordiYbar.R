@@ -12,33 +12,50 @@
     function(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 {
     model <- match.arg(model)
+    isDB <- inherits(x, "dbrda")
     Ybar <- x$Ybar
     if (model == "initial")
         return(Ybar)
     ## return NULL for missing elements
     if (model != "partial")
         if(is.null(x[[model]]))
-            NULL
+            return(NULL)
 
     ## edit Ybar -- not yet dbrda
     switch(model,
     "pCCA" = {
         Ybar <- qr.fitted(x$pCCA$QR, Ybar)
+        if (isDB)
+            Ybar <- qr.fitted(x$pCCA$QR, t(Ybar))
     },
     "partial" = {
-        if (!is.null(x$pCCA))
+        if (!is.null(x$pCCA)) {
             Ybar <- qr.resid(x$pCCA$QR, Ybar)
+            if (isDB)
+                Ybar <- qr.resid(x$pCCA$QR, t(Ybar))
+        }
     },
     "CCA" = {
-        if (!is.null(x$pCCA))
+        if (!is.null(x$pCCA)) {
             Ybar <- qr.resid(x$pCCA$QR, Ybar)
+            if (isDB)
+                Ybar <- qr.resid(x$pCCA$QR, t(Ybar))
+        }
         Ybar <- qr.fitted(x$CCA$QR, Ybar)
+        if (isDB)
+            Ybar <- qr.fitted(x$CCA$QR, t(Ybar))
     },
     "CA" = {
-        if (!is.null(x$CCA))
+        if (!is.null(x$CCA)) {
             Ybar <- qr.resid(x$CCA$QR, Ybar)
-        else if (!is.null(x$pCCA))
+            if (isDB)
+                Ybar <- qr.resid(x$CCA$QR, t(Ybar))
+        }
+        else if (!is.null(x$pCCA)) {
             Ybar <- qr.resid(x$pCCA$QR, Ybar)
+            if (isDB)
+                Ybar <- qr.resd(x$pCCA$QR, t(Ybar))
+        }
     })
     Ybar
 }
