@@ -59,3 +59,56 @@
     })
     Ybar
 }
+
+#' Extract internal working matrices of cca objects for vegan 2.4
+
+`vegan24Xbar` <-
+    function(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
+{
+    model <- match.arg(model)
+    ## return NULL for missing elements
+    if (model %in% c("CCA", "CA", "pCCA"))
+        if(is.null(x[[model]]))
+            return(NULL)
+    Ybar <- NULL
+    ## initial working data is not saved and must be reconstructed in
+    ## partial models, but this cannot be done in all cases.
+    if (model == "initial") {
+        if (inherits(x, "dbrda")) {
+            ## NULL in partial models
+            if (is.null(x$pCCA)) {
+                Ybar <- x$CCA$Xbar
+                if (is.null(Ybar))
+                    Ybar <- x$CA$Xbar
+            }
+        } else {
+            ## this will ignore imaginary components in capscale
+            if (is.null(x$CCA))
+                Ybar <- x$CA$Xbar
+            else
+                Ybar <- x$CCA$Xbar
+            if (!is.null(x$pCCA))
+                Ybar <- Ybar + x$pCCA$Fit
+        }
+        return(Ybar)
+    }
+    ## several components are already stored in the result object and
+    ## we just fetch those (only CCA needs work)
+    switch(model,
+    "pCCA" =
+        Ybar <- x$pCCA$Fit,
+    "partial" = {
+        Ybar <- x$CCA$Xbar
+        if (is.null(Ybar))
+            Ybar <- x$CA$Xbar
+    },
+    "CCA" = {
+        Ybar <- qr.fitted(x$CCA$QR, x$CCA$Xbar)
+        if (inherits(x, "dbrda"))
+            Ybar <- qr.fitted(x$CCA$QR, t(Ybar))
+    },
+    "CA" =
+        Ybar <- x$CA$Xbar
+    )
+    Ybar
+}
