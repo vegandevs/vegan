@@ -57,7 +57,6 @@ permutest.default <- function(x, ...)
     ## QR decomposition
         Q <- x$CCA$QR
     if (isPartial) {
-        Y.Z <- x$pCCA$Fit
         QZ <- x$pCCA$QR
     } else {
         QZ <- NULL
@@ -125,16 +124,15 @@ permutest.default <- function(x, ...)
         F.0 <- Chi.z/q * r/Chi.xz
     }
 
-    if (model == "reduced" || model == "direct")
-        E <- x$CCA$Xbar
-    else E <-
-        if (isDB) stop(gettextf("%s cannot be used with 'full' model"), x$method)
-        else x$CA$Xbar
-    if (isPartial && model == "direct") {
-        if (inherits(x, "dbrda"))
-            stop("model='direct' cannot be used with partial dbrda")
-        E <- E + Y.Z
-    }
+    ## permutation data
+    E <- switch(model,
+                "direct" = ordiYbar(x, "initial"),
+                "reduced" = ordiYbar(x, "partial"),
+                "full" = ordiYbar(x, "CA"))
+    ## vegan < 2.5-0 cannot use direct model in partial dbRDA
+    if (is.null(E) && isDB && isPartial)
+        stop("'direct' model cannot be used in old partial-dbrda: update ordination")
+
     ## Save dimensions
     N <- nrow(E)
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
