@@ -16,7 +16,7 @@
         ## we may have tiny negative zeros
         if (any(D < 0)) {
             D[abs(D) < ZAP] <- 0
-            if (any(D) < 0)
+            if (any(D < 0))
                 warning("some squared dissimilarities are negative")
         }
         D <- sqrt(D)
