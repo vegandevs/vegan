@@ -83,6 +83,9 @@ permutest.default <- function(x, ...)
                     colnames(Q$qr)[effects]
         } else {                   # by = "terms"
             ass <- x$terminfo$assign
+            ## ass was introduced in vegan_2.5-0
+            if (is.null(ass))
+                stop("update() old ordination result object")
             pivot <- Q$pivot
             if (isPartial)
                 pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
