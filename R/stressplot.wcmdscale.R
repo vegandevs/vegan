@@ -63,7 +63,7 @@
     Xbar <- u %*% t(v)
     Xbark <- u[, seq_len(k), drop = FALSE] %*% t(v[, seq_len(k), drop = FALSE])
     if (!is.null(object$pCCA)) {
-        pFit <- ordiYbar(object, "pCCA")
+        pFit <- ordiYbar(object, "pCCA") * sqrt(nr-1)
         Xbar <- Xbar + pFit
         Xbark <- Xbark + pFit
     }
