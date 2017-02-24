@@ -73,6 +73,7 @@ permutest.default <- function(x, ...)
     }
     ## effects
     if (!is.null(by)) {
+        partXbar <- ordiYbar(x, "partial")
         if (by == "onedf") {
             effects <- seq_len(q)
             termlabs <-
@@ -97,7 +98,7 @@ permutest.default <- function(x, ...)
             effects <- effects + x$pCCA$rank
         F.0 <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(Q, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, partXbar, k = effects[k])
             F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
     }
@@ -117,7 +118,7 @@ permutest.default <- function(x, ...)
     else {
         Chi.z <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(Q, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, partXbar, k = effects[k])
             Chi.z[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
         Chi.z <- diff(c(0, F.0))
