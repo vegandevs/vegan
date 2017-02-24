@@ -63,8 +63,9 @@
     Xbar <- u %*% t(v)
     Xbark <- u[, seq_len(k), drop = FALSE] %*% t(v[, seq_len(k), drop = FALSE])
     if (!is.null(object$pCCA)) {
-        Xbar <- Xbar + object$pCCA$Fit
-        Xbark <- Xbark + object$pCCA$Fit
+        pFit <- ordiYbar(object, "pCCA")
+        Xbar <- Xbar + pFit
+        Xbark <- Xbark + pFit
     }
     dis <- dist(Xbar)
     odis <- dist(Xbark)
@@ -100,8 +101,9 @@
     Xbar <- u %*% t(v)
     Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
     if (!is.null(object$pCCA)) {
-        Xbar <- Xbar + object$pCCA$Fit
-        Xbark <- Xbark + object$pCCA$Fit
+        pFit <- ordiYbar(object, "pCCA")
+        Xbar <- Xbar + pFit
+        Xbark <- Xbark + pFit
     }
     dis <- dist(Xbar)
     odis <- dist(Xbark)
@@ -132,16 +134,17 @@
     ## 'data', but these are not returned by capscale() which replaces
     ## original 'v' with weighted sums of 'comm' data.
     if (!is.null(object$CCA))
-        v <- svd(object$CCA$Xbar - object$CA$Xbar, nu = 0, nv = object$CCA$qrank)$v
+        v <- svd(ordiYbar(object, "CCA"), nu = 0, nv = object$CCA$qrank)$v
     else
         v <- NULL
     if (!is.null(object$CA))
-        v <- cbind(v, svd(object$CA$Xbar, nu = 0, nv = object$CA$rank)$v)
+        v <- cbind(v, svd(ordiYbar(object, "CA"), nu = 0,
+                          nv = object$CA$rank)$v)
     ## Reconstruct Xbar and Xbark
     Xbar <- u %*% t(v)
     Xbark <- u[,seq_len(k), drop = FALSE] %*% t(v[,seq_len(k), drop = FALSE])
     if (!is.null(object$pCCA)) {
-        pFit <- object$pCCA$Fit
+        pFit <- ordiYbar(object, "pCCA")
         Xbar <- Xbar + pFit
         Xbark <- Xbark + pFit
     }
@@ -188,14 +191,8 @@
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
-    ## Does not work correctly for p-dbRDA
-    if (!is.null(object$pCCA))
-        stop("cannot be used with partial dbrda")
     ## Reconstruct original distances from Gower 'G'
-    dis <- if (is.null(object$CCA))
-               object$CA$Xbar
-           else
-               object$CCA$Xbar
+    dis <- ordiYbar(object, "initial")
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
     dis <- sqrt(as.dist(dis)) * object$adjust
