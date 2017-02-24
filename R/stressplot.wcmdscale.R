@@ -191,10 +191,14 @@
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
+    ## Reconstructed zero distances can be tiny (negative) non-zero
+    ## values, and we zap them to zero
+    ZAP <- sqrt(.Machine$double.eps)
     ## Reconstruct original distances from Gower 'G'
     dis <- ordiYbar(object, "initial")
     dia <- diag(dis)
     dis <- -2 * dis + outer(dia, dia, "+")
+    dis[abs(dis) < ZAP] <- 0
     dis <- sqrt(as.dist(dis)) * object$adjust
     ## Remove additive constant to get original dissimilarities
     if (!is.null(object$ac)) {
@@ -225,7 +229,9 @@
     Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
                   sqrt(eig[seq_len(k)]), "*"))
     dia <- diag(Gk)
-    odis <- sqrt(as.dist(-2 * Gk + outer(dia, dia, "+")) * object$adjust)
+    odis <- -2 * Gk + outer(dia, dia, "+")
+    odis[abs(odis) < ZAP] <- 0
+    odis <- sqrt(as.dist(odis)) * object$adjust
     ## Plot
     if (missing(pch))
         if (length(dis) > 5000)
