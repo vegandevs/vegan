@@ -45,8 +45,8 @@ vif.cca(object)
   \item{summarize}{Show only the accumulated total.}
 
   \item{addprevious}{Add the variation explained by previous components
-     when \code{statistic="explained"}. For \code{model="CCA"} add
-     conditionened (partialled out) variation, and for \code{model="CA"}
+     when \code{statistic="explained"}. For \code{model = "CCA"} add
+     conditionened (partialled out) variation, and for \code{model = "CA"}
      add both conditioned and constrained variation. This will give
      cumulative explanation. The argument has no effect when
      \code{statistic="distance"}, but this will always show the residual
@@ -71,8 +71,8 @@ vif.cca(object)
   Legendre & De \enc{Cáceres}{Caceres} (2012) called these inertia
   components as local contributions to beta-diversity (LCBD) and
   species contributions to beta-diversity (SCBD), and they give these
-  as relative contributions summing up to unity (argument \code{unity
-  = TRUE}). For this interpretation, appropriate dissimilarity
+  as relative contributions summing up to unity (argument
+  \code{unity = TRUE}). For this interpretation, appropriate dissimilarity
   measures should be used in \code{\link{dbrda}} or appropriate
   standardization in \code{\link{rda}} (Legendre & De
   \enc{Cáceres}{Caceres} 2012).
