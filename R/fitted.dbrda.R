@@ -16,7 +16,8 @@
         ## we may have tiny negative zeros: zero them, but let large
         ## negative values be and give NaN in sqrt (with a warning)
         D[abs(D) < ZAP] <- 0
-        D <- sqrt(D)
+        if (!object$sqrt.dist)
+            D <- sqrt(D)
         D <- D * object$adjust
         D <- as.dist(D)
         ## we do not remove Lingoes or Cailliez adjustment: this
