@@ -29,6 +29,8 @@
     }
     ## get the total variation
     All <- ordiYbar(object, "initial")
+    if (is.null(All))
+        stop("update() your ordination object")
     tot <- switch(display,
                   "species" = colSums(All^2),
                   "sites" = rowSums(All^2),
@@ -67,8 +69,6 @@
         }
         dimnames(out) <- dimnames(u)
     } else { # dbrda
-        if (!is.null(object$pCCA))
-            stop("cannot be used with partial dbrda")
         out <- matrix(0, nrow(u), ncol(u))
         mat <- 0
         for (i in seq_len(ncol(u))) {
