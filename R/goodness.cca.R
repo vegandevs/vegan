@@ -28,9 +28,7 @@
         display <- "dbrda"
     }
     ## get the total variation
-    All <- if (is.null(object$CCA)) object$CA$Xbar else object$CCA$Xbar
-    if (!is.null(object$pCCA))
-        All <- All + object$pCCA$Fit
+    All <- ordiYbar(object, "initial")
     tot <- switch(display,
                   "species" = colSums(All^2),
                   "sites" = rowSums(All^2),
@@ -46,11 +44,11 @@
     }
     if (addprevious) {
         if (!is.null(object$pCCA))
-            prev <- object$pCCA$Fit
+            prev <- ordiYbar(object, "pCCA")
         else
             prev <- 0
         if (model == "CA" && !is.null(object$CCA))
-            prev <- prev + qr.fitted(object$CCA$QR, object$CCA$Xbar)
+            prev <- prev + ordiYbar(object, "CCA")
     }
     if (display == "species") {
         out <- t(apply(v^2 %*% diag(eig), 1, cumsum))
