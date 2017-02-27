@@ -34,9 +34,20 @@
             stop(gettextf("'nsim' (%d) and no. of 'indx' rows (%d) do not match",
                           nsim, nrow(indx)))
     ## collect data to back-transform data to the scale of observations
-    sqnr1 <- sqrt(nrow(object$CCA$Xbar) - 1)
-    cnt <- attr(object$CCA$Xbar, "scaled:center")
-    scl <- attr(object$CCA$Xbar, "scaled:scale")
+    sqnr1 <- sqrt(nobs(object) - 1)
+    ## the ifs are only needed to cope with pre-2.5-0 vegan: now
+    ## we always have Ybar, but earlier we needed to check whether
+    ## we had CA or CCA Xbar
+    if (!is.null(object$Ybar)) {
+        cnt <- attr(object$Ybar, "scaled:center")
+        scl <- attr(object$Ybar, "scaled:scale")
+    } else { # needed for vegan-2.4 compatibility
+        if (is.null(object$CCA))
+            tmp <- object$CA$Xbar
+        else tmp <- object$CCA$Xbar
+        cnt <- attr(tmp, "scaled:center")
+        scl <- attr(tmp, "scaled:scale")
+    }
 
     ## Proper simulation: very similar for simulate.lm, but produces
     ## an array of response matrices
@@ -44,21 +55,23 @@
     ftd <- predict(object, type = "working", rank = rank)
     ## pRDA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
-        ftd <- ftd + object$pCCA$Fit
+        ftd <- ftd + ordiYbar(object, "pCCA")
     ## if(is.null(indx)), we have parametric Gaussian simulation and
     ## need to generate sd matrices. The residuals sd is always taken
-    ## from the unconstrained (residual) component $CA$Xbar. If
+
+    ## from the unconstrained (residual) component. If
     ## species are uncorrelated, we need only species sd's, but if
     ## correlated, we also need species covariances.
+    CAYbar <- ordiYbar(object, "CA")
     if (!correlated)
-        dev <- outer(rep(1, nrow(ftd)), apply(object$CA$Xbar, 2, sd))
+        dev <- outer(rep(1, nrow(ftd)), apply(CAYbar, 2, sd))
     else
-        dev <- cov(object$CA$Xbar)
+        dev <- cov(CAYbar)
     ## Generate an array
     ans <- array(0, c(dim(ftd), nsim))
     for (i in seq_len(nsim)) {
         if (!is.null(indx))
-            ans[,,i] <- as.matrix(ftd + object$CA$Xbar[indx[i,],])
+            ans[,,i] <- as.matrix(ftd + CAYbar[indx[i,],])
         else if (!correlated)
             ans[,,i] <- as.matrix(ftd + matrix(rnorm(length(ftd), sd = dev),
                                                nrow = nrow(ftd)))
@@ -84,7 +97,7 @@
     } else {
         dimnames(ans) <- list(rownames(ftd), colnames(ftd),
                               paste("sim", seq_len(nsim), sep = "_"))
-        attr(ans, "data") <- round(ftd + object$CA$Xbar, 12)
+        attr(ans, "data") <- round(ftd + CAYbar, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
                                                         "parametric", "index"))
         attr(ans, "binary") <- FALSE
