@@ -150,9 +150,9 @@
     ftd <- predict(object, type = "working", rank = rank)
     ## pCCA: add partial Fit to the constrained
     if (!is.null(object$pCCA))
-        ftd <- ftd + object$pCCA$Fit
+        ftd <- ftd + ordiYbar(object, "pCCA")
     ## Residual Xbar need weighting and back-weighting
-    Xbar <- sweep(object$CA$Xbar, 1, sq.r, "*")
+    Xbar <- sweep(ordiYbar(object, "CA"), 1, sq.r, "*")
     ## Simulation
     if (correlated)
         dev <- cov(Xbar)
@@ -187,7 +187,7 @@
     } else {
         dimnames(ans) <- list(rownames(ftd), colnames(ftd),
                               paste("sim", seq_len(nsim), sep = "_"))
-        obsdata <- ftd + object$CA$Xbar
+        obsdata <- ordiYbar(object, "initial")
         obsdata <- (obsdata * sqrt(rc) + rc) * object$grand.total
         attr(ans, "data") <- round(obsdata, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
