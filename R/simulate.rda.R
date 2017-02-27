@@ -238,25 +238,24 @@
     ## constrained solution, and we need rank of the data (not of
     ## constraints).
     if (rank > 0) {
-        ftd <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
+        ftd <- ordiYbar(object, "CCA")
         ## redo analysis when rank < full
         if (rank < object$CCA$rank) {
             x <- svd(ftd, nu = rank, nv = rank)
             ftd <- x$u %*% diag(x$d[1:rank], nrow=rank) %*% t(x$v)
         }
     } else {
-        ftd <- matrix(0, nrow=nrow(object$CA$Xbar),
-                      ncol = ncol(object$CA$Xbar))
+        ftd <- 0
     }
     ## add partial Fit to the constrained
     if (!is.null(object$pCCA))
-        ftd <- ftd + object$pCCA$Fit
+        ftd <- ftd + ordiYbar(object, "pCCA")
     if (is.null(indx))
         ans <- as.data.frame(ftd + matrix(rnorm(length(ftd),
-               sd = outer(rep(1,nrow(ftd)), apply(object$CA$Xbar, 2, sd))),
+               sd = outer(rep(1,nrow(ftd)), apply(ordiYbar(object, "CA"), 2, sd))),
                nrow = nrow(ftd)))
     else
-        ans <- ftd + object$CA$Xbar[indx,]
+        ans <- ftd + ordiYbar(object, "CA")[indx,]
     ## return Euclidean distances
     ans <- ans * object$adjust
     ans <- dist(ans)
