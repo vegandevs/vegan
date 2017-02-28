@@ -11,6 +11,7 @@
 \alias{coef.rda}
 \alias{calibrate.cca}
 \alias{calibrate}
+\alias{ordiYbar}
 
 \title{Prediction Tools for [Constrained] Ordination (CCA,
   RDA, DCA, CA, PCA) }
