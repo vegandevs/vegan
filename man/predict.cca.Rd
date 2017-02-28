@@ -37,16 +37,24 @@
 \method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
+ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 }
 
 \arguments{
-  \item{object}{A result object from \code{\link{cca}},
-    \code{\link{rda}}, \code{\link{capscale}} or \code{\link{decorana}}. }
+
+  \item{object, x}{A result object from \code{\link{cca}},
+    \code{\link{rda}}, \code{\link{dbrda}}, \code{\link{capscale}} or
+    \code{\link{decorana}}. }
+  
   \item{model}{Show constrained (\code{"CCA"}), unconstrained
     (\code{"CA"}) or conditioned \dQuote{partial} (\code{"pCCA"})
-    results. For \code{fitted} method of \code{\link{capscale}} this
-    can also be \code{"Imaginary"} for imaginary components with
-    negative eigenvalues. }
+    results. For \code{fitted} method of \code{\link{capscale}} this can
+    also be \code{"Imaginary"} for imaginary components with negative
+    eigenvalues. In \code{ordiYbar} the value can also be
+    \code{"initial"} for the internal working input data, and
+    \code{"partial"} for the internal working input data after removing
+    the partial effects. }
+
   \item{newdata}{New data frame to be used in prediction or in
     calibration.  Usually this a new community data frame, but with
     \code{type = "lc"} and for constrained component with \code{type =
@@ -93,23 +101,26 @@
   Function \code{fitted} gives the approximation of the original data
   matrix or dissimilarities from the ordination result either in the
   scale of the response or as scaled internally by the function.
-  Function \code{residuals} gives the approximation of the original
-  data from the unconstrained ordination.  With argument
-  \code{type = "response"} the \code{fitted.cca} and
-  \code{residuals.cca} function both give the same marginal totals as
-  the original data matrix, and fitted and residuals do not add up to
-  the original data.  Functions \code{fitted} and \code{residuals} for
-  \code{\link{dbrda}} and \code{\link{capscale}} give the
-  dissimilarities with \code{type = "response"}, but these are not
-  additive.  However, the \code{"working"} scores are additive for
-  \code{\link{capscale}} (but not for \code{\link{dbrda}}). The
-  \code{fitted} and \code{residuals} for \code{\link{capscale}} and
-  \code{\link{dbrda}} will include the additive constant if that was
-  requested in the function call.  All variants of \code{fitted} and
-  \code{residuals} are defined so that for model \code{mod <- cca(y ~
-  x)}, \code{cca(fitted(mod))} is equal to constrained ordination, and
-  \code{cca(residuals(mod))} is equal to unconstrained part of the
-  ordination.
+  Function \code{residuals} gives the approximation of the original data
+  from the unconstrained ordination.  With argument \code{type =
+  "response"} the \code{fitted.cca} and \code{residuals.cca} function
+  both give the same marginal totals as the original data matrix, and
+  fitted and residuals do not add up to the original data.  Functions
+  \code{fitted} and \code{residuals} for \code{\link{dbrda}} and
+  \code{\link{capscale}} give the dissimilarities with \code{type =
+  "response"}, but these are not additive.  However, the
+  \code{"working"} scores are additive for \code{\link{capscale}} (but
+  not for \code{\link{dbrda}}). The \code{fitted} and \code{residuals}
+  for \code{\link{capscale}} and \code{\link{dbrda}} will include the
+  additive constant if that was requested in the function call.  All
+  variants of \code{fitted} and \code{residuals} are defined so that for
+  model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal to
+  constrained ordination, and \code{cca(residuals(mod))} is equal to
+  unconstrained part of the ordination.  The \code{fitted} function is
+  based on \code{ordiYbar} which returns the internal (working) form of
+  dependent data. The internal organization of the result object can
+  change, and direct access to the internal working matrices should be
+  avoided in robust code and \code{ordiYbar} should be used instead.
 
   Function \code{predict} can find the estimate of the original data
   matrix or dissimilarities (\code{type = "response"}) with any rank.
