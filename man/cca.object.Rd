@@ -47,7 +47,7 @@
     factors.  This is produced by \pkg{vegan} internal function
     \code{\link{ordiTerminfo}}, and is missing if the ordination
     was not called with \code{formula}.}
-  \item{Ybar}{Working ínput data after inial transformations for each
+  \item{Ybar}{Working input data after initial transformations for each
     method. Function \code{\link{ordiYbar}} can be used to access this
     data as well as the data used to find the data after fitting the
     conditions, constraints or residual variation. The data structure
