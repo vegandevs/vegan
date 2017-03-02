@@ -11,8 +11,6 @@
     if (inherits(object, c("capscale", "dbrda")) && display == "species")
         stop(gettextf("cannot analyse species with '%s'", object$method))
     if (inherits(object, "dbrda")) {
-        if (proportional)
-            stop("proportional=TRUE cannot be used with partial dbrda")
         display <- "dbrda"
     }
     ## function to get the eigenvalues
@@ -24,15 +22,10 @@
                    "dbrda" = diag(x)
                    )
     }
-    pCCA <- object$pCCA$Fit
-    tot <- if (!is.null(object$CCA)) object$CCA$Xbar else object$CA$Xbar
-    if (!is.null(pCCA))
-        tot <- tot + pCCA
-    CCA <- qr.fitted(object$CCA$QR, object$CCA$Xbar)
-    if (inherits(object, "dbrda"))
-        CCA <- qr.fitted(object$CCA$QR, t(CCA))
-    CA <- object$CA$Xbar
-
+    pCCA <- ordiYbar(object, "pCCA")
+    CCA <- ordiYbar(object, "CCA")
+    CA <- ordiYbar(object, "CA")
+    tot <- ordiYbar(object, "initial")
     out <- cbind("pCCA" = getComps(pCCA, display),
                  "CCA" = getComps(CCA, display),
                  "CA" = getComps(CA, display))

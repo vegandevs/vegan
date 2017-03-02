@@ -1,7 +1,7 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+R Under development (unstable) (2017-02-28 r72280) -- "Unsuffered Consequences"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -169,18 +169,22 @@ Eigenvalues for unconstrained axes:
 
 > ## names
 > sort(names(mcca))
- [1] "CA"          "CCA"         "call"        "call"        "colsum"     
- [6] "grand.total" "inertia"     "method"      "na.action"   "pCCA"       
-[11] "rowsum"      "subset"      "terminfo"    "terms"       "tot.chi"    
+ [1] "CA"          "CCA"         "Ybar"        "call"        "call"       
+ [6] "colsum"      "grand.total" "inertia"     "method"      "na.action"  
+[11] "pCCA"        "rowsum"      "subset"      "terminfo"    "terms"      
+[16] "tot.chi"    
 > sort(names(mrda))
- [1] "CA"        "CCA"       "call"      "colsum"    "inertia"   "method"   
- [7] "na.action" "pCCA"      "subset"    "terminfo"  "terms"     "tot.chi"  
+ [1] "CA"        "CCA"       "Ybar"      "call"      "colsum"    "inertia"  
+ [7] "method"    "na.action" "pCCA"      "subset"    "terminfo"  "terms"    
+[13] "tot.chi"  
 > sort(names(mcap))
- [1] "CA"        "CCA"       "adjust"    "call"      "colsum"    "inertia"  
- [7] "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"     "tot.chi"  
+ [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
+ [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
+[13] "tot.chi"  
 > sort(names(mdb))
- [1] "CA"        "CCA"       "adjust"    "call"      "colsum"    "inertia"  
- [7] "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"     "tot.chi"  
+ [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
+ [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
+[13] "tot.chi"  
 > ## overall results
 > head(summary(mcca))
 
@@ -976,12 +980,12 @@ Alopgeni 0.9836820 1.39874107
 Anthodor 0.6496618 0.56821906
 Bellpere 0.5090218 0.82477118
 Bromhord 0.5137557 0.71551162
-Chenalbu 1.8536436 1.23779298
+Chenalbu 0.0000000 0.00000000
 Cirsarve 0.0000000 0.00000000
 Comapalu 0.7711636 0.57387680
 Eleopalu 1.3896704 1.52709395
 Elymrepe 0.6373285 0.92784384
-Empenigr 1.3585472 1.38540014
+Empenigr 0.0000000 0.00000000
 Hyporadi 0.7538385 0.36112794
 Juncarti 1.4907966 1.27973184
 Juncbufo 0.8316038 0.65059020
@@ -2207,4 +2211,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  2.472   0.096   2.560 
+  3.580   0.056   3.629 

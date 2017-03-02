@@ -103,7 +103,7 @@
         totvar <- sum(diag(Y))
     else
         totvar <- sum(Y^2)
-    head <- list("tot.chi" = totvar)
+    head <- list("tot.chi" = totvar, "Ybar" = Y)
     if (method == "cca")
         head <- c(list("grand.total" = attr(Y, "tot"),
                        "rowsum" = attr(Y, "RW"),
