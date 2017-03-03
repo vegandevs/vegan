@@ -1,11 +1,11 @@
 `plot.prc` <-
     function (x, species = TRUE, select, scaling = "symmetric", axis = 1,
-              correlation = FALSE, type = "l", xlab, ylab, ylim, lty = 1:5,
-              col = 1:6, pch, legpos, cex = 0.8, ...)
+              correlation = FALSE, const, type = "l", xlab, ylab, ylim,
+              lty = 1:5, col = 1:6, pch, legpos, cex = 0.8, ...)
 {
     ## save level names before getting the summary
     levs <- x$terminfo$xlev[[2]]
-    x <- summary(x, scaling = scaling, axis = axis,
+    x <- summary(x, axis = axis, scaling = scaling, const,
                  correlation = correlation)
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar))

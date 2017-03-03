@@ -1,7 +1,7 @@
 `weights.rda` <-
-    function (object, display = "sites", ...) 
+    function (object, display = "sites", ...)
 {
-    display <- match.arg(display, c("sites", "species", "lc", 
+    display <- match.arg(display, c("sites", "species", "lc",
                                     "wa"))
     if (display %in% c("sites", "lc", "wa")) {
         n <- nobs(object)
@@ -9,6 +9,6 @@
             inherits(object$na.action, "exclude"))
             n <- n + length(object$na.action)
     }
-    else n <- max(ncol(object$CA$Xbar), ncol(object$CCA$Xbar))
+    else n <- length(object$colsum)
     rep(1, n)
 }

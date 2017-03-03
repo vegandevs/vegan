@@ -1,6 +1,6 @@
 `mso` <-
     function (object.cca, object.xy, grain = 1, round.up = FALSE,
-              permutations = 0) 
+              permutations = 0)
 {
     if (inherits(object.cca, "dbrda"))
         stop("'mso' is not yet implemented for 'dbrda'\ncontact developers or submit a pull request with your code in github")
@@ -12,7 +12,7 @@
     object <- object.cca
     xy <- object.xy
     N <- nobs(object)
-    if (inherits(object, "rda")) 
+    if (inherits(object, "rda"))
         N <- 1
     ## we expect xy are coordinates and calculate distances, but a
     ## swift user may have supplied distances, and we use them.
@@ -23,7 +23,7 @@
     else
         Dist <- dist(xy)
     object$grain <- grain
-    if (round.up) 
+    if (round.up)
         H <- ceiling(Dist/grain) * grain
     else H <- round(Dist/grain) * grain
     hmax <- round((max(Dist)/2)/grain) *grain
@@ -31,51 +31,51 @@
     object$H <- H
     H <- as.vector(H)
     Dist <- sapply(split(Dist, H), mean)
-    object$vario <- data.frame(H = names(table(H)), Dist = Dist, 
+    object$vario <- data.frame(H = names(table(H)), Dist = Dist,
                                n = as.numeric(table(H)))
     test <- list()
     if (is.numeric(object$CCA$rank)) {
         if (is.numeric(object$pCCA$rank)) {
-            test$pcca <- sapply(split(dist(object$pCCA$Fit)^2 * 
+            test$pcca <- sapply(split(dist(ordiYbar(object, "pCCA"))^2 *
                                       N/2, H), mean)
-            test$cca <- sapply(split(dist(object$CCA$Xbar - object$CA$Xbar)^2 * 
+            test$cca <- sapply(split(dist(ordiYbar(object,"CCA"))^2 *
                                      N/2, H), mean)
-            test$ca <- sapply(split(dist(object$CA$Xbar)^2 * 
+            test$ca <- sapply(split(dist(ordiYbar(object,"CA"))^2 *
                                     N/2, H), mean)
-            test$all.cond <- sapply(split(dist(object$CCA$Xbar)^2 * 
+            test$all.cond <- sapply(split(dist(ordiYbar(object, "partial"))^2 *
                                           N/2, H), mean)
-            test$se <- sqrt(sapply(split(dist(object$CCA$Xbar)^2 * 
+            test$se <- sqrt(sapply(split(dist(ordiYbar(object, "partial"))^2 *
                                          N/2, H), var)/object$vario$n)
-            object$vario <- cbind(object$vario, All = test$all.cond, 
+            object$vario <- cbind(object$vario, All = test$all.cond,
                                   Sum = test$ca + test$cca, CA = test$ca,
                                   CCA = test$cca,  pCCA = test$pcca,
                                   se = test$se)
         } else {
-            test$all <- sapply(split(dist(object$CCA$Xbar)^2 * 
+            test$all <- sapply(split(dist(ordiYbar(object, "partial"))^2 *
                                      N/2, H), mean)
-            test$cca <- sapply(split(dist(object$CCA$Xbar - object$CA$Xbar)^2 * 
+            test$cca <- sapply(split(dist(ordiYbar(object, "CCA"))^2 *
                                      N/2, H), mean)
-            test$ca <- sapply(split(dist(object$CA$Xbar)^2 * 
+            test$ca <- sapply(split(dist(ordiYbar(object,"CA"))^2 *
                                     N/2, H), mean)
-            test$se <- sqrt(sapply(split(dist(object$CCA$Xbar)^2 * 
+            test$se <- sqrt(sapply(split(dist(ordiYbar(object, "partial"))^2 *
                                          N/2, H), var)/object$vario$n)
-            object$vario <- cbind(object$vario, All = test$all, 
+            object$vario <- cbind(object$vario, All = test$all,
                                   Sum = test$ca + test$cca, CA = test$ca,
                                   CCA = test$cca, se = test$se)
         }
     } else {
-        test$ca <- sapply(split(dist(object$CA$Xbar)^2 * N/2, 
+        test$ca <- sapply(split(dist(ordiYbar(object, "CA"))^2 * N/2,
                                 H), mean)
         object$vario <- cbind(object$vario, All = test$ca, CA = test$ca)
     }
-    permat <- getPermuteMatrix(permutations, nrow(object$CA$Xbar))
+    permat <- getPermuteMatrix(permutations, nobs(object))
     nperm <- nrow(permat)
     if (nperm) {
         object$H.test <- matrix(0, length(object$H), nrow(object$vario))
         for (i in 1:nrow(object$vario)) {
             object$H.test[, i] <- as.numeric(object$H == object$vario$H[i])
         }
-        xdis <- as.matrix(dist(object$CA$Xbar)^2)
+        xdis <- as.matrix(dist(ordiYbar(object, "CA"))^2)
         ## taking lower triangle is faster than as.dist() because it
         ## does not set attributes
         ltri <- lower.tri(xdis)

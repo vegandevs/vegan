@@ -23,10 +23,10 @@
      correlation = FALSE, hill = FALSE, ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
      scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
-     axis.bp = TRUE, correlation = FALSE, hill = FALSE, ...)
+     axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
 \method{points}{cca}(x, display = "sites", choices = c(1, 2),
        scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
-       axis.bp = TRUE, correlation = FALSE, hill = FALSE, ...)
+       axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
 \method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"),
        scaling = "species", hill = FALSE, ...)
 \method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"),
@@ -47,7 +47,9 @@
     alternatives \code{species} or \code{sp} for species scores,
     \code{sites} or \code{wa} for site scores, \code{lc} for linear
     constraints or ``LC scores'', or \code{bp} for biplot arrows or
-    \code{cn} for centroids of factor constraints instead of an arrow.}
+    \code{cn} for centroids of factor constraints instead of an arrow,
+    and \code{reg} for regression coefficients (a.k.a. canonical
+    coefficients). }
   \item{scaling}{Scaling for species and site scores. Either species
     (\code{2}) or site (\code{1}) scores are scaled by eigenvalues, and
     the other set of scores is left unscaled, or with \code{3} both are
@@ -119,15 +121,28 @@
   \code{text} and unlabelled with \code{points}. The arrows have
   basically unit scaling, but if sites were scaled (\code{scaling}
   \code{"sites"} or \code{"symmetric"}), the scores of requested axes
-  are adjusted relative to the axis with highest eigenvalue. The basic
-  \code{plot} function uses a simple heuristics for adjusting the
-  unit-length arrows to the current plot area, but the user can give
-  the expansion factor in \code{mul.arrow}.  With \code{display="cn"}
-  the centroids of levels of \code{\link{factor}} variables are
-  displayed (these are available only if there were factors and a
-  formula interface was used in \code{\link{cca}} or
-  \code{\link{rda}}). With this option continuous variables still are
-  presented as arrows and ordered factors as arrows and centroids.
+  are adjusted relative to the axis with highest eigenvalue.  With
+  \code{scaling = "species"} or \code{scaling = "none"}, the arrows will
+  be consistent with vectors fitted to linear combination scores
+  (\code{display = "lc"} in function \code{\link{envfit}}), but with
+  other scaling alternatives they will differ. The basic \code{plot}
+  function uses a simple heuristics for adjusting the unit-length arrows
+  to the current plot area, but the user can give the expansion factor
+  in \code{mul.arrow}.  With \code{display="cn"} the centroids of levels
+  of \code{\link{factor}} variables are displayed (these are available
+  only if there were factors and a formula interface was used in
+  \code{\link{cca}} or \code{\link{rda}}). With this option continuous
+  variables still are presented as arrows and ordered factors as arrows
+  and centroids. With \code{display = "reg"} arrows will be drawn for
+  regression coefficients (a.k.a. canonical coefficients) of constraints
+  and conditions. Biplot arrows can be interpreted individually, but
+  regression coefficients must be interpreted all together: the LC score
+  for each site is the sum of regressions displayed by arrows. The
+  partialled out conditions are zero and not shown in biplot arrows, but
+  they are shown for regressions, and show the effect that must be
+  partialled out to get the LC scores. The biplot arrows are more
+  standard and more easily interpreted, and regression arrows should be
+  used only if you know that you need them.
 
   If you want to have still a better control of plots, it is better to
   produce them using primitive \code{plot} commands. Function

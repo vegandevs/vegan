@@ -18,11 +18,10 @@
 ordistep(object, scope, direction = c("both", "backward", "forward"),
    Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199), steps = 50,
    trace = TRUE, ...)
-ordiR2step(object, scope, direction = c("both", "forward"),
-   Pin = 0.05, R2scope = TRUE, permutations = how(nperm = 499),
-   trace = TRUE, R2permutations = 1000, ...)
+ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
+   permutations = how(nperm = 499), trace = TRUE, R2permutations = 1000, ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{object}{
   In \code{ordistep}, an ordination object inheriting from \code{\link{cca}} or \code{\link{rda}}. In \code{ordiR2step}, the object must inherit from \code{\link{rda}}, that is, it must have been computed using \code{\link{rda}} or \code{\link{capscale}}.
@@ -36,9 +35,11 @@ ordiR2step(object, scope, direction = c("both", "forward"),
 }
   \item{direction}{
   The mode of stepwise search, can be one of \code{"both"},
-  \code{"backward"}, or \code{"forward"}, with a default of \code{"both"}.  
-  If the \code{scope} argument is missing, the default for \code{direction}
-   is \code{"backward"}.	  
+  \code{"backward"}, or \code{"forward"}, with a default of
+  \code{"both"}.  If the \code{scope} argument is missing, the default
+  for \code{direction} is \code{"backward"} in \code{ordistep} (and
+  \code{ordiR2step} does not have this argument, but only works
+  forward).
 }
   \item{Pin, Pout}{
   Limits of permutation \eqn{P}-values for adding (\code{Pin}) a term to 
@@ -88,31 +89,27 @@ ordiR2step(object, scope, direction = c("both", "forward"),
   permutation \eqn{P}-values.
  
   Function \code{ordistep} defines the model, \code{scope} of models
-  considered, and \code{direction} of the procedure similarly as 
-  \code{\link{step}}. The function alternates with \code{drop} and 
+  considered, and \code{direction} of the procedure similarly as
+  \code{\link{step}}. The function alternates with \code{drop} and
   \code{add} steps and stops when the model was not changed during one
-  step. The \code{-} and \code{+} signs in the summary
-  table indicate which stage is performed. The number of permutations
-  is selected adaptively with respect to the defined decision limit. It
-  is often sensible to have \code{Pout} \eqn{>} \code{Pin} in stepwise
-  models to avoid cyclic adds and drops of single terms. 
+  step. The \code{-} and \code{+} signs in the summary table indicate
+  which stage is performed.  It is often sensible to have \code{Pout}
+  \eqn{>} \code{Pin} in stepwise models to avoid cyclic adds and drops
+  of single terms.
 
-  Function \code{ordiR2step} builds model so that it maximizes
+  Function \code{ordiR2step} builds model forward so that it maximizes
   adjusted \eqn{R^2}{R2} (function \code{\link{RsquareAdj}}) at every
   step, and stopping when the adjusted \eqn{R^2}{R2} starts to
   decrease, or the adjusted \eqn{R^2}{R2} of the \code{scope} is
   exceeded, or the selected permutation \eqn{P}-value is exceeded
   (Blanchet et al. 2008). The second criterion is ignored with option
-  \code{R2step = FALSE}, and the third criterion can be ignored
-  setting \code{Pin = 1} (or higher).  The \code{direction} has
-  choices \code{"forward"} and \code{"both"}, but it is very
-  exceptional that a term is dropped with the adjusted \eqn{R^2}{R2}
-  criterion. Adjusted \eqn{R^2}{R2} cannot be calculated if the number
-  of predictors is higher than the number of observations, but such
-  models can be analysed with \code{R2scope = FALSE}.  The
-  \eqn{R^2}{R2} of \code{\link{cca}} is based on simulations (see
-  \code{\link{RsquareAdj}}) and different runs of \code{ordiR2step}
-  can give different results.
+  \code{R2scope = FALSE}, and the third criterion can be ignored
+  setting \code{Pin = 1} (or higher). Adjusted \eqn{R^2}{R2} cannot be
+  calculated if the number of predictors is higher than the number of
+  observations, but such models can be analysed with
+  \code{R2scope = FALSE}.  The \eqn{R^2}{R2} of \code{\link{cca}} is
+  based on simulations (see \code{\link{RsquareAdj}}) and different
+  runs of \code{ordiR2step} can give different results.
 
   Functions \code{ordistep} (based on \eqn{P} values) and \code{ordiR2step}
   (based on adjusted \eqn{R^2}{R2} and hence on eigenvalues) can select
@@ -137,13 +134,16 @@ ordiR2step(object, scope, direction = c("both", "forward"),
 }
 
 \seealso{
-  The function handles constrained ordination methods \code{\link{cca}},
-  \code{\link{rda}} and \code{\link{capscale}}. The underlying functions 
-  are \code{\link{add1.cca}} and \code{\link{drop1.cca}}, and the 
-  function is modelled after standard \code{\link{step}} (which also can 
-  be used directly but uses AIC for model choice, see 
-  \code{\link{extractAIC.cca}}). Function \code{ordiR2step} builds upon
-  \code{\link{RsquareAdj}}.  
+
+  The function handles constrained ordination methods
+  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} and
+  \code{\link{capscale}}. The underlying functions are
+  \code{\link{add1.cca}} and \code{\link{drop1.cca}}, and the function
+  is modelled after standard \code{\link{step}} (which also can be
+  used directly but uses AIC for model choice, see
+  \code{\link{extractAIC.cca}}). Function \code{ordiR2step} builds
+  upon \code{\link{RsquareAdj}}.
+
 }
 \examples{
 ## See add1.cca for another example

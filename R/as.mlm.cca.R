@@ -1,10 +1,12 @@
 `as.mlm.cca` <-
-    function (x) 
+    function (x)
 {
     w <- x$rowsum
-    wa <- x$CCA$wa
-    wa <- sweep(wa, 1, sqrt(w), "*")
+    WA <- x$CCA$wa
     X <- qr.X(x$CCA$QR)
-    lm(wa ~ . - 1, data = as.data.frame(X))
+    ## shall use weighted regression: deweight X
+    X <- (1/sqrt(w)) * X
+    X <- as.data.frame(X)
+    lm(WA ~ ., data = X, weights = w)
 }
 

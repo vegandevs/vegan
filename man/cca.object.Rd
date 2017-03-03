@@ -47,6 +47,13 @@
     factors.  This is produced by \pkg{vegan} internal function
     \code{\link{ordiTerminfo}}, and is missing if the ordination
     was not called with \code{formula}.}
+  \item{Ybar}{Working input data after initial transformations for each
+    method. Function \code{\link{ordiYbar}} can be used to access this
+    data as well as the data used to find the data after fitting the
+    conditions, constraints or residual variation. The data structure
+    changed in \pkg{vegan} 2.5-0 and therefore direct access to these
+    items is not robust across version limits, and \code{\link{ordiYbar}}
+    should be used for these components.}
   \item{tot.chi}{Total inertia or the sum of all eigenvalues.}
   \item{na.action}{The result of \code{\link{na.action}} if missing
     values in constraints were handled by \code{\link{na.omit}} or
@@ -86,8 +93,13 @@
     \item{\code{eig}}{Eigenvalues of axes. In \code{CCA} and \code{CA}.}
     \item{\code{envcentre}}{(Weighted) means of the original constraining or
       conditioning variables. In \code{pCCA} and in \code{CCA}.}
-    \item{\code{Fit}}{The fitted values of standardized data matrix after
-      fitting conditions. Only in \code{pCCA}.}
+
+    \item{\code{Fit}}{\bold{DEPRECATED} The fitted values of
+      standardized data matrix after fitting conditions. Only in
+      \code{pCCA}. This is \bold{deprecated} and can be removed at any
+      release. Use \code{ordiYbar(x, "pCCA")} to access this item in any
+      \pkg{vegan} version.}
+
     \item{\code{QR}}{The QR decomposition of explanatory variables as produced
       by \code{\link{qr}}. 
       The constrained ordination 
@@ -134,10 +146,18 @@
       \code{v} with weights \code{Xbar}, but the multiplying effect of
       eigenvalues  removed. These often are known as WA scores in
       \code{cca}. Only in  \code{CCA}.}
-    \item{\code{Xbar}}{The initialized working response matrix after
-      previous stages of analysis. In \code{CCA} this is after possible
-      \code{pCCA} or after partialling out the effects of conditions,
-      and in \code{CA} after both \code{pCCA} and \code{CCA}.}  } } }
+    
+    \item{\code{Xbar}}{\bold{DEPRECATED} The initialized working
+      response matrix after previous stages of analysis. In \code{CCA}
+      this is after possible \code{pCCA} or after partialling out the
+      effects of conditions, and in \code{CA} after both \code{pCCA} and
+      \code{CCA}. This is \bold{deprecated} and the item can be removed
+      in any release. Function \code{\link{ordiYbar}} will return these
+      items in old and current versions of \pkg{vegan}. The \code{CCA}
+      item can be found as \code{ordiYbar(x, "partial")} and the
+      \code{CA} item as \code{ordiYbar(x, "CA")}.}
+
+  } } }
 
 \section{NA Action and Subset}{
   If the constraints had missing values or subsets, and \code{\link{na.action}}

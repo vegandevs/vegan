@@ -3,48 +3,26 @@
     function (object, model = c("CCA", "CA", "pCCA"),
               type = c("response", "working"), ...)
 {
+    ZAP <- sqrt(.Machine$double.eps)
     type <- match.arg(type)
     model <- match.arg(model)
     if (is.null(object[[model]]))
         stop("component ", model, " does not exist")
-    if (type == "working") {
-        if (model == "pCCA")
-            G <- object$pCCA$Fit
-        else
-            G <- object[[model]]$Xbar
-        if (model == "CCA") {
-            H <- tcrossprod(
-                qr.Q(object$CCA$QR)[, seq_len(object$CCA$QR$rank),
-                                    drop=FALSE])
-            G <- H %*% G %*% H
-        }
-        out <- G
-    }
+    D <- ordiYbar(object, model)
     if (type == "response") {
-        if (model == "pCCA")
-            stop("type = 'response' is unavailable for 'pCCA'")
-        eig <- object[[model]]$eig
-        U <- object[[model]]$u
-        U <- sweep(U, 2, sqrt(eig[eig>0]), "*")
-        D <- dist(U)
-        ## remove additive constant
-        if (!is.null(object$ac)) {
-            if (object$add == "lingoes")
-                D <- sqrt(D^2 - 2 * object$ac)
-            else if (object$add == "cailliez")
-                D <- D - object$ac
-            else stop("unknown Euclidifying adjustment")
-        }
-        ## remove negative distances in imaginary space
-        if (any(eig < 0)) {
-            U <- object[[model]]$imaginary.u
-            U <- sweep(U, 2, sqrt(abs(eig[eig<0])), "*")
-            D <- sqrt(D^2 - dist(U)^2)
-        }
-        ## undo internal sqrt.dist
-        if (object$sqrt.dist)
-            D <- D^2
-        out <- D * object$adjust
+        ## revert Gower double centring
+        de <- diag(D)
+        D <- -2 * D + outer(de, de, "+")
+        ## we may have tiny negative zeros: zero them, but let large
+        ## negative values be and give NaN in sqrt (with a warning)
+        D[abs(D) < ZAP] <- 0
+        if (!object$sqrt.dist)
+            D <- sqrt(D)
+        D <- D * object$adjust
+        D <- as.dist(D)
+        ## we do not remove Lingoes or Cailliez adjustment: this
+        ## typically gives too many negative distances as unadjusted D
+        ## often has zero-values
     }
-    out
+    D
 }

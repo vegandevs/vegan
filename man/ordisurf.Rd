@@ -14,7 +14,7 @@
 \method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
          thinplate = TRUE, bs = "tp", fx = FALSE, add = FALSE,
-         display = "sites", w = weights(x), main, nlevels = 10,
+         display = "sites", w = weights(x, display), main, nlevels = 10,
          levels, npoints = 31, labcex = 0.6, bubble = FALSE,
          cex = 1, select = TRUE, method = "REML", gamma = 1,
          plot = TRUE, lwd.cl = par("lwd"), ...)

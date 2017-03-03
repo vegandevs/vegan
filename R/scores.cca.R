@@ -11,12 +11,12 @@
     if (!is.null(x$na.action) && inherits(x$na.action, "exclude"))
         x <- ordiNApredict(x$na.action, x)
     tabula <- c("species", "sites", "constraints", "biplot",
-                "centroids")
-    names(tabula) <- c("sp", "wa", "lc", "bp", "cn")
+                "regression", "centroids")
+    names(tabula) <- c("sp", "wa", "lc", "bp", "reg", "cn")
     if (is.null(x$CCA))
         tabula <- tabula[1:2]
     display <- match.arg(display, c("sites", "species", "wa",
-                                    "lc", "bp", "cn"),
+                                    "lc", "bp", "reg", "cn"),
                          several.ok = TRUE)
     if("sites" %in% display)
         display[display == "sites"] <- "wa"
@@ -72,10 +72,21 @@
         rownames(b) <- rownames(x$CCA$biplot)
         if (scaling) {
             scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
-            scal <- scal/max(scal) # scale proportionally to the "best" dim
-            b <- sweep(b, 2, scal, "/")
+            b <- sweep(b, 2, scal, "*")
         }
         sol$biplot <- b
+    }
+    if ("regression" %in% take) {
+        b <- coef(x, norm = TRUE)
+        reg <- matrix(0, nrow(b), length(choices))
+        reg[, choices <= rnk] <- b[, choices[choices <= rnk]]
+        dimnames(reg) <- list(rownames(b),
+                              c(colnames(x$CCA$u), colnames(x$CA$u))[choices])
+        if (scaling) {
+            scal <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
+            reg <- sweep(reg, 2, scal, "*")
+        }
+        sol$regression <- reg
     }
     if ("centroids" %in% take) {
         if (is.null(x$CCA$centroids))

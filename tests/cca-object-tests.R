@@ -41,10 +41,10 @@ head(summary(mandb))
 head(goodness(mcca, display = "sites"))
 head(goodness(mrda, display = "sites"))
 head(goodness(mrda1, display = "sites"))
-head(goodness(mcap, display = "sites"))
-head(goodness(mdb, display="sites"))
-head(goodness(mancap, display="sites"))
-head(goodness(mandb, display="sites"))
+## head(goodness(mcap, display = "sites")) # currently disabled
+## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
+## head(goodness(mancap, display="sites")) # currently disabled
+## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
 
 
 head(inertcomp(mcca))

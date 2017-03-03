@@ -7,7 +7,7 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores") , C = TRUE, ...)
+              strata = NULL, parallel = getOption("mc.cores") ,  ...)
 {
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA)) {
@@ -22,8 +22,8 @@ permutest.default <- function(x, ...)
     }
     ## compatible arguments?
     if (!is.null(by)) {
-        if (first || !C)
-            stop("'by' cannot be used with options 'first=TRUE' or 'C=FALSE'")
+        if (first)
+            stop("'by' cannot be used with option 'first=TRUE'")
         by <- match.arg(by, c("onedf", "terms"))
         if (by == "terms" && is.null(x$terminfo))
             stop("by='terms' needs a model fitted with a formula")
@@ -33,51 +33,8 @@ permutest.default <- function(x, ...)
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
     isDB <- inherits(x, c("dbrda"))
-    ## Function to get the F statistics in one loop
-    getF <- function (indx, ...)
-    {
-        getEV <- function(x, isDB=FALSE)
-        {
-            if (isDB)
-                sum(diag(x))
-            else
-                sum(x*x)
-        }
-        if (!is.matrix(indx))
-            dim(indx) <- c(1, length(indx))
-        R <- nrow(indx)
-        mat <- matrix(0, nrow = R, ncol = 3)
-        for (i in seq_len(R)) {
-            take <- indx[i,]
-            if (isDB)
-                Y <- E[take, take]
-            else
-                Y <- E[take, ]
-            if (isPartial) {
-                Y <- qr.resid(QZ, Y)
-                if (isDB)
-                    Y <- qr.resid(QZ, t(Y))
-            }
-            tmp <- qr.fitted(Q, Y)
-            if (first) {
-                if (isDB) {
-                    tmp <- qr.fitted(Q, t(tmp)) # eigen needs symmetric tmp
-                    cca.ev <- eigen(tmp, symmetric = TRUE)$values[1]
-                } else
-                    cca.ev <- La.svd(tmp, nv = 0, nu = 0)$d[1]^2
-            } else
-                cca.ev <- getEV(tmp, isDB)
-            if (isPartial || first) {
-                tmp <- qr.resid(Q, Y)
-                ca.ev <- getEV(tmp, isDB)
-            }
-            else ca.ev <- Chi.tot - cca.ev
-            mat[i,] <- cbind(cca.ev, ca.ev, (cca.ev/q)/(ca.ev/r))
-        }
-        mat
-    }
-    ## end getF()
-    CgetF <- function(indx, ...)
+    ## C function to get the statististics in one loop
+    getF <- function(indx, ...)
     {
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
@@ -96,9 +53,15 @@ permutest.default <- function(x, ...)
             out <- cbind(out, (out[,1]/q)/(out[,2]/r))
         out
     }
-    if (C)
-        getF <- CgetF
-
+    ## end getF
+    ## QR decomposition
+        Q <- x$CCA$QR
+    if (isPartial) {
+        QZ <- x$pCCA$QR
+    } else {
+        QZ <- NULL
+    }
+    ## statistics: overall tests
     if (first) {
         Chi.z <- x$CCA$eig[1]
         q <- 1
@@ -110,16 +73,20 @@ permutest.default <- function(x, ...)
     }
     ## effects
     if (!is.null(by)) {
+        partXbar <- ordiYbar(x, "partial")
         if (by == "onedf") {
             effects <- seq_len(q)
             termlabs <-
                 if (isPartial)
-                    colnames(x$CCA$QR$qr)[effects + x$pCCA$rank]
+                    colnames(Q$qr)[effects + x$pCCA$rank]
                 else
-                    colnames(x$CCA$QR$qr)[effects]
+                    colnames(Q$qr)[effects]
         } else {                   # by = "terms"
             ass <- x$terminfo$assign
-            pivot <- x$CCA$QR$pivot
+            ## ass was introduced in vegan_2.5-0
+            if (is.null(ass))
+                stop("update() old ordination result object")
+            pivot <- Q$pivot
             if (isPartial)
                 pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
             ass <- ass[pivot[seq_len(x$CCA$qrank)]]
@@ -134,7 +101,7 @@ permutest.default <- function(x, ...)
             effects <- effects + x$pCCA$rank
         F.0 <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, partXbar, k = effects[k])
             F.0[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
     }
@@ -145,7 +112,7 @@ permutest.default <- function(x, ...)
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
-    r <- nobs(x) - x$CCA$QR$rank - 1
+    r <- nobs(x) - Q$rank - 1
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz
@@ -154,26 +121,22 @@ permutest.default <- function(x, ...)
     else {
         Chi.z <- numeric(length(effects))
         for (k in seq_along(effects)) {
-            fv <- qr.fitted(x$CCA$QR, x$CCA$Xbar, k = effects[k])
+            fv <- qr.fitted(Q, partXbar, k = effects[k])
             Chi.z[k] <- if (isDB) sum(diag(fv)) else sum(fv^2)
         }
         Chi.z <- diff(c(0, F.0))
         F.0 <- Chi.z/q * r/Chi.xz
     }
-    Q <- x$CCA$QR
-    if (isPartial) {
-        Y.Z <- x$pCCA$Fit
-        QZ <- x$pCCA$QR
-    } else {
-        QZ <- NULL
-    }
-    if (model == "reduced" || model == "direct")
-        E <- x$CCA$Xbar
-    else E <-
-        if (isDB) stop(gettextf("%s cannot be used with 'full' model"), x$method)
-        else x$CA$Xbar
-    if (isPartial && model == "direct")
-        E <- E + Y.Z
+
+    ## permutation data
+    E <- switch(model,
+                "direct" = ordiYbar(x, "initial"),
+                "reduced" = ordiYbar(x, "partial"),
+                "full" = ordiYbar(x, "CA"))
+    ## vegan < 2.5-0 cannot use direct model in partial dbRDA
+    if (is.null(E) && isDB && isPartial)
+        stop("'direct' model cannot be used in old partial-dbrda: update ordination")
+
     ## Save dimensions
     N <- nrow(E)
     permutations <- getPermuteMatrix(permutations, N, strata = strata)

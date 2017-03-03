@@ -19,12 +19,10 @@
   
 }
 \usage{
-\method{goodness}{cca}(object, display = c("species", "sites"), choices,
-    model = c("CCA", "CA"), statistic = c("explained", "distance"),
-    summarize = FALSE, addprevious = FALSE, ...)
+\method{goodness}{cca}(object, choices, display = c("species", "sites"),
+    model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),
-    statistic = c("explained", "distance"), unity = FALSE,
-    proportional = FALSE)
+    unity = FALSE, proportional = FALSE)
 spenvcor(object)
 intersetcor(object)
 vif.cca(object)
@@ -36,7 +34,7 @@ vif.cca(object)
     \code{\link{rda}} or \code{\link{capscale}}. }
 
   \item{display}{Display \code{"species"} or \code{"sites"}. Species
-    are not available in \code{\link{capscale}}. }
+    are not available in \code{\link{dbrda}} and \code{\link{capscale}}. }
 
   \item{choices}{Axes shown. Default is to show all axes of the
     \code{"model"}. }
@@ -44,15 +42,11 @@ vif.cca(object)
   \item{model}{Show constrained (\code{"CCA"}) or unconstrained
     (\code{"CA"}) results. }
 
-  \item{statistic}{Statistic used: \code{"explained"} gives the cumulative
-    percentage accounted for, \code{"distance"} shows the residual
-    distances. }
-
   \item{summarize}{Show only the accumulated total.}
 
   \item{addprevious}{Add the variation explained by previous components
-     when \code{statistic="explained"}. For \code{model="CCA"} add
-     conditionened (partialled out) variation, and for \code{model="CA"}
+     when \code{statistic="explained"}. For \code{model = "CCA"} add
+     conditionened (partialled out) variation, and for \code{model = "CA"}
      add both conditioned and constrained variation. This will give
      cumulative explanation. The argument has no effect when
      \code{statistic="distance"}, but this will always show the residual
@@ -69,22 +63,19 @@ vif.cca(object)
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
-  Function \code{goodness} gives the diagnostic statistics for species
-  or sites. The alternative statistics are the cumulative proportion of
-  inertia accounted for up to the axes, and the residual distance left
-  unaccounted for.
+  Function \code{goodness} gives cumulative proportion of inertia
+  accounted by species up to chosen axes.
 
   Function \code{inertcomp} decomposes the inertia into partial,
-  constrained and unconstrained components for each site or
-  species. Instead of inertia, the function can give the total
-  dispersion or distances from the centroid for each component. Legendre
-  & De \enc{Cáceres}{Caceres} (2012) called these inertia components as
-  local contributions to beta-diversity (LCBD) and species contributions
-  to beta-diversity (SCBD), and they give these as relative
-  contributions summing up to unity (argument \code{unity = TRUE}). For
-  this interpretation, appropriate dissimilarity measures should be used
-  in \code{\link{dbrda}} or appropriate standardization in
-  \code{\link{rda}} (Legendre &  De \enc{Cáceres}{Caceres} 2012).
+  constrained and unconstrained components for each site or species.
+  Legendre & De \enc{Cáceres}{Caceres} (2012) called these inertia
+  components as local contributions to beta-diversity (LCBD) and
+  species contributions to beta-diversity (SCBD), and they give these
+  as relative contributions summing up to unity (argument
+  \code{unity = TRUE}). For this interpretation, appropriate dissimilarity
+  measures should be used in \code{\link{dbrda}} or appropriate
+  standardization in \code{\link{rda}} (Legendre & De
+  \enc{Cáceres}{Caceres} 2012).
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
     environment correlation} or (weighted) correlation of 
@@ -158,7 +149,7 @@ goodness(mod, addprevious = TRUE)
 goodness(mod, addprevious = TRUE, summ = TRUE)
 # Inertia components
 inertcomp(mod, prop = TRUE)
-inertcomp(mod, stat="d")
+inertcomp(mod)
 # vif.cca 
 vif.cca(mod)
 # Aliased constraints

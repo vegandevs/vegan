@@ -103,7 +103,7 @@
         totvar <- sum(diag(Y))
     else
         totvar <- sum(Y^2)
-    head <- list("tot.chi" = totvar)
+    head <- list("tot.chi" = totvar, "Ybar" = Y)
     if (method == "cca")
         head <- c(list("grand.total" = attr(Y, "tot"),
                        "rowsum" = attr(Y, "RW"),
@@ -224,8 +224,11 @@
     } else {
         wa <- Y %*% v %*% diag(1/sqrt(lambda), sum(posev))
     }
-    ## biplot scores
-    bp <- cor(X[, Q$pivot[kept], drop = FALSE], u[, posev, drop=FALSE])
+    ## biplot scores: basically these are cor(X, u), but cor() would
+    ## re-centre X and u in CCA, and therefore we need the following
+    ## (which also is faster)
+    xx <- X[, Q$pivot[kept], drop = FALSE]
+    bp <- (1/sqrt(colSums(xx^2))) * crossprod(xx, u[, posev, drop=FALSE])
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
