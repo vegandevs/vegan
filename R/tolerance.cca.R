@@ -62,8 +62,9 @@ tolerance.cca <- function(x, choices = 1:2,
         for (i in seq_len(NROW(res))) {
             XiUk <- apply(scrs[["species"]], 1L, `-`, scrs[[siteScrs]][i,])
             YXiUk <- sweep(XiUk^2, 2L, Y[i,], "*")
-            if(any(neg <- YXiUk < 0))
+            if(any(neg <- YXiUk < 0)) {
                 YXiUk[neg] <- 0
+            }
             res[i, ] <- sqrt(rowSums(YXiUk) / Ytot[i])
         }
         rownames(res) <- rownames(scrs[[siteScrs]])
@@ -72,7 +73,10 @@ tolerance.cca <- function(x, choices = 1:2,
         if(doN2) {
             y <- sweep(Y, 1, Ytot, "/")^2
             N2 <- 1 / rowSums(y, na.rm = TRUE) ## 1/H
-            res <- sweep(res, 1, sqrt(1 - (1/N2)), "/")
+            ## avoid almost-1 for sites with only one spp
+            N2 <- zapsmall(N2 - 1L) + 1L
+            ## avoid "negative zeros" form 1 - 1/N2 when N2 ~ 1
+            res <- sweep(res, 1, sqrt(pmax(1 - 1/N2, 0)), "/")
         }
     } else {
         res <- matrix(ncol = length(choices), nrow = ncol(Y))
@@ -80,8 +84,9 @@ tolerance.cca <- function(x, choices = 1:2,
         for (i in seq_len(NROW(res))) {
             XiUk <- apply(scrs[[siteScrs]], 1L, `-`, scrs[["species"]][i,])
             YXiUk <- sweep(XiUk^2, 2L, Y[,i], "*")
-            if (any(neg <- YXiUk < 0))
+            if (any(neg <- YXiUk < 0)) {
                 YXiUk[neg] <- 0
+            }
             res[i, ] <- sqrt(rowSums(YXiUk) / Ytot[i])
         }
         rownames(res) <- colnames(Y)
@@ -90,11 +95,14 @@ tolerance.cca <- function(x, choices = 1:2,
         if(doN2) {
             y <- sweep(Y, 2, Ytot, "/")^2
             N2 <- 1 / colSums(y, na.rm = TRUE) # 1/H
+            ## avoid almost-1 for species present only once
+            N2 <- zapsmall(N2 - 1L) + 1L
             ## avoid "negative zeros" form 1 - 1/N2 when N2 ~ 1
             res <- sweep(res, 1, sqrt(pmax(1 - 1/N2, 0)), "/")
         }
     }
     res[!is.finite(res)] <- 0 # some values can be Inf or NaN but are really 0
+    res <- zapsmall(res)      # almost-zero tolerances should be zero
     class(res) <- c("tolerance.cca", "tolerance","matrix")
     attr(res, "which") <- which
     attr(res, "scaling") <- scaling
