@@ -170,7 +170,9 @@ as.rad(x)
   Function \code{as.rad} is a base function to construct ordered RAD
   data. Its \code{plot} is used by other RAD \code{plot} functions
   which pass extra arguments (such as \code{xlab} and \code{log}) to
-  this function.
+  this function. The function returns an ordered vector of taxa
+  occurring in a site, and a corresponding attribute \code{"index"} of
+  included taxa.
 
 }
 
