@@ -19,7 +19,8 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     formula[[2]] <- NULL
     if (!is.null(indPartial)) {
         partterm <- attr(Terms, "variables")[1 + indPartial]
-        Pterm <- sapply(partterm, function(x) deparse(x[[2]], width.cutoff=500))
+        Pterm <- sapply(partterm, function(x)
+            deparse(x[[2]], width.cutoff=500, backtick = TRUE))
         Pterm <- paste(Pterm, collapse = "+")
         P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
         zlev <- xlev[names(xlev) %in% Pterm]
@@ -29,7 +30,8 @@ function (formula, data, xlev = NULL, na.action = na.fail,
                  envir = data, enclos = .GlobalEnv)
         else
             model.frame(P.formula, data, na.action = na.pass, xlev = zlev)
-        partterm <- sapply(partterm, function(x) deparse(x, width.cutoff=500))
+        partterm <- sapply(partterm, function(x)
+            deparse(x, width.cutoff=500, backtick = TRUE))
         formula <- update(formula, paste("~.-", paste(partterm,
             collapse = "-")))
         flapart <- update(formula, paste(" ~ . +", Pterm))
