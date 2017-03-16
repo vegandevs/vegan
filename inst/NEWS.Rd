@@ -2,6 +2,64 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-3}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item \pkg{vegan} registers native \bold{C} and \bold{Fortran}
+      routines. This avoids warnings in model checking, and may also
+      give a small gain in speed.
+
+    } % itemize
+  } % installation
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{as.mlm} methods for constrained ordination correctly
+      include zero intercept to give the correct residual degrees of
+      freedom for derived statistics.
+
+      \item \code{biplot} method for \code{rda} passes
+      \code{correlation} argument to the scaling algorithm.
+
+      \item Biplot scores were wrongly centred in \code{cca} which
+      caused a small error in their values.
+
+      \item Weighting and centring corrected in \code{intersetcor} and
+      \code{spenvcor}. The fix can make a small difference when
+      analysing \code{cca} results.
+
+      Partial models were not correctly handled in \code{intersetcor}.
+
+      \item \code{envfit} and \code{ordisurf} functions failed when
+      applied to species scores.
+
+      \item Non-standard variable names can be used within
+      \code{Condition()} in partial ordination.  The partial models
+      are also used within other methods, and a problem was reported
+      by Albin Meyer (Univ Lorraine, Metz, France) in
+      \code{ordiR2step} when using a variable name that contained a
+      hyphen (which was wrongly interpreted as a minus sign in partial
+      ordination).
+
+      \item \code{ordispider} did not pass graphical arguments when
+      used to show the difference of LC and WA scores in constrained
+      ordination.
+
+      \item \code{ordiR2step} uses only \code{forward} selection to
+      avoid several problems in model evaluation.
+
+      \item \code{tolerance} function could return \code{NaN} in some
+      cases when it should have returned \eqnq{0}. Partial models were
+      not correctly analysed.
+
+    } %itemize
+  } % bug fixes
+
+} % 2.4-3
+
 \section{Changes in version 2.4-2}{
   \subsection{BUG FIXES}{
     \itemize{
