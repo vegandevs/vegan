@@ -1,4 +1,4 @@
- \name{NEWS}
+\name{NEWS}
 \title{vegan News}
 \encoding{UTF-8}
 
@@ -52,7 +52,7 @@
       avoid several problems in model evaluation.
 
       \item \code{tolerance} function could return \code{NaN} in some
-      cases when it should have returned \eqnq{0}. Partial models were
+      cases when it should have returned \eqn{0}. Partial models were
       not correctly analysed.
 
     } %itemize
