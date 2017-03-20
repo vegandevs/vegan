@@ -1,5 +1,6 @@
 \name{cca.object}
 \alias{cca.object}
+\alias{ordiYbar} % vegan 2.5-0 documents this in predict.cca.Rd
 
 \title{Result Object from Constrained Ordination with cca, rda or capscale }
 \description{
