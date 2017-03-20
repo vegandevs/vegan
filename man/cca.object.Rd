@@ -1,5 +1,6 @@
 \name{cca.object}
 \alias{cca.object}
+\alias{ordiYbar} % vegan 2.5-0 documents this in predict.cca.Rd
 
 \title{Result Object from Constrained Ordination with cca, rda or capscale }
 \description{
@@ -73,8 +74,12 @@
     \item{\code{eig}}{Eigenvalues of axes. In \code{CCA} and \code{CA}.}
     \item{\code{envcentre}}{(Weighted) means of the original constraining or
       conditioning variables. In \code{pCCA} and in \code{CCA}.}
-    \item{\code{Fit}}{The fitted values of standardized data matrix after
-      fitting conditions. Only in \code{pCCA}.}
+    \item{\code{Fit}}{The fitted values of standardized data matrix
+      after fitting conditions. Only in \code{pCCA}.  This element
+      will be \bold{deprecated} in the future. Instead of directly
+      accessing this component, you should use
+      \code{ordiYbar(<result>, "pCCA")} which will work both with the
+      current and future releases.}
     \item{\code{QR}}{The QR decomposition of explanatory variables as produced
       by \code{\link{qr}}. 
       The constrained ordination 
@@ -125,14 +130,21 @@
     \item{\code{wa.excluded, u.excluded}}{WA scores for rows removed by
       \code{na.action = na.exclude} in \code{CCA} and \code{CA}
       components if these could be calculated.}
-    \item{\code{Xbar}}{The standardized data matrix after previous stages of
-      analysis. In \code{CCA} this is after possible \code{pCCA} or
-      after partialling out the effects of conditions, and in \code{CA}
-      after both \code{pCCA} and \code{CCA}. In \code{\link{cca}} the
-      standardization is Chi-square, and in \code{\link{rda}} centring
-      and optional scaling by species standard deviations using function
-      \code{\link{scale}}.}
-  }
+
+    \item{\code{Xbar}}{The standardized data matrix after previous
+      stages of analysis. In \code{CCA} this is after possible
+      \code{pCCA} or after partialling out the effects of conditions,
+      and in \code{CA} after both \code{pCCA} and \code{CCA}. In
+      \code{\link{cca}} the standardization is Chi-square, and in
+      \code{\link{rda}} centring and optional scaling by species
+      standard deviations using function \code{\link{scale}}.  This
+      component will be \bold{deprecated} in the future. Instead of
+      directly accessing these components, you should use commands
+      \code{ordiYbar(<result>, "partial")} (for
+      \code{<result>$CCA$Xbar}) or \code{ordiYbar(<result>, "CA")}
+      (for \code{<result>$CA$Xbar}) which will work both in the
+      current and in the future versions of \pkg{vegan}.}
+   }
 }
 }
 
