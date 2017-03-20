@@ -11,6 +11,14 @@
       routines. This avoids warnings in model checking, and may also
       give a small gain in speed.
 
+      \item Future versions of \pkg{vegan} will deprecate and remove
+      elements \code{pCCA$Fit}, \code{CCA$Xbar}, and \code{CA$Xbar}
+      from \code{cca} result objects. This release provides a new
+      function \code{ordiYbar} which is able to construct these
+      elements both from the current and future releases. Scripts and
+      functions directly accessing these elements should switch to
+      \code{ordiYbar} for smooth transition.
+
     } % itemize
   } % installation
 
