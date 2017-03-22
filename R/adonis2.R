@@ -42,6 +42,9 @@
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
+    ## add traditional adonis output on R2
+    out <- rbind(out, "Total" = c(nobs(sol)-1, sol$tot.chi, NA, NA))
+    out <- cbind(out[,1:2], "R2" = out[,2]/sol$tot.chi, out[,3:4])
     ## Fix output header to show the adonis2() call instead of adonis0()
     head <- attr(out, "heading")
     head[2] <- deparse(match.call(), width.cutoff = 500L)
