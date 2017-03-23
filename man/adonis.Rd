@@ -192,7 +192,7 @@ dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
 
 Y <- data.frame(Agropyron, Schizachyrium)
-mod <- metaMDS(Y)
+mod <- metaMDS(Y, trace = FALSE)
 plot(mod)
 ### Ellipsoid hulls show treatment
 with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
