@@ -42,16 +42,16 @@
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
-    ## head and class will be lost when adding new row & column
-    head <- attr(out, "heading")
-    ocl <- class(out)
+    ## attributes will be lost when adding a new column
+    att <- attributes(out)
     ## add traditional adonis output on R2
     out <- rbind(out, "Total" = c(nobs(sol)-1, sol$tot.chi, NA, NA))
     out <- cbind(out[,1:2], "R2" = out[,2]/sol$tot.chi, out[,3:4])
-    class(out) <- ocl
     ## Fix output header to show the adonis2() call instead of adonis0()
-    head[2] <- deparse(match.call(), width.cutoff = 500L)
-    attr(out, "heading") <- head
+    att$heading[2] <- deparse(match.call(), width.cutoff = 500L)
+    att$names <- names(out)
+    att$row.names <- rownames(out)
+    attributes(out) <- att
     out
 }
 `adonis0` <-
