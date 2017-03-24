@@ -103,8 +103,13 @@ Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
 \value{
 
   Function \code{adonis2} returns an \code{\link{anova.cca}} result
-  object.  Function \code{adonis} returns an object of class
-  \code{"adonis"} with following components:
+  object with a new column for partial \eqn{R^2}{R-squared}: This is the
+  proportion of sum of squares from the total, and in marginal models
+  (\code{by = "margin"}) the \eqn{R^2}{R-squared} terms do not add up to
+  1.
+
+  Function \code{adonis} returns an object of class \code{"adonis"} with
+  following components:
 
   \item{aov.tab}{Typical AOV table showing sources of variation,
     degrees of freedom, sequential sums of squares, mean squares,
@@ -187,7 +192,7 @@ dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
 
 Y <- data.frame(Agropyron, Schizachyrium)
-mod <- metaMDS(Y)
+mod <- metaMDS(Y, trace = FALSE)
 plot(mod)
 ### Ellipsoid hulls show treatment
 with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
