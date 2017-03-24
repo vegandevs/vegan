@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-02-16 r72192) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-03-22 r72384) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -661,11 +661,12 @@ Permutation: free
 Number of permutations: 999
 
 adonis2(formula = dune ~ Management * A1, data = dune.env)
-              Df SumOfSqs      F Pr(>F)   
-Management     3  1.46859 3.2629  0.002 **
-A1             1  0.44089 2.9387  0.022 * 
-Management:A1  3  0.58918 1.3090  0.191   
-Residual      12  1.80036                 
+              Df SumOfSqs      R2      F Pr(>F)   
+Management     3   1.4686 0.34161 3.2629  0.002 **
+A1             1   0.4409 0.10256 2.9387  0.022 * 
+Management:A1  3   0.5892 0.13705 1.3090  0.191   
+Residual      12   1.8004 0.41878                 
+Total         19   4.2990 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## overall tests
@@ -675,9 +676,10 @@ Permutation: free
 Number of permutations: 999
 
 adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)
-         Df SumOfSqs      F Pr(>F)   
-Model     7   2.4987 2.3792  0.003 **
-Residual 12   1.8004                 
+         Df SumOfSqs      R2      F Pr(>F)   
+Model     7   2.4987 0.58122 2.3792  0.003 **
+Residual 12   1.8004 0.41878                 
+Total    19   4.2990 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -704,55 +706,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 +         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
 > 
 > Y <- data.frame(Agropyron, Schizachyrium)
-> mod <- metaMDS(Y)
-Run 0 stress 0.06065252 
-Run 1 stress 0.06065252 
-... New best solution
-... Procrustes: rmse 3.164024e-06  max resid 6.043669e-06 
-... Similar to previous best
-Run 2 stress 0.06065252 
-... Procrustes: rmse 1.938469e-06  max resid 3.61423e-06 
-... Similar to previous best
-Run 3 stress 0.142919 
-Run 4 stress 0.1670077 
-Run 5 stress 0.175151 
-Run 6 stress 0.1751507 
-Run 7 stress 0.06065252 
-... Procrustes: rmse 3.943561e-06  max resid 7.519499e-06 
-... Similar to previous best
-Run 8 stress 0.06065252 
-... New best solution
-... Procrustes: rmse 2.172863e-06  max resid 4.032152e-06 
-... Similar to previous best
-Run 9 stress 0.1820814 
-Run 10 stress 0.06065252 
-... New best solution
-... Procrustes: rmse 1.026253e-06  max resid 1.4719e-06 
-... Similar to previous best
-Run 11 stress 0.06065252 
-... New best solution
-... Procrustes: rmse 1.828471e-06  max resid 3.763468e-06 
-... Similar to previous best
-Run 12 stress 0.06065252 
-... Procrustes: rmse 3.138136e-06  max resid 6.223657e-06 
-... Similar to previous best
-Run 13 stress 0.06065252 
-... Procrustes: rmse 3.415889e-06  max resid 6.880638e-06 
-... Similar to previous best
-Run 14 stress 0.06065252 
-... Procrustes: rmse 3.066271e-06  max resid 5.908388e-06 
-... Similar to previous best
-Run 15 stress 0.06065252 
-... Procrustes: rmse 1.945053e-06  max resid 3.557283e-06 
-... Similar to previous best
-Run 16 stress 0.06065252 
-... Procrustes: rmse 5.441366e-06  max resid 9.82099e-06 
-... Similar to previous best
-Run 17 stress 0.1820814 
-Run 18 stress 0.1659224 
-Run 19 stress 0.1820814 
-Run 20 stress 0.2291418 
-*** Solution reached
+> mod <- metaMDS(Y, trace = FALSE)
 > plot(mod)
 > ### Ellipsoid hulls show treatment
 > with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
@@ -768,9 +722,10 @@ Permutation: free
 Number of permutations: 199
 
 adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
-         Df SumOfSqs      F Pr(>F)  
-NO3       1 0.036334 3.5509   0.04 *
-Residual 10 0.102324                
+         Df SumOfSqs      R2      F Pr(>F)  
+NO3       1 0.036334 0.26204 3.5509   0.04 *
+Residual 10 0.102324 0.73796                
+Total    11 0.138658 1.00000                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -784,9 +739,10 @@ Permutation: free
 Number of permutations: 199
 
 adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
-         Df SumOfSqs      F Pr(>F)  
-NO3       1 0.036334 3.5509   0.02 *
-Residual 10 0.102324                
+         Df SumOfSqs      R2      F Pr(>F)  
+NO3       1 0.036334 0.26204 3.5509   0.02 *
+Residual 10 0.102324 0.73796                
+Total    11 0.138658 1.00000                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5491,7 +5447,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-16. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-17. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6365,7 +6321,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ###   CA, PCA)
 > ### Aliases: fitted.cca fitted.rda fitted.capscale fitted.dbrda
 > ###   residuals.cca predict.cca predict.rda predict.decorana coef.cca
-> ###   coef.rda calibrate.cca calibrate
+> ###   coef.rda calibrate.cca calibrate ordiYbar
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8942,7 +8898,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.564 0.152 26.781 0 0 
+Time elapsed:  25.504 0.128 25.741 0 0 
 > grDevices::dev.off()
 null device 
           1 
