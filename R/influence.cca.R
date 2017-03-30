@@ -64,5 +64,5 @@
      hat <- hatvalues(model)
      p <- model$CCA$qrank
      res <- residuals(model, type="working") * sqrt(nobs(model)-p-1)
-     ((res/(sigma(model) * (1-hat)))^2 * hat) / p
+     ((sweep(res, 2, sigma(model), "/")/(1-hat))^2 * hat) / p
  }
