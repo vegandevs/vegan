@@ -15,5 +15,5 @@
 `hatvalues.cca` <-
     function(model, ...)
 {
-    rowSums(qr.Q(model$CCA$QR)^2) + 1/nrow(model$CCA$QR$qr)
+    rowSums(qr.Q(qr(model))^2) + 1/nrow(qr(model)$qr)
 }
