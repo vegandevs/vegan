@@ -32,7 +32,7 @@
 }
 
 ## rstandard and rstudent need sigma and have similar restrictions as
-## sigma: it should be extractable and meaningful. 
+## sigma: it should be extractable and meaningful.
 
 `rstandard.cca` <-
     function(model, ...)
@@ -55,3 +55,14 @@
     res <- rstandard(model)
     res / sqrt((np-res^2)/(np-1))
 }
+
+## Cook's distance depends on meaningful sigma
+
+`cooks.distance.cca` <-
+    function(model, ...)
+ {
+     hat <- hatvalues(model)
+     p <- model$CCA$qrank
+     res <- residuals(model, type="working") * sqrt(nobs(model)-1)
+     ((res/(1-hat))^2 * hat) / p
+ }
