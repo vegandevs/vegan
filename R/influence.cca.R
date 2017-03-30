@@ -23,12 +23,12 @@
 ## statistic this would be residual of WA/LC regression with little or
 ## no meaning.
 
-`sigma.cca` <-
+`sigma.rda` <-
     function(object, ...)
 {
     ## a vector of species (column) sigmata
-    rdf <- 1 # biased: working residuals divided with n-1
-    colSums(ordiYbar(object, "CA")^2/rdf)
+    rdf <- nobs(object) - object$CCA$qrank - 1
+    sqrt(colSums(ordiYbar(object, "CA")^2/rdf))
 }
 
 ## rstandard and rstudent need sigma and have similar restrictions as
@@ -51,7 +51,7 @@
 `rstudent.rda` <-
     function(model, ...)
 {
-    np <- nobs(model) - model$CCA$qrank
+    np <- nobs(model) - model$CCA$qrank - 1 # -1: Intercept
     res <- rstandard(model)
     res / sqrt((np-res^2)/(np-1))
 }
@@ -63,6 +63,6 @@
  {
      hat <- hatvalues(model)
      p <- model$CCA$qrank
-     res <- residuals(model, type="working") * sqrt(nobs(model)-1)
-     ((res/(1-hat))^2 * hat) / p
+     res <- residuals(model, type="working") * sqrt(nobs(model)-p-1)
+     ((res/(sigma(model) * (1-hat)))^2 * hat) / p
  }
