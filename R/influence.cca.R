@@ -30,3 +30,18 @@
     rdf <- nobs(object) - m$CCA$qrank - 1
     colSums(ordiYbar(object, "CA")^2/rdf)
 }
+
+## rstandard and rstudent need sigma and have similar restrictions as
+## sigma: it should be extractable and meaningful. 
+
+`rstandard.cca` <-
+    function(model, ...)
+{
+    sd <- sigma(model)
+    hat <- hatvalues(model)
+    ## implement for working residuals: hardly interesting
+    res <- ordiYbar(model, "CA")
+    res <- res / sqrt(1 - hat)
+    res <- sweep(res, 2, sd, "/")
+    res
+}
