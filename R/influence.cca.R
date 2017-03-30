@@ -34,7 +34,7 @@
 ## rstandard and rstudent need sigma and have similar restrictions as
 ## sigma: it should be extractable and meaningful.
 
-`rstandard.cca` <-
+`rstandard.rda` <-
     function(model, ...)
 {
     sd <- sigma(model)
@@ -48,7 +48,7 @@
 
 ## MASS book e^star
 
-`rstudent.cca` <-
+`rstudent.rda` <-
     function(model, ...)
 {
     np <- nobs(model) - model$CCA$qrank
@@ -58,7 +58,7 @@
 
 ## Cook's distance depends on meaningful sigma
 
-`cooks.distance.cca` <-
+`cooks.distance.rda` <-
     function(model, ...)
  {
      hat <- hatvalues(model)
