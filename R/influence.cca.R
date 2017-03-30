@@ -45,3 +45,13 @@
     res <- sweep(res, 2, sd, "/")
     res
 }
+
+## MASS book e^star
+
+`rstudent.cca` <-
+    function(model, ...)
+{
+    np <- nobs(model) - model$CCA$qrank
+    res <- rstandard(model)
+    res / sqrt((np-res^2)/(np-1))
+}
