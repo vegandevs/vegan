@@ -17,3 +17,16 @@
 {
     rowSums(qr.Q(qr(model))^2) + 1/nrow(qr(model)$qr)
 }
+
+## sigma gives the residual standard deviation. The only unambiguous
+## sigma is the residual deviation for species, but for CANOCO like
+## statistic this would be residual of WA/LC regression with little or
+## no meaning.
+
+`sigma.cca` <-
+    function(object, ...)
+{
+    ## a vector of species (column) sigmata
+    rdf <- nobs(object) - m$CCA$qrank - 1
+    colSums(ordiYbar(object, "CA")^2/rdf)
+}
