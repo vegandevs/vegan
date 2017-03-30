@@ -27,7 +27,7 @@
     function(object, ...)
 {
     ## a vector of species (column) sigmata
-    rdf <- nobs(object) - m$CCA$qrank - 1
+    rdf <- 1 # biased: working residuals divided with n-1
     colSums(ordiYbar(object, "CA")^2/rdf)
 }
 
