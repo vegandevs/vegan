@@ -24,11 +24,16 @@
 ## no meaning.
 
 `sigma.rda` <-
-    function(object, ...)
+    function(object, type = c("response", "canoco"), ...)
 {
-    ## a vector of species (column) sigmata
+    type <- match.arg(type)
+    ## response: a vector of species (column) sigmata
     rdf <- nobs(object) - object$CCA$qrank - 1
-    sqrt(colSums(ordiYbar(object, "CA")^2/rdf))
+    if (type == "response") {
+        sqrt(colSums(ordiYbar(object, "CA")^2/rdf))
+    } else { # canoco has WA - LC regression
+        sqrt((colSums(object$CCA$wa^2) - 1)/rdf)
+    }
 }
 
 ## rstandard and rstudent need sigma and have similar restrictions as
@@ -62,7 +67,7 @@
     function(model, ...)
  {
      hat <- hatvalues(model)
-     n <- nobs(model)
      p <- model$CCA$qrank
-     (n - p - 1) * rstandard(model)^2 * hat / (1 - hat) / p
+     res <- residuals(model, type="working") * sqrt(nobs(model)-p-1)
+     ((sweep(res, 2, sigma(model), "/")/(1-hat))^2 * hat) / p
  }
