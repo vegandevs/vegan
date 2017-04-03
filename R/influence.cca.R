@@ -70,7 +70,6 @@
     function(model, type = c("response", "canoco"), ...)
  {
      hat <- hatvalues(model)
-     n <- nobs(model)
      p <- model$CCA$qrank
-     (n - p - 1) * rstandard(model, type = type)^2 * hat / (1 - hat) / p
+     rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
  }
