@@ -56,20 +56,21 @@
 ## MASS book e^star
 
 `rstudent.rda` <-
-    function(model, ...)
+    function(model, type = c("response", "canoco"), ...)
 {
+    type <- match.arg(type)
     np <- nobs(model) - model$CCA$qrank - 1 # -1: Intercept
-    res <- rstandard(model)
+    res <- rstandard(model, type = type)
     res / sqrt((np-res^2)/(np-1))
 }
 
 ## Cook's distance depends on meaningful sigma
 
 `cooks.distance.rda` <-
-    function(model, ...)
+    function(model, type = c("response", "canoco"), ...)
  {
      hat <- hatvalues(model)
      n <- nobs(model)
      p <- model$CCA$qrank
-     (n - p - 1) * rstandard(model)^2 * hat / (1 - hat) / p
+     (n - p - 1) * rstandard(model, type = type)^2 * hat / (1 - hat) / p
  }
