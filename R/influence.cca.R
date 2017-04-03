@@ -40,12 +40,14 @@
 ## sigma: it should be extractable and meaningful.
 
 `rstandard.rda` <-
-    function(model, ...)
+    function(model, type = c("response", "canoco"), ...)
 {
-    sd <- sigma(model)
+    type <- match.arg(type)
+    sd <- sigma(model, type = type)
     hat <- hatvalues(model)
-    ## implement for working residuals: hardly interesting
-    res <- ordiYbar(model, "CA")
+    res <- switch(type,
+                  "response" = ordiYbar(model, "CA"),
+                  "canoco" = model$CCA$wa - model$CCA$u)
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
     res
