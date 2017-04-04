@@ -14,6 +14,12 @@
 
 `hatvalues.cca` <-
     function(model, ...)
+ {
+     rowSums(qr.Q(qr(model))^2) + weights(model)
+ }
+
+`hatvalues.rda` <-
+    function(model, ...)
 {
     rowSums(qr.Q(qr(model))^2) + 1/nrow(qr(model)$qr)
 }
