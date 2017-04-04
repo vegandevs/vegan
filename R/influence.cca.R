@@ -53,7 +53,7 @@
     res
 }
 
-## MASS book e^star
+## MASS book (4th ed), Chapter 6.3, p. 152 (e^star)
 
 `rstudent.rda` <-
     function(model, type = c("response", "canoco"), ...)
