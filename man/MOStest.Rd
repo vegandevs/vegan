@@ -142,7 +142,7 @@ regression and the Gaussian response model. \emph{Vegetatio} 65,
 \note{ 
 Function \code{fieller.MOStest} is based on package \pkg{optgrad} in
 the Ecological Archives
-(\url{http://www.esapubs.org/archive/ecol/E082/015/default.htm})
+(\url{https://figshare.com/articles/Full_Archive/3521975})
 accompanying Oksanen et al. (2001). The Ecological Archive package
 \pkg{optgrad} also contains profile deviance method for the location
 of the hump or pit, but the current implementation of \code{profile}
