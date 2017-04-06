@@ -29,6 +29,18 @@
 ## statistic this would be residual of WA/LC regression with little or
 ## no meaning.
 
+`sigma.cca` <-
+    function(object, type = c("response", "canoco"), ...)
+{
+    type <- match.arg(type)
+    ## response: a vector of species (column) sigmata
+     if (type == "response") {
+        sqrt(colSums(ordiYbar(object, "CA")^2))
+    } else { # canoco has WA - LC regression
+        sqrt(colSums(weights(object) * object$CCA$wa^2) - 1)
+    }
+}
+
 `sigma.rda` <-
     function(object, type = c("response", "canoco"), ...)
 {
