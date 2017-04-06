@@ -33,6 +33,8 @@ tolerance.cca <- function(x, choices = 1:2,
     if(missing(which)) {
         which <- "species"
     }
+    ## zapping epsilon to make approximate 1's into 1's
+    ZAP <- sqrt(.Machine$double.eps)
     ## reconstruct species/response matrix Y - up to machine precision!
     partialFit <- if(is.null(x$pCCA$Fit)) 0 else x$pCCA$Fit
     if (is.null(x$CCA)) {
@@ -74,7 +76,7 @@ tolerance.cca <- function(x, choices = 1:2,
             y <- sweep(Y, 1, Ytot, "/")^2
             N2 <- 1 / rowSums(y, na.rm = TRUE) ## 1/H
             ## avoid almost-1 for sites with only one spp
-            N2 <- zapsmall(N2)
+            N2[abs(N2-1) < ZAP] <- 1
             ## avoid "negative zeros" form 1 - 1/N2 when N2 ~ 1
             res <- sweep(res, 1, sqrt(pmax(1 - 1/N2, 0)), "/")
         }
@@ -96,7 +98,7 @@ tolerance.cca <- function(x, choices = 1:2,
             y <- sweep(Y, 2, Ytot, "/")^2
             N2 <- 1 / colSums(y, na.rm = TRUE) # 1/H
             ## avoid almost-1 for species present only once
-            N2 <- zapsmall(N2)
+            N2[abs(N2-1) < ZAP] <- 1
             ## avoid "negative zeros" form 1 - 1/N2 when N2 ~ 1
             res <- sweep(res, 1, sqrt(pmax(1 - 1/N2, 0)), "/")
         }
