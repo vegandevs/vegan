@@ -25,9 +25,9 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item \code{as.mlm} methods for constrained ordination correctly
-      include zero intercept to give the correct residual degrees of
-      freedom for derived statistics.
+      \item \code{as.mlm} methods for constrained ordination include
+      zero intercept to give the correct residual degrees of freedom for
+      derived statistics.
 
       \item \code{biplot} method for \code{rda} passes
       \code{correlation} argument to the scaling algorithm.
@@ -35,8 +35,8 @@
       \item Biplot scores were wrongly centred in \code{cca} which
       caused a small error in their values.
 
-      \item Weighting and centring corrected in \code{intersetcor} and
-      \code{spenvcor}. The fix can make a small difference when
+      \item Weighting and centring were corrected in \code{intersetcor}
+      and \code{spenvcor}. The fix can make a small difference when
       analysing \code{cca} results.
 
       Partial models were not correctly handled in \code{intersetcor}.
@@ -45,12 +45,11 @@
       applied to species scores.
 
       \item Non-standard variable names can be used within
-      \code{Condition()} in partial ordination.  The partial models
-      are also used within other methods, and a problem was reported
-      by Albin Meyer (Univ Lorraine, Metz, France) in
-      \code{ordiR2step} when using a variable name that contained a
-      hyphen (which was wrongly interpreted as a minus sign in partial
-      ordination).
+      \code{Condition()} in partial ordination.  Partial models are used
+      internally within several functions, and a problem was reported by
+      Albin Meyer (Univ Lorraine, Metz, France) in \code{ordiR2step}
+      when using a variable name that contained a hyphen (which was
+      wrongly interpreted as a minus sign in partial ordination).
 
       \item \code{ordispider} did not pass graphical arguments when
       used to show the difference of LC and WA scores in constrained
@@ -61,7 +60,9 @@
 
       \item \code{tolerance} function could return \code{NaN} in some
       cases when it should have returned \eqn{0}. Partial models were
-      not correctly analysed.
+      not correctly analysed. Misleading (non-zero) tolerances were
+      sometimes given for species that occurred only once or sampling
+      units that had only one species.
 
     } %itemize
   } % bug fixes
