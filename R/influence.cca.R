@@ -38,7 +38,7 @@
     if (type == "response") {
         sqrt(colSums(ordiYbar(object, "CA")^2 / rdf))
     } else { # canoco has WA - LC regression
-        sqrt(colSums(weights(object) * object$CCA$wa^2) - 1)
+        sqrt((colSums(weights(object) * object$CCA$wa^2) - 1)/rdf)
     }
 }
 
@@ -69,9 +69,10 @@
         adj <- sqrt(nobs(model) - 1)
     else
         adj <- 1
+    w <- sqrt(weights(model))
     res <- switch(type,
                   "response" = ordiYbar(model, "CA") * adj,
-                  "canoco" = model$CCA$wa - model$CCA$u)
+                  "canoco" = w * (model$CCA$wa - model$CCA$u))
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
     res
