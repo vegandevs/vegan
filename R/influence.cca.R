@@ -46,9 +46,10 @@
 {
     type <- match.arg(type)
     ## response: a vector of species (column) sigmata
-    rdf <- nobs(object) - object$CCA$qrank - 1
+    N <- nobs(object)
+    rdf <- N - object$CCA$qrank - 1
     if (type == "response") {
-        sqrt(colSums(ordiYbar(object, "CA")^2/rdf))
+        sqrt(colSums(ordiYbar(object, "CA")^2)/rdf * (N - 1))
     } else { # canoco has WA - LC regression
         sqrt((colSums(object$CCA$wa^2) - 1)/rdf)
     }
@@ -64,7 +65,7 @@
     sd <- sigma(model, type = type)
     hat <- hatvalues(model)
     res <- switch(type,
-                  "response" = ordiYbar(model, "CA"),
+                  "response" = ordiYbar(model, "CA") * sqrt(nobs(model)-1),
                   "canoco" = model$CCA$wa - model$CCA$u)
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
