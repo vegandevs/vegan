@@ -34,8 +34,9 @@
 {
     type <- match.arg(type)
     ## response: a vector of species (column) sigmata
-     if (type == "response") {
-        sqrt(colSums(ordiYbar(object, "CA")^2))
+    rdf <- nobs(object) - object$CCA$qrank - 1
+    if (type == "response") {
+        sqrt(colSums(ordiYbar(object, "CA")^2 / rdf))
     } else { # canoco has WA - LC regression
         sqrt(colSums(weights(object) * object$CCA$wa^2) - 1)
     }
@@ -58,14 +59,18 @@
 ## rstandard and rstudent need sigma and have similar restrictions as
 ## sigma: it should be extractable and meaningful.
 
-`rstandard.rda` <-
+`rstandard.cca` <-
     function(model, type = c("response", "canoco"), ...)
 {
     type <- match.arg(type)
     sd <- sigma(model, type = type)
     hat <- hatvalues(model)
+    if (inherits(model, "rda"))
+        adj <- sqrt(nobs(model) - 1)
+    else
+        adj <- 1
     res <- switch(type,
-                  "response" = ordiYbar(model, "CA") * sqrt(nobs(model)-1),
+                  "response" = ordiYbar(model, "CA") * adj,
                   "canoco" = model$CCA$wa - model$CCA$u)
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
@@ -74,7 +79,7 @@
 
 ## MASS book (4th ed), Chapter 6.3, p. 152 (e^star)
 
-`rstudent.rda` <-
+`rstudent.cca` <-
     function(model, type = c("response", "canoco"), ...)
 {
     type <- match.arg(type)
@@ -85,7 +90,7 @@
 
 ## Cook's distance depends on meaningful sigma
 
-`cooks.distance.rda` <-
+`cooks.distance.cca` <-
     function(model, type = c("response", "canoco"), ...)
  {
      hat <- hatvalues(model)
