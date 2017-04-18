@@ -34,7 +34,7 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
-    
+
     ## fill in graphical vectors with default values if unspecified
     ## and recycles shorter vectors
     col.new <- border.new <- lty.new <- lwd.new <- NULL
@@ -45,7 +45,7 @@
                         par("fg"), par(arg))
       if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
       assign(paste(arg,".new", sep=""), tmp)
-      
+
     }
     ## default colour for "polygon" fill is "transparent", for lines
     ## is par("fg")
@@ -53,7 +53,7 @@
         col.new <- rep_len("transparent", length(inds))
     else if(is.null(col) && draw=="lines")
             col.new <- rep_len(par("fg"), length(inds))
-    
+
     res <- list()
     if (label) {
         cntrs <- matrix(NA, nrow=length(inds), ncol=2)
@@ -78,7 +78,7 @@
             if (kind == "se")
                 mat$cov <- mat$cov * sum(mat$wt^2)
             if (kind == "ehull")
-                t <- sqrt(tmp$d2)
+                t <- if (is.nan(tmp$d2)) 0 else sqrt(tmp$d2)
             else {
                 if (missing(conf))
                     t <- 1
@@ -90,14 +90,14 @@
                 xy <- X
             if (draw == "lines")
                 ordiArgAbsorber(xy, FUN = lines,
-                                col = if (is.null(col)) 
+                                col = if (is.null(col))
                                           par("fg")
                                       else
                                           col.new[match(is, inds)],
                                 lty=lty.new[match(is,inds)],
                                 lwd=lwd.new[match(is,inds)], ...)
-                      
-            else if (draw == "polygon") 
+
+            else if (draw == "polygon")
                 ordiArgAbsorber(xy[, 1], xy[, 2],
                                 col = col.new[match(is, inds)],
                                 border=border.new[match(is,inds)],
@@ -117,7 +117,7 @@
             ordiArgAbsorber(cntrs[,1], cntrs[,2],
                             labels = rownames(cntrs),
                             col = col.new,  FUN = text, ...)
-        else 
+        else
             ordiArgAbsorber(cntrs, col = NULL,
                             FUN = ordilabel, ...)
     }
