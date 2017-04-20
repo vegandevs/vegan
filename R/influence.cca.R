@@ -88,3 +88,32 @@
      p <- model$CCA$qrank
      rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
  }
+
+## residual sums of squares and products
+
+`SSD.rda` <-
+    function(object, type = "canoco", ...)
+{
+    rdf <- nobs(object) - object$CCA$qrank - 1
+    SSD <- crossprod(object$CCA$wa - object$CCA$u)
+    structure(list(SSD = SSD, call = object$call, df = rdf),
+              class = "SSD")
+}
+
+## variances and covariances of coefficients. The sqrt(diag()) will be
+## standard errors of regression coefficients, and for constrained
+## ordination model m, the t-values of regression coefficients will be
+## coef(m)/sqrt(diag(vcov(m))). The kind of relevant coefficient will
+## be determined by the output of SSD.
+
+`vcov.rda` <-
+    function(object, type = "canoco")
+{
+    QR <- qr(object)
+    p <- 1L:QR$rank
+    ## we do not give the (Intercept): it is neither in coef()
+    cov.unscaled <- chol2inv(QR$qr[p, p])
+    dimnames(cov.unscaled) <- list(colnames(QR$qr), colnames(QR$qr))
+    ssd <- estVar(SSD(object, type = type))
+    kronecker(ssd, cov.unscaled, make.dimnames = TRUE)
+}
