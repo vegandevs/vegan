@@ -76,7 +76,7 @@
     type <- match.arg(type)
     np <- nobs(model) - model$CCA$qrank - 1 # -1: Intercept
     res <- rstandard(model, type = type)
-    res / sqrt((np-res^2)/(np-1))
+    res / sqrt(pmax(np-res^2, 0)/(np-1))
 }
 
 ## Cook's distance depends on meaningful sigma
