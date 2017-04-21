@@ -91,11 +91,12 @@
 
 ## residual sums of squares and products
 
-`SSD.rda` <-
+`SSD.cca` <-
     function(object, type = "canoco", ...)
 {
     rdf <- nobs(object) - object$CCA$qrank - 1
-    SSD <- crossprod(object$CCA$wa - object$CCA$u)
+    w <- sqrt(weights(object))
+    SSD <- crossprod(w * (object$CCA$wa - object$CCA$u))
     structure(list(SSD = SSD, call = object$call, df = rdf),
               class = "SSD")
 }
@@ -106,7 +107,7 @@
 ## coef(m)/sqrt(diag(vcov(m))). The kind of relevant coefficient will
 ## be determined by the output of SSD.
 
-`vcov.rda` <-
+`vcov.cca` <-
     function(object, type = "canoco")
 {
     QR <- qr(object)
