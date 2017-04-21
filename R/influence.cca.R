@@ -83,11 +83,11 @@
 
 `cooks.distance.cca` <-
     function(model, type = c("response", "canoco"), ...)
- {
-     hat <- hatvalues(model)
-     p <- model$CCA$qrank
-     rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
- }
+{
+    hat <- hatvalues(model)
+    p <- model$CCA$qrank
+    rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
+}
 
 ## residual sums of squares and products
 
