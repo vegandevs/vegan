@@ -10,6 +10,14 @@
     r
 }
 
+## residual degrees of freedom
+
+`df.residual.cca` <-
+    function(object, ...)
+{
+    nobs(object) - object$CCA$qrank - 1
+}
+
 ## hat values need adjustment, because QR ignores Intercept
 
 `hatvalues.cca` <-
@@ -34,7 +42,7 @@
 {
     type <- match.arg(type)
     ## response: a vector of species (column) sigmata
-    rdf <- nobs(object) - object$CCA$qrank - 1
+    rdf <- df.residual(object)
     if (inherits(object, "rda"))
         adj <- nobs(object) - 1
     else
@@ -74,7 +82,7 @@
     function(model, type = c("response", "canoco"), ...)
 {
     type <- match.arg(type)
-    np <- nobs(model) - model$CCA$qrank - 1 # -1: Intercept
+    np <- df.residual(model)
     res <- rstandard(model, type = type)
     res / sqrt(pmax(np-res^2, 0)/(np-1))
 }
@@ -94,10 +102,9 @@
 `SSD.cca` <-
     function(object, type = "canoco", ...)
 {
-    rdf <- nobs(object) - object$CCA$qrank - 1
     w <- sqrt(weights(object))
     SSD <- crossprod(w * (object$CCA$wa - object$CCA$u))
-    structure(list(SSD = SSD, call = object$call, df = rdf),
+    structure(list(SSD = SSD, call = object$call, df = df.residual(object)),
               class = "SSD")
 }
 
