@@ -22,9 +22,9 @@
 
 `hatvalues.cca` <-
     function(model, ...)
- {
-     rowSums(qr.Q(qr(model))^2) + weights(model)
- }
+{
+    rowSums(qr.Q(qr(model))^2) + weights(model)
+}
 
 `hatvalues.rda` <-
     function(model, ...)
