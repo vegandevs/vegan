@@ -41,6 +41,10 @@
     function(object, type = c("response", "canoco"), ...)
 {
     type <- match.arg(type)
+    ## no response type in distance-based ordination
+    if (inherits(object, c("dbrda", "capscale")) &&
+        type == "response")
+        stop("type = 'response' is not available in distance-based ordination")
     ## response: a vector of species (column) sigmata
     rdf <- df.residual(object)
     if (inherits(object, "rda"))
