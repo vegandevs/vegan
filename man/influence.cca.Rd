@@ -25,11 +25,11 @@
 \method{cooks.distance}{cca}(model, type = c("response", "canoco"), ...)
 
 \method{sigma}{cca}(object, type = c("response", "canoco"), ...)
-\method{vcov}{cca}(object, type = c("response", "canoco"), ...)
-\method{SSD}{cca}(object, type = c("response", "canoco"), ...)
+\method{vcov}{cca}(object, type = "canoco", ...)
+\method{SSD}{cca}(object, type = "canoco", ...)
 
 \method{qr}{cca}(x, ...)
-\method{df.residual}{cca}(x, ...)
+\method{df.residual}{cca}(object, ...)
 
 }
 
@@ -41,6 +41,8 @@
     residual standard deviation (\code{sigma}). Either
     \code{"response"} for species data or difference of WA and LC
     scores for \code{"canoco"}.}
+
+  \item{\dots}{Other arguments to functions (ignored).}
 
 }
 

@@ -119,7 +119,7 @@
 ## be determined by the output of SSD.
 
 `vcov.cca` <-
-    function(object, type = "canoco")
+    function(object, type = "canoco", ...)
 {
     QR <- qr(object)
     p <- 1L:QR$rank
