@@ -14,7 +14,7 @@
     ## 11:47:22 +0300 (Wed, 03 Jul 2013) and released in R 3.1.0
     ## (2014-04-10).
 
-    sol <- uniroot(d1fun, c(1,50), extendInt = "yes", S = S, N = N, ...)
+    sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
 
     nuisance <- N/(N + sol$root)
     ## we used nlm() earlier, and the following output is compatible
