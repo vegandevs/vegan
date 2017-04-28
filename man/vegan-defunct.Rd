@@ -2,7 +2,7 @@
 \name{vegan-defunct}
 
 \alias{commsimulator}
-\alias{vegan-deprecated}
+\alias{vegan-defunct}
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
 %------ PLEASE: one \alias{.} for EACH ! (+ one \usage{} & \arguments{} for all)
@@ -12,6 +12,9 @@
 }
 \usage{
 commsimulator(x, method, thin=1)
+}
+\arguments{
+  \item{x, method, thin}{Arguments to the function.}
 }
 
 \details{
