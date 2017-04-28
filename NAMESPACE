@@ -51,18 +51,8 @@ vif.cca)
 ## Export panel functions
 export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
-## Export .Depracated functions (to be removed later)
+## Export .Defunct functions (to be removed later)
 export(commsimulator)
-## Export .Defunct function names (on their way out)
-S3method(density, adonis)
-S3method(density, anosim)
-S3method(density, mantel)
-S3method(density, mrpp)
-S3method(density, oecosimu)
-S3method(density, permutest.cca)
-S3method(density, protest)
-S3method(densityplot, adonis)
-S3method(densityplot, oecosimu)
 
 ## do NOT export the following internal functions
 
@@ -329,7 +319,6 @@ S3method(plot, specaccum)
 S3method(plot, taxondive)
 S3method(plot, varpart)
 S3method(plot, varpart234)
-S3method(plot, vegandensity) # <- .defunct in 2.4-0
 S3method(plot, wcmdscale)
 # points: graphics
 S3method(points, cca)
