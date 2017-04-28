@@ -42,7 +42,7 @@ export(adonis2)
 
 ## export regular functions with dot names
 
-export(as.fisher, as.mlm, as.preston, as.rad, fieller.MOStest,
+export(as.fisher, as.preston, as.rad, fieller.MOStest,
 fisher.alpha, kendall.global, kendall.post, make.cepnames,
 mantel.correlog, mantel.partial, no.shared, rad.lognormal, rad.null,
 rad.preempt, rad.zipf, rad.zipfbrot, read.cep,
@@ -53,6 +53,11 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
+
+## Deprecated functions & methods
+export(as.mlm)
+S3method(as.mlm, cca)
+S3method(as.mlm, rda)
 
 ## do NOT export the following internal functions
 
@@ -107,9 +112,7 @@ S3method(as.hclust, spantree)
 # as.mcmc: coda <======= rare
 #S3method(as.mcmc, oecosimu)
 #S3method(as.mcmc, permat)
-# as.mlm: vegan
-S3method(as.mlm, cca)
-S3method(as.mlm, rda)
+
 # as.ts: stats
 S3method(as.ts, oecosimu)
 S3method(as.ts, permat)
