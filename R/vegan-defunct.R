@@ -1,72 +1,17 @@
-### density and densityplot were deprecated in vegan 2.2-0 in favour
-### of corresponding functions for permustats()
+### commsimulator was deprecated in 2.4-0
 
-`density.anosim` <-
-    function(x, ...)
+"commsimulator" <-
+function (x, method, thin = 1)
 {
-    .Defunct("densityplot(permustats(<anosim.result>))",
-                package="vegan")
-}
-
-`density.adonis` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<adonis.result>))",
-                package="vegan")
-}
-
-`densityplot.adonis` <-
-    function(x, data, xlab = "Null", ...)
-{
-    .Defunct("densityplot(permustats(<adonis.result>))",
-                package="vegan")
-}
-
-`density.mantel` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<mantel.result>))",
-                package="vegan")
-}
-
-`density.mrpp` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<mrpp.result>))",
-                package="vegan")
-}
-
-`density.permutest.cca` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<permutest.result>))",
-                package="vegan")
-}
-
-`density.protest` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<protest.result>))",
-                package="vegan")
-}
-
-`plot.vegandensity` <-
-    function (x, main = NULL, xlab = NULL, ylab = "Density", type = "l", 
-    zero.line = TRUE, obs.line = TRUE, ...) 
-{
-    .Defunct("permustats methods", package = "vegan")
-}
-
-`density.oecosimu` <-
-    function(x, ...)
-{
-    .Defunct("densityplot(permustats(<oecosimu.result>))",
-                package="vegan") 
-}
-
-`densityplot.oecosimu` <-
-    function(x, data, xlab = "Simulated", ...)
-{
-    .Defunct("densityplot(permustats(<oecosimu.result>))",
-                package="vegan")
+    .Defunct("simulate(nullmodel(x, method))", package="vegan")
+    method <- match.arg(method,
+                        c("r0","r1","r2","r00","c0","swap", "tswap",
+                          "backtrack", "quasiswap"))
+    if (method == "r0")
+        method <- "r0_old"
+    x <- as.matrix(x)
+    out <- simulate(nullmodel(x, method), nsim = 1, thin = thin)
+    out <- out[,,1]
+    attributes(out) <- attributes(x)
+    out
 }
