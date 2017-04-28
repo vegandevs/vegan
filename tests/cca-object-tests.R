@@ -102,14 +102,6 @@ RsquareAdj(mrda1)
 RsquareAdj(mcap)
 RsquareAdj(mdb)
 
-## casting
-
-as.mlm(mcca)
-as.mlm(mrda)
-as.mlm(mrda1)
-as.mlm(mcap)
-as.mlm(mdb)
-
 head(model.frame(mcca))
 head(model.frame(mrda))
 head(model.frame(mrda1))
