@@ -32,6 +32,6 @@ commsimulator(x, method, thin=1)
 }
 
 \seealso{
-  \code{\link{Deprecated}}
+  \code{\link{Defunct}}
 }
 \keyword{misc}
