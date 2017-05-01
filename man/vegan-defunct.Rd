@@ -38,9 +38,6 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
 
 ## defunct in vegan 2.0-0
 getNumObs(object, \dots)
-\method{getNumObs}{default}(object, \dots)
-\method{getNumObs}{numeric}(object, \dots)
-\method{getNumObs}{integer}(object, \dots)
 permuted.index2(n, control = permControl())
 
 }
@@ -59,7 +56,7 @@ permuted.index2(n, control = permControl())
   permutations, including \code{\link{summary.permustats}} giving
   \eqn{z} values (a.k.a. standardized effect sizes, SES), and Q-Q
   plots (\code{\link{qqnorm.permustats}},
-  \code{\link{qqmath.permustats}}.
+  \code{\link{qqmath.permustats}}).
 
   Function \code{metaMDSrotate} is replaced with
   \code{\link{MDSrotate}} which can handle \code{\link{monoMDS}}
