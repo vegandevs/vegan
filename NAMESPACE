@@ -42,7 +42,7 @@ export(adonis2)
 
 ## export regular functions with dot names
 
-export(as.fisher, as.mlm, as.preston, as.rad, fieller.MOStest,
+export(as.fisher, as.preston, as.rad, fieller.MOStest,
 fisher.alpha, kendall.global, kendall.post, make.cepnames,
 mantel.correlog, mantel.partial, no.shared, rad.lognormal, rad.null,
 rad.preempt, rad.zipf, rad.zipfbrot, read.cep,
@@ -51,18 +51,13 @@ vif.cca)
 ## Export panel functions
 export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
-## Export .Depracated functions (to be removed later)
+## Export .Defunct functions (to be removed later)
 export(commsimulator)
-## Export .Defunct function names (on their way out)
-S3method(density, adonis)
-S3method(density, anosim)
-S3method(density, mantel)
-S3method(density, mrpp)
-S3method(density, oecosimu)
-S3method(density, permutest.cca)
-S3method(density, protest)
-S3method(densityplot, adonis)
-S3method(densityplot, oecosimu)
+
+## Deprecated functions & methods
+export(as.mlm)
+S3method(as.mlm, cca)
+S3method(as.mlm, rda)
 
 ## do NOT export the following internal functions
 
@@ -117,9 +112,7 @@ S3method(as.hclust, spantree)
 # as.mcmc: coda <======= rare
 #S3method(as.mcmc, oecosimu)
 #S3method(as.mcmc, permat)
-# as.mlm: vegan
-S3method(as.mlm, cca)
-S3method(as.mlm, rda)
+
 # as.ts: stats
 S3method(as.ts, oecosimu)
 S3method(as.ts, permat)
@@ -329,7 +322,6 @@ S3method(plot, specaccum)
 S3method(plot, taxondive)
 S3method(plot, varpart)
 S3method(plot, varpart234)
-S3method(plot, vegandensity) # <- .defunct in 2.4-0
 S3method(plot, wcmdscale)
 # points: graphics
 S3method(points, cca)

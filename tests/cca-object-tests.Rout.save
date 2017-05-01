@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2017-02-28 r72280) -- "Unsuffered Consequences"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1203,94 +1203,6 @@ $adj.r.squared
 [1] 0.1204183
 
 > 
-> ## casting
-> 
-> as.mlm(mcca)
-
-Call:
-lm(formula = WA ~ ., data = X, weights = w)
-
-Coefficients:
-              CCA1        CCA2        CCA3        CCA4      
-(Intercept)    5.025e-17   4.640e-16  -6.376e-16   8.624e-17
-ManagementHF  -6.213e-01   6.776e-01   3.503e-02   1.549e+00
-ManagementNM  -1.001e+01  -2.637e+00   1.410e+01  -5.416e+00
-ManagementSF  -6.160e-01   2.920e+00   6.078e-01   1.987e+00
-Manure.L      -5.760e+00  -5.151e+00   8.203e+00  -5.621e+00
-Manure.Q       4.275e+00  -1.097e-02  -8.396e+00   3.231e+00
-Manure.C      -3.408e+00  -1.879e+00   4.693e+00   2.515e-01
-`Manure^4`            NA          NA          NA          NA
-A1             4.957e-01  -3.689e-01   1.378e-01   1.124e-01
-
-> as.mlm(mrda)
-
-Call:
-lm(formula = WA ~ ., data = X)
-
-Coefficients:
-              RDA1        RDA2        RDA3        RDA4      
-(Intercept)    4.672e-17  -2.166e-16  -8.085e-17  -1.687e-17
-ManagementHF  -3.970e-02   1.967e-01  -2.303e-01   3.310e-01
-ManagementNM  -1.886e+00   2.733e+00   2.662e+00  -9.651e-01
-ManagementSF   2.411e-01   5.667e-01  -4.474e-01   3.551e-01
-Manure.L      -1.503e+00   1.057e+00   2.213e+00  -9.726e-01
-Manure.Q       6.274e-01  -1.681e+00  -1.473e+00   6.057e-01
-Manure.C      -7.760e-01   8.498e-01   8.552e-01   1.831e-01
-`Manure^4`            NA          NA          NA          NA
-A1             4.519e-02  -6.115e-02   8.035e-02   5.643e-02
-
-> as.mlm(mrda1)
-
-Call:
-lm(formula = WA ~ ., data = X)
-
-Coefficients:
-              RDA1        RDA2        RDA3        RDA4      
-(Intercept)    2.235e-17  -7.438e-17  -1.865e-16  -1.032e-16
-ManagementHF  -4.765e-02   2.007e-01  -3.543e-02   3.988e-01
-ManagementNM  -2.609e+00   6.711e-02   3.393e+00  -8.466e-01
-ManagementSF   1.389e-01   6.491e-01   9.094e-02   5.065e-01
-Manure.L      -1.832e+00  -7.445e-01   2.036e+00  -1.077e+00
-Manure.Q       1.091e+00  -2.531e-01  -2.052e+00   5.373e-01
-Manure.C      -9.426e-01  -1.474e-01   1.065e+00   2.106e-01
-`Manure^4`            NA          NA          NA          NA
-A1             6.352e-02  -9.911e-02   2.988e-02   2.591e-02
-
-> as.mlm(mcap)
-
-Call:
-lm(formula = WA ~ ., data = X)
-
-Coefficients:
-              CAP1        CAP2        CAP3        CAP4      
-(Intercept)    5.548e-18   1.180e-16   1.283e-16   1.025e-16
-ManagementHF  -5.446e-02  -1.964e-01   6.423e-02  -3.965e-01
-ManagementNM  -2.144e+00  -9.760e-01  -3.531e+00   1.013e+00
-ManagementSF   1.181e-01  -6.710e-01   1.001e-01  -4.809e-01
-Manure.L      -1.511e+00   1.934e-01  -2.360e+00   1.152e+00
-Manure.Q       8.316e-01   8.046e-01   1.997e+00  -6.539e-01
-Manure.C      -7.691e-01  -1.630e-01  -1.202e+00  -1.636e-01
-`Manure^4`            NA          NA          NA          NA
-A1             7.466e-02   8.268e-02  -4.898e-02  -2.474e-02
-
-> as.mlm(mdb)
-
-Call:
-lm(formula = WA ~ ., data = X)
-
-Coefficients:
-              dbRDA1      dbRDA2      dbRDA3      dbRDA4    
-(Intercept)    3.124e-17  -1.255e-16  -7.952e-17   1.871e-16
-ManagementHF  -5.723e-02   2.060e-01   7.272e-03  -3.964e-01
-ManagementNM  -2.149e+00   7.652e-01   3.369e+00   1.577e+00
-ManagementSF   1.122e-01   6.843e-01   7.713e-03  -4.739e-01
-Manure.L      -1.506e+00  -3.419e-01   2.139e+00   1.502e+00
-Manure.Q       8.351e-01  -6.858e-01  -1.906e+00  -9.768e-01
-Manure.C      -7.717e-01   1.002e-01   1.218e+00   3.048e-02
-`Manure^4`            NA          NA          NA          NA
-A1             7.500e-02  -8.417e-02   4.838e-02  -1.927e-02
-
-> 
 > head(model.frame(mcca))
   Management Manure  A1
 1         SF      4 2.8
@@ -2211,4 +2123,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.580   0.056   3.629 
+  2.476   0.091   2.557 
