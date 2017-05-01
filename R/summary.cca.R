@@ -12,7 +12,7 @@
     ## scaling is stored in return object so must be in numeric format
     scaling <- scalingType(scaling = scaling, correlation = correlation,
                            hill = hill)
-    if (axes && length(display) && (!is.na(display) && !is.null(display))) 
+    if (axes && length(display) && (!is.na(display) && !is.null(display)))
         summ <- scores(object, scaling = scaling, choices = 1:axes, display = display,
                        ...)
     ## scores() drops list to a matrix if there is only one item: workaround below.
@@ -39,7 +39,7 @@
     summ$constr.chi <- object$CCA$tot.chi
     summ$unconst.chi <- object$CA$tot.chi
     summ$cont <- summary(eigenvals(object))
-    if (!is.null(object$CCA))
+    if (!is.null(object$CCA) && object$CCA$rank > 0)
         summ$concont <- summary(eigenvals(object, constrained = TRUE))
     summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[seq_len(axes)]
     summ$scaling <- scaling
