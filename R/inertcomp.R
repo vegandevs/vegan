@@ -31,7 +31,7 @@
     else {
         nr <- 1
     }
-    if (!is.null(pCCA)) {
+    if (!is.null(pCCA) && object$pCCA$rank > 0) {
         if (display == "sites")
             pCCA <- t(pCCA)
         if (inherits(object, "dbrda"))
@@ -39,10 +39,10 @@
         else
             pCCA <- diag(crossprod(pCCA))/nr
     }
-    if (!is.null(CCA))
+    if (!is.null(CCA) && object$CCA$rank > 0)
         CCA <- rowSums(diag(w, length(w)) %*% CCA^2 %*%
                            diag(object$CCA$eig, length(object$CCA$eig)))
-    if (!is.null(CA))
+    if (!is.null(CA) && object$CA$rank > 0)
         CA <- rowSums(diag(w, length(w)) %*% CA^2 %*%
                           diag(object$CA$eig, length(object$CA$eig)))
     out <- cbind(pCCA, CCA, CA)
