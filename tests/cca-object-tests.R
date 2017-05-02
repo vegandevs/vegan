@@ -40,6 +40,18 @@ head(summary(mancap))
 head(summary(mandb))
 head(summary(m0cca))
 ## diagnostics
+hatvalues(mcca)
+hatvalues(mrda)
+hatvalues(mandb)
+
+head(cooks.distance(mcca))
+head(cooks.distance(mrda))
+head(cooks.distance(mrda1))
+head(cooks.distance(mcap, "canoco"))
+head(cooks.distance(mdb, "canoco"))
+head(cooks.distance(mancap, "canoco"))
+head(cooks.distance(mandb, "canoco"))
+head(cooks.distance(m0cca))
 
 head(goodness(mcca, display = "sites"))
 head(goodness(mrda, display = "sites"))
