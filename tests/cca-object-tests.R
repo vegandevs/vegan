@@ -13,7 +13,9 @@ mdb <- dbrda(dune ~ Condition(Management) + Manure + A1, dune.env,
 mancap <- capscale(dune ~ Condition(Management) + Manure + A1, dune.env,
           dist = "manhattan")
 mandb <- dbrda(dune ~ Condition(Management) + Manure + A1, dune.env,
-             dist = "manhattan")
+               dist = "manhattan")
+## 0-rank constraints
+m0cca <- cca(dune ~ Condition(Management) + Management, dune.env)
 
 ## general appearance
 mcca
@@ -22,6 +24,7 @@ mcap
 mdb
 mancap
 mandb
+m0cca
 ## names
 sort(names(mcca))
 sort(names(mrda))
@@ -35,7 +38,7 @@ head(summary(mcap))
 head(summary(mdb))
 head(summary(mancap))
 head(summary(mandb))
-
+head(summary(m0cca))
 ## diagnostics
 
 head(goodness(mcca, display = "sites"))
@@ -45,7 +48,7 @@ head(goodness(mrda1, display = "sites"))
 ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 ## head(goodness(mancap, display="sites")) # currently disabled
 ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
-
+head(goodness(m0cca))
 
 head(inertcomp(mcca))
 head(inertcomp(mrda))
@@ -54,6 +57,7 @@ head(inertcomp(mcap, display="sites"))
 head(inertcomp(mdb, display = "sites"))
 head(inertcomp(mancap, display = "sites"))
 head(inertcomp(mandb, display = "sites"))
+head(inertcomp(m0cca))
 
 zapsmall(intersetcor(mcca))
 zapsmall(intersetcor(mrda))
@@ -64,16 +68,19 @@ zapsmall(intersetcor(mancap))
 zapsmall(intersetcor(mandb))
 
 tolerance(mcca)
+tolerance(m0cca)
 
 vif.cca(mcca)
 vif.cca(mrda)
 vif.cca(mcap)
 vif.cca(mdb)
+vif.cca(m0cca)
 
 alias(mcca)
 alias(mrda)
 alias(mcap)
 alias(mdb)
+alias(m0cca)
 
 ## basic statistic
 
@@ -82,6 +89,7 @@ coef(mrda)
 coef(mrda1)
 coef(mcap)
 coef(mdb)
+coef(m0cca)
 
 eigenvals(mcca)
 eigenvals(mrda)
@@ -90,23 +98,28 @@ eigenvals(mcap)
 eigenvals(mdb)
 eigenvals(mancap)
 eigenvals(mandb)
+eigenvals(m0cca)
+eigenvals(m0cca, constrained = TRUE)
 
 nobs(mcca)
 nobs(mrda)
 nobs(mcap)
 nobs(mdb)
+nobs(m0cca)
 
 RsquareAdj(mcca)
 RsquareAdj(mrda)
 RsquareAdj(mrda1)
 RsquareAdj(mcap)
 RsquareAdj(mdb)
+RsquareAdj(m0cca)
 
 head(model.frame(mcca))
 head(model.frame(mrda))
 head(model.frame(mrda1))
 head(model.frame(mcap))
 head(model.frame(mdb))
+head(model.frame(m0cca))
 
 ## testing and model building -
 
@@ -115,6 +128,7 @@ deviance(mrda)
 deviance(mrda1)
 deviance(mcap)
 deviance(mdb)
+deviance(m0cca)
 
 per <- shuffleSet(nrow(dune), 49)
 permutest(mcca, per)
@@ -124,6 +138,7 @@ permutest(mcap, per)
 permutest(mdb, per)
 permutest(mancap, per)
 permutest(mandb, per)
+permutest(m0cca, per)
 
 drop1(mcca, test="permutation", permutations=per)
 drop1(mrda, test="permutation", permutations=per)
@@ -138,6 +153,7 @@ anova(mcap, permutations = per)
 anova(mdb, permutations = per)
 anova(mancap, permutations = per)
 anova(mandb, permutations = per)
+anova(m0cca, permutations = per)
 
 anova(mcca, permutations = per, by="term")
 anova(mrda, permutations = per, by="term")
