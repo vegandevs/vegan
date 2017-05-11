@@ -33,7 +33,7 @@
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
-    attr(out, "F.perm") <- attr(sol, "F.perm")
+    attr(out, "F.perm") <- sol$F.perm
     class(out) <- c("anova.cca", "anova","data.frame")
     out
 }
