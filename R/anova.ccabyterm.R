@@ -1,43 +1,31 @@
 ### Implementation of by-cases for vegan 2.2 versions of
 ### anova.cca. These are all internal functions that are not intended
 ### to be called by users in normal sessions, but they should be
-### called from anova.cca (2.2). Therefore the user interface is rigid
-### and input is not checked. The 'permutations' should be a
-### permutation matrix.
+### called from anova.cca. Therefore the user interface is rigid and
+### input is not checked. The 'permutations' should be a permutation
+### matrix.
 
-### by = terms builds models as a sequence of adding terms and submits
-### this to anova.ccalist
+### by = terms calls directly permutest.cca
 
 `anova.ccabyterm` <-
     function(object, permutations, model, parallel)
 {
-    ## We need term labels but without Condition() terms
-    trms <- terms(object)
-    trmlab <- attr(trms, "term.labels")
-    trmlab <- trmlab[trmlab %in% attr(terms(object$terminfo),
-                                      "term.labels")]
-    ntrm <- length(trmlab)
-    m0 <- update(object, paste(".~.-", paste(trmlab, collapse = "-")))
-    mods <- list(m0)
-    for (i in seq_along(trmlab)) {
-        fla <- paste(". ~ . + ", trmlab[i])
-        mods[[i+1]] <- update(mods[[i]], fla)
-    }
     ## The result
-    sol <- anova.ccalist(mods, permutations = permutations,
-                         model = model, parallel = parallel)
+    sol <- permutest(object, permutations = permutations,
+                     model = model, by = "terms", parallel = parallel)
     ## Reformat
-    out <- data.frame(c(sol[-1, 3], sol[ntrm+1, 1]),
-                      c(sol[-1, 4], sol[ntrm+1, 2]),
-                      c(sol[-1, 5], NA),
-                      c(sol[-1, 6], NA))
+    EPS <- sqrt(.Machine$double.eps)
+    Pval <- (colSums(sweep(sol$F.perm, 2, sol$F.0 - EPS, ">=")) + 1) /
+        (sol$nperm + 1)
+    out <- data.frame(sol$df, sol$chi, c(sol$F.0, NA), c(Pval, NA))
+
     if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
         varname <- "SumOfSqs"
     else if (inherits(object, "rda"))
         varname <- "Variance"
     else
         varname <- "ChiSquare"
-    dimnames(out) <- list(c(trmlab, "Residual"),
+    dimnames(out) <- list(c(sol$termlabels, "Residual"),
                           c("Df", varname, "F", "Pr(>F)"))
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
