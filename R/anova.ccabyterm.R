@@ -189,3 +189,43 @@
     class(out) <- c("anova.cca", "anova", "data.frame")
     out
 }
+
+### Sequential test for axes is based on permustest by="onedf": we
+### replace the original QR decomposition with the QR decomposition of
+### linear component axes (u) and asd for 1-df contrasts. This is
+### essentially similar as partialling out previous constrained axes
+### except that it implies permutation model "direct", i.e., previous
+### axes (Conditions) and residuals use the same permutation. This differs from
+
+anova.ccabysaxis <-
+    function(object, permutations, model, parallel)
+{
+    ## replace original QR decomposition of constraints with QR
+    ## decomposition of LC of constraints.
+    object$CCA$QR <- qr(object$CCA$u)
+    sol <- permutest(object, permutations = permutations,
+                     model = model, by = "onedf", parallel = parallel)
+    ## Reformat
+    EPS <- sqrt(.Machine$double.eps)
+    Pval <- (colSums(sweep(sol$F.perm, 2, sol$F.0 - EPS, ">=")) + 1) /
+        (sol$nperm + 1)
+    out <- data.frame(sol$df, sol$chi, c(sol$F.0, NA), c(Pval, NA))
+
+    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
+        varname <- "SumOfSqs"
+    else if (inherits(object, "rda"))
+        varname <- "Variance"
+    else
+        varname <- "ChiSquare"
+    dimnames(out) <- list(c(sol$termlabels, "Residual"),
+                          c("Df", varname, "F", "Pr(>F)"))
+    head <- paste0("Permutation test for ", object$method, " under ",
+                   model, " model\n",
+                   "Sequential test for axes\n",
+                   howHead(attr(permutations, "control")))
+    mod <- paste("Model:", c(object$call))
+    attr(out, "heading") <- c(head, mod)
+    attr(out, "F.perm") <- sol$F.perm
+    class(out) <- c("anova.cca", "anova","data.frame")
+    out
+}
