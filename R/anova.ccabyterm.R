@@ -202,6 +202,8 @@ anova.ccabysaxis <-
 {
     ## replace original QR decomposition of constraints with QR
     ## decomposition of LC of constraints.
+    if (!is.null(object$pCCA) && object$pCCA$rank)
+        stop("by = 'seqaxis' is not implemented yet for partial models")
     object$CCA$QR <- qr(object$CCA$u)
     sol <- permutest(object, permutations = permutations,
                      model = model, by = "onedf", parallel = parallel)
