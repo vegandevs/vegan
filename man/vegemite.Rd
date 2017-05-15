@@ -18,7 +18,7 @@
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
     Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
-    scale = c("none", "column", "row"), col = heat.colors(12), ...)
+    scale, col = heat.colors(12), ...)
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
            maxabund, character = TRUE)
 }
