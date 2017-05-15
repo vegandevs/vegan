@@ -7,14 +7,16 @@
 `tabasco` <-
     function (x, use, sp.ind = NULL, site.ind = NULL,
               select, Rowv = TRUE, Colv = TRUE, labRow = NULL,
-              labCol = NULL, scale = c("none", "column", "row"),
-              col = heat.colors(12), ...)
+              labCol = NULL, scale, col = heat.colors(12), ...)
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
     pltree <- sptree <- NA
-    scale <- match.arg(scale, c("none", "column", "row",
-                                eval(formals(coverscale)$scale)))
+    if (missing(scale))
+        scale <- "none"
+    else
+        scale <- match.arg(scale, c("none", "column", "row",
+                                    eval(formals(coverscale)$scale)))
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind))
