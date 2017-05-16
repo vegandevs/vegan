@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-05-02 r72640) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-05-16 r72682) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -8774,9 +8774,7 @@ scale:  Hult
 scale:  Hult 
 > 
 > ## Abundance values have such a wide range that they must be rescaled
-> ## or all abundances will not be shown in tabasco
-> tabasco(decostand(varespec, "log"), dca)
-Warning: non-integer data: divided by smallest positive value
+> tabasco(varespec, dca, scale="Braun")
 > 
 > ## Classification trees for species
 > data(dune, dune.taxon)
@@ -8977,7 +8975,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.74 0.152 26.06 0 0 
+Time elapsed:  25.9 0.172 26.151 0 0 
 > grDevices::dev.off()
 null device 
           1 
