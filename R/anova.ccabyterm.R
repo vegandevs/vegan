@@ -154,6 +154,9 @@
     for (i in seq_along(eig)) {
         part <- paste("~ . +Condition(",
                       paste(names(LC)[-i], collapse = "+"), ")")
+        ## handle partial models (clumsily)
+        if (!is.null(object$pCCA) && object$pCCA$rank > 0)
+            part <- paste(part, "Condition(qr.X(object$pCCA$QR))", sep="+")
         upfla <- update(fla, part)
         ## only one axis, and cannot partial out?
         if (length(eig) == 1)
