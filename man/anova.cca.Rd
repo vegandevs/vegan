@@ -44,14 +44,15 @@
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
 
-  \item{by}{Setting \code{by = "axis"} will assess significance for
-    each constrained axis, and setting \code{by = "terms"} will assess
-    significance for each term (sequentially from first to last), and
-    setting \code{by = "margin"} will assess the marginal effects of
-    the terms (each marginal term analysed in a model with all other
-    variables). Function \code{permutest} accepts choices
-    \code{"terms"} for sequential test of terms, and \code{"onedf"}
-    for sequential test of one-degree-of-freedom constrasts.}
+  \item{by}{Setting \code{by = "terms"} will assess significance for
+    each term (sequentially from first to last), \code{by = "margin"}
+    will assess the marginal effects of the terms (each marginal term
+    analysed in a model with all other variables), \code{by = "axis"}
+    will assess marginal effects of axes, and \code{by = "seqaxis"} the
+    sequential effects of axes.  Function \code{permutest} accepts
+    choices \code{"terms"} for sequential test of terms, and
+    \code{"onedf"} for sequential test of one-degree-of-freedom
+    constrasts.}
 
   \item{model}{Permutation model: \code{model="direct"} permutes 
     community data, \code{model="reduced"} permutes residuals
@@ -104,29 +105,28 @@
   Setting \code{first = TRUE} will perform a test for the first
   constrained eigenvalue.  Argument \code{first} can be set either in
   \code{anova.cca} or in \code{permutest.cca}.  It is also possible to
-  perform significance tests for each axis or for each term
-  (constraining variable) using argument \code{by} in
-  \code{anova.cca}.  Setting \code{by = "axis"} will perform separate
-  significance tests for each constrained axis.  All previous
-  constrained axes will be used as conditions (\dQuote{partialled
-  out}) and a test for the first constrained eigenvalues is
-  performed (Legendre et al. 2011). 
-  You can stop permutation tests after exceeding a given
-   significance level with argument \code{cutoff} to speed up
-  calculations in large models. Setting \code{by = "terms"} will
-  perform separate significance test for each term (constraining
-  variable). The terms are assessed sequentially from first to last,
-  and the order of the terms will influence their
-  significance. Setting \code{by = "margin"} will perform separate
-  significance test for each marginal term in a model with all other
-  terms. The marginal test also accepts a \code{scope} argument for
-  the \code{\link{drop.scope}} which can be a character vector of term
-  labels that are analysed, or a fitted model of lower scope.  The
-  marginal effects are also known as \dQuote{Type III} effects, but
-  the current function only evaluates marginal terms. It will, for
-  instance, ignore main effects that are included in interaction
-  terms. In calculating pseudo-\eqn{F}, all terms are compared to the
-  same residual of the full model. 
+  perform significance tests for each term (constraining variable) or
+  for each axis using argument \code{by}.  Setting \code{by = "terms"}
+  will perform separate significance test for each term (constraining
+  variable). The terms are assessed sequentially from first to last, and
+  the order of the terms will influence their significance. Setting
+  \code{by = "margin"} will perform separate significance test for each
+  marginal term in a model with all other terms. The marginal test also
+  accepts a \code{scope} argument for the \code{\link{drop.scope}} which
+  can be a character vector of term labels that are analysed, or a
+  fitted model of lower scope.  The marginal effects are also known as
+  \dQuote{Type III} effects, but the current function only evaluates
+  marginal terms. It will, for instance, ignore main effects that are
+  included in interaction terms.  Setting \code{by = "axis"} will
+  perform marginal test for each constrained axis.  All previous
+  constrained axes will be used as conditions (\dQuote{partialled out})
+  and a test for the first constrained eigenvalues is performed
+  (Legendre et al. 2011).  You can stop permutation tests after
+  exceeding a given significance level with argument \code{cutoff} to
+  speed up calculations in large models. Setting \code{by = "seqaxis"}
+  will perform sequential test for each constrained axis. In all cases,
+  the terms are compared to the same residual of the full model when
+  calculating the pseudo-\eqn{F}.
   
   Community data are permuted with choice \code{model="direct"},
   and residuals after partial CCA/ RDA/ dbRDA with choice
