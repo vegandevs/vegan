@@ -200,15 +200,14 @@
 ### except that it implies permutation model "direct", i.e., previous
 ### axes (Conditions) and residuals use the same permutation. This differs from
 
-`anova.ccabysaxis` <-
+anova.ccabysaxis <-
     function(object, permutations, model, parallel)
 {
     ## replace original QR decomposition of constraints with QR
     ## decomposition of LC of constraints.
-    LC <- object$CCA$u
-    if (!is.null(object$pCCA) && object$pCCA$rank > 0)
-        LC <- cbind(qr.X(object$pCCA$QR), LC)
-    object$CCA$QR <- qr(LC)
+    if (!is.null(object$pCCA) && object$pCCA$rank)
+        stop("by = 'seqaxis' is not implemented yet for partial models")
+    object$CCA$QR <- qr(object$CCA$u)
     sol <- permutest(object, permutations = permutations,
                      model = model, by = "onedf", parallel = parallel)
     ## Reformat
