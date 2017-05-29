@@ -37,7 +37,7 @@
         return(anova.ccanull(object))
     ## by cases
     if (!is.null(by)) {
-        by <- match.arg(by, c("terms", "margin", "axis", "seqaxis"))
+        by <- match.arg(by, c("terms", "margin", "axis"))
         if (is.null(object$terms))
             stop("model must be fitted with formula interface")
         sol <- switch(by,
@@ -51,10 +51,7 @@
                       "axis" = anova.ccabyaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
-                      cutoff = cutoff),
-                      "seqaxis" = anova.ccabysaxis(object,
-                      permutations = permutations,
-                      model = model, parallel=parallel))
+                      cutoff = cutoff))
         attr(sol, "Random.seed") <- seed
         attr(sol, "control") <- control
         return(sol)
