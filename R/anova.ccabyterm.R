@@ -152,12 +152,13 @@
         Fstat <- Fstat[seq_len(ncol(LC))]
     }
     for (i in seq_along(eig)) {
-        part <- paste("~ . +Condition(",
-                      paste(names(LC)[-i], collapse = "+"), ")")
-        ## handle partial models (clumsily)
-        if (!is.null(object$pCCA) && object$pCCA$rank > 0)
-            part <- paste(part, "Condition(qr.X(object$pCCA$QR))", sep="+")
-        upfla <- update(fla, part)
+        if (i > 1) {
+            part <- paste("~ . +Condition(",
+                          paste(names(LC)[seq_len(i)], collapse = "+"), ")")
+            upfla <- update(fla, part)
+        } else {
+            upfla <- fla
+        }
         ## only one axis, and cannot partial out?
         if (length(eig) == 1)
             mod <- permutest(object, permutations, model = model,
@@ -166,7 +167,7 @@
             mod <-
                 permutest(update(object, upfla, data = LC),
                           permutations, model = model,
-                          parallel = parallel)
+                          parallel = parallel, first = TRUE)
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         F.perm[ , i] <- mod$F.perm
         if (Pvals[i] > cutoff)
