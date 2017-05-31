@@ -11,7 +11,7 @@
   distance matrix calculator within the Mothur microbial ecology toolkit.
 }
 
-\usage{avgdist(x, dmethod = "bray", depth, iterations) } 
+\usage{avgdist(x, depth, iterations = 100, dmethod = "bray") } 
 \arguments{
   \item{x}{Community data matrix.}
   \item{dmethod}{Dissimilarity index, partial match to

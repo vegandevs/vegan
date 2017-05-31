@@ -1,5 +1,5 @@
 `avgdist` <- 
-    function(x, dmethod = "bray", depth, iterations)
+    function(x, depth, iterations = 100, dmethod = "bray")
 {
     if (is.na(depth))
         stop("invalid subsampling depth")
