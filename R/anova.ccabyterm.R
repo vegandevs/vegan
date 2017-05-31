@@ -125,7 +125,8 @@
     resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
     Df <- rep(1, length(eig))
-    call <- object$call
+    ## save object: will be modified later
+    origobj <- object
     ## constraints and model matrices
     Y <- object$Ybar
     if (is.null(Y))
@@ -162,21 +163,21 @@
         if (Pvals[i] > cutoff)
             break
     }
-    out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
+    out <- data.frame(c(Df, resdf), c(eig, origobj$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
-    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
+    if (inherits(origobj, c("capscale", "dbrda")) && origobj$adjust == 1)
         varname <- "SumOfSqs"
-    else if (inherits(object, "rda"))
+    else if (inherits(origobj, "rda"))
         varname <- "Variance"
     else
         varname <- "ChiSquare"
     colnames(out) <- c("Df", varname, "F", "Pr(>F)")
-    head <- paste0("Permutation test for ", object$method, " under ",
+    head <- paste0("Permutation test for ", origobj$method, " under ",
                    model, " model\n",
                    "Marginal tests for axes\n",
                    howHead(attr(permutations, "control")))
-    mod <- paste("Model:", c(call))
+    mod <- paste("Model:", c(origobj$call))
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- F.perm
     class(out) <- c("anova.cca", "anova", "data.frame")
