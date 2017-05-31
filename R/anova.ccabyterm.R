@@ -125,18 +125,26 @@
     resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
     Df <- rep(1, length(eig))
-    ## Marginal P-values
+    ## constraints and model frame
     LC <- object$CCA$u
+    mf <- model.frame(object)
     ## missing values?
     if (!is.null(object$na.action))
         LC <- napredict(structure(object$na.action,
                                   class = "exclude"), LC)
+
     ## subset?
     if (!is.null(object$subset)) {
         tmp <- matrix(NA, nrow = length(object$subset),
                       ncol = ncol(LC))
         tmp[object$subset,] <- LC
         LC <- tmp
+        tmp <- matrix(NA, nrow = length(object$subset),
+                      ncol = ncol(mf))
+        tmp <- as.data.frame(tmp)
+        colnames(tmp) <- colnames(mf)
+        tmp[object$subset,] <- mf
+        mf <- tmp
         object <- update(object, subset = object$subset)
     }
     LC <- as.data.frame(LC)
@@ -152,7 +160,6 @@
         Fstat <- Fstat[seq_len(ncol(LC))]
     }
     axnams <- colnames(LC)
-    mf <- model.frame(object)
     LC <- cbind(mf, LC)
     for (i in seq_along(eig)) {
         if (i > 1) {
