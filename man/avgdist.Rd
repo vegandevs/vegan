@@ -18,6 +18,7 @@
   \item{distfun}{The dissimilarity matrix function to be used. Default is the vegan \code{\link{vegdist}}}
   \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
   \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function.}
+  \item{...}{Any additional arguments to add to the distance function specified.}
 }
 
 \author{ Geoffrey Hannigan. }
