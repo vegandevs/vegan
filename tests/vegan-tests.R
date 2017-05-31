@@ -40,29 +40,29 @@ m <-  cca(fla, data=df,  na.action=na.exclude,  subset = Use != "Pasture" & spno
 anova(m, permutations=99)
 anova(m, by="term", permutations=99) # failed before 2.5-0
 ##anova(m, by="margin", permutations=99) # does not work with missing data
-##anova(m, by="axis", permutations=99) # fails in 2.5-0
+anova(m, by="axis", permutations=99)
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
 anova(p, by="term", permutations=99) # failed before 2.5-0
 ##anova(p, by="margin", permutations=99) # does not accept NA data
-## anova(p, by="axis", permutations=99) # fails in 2.5-0
+anova(p, by="axis", permutations=99)
 ## see that capscale can be updated and also works with 'dist' input
 dis <- vegdist(dune)
 p <- update(p, dis ~ .)
 anova(p, permutations=99)
 anova(p, by="term", permutations=99) # failed before 2.5-0
 ##anova(p, by="margin", permutations=99) # does not work with missing data
-##anova(p, by="axis", permutations=99) # fails in 2.5-0
+anova(p, by="axis", permutations=99)
 ### attach()ed data frame instead of data=
 attach(df)
 q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
 anova(q, permutations=99)
 ## commented tests below fail in vegan 2.1-40 because number of
 ## observations changes
-anova(q, by="term", permutations=99) # failed before 2.5-0 
+anova(q, by="term", permutations=99) # failed before 2.5-0
 ##anova(q, by="margin", permutations=99)
-##anova(q, by="axis", permutations=99) # fails in 2.5-0
+anova(q, by="axis", permutations=99)
 ### Check that constrained ordination functions can be embedded.
 ### The data.frame 'df' is still attach()ed.
 foo <- function(bar, Y, X, ...)
