@@ -140,7 +140,7 @@
         object <- update(object, subset = object$subset)
     }
     LC <- as.data.frame(LC)
-    fla <- reformulate(names(LC))
+    fla <- formula(object)
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
     environment(object$terms) <- environment()
@@ -151,10 +151,13 @@
         Df <- Df[seq_len(ncol(LC))]
         Fstat <- Fstat[seq_len(ncol(LC))]
     }
+    axnams <- colnames(LC)
+    mf <- model.frame(object)
+    LC <- cbind(mf, LC)
     for (i in seq_along(eig)) {
         if (i > 1) {
             part <- paste("~ . +Condition(",
-                          paste(names(LC)[seq_len(i)], collapse = "+"), ")")
+                          paste(axnams[seq_len(i-1)], collapse = "+"), ")")
             upfla <- update(fla, part)
         } else {
             upfla <- fla
