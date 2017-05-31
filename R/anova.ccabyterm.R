@@ -132,6 +132,8 @@
         stop("old style result object does not work: update() your model")
     if (!is.null(object$pCCA))
         Z <- qr.X(object$pCCA$QR)
+    else
+        Z <- NULL
     X <- qr.X(object$CCA$QR)
     LC <- object$CCA$u
     ## In CA we need to de-weight X and Z
