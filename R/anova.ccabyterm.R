@@ -125,59 +125,36 @@
     resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
     Df <- rep(1, length(eig))
-    ## constraints and model frame
+    call <- object$call
+    ## constraints and model matrices
+    Y <- object$Ybar
+    if (is.null(Y))
+        stop("old style result object does not work: update() your model")
+    if (!is.null(object$pCCA))
+        Z <- qr.X(object$pCCA$QR)
+    X <- qr.X(object$CCA$QR)
     LC <- object$CCA$u
-    mf <- model.frame(object)
-    ## missing values?
-    if (!is.null(object$na.action))
-        LC <- napredict(structure(object$na.action,
-                                  class = "exclude"), LC)
-
-    ## subset?
-    if (!is.null(object$subset)) {
-        tmp <- matrix(NA, nrow = length(object$subset),
-                      ncol = ncol(LC))
-        tmp[object$subset,] <- LC
-        LC <- tmp
-        tmp <- matrix(NA, nrow = length(object$subset),
-                      ncol = ncol(mf))
-        tmp <- as.data.frame(tmp)
-        colnames(tmp) <- colnames(mf)
-        tmp[object$subset,] <- mf
-        mf <- tmp
-        object <- update(object, subset = object$subset)
+    ## In CA we need to de-weight X and Z
+    if (attr(Y, "METHOD") == "CA") {
+        invw <- 1/sqrt(attr(Y, "RW"))
+        if (!is.null(Z))
+            Z <- invw * Z
+        X <- invw * X
     }
-    LC <- as.data.frame(LC)
-    fla <- formula(object)
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
-    environment(object$terms) <- environment()
-    ## in dbrda, some axes can be imaginary, but we only want to have
-    ## an analysis of real-valued dimensions, and we must adjust data
-    if (ncol(LC) < length(eig)) {
-        eig <- eig[seq_len(ncol(LC))]
-        Df <- Df[seq_len(ncol(LC))]
-        Fstat <- Fstat[seq_len(ncol(LC))]
-    }
     axnams <- colnames(LC)
-    LC <- cbind(mf, LC)
     for (i in seq_along(eig)) {
         if (i > 1) {
-            part <- paste("~ . +Condition(",
-                          paste(axnams[seq_len(i-1)], collapse = "+"), ")")
-            upfla <- update(fla, part)
-        } else {
-            upfla <- fla
+            object <- ordConstrained(Y, X, cbind(Z, LC[, seq_len(i-1)]), "pass")
         }
-        ## only one axis, and cannot partial out?
-        if (length(eig) == 1)
+        if (length(eig) == i) {
             mod <- permutest(object, permutations, model = model,
                              parallel = parallel)
-        else
-            mod <-
-                permutest(update(object, upfla, data = LC),
-                          permutations, model = model,
-                          parallel = parallel, first = TRUE)
+        } else {
+            mod <- permutest(object, permutations, model = model,
+                             parallel = parallel, first = TRUE)
+        }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         F.perm[ , i] <- mod$F.perm
         if (Pvals[i] > cutoff)
@@ -197,7 +174,7 @@
                    model, " model\n",
                    "Marginal tests for axes\n",
                    howHead(attr(permutations, "control")))
-    mod <- paste("Model:", c(object$call))
+    mod <- paste("Model:", c(call))
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- F.perm
     class(out) <- c("anova.cca", "anova", "data.frame")
