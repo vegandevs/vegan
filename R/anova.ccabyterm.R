@@ -46,9 +46,6 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     nperm <- nrow(permutations)
-    ## Refuse to handle models with missing data
-    if (!is.null(object$na.action))
-        stop("by = 'margin' models cannot handle missing data")
     ## We need term labels but without Condition() terms
     if (!is.null(scope) && is.character(scope))
         trms <- scope
