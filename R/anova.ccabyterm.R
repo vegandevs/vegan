@@ -148,15 +148,15 @@
         Z <- qr.X(object$pCCA$QR)
     else
         Z <- NULL
-    X <- qr.X(object$CCA$QR)
-    LC <- object$CCA$u
-    ## In CA we need to de-weight X and Z
-    if (attr(Y, "METHOD") == "CA") {
-        invw <- 1/sqrt(attr(Y, "RW"))
-        if (!is.null(Z))
-            Z <- invw * Z
-        X <- invw * X
+    X <- model.matrix(object)
+    if (!is.null(object$pCCA)) {
+        Z <- X$Conditions
+        X <- X$Constraints
+    } else {
+        Z <- NULL
     }
+    LC <- object$CCA$u
+
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
     axnams <- colnames(LC)
