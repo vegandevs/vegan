@@ -67,8 +67,21 @@
     ## (vegan 2.0) where other but 'nm' were partialled out within
     ## Condition(). Now we only fit the model without 'nm' and compare
     ## the difference against the complete model.
-    mods <- lapply(trmlab, function(nm, ...)
-           permutest(update(object, paste(".~.-", nm)),
+    Y <- ordiYbar(object, "init")
+    X <- model.matrix(object)
+    ## we must have Constraints to get here, but we may also have
+    ## Conditions
+    if (!is.null(object$pCCA)) {
+        Z <- X$Conditions
+        X <- X$Constraints
+    } else {
+        Z <- NULL
+    }
+    ass <- object$terminfo$assign
+    if (is.null(ass))
+        stop("old time result object: update() your model")
+    mods <- lapply(unique(ass), function(i, ...)
+           permutest(ordConstrained(Y, X[, ass != i, drop=FALSE], Z, "pass"),
                      permutations, ...), ...)
     ## Chande in df
     Df <- sapply(mods, function(x) x$df[2]) - dfbig
