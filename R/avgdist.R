@@ -6,6 +6,7 @@
     if (is.na(iterations))
         stop("invalid iteration count")
     inputcast <- x
+    distfun <- match.fun(distfun)
     # Get the list of iteration matrices
     distlist <- lapply(c(1:iterations), function(i) {
         inputcast <- rrarefy(inputcast, sample = sample)
