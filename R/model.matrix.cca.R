@@ -5,8 +5,13 @@
     w <- 1/sqrt(object$rowsum)
     if (!is.null(object$pCCA))
         Z <- w * qr.X(object$pCCA$QR)
-    if (!is.null(object$CCA))
-        X <- w * qr.X(object$CCA$QR)
+    if (!is.null(object$CCA)) {
+        X <- qr.X(object$CCA$QR)
+        ## First columns come from Z
+        if (!is.null(Z))
+            X <- X[, -seq_len(ncol(Z)), drop = FALSE]
+        X <- w * X
+    }
     m <- list()
     if (!is.null(Z))
         m$Conditions <- Z
@@ -23,8 +28,11 @@
     X <- Z <- NULL
     if (!is.null(object$pCCA))
         Z <- qr.X(object$pCCA$QR)
-    if (!is.null(object$CCA))
+    if (!is.null(object$CCA)) {
         X <- qr.X(object$CCA$QR)
+        if (!is.null(Z))
+            X <- X[, -seq_len(ncol(Z)), drop=FALSE]
+    }
     m <- list()
     if (!is.null(Z))
         m$Conditions <- Z
