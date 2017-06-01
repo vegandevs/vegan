@@ -11,10 +11,10 @@
   distance matrix calculator within the Mothur microbial ecology toolkit.
 }
 
-\usage{avgdist(x, depth, distfun = vegdist, iterations = 100, dmethod = "bray", ...) } 
+\usage{avgdist(x, sample, distfun = vegdist, iterations = 100, dmethod = "bray", ...) } 
 \arguments{
   \item{x}{Community data matrix.}
-  \item{depth}{The subsampling depth to be used in each iteration.}
+  \item{sample}{The subsampling depth to be used in each iteration.}
   \item{distfun}{The dissimilarity matrix function to be used. Default is the vegan \code{\link{vegdist}}}
   \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
   \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function.}
@@ -41,7 +41,7 @@
 data(varespec)
 # Multiply decimals to remove decimals and simulate count data for this example
 countdist <- varespec * 1000
-mean.avg.dist <- avgdist(countdist, depth = 500, iterations = 10)
+mean.avg.dist <- avgdist(countdist, sample = 500, iterations = 10)
 mean.avg.dist
 }
 \keyword{ distance }

@@ -1,16 +1,16 @@
 `avgdist` <- 
-    function(x, depth, distfun = vegdist, iterations = 100, dmethod = "bray", ...)
+    function(x, sample, distfun = vegdist, iterations = 100, dmethod = "bray", ...)
 {
-    if (is.na(depth))
+    if (is.na(sample))
         stop("invalid subsampling depth")
     if (is.na(iterations))
         stop("invalid iteration count")
     inputcast <- x
     # Get the list of iteration matrices
     distlist <- lapply(c(1:iterations), function(i) {
-        inputcast <- rrarefy(inputcast, sample=depth)
+        inputcast <- rrarefy(inputcast, sample = sample)
         # Remove those that did not meet the depth cutoff
-        inputcast <- inputcast[c(rowSums(inputcast) %in% depth),]
+        inputcast <- inputcast[c(rowSums(inputcast) %in% sample),]
         outdist <- distfun(inputcast, method = dmethod, diag = TRUE, upper = TRUE, ...)
         return(outdist)
     })
