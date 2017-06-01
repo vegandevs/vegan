@@ -357,17 +357,18 @@
 
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
-             method = c("cca", "rda", "capscale", "dbrda"),
+             method = c("cca", "rda", "capscale", "dbrda", "pass"),
              arg = FALSE)
 {
     method = match.arg(method)
     partial <- constraint <- resid <- NULL
-    ## init
+    ## init; "pass" returns unchanged Y, presumably from previous init
     Y <- switch(method,
                 "cca" = initCA(Y),
                 "rda" = initPCA(Y, scale = arg),
                 "capscale" = initCAP(Y),
-                "dbrda" = initDBRDA(Y))
+                "dbrda" = initDBRDA(Y),
+                "pass" = Y)
     ## header info for the model
     head <- ordHead(Y, method)
     ## Partial
@@ -388,5 +389,6 @@
     out <- c(head,
              call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
+    class(out) <- "cca"
     out
 }

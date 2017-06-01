@@ -46,9 +46,6 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     nperm <- nrow(permutations)
-    ## Refuse to handle models with missing data
-    if (!is.null(object$na.action))
-        stop("by = 'margin' models cannot handle missing data")
     ## We need term labels but without Condition() terms
     if (!is.null(scope) && is.character(scope))
         trms <- scope
@@ -67,8 +64,21 @@
     ## (vegan 2.0) where other but 'nm' were partialled out within
     ## Condition(). Now we only fit the model without 'nm' and compare
     ## the difference against the complete model.
-    mods <- lapply(trmlab, function(nm, ...)
-           permutest(update(object, paste(".~.-", nm)),
+    Y <- ordiYbar(object, "init")
+    X <- model.matrix(object)
+    ## we must have Constraints to get here, but we may also have
+    ## Conditions
+    if (!is.null(object$pCCA)) {
+        Z <- X$Conditions
+        X <- X$Constraints
+    } else {
+        Z <- NULL
+    }
+    ass <- object$terminfo$assign
+    if (is.null(ass))
+        stop("old time result object: update() your model")
+    mods <- lapply(unique(ass), function(i, ...)
+           permutest(ordConstrained(Y, X[, ass != i, drop=FALSE], Z, "pass"),
                      permutations, ...), ...)
     ## Chande in df
     Df <- sapply(mods, function(x) x$df[2]) - dfbig
@@ -125,79 +135,59 @@
     resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
     Df <- rep(1, length(eig))
-    ## constraints and model frame
-    LC <- object$CCA$u
-    mf <- model.frame(object)
-    ## missing values?
-    if (!is.null(object$na.action))
-        LC <- napredict(structure(object$na.action,
-                                  class = "exclude"), LC)
-
-    ## subset?
-    if (!is.null(object$subset)) {
-        tmp <- matrix(NA, nrow = length(object$subset),
-                      ncol = ncol(LC))
-        tmp[object$subset,] <- LC
-        LC <- tmp
-        tmp <- matrix(NA, nrow = length(object$subset),
-                      ncol = ncol(mf))
-        tmp <- as.data.frame(tmp)
-        colnames(tmp) <- colnames(mf)
-        tmp[object$subset,] <- mf
-        mf <- tmp
-        object <- update(object, subset = object$subset)
+    ## save object: will be modified later
+    origobj <- object
+    ## constraints and model matrices
+    Y <- object$Ybar
+    if (is.null(Y))
+        stop("old style result object does not work: update() your model")
+    if (!is.null(object$pCCA))
+        Z <- qr.X(object$pCCA$QR)
+    else
+        Z <- NULL
+    X <- model.matrix(object)
+    if (!is.null(object$pCCA)) {
+        Z <- X$Conditions
+        X <- X$Constraints
+    } else {
+        Z <- NULL
     }
-    LC <- as.data.frame(LC)
-    fla <- formula(object)
+    LC <- object$CCA$u
+
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
-    environment(object$terms) <- environment()
-    ## in dbrda, some axes can be imaginary, but we only want to have
-    ## an analysis of real-valued dimensions, and we must adjust data
-    if (ncol(LC) < length(eig)) {
-        eig <- eig[seq_len(ncol(LC))]
-        Df <- Df[seq_len(ncol(LC))]
-        Fstat <- Fstat[seq_len(ncol(LC))]
-    }
     axnams <- colnames(LC)
-    LC <- cbind(mf, LC)
     for (i in seq_along(eig)) {
         if (i > 1) {
-            part <- paste("~ . +Condition(",
-                          paste(axnams[seq_len(i-1)], collapse = "+"), ")")
-            upfla <- update(fla, part)
-        } else {
-            upfla <- fla
+            object <- ordConstrained(Y, X, cbind(Z, LC[, seq_len(i-1)]), "pass")
         }
-        ## only one axis, and cannot partial out?
-        if (length(eig) == 1)
+        if (length(eig) == i) {
             mod <- permutest(object, permutations, model = model,
                              parallel = parallel)
-        else
-            mod <-
-                permutest(update(object, upfla, data = LC),
-                          permutations, model = model,
-                          parallel = parallel, first = TRUE)
+        } else {
+            mod <- permutest(object, permutations, model = model,
+                             parallel = parallel, first = TRUE)
+        }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         F.perm[ , i] <- mod$F.perm
         if (Pvals[i] > cutoff)
             break
     }
-    out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
+    out <- data.frame(c(Df, resdf), c(eig, origobj$CA$tot.chi),
                       c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
-    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
+    if (inherits(origobj, c("capscale", "dbrda")) && origobj$adjust == 1)
         varname <- "SumOfSqs"
-    else if (inherits(object, "rda"))
+    else if (inherits(origobj, "rda"))
         varname <- "Variance"
     else
         varname <- "ChiSquare"
     colnames(out) <- c("Df", varname, "F", "Pr(>F)")
-    head <- paste0("Permutation test for ", object$method, " under ",
+    head <- paste0("Permutation test for ", origobj$method, " under ",
                    model, " model\n",
                    "Marginal tests for axes\n",
                    howHead(attr(permutations, "control")))
-    mod <- paste("Model:", c(object$call))
+    mod <- paste("Model:", c(origobj$call))
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- F.perm
     class(out) <- c("anova.cca", "anova", "data.frame")
