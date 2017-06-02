@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-05-31 r72750) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-06-01 r72753) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -93,7 +93,7 @@ spno         1   0.08318 0.5198   0.93
 Residual     5   0.80011              
 > anova(m, by="axis", permutations=99)
 Permutation test for cca under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
@@ -149,7 +149,7 @@ spno         1   3.1669 0.5250   0.90
 Residual     5  30.1605              
 > anova(p, by="axis", permutations=99)
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
@@ -204,7 +204,7 @@ spno         1  0.07121 0.4532   0.91
 Residual     5  0.78568              
 > anova(p, by="axis", permutations=99)
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
@@ -259,7 +259,7 @@ spno         1   0.08318 0.5198   0.94
 Residual     5   0.80011              
 > anova(q, by="axis", permutations=99)
 Permutation test for cca under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
@@ -408,7 +408,7 @@ Eigenvalues for unconstrained axes:
 
 > tab
 Permutation test for cca under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
@@ -446,7 +446,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > cap.model.cond <- capscale(X ~ A + B + Condition(C))
 > anova(cap.model.cond, by="axis", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
@@ -474,7 +474,7 @@ Residual 22   4.5130
 > cap.model <- capscale(X ~ A + B)
 > anova(cap.model, by="axis", strata=C)  # -> no error
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
@@ -502,7 +502,7 @@ Residual 26   5.2565
 > rda.model.cond <- rda(X ~ A + B + Condition(C))
 > anova(rda.model.cond, by="axis", strata=C)  # -> no error
 Permutation test for rda under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
@@ -530,7 +530,7 @@ Residual 22   4.5130
 > rda.model <- rda(X ~ A + B)
 > anova(rda.model, by="axis", strata=C)  # -> no error
 Permutation test for rda under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
@@ -998,4 +998,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  4.144   0.044   4.184 
+  4.132   0.044   4.171 
