@@ -97,19 +97,25 @@
 
 ### COMMON HEADER INFORMATION FOR ORDINATION MODELS
 
-`ordHead`<- function(Y, method)
+`ordHead`<- function(Y)
 {
-    if (method == "dbrda")
+    method <- attr(Y, "METHOD")
+    headmethod <- switch(method,
+                         "CA" = "cca",
+                         "PCA" = "rda",
+                         "CAPSCALE" = "capscale",
+                         "DISTBASED" = "dbrda")
+    if (method == "DISTBASED")
         totvar <- sum(diag(Y))
     else
         totvar <- sum(Y^2)
-    head <- list("tot.chi" = totvar, "Ybar" = Y)
-    if (method == "cca")
+    head <- list("tot.chi" = totvar, "Ybar" = Y, "method" = headmethod)
+    if (method == "CA")
         head <- c(list("grand.total" = attr(Y, "tot"),
                        "rowsum" = attr(Y, "RW"),
                        "colsum" = attr(Y, "CW")),
                   head)
-    else if (method == "rda")
+    else if (method == "PCA")
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
                   head)
     head
@@ -370,7 +376,7 @@
                 "dbrda" = initDBRDA(Y),
                 "pass" = Y)
     ## header info for the model
-    head <- ordHead(Y, method)
+    head <- ordHead(Y)
     ## Partial
     if (!is.null(Z)) {
         out <- ordPartial(Y, Z)

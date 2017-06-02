@@ -32,7 +32,7 @@ permutest.default <- function(x, ...)
     ## special cases
     isCCA <- !inherits(x, "rda")    # weighting
     isPartial <- !is.null(x$pCCA)   # handle conditions
-    isDB <- inherits(x, c("dbrda"))
+    isDB <- inherits(x, c("dbrda")) || x$method == "dbrda"
     ## C function to get the statististics in one loop
     getF <- function(indx, ...)
     {
