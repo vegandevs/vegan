@@ -38,10 +38,8 @@
  vegan functions.}
 
 \examples{
-data(varespec)
-# Multiply decimals to remove decimals and simulate count data for this example
-countdist <- varespec * 1000
-mean.avg.dist <- avgdist(countdist, sample = 500, iterations = 10)
+data(BCI)
+mean.avg.dist <- avgdist(BCI, sample = 50, iterations = 10)
 mean.avg.dist
 }
 \keyword{ distance }
