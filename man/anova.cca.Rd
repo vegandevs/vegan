@@ -171,11 +171,15 @@
   semiautomatic model building (see \code{\link{deviance.cca}}). }
 
 \examples{
-data(varespec)
-data(varechem)
-vare.cca <- cca(varespec ~ Al + P + K, varechem)
+data(varespec, varechem)
+mod <- cca(varespec ~ Al + P + K, varechem)
 ## overall test
-anova(vare.cca)
+anova(mod)
+## tests for individual terms
+anova(mod, by="term")
+anova(mod, by="margin")
+## test for adding all environmental variables
+anova(mod, cca(varespec ~ ., varechem))
 }
 \keyword{ multivariate }
 \keyword{ htest }
