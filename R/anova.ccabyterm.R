@@ -1,11 +1,11 @@
-### Implementation of by-cases for vegan 2.2 versions of
-### anova.cca. These are all internal functions that are not intended
-### to be called by users in normal sessions, but they should be
-### called from anova.cca. Therefore the user interface is rigid and
-### input is not checked. The 'permutations' should be a permutation
-### matrix.
+### Implementation of by-cases for anova.cca. These are all internal
+### functions that are not intended to be called by users in normal
+### sessions, but they should be called from anova.cca. Therefore the
+### user interface is rigid and input is not checked. The
+### 'permutations' should be a permutation matrix.
 
-### by = terms calls directly permutest.cca
+### by = "terms" calls directly permutest.cca which decomposes the
+### inertia between successive terms within compiled C code.
 
 `anova.ccabyterm` <-
     function(object, permutations, model, parallel)
@@ -38,8 +38,17 @@
     out
 }
 
-## by = margin: this is not a anova.ccalist case, but we omit each
-## term in turn and compare against the complete model.
+## by = "margin": we omit each term in turn and compare against the
+## complete model. This does not involve partial terms (Conditions) on
+## other variables, but the permutations remain similar in "direct"
+## and "reduced" (default) models (perhaps this model should not be
+## used with "full" models?). This is basically similar decomposition
+## as by="term", but compares models without each term in turn against
+## the complete model in separate calls to permutest.cca. From vegan
+## 2.5-0 this does not update model formula -- this avoids scoping
+## issues and makes the function more robust when embedded in other
+## functions. Instead, we call ordConstrained with method="pass" with
+## modified constraint matrix.
 
 `anova.ccabymargin` <-
     function(object, permutations, scope, ...)
@@ -117,7 +126,20 @@
     out
 }
 
-### Marginal test for axes
+### by = "axis" uses partial model: we use the original constraints,
+### but add previous axes 1..(k-1) to Conditions when evaluating the
+### significance of axis k which is compared against the first
+### eigenvalue of the permutations. To avoid scoping issues, this
+### calls directly ordConstrained() with modified Conditions (Z) and
+### original Constraints (X) instead of updating formula. This
+### corresponds to "forward" model in Legendre, Oksanen, ter Braak
+### (2011).
+
+### In 2.2-x to 2.4-3 we used "marginal model" where original
+### Constraints were replaced with LC scores axes (object$CCA$u), and
+### all but axis k were used as Conditions when evaluating the
+### significance of axis k. My (J.Oksanen) simulations showed that
+### this gave somewhat biased results.
 
 `anova.ccabyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
