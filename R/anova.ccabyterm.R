@@ -168,7 +168,7 @@
 
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
-                   "Marginal tests for axes\n",
+                   "Forward tests for axes\n",
                    howHead(attr(permutations, "control")))
     head <- c(head, paste("Model:", c(object$call)))
 
