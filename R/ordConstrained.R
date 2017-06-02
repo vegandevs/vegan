@@ -395,6 +395,10 @@
     out <- c(head,
              call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
-    class(out) <- "cca"
+    class(out) <- switch(attr(Y, "METHOD"),
+                         "CA" = "cca",
+                         "PCA" = c("rda", "cca"),
+                         "CAPSCALE" = c("capscale", "rda", "cca"),
+                         "DISTBASED" = c("dbrda", "rda", "cca"))
     out
 }
