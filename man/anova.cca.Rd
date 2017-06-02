@@ -32,10 +32,10 @@
 \arguments{
 
   \item{object}{One or several result objects from \code{\link{cca}},
-    \code{\link{rda}} or \code{\link{capscale}}. If there are several
-    result objects, they are compared against each other in the order
-    they were supplied. For a single object, a test specified in
-    \code{by} or an overall test is given.}
+    \code{\link{rda}}, \code{\link{dbrda}} or \code{\link{capscale}}. If
+    there are several result objects, they are compared against each
+    other in the order they were supplied. For a single object, a test
+    specified in \code{by} or an overall test is given.}
 
   \item{x}{A single ordination result object.}
  
@@ -71,7 +71,7 @@
     \code{permutations = how(\dots, blocks)} instead. }
 
   \item{cutoff}{Only effective with \code{by="axis"} where stops
-    permutations after an axis exceeds the \code{cutoff}.}
+    permutations after an axis exceeds the \code{cutoff} \eqn{p}-value.}
 
   \item{scope}{Only effective with \code{by="margin"} where it can be
     used to select the marginal terms for testing. The default is to
@@ -88,13 +88,12 @@
 
 \details{
 
-  Functions \code{anova.cca} and \code{permutest.cca} implement 
-  ANOVA like permutation tests for the joint effect of constraints in
-  \code{\link{cca}}, \code{\link{rda}} or \code{\link{capscale}}.
-  Functions \code{anova.cca} and \code{permutest.cca} differ in
-  printout style and in interface.  Function \code{permutest.cca} is
-  the proper workhorse, but \code{anova.cca} passes all parameters to
-  \code{permutest.cca}.
+  Functions \code{anova.cca} and \code{permutest.cca} implement ANOVA
+  like permutation tests for the joint effect of constraints in
+  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} or
+  \code{\link{capscale}}. Function \code{anova} is intended as a more
+  user-friendly alternative to \code{permutest} (that is the real
+  workhorse). 
 
   Function \code{anova} can analyse a sequence of constrained
   ordination models. The analysis is based on the differences in
@@ -112,12 +111,12 @@
   out}) and a test for the first constrained eigenvalues is
   performed (Legendre et al. 2011). 
   You can stop permutation tests after exceeding a given
-   significance level with argument \code{cutoff} to speed up
+  significance level with argument \code{cutoff} to speed up
   calculations in large models. Setting \code{by = "terms"} will
   perform separate significance test for each term (constraining
   variable). The terms are assessed sequentially from first to last,
   and the order of the terms will influence their
-  significance. Setting \code{by = "margin"} will perform separate
+  significances. Setting \code{by = "margin"} will perform separate
   significance test for each marginal term in a model with all other
   terms. The marginal test also accepts a \code{scope} argument for
   the \code{\link{drop.scope}} which can be a character vector of term
@@ -128,24 +127,23 @@
   terms. In calculating pseudo-\eqn{F}, all terms are compared to the
   same residual of the full model. 
   
-  Community data are permuted with choice \code{model="direct"},
-  and residuals after partial CCA/ RDA/ dbRDA with choice
-  \code{model="reduced"} (default).   If there is no partial CCA/
-  RDA/ dbRDA stage, \code{model="reduced"} simply permutes the data
-  and is equivalent to \code{model="direct"}.  The test statistic is
+  Community data are permuted with choice \code{model="direct"}, and
+  residuals after partial CCA/ RDA/ dbRDA with choice
+  \code{model="reduced"} (default).  If there is no partial CCA/ RDA/
+  dbRDA stage, \code{model="reduced"} simply permutes the data and is
+  equivalent to \code{model="direct"}.  The test statistic is
   \dQuote{pseudo-\eqn{F}}, which is the ratio of constrained and
   unconstrained total Inertia (Chi-squares, variances or something
-  similar), each divided by their respective ranks.  If there are no
-  conditions (\dQuote{partial} terms), the sum of all eigenvalues
-  remains constant, so that pseudo-\eqn{F} and eigenvalues would give
-  equal results.  In partial CCA/ RDA/ dbRDA, the effect of
+  similar), each divided by their respective degrees of freedom.  If
+  there are no conditions (\dQuote{partial} terms), the sum of all
+  eigenvalues remains constant, so that pseudo-\eqn{F} and eigenvalues
+  would give equal results.  In partial CCA/ RDA/ dbRDA, the effect of
   conditioning variables (\dQuote{covariables}) is removed before
-  permutation, and these residuals are added to the non-permuted
-  fitted values of partial CCA (fitted values of \code{X ~ Z}).
-  Consequently, the total Chi-square is not fixed, and test based on
+  permutation, and the total Chi-square is not fixed, and test based on
   pseudo-\eqn{F} would differ from the test based on plain
-  eigenvalues. CCA is a weighted method, and environmental data are
-  re-weighted at each permutation step using permuted weights.  }
+  eigenvalues.
+
+}
 
 \value{ 
   The function \code{anova.cca} calls \code{permutest.cca} and fills an
@@ -155,11 +153,6 @@
   \code{F.perm} (the permuted test statistics).
 }
 
-\note{
-  Some cases of \code{anova} need access to the original data on
-  constraints (at least \code{by = "term"} and \code{by = "margin"}),
-  and they may fail if data are unavailable.
-}
 \references{
   Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
   English ed. Elsevier.
