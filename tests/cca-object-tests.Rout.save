@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-06-01 r72753) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-06-05 r72769) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -194,13 +194,13 @@ Eigenvalues for unconstrained axes:
 > ## names
 > sort(names(mcca))
  [1] "CA"          "CCA"         "Ybar"        "call"        "call"       
- [6] "colsum"      "grand.total" "inertia"     "method"      "method"     
-[11] "na.action"   "pCCA"        "rowsum"      "subset"      "terminfo"   
-[16] "terms"       "tot.chi"    
+ [6] "colsum"      "grand.total" "inertia"     "method"      "na.action"  
+[11] "pCCA"        "rowsum"      "subset"      "terminfo"    "terms"      
+[16] "tot.chi"    
 > sort(names(mrda))
  [1] "CA"        "CCA"       "Ybar"      "call"      "colsum"    "inertia"  
- [7] "method"    "method"    "na.action" "pCCA"      "subset"    "terminfo" 
-[13] "terms"     "tot.chi"  
+ [7] "method"    "na.action" "pCCA"      "subset"    "terminfo"  "terms"    
+[13] "tot.chi"  
 > sort(names(mcap))
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
@@ -2539,4 +2539,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.156   0.060   3.210 
+  3.092   0.072   3.163 
