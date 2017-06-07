@@ -100,18 +100,17 @@
         CCA <- list(rank = qrhs$rank,
                     qrank = qrhs$rank,
                     tot.chi = sum(diag(Gfit)),
-                    QR = qrhs,
-                    Xbar = G)
+                    QR = qrhs)
     else
         CCA <- NULL # empty model
     ## collect data for the residuals
     CA <- list(rank = n - max(qrhs$rank, 0) - 1,
                u = matrix(0, nrow=n),
-               tot.chi = sum(diag(Gres)),
-               Xbar = Gres)
+               tot.chi = sum(diag(Gres)))
     ## all together
     sol$tot.chi <- sum(diag(G))
     sol$adjust <- 1
+    sol$Ybar <- G
     sol$CCA <- CCA
     sol$CA <- CA
     class(sol) <- c("adonis2", "dbrda", "rda", "cca")
