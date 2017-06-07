@@ -88,10 +88,9 @@
         stop("internal error: contact developers")
     if (any(lhs < -TOL))
         stop("dissimilarities must be non-negative")
-    dmat <- as.matrix(lhs^2)
-    n <- nrow(dmat)
+    n <- attr(lhs, "Size")
     ## G is -dmat/2 centred
-    G <- -GowerDblcen(dmat)/2
+    G <- initDBRDA(lhs)
     ## preliminaries are over: start working
     Gfit <- qr.fitted(qrhs, G)
     Gres <- qr.resid(qrhs, G)
