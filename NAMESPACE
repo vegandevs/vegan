@@ -230,6 +230,7 @@ S3method(logLik, radfit.frame)
 # model.frame, model.matrix: stats
 S3method(model.frame, cca)
 S3method(model.matrix, cca)
+S3method(model.matrix, rda)
 # multipart: vegan
 S3method(multipart, default)
 S3method(multipart, formula)

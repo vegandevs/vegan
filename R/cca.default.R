@@ -32,7 +32,6 @@
     if (!is.null(sol$pCCA) && sol$pCCA$tot.chi == 0)
         pCCA$rank <- 0
     sol <- c(list(call = call,
-                  method = "cca",
                   inertia =  "mean squared contingency coefficient"),
              sol)
     class(sol) <- "cca"

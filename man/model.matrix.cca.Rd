@@ -1,6 +1,7 @@
 \name{model.matrix.cca}
 \Rdversion{1.1}
 \alias{model.matrix.cca}
+\alias{model.matrix.rda}
 \alias{model.frame.cca}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -33,19 +34,25 @@
 \details{
   The constrained ordination method objects do not save data on model 
   frame or design matrix, and the functions must reconstruct the
-  information in the session. This will fail if the data sets and variables
-  of the original model are unavailable.
+  information from the result object.
 }
 \value{
   Returns a data frame (\code{model.frame}) or an unnamed matrix or a 
   list of two matrices called \code{Constraints} and \code{Conditions} 
   (\code{model.matrix}). 
 }
+
+\note{The \code{model.matrix} returns the unweighted model matrix also
+  for \code{\link{cca}}. Prior to \pkg{vegan} version 2.5-0 it returned
+  the weighted model matrix.}
+
 \author{
  Jari Oksanen
 }
 \seealso{
- \code{\link{model.frame}}, \code{\link{model.matrix}}.
+ \code{\link{model.frame}}, \code{\link{model.matrix}}. The model matrix
+ is built from the QR decomposition component of \code{\link{cca.object}}
+ using \code{\link{qr.X}}.
 }
 \examples{
 data(dune)

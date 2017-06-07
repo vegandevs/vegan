@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2016-11-22 r71678) -- "Unsuffered Consequences"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R Under development (unstable) (2017-06-01 r72753) -- "Unsuffered Consequences"
+Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -65,24 +65,47 @@ Model     6   1.25838 1.3106   0.09 .
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> ## vegan 2.1-40 cannot handle missing data in next two
-> ##anova(m, by="term", permutations=99)
-> ##anova(m, by="margin", permutations=99)
-> anova(m, by="axis", permutations=99)
+> anova(m, by="term", permutations=99) # failed before 2.5-0
 Permutation test for cca under reduced model
-Marginal tests for axes
+Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 99
 
-Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
-         Df ChiSquare      F Pr(>F)   
-CCA1      1   0.46993 2.9366   0.01 **
-CCA2      1   0.26217 1.6384   0.18   
-CCA3      1   0.19308 1.2066   0.29   
-CCA4      1   0.18345 1.1464   0.38   
-CCA5      1   0.08871 0.5544   0.76   
-CCA6      1   0.06104 0.3815   0.88   
-Residual  5   0.80011                 
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df ChiSquare      F Pr(>F)  
+Management   3   0.82392 1.7163   0.03 *
+poly(A1, 2)  2   0.35127 1.0976   0.39  
+spno         1   0.08318 0.5198   0.96  
+Residual     5   0.80011                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(m, by="margin", permutations=99) # works since 2.5-0
+Permutation test for cca under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 99
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df ChiSquare      F Pr(>F)
+Management   3   0.55418 1.1544   0.21
+poly(A1, 2)  2   0.32940 1.0292   0.44
+spno         1   0.08318 0.5198   0.93
+Residual     5   0.80011              
+> anova(m, by="axis", permutations=99)
+Permutation test for cca under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 99
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+         Df ChiSquare      F Pr(>F)  
+CCA1      1   0.46993 2.9366   0.07 .
+CCA2      1   0.26217 1.6384   0.75  
+CCA3      1   0.19308 1.2066   0.97  
+CCA4      1   0.18345 1.1464   0.90  
+CCA5      1   0.08871 0.5544   0.98  
+CCA6      1   0.06104 0.3815   0.93  
+Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## capscale
@@ -98,23 +121,46 @@ Model     6   59.582 1.6462   0.04 *
 Residual  5   30.160                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> ## vegan 2.1-40 cannot handle missing data in next two
-> ##anova(p, by="term", permutations=99)
-> ##anova(p, by="margin", permutations=99)
-> anova(p, by="axis", permutations=99)
+> anova(p, by="term", permutations=99) # failed before 2.5-0
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 99
 
-Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df Variance      F Pr(>F)   
+Management   3   46.265 2.5566   0.01 **
+poly(A1, 2)  2   10.150 0.8413   0.63   
+spno         1    3.167 0.5250   0.79   
+Residual     5   30.160                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(p, by="margin", permutations=99) # works since 2.5-0
+Permutation test for capscale under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 99
+
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df Variance      F Pr(>F)
+Management   3  28.7515 1.5888   0.13
+poly(A1, 2)  2   8.0847 0.6701   0.88
+spno         1   3.1669 0.5250   0.90
+Residual     5  30.1605              
+> anova(p, by="axis", permutations=99)
+Permutation test for capscale under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 99
+
+Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df Variance      F Pr(>F)  
 CAP1      1  25.0252 4.1487   0.03 *
-CAP2      1  15.8759 2.6319   0.07 .
-CAP3      1   8.0942 1.3419   0.25  
-CAP4      1   5.0675 0.8401   0.64  
-CAP5      1   3.5671 0.5914   0.85  
-CAP6      1   1.9520 0.3236   0.96  
+CAP2      1  15.8759 2.6319   0.39  
+CAP3      1   8.0942 1.3419   0.78  
+CAP4      1   5.0675 0.8401   0.95  
+CAP5      1   3.5671 0.5914   0.96  
+CAP6      1   1.9520 0.3236   0.92  
 Residual  5  30.1605                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -128,28 +174,49 @@ Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df SumOfSqs      F Pr(>F)
-Model     6  1.54840 1.6423   0.11
+Model     6  1.54840 1.6423   0.14
 Residual  5  0.78568              
-> ## vegan 2.1-40 cannot handle missing data in next two
-> ##anova(p, by="term", permutations=99)
-> ##anova(p, by="margin", permutations=99)
-> anova(p, by="axis", permutations=99)
+> anova(p, by="term", permutations=99) # failed before 2.5-0
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 99
 
-Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = object$subset)
-         Df SumOfSqs      F Pr(>F)  
-CAP1      1  0.77834 4.9533   0.02 *
-CAP2      1  0.45691 2.9078   0.03 *
-CAP3      1  0.14701 0.9355   0.51  
-CAP4      1  0.11879 0.7560   0.65  
-CAP5      1  0.04213 0.2681   0.94  
-CAP6      1  0.00522 0.0332   1.00  
-Residual  5  0.78568                
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df SumOfSqs      F Pr(>F)  
+Management   3  1.17117 2.4844   0.02 *
+poly(A1, 2)  2  0.30602 0.9737   0.53  
+spno         1  0.07121 0.4532   0.84  
+Residual     5  0.78568                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(p, by="margin", permutations=99) # works since 2.5-0
+Permutation test for capscale under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 99
+
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+            Df SumOfSqs      F Pr(>F)
+Management   3  0.64888 1.3765   0.22
+poly(A1, 2)  2  0.26160 0.8324   0.69
+spno         1  0.07121 0.4532   0.91
+Residual     5  0.78568              
+> anova(p, by="axis", permutations=99)
+Permutation test for capscale under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 99
+
+Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+         Df SumOfSqs      F Pr(>F)
+CAP1      1  0.77834 4.9533   0.13
+CAP2      1  0.45691 2.9078   0.48
+CAP3      1  0.14701 0.9355   0.98
+CAP4      1  0.11879 0.7560   0.96
+CAP5      1  0.04213 0.2681   1.00
+CAP6      1  0.00522 0.0332   1.00
+Residual  5  0.78568              
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -160,26 +227,50 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)
-Model     6   1.25838 1.3106   0.16
+Model     6   1.25838 1.3106   0.11
 Residual  5   0.80011              
 > ## commented tests below fail in vegan 2.1-40 because number of
 > ## observations changes
-> ##anova(q, by="term", permutations=99) 
-> ##anova(q, by="margin", permutations=99)
-> anova(q, by="axis", permutations=99)
+> anova(q, by="term", permutations=99) # failed before 2.5-0
 Permutation test for cca under reduced model
-Marginal tests for axes
+Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 99
 
-Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = object$subset)
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+            Df ChiSquare      F Pr(>F)  
+Management   3   0.82392 1.7163   0.02 *
+poly(A1, 2)  2   0.35127 1.0976   0.40  
+spno         1   0.08318 0.5198   0.95  
+Residual     5   0.80011                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(q, by="margin", permutations=99) # works since 2.5-0
+Permutation test for cca under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 99
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
+            Df ChiSquare      F Pr(>F)
+Management   3   0.55418 1.1544   0.33
+poly(A1, 2)  2   0.32940 1.0292   0.44
+spno         1   0.08318 0.5198   0.94
+Residual     5   0.80011              
+> anova(q, by="axis", permutations=99)
+Permutation test for cca under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 99
+
+Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)  
-CCA1      1   0.46993 2.9366   0.03 *
-CCA2      1   0.26217 1.6384   0.22  
-CCA3      1   0.19308 1.2066   0.31  
-CCA4      1   0.18345 1.1464   0.32  
-CCA5      1   0.08871 0.5544   0.70  
-CCA6      1   0.06104 0.3815   0.88  
+CCA1      1   0.46993 2.9366   0.05 *
+CCA2      1   0.26217 1.6384   0.82  
+CCA3      1   0.19308 1.2066   0.93  
+CCA4      1   0.18345 1.1464   0.88  
+CCA5      1   0.08871 0.5544   0.97  
+CCA6      1   0.06104 0.3815   0.89  
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -317,16 +408,16 @@ Eigenvalues for unconstrained axes:
 
 > tab
 Permutation test for cca under reduced model
-Marginal tests for axes
+Forward tests for axes
 Permutation: free
 Number of permutations: 99
 
-Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env, subset = object$subset)
+Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env, subset = A1 > 3)
          Df ChiSquare      F Pr(>F)  
-CCA1      1   0.27109 2.9561   0.04 *
-CCA2      1   0.14057 1.5329   0.22  
-CCA3      1   0.08761 0.9553   0.71  
-CCA4      1   0.05624 0.6132   0.98  
+CCA1      1   0.27109 2.9561   0.09 .
+CCA2      1   0.14057 1.5329   0.56  
+CCA3      1   0.08761 0.9553   0.78  
+CCA4      1   0.05624 0.6132   0.76  
 Residual 10   0.91705                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -355,16 +446,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > cap.model.cond <- capscale(X ~ A + B + Condition(C))
 > anova(cap.model.cond, by="axis", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3075  0.242
-CAP2      1   0.0685 0.3339  0.921
-CAP3      1   0.0455 0.2217  0.966
+CAP1      1   0.2682 1.3075  0.783
+CAP2      1   0.0685 0.3339  0.998
+CAP3      1   0.0455 0.2217  0.967
 Residual 22   4.5130              
 > anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -383,15 +474,15 @@ Residual 22   4.5130
 > cap.model <- capscale(X ~ A + B)
 > anova(cap.model, by="axis", strata=C)  # -> no error
 Permutation test for capscale under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3267  0.240
-CAP2      1   0.0685 0.3388  0.913
+CAP1      1   0.2682 1.3267  0.764
+CAP2      1   0.0685 0.3388  0.993
 CAP3      1   0.0455 0.2249  0.964
 Residual 26   5.2565              
 > anova(cap.model, by="terms", strata=C)  # -> no error
@@ -411,16 +502,16 @@ Residual 26   5.2565
 > rda.model.cond <- rda(X ~ A + B + Condition(C))
 > anova(rda.model.cond, by="axis", strata=C)  # -> no error
 Permutation test for rda under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-RDA1      1   0.2682 1.3075  0.286
-RDA2      1   0.0685 0.3339  0.921
-RDA3      1   0.0455 0.2217  0.963
+RDA1      1   0.2682 1.3075  0.774
+RDA2      1   0.0685 0.3339  0.993
+RDA3      1   0.0455 0.2217  0.964
 Residual 22   4.5130              
 > anova(rda.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for rda under reduced model
@@ -439,15 +530,15 @@ Residual 22   4.5130
 > rda.model <- rda(X ~ A + B)
 > anova(rda.model, by="axis", strata=C)  # -> no error
 Permutation test for rda under reduced model
-Marginal tests for axes
+Forward tests for axes
 Blocks:  strata 
 Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-RDA1      1   0.2682 1.3267  0.258
-RDA2      1   0.0685 0.3388  0.898
+RDA1      1   0.2682 1.3267  0.768
+RDA2      1   0.0685 0.3388  0.995
 RDA3      1   0.0455 0.2249  0.971
 Residual 26   5.2565              
 > anova(rda.model, by="terms", strata=C)  # -> no error
@@ -907,4 +998,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  6.044   0.056   6.096 
+  4.132   0.044   4.171 
