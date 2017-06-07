@@ -214,7 +214,7 @@
     colnames(out) <- c("Df", varname, "F", "Pr(>F)")
     head <- paste0("Permutation test for ", object$method, " under ",
                    model, " model\n",
-                   "Marginal tests for axes\n",
+                   "Forward tests for axes\n",
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
     attr(out, "heading") <- c(head, mod)
