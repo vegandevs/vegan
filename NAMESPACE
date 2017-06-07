@@ -30,7 +30,7 @@ showvarparts, simper, spandepth, spantree, specaccum, specslope,
 specnumber, specpool2vect, specpool, spenvcor,
 stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
-vectorfit, vegandocs, vegdist, vegemite, veiledspec, wascores,
+vectorfit, vegandocs, vegdist, avgdist, vegemite, veiledspec, wascores,
 wcmdscale, wisconsin)
 ## export pasteCall for 'permute'
 export(pasteCall)
