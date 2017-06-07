@@ -86,7 +86,9 @@
     ass <- object$terminfo$assign
     if (is.null(ass))
         stop("old time result object: update() your model")
-    mods <- lapply(unique(ass), function(i, ...)
+    ## analyse only terms of 'ass' thar are in scope
+    scopeterms <- which(attr(terms(object$terminfo), "term.labels") %in% trms)
+    mods <- lapply(scopeterms, function(i, ...)
            permutest(ordConstrained(Y, X[, ass != i, drop=FALSE], Z, "pass"),
                      permutations, ...), ...)
     ## Chande in df
