@@ -1,7 +1,7 @@
 ### Random rarefied subsample: sample without replacement
 
 `rrarefy` <-
-    function(x, sample)
+    function(x, sample, average = FALSE)
 {
     if (!identical(all.equal(x, round(x)), TRUE)) 
         stop("function is meaningful only for integers (counts)")
@@ -20,11 +20,16 @@
     for (i in 1:nrow(x)) {
         if (sum(x[i,]) <= sample[i]) ## nothing to rarefy: take all
             next
-        row <- sample(rep(nm, times=x[i,]), sample[i])
-        row <- table(row)
-        ind <- names(row)
-        x[i,] <- 0
-        x[i,ind] <- row
+        if (average) {
+            x <- x / rowSums(x) * sample
+            x <- ifelse(x >= (sample)^-1, x, 0)
+        } else {
+            row <- sample(rep(nm, times=x[i,]), sample[i])
+            row <- table(row)
+            ind <- names(row)
+            x[i,] <- 0
+            x[i,ind] <- row
+        }
     }
     x
 }
