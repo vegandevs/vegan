@@ -206,18 +206,18 @@
         tcltk::tkgrid(entryDump, pady="5m")
         isDone <- function() {
             dumpName <- tcltk::tclvalue(dumpVar)
-            if (exists(dumpName, envir=.GlobalEnv)) {
+            if (exists(dumpName, envir = parent.frame())) {
                 ok <- tcltk::tkmessageBox(message=paste(sQuote(dumpName),
                                    "exists.\nOK to overwrite?"),
                                    icon="warning", type="okcancel",
                                    default="ok")
                 if(tcltk::tclvalue(ok) == "ok") {
-                    assign(dumpName, xy, envir=.GlobalEnv)
+                    assign(dumpName, xy, envir = parent.frame())
                     tcltk::tkdestroy(tt)
                 }
             }
             else {
-                assign(dumpName, xy, envir=.GlobalEnv)
+                assign(dumpName, xy, envir = parent.frame())
                 tcltk::tkdestroy(tt)
             }
         }
