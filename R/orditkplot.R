@@ -166,7 +166,7 @@
                        file=tcltk::tkgetSaveFile(
                          filetypes="{{EPS file} {.eps}}",
                          defaultextension=".eps")))
-    dismiss <- tcltk::tkbutton(buts, text="Dismiss",
+    dismiss <- tcltk::tkbutton(buts, text="Close",
                                command=function() tcltk::tkdestroy(w))
     ## Dump current plot to an "orditkplot" object (internally)
     ordDump <- function() {
@@ -224,7 +224,7 @@
         tcltk::tkbind(entryDump, "<Return>", isDone)
         tcltk::tkfocus(tt)
     }
-    dump <- tcltk::tkbutton(buts, text="Dump to R", command=pDump)
+    dump <- tcltk::tkbutton(buts, text="Save to R", command=pDump)
     ## Button to write current "orditkplot" object to a graphical device
     devDump <- function() {
         xy <- ordDump()
