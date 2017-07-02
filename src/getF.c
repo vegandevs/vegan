@@ -159,8 +159,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
     /* check that permutations matrix has correct number of
      * observations */
     if (ncols(perms) != nr)
-	error("permutations matrix has %d columns, should have %d",
-	      ncols(perms), nr);
+	error("\'permutations\' matrix should have %d columns, but it has %d",
+	      nr, ncols(perms));
     double ev1, ev0, ev;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);
