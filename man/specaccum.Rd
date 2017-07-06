@@ -159,7 +159,7 @@ specslope(object, at)
   self-starting species accumulation model. The input \code{object}
   can be a result of \code{specaccum} or a community in data frame. In
   the latter case the function first fits a \code{specaccum} model and
-  then proceeds with fitting the a nonlinear model. The function can
+  then proceeds with fitting the nonlinear model. The function can
   apply a limited set of nonlinear regression models suggested for
   species-area relationship (Dengler 2009). All these are
   \code{\link{selfStart}} models. The permissible alternatives are
