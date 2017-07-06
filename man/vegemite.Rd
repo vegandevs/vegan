@@ -18,9 +18,9 @@
 vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
     Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
-    scale = c("none", "column", "row"), col = heat.colors(12), ...)
+    scale, col = heat.colors(12), ...)
 coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
-           maxabund)
+           maxabund, character = TRUE)
 }
 
 \arguments{
@@ -53,15 +53,22 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
   \item{scale}{In \code{vegemite} and \code{coverscale}: cover scale
     used (can be abbreviated). In \code{tabasco}: scaling of colours
-    in \code{\link{heatmap}}; if \code{"column"} or \code{"row"}, all
-    columns or rows are scaled to equal maximum colour (NB., these
-    refer to the transposed data of the \code{\link{heatmap}}). }
+    in \code{\link{heatmap}}. The alternatives of \code{coverscale}
+    can be used in \code{tabasco}, and in addition \code{"column"} or
+    \code{"row"} scale columns or rows to equal maxima (NB., these
+    refer to the transposed data of the \code{\link{heatmap}}), while
+    \code{"none"} uses original values. }
 
   \item{col}{A vector of colours used for above-zero abundance values.}
 
   \item{maxabund}{Maximum abundance used with \code{scale = "log"}.
     Data maximum in the \code{select}ed subset will be used if this is
     missing.}
+
+  \item{character}{Return character codes suitable for
+    \code{vegemite}. If \code{FALSE}, returns corresponding
+    integers.}
+
   \item{\dots}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}) in
     \code{vegemite} and to \code{\link{heatmap}} in \code{tabasco}.}
 }
@@ -74,9 +81,12 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
   Function \code{tabasco} produces a similar table as \code{vegemite}
   using \code{\link{heatmap}}, where abundances are coded by
-  colours. The function can also display dendrograms for sites
-  (columns) or species if these are given as an argument (\code{use}
-  for sites, \code{sp.ind} for species).
+  colours. The function scales the abundances to equal intervals for
+  colour palette, but either rows or columns can be scaled to equal
+  maxima, or the \code{coverscale} class systems can be used. The
+  function can also display dendrograms for sites (columns) or species
+  if these are given as an argument (\code{use} for sites,
+  \code{sp.ind} for species).
 
   The parameter \code{use} will be used to re-order output. The
   \code{use} can be a vector or an object from \code{\link{hclust}} or
@@ -121,33 +131,30 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{\link[ape]{as.hclust.phylo}} (package \pkg{ape}) can transform
   these to \code{\link{hclust}} trees. 
 
-  If \code{scale} is given, \code{vegemite} calls
-  \code{coverscale} to transform percent cover
-  scale or some other scales into traditional class scales used in
-  vegetation science (\code{coverscale} can be called directly, too).
-  Braun-Blanquet and Domin scales are actually not
-  strict cover scales, and the limits used for codes \code{r} and
-  \code{+} are arbitrary.  Scale \code{Hill} may be
-  inappropriately named, since Mark O. Hill probably never intended this
-  as a cover scale.  However, it is used as default 'cut levels' in his
-  \code{TWINSPAN}, and surprisingly many users stick to this default,
-  and this is a \emph{de facto} standard in publications.  All
-  traditional
-  scales assume that values are cover percentages with maximum 100.
-  However, non-traditional alternative \code{log} can be used with any
-  scale range.  Its class limits are integer powers of 1/2 of the
-  maximum (argument \code{maxabund}), with \code{+} used for non-zero entries
-  less than 1/512 of the maximum (\code{log} stands alternatively for
-  logarithmic or logical).  Scale \code{fix} is intended for `fixing'
-  10-point scales: it truncates scale values to integers, and replaces
-  10 with \code{X} and positive values below 1 with \code{+}. 
-}
-\value{
-  The functions are used mainly to display a table, but they return
-  (invisibly) a list
-  with items:
-  \item{species}{Ordered species indices}
-  \item{sites}{Ordered site indices}
+  If \code{scale} is given, \code{vegemite} calls \code{coverscale} to
+  transform percent cover scale or some other scales into traditional
+  class scales used in vegetation science (\code{coverscale} can be
+  called directly, too). Function \code{tabasco} can also use these
+  traditional class scales, but it treats the transformerd values as
+  corresponding integers.  Braun-Blanquet and Domin scales are
+  actually not strict cover scales, and the limits used for codes
+  \code{r} and \code{+} are arbitrary.  Scale \code{Hill} may be
+  inappropriately named, since Mark O. Hill probably never intended
+  this as a cover scale.  However, it is used as default 'cut levels'
+  in his \code{TWINSPAN}, and surprisingly many users stick to this
+  default, and this is a \emph{de facto} standard in publications.
+  All traditional scales assume that values are cover percentages with
+  maximum 100.  However, non-traditional alternative \code{log} can be
+  used with any scale range.  Its class limits are integer powers of
+  1/2 of the maximum (argument \code{maxabund}), with \code{+} used
+  for non-zero entries less than 1/512 of the maximum (\code{log}
+  stands alternatively for logarithmic or logical).  Scale \code{fix}
+  is intended for `fixing' 10-point scales: it truncates scale values
+  to integers, and replaces 10 with \code{X} and positive values below
+  1 with \code{+}.  } \value{ The functions are used mainly to display
+  a table, but they return (invisibly) a list with items:
+  \item{species}{Ordered species indices} \item{sites}{Ordered site
+  indices}
  
   These items can be used as arguments \code{sp.ind} and \code{site.ind}
   to reproduce the table. In addition to the proper table, \code{vegemite}
@@ -195,8 +202,7 @@ clus <- reorder(clus, scores(dca, choices=1, display="sites"), agglo.FUN = mean)
 vegemite(varespec, clus, scale = "Hult")
 
 ## Abundance values have such a wide range that they must be rescaled
-## or all abundances will not be shown in tabasco
-tabasco(decostand(varespec, "log"), dca)
+tabasco(varespec, dca, scale="Braun")
 
 ## Classification trees for species
 data(dune, dune.taxon)

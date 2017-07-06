@@ -15,7 +15,7 @@
     sol$call <- call
     inertia <- if (scale) "correlations" else "variance"
     sol <- c(sol,
-             list(method = "rda", "inertia" = inertia))
+             list("inertia" = inertia))
     class(sol) <- c("rda", "cca")
     sol
 }

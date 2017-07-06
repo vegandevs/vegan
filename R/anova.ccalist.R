@@ -86,7 +86,8 @@
                             c("ResDf", paste0("Res", varname), "Df",
                               varname, "F", "Pr(>F)"))
     ## Collect header information
-    formulae <- sapply(object, function(z) deparse(formula(z)))
+    formulae <- sapply(object,
+                       function(z) deparse(formula(z), width.cutoff = 500))
     head <- paste0("Permutation tests for ", method, " under ",
                   mods[[big]]$model, " model\n",
                    howHead(attr(permutations, "control")))

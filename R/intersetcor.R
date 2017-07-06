@@ -3,8 +3,8 @@
 {
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
-    if (is.null(object$CCA))
-        stop("can be used only with constrained ordination")
+    if (is.null(object$CCA) || !object$CCA$rank)
+        stop("no constrained ordination or rank of constraints is zero")
     wa <- object$CCA$wa
     X <- qr.X(object$CCA$QR)
     ## remove conditions (partial terms)

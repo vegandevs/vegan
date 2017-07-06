@@ -166,7 +166,7 @@
                        file=tcltk::tkgetSaveFile(
                          filetypes="{{EPS file} {.eps}}",
                          defaultextension=".eps")))
-    dismiss <- tcltk::tkbutton(buts, text="Dismiss",
+    dismiss <- tcltk::tkbutton(buts, text="Close",
                                command=function() tcltk::tkdestroy(w))
     ## Dump current plot to an "orditkplot" object (internally)
     ordDump <- function() {
@@ -206,25 +206,25 @@
         tcltk::tkgrid(entryDump, pady="5m")
         isDone <- function() {
             dumpName <- tcltk::tclvalue(dumpVar)
-            if (exists(dumpName, envir=.GlobalEnv)) {
+            if (exists(dumpName, envir = parent.frame())) {
                 ok <- tcltk::tkmessageBox(message=paste(sQuote(dumpName),
                                    "exists.\nOK to overwrite?"),
                                    icon="warning", type="okcancel",
                                    default="ok")
                 if(tcltk::tclvalue(ok) == "ok") {
-                    assign(dumpName, xy, envir=.GlobalEnv)
+                    assign(dumpName, xy, envir = parent.frame())
                     tcltk::tkdestroy(tt)
                 }
             }
             else {
-                assign(dumpName, xy, envir=.GlobalEnv)
+                assign(dumpName, xy, envir = parent.frame())
                 tcltk::tkdestroy(tt)
             }
         }
         tcltk::tkbind(entryDump, "<Return>", isDone)
         tcltk::tkfocus(tt)
     }
-    dump <- tcltk::tkbutton(buts, text="Dump to R", command=pDump)
+    dump <- tcltk::tkbutton(buts, text="Save to R", command=pDump)
     ## Button to write current "orditkplot" object to a graphical device
     devDump <- function() {
         xy <- ordDump()

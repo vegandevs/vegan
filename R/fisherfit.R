@@ -9,34 +9,13 @@
     N <- sum(x)
     ## Solve 'x' (Fisher alpha).
     d1fun <- function(x, S, N) x * log(1 + N/x) - S
-    ## We may need to bracket the interval
-    hi <- 50
-    lo <- 1
-    tries <- 0
-    repeat {
-        sol <- try(uniroot(d1fun, c(lo, hi), S = S, N = N, ...), silent = TRUE)
-        if (inherits(sol, "try-error")) {
-            if(d1fun(hi, S, N) < 0)
-                hi <- 2*hi
-            if(d1fun(lo, S, N) > 0)
-                lo <- lo/2
-            tries <- tries + 1
-        }
-        else break
-        ## alpha can tend to +Inf: set root = NA etc.
-        if (tries > 200) {
-            sol <- list(root = NA, f.root = NA, iter = NA, init.it = NA,
-                        estim.prec = NA)
-            break
-        }
-    }
-    ## 'extendInt' arg was added in R r63162 | maechler | 2013-07-03
-    ## 11:47:22 +0300 (Wed, 03 Jul 2013). Latest release is R 3.0.2 of
-    ## 2013-09-25, but it still does not have the argument.  In the
-    ## future we may switch to the following:
 
-    ##sol <- uniroot(d1fun, c(1,50), extendInt = "yes", S = S, N = N, ...)
-    
+    ## 'extendInt' arg was added in R r63162 | maechler | 2013-07-03
+    ## 11:47:22 +0300 (Wed, 03 Jul 2013) and released in R 3.1.0
+    ## (2014-04-10).
+
+    sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
+
     nuisance <- N/(N + sol$root)
     ## we used nlm() earlier, and the following output is compatible
     out <- list(estimate = sol$root, hessian = NA,

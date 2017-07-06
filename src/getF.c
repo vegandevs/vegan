@@ -156,6 +156,11 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
 	DISTBASED = asInteger(isDB);
+    /* check that permutations matrix has correct number of
+     * observations */
+    if (ncols(perms) != nr)
+	error("\'permutations\' matrix should have %d columns, but it has %d",
+	      nr, ncols(perms));
     double ev1, ev0, ev;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);

@@ -7,7 +7,7 @@ Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
    Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs,
    Helene Wagner
 Maintainer: Jari Oksanen <jari.oksanen@oulu.fi>
-Depends: permute (>= 0.9-0), lattice, R (>= 3.0.0)
+Depends: permute (>= 0.9-0), lattice, R (>= 3.1.0)
 Suggests: parallel, tcltk, knitr
 Imports: MASS, cluster, mgcv
 VignetteBuilder: utils, knitr

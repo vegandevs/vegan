@@ -97,19 +97,25 @@
 
 ### COMMON HEADER INFORMATION FOR ORDINATION MODELS
 
-`ordHead`<- function(Y, method)
+`ordHead`<- function(Y)
 {
-    if (method == "dbrda")
+    method <- attr(Y, "METHOD")
+    headmethod <- switch(method,
+                         "CA" = "cca",
+                         "PCA" = "rda",
+                         "CAPSCALE" = "capscale",
+                         "DISTBASED" = "dbrda")
+    if (method == "DISTBASED")
         totvar <- sum(diag(Y))
     else
         totvar <- sum(Y^2)
-    head <- list("tot.chi" = totvar, "Ybar" = Y)
-    if (method == "cca")
+    head <- list("tot.chi" = totvar, "Ybar" = Y, "method" = headmethod)
+    if (method == "CA")
         head <- c(list("grand.total" = attr(Y, "tot"),
                        "rowsum" = attr(Y, "RW"),
                        "colsum" = attr(Y, "CW")),
                   head)
-    else if (method == "rda")
+    else if (method == "PCA")
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
                   head)
     head
@@ -357,19 +363,20 @@
 
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
-             method = c("cca", "rda", "capscale", "dbrda"),
+             method = c("cca", "rda", "capscale", "dbrda", "pass"),
              arg = FALSE)
 {
     method = match.arg(method)
     partial <- constraint <- resid <- NULL
-    ## init
+    ## init; "pass" returns unchanged Y, presumably from previous init
     Y <- switch(method,
                 "cca" = initCA(Y),
                 "rda" = initPCA(Y, scale = arg),
                 "capscale" = initCAP(Y),
-                "dbrda" = initDBRDA(Y))
+                "dbrda" = initDBRDA(Y),
+                "pass" = Y)
     ## header info for the model
-    head <- ordHead(Y, method)
+    head <- ordHead(Y)
     ## Partial
     if (!is.null(Z)) {
         out <- ordPartial(Y, Z)
@@ -388,5 +395,10 @@
     out <- c(head,
              call = match.call(),
              list("pCCA" = partial, "CCA" = constraint, "CA" = resid))
+    class(out) <- switch(attr(Y, "METHOD"),
+                         "CA" = "cca",
+                         "PCA" = c("rda", "cca"),
+                         "CAPSCALE" = c("capscale", "rda", "cca"),
+                         "DISTBASED" = c("dbrda", "rda", "cca"))
     out
 }

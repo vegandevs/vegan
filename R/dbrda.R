@@ -134,7 +134,6 @@
     sol$terminfo <- ordiTerminfo(d, data)
     sol$call$formula <- formula(d$terms, width.cutoff = 500)
     sol$call$formula[[2]] <- formula[[2]]
-    sol$method <- "dbrda"
     sol$sqrt.dist <- sqrt.dist
     if (!is.na(ac) && ac > 0) {
         sol$ac <- ac

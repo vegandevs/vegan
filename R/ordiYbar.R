@@ -93,6 +93,9 @@
             if (!is.null(x$pCCA))
                 Ybar <- Ybar + x$pCCA$Fit
         }
+        ## vegan 2.5 compatibility: returns Ybar divided with d.o.f.
+        if (x$inertia == "variance")
+            Ybar <- Ybar/sqrt(nobs(x)-1)
         return(Ybar)
     }
     ## several components are already stored in the result object and
@@ -113,5 +116,8 @@
     "CA" =
         Ybar <- x$CA$Xbar
     )
+    ## vegan 2.5 divides Ybar with sqrt(n-1) in rda for variance
+    if (x$inertia == "variance")
+        Ybar <- Ybar/sqrt(nobs(x)-1)
     Ybar
 }

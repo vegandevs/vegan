@@ -7,13 +7,16 @@
 `tabasco` <-
     function (x, use, sp.ind = NULL, site.ind = NULL,
               select, Rowv = TRUE, Colv = TRUE, labRow = NULL,
-              labCol = NULL, scale = c("none", "column", "row"),
-              col = heat.colors(12), ...)
+              labCol = NULL, scale, col = heat.colors(12), ...)
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
     pltree <- sptree <- NA
-    scale <- match.arg(scale)
+    if (missing(scale))
+        scale <- "none"
+    else
+        scale <- match.arg(scale, c("none", "column", "row",
+                                    eval(formals(coverscale)$scale)))
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind))
@@ -163,7 +166,8 @@
     x <- switch(scale,
                 "none" = x,
                 "column" = decostand(x, "max", 2),
-                "row" = decostand(x, "max", 1))
+                "row" = decostand(x, "max", 1),
+                as.matrix(coverscale(x, scale, character = FALSE)))
     ## explicit scaling so that zeros and small abundances get
     ## different colours
     brk <- (max(x) - min(x[x>0])/2)/length(col)
