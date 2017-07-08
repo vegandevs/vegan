@@ -731,7 +731,8 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     dc = (*diag) ? 0 : 1;
     ij = 0;
     for (j=0; j <= *nr; j++) {
-	R_CheckUserInterrupt();
+	if (j % 200 == 199)
+	    R_CheckUserInterrupt();
 	for (i=j+dc; i < *nr; i++) {
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
 	}
