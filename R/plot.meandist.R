@@ -1,6 +1,6 @@
 `plot.meandist` <-
     function(x, kind = c("dendrogram", "histogram"),  cluster = "average", ylim,
-             axes = TRUE, ...) 
+             axes = TRUE, ...)
 {
     kind <- match.arg(kind)
     n <- attr(x, "n")
@@ -20,7 +20,7 @@
         pos <- ifelse(w < tr, 1, 3)
         pos[is.na(pos)] <- 1
         w[is.na(w)] <- tr[is.na(w)]
-        text(seqw, w, labels = labels(cl), pos = pos, srt = 0)
+        text(seqw, w, labels = labels(cl), pos = pos, srt = 0, xpd = TRUE, ...)
     } else {
         w <- diag(x)
         seqw <- seq_along(w)
