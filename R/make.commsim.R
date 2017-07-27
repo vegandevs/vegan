@@ -84,6 +84,15 @@ function(method)
                     m = out[,,k], nr, nc, thin, PACKAGE = "vegan")$m
             out
         }),
+        "doquasiswap" = commsim(method="quasiswap", binary=TRUE, isSeq=FALSE,
+        mode="integer",
+        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nr < 2L || nc < 2)
+                stop("needs at least 2 items")
+            out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
+            storage.mode(out) <- "integer"
+            .Call("do_qswap", out, n, thin, "quasiswap", PACKAGE = "vegan")
+        }),
         "swap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
