@@ -51,9 +51,6 @@
 
 #define INDX(i, j, nr) (i) + (nr)*(j)
 
-/* quasiswap is now a public function that can be called directly from
- * R using .C() interface. */
-
 static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
     int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;

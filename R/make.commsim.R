@@ -180,6 +180,7 @@ function(method)
                 stop("needs at least 2 items")
             nz <- x[x > 0]
             out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            ## do_qswap changes 'out' within the function
             .Call("do_qswap", out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "double"
             for (k in seq_len(n)) {
