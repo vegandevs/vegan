@@ -11,11 +11,12 @@
   distance matrix calculator within the Mothur microbial ecology toolkit.
 }
 
-\usage{avgdist(x, sample, distfun = vegdist, iterations = 100, dmethod = "bray", ...) } 
+\usage{avgdist(x, sample, distfun = vegdist, meanfun = mean, iterations = 100, dmethod = "bray", ...) } 
 \arguments{
   \item{x}{Community data matrix.}
   \item{sample}{The subsampling depth to be used in each iteration.}
   \item{distfun}{The dissimilarity matrix function to be used. Default is the vegan \code{\link{vegdist}}}
+  \item{meanfun}{The calculation to use for the average (mean or median).}
   \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
   \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function.}
   \item{...}{Any additional arguments to add to the distance function specified.}
@@ -40,6 +41,8 @@
 \examples{
 data(BCI)
 mean.avg.dist <- avgdist(BCI, sample = 50, iterations = 10)
+median.avg.dist <- avgdist(BCI, sample = 50, iterations = 10, meanfun = median)
 mean.avg.dist
+median.avg.dist
 }
 \keyword{ distance }
