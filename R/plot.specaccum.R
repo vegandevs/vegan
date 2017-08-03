@@ -34,9 +34,10 @@
     }
     if (!is.null(x$sd) && ci)
         switch(ci.type,
-               bar = arrows(xaxvar, x$richness - ci*x$sd, xaxvar,
-                             x$richness + ci*x$sd, col=ci.col, lty=ci.lty,
-                             length = ci.length, angle = 90, code = 3, ...),
+               bar = {k <- x$sd > sqrt(.Machine$double.eps)
+                      arrows(xaxvar[k], (x$richness - ci*x$sd)[k], xaxvar[k],
+                             (x$richness + ci*x$sd)[k], col=ci.col, lty=ci.lty,
+                             length = ci.length, angle = 90, code = 3, ...)},
                line = matlines(xaxvar, x$richness + t(rbind(-ci,ci) %*% x$sd),
                  col=ci.col, lty=ci.lty, ...),
                polygon = polygon(c(xaxvar, rev(xaxvar)),
