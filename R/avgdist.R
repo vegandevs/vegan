@@ -20,8 +20,9 @@
         return(as.matrix(outdist))
     })
     # Use the dist list to get the average values
+    meanfun <- match.fun(meanfun)
     afunc <- array(
         unlist(as.matrix(distlist)), c(dim(as.matrix(distlist[[1]])), length(distlist)))
-    output <- apply(afunc, 1:2, meanfun)
-    return(as.dist(output, upper = TRUE, diag = TRUE))
+    output <- apply(afunc, 1:2, meanfun, ...)
+    as.dist(output, upper = TRUE, diag = TRUE)
 }

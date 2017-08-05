@@ -20,7 +20,7 @@
   \item{transf}{Option for transforming the count data before calculating the distance matrix. Any base transformation option can be used (e.g. \code{\link{sqrt}})}
   \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
   \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function.}
-  \item{...}{Any additional arguments to add to the distance function specified.}
+  \item{...}{Any additional arguments to add to the distance function or mean/median function specified.}
 }
 
 \author{ Geoffrey Hannigan. }
