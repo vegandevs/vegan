@@ -1,5 +1,5 @@
 `avgdist` <- 
-    function(x, sample, distfun = vegdist, iterations = 100, dmethod = "bray", ...)
+    function(x, sample, distfun = vegdist, meanfun = mean, transf = NULL, iterations = 100, dmethod = "bray", ...)
 {
     if (is.na(sample))
         stop("invalid subsampling depth")
@@ -12,10 +12,17 @@
         inputcast <- rrarefy(inputcast, sample = sample)
         # Remove those that did not meet the depth cutoff
         inputcast <- inputcast[c(rowSums(inputcast) %in% sample),]
+        if (!is.null(transf)) {
+            transmat <- match.fun(transf)
+            inputcast <- transmat(inputcast)
+        }
         outdist <- distfun(inputcast, method = dmethod, diag = TRUE, upper = TRUE, ...)
-        return(outdist)
+        return(as.matrix(outdist))
     })
     # Use the dist list to get the average values
-    findist <- Reduce("+", distlist) / length(distlist)
-    return(as.dist(findist))
+    meanfun <- match.fun(meanfun)
+    afunc <- array(
+        unlist(as.matrix(distlist)), c(dim(as.matrix(distlist[[1]])), length(distlist)))
+    output <- apply(afunc, 1:2, meanfun, ...)
+    as.dist(output, upper = TRUE, diag = TRUE)
 }
