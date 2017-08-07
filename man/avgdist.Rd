@@ -11,7 +11,10 @@
   distance matrix calculator within the Mothur microbial ecology toolkit.
 }
 
-\usage{avgdist(x, sample, distfun = vegdist, meanfun = mean, transf = NULL, iterations = 100, dmethod = "bray", ...) } 
+\usage{
+avgdist(x, sample, distfun = vegdist, meanfun = mean,
+    transf = NULL, iterations = 100, dmethod = "bray", ...)
+}
 \arguments{
   \item{x}{Community data matrix.}
   \item{sample}{The subsampling depth to be used in each iteration.}
