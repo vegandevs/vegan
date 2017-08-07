@@ -56,4 +56,4 @@ head(as.matrix(mean.avg.dist))
 head(as.matrix(mean.avg.dist.t))
 head(as.matrix(median.avg.dist))
 }
-\keyword{ distance }
+\keyword{ multivariate }
