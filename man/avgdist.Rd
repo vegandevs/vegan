@@ -26,18 +26,21 @@
 \author{ Geoffrey Hannigan. }
 
 \note{
-  The function builds on the function \code{\link{rrarefy}} and and additional
-  distance matrix function (e.g. \code{\link{vegdist}}) to add more meaningful representations of
-  distances among randomly subsampled datasets by presenting the
-  average of multiple random iterations. This function runs using
-  the \code{\link{vegdist}} options of `diag = TRUE` and `upper =
-  TRUE`. This functionality has been utilized in the Mothur standalone
-  microbial ecology toolkit \href{https://www.mothur.org/wiki/Dist.shared#subsample}{here}.
+
+  The function builds on the function \code{\link{rrarefy}} and and
+  additional distance matrix function (e.g. \code{\link{vegdist}}) to
+  add more meaningful representations of distances among randomly
+  subsampled datasets by presenting the average of multiple random
+  iterations. This function runs using the \code{\link{vegdist}}. This
+  functionality has been utilized in the Mothur standalone microbial
+  ecology toolkit
+  \href{https://www.mothur.org/wiki/Dist.shared#subsample}{here}.
+
 }
 
 \seealso{
  This function utilizes the \code{\link{vegdist}} and \code{\link{rrarefy}}
- vegan functions.}
+ functions.}
 
 \examples{
 # Import an example count dataset
@@ -49,8 +52,8 @@ mean.avg.dist.t <- avgdist(BCI, sample = 50, iterations = 10, transf = sqrt)
 # Test the median functionality
 median.avg.dist <- avgdist(BCI, sample = 50, iterations = 10, meanfun = median)
 # Print the resulting tables
-mean.avg.dist
-mean.avg.dist.t
-median.avg.dist
+head(as.matrix(mean.avg.dist))
+head(as.matrix(mean.avg.dist.t))
+head(as.matrix(median.avg.dist))
 }
-\keyword{ distance }
+\keyword{ multivariate }
