@@ -27,7 +27,7 @@
         unlist(as.matrix(distlist)),
                c(dim(as.matrix(distlist[[1]])), length(distlist)))
     output <- apply(afunc, 1:2, meanfun, ...)
-    output <- as.dist(output, upper = TRUE, diag = TRUE)
+    output <- as.dist(output)
     attr(output, "call") <- match.call()
     attr(output, "method") <- "avgdist"
     output
