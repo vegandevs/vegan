@@ -37,7 +37,7 @@
                                                      as.vector(x)), TRUE))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
-    d <- .Call("do_vegdist", as.matrix(x), as.integer(method), PACKAGE = "vegan")
+    d <- .Call(do_vegdist, as.matrix(x), as.integer(method))
     if (method == 10)
         d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0

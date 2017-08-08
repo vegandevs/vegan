@@ -3,7 +3,7 @@
              model = c("global", "local", "linear", "hybrid"),
              threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
              scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
-             sratmax=0.99999, ...) 
+             sratmax=0.99999, ...)
 {
     ## Check that 'dist' are distances or a symmetric square matrix
     if (!(inherits(dist, "dist") ||
@@ -117,8 +117,7 @@
                  sfgrmn = as.double(sfgrmin), dist = double(ndis),
                  dhat = double(ndis), points = double(k*nobj),
                  stress = double(1), grstress = double(ngrp),
-                 iters = integer(1), icause = integer(1),
-                 PACKAGE = "vegan")
+                 iters = integer(1), icause = integer(1))
     sol$call <- match.call()
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)

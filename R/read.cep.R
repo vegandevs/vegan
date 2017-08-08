@@ -1,4 +1,4 @@
-"read.cep" <-
+`read.cep` <-
   function (file, maxdata = 10000, positive = TRUE, trace = FALSE,
             force = FALSE)
 {
@@ -14,10 +14,9 @@
   if (file.access(file, 4) < 0) {
     stop("file does not exist or is not readable")
   }
-  on.exit(.Fortran("cepclose", PACKAGE = "vegan"))
-  cep <- .Fortran("cephead", file = file, kind = integer(1),
-                  nitem = integer(1), nst = integer(1), fmt = character(1),
-                  PACKAGE = "vegan")
+  on.exit(.Fortran(cepclose))
+  cep <- .Fortran(cephead, file = file, kind = integer(1),
+                  nitem = integer(1), nst = integer(1), fmt = character(1))
   if (cep$kind > 3)
     stop("Unknown CEP file type")
   if (trace) {
@@ -28,7 +27,7 @@
     cat(".\n")
   }
   switch(cep$kind,
-         cd <- .Fortran("cepfree",
+         cd <- .Fortran(cepfree,
                         nitem = as.integer(cep$nitem),
                         axdat = as.integer(maxdata),
                         nsp = integer(1),
@@ -37,9 +36,8 @@
                         j = integer(maxdata),
                         y = double(maxdata),
                         w = double(cep$nitem),
-                        ier = integer(1),
-                        PACKAGE = "vegan"),
-         cd <- .Fortran("cepopen",
+                        ier = integer(1)),
+         cd <- .Fortran(cepopen,
                         fmt = as.character(cep$fmt),
                         nitem = as.integer(cep$nitem),
                         maxdat = as.integer(maxdata),
@@ -49,9 +47,8 @@
                         j = integer(maxdata),
                         y = double(maxdata),
                         w = double(cep$nitem),
-                        ier = integer(1),
-                        PACKAGE = "vegan"),
-         cd <- .Fortran("cepcond",
+                        ier = integer(1)),
+         cd <- .Fortran(cepcond,
                         fmt = as.character(cep$fmt),
                         nitem = as.integer(cep$nitem),
                         maxdat = as.integer(maxdata),
@@ -62,8 +59,7 @@
                         y = double(maxdata),
                         w = double(cep$nitem),
                         iw = integer(cep$nitem),
-                        ier = integer(1),
-                        PACKAGE = "vegan"))
+                        ier = integer(1)))
   if (cd$ier) {
     if (cd$ier == 1)
       stop("too many non-zero entries: increase maxdata")
@@ -76,7 +72,7 @@
   nlines <- ceiling(cd$nsp/10)
   names <- NULL
   for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran("cepnames", character(1), PACKAGE = "vegan")
+    tmpnames <- .Fortran(cepnames, character(1))
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
                                                  80, by = 8))
@@ -88,7 +84,7 @@
   nlines <- ceiling(cd$nst/10)
   names <- NULL
   for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran("cepnames", character(1), PACKAGE = "vegan")
+    tmpnames <- .Fortran(cepnames, character(1))
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
                                                  80, by = 8))
