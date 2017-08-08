@@ -7,10 +7,10 @@
     oldatt <- attributes(dis)
     n <- attr(dis, "Size")
     if (path == "shortest")
-        dis <- .C(dykstrapath, dist = as.double(dis), n = as.integer(n),
+        dis <- .C(veg_dykstrapath, dist = as.double(dis), n = as.integer(n),
                   as.double(toolong), as.integer(trace),
                   out = double(length(dis)), NAOK = TRUE)$out
-    else dis <- .C(C_stepacross, dis = as.double(dis), as.integer(n),
+    else dis <- .C(veg_C_stepacross, dis = as.double(dis), as.integer(n),
                    as.double(toolong), as.integer(trace), NAOK = TRUE)$dis
     attributes(dis) <- oldatt
     attr(dis, "method") <- paste(attr(dis, "method"), path)
