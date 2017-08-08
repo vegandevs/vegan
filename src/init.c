@@ -8,11 +8,11 @@
 */
 
 /* .C calls */
+extern void C_stepacross(void *, void *, void *, void *);
 extern void dykstrapath(void *, void *, void *, void *, void *);
 extern void pnpoly(void *, void *, void *, void *, void *, void *, void *);
 extern void primtree(void *, void *, void *, void *, void *);
 extern void stepabyss(void *, void *, void *, void *);
-extern void stepacross(void *, void *, void *, void *);
 
 /* .Call calls */
 extern SEXP do_abuswap(SEXP, SEXP, SEXP, SEXP);
@@ -38,11 +38,11 @@ extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, vo
 extern void F77_NAME(orderdata)(void *, void *, void *, void *);
 
 static const R_CMethodDef CEntries[] = {
-    {"dykstrapath", (DL_FUNC) &dykstrapath, 5},
-    {"pnpoly",      (DL_FUNC) &pnpoly,      7},
-    {"primtree",    (DL_FUNC) &primtree,    5},
-    {"stepabyss",   (DL_FUNC) &stepabyss,   4},
-    {"stepacross",  (DL_FUNC) &stepacross,  4},
+    {"C_stepacross", (DL_FUNC) &C_stepacross, 4},
+    {"dykstrapath",  (DL_FUNC) &dykstrapath,  5},
+    {"pnpoly",       (DL_FUNC) &pnpoly,       7},
+    {"primtree",     (DL_FUNC) &primtree,     5},
+    {"stepabyss",    (DL_FUNC) &stepabyss,    4},
     {NULL, NULL, 0}
 };
 

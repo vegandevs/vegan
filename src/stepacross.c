@@ -23,7 +23,7 @@
 #define EPS (1e-6)
 #define IND(N,a,b) (N)*(a) - (a)*((a)+1)/2 + (b) - (a) - (1)
 
-void stepacross(double *dist, int *n, double *toolong, int *trace) 
+void C_stepacross(double *dist, int *n, double *toolong, int *trace)
 {
      int i, j, k, nacount, oldcount, ind, ki, kj, inew, *newind, ndist;
      double stepdis, steptry, *newdist, limit;
