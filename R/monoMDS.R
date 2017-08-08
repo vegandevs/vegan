@@ -104,7 +104,8 @@
         ities <- 1
     else
         ities <- 2
-    ## Fortran call
+    ## Fortran call -- must quoted because monoMDS has mixed case (or
+    ## can be FIXED)
     sol <- .Fortran("monoMDS", nobj = as.integer(nobj), nfix=as.integer(0),
                  ndim = as.integer(k), ndis = as.integer(ndis),
                  ngrp = as.integer(ngrp), diss = as.double(dist),
