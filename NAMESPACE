@@ -1,5 +1,5 @@
 ## compiled code
-useDynLib(vegan, .registration = TRUE, .fixes = "veg_")
+useDynLib(vegan, .registration = TRUE)
 
 ## Export regular function names (no dots)
 

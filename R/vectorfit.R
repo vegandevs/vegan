@@ -6,9 +6,9 @@
         w <- 1
     if (length(w) == 1)
         w <- rep(w, nrow(X))
-    Xw <- .Call(veg_do_wcentre, X, w)
+    Xw <- .Call(do_wcentre, X, w)
     P <- as.matrix(P)
-    Pw <- .Call(veg_do_wcentre, P, w)
+    Pw <- .Call(do_wcentre, P, w)
     colnames(Pw) <- colnames(P)
     nc <- ncol(X)
     Q <- qr(Xw)
@@ -32,7 +32,7 @@
     if (permutations) {
         ptest <- function(indx, ...) {
             take <- P[indx, , drop = FALSE]
-            take <- .Call(veg_do_wcentre, take, w)
+            take <- .Call(do_wcentre, take, w)
             Hperm <- qr.fitted(Q, take)
             diag(cor(Hperm, take))^2
         }

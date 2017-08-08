@@ -14,8 +14,8 @@
   if (file.access(file, 4) < 0) {
     stop("file does not exist or is not readable")
   }
-  on.exit(.Fortran(veg_cepclose))
-  cep <- .Fortran(veg_cephead, file = file, kind = integer(1),
+  on.exit(.Fortran(cepclose))
+  cep <- .Fortran(cephead, file = file, kind = integer(1),
                   nitem = integer(1), nst = integer(1), fmt = character(1))
   if (cep$kind > 3)
     stop("Unknown CEP file type")
@@ -27,7 +27,7 @@
     cat(".\n")
   }
   switch(cep$kind,
-         cd <- .Fortran(veg_cepfree,
+         cd <- .Fortran(cepfree,
                         nitem = as.integer(cep$nitem),
                         axdat = as.integer(maxdata),
                         nsp = integer(1),
@@ -37,7 +37,7 @@
                         y = double(maxdata),
                         w = double(cep$nitem),
                         ier = integer(1)),
-         cd <- .Fortran(veg_cepopen,
+         cd <- .Fortran(cepopen,
                         fmt = as.character(cep$fmt),
                         nitem = as.integer(cep$nitem),
                         maxdat = as.integer(maxdata),
@@ -48,7 +48,7 @@
                         y = double(maxdata),
                         w = double(cep$nitem),
                         ier = integer(1)),
-         cd <- .Fortran(veg_cepcond,
+         cd <- .Fortran(cepcond,
                         fmt = as.character(cep$fmt),
                         nitem = as.integer(cep$nitem),
                         maxdat = as.integer(maxdata),
@@ -72,7 +72,7 @@
   nlines <- ceiling(cd$nsp/10)
   names <- NULL
   for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran(veg_cepnames, character(1))
+    tmpnames <- .Fortran(cepnames, character(1))
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
                                                  80, by = 8))
@@ -84,7 +84,7 @@
   nlines <- ceiling(cd$nst/10)
   names <- NULL
   for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran(veg_cepnames, character(1))
+    tmpnames <- .Fortran(cepnames, character(1))
     tmpnames <- substring(as.character(tmpnames), 1, 80)
     tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
                                                  80, by = 8))

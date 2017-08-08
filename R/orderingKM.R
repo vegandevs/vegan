@@ -26,11 +26,11 @@
 
     scores<-rep(0.0,nb.obj)
     if (USEPOWERALGORITHM) {
-	scores <- as.vector(.Fortran(veg_orderdata, as.integer(mat),
+	scores <- as.vector(.Fortran(orderdata, as.integer(mat),
                                    as.integer(nb.obj), as.integer(nb.desc),
                                    sc=as.double(scores))$sc)
     } else {
-        d <- .Call(veg_do_vegdist, as.matrix(mat), as.integer(50))
+        d <- .Call(do_vegdist, as.matrix(mat), as.integer(50))
         attr(d, "Size") <- nb.obj
         attr(d, "Labels") <- dimnames(mat)[[1]]
         attr(d, "Diag") <- FALSE

@@ -2,7 +2,7 @@
     function(dis, toolong = 1, trace = TRUE)
 {
     n <- attr(dis, "Size")
-    out <- .C(veg_stepabyss, dis = as.double(dis), n = as.integer(n),
+    out <- .C(stepabyss, dis = as.double(dis), n = as.integer(n),
               toolong = as.double(toolong), val = integer(n),
               NAOK = TRUE)$val
     if (trace) {
