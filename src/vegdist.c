@@ -165,7 +165,7 @@ double veg_canberra(double *x, int nr, int nc, int i1, int i2)
 	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       if (x[i1] != 0 || x[i2] != 0) {
 		    count++;
-		    denom = x[i1] + x[i2];
+		    denom = fabs(x[i1]) + fabs(x[i2]);
 		    if (denom > 0.0) {
 			 numer = fabs(x[i1] - x[i2]);
 			 dist += numer/denom;
