@@ -217,7 +217,11 @@
   index is not commonly used for community data, but it is sometimes
   used for environmental variables. The calculation is based on
   transforming data matrix and then using Euclidean distances
-  following Mardia et al. (1979).
+  following Mardia et al. (1979). The Mahalanobis transformation
+  usually fails when the number of columns is larger than the number
+  of rows (sampling units). When the transformation fails, the
+  distances are nearly constant except for small numeric noise. Users
+  must check that the returned Mahalanobis distances are meaningful.
 
   Euclidean and Manhattan dissimilarities are not good in gradient
   separation without proper standardization but are still included for
