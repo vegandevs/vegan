@@ -7,6 +7,8 @@ r:
 
 sudo: false
 
+warnings_are_errors: false
+
 addons:
   apt:
     packages:
