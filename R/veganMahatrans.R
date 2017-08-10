@@ -7,14 +7,13 @@
 ### input must be correct: 'x' must be a centred matrix (not a
 ### data.frame, not raw data).
 `veganMahatrans` <-
-    function (x, s2, tol = 1e-8) 
+    function (x, s2, tol = sqrt(.Machine$double.eps))
 {
-    n <- nrow(x)
     if (missing(s2))
-        s2 <- cov(x) 
+        s2 <- cov(x)
     e <- eigen(s2, symmetric = TRUE)
-    k <- e$values > tol
+    k <- e$values > tol * e$values[1L]
     sisqr <- e$vectors[,k, drop=FALSE] %*%
         (sqrt(1/e$values[k]) * t(e$vectors[,k, drop = FALSE]))
-    x %*% sisqr 
+    x %*% sisqr
 }
