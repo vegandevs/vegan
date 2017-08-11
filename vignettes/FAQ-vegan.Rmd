@@ -353,12 +353,9 @@ read with command `browseVignettes("vegan")`.
 
 ### cca fails with “data.frame expected” or “"site.env" missing”
 
-This is not a **vegan** error message, but it comes from the `cca`
-function in the **ade4** package. There is an unfortunate name clash,
-and if you have loaded **ade4** after **vegan**, the **ade4** version of
-`cca` will mask the **vegan** version. You can use the **vegan** version
-using command `vegan::cca()`. If you do not need package **ade4**, you
-can detach it with command `detach(package:ade4)`.
+This is not a **vegan** error message, but it comes from an old
+version of the **ade4** package (prior to **ade4** 1.7-8, released Aug
+9, 2017). Upgrade your **ade4**.
 
 ------------------------------------------------------------------------
 
