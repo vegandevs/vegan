@@ -161,16 +161,6 @@
   the points or other functions in the \code{\link{ordiplot}} family. 
 }
 
-\note{Package \pkg{ade4} has function \code{\link[ade4]{cca}} which
-  returns constrained correspondence analysis of the same class as the
-  \pkg{vegan} function. If you have results of \pkg{ade4} in your
-  working environment, \pkg{vegan} functions may try to handle them and
-  fail with cryptic error messages. However, there is a simple utility
-  function \code{ade2vegancca} which tries to translate \pkg{ade4}
-  \code{cca} results to \pkg{vegan} \code{cca} results so that some
-  \pkg{vegan} functions may work partially with \pkg{ade4} objects
-  (with a warning).} 
-
 \author{Jari Oksanen }
 
 \seealso{\code{\link{cca}}, \code{\link{rda}} and \code{\link{capscale}}

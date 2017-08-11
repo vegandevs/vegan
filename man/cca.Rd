@@ -252,7 +252,7 @@
   \code{browseVignettes("vegan")}.
 
   Package \pkg{ade4} provides alternative constrained ordination
-  functions \code{\link[ade4]{cca}} and \code{\link[ade4]{pcaiv}}.
+  function \code{\link[ade4]{pcaiv}}.
 
 }
 
