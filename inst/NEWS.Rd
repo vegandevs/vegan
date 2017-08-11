@@ -2,6 +2,58 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-4}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item \code{orditkplot} should no longer give warnings in CRAN
+      tests.
+
+    } %itemize
+  } % installatin and building
+  
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{inertcomp} and \code{summary.cca} failed if the
+      constrained component was defined, but explained nothing and had
+      zero rank.
+
+      \item Labels are no longer cropped in the \code{meandist} plots.
+
+
+    } % itemize
+  } % bug fixes
+  
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item The significance tests for the axes of constrained
+      ordination use now forward selection strategy. More extensive
+      analysis indicated that the previous marginal tests were biased
+      and gave too high \emph{P}-values for the second and later axes.
+      This is in conflict with Legendre, Oksanen & ter Braak,
+      \emph{Methods Ecol Evol} \strong{2,} 269--277 (2011) who found
+      marginal tests unbiased.
+
+      \item Canberra distance in \code{vegdist} can now handle negative
+      input entries similarly as latest versions of \R.
+
+    } %itemize
+  } % new features
+
+  \subsection{DEVELOPMENT}{
+    \itemize{
+
+      \item \code{ordiYbar} was updated, and developers writing code
+      that is dependent on \pkg{vegan} should upgrade.
+
+    } %itemize
+  } % development
+  
+} % v2.4-4
+
 \section{Changes in version 2.4-3}{
 
   \subsection{INSTALLATION AND BUILDING}{
