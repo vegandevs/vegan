@@ -16,7 +16,7 @@
     if (terms == "binary" || terms == "quadratic")
         x <- tcrossprod(x)
     if (terms == "minimum")
-        x <- .Call("do_minterms", as.matrix(x), PACKAGE = "vegan")
+        x <- .Call(do_minterms, as.matrix(x))
     d <- diag(x)
     A <- as.dist(outer(rep(1, N), d))
     B <- as.dist(outer(d, rep(1, N)))
@@ -58,7 +58,7 @@
     N <- nrow(x)
     ## do_chaoterms returns a list with U, V which are non-classed
     ## vectors where the order of terms matches 'dist' objects
-    vu <- .Call("do_chaoterms", x, PACKAGE = "vegan")
+    vu <- .Call(do_chaoterms, x)
     U <- vu$U
     V <- vu$V
     ## dissimilarities
