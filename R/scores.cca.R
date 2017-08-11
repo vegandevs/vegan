@@ -2,10 +2,6 @@
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
               scaling = "species", hill = FALSE, ...)
 {
-    if(inherits(x, "pcaiv")) {
-        warning("looks like ade4::cca object: you better use ade4 functions")
-        x <- ade2vegancca(x)
-    }
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
     if (!is.null(x$na.action) && inherits(x$na.action, "exclude"))
