@@ -61,7 +61,7 @@ S3method(as.mlm, rda)
 
 ## do NOT export the following internal functions
 
-## export(ade2vegancca, orderingKM, ordiArgAbsorber, ordiArrowMul,
+## export(orderingKM, ordiArgAbsorber, ordiArrowMul,
 ## ordiGetData, ordimedian, ordiNAexclude, ordiNApredict,
 ## ordiParseFormula, ordiTerminfo, pregraphKM, simpleRDA2, varpart2,
 ## varpart3, varpart4, veganCovEllipse, veganMahatrans)

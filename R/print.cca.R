@@ -1,10 +1,6 @@
 `print.cca` <-
     function (x, digits = max(3, getOption("digits") - 3), ...)
 {
-    if (inherits(x, "pcaiv")) {
-        warning("this is an ade4 object which vegan cannot handle")
-        x <- ade2vegancca(x)
-    }
     writeLines(strwrap(pasteCall(x$call)))
     cat("\n")
     chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi)

@@ -6,7 +6,6 @@
 \alias{scores.rda}
 \alias{summary.cca}
 \alias{print.summary.cca}
-\alias{ade2vegancca}
 \alias{head.summary.cca}
 \alias{tail.summary.cca}
 
