@@ -283,7 +283,7 @@
   Chase, J.M., Kraft, N.J.B., Smith, K.G., Vellend, M. and Inouye,
   B.D. (2011). Using null models to disentangle variation in community
   dissimilarity from variation in \eqn{\alpha}{alpha}-diversity.
-  \emph{Ecosphere} 2:art24 [doi:10.1890/ES10-00117.1]
+  \emph{Ecosphere} 2:art24 \doi{10.1890/ES10-00117.1}
    
   Faith, D. P, Minchin, P. R. and Belbin, L. (1987).
   Compositional dissimilarity as a robust measure of ecological
@@ -298,7 +298,7 @@
   Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
   the variance of community data: dissimilarity coefficients and
   partitioning. \emph{Ecology Letters} 16, 951--963.
-  [doi:10.1111/ele.12141]
+  \doi{10.1111/ele.12141}
 
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.

@@ -68,7 +68,7 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE, ...)
   Chase, J.M., Kraft, N.J.B., Smith, K.G., Vellend, M. and Inouye,
   B.D. (2011). Using null models to disentangle variation in community
   dissimilarity from variation in \eqn{\alpha}{alpha}-diversity.
-  \emph{Ecosphere} 2:art24 [doi:10.1890/ES10-00117.1]
+  \emph{Ecosphere} 2:art24 \doi{10.1890/ES10-00117.1}
 }
 
 \author{The function was developed after Brian Inouye contacted us and

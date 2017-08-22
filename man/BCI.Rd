@@ -14,13 +14,12 @@ data(BCI.env)
 }
 \format{
   
-  A data frame with 50 plots (rows) of 1 hectare with counts of trees
-  on each plot with total of 225 species (columns). Full Latin names
-  are used for tree species. The names were updated against
-  \url{http://www.theplantlist.org} and Kress et al. (2009) which
-  allows matching 207 of species against
-  \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27} (Zanne
-  et al., 2014). The original species names are available as attribute
+  A data frame with 50 plots (rows) of 1 hectare with counts of trees on
+  each plot with total of 225 species (columns). Full Latin names are
+  used for tree species. The names were updated against
+  \url{http://www.theplantlist.org} and Kress et al. (2009) which allows
+  matching 207 of species against \doi{10.5061/dryad.63q27} (Zanne et
+  al., 2014). The original species names are available as attribute
   \code{original.names} of \code{BCI}. See Examples for changed names.
 
   For \code{BCI.env}, a data frame with 50 plots (rows) and nine site
@@ -108,12 +107,12 @@ data(BCI.env)
   Hemmings, F., Leishman, M.R., Oleksyn, J., Soltis, P.S., Swenson,
   N.G., Warman, L. & Beaulieu, J.M. (2014) Three keys to the radiation
   of angiosperms into freezing environments. \emph{Nature} 506,
-  89--92.  doi:10.1038/nature12872 (published online Dec 22, 2013).
+  89--92.  \doi{10.1038/nature12872} (published online Dec 22, 2013).
 
   Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
   composition across a climatic gradient in a neotropical lowland
   forest. \emph{Journal of Vegetation Science} 12, 553--566.
-  doi:10.2307/3237007 
+  \doi{10.2307/3237007} 
 
 }
 \examples{

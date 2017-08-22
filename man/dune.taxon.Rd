@@ -13,12 +13,11 @@
   data(dune.phylodis)
 }
 \format{
-  \code{dune.taxon} is data frame with 30 species (rows) classified
-  into five taxonomic levels (columns). \code{dune.phylodis} is a
-  \code{\link{dist}} object of estimated coalescence ages extracted
-  from \url{http://datadryad.org/resource/doi:10.5061/dryad.63q27}
-  (Zanne et al. 2014) using tools in packages \pkg{ape} and
-  \pkg{phylobase}.
+  \code{dune.taxon} is data frame with 30 species (rows) classified into
+  five taxonomic levels (columns). \code{dune.phylodis} is a
+  \code{\link{dist}} object of estimated coalescence ages extracted from
+  \doi{10.5061/dryad.63q27} (Zanne et al. 2014) using tools in packages
+  \pkg{ape} and \pkg{phylobase}.
 }
 
 \details{
