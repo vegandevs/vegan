@@ -16,6 +16,10 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item \code{anova(..., by = "axis")} for constrained ordination
+      (\code{cca}, \code{rda}, \code{dbrda}) ignored partial terms in
+      \code{Condition()}.
+      
       \item \code{inertcomp} and \code{summary.cca} failed if the
       constrained component was defined, but explained nothing and had
       zero rank.
