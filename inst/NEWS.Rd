@@ -22,7 +22,9 @@
       
       \item \code{inertcomp} and \code{summary.cca} failed if the
       constrained component was defined, but explained nothing and had
-      zero rank.
+      zero rank. See
+      \href{https://stackoverflow.com/questions/43683699/}{StackOverflow:
+      r-error-message-in-doing-rda-analysis-vegan-package}.
 
       \item Labels are no longer cropped in the \code{meandist} plots.
 
