@@ -27,3 +27,20 @@
 {
     sapply(object$models, deviance, ...)
 }
+
+`logLik.fitspecaccum` <-
+    function(object, ...)
+{
+    out <- sapply(object$models, logLik, ...)
+    ## sapply() strips attributes: get'em back
+    attr(out, "df") <- 1L + length(coef(object$models[[1L]]))
+    attr(out, "nobs") <- nobs(object$models[[1L]])
+    class(out) <- "logLik"
+    out
+}
+
+`nobs.fitspecaccum` <-
+    function(object, ...)
+{
+    sapply(object$models, nobs, ...)
+}
