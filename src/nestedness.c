@@ -551,8 +551,6 @@ static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
     /* PutRNGstate(); */
 }
 
-#undef IRAND
-#undef INDX
 
 /* .Call wrappers to nestedness functions for make.commsim.R */
 
@@ -733,3 +731,62 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     UNPROTECT(1);
     return x;
 }
+
+/* Fill an array of matrices with ones honouring row and column
+ * totals. This is similar as Podani's original suggestion for initial
+ * filling of a matrix for quasiswap. We have used r2dtable() for
+ * quasiswap, but Podani originally studied a method where rows and
+ * columns are picked with equal probabilities as long as they still
+ * can be filled. */
+
+SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
+{
+    int nrow = length(rs), ncol = length(cs), nmat = asInteger(n);
+    int *rowsum = INTEGER(rs), *colsum = INTEGER(cs), *rfill, *cfill,
+	*rind, *cind;
+    int rlen, clen, i, j, k, offset;
+
+    rfill = (int *) R_alloc(nrow, sizeof(int));
+    cfill = (int *) R_alloc(ncol, sizeof(int));
+    rind = (int *) R_alloc(nrow, sizeof(int));
+    cind = (int *) R_alloc(ncol, sizeof(int));
+    SEXP out = PROTECT(alloc3DArray(INTSXP, nrow, ncol, nmat));
+    int *x = INTEGER(out);
+    memset(x, 0, nmat * nrow * ncol * sizeof(int));
+
+    /* collect matrices */
+    GetRNGstate();
+    for (k = 0; k < nmat; k++) {
+	offset = k * nrow * ncol;
+	/* initialize fills (0) and indices (0..n) */
+	for (i = 0; i < nrow; i++) {
+	    rind[i] = i;
+	    rfill[i] = 0;
+	}
+	for (j = 0; j < ncol; j++) {
+	    cind[j] = j;
+	    cfill[j] = 0;
+	}
+	rlen = nrow - 1;
+	clen = ncol - 1;
+	/* first rlen/clen items of rind/cind have the indices of
+	 * rows/columns which still can be filled. When the row/column
+	 * gets full, replace its index with the last index and reduce
+	 * rlen/clen by one */
+	while (rlen >= 0) {
+	    i = IRAND(rlen);
+	    j = IRAND(clen);
+	    x[offset + rind[i] + nrow * cind[j]]++;
+	    if (++rfill[rind[i]] >= rowsum[rind[i]])
+		rind[i] = rind[rlen--];
+	    if (++cfill[cind[j]] >= colsum[cind[j]])
+		cind[j] = cind[clen--];
+	}
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return out;
+}
+
+#undef IRAND
+#undef INDX
