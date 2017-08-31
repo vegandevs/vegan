@@ -742,10 +742,18 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
 SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 {
     int nrow = length(rs), ncol = length(cs), nmat = asInteger(n);
-    int *rowsum = INTEGER(rs), *colsum = INTEGER(cs), *rfill, *cfill,
-	*rind, *cind;
+    int *rfill, *cfill, *rind, *cind;
     int rlen, clen, i, j, k, offset;
 
+    if(TYPEOF(rs) != INTSXP)
+	rs = coerceVector(rs, INTSXP);
+    PROTECT(rs);
+    if(TYPEOF(cs) != INTSXP)
+	cs = coerceVector(cs, INTSXP);
+    PROTECT(cs);
+    int *rowsum = INTEGER(rs);
+    int *colsum = INTEGER(cs);
+    
     rfill = (int *) R_alloc(nrow, sizeof(int));
     cfill = (int *) R_alloc(ncol, sizeof(int));
     rind = (int *) R_alloc(nrow, sizeof(int));
@@ -784,7 +792,7 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 	}
     }
     PutRNGstate();
-    UNPROTECT(1);
+    UNPROTECT(3);
     return out;
 }
 
