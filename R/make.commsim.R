@@ -205,7 +205,7 @@ function(method)
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
             nz <- x[x > 0]
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "double"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
@@ -224,7 +224,7 @@ function(method)
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             nz <- as.integer(x[x > 0])
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
@@ -239,7 +239,7 @@ function(method)
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "double"
             I <- seq_len(nr)
             for (k in seq_len(n)) {
@@ -261,7 +261,7 @@ function(method)
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "double"
             J <- seq_len(nc)
             for (k in seq_len(n)) {
@@ -287,7 +287,7 @@ function(method)
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             I <- seq_len(nr)
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
@@ -312,7 +312,7 @@ function(method)
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
             J <- seq_len(nc)
-            out <- array(unlist(r2dtable(fill, rf, cf)), c(nr, nc, n))
+            out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k] <- .C("quasiswap",
