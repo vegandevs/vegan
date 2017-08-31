@@ -759,17 +759,17 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
     for (k = 0; k < nmat; k++) {
 	offset = k * nrow * ncol;
 	/* initialize fills (0) and indices (0..n) */
-	for (i = 0; i < nrow; i++) {
-	    rind[i] = i;
+	for (i = 0, rlen = -1; i < nrow; i++) {
+	    if (rowsum[i] > 0) /* skip empty rows */
+		rind[++rlen] = i;
 	    rfill[i] = 0;
 	}
-	for (j = 0; j < ncol; j++) {
-	    cind[j] = j;
+	for (j = 0, clen = -1; j < ncol; j++) {
+	    if (colsum[j] > 0)
+		cind[++clen] = j;
 	    cfill[j] = 0;
 	}
-	rlen = nrow - 1;
-	clen = ncol - 1;
-	/* first rlen/clen items of rind/cind have the indices of
+	/* items 0..rlen/clen of rind/cind have the indices of
 	 * rows/columns which still can be filled. When the row/column
 	 * gets full, replace its index with the last index and reduce
 	 * rlen/clen by one */
