@@ -796,5 +796,114 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
     return out;
 }
 
+/* backtracking is a brute force method to fill a matrix with 1's
+ * honouring margin totals: do something and if it fails, do something
+ * else (Sedgwick). The approach here may not be the fastest, but it
+ * is fun to do. We have a vector of indices 'ind' with three
+ * compartment: up to index 'ielig' we have indices of eligible points
+ * that can be filled, then up to 'izero' we have indices of zeros
+ * that cannot be picked because their row or column sums are filled,
+ * and after 'izero' we have 'npick' indices that we have picked and
+ * that will be 1. We fill as long as there are eligible indices, and
+ * if there are none but we need to pick more, we "backtrack" or
+ * remove picked points, update marginal sums and eligible
+ * points. This means of lot of swapping. */
+
+#define EMPTY (-1)
+#define SWAP(a,b) tmp=a;a=b;b=tmp
+
+SEXP do_backtrack(SEXP rs, SEXP cs)
+{
+    int tmp, i, ir, ic, *ind, *rfill, *cfill, fill;
+    int nr = length(rs), nc = length(cs);
+    int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0;
+
+    if(TYPEOF(rs) != INTSXP)
+	rs = coerceVector(rs, INTSXP);
+    PROTECT(rs);
+    if(TYPEOF(cs) != INTSXP)
+	cs = coerceVector(cs, INTSXP);
+    PROTECT(cs);
+    int *rowsum = INTEGER(rs);
+    int *colsum = INTEGER(cs);
+
+    /* initialize */
+    ind = (int *) R_alloc(nr * nc, sizeof(int));
+    for(i = 0; i < nr * nc; i++)
+	ind[i] = i;
+    rfill = (int *) R_alloc(nr, sizeof(int));
+    memset(rfill, 0, nr * sizeof(int));
+    cfill = (int *) R_alloc(nc, sizeof(int));
+    memset(cfill, 0, nc * sizeof(int));
+    for (i = 0, fill = 0; i < nr; i++)
+	fill += rowsum[i];
+
+    /* Start working */
+    while(npick < fill) { /* outernmost loop (placeholder) */
+	/* fill */
+	while(ielig > EMPTY) {
+	    i = IRAND(ielig);
+	    ir = ind[i] % nr; /* row */
+	    ic = ind[i] / nr; /* column */
+	    npick++;
+	    SWAP(ind[i], ind[ielig]);
+	    if (ielig < izero)
+		SWAP(ind[ielig], ind[izero]);
+	    ielig--;
+	    izero--;
+	    /* update fills and move from eligible if marginal sum reached */
+	    if (++rfill[ir] == rowsum[ir])
+		for(i = ielig; i > EMPTY; i--)
+		    if (ind[i] % nr == ir) {
+			SWAP(ind[i], ind[ielig]);
+			ielig--;
+		    }
+	    if (++cfill[ic] == colsum[ic])
+		for (i = ielig; i > EMPTY; i--)
+		    if (ind[i] / nr == ic) {
+			SWAP(ind[i], ind[ielig]);
+			ielig--;
+		    }
+	}
+	/* get out */
+	R_CheckUserInterrupt();
+	if (npick == fill)
+	    break;
+	/* backtrack: remove a picked point and update marginal totals
+	 * and see if any points become eligible */
+	i = IRAND(npick-1) + izero + 1;
+	rfill[ind[i] % nr]--;
+	cfill[ind[i] / nr]--;
+	npick--;
+	SWAP(ind[i], ind[izero + 1]);
+	SWAP(ind[izero + 1], ind[0]);
+	ielig = 0;
+	izero++;
+	/* see what can be moved to eligible */
+	for (i = izero; i > ielig; i--) {
+	    ir = ind[i] % nr;
+	    ic = ind[i] / nr;
+	    if (rfill[ir] < rowsum[ir] && cfill[ic] < colsum[ic]) {
+		SWAP(ind[i], ind[ielig+1]);
+		ielig++;
+	    }
+	}
+    }
+	
+    SEXP out =  PROTECT(allocMatrix(INTSXP, nr, nc));
+    int *iout = INTEGER(out);
+    memset(iout, 0, nr * nc * sizeof(int));
+    /* put 1's in their places */
+    for (i = izero+1; i < nr*nc; i++)
+	iout[ind[i]] = 1;
+
+    UNPROTECT(3);
+    return out;
+}
+#undef EMPTY
+#undef SWAP
+/* undef: do_backtrack */
+
 #undef IRAND
 #undef INDX
+/* undef: all of nestedness.c */
