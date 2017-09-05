@@ -812,32 +812,18 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 #define EMPTY (-1)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 
-SEXP do_backtrack(SEXP rs, SEXP cs)
+static void backtrack1(int *out, int *rowsum, int *colsum, int fill,
+		      int nr, int nc, int *rfill, int *cfill, int *ind)
 {
-    int tmp, i, ir, ic, *ind, *rfill, *cfill, fill;
-    int nr = length(rs), nc = length(cs);
+    int tmp, i, ir, ic;
     int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0;
 
-    if(TYPEOF(rs) != INTSXP)
-	rs = coerceVector(rs, INTSXP);
-    PROTECT(rs);
-    if(TYPEOF(cs) != INTSXP)
-	cs = coerceVector(cs, INTSXP);
-    PROTECT(cs);
-    int *rowsum = INTEGER(rs);
-    int *colsum = INTEGER(cs);
-
     /* initialize */
-    ind = (int *) R_alloc(nr * nc, sizeof(int));
     for(i = 0; i < nr * nc; i++)
 	ind[i] = i;
-    rfill = (int *) R_alloc(nr, sizeof(int));
     memset(rfill, 0, nr * sizeof(int));
-    cfill = (int *) R_alloc(nc, sizeof(int));
     memset(cfill, 0, nc * sizeof(int));
-    for (i = 0, fill = 0; i < nr; i++)
-	fill += rowsum[i];
-
+    
     /* Start working */
     while(npick < fill) { /* outernmost loop (placeholder) */
 	/* fill */
@@ -890,17 +876,52 @@ SEXP do_backtrack(SEXP rs, SEXP cs)
 	    }
 	}
     }
-	
-    SEXP out =  PROTECT(allocMatrix(INTSXP, nr, nc));
-    int *iout = INTEGER(out);
-    memset(iout, 0, nr * nc * sizeof(int));
+
+    /* output */
+    memset(out, 0, nr * nc * sizeof(int));
     /* put 1's in their places */
     for (i = izero+1; i < nr*nc; i++)
-	iout[ind[i]] = 1;
+	out[ind[i]] = 1;
+}
+
+SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
+{
+    int i, fill, nr = length(rs), nc = length(cs), nmat = asInteger(n);
+    int N = nr * nc;
+
+    /* check & cast */
+    if(TYPEOF(rs) != INTSXP)
+	rs = coerceVector(rs, INTSXP);
+    PROTECT(rs);
+    if(TYPEOF(cs) != INTSXP)
+	cs = coerceVector(cs, INTSXP);
+    PROTECT(cs);
+    int *rowsum = INTEGER(rs);
+    int *colsum = INTEGER(cs);
+
+    /* initialize work arrays for backtrack()*/
+    int *ind = (int *) R_alloc(nr * nc, sizeof(int));
+    int *rfill = (int *) R_alloc(nr, sizeof(int));
+    int * cfill = (int *) R_alloc(nc, sizeof(int));
+    for (i = 0, fill = 0; i < nr; i++)
+	fill += rowsum[i];
+    int *x = (int *) R_alloc(nr * nc, sizeof(int));
+
+    SEXP out =  PROTECT(alloc3DArray(INTSXP, nr, nc, nmat));
+    int *iout = INTEGER(out);
+
+    GetRNGstate();
+    /* Call static C function */
+    for(i = 0; i < nmat; i++) {
+	backtrack1(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind);
+	memcpy(iout + i * N, x, N * sizeof(int));
+    }
+    PutRNGstate();
 
     UNPROTECT(3);
     return out;
 }
+	
 #undef EMPTY
 #undef SWAP
 /* undef: do_backtrack */
