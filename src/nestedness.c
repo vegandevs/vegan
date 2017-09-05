@@ -847,8 +847,9 @@ SEXP do_backtrack(SEXP rs, SEXP cs)
 	    ic = ind[i] / nr; /* column */
 	    npick++;
 	    SWAP(ind[i], ind[ielig]);
-	    if (ielig < izero)
+	    if (ielig < izero) {
 		SWAP(ind[ielig], ind[izero]);
+	    }
 	    ielig--;
 	    izero--;
 	    /* update fills and move from eligible if marginal sum reached */
