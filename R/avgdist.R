@@ -32,6 +32,7 @@
     output <- apply(afunc, 1:2, meanfun, ...)
     # Set the names on the matrix
     colnames(output) <- rownames(output) <- rnames
+    # Print any samples that were removed, if they were removed
     if(nrow(x) != nrow(output)) {
         dropsamples <- setdiff(row.names(inputcast), row.names(output))
         write(
