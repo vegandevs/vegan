@@ -9,7 +9,10 @@
     distfun <- match.fun(distfun)
     # Get the list of iteration matrices
     distlist <- lapply(c(1:iterations), function(i) {
-        inputcast <- rrarefy(inputcast, sample = sample)
+        # Suppress warnings because it will otherwise return many warnings about
+        # subsampling depth not being met, which we deal with below by returning
+        # samples that do not meet the threshold.
+        inputcast <- suppressWarnings(rrarefy(inputcast, sample = sample))
         # Remove those that did not meet the depth cutoff
         inputcast <- inputcast[c(rowSums(inputcast) %in% sample),]
         if (!is.null(transf)) {
@@ -21,8 +24,24 @@
     })
     # Use the dist list to get the average values
     meanfun <- match.fun(meanfun)
+    # Save row names from distlist
+    # Take from first element since should all be the same
+    rnames <- row.names(distlist[[1]])
     afunc <- array(
         unlist(as.matrix(distlist)), c(dim(as.matrix(distlist[[1]])), length(distlist)))
     output <- apply(afunc, 1:2, meanfun, ...)
+    # Set the names on the matrix
+    colnames(output) <- rownames(output) <- rnames
+    if(nrow(x) != nrow(output)) {
+        dropsamples <- setdiff(row.names(inputcast), row.names(output))
+        write(
+            "The following samples were removed because they failed to meet the subsampling depth threshold:",
+            stdout()
+        )
+        print(
+            dropsamples,
+            stdout()
+        )
+    }
     as.dist(output, upper = TRUE, diag = TRUE)
 }

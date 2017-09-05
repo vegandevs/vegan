@@ -14,7 +14,7 @@
 \usage{avgdist(x, sample, distfun = vegdist, meanfun = mean, transf = NULL, iterations = 100, dmethod = "bray", ...) } 
 \arguments{
   \item{x}{Community data matrix.}
-  \item{sample}{The subsampling depth to be used in each iteration.}
+  \item{sample}{The subsampling depth to be used in each iteration. Samples that do not meet this threshold will be removed from the analysis, and their identify returned to the user in stdout.}
   \item{distfun}{The dissimilarity matrix function to be used. Default is the vegan \code{\link{vegdist}}}
   \item{meanfun}{The calculation to use for the average (mean or median).}
   \item{transf}{Option for transforming the count data before calculating the distance matrix. Any base transformation option can be used (e.g. \code{\link{sqrt}})}
@@ -52,5 +52,10 @@ median.avg.dist <- avgdist(BCI, sample = 50, iterations = 10, meanfun = median)
 mean.avg.dist
 mean.avg.dist.t
 median.avg.dist
+# Test for when subsampling depth excludes some samples
+# Return samples that are removed for not meeting depth filter
+depth.avg.dist <- avgdist(BCI, sample = 450, iterations = 10)
+# Print the result
+depth.avg.dist
 }
 \keyword{ distance }
