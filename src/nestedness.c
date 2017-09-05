@@ -798,21 +798,21 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 
 /* backtracking is a brute force method to fill a matrix with 1's
  * honouring margin totals: do something and if it fails, do something
- * else (Sedgwick). The approach here may not be the fastest, but it
+ * else (Sedgewick). The approach here may not be the fastest, but it
  * is fun to do. We have a vector of indices 'ind' with three
- * compartment: up to index 'ielig' we have indices of eligible points
- * that can be filled, then up to 'izero' we have indices of zeros
+ * compartment: up to index 'ielig' we have indices of eligible zeros
+ * that can be picked, then up to 'izero' we have indices of zeros
  * that cannot be picked because their row or column sums are filled,
  * and after 'izero' we have 'npick' indices that we have picked and
  * that will be 1. We fill as long as there are eligible indices, and
  * if there are none but we need to pick more, we "backtrack" or
- * remove picked points, update marginal sums and eligible
- * points. This means of lot of swapping. */
+ * remove picked items, update marginal sums and eligible points. This
+ * means of lot of swapping. */
 
 #define EMPTY (-1)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 
-static void backtrack1(int *out, int *rowsum, int *colsum, int fill,
+static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		      int nr, int nc, int *rfill, int *cfill, int *ind)
 {
     int tmp, i, ir, ic;
@@ -828,11 +828,11 @@ static void backtrack1(int *out, int *rowsum, int *colsum, int fill,
     while(npick < fill) { /* outernmost loop (placeholder) */
 	/* fill */
 	while(ielig > EMPTY) {
-	    i = IRAND(ielig);
+	    i = IRAND(ielig); /* eligible: always succeed */
 	    ir = ind[i] % nr; /* row */
 	    ic = ind[i] / nr; /* column */
 	    npick++;
-	    SWAP(ind[i], ind[ielig]);
+	    SWAP(ind[i], ind[ielig]); /* move after izero */
 	    if (ielig < izero) {
 		SWAP(ind[ielig], ind[izero]);
 	    }
@@ -856,14 +856,14 @@ static void backtrack1(int *out, int *rowsum, int *colsum, int fill,
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
-	/* backtrack: remove a picked point and update marginal totals
-	 * and see if any points become eligible */
+	/* backtrack: remove a picked item and update marginal totals
+	 * and see if any items become eligible */
 	i = IRAND(npick-1) + izero + 1;
 	rfill[ind[i] % nr]--;
 	cfill[ind[i] / nr]--;
 	npick--;
 	SWAP(ind[i], ind[izero + 1]);
-	SWAP(ind[izero + 1], ind[0]);
+	SWAP(ind[izero + 1], ind[0]); /* elig is EMPTY: move to ind[0] */
 	ielig = 0;
 	izero++;
 	/* see what can be moved to eligible */
@@ -883,6 +883,9 @@ static void backtrack1(int *out, int *rowsum, int *colsum, int fill,
     for (i = izero+1; i < nr*nc; i++)
 	out[ind[i]] = 1;
 }
+
+/* .Call interface to backtrack. Input arguments are n (number of
+ * matrices), rs (rowsums) and cs (colsums). */
 
 SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
 {
@@ -913,7 +916,7 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
     GetRNGstate();
     /* Call static C function */
     for(i = 0; i < nmat; i++) {
-	backtrack1(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind);
+	backtrack(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind);
 	memcpy(iout + i * N, x, N * sizeof(int));
     }
     PutRNGstate();
