@@ -121,7 +121,6 @@ function(method)
             if (nr < 2L || nc < 2)
                 stop("needs at least 2 items")
             btrfun <- function() {
-                all <- matrix(as.integer(1:(nr * nc)), nrow = nr, ncol = nc)
                 out <- matrix(0L, nrow = nr, ncol = nc)
                 free <- matrix(as.integer(1:(nr * nc)), nrow = nr)
                 icount <- integer(length(rs))
@@ -143,7 +142,7 @@ function(method)
                     oldicount <- icount
                     oldjcount <- jcount
                     oldn <- sum(out)
-                    drop <- sample(all[as.logical(out)], ndrop)
+                    drop <- sample(which(as.logical(out)), ndrop)
                     out[drop] <- 0L
                     ic <- (drop - 1L) %% nr + 1L
                     jc <- (drop - 1L) %/% nr + 1L
@@ -152,16 +151,18 @@ function(method)
                         jcount[jc[idrop]] <- jcount[jc[idrop]] - 1L
                     }
                     candi <- outer(icount < rs, jcount < cs) * !out
-                    while (sum(candi) > 0) {
-                        if (sum(candi) > 1)
-                          ij <- sample(all[as.logical(candi)], 1)
-                        else ij <- all[as.logical(candi)]
+                    candi <- which(as.logical(candi))
+                    while (length(candi) > 0) {
+                        if (length(candi) > 1)
+                          ij <- sample(candi, 1)
+                        else ij <- candi
                         out[ij] <- 1L
                         ic <- (ij - 1L) %% nr + 1L
                         jc <- (ij - 1L)  %/% nr + 1L
                         icount[ic] <- icount[ic] + 1L
                         jcount[jc] <- jcount[jc] + 1L
                         candi <- outer(icount < rs, jcount < cs) * !out
+                        candi <- which(as.logical(candi))
                     }
                     if (sum(out) >= fill)
                         break
