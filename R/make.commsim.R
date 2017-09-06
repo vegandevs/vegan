@@ -107,10 +107,10 @@ function(method)
                 free <- matrix(as.integer(1:(nr * nc)), nrow = nr)
                 icount <- integer(length(rs))
                 jcount <- integer(length(cs))
-                prob <- outer(rs, cs, "*")
+                prob <- outer(rs, cs)
                 ij <- sample(free, prob = prob)
-                i <- (ij - 1)%%nr + 1
-                j <- (ij - 1)%/%nr + 1
+                i <- (ij - 1) %% nr + 1L
+                j <- (ij - 1) %/% nr + 1L
                 for (k in seq_along(ij)) {
                     if (icount[i[k]] < rs[i[k]] && jcount[j[k]] < cs[j[k]]) {
                         out[ij[k]] <- 1L
@@ -121,24 +121,39 @@ function(method)
                 ndrop <- 1
                 for (i in seq_len(10000)) {
                     oldout <- out
+                    oldicount <- icount
+                    oldjcount <- jcount
                     oldn <- sum(out)
                     drop <- sample(all[as.logical(out)], ndrop)
                     out[drop] <- 0L
-                    candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
+                    ic <- (drop - 1L) %% nr + 1L
+                    jc <- (drop - 1L) %/% nr + 1L
+                    for (idrop in seq_len(ndrop)) {
+                        icount[ic[idrop]] <- icount[ic[idrop]] - 1L
+                        jcount[jc[idrop]] <- jcount[jc[idrop]] - 1L
+                    }
+                    candi <- outer(icount < rs, jcount < cs) * !out
                     while (sum(candi) > 0) {
                         if (sum(candi) > 1)
                           ij <- sample(all[as.logical(candi)], 1)
                         else ij <- all[as.logical(candi)]
                         out[ij] <- 1L
-                        candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
+                        ic <- (ij - 1L) %% nr + 1L
+                        jc <- (ij - 1L)  %/% nr + 1L
+                        icount[ic] <- icount[ic] + 1L
+                        jcount[jc] <- jcount[jc] + 1L
+                        candi <- outer(icount < rs, jcount < cs) * !out
                     }
                     if (sum(out) >= fill)
                         break
                     if (oldn >= sum(out))
                         ndrop <- min(ndrop + 1, 4)
                     else ndrop <- 1
-                    if (oldn > sum(out))
+                    if (oldn > sum(out)) {
                         out <- oldout
+                        icount <- oldicount
+                        jcount <- oldjcount
+                    }
                 }
                 out
             }
