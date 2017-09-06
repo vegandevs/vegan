@@ -823,9 +823,26 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	ind[i] = i;
     memset(rfill, 0, nr * sizeof(int));
     memset(cfill, 0, nc * sizeof(int));
+
+    /* check for empty rows/columns and move their indices from eligible */
+
+    for (ir=0; ir < nr; ir++)
+	if (rowsum[ir] <= 0)
+	    for (i = ielig; i > EMPTY; i--)
+		if (ind[i] % nr == ir) {
+		    SWAP(ind[i], ind[ielig]);
+		    ielig--;
+		}
+    for (ic=0; ic < nc; ic++)
+	if (colsum[ic] <= 0)
+	    for (i = ielig; i > EMPTY; i--)
+		if (ind[i] / nr == ic) {
+		    SWAP(ind[i], ind[ielig]);
+		    ielig--;
+		}
     
     /* Start working */
-    while(npick < fill) { /* outernmost loop (placeholder) */
+    while(npick < fill) { /* outermost loop (placeholder) */
 	/* fill */
 	while(ielig > EMPTY) {
 	    i = IRAND(ielig); /* eligible: always succeed */
