@@ -872,7 +872,7 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		    }
 	}
 	/* get out */
-	Rprintf("%d ", npick); /*** DEBUG ***/
+	if (npick != oldpick) Rprintf("%d ", npick); /*** DEBUG ***/
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
