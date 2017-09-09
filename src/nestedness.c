@@ -810,13 +810,15 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
  * means of lot of swapping. */
 
 #define EMPTY (-1)
+#define BACKSTEP (4)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		      int nr, int nc, int *rfill, int *cfill, int *ind)
 {
-    int tmp, i, ir, ic;
-    int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0;
+    int tmp, i, j, ir, ic;
+    int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0, oldpick = 0,
+	ndrop = 1;
 
     /* initialize */
     for(i = 0; i < nr * nc; i++)
@@ -870,19 +872,30 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		    }
 	}
 	/* get out */
+	Rprintf("%d ", npick); /*** DEBUG ***/
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
-	/* backtrack: remove a picked item and update marginal totals
-	 * and see if any items become eligible */
-	i = IRAND(npick-1) + izero + 1;
-	rfill[ind[i] % nr]--;
-	cfill[ind[i] / nr]--;
-	npick--;
-	ielig++;
-	izero++;
-	SWAP(ind[i], ind[izero]);
-	SWAP(ind[izero], ind[ielig]); /* if elig is EMPTY: move to ind[0] */
+	/* backtrack: remove picked items and update marginal totals
+	 * and see if any items become eligible. If 'npick' did not
+	 * improve from the best 'oldpick', increase 'ndrop' up to
+	 * BACKSTEP, and reset 'ndrop' to 1 if 'npick' improved.  */
+	if (oldpick < npick) {
+	    ndrop = 1;
+	    oldpick = npick;
+	} else if (ndrop < BACKSTEP) {
+	    ndrop++;
+	}
+	for (j = 0; j < ndrop; j++) {
+	    i = IRAND(npick-1) + izero + 1;
+	    rfill[ind[i] % nr]--;
+	    cfill[ind[i] / nr]--;
+	    npick--;
+	    ielig++;
+	    izero++;
+	    SWAP(ind[i], ind[izero]);
+	    SWAP(ind[izero], ind[ielig]); /* if elig is EMPTY: move to ind[0] */
+	}
 	/* see what can be moved to eligible */
 	for (i = izero; i > ielig; i--) {
 	    ir = ind[i] % nr;
