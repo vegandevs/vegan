@@ -879,17 +879,17 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	rfill[ind[i] % nr]--;
 	cfill[ind[i] / nr]--;
 	npick--;
-	SWAP(ind[i], ind[izero + 1]);
-	SWAP(ind[izero + 1], ind[0]); /* elig is EMPTY: move to ind[0] */
-	ielig = 0;
+	ielig++;
 	izero++;
+	SWAP(ind[i], ind[izero]);
+	SWAP(ind[izero], ind[ielig]); /* if elig is EMPTY: move to ind[0] */
 	/* see what can be moved to eligible */
 	for (i = izero; i > ielig; i--) {
 	    ir = ind[i] % nr;
 	    ic = ind[i] / nr;
 	    if (rfill[ir] < rowsum[ir] && cfill[ic] < colsum[ic]) {
-		SWAP(ind[i], ind[ielig+1]);
 		ielig++;
+		SWAP(ind[i], ind[ielig]);
 	    }
 	}
     }
