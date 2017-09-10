@@ -96,6 +96,11 @@ function(method)
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call(do_curveball, as.matrix(x), n, thin)
         }),
+        "Cbacktrack" = commsim(method="Cbacktrack", binary = TRUE,
+                               isSeq = FALSE, mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call(do_backtrack, n, rs, cs)
+        }),
         "backtrack" = commsim(method="backtrack", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
