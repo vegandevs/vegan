@@ -814,7 +814,8 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
-		      int nr, int nc, int *rfill, int *cfill, int *ind)
+		      int nr, int nc, int *rfill, int *cfill, int *ind,
+		      int *rwork, int *cwork)
 {
     int tmp, i, j, ir, ic;
     int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0, oldpick = 0,
@@ -872,7 +873,6 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		    }
 	}
 	/* get out */
-	if (npick != oldpick) Rprintf("%d ", npick); /*** DEBUG ***/
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
@@ -880,11 +880,26 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	 * and see if any items become eligible. If 'npick' did not
 	 * improve from the best 'oldpick', increase 'ndrop' up to
 	 * BACKSTEP, and reset 'ndrop' to 1 if 'npick' improved.  */
+
+	/* we don't want to go backwards in 'npick', and therefore we
+	 * replace failed solutions with previous good ones */
+	if (npick < oldpick) { /* reset */
+	    memcpy(ind, out, nr * nc * sizeof(int));
+	    memcpy(rfill, rwork, nr * sizeof(int));
+	    memcpy(cfill, cwork, nc * sizeof(int));
+	    izero = nr * nc - oldpick - 1;
+	} else if (npick < fill) { /* save */
+	    memcpy(out, ind, nr * nc * sizeof(int));
+	    memcpy(rwork, rfill, nr * sizeof(int));
+	    memcpy(cwork, cfill, nc * sizeof(int));
+	}
 	if (oldpick < npick) {
 	    ndrop = 1;
 	    oldpick = npick;
-	} else if (ndrop < BACKSTEP) {
-	    ndrop++;
+	} else {
+	    npick = oldpick;
+	    if (ndrop < BACKSTEP)
+		ndrop++;
 	}
 	for (j = 0; j < ndrop; j++) {
 	    i = IRAND(npick-1) + izero + 1;
@@ -935,7 +950,9 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
     /* initialize work arrays for backtrack()*/
     int *ind = (int *) R_alloc(nr * nc, sizeof(int));
     int *rfill = (int *) R_alloc(nr, sizeof(int));
-    int * cfill = (int *) R_alloc(nc, sizeof(int));
+    int *cfill = (int *) R_alloc(nc, sizeof(int));
+    int *rwork = (int *) R_alloc(nr, sizeof(int));
+    int *cwork = (int *) R_alloc(nc, sizeof(int));
     for (i = 0, fill = 0; i < nr; i++)
 	fill += rowsum[i];
     int *x = (int *) R_alloc(nr * nc, sizeof(int));
@@ -946,7 +963,8 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
     GetRNGstate();
     /* Call static C function */
     for(i = 0; i < nmat; i++) {
-	backtrack(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind);
+	backtrack(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind,
+		  rwork, cwork);
 	memcpy(iout + i * N, x, N * sizeof(int));
     }
     PutRNGstate();
