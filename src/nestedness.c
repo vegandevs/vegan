@@ -813,12 +813,24 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 #define BACKSTEP (4)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 
+/* return index of val in set or EMPTY if not found -- support
+ * function for backtrack. */
+
+static int imatch(int val, int *x, int len)
+{
+    int i, out;
+    for(i = 0, out = EMPTY; i < len; i++)
+	if (val == x[i])
+	    out = i;
+    return out;
+}
+
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		      int nr, int nc, int *rfill, int *cfill, int *ind)
 {
-    int tmp, i, j, ir, ic;
+    int tmp, i, j, k, ir, ic;
     int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0, oldpick = 0,
-	ndrop = 1;
+	ndrop = 1, dropouts[BACKSTEP], idrop = 0, lastpick = 0;
 
     /* initialize */
     for(i = 0; i < nr * nc; i++)
@@ -876,18 +888,63 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
-	/* backtrack: remove picked items and update marginal totals
+
+	/* if we did worse than previously, undo: remove picked items
+	 * and put back the ones removed as dropouts */
+
+	/* first items after izero were added in the last cycle --
+	 * these should be removed except for the originally dropped
+	 * items (dropouts) that should be kept */
+
+	if (npick < oldpick) {
+	    lastpick = izero + ndrop - oldpick + npick;
+	    for (i = izero+1; i <= lastpick; i++) {
+		k = imatch(ind[i], dropouts, idrop+1);
+		if (k == EMPTY)  { /* remove pick: not a dropout */
+		    rfill[ind[i] % nr]--;
+		    cfill[ind[i] / nr]--;
+		    npick--;
+		    izero++;
+		    if (izero < i) {
+			SWAP(ind[i], ind[izero]);
+		    }
+		} else { /* remove from dropouts */
+		    dropouts[k] = dropouts[idrop--];
+		}
+	    }
+	    
+	    /* The dropouts are among first items of ind: search these and
+	     * add back to picked. */
+
+	    i = EMPTY;
+	    while(idrop > EMPTY) {
+		i++;
+		k = imatch(ind[i], dropouts, idrop+1);
+		if (k != EMPTY) { /* pick back this item */
+		    rfill[ind[i] % nr]++;
+		    cfill[ind[i] / nr]++;
+		    SWAP(ind[i], ind[izero]);
+		    izero--;
+		    npick++;
+		    dropouts[k] = dropouts[idrop--];
+		}
+	    }
+	}
+	
+        /* backtrack: remove picked items and update marginal totals
 	 * and see if any items become eligible. If 'npick' did not
 	 * improve from the best 'oldpick', increase 'ndrop' up to
 	 * BACKSTEP, and reset 'ndrop' to 1 if 'npick' improved.  */
+
 	if (oldpick < npick) {
 	    ndrop = 1;
 	    oldpick = npick;
 	} else if (ndrop < BACKSTEP) {
 	    ndrop++;
 	}
-	for (j = 0; j < ndrop; j++) {
+	for (j = 0, idrop = EMPTY; j < ndrop; j++) {
 	    i = IRAND(npick-1) + izero + 1;
+	    dropouts[++idrop] = ind[i]; /* save removed */
 	    rfill[ind[i] % nr]--;
 	    cfill[ind[i] / nr]--;
 	    npick--;
