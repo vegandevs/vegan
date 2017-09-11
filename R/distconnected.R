@@ -1,10 +1,10 @@
-"distconnected" <-
+`distconnected` <-
     function(dis, toolong = 1, trace = TRUE)
 {
     n <- attr(dis, "Size")
-    out <- .C("stepabyss", dis = as.double(dis), n = as.integer(n),
+    out <- .C(stepabyss, dis = as.double(dis), n = as.integer(n),
               toolong = as.double(toolong), val = integer(n),
-              NAOK = TRUE, PACKAGE = "vegan")$val
+              NAOK = TRUE)$val
     if (trace) {
         cat("Connectivity of distance matrix with threshold dissimilarity",
             toolong,"\n")

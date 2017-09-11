@@ -124,7 +124,7 @@ vif.cca(object)
   Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
   the variance of community data: dissimilarity coefficients and
   partitioning. \emph{Ecology Letters} 16, 951--963.
-  [doi:10.1111/ele.12141]
+  \doi{10.1111/ele.12141}
 }
 \author{Jari Oksanen. The \code{vif.cca} relies heavily on the code by
   W. N. Venables. \code{alias.cca} is a simplified version of

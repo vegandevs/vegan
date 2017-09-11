@@ -351,17 +351,6 @@ read with command `browseVignettes("vegan")`.
 
 ------------------------------------------------------------------------
 
-### cca fails with “data.frame expected” or “"site.env" missing”
-
-This is not a **vegan** error message, but it comes from the `cca`
-function in the **ade4** package. There is an unfortunate name clash,
-and if you have loaded **ade4** after **vegan**, the **ade4** version of
-`cca` will mask the **vegan** version. You can use the **vegan** version
-using command `vegan::cca()`. If you do not need package **ade4**, you
-can detach it with command `detach(package:ade4)`.
-
-------------------------------------------------------------------------
-
 ### Ordination fails with “Error in La.svd”
 
 Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail

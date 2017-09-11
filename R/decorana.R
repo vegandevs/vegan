@@ -37,8 +37,8 @@
     v <- attr(veg, "v")
     v.fraction <- attr(veg, "fraction")
     adotj[adotj < Const3] <- Const3
-    CA <- .Call("do_decorana", veg, ira, iresc, short, mk, as.double(aidot),
-                as.double(adotj), PACKAGE = "vegan")
+    CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
+                as.double(adotj))
     if (ira)
         dnames <- paste("RA", 1:4, sep = "")
     else dnames <- paste("DCA", 1:4, sep = "")

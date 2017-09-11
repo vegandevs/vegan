@@ -1,5 +1,5 @@
 ## compiled code
-useDynLib(vegan)
+useDynLib(vegan, .registration = TRUE)
 
 ## Export regular function names (no dots)
 
@@ -61,7 +61,7 @@ S3method(as.mlm, rda)
 
 ## do NOT export the following internal functions
 
-## export(ade2vegancca, orderingKM, ordiArgAbsorber, ordiArrowMul,
+## export(orderingKM, ordiArgAbsorber, ordiArrowMul,
 ## ordiGetData, ordimedian, ordiNAexclude, ordiNApredict,
 ## ordiParseFormula, ordiTerminfo, pregraphKM, simpleRDA2, varpart2,
 ## varpart3, varpart4, veganCovEllipse, veganMahatrans)
@@ -225,6 +225,7 @@ S3method(lines, radfit)
 S3method(lines, spantree)
 S3method(lines, specaccum)
 ## logLik: stats
+S3method(logLik, fitspecaccum)
 S3method(logLik, radfit)
 S3method(logLik, radfit.frame)
 # model.frame, model.matrix: stats
@@ -241,6 +242,7 @@ S3method(nobs, anova.cca)
 S3method(nobs, betadisper)
 S3method(nobs, cca)
 S3method(nobs, decorana)
+S3method(nobs, fitspecaccum)
 S3method(nobs, isomap)
 S3method(nobs, metaMDS)
 S3method(nobs, pcnm)

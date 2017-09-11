@@ -79,7 +79,7 @@
     \cr
     \code{canberra}
     \tab \eqn{d_{jk}=\frac{1}{NZ} \sum_i
-      \frac{|x_{ij}-x_{ik}|}{x_{ij}+x_{ik}}}{d[jk] = (1/NZ) sum ((x[ij]-x[ik])/(x[ij]+x[ik]))}
+      \frac{|x_{ij}-x_{ik}|}{|x_{ij}|+|x_{ik}|}}{d[jk] = (1/NZ) sum (abs(x[ij]-x[ik])/(abs(x[ij])+abs(x[ik])))}
     \cr
     \tab where \eqn{NZ} is the number of non-zero entries.
     \cr \tab binary: \eqn{\frac{A+B-2J}{A+B-J}}{(A+B-2*J)/(A+B-J)}
@@ -225,7 +225,11 @@
   index is not commonly used for community data, but it is sometimes
   used for environmental variables. The calculation is based on
   transforming data matrix and then using Euclidean distances
-  following Mardia et al. (1979).
+  following Mardia et al. (1979). The Mahalanobis transformation
+  usually fails when the number of columns is larger than the number
+  of rows (sampling units). When the transformation fails, the
+  distances are nearly constant except for small numeric noise. Users
+  must check that the returned Mahalanobis distances are meaningful.
 
   Euclidean and Manhattan dissimilarities are not good in gradient
   separation without proper standardization but are still included for
@@ -279,7 +283,7 @@
   Chase, J.M., Kraft, N.J.B., Smith, K.G., Vellend, M. and Inouye,
   B.D. (2011). Using null models to disentangle variation in community
   dissimilarity from variation in \eqn{\alpha}{alpha}-diversity.
-  \emph{Ecosphere} 2:art24 [doi:10.1890/ES10-00117.1]
+  \emph{Ecosphere} 2:art24 \doi{10.1890/ES10-00117.1}
    
   Faith, D. P, Minchin, P. R. and Belbin, L. (1987).
   Compositional dissimilarity as a robust measure of ecological
@@ -294,7 +298,7 @@
   Legendre, P. & De \enc{Cáceres}{Caceres}, M. (2012). Beta diversity as
   the variance of community data: dissimilarity coefficients and
   partitioning. \emph{Ecology Letters} 16, 951--963.
-  [doi:10.1111/ele.12141]
+  \doi{10.1111/ele.12141}
 
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.

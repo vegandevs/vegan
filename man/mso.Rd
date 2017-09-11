@@ -102,7 +102,7 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...
   canonical correspondence analysis. \emph{Ecology} 85: 342--351. } 
 \author{ The responsible author was Helene Wagner.} 
 \note{ The function is based on the code published in the Ecological
-  Archives E085-006 (\url{http://onlinelibrary.wiley.com/doi/10.1890/02-0738/full}).  }
+  Archives E085-006 (\doi{10.1890/02-0738}).  }
 \seealso{ Function \code{\link{cca}} and \code{\link{rda}},
   \code{\link{cca.object}}. }
 \examples{

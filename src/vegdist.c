@@ -24,6 +24,7 @@
 
 #include <R.h>
 #include <Rmath.h>
+#include <R_ext/Utils.h> /* interrupt */
 #include <float.h>
 #include <string.h> /* memset */
 
@@ -166,7 +167,7 @@ static double veg_canberra(double *x, int nr, int nc, int i1, int i2)
 	  if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
 	       if (x[i1] != 0 || x[i2] != 0) {
 		    count++;
-		    denom = x[i1] + x[i2];
+		    denom = fabs(x[i1]) + fabs(x[i2]);
 		    if (denom > 0.0) {
 			 numer = fabs(x[i1] - x[i2]);
 			 dist += numer/denom;
@@ -729,10 +730,13 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 
     dc = (*diag) ? 0 : 1;
     ij = 0;
-    for (j=0; j <= *nr; j++)
+    for (j=0; j <= *nr; j++) {
+	if (j % 200 == 199)
+	    R_CheckUserInterrupt();
 	for (i=j+dc; i < *nr; i++) {
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
 	}
+    }
 }
 
 

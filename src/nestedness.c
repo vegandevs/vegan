@@ -51,10 +51,7 @@
 
 #define INDX(i, j, nr) (i) + (nr)*(j)
 
-/* quasiswap is now a public function that can be called directly from
- * R using .C() interface. */
-
-void quasiswap(int *m, int *nr, int *nc, int *thin)
+static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
     int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
     size_t intcheck;
@@ -70,8 +67,8 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 	ss += m[i] * m[i];
     }
 
-    /* Get R RNG */
-    GetRNGstate();
+    /* Get R RNG in the calling C function */
+    /* GetRNGstate(); */
 
     /* Quasiswap while there are entries > 1 */
 
@@ -106,8 +103,8 @@ void quasiswap(int *m, int *nr, int *nc, int *thin)
 	intcheck++;
     }
 
-    /* Set R RNG */
-    PutRNGstate();
+    /* Set R RNG in the calling function */
+    /* PutRNGstate(); */
 }
 
 /* Trial swap: try 'thin' times and swap when you can. This gives zero

@@ -25,14 +25,16 @@ r_packages:
   - ape
   - picante
 
-r_github_packages:
-  - jimhester/covr
+#r_github_packages:
+#  - jimhester/covr
 
-after_success:
-  - Rscript -e 'covr::codecov()'
+#after_success:
+#  - Rscript -e 'covr::codecov()'
 
 before_install:
   - tlmgr install sidecap
+
+warnings_are_errors: false
 
 r_build_args: " --compact-vignettes=gs+qpdf"
 
