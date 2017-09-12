@@ -939,7 +939,7 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	if (oldpick < npick) {
 	    ndrop = 1;
 	    oldpick = npick;
-	} else if (ndrop < BACKSTEP) {
+	} else if (ndrop < BACKSTEP && ndrop < npick) {
 	    ndrop++;
 	}
 	for (j = 0, idrop = EMPTY; j < ndrop; j++) {
