@@ -816,13 +816,14 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 /* return index of val in set or EMPTY if not found -- support
  * function for backtrack. */
 
-static int imatch(int val, int *x, int len)
+static int imatch(int val, int *set, int len)
 {
-    int i, out;
-    for(i = 0, out = EMPTY; i < len; i++)
-	if (val == x[i])
-	    out = i;
-    return out;
+    int i;
+    for(i = 0; i < len; i++)
+	if (val == set[i])
+	    return i;
+    /* not found? */
+    return EMPTY;
 }
 
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
@@ -891,11 +892,12 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	/* if we did worse than previously, undo: remove picked items
 	 * and put back the ones removed as dropouts */
 
-	/* first items after izero were added in the last cycle --
-	 * these should be removed except for the originally dropped
-	 * items (dropouts) that should be kept */
-
 	if (npick < oldpick) {
+
+	    /* first items after izero were added in the last cycle --
+	     * these should be removed except for the originally
+	     * dropped items (dropouts) that should be kept */
+
 	    lastpick = izero + ndrop - oldpick + npick;
 	    for (i = izero+1; i <= lastpick; i++) {
 		k = imatch(ind[i], dropouts, idrop+1);
@@ -917,8 +919,7 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 
 	    i = EMPTY;
 	    while(idrop > EMPTY) {
-		i++;
-		k = imatch(ind[i], dropouts, idrop+1);
+		k = imatch(ind[++i], dropouts, idrop+1);
 		if (k != EMPTY) { /* pick back this item */
 		    rfill[ind[i] % nr]++;
 		    cfill[ind[i] / nr]++;
@@ -1013,6 +1014,7 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
 	
 #undef EMPTY
 #undef SWAP
+#undef BACKSTEP
 /* undef: do_backtrack */
 
 #undef IRAND
