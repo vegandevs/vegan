@@ -810,8 +810,11 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
  * means of lot of swapping. */
 
 #define EMPTY (-1)
-#define BACKSTEP (4)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
+#ifndef BACKSTEP
+#define BACKSTEP (4)
+#endif
+
 
 /* return index of val in set or EMPTY if not found -- support
  * function for backtrack. */
