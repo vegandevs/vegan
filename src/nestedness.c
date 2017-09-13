@@ -813,9 +813,13 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
 #ifndef BACKSTEP
 #define BACKSTEP (4)
-#endif
+#endif /* BACKSTEP depth */
+#ifndef RESET
+#define RESET 1
+#endif /* RESET */
 
 
+#if RESET
 /* return index of val in set or EMPTY if not found -- support
  * function for backtrack. */
 
@@ -828,6 +832,7 @@ static int imatch(int val, int *set, int len)
     /* not found? */
     return EMPTY;
 }
+#endif /* RESET */
 
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		      int nr, int nc, int *rfill, int *cfill, int *ind)
@@ -892,6 +897,8 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	if (npick == fill)
 	    break;
 
+#if RESET
+	
 	/* if we did worse than previously, undo: remove picked items
 	 * and put back the ones removed as dropouts */
 
@@ -933,6 +940,8 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		}
 	    }
 	}
+
+#endif /* RESET */
 	
         /* backtrack: remove picked items and update marginal totals
 	 * and see if any items become eligible. If 'npick' did not
