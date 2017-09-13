@@ -811,12 +811,21 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
 
 #define EMPTY (-1)
 #define SWAP(a,b) tmp=a;a=b;b=tmp
+
+/* macros to customize compilation: BACKSTEP gives the maximum number
+ *  of items dropped in backtracking, RESET chooses between restoring
+ *  old solution if fill decreases in backtracking, and LOUD prints
+ *  information on every step. These can be set at compile time using
+ *  preprocessor switches, e.g., -D BACKSTEP=6 */
 #ifndef BACKSTEP
 #define BACKSTEP (4)
 #endif /* BACKSTEP depth */
 #ifndef RESET
 #define RESET 1
 #endif /* RESET */
+#ifndef LOUD
+#define LOUD 0
+#endif /* LOUD */
 
 
 #if RESET
@@ -867,8 +876,14 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
     /* Start working */
     while(npick < fill) { /* outermost loop (placeholder) */
 	/* fill */
+#if LOUD
+	Rprintf("\nFILL ");
+#endif
 	while(ielig > EMPTY) {
 	    i = IRAND(ielig); /* eligible: always succeed */
+#if LOUD
+	    Rprintf("pick %d ", i);
+#endif
 	    ir = ind[i] % nr; /* row */
 	    ic = ind[i] / nr; /* column */
 	    npick++;
@@ -882,28 +897,39 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	    if (++rfill[ir] == rowsum[ir])
 		for(i = ielig; i > EMPTY; i--)
 		    if (ind[i] % nr == ir) {
+#if LOUD
+			Rprintf("ban %d ", i);
+#endif
 			SWAP(ind[i], ind[ielig]);
 			ielig--;
 		    }
 	    if (++cfill[ic] == colsum[ic])
 		for (i = ielig; i > EMPTY; i--)
 		    if (ind[i] / nr == ic) {
+#if LOUD
+			Rprintf("ban %d ", i);
+#endif
 			SWAP(ind[i], ind[ielig]);
 			ielig--;
 		    }
 	}
 	/* get out */
+#if LOUD
+	if (npick != oldpick) Rprintf("\n*** PICKED %d ", npick);
+#endif
 	R_CheckUserInterrupt();
 	if (npick == fill)
 	    break;
-
+	
 #if RESET
 	
 	/* if we did worse than previously, undo: remove picked items
 	 * and put back the ones removed as dropouts */
 
 	if (npick < oldpick) {
-
+#if LOUD
+	    Rprintf("\nRESET ");
+#endif
 	    /* first items after izero were added in the last cycle --
 	     * these should be removed except for the originally
 	     * dropped items (dropouts) that should be kept */
@@ -912,6 +938,9 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	    for (i = izero+1; i <= lastpick; i++) {
 		k = imatch(ind[i], dropouts, idrop+1);
 		if (k == EMPTY)  { /* remove pick: not a dropout */
+#if LOUD
+		    Rprintf("drop %d ", i);
+#endif
 		    rfill[ind[i] % nr]--;
 		    cfill[ind[i] / nr]--;
 		    npick--;
@@ -920,6 +949,9 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 			SWAP(ind[i], ind[izero]);
 		    }
 		} else { /* remove from dropouts */
+#if LOUD
+		    Rprintf("keep %d ", i);
+#endif
 		    dropouts[k] = dropouts[idrop--];
 		}
 	    }
@@ -931,6 +963,9 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	    while(idrop > EMPTY) {
 		k = imatch(ind[++i], dropouts, idrop+1);
 		if (k != EMPTY) { /* pick back this item */
+#if LOUD
+		    Rprintf("pick %d ", i);
+#endif
 		    rfill[ind[i] % nr]++;
 		    cfill[ind[i] / nr]++;
 		    SWAP(ind[i], ind[izero]);
@@ -954,8 +989,14 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	} else if (ndrop < BACKSTEP && ndrop < npick) {
 	    ndrop++;
 	}
+#if LOUD
+	Rprintf("\nBACKTRACK %d: ", ndrop);
+#endif
 	for (j = 0, idrop = EMPTY; j < ndrop; j++) {
 	    i = IRAND(npick-1) + izero + 1;
+#if LOUD
+	    Rprintf("%d ", i);
+#endif
 	    dropouts[++idrop] = ind[i]; /* save removed */
 	    rfill[ind[i] % nr]--;
 	    cfill[ind[i] / nr]--;
@@ -970,6 +1011,9 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	    ir = ind[i] % nr;
 	    ic = ind[i] / nr;
 	    if (rfill[ir] < rowsum[ir] && cfill[ic] < colsum[ic]) {
+#if LOUD
+		Rprintf("free %d ", i);
+#endif
 		ielig++;
 		SWAP(ind[i], ind[ielig]);
 	    }
@@ -1027,6 +1071,8 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
 #undef EMPTY
 #undef SWAP
 #undef BACKSTEP
+#undef RESET
+#undef LOUD
 /* undef: do_backtrack */
 
 #undef IRAND
