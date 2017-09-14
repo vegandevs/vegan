@@ -125,7 +125,7 @@
     p <- 1L:QR$rank
     ## we do not give the (Intercept): it is neither in coef()
     cov.unscaled <- chol2inv(QR$qr[p, p])
-    dimnames(cov.unscaled) <- list(colnames(QR$qr), colnames(QR$qr))
+    dimnames(cov.unscaled) <- list(colnames(QR$qr)[p], colnames(QR$qr)[p])
     ssd <- estVar(SSD(object, type = type))
     kronecker(ssd, cov.unscaled, make.dimnames = TRUE)
 }
