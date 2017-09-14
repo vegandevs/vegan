@@ -22,7 +22,7 @@ in \Sexpr{R.version.string} on \today}}
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
 options("prompt" = "> ", "continue" = "  ")
-options(width = 55) 
+options(width = 55)
 require(vegan)
 @
 \maketitle
@@ -38,7 +38,7 @@ another document.
 \section{Parallel processing}
 
 Several \pkg{vegan} functions can perform parallel processing using
-the standard \R{} package \pkg{parallel}. 
+the standard \R{} package \pkg{parallel}.
 The \pkg{parallel} package in \R{} implements
 the functionality of earlier contributed packages \pkg{multicore} and
 \pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
@@ -58,7 +58,7 @@ The functions that are capable of parallel processing have argument
 \code{parallel}.  The normal default is \code{parallel = 1} which
 means that no parallel processing is performed.  It is possible to set
 parallel processing as the default in \pkg{vegan} (see
-\S\,\ref{sec:parallel:default}). 
+\S\,\ref{sec:parallel:default}).
 
 For parallel processing, the \code{parallel} argument can be either
 
@@ -83,7 +83,7 @@ functions.  The following command will set up parallel processing to
 all subsequent \pkg{vegan} commands:
 <<eval=false>>=
 options(mc.cores = 2)
-@ 
+@
 
 The \code{mc.cores} option is defined in the \pkg{parallel} package,
 but it is usually unset in which case \pkg{vegan} will default to
@@ -126,15 +126,15 @@ example with a pre-defined socket cluster, you must use:
 ## start up and define meandist()
 library(vegan)
 data(sipoo)
-meandist <- 
+meandist <-
     function(x) mean(vegdist(x, "bray"))
 library(parallel)
 clus <- makeCluster(4)
 clusterEvalQ(clus, library(vegan))
-mbc1 <- oecosimu(dune, meandist, "r2dtable", 
+mbc1 <- oecosimu(dune, meandist, "r2dtable",
                  parallel = clus)
 stopCluster(clus)
-@ 
+@
 Socket clusters are used for parallel processing in Windows, but you
 do not need to pre-define the socket cluster in \code{oecosimu} if you
 only need \pkg{vegan} commands.  However, if you need some other
@@ -175,7 +175,7 @@ simulations, slow evaluation of each simulation. The danger of memory
 exhaustion must always be remembered.
 
 The benefits and potential problems of parallel processing depend on
-your particular system: it is best to rely on your own experience. 
+your particular system: it is best to rely on your own experience.
 
 \subsection{Internals for developers}
 
@@ -191,14 +191,14 @@ positive integer or a socket cluster.  Integer $1$ means that no
 parallel processing is performed.  The ``normal'' default is
 \code{NULL} which in  the ``normal'' case is interpreted as $1$.  Here
 ``normal'' means that \R{} is run with default settings without
-setting \code{mc.cores} or environmental variable \code{MC_CORES}.  
+setting \code{mc.cores} or environmental variable \code{MC_CORES}.
 
 Function \code{oecosimu} interprets the \code{parallel} arguments in
 the following way:
-\begin{enumerate} 
+\begin{enumerate}
 \item \code{NULL}: The function is called with argument \code{parallel
     = getOption("mc.cores")}. The option \code{mc.cores} is normally
-  unset and then the default is \code{parallel = NULL}.  
+  unset and then the default is \code{parallel = NULL}.
 \item Integer: An integer value is taken as the number of created
   parallel processes.  In unix-like systems this is the number of
   forked multicore processes, and in Windows this is the number of
@@ -222,7 +222,7 @@ This gives the following precedence order for parallel processing
     variable \code{MC_CORES} when you load the \pkg{parallel} package,
     and it is always unset before first
     \code{require(parallel)}.
- \item The fall back behaviour is no parallel processing. 
+ \item The fall back behaviour is no parallel processing.
 \end{enumerate}
 
 \section{Nestedness and Null models}
@@ -285,7 +285,7 @@ in the source code of \code{nestedtemp}.
     \begin{equation}
     \begin{split}
       s_j &= \sum_{i|x_{ij} = 1} i^2 \\
-      t_j &= \sum_{i|x_{ij} = 0} (n-i+1)^2 
+      t_j &= \sum_{i|x_{ij} = 0} (n-i+1)^2
     \end{split}
     \end{equation}
     Here $x$ is the data matrix, where $1$ is presence, and $0$ is
@@ -328,55 +328,12 @@ in the source code of \code{nestedtemp}.
     reordering \cite{RodGir06}. This is not done in \pkg{vegan}.
 \end{itemize}
 
-\subsection{Backtracking}
-
-Gotelli's and Entsminger's seminal paper \cite{GotelliEnt01} on filling
-algorithms is somewhat confusing: it explicitly deals with ``knight's
-tour'' which is quite a different problem than the one we face with
-null models.  The chess piece ``knight''\footnote{``Knight'' is
-  ``Springer'' in German which is very appropriate as Springer was the
-  publisher of the paper on ``knight's tour''} has a history:
-a piece in a certain position could only have entered from some
-candidate squares. The filling of incidence matrix has no  history:
-if we know that the item last added was in certain row and column, we
-have no information to guess which of the filled items was entered
-previously. A consequence of dealing with a different problem is that
-\citet{GotelliEnt01} do not give many hints on implementing a fill
-algorithm as a community null model.
-
-The backtracking is implemented in two stages in \pkg{vegan}: filling and
-backtracking.
-\begin{enumerate}
-  \item The matrix is filled in the order given by the marginal
-    probabilities. In this way the matrix will look similar to the
-    final matrix at all stages of filling. Equal filling probabilities
-    are not used since that is ineffective and produces strange fill
-    patterns: the rows and columns with one or a couple of presences
-    are filled first, and the process is cornered to columns and
-    rows with many presences. As a consequence, the the process tries
-    harder to fill that corner, and the result is a more tightly
-    packed quadratic fill pattern than with other methods.
-  \item The filling stage stops when no new points can be added
-    without exceeding row or column totals. ``Backtracking'' means
-    removing random points and seeing if this allows adding new points
-    to the plot. No record of history is kept (and there is no reason
-    to keep a record of history), but random points are removed and
-    filled again. The number of removed points increases from one to
-    four points. New configuration is kept if it is at least as good
-    as the previous one, and the number of removed points is reduced
-    back to one if the new configuration is better than the old one.
-    Because there is no record of history, this does not sound like a
-    backtracking, but it still fits the general definition of
-    backtracking: ``try something, and if it fails, try something
-    else'' \citep{Sedgewick90}.
-\end{enumerate}
-
 
 \section{Scaling in redundancy analysis}
 
 This chapter discusses the scaling of scores (results) in redundancy
 analysis and principal component analysis performed by function
-\code{rda} in the \pkg{vegan} library.  
+\code{rda} in the \pkg{vegan} library.
 
 Principal component analysis decomposes a centred data matrix
 $\mathbf{X} = \{x_{ij}\}$ into $K$ orthogonal components so that
@@ -409,14 +366,14 @@ weighted averaging scores have somewhat wider dispersion.
   \centering
   \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
     in the functions \code{prcomp} and \code{princomp}, and the
-    one used in the \pkg{vegan} function \code{rda} 
+    one used in the \pkg{vegan} function \code{rda}
     and the proprietary software \proglang{Canoco}
     scores in terms of orthonormal species ($v_{ik}$) and site scores
     ($u_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
     species standard deviations ($s_j$). In \code{rda},
     $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
     negative scaling in \pkg{vegan}
-   % and corresponding positive scaling in \texttt{Canoco 3}  
+   % and corresponding positive scaling in \texttt{Canoco 3}
     is derived
     dividing each  species by its standard deviation $s_j$ (possibly
     with some additional constant multiplier).  }
@@ -509,13 +466,13 @@ non-standard. However, the \code{scores} function lets you to set
 the scaling constant to any desired values. It is also possible to
 have two separate scaling constants: the first for the species, and
 the second for sites and friends, and this allows getting scores of
-other software or \proglang{R} functions (Table \ref{tab:rdaconst}). 
+other software or \proglang{R} functions (Table \ref{tab:rdaconst}).
 
 \begin{table*}[t]
   \centering
   \caption{\label{tab:rdaconst} Values of the \code{const} argument in
     \textbf{vegan} to get the scores that are equal to those from
-    other functions and software. Number of sites (rows) is $n$, 
+    other functions and software. Number of sites (rows) is $n$,
     the number of species (columns) is $m$, and the sum of all
     eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
     \code{tot.chi} in the \code{rda} result)}.
@@ -627,7 +584,7 @@ It seems that site scores are fairly similar, but oriented differently
 (Fig. \ref{fig:ccashuff}).  We can use Procrustes rotation to see how
 similar the site scores indeed are (Fig. \ref{fig:ccaproc}).
 <<a,fig=false>>=
-plot(procrustes(scores(orig, dis="lc"), 
+plot(procrustes(scores(orig, dis="lc"),
                 scores(shuff, dis="lc")))
 @
 \begin{figure}
@@ -647,7 +604,7 @@ tmp2 <- rda(varespec[i,] ~ Al + K, varechem)
 @
 \begin{figure}
 <<fig=true,echo=false>>=
-plot(procrustes(scores(tmp1, dis="lc"), 
+plot(procrustes(scores(tmp1, dis="lc"),
                 scores(tmp2, dis="lc")))
 @
 \caption{Procrustes rotation of LC scores in RDA of the original and shuffled data.}
@@ -689,7 +646,7 @@ remain within numerical accuracy:
 <<>>=
 tmp1 <- rda(varespec ~ ., varechem)
 tmp2 <- rda(varespec[i,] ~ ., varechem)
-proc <- procrustes(scores(tmp1, dis="lc", choi=1:14), 
+proc <- procrustes(scores(tmp1, dis="lc", choi=1:14),
                    scores(tmp2, dis="lc", choi=1:14))
 max(residuals(proc))
 @
