@@ -155,16 +155,15 @@ and must take some of the following arguments:
     the bias.}
 
   \item{\code{"backtracking"}: }{non-sequential algorithm for binary
-    matrices that implements a filling method with constraints both
-    for row and column frequencies (Gotelli & Entsminger 2001).  The
-    matrix is first filled randomly using row and column frequencies
-    as probabilities. Typically row and column sums are reached before
-    all incidences are filled in. After that begins "backtracking",
-    where some of the points are removed, and then filling is started
-    again, and this backtracking is done so may times that all
-    incidences will be filled into matrix. The function may be very slow
-    for some matrices. The results may be biased and should be inspected
-    carefully before use.}
+    matrices that implements a filling method with constraints both for
+    row and column frequencies (Gotelli & Entsminger 2001).  The matrix
+    is first filled randomly, but typically row and column sums are
+    reached before all incidences are filled in. After this begins
+    "backtracking", where some of the incidences are removed, and
+    filling is started again, and this backtracking is done so many
+    times that all incidences will be filled into matrix.  The results
+    may be biased and should be inspected carefully before use.}
+
 }
 }
 
