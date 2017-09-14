@@ -796,5 +796,285 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
     return out;
 }
 
+/* backtracking is a brute force method to fill a matrix with 1's
+ * honouring margin totals: do something and if it fails, do something
+ * else (Sedgewick). The approach here may not be the fastest, but it
+ * is fun to do. We have a vector of indices 'ind' with three
+ * compartment: up to index 'ielig' we have indices of eligible zeros
+ * that can be picked, then up to 'izero' we have indices of zeros
+ * that cannot be picked because their row or column sums are filled,
+ * and after 'izero' we have 'npick' indices that we have picked and
+ * that will be 1. We fill as long as there are eligible indices, and
+ * if there are none but we need to pick more, we "backtrack" or
+ * remove picked items, update marginal sums and eligible points. This
+ * means of lot of swapping. */
+
+#define EMPTY (-1)
+#define SWAP(a,b) tmp=a;a=b;b=tmp
+
+/* macros to customize compilation: BACKSTEP gives the maximum number
+ *  of items dropped in backtracking, RESET chooses between restoring
+ *  old solution if fill decreases in backtracking, and LOUD prints
+ *  information on every step. These can be set at compile time using
+ *  preprocessor switches, e.g., -D BACKSTEP=6 */
+#ifndef BACKSTEP
+#define BACKSTEP (4)
+#endif /* BACKSTEP depth */
+#ifndef RESET
+#define RESET 1
+#endif /* RESET */
+#ifndef LOUD
+#define LOUD 0
+#endif /* LOUD */
+
+
+#if RESET
+/* return index of val in set or EMPTY if not found -- support
+ * function for backtrack. */
+
+static int imatch(int val, int *set, int len)
+{
+    int i;
+    for(i = 0; i < len; i++)
+	if (val == set[i])
+	    return i;
+    /* not found? */
+    return EMPTY;
+}
+#endif /* RESET */
+
+static void backtrack(int *out, int *rowsum, int *colsum, int fill,
+		      int nr, int nc, int *rfill, int *cfill, int *ind)
+{
+    int tmp, i, j, k, ir, ic;
+    int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0, oldpick = 0,
+	ndrop = 1, dropouts[BACKSTEP], idrop = 0, lastpick = 0;
+
+    /* initialize */
+    for(i = 0; i < nr * nc; i++)
+	ind[i] = i;
+    memset(rfill, 0, nr * sizeof(int));
+    memset(cfill, 0, nc * sizeof(int));
+
+    /* check for empty rows/columns and move their indices from eligible */
+
+    for (ir=0; ir < nr; ir++)
+	if (rowsum[ir] <= 0)
+	    for (i = ielig; i > EMPTY; i--)
+		if (ind[i] % nr == ir) {
+		    SWAP(ind[i], ind[ielig]);
+		    ielig--;
+		}
+    for (ic=0; ic < nc; ic++)
+	if (colsum[ic] <= 0)
+	    for (i = ielig; i > EMPTY; i--)
+		if (ind[i] / nr == ic) {
+		    SWAP(ind[i], ind[ielig]);
+		    ielig--;
+		}
+    
+    /* Start working */
+    while(npick < fill) { /* outermost loop (placeholder) */
+	/* fill */
+#if LOUD
+	Rprintf("\nFILL ");
+#endif
+	while(ielig > EMPTY) {
+	    i = IRAND(ielig); /* eligible: always succeed */
+#if LOUD
+	    Rprintf("pick %d ", i);
+#endif
+	    ir = ind[i] % nr; /* row */
+	    ic = ind[i] / nr; /* column */
+	    npick++;
+	    SWAP(ind[i], ind[ielig]); /* move after izero */
+	    if (ielig < izero) {
+		SWAP(ind[ielig], ind[izero]);
+	    }
+	    ielig--;
+	    izero--;
+	    /* update fills and move from eligible if marginal sum reached */
+	    if (++rfill[ir] == rowsum[ir])
+		for(i = ielig; i > EMPTY; i--)
+		    if (ind[i] % nr == ir) {
+#if LOUD
+			Rprintf("ban %d ", i);
+#endif
+			SWAP(ind[i], ind[ielig]);
+			ielig--;
+		    }
+	    if (++cfill[ic] == colsum[ic])
+		for (i = ielig; i > EMPTY; i--)
+		    if (ind[i] / nr == ic) {
+#if LOUD
+			Rprintf("ban %d ", i);
+#endif
+			SWAP(ind[i], ind[ielig]);
+			ielig--;
+		    }
+	}
+	/* get out */
+#if LOUD
+	if (npick != oldpick) Rprintf("\n*** PICKED %d ", npick);
+#endif
+	R_CheckUserInterrupt();
+	if (npick == fill)
+	    break;
+	
+#if RESET
+	
+	/* if we did worse than previously, undo: remove picked items
+	 * and put back the ones removed as dropouts */
+
+	if (npick < oldpick) {
+#if LOUD
+	    Rprintf("\nRESET ");
+#endif
+	    /* first items after izero were added in the last cycle --
+	     * these should be removed except for the originally
+	     * dropped items (dropouts) that should be kept */
+
+	    lastpick = izero + ndrop - oldpick + npick;
+	    for (i = izero+1; i <= lastpick; i++) {
+		k = imatch(ind[i], dropouts, idrop+1);
+		if (k == EMPTY)  { /* remove pick: not a dropout */
+#if LOUD
+		    Rprintf("drop %d ", i);
+#endif
+		    rfill[ind[i] % nr]--;
+		    cfill[ind[i] / nr]--;
+		    npick--;
+		    izero++;
+		    if (izero < i) {
+			SWAP(ind[i], ind[izero]);
+		    }
+		} else { /* remove from dropouts */
+#if LOUD
+		    Rprintf("keep %d ", i);
+#endif
+		    dropouts[k] = dropouts[idrop--];
+		}
+	    }
+	    
+	    /* The dropouts are among first items of ind: search these and
+	     * add back to picked. */
+
+	    i = EMPTY;
+	    while(idrop > EMPTY) {
+		k = imatch(ind[++i], dropouts, idrop+1);
+		if (k != EMPTY) { /* pick back this item */
+#if LOUD
+		    Rprintf("pick %d ", i);
+#endif
+		    rfill[ind[i] % nr]++;
+		    cfill[ind[i] / nr]++;
+		    SWAP(ind[i], ind[izero]);
+		    izero--;
+		    npick++;
+		    dropouts[k] = dropouts[idrop--];
+		}
+	    }
+	}
+
+#endif /* RESET */
+	
+        /* backtrack: remove picked items and update marginal totals
+	 * and see if any items become eligible. If 'npick' did not
+	 * improve from the best 'oldpick', increase 'ndrop' up to
+	 * BACKSTEP, and reset 'ndrop' to 1 if 'npick' improved.  */
+
+	if (oldpick < npick) {
+	    ndrop = 1;
+	    oldpick = npick;
+	} else if (ndrop < BACKSTEP && ndrop < npick) {
+	    ndrop++;
+	}
+#if LOUD
+	Rprintf("\nBACKTRACK %d: ", ndrop);
+#endif
+	for (j = 0, idrop = EMPTY; j < ndrop; j++) {
+	    i = IRAND(npick-1) + izero + 1;
+#if LOUD
+	    Rprintf("%d ", i);
+#endif
+	    dropouts[++idrop] = ind[i]; /* save removed */
+	    rfill[ind[i] % nr]--;
+	    cfill[ind[i] / nr]--;
+	    npick--;
+	    ielig++;
+	    izero++;
+	    SWAP(ind[i], ind[izero]);
+	    SWAP(ind[izero], ind[ielig]); /* if elig is EMPTY: move to ind[0] */
+	}
+	/* see what can be moved to eligible */
+	for (i = izero; i > ielig; i--) {
+	    ir = ind[i] % nr;
+	    ic = ind[i] / nr;
+	    if (rfill[ir] < rowsum[ir] && cfill[ic] < colsum[ic]) {
+#if LOUD
+		Rprintf("free %d ", i);
+#endif
+		ielig++;
+		SWAP(ind[i], ind[ielig]);
+	    }
+	}
+    }
+
+    /* output */
+    memset(out, 0, nr * nc * sizeof(int));
+    /* put 1's in their places */
+    for (i = izero+1; i < nr*nc; i++)
+	out[ind[i]] = 1;
+}
+
+/* .Call interface to backtrack. Input arguments are n (number of
+ * matrices), rs (rowsums) and cs (colsums). */
+
+SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
+{
+    int i, fill, nr = length(rs), nc = length(cs), nmat = asInteger(n);
+    int N = nr * nc;
+
+    /* check & cast */
+    if(TYPEOF(rs) != INTSXP)
+	rs = coerceVector(rs, INTSXP);
+    PROTECT(rs);
+    if(TYPEOF(cs) != INTSXP)
+	cs = coerceVector(cs, INTSXP);
+    PROTECT(cs);
+    int *rowsum = INTEGER(rs);
+    int *colsum = INTEGER(cs);
+
+    /* initialize work arrays for backtrack()*/
+    int *ind = (int *) R_alloc(nr * nc, sizeof(int));
+    int *rfill = (int *) R_alloc(nr, sizeof(int));
+    int * cfill = (int *) R_alloc(nc, sizeof(int));
+    for (i = 0, fill = 0; i < nr; i++)
+	fill += rowsum[i];
+    int *x = (int *) R_alloc(nr * nc, sizeof(int));
+
+    SEXP out =  PROTECT(alloc3DArray(INTSXP, nr, nc, nmat));
+    int *iout = INTEGER(out);
+
+    GetRNGstate();
+    /* Call static C function */
+    for(i = 0; i < nmat; i++) {
+	backtrack(x, rowsum, colsum, fill, nr, nc, rfill, cfill, ind);
+	memcpy(iout + i * N, x, N * sizeof(int));
+    }
+    PutRNGstate();
+
+    UNPROTECT(3);
+    return out;
+}
+	
+#undef EMPTY
+#undef SWAP
+#undef BACKSTEP
+#undef RESET
+#undef LOUD
+/* undef: do_backtrack */
+
 #undef IRAND
 #undef INDX
+/* undef: all of nestedness.c */
