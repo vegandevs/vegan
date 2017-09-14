@@ -96,77 +96,10 @@ function(method)
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call(do_curveball, as.matrix(x), n, thin)
         }),
-        "Cbacktrack" = commsim(method="Cbacktrack", binary = TRUE,
+        "backtrack" = commsim(method="backtrack", binary = TRUE,
                                isSeq = FALSE, mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call(do_backtrack, n, rs, cs)
-        }),
-        "backtrack" = commsim(method="backtrack", binary=TRUE, isSeq=FALSE,
-        mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
-            btrfun <- function() {
-                out <- matrix(0L, nrow = nr, ncol = nc)
-                free <- matrix(as.integer(1:(nr * nc)), nrow = nr)
-                icount <- integer(length(rs))
-                jcount <- integer(length(cs))
-                prob <- outer(rs, cs)
-                ij <- sample(free, prob = prob)
-                i <- (ij - 1) %% nr + 1L
-                j <- (ij - 1) %/% nr + 1L
-                for (k in seq_along(ij)) {
-                    if (icount[i[k]] < rs[i[k]] && jcount[j[k]] < cs[j[k]]) {
-                        out[ij[k]] <- 1L
-                        icount[i[k]] <- icount[i[k]] + 1L
-                        jcount[j[k]] <- jcount[j[k]] + 1L
-                    }
-                }
-                ndrop <- 1
-                for (i in seq_len(10000)) {
-                    oldout <- out
-                    oldicount <- icount
-                    oldjcount <- jcount
-                    oldn <- sum(out)
-                    drop <- sample(which(as.logical(out)), ndrop)
-                    out[drop] <- 0L
-                    ic <- (drop - 1L) %% nr + 1L
-                    jc <- (drop - 1L) %/% nr + 1L
-                    for (idrop in seq_len(ndrop)) {
-                        icount[ic[idrop]] <- icount[ic[idrop]] - 1L
-                        jcount[jc[idrop]] <- jcount[jc[idrop]] - 1L
-                    }
-                    candi <- outer(icount < rs, jcount < cs) * !out
-                    candi <- which(as.logical(candi))
-                    while (length(candi) > 0) {
-                        if (length(candi) > 1)
-                          ij <- sample(candi, 1)
-                        else ij <- candi
-                        out[ij] <- 1L
-                        ic <- (ij - 1L) %% nr + 1L
-                        jc <- (ij - 1L)  %/% nr + 1L
-                        icount[ic] <- icount[ic] + 1L
-                        jcount[jc] <- jcount[jc] + 1L
-                        candi <- outer(icount < rs, jcount < cs) * !out
-                        candi <- which(as.logical(candi))
-                    }
-                    if (sum(out) >= fill)
-                        break
-                    if (oldn >= sum(out))
-                        ndrop <- min(ndrop + 1, 4)
-                    else ndrop <- 1
-                    if (oldn > sum(out)) {
-                        out <- oldout
-                        icount <- oldicount
-                        jcount <- oldjcount
-                    }
-                }
-                out
-            }
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n))
-                out[, , k] <- btrfun()
-            out
         }),
         "r2dtable" = commsim(method="r2dtable", binary=FALSE, isSeq=FALSE,
         mode="integer",
