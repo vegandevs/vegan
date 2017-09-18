@@ -96,56 +96,10 @@ function(method)
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             .Call(do_curveball, as.matrix(x), n, thin)
         }),
-        "backtrack" = commsim(method="backtrack", binary=TRUE, isSeq=FALSE,
-        mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
-            btrfun <- function() {
-                all <- matrix(as.integer(1:(nr * nc)), nrow = nr, ncol = nc)
-                out <- matrix(0L, nrow = nr, ncol = nc)
-                free <- matrix(as.integer(1:(nr * nc)), nrow = nr)
-                icount <- integer(length(rs))
-                jcount <- integer(length(cs))
-                prob <- outer(rs, cs, "*")
-                ij <- sample(free, prob = prob)
-                i <- (ij - 1)%%nr + 1
-                j <- (ij - 1)%/%nr + 1
-                for (k in seq_along(ij)) {
-                    if (icount[i[k]] < rs[i[k]] && jcount[j[k]] < cs[j[k]]) {
-                        out[ij[k]] <- 1L
-                        icount[i[k]] <- icount[i[k]] + 1L
-                        jcount[j[k]] <- jcount[j[k]] + 1L
-                    }
-                }
-                ndrop <- 1
-                for (i in seq_len(10000)) {
-                    oldout <- out
-                    oldn <- sum(out)
-                    drop <- sample(all[as.logical(out)], ndrop)
-                    out[drop] <- 0L
-                    candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
-                    while (sum(candi) > 0) {
-                        if (sum(candi) > 1)
-                          ij <- sample(all[as.logical(candi)], 1)
-                        else ij <- all[as.logical(candi)]
-                        out[ij] <- 1L
-                        candi <- outer(rowSums(out) < rs, colSums(out) < cs) * !out
-                    }
-                    if (sum(out) >= fill)
-                        break
-                    if (oldn >= sum(out))
-                        ndrop <- min(ndrop + 1, 4)
-                    else ndrop <- 1
-                    if (oldn > sum(out))
-                        out <- oldout
-                }
-                out
-            }
-            out <- array(0L, c(nr, nc, n))
-            for (k in seq_len(n))
-                out[, , k] <- btrfun()
-            out
+        "backtrack" = commsim(method="backtrack", binary = TRUE,
+                               isSeq = FALSE, mode = "integer",
+        fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            .Call(do_backtrack, n, rs, cs)
         }),
         "r2dtable" = commsim(method="r2dtable", binary=FALSE, isSeq=FALSE,
         mode="integer",
