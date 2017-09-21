@@ -324,7 +324,7 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
 		m[row[1] + k]--;
 	    }
 	}
-	if (intcheck % 10000 = 9999)
+	if (intcheck % 10000 == 9999)
 	    R_CheckUserInterrupt(); /* may not terminate at all */
 	intcheck++;
     } /* while(ss > tot) */
