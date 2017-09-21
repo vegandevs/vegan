@@ -265,7 +265,7 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 
 static void boostedqswap(int *m, int nr, int nc, int *work)
 {
-    int i, j, jind, k, n = nr * nc, tot, ss, nsp1, nsp2, nsp,
+    int i, j, k, n = nr * nc, tot, ss, isp1, isp2, isp,
 	row[2], intcheck;
 
     /* ss (sum of squares) is equal to tot when all entries are 1 or
@@ -279,45 +279,45 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     while(ss > tot) {
 	I2RAND(row, nr-1);
 	/* find pairs that can be swapped individually */
-	for(j = 0, nsp1 = -1, nsp2 = -1; j < nc; j++) {
-	    jind = j * nr;
-	    if (m[row[0] + jind] == m[row[1] + jind])
+	for(j = 0, isp1 = -1, isp2 = -1; j < nc; j++) {
+	    k = j * nr;
+	    if (m[row[0] + k] == m[row[1] + k])
 		continue;
 	    /* must be different: first nc elements of work contains
 	     * cases where first row is larger, and elements after nc
 	     * where first is smaller */
-	    if (m[row[0] + jind] > m[row[1] + jind])
-		work[++nsp1] = j;
+	    if (m[row[0] + k] > m[row[1] + k])
+		work[++isp1] = j;
 	    else {
-		nsp2++;
-		work[nsp2 + nc] = j;
+		isp2++;
+		work[isp2 + nc] = j;
 	    }
 	}
-	/* quasiswap min(nsp1, nsp2) elements */
-	if (nsp1 > -1 && nsp2 > -1) { /* something to quasiswap? */
-	    nsp = (nsp1 < nsp2) ? nsp1 : nsp2;
-	    /* partial shuffle for elements > nsp */
-	    if (nsp1 > nsp) {
-		for(j = nsp1; j > nsp; j--) {
+	/* quasiswap min(isp1, isp2) + 1 elements */
+	if (isp1 > -1 && isp2 > -1) { /* something to quasiswap? */
+	    isp = (isp1 < isp2) ? isp1 : isp2;
+	    /* partial shuffle to discard elements > isp */
+	    if (isp1 > isp) {
+		for(j = isp1; j > isp; j--) {
 		    k = IRAND(j);
 		    work[k] = work[j]; /* throw away extra species */
 		}
 	    }
-	    if (nsp2 > nsp) {
-		for (j = nsp2; j > nsp; j--) {
+	    if (isp2 > isp) {
+		for (j = isp2; j > isp; j--) {
 		    k = IRAND(j);
 		    work[k + nc] = work[j + nc];
 		}
 	    }
 	    /* quasiswap when row[0] > row[1] */
-	    for(j = 0; j <= nsp; j++) {
+	    for(j = 0; j <= isp; j++) {
 		k = work[j] * nr;
 		ss -= 2 * (m[row[0] + k] - m[row[1] + k]) - 2;
 		m[row[0] + k]--;
 		m[row[1] + k]++;
 	    }
 	    /* ... and when row[0] < row[1] */
-	    for(j = 0; j <= nsp; j++) {
+	    for(j = 0; j <= isp; j++) {
 		k = work[j + nc] * nr;
 		ss -= 2 * (m[row[1] + k] - m[row[0] + k]) - 2;
 		m[row[0] + k]++;
