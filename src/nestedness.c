@@ -236,8 +236,8 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 	 * allocate nsp1 first to row[0] and the rest to row[1] */
 	if (nsp1 > 0 && nsp2 > 0) { /* something to swap? */
 	    for (j = ind; j >= nsp1; j--) {
-		tmp = uniq[j];
 		itmp = IRAND(j);
+		tmp = uniq[j];
 		uniq[j] = uniq[itmp];
 		uniq[itmp] = tmp;
 	    }
