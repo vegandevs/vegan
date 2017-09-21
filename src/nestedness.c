@@ -265,7 +265,7 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 
 static void boostedqswap(int *m, int nr, int nc, int *work)
 {
-    int i, j, jind, k, n = nr * nc, tot, ss, nsp1 = 0, nsp2 = 0, nsp,
+    int i, j, jind, k, n = nr * nc, tot, ss, nsp1, nsp2, nsp,
 	row[2];
 
     /* ss (sum of squares) is equal to tot when all entries are 1 or
@@ -278,7 +278,7 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     while(ss > tot) {
 	I2RAND(row, nr-1);
 	/* find pairs that can be swapped individually */
-	for(j = 0; j < nc; j++) {
+	for(j = 0, nsp1 = -1, nsp2 = -1; j < nc; j++) {
 	    jind = j * nr;
 	    if (m[row[0] + jind] == m[row[1] + jind])
 		continue;
@@ -321,6 +321,7 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
 		m[row[1] + k]--;
 	    }
 	}
+	R_CheckUserInterrupt(); /* may not terminate at all */
     } /* while(ss > tot) */
 }
 
@@ -795,6 +796,31 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     GetRNGstate();
     for(i = 0; i < ny; i++) {
 	qswap_fun(ix + i * N, &nr, &nc, &iarg4);
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return x;
+}
+
+/* boosted quasiswap: x must be 3D array similary as in do_qswap (no
+ * thin yet) */
+
+SEXP do_boostedqswap(SEXP x, SEXP nsim)
+{
+    int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim);
+    size_t i, N = nr * nc;
+    
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    /* allocate work vector */
+    int *work = (int *) R_alloc(2 * nc, sizeof(int));
+    
+    GetRNGstate();
+    for(i = 0; i < nmat; i++) {
+	boostedqswap(ix + i * N, nr, nc, work);
     }
     PutRNGstate();
     UNPROTECT(1);

@@ -16,6 +16,7 @@ extern void stepabyss(void *, void *, void *, void *);
 
 /* .Call calls */
 extern SEXP do_abuswap(SEXP, SEXP, SEXP, SEXP);
+extern SEXP do_boostedqswap(SEXP, SEXP);
 extern SEXP do_chaoterms(SEXP);
 extern SEXP do_curveball(SEXP, SEXP, SEXP);
 extern SEXP do_decorana(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -50,6 +51,7 @@ static const R_CMethodDef CEntries[] = {
 
 static const R_CallMethodDef CallEntries[] = {
     {"do_abuswap",   (DL_FUNC) &do_abuswap,   4},
+    {"do_boostedqswap",(DL_FUNC) &do_boostedqswap, 2},
     {"do_chaoterms", (DL_FUNC) &do_chaoterms, 1},
     {"do_curveball", (DL_FUNC) &do_curveball, 3},
     {"do_decorana",  (DL_FUNC) &do_decorana,  7},
