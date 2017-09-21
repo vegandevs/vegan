@@ -255,6 +255,75 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
     /* PutRNGstate(); */
 }
 
+/* boosted quasiswap: a variant of curveball that makes quasiswaps by
+ * rows and cand can reduce >1 values to 1. Normal quasiswap has to
+ * inspect a huge number of 2x2 submatrices to reduce all >1 values
+ * (in particular, the last one), but boosted quasiswap works on rows
+ * and quasiswaps equal number species up and down for each row, among
+ * these sum-of-squares reducing quasiswaps. The *work vector must be
+ * 2*nc, and thin is currently ignored. */
+
+static void boostedqswap(int *m, int nr, int nc, int *work)
+{
+    int i, j, jind, k, n = nr * nc, tot, ss, nsp1 = 0, nsp2 = 0, nsp,
+	row[2];
+
+    /* ss (sum of squares) is equal to tot when all entries are 1 or
+     * 0 */
+    for(i = 0, tot = 0, ss = 0; i < n; i++) {
+	tot += m[i];
+	ss += m[i] * m[i];
+    }
+    /* quasiswap to binary matrix */
+    while(ss > tot) {
+	I2RAND(row, nr-1);
+	/* find pairs that can be swapped individually */
+	for(j = 0; j < nc; j++) {
+	    jind = j * nr;
+	    if (m[row[0] + jind] == m[row[1] + jind])
+		continue;
+	    /* must be different: first nc elements of work contains
+	     * cases where first row is larger, and elements after nc
+	     * where first is smaller */
+	    if (m[row[0] + jind] > m[row[1] + jind])
+		work[++nsp1] = j;
+	    else
+		work[++nsp2 + nc] = j;
+	}
+	/* quasiswap min(nsp1, nsp2) elements */
+	if (nsp1 > 0 && nsp2 > 0) { /* something to quasiswap? */
+	    nsp = (nsp1 < nsp2) ? nsp1 : nsp2;
+	    /* partial shuffle for elements > nsp */
+	    if (nsp1 > nsp) {
+		for(j = nsp1; j >= nsp; j--) {
+		    k = IRAND(j);
+		    work[k] = work[j]; /* throw away extra species */
+		}
+	    }
+	    if (nsp2 > nsp) {
+		for (j = nsp2; j >= nsp; j--) {
+		    k = IRAND(j);
+		    work[k + nc] = work[j + nc];
+		}
+	    }
+	    /* quasiswap when row[0] > row[1] */
+	    for(j = 0; j < nsp; j++) {
+		k = work[j] * nr;
+		ss -= 2 * (m[row[0] + k] - m[row[1] + k]) - 2;
+		m[row[0] + k]--;
+		m[row[1] + k]++;
+	    }
+	    /* ... and when row[0] < row[1] */
+	    for(j = 0; j < nsp; j++) {
+		k = work[j + nc] * nr;
+		ss -= 2 * (m[row[1] + k] - m[row[0] + k]) - 2;
+		m[row[0] + k]++;
+		m[row[1] + k]--;
+	    }
+	}
+    } /* while(ss > tot) */
+}
+
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
  * similar to 'swap', but can swap > 1 values and so works for
  * quantitative (count) data.
