@@ -263,6 +263,13 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
  * these sum-of-squares reducing quasiswaps. The *work vector must be
  * 2*nc, and thin is currently ignored. */
 
+
+/* BOOSTSAMPLE: swap all that can be swapped (0) or take a random
+   subsample (1) */
+#ifndef BOOSTSAMPLE
+#define BOOSTSAMPLE 0
+#endif
+
 static void boostedqswap(int *m, int nr, int nc, int *work)
 {
     int i, j, k, n = nr * nc, tot, ss, isp1, isp2, isp,
@@ -296,6 +303,19 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
 	/* quasiswap min(isp1, isp2) + 1 elements */
 	if (isp1 > -1 && isp2 > -1) { /* something to quasiswap? */
 	    isp = (isp1 < isp2) ? isp1 : isp2;
+#ifdef BOOSTSAMPLE
+	    /* If we swap all that we can (up to isp), species move in
+	     *  blocks and retain their co-occurrence patterns. In
+	     *  extreme cases (isp1 == isp2, no >1 values), picking
+	     *  same two rows in succession will be idempotent and
+	     *  reinstate the initial pattern. If we only swap a
+	     *  random number of possible swaps, we add randomness. If
+	     *  we think that we do not need to add randomness because
+	     *  we start from random configuration and only want to
+	     *  reduce >1 values to 1, we can swap all, and run about
+	     *  2x faster. */
+	    isp = IRAND(isp);
+#endif
 	    /* partial shuffle to discard elements > isp */
 	    if (isp1 > isp) {
 		for(j = isp1; j > isp; j--) {
