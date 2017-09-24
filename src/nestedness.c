@@ -330,30 +330,25 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     } /* while(ss > tot) */
 }
 
-static void greedyqswap(int *m, int *nr, int *nc, int *thin, int *big)
+static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 {
     int i, j, n, biglen, pick, row[2], col[2], nr1, nc1, a, b, c, d;
     size_t intcheck;
 
-    nr1 = (*nr) - 1;
-    nc1 = (*nc) - 1;
+    nr1 = nr - 1;
+    nc1 = nc - 1;
 
     /* big contains indices of cells > 1 */
 
-    n = (*nr) * (*nc);
+    n = nr * nc;
     for (i = 0, biglen = -1; i < n; i++) {
 	if (m[i] > 1)
 	    big[++biglen] = i;
     }
 
-    /* Get R RNG in the calling C function */
-    /* GetRNGstate(); */
-
-    /* Quasiswap while there are entries > 1 */
-
     intcheck  = 0; /* check interrupts */
     while (biglen > -1) {
-	for (i = 0; i < *thin; i++) {
+	for (i = 0; i < thin; i++) {
 	    /* pick one item to the m[a] corner */
 	    if (biglen < 0) { /* all binary, but still thinning */
 		pick = IRAND(n-1);
@@ -363,15 +358,15 @@ static void greedyqswap(int *m, int *nr, int *nc, int *thin, int *big)
 		a = big[pick];
 	    }
 	    /* get the second item */
-	    row[0] = a % (*nr);
-	    col[0] = a / (*nr);
+	    row[0] = a % nr;
+	    col[0] = a / nr;
 	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
 
 	    /* a,b,c,d notation for a 2x2 table */
-	    b = INDX(row[0], col[1], *nr);
-	    c = INDX(row[1], col[0], *nr);
-	    d = INDX(row[1], col[1], *nr);
+	    b = INDX(row[0], col[1], nr);
+	    c = INDX(row[1], col[0], nr);
+	    d = INDX(row[1], col[1], nr);
 	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		m[a]--;
 		m[d]--;
@@ -430,9 +425,6 @@ static void greedyqswap(int *m, int *nr, int *nc, int *thin, int *big)
 	    R_CheckUserInterrupt();
 	intcheck++;
     }
-
-    /* Set R RNG in the calling function */
-    /* PutRNGstate(); */
 }
 
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
@@ -931,6 +923,32 @@ SEXP do_boostedqswap(SEXP x, SEXP nsim)
     GetRNGstate();
     for(i = 0; i < nmat; i++) {
 	boostedqswap(ix + i * N, nr, nc, work);
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return x;
+}
+
+/* greedy quasiswap: x must be 3D array similarly as in do_qswap */
+
+SEXP do_greedyqswap(SEXP x, SEXP nsim, SEXP thin, SEXP fill)
+{
+    int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim),
+	ithin = asInteger(thin);
+    size_t i, N = nr * nc;
+    
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    /* allocate work vector for > 1 items: the absolute maximum size
+     * is fill/2 when all entries are 2 */
+    int *work = (int *) R_alloc(asInteger(fill)/2, sizeof(int));
+    
+    GetRNGstate();
+    for(i = 0; i < nmat; i++) {
+	greedyqswap(ix + i * N, nr, nc, ithin, work);
     }
     PutRNGstate();
     UNPROTECT(1);
