@@ -330,6 +330,15 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     } /* while(ss > tot) */
 }
 
+/* greedy quasiswapping: pick >1 cell as the upper right m[a] element
+ * (except when thinning). We collect a vector 'big' of indices of >1
+ * cells, and after each quasiswap update its members and length. We
+ * loop while 'big' has members. Each successfull quasiswap will
+ * produce a 2x2 submatrix with fill 3 or 4, and the result is heavily
+ * biased. With 'thin' we can mix ordinary quasiswap steps with greedy
+ * steps and the bias is much reduced even with modest thinning, but
+ * the time goes up with thin. */
+
 static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 {
     int i, j, n, biglen, pick, row[2], col[2], nr1, nc1, a, b, c, d;
@@ -350,19 +359,19 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
     while (biglen > -1) {
 	for (i = 0; i < thin; i++) {
 	    /* pick one item to the m[a] corner */
-	    if (biglen < 0) { /* all binary, but still thinning */
-		pick = IRAND(n-1);
-		a = pick;
-	    } else { /* pick cell > 1 */
+	    if (i == 0) { /* greedy! */
 		pick = IRAND(biglen);
 		a = big[pick];
+	    } else { /* thin! */
+		pick = IRAND(n-1);
+		a = pick;
 	    }
 	    /* get the second item */
 	    row[0] = a % nr;
 	    col[0] = a / nr;
 	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
-
+	    
 	    /* a,b,c,d notation for a 2x2 table */
 	    b = INDX(row[0], col[1], nr);
 	    c = INDX(row[1], col[0], nr);
@@ -378,7 +387,16 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 		 * in big. b & c were incremented and if they now are
 		 * 2, they must be added to big. */
 		if (m[a] == 1)
-		    big[pick] = big[biglen--];
+		    if (i == 0) { /* not thinning: know the pick */
+			big[pick] = big[biglen--];
+		    } else { /* thinning: must search in big */
+			for (j = 0; j <= biglen; j++) {
+			    if (a == big[j]) {
+				big[j] = big[biglen--];
+				break;
+			    }
+			}
+		    }
 		if (m[d] == 1) {
 		    for (j = 0; j <= biglen; j++) {
 			if (d == big[j]) {
@@ -934,7 +952,7 @@ SEXP do_boostedqswap(SEXP x, SEXP nsim)
 SEXP do_greedyqswap(SEXP x, SEXP nsim, SEXP thin, SEXP fill)
 {
     int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim),
-	ithin = asInteger(thin);
+	ithin = asInteger(thin), ifill = asInteger(fill);
     size_t i, N = nr * nc;
     
     if (TYPEOF(x) != INTSXP)
@@ -944,7 +962,8 @@ SEXP do_greedyqswap(SEXP x, SEXP nsim, SEXP thin, SEXP fill)
 
     /* allocate work vector for > 1 items: the absolute maximum size
      * is fill/2 when all entries are 2 */
-    int *work = (int *) R_alloc(asInteger(fill)/2, sizeof(int));
+    ifill = ifill/2;
+    int *work = (int *) R_alloc(ifill, sizeof(int));
     
     GetRNGstate();
     for(i = 0; i < nmat; i++) {
