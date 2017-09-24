@@ -330,6 +330,111 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     } /* while(ss > tot) */
 }
 
+static void greedyqswap(int *m, int *nr, int *nc, int *thin, int *big)
+{
+    int i, j, n, biglen, pick, row[2], col[2], nr1, nc1, a, b, c, d;
+    size_t intcheck;
+
+    nr1 = (*nr) - 1;
+    nc1 = (*nc) - 1;
+
+    /* big contains indices of cells > 1 */
+
+    n = (*nr) * (*nc);
+    for (i = 0, biglen = -1; i < n; i++) {
+	if (m[i] > 1)
+	    big[++biglen] = i;
+    }
+
+    /* Get R RNG in the calling C function */
+    /* GetRNGstate(); */
+
+    /* Quasiswap while there are entries > 1 */
+
+    intcheck  = 0; /* check interrupts */
+    while (biglen > -1) {
+	for (i = 0; i < *thin; i++) {
+	    /* pick one item to the m[a] corner */
+	    if (biglen < 0) { /* all binary, but still thinning */
+		pick = IRAND(n-1);
+		a = pick;
+	    } else { /* pick cell > 1 */
+		pick = IRAND(biglen);
+		a = big[pick];
+	    }
+	    /* get the second item */
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+
+	    /* a,b,c,d notation for a 2x2 table */
+	    b = INDX(row[0], col[1], *nr);
+	    c = INDX(row[1], col[0], *nr);
+	    d = INDX(row[1], col[1], *nr);
+	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+		m[a]--;
+		m[d]--;
+		m[b]++;
+		m[c]++;
+		/* Update big & biglen. a & d were decremented, and if
+		 * they now are 1, they are removed from big. We know
+		 * pick for a, but the location of d must be searched
+		 * in big. b & c were incremented and if they now are
+		 * 2, they must be added to big. */
+		if (m[a] == 1)
+		    big[pick] = big[biglen--];
+		if (m[d] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (d == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[b] == 2)
+		    big[++biglen] = b;
+		if (m[c] == 2)
+		    big[++biglen] = c;
+	    } else if (m[b] > 0 && m[c] > 0 &&
+		       m[b] + m[c] - m[a] - m[d] >= 2) {
+		m[a]++;
+		m[d]++;
+		m[b]--;
+		m[c]--;
+		/* update is mirror operation of the one above */
+		if (m[b] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (b == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[c] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (c == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[a] == 2)
+		    big[++biglen] = a;
+		if (m[d] == 2)
+		    big[++biglen] = d;
+	    }
+	}
+	/* interrupt? */
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	intcheck++;
+    }
+
+    /* Set R RNG in the calling function */
+    /* PutRNGstate(); */
+}
+
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
  * similar to 'swap', but can swap > 1 values and so works for
  * quantitative (count) data.
