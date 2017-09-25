@@ -363,8 +363,7 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 		pick = IRAND(biglen);
 		a = big[pick];
 	    } else { /* thin! */
-		pick = IRAND(n-1);
-		a = pick;
+		a = IRAND(n-1);
 	    }
 	    /* get the second item */
 	    row[0] = a % nr;
@@ -386,7 +385,7 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 		 * pick for a, but the location of d must be searched
 		 * in big. b & c were incremented and if they now are
 		 * 2, they must be added to big. */
-		if (m[a] == 1)
+		if (m[a] == 1) {
 		    if (i == 0) { /* not thinning: know the pick */
 			big[pick] = big[biglen--];
 		    } else { /* thinning: must search in big */
@@ -397,6 +396,7 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 			    }
 			}
 		    }
+		}
 		if (m[d] == 1) {
 		    for (j = 0; j <= biglen; j++) {
 			if (d == big[j]) {
