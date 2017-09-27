@@ -119,10 +119,18 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
     /* GetRNGstate(); */
 
     for (i=0; i < *thin; i++) {
-	I2RAND(row, (*nr) - 1);
-	I2RAND(col, (*nc) - 1);
-	a = INDX(row[0], col[0], *nr);
+	/* get corner item m[a] and its row and column index */
+	a = IRAND((*nr) * (*nc) - 1);
+	row[0] = a % (*nr);
+	col[0] = a / (*nr);
+	/* get its side-by-side neighbour in a different column */
+	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
 	b = INDX(row[0], col[1], *nr);
+	/* not swappable if neighbours are identical: bail out */
+	if (m[a] == m[b])
+	    continue;
+	/* get second row and its items */
+	do {row[1] = IRAND((*nr) - 1);} while (row[1] == row[0]);
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
         /* there are 16 possible matrices, but only two can be
