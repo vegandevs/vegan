@@ -53,7 +53,7 @@
 
 static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], n1, nr1, nc1, a, b, c, d;
     size_t intcheck;
 
     nr1 = (*nr) - 1;
@@ -66,6 +66,7 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
 	mtot += m[i];
 	ss += m[i] * m[i];
     }
+    n1 = n - 1;
 
     /* Get R RNG in the calling C function */
     /* GetRNGstate(); */
@@ -75,20 +76,28 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    I2RAND(row, nr1);
-	    I2RAND(col, nc1);
-	    /* a,b,c,d notation for a 2x2 table */
-	    a = INDX(row[0], col[0], *nr);
+	    /* first item and its row & column indices */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    /* neighbour from the same fow but different column */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
 	    b = INDX(row[0], col[1], *nr);
+	    /* if neighbours are both zero, cannot be quasiswapped */
+	    if (m[b] == 0 && m[a] == 0)
+		continue;
+	    /* second row */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+	    /* m[a] has 50% chance of being > 0, m[d] less, so have it first */
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
 		m[a]--;
 		m[d]--;
 		m[b]++;
 		m[c]++;
-	    } else if (m[b] > 0 && m[c] > 0 &&
+	    } else if (m[c] > 0 && m[b] > 0 &&
 		       m[b] + m[c] - m[a] - m[d] >= 2) {
 		ss -= 2 * (m[b] + m[c] - m[a] - m[d] - 2);
 		m[a]++;
