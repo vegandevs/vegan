@@ -174,7 +174,8 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 static void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2];
+    int i, a, b, c, d, row[2], col[2], nr1 = (*nr) - 1, nc1 = (*nc) -1,
+	n1 = (*nr) * (*nc) - 1;
     size_t intcheck;
 
     /* Get and Put RNG in calling C function */
@@ -185,22 +186,29 @@ static void swap(int *m, int *nr, int *nc, int *thin)
 	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
-	    I2RAND(row, (*nr) - 1);
-	    I2RAND(col, (*nc) - 1);
-	    a = INDX(row[0], col[0], *nr);
+	    /* see trialswap & quasiswap for the logic */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
 	    b = INDX(row[0], col[1], *nr);
+	    /* bail out before next row if non-swappable */
+	    if (m[a] == m[b])
+		continue;
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if(m[a] + m[b] + m[c] + m[d] != 2)
-		continue;
-	    if (m[a] == 1 && m[d] == 1) {
+	    /* if we are here m[a] != m[b], and only three elements
+	       need be tested for the unique matrix -- start from
+	       tests that fail most likely */
+	    if (m[d] == 1 && m[a] == 1 && m[c] == 0) {
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1) {
+	    if (m[c] == 1 && m[b] == 1 && m[d] == 0) {
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
