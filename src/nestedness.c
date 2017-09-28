@@ -365,17 +365,19 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 	    } else { /* thin! */
 		a = IRAND(n-1);
 	    }
-	    /* get the second item */
 	    row[0] = a % nr;
 	    col[0] = a / nr;
-	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
+	    /* get the second item in the first row */
 	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
-	    
-	    /* a,b,c,d notation for a 2x2 table */
 	    b = INDX(row[0], col[1], nr);
+	    /* unswappable if the first row is all zeros */
+	    if (m[a] == 0 && m[b] == 0)
+		continue;
+	    /* second row, third and fourth items */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], nr);
 	    d = INDX(row[1], col[1], nr);
-	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		m[a]--;
 		m[d]--;
 		m[b]++;
@@ -409,7 +411,7 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 		    big[++biglen] = b;
 		if (m[c] == 2)
 		    big[++biglen] = c;
-	    } else if (m[b] > 0 && m[c] > 0 &&
+	    } else if (m[c] > 0 && m[b] > 0 &&
 		       m[b] + m[c] - m[a] - m[d] >= 2) {
 		m[a]++;
 		m[d]++;
