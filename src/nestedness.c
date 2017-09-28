@@ -53,7 +53,7 @@
 
 static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], n1, nr1, nc1, a, b, c, d;
     size_t intcheck;
 
     nr1 = (*nr) - 1;
@@ -66,6 +66,7 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
 	mtot += m[i];
 	ss += m[i] * m[i];
     }
+    n1 = n - 1;
 
     /* Get R RNG in the calling C function */
     /* GetRNGstate(); */
@@ -75,20 +76,28 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    I2RAND(row, nr1);
-	    I2RAND(col, nc1);
-	    /* a,b,c,d notation for a 2x2 table */
-	    a = INDX(row[0], col[0], *nr);
+	    /* first item and its row & column indices */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    /* neighbour from the same fow but different column */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
 	    b = INDX(row[0], col[1], *nr);
+	    /* if neighbours are both zero, cannot be quasiswapped */
+	    if (m[b] == 0 && m[a] == 0)
+		continue;
+	    /* second row */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+	    /* m[a] has 50% chance of being > 0, m[d] less, so have it first */
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
 		m[a]--;
 		m[d]--;
 		m[b]++;
 		m[c]++;
-	    } else if (m[b] > 0 && m[c] > 0 &&
+	    } else if (m[c] > 0 && m[b] > 0 &&
 		       m[b] + m[c] - m[a] - m[d] >= 2) {
 		ss -= 2 * (m[b] + m[c] - m[a] - m[d] - 2);
 		m[a]++;
@@ -119,10 +128,18 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
     /* GetRNGstate(); */
 
     for (i=0; i < *thin; i++) {
-	I2RAND(row, (*nr) - 1);
-	I2RAND(col, (*nc) - 1);
-	a = INDX(row[0], col[0], *nr);
+	/* get corner item m[a] and its row and column index */
+	a = IRAND((*nr) * (*nc) - 1);
+	row[0] = a % (*nr);
+	col[0] = a / (*nr);
+	/* get its side-by-side neighbour in a different column */
+	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
 	b = INDX(row[0], col[1], *nr);
+	/* not swappable if neighbours are identical: bail out */
+	if (m[a] == m[b])
+	    continue;
+	/* get second row and its items */
+	do {row[1] = IRAND((*nr) - 1);} while (row[1] == row[0]);
 	c = INDX(row[1], col[0], *nr);
 	d = INDX(row[1], col[1], *nr);
         /* there are 16 possible matrices, but only two can be
@@ -157,7 +174,8 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 static void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2];
+    int i, a, b, c, d, row[2], col[2], nr1 = (*nr) - 1, nc1 = (*nc) -1,
+	n1 = (*nr) * (*nc) - 1;
     size_t intcheck;
 
     /* Get and Put RNG in calling C function */
@@ -168,22 +186,29 @@ static void swap(int *m, int *nr, int *nc, int *thin)
 	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
-	    I2RAND(row, (*nr) - 1);
-	    I2RAND(col, (*nc) - 1);
-	    a = INDX(row[0], col[0], *nr);
+	    /* see trialswap & quasiswap for the logic */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
 	    b = INDX(row[0], col[1], *nr);
+	    /* bail out before next row if non-swappable */
+	    if (m[a] == m[b])
+		continue;
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if(m[a] + m[b] + m[c] + m[d] != 2)
-		continue;
-	    if (m[a] == 1 && m[d] == 1) {
+	    /* if we are here m[a] != m[b], and only three elements
+	       need be tested for the unique matrix -- start from
+	       tests that fail most likely */
+	    if (m[d] == 1 && m[a] == 1 && m[c] == 0) {
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1) {
+	    if (m[c] == 1 && m[b] == 1 && m[d] == 0) {
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
