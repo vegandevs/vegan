@@ -375,6 +375,123 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
     } /* while(ss > tot) */
 }
 
+/* greedy quasiswapping: pick >1 cell as the upper right m[a] element
+ * (except when thinning). We collect a vector 'big' of indices of >1
+ * cells, and after each quasiswap update its members and length. We
+ * loop while 'big' has members. Each successfull quasiswap will
+ * produce a 2x2 submatrix with fill 3 or 4, and the result is heavily
+ * biased. With 'thin' we can mix ordinary quasiswap steps with greedy
+ * steps and the bias is much reduced even with modest thinning, but
+ * the time goes up with thin. */
+
+static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
+{
+    int i, j, n, biglen, pick, row[2], col[2], nr1, nc1, a, b, c, d;
+    size_t intcheck;
+
+    nr1 = nr - 1;
+    nc1 = nc - 1;
+
+    /* big contains indices of cells > 1 */
+
+    n = nr * nc;
+    for (i = 0, biglen = -1; i < n; i++) {
+	if (m[i] > 1)
+	    big[++biglen] = i;
+    }
+
+    intcheck  = 0; /* check interrupts */
+    while (biglen > -1) {
+	for (i = 0; i < thin; i++) {
+	    /* pick one item to the m[a] corner */
+	    if (i == 0) { /* greedy! */
+		pick = IRAND(biglen);
+		a = big[pick];
+	    } else { /* thin! */
+		a = IRAND(n-1);
+	    }
+	    row[0] = a % nr;
+	    col[0] = a / nr;
+	    /* get the second item in the first row */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], nr);
+	    /* unswappable if the first row is all zeros */
+	    if (m[a] == 0 && m[b] == 0)
+		continue;
+	    /* second row, third and fourth items */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
+	    c = INDX(row[1], col[0], nr);
+	    d = INDX(row[1], col[1], nr);
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+		m[a]--;
+		m[d]--;
+		m[b]++;
+		m[c]++;
+		/* Update big & biglen. a & d were decremented, and if
+		 * they now are 1, they are removed from big. We know
+		 * pick for a, but the location of d must be searched
+		 * in big. b & c were incremented and if they now are
+		 * 2, they must be added to big. */
+		if (m[a] == 1) {
+		    if (i == 0) { /* not thinning: know the pick */
+			big[pick] = big[biglen--];
+		    } else { /* thinning: must search in big */
+			for (j = 0; j <= biglen; j++) {
+			    if (a == big[j]) {
+				big[j] = big[biglen--];
+				break;
+			    }
+			}
+		    }
+		}
+		if (m[d] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (d == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[b] == 2)
+		    big[++biglen] = b;
+		if (m[c] == 2)
+		    big[++biglen] = c;
+	    } else if (m[c] > 0 && m[b] > 0 &&
+		       m[b] + m[c] - m[a] - m[d] >= 2) {
+		m[a]++;
+		m[d]++;
+		m[b]--;
+		m[c]--;
+		/* update is mirror operation of the one above */
+		if (m[b] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (b == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[c] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (c == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[a] == 2)
+		    big[++biglen] = a;
+		if (m[d] == 2)
+		    big[++biglen] = d;
+	    }
+	}
+	/* interrupt? */
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	intcheck++;
+    }
+}
+
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
  * similar to 'swap', but can swap > 1 values and so works for
  * quantitative (count) data.
@@ -871,6 +988,33 @@ SEXP do_boostedqswap(SEXP x, SEXP nsim)
     GetRNGstate();
     for(i = 0; i < nmat; i++) {
 	boostedqswap(ix + i * N, nr, nc, work);
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return x;
+}
+
+/* greedy quasiswap: x must be 3D array similarly as in do_qswap */
+
+SEXP do_greedyqswap(SEXP x, SEXP nsim, SEXP thin, SEXP fill)
+{
+    int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim),
+	ithin = asInteger(thin), ifill = asInteger(fill);
+    size_t i, N = nr * nc;
+    
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    /* allocate work vector for > 1 items: the absolute maximum size
+     * is fill/2 when all entries are 2 */
+    ifill = ifill/2;
+    int *work = (int *) R_alloc(ifill, sizeof(int));
+    
+    GetRNGstate();
+    for(i = 0; i < nmat; i++) {
+	greedyqswap(ix + i * N, nr, nc, ithin, work);
     }
     PutRNGstate();
     UNPROTECT(1);
