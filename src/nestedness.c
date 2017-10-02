@@ -80,15 +80,16 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
 	    a = IRAND(n1);
 	    row[0] = a % (*nr);
 	    col[0] = a / (*nr);
-	    /* neighbour from the same fow but different column */
-	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
-	    b = INDX(row[0], col[1], *nr);
-	    /* if neighbours are both zero, cannot be quasiswapped */
-	    if (m[b] == 0 && m[a] == 0)
-		continue;
-	    /* second row */
+	    /* neighbour from the same col but different row */
 	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
+	    /* if neighbours are both zero, cannot be quasiswapped
+	       (probability (1-f)^2 with relative col fill f) */
+	    if (m[c] == 0 && m[a] == 0)
+		continue;
+	    /* second col */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], *nr);
 	    d = INDX(row[1], col[1], *nr);
 	    /* m[a] has 50% chance of being > 0, m[d] less, so have it first */
 	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
@@ -132,15 +133,17 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 	a = IRAND((*nr) * (*nc) - 1);
 	row[0] = a % (*nr);
 	col[0] = a / (*nr);
-	/* get its side-by-side neighbour in a different column */
-	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
-	b = INDX(row[0], col[1], *nr);
-	/* not swappable if neighbours are identical: bail out */
-	if (m[a] == m[b])
-	    continue;
-	/* get second row and its items */
+	/* get its side-by-side neighbour in a different row */
 	do {row[1] = IRAND((*nr) - 1);} while (row[1] == row[0]);
 	c = INDX(row[1], col[0], *nr);
+	/* not swappable if neighbours are identical: bail out at
+	   probability (1-f)^2 + f^2 where f is the relative column
+	   fill */
+	if (m[a] == m[c])
+	    continue;
+	/* get second col and its items */
+	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
+	b = INDX(row[0], col[1], *nr);
 	d = INDX(row[1], col[1], *nr);
         /* there are 16 possible matrices, but only two can be
 	 * swapped. Find signature of each matrix with bitwise shift
@@ -190,25 +193,25 @@ static void swap(int *m, int *nr, int *nc, int *thin)
 	    a = IRAND(n1);
 	    row[0] = a % (*nr);
 	    col[0] = a / (*nr);
-	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
-	    b = INDX(row[0], col[1], *nr);
-	    /* bail out before next row if non-swappable */
-	    if (m[a] == m[b])
-		continue;
 	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
+	    /* bail out before next row if non-swappable */
+	    if (m[a] == m[c])
+		continue;
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    /* if we are here m[a] != m[b], and only three elements
+	    /* if we are here m[a] != m[c], and only three elements
 	       need be tested for the unique matrix -- start from
 	       tests that fail most likely */
-	    if (m[d] == 1 && m[a] == 1 && m[c] == 0) {
+	    if (m[d] == 1 && m[a] == 1 && m[b] == 0) {
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1 && m[d] == 0) {
+	    if (m[b] == 1 && m[c] == 1 && m[d] == 0) {
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
@@ -412,15 +415,15 @@ static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
 	    }
 	    row[0] = a % nr;
 	    col[0] = a / nr;
-	    /* get the second item in the first row */
-	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
-	    b = INDX(row[0], col[1], nr);
-	    /* unswappable if the first row is all zeros */
-	    if (m[a] == 0 && m[b] == 0)
-		continue;
-	    /* second row, third and fourth items */
+	    /* get the second item in the first column */
 	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], nr);
+	    /* unswappable if the first row is all zeros */
+	    if (m[a] == 0 && m[c] == 0)
+		continue;
+	    /* second column, third and fourth items */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], nr);
 	    d = INDX(row[1], col[1], nr);
 	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		m[a]--;
