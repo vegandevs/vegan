@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-08-10 r73083) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-09-11 r73238) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1007,6 +1007,43 @@ Model 2: varespec ~ N + P + K + Ca + Mg + S + Al + Fe + Mn + Zn + Mo + Baresoil 
 4 0.73 0.69 0.67 0.67 0.72
 5 0.73 0.72 0.68 0.66 0.66
 6 0.73 0.69 0.69 0.70 0.71
+> # Test for when subsampling depth excludes some samples
+> # Return samples that are removed for not meeting depth filter
+> depth.avg.dist <- avgdist(BCI, sample = 450, iterations = 10)
+Warning in avgdist(BCI, sample = 450, iterations = 10) :
+  The following sample was removed because it failed to meet the subsampling depth threshold: 1 
+The following sample was removed because it failed to meet the subsampling depth threshold: 2 
+The following sample was removed because it failed to meet the subsampling depth threshold: 6 
+The following sample was removed because it failed to meet the subsampling depth threshold: 7 
+The following sample was removed because it failed to meet the subsampling depth threshold: 8 
+The following sample was removed because it failed to meet the subsampling depth threshold: 9 
+The following sample was removed because it failed to meet the subsampling depth threshold: 11 
+The following sample was removed because it failed to meet the subsampling depth threshold: 12 
+The following sample was removed because it failed to meet the subsampling depth threshold: 13 
+The following sample was removed because it failed to meet the subsampling depth threshold: 14 
+The following sample was removed because it fa [... truncated]
+> # Print the result
+> depth.avg.dist
+           3         4         5        10        15        30        32
+3  0.0000000 0.3322222 0.3617778 0.2966667 0.3571111 0.4586667 0.4722222
+4  0.3322222 0.0000000 0.3762222 0.3193333 0.3526667 0.3951111 0.4302222
+5  0.3617778 0.3762222 0.0000000 0.3908889 0.3940000 0.4966667 0.5157778
+10 0.2966667 0.3193333 0.3908889 0.0000000 0.3155556 0.4268889 0.4180000
+15 0.3571111 0.3526667 0.3940000 0.3155556 0.0000000 0.4568889 0.4635556
+30 0.4586667 0.3951111 0.4966667 0.4268889 0.4568889 0.0000000 0.3831111
+32 0.4722222 0.4302222 0.5157778 0.4180000 0.4635556 0.3831111 0.0000000
+35 0.6635556 0.6353333 0.6922222 0.6880000 0.6602222 0.5222222 0.5931111
+40 0.5635556 0.5293333 0.6340000 0.5182222 0.5591111 0.4560000 0.4055556
+          35        40
+3  0.6635556 0.5635556
+4  0.6353333 0.5293333
+5  0.6922222 0.6340000
+10 0.6880000 0.5182222
+15 0.6602222 0.5591111
+30 0.5222222 0.4560000
+32 0.5931111 0.4055556
+35 0.0000000 0.4344444
+40 0.4344444 0.0000000
 > 
 > 
 > 
@@ -7467,7 +7504,8 @@ stress after  40 iters: 0.01114, magic = 0.500
 > ### Aliases: specaccum print.specaccum summary.specaccum plot.specaccum
 > ###   lines.specaccum boxplot.specaccum fitspecaccum plot.fitspecaccum
 > ###   lines.fitspecaccum predict.specaccum predict.fitspecaccum
-> ###   AIC.fitspecaccum deviance.fitspecaccum specslope
+> ###   AIC.fitspecaccum deviance.fitspecaccum logLik.fitspecaccum
+> ###   nobs.fitspecaccum specslope
 > ### Keywords: univar models
 > 
 > ### ** Examples
@@ -9159,7 +9197,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.512 0.116 25.63 0 0 
+Time elapsed:  26.316 0.148 26.584 0 0 
 > grDevices::dev.off()
 null device 
           1 
