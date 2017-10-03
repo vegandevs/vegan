@@ -295,7 +295,7 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 /* BOOSTSAMPLE: swap all that can be swapped (0) or take a random
    subsample (1) */
 #ifndef BOOSTSAMPLE
-#define BOOSTSAMPLE 0
+#define BOOSTSAMPLE 1
 #endif
 
 static void boostedqswap(int *m, int nr, int nc, int *work)
