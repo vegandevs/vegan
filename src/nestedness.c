@@ -331,7 +331,7 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
 	/* quasiswap min(isp1, isp2) + 1 elements */
 	if (isp1 > -1 && isp2 > -1) { /* something to quasiswap? */
 	    isp = (isp1 < isp2) ? isp1 : isp2;
-#ifdef BOOSTSAMPLE
+#if BOOSTSAMPLE
 	    /* If we swap all that we can (up to isp), species move in
 	     *  blocks and retain their co-occurrence patterns. In
 	     *  extreme cases (isp1 == isp2, no >1 values), picking
