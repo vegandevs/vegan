@@ -2124,6 +2124,8 @@ r0_old               1     .      .   1    1       1       .       1       .
 r1                   1     .      .   1    1       1       .       1       .
 r2                   1     .      .   1    1       1       .       1       .
 quasiswap            1     .      .   1    1       1       1       1       1
+boostedqswap         1     .      .   1    1       1       1       1       1
+greedyqswap          1     .      .   1    1       1       1       1       1
 swap                 1     1      .   1    1       1       1       1       1
 tswap                1     1      .   1    1       1       1       1       1
 curveball            1     1      .   1    1       1       1       1       1
@@ -4824,7 +4826,7 @@ Checkerboard Units    : 2767
 C-score (species mean): 2.258776 
 
               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-checkerboards      2767 0.84129 2698.1 2584.4 2676.0 2858.1     0.39
+checkerboards      2767 0.69035 2709.8 2583.9 2703.0 2884.6     0.53
 > ## Another Null model and standardized checkerboard score
 > oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 oecosimu object
@@ -4839,8 +4841,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
-C.score    2.2588 -28.92 9.2234 8.6935 9.2384 9.6053     0.01 **
+        statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
+C.score    2.2588 -30.744 9.2067 8.7599 9.2245 9.5875     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5062,11 +5064,11 @@ Decorana values 0.4154 0.2465 0.1391 0.04992
 Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
-     statistic     SES    mean     50%    95% Pr(sim.)  
-DCA1  0.382249  1.8658 0.32404 0.32373 0.3726     0.02 *
-DCA2  0.261208  1.5772 0.21939 0.21617 0.2637     0.09 .
-DCA3  0.166788  0.5209 0.15594 0.15572 0.1859     0.30  
-DCA4  0.087226 -1.9822 0.13015 0.12649 0.1649     0.99  
+     statistic      SES    mean     50%    95% Pr(sim.)  
+DCA1  0.382249  2.15306 0.32124 0.31937 0.3608     0.04 *
+DCA2  0.261208  1.37926 0.22372 0.22327 0.2655     0.10 .
+DCA3  0.166788  0.25563 0.16187 0.16065 0.1980     0.38  
+DCA4  0.087226 -1.51218 0.12405 0.12052 0.1717     0.95  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
@@ -5089,8 +5091,8 @@ nullmodel method ‘r2dtable’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 16.876 0.46651 0.44565 0.46652 0.4826     0.01 **
+          statistic    SES    mean    2.5%     50% 97.5% Pr(sim.)   
+statistic   0.64565 14.452 0.46737 0.44358 0.46916 0.491     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5114,7 +5116,7 @@ nullmodel method ‘myshuffle’ with 99 simulations
 alternative hypothesis: statistic is less or greater than simulated values
 
           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
-statistic   0.64565 2.7402 0.63542 0.62941 0.63519 0.6433     0.03 *
+statistic   0.64565 2.6336 0.63574 0.62943 0.63542 0.6444     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5132,8 +5134,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
-checkerboards      2767 0.74222 2721.3 2621.1 2707.0  2881     0.35
+              statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 -0.42126 2804.2 2684.4 2774.0 2963.2     0.91
 > ## Several chains of a sequential model -- this can be generalized
 > ## for parallel processing (see ?smbind)
 > nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
@@ -5161,7 +5163,7 @@ Checkerboard Units    : 2767
 C-score (species mean): 2.258776 
 
               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-checkerboards      2767 0.54699 2715.2 2575.7 2698.0 2963.2   0.5141
+checkerboards      2767 0.81554 2700.9 2567.4 2692.0 2890.7    0.381
 > ## After this you can use as.mcmc() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
@@ -9197,7 +9199,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.316 0.148 26.584 0 0 
+Time elapsed:  26.08 0.112 26.196 0 0 
 > grDevices::dev.off()
 null device 
           1 
