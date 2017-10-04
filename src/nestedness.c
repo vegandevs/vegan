@@ -53,7 +53,7 @@
 
 static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, n, mtot, ss, row[2], col[2], nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], n1, nr1, nc1, a, b, c, d;
     size_t intcheck;
 
     nr1 = (*nr) - 1;
@@ -66,6 +66,7 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
 	mtot += m[i];
 	ss += m[i] * m[i];
     }
+    n1 = n - 1;
 
     /* Get R RNG in the calling C function */
     /* GetRNGstate(); */
@@ -75,20 +76,29 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    I2RAND(row, nr1);
-	    I2RAND(col, nc1);
-	    /* a,b,c,d notation for a 2x2 table */
-	    a = INDX(row[0], col[0], *nr);
-	    b = INDX(row[0], col[1], *nr);
+	    /* first item and its row & column indices */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    /* neighbour from the same col but different row */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
+	    /* if neighbours are both zero, cannot be quasiswapped
+	       (probability (1-f)^2 with relative col fill f) */
+	    if (m[c] == 0 && m[a] == 0)
+		continue;
+	    /* second col */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], *nr);
 	    d = INDX(row[1], col[1], *nr);
-	    if (m[a] > 0 && m[d] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+	    /* m[a] has 50% chance of being > 0, m[d] less, so have it first */
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
 		m[a]--;
 		m[d]--;
 		m[b]++;
 		m[c]++;
-	    } else if (m[b] > 0 && m[c] > 0 &&
+	    } else if (m[c] > 0 && m[b] > 0 &&
 		       m[b] + m[c] - m[a] - m[d] >= 2) {
 		ss -= 2 * (m[b] + m[c] - m[a] - m[d] - 2);
 		m[a]++;
@@ -119,11 +129,21 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
     /* GetRNGstate(); */
 
     for (i=0; i < *thin; i++) {
-	I2RAND(row, (*nr) - 1);
-	I2RAND(col, (*nc) - 1);
-	a = INDX(row[0], col[0], *nr);
-	b = INDX(row[0], col[1], *nr);
+	/* get corner item m[a] and its row and column index */
+	a = IRAND((*nr) * (*nc) - 1);
+	row[0] = a % (*nr);
+	col[0] = a / (*nr);
+	/* get its side-by-side neighbour in a different row */
+	do {row[1] = IRAND((*nr) - 1);} while (row[1] == row[0]);
 	c = INDX(row[1], col[0], *nr);
+	/* not swappable if neighbours are identical: bail out at
+	   probability (1-f)^2 + f^2 where f is the relative column
+	   fill */
+	if (m[a] == m[c])
+	    continue;
+	/* get second col and its items */
+	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
+	b = INDX(row[0], col[1], *nr);
 	d = INDX(row[1], col[1], *nr);
         /* there are 16 possible matrices, but only two can be
 	 * swapped. Find signature of each matrix with bitwise shift
@@ -157,7 +177,8 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 static void swap(int *m, int *nr, int *nc, int *thin)
 {
 
-    int i, a, b, c, d, row[2], col[2];
+    int i, a, b, c, d, row[2], col[2], nr1 = (*nr) - 1, nc1 = (*nc) -1,
+	n1 = (*nr) * (*nc) - 1;
     size_t intcheck;
 
     /* Get and Put RNG in calling C function */
@@ -168,22 +189,29 @@ static void swap(int *m, int *nr, int *nc, int *thin)
 	    if (intcheck % 10000 == 9999)
 		R_CheckUserInterrupt();
 	    intcheck++;
-	    I2RAND(row, (*nr) - 1);
-	    I2RAND(col, (*nc) - 1);
-	    a = INDX(row[0], col[0], *nr);
-	    b = INDX(row[0], col[1], *nr);
+	    /* see trialswap & quasiswap for the logic */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
 	    c = INDX(row[1], col[0], *nr);
-	    d = INDX(row[1], col[1], *nr);
-	    if(m[a] + m[b] + m[c] + m[d] != 2)
+	    /* bail out before next row if non-swappable */
+	    if (m[a] == m[c])
 		continue;
-	    if (m[a] == 1 && m[d] == 1) {
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], *nr);
+	    d = INDX(row[1], col[1], *nr);
+	    /* if we are here m[a] != m[c], and only three elements
+	       need be tested for the unique matrix -- start from
+	       tests that fail most likely */
+	    if (m[d] == 1 && m[a] == 1 && m[b] == 0) {
 		m[a] = 0;
 		m[d] = 0;
 		m[b] = 1;
 		m[c] = 1;
 		break;
 	    } 
-	    if (m[c] == 1 && m[b] == 1) {
+	    if (m[b] == 1 && m[c] == 1 && m[d] == 0) {
 		m[a] = 1;
 		m[d] = 1;
 		m[b] = 0;
@@ -236,8 +264,8 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
 	 * allocate nsp1 first to row[0] and the rest to row[1] */
 	if (nsp1 > 0 && nsp2 > 0) { /* something to swap? */
 	    for (j = ind; j >= nsp1; j--) {
-		tmp = uniq[j];
 		itmp = IRAND(j);
+		tmp = uniq[j];
 		uniq[j] = uniq[itmp];
 		uniq[itmp] = tmp;
 	    }
@@ -253,6 +281,218 @@ static void curveball(int *m, int *nr, int *nc, int *thin, int *uniq)
     }
 
     /* PutRNGstate(); */
+}
+
+/* boosted quasiswap: a variant of curveball that makes quasiswaps by
+ * rows and cand can reduce >1 values to 1. Normal quasiswap has to
+ * inspect a huge number of 2x2 submatrices to reduce all >1 values
+ * (in particular, the last one), but boosted quasiswap works on rows
+ * and quasiswaps equal number species up and down for each row, among
+ * these sum-of-squares reducing quasiswaps. The *work vector must be
+ * 2*nc, and thin is currently ignored. */
+
+
+/* BOOSTSAMPLE: swap all that can be swapped (0) or take a random
+   subsample (1) */
+#ifndef BOOSTSAMPLE
+#define BOOSTSAMPLE 1
+#endif
+
+static void boostedqswap(int *m, int nr, int nc, int *work)
+{
+    int i, j, k, n = nr * nc, tot, ss, isp1, isp2, isp,
+	row[2], intcheck;
+
+    /* ss (sum of squares) is equal to tot when all entries are 1 or
+     * 0 */
+    for(i = 0, tot = 0, ss = 0; i < n; i++) {
+	tot += m[i];
+	ss += m[i] * m[i];
+    }
+    /* quasiswap to binary matrix */
+    intcheck = 0;
+    while(ss > tot) {
+	I2RAND(row, nr-1);
+	/* find pairs that can be swapped individually */
+	for(j = 0, isp1 = -1, isp2 = -1; j < nc; j++) {
+	    k = j * nr;
+	    if (m[row[0] + k] == m[row[1] + k])
+		continue;
+	    /* must be different: first nc elements of work contains
+	     * cases where first row is larger, and elements after nc
+	     * where first is smaller */
+	    if (m[row[0] + k] > m[row[1] + k])
+		work[++isp1] = j;
+	    else {
+		isp2++;
+		work[isp2 + nc] = j;
+	    }
+	}
+	/* quasiswap min(isp1, isp2) + 1 elements */
+	if (isp1 > -1 && isp2 > -1) { /* something to quasiswap? */
+	    isp = (isp1 < isp2) ? isp1 : isp2;
+#if BOOSTSAMPLE
+	    /* If we swap all that we can (up to isp), species move in
+	     *  blocks and retain their co-occurrence patterns. In
+	     *  extreme cases (isp1 == isp2, no >1 values), picking
+	     *  same two rows in succession will be idempotent and
+	     *  reinstate the initial pattern. If we only swap a
+	     *  random number of possible swaps, we add randomness. If
+	     *  we think that we do not need to add randomness because
+	     *  we start from random configuration and only want to
+	     *  reduce >1 values to 1, we can swap all, and run about
+	     *  2x faster. */
+	    isp = IRAND(isp);
+#endif
+	    /* partial shuffle to discard elements > isp */
+	    if (isp1 > isp) {
+		for(j = isp1; j > isp; j--) {
+		    k = IRAND(j);
+		    work[k] = work[j]; /* throw away extra species */
+		}
+	    }
+	    if (isp2 > isp) {
+		for (j = isp2; j > isp; j--) {
+		    k = IRAND(j);
+		    work[k + nc] = work[j + nc];
+		}
+	    }
+	    /* quasiswap when row[0] > row[1] */
+	    for(j = 0; j <= isp; j++) {
+		k = work[j] * nr;
+		ss -= 2 * (m[row[0] + k] - m[row[1] + k]) - 2;
+		m[row[0] + k]--;
+		m[row[1] + k]++;
+	    }
+	    /* ... and when row[0] < row[1] */
+	    for(j = 0; j <= isp; j++) {
+		k = work[j + nc] * nr;
+		ss -= 2 * (m[row[1] + k] - m[row[0] + k]) - 2;
+		m[row[0] + k]++;
+		m[row[1] + k]--;
+	    }
+	}
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt(); /* may not terminate at all */
+	intcheck++;
+    } /* while(ss > tot) */
+}
+
+/* greedy quasiswapping: pick >1 cell as the upper right m[a] element
+ * (except when thinning). We collect a vector 'big' of indices of >1
+ * cells, and after each quasiswap update its members and length. We
+ * loop while 'big' has members. Each successfull quasiswap will
+ * produce a 2x2 submatrix with fill 3 or 4, and the result is heavily
+ * biased. With 'thin' we can mix ordinary quasiswap steps with greedy
+ * steps and the bias is much reduced even with modest thinning, but
+ * the time goes up with thin. */
+
+static void greedyqswap(int *m, int nr, int nc, int thin, int *big)
+{
+    int i, j, n, biglen, pick, row[2], col[2], nr1, nc1, a, b, c, d;
+    size_t intcheck;
+
+    nr1 = nr - 1;
+    nc1 = nc - 1;
+
+    /* big contains indices of cells > 1 */
+
+    n = nr * nc;
+    for (i = 0, biglen = -1; i < n; i++) {
+	if (m[i] > 1)
+	    big[++biglen] = i;
+    }
+
+    intcheck  = 0; /* check interrupts */
+    while (biglen > -1) {
+	for (i = 0; i < thin; i++) {
+	    /* pick one item to the m[a] corner */
+	    if (i == 0) { /* greedy! */
+		pick = IRAND(biglen);
+		a = big[pick];
+	    } else { /* thin! */
+		a = IRAND(n-1);
+	    }
+	    row[0] = a % nr;
+	    col[0] = a / nr;
+	    /* get the second item in the first column */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
+	    c = INDX(row[1], col[0], nr);
+	    /* unswappable if the first row is all zeros */
+	    if (m[a] == 0 && m[c] == 0)
+		continue;
+	    /* second column, third and fourth items */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], nr);
+	    d = INDX(row[1], col[1], nr);
+	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
+		m[a]--;
+		m[d]--;
+		m[b]++;
+		m[c]++;
+		/* Update big & biglen. a & d were decremented, and if
+		 * they now are 1, they are removed from big. We know
+		 * pick for a, but the location of d must be searched
+		 * in big. b & c were incremented and if they now are
+		 * 2, they must be added to big. */
+		if (m[a] == 1) {
+		    if (i == 0) { /* not thinning: know the pick */
+			big[pick] = big[biglen--];
+		    } else { /* thinning: must search in big */
+			for (j = 0; j <= biglen; j++) {
+			    if (a == big[j]) {
+				big[j] = big[biglen--];
+				break;
+			    }
+			}
+		    }
+		}
+		if (m[d] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (d == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[b] == 2)
+		    big[++biglen] = b;
+		if (m[c] == 2)
+		    big[++biglen] = c;
+	    } else if (m[c] > 0 && m[b] > 0 &&
+		       m[b] + m[c] - m[a] - m[d] >= 2) {
+		m[a]++;
+		m[d]++;
+		m[b]--;
+		m[c]--;
+		/* update is mirror operation of the one above */
+		if (m[b] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (b == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[c] == 1) {
+		    for (j = 0; j <= biglen; j++) {
+			if (c == big[j]) {
+			    big[j] = big[biglen--];
+			    break;
+			}
+		    }
+		}
+		if (m[a] == 2)
+		    big[++biglen] = a;
+		if (m[d] == 2)
+		    big[++biglen] = d;
+	    }
+	}
+	/* interrupt? */
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	intcheck++;
+    }
 }
 
 /* 'swapcount' is a C translation of Peter Solymos's R code. It is
@@ -726,6 +966,58 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     GetRNGstate();
     for(i = 0; i < ny; i++) {
 	qswap_fun(ix + i * N, &nr, &nc, &iarg4);
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return x;
+}
+
+/* boosted quasiswap: x must be 3D array similary as in do_qswap (no
+ * thin yet) */
+
+SEXP do_boostedqswap(SEXP x, SEXP nsim)
+{
+    int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim);
+    size_t i, N = nr * nc;
+    
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    /* allocate work vector */
+    int *work = (int *) R_alloc(2 * nc, sizeof(int));
+    
+    GetRNGstate();
+    for(i = 0; i < nmat; i++) {
+	boostedqswap(ix + i * N, nr, nc, work);
+    }
+    PutRNGstate();
+    UNPROTECT(1);
+    return x;
+}
+
+/* greedy quasiswap: x must be 3D array similarly as in do_qswap */
+
+SEXP do_greedyqswap(SEXP x, SEXP nsim, SEXP thin, SEXP fill)
+{
+    int nr = nrows(x), nc = ncols(x), nmat = asInteger(nsim),
+	ithin = asInteger(thin), ifill = asInteger(fill);
+    size_t i, N = nr * nc;
+    
+    if (TYPEOF(x) != INTSXP)
+	x = coerceVector(x, INTSXP);
+    PROTECT(x);
+    int *ix = INTEGER(x);
+
+    /* allocate work vector for > 1 items: the absolute maximum size
+     * is fill/2 when all entries are 2 */
+    ifill = ifill/2;
+    int *work = (int *) R_alloc(ifill, sizeof(int));
+    
+    GetRNGstate();
+    for(i = 0; i < nmat; i++) {
+	greedyqswap(ix + i * N, nr, nc, ithin, work);
     }
     PutRNGstate();
     UNPROTECT(1);
