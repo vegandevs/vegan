@@ -34,8 +34,33 @@
 #define I2RAND(vec, m) vec[0] = IRAND(m); \
     do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
 
-/*
- * Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
+
+/* utility function to find indices of 2x2 submatrix defined by its
+ * corner elements a & d using two random numbers. 'len' is the index
+ * of last eligible element (nr * nc - 1), 'nr' the number of rows,
+ * and 'acbd' the vector of returned indices. The matrix
+ *                a b
+ *                c d
+ * is returned in usual column-major mode as [a,c,b,d]
+ */
+
+static void get2x2(int len, int nr, int *acbd)
+{
+    int i0, j0, i, j;
+    acbd[0] = IRAND(len); /* a */
+    i0 = acbd[0] % nr;
+    j0 = acbd[0] / nr;
+    do {
+        acbd[3] = IRAND(len); /* d */
+        i = acbd[3] % nr;
+        j = acbd[3] / nr;
+    } while (i == i0 || j == j0);
+    acbd[1] = i + j0 * nr; /* c */
+    acbd[2] = i0 + j * nr; /* b */
+}
+
+
+/* Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
  * step takes a random 2x2 submatrix and adds (-1,+1,+1,-1). If the submatrix
  * was (1,0,0,1) it is swapped to (0,1,1,0), but if it was, say, (2,0,0,1) it
  * is swapped to (1,1,1,0) which reduces sums-of-squares. We start with a
