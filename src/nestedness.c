@@ -637,8 +637,7 @@ static int isDiagFill(int *sm)
 
 static void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed,
-	pm[4] = {1, -1, -1, 1} ;
+    int k, ij[4], changed, pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
     size_t intcheck;
 
@@ -648,12 +647,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	I2RAND(row, *nr - 1);
-	I2RAND(col, *nc - 1);
-	ij[0] = INDX(row[0], col[0], *nr);
-	ij[1] = INDX(row[1], col[0], *nr);
-	ij[2] = INDX(row[0], col[1], *nr);
-	ij[3] = INDX(row[1], col[1], *nr);
+	get2x2((*nr) * (*nc) - 1, *nr, ij);
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
@@ -680,8 +674,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
 
 static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
-    int row[2], col[2], i, k, ij[4], n, change, cfill,
-       pm[4] = {1, -1, -1, 1} ;
+    int i, k, ij[4], n, change, cfill, pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
     size_t intcheck;
 
@@ -698,12 +691,7 @@ static void rswapcount(int *m, int *nr, int *nc, int *mfill)
     intcheck = 0;
     while (cfill != *mfill) {
 	/* Select a random 2x2 matrix*/
-	I2RAND(row, *nr - 1);
-	I2RAND(col, *nc - 1);
-	ij[0] = INDX(row[0], col[0], *nr);
-	ij[1] = INDX(row[1], col[0], *nr);
-	ij[2] = INDX(row[0], col[1], *nr);
-	ij[3] = INDX(row[1], col[1], *nr);
+	get2x2(n - 1, (*nr), ij);
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
@@ -770,52 +758,45 @@ static int isDiagSimple(double *sm)
 
 static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], changed, ev;
+    int k, ij[4], changed, ev;
     size_t intcheck;
     double sm[4];
-
+    
     /* GetRNGstate in calling C code */
     /* GetRNGstate(); */
-
+    
     changed = 0;
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	 I2RAND(row, *nr - 1);
-	 I2RAND(col, *nc - 1);
-	 ij[0] = INDX(row[0], col[0], *nr);
-	 ij[1] = INDX(row[1], col[0], *nr);
-	 ij[2] = INDX(row[0], col[1], *nr);
-	 ij[3] = INDX(row[1], col[1], *nr);
-	 for (k = 0; k < 4; k++)
-	      sm[k] = m[ij[k]];
-	 ev = isDiagSimple(sm);
-	 /* Swap */
-	 if (ev == 1) {
-	      /* fixed column sums */
-	      if (*direct == 0) {
-		   m[ij[0]] = sm[1];
-		   m[ij[1]] = sm[0];
-		   m[ij[2]] = sm[3];
-		   m[ij[3]] = sm[2];
-	      }
-	      /* fixed row sums */
-	      else {
-		   m[ij[0]] = sm[2];
-		   m[ij[1]] = sm[3];
-		   m[ij[2]] = sm[0];
-		   m[ij[3]] = sm[1];
-	      }
-	      changed++;
-	 }
-	 if (intcheck % 10000 == 9999)
-	     R_CheckUserInterrupt();
-	 intcheck++;
+	get2x2((*nr) * (*nc) - 1, *nr, ij);
+	for (k = 0; k < 4; k++)
+	    sm[k] = m[ij[k]];
+	ev = isDiagSimple(sm);
+	/* Swap */
+	if (ev == 1) {
+	    /* fixed column sums */
+	    if (*direct == 0) {
+		m[ij[0]] = sm[1];
+		m[ij[1]] = sm[0];
+		m[ij[2]] = sm[3];
+		m[ij[3]] = sm[2];
+	    }
+	    /* fixed row sums */
+	    else {
+		m[ij[0]] = sm[2];
+		m[ij[1]] = sm[3];
+		m[ij[2]] = sm[0];
+		m[ij[3]] = sm[1];
+	    }
+	    changed++;
+	}
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	intcheck++;
     }
-    
     /* PutRNGstate(); */
 }
-
 
 /* .Call wrappers to nestedness functions for make.commsim.R */
 
