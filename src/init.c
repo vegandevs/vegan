@@ -15,9 +15,6 @@ extern void primtree(void *, void *, void *, void *, void *);
 extern void stepabyss(void *, void *, void *, void *);
 
 /* .Call calls */
-extern SEXP test_2x2(SEXP, SEXP); /* testing */
-extern SEXP test_3minus(SEXP, SEXP); /* testing */
-extern SEXP test_4(SEXP, SEXP); /* testing */
 extern SEXP do_abuswap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_boostedqswap(SEXP, SEXP);
 extern SEXP do_greedyqswap(SEXP, SEXP, SEXP, SEXP);
@@ -54,9 +51,6 @@ static const R_CMethodDef CEntries[] = {
 };
 
 static const R_CallMethodDef CallEntries[] = {
-    {"test_2x2",     (DL_FUNC) &test_2x2,     2}, /* testing */
-    {"test_3minus",  (DL_FUNC) &test_3minus,  2}, /* testing */
-    {"test_4",       (DL_FUNC) &test_4,       2}, /* testing */
     {"do_abuswap",   (DL_FUNC) &do_abuswap,   4},
     {"do_boostedqswap",(DL_FUNC) &do_boostedqswap, 2},
     {"do_chaoterms", (DL_FUNC) &do_chaoterms, 1},
