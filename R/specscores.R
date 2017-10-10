@@ -46,4 +46,14 @@
     specscores.dbrda(object, comm)
 }
 
+## metaMDS
 
+`specscores.metaMDS` <-
+    function(object, comm, expand = TRUE)
+{
+    if (any(!is.na(object$species)))
+        warning("function overwrites old species scores")
+    wa <- wascores(object$points, comm, expand = expand)
+    object$species <- wa
+    object
+}
