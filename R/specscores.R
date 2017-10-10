@@ -36,5 +36,14 @@
     object
 }
 
+## capscale may have species scores, but is otherwise similar to dbrda
+
+`specscores.capscale` <-
+    function(object, comm)
+{
+    if (any(!is.na(object$colsum)))
+        warning("function overwrites old species scores")
+    specscores.dbrda(object, comm)
+}
 
 
