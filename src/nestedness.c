@@ -78,7 +78,7 @@ static void get2x2(int len, int nr, int *acbd)
 
 static void quasiswap(int *m, int *nr, int *nc, int *thin)
 {
-    int i, n, mtot, ss, acbd[4], n1, nr1, nc1, a, b, c, d;
+    int i, n, mtot, ss, row[2], col[2], n1, nr1, nc1, a, b, c, d;
     size_t intcheck;
 
     nr1 = (*nr) - 1;
@@ -101,13 +101,22 @@ static void quasiswap(int *m, int *nr, int *nc, int *thin)
     intcheck  = 0; /* check interrupts */
     while (ss > mtot) {
 	for (i = 0; i < *thin; i++) {
-	    /* get a 2x2 matrix and its incides */
-	    get2x2(n1, *nr, acbd);
-	    a = acbd[0];
-	    c = acbd[1];
-	    b = acbd[2];
-	    d = acbd[3];
-	    /* quasiswap when you can */
+	    /* first item and its row & column indices */
+	    a = IRAND(n1);
+	    row[0] = a % (*nr);
+	    col[0] = a / (*nr);
+	    /* neighbour from the same col but different row */
+	    do {row[1] = IRAND(nr1);} while (row[1] == row[0]);
+	    c = INDX(row[1], col[0], *nr);
+	    /* if neighbours are both zero, cannot be quasiswapped
+	       (probability (1-f)^2 with relative col fill f) */
+	    if (m[c] == 0 && m[a] == 0)
+		continue;
+	    /* second col */
+	    do {col[1] = IRAND(nc1);} while (col[1] == col[0]);
+	    b = INDX(row[0], col[1], *nr);
+	    d = INDX(row[1], col[1], *nr);
+	    /* m[a] has 50% chance of being > 0, m[d] less, so have it first */
 	    if (m[d] > 0 && m[a] > 0 && m[a] + m[d] - m[b] - m[c] >= 2) {
 		ss -= 2 * (m[a] + m[d] - m[b] - m[c] - 2);
 		m[a]--;
