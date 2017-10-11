@@ -34,8 +34,33 @@
 #define I2RAND(vec, m) vec[0] = IRAND(m); \
     do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
 
-/*
- * Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
+
+/* utility function to find indices of 2x2 submatrix defined by its
+ * corner elements a & d using two random numbers. 'len' is the index
+ * of last eligible element (nr * nc - 1), 'nr' the number of rows,
+ * and 'acbd' the vector of returned indices. The matrix
+ *                a b
+ *                c d
+ * is returned in usual column-major mode as [a,c,b,d]
+ */
+
+static void get2x2(int len, int nr, int *acbd)
+{
+    int i0, j0, i, j;
+    acbd[0] = IRAND(len); /* a */
+    i0 = acbd[0] % nr;
+    j0 = acbd[0] / nr;
+    do {
+        acbd[3] = IRAND(len); /* d */
+        i = acbd[3] % nr;
+        j = acbd[3] / nr;
+    } while (i == i0 || j == j0);
+    acbd[1] = i + j0 * nr; /* c */
+    acbd[2] = i0 + j * nr; /* b */
+}
+
+
+/* Quasiswap or sum-of-squares reducing swap of Miklos & Podani. A quasiswap
  * step takes a random 2x2 submatrix and adds (-1,+1,+1,-1). If the submatrix
  * was (1,0,0,1) it is swapped to (0,1,1,0), but if it was, say, (2,0,0,1) it
  * is swapped to (1,1,1,0) which reduces sums-of-squares. We start with a
@@ -612,8 +637,7 @@ static int isDiagFill(int *sm)
 
 static void swapcount(int *m, int *nr, int *nc, int *thin)
 {
-    int row[2], col[2], k, ij[4], changed,
-	pm[4] = {1, -1, -1, 1} ;
+    int k, ij[4], changed, pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
     size_t intcheck;
 
@@ -623,12 +647,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	I2RAND(row, *nr - 1);
-	I2RAND(col, *nc - 1);
-	ij[0] = INDX(row[0], col[0], *nr);
-	ij[1] = INDX(row[1], col[0], *nr);
-	ij[2] = INDX(row[0], col[1], *nr);
-	ij[3] = INDX(row[1], col[1], *nr);
+	get2x2((*nr) * (*nc) - 1, *nr, ij);
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
@@ -655,8 +674,7 @@ static void swapcount(int *m, int *nr, int *nc, int *thin)
 
 static void rswapcount(int *m, int *nr, int *nc, int *mfill)
 {
-    int row[2], col[2], i, k, ij[4], n, change, cfill,
-       pm[4] = {1, -1, -1, 1} ;
+    int i, k, ij[4], n, change, cfill, pm[4] = {1, -1, -1, 1} ;
     int sm[4], ev;
     size_t intcheck;
 
@@ -673,12 +691,7 @@ static void rswapcount(int *m, int *nr, int *nc, int *mfill)
     intcheck = 0;
     while (cfill != *mfill) {
 	/* Select a random 2x2 matrix*/
-	I2RAND(row, *nr - 1);
-	I2RAND(col, *nc - 1);
-	ij[0] = INDX(row[0], col[0], *nr);
-	ij[1] = INDX(row[1], col[0], *nr);
-	ij[2] = INDX(row[0], col[1], *nr);
-	ij[3] = INDX(row[1], col[1], *nr);
+	get2x2(n - 1, (*nr), ij);
 	for (k = 0; k < 4; k ++)
 	    sm[k] = m[ij[k]];
 	/* The largest value that can be swapped */
@@ -745,52 +758,45 @@ static int isDiagSimple(double *sm)
 
 static void abuswap(double *m, int *nr, int *nc, int *thin, int *direct)
 {
-    int row[2], col[2], k, ij[4], changed, ev;
+    int k, ij[4], changed, ev;
     size_t intcheck;
     double sm[4];
-
+    
     /* GetRNGstate in calling C code */
     /* GetRNGstate(); */
-
+    
     changed = 0;
     intcheck = 0;
     while (changed < *thin) {
 	/* Select a random 2x2 matrix*/
-	 I2RAND(row, *nr - 1);
-	 I2RAND(col, *nc - 1);
-	 ij[0] = INDX(row[0], col[0], *nr);
-	 ij[1] = INDX(row[1], col[0], *nr);
-	 ij[2] = INDX(row[0], col[1], *nr);
-	 ij[3] = INDX(row[1], col[1], *nr);
-	 for (k = 0; k < 4; k++)
-	      sm[k] = m[ij[k]];
-	 ev = isDiagSimple(sm);
-	 /* Swap */
-	 if (ev == 1) {
-	      /* fixed column sums */
-	      if (*direct == 0) {
-		   m[ij[0]] = sm[1];
-		   m[ij[1]] = sm[0];
-		   m[ij[2]] = sm[3];
-		   m[ij[3]] = sm[2];
-	      }
-	      /* fixed row sums */
-	      else {
-		   m[ij[0]] = sm[2];
-		   m[ij[1]] = sm[3];
-		   m[ij[2]] = sm[0];
-		   m[ij[3]] = sm[1];
-	      }
-	      changed++;
-	 }
-	 if (intcheck % 10000 == 9999)
-	     R_CheckUserInterrupt();
-	 intcheck++;
+	get2x2((*nr) * (*nc) - 1, *nr, ij);
+	for (k = 0; k < 4; k++)
+	    sm[k] = m[ij[k]];
+	ev = isDiagSimple(sm);
+	/* Swap */
+	if (ev == 1) {
+	    /* fixed column sums */
+	    if (*direct == 0) {
+		m[ij[0]] = sm[1];
+		m[ij[1]] = sm[0];
+		m[ij[2]] = sm[3];
+		m[ij[3]] = sm[2];
+	    }
+	    /* fixed row sums */
+	    else {
+		m[ij[0]] = sm[2];
+		m[ij[1]] = sm[3];
+		m[ij[2]] = sm[0];
+		m[ij[3]] = sm[1];
+	    }
+	    changed++;
+	}
+	if (intcheck % 10000 == 9999)
+	    R_CheckUserInterrupt();
+	intcheck++;
     }
-    
     /* PutRNGstate(); */
 }
-
 
 /* .Call wrappers to nestedness functions for make.commsim.R */
 
