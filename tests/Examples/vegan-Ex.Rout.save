@@ -6040,17 +6040,17 @@ Matrix sums retained: 100 %
 Matrix fill retained: 100 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    2.02 %
+Row incidences retained:    5.05 %
 Column incidences retained: 6.06 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3667  0.4333  0.4202  0.4667  0.6333 
+ 0.2333  0.3667  0.4333  0.4256  0.5000  0.6000 
 
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  15.63   19.38   21.19   21.53   23.44   29.08 
+  15.72   19.68   21.57   21.62   23.29   29.71 
 > ## Unrestricted permutation retaining
 > ## row/columns sums but not matrix fill:
 > x2 <- permatfull(m)
@@ -6071,20 +6071,20 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 18.18 %
+Matrix fill retained: 14.14 %
 Row sums retained:    100 %
 Column sums retained: 100 %
 Row incidences retained:    0 %
-Column incidences retained: 1.01 %
+Column incidences retained: 3.03 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.1667  0.3333  0.4000  0.3754  0.4333  0.5667 
+ 0.2000  0.3333  0.3667  0.3811  0.4333  0.5333 
 
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  7.857  12.645  15.649  16.407  20.239  33.149 
+  7.888  11.693  15.044  15.513  18.486  27.115 
 > ## Unrestricted permutation of presence-absence type
 > ## not retaining row/columns sums:
 > x3 <- permatfull(m, "none", mtype="prab")
@@ -6113,19 +6113,19 @@ Number of permuted matrices: 99
 
 Matrix sums retained: 100 %
 Matrix fill retained: 100 %
-Row sums retained:    2.02 %
+Row sums retained:    3.03 %
 Column sums retained: 0 %
-Row incidences retained:    2.02 %
+Row incidences retained:    3.03 %
 Column incidences retained: 0 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3333  0.4000  0.3643  0.4000  0.5333 
+ 0.2000  0.3333  0.4000  0.3811  0.4000  0.5333 
 
 Chi-squared for original matrix: 8.4
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  8.354  13.344  15.062  15.281  17.177  21.333 
+  6.688  13.312  14.938  15.161  17.021  21.688 
 > ## Restricted permutation,
 > ## check sums within strata:
 > x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -6146,21 +6146,21 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 49.49 %
+Matrix fill retained: 48.48 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    7.07 %
+Row incidences retained:    4.04 %
 Column incidences retained: 3.03 %
 Sums within strata retained: 100 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.06667 0.20000 0.20000 0.21953 0.26667 0.40000 
+0.06667 0.20000 0.20000 0.23232 0.26667 0.46667 
 
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  14.21   18.28   19.84   20.85   23.01   32.63 
+  14.21   18.88   21.21   22.03   24.10   38.26 
 > 
 > ## NOTE: 'times' argument usually needs to be >= 99
 > ## here much lower value is used for demonstration
@@ -6191,17 +6191,17 @@ arima(x = bc, order = c(1, 0, 0))
 
 Coefficients:
          ar1  intercept
-      0.9914     0.1847
-s.e.  0.0122     0.1343
+      0.9916     0.1849
+s.e.  0.0119     0.1400
 
-sigma^2 estimated as 0.0003348:  log likelihood = 47.03,  aic = -88.06
+sigma^2 estimated as 0.0003517:  log likelihood = 46.55,  aic = -87.09
 > ## Ljung-Box test of residuals
 > Box.test(residuals(mar))
 
 	Box-Pierce test
 
 data:  residuals(mar)
-X-squared = 0.0010721, df = 1, p-value = 0.9739
+X-squared = 3.3312e-05, df = 1, p-value = 0.9954
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -9199,7 +9199,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.08 0.112 26.196 0 0 
+Time elapsed:  26.14 0.124 26.357 0 0 
 > grDevices::dev.off()
 null device 
           1 
