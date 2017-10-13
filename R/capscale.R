@@ -25,6 +25,7 @@
         X <- as.dist(X)
     if (!inherits(X, "dist")) {
         comm <- X
+        vdata <- as.character(formula[[2]])
         dfun <- match.fun(dfun)
         if (metaMDSdist) {
             commname <- as.character(formula[[2]])
@@ -35,6 +36,11 @@
         } else {
             X <- dfun(X, distance)
         }
+    } else { # vdata name
+        if (missing(comm))
+            vdata <- NULL
+        else
+            vdata <- deparse(substitute(comm))
     }
     inertia <- attr(X, "method")
     if (is.null(inertia))
@@ -100,6 +106,7 @@
         sol$CA$imaginary.u.eig <- X$negaxes
     }
     if (!is.null(comm)) {
+        sol$vdata <- vdata
         comm <- scale(comm, center = TRUE, scale = FALSE)
         sol$colsum <- apply(comm, 2, sd)
         ## take a 'subset' of the community after scale()
