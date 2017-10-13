@@ -5,31 +5,31 @@
 #'
 #' @rdname specscores
 #' @export
-`specscores` <-
-    function(object, comm)
+`sppscores<-` <-
+    function(object, value)
 {
-    UseMethod("specscores")
+    UseMethod("sppscores<-")
 }
 #' importFrom stat
 #'
 #' @rdname specscores
 #' @export
-`specscores.dbrda` <-
-    function(object, comm)
+`sppscores<-.dbrda` <-
+    function(object, value)
 {
-    comm <- scale(comm, center = TRUE, scale = FALSE)
-    object$colsum <- apply(comm, 2, sd)
+    value <- scale(value, center = TRUE, scale = FALSE)
+    object$colsum <- apply(value, 2, sd)
     if (!is.null(object$pCCA) && object$pCCA$rank > 0) {
-        comm <- qr.resid(object$pCCA$QR, comm)
+        comm <- qr.resid(object$pCCA$QR, value)
     }
     if (!is.null(object$CCA) && object$CCA$rank > 0) {
-        v <- crossprod(comm, object$CCA$u)
+        v <- crossprod(value, object$CCA$u)
         v <- decostand(v, "normalize", MARGIN = 2)
         object$CCA$v <- v
-        comm <- qr.resid(object$CCA$QR, comm)
+        value <- qr.resid(object$CCA$QR, value)
     }
     if (!is.null(object$CA) && object$CA$rank > 0) {
-        v <- crossprod(comm, object$CA$u)
+        v <- crossprod(value, object$CA$u)
         v <- decostand(v, "normalize", MARGIN = 2)
         object$CA$v <- v
     }
@@ -38,22 +38,22 @@
 
 ## capscale may have species scores, but is otherwise similar to dbrda
 
-`specscores.capscale` <-
-    function(object, comm)
+`sppscores<-.capscale` <-
+    function(object, value)
 {
     if (any(!is.na(object$colsum)))
         warning("function overwrites old species scores")
-    specscores.dbrda(object, comm)
+    `sppscores<-.dbrda`(object, value)
 }
 
 ## metaMDS
 
-`specscores.metaMDS` <-
-    function(object, comm, expand = TRUE)
+`sppscores<-.metaMDS` <-
+    function(object, value)
 {
     if (any(!is.na(object$species)))
         warning("function overwrites old species scores")
-    wa <- wascores(object$points, comm, expand = expand)
+    wa <- wascores(object$points, value, expand = TRUE)
     object$species <- wa
     object
 }
