@@ -39,8 +39,6 @@
 `sppscores<-.capscale` <-
     function(object, value)
 {
-    if (any(!is.na(object$colsum)))
-        warning("function overwrites old species scores")
     `sppscores<-.dbrda`(object, value)
 }
 
@@ -49,9 +47,6 @@
 `sppscores<-.metaMDS` <-
     function(object, value)
 {
-    if (any(!is.na(object$species)))
-        warning("function overwrites old species scores")
-    wa <- wascores(object$points, value, expand = TRUE)
-    object$species <- wa
+    object$species <- wascores(object$points, value, expand = TRUE)
     object
 }
