@@ -47,6 +47,8 @@
 `sppscores<-.metaMDS` <-
     function(object, value)
 {
-    object$species <- wascores(object$points, value, expand = TRUE)
+    wa <- wascores(object$points, value, expand = TRUE)
+    attr(wa, "data") <- deparse(substitute(value))
+    object$species <- wa
     object
 }
