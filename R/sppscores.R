@@ -1,19 +1,17 @@
 #' Add Species Scores to Ordination Results
 #'
 #' @param object Ordination object
-#' @param comm Community data
+#' @param value Community data
 #'
-#' @rdname specscores
-#' @export
+
 `sppscores<-` <-
     function(object, value)
 {
     UseMethod("sppscores<-")
 }
-#' importFrom stat
-#'
-#' @rdname specscores
-#' @export
+
+## dbrda
+
 `sppscores<-.dbrda` <-
     function(object, value)
 {
