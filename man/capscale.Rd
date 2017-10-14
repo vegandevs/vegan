@@ -40,8 +40,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     they can be transformed within the formula, and they can have
     interactions as in a typical \code{\link{formula}}. The RHS can have a
     special term \code{Condition} that defines variables to be
-    ``partialled out'' before constraints, just like in \code{\link{rda}}
-    or \code{\link{cca}}. This allows the use of partial CAP.}
+    \dQuote{partialled out} before constraints, just like in \code{\link{rda}}
+    or \code{\link{cca}}. This allows the use of partial dbRDA.}
   \item{data}{ Data frame containing the variables on the right hand side of
     the model formula. }
   \item{distance}{The name of the dissimilarity (or distance) index if
@@ -53,13 +53,15 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \item{comm}{ Community data frame which will be used for finding
     species scores when the LHS of the \code{formula} was a
     dissimilarity matrix. This is not used if the LHS is a data
-    frame. If this is not supplied, the ``species scores'' are
-    unavailable. N.B., this is only available in \code{capscale}.}
+    frame. If this is not supplied, the \dQuote{species scores} are
+    unavailable when dissimilarities were supplied. N.B., this is
+    only available in \code{capscale}: \code{dbrda} does not return
+    species scores.}
 
   \item{add}{Add a constant to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying Principal
      Co-ordinates Analysis (see \code{\link{wcmdscale}} for
-     details). Choice \code{"lingoes"} (or \code{TRUE}) use the
+     details). \code{"lingoes"} (or \code{TRUE}) uses the
      recommended method of Legendre & Anderson (1999: \dQuote{method
      1}) and \code{"cailliez"} uses their \dQuote{method 2}. The
      latter is the only one in \code{\link{cmdscale}}.}
@@ -85,8 +87,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      expression which can contain variables in the working
      environment, \code{data} or species names of the community data
      (if given in the formula or as \code{comm} argument).}
-   \item{\dots}{Other parameters passed to \code{\link{rda}} or to
-     \code{\link{metaMDSdist}}.  }
+   \item{\dots}{Other parameters passed to underlying functions (e.g.,
+     \code{\link{metaMDSdist}}).  }
 }
 \details{
 
@@ -94,7 +96,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   implementations of dbRDA. Function \code{capscale} is based on
   Legendre & Anderson (1999): the dissimilarity data are first
   ordinated using metric scaling, and the ordination results are
-  analysed with \code{\link{rda}}. Function \code{dbrda} is based on
+  analysed as \code{\link{rda}}. Function \code{dbrda} is based on
   McArdle & Anderson (2001) and directly decomposes
   dissimilarities. It does not use \code{\link{rda}} but a parallel
   implementation adapted for analysing dissimilarities and returns a
@@ -111,28 +113,24 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \code{\link{vegdist}} or distance function given in \code{dfun} with
   specified \code{distance}. The functions will accept distance
   objects from \code{\link{vegdist}}, \code{\link{dist}}, or any other
-  method producing similar objects. The constraining variables can be
+  method producing compatible objects. The constraining variables can be
   continuous or factors or both, they can have interaction terms, or
   they can be transformed in the call. Moreover, there can be a
   special term \code{Condition} just like in \code{\link{rda}} and
-  \code{\link{cca}} so that ``partial'' analysis can be performed.
+  \code{\link{cca}} so that \dQuote{partial} analysis can be performed.
 
   Non-Euclidean dissimilarities can produce negative eigenvalues
-  (Legendre & Anderson 1999, McArdle & Anderson 2001). The total
-  inertia and \code{\link{anova.cca}} tests for constraints will also
-  include the effects of imaginary axes with negative eigenvalues
-  following McArdle & Anderson (2001). If there are negative
-  eigenvalues, the printed output of \code{capscale} will add a column
-  with sums of positive eigenvalues and an item of sum of negative
-  eigenvalues, and \code{dbrda} will add a column giving the number of
-  real dimensions with postive eigenvalues.  If negative eigenvalues
-  are disturbing, functions let you to distort the
+  (Legendre & Anderson 1999, McArdle & Anderson 2001).  If there are
+  negative eigenvalues, the printed output of \code{capscale} will add
+  a column with sums of positive eigenvalues and an item of sum of
+  negative eigenvalues, and \code{dbrda} will add a column giving the
+  number of real dimensions with postive eigenvalues.  If negative
+  eigenvalues are disturbing, functions let you to distort the
   dissimilarities so that only non-negative eigenvalues will be
-  produced with argument \code{add = TRUE} (this argument is passed
-  to \code{\link{cmdscale}}). Alternatively, with
-  \code{sqrt.dist = TRUE}, square roots of dissimilarities will be used
-  which may help in avoiding negative eigenvalues (Legendre & Anderson
-  1999).
+  produced with argument \code{add = TRUE}. Alternatively, with
+  \code{sqrt.dist = TRUE}, square roots of dissimilarities will be
+  used which may help in avoiding negative eigenvalues (Legendre &
+  Anderson 1999).
 
   The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
@@ -177,20 +175,21 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   2003), but these developments made it similar to dbRDA. However, it
   discards the imaginary dimensions with negative eigenvalues and
   ordination and significance tests area only based on real dimensions
-  and positive eigenvalus.
+  and positive eigenvalues.
 
   The inertia is named after the dissimilarity index as defined in the
-  dissimilarity data, or as \code{unknown distance} if such an
+  dissimilarity data, or as \code{unknown distance} if such
   information is missing. If the largest original dissimilarity was
   larger than 4, \code{capscale} handles input similarly as \code{rda}
-  and bases its analysis on variance instead of sum of squares. Keyword
-  \code{mean} is added to the inertia in these cases, e.g. with
-  Euclidean and Manhattan distances.  Inertia is based on squared index,
-  and keyword \code{squared} is added to the name of distance, unless
-  data were square root transformed (argument \code{sqrt.dist=TRUE}). If
-  an additive constant was used with argument \code{add}, \code{Lingoes}
-  or \code{Cailliez adjusted} is added to the the name of inertia, and
-  the value of the constant is printed.}
+  and bases its analysis on variance instead of sum of
+  squares. Keyword \code{mean} is added to the inertia in these cases,
+  e.g. with Euclidean and Manhattan distances.  Inertia is based on
+  squared index, and keyword \code{squared} is added to the name of
+  distance, unless data were square root transformed (argument
+  \code{sqrt.dist=TRUE}). If an additive constant was used with
+  argument \code{add}, \code{Lingoes} or \code{Cailliez adjusted} is
+  added to the the name of inertia, and the value of the constant is
+  printed.}
 
 
 \seealso{\code{\link{rda}}, \code{\link{cca}}, \code{\link{plot.cca}},
