@@ -27,7 +27,7 @@ poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
 protest, radfit, radlattice, rankindex, rarefy, rarecurve, rareslope,
 raupcrick, rda, renyiaccum, renyi, rrarefy, scores,
 showvarparts, simper, spandepth, spantree, specaccum, specslope,
-specnumber, specpool2vect, specpool, spenvcor,
+specnumber, specpool2vect, specpool, spenvcor, "sppscores<-",
 stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, avgdist, vegemite, veiledspec, wascores,
@@ -467,6 +467,10 @@ S3method(simulate, nullmodel)
 # specslope: vegan
 S3method(specslope, specaccum)
 S3method(specslope, fitspecaccum)
+## sppscores<-: vegan
+S3method("sppscores<-", capscale)
+S3method("sppscores<-", dbrda)
+S3method("sppscores<-", metaMDS)
 # SSD: stats
 S3method(SSD, cca)
 # str: utils
