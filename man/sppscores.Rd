@@ -1,4 +1,5 @@
 \name{sppscores}
+\alias{sppscores}
 \alias{sppscores<-}
 \alias{sppscores<-.dbrda}
 \alias{sppscores<-.capscale}

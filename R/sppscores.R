@@ -55,3 +55,13 @@
     object$species <- wa
     object
 }
+
+## the main purpose of accessor function is to provide nicer command
+## autocompletion and cross-references in help, and of course, to tell
+## that it is not implemented (and may never be)
+
+`sppscores` <-
+    function(object)
+{
+    .NotYetImplemented()
+}
