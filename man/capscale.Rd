@@ -56,7 +56,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     frame. If this is not supplied, the \dQuote{species scores} are
     unavailable when dissimilarities were supplied. N.B., this is
     only available in \code{capscale}: \code{dbrda} does not return
-    species scores.}
+    species scores. Function \code{\link{sppscores}} can be used to add
+    species scores if they are missing.}
 
   \item{add}{Add a constant to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying Principal
@@ -118,6 +119,10 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   they can be transformed in the call. Moreover, there can be a
   special term \code{Condition} just like in \code{\link{rda}} and
   \code{\link{cca}} so that \dQuote{partial} analysis can be performed.
+
+  Function \code{dbrda} does not return species scores, and they can
+  also be missing in \code{capscale}, but they can be added after the
+  analysis using function \code{\link{sppscores}}.
 
   Non-Euclidean dissimilarities can produce negative eigenvalues
   (Legendre & Anderson 1999, McArdle & Anderson 2001).  If there are
@@ -194,7 +199,9 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 \seealso{\code{\link{rda}}, \code{\link{cca}}, \code{\link{plot.cca}},
   \code{\link{anova.cca}}, \code{\link{vegdist}},
-  \code{\link{dist}}, \code{\link{cmdscale}}, \code{\link{wcmdscale}}.
+  \code{\link{dist}}, \code{\link{cmdscale}}, \code{\link{wcmdscale}}
+  for underlying and related functions. Function \code{\link{sppscores}}
+  can add species scores or replace existing species scores.
 
   The function returns similar result object as \code{\link{rda}} (see
   \code{\link{cca.object}}). This section for \code{\link{rda}} gives a
