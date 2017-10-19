@@ -32,6 +32,9 @@
     cs <- which(colnames(tbl) == "Rank") - 1
     printCoefmat(tbl, digits = digits, na.print = "", cs.ind = seq_len(cs))
     cat("Inertia is", x$inertia, "\n")
+    ## data used for species scores in db ordination
+    if (!is.null(x$vdata))
+        cat("Species scores projected from", sQuote(x$vdata), "\n")
     if (!is.null(x$CCA$alias))
         cat("Some constraints were aliased because they were collinear (redundant)\n")
     ## Report removed observations and species

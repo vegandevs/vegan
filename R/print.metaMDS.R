@@ -1,5 +1,5 @@
 `print.metaMDS` <-
-    function (x, ...) 
+    function (x, ...)
 {
     cat("\nCall:\n")
     cat(deparse(x$call), "\n\n")
@@ -17,29 +17,32 @@
             cat(", ", c("weak", "strong")[x$ities], " ties", sep = "")
         cat("\n")
     }
-    if (x$converged) { 
-        cat("Two convergent solutions found after", x$tries, 
+    if (x$converged) {
+        cat("Two convergent solutions found after", x$tries,
             "tries\n")
     } else {
-        cat("No convergent solutions - best solution after", 
+        cat("No convergent solutions - best solution after",
             x$tries, "tries\n")
     }
     z <- x$points
     scal <- c(if (attr(z, "centre")) "centring",
               if (attr(z, "pc")) "PC rotation",
               if (attr(z, "halfchange")) "halfchange scaling")
-    if (!length(scal)) 
+    if (!length(scal))
         scal <- "as is"
     cat("Scaling:", paste(scal, collapse = ", "), "\n")
     if (all(is.na(x$species))) {
         cat("Species: scores missing\n")
     } else {
         spattr <- attr(x$species, "shrinkage")
+        spdata <- attr(x$species, "data")
+        if (is.null(spdata))
+            spdata <- x$data
         if (is.null(spattr))
             cat("Species: non-expanded scores ")
         else
             cat("Species: expanded scores ")
-        cat("based on", sQuote(x$data), "\n")
+        cat("based on", sQuote(spdata), "\n")
     }
     cat("\n")
     invisible(x)

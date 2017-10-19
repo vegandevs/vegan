@@ -195,7 +195,10 @@
   \pkg{vegan} has two functions for distance-based Redundancy
   analysis: \code{\link{capscale}} and \code{\link{dbrda}}.  Function
   \code{\link{capscale}} uses \code{\link{rda}} and returns its result
-  object, but it may add some items depending on its arguments:
+  object. Species scores are not directly available in distance-based
+  ordination but they are calculated after the analysis if community
+  data were available. The function can add some items depending on
+  its arguments:
   
   \describe{
     \item{\code{metaMDSdist}}{The data set name if 
@@ -210,6 +213,10 @@
       of sum of squares. For \eqn{n} observations this is
       \eqn{\sqrt{n-1}}{sqrt(n-1)} or \eqn{1} if adjustment was not
       done.}
+    \item{\code{vdata}}{Species scores (matrix \code{v}) may be
+      missing, but if they are present, this item gives the name of
+      the data that were used to calculate them.}
+     
   }
 
   Function \code{\link{dbrda}} does not use \code{\link{rda}} but
@@ -225,7 +232,10 @@
       eigenvalues) is given in item \code{poseig}. There is no
       \code{imaginary.u.eig}. The \code{ordConstrained} function returns
       all eigen vectors in one matrix, and the split is only made in the
-      \code{\link{dbrda}} function that calls \code{ordConstrained}.} }
+      \code{\link{dbrda}} function that calls \code{ordConstrained}.}
+
+   \item{\code{v}}{or species scores are not calculated.}
+   }
       
   }
 
