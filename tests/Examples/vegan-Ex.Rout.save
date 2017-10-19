@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-09-11 r73238) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-10-16 r73554) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -438,7 +438,7 @@ dune ~ Moisture
 + A1          1 86.992 1.2624  0.180   
 + Use         2 87.259 1.2760  0.160   
 + Manure      4 87.342 1.3143  0.115   
-- Moisture    3 87.657 2.2536  0.005 **
+- Moisture    3 87.657 2.2536  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
@@ -1699,6 +1699,7 @@ Constrained    0.99717    0.21943    3
 Unconstrained  2.82904    0.62253   15
 Imaginary     -0.25896   -0.05698    8
 Inertia is squared Bray distance 
+Species scores projected from ‘varespec’ 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -1734,6 +1735,7 @@ Conditional    1.0468     0.1675    1
 Constrained    1.1956     0.1913    3
 Unconstrained  4.0073     0.6412   19
 Inertia is Lingoes adjusted squared Bray distance 
+Species scores projected from ‘varespec’ 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -1758,6 +1760,7 @@ Conditional    0.9535     0.1372    1
 Constrained    1.2267     0.1765    3
 Unconstrained  4.7698     0.6863   19
 Inertia is Bray distance 
+Species scores projected from ‘varespec’ 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -1780,6 +1783,7 @@ Total          2.54753
 Unconstrained  2.59500   19
 Imaginary     -0.04747    4
 Inertia is squared Bray distance 
+Species scores projected from ‘varespec’ 
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
@@ -5749,7 +5753,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-18. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-22. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -7784,6 +7788,33 @@ se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 
 detaching ‘dune.env’
 
+> nameEx("sppscores")
+> ### * sppscores
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sppscores
+> ### Title: Add or Replace Species Scores in Distance-Based Ordination
+> ### Aliases: sppscores sppscores<- sppscores<-.dbrda sppscores<-.capscale
+> ###   sppscores<-.metaMDS
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(BCI, BCI.env)
+> mod <- dbrda(vegdist(BCI) ~ Habitat, BCI.env)
+> ## add species scores
+> sppscores(mod) <- BCI
+> ## Euclidean distances of BCI differ from used dissimilarity
+> plot(vegdist(BCI), dist(BCI))
+> ## more linear relationship
+> plot(vegdist(BCI), dist(sqrt(decostand(BCI, "total"))))
+> ## better species scores
+> sppscores(mod) <- sqrt(decostand(BCI, "total"))
+> 
+> 
+> 
+> cleanEx()
 > nameEx("stepacross")
 > ### * stepacross
 > 
@@ -8076,6 +8107,7 @@ Total          2.1834
 Unconstrained  2.3439   10
 Imaginary     -0.1605    9
 Inertia is squared Treedist distance 
+Species scores projected from ‘dune’ 
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10 
@@ -9199,7 +9231,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.14 0.124 26.357 0 0 
+Time elapsed:  26.736 0.128 26.975 0 0 
 > grDevices::dev.off()
 null device 
           1 

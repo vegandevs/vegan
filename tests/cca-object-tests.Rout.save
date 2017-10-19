@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-06-05 r72769) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-10-16 r73554) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -90,6 +90,7 @@ Constrained    1.0726     0.2495    4
 Unconstrained  2.0212     0.4702   12
 Imaginary     -0.2949    -0.0686    5
 Inertia is squared Bray distance 
+Species scores projected from 'dune' 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
@@ -135,6 +136,7 @@ Constrained   213.07941    0.21435    4
 Unconstrained 452.26440    0.45495   12
 Imaginary     -83.55548   -0.08405    6
 Inertia is mean squared Manhattan distance 
+Species scores projected from 'dune' 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
@@ -204,7 +206,7 @@ Eigenvalues for unconstrained axes:
 > sort(names(mcap))
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
-[13] "tot.chi"  
+[13] "tot.chi"   "vdata"    
 > sort(names(mdb))
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
@@ -2539,4 +2541,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.092   0.072   3.163 
+  3.168   0.084   3.245 
