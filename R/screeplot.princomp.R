@@ -6,7 +6,6 @@
              xlab = "Component", ylab = "Inertia",
              main = deparse(substitute(x)), legend = bstick, ...)
 {
-    main
     type <- match.arg(type)
     eig.vals <- x$sdev^2
     ncomps <- length(eig.vals)
