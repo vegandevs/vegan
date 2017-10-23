@@ -8,7 +8,7 @@
     ## collect header
     head <- NULL
     ## blocks
-    if (!is.null(getBlocks(x))) 
+    if (!is.null(getBlocks(x)))
         head <- paste0(head, paste("Blocks: ", x$blocks.name, "\n"))
     ## plots
     plotStr <- getStrata(x, which = "plots")
@@ -46,6 +46,5 @@
         head <- paste0(head, sprintf(ngettext(nc, " %d column",
                                              " %d columns"), nc))
     }
-    head <- paste0(head, "\nNumber of permutations: ", getNperm(x),  "\n")
-    head
+    paste0(head, "\nNumber of permutations: ", getNperm(x),  "\n")
 }

@@ -1,7 +1,6 @@
-"wisconsin" <-
-  function (x) 
+`wisconsin` <-
+    function(x)
 {
-  x <- decostand(x, "max", 2)
-  x <- decostand(x, "tot", 1)
-  x 
+    x <- decostand(x, "max", 2)
+    decostand(x, "tot", 1)
 }

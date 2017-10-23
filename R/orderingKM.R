@@ -45,6 +45,5 @@
 
     }
     scores <- order(scores)
-    mat<-mat[scores,]
-    mat
+    mat[scores,]
 }
