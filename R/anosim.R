@@ -1,17 +1,17 @@
 `anosim` <-
-    function (dat, grouping, permutations = 999,
-              distance = "bray", strata = NULL, parallel = getOption("mc.cores")) 
+    function (x, grouping, permutations = 999,
+              distance = "bray", strata = NULL, parallel = getOption("mc.cores"))
 {
     EPS <- sqrt(.Machine$double.eps)
-    if (inherits(dat, "dist")) 
-        x <- dat
-    else if ((is.matrix(dat) || is.data.frame(dat)) &&
-             isSymmetric(unname(as.matrix(dat)))) {
-        x <- as.dist(dat)
-        attr(x, "method") <- "user supplied square matrix"
+    if (!inherits(x, "dist")) { # x is not "dist": try to change it
+        if ((is.matrix(x) || is.data.frame(x)) &&
+            isSymmetric(unname(as.matrix(x)))) {
+            x <- as.dist(x)
+            attr(x, "method") <- "user supplied square matrix"
+        }
+        else
+            x <- vegdist(x, method = distance)
     }
-    else
-        x <- vegdist(dat, method = distance)
     if (any(x < -sqrt(.Machine$double.eps)))
         warning("some dissimilarities are negative -- is this intentional?")
     sol <- c(call = match.call())

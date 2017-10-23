@@ -4,7 +4,6 @@
              bst.lty = "solid", xlab = "Component", ylab = "Inertia",
              main = deparse(substitute(x)), legend = bstick, ...)
 {
-    main
     type <- match.arg(type)
     eig.vals <- x$sdev^2
     ## fix-up names on eig.vals

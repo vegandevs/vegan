@@ -1,18 +1,18 @@
 "scores.default" <-
-    function (x, choices, display = c("sites", "species"), ...) 
+    function (x, choices, display = c("sites", "species"), ...)
 {
     display <- match.arg(display)
     att <- names(x)
     if (is.data.frame(x) && all(sapply(x, is.numeric)))
         x <- as.matrix(x)
     if (is.list(x) && display == "sites") {
-        if ("points" %in% att) 
+        if ("points" %in% att)
             X <- x$points
-        else if ("rproj" %in% att) 
+        else if ("rproj" %in% att)
             X <- x$rproj
-        else if ("x" %in% att) 
+        else if ("x" %in% att)
             X <- x$x
-        else if ("scores" %in% att) 
+        else if ("scores" %in% att)
             X <- x$scores
         else if ("sites" %in% att)
             X <- x$sites
@@ -25,11 +25,11 @@
     else if (is.list(x) && display == "species") {
         if ("species" %in% att)
             X <- x$species
-        else if ("cproj" %in% att) 
+        else if ("cproj" %in% att)
             X <- x$cproj
-        else if ("rotation" %in% att) 
+        else if ("rotation" %in% att)
             X <- x$rotation
-        else if ("loadings" %in% att) 
+        else if ("loadings" %in% att)
             X <- x$loadings
         else if ("co" %in% att)
             X <- x$co
@@ -51,7 +51,7 @@
         ## 'choices' given because 'choices' are only applied later,
         ## so that nrow(X) > length(choices). Only vectors (dim arg
         ## missing) should fail here. Let's see...
-        
+
         ##if (ncol(X) == 1 && nrow(X) == length(choices))
         ##    X <- t(X)
     }
@@ -59,12 +59,11 @@
         root <- substr(display, 1, 4)
         rownames(X) <- paste(root, 1:nrow(X), sep = "")
     }
-    if (is.null(colnames(X))) 
+    if (is.null(colnames(X)))
         colnames(X) <- paste("Dim", 1:ncol(X), sep = "")
     if (!missing(choices)) {
         choices <- choices[choices <= ncol(X)]
         X <- X[, choices, drop = FALSE]
     }
-    X <- as.matrix(X)
-    X
+    as.matrix(X)
 }

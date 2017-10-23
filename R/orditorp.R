@@ -57,6 +57,5 @@
     ordiArgAbsorber(x[tt, , drop = FALSE], labels[tt], cex = cex, col = col,
                     FUN = text, ...)
     names(tt) <- labels
-    tt <- tt[order(ord)]
-    invisible(tt)
+    invisible(tt[order(ord)])
 }
