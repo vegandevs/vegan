@@ -40,6 +40,5 @@
         scores <- cmdscale(d, k = 1)[,1]
     }
     scores <- order(scores)
-    mat<-mat[scores,]
-    mat
+    mat[scores,]
 }

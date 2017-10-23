@@ -19,7 +19,7 @@
     else
         rank <- object$CCA$rank
     if (missing(newdata))
-        wa <- object$CCA$wa        
+        wa <- object$CCA$wa
     else
         wa <- predict(object, type="wa", newdata=newdata)
     qrank <- object$CCA$qrank
@@ -28,7 +28,6 @@
     pred <- wa[ , 1:rank, drop=FALSE]  %*% b[1:rank, , drop =FALSE]
     envcen <- object$CCA$envcentre[object$CCA$QR$pivot]
     envcen <- envcen[1:object$CCA$qrank]
-    pred <- sweep(pred, 2, envcen, "+")
-    pred
+    sweep(pred, 2, envcen, "+")
 }
 
