@@ -10,12 +10,12 @@
   of sampling units.
 }
 \usage{
-anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
+anosim(x, grouping, permutations = 999, distance = "bray", strata = NULL,
     parallel = getOption("mc.cores"))
 }
 
 \arguments{
-  \item{dat}{Data matrix or data frame in which rows are samples and
+  \item{x}{Data matrix or data frame in which rows are samples and
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.}
   \item{grouping}{Factor for grouping observations.}
@@ -25,7 +25,7 @@ anosim(dat, grouping, permutations = 999, distance = "bray", strata = NULL,
     row gives the permuted indices.}
   \item{distance}{Choice of distance metric that measures the
     dissimilarity between two observations. See \code{\link{vegdist}} for
-    options.  This will be used if \code{dat} was not a dissimilarity
+    options.  This will be used if \code{x} was not a dissimilarity
     structure or a symmetric square matrix.}  
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
