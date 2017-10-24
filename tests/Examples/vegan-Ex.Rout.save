@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-10-16 r73554) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-10-23 r73595) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -438,7 +438,7 @@ dune ~ Moisture
 + A1          1 86.992 1.2624  0.180   
 + Use         2 87.259 1.2760  0.160   
 + Manure      4 87.342 1.3143  0.115   
-- Moisture    3 87.657 2.2536  0.010 **
+- Moisture    3 87.657 2.2536  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
@@ -769,7 +769,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > summary(dune.ano)
 
 Call:
-anosim(dat = dune.dist, grouping = Management) 
+anosim(x = dune.dist, grouping = Management) 
 Dissimilarity: bray 
 
 ANOSIM statistic R: 0.2579 
@@ -9231,7 +9231,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.736 0.128 26.975 0 0 
+Time elapsed:  26.604 0.16 26.868 0 0 
 > grDevices::dev.off()
 null device 
           1 

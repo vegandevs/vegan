@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-06-01 r72753) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-10-23 r73595) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -329,6 +329,7 @@ Total          5.1432     1.0000
 Constrained    1.6453     0.3199    3
 Unconstrained  3.4979     0.6801   14
 Inertia is squared Jaccard distance 
+Species scores projected from 'Y' 
 2 observations deleted due to missingness 
 
 Eigenvalues for constrained axes:
@@ -370,6 +371,7 @@ Total         85.1176     1.0000
 Constrained   32.7765     0.3851    3
 Unconstrained 52.3412     0.6149   14
 Inertia is mean squared Euclidean distance 
+Species scores projected from 'Y' 
 2 observations deleted due to missingness 
 
 Eigenvalues for constrained axes:
@@ -885,6 +887,7 @@ Conditional    234.0961     0.1282    1
 Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
 Inertia is mean squared Euclidean distance 
+Species scores projected from 'varespec' 
 
 Eigenvalues for constrained axes:
   CAP1   CAP2 
@@ -998,4 +1001,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  4.132   0.044   4.171 
+  4.116   0.052   4.164 
