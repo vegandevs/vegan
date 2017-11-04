@@ -74,6 +74,8 @@ static void wcentre(double *x, double *w, int *nr, int *nc)
 SEXP do_wcentre(SEXP x, SEXP w)
 {
     int nr = nrows(x), nc = ncols(x);
+    if (length(w) != nr)
+	error("weights 'w' and data do not match");
     if (TYPEOF(x) != REALSXP)
 	x  = coerceVector(x, REALSXP);
     SEXP rx = PROTECT(duplicate(x));
