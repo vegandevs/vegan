@@ -6,8 +6,10 @@
         w <- 1
     if (length(w) == 1)
         w <- rep(w, nrow(X))
-    Xw <- .Call(do_wcentre, X, w)
     P <- as.matrix(P)
+    if (nrow(P) != nrow(X))
+        stop("input data have non-matching numbers of observations")
+    Xw <- .Call(do_wcentre, X, w)
     Pw <- .Call(do_wcentre, P, w)
     colnames(Pw) <- colnames(P)
     nc <- ncol(X)

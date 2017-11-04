@@ -74,6 +74,8 @@ static void wcentre(double *x, double *w, int *nr, int *nc)
 SEXP do_wcentre(SEXP x, SEXP w)
 {
     int nr = nrows(x), nc = ncols(x);
+    if (length(w) != nr)
+	error("weights 'w' and data do not match");
     if (TYPEOF(x) != REALSXP)
 	x  = coerceVector(x, REALSXP);
     SEXP rx = PROTECT(duplicate(x));
@@ -88,6 +90,11 @@ SEXP do_wcentre(SEXP x, SEXP w)
 SEXP do_goffactor(SEXP x, SEXP factor, SEXP nlevels, SEXP w)
 {
     int i, nr = nrows(x), nc = ncols(x), nl = asInteger(nlevels);
+    /* check dimensions (or segfault) */
+    if (length(factor) != nr)
+	error("dimensions of data and factor do not match");
+    if (length(w) != nr)
+	error("dimensions of data and weights (w) do not match");
     /* return variance */
     SEXP var = PROTECT(allocVector(REALSXP, 1));
     if (TYPEOF(factor) != INTSXP)
