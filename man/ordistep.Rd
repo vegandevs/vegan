@@ -26,13 +26,17 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   \item{object}{
   In \code{ordistep}, an ordination object inheriting from \code{\link{cca}} or \code{\link{rda}}. In \code{ordiR2step}, the object must inherit from \code{\link{rda}}, that is, it must have been computed using \code{\link{rda}} or \code{\link{capscale}}.
 }
-  \item{scope}{
-  Defines the range of models examined in the stepwise search. 
-  This should be either a single formula, or a list containing
-  components \code{upper} and \code{lower}, both formulae. 
-  See \code{\link{step}} for details. In \code{ordiR2step}, this defines the
-  upper scope; it can also be an ordination object from with the model is extracted. 
-}
+
+  \item{scope}{ Defines the range of models examined in the stepwise
+  search.  This can be a list containing components \code{upper} and
+  \code{lower}, both formulae. If it is a single item, it is interpeted
+  the target scope, depending on the \code{direction}. If
+  \code{direction} is \code{"forward"}, a single item is interpeted as
+  the \code{upper} scope and the formula of the input \code{object} as
+  the \code{lower} scope.  See \code{\link{step}} for details. In
+  \code{ordiR2step}, this defines the upper scope; it can also be an
+  ordination object from with the model is extracted.  }
+
   \item{direction}{
   The mode of stepwise search, can be one of \code{"both"},
   \code{"backward"}, or \code{"forward"}, with a default of
