@@ -17,7 +17,7 @@
         ptype <- getType(x, which = "plots")
         head <- paste0(head, paste0("Plots: ", plots$plots.name, ", "))
         head <- paste0(head, paste("plot permutation:", ptype))
-        if(getMirror(x, which = "plots") == "Yes")
+        if(getMirror(x, which = "plots"))
             head <- paste(head, "mirrored")
         if (isTRUE(all.equal(ptype, "grid"))) {
             nr <- getRow(x, which = "plots")
@@ -33,9 +33,9 @@
     type <- getType(x, which = "within")
     head <- paste0(head, "Permutation: ", type)
     if (isTRUE(type %in% c("series", "grid"))) {
-        if(getMirror(x, which = "within") == "Yes")
+        if(getMirror(x, which = "within"))
             head <- paste(head, "mirrored")
-        if(getConstant(x) == "Yes")
+        if(getConstant(x))
             head <- paste0(head, " constant permutation within each Plot")
     }
     if (isTRUE(all.equal(type, "grid"))) {
