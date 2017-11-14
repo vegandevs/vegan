@@ -1,11 +1,11 @@
-"text.ordiplot" <-
+`text.ordiplot`  <-
     function (x, what, labels, select, ...)
 {
-    x <- scores(x, what)
+    sco <- scores(x, what)
     if (!missing(labels))
-        rownames(x) <- labels
+        rownames(sco) <- labels
     if (!missing(select))
-        x <- .checkSelect(select, x)
-    text(x, labels = rownames(x), ...)
-    invisible()
+        sco <- .checkSelect(select, sco)
+    text(sco, labels = rownames(sco), ...)
+    invisible(x)
 }

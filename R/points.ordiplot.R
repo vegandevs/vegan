@@ -1,9 +1,9 @@
-"points.ordiplot" <-
+`points.ordiplot`  <-
     function (x, what, select, ...)
 {
-    x <- scores(x, what)
+    sco <- scores(x, what)
     if (!missing(select))
-        x <- .checkSelect(select, x)
-    points(x, ...)
-    invisible()
+        sco <- .checkSelect(select, sco)
+    points(sco, ...)
+    invisible(x)
 }
