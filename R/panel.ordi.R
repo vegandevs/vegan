@@ -1,5 +1,5 @@
 panel.ordi <-
-function(x, y, biplot, polygon, type = type,  ...)
+function(x, y, biplot, polygon, type = type, ...)
 {
     tp <- trellis.par.get()
     sp <- tp$superpose.symbol
@@ -26,7 +26,7 @@ function(x, y, biplot, polygon, type = type,  ...)
                      ...)
     }
     if ("arrows" %in% type) {
-        panel.superpose(x, y, panel.groups= "panel.ordiarrows",  ...)
+        panel.superpose(x, y, panel.groups= "panel.ordiarrows", ...)
     }
     panel.abline(h=0, lty = 3)
     panel.abline(v=0, lty = 3)
@@ -39,9 +39,15 @@ function(x, y, subscripts,
          ...)
 {
     n <- length(x)
+    col <- trellis.par.get("superpose.line")$col
+    group <- list(...)$group.number
+    if (is.null(group))
+        col <- col[1]
+    else
+        col = rep(col, len=group)[group]
     panel.arrows(x[-n], y[-n], x[-1], y[-1], ends = ends, type = "open",
                  length = length, angle = angle, code = code,
-                 col = trellis.par.get("superpose.line")$col,
+                 col = col,
                  lwd = trellis.par.get("superpose.line")$lwd,
                  )
 }
