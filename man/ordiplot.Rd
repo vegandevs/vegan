@@ -19,8 +19,8 @@
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
      cex = 0.7, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
-\method{points}{ordiplot}(x, what, select, ...)
-\method{text}{ordiplot}(x, what, labels, select, ...)
+\method{points}{ordiplot}(x, what, select, arrows = FALSE, ...)
+\method{text}{ordiplot}(x, what, labels, select, arrows = FALSE, ...)
 }
 
 \arguments{
@@ -44,7 +44,12 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     \code{biplot}, and \code{\link{plot.procrustes}} ordination plot has
     \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names will be used if
-  this is missing.}
+    this is missing.}
+  \item{arrows}{Draw arrows from the origin. This will always be
+    \code{TRUE} for biplot scores and its value will be ignored. Setting
+    this \code{TRUE} will draw arrows for any type of scores. This
+    allows, e.g, using biplot arrows for species. The arrow head will be
+  at the value of scores, and possible text is moved outwards.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
@@ -72,11 +77,17 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
   functions.
 }
 \value{
+  
   Function \code{ordiplot} returns invisibly an object of class
-  \code{ordiplot} with items \code{sites}, \code{species} and
-  \code{constraints} (if these are available in the ordination
-  object). Function \code{identify.ordiplot} uses this object to label
-  the point.
+  \code{ordiplot} with used scores. In general, \pkg{vegan} \code{plot}
+  functions for ordination results will also return an invisible
+  \code{ordiplot} object. If the \code{plot(..., type = "n")} was used
+  originally, the plot is empty, and items can be added with the
+  invisible object. Functions \code{points} and \code{text} will return
+  their input object without modification, which allows chaining these
+  commands, for instance with \pkg{magrittr} pipes. Function
+  \code{identify.ordiplot} uses this object to label the point.
+
 }
 
 \author{
@@ -103,13 +114,13 @@ data(dune)
 dune.dis <- vegdist(wisconsin(dune))
 dune.mds <- cmdscale(dune.dis, eig = TRUE)
 dune.mds$species <- wascores(dune.mds$points, dune, expand = TRUE)
-fig <- ordiplot(dune.mds, type = "none")
-points(fig, "sites", pch=21, col="red", bg="yellow")
-text(fig, "species", col="blue", cex=0.9)
+pl <- ordiplot(dune.mds, type = "none")
+points(pl, "sites", pch=21, col="red", bg="yellow")
+text(pl, "species", col="blue", cex=0.9)
 # Default plot of the previous using identify to label selected points
 \dontrun{
-fig <- ordiplot(dune.mds)
-identify(fig, "spec")}
+pl <- ordiplot(dune.mds)
+identify(pl, "spec")}
 
 }
 \keyword{ hplot }
