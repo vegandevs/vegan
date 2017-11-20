@@ -6,15 +6,18 @@
 \alias{text.ordiplot}
 
 \title{ Alternative plot and identify Functions for Ordination }
+
 \description{
-  Ordination plot function especially for congested plots. Function
-  \code{ordiplot} always plots only unlabelled points, but
-  \code{identify.ordiplot} can be used to add labels to selected site,
-  species or constraint points.  Function \code{identify.ordiplot} can
-  be used to identify points from \code{\link{plot.cca}},
-  \code{\link{plot.decorana}}, \code{\link{plot.procrustes}} and
-  \code{\link{plot.rad}} as well.
+  Function \code{ordiplot} is an alternative plotting function which
+  can be worked with any \pkg{vegan} ordination result and many
+  non-\pkg{vegan} results. In addition, \code{plot} functions for
+  \pkg{vegan} ordinations return invisibly an \code{"ordiplot"} result
+  object, and this allows using \code{ordiplot} support functions with
+  this result: \code{identify} can be used to add labels to selected
+  site, species or constraint points, and \code{points} and
+  \code{text} can add elements to the plot.
 }
+
 \usage{
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
      cex = 0.7, ...)
