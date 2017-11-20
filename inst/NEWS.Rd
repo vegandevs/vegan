@@ -2,6 +2,52 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-5}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Several \dQuote{Swap & Shuffle} null models generated a
+      wrong number of initial matrices. Usually they generated too
+      many, which was not dangerous, but it was slow. However, random
+      sequences will change with this fix.
+
+      \item Lattice graphics for ordination (\code{ordixyplot} and
+      friends) colour the arrows by \code{groups} instead of old
+      randomly mixed colours.
+
+      \item Information on constant or mirrored permutations was
+      omitted when reporting permutation tests (e.g., in \code{anova}
+      for constrained ordination).
+
+    } % itemize
+  } % bug fixes 
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{ordistep} has improved interpretation of
+      \code{scope}: if the lower scope is missing, the formula of the
+      starting solution is taken as the lower scope instead of using
+      an empty model. See
+      \href{https://stackoverflow.com/questions/46985029/}{StackOverflow}.
+
+      \item \code{fitspecaccum} gained new support function which
+      allow better co-operation with other packages and functions. See
+      GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/250}{#250}.
+
+      \item The \dQuote{backtracking} null model for community
+      simulation is faster. However, \dQuote{backtracking} is a biased
+      legacy model that should not be used except in comparative
+      studies.
+
+    } %itemize
+  } % new features
+
+
+} % 2.4-5
+
 \section{Changes in version 2.4-4}{
 
   \subsection{INSTALLATION AND BUILDING}{
