@@ -143,10 +143,18 @@
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.
 
-  If you want to have still a better control of plots, it is better to
-  produce them using primitive \code{plot} commands. Function
-  \code{scores} helps in extracting the 
-  needed components with the selected \code{scaling}.
+  If you want to have a better control of plots, it is best to
+  construct the plot \code{text} and \code{points} commands which
+  accept graphical parameters. It is important to remember to use the
+  same \code{scaling}, \code{correlation} and \code{hill} arguments
+  in all calls. The \code{plot.cca} command returns invisibly an
+  \code{\link{ordiplot}} result object, and this will have consistent
+  scaling for all its elements. The easiest way for full control of
+  graphics is to first set up the plot frame using \code{plot} with
+  \code{type = "n"} and all needed scores in \code{display} and save
+  this result. The \code{points} and \code{text} commands for
+  \code{\link{ordiplot}} will allow full graphical control (see
+  section Examples).
 
   Function \code{summary} lists all scores and the output can be very
   long.  You can suppress scores by setting \code{axes = 0} or
@@ -183,10 +191,18 @@
 data(dune)
 data(dune.env)
 mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
-plot(mod, type="n")
-text(mod, dis="cn")
-points(mod, pch=21, col="red", bg="yellow", cex=1.2)
-text(mod, "species", col="blue", cex=0.8)
+## better control -- remember to set scaling etc identically
+plot(mod, type="n", scaling="sites")
+text(mod, dis="cn", scaling="sites")
+points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites")
+text(mod, "species", col="blue", cex=0.8, scaling="sites")
+## catch the invisible result and use ordiplot support - the example
+## will make a biplot with arrows for species and correlation scaling
+pca <- rda(dune)
+pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
+with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
+text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
+with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
 ## Limited output of 'summary'
 head(summary(mod), tail=2)
 ## Scaling can be numeric or more user-friendly names
