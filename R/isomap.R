@@ -7,12 +7,12 @@ function(dist, ndim=10, ...)
     ## to negative eigenvalues.
     if ((naxes <- sum(out$eig > 0)) < ndim) {
         out$points <- out$points[, seq(naxes), drop = FALSE]
-        warning(gettextf("isomap returns only %d axes with positive eigenvalues",
+        message(gettextf("isomap returns only %d axes with positive eigenvalues",
                          naxes))
     }
     npoints <- nrow(out$points)
     net <- matrix(FALSE, nrow=npoints, ncol=npoints)
-    net[lower.tri(net)][attr(dist, "net")] <- TRUE 
+    net[lower.tri(net)][attr(dist, "net")] <- TRUE
     net <- which(net, arr.ind=TRUE)
     out$method <- attr(dist, "method")
     out$criterion <- attr(dist, "criterion")
