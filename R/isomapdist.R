@@ -11,7 +11,7 @@
     if (missing(epsilon) && missing(k))
         stop("Either epsilon or k must be given")
     if (!missing(epsilon) && !missing(k))
-        warning("Both epsilon and k given, using epsilon")
+        message("Both epsilon and k given, using epsilon")
     if (!missing(epsilon))
         dist[dist >= epsilon-EPS] <- NA
     else {
@@ -42,7 +42,7 @@
         attr(dist, "criterion") <-"k"
         attr(dist, "critval") <- k
     }
-    else { 
+    else {
         attr(dist, "criterion") <- "epsilon"
         attr(dist, "critval") <- epsilon
     }
