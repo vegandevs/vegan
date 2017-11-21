@@ -1,14 +1,6 @@
 `betadiver` <-
     function(x, method = NA, order = FALSE, help = FALSE,  ...)
 {
-    ## 'index' was renamed to 'method' in vegan 1.90-1 for dist()
-    ## compatibility. Below we implement backward compatibility (with
-    ## warning) for 'index'.
-    dots <- match.call(expand.dots = FALSE)$...
-    if (any(k <- pmatch(names(dots), "index", nomatch = FALSE))) {
-        warning("argument 'index' deprecated: use 'method'")
-        method <- dots[[which(k==1)]]
-    }
     beta <- list("w"="(b+c)/(2*a+b+c)", "-1"="(b+c)/(2*a+b+c)", "c"="(b+c)/2",
                  "wb"="b+c", "r"="2*b*c/((a+b+c)^2-2*b*c)",
                  "I"="log(2*a+b+c) - 2*a*log(2)/(2*a+b+c) - ((a+b)*log(a+b) + (a+c)*log(a+c)) / (2*a+b+c)",
@@ -27,7 +19,7 @@
                  "z"="(log(2)-log(2*a+b+c)+log(a+b+c))/log(2)"
                  )
     if (help) {
-        for (i in seq_along(beta)) 
+        for (i in seq_along(beta))
             writeLines(strwrap(paste(i, " \"", names(beta[i]),
                                      "\" = ", beta[[i]], "\n", sep="")))
         return(invisible(NULL))
