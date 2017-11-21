@@ -1,9 +1,9 @@
 `metaMDS` <-
     function (comm, distance = "bray", k = 2, try = 20, trymax = 20,
-              engine = c("monoMDS", "isoMDS"), 
+              engine = c("monoMDS", "isoMDS"),
               autotransform = TRUE, noshare = (engine == "isoMDS"),
               wascores = TRUE, expand = TRUE, trace = 1,
-              plot = FALSE, previous.best,  ...) 
+              plot = FALSE, previous.best,  ...)
 {
     engine <- match.arg(engine)
     ## take care that trymax >= try
@@ -19,7 +19,7 @@
     ## positive. Check this here, and set arguments so that they are
     ## suitable for non-negative data.
     if (any(autotransform, noshare > 0, wascores) && any(comm < 0, na.rm=TRUE)) {
-        warning("'comm' has negative data: 'autotransform', 'noshare' and 'wascores' set to FALSE")
+        message("'comm' has negative data: 'autotransform', 'noshare' and 'wascores' set to FALSE")
         wascores <- FALSE
         autotransform <- FALSE
         noshare <- FALSE
@@ -38,11 +38,11 @@
         if (trace > 2)
             cat(">>> Calculation of dissimilarities\n")
         dis <- metaMDSdist(comm, distance = distance,
-                           autotransform = autotransform, 
+                           autotransform = autotransform,
                            noshare = noshare, trace = trace,
                            commname = commname, ...)
     }
-    if (missing(previous.best)) 
+    if (missing(previous.best))
         previous.best <- NULL
     if (trace > 2)
         cat(">>> NMDS iterations\n")
@@ -63,7 +63,7 @@
         out$dist <- out$dist/scl
         out$dhat <- out$dhat/scl
     }
-    if (is.null(rownames(points))) 
+    if (is.null(rownames(points)))
         rownames(points) <- rownames(comm)
     wa <- if (wascores) {
         ## transformed data
