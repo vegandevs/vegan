@@ -14,12 +14,6 @@
         labels <- as.character(labels)  # coerce to character only if not expressions
     }
     nlab <- length(labels)
-    if (!misslab && nlab == 1L && pmatch(labels, c("right", "left"),
-                                         nomatch = FALSE)) {
-        side <- labels
-        labels <- NULL
-        warning("argument 'label' is deprecated: use 'side'")
-    }
     if (!misslab && n != nlab) {
         msg <- paste("Wrong number of supplied 'labels'.\nExpected:",
                      n, "Got:", nlab, sep = " ")
