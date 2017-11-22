@@ -156,6 +156,9 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
 	FIRST = asInteger(first), PARTIAL = asInteger(isPartial),
 	DISTBASED = asInteger(isDB);
+    /* check that we got terms */
+    if (nterms == 0)
+	error("model has no terms to test");
     /* check that permutations matrix has correct number of
      * observations */
     if (ncols(perms) != nr)
