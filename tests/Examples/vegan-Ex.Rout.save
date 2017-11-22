@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-11-20 r73757) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-11-22 r73770) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -9207,13 +9207,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 2.220446e-16 -1.276756e-15 -1.054712e-15  1.942890e-16  1.387779e-16 
+ 2.220446e-16 -1.387779e-15 -1.054712e-15  2.498002e-16  1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.387779e-16 -1.387779e-17 -1.387779e-16  2.359224e-16  2.775558e-17 
+ 1.665335e-16 -1.387779e-17 -1.110223e-16  2.220446e-16  4.163336e-17 
          CA11          CA12          CA13          CA14          CA15 
- 1.387779e-16  0.000000e+00  3.469447e-17  2.775558e-17  1.561251e-17 
+ 1.179612e-16 -5.551115e-17 -1.387779e-17  3.469447e-18 -6.938894e-18 
          CA16          CA17          CA18          CA19 
- 0.000000e+00  1.734723e-18  1.127570e-17  1.196959e-16 
+-5.204170e-18  1.734723e-18 -4.683753e-17  3.989864e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9222,7 +9222,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--7.105e-14 
+-5.684e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -9241,7 +9241,7 @@ Procrustes sum of squares:
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.706 0.116 25.887 0 0 
+Time elapsed:  25.948 0.136 26.085 0 0 
 > grDevices::dev.off()
 null device 
           1 
