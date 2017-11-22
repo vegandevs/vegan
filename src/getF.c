@@ -204,6 +204,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ, SEXP effects,
 	transY = (double *) R_alloc(nr * nr, sizeof(double));
 
     /* permutation matrix must be duplicated */
+    if (TYPEOF(perms) != INTSXP)
+	perms = coerceVector(perms, INTSXP);
     SEXP dperms = PROTECT(duplicate(perms));
     int *iperm = INTEGER(dperms);
     
