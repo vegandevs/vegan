@@ -1,11 +1,6 @@
 `wcmdscale` <-
-function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
+    function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
 {
-    weight.centre <- function(x, w) {
-        w.c <- apply(x, 2, weighted.mean, w = w)
-        x <- sweep(x, 2, w.c, "-")
-        x
-    }
     ## Force eig=TRUE if add, x.ret or !missing(w)
     if(x.ret)
         eig <- TRUE
@@ -36,9 +31,8 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     n <- nrow(m)
     if (missing(w))
         w <- rep(1, n)
-    m <- weight.centre(m, w)
-    m <- t(weight.centre(t(m), w))
-    m <- m * sqrt(w) %o% sqrt(w)
+    m <- .Call(do_wcentre, m, w)
+    m <- t(.Call(do_wcentre, t(m), w))
     e <- eigen(-m/2, symmetric = TRUE)
     ## Remove zero eigenvalues, keep negative
     keep <- abs(e$values) > ZERO
@@ -65,7 +59,7 @@ function(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     GOF <- c(sum(ev)/sum(abs(e$values)),
              sum(ev)/sum(e$values[e$values > 0]))
     if (eig || x.ret) {
-        colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="") 
+        colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="")
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = ac, add = add, GOF = GOF,
                     weights = w, negaxes = negaxes, call = match.call())
