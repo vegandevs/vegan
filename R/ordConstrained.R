@@ -126,6 +126,7 @@
 `ordPartial` <-
     function(Y, Z)
 {
+    ZERO <- sqrt(.Machine$double.eps)
     ## attributes
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
     RW <- attr(Y, "RW")
@@ -148,13 +149,15 @@
     } else {
         totvar <- sum(Yfit^2)
     }
+    if (totvar < ZERO)
+        totvar <- 0
     ## residuals of Y
     Y <- qr.resid(Q, Y)
     if (DISTBASED)
         Y <- qr.resid(Q, t(Y))
     ## result object like in current cca, rda
     result <- list(
-        rank = Q$rank,
+        rank = if (totvar > 0) Q$rank else 0,
         tot.chi = totvar,
         QR = Q,
         Fit = Yfit,

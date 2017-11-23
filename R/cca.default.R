@@ -28,9 +28,6 @@
     }
     call <- match.call()
     call[[1]] <- as.name("cca")
-    ## computed pCCA$rank was needed before, but zero it here
-    if (!is.null(sol$pCCA) && sol$pCCA$tot.chi == 0)
-        pCCA$rank <- 0
     sol <- c(list(call = call,
                   inertia =  "mean squared contingency coefficient"),
              sol)

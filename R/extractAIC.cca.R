@@ -4,7 +4,7 @@
    n <- nobs(fit)
    edf <- 1
    if (!is.null(fit$CCA$rank)) edf <- edf + fit$CCA$qrank
-   if (!is.null(fit$pCCA$rank)) edf <- edf + fit$pCCA$rank
+   if (!is.null(fit$pCCA$QR)) edf <- edf + fit$pCCA$QR$rank
    #edf <- n - fit$CA$rank
    RSS <- deviance(fit)
    dev <- if(scale > 0)
