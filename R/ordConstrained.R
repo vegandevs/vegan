@@ -217,7 +217,7 @@
         v <- sol$v
     }
     ## handle zero  eigenvalues and negative eigenvalues
-    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1])
+    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1L])
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
@@ -306,7 +306,7 @@
     RW <- attr(Y, "RW")
     CW <- attr(Y, "CW")
     ## Ordination
-    ZERO <- 1e-5
+    ZERO <- sqrt(.Machine$double.eps)
     if (DISTBASED) {
         sol <- eigen(Y, symmetric = TRUE)
         lambda <- sol$values
@@ -318,7 +318,7 @@
         v <- sol$v
     }
     ## handle zero and negative eigenvalues
-    zeroev <- abs(lambda) < ZERO * lambda[1]
+    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1L])
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
@@ -347,9 +347,11 @@
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- c(axnam, negnam)
-    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (nrow(v)) # no rows in DISTBASED
+    if (any(posev))
+        names(lambda) <- c(axnam, negnam)
+    if (ncol(u))
+        dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v) && ncol(v)) # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(
