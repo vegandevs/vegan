@@ -7,14 +7,14 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item Several \dQuote{Swap & Shuffle} null models generated a
-      wrong number of initial matrices. Usually they generated too
-      many, which was not dangerous, but it was slow. However, random
-      sequences will change with this fix.
+      \item Several \dQuote{Swap & Shuffle} null models generated wrong
+      number of initial matrices. Usually they generated too many, which
+      was not dangerous, but it was slow. However, random sequences will
+      change with this fix.
 
       \item Lattice graphics for ordination (\code{ordixyplot} and
-      friends) colour the arrows by \code{groups} instead of old
-      randomly mixed colours.
+      friends) colour the arrows by \code{groups} instead of randomly
+      mixed colours.
 
       \item Information on constant or mirrored permutations was
       omitted when reporting permutation tests (e.g., in \code{anova}
@@ -29,12 +29,12 @@
       \item \code{ordistep} has improved interpretation of
       \code{scope}: if the lower scope is missing, the formula of the
       starting solution is taken as the lower scope instead of using
-      an empty model. See
-      \href{https://stackoverflow.com/questions/46985029/}{StackOverflow}.
+      an empty model. See Stackoverflow question
+      \href{https://stackoverflow.com/questions/46985029/}{46985029}.
 
-      \item \code{fitspecaccum} gained new support function which
-      allow better co-operation with other packages and functions. See
-      GitHub issue
+      \item \code{fitspecaccum} gained new support functions \code{nobs}
+      and \code{logLik} which allow better co-operation with other
+      packages and functions. See GitHub issue
       \href{https://github.com/vegandevs/vegan/issues/250}{#250}.
 
       \item The \dQuote{backtracking} null model for community
