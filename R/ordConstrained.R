@@ -173,7 +173,7 @@
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
     RW <- attr(Y, "RW")
     CW <- attr(Y, "CW")
-    ZERO <- 1e-5
+    ZERO <- sqrt(.Machine$double.eps)
     ## combine conditions and constraints if necessary
     if (!is.null(Z)) {
         X <- cbind(Z, X)
@@ -217,7 +217,7 @@
         v <- sol$v
     }
     ## handle zero  eigenvalues and negative eigenvalues
-    zeroev <- abs(lambda) < ZERO * lambda[1]
+    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1])
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
@@ -259,13 +259,15 @@
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- c(axnam, negnam)
-    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (nrow(v))     # no rows in DISTBASED
+    if (any(posev))
+        names(lambda) <- c(axnam, negnam)
+    if (ncol(u))
+        dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v) && ncol(v))     # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
-    if (all(!is.na(wa))) # only for posev
+    if (ncol(wa)) # only for posev
         colnames(wa) <- axnam
-    if (!is.null(bp))    # only for posev
+    if (ncol(bp))    # only for posev
         colnames(bp) <- axnam
     ## out
     result <- list(
