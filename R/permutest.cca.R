@@ -14,7 +14,7 @@ permutest.default <- function(x, ...)
         sol <- list(call = match.call(), testcall = x$call, model = NA,
                     F.0 = NA, F.perm = NA, chi = c(0, x$CA$tot.chi),
                     num = 0, den = x$CA$tot.chi,
-                    df = c(0, nrow(x$CA$u) - max(x$pCCA$rank,0) - 1),
+                    df = c(0, nrow(x$CA$u) - max(x$pCCA$QR$rank,0) - 1),
                     nperm = 0, method = x$method, first = FALSE,
                     Random.seed = NA)
         class(sol) <- "permutest.cca"
@@ -78,7 +78,7 @@ permutest.default <- function(x, ...)
             effects <- seq_len(q)
             termlabs <-
                 if (isPartial)
-                    colnames(Q$qr)[effects + x$pCCA$rank]
+                    colnames(Q$qr)[effects + x$pCCA$QR$rank]
                 else
                     colnames(Q$qr)[effects]
         } else {                   # by = "terms"
@@ -88,7 +88,7 @@ permutest.default <- function(x, ...)
                 stop("update() old ordination result object")
             pivot <- Q$pivot
             if (isPartial)
-                pivot <- pivot[pivot > x$pCCA$rank] - x$pCCA$rank
+                pivot <- pivot[pivot > x$pCCA$QR$rank] - x$pCCA$QR$rank
             ass <- ass[pivot[seq_len(x$CCA$qrank)]]
             effects <- cumsum(rle(ass)$length)
             termlabs <- labels(terms(x$terminfo))
@@ -98,7 +98,7 @@ permutest.default <- function(x, ...)
         }
         q <- diff(c(0, effects)) # d.o.f.
         if (isPartial)
-            effects <- effects + x$pCCA$rank
+            effects <- effects + x$pCCA$QR$rank
         F.0 <- numeric(length(effects))
         for (k in seq_along(effects)) {
             fv <- qr.fitted(Q, partXbar, k = effects[k])

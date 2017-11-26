@@ -126,6 +126,7 @@
 `ordPartial` <-
     function(Y, Z)
 {
+    ZERO <- sqrt(.Machine$double.eps)
     ## attributes
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
     RW <- attr(Y, "RW")
@@ -148,13 +149,15 @@
     } else {
         totvar <- sum(Yfit^2)
     }
+    if (totvar < ZERO)
+        totvar <- 0
     ## residuals of Y
     Y <- qr.resid(Q, Y)
     if (DISTBASED)
         Y <- qr.resid(Q, t(Y))
     ## result object like in current cca, rda
     result <- list(
-        rank = Q$rank,
+        rank = if (totvar > 0) Q$rank else 0,
         tot.chi = totvar,
         QR = Q,
         Fit = Yfit,
@@ -170,7 +173,7 @@
     DISTBASED <- attr(Y, "METHOD") == "DISTBASED"
     RW <- attr(Y, "RW")
     CW <- attr(Y, "CW")
-    ZERO <- 1e-5
+    ZERO <- sqrt(.Machine$double.eps)
     ## combine conditions and constraints if necessary
     if (!is.null(Z)) {
         X <- cbind(Z, X)
@@ -214,7 +217,7 @@
         v <- sol$v
     }
     ## handle zero  eigenvalues and negative eigenvalues
-    zeroev <- abs(lambda) < ZERO * lambda[1]
+    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1L])
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
@@ -256,13 +259,15 @@
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- c(axnam, negnam)
-    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (nrow(v))     # no rows in DISTBASED
+    if (any(posev))
+        names(lambda) <- c(axnam, negnam)
+    if (ncol(u))
+        dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v) && ncol(v))     # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
-    if (all(!is.na(wa))) # only for posev
+    if (ncol(wa)) # only for posev
         colnames(wa) <- axnam
-    if (!is.null(bp))    # only for posev
+    if (ncol(bp))    # only for posev
         colnames(bp) <- axnam
     ## out
     result <- list(
@@ -301,7 +306,7 @@
     RW <- attr(Y, "RW")
     CW <- attr(Y, "CW")
     ## Ordination
-    ZERO <- 1e-5
+    ZERO <- sqrt(.Machine$double.eps)
     if (DISTBASED) {
         sol <- eigen(Y, symmetric = TRUE)
         lambda <- sol$values
@@ -313,7 +318,7 @@
         v <- sol$v
     }
     ## handle zero and negative eigenvalues
-    zeroev <- abs(lambda) < ZERO * lambda[1]
+    zeroev <- abs(lambda) < max(ZERO, ZERO * lambda[1L])
     if (any(zeroev)) {
         lambda <- lambda[!zeroev]
         u <- u[, !zeroev, drop = FALSE]
@@ -342,9 +347,11 @@
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    names(lambda) <- c(axnam, negnam)
-    dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
-    if (nrow(v)) # no rows in DISTBASED
+    if (any(posev))
+        names(lambda) <- c(axnam, negnam)
+    if (ncol(u))
+        dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
+    if (nrow(v) && ncol(v)) # no rows in DISTBASED
         dimnames(v) <- list(dnam[[2]], axnam)
     ## out
     out <- list(

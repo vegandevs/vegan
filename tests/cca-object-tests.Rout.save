@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-10-16 r73554) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-11-22 r73776) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -175,17 +175,13 @@ Eigenvalues for unconstrained axes:
 Call: cca(formula = dune ~ Condition(Management) + Management, data =
 dune.env)
 
-                Inertia Proportion Rank
-Total         2.115e+00  1.000e+00     
-Conditional   6.038e-01  2.855e-01    3
-Constrained   1.627e-32  7.694e-33    3
-Unconstrained 1.511e+00  7.145e-01   16
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Conditional    0.6038     0.2855    3
+Constrained    0.0000     0.0000    0
+Unconstrained  1.5114     0.7145   16
 Inertia is mean squared contingency coefficient 
 Some constraints were aliased because they were collinear (redundant)
-
-Eigenvalues for constrained axes:
-     CCA1      CCA2      CCA3 
-8.417e-33 5.939e-33 1.918e-33 
 
 Eigenvalues for unconstrained axes:
    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
@@ -858,35 +854,28 @@ Call:
 cca(formula = dune ~ Condition(Management) + Management, data = dune.env) 
 
 Partitioning of mean squared contingency coefficient:
-                Inertia Proportion
-Total         2.115e+00  1.000e+00
-Conditioned   6.038e-01  2.855e-01
-Constrained   1.627e-32  7.694e-33
-Unconstrained 1.511e+00  7.145e-01
+              Inertia Proportion
+Total          2.1153     1.0000
+Conditioned    0.6038     0.2855
+Constrained    0.0000     0.0000
+Unconstrained  1.5114     0.7145
 
 Eigenvalues, and their contribution to the mean squared contingency coefficient 
 after removing the contribution of conditiniong variables
 
 Importance of components:
-                           CCA1      CCA2      CCA3    CA1    CA2    CA3
-Eigenvalue            8.417e-33 5.939e-33 1.918e-33 0.4474 0.2030 0.1630
-Proportion Explained  0.000e+00 0.000e+00 0.000e+00 0.2960 0.1343 0.1079
-Cumulative Proportion 0.000e+00 0.000e+00 0.000e+00 0.2960 0.4303 0.5382
-                          CA4     CA5     CA6     CA7     CA8     CA9    CA10
-Eigenvalue            0.13457 0.12940 0.09494 0.07904 0.06526 0.05004 0.04321
-Proportion Explained  0.08904 0.08561 0.06282 0.05230 0.04318 0.03311 0.02859
-Cumulative Proportion 0.62719 0.71281 0.77562 0.82792 0.87110 0.90421 0.93280
-                         CA11    CA12    CA13     CA14     CA15     CA16
-Eigenvalue            0.03870 0.02385 0.01773 0.009172 0.007959 0.004157
-Proportion Explained  0.02561 0.01578 0.01173 0.006070 0.005270 0.002750
-Cumulative Proportion 0.95840 0.97419 0.98592 0.991980 0.997250 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                           CCA1      CCA2      CCA3
-Eigenvalue            8.417e-33 5.939e-33 1.918e-33
-Proportion Explained  5.172e-01 3.649e-01 1.179e-01
-Cumulative Proportion 5.172e-01 8.821e-01 1.000e+00
+                         CA1    CA2    CA3     CA4     CA5     CA6     CA7
+Eigenvalue            0.4474 0.2030 0.1630 0.13457 0.12940 0.09494 0.07904
+Proportion Explained  0.2960 0.1343 0.1079 0.08904 0.08561 0.06282 0.05230
+Cumulative Proportion 0.2960 0.4303 0.5382 0.62719 0.71281 0.77562 0.82792
+                          CA8     CA9    CA10    CA11    CA12    CA13     CA14
+Eigenvalue            0.06526 0.05004 0.04321 0.03870 0.02385 0.01773 0.009172
+Proportion Explained  0.04318 0.03311 0.02859 0.02561 0.01578 0.01173 0.006070
+Cumulative Proportion 0.87110 0.90421 0.93280 0.95840 0.97419 0.98592 0.991980
+                          CA15     CA16
+Eigenvalue            0.007959 0.004157
+Proportion Explained  0.005270 0.002750
+Cumulative Proportion 0.997250 1.000000
 
 Scaling 2 for species and site scores
 * Species are scaled proportional to eigenvalues
@@ -895,52 +884,43 @@ Scaling 2 for species and site scores
 
 Species scores
 
-               CCA1      CCA2       CCA3     CA1     CA2      CA3
-Achimill  1.888e-17 2.358e-17 -4.235e-17  0.5370 -0.4359  0.64609
-Agrostol  8.734e-17 4.464e-17 -3.984e-17 -0.6811  0.2177  0.03744
-Airaprae -6.396e-17 1.564e-16 -3.887e-17  2.4508  1.5533  0.96472
-Alopgeni  1.372e-16 1.472e-16 -2.726e-17 -0.2339  0.5522 -0.21144
-Anthodor  5.028e-17 6.032e-17  5.069e-17  1.1606  0.1712  0.93294
-Bellpere -2.160e-16 3.292e-16  1.947e-17  0.2572 -0.7080 -0.32204
-....                                                             
+             CA1     CA2      CA3     CA4      CA5     CA6
+Achimill  0.5370 -0.4359  0.64609  0.3311  0.17150 0.46285
+Agrostol -0.6811  0.2177  0.03744  0.1002  0.01487 0.01267
+Airaprae  2.4508  1.5533  0.96472  0.9517 -0.36656 0.11603
+Alopgeni -0.2339  0.5522 -0.21144 -0.1442  0.30865 0.06859
+Anthodor  1.1606  0.1712  0.93294  0.2130 -0.04613 0.34776
+Bellpere  0.2572 -0.7080 -0.32204  0.1782  0.18429 0.40846
+....                                                      
 
 
 Site scores (weighted averages of species scores)
 
-           CCA1       CCA2       CCA3     CA1     CA2     CA3
-1    -1.019e+16 -8.458e+14  4.673e+15  0.8230 -2.2699 -0.7806
-2     4.053e+14  4.574e+15  3.800e+15 -0.1982 -0.2109 -0.4545
-3    -4.335e+15  4.325e+15 -9.965e+14  0.3427 -0.7277 -0.4467
-4    -4.413e+14  2.248e+14  2.329e+15  0.4052 -0.6579 -0.4713
-5    -5.318e+14  3.803e+15  1.655e+15  0.5211 -0.7902  0.6590
-6    -2.072e+15 -1.340e+15 -3.792e+15  0.4040 -0.7319  1.0530
-....                                                         
+         CA1     CA2     CA3     CA4     CA5     CA6
+1     0.8230 -2.2699 -0.7806  2.0151 -1.3638 -1.0360
+2    -0.1982 -0.2109 -0.4545  1.1167  0.9179  0.9226
+3     0.3427 -0.7277 -0.4467  0.3927 -0.1371 -0.1625
+4     0.4052 -0.6579 -0.4713  0.8698 -0.3958 -0.3294
+5     0.5211 -0.7902  0.6590  0.2465  0.2671  0.8453
+6     0.4040 -0.7319  1.0530 -1.2760 -0.3260 -0.3322
+....                                                
 
 
 Site constraints (linear combinations of constraining variables)
 
-        CCA1    CCA2    CCA3     CA1     CA2     CA3
-1     1.2451  0.3328  0.8347  0.8230 -2.2699 -0.7806
-2    -0.7636  1.8989 -0.8160 -0.1982 -0.2109 -0.4545
-3     1.2451  0.3328  0.8347  0.3427 -0.7277 -0.4467
-4     1.2451  0.3328  0.8347  0.4052 -0.6579 -0.4713
-5    -1.1158 -0.6616  0.7302  0.5211 -0.7902  0.6590
-6    -1.1158 -0.6616  0.7302  0.4040 -0.7319  1.0530
+         CA1     CA2     CA3     CA4     CA5     CA6
+1     0.8230 -2.2699 -0.7806  2.0151 -1.3638 -1.0360
+2    -0.1982 -0.2109 -0.4545  1.1167  0.9179  0.9226
+3     0.3427 -0.7277 -0.4467  0.3927 -0.1371 -0.1625
+4     0.4052 -0.6579 -0.4713  0.8698 -0.3958 -0.3294
+5     0.5211 -0.7902  0.6590  0.2465  0.2671  0.8453
+6     0.4040 -0.7319  1.0530 -1.2760 -0.3260 -0.3322
 ....                                                
 
 
 Biplot scores for constraining variables
 
-     CCA1 CCA2 CCA3 CA1 CA2 CA3
-
-
-Centroids for factor constraints
-
-                 CCA1     CCA2    CCA3 CA1 CA2 CA3
-ManagementBF  0.18296  1.96681 -0.5489   0   0   0
-ManagementHF -0.56531 -0.09736  1.4070   0   0   0
-ManagementNM  0.05316 -0.36327 -0.9923   0   0   0
-ManagementSF -0.27545  0.22954  0.3148   0   0   0
+     CA1 CA2 CA3 CA4 CA5 CA6
 
 > ## diagnostics
 > hatvalues(mcca)
@@ -1167,13 +1147,8 @@ In sqrt(1 - hat) : NaNs produced
 > ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
 > head(goodness(m0cca))
-                 CCA1         CCA2         CCA3
-Achimill 1.641934e-34 4.203139e-34 1.246388e-33
-Agrostol 6.510327e-33 8.210553e-33 9.565290e-33
-Airaprae 2.868841e-34 2.001130e-33 2.107050e-33
-Alopgeni 1.038537e-32 2.234744e-32 2.275757e-32
-Anthodor 8.258835e-34 2.014515e-33 2.853989e-33
-Bellpere 2.346445e-32 7.794599e-32 7.813663e-32
+    
+[1,]
 > 
 > head(inertcomp(mcca))
                 pCCA         CCA         CA
@@ -1334,37 +1309,37 @@ Species Tolerance
 
 Scaling: 2
 
-              CCA1      CCA2
-Achimill 1.0072801 1.4958601
-Agrostol 1.1359527 0.6639873
-Airaprae 0.6979130 1.4256366
-Alopgeni 1.2974365 0.6669723
-Anthodor 0.9428466 1.2286605
-Bellpere 1.0588846 1.4062979
-Bromhord 1.1038366 1.6235632
-Chenalbu 0.0000000 0.0000000
-Cirsarve 0.0000000 0.0000000
-Comapalu 0.6838123 1.3968329
-Eleopalu 1.0228512 0.8858887
-Elymrepe 1.2450394 0.9667216
-Empenigr 0.0000000 0.0000000
-Hyporadi 0.7249464 1.6225201
-Juncarti 1.0647016 0.8625050
-Juncbufo 1.3859759 0.5971638
-Lolipere 1.1023154 1.2159773
-Planlanc 1.0318972 1.2283279
-Poaprat  1.0877251 1.1276965
-Poatriv  1.1777698 0.9628331
-Ranuflam 0.9613334 0.8934550
-Rumeacet 1.2978890 0.7270647
-Sagiproc 1.1963422 0.8859256
-Salirepe 0.6022368 1.2301975
-Scorautu 0.9109124 1.1982109
-Trifprat 1.4494995 0.8594164
-Trifrepe 0.9691731 1.2568159
-Vicilath 0.8906811 2.1718790
-Bracruta 0.9817305 1.0058836
-Callcusp 0.9760455 1.0416541
+                CA1       CA2
+Achimill 0.93081291 0.6745967
+Agrostol 0.94948340 0.8399189
+Airaprae 0.24900983 1.1654868
+Alopgeni 0.72691801 0.8663008
+Anthodor 1.16042746 1.2064710
+Bellpere 0.32171690 0.5896772
+Bromhord 0.30439162 0.2520537
+Chenalbu 0.00000000 0.0000000
+Cirsarve 0.00000000 0.0000000
+Comapalu 0.04188875 0.3978489
+Eleopalu 0.27843158 0.8139597
+Elymrepe 0.48247839 1.0976628
+Empenigr 0.00000000 0.0000000
+Hyporadi 1.24351176 1.0426009
+Juncarti 0.55151550 0.6732079
+Juncbufo 0.34613702 0.6755382
+Lolipere 0.47272340 1.0063725
+Planlanc 0.68508236 0.7519421
+Poaprat  0.62232238 1.0525979
+Poatriv  0.53991189 0.9294700
+Ranuflam 0.64111496 0.7767885
+Rumeacet 0.31189914 0.8529941
+Sagiproc 1.00552765 1.0323428
+Salirepe 1.98146498 1.8744367
+Scorautu 1.15313128 1.1608885
+Trifprat 0.06305472 0.1114134
+Trifrepe 0.93807067 0.9633500
+Vicilath 0.26634099 1.2800665
+Bracruta 1.09582706 1.1281157
+Callcusp 0.15244932 0.8249616
 
 > 
 > vif.cca(mcca)
@@ -1495,13 +1470,13 @@ Manure.C     -0.77167591  0.1002141  1.217675445  0.03048179
 Manure^4              NA         NA           NA          NA
 A1            0.07499906 -0.0841729  0.048383354 -0.01927336
 > coef(m0cca)
-                   CCA1      CCA2       CCA3
-ManagementHF -0.3521756 -2.560445  1.5462074
-ManagementNM  1.2471779 -2.886576 -0.7094728
-ManagementSF  2.0087722 -1.566056  1.6507111
-ManagementHF         NA        NA         NA
-ManagementNM         NA        NA         NA
-ManagementSF         NA        NA         NA
+            
+ManagementHF
+ManagementNM
+ManagementSF
+ManagementHF
+ManagementNM
+ManagementSF
 > 
 > eigenvals(mcca)
      CCA1      CCA2      CCA3      CCA4       CA1       CA2       CA3       CA4 
@@ -1541,15 +1516,12 @@ ManagementSF         NA        NA         NA
      MDS5      MDS6      MDS7      MDS8     iMDS1     iMDS2     iMDS3     iMDS4 
  33.35464  24.56550   9.59082   5.97139  -0.59029  -6.26478 -13.30016 -20.78725 
 > eigenvals(m0cca)
-     CCA1      CCA2      CCA3       CA1       CA2       CA3       CA4       CA5 
-0.0000000 0.0000000 0.0000000 0.4473747 0.2030030 0.1630063 0.1345715 0.1294004 
-      CA6       CA7       CA8       CA9      CA10      CA11      CA12      CA13 
-0.0949428 0.0790423 0.0652609 0.0500390 0.0432118 0.0387041 0.0238515 0.0177294 
-     CA14      CA15      CA16 
-0.0091722 0.0079589 0.0041568 
+      CA1       CA2       CA3       CA4       CA5       CA6       CA7       CA8 
+0.4473747 0.2030030 0.1630063 0.1345715 0.1294004 0.0949428 0.0790423 0.0652609 
+      CA9      CA10      CA11      CA12      CA13      CA14      CA15      CA16 
+0.0500390 0.0432118 0.0387041 0.0238515 0.0177294 0.0091722 0.0079589 0.0041568 
 > eigenvals(m0cca, constrained = TRUE)
-        CCA1         CCA2         CCA3 
-8.417447e-33 5.938638e-33 1.918051e-33 
+numeric(0)
 > 
 > nobs(mcca)
 [1] 20
@@ -1599,7 +1571,7 @@ $adj.r.squared
 
 > RsquareAdj(m0cca)
 $r.squared
-[1] 7.693667e-33
+[1] 0
 
 $adj.r.squared
 [1] 0
@@ -1775,9 +1747,9 @@ Number of permutations: 49
 Model: cca(formula = dune ~ Condition(Management) + Management, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-         Df Inertia   F Pr(>F)
-Model     0  0.0000 Inf      1
-Residual 16  1.5114           
+         Df Inertia F Pr(>F)
+Model     0  0.0000         
+Residual 16  1.5114         
 > 
 > drop1(mcca, test="permutation", permutations=per)
                       Df    AIC      F Pr(>F)  
@@ -1880,14 +1852,12 @@ Residual 12   387.45
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m0cca, permutations = per)
-Permutation test for cca under reduced model
-Permutation: free
-Number of permutations: 49
+No constrained component
 
 Model: cca(formula = dune ~ Condition(Management) + Management, data = dune.env)
-         Df ChiSquare   F Pr(>F)
-Model     0    0.0000 Inf      1
-Residual 16    1.5114           
+         Df ChiSquare  F Pr(>F)
+Model     0    0.0000  0       
+Residual 19    1.5114          
 > 
 > anova(mcca, permutations = per, by="term")
 Permutation test for cca under reduced model
@@ -2541,4 +2511,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.168   0.084   3.245 
+  3.026   0.060   3.079 

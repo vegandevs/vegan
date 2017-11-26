@@ -156,7 +156,7 @@
     nperm <- nrow(permutations)
     ## Observed F-values and Df
     eig <- object$CCA$eig
-    resdf <- nobs(object) - length(eig) - max(object$pCCA$rank, 0) - 1
+    resdf <- nobs(object) - length(eig) - max(object$pCCA$QR$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
     Df <- rep(1, length(eig))
 

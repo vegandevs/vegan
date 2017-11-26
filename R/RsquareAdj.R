@@ -27,7 +27,7 @@
         ## Partial model: same adjusted R2 as for component [a] in two
         ## source varpart model
         R2p <- x$pCCA$tot.chi/x$tot.chi
-        p <- x$pCCA$rank
+        p <- x$pCCA$QR$rank
         radj <- RsquareAdj(R2 + R2p, n, m + p) - RsquareAdj(R2p, n, p)
     }
     list(r.squared = R2, adj.r.squared = radj)
@@ -35,7 +35,7 @@
 
 ## cca result: no RsquareAdj
 RsquareAdj.cca <-
-    function (x, permutations = 1000, ...) 
+    function (x, permutations = 1000, ...)
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
     p <- permutest(x, permutations, ...)
