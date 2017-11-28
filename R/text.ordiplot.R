@@ -6,7 +6,8 @@
         rownames(sco) <- labels
     if (!missing(select))
         sco <- .checkSelect(select, sco)
-    if (attr(sco, "score") %in% c("biplot", "regression")) {
+    scoatt <- attr(sco, "score")
+    if (!is.null(scoatt) && scoatt %in% c("biplot", "regression")) {
         arrows = TRUE
         sco <- sco * ordiArrowMul(sco)
     }

@@ -5,7 +5,8 @@
     if (!missing(select))
         sco <- .checkSelect(select, sco)
     ## draw adjusted arrows automatically for biplot scores
-    if (attr(sco, "score") %in% c("biplot", "regression")) {
+    scoatt <- attr(sco, "score")
+    if (!is.null(scoatt) && scoatt %in% c("biplot", "regression")) {
         arrows = TRUE
         sco <- sco * ordiArrowMul(sco)
     }
