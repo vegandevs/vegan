@@ -86,7 +86,7 @@ non-standard packages **rgl** and **scatterplot3d**.
 
 ### What other packages are available for ecologists?
 
-CRAN [Task Views](https://cran.r-project.org/src/contrib/Views/) include
+CRAN [Task Views](https://cran.r-project.org/web/views/) include
 entries like `Environmetrics`, `Multivariate` and `Spatial` that
 describe several useful packages and functions. If you install R package
 **ctv**, you can inspect Task Views from your R session, and
