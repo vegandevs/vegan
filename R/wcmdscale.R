@@ -35,7 +35,7 @@
     m <- t(.Call(do_wcentre, t(m), w))
     e <- eigen(-m/2, symmetric = TRUE)
     ## Remove zero eigenvalues, keep negative
-    keep <- abs(e$values) > ZERO
+    keep <- abs(e$values) > max(ZERO, ZERO * e$values[1L])
     e$values <- e$values[keep]
     e$vectors <- e$vectors[, keep, drop = FALSE]
     ## Deweight and scale axes -- also negative
