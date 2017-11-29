@@ -12,7 +12,7 @@
     if (missing(s2))
         s2 <- cov(x)
     e <- eigen(s2, symmetric = TRUE)
-    k <- e$values > tol * e$values[1L]
+    k <- e$values > max(tol, tol * e$values[1L])
     sisqr <- e$vectors[,k, drop=FALSE] %*%
         (sqrt(1/e$values[k]) * t(e$vectors[,k, drop = FALSE]))
     x %*% sisqr
