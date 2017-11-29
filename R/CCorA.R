@@ -20,7 +20,7 @@
         } else {
             S.svd <- svd(cov(mat))
             m <- ncol(mat)
-            mm <- length(which(S.svd$d > epsilon))
+            mm <- length(which(S.svd$d > max(epsilon, epsilon * S.svd$d[1L])))
             if(mm < m) {
                 message("Information - Matrix",no,": rank=",mm," < order",m)
                 m <- mm

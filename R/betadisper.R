@@ -40,7 +40,7 @@
         rowSums(d^2)
     }
     ## Tolerance for zero Eigenvalues
-    TOL <- 1e-7
+    TOL <- sqrt(.Machine$double.eps)
     ## uses code from stats:::cmdscale by R Core Development Team
     if(!inherits(d, "dist"))
         stop("distances 'd' must be a 'dist' object")
@@ -103,7 +103,7 @@
     vectors <- e$vectors
     eig <- e$values
     ## Remove zero eigenvalues
-    eig <- eig[(want <- abs(eig/eig[1]) > TOL)]
+    eig <- eig[(want <- abs(eig) > max(TOL, TOL * eig[1L]))]
     ## scale Eigenvectors
     vectors <- vectors[, want, drop = FALSE] %*% diag(sqrt(abs(eig)),
                                nrow = length(eig))
