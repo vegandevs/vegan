@@ -1,13 +1,17 @@
 `as.preston` <-
-    function (x, tiesplit = TRUE, ...) 
+    function (x, tiesplit = TRUE, ...)
 {
-    if (inherits(x, "preston")) 
+    if (inherits(x, "preston"))
         return(x)
+    ## practically integer
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    ## need exact integers, since, e.g., sqrt(2)^2 - 2 = 4.4e-16 and
+    ## tie breaks fail
+    x <- round(x)
     x <- x[x > 0]
     if (tiesplit) {
-        ## Assume log2(2^k) == k exactly for integer k
+        ## Assume log2(2^k) == k *exactly* for integer k
         xlog2 <- log2(x)
         ties <- xlog2 == ceiling(xlog2)
         tiefreq <- table(xlog2[ties])
