@@ -1,5 +1,5 @@
 `estimateR.default` <-
-    function (x, ...) 
+    function (x, ...)
 {
     gradF <- function(a, i) {
         .expr4 <- sum(i * a)
@@ -17,17 +17,20 @@
         .expr25 <- 1/(1 - sum(i * a)) + a[1]/(1 - sum(i * a))^2
         .expr26 <- .expr7^2
         .expr35 <- .expr16^2
-        Grad <- a[1] * i/(.expr23 * .expr26) * .expr20 + .expr8 * 
-            (1 + a[1] * ((.expr12 + (.expr10 * i * (i - 1)))/.expr16 - 
-                         .expr13 * ((.expr7 * i - (a[1] * i/.expr23) * 
+        Grad <- a[1] * i/(.expr23 * .expr26) * .expr20 + .expr8 *
+            (1 + a[1] * ((.expr12 + (.expr10 * i * (i - 1)))/.expr16 -
+                         .expr13 * ((.expr7 * i - (a[1] * i/.expr23) *
                                      .expr4) * .expr15 + .expr14 * i)/.expr35))
-        Grad[1] <- .expr25/.expr26 * .expr20 + .expr8 * (1 + 
-                                                         (.expr18 + a[1] * (.expr12/.expr16 - .expr13 * ((.expr7 - 
+        Grad[1] <- .expr25/.expr26 * .expr20 + .expr8 * (1 +
+                                                         (.expr18 + a[1] * (.expr12/.expr16 - .expr13 * ((.expr7 -
                                                                                                           .expr25 * .expr4) * .expr15 + .expr14)/.expr35)))
         Grad
     }
-    if (!identical(all.equal(x, round(x)), TRUE)) 
+    ## we need integers
+    if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    ## and they must be exact
+    x <- round(x)
     X <- x[x > 0]
     N <- sum(X)
     SSC <- 1 # (N-1)/N # do NOT use small-sample correction
@@ -78,10 +81,10 @@
     C.ace <- 1 - a[1]/N.rare
     i <- seq_along(a)
     thing <- i * (i - 1) * a
-    Gam <- sum(thing) * S.rare/(C.ace * N.rare * (N.rare - 1)) - 
+    Gam <- sum(thing) * S.rare/(C.ace * N.rare * (N.rare - 1)) -
         1
     S.ACE <- S.abund + S.rare/C.ace + max(Gam, 0) * a[1]/C.ace
-    sd.ACE <- sqrt(sum(Deriv.Ch1 %*% t(Deriv.Ch1) * (diag(a) - 
+    sd.ACE <- sqrt(sum(Deriv.Ch1 %*% t(Deriv.Ch1) * (diag(a) -
                                                      a %*% t(a)/S.ACE)))
     out <- list(S.obs = S.obs, S.chao1 = S.Chao1, se.chao1 = sd.Chao1,
                 S.ACE = S.ACE, se.ACE = sd.ACE)
