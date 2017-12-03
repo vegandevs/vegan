@@ -34,8 +34,7 @@
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x <- as.matrix(x))
-    if (method %in% c(7, 13, 15) && !identical(all.equal(as.integer(x),
-                                                     as.vector(x)), TRUE))
+    if (method %in% c(7, 13, 15) && !identical(all.equal(x, round(x)), TRUE))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
     d <- .Call(do_vegdist, as.matrix(x), as.integer(method))
