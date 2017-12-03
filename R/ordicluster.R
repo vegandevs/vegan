@@ -1,6 +1,7 @@
 `ordicluster` <-
-    function (ord, cluster, prune=0, display="sites",
-              w = weights(ord, display), col = 1, ...)
+    function (ord, cluster, prune = 0, display = "sites",
+              w = weights(ord, display), col = 1,
+              draw = c("segments", "none"), ...)
 {
     weights.default <- function(object, ...) NULL
     w <- eval(w)
@@ -10,13 +11,14 @@
         stop("Dimensions do not match in 'ord' and 'cluster'")
     if (length(w) == 1) w <- rep(w, nrow(ord))
     n <- if (is.null(w)) rep(1, nrow(ord)) else w
-    noden <- numeric(nrow(ord))
-    go <- ord
+    noden <- numeric(nrow(mrg) - prune)
+    go <- matrix(0, nrow(mrg) - prune, 2)
     ## recycle colours for points and prepare to get node colours
     col <- rep(col, length = nrow(ord))
     col <- col2rgb(col)/255
     nodecol <- matrix(NA, nrow(mrg) - prune, 3)
-    for (i in 1: (nrow(mrg) - prune)) {
+    seg.coords <- matrix(NA, nrow = nrow(mrg) - prune, ncol = 4)
+    for (i in seq_len(nrow(mrg) - prune)) {
         a <- mrg[i,1]
         b <- mrg[i,2]
         one <- if (a < 0) ord[-a,] else go[a,]
@@ -30,9 +32,19 @@
         colone <- if (a < 0) col[,-a] else nodecol[a,]
         coltwo <- if (b < 0) col[,-b] else nodecol[b,]
         nodecol[i,] <- (n1 * colone + n2 * coltwo)/noden[i]
-        ordiArgAbsorber(one[1], one[2], two[1], two[2],
-                        col = rgb(t(nodecol[i,])),
+        seg.coords[i, ] <- c(one[1], one[2], two[1], two[2])
+    }
+    colnames(seg.coords) <- c("x1","y1","x2","y2")
+    seg.coords <- cbind(seg.coords, col = nodecol)
+    ## are we plotting?
+    draw <- match.arg(draw)
+    if (isTRUE(all.equal(draw, "segments"))) {
+        ordiArgAbsorber(seg.coords[,1L], seg.coords[,2L],
+                        seg.coords[,3L], seg.coords[,4L],
+                        col = rgb(nodecol),
                         FUN = segments, ...)
     }
-    invisible(cbind(go, "w"=noden))
+    out <- structure(list(scores = cbind(go, "w" = noden),
+                          segments = seg.coords), class = "ordicluster")
+    invisible(out)
 }
