@@ -6,6 +6,8 @@
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function is meaningful only for integers (counts)")
     x <- as.matrix(x)
+    ## x may not be exactly integer, since, e.g., sqrt(2)^2 != 2
+    x <- round(x)
     if (ncol(x) == 1)
         x <- t(x)
     if (length(sample) > 1 && length(sample) != nrow(x))
