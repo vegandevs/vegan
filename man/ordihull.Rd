@@ -34,7 +34,8 @@ ordispider(ord, groups, display="sites", w = weights(ord, display),
 	 spiders = c("centroid", "median"),  show.groups, 
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
-            w = weights(ord, display), col = 1, plot = TRUE, ...)
+            w = weights(ord, display), col = 1, draw = c("segments", "none"),
+            ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
@@ -47,11 +48,15 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
     drawn. }
   \item{display}{Item to displayed. }
 
-  \item{draw}{Use either \code{\link{lines}} or \code{\link{polygon}}
-    to draw the lines. Graphical parameters are passed to both. The
-    main difference is that \code{polygon}s may be filled and
-    non-transparent. With \code{none} nothing is drawn, but the
-    function returns the \code{\link{invisible}} plotting data.}
+  \item{draw}{character; how should objects be represented on the plot?
+    For \code{ordihull} and \code{ordiellipse} use either
+    \code{\link{lines}} or \code{\link{polygon}} to draw the
+    lines. For \code{ordicluster}, line segments are drawn using
+    \code{\link{segments}}. To suppress plotting, use
+    \code{"none"}. Graphical parameters are passed to both. The main
+    difference is that \code{polygon}s may be filled and
+    non-transparent. With \code{none} nothing is drawn, but the function
+    returns the \code{\link{invisible}} plotting.}
 
   \item{col}{Colour of hull or ellipse lines (if \code{draw = "lines"})
     or their fills (if \code{draw = "polygon"}) in \code{ordihull} and
@@ -105,9 +110,6 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   \item{prune}{Number of upper level hierarchies removed from the
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be
     disconnected.}
-
-  \item{plot}{logical; for \code{ordicluster}, whether to draw anything
-    on the current device.}
 
   \item{object}{A result object from \code{ordihull} or
     \code{ordiellipse}. The result is \code{\link{invisible}}, but it

@@ -1,6 +1,7 @@
 `ordicluster` <-
     function (ord, cluster, prune = 0, display = "sites",
-              w = weights(ord, display), col = 1, plot = TRUE, ...)
+              w = weights(ord, display), col = 1,
+              draw = c("segments", "none"), ...)
 {
     weights.default <- function(object, ...) NULL
     w <- eval(w)
@@ -35,8 +36,11 @@
     }
     colnames(seg.coords) <- c("x1","y1","x2","y2")
     seg.coords <- cbind(seg.coords, col = nodecol)
-    if (plot) {
-        ordiArgAbsorber(seg.coords[,1L], seg.coords[,2L], seg.coords[,3L], seg.coords[,4L],
+    ## are we plotting?
+    draw <- match.arg(draw)
+    if (isTRUE(all.equal(draw, "segments"))) {
+        ordiArgAbsorber(seg.coords[,1L], seg.coords[,2L],
+                        seg.coords[,3L], seg.coords[,4L],
                         col = rgb(nodecol),
                         FUN = segments, ...)
     }
