@@ -29,14 +29,16 @@
     call[[1]] <- as.name("rda")
     call$formula <- formula(d$terms)
     sol$call <- call
-    if (!is.null(sol$na.action))
+    if (!is.null(d$na.action)) {
+        sol$na.action <- d$na.action
         sol <- ordiNAexclude(sol, d$excluded)
+    }
+    if (!is.null(d$subset))
+        sol$subset <- d$subset
     ## drops class in c()
     sol <- c(sol,
              list(terms = d$terms,
-                  terminfo = ordiTerminfo(d, d$modelframe),
-                  subset = d$subset,
-                  na.action = d$na.action))
+                  terminfo = ordiTerminfo(d, d$modelframe)))
     class(sol) <- c("rda", "cca")
     sol
 }
