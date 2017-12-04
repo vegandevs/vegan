@@ -238,19 +238,18 @@ plot(fit, col = "red")
 ## supported by all graphics devices)
 data(dune)
 data(dune.env)
-attach(dune.env)
 ord <- cca(dune)
 fit <- envfit(ord ~ Moisture + A1, dune.env, perm = 0)
 plot(ord, type = "n")
-ordispider(ord, Moisture, col="skyblue")
-points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
+with(dune.env, ordispider(ord, Moisture, col="skyblue"))
+with(dune.env, points(ord, display = "sites", col = as.numeric(Moisture),
+                      pch=16))
 plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
 ## Use shorter labels for factor centroids
 labels(fit)
 plot(ord)
 plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
    bg = rgb(1,1,0,0.5))
-detach(dune.env)
 }
 \keyword{multivariate }
 \keyword{aplot}
