@@ -35,7 +35,6 @@
         seg.coords[i, ] <- c(one[1], one[2], two[1], two[2])
     }
     colnames(seg.coords) <- c("x1","y1","x2","y2")
-    seg.coords <- cbind(seg.coords, col = nodecol)
     ## are we plotting?
     draw <- match.arg(draw)
     if (isTRUE(all.equal(draw, "segments"))) {
@@ -44,6 +43,8 @@
                         col = rgb(nodecol),
                         FUN = segments, ...)
     }
+    colnames(go) <- c("x","y")
+    seg.coords <- cbind(as.data.frame(seg.coords), col = rgb(nodecol))
     out <- structure(list(scores = cbind(go, "w" = noden),
                           segments = seg.coords), class = "ordicluster")
     invisible(out)
