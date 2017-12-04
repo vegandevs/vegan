@@ -122,8 +122,7 @@ dissimilarities instead of their ranks.
 data(dune)
 data(dune.env)
 dune.dist <- vegdist(dune)
-attach(dune.env)
-dune.ano <- anosim(dune.dist, Management)
+dune.ano <- with(dune.env, anosim(dune.dist, Management))
 summary(dune.ano)
 plot(dune.ano)
 }
