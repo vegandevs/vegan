@@ -143,7 +143,7 @@
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname
-    if (!is.null(D$subset))
+    if (!is.null(d$subset))
         sol$subset <- d$subset
     if (!is.null(d$na.action)) {
         sol$na.action <- d$na.action
