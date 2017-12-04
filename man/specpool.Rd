@@ -207,14 +207,13 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
 \examples{
 data(dune)
 data(dune.env)
-attach(dune.env)
-pool <- specpool(dune, Management)
+pool <- with(dune.env, specpool(dune, Management))
 pool
 op <- par(mfrow=c(1,2))
-boxplot(specnumber(dune) ~ Management, col="hotpink", border="cyan3",
- notch=TRUE)
-boxplot(specnumber(dune)/specpool2vect(pool) ~ Management, col="hotpink",
- border="cyan3", notch=TRUE)
+boxplot(specnumber(dune) ~ Management, data = dune.env,
+        col = "hotpink", border = "cyan3")
+boxplot(specnumber(dune)/specpool2vect(pool) ~ Management,
+        data = dune.env, col = "hotpink", border = "cyan3")
 par(op)
 data(BCI)
 ## Accumulation model
