@@ -21,7 +21,7 @@
     ## Estimate WA scores for NA cases with newdata of excluded
     ## observations
     if (is.null(x$pCCA) && inherits(nas, "exclude") &&
-        !inherits(x, "capscale")) {
+        !inherits(x, c("dbrda", "capscale"))) {
         if (!is.null(x$CCA))
             x$CCA$wa.excluded <- predict(x, newdata = excluded,
                                          type = "wa", model = "CCA")

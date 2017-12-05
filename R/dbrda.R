@@ -143,10 +143,14 @@
     sol$inertia <- inertia
     if (metaMDSdist)
         sol$metaMDSdist <- commname
-    sol$subset <- d$subset
-    sol$na.action <- d$na.action
-    class(sol) <- c("dbrda", "rda", "cca")
-    if (!is.null(sol$na.action))
+    if (!is.null(d$subset))
+        sol$subset <- d$subset
+    if (!is.null(d$na.action)) {
+        sol$na.action <- d$na.action
+        ## dbrda cannot add WA scores in na.exclude, and the following
+        ## does nothing except adds residuals.zombie
         sol <- ordiNAexclude(sol, d$excluded)
+    }
+    class(sol) <- c("dbrda", "rda", "cca")
     sol
 }

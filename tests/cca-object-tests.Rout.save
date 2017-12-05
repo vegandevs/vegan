@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2017-11-22 r73776) -- "Unsuffered Consequences"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -17,6 +17,8 @@ Type 'q()' to quit R.
 
 > ## test the stability of cca object and its support functions
 > suppressPackageStartupMessages(require(vegan))
+Warning message:
+package 'lattice' was built under R version 3.3.2 
 > set.seed(4711)
 > ## models
 > data(dune, dune.env)
@@ -192,13 +194,11 @@ Eigenvalues for unconstrained axes:
 > ## names
 > sort(names(mcca))
  [1] "CA"          "CCA"         "Ybar"        "call"        "call"       
- [6] "colsum"      "grand.total" "inertia"     "method"      "na.action"  
-[11] "pCCA"        "rowsum"      "subset"      "terminfo"    "terms"      
-[16] "tot.chi"    
+ [6] "colsum"      "grand.total" "inertia"     "method"      "pCCA"       
+[11] "rowsum"      "terminfo"    "terms"       "tot.chi"    
 > sort(names(mrda))
- [1] "CA"        "CCA"       "Ybar"      "call"      "colsum"    "inertia"  
- [7] "method"    "na.action" "pCCA"      "subset"    "terminfo"  "terms"    
-[13] "tot.chi"  
+ [1] "CA"       "CCA"      "Ybar"     "call"     "colsum"   "inertia" 
+ [7] "method"   "pCCA"     "terminfo" "terms"    "tot.chi" 
 > sort(names(mcap))
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
@@ -1147,8 +1147,7 @@ In sqrt(1 - hat) : NaNs produced
 > ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
 > head(goodness(m0cca))
-    
-[1,]
+numeric(0)
 > 
 > head(inertcomp(mcca))
                 pCCA         CCA         CA
@@ -2511,4 +2510,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  3.026   0.060   3.079 
+  2.089   0.091   2.180 
