@@ -1,7 +1,7 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+R Under development (unstable) (2017-12-05 r73833) -- "Unsuffered Consequences"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -17,8 +17,6 @@ Type 'q()' to quit R.
 
 > ## test the stability of cca object and its support functions
 > suppressPackageStartupMessages(require(vegan))
-Warning message:
-package 'lattice' was built under R version 3.3.2 
 > set.seed(4711)
 > ## models
 > data(dune, dune.env)
@@ -1147,7 +1145,8 @@ In sqrt(1 - hat) : NaNs produced
 > ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
 > head(goodness(m0cca))
-numeric(0)
+    
+[1,]
 > 
 > head(inertcomp(mcca))
                 pCCA         CCA         CA
@@ -2510,4 +2509,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  2.089   0.091   2.180 
+  2.949   0.061   3.004 

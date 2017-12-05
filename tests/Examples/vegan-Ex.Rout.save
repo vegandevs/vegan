@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-11-22 r73770) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-12-05 r73833) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -26,6 +26,7 @@ Loading required package: lattice
 This is vegan 2.5-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("BCI")
 > ### * BCI
@@ -764,8 +765,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > data(dune.env)
 > dune.dist <- vegdist(dune)
-> attach(dune.env)
-> dune.ano <- anosim(dune.dist, Management)
+> dune.ano <- with(dune.env, anosim(dune.dist, Management))
 > summary(dune.ano)
 
 Call:
@@ -797,9 +797,6 @@ Warning in bxp(list(stats = c(4, 58.5, 104, 145.5, 188, 5, 15.25, 25.5,  :
 > 
 > 
 > cleanEx()
-
-detaching ‘dune.env’
-
 > nameEx("anova.cca")
 > ### * anova.cca
 > 
@@ -2934,12 +2931,12 @@ pH       -0.31133604  0.3658438
 > ## supported by all graphics devices)
 > data(dune)
 > data(dune.env)
-> attach(dune.env)
 > ord <- cca(dune)
 > fit <- envfit(ord ~ Moisture + A1, dune.env, perm = 0)
 > plot(ord, type = "n")
-> ordispider(ord, Moisture, col="skyblue")
-> points(ord, display = "sites", col = as.numeric(Moisture), pch=16)
+> with(dune.env, ordispider(ord, Moisture, col="skyblue"))
+> with(dune.env, points(ord, display = "sites", col = as.numeric(Moisture),
++                       pch=16))
 > plot(fit, cex=1.2, axis=TRUE, bg = rgb(1, 1, 1, 0.5))
 > ## Use shorter labels for factor centroids
 > labels(fit)
@@ -2952,7 +2949,6 @@ $factors
 > plot(ord)
 > plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
 +    bg = rgb(1,1,0,0.5))
-> detach(dune.env)
 > 
 > 
 > 
@@ -5274,10 +5270,10 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > data(dune)
 > data(dune.env)
 > mod <- cca(dune ~ Management, dune.env)
-> attach(dune.env)
 > plot(mod, type="n", scaling = "symmetric")
 > ## Catch the invisible result of ordihull...
-> pl <- ordihull(mod, Management, scaling = "symmetric", label = TRUE)
+> pl <- with(dune.env, ordihull(mod, Management,
++                               scaling = "symmetric", label = TRUE))
 > ## ... and find centres and areas of the hulls
 > summary(pl)
             BF         HF         NM         SF
@@ -5286,10 +5282,11 @@ CCA2 0.8632208 0.09419919  0.2681515 -0.8139398
 Area 0.1951715 0.59943363  1.7398193  1.0144372
 > ## use more colours and add ellipsoid hulls
 > plot(mod, type = "n")
-> pl <- ordihull(mod, Management, scaling = "symmetric", col = 1:4,
-+   draw="polygon", label =TRUE)
-> ordiellipse(mod, Management, scaling = "symmetric", kind = "ehull",
-+   col = 1:4, lwd=3)
+> pl <- with(dune.env, ordihull(mod, Management,
++                               scaling = "symmetric", col = 1:4,
++                               draw="polygon", label =TRUE))
+> with(dune.env, ordiellipse(mod, Management, scaling = "symmetric",
++                            kind = "ehull", col = 1:4, lwd=3))
 > ## ordispider to connect WA and LC scores
 > plot(mod, dis=c("wa","lc"), type="p")
 > ordispider(mod)
@@ -5299,24 +5296,23 @@ Area 0.1951715 0.59943363  1.7398193  1.0144372
 > ordicluster(mod, cl, prune=3, col = cutree(cl, 4))
 > ## confidence ellipse: location of the class centroids
 > plot(mod, type="n", display = "sites")
-> text(mod, display="sites", labels = as.character(Management),
-+   col=as.numeric(Management))
-> pl <- ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2,
-+   draw = "polygon", col=1:4, border=1:4, alpha=63)
+> with(dune.env, text(mod, display="sites", labels = as.character(Management),
++                     col=as.numeric(Management)))
+> pl <- with(dune.env, ordiellipse(mod, Management, kind="se", conf=0.95, lwd=2,
++                                  draw = "polygon", col=1:4, border=1:4,
++                                  alpha=63))
 > summary(pl)
             BF        HF          NM         SF
 CCA1 0.4312652 0.5583211 -1.87848340  0.5601499
 CCA2 1.3273917 0.6373120 -0.05503211 -1.3859924
 Area 1.4559842 1.3806668  2.73667419  1.5559135
 > ## add confidence bars
-> ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col=1:4, label=TRUE)
+> with(dune.env, ordibar(mod, Management, kind="se", conf=0.95, lwd=2, col=1:4,
++                        label=TRUE))
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘dune.env’
-
 > nameEx("ordilabel")
 > ### * ordilabel
 > 
@@ -7706,8 +7702,7 @@ sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
 > 
 > data(dune)
 > data(dune.env)
-> attach(dune.env)
-> pool <- specpool(dune, Management)
+> pool <- with(dune.env, specpool(dune, Management))
 > pool
    Species     chao   chao.se    jack1 jack1.se    jack2     boot  boot.se n
 BF      16 17.19048 1.5895675 19.33333 2.211083 19.83333 17.74074 1.646379 3
@@ -7715,14 +7710,10 @@ HF      21 21.51429 0.9511693 23.40000 1.876166 22.05000 22.56864 1.821518 5
 NM      21 22.87500 2.1582871 26.00000 3.291403 25.73333 23.77696 2.300982 6
 SF      21 29.88889 8.6447967 27.66667 3.496029 31.40000 23.99496 1.850288 6
 > op <- par(mfrow=c(1,2))
-> boxplot(specnumber(dune) ~ Management, col="hotpink", border="cyan3",
-+  notch=TRUE)
-Warning in bxp(list(stats = c(9, 9.5, 10, 11, 12, 11, 12, 13, 13, 14, 7,  :
-  some notches went outside hinges ('box'): maybe set notch=FALSE
-> boxplot(specnumber(dune)/specpool2vect(pool) ~ Management, col="hotpink",
-+  border="cyan3", notch=TRUE)
-Warning in bxp(list(stats = c(0.46551724137931, 0.491379310344828, 0.517241379310345,  :
-  some notches went outside hinges ('box'): maybe set notch=FALSE
+> boxplot(specnumber(dune) ~ Management, data = dune.env,
++         col = "hotpink", border = "cyan3")
+> boxplot(specnumber(dune)/specpool2vect(pool) ~ Management,
++         data = dune.env, col = "hotpink", border = "cyan3")
 > par(op)
 > data(BCI)
 > ## Accumulation model
@@ -7795,9 +7786,6 @@ se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-
-detaching ‘dune.env’
-
 > nameEx("sppscores")
 > ### * sppscores
 > 
@@ -9239,9 +9227,10 @@ Procrustes sum of squares:
 > 
 > ### * <FOOTER>
 > ###
+> cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.948 0.136 26.085 0 0 
+Time elapsed:  26.465 0.157 26.704 0 0 
 > grDevices::dev.off()
 null device 
           1 
