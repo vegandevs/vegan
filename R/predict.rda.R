@@ -51,9 +51,9 @@
     }
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
-    if (type %in% c("wa","sp","lc") && scaling) {
+    if (type %in% c("wa","sp","lc")) {
         slam <- sqrt(object[[model]]$eig[1:take]/object$tot.chi)
-        if (missing(const))
+        if (scaling && missing(const))
             const <- sqrt(sqrt((nobs(object)-1) * object$tot.chi))
     } else {
         slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
@@ -143,7 +143,7 @@
                 Xbar[,nz] <- sweep(Xbar[,nz], 2, scal[nz], "/")
             }
             w <- Xbar %*% v
-            w <- sweep(w, 2, diag(slam), "/")
+            w <- sweep(w, 2, slam, "/") / sqrt(object$tot.chi)
         }
         out <- w
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
@@ -169,7 +169,7 @@
             if (!is.null(object$pCCA))
                 Xbar <- qr.resid(object$pCCA$QR, Xbar)
             v <- t(Xbar) %*% u
-            v <- sweep(v, 2, diag(slam), "/")
+            v <- sweep(v, 2, slam, "/") / sqrt(object$tot.chi)
         }
         out <- v
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
