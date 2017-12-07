@@ -11,7 +11,7 @@
 `predict.rda` <-
     function (object, newdata, type = c("response", "wa", "sp", "lc", "working"),
               rank = "full", model = c("CCA", "CA"), scaling = "none",
-              correlation = FALSE, ...)
+              correlation = FALSE, const, ...)
 {
     type <- match.arg(type)
     model <- match.arg(model)
@@ -49,9 +49,16 @@
     if (!inherits(object, "dbrda")) {
         v <- object[[model]]$v[, 1:take, drop = FALSE]
     }
-    slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
+    if (type %in% c("wa","sp","lc")) {
+        slam <- sqrt(object[[model]]$eig[1:take]/object$tot.chi)
+        if (scaling && missing(const))
+            const <- sqrt(sqrt((nobs(object)-1) * object$tot.chi))
+    } else {
+        slam <- diag(sqrt(object[[model]]$eig[1:take]), nrow = take)
+    }
+
     if (type %in% c("response", "working")) {
         if (!missing(newdata)) {
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
@@ -111,9 +118,8 @@
         }
         out <- u
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi)
-            lam <- list(diag(slam)/tot, 1, sqrt(diag(slam)/tot))[[abs(scaling)]]
-            out <- sqrt(tot) * sweep(out, 2, lam, "*")
+            lam <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
+            out <- const * sweep(out, 2, lam, "*")
         }
     }
     else if (type == "wa") {
@@ -137,13 +143,12 @@
                 Xbar[,nz] <- sweep(Xbar[,nz], 2, scal[nz], "/")
             }
             w <- Xbar %*% v
-            w <- sweep(w, 2, diag(slam), "/")
+            w <- sweep(w, 2, slam, "/") / sqrt(object$tot.chi)
         }
         out <- w
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi)
-            lam <- list(diag(slam)/tot, 1, sqrt(diag(slam)/tot))[[abs(scaling)]]
-            out <- sqrt(tot) * sweep(out, 2, lam, "*")
+            lam <- list(slam, 1, sqrt(slam))[[abs(scaling)]]
+            out <- const * sweep(out, 2, lam, "*")
         }
     }
     else if (type == "sp") {
@@ -164,13 +169,16 @@
             if (!is.null(object$pCCA))
                 Xbar <- qr.resid(object$pCCA$QR, Xbar)
             v <- t(Xbar) %*% u
-            v <- sweep(v, 2, diag(slam), "/")
+            v <- sweep(v, 2, slam, "/") / sqrt(object$tot.chi)
         }
         out <- v
         if (scaling) {   # implicit coercion 0 == FALSE, other == TRUE
-            tot <- sqrt(object$tot.chi)
-            scal <- list(1, diag(slam)/tot, sqrt(diag(slam)/tot))[[abs(scaling)]]
-            out <- sweep(out, 2, scal, "*")
+            lam <- list(1, slam, sqrt(slam))[[abs(scaling)]]
+            out <- const * sweep(out, 2, lam, "*")
+            if (scaling < 0) { # correlation=TRUE
+                out <- out / object$colsum
+                out <- out * sqrt(object$tot.chi / (nobs(object)-1))
+            }
         }
     }
     out
