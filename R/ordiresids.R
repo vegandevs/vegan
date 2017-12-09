@@ -8,10 +8,11 @@
         stop("function is only available for constrained ordination")
     residuals <- match.arg(residuals, c("working", "response",
                                         "standardized", "studentized"))
-    if (residuals %in%  c("working", "response"))
-        fit <- fitted(x, type = residuals)
-    else
-        fit <- fitted(x, type = "working")
+    fit <- switch(residuals,
+        "working" =,
+        "response" = fitted(x, type = residuals),
+        "standardized" =,
+        "studentized" = sweep(fitted(x, type="working"), 2, sigma(x), "/"))
     res <- switch(residuals,
         "standardized" = rstandard(x),
         "studentized" = rstudent(x),
