@@ -24,10 +24,10 @@ ordiresids(x, kind = c("residuals", "scale", "qqmath"),
     against fitted values, \code{"scale"} the square root of absolute
     residuals against fitted values, and \code{"qqmath"} the residuals
     against expected distribution (defaults \code{\link{qnorm}}),
-    unless defined differently in the \code{formula}  argument). }
-  \item{residuals}{The kind of residuals and fitted values. The argument
-    is passed on to \code{\link{fitted.cca}} with alternatives
-    \code{"working"} and \code{"response"}.}
+    unless defined differently in the \code{formula}  argument. }
+  \item{residuals}{The kind of residuals and fitted values, with alternatives
+    \code{"working"}, \code{"response"}, \code{"standardized"} and
+    \code{"studentized"} (see Details).}
   \item{type}{The type of plot. The argument is passed on to
     \pkg{lattice} functions. }
   \item{formula}{Formula to override the default plot. The formula can
@@ -36,6 +36,7 @@ ordiresids(x, kind = c("residuals", "scale", "qqmath"),
     in the ordination result).  }
   \item{\dots}{Other arguments passed to \pkg{lattice} functions. }
 }
+
 \details{
   The default plots are similar as in \code{\link{plot.lm}}, but they
   use \code{\link[lattice]{Lattice}} functions
@@ -43,20 +44,38 @@ ordiresids(x, kind = c("residuals", "scale", "qqmath"),
   alternatives have default formulae but these can be replaced by the
   user. The elements available in formula or in the \code{groups} argument
   are \code{Fitted}, \code{Residuals}, \code{Species} and \code{Sites}.
+
+  With \code{residuals = "response"} and \code{residuals = "working"}
+  the fitted values and residuals are found with functions
+  \code{\link{fitted.cca}} and \code{\link{residuals.cca}}. With
+  \code{residuals = "standardized"} the residuals are found with
+  \code{\link{rstandard.cca}}, and with \code{residuals = "studentized"}
+  they are found with \code{\link{rstudent.cca}}, and in both cases the
+  fitted values are standardized with \code{\link{sigma.cca}}.
 }
+
 \value{
-  The function return a \code{\link[lattice]{Lattice}} object that can
+  The function returns a \code{\link[lattice]{Lattice}} object that can
   displayed as plot.
 }
 
 \author{Jari Oksanen }
-\seealso{\code{\link{plot.lm}}, \code{\link[lattice]{Lattice}},
-  \code{\link[lattice]{xyplot}}, \code{\link[lattice]{qqmath}}.  }
+\seealso{
+
+  \code{\link{plot.lm}}, \code{\link{fitted.cca}},
+  \code{\link{residuals.cca}}, \code{\link{rstandard.cca}},
+  \code{\link{rstudent.cca}}, \code{\link{sigma.cca}},
+  \code{\link[lattice]{Lattice}}, \code{\link[lattice]{xyplot}},
+  \code{\link[lattice]{qqmath}}.  }
+
+
 \examples{
 data(varespec)
 data(varechem)
 mod <- cca(varespec ~ Al + P + K, varechem)
 ordiresids(mod)
+ordiresids(mod, formula = Residuals ~ Fitted | Species, residuals="standard",
+   cex = 0.5)
 }
 \keyword{ hplot }
 
