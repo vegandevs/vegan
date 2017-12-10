@@ -23,7 +23,7 @@
     if (inherits(perm, "how"))
         perm <- shuffleSet(N, control = perm)
     else { # matrix: check that it *strictly* integer
-        if(!all(perm == round(perm)))
+        if(!is.integer(perm) && !all(perm == round(perm)))
            stop("permutation matrix must be strictly integers: use round()")
     }
     ## now 'perm' is a matrix (or always was). If it is a plain
