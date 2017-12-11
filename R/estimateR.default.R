@@ -30,7 +30,8 @@
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
     ## and they must be exact
-    x <- round(x)
+    if (!is.integer(x))
+        x <- round(x)
     X <- x[x > 0]
     N <- sum(X)
     SSC <- 1 # (N-1)/N # do NOT use small-sample correction
