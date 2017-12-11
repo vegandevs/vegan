@@ -33,7 +33,7 @@
         hill = FALSE, ...)
 \method{predict}{rda}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = "none",
-        correlation = FALSE, ...)
+        correlation = FALSE, const, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
@@ -92,6 +92,9 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \item{correlation, hill}{logical; correlation-like scores or Hill's
     scaling as appropriate for RDA and CCA respectively. See
     \code{\link{scores.cca}} for additional details.}
+  \item{const}{Constant multiplier for  RDA scores. This will be used
+    only when \code{scaling} is not \code{FALSE}, and the default value
+    will give similar scaling as in \code{\link{scores.rda}}.}
   \item{norm}{Coefficients for variables that are centred and scaled
     to unit norm.}
 
