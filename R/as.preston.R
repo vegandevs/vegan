@@ -8,7 +8,8 @@
         stop("function accepts only integers (counts)")
     ## need exact integers, since, e.g., sqrt(2)^2 - 2 = 4.4e-16 and
     ## tie breaks fail
-    x <- round(x)
+    if (!is.integer(x))
+        x <- round(x)
     x <- x[x > 0]
     if (tiesplit) {
         ## Assume log2(2^k) == k *exactly* for integer k
