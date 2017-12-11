@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2017-12-05 r73833) -- "Unsuffered Consequences"
+R Under development (unstable) (2017-12-11 r73882) -- "Unsuffered Consequences"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -5412,6 +5412,8 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > data(varechem)
 > mod <- cca(varespec ~ Al + P + K, varechem)
 > ordiresids(mod)
+> ordiresids(mod, formula = Residuals ~ Fitted | Species, residuals="standard",
++    cex = 0.5)
 > 
 > 
 > 
@@ -9230,7 +9232,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.465 0.157 26.704 0 0 
+Time elapsed:  26.362 0.092 26.549 0 0 
 > grDevices::dev.off()
 null device 
           1 
