@@ -1,18 +1,22 @@
 `ordiresids` <-
-    function(x, kind = c("residuals", "scale", "qqmath"), residuals = "working",
+    function(x, kind = c("residuals", "scale", "qqmath"),
+             residuals = "working",
              type = c("p", "smooth", "g"), formula, ...)
 {
     kind <- match.arg(kind)
     if (!inherits(x, "cca") || is.null(x$CCA) || x$CCA$rank == 0)
         stop("function is only available for constrained ordination")
-    fit <- fitted(x, type = residuals)
-    res <- residuals(x, type = residuals)
-    ## remove the effects of row weights in CA
-    if (!inherits(x, "rda")) {
-        sqr <- sqrt(x$rowsum)
-        fit <- sweep(fit, 1, sqr, "*")
-        res <- sweep(res, 1, sqr, "*")
-    }
+    residuals <- match.arg(residuals, c("working", "response",
+                                        "standardized", "studentized"))
+    fit <- switch(residuals,
+        "working" =,
+        "response" = fitted(x, type = residuals),
+        "standardized" =,
+        "studentized" = sweep(fitted(x, type="working"), 2, sigma(x), "/"))
+    res <- switch(residuals,
+        "standardized" = rstandard(x),
+        "studentized" = rstudent(x),
+        residuals(x, type = residuals))
     colnam <- rep(colnames(fit), each=nrow(fit))
     rownam <- rep(rownames(fit), ncol(fit))
     df <- data.frame(Fitted = as.vector(fit), Residuals = as.vector(res))
