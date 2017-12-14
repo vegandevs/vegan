@@ -22,7 +22,7 @@ avgdist(x, sample, distfun = vegdist, meanfun = mean,
   \item{meanfun}{The calculation to use for the average (mean or median).}
   \item{transf}{Option for transforming the count data before calculating the distance matrix. Any base transformation option can be used (e.g. \code{\link{sqrt}})}
   \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
-  \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function.}
+  \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function. Default is Bray-Curtis}
   \item{...}{Any additional arguments to add to the distance function or mean/median function specified.}
 }
 
@@ -58,6 +58,12 @@ median.avg.dist <- avgdist(BCI, sample = 50, iterations = 10, meanfun = median)
 head(as.matrix(mean.avg.dist))
 head(as.matrix(mean.avg.dist.t))
 head(as.matrix(median.avg.dist))
+# Run example to illustrate low variance of mean, median, and stdev results
+# Mean and median std dev are around 0.05
+sdd <- avgdist(BCI, sample = 50, iterations = 100, meanfun = sd)
+summary(mean.avg.dist)
+summary(median.avg.dist)
+summary(sdd)
 # Test for when subsampling depth excludes some samples
 # Return samples that are removed for not meeting depth filter
 depth.avg.dist <- avgdist(BCI, sample = 450, iterations = 10)
