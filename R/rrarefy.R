@@ -3,9 +3,9 @@
 `rrarefy` <-
     function(x, sample)
 {
+    x <- as.matrix(x)
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function is meaningful only for integers (counts)")
-    x <- as.matrix(x)
     ## x may not be exactly integer, since, e.g., sqrt(2)^2 != 2
     if (!is.integer(x))
         x <- round(x)
