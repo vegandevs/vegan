@@ -1373,6 +1373,60 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
 #undef LOUD
 /* undef: do_backtrack */
 
+/* Random rarefaction: not really a nestedness function, but uses
+ *  IRAND. Input must be one row of integers and returns a row with
+ *  integers that are a 'size' subsample of that row. */
+
+SEXP do_rrarefy(SEXP row, SEXP size)
+{
+    int n = length(row), sample = asInteger(size), tot, accum;
+    int i, j, nsp, take;
+    
+    /* Initialize */
+    if (TYPEOF(row) != INTSXP)
+	row = coerceVector(row, INTSXP);
+    PROTECT(row);
+    int *irow = INTEGER(row);
+    int *count = (int *) R_alloc(n, sizeof(int));
+    memset(count, 0, n * sizeof(int));
+    int *pres = (int *) R_alloc(n, sizeof(int));
+    for(i = 0, nsp = 0, tot = 0; i < n; i++) {
+	if (irow[i] > 0) {
+	    pres[nsp] = i;
+	    count[nsp] = irow[i];
+	    tot += irow[i];
+	    nsp++;
+	}
+    }
+    /* Nothing to rarefy? return input */
+    if (tot <= sample) {
+	UNPROTECT(1);
+	return(row);
+    }
+	
+    /* initialize result */
+    SEXP out = PROTECT(allocVector(INTSXP, n));
+    int *rarefied = INTEGER(out);
+    memset(rarefied, 0, n * sizeof(int));
+
+    /* compute the sample */
+    for(i = 0; i < sample; i++) {
+	take = IRAND(tot-1);
+	for (j = 0, accum =  0; j < nsp; j++) {
+	    accum += count[j];
+	    if (take < accum) {
+		rarefied[pres[j]]++;
+		count[j]--;
+		tot--;
+		break;
+	    }
+	}
+    }
+    
+    UNPROTECT(2);
+    return out;
+}
+
 #undef IRAND
 #undef INDX
 /* undef: all of nestedness.c */

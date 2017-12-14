@@ -26,6 +26,7 @@ extern SEXP do_goffactor(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_backtrack(SEXP, SEXP, SEXP);
 extern SEXP do_minterms(SEXP);
 extern SEXP do_rcfill(SEXP, SEXP, SEXP);
+extern SEXP do_rrarefy(SEXP, SEXP);
 extern SEXP do_qswap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_swap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_vegdist(SEXP, SEXP);
@@ -63,6 +64,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_minterms",  (DL_FUNC) &do_minterms,  1},
     {"do_qswap",     (DL_FUNC) &do_qswap,     4},
     {"do_rcfill",    (DL_FUNC) &do_rcfill,    3},
+    {"do_rrarefy",   (DL_FUNC) &do_rrarefy,   2},
     {"do_swap",      (DL_FUNC) &do_swap,      4},
     {"do_vegdist",   (DL_FUNC) &do_vegdist,   2},
     {"do_wcentre",   (DL_FUNC) &do_wcentre,   2},
