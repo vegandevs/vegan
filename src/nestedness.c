@@ -1418,6 +1418,7 @@ SEXP do_rrarefy(SEXP row, SEXP size)
     memset(rarefied, 0, n * sizeof(int));
 
     /* compute the sample */
+    GetRNGstate();
     for(i = 0; i < sample; i++) {
 	take = IRAND(tot-1);
 	for (j = 0, accum =  0; j < nsp; j++) {
@@ -1430,6 +1431,7 @@ SEXP do_rrarefy(SEXP row, SEXP size)
 	    }
 	}
     }
+    PutRNGstate();
     
     UNPROTECT(2);
     return out;
