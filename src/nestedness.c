@@ -1403,6 +1403,14 @@ SEXP do_rrarefy(SEXP row, SEXP size)
 	UNPROTECT(1);
 	return(row);
     }
+
+    /* reverse sort by count for faster hit */
+    double *rcnt = (double *) R_alloc(nsp, sizeof(double));
+    for(i = 0; i < nsp; i++)
+	rcnt[i] = count[i];
+    revsort(rcnt, pres, nsp);
+    for(i = 0; i < nsp; i++)
+	count[i] = rcnt[i];
 	
     /* initialize result */
     SEXP out = PROTECT(allocVector(INTSXP, n));
