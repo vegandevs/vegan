@@ -1377,6 +1377,10 @@ SEXP do_backtrack(SEXP n, SEXP rs, SEXP cs)
  *  IRAND. Input must be one row of integers and returns a row with
  *  integers that are a 'size' subsample of that row. */
 
+#ifndef SORTLIMIT
+#define SORTLIMIT 100
+#endif
+
 SEXP do_rrarefy(SEXP row, SEXP size)
 {
     int n = length(row), sample = asInteger(size), tot, accum;
@@ -1404,13 +1408,16 @@ SEXP do_rrarefy(SEXP row, SEXP size)
 	return(row);
     }
 
-    /* reverse sort by count for faster hit */
-    double *rcnt = (double *) R_alloc(nsp, sizeof(double));
-    for(i = 0; i < nsp; i++)
-	rcnt[i] = count[i];
-    revsort(rcnt, spec, nsp);
-    for(i = 0; i < nsp; i++)
-	count[i] = rcnt[i];
+    /* reverse sort by count for faster hit -- this is probably useful
+     * only when nsp is high (and size is large) */
+    if (nsp > SORTLIMIT) {
+	double *rcnt = (double *) R_alloc(nsp, sizeof(double));
+	for(i = 0; i < nsp; i++)
+	    rcnt[i] = count[i];
+	revsort(rcnt, spec, nsp);
+	for(i = 0; i < nsp; i++)
+	    count[i] = rcnt[i];
+    }
 	
     /* initialize result */
     SEXP out = PROTECT(allocVector(INTSXP, n));
@@ -1436,6 +1443,9 @@ SEXP do_rrarefy(SEXP row, SEXP size)
     UNPROTECT(2);
     return out;
 }
+
+#undef SORTLIMIT
+/* do_rrarefy */
 
 #undef IRAND
 #undef INDX
