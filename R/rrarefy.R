@@ -17,6 +17,8 @@
     sample <- rep(sample, length=nrow(x))
     colnames(x) <- colnames(x, do.NULL = FALSE)
     nm <- colnames(x)
+    if (any(duplicated(nm)))
+        nm <- make.names(nm, unique = TRUE)
     ## warn if something cannot be rarefied
     if (any(rowSums(x) < sample))
         warning("Some row sums < 'sample' and are not rarefied")
