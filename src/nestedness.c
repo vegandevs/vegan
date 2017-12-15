@@ -1389,10 +1389,10 @@ SEXP do_rrarefy(SEXP row, SEXP size)
     int *irow = INTEGER(row);
     int *count = (int *) R_alloc(n, sizeof(int));
     memset(count, 0, n * sizeof(int));
-    int *pres = (int *) R_alloc(n, sizeof(int));
+    int *spec = (int *) R_alloc(n, sizeof(int));
     for(i = 0, nsp = 0, tot = 0; i < n; i++) {
 	if (irow[i] > 0) {
-	    pres[nsp] = i;
+	    spec[nsp] = i;
 	    count[nsp] = irow[i];
 	    tot += irow[i];
 	    nsp++;
@@ -1408,7 +1408,7 @@ SEXP do_rrarefy(SEXP row, SEXP size)
     double *rcnt = (double *) R_alloc(nsp, sizeof(double));
     for(i = 0; i < nsp; i++)
 	rcnt[i] = count[i];
-    revsort(rcnt, pres, nsp);
+    revsort(rcnt, spec, nsp);
     for(i = 0; i < nsp; i++)
 	count[i] = rcnt[i];
 	
@@ -1424,7 +1424,7 @@ SEXP do_rrarefy(SEXP row, SEXP size)
 	for (j = 0, accum =  0; j < nsp; j++) {
 	    accum += count[j];
 	    if (take < accum) {
-		rarefied[pres[j]]++;
+		rarefied[spec[j]]++;
 		count[j]--;
 		tot--;
 		break;
