@@ -54,7 +54,15 @@ rareslope(x, sample)
   of individuals, the non-rarefied community will be returned.  The
   random rarefaction is made without replacement so that the variance
   of rarefied communities is rather related to rarefaction proportion
-  than to the size of the \code{sample}.
+  than to the size of the \code{sample}. Random rarefaction is
+  sometimes used to remove the effects of differenct sample
+  sizes. This is usually a bad idea: random rarefaction discards valid
+  data, introduces random error and reduces the quality of the data
+  (McMurdle & Holmes 2014). It is better to use normalizing
+  transformations (\code{\link{decostand}} in \pkg{vegan}) possible
+  with variance stabilization (\code{\link{decostand}} and
+  \code{\link{dispweight}} in \pkg{vegan}) and methods that are not
+  sensitive to sample sizes.
 
   Function \code{drarefy} returns probabilities that species occur in
   a rarefied community of size \code{sample}. The \code{sample} can be
@@ -96,6 +104,10 @@ rareslope(x, sample)
   
   Hurlbert, S.H. (1971). The nonconcept of species diversity: a critique
   and alternative parameters. \emph{Ecology} \strong{52}, 577--586.
+
+  McMurdie, P.J. & Holmes, S. (2014). Waste not, want not: Why
+  rarefying microbiome data is inadmissible. \emph{PLoS Comput Biol}
+  \strong{10(4):} e1003531. \doi{10.1371/journal.pcbi.1003531}
  
 }
 
