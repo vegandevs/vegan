@@ -58,7 +58,7 @@ rareslope(x, sample)
   sometimes used to remove the effects of differenct sample
   sizes. This is usually a bad idea: random rarefaction discards valid
   data, introduces random error and reduces the quality of the data
-  (McMurdle & Holmes 2014). It is better to use normalizing
+  (McMurdie & Holmes 2014). It is better to use normalizing
   transformations (\code{\link{decostand}} in \pkg{vegan}) possible
   with variance stabilization (\code{\link{decostand}} and
   \code{\link{dispweight}} in \pkg{vegan}) and methods that are not
