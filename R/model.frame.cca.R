@@ -1,12 +1,14 @@
 `model.frame.cca` <-
     function (formula, ...)
 {
-    if (inherits(formula, "prc"))
-        stop("model.frame does not work with 'prc' results")
     call <- formula$call
     m <- match(c("formula", "data", "na.action", "subset"), names(call),
         0)
     call <- call[c(1, m)]
+    ## did we succeed? Fails if we have no formula, in prc and if
+    ## there was no data= argument
+    if (is.null(call$data))
+        stop("no sufficient information to reconstrunct model frame")
     ## subset must be evaluated before ordiParseFormula
     if (!is.null(call$subset))
         call$subset <- formula$subset
