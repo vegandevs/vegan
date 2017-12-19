@@ -33,8 +33,11 @@
 }
 \details{
   The constrained ordination method objects do not save data on model 
-  frame or design matrix, and the functions must reconstruct the
-  information from the result object.
+  frame or model matrix, and the functions must reconstruct the
+  information from the result object. This is usually possible for the
+  model matrix. The reconstruction of model frame is only possible if
+  the model was fitted with \code{formula} and \code{data} arguments,
+  and still fails if the \code{data} are unavailable.
 }
 \value{
   Returns a data frame (\code{model.frame}) or an unnamed matrix or a 
