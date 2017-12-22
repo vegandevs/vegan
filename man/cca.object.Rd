@@ -9,21 +9,29 @@
   Ordination methods \code{\link{cca}}, \code{\link{rda}},
   \code{\link{dbrda}} and \code{\link{capscale}} return similar result
   objects. All these methods use the same internal function
-  \code{ordConstrained}. They differ only in (1) initial transformation
-  of the data and inertia, (2) weighting, and (3) the use of rectangular
-  rows \eqn{\times}{x} columns data or symmetric rows \eqn{\times}{x}
-  rows dissimilarities: \code{\link{rda}} initializes data to give
-  variance or correlations as inertia, \code{\link{cca}} is based on
-  double-standardized data to give Chi-square related inertia, and uses
-  row and column weights, and \code{\link{dbrda}} performs an RDA-like
-  analysis based on symmetric dissimilarities. Function
-  \code{ordConstrained} returns the same result components for all these
-  methods, and the calling function may set some more components for the
-  final result. This help page describes the internal structure of the
-  \code{cca} result object for programmers. This knowledge is not needed
-  in normal use, but it is better to use support functions to access the
-  result, because these should work even if the internal structure of
-  the result object changes.}
+  \code{ordConstrained}. They differ only in (1) initial
+  transformation of the data and inertia, (2) weighting, and (3) the
+  use of rectangular rows \eqn{\times}{x} columns data or symmetric
+  rows \eqn{\times}{x} rows dissimilarities: \code{\link{rda}}
+  initializes data to give variance or correlations as inertia,
+  \code{\link{cca}} is based on double-standardized data to give
+  Chi-square related inertia, and uses row and column weights, and
+  \code{\link{dbrda}} performs an RDA-like analysis based on symmetric
+  dissimilarities.
+
+  Function \code{ordConstrained} returns the same result components
+  for all these methods, and the calling function may set some more
+  components for the final result. However, you should not access
+  these result components directly (using \code{$}): the internal
+  structure is not regarded as stable application interfrace (API),
+  but it can change at any release. If you access the results
+  components directly, you take a risk of breakage at any \pkg{vegan}
+  release.  The \pkg{vegan} provides a wide set of accessor functions
+  to those components, and these functions are updated when the result
+  object changes. This documentation gives an overview of accessor
+  functions to the \code{cca} result object.
+
+}
 
 \value{
   A \code{cca} object has the following elements:
