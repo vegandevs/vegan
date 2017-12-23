@@ -2,6 +2,9 @@
 \alias{cca.object}
 \alias{ordConstrained} % a common interface, not really documented
 \alias{ordiYbar}
+\alias{model.matrix.cca}
+\alias{model.matrix.rda}
+\alias{model.frame.cca}
 
 \title{Result Object from Constrained Ordination}
 
@@ -37,12 +40,14 @@
 \usage{
 
 ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
+\method{model.frame}{cca}(formula, ...)
+\method{model.matrix}{cca}(object, ...)
 
 }
 
 \arguments{
 
-  \item{object, x}{A result object from \code{\link{cca}},
+  \item{object, x, formula}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{dbrda}}, or
     \code{\link{capscale}}. }
 
@@ -51,6 +56,8 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
     results. In \code{ordiYbar} the value can also be \code{"initial"}
     for the internal working input data, and \code{"partial"} for the
     internal working input data after removing the partial effects. }
+
+  \item{\dots}{Other arguments passed to the the function.}
 
 }
 
@@ -66,6 +73,16 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \code{\link{residuals.cca}}. Function \code{\link{predict.cca}} can
   return either working or response data, and also their lower-rank
   approximations.
+
+  The model matrix of independent data (\dQuote{Constraints} and
+  \dQuote{Conditions}} can be extracted with \code{model.matrix}. In
+  partial analysis, the function returns a list of design matrices
+  called \code{Conditions} and \code{Constraints}. If either component
+  was missing, a single matrix is returned. Function
+  \code{model.frame} tries to reconstruct the data frame from which
+  the model matrices were derived. This is only possible if the
+  original model was fitted with \code{formula} and \code{data
+  arguments}, and still fails if the \code{data} are unavailable.
 
 }
 
@@ -315,6 +332,10 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \pkg{vegan} version 2.5-0, and you should use \code{ordiYbar}
   function instead of direct access, or your scripts and functions
   will fail.
+
+  The \code{model.matrix} returns the unweighted model matrix also for
+  \code{\link{cca}}. Prior to \pkg{vegan} version 2.5-0 it returned
+  the weighted model matrix
 
 }
 
