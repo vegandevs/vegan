@@ -3,7 +3,7 @@
 \alias{ordConstrained} % a common interface, not really documented
 \alias{ordiYbar}
 
-\title{Result Object from Constrained Ordination with cca, rda or capscale }
+\title{Result Object from Constrained Ordination}
 
 \description{
 
