@@ -75,7 +75,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   approximations.
 
   The model matrix of independent data (\dQuote{Constraints} and
-  \dQuote{Conditions}} can be extracted with \code{model.matrix}. In
+  \dQuote{Conditions}) can be extracted with \code{model.matrix}. In
   partial analysis, the function returns a list of design matrices
   called \code{Conditions} and \code{Constraints}. If either component
   was missing, a single matrix is returned. Function
@@ -84,37 +84,22 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   original model was fitted with \code{formula} and \code{data
   arguments}, and still fails if the \code{data} are unavailable.
 
+  The QR decomposition of constraints can be accessed with
+  \code{\link{qr.cca}}. This will also include the residual effects of
+  partial terms (Conditions), and it should be used together with
+  \code{ordiYbar(<result>, "partial")}. The number of observations can
+  be accessed with \code{\link{nobs.cca}}, and the residual degrees of
+  freedom with \code{\link{df.residual.cca}}.
+
+  The terms and formula of the fitted model can be accessed with
+  \code{\link{formula}} and \code{\link{terms}}. The weights used in
+  \code{\link{cca}} can be accessed with \code{\link{weights.cca}}.
+
 }
 
 \value{
-  A \code{cca} object has the following elements:
-  \item{call }{the function call.}
-  \item{colsum, rowsum }{Column and row sums in \code{cca}.  In
-    \code{rda}, item \code{colsum} contains standard deviations of
-    species and \code{rowsum} is \code{NA}. }
-  \item{grand.total}{Grand total of community data in \code{cca} and
-    \code{NA} in \code{rda}.}
   \item{inertia}{Text used as the name of inertia.}
   \item{method}{Text used as the name of the ordination method.}
-  \item{terms}{The \code{\link{terms}} component of the
-    \code{\link{formula}}. This is missing if the ordination was not called
-    with \code{formula}.}
-  \item{terminfo}{Further information on terms with four subitems:
-    \code{terms} which is like the \code{terms} component above, but
-    lists conditions and constraints similarly; \code{assign} which is
-    the \code{assign} attribute of constraining
-    \code{\link{model.matrix}}, \code{xlev} which lists the factor
-    levels, and \code{ordered} which is \code{TRUE} to ordered
-    factors.  This is produced by \pkg{vegan} internal function
-    \code{\link{ordiTerminfo}}, and is missing if the ordination
-    was not called with \code{formula}.}
-  \item{Ybar}{Working input data after initial transformations for each
-    method. Function \code{\link{ordiYbar}} can be used to access this
-    data as well as the data used to find the data after fitting the
-    conditions, constraints or residual variation. The data structure
-    changed in \pkg{vegan} 2.5-0 and therefore direct access to these
-    items is not robust across version limits, and \code{\link{ordiYbar}}
-    should be used for these components.}
   \item{tot.chi}{Total inertia or the sum of all eigenvalues.}
   \item{na.action}{The result of \code{\link{na.action}} if missing
     values in constraints were handled by \code{\link{na.omit}} or
