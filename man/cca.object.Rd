@@ -57,9 +57,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 \details{
 
   The internal (\dQuote{working}) form of the dependent (community)
-  data can be accessed with function \code{ordiYbar}. NB., this
-  internal structure changed in \pkg{vegan} version 2.5-0, and you
-  should use this function instead of direct access. The form depends
+  data can be accessed with function \code{ordiYbar}. The form depends
   on the ordination method: for instance, in \code{\link{cca}} the
   data are weighted and Chi-square transformed, and in
   \code{\link{dbrda}} the internal forms are Gower-centred
@@ -310,6 +308,16 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   methods to handle the constrained ordination result object.
 
 }
+
+\note{
+
+  Saving of \dQuote{working} dependent (community) data changed in
+  \pkg{vegan} version 2.5-0, and you should use \code{ordiYbar}
+  function instead of direct access, or your scripts or functions will
+  fail.
+
+}
+
 \references{
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
