@@ -1,6 +1,7 @@
 \name{cca.object}
 \alias{cca.object}
 \alias{ordConstrained} % a common interface, not really documented
+\alias{ordiYbar}
 
 \title{Result Object from Constrained Ordination with cca, rda or capscale }
 
@@ -30,6 +31,43 @@
   to those components, and these functions are updated when the result
   object changes. This documentation gives an overview of accessor
   functions to the \code{cca} result object.
+
+}
+
+\usage{
+
+ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
+
+}
+
+\arguments{
+
+  \item{object, x}{A result object from \code{\link{cca}},
+    \code{\link{rda}}, \code{\link{dbrda}}, or
+    \code{\link{capscale}}. }
+
+  \item{model}{Show constrained (\code{"CCA"}), unconstrained
+    (\code{"CA"}) or conditioned \dQuote{partial} (\code{"pCCA"})
+    results. In \code{ordiYbar} the value can also be \code{"initial"}
+    for the internal working input data, and \code{"partial"} for the
+    internal working input data after removing the partial effects. }
+
+}
+
+\details{
+
+  The internal (\dQuote{working}) form of the dependent (community)
+  data can be accessed with function \code{ordiYbar}. NB., this
+  internal structure changed in \pkg{vegan} version 2.5-0, and you
+  should use this function instead of direct access. The form depends
+  on the ordination method: for instance, in \code{\link{cca}} the
+  data are weighted and Chi-square transformed, and in
+  \code{\link{dbrda}} the internal forms are Gower-centred
+  dissimilarities. The input data in the original (\dQuote{response})
+  form can be accessed with \code{\link{fitted.cca}} and
+  \code{\link{residuals.cca}}. Function \code{\link{predict.cca}} can
+  return either working or response data, and also their lower-rank
+  approximations.
 
 }
 

@@ -11,7 +11,6 @@
 \alias{coef.rda}
 \alias{calibrate.cca}
 \alias{calibrate}
-\alias{ordiYbar}
 
 \title{Prediction Tools for [Constrained] Ordination (CCA,
   RDA, DCA, CA, PCA) }
@@ -38,7 +37,6 @@
 \method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
-ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 }
 
 \arguments{
@@ -51,10 +49,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
     (\code{"CA"}) or conditioned \dQuote{partial} (\code{"pCCA"})
     results. For \code{fitted} method of \code{\link{capscale}} this can
     also be \code{"Imaginary"} for imaginary components with negative
-    eigenvalues. In \code{ordiYbar} the value can also be
-    \code{"initial"} for the internal working input data, and
-    \code{"partial"} for the internal working input data after removing
-    the partial effects. }
+    eigenvalues }
 
   \item{newdata}{New data frame to be used in prediction or in
     calibration.  Usually this a new community data frame, but with
@@ -120,11 +115,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   variants of \code{fitted} and \code{residuals} are defined so that for
   model \code{mod <- cca(y ~ x)}, \code{cca(fitted(mod))} is equal to
   constrained ordination, and \code{cca(residuals(mod))} is equal to
-  unconstrained part of the ordination.  The \code{fitted} function is
-  based on \code{ordiYbar} which returns the internal (working) form of
-  dependent data. The internal organization of the result object can
-  change, and direct access to the internal working matrices should be
-  avoided in robust code and \code{ordiYbar} should be used instead.
+  unconstrained part of the ordination.
 
   Function \code{predict} can find the estimate of the original data
   matrix or dissimilarities (\code{type = "response"}) with any rank.
