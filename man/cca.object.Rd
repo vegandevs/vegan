@@ -313,8 +313,8 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 
   Saving of \dQuote{working} dependent (community) data changed in
   \pkg{vegan} version 2.5-0, and you should use \code{ordiYbar}
-  function instead of direct access, or your scripts or functions will
-  fail.
+  function instead of direct access, or your scripts and functions
+  will fail.
 
 }
 
