@@ -144,7 +144,15 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
   faster than \code{\link{vegdist}}, although the latter uses compiled
   code. However, \code{designdist} cannot skip missing values and uses
   much more memory during calculations.
+
+  The use of sum terms can be numerically unstable. In particularly,
+  when these terms are large, the precision may be lost. The risk is
+  large when the number of columns is high, and particularly large with
+  quadratic terms. For precise calculations it is better to use
+  functions like \code{\link{dist}} and \code{\link{vegdist}} which are
+  more robust against numerical problems.
 }
+
 \seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}},
   \code{\link{raupcrick}}.}
 \examples{
