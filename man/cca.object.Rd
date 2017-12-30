@@ -5,6 +5,9 @@
 \alias{model.matrix.cca}
 \alias{model.matrix.rda}
 \alias{model.frame.cca}
+\alias{weights.cca}
+\alias{weights.rda}
+\alias{weights.decorana}
 
 \title{Result Object from Constrained Ordination}
 
@@ -42,6 +45,7 @@
 ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 \method{model.frame}{cca}(formula, ...)
 \method{model.matrix}{cca}(object, ...)
+\method{weights}{cca}(object, display = "sites", ...)
 
 }
 
@@ -55,7 +59,9 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
     (\code{"CA"}) or conditioned \dQuote{partial} (\code{"pCCA"})
     results. In \code{ordiYbar} the value can also be \code{"initial"}
     for the internal working input data, and \code{"partial"} for the
-    internal working input data after removing the partial effects. }
+    internal working input data after removing the partial effects.}
+
+  \item{display}{Display either \code{"sites"} or \code{"species"}.}
 
   \item{\dots}{Other arguments passed to the the function.}
 
@@ -92,8 +98,11 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   freedom with \code{\link{df.residual.cca}}.
 
   The terms and formula of the fitted model can be accessed with
-  \code{\link{formula}} and \code{\link{terms}}. The weights used in
-  \code{\link{cca}} can be accessed with \code{\link{weights.cca}}.
+  \code{\link{formula}} and \code{\link{terms}}.
+
+  The weights used in \code{\link{cca}} can be accessed with
+  \code{weights}. In unweighted methods (\code{\link{rda}}) all
+  weights are equal.
 
 }
 
