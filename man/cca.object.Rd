@@ -93,12 +93,23 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   The QR decomposition of constraints can be accessed with
   \code{\link{qr.cca}}. This will also include the residual effects of
   partial terms (Conditions), and it should be used together with
-  \code{ordiYbar(<result>, "partial")}. The number of observations can
-  be accessed with \code{\link{nobs.cca}}, and the residual degrees of
-  freedom with \code{\link{df.residual.cca}}.
+  \code{ordiYbar(<result>, "partial")}. The constrained ordination
+  algorithm is based on QR decomposition of constraints and conditions
+  (environmental data).  The environmental data are first centred in
+  \code{rda} or weighted and centred in \code{cca}.  The QR
+  decomposition is used in many functions that access \code{cca}
+  results, and it can be used to find many items that are not directly
+  stored in the object.  For examples, see \code{\link{coef.cca}},
+  \code{\link{coef.rda}}, \code{\link{vif.cca}},
+  \code{\link{permutest.cca}}, \code{\link{predict.cca}},
+  \code{\link{predict.rda}}, \code{\link{calibrate.cca}}. See
+  \code{\link{qr}} for other possible uses of this component.
 
-  The terms and formula of the fitted model can be accessed with
-  \code{\link{formula}} and \code{\link{terms}}.
+  The number of observations can be accessed with
+  \code{\link{nobs.cca}}, and the residual degrees of freedom with
+  \code{\link{df.residual.cca}}.  The terms and formula of the fitted
+  model can be accessed with \code{\link{formula}} and
+  \code{\link{terms}}.
 
   The weights used in \code{\link{cca}} can be accessed with
   \code{weights}. In unweighted methods (\code{\link{rda}}) all
@@ -155,21 +166,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
       release. Use \code{ordiYbar(x, "pCCA")} to access this item in any
       \pkg{vegan} version.}
 
-    \item{\code{QR}}{The QR decomposition of explanatory variables as produced
-      by \code{\link{qr}}. 
-      The constrained ordination 
-      algorithm is based on QR decomposition of constraints and
-      conditions (environmental data).  The environmental data
-      are first centred in \code{rda} or weighted and centred in
-      \code{cca}.  The QR decomposition is used in many functions that
-      access \code{cca} results, and it can be used to find many items
-      that are not directly stored in the object.  For examples, see
-      \code{\link{coef.cca}}, \code{\link{coef.rda}},
-      \code{\link{vif.cca}}, \code{\link{permutest.cca}},
-      \code{\link{predict.cca}}, \code{\link{predict.rda}},
-      \code{\link{calibrate.cca}}.  For possible uses of this component,
-      see \code{\link{qr}}. In \code{pCCA} and \code{CCA}.} 
-    \item{\code{rank}}{The rank of the ordination component.}
+     \item{\code{rank}}{The rank of the ordination component.}
     \item{\code{qrank}}{The rank of the constraints which is the
      difference of the ranks of QR decompositions in \code{pCCA} and
      \code{CCA} components. Only in \code{CCA}.}
