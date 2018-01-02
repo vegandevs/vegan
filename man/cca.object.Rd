@@ -84,36 +84,81 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \dQuote{Conditions}) can be extracted with \code{model.matrix}. In
   partial analysis, the function returns a list of design matrices
   called \code{Conditions} and \code{Constraints}. If either component
-  was missing, a single matrix is returned. Function
-  \code{model.frame} tries to reconstruct the data frame from which
-  the model matrices were derived. This is only possible if the
-  original model was fitted with \code{formula} and \code{data
-  arguments}, and still fails if the \code{data} are unavailable.
-
-  The QR decomposition of constraints can be accessed with
-  \code{\link{qr.cca}}. This will also include the residual effects of
-  partial terms (Conditions), and it should be used together with
-  \code{ordiYbar(<result>, "partial")}. The constrained ordination
-  algorithm is based on QR decomposition of constraints and conditions
-  (environmental data).  The environmental data are first centred in
-  \code{rda} or weighted and centred in \code{cca}.  The QR
-  decomposition is used in many functions that access \code{cca}
-  results, and it can be used to find many items that are not directly
-  stored in the object.  For examples, see \code{\link{coef.cca}},
-  \code{\link{coef.rda}}, \code{\link{vif.cca}},
-  \code{\link{permutest.cca}}, \code{\link{predict.cca}},
-  \code{\link{predict.rda}}, \code{\link{calibrate.cca}}. See
-  \code{\link{qr}} for other possible uses of this component.
+  was missing, a single matrix is returned. The redundant (aliased)
+  terms do not appear in the model matrix. These terms can be found
+  with \code{\link{alias.cca}}. Function \code{model.frame} tries to
+  reconstruct the data frame from which the model matrices were
+  derived. This is only possible if the original model was fitted with
+  \code{formula} and \code{data arguments}, and still fails if the
+  \code{data} are unavailable.
 
   The number of observations can be accessed with
   \code{\link{nobs.cca}}, and the residual degrees of freedom with
-  \code{\link{df.residual.cca}}.  The terms and formula of the fitted
-  model can be accessed with \code{\link{formula}} and
-  \code{\link{terms}}.
+  \code{\link{df.residual.cca}}. The information on observations with
+  missing values can be accessed with \code{\link{na.action}}.  The
+  terms and formula of the fitted model can be accessed with
+  \code{\link{formula}} and \code{\link{terms}}.
 
   The weights used in \code{\link{cca}} can be accessed with
   \code{weights}. In unweighted methods (\code{\link{rda}}) all
   weights are equal.
+
+  The ordination results are saved in separate components for partial
+  terms, constraints and residual unconstrained ordination. There is
+  no guarantee that these components will have the same internal names
+  as currently, and you should be cautious when developing scripts and
+  functions that directly access these components.
+
+  The constrained ordination algorithm is based on QR decomposition of
+  constraints and conditions (environmental data), and the QR
+  component is saved separately for partial and constrained
+  components.  The QR decomposition of constraints can be accessed
+  with \code{\link{qr.cca}}. This will also include the residual
+  effects of partial terms (Conditions), and it should be used
+  together with \code{ordiYbar(<result>, "partial")}. The
+  environmental data are first centred in \code{rda} or weighted and
+  centred in \code{cca}.  The QR decomposition is used in many
+  functions that access \code{cca} results, and it can be used to find
+  many items that are not directly stored in the object.  For
+  examples, see \code{\link{coef.cca}}, \code{\link{coef.rda}},
+  \code{\link{vif.cca}}, \code{\link{permutest.cca}},
+  \code{\link{predict.cca}}, \code{\link{predict.rda}},
+  \code{\link{calibrate.cca}}. See \code{\link{qr}} for other possible
+  uses of this component. For instance, the rank of the constraints
+  can be found from the QR decomposition.
+
+  The eigenvalues of the solution can be accessed with
+  \code{\link{eigenvals.cca}}. Eigenvalues are not evaluated for
+  partial component, and they will only be available for constrained
+  and residual components.
+
+  The ordination scores are internally stored as (weighted)
+  orthonormal scores matrices. These results can be accessed with
+  \code{\link{scores.cca}} and \code{\link{scores.rda}} functions. The
+  ordination scores are scaled when accessed with \code{\link{scores}}
+  functions, but internal orthonormal scores can be accessed by
+  setting \code{scaling = FALSE}. Unconstrained residual component has
+  species and site scores, and constrained component has also fitted
+  site scores or linear combination scores for sites and biplot scores
+  and centroids for constraint variables. The biplot scores correspond
+  to the \code{\link{model.matrix}}, and centroids are calculated for
+  factor variables when they were used. The scores can be selected by
+  defining the axes, and there is no direct way of accessing all
+  scores of a certain component. The number of dimesions can be
+  assessed from \code{\link{eigenvals}}. In addition, some other types
+  can be derived from the results althouth not saved in the
+  results. For instance, regression scores and model coefficients can
+  be accessed with \code{\link{scores}} and \code{\link{coef}}
+  functions. Partial component will have no scores.
+
+  Distance-based methods (\code{\link{dbrda}}, \code{\link{capscale}})
+  can have negative eigenvalues and associated imaginary axis
+  scores. There is no way of accessing these imaginary scores
+  currently.  In addition, species scores are initially missing in
+  \code{\link{dbrda}} and they are accessory and found after analysis
+  in \code{\link{capscale}} (and may be misleading). Function
+  \code{\link{sppscores}} can be used to add species scores or replace
+  them with more meaningful ones.
 
 }
 
@@ -121,52 +166,14 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \item{inertia}{Text used as the name of inertia.}
   \item{method}{Text used as the name of the ordination method.}
   \item{tot.chi}{Total inertia or the sum of all eigenvalues.}
-  \item{na.action}{The result of \code{\link{na.action}} if missing
-    values in constraints were handled by \code{\link{na.omit}} or
-    \code{\link{na.exclude}} (or \code{NULL} if there were no missing
-    values). This is a vector of indices of missing value rows in the
-    original data and a class of the action, usually either
-    \code{"omit"} or \code{"exclude"}.}
 
-  \item{pCCA, CCA, CA}{Actual ordination results for conditioned
-    (partial), constrained and unconstrained components of the
-    model. The components are called \code{pCCA}, \code{CCA} and
-    \code{CA} for historic reasons, because \code{\link{cca}} was the
-    first, and for long the only, constrained ordination method in
-    \pkg{vegan}. This naming may change in the future and should not be
-    trusted: it is safer to always use accessor functions instead of
-    directly using these names in your own code. If constraints or
-    conditions are not given, the corresponding components \code{CCA}
-    and \code{pCCA} are \code{NULL}. If they are specified but have zero
-    rank and zero eigenvalue (e.g., due to aliasing), they have a
-    standard structure like described below, but the result scores have
-    zero columns, but the correct number of rows. The residual component
-    is never \code{NULL}, and if there is no residual variation (like in
-    overdefined model), its scores have zero columns. The standard
-    \code{print} command does not show \code{NULL} components, but it
-    prints zeros for zeroed components. Items \code{pCCA}, \code{CCA}
-    and \code{CA} contain following items:
+  \item{pCCA, CCA, CA}{There are no accessor functions for the
+    following items:
 
 \describe{
-    \item{\code{alias}}{The names of the aliased constraints or conditions.
-      Function \code{\link{alias.cca}} does not access this item
-      directly, but it finds the aliased variables and their defining
-      equations from the \code{QR} item.}
-    \item{\code{biplot}}{Biplot scores of constraints.  Only in \code{CCA}.}
-    \item{\code{centroids}}{(Weighted) centroids of factor levels of
-      constraints. Only in \code{CCA}. Missing if the ordination was not
-    called with \code{formula}.}
-    \item{\code{eig}}{Eigenvalues of axes. In \code{CCA} and \code{CA}.}
     \item{\code{envcentre}}{(Weighted) means of the original constraining or
       conditioning variables. In \code{pCCA} and in \code{CCA}.}
-
-    \item{\code{Fit}}{\bold{DEPRECATED} The fitted values of
-      standardized data matrix after fitting conditions. Only in
-      \code{pCCA}. This is \bold{deprecated} and can be removed at any
-      release. Use \code{ordiYbar(x, "pCCA")} to access this item in any
-      \pkg{vegan} version.}
-
-     \item{\code{rank}}{The rank of the ordination component.}
+    \item{\code{rank}}{The rank of the ordination component.}
     \item{\code{qrank}}{The rank of the constraints which is the
      difference of the ranks of QR decompositions in \code{pCCA} and
      \code{CCA} components. Only in \code{CCA}.}
@@ -180,67 +187,8 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
      eigenvalues and scaled site scores for imaginary axes in
      \code{\link{capscale}}. Only in \code{CA} item and only if
      negative eigenvalues were found in \code{\link{capscale}}.}
-    \item{\code{u}}{(Weighted) orthonormal site scores.  Please note that
-      scaled scores are not stored in the \code{cca} object, but they
-      are made when the object is accessed with functions like
-      \code{\link{scores.cca}}, \code{\link{summary.cca}} or
-      \code{\link{plot.cca}}, or their \code{rda} variants.   Only in
-      \code{CCA} and \code{CA}.  In the \code{CCA} component these are
-      the so-called linear combination scores. }
-    \item{\code{v}}{(Weighted) orthonormal species scores.  If missing
-      species were omitted from the analysis, this will contain
-      attribute \code{\link{na.action}} that lists the omitted
-      species. Only in \code{CCA} and \code{CA}. This is a zero-row
-      matrix in \code{\link{dbrda}} which has no information on
-      species.}
-    \item{\code{wa}}{Site scores found as weighted averages (\code{cca}) or
-      weighted sums (\code{rda}) of 
-      \code{v} with weights \code{Xbar}, but the multiplying effect of
-      eigenvalues  removed. These often are known as WA scores in
-      \code{cca}. Only in  \code{CCA}.}
-    
-    \item{\code{Xbar}}{\bold{DEPRECATED} The initialized working
-      response matrix after previous stages of analysis. In \code{CCA}
-      this is after possible \code{pCCA} or after partialling out the
-      effects of conditions, and in \code{CA} after both \code{pCCA} and
-      \code{CCA}. This is \bold{deprecated} and the item can be removed
-      in any release. Function \code{\link{ordiYbar}} will return these
-      items in old and current versions of \pkg{vegan}. The \code{CCA}
-      item can be found as \code{ordiYbar(x, "partial")} and the
-      \code{CA} item as \code{ordiYbar(x, "CA")}.}
 
   } } }
-
-\section{NA Action and Subset}{
-  If the constraints had missing values or subsets, and \code{\link{na.action}}
-  was set to  \code{\link{na.exclude}} or \code{\link{na.omit}}, the
-  result will have some extra items:
-  \describe{
-    \item{\code{subset}}{subset evaluated as a logical vector
-      (\code{TRUE} for included cases).}
-    \item{\code{na.action}}{The object returned by
-      \code{\link{na.action}} which is a named vector of indices of
-      removed items. The class of the vector is either \code{"omit"} or
-      \code{"exclude"} as set by \code{\link{na.action}}. The \code{na.action}
-      is applied after \code{subset} so that the indices refer to the subset
-      data.}
-  \item{\code{residuals.zombie}}{A zombie vector of the length of
-    number of rows in the residual ordination. \R versions before 2.13.0
-    may use this vector to find the number of valid observations,
-    and it is provided for their use although this is useless in \R 2.13.0
-    and in \pkg{vegan}. Currently \R uses \code{\link{nobs.cca}} to find
-    the number of observations.}
-  \item{\code{rowsum.excluded}}{Row sums of removed observations. Only
-    in \code{\link{cca}}.}
-  \item{\code{CCA$wa.excluded}}{The WA scores for sites (found from
-    community data) in constrained ordination if
-    \code{\link{na.action}}  was \code{\link{na.exclude}} and the
-    scores could be calculated. The scores cannot be found for 
-    \code{\link{capscale}} and in partial ordination.}
-  \item{\code{CA$u.excluded}}{Row scores for sites in unconstrained
-    ordination with identical conditions as above.}
-  }
-}
 
 \section{capscale and dbrda}{
 
@@ -250,7 +198,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   object. Species scores are not directly available in distance-based
   ordination but they are calculated after the analysis if community
   data were available. The function can add some items depending on
-  its arguments:
+  its arguments that have no accessor functions:
   
   \describe{
     \item{\code{metaMDSdist}}{The data set name if 
@@ -269,52 +217,12 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
       missing, but if they are present, this item gives the name of
       the data that were used to calculate them.}
      
-  }
-
-  Function \code{\link{dbrda}} does not use \code{\link{rda}} but
-  provides a parallel implementation for dissimilarities. Its result
-  output is very similar to \code{\link{capscale}} described above
-  with the following differences:
-
-  \describe{
+     }
+}
   
-   \item{\code{u}}{or row scores only give real axes with positive
-      eigenvalues. The imaginary scores (if any) are in
-      \code{imaginary.u}. The number of columns of real scores (positive
-      eigenvalues) is given in item \code{poseig}. There is no
-      \code{imaginary.u.eig}. The \code{ordConstrained} function returns
-      all eigen vectors in one matrix, and the split is only made in the
-      \code{\link{dbrda}} function that calls \code{ordConstrained}.}
-
-   \item{\code{v}}{or species scores are not calculated.}
-   }
-      
-  }
-
-  
-\seealso{The description here provides a hacker's interface.  User
-  level functions for further analysis and handling of \code{cca}
-  objects are described in this section in \code{\link{cca}}. Also for
-  a hacker interface, it may be better to use following low level
-  functions to access the results:
-  \code{\link{scores.cca}} (which also scales results), 
-  \code{\link{predict.cca}} (which can also use \code{newdata}), 
-  \code{\link{fitted.cca}}, \code{\link{residuals.cca}},
-  \code{\link{alias.cca}}, \code{\link{coef.cca}},
-  \code{\link{model.frame.cca}}, \code{\link{model.matrix.cca}},
-  \code{\link{deviance.cca}}, \code{\link{eigenvals.cca}},
-  \code{\link{RsquareAdj.cca}}, 
-  \code{\link{weights.cca}}, \code{\link{nobs.cca}}, or \code{rda}
-  variants of these functions.
-  You can use \code{\link{as.mlm}} to cast a \code{cca.object} into
-  result of multiple response
-  linear model (\code{\link{lm}}) in order to more easily find some
-  statistics (which in principle could be directly found from the
-  \code{cca} object as well). 
-
-  This section in \code{\link{cca}} gives a more complete list of
-  methods to handle the constrained ordination result object.
-
+\seealso{
+  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
+  \code{\link{capscale}}, \code{\link{ordConstrained}}.
 }
 
 \note{
@@ -335,23 +243,6 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   ed. Elsevier.
 }
 \author{ Jari Oksanen }
-\examples{
-# Some species will be missing in the analysis, because only a subset
-# of sites is used below.
-data(dune)
-data(dune.env)
-mod <- cca(dune[1:15,] ~ ., dune.env[1:15,])
-# Look at the names of missing species
-attr(mod$CCA$v, "na.action")
-# Look at the names of the aliased variables:
-mod$CCA$alias
-# Access directly constrained weighted orthonormal species and site
-# scores, constrained eigenvalues and margin sums.
-spec <- mod$CCA$v
-sites <- mod$CCA$u
-eig <- mod$CCA$eig
-rsum <- mod$rowsum
-csum <- mod$colsum
-}
+
 \keyword{ models}
 \keyword{multivariate}
