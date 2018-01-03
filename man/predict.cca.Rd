@@ -41,7 +41,7 @@
 
 \arguments{
 
-  \item{object, x}{A result object from \code{\link{cca}},
+  \item{object}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{dbrda}}, \code{\link{capscale}} or
     \code{\link{decorana}}. }
   
