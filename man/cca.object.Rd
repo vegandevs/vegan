@@ -141,7 +141,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   component has species and site scores, and constrained component has
   also fitted site scores or linear combination scores for sites and
   biplot scores and centroids for constraint variables. The biplot
-  scores correspond to the \code{\link{model.matrix}}, and centroids
+  scores correspond to the \code{model.matrix}, and centroids
   are calculated for factor variables when they were used. The scores
   can be selected by defining the axes, and there is no direct way of
   accessing all scores of a certain component. The number of dimesions
