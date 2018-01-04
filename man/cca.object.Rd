@@ -8,6 +8,7 @@
 \alias{weights.cca}
 \alias{weights.rda}
 \alias{weights.decorana}
+\alias{print.cca}
 
 \title{Result Object from Constrained Ordination}
 
