@@ -1,5 +1,6 @@
 \name{biplot.rda}
 \alias{biplot.rda}
+\alias{biplot.cca}
 
 \title{PCA biplot}
 \description{

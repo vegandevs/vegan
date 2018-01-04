@@ -4,9 +4,6 @@
 \alias{ordiellipse}
 \alias{ordibar}
 \alias{ordicluster}
-\alias{weights.cca}
-\alias{weights.rda}
-\alias{weights.decorana}
 \alias{summary.ordihull}
 \alias{scores.ordihull}
 \alias{summary.ordiellipse}
