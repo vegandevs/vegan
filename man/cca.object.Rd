@@ -163,8 +163,14 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 }
   
 \seealso{
+
+  The core function is \code{\link{ordConstrained}} which is called by
   \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
-  \code{\link{capscale}}, \code{\link{ordConstrained}}.
+  \code{\link{capscale}}. The basic class is \code{"cca"} for all
+  methods, and the following functions are defined for this class:
+  \Sexpr[results=rd,stage=build]{require(vegan, quietly=TRUE);
+  paste0("\\\\code{\\\\link{", methods(class="cca"), "}}", collapse=", ")}.
+  
 }
 
 \note{
