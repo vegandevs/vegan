@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2017-12-18 r73921) -- "Unsuffered Consequences"
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -26,7 +26,6 @@ Loading required package: lattice
 This is vegan 2.5-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
-> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("BCI")
 > ### * BCI
@@ -1665,7 +1664,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### Name: biplot.rda
 > ### Title: PCA biplot
-> ### Aliases: biplot.rda
+> ### Aliases: biplot.rda biplot.cca
 > ### Keywords: hplot
 > 
 > ### ** Examples
@@ -1984,44 +1983,6 @@ Eigenvalues for unconstrained axes:
 > data(dune.env)
 > dune.Manure <- rda(dune ~ Manure, dune.env)
 > plot(dune.Manure) 
-> 
-> 
-> 
-> cleanEx()
-> nameEx("cca.object")
-> ### * cca.object
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: cca.object
-> ### Title: Result Object from Constrained Ordination with cca, rda or
-> ###   capscale
-> ### Aliases: cca.object ordConstrained
-> ### Keywords: models multivariate
-> 
-> ### ** Examples
-> 
-> # Some species will be missing in the analysis, because only a subset
-> # of sites is used below.
-> data(dune)
-> data(dune.env)
-> mod <- cca(dune[1:15,] ~ ., dune.env[1:15,])
-> # Look at the names of missing species
-> attr(mod$CCA$v, "na.action")
-Airaprae Empenigr Salirepe 
-       3       13       24 
-attr(,"class")
-[1] "exclude"
-> # Look at the names of the aliased variables:
-> mod$CCA$alias
-[1] "Manure^4"
-> # Access directly constrained weighted orthonormal species and site
-> # scores, constrained eigenvalues and margin sums.
-> spec <- mod$CCA$v
-> sites <- mod$CCA$u
-> eig <- mod$CCA$eig
-> rsum <- mod$rowsum
-> csum <- mod$colsum
 > 
 > 
 > 
@@ -4078,7 +4039,7 @@ Run 11 stress 0.1192686
 Run 12 stress 0.1192683 
 Run 13 stress 0.1886532 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 2.260742e-06  max resid 5.293932e-06 
+... Procrustes: rmse 2.260745e-06  max resid 5.293932e-06 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
@@ -4114,7 +4075,7 @@ Species: expanded scores based on ‘dune’
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
-... Procrustes: rmse 1.39695e-05  max resid 4.609836e-05 
+... Procrustes: rmse 1.396951e-05  max resid 4.609836e-05 
 ... Similar to previous best
 Run 2 stress 0.181294 
 Run 3 stress 0.1183186 
@@ -4316,98 +4277,6 @@ Species: expanded scores based on ‘dune’
 > ### ** Examples
 > 
 > data(mite)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("model.matrix.cca")
-> ### * model.matrix.cca
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: model.matrix.cca
-> ### Title: Reconstruct Model Frame and Model Matrices of Constrained
-> ###   Ordination
-> ### Aliases: model.matrix.cca model.matrix.rda model.frame.cca
-> ### Keywords: models multivariate
-> 
-> ### ** Examples
-> 
-> data(dune)
-> data(dune.env)
-> mod <- cca(dune ~  poly(A1, 2) + Management + Use, dune.env)
-> model.frame(mod)
-   poly(A1, 2).1 poly(A1, 2).2 Management      Use
-1    -0.21581339    0.31584574         SF Haypastu
-2    -0.14212101    0.10689011         BF Haypastu
-3    -0.05790115   -0.08310263         SF Haypastu
-4    -0.06842864   -0.06220100         SF Haypastu
-5     0.15264849   -0.33028722         HF Hayfield
-6    -0.05790115   -0.08310263         HF Haypastu
-7    -0.21581339    0.31584574         HF  Pasture
-8    -0.06842864   -0.06220100         HF  Pasture
-9    -0.12106605    0.05451056         HF Hayfield
-10   -0.16317598    0.16252391         BF Hayfield
-11   -0.14212101    0.10689011         BF  Pasture
-12    0.10001108   -0.29899963         SF Haypastu
-13    0.12106605   -0.31395535         SF Haypastu
-14    0.46847296   -0.09089291         NM  Pasture
-15    0.70007758    0.55002015         NM Haypastu
-16    0.08948360   -0.29030142         SF  Pasture
-17   -0.08948360   -0.01795706         NM Hayfield
-18   -0.02631871   -0.14092613         NM Hayfield
-19   -0.12106605    0.05451056         NM Hayfield
-20   -0.14212101    0.10689011         NM Hayfield
-> model.matrix(mod)
-   poly(A1, 2)1 poly(A1, 2)2 ManagementHF ManagementNM ManagementSF       Use.L
-1  -0.198439200  0.330886526   -0.3109489    -0.220438    0.7021898  0.06503318
-2  -0.124746824  0.121930900   -0.3109489    -0.220438   -0.2978102  0.06503318
-3  -0.040526965 -0.068061834   -0.3109489    -0.220438    0.7021898  0.06503318
-4  -0.051054447 -0.047160208   -0.3109489    -0.220438    0.7021898  0.06503318
-5   0.170022682 -0.315246424    0.6890511    -0.220438   -0.2978102 -0.64207360
-6  -0.040526965 -0.068061834    0.6890511    -0.220438   -0.2978102  0.06503318
-7  -0.198439200  0.330886526    0.6890511    -0.220438   -0.2978102  0.77213996
-8  -0.051054447 -0.047160208    0.6890511    -0.220438   -0.2978102  0.77213996
-9  -0.103691859  0.069551347    0.6890511    -0.220438   -0.2978102 -0.64207360
-10 -0.145801788  0.177564700   -0.3109489    -0.220438   -0.2978102 -0.64207360
-11 -0.124746824  0.121930900   -0.3109489    -0.220438   -0.2978102  0.77213996
-12  0.117385270 -0.283958836   -0.3109489    -0.220438    0.7021898  0.06503318
-13  0.138440235 -0.298914556   -0.3109489    -0.220438    0.7021898  0.06503318
-14  0.485847152 -0.075852117   -0.3109489     0.779562   -0.2978102  0.77213996
-15  0.717451763  0.565060938   -0.3109489     0.779562   -0.2978102  0.06503318
-16  0.106857788 -0.275260634   -0.3109489    -0.220438    0.7021898  0.77213996
-17 -0.072109412 -0.002916271   -0.3109489     0.779562   -0.2978102 -0.64207360
-18 -0.008944518 -0.125885343   -0.3109489     0.779562   -0.2978102 -0.64207360
-19 -0.103691859  0.069551347   -0.3109489     0.779562   -0.2978102 -0.64207360
-20 -0.124746824  0.121930900   -0.3109489     0.779562   -0.2978102 -0.64207360
-        Use.Q
-1  -0.7169674
-2  -0.7169674
-3  -0.7169674
-4  -0.7169674
-5   0.5077774
-6  -0.7169674
-7   0.5077774
-8   0.5077774
-9   0.5077774
-10  0.5077774
-11  0.5077774
-12 -0.7169674
-13 -0.7169674
-14  0.5077774
-15 -0.7169674
-16  0.5077774
-17  0.5077774
-18  0.5077774
-19  0.5077774
-20  0.5077774
-attr(,"assign")
-[1] 1 1 2 2 2 3 3
-attr(,"scaled:center")
-poly(A1, 2)1 poly(A1, 2)2 ManagementHF ManagementNM ManagementSF        Use.L 
- -0.01737419  -0.01504079   0.31094891   0.22043796   0.29781022  -0.06503318 
-       Use.Q 
- -0.09952915 
 > 
 > 
 > 
@@ -5273,8 +5142,7 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ### Name: ordihull
 > ### Title: Display Groups or Factor Levels in Ordination Diagrams
 > ### Aliases: ordihull ordispider ordiellipse ordibar ordicluster
-> ###   weights.cca weights.rda weights.decorana summary.ordihull
-> ###   scores.ordihull summary.ordiellipse ordiareatest
+> ###   summary.ordihull scores.ordihull summary.ordiellipse ordiareatest
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -6647,7 +6515,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ###   CA, PCA)
 > ### Aliases: fitted.cca fitted.rda fitted.capscale fitted.dbrda
 > ###   residuals.cca predict.cca predict.rda predict.decorana coef.cca
-> ###   coef.rda calibrate.cca calibrate ordiYbar
+> ###   coef.rda calibrate.cca calibrate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -6804,8 +6672,8 @@ Rotation matrix:
 [2,] 0.1154641  0.9933117
 
 Translation of averages:
-             [,1]         [,2]
-[1,] 3.038945e-17 1.218602e-17
+              [,1]        [,2]
+[1,] -7.774462e-18 4.29519e-20
 
 Scaling of target:
 [1] 0.6727804
@@ -9241,10 +9109,9 @@ Procrustes sum of squares:
 > 
 > ### * <FOOTER>
 > ###
-> cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.204 0.18 27.487 0 0 
+Time elapsed:  30.469 0.842 31.72 0 0 
 > grDevices::dev.off()
 null device 
           1 
