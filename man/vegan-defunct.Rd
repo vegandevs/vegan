@@ -15,6 +15,7 @@
 \alias{density.oecosimu}
 \alias{densityplot.oecosimu}
 \alias{commsimulator}
+\alias{read.cep}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -26,6 +27,9 @@
 \usage{
 ## defunct in vegan 2.5-0
 commsimulator(x, method, thin=1)
+
+## defunct in vegan 2.4-6
+read.cep(file, maxdata = 10000, positive = TRUE, trace = FALSE, force = FALSE)
 
 ## defunct in vegan 2.4-0
 \method{density}{adonis}(x, ...)
@@ -39,18 +43,23 @@ metaMDSrotate(object, vec, na.rm = FALSE, ...)
 ## defunct in vegan 2.0-0
 getNumObs(object, \dots)
 permuted.index2(n, control = permControl())
-
 }
 
 \details{
 
-  Function \code{commsimulator} is replaced with
+  Function \code{commsimulator} ws replaced with
   \code{\link{make.commsim}} which defines the Null models, and
   functions \code{\link{nullmodel}} and
   \code{\link{simulate.nullmodel}} that check the input data and
   generate the Null model communities.
 
-  The deprecated \code{density} and \code{densityplot} methods are
+  \code{read.cep} was used to read a file formatted by relaxed strict
+  CEP format used by \code{Canoco} software, among others. This
+  function has been removed from \pkg{vegan}, and it is now available
+  in separate package \pkg{cepreader} as function
+  \code{\link[cepreader]{readCEP}}.
+
+  The deprecated \code{density} and \code{densityplot} methods were
   replaced with similar methods for \code{\link{permustats}}. The
   \code{\link{permustats}} offers more powerful analysis tools for
   permutations, including \code{\link{summary.permustats}} giving
@@ -58,7 +67,7 @@ permuted.index2(n, control = permControl())
   plots (\code{\link{qqnorm.permustats}},
   \code{\link{qqmath.permustats}}).
 
-  Function \code{metaMDSrotate} is replaced with
+  Function \code{metaMDSrotate} was replaced with
   \code{\link{MDSrotate}} which can handle \code{\link{monoMDS}}
   results in addition to \code{\link{metaMDS}}.
 
