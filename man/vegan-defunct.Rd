@@ -47,7 +47,7 @@ permuted.index2(n, control = permControl())
 
 \details{
 
-  Function \code{commsimulator} ws replaced with
+  Function \code{commsimulator} was replaced with
   \code{\link{make.commsim}} which defines the Null models, and
   functions \code{\link{nullmodel}} and
   \code{\link{simulate.nullmodel}} that check the input data and
