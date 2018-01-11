@@ -3,7 +3,7 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage{vegan} % vegan settings
 
-\title{Vegan: an introduction to ordination} 
+\title{Vegan: an introduction to ordination}
 \author{Jari Oksanen}
 
 \date{\footnotesize{
@@ -36,7 +36,7 @@ options("prompt" = "> ", "continue" = "  ")
   classes. The constrained ordination uses constrained (canonical)
   correspondence analysis as an example. It is first shown how a model
   is defined, then the document discusses model building and
-  signficance tests of the whole analysis, single constraints and
+  significance tests of the whole analysis, single constraints and
   axes.
 \end{abstract}
 \tableofcontents
@@ -172,7 +172,7 @@ methods you can try:
 \item Zoom into graph setting axis limits \code{xlim} and
   \code{ylim}.  You must typically set both, because \pkg{vegan}
   will maintain equal aspect ratio of axes.
-\item Use points and add labell only some points with \code{identify}
+\item Use points and add label only to some points with \code{identify}
   command.
 \item Use \code{select} argument in ordination \code{text} and
   \code{points} functions to only show the specified items.

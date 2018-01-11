@@ -7,7 +7,7 @@
 %% expansion (+ permutest), contribdiv, eventstar, multipart, refer to
 %% FD, check Kindt reference to specaccum, check estimateR ref
 
-\title{Vegan: ecological diversity} \author{Jari Oksanen} 
+\title{Vegan: ecological diversity} \author{Jari Oksanen}
 
 \date{\footnotesize{
   processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
@@ -20,14 +20,14 @@
 \SweaveOpts{strip.white=true}
 <<echo=false>>=
 par(mfrow=c(1,1))
-options(width=55) 
+options(width=55)
 figset <- function() par(mar=c(4,4,1,1)+.1)
 options(SweaveHooks = list(fig = figset))
 options("prompt" = "> ", "continue" = "  ")
 @
 
 \maketitle
-\begin{abstract} 
+\begin{abstract}
   This document explains diversity related methods in
   \pkg{vegan}. The methods are briefly described, and the equations
   used them are given often in more detail than in their help
@@ -98,7 +98,7 @@ and the corresponding Hill number is $N_a = \exp(H_a)$.  Many common
 diversity indices are special cases of Hill numbers: $N_0 = S$, $N_1 =
 \exp(H')$, $N_2 = D_2$, and $N_\infty = 1/(\max p_i)$. The
 corresponding R\'{e}nyi diversities are $H_0 = \log(S)$, $H_1 = H'$, $H_2 =
-- \log(\sum p_i^2)$, and $H_\infty = - \log(\max p_i)$.  
+- \log(\sum p_i^2)$, and $H_\infty = - \log(\max p_i)$.
 Tsallis diversity of order $q$ is \citep{Tothmeresz95}:
 \begin{equation}
   H_q = \frac{1}{q-1} \left(1 - \sum_{i=1}^S p^q \right) \, .
@@ -188,14 +188,14 @@ This will not give equal rank order with the previous rarefaction
 richness:
 <<>>=
 all(rank(Srar) == rank(S2))
-@ 
+@
 Moreover, the rarefied richness for two individuals is a finite
 sample variant of Simpson's diversity index \citep{Hurlbert71}\,--\,or
 more precisely of $D_1 + 1$, and these two are almost identical in
 BCI:
 <<>>=
 range(diversity(BCI, "simp") - (S2 -1))
-@ 
+@
 Rarefaction is sometimes presented as an ecologically meaningful
 alternative to dubious diversity indices \citep{Hurlbert71}, but the
 differences really seem to be small.
@@ -577,7 +577,7 @@ once or twice.
 
 The incidence-based functions group species by their number of
 occurrences $f_i = f_0, f_1, \ldots, f_N$, where $f$ is the number of
-species occuring in exactly $i$ sites in the data: $f_N$ is the number
+species occurring in exactly $i$ sites in the data: $f_N$ is the number
 of species occurring on every $N$ site, $f_1$ the number of species
 occurring once, and $f_0$ the number of species in the species pool
 but not found in the sample. The total number of species in the pool
@@ -597,7 +597,7 @@ Function \code{specpool} implements the following models to estimate
 the number of missing species $f_0$. Chao estimator  is \citep{Chao87, ChiuEtal14}:
 \begin{equation}
 \label{eq:chao}
-\hat f_0 = \begin{cases} 
+\hat f_0 = \begin{cases}
     \frac{f_1^2}{2 f_2} \frac{N-1}{N} &\text{if } f_2 > 0 \\
 \frac{f_1 (f_1 -1)}{2}  \frac{N-1}{N} & \text{if } f_2 = 0 \,.
 \end{cases}
@@ -609,10 +609,10 @@ $\frac{N}{N-1}$, but it was not originally used \citep{Chao87}.
 The first and second order jackknife estimators are
 \citep{SmithVanBelle84}:
 \begin{align}
-\hat f_0 &=  f_1 \frac{N-1}{N}  \\ 
+\hat f_0 &=  f_1 \frac{N-1}{N}  \\
 \hat f_0 & =  f_1 \frac{2N-3}{N}  + f_2 \frac{(N-2)^2}{N(N-1)} \,.
 \end{align}
-The boostrap estimator is \citep{SmithVanBelle84}:
+The bootstrap estimator is \citep{SmithVanBelle84}:
 \begin{equation}
 \hat f_0 =  \sum_{i=1}^{S_o} (1-p_i)^N \,.
 \end{equation}
@@ -686,7 +686,7 @@ species with low frequencies.  Function \code{estimateR} implements
 two of these methods:
 <<>>=
 estimateR(BCI[k,])
-@ 
+@
 In abundance based models $a_i$ denotes the number of species with $i$
 individuals, and takes the place of $f_i$ of previous models.
 Chao's method is similar as the bias-corrected model
@@ -700,7 +700,7 @@ of eq.~\ref{eq:chao}, but quantitative estimators are based on
 abundances and do not use small-sample correction. This is not usually
 needed because sample sizes are total numbers of individuals, and
 these are usually high, unlike in frequency based models, where the
-sample size is the number of sites \citep{ChiuEtal14}. 
+sample size is the number of sites \citep{ChiuEtal14}.
 
 A commonly used approximate variance estimator of eq.~\ref{eq:chao-bc} is:
 \begin{multline}
@@ -779,8 +779,8 @@ only one species, and to avoid circular reasoning we do not include
 the target species in the smoothing (Fig.~\ref{fig:beals}):
 <<a>>=
 j <- which(colnames(BCI) == "Ceiba.pentandra")
-plot(beals(BCI, species=j, include=FALSE), BCI[,j], 
-     ylab="Occurrence", main="Ceiba pentandra", 
+plot(beals(BCI, species=j, include=FALSE), BCI[,j],
+     ylab="Occurrence", main="Ceiba pentandra",
      xlab="Probability of occurrence")
 @
 \begin{figure}
