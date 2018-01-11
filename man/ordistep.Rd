@@ -4,14 +4,14 @@
 \alias{ordiR2step}
 
 \title{
-  Choose a Model by Permutation Tests in Constrained Ordination 
+  Choose a Model by Permutation Tests in Constrained Ordination
 }
 \description{
-  Automatic stepwise model building for constrained ordination methods 
-  (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}). 
-  The function \code{ordistep} is modelled after \code{\link{step}} and 
+  Automatic stepwise model building for constrained ordination methods
+  (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}).
+  The function \code{ordistep} is modelled after \code{\link{step}} and
   can do forward, backward and stepwise model selection using permutation tests.
-  Function \code{ordiR2step} performs forward model choice solely on adjusted 
+  Function \code{ordiR2step} performs forward model choice solely on adjusted
   \eqn{R^2}{R2} and P-value, for ordination objects created by \code{\link{rda}} or \code{\link{capscale}}.
 }
 \usage{
@@ -29,9 +29,9 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
 
   \item{scope}{ Defines the range of models examined in the stepwise
   search.  This can be a list containing components \code{upper} and
-  \code{lower}, both formulae. If it is a single item, it is interpeted
+  \code{lower}, both formulae. If it is a single item, it is interpreted
   the target scope, depending on the \code{direction}. If
-  \code{direction} is \code{"forward"}, a single item is interpeted as
+  \code{direction} is \code{"forward"}, a single item is interpreted as
   the \code{upper} scope and the formula of the input \code{object} as
   the \code{lower} scope.  See \code{\link{step}} for details. In
   \code{ordiR2step}, this defines the upper scope; it can also be an
@@ -46,9 +46,9 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   forward).
 }
   \item{Pin, Pout}{
-  Limits of permutation \eqn{P}-values for adding (\code{Pin}) a term to 
+  Limits of permutation \eqn{P}-values for adding (\code{Pin}) a term to
   the model, or dropping (\code{Pout}) from the model. Term is added if
-  \eqn{P \le}{P <=} \code{Pin}, and removed if \eqn{P >} \code{Pout}. 
+  \eqn{P \le}{P <=} \code{Pin}, and removed if \eqn{P >} \code{Pout}.
 }
 
   \item{R2scope}{
@@ -76,22 +76,22 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
 }
 
   \item{\dots}{
-  Any additional arguments to \code{\link{add1.cca}} and 
+  Any additional arguments to \code{\link{add1.cca}} and
   \code{\link{drop1.cca}}.
 }
 }
 \details{
   The basic functions for model choice in constrained ordination are
   \code{\link{add1.cca}} and \code{\link{drop1.cca}}. With these functions,
-  ordination models can be chosen with standard \R function 
-  \code{\link{step}} which bases the term choice on AIC. AIC-like 
-  statistics for ordination are provided by functions 
-  \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} (with 
+  ordination models can be chosen with standard \R function
+  \code{\link{step}} which bases the term choice on AIC. AIC-like
+  statistics for ordination are provided by functions
+  \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} (with
   similar functions for \code{\link{rda}}). Actually, constrained
   ordination methods do not have AIC, and therefore the \code{\link{step}}
   may not be trusted. This function provides an alternative using
   permutation \eqn{P}-values.
- 
+
   Function \code{ordistep} defines the model, \code{scope} of models
   considered, and \code{direction} of the procedure similarly as
   \code{\link{step}}. The function alternates with \code{drop} and
@@ -120,17 +120,17 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   variables in different order.
 }
 
-\value{ 
+\value{
   Functions return the selected model with one additional
   component, \code{anova}, which contains brief information of steps
   taken. You can suppress voluminous output during model building by
   setting \code{trace = FALSE}, and find the summary of model history
-  in the \code{anova} item.  
+  in the \code{anova} item.
 }
 
 \references{
   Blanchet, F. G., Legendre, P. & Borcard, D. (2008) Forward selection
-  of explanatory variables. \emph{Ecology} 89, 2623--2632. 
+  of explanatory variables. \emph{Ecology} 89, 2623--2632.
 }
 
 \author{
@@ -162,7 +162,7 @@ mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 ordistep(mod0, scope = formula(mod1), perm.max = 200)
 
 ## Example without scope. Default direction is "backward"
-ordistep(mod1, perm.max = 200) 
+ordistep(mod1, perm.max = 200)
 
 ## Example of ordistep, forward
 \dontrun{
@@ -182,7 +182,7 @@ step.res$anova  # Summary table
 
 ## Example of ordiR2step with direction = "forward"
 \dontrun{
-step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
+step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward")
 step.res$anova  # Summary table
 }
 }

@@ -6,7 +6,7 @@
   This function computed classical PCNM by the principal coordinate
   analysis of a truncated distance matrix. These are commonly used to
   transform (spatial) distances to rectangular data that suitable for
-  constrained ordination or regression. 
+  constrained ordination or regression.
 }
 \usage{
 pcnm(dis, threshold, w, dist.ret = FALSE)
@@ -48,7 +48,7 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
   distances and using them in partial mantel analysis
   (\code{\link{mantel.partial}}) together with geographic distances
   (Legendre et al. 2008, but see Tuomisto & Ruokolainen 2008).
-  
+
   The function is based on \code{pcnm} function in Dray's unreleased
   \pkg{spacemakeR} package. The differences are that the current
   function uses \code{\link{spantree}} as an internal support
@@ -61,11 +61,11 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
 \value{
   A list of the following elements:
   \item{values }{Eigenvalues obtained by the principal coordinates
-    analysis.} 
+    analysis.}
   \item{vectors }{Eigenvectors obtained by the principal coordinates
-    analysis. They are scaled to unit norm. The vectors can be extracted 
+    analysis. They are scaled to unit norm. The vectors can be extracted
     with \code{scores} function. The default is to return all PCNM vectors,
-    but argument \code{choices} selects the given vectors.} 
+    but argument \code{choices} selects the given vectors.}
  \item{threshold}{Truncation distance.}
  \item{dist}{The distance matrix where values above \code{threshold}
     are replaced with arbitrary value of four times the
@@ -78,8 +78,8 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
   Borcard D. and Legendre P. (2002) All-scale spatial analysis of
   ecological data by means of principal coordinates of neighbour
   matrices. \emph{Ecological Modelling} \bold{153}, 51--68.
-  
-  Legendre, P., Bordard, D and Peres-Neto, P. (2008) Analyzing or
+
+  Legendre, P., Borcard, D and Peres-Neto, P. (2008) Analyzing or
   explaining beta diversity? Comment. \emph{Ecology} \bold{89},
   3238--3244.
 

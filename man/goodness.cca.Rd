@@ -16,7 +16,7 @@
   species. Function \code{vif.cca} and \code{alias.cca} can be used to
   analyse linear dependencies among constraints and conditions. In
   addition, there are some other diagnostic tools (see 'Details').
-  
+
 }
 \usage{
 \method{goodness}{cca}(object, choices, display = c("species", "sites"),
@@ -46,7 +46,7 @@ vif.cca(object)
 
   \item{addprevious}{Add the variation explained by previous components
      when \code{statistic="explained"}. For \code{model = "CCA"} add
-     conditionened (partialled out) variation, and for \code{model = "CA"}
+     conditioned (partialled out) variation, and for \code{model = "CA"}
      add both conditioned and constrained variation. This will give
      cumulative explanation. The argument has no effect when
      \code{statistic="distance"}, but this will always show the residual
@@ -78,7 +78,7 @@ vif.cca(object)
   \enc{Cáceres}{Caceres} 2012).
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
-    environment correlation} or (weighted) correlation of 
+    environment correlation} or (weighted) correlation of
   weighted average scores and linear combination scores.  This is a bad
   measure of goodness of ordination, because it is sensitive to extreme
   scores (like correlations are), and very sensitive to overfitting or
@@ -95,8 +95,8 @@ vif.cca(object)
   (\code{\link{envfit}}) provide a better alternative.  Biplot scores
   (see \code{\link{scores.cca}}) are a multivariate alternative for
   (weighted) correlation between linear combination scores and
-  constraints. 
-  
+  constraints.
+
   Function \code{vif.cca} gives the variance inflation factors for each
   constraint or contrast in factor constraints. In partial ordination,
   conditioning variables are analysed together with constraints. Variance
@@ -107,7 +107,7 @@ vif.cca(object)
   from the estimation, and no biplot scores or centroids are calculated
   for these aliased constraints. A note will be printed with default
   output if there are aliased constraints. Function \code{alias} will
-  give the linear coefficients defining the aliased constraints, or 
+  give the linear coefficients defining the aliased constraints, or
   only their names with argument \code{names.only = TRUE}.
 }
 
@@ -150,7 +150,7 @@ goodness(mod, addprevious = TRUE, summ = TRUE)
 # Inertia components
 inertcomp(mod, prop = TRUE)
 inertcomp(mod)
-# vif.cca 
+# vif.cca
 vif.cca(mod)
 # Aliased constraints
 mod <- cca(dune ~ ., dune.env)

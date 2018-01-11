@@ -10,7 +10,7 @@
 \description{
   Function \code{spantree} finds a minimum spanning tree
   connecting all points, but disregarding dissimilarities that are at or
-  above the threshold or \code{NA}.  
+  above the threshold or \code{NA}.
 }
 \usage{
 spantree(d, toolong = 0)
@@ -54,7 +54,7 @@ spandepth(x)
 \item{\dots}{Other parameters passed to functions.}
 }
 \details{
-  
+
   Function \code{spantree} finds a minimum spanning tree for
   dissimilarities (there may be several minimum spanning trees, but the
   function finds only one). Dissimilarities at or above the threshold
@@ -64,7 +64,7 @@ spandepth(x)
   corresponding link is \code{NA}. Connected subtrees can be identified
   using \code{\link{distconnected}}.
 
-  Minimum spanning tree is closesly related to single linkage
+  Minimum spanning tree is closely related to single linkage
   clustering, a.k.a. nearest neighbour clustering, and in genetics as
   neighbour joining tree available in \code{\link{hclust}} and
   \code{\link[cluster]{agnes}} functions. The most important practical
@@ -81,7 +81,7 @@ spandepth(x)
   was removed. In disconnected \code{spantree} object (in a forest)
   each tree is analysed separately and disconnected nodes not in any
   tree have depth zero.
-  
+
   Function \code{plot} displays the tree over a
   supplied ordination configuration, and \code{lines} adds a spanning
   tree to an ordination graph. If configuration is not supplied for \code{plot},
@@ -93,31 +93,31 @@ spandepth(x)
   to set \code{dlim}, and sometimes the results will remain
   twisted). These ordination methods do not work with disconnected
   trees, but you must supply the ordination configuration. Function
-  \code{lines} will overlay the tree in an existing plot. 
+  \code{lines} will overlay the tree in an existing plot.
 
   Function \code{spantree} uses Prim's method
   implemented as priority-first search for dense graphs (Sedgewick
   1990). Function \code{cophenetic} uses function
   \code{\link{stepacross}} with option \code{path = "extended"}. The
   \code{spantree} is very fast, but \code{cophenetic} is slow in very
-  large data sets. 
+  large data sets.
 }
 \value{
   Function \code{spantree}
   returns an object of class \code{spantree} which is a
   list with two vectors, each of length \eqn{n-1}. The
   number of links in a tree is one less the number of observations, and
-  the first item is omitted. The items are  
+  the first item is omitted. The items are
   \item{kid }{The child node of the parent, starting from parent number
     two. If there is no link from the parent, value will be \code{NA}
     and tree is disconnected at the node.}
   \item{dist }{Corresponding distance. If \code{kid = NA}, then
     \code{dist = 0}.}
-  \item{labels }{Names of nodes as found from the input dissimilarities.} 
+  \item{labels }{Names of nodes as found from the input dissimilarities.}
   \item{call}{The function call.}
 }
 \references{
- Sedgewick, R. (1990). \emph{Algorithms in C}. Addison Wesley. 
+ Sedgewick, R. (1990). \emph{Algorithms in C}. Addison Wesley.
 }
 \author{ Jari Oksanen }
 \note{
@@ -134,13 +134,13 @@ spandepth(x)
 
 \seealso{\code{\link{vegdist}} or \code{\link{dist}} for getting
   dissimilarities,  and \code{\link{hclust}} or
-    \code{\link[cluster]{agnes}} for single linkage clustering. 
+    \code{\link[cluster]{agnes}} for single linkage clustering.
 }
 \examples{
 data(dune)
 dis <- vegdist(dune)
 tr <- spantree(dis)
-## Add tree to a metric scaling 
+## Add tree to a metric scaling
 plot(tr, cmdscale(dis), type = "t")
 ## Find a configuration to display the tree neatly
 plot(tr, type = "t")

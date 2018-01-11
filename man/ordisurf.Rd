@@ -51,7 +51,7 @@
     \code{\link[mgcv]{gam}}. Use of \code{thinplate} is deprecated and
     will be removed in a future version of the package.}
   \item{bs}{a two letter character string indicating the smoothing basis
-    to use. (eg \code{"tp"} for thin plate regression spline,
+    to use. (e.g. \code{"tp"} for thin plate regression spline,
     \code{"cr"} for cubic regression spline). One of \code{c("tp", "ts",
       "cr", "cs", "ds", "ps", "ad")}. See
     \code{\link[mgcv]{smooth.terms}} for an over view of what these
@@ -125,13 +125,13 @@
     perspective plot of the same, see \code{\link{persp}} for
     details. \code{"gam"} plots the fitted GAM model, an object that
     inherits from class \code{"gam"} returned by \code{ordisurf}, see
-    \code{\link[mgcv]{plot.gam}}.} 
+    \code{\link[mgcv]{plot.gam}}.}
   \item{\dots}{Other parameters passed to \code{\link{scores}}, or
     to the graphical functions. See Note below for exceptions.}
 }
 
-\details{ 
-  
+\details{
+
   Function \code{ordisurf} fits a smooth surface using penalised
   splines (Wood 2003) in \code{\link[mgcv]{gam}}, and uses
   \code{\link[mgcv]{predict.gam}} to find fitted values in a regular
@@ -193,11 +193,11 @@
   points are indicated as \code{NA} in \code{z}. The
   \code{\link[mgcv]{gam}} component of the result can be used for
   further analysis like predicting new values (see
-  \code{\link[mgcv]{predict.gam}}). 
+  \code{\link[mgcv]{predict.gam}}).
 }
 
 \author{ Dave Roberts, Jari Oksanen and Gavin L. Simpson }
-\note{   
+\note{
   The default is to use an isotropic smoother via
   \code{\link[mgcv]{s}} employing thin plate regression splines
   (\code{bs = "tp"}). These make sense in ordination as they have
@@ -231,7 +231,7 @@
 
   A work-around is to call \code{\link[mgcv]{plot.gam}} directly on the
   result of a call to \code{ordisurf}. See the Examples for an
-  illustration of this.  
+  illustration of this.
 }
 
 \section{Warning}{
@@ -249,7 +249,7 @@
 }
 
 \references{
-  
+
   Marra, G.P & Wood, S.N. (2011) Practical variable selection for
   generalized additive models. \emph{Comput. Stat. Data Analysis} 55,
   2372--2387.
@@ -260,9 +260,9 @@
 }
 
 \seealso{ For basic routines \code{\link[mgcv]{gam}},
-  and \code{\link{scores}}. Function 
+  and \code{\link{scores}}. Function
   \code{\link{envfit}} provides a more traditional and compact
-  alternative. } 
+  alternative. }
 
 \examples{
 data(varespec)
@@ -277,7 +277,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
                         select = FALSE, method = "GCV.Cp")
 
 ## Cover of Cladina arbuscula
-fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson) 
+fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 ## Get fitted values
 calibrate(fit)
 

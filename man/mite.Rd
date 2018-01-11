@@ -33,7 +33,7 @@ data(mite.xy)
 	Sphagn2 Sphagn3 Sphagn Litter Barepeat Interface} }
     \item{Shrub}{Shrub density, an ordered factor with levels \code{1} <
       \code{2} < \code{3}}
-    \item{Topo}{Microtopograhy, a factor with levels \code{Blanket} and \code{Hummock}}
+    \item{Topo}{Microtopography, a factor with levels \code{Blanket} and \code{Hummock}}
   }
 }
 \source{

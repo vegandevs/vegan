@@ -12,7 +12,7 @@
 \title{Permutation Test for Constrained Correspondence Analysis,
   Redundancy Analysis and Constrained Analysis of Principal Coordinates }
 
-\description{ 
+\description{
   The function performs an ANOVA like permutation test for Constrained
   Correspondence Analysis (\code{\link{cca}}), Redundancy Analysis
   (\code{\link{rda}}) or distance-based Redundancy Analysis (dbRDA,
@@ -21,10 +21,10 @@
 
 \usage{
 \method{anova}{cca}(object, ..., permutations = how(nperm=999),
-     by = NULL, model = c("reduced", "direct", "full"), 
+     by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL)
-\method{permutest}{cca}(x, permutations = how(nperm = 99), 
+\method{permutest}{cca}(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
      strata = NULL, parallel = getOption("mc.cores"), ...)
 }
@@ -38,7 +38,7 @@
     specified in \code{by} or an overall test is given.}
 
   \item{x}{A single ordination result object.}
- 
+
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
@@ -51,9 +51,9 @@
     the terms (each marginal term analysed in a model with all other
     variables). Function \code{permutest} accepts choices
     \code{"terms"} for sequential test of terms, and \code{"onedf"}
-    for sequential test of one-degree-of-freedom constrasts.}
+    for sequential test of one-degree-of-freedom contrasts.}
 
-  \item{model}{Permutation model: \code{model="direct"} permutes 
+  \item{model}{Permutation model: \code{model="direct"} permutes
     community data, \code{model="reduced"} permutes residuals
     of the community data after Conditions (partial model),
     \code{model = "full"} permutes residuals after Conditions and
@@ -67,7 +67,7 @@
     the specified strata. It is an error to use this when
     \code{permutations} is a matrix, or a \code{\link[permute]{how}}
     defines \code{blocks}. This is a legacy argument that will be
-    deprecated in the future: use 
+    deprecated in the future: use
     \code{permutations = how(\dots, blocks)} instead. }
 
   \item{cutoff}{Only effective with \code{by="axis"} where stops
@@ -93,7 +93,7 @@
   \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} or
   \code{\link{capscale}}. Function \code{anova} is intended as a more
   user-friendly alternative to \code{permutest} (that is the real
-  workhorse). 
+  workhorse).
 
   Function \code{anova} can analyse a sequence of constrained
   ordination models. The analysis is based on the differences in
@@ -109,7 +109,7 @@
   significance tests for each constrained axis.  All previous
   constrained axes will be used as conditions (\dQuote{partialled
   out}) and a test for the first constrained eigenvalues is
-  performed (Legendre et al. 2011). 
+  performed (Legendre et al. 2011).
   You can stop permutation tests after exceeding a given
   significance level with argument \code{cutoff} to speed up
   calculations in large models. Setting \code{by = "terms"} will
@@ -125,8 +125,8 @@
   the current function only evaluates marginal terms. It will, for
   instance, ignore main effects that are included in interaction
   terms. In calculating pseudo-\eqn{F}, all terms are compared to the
-  same residual of the full model. 
-  
+  same residual of the full model.
+
   Community data are permuted with choice \code{model="direct"}, and
   residuals after partial CCA/ RDA/ dbRDA with choice
   \code{model="reduced"} (default).  If there is no partial CCA/ RDA/
@@ -145,11 +145,11 @@
 
 }
 
-\value{ 
+\value{
   The function \code{anova.cca} calls \code{permutest.cca} and fills an
-  \code{\link{anova}} table. Additional attributes are 
-  \code{Random.seed} (the random seeds used), 
-  \code{control} (the permutation design, see \link[permute]{how}) and 
+  \code{\link{anova}} table. Additional attributes are
+  \code{Random.seed} (the random seeds used),
+  \code{control} (the permutation design, see \link[permute]{how}) and
   \code{F.perm} (the permuted test statistics).
 }
 
@@ -158,7 +158,7 @@
   English ed. Elsevier.
 
   Legendre, P., Oksanen, J. and ter Braak, C.J.F. (2011). Testing the
-  significance of canonical axes in redundancy analysis. 
+  significance of canonical axes in redundancy analysis.
   \emph{Methods in Ecology and Evolution} 2, 269--277.
 }
 \author{Jari Oksanen}

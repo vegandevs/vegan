@@ -25,14 +25,14 @@
   as inertia, \code{\link{cca}} is based on double-standardized data
   to give Chi-square inertia and uses row and column weights,
   \code{\link{capscale}} maps the real part of dissimilarities to
-  rectangualr data and performs RDA, and \code{\link{dbrda}} performs
+  rectangular data and performs RDA, and \code{\link{dbrda}} performs
   an RDA-like analysis directly on symmetric dissimilarities.
 
   Function \code{ordConstrained} returns the same result components
   for all these methods, and the calling function may add some more
   components to the final result. However, you should not access these
   result components directly (using \code{$}): the internal structure
-  is not regarded as stable application interfrace (API), but it can
+  is not regarded as stable application interface (API), but it can
   change at any release. If you access the results components
   directly, you take a risk of breakage at any \pkg{vegan} release.
   The \pkg{vegan} provides a wide set of accessor functions to those
@@ -145,9 +145,9 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   scores correspond to the \code{model.matrix}, and centroids
   are calculated for factor variables when they were used. The scores
   can be selected by defining the axes, and there is no direct way of
-  accessing all scores of a certain component. The number of dimesions
+  accessing all scores of a certain component. The number of dimensions
   can be assessed from \code{\link{eigenvals}}. In addition, some
-  other types can be derived from the results althouth not saved in
+  other types can be derived from the results although not saved in
   the results. For instance, regression scores and model coefficients
   can be accessed with \code{\link{scores}} and \code{\link{coef}}
   functions. Partial component will have no scores.
@@ -162,7 +162,7 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   them with more meaningful ones.
 
 }
-  
+
 \seealso{
 
   The core function is \code{\link{ordConstrained}} which is called by

@@ -16,7 +16,7 @@
   Patches or local communities are regarded as nested if they all could
   be subsets of the same community. In general, species poor communities
   should be subsets of species rich communities, and rare species should
-  only occur in species rich communities. 
+  only occur in species rich communities.
 }
 
 \usage{
@@ -34,7 +34,7 @@ nestedbetajac(comm)
 
 \arguments{
   \item{comm}{Community data.}
-  \item{niter}{Number of iterations to reorder tied columns.}			
+  \item{niter}{Number of iterations to reorder tied columns.}
   \item{x}{Result object for a \code{plot}.}
   \item{col}{Colour scheme for matrix temperatures.}
   \item{kind}{The kind of plot produced.}
@@ -43,7 +43,7 @@ nestedbetajac(comm)
     returned accordingly.}
   \item{order}{Order rows and columns by frequencies.}
   \item{weighted}{Use species abundances as weights of interactions.}
-  \item{wbinary}{Modify original method so that binary data give the same 
+  \item{wbinary}{Modify original method so that binary data give the same
     result in weighted and and unweighted analysis. }
   \item{\dots}{Other arguments to functions.}
 }
@@ -53,7 +53,7 @@ nestedbetajac(comm)
   The functions are intended to be used together with Null model
   communities and used as an argument in \code{\link{oecosimu}} to analyse
   the non-randomness of results.
-  
+
   Function \code{nestedchecker} gives the number of checkerboard units,
   or 2x2 submatrices where both species occur once but on different
   sites (Stone & Roberts 1990).
@@ -118,7 +118,7 @@ nestedbetajac(comm)
   nestedness if values in the first row/column are higher than in the
   second.  With this condition, weighted analysis of binary data will
   always give zero nestedness. With argument \code{wbinary = TRUE},
-  equality of rows/colums also indicates nestedness, and binary data
+  equality of rows/columns also indicates nestedness, and binary data
   will give identical results in weighted and unweighted analysis.
   However, this can also influence the results of weighted analysis so
   that the results may differ from Almeida-Neto & Ulrich (2011).
@@ -148,11 +148,11 @@ nestedbetajac(comm)
   The result returned by a nestedness function contains an item called
   \code{statistic}, but the other components differ among functions. The
   functions are constructed so that they can be handled by
-  \code{\link{oecosimu}}. 
+  \code{\link{oecosimu}}.
 }
 
 \references{
-  
+
   Almeida-Neto, M., \enc{Gumarães}{Gumaraes}, P.,
   \enc{Gumarães}{Gumaraes}, P.R., Loyola, R.D. & Ulrich, W. (2008). A
   consistent metric for nestedness analysis in ecological systems:
@@ -161,14 +161,14 @@ nestedbetajac(comm)
   Almeida-Neto, M. & Ulrich, W. (2011). A straightforward
   computational approach for measuring nestedness using quantitative
   matrices. \emph{Env. Mod. Software} 26, 173--178.
-  
+
   Atmar, W. & Patterson, B.D. (1993). The measurement of order and
   disorder in the distribution of species in fragmented
   habitat. \emph{Oecologia} 96, 373--382.
 
   Baselga, A. (2012). The relationship between species replacement,
   dissimilarity derived from nestedness, and nestedness. \emph{Global
-  Ecol. Biogeog.} 21, 1223--1232.
+  Ecol. Biogeogr.} 21, 1223--1232.
 
   Brualdi, R.A. & Sanderson, J.G. (1999). Nested species subsets, gaps,
   and discrepancy. \emph{Oecologia} 119, 256--264.
@@ -193,7 +193,7 @@ nestedbetajac(comm)
 \seealso{
   In general, the functions should be used with \code{\link{oecosimu}}
   which generates Null model communities to assess the non-randomness of
-  nestedness patterns. 
+  nestedness patterns.
  }
 \examples{
 data(sipoo)

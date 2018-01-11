@@ -16,10 +16,10 @@
 renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
 \method{plot}{renyi}(x, ...)
-renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100, 
+renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
 \method{plot}{renyiaccum}(x, what = c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-    type = "l", 
+    type = "l",
     ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
 }
@@ -30,7 +30,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   \item{hill}{Calculate Hill numbers.}
   \item{permutations}{Usually an integer giving the number
     permutations, but can also be a list of control values for the
-    permutations as returned by the function \code{\link[permute]{how}}, 
+    permutations as returned by the function \code{\link[permute]{how}},
     or a permutation matrix where each row gives the permuted indices.}
   \item{raw}{if \code{FALSE} then return summary statistics of
     permutations, and if \code{TRUE} then returns the individual
@@ -65,7 +65,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   diversity with \eqn{a = 1}, inverse Simpson with \eqn{a = 2} and
   \eqn{1/ \max(p_i)}{1/max(p)} with \eqn{a = \infty}{a = Inf}. According
   to the theory of diversity ordering, one community can be regarded as
-  more diverse than another only if its \enc{Rényi}{Renyi} diversities are all higher 
+  more diverse than another only if its \enc{Rényi}{Renyi} diversities are all higher
   (\enc{Tóthmérész}{Tothmeresz}  1995).
 
   The \code{plot} method for \code{renyi} uses \pkg{lattice} graphics,
@@ -82,7 +82,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   plot the diversity surface against scale and number and
   sites. Similar dynamic graphics can be made with
   \code{\link[vegan3d]{rgl.renyiaccum}} in \pkg{vegan3d} package.
-  
+
 }
 \value{
   Function \code{renyi} returns a data frame of selected
@@ -92,7 +92,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   third dimension are the summary statistics \code{mean}, \code{stdev},
   \code{min}, \code{max}, \code{Qnt 0.025} and \code{Qnt 0.975}.  With
   argument \code{raw = TRUE} the statistics on the third dimension are
-  replaced with individual permutation results. 
+  replaced with individual permutation results.
 }
 \references{
   \url{http://www.worldagroforestry.org/resources/databases/tree-diversity-analysis}
@@ -100,10 +100,10 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   Hill, M.O. (1973). Diversity and evenness: a unifying notation and its
    consequences. \emph{Ecology} 54, 427--473.
 
-   Kindt R, Van Damme P, Simons AJ. 2006. Tree diversity in western
-   Kenya: using profiles to characterise richness and 
-   evenness. \emph{Biodiversity and Conservation} 15: 1253-1270.
-   
+   Kindt, R., Van Damme, P., Simons, A.J. (2006). Tree diversity in western
+   Kenya: using profiles to characterise richness and
+   evenness. \emph{Biodiversity and Conservation} 15, 1253--1270.
+
    \enc{Tóthmérész}{Tothmeresz}, B. (1995). Comparison of different methods for diversity
    ordering. \emph{Journal of Vegetation Science} 6, 283--290.
 }
@@ -112,8 +112,8 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
 \seealso{\code{\link{diversity}} for diversity indices, and
   \code{\link{specaccum}} for ordinary species accumulation curves, and
   \code{\link[lattice]{xyplot}}, \code{\link{persp}} and
-  \code{\link[vegan3d]{rgl.renyiaccum}}. 
-} 
+  \code{\link[vegan3d]{rgl.renyiaccum}}.
+}
 \examples{
 data(BCI)
 i <- sample(nrow(BCI), 12)
@@ -122,6 +122,6 @@ plot(mod)
 mod <- renyiaccum(BCI[i,])
 plot(mod, as.table=TRUE, col = c(1, 2, 2))
 persp(mod)
-} 
+}
 \keyword{univar }
 

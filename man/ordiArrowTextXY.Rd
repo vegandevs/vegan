@@ -6,7 +6,7 @@
 \description{
   Support functions to assist with drawing of vectors (arrows) on
   ordination plots. \code{ordiArrowMul} finds the multiplier for the
-  coordinates of the head of the vector such that they accupy
+  coordinates of the head of the vector such that they occupy
   \code{fill} proportion of the plot region. \code{ordiArrowTextXY}
   finds coordinates for the locations of \code{labels} to be drawn just
   beyond the head of the vector.
@@ -23,13 +23,13 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     suitable ordination scores or an object created by
     \code{\link{envfit}}, or a two-column matrix of coordinates of arrow
     heads on the two plot axes.}
-    
+
   \item{labels}{Change plotting labels. A character vector of labels for
     which label coordinates are sought. If not supplied, these will be
     determined from the row names of \code{x}, or \code{scores(x, ...)}
     if required. If either of these are not defined, suitable labels
     will be generated.}
-  
+
   \item{display}{a character string known to \code{\link{scores}} or one
     of its methods which indicates the type of scores to extract. In
     fitting functions these are ordinary site scores or linear
@@ -38,7 +38,7 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     \code{x} was created by \code{envfit} then \code{display} can not be
     set by the user and takes the value \code{"vectors"}. Ignored if
     \code{x} is a matrix.}
-    
+
   \item{choices}{Axes to be plotted.}
 
   \item{rescale}{logical; should the coordinates in or extracted from
@@ -47,14 +47,14 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     usually desired for objects \code{x} from which coordinates are
     retrieved. If supplying \code{x} a 2-column matrix that has already
     been rescaled, then set this to \code{FALSE}.}
-    
+
   \item{fill}{numeric; the proportion of the plot to fill by the span of
     the arrows.}
-  
+
   \item{at}{The origin of fitted arrows in the plot.  If you plot arrows
     in other places than origin, you probably have to specify
     \code{arrrow.mul}.}
-  
+
   \item{...}{Parameters passed to \code{\link{scores}}, and
     \code{\link{strwidth}} and \code{\link{strheight}}.}
 }

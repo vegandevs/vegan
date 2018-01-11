@@ -28,7 +28,7 @@ ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
          w = weights(ord, display), col = 1, show.groups, label = FALSE,
 	 lwd = NULL, length = 0,  ...)
 ordispider(ord, groups, display="sites", w = weights(ord, display),
-	 spiders = c("centroid", "median"),  show.groups, 
+	 spiders = c("centroid", "median"),  show.groups,
          label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
             w = weights(ord, display), col = 1, draw = c("segments", "none"),
@@ -125,7 +125,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package.}
-    
+
   \item{lty, lwd, border}{Vectors of these parameters can be supplied
     and will be applied (if appropriate) for each element of
     \code{names(table(groups))} (in that order). Shorter vectors will be
@@ -135,7 +135,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
     ends of the bar segment (passed to \code{\link{arrows}}).}
 
   \item{\dots}{Parameters passed to graphical functions or to
-    \code{\link{scores}} to select axes and scaling etc. } 
+    \code{\link{scores}} to select axes and scaling etc. }
 }
 
 \details{
@@ -143,7 +143,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   Function \code{ordihull} draws \code{\link{lines}} or
   \code{\link{polygon}}s for the convex
   hulls found by function \code{\link{chull}} encircling
-  the items in the groups. 
+  the items in the groups.
 
   Function \code{ordiellipse} draws \code{\link{lines}} or
   \code{\link{polygon}}s for ellipses by \code{groups}. The function
@@ -158,7 +158,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   Function \code{ordibar} draws crossed \dQuote{error bars} using
   either either standard deviation of point scores or standard error
   of the (weighted) average of scores. These are the principal axes of
-  the correspoding \code{ordiellipse}, and are found by principal
+  the corresponding \code{ordiellipse}, and are found by principal
   component analysis of the (weighted) covariance matrix.
 
   Functions \code{ordihull} and \code{ordiellipse} return invisibly an
@@ -187,7 +187,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   a similar structure. Function \code{ordicluster} connects cluster
   centroids to each other with line \code{\link{segments}}. Function
   uses centroids of all points in the clusters, and is therefore
-  similar to average linkage methods.  
+  similar to average linkage methods.
 }
 
 \note{These functions add graphical items to ordination graph: You

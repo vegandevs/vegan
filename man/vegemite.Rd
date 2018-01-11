@@ -27,7 +27,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \item{x}{Community data. }
   \item{use}{Either a vector, or an object from \code{cca},
     \code{decorana} \emph{etc.} or \code{hclust} or a
-    \code{\link{dendrogram}} for ordering sites and species.} 
+    \code{\link{dendrogram}} for ordering sites and species.}
   \item{sp.ind, site.ind}{Species and site indices. In \code{tabasco},
     these can also be \code{\link{hclust}} tree,
     \code{\link[cluster]{agnes}} clusterings or
@@ -129,13 +129,13 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   dendrogram is plotted on the left side of the
   \code{\link{heatmap}}. Phylogenetic trees cannot be directly used,
   \code{\link[ape]{as.hclust.phylo}} (package \pkg{ape}) can transform
-  these to \code{\link{hclust}} trees. 
+  these to \code{\link{hclust}} trees.
 
   If \code{scale} is given, \code{vegemite} calls \code{coverscale} to
   transform percent cover scale or some other scales into traditional
   class scales used in vegetation science (\code{coverscale} can be
   called directly, too). Function \code{tabasco} can also use these
-  traditional class scales, but it treats the transformerd values as
+  traditional class scales, but it treats the transformed values as
   corresponding integers.  Braun-Blanquet and Domin scales are
   actually not strict cover scales, and the limits used for codes
   \code{r} and \code{+} are arbitrary.  Scale \code{Hill} may be
@@ -155,7 +155,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   a table, but they return (invisibly) a list with items:
   \item{species}{Ordered species indices} \item{sites}{Ordered site
   indices}
- 
+
   These items can be used as arguments \code{sp.ind} and \code{site.ind}
   to reproduce the table. In addition to the proper table, \code{vegemite}
   prints the numbers of species and sites and the name of the used cover
@@ -175,16 +175,16 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   based on \code{\link{image}}. Both functions order species with
   weighted averages using \code{\link{wascores}}.  }
 
-\note{   
+\note{
 
   The name \code{vegemite} was chosen because the output is so
   compact, and the \code{tabasco} because it is just as compact, but
   uses heat colours.
-    
+
 }
 \examples{
 data(varespec)
-## Print only more common species 
+## Print only more common species
 freq <- apply(varespec > 0, 2, sum)
 vegemite(varespec, scale="Hult", sp.ind = freq > 10)
 ## Order by correspondence analysis, use Hill scaling and layout:

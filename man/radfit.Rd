@@ -35,7 +35,7 @@
 \title{ Rank -- Abundance or Dominance / Diversity Models}
 \description{
   Functions construct rank -- abundance or dominance / diversity or
-  Whittaker plots and fit brokenstick, pre-emption, log-Normal,
+  Whittaker plots and fit brokenstick, preemption, log-Normal,
   Zipf and Zipf-Mandelbrot models of species abundance.
 }
 \usage{
@@ -46,7 +46,7 @@ rad.lognormal(x, family = poisson, ...)
 rad.zipf(x, family = poisson, ...)
 rad.zipfbrot(x, family = poisson, ...)
 \method{predict}{radline}(object, newdata, total, ...)
-\method{plot}{radfit}(x, BIC = FALSE, legend = TRUE, ...)  
+\method{plot}{radfit}(x, BIC = FALSE, legend = TRUE, ...)
 \method{plot}{radfit.frame}(x, order.by, BIC = FALSE, model, legend = TRUE,
      as.table = TRUE, ...)
 \method{plot}{radline}(x, xlab = "Rank", ylab = "Abundance", type = "b", ...)
@@ -78,7 +78,7 @@ as.rad(x)
   \item{BIC}{Use Bayesian Information Criterion, BIC, instead of
     Akaike's AIC. The penalty in BIC is \eqn{k = \log(S)}{k =
       log(S)}  where \eqn{S} is the number of species, whereas AIC uses
-    \eqn{k = 2}.} 
+    \eqn{k = 2}.}
   \item{model}{Show only the specified model. If missing, AIC is used
     to select the model. The model names (which can be abbreviated)
     are \code{Null}, \code{Preemption}, \code{Lognormal}, \code{Zipf},
@@ -92,7 +92,7 @@ as.rad(x)
     fitted lines, and \code{"n"} for only setting the frame. }
   \item{log}{Use logarithmic scale for given axis. The default
     \code{log = "y"} gives the traditional plot of community ecology
-    where the pre-emption model is a straight line, and with
+    where the preemption model is a straight line, and with
     \code{log = "xy"} Zipf model is a straight line. With
     \code{log = ""} both axes are in the original arithmetic scale.}
   \item{\dots}{Other parameters to functions. }
@@ -112,7 +112,7 @@ as.rad(x)
   function \code{radfit} fits all models. The argument of the function
   \code{radfit} can be either a vector for a single community or a data
   frame where each row represents a distinct community.
-  
+
   Function \code{rad.null} fits a brokenstick model where the expected
   abundance of species at rank \eqn{r} is \eqn{a_r = (J/S)
   \sum_{x=r}^S (1/x)}{a[r] = J/S sum(from x=r to S) 1/x} (Pielou
@@ -137,7 +137,7 @@ as.rad(x)
   (\code{rad.zipfbrot}) adds one parameter: \eqn{a_r = J c (r +
   \beta)^\gamma}{a[r] = J*c*(r+beta)^gamma} after which \eqn{p_1}{p1}
   of the Zipf model changes into a meaningless scaling constant
-  \eqn{c}. 
+  \eqn{c}.
 
   Log-Normal and Zipf models are generalized linear models
   (\code{\link{glm}}) with logarithmic link function.  Zipf--Mandelbrot
@@ -145,7 +145,7 @@ as.rad(x)
   \code{\link{nlm}} for the nonlinear parameter and estimating other
   parameters and log-Likelihood with \code{\link{glm}}. Preemption
   model is fitted as a purely nonlinear model. There are no estimated
-  parameters in the Null model.  
+  parameters in the Null model.
 
   The default \code{\link{family}} is \code{poisson} which is
   appropriate only for genuine counts (integers), but other families
@@ -155,7 +155,7 @@ as.rad(x)
   \code{\link{AIC}}. Therefore ``quasi'' families such as
   \code{\link{quasipoisson}} cannot be used: they do not have
   \code{\link{AIC}} nor log-Likelihood needed in non-linear models.
-  
+
   All these functions have their own \code{plot} functions. When
   \code{radfit} was applied for a data frame, \code{plot} uses
   \code{\link[lattice]{Lattice}} graphics, and other \code{plot}
@@ -206,10 +206,10 @@ as.rad(x)
 
 \references{
   Pielou, E.C. (1975) \emph{Ecological Diversity}. Wiley & Sons.
-  
+
   Preston, F.W. (1948) The commonness and rarity of
   species. \emph{Ecology} 29, 254--283.
-  
+
   Whittaker, R. H. (1965) Dominance and diversity in plant
   communities. \emph{Science} 147, 250--260.
 
@@ -227,8 +227,8 @@ as.rad(x)
 
   The lognormal model is fitted in a standard way, but I do think this is
   not quite correct -- at least it is not equivalent to fitting Normal
-  density to log abundances like originally suggested (Preston 1948). 
-  
+  density to log abundances like originally suggested (Preston 1948).
+
   Some models may fail. In particular, estimation of the Zipf-Mandelbrot
   model is difficult.  If the fitting fails, \code{NA} is returned.
 
@@ -242,7 +242,7 @@ as.rad(x)
     Veiled log-Normal model was included in earlier releases of this
     function, but it was removed because it was flawed: an implicit veil
     line also appears in the ordinary log-Normal. The latest release version
-    with \code{rad.veil} was \code{1.6-10}. 
+    with \code{rad.veil} was \code{1.6-10}.
 }
 \seealso{\code{\link{fisherfit}} and \code{\link{prestonfit}}.
   An alternative approach is to use
@@ -256,7 +256,7 @@ mod
 plot(mod)
 mod <- radfit(BCI[1,])
 ## Standard plot overlaid for all models
-## Pre-emption model is a line
+## Preemption model is a line
 plot(mod)
 ## log for both axes: Zipf model is a line
 plot(mod, log = "xy")

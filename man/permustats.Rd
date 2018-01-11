@@ -63,11 +63,11 @@ permustats(x, ...)
     \code{density} these are passed to \code{\link{density.default}}.}
 }
 
-\details{ 
+\details{
 
   The \code{permustats} function extracts permutation results and
   observed statistics from several \pkg{vegan} functions that perform
-  permutations or simulations.  
+  permutations or simulations.
 
   The \code{summary} method of \code{permustats} estimates the
   standardized effect sizes (SES) as the difference of observed
@@ -91,7 +91,7 @@ permustats(x, ...)
   the statistic is included in the permuted values, the
   \code{densityplot} method marks the observed statistic as a vertical
   line. However the \code{density} method uses its standard \code{plot}
-  method and cannot mark the obseved value.
+  method and cannot mark the observed value.
 
   The \code{qqnorm} and \code{qqmath} display Q-Q plots of
   permutations, optionally together with the observed value (default)

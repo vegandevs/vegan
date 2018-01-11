@@ -102,13 +102,13 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   dissimilarities. It does not use \code{\link{rda}} but a parallel
   implementation adapted for analysing dissimilarities and returns a
   subset of \code{\link{rda}} items. With Euclidean distances both
-  results are identical to \code{\link{rda}}.  Other dissimmilarities
+  results are identical to \code{\link{rda}}.  Other dissimilarities
   may give negative eigenvalues associated with imaginary
   axes. Negative eigenvalues are handled differently: \code{capscale}
   ignores imaginary axes and analyses only real axes with positive
   eigenvalues, and \code{dbrda} directly analyses dissimilarities and
   can give negative eigenvalues in any component.
-  
+
   If the user supplied a community data frame instead of
   dissimilarities, the functions will find dissimilarities using
   \code{\link{vegdist}} or distance function given in \code{dfun} with
@@ -129,7 +129,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   negative eigenvalues, the printed output of \code{capscale} will add
   a column with sums of positive eigenvalues and an item of sum of
   negative eigenvalues, and \code{dbrda} will add a column giving the
-  number of real dimensions with postive eigenvalues.  If negative
+  number of real dimensions with positive eigenvalues.  If negative
   eigenvalues are disturbing, functions let you to distort the
   dissimilarities so that only non-negative eigenvalues will be
   produced with argument \code{add = TRUE}. Alternatively, with
@@ -143,8 +143,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   \code{metaMDSdist = TRUE}, the function can do automatic data
   standardization and use extended dissimilarities using function
   \code{\link{stepacross}} similarly as in non-metric multidimensional
-  scaling with \code{\link{metaMDS}}. 
-  
+  scaling with \code{\link{metaMDS}}.
+
 }
 \value{
 

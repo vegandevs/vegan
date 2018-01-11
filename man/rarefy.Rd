@@ -31,11 +31,11 @@ rareslope(x, sample)
   \item{col, lty}{plotting colour and line type, see
     \code{\link{par}}. Can be a vector of length \code{nrow(x)}, one per
     sample, and will be extended to such a length internally.}
-  \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}}, 
+  \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}},
     \code{\link{lines}} and \code{\link{ordilabel}} in \code{rarecurve}.}
 }
 \details{
- 
+
   Function \code{rarefy} gives the expected species richness in random
   subsamples of size \code{sample} from the community. The size of
   \code{sample} should be smaller than total community size, but the
@@ -55,7 +55,7 @@ rareslope(x, sample)
   random rarefaction is made without replacement so that the variance
   of rarefied communities is rather related to rarefaction proportion
   than to the size of the \code{sample}. Random rarefaction is
-  sometimes used to remove the effects of differenct sample
+  sometimes used to remove the effects of different sample
   sizes. This is usually a bad idea: random rarefaction discards valid
   data, introduces random error and reduces the quality of the data
   (McMurdie & Holmes 2014). It is better to use normalizing
@@ -100,15 +100,15 @@ rareslope(x, sample)
   Heck, K.L., van Belle, G. & Simberloff, D. (1975). Explicit
   calculation of the rarefaction diversity measurement and the
   determination of sufficient sample size. \emph{Ecology} \strong{56},
-  1459--1461.  
-  
+  1459--1461.
+
   Hurlbert, S.H. (1971). The nonconcept of species diversity: a critique
   and alternative parameters. \emph{Ecology} \strong{52}, 577--586.
 
   McMurdie, P.J. & Holmes, S. (2014). Waste not, want not: Why
   rarefying microbiome data is inadmissible. \emph{PLoS Comput Biol}
   \strong{10(4):} e1003531. \doi{10.1371/journal.pcbi.1003531}
- 
+
 }
 
 \seealso{Use \code{\link{specaccum}} for species accumulation curves
