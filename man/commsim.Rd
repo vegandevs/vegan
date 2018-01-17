@@ -154,14 +154,6 @@ and must take some of the following arguments:
     addition to fill changing swaps which helps in reducing or removing
     the bias.}
 
-  \item{\code{"boostedqswap"}: }{A boosted variant of quasiswap that
-    works similarly as \sQuote{Curveball}: it takes two random rows,
-    and finds species that can be individually quasiswapped between
-    rows, and quasiswaps equal number of species up and down on each
-    row. Because it handles whole rows at time, it is much faster than
-    ordinary quasiswap. However, it may be biased and needs testing:
-    it is provided here for further scrutiny.}
-
   \item{\code{"greedyqswap"}: }{A greedy variant of quasiswap. In
     greedy step, one element of the \eqn{2 \times 2}{2 by 2} matrix is
     taken from \eqn{> 1} elements. The greedy steps are biased, but
