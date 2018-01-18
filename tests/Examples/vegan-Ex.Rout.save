@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R Under development (unstable) (2018-01-17 r74130) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -26,6 +26,7 @@ Loading required package: lattice
 This is vegan 2.5-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("BCI")
 > ### * BCI
@@ -2047,9 +2048,9 @@ Too_rare               7      0.200
 > ### ** Examples
 > 
 > ## write the r00 algorithm
-> f <- function(x, n, ...) 
+> f <- function(x, n, ...)
 +     array(replicate(n, sample(x)), c(dim(x), n))
-> (cs <- commsim("r00", fun=f, binary=TRUE, 
+> (cs <- commsim("r00", fun=f, binary=TRUE,
 +     isSeq=FALSE, mode="integer"))
 An object of class “commsim” 
 ‘r00’ method (binary, non-sequential, integer mode)
@@ -2079,7 +2080,7 @@ An object of class “commsim”
 > evalfun <- function(meth, x, n) {
 +     m <- nullmodel(x, meth)
 +     y <- simulate(m, nsim=n)
-+     out <- rowMeans(sapply(1:dim(y)[3], 
++     out <- rowMeans(sapply(1:dim(y)[3],
 +         function(i) diagfun(attr(y, "data"), y[,,i])))
 +     z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq"),
 +         attr(y, "mode") == "double"))
@@ -2098,7 +2099,6 @@ r0_old               1     .      .   1    1       1       .       1       .
 r1                   1     .      .   1    1       1       .       1       .
 r2                   1     .      .   1    1       1       .       1       .
 quasiswap            1     .      .   1    1       1       1       1       1
-boostedqswap         1     .      .   1    1       1       1       1       1
 greedyqswap          1     .      .   1    1       1       1       1       1
 swap                 1     1      .   1    1       1       1       1       1
 tswap                1     1      .   1    1       1       1       1       1
@@ -3193,7 +3193,7 @@ Trifrepe 0.0008339368 0.015622139 0.02265580
 Vicilath 0.0049088357 0.012415912 0.02315905
 Bracruta 0.0032317812 0.007730074 0.03378289
 Callcusp 0.0319130878 0.006212868 0.07024716
-> # vif.cca 
+> # vif.cca
 > vif.cca(mod)
   Moisture.L   Moisture.Q   Moisture.C           A1 ManagementHF ManagementNM 
     1.504327     1.284489     1.347660     1.367328     2.238653     2.570972 
@@ -4039,7 +4039,7 @@ Run 11 stress 0.1192686
 Run 12 stress 0.1192683 
 Run 13 stress 0.1886532 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 2.260745e-06  max resid 5.293932e-06 
+... Procrustes: rmse 2.260742e-06  max resid 5.293932e-06 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
@@ -4075,7 +4075,7 @@ Species: expanded scores based on ‘dune’
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
-... Procrustes: rmse 1.396951e-05  max resid 4.609836e-05 
+... Procrustes: rmse 1.39695e-05  max resid 4.609836e-05 
 ... Similar to previous best
 Run 2 stress 0.181294 
 Run 3 stress 0.1183186 
@@ -5378,7 +5378,7 @@ Eigenvalues for unconstrained axes:
 
 > 
 > ## Example without scope. Default direction is "backward"
-> ordistep(mod1, perm.max = 200) 
+> ordistep(mod1, perm.max = 200)
 
 Start: dune ~ A1 + Moisture + Management + Use + Manure 
 
@@ -5527,7 +5527,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ## Example of ordiR2step with direction = "forward"
 > ## Not run: 
-> ##D step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward") 
+> ##D step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward")
 > ##D step.res$anova  # Summary table
 > ## End(Not run)
 > 
@@ -5581,7 +5581,7 @@ Estimated degrees of freedom:
 GCV score: 144.0039     
 > 
 > ## Cover of Cladina arbuscula
-> fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson) 
+> fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 > ## Get fitted values
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
@@ -6672,8 +6672,8 @@ Rotation matrix:
 [2,] 0.1154641  0.9933117
 
 Translation of averages:
-              [,1]        [,2]
-[1,] -7.774462e-18 4.29519e-20
+             [,1]         [,2]
+[1,] 3.038945e-17 1.218602e-17
 
 Scaling of target:
 [1] 0.6727804
@@ -6746,7 +6746,7 @@ Total abundance: 505
 > plot(mod)
 > mod <- radfit(BCI[1,])
 > ## Standard plot overlaid for all models
-> ## Pre-emption model is a line
+> ## Preemption model is a line
 > plot(mod)
 > ## log for both axes: Zipf model is a line
 > plot(mod, log = "xy")
@@ -7357,7 +7357,7 @@ Number of permuted matrices = 99
 > data(dune)
 > dis <- vegdist(dune)
 > tr <- spantree(dis)
-> ## Add tree to a metric scaling 
+> ## Add tree to a metric scaling
 > plot(tr, cmdscale(dis), type = "t")
 > ## Find a configuration to display the tree neatly
 > plot(tr, type = "t")
@@ -8676,7 +8676,7 @@ Warning: non-integer data: divided by smallest positive value
 > ### ** Examples
 > 
 > data(varespec)
-> ## Print only more common species 
+> ## Print only more common species
 > freq <- apply(varespec > 0, 2, sum)
 > vegemite(varespec, scale="Hult", sp.ind = freq > 10)
                                   
@@ -9109,9 +9109,10 @@ Procrustes sum of squares:
 > 
 > ### * <FOOTER>
 > ###
+> cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  30.469 0.842 31.72 0 0 
+Time elapsed:  26.877 0.144 27.098 0 0 
 > grDevices::dev.off()
 null device 
           1 
