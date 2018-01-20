@@ -46,9 +46,17 @@
     ## max identifiers
     nsp <- max(specid)
     nst <- max(siteid)
+    ## read dimnames
+    i <- i+1
+    nomina <- read.fwf(textConnection(cep[i:length(cep)]), rep(8, 10), as.is=TRUE)
+    nomina <- as.vector(t(nomina))
+    spnam <- make.cepnames(nomina[seq_len(nsp)])
+    nst0 <- ceiling(nsp/10) * 10
+    stnam <- make.cepnames(nomina[seq_len(nst) + nst0])
     ## make as a matrix
     out <- matrix(0, nst, nsp)
     for(j in seq_len(id))
         out[siteid[j], specid[j]] <- abund[j]
+    dimnames(out) <- list(stnam, spnam)
     out
 }
