@@ -33,12 +33,6 @@ extern SEXP do_vegdist(SEXP, SEXP);
 extern SEXP do_wcentre(SEXP, SEXP);
 
 /* .Fortran calls */
-extern void F77_NAME(cepclose)();
-extern void F77_NAME(cepcond)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(cepfree)(void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(cephead)(void *, void *, void *, void *, void *);
-extern void F77_NAME(cepnames)(void *);
-extern void F77_NAME(cepopen)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(orderdata)(void *, void *, void *, void *);
 
@@ -72,12 +66,6 @@ static const R_CallMethodDef CallEntries[] = {
 };
 
 static const R_FortranMethodDef FortranEntries[] = {
-    {"cepclose",  (DL_FUNC) &F77_NAME(cepclose),   0},
-    {"cepcond",   (DL_FUNC) &F77_NAME(cepcond),   11},
-    {"cepfree",   (DL_FUNC) &F77_NAME(cepfree),    9},
-    {"cephead",   (DL_FUNC) &F77_NAME(cephead),    5},
-    {"cepnames",  (DL_FUNC) &F77_NAME(cepnames),   1},
-    {"cepopen",   (DL_FUNC) &F77_NAME(cepopen),   10},
     {"monomds",   (DL_FUNC) &F77_NAME(monomds),   25},
     {"orderdata", (DL_FUNC) &F77_NAME(orderdata),  4},
     {NULL, NULL, 0}
