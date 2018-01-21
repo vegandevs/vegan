@@ -27,6 +27,11 @@
         i <- i+1
         nrecord <- as.numeric(cep[i])
     }
+    ## check format: there should be to I-elements (site id, species id), and there should be two opening "("
+    fmt1 <- strsplit(fmt, NULL)[[1]]
+    if (sum(fmt1 == "I") != 2 || (nrecord > 1 && sum(fmt1 == "(") != 2))
+        stop(gettextf("format %s does not look correct for condensed data",
+                      fmt))
     ## process format: basically the format should have elements (INT,
     ## n(INT, REAL)). read.fortran() does not understand multiplier
     ## 'n', but we need to rep((INT,REAL), n) for the format vector.
