@@ -65,18 +65,14 @@ read.cep(file, positive=TRUE)
   \sQuote{free} and \sQuote{open} CANOCO formats that are not handled
   with this function.
 
-}
-
-\section{Warning}{
-
-  The function is based on \code{\link[utils]{read.fortran}} which can
-  do really bad job in interpreting Fortran format, in particular,
-  when abundance data were defined with decimal format.  For instance,
-  when format \code{F5.1} specifies one decimal for abundances,
-  function \code{read.fortran} will divide data by ten, and input 0.5
-  becomes 0.05 and 50 becomes 5. You should check the scaling of
-  results after reading the data, and if necessary, multiply results
-  to the original scale.
+  The function is based on \code{\link[utils]{read.fortran}}. If the
+  \code{REAL} format defines a decimal part for species abundances
+  (such as \code{F5.1}), \code{\link[utils]{read.fortran}} divides the
+  input with the corresponding power of 10 even when the input data
+  had explicit decimal point. With \code{F5.1}, 100 would become 10,
+  and 0.1 become 0.01. Function \code{read.cep} tries undo this
+  division, but you should check the scaling of results after reading
+  the data, and if necessary, multiply results to the original scale.
 
 }
 
