@@ -59,11 +59,24 @@ read.cep(file, positive=TRUE)
   this function was re-written in \R. The original Fortran code was
   more robust, and there are several legacy data sets that may fail
   with the current version, but could be read with the previous
-  Fortran version. Github package \pkg{cepreader} 
+  Fortran version. Github package \pkg{cepreader}
   \url{https://github.com/vegandevs/cepreader/} makes available the
   original Fortran code. The \pkg{cepreader} package can also read
   \sQuote{free} and \sQuote{open} CANOCO formats that are not handled
   with this function.
+
+}
+
+\section{Warning}{
+
+  The function is based on \code{\link[utils]{read.fortran}} which can
+  do really bad job in interpreting Fortran format, in particular,
+  when abundance data were defined with decimal format.  For instance,
+  when format \code{F5.1} specifies one decimal for abundances,
+  function \code{read.fortran} will divide data by ten, and input 0.5
+  becomes 0.05 and 50 becomes 5. You should check the scaling of
+  results after reading the data, and if necessary, multiply results
+  to the original scale.
 
 }
 
