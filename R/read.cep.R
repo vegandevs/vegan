@@ -27,13 +27,15 @@
         i <- i+1
         nrecord <- as.numeric(cep[i])
     }
-    ## process format
-    fmt <- gsub(paste0(nrecord, "\\("), "", fmt)
+    ## process format: basically the format should have elements (INT,
+    ## n(INT, REAL)). read.fortran() does not understand multiplier
+    ## 'n', but we need to rep((INT,REAL), n) for the format vector.
+    fmt <- gsub(paste0(nrecord, "\\("), ";", fmt)
     fmt <- gsub("\\(","",fmt)
     fmt <- gsub("\\)","",fmt)
-    fmt <- strsplit(fmt, ",")[[1]]
-    len <- length(fmt)
-    fmt <- c(fmt[seq_len(len-2)], rep(fmt[c(len-1,len)], nrecord))
+    fmt <- strsplit(fmt, ";")[[1]]
+    fmt <- c(strsplit(fmt[1], ",")[[1]], rep(strsplit(fmt[2], ",")[[1]],
+             nrecord))
     ## vectors to store results (with safe size)
     nlines <- length(cep)-i
     siteid <- numeric(nlines * nrecord)
