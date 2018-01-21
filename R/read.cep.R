@@ -1,3 +1,17 @@
+### Reads condensed CEP and similar CANOCO formatted data
+
+### This function was originally based on Fortran code to interpret
+### the format and read the data, but Fortran I/O is no longer allowed
+### in CRAN packages. The original Fortran version was made available
+### in github package vegandevs/cepreaded. This function uses
+### utils::read.fortran. For that function we must translate the
+### Fortran format in form understood by read.fortran(). This may
+### fail, and read.fortran() can also fail, in particular wih
+### interpreting the length of decimal part in F format.
+
+### The original Fortran (and cepreader) can also interpret open
+### (ordinary) Fortran format and Canoco FREE format, but this
+### function currently only reads condensed data.
 `read.cep` <-
     function (file,  positive = TRUE)
 {
