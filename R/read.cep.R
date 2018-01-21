@@ -40,7 +40,9 @@
     fmt <- gsub("\\)","",fmt)
     fmt <- strsplit(fmt, ";")[[1]]
     fmt <- c(strsplit(fmt[1], ",")[[1]], rep(strsplit(fmt[2], ",")[[1]],
-             nrecord))
+                                             nrecord))
+    if (any(is.na(fmt)))
+        fmt <- fmt[!is.na(fmt)]
     ## vectors to store results (with safe size)
     nlines <- length(cep)-i
     siteid <- numeric(nlines * nrecord)
@@ -52,7 +54,7 @@
     repeat {
         i <- i+1
         x <- drop(as.matrix(read.fortran(textConnection(cep[i]), fmt)))
-        if(x[1] <= 0) break
+        if(is.na(x[1]) || x[1] <= 0) break
         for(j in ids) {
             if(!is.na(x[j])) {
                 id <- id+1
