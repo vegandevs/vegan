@@ -83,7 +83,7 @@
     ## utils::read.fortran divides with 10^ndec of F format even when
     ## there is an explicit decimal point: undo if this seems to have
     ## happened
-    if (min(abund[1:id]) <= 10^(-ndec))
+    if (ndec > 0 && min(abund[1:id]) <= 10^(-ndec))
         abund <- abund * 10^ndec
     ##make as a matrix
     out <- matrix(0, nst, nsp)
