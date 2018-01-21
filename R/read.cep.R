@@ -38,6 +38,10 @@
     fmt <- gsub(paste0(nrecord, "\\("), ";", fmt)
     fmt <- gsub("\\(","",fmt)
     fmt <- gsub("\\)","",fmt)
+    ## number of decimals: there should be one and only one Fa.b
+    ## format, and we need a
+    ndec <- as.numeric(strsplit(fmt, "\\.")[[1]][2])
+    ## now split format for plotid and nrecord couplets
     fmt <- strsplit(fmt, ";")[[1]]
     fmt <- c(strsplit(fmt[1], ",")[[1]], rep(strsplit(fmt[2], ",")[[1]],
                                              nrecord))
@@ -76,7 +80,12 @@
     spnam <- make.names(nomina[seq_len(nsp)], unique = TRUE)
     nst0 <- ceiling(nsp/10) * 10
     stnam <- make.names(nomina[seq_len(nst) + nst0], unique = TRUE)
-    ## make as a matrix
+    ## utils::read.fortran divides with 10^ndec of F format even when
+    ## there is an explicit decimal point: undo if this seems to have
+    ## happened
+    if (min(abund[1:id]) <= 10^(-ndec))
+        abund <- abund * 10^ndec
+    ##make as a matrix
     out <- matrix(0, nst, nsp)
     for(j in seq_len(id))
         out[siteid[j], specid[j]] <- abund[j]
