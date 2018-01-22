@@ -15,31 +15,34 @@
 `read.cep` <-
     function (file,  positive = TRUE)
 {
-    ## skip first line and get the format
+    ## Read all file first, interpret contents later
     cep <- readLines(file)
+    ## skip first line and get the format
     i <- 2
-    fmt <- substr(cep[i], 1, 60)
+    fmt <- substr(cep[i], 1, 60) # CEP sets fmt in cols 1-60
     fmt <- toupper(fmt)
     fmt <- gsub(" ", "", fmt)
-    ## get the number data entries per record
+    ## get the number of data entries per record
     nrecord <- as.numeric(substr(cep[i], 61,80))
     if (is.na(nrecord)) {
         i <- i+1
         nrecord <- as.numeric(cep[i])
     }
-    ## check format: there should be to I-elements (site id, species id), and there should be two opening "("
+    ## check format: there should be to I-elements (site id, species
+    ## id), and there should be two opening "("
     fmt1 <- strsplit(fmt, NULL)[[1]]
     if (sum(fmt1 == "I") != 2 || (nrecord > 1 && sum(fmt1 == "(") != 2))
         stop(gettextf("format %s does not look correct for condensed data",
                       fmt))
-    ## process format: basically the format should have elements (INT,
-    ## n(INT, REAL)). read.fortran() does not understand multiplier
-    ## 'n', but we need to rep((INT,REAL), n) for the format vector.
-    fmt <- gsub(paste0(nrecord, "\\("), ";", fmt)
+    ## process format: basically the format should have elements for
+    ## (INT, n(INT, REAL)). read.fortran() does not understand
+    ## multiplier 'n', but we need to rep((INT,REAL), n) in the
+    ## fmt vector.
+    fmt <- gsub(paste0(nrecord, "\\("), ";", fmt) # separate with ;
     fmt <- gsub("\\(","",fmt)
     fmt <- gsub("\\)","",fmt)
     ## number of decimals: there should be one and only one Fa.b
-    ## format, and we need a
+    ## format, and we need 'b'
     ndec <- as.numeric(strsplit(fmt, "\\.")[[1]][2])
     ## now split format for plotid and nrecord couplets
     fmt <- strsplit(fmt, ";")[[1]]
@@ -75,7 +78,8 @@
     nst <- max(siteid)
     ## read dimnames
     i <- i+1
-    nomina <- read.fwf(textConnection(cep[i:length(cep)]), rep(8, 10), as.is=TRUE)
+    nomina <- read.fwf(textConnection(cep[i:length(cep)]), rep(8, 10),
+                       as.is=TRUE)
     nomina <- gsub(" ", "", as.vector(t(nomina)))
     spnam <- make.names(nomina[seq_len(nsp)], unique = TRUE)
     nst0 <- ceiling(nsp/10) * 10
@@ -85,7 +89,7 @@
     ## happened
     if (ndec > 0 && min(abund[1:id]) <= 10^(-ndec))
         abund <- abund * 10^ndec
-    ##make as a matrix
+    ## make as a matrix
     out <- matrix(0, nst, nsp)
     for(j in seq_len(id))
         out[siteid[j], specid[j]] <- abund[j]
