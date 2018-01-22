@@ -73,6 +73,13 @@
                 break
         }
     }
+    ## check there are no duplicate entries: only last one would be
+    ## used, and this causes an error (and this has happened in
+    ## literature)
+    if (any(dups <- duplicated(cbind(siteid, specid))[seq_len(id)]))
+        stop("you have duplicated data entries: ",
+             paste(siteid[seq_len(id)][dups], specid[seq_len(id)][dups],
+                   collapse = ", "))
     ## max identifiers
     nsp <- max(specid)
     nst <- max(siteid)
