@@ -25,12 +25,6 @@ extern void veg_distance(void *, void *, void *, void *, void *, void *);
 extern void wcentre(void *, void *, void *, void *);
 
 /* .Fortran calls */
-extern void F77_NAME(cepclose)();
-extern void F77_NAME(cepcond)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(cepfree)(void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(cephead)(void *, void *, void *, void *, void *);
-extern void F77_NAME(cepnames)(void *);
-extern void F77_NAME(cepopen)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(cutup)(void *, void *, void *, void *);
 extern void F77_NAME(eigy)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -58,12 +52,6 @@ static const R_CMethodDef CEntries[] = {
 };
 
 static const R_FortranMethodDef FortranEntries[] = {
-    {"cepclose",  (DL_FUNC) &F77_NAME(cepclose),   0},
-    {"cepcond",   (DL_FUNC) &F77_NAME(cepcond),   11},
-    {"cepfree",   (DL_FUNC) &F77_NAME(cepfree),    9},
-    {"cephead",   (DL_FUNC) &F77_NAME(cephead),    5},
-    {"cepnames",  (DL_FUNC) &F77_NAME(cepnames),   1},
-    {"cepopen",   (DL_FUNC) &F77_NAME(cepopen),   10},
     {"cutup",     (DL_FUNC) &F77_NAME(cutup),      4},
     {"eigy",      (DL_FUNC) &F77_NAME(eigy),      27},
     {"monomds",   (DL_FUNC) &F77_NAME(monomds),   25},
