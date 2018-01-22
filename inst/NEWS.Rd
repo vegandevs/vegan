@@ -2,6 +2,54 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.4-6}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item CRAN packages are no longer allowed to use FORTRAN input,
+      but we used FORTRAN to read formatted CEP and Canoco files
+      with function \code{read.cep}. The function \code{read.cep} was
+      re-written in \R{} because of the new CRAN policy. The new
+      \code{read.cep} can only read data in \dQuote{condensed} format,
+      and it can fail in several cases that were successful with the
+      old code because of weak support of interpreting FORTRAN format
+      in pure \R. The old FORTRAN-based function was made available in
+      github package
+      \href{https://github.com/vegandevs/cepreader/}{cepreader}. See
+      github issue
+      \href{https://github.com/vegandevs/vegan/issues/263}{#263}.
+
+    } %itemize
+  } % general
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Some functions for rarefaction (\code{rrarefy}), species
+      abundance distribution (\code{preston}) and species pool
+      (\code{estimateR}) need exact integer data, but the test allowed
+      small fuzz. The functions worked correctly with original data,
+      but if data were transformed and then back-transformed, they
+      would pass the integer test with fuzz and give wrong
+      results. For instance, \code{sqrt(3)^2} would be slightly below
+      3 and was interpreted as integer 2. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/259}{#259}.
+
+    } % itemize
+  } % bugs
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{ordiresids} uses now weighted residuals for
+      \code{cca} results.
+
+    } %itemize
+  } % features
+
+} % 2.4-6
+
 \section{Changes in version 2.4-5}{
 
   \subsection{BUG FIXES}{
