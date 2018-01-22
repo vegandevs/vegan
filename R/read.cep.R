@@ -100,5 +100,5 @@
         if (any(cs <= 0) || any(rs <= 0))
             out <- out[rs > 0, cs > 0]
     }
-    out
+    as.data.frame(out)
 }
