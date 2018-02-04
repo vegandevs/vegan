@@ -28,6 +28,11 @@
 #include <float.h>
 #include <string.h> /* memset */
 
+#include <omp.h>
+#ifdef _OPENMP
+#include <R_ext/MathThreads.h>
+#endif
+
 /* Indices: The numbers here MUST match the order of indices in vegdist.R */
 
 #define MANHATTAN 1
@@ -729,6 +734,20 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     }
 
     dc = (*diag) ? 0 : 1;
+#ifdef _OPENMP
+#pragma omp parallel for collapse(2) schedule(guided) private(ij) \
+    firstprivate(nr, nc, x, distfun, dc, d)
+    {
+	for (j=0; j <= *nr; j++) {
+	    for (i=dc; i < *nr; i++) {
+		if (i > j) {
+		    ij = (*nr) * j - j*(j+1)/2 + i - j - 1;
+		    d[ij] = distfun(x, *nr, *nc, i, j);
+		}
+	    }
+	}
+    }
+#else
     ij = 0;
     for (j=0; j <= *nr; j++) {
 	if (j % 200 == 199)
@@ -737,6 +756,7 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
 	}
     }
+#endif
 }
 
 
