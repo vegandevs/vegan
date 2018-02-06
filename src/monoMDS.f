@@ -514,30 +514,33 @@ C
       IF (STRESS.LE.0.0D0) RETURN
       SOTSQ=SFACT/(TFACT**2)
       RECIPT=1.0/TFACT
-      DO IDIM=1,NDIM
-        IF (ISFORM.LE.1) THEN
-C---Kruskal's stress formula 1
-          DO K=1,NDIS
-            IF (DIST(K).GT.0.0) THEN
-              DELTA=(SOTSQ-RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
-     .          (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
-              GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
-              GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
-            ENDIF
-          ENDDO
-        ELSE
-C---Kruskal's stress formula 2
-          DO K=1,NDIS
-            IF (DIST(K).GT.0.0) THEN
-              DELTA=(SOTSQ*(DIST(K)-DMEAN)/DIST(K)-
-     .          RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
-     .          (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
-              GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
-              GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
-            ENDIF
-          ENDDO
-        ENDIF
-      ENDDO
+      IF (ISFORM.LE.1) THEN
+C---  Kruskal's stress formula 1
+         DO IDIM=1,NDIM
+            DO K=1,NDIS
+               IF (DIST(K).GT.0.0) THEN
+                  DELTA=(SOTSQ-RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
+     .                 (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
+                  GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
+                  GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
+               ENDIF
+            ENDDO
+         ENDDO
+      ELSE
+C---  Kruskal's stress formula 2
+         DO IDIM=1,NDIM
+            DO K=1,NDIS
+               IF (DIST(K).GT.0.0) THEN
+                  DELTA=(SOTSQ*(DIST(K)-DMEAN)/DIST(K)-
+     .                 RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
+     .                 (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
+                  GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
+                  GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
+               ENDIF
+            ENDDO
+         ENDDO
+      ENDIF
+
       RETURN
       END SUBROUTINE CLCGRD
 
