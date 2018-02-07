@@ -33,7 +33,7 @@ extern SEXP do_vegdist(SEXP, SEXP);
 extern SEXP do_wcentre(SEXP, SEXP);
 
 /* .Fortran calls */
-extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(orderdata)(void *, void *, void *, void *);
 
 static const R_CMethodDef CEntries[] = {
@@ -66,7 +66,7 @@ static const R_CallMethodDef CallEntries[] = {
 };
 
 static const R_FortranMethodDef FortranEntries[] = {
-    {"monomds",   (DL_FUNC) &F77_NAME(monomds),   25},
+    {"monomds",   (DL_FUNC) &F77_NAME(monomds),   26},
     {"orderdata", (DL_FUNC) &F77_NAME(orderdata),  4},
     {NULL, NULL, 0}
 };

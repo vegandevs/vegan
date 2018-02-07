@@ -2,7 +2,7 @@
      .  DISS, IIDX, JIDX, XINIT, ISTART,
      .  ISFORM, ITIES, IREGN, ISCAL, MAXITS, SRATMX,
      .  STRMIN, SFGRMN, 
-     .  DIST, DHAT, X, STRESS, STRS, ITERS, ICAUSE)
+     .  DIST, DHAT, X, STRESS, STRS, ITERS, ICAUSE, NTHREADS)
 C
 C Subroutine for multidimensional scaling.
 C
@@ -22,6 +22,10 @@ C            PO Box 1651
 C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
+      
+C     February 2018: added capability to parallel processing with openMP
+c
+c     written by Jari Oksanen      
 C
 C Starting from a supplied initial configuarion, uses steepest descent
 C   to minimize Kruskal's stress, a measure of badness-of-fit of one
@@ -104,7 +108,10 @@ C          below this value) - a value of 0.001 or lower is
 C          recommended
 C
 C SFGRMN = minimum scale factor of the gradient (iterations stop if
-C          the scale factor of the gradient drops below this)
+C     the scale factor of the gradient drops below this)
+C
+C NTHREADS = number of threads when using parallel processing with
+C     openMP
 C
 C========OUTPUT ARGUMENTS:
 C
@@ -129,7 +136,7 @@ C          SFGRMN
 C
 C---INPUT ARGUMENTS
       INTEGER, INTENT(IN) :: NOBJ, NFIX, NDIM, NDIS, NGRP,
-     .  ISFORM, ITIES, IREGN, ISCAL, MAXITS
+     .  ISFORM, ITIES, IREGN, ISCAL, MAXITS, NTHREADS
       INTEGER, INTENT(IN) :: IIDX(NDIS), JIDX(NDIS), ISTART(NGRP)
       DOUBLE PRECISION, INTENT(IN) :: XINIT(NOBJ,NDIM), DISS(NDIS),
      .  SRATMX, STRMIN, SFGRMN
@@ -227,7 +234,7 @@ C
 C
 C COMPUTE DISTANCES
 C
-        CALL CLCDIS (X,NOBJ,NDIM,DIST,IIDX,JIDX,NDIS)
+        CALL CLCDIS (X,NOBJ,NDIM,DIST,IIDX,JIDX,NDIS, NTHREADS)
 C-----------------------------------------------------------------------
 C
 C LOOP OVER THE NGRP GROUPS OF DISSIMILARITIES
@@ -259,7 +266,8 @@ C
 C ACCUMULATE THE NEGATIVE GRADIENT
 C
             CALL CLCGRD (X,GRAD,NOBJ,NDIM,DIST(I1),DHAT(I1),
-     .        IIDX(I1),JIDX(I1),N,STRS(IGRP),SFACT,TFACT,ISFORM,DMEAN)
+     .           IIDX(I1),JIDX(I1),N,STRS(IGRP),SFACT,TFACT,ISFORM,
+     .           DMEAN,NTHREADS)
           ENDIF
         ENDDO
 C
@@ -451,7 +459,7 @@ C
       RETURN
       END SUBROUTINE BACKUP
 
-      SUBROUTINE CLCDIS (X,MAXOBJ,NDIM,DIST,IIDX,JIDX,NDIS)
+      SUBROUTINE CLCDIS (X,MAXOBJ,NDIM,DIST,IIDX,JIDX,NDIS,NTHREADS)
 C
 C COMPUTES EUCLIDEAN DISTANCES BETWEEN EACH PAIR OF THE NOBJ POINTS
 C   WHOSE CO-ORDINATES IN NDIM DIMENSIONS ARE IN X(NOBJ,NDIM).
@@ -468,12 +476,12 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
-      INTEGER IIDX(NDIS), JIDX(NDIS), K, IDIM, NDIM
+      INTEGER IIDX(NDIS), JIDX(NDIS), K, IDIM, NDIM, NTHREADS
       DOUBLE PRECISION X(MAXOBJ,NDIM), DIST(NDIS)
 C
 C INITIALIZE DISTANCES
 C
-!$OMP PARALLEL DO NUM_THREADS(4) PRIVATE(I) DEFAULT(SHARED)
+!$OMP PARALLEL DO NUM_THREADS(NTHREADS) PRIVATE(I) DEFAULT(SHARED)
       DO I=1,NDIS
         DIST(I)=0.0
       ENDDO
@@ -482,7 +490,7 @@ C
 C
 C ACCUMULATE SUMS OF SQUARED DIFFERENCES ON EACH DIMENSION
 C
-!$OMP PARALLEL DO NUM_THREADS(4)
+!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
 !$OMP+ DEFAULT(SHARED) PRIVATE(IDIM, K) REDUCTION(+:DIST) 
       DO IDIM=1,NDIM
         DO K=1,NDIS
@@ -493,7 +501,7 @@ C
 C
 C TAKE SQUARE ROOTS OF TOTALS
 C
-!$OMP PARALLEL DO NUM_THREADS(4) DEFAULT(SHARED) PRIVATE(I)
+!$OMP PARALLEL DO NUM_THREADS(NTHREADS) DEFAULT(SHARED) PRIVATE(I)
       DO I=1,NDIS
         DIST(I)=SQRT(DIST(I))
       ENDDO
@@ -502,7 +510,7 @@ C
       END SUBROUTINE CLCDIS
 
       SUBROUTINE CLCGRD (X,GRAD,MAXOBJ,NDIM,DIST,DHAT,IIDX,JIDX,
-     .  NDIS,STRESS,SFACT,TFACT,ISFORM,DMEAN)
+     .  NDIS,STRESS,SFACT,TFACT,ISFORM,DMEAN,NTHREADS)
 C
 C ACCUMULATES THE NEGATIVE GRADIENT IN GRAD(NOBJ,NDIM).
 C
@@ -514,7 +522,7 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
-      INTEGER IDIM,K,NDIS,NDIM
+      INTEGER IDIM,K,NDIS,NDIM,NTHREADS
       INTEGER IIDX(NDIS), JIDX(NDIS)
       DOUBLE PRECISION X(MAXOBJ,NDIM), GRAD(MAXOBJ,NDIM), DIST(NDIS),
      .  DHAT(NDIS), STRESS, SFACT, TFACT, DMEAN, SOTSQ, RECIPT,
@@ -526,7 +534,7 @@ C
       IF (ISFORM.LE.1) THEN
 C---  Kruskal's stress formula 1
 
-!$OMP PARALLEL DO NUM_THREADS(4)
+!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
 !$OMP+ DEFAULT(SHARED) PRIVATE(DELTA,IDIM,K)
          DO IDIM=1,NDIM
             DO K=1,NDIS
@@ -541,7 +549,7 @@ C---  Kruskal's stress formula 1
 !$OMP END PARALLEL DO
       ELSE
 C---  Kruskal's stress formula 2
-!$OMP PARALLEL DO NUM_THREADS(4)
+!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
 !$OMP+ DEFAULT(SHARED) PRIVATE(DELTA,IDIM,K)
          DO IDIM=1,NDIM
             DO K=1,NDIS
