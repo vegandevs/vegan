@@ -533,6 +533,8 @@ C---  Kruskal's stress formula 1
 !$OMP END PARALLEL DO
       ELSE
 C---  Kruskal's stress formula 2
+!$OMP PARALLEL DO NUM_THREADS(4)
+!$OMP+ DEFAULT(SHARED) PRIVATE(DELTA,IDIM,K)
          DO IDIM=1,NDIM
             DO K=1,NDIS
                IF (DIST(K).GT.0.0) THEN
@@ -544,6 +546,7 @@ C---  Kruskal's stress formula 2
                ENDIF
             ENDDO
          ENDDO
+!$OMP END PARALLEL DO
       ENDIF
 
       RETURN
