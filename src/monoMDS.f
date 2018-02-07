@@ -506,6 +506,7 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
+      INTEGER IDIM,K,NDIS,NDIM
       INTEGER IIDX(NDIS), JIDX(NDIS)
       DOUBLE PRECISION X(MAXOBJ,NDIM), GRAD(MAXOBJ,NDIM), DIST(NDIS),
      .  DHAT(NDIS), STRESS, SFACT, TFACT, DMEAN, SOTSQ, RECIPT,
@@ -516,6 +517,9 @@ C
       RECIPT=1.0/TFACT
       IF (ISFORM.LE.1) THEN
 C---  Kruskal's stress formula 1
+
+!$OMP PARALLEL DO NUM_THREADS(4)
+!$OMP+ DEFAULT(SHARED) PRIVATE(DELTA,IDIM,K)
          DO IDIM=1,NDIM
             DO K=1,NDIS
                IF (DIST(K).GT.0.0) THEN
@@ -526,6 +530,7 @@ C---  Kruskal's stress formula 1
                ENDIF
             ENDDO
          ENDDO
+!$OMP END PARALLEL DO
       ELSE
 C---  Kruskal's stress formula 2
          DO IDIM=1,NDIM
