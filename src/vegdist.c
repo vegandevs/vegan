@@ -735,9 +735,13 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 
     dc = (*diag) ? 0 : 1;
 #ifdef _OPENMP
-#pragma omp parallel for private(ij, i, j) \
+    /* fill dissimilarities starting from the last row: with guided
+     * schedule this gives remarkably balanced work load in parallel
+     * processing (in guided schedule partitions that cover more rows
+     * have fewer columns to process each.) */
+#pragma omp parallel for schedule(guided) private(ij, i, j) \
     shared(nr, nc, x, distfun, dc, d)
-    for (j=0; j <= *nr; j++) {
+    for (j=*nr; j >= 0; j--) {
 	ij = j * (*nr - dc) + j - j * (j + 1)/ 2;
 	for (i=j+dc; i < *nr; i++) {
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
