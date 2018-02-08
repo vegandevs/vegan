@@ -735,14 +735,12 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 
     dc = (*diag) ? 0 : 1;
 #ifdef _OPENMP
-#pragma omp parallel for collapse(2) schedule(guided) private(ij) \
-    firstprivate(nr, nc, x, distfun, dc, d)
+#pragma omp parallel for private(ij, i, j) \
+    shared(nr, nc, x, distfun, dc, d)
     for (j=0; j <= *nr; j++) {
-	for (i=dc; i < *nr; i++) {
-	    if (i > j) {
-		ij = (*nr) * j - j*(j+1)/2 + i - j - 1;
-		d[ij] = distfun(x, *nr, *nc, i, j);
-	    }
+	ij = j * (*nr - dc) + j - j * (j + 1)/ 2;
+	for (i=j+dc; i < *nr; i++) {
+	    d[ij++] = distfun(x, *nr, *nc, i, j);
 	}
     }
 #else
