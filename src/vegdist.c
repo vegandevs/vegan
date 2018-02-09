@@ -741,7 +741,7 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
      * have fewer columns to process each.) */
 #pragma omp parallel for schedule(guided) private(ij, i, j) \
     shared(nr, nc, x, distfun, dc, d)
-    for (j=*nr; j >= 0; j--) {
+    for (j = *nr-1; j >= 0; j--) {
 	ij = j * (*nr - dc) + j - j * (j + 1)/ 2;
 	for (i=j+dc; i < *nr; i++) {
 	    d[ij++] = distfun(x, *nr, *nc, i, j);
