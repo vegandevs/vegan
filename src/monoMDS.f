@@ -23,10 +23,15 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
       
-C     February 2018: added capability to parallel processing with openMP
-c
-c     written by Jari Oksanen      
+C February 2018: added capability to parallel processing with openMP in
+C subroutines CLCDIS and CLCGRAD. Profiling showed that after MONREG
+C these two subroutines took most of the running time. MONREG is so
+C seriously serial that it cannot be parallelized. This adds new input
+C argument NTHREADS that must be set in the calling program.
 C
+C     Parallelization written by Jari Oksanen <jhoksane@gmail.com>
+C
+
 C Starting from a supplied initial configuarion, uses steepest descent
 C   to minimize Kruskal's stress, a measure of badness-of-fit of one
 C   or more regressions of distances onto the supplied dissimilarities.
@@ -111,7 +116,7 @@ C SFGRMN = minimum scale factor of the gradient (iterations stop if
 C     the scale factor of the gradient drops below this)
 C
 C NTHREADS = number of threads when using parallel processing with
-C     openMP
+C     openMP (added Feb 2018)
 C
 C========OUTPUT ARGUMENTS:
 C
