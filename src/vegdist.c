@@ -28,7 +28,6 @@
 #include <float.h>
 #include <string.h> /* memset */
 
-#include <omp.h>
 #ifdef _OPENMP
 #include <R_ext/MathThreads.h>
 #endif
