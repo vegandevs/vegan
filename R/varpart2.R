@@ -1,6 +1,9 @@
 `varpart2` <-
     function (Y, X1, X2)
 {
+    collinwarn <- function(case, mm, m)
+        warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
+                         case, mm, m), call. = FALSE)
     if (inherits(Y, "dist")) {
         Y <- GowerDblcen(as.matrix(Y^2), na.rm = FALSE)
         Y <- -Y/2
@@ -29,21 +32,18 @@
     ab.ua <- dummy$Rsquare
     m1 <- dummy$m
     if (m1 != mm1)
-        warning(gettextf("collinearity detected in X1: mm = %d m = %d",
-                mm1, m1), call. = FALSE)
+        collinwarn("X1", mm1, m1)
     dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
     bc.ua <- dummy$Rsquare
     m2 <- dummy$m
     if (m2 != mm2)
-        warning("collinearity detected in X2: mm = ", mm2, ", m = ",
-                m2, call. = FALSE)
+        collinwarn("X2", mm2, m2)
     mm3 <- mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm3)
     abc.ua <- dummy$Rsquare
     m3 <- dummy$m
     if (m3 != mm3)
-        warning("collinearity detected in cbind(X1,X2): mm = ",
-                mm3, ", m = ", m3, call. = FALSE)
+        collinwarn("cbind(X1,X2)", mm3, m3)
     if ((m1 + m2) > m3)
         bigwarning <- c("X1, X2")
     else bigwarning <- NULL

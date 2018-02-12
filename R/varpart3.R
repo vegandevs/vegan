@@ -1,6 +1,9 @@
 `varpart3` <-
     function (Y, X1, X2, X3)
 {
+    collinwarn <- function(case, mm, m)
+        warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
+                         case, mm, m), call. = FALSE)
     if (inherits(Y, "dist")) {
         Y <- GowerDblcen(as.matrix(Y^2), na.rm = FALSE)
         Y <- -Y/2
@@ -35,52 +38,41 @@
     adfg.ua <- dummy$Rsquare
     m1 <- dummy$m
     if (m1 != mm1)
-        warning("collinearity detected in X1: mm = ", mm1, ", m = ",
-                m1, call. = FALSE)
+        collinwarn("X1", mm1, m1)
     dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
     bdeg.ua <- dummy$Rsquare
     m2 <- dummy$m
     if (m2 != mm2)
-        warning(gettextf("collinearity detected in X2: mm = %d, m = %d",
-                         mm2, m2), call. = FALSE)
+        collinwarn("X2", mm2, m2)
     dummy <- simpleRDA2(Y, X3, SS.Y, mm3)
     cefg.ua <- dummy$Rsquare
     m3 <- dummy$m
     if (m3 != mm3)
-        warning(gettextf("collinearity detected in X3: mm = %d, m = %d",
-                         mm3, m3), call. = FALSE)
+        collinwarn("X3", mm3, m3)
     mm4 = mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm4)
     abdefg.ua <- dummy$Rsquare
     m4 <- dummy$m
     if (m4 != mm4)
-        warning(gettextf(
-            "collinearity detected in cbind(X1,X2): mm = %d, m = %d",
-            mm4, m4), call. = FALSE)
+        collinwarn("cbind(X1,X2)", mm4, m4)
     mm5 = mm1 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, mm5)
     acdefg.ua <- dummy$Rsquare
     m5 <- dummy$m
     if (m5 != mm5)
-        warning(gettextf(
-            "collinearity detected in cbind(X1,X3): mm = %d, m = %d",
-            mm5, m5), call. = FALSE)
+        collinwarn("cbind(X1,X3)", mm5, m5)
     mm6 = mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, mm6)
     bcdefg.ua <- dummy$Rsquare
     m6 <- dummy$m
     if (m6 != mm6)
-        warning(gettextf(
-            "collinearity detected in cbind(X2,X3): mm = %d, m = %d",
-            mm6, m6), call. = FALSE)
+        collinwarn("cbind(X2,X3)", mm6, m6)
     mm7 = mm1 + mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, mm7)
     abcdefg.ua <- dummy$Rsquare
     m7 <- dummy$m
     if (m7 != mm7)
-        warning(gettextf(
-            "collinearity detected in cbind(X1,X2,X3): mm = %d, m = %d",
-            mm7,  m7), call. = FALSE)
+        collinwarn("cbind(X1,X2,X3)", mm7, m7)
     bigwarning <- NULL
     if ((m1 + m2) > m4)
         bigwarning <- c(bigwarning, c("X1, X2"))
