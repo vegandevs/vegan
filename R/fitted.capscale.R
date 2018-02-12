@@ -4,7 +4,7 @@
 {
     model <- match.arg(model)
     if (is.null(object[[model]]) && model != "Imaginary")
-        stop("component ", model, " does not exist")
+        stop(gettextf("component '%s' does not exist", model))
     type <- match.arg(type)
     ## Return scaled eigenvalues
     U <- switch(model,

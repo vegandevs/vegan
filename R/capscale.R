@@ -5,7 +5,7 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula"))
-        stop("Needs a model formula")
+        stop("needs a model formula")
     if (missing(data)) {
         data <- parent.frame()
     }

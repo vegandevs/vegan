@@ -5,7 +5,7 @@
     type <- match.arg(type)
     model <- match.arg(model)
     if (is.null(object[[model]]))
-        stop("component ", model, " does not exist")
+        stop(gettextf("component '%s' does not exist", model))
     Xbar <- ordiYbar(object, model)
     if (type == "response") {
         gtot <- object$grand.total

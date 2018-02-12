@@ -9,7 +9,7 @@
                         if (is.factor(x)) x else factor(x)))
     P <- droplevels(P, exclude = NA) ## make sure only the used levels are present
     if (any(!sapply(P, is.factor)))
-        stop("All non-numeric variables must be factors")
+        stop("all non-numeric variables must be factors")
     NR <- nrow(X)
     NC <- ncol(X)
     NF <- ncol(P)
