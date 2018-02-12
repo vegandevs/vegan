@@ -3,7 +3,7 @@
 {
     collinwarn <- function(case, mm, m)
         warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
-                         case, mm, m))
+                         case, mm, m), call. = FALSE)
     if (inherits(Y, "dist")) {
         Y <- GowerDblcen(as.matrix(Y^2), na.rm = FALSE)
         Y <- -Y/2
