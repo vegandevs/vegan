@@ -75,8 +75,8 @@ function(method)
         "quasiswap" = commsim(method="quasiswap", binary=TRUE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_qswap, out, n, thin, "quasiswap")
@@ -85,7 +85,7 @@ function(method)
         isSeq=FALSE, mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least 2 items")
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_greedyqswap, out, n, thin, fill)
@@ -113,8 +113,8 @@ function(method)
         "r2dtable" = commsim(method="r2dtable", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             out
@@ -127,8 +127,8 @@ function(method)
         "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE,
         isSeq=FALSE, mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_qswap, out, n, fill, "rswapcount")
@@ -136,8 +136,8 @@ function(method)
         "swsh_samp" = commsim(method="swsh_samp", binary=FALSE, isSeq=FALSE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             nz <- x[x > 0]
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             ## do_qswap changes 'out' within the function
@@ -151,8 +151,8 @@ function(method)
         "swsh_both" = commsim(method="swsh_both", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
@@ -168,8 +168,8 @@ function(method)
         "swsh_samp_r" = commsim(method="swsh_samp_r", binary=FALSE, isSeq=FALSE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             .Call(do_qswap, out, n, thin, "quasiswap")
             storage.mode(out) <- "double"
@@ -188,8 +188,8 @@ function(method)
         "swsh_samp_c" = commsim(method="swsh_samp_c", binary=FALSE, isSeq=FALSE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             .Call(do_qswap, out, n, thin, "quasiswap")
             storage.mode(out) <- "double"
@@ -208,8 +208,8 @@ function(method)
         "swsh_both_r" = commsim(method="swsh_both_r", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
@@ -231,8 +231,8 @@ function(method)
         "swsh_both_c" = commsim(method="swsh_both_c", binary=FALSE, isSeq=FALSE,
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
-            if (nr < 2L || nc < 2)
-                stop("needs at least 2 items")
+            if (nr < 2L || nc < 2L)
+                stop("needs at least two items")
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
