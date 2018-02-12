@@ -8,7 +8,7 @@
     mrg <- cluster$merge
     ord <- scores(ord, display = display, ...)
     if (nrow(mrg) != nrow(ord) - 1)
-        stop("Dimensions do not match in 'ord' and 'cluster'")
+        stop("dimensions do not match in 'ord' and 'cluster'")
     if (length(w) == 1) w <- rep(w, nrow(ord))
     n <- if (is.null(w)) rep(1, nrow(ord)) else w
     noden <- numeric(nrow(mrg) - prune)

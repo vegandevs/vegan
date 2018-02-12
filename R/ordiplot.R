@@ -32,7 +32,7 @@
             Y <- try(scores(ord, choices = choices, display = "species"))
             options(show.error.messages = TRUE)
             if (inherits(Y, "try-error")) {
-                warning("Species scores not available")
+                warning("species scores not available")
                 Y <- NULL
             }
             else if (!is.null(X) && NROW(X) == NROW(Y) &&

@@ -1,11 +1,11 @@
 `procrustes` <-
-    function (X, Y, scale = TRUE, symmetric = FALSE,  scores = "sites", ...) 
+    function (X, Y, scale = TRUE, symmetric = FALSE,  scores = "sites", ...)
 {
     X <- scores(X, display = scores, ...)
     Y <- scores(Y, display = scores, ...)
     if (nrow(X) != nrow(Y))
-        stop("Matrices have different number of rows: ",
-             nrow(X), " and ", nrow(Y))
+        stop(gettextf("matrices have different number of rows: %d and %d",
+             nrow(X), nrow(Y)))
     if (ncol(X) < ncol(Y)) {
         warning("X has fewer axes than Y: X adjusted to comform Y\n")
         addcols <- ncol(Y) - ncol(X)
@@ -36,8 +36,8 @@
     ## have this. Reported by Christian Dudel.
     b <- xmean - c * ymean %*% A
     R2 <- ctrace(X) + c * c * ctrace(Y) - 2 * c * sum(sol$d)
-    reslt <- list(Yrot = Yrot, X = X, ss = R2, rotation = A, 
-                  translation = b, scale = c, xmean = xmean, 
+    reslt <- list(Yrot = Yrot, X = X, ss = R2, rotation = A,
+                  translation = b, scale = c, xmean = xmean,
                   symmetric = symmetric, call = match.call())
     reslt$svd <- sol
     class(reslt) <- "procrustes"

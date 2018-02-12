@@ -3,8 +3,8 @@
 ## commsim functions only once and reuse them as necessary
 ## also helps keeping track of updating process for sequential algorithms
 ## method$mode can be evaluated and use storage mode accordingly
-nullmodel <-
-function(x, method)
+`nullmodel` <-
+    function(x, method)
 {
     x <- as.matrix(x)
     if (is.null(dim(x)) || length(dim(x)) != 2L)

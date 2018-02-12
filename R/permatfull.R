@@ -1,6 +1,6 @@
 ## permatfull function
 `permatfull` <-
-function(m, fixedmar="both", shuffle="both", 
+function(m, fixedmar="both", shuffle="both",
 strata=NULL, mtype="count", times=99, ...)
 {
     mtype <- match.arg(mtype, c("prab", "count"))
@@ -12,7 +12,7 @@ strata=NULL, mtype="count", times=99, ...)
     levstr <- unique(str)
     nstr <- length(unique(str))
     if (!is.null(strata) && any(table(str) < 2))
-        stop("strata should contain at least 2 observations")
+        stop("strata should contain at least two observations")
     ALGO <- switch(fixedmar,
         "none" = "r00",
         "rows" = "r0",
@@ -31,7 +31,7 @@ strata=NULL, mtype="count", times=99, ...)
         perm <- vector("list", times)
         tmp <- vector("list", length(unique(strata)))
         for (j in seq_len(nstr)) {
-            tmp[[j]] <- simulate(nullmodel(m[strata==levstr[j],], ALGO), 
+            tmp[[j]] <- simulate(nullmodel(m[strata==levstr[j],], ALGO),
                 nsim=times, ...)
         }
         for (i in seq_len(times)) {

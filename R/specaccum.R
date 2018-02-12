@@ -5,7 +5,7 @@
     METHODS <- c("collector", "random", "exact", "rarefaction", "coleman")
     method <- match.arg(method, METHODS)
     if (!is.null(w) && !(method %in% c("random", "collector")))
-        stop(gettextf("weights 'w' can be only used with methods 'random' and 'collector'"))
+        stop("weights 'w' can be only used with methods 'random' and 'collector'")
     if (!missing(subset)) {
         comm <- subset(comm, subset)
         w <- subset(w, subset)

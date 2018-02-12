@@ -1,5 +1,5 @@
 `rarefy` <-
-    function (x, sample, se = FALSE, MARGIN = 1) 
+    function (x, sample, se = FALSE, MARGIN = 1)
 {
     x <- as.matrix(x)
     ## as.matrix changes an n-vector to a n x 1 matrix
@@ -11,19 +11,19 @@
     if (missing(sample)) {
         stop(
             gettextf(
-                "The size of 'sample' must be given --\nHint: Smallest site maximum %d",
+                "the size of 'sample' must be given --\nHint: Smallest site maximum %d",
                 minsample))
     }
     if (any(sample > minsample))
         warning(
             gettextf(
-                "Requested 'sample' was larger than smallest site maximum (%d)",
+                "requested 'sample' was larger than smallest site maximum (%d)",
                 minsample))
     rarefun <- function(x, sample) {
         x <- x[x > 0]
         J <- sum(x)
         ldiv <- lchoose(J, sample)
-        p1 <- ifelse(J - x < sample, 0, exp(lchoose(J - x, sample) - 
+        p1 <- ifelse(J - x < sample, 0, exp(lchoose(J - x, sample) -
                                             ldiv))
         out <- sum(1 - p1)
         if (se) {
@@ -31,7 +31,7 @@
             Jxx <- J - outer(x, x, "+")
             ind <- lower.tri(Jxx)
             Jxx <- Jxx[ind]
-            V <- V + 2 * sum(ifelse(Jxx < sample, 0, exp(lchoose(Jxx, 
+            V <- V + 2 * sum(ifelse(Jxx < sample, 0, exp(lchoose(Jxx,
                                                                  sample) - ldiv)) - outer(p1, p1)[ind])
             ## V is >= 0, but numerical zero can be negative (e.g,
             ## -1e-16), and we avoid taking its square root
@@ -49,7 +49,7 @@
         }
     } else {
         S.rare <- apply(x, MARGIN, rarefun, sample = sample)
-        if (se) 
+        if (se)
             rownames(S.rare) <- c("S", "se")
     }
     attr(S.rare, "Subsample") <- sample
