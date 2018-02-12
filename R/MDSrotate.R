@@ -1,7 +1,7 @@
 ### Rotates metaMDS or monoMDS result so that axis one is parallel to
 ### vector 'x'.
 `MDSrotate` <-
-    function(object, vec, na.rm = FALSE, ...) 
+    function(object, vec, na.rm = FALSE, ...)
 {
     workswith <- c("metaMDS", "monoMDS", "GO")
     if (!inherits(object, workswith))
@@ -14,24 +14,24 @@
         sp <- object$species
     N <- NCOL(x)
     if (N < 2)
-        stop(gettextf("needs at least 2 dimensions"))
+        stop(gettextf("needs at least two dimensions"))
     ## check if vec is a factor and then use lda to find a matrix that
     ## separates optimally factor levels
     if (is.factor(vec) || is.character(vec)) {
         da <- lda(x, vec)
         vec <- predict(da, dimen = N - 1)$x
         message(sprintf(ngettext(NCOL(vec),
-                         "Factor replaced with discriminant axis.",
-                         "Factor replaced with %d discriminant axes.",
+                         "factor replaced with discriminant axis",
+                         "factor replaced with %d discriminant axes",
                                  ), NCOL(vec)))
         if (NCOL(vec) > 1)
-            message("Proportional traces:", gettextf(" %.3f",
+            message(gettextf("proportional traces: %.3f",
                              da$svd[1:NCOL(vec)]^2/sum(da$svd^2)))
     }
     vec <- as.matrix(vec)
     NV <- NCOL(vec)
     if (NV >= N)
-        stop(gettextf("You can have max %d vectors, but you had %d",
+        stop(gettextf("you can have max %d vectors, but you had %d",
              N-1, NV))
     if (!is.numeric(vec))
         stop(gettextf("'vec' must be numeric"))

@@ -4,7 +4,7 @@
              method = "r2dtable", ...)
 {
     if (length(scales) > 1)
-        stop("length of 'scales' must be 1")
+        stop("length of 'scales' must be one")
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
@@ -15,7 +15,7 @@
     rhs[] <- lapply(rhs, droplevels, exclude = NA)
     nlevs <- ncol(rhs)
     if (nlevs < 2)
-        stop("provide at least two level hierarchy")
+        stop("provide at least two-level hierarchy")
     if (any(rowSums(lhs) == 0))
         stop("data matrix contains empty rows")
     if (any(lhs < 0))

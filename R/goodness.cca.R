@@ -30,7 +30,7 @@
     ## get the total variation
     All <- ordiYbar(object, "initial")
     if (is.null(All))
-        stop("update() your ordination object")
+        stop("old style result object: update() your model")
     tot <- switch(display,
                   "species" = colSums(All^2),
                   "sites" = rowSums(All^2),

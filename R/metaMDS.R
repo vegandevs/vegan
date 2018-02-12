@@ -53,7 +53,7 @@
     ## Nearly zero stress is usually not a good thing but a symptom of
     ## a problem: you may have insufficient data for NMDS
     if (out$stress < 1e-3) {
-        warning("Stress is (nearly) zero - you may have insufficient data")
+        warning("stress is (nearly) zero - you may have insufficient data")
     }
     if (trace > 2)
         cat(">>> Post-processing NMDS\n")
