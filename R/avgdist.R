@@ -40,13 +40,9 @@
     if(nrow(x) != nrow(output)) {
         dropsamples <- setdiff(row.names(inputcast), row.names(output))
         warning(
-            paste(
-                "The following sample was removed because it failed to meet the subsampling depth threshold:",
-                dropsamples,
-                "\n",
-                sep = " "
-            )
-        )
+            gettextf(
+                "The following sampling units were removed because they were below sampling depth: %s",
+                paste(dropsamples, collapse = ", ")))
     }
     output <- as.dist(output, diag = TRUE, upper = TRUE)
     attr(output, "call") <- match.call()
