@@ -17,7 +17,7 @@
     sample <- rep(sample, length=nrow(x))
     ## warn if something cannot be rarefied
     if (any(rowSums(x) < sample))
-        warning("Some row sums < 'sample' and are not rarefied")
+        warning("some row sums < 'sample' and are not rarefied")
     for (i in 1:nrow(x)) {
         x[i,] <- .Call(do_rrarefy, x[i,], sample[i])
     }
@@ -41,7 +41,7 @@
     else
         rs <- sum(x)
     if (any(rs < sample))
-        warning("Some row sums < 'sample' and probabilities either 0 or 1")
+        warning("some row sums < 'sample' and probabilities either 0 or 1")
     ## dfun is kluge: first item of  vector x must be the sample size,
     ## and the rest  is the community data. This  seemed an easy trick
     ## to evaluate dfun in an apply() instead of a loop.

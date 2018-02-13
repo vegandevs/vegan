@@ -19,7 +19,7 @@
             scores(x, display = display, choices = choices, ...)
         }
         if (!rescale) {
-            warning("extracted scores usually need rescaling but you set 'rescale = FALSE'.\nConsider using 'rescale = TRUE', the default.")
+            warning("extracted scores usually need rescaling but you set 'rescale = FALSE' - \nconsider using 'rescale = TRUE', the default")
         }
     }
 

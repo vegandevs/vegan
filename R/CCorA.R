@@ -119,7 +119,7 @@
     ##
     ## Check for circular covariance matrix
     if((p == q) & (var(K.svd$d) < epsilon))
-    	cat("Warning: [nearly] circular covariance matrix. The solution may be meaningless.",'\n')
+    	warning("[nearly] circular covariance matrix - the solution may be meaningless")
     ## K.svd$u %*% diag(K.svd$d) %*% t(K.svd$v)   # To check that K = U D V'
     axenames <- paste("CanAxis",seq_along(K.svd$d),sep="")
     U <- K.svd$u

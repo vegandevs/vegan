@@ -1,4 +1,4 @@
-"linestack" <-
+`linestack` <-
     function (x, labels, cex = 0.8, side = "right", hoff = 2, air = 1.1,
               at = 0, add = FALSE, axis = FALSE, ...)
 {
@@ -15,9 +15,8 @@
     }
     nlab <- length(labels)
     if (!misslab && n != nlab) {
-        msg <- paste("Wrong number of supplied 'labels'.\nExpected:",
-                     n, "Got:", nlab, sep = " ")
-        stop(msg)
+        stop(gettextf(
+            "wrong number of supplied 'labels.\nExpected %d, got %d", n, nlab))
     }
     side <- match.arg(side, c("right", "left"))
     op <- par(xpd = TRUE)
