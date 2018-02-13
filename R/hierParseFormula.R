@@ -13,7 +13,7 @@
         u
     })
     if (length(rhs) < 2)
-        stop("at least 2 hierarchy levels are needed")
+        stop("provide at least two-level hierarchy")
     attr(rhs, "terms") <- NULL
     list(lhs=lhs, rhs=rhs)
 }

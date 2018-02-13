@@ -27,7 +27,7 @@
                 paste(plot.axes, collapse =",")))
 	if(max(plot.axes) > length(which(x$Eigenvalues > epsilon)))
             stop(gettextf(
-                "plot of axes (%s) not drawn because the solution has fewer dimensions",
+                "axes (%s) not plotted because the solution has fewer dimensions",
                  paste(plot.axes, collapse=",")))
 	if (missing(xlabs))
 		xlabs <- rownames(x$Cy)

@@ -12,7 +12,7 @@
     ## match names
     if (ncol(x) != ncol(dmat) || match.force) {
         if(!match.force)
-            warning("dimensions do not match between 'x' and 'tree' - matching by names")
+            warning("dimensions do not match between 'x' and 'tree': matching by names")
         nm <- colnames(x)
         dmat <- dmat[nm, nm]
     }

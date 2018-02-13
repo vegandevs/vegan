@@ -13,7 +13,7 @@
     Y <- as.matrix(Y)
     n <- nrow(Y)
     p <- ncol(Y)
-    if(p < 2) stop("there is a single variable in the data matrix")
+    if(p < 2) stop("there is only one variable in the data matrix")
 
     ##CC# Transform the species abundances to ranks, by column
     R <- apply(Y,2,rank)
@@ -50,7 +50,7 @@
 
     for(i in 1:ngr){
         p.i <- n.per.gr[i]
-        if(p.i < 2) stop(gettextf("there is a single variable in group %d",
+        if(p.i < 2) stop(gettextf("there is only one variable in group %d",
                                   gr.lev[i]))
                                         #CC# Extract variables part of
                                         #group i

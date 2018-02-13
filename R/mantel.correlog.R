@@ -12,7 +12,7 @@
     ## Geographic distance matrix
     if(!is.null(D.geo)) {
 	if(!is.null(XY))
-            stop("you provided both a geographic distance matrix and a list of site coordinates - which one should the function use?")
+            stop("you provided both a geographic distance matrix and a list of site coordinates:\nwhich one should the function use?")
 	D.geo <- as.matrix(D.geo)
     } else {
 	if(is.null(XY)) {
@@ -34,7 +34,7 @@
     if(!is.null(break.pts)) {
 	## Use the list of break points
 	if(n.class > 0)
-            stop("you provided both a number of classes and a list of break points - which one should the function use?")
+            stop("you provided both a number of classes and a list of break points:\nwhich one should the function use?")
 	n.class = length(break.pts) - 1
 
     } else {

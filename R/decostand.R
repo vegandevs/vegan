@@ -45,7 +45,7 @@
             xtmp <- x
         else {
             if (dim(range.global)[MARGIN] != dim(x)[MARGIN])
-                stop("range matrix doesn't match data matrix")
+                stop("range matrix does not match data matrix")
             xtmp <- as.matrix(range.global)
         }
         tmp <- apply(xtmp, MARGIN, min, na.rm = na.rm)

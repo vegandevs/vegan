@@ -13,7 +13,7 @@ mtype="count", times=99, burnin = 0, thin = 1, ...)
     levstr <- unique(str)
     nstr <- length(unique(str))
     if (!is.null(strata) && any(table(str) < 2))
-        stop("strata should contain at least 2 observations")
+        stop("strata should contain at least two observations")
     ## evaluating algo type
     if (count) {
         method <- match.arg(method, c("swap", "quasiswap", "swsh", "abuswap"))

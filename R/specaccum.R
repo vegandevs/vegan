@@ -25,7 +25,7 @@
     }
     specaccum <- sdaccum <- sites <- perm <- NULL
     if (n == 1 && method != "rarefaction")
-        message("no actual accumulation since only 1 site provided")
+        message("no actual accumulation since only one site provided")
     switch(method, collector = {
         sites <- 1:n
         xout <- weights <- cumsum(w)

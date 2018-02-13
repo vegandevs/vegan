@@ -16,7 +16,7 @@
     nlab <- length(labels)
     if (!misslab && n != nlab) {
         stop(gettextf(
-            "wrong number of supplied 'labels.\nExpected %d, got %d", n, nlab))
+            "wrong number of supplied 'labels: expected %d, got %d", n, nlab))
     }
     side <- match.arg(side, c("right", "left"))
     op <- par(xpd = TRUE)

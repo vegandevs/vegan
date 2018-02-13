@@ -34,11 +34,11 @@
         attr(out, "Labels") <- rownames(x)
     } else {
         if (length(labels) != nrow(x))
-            warning(gettextf("labels are wrong: needed %d got %d",
+            warning(gettextf("labels are wrong: needed %d, got %d",
                              nrow(x), length(labels)))
         attr(out, "Labels") <- as.character(labels)
     }
     if (!check && any(out <= 0))
-        warning("you used 'check=FALSE' and some distances are zero -- was this intended?")
+        warning("you used 'check=FALSE' and some distances are zero: was this intended?")
     out
 }
