@@ -77,7 +77,7 @@
     user.bs <- bs ## store supplied (well expanded supplied ones)
     bs <- BS[want]
     if (any(wrong <- is.na(bs))) {
-        stop(gettextf("Supplied basis type of '%s' not supported",
+        stop(gettextf("supplied basis type of '%s' not supported",
                    paste(unique(user.bs[wrong]), collapse = ", ")))
     }
     ## can't use "cr", "cs", "ps" in 2-d smoother with s()
