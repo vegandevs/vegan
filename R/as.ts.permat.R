@@ -6,9 +6,9 @@
     if (!is.ts(out)) {
         seqmethods <- sapply(make.commsim(), function(z) make.commsim(z)$isSeq)
         seqmethods <- names(seqmethods)[seqmethods]
-#        seqmethods <- c("swap", "tswap", "abuswap")
-        stop("as.ts available only for sequential methods ",
-            paste(seqmethods, collapse=", "))
-    } 
+        ## seqmethods <- c("swap", "tswap", "abuswap")
+        stop(gettextf("as.ts available only for sequential methods %s",
+                      paste(seqmethods, collapse=", ")))
+    }
     out
 }

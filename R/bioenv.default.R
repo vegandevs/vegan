@@ -27,14 +27,16 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         partpart <- NULL
     if (!is.null(partial) && !inherits(partial, "dist"))
         partial <- dist(partial)
-    if (!is.null(partial) && !pmatch(method, c("pearson", "spearman"), nomatch=FALSE))
+    if (!is.null(partial) && !pmatch(method, c("pearson", "spearman"),
+                                     nomatch=FALSE))
         stop(gettextf("method %s is invalid in partial bioenv", method))
     ## remove constant variables
     constant <- apply(env, 2, function(x) length(unique(x))) <= 1
     if (any(constant)) {
-        warning("the following variables are constant and were removed: ",
-                paste(colnames(env)[constant], collapse=", "))
-        env <- env[, !constant, drop = FALSE]
+        warning(
+            gettextf("the following variables are constant and were removed: %s",
+                     paste(colnames(env)[constant], collapse=", ")))
+            env <- env[, !constant, drop = FALSE]
     }
     n <- ncol(env)
     if (n < 1)

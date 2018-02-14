@@ -1,4 +1,4 @@
-"profile.humpfit" <-
+`profile.humpfit` <-
     function(fitted, parm=1:3, alpha=0.01, maxsteps = 20, del = zmax/5, ...)
 {
     INSERT3 <- function(vec, fix, val) {
@@ -42,7 +42,7 @@
         pi <- Pnames[i]
         for (sgn in c(-1, 1)) {
             step <- 0
-            z <- 0 
+            z <- 0
             while ((step <- step + 1) < maxsteps && abs(z) < zmax) {
                 bi <- p[i] + sgn * step * del * std.err[i]
                 fm <- nlm(HUMP, p = pvi, mass = fitted$x, spno = fitted$y, fix = i, val = bi)
@@ -54,7 +54,9 @@
                 if (zz > -0.001)
                     zz <- max(0, zz)
                 else
-                    stop("profiling has found a better solution, so original fit had not converged:\n", Pnames[i], ": ", bi)
+                    stop(gettextf(
+                        "profiling found a better solution:  original fit had not converged:\n%s: %f",
+                        Pnames[i], bi))
                 z <- sgn*sqrt(zz)
                 zi <- c(zi, z)
             }
