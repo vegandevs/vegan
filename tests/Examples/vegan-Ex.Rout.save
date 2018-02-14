@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-01-17 r74130) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-02-11 r74244) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1020,17 +1020,7 @@ Model 2: varespec ~ N + P + K + Ca + Mg + S + Al + Fe + Mn + Zn + Mo + Baresoil 
 > # Return samples that are removed for not meeting depth filter
 > depth.avg.dist <- avgdist(BCI, sample = 450, iterations = 10)
 Warning in avgdist(BCI, sample = 450, iterations = 10) :
-  The following sample was removed because it failed to meet the subsampling depth threshold: 1 
-The following sample was removed because it failed to meet the subsampling depth threshold: 2 
-The following sample was removed because it failed to meet the subsampling depth threshold: 6 
-The following sample was removed because it failed to meet the subsampling depth threshold: 7 
-The following sample was removed because it failed to meet the subsampling depth threshold: 8 
-The following sample was removed because it failed to meet the subsampling depth threshold: 9 
-The following sample was removed because it failed to meet the subsampling depth threshold: 11 
-The following sample was removed because it failed to meet the subsampling depth threshold: 12 
-The following sample was removed because it failed to meet the subsampling depth threshold: 13 
-The following sample was removed because it failed to meet the subsampling depth threshold: 14 
-The following sample was removed because it fa [... truncated]
+  The following sampling units were removed because they were below sampling depth: 1, 2, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 33, 34, 36, 37, 38, 39, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50
 > # Print the result
 > depth.avg.dist
            3         4         5        10        15        30        32
@@ -1411,8 +1401,8 @@ Eigenvalues for PCoA axes:
 > groups[c(2,20)] <- NA
 > dis[c(2, 20)] <- NA
 > mod2 <- betadisper(dis, groups) ## messages
-Missing observations due to 'group' removed
-Missing observations due to 'd' removed
+missing observations due to 'group' removed
+missing observations due to 'd' removed
 > mod2
 
 	Homogeneity of multivariate dispersions
@@ -1452,8 +1442,8 @@ Residuals 18 0.296910 0.016495
 > 
 > ## Using group centroids
 > mod3 <- betadisper(dis, groups, type = "centroid")
-Missing observations due to 'group' removed
-Missing observations due to 'd' removed
+missing observations due to 'group' removed
+missing observations due to 'd' removed
 > mod3
 
 	Homogeneity of multivariate dispersions
@@ -2405,7 +2395,7 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > dis <- designdist(BCI, "(log(A+B-J)-log(A+B)+log(2))/log(2)")
 > ## This can be used in clustering or ordination...
 > ordiplot(cmdscale(dis))
-Warning in ordiplot(cmdscale(dis)) : Species scores not available
+species scores not available
 > ## ... or in analysing beta diversity (without gradients)
 > summary(dis)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -3631,8 +3621,7 @@ K  -2.0862129  4.007159  5.887926
 > dis <- vegdist(BCI)
 > tr <- spantree(dis)
 > pl <- ordiplot(cmdscale(dis), main="cmdscale")
-Warning in ordiplot(cmdscale(dis), main = "cmdscale") :
-  Species scores not available
+species scores not available
 > lines(tr, pl, col="red")
 > ord <- isomap(dis, k=3)
 > ord
@@ -5631,7 +5620,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-22. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-23. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6875,7 +6864,7 @@ Manhattan     Gower    Ochiai
 > 
 > ## Provided that you have the file `dune.spe'
 > ## Not run: 
-> ##D theclassic <- read.cep("dune.spe", force=T)
+> ##D theclassic <- read.cep("dune.spe")
 > ## End(Not run)
 > 
 > 
@@ -7930,7 +7919,7 @@ Scaling: 2
 > data(dune.phylodis)
 > cl <- hclust(dune.phylodis)
 > treedive(dune, cl)
-Forced matching of 'tree' labels and 'comm' names
+forced matching of 'tree' labels and 'comm' names
         1         2         3         4         5         6         7         8 
  384.0913  568.8791 1172.9455 1327.9317 1426.9067 1391.1628 1479.5062 1523.0792 
         9        10        11        12        13        14        15        16 
@@ -9112,7 +9101,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  26.877 0.144 27.098 0 0 
+Time elapsed:  20.614 0.2 20.813 0 0 
 > grDevices::dev.off()
 null device 
           1 
