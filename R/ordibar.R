@@ -18,7 +18,7 @@
     if (ncol(pts) > 2)
         pts <- pts[ , 1:2, drop = FALSE]
     if (ncol(pts) < 2)
-        stop("ordibar needs two dimensions")
+        stop("needs two dimensions")
     w <- eval(w)
     if (length(w) == 1)
         w <- rep(1, nrow(pts))
@@ -72,7 +72,7 @@
         }
     }
     if (label) {
-        ordiArgAbsorber(cntrs, col = par("fg"), border = col, 
+        ordiArgAbsorber(cntrs, col = par("fg"), border = col,
                         FUN = ordilabel, ...)
     }
     class(res) <- "ordibar"

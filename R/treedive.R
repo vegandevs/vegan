@@ -11,9 +11,9 @@
     ## Check tree/comm match by names
     if (match.force || ncol(comm) != ncol(m)) {
         if (match.force && verbose)
-            message("Forced matching of 'tree' labels and 'comm' names")
+            message("forced matching of 'tree' labels and 'comm' names")
         else if (verbose)
-            message("Dimensions do not match between 'comm' and 'tree'")
+            message("dimensions do not match between 'comm' and 'tree'")
         fnd <- colnames(comm) %in% tree$labels
         if (!all(fnd) && verbose) {
             warning("not all names of 'comm' found in 'tree'")

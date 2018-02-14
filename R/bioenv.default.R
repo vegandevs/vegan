@@ -1,9 +1,9 @@
 `bioenv.default` <-
-function (comm, env, method = "spearman", index = "bray", upto = ncol(env), 
+function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
           trace = FALSE, partial = NULL,
           metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
           parallel = getOption("mc.cores"),
-          ...) 
+          ...)
 {
     metric <- match.arg(metric)
     method <- match.arg(method, eval(formals(cor)$method))
@@ -27,14 +27,16 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         partpart <- NULL
     if (!is.null(partial) && !inherits(partial, "dist"))
         partial <- dist(partial)
-    if (!is.null(partial) && !pmatch(method, c("pearson", "spearman"), nomatch=FALSE))
-        stop("method ", method, " invalid in partial bioenv")
+    if (!is.null(partial) && !pmatch(method, c("pearson", "spearman"),
+                                     nomatch=FALSE))
+        stop(gettextf("method %s is invalid in partial bioenv", method))
     ## remove constant variables
     constant <- apply(env, 2, function(x) length(unique(x))) <= 1
     if (any(constant)) {
-        warning("the following variables are constant and were removed: ",
-                paste(colnames(env)[constant], collapse=", "))
-        env <- env[, !constant, drop = FALSE]
+        warning(
+            gettextf("the following variables are constant and were removed: %s",
+                     paste(colnames(env)[constant], collapse=", ")))
+            env <- env[, !constant, drop = FALSE]
     }
     n <- ncol(env)
     if (n < 1)
@@ -43,7 +45,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     ndone <- 0
     upto <- min(upto, n)
     if (n > 8 || trace) {
-        if (upto < n) 
+        if (upto < n)
             cat("Studying", nall <- sum(choose(n, 1:upto)), "of ")
         cat(ntake, "possible subsets (this may take time...)\n")
         flush.console()
@@ -97,12 +99,12 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     for (i in 1:upto) {
         if (trace) {
             nvar <- choose(n, i)
-            cat("No. of variables ", i, ", No. of sets ", nvar, 
+            cat("No. of variables ", i, ", No. of sets ", nvar,
                 "...", sep = "")
             flush.console()
         }
         sets <- t(combn(1:n, i))
-        if (!is.matrix(sets)) 
+        if (!is.matrix(sets))
             sets <- as.matrix(t(sets))
         if (isParal && nrow(sets) >= CLUSLIM*nclus) {
             if (isMulticore) {
@@ -117,14 +119,14 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
                                          partial, method = method, ...))
             }
         } else {
-            est <- sapply(1:nrow(sets), function(j) 
+            est <- sapply(1:nrow(sets), function(j)
                           corfun(comdis, distfun(x[,sets[j,], drop=FALSE ]),
                                  partial, method = method, ...))
         }
         best[[i]] <- list(best = sets[which.max(est), ], est = max(est))
         if (trace) {
             ndone <- ndone + nvar
-            cat(" done (", round(100 * ndone/ntake, 1), "%)\n", 
+            cat(" done (", round(100 * ndone/ntake, 1), "%)\n",
                 sep = "")
             flush.console()
         }

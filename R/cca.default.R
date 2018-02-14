@@ -12,7 +12,7 @@
     if (!is.null(Z))
         Z <- as.matrix(Z)
     if (any(rowSums(X) <= 0))
-        stop("All row sums must be >0 in the community data matrix")
+        stop("all row sums must be >0 in the community data matrix")
     if (any(tmp <- colSums(X) <= 0)) {
         exclude.spec <- seq(along=tmp)[tmp]
         names(exclude.spec) <- colnames(X)[tmp]

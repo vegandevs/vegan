@@ -9,7 +9,7 @@
     X <- if (is.matrix(x)) {
         nc <- NCOL(x)
         if (nc != 2L) {
-            stop("A 2-column matrix of coordinates is required & not supplied.")
+            stop("a two-column matrix of coordinates is required")
         }
         x
     } else {
@@ -19,7 +19,7 @@
             scores(x, display = display, choices = choices, ...)
         }
         if (!rescale) {
-            warning("Extracted scores usually need rescaling but you set 'rescale = FALSE'.\nConsider using 'rescale = TRUE', the default.")
+            warning("extracted scores usually need rescaling but you set 'rescale = FALSE' - \nconsider using 'rescale = TRUE', the default")
         }
     }
 

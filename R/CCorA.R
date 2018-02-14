@@ -22,7 +22,8 @@
             m <- ncol(mat)
             mm <- length(which(S.svd$d > max(epsilon, epsilon * S.svd$d[1L])))
             if(mm < m) {
-                message("Information - Matrix",no,": rank=",mm," < order",m)
+                message(gettextf("matrix %d: rank=%d < order %d",
+                                 no, mm, m))
                 m <- mm
             }
             S.inv <- diag(1/S.svd$d[1:m])
@@ -70,7 +71,7 @@
         } else {
         Xnoms <- colnames(X)
         }
-    if(nY != nX) stop("Different numbers of rows in Y and X")
+    if(nY != nX) stop("different numbers of rows in Y and X")
     n <- nY
     if(is.null(rownames(X)) & is.null(rownames(Y))) {
         rownoms <- paste("Obj", 1:n, sep="")
@@ -86,7 +87,7 @@
     ## Check for identical matrices
     if(p == q) {
     	if(sum(abs(Y-X)) < epsilon^2) stop("Y and X are identical")
-    	if(sum(abs(Y.c-X.c)) < epsilon^2) stop("After centering, Y and X are identical")
+    	if(sum(abs(Y.c-X.c)) < epsilon^2) stop("after centering, Y and X are identical")
     	}
     ## Replace Y.c and X.c by tables of their PCA object scores, computed by SVD
     temp <- cov.inv(Y.c, 1, epsilon)
@@ -99,7 +100,7 @@
     rownames(X) <- rownoms
     ## Correction PL, 26dec10
     if(max(pp,qq) >= (n-1))
-    	stop("Not enough degrees of freedom: max(pp,qq) >= (n-1)")
+    	stop("not enough degrees of freedom: max(pp,qq) >= (n-1)")
     ## Covariance matrices, etc. from the PCA scores
     S11 <- cov(Y)
     if(sum(abs(S11)) < epsilon) return(0)
@@ -118,7 +119,7 @@
     ##
     ## Check for circular covariance matrix
     if((p == q) & (var(K.svd$d) < epsilon))
-    	cat("Warning: [nearly] circular covariance matrix. The solution may be meaningless.",'\n')
+    	warning("[nearly] circular covariance matrix - the solution may be meaningless")
     ## K.svd$u %*% diag(K.svd$d) %*% t(K.svd$v)   # To check that K = U D V'
     axenames <- paste("CanAxis",seq_along(K.svd$d),sep="")
     U <- K.svd$u

@@ -4,7 +4,7 @@
     ## check `select` and length of scores match
     if(is.logical(select) &&
                  !isTRUE(all.equal(length(select), NROW(scores)))) {
-        warning("Length of logical vector 'select' does not match the number of scores.\nIgnoring 'select'.")
+        warning("length of 'select' does not match the number of scores: ignoring 'select'")
     } else {
         scores <- if(is.matrix(scores)) {
             scores[select, , drop = FALSE]

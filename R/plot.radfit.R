@@ -1,8 +1,8 @@
 `plot.radfit` <-
-    function (x, BIC = FALSE, legend = TRUE, ...) 
+    function (x, BIC = FALSE, legend = TRUE, ...)
 {
     if (length(x$y) == 0)
-        stop("No species, nothing to plot")
+        stop("no species, nothing to plot")
     ## if 'type = "n"', do not add legend (other types are not
     ## supported)
     type <- match.call(expand.dots = FALSE)$...$type
@@ -12,7 +12,7 @@
     if (length(x$y) == 1)
         return(invisible(out))
     fv <- fitted(x)
-    if (BIC) 
+    if (BIC)
         k = log(length(x$y))
     else k = 2
     emph <- which.min(sapply(x$models, AIC, k = k))

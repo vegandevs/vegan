@@ -2,7 +2,7 @@ permutest <- function(x, ...)
     UseMethod("permutest")
 
 permutest.default <- function(x, ...)
-    stop("No default permutation test defined")
+    stop("no default permutation test defined")
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
@@ -135,7 +135,7 @@ permutest.default <- function(x, ...)
                 "full" = ordiYbar(x, "CA"))
     ## vegan < 2.5-0 cannot use direct model in partial dbRDA
     if (is.null(E) && isDB && isPartial)
-        stop("'direct' model cannot be used in old partial-dbrda: update ordination")
+        stop("'direct' model cannot be used in old partial-dbrda: update() result")
 
     ## Save dimensions
     N <- nrow(E)

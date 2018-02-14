@@ -4,7 +4,7 @@
 {
     model <- match.arg(model)
     if (is.null(object[[model]]) && model != "Imaginary")
-        stop("component ", model, " does not exist")
+        stop(gettextf("component '%s' does not exist", model))
     type <- match.arg(type)
     ## Return scaled eigenvalues
     U <- switch(model,
@@ -13,7 +13,7 @@
                 Imaginary = object$CA$imaginary.u.eig,
                 pCCA = ordiYbar(object, "pCCA"))
     if (is.null(U))
-        stop("component ", model, " does not exist")
+        stop(gettextf("component '%s' does not exist", model))
     ## Distances or working scores U
     if (type == "response") {
         U <- dist(U)

@@ -22,7 +22,7 @@
     else
         take <- object[[model]]$rank
     if (take == 0)
-        stop("model ", dQuote(model), " has rank 0")
+        stop(gettextf("model '%s' has rank 0", model))
     if (rank != "full")
         take <- min(take, rank)
     if (!inherits(object, "dbrda")) {
@@ -128,7 +128,7 @@
                 stop(gettextf("'wa' scores not available in %s with 'newdata'",
                      object$method))
             if (!is.null(object$pCCA))
-                stop("No 'wa' scores available (yet) in partial RDA")
+                stop("no 'wa' scores available (yet) in partial RDA")
             nm <- rownames(v)
             if (!is.null(nm)) {
                 if (!all(nm %in% colnames(newdata)))

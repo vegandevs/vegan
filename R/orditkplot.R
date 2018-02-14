@@ -7,7 +7,7 @@
              labels,  ...)
 {
     if (!capabilities("tcltk"))
-        stop("Your R has no capability for Tcl/Tk")
+        stop("your R has no capability for Tcl/Tk")
     requireNamespace("tcltk") || stop("requires package tcltk")
 
 ############################

@@ -5,7 +5,7 @@
         stop("'dist' must be dissimilarity object inheriting from", dQuote(dist))
     ## check that 'dist' are dissimilarities (non-negative)
     if (any(dist < -sqrt(.Machine$double.eps)))
-        warning("some dissimilarities are negative -- is this intentional?")
+        warning("some dissimilarities are negative: is this intentional?")
     grouping <- factor(grouping, exclude = NULL)
     ## grouping for rows and columns
     grow <- grouping[as.dist(row(as.matrix(dist)))]

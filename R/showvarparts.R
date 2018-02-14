@@ -32,7 +32,7 @@
         ylim <- c(-1.7, 1.1)
     }
     ## plot
-    plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n", 
+    plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
     box()
     if (parts < 4) {
@@ -67,13 +67,14 @@
         pos.names = matrix(c(-1.62,-1.10,1.10,1.62,0.54,1.00,1.00,0.54),4,2)
         text(pos.names,labels=Xnames[1:4], cex=id.size)
     }
-    
+
     ## label fractions
     nlabs <- switch(parts, 2, 4, 8, 16)
     if (missing(labels))
         labels <- paste("[", letters[1:nlabs], "]", sep="")
     if (length(labels) != nlabs)
-        stop("needs ", nlabs, " labels, but input has" , length(labels))
+        stop(gettextf("needs %d labels, but input has %d",
+                      nlabs, length(labels)))
     switch(parts,
            text(0,0, labels[-nlabs], ...),
            text(rbind(cp[1,], colMeans(cp), cp[2,]), labels[-nlabs], ...),

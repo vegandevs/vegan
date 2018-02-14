@@ -1,7 +1,7 @@
-adipart.default <-
-function(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-    method = "r2dtable", ...)
+`adipart.default` <-
+    function(y, x, index=c("richness", "shannon", "simpson"),
+             weights=c("unif", "prop"), relative = FALSE, nsimul=99,
+             method = "r2dtable", ...)
 {
     ## evaluate formula
     lhs <- as.matrix(y)
@@ -13,7 +13,7 @@ function(y, x, index=c("richness", "shannon", "simpson"),
     rhs[] <- lapply(rhs, droplevels, exclude = NA)
     nlevs <- ncol(rhs)
     if (nlevs < 2)
-        stop("provide at least two level hierarchy")
+        stop("provide at least two-level hierarchy")
     if (any(rowSums(lhs) == 0))
         stop("data matrix contains empty rows")
     if (any(lhs < 0))

@@ -1,6 +1,9 @@
 `varpart2` <-
-    function (Y, X1, X2) 
+    function (Y, X1, X2)
 {
+    collinwarn <- function(case, mm, m)
+        warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
+                         case, mm, m), call. = FALSE)
     if (inherits(Y, "dist")) {
         Y <- GowerDblcen(as.matrix(Y^2), na.rm = FALSE)
         Y <- -Y/2
@@ -19,32 +22,29 @@
     p <- ncol(Y)
     mm1 <- ncol(X1)
     mm2 <- ncol(X2)
-    if (n1 != n) 
+    if (n1 != n)
         stop("Y and X1 do not have the same number of rows")
-    if (n2 != n) 
+    if (n2 != n)
         stop("Y and X2 do not have the same number of rows")
     X1 <- scale(X1, center = TRUE, scale = FALSE)
     X2 <- scale(X2, center = TRUE, scale = FALSE)
     dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
     ab.ua <- dummy$Rsquare
     m1 <- dummy$m
-    if (m1 != mm1) 
-        warning("collinearity detected in X1: mm = ", mm1, ", m = ", 
-                m1, call. = FALSE)
+    if (m1 != mm1)
+        collinwarn("X1", mm1, m1)
     dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
     bc.ua <- dummy$Rsquare
     m2 <- dummy$m
-    if (m2 != mm2) 
-        warning("collinearity detected in X2: mm = ", mm2, ", m = ", 
-                m2, call. = FALSE)
+    if (m2 != mm2)
+        collinwarn("X2", mm2, m2)
     mm3 <- mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm3)
     abc.ua <- dummy$Rsquare
     m3 <- dummy$m
-    if (m3 != mm3) 
-        warning("collinearity detected in cbind(X1,X2): mm = ", 
-                mm3, ", m = ", m3, call. = FALSE)
-    if ((m1 + m2) > m3) 
+    if (m3 != mm3)
+        collinwarn("cbind(X1,X2)", mm3, m3)
+    if ((m1 + m2) > m3)
         bigwarning <- c("X1, X2")
     else bigwarning <- NULL
     ab <- RsquareAdj(ab.ua, n, m1)
@@ -61,9 +61,9 @@
     indfract <- data.frame(Df = Df, R.squared = rep(NA, 4),
                            Adj.R.squared = c(ab - b, b, bc - b, 1 - abc),
                            Testable = c(TRUE, FALSE, TRUE, FALSE) & Df)
-    rownames(indfract) <- c("[a] = X1|X2", "[b]", "[c] = X2|X1", 
+    rownames(indfract) <- c("[a] = X1|X2", "[b]", "[c] = X2|X1",
                             "[d] = Residuals")
-    out <- list(SS.Y = SS.Y, fract = fract, indfract = indfract, 
+    out <- list(SS.Y = SS.Y, fract = fract, indfract = indfract,
                 nsets = 2, bigwarning = bigwarning, n = n1)
     class(out) <- "varpart234"
     out

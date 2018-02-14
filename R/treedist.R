@@ -12,7 +12,7 @@
     ## match names
     if (ncol(x) != ncol(dmat) || match.force) {
         if(!match.force)
-            warning("Dimensions do not match between 'x' and 'tree' - matching by names")
+            warning("dimensions do not match between 'x' and 'tree': matching by names")
         nm <- colnames(x)
         dmat <- dmat[nm, nm]
     }
@@ -20,7 +20,7 @@
         for (k in j:n) {
             jk <- x[j,] > 0 | x[k,] > 0
             if (sum(jk) > 1)
-                ABJ[k, j] <- treeheight(update(tree, d = as.dist(dmat[jk, jk]))) 
+                ABJ[k, j] <- treeheight(update(tree, d = as.dist(dmat[jk, jk])))
         }
     }
     A <- diag(ABJ)

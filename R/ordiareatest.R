@@ -63,7 +63,7 @@
     qu <- apply(x$permutations, 1, quantile, probs=c(0.05, 0.5))
     m <- cbind("Area" = x$areas, t(qu), "Pr(<sim)" = x$pvalues)
     cat("\n")
-    cat(gettextf("Permutation test for the size of ordination %ss\nAlternative hypothesis: observed area is smaller than random %s\n\n", x$kind, x$kind))
+    cat(sprintf("Permutation test for the size of ordination %s\nalternative hypothesis: observed area is smaller than random %s\n\n", x$kind, x$kind))
     cat(howHead(x$control), "\n")
     printCoefmat(m, tst.ind=1:3)
     invisible(x)

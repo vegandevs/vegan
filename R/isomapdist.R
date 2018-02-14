@@ -9,9 +9,9 @@
     options(op)
     method <- attr(dist, "method")
     if (missing(epsilon) && missing(k))
-        stop("Either epsilon or k must be given")
+        stop("either epsilon or k must be given")
     if (!missing(epsilon) && !missing(k))
-        message("Both epsilon and k given, using epsilon")
+        message("both epsilon and k given, using epsilon")
     if (!missing(epsilon))
         dist[dist >= epsilon-EPS] <- NA
     else {
@@ -25,11 +25,11 @@
     take <- NULL
     if (length(unique(fragm)) > 1) {
         if (fragmentedOK) {
-            warning("Data are fragmented: taking the largest fragment")
+            warning("data are fragmented: taking the largest fragment")
             take <- fragm == as.numeric(names(which.max(table(fragm))))
             dist <- as.dist(as.matrix(dist)[take,take])
         } else {
-            stop("Data are fragmented")
+            stop("data are fragmented")
         }
     }
     net <- which(!is.na(dist))

@@ -32,14 +32,14 @@
             Y <- try(scores(ord, choices = choices, display = "species"))
             options(show.error.messages = TRUE)
             if (inherits(Y, "try-error")) {
-                warning("Species scores not available")
+                message("species scores not available")
                 Y <- NULL
             }
             else if (!is.null(X) && NROW(X) == NROW(Y) &&
                      isTRUE(all.equal.numeric(X, Y,
                                               check.attributes = FALSE))) {
                 Y <- NULL
-                warning("Species scores not available")
+                message("species scores not available")
             }
         }
         ## Use linestack and exit if there is only one variable

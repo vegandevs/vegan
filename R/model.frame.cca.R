@@ -8,7 +8,7 @@
     ## did we succeed? Fails if we have no formula, in prc and if
     ## there was no data= argument
     if (is.null(call$data))
-        stop("no sufficient information to reconstrunct model frame")
+        stop("no sufficient information to reconstruct model frame")
     ## subset must be evaluated before ordiParseFormula
     if (!is.null(call$subset))
         call$subset <- formula$subset

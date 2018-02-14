@@ -16,7 +16,7 @@
     colnames(tab) <- c("Dispersion", "Weight", "Df", "Pr(Disp.)")
     printCoefmat(tab, cs.ind = NA, ...)
     if (!is.na(x$nsimul))
-        cat(gettextf("Based on %d simulations on '%s' nullmodel\n",
+        cat(sprintf("Based on %d simulations on '%s' nullmodel\n",
                      x$nsimul, x$nullmodel))
     invisible(x)
 }

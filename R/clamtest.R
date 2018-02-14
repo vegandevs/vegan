@@ -1,27 +1,27 @@
 ## CLAM, reproduction of software described in Chazdon et al. 2011
 ## Ecology, 92, 1332--1343
-clamtest <- 
+clamtest <-
 function(comm, groups, coverage.limit = 10,
-specialization = 2/3, npoints = 20, alpha = 0.05/20) 
+specialization = 2/3, npoints = 20, alpha = 0.05/20)
 {
     ## inital checks
     comm <- as.matrix(comm)
     if (NROW(comm) < 2)
-        stop("'comm' must have at least 2 rows")
+        stop("'comm' must have at least two rows")
     if (nrow(comm) > 2 && missing(groups))
         stop("'groups' is missing")
     if (nrow(comm) == 2 && missing(groups))
         groups <- if (is.null(rownames(comm)))
             c("Group.1", "Group.2") else rownames(comm)
     if (length(groups) != nrow(comm))
-        stop("length of 'groups' must equal 'nrow(comm)'")
+        stop("length of 'groups' must equal to 'nrow(comm)'")
     if (length(unique(groups)) != 2)
-        stop("number of groups must be 2")
+        stop("number of groups must be two")
     glabel <- as.character(unique(groups))
     if (is.null(colnames(comm)))
         colnames(comm) <- paste("Species", 1:ncol(comm), sep=".")
     if (any(colSums(comm) <= 0))
-        stop("'comm' contains zero sum columns")
+        stop("'comm' contains columns with zero sums")
     spp <- colnames(comm)
     ## reproduced from Chazdon et al. 2011, Ecology 92, 1332--1343
     S <- ncol(comm)
@@ -38,12 +38,12 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
     m <- sum(Y)
     n <- sum(X)
     if (sum(Y) <= 0 || sum(X) <= 0)
-        stop("zero group totals not allowed")
+        stop("group totals of zero are not allowed")
     ## check if comm contains integer, especially for singletons
     if (any(X[X>0] < 1) || any(Y[Y>0] < 1))
-        warning("<1 non integer values detected: analysis might not be meaningful")
+        warning("non-integer values <1 detected: analysis may not be meaningful")
     if (abs(sum(X,Y) - sum(as.integer(X), as.integer(Y))) > 10^-6)
-        warning("non integer values detected")
+        warning("non-integer values detected")
     C1 <- 1 - sum(X==1)/n
     C2 <- 1 - sum(Y==1)/m
     ## this stands for other than 2/3 cases
@@ -52,7 +52,7 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
     Zp <- qnorm(alpha, lower.tail=FALSE)
     #p_i=a
     #pi_i=b
-    ## function to calculate test statistic from Appendix D 
+    ## function to calculate test statistic from Appendix D
     ## (Ecological Archives E092-112-A4)
     ## coverage limit is count, not freq !!!
     testfun <- function(p_i, pi_i, C1, C2, n, m) {
@@ -119,7 +119,7 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
     rownames(tab) <- NULL
     class(tab) <- c("clamtest","data.frame")
     attr(tab, "settings") <- list(labels = glabel,
-        coverage.limit = coverage.limit, specialization = specialization, 
+        coverage.limit = coverage.limit, specialization = specialization,
         npoints = npoints, alpha = alpha)
     attr(tab, "minv") <- minval
     attr(tab, "coverage") <- structure(c(C2, C1), .Names=glabel)

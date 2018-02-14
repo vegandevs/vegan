@@ -25,7 +25,8 @@
         method <- attr(x, "method")
         nsimul <- dim(x)[3]
         if (nsimul == 1)
-            stop("only one simulation in ", sQuote(deparse(substitute(comm))))
+            stop(gettextf("only one simulation in '%s'",
+                          deparse(substitute(comm))))
         comm <- attr(comm, "data")
         #thin <- attr(comm, "thin")
         burnin <- attr(x, "start") - attr(x, "thin")

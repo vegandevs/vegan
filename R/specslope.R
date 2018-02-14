@@ -1,5 +1,5 @@
 #' The Slope of Species Accumulation Curve at Given Point
-#' 
+#'
 #' Function evaluates the derivative of the species accumulation curve
 #' for accumulation methods built upon analytic accumulation
 #' methods. These methods are \code{exact}, \code{rarefaction} and
@@ -24,8 +24,8 @@
 {
     accepted <- c("exact", "rarefaction", "coleman")
     if (!(object$method %in% accepted))
-        stop("accumulation method must be one of: ",
-             paste(accepted, collapse=", "))
+        stop(gettextf("accumulation method must be one of: %s",
+             paste(accepted, collapse=", ")))
     ## Funcions should accept a vector of 'at', but usually they
     ## don't. I don't care to change this, and therefore we check the
     ## input.

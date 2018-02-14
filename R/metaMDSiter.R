@@ -1,12 +1,12 @@
 `metaMDSiter` <-
     function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
               previous.best, engine = "monoMDS", maxit = 200,
-              parallel = getOption("mc.cores"), ...) 
+              parallel = getOption("mc.cores"), ...)
 {
     engine <- match.arg(engine, c("monoMDS", "isoMDS"))
     EPS <- 0.05
     if (engine == "monoMDS")
-        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100) 
+        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
     RESLIM <- 0.01
     RMSELIM <- 0.005
     SOL <- FALSE
@@ -29,7 +29,7 @@
     ## collect monoMDS convergence code for trace
     if (trace && engine == "monoMDS")
         stopcoz <- numeric(4)
-    ## Previous best or initial configuration 
+    ## Previous best or initial configuration
     if (!missing(previous.best) && !is.null(previous.best)) {
         ## check if previous.best is from metaMDS or isoMDS
         if (inherits(previous.best, "metaMDS") ||
@@ -47,7 +47,8 @@
                 for (i in 1:(k-nc))
                     init <- cbind(init, runif(NROW(init), -0.1, 0.1))
             if (trace)
-                cat(gettextf("Starting from %d-dimensional configuration\n", nc))
+                cat(sprintf("Starting from %d-dimensional configuration\n",
+                            nc))
         } else {
             init <- as.matrix(previous.best)
         }
@@ -70,7 +71,7 @@
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
                  maxit = maxit))
     }
-    if (trace) 
+    if (trace)
         cat("Run 0 stress", s0$stress, "\n")
     if (monotrace)
         monostop(s0)
@@ -132,22 +133,22 @@
                 monostop(stry[[i]])
             if ((s0$stress - stry[[i]]$stress) > -EPS) {
                 pro <- procrustes(s0, stry[[i]], symmetric = TRUE)
-                if (plot && k > 1) 
+                if (plot && k > 1)
                     plot(pro)
                 if (stry[[i]]$stress < s0$stress) {
                     s0 <- stry[[i]]
                     ## New best solution has not converged unless
                     ## proved later
                     converged <- FALSE
-                    if (trace) 
+                    if (trace)
                         cat("... New best solution\n")
                 }
                 summ <- summary(pro)
-                if (trace) 
+                if (trace)
                     cat("... Procrustes: rmse", summ$rmse, " max resid",
                         max(summ$resid), "\n")
                 if (summ$rmse < RMSELIM && max(summ$resid) < RESLIM) {
-                    if (trace) 
+                    if (trace)
                         cat("... Similar to previous best\n")
                     converged <- TRUE
                 }
@@ -159,12 +160,12 @@
         if (converged)
             cat("*** Solution reached\n")
         else if (engine == "monoMDS") {
-            cat(gettextf(
+            cat(sprintf(
                 "*** No convergence -- %s stopping criteria:\n",
                 engine))
             for (i in seq_along(stopcoz))
                 if (stopcoz[i] > 0)
-                    cat(gettextf("%6d: %s\n", stopcoz[i], monomsg[i]))
+                    cat(sprintf("%6d: %s\n", stopcoz[i], monomsg[i]))
         }
     }
     ## stop socket cluster
