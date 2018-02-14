@@ -51,6 +51,7 @@
     }
     Sets <- list()
     for (i in seq_along(X)) {
+        X[[i]] <- fact2dum(X[[i]])
         if (inherits(X[[i]], "formula")) {
             mf <- model.frame(X[[i]], data, na.action = na.fail,
                               drop.unused.levels = TRUE)
