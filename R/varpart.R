@@ -51,8 +51,9 @@
     }
     Sets <- list()
     for (i in seq_along(X)) {
-        X[[i]] <- fact2dum(X[[i]])
-        if (inherits(X[[i]], "formula")) {
+        if (is.data.frame(X[[i]]) || is.factor(X[[i]]))
+            Sets[[i]] <- fact2dum(X[[i]])
+        else if (inherits(X[[i]], "formula")) {
             mf <- model.frame(X[[i]], data, na.action = na.fail,
                               drop.unused.levels = TRUE)
             trms <- attr(mf, "terms")
