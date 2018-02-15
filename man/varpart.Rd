@@ -41,17 +41,20 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{X}{Two to four explanatory models, variables or tables.  These can
   be defined in three alternative ways: (1) one-sided model formulae
   beginning with \code{~} and then defining the model, (2) name of a
-  single numeric variable, or (3) name of data frame or matrix with
-  numeric variables.  The model formulae can have factors,
-  interaction terms and transformations of variables. The names of the
-  variables in the model formula are found in data frame given in
-  \code{data} argument, and if not found there, in the user
-  environment.  Single numeric variables, data frames or matrices are
-  found in the user environment.  All entries till the next argument
-  (\code{data} or \code{transfo}) are interpreted as explanatory
-  models, and the names of these arguments cannot be abbreviated nor
-  omitted. 
-  }
+  single numeric or factor variable, or (3) name of matrix with numeric
+  or data frame with numeric and factor variables.  The model formulae
+  can have factors, interaction terms and transformations of
+  variables. The names of the variables in the model formula are found
+  in data frame given in \code{data} argument, and if not found there,
+  in the user environment.  Single variables, data frames or matrices
+  are found in the user environment.  All entries till the next argument
+  (\code{data} or \code{transfo}) are interpreted as explanatory models,
+  and the names of these extra arguments cannot be abbreviated nor
+  omitted.  }
+
+\item{...}{Other parameters passed to functions. NB, arguments after
+  dots cannot be abbreviated but they must be spelt out completely.}
+
 \item{data}{The data frame with the variables used in the formulae in
   \code{X}.} 
 
@@ -89,7 +92,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{Xnames}{Names for sources of variation. Default names are \code{X1},
   \code{X2}, \code{X3} and \code{X4}. \code{Xnames=NA},
   \code{Xnames=NULL} and \code{Xnames=""} produce no names. The names
-  can be changed to other names. Use short names. }
+  can be changed to other names. It is often best to use short names. }
 
 \item{id.size}{A numerical value giving the character expansion factor
   for the names of circles or ellipses. }
@@ -98,8 +101,6 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
   places is at least one higher.}
-\item{...}{Other parameters passed to functions. NB, arguments after
-  dots cannot be abbreviated but they must be spelt out completely.}
 }
 
 \details{
@@ -309,50 +310,47 @@ data(mite)
 data(mite.env)
 data(mite.pcnm)
 
-# Two explanatory matrices -- Hellinger-transform Y
-# Formula shortcut "~ ." means: use all variables in 'data'.
-mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
+# Two explanatory data frames -- Hellinger-transform Y
+mod <- varpart(mite, mite.env, mite.pcnm, transfo="hel")
 mod
 
 ## Use fill colours
 showvarparts(2, bg = c("hotpink","skyblue"))
 plot(mod, bg = c("hotpink","skyblue"))
-# Alternative way of to conduct this partitioning
-# Change the data frame with factors into numeric model matrix
-mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
-mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-# Test fraction [a] using partial RDA:
-aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
+## Test fraction [a] using partial RDA, '~ .' in formula tells to use
+## all variables of data mite.env.
+aFrac <- rda(decostand(mite, "hel") ~ . + Condition(as.matrix(mite.pcnm)),
+  mite.env)
 anova(aFrac, step=200, perm.max=200)
-# RsquareAdj gives the same result as component [a] of varpart
+## RsquareAdj gives the same result as component [a] of varpart
 RsquareAdj(aFrac)
 
-# Partition Bray-Curtis dissimilarities
-varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
-# Three explanatory matrices 
+## Partition Bray-Curtis dissimilarities
+varpart(vegdist(mite), mite.env, mite.pcnm)
+## Three explanatory tables with formula interface
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
 mod
 showvarparts(3, bg=2:4)
 plot(mod, bg=2:4)
-# An alternative formulation of the previous model using
-# matrices mm1 amd mm2 and Hellinger transformed species data
-mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
-mm2 <- model.matrix(~ Substrate + Shrub + Topo, mite.env)[, -1]
+
+## An alternative formulation of the previous model using
+## selected columns of data frames
 mite.hel <- decostand(mite, "hel")
-mod <- varpart(mite.hel, mm1, mm2, mite.pcnm)
-# Use RDA to test fraction [a]
-# Matrix can be an argument in formula
-rda.result <- rda(mite.hel ~ mm1 + Condition(mm2) +
-   Condition(as.matrix(mite.pcnm)))
+mod <- varpart(mite.hel, mite.env[,1:2], mite.env[,3:5], mite.pcnm)
+## Use RDA to test fraction [a]
+## Matrix can be an argument in formula
+rda.result <- rda(mite.hel ~ SubsDens + WatrCont +
+   Condition(Substrate + Shrub + Topo) +
+   Condition(as.matrix(mite.pcnm)), data = mite.env)
 anova(rda.result, step=200, perm.max=200)
 
-# Four explanatory tables
+## Four explanatory tables
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 mod
 plot(mod, bg=2:5)
-# Show values for all partitions by putting 'cutoff' low enough:
+## Show values for all partitions by putting 'cutoff' low enough:
 plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 }
 
