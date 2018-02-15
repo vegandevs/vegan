@@ -19,9 +19,9 @@
 \usage{
 \method{cca}{formula}(formula, data, na.action = na.fail, subset = NULL,
   ...)
-\method{cca}{default}(X, Y, Z, ...)
 \method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail,
   subset = NULL, ...)
+\method{cca}{default}(X, Y, Z, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
 }
 
@@ -34,12 +34,16 @@
     of the model formula.}
   \item{X}{ Community data matrix. }
   \item{Y}{ Constraining matrix, typically of environmental variables.
-    Can be missing. It is better to use \code{formula} instead of this
-    argument, and some further analyses only work when \code{formula}
-    was used.}
+    Can be missing. If this is a \code{data.frame}, it will be
+    expanded to a \code{\link{model.matrix}} where factors are
+    expanded to contrasts (\dQuote{dummy variables}). It is better to
+    use \code{formula} instead of this argument, and some further
+    analyses only work when \code{formula} was used.}
   \item{Z}{ Conditioning matrix, the effect of which is removed
-    (`partialled out') before next step. Can be missing.}
-  \item{scale}{Scale species to unit variance (like correlations).}
+    (`partialled out') before next step. Can be missing. If this is a
+    \code{data.frame}, it is expanded similarly as constraining
+    matrix.}
+\item{scale}{Scale species to unit variance (like correlations).}
   \item{na.action}{Handling of missing values in constraints or
     conditions. The default (\code{\link{na.fail}}) is to stop with
     missing value. Choice \code{\link{na.omit}} removes all rows with
