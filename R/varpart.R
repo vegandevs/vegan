@@ -51,9 +51,13 @@
     }
     Sets <- list()
     for (i in seq_along(X)) {
-        if (is.data.frame(X[[i]]) || is.factor(X[[i]]))
-            Sets[[i]] <- fact2dum(X[[i]])
-        else if (inherits(X[[i]], "formula")) {
+        if (is.data.frame(X[[i]]) || is.factor(X[[i]])) {
+            ## factor variable or a data.frame (possibly with factors)
+            mf <- as.data.frame(X[[i]])
+            mf <- model.matrix(~ ., mf)
+            Sets[[i]] <- mf[,-1, drop = FALSE] # remove intercept
+        } else if (inherits(X[[i]], "formula")) {
+            ## Formula interface
             mf <- model.frame(X[[i]], data, na.action = na.fail,
                               drop.unused.levels = TRUE)
             trms <- attr(mf, "terms")
