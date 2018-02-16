@@ -1,5 +1,4 @@
 \name{ordistep}
-\Rdversion{1.1}
 \alias{ordistep}
 \alias{ordiR2step}
 
@@ -159,14 +158,14 @@ mod0 <- rda(dune ~ 1, dune.env)  # Model with intercept only
 mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 
 ## With scope present, the default direction is "both"
-ordistep(mod0, scope = formula(mod1), perm.max = 200)
+ordistep(mod0, scope = formula(mod1))
 
 ## Example without scope. Default direction is "backward"
-ordistep(mod1, perm.max = 200)
+ordistep(mod1)
 
 ## Example of ordistep, forward
 \dontrun{
-ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
+ordistep(mod0, scope = formula(mod1), direction="forward")
 }
 ### Mite data
 data(mite)
@@ -177,7 +176,7 @@ mod1 <- rda(mite.hel ~ ., mite.env)  # Model with all explanatory variables
 
 ## Example of ordiR2step with default direction = "both"
 ## (This never goes "backward" but evaluates included terms.)
-step.res <- ordiR2step(mod0, mod1, perm.max = 200)
+step.res <- ordiR2step(mod0, mod1)
 step.res$anova  # Summary table
 
 ## Example of ordiR2step with direction = "forward"
