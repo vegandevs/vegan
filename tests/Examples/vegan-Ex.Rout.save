@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-11 r74244) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-02-15 r74258) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -462,7 +462,7 @@ Eigenvalues for unconstrained axes:
 
 > ## see ?ordistep to do the same, but based on permutation P-values
 > ## Not run: 
-> ##D ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
+> ##D ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)))
 > ## End(Not run)
 > ## Manual model building
 > ## -- define the maximal model for scope
@@ -5308,7 +5308,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 > 
 > ## With scope present, the default direction is "both"
-> ordistep(mod0, scope = formula(mod1), perm.max = 200)
+> ordistep(mod0, scope = formula(mod1))
 
 Start: dune ~ 1 
 
@@ -5367,7 +5367,7 @@ Eigenvalues for unconstrained axes:
 
 > 
 > ## Example without scope. Default direction is "backward"
-> ordistep(mod1, perm.max = 200)
+> ordistep(mod1)
 
 Start: dune ~ A1 + Moisture + Management + Use + Manure 
 
@@ -5422,7 +5422,7 @@ Eigenvalues for unconstrained axes:
 > 
 > ## Example of ordistep, forward
 > ## Not run: 
-> ##D ordistep(mod0, scope = formula(mod1), direction="forward", perm.max = 200)
+> ##D ordistep(mod0, scope = formula(mod1), direction="forward")
 > ## End(Not run)
 > ### Mite data
 > data(mite)
@@ -5433,7 +5433,7 @@ Eigenvalues for unconstrained axes:
 > 
 > ## Example of ordiR2step with default direction = "both"
 > ## (This never goes "backward" but evaluates included terms.)
-> step.res <- ordiR2step(mod0, mod1, perm.max = 200)
+> step.res <- ordiR2step(mod0, mod1)
 Step: R2.adj= 0 
 Call: mite.hel ~ 1 
  
@@ -9101,7 +9101,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.614 0.2 20.813 0 0 
+Time elapsed:  20.411 0.144 20.555 0 0 
 > grDevices::dev.off()
 null device 
           1 
