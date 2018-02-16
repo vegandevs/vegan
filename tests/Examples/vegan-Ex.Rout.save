@@ -8106,18 +8106,16 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > data(mite.env)
 > data(mite.pcnm)
 > 
-> # Two explanatory matrices -- Hellinger-transform Y
-> # Formula shortcut "~ ." means: use all variables in 'data'.
-> mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
+> # Two explanatory data frames -- Hellinger-transform Y
+> mod <- varpart(mite, mite.env, mite.pcnm, transfo="hel")
 > mod
 
 Partition of variance in RDA 
 
-Call: varpart(Y = mite, X = ~., mite.pcnm, data = mite.env, transfo =
-"hel")
+Call: varpart(Y = mite, X = mite.env, mite.pcnm, transfo = "hel")
 Species transformation:  hellinger
 Explanatory tables:
-X1:  ~.
+X1:  mite.env
 X2:  mite.pcnm 
 
 No. of explanatory tables: 2 
@@ -8141,24 +8139,21 @@ Use function ‘rda’ to test significance of fractions of interest
 > ## Use fill colours
 > showvarparts(2, bg = c("hotpink","skyblue"))
 > plot(mod, bg = c("hotpink","skyblue"))
-> # Alternative way of to conduct this partitioning
-> # Change the data frame with factors into numeric model matrix
-> mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
-> mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-> # Test fraction [a] using partial RDA:
-> aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
-> anova(aFrac, step=200, perm.max=200)
+> ## Test fraction [a] using partial RDA, '~ .' in formula tells to use
+> ## all variables of data mite.env.
+> aFrac <- rda(decostand(mite, "hel"), mite.env, mite.pcnm)
+> anova(aFrac)
 Permutation test for rda under reduced model
 Permutation: free
 Number of permutations: 999
 
-Model: rda(X = decostand(mite, "hel"), Y = mm, Z = mite.pcnm)
+Model: rda(X = decostand(mite, "hel"), Y = mite.env, Z = mite.pcnm)
          Df Variance      F Pr(>F)    
 Model    11 0.053592 1.8453  0.001 ***
 Residual 36 0.095050                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> # RsquareAdj gives the same result as component [a] of varpart
+> ## RsquareAdj gives the same result as component [a] of varpart
 > RsquareAdj(aFrac)
 $r.squared
 [1] 0.1359251
@@ -8167,15 +8162,15 @@ $adj.r.squared
 [1] 0.09140797
 
 > 
-> # Partition Bray-Curtis dissimilarities
-> varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
+> ## Partition Bray-Curtis dissimilarities
+> varpart(vegdist(mite), mite.env, mite.pcnm)
 
 Partition of squared Bray distance in dbRDA 
 
-Call: varpart(Y = vegdist(mite), X = ~., mite.pcnm, data = mite.env)
+Call: varpart(Y = vegdist(mite), X = mite.env, mite.pcnm)
 
 Explanatory tables:
-X1:  ~.
+X1:  mite.env
 X2:  mite.pcnm 
 
 No. of explanatory tables: 2 
@@ -8194,7 +8189,7 @@ Individual fractions
 [d] = Residuals                         0.48625    FALSE
 ---
 Use function ‘dbrda’ to test significance of fractions of interest
-> # Three explanatory matrices 
+> ## Three explanatory tables with formula interface
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
 +    mite.pcnm, data=mite.env, transfo="hel")
 > mod
@@ -8243,29 +8238,25 @@ Controlling 1 table X
 Use function ‘rda’ to test significance of fractions of interest
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
-> # An alternative formulation of the previous model using
-> # matrices mm1 amd mm2 and Hellinger transformed species data
-> mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
-> mm2 <- model.matrix(~ Substrate + Shrub + Topo, mite.env)[, -1]
-> mite.hel <- decostand(mite, "hel")
-> mod <- varpart(mite.hel, mm1, mm2, mite.pcnm)
-> # Use RDA to test fraction [a]
-> # Matrix can be an argument in formula
-> rda.result <- rda(mite.hel ~ mm1 + Condition(mm2) +
-+    Condition(as.matrix(mite.pcnm)))
-> anova(rda.result, step=200, perm.max=200)
+> 
+> ## Use RDA to test fraction [a]
+> ## Matrix can be an argument in formula
+> rda.result <- rda(decostand(mite, "hell") ~ SubsDens + WatrCont +
++    Condition(Substrate + Shrub + Topo) +
++    Condition(as.matrix(mite.pcnm)), data = mite.env)
+> anova(rda.result)
 Permutation test for rda under reduced model
 Permutation: free
 Number of permutations: 999
 
-Model: rda(formula = mite.hel ~ mm1 + Condition(mm2) + Condition(as.matrix(mite.pcnm)))
+Model: rda(formula = decostand(mite, "hell") ~ SubsDens + WatrCont + Condition(Substrate + Shrub + Topo) + Condition(as.matrix(mite.pcnm)), data = mite.env)
          Df Variance      F Pr(>F)    
 Model     2 0.013771 2.6079  0.001 ***
 Residual 36 0.095050                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
-> # Four explanatory tables
+> ## Four explanatory tables
 > mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
 +   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 > mod
@@ -8350,7 +8341,7 @@ Controlling 1 table X
 ---
 Use function ‘rda’ to test significance of fractions of interest
 > plot(mod, bg=2:5)
-> # Show values for all partitions by putting 'cutoff' low enough:
+> ## Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 > 
 > 
@@ -9101,7 +9092,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.411 0.144 20.555 0 0 
+Time elapsed:  20.733 0.148 20.881 0 0 
 > grDevices::dev.off()
 null device 
           1 
