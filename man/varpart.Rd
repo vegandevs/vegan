@@ -319,9 +319,8 @@ showvarparts(2, bg = c("hotpink","skyblue"))
 plot(mod, bg = c("hotpink","skyblue"))
 ## Test fraction [a] using partial RDA, '~ .' in formula tells to use
 ## all variables of data mite.env.
-aFrac <- rda(decostand(mite, "hel") ~ . + Condition(as.matrix(mite.pcnm)),
-  mite.env)
-anova(aFrac, step=200, perm.max=200)
+aFrac <- rda(decostand(mite, "hel"), mite.env, mite.pcnm)
+anova(aFrac)
 ## RsquareAdj gives the same result as component [a] of varpart
 RsquareAdj(aFrac)
 
@@ -334,16 +333,12 @@ mod
 showvarparts(3, bg=2:4)
 plot(mod, bg=2:4)
 
-## An alternative formulation of the previous model using
-## selected columns of data frames
-mite.hel <- decostand(mite, "hel")
-mod <- varpart(mite.hel, mite.env[,1:2], mite.env[,3:5], mite.pcnm)
 ## Use RDA to test fraction [a]
 ## Matrix can be an argument in formula
-rda.result <- rda(mite.hel ~ SubsDens + WatrCont +
+rda.result <- rda(decostand(mite, "hell") ~ SubsDens + WatrCont +
    Condition(Substrate + Shrub + Topo) +
    Condition(as.matrix(mite.pcnm)), data = mite.env)
-anova(rda.result, step=200, perm.max=200)
+anova(rda.result)
 
 ## Four explanatory tables
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
