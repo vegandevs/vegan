@@ -50,11 +50,12 @@ constrained ordination model.
   \eqn{P}-values.  Meticulous use of \code{add1.cca} and
   \code{drop1.cca} will allow more judicious model building.
 
-  The default \code{perm.max} is set to a low value, because
+  The default number of \code{permutations} is set to a low value, because
   permutation tests can take a long time. It should be sufficient to
   give a impression on the significances of the terms, but higher
-  values of \code{perm.max} should be used if \eqn{P} values really
+  values of \code{permutations} should be used if \eqn{P} values really
   are important.  
+
 }
 
 \value{
@@ -70,6 +71,7 @@ constrained ordination model.
   to produce the other arguments than test results in the
   output. Functions \code{\link{cca}}, \code{\link{rda}} and
   \code{\link{capscale}} produce result objects for these functions.}
+
 \examples{
 data(dune)
 data(dune.env)
@@ -77,7 +79,7 @@ data(dune.env)
 step(cca(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
 ## see ?ordistep to do the same, but based on permutation P-values
 \dontrun{
-ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)), perm.max=200)
+ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)))
 }
 ## Manual model building
 ## -- define the maximal model for scope
