@@ -24,3 +24,26 @@
     Rsquare <- SS/SS.G
     list(Rsquare = Rsquare, m = Q$rank)
 }
+
+### Analogous function for CCA. We initialize data with weighted
+### double standaradization, and centre constraints X by row
+### weights. The approximation of weighted R-square is found via
+### permutations in permat (which must be given).
+
+`simpleCCA` <-
+    function(Y, X, permat, SS.Y, ...)
+{
+    Y <- initCA(Y)
+    if(missing(SS.Y)) SS.Y <- sum(Y^2)
+    w <- attr(Y, "RW")
+    X <- .Call(do_wcentre, X, w)
+    Q <- qr(X, tol=1e-6)
+    Yfit.X <- qr.fitted(Q, Y)
+    SS <- sum(Yfit.X^2)
+    Rsquare <- SS/SS.Y
+    ## permutation to estimate adjusted R2
+    meanSS <- mean(sapply(seq_len(nrow(permat)),
+                          function(i) sum(qr.fitted(Q, Y[permat[i,],])^2)))
+    R2adj <- 1 - ((1 - Rsquare) / (1 - meanSS/SS.Y))
+    list(Rsquare = Rsquare, RsquareAdj = R2adj, m = Q$rank)
+}
