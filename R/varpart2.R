@@ -30,26 +30,26 @@
     X2 <- scale(X2, center = TRUE, scale = FALSE)
     dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
     ab.ua <- dummy$Rsquare
+    ab <- dummy$RsquareAdj
     m1 <- dummy$m
     if (m1 != mm1)
         collinwarn("X1", mm1, m1)
     dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
     bc.ua <- dummy$Rsquare
+    bc <- dummy$RsquareAdj
     m2 <- dummy$m
     if (m2 != mm2)
         collinwarn("X2", mm2, m2)
     mm3 <- mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm3)
     abc.ua <- dummy$Rsquare
+    abc <- dummy$RsquareAdj
     m3 <- dummy$m
     if (m3 != mm3)
         collinwarn("cbind(X1,X2)", mm3, m3)
     if ((m1 + m2) > m3)
         bigwarning <- c("X1, X2")
     else bigwarning <- NULL
-    ab <- RsquareAdj(ab.ua, n, m1)
-    bc <- RsquareAdj(bc.ua, n, m2)
-    abc <- RsquareAdj(abc.ua, n, m3)
     Df <- c(m1, m2, m3)
     fract <- data.frame(Df = Df,
                         R.squared = c(ab.ua, bc.ua, abc.ua),
