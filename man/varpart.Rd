@@ -24,8 +24,8 @@
 }
 
 \usage{
-varpart(Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
-    sqrt.dist = FALSE)
+varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
+    add = FALSE, sqrt.dist = FALSE, permutations)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
@@ -56,7 +56,10 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   dots cannot be abbreviated but they must be spelt out completely.}
 
 \item{data}{The data frame with the variables used in the formulae in
-  \code{X}.} 
+  \code{X}.}
+
+\item{chisquare}{Partition Chi-square or the inertia of Correspondence
+  Analysis (\code{\link{cca}}).}
 
 \item{transfo}{ Transformation for \code{Y} (community data) using
   \code{\link{decostand}}.  All alternatives in \code{decostand} can
@@ -78,6 +81,13 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   euclidifies dissimilarities. NB., the argument name cannot be
   abbreviated. The argument has an effect only when \code{Y} are
   dissimilarities.}
+
+\item{permutations}{If \code{chisquare = TRUE}, the adjusted
+    \eqn{R^2}{R-squared} is estimated by permutations, and this
+    paramater can be a list of control values for the permutations as
+    returned by the function \code{\link[permute]{how}}, or the number
+    of permutations required, or a permutation matrix where each row
+    gives the permuted indices.}
 
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
@@ -109,27 +119,31 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   accounted for by two to four explanatory tables and their combined
   effects. If \code{Y} is a multicolumn data frame or matrix, the
   partitioning is based on redundancy analysis (RDA, see
-  \code{\link{rda}}), and if \code{Y} is a single variable, the
-  partitioning is based on linear regression.  If \code{Y} are
-  dissimilarities, the decomposition is based on distance-based
-  redundancy analysis (db-RDA, see \code{\link{capscale}}) following
-  McArdle & Anderson (2001). The input dissimilarities must be
-  compatible to the results of \code{\link{dist}}. \pkg{Vegan} functions
-  \code{\link{vegdist}}, \code{\link{designdist}},
-  \code{\link{raupcrick}} and \code{\link{betadiver}} produce such
-  objects, as do many other dissimilarity functions in \R
-  packages. However, symmetric square matrices are not recognized as
-  dissimilarities but must be transformed with \code{\link{as.dist}}.
-  Partitioning will be made to squared dissimilarities analogously to
-  using variance with rectangular data -- unless \code{sqrt.dist = TRUE}
-  was specified.
+  \code{\link{rda}}) or on constrained correspondence analysis if
+  \code{chisquare = TRUE} (CCA, see \code{\link{cca}}).  If \code{Y}
+  is a single variable, the partitioning is based on linear
+  regression.  If \code{Y} are dissimilarities, the decomposition is
+  based on distance-based redundancy analysis (db-RDA, see
+  \code{\link{capscale}}) following McArdle & Anderson (2001). The
+  input dissimilarities must be compatible to the results of
+  \code{\link{dist}}. \pkg{Vegan} functions \code{\link{vegdist}},
+  \code{\link{designdist}}, \code{\link{raupcrick}} and
+  \code{\link{betadiver}} produce such objects, as do many other
+  dissimilarity functions in \R packages. However, symmetric square
+  matrices are not recognized as dissimilarities but must be
+  transformed with \code{\link{as.dist}}.  Partitioning will be made
+  to squared dissimilarities analogously to using variance with
+  rectangular data -- unless \code{sqrt.dist = TRUE} was specified.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
-  combinations, because this is the only unbiased method (Peres-Neto
-  et al., 2006). The raw \eqn{R^2}{R-squared} for basic fractions are
-  also displayed, but these are biased estimates of variation
-  explained by the explanatory table. 
+  combinations (see \code{\link{RsquareAdj}}), because this is the
+  only unbiased method (Peres-Neto et al., 2006). The raw
+  \eqn{R^2}{R-squared} for basic fractions are also displayed, but
+  these are biased estimates of variation explained by the explanatory
+  table. In correspondence analysis (\code{chisquare = TRUE}), the
+  adjusted \eqn{R^2}{R-squared} are found by permutation and they vary
+  in repeated analyses.
 
   The identifiable fractions are designated by lower case alphabets. The
   meaning of the symbols can be found in the separate document (use
@@ -138,11 +152,15 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   A fraction is testable if it can be directly expressed as an RDA or
   db-RDA model.  In these cases the printed output also displays the
-  corresponding RDA model using notation where explanatory tables after
-  \code{|} are conditions (partialled out; see \code{\link{rda}} for
-  details). Although single fractions can be testable, this does not
-  mean that all fractions simultaneously can be tested, since the number
-  of testable fractions is higher than the number of estimated models.
+  corresponding RDA model using notation where explanatory tables
+  after \code{|} are conditions (partialled out; see \code{\link{rda}}
+  for details). Although single fractions can be testable, this does
+  not mean that all fractions simultaneously can be tested, since the
+  number of testable fractions is higher than the number of estimated
+  models. The non-testable components are found as differences of
+  testable components. The testable components have permutation
+  variance in correspondence analysis (\code{chisquare = TRUE}), and
+  the non-testable components have even higher variance.
 
   An abridged explanation of the alphabetic symbols for the individual
   fractions follows, but computational details should be checked in the
@@ -155,7 +173,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   is  \code{[b]} following Borcard et al. (1992).
 
   With three explanatory tables, the fractions explained uniquely
-  by each of the three tables are 
+  by each of the three tables are  
   \code{[a]} to \code{[c]}, joint fractions between two tables are
   \code{[d]} to \code{[f]}, and the joint fraction between all three
   tables is \code{[g]}.
@@ -282,15 +300,11 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   adjustment, which in effect add random variation to the
   dissimilarities.
 
-  The current function will only use RDA in multivariate
-  partitioning. It is much more complicated to estimate the adjusted
-  R-squares for CCA, and unbiased analysis of CCA is not currently
-  implemented.
-
-  A simplified, fast version of RDA or dbRDA are used (functions
-  \code{simpleRDA2} and \code{simpleDBRDA}).  The actual calculations
-  are done in functions \code{varpart2} to \code{varpart4}, but these
-  are not intended to be called directly by the user.
+  A simplified, fast version of RDA, CCA adn dbRDA are used (functions
+  \code{simpleRDA2}, \code{simpleCCA} and \code{simpleDBRDA}).  The
+  actual calculations are done in functions \code{varpart2} to
+  \code{varpart4}, but these are not intended to be called directly by
+  the user.
 
 }
 
