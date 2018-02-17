@@ -1,6 +1,6 @@
 `varpart` <-
-    function (Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
-              sqrt.dist = FALSE)
+    function (Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
+              add = FALSE, sqrt.dist = FALSE, permutations = 1000)
 {
     if (missing(data))
         data <- parent.frame()
@@ -36,6 +36,10 @@
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
             message("arguments 'transfo' and 'scale' are ignored with distances")
+    } else if (chisquare) {
+        inert = "Chi-square"
+        RDA = "CCA"
+        permutations = getPermuteMatrix(permutations, nrow(Y))
     } else {
         inert <- "variance"
         RDA <- "RDA"
@@ -72,13 +76,21 @@
     }
     out <- list()
     out$part <- switch(length(Sets), NULL,
-                       varpart2(Y, Sets[[1]], Sets[[2]]),
-                       varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]]),
-                       varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]]))
-    if (inherits(Y, "dist"))
+                       varpart2(Y, Sets[[1]], Sets[[2]],
+                                chisquare, permutations),
+                       varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]],
+                                chisquare, permutations),
+                       varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]],
+                                chisquare, permutations))
+    if (inherits(Y, "dist")) {
         out$part$ordination <- "dbrda"
-    else
-        out$part$ordination <- "rda"
+    } else {
+        if (chisquare)
+            out$part$ordination <- "cca"
+        else {
+            out$part$ordination <- "rda"
+        }
+    }
     out$scale <- scale
     if (!missing(transfo))
         out$transfo <- transfo

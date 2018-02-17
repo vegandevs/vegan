@@ -33,7 +33,7 @@
 ### permutations in permat (which must be given).
 
 `simpleCCA` <-
-    function(Y, X, permat, SS.Y, ...)
+    function(Y, X, SS.Y, permat, ...)
 {
     Y <- initCA(Y)
     if(missing(SS.Y)) SS.Y <- sum(Y^2)

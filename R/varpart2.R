@@ -1,5 +1,5 @@
 `varpart2` <-
-    function (Y, X1, X2)
+    function (Y, X1, X2, chisquare, permat)
 {
     collinwarn <- function(case, mm, m)
         warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
@@ -11,8 +11,13 @@
         simpleRDA2 <- match.fun(simpleDBRDA)
     } else {
         Y <- as.matrix(Y)
-        Y <- scale(Y, center = TRUE, scale = FALSE)
-        SS.Y <- sum(Y * Y)
+        if (chisquare) {
+            SS.Y <- sum(initCA(Y)^2)
+            simpleRDA2 <- match.fun(simpleCCA)
+        } else {
+            Y <- scale(Y, center = TRUE, scale = FALSE)
+            SS.Y <- sum(Y * Y)
+        }
     }
     X1 <- as.matrix(X1)
     X2 <- as.matrix(X2)
@@ -28,20 +33,20 @@
         stop("Y and X2 do not have the same number of rows")
     X1 <- scale(X1, center = TRUE, scale = FALSE)
     X2 <- scale(X2, center = TRUE, scale = FALSE)
-    dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
+    dummy <- simpleRDA2(Y, X1, SS.Y, permat)
     ab.ua <- dummy$Rsquare
     ab <- dummy$RsquareAdj
     m1 <- dummy$m
     if (m1 != mm1)
         collinwarn("X1", mm1, m1)
-    dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
+    dummy <- simpleRDA2(Y, X2, SS.Y, permat)
     bc.ua <- dummy$Rsquare
     bc <- dummy$RsquareAdj
     m2 <- dummy$m
     if (m2 != mm2)
         collinwarn("X2", mm2, m2)
     mm3 <- mm1 + mm2
-    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm3)
+    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, permat)
     abc.ua <- dummy$Rsquare
     abc <- dummy$RsquareAdj
     m3 <- dummy$m

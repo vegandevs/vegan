@@ -1,5 +1,5 @@
 `varpart3` <-
-    function (Y, X1, X2, X3)
+    function (Y, X1, X2, X3, chisquare, permat)
 {
     collinwarn <- function(case, mm, m)
         warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
@@ -11,8 +11,13 @@
         simpleRDA2 <- match.fun(simpleDBRDA)
     } else {
         Y <- as.matrix(Y)
-        Y <- scale(Y, center = TRUE, scale = FALSE)
-        SS.Y <- sum(Y * Y)
+        if (chisquare) {
+            SS.Y <- sum(initCA(Y)^2)
+            simpleRDA2 <- match.fun(simpleCCA)
+        } else {
+            Y <- scale(Y, center = TRUE, scale = FALSE)
+            SS.Y <- sum(Y * Y)
+        }
     }
     X1 <- as.matrix(X1)
     X2 <- as.matrix(X2)
@@ -34,47 +39,47 @@
     X1 <- scale(X1, center = TRUE, scale = FALSE)
     X2 <- scale(X2, center = TRUE, scale = FALSE)
     X3 <- scale(X3, center = TRUE, scale = FALSE)
-    dummy <- simpleRDA2(Y, X1, SS.Y, mm1)
+    dummy <- simpleRDA2(Y, X1, SS.Y, permat)
     adfg.ua <- dummy$Rsquare
     adfg <- dummy$RsquareAdj
     m1 <- dummy$m
     if (m1 != mm1)
         collinwarn("X1", mm1, m1)
-    dummy <- simpleRDA2(Y, X2, SS.Y, mm2)
+    dummy <- simpleRDA2(Y, X2, SS.Y, permat)
     bdeg.ua <- dummy$Rsquare
     bdeg <- dummy$RsquareAdj
     m2 <- dummy$m
     if (m2 != mm2)
         collinwarn("X2", mm2, m2)
-    dummy <- simpleRDA2(Y, X3, SS.Y, mm3)
+    dummy <- simpleRDA2(Y, X3, SS.Y, permat)
     cefg.ua <- dummy$Rsquare
     cefg <- dummy$RsquareAdj
     m3 <- dummy$m
     if (m3 != mm3)
         collinwarn("X3", mm3, m3)
     mm4 = mm1 + mm2
-    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, mm4)
+    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, permat)
     abdefg.ua <- dummy$Rsquare
     abdefg <- dummy$RsquareAdj
     m4 <- dummy$m
     if (m4 != mm4)
         collinwarn("cbind(X1,X2)", mm4, m4)
     mm5 = mm1 + mm3
-    dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, mm5)
+    dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, permat)
     acdefg.ua <- dummy$Rsquare
     acdefg <- dummy$RsquareAdj
     m5 <- dummy$m
     if (m5 != mm5)
         collinwarn("cbind(X1,X3)", mm5, m5)
     mm6 = mm2 + mm3
-    dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, mm6)
+    dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, permat)
     bcdefg.ua <- dummy$Rsquare
     bcdefg <- dummy$RsquareAdj
     m6 <- dummy$m
     if (m6 != mm6)
         collinwarn("cbind(X2,X3)", mm6, m6)
     mm7 = mm1 + mm2 + mm3
-    dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, mm7)
+    dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, permat)
     abcdefg.ua <- dummy$Rsquare
     abcdefg <- dummy$RsquareAdj
     m7 <- dummy$m
