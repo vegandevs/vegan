@@ -8,7 +8,8 @@
     SS <- sum(Yfit.X^2)
     if (missing(SS.Y)) SS.Y <- sum(Y^2)
     Rsquare <- SS/SS.Y
-    list(Rsquare = Rsquare, m = Q$rank)
+    R2adj <- RsquareAdj(Rsquare, nrow(Y), Q$rank)
+    list(Rsquare = Rsquare, RsquareAdj = R2adj, m = Q$rank)
 }
 
 ### Analogous function, but the input must be Gower double-centred
@@ -22,7 +23,8 @@
     SS <- sum(diag(Yfit.X))
     if (missing(SS.G)) SS.G <- sum(diag(G))
     Rsquare <- SS/SS.G
-    list(Rsquare = Rsquare, m = Q$rank)
+    R2adj <- RsquareAdj(Rsquare, nrow(G), Q$rank)
+    list(Rsquare = Rsquare, RsquareAdj = R2adj, m = Q$rank)
 }
 
 ### Analogous function for CCA. We initialize data with weighted
