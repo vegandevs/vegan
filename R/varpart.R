@@ -91,9 +91,14 @@
             out$part$ordination <- "rda"
         }
     }
-    out$scale <- scale
-    if (!missing(transfo))
-        out$transfo <- transfo
+    if(RDA == "RDA") {
+        out$scale <- scale
+        if (!missing(transfo))
+            out$transfo <- transfo
+    } else {
+        if (scale || !missing(transfo))
+            message("arguments 'scale' and 'transfo' ignored: valid only in RDA")
+    }
     out$inert <- inert
     out$RDA <- RDA
     out$call <- match.call()
