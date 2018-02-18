@@ -38,8 +38,12 @@ RsquareAdj.cca <-
     function (x, permutations = 1000, ...)
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
-    p <- permutest(x, permutations, ...)
-    radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
+    if (is.null(x$pCCA)) {
+        p <- permutest(x, permutations, ...)
+        radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
+    } else {
+        radj <- NA
+    }
     list(r.squared = r2, adj.r.squared = radj)
 }
 

@@ -48,9 +48,10 @@ Adjusted R-square
   R-squared values are available only for \code{\link{gaussian}}
   models in \code{\link{glm}}.
 
-  The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a 
-  permutation approach developed by Peres-Neto et al. (2006). By default 1000
-  permutations are used.
+  The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a
+  permutation approach developed by Peres-Neto et al. (2006). By
+  default 1000 permutations are used. Adjusted \eqn{R^2}{R-squared} is
+  not calculated for partial CCA.
   
   The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
   proportion explained after removing the variation due to conditioning
