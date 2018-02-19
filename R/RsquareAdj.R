@@ -49,11 +49,11 @@
         Y <- ordiYbar(x, "initial")
         r2tot <- (x$pCCA$tot.chi + x$CCA$tot.chi) / x$tot.chi
         r2null <- mean(sapply(seq_len(nrow(p)), function(i)
-            sum(qr.fitted(mod$CCA$QR, Y[p[i,],])^2)))
+            sum(qr.fitted(x$CCA$QR, Y[p[i,],])^2)))
         r2tot <- 1 - ((1-r2tot)/(1-r2null/x$tot.chi))
         r2p <- x$pCCA$tot.chi / x$tot.chi
         r2null <- mean(sapply(seq_len(nrow(p)), function(i)
-            sum(qr.fitted(mod$pCCA$QR, Y[p[i,],])^2)))
+            sum(qr.fitted(x$pCCA$QR, Y[p[i,],])^2)))
         r2p <- 1 - ((1-r2p)/(1-r2null/x$tot.chi))
         radj <- r2tot - r2p
     }
