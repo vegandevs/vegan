@@ -32,8 +32,7 @@ Adjusted R-square
   R-squared for a cca. The permutations can be calculated in parallel by
   specifying the number of cores which is passed to \code{\link{permutest}}}
 
-  \item{\dots}{ Other arguments (ignored) except in the case of cca in 
-  which these arguments are passed to \code{\link{permutest}}.} 
+  \item{\dots}{ Other arguments (ignored).}
 }
 
 \details{ The default method finds the adjusted
@@ -49,9 +48,7 @@ Adjusted R-square
   models in \code{\link{glm}}.
 
   The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a
-  permutation approach developed by Peres-Neto et al. (2006). By
-  default 1000 permutations are used. Adjusted \eqn{R^2}{R-squared} is
-  not calculated for partial CCA.
+  permutation approach developed by Peres-Neto et al. (2006).
   
   The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
   proportion explained after removing the variation due to conditioning
