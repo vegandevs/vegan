@@ -32,7 +32,9 @@ Adjusted R-square
   R-squared for a cca. The permutations can be calculated in parallel by
   specifying the number of cores which is passed to \code{\link{permutest}}}
 
-  \item{\dots}{ Other arguments (ignored).}
+  \item{\dots}{ Other arguments (ignored) except in the \code{cca}
+    method, where these are passed to \code{\link{permutest.cca}}.
+  }
 }
 
 \details{ The default method finds the adjusted \eqn{R^2}{R-squared}
