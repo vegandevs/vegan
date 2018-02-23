@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-15 r74258) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -448,7 +448,7 @@ Call: cca(formula = dune ~ Moisture, data = dune.env)
 Total          2.1153     1.0000     
 Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -1896,7 +1896,7 @@ Call: cca(X = varespec, Y = varechem)
 Total          2.0832     1.0000     
 Constrained    1.4415     0.6920   14
 Unconstrained  0.6417     0.3080    9
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -1919,7 +1919,7 @@ varechem)
 Total           2.083      1.000     
 Constrained     1.046      0.502    6
 Unconstrained   1.038      0.498   17
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
@@ -1939,7 +1939,7 @@ Call: cca(formula = varespec ~ Ca, data = varechem)
 Total         2.08320    1.00000     
 Constrained   0.15722    0.07547    1
 Unconstrained 1.92598    0.92453   22
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -1958,7 +1958,7 @@ Total          2.0832     1.0000
 Conditional    0.1458     0.0700    1
 Constrained    0.1827     0.0877    1
 Unconstrained  1.7547     0.8423   21
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -2461,7 +2461,7 @@ Call: cca(formula = dune ~ Moisture, data = dune.env)
 Total          2.1153     1.0000     
 Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -3199,7 +3199,7 @@ data = dune.env)
 Total          2.1153     1.0000     
 Constrained    1.5032     0.7106   12
 Unconstrained  0.6121     0.2894    7
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
@@ -4475,7 +4475,7 @@ permutations = 99)
               Inertia Rank
 Total           1.164     
 Unconstrained   1.164   34
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for unconstrained axes:
    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
@@ -4511,7 +4511,7 @@ Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =
 Total          1.1638     1.0000     
 Constrained    0.5211     0.4478   11
 Unconstrained  0.6427     0.5522   34
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
@@ -6250,13 +6250,13 @@ Warning in text.default(sco, labels = rownames(sco), ...) :
 Call:
 cca(formula = dune ~ A1 + Moisture + Management, data = dune.env) 
 
-Partitioning of mean squared contingency coefficient:
+Partitioning of scaled Chi-square:
               Inertia Proportion
 Total          2.1153     1.0000
 Constrained    1.1392     0.5385
 Unconstrained  0.9761     0.4615
 
-Eigenvalues, and their contribution to the mean squared contingency coefficient 
+Eigenvalues, and their contribution to the scaled Chi-square 
 
 Importance of components:
                         CCA1   CCA2    CCA3    CCA4    CCA5    CCA6    CCA7
@@ -6522,7 +6522,7 @@ Total          2.1153     1.0000
 Conditional    0.6283     0.2970    3
 Constrained    0.5109     0.2415    4
 Unconstrained  0.9761     0.4615   12
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -6540,7 +6540,7 @@ Call: cca(X = fitted(mod))
               Inertia Rank
 Total          0.5109     
 Unconstrained  0.5109    4
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4 
@@ -6552,7 +6552,7 @@ Call: cca(X = residuals(mod))
               Inertia Rank
 Total          0.9761     
 Unconstrained  0.9761   12
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
@@ -8159,7 +8159,7 @@ $r.squared
 [1] 0.1359251
 
 $adj.r.squared
-[1] 0.09140797
+[1] NA
 
 > 
 > ## Partition Bray-Curtis dissimilarities
@@ -9092,7 +9092,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.733 0.148 20.881 0 0 
+Time elapsed:  20.368 0.136 20.505 0 0 
 > grDevices::dev.off()
 null device 
           1 

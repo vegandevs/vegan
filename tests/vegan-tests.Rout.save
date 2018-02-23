@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2017-10-23 r73595) -- "Unsuffered Consequences"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -288,7 +288,7 @@ Call: cca(formula = Y ~ X, na.action = ..1)
 Total          2.0949     1.0000     
 Constrained    0.6236     0.2977    3
 Unconstrained  1.4713     0.7023   14
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 2 observations deleted due to missingness 
 
 Eigenvalues for constrained axes:
@@ -398,7 +398,7 @@ Total          2.0976     1.0000
 Conditional    0.6251     0.2980    3
 Constrained    0.5555     0.2648    4
 Unconstrained  0.9170     0.4372   10
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -905,7 +905,7 @@ Eigenvalues for unconstrained axes:
 [1] -1.509903e-14  1.110223e-14
 > range(permustats(anova(mr, permutations=p))$permutations -
 +           permustats(anova(mc, permutations=p))$permutations)
-[1] -1.421085e-14  1.287859e-14
+[1] -1.287859e-14  1.731948e-14
 > ## the following two should be equal
 > d <- vegdist(wisconsin(sqrt(varespec)))
 > (md <- dbrda(d ~ Al + P + Condition(pH), varechem))
@@ -1001,4 +1001,4 @@ Cumulative Proportion 0.999490 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  4.116   0.052   4.164 
+  2.666   0.053   2.706 
