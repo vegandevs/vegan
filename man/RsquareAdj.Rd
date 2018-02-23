@@ -32,36 +32,27 @@ Adjusted R-square
   R-squared for a cca. The permutations can be calculated in parallel by
   specifying the number of cores which is passed to \code{\link{permutest}}}
 
-  \item{\dots}{ Other arguments (ignored) except in the case of cca in 
-  which these arguments are passed to \code{\link{permutest}}.} 
+  \item{\dots}{ Other arguments (ignored) except in the \code{cca}
+    method, where these are passed to \code{\link{permutest.cca}}.
+  }
 }
 
-\details{ The default method finds the adjusted
-  R-squared from the unadjusted R-squared, number of observations, and
-  number of degrees of freedom in the fitted model. The specific
-  methods find this information from the fitted result
-  object. There are specific methods for \code{\link{rda}},
-  \code{\link{cca}}, \code{\link{lm}} and \code{\link{glm}}. Adjusted,
-  or even unadjusted, R-squared may not be available in some cases,
-  and then the functions will return \code{NA}. There is no adjusted
-  in partial \code{\link{rda}}, and
-  R-squared values are available only for \code{\link{gaussian}}
-  models in \code{\link{glm}}.
+\details{ The default method finds the adjusted \eqn{R^2}{R-squared}
+  from the unadjusted \eqn{R^2}{R-squared}, number of observations, and
+  number of degrees of freedom in the fitted model. The specific methods
+  find this information from the fitted result object. There are
+  specific methods for \code{\link{rda}}, \code{\link{cca}},
+  \code{\link{lm}} and \code{\link{glm}}. Adjusted, or even unadjusted,
+  \eqn{R^2}{R-squared} may not be available in some cases, and then the
+  functions will return \code{NA}. There is no adjusted
+  \eqn{R^2}{R-squared} in partial ordination, and \eqn{R^2}{R-squared}
+  values are available only for \code{\link{gaussian}} models in
+  \code{\link{glm}}.
 
-  The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a 
-  permutation approach developed by Peres-Neto et al. (2006). By default 1000
-  permutations are used.
+  The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a
+  permutation approach developed by Peres-Neto et al. (2006).
   
-  The raw \eqn{R^2}{R-squared} of partial \code{rda} gives the
-  proportion explained after removing the variation due to conditioning
-  (partial) terms; Legendre et al. (2011) call this semi-partial
-  \eqn{R^2}{R-squared}. The adjusted \eqn{R^2}{R-squared} is found as
-  the difference of adjusted \eqn{R^2}{R-squared} values of joint effect
-  of partial and constraining terms and partial term alone, and it is
-  the same as the adjusted \eqn{R^2}{R-squared} of component 
-  \code{[a] = X1|X2} in two-component variation partition in 
-  \code{\link{varpart}}.
-  }
+}
 
 \value{ The functions return a list of items \code{r.squared} and
 \code{adj.r.squared}.  

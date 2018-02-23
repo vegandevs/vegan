@@ -1,5 +1,5 @@
 `varpart4` <-
-    function (Y, X1, X2, X3, X4)
+    function (Y, X1, X2, X3, X4, chisquare, permat)
 {
     collinwarn <- function(case, mm, m)
         warning(gettextf("collinearity detected in %s: mm = %d, m = %d",
@@ -11,8 +11,13 @@
         simpleRDA2 <- match.fun(simpleDBRDA)
     } else {
         Y <- as.matrix(Y)
-        Y <- scale(Y, center = TRUE, scale = FALSE)
-        SS.Y <- sum(Y * Y)
+        if (chisquare) {
+            SS.Y <- sum(initCA(Y^2))
+            simpleRDA2 <- match.fun(simpleCCA)
+        } else {
+            Y <- scale(Y, center = TRUE, scale = FALSE)
+            SS.Y <- sum(Y * Y)
+        }
     }
     X1 <- as.matrix(X1)
     X2 <- as.matrix(X2)
@@ -40,89 +45,104 @@
     X2 <- scale(X2, center = TRUE, scale = FALSE)
     X3 <- scale(X3, center = TRUE, scale = FALSE)
     X4 <- scale(X4, center = TRUE, scale = FALSE)
-    dummy <- simpleRDA2(Y, X1, SS.Y)
+    dummy <- simpleRDA2(Y, X1, SS.Y, permat)
     aeghklno.ua <- dummy$Rsquare
+    aeghklno <- dummy$RsquareAdj
     m1 <- dummy$m
     if (m1 != mm1)
         collinwarn("X1", mm1, m1)
-    dummy <- simpleRDA2(Y, X2, SS.Y)
+    dummy <- simpleRDA2(Y, X2, SS.Y, permat)
     befiklmo.ua <- dummy$Rsquare
+    befiklmo <- dummy$RsquareAdj
     m2 <- dummy$m
     if (m2 != mm2)
         collinwarn("X2", mm2, m2)
-    dummy <- simpleRDA2(Y, X3, SS.Y)
+    dummy <- simpleRDA2(Y, X3, SS.Y, permat)
     cfgjlmno.ua <- dummy$Rsquare
+    cfgjlmno <- dummy$RsquareAdj
     m3 <- dummy$m
     if (m3 != mm3)
         collinwarn("X3", mm3, m3)
-    dummy <- simpleRDA2(Y, X4, SS.Y)
+    dummy <- simpleRDA2(Y, X4, SS.Y, permat)
     dhijkmno.ua <- dummy$Rsquare
+    dhijkmno <- dummy$RsquareAdj
     m4 <- dummy$m
     if (m4 != mm4)
         collinwarn("X4", mm4, m4)
     mm5 = mm1 + mm2
-    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, permat)
     abefghiklmno.ua <- dummy$Rsquare
+    abefghiklmno <- dummy$RsquareAdj
     m5 <- dummy$m
     if (m5 != mm5)
         collinwarn("cbind(X1,X2)", mm5, m5)
     mm6 = mm1 + mm3
-    dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, permat)
     acefghjklmno.ua <- dummy$Rsquare
+    acefghjklmno <- dummy$RsquareAdj
     m6 <- dummy$m
     if (m6 != mm6)
         collinwarn("cbind(X1,X3", mm6, m6)
     mm7 = mm1 + mm4
-    dummy <- simpleRDA2(Y, cbind(X1, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X4), SS.Y, permat)
     adeghijklmno.ua <- dummy$Rsquare
+    adeghijklmno <- dummy$RsquareAdj
     m7 <- dummy$m
     if (m7 != mm7)
         collinwarn("cbind(X1,X4)", mm7, m7)
     mm8 = mm2 + mm3
-    dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, permat)
     bcefgijklmno.ua <- dummy$Rsquare
+    bcefgijklmno <- dummy$RsquareAdj
     m8 <- dummy$m
     if (m8 != mm8)
         collinwarn("cbind(X2,X3)", mm8, m8)
     mm9 = mm2 + mm4
-    dummy <- simpleRDA2(Y, cbind(X2, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X2, X4), SS.Y, permat)
     bdefhijklmno.ua <- dummy$Rsquare
+    bdefhijklmno <- dummy$RsquareAdj
     m9 <- dummy$m
     if (m9 != mm9)
         collinwarn("cbind(X2,X4)", mm9, m9)
     mm10 = mm3 + mm4
-    dummy <- simpleRDA2(Y, cbind(X3, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X3, X4), SS.Y, permat)
     cdfghijklmno.ua <- dummy$Rsquare
+    cdfghijklmno <- dummy$RsquareAdj
     m10 <- dummy$m
     if (m10 != mm10)
         collinwarn("cbind(X3,X4)", mm10, m10)
     mm11 = mm1 + mm2 + mm3
-    dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, permat)
     abcefghijklmno.ua <- dummy$Rsquare
+    abcefghijklmno <- dummy$RsquareAdj
     m11 <- dummy$m
     if (m11 != mm11)
         collinwarn("cbind(X1,X2,X3)", mm11, m11)
     mm12 = mm1 + mm2 + mm4
-    dummy <- simpleRDA2(Y, cbind(X1, X2, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X2, X4), SS.Y, permat)
     abdefghijklmno.ua <- dummy$Rsquare
+    abdefghijklmno <- dummy$RsquareAdj
     m12 <- dummy$m
     if (m12 != mm12)
         collinwarn("c(X1,X2,X4)", mm12, m12)
     mm13 = mm1 + mm3 + mm4
-    dummy <- simpleRDA2(Y, cbind(X1, X3, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X3, X4), SS.Y, permat)
     acdefghijklmno.ua <- dummy$Rsquare
+    acdefghijklmno <- dummy$RsquareAdj
     m13 <- dummy$m
     if (m13 != mm13)
         collinwarn("cbind(X1,X3,X4)", mm13, m13)
     mm14 = mm2 + mm3 + mm4
-    dummy <- simpleRDA2(Y, cbind(X2, X3, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X2, X3, X4), SS.Y, permat)
     bcdefghijklmno.ua <- dummy$Rsquare
+    bcdefghijklmno <- dummy$RsquareAdj
     m14 <- dummy$m
     if (m14 != mm14)
         collinwarn("cbind(X2,X3,X4)", mm14, m14)
     mm15 = mm1 + mm2 + mm3 + mm4
-    dummy <- simpleRDA2(Y, cbind(X1, X2, X3, X4), SS.Y)
+    dummy <- simpleRDA2(Y, cbind(X1, X2, X3, X4), SS.Y, permat)
     abcdefghijklmno.ua <- dummy$Rsquare
+    abcdefghijklmno <- dummy$RsquareAdj
     m15 <- dummy$m
     if (m15 != mm15)
         collinwarn("cbind(X1,X2,X3,X4)", mm15, m15)
@@ -149,21 +169,6 @@
         bigwarning <- c(bigwarning, c("X2, X3, X4"))
     if ((m1 + m2 + m3 + m4) > m15)
         bigwarning <- c(bigwarning, c("X1, X2, X3, X4"))
-    aeghklno <- RsquareAdj(aeghklno.ua, n, m1)
-    befiklmo <- RsquareAdj(befiklmo.ua, n, m2)
-    cfgjlmno <- RsquareAdj(cfgjlmno.ua, n, m3)
-    dhijkmno <- RsquareAdj(dhijkmno.ua, n, m4)
-    abefghiklmno <- RsquareAdj(abefghiklmno.ua, n, m5)
-    acefghjklmno <- RsquareAdj(acefghjklmno.ua, n, m6)
-    adeghijklmno <- RsquareAdj(adeghijklmno.ua, n, m7)
-    bcefgijklmno <- RsquareAdj(bcefgijklmno.ua, n, m8)
-    bdefhijklmno <- RsquareAdj(bdefhijklmno.ua, n, m9)
-    cdfghijklmno <- RsquareAdj(cdfghijklmno.ua, n, m10)
-    abcefghijklmno <- RsquareAdj(abcefghijklmno.ua, n, m11)
-    abdefghijklmno <- RsquareAdj(abdefghijklmno.ua, n, m12)
-    acdefghijklmno <- RsquareAdj(acdefghijklmno.ua, n, m13)
-    bcdefghijklmno <- RsquareAdj(bcdefghijklmno.ua, n, m14)
-    abcdefghijklmno <- RsquareAdj(abcdefghijklmno.ua, n, m15)
     Df <-  c(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15)
     fract <- data.frame(Df = Df,
                         R.square = c(aeghklno.ua, befiklmo.ua, cfgjlmno.ua,

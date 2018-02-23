@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2017-12-05 r73833) -- "Unsuffered Consequences"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -44,7 +44,7 @@ Total          2.1153     1.0000
 Conditional    0.6038     0.2855    3
 Constrained    0.4496     0.2126    4
 Unconstrained  1.0618     0.5020   12
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
@@ -180,7 +180,7 @@ Total          2.1153     1.0000
 Conditional    0.6038     0.2855    3
 Constrained    0.0000     0.0000    0
 Unconstrained  1.5114     0.7145   16
-Inertia is mean squared contingency coefficient 
+Inertia is scaled Chi-square 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for unconstrained axes:
@@ -211,14 +211,14 @@ Eigenvalues for unconstrained axes:
 Call:
 cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env) 
 
-Partitioning of mean squared contingency coefficient:
+Partitioning of scaled Chi-square:
               Inertia Proportion
 Total          2.1153     1.0000
 Conditioned    0.6038     0.2855
 Constrained    0.4496     0.2126
 Unconstrained  1.0618     0.5020
 
-Eigenvalues, and their contribution to the mean squared contingency coefficient 
+Eigenvalues, and their contribution to the scaled Chi-square 
 after removing the contribution of conditiniong variables
 
 Importance of components:
@@ -851,14 +851,14 @@ Manure4 -3.959 -2.2261 -0.5586 -1.402    0    0
 Call:
 cca(formula = dune ~ Condition(Management) + Management, data = dune.env) 
 
-Partitioning of mean squared contingency coefficient:
+Partitioning of scaled Chi-square:
               Inertia Proportion
 Total          2.1153     1.0000
 Conditioned    0.6038     0.2855
 Constrained    0.0000     0.0000
 Unconstrained  1.5114     0.7145
 
-Eigenvalues, and their contribution to the mean squared contingency coefficient 
+Eigenvalues, and their contribution to the scaled Chi-square 
 after removing the contribution of conditiniong variables
 
 Importance of components:
@@ -1537,42 +1537,42 @@ $r.squared
 [1] 0.2125594
 
 $adj.r.squared
-[1] 0.07369434
+[1] NA
 
 > RsquareAdj(mrda)
 $r.squared
 [1] 0.1996037
 
 $adj.r.squared
-[1] 0.0577473
+[1] NA
 
 > RsquareAdj(mrda1)
 $r.squared
 [1] 0.2046908
 
 $adj.r.squared
-[1] 0.04411202
+[1] NA
 
 > RsquareAdj(mcap)
 $r.squared
 [1] 0.2495053
 
 $adj.r.squared
-[1] 0.1373422
+[1] NA
 
 > RsquareAdj(mdb)
 $r.squared
 [1] 0.240651
 
 $adj.r.squared
-[1] 0.1204183
+[1] NA
 
 > RsquareAdj(m0cca)
 $r.squared
 [1] 0
 
 $adj.r.squared
-[1] 0
+[1] NA
 
 > 
 > head(model.frame(mcca))
@@ -1651,7 +1651,7 @@ Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
          Df Inertia      F Pr(>F)
-Model     4 0.44962 1.2703   0.18
+Model     4 0.44962 1.2703   0.16
 Residual 12 1.06181              
 > permutest(mrda, per)
 
@@ -1663,11 +1663,9 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)  
-Model     4  16.791 1.3221   0.08 .
-Residual 12  38.102                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Inertia      F Pr(>F)
+Model     4  16.791 1.3221   0.12
+Residual 12  38.102              
 > permutest(mrda1, per)
 
 Permutation test for rda under reduced model 
@@ -1679,7 +1677,7 @@ Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, scale = TRUE)
 Permutation test for all constrained eigenvalues
          Df Inertia      F Pr(>F)
-Model     4  6.1407 1.2217   0.14
+Model     4  6.1407 1.2217   0.12
 Residual 12 15.0789              
 > permutest(mcap, per)
 
@@ -1691,9 +1689,11 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4  1.0726 1.5921   0.12
-Residual 12  2.0212              
+         Df Inertia      F Pr(>F)  
+Model     4  1.0726 1.5921   0.08 .
+Residual 12  2.0212                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mdb, per)
 
 Permutation test for dbrda under reduced model 
@@ -1704,9 +1704,11 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4  1.0346 1.7282    0.1
-Residual 12  1.7959              
+         Df Inertia      F Pr(>F)  
+Model     4  1.0346 1.7282   0.06 .
+Residual 12  1.7959                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mancap, per)
 
 Permutation test for capscale under reduced model 
@@ -1718,7 +1720,7 @@ Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
          Df Inertia      F Pr(>F)
-Model     4  213.08 1.4134    0.1
+Model     4  213.08 1.4134   0.14
 Residual 12  452.26              
 > permutest(mandb, per)
 
@@ -1731,7 +1733,7 @@ Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
          Df Inertia      F Pr(>F)  
-Model     4  202.58 1.5685   0.04 *
+Model     4  202.58 1.5685   0.06 .
 Residual 12  387.45                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1753,34 +1755,34 @@ Residual 16  1.5114
                       Df    AIC      F Pr(>F)  
 <none>                   87.873                
 Condition(Management)  2 87.896                
-Manure                 3 86.460 1.0310   0.30  
-A1                     1 88.954 1.9983   0.08 .
+Manure                 3 86.460 1.0310   0.34  
+A1                     1 88.954 1.9983   0.06 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > drop1(mrda, test="permutation", permutations=per)
                       Df    AIC      F Pr(>F)
 <none>                   87.779              
 Condition(Management)  2 89.151              
-Manure                 3 87.424 1.3043   0.10
-A1                     1 87.517 1.0892   0.42
+Manure                 3 87.424 1.3043   0.14
+A1                     1 87.517 1.0892   0.48
 > drop1(mrda1, test="permutation", permutations=per)
                       Df    AIC     F Pr(>F)
 <none>                   69.240             
 Condition(Management)  2 69.817             
-Manure                 3 68.166 1.117    0.3
+Manure                 3 68.166 1.117    0.2
 A1                     1 69.568 1.481    0.2
 > drop1(mcap, test="permutation", permutations=per)
                       Df    AIC      F Pr(>F)
 <none>                   29.048              
 Condition(Management)  2 29.354              
-Manure                 3 28.454 1.2414   0.20
+Manure                 3 28.454 1.2414   0.24
 A1                     1 30.406 2.1940   0.12
 > drop1(mdb, test="permutation", permutations=per)
                       Df    AIC      F Pr(>F)
 <none>                   26.684              
 Condition(Management)  2 27.240              
-Manure                 3 26.396 1.3223    0.2
-A1                     1 28.407 2.4552    0.1
+Manure                 3 26.396 1.3223   0.24
+A1                     1 28.407 2.4552   0.12
 > 
 > anova(mcca, permutations = per)
 Permutation test for cca under reduced model
@@ -1789,7 +1791,7 @@ Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
          Df ChiSquare      F Pr(>F)
-Model     4   0.44962 1.2703   0.18
+Model     4   0.44962 1.2703   0.16
 Residual 12   1.06181              
 > anova(mrda, permutations = per)
 Permutation test for rda under reduced model
@@ -1797,11 +1799,9 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)  
-Model     4   16.791 1.3221   0.08 .
-Residual 12   38.102                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Variance      F Pr(>F)
+Model     4   16.791 1.3221   0.12
+Residual 12   38.102              
 > anova(mrda1, permutations = per)
 Permutation test for rda under reduced model
 Permutation: free
@@ -1809,7 +1809,7 @@ Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
          Df Variance      F Pr(>F)
-Model     4   6.1407 1.2217   0.14
+Model     4   6.1407 1.2217   0.12
 Residual 12  15.0789              
 > anova(mcap, permutations = per)
 Permutation test for capscale under reduced model
@@ -1817,18 +1817,22 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Model     4   1.0726 1.5921   0.12
-Residual 12   2.0212              
+         Df SumOfSqs      F Pr(>F)  
+Model     4   1.0726 1.5921   0.08 .
+Residual 12   2.0212                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mdb, permutations = per)
 Permutation test for dbrda under reduced model
 Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Model     4   1.0346 1.7282    0.1
-Residual 12   1.7959              
+         Df SumOfSqs      F Pr(>F)  
+Model     4   1.0346 1.7282   0.06 .
+Residual 12   1.7959                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mancap, permutations = per)
 Permutation test for capscale under reduced model
 Permutation: free
@@ -1836,7 +1840,7 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)
-Model     4   213.08 1.4134    0.1
+Model     4   213.08 1.4134   0.14
 Residual 12   452.26              
 > anova(mandb, permutations = per)
 Permutation test for dbrda under reduced model
@@ -1845,7 +1849,7 @@ Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)  
-Model     4   202.58 1.5685   0.04 *
+Model     4   202.58 1.5685   0.06 .
 Residual 12   387.45                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1865,8 +1869,8 @@ Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
          Df ChiSquare      F Pr(>F)  
-Manure    3   0.27280 1.0277   0.34  
-A1        1   0.17682 1.9983   0.08 .
+Manure    3   0.27280 1.0277   0.38  
+A1        1   0.17682 1.9983   0.06 .
 Residual 12   1.06181                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1877,12 +1881,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)  
-Manure    3   13.333 1.3997   0.04 *
-A1        1    3.458 1.0892   0.42  
-Residual 12   38.102                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Variance      F Pr(>F)
+Manure    3   13.333 1.3997   0.14
+A1        1    3.458 1.0892   0.48
+Residual 12   38.102              
 > anova(mrda1, permutations = per, by="term")
 Permutation test for rda under reduced model
 Terms added sequentially (first to last)
@@ -1891,7 +1893,7 @@ Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
          Df Variance      F Pr(>F)
-Manure    3   4.2797 1.1353   0.24
+Manure    3   4.2797 1.1353   0.18
 A1        1   1.8610 1.4810   0.20
 Residual 12  15.0789              
 > anova(mcap, permutations = per, by="term")
@@ -1902,7 +1904,7 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
-Manure    3  0.70309 1.3914   0.14
+Manure    3  0.70309 1.3914   0.16
 A1        1  0.36954 2.1940   0.12
 Residual 12  2.02118              
 > anova(mdb, permutations = per, by="term")
@@ -1913,8 +1915,8 @@ Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
-Manure    3  0.66713 1.4859   0.14
-A1        1  0.36743 2.4552   0.10
+Manure    3  0.66713 1.4859   0.12
+A1        1  0.36743 2.4552   0.12
 Residual 12  1.79587              
 > anova(mancap, permutations = per, by="term")
 Permutation test for capscale under reduced model
@@ -1924,8 +1926,8 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)  
-Manure    3   172.81 1.5284   0.04 *
-A1        1    40.27 1.0684   0.40  
+Manure    3   172.81 1.5284   0.08 .
+A1        1    40.27 1.0684   0.42  
 Residual 12   452.26                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1937,8 +1939,8 @@ Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)  
-Manure    3   163.08 1.6837   0.04 *
-A1        1    39.49 1.2231   0.36  
+Manure    3   163.08 1.6837   0.08 .
+A1        1    39.49 1.2231   0.40  
 Residual 12   387.45                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1951,8 +1953,8 @@ Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
          Df ChiSquare      F Pr(>F)  
-Manure    3   0.27368 1.0310   0.30  
-A1        1   0.17682 1.9983   0.08 .
+Manure    3   0.27368 1.0310   0.34  
+A1        1   0.17682 1.9983   0.06 .
 Residual 12   1.06181                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1964,8 +1966,8 @@ Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
          Df Variance      F Pr(>F)
-Manure    3   12.424 1.3043   0.10
-A1        1    3.458 1.0892   0.42
+Manure    3   12.424 1.3043   0.14
+A1        1    3.458 1.0892   0.48
 Residual 12   38.102              
 > anova(mrda1, permutations = per, by="margin")
 Permutation test for rda under reduced model
@@ -1975,7 +1977,7 @@ Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
          Df Variance     F Pr(>F)
-Manure    3    4.211 1.117    0.3
+Manure    3    4.211 1.117    0.2
 A1        1    1.861 1.481    0.2
 Residual 12   15.079             
 > anova(mcap, permutations = per, by="margin")
@@ -1986,7 +1988,7 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
-Manure    3  0.62726 1.2414   0.20
+Manure    3  0.62726 1.2414   0.24
 A1        1  0.36954 2.1940   0.12
 Residual 12  2.02118              
 > anova(mdb, permutations = per, by="margin")
@@ -1997,8 +1999,8 @@ Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
-Manure    3  0.59367 1.3223    0.2
-A1        1  0.36743 2.4552    0.1
+Manure    3  0.59367 1.3223   0.24
+A1        1  0.36743 2.4552   0.12
 Residual 12  1.79587              
 > anova(mancap, permutations = per, by="margin")
 Permutation test for capscale under reduced model
@@ -2007,12 +2009,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)  
-Manure    3   164.52 1.4551   0.08 .
-A1        1    40.27 1.0684   0.40  
-Residual 12   452.26                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Variance      F Pr(>F)
+Manure    3   164.52 1.4551   0.12
+A1        1    40.27 1.0684   0.42
+Residual 12   452.26              
 > anova(mandb, permutations = per, by="margin")
 Permutation test for dbrda under reduced model
 Marginal effects of terms
@@ -2020,12 +2020,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)  
-Manure    3   155.41 1.6045   0.06 .
-A1        1    39.49 1.2231   0.36  
-Residual 12   387.45                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Variance      F Pr(>F)
+Manure    3   155.41 1.6045   0.12
+A1        1    39.49 1.2231   0.40
+Residual 12   387.45              
 > 
 > anova(mcca, permutations = per, by="axis")
 Permutation test for cca under reduced model
@@ -2035,10 +2033,10 @@ Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
          Df ChiSquare      F Pr(>F)
-CCA1      1   0.22257 2.5154   0.14
-CCA2      1   0.12260 1.3855   0.70
-CCA3      1   0.06390 0.7222   1.00
-CCA4      1   0.04055 0.4583   0.90
+CCA1      1   0.22257 2.5154   0.18
+CCA2      1   0.12260 1.3855   0.54
+CCA3      1   0.06390 0.7222   0.92
+CCA4      1   0.04055 0.4583   0.96
 Residual 12   1.06181              
 > anova(mrda, permutations = per, by="axis")
 Permutation test for rda under reduced model
@@ -2047,14 +2045,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)  
-RDA1      1    8.539 2.6895   0.08 .
-RDA2      1    4.330 1.3636   0.72  
-RDA3      1    2.206 0.6948   0.96  
-RDA4      1    1.716 0.5405   0.86  
-Residual 12   38.102                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df Variance      F Pr(>F)
+RDA1      1    8.539 2.6895   0.12
+RDA2      1    4.330 1.3636   0.64
+RDA3      1    2.206 0.6948   0.96
+RDA4      1    1.716 0.5405   0.92
+Residual 12   38.102              
 > anova(mrda1, permutations = per, by="axis")
 Permutation test for rda under reduced model
 Forward tests for axes
@@ -2063,10 +2059,10 @@ Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
          Df Variance      F Pr(>F)
-RDA1      1   2.6117 2.0784   0.18
-RDA2      1   1.6991 1.3521   0.76
-RDA3      1   1.1039 0.8785   0.96
-RDA4      1   0.7261 0.5778   0.88
+RDA1      1   2.6117 2.0784   0.26
+RDA2      1   1.6991 1.3521   0.56
+RDA3      1   1.1039 0.8785   0.76
+RDA4      1   0.7261 0.5778   0.92
 Residual 12  15.0789              
 > anova(mcap, permutations = per, by="axis")
 Permutation test for capscale under reduced model
@@ -2076,10 +2072,10 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
-CAP1      1  0.67370 3.9998   0.12
-CAP2      1  0.24300 1.4427   0.78
-CAP3      1  0.10457 0.6209   0.94
-CAP4      1  0.05136 0.3049   0.98
+CAP1      1  0.67370 3.9998   0.10
+CAP2      1  0.24300 1.4427   0.62
+CAP3      1  0.10457 0.6209   0.92
+CAP4      1  0.05136 0.3049   0.96
 Residual 12  2.02118              
 > anova(mdb, permutations = per, by="axis")
 Permutation test for dbrda under reduced model
@@ -2090,9 +2086,9 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
          Df SumOfSqs      F Pr(>F)
 dbRDA1    1  0.66660 4.4542   0.10
-dbRDA2    1  0.23850 1.5936   0.76
-dbRDA3    1  0.09102 0.6082   0.94
-dbRDA4    1  0.03844 0.2569   0.96
+dbRDA2    1  0.23850 1.5936   0.58
+dbRDA3    1  0.09102 0.6082   0.90
+dbRDA4    1  0.03844 0.2569   0.94
 Residual 12  1.79587              
 > anova(mancap, permutations = per, by="axis")
 Permutation test for capscale under reduced model
@@ -2102,10 +2098,10 @@ Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)
-CAP1      1   125.66 3.3341   0.14
-CAP2      1    49.31 1.3083   0.80
-CAP3      1    24.24 0.6431   0.98
-CAP4      1    13.87 0.3681   0.92
+CAP1      1   125.66 3.3341   0.18
+CAP2      1    49.31 1.3083   0.68
+CAP3      1    24.24 0.6431   0.92
+CAP4      1    13.87 0.3681   0.94
 Residual 12   452.26              
 > anova(mandb, permutations = per, by="axis")
 Permutation test for dbrda under reduced model
@@ -2115,10 +2111,10 @@ Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
          Df Variance      F Pr(>F)
-dbRDA1    1   123.16 3.8146   0.12
-dbRDA2    1    47.37 1.4671   0.74
-dbRDA3    1    21.91 0.6787   0.96
-dbRDA4    1    10.13 0.3137   0.88
+dbRDA1    1   123.16 3.8146   0.16
+dbRDA2    1    47.37 1.4671   0.66
+dbRDA3    1    21.91 0.6787   0.90
+dbRDA4    1    10.13 0.3137   0.94
 Residual 12   387.45              
 > 
 > ## the following do not all work with partial models
@@ -2509,4 +2505,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  2.949   0.061   3.004 
+  1.517   0.076   1.579 

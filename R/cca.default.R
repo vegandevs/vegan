@@ -36,7 +36,7 @@
     call <- match.call()
     call[[1]] <- as.name("cca")
     sol <- c(list(call = call,
-                  inertia =  "mean squared contingency coefficient"),
+                  inertia =  "scaled Chi-square"),
              sol)
     class(sol) <- "cca"
     sol
