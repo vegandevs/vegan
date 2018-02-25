@@ -72,7 +72,7 @@
         nsimul <- nsimul - colSums(is.na(permutations))
     }
     p <- rep(NA, length(object$statistic))
-    for(i in seq_along(p)) 
+    for(i in seq_along(p))
         p[i] <- switch(alt[i],
                        two.sided = 2*pmin(pless[i], pmore[i]),
                        greater = pmore[i],
@@ -203,6 +203,23 @@
                         panel.abline(h = obs[panel.number()], ...)
                 },
                 ...)
+}
+
+## boxplot for (standardized) effect size: permutations are centred to
+## the value of statistic, and optionally standardized to equal sd
+## w.r.t. to column mean (not to the statistics). This shows the
+## effect size, or the deviation from the observed statistic (= 0).
+
+`boxplot.permustats` <-
+    function(x, scale = FALSE, names, ...)
+{
+    p <- x$permutations
+    if (isTRUE(scale))
+        scale <- apply(p, 2, sd, na.rm = TRUE)
+    p <- scale(p, center = x$statistic, scale = scale)
+    if (missing(names))
+        names <- attr(x$statistic, "names")
+    boxplot(p, names = names, ...)
 }
 
 ###
