@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-02-26 r74303) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -229,11 +229,11 @@ Cumulative Proportion 0.1473 0.22837 0.27065 0.29748 0.5076 0.6125 0.7049
                          CA4     CA5     CA6     CA7     CA8     CA9    CA10
 Eigenvalue            0.1161 0.07907 0.07534 0.04527 0.04018 0.03777 0.02799
 Proportion Explained  0.0768 0.05232 0.04985 0.02996 0.02658 0.02499 0.01852
-Cumulative Proportion 0.7817 0.83407 0.88391 0.91387 0.94045 0.96544 0.98396
-                         CA11    CA12
-Eigenvalue            0.01267 0.01158
-Proportion Explained  0.00838 0.00766
-Cumulative Proportion 0.99234 1.00000
+Cumulative Proportion 0.7818 0.83407 0.88391 0.91387 0.94045 0.96544 0.98396
+                         CA11     CA12
+Eigenvalue            0.01267 0.011583
+Proportion Explained  0.00838 0.007663
+Cumulative Proportion 0.99234 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -324,10 +324,10 @@ Cumulative Proportion 0.1556 0.23444 0.27463 0.30589  0.4927 0.6422 0.73239
 Eigenvalue            3.35769 3.12261 2.49407 1.86596 1.25786 1.01862 0.74284
 Proportion Explained  0.06117 0.05689 0.04544 0.03399 0.02291 0.01856 0.01353
 Cumulative Proportion 0.79356 0.85044 0.89588 0.92987 0.95279 0.97134 0.98487
-                         PC11    PC12
-Eigenvalue            0.48145 0.34882
-Proportion Explained  0.00877 0.00635
-Cumulative Proportion 0.99365 1.00000
+                          PC11     PC12
+Eigenvalue            0.481450 0.348822
+Proportion Explained  0.008771 0.006355
+Cumulative Proportion 0.993645 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -419,10 +419,10 @@ Cumulative Proportion 0.1231 0.20315 0.25517 0.28939 0.4528 0.5729 0.67258
 Eigenvalue            1.72233 1.44262 0.96108 0.80894 0.73780 0.49031 0.38048
 Proportion Explained  0.08117 0.06799 0.04529 0.03812 0.03477 0.02311 0.01793
 Cumulative Proportion 0.75375 0.82173 0.86703 0.90515 0.93992 0.96302 0.98095
-                         PC11   PC12
-Eigenvalue            0.24717 0.1570
-Proportion Explained  0.01165 0.0074
-Cumulative Proportion 0.99260 1.0000
+                         PC11     PC12
+Eigenvalue            0.24717 0.156976
+Proportion Explained  0.01165 0.007398
+Cumulative Proportion 0.99260 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -510,14 +510,14 @@ Importance of components:
 Eigenvalue            0.6737 0.24300 0.1046 0.05136 0.7489 0.3380 0.30841
 Proportion Explained  0.2178 0.07854 0.0338 0.01660 0.2421 0.1092 0.09969
 Cumulative Proportion 0.2178 0.29630 0.3301 0.34670 0.5888 0.6980 0.79770
-                        MDS4    MDS5    MDS6    MDS7    MDS8    MDS9   MDS10
-Eigenvalue            0.2132 0.13698 0.13604 0.06196 0.03929 0.01687 0.01110
-Proportion Explained  0.0689 0.04428 0.04397 0.02003 0.01270 0.00545 0.00359
-Cumulative Proportion 0.8666 0.91088 0.95485 0.97487 0.98757 0.99303 0.99661
+                        MDS4    MDS5    MDS6    MDS7    MDS8     MDS9    MDS10
+Eigenvalue            0.2132 0.13698 0.13604 0.06196 0.03929 0.016871 0.011095
+Proportion Explained  0.0689 0.04428 0.04397 0.02003 0.01270 0.005453 0.003586
+Cumulative Proportion 0.8666 0.91088 0.95485 0.97487 0.98757 0.993027 0.996613
                          MDS11    MDS12
 Eigenvalue            0.006462 0.004016
-Proportion Explained  0.002090 0.001300
-Cumulative Proportion 0.998700 1.000000
+Proportion Explained  0.002089 0.001298
+Cumulative Proportion 0.998702 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -605,14 +605,14 @@ Importance of components:
 Eigenvalue            0.6666 0.23850 0.09102 0.03844 0.7420 0.3367 0.3066
 Proportion Explained  0.2355 0.08426 0.03216 0.01358 0.2622 0.1190 0.1083
 Cumulative Proportion     NA      NA      NA      NA     NA     NA     NA
-                         MDS4    MDS5    MDS6    MDS7    MDS8      MDS9
-Eigenvalue            0.20627 0.13339 0.12829 0.03980 0.02745 0.0004132
-Proportion Explained  0.07288 0.04713 0.04533 0.01406 0.00970 0.0001500
-Cumulative Proportion      NA      NA      NA      NA      NA        NA
-                         iMDS1    iMDS2    iMDS3
-Eigenvalue            -0.01985 -0.04601 -0.05923
-Proportion Explained   0.00701  0.01626  0.02093
-Cumulative Proportion       NA       NA       NA
+                         MDS4    MDS5    MDS6    MDS7     MDS8      MDS9
+Eigenvalue            0.20627 0.13339 0.12829 0.03980 0.027450 0.0004132
+Proportion Explained  0.07288 0.04713 0.04533 0.01406 0.009698 0.0001460
+Cumulative Proportion      NA      NA      NA      NA       NA        NA
+                          iMDS1    iMDS2    iMDS3
+Eigenvalue            -0.019854 -0.04601 -0.05923
+Proportion Explained   0.007015  0.01626  0.02093
+Cumulative Proportion        NA       NA       NA
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -692,10 +692,10 @@ Cumulative Proportion   0.1889  0.26297  0.29940  0.32025   0.5663  0.7122
 Eigenvalue            59.00630 40.20997 34.85358 24.94309 12.72424 10.91794
 Proportion Explained   0.08869  0.06043  0.05238  0.03749  0.01912  0.01641
 Cumulative Proportion  0.80086  0.86130  0.91368  0.95117  0.97030  0.98670
-                         MDS9   MDS10   MDS11   MDS12
-Eigenvalue            4.68641 1.89598 1.50568 0.75787
-Proportion Explained  0.00704 0.00285 0.00226 0.00114
-Cumulative Proportion 0.99375 0.99660 0.99886 1.00000
+                          MDS9   MDS10    MDS11    MDS12
+Eigenvalue            4.686409 1.89598 1.505683 0.757868
+Proportion Explained  0.007044 0.00285 0.002263 0.001139
+Cumulative Proportion 0.993748 0.99660 0.998861 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -864,15 +864,15 @@ after removing the contribution of conditiniong variables
 Importance of components:
                          CA1    CA2    CA3     CA4     CA5     CA6     CA7
 Eigenvalue            0.4474 0.2030 0.1630 0.13457 0.12940 0.09494 0.07904
-Proportion Explained  0.2960 0.1343 0.1079 0.08904 0.08561 0.06282 0.05230
+Proportion Explained  0.2960 0.1343 0.1078 0.08904 0.08561 0.06282 0.05230
 Cumulative Proportion 0.2960 0.4303 0.5382 0.62719 0.71281 0.77562 0.82792
                           CA8     CA9    CA10    CA11    CA12    CA13     CA14
 Eigenvalue            0.06526 0.05004 0.04321 0.03870 0.02385 0.01773 0.009172
-Proportion Explained  0.04318 0.03311 0.02859 0.02561 0.01578 0.01173 0.006070
-Cumulative Proportion 0.87110 0.90421 0.93280 0.95840 0.97419 0.98592 0.991980
+Proportion Explained  0.04318 0.03311 0.02859 0.02561 0.01578 0.01173 0.006069
+Cumulative Proportion 0.87110 0.90421 0.93280 0.95840 0.97419 0.98592 0.991984
                           CA15     CA16
 Eigenvalue            0.007959 0.004157
-Proportion Explained  0.005270 0.002750
+Proportion Explained  0.005266 0.002750
 Cumulative Proportion 0.997250 1.000000
 
 Scaling 2 for species and site scores
@@ -2505,4 +2505,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  1.517   0.076   1.579 
+  1.685   0.067   1.745 

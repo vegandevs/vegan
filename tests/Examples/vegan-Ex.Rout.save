@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-02-26 r74303) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -2778,14 +2778,14 @@ Cumulative Proportion 0.1736 0.25514 0.30920 0.4772 0.5829 0.67172 0.74618
 Eigenvalue            0.13511 0.10027 0.07730 0.05369 0.03656 0.03509 0.02823
 Proportion Explained  0.06485 0.04813 0.03711 0.02577 0.01755 0.01684 0.01355
 Cumulative Proportion 0.81104 0.85917 0.89627 0.92205 0.93960 0.95644 0.96999
-                         CA12    CA13    CA14    CA15     CA16     CA17
-Eigenvalue            0.01707 0.01225 0.01019 0.00947 0.005509 0.003053
-Proportion Explained  0.00819 0.00588 0.00489 0.00455 0.002640 0.001470
-Cumulative Proportion 0.97818 0.98406 0.98895 0.99350 0.996140 0.997610
-                          CA18     CA19      CA20
-Eigenvalue            0.002512 0.001948 0.0005178
-Proportion Explained  0.001210 0.000940 0.0002500
-Cumulative Proportion 0.998820 0.999750 1.0000000
+                          CA12     CA13     CA14     CA15     CA16     CA17
+Eigenvalue            0.017065 0.012247 0.010191 0.009470 0.005509 0.003053
+Proportion Explained  0.008192 0.005879 0.004892 0.004546 0.002644 0.001465
+Cumulative Proportion 0.978183 0.984062 0.988954 0.993500 0.996145 0.997610
+                          CA18      CA19      CA20
+Eigenvalue            0.002512 0.0019485 0.0005178
+Proportion Explained  0.001206 0.0009353 0.0002486
+Cumulative Proportion 0.998816 0.9997514 1.0000000
 > 
 > 
 > 
@@ -6095,7 +6095,7 @@ X-squared = 3.3312e-05, df = 1, p-value = 0.9954
 > ###   permustats.permutest.betadisper permustats.permutest.cca
 > ###   permustats.protest permustats.vectorfit summary.permustats
 > ###   c.permustats densityplot.permustats density.permustats
-> ###   qqnorm.permustats qqmath.permustats
+> ###   qqnorm.permustats qqmath.permustats boxplot.permustats
 > ### Keywords: distribution smooth
 > 
 > ### ** Examples
@@ -6115,7 +6115,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 (Interval (Upper - Lower) = 0.95)
 > densityplot(perm)
 > qqmath(perm)
-> 
+> boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
+> abline(h=0, col="skyblue")
 > ## example of multiple types of statistic
 > mod <- with(dune.env, betadisper(vegdist(dune), Management))
 > pmod <- permutest(mod, nperm = 99, pairwise = TRUE)
@@ -6267,10 +6268,10 @@ Cumulative Proportion 0.2119 0.3538 0.42470 0.47544 0.50223 0.52273 0.53855
 Eigenvalue            0.3064 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871
 Proportion Explained  0.1448 0.06236 0.05444 0.05175 0.03652 0.03581 0.02303
 Cumulative Proportion 0.6834 0.74574 0.80018 0.85194 0.88845 0.92427 0.94730
-                          CA8     CA9    CA10    CA11     CA12
-Eigenvalue            0.03758 0.03106 0.02102 0.01254 0.009277
-Proportion Explained  0.01777 0.01468 0.00994 0.00593 0.004390
-Cumulative Proportion 0.96506 0.97975 0.98968 0.99561 1.000000
+                          CA8     CA9     CA10     CA11     CA12
+Eigenvalue            0.03758 0.03106 0.021024 0.012542 0.009277
+Proportion Explained  0.01777 0.01468 0.009939 0.005929 0.004386
+Cumulative Proportion 0.96506 0.97975 0.989685 0.995614 1.000000
 
 Accumulated constrained eigenvalues
 Importance of components:
@@ -9092,7 +9093,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.368 0.136 20.505 0 0 
+Time elapsed:  21.011 0.189 21.201 0 0 
 > grDevices::dev.off()
 null device 
           1 
