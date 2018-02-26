@@ -148,8 +148,8 @@
         NA
     }
     out <- rbind(`Eigenvalue` = object,
-                 `Proportion Explained` = round(abs(vars), 5),
-                 `Cumulative Proportion` = round(cumvars, 5))
+                 `Proportion Explained` = abs(vars),
+                 `Cumulative Proportion` = cumvars)
     class(out) <- c("summary.eigenvals", "matrix")
     out
 }
@@ -161,8 +161,7 @@
     function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
     cat("Importance of components:\n")
-    cls <- class(x)
-    class(x) <- cls[cls == "matrix"]
+    class(x) <- "matrix"
     print(x, digits = digits, ...)
     invisible(x)
 }
