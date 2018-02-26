@@ -148,8 +148,8 @@
         NA
     }
     out <- rbind(`Eigenvalue` = object,
-                 `Proportion Explained` = round(abs(vars), 5),
-                 `Cumulative Proportion` = round(cumvars, 5))
+                 `Proportion Explained` = abs(vars),
+                 `Cumulative Proportion` = cumvars)
     class(out) <- c("summary.eigenvals", "matrix")
     out
 }
