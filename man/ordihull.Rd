@@ -11,7 +11,7 @@
 
 \title{Display Groups or Factor Levels in Ordination Diagrams}
 
-\description{ Functions to add convex hulls, `spider' graphs, ellipses
+\description{ Functions to add convex hulls, \dQuote{spider} graphs, ellipses
   or cluster dendrogram to ordination diagrams. The ordination
   diagrams can be produced by \code{vegan} \code{\link{plot.cca}},
   \code{\link{plot.decorana}} or \code{\link{ordiplot}}.  }

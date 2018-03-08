@@ -81,7 +81,7 @@ read.cep(file, positive=TRUE)
 
 
 \examples{
-## Provided that you have the file `dune.spe'
+## Provided that you have the file "dune.spe"
 \dontrun{
 theclassic <- read.cep("dune.spe")}
 }

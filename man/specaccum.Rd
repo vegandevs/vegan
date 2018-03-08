@@ -172,7 +172,7 @@ specslope(object, at)
   \code{"lomolino"} (\code{\link{SSlomolino}}) of \pkg{vegan}
   package. In addition the following standard \R models are available:
   \code{"asymp"} (\code{\link{SSasymp}}), \code{"gompertz"}
-  (\code{\link{SSgompertz}}), \code{"michaelis-menten"})
+  (\code{\link{SSgompertz}}), \code{"michaelis-menten"}
   (\code{\link{SSmicmen}}), \code{"logis"} (\code{\link{SSlogis}}),
   \code{"weibull"} (\code{\link{SSweibull}}). See these functions for
   model specification and details. 

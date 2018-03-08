@@ -59,7 +59,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   \deqn{H_a = \frac{1}{1-a} \log \sum p_i^a}{H.a = 1/(1-a) log
     sum(p^a)}
   where \eqn{a} is a scale parameter, and Hill (1975) suggested to
-  use so-called ``Hill numbers'' defined as \eqn{N_a = \exp(H_a)}{N.a =
+  use so-called \sQuote{Hill numbers} defined as \eqn{N_a = \exp(H_a)}{N.a =
     exp(H.a)}.  Some Hill numbers are the number of species with
   \eqn{a = 0}, \eqn{\exp(H')}{exp(H')} or the exponent of Shannon
   diversity with \eqn{a = 1}, inverse Simpson with \eqn{a = 2} and

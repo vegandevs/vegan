@@ -36,7 +36,7 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
   \item{fill}{ Background colour of the labels (the \code{col} argument
     of \code{\link{polygon}}).}
   \item{border}{The colour and visibility of the border of the label as
-    defined in \code{\link{polygon}}).}
+    defined in \code{\link{polygon}}.}
   \item{col}{Text colour. Default \code{NULL} will give the value of
     \code{border} or \code{par("fg")} if \code{border} is \code{NULL}.}
   \item{xpd}{Draw labels also outside the plot region (see 

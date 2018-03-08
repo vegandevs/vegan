@@ -100,7 +100,8 @@ times by individual based randomization of the community data matrix.
 This is done by the \code{"r2dtable"} method in \code{\link{oecosimu}} by default.
 }
 \value{
-An object of class 'multipart' with same structure as 'oecosimu' objects.
+An object of class \code{"multipart"} with same structure as
+\code{"oecosimu"} objects.
 }
 \references{
 Jost, L. (2006). Entropy and diversity.

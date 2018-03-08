@@ -75,7 +75,7 @@ as.preston(x, tiesplit = TRUE, ...)
   imply infinite species richness, and postulated that rare species is
   a diminishing class and most species are in the middle of frequency
   scale. This was achieved by collapsing higher frequency classes into
-  wider and wider ``octaves'' of doubling class limits: 1, 2, 3--4,
+  wider and wider \dQuote{octaves} of doubling class limits: 1, 2, 3--4,
   5--8, 9--16 etc. occurrences. It seems that Preston regarded
   frequencies 1, 2, 4, \emph{etc.}. as \dQuote{tied} between octaves
   (Williamson & Gaston 2005). This means that only half of the species
@@ -158,7 +158,7 @@ as.preston(x, tiesplit = TRUE, ...)
   \code{\link{radfit}}, \code{\link{specpool}}. Function
   \code{\link[MASS]{fitdistr}} of \pkg{MASS} package was used as the
   model for \code{prestondistr}. Function \code{\link{density}} can be used for
-  smoothed ``non-parametric'' estimation of responses, and
+  smoothed non-parametric estimation of responses, and
   \code{\link{qqplot}} is an alternative, traditional and more effective
   way of studying concordance of observed abundances to any distribution model.
 }

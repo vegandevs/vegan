@@ -74,7 +74,7 @@ downweight(veg, fraction = 5)
   with non-linear species responses than principal components
   analysis. However, even correspondence analysis can produce an arc-shaped
   configuration of a single gradient. Mark Hill developed detrended
-  correspondence analysis to correct two assumed `faults' in 
+  correspondence analysis to correct two assumed \sQuote{faults} in 
   correspondence analysis: curvature of straight gradients and packing
   of sites at the ends of the gradient.  
 
@@ -86,7 +86,7 @@ downweight(veg, fraction = 5)
   is more robust than the suggested alternative of detrending by
   polynomials. The packing of sites at the ends of the gradient is
   undone by rescaling the axes after extraction.  After rescaling, the
-  axis is supposed to be scaled by `SD' units, so that the average width
+  axis is supposed to be scaled by \sQuote{SD} units, so that the average width
   of Gaussian species responses is supposed to be one over whole axis.
   Other innovations were the piecewise linear transformation of species
   abundances and downweighting of rare species which were regarded to
@@ -94,7 +94,7 @@ downweight(veg, fraction = 5)
 
   It seems that detrending actually works by twisting the ordination
   space, so that the results look non-curved in two-dimensional projections
-  (`lolly paper effect').  As a result, the points usually have an
+  (\sQuote{lolly paper effect}).  As a result, the points usually have an
   easily recognized triangular or diamond shaped pattern, obviously an
   artefact of detrending.  Rescaling works differently than commonly
   presented, too. \code{decorana} does not use, or even evaluate, the
@@ -114,18 +114,20 @@ downweight(veg, fraction = 5)
   negative), but \code{summary}, \code{plot} and
   \code{scores} use the true origin, unless \code{origin = FALSE}.
 
-  In addition to proper eigenvalues, the function also reports `decorana
-  values' in detrended analysis. These `decorana values' are the values
-  that the legacy code of \code{decorana} returns as `eigenvalues'.
-  They are estimated internally during iteration, and it seems that
-  detrending interferes the estimation so that these values are
-  generally too low and have unclear interpretation. Moreover, `decorana
-  values' are estimated before rescaling which will change the
-  eigenvalues. The proper eigenvalues are estimated after extraction of
-  the axes and they are the ratio of biased weighted variances of site
-  and species scores even in detrended and rescaled solutions. The
-  `decorana values' are provided only for the compatibility with
-  legacy software, and they should not be used.
+  In addition to proper eigenvalues, the function also reports
+  \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
+  values} are the values that the legacy code of \code{decorana} returns
+  as eigenvalues.  They are estimated internally during iteration, and
+  it seems that detrending interferes the estimation so that these
+  values are generally too low and have unclear
+  interpretation. Moreover, \sQuote{decorana values} are estimated
+  before rescaling which will change the eigenvalues. The proper
+  eigenvalues are estimated after extraction of the axes and they are
+  the ratio of biased weighted variances of site and species scores even
+  in detrended and rescaled solutions. The \sQuote{decorana values} are
+  provided only for the compatibility with legacy software, and they
+  should not be used.
+
 }
 \value{
   \code{decorana} returns an object of class \code{"decorana"}, which has
