@@ -203,8 +203,9 @@
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
   \code{\link{specpool}}. Function \code{vegdist} implements a
-  Jaccard, index defined as \eqn{1 - U*V/(U + V - U*V)}; other types
-  can be defined with function \code{\link{chaodist}}. In Chao
+  Jaccard, index defined as
+  \eqn{1-\frac{U \times V}{U + V - U \times V}}{1 - U*V/(U + V - U*V)};
+  other types can be defined with function \code{\link{chaodist}}. In Chao
   equation, \eqn{U = C_j/N_j + (N_k - 1)/N_k \times a_1/(2 a_2) \times
   S_j/N_j}{U = C[j]/N[j] + (N[k] -1)/N[k] * a1/(2*a2) * S[j]/N[j]},
   and \eqn{V} is similar except for site index
