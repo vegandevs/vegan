@@ -65,7 +65,7 @@
     \code{gower}
     \tab \eqn{d_{jk} = (1/M) \sum_i \frac{|x_{ij}-x_{ik}|}{\max x_i-\min
 	x_i}}{d[jk] = (1/M) sum(abs(x[ij]-x[ik])/(max(x[i])-min(x[i])))}
-    \cr \tab binary: \eqn{(A+B-2J)/M}{(A+B-2*J)/M},
+    \cr \tab binary: \eqn{(A+B-2J)/M}{(A+B-2*J)/M}
     \cr
     \tab where \eqn{M} is the number of columns (excluding missing
     values)
@@ -97,8 +97,8 @@
     \cr
     \code{kulczynski}
     \tab \eqn{d_{jk} = 1-0.5(\frac{\sum_i \min(x_{ij},x_{ik})}{\sum_i x_{ij}} +
-      \frac{\sum_i \min(x_{ij},x_{ik})}{\sum_i x_{ik}} )}{d[jk] 1 - 0.5*((sum min(x[ij],x[ik])/(sum x[ij]) + (sum
-      min(x[ij],x[ik])/(sum x[ik]))}
+      \frac{\sum_i \min(x_{ij},x_{ik})}{\sum_i x_{ik}} )}{d[jk] 1 - 0.5*(sum(min(x[ij],x[ik]))/(sum x[ij]) + sum(
+      min(x[ij],x[ik]))/(sum x[ik]))}
     \cr \tab binary: \eqn{1-(J/A + J/B)/2}{1-(J/A + J/B)/2}
     \cr
     \code{morisita}
@@ -203,7 +203,7 @@
   Chao index tries to take into account the number of unseen species
   pairs, similarly as in \code{method = "chao"} in
   \code{\link{specpool}}. Function \code{vegdist} implements a
-  Jaccard, index defined as \eqn{1 - U*V/(U + V - U*V}; other types
+  Jaccard, index defined as \eqn{1 - U*V/(U + V - U*V)}; other types
   can be defined with function \code{\link{chaodist}}. In Chao
   equation, \eqn{U = C_j/N_j + (N_k - 1)/N_k \times a_1/(2 a_2) \times
   S_j/N_j}{U = C[j]/N[j] + (N[k] -1)/N[k] * a1/(2*a2) * S[j]/N[j]},
