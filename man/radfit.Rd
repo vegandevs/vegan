@@ -151,8 +151,8 @@ as.rad(x)
   appropriate only for genuine counts (integers), but other families
   that accept \code{link = "log"} can be used. Families
   \code{\link{Gamma}} or \code{\link{gaussian}} may be appropriate for
-  abundance data, such as cover. The ``best'' model is selected by
-  \code{\link{AIC}}. Therefore ``quasi'' families such as
+  abundance data, such as cover. The best model is selected by
+  \code{\link{AIC}}. Therefore \sQuote{quasi} families such as
   \code{\link{quasipoisson}} cannot be used: they do not have
   \code{\link{AIC}} nor log-Likelihood needed in non-linear models.
 

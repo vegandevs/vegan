@@ -125,7 +125,7 @@ spandepth(x)
   clustering that can be performed using \code{\link{hclust}} or
   \code{\link[cluster]{agnes}}. However, these functions combine
   clusters to each other and the information of the actually connected points
-  (the ``single link'') cannot be recovered from the result. The
+  (the \dQuote{single link}) cannot be recovered from the result. The
   graphical output of a single linkage clustering plotted with
   \code{\link{ordicluster}} will look very different from an equivalent
   spanning tree plotted with \code{lines.spantree}.

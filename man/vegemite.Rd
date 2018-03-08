@@ -140,7 +140,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   actually not strict cover scales, and the limits used for codes
   \code{r} and \code{+} are arbitrary.  Scale \code{Hill} may be
   inappropriately named, since Mark O. Hill probably never intended
-  this as a cover scale.  However, it is used as default 'cut levels'
+  this as a cover scale.  However, it is used as default \dQuote{cut levels}
   in his \code{TWINSPAN}, and surprisingly many users stick to this
   default, and this is a \emph{de facto} standard in publications.
   All traditional scales assume that values are cover percentages with
@@ -149,7 +149,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   1/2 of the maximum (argument \code{maxabund}), with \code{+} used
   for non-zero entries less than 1/512 of the maximum (\code{log}
   stands alternatively for logarithmic or logical).  Scale \code{fix}
-  is intended for `fixing' 10-point scales: it truncates scale values
+  is intended for \dQuote{fixing} 10-point scales: it truncates scale values
   to integers, and replaces 10 with \code{X} and positive values below
   1 with \code{+}.  } \value{ The functions are used mainly to display
   a table, but they return (invisibly) a list with items:
