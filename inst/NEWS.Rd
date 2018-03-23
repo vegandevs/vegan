@@ -2,6 +2,140 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-0}{
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item \code{avgdist}: new function to find averaged
+      dissimilarities from several random rarefactions of
+      communities. By Geoffrey Hannigan.
+
+      \item \code{chaodist}: new function that is similar to
+      \code{designdist}, but uses Chao terms that are supposed to take
+      into account the effects of unseen species (Chao et al.,
+      \emph{Ecol Letters} 8, 148-159; 2005).
+
+      \item New functions to find influence statistics of constrained
+      ordination objects: \code{hatvalues}, \code{sigma},
+      \code{rstandard}, \code{rstudent}, \code{cooks.distance},
+      \code{SSD}, \code{vcov}, \code{df.residual}. Some of these could
+      be earlier found via \code{as.mlm} function which is now
+      deprecated.
+
+      \item \code{boxplot} was added for \code{permustats} results.
+
+      \item \code{sppscores}: new function to add or replace species
+      scores in distance-based ordination such as \code{dbrda},
+      \code{capscale} and \code{metaMDS}.
+
+      \item \code{sipoo.map}: a new data set of locations and sizes of
+      the islands in the Sipoo archipelago bird data set \code{sipoo}.
+
+    } %itemize
+  } % new functions
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Constrained ordination methods (\code{cca}, \code{rda},
+      \code{dbrda}, \code{capscale}) use now shared code and more
+      consistent with each other, and also more easily extended.
+
+      \item Regression scores for constraints can now be extracted and
+      plotted for constrained ordination methods.
+
+      \item Full model (\code{model = "full"}) is again enabled in
+      permutations tests for constrained ordination results in
+      \code{anova.cca} and \code{permutest.cca}.
+
+      \code{permutest.cca} gained a new option \code{by = "onedf"} to
+      perform tests by sequential one degree-of-freedom contrasts of
+      factors.
+
+      The permutation tests are more robust, and most scoping issues
+      should have been fixed.
+
+      Permutation tests use now compiled C code and they are much
+      faster.
+
+      \item Adjusted \eqn{R^2}{R-squared} is not calculated for
+      results of partial ordination, because it is unclear how this
+      should be done (function \code{RsquareAdj}).
+
+      \item \code{ordiresids} can now display standardized and
+      studentized residuals.
+
+      \item \code{model.frame} and \code{model.matrix} for constrained
+      ordination are now more robust and fail in fewer cases.
+
+      \item \code{prc} gained argument \code{const} for general
+      scaling of resulst similarly as in \code{rda}.
+
+      \item \code{varpart} can now partition \eqn{\chi^2}{Chi-squared}
+      inertia of correspondence analysis with new argument
+      \code{chisquare}.
+
+      \item Great part of \code{decorana} is now coded in C which
+      makes code faster and more memory-efficient.
+
+      \item \code{metaMDS} results gained new \code{points} and
+      \code{text} methods.
+
+      \item \code{ordiplot} and other ordination \code{plot} functions
+      can now be chained with their \code{points} and \code{text}
+      functions allowing the use of \pkg{magrittr} pipes.
+
+      The generic \code{points} and \code{text} functions gained
+      argument to draw arrows allowing their use in biplots or adding
+      environmental vectors.
+
+      \item Lattice graphics for ordination can now add polygons that
+      enclose all points in the data.
+
+      \item \code{ordicluster} gained option to suppress drawing in
+      plots so that it can be more easily embedded in other functions
+      for calculations.
+
+      \item Ecological null models (\code{nullmodel}, \code{simulate},
+      \code{make.commsim}, \code{oecosimu}) gained new alternative
+      \code{"greedyqswap"} which can radically speed up quasi-swap
+      models with minimal risk of introducing bias.
+
+      The C code for binary null models was made more efficients, and
+      the models are now all faster.
+
+      Backtracking is written in C and it is now much faster. However,
+      backtracking models are biased, and they are provided only
+      because they are classic legacy models.
+
+      \item \code{decostand} gained new standardization methods
+      \code{rank} and \code{rrank} which replace abundance values by
+      their ranks or relative ranks.
+
+      \item Clark dissimilarity was added to \code{vegdist}.
+
+      \item \code{tabasco} can now use traditional cover scale values
+      from function \code{coverscale}.
+
+    } % itemize
+  } % new features
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item \code{as.mlm} function for constrained correspondence
+      analysis is deprecated in favour of new functions that directly
+      give the influence statistics.
+
+      \item \code{commsimulator} is now defunct: use \code{simulate}
+      for \code{nullmodel} objects.
+
+    } %itemize
+  } % deprecated & defunct
+
+} % 2.5-0
+
 \section{Changes in version 2.4-6}{
 
   \subsection{INSTALLATION AND BUILDING}{
