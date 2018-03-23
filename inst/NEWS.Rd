@@ -9,7 +9,10 @@
 
       \item \code{avgdist}: new function to find averaged
       dissimilarities from several random rarefactions of
-      communities. By Geoffrey Hannigan.
+      communities. Code by Geoffrey Hannigan. See github issues
+      \href{https://github.com/vegandevs/vegan/issues/242}{#242},
+      \href{https://github.com/vegandevs/vegan/issues/243}{#243},
+      \href{https://github.com/vegandevs/vegan/issues/246}{#246}.
 
       \item \code{chaodist}: new function that is similar to
       \code{designdist}, but uses Chao terms that are supposed to take
@@ -21,13 +24,15 @@
       \code{rstandard}, \code{rstudent}, \code{cooks.distance},
       \code{SSD}, \code{vcov}, \code{df.residual}. Some of these could
       be earlier found via \code{as.mlm} function which is now
-      deprecated.
+      deprecated. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
 
       \item \code{boxplot} was added for \code{permustats} results.
 
       \item \code{sppscores}: new function to add or replace species
       scores in distance-based ordination such as \code{dbrda},
-      \code{capscale} and \code{metaMDS}.
+      \code{capscale} and \code{metaMDS}. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/254}{#254}.
 
       \item \code{sipoo.map}: a new data set of locations and sizes of
       the islands in the Sipoo archipelago bird data set \code{sipoo}.
@@ -40,10 +45,14 @@
 
       \item Constrained ordination methods (\code{cca}, \code{rda},
       \code{dbrda}, \code{capscale}) use now shared code and more
-      consistent with each other, and also more easily extended.
+      consistent with each other, and also more easily extended. See
+      github issues
+      \href{https://github.com/vegandevs/vegan/issues/218}{#218},
+      \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
 
       \item Regression scores for constraints can now be extracted and
-      plotted for constrained ordination methods.
+      plotted for constrained ordination methods. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/226}{#226}.
 
       \item Full model (\code{model = "full"}) is again enabled in
       permutations tests for constrained ordination results in
@@ -57,7 +66,8 @@
       should have been fixed.
 
       Permutation tests use now compiled C code and they are much
-      faster.
+      faster. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/211}{#211}.
 
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for
       results of partial ordination, because it is unclear how this
@@ -84,7 +94,9 @@
 
       \item \code{ordiplot} and other ordination \code{plot} functions
       can now be chained with their \code{points} and \code{text}
-      functions allowing the use of \pkg{magrittr} pipes.
+      functions allowing the use of \pkg{magrittr} pipes. See githug
+      issue
+      \href{https://github.com/vegandevs/vegan/issues/257}{#257}
 
       The generic \code{points} and \code{text} functions gained
       argument to draw arrows allowing their use in biplots or adding
@@ -109,9 +121,14 @@
       backtracking models are biased, and they are provided only
       because they are classic legacy models.
 
+      See github issues
+      \href{https://github.com/vegandevs/vegan/issues/197}{#197},
+      \href{https://github.com/vegandevs/vegan/issues/255}{#255}
+
       \item \code{decostand} gained new standardization methods
       \code{rank} and \code{rrank} which replace abundance values by
-      their ranks or relative ranks.
+      their ranks or relative ranks. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/225}{#225}.
 
       \item Clark dissimilarity was added to \code{vegdist}.
 
@@ -126,7 +143,8 @@
 
       \item \code{as.mlm} function for constrained correspondence
       analysis is deprecated in favour of new functions that directly
-      give the influence statistics.
+      give the influence statistics. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
 
       \item \code{commsimulator} is now defunct: use \code{simulate}
       for \code{nullmodel} objects.
