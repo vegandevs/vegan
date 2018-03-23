@@ -138,6 +138,16 @@
     } % itemize
   } % new features
 
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Labels were not adjusted to user set scale of arrows in
+      \code{envfit} plots. See StackOverflow question
+      \href{https://stackoverflow.com/questions/49259747}{49259747}.
+
+    } % itemize
+  } % bug fixes
+
   \subsection{DEPRECATED AND DEFUNCT}{
     \itemize{
 
