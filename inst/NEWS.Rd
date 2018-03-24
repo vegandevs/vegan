@@ -34,6 +34,11 @@
       \code{capscale} and \code{metaMDS}. See github issue
       \href{https://github.com/vegandevs/vegan/issues/254}{#254}.
 
+      \item \code{cutreeord}: new function that is similar to
+      \code{stats::cutree}, but numbers the cluster in the order they
+      appear in the dendrogram instead of labelling them in the order
+      they appeared in the data.
+
       \item \code{sipoo.map}: a new data set of locations and sizes of
       the islands in the Sipoo archipelago bird data set \code{sipoo}.
 
@@ -69,6 +74,8 @@
       faster. See github issue
       \href{https://github.com/vegandevs/vegan/issues/211}{#211}.
 
+      \code{permutest} printed layout is similar to \code{anova.cca}.
+
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for
       results of partial ordination, because it is unclear how this
       should be done (function \code{RsquareAdj}).
@@ -79,8 +86,20 @@
       \item \code{model.frame} and \code{model.matrix} for constrained
       ordination are now more robust and fail in fewer cases.
 
+      \item \code{goodness} and \code{inertcomp} for constrained
+      ordination result object no longer has an option to find
+      distances: only explained variation is available.
+
+      \item \code{inertcomp} gained argument \code{unity}. This will
+      give \dQuote{local contributions to beta-diversity} (LCBD) and
+      \dQuote{species contribution to beta-diversity} (SCBD) of
+      Legendere & De Caceres (\emph{Ecol Lett} 16, 951-963; 2012)
+
       \item \code{prc} gained argument \code{const} for general
       scaling of resulst similarly as in \code{rda}.
+
+      \item \code{adonis2} gained a column of \eqn{R^2}{R-squared}
+      similarly as old \code{adonis}.
 
       \item \code{varpart} can now partition \eqn{\chi^2}{Chi-squared}
       inertia of correspondence analysis with new argument
@@ -125,12 +144,25 @@
       \href{https://github.com/vegandevs/vegan/issues/197}{#197},
       \href{https://github.com/vegandevs/vegan/issues/255}{#255}
 
+      \item \code{as.rad} returns the index of included taxa as an
+      attribute.
+
+      \item Random rarefaction (function \code{rrarefy}) uses compiled
+      C code and is much faster.
+
+      \item \code{plot} of \code{specaccum} can now draw short
+      horizontal bars to vertical error bars to address a query in 
+      \href{https://stackoverflow.com/questions/45378751}{StackOverflow}.
+
       \item \code{decostand} gained new standardization methods
       \code{rank} and \code{rrank} which replace abundance values by
       their ranks or relative ranks. See github issue
       \href{https://github.com/vegandevs/vegan/issues/225}{#225}.
 
       \item Clark dissimilarity was added to \code{vegdist}.
+
+      \item \code{designdist} evaluates minimum terms in compiled
+      code, and the function is faster.
 
       \item \code{tabasco} can now use traditional cover scale values
       from function \code{coverscale}.
