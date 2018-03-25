@@ -2,6 +2,580 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-0}{
+
+  \subsection{NEW FUNCTIONS}{
+    \itemize{
+
+      \item \code{avgdist}: new function to find averaged
+      dissimilarities from several random rarefactions of
+      communities. Code by Geoffrey Hannigan. See github issues
+      \href{https://github.com/vegandevs/vegan/issues/242}{#242},
+      \href{https://github.com/vegandevs/vegan/issues/243}{#243},
+      \href{https://github.com/vegandevs/vegan/issues/246}{#246}.
+
+      \item \code{chaodist}: new function that is similar to
+      \code{designdist}, but uses Chao terms that are supposed to take
+      into account the effects of unseen species (Chao et al.,
+      \emph{Ecol Letters} 8, 148-159; 2005).
+
+      \item New functions to find influence statistics of constrained
+      ordination objects: \code{hatvalues}, \code{sigma},
+      \code{rstandard}, \code{rstudent}, \code{cooks.distance},
+      \code{SSD}, \code{vcov}, \code{df.residual}. Some of these could
+      be earlier found via \code{as.mlm} function which is now
+      deprecated. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
+
+      \item \code{boxplot} was added for \code{permustats} results to
+      display the (standardized) effect sizes.
+
+      \item \code{sppscores}: new function to add or replace species
+      scores in distance-based ordination such as \code{dbrda},
+      \code{capscale} and \code{metaMDS}. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/254}{#254}.
+
+      \item \code{cutreeord}: new function that is similar to
+      \code{stats::cutree}, but numbers the cluster in the order they
+      appear in the dendrogram instead of labelling them in the order
+      they appeared in the data.
+
+      \item \code{sipoo.map}: a new data set of locations and sizes of
+      the islands in the Sipoo archipelago bird data set \code{sipoo}.
+
+    } %itemize
+  } % new functions
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Constrained ordination methods (\code{cca}, \code{rda},
+      \code{dbrda}, \code{capscale}) use now shared code and more
+      consistent with each other, and also more easily extended. See
+      github issues
+      \href{https://github.com/vegandevs/vegan/issues/218}{#218},
+      \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
+
+      \item Regression scores for constraints can now be extracted and
+      plotted for constrained ordination methods. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/226}{#226}.
+
+      \item Full model (\code{model = "full"}) is again enabled in
+      permutations tests for constrained ordination results in
+      \code{anova.cca} and \code{permutest.cca}.
+
+      \code{permutest.cca} gained a new option \code{by = "onedf"} to
+      perform tests by sequential one degree-of-freedom contrasts of
+      factors.
+
+      The permutation tests are more robust, and most scoping issues
+      should have been fixed.
+
+      Permutation tests use now compiled C code and they are much
+      faster. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/211}{#211}.
+
+      \code{permutest} printed layout is similar to \code{anova.cca}.
+
+      \item Adjusted \eqn{R^2}{R-squared} is not calculated for
+      results of partial ordination, because it is unclear how this
+      should be done (function \code{RsquareAdj}).
+
+      \item \code{ordiresids} can now display standardized and
+      studentized residuals.
+
+      \item \code{model.frame} and \code{model.matrix} for constrained
+      ordination are now more robust and fail in fewer cases.
+
+      \item \code{goodness} and \code{inertcomp} for constrained
+      ordination result object no longer has an option to find
+      distances: only explained variation is available.
+
+      \item \code{inertcomp} gained argument \code{unity}. This will
+      give \dQuote{local contributions to beta-diversity} (LCBD) and
+      \dQuote{species contribution to beta-diversity} (SCBD) of
+      Legendere & De Caceres (\emph{Ecol Letters} 16, 951-963; 2012).
+
+      \item{goodness} is disabled for \code{capscale}.
+
+      \item \code{prc} gained argument \code{const} for general
+      scaling of results similarly as in \code{rda}.
+
+      \code{prc} uses now regression scores.
+
+      \item \code{adonis2} gained a column of \eqn{R^2}{R-squared}
+      similarly as old \code{adonis}.
+
+      \item \code{varpart} can now partition \eqn{\chi^2}{Chi-squared}
+      inertia of correspondence analysis with new argument
+      \code{chisquare}.
+
+      \item Great part of \code{decorana} is now coded in C which
+      makes code faster and more memory-efficient.
+
+      \item \code{metaMDS} results gained new \code{points} and
+      \code{text} methods.
+
+      \item \code{ordiplot} and other ordination \code{plot} functions
+      can now be chained with their \code{points} and \code{text}
+      functions allowing the use of \pkg{magrittr} pipes. See githug
+      issue
+      \href{https://github.com/vegandevs/vegan/issues/257}{#257}
+
+      The generic \code{points} and \code{text} functions gained
+      argument to draw arrows allowing their use in biplots or adding
+      environmental vectors.
+
+      \item Lattice graphics for ordination can now add polygons that
+      enclose all points in the data.
+
+      \item \code{ordicluster} gained option to suppress drawing in
+      plots so that it can be more easily embedded in other functions
+      for calculations.
+
+      \item Ecological null models (\code{nullmodel}, \code{simulate},
+      \code{make.commsim}, \code{oecosimu}) gained new alternative
+      \code{"greedyqswap"} which can radically speed up quasi-swap
+      models with minimal risk of introducing bias.
+
+      The C code for binary null models was made more efficients, and
+      the models are now all faster. However, this also means that
+      random number sequences change, and old binary model results
+      cannot be replicated exactly.
+
+      Backtracking is written in C and it is now much faster. However,
+      backtracking models are biased, and they are provided only
+      because they are classic legacy models.
+
+      See github issues
+      \href{https://github.com/vegandevs/vegan/issues/197}{#197},
+      \href{https://github.com/vegandevs/vegan/issues/255}{#255}
+
+      \item \code{as.rad} returns the index of included taxa as an
+      attribute.
+
+      \item Random rarefaction (function \code{rrarefy}) uses compiled
+      C code and is much faster.
+
+      \item \code{plot} of \code{specaccum} can now draw short
+      horizontal bars to vertical error bars to address a query in 
+      \href{https://stackoverflow.com/questions/45378751}{StackOverflow}.
+
+      \item \code{decostand} gained new standardization methods
+      \code{rank} and \code{rrank} which replace abundance values by
+      their ranks or relative ranks. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/225}{#225}.
+
+      \item Clark dissimilarity was added to \code{vegdist}.
+
+      \item \code{designdist} evaluates minimum terms in compiled
+      code, and the function is faster.
+
+      \item \code{tabasco} can now use traditional cover scale values
+      from function \code{coverscale}. Function \code{coverscale} can
+      now return scaled values as integers for numerical analysis
+      instead of returning characters.
+
+    } % itemize
+  } % new features
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Labels were not adjusted to user set scale of arrows in
+      \code{envfit} plots. See StackOverflow question
+      \href{https://stackoverflow.com/questions/49259747}{49259747}.
+
+    } % itemize
+  } % bug fixes
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item \code{as.mlm} function for constrained correspondence
+      analysis is deprecated in favour of new functions that directly
+      give the influence statistics. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
+
+      \item \code{commsimulator} is now defunct: use \code{simulate}
+      for \code{nullmodel} objects.
+
+      \item \pkg{ade4} \code{cca} objects are no longer handled in
+      \pkg{vegan}: \pkg{ade4} has had no \code{cca} since version
+      1.7-8 (August 9, 2017).
+
+    } %itemize
+  } % deprecated & defunct
+
+} % 2.5-0
+
+\section{Changes in version 2.4-6}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item CRAN packages are no longer allowed to use FORTRAN input,
+      but \code{read.cep} function used FORTRAN format to read legacy
+      CEP and Canoco files. To avoid NOTEs and WARNINGs, the function
+      was re-written in \R. The new \code{read.cep} is less powerful and
+      more fragile, and can only read data in \dQuote{condensed} format,
+      and it can fail in several cases that were successful with the old
+      code. The old FORTRAN-based function is still available in github
+      package
+      \href{https://github.com/vegandevs/cepreader/}{cepreader}. See
+      github issue
+      \href{https://github.com/vegandevs/vegan/issues/263}{#263}.
+
+    } %itemize
+  } % general
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Some functions for rarefaction (\code{rrarefy}), species
+      abundance distribution (\code{preston}) and species pool
+      (\code{estimateR}) need exact integer data, but the test allowed
+      small fuzz. The functions worked correctly with original data, but
+      if data were transformed and then back-transformed, they would
+      pass the integer test with fuzz and give wrong results. For
+      instance, \code{sqrt(3)^2} would pass the test as 3, but was
+      interpreted strictly as integer 2. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/259}{#259}.
+
+    } % itemize
+  } % bugs
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{ordiresids} uses now weighted residuals for
+      \code{cca} results.
+
+    } %itemize
+  } % features
+
+} % 2.4-6
+
+\section{Changes in version 2.4-5}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Several \dQuote{Swap & Shuffle} null models generated wrong
+      number of initial matrices. Usually they generated too many, which
+      was not dangerous, but it was slow. However, random sequences will
+      change with this fix.
+
+      \item Lattice graphics for ordination (\code{ordixyplot} and
+      friends) colour the arrows by \code{groups} instead of randomly
+      mixed colours.
+
+      \item Information on constant or mirrored permutations was
+      omitted when reporting permutation tests (e.g., in \code{anova}
+      for constrained ordination).
+
+    } % itemize
+  } % bug fixes 
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{ordistep} has improved interpretation of
+      \code{scope}: if the lower scope is missing, the formula of the
+      starting solution is taken as the lower scope instead of using
+      an empty model. See Stackoverflow question
+      \href{https://stackoverflow.com/questions/46985029/}{46985029}.
+
+      \item \code{fitspecaccum} gained new support functions \code{nobs}
+      and \code{logLik} which allow better co-operation with other
+      packages and functions. See GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/250}{#250}.
+
+      \item The \dQuote{backtracking} null model for community
+      simulation is faster. However, \dQuote{backtracking} is a biased
+      legacy model that should not be used except in comparative
+      studies.
+
+    } %itemize
+  } % new features
+
+
+} % 2.4-5
+
+\section{Changes in version 2.4-4}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item \code{orditkplot} should no longer give warnings in CRAN
+      tests.
+
+    } %itemize
+  } % installatin and building
+  
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{anova(..., by = "axis")} for constrained ordination
+      (\code{cca}, \code{rda}, \code{dbrda}) ignored partial terms in
+      \code{Condition()}.
+      
+      \item \code{inertcomp} and \code{summary.cca} failed if the
+      constrained component was defined, but explained nothing and had
+      zero rank. See StackOverflow:
+      \href{https://stackoverflow.com/questions/43683699/}{R - Error
+      message in doing RDA analysis - vegan package}.
+
+      \item Labels are no longer cropped in the \code{meandist} plots.
+
+
+    } % itemize
+  } % bug fixes
+  
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item The significance tests for the axes of constrained
+      ordination use now forward testing strategy. More extensive
+      analysis indicated that the previous marginal tests were biased.
+      This is in conflict with Legendre, Oksanen & ter Braak,
+      \emph{Methods Ecol Evol} \strong{2,} 269--277 (2011) who regarded
+      marginal tests as unbiased.
+
+      \item Canberra distance in \code{vegdist} can now handle negative
+      input entries similarly as latest versions of \R.
+
+    } %itemize
+  } % new features
+} % v2.4-4
+
+\section{Changes in version 2.4-3}{
+
+  \subsection{INSTALLATION AND BUILDING}{
+    \itemize{
+
+      \item \pkg{vegan} registers native \bold{C} and \bold{Fortran}
+      routines. This avoids warnings in model checking, and may also
+      give a small gain in speed.
+
+      \item Future versions of \pkg{vegan} will deprecate and remove
+      elements \code{pCCA$Fit}, \code{CCA$Xbar}, and \code{CA$Xbar}
+      from \code{cca} result objects. This release provides a new
+      function \code{ordiYbar} which is able to construct these
+      elements both from the current and future releases. Scripts and
+      functions directly accessing these elements should switch to
+      \code{ordiYbar} for smooth transition.
+
+    } % itemize
+  } % installation
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{as.mlm} methods for constrained ordination include
+      zero intercept to give the correct residual degrees of freedom for
+      derived statistics.
+
+      \item \code{biplot} method for \code{rda} passes
+      \code{correlation} argument to the scaling algorithm.
+
+      \item Biplot scores were wrongly centred in \code{cca} which
+      caused a small error in their values.
+
+      \item Weighting and centring were corrected in \code{intersetcor}
+      and \code{spenvcor}. The fix can make a small difference when
+      analysing \code{cca} results.
+
+      Partial models were not correctly handled in \code{intersetcor}.
+
+      \item \code{envfit} and \code{ordisurf} functions failed when
+      applied to species scores.
+
+      \item Non-standard variable names can be used within
+      \code{Condition()} in partial ordination.  Partial models are used
+      internally within several functions, and a problem was reported by
+      Albin Meyer (Univ Lorraine, Metz, France) in \code{ordiR2step}
+      when using a variable name that contained a hyphen (which was
+      wrongly interpreted as a minus sign in partial ordination).
+
+      \item \code{ordispider} did not pass graphical arguments when
+      used to show the difference of LC and WA scores in constrained
+      ordination.
+
+      \item \code{ordiR2step} uses only \code{forward} selection to
+      avoid several problems in model evaluation.
+
+      \item \code{tolerance} function could return \code{NaN} in some
+      cases when it should have returned \eqn{0}. Partial models were
+      not correctly analysed. Misleading (non-zero) tolerances were
+      sometimes given for species that occurred only once or sampling
+      units that had only one species.
+
+    } %itemize
+  } % bug fixes
+
+} % 2.4-3
+
+\section{Changes in version 2.4-2}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Permutation tests (\code{permutests}, \code{anova}) for the
+      first axis failed in constrained distance-based ordination
+      (\code{dbrda}, \code{capscale}). Now \code{capscale} will also
+      throw away negative eigenvalues when first eigenvalues are
+      tested. All permutation tests for the first axis are now
+      faster. The problem was reported by Cleo Tebby and the fixes are
+      discussed in GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/198}{#198} and
+      pull request
+      \href{https://github.com/vegandevs/vegan/pull/199}{#199}.
+
+      \item Some support functions for \code{dbrda} or \code{capscale}
+      gave results or some of their components in wrong scale. Fixes in
+      \code{stressplot}, \code{simulate}, \code{predict} and
+      \code{fitted} functions.
+
+      \item \code{intersetcor} did not use correct weighting for
+      \code{cca} and the results were slightly off.
+
+      \item \code{anova} and \code{permutest} failed when
+      \code{betadisper} was fitted with argument
+      \code{bias.adjust = TRUE}. Fixes Github issue
+      \href{https://github.com/vegandevs/vegan/issues/219}{#219}
+      reported by Ross Cunning, O'ahu, Hawaii.
+
+      \item \code{ordicluster} should return invisibly only the
+      coordinates of internal points (where clusters or points are
+      joined), but last rows contained coordinates of external points
+      (ordination scores of points).
+
+      \item The \code{cca} method of \code{tolerance} was returning
+      incorrect values for all but the second axis for sample
+      heterogeneities and species tolerances. See issue 
+      \href{https://github.com/vegandevs/vegan/issues/216}{#216} for
+      details.
+
+    } %itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Biplot scores are scaled similarly as site scores in
+      constrained ordination methods \code{cca}, \code{rda},
+      \code{capscale} and \code{dbrda}. Earlier they were unscaled (or
+      more technically, had equal scaling on all axes).
+
+      \item \code{tabasco} adds argument to \code{scale} the colours
+      by rows or columns in addition to the old equal scale over the
+      whole plot. New arguments \code{labRow} and \code{labCex} can be
+      used to change the column or row labels. Function also takes
+      care that only above-zero observations are coloured: earlier
+      tiny observed values were merged to zeros and were not distinct
+      in the plots.
+
+      \item Sequential null models are somewhat faster (up to
+      10\%). Non-sequential null models may be marginally faster. These
+      null models are generated by function \code{nullmodel} and also
+      used in \code{oecosimu}.
+
+      \item \code{vegdist} is much faster. It used to be clearly slower
+      than \code{stats::dist}, but now it is nearly equally fast for the
+      same dissimilarity measure.
+
+      \item Handling of \code{data=} in formula interface is more
+      robust, and messages on user errors are improved. This fixes
+      points raised in Github issue
+      \href{https://github.com/vegandevs/vegan/issues/200}{#200}.
+
+      \item The families and orders in \code{dune.taxon} were updated to
+      APG IV (\emph{Bot J Linnean Soc} \strong{181,} 1--20; 2016) and a
+      corresponding classification for higher levels (Chase & Reveal,
+      \emph{Bot J Linnean Soc} \strong{161,} 122-127; 2009).
+
+    } %itemize
+  } % features
+
+
+} % 2.4-2
+
+\section{Changes in version 2.4-1}{
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item Fortran code was modernized to avoid warnings in latest
+      \R. The modernization should have no visible effect in
+      functions. Please report all suspect cases as
+      \href{https://github.com/vegandevs/vegan/issues/}{vegan issues}.
+
+    } %itemize
+  } % installation
+
+  
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Several support functions for ordination methods failed if
+      the solution had only one ordination axis, for instance, if
+      there was only one constraining variable in CCA, RDA and
+      friends. This concerned \code{goodness} for constrained
+      ordination, \code{inertcomp}, \code{fitted} for
+      \code{capscale}, \code{stressplot} for RDA, CCA (GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/189}{#189}).
+
+      \item \code{goodness} for CCA & friends ignored \code{choices}
+      argument (GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/190}{#190}).
+
+      \item \code{goodness} function did not consider negative
+      eigenvalues of db-RDA (function \code{dbrda}).
+
+      \item Function \code{meandist} failed in some cases when one of
+      the groups had only one observation.
+
+      \item \code{linestack} could not handle expressions in
+      \code{labels}. This regression is discussed in GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/195}{#195}.
+
+      \item Nestedness measures \code{nestedbetajac} and
+      \code{nestedbetasor} expecting binary data did not cope with
+      quantitative input in evaluating Baselga's matrix-wide Jaccard
+      or Sørensen dissimilarity indices.
+
+      \item Function \code{as.mcmc} to cast \code{oecosimu} result to an
+      MCMC object (\pkg{coda} package) failed if there was only one
+      chain.
+
+    } % itemize
+  } % bug fixes
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{diversity} function returns now \code{NA} if the
+      observation had \code{NA} values instead of returning
+      \code{0}. The function also checks the input and refuses to
+      handle data with negative values.  GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/187}{#187}.
+
+      \item \code{rarefy} function will work more robustly in marginal
+      case when the user asks for only one individual which can only
+      be one species with zero variance.
+
+      \item Several functions are more robust if their factor arguments
+      contain missing values (\code{NA}): \code{betadisper},
+      \code{adipart}, \code{multipart}, \code{hiersimu}, \code{envfit}
+      and constrained ordination methods \code{cca}, \code{rda},
+      \code{capscale} and \code{dbrda}. GitHub issues
+      \href{https://github.com/vegandevs/vegan/issues/192}{#192} and
+      \href{https://github.com/vegandevs/vegan/issues/193}{#193}.
+
+    } % itemize
+  } % new features
+
+} % 2.4-1
+
 \section{Changes in version 2.4-0}{
   \subsection{DISTANCE-BASED ANALYSIS}{
      \itemize{
@@ -81,7 +655,8 @@
     \itemize{
 
       \item \code{specaccum}: \code{plot} failed if line type
-      (\code{lty}) was given.
+      (\code{lty}) was given. Reported by Lila Nath Sharma (Univ
+      Bergen, Norway)
 
     } %itemize
   } %bug fixes
