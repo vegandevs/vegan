@@ -4,8 +4,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
 {
     if (missing(data))
         data <- environment(formula)
-    Terms <- terms(formula, "Condition", data = data)
-    flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
+    fla <- formula
     ## distance-based methods (capscale, dbrda) evaluate specdata (LHS
     ## in formula) within their code, and the handling in
     ## ordiParseFormula is redundand and can be expensive
@@ -14,40 +13,24 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         X <- eval(specdata, environment(formula), enclos=globalenv())
     }
     X <- as.matrix(X)
-    indPartial <- attr(Terms, "specials")$Condition
-    zmf <- ymf <- Y <- Z <- NULL
     formula[[2]] <- NULL
+    Terms <- terms(formula, "Condition", data = data)
+    indPartial <- attr(Terms, "specials")$Condition
+    mf <- get_all_vars(formula, data)
+    zmf <- ymf <- NULL
+    Y <- Z <- NULL
     if (!is.null(indPartial)) {
-        partterm <- attr(Terms, "variables")[1 + indPartial]
-        Pterm <- sapply(partterm, function(x)
-            deparse(x[[2]], width.cutoff=500, backtick = TRUE))
-        Pterm <- paste(Pterm, collapse = "+")
-        P.formula <- as.formula(paste("~", Pterm), env = environment(formula))
-        zlev <- xlev[names(xlev) %in% Pterm]
-        zmf <- if (inherits(data, "environment"))
-            eval(substitute(
-                model.frame(P.formula, na.action = na.pass, xlev = zlev)),
-                 envir = data, enclos = .GlobalEnv)
-        else
-            model.frame(P.formula, data, na.action = na.pass, xlev = zlev)
-        partterm <- sapply(partterm, function(x)
-            deparse(x, width.cutoff=500, backtick = TRUE))
-        formula <- update(formula, paste("~.-", paste(partterm,
-            collapse = "-")))
-        flapart <- update(formula, paste(" ~ . +", Pterm))
+        zmf <- mf[, indPartial, drop=FALSE]
+        if (ncol(zmf) < ncol(mf))
+            ymf <- mf[, -indPartial, drop=FALSE]
+    } else {
+        ymf <- mf
     }
     if (formula[[2]] == "1" || formula[[2]] == "0")
         Y <- NULL
     else {
-        if (exists("Pterm"))
-            xlev <- xlev[!(names(xlev) %in% Pterm)]
-
-        ymf <- if (inherits(data, "environment"))
-            eval(substitute(
-                model.frame(formula, na.action = na.pass, xlev = xlev)),
-                 envir=data, enclos=.GlobalEnv)
-        else
-            model.frame(formula, data, na.action = na.pass, xlev = xlev)
+        if (!is.null(zmf))
+            xlev <- xlev[names(xlev) %in% names(ymf)]
     }
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {
@@ -71,7 +54,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
             mf <- mf[subset, , drop = FALSE]
     }
     ## Get na.action attribute, remove NA and drop unused levels
-    if (NROW(mf) > 0) {
+    if (NCOL(mf) > 0) {
         mf <- model.frame(formula(mf), mf, xlev = xlev,
                           na.action = na.action, drop.unused.levels = TRUE)
         nas <- attr(mf, "na.action")
@@ -90,12 +73,12 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         excluded <-  NULL
     }
     if (ncond > 0) {
-        Z <- model.matrix(P.formula, mf)
+        Z <- model.matrix(reformulate(names(zmf)), zmf)
         if (any(colnames(Z) == "(Intercept)"))
             Z <- Z[, -which(colnames(Z) == "(Intercept)"), drop = FALSE]
     }
-    if (NROW(mf) > 0) {
-        Y <- model.matrix(formula, mf)
+    if (NCOL(ymf) > 0) {
+        Y <- model.matrix(reformulate(names(ymf)), ymf)
         ## save assign attribute
         assign <- attr(Y, "assign")
         assign <- assign[assign > 0]
@@ -117,7 +100,13 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         rownames(Z) <- rownames(Z, do.NULL = FALSE)
         colnames(Z) <- colnames(Z, do.NULL = FALSE)
     }
-    list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500),
-         terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
+    if (NCOL(mf) > 0)
+        Trms <- terms(reformulate(names(mf)), width.cutoff = 500)
+    else {
+        Trms <- terms(fla)
+        mf <- NULL
+    }
+    list(X = X, Y = Y, Z = Z, terms = fla,
+         terms.expand = Trms, modelframe = mf,
          subset = subset, na.action = nas, excluded = excluded)
 }
