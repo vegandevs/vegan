@@ -27,7 +27,8 @@
       deprecated. See github issue
       \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
 
-      \item \code{boxplot} was added for \code{permustats} results.
+      \item \code{boxplot} was added for \code{permustats} results to
+      display the (standardized) effect sizes.
 
       \item \code{sppscores}: new function to add or replace species
       scores in distance-based ordination such as \code{dbrda},
@@ -93,10 +94,14 @@
       \item \code{inertcomp} gained argument \code{unity}. This will
       give \dQuote{local contributions to beta-diversity} (LCBD) and
       \dQuote{species contribution to beta-diversity} (SCBD) of
-      Legendere & De Caceres (\emph{Ecol Lett} 16, 951-963; 2012)
+      Legendere & De Caceres (\emph{Ecol Letters} 16, 951-963; 2012).
+
+      \item{goodness} is disabled for \code{capscale}.
 
       \item \code{prc} gained argument \code{const} for general
-      scaling of resulst similarly as in \code{rda}.
+      scaling of results similarly as in \code{rda}.
+
+      \code{prc} uses now regression scores.
 
       \item \code{adonis2} gained a column of \eqn{R^2}{R-squared}
       similarly as old \code{adonis}.
@@ -134,7 +139,9 @@
       models with minimal risk of introducing bias.
 
       The C code for binary null models was made more efficients, and
-      the models are now all faster.
+      the models are now all faster. However, this also means that
+      random number sequences change, and old binary model results
+      cannot be replicated exactly.
 
       Backtracking is written in C and it is now much faster. However,
       backtracking models are biased, and they are provided only
@@ -165,7 +172,9 @@
       code, and the function is faster.
 
       \item \code{tabasco} can now use traditional cover scale values
-      from function \code{coverscale}.
+      from function \code{coverscale}. Function \code{coverscale} can
+      now return scaled values as integers for numerical analysis
+      instead of returning characters.
 
     } % itemize
   } % new features
@@ -190,6 +199,10 @@
 
       \item \code{commsimulator} is now defunct: use \code{simulate}
       for \code{nullmodel} objects.
+
+      \item \pkg{ade4} \code{cca} objects are no longer handled in
+      \pkg{vegan}: \pkg{ade4} has had no \code{cca} since version
+      1.7-8 (August 9, 2017).
 
     } %itemize
   } % deprecated & defunct
