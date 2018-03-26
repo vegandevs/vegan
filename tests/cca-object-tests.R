@@ -111,7 +111,7 @@ eigenvals(mdb)
 eigenvals(mancap)
 eigenvals(mandb)
 eigenvals(m0cca)
-eigenvals(m0cca, constrained = TRUE)
+eigenvals(m0cca, model = "constrained")
 
 nobs(mcca)
 nobs(mrda)
