@@ -50,11 +50,14 @@
     \itemize{
 
       \item Constrained ordination methods (\code{cca}, \code{rda},
-      \code{dbrda}, \code{capscale}) use now shared code and more
-      consistent with each other, and also more easily extended. See
-      github issues
+      \code{dbrda}, \code{capscale}) use now shared code and are more
+      consistent with each other. See github issues
       \href{https://github.com/vegandevs/vegan/issues/218}{#218},
       \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
+
+      \item The inertia of Correspondence Analysis (\code{cca}) is now
+      called \dQuote{scaled Chi-square} instead of usin a name of a
+      little known statistic.
 
       \item Regression scores for constraints can now be extracted and
       plotted for constrained ordination methods. See github issue
@@ -76,6 +79,10 @@
       \href{https://github.com/vegandevs/vegan/issues/211}{#211}.
 
       \code{permutest} printed layout is similar to \code{anova.cca}.
+
+      \item \code{eigenvals} gained a new argument \code{model} to
+      select either constrained or unconstrained scores. The old
+      argument \code{constrained} is deprecated.
 
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for
       results of partial ordination, because it is unclear how this
