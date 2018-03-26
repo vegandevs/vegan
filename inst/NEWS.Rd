@@ -17,7 +17,7 @@
       \item \code{chaodist}: new function that is similar to
       \code{designdist}, but uses Chao terms that are supposed to take
       into account the effects of unseen species (Chao et al.,
-      \emph{Ecol Letters} 8, 148-159; 2005).
+      \emph{Ecology Letters} 8, 148-159; 2005).
 
       \item New functions to find influence statistics of constrained
       ordination objects: \code{hatvalues}, \code{sigma},
@@ -50,11 +50,14 @@
     \itemize{
 
       \item Constrained ordination methods (\code{cca}, \code{rda},
-      \code{dbrda}, \code{capscale}) use now shared code and more
-      consistent with each other, and also more easily extended. See
-      github issues
+      \code{dbrda}, \code{capscale}) use now shared code and are more
+      consistent with each other. See github issues
       \href{https://github.com/vegandevs/vegan/issues/218}{#218},
       \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
+
+      \item The inertia of Correspondence Analysis (\code{cca}) is now
+      called \dQuote{scaled Chi-square} instead of using a name of a
+      little known statistic.
 
       \item Regression scores for constraints can now be extracted and
       plotted for constrained ordination methods. See github issue
@@ -66,7 +69,7 @@
 
       \code{permutest.cca} gained a new option \code{by = "onedf"} to
       perform tests by sequential one degree-of-freedom contrasts of
-      factors.
+      factors. This option is not (yet) enabled in \code{anova.cca}.
 
       The permutation tests are more robust, and most scoping issues
       should have been fixed.
@@ -77,15 +80,20 @@
 
       \code{permutest} printed layout is similar to \code{anova.cca}.
 
+      \item \code{eigenvals} gained a new argument \code{model} to
+      select either constrained or unconstrained scores. The old
+      argument \code{constrained} is deprecated.
+
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for
       results of partial ordination, because it is unclear how this
       should be done (function \code{RsquareAdj}).
 
-      \item \code{ordiresids} can now display standardized and
-      studentized residuals.
+      \item \code{ordiresids} can display standardized and studentized
+      residuals.
 
-      \item \code{model.frame} and \code{model.matrix} for constrained
-      ordination are now more robust and fail in fewer cases.
+      \item Function to construct \code{model.frame} and
+      \code{model.matrix} for constrained ordination are more robust
+      and fail in fewer cases.
 
       \item \code{goodness} and \code{inertcomp} for constrained
       ordination result object no longer has an option to find
@@ -94,47 +102,49 @@
       \item \code{inertcomp} gained argument \code{unity}. This will
       give \dQuote{local contributions to beta-diversity} (LCBD) and
       \dQuote{species contribution to beta-diversity} (SCBD) of
-      Legendere & De Caceres (\emph{Ecol Letters} 16, 951-963; 2012).
+      Legendre & De \enc{Cáceres}{Caceres} (\emph{Ecology Letters} 16,
+      951-963; 2012).
 
-      \item{goodness} is disabled for \code{capscale}.
+      \item \code{goodness} is disabled for \code{capscale}.
 
       \item \code{prc} gained argument \code{const} for general
       scaling of results similarly as in \code{rda}.
 
-      \code{prc} uses now regression scores.
+      \code{prc} uses now regression scores for Canoco-compatibility.
 
       \item \code{adonis2} gained a column of \eqn{R^2}{R-squared}
       similarly as old \code{adonis}.
 
-      \item \code{varpart} can now partition \eqn{\chi^2}{Chi-squared}
+      \item \code{varpart} can partition \eqn{\chi^2}{Chi-squared}
       inertia of correspondence analysis with new argument
       \code{chisquare}.
 
-      \item Great part of \code{decorana} is now coded in C which
-      makes code faster and more memory-efficient.
+      \item Great part of \code{decorana} is in C which
+      makes it faster and use less memory.
 
       \item \code{metaMDS} results gained new \code{points} and
       \code{text} methods.
 
       \item \code{ordiplot} and other ordination \code{plot} functions
       can now be chained with their \code{points} and \code{text}
-      functions allowing the use of \pkg{magrittr} pipes. See githug
+      functions allowing the use of \pkg{magrittr} pipes. See github
       issue
       \href{https://github.com/vegandevs/vegan/issues/257}{#257}
 
       The generic \code{points} and \code{text} functions gained
-      argument to draw arrows allowing their use in biplots or adding
-      environmental vectors.
+      argument to draw arrows allowing their use in drawing biplots or
+      adding vectors of environmental variables.
 
-      \item Lattice graphics for ordination can now add polygons that
-      enclose all points in the data.
+      \item Lattice graphics (\code{ordixyplot}) for ordination can
+      now add polygons that enclose all points in the panel and
+      complete data.
 
       \item \code{ordicluster} gained option to suppress drawing in
       plots so that it can be more easily embedded in other functions
       for calculations.
 
       \item Ecological null models (\code{nullmodel}, \code{simulate},
-      \code{make.commsim}, \code{oecosimu}) gained new alternative
+      \code{make.commsim}, \code{oecosimu}) gained new null model
       \code{"greedyqswap"} which can radically speed up quasi-swap
       models with minimal risk of introducing bias.
 
@@ -150,6 +160,7 @@
       See github issues
       \href{https://github.com/vegandevs/vegan/issues/197}{#197},
       \href{https://github.com/vegandevs/vegan/issues/255}{#255}
+      for details and timing.
 
       \item \code{as.rad} returns the index of included taxa as an
       attribute.
@@ -158,8 +169,9 @@
       C code and is much faster.
 
       \item \code{plot} of \code{specaccum} can now draw short
-      horizontal bars to vertical error bars to address a query in 
-      \href{https://stackoverflow.com/questions/45378751}{StackOverflow}.
+      horizontal bars to vertical error bars. See StackOverflow
+      question
+      \href{https://stackoverflow.com/questions/45378751}{45378751}.
 
       \item \code{decostand} gained new standardization methods
       \code{rank} and \code{rrank} which replace abundance values by
@@ -169,7 +181,8 @@
       \item Clark dissimilarity was added to \code{vegdist}.
 
       \item \code{designdist} evaluates minimum terms in compiled
-      code, and the function is faster.
+      code, and the function is faster than \code{vegdist} also for
+      dissimilarities using minimum terms.
 
       \item \code{tabasco} can now use traditional cover scale values
       from function \code{coverscale}. Function \code{coverscale} can
@@ -181,6 +194,12 @@
 
   \subsection{BUG FIXES}{
     \itemize{
+
+      \item Very long \code{Condition()} statements (> 500 characters)
+      failed in partial constrained ordination models (\code{cca},
+      \code{rda}, \code{dbrda}, \code{capscale}). The problem was
+      detected in StackOverflow question
+      \href{https://stackoverflow.com/questions/49249816}{49249816}.
 
       \item Labels were not adjusted to user set scale of arrows in
       \code{envfit} plots. See StackOverflow question
@@ -220,10 +239,10 @@
       was re-written in \R. The new \code{read.cep} is less powerful and
       more fragile, and can only read data in \dQuote{condensed} format,
       and it can fail in several cases that were successful with the old
-      code. The old FORTRAN-based function is still available in github
+      code. The old FORTRAN-based function is still available in CRAN
       package
-      \href{https://github.com/vegandevs/cepreader/}{cepreader}. See
-      github issue
+      \href{https://CRAN.R-project.org/package=cepreader}{cepreader}.
+      See github issue
       \href{https://github.com/vegandevs/vegan/issues/263}{#263}.
 
     } %itemize
