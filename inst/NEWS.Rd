@@ -220,10 +220,10 @@
       was re-written in \R. The new \code{read.cep} is less powerful and
       more fragile, and can only read data in \dQuote{condensed} format,
       and it can fail in several cases that were successful with the old
-      code. The old FORTRAN-based function is still available in github
+      code. The old FORTRAN-based function is still available in CRAN
       package
-      \href{https://github.com/vegandevs/cepreader/}{cepreader}. See
-      github issue
+      \href{https://CRAN.R-project.org/package=cepreader}{cepreader}.
+      See github issue
       \href{https://github.com/vegandevs/vegan/issues/263}{#263}.
 
     } %itemize
