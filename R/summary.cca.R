@@ -36,7 +36,7 @@
     summ$unconst.chi <- object$CA$tot.chi
     summ$cont <- summary(eigenvals(object))
     if (!is.null(object$CCA) && object$CCA$rank > 0)
-        summ$concont <- summary(eigenvals(object, constrained = TRUE))
+        summ$concont <- summary(eigenvals(object, model = "constrained"))
     summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[seq_len(axes)]
     summ$scaling <- scaling
     summ$digits <- digits
