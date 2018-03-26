@@ -195,6 +195,12 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item Very long \code{Condition()} statements (> 500 characters)
+      failed in partial constrained ordination models (\code{cca},
+      \code{rda}, \code{dbrda}, \code{capscale}). The problem was
+      detected in StackOverflow question
+      \href{https://stackoverflow.com/questions/49249816}{49249816}.
+
       \item Labels were not adjusted to user set scale of arrows in
       \code{envfit} plots. See StackOverflow question
       \href{https://stackoverflow.com/questions/49259747}{49259747}.
