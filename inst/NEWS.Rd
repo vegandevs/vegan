@@ -82,7 +82,8 @@
 
       \item \code{eigenvals} gained a new argument \code{model} to
       select either constrained or unconstrained scores. The old
-      argument \code{constrained} is deprecated.
+      argument \code{constrained} is deprecated. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/207}{#207}.
 
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for
       results of partial ordination, because it is unclear how this
