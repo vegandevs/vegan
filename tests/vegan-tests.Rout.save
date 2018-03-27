@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-22 r74291) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-03-27 r74472) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -990,15 +990,15 @@ Cumulative Proportion 0.1423 0.21304 0.3939 0.5085 0.6123 0.70193 0.77016
 Eigenvalue            0.09979 0.09005 0.07377 0.05072 0.03499 0.02761 0.02337
 Proportion Explained  0.05151 0.04648 0.03808 0.02618 0.01806 0.01425 0.01206
 Cumulative Proportion 0.82167 0.86815 0.90623 0.93241 0.95047 0.96472 0.97678
-                         CA13     CA14     CA15     CA16     CA17     CA18
-Eigenvalue            0.01405 0.009628 0.007234 0.005155 0.003573 0.002545
-Proportion Explained  0.00725 0.004970 0.003730 0.002660 0.001840 0.001310
-Cumulative Proportion 0.98403 0.989000 0.992730 0.995400 0.997240 0.998550
-                          CA19      CA20
-Eigenvalue            0.001807 0.0009945
-Proportion Explained  0.000930 0.0005100
-Cumulative Proportion 0.999490 1.0000000
+                          CA13     CA14     CA15     CA16     CA17     CA18
+Eigenvalue            0.014048 0.009628 0.007234 0.005155 0.003573 0.002545
+Proportion Explained  0.007251 0.004970 0.003734 0.002661 0.001845 0.001314
+Cumulative Proportion 0.984031 0.989001 0.992735 0.995396 0.997240 0.998554
+                           CA19      CA20
+Eigenvalue            0.0018068 0.0009945
+Proportion Explained  0.0009326 0.0005133
+Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  2.666   0.053   2.706 
+  2.674   0.069   2.730 
