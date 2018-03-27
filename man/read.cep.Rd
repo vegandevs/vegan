@@ -62,11 +62,11 @@ read.cep(file, positive=TRUE)
   packages, and the function was re-written in \R. The original
   Fortran code was more robust, and there are several legacy data sets
   that may fail with the current version, but could be read with the
-  previous Fortran version. Github package \pkg{cepreader}
-  \url{https://github.com/vegandevs/cepreader/} makes available the
-  original Fortran-based code. The \pkg{cepreader} package can also
-  read \sQuote{free} and \sQuote{open} Canoco formats that are not
-  handled in this function.
+  previous Fortran version. CRAN package \pkg{cepreader} makes
+  available the original Fortran-based code run in a separate
+  subprocess. The \pkg{cepreader} package can also read \sQuote{free}
+  and \sQuote{open} Canoco formats that are not handled in this
+  function.
 
   The function is based on \code{\link[utils]{read.fortran}}. If the
   \code{REAL} format defines a decimal part for species abundances
