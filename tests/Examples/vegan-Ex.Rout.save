@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-26 r74303) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-03-27 r74472) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1931,7 +1931,7 @@ Eigenvalues for unconstrained axes:
 (Showed only 8 of all 17 unconstrained eigenvalues)
 
 > plot(vare.cca)
-> ## `Partialling out' and `negative components of variance'
+> ## Partialling out and negative components of variance
 > cca(varespec ~ Ca, varechem)
 Call: cca(formula = varespec ~ Ca, data = varechem)
 
@@ -2787,6 +2787,15 @@ Eigenvalue            0.002512 0.0019485 0.0005178
 Proportion Explained  0.001206 0.0009353 0.0002486
 Cumulative Proportion 0.998816 0.9997514 1.0000000
 > 
+> ## choose which eignevalues to return
+> eigenvals(mod, model = "unconstrained")
+      CA1       CA2       CA3       CA4       CA5       CA6       CA7       CA8 
+0.3500372 0.2200788 0.1850741 0.1551179 0.1351054 0.1002670 0.0772991 0.0536938 
+      CA9      CA10      CA11      CA12      CA13      CA14      CA15      CA16 
+0.0365603 0.0350887 0.0282291 0.0170651 0.0122474 0.0101910 0.0094701 0.0055090 
+     CA17      CA18      CA19      CA20 
+0.0030529 0.0025118 0.0019485 0.0005178 
+> 
 > 
 > 
 > cleanEx()
@@ -2889,7 +2898,7 @@ pH       -0.31133604  0.3658438
 > plot(fit, col = "red")
 > 
 > ## Class variables, formula interface, and displaying the
-> ## inter-class variability with `ordispider', and semitransparent
+> ## inter-class variability with ordispider, and semitransparent
 > ## white background for labels (semitransparent colours are not
 > ## supported by all graphics devices)
 > data(dune)
@@ -6863,7 +6872,7 @@ Manhattan     Gower    Ochiai
 > 
 > ### ** Examples
 > 
-> ## Provided that you have the file `dune.spe'
+> ## Provided that you have the file "dune.spe"
 > ## Not run: 
 > ##D theclassic <- read.cep("dune.spe")
 > ## End(Not run)
@@ -9093,7 +9102,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  21.011 0.189 21.201 0 0 
+Time elapsed:  20.391 0.136 20.528 0 0 
 > grDevices::dev.off()
 null device 
           1 
