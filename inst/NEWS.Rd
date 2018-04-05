@@ -289,7 +289,9 @@
       package
       \href{https://CRAN.R-project.org/package=cepreader}{cepreader}.
       See github issue
-      \href{https://github.com/vegandevs/vegan/issues/263}{#263}.
+      \href{https://github.com/vegandevs/vegan/issues/263}{#263}. The
+      \pkg{cepreader} package is developed in
+      \href{https://github.com/vegandevs/cepreader}{https://github.com/vegandevs/cepreader}.
 
     } %itemize
   } % general
