@@ -13,7 +13,7 @@
       \href{https://github.com/vegandevs/vegan/issues/}{https://github.com/vegandevs/vegan/issues/}.
 
       \item Compiled code is used much more extensively, and most
-      compiled functions use now \code{.Call} interface. This gives
+      compiled functions use  \code{.Call} interface. This gives
       smaller memory footprint and is also faster. In wall time, the
       greatest gains are in permutation tests for constrained ordination
       methods (\code{anova.cca}) and binary null models
@@ -50,7 +50,7 @@
       ordination objects: \code{hatvalues}, \code{sigma},
       \code{rstandard}, \code{rstudent}, \code{cooks.distance},
       \code{SSD}, \code{vcov}, \code{df.residual}. Some of these could
-      be earlier found via \code{as.mlm} function which is now
+      be earlier found via \code{as.mlm} function which is 
       deprecated. See github issue
       \href{https://github.com/vegandevs/vegan/issues/234}{#234}.
 
@@ -79,11 +79,11 @@
   \subsection{NEW FEATURES IN CONSTRAINED ORDINATION}{
     \itemize{
 
-      \item The inertia of Correspondence Analysis (\code{cca}) is now
+      \item The inertia of Correspondence Analysis (\code{cca}) is 
       called \dQuote{scaled Chi-square} instead of using a name of a
       little known statistic.
 
-      \item Regression scores for constraints can now be extracted and
+      \item Regression scores for constraints can  be extracted and
       plotted for constrained ordination methods. See github issue
       \href{https://github.com/vegandevs/vegan/issues/226}{#226}.
 
@@ -98,7 +98,7 @@
       \item The permutation tests are more robust, and most scoping issues
       should have been fixed.
 
-      \item Permutation tests use now compiled C code and they are much
+      \item Permutation tests use  compiled C code and they are much
       faster. See github issue
       \href{https://github.com/vegandevs/vegan/issues/211}{#211}.
 
@@ -135,7 +135,7 @@
       \item \code{prc} gained argument \code{const} for general
       scaling of results similarly as in \code{rda}.
 
-      \item \code{prc} uses now regression scores for Canoco-compatibility.
+      \item \code{prc} uses  regression scores for Canoco-compatibility.
 
     } %itemae
   } % constrained ordination
@@ -144,7 +144,7 @@
     \itemize{
 
       \item The C code for swap-based binary null models was made more
-      efficients, and the models are now all faster. Many of these
+      efficients, and the models are  all faster. Many of these
       models selected a \eqn{2 \times 2}{2x2} submatrix, and for this
       they generated four random numbers (two rows, two columns). Now we
       skip selecting third or fourth random number if it is obvious that
@@ -163,7 +163,7 @@
       \code{"greedyqswap"} which can radically speed up quasi-swap
       models with minimal risk of introducing bias.
 
-      \item Backtracking is written in C and it is now much faster. However,
+      \item Backtracking is written in C and it is  much faster. However,
       backtracking models are biased, and they are provided only
       because they are classic legacy models.
 
@@ -183,7 +183,7 @@
       \code{text} methods.
 
       \item \code{ordiplot} and other ordination \code{plot} functions
-      can now be chained with their \code{points} and \code{text}
+      can  be chained with their \code{points} and \code{text}
       functions allowing the use of \pkg{magrittr} pipes.  The
       \code{points} and \code{text} functions gained argument to draw
       arrows allowing their use in drawing biplots or adding vectors of
@@ -194,7 +194,7 @@
       \href{https://github.com/vegandevs/vegan/issues/257}{#257}.
 
       \item Lattice graphics (\code{ordixyplot}) for ordination can
-      now add polygons that enclose all points in the panel and
+       add polygons that enclose all points in the panel and
       complete data.
 
       \item \code{ordicluster} gained option to suppress drawing in
@@ -207,7 +207,7 @@
       \item Random rarefaction (function \code{rrarefy}) uses compiled
       C code and is much faster.
 
-      \item \code{plot} of \code{specaccum} can now draw short
+      \item \code{plot} of \code{specaccum} can  draw short
       horizontal bars to vertical error bars. See StackOverflow
       question
       \href{https://stackoverflow.com/questions/45378751}{45378751}.
