@@ -13,24 +13,24 @@
       \href{https://github.com/vegandevs/vegan/issues/}{https://github.com/vegandevs/vegan/issues/}.
 
       \item Compiled code is used much more extensively, and most
-      compiled functions use  \code{.Call} interface. This gives
-      smaller memory footprint and is also faster. In wall time, the
+      compiled functions use \code{.Call} interface. This gives smaller
+      memory footprint and is also faster. In wall clock time, the
       greatest gains are in permutation tests for constrained ordination
       methods (\code{anova.cca}) and binary null models
       (\code{nullmodel}).
 
       \item Constrained ordination functions (\code{cca}, \code{rda},
       \code{dbrda}, \code{capscale}) are completely rewritten and share
-      most of their code. This makes them more more consistent with each
+      most of their code. This makes them more consistent with each
       other and more robust. The internal structure changed in
-      constrained ordination scripts, and scripts may fail if they try
+      constrained ordination objects, and scripts may fail if they try
       to access the result object directly. There never was a guarantee
       for unchanged internal structure, and such scripts should be
       changed and they should use the provided support functions to
       access the result object (see documentation of \code{cca.object}
       and github issue
-      \href{https://github.com/vegandevs/vegan/issues/262}{#262}).
-      Some support and analysis functions may no longer work with result
+      \href{https://github.com/vegandevs/vegan/issues/262}{#262}).  Some
+      support and analysis functions may no longer work with result
       objects created in previous \pkg{vegan} versions. You should use
       \code{update(old.result.object)} to fix these old result
       objects. See github issues
@@ -196,8 +196,8 @@
       \item \code{adonis2} gained a column of \eqn{R^2}{R-squared}
       similarly as old \code{adonis}.
 
-      \item Great part of \code{decorana} is written in C which
-      makes it faster and reduces the memory footprint.
+      \item Great part of \R{} code for \code{decorana} is written in C
+      which makes it faster and reduces the memory footprint.
 
       \item \code{metaMDS} results gained new \code{points} and
       \code{text} methods.
