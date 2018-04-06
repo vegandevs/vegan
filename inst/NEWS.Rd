@@ -26,6 +26,11 @@
       \href{https://github.com/vegandevs/vegan/issues/218}{#218},
       \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
 
+      \item \pkg{vegan} includes some tests that are run when checking
+      the package installation. See github issues
+      \href{https://github.com/vegandevs/vegan/issues/181}{#181},
+      \href{https://github.com/vegandevs/vegan/issues/271}{#271}.
+
     } %itemize
   } % general
 
