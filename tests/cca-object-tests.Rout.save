@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-02-26 r74303) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-04-04 r74529) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1518,7 +1518,7 @@ ManagementSF
 0.4473747 0.2030030 0.1630063 0.1345715 0.1294004 0.0949428 0.0790423 0.0652609 
       CA9      CA10      CA11      CA12      CA13      CA14      CA15      CA16 
 0.0500390 0.0432118 0.0387041 0.0238515 0.0177294 0.0091722 0.0079589 0.0041568 
-> eigenvals(m0cca, constrained = TRUE)
+> eigenvals(m0cca, model = "constrained")
 numeric(0)
 > 
 > nobs(mcca)
@@ -2505,4 +2505,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  1.685   0.067   1.745 
+  1.402   0.119   1.513 
