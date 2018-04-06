@@ -22,7 +22,18 @@
       \item Constrained ordination functions (\code{cca}, \code{rda},
       \code{dbrda}, \code{capscale}) are completely rewritten and share
       most of their code. This makes them more more consistent with each
-      other and more robust. See github issues
+      other and more robust. The internal structure changed in
+      constrained ordination scripts, and scripts may fail if they try
+      to access the result object directly. There never was a guarantee
+      for unchanged internal structure, and such scripts should be
+      changed and they should use the provided support functions to
+      access the result object (see documentation of \code{cca.object}
+      and github issue
+      \href{https://github.com/vegandevs/vegan/issues/262}{#262}).
+      Some support and analysis functions may no longer work with result
+      objects created in previous \pkg{vegan} versions. You should use
+      \code{update(old.result.object)} to fix these old result
+      objects. See github issues
       \href{https://github.com/vegandevs/vegan/issues/218}{#218},
       \href{https://github.com/vegandevs/vegan/issues/227}{#227}.
 
@@ -30,6 +41,10 @@
       the package installation. See github issues
       \href{https://github.com/vegandevs/vegan/issues/181}{#181},
       \href{https://github.com/vegandevs/vegan/issues/271}{#271}.
+
+      \item The informative messages (warnings, notes and error
+      messages) are cleaned and unified which also makes possible to
+      provide translations.
 
     } %itemize
   } % general
@@ -231,6 +246,8 @@
       usually faster than \code{vegdist}, it is numerically less stable,
       in particular with large data sets.
 
+      \item \code{swan} passes \code{type} argument to \code{beals}.
+
       \item \code{tabasco} can use traditional cover scale values from
       function \code{coverscale}. Function \code{coverscale} can return
       scaled values as integers for numerical analysis instead of
@@ -238,7 +255,9 @@
 
       \item \code{varpart} can partition \eqn{\chi^2}{Chi-squared}
       inertia of correspondence analysis with new argument
-      \code{chisquare}.
+      \code{chisquare}. The adjusted \eqn{R^2}{R-squared} is based on
+      permutation tests, and the replicate analysis will have random
+      variation.
 
     } % itemize
   } % new features
