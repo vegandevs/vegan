@@ -103,6 +103,12 @@
       called \dQuote{scaled Chi-square} instead of using a name of a
       little known statistic.
 
+      \item If elements for Constraints and Conditions are data frames
+      in non-formula call of \code{rda} or \code{cca}, these are
+      automatically expanded to model matrices and can contain factor
+      variables. Earlier they had to be numerical model matrices and
+      factors could only be used with the formula interface.
+
       \item Regression scores for constraints can  be extracted and
       plotted for constrained ordination methods. See github issue
       \href{https://github.com/vegandevs/vegan/issues/226}{#226}.
@@ -258,6 +264,12 @@
       \code{chisquare}. The adjusted \eqn{R^2}{R-squared} is based on
       permutation tests, and the replicate analysis will have random
       variation.
+
+      \item The explanatory tables can be data frames with factors or
+      single factors in \code{varpart} and these will be automatically
+      expanded to model matrices. Earlier factors could only be used
+      with one-sided model formulae. Based on the code suggested by
+      Daniel Borcard, Univ. \enc{Montréal}{Montreal}.
 
     } % itemize
   } % new features
