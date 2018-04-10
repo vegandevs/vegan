@@ -130,14 +130,14 @@
 
       \item \code{permutest} printed layout is similar to \code{anova.cca}.
 
-      \item \code{eigenvals} gained a new argument \code{model} to
+      \item \code{eigenvals} gained a new argument (\code{model}) to
       select either constrained or unconstrained scores. The old
-      argument \code{constrained} is deprecated. See github issue
+      argument (\code{constrained}) is deprecated. See github issue
       \href{https://github.com/vegandevs/vegan/issues/207}{#207}.
 
-      \item Adjusted \eqn{R^2}{R-squared} is not calculated for
-      results of partial ordination, because it is unclear how this
-      should be done (function \code{RsquareAdj}).
+      \item Adjusted \eqn{R^2}{R-squared} is not calculated for partial
+      ordination, because it is unclear how this should be done
+      (function \code{RsquareAdj}).
 
       \item \code{ordiresids} can display standardized and studentized
       residuals.
@@ -257,7 +257,7 @@
       \item \code{tabasco} can use traditional cover scale values from
       function \code{coverscale}. Function \code{coverscale} can return
       scaled values as integers for numerical analysis instead of
-      returning characters.
+      returning characters for printing.
 
       \item \code{varpart} can partition \eqn{\chi^2}{Chi-squared}
       inertia of correspondence analysis with new argument
