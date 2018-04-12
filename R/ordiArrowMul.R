@@ -12,7 +12,7 @@
         x
     } else {
         if (inherits(x, "envfit")) {
-            scores(x, display = "vectors", ...)[, 1:2]
+            scores(x, display = "vectors", ...)[, 1:2, drop = FALSE]
         } else {
             scores(x, display = display, choices = choices, ...)
         }
