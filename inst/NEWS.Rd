@@ -2,7 +2,7 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{Changes in version 2.5-0}{
+\section{Changes in version 2.5-1}{
 
   \subsection{GENERAL}{
     \itemize{
