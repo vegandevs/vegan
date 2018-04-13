@@ -34,9 +34,10 @@
     summ$partial.chi <- object$pCCA$tot.chi
     summ$constr.chi <- object$CCA$tot.chi
     summ$unconst.chi <- object$CA$tot.chi
-    summ$cont <- summary(eigenvals(object))
+    ## nested list cont$importance needed to keep vegan pre-2.5-0 compatibility
+    summ$cont$importance <- summary(eigenvals(object))
     if (!is.null(object$CCA) && object$CCA$rank > 0)
-        summ$concont <- summary(eigenvals(object, model = "constrained"))
+        summ$concont$importance <- summary(eigenvals(object, model = "constrained"))
     summ$ev.head <- c(summ$ev.con, summ$ev.uncon)[seq_len(axes)]
     summ$scaling <- scaling
     summ$digits <- digits
