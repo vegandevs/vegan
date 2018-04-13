@@ -1,5 +1,5 @@
 `print.summary.cca` <-
-    function (x, digits = x$digits, head=NA, tail=head, ...) 
+    function (x, digits = x$digits, head=NA, tail=head, ...)
 {
     hcat <- function(x, head=head, tail=tail, ...) {
         if (!is.na(head) && !is.na(tail) && head+tail+4 < nrow(x))
@@ -8,24 +8,24 @@
     }
     cat("\nCall:\n")
     cat(deparse(x$call), "\n")
-    statnam <- if (x$method == "cca") 
+    statnam <- if (x$method == "cca")
         "averages"
     else "sums"
     cat("\nPartitioning of ", x$inertia, ":\n", sep = "")
-    out <- c(Total = x$tot.chi, Conditioned = x$partial.chi, 
+    out <- c(Total = x$tot.chi, Conditioned = x$partial.chi,
              Constrained = x$constr.chi, Unconstrained = x$unconst.chi)
     out <- cbind(Inertia = out, Proportion = out/out[1])
     print(out, digits = digits, ...)
-    cat("\nEigenvalues, and their contribution to the", x$inertia, 
+    cat("\nEigenvalues, and their contribution to the", x$inertia,
         "\n")
     if (!is.null(x$partial.chi)) {
         cat("after removing the contribution of conditiniong variables\n")
     }
     cat("\n")
-    print(x$cont, ...)
+    print(x$cont$importance, ...)
     if (!is.null(x$concont)) {
         cat("\nAccumulated constrained eigenvalues\n")
-        print(x$concont, ...)
+        print(x$concont$importance, ...)
     }
     cat("\nScaling", x$scaling, "for species and site scores\n")
     if (abs(x$scaling) == 2) {
@@ -42,7 +42,7 @@
     }
     if (x$scaling) {
         cat("*", ev.ent, "are scaled proportional to eigenvalues\n")
-        if (!is.null(other.ent)) 
+        if (!is.null(other.ent))
             cat("*", other.ent, "are unscaled: weighted dispersion equal")
         cat(" on all dimensions\n")
     }
@@ -50,9 +50,9 @@
         cat("* Both are 'unscaled' or as they are in the result\n")
     }
     if (x$scaling < 0) {
-        if (x$method == "cca") 
+        if (x$method == "cca")
             cat("* Hill scaling performed on both scores\n")
-        else 
+        else
             cat("* Species scores divided by species standard deviations\n")
         cat("  so that they no longer are biplot scores\n")
     }
