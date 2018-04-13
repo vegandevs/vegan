@@ -135,6 +135,9 @@
       argument (\code{constrained}) is deprecated. See github issue
       \href{https://github.com/vegandevs/vegan/issues/207}{#207}.
 
+      \item \code{summary.eigenvals} returns a matrix instead of a
+      list containing only that matrix.
+
       \item Adjusted \eqn{R^2}{R-squared} is not calculated for partial
       ordination, because it is unclear how this should be done
       (function \code{RsquareAdj}).
@@ -286,6 +289,9 @@
       \item Labels were not adjusted when arrows were rescaled in
       \code{envfit} plots. See StackOverflow question
       \href{https://stackoverflow.com/questions/49259747}{49259747}.
+
+      \item \code{ordiArrowMul} failed if there was only one arrow to
+      be plotted in \code{envfit}.
 
     } % itemize
   } % bug fixes
