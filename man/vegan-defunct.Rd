@@ -15,6 +15,7 @@
 \alias{density.oecosimu}
 \alias{densityplot.oecosimu}
 \alias{commsimulator}
+\alias{vegandocs}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -24,6 +25,10 @@
   \pkg{vegan} as they are no longer needed.
 }
 \usage{
+## defunct in vegan 2.6-0
+vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan", "intro-vegan",
+    "diversity-vegan", "decision-vegan", "partitioning", "permutations"))
+
 ## defunct in vegan 2.5-0
 commsimulator(x, method, thin=1)
 
@@ -43,6 +48,11 @@ permuted.index2(n, control = permControl())
 }
 
 \details{
+
+  \R{} functions \code{\link{news}} should be used to read \pkg{vegan}
+  NEWS (\code{news(package = "vegan")}), and
+  \code{\link{browseVignettes}} is a better tool for reading vignettes
+  than \code{vegandocs}.
 
   Function \code{commsimulator} is replaced with
   \code{\link{make.commsim}} which defines the Null models, and
