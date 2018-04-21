@@ -3,6 +3,7 @@
 
 \alias{getNumObs}
 \alias{permuted.index2}
+\alias{permuted.index}
 \alias{metaMDSrotate}
 \alias{density.adonis}
 \alias{density.anosim}
@@ -15,6 +16,10 @@
 \alias{density.oecosimu}
 \alias{densityplot.oecosimu}
 \alias{commsimulator}
+\alias{vegandocs}
+\alias{as.mlm}
+\alias{as.mlm.cca}
+\alias{as.mlm.rda}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -24,6 +29,11 @@
   \pkg{vegan} as they are no longer needed.
 }
 \usage{
+## defunct in vegan 2.6-0
+as.mlm(x)
+vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan", "intro-vegan",
+    "diversity-vegan", "decision-vegan", "partitioning", "permutations"))
+
 ## defunct in vegan 2.5-0
 commsimulator(x, method, thin=1)
 
@@ -43,6 +53,17 @@ permuted.index2(n, control = permControl())
 }
 
 \details{
+
+  \code{as.mlm} function is replaced with a set functions that can
+  find the same statistics directly from the ordination result object:
+  see \code{\link{hatvalues.cca}}, \code{\link{rstandard.cca}},
+  \code{\link{rstudent.cca}}, \code{\link{cooks.distance.cca}},
+  \code{\link{vcov.cca}}.
+
+  \R{} functions \code{\link{news}} should be used to read \pkg{vegan}
+  NEWS (\code{news(package = "vegan")}), and
+  \code{\link{browseVignettes}} is a better tool for reading vignettes
+  than \code{vegandocs}.
 
   Function \code{commsimulator} is replaced with
   \code{\link{make.commsim}} which defines the Null models, and
@@ -64,9 +85,9 @@ permuted.index2(n, control = permControl())
 
   The permutation functions were moved to the \pkg{permute} package,
   and they are documented there.  The \pkg{permute} package replaces
-  \code{permuted.index2} with \code{\link[permute]{shuffle}} and
-  \code{getNumObs} with its specific
-  \code{\link[permute]{nobs-methods}}.
+  \code{permuted.index} and \code{permuted.index2} with
+  \code{\link[permute]{shuffle}} and \code{getNumObs} with its
+  specific \code{\link[permute]{nobs-methods}}.
 
 }
 

@@ -1,4 +1,5 @@
 \name{vegan-internal}
+\alias{vegan-internal}
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
@@ -76,8 +77,7 @@ addCailliez(d)
   a permutation. The input \code{perm} can be a single number for the
   number of simple permutations, a result of
   \code{\link[permute]{how}} defining a permutation scheme or a
-  permutation matrix. Function \code{permuted.index} was used earlier
-  to generate permutations, but it is now deprecated.
+  permutation matrix.
 
   \code{howHead} formats the permutation scheme of
   \code{\link[permute]{how}} for display. The formatting is more
