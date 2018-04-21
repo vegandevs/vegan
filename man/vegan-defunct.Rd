@@ -3,6 +3,7 @@
 
 \alias{getNumObs}
 \alias{permuted.index2}
+\alias{permuted.index}
 \alias{metaMDSrotate}
 \alias{density.adonis}
 \alias{density.anosim}
@@ -84,9 +85,9 @@ permuted.index2(n, control = permControl())
 
   The permutation functions were moved to the \pkg{permute} package,
   and they are documented there.  The \pkg{permute} package replaces
-  \code{permuted.index2} with \code{\link[permute]{shuffle}} and
-  \code{getNumObs} with its specific
-  \code{\link[permute]{nobs-methods}}.
+  \code{permuted.index} and \code{permuted.index2} with
+  \code{\link[permute]{shuffle}} and \code{getNumObs} with its
+  specific \code{\link[permute]{nobs-methods}}.
 
 }
 
