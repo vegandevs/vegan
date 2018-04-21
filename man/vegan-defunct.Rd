@@ -16,6 +16,9 @@
 \alias{densityplot.oecosimu}
 \alias{commsimulator}
 \alias{vegandocs}
+\alias{as.mlm}
+\alias{as.mlm.cca}
+\alias{as.mlm.rda}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -26,6 +29,7 @@
 }
 \usage{
 ## defunct in vegan 2.6-0
+as.mlm(x)
 vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan", "intro-vegan",
     "diversity-vegan", "decision-vegan", "partitioning", "permutations"))
 
@@ -48,6 +52,12 @@ permuted.index2(n, control = permControl())
 }
 
 \details{
+
+  \code{as.mlm} function is replaced with a set functions that can
+  find the same statistics directly from the ordination result object:
+  see \code{\link{hatvalues.cca}}, \code{\link{rstandard.cca}},
+  \code{\link{rstudent.cca}}, \code{\link{cooks.distance.cca}},
+  \code{\link{vcov.cca}}.
 
   \R{} functions \code{\link{news}} should be used to read \pkg{vegan}
   NEWS (\code{news(package = "vegan")}), and
