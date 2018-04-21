@@ -1,4 +1,5 @@
 \name{vegan-internal}
+\alias{vegan-internal}
 \alias{ordiParseFormula}
 \alias{ordiNAexclude}
 \alias{ordiNApredict}
