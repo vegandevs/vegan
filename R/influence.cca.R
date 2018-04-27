@@ -37,6 +37,11 @@
 ## statistic this would be residual of WA/LC regression with little or
 ## no meaning.
 
+## sigma() generic was added in R 3.3.0
+
+if (getRversion() < "3.3.0")
+    `sigma` <- function(object, ...) UseMethod("sigma")
+
 `sigma.cca` <-
     function(object, type = c("response", "canoco"), ...)
 {
