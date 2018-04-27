@@ -31,7 +31,7 @@ vif.cca(object)
 
 \arguments{
   \item{object}{A result object from \code{\link{cca}},
-    \code{\link{rda}} or \code{\link{capscale}}. }
+    \code{\link{rda}}, \code{\link{dbrda}} or \code{\link{capscale}}. }
 
   \item{display}{Display \code{"species"} or \code{"sites"}. Species
     are not available in \code{\link{dbrda}} and \code{\link{capscale}}. }
@@ -63,8 +63,13 @@ vif.cca(object)
   \item{\dots}{Other parameters to the functions.}
 }
 \details{
+
   Function \code{goodness} gives cumulative proportion of inertia
-  accounted by species up to chosen axes.
+  accounted by species up to chosen axes. The proportions can be
+  assessed either by species or by sites depending on the argument
+  \code{display}, but species are not available in distance-based
+  \code{\link{dbrda}}. The function is not implemented for
+  \code{\link{capscale}}.
 
   Function \code{inertcomp} decomposes the inertia into partial,
   constrained and unconstrained components for each site or species.
@@ -75,7 +80,8 @@ vif.cca(object)
   \code{unity = TRUE}). For this interpretation, appropriate dissimilarity
   measures should be used in \code{\link{dbrda}} or appropriate
   standardization in \code{\link{rda}} (Legendre & De
-  \enc{Cáceres}{Caceres} 2012).
+  \enc{Cáceres}{Caceres} 2012). The function is not implemented for
+  \code{\link{capscale}}.
 
   Function \code{spenvcor} finds the so-called \dQuote{species --
     environment correlation} or (weighted) correlation of
@@ -139,8 +145,9 @@ vif.cca(object)
 
 }
 
-\seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}},
-  \code{\link[car]{vif}}. }
+\seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
+  \code{\link{capscale}}, \code{\link[car]{vif}}. }
+
 \examples{
 data(dune)
 data(dune.env)
