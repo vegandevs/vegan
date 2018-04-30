@@ -147,13 +147,14 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
 
   Function \code{ordiellipse} draws \code{\link{lines}} or
   \code{\link{polygon}}s for ellipses by \code{groups}. The function
-  can either draw standard deviation of point scores
-  (\code{kind="sd"}) or standard error of the (weighted) average of
-  scores (\code{kind="sd"}), and the (weighted) correlation defines
-  the direction of the principal axis of the ellipse. With
-  \code{kind="ehull"} the function draws an ellipse that encloses all
-  points of a group using \code{\link[cluster]{ellipsoidhull}}
-  (\pkg{cluster} package).
+  can either draw standard deviation of points (\code{kind="sd"}) or
+  standard error of the (weighted) centroids (\code{kind="se"}), and
+  the (weighted) correlation defines the direction of the principal
+  axis of the ellipse. When \code{kind = "se"} is used together with
+  argument \code{conf}, the ellipses will show the confidence regions
+  for the locations of group centroids. With \code{kind="ehull"} the
+  function draws an ellipse that encloses all points of a group using
+  \code{\link[cluster]{ellipsoidhull}} (\pkg{cluster} package).
 
   Function \code{ordibar} draws crossed \dQuote{error bars} using
   either either standard deviation of point scores or standard error
