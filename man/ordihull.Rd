@@ -149,7 +149,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   \code{\link{polygon}}s for ellipses by \code{groups}. The function
   can either draw standard deviation of point scores
   (\code{kind="sd"}) or standard error of the (weighted) average of
-  scores (\code{kind="sd"}), and the (weighted) correlation defines
+  scores (\code{kind="se"}), and the (weighted) correlation defines
   the direction of the principal axis of the ellipse. With
   \code{kind="ehull"} the function draws an ellipse that encloses all
   points of a group using \code{\link[cluster]{ellipsoidhull}}
