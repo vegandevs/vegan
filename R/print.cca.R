@@ -70,3 +70,13 @@
     }
     invisible(x)
 }
+
+### package klaR has another function called rda(), and to avoid using
+### klar:::print.rda instead of delegating to vegan:::print.cca we
+### define here a (redundant) print.rda
+
+`print.rda` <-
+    function(x, ...)
+{
+    NextMethod("print", x, ...)
+}
