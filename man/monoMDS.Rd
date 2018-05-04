@@ -19,7 +19,7 @@
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
     threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
     scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
-    sratmax=0.99999, parallel = 1, ...)
+    sratmax=0.99999, ...)
 \method{scores}{monoMDS}(x, choices = NA, ...)
 \method{plot}{monoMDS}(x, choices = c(1,2), type = "t", ...)
 \method{points}{monoMDS}(x, choices = c(1,2), select, ...)
@@ -76,10 +76,6 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
           indices of displayed items.}
 
   \item{labels}{Labels to be use used instead of row names.}
-
-  \item{parallel}{Use parallel processing with given number of
-    threads. The parallel processing is made in the compiled code, and
-    the argument can only be an integer.}
 
   \item{\dots}{Other parameters to the functions (ignored in
     \code{monoMDS}, passed to graphical functions in \code{plot}.).}

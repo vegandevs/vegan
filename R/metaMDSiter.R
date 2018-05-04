@@ -1,12 +1,12 @@
 `metaMDSiter` <-
     function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
               previous.best, engine = "monoMDS", maxit = 200,
-              parallel = getOption("mc.cores"), ...)
+              parallel = getOption("mc.cores"), ...) 
 {
     engine <- match.arg(engine, c("monoMDS", "isoMDS"))
     EPS <- 0.05
     if (engine == "monoMDS")
-        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
+        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100) 
     RESLIM <- 0.01
     RMSELIM <- 0.005
     SOL <- FALSE
@@ -29,7 +29,7 @@
     ## collect monoMDS convergence code for trace
     if (trace && engine == "monoMDS")
         stopcoz <- numeric(4)
-    ## Previous best or initial configuration
+    ## Previous best or initial configuration 
     if (!missing(previous.best) && !is.null(previous.best)) {
         ## check if previous.best is from metaMDS or isoMDS
         if (inherits(previous.best, "metaMDS") ||
@@ -53,8 +53,7 @@
         }
         ## evaluate stress
         s0 <- switch(engine,
-                     "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0,
-                                         parallel = 1, ...),
+                     "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0, ...),
                      "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0))
         ## Check whether model changed
         if (is.list(previous.best) && !is.null(previous.best$stress) &&
@@ -67,11 +66,11 @@
         ## no previous.best: start with cmdscale
         s0 <- switch(engine,
                  "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k,
-                 maxit = maxit, parallel = 1, ...),
+                 maxit = maxit, ...),
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
                  maxit = maxit))
     }
-    if (trace)
+    if (trace) 
         cat("Run 0 stress", s0$stress, "\n")
     if (monotrace)
         monostop(s0)
@@ -101,7 +100,7 @@
                     mclapply(1:nclus, function(i)
                              switch(engine,
                                     "monoMDS" = monoMDS(dist, init[,,i], k = k,
-                                    maxit = maxit, parallel = 1, ...),
+                                    maxit = maxit, ...),
                                     "isoMDS" = isoMDS(dist, init[,,i], k = k,
                                     maxit = maxit, tol = 1e-07,
                                     trace = isotrace)),
@@ -111,14 +110,14 @@
                     parLapply(parallel, 1:nclus, function(i)
                               switch(engine,
                                      "monoMDS" = monoMDS(dist, init[,,i], k = k,
-                                     maxit = maxit, parallel = 1, ...),
+                                     maxit = maxit, ...),
                                      "isoMDS" = isoMDS(dist, init[,,i], k = k,
                                      maxit = maxit, tol = 1e-07, trace = isotrace)))
             }
         } else {
             stry <- list(switch(engine,
                                 "monoMDS" = monoMDS(dist, init[,,1], k = k,
-                                maxit = maxit, parallel = 1, ...),
+                                maxit = maxit, ...),
                                 "isoMDS" = isoMDS(dist, init[,,1], k = k,
                                 maxit = maxit, tol = 1e-07, trace = isotrace)))
         }
@@ -133,22 +132,22 @@
                 monostop(stry[[i]])
             if ((s0$stress - stry[[i]]$stress) > -EPS) {
                 pro <- procrustes(s0, stry[[i]], symmetric = TRUE)
-                if (plot && k > 1)
+                if (plot && k > 1) 
                     plot(pro)
                 if (stry[[i]]$stress < s0$stress) {
                     s0 <- stry[[i]]
                     ## New best solution has not converged unless
                     ## proved later
                     converged <- FALSE
-                    if (trace)
+                    if (trace) 
                         cat("... New best solution\n")
                 }
                 summ <- summary(pro)
-                if (trace)
+                if (trace) 
                     cat("... Procrustes: rmse", summ$rmse, " max resid",
                         max(summ$resid), "\n")
                 if (summ$rmse < RMSELIM && max(summ$resid) < RESLIM) {
-                    if (trace)
+                    if (trace) 
                         cat("... Similar to previous best\n")
                     converged <- TRUE
                 }

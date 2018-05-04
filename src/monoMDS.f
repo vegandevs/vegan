@@ -2,7 +2,7 @@
      .  DISS, IIDX, JIDX, XINIT, ISTART,
      .  ISFORM, ITIES, IREGN, ISCAL, MAXITS, SRATMX,
      .  STRMIN, SFGRMN, 
-     .  DIST, DHAT, X, STRESS, STRS, ITERS, ICAUSE, NTHREADS)
+     .  DIST, DHAT, X, STRESS, STRS, ITERS, ICAUSE)
 C
 C Subroutine for multidimensional scaling.
 C
@@ -22,16 +22,7 @@ C            PO Box 1651
 C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
-      
-C February 2018: added capability to parallel processing with openMP in
-C subroutines CLCDIS and CLCGRAD. Profiling showed that after MONREG
-C these two subroutines took most of the running time. MONREG is so
-C seriously serial that it cannot be parallelized. This adds new input
-C argument NTHREADS that must be set in the calling program.
 C
-C     Parallelization written by Jari Oksanen <jhoksane@gmail.com>
-C
-
 C Starting from a supplied initial configuarion, uses steepest descent
 C   to minimize Kruskal's stress, a measure of badness-of-fit of one
 C   or more regressions of distances onto the supplied dissimilarities.
@@ -113,10 +104,7 @@ C          below this value) - a value of 0.001 or lower is
 C          recommended
 C
 C SFGRMN = minimum scale factor of the gradient (iterations stop if
-C     the scale factor of the gradient drops below this)
-C
-C NTHREADS = number of threads when using parallel processing with
-C     openMP (added Feb 2018)
+C          the scale factor of the gradient drops below this)
 C
 C========OUTPUT ARGUMENTS:
 C
@@ -141,7 +129,7 @@ C          SFGRMN
 C
 C---INPUT ARGUMENTS
       INTEGER, INTENT(IN) :: NOBJ, NFIX, NDIM, NDIS, NGRP,
-     .  ISFORM, ITIES, IREGN, ISCAL, MAXITS, NTHREADS
+     .  ISFORM, ITIES, IREGN, ISCAL, MAXITS
       INTEGER, INTENT(IN) :: IIDX(NDIS), JIDX(NDIS), ISTART(NGRP)
       DOUBLE PRECISION, INTENT(IN) :: XINIT(NOBJ,NDIM), DISS(NDIS),
      .  SRATMX, STRMIN, SFGRMN
@@ -239,7 +227,7 @@ C
 C
 C COMPUTE DISTANCES
 C
-        CALL CLCDIS (X,NOBJ,NDIM,DIST,IIDX,JIDX,NDIS, NTHREADS)
+        CALL CLCDIS (X,NOBJ,NDIM,DIST,IIDX,JIDX,NDIS)
 C-----------------------------------------------------------------------
 C
 C LOOP OVER THE NGRP GROUPS OF DISSIMILARITIES
@@ -271,8 +259,7 @@ C
 C ACCUMULATE THE NEGATIVE GRADIENT
 C
             CALL CLCGRD (X,GRAD,NOBJ,NDIM,DIST(I1),DHAT(I1),
-     .           IIDX(I1),JIDX(I1),N,STRS(IGRP),SFACT,TFACT,ISFORM,
-     .           DMEAN,NTHREADS)
+     .        IIDX(I1),JIDX(I1),N,STRS(IGRP),SFACT,TFACT,ISFORM,DMEAN)
           ENDIF
         ENDDO
 C
@@ -464,7 +451,7 @@ C
       RETURN
       END SUBROUTINE BACKUP
 
-      SUBROUTINE CLCDIS (X,MAXOBJ,NDIM,DIST,IIDX,JIDX,NDIS,NTHREADS)
+      SUBROUTINE CLCDIS (X,MAXOBJ,NDIM,DIST,IIDX,JIDX,NDIS)
 C
 C COMPUTES EUCLIDEAN DISTANCES BETWEEN EACH PAIR OF THE NOBJ POINTS
 C   WHOSE CO-ORDINATES IN NDIM DIMENSIONS ARE IN X(NOBJ,NDIM).
@@ -481,27 +468,33 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
-      INTEGER IIDX(NDIS), JIDX(NDIS), I,K, IDIM, NDIM, NTHREADS,NDIS
+      INTEGER IIDX(NDIS), JIDX(NDIS)
       DOUBLE PRECISION X(MAXOBJ,NDIM), DIST(NDIS)
 C
-C ACCUMULATE EUCLIDEAN DISTANCES OVER ALL DIMENSIONS
+C INITIALIZE DISTANCES
 C
-!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
-!$OMP+ SHARED(X,NDIM,NDIS,DIST,IIDX,JIDX) PRIVATE(IDIM,K)
-      DO K=1,NDIS
-        DIST(K) = 0.0D0
-        DO IDIM=1,NDIM
+      DO I=1,NDIS
+        DIST(I)=0.0
+      ENDDO
+C
+C ACCUMULATE SUMS OF SQUARED DIFFERENCES ON EACH DIMENSION
+C
+      DO IDIM=1,NDIM
+        DO K=1,NDIS
           DIST(K)=DIST(K)+(X(IIDX(K),IDIM)-X(JIDX(K),IDIM))**2
         ENDDO
-        DIST(K) = SQRT(DIST(K))
       ENDDO
-!$OMP END PARALLEL DO
-
+C
+C TAKE SQUARE ROOTS OF TOTALS
+C
+      DO I=1,NDIS
+        DIST(I)=SQRT(DIST(I))
+      ENDDO
       RETURN
       END SUBROUTINE CLCDIS
 
       SUBROUTINE CLCGRD (X,GRAD,MAXOBJ,NDIM,DIST,DHAT,IIDX,JIDX,
-     .  NDIS,STRESS,SFACT,TFACT,ISFORM,DMEAN,NTHREADS)
+     .  NDIS,STRESS,SFACT,TFACT,ISFORM,DMEAN)
 C
 C ACCUMULATES THE NEGATIVE GRADIENT IN GRAD(NOBJ,NDIM).
 C
@@ -513,7 +506,6 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
-      INTEGER IDIM,K,NDIS,NDIM,NTHREADS
       INTEGER IIDX(NDIS), JIDX(NDIS)
       DOUBLE PRECISION X(MAXOBJ,NDIM), GRAD(MAXOBJ,NDIM), DIST(NDIS),
      .  DHAT(NDIS), STRESS, SFACT, TFACT, DMEAN, SOTSQ, RECIPT,
@@ -522,40 +514,30 @@ C
       IF (STRESS.LE.0.0D0) RETURN
       SOTSQ=SFACT/(TFACT**2)
       RECIPT=1.0/TFACT
-      IF (ISFORM.LE.1) THEN
-C---  Kruskal's stress formula 1
-
-!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
-!$OMP+ DEFAULT(SHARED), PRIVATE(DELTA,IDIM,K)
-         DO IDIM=1,NDIM
-            DO K=1,NDIS
-               IF (DIST(K).GT.0.0) THEN
-                  DELTA=(SOTSQ-RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
-     .                 (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
-                  GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
-                  GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
-               ENDIF
-            ENDDO
-         ENDDO
-!$OMP END PARALLEL DO
-      ELSE
-C---  Kruskal's stress formula 2
-!$OMP PARALLEL DO NUM_THREADS(NTHREADS)
-!$OMP+ DEFAULT(SHARED) PRIVATE(DELTA,IDIM,K)
-         DO IDIM=1,NDIM
-            DO K=1,NDIS
-               IF (DIST(K).GT.0.0) THEN
-                  DELTA=(SOTSQ*(DIST(K)-DMEAN)/DIST(K)-
-     .                 RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
-     .                 (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
-                  GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
-                  GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
-               ENDIF
-            ENDDO
-         ENDDO
-!$OMP END PARALLEL DO
-      ENDIF
-
+      DO IDIM=1,NDIM
+        IF (ISFORM.LE.1) THEN
+C---Kruskal's stress formula 1
+          DO K=1,NDIS
+            IF (DIST(K).GT.0.0) THEN
+              DELTA=(SOTSQ-RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
+     .          (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
+              GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
+              GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
+            ENDIF
+          ENDDO
+        ELSE
+C---Kruskal's stress formula 2
+          DO K=1,NDIS
+            IF (DIST(K).GT.0.0) THEN
+              DELTA=(SOTSQ*(DIST(K)-DMEAN)/DIST(K)-
+     .          RECIPT*(DIST(K)-DHAT(K))/DIST(K))*
+     .          (X(IIDX(K),IDIM)-X(JIDX(K),IDIM))
+              GRAD(IIDX(K),IDIM)=GRAD(IIDX(K),IDIM)+DELTA
+              GRAD(JIDX(K),IDIM)=GRAD(JIDX(K),IDIM)-DELTA
+            ENDIF
+          ENDDO
+        ENDIF
+      ENDDO
       RETURN
       END SUBROUTINE CLCGRD
 
