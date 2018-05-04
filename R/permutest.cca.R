@@ -157,7 +157,7 @@ permutest.default <- function(x, ...)
                 parallel <- makeCluster(parallel)
             }
             tmp <- parRapply(parallel, permutations, function(i) getF(i))
-            tmp <- matrix(tmp, ncol=3, byrow=TRUE)
+            tmp <- matrix(tmp, nrow=nperm, byrow=TRUE)
             if (!hasClus)
                 stopCluster(parallel)
         }
