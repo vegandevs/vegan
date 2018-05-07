@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2018-04-04 r74529) -- "Unsuffered Consequences"
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
 Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -195,8 +195,9 @@ Eigenvalues for unconstrained axes:
  [6] "colsum"      "grand.total" "inertia"     "method"      "pCCA"       
 [11] "rowsum"      "terminfo"    "terms"       "tot.chi"    
 > sort(names(mrda))
- [1] "CA"       "CCA"      "Ybar"     "call"     "colsum"   "inertia" 
- [7] "method"   "pCCA"     "terminfo" "terms"    "tot.chi" 
+ [1] "CA"             "CCA"            "Ybar"           "call"          
+ [5] "colsum"         "inertia"        "method"         "pCCA"          
+ [9] "regularization" "terminfo"       "terms"          "tot.chi"       
 > sort(names(mcap))
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
@@ -2505,4 +2506,4 @@ Alopgeni -0.197400341  0.18131362
 > 
 > proc.time()
    user  system elapsed 
-  1.402   0.119   1.513 
+  3.933   0.187   4.123 
