@@ -738,15 +738,33 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
      * schedule this gives remarkably balanced work load in parallel
      * processing (in guided schedule partitions that cover more rows
      * have fewer columns to process each.) */
-#pragma omp parallel for schedule(guided) private(ij, i, j) \
+
+    /* non-parallel if only one thread */
+    if (omp_get_num_threads() <= 1) {
+	ij = 0;
+	for (j=0; j <= *nr; j++) {
+	    if (j % 200 == 199)
+		R_CheckUserInterrupt();
+	    for (i=j+dc; i < *nr; i++) {
+		d[ij++] = distfun(x, *nr, *nc, i, j);
+	    }
+	}
+    } else {
+#pragma omp parallel for schedule(guided) private(ij, i, j)	\
     shared(nr, nc, x, distfun, dc, d)
-    for (j = *nr-1; j >= 0; j--) {
-	ij = j * (*nr - dc) + j - j * (j + 1)/ 2;
-	for (i=j+dc; i < *nr; i++) {
-	    d[ij++] = distfun(x, *nr, *nc, i, j);
+	for (j = *nr-1; j >= 0; j--) {
+	    ij = j * (*nr - dc) + j - j * (j + 1)/ 2;
+	    for (i=j+dc; i < *nr; i++) {
+		d[ij++] = distfun(x, *nr, *nc, i, j);
+	    }
 	}
     }
 #else
+    /* the #ifdef-#else block gives conditional compilation, and
+       either this part or the previous one will be removed by the C
+       pre-processor. Therefore this part must be copied verbatim
+       above if we want to have simpler non-parallel processing there
+       when there is only one thread. */
     ij = 0;
     for (j=0; j <= *nr; j++) {
 	if (j % 200 == 199)
