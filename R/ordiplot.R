@@ -10,9 +10,9 @@
     if (!is.null(attr(ord, "class")) && (class(ord) == "decorana" ||
                                          any(class(ord) == "cca"))) {
         if (missing(display))
-            out <- plot(ord, choices, type = type, xlim = xlim,
+            out <- plot(ord, choices = choices, type = type, xlim = xlim,
                         ylim = ylim, ...)
-        else out <- plot(ord, choices, type = type, display = display,
+        else out <- plot(ord, choices = choices, type = type, display = display,
                          xlim = xlim, ylim = ylim, ...)
     }
     else {
