@@ -71,7 +71,7 @@ import(stats)
 import(graphics)
 import(permute)
 importFrom(utils, news, vignette, combn, flush.console, head, object.size,
-           read.fortran, read.fwf, tail, str)
+           read.fortran, read.fwf, tail)
 importFrom(tools, Rd2txt, startDynamicHelp)
 import(grDevices) ## too many functions to be listed separately
 import(lattice)
@@ -476,8 +476,6 @@ S3method("sppscores<-", dbrda)
 S3method("sppscores<-", metaMDS)
 # SSD: stats
 S3method(SSD, cca)
-# str: utils
-S3method(str, nullmodel)
 # stressplot: vegan
 S3method(stressplot, default)
 S3method(stressplot, monoMDS)

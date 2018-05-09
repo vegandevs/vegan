@@ -1,9 +1,9 @@
 simulate.nullmodel <-
 function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
 {
-    if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) 
+    if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE))
         runif(1)
-    if (is.null(seed)) 
+    if (is.null(seed))
         RNGstate <- get(".Random.seed", envir = .GlobalEnv)
     else {
         R.seed <- get(".Random.seed", envir = .GlobalEnv)
@@ -46,8 +46,10 @@ function(object, nsim=1, seed = NULL, burnin=0, thin=1, ...)
             End <- as.integer(End)
         state <- perm[,,nsim]
         storage.mode(state) <- object$commsim$mode
-        assign("state", state, envir=object)
-        assign("iter", End, envir=object)
+        #assign("state", state, envir=object)
+        #assign("iter", End, envir=object)
+        object$state <- state
+        object$iter <- End
     } else {
         Start <- 1L
         End <- as.integer(nsim)

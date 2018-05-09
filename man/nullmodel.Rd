@@ -4,7 +4,6 @@
 \alias{print.nullmodel}
 \alias{simulate.nullmodel}
 \alias{update.nullmodel}
-\alias{str.nullmodel}
 \alias{print.simmat}
 \alias{smbind}
 \title{
@@ -142,7 +141,7 @@ for sequential null models.
 }
 \value{
 The function \code{nullmodel} returns an object of class \code{nullmodel}.
-It is a set of objects sharing the same environment:
+It is a list with the following elements:
 \itemize{
   \item{\code{data}: }{original matrix in integer mode.}
   \item{\code{nrow}: }{number of rows.}

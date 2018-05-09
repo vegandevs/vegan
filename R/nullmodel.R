@@ -39,8 +39,8 @@
 #    storage.mode(out$x) <- method$mode
     storage.mode(out$rowSums) <- method$mode
     storage.mode(out$colSums) <- method$mode
-    out <- list2env(out, parent=emptyenv())
-    class(out) <- c("nullmodel", "environment")
-#    class(out) <- "nullmodel"
+#    out <- list2env(out, parent=emptyenv())
+#    class(out) <- c("nullmodel", "environment")
+    class(out) <- "nullmodel"
     out
 }
