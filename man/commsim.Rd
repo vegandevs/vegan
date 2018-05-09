@@ -417,6 +417,24 @@ f <- function(x, n, ...)
 ## feeding a commsim object as argument
 make.commsim(cs)
 
+## making the missing c1 model using r1 as a template
+##   non-sequential algorithm for binary matrices
+##   that preserves the species (column) frequencies,
+##   but uses row marginal frequencies
+##   as probabilities of selecting sites
+f <- function (x, n, nr, nc, rs, cs, ...) {
+    out <- array(0L, c(nr, nc, n))
+    J <- seq_len(nc)
+    storage.mode(rs) <- "double"
+    for (k in seq_len(n))
+        for (j in J)
+            out[sample.int(nr, cs[j], prob = rs), j, k] <- 1L
+    out
+}
+cs <- make.commsim("r1")
+cs$method <- "c1"
+cs$fun <- f
+
 ## structural constraints
 diagfun <- function(x, y) {
     c(sum = sum(y) == sum(x),
