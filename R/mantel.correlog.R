@@ -12,11 +12,11 @@
     ## Geographic distance matrix
     if(!is.null(D.geo)) {
 	if(!is.null(XY))
-            stop("You provided both a geographic distance matrix and a list of site coordinates. Which one should the function use?")
+            stop("you provided both a geographic distance matrix and a list of site coordinates:\nwhich one should the function use?")
 	D.geo <- as.matrix(D.geo)
     } else {
 	if(is.null(XY)) {
-            stop("You did not provide a geographic distance matrix nor a list of site coordinates")
+            stop("you did not provide a geographic distance matrix nor a list of site coordinates")
         } else {
             D.geo <- as.matrix(dist(XY))
         }
@@ -24,7 +24,7 @@
 
     n <- nrow(D.geo)
     if(n != nrow(D.eco))
-	stop("Numbers of objects in D.eco and D.geo are not equal")
+	stop("numbers of objects in D.eco and D.geo are not equal")
     n.dist <- n*(n-1)/2
     vec.D <- as.vector(as.dist(D.geo))
     vec.DD <- as.vector(D.geo)
@@ -34,7 +34,7 @@
     if(!is.null(break.pts)) {
 	## Use the list of break points
 	if(n.class > 0)
-            stop("You provided both a number of classes and a list of break points. Which one should the function use?")
+            stop("you provided both a number of classes and a list of break points:\nwhich one should the function use?")
 	n.class = length(break.pts) - 1
 
     } else {

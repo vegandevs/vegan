@@ -84,7 +84,8 @@ humpfit(mass, spno, family = poisson, start)
   based confidence intervals. 
 
   The original model intended to show that there is no need to
-  speculate about `competition' and `stress' (Al-Mufti et al. 1977),
+  speculate about \dQuote{competition} and \dQuote{stress}
+  (Al-Mufti et al. 1977),
   but humped response can be produced as an artifact of using fixed
   plot size for varying plant sizes and densities.  } \value{ The
   function returns an object of class \code{"humpfit"} inheriting from

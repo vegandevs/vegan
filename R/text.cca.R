@@ -33,7 +33,7 @@
         pts <- pts * arrow.mul
         arrows(0, 0, pts[, 1], pts[, 2], length = head.arrow,
                ...)
-        pts <- ordiArrowTextXY(pts, rownames(pts), ...)
+        pts <- ordiArrowTextXY(pts, rownames(pts), rescale = FALSE, ...)
         if (axis.bp) {
             axis(side = 3, at = c(-arrow.mul, 0, arrow.mul),
                  labels = rep("", 3))

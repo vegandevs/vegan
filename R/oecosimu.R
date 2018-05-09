@@ -25,7 +25,8 @@
         method <- attr(x, "method")
         nsimul <- dim(x)[3]
         if (nsimul == 1)
-            stop("only one simulation in ", sQuote(deparse(substitute(comm))))
+            stop(gettextf("only one simulation in '%s'",
+                          deparse(substitute(comm))))
         comm <- attr(comm, "data")
         #thin <- attr(comm, "thin")
         burnin <- attr(x, "start") - attr(x, "thin")
@@ -172,8 +173,16 @@
     if (any(is.na(z)))
         p[is.na(z)] <- NA
 
-    if (is.null(names(indstat)) && length(indstat) == 1)
-        names(indstat) <- statistic
+    ## take care that statistics have name, or some support functions
+    ## can fail
+    if (is.null(names(indstat))) {
+        if (length(indstat) == 1)
+            names(indstat) <- statistic
+        else if (length(indstat) <= length(letters))
+            names(indstat) <- letters[seq_along(indstat)]
+        else
+            names(indstat) <- paste0("stat", seq_along(indstat))
+    }
     oecosimu <- list(z = z, means = means, pval = p, simulated=simind,
                      method=method, statistic = indstat,
                      alternative = alternative, isSeq = attr(x, "isSeq"))

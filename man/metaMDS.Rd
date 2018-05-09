@@ -96,7 +96,7 @@ metaMDSredist(object, ...)
   \item{previous.best}{Start searches from a previous solution.}
 
   \item{x}{\code{metaMDS} result (or a dissimilarity structure for
-  \code{initMDS}.}
+  \code{initMDS}).}
 
   \item{choices}{Axes shown.}
   \item{type}{Plot type: \code{"p"} for points, \code{"t"} for text, and

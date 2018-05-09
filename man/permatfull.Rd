@@ -229,7 +229,7 @@ For time-series diagnostics: \code{\link{Box.test}},
 \code{\link{lag.plot}}, \code{\link{tsdiag}}, \code{\link{ar}},
 \code{\link{arima}} 
 
-For underlying `low level' implementation:
+For underlying low level implementation:
 \code{\link{commsim}} and \code{\link{nullmodel}}.}
 
 \examples{

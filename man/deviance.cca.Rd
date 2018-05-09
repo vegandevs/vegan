@@ -65,8 +65,8 @@
  
 }
 \value{
-  The \code{deviance} functions return ``deviance'', and
-  \code{extractAIC} returns effective degrees of freedom and ``AIC''. 
+  The \code{deviance} functions return \dQuote{deviance}, and
+  \code{extractAIC} returns effective degrees of freedom and \dQuote{AIC}. 
 }
 \references{
   \enc{Godínez-Domínguez}{Godinez-Dominguez}, E. & Freire, J. (2003)

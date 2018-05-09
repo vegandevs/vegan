@@ -8,35 +8,35 @@
 ################################################################################
 
     mult <- match.arg(mult, c("sidak", p.adjust.methods))
-	
+
     ##CC# Make sure Y is a matrix and find number of rows and columns of Y
     Y <- as.matrix(Y)
     n <- nrow(Y)
     p <- ncol(Y)
-    if(p < 2) stop("There is a single variable in the data matrix")
+    if(p < 2) stop("there is only one variable in the data matrix")
 
     ##CC# Transform the species abundances to ranks, by column
     R <- apply(Y,2,rank)
 
     if(missing(group)) group <- rep(1,p)
     if(length(group) != p){
-        stop("The number of species in the vector differs from the total number of species")
+        stop("the number of species in the vector differs from the total number of species")
     }
-		
+
     ##CC# Separate tests for the variables in each group
     group <- as.factor(group)
     gr.lev <- levels(group)
     ngr <- nlevels(group)
-		
+
     gr <- as.list(1:ngr)
-		
+
     n.per.gr <- vector(length=ngr)
     for(i in 1:ngr){
         gr[[i]] <- which(group==gr.lev[i])
         n.per.gr[i] <- length(gr[[i]])  # Vector with the number of
                                         # variables per group
     }
-		
+
     ##===============================
     ##CC# start permutation procedure
     ##===============================
@@ -47,10 +47,11 @@
     }
     W.gr <- vector("list",ngr)
     if(ngr > 1) spear.gr <- vector("list",ngr)
-		
+
     for(i in 1:ngr){
         p.i <- n.per.gr[i]
-        if(p.i < 2) stop("There is a single variable in group ",gr.lev[i])
+        if(p.i < 2) stop(gettextf("there is only one variable in group %d",
+                                  gr.lev[i]))
                                         #CC# Extract variables part of
                                         #group i
         R.gr <- R[,gr[[i]]]     # Table with species of group 'i' only
@@ -89,14 +90,14 @@
     for(i in 1:ngr) {
         counter[[i]] <- counter[[i]]/(nperm+1)
     }
-             
+
     ## Correction to P-values for multiple testing
     ## Write all P-values to a long vector 'vec'
     vec <- counter[[1]]
     if(ngr > 1) {
         for(i in 2:ngr) vec = c(vec, counter[[i]])
     }
-    if(length(vec) != p) stop("Error in putting together vector 'vec'")
+    if(length(vec) != p) stop("error in putting together vector 'vec'")
 
     if(mult == "sidak") {
         vec.corr = NA

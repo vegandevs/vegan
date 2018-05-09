@@ -71,6 +71,7 @@ simper(comm, group, permutations = 0, trace = FALSE,
   species with high contribution, but these are not contributions
   to non-existing between-group differences but to within-group
   variation in species abundance.
+  
 
 }
 
@@ -87,7 +88,9 @@ simper(comm, group, permutations = 0, trace = FALSE,
   \item{cusum}{Ordered cumulative contribution.}
   \item{p}{Permutation \eqn{p}-value. Probability of getting a larger
     or equal average contribution in random permutation of the group
-    factor.}
+    factor. These area only available if \code{permutations} were used
+    (default: not calculated).}
+
 }
 
 \examples{

@@ -43,7 +43,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     on the kind of plot used. Most methods know \code{sites} and
     \code{species}, functions \code{\link{cca}} and \code{\link{rda}}
     know in addition 
-    \code{constraints} (for `LC' scores), \code{centroids} and
+    \code{constraints} (for LC scores), \code{centroids} and
     \code{biplot}, and \code{\link{plot.procrustes}} ordination plot has
     \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names will be used if

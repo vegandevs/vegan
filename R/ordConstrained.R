@@ -160,7 +160,6 @@
         rank = if (totvar > 0) Q$rank else 0,
         tot.chi = totvar,
         QR = Q,
-        Fit = Yfit,
         envcentre = envcentre)
     list(Y = Y, result = result)
 }
@@ -282,8 +281,7 @@
         qrank = rank,
         tot.chi = sum(lambda),
         QR = Q,
-        envcentre = envcentre,
-        Xbar = Y)
+        envcentre = envcentre)
     ## residual of Y
     Y <- qr.resid(Q, Y)
     if (DISTBASED)
@@ -360,8 +358,7 @@
         "u" = u,
         "v" = v,
         "rank" = length(lambda),
-        "tot.chi" = sum(lambda),
-        "Xbar" = Y)
+        "tot.chi" = sum(lambda))
     out
 }
 

@@ -25,7 +25,7 @@
     for (i in 2L:l) {
         ## data must be identical when MARGIN=3
         if (MARGIN == 3L && !identical(att[[1L]][["data"]], att[[i]][["data"]]))
-            stop("'data' attributes not identical")
+            stop("'data' attributes are not identical")
         ## dimensions need to match except for MARGIN
         if (!identical(att[[1L]][["dim"]][-MARGIN], att[[i]][["dim"]][-MARGIN]))
             stop("dimension mismatch")
@@ -33,7 +33,7 @@
         ## thus these need to be identical
         for (NAM in c("method", "binary", "isSeq", "mode", "class")) {
             if (!identical(att[[1L]][[NAM]], att[[i]][[NAM]]))
-                stop("'", NAM, "' attributes not identical")
+                stop(gettextf("'%s' attributes not identical", NAM))
         }
         ## ts attributes are tricky: evaluate outside of the loop
         for (NAM in c("start", "end", "thin")) {

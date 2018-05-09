@@ -2,7 +2,7 @@
     function (object)
 {
     if (is.null(object$CCA))
-        stop("Needs results from constrained ordination")
+        stop("needs results from constrained ordination")
     u <- object$CCA$u
     wa <- object$CCA$wa
     if (!inherits(object, "rda")) { # is CCA

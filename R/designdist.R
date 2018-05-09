@@ -7,7 +7,7 @@
 {
     terms <- match.arg(terms)
     if ((abcd || alphagamma) && terms != "binary")
-        warning("Perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
+        warning("perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
     x <- as.matrix(x)
     N <- nrow(x)
     P <- ncol(x)

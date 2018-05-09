@@ -54,15 +54,32 @@
 
 ## concatenate constrained and unconstrained eigenvalues in cca, rda
 ## and capscale (vegan) -- ignore pCCA component
-`eigenvals.cca` <- function(x, constrained = FALSE, ...)
+`eigenvals.cca` <- function(x, model = c("all", "unconstrained", "constrained"),
+                            constrained = NULL, ...)
 {
-   if (constrained)
-       out <- x$CCA$eig
-   else
-       out <- c(x$CCA$eig, x$CA$eig)
-   if (!is.null(out))
-       class(out) <- "eigenvals"
-   out
+    out <- if (!is.null(constrained)) {
+        ## old behaviour
+        message("Argument `constrained` is deprecated; use `model` instead.")
+        if (constrained) {
+            x$CCA$eig
+        } else {
+            c(x$CCA$eig, x$CA$eig)
+        }
+    } else {
+        ## new behaviour
+        model <- match.arg(model)
+        if (identical(model, "all")) {
+            c(x$CCA$eig, x$CA$eig)
+        } else if (identical(model, "unconstrained")) {
+            x$CA$eig
+        } else {
+            x$CCA$eig
+        }
+    }
+    if (!is.null(out)) {
+        class(out) <- "eigenvals"
+    }
+    out
 }
 
 ## wcmdscale (in vegan)
@@ -148,8 +165,8 @@
         NA
     }
     out <- rbind(`Eigenvalue` = object,
-                 `Proportion Explained` = round(abs(vars), 5),
-                 `Cumulative Proportion` = round(cumvars, 5))
+                 `Proportion Explained` = abs(vars),
+                 `Cumulative Proportion` = cumvars)
     class(out) <- c("summary.eigenvals", "matrix")
     out
 }
@@ -161,8 +178,7 @@
     function(x, digits = max(3L, getOption("digits") - 3L), ...)
 {
     cat("Importance of components:\n")
-    cls <- class(x)
-    class(x) <- cls[cls == "matrix"]
+    class(x) <- "matrix"
     print(x, digits = digits, ...)
     invisible(x)
 }

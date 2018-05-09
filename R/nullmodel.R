@@ -1,10 +1,10 @@
 ## this thing creates an environment
-## the whole point is to create all possible inputs for 
+## the whole point is to create all possible inputs for
 ## commsim functions only once and reuse them as necessary
 ## also helps keeping track of updating process for sequential algorithms
 ## method$mode can be evaluated and use storage mode accordingly
-nullmodel <- 
-function(x, method)
+`nullmodel` <-
+    function(x, method)
 {
     x <- as.matrix(x)
     if (is.null(dim(x)) || length(dim(x)) != 2L)
@@ -18,7 +18,7 @@ function(x, method)
         x <- ifelse(x > 0, 1L, 0L)
     int <- method$mode == "integer"
     if (int && abs(sum(x) - sum(as.integer(x))) > 10^-6)
-        stop("non integer values not allowed")
+        stop("non-integer values not allowed")
     if (int)
         x <- round(x, 0) # round up to closest integer
     storage.mode(x) <- method$mode

@@ -85,7 +85,7 @@
     }
     ass <- object$terminfo$assign
     if (is.null(ass))
-        stop("old time result object: update() your model")
+        stop("old style result object: update() your model")
     ## analyse only terms of 'ass' thar are in scope
     scopeterms <- which(attr(terms(object$terminfo), "term.labels") %in% trms)
     mods <- lapply(scopeterms, function(i, ...)
@@ -177,7 +177,7 @@
     ## constraints and model matrices
     Y <- object$Ybar
     if (is.null(Y))
-        stop("old style result object does not work: update() your model")
+        stop("old style result object: update() your model")
     if (!is.null(object$pCCA))
         Z <- qr.X(object$pCCA$QR)
     else

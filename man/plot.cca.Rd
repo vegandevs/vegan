@@ -45,7 +45,7 @@
   \item{display}{Scores shown.  These must include some of the
     alternatives \code{species} or \code{sp} for species scores,
     \code{sites} or \code{wa} for site scores, \code{lc} for linear
-    constraints or ``LC scores'', or \code{bp} for biplot arrows or
+    constraints or LC scores, or \code{bp} for biplot arrows or
     \code{cn} for centroids of factor constraints instead of an arrow,
     and \code{reg} for regression coefficients (a.k.a. canonical
     coefficients). }
@@ -162,22 +162,19 @@
   first or last (or both) rows of scores by using \code{head} or
   \code{tail} or explicit \code{print} command for the \code{summary}.
   
- Palmer (1993) suggested using linear constraints
-  (``LC scores'') in ordination diagrams, because these gave better
-  results in simulations and site scores (``WA scores'') are a step from
+  Palmer (1993) suggested using linear constraints (\dQuote{LC scores})
+  in ordination diagrams, because these gave better results in
+  simulations and site scores (\dQuote{WA scores}) are a step from
   constrained to unconstrained analysis.  However, McCune (1997) showed
-  that noisy environmental variables (and all environmental
-  measurements are noisy) destroy ``LC scores'' whereas ``WA scores''
-  were little affected.  Therefore the \code{plot} function uses site
-  scores (``WA scores'') as the default. This is consistent with the
-  usage in statistics and other functions in \R
-  (\code{\link[MASS]{lda}}, \code{\link{cancor}}).
-}
-\value{
-  The \code{plot} function returns invisibly a plotting structure which
-  can be used by function \code{\link{identify.ordiplot}} to identify
-  the points or other functions in the \code{\link{ordiplot}} family. 
-}
+  that noisy environmental variables (and all environmental measurements
+  are noisy) destroy \dQuote{LC scores} whereas \dQuote{WA scores} were
+  little affected.  Therefore the \code{plot} function uses site scores
+  (\dQuote{WA scores}) as the default. This is consistent with the usage
+  in statistics and other functions in \R (\code{\link[MASS]{lda}},
+  \code{\link{cancor}}).  } \value{ The \code{plot} function returns
+  invisibly a plotting structure which can be used by function
+  \code{\link{identify.ordiplot}} to identify the points or other
+  functions in the \code{\link{ordiplot}} family.  }
 
 \author{Jari Oksanen }
 

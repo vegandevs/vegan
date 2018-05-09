@@ -13,14 +13,14 @@
     Y <- as.matrix(Y)
     n <- nrow(Y)
     p <- ncol(Y)
-    if(p < 2) stop("There is a single variable in the data matrix")
+    if(p < 2) stop("there is only one variable in the data matrix")
 
     ##CC# Transform the species abundances to ranks, by column
     R <- apply(Y,2,rank)
 
     if(missing(group)) group <- rep(1,p)
     if(length(group) != p){
-        stop("The number of species in the vector differs from the total number of species")
+        stop("the number of species in the vector differs from the total number of species")
     }
     group <- as.factor(group)
     gr.lev <- levels(group)
@@ -45,7 +45,7 @@
 
     for(i in 1:ngr){
         p.i <- n.per.gr[i]
-        if(p.i < 2) stop("There is a single variable in group ",gr.lev[i])
+        if(p.i < 2) stop(gettextf("there is only one variable in group %d",gr.lev[i]))
         ##CC# Correction factors for tied ranks (eq. 3.3)
         t.ranks <- apply(R[,gr[[i]]], 2,
                          function(x) summary(as.factor(x), maxsum=n))

@@ -13,7 +13,7 @@
             x <- vegdist(x, method = distance)
     }
     if (any(x < -sqrt(.Machine$double.eps)))
-        warning("some dissimilarities are negative -- is this intentional?")
+        warning("some dissimilarities are negative - is this intentional?")
     sol <- c(call = match.call())
     grouping <- as.factor(grouping)
     if (length(levels(grouping)) < 2)

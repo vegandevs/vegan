@@ -7,7 +7,7 @@
     type <- match.arg(type)
     model <- match.arg(model)
     if (is.null(object[[model]]))
-        stop("component ", model, " does not exist")
+        stop(gettextf("component '%s' does not exist", model))
     D <- ordiYbar(object, model)
     if (type == "response") {
         ## revert Gower double centring

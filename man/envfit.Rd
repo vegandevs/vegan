@@ -139,7 +139,7 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   scores for factor levels. Function \code{factorfit} treats ordered
   and unordered factors similarly.
 
-  If \code{permutations} \eqn{> 0}, the `significance' of fitted vectors
+  If \code{permutations} \eqn{> 0}, the significance of fitted vectors
   or factors is assessed using permutation of environmental variables.
   The goodness of fit statistic is squared correlation coefficient
   (\eqn{r^2}).
@@ -233,7 +233,7 @@ fit <- envfit(ord, varechem, perm = 0, display = "lc", scaling = "sites")
 plot(fit, col = "red")
 
 ## Class variables, formula interface, and displaying the
-## inter-class variability with `ordispider', and semitransparent
+## inter-class variability with ordispider, and semitransparent
 ## white background for labels (semitransparent colours are not
 ## supported by all graphics devices)
 data(dune)

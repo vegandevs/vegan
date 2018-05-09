@@ -38,7 +38,7 @@
     nperm <- nrow(permutations)
     ## check
     if (ncol(permutations) != N)
-        stop(gettextf("permutation matrix has %d columns, but you have %d sites",
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
                       ncol(nperm), N))
     ## All models are evaluated in permutest.cca with identical
     ## permutations so that the differences of single permutations can

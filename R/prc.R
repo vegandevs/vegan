@@ -14,9 +14,9 @@
     fla <- as.formula(paste("~", x, "+", z))
     mf <- model.frame(fla, data, na.action = na.pass)
     if (!all(sapply(mf, is.factor)))
-        stop(x, " and ", z, " must be factors")
+        stop(gettextf("%s and %s must be factors", x, z))
     if (any(sapply(mf, is.ordered)))
-        stop(x, " or ", z, " cannot be ordered factors")
+        stop(gettextf("%s or %s cannot be ordered factors", x, z))
     fla.zx <- as.formula(paste("~", z, ":", x))
     fla.z <- as.formula(paste("~", z))
     # delete first (control) level from the design matrix

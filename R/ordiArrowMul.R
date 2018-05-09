@@ -7,12 +7,12 @@
     X <- if (is.matrix(x)) {
         nc <- NCOL(x)
         if (nc != 2L) {
-            stop("A 2-column matrix of coordinates is required & not supplied.")
+            stop("a two-column matrix of coordinates is required")
         }
         x
     } else {
         if (inherits(x, "envfit")) {
-            scores(x, display = "vectors", ...)[, 1:2]
+            scores(x, display = "vectors", ...)[, 1:2, drop = FALSE]
         } else {
             scores(x, display = display, choices = choices, ...)
         }

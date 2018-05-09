@@ -1,102 +1,111 @@
+### Reads condensed CEP and similar CANOCO formatted data
+
+### This function was originally based on Fortran code to interpret
+### the format and read the data, but Fortran I/O is no longer allowed
+### in CRAN packages. The original Fortran version was made available
+### in github package vegandevs/cepreaded. This function uses
+### utils::read.fortran. For that function we must translate the
+### Fortran format in form understood by read.fortran(). This may
+### fail, and read.fortran() can also fail, in particular wih
+### interpreting the length of decimal part in F format.
+
+### The original Fortran (and cepreader) can also interpret open
+### (ordinary) Fortran format and Canoco FREE format, but this
+### function currently only reads condensed data.
 `read.cep` <-
-  function (file, maxdata = 10000, positive = TRUE, trace = FALSE,
-            force = FALSE)
+    function (file,  positive = TRUE)
 {
-  if (!force) {
-    stop("R may crash: if you want to try, save your session and use 'force=TRUE'")
-  }
-  if (is.loaded("_gfortran_ioparm"))
-      warning("It seems that you have used gfortran: the input may be corrupted\n")
-  ftypes <- c("free", "open", "condensed")
-  file <- path.expand(file)
-  if (trace)
-    cat("File", file, "\n")
-  if (file.access(file, 4) < 0) {
-    stop("file does not exist or is not readable")
-  }
-  on.exit(.Fortran(cepclose))
-  cep <- .Fortran(cephead, file = file, kind = integer(1),
-                  nitem = integer(1), nst = integer(1), fmt = character(1))
-  if (cep$kind > 3)
-    stop("Unknown CEP file type")
-  if (trace) {
-    cat("looks like", ftypes[cep$kind], "CEP file,\n")
-    cat("with", cep$nitem, "items per record")
-    if (cep$kind == 1)
-      cat(" and", cep$nst, "records")
-    cat(".\n")
-  }
-  switch(cep$kind,
-         cd <- .Fortran(cepfree,
-                        nitem = as.integer(cep$nitem),
-                        axdat = as.integer(maxdata),
-                        nsp = integer(1),
-                        nst = as.integer(cep$nst),
-                        i = integer(maxdata),
-                        j = integer(maxdata),
-                        y = double(maxdata),
-                        w = double(cep$nitem),
-                        ier = integer(1)),
-         cd <- .Fortran(cepopen,
-                        fmt = as.character(cep$fmt),
-                        nitem = as.integer(cep$nitem),
-                        maxdat = as.integer(maxdata),
-                        nsp = integer(1),
-                        nst = integer(1),
-                        i = integer(maxdata),
-                        j = integer(maxdata),
-                        y = double(maxdata),
-                        w = double(cep$nitem),
-                        ier = integer(1)),
-         cd <- .Fortran(cepcond,
-                        fmt = as.character(cep$fmt),
-                        nitem = as.integer(cep$nitem),
-                        maxdat = as.integer(maxdata),
-                        nsp = integer(1),
-                        nst = integer(1),
-                        i = integer(maxdata),
-                        j = integer(maxdata),
-                        y = double(maxdata),
-                        w = double(cep$nitem),
-                        iw = integer(cep$nitem),
-                        ier = integer(1)))
-  if (cd$ier) {
-    if (cd$ier == 1)
-      stop("too many non-zero entries: increase maxdata")
-    else stop("unknown and obscure error: I do not know what to do")
-  }
-  if (trace)
-    cat("Read", cd$nsp, "species, ", cd$nst, "sites.\n")
-  d <- matrix(0, cd$nst, cd$nsp)
-  for (i in seq_along(cd$i)) d[cd$i[i], cd$j[i]] <- cd$y[i]
-  nlines <- ceiling(cd$nsp/10)
-  names <- NULL
-  for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran(cepnames, character(1))
-    tmpnames <- substring(as.character(tmpnames), 1, 80)
-    tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
-                                                 80, by = 8))
-    names <- c(names, tmpnames)
-  }
-  names <- gsub(" ", "", names)
-  names <- make.names(names, unique = TRUE)
-  colnames(d) <- names[seq_len(ncol(d))]
-  nlines <- ceiling(cd$nst/10)
-  names <- NULL
-  for (i in seq_len(nlines)) {
-    tmpnames <- .Fortran(cepnames, character(1))
-    tmpnames <- substring(as.character(tmpnames), 1, 80)
-    tmpnames <- substring(tmpnames, seq(1, 80, by = 8), seq(8,
-                                                 80, by = 8))
-    names <- c(names, tmpnames)
-  }
-  names <- gsub(" ", "", names)
-  names <- make.names(names, unique = TRUE)
-  rownames(d) <- names[seq_len(nrow(d))]
-  if (positive) {
-    rsum <- rowSums(d)
-    csum <- colSums(d)
-    d <- d[rsum > 0, csum > 0]
-  }
-  as.data.frame(d)
+    ## Read all file first, interpret contents later
+    cep <- readLines(file)
+    ## skip first line and get the format
+    i <- 2
+    fmt <- substr(cep[i], 1, 60) # CEP sets fmt in cols 1-60
+    fmt <- toupper(fmt)
+    fmt <- gsub(" ", "", fmt)
+    ## get the number of data entries per record
+    nrecord <- as.numeric(substr(cep[i], 61,80))
+    if (is.na(nrecord)) {
+        i <- i+1
+        nrecord <- as.numeric(cep[i])
+    }
+    ## check format: there should be to I-elements (site id, species
+    ## id), and there should be two opening "("
+    fmt1 <- strsplit(fmt, NULL)[[1]]
+    if (sum(fmt1 == "I") != 2 || (nrecord > 1 && sum(fmt1 == "(") != 2))
+        stop(gettextf("format %s does not look correct for condensed data",
+                      fmt))
+    ## process format: basically the format should have elements for
+    ## (INT, n(INT, REAL)). read.fortran() does not understand
+    ## multiplier 'n', but we need to rep((INT,REAL), n) in the
+    ## fmt vector.
+    fmt <- gsub(paste0(nrecord, "\\("), ";", fmt) # separate with ;
+    fmt <- gsub("\\(","",fmt)
+    fmt <- gsub("\\)","",fmt)
+    ## number of decimals: there should be one and only one Fa.b
+    ## format, and we need 'b'
+    ndec <- as.numeric(strsplit(fmt, "\\.")[[1]][2])
+    ## now split format for plotid and nrecord couplets
+    fmt <- strsplit(fmt, ";")[[1]]
+    fmt <- c(strsplit(fmt[1], ",")[[1]], rep(strsplit(fmt[2], ",")[[1]],
+                                             nrecord))
+    if (any(is.na(fmt)))
+        fmt <- fmt[!is.na(fmt)]
+    ## vectors to store results (with safe size)
+    nlines <- length(cep)-i
+    siteid <- numeric(nlines * nrecord)
+    specid <- numeric(nlines * nrecord)
+    abund <- numeric(nlines * nrecord)
+    ids <- seq(2, by=2, len=nrecord)
+    id <- 0
+    ## read until there an empty siteid
+    repeat {
+        i <- i+1
+        x <- drop(as.matrix(read.fortran(textConnection(cep[i]), fmt)))
+        if(is.na(x[1]) || x[1] <= 0) break
+        for(j in ids) {
+            if(!is.na(x[j])) {
+                id <- id+1
+                siteid[id] <- x[1]
+                specid[id] <- x[j]
+                abund[id] <- x[j+1]
+            }
+            else
+                break
+        }
+    }
+    ## check there are no duplicate entries: only last one would be
+    ## used, and this causes an error (and this has happened in
+    ## literature)
+    if (any(dups <- duplicated(cbind(siteid, specid))[seq_len(id)]))
+        stop("you have duplicated data entries: ",
+             paste(siteid[seq_len(id)][dups], specid[seq_len(id)][dups],
+                   collapse = ", "))
+    ## max identifiers
+    nsp <- max(specid)
+    nst <- max(siteid)
+    ## read dimnames
+    i <- i+1
+    nomina <- read.fwf(textConnection(cep[i:length(cep)]), rep(8, 10),
+                       as.is=TRUE)
+    nomina <- gsub(" ", "", as.vector(t(nomina)))
+    spnam <- make.names(nomina[seq_len(nsp)], unique = TRUE)
+    nst0 <- ceiling(nsp/10) * 10
+    stnam <- make.names(nomina[seq_len(nst) + nst0], unique = TRUE)
+    ## utils::read.fortran divides with 10^ndec of F format even when
+    ## there is an explicit decimal point: undo if this seems to have
+    ## happened
+    if (ndec > 0 && min(abund[1:id]) <= 10^(-ndec))
+        abund <- abund * 10^ndec
+    ## make as a matrix
+    out <- matrix(0, nst, nsp)
+    for(j in seq_len(id))
+        out[siteid[j], specid[j]] <- abund[j]
+    dimnames(out) <- list(stnam, spnam)
+    if (positive) {
+        rs <- rowSums(out)
+        cs <- colSums(out)
+        if (any(cs <= 0) || any(rs <= 0))
+            out <- out[rs > 0, cs > 0]
+    }
+    as.data.frame(out)
 }

@@ -24,8 +24,8 @@
 }
 
 \usage{
-varpart(Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
-    sqrt.dist = FALSE)
+varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
+    add = FALSE, sqrt.dist = FALSE, permutations)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
@@ -41,19 +41,25 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{X}{Two to four explanatory models, variables or tables.  These can
   be defined in three alternative ways: (1) one-sided model formulae
   beginning with \code{~} and then defining the model, (2) name of a
-  single numeric variable, or (3) name of data frame or matrix with
-  numeric variables.  The model formulae can have factors,
-  interaction terms and transformations of variables. The names of the
-  variables in the model formula are found in data frame given in
-  \code{data} argument, and if not found there, in the user
-  environment.  Single numeric variables, data frames or matrices are
-  found in the user environment.  All entries till the next argument
-  (\code{data} or \code{transfo}) are interpreted as explanatory
-  models, and the names of these arguments cannot be abbreviated nor
-  omitted. 
-  }
+  single numeric or factor variable, or (3) name of matrix with numeric
+  or data frame with numeric and factor variables.  The model formulae
+  can have factors, interaction terms and transformations of
+  variables. The names of the variables in the model formula are found
+  in data frame given in \code{data} argument, and if not found there,
+  in the user environment.  Single variables, data frames or matrices
+  are found in the user environment.  All entries till the next argument
+  (\code{data} or \code{transfo}) are interpreted as explanatory models,
+  and the names of these extra arguments cannot be abbreviated nor
+  omitted.  }
+
+\item{...}{Other parameters passed to functions. NB, arguments after
+  dots cannot be abbreviated but they must be spelt out completely.}
+
 \item{data}{The data frame with the variables used in the formulae in
-  \code{X}.} 
+  \code{X}.}
+
+\item{chisquare}{Partition Chi-square or the inertia of Correspondence
+  Analysis (\code{\link{cca}}).}
 
 \item{transfo}{ Transformation for \code{Y} (community data) using
   \code{\link{decostand}}.  All alternatives in \code{decostand} can
@@ -76,6 +82,13 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   abbreviated. The argument has an effect only when \code{Y} are
   dissimilarities.}
 
+\item{permutations}{If \code{chisquare = TRUE}, the adjusted
+    \eqn{R^2}{R-squared} is estimated by permutations, and this
+    paramater can be a list of control values for the permutations as
+    returned by the function \code{\link[permute]{how}}, or the number
+    of permutations required, or a permutation matrix where each row
+    gives the permuted indices.}
+
 \item{parts}{Number of explanatory tables (circles) displayed.}
 \item{labels}{Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.}
@@ -89,7 +102,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{Xnames}{Names for sources of variation. Default names are \code{X1},
   \code{X2}, \code{X3} and \code{X4}. \code{Xnames=NA},
   \code{Xnames=NULL} and \code{Xnames=""} produce no names. The names
-  can be changed to other names. Use short names. }
+  can be changed to other names. It is often best to use short names. }
 
 \item{id.size}{A numerical value giving the character expansion factor
   for the names of circles or ellipses. }
@@ -98,8 +111,6 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
   places is at least one higher.}
-\item{...}{Other parameters passed to functions. NB, arguments after
-  dots cannot be abbreviated but they must be spelt out completely.}
 }
 
 \details{
@@ -108,27 +119,31 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   accounted for by two to four explanatory tables and their combined
   effects. If \code{Y} is a multicolumn data frame or matrix, the
   partitioning is based on redundancy analysis (RDA, see
-  \code{\link{rda}}), and if \code{Y} is a single variable, the
-  partitioning is based on linear regression.  If \code{Y} are
-  dissimilarities, the decomposition is based on distance-based
-  redundancy analysis (db-RDA, see \code{\link{capscale}}) following
-  McArdle & Anderson (2001). The input dissimilarities must be
-  compatible to the results of \code{\link{dist}}. \pkg{Vegan} functions
-  \code{\link{vegdist}}, \code{\link{designdist}},
-  \code{\link{raupcrick}} and \code{\link{betadiver}} produce such
-  objects, as do many other dissimilarity functions in \R
-  packages. However, symmetric square matrices are not recognized as
-  dissimilarities but must be transformed with \code{\link{as.dist}}.
-  Partitioning will be made to squared dissimilarities analogously to
-  using variance with rectangular data -- unless \code{sqrt.dist = TRUE}
-  was specified.
+  \code{\link{rda}}) or on constrained correspondence analysis if
+  \code{chisquare = TRUE} (CCA, see \code{\link{cca}}).  If \code{Y}
+  is a single variable, the partitioning is based on linear
+  regression.  If \code{Y} are dissimilarities, the decomposition is
+  based on distance-based redundancy analysis (db-RDA, see
+  \code{\link{capscale}}) following McArdle & Anderson (2001). The
+  input dissimilarities must be compatible to the results of
+  \code{\link{dist}}. \pkg{Vegan} functions \code{\link{vegdist}},
+  \code{\link{designdist}}, \code{\link{raupcrick}} and
+  \code{\link{betadiver}} produce such objects, as do many other
+  dissimilarity functions in \R packages. However, symmetric square
+  matrices are not recognized as dissimilarities but must be
+  transformed with \code{\link{as.dist}}.  Partitioning will be made
+  to squared dissimilarities analogously to using variance with
+  rectangular data -- unless \code{sqrt.dist = TRUE} was specified.
 
   The function primarily uses adjusted \eqn{R^2}{R-squared} to assess
   the partitions explained by the explanatory tables and their
-  combinations, because this is the only unbiased method (Peres-Neto
-  et al., 2006). The raw \eqn{R^2}{R-squared} for basic fractions are
-  also displayed, but these are biased estimates of variation
-  explained by the explanatory table. 
+  combinations (see \code{\link{RsquareAdj}}), because this is the
+  only unbiased method (Peres-Neto et al., 2006). The raw
+  \eqn{R^2}{R-squared} for basic fractions are also displayed, but
+  these are biased estimates of variation explained by the explanatory
+  table. In correspondence analysis (\code{chisquare = TRUE}), the
+  adjusted \eqn{R^2}{R-squared} are found by permutation and they vary
+  in repeated analyses.
 
   The identifiable fractions are designated by lower case alphabets. The
   meaning of the symbols can be found in the separate document (use
@@ -137,11 +152,15 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   A fraction is testable if it can be directly expressed as an RDA or
   db-RDA model.  In these cases the printed output also displays the
-  corresponding RDA model using notation where explanatory tables after
-  \code{|} are conditions (partialled out; see \code{\link{rda}} for
-  details). Although single fractions can be testable, this does not
-  mean that all fractions simultaneously can be tested, since the number
-  of testable fractions is higher than the number of estimated models.
+  corresponding RDA model using notation where explanatory tables
+  after \code{|} are conditions (partialled out; see \code{\link{rda}}
+  for details). Although single fractions can be testable, this does
+  not mean that all fractions simultaneously can be tested, since the
+  number of testable fractions is higher than the number of estimated
+  models. The non-testable components are found as differences of
+  testable components. The testable components have permutation
+  variance in correspondence analysis (\code{chisquare = TRUE}), and
+  the non-testable components have even higher variance.
 
   An abridged explanation of the alphabetic symbols for the individual
   fractions follows, but computational details should be checked in the
@@ -154,7 +173,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   is  \code{[b]} following Borcard et al. (1992).
 
   With three explanatory tables, the fractions explained uniquely
-  by each of the three tables are 
+  by each of the three tables are  
   \code{[a]} to \code{[c]}, joint fractions between two tables are
   \code{[d]} to \code{[f]}, and the joint fraction between all three
   tables is \code{[g]}.
@@ -281,15 +300,11 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   adjustment, which in effect add random variation to the
   dissimilarities.
 
-  The current function will only use RDA in multivariate
-  partitioning. It is much more complicated to estimate the adjusted
-  R-squares for CCA, and unbiased analysis of CCA is not currently
-  implemented.
-
-  A simplified, fast version of RDA or dbRDA are used (functions
-  \code{simpleRDA2} and \code{simpleDBRDA}).  The actual calculations
-  are done in functions \code{varpart2} to \code{varpart4}, but these
-  are not intended to be called directly by the user.
+  A simplified, fast version of RDA, CCA adn dbRDA are used (functions
+  \code{simpleRDA2}, \code{simpleCCA} and \code{simpleDBRDA}).  The
+  actual calculations are done in functions \code{varpart2} to
+  \code{varpart4}, but these are not intended to be called directly by
+  the user.
 
 }
 
@@ -309,50 +324,42 @@ data(mite)
 data(mite.env)
 data(mite.pcnm)
 
-# Two explanatory matrices -- Hellinger-transform Y
-# Formula shortcut "~ ." means: use all variables in 'data'.
-mod <- varpart(mite, ~ ., mite.pcnm, data=mite.env, transfo="hel")
+# Two explanatory data frames -- Hellinger-transform Y
+mod <- varpart(mite, mite.env, mite.pcnm, transfo="hel")
 mod
 
 ## Use fill colours
 showvarparts(2, bg = c("hotpink","skyblue"))
 plot(mod, bg = c("hotpink","skyblue"))
-# Alternative way of to conduct this partitioning
-# Change the data frame with factors into numeric model matrix
-mm <- model.matrix(~ SubsDens + WatrCont + Substrate + Shrub + Topo, mite.env)[,-1]
-mod <- varpart(decostand(mite, "hel"), mm, mite.pcnm)
-# Test fraction [a] using partial RDA:
-aFrac <- rda(decostand(mite, "hel"), mm, mite.pcnm)
-anova(aFrac, step=200, perm.max=200)
-# RsquareAdj gives the same result as component [a] of varpart
+## Test fraction [a] using partial RDA, '~ .' in formula tells to use
+## all variables of data mite.env.
+aFrac <- rda(decostand(mite, "hel"), mite.env, mite.pcnm)
+anova(aFrac)
+## RsquareAdj gives the same result as component [a] of varpart
 RsquareAdj(aFrac)
 
-# Partition Bray-Curtis dissimilarities
-varpart(vegdist(mite), ~ ., mite.pcnm, data = mite.env)
-# Three explanatory matrices 
+## Partition Bray-Curtis dissimilarities
+varpart(vegdist(mite), mite.env, mite.pcnm)
+## Three explanatory tables with formula interface
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
 mod
 showvarparts(3, bg=2:4)
 plot(mod, bg=2:4)
-# An alternative formulation of the previous model using
-# matrices mm1 amd mm2 and Hellinger transformed species data
-mm1 <- model.matrix(~ SubsDens + WatrCont, mite.env)[,-1]
-mm2 <- model.matrix(~ Substrate + Shrub + Topo, mite.env)[, -1]
-mite.hel <- decostand(mite, "hel")
-mod <- varpart(mite.hel, mm1, mm2, mite.pcnm)
-# Use RDA to test fraction [a]
-# Matrix can be an argument in formula
-rda.result <- rda(mite.hel ~ mm1 + Condition(mm2) +
-   Condition(as.matrix(mite.pcnm)))
-anova(rda.result, step=200, perm.max=200)
 
-# Four explanatory tables
+## Use RDA to test fraction [a]
+## Matrix can be an argument in formula
+rda.result <- rda(decostand(mite, "hell") ~ SubsDens + WatrCont +
+   Condition(Substrate + Shrub + Topo) +
+   Condition(as.matrix(mite.pcnm)), data = mite.env)
+anova(rda.result)
+
+## Four explanatory tables
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 mod
 plot(mod, bg=2:5)
-# Show values for all partitions by putting 'cutoff' low enough:
+## Show values for all partitions by putting 'cutoff' low enough:
 plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
 }
 

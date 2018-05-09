@@ -1,12 +1,12 @@
 `varpart` <-
-    function (Y, X, ..., data, transfo, scale = FALSE, add = FALSE,
-              sqrt.dist = FALSE)
+    function (Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
+              add = FALSE, sqrt.dist = FALSE, permutations = 1000)
 {
     if (missing(data))
         data <- parent.frame()
     X <- list(X, ...)
     if ((length(X) < 2 || length(X) > 4))
-        stop("needs 2 to 4 explanatory tables")
+        stop("needs two to four explanatory tables")
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
         inert <- attr(Y, "method")
@@ -36,6 +36,10 @@
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
             message("arguments 'transfo' and 'scale' are ignored with distances")
+    } else if (chisquare) {
+        inert = "Chi-square"
+        RDA = "CCA"
+        permutations = getPermuteMatrix(permutations, nrow(Y))
     } else {
         inert <- "variance"
         RDA <- "RDA"
@@ -44,14 +48,20 @@
             transfo <- attr(Y, "decostand")
         }
         if (!missing(transfo) && (is.null(dim(Y)) || ncol(Y) == 1))
-            warning("Transformations probably are meaningless to a single variable")
+            warning("transformations are probably meaningless with a single variable")
         if (scale && !missing(transfo))
             warning("Y should not be both transformed and scaled (standardized)")
         Y <- scale(Y, center = TRUE, scale = scale)
     }
     Sets <- list()
     for (i in seq_along(X)) {
-        if (inherits(X[[i]], "formula")) {
+        if (is.data.frame(X[[i]]) || is.factor(X[[i]])) {
+            ## factor variable or a data.frame (possibly with factors)
+            mf <- as.data.frame(X[[i]])
+            mf <- model.matrix(~ ., mf)
+            Sets[[i]] <- mf[,-1, drop = FALSE] # remove intercept
+        } else if (inherits(X[[i]], "formula")) {
+            ## Formula interface
             mf <- model.frame(X[[i]], data, na.action = na.fail,
                               drop.unused.levels = TRUE)
             trms <- attr(mf, "terms")
@@ -66,16 +76,29 @@
     }
     out <- list()
     out$part <- switch(length(Sets), NULL,
-                       varpart2(Y, Sets[[1]], Sets[[2]]),
-                       varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]]),
-                       varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]]))
-    if (inherits(Y, "dist"))
+                       varpart2(Y, Sets[[1]], Sets[[2]],
+                                chisquare, permutations),
+                       varpart3(Y, Sets[[1]], Sets[[2]], Sets[[3]],
+                                chisquare, permutations),
+                       varpart4(Y, Sets[[1]], Sets[[2]], Sets[[3]], Sets[[4]],
+                                chisquare, permutations))
+    if (inherits(Y, "dist")) {
         out$part$ordination <- "dbrda"
-    else
-        out$part$ordination <- "rda"
-    out$scale <- scale
-    if (!missing(transfo))
-        out$transfo <- transfo
+    } else {
+        if (chisquare)
+            out$part$ordination <- "cca"
+        else {
+            out$part$ordination <- "rda"
+        }
+    }
+    if(RDA == "RDA") {
+        out$scale <- scale
+        if (!missing(transfo))
+            out$transfo <- transfo
+    } else {
+        if (scale || !missing(transfo))
+            message("arguments 'scale' and 'transfo' ignored: valid only in RDA")
+    }
     out$inert <- inert
     out$RDA <- RDA
     out$call <- match.call()

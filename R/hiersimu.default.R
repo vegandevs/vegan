@@ -41,7 +41,7 @@ function(y, x, FUN, location = c("mean", "median"),
     if (fullgamma && drop.highest)
         nlevs <- nlevs - 1
     if (nlevs == 1 && relative)
-        stop("'relative=FALSE' makes no sense with 1 level")
+        stop("'relative=FALSE' makes no sense with one level")
     ftmp <- vector("list", nlevs)
     for (i in 1:nlevs) {
         ftmp[[i]] <- as.formula(paste("~", tlab[i], "- 1"))

@@ -13,7 +13,7 @@
         if (shrink) {
             mul <- sqrt(attr(X, "shrinkage"))
             if (is.null(mul))
-                warning("Species cannot be shrunken, because they were not expanded")
+                warning("species cannot be shrunken, because they were not expanded")
             else {
                 cnt <- attr(X, "centre")
                 X <- sweep(X, 2, cnt, "-")

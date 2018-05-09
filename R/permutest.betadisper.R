@@ -54,7 +54,7 @@
     }
 
     if(!inherits(x, "betadisper"))
-        stop("Only for class \"betadisper\"")
+        stop("only for class \"betadisper\"")
 
     ## will issue error if only a single group
     mod.aov <- anova(x)

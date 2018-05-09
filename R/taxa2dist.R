@@ -1,5 +1,5 @@
 `taxa2dist` <-
-    function (x, varstep = FALSE, check = TRUE, labels) 
+    function (x, varstep = FALSE, check = TRUE, labels)
 {
     rich <- apply(x, 2, function(taxa) length(unique(taxa)))
     S <- nrow(x)
@@ -19,9 +19,9 @@
     else {
         add <- rep(100/(ncol(x) + check), ncol(x) + check)
     }
-    if (!is.null(names(add))) 
+    if (!is.null(names(add)))
         names(add) <- c("Base", names(add)[-length(add)])
-    if (!check) 
+    if (!check)
         add <- c(0, add)
     out <- matrix(add[1], nrow(x), nrow(x))
     for (i in 1:ncol(x)) {
@@ -34,10 +34,11 @@
         attr(out, "Labels") <- rownames(x)
     } else {
         if (length(labels) != nrow(x))
-            warning("Labels are wrong: needed ", nrow(x), " got ", length(labels))
+            warning(gettextf("labels are wrong: needed %d, got %d",
+                             nrow(x), length(labels)))
         attr(out, "Labels") <- as.character(labels)
     }
     if (!check && any(out <= 0))
-        warning("you used 'check=FALSE' and some distances are zero -- was this intended?")
+        warning("you used 'check=FALSE' and some distances are zero: was this intended?")
     out
 }

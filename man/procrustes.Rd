@@ -14,7 +14,7 @@
 \description{
  Function \code{procrustes} rotates a configuration to maximum similarity
   with another configuration. Function \code{protest} tests the
-  non-randomness (`significance') between two configurations.
+  non-randomness (significance) between two configurations.
 }
 \usage{
 procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
@@ -139,7 +139,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
   analysis.
 
   Function \code{protest} performs symmetric Procrustes analysis
-  repeatedly to estimate the `significance' of the Procrustes
+  repeatedly to estimate the significance of the Procrustes
   statistic. Function \code{protest} uses a correlation-like statistic
   derived from the symmetric Procrustes sum of squares \eqn{ss} as
   \eqn{r =\sqrt{1-ss}}{r = sqrt(1-ss)}, and also prints the sum of
@@ -147,7 +147,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
   \eqn{m_{12}^2}{squared m12}. Function \code{protest} has own
   \code{print} method, but otherwise uses \code{procrustes}
   methods. Thus \code{plot} with a \code{protest} object yields a
-  ``Procrustean superimposition plot.''  }
+  Procrustean superimposition plot.  }
 
 \value{
   Function \code{procrustes} returns an object of class
@@ -167,7 +167,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
   \item{t}{Procrustes correlations from permutations. The distribution
     of these correlations can be inspected with \code{\link{permustats}}
     function.}
-  \item{signif}{`Significance' of \code{t}}
+  \item{signif}{Significance of \code{t}}
   \item{permutations}{Number of permutations.}
   \item{control}{A list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}.}

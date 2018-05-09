@@ -1,6 +1,6 @@
 `predict.decorana` <-
-    function (object, newdata, type = c("response", "sites", "species"), 
-              rank = 4, ...) 
+    function (object, newdata, type = c("response", "sites", "species"),
+              rank = 4, ...)
 {
     type <- match.arg(type)
     u <- object$rproj[, 1:rank, drop = FALSE]
@@ -15,8 +15,8 @@
     cs <- cs/tot
     lam <- object$evals[1:rank]
     if (type == "response") {
-        if (!object$ira && rank > 1) 
-            stop("Prediction is unavailable in detrended CA beyond first axis\n")
+        if (!object$ira && rank > 1)
+            stop("prediction is unavailable in detrended CA beyond first axis")
         Xbar <- 0
         if (rank > 0) {
             if (!object$ira) {
@@ -46,9 +46,9 @@
     }
     else if (type == "species") {
         if (!missing(newdata)) {
-            if (!object$ira && rank > 1) 
+            if (!object$ira && rank > 1)
                 stop("type = 'species' not available in detrended CA with 'newdata'")
-            if (object$iresc) 
+            if (object$iresc)
                 stop("type = 'species' not available in rescaled DCA with 'newdata'")
             Xbar <- as.matrix(newdata)
             cs <- colSums(Xbar)

@@ -10,6 +10,15 @@
    called from R using .Call() interface. Most actual null models are
    static void and are intended to be called via SEXP functions.
 
+   This file can contain some experiments that are not used in the
+   current vegan release: They are not called in any vegan function
+   and (for null models) have not been defined in R/make.commsim.R. If
+   they are exported in src/init.c, they can still be used in a
+   user-defined null model. If they are not listed in src/init.c, they
+   can only be called after editing init.c and recompiling vegan. When
+   writing this (Jan 18, 2018), do_rcfill() and do_boostedqswap() are
+   not used in vegan, but check the code for the current situation.
+
    Note on RNG: static void functions are called by other C functions
    (SEXP functions with .Call interface in R), and we should
    GetRNGstate and PutRNGstate only once in that calling function
