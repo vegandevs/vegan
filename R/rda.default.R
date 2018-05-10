@@ -26,6 +26,9 @@
     inertia <- if (scale) "correlations" else "variance"
     sol <- c(sol,
              list("inertia" = inertia))
+    ## package klaR also has rda(): add a warning text that will be
+    ## printed if vegan::rda object is displayed with klaR:::print.rda
+    sol$regularization <- "this is a vegan::rda result object"
     class(sol) <- c("rda", "cca")
     sol
 }

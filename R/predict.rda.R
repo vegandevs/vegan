@@ -13,6 +13,10 @@
               rank = "full", model = c("CCA", "CA"), scaling = "none",
               correlation = FALSE, const, ...)
 {
+    ## not vegan rda, but intended for klaR:::predict.rda?
+    if (!("CA" %in% names(object)))
+        stop(gettextf("%s is not a vegan rda object",
+                      sQuote(deparse(substitute(object)))))
     type <- match.arg(type)
     model <- match.arg(model)
     if (model == "CCA" && is.null(object$CCA))

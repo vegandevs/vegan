@@ -132,3 +132,16 @@
     class(g) <- "ordiplot"
     invisible(g)
 }
+
+## vegan::plot.rda needed because klaR::plot.rda would be used
+## instead if klaR package is loaded
+
+`plot.rda`<-
+    function(x, ...)
+{
+    ## not vegan rda?
+    if (!("CA" %in% names(x)))
+        stop(gettextf("%s is not a vegan rda object",
+                      sQuote(deparse(substitute(x)))))
+    NextMethod("plot", x, ...)
+}

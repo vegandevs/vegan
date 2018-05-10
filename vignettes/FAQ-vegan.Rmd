@@ -350,7 +350,32 @@ on “Design decision and implementation details in vegan” that you can
 read with command `browseVignettes("vegan")`.
 
 ------------------------------------------------------------------------
+### I cannot print and plot RDA results properly
 
+If the RDA ordination results have a weird format or you cannot plot
+them properly, you probably have a name clash with **klaR** package
+which also has function `rda`, and the **klaR** `print`, `plot` or
+`predict` functions are used for **vegan** RDA results. You can choose
+between `rda` functions using `vegan::rda()` or `klaR::rda()`: you
+will get obscure error messages if you use the wrong function. In
+general, **vegan** should be able to work normally if **vegan** was
+loaded after **klaR**, but if **klaR** was loaded later, its functions
+will take precedence over **vegan**. Sometimes **vegan** namespace is
+loaded automatically when restoring a previously stored workspace at
+the start-up, and then **klaR** methods will always take precedence
+over **vegan**. You should check your loaded packages. **klaR** may be
+also loaded indirectly via other packages (in the reported cases it
+was most often loaded via **agricolae** package). **Vegan** and
+**klaR** both have the same function name (`rda`), and it may not be
+possible to use these packages simultaneously, and the safest choice
+is to unload one of the packages if only possible. See discussion in
+[vegan github issues](https://github.com/vegandevs/vegan/issues/277).
+
+If you have a very old version of **ade4** (prior to 1.7-8), you may
+have similar name clashes with `cca`. The solution is to upgrade
+**ade4**.
+
+------------------------------------------------------------------------
 ### Ordination fails with “Error in La.svd”
 
 Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail
