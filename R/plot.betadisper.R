@@ -56,10 +56,10 @@
                          lwd = seg.lwd)
             }
             if(hull) {
-                ch <- chull(g$sites[take, ])
+                ch <- chull(g$sites[take,, drop=FALSE])
                 ch <- c(ch, ch[1])
-                lines(x$vectors[take, axes][ch, ], col = col[i], lty = lty,
-                      lwd = lwd, ...)
+                lines(x$vectors[take, axes, drop=FALSE][ch, ],
+                      col = col[i], lty = lty, lwd = lwd, ...)
             }
             if (ellipse) {
                 Ellipse(g$sites[take, , drop = FALSE],
