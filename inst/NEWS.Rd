@@ -2,6 +2,66 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-2}{
+
+  \subsection{INSTALLATION AND COMPATIBILITY}{
+    \itemize{
+
+      \item \pkg{Vegan} declares dependence on \R{} version
+      3.3.0. This dependence was not yet noticed in the previous
+      \pkg{vegan} release. See discussion in issue
+      \href{https://github.com/vegandevs/vegan/issues/274}{#274}.
+
+      \item CRAN package \CRANpkg{klaR} has function \code{rda}, and
+      when loaded together with \pkg{vegan} this clashes with
+      \pkg{vegan} \code{rda} for Redundancy Analysis. \pkg{Vegan}
+      tries to mitigate the problem. In most cases \pkg{vegan}
+      functions will be used if \pkg{vegan} was loaded after
+      \pkg{klaR}, and an error message is issued if \pkg{klaR} objects
+      are handled with \pkg{vegan} functions. \pkg{klaR} is also
+      tricked to print and informative message if it handles
+      \pkg{vegan} objects. However, \pkg{vegan} namespace can be
+      attached automatically at the start-up and then \pkg{klaR}
+      functions will take precedence. This was reported as issue
+      \href{https://github.com/vegandevs/vegan/issues/277}{#277}.
+
+      \item Bioconductor package \pkg{phyloseq} has a problem with
+      \code{vegdist} function for dissimilarities. The problem can be
+      fixed by ire-installing \pkg{phyloseq} from \emph{source}. If
+      you cannot do this, you must either downgrade to \pkg{vegan}
+      version 2.4-6 or wait till Bioconductor binary packages are
+      upgraded. This was reported in
+      \href{https://stackoverflow.com/questions/49882886/}{Stackoverflow},
+      \pkg{vegan} issue
+      \href{https://github.com/vegandevs/vegan/issues/272}{#272},
+      and \pkg{phyloseq} issues
+      \href{https://github.com/joey711/phyloseq/issues/918}{#918} and
+      \href{https://github.com/joey711/phyloseq/issues/921}{#921}.
+    
+    } %itemize
+  } % installation
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Plotting \code{betadisper} failed if any of the
+      \code{groups} had only one member. Reported in Stackoverflow as
+      \href{https://stackoverflow.com/questions/50267430/}{“Error: Incorrect no.of dimensions” when plotting multivariate data in Vegan}.
+
+      \item Permutation tests for constrained ordination
+      (\code{anova.cca}, \code{permutest.cca}) could fail in parallel
+      processing with socket clusters. Socket clusters are the only
+      choice in Windows and they can also be used in other operating
+      systems when created with \code{makeCluster}. See issue
+      \href{https://github.com/vegandevs/vegan/issues/276}{#276}.
+
+    } %itemze
+  } % bug fixes
+
+
+
+} % 2.5-2
+
 \section{Changes in version 2.5-1}{
 
   \subsection{GENERAL}{
