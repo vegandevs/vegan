@@ -19,7 +19,7 @@
       functions will be used if \pkg{vegan} was loaded after
       \pkg{klaR}, and an error message is issued if \pkg{klaR} objects
       are handled with \pkg{vegan} functions. \pkg{klaR} is also
-      tricked to print and informative message if it handles
+      tricked to print an informative message if it handles
       \pkg{vegan} objects. However, \pkg{vegan} namespace can be
       attached automatically at the start-up and then \pkg{klaR}
       functions will take precedence. This was reported as issue
@@ -27,14 +27,14 @@
 
       \item Bioconductor package \pkg{phyloseq} has a problem with
       \code{vegdist} function for dissimilarities. The problem can be
-      fixed by ire-installing \pkg{phyloseq} from \emph{source}. If
-      you cannot do this, you must either downgrade to \pkg{vegan}
-      version 2.4-6 or wait till Bioconductor binary packages are
-      upgraded. This was reported in
+      fixed by re-installing \pkg{phyloseq} from \emph{source
+      package}. If you cannot do this, you must either downgrade to
+      \pkg{vegan} version 2.4-6 or wait till Bioconductor binary
+      packages are upgraded. This was reported in
       \href{https://stackoverflow.com/questions/49882886/}{Stackoverflow},
-      \pkg{vegan} issue
+      and as \pkg{vegan} issue
       \href{https://github.com/vegandevs/vegan/issues/272}{#272},
-      and \pkg{phyloseq} issues
+      and as \pkg{phyloseq} issues
       \href{https://github.com/joey711/phyloseq/issues/918}{#918} and
       \href{https://github.com/joey711/phyloseq/issues/921}{#921}.
     
