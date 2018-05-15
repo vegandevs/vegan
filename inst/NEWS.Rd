@@ -7,9 +7,12 @@
   \subsection{INSTALLATION AND COMPATIBILITY}{
     \itemize{
 
-      \item \pkg{Vegan} declares dependence on \R{} version
-      3.3.0. This dependence was not yet noticed in the previous
-      \pkg{vegan} release. See discussion in issue
+      \item \pkg{Vegan} declares dependence on \R{} version 3.2.0. This
+      dependence was not yet noticed in the previous \pkg{vegan}
+      release. However, the generic \code{sigma} function was only
+      defined in \R-3.3.0, and therefore \code{sigma.cca} of \pkg{vegan}
+      must be spelt out completely when using \R-3.2.x.  See discussion
+      in issue
       \href{https://github.com/vegandevs/vegan/issues/274}{#274}.
 
       \item CRAN package \CRANpkg{klaR} has function \code{rda}, and
@@ -27,7 +30,7 @@
 
       \item Bioconductor package \pkg{phyloseq} has a problem with
       \code{vegdist} function for dissimilarities. The problem can be
-      fixed by re-installing \pkg{phyloseq} from \emph{source
+      fixed by re-installing \pkg{phyloseq} from its \emph{source
       package}. If you cannot do this, you must either downgrade to
       \pkg{vegan} version 2.4-6 or wait till Bioconductor binary
       packages are upgraded. This was reported in
@@ -50,9 +53,9 @@
 
       \item Permutation tests for constrained ordination
       (\code{anova.cca}, \code{permutest.cca}) could fail in parallel
-      processing with socket clusters. Socket clusters are the only
-      choice in Windows and they can also be used in other operating
-      systems when created with \code{makeCluster}. See issue
+      processing with socket clusters. Socket clusters are always used
+      in Windows and they can also be used in other operating systems
+      when created with \code{makeCluster}. See issue
       \href{https://github.com/vegandevs/vegan/issues/276}{#276}.
 
     } %itemze
