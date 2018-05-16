@@ -3,6 +3,7 @@ cache: packages
 
 r:
   - release
+  - oldrelease
   - devel
 
 sudo: false
@@ -24,12 +25,6 @@ r_packages:
   - maptools
   - ape
   - picante
-
-#r_github_packages:
-#  - jimhester/covr
-
-#after_success:
-#  - Rscript -e 'covr::codecov()'
 
 before_install:
   - tlmgr install sidecap
