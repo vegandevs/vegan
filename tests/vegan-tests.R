@@ -251,16 +251,6 @@ all(abs(permustats(anova(mr, permutations=p))$permutations -
 all(abs(permustats(anova(mr, permutations=p))$permutations -
         permustats(anova(mc, permutations=p))$permutations)
              < sqrt(.Machine$double.eps))
-## the following two should be equal
-d <- vegdist(wisconsin(sqrt(varespec)))
-(md <- dbrda(d ~ Al + P + Condition(pH), varechem))
-(mc <- capscale(d ~ Al + P + Condition(pH), varechem))
-(amd <- anova(md, permutations = p))
-(amc <- anova(mc, permutations = p))
-## should be zero (within 1e-15)
-range(permustats(amd)$permutations - permustats(amc)$permutations)
-rm(mr, md, mc, d, amd, amc)
-
 ## eigenvals returns a list now (>= 2.5-0)
 data(varespec, varechem)
 mod <- cca(varespec ~ Al + P + Condition(pH), varechem)
