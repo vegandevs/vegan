@@ -12,6 +12,7 @@ addons:
   apt:
     packages:
       - qpdf
+      - libnlopt-dev
 
 r_packages:
   - ade4
@@ -20,7 +21,6 @@ r_packages:
   - labdsv
   - car
   - ellipse
-  - smacof
   - coda
   - maptools
   - ape
