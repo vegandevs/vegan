@@ -667,6 +667,7 @@ static double veg_matching(double *x, int nr, int nc, int i1, int i2)
 
 /* Driver */
 
+
 static double (*distfun)(double*, int, int, int, int);
 
 static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
@@ -800,6 +801,24 @@ SEXP do_vegdist(SEXP x, SEXP method)
 
     UNPROTECT(2);
     return dist;
+}
+
+
+/* Query OMP support. 0 = no openMP, 1 = openMP but running in single
+   thread, >1 = openMP with returned number of threads. Call this
+   function as .Call("veganOMP", PACKAGE = "vegan"). */
+
+SEXP veganOMP()
+{
+    SEXP out = allocVector(INTSXP, 1);
+    int nthreads;
+#ifdef _OPENMP
+    nthreads = omp_get_num_threads();
+#else
+    nthreads = 0;
+#endif
+    INTEGER(out)[0] = nthreads;
+    return out;
 }
 
 /* Minimum terms for designdist. Returns a matrix where the diagonal
