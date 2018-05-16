@@ -667,6 +667,9 @@ static double veg_matching(double *x, int nr, int nc, int i1, int i2)
 
 /* Driver */
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 static double (*distfun)(double*, int, int, int, int);
 
