@@ -21,7 +21,6 @@ r_packages:
   - labdsv
   - car
   - ellipse
-  - smacof
   - coda
   - maptools
   - ape
