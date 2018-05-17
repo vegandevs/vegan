@@ -179,7 +179,7 @@ data(dune.env)
 levels(dune.env$Management) <- c(levels(dune.env$Management), "foo")
 ## fit nMDS and envfit
 set.seed(1)
-mod <- metaMDS(dune)
+mod <- metaMDS(dune, trace = 0)
 ef <- envfit(mod, dune.env, permutations = 99)
 plot(mod)
 plot(ef, p.max = 0.1)
@@ -229,7 +229,7 @@ rm(ind, target, mod, dat, d)
 ### originally reported to GLS by Richard Telford
 data(varespec)
 set.seed(1)
-mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0))
+mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0), trace=0)
 mod
 rm(mod)
 ### The above should run without error & last lines tests changes to the
