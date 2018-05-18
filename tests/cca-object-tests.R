@@ -1,6 +1,7 @@
 ## test the stability of cca object and its support functions
 suppressPackageStartupMessages(require(vegan))
 set.seed(4711)
+op <- options(digits=5)
 ## models
 data(dune, dune.env)
 mcca <- cca(dune ~ Condition(Management) + Manure + A1, dune.env)
@@ -230,4 +231,5 @@ abs(predict(mcap, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mdb, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mancap, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mandb, newdata = dune.env[1:4,]))
-
+## reset
+options(op)
