@@ -179,7 +179,7 @@ data(dune.env)
 levels(dune.env$Management) <- c(levels(dune.env$Management), "foo")
 ## fit nMDS and envfit
 set.seed(1)
-mod <- metaMDS(dune)
+mod <- metaMDS(dune, trace = 0)
 ef <- envfit(mod, dune.env, permutations = 99)
 plot(mod)
 plot(ef, p.max = 0.1)
@@ -229,7 +229,7 @@ rm(ind, target, mod, dat, d)
 ### originally reported to GLS by Richard Telford
 data(varespec)
 set.seed(1)
-mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0))
+mod <- metaMDS(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0), trace=0)
 mod
 rm(mod)
 ### The above should run without error & last lines tests changes to the
@@ -244,20 +244,13 @@ data(varespec, varechem)
 (mc <- capscale(varespec ~ Al + P + Condition(pH), varechem))
 ## the following two should be zero (within 1e-15)
 p <- shuffleSet(nrow(varespec), 999)
-range(permustats(anova(mr, permutations=p))$permutations -
-          permustats(anova(md, permutations=p))$permutations)
-range(permustats(anova(mr, permutations=p))$permutations -
-          permustats(anova(mc, permutations=p))$permutations)
-## the following two should be equal
-d <- vegdist(wisconsin(sqrt(varespec)))
-(md <- dbrda(d ~ Al + P + Condition(pH), varechem))
-(mc <- capscale(d ~ Al + P + Condition(pH), varechem))
-(amd <- anova(md, permutations = p))
-(amc <- anova(mc, permutations = p))
-## should be zero (within 1e-15)
-range(permustats(amd)$permutations - permustats(amc)$permutations)
-rm(mr, md, mc, d, amd, amc)
+all(abs(permustats(anova(mr, permutations=p))$permutations -
+        permustats(anova(md, permutations=p))$permutations)
+             < sqrt(.Machine$double.eps))
 
+all(abs(permustats(anova(mr, permutations=p))$permutations -
+        permustats(anova(mc, permutations=p))$permutations)
+             < sqrt(.Machine$double.eps))
 ## eigenvals returns a list now (>= 2.5-0)
 data(varespec, varechem)
 mod <- cca(varespec ~ Al + P + Condition(pH), varechem)

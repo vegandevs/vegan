@@ -18,6 +18,7 @@ Type 'q()' to quit R.
 > ## test the stability of cca object and its support functions
 > suppressPackageStartupMessages(require(vegan))
 > set.seed(4711)
+> op <- options(digits=5)
 > ## models
 > data(dune, dune.env)
 > mcca <- cca(dune ~ Condition(Management) + Manure + A1, dune.env)
@@ -40,44 +41,40 @@ Call: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 
               Inertia Proportion Rank
-Total          2.1153     1.0000     
-Conditional    0.6038     0.2855    3
-Constrained    0.4496     0.2126    4
-Unconstrained  1.0618     0.5020   12
+Total           2.115      1.000     
+Conditional     0.604      0.285    3
+Constrained     0.450      0.213    4
+Unconstrained   1.062      0.502   12
 Inertia is scaled Chi-square 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-   CCA1    CCA2    CCA3    CCA4 
-0.22257 0.12260 0.06390 0.04055 
+  CCA1   CCA2   CCA3   CCA4 
+0.2226 0.1226 0.0639 0.0406 
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
-0.3176 0.1586 0.1397 0.1161 0.0791 0.0753 0.0453 0.0402 0.0378 0.0280 0.0127 
-  CA12 
-0.0116 
+  CA1   CA2   CA3   CA4   CA5   CA6   CA7   CA8   CA9  CA10  CA11  CA12 
+0.318 0.159 0.140 0.116 0.079 0.075 0.045 0.040 0.038 0.028 0.013 0.012 
 
 > mrda
 Call: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 
               Inertia Proportion Rank
-Total         84.1237     1.0000     
-Conditional   29.2307     0.3475    3
-Constrained   16.7914     0.1996    4
-Unconstrained 38.1016     0.4529   12
+Total          84.124      1.000     
+Conditional    29.231      0.347    3
+Constrained    16.791      0.200    4
+Unconstrained  38.102      0.453   12
 Inertia is variance 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
- RDA1  RDA2  RDA3  RDA4 
-8.539 4.330 2.206 1.716 
+RDA1 RDA2 RDA3 RDA4 
+8.54 4.33 2.21 1.72 
 
 Eigenvalues for unconstrained axes:
-   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
-10.252  8.207  4.953  3.358  3.123  2.494  1.866  1.258  1.019  0.743  0.481 
-  PC12 
- 0.349 
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12 
+10.25  8.21  4.95  3.36  3.12  2.49  1.87  1.26  1.02  0.74  0.48  0.35 
 
 > mcap
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
@@ -87,107 +84,101 @@ data = dune.env, distance = "bray")
 Total          4.2990     1.0000     
 Conditional    1.5001     0.3489    3
 Constrained    1.0726     0.2495    4
-Unconstrained  2.0212     0.4702   12
+Unconstrained  2.0212     0.4701   12
 Imaginary     -0.2949    -0.0686    5
 Inertia is squared Bray distance 
 Species scores projected from 'dune' 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3   CAP4 
-0.6737 0.2430 0.1046 0.0514 
+ CAP1  CAP2  CAP3  CAP4 
+0.674 0.243 0.105 0.051 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
-0.7489 0.3380 0.3084 0.2132 0.1370 0.1360 0.0620 0.0393 0.0169 0.0111 0.0065 
- MDS12 
-0.0040 
+ MDS1  MDS2  MDS3  MDS4  MDS5  MDS6  MDS7  MDS8  MDS9 MDS10 MDS11 MDS12 
+0.749 0.338 0.308 0.213 0.137 0.136 0.062 0.039 0.017 0.011 0.006 0.004 
 
 > mdb
 Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 
               Inertia Proportion Rank RealDims
-Total          4.2990     1.0000              
-Conditional    1.4686     0.3416    3         
-Constrained    1.0346     0.2407    4        4
-Unconstrained  1.7959     0.4177   12        9
+Total           4.299      1.000              
+Conditional     1.469      0.342    3         
+Constrained     1.035      0.241    4        4
+Unconstrained   1.796      0.418   12        9
 Inertia is squared Bray distance 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
-0.6666 0.2385 0.0910 0.0384 
+ 0.667  0.238  0.091  0.038 
 
 Eigenvalues for unconstrained axes:
-   MDS1    MDS2    MDS3    MDS4    MDS5    MDS6    MDS7    MDS8    MDS9   iMDS1 
- 0.7420  0.3367  0.3066  0.2063  0.1334  0.1283  0.0398  0.0275  0.0004 -0.0199 
-  iMDS2   iMDS3 
--0.0460 -0.0592 
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  iMDS1  iMDS2 
+ 0.742  0.337  0.307  0.206  0.133  0.128  0.040  0.027  0.000 -0.020 -0.046 
+ iMDS3 
+-0.059 
 
 > mancap
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 
-                Inertia Proportion Rank
-Total         994.09211    1.00000     
-Conditional   412.30377    0.41475    3
-Constrained   213.07941    0.21435    4
-Unconstrained 452.26440    0.45495   12
-Imaginary     -83.55548   -0.08405    6
+               Inertia Proportion Rank
+Total         994.0921     1.0000     
+Conditional   412.3038     0.4148    3
+Constrained   213.0794     0.2143    4
+Unconstrained 452.2644     0.4550   12
+Imaginary     -83.5555    -0.0841    6
 Inertia is mean squared Manhattan distance 
 Species scores projected from 'dune' 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3   CAP4 
-125.66  49.31  24.24  13.87 
+ CAP1  CAP2  CAP3  CAP4 
+125.7  49.3  24.2  13.9 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
-163.68  97.08  59.01  40.21  34.85  24.94  12.72  10.92   4.69   1.90   1.51 
- MDS12 
-  0.76 
+ MDS1  MDS2  MDS3  MDS4  MDS5  MDS6  MDS7  MDS8  MDS9 MDS10 MDS11 MDS12 
+163.7  97.1  59.0  40.2  34.9  24.9  12.7  10.9   4.7   1.9   1.5   0.8 
 
 > mandb
 Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 
-               Inertia Proportion Rank RealDims
-Total         994.0921     1.0000              
-Conditional   404.0693     0.4065    3         
-Constrained   202.5761     0.2038    4        4
-Unconstrained 387.4468     0.3897   12        8
+              Inertia Proportion Rank RealDims
+Total         994.092      1.000              
+Conditional   404.069      0.406    3         
+Constrained   202.576      0.204    4        4
+Unconstrained 387.447      0.390   12        8
 Inertia is mean squared Manhattan distance 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
-123.16  47.37  21.91  10.13 
+ 123.2   47.4   21.9   10.1 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8  iMDS1  iMDS2  iMDS3 
-161.47  96.12  58.78  38.53  33.35  24.57   9.59   5.97  -0.59  -6.26 -13.30 
- iMDS4 
--20.79 
+ MDS1  MDS2  MDS3  MDS4  MDS5  MDS6  MDS7  MDS8 iMDS1 iMDS2 iMDS3 iMDS4 
+161.5  96.1  58.8  38.5  33.4  24.6   9.6   6.0  -0.6  -6.3 -13.3 -20.8 
 
 > m0cca
 Call: cca(formula = dune ~ Condition(Management) + Management, data =
 dune.env)
 
               Inertia Proportion Rank
-Total          2.1153     1.0000     
-Conditional    0.6038     0.2855    3
-Constrained    0.0000     0.0000    0
-Unconstrained  1.5114     0.7145   16
+Total           2.115      1.000     
+Conditional     0.604      0.285    3
+Constrained     0.000      0.000    0
+Unconstrained   1.511      0.715   16
 Inertia is scaled Chi-square 
 Some constraints were aliased because they were collinear (redundant)
 
 Eigenvalues for unconstrained axes:
-   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
-0.4474 0.2030 0.1630 0.1346 0.1294 0.0949 0.0790 0.0653 0.0500 0.0432 0.0387 
-  CA12   CA13   CA14   CA15   CA16 
-0.0239 0.0177 0.0092 0.0080 0.0042 
+  CA1   CA2   CA3   CA4   CA5   CA6   CA7   CA8   CA9  CA10  CA11  CA12  CA13 
+0.447 0.203 0.163 0.135 0.129 0.095 0.079 0.065 0.050 0.043 0.039 0.024 0.018 
+ CA14  CA15  CA16 
+0.009 0.008 0.004 
 
 > ## names
 > sort(names(mcca))
@@ -206,941 +197,197 @@ Eigenvalues for unconstrained axes:
  [1] "CA"        "CCA"       "Ybar"      "adjust"    "call"      "colsum"   
  [7] "inertia"   "method"    "pCCA"      "sqrt.dist" "terminfo"  "terms"    
 [13] "tot.chi"  
-> ## overall results
-> head(summary(mcca))
-
-Call:
-cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env) 
-
-Partitioning of scaled Chi-square:
-              Inertia Proportion
-Total          2.1153     1.0000
-Conditioned    0.6038     0.2855
-Constrained    0.4496     0.2126
-Unconstrained  1.0618     0.5020
-
-Eigenvalues, and their contribution to the scaled Chi-square 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                        CCA1    CCA2    CCA3    CCA4    CA1    CA2    CA3
-Eigenvalue            0.2226 0.12260 0.06390 0.04055 0.3176 0.1586 0.1397
-Proportion Explained  0.1473 0.08111 0.04228 0.02683 0.2101 0.1049 0.0924
-Cumulative Proportion 0.1473 0.22837 0.27065 0.29748 0.5076 0.6125 0.7049
-                         CA4     CA5     CA6     CA7     CA8     CA9    CA10
-Eigenvalue            0.1161 0.07907 0.07534 0.04527 0.04018 0.03777 0.02799
-Proportion Explained  0.0768 0.05232 0.04985 0.02996 0.02658 0.02499 0.01852
-Cumulative Proportion 0.7818 0.83407 0.88391 0.91387 0.94045 0.96544 0.98396
-                         CA11     CA12
-Eigenvalue            0.01267 0.011583
-Proportion Explained  0.00838 0.007663
-Cumulative Proportion 0.99234 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                        CCA1   CCA2   CCA3    CCA4
-Eigenvalue            0.2226 0.1226 0.0639 0.04055
-Proportion Explained  0.4950 0.2727 0.1421 0.09019
-Cumulative Proportion 0.4950 0.7677 0.9098 1.00000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-
-
-Species scores
-
-            CCA1     CCA2    CCA3     CCA4      CA1     CA2
-Achimill -0.3020 -0.03039  0.1739 -0.29050 -0.47035  0.4053
-Agrostol  0.4570 -0.06915 -0.1150  0.06489  0.46395 -0.2476
-Airaprae -1.0449  0.77758 -0.2904 -0.23687 -2.44144 -1.1078
-Alopgeni  0.2386  0.32932  0.1001 -0.03812  0.13379 -0.4529
-Anthodor -0.3932  0.23278  0.1235 -0.03880 -1.20221  0.1624
-Bellpere -0.4034 -0.53647  0.2775 -0.19005  0.02897  0.1588
-....                                                       
-
-
-Site scores (weighted averages of species scores)
-
-         CCA1      CCA2    CCA3    CCA4      CA1      CA2
-1    -1.96500 -2.647979 -1.6413  0.7526  0.16816  1.04046
-2     0.01548 -0.648315  0.6587 -0.6812  0.65622 -1.25162
-3    -0.71057 -0.840749  0.0553 -0.2768 -0.01137  0.02309
-4    -0.87923 -1.474951 -0.3516  0.4807 -0.05715 -0.43671
-5    -0.66004 -0.536002  1.6369 -0.9516 -0.64903  0.33149
-6    -0.42088 -0.006203  1.8524 -1.2119  0.02111  1.12577
-....                                                     
-
-
-Site constraints (linear combinations of constraining variables)
-
-        CCA1     CCA2    CCA3     CCA4      CA1      CA2
-1    -1.5955 -0.99312 -0.5835  0.09984  0.16816  1.04046
-2    -0.4818 -0.30770  1.2088 -1.78670  0.65622 -1.25162
-3    -0.8519 -1.54647 -0.3768  0.26840 -0.01137  0.02309
-4    -0.9014 -1.50958 -0.3906  0.25716 -0.05715 -0.43671
-5     0.2849 -0.66306  1.6297  0.07742 -0.64903  0.33149
-6    -0.7065  0.07475  1.3541 -0.14734  0.02111  1.12577
-....                                                    
-
-
-Biplot scores for constraining variables
-
-             CCA1    CCA2     CCA3    CCA4 CA1 CA2
-Manure.L -0.09318 -0.2775 -0.16265 -0.3004   0   0
-Manure.Q -0.23399 -0.4051 -0.33839  0.1172   0   0
-Manure.C -0.36473 -0.2343  0.09356  0.7250   0   0
-A1        0.73599 -0.2781  0.41726  0.1096   0   0
-
-
-Centroids for factor constraints
-
-           CCA1    CCA2    CCA3    CCA4 CA1 CA2
-Manure1  0.1028  0.3739 -0.6488  1.5695   0   0
-Manure2 -0.2406  0.1422  1.5507 -0.3733   0   0
-Manure3  0.9024  0.5482 -0.9689 -0.9932   0   0
-Manure4 -1.0035 -1.4337 -0.4190  0.2340   0   0
-
-> head(summary(mrda))
-
-Call:
-rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env) 
-
-Partitioning of variance:
-              Inertia Proportion
-Total           84.12     1.0000
-Conditioned     29.23     0.3475
-Constrained     16.79     0.1996
-Unconstrained   38.10     0.4529
-
-Eigenvalues, and their contribution to the variance 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                        RDA1    RDA2    RDA3    RDA4     PC1    PC2     PC3
-Eigenvalue            8.5394 4.32972 2.20612 1.71619 10.2523 8.2069 4.95252
-Proportion Explained  0.1556 0.07888 0.04019 0.03126  0.1868 0.1495 0.09022
-Cumulative Proportion 0.1556 0.23444 0.27463 0.30589  0.4927 0.6422 0.73239
-                          PC4     PC5     PC6     PC7     PC8     PC9    PC10
-Eigenvalue            3.35769 3.12261 2.49407 1.86596 1.25786 1.01862 0.74284
-Proportion Explained  0.06117 0.05689 0.04544 0.03399 0.02291 0.01856 0.01353
-Cumulative Proportion 0.79356 0.85044 0.89588 0.92987 0.95279 0.97134 0.98487
-                          PC11     PC12
-Eigenvalue            0.481450 0.348822
-Proportion Explained  0.008771 0.006355
-Cumulative Proportion 0.993645 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                        RDA1   RDA2   RDA3   RDA4
-Eigenvalue            8.5394 4.3297 2.2061 1.7162
-Proportion Explained  0.5086 0.2579 0.1314 0.1022
-Cumulative Proportion 0.5086 0.7664 0.8978 1.0000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  6.322924 
-
-
-Species scores
-
-             RDA1     RDA2      RDA3     RDA4      PC1      PC2
-Achimill -0.14550  0.13153  0.130591 -0.18255 -0.29276 -0.06031
-Agrostol  0.52375 -0.46961  0.054758  0.21830  1.01439  0.05307
-Airaprae -0.08147  0.11025 -0.144870 -0.10175 -0.12976 -0.13252
-Alopgeni  0.47459  0.21414 -0.004781 -0.04047  0.63179 -0.50591
-Anthodor -0.15175  0.31064 -0.067197 -0.09460 -0.64397 -0.06438
-Bellpere -0.27809  0.02717  0.245698 -0.05426  0.03467 -0.19891
-....                                                           
-
-
-Site scores (weighted sums of species scores)
-
-       RDA1    RDA2    RDA3    RDA4     PC1     PC2
-1    -3.402 -1.1290 -0.9821 -0.1855 -1.1005  1.2222
-2    -0.142 -0.2142  2.7695 -0.2806  1.9422 -1.8707
-3    -1.868 -0.4323  1.1228 -0.1835  0.2872 -0.8173
-4    -1.755 -1.2670  0.6715  1.7718  0.8134 -0.4049
-5    -0.778  2.0101  2.6716 -1.2709 -0.9906 -0.2655
-6    -0.848  2.2170  2.0765 -1.0842 -1.3093  2.3704
-....                                               
-
-
-Site constraints (linear combinations of constraining variables)
-
-         RDA1   RDA2    RDA3     RDA4     PC1     PC2
-1    -2.61763 -0.569 -0.2204  0.12268 -1.1005  1.2222
-2    -0.62199  1.011  2.3626 -2.44309  1.9422 -1.8707
-3    -2.18907 -1.149  0.5417  0.65792  0.2872 -0.8173
-4    -2.21764 -1.110  0.4909  0.62224  0.8134 -0.4049
-5    -0.07305  1.172  2.3291  0.64921 -0.9906 -0.2655
-6    -0.64445  1.946  1.3130 -0.06445 -1.3093  2.3704
-....                                                 
-
-
-Biplot scores for constraining variables
-
-            RDA1    RDA2     RDA3    RDA4 PC1 PC2
-Manure.L -0.2149 -0.2419  0.09302 -0.2225   0   0
-Manure.Q -0.4401 -0.3373 -0.08826  0.1125   0   0
-Manure.C -0.4646  0.1488 -0.09362  0.6665   0   0
-A1        0.5201 -0.2136  0.60923  0.3502   0   0
-
-
-Centroids for factor constraints
-
-            RDA1    RDA2    RDA3    RDA4 PC1 PC2
-Manure1  0.25589 -0.1299 -1.6158  1.9549   0   0
-Manure2  0.05495  1.9587  1.6768 -0.3089   0   0
-Manure3  1.50921 -1.1542 -0.6679 -1.5080   0   0
-Manure4 -2.34145 -0.9428  0.2708  0.4676   0   0
-
-> head(summary(mrda1))
-
-Call:
-rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      scale = TRUE) 
-
-Partitioning of correlations:
-              Inertia Proportion
-Total          30.000     1.0000
-Conditioned     8.780     0.2927
-Constrained     6.141     0.2047
-Unconstrained  15.079     0.5026
-
-Eigenvalues, and their contribution to the correlations 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                        RDA1    RDA2    RDA3    RDA4    PC1    PC2     PC3
-Eigenvalue            2.6117 1.69906 1.10393 0.72605 3.4684 2.5471 2.11575
-Proportion Explained  0.1231 0.08007 0.05202 0.03422 0.1635 0.1200 0.09971
-Cumulative Proportion 0.1231 0.20315 0.25517 0.28939 0.4528 0.5729 0.67258
-                          PC4     PC5     PC6     PC7     PC8     PC9    PC10
-Eigenvalue            1.72233 1.44262 0.96108 0.80894 0.73780 0.49031 0.38048
-Proportion Explained  0.08117 0.06799 0.04529 0.03812 0.03477 0.02311 0.01793
-Cumulative Proportion 0.75375 0.82173 0.86703 0.90515 0.93992 0.96302 0.98095
-                         PC11     PC12
-Eigenvalue            0.24717 0.156976
-Proportion Explained  0.01165 0.007398
-Cumulative Proportion 0.99260 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                        RDA1   RDA2   RDA3   RDA4
-Eigenvalue            2.6117 1.6991 1.1039 0.7261
-Proportion Explained  0.4253 0.2767 0.1798 0.1182
-Cumulative Proportion 0.4253 0.7020 0.8818 1.0000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  4.886172 
-
-
-Species scores
-
-            RDA1    RDA2     RDA3     RDA4      PC1      PC2
-Achimill -0.2015  0.0240  0.15674 -0.17627  0.18039  0.27693
-Agrostol  0.3092 -0.1517 -0.08093  0.04138 -0.38182 -0.27286
-Airaprae -0.1885  0.2941 -0.08865 -0.07686  0.49477 -0.23646
-Alopgeni  0.1979  0.1257  0.10439 -0.01677 -0.12026 -0.33195
-Anthodor -0.1755  0.1933  0.09312 -0.01215  0.52322  0.20241
-Bellpere -0.3524 -0.2243  0.18857 -0.09393  0.01088 -0.09491
-....                                                        
-
-
-Site scores (weighted sums of species scores)
-
-        RDA1    RDA2      RDA3     RDA4      PC1     PC2
-1    -1.4695 -0.7614 -1.171234  0.06443 -0.16939  1.2128
-2    -0.4414 -1.0286  1.114025 -1.42116 -0.83505 -1.6447
-3    -1.2767 -0.8366  0.004919 -0.11192  0.01951  0.1068
-4    -1.8532 -1.6510 -0.635210  0.97258  0.14988 -1.3196
-5    -1.1089 -0.2520  1.932064 -1.06386  0.67670  0.3455
-6    -0.6971  0.4364  2.582649 -0.57390  0.21765  1.8887
-....                                                    
-
-
-Site constraints (linear combinations of constraining variables)
-
-        RDA1    RDA2    RDA3     RDA4      PC1     PC2
-1    -1.8332 -0.6149 -0.7416  0.18601 -0.16939  1.2128
-2    -0.8742 -0.2751  1.6994 -2.00294 -0.83505 -1.6447
-3    -1.3676 -1.3413 -0.5226  0.37587  0.01951  0.1068
-4    -1.3986 -1.2929 -0.5372  0.36322  0.14988 -1.3196
-5    -0.2379 -0.6507  1.9351  0.30032  0.67670  0.3455
-6    -0.8587  0.3179  1.6431  0.04717  0.21765  1.8887
-....                                                  
-
-
-Biplot scores for constraining variables
-
-            RDA1     RDA2     RDA3     RDA4 PC1 PC2
-Manure.L -0.1739 -0.21917 -0.13309 -0.25862   0   0
-Manure.Q -0.3302 -0.29212 -0.35204  0.09809   0   0
-Manure.C -0.4113 -0.08236 -0.02067  0.71730   0   0
-A1        0.5843 -0.52307  0.41469  0.15159   0   0
-
-
-Centroids for factor constraints
-
-           RDA1    RDA2    RDA3    RDA4 PC1 PC2
-Manure1  0.3905  0.4160 -0.8928  1.6637   0   0
-Manure2 -0.3631  0.2937  1.9393 -0.2230   0   0
-Manure3  1.2201  0.2066 -0.8193 -1.2560   0   0
-Manure4 -1.5331 -1.0830 -0.6005  0.3084   0   0
-
-> head(summary(mcap))
-
-Call:
-capscale(formula = dune ~ Condition(Management) + Manure + A1,      data = dune.env, distance = "bray") 
-
-Partitioning of squared Bray distance:
-              Inertia Proportion
-Total           4.594     1.0000
-Conditioned     1.500     0.3265
-Constrained     1.073     0.2335
-Unconstrained   2.021     0.4400
-
-Eigenvalues, and their contribution to the squared Bray distance 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                        CAP1    CAP2   CAP3    CAP4   MDS1   MDS2    MDS3
-Eigenvalue            0.6737 0.24300 0.1046 0.05136 0.7489 0.3380 0.30841
-Proportion Explained  0.2178 0.07854 0.0338 0.01660 0.2421 0.1092 0.09969
-Cumulative Proportion 0.2178 0.29630 0.3301 0.34670 0.5888 0.6980 0.79770
-                        MDS4    MDS5    MDS6    MDS7    MDS8     MDS9    MDS10
-Eigenvalue            0.2132 0.13698 0.13604 0.06196 0.03929 0.016871 0.011095
-Proportion Explained  0.0689 0.04428 0.04397 0.02003 0.01270 0.005453 0.003586
-Cumulative Proportion 0.8666 0.91088 0.95485 0.97487 0.98757 0.993027 0.996613
-                         MDS11    MDS12
-Eigenvalue            0.006462 0.004016
-Proportion Explained  0.002089 0.001298
-Cumulative Proportion 0.998702 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                        CAP1   CAP2    CAP3    CAP4
-Eigenvalue            0.6737 0.2430 0.10457 0.05136
-Proportion Explained  0.6281 0.2265 0.09749 0.04788
-Cumulative Proportion 0.6281 0.8546 0.95212 1.00000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  3.00629 
-
-
-Species scores
-
-             CAP1     CAP2     CAP3      CAP4     MDS1      MDS2
-Achimill -0.10723 -0.02762 -0.06497  0.061214 -0.18926  0.189295
-Agrostol  0.38537  0.16664  0.06650 -0.031455  0.56724  0.002715
-Airaprae -0.08164 -0.07543  0.03695  0.015634 -0.12521 -0.012439
-Alopgeni  0.24656 -0.15983 -0.02564  0.022079  0.25760 -0.250870
-Anthodor -0.13935 -0.13763 -0.03132  0.008705 -0.41826  0.137366
-Bellpere -0.15065  0.06935 -0.09839  0.026235 -0.01959 -0.094694
-....                                                            
-
-
-Site scores (weighted sums of species scores)
-
-         CAP1    CAP2    CAP3    CAP4     MDS1    MDS2
-1    -1.75091  1.4325  0.9988 -0.1880 -0.28006  0.9259
-2    -0.04337  0.6007 -1.0699  0.6351  0.57727  0.0195
-3    -0.46252  0.4417 -0.7228 -0.3457  0.11120 -0.4459
-4    -0.57266  0.4128 -0.2832 -0.2175  0.16886 -0.4800
-5    -0.61137 -0.4570 -1.4115  1.1267 -0.69415  0.1504
-6    -0.35926 -0.4786 -1.0118  0.7461 -0.05716  0.4106
-....                                                  
-
-
-Site constraints (linear combinations of constraining variables)
-
-         CAP1     CAP2     CAP3     CAP4     MDS1    MDS2
-1    -1.14568  0.52204  0.13998 -0.17847 -0.28006  0.9259
-2    -0.41299 -0.08520 -1.05218  1.28256  0.57727  0.0195
-3    -0.80898  0.89489 -0.08091 -0.29002  0.11120 -0.4459
-4    -0.83143  0.87003 -0.06619 -0.28258  0.16886 -0.4800
-5     0.05176  0.02045 -1.27141 -0.11767 -0.69415  0.1504
-6    -0.39716 -0.47668 -0.97690  0.03106 -0.05716  0.4106
-....                                                     
-
-
-Biplot scores for constraining variables
-
-            CAP1    CAP2     CAP3    CAP4 MDS1 MDS2
-Manure.L -0.1818 0.26436  0.04782  0.2401    0    0
-Manure.Q -0.3503 0.38834  0.18993 -0.1354    0    0
-Manure.C -0.3820 0.06479 -0.10533 -0.7278    0    0
-A1        0.6755 0.35212 -0.46328 -0.1227    0    0
-
-
-Centroids for factor constraints
-
-            CAP1    CAP2      CAP3    CAP4 MDS1 MDS2
-Manure1  0.17436 -0.1293  0.575731 -1.0461    0    0
-Manure2 -0.07502 -0.5180 -1.097593  0.2154    0    0
-Manure3  0.64077  0.0433  0.667576  0.7569    0    0
-Manure4 -0.92870  0.7623 -0.002374 -0.2504    0    0
-
-> head(summary(mdb))
-
-Call:
-dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      distance = "bray") 
-
-Partitioning of squared Bray distance:
-              Inertia Proportion
-Total           4.299     1.0000
-Conditioned     1.469     0.3416
-Constrained     1.035     0.2407
-Unconstrained   1.796     0.4177
-
-Eigenvalues, and their contribution to the squared Bray distance 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                      dbRDA1  dbRDA2  dbRDA3  dbRDA4   MDS1   MDS2   MDS3
-Eigenvalue            0.6666 0.23850 0.09102 0.03844 0.7420 0.3367 0.3066
-Proportion Explained  0.2355 0.08426 0.03216 0.01358 0.2622 0.1190 0.1083
-Cumulative Proportion     NA      NA      NA      NA     NA     NA     NA
-                         MDS4    MDS5    MDS6    MDS7     MDS8      MDS9
-Eigenvalue            0.20627 0.13339 0.12829 0.03980 0.027450 0.0004132
-Proportion Explained  0.07288 0.04713 0.04533 0.01406 0.009698 0.0001460
-Cumulative Proportion      NA      NA      NA      NA       NA        NA
-                          iMDS1    iMDS2    iMDS3
-Eigenvalue            -0.019854 -0.04601 -0.05923
-Proportion Explained   0.007015  0.01626  0.02093
-Cumulative Proportion        NA       NA       NA
-
-Accumulated constrained eigenvalues
-Importance of components:
-                      dbRDA1 dbRDA2  dbRDA3  dbRDA4
-Eigenvalue            0.6666 0.2385 0.09102 0.03844
-Proportion Explained  0.6443 0.2305 0.08798 0.03716
-Cumulative Proportion 0.6443 0.8749 0.96284 1.00000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  3.00629 
-
-
-Site scores (weighted sums of species scores)
-
-       dbRDA1  dbRDA2  dbRDA3   dbRDA4     MDS1     MDS2
-1    -1.78665 -1.5160 -1.5583 -1.09080 -0.25833  0.92271
-2    -0.01705 -0.6581  0.9301  0.28816  0.57516  0.05239
-3    -0.44007 -0.3970  1.1270  0.21113  0.09235 -0.44842
-4    -0.54915 -0.3741  0.4416  0.09204  0.16597 -0.47429
-5    -0.66299  0.3274  1.2512  2.07857 -0.69303  0.11522
-6    -0.34304  0.4884  1.1823  1.87243 -0.05482  0.40479
-....                                                    
-
-
-Site constraints (linear combinations of constraining variables)
-
-       dbRDA1    dbRDA2   dbRDA3   dbRDA4     MDS1     MDS2
-1    -1.14324 -0.517750 -0.13719 -0.20653 -0.25833  0.92271
-2    -0.40891  0.006731  0.84283  1.43257  0.57516  0.05239
-3    -0.80504 -0.897322  0.08099 -0.29345  0.09235 -0.44842
-4    -0.82758 -0.872017  0.06645 -0.28765  0.16597 -0.47429
-5     0.05034 -0.082513  1.27197  0.07874 -0.69303  0.11522
-6    -0.40060  0.423583  0.98106  0.19462 -0.05482  0.40479
-....                                                       
-
-
-Biplot scores for constraining variables
-
-          dbRDA1   dbRDA2   dbRDA3   dbRDA4 MDS1 MDS2
-Manure.L -0.1792 -0.26684 -0.09723  0.22382    0    0
-Manure.Q -0.3484 -0.37781 -0.18544 -0.17142    0    0
-Manure.C -0.3848 -0.05946  0.21300 -0.70283    0    0
-A1        0.6766 -0.36898  0.46068 -0.06145    0    0
-
-
-Centroids for factor constraints
-
-          dbRDA1   dbRDA2    dbRDA3  dbRDA4 MDS1 MDS2
-Manure1  0.16965  0.17776 -0.399584 -1.1193    0    0
-Manure2 -0.07803  0.45741  1.074105  0.3951    0    0
-Manure3  0.64476 -0.01896 -0.776980  0.6413    0    0
-Manure4 -0.92529 -0.76236  0.003417 -0.2625    0    0
-
-> head(summary(mancap))
-
-Call:
-capscale(formula = dune ~ Condition(Management) + Manure + A1,      data = dune.env, distance = "manhattan") 
-
-Partitioning of mean squared Manhattan distance:
-              Inertia Proportion
-Total          1077.6     1.0000
-Conditioned     412.3     0.3826
-Constrained     213.1     0.1977
-Unconstrained   452.3     0.4197
-
-Eigenvalues, and their contribution to the mean squared Manhattan distance 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                          CAP1     CAP2     CAP3     CAP4     MDS1    MDS2
-Eigenvalue            125.6576 49.30771 24.23926 13.87482 163.6840 97.0794
-Proportion Explained    0.1889  0.07411  0.03643  0.02085   0.2460  0.1459
-Cumulative Proportion   0.1889  0.26297  0.29940  0.32025   0.5663  0.7122
-                          MDS3     MDS4     MDS5     MDS6     MDS7     MDS8
-Eigenvalue            59.00630 40.20997 34.85358 24.94309 12.72424 10.91794
-Proportion Explained   0.08869  0.06043  0.05238  0.03749  0.01912  0.01641
-Cumulative Proportion  0.80086  0.86130  0.91368  0.95117  0.97030  0.98670
-                          MDS9   MDS10    MDS11    MDS12
-Eigenvalue            4.686409 1.89598 1.505683 0.757868
-Proportion Explained  0.007044 0.00285 0.002263 0.001139
-Cumulative Proportion 0.993748 0.99660 0.998861 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                          CAP1    CAP2    CAP3     CAP4
-Eigenvalue            125.6576 49.3077 24.2393 13.87482
-Proportion Explained    0.5897  0.2314  0.1138  0.06512
-Cumulative Proportion   0.5897  0.8211  0.9349  1.00000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  11.72317 
-
-
-Species scores
-
-            CAP1     CAP2    CAP3     CAP4     MDS1      MDS2
-Achimill -0.4262 -0.16295 -0.1609  0.26560  0.73147 -0.007889
-Agrostol  1.2299  0.73184 -0.2167 -0.25999 -2.05919 -0.239688
-Airaprae -0.1546 -0.21317  0.2545  0.13281  0.32434 -0.169143
-Alopgeni  0.8980 -0.48417 -0.2010  0.13277 -1.32957 -0.930765
-Anthodor -0.3938 -0.53586  0.1164  0.12272  1.57211  0.058004
-Bellpere -0.6935  0.07708 -0.2935  0.06061  0.08861 -0.539264
-....                                                         
-
-
-Site scores (weighted sums of species scores)
-
-       CAP1   CAP2    CAP3   CAP4    MDS1    MDS2
-1    -4.655  1.590  3.6355  3.946  1.0402  3.5644
-2    -1.214  2.778 -4.9729 -2.174 -3.3290 -3.7495
-3    -3.146  1.701 -2.8237 -2.846 -0.2978 -1.1212
-4    -4.085  3.566  0.9902 -4.923 -0.7424 -2.4432
-5    -3.764 -3.310 -4.1831  4.522  2.4419 -0.9338
-6    -2.558 -4.463 -3.3952  6.055  1.9575  5.0568
-....                                             
-
-
-Site constraints (linear combinations of constraining variables)
-
-       CAP1    CAP2     CAP3    CAP4    MDS1    MDS2
-1    -4.420  1.5485  1.55971 -0.7201  1.0402  3.5644
-2    -2.651 -0.9895 -3.87578  4.6396 -3.3290 -3.7495
-3    -3.709  2.6927  0.07153 -1.5800 -0.2978 -1.1212
-4    -3.756  2.6164  0.17075 -1.5227 -0.7424 -2.4432
-5    -1.250 -1.5268 -4.47427 -0.9631  2.4419 -0.9338
-6    -2.198 -3.0524 -2.49004  0.1835  1.9575  5.0568
-....                                                
-
-
-Biplot scores for constraining variables
-
-            CAP1    CAP2       CAP3    CAP4 MDS1 MDS2
-Manure.L -0.2081  0.2809 -2.872e-05  0.2017    0    0
-Manure.Q -0.3473  0.3687  2.117e-01 -0.1631    0    0
-Manure.C -0.3980 -0.1179  1.286e-01 -0.7086    0    0
-A1        0.4346  0.2282 -7.032e-01 -0.2727    0    0
-
-
-Centroids for factor constraints
-
-          CAP1   CAP2    CAP3    CAP4 MDS1 MDS2
-Manure1  1.397 -0.320  2.5652 -3.7096    0    0
-Manure2 -1.126 -3.124 -3.3967  0.7896    0    0
-Manure3  3.050  1.650  1.0223  2.9483    0    0
-Manure4 -3.962  2.286  0.6007 -1.2742    0    0
-
-> head(summary(mandb))
-
-Call:
-dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env,      distance = "manhattan") 
-
-Partitioning of mean squared Manhattan distance:
-              Inertia Proportion
-Total           994.1     1.0000
-Conditioned     404.1     0.4065
-Constrained     202.6     0.2038
-Unconstrained   387.4     0.3897
-
-Eigenvalues, and their contribution to the mean squared Manhattan distance 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                        dbRDA1   dbRDA2   dbRDA3   dbRDA4     MDS1    MDS2
-Eigenvalue            123.1630 47.36981 21.91479 10.12845 161.4750 96.1164
-Proportion Explained    0.2087  0.08028  0.03714  0.01717   0.2737  0.1629
-Cumulative Proportion       NA       NA       NA       NA       NA      NA
-                          MDS3     MDS4     MDS5     MDS6    MDS7    MDS8
-Eigenvalue            58.78113 38.53443 33.35464 24.56550 9.59082 5.97139
-Proportion Explained   0.09963  0.06531  0.05653  0.04163 0.01625 0.01012
-Cumulative Proportion       NA       NA       NA       NA      NA      NA
-                        iMDS1    iMDS2     iMDS3     iMDS4
-Eigenvalue            -0.5903 -6.26478 -13.30016 -20.78725
-Proportion Explained   0.0010  0.01062   0.02254   0.03523
-Cumulative Proportion      NA       NA        NA        NA
-
-Accumulated constrained eigenvalues
-Importance of components:
-                       dbRDA1  dbRDA2  dbRDA3 dbRDA4
-Eigenvalue            123.163 47.3698 21.9148  10.13
-Proportion Explained    0.608  0.2338  0.1082   0.05
-Cumulative Proportion   0.608  0.8418  0.9500   1.00
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-* General scaling constant of scores:  11.72317 
-
-
-Site scores (weighted sums of species scores)
-
-     dbRDA1 dbRDA2  dbRDA3 dbRDA4    MDS1   MDS2
-1    -4.790 -1.759 -5.4835  3.966  1.0234  3.413
-2    -1.085 -3.204  4.8979 -4.986 -3.3649 -3.685
-3    -3.105 -1.565  4.1601 -2.175 -0.2722 -1.022
-4    -3.982 -3.354 -0.3526 -5.997 -0.7512 -2.392
-5    -4.065  2.705  3.0229  7.922  2.4774 -1.232
-6    -2.505  4.522  4.5012 12.577  1.9017  5.239
-....                                            
-
-
-Site constraints (linear combinations of constraining variables)
-
-     dbRDA1 dbRDA2   dbRDA3  dbRDA4    MDS1   MDS2
-1    -4.415 -1.436 -1.54251 -0.9774  1.0234  3.413
-2    -2.622  0.570  3.12793  5.2508 -3.3649 -3.685
-3    -3.707 -2.662 -0.01582 -1.6364 -0.2722 -1.022
-4    -3.754 -2.580 -0.11760 -1.5925 -0.7512 -2.392
-5    -1.274  1.206  4.66157 -0.1739  2.4774 -1.232
-6    -2.218  2.841  2.62598  0.7048  1.9017  5.239
-....                                              
-
-
-Biplot scores for constraining variables
-
-          dbRDA1  dbRDA2    dbRDA3  dbRDA4 MDS1 MDS2
-Manure.L -0.2047 -0.2861 -0.052667  0.1906    0    0
-Manure.Q -0.3462 -0.3498 -0.208986 -0.2049    0    0
-Manure.C -0.4047  0.1421 -0.005718 -0.7120    0    0
-A1        0.4323 -0.2705  0.721951 -0.1692    0    0
-
-
-Centroids for factor constraints
-
-        dbRDA1  dbRDA2  dbRDA3 dbRDA4 MDS1 MDS2
-Manure1  1.367  0.6082 -1.9009 -4.068    0    0
-Manure2 -1.143  2.8367  3.4297  1.441    0    0
-Manure3  3.087 -1.6233 -1.5851  2.662    0    0
-Manure4 -3.959 -2.2261 -0.5586 -1.402    0    0
-
-> head(summary(m0cca))
-
-Call:
-cca(formula = dune ~ Condition(Management) + Management, data = dune.env) 
-
-Partitioning of scaled Chi-square:
-              Inertia Proportion
-Total          2.1153     1.0000
-Conditioned    0.6038     0.2855
-Constrained    0.0000     0.0000
-Unconstrained  1.5114     0.7145
-
-Eigenvalues, and their contribution to the scaled Chi-square 
-after removing the contribution of conditiniong variables
-
-Importance of components:
-                         CA1    CA2    CA3     CA4     CA5     CA6     CA7
-Eigenvalue            0.4474 0.2030 0.1630 0.13457 0.12940 0.09494 0.07904
-Proportion Explained  0.2960 0.1343 0.1078 0.08904 0.08561 0.06282 0.05230
-Cumulative Proportion 0.2960 0.4303 0.5382 0.62719 0.71281 0.77562 0.82792
-                          CA8     CA9    CA10    CA11    CA12    CA13     CA14
-Eigenvalue            0.06526 0.05004 0.04321 0.03870 0.02385 0.01773 0.009172
-Proportion Explained  0.04318 0.03311 0.02859 0.02561 0.01578 0.01173 0.006069
-Cumulative Proportion 0.87110 0.90421 0.93280 0.95840 0.97419 0.98592 0.991984
-                          CA15     CA16
-Eigenvalue            0.007959 0.004157
-Proportion Explained  0.005266 0.002750
-Cumulative Proportion 0.997250 1.000000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-
-
-Species scores
-
-             CA1     CA2      CA3     CA4      CA5     CA6
-Achimill  0.5370 -0.4359  0.64609  0.3311  0.17150 0.46285
-Agrostol -0.6811  0.2177  0.03744  0.1002  0.01487 0.01267
-Airaprae  2.4508  1.5533  0.96472  0.9517 -0.36656 0.11603
-Alopgeni -0.2339  0.5522 -0.21144 -0.1442  0.30865 0.06859
-Anthodor  1.1606  0.1712  0.93294  0.2130 -0.04613 0.34776
-Bellpere  0.2572 -0.7080 -0.32204  0.1782  0.18429 0.40846
-....                                                      
-
-
-Site scores (weighted averages of species scores)
-
-         CA1     CA2     CA3     CA4     CA5     CA6
-1     0.8230 -2.2699 -0.7806  2.0151 -1.3638 -1.0360
-2    -0.1982 -0.2109 -0.4545  1.1167  0.9179  0.9226
-3     0.3427 -0.7277 -0.4467  0.3927 -0.1371 -0.1625
-4     0.4052 -0.6579 -0.4713  0.8698 -0.3958 -0.3294
-5     0.5211 -0.7902  0.6590  0.2465  0.2671  0.8453
-6     0.4040 -0.7319  1.0530 -1.2760 -0.3260 -0.3322
-....                                                
-
-
-Site constraints (linear combinations of constraining variables)
-
-         CA1     CA2     CA3     CA4     CA5     CA6
-1     0.8230 -2.2699 -0.7806  2.0151 -1.3638 -1.0360
-2    -0.1982 -0.2109 -0.4545  1.1167  0.9179  0.9226
-3     0.3427 -0.7277 -0.4467  0.3927 -0.1371 -0.1625
-4     0.4052 -0.6579 -0.4713  0.8698 -0.3958 -0.3294
-5     0.5211 -0.7902  0.6590  0.2465  0.2671  0.8453
-6     0.4040 -0.7319  1.0530 -1.2760 -0.3260 -0.3322
-....                                                
-
-
-Biplot scores for constraining variables
-
-     CA1 CA2 CA3 CA4 CA5 CA6
-
+> 
 > ## diagnostics
 > hatvalues(mcca)
-        1         2         3         4         5         6         7         8 
-0.3896449 0.6646420 0.3982436 0.4828242 0.4315254 0.4290448 0.5772056 0.8549366 
-        9        10        11        12        13        14        15        16 
-0.6646420 0.4731908 0.3541191 0.6253444 0.3904578 0.3281119 0.5892203 0.3862093 
-       17        18        19        20 
-0.1339209 0.2095118 0.2999412 0.3172634 
+      1       2       3       4       5       6       7       8       9      10 
+0.38964 0.66464 0.39824 0.48282 0.43153 0.42904 0.57721 0.85494 0.66464 0.47319 
+     11      12      13      14      15      16      17      18      19      20 
+0.35412 0.62534 0.39046 0.32811 0.58922 0.38621 0.13392 0.20951 0.29994 0.31726 
 > hatvalues(mrda)
- [1] 0.5347106 0.6575140 0.3377676 0.4078366 0.4067692 0.3740050 0.5606706
- [8] 0.8495650 0.6575140 0.4211996 0.4226044 0.6458312 0.4009173 0.3303884
-[15] 0.6243276 0.3979573 0.2366882 0.2037063 0.2573526 0.2726746
+ [1] 0.53471 0.65751 0.33777 0.40784 0.40677 0.37400 0.56067 0.84957 0.65751
+[10] 0.42120 0.42260 0.64583 0.40092 0.33039 0.62433 0.39796 0.23669 0.20371
+[19] 0.25735 0.27267
 > hatvalues(mandb)
- [1] 0.5347106 0.6575140 0.3377676 0.4078366 0.4067692 0.3740050 0.5606706
- [8] 0.8495650 0.6575140 0.4211996 0.4226044 0.6458312 0.4009173 0.3303884
-[15] 0.6243276 0.3979573 0.2366882 0.2037063 0.2573526 0.2726746
+ [1] 0.53471 0.65751 0.33777 0.40784 0.40677 0.37400 0.56067 0.84957 0.65751
+[10] 0.42120 0.42260 0.64583 0.40092 0.33039 0.62433 0.39796 0.23669 0.20371
+[19] 0.25735 0.27267
 > 
-> head(cooks.distance(mcca))
-     Achimill     Agrostol    Airaprae  Alopgeni     Anthodor   Bellpere
-1 0.201462839 0.3908938421 0.010046824 0.3197621 0.0035607155 0.32081457
-2 0.124931939 0.5641053710 0.013832251 0.5688490 0.9649507520 0.23434037
-3 0.020249809 0.0466466465 0.001539681 0.7564420 0.0005456814 0.06207957
-4 0.040420833 0.6089483352 0.001287772 0.3372196 0.0004564020 0.02878311
-5 0.067021055 0.1356216350 0.048178954 0.1869011 0.3148623929 0.38816442
-6 0.001654297 0.0004133549 0.005971240 0.1985143 0.0043053886 0.34200903
-    Bromhord     Chenalbu     Cirsarve   Comapalu    Eleopalu   Elymrepe
-1 0.12381555 4.199701e-04 4.133887e-01 0.22640169 0.021589104 0.59682786
-2 0.08985249 3.715912e-02 1.370435e-04 0.31170498 0.065587066 3.30134766
-3 0.30018768 6.436062e-05 1.003960e+00 0.03469617 0.003308541 0.03381312
-4 0.91041490 5.383052e-05 3.043241e+00 0.02901950 0.002767227 0.17621276
-5 0.20138249 2.652526e-02 4.773346e-04 1.08569599 0.047833131 0.15187599
-6 0.31120332 5.461804e-02 5.916026e-05 0.13455981 0.049004089 0.72469987
-      Empenigr     Hyporadi     Juncarti     Juncbufo   Lolipere     Planlanc
-1 0.0064323523 0.0085330871 0.0017216348 0.0016777938 1.55266545 0.0009933223
-2 0.0088559244 0.1618163268 0.8447942886 1.2764927852 0.66448827 2.4053402381
-3 0.0009857611 0.0013076997 0.0002638414 0.0002571227 0.04358949 0.0001522271
-4 0.0008244799 0.0010937458 0.0002206741 0.0002150546 0.61329739 0.0001273211
-5 0.0308459671 0.0659753855 0.0687467589 0.2020478748 0.06079086 0.2669211282
-6 0.0038230108 0.0001953052 0.0218234279 0.3565913788 0.20283671 0.0873755954
-       Poaprat    Poatriv     Ranuflam     Rumeacet     Sagiproc    Salirepe
-1 7.923289e-01 0.00790266 0.0073182561 7.004762e-05 0.1836640815 0.048469287
-2 6.026359e-02 1.15337514 0.0331211336 2.154251e+00 0.0002071969 0.066731472
-3 6.630815e-05 0.05547928 0.0011215263 1.073483e-05 0.3373107562 0.007427942
-4 5.616290e-01 0.04437099 0.0009380324 8.978496e-06 1.1185206147 0.006212650
-5 1.006674e-02 0.04602925 0.0075418999 7.826040e-02 0.0292105313 0.232431614
-6 4.773278e-04 0.17720996 0.0293635142 2.934942e-01 0.0888124538 0.028807285
-    Scorautu     Trifprat     Trifrepe     Vicilath    Bracruta     Callcusp
-1 0.18766045 2.934254e-04 1.561206e-02 1.034838e-04 0.057812764 1.782640e-03
-2 0.04611135 1.793679e+00 2.617007e-06 1.719436e+00 0.808579752 1.635375e-02
-3 0.03505411 4.496758e-05 3.891097e-02 1.585894e-05 0.011023427 2.731905e-04
-4 0.01789779 3.761039e-05 1.807684e-02 1.326425e-05 0.005322905 2.284935e-04
-5 0.01841090 1.000604e-01 3.751278e-01 6.945970e-02 0.063972587 1.600899e-05
-6 0.03426567 1.606610e+00 1.479994e-01 6.014109e-02 0.280417807 1.788330e-02
-> head(cooks.distance(mrda))
-    Achimill    Agrostol    Airaprae   Alopgeni     Anthodor   Bellpere
-1 0.17609257 1.540637035 0.031339914 1.11760242 0.0093868120 1.18353545
-2 0.11581403 0.396495996 0.011557187 0.50594731 1.4019785594 0.27241766
-3 0.01329841 0.002038246 0.002974859 0.62810461 0.0008910186 0.09204992
-4 0.02138955 0.823076859 0.002965644 0.06173128 0.0008882586 0.13966037
-5 0.04976417 0.065762475 0.036542914 0.18824112 0.3664468015 0.32561065
-6 0.01450589 0.001985858 0.002913513 0.14313357 0.0243914348 0.24158431
-   Bromhord     Chenalbu     Cirsarve   Comapalu    Eleopalu     Elymrepe
-1 0.3910498 6.352379e-04 1.192707e+00 0.63207837 0.031645135 2.369067e-04
-2 0.1133779 3.915649e-02 1.718021e-04 0.23309087 0.034126484 4.205682e+00
-3 0.1283961 6.029830e-05 3.950901e-01 0.05999839 0.003003832 2.248775e-05
-4 0.7559487 6.011151e-05 2.316020e+00 0.05981254 0.002994527 2.241809e-05
-5 0.1322236 3.241686e-02 5.432248e-04 0.73701496 0.011027354 1.449028e-01
-6 0.1994371 3.842498e-02 4.331051e-05 0.05876112 0.017786936 6.360778e-01
-     Empenigr     Hyporadi     Juncarti     Juncbufo     Lolipere     Planlanc
-1 0.012741058 2.066445e-02 0.0018941960 0.0025921105 0.2819015408 0.0021438395
-2 0.004698507 1.666098e-01 0.9432327542 1.3976708646 1.5094524497 2.7464963634
-3 0.001209412 1.961519e-03 0.0001798016 0.0002460493 0.0006423215 0.0002034984
-4 0.001205665 1.955443e-03 0.0001792447 0.0002452871 0.1564126180 0.0002028680
-5 0.014856307 4.558649e-02 0.0627509376 0.2542650017 0.3843543647 0.2390522825
-6 0.001184472 8.339664e-05 0.0294649485 0.2742474637 0.7320340568 0.1480228727
-      Poaprat    Poatriv     Ranuflam     Rumeacet     Sagiproc    Salirepe
-1 0.143377963 0.68989005 0.0088976644 2.821388e-05 0.6367117032 0.074842775
-2 0.309240441 1.09351791 0.0172818990 1.947837e+00 0.0004748498 0.027599691
-3 0.118738756 0.11133352 0.0008445875 2.678129e-06 0.1676221762 0.007104255
-4 0.026767198 0.02558207 0.0008419713 2.669833e-06 1.1039346366 0.007082249
-5 0.125425321 0.01861056 0.0003114275 3.980029e-02 0.0448571794 0.087268048
-6 0.006274968 0.08938644 0.0110841608 5.068549e-01 0.0605870667 0.006957753
-     Scorautu     Trifprat    Trifrepe     Vicilath   Bracruta     Callcusp
-1 0.790675941 2.601386e-04 0.129680377 5.218127e-04 0.25755471 0.0023221316
-2 0.015954993 1.514521e+00 0.001500730 2.184331e+00 0.90079379 0.0144339487
-3 0.063194800 2.469297e-05 0.051524544 4.953171e-05 0.02032079 0.0002204223
-4 0.090764192 2.461648e-05 0.001012679 4.937828e-05 0.02995728 0.0002197395
-5 0.002227463 8.805034e-02 0.377881463 8.444536e-02 0.08381757 0.0026144713
-6 0.009151438 1.370134e+00 0.192672065 5.507579e-02 0.34858847 0.0117592131
-> head(cooks.distance(mrda1))
-    Achimill    Agrostol    Airaprae   Alopgeni     Anthodor   Bellpere
-1 0.17609257 1.540637035 0.031339914 1.11760242 0.0093868120 1.18353545
-2 0.11581403 0.396495996 0.011557187 0.50594731 1.4019785594 0.27241766
-3 0.01329841 0.002038246 0.002974859 0.62810461 0.0008910186 0.09204992
-4 0.02138955 0.823076859 0.002965644 0.06173128 0.0008882586 0.13966037
-5 0.04976417 0.065762475 0.036542914 0.18824112 0.3664468015 0.32561065
-6 0.01450589 0.001985858 0.002913513 0.14313357 0.0243914348 0.24158431
-   Bromhord     Chenalbu     Cirsarve   Comapalu    Eleopalu     Elymrepe
-1 0.3910498 6.352379e-04 1.192707e+00 0.63207837 0.031645135 2.369067e-04
-2 0.1133779 3.915649e-02 1.718021e-04 0.23309087 0.034126484 4.205682e+00
-3 0.1283961 6.029830e-05 3.950901e-01 0.05999839 0.003003832 2.248775e-05
-4 0.7559487 6.011151e-05 2.316020e+00 0.05981254 0.002994527 2.241809e-05
-5 0.1322236 3.241686e-02 5.432248e-04 0.73701496 0.011027354 1.449028e-01
-6 0.1994371 3.842498e-02 4.331051e-05 0.05876112 0.017786936 6.360778e-01
-     Empenigr     Hyporadi     Juncarti     Juncbufo     Lolipere     Planlanc
-1 0.012741058 2.066445e-02 0.0018941960 0.0025921105 0.2819015408 0.0021438395
-2 0.004698507 1.666098e-01 0.9432327542 1.3976708646 1.5094524497 2.7464963634
-3 0.001209412 1.961519e-03 0.0001798016 0.0002460493 0.0006423215 0.0002034984
-4 0.001205665 1.955443e-03 0.0001792447 0.0002452871 0.1564126180 0.0002028680
-5 0.014856307 4.558649e-02 0.0627509376 0.2542650017 0.3843543647 0.2390522825
-6 0.001184472 8.339664e-05 0.0294649485 0.2742474637 0.7320340568 0.1480228727
-      Poaprat    Poatriv     Ranuflam     Rumeacet     Sagiproc    Salirepe
-1 0.143377963 0.68989005 0.0088976644 2.821388e-05 0.6367117032 0.074842775
-2 0.309240441 1.09351791 0.0172818990 1.947837e+00 0.0004748498 0.027599691
-3 0.118738756 0.11133352 0.0008445875 2.678129e-06 0.1676221762 0.007104255
-4 0.026767198 0.02558207 0.0008419713 2.669833e-06 1.1039346366 0.007082249
-5 0.125425321 0.01861056 0.0003114275 3.980029e-02 0.0448571794 0.087268048
-6 0.006274968 0.08938644 0.0110841608 5.068549e-01 0.0605870667 0.006957753
-     Scorautu     Trifprat    Trifrepe     Vicilath   Bracruta     Callcusp
-1 0.790675941 2.601386e-04 0.129680377 5.218127e-04 0.25755471 0.0023221316
-2 0.015954993 1.514521e+00 0.001500730 2.184331e+00 0.90079379 0.0144339487
-3 0.063194800 2.469297e-05 0.051524544 4.953171e-05 0.02032079 0.0002204223
-4 0.090764192 2.461648e-05 0.001012679 4.937828e-05 0.02995728 0.0002197395
-5 0.002227463 8.805034e-02 0.377881463 8.444536e-02 0.08381757 0.0026144713
-6 0.009151438 1.370134e+00 0.192672065 5.507579e-02 0.34858847 0.0117592131
-> head(cooks.distance(mcap, "canoco"))
-          CAP1         CAP2         CAP3         CAP4
-1 0.4213460509 7.138285e-01 0.5248548609 0.0000329287
-2 0.3566704496 9.193359e-01 0.0005088472 0.3482538223
-3 0.0430556410 5.515953e-02 0.0914162607 0.0003532790
-4 0.0362706166 8.477847e-02 0.0157751858 0.0007308979
-5 0.2367128101 9.187667e-02 0.0065317647 0.2652337334
-6 0.0006384686 1.168231e-06 0.0003345965 0.0723126807
-> head(cooks.distance(mdb, "canoco"))
-       dbRDA1      dbRDA2       dbRDA3      dbRDA4
-1 0.456563406 0.827356298 0.9510534213 0.092243649
-2 0.384378715 0.832906943 0.0081385093 0.350654332
-3 0.045812008 0.064820534 0.1606559228 0.009365768
-4 0.040262421 0.096917559 0.0312112553 0.008008779
-5 0.262625646 0.065297840 0.0000953256 0.220792631
-6 0.001412139 0.001349129 0.0073672933 0.128326231
-> head(cooks.distance(mancap, "canoco"))
-         CAP1         CAP2        CAP3      CAP4
-1 0.003779582 8.947434e-05 0.181846736 0.4554857
-2 0.321207623 1.641217e+00 0.115300492 2.2049679
-3 0.006787306 1.561609e-02 0.110316921 0.0104521
-4 0.003487145 2.163043e-02 0.013345910 0.1139038
-5 0.202847634 7.582731e-02 0.001674611 0.2946252
-6 0.003444236 3.918511e-02 0.013363175 0.2787700
-> head(cooks.distance(mandb, "canoco"))
-       dbRDA1      dbRDA2       dbRDA3       dbRDA4
-1 0.009135132 0.004800805 0.5078431423 0.1644209048
-2 0.348210278 1.483772217 0.2324869705 1.6003043043
-3 0.007353507 0.017214925 0.1778088790 0.0006086008
-4 0.001583269 0.012924660 0.0008500102 0.0614741040
-5 0.236842272 0.048274452 0.0410899801 0.2063915351
-6 0.002068501 0.050135204 0.0444332379 0.3664987405
-> head(cooks.distance(m0cca))
-      Achimill     Agrostol     Airaprae     Alopgeni     Anthodor     Bellpere
-1 1.851007e+00 3.639809e+00 2.179007e-32    3.9674722 5.479544e-32    0.3922993
-2 1.732986e-01 4.282631e-31 1.871117e-31    0.4063197 5.089012e-01    1.4998711
-3 2.379831e-02 3.681363e-01 1.435946e-32    0.7581053 5.720843e-35    1.2938972
-4          NaN          NaN          NaN          NaN          NaN          NaN
-5 1.029318e+03 8.849107e+02 5.438392e-30 1461.1270610 2.665671e+03 5962.9242543
-6 4.980356e+02 7.907080e+02 1.879929e-29 1305.5834487 3.788022e+02  340.8905896
-      Bromhord     Chenalbu     Cirsarve     Comapalu     Eleopalu     Elymrepe
-1    0.1839542 3.860986e-01 5.662338e-01 2.908269e-32 2.024020e-01    5.6097489
-2    1.0958050 4.624667e-33 4.559223e-32 4.811614e-31 1.600456e-31    1.3981269
-3    0.2525391 5.300503e-01 7.773465e-01 2.515477e-32 2.778648e-01    0.4890614
-4          NaN          NaN          NaN          NaN          NaN          NaN
-5 2774.2054183 1.192148e-30 3.496696e-30 4.069428e-29 1.968319e+02 1891.5365604
-6 1136.6970365 8.588488e-30 2.798993e-30 1.146502e-29 1.758783e+02 1754.8637411
-      Empenigr     Hyporadi     Juncarti     Juncbufo     Lolipere     Planlanc
-1 2.994391e-33 3.584712e-32 6.831603e-02 5.994900e-01   11.2960850 6.665583e-31
-2 3.946001e-32 2.536554e-01 8.405610e-32 1.714565e-32    0.2701750 1.487614e+00
-3 2.869981e-33 5.444020e-32 9.378675e-02 8.230018e-01    0.6544776 2.693864e-33
-4          NaN          NaN          NaN          NaN          NaN          NaN
-5 2.121726e-30 9.674570e-30 1.889735e+03 1.713283e+03 1189.9211411 2.825358e+03
-6 4.230712e-31 4.106410e-30 1.688564e+03 1.530896e+03  458.1039637 1.367050e+03
-       Poaprat      Poatriv     Ranuflam     Rumeacet    Sagiproc     Salirepe
-1 6.895259e+00   0.19124551 2.314134e-01 7.205523e-02   1.2079134 0.000000e+00
-2 2.988364e-02   2.63662504 4.420245e-31 1.078842e-32   0.2167341 7.160739e-31
-3 1.134247e+00   0.06239637 3.176928e-01 9.892005e-02   1.6582678 2.242288e-33
-4          NaN          NaN          NaN          NaN         NaN          NaN
-5 1.466608e+03 855.98844449 2.250450e+02 5.386319e+03 621.3141300 4.789513e-29
-6 3.541864e+02 912.87493994 2.010879e+02 7.068395e+03 555.1724187 4.089123e-29
-     Scorautu     Trifprat     Trifrepe     Vicilath     Bracruta     Callcusp
-1  0.88826070 1.954244e-31 4.640375e-01 1.222203e-31 7.634084e-01 1.025041e-01
-2  0.06495429 3.365544e-34 2.007862e-04 4.708545e+00 1.035890e+00 3.880418e-32
-3  0.09221991 1.356119e-32 4.817673e-02 1.479680e-32 2.358079e-02 1.407214e-01
-4         NaN          NaN          NaN          NaN          NaN          NaN
-5 39.97309955 9.407841e+01 4.725006e+02 5.901182e-29 3.454806e+02 3.164998e-30
-6 22.80149615 1.777212e+04 1.689403e+03 3.078362e-30 2.937072e+03 1.379339e-29
+> zapsmall(head(cooks.distance(mcca)))
+  Achimill Agrostol Airaprae Alopgeni Anthodor Bellpere Bromhord Chenalbu
+1   0.2015   0.3909   0.0100   0.3198   0.0036   0.3208   0.1238   0.0004
+2   0.1249   0.5641   0.0138   0.5688   0.9650   0.2343   0.0899   0.0372
+3   0.0202   0.0466   0.0015   0.7564   0.0005   0.0621   0.3002   0.0001
+4   0.0404   0.6089   0.0013   0.3372   0.0005   0.0288   0.9104   0.0001
+5   0.0670   0.1356   0.0482   0.1869   0.3149   0.3882   0.2014   0.0265
+6   0.0017   0.0004   0.0060   0.1985   0.0043   0.3420   0.3112   0.0546
+  Cirsarve Comapalu Eleopalu Elymrepe Empenigr Hyporadi Juncarti Juncbufo
+1   0.4134   0.2264   0.0216   0.5968   0.0064   0.0085   0.0017   0.0017
+2   0.0001   0.3117   0.0656   3.3013   0.0089   0.1618   0.8448   1.2765
+3   1.0040   0.0347   0.0033   0.0338   0.0010   0.0013   0.0003   0.0003
+4   3.0432   0.0290   0.0028   0.1762   0.0008   0.0011   0.0002   0.0002
+5   0.0005   1.0857   0.0478   0.1519   0.0308   0.0660   0.0687   0.2020
+6   0.0001   0.1346   0.0490   0.7247   0.0038   0.0002   0.0218   0.3566
+  Lolipere Planlanc Poaprat Poatriv Ranuflam Rumeacet Sagiproc Salirepe
+1   1.5527   0.0010  0.7923  0.0079   0.0073   0.0001   0.1837   0.0485
+2   0.6645   2.4053  0.0603  1.1534   0.0331   2.1543   0.0002   0.0667
+3   0.0436   0.0002  0.0001  0.0555   0.0011   0.0000   0.3373   0.0074
+4   0.6133   0.0001  0.5616  0.0444   0.0009   0.0000   1.1185   0.0062
+5   0.0608   0.2669  0.0101  0.0460   0.0075   0.0783   0.0292   0.2324
+6   0.2028   0.0874  0.0005  0.1772   0.0294   0.2935   0.0888   0.0288
+  Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
+1   0.1877   0.0003   0.0156   0.0001   0.0578   0.0018
+2   0.0461   1.7937   0.0000   1.7194   0.8086   0.0164
+3   0.0351   0.0000   0.0389   0.0000   0.0110   0.0003
+4   0.0179   0.0000   0.0181   0.0000   0.0053   0.0002
+5   0.0184   0.1001   0.3751   0.0695   0.0640   0.0000
+6   0.0343   1.6066   0.1480   0.0601   0.2804   0.0179
+> zapsmall(head(cooks.distance(mrda)))
+  Achimill Agrostol Airaprae Alopgeni Anthodor Bellpere Bromhord Chenalbu
+1   0.1761   1.5406   0.0313   1.1176   0.0094   1.1835   0.3910   0.0006
+2   0.1158   0.3965   0.0116   0.5059   1.4020   0.2724   0.1134   0.0392
+3   0.0133   0.0020   0.0030   0.6281   0.0009   0.0920   0.1284   0.0001
+4   0.0214   0.8231   0.0030   0.0617   0.0009   0.1397   0.7559   0.0001
+5   0.0498   0.0658   0.0365   0.1882   0.3664   0.3256   0.1322   0.0324
+6   0.0145   0.0020   0.0029   0.1431   0.0244   0.2416   0.1994   0.0384
+  Cirsarve Comapalu Eleopalu Elymrepe Empenigr Hyporadi Juncarti Juncbufo
+1   1.1927   0.6321   0.0316   0.0002   0.0127   0.0207   0.0019   0.0026
+2   0.0002   0.2331   0.0341   4.2057   0.0047   0.1666   0.9432   1.3977
+3   0.3951   0.0600   0.0030   0.0000   0.0012   0.0020   0.0002   0.0002
+4   2.3160   0.0598   0.0030   0.0000   0.0012   0.0020   0.0002   0.0002
+5   0.0005   0.7370   0.0110   0.1449   0.0149   0.0456   0.0628   0.2543
+6   0.0000   0.0588   0.0178   0.6361   0.0012   0.0001   0.0295   0.2742
+  Lolipere Planlanc Poaprat Poatriv Ranuflam Rumeacet Sagiproc Salirepe
+1   0.2819   0.0021  0.1434  0.6899   0.0089   0.0000   0.6367   0.0748
+2   1.5095   2.7465  0.3092  1.0935   0.0173   1.9478   0.0005   0.0276
+3   0.0006   0.0002  0.1187  0.1113   0.0008   0.0000   0.1676   0.0071
+4   0.1564   0.0002  0.0268  0.0256   0.0008   0.0000   1.1039   0.0071
+5   0.3844   0.2391  0.1254  0.0186   0.0003   0.0398   0.0449   0.0873
+6   0.7320   0.1480  0.0063  0.0894   0.0111   0.5069   0.0606   0.0070
+  Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
+1   0.7907   0.0003   0.1297   0.0005   0.2576   0.0023
+2   0.0160   1.5145   0.0015   2.1843   0.9008   0.0144
+3   0.0632   0.0000   0.0515   0.0000   0.0203   0.0002
+4   0.0908   0.0000   0.0010   0.0000   0.0300   0.0002
+5   0.0022   0.0881   0.3779   0.0844   0.0838   0.0026
+6   0.0092   1.3701   0.1927   0.0551   0.3486   0.0118
+> zapsmall(head(cooks.distance(mrda1)))
+  Achimill Agrostol Airaprae Alopgeni Anthodor Bellpere Bromhord Chenalbu
+1   0.1761   1.5406   0.0313   1.1176   0.0094   1.1835   0.3910   0.0006
+2   0.1158   0.3965   0.0116   0.5059   1.4020   0.2724   0.1134   0.0392
+3   0.0133   0.0020   0.0030   0.6281   0.0009   0.0920   0.1284   0.0001
+4   0.0214   0.8231   0.0030   0.0617   0.0009   0.1397   0.7559   0.0001
+5   0.0498   0.0658   0.0365   0.1882   0.3664   0.3256   0.1322   0.0324
+6   0.0145   0.0020   0.0029   0.1431   0.0244   0.2416   0.1994   0.0384
+  Cirsarve Comapalu Eleopalu Elymrepe Empenigr Hyporadi Juncarti Juncbufo
+1   1.1927   0.6321   0.0316   0.0002   0.0127   0.0207   0.0019   0.0026
+2   0.0002   0.2331   0.0341   4.2057   0.0047   0.1666   0.9432   1.3977
+3   0.3951   0.0600   0.0030   0.0000   0.0012   0.0020   0.0002   0.0002
+4   2.3160   0.0598   0.0030   0.0000   0.0012   0.0020   0.0002   0.0002
+5   0.0005   0.7370   0.0110   0.1449   0.0149   0.0456   0.0628   0.2543
+6   0.0000   0.0588   0.0178   0.6361   0.0012   0.0001   0.0295   0.2742
+  Lolipere Planlanc Poaprat Poatriv Ranuflam Rumeacet Sagiproc Salirepe
+1   0.2819   0.0021  0.1434  0.6899   0.0089   0.0000   0.6367   0.0748
+2   1.5095   2.7465  0.3092  1.0935   0.0173   1.9478   0.0005   0.0276
+3   0.0006   0.0002  0.1187  0.1113   0.0008   0.0000   0.1676   0.0071
+4   0.1564   0.0002  0.0268  0.0256   0.0008   0.0000   1.1039   0.0071
+5   0.3844   0.2391  0.1254  0.0186   0.0003   0.0398   0.0449   0.0873
+6   0.7320   0.1480  0.0063  0.0894   0.0111   0.5069   0.0606   0.0070
+  Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
+1   0.7907   0.0003   0.1297   0.0005   0.2576   0.0023
+2   0.0160   1.5145   0.0015   2.1843   0.9008   0.0144
+3   0.0632   0.0000   0.0515   0.0000   0.0203   0.0002
+4   0.0908   0.0000   0.0010   0.0000   0.0300   0.0002
+5   0.0022   0.0881   0.3779   0.0844   0.0838   0.0026
+6   0.0092   1.3701   0.1927   0.0551   0.3486   0.0118
+> zapsmall(head(cooks.distance(mcap, "canoco")))
+     CAP1    CAP2    CAP3    CAP4
+1 0.42135 0.71383 0.52485 0.00003
+2 0.35667 0.91934 0.00051 0.34825
+3 0.04306 0.05516 0.09142 0.00035
+4 0.03627 0.08478 0.01578 0.00073
+5 0.23671 0.09188 0.00653 0.26523
+6 0.00064 0.00000 0.00033 0.07231
+> zapsmall(head(cooks.distance(mdb, "canoco")))
+   dbRDA1  dbRDA2  dbRDA3  dbRDA4
+1 0.45656 0.82736 0.95105 0.09224
+2 0.38438 0.83291 0.00814 0.35065
+3 0.04581 0.06482 0.16066 0.00937
+4 0.04026 0.09692 0.03121 0.00801
+5 0.26263 0.06530 0.00010 0.22079
+6 0.00141 0.00135 0.00737 0.12833
+> zapsmall(head(cooks.distance(mancap, "canoco")))
+     CAP1    CAP2    CAP3    CAP4
+1 0.00378 0.00009 0.18185 0.45549
+2 0.32121 1.64122 0.11530 2.20497
+3 0.00679 0.01562 0.11032 0.01045
+4 0.00349 0.02163 0.01335 0.11390
+5 0.20285 0.07583 0.00167 0.29463
+6 0.00344 0.03919 0.01336 0.27877
+> zapsmall(head(cooks.distance(mandb, "canoco")))
+   dbRDA1  dbRDA2  dbRDA3  dbRDA4
+1 0.00914 0.00480 0.50784 0.16442
+2 0.34821 1.48377 0.23249 1.60030
+3 0.00735 0.01721 0.17781 0.00061
+4 0.00158 0.01292 0.00085 0.06147
+5 0.23684 0.04827 0.04109 0.20639
+6 0.00207 0.05014 0.04443 0.36650
+> zapsmall(head(cooks.distance(m0cca)))
+  Achimill Agrostol Airaprae Alopgeni Anthodor Bellpere Bromhord Chenalbu
+1      1.9      3.6        0      4.0      0.0      0.4      0.2      0.4
+2      0.2      0.0        0      0.4      0.5      1.5      1.1      0.0
+3      0.0      0.4        0      0.8      0.0      1.3      0.3      0.5
+4      NaN      NaN      NaN      NaN      NaN      NaN      NaN      NaN
+5   1029.3    884.9        0   1461.1   2665.7   5962.9   2774.2      0.0
+6    498.0    790.7        0   1305.6    378.8    340.9   1136.7      0.0
+  Cirsarve Comapalu Eleopalu Elymrepe Empenigr Hyporadi Juncarti Juncbufo
+1      0.6        0      0.2      5.6        0      0.0      0.1      0.6
+2      0.0        0      0.0      1.4        0      0.3      0.0      0.0
+3      0.8        0      0.3      0.5        0      0.0      0.1      0.8
+4      NaN      NaN      NaN      NaN      NaN      NaN      NaN      NaN
+5      0.0        0    196.8   1891.5        0      0.0   1889.7   1713.3
+6      0.0        0    175.9   1754.9        0      0.0   1688.6   1530.9
+  Lolipere Planlanc Poaprat Poatriv Ranuflam Rumeacet Sagiproc Salirepe
+1     11.3      0.0     6.9     0.2      0.2      0.1      1.2        0
+2      0.3      1.5     0.0     2.6      0.0      0.0      0.2        0
+3      0.7      0.0     1.1     0.1      0.3      0.1      1.7        0
+4      NaN      NaN     NaN     NaN      NaN      NaN      NaN      NaN
+5   1189.9   2825.4  1466.6   856.0    225.0   5386.3    621.3        0
+6    458.1   1367.0   354.2   912.9    201.1   7068.4    555.2        0
+  Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
+1      0.9      0.0      0.5      0.0      0.8      0.1
+2      0.1      0.0      0.0      4.7      1.0      0.0
+3      0.1      0.0      0.0      0.0      0.0      0.1
+4      NaN      NaN      NaN      NaN      NaN      NaN
+5     40.0     94.1    472.5      0.0    345.5      0.0
+6     22.8  17772.1   1689.4      0.0   2937.1      0.0
 Warning message:
 In sqrt(1 - hat) : NaNs produced
 > 
 > head(goodness(mcca, display = "sites"))
-        CCA1       CCA2      CCA3      CCA4
-1 0.18524986 0.22478686 0.2319015 0.2320336
-2 0.04420604 0.05413711 0.1340296 0.2447908
-3 0.16875835 0.47510493 0.4845862 0.4876385
-4 0.11624328 0.29580583 0.3020725 0.3037961
-5 0.01453969 0.05791183 0.1944791 0.1946746
-6 0.06733339 0.06774853 0.1387587 0.1392922
+      CCA1     CCA2    CCA3    CCA4
+1 0.185250 0.224787 0.23190 0.23203
+2 0.044206 0.054137 0.13403 0.24479
+3 0.168758 0.475105 0.48459 0.48764
+4 0.116243 0.295806 0.30207 0.30380
+5 0.014540 0.057912 0.19448 0.19467
+6 0.067333 0.067749 0.13876 0.13929
 > head(goodness(mrda, display = "sites"))
-          RDA1       RDA2       RDA3       RDA4
-1 0.4223954214 0.43251626 0.43328958 0.43347604
-2 0.0188862079 0.04421022 0.11460746 0.17316590
-3 0.2619807439 0.29857735 0.30272216 0.30747812
-4 0.2301148044 0.25936448 0.26227774 0.26591870
-5 0.0002796436 0.03679842 0.11024858 0.11468797
-6 0.0149248209 0.08389533 0.09989983 0.09992984
+        RDA1     RDA2    RDA3    RDA4
+1 0.42239542 0.432516 0.43329 0.43348
+2 0.01888621 0.044210 0.11461 0.17317
+3 0.26198074 0.298577 0.30272 0.30748
+4 0.23011480 0.259364 0.26228 0.26592
+5 0.00027964 0.036798 0.11025 0.11469
+6 0.01492482 0.083895 0.09990 0.09993
 > head(goodness(mrda1, display = "sites"))
-         RDA1       RDA2      RDA3      RDA4
-1 0.420778876 0.45157585 0.4806877 0.4818920
-2 0.055238088 0.05879796 0.1470444 0.2276655
-3 0.234418114 0.38111217 0.3955832 0.4005059
-4 0.098854458 0.15380657 0.1599717 0.1618251
-5 0.004995371 0.02930246 0.1689890 0.1712017
-6 0.039132550 0.04262177 0.1031921 0.1032250
+       RDA1     RDA2    RDA3    RDA4
+1 0.4207789 0.451576 0.48069 0.48189
+2 0.0552381 0.058798 0.14704 0.22767
+3 0.2344181 0.381112 0.39558 0.40051
+4 0.0988545 0.153807 0.15997 0.16183
+5 0.0049954 0.029302 0.16899 0.17120
+6 0.0391326 0.042622 0.10319 0.10322
 > ## head(goodness(mcap, display = "sites")) # currently disabled
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 > ## head(goodness(mancap, display="sites")) # currently disabled
@@ -1150,119 +397,119 @@ In sqrt(1 - hat) : NaNs produced
 [1,]
 > 
 > head(inertcomp(mcca))
-                pCCA         CCA         CA
-Achimill 0.015342931 0.004830244 0.03052901
-Agrostol 0.038101789 0.016193872 0.02781563
-Airaprae 0.025813313 0.013407926 0.06487734
-Alopgeni 0.048789228 0.009296210 0.03712116
-Anthodor 0.014146632 0.006915015 0.07278055
-Bellpere 0.006973897 0.010696508 0.02007220
+              pCCA       CCA       CA
+Achimill 0.0153429 0.0048302 0.030529
+Agrostol 0.0381018 0.0161939 0.027816
+Airaprae 0.0258133 0.0134079 0.064877
+Alopgeni 0.0487892 0.0092962 0.037121
+Anthodor 0.0141466 0.0069150 0.072781
+Bellpere 0.0069739 0.0106965 0.020072
 > head(inertcomp(mrda))
-              pCCA       CCA        CA
-Achimill 0.6087719 0.1869589 0.7411113
-Agrostol 2.8122807 1.1478207 3.2398986
-Airaprae 0.1535088 0.1054888 0.3594234
-Alopgeni 3.2631579 0.5739140 3.0681912
-Anthodor 0.5342105 0.2798317 2.0780630
-Bellpere 0.2114035 0.2974938 0.5726817
+            pCCA     CCA      CA
+Achimill 0.60877 0.18696 0.74111
+Agrostol 2.81228 1.14782 3.23990
+Airaprae 0.15351 0.10549 0.35942
+Alopgeni 3.26316 0.57391 3.06819
+Anthodor 0.53421 0.27983 2.07806
+Bellpere 0.21140 0.29749 0.57268
 > head(inertcomp(mrda1))
-              pCCA        CCA        CA
-Achimill 0.3961187 0.12165131 0.4822300
-Agrostol 0.3905945 0.15941954 0.4499859
-Airaprae 0.2482270 0.17057771 0.5811953
-Alopgeni 0.4725610 0.08311255 0.4443265
-Anthodor 0.1847134 0.09675710 0.7185295
-Bellpere 0.1954582 0.27505507 0.5294867
+            pCCA      CCA      CA
+Achimill 0.39612 0.121651 0.48223
+Agrostol 0.39059 0.159420 0.44999
+Airaprae 0.24823 0.170578 0.58120
+Alopgeni 0.47256 0.083113 0.44433
+Anthodor 0.18471 0.096757 0.71853
+Bellpere 0.19546 0.275055 0.52949
 > head(inertcomp(mcap, display="sites"))
-        pCCA        CCA         CA
-1 0.05862797 0.10557750 0.10429404
-2 0.10040531 0.03506727 0.07713851
-3 0.05862797 0.07087019 0.03922261
-4 0.05862797 0.07238613 0.05696591
-5 0.04347384 0.01899383 0.08077329
-6 0.04347384 0.02891520 0.06697336
+      pCCA      CCA       CA
+1 0.058628 0.105577 0.104294
+2 0.100405 0.035067 0.077139
+3 0.058628 0.070870 0.039223
+4 0.058628 0.072386 0.056966
+5 0.043474 0.018994 0.080773
+6 0.043474 0.028915 0.066973
 > head(inertcomp(mdb, display = "sites"))
-        pCCA        CCA         CA
-1 0.05838308 0.10384563 0.08079518
-2 0.09331841 0.02821768 0.07329175
-3 0.05838308 0.06948145 0.02441639
-4 0.05838308 0.07097906 0.05232441
-5 0.04226830 0.01668742 0.06324705
-6 0.04226830 0.02642583 0.05138205
+      pCCA      CCA       CA
+1 0.058383 0.103846 0.080795
+2 0.093318 0.028218 0.073292
+3 0.058383 0.069481 0.024416
+4 0.058383 0.070979 0.052324
+5 0.042268 0.016687 0.063247
+6 0.042268 0.026426 0.051382
 > head(inertcomp(mancap, display = "sites"))
-      pCCA       CCA        CA
-1 14.30989 19.204820 21.045801
-2 31.24819 11.598417 26.506181
-3 14.30989 15.432036  9.897955
-4 14.30989 15.596611 15.754163
-5 17.17670  5.888251 21.460070
-6 17.17670  8.855511 27.469933
+    pCCA     CCA     CA
+1 14.310 19.2048 21.046
+2 31.248 11.5984 26.506
+3 14.310 15.4320  9.898
+4 14.310 15.5966 15.754
+5 17.177  5.8883 21.460
+6 17.177  8.8555 27.470
 > head(inertcomp(mandb, display = "sites"))
-      pCCA       CCA        CA
-1 14.21089 18.626378 15.304289
-2 29.51206  9.863378 25.400580
-3 14.21089 14.956532  6.868314
-4 14.21089 15.115922 14.660370
-5 16.99487  5.423980 16.823755
-6 16.99487  8.325058 22.200178
-> head(inertcomp(m0cca))
-                pCCA          CCA         CA
-Achimill 0.015342931 6.319458e-35 0.03535925
-Agrostol 0.038101789 7.854183e-34 0.04400950
-Airaprae 0.025813313 2.193409e-34 0.07828527
-Alopgeni 0.048789228 2.166671e-33 0.04641737
-Anthodor 0.014146632 2.678246e-34 0.07969556
-Bellpere 0.006973897 2.949080e-33 0.03076871
+    pCCA     CCA      CA
+1 14.211 18.6264 15.3043
+2 29.512  9.8634 25.4006
+3 14.211 14.9565  6.8683
+4 14.211 15.1159 14.6604
+5 16.995  5.4240 16.8238
+6 16.995  8.3251 22.2002
+> zapsmall(head(inertcomp(m0cca))) # numerical zeros
+             pCCA CCA       CA
+Achimill 0.015343   0 0.035359
+Agrostol 0.038102   0 0.044009
+Airaprae 0.025813   0 0.078285
+Alopgeni 0.048789   0 0.046417
+Anthodor 0.014147   0 0.079696
+Bellpere 0.006974   0 0.030769
 > 
-> zapsmall(intersetcor(mcca))
-               CCA1       CCA2       CCA3       CCA4
-Manure.L -0.1625570 -0.5297351 -0.2739176 -0.4731169
-Manure.Q -0.3116685 -0.5905471 -0.4351051  0.1409105
-Manure.C -0.3367940 -0.2367991  0.0833945  0.6044027
-Manure^4 -0.2719370 -0.1613807  0.6810666 -0.1350725
-A1        0.6436921 -0.2661682  0.3522723  0.0865610
-> zapsmall(intersetcor(mrda))
-               RDA1       RDA2       RDA3       RDA4
-Manure.L -0.4496954 -0.4542967  0.1705210 -0.4175165
-Manure.Q -0.6490610 -0.4464253 -0.1140264  0.1487935
-Manure.C -0.4720034  0.1356653 -0.0833253  0.6071554
-Manure^4 -0.2740445  0.4795864  0.5186610 -0.0398675
-A1        0.4881100 -0.1798451  0.5008273  0.2946173
-> zapsmall(intersetcor(mrda1))
-               RDA1       RDA2       RDA3       RDA4
-Manure.L -0.3569960 -0.4435277 -0.2618714 -0.5015696
-Manure.Q -0.4777559 -0.4166256 -0.4881587  0.1340710
-Manure.C -0.4099899 -0.0809239 -0.0197421  0.6754240
-Manure^4 -0.3964725 -0.0468489  0.6944027 -0.0428865
-A1        0.5378886 -0.4746915  0.3659015  0.1318370
-> zapsmall(intersetcor(mcap))
-               CAP1       CAP2       CAP3       CAP4
-Manure.L -0.3442794  0.4688306  0.0807664  0.3304938
-Manure.Q -0.4674218  0.4853684  0.2260813 -0.1313720
-Manure.C -0.3511430  0.0557892 -0.0863802 -0.4864545
-Manure^4 -0.2681802 -0.1377881 -0.6208658  0.0559925
-A1        0.5734920  0.2800398 -0.3509065 -0.0757633
-> zapsmall(intersetcor(mdb))
-             dbRDA1     dbRDA2     dbRDA3     dbRDA4
-Manure.L -0.3363608 -0.4690057 -0.1455160  0.1966932
-Manure.Q -0.4608444 -0.4679955 -0.1955898 -0.1061713
-Manure.C -0.3505782 -0.0507461  0.1547750 -0.2998918
-Manure^4 -0.2669010  0.1008842  0.5385750  0.0872403
-A1        0.5693913 -0.2908300  0.3091850 -0.0242160
-> zapsmall(intersetcor(mancap))
-               CAP1       CAP2       CAP3       CAP4
-Manure.L -0.3858423  0.4850629 -0.0000471  0.2642358
-Manure.Q -0.4537315  0.4487090  0.2449984 -0.1505612
-Manure.C -0.3582538 -0.0988490  0.1025203 -0.4507521
-Manure^4 -0.4155379 -0.3360100 -0.4468426  0.0350523
-A1        0.3613584  0.1767161 -0.5177906 -0.1602471
-> zapsmall(intersetcor(mandb))
-             dbRDA1     dbRDA2     dbRDA3     dbRDA4
-Manure.L -0.3749645 -0.4808172 -0.0801824  0.1573065
-Manure.Q -0.4469503 -0.4143022 -0.2242335 -0.1191982
-Manure.C -0.3599564  0.1158967 -0.0042270 -0.2853202
-Manure^4 -0.4129984  0.2886765  0.4207132  0.0647957
-A1        0.3551141 -0.2038543  0.4928999 -0.0626235
+> abs(zapsmall(intersetcor(mcca)))
+            CCA1    CCA2    CCA3    CCA4
+Manure.L 0.16256 0.52974 0.27392 0.47312
+Manure.Q 0.31167 0.59055 0.43511 0.14091
+Manure.C 0.33679 0.23680 0.08339 0.60440
+Manure^4 0.27194 0.16138 0.68107 0.13507
+A1       0.64369 0.26617 0.35227 0.08656
+> abs(zapsmall(intersetcor(mrda)))
+            RDA1    RDA2    RDA3    RDA4
+Manure.L 0.44970 0.45430 0.17052 0.41752
+Manure.Q 0.64906 0.44643 0.11403 0.14879
+Manure.C 0.47200 0.13567 0.08333 0.60716
+Manure^4 0.27404 0.47959 0.51866 0.03987
+A1       0.48811 0.17985 0.50083 0.29462
+> abs(zapsmall(intersetcor(mrda1)))
+            RDA1    RDA2    RDA3    RDA4
+Manure.L 0.35700 0.44353 0.26187 0.50157
+Manure.Q 0.47776 0.41663 0.48816 0.13407
+Manure.C 0.40999 0.08092 0.01974 0.67542
+Manure^4 0.39647 0.04685 0.69440 0.04289
+A1       0.53789 0.47469 0.36590 0.13184
+> abs(zapsmall(intersetcor(mcap)))
+            CAP1    CAP2    CAP3    CAP4
+Manure.L 0.34428 0.46883 0.08077 0.33049
+Manure.Q 0.46742 0.48537 0.22608 0.13137
+Manure.C 0.35114 0.05579 0.08638 0.48645
+Manure^4 0.26818 0.13779 0.62087 0.05599
+A1       0.57349 0.28004 0.35091 0.07576
+> abs(zapsmall(intersetcor(mdb)))
+          dbRDA1  dbRDA2  dbRDA3  dbRDA4
+Manure.L 0.33636 0.46901 0.14552 0.19669
+Manure.Q 0.46084 0.46800 0.19559 0.10617
+Manure.C 0.35058 0.05075 0.15478 0.29989
+Manure^4 0.26690 0.10088 0.53857 0.08724
+A1       0.56939 0.29083 0.30919 0.02422
+> abs(zapsmall(intersetcor(mancap)))
+            CAP1    CAP2    CAP3    CAP4
+Manure.L 0.38584 0.48506 0.00005 0.26424
+Manure.Q 0.45373 0.44871 0.24500 0.15056
+Manure.C 0.35825 0.09885 0.10252 0.45075
+Manure^4 0.41554 0.33601 0.44684 0.03505
+A1       0.36136 0.17672 0.51779 0.16025
+> abs(zapsmall(intersetcor(mandb)))
+          dbRDA1  dbRDA2  dbRDA3  dbRDA4
+Manure.L 0.37496 0.48082 0.08018 0.15731
+Manure.Q 0.44695 0.41430 0.22423 0.11920
+Manure.C 0.35996 0.11590 0.00423 0.28532
+Manure^4 0.41300 0.28868 0.42071 0.06480
+A1       0.35511 0.20385 0.49290 0.06262
 > 
 > tolerance(mcca)
 
@@ -1270,37 +517,37 @@ Species Tolerance
 
 Scaling: 2
 
-              CCA1       CCA2
-Achimill 0.6100721 0.50357757
-Agrostol 1.3569391 1.44964565
-Airaprae 0.1051587 0.07825593
-Alopgeni 0.9836820 1.39874107
-Anthodor 0.6496618 0.56821906
-Bellpere 0.5090218 0.82477118
-Bromhord 0.5137557 0.71551162
-Chenalbu 0.0000000 0.00000000
-Cirsarve 0.0000000 0.00000000
-Comapalu 0.7711636 0.57387680
-Eleopalu 1.3896704 1.52709395
-Elymrepe 0.6373285 0.92784384
-Empenigr 0.0000000 0.00000000
-Hyporadi 0.7538385 0.36112794
-Juncarti 1.4907966 1.27973184
-Juncbufo 0.8316038 0.65059020
-Lolipere 0.7089658 0.73539504
-Planlanc 0.5156269 0.43602324
-Poaprat  0.7730543 0.83333248
-Poatriv  0.9121139 1.06049325
-Ranuflam 1.5514282 1.37479741
-Rumeacet 0.4660987 0.82199222
-Sagiproc 0.9131350 1.31268575
-Salirepe 0.2864257 0.21314943
-Scorautu 0.9767288 0.90657838
-Trifprat 0.5676829 0.41926731
-Trifrepe 0.9560902 0.94139149
-Vicilath 0.5238493 0.18752410
-Bracruta 1.1440419 1.09101852
-Callcusp 1.5762695 1.44628190
+            CCA1     CCA2
+Achimill 0.61007 0.503578
+Agrostol 1.35694 1.449646
+Airaprae 0.10516 0.078256
+Alopgeni 0.98368 1.398741
+Anthodor 0.64966 0.568219
+Bellpere 0.50902 0.824771
+Bromhord 0.51376 0.715512
+Chenalbu 0.00000 0.000000
+Cirsarve 0.00000 0.000000
+Comapalu 0.77116 0.573877
+Eleopalu 1.38967 1.527094
+Elymrepe 0.63733 0.927844
+Empenigr 0.00000 0.000000
+Hyporadi 0.75384 0.361128
+Juncarti 1.49080 1.279732
+Juncbufo 0.83160 0.650590
+Lolipere 0.70897 0.735395
+Planlanc 0.51563 0.436023
+Poaprat  0.77305 0.833332
+Poatriv  0.91211 1.060493
+Ranuflam 1.55143 1.374797
+Rumeacet 0.46610 0.821992
+Sagiproc 0.91313 1.312686
+Salirepe 0.28643 0.213149
+Scorautu 0.97673 0.906578
+Trifprat 0.56768 0.419267
+Trifrepe 0.95609 0.941391
+Vicilath 0.52385 0.187524
+Bracruta 1.14404 1.091019
+Callcusp 1.57627 1.446282
 
 > tolerance(m0cca)
 
@@ -1308,102 +555,94 @@ Species Tolerance
 
 Scaling: 2
 
-                CA1       CA2
-Achimill 0.93081291 0.6745967
-Agrostol 0.94948340 0.8399189
-Airaprae 0.24900983 1.1654868
-Alopgeni 0.72691801 0.8663008
-Anthodor 1.16042746 1.2064710
-Bellpere 0.32171690 0.5896772
-Bromhord 0.30439162 0.2520537
-Chenalbu 0.00000000 0.0000000
-Cirsarve 0.00000000 0.0000000
-Comapalu 0.04188875 0.3978489
-Eleopalu 0.27843158 0.8139597
-Elymrepe 0.48247839 1.0976628
-Empenigr 0.00000000 0.0000000
-Hyporadi 1.24351176 1.0426009
-Juncarti 0.55151550 0.6732079
-Juncbufo 0.34613702 0.6755382
-Lolipere 0.47272340 1.0063725
-Planlanc 0.68508236 0.7519421
-Poaprat  0.62232238 1.0525979
-Poatriv  0.53991189 0.9294700
-Ranuflam 0.64111496 0.7767885
-Rumeacet 0.31189914 0.8529941
-Sagiproc 1.00552765 1.0323428
-Salirepe 1.98146498 1.8744367
-Scorautu 1.15313128 1.1608885
-Trifprat 0.06305472 0.1114134
-Trifrepe 0.93807067 0.9633500
-Vicilath 0.26634099 1.2800665
-Bracruta 1.09582706 1.1281157
-Callcusp 0.15244932 0.8249616
+              CA1     CA2
+Achimill 0.930813 0.67460
+Agrostol 0.949483 0.83992
+Airaprae 0.249010 1.16549
+Alopgeni 0.726918 0.86630
+Anthodor 1.160427 1.20647
+Bellpere 0.321717 0.58968
+Bromhord 0.304392 0.25205
+Chenalbu 0.000000 0.00000
+Cirsarve 0.000000 0.00000
+Comapalu 0.041889 0.39785
+Eleopalu 0.278432 0.81396
+Elymrepe 0.482478 1.09766
+Empenigr 0.000000 0.00000
+Hyporadi 1.243512 1.04260
+Juncarti 0.551515 0.67321
+Juncbufo 0.346137 0.67554
+Lolipere 0.472723 1.00637
+Planlanc 0.685082 0.75194
+Poaprat  0.622322 1.05260
+Poatriv  0.539912 0.92947
+Ranuflam 0.641115 0.77679
+Rumeacet 0.311899 0.85299
+Sagiproc 1.005528 1.03234
+Salirepe 1.981465 1.87444
+Scorautu 1.153131 1.16089
+Trifprat 0.063055 0.11141
+Trifrepe 0.938071 0.96335
+Vicilath 0.266341 1.28007
+Bracruta 1.095827 1.12812
+Callcusp 0.152449 0.82496
 
 > 
 > vif.cca(mcca)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
-    2.639215    59.435289     4.692185    29.462082    20.057970     7.009516 
+      2.6392      59.4353       4.6922      29.4621      20.0580       7.0095 
     Manure^4           A1 
-          NA     1.432399 
+          NA       1.4324 
 > vif.cca(mrda)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
-    2.760761    82.079142     5.063112    38.480844    24.068480     7.468851 
+      2.7608      82.0791       5.0631      38.4808      24.0685       7.4689 
     Manure^4           A1 
-          NA     1.391558 
+          NA       1.3916 
 > vif.cca(mcap)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
-    2.760761    82.079142     5.063112    38.480844    24.068480     7.468851 
+      2.7608      82.0791       5.0631      38.4808      24.0685       7.4689 
     Manure^4           A1 
-          NA     1.391558 
+          NA       1.3916 
 > vif.cca(mdb)
 ManagementHF ManagementNM ManagementSF     Manure.L     Manure.Q     Manure.C 
-    2.760761    82.079142     5.063112    38.480844    24.068480     7.468851 
+      2.7608      82.0791       5.0631      38.4808      24.0685       7.4689 
     Manure^4           A1 
-          NA     1.391558 
+          NA       1.3916 
 > vif.cca(m0cca)
 ManagementHF ManagementNM ManagementSF ManagementHF ManagementNM ManagementSF 
-    1.943477     1.785663     1.926521           NA           NA           NA 
+      1.9435       1.7857       1.9265           NA           NA           NA 
 > 
 > alias(mcca)
 Model :
 dune ~ Condition(Management) + Manure + A1
 
 Complete :
-         ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q  Manure.C 
-Manure^4               8.366600                  5.291503 -4.472136  2.645751
-         A1
-Manure^4   
+         ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C A1
+Manure^4               8.3666                    5.2915  -4.4721   2.6458    
 
 > alias(mrda)
 Model :
 dune ~ Condition(Management) + Manure + A1
 
 Complete :
-         ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q  Manure.C 
-Manure^4               8.366600                  5.291503 -4.472136  2.645751
-         A1
-Manure^4   
+         ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C A1
+Manure^4               8.3666                    5.2915  -4.4721   2.6458    
 
 > alias(mcap)
 Model :
 dune ~ Condition(Management) + Manure + A1
 
 Complete :
-         ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q  Manure.C 
-Manure^4               8.366600                  5.291503 -4.472136  2.645751
-         A1
-Manure^4   
+         ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C A1
+Manure^4               8.3666                    5.2915  -4.4721   2.6458    
 
 > alias(mdb)
 Model :
 dune ~ Condition(Management) + Manure + A1
 
 Complete :
-         ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q  Manure.C 
-Manure^4               8.366600                  5.291503 -4.472136  2.645751
-         A1
-Manure^4   
+         ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C A1
+Manure^4               8.3666                    5.2915  -4.4721   2.6458    
 
 > alias(m0cca)
 Model :
@@ -1418,57 +657,57 @@ ManagementSF                            1
 > 
 > ## basic statistic
 > 
-> coef(mcca)
-                    CCA1        CCA2        CCA3       CCA4
-ManagementHF  -0.6212928  0.67756808  0.03503462  1.5494639
-ManagementNM -10.0121670 -2.63701149 14.10491529 -5.4155774
-ManagementSF  -0.6160467  2.92012729  0.60781633  1.9872587
-Manure.L      -5.7597904 -5.15119598  8.20328396 -5.6214078
-Manure.Q       4.2747761 -0.01096574 -8.39627202  3.2306374
-Manure.C      -3.4080262 -1.87888597  4.69303630  0.2515154
-Manure^4              NA          NA          NA         NA
-A1             0.4957227 -0.36890198  0.13779157  0.1123764
-> coef(mrda)
-                    RDA1        RDA2        RDA3        RDA4
-ManagementHF -0.03970067  0.19665399 -0.23028304  0.33104446
-ManagementNM -1.88561571  2.73318775  2.66184398 -0.96507906
-ManagementSF  0.24105606  0.56671797 -0.44738020  0.35507245
-Manure.L     -1.50267801  1.05717457  2.21253094 -0.97263359
-Manure.Q      0.62741024 -1.68077955 -1.47294674  0.60565968
-Manure.C     -0.77601600  0.84976951  0.85520077  0.18306231
-Manure^4              NA          NA          NA          NA
-A1            0.04518551 -0.06115177  0.08035078  0.05643429
-> coef(mrda1)
-                    RDA1        RDA2        RDA3        RDA4
-ManagementHF -0.04764686  0.20065792 -0.03542759  0.39884923
-ManagementNM -2.60912073  0.06711382  3.39320623 -0.84663396
-ManagementSF  0.13890313  0.64911093  0.09094389  0.50654999
-Manure.L     -1.83207568 -0.74446530  2.03604271 -1.07738978
-Manure.Q      1.09076910 -0.25309084 -2.05244911  0.53728921
-Manure.C     -0.94262131 -0.14740666  1.06517010  0.21056637
-Manure^4              NA          NA          NA          NA
-A1            0.06352064 -0.09911359  0.02988122  0.02590529
-> coef(mcap)
-                    CAP1       CAP2        CAP3       CAP4
-ManagementHF -0.05446430 -0.1963686  0.06423011 -0.3965062
-ManagementNM -2.14431921 -0.9759953 -3.53060838  1.0133043
-ManagementSF  0.11809570 -0.6710184  0.10012402 -0.4809009
-Manure.L     -1.51055399  0.1933911 -2.36041731  1.1516185
-Manure.Q      0.83159366  0.8045706  1.99715767 -0.6538643
-Manure.C     -0.76906793 -0.1630122 -1.20182259 -0.1636253
-Manure^4              NA         NA          NA         NA
-A1            0.07466365  0.0826825 -0.04898362 -0.0247365
-> coef(mdb)
-                  dbRDA1     dbRDA2       dbRDA3      dbRDA4
-ManagementHF -0.05723350  0.2059983  0.007271835 -0.39636572
-ManagementNM -2.14856017  0.7651671  3.369400423  1.57734022
-ManagementSF  0.11222605  0.6842717  0.007712919 -0.47394178
-Manure.L     -1.50644728 -0.3419042  2.138959205  1.50184559
-Manure.Q      0.83513374 -0.6857571 -1.906088364 -0.97681891
-Manure.C     -0.77167591  0.1002141  1.217675445  0.03048179
-Manure^4              NA         NA           NA          NA
-A1            0.07499906 -0.0841729  0.048383354 -0.01927336
-> coef(m0cca)
+> abs(coef(mcca))
+                 CCA1     CCA2      CCA3    CCA4
+ManagementHF  0.62129 0.677568  0.035035 1.54946
+ManagementNM 10.01217 2.637011 14.104915 5.41558
+ManagementSF  0.61605 2.920127  0.607816 1.98726
+Manure.L      5.75979 5.151196  8.203284 5.62141
+Manure.Q      4.27478 0.010966  8.396272 3.23064
+Manure.C      3.40803 1.878886  4.693036 0.25152
+Manure^4           NA       NA        NA      NA
+A1            0.49572 0.368902  0.137792 0.11238
+> abs(coef(mrda))
+                 RDA1     RDA2     RDA3     RDA4
+ManagementHF 0.039701 0.196654 0.230283 0.331044
+ManagementNM 1.885616 2.733188 2.661844 0.965079
+ManagementSF 0.241056 0.566718 0.447380 0.355072
+Manure.L     1.502678 1.057175 2.212531 0.972634
+Manure.Q     0.627410 1.680780 1.472947 0.605660
+Manure.C     0.776016 0.849770 0.855201 0.183062
+Manure^4           NA       NA       NA       NA
+A1           0.045186 0.061152 0.080351 0.056434
+> abs(coef(mrda1))
+                 RDA1     RDA2     RDA3     RDA4
+ManagementHF 0.047647 0.200658 0.035428 0.398849
+ManagementNM 2.609121 0.067114 3.393206 0.846634
+ManagementSF 0.138903 0.649111 0.090944 0.506550
+Manure.L     1.832076 0.744465 2.036043 1.077390
+Manure.Q     1.090769 0.253091 2.052449 0.537289
+Manure.C     0.942621 0.147407 1.065170 0.210566
+Manure^4           NA       NA       NA       NA
+A1           0.063521 0.099114 0.029881 0.025905
+> abs(coef(mcap))
+                 CAP1     CAP2     CAP3     CAP4
+ManagementHF 0.054464 0.196369 0.064230 0.396506
+ManagementNM 2.144319 0.975995 3.530608 1.013304
+ManagementSF 0.118096 0.671018 0.100124 0.480901
+Manure.L     1.510554 0.193391 2.360417 1.151619
+Manure.Q     0.831594 0.804571 1.997158 0.653864
+Manure.C     0.769068 0.163012 1.201823 0.163625
+Manure^4           NA       NA       NA       NA
+A1           0.074664 0.082683 0.048984 0.024736
+> abs(coef(mdb))
+               dbRDA1   dbRDA2    dbRDA3   dbRDA4
+ManagementHF 0.057234 0.205998 0.0072718 0.396366
+ManagementNM 2.148560 0.765167 3.3694004 1.577340
+ManagementSF 0.112226 0.684272 0.0077129 0.473942
+Manure.L     1.506447 0.341904 2.1389592 1.501846
+Manure.Q     0.835134 0.685757 1.9060884 0.976819
+Manure.C     0.771676 0.100214 1.2176754 0.030482
+Manure^4           NA       NA        NA       NA
+A1           0.074999 0.084173 0.0483834 0.019273
+> abs(coef(m0cca))
             
 ManagementHF
 ManagementNM
@@ -1477,48 +716,46 @@ ManagementHF
 ManagementNM
 ManagementSF
 > 
-> eigenvals(mcca)
-     CCA1      CCA2      CCA3      CCA4       CA1       CA2       CA3       CA4 
-0.2225695 0.1225962 0.0639014 0.0405522 0.3176118 0.1585838 0.1396622 0.1160800 
-      CA5       CA6       CA7       CA8       CA9      CA10      CA11      CA12 
-0.0790722 0.0753401 0.0452749 0.0401788 0.0377668 0.0279878 0.0126652 0.0115828 
+>  eigenvals(mcca)
+   CCA1    CCA2    CCA3    CCA4     CA1     CA2     CA3     CA4     CA5     CA6 
+0.22257 0.12260 0.06390 0.04055 0.31761 0.15858 0.13966 0.11608 0.07907 0.07534 
+    CA7     CA8     CA9    CA10    CA11    CA12 
+0.04527 0.04018 0.03777 0.02799 0.01267 0.01158 
 > eigenvals(mrda)
-     RDA1      RDA2      RDA3      RDA4       PC1       PC2       PC3       PC4 
- 8.539376  4.329719  2.206120  1.716188 10.252251  8.206887  4.952520  3.357695 
-      PC5       PC6       PC7       PC8       PC9      PC10      PC11      PC12 
- 3.122610  2.494065  1.865957  1.257864  1.018620  0.742838  0.481450  0.348822 
+   RDA1    RDA2    RDA3    RDA4     PC1     PC2     PC3     PC4     PC5     PC6 
+ 8.5394  4.3297  2.2061  1.7162 10.2523  8.2069  4.9525  3.3577  3.1226  2.4941 
+    PC7     PC8     PC9    PC10    PC11    PC12 
+ 1.8660  1.2579  1.0186  0.7428  0.4814  0.3488 
 > eigenvals(mrda1)
-    RDA1     RDA2     RDA3     RDA4      PC1      PC2      PC3      PC4 
-2.611677 1.699061 1.103932 0.726054 3.468373 2.547106 2.115753 1.722328 
-     PC5      PC6      PC7      PC8      PC9     PC10     PC11     PC12 
-1.442621 0.961082 0.808945 0.737802 0.490311 0.380476 0.247170 0.156976 
+  RDA1   RDA2   RDA3   RDA4    PC1    PC2    PC3    PC4    PC5    PC6    PC7 
+2.6117 1.6991 1.1039 0.7261 3.4684 2.5471 2.1158 1.7223 1.4426 0.9611 0.8089 
+   PC8    PC9   PC10   PC11   PC12 
+0.7378 0.4903 0.3805 0.2472 0.1570 
 > eigenvals(mcap)
-     CAP1      CAP2      CAP3      CAP4      MDS1      MDS2      MDS3      MDS4 
-0.6736989 0.2429955 0.1045745 0.0513599 0.7489447 0.3379553 0.3084136 0.2131612 
-     MDS5      MDS6      MDS7      MDS8      MDS9     MDS10     MDS11     MDS12 
-0.1369797 0.1360369 0.0619562 0.0392880 0.0168713 0.0110954 0.0064619 0.0040164 
+   CAP1    CAP2    CAP3    CAP4    MDS1    MDS2    MDS3    MDS4    MDS5    MDS6 
+0.67370 0.24300 0.10457 0.05136 0.74894 0.33796 0.30841 0.21316 0.13698 0.13604 
+   MDS7    MDS8    MDS9   MDS10   MDS11   MDS12 
+0.06196 0.03929 0.01687 0.01110 0.00646 0.00402 
 > eigenvals(mdb)
-    dbRDA1     dbRDA2     dbRDA3     dbRDA4       MDS1       MDS2       MDS3 
- 0.6666007  0.2384984  0.0910230  0.0384419  0.7420377  0.3366825  0.3066214 
-      MDS4       MDS5       MDS6       MDS7       MDS8       MDS9      iMDS1 
- 0.2062738  0.1333917  0.1282900  0.0398034  0.0274501  0.0004132 -0.0198542 
-     iMDS2      iMDS3 
--0.0460150 -0.0592284 
+  dbRDA1   dbRDA2   dbRDA3   dbRDA4     MDS1     MDS2     MDS3     MDS4 
+ 0.66660  0.23850  0.09102  0.03844  0.74204  0.33668  0.30662  0.20627 
+    MDS5     MDS6     MDS7     MDS8     MDS9    iMDS1    iMDS2    iMDS3 
+ 0.13339  0.12829  0.03980  0.02745  0.00041 -0.01985 -0.04601 -0.05923 
 > eigenvals(mancap)
-     CAP1      CAP2      CAP3      CAP4      MDS1      MDS2      MDS3      MDS4 
-125.65763  49.30771  24.23926  13.87482 163.68396  97.07938  59.00630  40.20997 
-     MDS5      MDS6      MDS7      MDS8      MDS9     MDS10     MDS11     MDS12 
- 34.85358  24.94309  12.72424  10.91794   4.68641   1.89598   1.50568   0.75787 
+   CAP1    CAP2    CAP3    CAP4    MDS1    MDS2    MDS3    MDS4    MDS5    MDS6 
+125.658  49.308  24.239  13.875 163.684  97.079  59.006  40.210  34.854  24.943 
+   MDS7    MDS8    MDS9   MDS10   MDS11   MDS12 
+ 12.724  10.918   4.686   1.896   1.506   0.758 
 > eigenvals(mandb)
-   dbRDA1    dbRDA2    dbRDA3    dbRDA4      MDS1      MDS2      MDS3      MDS4 
-123.16301  47.36981  21.91479  10.12845 161.47497  96.11636  58.78113  38.53443 
-     MDS5      MDS6      MDS7      MDS8     iMDS1     iMDS2     iMDS3     iMDS4 
- 33.35464  24.56550   9.59082   5.97139  -0.59029  -6.26478 -13.30016 -20.78725 
+ dbRDA1  dbRDA2  dbRDA3  dbRDA4    MDS1    MDS2    MDS3    MDS4    MDS5    MDS6 
+123.163  47.370  21.915  10.128 161.475  96.116  58.781  38.534  33.355  24.565 
+   MDS7    MDS8   iMDS1   iMDS2   iMDS3   iMDS4 
+  9.591   5.971  -0.590  -6.265 -13.300 -20.787 
 > eigenvals(m0cca)
-      CA1       CA2       CA3       CA4       CA5       CA6       CA7       CA8 
-0.4473747 0.2030030 0.1630063 0.1345715 0.1294004 0.0949428 0.0790423 0.0652609 
-      CA9      CA10      CA11      CA12      CA13      CA14      CA15      CA16 
-0.0500390 0.0432118 0.0387041 0.0238515 0.0177294 0.0091722 0.0079589 0.0041568 
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
+0.44737 0.20300 0.16301 0.13457 0.12940 0.09494 0.07904 0.06526 0.05004 0.04321 
+   CA11    CA12    CA13    CA14    CA15    CA16 
+0.03870 0.02385 0.01773 0.00917 0.00796 0.00416 
 > eigenvals(m0cca, model = "constrained")
 numeric(0)
 > 
@@ -1535,35 +772,35 @@ numeric(0)
 > 
 > RsquareAdj(mcca)
 $r.squared
-[1] 0.2125594
+[1] 0.21256
 
 $adj.r.squared
 [1] NA
 
 > RsquareAdj(mrda)
 $r.squared
-[1] 0.1996037
+[1] 0.1996
 
 $adj.r.squared
 [1] NA
 
 > RsquareAdj(mrda1)
 $r.squared
-[1] 0.2046908
+[1] 0.20469
 
 $adj.r.squared
 [1] NA
 
 > RsquareAdj(mcap)
 $r.squared
-[1] 0.2495053
+[1] 0.24951
 
 $adj.r.squared
 [1] NA
 
 > RsquareAdj(mdb)
 $r.squared
-[1] 0.240651
+[1] 0.24065
 
 $adj.r.squared
 [1] NA
@@ -1628,17 +865,17 @@ $adj.r.squared
 > ## testing and model building -
 > 
 > deviance(mcca)
-[1] 727.3374
+[1] 727.34
 > deviance(mrda)
 [1] 723.93
 > deviance(mrda1)
-[1] 286.4999
+[1] 286.5
 > deviance(mcap)
-[1] 38.40243
+[1] 38.402
 > deviance(mdb)
-[1] 34.12146
+[1] 34.121
 > deviance(m0cca)
-[1] 1035.327
+[1] 1035.3
 > 
 > per <- shuffleSet(nrow(dune), 49)
 > permutest(mcca, per)
@@ -1651,9 +888,9 @@ Number of permutations: 49
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4 0.44962 1.2703   0.16
-Residual 12 1.06181              
+         Df Inertia    F Pr(>F)
+Model     4    0.45 1.27   0.16
+Residual 12    1.06            
 > permutest(mrda, per)
 
 Permutation test for rda under reduced model 
@@ -1664,9 +901,9 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4  16.791 1.3221   0.12
-Residual 12  38.102              
+         Df Inertia    F Pr(>F)
+Model     4    16.8 1.32   0.12
+Residual 12    38.1            
 > permutest(mrda1, per)
 
 Permutation test for rda under reduced model 
@@ -1677,9 +914,9 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, scale = TRUE)
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4  6.1407 1.2217   0.12
-Residual 12 15.0789              
+         Df Inertia    F Pr(>F)
+Model     4    6.14 1.22   0.12
+Residual 12   15.08            
 > permutest(mcap, per)
 
 Permutation test for capscale under reduced model 
@@ -1690,9 +927,9 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)  
-Model     4  1.0726 1.5921   0.08 .
-Residual 12  2.0212                
+         Df Inertia    F Pr(>F)  
+Model     4    1.07 1.59   0.08 .
+Residual 12    2.02              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mdb, per)
@@ -1705,9 +942,9 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)  
-Model     4  1.0346 1.7282   0.06 .
-Residual 12  1.7959                
+         Df Inertia    F Pr(>F)  
+Model     4    1.03 1.73   0.06 .
+Residual 12    1.80              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(mancap, per)
@@ -1720,9 +957,9 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)
-Model     4  213.08 1.4134   0.14
-Residual 12  452.26              
+         Df Inertia    F Pr(>F)
+Model     4     213 1.41   0.14
+Residual 12     452            
 > permutest(mandb, per)
 
 Permutation test for dbrda under reduced model 
@@ -1733,9 +970,9 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
-         Df Inertia      F Pr(>F)  
-Model     4  202.58 1.5685   0.06 .
-Residual 12  387.45                
+         Df Inertia    F Pr(>F)  
+Model     4     203 1.57   0.06 .
+Residual 12     387              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > permutest(m0cca, per)
@@ -1749,41 +986,41 @@ Model: cca(formula = dune ~ Condition(Management) + Management, data =
 dune.env)
 Permutation test for all constrained eigenvalues
          Df Inertia F Pr(>F)
-Model     0  0.0000         
-Residual 16  1.5114         
+Model     0    0.00         
+Residual 16    1.51         
 > 
 > drop1(mcca, test="permutation", permutations=per)
-                      Df    AIC      F Pr(>F)  
-<none>                   87.873                
-Condition(Management)  2 87.896                
-Manure                 3 86.460 1.0310   0.34  
-A1                     1 88.954 1.9983   0.06 .
+                      Df  AIC    F Pr(>F)  
+<none>                   87.9              
+Condition(Management)  2 87.9              
+Manure                 3 86.5 1.03   0.34  
+A1                     1 89.0 2.00   0.06 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > drop1(mrda, test="permutation", permutations=per)
-                      Df    AIC      F Pr(>F)
-<none>                   87.779              
-Condition(Management)  2 89.151              
-Manure                 3 87.424 1.3043   0.14
-A1                     1 87.517 1.0892   0.48
+                      Df  AIC    F Pr(>F)
+<none>                   87.8            
+Condition(Management)  2 89.2            
+Manure                 3 87.4 1.30   0.14
+A1                     1 87.5 1.09   0.48
 > drop1(mrda1, test="permutation", permutations=per)
-                      Df    AIC     F Pr(>F)
-<none>                   69.240             
-Condition(Management)  2 69.817             
-Manure                 3 68.166 1.117    0.2
-A1                     1 69.568 1.481    0.2
+                      Df  AIC    F Pr(>F)
+<none>                   69.2            
+Condition(Management)  2 69.8            
+Manure                 3 68.2 1.12    0.2
+A1                     1 69.6 1.48    0.2
 > drop1(mcap, test="permutation", permutations=per)
-                      Df    AIC      F Pr(>F)
-<none>                   29.048              
-Condition(Management)  2 29.354              
-Manure                 3 28.454 1.2414   0.24
-A1                     1 30.406 2.1940   0.12
+                      Df  AIC    F Pr(>F)
+<none>                   29.1            
+Condition(Management)  2 29.4            
+Manure                 3 28.4 1.24   0.24
+A1                     1 30.4 2.19   0.12
 > drop1(mdb, test="permutation", permutations=per)
-                      Df    AIC      F Pr(>F)
-<none>                   26.684              
-Condition(Management)  2 27.240              
-Manure                 3 26.396 1.3223   0.24
-A1                     1 28.407 2.4552   0.12
+                      Df  AIC    F Pr(>F)
+<none>                   26.7            
+Condition(Management)  2 27.2            
+Manure                 3 26.4 1.32   0.24
+A1                     1 28.4 2.46   0.12
 > 
 > anova(mcca, permutations = per)
 Permutation test for cca under reduced model
@@ -1791,36 +1028,36 @@ Permutation: free
 Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df ChiSquare      F Pr(>F)
-Model     4   0.44962 1.2703   0.16
-Residual 12   1.06181              
+         Df ChiSquare    F Pr(>F)
+Model     4      0.45 1.27   0.16
+Residual 12      1.06            
 > anova(mrda, permutations = per)
 Permutation test for rda under reduced model
 Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)
-Model     4   16.791 1.3221   0.12
-Residual 12   38.102              
+         Df Variance    F Pr(>F)
+Model     4     16.8 1.32   0.12
+Residual 12     38.1            
 > anova(mrda1, permutations = per)
 Permutation test for rda under reduced model
 Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
-         Df Variance      F Pr(>F)
-Model     4   6.1407 1.2217   0.12
-Residual 12  15.0789              
+         Df Variance    F Pr(>F)
+Model     4     6.14 1.22   0.12
+Residual 12    15.08            
 > anova(mcap, permutations = per)
 Permutation test for capscale under reduced model
 Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)  
-Model     4   1.0726 1.5921   0.08 .
-Residual 12   2.0212                
+         Df SumOfSqs    F Pr(>F)  
+Model     4     1.07 1.59   0.08 .
+Residual 12     2.02              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mdb, permutations = per)
@@ -1829,9 +1066,9 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)  
-Model     4   1.0346 1.7282   0.06 .
-Residual 12   1.7959                
+         Df SumOfSqs    F Pr(>F)  
+Model     4     1.03 1.73   0.06 .
+Residual 12     1.80              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mancap, permutations = per)
@@ -1840,18 +1077,18 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)
-Model     4   213.08 1.4134   0.14
-Residual 12   452.26              
+         Df Variance    F Pr(>F)
+Model     4      213 1.41   0.14
+Residual 12      452            
 > anova(mandb, permutations = per)
 Permutation test for dbrda under reduced model
 Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)  
-Model     4   202.58 1.5685   0.06 .
-Residual 12   387.45                
+         Df Variance    F Pr(>F)  
+Model     4      203 1.57   0.06 .
+Residual 12      387              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(m0cca, permutations = per)
@@ -1859,8 +1096,8 @@ No constrained component
 
 Model: cca(formula = dune ~ Condition(Management) + Management, data = dune.env)
          Df ChiSquare  F Pr(>F)
-Model     0    0.0000  0       
-Residual 19    1.5114          
+Model     0      0.00  0       
+Residual 19      1.51          
 > 
 > anova(mcca, permutations = per, by="term")
 Permutation test for cca under reduced model
@@ -1869,10 +1106,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df ChiSquare      F Pr(>F)  
-Manure    3   0.27280 1.0277   0.38  
-A1        1   0.17682 1.9983   0.06 .
-Residual 12   1.06181                
+         Df ChiSquare    F Pr(>F)  
+Manure    3     0.273 1.03   0.38  
+A1        1     0.177 2.00   0.06 .
+Residual 12     1.062              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mrda, permutations = per, by="term")
@@ -1882,10 +1119,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)
-Manure    3   13.333 1.3997   0.14
-A1        1    3.458 1.0892   0.48
-Residual 12   38.102              
+         Df Variance    F Pr(>F)
+Manure    3     13.3 1.40   0.14
+A1        1      3.5 1.09   0.48
+Residual 12     38.1            
 > anova(mrda1, permutations = per, by="term")
 Permutation test for rda under reduced model
 Terms added sequentially (first to last)
@@ -1893,10 +1130,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
-         Df Variance      F Pr(>F)
-Manure    3   4.2797 1.1353   0.18
-A1        1   1.8610 1.4810   0.20
-Residual 12  15.0789              
+         Df Variance    F Pr(>F)
+Manure    3     4.28 1.14   0.18
+A1        1     1.86 1.48   0.20
+Residual 12    15.08            
 > anova(mcap, permutations = per, by="term")
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -1904,10 +1141,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Manure    3  0.70309 1.3914   0.16
-A1        1  0.36954 2.1940   0.12
-Residual 12  2.02118              
+         Df SumOfSqs    F Pr(>F)
+Manure    3    0.703 1.39   0.16
+A1        1    0.370 2.19   0.12
+Residual 12    2.021            
 > anova(mdb, permutations = per, by="term")
 Permutation test for dbrda under reduced model
 Terms added sequentially (first to last)
@@ -1915,10 +1152,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Manure    3  0.66713 1.4859   0.12
-A1        1  0.36743 2.4552   0.12
-Residual 12  1.79587              
+         Df SumOfSqs    F Pr(>F)
+Manure    3    0.667 1.49   0.12
+A1        1    0.367 2.46   0.12
+Residual 12    1.796            
 > anova(mancap, permutations = per, by="term")
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -1926,10 +1163,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)  
-Manure    3   172.81 1.5284   0.08 .
-A1        1    40.27 1.0684   0.42  
-Residual 12   452.26                
+         Df Variance    F Pr(>F)  
+Manure    3      173 1.53   0.08 .
+A1        1       40 1.07   0.42  
+Residual 12      452              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mandb, permutations = per, by="term")
@@ -1939,10 +1176,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)  
-Manure    3   163.08 1.6837   0.08 .
-A1        1    39.49 1.2231   0.40  
-Residual 12   387.45                
+         Df Variance    F Pr(>F)  
+Manure    3      163 1.68   0.08 .
+A1        1       39 1.22   0.40  
+Residual 12      387              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
@@ -1953,10 +1190,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df ChiSquare      F Pr(>F)  
-Manure    3   0.27368 1.0310   0.34  
-A1        1   0.17682 1.9983   0.06 .
-Residual 12   1.06181                
+         Df ChiSquare    F Pr(>F)  
+Manure    3     0.274 1.03   0.34  
+A1        1     0.177 2.00   0.06 .
+Residual 12     1.062              
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(mrda, permutations = per, by="margin")
@@ -1966,10 +1203,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)
-Manure    3   12.424 1.3043   0.14
-A1        1    3.458 1.0892   0.48
-Residual 12   38.102              
+         Df Variance    F Pr(>F)
+Manure    3     12.4 1.30   0.14
+A1        1      3.5 1.09   0.48
+Residual 12     38.1            
 > anova(mrda1, permutations = per, by="margin")
 Permutation test for rda under reduced model
 Marginal effects of terms
@@ -1977,10 +1214,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
-         Df Variance     F Pr(>F)
-Manure    3    4.211 1.117    0.2
-A1        1    1.861 1.481    0.2
-Residual 12   15.079             
+         Df Variance    F Pr(>F)
+Manure    3     4.21 1.12    0.2
+A1        1     1.86 1.48    0.2
+Residual 12    15.08            
 > anova(mcap, permutations = per, by="margin")
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -1988,10 +1225,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Manure    3  0.62726 1.2414   0.24
-A1        1  0.36954 2.1940   0.12
-Residual 12  2.02118              
+         Df SumOfSqs    F Pr(>F)
+Manure    3    0.627 1.24   0.24
+A1        1    0.370 2.19   0.12
+Residual 12    2.021            
 > anova(mdb, permutations = per, by="margin")
 Permutation test for dbrda under reduced model
 Marginal effects of terms
@@ -1999,10 +1236,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-Manure    3  0.59367 1.3223   0.24
-A1        1  0.36743 2.4552   0.12
-Residual 12  1.79587              
+         Df SumOfSqs    F Pr(>F)
+Manure    3    0.594 1.32   0.24
+A1        1    0.367 2.46   0.12
+Residual 12    1.796            
 > anova(mancap, permutations = per, by="margin")
 Permutation test for capscale under reduced model
 Marginal effects of terms
@@ -2010,10 +1247,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)
-Manure    3   164.52 1.4551   0.12
-A1        1    40.27 1.0684   0.42
-Residual 12   452.26              
+         Df Variance    F Pr(>F)
+Manure    3      165 1.46   0.12
+A1        1       40 1.07   0.42
+Residual 12      452            
 > anova(mandb, permutations = per, by="margin")
 Permutation test for dbrda under reduced model
 Marginal effects of terms
@@ -2021,10 +1258,10 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)
-Manure    3   155.41 1.6045   0.12
-A1        1    39.49 1.2231   0.40
-Residual 12   387.45              
+         Df Variance    F Pr(>F)
+Manure    3      155 1.60   0.12
+A1        1       39 1.22   0.40
+Residual 12      387            
 > 
 > anova(mcca, permutations = per, by="axis")
 Permutation test for cca under reduced model
@@ -2033,12 +1270,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df ChiSquare      F Pr(>F)
-CCA1      1   0.22257 2.5154   0.18
-CCA2      1   0.12260 1.3855   0.54
-CCA3      1   0.06390 0.7222   0.92
-CCA4      1   0.04055 0.4583   0.96
-Residual 12   1.06181              
+         Df ChiSquare    F Pr(>F)
+CCA1      1     0.223 2.52   0.18
+CCA2      1     0.123 1.39   0.54
+CCA3      1     0.064 0.72   0.92
+CCA4      1     0.041 0.46   0.96
+Residual 12     1.062            
 > anova(mrda, permutations = per, by="axis")
 Permutation test for rda under reduced model
 Forward tests for axes
@@ -2046,12 +1283,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
-         Df Variance      F Pr(>F)
-RDA1      1    8.539 2.6895   0.12
-RDA2      1    4.330 1.3636   0.64
-RDA3      1    2.206 0.6948   0.96
-RDA4      1    1.716 0.5405   0.92
-Residual 12   38.102              
+         Df Variance    F Pr(>F)
+RDA1      1      8.5 2.69   0.12
+RDA2      1      4.3 1.36   0.64
+RDA3      1      2.2 0.69   0.96
+RDA4      1      1.7 0.54   0.92
+Residual 12     38.1            
 > anova(mrda1, permutations = per, by="axis")
 Permutation test for rda under reduced model
 Forward tests for axes
@@ -2059,12 +1296,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
-         Df Variance      F Pr(>F)
-RDA1      1   2.6117 2.0784   0.26
-RDA2      1   1.6991 1.3521   0.56
-RDA3      1   1.1039 0.8785   0.76
-RDA4      1   0.7261 0.5778   0.92
-Residual 12  15.0789              
+         Df Variance    F Pr(>F)
+RDA1      1     2.61 2.08   0.26
+RDA2      1     1.70 1.35   0.56
+RDA3      1     1.10 0.88   0.76
+RDA4      1     0.73 0.58   0.92
+Residual 12    15.08            
 > anova(mcap, permutations = per, by="axis")
 Permutation test for capscale under reduced model
 Forward tests for axes
@@ -2072,12 +1309,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-CAP1      1  0.67370 3.9998   0.10
-CAP2      1  0.24300 1.4427   0.62
-CAP3      1  0.10457 0.6209   0.92
-CAP4      1  0.05136 0.3049   0.96
-Residual 12  2.02118              
+         Df SumOfSqs    F Pr(>F)
+CAP1      1    0.674 4.00   0.10
+CAP2      1    0.243 1.44   0.62
+CAP3      1    0.105 0.62   0.92
+CAP4      1    0.051 0.30   0.96
+Residual 12    2.021            
 > anova(mdb, permutations = per, by="axis")
 Permutation test for dbrda under reduced model
 Forward tests for axes
@@ -2085,12 +1322,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
-         Df SumOfSqs      F Pr(>F)
-dbRDA1    1  0.66660 4.4542   0.10
-dbRDA2    1  0.23850 1.5936   0.58
-dbRDA3    1  0.09102 0.6082   0.90
-dbRDA4    1  0.03844 0.2569   0.94
-Residual 12  1.79587              
+         Df SumOfSqs    F Pr(>F)
+dbRDA1    1    0.667 4.45   0.10
+dbRDA2    1    0.238 1.59   0.58
+dbRDA3    1    0.091 0.61   0.90
+dbRDA4    1    0.038 0.26   0.94
+Residual 12    1.796            
 > anova(mancap, permutations = per, by="axis")
 Permutation test for capscale under reduced model
 Forward tests for axes
@@ -2098,12 +1335,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)
-CAP1      1   125.66 3.3341   0.18
-CAP2      1    49.31 1.3083   0.68
-CAP3      1    24.24 0.6431   0.92
-CAP4      1    13.87 0.3681   0.94
-Residual 12   452.26              
+         Df Variance    F Pr(>F)
+CAP1      1      126 3.33   0.18
+CAP2      1       49 1.31   0.68
+CAP3      1       24 0.64   0.92
+CAP4      1       14 0.37   0.94
+Residual 12      452            
 > anova(mandb, permutations = per, by="axis")
 Permutation test for dbrda under reduced model
 Forward tests for axes
@@ -2111,12 +1348,12 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
-         Df Variance      F Pr(>F)
-dbRDA1    1   123.16 3.8146   0.16
-dbRDA2    1    47.37 1.4671   0.66
-dbRDA3    1    21.91 0.6787   0.90
-dbRDA4    1    10.13 0.3137   0.94
-Residual 12   387.45              
+         Df Variance    F Pr(>F)
+dbRDA1    1      123 3.81   0.16
+dbRDA2    1       47 1.47   0.66
+dbRDA3    1       22 0.68   0.90
+dbRDA4    1       10 0.31   0.94
+Residual 12      387            
 > 
 > ## the following do not all work with partial models
 > 
@@ -2129,381 +1366,260 @@ Residual 12   387.45
 > mandb <- dbrda(dune ~ Management + Manure + A1, dune.env, dist = "man")
 > 
 > head(calibrate(mcca))
-  ManagementHF ManagementNM ManagementSF     Manure.L   Manure.Q    Manure.C
-1   0.88360206  -0.17809052    0.3650012  0.792231508  0.7835459  0.57311529
-2  -0.25759503  -0.06918216    0.4684124  0.217434240 -0.2708433  0.18995821
-3  -0.05520592  -0.06841949    1.0403399  0.606094825  0.2172289  0.09595019
-4  -0.30436889   0.13205353    1.2181418  0.591976882  0.7169519  0.40927504
-5   0.96151990   0.09156902   -0.1249658 -0.002973172 -0.4935729 -0.11564392
-6   1.44991911   0.07560224   -0.4229768 -0.053526651 -0.6857423 -0.40418186
-        A1
-1 1.302395
-2 4.248246
-3 4.228089
-4 4.862963
-5 4.964216
-6 4.705495
+  ManagementHF ManagementNM ManagementSF   Manure.L Manure.Q Manure.C     A1
+1     0.883602    -0.178091      0.36500  0.7922315  0.78355  0.57312 1.3024
+2    -0.257595    -0.069182      0.46841  0.2174342 -0.27084  0.18996 4.2482
+3    -0.055206    -0.068419      1.04034  0.6060948  0.21723  0.09595 4.2281
+4    -0.304369     0.132054      1.21814  0.5919769  0.71695  0.40928 4.8630
+5     0.961520     0.091569     -0.12497 -0.0029732 -0.49357 -0.11564 4.9642
+6     1.449919     0.075602     -0.42298 -0.0535267 -0.68574 -0.40418 4.7055
 > head(calibrate(mrda))
-  ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q   Manure.C
-1   0.29401062   0.40840280   0.44082761  0.3429410  0.96022808  0.2590732
-2  -0.32193447  -0.21093999   0.52525780  0.2576090 -0.42643278  0.3208570
-3  -0.06329046  -0.38255166   1.29556814  0.8881558  0.05105066  0.2084433
-4  -0.23072016  -0.02585114   1.26360424  0.6662698  0.59228870  0.4811668
-5   1.09410636   0.33361502  -0.08611898  0.1012246 -0.21872203 -0.4728422
-6   1.54974463   0.12861025  -0.64747446 -0.2417242 -0.68891282 -0.2416285
-        A1
-1 3.136679
-2 4.742654
-3 3.024433
-4 5.138888
-5 5.690567
-6 4.999154
+  ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q Manure.C     A1
+1      0.29401     0.408403     0.440828  0.34294  0.960228  0.25907 3.1367
+2     -0.32193    -0.210940     0.525258  0.25761 -0.426433  0.32086 4.7427
+3     -0.06329    -0.382552     1.295568  0.88816  0.051051  0.20844 3.0244
+4     -0.23072    -0.025851     1.263604  0.66627  0.592289  0.48117 5.1389
+5      1.09411     0.333615    -0.086119  0.10122 -0.218722 -0.47284 5.6906
+6      1.54974     0.128610    -0.647474 -0.24172 -0.688913 -0.24163 4.9992
 > head(calibrate(mrda1))
-  ManagementHF ManagementNM ManagementSF   Manure.L   Manure.Q    Manure.C
-1  0.419517193   0.19560248   0.48993045  0.4089449  0.6367263  0.14413145
-2 -0.255569668  -0.15994775   0.51242543  0.3396888 -0.3675106  0.09843765
-3  0.008853507  -0.14992260   1.02376762  0.6594601  0.1947914  0.18454274
-4 -0.428370700  -0.04567988   1.48630193  0.8289616  0.7720497  0.62000910
-5  0.879122987   0.13238953  -0.06198182  0.0271789 -0.4332181 -0.20090501
-6  1.594541234   0.09961208  -0.60111383 -0.2170851 -0.7731073 -0.32563540
-        A1
-1 3.245693
-2 4.141507
-3 3.849915
-4 4.204391
-5 4.883442
-6 4.908019
+  ManagementHF ManagementNM ManagementSF  Manure.L Manure.Q  Manure.C     A1
+1    0.4195172     0.195602     0.489930  0.408945  0.63673  0.144131 3.2457
+2   -0.2555697    -0.159948     0.512425  0.339689 -0.36751  0.098438 4.1415
+3    0.0088535    -0.149923     1.023768  0.659460  0.19479  0.184543 3.8499
+4   -0.4283707    -0.045680     1.486302  0.828962  0.77205  0.620009 4.2044
+5    0.8791230     0.132390    -0.061982  0.027179 -0.43322 -0.200905 4.8834
+6    1.5945412     0.099612    -0.601114 -0.217085 -0.77311 -0.325635 4.9080
 > head(calibrate(mcap))
-  ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q   Manure.C
-1    0.3535056  0.129983997    0.7377202  0.8334587  1.15092777  0.3405095
-2   -0.2732786 -0.180792603    0.5768840  0.3610840 -0.38954005  0.1133694
-3   -0.1152079 -0.137879534    1.0762712  0.5049998  0.07824767  0.3354401
-4   -0.2382976  0.007895537    1.1860086  0.5589081  0.37439201  0.2727337
-5    1.0610154  0.425441235    0.1370962  0.2845974  0.04000862 -0.5996236
-6    1.2179688  0.119875153   -0.5411688 -0.2679747 -0.68671004 -0.1856355
-        A1
-1 1.581889
-2 4.561850
-3 5.174177
-4 4.543933
-5 4.929796
-6 4.778479
+  ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q Manure.C     A1
+1      0.35351    0.1299840      0.73772  0.83346  1.150928  0.34051 1.5819
+2     -0.27328   -0.1807926      0.57688  0.36108 -0.389540  0.11337 4.5618
+3     -0.11521   -0.1378795      1.07627  0.50500  0.078248  0.33544 5.1742
+4     -0.23830    0.0078955      1.18601  0.55891  0.374392  0.27273 4.5439
+5      1.06102    0.4254412      0.13710  0.28460  0.040009 -0.59962 4.9298
+6      1.21797    0.1198752     -0.54117 -0.26797 -0.686710 -0.18564 4.7785
 > head(calibrate(mdb))
-  ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q   Manure.C
-1    1.0594524   0.29232525    0.4530965  0.8716296  1.68674169  0.3909061
-2   -0.3486990  -0.23103069    0.5714677  0.2706961 -0.48025948  0.2887174
-3   -0.4731970  -0.16901804    1.2689487  0.5234851 -0.11917321  0.2571236
-4   -0.5862554  -0.12330721    1.2779548  0.5022518  0.03599898  0.3006536
-5    1.3326881   0.79709910    0.3159693  0.7026006  0.68493194 -1.3059834
-6    1.0216997   0.04278981   -0.4544644 -0.1983255 -0.94646753 -0.4192565
-         A1
-1 0.8466514
-2 4.7253689
-3 5.7425320
-4 4.7108166
-5 5.0080680
-6 4.8373560
+  ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q Manure.C      A1
+1      1.05945      0.29233      0.45310  0.87163  1.686742  0.39091 0.84665
+2     -0.34870     -0.23103      0.57147  0.27070 -0.480259  0.28872 4.72537
+3     -0.47320     -0.16902      1.26895  0.52349 -0.119173  0.25712 5.74253
+4     -0.58626     -0.12331      1.27795  0.50225  0.035999  0.30065 4.71082
+5      1.33269      0.79710      0.31597  0.70260  0.684932 -1.30598 5.00807
+6      1.02170      0.04279     -0.45446 -0.19833 -0.946468 -0.41926 4.83736
 > head(calibrate(mancap))
-  ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q    Manure.C
-1  0.128124028    0.4914488    0.5598338  0.3847020  1.01261573  0.05207035
-2 -0.287915128   -0.2612305    0.6030980  0.3583204 -0.34120961  0.38002279
-3  0.006959562   -0.3021204    1.1206653  0.6783951 -0.01814014  0.29691652
-4 -0.135083590   -0.1893284    1.3195009  0.8342695  0.60909187  0.59969643
-5  1.072548265    0.4585136    0.1953798  0.4044623  0.19234405 -0.66824333
-6  1.285765711    0.1773989   -0.7558873 -0.4679757 -0.90858718 -0.30014063
-        A1
-1 2.985972
-2 4.778321
-3 5.031331
-4 3.282698
-5 4.125311
-6 5.469870
+  ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C     A1
+1    0.1281240      0.49145      0.55983  0.38470  1.01262  0.05207 2.9860
+2   -0.2879151     -0.26123      0.60310  0.35832 -0.34121  0.38002 4.7783
+3    0.0069596     -0.30212      1.12067  0.67840 -0.01814  0.29692 5.0313
+4   -0.1350836     -0.18933      1.31950  0.83427  0.60909  0.59970 3.2827
+5    1.0725483      0.45851      0.19538  0.40446  0.19234 -0.66824 4.1253
+6    1.2857657      0.17740     -0.75589 -0.46798 -0.90859 -0.30014 5.4699
 > head(calibrate(mandb))
-  ManagementHF ManagementNM ManagementSF   Manure.L   Manure.Q   Manure.C
-1    0.6664371    0.9750470    0.4737862  0.6642153  2.0989067 -0.2287418
-2   -0.3882152   -0.3482520    0.5305879  0.1294046 -0.5076357  0.7785635
-3   -0.3292382   -0.5883685    1.1983111  0.5361608 -0.6821148  0.4131973
-4   -0.3371990   -0.3866785    1.3279027  0.6969905  0.1867756  0.7642279
-5    1.7959422    1.1961071    0.2983568  1.1171016  1.7656161 -1.6222258
-6    0.9459771   -0.1932681   -0.5945736 -0.3919746 -1.8006153 -0.6860084
-        A1
-1 1.965320
-2 5.636157
-3 5.703570
-4 3.631111
-5 2.135125
-6 5.283265
+  ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C     A1
+1      0.66644      0.97505      0.47379  0.66422  2.09891 -0.22874 1.9653
+2     -0.38822     -0.34825      0.53059  0.12940 -0.50764  0.77856 5.6362
+3     -0.32924     -0.58837      1.19831  0.53616 -0.68211  0.41320 5.7036
+4     -0.33720     -0.38668      1.32790  0.69699  0.18678  0.76423 3.6311
+5      1.79594      1.19611      0.29836  1.11710  1.76562 -1.62223 2.1351
+6      0.94598     -0.19327     -0.59457 -0.39197 -1.80062 -0.68601 5.2833
 > 
 > head(calibrate(mcca, newdata=dune[11:15,]))
-   ManagementHF ManagementNM ManagementSF   Manure.L   Manure.Q   Manure.C
-11   0.23385788    0.1386086   -0.3258869 -0.6755254 -0.1065854  0.9630968
-12  -0.26064234   -0.1331636    1.1715170 -0.1838604 -0.6938599  0.4684335
-13  -0.08159412   -0.3085389    1.1809676  0.4649125 -0.6388093 -0.4728579
-14  -0.50231584    1.0632584    0.1605969 -0.7984325  0.4151505 -0.1537859
-15   0.55998130    0.9035392   -0.1598203 -0.5087195  0.6192600 -0.3627150
-          A1
-11  2.350688
-12  5.987104
-13  4.347945
-14 12.320733
-15 10.202581
+   ManagementHF ManagementNM ManagementSF Manure.L Manure.Q Manure.C      A1
+11     0.233858      0.13861     -0.32589 -0.67553 -0.10659  0.96310  2.3507
+12    -0.260642     -0.13316      1.17152 -0.18386 -0.69386  0.46843  5.9871
+13    -0.081594     -0.30854      1.18097  0.46491 -0.63881 -0.47286  4.3479
+14    -0.502316      1.06326      0.16060 -0.79843  0.41515 -0.15379 12.3207
+15     0.559981      0.90354     -0.15982 -0.50872  0.61926 -0.36272 10.2026
 > head(calibrate(mrda, newdata=dune[11:15,]))
-   ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q     Manure.C
-11   0.20198610    0.2813983  -0.26005972 -0.5730851  0.05235502  0.658255427
-12  -0.32191652   -0.2512853   1.20833564 -0.1171094 -0.80402230  0.393613740
-13  -0.03254595   -0.3945753   1.24945803  0.6222369 -0.68652009 -0.542291792
-14  -0.35185974    0.9766868  -0.02111999 -0.8376043  0.39176064  0.009888821
-15   0.29430797    1.0191806  -0.07277684 -0.5758965  0.63528205 -0.450474816
-          A1
-11  1.848909
-12  4.467625
-13  3.439140
-14 12.396864
-15  9.782752
+   ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q   Manure.C      A1
+11     0.201986      0.28140    -0.260060 -0.57309  0.052355  0.6582554  1.8489
+12    -0.321917     -0.25129     1.208336 -0.11711 -0.804022  0.3936137  4.4676
+13    -0.032546     -0.39458     1.249458  0.62224 -0.686520 -0.5422918  3.4391
+14    -0.351860      0.97669    -0.021120 -0.83760  0.391761  0.0098888 12.3969
+15     0.294308      1.01918    -0.072777 -0.57590  0.635282 -0.4504748  9.7828
 > head(calibrate(mrda1, newdata=dune[11:15,]))
-   ManagementHF ManagementNM ManagementSF   Manure.L    Manure.Q   Manure.C
-11   0.15589029   0.25523066  -0.30220675 -0.7348754 -0.01331514  0.9093880
-12  -0.21809455  -0.07205386   1.15067021 -0.1497826 -0.56425399  0.4281028
-13  -0.04961517  -0.45841215   1.29278432  0.6675992 -0.78988471 -0.7279307
-14  -0.23446421   1.03784941   0.02914171 -0.7549793  0.43517523 -0.2665248
-15   0.29822077   1.00656888  -0.10298418 -0.6048887  0.61146065 -0.3657578
-          A1
-11  2.642516
-12  5.967031
-13  4.074723
-14 11.937582
-15 10.361506
+   ManagementHF ManagementNM ManagementSF Manure.L  Manure.Q Manure.C      A1
+11     0.155890     0.255231    -0.302207 -0.73488 -0.013315  0.90939  2.6425
+12    -0.218095    -0.072054     1.150670 -0.14978 -0.564254  0.42810  5.9670
+13    -0.049615    -0.458412     1.292784  0.66760 -0.789885 -0.72793  4.0747
+14    -0.234464     1.037849     0.029142 -0.75498  0.435175 -0.26652 11.9376
+15     0.298221     1.006569    -0.102984 -0.60489  0.611461 -0.36576 10.3615
 > 
 > head(predict(mcca, newdata = dune.env))
-   Achimill    Agrostol    Airaprae  Alopgeni    Anthodor  Bellpere  Bromhord
-1 0.2486583  1.73028704  0.13673182 1.5656664  0.17668905 0.6929788 0.5166126
-2 3.3802173 -1.33574636  0.10309955 0.6580407  1.86916964 2.6193975 3.7171881
-3 0.3462920  4.86894233 -0.07781486 3.4992142 -0.10055474 1.5568413 1.1694074
-4 0.4050497  5.40077062 -0.05891697 3.9351193 -0.07613431 1.7501799 1.3139799
-5 1.4072065  1.39415492 -0.40958279 1.6373800  1.72721055 0.9573019 1.0987483
-6 1.9008863 -0.08191007  0.15345268 1.7958442  2.71716432 1.0415946 1.1923028
-      Chenalbu     Cirsarve   Comapalu   Eleopalu Elymrepe    Empenigr
-1 -0.006675102  0.344173892 -0.2320850 -0.4534549 2.104864  0.05780644
-2 -0.040349348 -0.004027013 -0.1749984 -0.5079033 1.135713  0.04358765
-3  0.003798838  0.779738435  0.1320809  0.2580638 4.655768 -0.03289798
-4  0.002876263  0.876087673  0.1000041  0.1953912 5.239367 -0.02490847
-5 -0.072566523  0.015998082  0.6952149  0.9232919 2.692270 -0.17316030
-6 -0.110816326 -0.005993779 -0.2604665 -0.9945349 3.040058  0.06487556
-     Hyporadi    Juncarti    Juncbufo Lolipere    Planlanc  Poaprat  Poatriv
-1  0.18595552 -0.09992854  0.06163785 3.303650  0.08411969 2.394657 2.242707
-2  0.52038203 -1.42249137 -1.09255292 6.553935  2.66008799 3.715490 5.115761
-3 -0.10582834  0.05686990 -0.03507845 6.900362 -0.04787300 4.978650 5.065126
-4 -0.08012717  0.04305864 -0.02655940 7.795988 -0.03624670 5.626692 5.692167
-5 -0.70730178  0.86377958  0.92525855 3.000486  3.11373856 2.247524 5.198746
-6  0.04095434  0.51792576  1.30812906 4.055113  3.85149023 3.057360 5.673119
-     Ranuflam     Rumeacet   Sagiproc   Salirepe  Scorautu     Trifprat
-1 -0.13536958  0.008783698 0.96053469  0.2958800 0.8239122  0.019713505
-2 -0.18506531  0.989883300 0.02073231  0.2231016 5.2624543  0.990472845
-3  0.07703960 -0.004998852 1.89237863 -0.1683870 1.4823264 -0.011219068
-4  0.05832998 -0.003784845 2.14708668 -0.1274930 1.6937614 -0.008494437
-5  0.18798166  4.598385345 0.52399661 -0.8863141 2.6469876  2.497970771
-6 -0.39473743  5.172310406 0.97235509  0.3320630 3.5125204  2.876475458
-   Trifrepe     Vicilath  Bracruta    Callcusp
-1 0.3108883  0.006947435 0.7425123 -0.08885518
-2 4.9974134  0.575488242 1.7844663 -0.17294766
-3 1.2864864 -0.003953825 1.5286516  0.05056799
-4 1.4026254 -0.002993610 1.7288362  0.03828719
-5 4.0845950 -0.246213906 3.0684311 -0.01151836
-6 3.6065502 -0.243815317 3.6194266 -0.40969602
+  Achimill Agrostol  Airaprae Alopgeni  Anthodor Bellpere Bromhord   Chenalbu
+1  0.24866  1.73029  0.136732  1.56567  0.176689  0.69298  0.51661 -0.0066751
+2  3.38022 -1.33575  0.103100  0.65804  1.869170  2.61940  3.71719 -0.0403493
+3  0.34629  4.86894 -0.077815  3.49921 -0.100555  1.55684  1.16941  0.0037988
+4  0.40505  5.40077 -0.058917  3.93512 -0.076134  1.75018  1.31398  0.0028763
+5  1.40721  1.39415 -0.409583  1.63738  1.727211  0.95730  1.09875 -0.0725665
+6  1.90089 -0.08191  0.153453  1.79584  2.717164  1.04159  1.19230 -0.1108163
+    Cirsarve Comapalu Eleopalu Elymrepe  Empenigr  Hyporadi  Juncarti  Juncbufo
+1  0.3441739 -0.23208 -0.45345   2.1049  0.057806  0.185956 -0.099929  0.061638
+2 -0.0040270 -0.17500 -0.50790   1.1357  0.043588  0.520382 -1.422491 -1.092553
+3  0.7797384  0.13208  0.25806   4.6558 -0.032898 -0.105828  0.056870 -0.035078
+4  0.8760877  0.10000  0.19539   5.2394 -0.024908 -0.080127  0.043059 -0.026559
+5  0.0159981  0.69521  0.92329   2.6923 -0.173160 -0.707302  0.863780  0.925259
+6 -0.0059938 -0.26047 -0.99453   3.0401  0.064876  0.040954  0.517926  1.308129
+  Lolipere  Planlanc Poaprat Poatriv Ranuflam   Rumeacet Sagiproc Salirepe
+1   3.3037  0.084120  2.3947  2.2427 -0.13537  0.0087837 0.960535  0.29588
+2   6.5539  2.660088  3.7155  5.1158 -0.18507  0.9898833 0.020732  0.22310
+3   6.9004 -0.047873  4.9787  5.0651  0.07704 -0.0049989 1.892379 -0.16839
+4   7.7960 -0.036247  5.6267  5.6922  0.05833 -0.0037848 2.147087 -0.12749
+5   3.0005  3.113739  2.2475  5.1987  0.18798  4.5983853 0.523997 -0.88631
+6   4.0551  3.851490  3.0574  5.6731 -0.39474  5.1723104 0.972355  0.33206
+  Scorautu   Trifprat Trifrepe   Vicilath Bracruta  Callcusp
+1  0.82391  0.0197135  0.31089  0.0069474  0.74251 -0.088855
+2  5.26245  0.9904728  4.99741  0.5754882  1.78447 -0.172948
+3  1.48233 -0.0112191  1.28649 -0.0039538  1.52865  0.050568
+4  1.69376 -0.0084944  1.40263 -0.0029936  1.72884  0.038287
+5  2.64699  2.4979708  4.08460 -0.2462139  3.06843 -0.011518
+6  3.51252  2.8764755  3.60655 -0.2438153  3.61943 -0.409696
 > predict(mrda, newdata = dune.env[1:4,])
-   Achimill  Agrostol    Airaprae  Alopgeni   Anthodor Bellpere  Bromhord
-1 0.4215149  3.577633  0.16995426 2.9652740  0.2236497 1.318339 0.9834467
-2 3.3114073 -1.204735  0.06850713 0.6756574  1.8142892 2.580163 3.6484999
-3 0.2846814  4.233030 -0.09376787 3.0191592 -0.1233930 1.341606 1.0091329
-4 0.2938037  4.189337 -0.07618639 3.0155668 -0.1002568 1.340055 1.0074205
-      Chenalbu     Cirsarve   Comapalu   Eleopalu Elymrepe    Empenigr
-1 -0.007171391  0.653746168 -0.2564222 -0.4818969 3.967099  0.07155969
-2 -0.037373486 -0.005208144 -0.1033616 -0.3321796 1.090186  0.02884511
-3  0.003956630  0.673795218  0.1414743  0.2658742 4.018152 -0.03948121
-4  0.003214761  0.672458614  0.1149479  0.2160228 4.014749 -0.03207848
-    Hyporadi    Juncarti    Juncbufo Lolipere    Planlanc  Poaprat  Poatriv
-1  0.2327232 -0.09333090  0.07194525 6.134149  0.11073245 4.447861 4.262382
-2  0.4386363 -1.38244848 -1.10893051 6.329936  2.63084221 3.563407 5.109331
-3 -0.1283990  0.05149291 -0.03969393 5.925987 -0.06109376 4.270145 4.372479
-4 -0.1043242  0.04183799 -0.03225132 5.939864 -0.04963868 4.281993 4.365139
-     Ranuflam     Rumeacet    Sagiproc   Salirepe Scorautu     Trifprat
-1 -0.13211810  0.006143235  1.75866953  0.3682342 1.517133  0.020588832
-2 -0.12222121  1.071441803 -0.03187994  0.1484321 5.143054  1.042781943
-3  0.07289274 -0.003389371  1.61590647 -0.2031637 1.231926 -0.011359356
-4  0.05922536 -0.002753864  1.62542400 -0.1650705 1.250940 -0.009229477
-   Trifrepe     Vicilath Bracruta    Callcusp
-1 0.7768386  0.012157950 1.415603 -0.08263807
-2 4.9445283  0.522142146 1.757300 -0.13675899
-3 1.1231235 -0.006707834 1.287943  0.04559342
-4 1.1000378 -0.005450115 1.296454  0.03704465
+  Achimill Agrostol  Airaprae Alopgeni Anthodor Bellpere Bromhord   Chenalbu
+1  0.42151   3.5776  0.169954  2.96527  0.22365   1.3183  0.98345 -0.0071714
+2  3.31141  -1.2047  0.068507  0.67566  1.81429   2.5802  3.64850 -0.0373735
+3  0.28468   4.2330 -0.093768  3.01916 -0.12339   1.3416  1.00913  0.0039566
+4  0.29380   4.1893 -0.076186  3.01557 -0.10026   1.3401  1.00742  0.0032148
+    Cirsarve Comapalu Eleopalu Elymrepe  Empenigr Hyporadi  Juncarti  Juncbufo
+1  0.6537462 -0.25642 -0.48190   3.9671  0.071560  0.23272 -0.093331  0.071945
+2 -0.0052081 -0.10336 -0.33218   1.0902  0.028845  0.43864 -1.382448 -1.108931
+3  0.6737952  0.14147  0.26587   4.0182 -0.039481 -0.12840  0.051493 -0.039694
+4  0.6724586  0.11495  0.21602   4.0147 -0.032078 -0.10432  0.041838 -0.032251
+  Lolipere  Planlanc Poaprat Poatriv  Ranuflam   Rumeacet Sagiproc Salirepe
+1   6.1341  0.110732  4.4479  4.2624 -0.132118  0.0061432  1.75867  0.36823
+2   6.3299  2.630842  3.5634  5.1093 -0.122221  1.0714418 -0.03188  0.14843
+3   5.9260 -0.061094  4.2701  4.3725  0.072893 -0.0033894  1.61591 -0.20316
+4   5.9399 -0.049639  4.2820  4.3651  0.059225 -0.0027539  1.62542 -0.16507
+  Scorautu   Trifprat Trifrepe   Vicilath Bracruta  Callcusp
+1   1.5171  0.0205888  0.77684  0.0121579   1.4156 -0.082638
+2   5.1431  1.0427819  4.94453  0.5221421   1.7573 -0.136759
+3   1.2319 -0.0113594  1.12312 -0.0067078   1.2879  0.045593
+4   1.2509 -0.0092295  1.10004 -0.0054501   1.2965  0.037045
 > predict(mrda1, newdata = dune.env[1:4,])
-   Achimill  Agrostol    Airaprae  Alopgeni   Anthodor Bellpere  Bromhord
-1 0.4215149  3.577633  0.16995426 2.9652740  0.2236497 1.318339 0.9834467
-2 3.3114073 -1.204735  0.06850713 0.6756574  1.8142892 2.580163 3.6484999
-3 0.2846814  4.233030 -0.09376787 3.0191592 -0.1233930 1.341606 1.0091329
-4 0.2938037  4.189337 -0.07618639 3.0155668 -0.1002568 1.340055 1.0074205
-      Chenalbu     Cirsarve   Comapalu   Eleopalu Elymrepe    Empenigr
-1 -0.007171391  0.653746168 -0.2564222 -0.4818969 3.967099  0.07155969
-2 -0.037373486 -0.005208144 -0.1033616 -0.3321796 1.090186  0.02884511
-3  0.003956630  0.673795218  0.1414743  0.2658742 4.018152 -0.03948121
-4  0.003214761  0.672458614  0.1149479  0.2160228 4.014749 -0.03207848
-    Hyporadi    Juncarti    Juncbufo Lolipere    Planlanc  Poaprat  Poatriv
-1  0.2327232 -0.09333090  0.07194525 6.134149  0.11073245 4.447861 4.262382
-2  0.4386363 -1.38244848 -1.10893051 6.329936  2.63084221 3.563407 5.109331
-3 -0.1283990  0.05149291 -0.03969393 5.925987 -0.06109376 4.270145 4.372479
-4 -0.1043242  0.04183799 -0.03225132 5.939864 -0.04963868 4.281993 4.365139
-     Ranuflam     Rumeacet    Sagiproc   Salirepe Scorautu     Trifprat
-1 -0.13211810  0.006143235  1.75866953  0.3682342 1.517133  0.020588832
-2 -0.12222121  1.071441803 -0.03187994  0.1484321 5.143054  1.042781943
-3  0.07289274 -0.003389371  1.61590647 -0.2031637 1.231926 -0.011359356
-4  0.05922536 -0.002753864  1.62542400 -0.1650705 1.250940 -0.009229477
-   Trifrepe     Vicilath Bracruta    Callcusp
-1 0.7768386  0.012157950 1.415603 -0.08263807
-2 4.9445283  0.522142146 1.757300 -0.13675899
-3 1.1231235 -0.006707834 1.287943  0.04559342
-4 1.1000378 -0.005450115 1.296454  0.03704465
+  Achimill Agrostol  Airaprae Alopgeni Anthodor Bellpere Bromhord   Chenalbu
+1  0.42151   3.5776  0.169954  2.96527  0.22365   1.3183  0.98345 -0.0071714
+2  3.31141  -1.2047  0.068507  0.67566  1.81429   2.5802  3.64850 -0.0373735
+3  0.28468   4.2330 -0.093768  3.01916 -0.12339   1.3416  1.00913  0.0039566
+4  0.29380   4.1893 -0.076186  3.01557 -0.10026   1.3401  1.00742  0.0032148
+    Cirsarve Comapalu Eleopalu Elymrepe  Empenigr Hyporadi  Juncarti  Juncbufo
+1  0.6537462 -0.25642 -0.48190   3.9671  0.071560  0.23272 -0.093331  0.071945
+2 -0.0052081 -0.10336 -0.33218   1.0902  0.028845  0.43864 -1.382448 -1.108931
+3  0.6737952  0.14147  0.26587   4.0182 -0.039481 -0.12840  0.051493 -0.039694
+4  0.6724586  0.11495  0.21602   4.0147 -0.032078 -0.10432  0.041838 -0.032251
+  Lolipere  Planlanc Poaprat Poatriv  Ranuflam   Rumeacet Sagiproc Salirepe
+1   6.1341  0.110732  4.4479  4.2624 -0.132118  0.0061432  1.75867  0.36823
+2   6.3299  2.630842  3.5634  5.1093 -0.122221  1.0714418 -0.03188  0.14843
+3   5.9260 -0.061094  4.2701  4.3725  0.072893 -0.0033894  1.61591 -0.20316
+4   5.9399 -0.049639  4.2820  4.3651  0.059225 -0.0027539  1.62542 -0.16507
+  Scorautu   Trifprat Trifrepe   Vicilath Bracruta  Callcusp
+1   1.5171  0.0205888  0.77684  0.0121579   1.4156 -0.082638
+2   5.1431  1.0427819  4.94453  0.5221421   1.7573 -0.136759
+3   1.2319 -0.0113594  1.12312 -0.0067078   1.2879  0.045593
+4   1.2509 -0.0092295  1.10004 -0.0054501   1.2965  0.037045
 > predict(mcap, newdata = dune.env[1:4,])
-            1           2           3
-2 0.441055241                        
-3 0.113239556 0.488941925            
-4 0.105690252 0.485074585 0.007549304
+          1         2         3
+2 0.4410552                    
+3 0.1132396 0.4889419          
+4 0.1056903 0.4850746 0.0075493
 > predict(mdb, newdata = dune.env[1:4,])
-            1           2           3
-2 0.410112281                        
-3 0.112915970 0.460865874            
-4 0.105388238 0.456789887 0.007527731
+          1         2         3
+2 0.4101123                    
+3 0.1129160 0.4608659          
+4 0.1053882 0.4567899 0.0075277
 > predict(mancap, newdata = dune.env[1:4,])
-           1          2          3
-2 8.06442099                      
-3 1.18208004 8.68476282           
-4 1.10327470 8.63976157 0.07880534
+         1        2        3
+2 8.064421                  
+3 1.182080 8.684763         
+4 1.103275 8.639762 0.078805
 > predict(mandb, newdata = dune.env[1:4,])
-          1         2         3
-2 7.6006196                    
-3 1.1706225 8.2483432          
-4 1.0925810 8.2015557 0.0780415
+         1        2        3
+2 7.600620                  
+3 1.170623 8.248343         
+4 1.092581 8.201556 0.078042
 > 
-> predict(mcca, newdata = dune[1:4,], type="wa")
-       CCA1       CCA2       CCA3       CCA4       CCA5       CCA6       CCA7
-1 1.6246628  0.1138279 -1.7862167 -0.4789609  2.1202984 -1.3955658  3.0850608
-2 1.0613266  0.2043333 -1.3082549  0.3713937 -0.7606138  1.3328860 -1.3752205
-3 0.7103280 -0.7774846 -0.8163719 -0.9309470  0.6698162  0.7098184 -0.3596792
-4 0.6481885 -0.7232875 -1.4473742 -1.1489179  1.8467223  0.3021349 -0.8676902
-> predict(mrda, newdata = dune[1:4,], type="wa")
-       RDA1        RDA2       RDA3       RDA4        RDA5         RDA6
-1 0.1853524  0.02241930 -0.4039392 -0.2820073  0.40139278  0.008980395
-2 0.3406485 -0.01521653 -0.1558882  0.2989807 -0.48129774 -0.311048275
-3 0.2020305 -0.38517736 -0.2160702 -0.1616028 -0.16652633 -0.009587678
-4 0.1148412 -0.34944516 -0.3477072 -0.2473710  0.05187087 -0.300453011
-        RDA7
-1 -0.1789424
-2 -0.1905615
-3 -0.1573635
-4 -0.1150826
-> predict(mrda1, newdata = dune[1:4,], type="wa")
-        RDA1        RDA2       RDA3       RDA4       RDA5        RDA6
-1 0.09517219 -0.10442511 -0.2263694 -0.1735788  0.3037362  0.15273555
-2 0.36520009  0.03416792 -0.2866044  0.1887085 -0.1033100 -0.47836316
-3 0.14190655 -0.26177827 -0.2235627 -0.1493854  0.1350088 -0.11188221
-4 0.14773463 -0.34805426 -0.4387512 -0.2972997  0.4043031 -0.02499149
-         RDA7
-1 -0.30889082
-2  0.28864088
-3  0.07550332
-4  0.31268402
+> ## the sign is arbitrary
+> abs(predict(mcca, newdata = dune[1:4,], type="wa"))
+     CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7
+1 1.62466 0.11383 1.78622 0.47896 2.12030 1.39557 3.08506
+2 1.06133 0.20433 1.30825 0.37139 0.76061 1.33289 1.37522
+3 0.71033 0.77748 0.81637 0.93095 0.66982 0.70982 0.35968
+4 0.64819 0.72329 1.44737 1.14892 1.84672 0.30213 0.86769
+> abs(predict(mrda, newdata = dune[1:4,], type="wa"))
+     RDA1     RDA2    RDA3    RDA4     RDA5      RDA6    RDA7
+1 0.18535 0.022419 0.40394 0.28201 0.401393 0.0089804 0.17894
+2 0.34065 0.015217 0.15589 0.29898 0.481298 0.3110483 0.19056
+3 0.20203 0.385177 0.21607 0.16160 0.166526 0.0095877 0.15736
+4 0.11484 0.349445 0.34771 0.24737 0.051871 0.3004530 0.11508
+> abs(predict(mrda1, newdata = dune[1:4,], type="wa"))
+      RDA1     RDA2    RDA3    RDA4    RDA5     RDA6     RDA7
+1 0.095172 0.104425 0.22637 0.17358 0.30374 0.152736 0.308891
+2 0.365200 0.034168 0.28660 0.18871 0.10331 0.478363 0.288641
+3 0.141907 0.261778 0.22356 0.14939 0.13501 0.111882 0.075503
+4 0.147735 0.348054 0.43875 0.29730 0.40430 0.024991 0.312684
 > 
-> predict(mcca, newdata = dune[,1:4], type="sp")
-               CCA1      CCA2       CCA3       CCA4       CCA5      CCA6
-Achimill  0.8468746  1.070050 -0.2363370  0.8228938 -1.5081739 1.0131274
-Agrostol -0.7715492 -1.301117 -0.4247083 -0.5346559  0.7139652 0.1349421
-Airaprae -2.1543205  3.122629  0.5250032 -2.5025212  1.1584547 1.2640262
-Alopgeni  0.1443090 -1.648682  0.4280480 -1.3775594 -0.6198504 0.9355386
-                CCA7
-Achimill -0.55020502
-Agrostol -0.05133694
-Airaprae  0.03326450
-Alopgeni -0.80670961
-> predict(mrda, newdata = dune[,1:4], type="sp")
-                RDA1        RDA2        RDA3        RDA4        RDA5
-Achimill  0.15635707  0.10975849  0.05187529  0.15537047 -0.19230681
-Agrostol -0.24578720 -0.45396293 -0.16251807  0.01818811  0.17258865
-Airaprae -0.05257613  0.09450284 -0.01454650 -0.12976472 -0.04946071
-Alopgeni -0.02410149 -0.51684151  0.13287475 -0.08746828 -0.39610118
-                RDA6          RDA7
-Achimill  0.02120127 -0.0559290022
-Agrostol -0.11916162 -0.0109846453
-Airaprae  0.11712180 -0.0899475059
-Alopgeni  0.10436456  0.0009361222
-> predict(mrda1, newdata = dune[,1:4], type="sp")
-                RDA1       RDA2        RDA3          RDA4        RDA5
-Achimill  0.25724243  0.1550833  0.02380741  0.1240554372 -0.16738386
-Agrostol -0.19665199 -0.3057445 -0.10316664 -0.0003954498  0.04567517
-Airaprae -0.11700357  0.2566683  0.02802463 -0.2579970633  0.06690532
-Alopgeni -0.03185894 -0.3529055  0.05106582 -0.1288991748 -0.19033741
-                 RDA6        RDA7
-Achimill -0.214500970  0.02856937
-Agrostol -0.006215997  0.01022378
-Airaprae -0.086901291 -0.01219826
-Alopgeni -0.197400341  0.18131362
+> ## the sign is arbitrary
+> abs(predict(mcca, newdata = dune[,1:4], type="sp"))
+            CCA1   CCA2    CCA3    CCA4    CCA5    CCA6     CCA7
+Achimill 0.84687 1.0701 0.23634 0.82289 1.50817 1.01313 0.550205
+Agrostol 0.77155 1.3011 0.42471 0.53466 0.71397 0.13494 0.051337
+Airaprae 2.15432 3.1226 0.52500 2.50252 1.15845 1.26403 0.033265
+Alopgeni 0.14431 1.6487 0.42805 1.37756 0.61985 0.93554 0.806710
+> abs(predict(mrda, newdata = dune[,1:4], type="sp"))
+             RDA1     RDA2     RDA3     RDA4     RDA5     RDA6       RDA7
+Achimill 0.156357 0.109758 0.051875 0.155370 0.192307 0.021201 0.05592900
+Agrostol 0.245787 0.453963 0.162518 0.018188 0.172589 0.119162 0.01098465
+Airaprae 0.052576 0.094503 0.014547 0.129765 0.049461 0.117122 0.08994751
+Alopgeni 0.024101 0.516842 0.132875 0.087468 0.396101 0.104365 0.00093612
+> abs(predict(mrda1, newdata = dune[,1:4], type="sp"))
+             RDA1    RDA2     RDA3       RDA4     RDA5     RDA6     RDA7
+Achimill 0.257242 0.15508 0.023807 0.12405544 0.167384 0.214501 0.028569
+Agrostol 0.196652 0.30574 0.103167 0.00039545 0.045675 0.006216 0.010224
+Airaprae 0.117004 0.25667 0.028025 0.25799706 0.066905 0.086901 0.012198
+Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
-> predict(mcca, newdata = dune.env[1:4,], type="lc")
-       CCA1       CCA2       CCA3       CCA4      CCA5      CCA6          CCA7
-1 0.9852196 -0.1811643 -1.0636878 -1.5057446  1.317274 0.2875077  0.1415321542
-2 1.1372985  1.0601265 -0.8229691  0.8680272 -1.257889 1.7728490 -1.1232707335
-3 0.8065356 -0.7048045 -1.3122094 -0.8041445  1.468265 0.1320849 -0.0106622987
-4 0.8184479 -0.6698952 -1.2956413 -0.8509178  1.458199 0.1424464 -0.0005160018
-> predict(mrda, newdata = dune.env[1:4,], type="lc")
-       RDA1       RDA2        RDA3       RDA4        RDA5        RDA6
-1 0.1852339 -0.2062296 -0.31624703 -0.3024545  0.04942191 -0.02545096
-2 0.3680285  0.2242423 -0.02746615  0.3410495 -0.45423520 -0.09930706
-3 0.1575731 -0.2545991 -0.32606196 -0.1905326  0.12104515 -0.14167893
-4 0.1594171 -0.2513745 -0.32540763 -0.1979941  0.11627026 -0.13393040
-        RDA7
-1 -0.1622383
-2 -0.2975295
-3 -0.1439660
-4 -0.1451842
-> predict(mrda1, newdata = dune.env[1:4,], type="lc")
-       RDA1       RDA2       RDA3       RDA4       RDA5        RDA6       RDA7
-1 0.1466423 -0.1963638 -0.2765136 -0.3086550  0.2556359 -0.02139257 0.01212143
-2 0.4172317  0.2452424 -0.1424862  0.2261807 -0.1552894 -0.48228388 0.21240353
-3 0.1181353 -0.2611050 -0.3071045 -0.1505337  0.2950189  0.02000720 0.03432776
-4 0.1200357 -0.2567889 -0.3050651 -0.1610751  0.2923933  0.01724722 0.03284734
-> predict(mcap, newdata = dune.env[1:4,], type="lc")
-        CAP1       CAP2       CAP3       CAP4        CAP5        CAP6
-1 -0.2746154  0.1500722 -0.2177306 -0.2803420 -0.09969040  0.24582777
-2 -0.3237040 -0.2229659 -0.1053224  0.2559199  0.50258577 -0.08440768
-3 -0.2196777  0.2316344 -0.2789108 -0.1432612 -0.09753330  0.27846451
-4 -0.2233402  0.2261970 -0.2748322 -0.1523999 -0.09767711  0.27628873
-        CAP7
-1 0.05866539
-2 0.34162996
-3 0.02090629
-4 0.02342357
-> predict(mdb, newdata = dune.env[1:4,], type="lc")
-      dbRDA1     dbRDA2    dbRDA3     dbRDA4    dbRDA5     dbRDA6      dbRDA7
-1 -0.2766643  0.1478629 0.2162840  0.2746283 0.1093537 -0.2309874 -0.10874414
-2 -0.3203881 -0.2193112 0.1159828 -0.2208665 0.1395087  0.5078560 -0.34227715
-3 -0.2219412  0.2299076 0.2792590  0.1386278 0.1488085 -0.2443693 -0.08087703
-4 -0.2255894  0.2244380 0.2750607  0.1476945 0.1461782 -0.2434772 -0.08273484
-> predict(mancap, newdata = dune.env[1:4,], type="lc")
-        CAP1       CAP2      CAP3        CAP4        CAP5       CAP6
-1 -0.1590574  0.2099947 0.2694972 -0.27359062 -0.08598894  0.2657091
-2 -0.3890564 -0.2536403 0.2094867  0.09460052  0.47295774 -0.2139362
-3 -0.1335261  0.2689660 0.2883371 -0.15901563 -0.01267755  0.2938902
-4 -0.1352282  0.2650345 0.2870811 -0.16665396 -0.01756498  0.2920114
-         CAP7
-1 -0.05358729
-2 -0.26367409
-3  0.05091021
-4  0.04394371
-> predict(mandb, newdata = dune.env[1:4,])
-          1         2         3
-2 7.6006196                    
-3 1.1706225 8.2483432          
-4 1.0925810 8.2015557 0.0780415
-> 
+> abs(predict(mcca, newdata = dune.env[1:4,], type="lc"))
+     CCA1    CCA2    CCA3    CCA4   CCA5    CCA6     CCA7
+1 0.98522 0.18116 1.06369 1.50574 1.3173 0.28751 0.141532
+2 1.13730 1.06013 0.82297 0.86803 1.2579 1.77285 1.123271
+3 0.80654 0.70480 1.31221 0.80414 1.4683 0.13208 0.010662
+4 0.81845 0.66990 1.29564 0.85092 1.4582 0.14245 0.000516
+> abs(predict(mrda, newdata = dune.env[1:4,], type="lc"))
+     RDA1    RDA2     RDA3    RDA4     RDA5     RDA6    RDA7
+1 0.18523 0.20623 0.316247 0.30245 0.049422 0.025451 0.16224
+2 0.36803 0.22424 0.027466 0.34105 0.454235 0.099307 0.29753
+3 0.15757 0.25460 0.326062 0.19053 0.121045 0.141679 0.14397
+4 0.15942 0.25137 0.325408 0.19799 0.116270 0.133930 0.14518
+> abs(predict(mrda1, newdata = dune.env[1:4,], type="lc"))
+     RDA1    RDA2    RDA3    RDA4    RDA5     RDA6     RDA7
+1 0.14664 0.19636 0.27651 0.30865 0.25564 0.021393 0.012121
+2 0.41723 0.24524 0.14249 0.22618 0.15529 0.482284 0.212404
+3 0.11814 0.26110 0.30710 0.15053 0.29502 0.020007 0.034328
+4 0.12004 0.25679 0.30507 0.16108 0.29239 0.017247 0.032847
+> abs(predict(mcap, newdata = dune.env[1:4,], type="lc"))
+     CAP1    CAP2    CAP3    CAP4     CAP5     CAP6     CAP7
+1 0.27462 0.15007 0.21773 0.28034 0.099690 0.245828 0.058665
+2 0.32370 0.22297 0.10532 0.25592 0.502586 0.084408 0.341630
+3 0.21968 0.23163 0.27891 0.14326 0.097533 0.278465 0.020906
+4 0.22334 0.22620 0.27483 0.15240 0.097677 0.276289 0.023424
+> abs(predict(mdb, newdata = dune.env[1:4,], type="lc"))
+   dbRDA1  dbRDA2  dbRDA3  dbRDA4  dbRDA5  dbRDA6   dbRDA7
+1 0.27666 0.14786 0.21628 0.27463 0.10935 0.23099 0.108744
+2 0.32039 0.21931 0.11598 0.22087 0.13951 0.50786 0.342277
+3 0.22194 0.22991 0.27926 0.13863 0.14881 0.24437 0.080877
+4 0.22559 0.22444 0.27506 0.14769 0.14618 0.24348 0.082735
+> abs(predict(mancap, newdata = dune.env[1:4,], type="lc"))
+     CAP1    CAP2    CAP3     CAP4     CAP5    CAP6     CAP7
+1 0.15906 0.20999 0.26950 0.273591 0.085989 0.26571 0.053587
+2 0.38906 0.25364 0.20949 0.094601 0.472958 0.21394 0.263674
+3 0.13353 0.26897 0.28834 0.159016 0.012678 0.29389 0.050910
+4 0.13523 0.26503 0.28708 0.166654 0.017565 0.29201 0.043944
+> abs(predict(mandb, newdata = dune.env[1:4,]))
+         1        2        3
+2 7.600620                  
+3 1.170623 8.248343         
+4 1.092581 8.201556 0.078042
+> ## reset
+> options(op)
 > 
 > proc.time()
    user  system elapsed 
-  3.933   0.187   4.123 
+  3.592   0.156   3.739 
