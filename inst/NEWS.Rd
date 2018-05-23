@@ -2,6 +2,19 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-3}{
+  \subsection{INSTALLATION}{
+    \itemize{
+
+      \item Tests for numerical analysis were written more robustly so
+      that they give more similar results in alternative platforms and
+      with alternative versions of BLAS/Lapack libraries. See issue 
+      \href{https://github.com/vegandevs/vegan/issues/282}{#282}.
+    } %itemize
+  } %installation
+
+} % 2.5-3
+
 \section{Changes in version 2.5-2}{
 
   \subsection{INSTALLATION AND COMPATIBILITY}{
