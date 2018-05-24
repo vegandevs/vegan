@@ -254,7 +254,8 @@ S3method(nobs, wcmdscale)
 # ordisurf: vegan
 S3method(ordisurf, default)
 S3method(ordisurf, formula)
-
+# pairs: graphics
+S3method(pairs, permustats)
 ## permustats methods
 S3method(permustats, adonis)
 S3method(permustats, anosim)

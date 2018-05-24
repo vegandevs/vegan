@@ -23,6 +23,7 @@
 \alias{qqnorm.permustats}
 \alias{qqmath.permustats}
 \alias{boxplot.permustats}
+\alias{pairs.permustats}
 
 \title{
   Extract, Analyse and Display Permutation Results
@@ -43,6 +44,7 @@ permustats(x, ...)
 \method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
     ylab = "Permutations", ...)
 \method{boxplot}{permustats}(x, scale = FALSE, names, ...)
+\method{pairs}{permustats}(x, ...)
 }
 
 \arguments{
@@ -126,6 +128,10 @@ permustats(x, ...)
   size, or the difference of permutations and observed statistic. If
   \code{scale = TRUE}, permutations are standardized to unit standard
   deviation, and the plot will show the standardized effect sizes.
+
+  Function \code{pairs} plots permutation values of statistics against
+  each other. The function passes extra arguments to
+  \code{\link{pairs}}.
 
   The \code{permustats} can extract permutation statistics from the
   results of \code{\link{adonis2}}, \code{\link{adonis}},
