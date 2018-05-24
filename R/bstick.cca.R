@@ -7,10 +7,10 @@
         stop("'bstick' only for unconstrained models")
     ## No idea how to define bstick for dbrda or capscale with
     ## negative eigenvalues
-    if (inherits(n, "dbrda") && (n$CA$poseig < n$CA$rank))
-        stop("'bstick' cannot be used for 'dbrda' with imaginary components")
-    if (inherits(n, "capscale") && !is.null(n$CA$imaginary.rank))
-        stop("'bstick' cannot be used for 'capscale' with imaginary components")
+    if (inherits(n, c("dbrda", "capscale")) &&
+        (!is.null(n$CA$imaginary.u) || !is.null(n$CA$imaginary.u.eig)))
+        stop(gettextf("'bstick' cannot be used for '%s' with negative eigenvalues",
+                      class(n)[1]))
     ## need to select appropriate total inertia
     tot.chi <- n$CA$tot.chi
     n.comp <- n$CA$rank
