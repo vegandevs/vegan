@@ -222,6 +222,16 @@
     boxplot(p, names = names, ...)
 }
 
+## pairs plot permuted variables against each other
+
+`pairs.permustats` <-
+    function(x, ...)
+{
+    p <- x$permutations
+    colnames(p) <- attr(x$statistic, "names")
+    pairs(p, ...)
+}
+
 ###
 ### specific methods to extract permustats
 ###
