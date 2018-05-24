@@ -13,6 +13,24 @@
     } %itemize
   } %installation
 
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item The original data was not scaled and centred similarly as
+      simulations in \code{simulate.rda} when several simulations were
+      returned as a \code{simmat} object (which is compatible with
+      \code{nullmodel} simulations and can be used in
+      \code{oecosimu}).
+
+      \item Broken-stick distribution (function \code{bstick}) is no
+      longer calculated for distance-based Redundancy Analysis
+      (\code{dbrda}) with negative eigenvalues, because it is not
+      clear how this should be done. Now the behaviour of \code{dbrda}
+      is similar as with \code{capscale}.
+
+    } %itemize
+  } % bug fixes
+
 } % 2.5-3
 
 \section{Changes in version 2.5-2}{
