@@ -97,7 +97,11 @@
     } else {
         dimnames(ans) <- list(rownames(ftd), colnames(ftd),
                               paste("sim", seq_len(nsim), sep = "_"))
-        attr(ans, "data") <- round(ftd + CAYbar, 12)
+        orig <- (ftd + CAYbar) * sqnr1
+        if (!is.null(scl))
+            orig <- sweep(orig, 2, scl, "*")
+        orig <- sweep(orig, 2, cnt, "+")
+        attr(ans, "data") <- round(orig, 12)
         attr(ans, "method") <- paste("simulate", ifelse(is.null(indx),
                                                         "parametric", "index"))
         attr(ans, "binary") <- FALSE
