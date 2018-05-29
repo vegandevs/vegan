@@ -101,12 +101,8 @@ and must take some of the following arguments:
   \item{\code{"r00"}: }{non-sequential algorithm for binary matrices
     that only  preserves the number of presences (fill).}
 
-  \item{\code{"r0", "r0_old"}: }{non-sequential algorithm for binary
-    matrices that preserves the site (row) frequencies.
-    Methods \code{"r0"} and \code{"r0_old"} implement the
-    same method, but use different random number sequences; use
-    \code{"r0_old"} if you want to reproduce results in \pkg{vegan
-    2.0-0} or older using \code{commsimulator} (now deprecated).}
+  \item{\code{"r0"}: }{non-sequential algorithm for binary
+    matrices that preserves the site (row) frequencies.}
 
   \item{\code{"r1"}: }{non-sequential algorithm for binary matrices
     that preserves the site (row) frequencies, but uses column marginal
