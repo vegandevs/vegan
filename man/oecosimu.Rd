@@ -215,9 +215,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   The internal structure of the function was radically changed in
   \pkg{vegan 2.2-0} with introduction of \code{\link{commsim}} and
   \code{\link{nullmodel}} and deprecation of
-  \code{\link{commsimulator}}. However, the results and the basic user
-  interface remain the same (except that \code{method = "r0_old"} must
-  be used to reproduce the old results of \code{"method = r0"}).  
+  \code{\link{commsimulator}}.
 }
 
 \seealso{Function \code{oecosimu} currently defines null models with
