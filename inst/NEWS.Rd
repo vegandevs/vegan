@@ -8,10 +8,11 @@
 
       \item Tests for numerical analysis were written more robustly so
       that they give more similar results in alternative platforms and
-      with alternative versions of BLAS/Lapack libraries. See issue 
+      with alternative versions of BLAS/Lapack libraries and \R{}
+      versions. See issue
       \href{https://github.com/vegandevs/vegan/issues/282}{#282}.
-    } %itemize
-  } %installation
+
+    } %itemize } %installation
 
   \subsection{BUG FIXES}{
     \itemize{
