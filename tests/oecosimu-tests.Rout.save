@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-05-28 r74797) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-05-30 r74803) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -114,7 +114,6 @@ commsm> print(as.table(ifelse(a==1,1,0)), zero.print = ".")
 r00                  1     .      .   1    1       .       .       .       .
 c0                   1     .      .   1    1       .       1       .       1
 r0                   1     .      .   1    1       1       .       1       .
-r0_old               1     .      .   1    1       1       .       1       .
 r1                   1     .      .   1    1       1       .       1       .
 r2                   1     .      .   1    1       1       .       1       .
 quasiswap            1     .      .   1    1       1       1       1       1
@@ -174,4 +173,4 @@ r0_both              .     .      .   1    1       1       .       1       .
 > 
 > proc.time()
    user  system elapsed 
-  1.238   0.055   1.286 
+  1.185   0.045   1.221 
