@@ -12,7 +12,8 @@
       versions. See issue
       \href{https://github.com/vegandevs/vegan/issues/282}{#282}.
 
-    } %itemize } %installation
+    } %itemize
+  } %installation
 
   \subsection{BUG FIXES}{
     \itemize{
