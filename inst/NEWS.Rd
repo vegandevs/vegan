@@ -7,9 +7,8 @@
     \itemize{
 
       \item Tests for numerical analysis were written more robustly so
-      that they give more similar results in alternative platforms and
-      with alternative versions of BLAS/Lapack libraries and \R{}
-      versions. See issue
+      that they give more similar results with alternative platforms and
+      versions of \R{} and BLAS/Lapack libraries. See issue
       \href{https://github.com/vegandevs/vegan/issues/282}{#282}.
 
     } %itemize
@@ -18,7 +17,7 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item The original data was not scaled and centred similarly as
+      \item The original data were not scaled and centred similarly as
       simulations in \code{simulate.rda} when several simulations were
       returned as a \code{simmat} object (which is compatible with
       \code{nullmodel} simulations and can be used in
