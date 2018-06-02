@@ -1,4 +1,4 @@
-`adonis2` <-
+`adonis` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
              parallel = getOption("mc.cores"), ...)
@@ -118,7 +118,8 @@
 
 ### synonymize old adonis
 
-`adonis` <- function(...)
+`adonis2` <- function(...)
 {
-    adonis2(...)
+    message("adonis2() is a superfluous synonym of adonis()")
+    adonis(...)
 }

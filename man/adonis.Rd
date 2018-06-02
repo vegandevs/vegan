@@ -11,7 +11,7 @@
   matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
-adonis2(formula, data, permutations = 999, method = "bray",
+adonis(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
     parallel = getOption("mc.cores"), ...)
 }
