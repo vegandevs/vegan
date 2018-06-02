@@ -1,5 +1,4 @@
-\name{nobs.adonis}
-\alias{nobs.adonis}
+\name{nobs.cca}
 \alias{nobs.betadisper}
 \alias{nobs.cca}
 \alias{nobs.CCorA}
@@ -19,7 +18,7 @@
   Extract the number of \sQuote{observations} from a \pkg{vegan} model fit.
 }
 \usage{
-\method{nobs}{adonis}(object, ...)
+\method{nobs}{cca}(object, ...)
 }
 
 \arguments{
@@ -32,7 +31,7 @@
 }
 
 \details{ Function \code{nobs} is generic in \R, and
-  \pkg{vegan} provides methods for objects from \code{\link{adonis}},
+  \pkg{vegan} provides methods for objects from
   \code{\link{betadisper}}, \code{\link{cca}} and other related
   methods, \code{\link{CCorA}}, \code{\link{decorana}},
   \code{\link{isomap}}, \code{\link{metaMDS}}, \code{\link{pcnm}},
