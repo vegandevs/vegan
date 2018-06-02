@@ -14,9 +14,6 @@
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
     parallel = getOption("mc.cores"), ...)
-adonis(formula, data, permutations = 999, method = "bray",
-    strata = NULL, contr.unordered = "contr.sum",
-    contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{
@@ -54,10 +51,6 @@ adonis(formula, data, permutations = 999, method = "bray",
     analysed in a model with all other variables), and \code{by =
     NULL} will assess the overall significance of all terms
     together. The arguments is passed on to \code{\link{anova.cca}}.}
-  \item{strata}{ groups (strata) within which to constrain permutations.  }
-  \item{contr.unordered, contr.ordered}{contrasts used for the design
-    matrix (default in R is dummy or treatment contrasts for unordered
-    factors). }
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}

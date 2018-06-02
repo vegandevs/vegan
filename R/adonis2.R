@@ -115,3 +115,10 @@
     class(sol) <- c("adonis2", "dbrda", "rda", "cca")
     sol
 }
+
+### synonymize old adonis
+
+`adonis` <- function(...)
+{
+    adonis2(...)
+}
