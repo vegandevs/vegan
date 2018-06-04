@@ -12,7 +12,6 @@ addons:
   apt:
     packages:
       - qpdf
-      - libnlopt-dev
 
 r_packages:
   - ade4
