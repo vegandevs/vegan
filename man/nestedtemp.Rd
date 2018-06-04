@@ -153,8 +153,8 @@ nestedbetajac(comm)
 
 \references{
 
-  Almeida-Neto, M., \enc{Gumarães}{Gumaraes}, P.,
-  \enc{Gumarães}{Gumaraes}, P.R., Loyola, R.D. & Ulrich, W. (2008). A
+  Almeida-Neto, M., \enc{Guimarães}{Guimaraes}, P.,
+  \enc{Guimarães}{Guimaraes}, P.R., Loyola, R.D. & Ulrich, W. (2008). A
   consistent metric for nestedness analysis in ecological systems:
   reconciling concept and measurement. \emph{Oikos} 117, 1227--1239.
 
