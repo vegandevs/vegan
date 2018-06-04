@@ -146,7 +146,7 @@ vif.cca(object)
 }
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
-  \code{\link{capscale}}, \code{\link[car]{vif}}. }
+  \code{\link{capscale}}. }
 
 \examples{
 data(dune)
