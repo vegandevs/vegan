@@ -1,8 +1,6 @@
 ### R 2.13.0 introduces nobs() method to get the number of
 ### observations. This file provides methods for vegan classes.
 
-`nobs.adonis` <- function(object, ...) NCOL(object$coef.sites)
-
 `nobs.anova.cca` <- function(object, ...) NA
 
 `nobs.betadisper` <- function(object, ...) length(object$distances)

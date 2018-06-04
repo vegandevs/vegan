@@ -11,12 +11,9 @@
   matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
-adonis2(formula, data, permutations = 999, method = "bray",
+adonis(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
     parallel = getOption("mc.cores"), ...)
-adonis(formula, data, permutations = 999, method = "bray",
-    strata = NULL, contr.unordered = "contr.sum",
-    contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 }
 
 \arguments{
@@ -28,9 +25,7 @@ adonis(formula, data, permutations = 999, method = "bray",
     dissimilarities. The RHS defines the independent variables. These
     can be continuous variables or factors, they can be transformed
     within the formula, and they can have interactions as in a typical
-    \code{\link{formula}}. If a dissimilarity object is supplied, no
-    species coefficients can be calculated in \code{adonis} (see Value
-    below).}
+    \code{\link{formula}}.}
 
   \item{data}{ the data frame for the independent variables.}
   \item{permutations}{a list of control values for the permutations
@@ -54,10 +49,6 @@ adonis(formula, data, permutations = 999, method = "bray",
     analysed in a model with all other variables), and \code{by =
     NULL} will assess the overall significance of all terms
     together. The arguments is passed on to \code{\link{anova.cca}}.}
-  \item{strata}{ groups (strata) within which to constrain permutations.  }
-  \item{contr.unordered, contr.ordered}{contrasts used for the design
-    matrix (default in R is dummy or treatment contrasts for unordered
-    factors). }
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -67,19 +58,14 @@ adonis(formula, data, permutations = 999, method = "bray",
 
 \details{
 
-\code{adonis2} and \code{adonis} are functions for the analysis and
-partitioning sums of squares using dissimilarities. Function
-\code{adonis} is directly based on the algorithm of Anderson (2001) and
-performs a sequential test of terms. Function \code{adonis2} is based on
-the principles of McArdle & Anderson (2001) and can perform sequential,
-marginal and overall tests. Function \code{adonis2} also allows using
-additive constants or squareroot of dissimilarities to avoid negative
-eigenvalues. but both functions can handle semimetric indices (such as
-Bray-Curtis) that produce negative eigenvalues. Function \code{adonis2}
-can be much slower than \code{adonis}, in particular with several
-terms. With the same random permutation, tests are identical in both
-functions, and the results are also identical to \code{\link{anova.cca}}
-of \code{\link{dbrda}} and \code{\link{capscale}}. With Euclidean
+\code{adonis} is a function for the analysis and partitioning sums of
+squares using dissimilarities. The function is based on the principles
+of McArdle & Anderson (2001) and can perform sequential, marginal and
+overall tests. The function also allows using additive constants or
+squareroot of dissimilarities to avoid negative eigenvalues. but can
+also handle semimetric indices (such as Bray-Curtis) that produce
+negative eigenvalues. The \code{adonis} tests are identical to
+\code{\link{anova.cca}} of \code{\link{dbrda}}. With Euclidean
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
 
@@ -102,38 +88,12 @@ Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
 
 \value{
 
-  Function \code{adonis2} returns an \code{\link{anova.cca}} result
-  object with a new column for partial \eqn{R^2}{R-squared}: This is the
-  proportion of sum of squares from the total, and in marginal models
+  The function returns an \code{\link{anova.cca}} result object with a
+  new column for partial \eqn{R^2}{R-squared}: This is the proportion
+  of sum of squares from the total, and in marginal models
   (\code{by = "margin"}) the \eqn{R^2}{R-squared} terms do not add up to
   1.
 
-  Function \code{adonis} returns an object of class \code{"adonis"} with
-  following components:
-
-  \item{aov.tab}{Typical AOV table showing sources of variation,
-    degrees of freedom, sequential sums of squares, mean squares,
-    \eqn{F} statistics, partial \eqn{R^2}{R-squared} and \eqn{P}
-    values, based on \eqn{N} permutations. }
-  \item{coefficients}{ matrix of coefficients of the linear model, with
-    rows representing sources of variation and columns representing
-    species; each column represents a fit of a species abundance to the
-    linear model. These are what you get when you fit one species to
-    your predictors. These are NOT available if you supply the distance
-    matrix in the formula, rather than the site x species matrix} 
-  \item{coef.sites}{ matrix of coefficients of the linear model, with
-    rows representing sources of variation and columns representing
-    sites; each column represents a fit of a sites distances (from all
-    other sites) to the  linear model. These are what you get when you
-    fit distances of one site to
-    your predictors. }   
-  \item{f.perms}{ an \eqn{N} by \eqn{m} matrix of the null \eqn{F}
-    statistics for each source of variation based on \eqn{N}
-    permutations of the data. The permutations can be inspected with
-    \code{\link{permustats}} and its support functions.}
-  \item{model.matrix}{The \code{\link{model.matrix}} for the right hand
-    side of the formula.}
-  \item{terms}{The \code{\link{terms}} component of the model.}
 }
 
 \note{Anderson (2001, Fig. 4) warns that the method may confound
@@ -169,8 +129,7 @@ analyses confound location and dispersion effects. \emph{Methods in
 Ecology and Evolution}, 3, 89--101.
 }
 
-\author{Martin Henry H. Stevens (\code{adonis}) and Jari Oksanen
-  (\code{adonis2}). }
+\author{Martin Henry H. Stevens and Jari Oksanen.}
 
 \seealso{ \code{\link{mrpp}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{varpart}}. }
@@ -178,9 +137,9 @@ Ecology and Evolution}, 3, 89--101.
 data(dune)
 data(dune.env)
 ## default test by terms
-adonis2(dune ~ Management*A1, data = dune.env)
+adonis(dune ~ Management*A1, data = dune.env)
 ## overall tests
-adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
+adonis(dune ~ Management*A1, data = dune.env, by = NULL)
 
 ### Example of use with strata, for nested (e.g., block) designs.
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
@@ -201,11 +160,11 @@ with(dat, ordispider(mod, field, lty=3, col="red"))
 
 ### Incorrect (no strata)
 perm <- how(nperm = 199)
-adonis2 (Y ~ NO3, data = dat, permutations = perm)
+adonis(Y ~ NO3, data = dat, permutations = perm)
 
 ## Correct with strata
 setBlocks(perm) <- with(dat, field)
-adonis2(Y ~ NO3, data = dat, permutations = perm)
+adonis(Y ~ NO3, data = dat, permutations = perm)
 }
 
 \keyword{multivariate }

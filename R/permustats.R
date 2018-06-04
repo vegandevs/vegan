@@ -246,18 +246,6 @@
               class = "permustats")
 }
 
-`permustats.adonis` <-
-    function(x, ...)
-{
-    tab <- x$aov.tab
-    k <- !is.na(tab$F.Model)
-    structure(list(
-        "statistic" = structure(tab$F.Model[k], names = rownames(tab)[k]),
-        "permutations" = x$f.perms,
-        "alternative" = "greater"),
-              class = "permustats")
-}
-
 `permustats.mantel` <-
     function(x, ...)
 {

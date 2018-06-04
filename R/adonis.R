@@ -1,161 +1,125 @@
 `adonis` <-
-    function(formula, data=NULL, permutations=999, method="bray", strata=NULL,
-             contr.unordered="contr.sum", contr.ordered="contr.poly",
+    function(formula, data, permutations = 999, method = "bray",
+             sqrt.dist = FALSE, add = FALSE, by = "terms",
              parallel = getOption("mc.cores"), ...)
 {
-    EPS <- sqrt(.Machine$double.eps) ## use with >= in permutation P-values
-    ## formula is model formula such as Y ~ A + B*C where Y is a data
-    ## frame or a matrix, and A, B, and C may be factors or continuous
-    ## variables.  data is the data frame from which A, B, and C would
-    ## be drawn.
+    ## we accept only by = "terms", "margin" or NULL
+    if (!is.null(by))
+        by <- match.arg(by, c("terms", "margin"))
+    ## evaluate lhs
+    YVAR <- formula[[2]]
+    lhs <- eval(YVAR, environment(formula), globalenv())
+    environment(formula) <- environment()
+    ## Take care that input lhs are dissimilarities
+    if ((is.matrix(lhs) || is.data.frame(lhs)) &&
+        isSymmetric(unname(as.matrix(lhs))))
+        lhs <- as.dist(lhs)
+    if (!inherits(lhs, "dist"))
+        lhs <- vegdist(as.matrix(lhs), method=method, ...)
+    ## adjust distances if requested
+    if (sqrt.dist)
+        lhs <- sqrt(lhs)
+    if (is.logical(add) && isTRUE(add))
+        add <- "lingoes"
+    if (is.character(add)) {
+        add <- match.arg(add, c("lingoes", "cailliez"))
+        if (add == "lingoes") {
+            ac <- addLingoes(as.matrix(lhs))
+            lhs <- sqrt(lhs^2 + 2 * ac)
+        }
+        else if (add == "cailliez") {
+            ac <- addCailliez(as.matrix(lhs))
+            lhs <- lhs + ac
+        }
+    }
+    ## adonis0 & anova.cca should see only dissimilarities (lhs)
+    if (!missing(data)) # expand and check terms
+        formula <- terms(formula, data=data)
+    formula <- update(formula, lhs ~ .)
+    ## no data? find variables in .GlobalEnv
+    if (missing(data))
+        data <- model.frame(delete.response(terms(formula)))
+    sol <- adonis0(formula, data = data, method = method)
+    out <- anova(sol, permutations = permutations, by = by,
+                 parallel = parallel)
+    ## attributes will be lost when adding a new column
+    att <- attributes(out)
+    ## add traditional adonis output on R2
+    out <- rbind(out, "Total" = c(nobs(sol)-1, sol$tot.chi, NA, NA))
+    out <- cbind(out[,1:2], "R2" = out[,2]/sol$tot.chi, out[,3:4])
+    ## Fix output header to show the adonis2() call instead of adonis0()
+    att$heading[2] <- deparse(match.call(), width.cutoff = 500L)
+    att$names <- names(out)
+    att$row.names <- rownames(out)
+    attributes(out) <- att
+    out
+}
+`adonis0` <-
+    function(formula, data=NULL, method="bray", ...)
+{
+    ## evaluate data
+    if (missing(data))
+        data <- .GlobalEnv
+    else
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
+    ## First we collect info for the uppermost level of the analysed
+    ## object
+    Trms <- terms(delete.response(formula), data = data)
+    sol <- list(call = match.call(),
+                method = "adonis",
+                terms = Trms,
+                terminfo = list(terms = Trms))
+    sol$call$formula <- formula(Trms)
     TOL <- 1e-7
     Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
-    lhs <- eval(lhs, data, parent.frame()) # to force evaluation
+    lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
     rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
-    op.c <- options()$contrasts
-    options( contrasts=c(contr.unordered, contr.ordered) )
     rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
-    options(contrasts=op.c)
-    grps <- attr(rhs, "assign")
+    assign <- attr(rhs, "assign") ## assign attribute
+    sol$terminfo$assign <- assign[assign > 0]
+    rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
+    rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
     qrhs <- qr(rhs)
-    ## Take care of aliased variables and pivoting in rhs
-    rhs <- rhs[, qrhs$pivot, drop=FALSE]
-    rhs <- rhs[, 1:qrhs$rank, drop=FALSE]
-    grps <- grps[qrhs$pivot][1:qrhs$rank]
-    u.grps <- unique(grps)
-    nterms <- length(u.grps) - 1
-    if (nterms < 1)
-        stop("right-hand-side of formula has no usable terms")
-    H.s <- lapply(2:length(u.grps),
-                  function(j) {Xj <- rhs[, grps %in% u.grps[1:j] ]
-                               qrX <- qr(Xj, tol=TOL)
-                               Q <- qr.Q(qrX)
-                               tcrossprod(Q[,1:qrX$rank])
-                           })
-    if (inherits(lhs, "dist")) {
-        if (any(lhs < -TOL))
-            stop("dissimilarities must be non-negative")
-        dmat <- as.matrix(lhs^2)
-    } else if ((is.matrix(lhs) || is.data.frame(lhs)) &&
-               isSymmetric(unname(as.matrix(lhs)))) {
-        dmat <- as.matrix(lhs^2)
-        lhs <- as.dist(lhs) # crazy: need not to calculate beta.sites
-    } else {
-        dist.lhs <- as.matrix(vegdist(lhs, method=method, ...))
-        dmat <- dist.lhs^2
-    }
-    n <- nrow(dmat)
-    ## G is -dmat/2 centred by rows
-    G <- -sweep(dmat, 1, rowMeans(dmat))/2
-    SS.Exp.comb <- sapply(H.s, function(hat) sum( G * t(hat)) )
-    SS.Exp.each <- c(SS.Exp.comb - c(0,SS.Exp.comb[-nterms]) )
-    H.snterm <- H.s[[nterms]]
-    ## t(I - H.snterm) is needed several times and we calculate it
-    ## here
-    tIH.snterm <- t(diag(n)-H.snterm)
-    if (length(H.s) > 1)
-        for (i in length(H.s):2)
-            H.s[[i]] <- H.s[[i]] - H.s[[i-1]]
-    SS.Res <- sum( G * tIH.snterm)
-    df.Exp <- sapply(u.grps[-1], function(i) sum(grps==i) )
-    df.Res <- n - qrhs$rank
-    ## Get coefficients both for the species (if possible) and sites
-    if (inherits(lhs, "dist")) {
-        beta.sites <- qr.coef(qrhs, as.matrix(lhs))
-        beta.spp <-  NULL
-    } else {
-        beta.sites <- qr.coef(qrhs, dist.lhs)
-        beta.spp <-  qr.coef(qrhs, as.matrix(lhs))
-    }
-    colnames(beta.spp) <- colnames(lhs)
-    colnames(beta.sites) <- rownames(lhs)
-    F.Mod <- (SS.Exp.each/df.Exp) / (SS.Res/df.Res)
+    ## input lhs should always be dissimilarities
+    if (!inherits(lhs, "dist"))
+        stop("internal error: contact developers")
+    if (any(lhs < -TOL))
+        stop("dissimilarities must be non-negative")
+    n <- attr(lhs, "Size")
+    ## G is -dmat/2 centred
+    G <- initDBRDA(lhs)
+    ## preliminaries are over: start working
+    Gfit <- qr.fitted(qrhs, G)
+    Gres <- qr.resid(qrhs, G)
+    ## collect data for the fit
+    if(!is.null(qrhs$rank) && qrhs$rank > 0)
+        CCA <- list(rank = qrhs$rank,
+                    qrank = qrhs$rank,
+                    tot.chi = sum(diag(Gfit)),
+                    QR = qrhs)
+    else
+        CCA <- NULL # empty model
+    ## collect data for the residuals
+    CA <- list(rank = n - max(qrhs$rank, 0) - 1,
+               u = matrix(0, nrow=n),
+               tot.chi = sum(diag(Gres)))
+    ## all together
+    sol$tot.chi <- sum(diag(G))
+    sol$adjust <- 1
+    sol$Ybar <- G
+    sol$CCA <- CCA
+    sol$CA <- CA
+    class(sol) <- c("adonis2", "dbrda", "rda", "cca")
+    sol
+}
 
-    f.test <- function(tH, G, df.Exp, df.Res, tIH.snterm) {
-      ## HERE I TRY CHANGING t(H)  TO tH, and
-      ## t(I - H.snterm) to tIH.snterm, so that we don't have
-      ## to do those calculations for EACH iteration.
-      ## This is the function we have to do for EACH permutation.
-      ## G is an n x n centered distance matrix
-      ## H is the hat matrix from the design (X)
-      ## note that for R, * is element-wise multiplication,
-      ## whereas %*% is matrix multiplication.
-        (sum(G * tH)/df.Exp) /
-          (sum(G * tIH.snterm)/df.Res) }
+### synonymize old adonis
 
- ### Old f.test
-    ### f.test <- function(H, G, I, df.Exp, df.Res, H.snterm){
-    ##    (sum( G * t(H) )/df.Exp) /
-      ##    (sum( G * t(I-H.snterm) )/df.Res) }
-
-    SS.perms <- function(H, G, I){
-        c(SS.Exp.p = sum( G * t(H) ),
-          S.Res.p=sum( G * t(I-H) )
-          ) }
-
-    ## Permutations
-    p <- getPermuteMatrix(permutations, n, strata = strata)
-    permutations <- nrow(p)
-    if (permutations) {
-        tH.s <- lapply(H.s, t)
-        ## Apply permutations for each term
-        ## This is the new f.test (2011-06-15) that uses fewer arguments
-        ## Set first parallel processing for all terms
-        if (is.null(parallel))
-            parallel <- 1
-        hasClus <- inherits(parallel, "cluster")
-        isParal <- hasClus || parallel > 1
-        isMulticore <- .Platform$OS.type == "unix" && !hasClus
-        if (isParal && !isMulticore && !hasClus) {
-            parallel <- makeCluster(parallel)
-        }
-        if (isParal) {
-            if (isMulticore) {
-                f.perms <-
-                    sapply(1:nterms, function(i)
-                           unlist(mclapply(1:permutations, function(j)
-                                           f.test(tH.s[[i]], G[p[j,], p[j,]],
-                                                  df.Exp[i], df.Res, tIH.snterm),
-                                           mc.cores = parallel)))
-            } else {
-                f.perms <-
-                    sapply(1:nterms, function(i)
-                           parSapply(parallel, 1:permutations, function(j)
-                                     f.test(tH.s[[i]], G[p[j,], p[j,]],
-                                            df.Exp[i], df.Res, tIH.snterm)))
-            }
-        } else {
-            f.perms <-
-                sapply(1:nterms, function(i) 
-                       sapply(1:permutations, function(j) 
-                              f.test(tH.s[[i]], G[p[j,], p[j,]],
-                                     df.Exp[i], df.Res, tIH.snterm)))
-        }
-        ## Close socket cluster if created here
-        if (isParal && !isMulticore && !hasClus)
-            stopCluster(parallel)
-        P <- (rowSums(t(f.perms) >= F.Mod - EPS)+1)/(permutations+1)
-    } else { # no permutations
-        f.perms <- P <- rep(NA, nterms)
-    }
-    SumsOfSqs = c(SS.Exp.each, SS.Res, sum(SS.Exp.each) + SS.Res)
-    tab <- data.frame(Df = c(df.Exp, df.Res, n-1),
-                      SumsOfSqs = SumsOfSqs,
-                      MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA),
-                      F.Model = c(F.Mod, NA,NA),
-                      R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)],
-                      P = c(P, NA, NA))
-    rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps],
-                       "Residuals", "Total")
-    colnames(tab)[ncol(tab)] <- "Pr(>F)"
-    attr(tab, "heading") <- c(howHead(attr(p, "control")),
-        "Terms added sequentially (first to last)\n")
-    class(tab) <- c("anova", class(tab))
-    out <- list(aov.tab = tab, call = match.call(),
-                coefficients = beta.spp, coef.sites = beta.sites,
-                f.perms = f.perms, model.matrix = rhs, terms = Terms)
-    class(out) <- "adonis"
-    out
+`adonis2` <- function(...)
+{
+    message("adonis2() is a superfluous synonym of adonis()")
+    adonis(...)
 }

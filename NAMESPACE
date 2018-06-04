@@ -238,7 +238,6 @@ S3method(multipart, default)
 S3method(multipart, formula)
 # nobs: stats
 S3method(nobs, CCorA)
-S3method(nobs, adonis)
 S3method(nobs, anova.cca)
 S3method(nobs, betadisper)
 S3method(nobs, cca)
@@ -257,7 +256,6 @@ S3method(ordisurf, formula)
 # pairs: graphics
 S3method(pairs, permustats)
 ## permustats methods
-S3method(permustats, adonis)
 S3method(permustats, anosim)
 S3method(permustats, mantel)
 S3method(permustats, mrpp)
@@ -354,7 +352,6 @@ S3method(predict, specaccum)
 # print: base
 S3method(print, CCorA)
 S3method(print, MOStest)
-S3method(print, adonis)
 S3method(print, anosim)
 S3method(print, betadisper)
 S3method(print, bioenv)

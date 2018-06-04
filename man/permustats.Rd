@@ -1,7 +1,6 @@
 \encoding{UTF-8}
 \name{permustats}
 \alias{permustats}
-\alias{permustats.adonis}
 \alias{permustats.anosim}
 \alias{permustats.anova.cca}
 \alias{permustats.CCorA}
@@ -134,7 +133,7 @@ permustats(x, ...)
   \code{\link{pairs}}.
 
   The \code{permustats} can extract permutation statistics from the
-  results of \code{\link{adonis2}}, \code{\link{adonis}},
+  results of \code{\link{adonis}},
   \code{\link{anosim}}, \code{\link{anova.cca}}, \code{\link{mantel}},
   \code{\link{mantel.partial}}, \code{\link{mrpp}},
   \code{\link{oecosimu}}, \code{\link{ordiareatest}},
@@ -167,7 +166,7 @@ permustats(x, ...)
 
 \examples{
 data(dune, dune.env)
-mod <- adonis2(dune ~ Management + A1, data = dune.env)
+mod <- adonis(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
