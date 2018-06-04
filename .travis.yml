@@ -19,7 +19,6 @@ r_packages:
   - cclust
   - bipartite
   - labdsv
-  - car
   - ellipse
   - coda
   - maptools
