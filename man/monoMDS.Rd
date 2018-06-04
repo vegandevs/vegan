@@ -86,14 +86,13 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   combination of features:
   \itemize{
 
-    \item \dQuote{Weak} treatment of ties (Kruskal 1964a,b), where
-    tied dissimilarities can be broken in monotone regression. This is
-    especially important for cases where compared sites share no
-    species and dissimilarities are tied to their maximum value of
-    one. Breaking ties allows these points to be at different
-    distances and can help in recovering very long coenoclines
-    (gradients).  Function \code{\link[smacof]{smacofSym}}
-    (\pkg{smacof} package) also has adequate tie treatment.
+    \item \dQuote{Weak} treatment of ties (Kruskal 1964a,b), where tied
+    dissimilarities can be broken in monotone regression. This is
+    especially important for cases where compared sites share no species
+    and dissimilarities are tied to their maximum value of one. Breaking
+    ties allows these points to be at different distances and can help
+    in recovering very long coenoclines (gradients).  Functions in the
+    \CRANpkg{smacof} package also hav adequate tie treatment.
 
     \item Handles missing values in a meaningful way.
 
@@ -123,23 +122,22 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   ordination distances, and so related to the \dQuote{linear fit} of
   \code{\link{stressplot}}.
 
-  Function \code{monoMDS} can fit several alternative NMDS variants
-  that can be selected with argument \code{model}.  The default
-  \code{model = "global"} fits global NMDS, or Kruskal's (1964a,b)
-  original NMDS similar to \code{\link[MASS]{isoMDS}} (\pkg{MASS})
-  or \code{\link[smacof]{smacofSym}} (\pkg{smacof}).  Alternative
+  Function \code{monoMDS} can fit several alternative NMDS variants that
+  can be selected with argument \code{model}.  The default \code{model =
+  "global"} fits global NMDS, or Kruskal's (1964a,b) original NMDS
+  similar to \code{\link[MASS]{isoMDS}} (\pkg{MASS}).  Alternative
   \code{model = "local"} fits local NMDS where independent monotone
   regression is used for each point (Sibson 1972).  Alternative
   \code{model = "linear"} fits a linear MDS. This fits a linear
-  regression instead of monotone, and is not identical to metric
-  scaling or principal coordinates analysis (\code{\link{cmdscale}})
-  that performs an eigenvector decomposition of dissimilarities (Gower
-  1966). Alternative \code{model = "hybrid"} implements hybrid MDS
-  that uses monotone regression for all points and linear regression
-  for dissimilarities below or at a \code{threshold} dissimilarity
-  in alternating steps (Faith et al. 1987). Function
-  \code{\link{stressplot}} can be used to display the kind of
-  regression in each \code{model}.
+  regression instead of monotone, and is not identical to metric scaling
+  or principal coordinates analysis (\code{\link{cmdscale}}) that
+  performs an eigenvector decomposition of dissimilarities (Gower
+  1966). Alternative \code{model = "hybrid"} implements hybrid MDS that
+  uses monotone regression for all points and linear regression for
+  dissimilarities below or at a \code{threshold} dissimilarity in
+  alternating steps (Faith et al. 1987). Function
+  \code{\link{stressplot}} can be used to display the kind of regression
+  in each \code{model}.
 
   Scaling, orientation and direction of the axes is arbitrary.
   However, the function always centres the axes, and the default
@@ -232,10 +230,9 @@ Peter R. Michin (Fortran core) and Jari Oksanen (R interface).
    (1987).
 }
 
-\seealso{ \code{\link{metaMDS}} for the \pkg{vegan} way of
-  running NMDS, and \code{\link[MASS]{isoMDS}} and
-  \code{\link[smacof]{smacofSym}} for some alternative implementations
-  of NMDS. }
+\seealso{ \code{\link{metaMDS}} for the \pkg{vegan} way of running NMDS,
+  and \code{\link[MASS]{isoMDS}} and \CRANpkg{smacof} for some
+  alternative implementations of NMDS. }
 
 \examples{
 data(dune)
