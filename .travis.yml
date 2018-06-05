@@ -12,14 +12,12 @@ addons:
   apt:
     packages:
       - qpdf
-      - libnlopt-dev
 
 r_packages:
   - ade4
   - cclust
   - bipartite
   - labdsv
-  - car
   - ellipse
   - coda
   - maptools
