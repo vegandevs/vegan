@@ -7,6 +7,7 @@
 \alias{boxplot.betadisper}
 \alias{TukeyHSD.betadisper}
 \alias{eigenvals.betadisper}
+\alias{print.betadisper}
 \alias{ordimedian}
 
 \title{Multivariate homogeneity of groups dispersions (variances)}
@@ -48,6 +49,9 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
 
 \method{TukeyHSD}{betadisper}(x, which = "group", ordered = FALSE,
          conf.level = 0.95, \dots)
+
+\method{print}{betadisper}(x, digits = max(3, getOption("digits") - 3),
+                           max.lambda = 8, \dots)
 }
 
 \arguments{
@@ -105,6 +109,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   \item{ordered}{logical; see \code{\link{TukeyHSD}}.}
   \item{conf.level}{A numeric value between zero and one giving the
     family-wise confidence level to use.}
+  \item{digits, max.lambda}{numeric; for the \code{print} method, sets the number of digits to use (as per \code{\link{print.default}}) and the maximum number of axes to display eigenvalues for, repsectively.}
   \item{\dots}{arguments, including graphical parameters (for
     \code{plot.betadisper} and \code{boxplot.betadisper}), passed to
     other methods.}
