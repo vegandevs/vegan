@@ -196,7 +196,7 @@
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
   \code{\link{capscale}}, \code{\link{decorana}},
-  \code{\link[car]{vif}}, \code{\link{goodness.cca}}. }
+  \code{\link{goodness.cca}}. }
 
 \examples{
 data(dune)
