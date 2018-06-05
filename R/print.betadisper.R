@@ -1,8 +1,8 @@
 `print.betadisper` <- function(x, digits = max(3, getOption("digits") - 3),
-                               ...)
+                               max.lambda = 8, ...)
 {
     ## limit number of eignvals to 8
-    ax.lim <- 8
+    ax.lim <- min(length(x$eig), max.lambda)
     ##
     cat("\n")
     writeLines(strwrap("Homogeneity of multivariate dispersions\n",
