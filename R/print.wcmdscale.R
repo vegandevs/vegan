@@ -29,7 +29,7 @@
     cat("\nEigenvalues:\n")
     print(zapsmall(x$eig[1 : min(neig, PRINLIM)], digits = digits, ...))
     if (neig > PRINLIM)
-        cat("(Showed only", PRINLIM, "of all", neig, "eigenvalues)\n")
+        cat("(Showing", PRINLIM, "of", neig, "eigenvalues)\n")
     wvar <- var(x$weights)
     wlen <- length(x$weights)
     cat("\nWeights:")
@@ -39,7 +39,7 @@
         cat("\n")
         print(zapsmall(x$weights[1 : min(wlen, PRINLIM)], digits = digits, ...))
         if (wlen > PRINLIM)
-            cat("(Showed only", PRINLIM, "of all", wlen, "weights)\n")
+            cat("(Showing", PRINLIM, "of", wlen, "weights)\n")
     }
     cat("\n")
     invisible(x)
