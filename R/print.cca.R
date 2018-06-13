@@ -56,7 +56,7 @@
         cat("\nEigenvalues for unconstrained axes:\n")
         if (x$CA$rank > ax.trig) {
             print(zapsmall(x$CA$eig[1:ax.lim], digits = digits), ...)
-            cat("(Showed only", ax.lim, "of all", x$CA$rank,
+            cat("(Showing", ax.lim, "of", x$CA$rank,
                 "unconstrained eigenvalues)\n")
         }
         else print(zapsmall(x$CA$eig, digits = digits), ...)
