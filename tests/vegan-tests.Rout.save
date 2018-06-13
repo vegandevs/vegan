@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-05-17 r74733) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-06-11 r74889) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -787,7 +787,7 @@ Eigenvalues for constrained axes:
 Eigenvalues for unconstrained axes:
   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
 692.3 171.3 106.1  59.9  35.1  30.1  22.4  16.8 
-(Showed only 8 of all 20 unconstrained eigenvalues)
+(Showing 8 of 20 unconstrained eigenvalues)
 
 > (md <- dbrda(varespec ~ Al + P + Condition(pH), varechem))
 Call: dbrda(formula = varespec ~ Al + P + Condition(pH), data =
@@ -807,7 +807,7 @@ dbRDA1 dbRDA2
 Eigenvalues for unconstrained axes:
  MDS1  MDS2  MDS3  MDS4  MDS5  MDS6  MDS7  MDS8 
 692.3 171.3 106.1  59.9  35.1  30.1  22.4  16.8 
-(Showed only 8 of all 20 unconstrained eigenvalues)
+(Showing 8 of 20 unconstrained eigenvalues)
 
 > (mc <- capscale(varespec ~ Al + P + Condition(pH), varechem))
 Call: capscale(formula = varespec ~ Al + P + Condition(pH), data =
@@ -828,7 +828,7 @@ Eigenvalues for constrained axes:
 Eigenvalues for unconstrained axes:
  MDS1  MDS2  MDS3  MDS4  MDS5  MDS6  MDS7  MDS8 
 692.3 171.3 106.1  59.9  35.1  30.1  22.4  16.8 
-(Showed only 8 of all 20 unconstrained eigenvalues)
+(Showing 8 of 20 unconstrained eigenvalues)
 
 > ## the following two should be zero (within 1e-15)
 > p <- shuffleSet(nrow(varespec), 999)
@@ -868,4 +868,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  2.791   0.072   2.854 
+  2.775   0.091   2.855 
