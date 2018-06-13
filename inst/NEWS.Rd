@@ -32,6 +32,17 @@
     } %itemize
   } % bug fixes
 
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item \code{print} function for \code{betadisper} results gained
+      new argument \code{neigen} to select the number of eigenvalues
+      shown. The \code{print} is more robust when the number of
+      eigenvalues is lower than the requested \code{neigen}.
+
+    } %itemize
+  } % new features
+
 } % 2.5-3
 
 \section{Changes in version 2.5-2}{
