@@ -1,5 +1,5 @@
 `print.mantel` <-
-  function (x, digits = max(3, getOption("digits") - 3), ...) 
+  function (x, digits = max(3, getOption("digits") - 3), ...)
 {
   cat("\n")
   if (inherits(x, "mantel.partial"))
@@ -11,9 +11,9 @@
   cat(formatC(x$statistic, digits = digits), "\n")
   nperm <- x$permutations
   if (nperm) {
-    cat("      Significance:", format.pval(x$signif), 
+    cat("      Significance:", format.pval(x$signif),
         "\n\n")
-    out <- quantile(x$perm, c(0.9, 0.95, 0.975, 0.99))
+    out <- quantile(x$perm, c(0.9, 0.95, 0.975, 0.99), na.rm = TRUE)
     cat("Upper quantiles of permutations (null model):\n")
     print(out, digits = 3)
     cat(howHead(x$control))
