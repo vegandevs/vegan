@@ -3,13 +3,13 @@
 {
     wasDataFrame <- is.data.frame(x)
     x <- as.matrix(x)
-    METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
+    METHODS <- c("total", "max", "freq", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
                  "log")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
-        if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
+        if (method %in% c("total", "freq", "pa", "chi.square", "rank",
                           "rrank")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
@@ -25,7 +25,7 @@
             MARGIN <- 2
         tmp <- pmax(k, apply(x, MARGIN, max, na.rm = na.rm))
         x <- sweep(x, MARGIN, tmp, "/")
-    }, frequency = {
+    }, freq = {
         if (missing(MARGIN))
             MARGIN <- 2
         tmp <- pmax(k, apply(x, MARGIN, sum, na.rm = na.rm))
