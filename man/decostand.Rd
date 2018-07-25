@@ -32,7 +32,7 @@ wisconsin(x)
   \itemize{
     \item \code{total}: divide by margin total (default \code{MARGIN = 1}).
     \item \code{max}: divide by margin maximum (default \code{MARGIN = 2}).
-    \item \code{freq}: divide by margin maximum and multiply by the
+    \item \code{frequency}: divide by margin maximum and multiply by the
     number of non-zero items, so that the average of non-zero entries is
     one (Oksanen 1983; default \code{MARGIN = 2}).
     \item \code{normalize}: make margin sum of squares equal to one (default
