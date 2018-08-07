@@ -41,6 +41,8 @@ anova(m, permutations=99)
 anova(m, by="term", permutations=99) # failed before 2.5-0
 anova(m, by="margin", permutations=99) # works since 2.5-0
 anova(m, by="axis", permutations=99)
+## adonis
+adonis(fla, data = dune.env)
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
@@ -63,6 +65,8 @@ anova(q, permutations=99)
 anova(q, by="term", permutations=99) # failed before 2.5-0
 anova(q, by="margin", permutations=99) # works since 2.5-0
 anova(q, by="axis", permutations=99)
+## adonis with(data)
+with(dune.env, adonis(fla)) ## fails both in 2.6.0 and <2.6.0
 ### Check that constrained ordination functions can be embedded.
 ### The data.frame 'df' is still attach()ed.
 foo <- function(bar, Y, X, ...)
@@ -75,6 +79,8 @@ foo("rda", dune, Management, na.action = na.omit)
 foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
 foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
+## adonis
+with(dune.env, foo("adonis", dune, Management)) ## fails in 2.6-0 (& adonis2 failed)
 ###
 detach(df)
 ### Check that statistics match in partial constrained ordination
