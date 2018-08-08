@@ -65,8 +65,6 @@ anova(q, permutations=99)
 anova(q, by="term", permutations=99) # failed before 2.5-0
 anova(q, by="margin", permutations=99) # works since 2.5-0
 anova(q, by="axis", permutations=99)
-## adonis with(data)
-with(dune.env, adonis(fla)) ## fails both in 2.6.0 and <2.6.0
 ### Check that constrained ordination functions can be embedded.
 ### The data.frame 'df' is still attach()ed.
 foo <- function(bar, Y, X, ...)
@@ -78,9 +76,11 @@ foo("cca", dune, Management, na.action = na.omit)
 foo("rda", dune, Management, na.action = na.omit)
 foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
-foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
-## adonis
-with(dune.env, foo("adonis", dune, Management)) # fails in 2.6-0 (& adonis2 failed)
+foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
+## adonis must be done with detached 'df' or it will be used instead
+## of with(dune.env, ...)
+detach(df)
+with(dune.env, foo("adonis", dune, Management))
 ## the test case reported in github issue #285 by @ktmbiome (reported
 ## there for adonis2, but in 2.6-0 this replaced old adonis that
 ## became obsolete).
@@ -88,7 +88,7 @@ var <- "Moisture"
 adonis(dune ~ dune.env[, var])
 rm(var)
 ###
-detach(df)
+
 ### Check that statistics match in partial constrained ordination
 m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
 tab <- anova(m, by = "axis", permutations = 99)
