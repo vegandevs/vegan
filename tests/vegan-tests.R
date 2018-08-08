@@ -80,7 +80,13 @@ foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
 foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
 ## adonis
-with(dune.env, foo("adonis", dune, Management)) ## fails in 2.6-0 (& adonis2 failed)
+with(dune.env, foo("adonis", dune, Management)) # fails in 2.6-0 (& adonis2 failed)
+## the test case reported in github issue #285 by @ktmbiome (reported
+## there for adonis2, but in 2.6-0 this replaced old adonis that
+## became obsolete).
+var <- "Moisture"
+adonis(dune ~ dune.env[, var])
+rm(var)
 ###
 detach(df)
 ### Check that statistics match in partial constrained ordination
