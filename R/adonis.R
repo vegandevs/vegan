@@ -76,8 +76,7 @@
     lhs <- formula[[2]]
     lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
-    rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
-    rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
+    rhs <- model.matrix(formula, data) # and finally the model.matrix
     assign <- attr(rhs, "assign") ## assign attribute
     sol$terminfo$assign <- assign[assign > 0]
     rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
