@@ -41,6 +41,8 @@ anova(m, permutations=99)
 anova(m, by="term", permutations=99) # failed before 2.5-0
 anova(m, by="margin", permutations=99) # works since 2.5-0
 anova(m, by="axis", permutations=99)
+## adonis
+adonis(fla, data = dune.env)
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
@@ -74,9 +76,19 @@ foo("cca", dune, Management, na.action = na.omit)
 foo("rda", dune, Management, na.action = na.omit)
 foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 foo("capscale", vegdist(dune), Management, na.action = na.omit)
-foo("capscale", dune, Management, na.action = na.omit) ## fails in 2.2-1
-###
+foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
+## adonis must be done with detached 'df' or it will be used instead
+## of with(dune.env, ...)
 detach(df)
+with(dune.env, foo("adonis", dune, Management))
+## the test case reported in github issue #285 by @ktmbiome (reported
+## there for adonis2, but in 2.6-0 this replaced old adonis that
+## became obsolete).
+var <- "Moisture"
+adonis(dune ~ dune.env[, var])
+rm(var)
+###
+
 ### Check that statistics match in partial constrained ordination
 m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
 tab <- anova(m, by = "axis", permutations = 99)

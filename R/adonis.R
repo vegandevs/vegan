@@ -3,6 +3,9 @@
              sqrt.dist = FALSE, add = FALSE, by = "terms",
              parallel = getOption("mc.cores"), ...)
 {
+    ## handle missing data
+    if (missing(data))
+        data <- model.frame(delete.response(terms(formula)))
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin"))
@@ -36,9 +39,6 @@
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
     formula <- update(formula, lhs ~ .)
-    ## no data? find variables in .GlobalEnv
-    if (missing(data))
-        data <- model.frame(delete.response(terms(formula)))
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
@@ -76,8 +76,7 @@
     lhs <- formula[[2]]
     lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
-    rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE) # to get the data frame of rhs
-    rhs <- model.matrix(formula, rhs.frame) # and finally the model.matrix
+    rhs <- model.matrix(formula, data) # and finally the model.matrix
     assign <- attr(rhs, "assign") ## assign attribute
     sol$terminfo$assign <- assign[assign > 0]
     rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
