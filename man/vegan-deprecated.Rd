@@ -5,6 +5,8 @@
 \alias{as.mlm}
 \alias{as.mlm.cca}
 \alias{as.mlm.rda}
+\alias{humpfit}
+
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
 \title{Deprecated Functions in vegan package}
 %------ PLEASE: one \alias{.} for EACH ! (+ one \usage{} & \arguments{} for all)
@@ -34,6 +36,12 @@ as.mlm(x)
   \code{\link{hatvalues.cca}}, \code{\link{rstandard.cca}},
   \code{\link{rstudent.cca}}, \code{\link{cooks.distance.cca}},
   \code{\link{vcov.cca}}.
+
+  Function \code{humpfit} was moved to the \pkg{natto} package and is
+  still available from \url{https://github.com/jarioksa/natto}. The
+  function fits a neutral no-interaction model for the biomass --
+  species-richness relation. The old help page is still available with
+  \code{help("humpfit-deprecated")} (note the quotes).
 
 }
 
