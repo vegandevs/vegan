@@ -43,6 +43,17 @@
     } %itemize
   } % new features
 
+  \subsection{DEPRECATED}{
+    \itemize{
+
+      \item Function \code{humpfit} was moved to the \pkg{natto} package
+      and is still available from
+      \url{https://github.com/jarioksa/natto}.  It is scheduled for
+      complete removal in \pkg{vegan} 2.6-0.
+
+    } %itemize
+  } %deprecated
+  
 } % 2.5-3
 
 \section{Changes in version 2.5-2}{
