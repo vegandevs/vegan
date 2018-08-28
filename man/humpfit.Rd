@@ -1,5 +1,5 @@
 \name{humpfit}
-\alias{humpfit}
+\alias{humpfit-deprecated}
 \alias{summary.humpfit}
 \alias{lines.humpfit}
 \alias{plot.humpfit}
@@ -12,7 +12,12 @@
   Function \code{humpfit} fits a no-interaction model for species
   richness vs. biomass data (Oksanen 1996). This is a null model that
   produces a hump-backed response as an artifact of plant size and
-  density. 
+  density.
+
+  This function is \code{\link{.Deprecated}}: It was very rarely used,
+  and it was problematic to fit robustly. The function was transferred
+  to the \pkg{natto} package and is still available from
+  \url{https://github.com/jarioksa/natto/}.
 }
 \usage{
 humpfit(mass, spno, family = poisson, start)
