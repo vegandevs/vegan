@@ -1,7 +1,7 @@
 "humpfit" <-
     function (mass, spno, family = poisson, start)
 {
-    .Deprecated("natto::humpfit() from https://github.com/jarioksa/natto/")
+    .Defunct("natto::humpfit() from https://github.com/jarioksa/natto/")
     hump <- function(p, mass, spno, ...) {
         x <- ifelse(mass < p[1], mass/p[1], p[1] * p[1]/mass/mass)
         fv <- p[3] * log(1 + p[2] * x/p[3])
