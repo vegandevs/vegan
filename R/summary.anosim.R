@@ -1,5 +1,5 @@
 `summary.anosim` <-
-function (object, ...)
+    function (object, ...)
 {
    print(object)
    if (object$permutations) {
@@ -10,7 +10,9 @@ function (object, ...)
    cat("\n")
    tmp <- tapply(object$dis.rank, object$class.vec, quantile)
    out <- matrix(NA, length(tmp), 5)
-   for (i in seq_along(tmp)) out[i,] <- tmp[[i]]
+   for (i in seq_along(tmp)) {
+       if (!is.null(tmp[[i]])) out[i,] <- tmp[[i]]
+   }
    rownames(out) <- names(tmp)
    colnames(out) <- names(tmp$Between)
    out <- cbind(out, N = table(object$class.vec))
