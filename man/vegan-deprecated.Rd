@@ -2,7 +2,6 @@
 \name{vegan-deprecated}
 
 \alias{vegan-deprecated}
-\alias{humpfit}
 
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
 \title{Deprecated Functions in vegan package}
@@ -19,11 +18,7 @@
 
 \details{
 
-  Function \code{humpfit} was moved to the \pkg{natto} package and is
-  still available from \url{https://github.com/jarioksa/natto}. The
-  function fits a neutral no-interaction model for the biomass --
-  species-richness relation. The old help page is still available with
-  \code{help("humpfit-deprecated")} (note the quotes).
+  There are currently no deprecated functions.
 
 }
 

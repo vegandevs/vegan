@@ -20,6 +20,7 @@
 \alias{as.mlm}
 \alias{as.mlm.cca}
 \alias{as.mlm.rda}
+\alias{humpfit}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -31,6 +32,7 @@
 \usage{
 ## defunct in vegan 2.6-0
 as.mlm(x)
+humpfit(mass, spno, family = poisson, start)
 vegandocs(doc = c("NEWS", "ONEWS", "FAQ-vegan", "intro-vegan",
     "diversity-vegan", "decision-vegan", "partitioning", "permutations"))
 
@@ -59,6 +61,9 @@ permuted.index2(n, control = permControl())
   see \code{\link{hatvalues.cca}}, \code{\link{rstandard.cca}},
   \code{\link{rstudent.cca}}, \code{\link{cooks.distance.cca}},
   \code{\link{vcov.cca}}.
+
+  Function \code{humpfit} was transferred to the \pkg{natto} package and
+  is still available from \url{https://github.com/jarioksa/natto/}.
 
   \R{} functions \code{\link{news}} should be used to read \pkg{vegan}
   NEWS (\code{news(package = "vegan")}), and
