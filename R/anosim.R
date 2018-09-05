@@ -27,6 +27,9 @@
     irow <- as.vector(as.dist(row(matrix(nrow = N, ncol = N))))
     icol <- as.vector(as.dist(col(matrix(nrow = N, ncol = N))))
     within <- matched(irow, icol, grouping)
+    ## check that there is replication
+    if (!any(within))
+        stop("there should be replicates within groups")
     aver <- tapply(x.rank, within, mean)
     statistic <- -diff(aver)/div
     cl.vec <- rep("Between", length(x))
