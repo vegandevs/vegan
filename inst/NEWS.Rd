@@ -35,6 +35,10 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
+      \item \code{anosim} checks its input to avoid confusing error
+      messages like that reported in StackOverflow question
+      \href{https://stackoverflow.com/questions/52082743/}{52082743}. 
+
       \item \code{print} function for \code{betadisper} results gained
       new argument \code{neigen} to select the number of eigenvalues
       shown. The \code{print} is more robust when the number of
