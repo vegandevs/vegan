@@ -16,6 +16,11 @@
         warning("some dissimilarities are negative - is this intentional?")
     sol <- c(call = match.call())
     grouping <- as.factor(grouping)
+    ## check that dims match
+    if (length(grouping) != attr(x, "Size"))
+        stop(
+            gettextf("dissimilarities have %d observations, but grouping has %d",
+                     attr(x, "Size"), length(grouping)))
     if (length(levels(grouping)) < 2)
         stop("there should be more than one class level")
     matched <- function(irow, icol, grouping) {
