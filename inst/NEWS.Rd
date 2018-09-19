@@ -17,6 +17,8 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item \code{envfit} with vectors failed with missing data.
+
       \item The original data were not scaled and centred similarly as
       simulations in \code{simulate.rda} when several simulations were
       returned as a \code{simmat} object (which is compatible with
