@@ -15,6 +15,7 @@
         X <- X[keep,, drop=FALSE]
         ## drop any lost levels, explicitly don't include NA as a level
         env <- droplevels(env[keep,, drop=FALSE], exclude = NA)
+        w <- w[keep]
         na.action <- structure(seq_along(keep)[!keep], class="omit")
     }
     ## make permutation matrix for all variables handled in the next loop
