@@ -385,13 +385,13 @@
     ## header info for the model
     head <- ordHead(Y)
     ## Partial
-    if (!is.null(Z)) {
+    if (!is.null(Z) && ncol(Z)) {
         out <- ordPartial(Y, Z)
         Y <- out$Y
         partial <- out$result
     }
     ## Constraints
-    if (!is.null(X)) {
+    if (!is.null(X) && ncol(X)) {
         out <- ordConstrain(Y, X, Z)
         Y <- out$Y
         constraint <- out$result
