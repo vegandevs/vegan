@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-08-08 r75082) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-09-20 r75340) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -682,6 +682,75 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > rm(foo, out)
 > ### end Richard Telford test
 > 
+> ### github issue #291 reported that anova(mod, by="margin") gave wrong
+> ### results in vegan 2.5-2 when 'mod' had only one constraining
+> ### variable. In such corner case, all the following models should be
+> ### equal
+> 
+> set.seed(1046)
+> z <- runif(20)
+> p <- shuffleSet(20, 99)
+> mod <- rda(dune ~ z)
+> (a0 <- anova(mod, permutations=p))
+Permutation test for rda under reduced model
+Permutation: free
+Number of permutations: 99
+
+Model: rda(formula = dune ~ z)
+         Df Variance      F Pr(>F)
+Model     1    7.376 1.7298    0.2
+Residual 18   76.748              
+> (at <- anova(mod, permutations=p, by="term"))
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 99
+
+Model: rda(formula = dune ~ z)
+         Df Variance      F Pr(>F)
+z         1    7.376 1.7298    0.2
+Residual 18   76.748              
+> (am <- anova(mod, permutations=p, by="margin"))
+Permutation test for rda under NA model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 99
+
+Model: rda(formula = dune ~ z)
+         Df Variance      F Pr(>F)
+z         1    7.376 1.7298    0.2
+Residual 18   76.748              
+> (aa <- anova(mod, permutations=p, by="axis"))
+Permutation test for rda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 99
+
+Model: rda(formula = dune ~ z)
+         Df Variance      F Pr(>F)
+RDA1      1    7.376 1.7298    0.2
+Residual 18   76.748              
+> (p1 <- permutest(mod, permutations=p, by="onedf"))
+
+Permutation test for rda under reduced model 
+
+Permutation: free
+Number of permutations: 99
+ 
+Model: rda(formula = dune ~ z)
+Permutation test for all constrained eigenvalues
+         Df Inertia      F Pr(>F)
+z         1   7.376 1.7298    0.2
+Residual 18  76.748              
+> all.equal(permustats(a0)$permutations, permustats(at)$permutations)
+[1] TRUE
+> all.equal(permustats(a0)$permutations, permustats(am)$permutations)
+[1] TRUE
+> all.equal(permustats(a0)$permutations, permustats(aa)$permutations)
+[1] TRUE
+> all.equal(permustats(a0)$permutations, permustats(p1)$permutations)
+[1] TRUE
+> rm(z,p,mod,a0,at,am,aa,p1)
 > 
 > ### nestednodf: test case by Daniel Spitale in a comment to News on
 > ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
@@ -918,4 +987,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  2.894   0.073   2.953 
+  2.887   0.090   2.963 
