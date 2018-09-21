@@ -167,6 +167,25 @@ out$Poatriv
 rm(foo, out)
 ### end Richard Telford test
 
+### github issue #291 reported that anova(mod, by="margin") gave wrong
+### results in vegan 2.5-2 when 'mod' had only one constraining
+### variable. In such corner case, all the following models should be
+### equal
+
+set.seed(1046)
+z <- runif(20)
+p <- shuffleSet(20, 99)
+mod <- rda(dune ~ z)
+(a0 <- anova(mod, permutations=p))
+(at <- anova(mod, permutations=p, by="term"))
+(am <- anova(mod, permutations=p, by="margin"))
+(aa <- anova(mod, permutations=p, by="axis"))
+(p1 <- permutest(mod, permutations=p, by="onedf"))
+all.equal(permustats(a0)$permutations, permustats(at)$permutations)
+all.equal(permustats(a0)$permutations, permustats(am)$permutations)
+all.equal(permustats(a0)$permutations, permustats(aa)$permutations)
+all.equal(permustats(a0)$permutations, permustats(p1)$permutations)
+rm(z,p,mod,a0,at,am,aa,p1)
 
 ### nestednodf: test case by Daniel Spitale in a comment to News on
 ### the release of vegan 1.17-6 in vegan.r-forge.r-project.org.
