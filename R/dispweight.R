@@ -2,9 +2,6 @@
     function(comm, groups, nsimul = 999, nullmodel = "c0_ind",
              plimit = 0.05)
 {
-    ## non-numeric comm?
-    if (!is.numeric(comm))
-        stop("input data must be numeric")
     ## no groups?
     if (missing(groups))
         groups <- rep(1, nrow(comm))
@@ -44,7 +41,7 @@
             stop("'binary' nullmodel cannot be used")
         tmp <- apply(simulate(nm, nsimul), 3, chisq)
         ok <- !is.na(tmp)
-        simulated[ok] <- simulated[ok] + tmp[ok]
+        simulated[ok] <- simulated[ok] + tmp[ok] 
     }
     ## p value based on raw dhat, then we divide
     p <- (rowSums(dhat <= simulated) + 1) / (nsimul + 1)
