@@ -4,6 +4,8 @@
     if (norm && hill)
         stop("'norm = TRUE' and 'hill = TRUE' should not be used at the same time")
     x <- as.matrix(x)
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     n <- nrow(x)
     p <- ncol(x)
     if (p == 1) {
