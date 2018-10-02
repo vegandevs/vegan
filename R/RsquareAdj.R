@@ -19,7 +19,8 @@
 ## rda(Y, cbind(X1,X2)) and rda(Y, X2), and we did the same here from
 ## vegan release 2.0-3 to 2.4. However, I am not quite convinced that
 ## this is correct, and therefore I disable adjusted R2 for partial
-## models while I study the issue (Jari Oksanen, 23/2/2018).
+## models while I study the issue (Jari Oksanen, 23/2/2018).  If you
+## change handling of partial models, remember to update ordiR2step!
 `RsquareAdj.rda` <-
     function(x, ...)
 {
