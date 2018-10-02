@@ -1,7 +1,9 @@
-indpower <-
-function(x, type=0)
+`indpower` <-
+    function(x, type=0)
 {
     x <- as.matrix(x)
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     x <- ifelse(x > 0, 1, 0)
     if (NCOL(x) < 2)
         stop("provide at least two columns for 'x'")
