@@ -9,6 +9,9 @@
     if ((abcd || alphagamma) && terms != "binary")
         warning("perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
     x <- as.matrix(x)
+    ## only do numeric data for which "pa", minimum and quadratic make sense
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     N <- nrow(x)
     P <- ncol(x)
     if (terms == "binary")
