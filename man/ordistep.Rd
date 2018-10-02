@@ -23,7 +23,8 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
 
 \arguments{
   \item{object}{
-  In \code{ordistep}, an ordination object inheriting from \code{\link{cca}} or \code{\link{rda}}. In \code{ordiR2step}, the object must inherit from \code{\link{rda}}, that is, it must have been computed using \code{\link{rda}} or \code{\link{capscale}}.
+  In \code{ordistep}, an ordination object inheriting from
+  \code{\link{cca}} or \code{\link{rda}}.
 }
 
   \item{scope}{ Defines the range of models examined in the stepwise
@@ -34,7 +35,8 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   the \code{upper} scope and the formula of the input \code{object} as
   the \code{lower} scope.  See \code{\link{step}} for details. In
   \code{ordiR2step}, this defines the upper scope; it can also be an
-  ordination object from with the model is extracted.  }
+  ordination object from with the model is extracted.
+  }
 
   \item{direction}{
   The mode of stepwise search, can be one of \code{"both"},
@@ -105,9 +107,10 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   step, and stopping when the adjusted \eqn{R^2}{R2} starts to decrease,
   or the adjusted \eqn{R^2}{R2} of the \code{scope} is exceeded, or the
   selected permutation \eqn{P}-value is exceeded (Blanchet et
-  al. 2008). The second criterion is ignored with option \code{R2scope =
-  FALSE}, and the third criterion can be ignored setting \code{Pin = 1}
-  (or higher). The function cannot be used if adjusted \eqn{R^2}{R2}
+  al. 2008). The second criterion is ignored with option
+  \code{R2scope = FALSE}, and the third criterion can be ignored setting
+  \code{Pin = 1} (or higher).
+  The function cannot be used if adjusted \eqn{R^2}{R2}
   cannot be calculated, including partial models.  If the number of
   predictors is higher than the number of observations, adjusted
   \eqn{R^2}{R2} is also unavailable, but such models can be analysed
