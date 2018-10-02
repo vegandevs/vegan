@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2018-06-11 r74889) -- "Unsuffered Consequences"
+R Under development (unstable) (2018-10-01 r75383) -- "Unsuffered Consequences"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -439,7 +439,7 @@ dune ~ Moisture
 + A1          1 86.992 1.2624  0.180   
 + Use         2 87.259 1.2760  0.160   
 + Manure      4 87.342 1.3143  0.115   
-- Moisture    3 87.657 2.2536  0.005 **
+- Moisture    3 87.657 2.2536  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
@@ -3377,27 +3377,6 @@ Run 20 stress 0.3760596
 > 
 > 
 > cleanEx()
-> nameEx("humpfit")
-> ### * humpfit
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: humpfit
-> ### Title: No-interaction Model for Hump-backed Species Richness vs.
-> ###   Biomass
-> ### Aliases: humpfit summary.humpfit lines.humpfit plot.humpfit
-> ###   points.humpfit predict.humpfit profile.humpfit
-> ### Keywords: models regression nonlinear
-> 
-> ### ** Examples
-> 
-> ##
-> ## Data approximated from Al-Mufti et al. (1977)
-> ##
-> 
-> 
-> 
-> cleanEx()
 > nameEx("indpower")
 > ### * indpower
 > 
@@ -5340,7 +5319,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 > 
 > ## With scope present, the default direction is "both"
-> ordistep(mod0, scope = formula(mod1))
+> mod <- ordistep(mod0, scope = formula(mod1))
 
 Start: dune ~ 1 
 
@@ -5381,6 +5360,62 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 + A1      1 86.220 0.8359  0.585
 + Use     2 86.842 0.8027  0.700
 
+> mod
+Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
+
+              Inertia Proportion Rank
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
+Inertia is variance 
+
+Eigenvalues for constrained axes:
+  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
+21.588 14.075  4.123  3.163  2.369  1.107 
+
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+
+> ## summary table of steps
+> mod$anova
+             Df    AIC      F Pr(>F)   
++ Management  3 87.082 2.8400  0.005 **
++ Moisture    3 85.567 1.9764  0.010 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> ## Example of ordistep, forward
+> ordistep(mod0, scope = formula(mod1), direction="forward")
+
+Start: dune ~ 1 
+
+             Df    AIC      F Pr(>F)   
++ Management  3 87.082 2.8400  0.005 **
++ Moisture    3 87.707 2.5883  0.005 **
++ Manure      4 89.232 1.9539  0.005 **
++ A1          1 89.591 1.9217  0.060 . 
++ Use         2 91.032 1.1741  0.295   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Step: dune ~ Management 
+
+           Df    AIC      F Pr(>F)   
++ Moisture  3 85.567 1.9764  0.010 **
++ Manure    3 87.517 1.3902  0.115   
++ A1        1 87.424 1.2965  0.200   
++ Use       2 88.284 1.0510  0.365   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Step: dune ~ Management + Moisture 
+
+         Df    AIC      F Pr(>F)
++ Manure  3 85.762 1.1225  0.320
++ A1      1 86.220 0.8359  0.640
++ Use     2 86.842 0.8027  0.735
+
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
@@ -5398,159 +5433,55 @@ Eigenvalues for unconstrained axes:
 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
 
 > 
-> ## Example without scope. Default direction is "backward"
-> ordistep(mod1)
+> ## Example of ordiR2step (always forward)
+> ## stops because R2 of 'mod1' exceeded
+> ordiR2step(mod0, mod1)
+Step: R2.adj= 0 
+Call: dune ~ 1 
+ 
+                R2.adjusted
+<All variables>  0.32508817
++ Management     0.22512409
++ Moisture       0.20050225
++ Manure         0.16723149
++ A1             0.04626579
++ Use            0.01799755
+<none>           0.00000000
 
-Start: dune ~ A1 + Moisture + Management + Use + Manure 
-
-             Df    AIC      F Pr(>F)
-- Use         2 86.056 0.8330  0.640
-- A1          1 85.933 0.7933  0.580
-- Manure      3 87.357 1.0737  0.400
-- Management  2 87.672 1.1976  0.305
-- Moisture    3 88.818 1.3320  0.175
-
-Step: dune ~ A1 + Moisture + Management + Manure 
-
-             Df    AIC      F Pr(>F)
-- A1          1 85.762 0.8015  0.615
-- Manure      3 86.220 1.0829  0.395
-- Management  2 86.688 1.1728  0.275
-- Moisture    3 87.779 1.4140  0.125
-
-Step: dune ~ Moisture + Management + Manure 
-
-             Df    AIC      F Pr(>F)  
-- Manure      3 85.567 1.1225  0.325  
-- Management  2 86.060 1.1986  0.235  
-- Moisture    3 87.517 1.5788  0.065 .
+             Df    AIC    F Pr(>F)   
++ Management  3 87.082 2.84  0.002 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Step: dune ~ Moisture + Management 
+Step: R2.adj= 0.2251241 
+Call: dune ~ Management 
+ 
+                R2.adjusted
++ Moisture        0.3450334
+<All variables>   0.3250882
++ Manure          0.2779515
++ A1              0.2392216
++ Use             0.2300349
+<none>            0.2251241
 
-             Df    AIC      F Pr(>F)   
-- Moisture    3 87.082 1.9764  0.015 * 
-- Management  3 87.707 2.1769  0.010 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
+Call: rda(formula = dune ~ Management, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
-Constrained   46.4249     0.5519    6
-Unconstrained 37.6988     0.4481   13
+Constrained   29.2307     0.3475    3
+Unconstrained 54.8930     0.6525   16
 Inertia is variance 
 
 Eigenvalues for constrained axes:
-  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
-21.588 14.075  4.123  3.163  2.369  1.107 
+  RDA1   RDA2   RDA3 
+14.865 10.690  3.675 
 
 Eigenvalues for unconstrained axes:
-  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
-8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+   PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   PC10   PC11 
+15.270  8.428  6.899  5.675  3.988  3.121  2.588  2.380  1.818  1.376  0.995 
+  PC12   PC13   PC14   PC15   PC16 
+ 0.785  0.661  0.467  0.283  0.159 
 
-> 
-> ## Example of ordistep, forward
-> ## Not run: 
-> ##D ordistep(mod0, scope = formula(mod1), direction="forward")
-> ## End(Not run)
-> ### Mite data
-> data(mite)
-> data(mite.env)
-> mite.hel = decostand(mite, "hel")
-> mod0 <- rda(mite.hel ~ 1, mite.env)  # Model with intercept only
-> mod1 <- rda(mite.hel ~ ., mite.env)  # Model with all explanatory variables
-> 
-> ## Example of ordiR2step with default direction = "both"
-> ## (This never goes "backward" but evaluates included terms.)
-> step.res <- ordiR2step(mod0, mod1)
-Step: R2.adj= 0 
-Call: mite.hel ~ 1 
- 
-                R2.adjusted
-<All variables>  0.43670383
-+ WatrCont       0.26084533
-+ Shrub          0.20716190
-+ Topo           0.15205437
-+ Substrate      0.07718348
-+ SubsDens       0.02632468
-<none>           0.00000000
-
-           Df     AIC     F Pr(>F)   
-+ WatrCont  1 -84.336 25.35  0.002 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.2608453 
-Call: mite.hel ~ WatrCont 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Shrub           0.3177536
-+ Topo            0.3120057
-+ Substrate       0.3091579
-+ SubsDens        0.3066715
-<none>            0.2608453
-
-        Df     AIC     F Pr(>F)   
-+ Shrub  2 -88.034 3.836  0.002 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.3177536 
-Call: mite.hel ~ WatrCont + Shrub 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Substrate       0.3653551
-+ Topo            0.3525851
-+ SubsDens        0.3446967
-<none>            0.3177536
-
-            Df     AIC      F Pr(>F)   
-+ Substrate  6 -87.768 1.8251  0.002 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.3653551 
-Call: mite.hel ~ WatrCont + Shrub + Substrate 
- 
-                R2.adjusted
-<All variables>   0.4367038
-+ Topo            0.4004249
-+ SubsDens        0.3901844
-<none>            0.3653551
-
-       Df     AIC      F Pr(>F)   
-+ Topo  1 -90.924 4.5095  0.004 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Step: R2.adj= 0.4004249 
-Call: mite.hel ~ WatrCont + Shrub + Substrate + Topo 
- 
-                R2.adjusted
-+ SubsDens        0.4367038
-<All variables>   0.4367038
-<none>            0.4004249
-
-> step.res$anova  # Summary table
-                 R2.adj Df     AIC       F Pr(>F)   
-+ WatrCont      0.26085  1 -84.336 25.3499  0.002 **
-+ Shrub         0.31775  2 -88.034  3.8360  0.002 **
-+ Substrate     0.36536  6 -87.768  1.8251  0.002 **
-+ Topo          0.40042  1 -90.924  4.5095  0.004 **
-<All variables> 0.43670                             
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> 
-> ## Example of ordiR2step with direction = "forward"
-> ## Not run: 
-> ##D step.res <- ordiR2step(mod0, scope = formula(mod1), direction="forward")
-> ##D step.res$anova  # Summary table
-> ## End(Not run)
 > 
 > 
 > 
@@ -5606,11 +5537,11 @@ GCV score: 144.0039
 > ## Get fitted values
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
-21.254022  5.675257  3.679611  3.898504  9.643820  7.698309  7.729206  9.758047 
+21.254026  5.675259  3.679616  3.898510  9.643821  7.698310  7.729203  9.758046 
        28        13        14        20        25         7         5         6 
- 2.743213 29.700549 11.971757  8.310959  5.390564 24.906002 11.007615 25.330649 
+ 2.743212 29.700556 11.971747  8.310960  5.390564 24.905994 11.007652 25.330656 
         3         4         2         9        12        10        11        21 
- 6.520710  9.410618  4.519672  4.090948 11.557937  4.314850 11.693696 14.243487 
+ 6.520708  9.410616  4.519672  4.090948 11.557930  4.314850 11.693692 14.243453 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5652,7 +5583,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-23. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-24. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -9120,7 +9051,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  20.903 0.128 21.031 0 0 
+Time elapsed:  20.116 0.184 20.331 0 0 
 > grDevices::dev.off()
 null device 
           1 
