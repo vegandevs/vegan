@@ -22,7 +22,7 @@
     x <- as.matrix(x)
     ## all vegdist indices need numeric data (Gower included).
     if (!is.numeric(x))
-        stop("input must be numeric")
+        stop("input data must be numeric")
     if (!method %in% c(1,2,6,16) && any(rowSums(x, na.rm = TRUE) == 0))
         warning("you have empty rows: their dissimilarities may be meaningless in method ",
                 dQuote(inm))
