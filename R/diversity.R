@@ -2,6 +2,8 @@
     function (x, index = "shannon", MARGIN = 1, base = exp(1))
 {
     x <- drop(as.matrix(x))
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     if (any(x < 0, na.rm = TRUE))
         stop("input data must be non-negative")
     INDICES <- c("shannon", "simpson", "invsimpson")

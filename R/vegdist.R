@@ -17,6 +17,12 @@
         stop("invalid distance method")
     if (method == -1)
         stop("ambiguous distance method")
+    ## most tests are faster for matrix than for data frame, and we
+    ## need matrix in .Call() anyway
+    x <- as.matrix(x)
+    ## all vegdist indices need numeric data (Gower included).
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     if (!method %in% c(1,2,6,16) && any(rowSums(x, na.rm = TRUE) == 0))
         warning("you have empty rows: their dissimilarities may be meaningless in method ",
                 dQuote(inm))
@@ -33,11 +39,11 @@
         x <- veganMahatrans(scale(x, scale = FALSE))
     if (binary)
         x <- decostand(x, "pa")
-    N <- nrow(x <- as.matrix(x))
+    N <- nrow(x)
     if (method %in% c(7, 13, 15) && !identical(all.equal(x, round(x)), TRUE))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
-    d <- .Call(do_vegdist, as.matrix(x), as.integer(method))
+    d <- .Call(do_vegdist, x, as.integer(method))
     if (method == 10)
         d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0

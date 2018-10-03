@@ -26,6 +26,8 @@
     incSp <- include
     refX <- as.matrix(refX)
     x <- as.matrix(x)
+    if (!is.numeric(x))
+        stop("input data must be numeric")
     if(mode==0 || mode ==2) refX <- ifelse(refX > 0, 1, 0)
     if(mode==0 || mode ==1) x <- ifelse(x > 0, 1, 0)
     ##Computes conditioned probabilities
