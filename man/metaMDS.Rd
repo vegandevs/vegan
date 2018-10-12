@@ -233,7 +233,7 @@ metaMDSredist(object, ...)
     Procrustes overlay plots from each comparison. This step is
     performed using \code{metaMDSiter}. This is the first step
     performed if input data (\code{comm}) were dissimilarities. Random
-    starts can be analysed with parallel processing (argument
+    starts can be run with parallel processing (argument
     \code{parallel}).
 
   \item Scaling of the results: \code{metaMDS} will run \code{postMDS}
@@ -310,6 +310,33 @@ metaMDSredist(object, ...)
 
 }
 
+\section{Common Wrong Claims}{
+
+    NMDS is often misunderstood and wrong claims of its properties are
+    common on the Web and even in publications. It is often claimed
+    that the NMDS configuration is non-metric which means that you
+    cannot fit environmental variables or species onto that
+    space. This is a false statement. In fact, the result
+    configuration of NMDS is metric, and it can be used like any other
+    ordination result. In NMDS the rank orders of Euclidean distances
+    among points in ordination have a non-metric monotone relationship
+    to any observed dissimilarities. The transfer function from
+    observed dissimilarities to ordination distances is non-metric
+    (Kruskal 1964a, 1964b), but the ordination result configuration is
+    metric and observed dissimilarities can be of any kind (metric or
+    non-metric).
+
+    The ordination configuration is usually rotated to principal
+    components in \code{metaMDS}. The rotation is performed after
+    finding the result, and it only changes the direction of the
+    reference axes. The only invariant feature in the NMDS solution is
+    the rank order of Euclidean ordination distances, and this does
+    not change in rotation. Similarly, the rank order of distances
+    does not change in uniform scaling or centring of configuration of
+    points.
+
+}
+
 \value{ Function \code{metaMDS} returns an object of class
   \code{metaMDS}. The final site ordination is stored in the item
   \code{points}, and species ordination in the item \code{species},
@@ -332,7 +359,14 @@ metaMDSredist(object, ...)
   Compositional dissimilarity as a robust measure of ecological
   distance. \emph{Vegetatio} 69, 57--68.
 
-  Minchin, P.R. (1987)  An evaluation of relative robustness
+  Kruskal, J.B. (1964a). Multidimensional scaling by optimizing
+      goodness-of-fit to a nonmetric hypothesis. \emph{Psychometrika}
+      29, 1--28.
+
+  Kruskal, J.B. (1964b). Nonmetric multidimensional scaling: a numerical
+      method. \emph{Psychometrika} 29, 115--129.
+
+  Minchin, P.R. (1987). An evaluation of relative robustness
   of techniques for ecological ordinations. \emph{Vegetatio} 69,
   89--107.
 }
