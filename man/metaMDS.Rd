@@ -57,7 +57,7 @@ metaMDSredist(object, ...)
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions.  NB., the number of points \eqn{n}
     should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
-    non-metric MDS.}
+    global non-metric MDS, and still higher in local NMDS.}
   \item{try, trymax}{Minimum and maximum numbers of random starts in
     search of stable solution. After \code{try} has been reached, the
     iteration will stop when two convergent solutions were found or
@@ -171,8 +171,10 @@ metaMDSredist(object, ...)
     have a full control of the analysis, you should set
     \code{autotransform = FALSE} and standardize and transform data
     independently. The \code{autotransform} is intended for community
-    data, and for other data types, you should set \code{autotransform
-    = FALSE}. This step is perfomed using \code{metaMDSdist}.
+    data, and for other data types, you should set
+    \code{autotransform = FALSE}. This step is perfomed using
+    \code{metaMDSdist}, and the step is skipped if input were
+    dissimilarities.
 
   \item Choice of dissimilarity: For a good result, you should use
     dissimilarity indices that have a good rank order relation to
@@ -184,7 +186,8 @@ metaMDSredist(object, ...)
     for you data and gradients. The default choice may be bad if you
     analyse other than community data, and you should probably select
     an appropriate index using argument \code{distance}.  This step is
-    performed using \code{metaMDSdist}.
+    performed using \code{metaMDSdist}, and the step is skipped if
+    input were dissimilarities.
 
   \item Step-across dissimilarities: Ordination may be very difficult
     if a large proportion of sites have no shared species. In this
@@ -202,7 +205,8 @@ metaMDSredist(object, ...)
     you do not like manipulation of original distances, you should set
     \code{noshare = FALSE}.  This step is skipped if input data were
     dissimilarities instead of community data. This step is performed
-    using \code{metaMDSdist}.
+    using \code{metaMDSdist}, and the step is skipped always when
+    input were dissimilarities.
 
   \item NMDS with random starts: NMDS easily gets trapped into local
     optima, and you must start NMDS several times from random starts
@@ -221,14 +225,16 @@ metaMDSredist(object, ...)
     (function \code{\link{procrustes}} with option
     \code{symmetric = TRUE}). If the solutions are very similar in their
     Procrustes \code{rmse} and the largest residual is very small, the
-    solutions are regarded as convergent and the better one is taken as
-    the new standard.  The conditions are stringent, and you may have
-    found good and relatively stable solutions although the function is
-    not yet satisfied. Setting \code{trace = TRUE} will monitor the final
-    stresses, and \code{plot = TRUE} will display Procrustes overlay
-    plots from each comparison. This step is performed using
-    \code{metaMDSiter}. This is the only step performed if input data
-    (\code{comm}) were dissimilarities.
+    solutions are regarded as convergent and the better one is taken
+    as the new standard.  The conditions are stringent, and you may
+    have found good and relatively stable solutions although the
+    function is not yet satisfied. Setting \code{trace = TRUE} will
+    monitor the final stresses, and \code{plot = TRUE} will display
+    Procrustes overlay plots from each comparison. This step is
+    performed using \code{metaMDSiter}. This is the first step
+    performed if input data (\code{comm}) were dissimilarities. Random
+    starts can be analysed with parallel processing (argument
+    \code{parallel}).
 
   \item Scaling of the results: \code{metaMDS} will run \code{postMDS}
     for the final result. Function \code{postMDS} provides the
@@ -236,8 +242,8 @@ metaMDSredist(object, ...)
     orientation of axes in NMDS: Centring moves the origin to the
     average of the axes; Principal components rotate the configuration
     so that the variance of points is maximized on first dimension
-    (with function \code{\link{MDSrotate}} you can alternatively rotate
-    the configuration so that the first axis is parallel to an
+    (with function \code{\link{MDSrotate}} you can alternatively
+    rotate the configuration so that the first axis is parallel to an
     environmental variable); Half-change scaling scales the
     configuration so that one unit means halving of community
     similarity from replicate similarity.  Half-change scaling is
@@ -252,7 +258,11 @@ metaMDSredist(object, ...)
     applicable only for dissimilarity indices scaled to \eqn{0 \ldots
     1}, such as Kulczynski, Bray-Curtis and Canberra indices. If
     half-change scaling is not used, the ordination is scaled to the
-    same range as the original dissimilarities.
+    same range as the original dissimilarities. Half-change scaling is
+    skipped by default if input were dissimilarities, but can be
+    turned on with argument \code{halfchange = TRUE}. NB., The PC
+    rotation only changes the directions of reference axes, and it
+    does not influence the configuration or solution in general.
 
   \item Species scores: Function adds the species scores to the final
     solution as weighted averages using function
@@ -260,7 +270,11 @@ metaMDSredist(object, ...)
     \code{expand}.  The expansion of weighted averages can be undone
     with \code{shrink = TRUE} in \code{plot} or \code{scores}
     functions, and the calculation of species scores can be suppressed
-    with \code{wascores = FALSE}.
+    with \code{wascores = FALSE}. This step is skipped if input were
+    dissimilarities and community data were unavailable. However, the
+    species scores can be added or replaced with
+    \code{\link{sppscores}}.
+    
 } 
 }
 
@@ -360,11 +374,10 @@ metaMDSredist(object, ...)
   \code{engine} to select the old engine.}
 
 \seealso{\code{\link{monoMDS}} (and \code{\link[MASS]{isoMDS}}), 
-  \code{\link{decostand}},
-  \code{\link{wisconsin}}, 
+  \code{\link{decostand}}, \code{\link{wisconsin}}, 
   \code{\link{vegdist}}, \code{\link{rankindex}}, \code{\link{stepacross}}, 
-  \code{\link{procrustes}}, \code{\link{wascores}}, \code{\link{MDSrotate}},
-  \code{\link{ordiplot}}.
+  \code{\link{procrustes}}, \code{\link{wascores}}, \code{\link{sppscores}},
+  \code{\link{MDSrotate}}, \code{\link{ordiplot}}.
 }
 
 \examples{
