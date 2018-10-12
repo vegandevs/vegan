@@ -17,6 +17,21 @@
   \subsection{BUG FIXES}{
     \itemize{
 
+      \item Constrained ordination gave misleading results when some
+      constraints or conditions had data with NULL variables. This
+      rarely happens in normal usage, but could happen in marginal
+      \code{anova} as reported in github issue
+      \href{https://github.com/vegandevs/vegan/issues/291}{#291}.
+
+      \item Sevaral functions for numeric analysis could work with
+      non-numeric data (for instance, with factors) and give either
+      meaningless results or confusing error messages. Fixed functions
+      include \code{beals}, \code{designdist}, \code{diversity},
+      \code{gdispweight}, \code{indpower}, \code{spantree},
+      \code{specpool}, \code{tsallis}, \code{tsallisaccum} and
+      \code{vegdist}. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/292}{#292}.
+      
       \item \code{envfit} with vectors failed with missing data.
 
       \item The original data were not scaled and centred similarly as
