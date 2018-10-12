@@ -335,6 +335,11 @@ metaMDSredist(object, ...)
     does not change in uniform scaling or centring of configuration of
     points.
 
+    Function \code{\link{stressplot}} displays the method graphically:
+    it plots the observed dissimilarities against distances in
+    ordination space, and also shows the non-metric monotone
+    regression.
+
 }
 
 \value{ Function \code{metaMDS} returns an object of class
@@ -411,7 +416,7 @@ metaMDSredist(object, ...)
   \code{\link{decostand}}, \code{\link{wisconsin}}, 
   \code{\link{vegdist}}, \code{\link{rankindex}}, \code{\link{stepacross}}, 
   \code{\link{procrustes}}, \code{\link{wascores}}, \code{\link{sppscores}},
-  \code{\link{MDSrotate}}, \code{\link{ordiplot}}.
+  \code{\link{MDSrotate}}, \code{\link{ordiplot}}, \code{\link{stressplot}}.
 }
 
 \examples{
