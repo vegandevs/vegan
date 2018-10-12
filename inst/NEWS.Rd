@@ -23,7 +23,7 @@
       \code{anova} as reported in github issue
       \href{https://github.com/vegandevs/vegan/issues/291}{#291}.
 
-      \item Sevaral functions for numeric analysis could work with
+      \item Several functions for numerical analysis could work with
       non-numeric data (for instance, with factors) and give either
       meaningless results or confusing error messages. Fixed functions
       include \code{beals}, \code{designdist}, \code{diversity},
