@@ -2264,7 +2264,7 @@
       species and analytic equations. The new \code{raupcrick}
       function uses simulation with \code{oecosimu}. The function
       follows Chase et al. (2011) \emph{Ecosphere} 2:art24
-      [\href{http://www.esajournals.org/doi/abs/10.1890/ES10-00117.1}{doi:10.1890/ES10-00117.1}],
+      [\doi{10.1890/ES10-00117.1}],
       and was developed with the consultation of Brian Inouye.
 
     }
