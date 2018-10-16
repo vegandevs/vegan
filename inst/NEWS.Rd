@@ -8,7 +8,7 @@
 
       \item Tests for numerical analysis were written more robustly so
       that they give more similar results with alternative platforms and
-      versions of \R{} and BLAS/Lapack libraries. See issue
+      versions of \R{} and BLAS/Lapack libraries. See github issue
       \href{https://github.com/vegandevs/vegan/issues/282}{#282}.
 
     } %itemize
@@ -23,8 +23,8 @@
       \code{anova} as reported in github issue
       \href{https://github.com/vegandevs/vegan/issues/291}{#291}.
 
-      \item Several functions for numerical analysis could work with
-      non-numeric data (for instance, with factors) and give either
+      \item Several functions for numerical analysis wrongly accepted
+      non-numeric data (for instance, factors) and gave either
       meaningless results or confusing error messages. Fixed functions
       include \code{beals}, \code{designdist}, \code{diversity},
       \code{gdispweight}, \code{indpower}, \code{spantree},
@@ -32,19 +32,13 @@
       \code{vegdist}. See github issue
       \href{https://github.com/vegandevs/vegan/issues/292}{#292}.
       
-      \item \code{envfit} with vectors failed with missing data.
+      \item \code{envfit} with vectors could fail with missing data.
 
       \item The original data were not scaled and centred similarly as
       simulations in \code{simulate.rda} when several simulations were
       returned as a \code{simmat} object (which is compatible with
       \code{nullmodel} simulations and can be used in
       \code{oecosimu}).
-
-      \item Broken-stick distribution (function \code{bstick}) is no
-      longer calculated for distance-based Redundancy Analysis
-      (\code{dbrda}) with negative eigenvalues, because it is not
-      clear how this should be done. Now the behaviour of \code{dbrda}
-      is similar as with \code{capscale}.
 
     } %itemize
   } % bug fixes
@@ -53,8 +47,15 @@
     \itemize{
 
       \item \code{anosim} checks its input to avoid confusing error
-      messages like that reported in StackOverflow question
-      \href{https://stackoverflow.com/questions/52082743/}{52082743}. 
+      messages like that reported in
+      \href{https://stackoverflow.com/questions/52082743/}{StackOverflow
+      question 52082743}. 
+
+      \item Broken-stick distribution (function \code{bstick}) is no
+      longer calculated for distance-based Redundancy Analysis
+      (\code{dbrda}) with negative eigenvalues, because it is not clear
+      how this should be done. Now \code{dbrda} and \code{capscale} are
+      similar with this respect.
 
       \item \code{print} function for \code{betadisper} results gained
       new argument \code{neigen} to select the number of eigenvalues
