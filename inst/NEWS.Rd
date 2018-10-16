@@ -996,7 +996,7 @@
        handled smoothly instead of failing: observed non-extrapolated
        richness with zero standard error will be reported. The issue
        was reported in
-       \href{http://stackoverflow.com/questions/34027496/error-message-when-using-specpool-in-vegan-package}{StackOverflow}.
+       \href{https://stackoverflow.com/questions/34027496/}{StackOverflow}.
 
     } %itemize
   } % bug fixes
@@ -1121,7 +1121,7 @@
       input data are integers that can be interpreted as counts on
       individuals and all sampling units have some species. Unchecked
       bad inputs were the reason for problems reported in
-      \href{http://stackoverflow.com/questions/30856909/error-while-using-rarecurve-in-r}{Stackoverflow}.
+      \href{https://stackoverflow.com/questions/30856909/}{Stackoverflow}.
 
     }
   } % bug fixes
@@ -1304,9 +1304,8 @@
       bias-corrected Chao estimate of extrapolated number of
       species. The new formula may be unpublished, but it was derived
       following the guidelines of Chiu, Wang, Walther & Chao,
-      \emph{Biometrics} 70, 671--682 (2014),
-      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online
-      supplementary material}.
+      \emph{Biometrics} 70, 671--682 (2014), \doi{10.1111/biom.12200},
+      online supplementary material.
 
       \item Diversity accumulation functions \code{specaccum},
       \code{renyiaccum}, \code{tsallisaccum}, \code{poolaccum} and
@@ -1547,8 +1546,8 @@
       singletons and doubletons, but switches now to bias corrected Chao
       extrapolation if there are no doubletons (species found
       twice). The variance formula for bias corrected Chao was derived
-      following the supporting
-      \href{http://onlinelibrary.wiley.com/doi/10.1111/biom.12200/suppinfo}{online material}
+      following the supporting on line material of
+      \doi{10.1111/biom.12200}
       and differs slightly from Chiu et al. (2014).
 
       The \code{poolaccum} function was changed similarly, but the small
@@ -2264,7 +2263,7 @@
       species and analytic equations. The new \code{raupcrick}
       function uses simulation with \code{oecosimu}. The function
       follows Chase et al. (2011) \emph{Ecosphere} 2:art24
-      [\href{http://www.esajournals.org/doi/abs/10.1890/ES10-00117.1}{doi:10.1890/ES10-00117.1}],
+      [\doi{10.1890/ES10-00117.1}],
       and was developed with the consultation of Brian Inouye.
 
     }
