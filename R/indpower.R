@@ -2,7 +2,7 @@
     function(x, type=0)
 {
     x <- as.matrix(x)
-    if (!is.numeric(x))
+    if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
     x <- ifelse(x > 0, 1, 0)
     if (NCOL(x) < 2)
