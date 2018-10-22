@@ -2,7 +2,7 @@
     function (x, pool, smallsample = TRUE)
 {
     x <- as.matrix(x)
-    if (!is.numeric(x))
+    if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
     if (missing(pool))
         pool <- rep("All", nrow(x))
