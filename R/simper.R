@@ -106,6 +106,54 @@
     outlist
 }
 
+### An alternative implementation. I expect this be much faster, in
+### particular in permutation tests. Generate full dissimilarity
+### matrix first and then subsample.
+
+`simper2` <-
+    function(comm, group, permutations = 0, ...)
+{
+    comm <- as.matrix(comm)
+    ## Species contributions of differences needed for every species,
+    ## but denominator is constant. Bray-Curtis is actually
+    ## manhattan/(mean(rowsums)) and this is the way we collect data
+    rs <- rowSums(comm)
+    rs <- as.dist(outer(rs, rs, "+"))
+    spcontr <- sapply(seq_len(ncol(comm)),
+                      function(i) vegdist(comm[,i,drop=FALSE], "man"))
+    ## Bray-Curtis
+    spcontr <- sweep(spcontr, 1, rs, "/")
+    colnames(spcontr) <- colnames(comm)
+    ## Averages of species contributions
+    ## Case 1: overall differences without grouping
+    if (missing(group) || length(unique(group)) == 1) {
+        contr <- colMeans(spcontr)
+    ## Case 2: two or more groups
+    } else {
+        outlist <- NULL
+        comp <- t(combn(as.character(unique(group)), 2))
+        ## function to match constrasts
+        contrmatch <- function(X, Y, patt)
+            X != Y & X %in% patt & Y %in% patt
+        for (i in seq_len(nrow(comp))) {
+            take <- outer(group, group, FUN=contrmatch, patt = comp[i,])
+            take <- as.logical(as.dist(take))
+            average <- colMeans(spcontr[take,,drop=FALSE])
+            overall <- sum(average)
+            sdi <- apply(spcontr[take,,drop=FALSE], 2, sd)
+            ratio <- average/sdi
+            ord <- order(average, decreasing = TRUE)
+            cusum <- cumsum(average[ord])/overall
+            species <- colnames(comm)
+            outlist[[paste(comp[i,], collapse="_")]] <-
+                list(species = colnames(comm), average = average,
+                     overall = overall, sd = sdi, ratio = ratio, ava = NA,
+                     avb = NA, ord = ord, cusum = cusum, p = NULL)
+        }
+    }
+    class(outlist) <- "simper"
+    outlist
+}
 `print.simper` <-
     function(x, ...)
 {
