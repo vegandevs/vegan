@@ -132,6 +132,8 @@
     } else {
         outlist <- NULL
         comp <- t(combn(as.character(unique(group)), 2))
+        ## data averages by group (do we need these?)
+        spavg <- apply(comm, 2, function(x) tapply(x, group, mean))
         ## function to match constrasts
         contrmatch <- function(X, Y, patt)
             X != Y & X %in% patt & Y %in% patt
@@ -145,10 +147,12 @@
             ord <- order(average, decreasing = TRUE)
             cusum <- cumsum(average[ord])/overall
             species <- colnames(comm)
+            ava <- spavg[comp[i,1],]
+            avb <- spavg[comp[i,2],]
             outlist[[paste(comp[i,], collapse="_")]] <-
                 list(species = colnames(comm), average = average,
-                     overall = overall, sd = sdi, ratio = ratio, ava = NA,
-                     avb = NA, ord = ord, cusum = cusum, p = NULL)
+                     overall = overall, sd = sdi, ratio = ratio, ava = ava,
+                     avb = avb, ord = ord, cusum = cusum, p = NULL)
         }
     }
     class(outlist) <- "simper"
