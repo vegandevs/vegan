@@ -124,13 +124,22 @@
     ## Bray-Curtis
     spcontr <- sweep(spcontr, 1, rs, "/")
     colnames(spcontr) <- colnames(comm)
+    outlist <- NULL
     ## Averages of species contributions
     ## Case 1: overall differences without grouping
     if (missing(group) || length(unique(group)) == 1) {
-        contr <- colMeans(spcontr)
-    ## Case 2: two or more groups
+        average <- colMeans(spcontr)
+        overall <- sum(average)
+        sdi <- apply(spcontr, 2, sd)
+        ord <- order(average, decreasing = TRUE)
+        cusum <- cumsum(average[ord])/overall
+        outlist[["total"]] <- list(species = colnames(comm),
+                                   average = average, overall = overall,
+                                   sd = sdi, ratio = average/sdi,
+                                   ava = NULL, avb = NULL, ord = ord,
+                                   cusum = cusum, p = NULL)
     } else {
-        outlist <- NULL
+        ## Case 2: two or more groups
         comp <- t(combn(as.character(unique(group)), 2))
         ## data averages by group (do we need these?)
         spavg <- apply(comm, 2, function(x) tapply(x, group, mean))
@@ -146,7 +155,6 @@
             ratio <- average/sdi
             ord <- order(average, decreasing = TRUE)
             cusum <- cumsum(average[ord])/overall
-            species <- colnames(comm)
             ava <- spavg[comp[i,1],]
             avb <- spavg[comp[i,2],]
             outlist[[paste(comp[i,], collapse="_")]] <-
