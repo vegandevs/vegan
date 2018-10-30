@@ -213,7 +213,8 @@
 {
     for (nm in names(x)) {
         cat("\nContrast:", nm, "\n\n")
-        printCoefmat(x[[nm]], digits = digits, has.Pvalue = TRUE, ...)
+        printCoefmat(x[[nm]], digits = digits, has.Pvalue = TRUE,
+                     zap.ind = seq_len(ncol(x[[nm]])), ...)
     }
     if (!is.null(attr(x, "control")))
         cat(howHead(attr(x, "control")))
