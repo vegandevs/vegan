@@ -211,24 +211,9 @@
 `print.summary.simper`<-
     function(x, digits = attr(x, "digits"), ...)
 {
-    signif.stars <- getOption("show.signif.stars") && attr(x, "permutations") > 0
-    starprint <- function(z) {
-        if (signif.stars && any(z$p < 0.1)) {
-            stars <- symnum(z$p, cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                            symbols = c("***", "**", "*", ".", " "))
-            z <- cbind(z, " " = format(stars))
-        }
-        z
-    }
-    out <- lapply(x, starprint)
-    for (nm in names(out)) {
+    for (nm in names(x)) {
         cat("\nContrast:", nm, "\n\n")
-        print(out[[nm]], digits = digits, ...)
-    }
-    if (signif.stars && any(sapply(x, function(z) z$p) < 0.1)) {
-        leg <- attr(symnum(1, cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                            symbols = c("***", "**", "*", ".", " ")), "legend")
-        cat("---\nSignif. codes: ", leg, "\n")
+        printCoefmat(x[[nm]], digits = digits, has.Pvalue = TRUE, ...)
     }
     if (!is.null(attr(x, "control")))
         cat(howHead(attr(x, "control")))
