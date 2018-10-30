@@ -186,8 +186,8 @@
 {
     if (ordered) {
         out <- lapply(object, function(z)
-            data.frame(average = z$average, sd = z$sd, ratio = z$ratio,
-                       ava = z$ava, avb = z$avb)[z$ord, ])
+            data.frame(cbind(average = z$average, sd = z$sd, ratio = z$ratio,
+                       ava = z$ava, avb = z$avb)[z$ord, ]))
         cusum <- lapply(object, function(z) z$cusum)
         for(i in seq_along(out)) {
             out[[i]]$cumsum <- cusum[[i]]
@@ -198,7 +198,7 @@
     }
     else {
         out <- lapply(object, function(z)
-            data.frame(cbind(contr = z$average, sd = z$sd, 'contr/sd' = z$ratio,
+            data.frame(cbind(average = z$average, sd = z$sd, ratio = z$ratio,
                              ava = z$ava, avb = z$avb, p = z$p)))
     }
     attr(out, "digits") <- digits
