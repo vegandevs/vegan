@@ -113,6 +113,7 @@
 `simper2` <-
     function(comm, group, permutations = 0, ...)
 {
+    EPS <- sqrt(.Machine$double.eps)
     comm <- as.matrix(comm)
     ## Species contributions of differences needed for every species,
     ## but denominator is constant. Bray-Curtis is actually
@@ -157,10 +158,26 @@
             cusum <- cumsum(average[ord])/overall
             ava <- spavg[comp[i,1],]
             avb <- spavg[comp[i,2],]
+            ## Permutation tests for average
+            permat <- getPermuteMatrix(permutations, nrow(comm))
+            nperm <- nrow(permat)
+            if (nperm) {
+                Pval <- rep(1, ncol(comm))
+                for (k in seq_len(nperm)) {
+                    pgr <- group[permat[k,]]
+                    take <- outer(pgr, pgr, FUN=contrmatch, patt=comp[i,])
+                    take <- as.logical(as.dist(take))
+                    Pval <- Pval + ((colMeans(spcontr[take,]) - EPS) >= average)
+                }
+                Pval <- Pval/(nperm+1)
+            } else {
+                Pval <- NULL
+            }
+            ## output
             outlist[[paste(comp[i,], collapse="_")]] <-
                 list(species = colnames(comm), average = average,
                      overall = overall, sd = sdi, ratio = ratio, ava = ava,
-                     avb = avb, ord = ord, cusum = cusum, p = NULL)
+                     avb = avb, ord = ord, cusum = cusum, p = Pval)
         }
     }
     class(outlist) <- "simper"
