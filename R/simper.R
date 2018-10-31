@@ -150,7 +150,8 @@
         ## take lower triangle without as.dist overhead
         tri <- outer(seq_along(group), seq_along(group), ">")
         for (i in seq_len(nrow(comp))) {
-            take <- outer(group, group, FUN=contrmatch, patt = comp[i,])[tri]
+            tmat <- outer(group, group, FUN=contrmatch, patt=comp[i,])
+            take <- tmat[tri]
             average <- colMeans(spcontr[take,,drop=FALSE])
             overall <- sum(average)
             sdi <- apply(spcontr[take,,drop=FALSE], 2, sd)
@@ -164,7 +165,6 @@
             nperm <- nrow(permat)
             if (nperm) {
                 Pval <- rep(1, ncol(comm))
-                tmat <- outer(group, group, FUN=contrmatch, patt=comp[i,])
                 for (k in seq_len(nperm)) {
                     take <- tmat[permat[k,],permat[k,]][tri]
                     Pval <- Pval + ((colMeans(spcontr[take,]) - EPS) >= average)
