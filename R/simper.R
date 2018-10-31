@@ -181,6 +181,8 @@
         }
     }
     class(outlist) <- "simper"
+    attr(outlist, "permutations") <- nperm
+    attr(outlist, "control") <- attr(permat, "control")
     outlist
 }
 `print.simper` <-
