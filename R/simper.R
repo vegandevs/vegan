@@ -164,9 +164,9 @@
             nperm <- nrow(permat)
             if (nperm) {
                 Pval <- rep(1, ncol(comm))
+                tmat <- outer(group, group, FUN=contrmatch, patt=comp[i,])
                 for (k in seq_len(nperm)) {
-                    pgr <- group[permat[k,]]
-                    take <- outer(pgr, pgr, FUN=contrmatch, patt=comp[i,])[tri]
+                    take <- tmat[permat[k,],permat[k,]][tri]
                     Pval <- Pval + ((colMeans(spcontr[take,]) - EPS) >= average)
                 }
                 Pval <- Pval/(nperm+1)
