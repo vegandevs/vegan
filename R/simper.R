@@ -115,11 +115,13 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     comm <- as.matrix(comm)
+    ## take lower triangle without as.dist overhead
+    tri <- outer(seq_along(group), seq_along(group), ">")
     ## Species contributions of differences needed for every species,
     ## but denominator is constant. Bray-Curtis is actually
     ## manhattan/(mean(rowsums)) and this is the way we collect data
     rs <- rowSums(comm)
-    rs <- as.dist(outer(rs, rs, "+"))
+    rs <- outer(rs, rs, "+")[tri]
     spcontr <- sapply(seq_len(ncol(comm)),
                       function(i) vegdist(comm[,i,drop=FALSE], "man"))
     ## Bray-Curtis
@@ -147,8 +149,6 @@
         ## function to match constrasts
         contrmatch <- function(X, Y, patt)
             X != Y & X %in% patt & Y %in% patt
-        ## take lower triangle without as.dist overhead
-        tri <- outer(seq_along(group), seq_along(group), ">")
         for (i in seq_len(nrow(comp))) {
             tmat <- outer(group, group, FUN=contrmatch, patt=comp[i,])
             take <- tmat[tri]
