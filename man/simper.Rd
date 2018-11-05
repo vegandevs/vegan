@@ -52,7 +52,9 @@ simper(comm, group, permutations = 0, trace = FALSE,
   
   The \code{simper} functions performs pairwise comparisons of groups
   of sampling units and finds the contribution of each species to the
-  average between-group Bray-Curtis dissimilarity.
+  average between-group Bray-Curtis dissimilarity. Although the method
+  is called simper, it really studied dissimilarities instead of
+  similarities (Clarke 1993).
 
   The function displays most important species for each pair of
   \code{groups}.  These species contribute at least to 70 \% of the
@@ -63,14 +65,20 @@ simper(comm, group, permutations = 0, trace = FALSE,
   argument \code{ordered = TRUE} the data frames also include the
   cumulative contributions and are ordered by species contribution.
 
-  The results of \code{simper} can be very difficult to interpret. The
-  method very badly confounds the mean between group differences and
-  random noise variation, and seems to single out variable species
-  instead of distinctive species (Warton et al. 2012). Even if you
-  make groups that are copies of each other, the method will single
-  out species with high contribution, but these are not contributions
-  to non-existing between-group differences but to random noise
-  variation in species abundances.
+  The results of \code{simper} can be very difficult to interpret and
+  they are often misunderstood even in publications. The method gives
+  the contribution of each species to overall dissimilarities, but
+  these are caused by variation in species abundances, and only partly
+  by differences among groups.  Even if you make groups that are
+  copies of each other, the method will single out species with high
+  contribution, but these are not contributions to non-existing
+  between-group differences but to random noise variation in species
+  abundances. The most abundant species usually have highest
+  variances, and they have high contributions even when they do not
+  differ among groups. Permutation tests study the differences among
+  groups, and they can be used to find out the species for which the
+  differences among groups is an important component of their
+  contribution to dissimilarities.
 
 }
 
@@ -110,10 +118,6 @@ summary(sim)
   Clarke, K.R. 1993. Non-parametric multivariate analyses of changes
     in community structure. \emph{Australian Journal of Ecology}, 18,
     117–143.
-
-  Warton, D.I., Wright, T.W., Wang, Y. 2012. Distance-based multivariate
-    analyses confound location and dispersion effects. \emph{Methods in
-    Ecology and Evolution}, 3, 89--101.
 }
 \keyword{multivariate}
 
