@@ -111,8 +111,11 @@
 ### matrix first and then subsample.
 
 `simper2` <-
-    function(comm, group, permutations = 0, ...)
+    function(comm, group, permutations = 0, parallel = 1, ...)
 {
+    ## parallel processing not yet implemented
+    if (!missing(parallel))
+        .NotYetUsed("parallel", error = FALSE)
     EPS <- sqrt(.Machine$double.eps)
     comm <- as.matrix(comm)
     ## take lower triangle without as.dist overhead
