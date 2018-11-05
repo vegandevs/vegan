@@ -119,7 +119,7 @@
     EPS <- sqrt(.Machine$double.eps)
     comm <- as.matrix(comm)
     ## take lower triangle without as.dist overhead
-    tri <- outer(seq_along(group), seq_along(group), ">")
+    tri <- outer(seq_len(nrow(comm)), seq_len(nrow(comm)), ">")
     ## Species contributions of differences needed for every species,
     ## but denominator is constant. Bray-Curtis is actually
     ## manhattan/(mean(rowsums)) and this is the way we collect data
@@ -134,6 +134,8 @@
     ## Averages of species contributions
     ## Case 1: overall differences without grouping
     if (missing(group) || length(unique(group)) == 1) {
+        nperm <- 0
+        permat <- NULL
         average <- colMeans(spcontr)
         overall <- sum(average)
         sdi <- apply(spcontr, 2, sd)
