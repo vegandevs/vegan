@@ -10,7 +10,7 @@
 }
 
 \usage{
-simper(comm, group, permutations = 0, parallel = 1, ...)
+simper(comm, group, permutations = 999, parallel = 1, ...)
 \method{summary}{simper}(object, ordered = TRUE,
     digits = max(3,getOption("digits") - 3), ...)
 }

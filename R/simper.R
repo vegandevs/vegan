@@ -3,7 +3,7 @@
 ### dissimilarity matrix first and then subsample.
 
 `simper` <-
-    function(comm, group, permutations = 0, parallel = 1, ...)
+    function(comm, group, permutations = 999, parallel = 1, ...)
 {
     ## parallel processing not yet implemented
     if (!missing(parallel))
