@@ -10,28 +10,28 @@
 }
 
 \usage{
-simper(comm, group, permutations = 0, trace = FALSE, 
-    parallel = getOption("mc.cores"), ...)
+simper(comm, group, permutations = 0, parallel = 1, ...)
 \method{summary}{simper}(object, ordered = TRUE,
     digits = max(3,getOption("digits") - 3), ...)
 }
 
 \arguments{
-  \item{comm}{Community data matrix.}
-  \item{group}{Factor describing the group structure. Must have at
-    least 2 levels.}
+  \item{comm}{Community data.}
+  \item{group}{Factor describing the group structure. If this is
+    missing or has only one level, contributions are estimated for
+    non-grouped data and dissimilarities only show the overall
+    heterogeneity in species abundances.}
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
-  \item{trace}{Trace permutations.}
   \item{object}{an object returned by \code{simper}.}
   \item{ordered}{Logical; Should the species be ordered by their
     average contribution?}
   \item{digits}{Number of digits in output.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
-    processing.}
+    processing. (Not yet implemented).}
   \item{...}{Parameters passed to other functions. In \code{simper} the
     extra parameters are passed to \code{\link[permute]{shuffleSet}} if
     permutations are used.}
@@ -53,8 +53,8 @@ simper(comm, group, permutations = 0, trace = FALSE,
   The \code{simper} functions performs pairwise comparisons of groups
   of sampling units and finds the contribution of each species to the
   average between-group Bray-Curtis dissimilarity. Although the method
-  is called simper, it really studied dissimilarities instead of
-  similarities (Clarke 1993).
+  is called \dQuote{Similarity Percentages}, it really studied
+  dissimilarities instead of similarities (Clarke 1993).
 
   The function displays most important species for each pair of
   \code{groups}.  These species contribute at least to 70 \% of the
@@ -78,7 +78,11 @@ simper(comm, group, permutations = 0, trace = FALSE,
   differ among groups. Permutation tests study the differences among
   groups, and they can be used to find out the species for which the
   differences among groups is an important component of their
-  contribution to dissimilarities.
+  contribution to dissimilarities. Analysis without \code{group}
+  argument will find species contributions to the average overall
+  dissimilarity among sampling units. These non-grouped contributions
+  can be compared to grouped contributions to see how much added value
+  the grouping has for each species.
 
 }
 
@@ -111,7 +115,7 @@ data(dune.env)
 summary(sim)
 }
 \author{
-  Eduard Szöcs \email{eduardszoecs@gmail.com}
+  Eduard Szöcs and Jari Oksanen.
 }
 
 \references{
