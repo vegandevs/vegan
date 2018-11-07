@@ -111,7 +111,7 @@ simper(comm, group, permutations = 999, parallel = 1, ...)
 \examples{
 data(dune)
 data(dune.env)
-(sim <- with(dune.env, simper(dune, Management)))
+(sim <- with(dune.env, simper(dune, Management, permutations = 99)))
 summary(sim)
 }
 \author{
