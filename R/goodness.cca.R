@@ -53,7 +53,10 @@
             prev <- prev + ordiYbar(object, "CCA")
     }
     if (display == "species") {
-        out <- t(apply(v^2 %*% diag(eig, nrow=length(eig)), 1, cumsum))
+        if (length(eig) == 1)
+            out <- v^2 * eig
+        else
+            out <- t(apply(v^2 %*% diag(eig, nrow=length(eig)), 1, cumsum))
         if (addprevious)
             out <- out + colSums(prev^2)
         dimnames(out) <- dimnames(v)
