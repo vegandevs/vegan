@@ -2,7 +2,7 @@
     function (names, seconditem = FALSE)
 {
     ## make valid names
-    names <- make.names(names, unique = FALSE)
+    names <- make.names(names, unique = FALSE, allow_ = FALSE)
     ## remove trailing and duplicated dots
     names <- gsub("\\.[\\.]+", ".", names)
     names <- gsub("\\.$", "", names)
