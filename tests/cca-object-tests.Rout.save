@@ -428,7 +428,9 @@ In sqrt(1 - hat) : NaNs produced
 4 0.0037679
 5 0.0089639
 6 0.0056118
-> ## head(goodness(m1rda))       # !!FAILS!! in 2.5-3
+> goodness(m1rda)       # fails in 2.5-3
+         RDA1
+col1 0.040196
 > ## head(goodness(mcap, display = "sites")) # currently disabled
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 > ## head(goodness(mancap, display="sites")) # currently disabled
@@ -1754,4 +1756,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  1.591   0.073   1.652 
+  1.600   0.066   1.654 

@@ -56,7 +56,7 @@ head(goodness(mcca, display = "sites"))
 head(goodness(mrda, display = "sites"))
 head(goodness(mrda1, display = "sites"))
 head(goodness(m1rda, display = "sites"))
-## head(goodness(m1rda))       # !!FAILS!! in 2.5-3
+goodness(m1rda)       # fails in 2.5-3
 ## head(goodness(mcap, display = "sites")) # currently disabled
 ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 ## head(goodness(mancap, display="sites")) # currently disabled
