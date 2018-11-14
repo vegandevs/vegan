@@ -17,6 +17,9 @@ mandb <- dbrda(dune ~ Condition(Management) + Manure + A1, dune.env,
                dist = "manhattan")
 ## 0-rank constraints
 m0cca <- cca(dune ~ Condition(Management) + Management, dune.env)
+## univariate model, rank-1 constraint
+H <- diversity(dune)
+m1rda <- rda(H ~  A1, dune.env)
 
 ## general appearance
 mcca
@@ -26,6 +29,7 @@ mdb
 mancap
 mandb
 m0cca
+m1rda
 ## names
 sort(names(mcca))
 sort(names(mrda))
@@ -36,6 +40,7 @@ sort(names(mdb))
 hatvalues(mcca)
 hatvalues(mrda)
 hatvalues(mandb)
+hatvalues(m1rda)
 
 zapsmall(head(cooks.distance(mcca)))
 zapsmall(head(cooks.distance(mrda)))
@@ -45,10 +50,13 @@ zapsmall(head(cooks.distance(mdb, "canoco")))
 zapsmall(head(cooks.distance(mancap, "canoco")))
 zapsmall(head(cooks.distance(mandb, "canoco")))
 zapsmall(head(cooks.distance(m0cca)))
+zapsmall(head(cooks.distance(m1rda)))
 
 head(goodness(mcca, display = "sites"))
 head(goodness(mrda, display = "sites"))
 head(goodness(mrda1, display = "sites"))
+head(goodness(m1rda, display = "sites"))
+## head(goodness(m1rda))       # !!FAILS!! in 2.5-3
 ## head(goodness(mcap, display = "sites")) # currently disabled
 ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 ## head(goodness(mancap, display="sites")) # currently disabled
@@ -63,6 +71,7 @@ head(inertcomp(mdb, display = "sites"))
 head(inertcomp(mancap, display = "sites"))
 head(inertcomp(mandb, display = "sites"))
 zapsmall(head(inertcomp(m0cca))) # numerical zeros
+inertcomp(m1rda)
 
 abs(zapsmall(intersetcor(mcca)))
 abs(zapsmall(intersetcor(mrda)))
@@ -71,6 +80,7 @@ abs(zapsmall(intersetcor(mcap)))
 abs(zapsmall(intersetcor(mdb)))
 abs(zapsmall(intersetcor(mancap)))
 abs(zapsmall(intersetcor(mandb)))
+abs(zapsmall(intersetcor(m1rda)))
 
 tolerance(mcca)
 tolerance(m0cca)
@@ -95,8 +105,9 @@ abs(coef(mrda1))
 abs(coef(mcap))
 abs(coef(mdb))
 abs(coef(m0cca))
+abs(coef(m1rda))
 
- eigenvals(mcca)
+eigenvals(mcca)
 eigenvals(mrda)
 eigenvals(mrda1)
 eigenvals(mcap)
@@ -105,12 +116,14 @@ eigenvals(mancap)
 eigenvals(mandb)
 eigenvals(m0cca)
 eigenvals(m0cca, model = "constrained")
+eigenvals(m1rda)
 
 nobs(mcca)
 nobs(mrda)
 nobs(mcap)
 nobs(mdb)
 nobs(m0cca)
+nobs(m1rda)
 
 RsquareAdj(mcca)
 RsquareAdj(mrda)
@@ -118,6 +131,7 @@ RsquareAdj(mrda1)
 RsquareAdj(mcap)
 RsquareAdj(mdb)
 RsquareAdj(m0cca)
+RsquareAdj(m1rda)
 
 head(model.frame(mcca))
 head(model.frame(mrda))
@@ -125,6 +139,7 @@ head(model.frame(mrda1))
 head(model.frame(mcap))
 head(model.frame(mdb))
 head(model.frame(m0cca))
+head(model.frame(m1rda))
 
 ## testing and model building -
 
@@ -134,6 +149,7 @@ deviance(mrda1)
 deviance(mcap)
 deviance(mdb)
 deviance(m0cca)
+deviance(m1rda)
 
 per <- shuffleSet(nrow(dune), 49)
 permutest(mcca, per)
@@ -144,12 +160,15 @@ permutest(mdb, per)
 permutest(mancap, per)
 permutest(mandb, per)
 permutest(m0cca, per)
+permutest(m1rda, per)
+
 
 drop1(mcca, test="permutation", permutations=per)
 drop1(mrda, test="permutation", permutations=per)
 drop1(mrda1, test="permutation", permutations=per)
 drop1(mcap, test="permutation", permutations=per)
 drop1(mdb, test="permutation", permutations=per)
+drop1(m1rda, test="permutation", permutations=per)
 
 anova(mcca, permutations = per)
 anova(mrda, permutations = per)
@@ -167,6 +186,7 @@ anova(mcap, permutations = per, by="term")
 anova(mdb, permutations = per, by="term")
 anova(mancap, permutations = per, by="term")
 anova(mandb, permutations = per, by="term")
+anova(m1rda, permutations = per, by="term")
 
 anova(mcca, permutations = per, by="margin")
 anova(mrda, permutations = per, by="margin")
@@ -175,6 +195,7 @@ anova(mcap, permutations = per, by="margin")
 anova(mdb, permutations = per, by="margin")
 anova(mancap, permutations = per, by="margin")
 anova(mandb, permutations = per, by="margin")
+anova(m1rda, permutations = per, by="margin")
 
 anova(mcca, permutations = per, by="axis")
 anova(mrda, permutations = per, by="axis")
@@ -183,6 +204,7 @@ anova(mcap, permutations = per, by="axis")
 anova(mdb, permutations = per, by="axis")
 anova(mancap, permutations = per, by="axis")
 anova(mandb, permutations = per, by="axis")
+anova(m1rda, permutations = per, by="axis")
 
 ## the following do not all work with partial models
 
@@ -205,6 +227,7 @@ head(calibrate(mandb))
 head(calibrate(mcca, newdata=dune[11:15,]))
 head(calibrate(mrda, newdata=dune[11:15,]))
 head(calibrate(mrda1, newdata=dune[11:15,]))
+## head(calibrate(m1rda, newdata=dune[11:15,]))## fails
 
 head(predict(mcca, newdata = dune.env))
 predict(mrda, newdata = dune.env[1:4,])
@@ -213,6 +236,7 @@ predict(mcap, newdata = dune.env[1:4,])
 predict(mdb, newdata = dune.env[1:4,])
 predict(mancap, newdata = dune.env[1:4,])
 predict(mandb, newdata = dune.env[1:4,])
+predict(m1rda, newdata = dune.env[1:4,])
 
 ## the sign is arbitrary
 abs(predict(mcca, newdata = dune[1:4,], type="wa"))
@@ -230,6 +254,7 @@ abs(predict(mrda1, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mcap, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mdb, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mancap, newdata = dune.env[1:4,], type="lc"))
+abs(predict(m1rda, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mandb, newdata = dune.env[1:4,]))
 ## reset
 options(op)
