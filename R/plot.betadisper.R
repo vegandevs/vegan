@@ -4,7 +4,7 @@
                               segments = TRUE, seg.col = "grey",
                               seg.lty = lty, seg.lwd = lwd,
                               label = TRUE, label.cex = 1,
-                              ylab, xlab, main, sub, ...)
+                              ylab, xlab, main, sub, location="bottomright", ...)
 {
     localAxis <- function(..., col, bg, pch, cex, lty, lwd) axis(...)
     localBox <- function(..., col, bg, pch, cex, lty, lwd) box(...)
@@ -98,7 +98,7 @@
         ordilabel(x, display = "centroids", choices = axes, cex = label.cex, col=col)
     }
     # add legend
-    legend("bottomright", legend=levels(x$group), col=col, lty=1, cex=1.2, pch=pch )
+    legend(location=location, legend=levels(x$group), col=col, lty=1, cex=1.2, pch=pch )
     
     localTitle(main = main, xlab = xlab, ylab = ylab, sub = sub, ...)
     localAxis(1, ...)
