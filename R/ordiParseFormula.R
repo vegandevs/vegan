@@ -73,8 +73,15 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     }
     ## Get na.action attribute, remove NA and drop unused levels
     if (NROW(mf) > 0) {
-        mf <- model.frame(formula(mf), mf, xlev = xlev,
-                          na.action = na.action, drop.unused.levels = TRUE)
+        ## dirty kluge to github.com/vegandevs/vegan issue #299:
+        ## change in R formula.data.frame() in R svn revs 75891, 75911
+        ## & 75915
+        if (getRversion() < "3.6.0")
+            mf <- model.frame(formula(mf), mf, xlev = xlev,
+                              na.action = na.action, drop.unused.levels = TRUE)
+        else
+            mf <- model.frame(DF2formula(mf), mf, xlev = xlev,
+                              na.action = na.action, drop.unused.levels = TRUE)
         nas <- attr(mf, "na.action")
         ## Check if there are one-level factors after subset and na.action
         for (i in 1:ncol(mf))
