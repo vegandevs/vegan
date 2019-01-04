@@ -1,0 +1,16 @@
+STATUS OF NEW ORDIPARSEFORMULA
+==============================
+
+KNOWN ISSUES
+
+* ~ 1 FAILS
+
+* Several terms within Condition() FAIL
+
+* subset & na.action NOT IMPLEMENTED
+
+* terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER & cause FAILURES
+
+TESTS
+
+OK: example(cca)
