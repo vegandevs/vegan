@@ -73,8 +73,15 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     }
     ## Get na.action attribute, remove NA and drop unused levels
     if (NROW(mf) > 0) {
-        mf <- model.frame(formula(mf), mf, xlev = xlev,
-                          na.action = na.action, drop.unused.levels = TRUE)
+        ## We need to re-construct model.frame and its formula, and
+        ## for this names with functions must be back-quoted
+        ## (`poly(A1, 2)`, e.g.) with the curren scoping to find the
+        ## variable (A1) later. This happened with formula(mf) in R <
+        ## 3.6.0, but now we must be explicit.
+        mf <- model.frame(as.formula(paste("~",
+              paste(sapply(names(mf), "as.name"), collapse="+"))),
+              mf, xlev = xlev,
+              na.action = na.action, drop.unused.levels = TRUE)
         nas <- attr(mf, "na.action")
         ## Check if there are one-level factors after subset and na.action
         for (i in 1:ncol(mf))
