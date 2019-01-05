@@ -1,3 +1,6 @@
+## Pass thru Conditions or partial terms: not exported
+Condition <- function(x) x
+
 ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
                              subset = NULL, X)
 {
@@ -10,8 +13,6 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
         .NotYetUsed("subset", error = FALSE)
     if (!missing(X))
         .NotYetUsed("X")
-    ## Pass thru Conditions or partial terms
-    Condition <- function(x) x
     ## get terms
     trms0 <- terms(formula, specials = "Condition", data = data)
     ## Evaluate response data and delete from terms
