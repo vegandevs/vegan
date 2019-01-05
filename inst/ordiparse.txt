@@ -13,4 +13,5 @@ KNOWN ISSUES
 
 TESTS
 
-OK: example(cca)
+WARN: example(cca) - na.action not yet implemented
+FAIL: example(cca) -  could not find function "Condition"

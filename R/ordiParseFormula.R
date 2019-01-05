@@ -1,6 +1,17 @@
-ordiParseFormula <- function(formula, data, ...)
+ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
+                             subset = NULL, X)
 {
-    Condition <- function(x) x # pass thru conditions or partial terms
+    ## Not yet implemented arguments
+    if (!missing(xlev))
+        .NotYetUsed("xlev")
+    if (!missing(na.action))
+        .NotYetUsed("na.action", error = FALSE)
+    if (!missing(subset))
+        .NotYetUsed("subset", error = FALSE)
+    if (!missing(X))
+        .NotYetUsed("X")
+    ## Pass thru Conditions or partial terms
+    Condition <- function(x) x
     ## get terms
     trms0 <- terms(formula, specials = "Condition", data = data)
     ## Evaluate response data and delete from terms
