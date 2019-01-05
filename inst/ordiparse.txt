@@ -13,4 +13,11 @@ KNOWN ISSUES
 
 TESTS
 
-WARN: example(cca) - na.action not yet implemented
+WARN: example(cca) - na.action, subset is not used (yet)
+FAIL: example(dbrda) - argument 'X' is not used (yet)
+FAIL: example(predict.cca) - argument 'xlev' is not used (yet)
+FAIL: example(deviance.cca) - 'termlabels' must be a character vector
+of length at least one
+WARN: example(goodness.cca) - na.action, subset is not used (yet)
+WARN: example(scores.cca) - is not used (yet)
+FAIL: example(anova.cca) - update() old ordination result object
