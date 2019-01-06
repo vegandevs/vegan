@@ -7,10 +7,6 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     ## Not yet implemented arguments
     if (!missing(xlev))
         .NotYetUsed("xlev")
-    if (!missing(na.action))
-        .NotYetUsed("na.action", error = FALSE)
-    if (!missing(subset))
-        .NotYetUsed("subset", error = FALSE)
     if (!missing(X))
         .NotYetUsed("X")
     ## get terms
@@ -21,8 +17,22 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     ## see if there are any Conditions partialled out
     pterm <- attr(trms, "specials")$Condition
     ## evaluate data
-    mf <- model.frame(trms, data = data)
-    ## Separate X and Y
+    mf <- model.frame(trms, data = data,
+                      na.action = na.pass, # evaluate only after subset
+                      drop.unused.levels = TRUE)
+    ## subset
+    if (!is.null(subset)) {
+        subset <- eval(subset)
+        mf <- subset(mf, subset, drop = FALSE)
+        Y <- subset(Y, subset, drop = FALSE)
+    }
+    ## na.action
+    if (any(is.na(mf))) {
+        mf <- na.action(mf)
+        nas <- attr(mf, "na.action")
+        Y <- Y[-nas,, drop=FALSE]
+    }
+    ## Separate X and Z
     trmlab <- attr(trms, "term.labels")
     if (length(pterm) == 0 || is.null(pterm)) {
         X <- model.matrix(reformulate(trmlab), mf)[,-1,drop=FALSE]

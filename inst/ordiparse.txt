@@ -11,13 +11,16 @@ KNOWN ISSUES
 
 * terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER & cause FAILURES
 
+* 'assign' missing in result (needed in anova.cca).
+
 TESTS
 
-WARN: example(cca) - na.action, subset is not used (yet)
+OK:   example(cca)
 FAIL: example(dbrda) - argument 'X' is not used (yet)
 FAIL: example(predict.cca) - argument 'xlev' is not used (yet)
 FAIL: example(deviance.cca) - 'termlabels' must be a character vector
 of length at least one
-WARN: example(goodness.cca) - na.action, subset is not used (yet)
-WARN: example(scores.cca) - is not used (yet)
+OK:   example(goodness.cca)
+WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) :
+  "length" is not a graphical parameter
 FAIL: example(anova.cca) - update() old ordination result object
