@@ -7,8 +7,6 @@ KNOWN ISSUES
 
 * Several terms within Condition() FAIL
 
-* subset & na.action NOT IMPLEMENTED
-
 * terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER & cause FAILURES
 
 * 'assign' missing in result (needed in anova.cca).
