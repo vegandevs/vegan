@@ -22,7 +22,10 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
                       drop.unused.levels = TRUE)
     ## subset
     if (!is.null(subset)) {
-        subset <- eval(subset, data)
+        subset <- eval(subset,
+                       if (is.data.frame(data)) cbind(data, Y)
+                       else as.data.frame(Y),
+                       parent.frame(2))
         mf <- subset(mf, subset, drop = FALSE)
         Y <- subset(Y, subset, drop = FALSE)
     }
