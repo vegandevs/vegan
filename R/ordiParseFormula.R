@@ -38,11 +38,18 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     ## Separate X and Z
     trmlab <- attr(trms, "term.labels")
     if (length(pterm) == 0 || is.null(pterm)) {
-        X <- model.matrix(reformulate(trmlab), mf)[,-1,drop=FALSE]
+        X <- model.matrix(reformulate(trmlab), mf)
         Z <- NULL
     } else {
-        X <- model.matrix(reformulate(trmlab[-pterm]), mf)[,-1,drop=FALSE]
+        X <- model.matrix(reformulate(trmlab[-pterm]), mf)
         Z <- model.matrix(reformulate(trmlab[pterm]), mf)[,-1,drop=FALSE]
+    }
+    ## Intercept is removed, but this also removes assign argument
+    if (NROW(X) > 0) {
+        assign <- attr(X, "assign")
+        assign <- assign[assign > 0]
+        X <- X[, -1, drop = FALSE]
+        attr(X, "assign") <- assign
     }
     list(X = Y, Y = X, Z = Z, terms = trms0, terms.expand = trms0,
          modelframe = mf)

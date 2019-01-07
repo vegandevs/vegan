@@ -9,8 +9,6 @@ KNOWN ISSUES
 
 * terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER & cause FAILURES
 
-* 'assign' missing in result (needed in anova.cca).
-
 TESTS
 
 OK:   example(cca)
@@ -21,4 +19,4 @@ of length at least one
 OK:   example(goodness.cca)
 WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) :
   "length" is not a graphical parameter
-FAIL: example(anova.cca) - update() old ordination result object
+OK:   example(anova.cca)
