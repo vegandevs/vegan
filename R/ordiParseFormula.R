@@ -7,12 +7,13 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     ## Not yet implemented arguments
     if (!missing(xlev))
         .NotYetUsed("xlev")
-    if (!missing(X))
-        .NotYetUsed("X")
     ## get terms
     trms0 <- terms(formula, specials = "Condition", data = data)
     ## Evaluate response data and delete from terms
-    Y <- as.matrix(eval(trms0[[2]]))
+    if (missing(X))
+        Y <- as.matrix(eval(trms0[[2]]))
+    else
+        Y <- as.matrix(X)
     trms <- delete.response(trms0)
     ## see if there are any Conditions partialled out
     pterm <- attr(trms, "specials")$Condition
@@ -37,7 +38,11 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     }
     ## Separate X and Z
     trmlab <- attr(trms, "term.labels")
-    if (length(pterm) == 0 || is.null(pterm)) {
+    ## empty model: unconstrained ordination
+    if (trms[[2]] == "1" || trms[[2]] == "0") {
+        X <- NULL
+        Z <- NULL
+    } else if (length(pterm) == 0 || is.null(pterm)) {
         X <- model.matrix(reformulate(trmlab), mf)
         Z <- NULL
     } else {

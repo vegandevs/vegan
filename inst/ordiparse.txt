@@ -3,20 +3,31 @@ STATUS OF NEW ORDIPARSEFORMULA
 
 KNOWN ISSUES
 
-* ~ 1 FAILS
-
 * Several terms within Condition() FAIL
 
-* terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER & cause FAILURES
+* terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER
 
 TESTS
 
 OK:   example(cca)
-FAIL: example(dbrda) - argument 'X' is not used (yet)
+OK:   example(dbrda) - argument 'X' is not used (yet)
 FAIL: example(predict.cca) - argument 'xlev' is not used (yet)
-FAIL: example(deviance.cca) - 'termlabels' must be a character vector
-of length at least one
+OK:   example(deviance.cca)
 OK:   example(goodness.cca)
 WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) :
   "length" is not a graphical parameter
 OK:   example(anova.cca)
+FAIL: example(add1.cca)
+  Error in unique.default(x[!is.na(x)]) : hash table is full
+  In addition: Warning message:
+  In Condition(Management + Moisture) :
+    Incompatible methods ("Ops.factor", "Ops.ordered") for "+"
+OK:   example(RsquareAdj)
+OK:   example(adonis)
+OK:   example(biplot.rda)
+OK:   example(eigenvals)
+OK:   example(hatvalues.cca)
+OK:   example(mso)
+OK:   example(screeplot.cca)
+OK:   example(simulate.rda)
+OK:   example(tolerance)
