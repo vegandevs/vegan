@@ -9,19 +9,21 @@ KNOWN ISSUES
 
 TESTS
 
+WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) : 
+  "length" is not a graphical parameter 
+
+FAIL: example(add1.cca) 
+  Error in unique.default(x[!is.na(x)]) : hash table is full 
+  In addition: Warning message: 
+  In Condition(Management + Moisture) : 
+    Incompatible methods ("Ops.factor", "Ops.ordered") for "+"
+
 OK:   example(cca)
 OK:   example(dbrda) - argument 'X' is not used (yet)
-OK: example(predict.cca)
+OK:   example(predict.cca)
 OK:   example(deviance.cca)
 OK:   example(goodness.cca)
-WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) :
-  "length" is not a graphical parameter
 OK:   example(anova.cca)
-FAIL: example(add1.cca)
-  Error in unique.default(x[!is.na(x)]) : hash table is full
-  In addition: Warning message:
-  In Condition(Management + Moisture) :
-    Incompatible methods ("Ops.factor", "Ops.ordered") for "+"
 OK:   example(RsquareAdj)
 OK:   example(adonis)
 OK:   example(biplot.rda)
@@ -31,3 +33,45 @@ OK:   example(mso)
 OK:   example(screeplot.cca)
 OK:   example(simulate.rda)
 OK:   example(tolerance)
+
+R CMD check ERRORs, relevant NOTEs & WARNINGs
+
+* checking examples ... ERROR
+Running examples in ‘vegan-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: add1.cca
+...
+> add1(m0, scope=formula(mbig), test="perm")
+Warning in Condition(Management + Moisture) :
+  Incompatible methods ("Ops.factor", "Ops.ordered") for "+"
+Error in unique.default(x[!is.na(x)]) : hash table is full
+Calls: add1 ... model.frame -> model.frame.default -> unique -> unique.default
+
+
+ ERROR
+Running the tests in ‘tests/vegan-tests.R’ failed.
+Last 13 lines of output:
+  > set.seed(4711)
+  > data(dune)
+  > data(dune.env)
+  > df <- dune.env
+  > df$Management[c(1,5)] <- NA
+  > ## formula
+  > fla <- as.formula("dune ~ Management + poly(A1, 2) + spno")
+  > ### variable in the .GlobalEnv
+  > spno <- specnumber(dune)
+  > ### data= argument
+  > ## cca/rda
+  > m <-  cca(fla, data=df,  na.action=na.exclude,  subset = Use != "Pasture" & spno > 7)
+  Error in poly(A1, 2) : object 'A1' not found
+  Calls: cca ... model.frame -> model.frame.default -> eval -> eval ->
+  poly
+
+--- MANUAL testing shows that this works
+
+    cca(dune ~ poly(A1, 2), dune.env)
+
+    but this FAILS on missing A1!
+
+    cca(dune ~ poly(A1, 2), dune.env, subset = Use != "Pasture")
