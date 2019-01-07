@@ -1,4 +1,4 @@
-## Pass thru Conditions or partial terms: not exported
+## Pass thru Conditions or partial terms
 Condition <- function(x) x
 
 ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,

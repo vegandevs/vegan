@@ -5,6 +5,7 @@
 \alias{rda}
 \alias{rda.default}
 \alias{rda.formula}
+\alias{Condition}
 
 \title{ [Partial] [Constrained] Correspondence Analysis and Redundancy
   Analysis } 
