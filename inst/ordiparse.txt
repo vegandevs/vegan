@@ -11,7 +11,7 @@ TESTS
 
 OK:   example(cca)
 OK:   example(dbrda) - argument 'X' is not used (yet)
-FAIL: example(predict.cca) - argument 'xlev' is not used (yet)
+OK: example(predict.cca)
 OK:   example(deviance.cca)
 OK:   example(goodness.cca)
 WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) :

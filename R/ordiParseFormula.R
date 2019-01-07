@@ -4,9 +4,6 @@ Condition <- function(x) x
 ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
                              subset = NULL, X)
 {
-    ## Not yet implemented arguments
-    if (!missing(xlev))
-        .NotYetUsed("xlev")
     ## get terms
     trms0 <- terms(formula, specials = "Condition", data = data)
     ## Evaluate response data and delete from terms
@@ -20,7 +17,8 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     ## evaluate data
     mf <- model.frame(trms, data = data,
                       na.action = na.pass, # evaluate only after subset
-                      drop.unused.levels = TRUE)
+                      drop.unused.levels = TRUE,
+                      xlev = xlev)
     ## subset
     if (!is.null(subset)) {
         subset <- eval(subset,
