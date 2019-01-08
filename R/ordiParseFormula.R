@@ -8,7 +8,8 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     trms0 <- terms(formula, specials = "Condition", data = data)
     ## Evaluate response data and delete from terms
     if (missing(X))
-        Y <- as.matrix(eval(trms0[[2]]))
+        Y <- as.matrix(eval(trms0[[2]], environment(formula),
+                            enclos=.GlobalEnv))
     else
         Y <- as.matrix(X)
     trms <- delete.response(trms0)

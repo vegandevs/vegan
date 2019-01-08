@@ -3,9 +3,8 @@ STATUS OF NEW ORDIPARSEFORMULA
 
 KNOWN ISSUES
 
-* Several terms within Condition(): FATAL
-
-* scope: ordination functions cannot be embedded.
+* Several terms within Condition(): This is the only remaining FATAL
+  issue and fails in example(add1.cca).
 
 * Check corner cases of zero rows or columns.
 
@@ -14,11 +13,6 @@ KNOWN ISSUES
 * Clean partial term labels: remove 'Condition(',')'.
 
 * terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER (but does this matter?)
-
-TESTS
-
-WARN: example(scores.cca) - In text.default(sco, labels = rownames(sco), ...) : 
-  "length" is not a graphical parameter 
 
 FAIL: example(add1.cca) 
   Error in unique.default(x[!is.na(x)]) : hash table is full 
@@ -57,25 +51,3 @@ Error in unique.default(x[!is.na(x)]) : hash table is full
 Calls: add1 ... model.frame -> model.frame.default -> unique -> unique.default
 
 --- COMMENT: Fails because Condition() has an expression of two variables
-
-  Running ‘vegan-tests.R’
- ERROR
-Running the tests in ‘tests/vegan-tests.R’ failed.
-Last 13 lines of output:
-  CCA4      1   0.18345 1.1464   0.83
-  CCA5      1   0.08871 0.5544   0.97
-  CCA6      1   0.06104 0.3815   0.89
-  Residual  5   0.80011              
-  > ### Check that constrained ordination functions can be embedded.
-  > ### The data.frame 'df' is still attach()ed.
-  > foo <- function(bar, Y, X, ...)
-  + {
-  +     bar <- match.fun(bar)
-  +     bar(Y ~ X, ...)
-  + }
-  > foo("cca", dune, Management, na.action = na.omit)
-  Error in eval(trms0[[2]]) : object 'Y' not found
-  Calls: foo ... cca.formula -> ordiParseFormula -> as.matrix -> eval -> eval
-  Execution halted
-
---- COMMENT: Fails because cannot be embedded.
