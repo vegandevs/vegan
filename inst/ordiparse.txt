@@ -48,30 +48,29 @@ Warning in Condition(Management + Moisture) :
 Error in unique.default(x[!is.na(x)]) : hash table is full
 Calls: add1 ... model.frame -> model.frame.default -> unique -> unique.default
 
+--- COMMENT: Fails because Condition() has an expression of two variables
 
  ERROR
 Running the tests in ‘tests/vegan-tests.R’ failed.
 Last 13 lines of output:
-  > set.seed(4711)
-  > data(dune)
-  > data(dune.env)
-  > df <- dune.env
-  > df$Management[c(1,5)] <- NA
-  > ## formula
-  > fla <- as.formula("dune ~ Management + poly(A1, 2) + spno")
-  > ### variable in the .GlobalEnv
-  > spno <- specnumber(dune)
-  > ### data= argument
-  > ## cca/rda
-  > m <-  cca(fla, data=df,  na.action=na.exclude,  subset = Use != "Pasture" & spno > 7)
-  Error in poly(A1, 2) : object 'A1' not found
-  Calls: cca ... model.frame -> model.frame.default -> eval -> eval ->
-  poly
 
---- MANUAL testing shows that this works
+Running the tests in ‘tests/vegan-tests.R’ failed.
+Last 13 lines of output:
+  
+  adonis(formula = fla, data = dune.env)
+              Df SumOfSqs      R2      F Pr(>F)    
+  Management   3   1.4686 0.34161 3.0480  0.001 ***
+  poly(A1, 2)  2   0.5829 0.13559 1.8146  0.073 .  
+  spno         1   0.1596 0.03713 0.9940  0.423    
+  Residual    13   2.0879 0.48567                  
+  Total       19   4.2990 1.00000                  
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  > ## capscale
+  > p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
+  Error in qr.fitted(Q, Y) : 'qr' and 'y' must have the same number of rows
+  Calls: capscale -> ordConstrained -> ordConstrain -> qr.fitted
+  Execution halted
 
-    cca(dune ~ poly(A1, 2), dune.env)
-
-    but this FAILS on missing A1!
-
-    cca(dune ~ poly(A1, 2), dune.env, subset = Use != "Pasture")
+--- COMMENT: Fails because subset is not implemented for dissimilarity
+    data - both margins should be subset.

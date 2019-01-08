@@ -25,7 +25,10 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
                        if (is.data.frame(data)) cbind(data, Y)
                        else as.data.frame(Y),
                        parent.frame(2))
+        ## subset will drop 'terms'
+        att <- terms(mf)
         mf <- subset(mf, subset, drop = FALSE)
+        attr(mf, "terms") <- att
         Y <- subset(Y, subset, drop = FALSE)
     }
     ## na.action
