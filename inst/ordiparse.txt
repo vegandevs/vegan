@@ -3,9 +3,17 @@ STATUS OF NEW ORDIPARSEFORMULA
 
 KNOWN ISSUES
 
-* Several terms within Condition() FAIL
+* Several terms within Condition(): FATAL
 
-* terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER
+* subset and na.action should be applied to both margins of dissimilarity lhs: FATAL
+
+* Check corner cases of zero rows or columns.
+
+* Check that output matrices have row names.
+
+* Clean partial term labels: remove 'Condition(',')'.
+
+* terms.expanded & ordiTerminfo IMPLEMENTATION DIFFER (but does this matter?)
 
 TESTS
 
@@ -19,7 +27,7 @@ FAIL: example(add1.cca)
     Incompatible methods ("Ops.factor", "Ops.ordered") for "+"
 
 OK:   example(cca)
-OK:   example(dbrda) - argument 'X' is not used (yet)
+OK:   example(dbrda)
 OK:   example(predict.cca)
 OK:   example(deviance.cca)
 OK:   example(goodness.cca)
