@@ -5,7 +5,7 @@ KNOWN ISSUES
 
 * Several terms within Condition(): FATAL
 
-* subset and na.action should be applied to both margins of dissimilarity lhs: FATAL
+* scope: ordination functions cannot be embedded.
 
 * Check corner cases of zero rows or columns.
 
@@ -58,27 +58,24 @@ Calls: add1 ... model.frame -> model.frame.default -> unique -> unique.default
 
 --- COMMENT: Fails because Condition() has an expression of two variables
 
+  Running ‘vegan-tests.R’
  ERROR
 Running the tests in ‘tests/vegan-tests.R’ failed.
 Last 13 lines of output:
-
-Running the tests in ‘tests/vegan-tests.R’ failed.
-Last 13 lines of output:
-  
-  adonis(formula = fla, data = dune.env)
-              Df SumOfSqs      R2      F Pr(>F)    
-  Management   3   1.4686 0.34161 3.0480  0.001 ***
-  poly(A1, 2)  2   0.5829 0.13559 1.8146  0.073 .  
-  spno         1   0.1596 0.03713 0.9940  0.423    
-  Residual    13   2.0879 0.48567                  
-  Total       19   4.2990 1.00000                  
-  ---
-  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  > ## capscale
-  > p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
-  Error in qr.fitted(Q, Y) : 'qr' and 'y' must have the same number of rows
-  Calls: capscale -> ordConstrained -> ordConstrain -> qr.fitted
+  CCA4      1   0.18345 1.1464   0.83
+  CCA5      1   0.08871 0.5544   0.97
+  CCA6      1   0.06104 0.3815   0.89
+  Residual  5   0.80011              
+  > ### Check that constrained ordination functions can be embedded.
+  > ### The data.frame 'df' is still attach()ed.
+  > foo <- function(bar, Y, X, ...)
+  + {
+  +     bar <- match.fun(bar)
+  +     bar(Y ~ X, ...)
+  + }
+  > foo("cca", dune, Management, na.action = na.omit)
+  Error in eval(trms0[[2]]) : object 'Y' not found
+  Calls: foo ... cca.formula -> ordiParseFormula -> as.matrix -> eval -> eval
   Execution halted
 
---- COMMENT: Fails because subset is not implemented for dissimilarity
-    data - both margins should be subset.
+--- COMMENT: Fails because cannot be embedded.

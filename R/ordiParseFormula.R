@@ -35,8 +35,10 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
     if (any(is.na(mf))) {
         mf <- na.action(mf)
         nas <- attr(mf, "na.action")
+        excluded <- Y[nas,, drop=FALSE]
         Y <- Y[-nas,, drop=FALSE]
-    }
+    } else
+        excluded <- NULL
     ## Separate X and Z
     trmlab <- attr(trms, "term.labels")
     ## empty model: unconstrained ordination
@@ -58,5 +60,6 @@ ordiParseFormula <- function(formula, data, xlev = NULL, na.action = na.fail,
         attr(X, "assign") <- assign
     }
     list(X = Y, Y = X, Z = Z, terms = trms0, terms.expand = trms0,
-         modelframe = mf)
+         modelframe = mf, subset = subset, na.action = attr(mf, "na.action"),
+         excluded = excluded)
 }
