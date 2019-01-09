@@ -39,7 +39,7 @@
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
     formula <- update(formula, lhs ~ .)
-    sol <- adonis0(formula, data = data, method = method)
+    sol <- adonis0(formula, data = data, method = method, ...)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
     ## attributes will be lost when adding a new column
@@ -76,6 +76,7 @@
     lhs <- formula[[2]]
     lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
+    data <- model.frame(formula, data, ...) # model.frame
     rhs <- model.matrix(formula, data) # and finally the model.matrix
     assign <- attr(rhs, "assign") ## assign attribute
     sol$terminfo$assign <- assign[assign > 0]
@@ -87,7 +88,14 @@
         stop("internal error: contact developers")
     if (any(lhs < -TOL))
         stop("dissimilarities must be non-negative")
-    n <- attr(lhs, "Size")
+    ## if there was an na.action for rhs, we must remove the same rows
+    ## and columns from the lhs (initDBRDA later will work similarly
+    ## for distances and matrices of distances).
+    if (!is.null(nas <- na.action(data))) {
+        lhs <- as.matrix(lhs)[-nas,-nas, drop=FALSE]
+        n <- nrow(lhs)
+    } else
+        n <- attr(lhs, "Size")
     ## G is -dmat/2 centred
     G <- initDBRDA(lhs)
     ## preliminaries are over: start working

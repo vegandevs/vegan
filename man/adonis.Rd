@@ -53,7 +53,8 @@ adonis(formula, data, permutations = 999, method = "bray",
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package.}
-  \item{\dots}{Other arguments passed to \code{vegdist}.}
+  \item{\dots}{Other arguments passed to \code{\link{vegdist}} and
+    \code{\link{model.frame}} (such as \code{na.action}).}
 }
 
 \details{
