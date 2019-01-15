@@ -5,7 +5,7 @@
 {
     ## handle missing data
     if (missing(data))
-        data <- model.frame(delete.response(terms(formula)))
+        data <- model.frame(delete.response(terms(formula)), ...)
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin"))
@@ -38,8 +38,10 @@
     ## adonis0 & anova.cca should see only dissimilarities (lhs)
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
+    if (is.null(attr(data, "terms"))) # not yet a model.frame?
+        data <- model.frame(delete.response(terms(formula)), data, ...)
     formula <- update(formula, lhs ~ .)
-    sol <- adonis0(formula, data = data, method = method, ...)
+    sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
                  parallel = parallel)
     ## attributes will be lost when adding a new column
@@ -54,18 +56,13 @@
     attributes(out) <- att
     out
 }
+
 `adonis0` <-
-    function(formula, data=NULL, method="bray", ...)
+    function(formula, data=NULL, method="bray")
 {
-    ## evaluate data
-    if (missing(data))
-        data <- .GlobalEnv
-    else
-        data <- eval(match.call()$data, environment(formula),
-                     enclos = .GlobalEnv)
     ## First we collect info for the uppermost level of the analysed
     ## object
-    Trms <- terms(delete.response(formula), data = data)
+    Trms <- terms(data)
     sol <- list(call = match.call(),
                 method = "adonis",
                 terms = Trms,
@@ -76,7 +73,6 @@
     lhs <- formula[[2]]
     lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs
-    data <- model.frame(formula, data, ...) # model.frame
     rhs <- model.matrix(formula, data) # and finally the model.matrix
     assign <- attr(rhs, "assign") ## assign attribute
     sol$terminfo$assign <- assign[assign > 0]
