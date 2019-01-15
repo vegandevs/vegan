@@ -1,11 +1,12 @@
 `adonis` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
-             parallel = getOption("mc.cores"), ...)
+             parallel = getOption("mc.cores"), na.action = na.fail, ...)
 {
     ## handle missing data
     if (missing(data))
-        data <- model.frame(delete.response(terms(formula)), ...)
+        data <- model.frame(delete.response(terms(formula)),
+                            na.action = na.action)
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin"))
@@ -39,7 +40,8 @@
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
     if (is.null(attr(data, "terms"))) # not yet a model.frame?
-        data <- model.frame(delete.response(terms(formula)), data, ...)
+        data <- model.frame(delete.response(terms(formula)), data,
+                            na.action = na.action)
     formula <- update(formula, lhs ~ .)
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
