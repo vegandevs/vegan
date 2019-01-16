@@ -2,6 +2,27 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-4}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Constrained ordination methods (\code{cca}, \code{rda},
+      \code{dbrda}, \code{capscale}) with formula interface failed
+      in \R{} development version (to be released as \R-3.6.0).
+
+      \item \code{decorana} gave incorrect results when downweighting
+      was used (argument \code{iweigh = 1}). The bug was introduced in
+      \pkg{vegan} 2.5-0 and reported as github issue
+      \href{https://github.com/vegandevs/vegan/issues/303}{#303}.
+
+      \item \code{goodness} for constrained ordination methods failed
+      when the constraints hand rank = 1 (only one constraining
+      variable). Reported by Pierre Legendre.
+      
+    } %itemize
+  } % bugs
+}
+
 \section{Changes in version 2.5-3}{
   \subsection{INSTALLATION}{
     \itemize{
