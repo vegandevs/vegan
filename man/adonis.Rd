@@ -13,7 +13,7 @@
 \usage{
 adonis(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
-    parallel = getOption("mc.cores"), ...)
+    parallel = getOption("mc.cores"), na.action = na.fail, ...)
 }
 
 \arguments{
@@ -53,7 +53,11 @@ adonis(formula, data, permutations = 999, method = "bray",
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package.}
-  \item{\dots}{Other arguments passed to \code{vegdist}.}
+  \item{na.action}{Handling of missing values on the right-hand-side
+    of the formula (see \code{\link{na.fail}} for explanation and
+    alternatives). Missing values are not allowed on the
+    left-hand-side. NB, argument \code{subset} is not implemented.}
+  \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
 }
 
 \details{

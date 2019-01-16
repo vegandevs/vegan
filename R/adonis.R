@@ -1,11 +1,12 @@
 `adonis` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
-             parallel = getOption("mc.cores"), ...)
+             parallel = getOption("mc.cores"), na.action = na.fail, ...)
 {
     ## handle missing data
     if (missing(data))
-        data <- model.frame(delete.response(terms(formula)))
+        data <- model.frame(delete.response(terms(formula)),
+                            na.action = na.action)
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin"))
@@ -38,6 +39,9 @@
     ## adonis0 & anova.cca should see only dissimilarities (lhs)
     if (!missing(data)) # expand and check terms
         formula <- terms(formula, data=data)
+    if (is.null(attr(data, "terms"))) # not yet a model.frame?
+        data <- model.frame(delete.response(terms(formula)), data,
+                            na.action = na.action)
     formula <- update(formula, lhs ~ .)
     sol <- adonis0(formula, data = data, method = method)
     out <- anova(sol, permutations = permutations, by = by,
@@ -54,18 +58,13 @@
     attributes(out) <- att
     out
 }
+
 `adonis0` <-
-    function(formula, data=NULL, method="bray", ...)
+    function(formula, data=NULL, method="bray")
 {
-    ## evaluate data
-    if (missing(data))
-        data <- .GlobalEnv
-    else
-        data <- eval(match.call()$data, environment(formula),
-                     enclos = .GlobalEnv)
     ## First we collect info for the uppermost level of the analysed
     ## object
-    Trms <- terms(delete.response(formula), data = data)
+    Trms <- terms(data)
     sol <- list(call = match.call(),
                 method = "adonis",
                 terms = Trms,
@@ -87,7 +86,14 @@
         stop("internal error: contact developers")
     if (any(lhs < -TOL))
         stop("dissimilarities must be non-negative")
-    n <- attr(lhs, "Size")
+    ## if there was an na.action for rhs, we must remove the same rows
+    ## and columns from the lhs (initDBRDA later will work similarly
+    ## for distances and matrices of distances).
+    if (!is.null(nas <- na.action(data))) {
+        lhs <- as.matrix(lhs)[-nas,-nas, drop=FALSE]
+        n <- nrow(lhs)
+    } else
+        n <- attr(lhs, "Size")
     ## G is -dmat/2 centred
     G <- initDBRDA(lhs)
     ## preliminaries are over: start working
