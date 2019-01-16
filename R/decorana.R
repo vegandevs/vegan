@@ -33,6 +33,8 @@
     }
     if (iweigh) {
         veg <- downweight(veg, Const2)
+        aidot <- rowSums(veg)
+        adotj <- colSums(veg)
     }
     v <- attr(veg, "v")
     v.fraction <- attr(veg, "fraction")
