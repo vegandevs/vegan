@@ -50,8 +50,7 @@ Adjusted R-square
 
   The adjusted, \eqn{R^2}{R-squared} of \code{cca} is computed using a
   permutation approach developed by Peres-Neto et al. (2006). By
-  default 1000 permutations are used. Adjusted \eqn{R^2}{R-squared} is
-  not calculated for partial CCA.
+  default 1000 permutations are used.
   
 }
 
