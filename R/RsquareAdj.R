@@ -14,13 +14,7 @@
     r2
 }
 
-## rda. Function varpart() estimates adjusted R2 for partial model
-## rda(Y, X1, X2) as a difference of adjusted R2 values of models
-## rda(Y, cbind(X1,X2)) and rda(Y, X2), and we did the same here from
-## vegan release 2.0-3 to 2.4. However, I am not quite convinced that
-## this is correct, and therefore I disable adjusted R2 for partial
-## models while I study the issue (Jari Oksanen, 23/2/2018).  If you
-## change handling of partial models, remember to update ordiR2step!
+## Use this with rda() results
 `RsquareAdj.rda` <-
     function(x, ...)
 {
@@ -30,24 +24,38 @@
     if (is.null(x$pCCA)) {
         radj <- RsquareAdj(R2, n, m)
     } else {
-        radj <- NA
+        ## Partial model: same adjusted R2 as for component [a] in two
+        ## source varpart model
+        R2p <- x$pCCA$tot.chi/x$tot.chi
+        p <- x$pCCA$QR$rank
+        radj <- RsquareAdj(R2 + R2p, n, m + p) - RsquareAdj(R2p, n, p)
     }
     list(r.squared = R2, adj.r.squared = radj)
 }
 
-## cca: for pCCA, see comment for rda. Earlier we used the same
-## equation both for pCCA and CCA which was inconsistent with rda. git
-## commit 9c25e6fdb4 has a version that was consistent with rda in
-## vegan 2.0-3 to 2.4-6.
+## cca result: RsquareAdj is calculated similarly as in
+## varpart(). This is similar "semipartial" model as for rda() and
+## found as a difference of R2-adj values of combined model with
+## constraints + conditions and only conditions.
 `RsquareAdj.cca` <-
     function (x, permutations = 1000, ...)
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
-    if (is.null(x$pCCA) || x$pCCA$rank == 0) {
+    if (is.null(x$pCCA)) {
         p <- permutest(x, permutations, ...)
-        radj <- 1 - ((1 - r2) / (1 - mean(p$num) / x$tot.chi))
+        radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
     } else {
-        radj <- NA
+        p <- getPermuteMatrix(permutations, nobs(x))
+        Y <- ordiYbar(x, "initial")
+        r2tot <- (x$pCCA$tot.chi + x$CCA$tot.chi) / x$tot.chi
+        r2null <- mean(sapply(seq_len(nrow(p)), function(i)
+            sum(qr.fitted(x$CCA$QR, Y[p[i,],])^2)))
+        r2tot <- 1 - ((1-r2tot)/(1-r2null/x$tot.chi))
+        r2p <- x$pCCA$tot.chi / x$tot.chi
+        r2null <- mean(sapply(seq_len(nrow(p)), function(i)
+            sum(qr.fitted(x$pCCA$QR, Y[p[i,],])^2)))
+        r2p <- 1 - ((1-r2p)/(1-r2null/x$tot.chi))
+        radj <- r2tot - r2p
     }
     list(r.squared = r2, adj.r.squared = radj)
 }
