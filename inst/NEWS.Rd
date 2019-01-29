@@ -18,7 +18,7 @@
       \href{https://github.com/vegandevs/vegan/issues/303}{#303}.
 
       \item \code{goodness} for constrained ordination methods failed
-      when the constraints hand rank = 1 (only one constraining
+      when the constraints had rank = 1 (only one constraining
       variable). Reported by Pierre Legendre.
       
     } %itemize
@@ -31,10 +31,10 @@
       models (functions \code{rda} and \code{dbrda}) and partial CCA
       models (function \code{cca}) in function \code{RsquareAdj}. The
       feature was disabled in \pkg{vegan} 2.5-1 for both. For RDA, the
-      calculation is similar as in \pkg{vegan} 2.4-6 and earlier. The
-      calculation for CCA is now consistent with RDA and differs from
-      the earlier implementation. For both methods, the calculation is
-      consistent with \code{varpart}. See github issue
+      calculation is similar as in \pkg{vegan} 2.4-6 and
+      earlier. Partial CCA is now consistent with RDA and differs from
+      the earlier implementation. For both methods, the partial models
+      are consistent with \code{varpart}. See github issue
       \href{https://github.com/vegandevs/vegan/issues/295}{#295}.
       
     } %itemize
