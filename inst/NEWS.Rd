@@ -8,11 +8,13 @@
 
       \item Constrained ordination methods (\code{cca}, \code{rda},
       \code{dbrda}, \code{capscale}) with formula interface failed
-      in \R{} development version (to be released as \R-3.6.0).
+      in \R{} development version (to be released as \R-3.6.0). See
+      github issue
+      \href{https://github.com/vegandevs/vegan/issues/299}{#299}.
 
       \item \code{decorana} gave incorrect results when downweighting
       was used (argument \code{iweigh = 1}). The bug was introduced in
-      \pkg{vegan} 2.5-0 and reported as github issue
+      \pkg{vegan} 2.5-1 and reported as github issue
       \href{https://github.com/vegandevs/vegan/issues/303}{#303}.
 
       \item \code{goodness} for constrained ordination methods failed
@@ -21,8 +23,24 @@
       
     } %itemize
   } % bugs
-}
 
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Adjusted \eqn{R^2}{R-squared} is enabled for partial RDA
+      models (functions \code{rda} and \code{dbrda}) and partial CCA
+      models (function \code{cca}) in function \code{RsquareAdj}. The
+      feature was disabled in \pkg{vegan} 2.5-1 for both. For RDA, the
+      calculation is similar as in \pkg{vegan} 2.4-6 and earlier. The
+      calculation for CCA is now consistent with RDA and differs from
+      the earlier implementation. For both methods, the calculation is
+      consistent with \code{varpart}. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/295}{#295}.
+      
+    } %itemize
+  } %new features
+} % version 2.5-4
+  
 \section{Changes in version 2.5-3}{
   \subsection{INSTALLATION}{
     \itemize{
