@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2018-11-01 r75532) -- "Unsuffered Consequences"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R Under development (unstable) (2019-01-26 r76018) -- "Unsuffered Consequences"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -8136,7 +8136,7 @@ $r.squared
 [1] 0.1359251
 
 $adj.r.squared
-[1] NA
+[1] 0.09140797
 
 > 
 > ## Partition Bray-Curtis dissimilarities
@@ -9063,7 +9063,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.542 0.196 22.742 0 0 
+Time elapsed:  19.873 0.164 20.042 0 0 
 > grDevices::dev.off()
 null device 
           1 
