@@ -7,8 +7,7 @@
                             panel.last, axes) points(...)
     localText <- function(..., log, frame.plot, panel.first,
                           panel.last, axes) text(...)
-    if (!is.null(attr(ord, "class")) && (class(ord) == "decorana" ||
-                                         any(class(ord) == "cca"))) {
+    if (inherits(ord, "decorana") || inherits(ord, "cca")) {
         if (missing(display))
             out <- plot(ord, choices = choices, type = type, xlim = xlim,
                         ylim = ylim, ...)
