@@ -56,7 +56,7 @@
     if (missing(xlim)) {
         xlim <- range(g$species[, 1], g$sites[, 1], g$constraints[, 1],
                       g$biplot[, 1],
-                      if (length(g$centroids) > 0 && is.na(g$centroids)) NA else g$centroids[, 1],
+                      if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 1],
                       g$default[, 1],
                       na.rm = TRUE)
     }
@@ -65,7 +65,7 @@
     if (missing(ylim)) {
         ylim <- range(g$species[, 2], g$sites[, 2], g$constraints[, 2],
                       g$biplot[, 2],
-                      if (length(g$centroids) > 0 && is.na(g$centroids)) NA else g$centroids[, 2],
+                      if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 2],
                       g$default[, 2],
                       na.rm = TRUE)
     }
@@ -116,7 +116,7 @@
         biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression))
         text(biplabs, rownames(g$regression), col = rcol)
     }
-    if (!is.null(g$centroids) && !is.na(g$centroids) && type !=
+    if (!is.null(g$centroids) && all(!is.na(g$centroids)) && type !=
         "none") {
         if (type == "text")
             text(g$centroids, rownames(g$centroids), col = "blue")
