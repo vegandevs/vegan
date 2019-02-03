@@ -3,14 +3,27 @@
 \encoding{UTF-8}
 
 \section{Changes in version 2.5-4}{
-  \subsection{BUG FIXES}{
+  \subsection{INSTALLATION AND TESTING}{
     \itemize{
 
-      \item Constrained ordination methods (\code{cca}, \code{rda},
-      \code{dbrda}, \code{capscale}) with formula interface failed
-      in \R{} development version (to be released as \R-3.6.0). See
-      github issue
+      \item The code for interpreting formula will change in \R 3.6.0,
+      and this makes constrained ordination methods (\code{cca},
+      \code{rda}, \code{dbrda}, \code{capscale}) to fail.  See github
+      issue
       \href{https://github.com/vegandevs/vegan/issues/299}{#299}.
+
+      \item \R 3.6.0 introduces a new environment variable
+      \code{_R_CHECK_LENGTH_1_LOGIC2_}, and several functions fail if
+      this variable is set. Changes concern \code{ordiplot},
+      \code{plot} and \code{summary} for constrained ordination
+      objects, and \code{ordixyplot}. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/305}{#305}.
+
+    } %itemize
+  } % INSTALLATION
+
+  \subsection{BUG FIXES}{
+    \itemize{
 
       \item \code{decorana} gave incorrect results when downweighting
       was used (argument \code{iweigh = 1}). The bug was introduced in
