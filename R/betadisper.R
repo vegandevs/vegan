@@ -130,7 +130,7 @@
     if (any(dist.neg > dist.pos)) {
         ## Negative squared distances give complex valued distances:
         ## take only the real part (which is zero). Github issue #306.
-        warning("some squared distances are negative")
+        warning("some squared distances are negative and changed to zero")
         zij <- Re(sqrt(as.complex(dist.pos - dist.neg)))
     } else {
         zij <- sqrt(dist.pos - dist.neg)
