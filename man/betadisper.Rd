@@ -146,15 +146,13 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   \eqn{u_{ij}}{u[ij]}, the principal coordinate for the \eqn{j}th
   point in the \eqn{i}th group, and \eqn{c_i}{c[i]}, the
   coordinate of the centroid for the \eqn{i}th group. The
-  super-scripted \sQuote{\eqn{+}} and \sQuote{\eqn{-}} indicate
-  the real and imaginary
-  parts respectively. This is equation (3) in Anderson (2006). If the
-  imaginary part is greater in magnitude than the real part, then we
-  would be taking the square root of a negative value, resulting in
-  NaN.  Function takes the absolute
-  value of the real distance minus the imaginary distance, before
-  computing the square root. This is in line with the behaviour of Marti
-  Anderson's PERMDISP2 programme. 
+  super-scripted \sQuote{\eqn{+}} and \sQuote{\eqn{-}} indicate the
+  real and imaginary parts respectively. This is equation (3) in
+  Anderson (2006). If the imaginary part is greater in magnitude than
+  the real part, then we would be taking the square root of a negative
+  value, resulting in NaN, and these cases are changed to zero distances
+  (with a warning). This is in line with the behaviour of Marti Anderson's
+  PERMDISP2 programme.
   
   To test if one or more groups is more variable than the others, ANOVA
   of the distances to group centroids can be performed and parametric
