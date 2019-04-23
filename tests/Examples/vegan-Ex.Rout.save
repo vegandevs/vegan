@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2019-01-26 r76018) -- "Unsuffered Consequences"
+R Under development (unstable) (2019-04-23 r76417) -- "Unsuffered Consequences"
 Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin18.5.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -150,7 +150,7 @@ Pillai's trace:  0.6455578
 
 Significance of Pillai's trace:
 from F-distribution:   0.70352 
-based on permutations: 0.69 
+based on permutations: 0.71 
 Permutation: free
 Number of permutations: 99
  
@@ -301,7 +301,7 @@ $r.squared
 [1] 0.4471676
 
 $adj.r.squared
-[1] 0.3423996
+[1] 0.3429248
 
 > ## default method
 > RsquareAdj(0.8, 20, 5)
@@ -422,11 +422,11 @@ dune ~ 1
 
              Df    AIC      F Pr(>F)   
 + Moisture    3 86.608 2.2536  0.005 **
-+ Management  3 86.935 2.1307  0.005 **
-+ A1          1 87.411 2.1400  0.025 * 
++ Management  3 86.935 2.1307  0.010 **
++ A1          1 87.411 2.1400  0.020 * 
 <none>          87.657                 
-+ Manure      4 88.832 1.5251  0.060 . 
-+ Use         2 89.134 1.1431  0.355   
++ Manure      4 88.832 1.5251  0.035 * 
++ Use         2 89.134 1.1431  0.215   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -435,11 +435,11 @@ dune ~ Moisture
 
              Df    AIC      F Pr(>F)   
 <none>          86.608                 
-+ Management  3 86.813 1.4565  0.065 . 
-+ A1          1 86.992 1.2624  0.180   
-+ Use         2 87.259 1.2760  0.160   
-+ Manure      4 87.342 1.3143  0.115   
-- Moisture    3 87.657 2.2536  0.010 **
++ Management  3 86.813 1.4565  0.055 . 
++ A1          1 86.992 1.2624  0.205   
++ Use         2 87.259 1.2760  0.205   
++ Manure      4 87.342 1.3143  0.130   
+- Moisture    3 87.657 2.2536  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
@@ -473,38 +473,38 @@ Eigenvalues for unconstrained axes:
 > add1(m0, scope=formula(mbig), test="perm")
            Df    AIC      F Pr(>F)   
 <none>        89.620                 
-A1          1 89.591 1.9217  0.060 . 
+A1          1 89.591 1.9217  0.010 **
 Moisture    3 87.707 2.5883  0.005 **
 Management  3 87.082 2.8400  0.005 **
-Use         2 91.032 1.1741  0.280   
-Manure      4 89.232 1.9539  0.015 * 
+Use         2 91.032 1.1741  0.245   
+Manure      4 89.232 1.9539  0.025 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
          Df    AIC      F Pr(>F)   
 <none>      87.082                 
-A1        1 87.424 1.2965  0.175   
+A1        1 87.424 1.2965  0.195   
 Moisture  3 85.567 1.9764  0.005 **
-Use       2 88.284 1.0510  0.440   
-Manure    3 87.517 1.3902  0.095 . 
+Use       2 88.284 1.0510  0.385   
+Manure    3 87.517 1.3902  0.080 . 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Moisture)
 > ## -- included variables still significant?
 > drop1(m0, test="perm")
-           Df    AIC      F Pr(>F)   
-<none>        85.567                 
-Management  3 87.707 2.1769  0.010 **
-Moisture    3 87.082 1.9764  0.005 **
+           Df    AIC      F Pr(>F)  
+<none>        85.567                
+Management  3 87.707 2.1769  0.015 *
+Moisture    3 87.082 1.9764  0.025 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > add1(m0, scope=formula(mbig), test="perm")
        Df    AIC      F Pr(>F)
 <none>    85.567              
-A1      1 86.220 0.8359  0.645
-Use     2 86.842 0.8027  0.700
-Manure  3 85.762 1.1225  0.320
+A1      1 86.220 0.8359  0.610
+Use     2 86.842 0.8027  0.730
+Manure  3 85.762 1.1225  0.285
 > 
 > 
 > 
@@ -664,8 +664,8 @@ Number of permutations: 999
 adonis(formula = dune ~ Management * A1, data = dune.env)
               Df SumOfSqs      R2      F Pr(>F)   
 Management     3   1.4686 0.34161 3.2629  0.002 **
-A1             1   0.4409 0.10256 2.9387  0.022 * 
-Management:A1  3   0.5892 0.13705 1.3090  0.191   
+A1             1   0.4409 0.10256 2.9387  0.013 * 
+Management:A1  3   0.5892 0.13705 1.3090  0.192   
 Residual      12   1.8004 0.41878                 
 Total         19   4.2990 1.00000                 
 ---
@@ -677,10 +677,10 @@ Permutation: free
 Number of permutations: 999
 
 adonis(formula = dune ~ Management * A1, data = dune.env, by = NULL)
-         Df SumOfSqs      R2      F Pr(>F)   
-Model     7   2.4987 0.58122 2.3792  0.003 **
-Residual 12   1.8004 0.41878                 
-Total    19   4.2990 1.00000                 
+         Df SumOfSqs      R2      F Pr(>F)    
+Model     7   2.4987 0.58122 2.3792  0.001 ***
+Residual 12   1.8004 0.41878                  
+Total    19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -723,12 +723,10 @@ Permutation: free
 Number of permutations: 199
 
 adonis(formula = Y ~ NO3, data = dat, permutations = perm)
-         Df SumOfSqs      R2      F Pr(>F)  
-NO3       1 0.036334 0.26204 3.5509   0.04 *
-Residual 10 0.102324 0.73796                
-Total    11 0.138658 1.00000                
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+         Df SumOfSqs      R2      F Pr(>F)
+NO3       1 0.020795 0.17606 2.1368   0.12
+Residual 10 0.097321 0.82394              
+Total    11 0.118116 1.00000              
 > 
 > ## Correct with strata
 > setBlocks(perm) <- with(dat, field)
@@ -740,10 +738,10 @@ Permutation: free
 Number of permutations: 199
 
 adonis(formula = Y ~ NO3, data = dat, permutations = perm)
-         Df SumOfSqs      R2      F Pr(>F)  
-NO3       1 0.036334 0.26204 3.5509   0.02 *
-Residual 10 0.102324 0.73796                
-Total    11 0.138658 1.00000                
+         Df SumOfSqs      R2      F Pr(>F)   
+NO3       1 0.020795 0.17606 2.1368   0.01 **
+Residual 10 0.097321 0.82394                 
+Total    11 0.118116 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -773,14 +771,14 @@ anosim(x = dune.dist, grouping = Management)
 Dissimilarity: bray 
 
 ANOSIM statistic R: 0.2579 
-      Significance: 0.017 
+      Significance: 0.011 
 
 Permutation: free
 Number of permutations: 999
 
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
-0.121 0.174 0.222 0.276 
+0.109 0.152 0.195 0.243 
 
 Dissimilarity ranks between and within classes:
         0%   25%    50%     75%  100%   N
@@ -834,8 +832,8 @@ Number of permutations: 999
 Model: cca(formula = varespec ~ Al + P + K, data = varechem)
          Df ChiSquare      F Pr(>F)    
 Al        1   0.29817 4.1440  0.001 ***
-P         1   0.18991 2.6393  0.004 ** 
-K         1   0.15605 2.1688  0.025 *  
+P         1   0.18991 2.6393  0.010 ** 
+K         1   0.15605 2.1688  0.020 *  
 Residual 20   1.43906                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -848,8 +846,8 @@ Number of permutations: 999
 Model: cca(formula = varespec ~ Al + P + K, data = varechem)
          Df ChiSquare      F Pr(>F)    
 Al        1   0.31184 4.3340  0.001 ***
-P         1   0.16810 2.3362  0.014 *  
-K         1   0.15605 2.1688  0.016 *  
+P         1   0.16810 2.3362  0.017 *  
+K         1   0.15605 2.1688  0.034 *  
 Residual 20   1.43906                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -863,7 +861,7 @@ Model 1: varespec ~ Al + P + K
 Model 2: varespec ~ N + P + K + Ca + Mg + S + Al + Fe + Mn + Zn + Mo + Baresoil + Humdepth + pH
   ResDf ResChiSquare Df ChiSquare      F Pr(>F)
 1    20      1.43906                           
-2     9      0.64171 11   0.79735 1.0166  0.463
+2     9      0.64171 11   0.79735 1.0166  0.464
 > 
 > 
 > 
@@ -1250,7 +1248,7 @@ Number of permutations: 99
 
 Response: Distances
           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-Groups     1 0.07931 0.079306 4.6156     99   0.04 *
+Groups     1 0.07931 0.079306 4.6156     99   0.03 *
 Residuals 22 0.37801 0.017182                       
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -1258,7 +1256,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Pairwise comparisons:
 (Observed p-value below diagonal, permuted p-value above diagonal)
           grazed ungrazed
-grazed               0.05
+grazed               0.06
 ungrazed 0.04295         
 > 
 > ## Tukey's Honest Significant Differences
@@ -1359,9 +1357,11 @@ Permutation: free
 Number of permutations: 99
 
 Response: Distances
-          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.07193 0.071927 3.7826     99   0.11
-Residuals 22 0.41834 0.019015                     
+          Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
+Groups     1 0.07193 0.071927 3.7826     99   0.08 .
+Residuals 22 0.41834 0.019015                       
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## should always work for a single group
 > group <- factor(rep("grazed", NROW(varespec)))
@@ -1432,7 +1432,7 @@ Number of permutations: 99
 
 Response: Distances
           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.039979 0.039979 2.4237     99   0.18
+Groups     1 0.039979 0.039979 2.4237     99   0.14
 Residuals 18 0.296910 0.016495                     
 > anova(mod2)
 Analysis of Variance Table
@@ -1473,9 +1473,11 @@ Permutation: free
 Number of permutations: 99
 
 Response: Distances
-          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-Groups     1 0.033468 0.033468 3.1749     99   0.12
-Residuals 18 0.189749 0.010542                     
+          Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
+Groups     1 0.033468 0.033468 3.1749     99   0.08 .
+Residuals 18 0.189749 0.010542                       
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > anova(mod3)
 Analysis of Variance Table
 
@@ -1724,7 +1726,7 @@ Number of permutations: 999
 
 Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
          Df SumOfSqs      F Pr(>F)   
-Model     3  0.99717 2.2324  0.002 **
+Model     3  0.99717 2.2324  0.004 **
 Residual 19  2.82904                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -2870,20 +2872,20 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.039 *  
-P         0.61959  0.78492 0.1938  0.129    
-K         0.76629  0.64249 0.1809  0.138    
-Ca        0.68506  0.72849 0.4119  0.005 ** 
-Mg        0.63240  0.77464 0.4271  0.005 ** 
-S         0.19123  0.98155 0.1752  0.133    
-Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.001 ***
+N        -0.05719 -0.99836 0.2537  0.044 *  
+P         0.61959  0.78492 0.1938  0.096 .  
+K         0.76629  0.64249 0.1809  0.120    
+Ca        0.68506  0.72849 0.4119  0.004 ** 
+Mg        0.63240  0.77464 0.4271  0.003 ** 
+S         0.19123  0.98155 0.1752  0.144    
+Al       -0.87169  0.49006 0.5269  0.002 ** 
+Fe       -0.93613  0.35164 0.4451  0.004 ** 
 Mn        0.79873 -0.60169 0.5230  0.002 ** 
-Zn        0.61750  0.78657 0.1879  0.122    
-Mo       -0.90304  0.42955 0.0609  0.524    
-Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Zn        0.61750  0.78657 0.1879  0.120    
+Mo       -0.90304  0.42955 0.0609  0.490    
+Baresoil  0.92503 -0.37988 0.2508  0.053 .  
 Humdepth  0.93291 -0.36011 0.5200  0.001 ***
-pH       -0.64809  0.76156 0.2308  0.064 .  
+pH       -0.64809  0.76156 0.2308  0.051 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -3419,10 +3421,10 @@ Warning in oecosimu(dune, fun, "c0", i = i, nsimul = 99) :
 > z <- os$oecosimu$z
 > ## p-value
 > (p <- sum(z) / sqrt(length(z)))
-[1] -2.051592
+[1] -1.744972
 > ## 'heterogeneity' measure
 > (chi2 <- sum((z - mean(z))^2))
-[1] 100.6288
+[1] 100.9547
 > pchisq(chi2, df=length(z)-1)
 [1] 1
 > ## Halme et al.'s suggested output
@@ -3433,7 +3435,7 @@ Warning in oecosimu(dune, fun, "c0", i = i, nsimul = 99) :
 +     varIP=sd(fun(dune, i=i)^2))
 > out
 TIP.i.Achimill   significance  heterogeneity          minIP          varIP 
-     0.3186250     -2.0515917    100.6288432      0.0000000      0.2142097 
+     0.3186250     -1.7449718    100.9546945      0.0000000      0.2142097 
 > 
 > 
 > 
@@ -3686,7 +3688,7 @@ W          0.44160305
 F          2.37252221
 Prob.F     0.04403791
 Chi2      15.89770992
-Prob.perm  0.04000000
+Prob.perm  0.06000000
 
 attr(,"class")
 [1] "kendall.global"
@@ -3695,8 +3697,8 @@ $A_posteriori_tests
                     TVEL      ONOV      SUCT   Trhypch1
 Spearman.mean  0.3265678 0.3965503 0.4570402 -0.1681251
 W.per.species  0.4949258 0.5474127 0.5927802  0.1239061
-Prob           0.1400000 0.0200000 0.0200000  0.7200000
-Corrected prob 0.2800000 0.0800000 0.0800000  0.7200000
+Prob           0.0800000 0.0600000 0.0200000  0.6800000
+Corrected prob 0.1800000 0.1800000 0.0800000  0.6800000
 
 $Correction.type
 [1] "holm"
@@ -3728,12 +3730,12 @@ $A_posteriori_tests_Group[[1]]
                   Brachy      PHTH     RARD      SSTR   Protopl      MEGR
 Spearman.mean  0.1851177 0.4258111 0.359058 0.2505486 0.1802160 0.2833298
 W.per.species  0.2190711 0.4497357 0.385764 0.2817757 0.2143736 0.3131911
-Prob           0.0200000 0.0200000 0.020000 0.0200000 0.0200000 0.0200000
+Prob           0.0400000 0.0200000 0.020000 0.0200000 0.0200000 0.0200000
 Corrected prob 0.7000000 0.7000000 0.700000 0.7000000 0.7000000 0.7000000
                      MPRO      HMIN     HMIN2      NPRA      TVEL      ONOV
 Spearman.mean  0.09248024 0.2444656 0.4138494 0.1263751 0.4177343 0.3301159
 W.per.species  0.13029357 0.2759462 0.4382723 0.1627761 0.4419954 0.3580278
-Prob           0.22000000 0.0200000 0.0200000 0.0400000 0.0200000 0.0200000
+Prob           0.06000000 0.0200000 0.0200000 0.0400000 0.0200000 0.0200000
 Corrected prob 0.70000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000
                     SUCT Oribatl1      PWIL  Galumna1  Stgncrs2      HRUF
 Spearman.mean  0.2185421 0.421216 0.2574779 0.4180699 0.3623428 0.1250230
@@ -3743,14 +3745,14 @@ Corrected prob 0.7000000 0.700000 0.7000000 0.7000000 0.7000000 0.7000000
                     PPEL      SLAT      FSET  Lepidzts  Eupelops  Miniglmn
 Spearman.mean  0.2188216 0.3016159 0.4217606 0.2577037 0.1108022 0.2301430
 W.per.species  0.2513707 0.3307153 0.4458539 0.2886327 0.1478521 0.2622203
-Prob           0.0200000 0.0200000 0.0200000 0.0200000 0.0600000 0.0200000
+Prob           0.0400000 0.0200000 0.0200000 0.0200000 0.1200000 0.0200000
 Corrected prob 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000
 
 $A_posteriori_tests_Group[[2]]
                     HPAV      TVIE      LCIL  Ceratoz1  Trhypch1      NCOR
 Spearman.mean  0.1222579 0.2712078 0.1906408 0.1375601 0.1342409 0.3342345
 W.per.species  0.2020527 0.3374616 0.2642189 0.2159637 0.2129463 0.3947586
-Prob           0.0800000 0.0200000 0.0200000 0.0200000 0.0400000 0.0200000
+Prob           0.0600000 0.0200000 0.0400000 0.0200000 0.0200000 0.0200000
 Corrected prob 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000
                     LRUG     PLAG2  Ceratoz3  Oppiminu  Trimalc2
 Spearman.mean  0.3446561 0.1833099 0.3188922 0.1764232 0.2498877
@@ -3863,7 +3865,7 @@ Mantel statistic r: 0.3047
 
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
-0.107 0.145 0.169 0.200 
+0.108 0.144 0.172 0.209 
 Permutation: free
 Number of permutations: 999
 
@@ -3875,11 +3877,11 @@ Call:
 mantel(xdis = veg.dist, ydis = env.dist, method = "spear") 
 
 Mantel statistic r: 0.2838 
-      Significance: 0.001 
+      Significance: 0.004 
 
 Upper quantiles of permutations (null model):
   90%   95% 97.5%   99% 
-0.108 0.141 0.169 0.196 
+0.109 0.144 0.171 0.207 
 Permutation: free
 Number of permutations: 999
 
@@ -3931,7 +3933,7 @@ mantel.correlog(D.eco = mite.hel.D, XY = mite.xy, nperm = 49)
         class.index     n.dist Mantel.cor Pr(Mantel) Pr(corrected)  
 D.cl.1     0.514182 358.000000   0.135713       0.02          0.02 *
 D.cl.2     1.242546 650.000000   0.118174       0.02          0.04 *
-D.cl.3     1.970910 796.000000   0.037820       0.04          0.06 .
+D.cl.3     1.970910 796.000000   0.037820       0.06          0.06 .
 D.cl.4     2.699274 696.000000  -0.098605       0.02          0.08 .
 D.cl.5     3.427638 500.000000  -0.112682       0.02          0.10 .
 D.cl.6     4.156002 468.000000  -0.107603       0.02          0.12  
@@ -3970,16 +3972,16 @@ mantel.correlog(D.eco = mite.hel.D, XY = mite.xy, cutoff = FALSE,      r.type = 
         class.index     n.dist Mantel.cor Pr(Mantel) Pr(corrected)  
 D.cl.1     0.514182 358.000000   0.134229       0.02          0.02 *
 D.cl.2     1.242546 650.000000   0.121270       0.02          0.04 *
-D.cl.3     1.970910 796.000000   0.035413       0.04          0.06 .
+D.cl.3     1.970910 796.000000   0.035413       0.08          0.08 .
 D.cl.4     2.699274 696.000000  -0.095899       0.02          0.08 .
 D.cl.5     3.427638 500.000000  -0.118692       0.02          0.10 .
 D.cl.6     4.156002 468.000000  -0.117148       0.02          0.12  
-D.cl.7     4.884366 364.000000  -0.031123       0.06          0.14  
-D.cl.8     5.612730 326.000000   0.026064       0.06          0.16  
-D.cl.9     6.341094 260.000000   0.050573       0.04          0.18  
+D.cl.7     4.884366 364.000000  -0.031123       0.04          0.14  
+D.cl.8     5.612730 326.000000   0.026064       0.12          0.16  
+D.cl.9     6.341094 260.000000   0.050573       0.02          0.18  
 D.cl.10    7.069458 184.000000   0.057017       0.02          0.20  
-D.cl.11    7.797822 130.000000   0.036195       0.08          0.22  
-D.cl.12    8.526186  66.000000  -0.054242       0.04          0.24  
+D.cl.11    7.797822 130.000000   0.036195       0.04          0.22  
+D.cl.12    8.526186  66.000000  -0.054242       0.06          0.24  
 D.cl.13    9.254550  32.000000  -0.066677       0.02          0.26  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -4039,7 +4041,7 @@ Run 11 stress 0.1192686
 Run 12 stress 0.1192683 
 Run 13 stress 0.1886532 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 2.260742e-06  max resid 5.293932e-06 
+... Procrustes: rmse 2.260745e-06  max resid 5.293932e-06 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
@@ -4075,7 +4077,7 @@ Species: expanded scores based on ‘dune’
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
-... Procrustes: rmse 1.39695e-05  max resid 4.609836e-05 
+... Procrustes: rmse 1.396951e-05  max resid 4.609836e-05 
 ... Similar to previous best
 Run 2 stress 0.181294 
 Run 3 stress 0.1183186 
@@ -4350,7 +4352,7 @@ n     3     5     6     6
 Chance corrected within-group agreement A: 0.1246 
 Based on observed delta 11.15 and expected delta 12.74 
 
-Significance of delta: 0.002 
+Significance of delta: 0.003 
 Permutation: free
 Number of permutations: 999
 
@@ -4361,37 +4363,44 @@ Number of permutations: 999
 > 
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
 Run 0 stress 0.1192678 
-Run 1 stress 0.2059799 
-Run 2 stress 0.1192678 
+Run 1 stress 0.1192678 
 ... New best solution
-... Procrustes: rmse 3.906075e-05  max resid 0.0001192009 
+... Procrustes: rmse 5.689345e-05  max resid 0.0001718508 
 ... Similar to previous best
-Run 3 stress 0.1192679 
-... Procrustes: rmse 0.0001096816  max resid 0.0003383007 
+Run 2 stress 0.1192685 
+... Procrustes: rmse 0.0003550222  max resid 0.00106452 
 ... Similar to previous best
-Run 4 stress 0.2375284 
-Run 5 stress 0.1183186 
+Run 3 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 0.02027545  max resid 0.0650119 
-Run 6 stress 0.1192678 
+... Procrustes: rmse 0.02029276  max resid 0.06511836 
+Run 4 stress 0.1183186 
+... Procrustes: rmse 1.689038e-05  max resid 5.289041e-05 
+... Similar to previous best
+Run 5 stress 0.1192678 
+Run 6 stress 0.1183186 
+... Procrustes: rmse 1.102487e-05  max resid 3.361892e-05 
+... Similar to previous best
 Run 7 stress 0.1192678 
-Run 8 stress 0.2069991 
-Run 9 stress 0.1183186 
-... Procrustes: rmse 0.0001003641  max resid 0.0002670036 
+Run 8 stress 0.1183186 
+... New best solution
+... Procrustes: rmse 9.669693e-06  max resid 2.893244e-05 
 ... Similar to previous best
-Run 10 stress 0.1922258 
-Run 11 stress 0.1192682 
-Run 12 stress 0.1192683 
-Run 13 stress 0.1809577 
-Run 14 stress 0.1886532 
-Run 15 stress 0.1192679 
-Run 16 stress 0.1192679 
+Run 9 stress 0.1192678 
+Run 10 stress 0.1183186 
+... Procrustes: rmse 0.0001268713  max resid 0.000356103 
+... Similar to previous best
+Run 11 stress 0.1808912 
+Run 12 stress 0.1808911 
+Run 13 stress 0.1192678 
+Run 14 stress 0.1809578 
+Run 15 stress 0.1183186 
+... Procrustes: rmse 7.279939e-05  max resid 0.0002152383 
+... Similar to previous best
+Run 16 stress 0.1808915 
 Run 17 stress 0.1192679 
-Run 18 stress 0.1192678 
-Run 19 stress 0.1183186 
-... Procrustes: rmse 0.0001010439  max resid 0.00034752 
-... Similar to previous best
-Run 20 stress 0.1192687 
+Run 18 stress 0.1192683 
+Run 19 stress 0.1192679 
+Run 20 stress 0.1812947 
 *** Solution reached
 > with(dune.env, ordihull(dune.ord, Management))
 > 
@@ -4499,7 +4508,7 @@ mso variogram:
 0   0 0.3555  63 0.6250 0.6250      0.01
 1   1 1.0659 393 0.7556 0.7556      0.01
 2   2 2.0089 534 0.8931 0.8931      0.01
-3   3 2.9786 417 1.0988 1.0988      0.03
+3   3 2.9786 417 1.0988 1.0988      0.01
 4   4 3.9817 322 1.3321 1.3321      0.01
 5   5 5.0204 245 1.5109 1.5109      0.01
 10 10 6.8069 441 1.7466 1.7466      0.01
@@ -4539,12 +4548,12 @@ mso variogram:
 
     H   Dist   n    All    Sum     CA    CCA      se CA.signif
 0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01
-1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.17
-2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.71
-3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.46
-4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.99
-5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.42
-10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.21
+1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.19
+2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.75
+3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.36
+4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.98
+5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.45
+10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.24
 
 Permutation: free
 Number of permutations: 99
@@ -4722,8 +4731,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-        statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
-C.score    2.2588 -30.744 9.2067 8.7599 9.2245 9.5875     0.01 **
+        statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
+C.score    2.2588 -28.81 9.2040 8.7468 9.2278 9.6178     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -4916,7 +4925,7 @@ Checkerboard Units    : 2767
 C-score (species mean): 2.258776 
 
               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
-checkerboards      2767 -17.768 8034.6 7529.9 8052.0 8518.5     0.01 **
+checkerboards      2767 -18.241 8052.2 7437.4 8073.0 8553.2     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## sequential model, one-sided test, a vector statistic
@@ -4946,10 +4955,10 @@ Axis lengths    2.9197 2.5442 2.7546 1.78074
 
 
      statistic      SES    mean     50%    95% Pr(sim.)  
-DCA1  0.382249  2.15306 0.32124 0.31937 0.3608     0.04 *
-DCA2  0.261208  1.37926 0.22372 0.22327 0.2655     0.10 .
-DCA3  0.166788  0.25563 0.16187 0.16065 0.1980     0.38  
-DCA4  0.087226 -1.51218 0.12405 0.12052 0.1717     0.95  
+DCA1  0.382249  2.62761 0.31926 0.32407 0.3564     0.02 *
+DCA2  0.261208  1.94723 0.21323 0.21262 0.2548     0.05 *
+DCA3  0.166788  0.51773 0.15615 0.15527 0.1891     0.29  
+DCA4  0.087226 -1.82400 0.12663 0.12589 0.1613     0.96  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Inspect the swap sequence as a time series object
@@ -4972,8 +4981,8 @@ nullmodel method ‘r2dtable’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic    SES    mean    2.5%     50% 97.5% Pr(sim.)   
-statistic   0.64565 14.452 0.46737 0.44358 0.46916 0.491     0.01 **
+          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
+statistic   0.64565 14.531 0.46459 0.44104 0.46362 0.4876     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -4996,8 +5005,8 @@ nullmodel method ‘myshuffle’ with 99 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-          statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
-statistic   0.64565 2.6336 0.63574 0.62943 0.63542 0.6444     0.05 *
+          statistic   SES    mean    2.5%     50%  97.5% Pr(sim.)   
+statistic   0.64565 3.073 0.63562 0.63022 0.63508 0.6422     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5015,8 +5024,10 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)
-checkerboards      2767 -0.42126 2804.2 2684.4 2774.0 2963.2     0.91
+              statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)  
+checkerboards      2767 1.4871 2672.3 2599.0 2640.0 2769.6     0.07 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Several chains of a sequential model -- this can be generalized
 > ## for parallel processing (see ?smbind)
 > nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
@@ -5043,8 +5054,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-checkerboards      2767 0.81554 2700.9 2567.4 2692.0 2890.7    0.381
+              statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 0.4972 2719.0 2580.3 2710.0 2937.6   0.5383
 > ## After this you can use as.mcmc() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
@@ -5324,30 +5335,30 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 Start: dune ~ 1 
 
              Df    AIC      F Pr(>F)   
-+ Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
-+ Manure      4 89.232 1.9539  0.015 * 
-+ A1          1 89.591 1.9217  0.040 * 
-+ Use         2 91.032 1.1741  0.340   
++ Manure      4 89.232 1.9539  0.005 **
++ Management  3 87.082 2.8400  0.010 **
++ A1          1 89.591 1.9217  0.030 * 
++ Use         2 91.032 1.1741  0.205   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Step: dune ~ Management 
+Step: dune ~ Moisture 
 
-             Df   AIC    F Pr(>F)   
-- Management  3 89.62 2.84  0.005 **
+           Df   AIC      F Pr(>F)   
+- Moisture  3 89.62 2.5883  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-           Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.010 **
-+ Manure    3 87.517 1.3902  0.115   
-+ A1        1 87.424 1.2965  0.200   
-+ Use       2 88.284 1.0510  0.340   
+             Df    AIC      F Pr(>F)   
++ Management  3 85.567 2.1769  0.010 **
++ Manure      4 86.060 1.8598  0.020 * 
++ Use         2 88.003 1.4245  0.135   
++ A1          1 88.886 0.6286  0.835   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Step: dune ~ Management + Moisture 
+Step: dune ~ Moisture + Management 
 
              Df    AIC      F Pr(>F)   
 - Moisture    3 87.082 1.9764  0.015 * 
@@ -5356,12 +5367,12 @@ Step: dune ~ Management + Moisture
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.275
-+ A1      1 86.220 0.8359  0.585
-+ Use     2 86.842 0.8027  0.700
++ Manure  3 85.762 1.1225  0.300
++ A1      1 86.220 0.8359  0.685
++ Use     2 86.842 0.8027  0.710
 
 > mod
-Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
+Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -5380,8 +5391,8 @@ Eigenvalues for unconstrained axes:
 > ## summary table of steps
 > mod$anova
              Df    AIC      F Pr(>F)   
-+ Management  3 87.082 2.8400  0.005 **
-+ Moisture    3 85.567 1.9764  0.010 **
++ Moisture    3 87.707 2.5883  0.005 **
++ Management  3 85.567 2.1769  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5393,18 +5404,18 @@ Start: dune ~ 1
              Df    AIC      F Pr(>F)   
 + Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
-+ Manure      4 89.232 1.9539  0.005 **
-+ A1          1 89.591 1.9217  0.060 . 
-+ Use         2 91.032 1.1741  0.295   
++ Manure      4 89.232 1.9539  0.015 * 
++ A1          1 89.591 1.9217  0.045 * 
++ Use         2 91.032 1.1741  0.250   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management 
 
            Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.010 **
-+ Manure    3 87.517 1.3902  0.115   
-+ A1        1 87.424 1.2965  0.200   
++ Moisture  3 85.567 1.9764  0.005 **
++ Manure    3 87.517 1.3902  0.095 . 
++ A1        1 87.424 1.2965  0.175   
 + Use       2 88.284 1.0510  0.365   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -5412,9 +5423,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Step: dune ~ Management + Moisture 
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.320
-+ A1      1 86.220 0.8359  0.640
-+ Use     2 86.842 0.8027  0.735
++ Manure  3 85.762 1.1225  0.315
++ A1      1 86.220 0.8359  0.605
++ Use     2 86.842 0.8027  0.695
 
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
@@ -5583,7 +5594,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-24. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-28. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5947,19 +5958,19 @@ Number of permuted matrices: 99
 
 Matrix sums retained: 100 %
 Matrix fill retained: 100 %
-Row sums retained:    3.03 %
+Row sums retained:    1.01 %
 Column sums retained: 0 %
-Row incidences retained:    3.03 %
+Row incidences retained:    1.01 %
 Column incidences retained: 0 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2000  0.3333  0.4000  0.3811  0.4000  0.5333 
+ 0.1333  0.3333  0.4000  0.3710  0.4000  0.6000 
 
 Chi-squared for original matrix: 8.4
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  6.688  13.312  14.938  15.161  17.021  21.688 
+  10.23   13.77   15.73   15.68   17.55   20.77 
 > ## Restricted permutation,
 > ## check sums within strata:
 > x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -5980,21 +5991,21 @@ Fill of original matrix: 0.62
 Number of permuted matrices: 99 
 
 Matrix sums retained: 100 %
-Matrix fill retained: 48.48 %
+Matrix fill retained: 51.52 %
 Row sums retained:    100 %
 Column sums retained: 100 %
-Row incidences retained:    4.04 %
-Column incidences retained: 3.03 %
+Row incidences retained:    5.05 %
+Column incidences retained: 4.04 %
 Sums within strata retained: 100 %
 
 Bray-Curtis dissimilarities among original and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.06667 0.20000 0.20000 0.23232 0.26667 0.46667 
+0.06667 0.20000 0.20000 0.22424 0.26667 0.40000 
 
 Chi-squared for original matrix: 18.55
 Chi-squared values among expected and permuted matrices:
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  14.21   18.88   21.21   22.03   24.10   38.26 
+  14.21   18.67   21.60   22.00   24.88   33.74 
 > 
 > ## NOTE: 'times' argument usually needs to be >= 99
 > ## here much lower value is used for demonstration
@@ -6025,17 +6036,17 @@ arima(x = bc, order = c(1, 0, 0))
 
 Coefficients:
          ar1  intercept
-      0.9916     0.1849
-s.e.  0.0119     0.1400
+      0.9917     0.1869
+s.e.  0.0117     0.1383
 
-sigma^2 estimated as 0.0003517:  log likelihood = 46.55,  aic = -87.09
+sigma^2 estimated as 0.0003391:  log likelihood = 46.89,  aic = -87.77
 > ## Ljung-Box test of residuals
 > Box.test(residuals(mar))
 
 	Box-Pierce test
 
 data:  residuals(mar)
-X-squared = 3.3312e-05, df = 1, p-value = 0.9954
+X-squared = 0.40252, df = 1, p-value = 0.5258
 
 > ## Graphical diagnostics
 > tsdiag(mar)
@@ -6070,8 +6081,8 @@ X-squared = 3.3312e-05, df = 1, p-value = 0.9954
 > summary(perm)
 
            statistic    SES   mean lower median  upper Pr(perm)   
-Management    3.0730 4.5815 1.0462       0.9470 1.8475    0.006 **
-A1            2.7676 2.6322 1.0364       0.8851 2.3280    0.025 * 
+Management    3.0730 4.9011 1.0124       0.9446 1.7788    0.002 **
+A1            2.7676 2.8132 1.0364       0.9039 2.2849    0.021 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -6087,13 +6098,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > summary(perm, interval = 0.90)
 
             statistic     SES    mean   lower  median   upper Pr(perm)  
-Overall (F)    1.9506  0.6046  1.2061          0.8375  2.7743    0.184  
-BF-HF (t)     -0.5634 -0.4179 -0.0584 -2.0011 -0.0974  1.8273    0.615  
-BF-NM (t)     -2.2387 -1.8228 -0.0941 -2.1192 -0.0944  1.7339    0.085 .
-BF-SF (t)     -1.1675 -0.8886 -0.0928 -2.1442 -0.0866  1.8232    0.333  
-HF-NM (t)     -2.1017 -1.8899 -0.0158 -1.8740  0.0412  1.6319    0.067 .
-HF-SF (t)     -0.8789 -0.7166 -0.0321 -1.8973 -0.0076  1.8362    0.431  
-NM-SF (t)      0.9485  0.8309 -0.0036 -1.8411 -0.0531  1.9024    0.367  
+Overall (F)    1.9506  0.7790  1.1108          0.7617  2.4904    0.168  
+BF-HF (t)     -0.5634 -0.4990 -0.0020 -1.7690 -0.0382  1.8192    0.573  
+BF-NM (t)     -2.2387 -1.8876  0.0153 -1.8120 -0.0146  2.0067    0.061 .
+BF-SF (t)     -1.1675 -0.9769 -0.0117 -1.9015 -0.0534  1.8619    0.251  
+HF-NM (t)     -2.1017 -1.8404  0.0186 -1.9587  0.0631  1.8701    0.077 .
+HF-SF (t)     -0.8789 -0.7233 -0.0232 -1.8836  0.0540  1.7446    0.423  
+NM-SF (t)      0.9485  0.8665 -0.0381 -1.8811 -0.0455  1.9683    0.325  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -6626,8 +6637,8 @@ Rotation matrix:
 [2,] 0.1154641  0.9933117
 
 Translation of averages:
-             [,1]         [,2]
-[1,] 3.038945e-17 1.218602e-17
+              [,1]        [,2]
+[1,] -7.774462e-18 4.29519e-20
 
 Scaling of target:
 [1] 0.6727804
@@ -7021,216 +7032,216 @@ $HF_NM
 Contrast: SF_BF 
 
          average      sd   ratio     ava     avb cumsum    p   
-Agrostol 0.06137 0.03419 1.79490 4.66700 0.00000  0.098 0.02 * 
-Alopgeni 0.05267 0.03648 1.44390 4.33300 0.66700  0.182 0.11   
-Lolipere 0.04812 0.03945 1.21980 3.00000 6.00000  0.260 0.46   
-Trifrepe 0.04630 0.02553 1.81380 1.33300 4.66700  0.334 0.09 . 
+Agrostol 0.06137 0.03419 1.79490 4.66700 0.00000  0.098 0.04 * 
+Alopgeni 0.05267 0.03648 1.44390 4.33300 0.66700  0.182 0.20   
+Lolipere 0.04812 0.03945 1.21980 3.00000 6.00000  0.260 0.47   
+Trifrepe 0.04630 0.02553 1.81380 1.33300 4.66700  0.334 0.08 . 
 Poatriv  0.04602 0.03380 1.36150 4.66700 3.66700  0.407 0.59   
-Scorautu 0.04370 0.02492 1.75340 1.33300 4.33300  0.477 0.02 * 
-Bromhord 0.03368 0.02586 1.30230 0.50000 2.66700  0.531 0.01 **
-Achimill 0.03015 0.02082 1.44820 0.16700 2.33300  0.580 0.03 * 
-Planlanc 0.02859 0.02155 1.32650 0.00000 2.00000  0.625 0.53   
-Elymrepe 0.02807 0.02978 0.94280 2.00000 1.33300  0.670 0.50   
-Bracruta 0.02550 0.02390 1.06690 2.00000 2.00000  0.711 0.82   
-Poaprat  0.02513 0.02397 1.04850 2.50000 4.00000  0.751 0.90   
-Sagiproc 0.02433 0.02215 1.09830 1.83300 0.66700  0.790 0.38   
-Bellpere 0.01986 0.01709 1.16220 0.66700 1.66700  0.822 0.05 * 
-Eleopalu 0.01861 0.04296 0.43330 1.33300 0.00000  0.852 0.86   
-Anthodor 0.01754 0.02580 0.67980 0.00000 1.33300  0.880 0.68   
-Juncbufo 0.01603 0.02371 0.67620 1.16700 0.00000  0.906 0.59   
-Vicilath 0.01467 0.01331 1.10260 0.00000 1.00000  0.929 0.07 . 
-Hyporadi 0.01029 0.01520 0.67680 0.00000 0.66700  0.945 0.53   
-Ranuflam 0.00931 0.01360 0.68450 0.66700 0.00000  0.960 0.86   
-Juncarti 0.00698 0.01611 0.43330 0.50000 0.00000  0.972 0.98   
-Callcusp 0.00698 0.01611 0.43330 0.50000 0.00000  0.983 0.83   
-Rumeacet 0.00453 0.01044 0.43330 0.33300 0.00000  0.990 0.99   
-Cirsarve 0.00398 0.00918 0.43360 0.33300 0.00000  0.996 0.40   
-Chenalbu 0.00233 0.00537 0.43330 0.16700 0.00000  1.000 0.42   
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.62   
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.73   
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.30   
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.88   
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.89   
+Scorautu 0.04370 0.02492 1.75340 1.33300 4.33300  0.477 0.03 * 
+Bromhord 0.03368 0.02586 1.30230 0.50000 2.66700  0.531 0.02 * 
+Achimill 0.03015 0.02082 1.44820 0.16700 2.33300  0.580 0.01 **
+Planlanc 0.02859 0.02155 1.32650 0.00000 2.00000  0.625 0.48   
+Elymrepe 0.02807 0.02978 0.94280 2.00000 1.33300  0.670 0.52   
+Bracruta 0.02550 0.02390 1.06690 2.00000 2.00000  0.711 0.88   
+Poaprat  0.02513 0.02397 1.04850 2.50000 4.00000  0.751 0.89   
+Sagiproc 0.02433 0.02215 1.09830 1.83300 0.66700  0.790 0.42   
+Bellpere 0.01986 0.01709 1.16220 0.66700 1.66700  0.822 0.13   
+Eleopalu 0.01861 0.04296 0.43330 1.33300 0.00000  0.852 0.84   
+Anthodor 0.01754 0.02580 0.67980 0.00000 1.33300  0.880 0.79   
+Juncbufo 0.01603 0.02371 0.67620 1.16700 0.00000  0.906 0.53   
+Vicilath 0.01467 0.01331 1.10260 0.00000 1.00000  0.929 0.05 * 
+Hyporadi 0.01029 0.01520 0.67680 0.00000 0.66700  0.945 0.62   
+Ranuflam 0.00931 0.01360 0.68450 0.66700 0.00000  0.960 0.91   
+Juncarti 0.00698 0.01611 0.43330 0.50000 0.00000  0.972 0.96   
+Callcusp 0.00698 0.01611 0.43330 0.50000 0.00000  0.983 0.85   
+Rumeacet 0.00453 0.01044 0.43330 0.33300 0.00000  0.990 0.96   
+Cirsarve 0.00398 0.00918 0.43360 0.33300 0.00000  0.996 0.41   
+Chenalbu 0.00233 0.00537 0.43330 0.16700 0.00000  1.000 0.40   
+Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.73   
+Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.68   
+Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.46   
+Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.85   
+Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.85   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Contrast: SF_HF 
 
          average      sd   ratio     ava     avb cumsum    p   
-Agrostol 0.04738 0.03127 1.51510 4.66700 1.40000  0.084 0.30   
-Alopgeni 0.04643 0.03290 1.41150 4.33300 1.60000  0.165 0.24   
+Agrostol 0.04738 0.03127 1.51510 4.66700 1.40000  0.084 0.34   
+Alopgeni 0.04643 0.03290 1.41150 4.33300 1.60000  0.165 0.23   
 Lolipere 0.04199 0.02701 1.55460 3.00000 4.00000  0.239 0.84   
-Planlanc 0.03920 0.03321 1.18040 0.00000 3.00000  0.308 0.05 * 
+Planlanc 0.03920 0.03321 1.18040 0.00000 3.00000  0.308 0.06 . 
 Rumeacet 0.03899 0.02737 1.42470 0.33300 3.20000  0.377 0.01 **
-Elymrepe 0.03188 0.02955 1.07870 2.00000 2.00000  0.433 0.36   
-Poatriv  0.02847 0.02152 1.32270 4.66700 4.80000  0.484 1.00   
-Bracruta 0.02526 0.02104 1.20040 2.00000 2.80000  0.528 0.89   
-Eleopalu 0.02497 0.03888 0.64240 1.33300 0.80000  0.572 0.79   
-Poaprat  0.02393 0.01918 1.24780 2.50000 3.40000  0.614 0.98   
-Anthodor 0.02341 0.02143 1.09230 0.00000 1.80000  0.656 0.66   
-Sagiproc 0.02314 0.02048 1.13010 1.83300 0.80000  0.696 0.45   
+Elymrepe 0.03188 0.02955 1.07870 2.00000 2.00000  0.433 0.33   
+Poatriv  0.02847 0.02152 1.32270 4.66700 4.80000  0.484 0.99   
+Bracruta 0.02526 0.02104 1.20040 2.00000 2.80000  0.528 0.96   
+Eleopalu 0.02497 0.03888 0.64240 1.33300 0.80000  0.572 0.71   
+Poaprat  0.02393 0.01918 1.24780 2.50000 3.40000  0.614 0.96   
+Anthodor 0.02341 0.02143 1.09230 0.00000 1.80000  0.656 0.59   
+Sagiproc 0.02314 0.02048 1.13010 1.83300 0.80000  0.696 0.51   
 Trifprat 0.02308 0.02343 0.98500 0.00000 1.80000  0.737 0.02 * 
-Juncarti 0.02285 0.02568 0.88990 0.50000 1.60000  0.777 0.51   
-Trifrepe 0.02238 0.01949 1.14860 1.33300 2.80000  0.817 0.93   
-Juncbufo 0.02164 0.02224 0.97330 1.16700 1.20000  0.855 0.16   
-Scorautu 0.02051 0.01642 1.24890 1.33300 2.80000  0.891 0.74   
-Achimill 0.01518 0.01139 1.33260 0.16700 1.20000  0.918 0.72   
-Bromhord 0.01338 0.01450 0.92220 0.50000 0.80000  0.941 0.80   
-Ranuflam 0.01066 0.01339 0.79640 0.66700 0.40000  0.960 0.92   
-Bellpere 0.00999 0.01257 0.79480 0.66700 0.40000  0.978 0.89   
-Callcusp 0.00662 0.01508 0.43930 0.50000 0.00000  0.989 0.97   
-Cirsarve 0.00381 0.00867 0.43940 0.33300 0.00000  0.996 0.55   
-Chenalbu 0.00221 0.00503 0.43930 0.16700 0.00000  1.000 0.56   
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.79   
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.85   
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.53   
-Hyporadi 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.90   
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.94   
-Vicilath 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.84   
+Juncarti 0.02285 0.02568 0.88990 0.50000 1.60000  0.777 0.38   
+Trifrepe 0.02238 0.01949 1.14860 1.33300 2.80000  0.817 0.97   
+Juncbufo 0.02164 0.02224 0.97330 1.16700 1.20000  0.855 0.19   
+Scorautu 0.02051 0.01642 1.24890 1.33300 2.80000  0.891 0.80   
+Achimill 0.01518 0.01139 1.33260 0.16700 1.20000  0.918 0.69   
+Bromhord 0.01338 0.01450 0.92220 0.50000 0.80000  0.941 0.78   
+Ranuflam 0.01066 0.01339 0.79640 0.66700 0.40000  0.960 0.87   
+Bellpere 0.00999 0.01257 0.79480 0.66700 0.40000  0.978 0.92   
+Callcusp 0.00662 0.01508 0.43930 0.50000 0.00000  0.989 0.94   
+Cirsarve 0.00381 0.00867 0.43940 0.33300 0.00000  0.996 0.61   
+Chenalbu 0.00221 0.00503 0.43930 0.16700 0.00000  1.000 0.58   
+Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.75   
+Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.83   
+Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.52   
+Hyporadi 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.92   
+Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.91   
+Vicilath 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.92   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Contrast: SF_NM 
 
          average      sd   ratio     ava     avb cumsum    p   
-Poatriv  0.07828 0.04095 1.91180 4.66700 0.00000  0.101 0.02 * 
+Poatriv  0.07828 0.04095 1.91180 4.66700 0.00000  0.101 0.01 **
 Alopgeni 0.07122 0.04696 1.51670 4.33300 0.00000  0.194 0.01 **
-Agrostol 0.05651 0.04418 1.27920 4.66700 2.16700  0.267 0.02 * 
-Lolipere 0.05485 0.05991 0.91550 3.00000 0.33300  0.338 0.14   
+Agrostol 0.05651 0.04418 1.27920 4.66700 2.16700  0.267 0.04 * 
+Lolipere 0.05485 0.05991 0.91550 3.00000 0.33300  0.338 0.15   
 Eleopalu 0.04803 0.04717 1.01820 1.33300 2.16700  0.400 0.04 * 
-Poaprat  0.04072 0.03179 1.28100 2.50000 0.66700  0.453 0.06 . 
-Bracruta 0.04001 0.03440 1.16310 2.00000 2.83300  0.504 0.14   
+Poaprat  0.04072 0.03179 1.28100 2.50000 0.66700  0.453 0.04 * 
+Bracruta 0.04001 0.03440 1.16310 2.00000 2.83300  0.504 0.12   
 Elymrepe 0.03560 0.03852 0.92430 2.00000 0.00000  0.551 0.13   
-Scorautu 0.03247 0.03481 0.93280 1.33300 3.16700  0.593 0.10 . 
-Trifrepe 0.03043 0.03163 0.96190 1.33300 1.83300  0.632 0.59   
-Sagiproc 0.03030 0.03048 0.99430 1.83300 0.50000  0.671 0.04 * 
-Salirepe 0.02928 0.03201 0.91440 0.00000 1.83300  0.709 0.02 * 
-Anthodor 0.02454 0.03669 0.66880 0.00000 1.33300  0.741 0.55   
-Callcusp 0.02276 0.02944 0.77310 0.50000 1.16700  0.770 0.09 . 
-Ranuflam 0.02257 0.02282 0.98890 0.66700 1.33300  0.800 0.07 . 
-Juncarti 0.02254 0.02860 0.78830 0.50000 1.16700  0.829 0.45   
-Hyporadi 0.02011 0.03129 0.64260 0.00000 1.16700  0.855 0.17   
+Scorautu 0.03247 0.03481 0.93280 1.33300 3.16700  0.593 0.12   
+Trifrepe 0.03043 0.03163 0.96190 1.33300 1.83300  0.632 0.70   
+Sagiproc 0.03030 0.03048 0.99430 1.83300 0.50000  0.671 0.01 **
+Salirepe 0.02928 0.03201 0.91440 0.00000 1.83300  0.709 0.01 **
+Anthodor 0.02454 0.03669 0.66880 0.00000 1.33300  0.741 0.54   
+Callcusp 0.02276 0.02944 0.77310 0.50000 1.16700  0.770 0.04 * 
+Ranuflam 0.02257 0.02282 0.98890 0.66700 1.33300  0.800 0.08 . 
+Juncarti 0.02254 0.02860 0.78830 0.50000 1.16700  0.829 0.47   
+Hyporadi 0.02011 0.03129 0.64260 0.00000 1.16700  0.855 0.18   
 Juncbufo 0.01986 0.02903 0.68400 1.16700 0.00000  0.881 0.30   
-Planlanc 0.01542 0.02277 0.67720 0.00000 0.83300  0.900 0.99   
-Airaprae 0.01488 0.02188 0.68020 0.00000 0.83300  0.920 0.04 * 
-Bellpere 0.01232 0.01592 0.77370 0.66700 0.33300  0.936 0.77   
-Comapalu 0.01188 0.01741 0.68260 0.00000 0.66700  0.951 0.06 . 
-Achimill 0.00929 0.01493 0.62240 0.16700 0.33300  0.963 0.99   
-Bromhord 0.00717 0.01633 0.43910 0.50000 0.00000  0.972 0.99   
+Planlanc 0.01542 0.02277 0.67720 0.00000 0.83300  0.900 1.00   
+Airaprae 0.01488 0.02188 0.68020 0.00000 0.83300  0.920 0.06 . 
+Bellpere 0.01232 0.01592 0.77370 0.66700 0.33300  0.936 0.81   
+Comapalu 0.01188 0.01741 0.68260 0.00000 0.66700  0.951 0.04 * 
+Achimill 0.00929 0.01493 0.62240 0.16700 0.33300  0.963 0.96   
+Bromhord 0.00717 0.01633 0.43910 0.50000 0.00000  0.972 0.98   
 Rumeacet 0.00559 0.01275 0.43840 0.33300 0.00000  0.980 0.99   
-Empenigr 0.00523 0.01200 0.43540 0.00000 0.33300  0.986 0.32   
+Empenigr 0.00523 0.01200 0.43540 0.00000 0.33300  0.986 0.28   
 Cirsarve 0.00478 0.01089 0.43910 0.33300 0.00000  0.993 0.01 **
 Chenalbu 0.00289 0.00660 0.43820 0.16700 0.00000  0.996 0.01 **
-Vicilath 0.00279 0.00642 0.43450 0.00000 0.16700  1.000 0.77   
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.98   
+Vicilath 0.00279 0.00642 0.43450 0.00000 0.16700  1.000 0.72   
+Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.97   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Contrast: BF_HF 
 
          average      sd   ratio     ava     avb cumsum    p  
-Rumeacet 0.03867 0.02606 1.48380 0.00000 3.20000  0.082 0.04 *
+Rumeacet 0.03867 0.02606 1.48380 0.00000 3.20000  0.082 0.06 .
 Poatriv  0.03330 0.02579 1.29110 3.66700 4.80000  0.152 0.97  
-Planlanc 0.03185 0.01830 1.74010 2.00000 3.00000  0.219 0.27  
+Planlanc 0.03185 0.01830 1.74010 2.00000 3.00000  0.219 0.31  
 Bromhord 0.02865 0.01799 1.59260 2.66700 0.80000  0.280 0.08 .
 Lolipere 0.02843 0.02215 1.28340 6.00000 4.00000  0.340 1.00  
 Elymrepe 0.02782 0.02959 0.94040 1.33300 2.00000  0.398 0.55  
-Trifrepe 0.02584 0.01656 1.56030 4.66700 2.80000  0.453 0.76  
-Anthodor 0.02358 0.02042 1.15470 1.33300 1.80000  0.503 0.63  
-Achimill 0.02343 0.01474 1.58930 2.33300 1.20000  0.552 0.16  
-Bracruta 0.02273 0.01802 1.26170 2.00000 2.80000  0.600 0.91  
-Alopgeni 0.02161 0.02308 0.93630 0.66700 1.60000  0.646 0.92  
-Trifprat 0.02151 0.02207 0.97470 0.00000 1.80000  0.691 0.08 .
-Juncarti 0.02008 0.02555 0.78600 0.00000 1.60000  0.734 0.65  
-Scorautu 0.01932 0.01357 1.42410 4.33300 2.80000  0.774 0.78  
-Bellpere 0.01829 0.01486 1.23050 1.66700 0.40000  0.813 0.21  
+Trifrepe 0.02584 0.01656 1.56030 4.66700 2.80000  0.453 0.70  
+Anthodor 0.02358 0.02042 1.15470 1.33300 1.80000  0.503 0.50  
+Achimill 0.02343 0.01474 1.58930 2.33300 1.20000  0.552 0.13  
+Bracruta 0.02273 0.01802 1.26170 2.00000 2.80000  0.600 0.90  
+Alopgeni 0.02161 0.02308 0.93630 0.66700 1.60000  0.646 0.87  
+Trifprat 0.02151 0.02207 0.97470 0.00000 1.80000  0.691 0.11  
+Juncarti 0.02008 0.02555 0.78600 0.00000 1.60000  0.734 0.73  
+Scorautu 0.01932 0.01357 1.42410 4.33300 2.80000  0.774 0.66  
+Bellpere 0.01829 0.01486 1.23050 1.66700 0.40000  0.813 0.14  
 Agrostol 0.01761 0.02284 0.77080 0.00000 1.40000  0.850 1.00  
-Juncbufo 0.01500 0.02066 0.72600 0.00000 1.20000  0.882 0.62  
-Vicilath 0.01285 0.01140 1.12740 1.00000 0.00000  0.909 0.05 *
-Sagiproc 0.01168 0.01297 0.90080 0.66700 0.80000  0.934 0.93  
-Eleopalu 0.01017 0.02111 0.48170 0.00000 0.80000  0.955 0.95  
-Hyporadi 0.00895 0.01312 0.68240 0.66700 0.00000  0.974 0.77  
+Juncbufo 0.01500 0.02066 0.72600 0.00000 1.20000  0.882 0.52  
+Vicilath 0.01285 0.01140 1.12740 1.00000 0.00000  0.909 0.04 *
+Sagiproc 0.01168 0.01297 0.90080 0.66700 0.80000  0.934 0.89  
+Eleopalu 0.01017 0.02111 0.48170 0.00000 0.80000  0.955 0.97  
+Hyporadi 0.00895 0.01312 0.68240 0.66700 0.00000  0.974 0.54  
 Poaprat  0.00720 0.01010 0.71330 4.00000 3.40000  0.989 1.00  
 Ranuflam 0.00508 0.01055 0.48170 0.00000 0.40000  1.000 0.99  
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.75  
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.44  
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.50  
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.56  
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.39  
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.81  
-Callcusp 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.75  
+Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.54  
+Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.37  
+Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.44  
+Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.74  
+Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.33  
+Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.80  
+Callcusp 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.77  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Contrast: BF_NM 
 
-         average      sd   ratio     ava     avb cumsum    p  
-Lolipere 0.09068 0.02644 3.42900 6.00000 0.33300  0.124 0.02 *
-Poatriv  0.05468 0.04465 1.22500 3.66700 0.00000  0.199 0.28  
-Poaprat  0.05251 0.01813 2.89700 4.00000 0.66700  0.271 0.04 *
-Trifrepe 0.05129 0.02756 1.86100 4.66700 1.83300  0.342 0.05 *
-Bromhord 0.03969 0.02920 1.35900 2.66700 0.00000  0.396 0.02 *
-Bracruta 0.03572 0.02869 1.24500 2.00000 2.83300  0.445 0.36  
-Eleopalu 0.03376 0.03573 0.94500 0.00000 2.16700  0.491 0.48  
-Agrostol 0.03345 0.03473 0.96300 0.00000 2.16700  0.537 0.87  
-Achimill 0.03319 0.02338 1.42000 2.33300 0.33300  0.582 0.02 *
-Scorautu 0.03136 0.02026 1.54800 4.33300 3.16700  0.625 0.32  
-Anthodor 0.02806 0.03295 0.85200 1.33300 1.33300  0.664 0.39  
-Planlanc 0.02732 0.02193 1.24600 2.00000 0.83300  0.701 0.54  
-Salirepe 0.02677 0.02927 0.91400 0.00000 1.83300  0.738 0.16  
-Bellpere 0.02353 0.01909 1.23200 1.66700 0.33300  0.770 0.02 *
-Hyporadi 0.02172 0.02450 0.88600 0.66700 1.16700  0.800 0.24  
-Ranuflam 0.02031 0.02275 0.89300 0.00000 1.33300  0.828 0.25  
-Elymrepe 0.01999 0.02926 0.68300 1.33300 0.00000  0.855 0.80  
-Callcusp 0.01783 0.02681 0.66500 0.00000 1.16700  0.880 0.43  
-Juncarti 0.01769 0.02600 0.68100 0.00000 1.16700  0.904 0.73  
-Vicilath 0.01577 0.01447 1.09000 1.00000 0.16700  0.926 0.03 *
-Sagiproc 0.01543 0.01857 0.83100 0.66700 0.50000  0.947 0.87  
-Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.35  
-Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.35  
-Alopgeni 0.01000 0.01463 0.68300 0.66700 0.00000  0.993 0.98  
-Empenigr 0.00479 0.01105 0.43300 0.00000 0.33300  1.000 0.46  
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.44  
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.47  
-Juncbufo 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.90  
-Rumeacet 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.95  
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.83  
+         average      sd   ratio     ava     avb cumsum    p   
+Lolipere 0.09068 0.02644 3.42900 6.00000 0.33300  0.124 0.01 **
+Poatriv  0.05468 0.04465 1.22500 3.66700 0.00000  0.199 0.29   
+Poaprat  0.05251 0.01813 2.89700 4.00000 0.66700  0.271 0.02 * 
+Trifrepe 0.05129 0.02756 1.86100 4.66700 1.83300  0.342 0.04 * 
+Bromhord 0.03969 0.02920 1.35900 2.66700 0.00000  0.396 0.01 **
+Bracruta 0.03572 0.02869 1.24500 2.00000 2.83300  0.445 0.29   
+Eleopalu 0.03376 0.03573 0.94500 0.00000 2.16700  0.491 0.53   
+Agrostol 0.03345 0.03473 0.96300 0.00000 2.16700  0.537 0.87   
+Achimill 0.03319 0.02338 1.42000 2.33300 0.33300  0.582 0.02 * 
+Scorautu 0.03136 0.02026 1.54800 4.33300 3.16700  0.625 0.22   
+Anthodor 0.02806 0.03295 0.85200 1.33300 1.33300  0.664 0.37   
+Planlanc 0.02732 0.02193 1.24600 2.00000 0.83300  0.701 0.51   
+Salirepe 0.02677 0.02927 0.91400 0.00000 1.83300  0.738 0.12   
+Bellpere 0.02353 0.01909 1.23200 1.66700 0.33300  0.770 0.01 **
+Hyporadi 0.02172 0.02450 0.88600 0.66700 1.16700  0.800 0.28   
+Ranuflam 0.02031 0.02275 0.89300 0.00000 1.33300  0.828 0.29   
+Elymrepe 0.01999 0.02926 0.68300 1.33300 0.00000  0.855 0.87   
+Callcusp 0.01783 0.02681 0.66500 0.00000 1.16700  0.880 0.40   
+Juncarti 0.01769 0.02600 0.68100 0.00000 1.16700  0.904 0.73   
+Vicilath 0.01577 0.01447 1.09000 1.00000 0.16700  0.926 0.01 **
+Sagiproc 0.01543 0.01857 0.83100 0.66700 0.50000  0.947 0.87   
+Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.34   
+Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.46   
+Alopgeni 0.01000 0.01463 0.68300 0.66700 0.00000  0.993 0.99   
+Empenigr 0.00479 0.01105 0.43300 0.00000 0.33300  1.000 0.37   
+Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.38   
+Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.49   
+Juncbufo 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.95   
+Rumeacet 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.94   
+Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.83   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Contrast: HF_NM 
 
          average      sd   ratio     ava     avb cumsum    p   
-Poatriv  0.07155 0.01368 5.23000 4.80000 0.00000  0.099 0.02 * 
-Lolipere 0.05453 0.02962 1.84100 4.00000 0.33300  0.175 0.20   
+Poatriv  0.07155 0.01368 5.23000 4.80000 0.00000  0.099 0.01 **
+Lolipere 0.05453 0.02962 1.84100 4.00000 0.33300  0.175 0.25   
 Rumeacet 0.04655 0.03081 1.51100 3.20000 0.00000  0.239 0.01 **
 Poaprat  0.04175 0.01885 2.21500 3.40000 0.66700  0.297 0.06 . 
-Planlanc 0.04163 0.02956 1.40800 3.00000 0.83300  0.355 0.02 * 
-Bracruta 0.03534 0.02010 1.75800 2.80000 2.83300  0.404 0.44   
-Eleopalu 0.03204 0.03231 0.99200 0.80000 2.16700  0.448 0.51   
-Agrostol 0.03192 0.02889 1.10500 1.40000 2.16700  0.492 0.94   
-Trifrepe 0.03037 0.02287 1.32800 2.80000 1.83300  0.534 0.61   
-Elymrepe 0.02981 0.03868 0.77100 2.00000 0.00000  0.576 0.44   
-Anthodor 0.02872 0.02480 1.15800 1.80000 1.33300  0.615 0.28   
+Planlanc 0.04163 0.02956 1.40800 3.00000 0.83300  0.355 0.04 * 
+Bracruta 0.03534 0.02010 1.75800 2.80000 2.83300  0.404 0.38   
+Eleopalu 0.03204 0.03231 0.99200 0.80000 2.16700  0.448 0.41   
+Agrostol 0.03192 0.02889 1.10500 1.40000 2.16700  0.492 0.93   
+Trifrepe 0.03037 0.02287 1.32800 2.80000 1.83300  0.534 0.52   
+Elymrepe 0.02981 0.03868 0.77100 2.00000 0.00000  0.576 0.47   
+Anthodor 0.02872 0.02480 1.15800 1.80000 1.33300  0.615 0.34   
 Juncarti 0.02741 0.02854 0.96100 1.60000 1.16700  0.653 0.19   
 Trifprat 0.02584 0.02597 0.99500 1.80000 0.00000  0.689 0.01 **
-Salirepe 0.02534 0.02729 0.92900 0.00000 1.83300  0.724 0.09 . 
-Alopgeni 0.02446 0.03240 0.75500 1.60000 0.00000  0.758 0.90   
-Scorautu 0.02070 0.01412 1.46600 2.80000 3.16700  0.787 0.79   
-Ranuflam 0.01928 0.01994 0.96700 0.40000 1.33300  0.814 0.31   
-Juncbufo 0.01818 0.02465 0.73800 1.20000 0.00000  0.839 0.44   
-Hyporadi 0.01714 0.02655 0.64600 0.00000 1.16700  0.862 0.42   
-Callcusp 0.01683 0.02490 0.67600 0.00000 1.16700  0.886 0.45   
-Achimill 0.01656 0.01490 1.11100 1.20000 0.33300  0.909 0.59   
-Sagiproc 0.01528 0.01653 0.92400 0.80000 0.50000  0.930 0.88   
-Airaprae 0.01261 0.01824 0.69100 0.00000 0.83300  0.947 0.28   
-Bromhord 0.01209 0.01517 0.79700 0.80000 0.00000  0.964 0.76   
-Comapalu 0.01011 0.01456 0.69400 0.00000 0.66700  0.978 0.23   
-Bellpere 0.00880 0.01373 0.64100 0.40000 0.33300  0.990 0.94   
-Empenigr 0.00454 0.01033 0.43900 0.00000 0.33300  0.997 0.54   
-Vicilath 0.00240 0.00546 0.43900 0.00000 0.16700  1.000 0.84   
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.60   
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.50   
+Salirepe 0.02534 0.02729 0.92900 0.00000 1.83300  0.724 0.12   
+Alopgeni 0.02446 0.03240 0.75500 1.60000 0.00000  0.758 0.93   
+Scorautu 0.02070 0.01412 1.46600 2.80000 3.16700  0.787 0.84   
+Ranuflam 0.01928 0.01994 0.96700 0.40000 1.33300  0.814 0.33   
+Juncbufo 0.01818 0.02465 0.73800 1.20000 0.00000  0.839 0.43   
+Hyporadi 0.01714 0.02655 0.64600 0.00000 1.16700  0.862 0.47   
+Callcusp 0.01683 0.02490 0.67600 0.00000 1.16700  0.886 0.46   
+Achimill 0.01656 0.01490 1.11100 1.20000 0.33300  0.909 0.61   
+Sagiproc 0.01528 0.01653 0.92400 0.80000 0.50000  0.930 0.89   
+Airaprae 0.01261 0.01824 0.69100 0.00000 0.83300  0.947 0.39   
+Bromhord 0.01209 0.01517 0.79700 0.80000 0.00000  0.964 0.78   
+Comapalu 0.01011 0.01456 0.69400 0.00000 0.66700  0.978 0.26   
+Bellpere 0.00880 0.01373 0.64100 0.40000 0.33300  0.990 0.93   
+Empenigr 0.00454 0.01033 0.43900 0.00000 0.33300  0.997 0.59   
+Vicilath 0.00240 0.00546 0.43900 0.00000 0.16700  1.000 0.85   
+Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.54   
+Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.53   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -7381,117 +7392,121 @@ Call: specaccum(comm = BCI, method = "random")
 
                                                                              
 Sites     1.00000   2.00000   3.00000   4.00000   5.00000   6.00000   7.00000
-Richness 91.34000 121.01000 138.72000 150.54000 159.54000 166.50000 171.82000
-sd        7.21001   6.92892   6.74811   6.50939   6.12565   5.93483   5.60371
-                                                                              
-Sites      8.00000   9.00000  10.00000  11.00000  12.00000  13.00000  14.00000
-Richness 176.18000 179.79000 182.73000 185.95000 188.59000 191.08000 193.10000
-sd         5.18229   5.12923   5.17542   4.71913   4.52177   4.42144   4.37278
+Richness 90.64000 121.05000 139.56000 151.18000 159.79000 166.21000 171.94000
+sd        7.17673   8.17285   6.71847   6.44225   5.95996   5.79497   5.36886
+                                                                            
+Sites      8.0000   9.00000  10.00000  11.00000  12.00000  13.0000  14.00000
+Richness 176.0900 179.49000 182.93000 185.97000 188.52000 190.7000 192.96000
+sd         4.8055   4.31697   3.80126   3.66654   3.80717   3.8363   3.51884
                                                                              
 Sites     15.00000  16.00000  17.0000  18.00000  19.00000  20.00000  21.00000
-Richness 194.92000 196.87000 198.2700 199.67000 201.00000 202.47000 203.95000
-sd         4.52754   4.42138   4.2873   4.03283   4.00505   3.96819   3.95269
-                                                                            
-Sites     22.00000  23.0000  24.00000  25.00000  26.00000  27.00000  28.0000
-Richness 205.18000 206.2100 207.23000 208.38000 209.39000 210.54000 211.4300
-sd         3.77493   3.6826   3.70055   3.32356   3.32391   3.31638   3.1567
-                                                                             
-Sites     29.0000  30.00000  31.00000  32.00000  33.00000  34.00000  35.00000
-Richness 212.2900 213.23000 214.10000 214.88000 215.62000 216.37000 217.00000
-sd         3.0987   2.95712   2.76157   2.57525   2.52974   2.58846   2.48633
+Richness 194.62000 196.61000 198.2200 199.79000 201.08000 202.43000 203.67000
+sd         3.44298   3.50438   3.3832   3.61617   3.59764   3.31892   3.47009
+                                                                           
+Sites     22.0000  23.00000  24.00000  25.00000  26.00000  27.00000  28.000
+Richness 204.8900 206.07000 207.15000 208.14000 209.31000 210.33000 211.200
+sd         3.4638   3.42084   3.30098   3.10106   3.30807   3.44965   3.114
+                                                                              
+Sites     29.00000  30.00000  31.00000  32.00000  33.00000  34.00000  35.00000
+Richness 212.12000 213.04000 213.70000 214.62000 215.55000 216.21000 216.90000
+sd         3.11815   3.05479   3.15428   3.01102   2.83333   2.79717   2.73215
                                                                               
 Sites     36.00000  37.00000  38.00000  39.00000  40.00000  41.00000  42.00000
-Richness 217.55000 218.16000 218.77000 219.34000 219.97000 220.60000 221.21000
-sd         2.37144   2.36438   2.21042   2.04109   2.07172   1.96433   1.94518
-                                                                               
-Sites     43.00000  44.00000  45.00  46.00000  47.00000  48.00000  49.00000  50
-Richness 221.85000 222.36000 222.89 223.32000 223.71000 224.17000 224.65000 225
-sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
+Richness 217.58000 218.21000 218.81000 219.30000 219.92000 220.43000 221.02000
+sd         2.57093   2.40074   2.33418   2.35488   2.24139   2.23948   2.21556
+                                                                              
+Sites     43.00000  44.00000  45.00000  46.00000  47.00000  48.00000  49.00000
+Richness 221.63000 222.20000 222.69000 223.22000 223.56000 224.04000 224.59000
+sd         2.03333   1.86407   1.75058   1.48106   1.36567   1.10937   0.71202
+            
+Sites     50
+Richness 225
+sd         0
 > summary(sp2)
  1 sites          2 sites         3 sites         4 sites        
- Min.   : 77.00   Min.   :105.0   Min.   :123.0   Min.   :135.0  
- 1st Qu.: 86.00   1st Qu.:116.0   1st Qu.:133.8   1st Qu.:145.8  
- Median : 91.00   Median :120.5   Median :140.0   Median :150.5  
- Mean   : 91.34   Mean   :121.0   Mean   :138.7   Mean   :150.5  
- 3rd Qu.: 97.00   3rd Qu.:127.0   3rd Qu.:144.0   3rd Qu.:155.0  
- Max.   :109.00   Max.   :136.0   Max.   :158.0   Max.   :162.0  
+ Min.   : 77.00   Min.   :105.0   Min.   :121.0   Min.   :131.0  
+ 1st Qu.: 84.00   1st Qu.:114.8   1st Qu.:135.0   1st Qu.:146.0  
+ Median : 91.00   Median :121.0   Median :140.0   Median :151.5  
+ Mean   : 90.64   Mean   :121.0   Mean   :139.6   Mean   :151.2  
+ 3rd Qu.: 95.00   3rd Qu.:127.0   3rd Qu.:144.2   3rd Qu.:156.0  
+ Max.   :109.00   Max.   :139.0   Max.   :154.0   Max.   :163.0  
  5 sites         6 sites         7 sites         8 sites        
- Min.   :144.0   Min.   :152.0   Min.   :156.0   Min.   :160.0  
- 1st Qu.:155.0   1st Qu.:162.0   1st Qu.:168.0   1st Qu.:173.0  
- Median :159.5   Median :167.0   Median :173.0   Median :177.0  
- Mean   :159.5   Mean   :166.5   Mean   :171.8   Mean   :176.2  
- 3rd Qu.:164.0   3rd Qu.:171.0   3rd Qu.:175.2   3rd Qu.:179.0  
- Max.   :174.0   Max.   :180.0   Max.   :183.0   Max.   :187.0  
+ Min.   :146.0   Min.   :154.0   Min.   :159.0   Min.   :164.0  
+ 1st Qu.:155.0   1st Qu.:163.0   1st Qu.:168.8   1st Qu.:173.0  
+ Median :160.0   Median :167.0   Median :172.0   Median :176.0  
+ Mean   :159.8   Mean   :166.2   Mean   :171.9   Mean   :176.1  
+ 3rd Qu.:164.0   3rd Qu.:170.2   3rd Qu.:176.0   3rd Qu.:179.0  
+ Max.   :173.0   Max.   :178.0   Max.   :184.0   Max.   :185.0  
  9 sites         10 sites        11 sites        12 sites       
- Min.   :161.0   Min.   :164.0   Min.   :174.0   Min.   :178.0  
- 1st Qu.:177.0   1st Qu.:179.0   1st Qu.:182.8   1st Qu.:186.0  
- Median :180.0   Median :184.0   Median :187.0   Median :189.0  
- Mean   :179.8   Mean   :182.7   Mean   :185.9   Mean   :188.6  
- 3rd Qu.:183.0   3rd Qu.:186.0   3rd Qu.:188.0   3rd Qu.:191.0  
- Max.   :194.0   Max.   :196.0   Max.   :198.0   Max.   :199.0  
+ Min.   :166.0   Min.   :174.0   Min.   :177.0   Min.   :179.0  
+ 1st Qu.:177.0   1st Qu.:180.0   1st Qu.:183.8   1st Qu.:186.0  
+ Median :179.0   Median :183.0   Median :186.0   Median :188.5  
+ Mean   :179.5   Mean   :182.9   Mean   :186.0   Mean   :188.5  
+ 3rd Qu.:182.0   3rd Qu.:185.0   3rd Qu.:189.0   3rd Qu.:192.0  
+ Max.   :188.0   Max.   :192.0   Max.   :194.0   Max.   :197.0  
  13 sites        14 sites        15 sites        16 sites       
- Min.   :179.0   Min.   :181.0   Min.   :185.0   Min.   :186.0  
- 1st Qu.:188.0   1st Qu.:191.0   1st Qu.:192.0   1st Qu.:194.0  
- Median :191.0   Median :193.0   Median :195.0   Median :197.0  
- Mean   :191.1   Mean   :193.1   Mean   :194.9   Mean   :196.9  
- 3rd Qu.:194.0   3rd Qu.:196.0   3rd Qu.:198.0   3rd Qu.:200.0  
- Max.   :201.0   Max.   :203.0   Max.   :205.0   Max.   :207.0  
- 17 sites        18 sites        19 sites      20 sites        21 sites       
- Min.   :187.0   Min.   :189.0   Min.   :189   Min.   :189.0   Min.   :189.0  
- 1st Qu.:195.8   1st Qu.:197.0   1st Qu.:199   1st Qu.:200.0   1st Qu.:202.0  
- Median :198.0   Median :200.0   Median :201   Median :202.5   Median :204.0  
- Mean   :198.3   Mean   :199.7   Mean   :201   Mean   :202.5   Mean   :203.9  
- 3rd Qu.:201.0   3rd Qu.:202.2   3rd Qu.:204   3rd Qu.:205.0   3rd Qu.:207.0  
- Max.   :208.0   Max.   :209.0   Max.   :211   Max.   :212.0   Max.   :213.0  
- 22 sites        23 sites        24 sites        25 sites       
- Min.   :194.0   Min.   :195.0   Min.   :197.0   Min.   :198.0  
- 1st Qu.:203.0   1st Qu.:204.0   1st Qu.:205.0   1st Qu.:206.0  
- Median :205.0   Median :206.5   Median :207.0   Median :209.0  
- Mean   :205.2   Mean   :206.2   Mean   :207.2   Mean   :208.4  
- 3rd Qu.:207.2   3rd Qu.:209.0   3rd Qu.:210.0   3rd Qu.:211.0  
- Max.   :213.0   Max.   :215.0   Max.   :216.0   Max.   :216.0  
- 26 sites        27 sites        28 sites        29 sites       
- Min.   :199.0   Min.   :201.0   Min.   :202.0   Min.   :203.0  
- 1st Qu.:207.0   1st Qu.:208.8   1st Qu.:210.0   1st Qu.:211.0  
- Median :209.0   Median :211.0   Median :211.0   Median :212.0  
- Mean   :209.4   Mean   :210.5   Mean   :211.4   Mean   :212.3  
- 3rd Qu.:212.0   3rd Qu.:213.0   3rd Qu.:214.0   3rd Qu.:214.0  
- Max.   :218.0   Max.   :218.0   Max.   :218.0   Max.   :219.0  
- 30 sites        31 sites        32 sites        33 sites       
- Min.   :203.0   Min.   :204.0   Min.   :206.0   Min.   :206.0  
- 1st Qu.:211.0   1st Qu.:212.0   1st Qu.:213.0   1st Qu.:214.0  
- Median :213.0   Median :214.0   Median :215.0   Median :216.0  
- Mean   :213.2   Mean   :214.1   Mean   :214.9   Mean   :215.6  
- 3rd Qu.:215.0   3rd Qu.:216.0   3rd Qu.:217.0   3rd Qu.:218.0  
- Max.   :220.0   Max.   :220.0   Max.   :220.0   Max.   :220.0  
- 34 sites        35 sites      36 sites        37 sites        38 sites       
- Min.   :208.0   Min.   :209   Min.   :209.0   Min.   :212.0   Min.   :214.0  
- 1st Qu.:214.8   1st Qu.:216   1st Qu.:216.0   1st Qu.:217.0   1st Qu.:217.0  
- Median :216.0   Median :217   Median :218.0   Median :218.0   Median :219.0  
- Mean   :216.4   Mean   :217   Mean   :217.6   Mean   :218.2   Mean   :218.8  
- 3rd Qu.:218.0   3rd Qu.:219   3rd Qu.:219.0   3rd Qu.:220.0   3rd Qu.:220.0  
- Max.   :222.0   Max.   :222   Max.   :223.0   Max.   :223.0   Max.   :224.0  
- 39 sites        40 sites      41 sites        42 sites        43 sites       
- Min.   :214.0   Min.   :214   Min.   :216.0   Min.   :216.0   Min.   :217.0  
- 1st Qu.:218.0   1st Qu.:219   1st Qu.:219.0   1st Qu.:220.0   1st Qu.:221.0  
- Median :220.0   Median :220   Median :221.0   Median :221.0   Median :222.0  
- Mean   :219.3   Mean   :220   Mean   :220.6   Mean   :221.2   Mean   :221.8  
- 3rd Qu.:221.0   3rd Qu.:222   3rd Qu.:222.0   3rd Qu.:223.0   3rd Qu.:223.0  
- Max.   :224.0   Max.   :224   Max.   :224.0   Max.   :225.0   Max.   :225.0  
- 44 sites        45 sites        46 sites        47 sites       
- Min.   :217.0   Min.   :219.0   Min.   :219.0   Min.   :220.0  
- 1st Qu.:221.8   1st Qu.:222.0   1st Qu.:223.0   1st Qu.:223.0  
- Median :223.0   Median :223.0   Median :224.0   Median :224.0  
- Mean   :222.4   Mean   :222.9   Mean   :223.3   Mean   :223.7  
- 3rd Qu.:223.0   3rd Qu.:224.0   3rd Qu.:224.0   3rd Qu.:225.0  
+ Min.   :182.0   Min.   :184.0   Min.   :186.0   Min.   :187.0  
+ 1st Qu.:188.0   1st Qu.:190.8   1st Qu.:192.0   1st Qu.:194.0  
+ Median :191.0   Median :193.0   Median :194.5   Median :196.0  
+ Mean   :190.7   Mean   :193.0   Mean   :194.6   Mean   :196.6  
+ 3rd Qu.:194.0   3rd Qu.:196.0   3rd Qu.:197.0   3rd Qu.:199.0  
+ Max.   :199.0   Max.   :201.0   Max.   :203.0   Max.   :204.0  
+ 17 sites        18 sites        19 sites        20 sites       
+ Min.   :189.0   Min.   :190.0   Min.   :192.0   Min.   :195.0  
+ 1st Qu.:196.0   1st Qu.:197.0   1st Qu.:198.8   1st Qu.:200.0  
+ Median :198.0   Median :200.0   Median :202.0   Median :203.0  
+ Mean   :198.2   Mean   :199.8   Mean   :201.1   Mean   :202.4  
+ 3rd Qu.:201.0   3rd Qu.:202.0   3rd Qu.:203.0   3rd Qu.:205.0  
+ Max.   :207.0   Max.   :209.0   Max.   :211.0   Max.   :211.0  
+ 21 sites        22 sites        23 sites        24 sites       
+ Min.   :196.0   Min.   :196.0   Min.   :197.0   Min.   :199.0  
+ 1st Qu.:201.0   1st Qu.:202.0   1st Qu.:204.0   1st Qu.:205.0  
+ Median :204.0   Median :205.0   Median :206.5   Median :208.0  
+ Mean   :203.7   Mean   :204.9   Mean   :206.1   Mean   :207.2  
+ 3rd Qu.:206.0   3rd Qu.:207.0   3rd Qu.:208.0   3rd Qu.:209.0  
+ Max.   :213.0   Max.   :214.0   Max.   :215.0   Max.   :216.0  
+ 25 sites        26 sites        27 sites        28 sites       
+ Min.   :202.0   Min.   :203.0   Min.   :204.0   Min.   :205.0  
+ 1st Qu.:206.0   1st Qu.:207.0   1st Qu.:208.0   1st Qu.:209.0  
+ Median :208.0   Median :209.0   Median :210.0   Median :211.0  
+ Mean   :208.1   Mean   :209.3   Mean   :210.3   Mean   :211.2  
+ 3rd Qu.:210.0   3rd Qu.:212.0   3rd Qu.:213.0   3rd Qu.:213.0  
+ Max.   :216.0   Max.   :217.0   Max.   :219.0   Max.   :219.0  
+ 29 sites        30 sites      31 sites        32 sites        33 sites       
+ Min.   :205.0   Min.   :206   Min.   :206.0   Min.   :206.0   Min.   :209.0  
+ 1st Qu.:210.0   1st Qu.:211   1st Qu.:212.0   1st Qu.:213.0   1st Qu.:214.0  
+ Median :212.0   Median :213   Median :214.0   Median :215.0   Median :216.0  
+ Mean   :212.1   Mean   :213   Mean   :213.7   Mean   :214.6   Mean   :215.6  
+ 3rd Qu.:214.0   3rd Qu.:215   3rd Qu.:216.0   3rd Qu.:216.2   3rd Qu.:217.2  
+ Max.   :220.0   Max.   :221   Max.   :222.0   Max.   :223.0   Max.   :223.0  
+ 34 sites        35 sites        36 sites        37 sites       
+ Min.   :210.0   Min.   :210.0   Min.   :211.0   Min.   :213.0  
+ 1st Qu.:214.8   1st Qu.:215.8   1st Qu.:216.0   1st Qu.:217.0  
+ Median :216.0   Median :217.0   Median :218.0   Median :218.0  
+ Mean   :216.2   Mean   :216.9   Mean   :217.6   Mean   :218.2  
+ 3rd Qu.:218.0   3rd Qu.:219.0   3rd Qu.:219.0   3rd Qu.:220.0  
+ Max.   :224.0   Max.   :224.0   Max.   :224.0   Max.   :224.0  
+ 38 sites        39 sites        40 sites        41 sites        42 sites     
+ Min.   :214.0   Min.   :214.0   Min.   :214.0   Min.   :214.0   Min.   :215  
+ 1st Qu.:217.0   1st Qu.:218.0   1st Qu.:218.0   1st Qu.:219.0   1st Qu.:219  
+ Median :219.0   Median :219.0   Median :220.0   Median :221.0   Median :221  
+ Mean   :218.8   Mean   :219.3   Mean   :219.9   Mean   :220.4   Mean   :221  
+ 3rd Qu.:220.2   3rd Qu.:221.0   3rd Qu.:221.0   3rd Qu.:222.0   3rd Qu.:223  
+ Max.   :224.0   Max.   :224.0   Max.   :224.0   Max.   :225.0   Max.   :225  
+ 43 sites        44 sites        45 sites        46 sites       
+ Min.   :215.0   Min.   :216.0   Min.   :218.0   Min.   :218.0  
+ 1st Qu.:221.0   1st Qu.:221.0   1st Qu.:222.0   1st Qu.:222.8  
+ Median :222.0   Median :222.0   Median :223.0   Median :223.5  
+ Mean   :221.6   Mean   :222.2   Mean   :222.7   Mean   :223.2  
+ 3rd Qu.:223.0   3rd Qu.:223.0   3rd Qu.:224.0   3rd Qu.:224.0  
  Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225.0  
- 48 sites        49 sites        50 sites     
- Min.   :221.0   Min.   :222.0   Min.   :225  
- 1st Qu.:224.0   1st Qu.:224.0   1st Qu.:225  
- Median :224.0   Median :225.0   Median :225  
- Mean   :224.2   Mean   :224.7   Mean   :225  
- 3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225  
- Max.   :225.0   Max.   :225.0   Max.   :225  
+ 47 sites        48 sites        49 sites        50 sites     
+ Min.   :219.0   Min.   :221.0   Min.   :222.0   Min.   :225  
+ 1st Qu.:223.0   1st Qu.:223.8   1st Qu.:224.0   1st Qu.:225  
+ Median :224.0   Median :224.0   Median :225.0   Median :225  
+ Mean   :223.6   Mean   :224.0   Mean   :224.6   Mean   :225  
+ 3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225  
+ Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225  
 > plot(sp1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 > boxplot(sp2, col="yellow", add=TRUE, pch="+")
 > ## Fit Lomolino model to the exact accumulation
@@ -7517,19 +7532,19 @@ sd         1.77169   1.58605   1.49   1.47628   1.20851   0.97499   0.60927   0
 > boxplot(sp2, col = "yellow", border = "blue", lty=1, cex=0.3, add= TRUE)
 > ## Use nls() methods to the list of models
 > sapply(mods$models, AIC)
-  [1] 324.2489 358.8631 357.1474 348.5675 320.8596 362.4988 339.6392 302.6209
-  [9] 325.8906 335.5387 358.2781 347.9665 305.9077 338.6679 331.4992 319.3814
- [17] 342.8604 308.0547 303.6049 307.0464 324.5011 335.4867 362.7110 342.5750
- [25] 278.4388 346.3987 314.5455 305.6342 358.2744 307.9340 342.8888 301.1880
- [33] 341.8359 348.4535 328.1716 341.5565 291.4052 336.6322 349.8087 350.1049
- [41] 349.5025 352.0225 308.1040 322.4882 322.5936 361.7398 353.0302 350.8482
- [49] 325.5460 360.2195 345.9105 342.7948 351.8214 267.6483 332.0333 320.1204
- [57] 313.6519 344.1718 346.6968 311.0463 334.1548 368.1168 299.7756 322.6268
- [65] 364.3129 353.3865 327.4970 343.1699 350.5206 316.0220 302.6937 286.5891
- [73] 329.5312 323.6312 355.3245 322.2671 339.8070 367.4518 336.2615 323.6332
- [81] 330.1162 309.3435 352.7868 321.6770 310.2606 326.1316 342.7621 333.2059
- [89] 321.3756 368.4900 363.6466 326.1864 292.2932 296.4067 361.3046 356.2217
- [97] 350.8804 359.9127 344.3568 332.4569
+  [1] 356.5715 334.2659 356.8702 337.1956 322.4565 337.2563 345.7345 336.2684
+  [9] 337.6066 348.3777 307.2890 305.2747 319.9204 371.4843 366.7792 334.0841
+ [17] 311.3170 353.9911 338.7509 359.2898 364.7568 332.8366 348.0223 301.7971
+ [25] 345.8258 331.2144 329.5874 350.5533 345.4044 356.4001 324.1702 343.2369
+ [33] 315.4014 352.6658 302.4976 353.6356 332.2139 330.0446 310.1712 343.6355
+ [41] 310.2347 298.5118 355.7126 343.2572 305.2200 358.5132 330.4127 364.0129
+ [49] 313.2175 333.0343 358.0340 353.1583 359.6541 285.4664 315.3099 318.8782
+ [57] 349.2470 322.9555 366.4519 324.0335 357.0880 335.7206 349.5461 302.8776
+ [65] 300.1772 333.6603 341.6951 351.7681 332.1474 353.9150 333.4678 332.9716
+ [73] 342.6504 317.3593 288.1467 333.3316 321.7582 336.8158 348.7769 321.3693
+ [81] 306.7789 344.1743 300.3916 345.3415 311.8541 329.8506 316.5989 294.0664
+ [89] 352.9520 333.8061 338.8167 351.6371 337.7145 327.6678 338.8059 359.6553
+ [97] 339.5312 329.1578 312.7306 335.7065
 > 
 > 
 > 
@@ -7569,53 +7584,53 @@ SF      21 29.88889 8.6447967 27.66667 3.496029 31.40000 23.99496 1.850288 6
 > summary(pool, display = "chao")
 $chao
        N     Chao     2.5%    97.5%   Std.Dev
- [1,]  3 161.4109 144.6126 178.9871  9.801654
- [2,]  4 175.3013 156.0120 200.3193 11.771507
- [3,]  5 184.5183 163.6632 208.8254 11.966732
- [4,]  6 191.5108 172.6320 217.6871 11.433620
- [5,]  7 196.1425 177.1485 216.1394 10.300755
- [6,]  8 199.7655 180.8137 221.8030 11.050654
- [7,]  9 202.3226 187.6958 226.0312 10.284834
- [8,] 10 205.1811 187.1814 234.5619 11.982118
- [9,] 11 208.0594 191.3298 233.2606 11.810585
-[10,] 12 210.7932 192.0850 237.1459 11.336662
-[11,] 13 213.9566 195.3646 237.5129 11.330362
-[12,] 14 216.3246 194.9807 238.0314 11.325669
-[13,] 15 219.0071 196.3220 240.6890 12.073741
-[14,] 16 221.1155 200.1056 241.8803 11.792394
-[15,] 17 221.7125 201.6610 245.1075 11.332692
-[16,] 18 223.6046 203.9908 248.0839 11.722007
-[17,] 19 224.9023 205.7025 249.4671 11.228833
-[18,] 20 227.0483 208.6850 254.0646 13.048967
-[19,] 21 228.6833 208.6412 258.0540 12.722020
-[20,] 22 229.5879 209.7609 253.7754 11.841663
-[21,] 23 230.1766 213.1453 253.7301 10.746815
-[22,] 24 231.5115 213.9103 255.8942 11.014966
-[23,] 25 233.5683 214.6193 259.3002 11.749781
-[24,] 26 233.9382 217.4818 258.2308 11.369741
-[25,] 27 234.8832 218.6546 255.4724 10.158710
-[26,] 28 234.6476 220.7203 255.0633  9.429129
-[27,] 29 235.7344 219.8494 257.2886 10.211869
-[28,] 30 236.5167 222.7719 260.5121  9.947075
-[29,] 31 236.4638 222.9289 256.9346  8.826309
-[30,] 32 237.7034 221.8471 261.0706  9.617682
-[31,] 33 237.1767 223.4613 257.0897  9.058297
-[32,] 34 237.3228 221.7998 256.3574  9.567790
-[33,] 35 237.5354 221.4743 255.5337  9.339085
-[34,] 36 237.2440 222.2844 256.1171  8.837235
-[35,] 37 237.5675 222.4925 256.7364  9.388989
-[36,] 38 237.7059 222.9352 258.7308  9.451033
-[37,] 39 237.9622 224.8405 261.9372  9.479366
-[38,] 40 237.7631 224.9289 258.1333  8.637200
-[39,] 41 238.3850 226.1408 258.9579  8.581810
-[40,] 42 238.8268 225.7357 257.0081  9.731966
-[41,] 43 238.6941 226.0755 254.6363  8.313701
-[42,] 44 238.7041 228.3762 253.0612  7.491410
-[43,] 45 238.5832 229.5340 255.1341  6.571046
-[44,] 46 238.0307 229.2938 250.0349  5.519841
-[45,] 47 237.6838 230.0538 249.1268  4.855208
-[46,] 48 237.3636 232.3044 246.4903  3.952778
-[47,] 49 236.8121 234.3115 245.4082  2.380487
+ [1,]  3 164.2701 143.3295 184.6709 11.637131
+ [2,]  4 176.6696 152.4681 199.7041 12.031950
+ [3,]  5 184.8283 164.2414 206.7533 11.316453
+ [4,]  6 190.6852 169.9759 218.4163 12.535825
+ [5,]  7 196.6106 177.7111 218.3870 11.523820
+ [6,]  8 199.0785 181.4218 218.1041  9.691313
+ [7,]  9 202.3895 186.7036 221.7717  9.325751
+ [8,] 10 206.3114 190.9051 225.9810  9.819298
+ [9,] 11 210.1065 194.9661 232.5071 10.371517
+[10,] 12 211.8595 196.7360 231.3563  9.650657
+[11,] 13 214.9130 197.5524 242.2375 11.909381
+[12,] 14 217.7375 199.4871 244.3435 13.096174
+[13,] 15 219.0323 200.3238 241.1367 11.171016
+[14,] 16 221.1480 203.7536 239.3769 10.626800
+[15,] 17 223.8961 205.6141 251.2977 12.664515
+[16,] 18 226.0019 206.7344 257.6239 13.811809
+[17,] 19 227.4841 206.6613 262.9380 14.646202
+[18,] 20 228.2217 207.5356 253.9396 13.002540
+[19,] 21 229.5793 207.1068 260.6821 14.628777
+[20,] 22 229.6333 209.0110 255.0578 13.492995
+[21,] 23 230.3963 208.9376 261.6196 12.975685
+[22,] 24 231.2131 211.2828 255.0443 12.399438
+[23,] 25 231.6823 212.2972 261.3470 12.530439
+[24,] 26 232.5863 213.3965 255.0405 11.196481
+[25,] 27 234.0768 214.1898 258.4757 12.391916
+[26,] 28 234.5461 215.5270 260.4036 11.917695
+[27,] 29 234.7047 216.1639 260.1984 11.220902
+[28,] 30 235.5689 217.5250 261.2160 11.168038
+[29,] 31 235.7826 217.9641 263.6669 11.646793
+[30,] 32 236.4786 218.8365 263.5830 10.906488
+[31,] 33 237.4549 220.1863 264.9627 11.166706
+[32,] 34 237.2213 221.8686 259.2015 10.010269
+[33,] 35 237.0454 221.1909 256.8270  9.361661
+[34,] 36 237.1228 222.2823 260.1380  9.125933
+[35,] 37 237.1881 224.6270 256.1533 10.191486
+[36,] 38 236.9675 225.7358 255.7012  8.574735
+[37,] 39 236.7547 225.7541 254.9934  8.042298
+[38,] 40 236.7747 225.7896 250.4920  7.655103
+[39,] 41 236.7007 226.1312 253.0163  7.335838
+[40,] 42 236.3669 225.6942 252.0634  6.435379
+[41,] 43 236.6716 225.4157 253.6911  6.958012
+[42,] 44 237.0030 226.2610 249.4237  6.126328
+[43,] 45 236.9152 226.8000 249.1260  5.731338
+[44,] 46 236.7370 227.6179 247.4603  4.908380
+[45,] 47 236.3676 228.0633 248.3102  4.549805
+[46,] 48 236.4966 228.9313 246.4903  3.829092
+[47,] 49 236.3248 231.3403 240.2413  2.201414
 [48,] 50 236.3732 236.3732 236.3732  0.000000
 
 attr(,"class")
@@ -7980,63 +7995,63 @@ Eigenvalues for unconstrained axes:
 > x1 <- tsallis(BCI[i,])
 > x1
      0      0.2      0.4       0.6      0.8        1      1.2      1.4      1.6
-14  97 43.58438 21.14034 11.153293 6.418569 4.017494 2.713442 1.956269 1.488283
-19 108 47.27018 22.32602 11.498387 6.492802 4.013094 2.692466 1.936696 1.473828
-28  84 38.19298 18.72155  9.985457 5.818617 3.693896 2.532394 1.852192 1.427230
+4   93 41.96845 20.49096 10.893385 6.315044 3.976563 2.697452 1.950144 1.486011
+39  83 37.13183 17.98063  9.524369 5.542801 3.530494 2.435169 1.793695 1.391532
+1   92 41.86190 20.57075 10.982654 6.380074 4.018412 2.723011 1.965359 1.494945
+34  91 40.76643 19.76149 10.454108 6.053163 3.821669 2.606302 1.896645 1.454634
+23  98 44.40473 21.59625 11.375711 6.520517 4.062575 2.732882 1.964464 1.491646
 43  85 38.38228 18.77974 10.035449 5.867927 3.736254 2.565004 1.875593 1.443295
-10  93 41.50369 20.10059 10.639881 6.164157 3.889803 2.648176 1.922207 1.470121
+14  97 43.58438 21.14034 11.153293 6.418569 4.017494 2.713442 1.956269 1.488283
+18  88 40.68467 20.15164 10.784931 6.264583 3.944985 2.675802 1.935407 1.476270
+33  85 38.33236 18.75302 10.027610 5.869003 3.740392 2.569560 1.879580 1.446458
+21  98 43.64355 21.01620 11.036849 6.340108 3.969925 2.685700 1.940242 1.478977
 41 101 45.01956 21.66615 11.353495 6.499317 4.052495 2.729799 1.964435 1.492566
-42  86 39.74400 19.79375 10.684037 6.259100 3.966614 2.699614 1.954275 1.489483
-29  85 38.51838 18.81994 10.009321 5.819419 3.688721 2.526664 1.847408 1.423613
-27  98 43.84660 21.16041 11.110930 6.371476 3.980281 2.687154 1.938584 1.476662
-3   89 39.79074 19.34183 10.294475 6.003596 3.814060 2.612130 1.905004 1.461939
-9   89 39.96271 19.39982 10.272025 5.952153 3.761331 2.568371 1.872010 1.438318
-7   81 37.47840 18.73414 10.172688 6.004908 3.836811 2.631757 1.918091 1.469869
+10  93 41.50369 20.10059 10.639881 6.164157 3.889803 2.648176 1.922207 1.470121
         1.8         2
-14 1.182226 0.9718626
-19 1.172481 0.9655820
-28 1.145854 0.9499296
+4  1.181429 0.9716117
+39 1.123737 0.9360204
+1  1.186634 0.9746293
+34 1.163015 0.9607876
+23 1.183553 0.9723529
 43 1.156578 0.9569632
-10 1.172341 0.9663808
+14 1.182226 0.9718626
+18 1.175165 0.9676685
+33 1.158957 0.9586946
+21 1.176759 0.9686058
 41 1.184546 0.9731442
-42 1.183858 0.9731849
-29 1.143249 0.9481041
-27 1.174682 0.9669962
-3  1.168492 0.9646078
-9  1.152087 0.9534257
-7  1.173083 0.9672014
+10 1.172341 0.9663808
 > diversity(BCI[i,],"simpson") == x1[["2"]]
-  14   19   28   43   10   41   42   29   27    3    9    7 
+   4   39    1   34   23   43   14   18   33   21   41   10 
 TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE 
 > plot(x1)
 > x2 <- tsallis(BCI[i,],norm=TRUE)
 > x2
    0       0.2       0.4       0.6       0.8         1       1.2       1.4
-14 1 0.9134203 0.8653450 0.8483542 0.8548076 0.8762317 0.9040571 0.9313075
-19 1 0.9079031 0.8537683 0.8315799 0.8347890 0.8554245 0.8846675 0.9147428
-28 1 0.8997942 0.8397547 0.8130733 0.8129096 0.8314621 0.8602754 0.8916927
+4  1 0.9101799 0.8614882 0.8452139 0.8528120 0.8752597 0.9037665 0.9313684
+39 1 0.8833633 0.8127010 0.7799621 0.7774979 0.7968043 0.8286189 0.8643658
+1  1 0.9158836 0.8708030 0.8565058 0.8646892 0.8865579 0.9136511 0.9394163
+34 1 0.8998773 0.8423760 0.8195118 0.8233665 0.8451677 0.8757762 0.9073385
+23 1 0.9228895 0.8782744 0.8611017 0.8654544 0.8841064 0.9093061 0.9344888
 43 1 0.8955869 0.8360372 0.8125579 0.8165505 0.8387881 0.8699334 0.9021018
-10 1 0.9001004 0.8450759 0.8255446 0.8324355 0.8561634 0.8872568 0.9180261
+14 1 0.9134203 0.8653450 0.8483542 0.8548076 0.8762317 0.9040571 0.9313075
+18 1 0.9228941 0.8775173 0.8589786 0.8616917 0.8788828 0.9032164 0.9283108
+33 1 0.8944221 0.8348478 0.8119231 0.8167002 0.8397172 0.8714789 0.9040191
+21 1 0.9070695 0.8546849 0.8354510 0.8415091 0.8639438 0.8936072 0.9229664
 41 1 0.9130269 0.8644349 0.8473152 0.8541311 0.8762204 0.9047063 0.9323803
-42 1 0.9185764 0.8746393 0.8602787 0.8675785 0.8881987 0.9141183 0.9390681
-29 1 0.8987625 0.8378269 0.8104423 0.8098004 0.8281171 0.8569302 0.8885453
-27 1 0.9112896 0.8605499 0.8410587 0.8456725 0.8661975 0.8940909 0.9221774
-3  1 0.8943582 0.8362208 0.8155352 0.8226868 0.8476046 0.8803722 0.9129172
-9  1 0.8982235 0.8387276 0.8137568 0.8156375 0.8358867 0.8656242 0.8971059
-7  1 0.9094899 0.8600339 0.8427936 0.8492653 0.8706729 0.8985570 0.9261475
+10 1 0.9001004 0.8450759 0.8255446 0.8324355 0.8561634 0.8872568 0.9180261
          1.6       1.8         2
-14 0.9538903 0.9705576 0.9818818
-19 0.9406572 0.9605041 0.9745226
-28 0.9203563 0.9436787 0.9612382
+4  0.9540821 0.9707655 0.9820591
+39 0.8978144 0.9257229 0.9472977
+1  0.9602511 0.9752690 0.9852231
+34 0.9347873 0.9560842 0.9713457
+23 0.9556498 0.9714412 0.9822749
 43 0.9302296 0.9522490 0.9682216
-10 0.9438798 0.9632975 0.9767719
+14 0.9538903 0.9705576 0.9818818
+18 0.9500471 0.9667897 0.9786648
+33 0.9322682 0.9542083 0.9699733
+21 0.9475331 0.9658643 0.9784896
 41 0.9550896 0.9716606 0.9827793
-42 0.9595063 0.9744477 0.9845010
-29 0.9175446 0.9412749 0.9592583
-27 0.9460502 0.9641597 0.9768635
-3  0.9403687 0.9610574 0.9754460
-9  0.9251745 0.9475646 0.9641383
-7  0.9493990 0.9669335 0.9791421
+10 0.9438798 0.9632975 0.9767719
 > plot(x2)
 > mod1 <- tsallisaccum(BCI[i,])
 > plot(mod1, as.table=TRUE, col = c(1, 2, 2))
@@ -8227,9 +8242,9 @@ Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = decostand(mite, "hell") ~ SubsDens + WatrCont + Condition(Substrate + Shrub + Topo) + Condition(as.matrix(mite.pcnm)), data = mite.env)
-         Df Variance      F Pr(>F)    
-Model     2 0.013771 2.6079  0.001 ***
-Residual 36 0.095050                  
+         Df Variance      F Pr(>F)   
+Model     2 0.013771 2.6079  0.004 **
+Residual 36 0.095050                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -8378,20 +8393,20 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.039 *  
-P         0.61959  0.78492 0.1938  0.129    
-K         0.76629  0.64249 0.1809  0.138    
-Ca        0.68506  0.72849 0.4119  0.005 ** 
-Mg        0.63240  0.77464 0.4271  0.005 ** 
-S         0.19123  0.98155 0.1752  0.133    
-Al       -0.87169  0.49006 0.5269  0.001 ***
-Fe       -0.93613  0.35164 0.4451  0.001 ***
+N        -0.05719 -0.99836 0.2537  0.044 *  
+P         0.61959  0.78492 0.1938  0.096 .  
+K         0.76629  0.64249 0.1809  0.120    
+Ca        0.68506  0.72849 0.4119  0.004 ** 
+Mg        0.63240  0.77464 0.4271  0.003 ** 
+S         0.19123  0.98155 0.1752  0.144    
+Al       -0.87169  0.49006 0.5269  0.002 ** 
+Fe       -0.93613  0.35164 0.4451  0.004 ** 
 Mn        0.79873 -0.60169 0.5230  0.002 ** 
-Zn        0.61750  0.78657 0.1879  0.122    
-Mo       -0.90304  0.42955 0.0609  0.524    
-Baresoil  0.92503 -0.37988 0.2508  0.043 *  
+Zn        0.61750  0.78657 0.1879  0.120    
+Mo       -0.90304  0.42955 0.0609  0.490    
+Baresoil  0.92503 -0.37988 0.2508  0.053 .  
 Humdepth  0.93291 -0.36011 0.5200  0.001 ***
-pH       -0.64809  0.76156 0.2308  0.064 .  
+pH       -0.64809  0.76156 0.2308  0.051 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -8452,8 +8467,8 @@ Start: dune ~ 1
 + Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
 + Manure      4 89.232 1.9539  0.015 * 
-+ A1          1 89.591 1.9217  0.045 * 
-+ Use         2 91.032 1.1741  0.295   
++ A1          1 89.591 1.9217  0.055 . 
++ Use         2 91.032 1.1741  0.260   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -8465,10 +8480,10 @@ Step: dune ~ Management
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.010 **
-+ Manure    3 87.517 1.3902  0.045 * 
-+ A1        1 87.424 1.2965  0.245   
-+ Use       2 88.284 1.0510  0.400   
++ Moisture  3 85.567 1.9764  0.005 **
++ Manure    3 87.517 1.3902  0.095 . 
++ A1        1 87.424 1.2965  0.180   
++ Use       2 88.284 1.0510  0.345   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -8476,14 +8491,14 @@ Step: dune ~ Management + Moisture
 
              Df    AIC      F Pr(>F)   
 - Moisture    3 87.082 1.9764  0.015 * 
-- Management  3 87.707 2.1769  0.005 **
+- Management  3 87.707 2.1769  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.255
-+ A1      1 86.220 0.8359  0.625
-+ Use     2 86.842 0.8027  0.780
++ Manure  3 85.762 1.1225  0.365
++ A1      1 86.220 0.8359  0.630
++ Use     2 86.842 0.8027  0.690
 
 > mod
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
@@ -8525,8 +8540,8 @@ Number of permutations: 999
 
 Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
            Df Variance      F Pr(>F)   
-Management  3   18.938 2.1769  0.003 **
-Moisture    3   17.194 1.9764  0.005 **
+Management  3   18.938 2.1769  0.002 **
+Moisture    3   17.194 1.9764  0.007 **
 Residual   13   37.699                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -8561,10 +8576,10 @@ Number of permutations: 999
 adonis(formula = dune ~ ., data = dune.env)
            Df SumOfSqs      R2      F Pr(>F)    
 A1          1   0.7230 0.16817 5.2038  0.001 ***
-Moisture    3   1.1871 0.27613 2.8482  0.006 ** 
-Management  3   0.9036 0.21019 2.1681  0.023 *  
-Use         2   0.0921 0.02143 0.3315  0.982    
-Manure      3   0.4208 0.09787 1.0096  0.481    
+Moisture    3   1.1871 0.27613 2.8482  0.005 ** 
+Management  3   0.9036 0.21019 2.1681  0.019 *  
+Use         2   0.0921 0.02143 0.3315  0.979    
+Manure      3   0.4208 0.09787 1.0096  0.453    
 Residual    7   0.9725 0.22621                  
 Total      19   4.2990 1.00000                  
 ---
@@ -8576,11 +8591,11 @@ Permutation: free
 Number of permutations: 999
 
 adonis(formula = dune ~ Management + Moisture, data = dune.env)
-           Df SumOfSqs      R2      F Pr(>F)    
-Management  3   1.4686 0.34161 3.7907  0.001 ***
-Moisture    3   1.1516 0.26788 2.9726  0.002 ** 
-Residual   13   1.6788 0.39051                  
-Total      19   4.2990 1.00000                  
+           Df SumOfSqs      R2      F Pr(>F)   
+Management  3   1.4686 0.34161 3.7907  0.002 **
+Moisture    3   1.1516 0.26788 2.9726  0.003 **
+Residual   13   1.6788 0.39051                 
+Total      19   4.2990 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -9063,7 +9078,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  19.873 0.164 20.042 0 0 
+Time elapsed:  22.964 1.109 24.455 0 0 
 > grDevices::dev.off()
 null device 
           1 
