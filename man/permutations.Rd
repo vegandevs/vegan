@@ -186,6 +186,18 @@
   package = "permute").}
 }
 
+\section{Random Number Generation}{
+
+  The permutations are based on the random number generator provided
+  by \R. This may change in \R{} releases and change the permutations
+  and \pkg{vegan} test results. One such change was in \R{} release
+  3.6.0. The new version is clearly better for permutation tests and
+  you should use it. However, if you need to reproduce old results,
+  you can set the \R{} random number generator to a previous versions
+  with \code{\link{RNGversion}}.
+
+} % section RNG
+
 \seealso{
   \code{\link{permutest}} for the main interface in \pkg{vegan}. See
   also \code{\link[permute]{how}} for details on permutation design
