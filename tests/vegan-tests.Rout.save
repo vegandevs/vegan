@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2018-06-11 r74889) -- "Unsuffered Consequences"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R Under development (unstable) (2019-04-23 r76417) -- "Unsuffered Consequences"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin18.5.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -73,9 +73,9 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
             Df ChiSquare      F Pr(>F)  
-Management   3   0.82392 1.7163   0.03 *
+Management   3   0.82392 1.7163   0.02 *
 poly(A1, 2)  2   0.35127 1.0976   0.39  
-spno         1   0.08318 0.5198   0.96  
+spno         1   0.08318 0.5198   0.95  
 Residual     5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -87,8 +87,8 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
             Df ChiSquare      F Pr(>F)
-Management   3   0.55418 1.1544   0.21
-poly(A1, 2)  2   0.32940 1.0292   0.44
+Management   3   0.55418 1.1544   0.25
+poly(A1, 2)  2   0.32940 1.0292   0.30
 spno         1   0.08318 0.5198   0.93
 Residual     5   0.80011              
 > anova(m, by="axis", permutations=99)
@@ -99,12 +99,12 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)  
-CCA1      1   0.46993 2.9366   0.07 .
-CCA2      1   0.26217 1.6384   0.75  
-CCA3      1   0.19308 1.2066   0.97  
-CCA4      1   0.18345 1.1464   0.90  
-CCA5      1   0.08871 0.5544   0.98  
-CCA6      1   0.06104 0.3815   0.93  
+CCA1      1   0.46993 2.9366   0.09 .
+CCA2      1   0.26217 1.6384   0.80  
+CCA3      1   0.19308 1.2066   0.89  
+CCA4      1   0.18345 1.1464   0.84  
+CCA5      1   0.08871 0.5544   0.99  
+CCA6      1   0.06104 0.3815   0.90  
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -117,7 +117,7 @@ Number of permutations: 99
 
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df Variance      F Pr(>F)  
-Model     6   59.582 1.6462   0.04 *
+Model     6   59.582 1.6462   0.03 *
 Residual  5   30.160                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -130,8 +130,8 @@ Number of permutations: 99
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
             Df Variance      F Pr(>F)   
 Management   3   46.265 2.5566   0.01 **
-poly(A1, 2)  2   10.150 0.8413   0.63   
-spno         1    3.167 0.5250   0.79   
+poly(A1, 2)  2   10.150 0.8413   0.69   
+spno         1    3.167 0.5250   0.91   
 Residual     5   30.160                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -142,11 +142,13 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
-            Df Variance      F Pr(>F)
-Management   3  28.7515 1.5888   0.13
-poly(A1, 2)  2   8.0847 0.6701   0.88
-spno         1   3.1669 0.5250   0.90
-Residual     5  30.1605              
+            Df Variance      F Pr(>F)  
+Management   3  28.7515 1.5888   0.05 *
+poly(A1, 2)  2   8.0847 0.6701   0.92  
+spno         1   3.1669 0.5250   0.93  
+Residual     5  30.1605                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(p, by="axis", permutations=99)
 Permutation test for capscale under reduced model
 Forward tests for axes
@@ -155,11 +157,11 @@ Number of permutations: 99
 
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df Variance      F Pr(>F)  
-CAP1      1  25.0252 4.1487   0.03 *
-CAP2      1  15.8759 2.6319   0.39  
-CAP3      1   8.0942 1.3419   0.78  
-CAP4      1   5.0675 0.8401   0.95  
-CAP5      1   3.5671 0.5914   0.96  
+CAP1      1  25.0252 4.1487   0.02 *
+CAP2      1  15.8759 2.6319   0.45  
+CAP3      1   8.0942 1.3419   0.88  
+CAP4      1   5.0675 0.8401   0.96  
+CAP5      1   3.5671 0.5914   0.95  
 CAP6      1   1.9520 0.3236   0.92  
 Residual  5  30.1605                
 ---
@@ -174,7 +176,7 @@ Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df SumOfSqs      F Pr(>F)
-Model     6  1.54840 1.6423   0.14
+Model     6  1.54840 1.6423   0.13
 Residual  5  0.78568              
 > anova(p, by="term", permutations=99) # failed before 2.5-0
 Permutation test for capscale under reduced model
@@ -184,9 +186,9 @@ Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
             Df SumOfSqs      F Pr(>F)  
-Management   3  1.17117 2.4844   0.02 *
-poly(A1, 2)  2  0.30602 0.9737   0.53  
-spno         1  0.07121 0.4532   0.84  
+Management   3  1.17117 2.4844   0.06 .
+poly(A1, 2)  2  0.30602 0.9737   0.54  
+spno         1  0.07121 0.4532   0.85  
 Residual     5  0.78568                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -198,9 +200,9 @@ Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
             Df SumOfSqs      F Pr(>F)
-Management   3  0.64888 1.3765   0.22
-poly(A1, 2)  2  0.26160 0.8324   0.69
-spno         1  0.07121 0.4532   0.91
+Management   3  0.64888 1.3765   0.25
+poly(A1, 2)  2  0.26160 0.8324   0.66
+spno         1  0.07121 0.4532   0.86
 Residual     5  0.78568              
 > anova(p, by="axis", permutations=99)
 Permutation test for capscale under reduced model
@@ -209,14 +211,16 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
-         Df SumOfSqs      F Pr(>F)
-CAP1      1  0.77834 4.9533   0.13
-CAP2      1  0.45691 2.9078   0.48
-CAP3      1  0.14701 0.9355   0.98
-CAP4      1  0.11879 0.7560   0.96
-CAP5      1  0.04213 0.2681   1.00
-CAP6      1  0.00522 0.0332   1.00
-Residual  5  0.78568              
+         Df SumOfSqs      F Pr(>F)  
+CAP1      1  0.77834 4.9533   0.09 .
+CAP2      1  0.45691 2.9078   0.39  
+CAP3      1  0.14701 0.9355   1.00  
+CAP4      1  0.11879 0.7560   0.97  
+CAP5      1  0.04213 0.2681   1.00  
+CAP6      1  0.00522 0.0332   1.00  
+Residual  5  0.78568                
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ### attach()ed data frame instead of data=
 > attach(df)
 > q <- cca(fla, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
@@ -227,7 +231,7 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)
-Model     6   1.25838 1.3106   0.11
+Model     6   1.25838 1.3106   0.18
 Residual  5   0.80011              
 > ## commented tests below fail in vegan 2.1-40 because number of
 > ## observations changes
@@ -239,9 +243,9 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
             Df ChiSquare      F Pr(>F)  
-Management   3   0.82392 1.7163   0.02 *
+Management   3   0.82392 1.7163   0.03 *
 poly(A1, 2)  2   0.35127 1.0976   0.40  
-spno         1   0.08318 0.5198   0.95  
+spno         1   0.08318 0.5198   0.96  
 Residual     5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -253,9 +257,9 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
             Df ChiSquare      F Pr(>F)
-Management   3   0.55418 1.1544   0.33
-poly(A1, 2)  2   0.32940 1.0292   0.44
-spno         1   0.08318 0.5198   0.94
+Management   3   0.55418 1.1544   0.28
+poly(A1, 2)  2   0.32940 1.0292   0.46
+spno         1   0.08318 0.5198   0.96
 Residual     5   0.80011              
 > anova(q, by="axis", permutations=99)
 Permutation test for cca under reduced model
@@ -264,16 +268,14 @@ Permutation: free
 Number of permutations: 99
 
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
-         Df ChiSquare      F Pr(>F)  
-CCA1      1   0.46993 2.9366   0.05 *
-CCA2      1   0.26217 1.6384   0.82  
-CCA3      1   0.19308 1.2066   0.93  
-CCA4      1   0.18345 1.1464   0.88  
-CCA5      1   0.08871 0.5544   0.97  
-CCA6      1   0.06104 0.3815   0.89  
-Residual  5   0.80011                
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+         Df ChiSquare      F Pr(>F)
+CCA1      1   0.46993 2.9366   0.10
+CCA2      1   0.26217 1.6384   0.82
+CCA3      1   0.19308 1.2066   0.95
+CCA4      1   0.18345 1.1464   0.85
+CCA5      1   0.08871 0.5544   0.96
+CCA6      1   0.06104 0.3815   0.89
+Residual  5   0.80011              
 > ### Check that constrained ordination functions can be embedded.
 > ### The data.frame 'df' is still attach()ed.
 > foo <- function(bar, Y, X, ...)
@@ -416,10 +418,10 @@ Number of permutations: 99
 
 Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env, subset = A1 > 3)
          Df ChiSquare      F Pr(>F)  
-CCA1      1   0.27109 2.9561   0.09 .
-CCA2      1   0.14057 1.5329   0.56  
-CCA3      1   0.08761 0.9553   0.78  
-CCA4      1   0.05624 0.6132   0.76  
+CCA1      1   0.27109 2.9561   0.07 .
+CCA2      1   0.14057 1.5329   0.48  
+CCA3      1   0.08761 0.9553   0.85  
+CCA4      1   0.05624 0.6132   0.84  
 Residual 10   0.91705                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -455,9 +457,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3075  0.783
-CAP2      1   0.0685 0.3339  0.998
-CAP3      1   0.0455 0.2217  0.967
+CAP1      1   0.2682 1.3075  0.779
+CAP2      1   0.0685 0.3339  0.997
+CAP3      1   0.0455 0.2217  0.964
 Residual 22   4.5130              
 > anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -468,8 +470,8 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-A         1   0.1316 0.6415  0.680
-B         2   0.2506 0.6108  0.824
+A         1   0.1316 0.6415  0.696
+B         2   0.2506 0.6108  0.821
 Residual 22   4.5130              
 > 
 > ## db-RDA without conditional factor
@@ -483,9 +485,9 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-CAP1      1   0.2682 1.3267  0.764
-CAP2      1   0.0685 0.3388  0.993
-CAP3      1   0.0455 0.2249  0.964
+CAP1      1   0.2682 1.3267  0.785
+CAP2      1   0.0685 0.3388  0.995
+CAP3      1   0.0455 0.2249  0.961
 Residual 26   5.2565              
 > anova(cap.model, by="terms", strata=C)  # -> no error
 Permutation test for capscale under reduced model
@@ -496,8 +498,8 @@ Number of permutations: 999
 
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-A         1   0.1316 0.6509  0.693
-B         2   0.2506 0.6198  0.829
+A         1   0.1316 0.6509  0.665
+B         2   0.2506 0.6198  0.834
 Residual 26   5.2565              
 > 
 > # partial RDA
@@ -511,9 +513,9 @@ Number of permutations: 999
 
 Model: rda(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-RDA1      1   0.2682 1.3075  0.774
+RDA1      1   0.2682 1.3075  0.770
 RDA2      1   0.0685 0.3339  0.993
-RDA3      1   0.0455 0.2217  0.964
+RDA3      1   0.0455 0.2217  0.962
 Residual 22   4.5130              
 > anova(rda.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for rda under reduced model
@@ -524,8 +526,8 @@ Number of permutations: 999
 
 Model: rda(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
-A         1   0.1316 0.6415  0.669
-B         2   0.2506 0.6108  0.827
+A         1   0.1316 0.6415  0.656
+B         2   0.2506 0.6108  0.825
 Residual 22   4.5130              
 > 
 > # RDA without conditional factor
@@ -539,9 +541,9 @@ Number of permutations: 999
 
 Model: rda(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-RDA1      1   0.2682 1.3267  0.768
-RDA2      1   0.0685 0.3388  0.995
-RDA3      1   0.0455 0.2249  0.971
+RDA1      1   0.2682 1.3267  0.765
+RDA2      1   0.0685 0.3388  0.996
+RDA3      1   0.0455 0.2249  0.969
 Residual 26   5.2565              
 > anova(rda.model, by="terms", strata=C)  # -> no error
 Permutation test for rda under reduced model
@@ -552,8 +554,8 @@ Number of permutations: 999
 
 Model: rda(formula = X ~ A + B)
          Df Variance      F Pr(>F)
-A         1   0.1316 0.6509  0.695
-B         2   0.2506 0.6198  0.820
+A         1   0.1316 0.6509  0.690
+B         2   0.2506 0.6198  0.823
 Residual 26   5.2565              
 > ## clean.up
 > rm(X, A, B, C, cap.model.cond, cap.model, rda.model.cond, rda.model)
@@ -578,11 +580,11 @@ Number of permutations: 999
 
 Model: cca(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
            Df ChiSquare      F Pr(>F)   
-A1          1   0.22476 2.5704  0.010 **
-Moisture    3   0.51898 1.9783  0.009 **
-Management  3   0.39543 1.5074  0.064 . 
-Use         2   0.10910 0.6238  0.922   
-Manure      3   0.25490 0.9717  0.519   
+A1          1   0.22476 2.5704  0.012 * 
+Moisture    3   0.51898 1.9783  0.005 **
+Management  3   0.39543 1.5074  0.055 . 
+Use         2   0.10910 0.6238  0.927   
+Manure      3   0.25490 0.9717  0.518   
 Residual    7   0.61210                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -595,11 +597,11 @@ Number of permutations: 999
 
 Model: capscale(formula = cca ~ A1 + Moisture + Management + Use + Manure, data = dune.env)
            Df Variance      F Pr(>F)   
-A1          1   8.1148 2.7156  0.008 **
-Moisture    3  21.6497 2.4150  0.008 **
-Management  3  19.1153 2.1323  0.009 **
-Use         2   4.7007 0.7865  0.730   
-Manure      3   9.6257 1.0737  0.377   
+A1          1   8.1148 2.7156  0.009 **
+Moisture    3  21.6497 2.4150  0.004 **
+Management  3  19.1153 2.1323  0.007 **
+Use         2   4.7007 0.7865  0.724   
+Manure      3   9.6257 1.0737  0.360   
 Residual    7  20.9175                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -623,10 +625,10 @@ Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = x ~ Manure + A1, data = env)
-         Df Variance      F Pr(>F)   
-Manure    4   4.7257 5.7006  0.009 **
-A1        1   0.0153 0.0736  0.783   
-Residual 14   2.9014                 
+         Df Variance      F Pr(>F)  
+Manure    4   4.7257 5.7006  0.011 *
+A1        1   0.0153 0.0736  0.783  
+Residual 14   2.9014                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > rm(foo, out)
@@ -685,29 +687,29 @@ Matrix fill: 0.56
 Call:
 protest(X = x, Y = xp, permutations = how(nperm = 99)) 
 
-Procrustes Sum of Squares (m12 squared):        0.9147 
-Correlation in a symmetric Procrustes rotation: 0.292 
-Significance:  0.08 
+Procrustes Sum of Squares (m12 squared):        0.9389 
+Correlation in a symmetric Procrustes rotation: 0.2471 
+Significance:  0.46 
 
 Permutation: free
 Number of permutations: 99
 
 > pro$t
- [1] 0.2056649 0.2008622 0.2062525 0.2656158 0.2739148 0.1990895 0.3124461
- [8] 0.2287779 0.2033140 0.2396172 0.1868019 0.2736072 0.1830199 0.2026019
-[15] 0.2402570 0.2286169 0.2791609 0.2214468 0.2356083 0.2188325 0.2097262
-[22] 0.2596154 0.2560289 0.2190367 0.2174689 0.2438396 0.1991101 0.2374612
-[29] 0.2030745 0.2205115 0.2566758 0.1448623 0.2354268 0.2419134 0.3144177
-[36] 0.2368505 0.2442661 0.2272011 0.3184241 0.2200089 0.2598430 0.2301587
-[43] 0.2763337 0.2332606 0.1935269 0.2315727 0.2573623 0.2021127 0.2387335
-[50] 0.2419087 0.2213094 0.2231619 0.2577845 0.2828219 0.2554605 0.2830915
-[57] 0.2342396 0.2137396 0.2151201 0.2432896 0.1956238 0.2055716 0.2329736
-[64] 0.2086125 0.2039124 0.1955711 0.2038045 0.2358886 0.2579199 0.1808128
-[71] 0.2155189 0.2967100 0.2480105 0.2010537 0.2718478 0.2182713 0.2471893
-[78] 0.2310223 0.2007771 0.2902640 0.2392380 0.2551756 0.3476679 0.2632614
-[85] 0.2289929 0.2222382 0.2503562 0.1983700 0.2084773 0.2406556 0.2478302
-[92] 0.2136439 0.3251671 0.2048928 0.3098776 0.2501555 0.2677039 0.2427125
-[99] 0.2693285
+ [1] 0.2142734 0.2317691 0.2325867 0.2318738 0.2297942 0.2547687 0.2150992
+ [8] 0.2856655 0.2323035 0.2430091 0.2607687 0.2653226 0.2127120 0.2482851
+[15] 0.3044707 0.2797892 0.2644764 0.2560291 0.2916665 0.2330199 0.2434141
+[22] 0.2891063 0.2871878 0.2609612 0.2158827 0.2297220 0.2417230 0.2244848
+[29] 0.2177450 0.2528551 0.2616422 0.2584395 0.2412174 0.2244347 0.2264776
+[36] 0.2244727 0.1973865 0.2837535 0.2634514 0.2823068 0.2699507 0.2750179
+[43] 0.2628074 0.2458801 0.2635264 0.2801017 0.2296173 0.1947667 0.2929171
+[50] 0.2422339 0.1831137 0.2688563 0.2555202 0.2043385 0.2287129 0.2366098
+[57] 0.2141830 0.1858646 0.2616734 0.1974915 0.3197986 0.2245312 0.2712518
+[64] 0.2171044 0.2241602 0.2100868 0.2183290 0.2143512 0.2642714 0.2572791
+[71] 0.2806032 0.2401609 0.2063171 0.2016924 0.2684739 0.2484569 0.2200211
+[78] 0.2487178 0.1925942 0.2957915 0.2991842 0.2359773 0.2440686 0.2504427
+[85] 0.2919524 0.2324999 0.2086198 0.2298386 0.2727169 0.3253668 0.2292110
+[92] 0.2193247 0.3517265 0.2777563 0.3713275 0.2330743 0.1986322 0.2027622
+[99] 0.2281227
 > rm(x, xp, pro)
 > ### end protest
 > 
@@ -868,4 +870,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  2.775   0.091   2.855 
+  3.515   0.249   3.771 
