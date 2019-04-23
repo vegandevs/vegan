@@ -104,13 +104,13 @@
   (2010) show that the naive calculation of the permutation \emph{p}
   value is
 
-  \deqn{p = \frac{N}{n}}{p = (N / n)}
+  \deqn{p = \frac{N}{n}}{p = N / n}
 
   which leads to an invalid test with incorrect type I error rate. They
   go on to show that by replacing the unknown tail probability (the
   \emph{p} value) of the Null distribution with the biased estimator
 
-  \deqn{p = \frac{N + 1}{n + 1}}{p = (N + 1 / n + 1)}
+  \deqn{p = \frac{N + 1}{n + 1}}{p = (N + 1) / (n + 1)}
 
   that the positive bias induced is of just the right size to
   account for the  uncertainty in the estimation of the tail probability
