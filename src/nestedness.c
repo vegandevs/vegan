@@ -36,7 +36,17 @@
 
 /* Random integer 0..imax */
 
+/* R 3.6.0 introduced an improved method of getting random integer
+ * index and provided a C API (See R Bug Report PR#17494 for
+ * discussion). We switch to this in R 3.6.0 */
+
+#include <Rversion.h>
+
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 6, 0)
+#define IRAND(imax) (int) R_unif_index((double) imax + 1)
+#else
 #define IRAND(imax) (int) (((double) (imax + 1)) * unif_rand())
+#endif
 
 /* 2 different random integers */
 
