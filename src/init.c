@@ -31,6 +31,7 @@ extern SEXP do_qswap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_swap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_vegdist(SEXP, SEXP);
 extern SEXP do_wcentre(SEXP, SEXP);
+extern SEXP test_sample(SEXP, SEXP);
 
 /* .Fortran calls */
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -62,6 +63,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_swap",      (DL_FUNC) &do_swap,      4},
     {"do_vegdist",   (DL_FUNC) &do_vegdist,   2},
     {"do_wcentre",   (DL_FUNC) &do_wcentre,   2},
+    {"test_sample",  (DL_FUNC) &test_sample,  2},
     {NULL, NULL, 0}
 };
 

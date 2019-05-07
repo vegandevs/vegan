@@ -53,6 +53,7 @@
  * is returned in usual column-major mode as [a,c,b,d]
  */
 
+
 static void get2x2(int len, int nr, int *acbd)
 {
     int i0, j0, i, j;
@@ -1453,8 +1454,24 @@ SEXP do_rrarefy(SEXP row, SEXP size)
     return out;
 }
 
+
+
 #undef SORTLIMIT
 /* do_rrarefy */
+/* This sees how R 3.6.0 function R_unif_index works */
+
+SEXP test_sample(SEXP len, SEXP max)
+{
+    int n = asInteger(len), imax = asInteger(max), i;
+    SEXP ans = PROTECT(allocVector(INTSXP, n));
+    int *out = INTEGER(ans);
+    GetRNGstate();
+    for (i = 0; i < n; i++)
+	out[i] = (int) R_unif_index(imax);
+    PutRNGstate();
+    UNPROTECT(1);
+    return ans;
+}
 
 #undef IRAND
 #undef INDX
