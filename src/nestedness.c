@@ -36,23 +36,20 @@
 
 /* Random integer 0..imax */
 
-/* R 3.6.0 introduced an improved method of getting random integer
- * index and provided a C API (See R Bug Report PR#17494 for
- * discussion). We switch to this in R 3.6.0 */
+/* R 3.4.0 provided an API to C function R_unif_index, and we now
+ * depend on that version of R. An improved method of getting random
+ * integer index was provided in R 3.6.0 and it is wise to upgrade to
+ * that version of R (see R Bug Reprot PR#17494), but nestedness
+ * functions work also with older versions. Earlier we used
+ * unif_rand() and changed that to an integer index, but R version
+ * should be better. */
 
-#include <Rversion.h>
-
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 4, 0)
 #define IRAND(imax) (int) R_unif_index((double) imax + 1)
-#else
-#define IRAND(imax) (int) (((double) (imax + 1)) * unif_rand())
-#endif
 
 /* 2 different random integers */
 
 #define I2RAND(vec, m) vec[0] = IRAND(m); \
     do {vec[1] = IRAND(m) ;} while(vec[1] == vec[0])
-
 
 /* utility function to find indices of 2x2 submatrix defined by its
  * corner elements a & d using two random numbers. 'len' is the index
