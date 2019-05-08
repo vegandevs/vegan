@@ -42,7 +42,7 @@
 
 #include <Rversion.h>
 
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 6, 0)
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 4, 0)
 #define IRAND(imax) (int) R_unif_index((double) imax + 1)
 #else
 #define IRAND(imax) (int) (((double) (imax + 1)) * unif_rand())
