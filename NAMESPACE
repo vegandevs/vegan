@@ -460,9 +460,6 @@ S3method(screeplot, decorana)
 S3method(screeplot, prcomp)
 S3method(screeplot, princomp)
 # sigma: stats
-# --- generic defined in R 3.3.0, but we need it in earlier R versions
-if (getRversion() < "3.3.0")
-    export(sigma.cca) ## export when generic sigma is not defined in R
 S3method(sigma, cca)
 # simulate: stats
 S3method(simulate, capscale)
