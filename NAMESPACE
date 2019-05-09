@@ -460,9 +460,6 @@ S3method(screeplot, decorana)
 S3method(screeplot, prcomp)
 S3method(screeplot, princomp)
 # sigma: stats
-# --- generic defined in R 3.3.0, but we need it in earlier R versions
-#if (getRversion() < "3.3.0")
-#    export(sigma) # defined conditionally in vegan in R/influence.cca.R
 S3method(sigma, cca)
 # simulate: stats
 S3method(simulate, capscale)
