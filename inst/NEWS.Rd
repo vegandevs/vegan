@@ -10,24 +10,24 @@
     \pkg{vegan} release may increase the dependence to \R{} 3.6.0.
 
     \item \R{} 3.6.0 improved the method to find random indices for
-    permutation and shuffling data. \pkg{Vegan} relies now on the \R{}
-    functions in its ecological nullmodels (functions
+    permuting and sampling data. \pkg{Vegan} relies now on the \R{}
+    functions in its ecological null models (functions
     \code{nullmodel}, \code{oecosimu}, \code{commsim},
     \code{permatfull}, \code{permatswap} and others). Technically this
     change is compatible with \R{} 3.4.0 and later, but you can only
-    gain the benefits of improved code if you upgrade \R{} to version
-    3.6.0. The nullmodels may change in any version of \R{} and most
+    gain the benefits of improved code with a current release of
+    \R{}. The null models may change due to this change, and most
     certainly they change in \R{} 3.6.0.  See NEWS for the \R{} 3.6.0
     release and discussion in github issue
     \href{https://github.com/vegandevs/vegan/issues/312}{#312}.
 
     Most \pkg{vegan} permutation routines rely on \CRANpkg{permute},
     and there you gain similar benefits of improved randomness when
-    you upgrade \R{}.
+    you upgrade \R.
 
-    \item The \code{sigma} function for constrained ordination results
-    works now without workarounds of \pkg{vegan} 2.5-2. This fixes
-    completely the issue discussed in
+    \item Thanks to the new \R{} dependence, \code{sigma} for
+    constrained ordination results works without workarounds of
+    \pkg{vegan} 2.5-2. This fixes completely the issue discussed in
     \href{https://github.com/vegandevs/vegan/issues/274}{#274}.
 
     \item \pkg{Vegan} test results cannot be reproduced in older
@@ -52,9 +52,11 @@
     \itemize{
 
       \item \code{betadisper} changed interpretation of negative
-      squared distances which would give complex valued distances. Now
-      they are regarded as zero-distances whereas earlier we used
-      their modulus. For further discussion, see github issue
+      squared distances which give complex-valued distances. Now they
+      are regarded as zero-distances whereas earlier we used their
+      modulus. This will change the results in cases where you had
+      negative squared distances. For further discussion, see github
+      issue
       \href{https://github.com/vegandevs/vegan/issues/306}{#306}.
 
     } %itemize
