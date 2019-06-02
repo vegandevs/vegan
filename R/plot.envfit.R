@@ -64,7 +64,6 @@
         vect <- sweep(vect, 2, at, "+")
         if (add) {
             vtext <- ordiArrowTextXY(vect, labs$v, rescale = FALSE, ...)
-            vtext <- sweep(vtext, 2, at, "+")
         }
     }
     if (!add) {
