@@ -13,7 +13,7 @@
 }
 \usage{
 ordiArrowTextXY(x, labels, display, choices = c(1,2),
-                rescale = TRUE, fill = 0.75, \ldots)
+                rescale = TRUE, fill = 0.75, at = c(0,0), \ldots)
 ordiArrowMul(x, at = c(0,0), fill = 0.75,
              display, choices = c(1,2), \ldots)
 }
