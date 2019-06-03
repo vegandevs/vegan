@@ -10,10 +10,8 @@
         n <- nrow(x)
         p <- ncol(x)
     }
-    ## do not make total=1 if not needed (diversity() does anyway,
-    ## species richness does not need)
-    if (!all(scales %in% c(0,1)))
-        x <- sweep(x, 1, rowSums(x), "/")
+    ## scale rows to unit total
+    x <- sweep(x, 1, rowSums(x), "/")
     m <- length(scales)
     result <- array(0, dim = c(n, m))
     dimnames(result) <- list(sites = rownames(x), scale = scales)
@@ -21,8 +19,8 @@
         result[,a] <-
             switch(as.character(scales[a]),
                    "0" = log(rowSums(x > 0)),
-                   "1" = diversity(x),
-                   "2" = log(diversity(x, "invsimpson")),
+                   "1" = -rowSums(x * log(x), na.rm = TRUE),
+                   "2" = -log(rowSums(x^2)),
                    "Inf" =  -log(apply(x, 1, max)),
                    log(rowSums(x^scales[a]))/(1 - scales[a]))
         }
