@@ -18,21 +18,14 @@
     result <- array(0, dim = c(n, m))
     dimnames(result) <- list(sites = rownames(x), scale = scales)
     for (a in 1:m) {
-        if (scales[a] != 0 && scales[a] != 1 && scales[a] !=  Inf) {
-            result[, a] <- log(rowSums(x^scales[a]))/(1 - scales[a])
+        result[,a] <-
+            switch(as.character(scales[a]),
+                   "0" = log(rowSums(x > 0)),
+                   "1" = diversity(x),
+                   "2" = log(diversity(x, "invsimpson")),
+                   "Inf" =  -log(apply(x, 1, max)),
+                   log(rowSums(x^scales[a]))/(1 - scales[a]))
         }
-        else {
-            if (scales[a] == 0) {
-                result[, a] <- log(rowSums(x > 0))
-            }
-            else if (scales[a] == Inf) {
-                result[, a] <- -log(apply(x, 1, max))
-            }
-            else {
-                result[, a] <- diversity(x)
-            }
-        }
-    }
     if (hill)
         result <- exp(result)
     if (any(dim(result) == 1))
