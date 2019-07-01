@@ -15,3 +15,12 @@
     class(comm) <- "rad"
     comm
 }
+
+## do not print 'index' attribute
+
+`print.rad` <-
+    function(x, ...)
+{
+    print(as.table(x), ...)
+    invisible(x)
+}
