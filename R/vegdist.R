@@ -20,6 +20,8 @@
     ## most tests are faster for matrix than for data frame, and we
     ## need matrix in .Call() anyway
     x <- as.matrix(x)
+    if (!na.rm && anyNA(x))
+        stop("missing values are not allowed with argument 'na.rm = FALSE'")
     ## all vegdist indices need numeric data (Gower included).
     if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
