@@ -227,11 +227,11 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   \code{oecosimu}, see \code{\link{treedive}} and
   \code{\link{raupcrick}}.
 
-  Function \code{\link[labdsv]{rndtaxa}}
-  (\pkg{labdsv} package) randomizes a community table. See also
-  \code{\link{nestedtemp}} (that also discusses other nestedness
-  functions) and \code{\link{treedive}} for another application. 
+  See also \code{\link{nestedtemp}} (that also discusses other
+  nestedness functions) and \code{\link{treedive}} for another
+  application.
 }
+
 \examples{
 ## Use the first eigenvalue of correspondence analysis as an index
 ## of structure: a model for making your own functions.
