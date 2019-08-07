@@ -2,6 +2,36 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-6}{
+
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item \code{vegdist} silently accepted missing values
+      (\code{NA}) and removed them from the analysis also with option
+      \code{na.rm = FALSE}. The behaviour was introduced in
+      \pkg{vegan} version 2.5-1. See GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/319}{#319}.
+
+      \item The labels were displaced when the bunch of arrows was not
+      drawn at the origin of the ordination graph in \code{envfit}.
+      See GitHub issue
+      \href{https://github.com/vegandevs/vegan/issues/315}{#315}.
+
+    } % itemize
+  } % bugs
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item The results of \code{as.rad} no longer print the index
+      attribute: the attribute is still in the object, but printing
+      made the output messy.
+
+    } %itemize
+  } % features
+} % 2.5-6
+
 \section{Changes in version 2.5-5}{
   \subsection{INSTALLATION}{
     \itemize{
