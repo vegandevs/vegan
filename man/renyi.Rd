@@ -95,9 +95,8 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   replaced with individual permutation results.
 }
 \references{
-  \url{http://www.worldagroforestry.org/resources/databases/tree-diversity-analysis}
 
-  Hill, M.O. (1973). Diversity and evenness: a unifying notation and its
+   Hill, M.O. (1973). Diversity and evenness: a unifying notation and its
    consequences. \emph{Ecology} 54, 427--473.
 
    Kindt, R., Van Damme, P., Simons, A.J. (2006). Tree diversity in western
@@ -107,7 +106,8 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
    \enc{Tóthmérész}{Tothmeresz}, B. (1995). Comparison of different methods for diversity
    ordering. \emph{Journal of Vegetation Science} 6, 283--290.
 }
-\author{ Roeland Kindt \email{r.kindt@cgiar.org} and Jari Oksanen }
+
+\author{ Roeland Kindt and Jari Oksanen }
 
 \seealso{\code{\link{diversity}} for diversity indices, and
   \code{\link{specaccum}} for ordinary species accumulation curves, and
