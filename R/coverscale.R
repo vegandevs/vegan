@@ -17,7 +17,7 @@
         lims <- c(0, 100/2^(4:1), 100)
     }, Hill = {
         codes <- as.character(1:5)
-        lims <- c(0, 2, 5, 10, 20, 100)
+        lims <- c(0, 2, 5, 10, 20, Inf)
     }, fix = {
         codes <- c("+", as.character(1:9), "X")
         lims <- c(0:10, 11 - 10 * .Machine$double.eps)
