@@ -48,6 +48,7 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
 
     # Parallelise K-means
     tmp <- mclapply(inf.gr:sup.gr, function (ii) {
+      print(ii)
       kmeans(data, ii, iter.max = 50, nstart = iter)
     })
 
