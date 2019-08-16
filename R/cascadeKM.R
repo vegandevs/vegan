@@ -45,17 +45,27 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
     size <- matrix(NA, sup.gr, sup.gr - inf.gr + 1)
     ## Pour tous les nombres de groupes voulus
     h <- 1
+
+    # Parallelise K-means
+    tmp <- mclapply(inf.gr:sup.gr, function (ii) {
+      kmeans(data, ii, iter.max = 50, nstart = iter)
+    })
+
+    #Sert values of stuff using results frm K-means
     for(ii in inf.gr:sup.gr)
     {
+        #Index for tmp object
+        idx <- ii - inf.gr + 1
+
         j <- ii - inf.gr + 1
-        tmp <- kmeans(data, ii, iter.max = 50, nstart=iter)
-        size[1:ii,h] <- tmp$size
-        h <- h+1
-        partition[,j] <- tmp$cluster
+        #tmp <- kmeans(data, ii, iter.max = 50, nstart=iter)
+        size[1:ii,h] <- tmp[[idx]]$size
+        h <- h + 1
+        partition[, j] <- tmp[[idx]]$cluster
         ## Compute SSE statistic
-        results[1,j] <- sum(tmp$withinss)
+        results[1, j] <- sum(tmp[[idx]]$withinss)
         ## Compute stopping criterion
-        results[2,j] <- cIndexKM(tmp,data, index = tolower(criterion))
+        results[2, j] <- cIndexKM(tmp[[idx]], data, index = tolower(criterion))
     }
     colnames(partition) <- paste(inf.gr:sup.gr, "groups")
     tmp <- rownames(data)
