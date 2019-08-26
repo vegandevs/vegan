@@ -47,10 +47,28 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
     h <- 1
 
     # Parallelise K-means
-    tmp <- mclapply(inf.gr:sup.gr, function (ii) {
-      kmeans(data, ii, iter.max = 50, nstart = iter)
-    })
+    ncores <- options()$mc.cores
 
+    if(is.null(ncores)) {
+      tmp <- lapply(inf.gr:sup.gr, function (ii) {
+        kmeans(data, ii, iter.max = 50, nstart = iter)
+      })
+    } else { 
+      if(.Platform$OS.type != "windows") {
+        cl <- makeCluster(ncores)
+        #clusterExport(cl, c("data", "iter"))
+        tmp <- parLapply(cl, inf.gr:sup.gr, function (ii) {
+          kmeans(data, ii, iter.max = 50, nstart = iter)
+        })
+        stopCluster(cl)
+
+      } else { # "unix"
+        tmp <- mclapply(inf.gr:sup.gr, function (ii) {
+          kmeans(data, ii, iter.max = 50, nstart = iter)
+        })
+      }
+
+    }
     #Sert values of stuff using results frm K-means
     for(ii in inf.gr:sup.gr)
     {
