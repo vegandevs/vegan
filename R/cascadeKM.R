@@ -54,13 +54,14 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
         kmeans(data, ii, iter.max = 50, nstart = iter)
       })
     } else { 
-      if(.Platform$OS.type != "windows") {
+      if(.Platform$OS.type == "windows") {
         cl <- makeCluster(ncores)
         #clusterExport(cl, c("data", "iter"))
         tmp <- parLapply(cl, inf.gr:sup.gr, function (ii) {
           kmeans(data, ii, iter.max = 50, nstart = iter)
         })
         stopCluster(cl)
+        print("Windows")
 
       } else { # "unix"
         tmp <- mclapply(inf.gr:sup.gr, function (ii) {
