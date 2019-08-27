@@ -1,5 +1,6 @@
 "cascadeKM" <-
-function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
+function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
+  parallel = getOption("mc.cores"))
 {
 ### DESCRIPTION
 
@@ -47,15 +48,13 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
     h <- 1
 
     # Parallelise K-means
-    ncores <- options()$mc.cores
-
-    if(is.null(ncores)) {
+    if(is.null(parallel)) { # NO parallel computing
       tmp <- lapply(inf.gr:sup.gr, function (ii) {
         kmeans(data, ii, iter.max = 50, nstart = iter)
       })
-    } else { 
+    } else { # DO parallel computing 
       if(.Platform$OS.type == "windows") {
-        cl <- makeCluster(ncores)
+        cl <- makeCluster(parallel)
         #clusterExport(cl, c("data", "iter"))
         tmp <- parLapply(cl, inf.gr:sup.gr, function (ii) {
           kmeans(data, ii, iter.max = 50, nstart = iter)
