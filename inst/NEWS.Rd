@@ -18,6 +18,10 @@
       See GitHub issue
       \href{https://github.com/vegandevs/vegan/issues/315}{#315}.
 
+      \item Hill scale in \code{coverscale} has no ceiling unlike
+      most traditional cover class scales which are undefined above
+      100\% cover.
+
     } % itemize
   } % bugs
 
