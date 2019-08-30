@@ -45,9 +45,11 @@ options("prompt" = "> ", "continue" = "  ")
 \noindent \pkg{Vegan} is a package for community ecologists.  This
 documents explains how the commonly used ordination methods can be
 performed in \pkg{vegan}.  The document only is a very basic
-introduction.  Another document (\emph{vegan tutorial})
-(\url{http://cc.oulu.fi/~jarioksa/opetus/method/vegantutor.pdf}) gives
-a longer and more detailed introduction to ordination.  The
+introduction.
+%Another document (\emph{vegan tutorial})
+%(\url{http://cc.oulu.fi/~jarioksa/opetus/method/vegantutor.pdf}) gives
+%a longer and more detailed introduction to ordination.
+The
 current document only describes a small part of all \pkg{vegan}
 functions.  For most functions, the canonical references are the
 \pkg{vegan} help pages, and some of the most important additional
