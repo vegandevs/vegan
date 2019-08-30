@@ -1624,7 +1624,6 @@
       \pkg{permute} package. If you are interested in these
       developments, you may try the development versions of
       \pkg{vegan} in
-      \href{http://r-forge.r-project.org/projects/vegan/}{R-Forge} or
       \href{https://github.com/jarioksa/vegan}{GitHub} and report the
       problems and user experience to us.  }  } % end general
 

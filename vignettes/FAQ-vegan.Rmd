@@ -12,7 +12,7 @@ questions about R package **vegan**.
 
 > This work is licensed under the Creative Commons Attribution 3.0
 > License. To view a copy of this license, visit
-> <http://creativecommons.org/licenses/by/3.0/> or send a letter to
+> <https://creativecommons.org/licenses/by/3.0/> or send a letter to
 > Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 > California, 94105, USA.
 >
@@ -33,8 +33,8 @@ communities, and tools for diversity analysis, and other potentially
 useful functions. **Vegan** is not self-contained but it must be run
 under R statistical environment, and it also depends on many other R
 packages. **Vegan** is [free
-software](http://www.gnu.org/philosophy/free-sw.html) and distributed
-under [GPL2 license](http://www.gnu.org/licenses/gpl.html).
+software](https://www.gnu.org/philosophy/free-sw.html) and distributed
+under [GPL2 license](https://www.gnu.org/licenses/gpl.html).
 
 ------------------------------------------------------------------------
 
@@ -46,9 +46,9 @@ to certain system functions, and the ability to run programs stored in
 script files.
 
 R has a home page at <https://www.R-project.org/>. It is [free
-software](http://www.gnu.org/philosophy/free-sw.html) distributed under
-a GNU-style [copyleft](http://www.gnu.org/copyleft/copyleft.html), and
-an official part of the [GNU](http://www.gnu.org/) project (“GNU S”).
+software](https://www.gnu.org/philosophy/free-sw.html) distributed under
+a GNU-style [copyleft](https://www.gnu.org/copyleft/copyleft.html), and
+an official part of the [GNU](https://www.gnu.org/) project (“GNU S”).
 
 ------------------------------------------------------------------------
 
@@ -58,9 +58,9 @@ Both R and latest release version of **vegan** can be obtained through
 [CRAN](https://cran.r-project.org). Unstable development version of
 **vegan** can be obtained through
 [GitHub](https://github.com/vegandevs/vegan). Formerly **vegan** was
-developed in [R-Forge](http://r-forge.r-project.org/projects/vegan/),
+developed in [R-Forge](https://r-forge.r-project.org/projects/vegan/),
 but after moving to [GitHub](https://github.com/vegandevs/vegan) the
-R-Forge repository may be out of date.
+R-Forge repository is out of date.
 
 ------------------------------------------------------------------------
 
@@ -116,8 +116,6 @@ command. The documents included in the **vegan** package are
 Web documents outside the package include:
 
 -   <https://github.com/vegandevs/vegan>: **vegan** homepage.
--   <http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf>:
-    **vegan** tutorial.
 
 ------------------------------------------------------------------------
 
@@ -156,15 +154,10 @@ MacOS X).
 
 ### Are there binaries for devel versions?
 
-[R-Forge](http://r-forge.r-project.org/projects/vegan/) runs daily tests
-on the devel package, and if passed, it builds source package together
-with Windows binaries. However, the R-Forge may be out of date, because
-**vegan** is mainly developed in
-[GitHub](https://github.com/vegandevs/vegan). You can install R-Forge
-packages within R with command
-`install.packages("vegan", repos="http://r-forge.r-project.org/")`. If
-you use GUI menu entry, you must select or define the R-Forge
-repository.
+Not currently. You need tools to build C and Fortran programs to
+install **vegan**. If you have those, you can use
+`devtools::install_github("vegan")` to install the most recent devel
+version.
 
 ------------------------------------------------------------------------
 
@@ -617,7 +610,7 @@ If there is a really high number of species or sites, the graphs often
 are congested and many labels are overwritten. It may be impossible to
 have complete readable graphics with some data sets. Below we give a
 brief overview of tricks you can use. Gavin Simpson’s blog [From the
-bottom of the heap](http://www.fromthebottomoftheheap.net) has a series
+bottom of the heap](https://www.fromthebottomoftheheap.net) has a series
 of articles on “decluttering ordination plots” with more detailed
 discussion and examples.
 
@@ -632,24 +625,24 @@ discussion and examples.
     background to the text. The labels still shadow each other, but the
     uppermost labels are readable. Argument `priority` will help in
     displaying the most interesting labels (see [Decluttering blog, part
-    1](http://www.fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/)).
+    1](https://www.fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/)).
 -   Use `orditorp` function that uses labels only if these can be added
     to a graph without overwriting other labels, and points otherwise,
     if you do not need to see all labels. You must first create an empty
     plot using `plot(..., type="n")`, and then add labels or points with
     `orditorp` (see [Decluttering
-    blog](http://www.fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/)).
+    blog](https://www.fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/)).
 -   Use `ordipointlabel` which uses points and text labels to the
     points, and tries to optimize the location of the text to minimize
     the overlap (see [Decluttering
-    blog](http://www.fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/)).
+    blog](https://www.fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/)).
 -   Ordination `text` and `points` functions have argument `select` that
     can be used for full control of selecting items plotted as text or
     points.
 -   Use interactive `orditkplot` function that lets you drag labels of
     points to better positions if you need to see all labels. Only one
     set of points can be used (see [Decluttering
-    blog](http://www.fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
+    blog](https://www.fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
 -   Most `plot` functions allow you to zoom to a part of the graph using
     `xlim` and `ylim` arguments to reduce clutter in congested areas.
 
