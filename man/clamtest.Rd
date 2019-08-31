@@ -114,7 +114,7 @@ Peter Solymos \email{solymos@ualberta.ca}
 }
 \note{
 The code was tested against standalone CLAM software provided
-on the website of Anne Chao (\url{http://chao.stat.nthu.edu.tw/wordpress/});
+on the website of Anne Chao (which were then at http://chao.stat.nthu.edu.tw/wordpress);
 minor inconsistencies were found, especially for finding the
 threshold for 'too rare' species.
 These inconsistencies are probably due to numerical differences between the
