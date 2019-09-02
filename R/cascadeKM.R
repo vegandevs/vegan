@@ -39,7 +39,7 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
     index<-list()
     if(!is.null(nrow(data))){
         partition <- matrix(NA, nrow(data), sup.gr - inf.gr + 1)
-    }else{
+    } else {
         partition <- matrix(NA, length(data), sup.gr - inf.gr + 1)
     }
     results <- matrix(NA, 2, sup.gr - inf.gr + 1)
@@ -52,7 +52,7 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
       tmp <- lapply(inf.gr:sup.gr, function (ii) {
         kmeans(data, ii, iter.max = 50, nstart = iter)
       })
-    } else { # DO parallel computing 
+    } else {
       if(.Platform$OS.type == "windows") {
         cl <- makeCluster(parallel)
         #clusterExport(cl, c("data", "iter"))
