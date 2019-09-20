@@ -104,8 +104,8 @@
         dimnames(tbl) <- d
         print(noquote(tbl))
     }
-    out <- list(sites = site.ind, species = sp.ind)
-    print(sapply(out, length))
+    out <- list(sites = site.ind, species = sp.ind, table = tbl)
+    cat(length(out$sites), "sites,", length(out$species), "species\n")
     if (!is.null(usedscale))
         cat("scale: ",  usedscale, "\n")
     invisible(out)
