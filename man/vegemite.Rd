@@ -151,16 +151,19 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   stands alternatively for logarithmic or logical).  Scale \code{fix}
   is intended for \dQuote{fixing} 10-point scales: it truncates scale values
   to integers, and replaces 10 with \code{X} and positive values below
-  1 with \code{+}.  } \value{ The functions are used mainly to display
-  a table, but they return (invisibly) a list with items:
-  \item{species}{Ordered species indices} \item{sites}{Ordered site
-  indices}
+  1 with \code{+}.  }
+
+\value{The functions are used mainly to display a table, but they return
+  (invisibly) a list with items \code{species} for ordered species
+  index, \code{sites} for ordered site index, and \code{table} for the
+  final ordered community table.
 
   These items can be used as arguments \code{sp.ind} and \code{site.ind}
-  to reproduce the table. In addition to the proper table, \code{vegemite}
-  prints the numbers of species and sites and the name of the used cover
-  scale at the end.
+  to reproduce the table, or the \code{table} can be further edited. In
+  addition to the table, \code{vegemite} prints the numbers of species
+  and sites and the name of the used cover scale.
 }
+
 \references{ The cover scales are presented in many textbooks of vegetation
   science; I used:
 
@@ -220,4 +223,3 @@ tabasco(dune, plotree, sptree)
 \keyword{print}
 \keyword{manip}
 \keyword{hplot}
-
