@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2019-05-08 r76475) -- "Unsuffered Consequences"
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
 Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin18.5.0 (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -8670,8 +8670,7 @@ Warning: non-integer data: divided by smallest positive value
  Cetrisla .11....1111.1....1.11111
  Stersp   111.11.1111.112111...11.
  Claddefo 1111111111111111111111.1
-  sites species 
-     24      24 
+24 sites, 24 species
 scale:  Hult 
 > ## Order by correspondence analysis, use Hill scaling and layout:
 > dca <- decorana(varespec)
@@ -8723,8 +8722,7 @@ scale:  Hult
  Nepharct --1------1-1---1------2-
  Dicrsp   -----1----1--1-1-11-1541
  Hylosple ---------------1---3--13
-  sites species 
-     24      44 
+24 sites, 44 species
 scale:  Hill 
 > ## Show one class from cluster analysis, but retain the ordering above
 > clus <- hclust(vegdist(varespec))
@@ -8770,8 +8768,7 @@ scale:  Hill
  Vaccmyrt ..+.2
  Descflex ....+
  Dicrsp   ...++
-  sites species 
-      5      37 
+5 sites, 37 species
 scale:  Braun.Blanquet 
 > ## Re-create previous
 > vegemite(varespec, sp=sel$sp, site=sel$site, scale="Hult")
@@ -8815,8 +8812,7 @@ scale:  Braun.Blanquet
  Vaccmyrt ..1.3
  Descflex ....1
  Dicrsp   ...11
-  sites species 
-      5      37 
+5 sites, 37 species
 scale:  Hult 
 > ## Re-order clusters by ordination
 > clus <- as.dendrogram(clus)
@@ -8869,8 +8865,7 @@ scale:  Hult
  Dicrsp   ......1....11...111133.1
  Descflex 1....1......1.1...1..111
  Hylosple ................1....122
-  sites species 
-     24      44 
+24 sites, 44 species
 scale:  Hult 
 > 
 > ## Abundance values have such a wide range that they must be rescaled
@@ -9076,7 +9071,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  25.441 1.226 27.208 0 0 
+Time elapsed:  29.921 1.74 32.805 0 0 
 > grDevices::dev.off()
 null device 
           1 
