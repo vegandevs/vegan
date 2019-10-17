@@ -17,8 +17,7 @@
     type <- ifelse(isTRUE(all.equal(attr(x, "type"), "median")),
                    "median", "centroid")
     writeLines(strwrap(paste0("Average distance to ", type, ":\n")))
-    print.default(format(tapply(x$distances, x$group, mean),
-                         digits = digits), quote = FALSE)
+    print.default(format(x$group.distances, digits = digits), quote = FALSE)
     cat("\n")
     writeLines(strwrap("Eigenvalues for PCoA axes:"))
     if (nev > neigen) {

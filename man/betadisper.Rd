@@ -16,10 +16,10 @@
   multivariate homogeneity of group dispersions (variances).
   \code{betadisper} is a multivariate analogue of Levene's test for
   homogeneity of variances. Non-euclidean distances between objects and
-  group centroids are handled by reducing the original distances to
-  principal coordinates. This procedure has latterly been used as a
-  means of assessing beta diversity. There are \code{anova},
-  \code{scores}, \code{plot} and \code{boxplot} methods.
+  group centres (centroids or medians) are handled by reducing the
+  original distances to principal coordinates. This procedure has
+  latterly been used as a means of assessing beta diversity. There are
+  \code{anova}, \code{scores}, \code{plot} and \code{boxplot} methods.
 
   \code{TukeyHSD.betadisper} creates a set of confidence intervals on
   the differences between the mean distance-to-centroid of the levels of
@@ -109,7 +109,9 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   \item{ordered}{logical; see \code{\link{TukeyHSD}}.}
   \item{conf.level}{A numeric value between zero and one giving the
     family-wise confidence level to use.}
-  \item{digits, neigen}{numeric; for the \code{print} method, sets the number of digits to use (as per \code{\link{print.default}}) and the maximum number of axes to display eigenvalues for, repsectively.}
+  \item{digits, neigen}{numeric; for the \code{print} method, sets the
+  number of digits to use (as per \code{\link{print.default}}) and the
+  maximum number of axes to display eigenvalues for, repsectively.}
   \item{\dots}{arguments, including graphical parameters (for
     \code{plot.betadisper} and \code{boxplot.betadisper}), passed to
     other methods.}
@@ -215,10 +217,12 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
     analysis.}
   \item{distances}{numeric; the Euclidean distances in principal
     coordinate space between the samples and their respective group
-    centroid.}
+    centroid or median.}
   \item{group}{factor; vector describing the group structure}
-  \item{centroids}{matrix; the locations of the group centroids on the
-    principal coordinates.}
+  \item{centroids}{matrix; the locations of the group centroids or
+    medians on the principal coordinates.}
+  \item{group.distances}{numeric; the mean distance to each group
+    centroid or median.}
   \item{call}{the matched function call.}
 }
 \note{
