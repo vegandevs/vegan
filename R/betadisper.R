@@ -139,6 +139,8 @@
         n.group <- as.vector(table(group))
         zij <- zij*sqrt(n.group[group]/(n.group[group]-1))
     }
+    ## pre-compute group mean distance to centroid/median for `print` method
+    grp.zij <- tapply(zij, group, "mean")
     ## add in correct labels
     colnames(vectors) <- names(eig) <- paste("PCoA", seq_along(eig), sep = "")
     if(is.matrix(centroids))
@@ -147,7 +149,8 @@
         names(centroids) <- names(eig)
     rownames(vectors) <- names(zij) <- labs
     retval <- list(eig = eig, vectors = vectors, distances = zij,
-                   group = group, centroids = centroids, call = match.call())
+                   group = group, centroids = centroids,
+                   group.distances = grp.zij, call = match.call())
     class(retval) <- "betadisper"
     attr(retval, "method") <- attr(d, "method")
     attr(retval, "type") <- type
