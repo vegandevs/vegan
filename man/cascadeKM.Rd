@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{cascadeKM}
 \alias{cascadeKM}
 \alias{cIndexKM}
@@ -177,9 +178,8 @@ cIndexKM(y, x, index = "all")
 \author{ Marie-Helene Ouellette
   \email{Marie-Helene.Ouellette@UMontreal.ca}, Sebastien Durand
   \email{Sebastien.Durand@UMontreal.ca} and Pierre Legendre
-  \email{Pierre.Legendre@UMontreal.ca}. Edited for \pkg{vegan} by Jari
-  Oksanen.
-}
+  \email{Pierre.Legendre@UMontreal.ca}. Parallel processing by Virgilio
+  Gómez-Rubio.  Edited for \pkg{vegan} by Jari Oksanen.  }
 
 \seealso{\code{\link{kmeans}}, \code{\link[cclust]{clustIndex}}.}
 
