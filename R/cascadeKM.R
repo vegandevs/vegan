@@ -4,10 +4,10 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
 {
 ### DESCRIPTION
 
-### This function use the 'kmeans' function of the 'stats' package to create 
+### This function use the 'kmeans' function of the 'stats' package to create
 ### a cascade of partitions from K = nb_inf_gr to K = nb_sup_gr
 
-### INPUT				
+### INPUT
 ###
 ### data			The data matrix; the objects are the rows
 ### nb_inf_gr		Number of groups (K) for the first partition (min)
@@ -22,13 +22,13 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
 
 ### EXAMPLE
 ###
-### 	result <- cascadeKM(donnee, 2, 30, iter = 50, criterion = 'calinski') 
+### 	result <- cascadeKM(donnee, 2, 30, iter = 50, criterion = 'calinski')
 ###
 ### 	data = data table
 ### 	2 = lowest number of groups for K-means
 ### 	30 = highest number of groups for K-means
 ### 	iter = 50: start kmeans 50 times using different random configurations
-### 	criterion = 'calinski': the Calinski-Harabasz (1974) criterion to determine 
+### 	criterion = 'calinski': the Calinski-Harabasz (1974) criterion to determine
 ###      the best value of K for the data set. 'Best' is in the least-squares sense.
 ###
 
@@ -47,29 +47,29 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
     ## Pour tous les nombres de groupes voulus
     h <- 1
 
-    # Parallelise K-means
-    if(is.null(parallel)) { # NO parallel computing
+    ## Parallelise K-means
+    if (is.null(parallel))
+        parallel <- 1
+    hasClus <- inherits(parallel, "cluster")
+    if(!hasClus && parallel <= 1) { # NO parallel computing
       tmp <- lapply(inf.gr:sup.gr, function (ii) {
         kmeans(data, ii, iter.max = 50, nstart = iter)
       })
     } else {
-      if(.Platform$OS.type == "windows") {
-        cl <- makeCluster(parallel)
-        #clusterExport(cl, c("data", "iter"))
-        tmp <- parLapply(cl, inf.gr:sup.gr, function (ii) {
-          kmeans(data, ii, iter.max = 50, nstart = iter)
-        })
-        stopCluster(cl)
-        print("Windows")
-
-      } else { # "unix"
-        tmp <- mclapply(inf.gr:sup.gr, function (ii) {
-          kmeans(data, ii, iter.max = 50, nstart = iter)
-        })
-      }
-
+        if(hasClus || .Platform$OS.type == "windows") {
+            if(!hasClus)
+                cl <- makeCluster(parallel)
+            tmp <- parLapply(cl, inf.gr:sup.gr, function (ii)
+                kmeans(data, ii, iter.max = 50, nstart = iter))
+            if (!hasClus)
+                stopCluster(cl)
+        } else { # "unix"
+            tmp <- mclapply(inf.gr:sup.gr, function (ii)
+                kmeans(data, ii, iter.max = 50, nstart = iter),
+                mc.cores = parallel)
+        }
     }
-    #Sert values of stuff using results frm K-means
+    #Set values of stuff using results from K-means
     for(ii in inf.gr:sup.gr)
     {
         #Index for tmp object
@@ -93,13 +93,13 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
         r.name <- tmp
     }
     rownames(partition) <- r.name
-	
+
     colnames(results) <- paste(inf.gr:sup.gr, "groups")
     rownames(results)<-c("SSE", criterion)
 
     colnames(size) <- paste(inf.gr:sup.gr, "groups")
     rownames(size) <- paste("Group", 1:sup.gr)
-	
+
     tout<-list(partition=partition, results=results, criterion=criterion, size=size)
     class(tout) <- "cascadeKM"
     tout
