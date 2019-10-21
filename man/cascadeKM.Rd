@@ -13,7 +13,8 @@
 }
 
 \usage{
-cascadeKM(data, inf.gr, sup.gr, iter = 100, criterion = "calinski")
+cascadeKM(data, inf.gr, sup.gr, iter = 100, criterion = "calinski",
+  parallel = getOption("mc.cores"))
 
 cIndexKM(y, x, index = "all")
 
@@ -56,6 +57,10 @@ cIndexKM(y, x, index = "all")
   \item{gridcol}{The colour of the grid lines in the plots. \code{NA},
     which is the default value, removes the grid lines.}
   \item{\dots}{Other parameters to the functions (ignored).}
+  \item{parallel}{Number of parallel processes or a predefined socket
+    cluster.  With \code{parallel = 1} uses ordinary, non-parallel
+    processing. The parallel processing is done with \pkg{parallel}
+    package.}
     
 }
 \details{

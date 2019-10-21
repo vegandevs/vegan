@@ -1,5 +1,6 @@
 "cascadeKM" <-
-function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
+function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
+  parallel = getOption("mc.cores"))
 {
 ### DESCRIPTION
 
@@ -38,24 +39,51 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski")
     index<-list()
     if(!is.null(nrow(data))){
         partition <- matrix(NA, nrow(data), sup.gr - inf.gr + 1)
-    }else{
+    } else {
         partition <- matrix(NA, length(data), sup.gr - inf.gr + 1)
     }
     results <- matrix(NA, 2, sup.gr - inf.gr + 1)
     size <- matrix(NA, sup.gr, sup.gr - inf.gr + 1)
     ## Pour tous les nombres de groupes voulus
     h <- 1
+
+    # Parallelise K-means
+    if(is.null(parallel)) { # NO parallel computing
+      tmp <- lapply(inf.gr:sup.gr, function (ii) {
+        kmeans(data, ii, iter.max = 50, nstart = iter)
+      })
+    } else {
+      if(.Platform$OS.type == "windows") {
+        cl <- makeCluster(parallel)
+        #clusterExport(cl, c("data", "iter"))
+        tmp <- parLapply(cl, inf.gr:sup.gr, function (ii) {
+          kmeans(data, ii, iter.max = 50, nstart = iter)
+        })
+        stopCluster(cl)
+        print("Windows")
+
+      } else { # "unix"
+        tmp <- mclapply(inf.gr:sup.gr, function (ii) {
+          kmeans(data, ii, iter.max = 50, nstart = iter)
+        })
+      }
+
+    }
+    #Sert values of stuff using results frm K-means
     for(ii in inf.gr:sup.gr)
     {
+        #Index for tmp object
+        idx <- ii - inf.gr + 1
+
         j <- ii - inf.gr + 1
-        tmp <- kmeans(data, ii, iter.max = 50, nstart=iter)
-        size[1:ii,h] <- tmp$size
-        h <- h+1
-        partition[,j] <- tmp$cluster
+        #tmp <- kmeans(data, ii, iter.max = 50, nstart=iter)
+        size[1:ii,h] <- tmp[[idx]]$size
+        h <- h + 1
+        partition[, j] <- tmp[[idx]]$cluster
         ## Compute SSE statistic
-        results[1,j] <- sum(tmp$withinss)
+        results[1, j] <- sum(tmp[[idx]]$withinss)
         ## Compute stopping criterion
-        results[2,j] <- cIndexKM(tmp,data, index = tolower(criterion))
+        results[2, j] <- cIndexKM(tmp[[idx]], data, index = tolower(criterion))
     }
     colnames(partition) <- paste(inf.gr:sup.gr, "groups")
     tmp <- rownames(data)
