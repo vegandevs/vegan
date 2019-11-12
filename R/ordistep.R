@@ -100,7 +100,8 @@
         if (is.null(change))
             break
     }
-    cat("\n")
+    if (trace)
+        cat("\n")
     object$anova <- anotab
     object
 }
