@@ -108,7 +108,8 @@
         if (!is.null(vect)) {
             arrow.mul <- ordiArrowMul(vect, at = at, fill = 1)
             vect <- arrow.mul * vect
-            vtext <- ordiArrowTextXY(vect, labs$v, at = at, ...)
+            vtext <- ordiArrowTextXY(vect, labs$v, at = at, rescale = FALSE,
+                                     ...)
             sw <- strwidth(labs$v, ...) / 2
             sh <- strheight(labs$v, ...)
             xlim <- range(xlim, vtext[,1] + sw, vtext[,1] - sw)
