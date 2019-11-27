@@ -9,12 +9,22 @@
 \alias{labels.envfit}
 
 \title{Fits an Environmental Vector or Factor onto an Ordination }
+
 \description{
+
   The function fits environmental vectors or factors onto an
-  ordination. The projections of points onto vectors have
-  maximum correlation with corresponding environmental variables, and
-  the factors show the averages of factor levels.
+  ordination. The projections of points onto vectors have maximum
+  correlation with corresponding environmental variables, and the
+  factors show the averages of factor levels. For continuous varaibles
+  this is equal to fitting a linear trend surface (plane in 2D) for a
+  variable (see \code{\link{ordisurf}}); this trend surface can be
+  presented by showing its gradient (direction of steepest increase)
+  using an arrow. The environmental variables are the dependent
+  variables that are explained by the ordination scores, and each
+  dependent variable is analysed separately.
+
 }
+
 \usage{
 \method{envfit}{default}(ord, env, permutations = 999, strata = NULL, 
    choices=c(1,2),  display = "sites", w  = weights(ord, display),
