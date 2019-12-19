@@ -10,9 +10,9 @@
     if (inherits(ord, "decorana") || inherits(ord, "cca")) {
         if (missing(display))
             out <- plot(ord, choices = choices, type = type, xlim = xlim,
-                        ylim = ylim, ...)
+                        ylim = ylim, cex = cex, ...)
         else out <- plot(ord, choices = choices, type = type, display = display,
-                         xlim = xlim, ylim = ylim, ...)
+                         xlim = xlim, ylim = ylim, cex = cex, ...)
     }
     else {
         type <- match.arg(type, c("points", "text", "none"))
@@ -43,9 +43,9 @@
         }
         ## Use linestack and exit if there is only one variable
         if (NCOL(X) == 1 && NCOL(Y) == 1) {
-            pl <- linestack(X, ylim = range(c(X,Y), na.rm=TRUE), ...)
+            pl <- linestack(X, ylim = range(c(X,Y), na.rm=TRUE), cex = cex, ...)
             if (!is.null(Y))
-                linestack(Y, side = "left", add = TRUE, ...)
+                linestack(Y, side = "left", add = TRUE, cex = cex, ...)
             return(invisible(pl))
         }
         tmp <- apply(rbind(X, Y), 2, range, na.rm=TRUE)
