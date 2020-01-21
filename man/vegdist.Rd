@@ -55,7 +55,7 @@
   
   \tabular{ll}{
     \code{euclidean}
-    \tab \eqn{d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}}{d[jk] = sqrt(sum(x[ij]-x[ik])^2)}
+    \tab \eqn{d_{jk} = \sqrt{\sum_i (x_{ij}-x_{ik})^2}}{d[jk] = sqrt(sum((x[ij]-x[ik])^2))}
     \cr \tab binary: \eqn{\sqrt{A+B-2J}}{sqrt(A+B-2*J)}
     \cr
     \code{manhattan}
