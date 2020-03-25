@@ -30,8 +30,10 @@
         n <- seq(1, tot[i], by = step)
         if (n[length(n)] != tot[i])
             n <- c(n, tot[i])
+        attributes(n) <- NULL
         drop(rarefy(x[i,], n))
     })
+    names(out) <- rownames(x)
     Nmax <- sapply(out, function(x) max(attr(x, "Subsample")))
     Smax <- sapply(out, max)
     ## set up plot
@@ -51,7 +53,7 @@
     }
     ## label curves at their endpoitns
     if (label) {
-        ordilabel(cbind(tot, S), labels=rownames(x), ...)
+        ordilabel(cbind(tot, S), labels = rownames(x), ...)
     }
     invisible(out)
 }
