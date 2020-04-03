@@ -20,7 +20,9 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
 }
 
 \arguments{
-  \item{xdis, ydis, zdis}{ Dissimilarity matrices or a \code{dist} objects. }
+  \item{xdis, ydis, zdis}{ Dissimilarity matrices or\code{dist}
+    objects. The first object \code{xdis} will be permuted in
+    permutation tests. }
   \item{method}{ Correlation method, as accepted by \code{\link{cor}}:
     \code{"pearson"}, \code{"spearman"} or \code{"kendall"}. }
   \item{permutations}{a list of control values for the permutations
@@ -40,15 +42,17 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
     package.}
 
 }
+
 \details{
   Mantel statistic is simply a correlation between entries of two
-  dissimilarity matrices (some use cross products, but these are linearly
-  related).  However, the significance cannot be directly assessed,
-  because there are \eqn{N(N-1)/2} entries for just \eqn{N} observations.
-  Mantel developed asymptotic test, but here we use permutations of
-  \eqn{N} rows and columns of dissimilarity matrix.  See
-  \code{\link{permutations}} for additional details on permutation tests
-  in Vegan.
+  dissimilarity matrices (some use cross products, but these are
+  linearly related).  However, the significance cannot be directly
+  assessed, because there are \eqn{N(N-1)/2} entries for just \eqn{N}
+  observations.  Mantel developed asymptotic test, but here we use
+  permutations of \eqn{N} rows and columns of dissimilarity
+  matrix. Only the first matrix (\code{xdist}) will be permuted, and
+  the second is kept constant. See \code{\link{permutations}} for
+  additional details on permutation tests in Vegan.
 
   Partial Mantel statistic uses partial correlation
   conditioned on the third matrix. Only the first matrix is permuted so
