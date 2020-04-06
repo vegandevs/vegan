@@ -3,7 +3,8 @@
 \alias{adonis}
 \alias{adonis2}
 
-\title{Permutational Multivariate Analysis of Variance Using Distance Matrices}
+\title{Permutational Multivariate Analysis of Variance Using Distance
+  Matrices}
 
 \description{Analysis of variance using distance matrices --- for
   partitioning distance matrices among sources of variation and fitting
@@ -18,15 +19,14 @@ adonis(formula, data, permutations = 999, method = "bray",
 
 \arguments{
 
-  \item{formula}{Model formula. The LHS must be either a community
-    data matrix or a dissimilarity matrix, e.g., from
-    \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS is a data
-    matrix, function \code{\link{vegdist}} will be used to find the
-    dissimilarities. The RHS defines the independent variables. These
-    can be continuous variables or factors, they can be transformed
-    within the formula, and they can have interactions as in a typical
-    \code{\link{formula}}.}
-
+  \item{formula}{Model formula. The left-hand side (LHS) of the formula
+    must be either a community data matrix or a dissimilarity matrix,
+    e.g., from \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS
+    is a data matrix, function \code{\link{vegdist}} will be used to
+    find the dissimilarities. The right-hand side (RHS) of the formula
+    defines the independent variables. These can be continuous variables
+    or factors, they can be transformed within the formula, and they can
+    have interactions as in a typical \code{\link{formula}}.}
   \item{data}{ the data frame for the independent variables.}
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
@@ -66,24 +66,24 @@ adonis(formula, data, permutations = 999, method = "bray",
 squares using dissimilarities. The function is based on the principles
 of McArdle & Anderson (2001) and can perform sequential, marginal and
 overall tests. The function also allows using additive constants or
-squareroot of dissimilarities to avoid negative eigenvalues. but can
+squareroot of dissimilarities to avoid negative eigenvalues, but can
 also handle semimetric indices (such as Bray-Curtis) that produce
 negative eigenvalues. The \code{adonis} tests are identical to
 \code{\link{anova.cca}} of \code{\link{dbrda}}. With Euclidean
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
 
-The functions partition sums of squares of a multivariate data set, and
+The function partitions sums of squares of a multivariate data set, and
 they are directly analogous to MANOVA (multivariate analysis of
 variance). McArdle and Anderson (2001) and Anderson (2001) refer to the
-method as \dQuote{permutational manova} (formerly \dQuote{nonparametric
-manova}). Further, as the inputs are linear predictors, and a response
+method as \dQuote{permutational MANOVA} (formerly \dQuote{nonparametric
+MANOVA}). Further, as the inputs are linear predictors, and a response
 matrix of an arbitrary number of columns, they are a robust alternative
 to both parametric MANOVA and to ordination methods for describing how
 variation is attributed to different experimental treatments or
-uncontrolled covariates. Functions are also analogous to distance-based
+uncontrolled covariates. The method is also analogous to distance-based
 redundancy analysis in functions \code{\link{dbrda}} and
-\code{\link{capscale}} (Legendre and Anderson 1999).  Functions provide
+\code{\link{capscale}} (Legendre and Anderson 1999), and provides
 an alternative to AMOVA (nested analysis of molecular variance,
 Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
 \pkg{ade4} package) for both crossed and nested factors.
