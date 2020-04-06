@@ -28,8 +28,10 @@
     ## Rarefy
     out <- lapply(seq_len(nr), function(i) {
         n <- seq(1, tot[i], by = step)
-        if (n[length(n)] != tot[i])
-            n <- c(n, tot[i])
+        if (n[length(n)] != tot[i]) {
+            ## don't want names on n an `c` adds a name from `tot[i]`)
+            n <- c(n, tot[i], use.names = FALSE)
+        }
         drop(rarefy(x[i,], n))
     })
     Nmax <- sapply(out, function(x) max(attr(x, "Subsample")))
