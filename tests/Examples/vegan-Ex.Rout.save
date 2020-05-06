@@ -194,7 +194,7 @@ Formula:
 y ~ poly(x1, 1) + poly(x2, 1)
 Total model degrees of freedom 3 
 
-REML score: -3.185099     
+REML score: -3.190198     
 > 
 > 
 > 
@@ -2843,49 +2843,50 @@ Cumulative Proportion 0.998816 0.9997514 1.0000000
 Square root transformation
 Wisconsin double standardization
 Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
+Run 1 stress 0.245591 
+Run 2 stress 0.2169403 
 Run 3 stress 0.2313231 
 Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
-Run 10 stress 0.2673177 
+Run 5 stress 0.18584 
+Run 6 stress 0.1948413 
+Run 7 stress 0.2265716 
+Run 8 stress 0.2104573 
+Run 9 stress 0.196245 
+Run 10 stress 0.2673131 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
-Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
+Run 13 stress 0.234108 
+Run 14 stress 0.1955836 
+Run 15 stress 0.2137383 
+Run 16 stress 0.210961 
 Run 17 stress 0.1825658 
 ... New best solution
-... Procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
-Run 20 stress 0.3760596 
+... Procrustes: rmse 0.04161887  max resid 0.1517725 
+Run 18 stress 0.1843196 
+Run 19 stress 0.2570113 
+Run 20 stress 0.3760476 
 *** No convergence -- monoMDS stopping criteria:
-    20: stress ratio > sratmax
+    16: stress ratio > sratmax
+     4: scale factor of the gradient < sfgrmin
 > (fit <- envfit(ord, varechem, perm = 999))
 
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.044 *  
-P         0.61959  0.78492 0.1938  0.096 .  
-K         0.76629  0.64249 0.1809  0.120    
-Ca        0.68506  0.72849 0.4119  0.004 ** 
-Mg        0.63240  0.77464 0.4271  0.003 ** 
-S         0.19123  0.98155 0.1752  0.144    
-Al       -0.87169  0.49006 0.5269  0.002 ** 
-Fe       -0.93613  0.35164 0.4451  0.004 ** 
-Mn        0.79873 -0.60169 0.5230  0.002 ** 
-Zn        0.61750  0.78657 0.1879  0.120    
-Mo       -0.90304  0.42955 0.0609  0.490    
-Baresoil  0.92503 -0.37988 0.2508  0.053 .  
-Humdepth  0.93291 -0.36011 0.5200  0.001 ***
-pH       -0.64809  0.76156 0.2308  0.051 .  
+N        -0.05728 -0.99836 0.2536  0.044 *  
+P         0.61969  0.78485 0.1938  0.096 .  
+K         0.76642  0.64234 0.1809  0.120    
+Ca        0.68516  0.72839 0.4119  0.004 ** 
+Mg        0.63249  0.77457 0.4270  0.003 ** 
+S         0.19134  0.98152 0.1752  0.144    
+Al       -0.87162  0.49018 0.5269  0.002 ** 
+Fe       -0.93605  0.35188 0.4450  0.004 ** 
+Mn        0.79871 -0.60171 0.5231  0.002 ** 
+Zn        0.61754  0.78654 0.1879  0.120    
+Mo       -0.90307  0.42949 0.0609  0.490    
+Baresoil  0.92492 -0.38017 0.2508  0.053 .  
+Humdepth  0.93284 -0.36028 0.5200  0.001 ***
+pH       -0.64800  0.76164 0.2308  0.051 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -2894,20 +2895,20 @@ Number of permutations: 999
 
 > scores(fit, "vectors")
                NMDS1      NMDS2
-N        -0.02880854 -0.5028710
-P         0.27276629  0.3455503
-K         0.32594190  0.2732833
-Ca        0.43965251  0.4675260
-Mg        0.41327822  0.5062343
-S         0.08004855  0.4108725
-Al       -0.63277161  0.3557376
-Fe       -0.62453266  0.2345938
-Mn        0.57765765 -0.4351493
-Zn        0.26766914  0.3409611
-Mo       -0.22292390  0.1060370
-Baresoil  0.46323932 -0.1902392
-Humdepth  0.67274437 -0.2596855
-pH       -0.31133604  0.3658438
+N        -0.02884645 -0.5028081
+P         0.27282463  0.3455364
+K         0.32599790  0.2732226
+Ca        0.43971091  0.4674547
+Mg        0.41331885  0.5061641
+S         0.08008865  0.4108279
+Al       -0.63271287  0.3558230
+Fe       -0.62445344  0.2347459
+Mn        0.57765831 -0.4351803
+Zn        0.26770199  0.3409642
+Mo       -0.22294284  0.1060283
+Baresoil  0.46317436 -0.1903786
+Humdepth  0.67270969 -0.2598125
+pH       -0.31130593  0.3658967
 > plot(ord)
 > plot(fit)
 > plot(fit, p.max = 0.05, col = "red")
@@ -3342,37 +3343,38 @@ Manure^4      0.41603287 -0.01661279
 Square root transformation
 Wisconsin double standardization
 Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
+Run 1 stress 0.245591 
+Run 2 stress 0.2169403 
 Run 3 stress 0.2313231 
 Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
-Run 10 stress 0.2673177 
+Run 5 stress 0.18584 
+Run 6 stress 0.1948413 
+Run 7 stress 0.2265716 
+Run 8 stress 0.2104573 
+Run 9 stress 0.196245 
+Run 10 stress 0.2673131 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
-Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
+Run 13 stress 0.234108 
+Run 14 stress 0.1955836 
+Run 15 stress 0.2137383 
+Run 16 stress 0.210961 
 Run 17 stress 0.1825658 
 ... New best solution
-... Procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
-Run 20 stress 0.3760596 
+... Procrustes: rmse 0.04161887  max resid 0.1517725 
+Run 18 stress 0.1843196 
+Run 19 stress 0.2570113 
+Run 20 stress 0.3760476 
 *** No convergence -- monoMDS stopping criteria:
-    20: stress ratio > sratmax
+    16: stress ratio > sratmax
+     4: scale factor of the gradient < sfgrmin
 > stressplot(mod)
 > gof <- goodness(mod)
 > gof
- [1] 0.02984480 0.03513719 0.04188277 0.04598591 0.04003418 0.03441705
- [7] 0.03294386 0.03050002 0.03060565 0.02993891 0.03526891 0.02621276
-[13] 0.03831284 0.02980754 0.03370603 0.02225802 0.03561193 0.03505161
-[19] 0.06577544 0.03268484 0.03503582 0.02956571 0.05167231 0.04602312
+ [1] 0.02984527 0.03513709 0.04189059 0.04598296 0.04003107 0.03441480
+ [7] 0.03294838 0.03050091 0.03060722 0.02994083 0.03526401 0.02621421
+[13] 0.03831021 0.02980916 0.03369679 0.02225840 0.03561556 0.03505237
+[19] 0.06577479 0.03268431 0.03503155 0.02956653 0.05167917 0.04602055
 > plot(mod, display = "sites", type = "n")
 > points(mod, display = "sites", cex = 2*gof/mean(gof))
 > 
@@ -3597,7 +3599,7 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
 > range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
-[1] -2.775558e-16  2.498002e-16
+[1] -2.498002e-16  4.440892e-16
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -4017,41 +4019,44 @@ Run 0 stress 0.1192678
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
 ... New best solution
-... Procrustes: rmse 4.497004e-05  max resid 0.0001297349 
+... Procrustes: rmse 6.052712e-06  max resid 1.843244e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
 ... New best solution
-... Procrustes: rmse 1.801542e-05  max resid 5.078152e-05 
+... Procrustes: rmse 2.011298e-06  max resid 4.92275e-06 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 0.02025988  max resid 0.06488321 
-Run 5 stress 0.1192685 
+... Procrustes: rmse 0.02027481  max resid 0.064992 
+Run 5 stress 0.1192678 
 Run 6 stress 0.1939202 
-Run 7 stress 0.1808919 
+Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
-... Procrustes: rmse 1.538285e-05  max resid 4.789705e-05 
-... Similar to previous best
-Run 9 stress 0.1192679 
-Run 10 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.244871e-05  max resid 3.745684e-05 
+... Procrustes: rmse 1.651372e-06  max resid 5.655239e-06 
 ... Similar to previous best
-Run 11 stress 0.1192686 
-Run 12 stress 0.1192683 
+Run 9 stress 0.1192678 
+Run 10 stress 0.1183186 
+... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
+... Similar to previous best
+Run 11 stress 0.1192678 
+Run 12 stress 0.1192678 
 Run 13 stress 0.1886532 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 2.260745e-06  max resid 5.293932e-06 
+... New best solution
+... Procrustes: rmse 1.088269e-06  max resid 3.328672e-06 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 3.225938e-06  max resid 7.314283e-06 
+... New best solution
+... Procrustes: rmse 1.797818e-06  max resid 3.862713e-06 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
-Run 19 stress 0.1192685 
+Run 19 stress 0.1192678 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 2.295609e-05  max resid 6.384852e-05 
+... New best solution
+... Procrustes: rmse 3.408784e-06  max resid 1.009192e-05 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4077,113 +4082,110 @@ Species: expanded scores based on ‘dune’
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
-... Procrustes: rmse 1.396951e-05  max resid 4.609836e-05 
+... Procrustes: rmse 1.508341e-06  max resid 5.172426e-06 
 ... Similar to previous best
-Run 2 stress 0.181294 
+Run 2 stress 0.1812932 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 1.222929e-05  max resid 3.671397e-05 
+... Procrustes: rmse 2.201654e-06  max resid 6.428728e-06 
 ... Similar to previous best
 Run 4 stress 0.1192678 
-Run 5 stress 0.1192679 
+Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
-... Procrustes: rmse 3.046112e-05  max resid 9.621436e-05 
+... Procrustes: rmse 3.686779e-06  max resid 1.227666e-05 
 ... Similar to previous best
 Run 7 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 8.248765e-06  max resid 2.709666e-05 
+... Procrustes: rmse 8.028947e-07  max resid 1.627975e-06 
 ... Similar to previous best
-Run 8 stress 0.1192679 
+Run 8 stress 0.1192678 
 Run 9 stress 0.1183186 
-... Procrustes: rmse 4.987329e-05  max resid 0.0001617922 
+... Procrustes: rmse 7.649755e-07  max resid 1.612696e-06 
 ... Similar to previous best
 Run 10 stress 0.1183186 
-... Procrustes: rmse 6.258948e-05  max resid 0.0001841984 
+... Procrustes: rmse 1.421777e-06  max resid 3.587338e-06 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 2.298969e-05  max resid 7.777073e-05 
+... Procrustes: rmse 4.342873e-06  max resid 1.43366e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
-... Procrustes: rmse 9.953516e-05  max resid 0.0002971112 
+... Procrustes: rmse 5.259709e-06  max resid 1.667382e-05 
 ... Similar to previous best
-Run 13 stress 0.1192679 
+Run 13 stress 0.1192678 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 0.0001064944  max resid 0.0003485089 
+... Procrustes: rmse 8.369414e-06  max resid 2.702331e-05 
 ... Similar to previous best
 Run 15 stress 0.1192678 
-Run 16 stress 0.1183187 
-... Procrustes: rmse 6.269441e-05  max resid 0.0001989035 
+Run 16 stress 0.1183186 
+... Procrustes: rmse 5.070666e-06  max resid 1.665871e-05 
 ... Similar to previous best
-Run 17 stress 0.1192685 
-Run 18 stress 0.1192679 
-Run 19 stress 0.1192683 
-Run 20 stress 0.1809581 
+Run 17 stress 0.1192678 
+Run 18 stress 0.1192678 
+Run 19 stress 0.1192678 
+Run 20 stress 0.1809577 
 *** Solution reached
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
-Run 0 stress 0.1928489 
-Run 1 stress 0.1928478 
+Run 0 stress 0.1928475 
+Run 1 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 0.000227748  max resid 0.0006739712 
+... Procrustes: rmse 8.83344e-06  max resid 2.510714e-05 
 ... Similar to previous best
-Run 2 stress 0.1928479 
-... Procrustes: rmse 0.0005683554  max resid 0.001654113 
+Run 2 stress 0.1928475 
+... Procrustes: rmse 9.114635e-05  max resid 0.0002631419 
 ... Similar to previous best
-Run 3 stress 0.1928529 
-... Procrustes: rmse 0.001497169  max resid 0.004237256 
+Run 3 stress 0.1928475 
+... Procrustes: rmse 0.0001020099  max resid 0.0002983922 
 ... Similar to previous best
-Run 4 stress 0.1928479 
-... Procrustes: rmse 0.0002205786  max resid 0.000527516 
+Run 4 stress 0.1928475 
+... Procrustes: rmse 3.12556e-05  max resid 8.321187e-05 
 ... Similar to previous best
-Run 5 stress 0.1928542 
-... Procrustes: rmse 0.001703784  max resid 0.00489439 
+Run 5 stress 0.1928475 
+... Procrustes: rmse 0.0001053711  max resid 0.0003034801 
 ... Similar to previous best
-Run 6 stress 0.192857 
-... Procrustes: rmse 0.002035406  max resid 0.005757312 
+Run 6 stress 0.1928475 
+... Procrustes: rmse 8.389696e-05  max resid 0.0002386231 
 ... Similar to previous best
-Run 7 stress 0.1928513 
-... Procrustes: rmse 0.0003555387  max resid 0.0009295202 
+Run 7 stress 0.1928475 
+... Procrustes: rmse 7.090019e-05  max resid 0.0002000463 
 ... Similar to previous best
-Run 8 stress 0.1928514 
-... Procrustes: rmse 0.00131401  max resid 0.003754444 
+Run 8 stress 0.1928475 
+... Procrustes: rmse 3.04801e-05  max resid 8.566166e-05 
 ... Similar to previous best
-Run 9 stress 0.1928527 
-... Procrustes: rmse 0.001508577  max resid 0.004304102 
+Run 9 stress 0.1928475 
+... Procrustes: rmse 6.100426e-05  max resid 0.0001710907 
 ... Similar to previous best
-Run 10 stress 0.1928516 
-... Procrustes: rmse 0.001200753  max resid 0.003381483 
+Run 10 stress 0.1928475 
+... Procrustes: rmse 0.0001236051  max resid 0.000364562 
 ... Similar to previous best
-Run 11 stress 0.1928477 
-... New best solution
-... Procrustes: rmse 0.0002147781  max resid 0.0005379322 
+Run 11 stress 0.1928475 
+... Procrustes: rmse 7.408439e-06  max resid 2.123708e-05 
 ... Similar to previous best
-Run 12 stress 0.1928476 
-... New best solution
-... Procrustes: rmse 8.797899e-05  max resid 0.0002368433 
+Run 12 stress 0.1928475 
+... Procrustes: rmse 1.844982e-05  max resid 5.245845e-05 
 ... Similar to previous best
-Run 13 stress 0.1928518 
-... Procrustes: rmse 0.001194318  max resid 0.003382898 
+Run 13 stress 0.1928475 
+... Procrustes: rmse 5.57408e-05  max resid 0.0001570089 
 ... Similar to previous best
-Run 14 stress 0.1928479 
-... Procrustes: rmse 0.0001251706  max resid 0.0003371929 
+Run 14 stress 0.1928475 
+... Procrustes: rmse 6.362597e-05  max resid 0.0001820229 
 ... Similar to previous best
-Run 15 stress 0.1928498 
-... Procrustes: rmse 0.000713671  max resid 0.002074812 
+Run 15 stress 0.1928475 
+... Procrustes: rmse 7.312344e-05  max resid 0.0002111863 
 ... Similar to previous best
-Run 16 stress 0.1928581 
-... Procrustes: rmse 0.001956972  max resid 0.005484317 
+Run 16 stress 0.1928475 
+... Procrustes: rmse 8.034393e-05  max resid 0.0002313941 
 ... Similar to previous best
-Run 17 stress 0.1928499 
-... Procrustes: rmse 0.0008529383  max resid 0.002406656 
+Run 17 stress 0.1928475 
+... Procrustes: rmse 8.472678e-05  max resid 0.0002429739 
 ... Similar to previous best
-Run 18 stress 0.1928478 
-... Procrustes: rmse 0.0003445826  max resid 0.0009688855 
+Run 18 stress 0.1928475 
+... Procrustes: rmse 5.477742e-05  max resid 0.0001586562 
 ... Similar to previous best
-Run 19 stress 0.1928493 
-... Procrustes: rmse 0.0005050439  max resid 0.001350483 
+Run 19 stress 0.1928475 
+... Procrustes: rmse 8.759022e-05  max resid 0.0002498331 
 ... Similar to previous best
 Run 20 stress 0.1928475 
-... New best solution
-... Procrustes: rmse 4.656629e-05  max resid 0.0001065303 
+... Procrustes: rmse 7.698475e-06  max resid 2.504217e-05 
 ... Similar to previous best
 *** Solution reached
 > sol2
@@ -4210,39 +4212,40 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 9.860777e-06  max resid 3.045935e-05 
+... Procrustes: rmse 5.139264e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 2.720552e-05  max resid 7.599563e-05 
+... New best solution
+... Procrustes: rmse 3.796244e-06  max resid 1.328707e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
-Run 6 stress 0.1653581 
+Run 6 stress 0.1653279 
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
-... Procrustes: rmse 1.047284e-05  max resid 2.581037e-05 
+... Procrustes: rmse 2.583051e-06  max resid 5.948563e-06 
 ... Similar to previous best
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 4.569546e-05  max resid 9.658124e-05 
+... Procrustes: rmse 1.754741e-06  max resid 3.831146e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
 Run 14 stress 0.1073148 
 Run 15 stress 0.107471 
 Run 16 stress 0.1073148 
-Run 17 stress 0.1069788 
-... Procrustes: rmse 0.006831076  max resid 0.0241299 
+Run 17 stress 0.1067169 
+... Procrustes: rmse 3.630406e-06  max resid 9.664709e-06 
+... Similar to previous best
 Run 18 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 4.325792e-06  max resid 1.459835e-05 
+... Procrustes: rmse 6.150498e-07  max resid 1.320789e-06 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 1.880583e-05  max resid 4.343547e-05 
+... Procrustes: rmse 4.131723e-06  max resid 9.650096e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... New best solution
-... Procrustes: rmse 1.608418e-06  max resid 3.595822e-06 
+... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4310,10 +4313,10 @@ Local non-metric Multidimensional Scaling
 20 points, dissimilarity ‘bray’, call ‘vegdist(x = dune)’
 
 Dimensions: 2 
-Stress:     0.1238005 
+Stress:     0.1237999 
 Stress type 1, weak ties
 Scores scaled to unit root mean square, rotated to principal components
-Stopped after 73 iterations: Stress nearly unchanged (ratio > sratmax)
+Stopped after 92 iterations: Stress nearly unchanged (ratio > sratmax)
 > plot(m)
 > 
 > 
@@ -4364,43 +4367,42 @@ Number of permutations: 999
 > plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
 Run 0 stress 0.1192678 
 Run 1 stress 0.1192678 
-... New best solution
-... Procrustes: rmse 5.689345e-05  max resid 0.0001718508 
+... Procrustes: rmse 1.966691e-05  max resid 6.025375e-05 
 ... Similar to previous best
-Run 2 stress 0.1192685 
-... Procrustes: rmse 0.0003550222  max resid 0.00106452 
+Run 2 stress 0.1192678 
+... Procrustes: rmse 8.068975e-05  max resid 0.0002473992 
 ... Similar to previous best
 Run 3 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 0.02029276  max resid 0.06511836 
+... Procrustes: rmse 0.02027062  max resid 0.0649629 
 Run 4 stress 0.1183186 
-... Procrustes: rmse 1.689038e-05  max resid 5.289041e-05 
+... New best solution
+... Procrustes: rmse 3.290177e-06  max resid 7.737989e-06 
 ... Similar to previous best
 Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
-... Procrustes: rmse 1.102487e-05  max resid 3.361892e-05 
+... Procrustes: rmse 7.097048e-06  max resid 2.303315e-05 
 ... Similar to previous best
 Run 7 stress 0.1192678 
 Run 8 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 9.669693e-06  max resid 2.893244e-05 
+... Procrustes: rmse 6.340026e-06  max resid 2.058872e-05 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 0.0001268713  max resid 0.000356103 
+... Procrustes: rmse 9.557735e-06  max resid 2.999685e-05 
 ... Similar to previous best
-Run 11 stress 0.1808912 
+Run 11 stress 0.1808911 
 Run 12 stress 0.1808911 
 Run 13 stress 0.1192678 
-Run 14 stress 0.1809578 
+Run 14 stress 0.1809577 
 Run 15 stress 0.1183186 
-... Procrustes: rmse 7.279939e-05  max resid 0.0002152383 
+... Procrustes: rmse 1.278507e-06  max resid 3.599066e-06 
 ... Similar to previous best
-Run 16 stress 0.1808915 
-Run 17 stress 0.1192679 
-Run 18 stress 0.1192683 
-Run 19 stress 0.1192679 
-Run 20 stress 0.1812947 
+Run 16 stress 0.1808911 
+Run 17 stress 0.1192678 
+Run 18 stress 0.1192678 
+Run 19 stress 0.1192678 
+Run 20 stress 0.1812932 
 *** Solution reached
 > with(dune.env, ordihull(dune.ord, Management))
 > 
@@ -5521,9 +5523,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-5.63  total = 6.63 
+5.66  total = 6.66 
 
-REML score: 92.96761     
+REML score: 92.94873     
 > 
 > ## as above but without the extra penalties on smooth terms,
 > ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
@@ -5537,20 +5539,20 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-6.45  total = 7.45 
+6.54  total = 7.54 
 
-GCV score: 144.0039     
+GCV score: 143.4658     
 > 
 > ## Cover of Cladina arbuscula
 > fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 > ## Get fitted values
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
-21.254026  5.675259  3.679616  3.898510  9.643821  7.698310  7.729203  9.758046 
+21.275734  5.669602  3.675527  3.879846  9.583249  7.628688  7.810334  9.793003 
        28        13        14        20        25         7         5         6 
- 2.743212 29.700556 11.971747  8.310960  5.390564 24.905994 11.007652 25.330656 
+ 2.644930 29.837523 12.052052  8.254126  5.453216 24.918925 11.091772 25.454713 
         3         4         2         9        12        10        11        21 
- 6.520708  9.410616  4.519672  4.090948 11.557930  4.314850 11.693692 14.243453 
+ 6.498744  9.439528  4.460389  4.005614 11.572959  4.254612 11.673236 14.121676 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5566,9 +5568,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-5.63  total = 6.63 
+5.66  total = 6.66 
 
-REML score: 92.96761     
+REML score: 92.94873     
 > ##  - option 2: use a basis with shrinkage
 > ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
@@ -5579,9 +5581,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
 
 Estimated degrees of freedom:
-4.43  total = 5.43 
+4.39  total = 5.39 
 
-REML score: 96.2345     
+REML score: 96.20567     
 > ## or bs = "cs" with `isotropic = FALSE`
 > 
 > ## Plot method
@@ -5592,7 +5594,7 @@ REML score: 96.2345
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-28. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-31. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5607,9 +5609,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
 
 Estimated degrees of freedom:
-5.63  total = 6.63 
+5.67  total = 6.67 
 
-REML score: 93.17149     
+REML score: 93.14928     
 > 
 > ## A fixed degrees of freedom smooth, must use 'select = FALSE'
 > ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
@@ -5624,7 +5626,7 @@ y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
 Estimated degrees of freedom:
 3  total = 4 
 
-REML score: 81.86011     
+REML score: 81.86877     
 > 
 > ## An anisotropic smoother with cubic regression spline bases
 > ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
@@ -5638,9 +5640,9 @@ y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE,
     FALSE))
 
 Estimated degrees of freedom:
-2.99  total = 3.99 
+3.01  total = 4.01 
 
-REML score: 90.86099     
+REML score: 90.8037     
 > 
 > ## An anisotropic smoother with cubic regression spline with
 > ## shrinkage bases & different degrees of freedom in each dimension
@@ -5658,7 +5660,7 @@ y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE,
 Estimated degrees of freedom:
 11  total = 12 
 
-REML score: 39.58245     
+REML score: 39.44628     
 > 
 > 
 > 
@@ -6622,36 +6624,36 @@ procrustes(X = mds.alt, Y = mds.null)
 Number of objects: 24    Number of dimensions: 2 
 
 Procrustes sum of squares:  
-  13.1368 
+ 13.14203 
 Procrustes root mean squared error: 
- 0.7398422 
+ 0.7399895 
 Quantiles of Procrustes errors:
        Min         1Q     Median         3Q        Max 
-0.02033237 0.27686842 0.34124239 0.64358542 2.23460567 
+0.02076384 0.27652089 0.34152790 0.64202249 2.23587744 
 
 Rotation matrix:
           [,1]       [,2]
-[1,] 0.9933117 -0.1154641
-[2,] 0.1154641  0.9933117
+[1,] 0.9932420 -0.1160617
+[2,] 0.1160617  0.9932420
 
 Translation of averages:
-              [,1]        [,2]
-[1,] -7.774462e-18 4.29519e-20
+             [,1]         [,2]
+[1,] 2.441807e-17 -6.42098e-18
 
 Scaling of target:
-[1] 0.6727804
+[1] 0.6726184
 
 > plot(vare.proc)
 > plot(vare.proc, kind=2)
 > residuals(vare.proc)
         18         15         24         27         23         19         22 
-0.28003467 0.13180094 1.72990690 0.63953155 0.37177564 0.11807007 0.38558576 
+0.27971034 0.13133475 1.72922074 0.63749234 0.37259565 0.11877528 0.38586170 
         16         28         13         14         20         25          7 
-0.28008711 1.22839229 0.65574702 0.26736966 0.02033237 0.35725398 0.28654874 
+0.28002242 1.22900493 0.65561294 0.26695256 0.02076384 0.35785078 0.28640351 
          5          6          3          4          2          9         12 
-0.69324047 0.20264726 0.29744269 0.50070811 2.23460567 0.31901411 0.21727135 
+0.69638538 0.20208478 0.29696271 0.50154121 2.23587744 0.31885941 0.21765173 
         10         11         21 
-0.32523080 0.56506437 0.78179902 
+0.32520502 0.56466302 0.78059451 
 > 
 > 
 > 
@@ -8359,30 +8361,31 @@ Use function ‘rda’ to test significance of fractions of interest
 Square root transformation
 Wisconsin double standardization
 Run 0 stress 0.1843196 
-Run 1 stress 0.2455912 
-Run 2 stress 0.2169407 
+Run 1 stress 0.245591 
+Run 2 stress 0.2169403 
 Run 3 stress 0.2313231 
 Run 4 stress 0.1974406 
-Run 5 stress 0.1858402 
-Run 6 stress 0.1948414 
-Run 7 stress 0.2265717 
-Run 8 stress 0.222507 
-Run 9 stress 0.2023215 
-Run 10 stress 0.2673177 
+Run 5 stress 0.18584 
+Run 6 stress 0.1948413 
+Run 7 stress 0.2265716 
+Run 8 stress 0.2104573 
+Run 9 stress 0.196245 
+Run 10 stress 0.2673131 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
-Run 13 stress 0.2341085 
-Run 14 stress 0.1955867 
-Run 15 stress 0.2137409 
-Run 16 stress 0.2109638 
+Run 13 stress 0.234108 
+Run 14 stress 0.1955836 
+Run 15 stress 0.2137383 
+Run 16 stress 0.210961 
 Run 17 stress 0.1825658 
 ... New best solution
-... Procrustes: rmse 0.04169825  max resid 0.1521436 
-Run 18 stress 0.1843197 
-Run 19 stress 0.2570119 
-Run 20 stress 0.3760596 
+... Procrustes: rmse 0.04161887  max resid 0.1517725 
+Run 18 stress 0.1843196 
+Run 19 stress 0.2570113 
+Run 20 stress 0.3760476 
 *** No convergence -- monoMDS stopping criteria:
-    20: stress ratio > sratmax
+    16: stress ratio > sratmax
+     4: scale factor of the gradient < sfgrmin
 > plot(ord, type = "t")
 > ## Fit environmental variables
 > ef <- envfit(ord, varechem)
@@ -8391,20 +8394,20 @@ Run 20 stress 0.3760596
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05719 -0.99836 0.2537  0.044 *  
-P         0.61959  0.78492 0.1938  0.096 .  
-K         0.76629  0.64249 0.1809  0.120    
-Ca        0.68506  0.72849 0.4119  0.004 ** 
-Mg        0.63240  0.77464 0.4271  0.003 ** 
-S         0.19123  0.98155 0.1752  0.144    
-Al       -0.87169  0.49006 0.5269  0.002 ** 
-Fe       -0.93613  0.35164 0.4451  0.004 ** 
-Mn        0.79873 -0.60169 0.5230  0.002 ** 
-Zn        0.61750  0.78657 0.1879  0.120    
-Mo       -0.90304  0.42955 0.0609  0.490    
-Baresoil  0.92503 -0.37988 0.2508  0.053 .  
-Humdepth  0.93291 -0.36011 0.5200  0.001 ***
-pH       -0.64809  0.76156 0.2308  0.051 .  
+N        -0.05728 -0.99836 0.2536  0.044 *  
+P         0.61969  0.78485 0.1938  0.096 .  
+K         0.76642  0.64234 0.1809  0.120    
+Ca        0.68516  0.72839 0.4119  0.004 ** 
+Mg        0.63249  0.77457 0.4270  0.003 ** 
+S         0.19134  0.98152 0.1752  0.144    
+Al       -0.87162  0.49018 0.5269  0.002 ** 
+Fe       -0.93605  0.35188 0.4450  0.004 ** 
+Mn        0.79871 -0.60171 0.5231  0.002 ** 
+Zn        0.61754  0.78654 0.1879  0.120    
+Mo       -0.90307  0.42949 0.0609  0.490    
+Baresoil  0.92492 -0.38017 0.2508  0.053 .  
+Humdepth  0.93284 -0.36028 0.5200  0.001 ***
+pH       -0.64800  0.76164 0.2308  0.051 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -9036,13 +9039,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 2.220446e-16 -1.387779e-15 -1.054712e-15  2.498002e-16  1.110223e-16 
+ 0.000000e+00 -5.551115e-16 -8.881784e-16  3.330669e-16  3.053113e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.665335e-16 -1.387779e-17 -1.110223e-16  2.220446e-16  4.163336e-17 
+ 1.942890e-16 -2.359224e-16 -2.359224e-16 -1.387779e-17  7.632783e-17 
          CA11          CA12          CA13          CA14          CA15 
- 1.179612e-16 -5.551115e-17 -1.387779e-17  3.469447e-18 -6.938894e-18 
+ 9.714451e-17  2.775558e-17  5.551115e-17 -1.040834e-17 -4.163336e-17 
          CA16          CA17          CA18          CA19 
--5.204170e-18  1.734723e-18 -4.683753e-17  3.989864e-17 
+ 1.908196e-17 -2.081668e-17 -3.209238e-17  4.857226e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9051,7 +9054,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--5.684e-14 
+-4.263e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -9071,7 +9074,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  29.921 1.74 32.805 0 0 
+Time elapsed:  26.321 1.374 28.566 0 0 
 > grDevices::dev.off()
 null device 
           1 
