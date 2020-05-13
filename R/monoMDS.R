@@ -3,7 +3,7 @@
              model = c("global", "local", "linear", "hybrid"),
              threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
              scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
-             sratmax=0.9999999, ...)
+             sratmax=0.999999, ...)
 {
     ## Check that 'dist' are distances or a symmetric square matrix
     if (!(inherits(dist, "dist") ||
