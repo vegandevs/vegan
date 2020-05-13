@@ -50,7 +50,7 @@ rareslope(x, sample)
   Function \code{rrarefy} generates one randomly rarefied community
   data frame or vector of given \code{sample} size. The \code{sample}
   can be a vector giving the sample sizes for each row.  If the
-  \code{sample} size is equal to or smaller than the observed number
+  \code{sample} size is equal to or larger than the observed number
   of individuals, the non-rarefied community will be returned.  The
   random rarefaction is made without replacement so that the variance
   of rarefied communities is rather related to rarefaction proportion
