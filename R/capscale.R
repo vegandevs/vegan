@@ -86,6 +86,8 @@
     nm <- attr(X, "Labels")
     ## wcmdscale, optionally with additive adjustment
     X <- wcmdscale(X, x.ret = TRUE, add = add)
+    if(any(dim(X$points) == 0)) # there may be no positive dims
+        X$points <- matrix(0, NROW(X$points), 1)
     ## this may have been euclidified: update inertia
     if (!is.na(X$ac) && X$ac > sqrt(.Machine$double.eps))
         inertia <- paste(paste0(toupper(substring(X$add, 1, 1)),
