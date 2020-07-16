@@ -12,6 +12,8 @@
         stop("'dist' must be a distance object (class \"dist\") or a symmetric square matrix")
     if (any(dist < -sqrt(.Machine$double.eps), na.rm = TRUE))
         warning("some dissimilarities are negative -- is this intentional?")
+    if (!any(dist > 0))
+        stop("'dist' cannot be all zero (all points are identical)")
     ## match.arg
     model <- match.arg(model)
     ## save 'dist' attributes to display in print()
