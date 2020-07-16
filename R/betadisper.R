@@ -142,7 +142,9 @@
     ## pre-compute group mean distance to centroid/median for `print` method
     grp.zij <- tapply(zij, group, "mean")
     ## add in correct labels
-    colnames(vectors) <- names(eig) <- paste("PCoA", seq_along(eig), sep = "")
+    if (any(want))
+        colnames(vectors) <- names(eig) <-
+            paste("PCoA", seq_along(eig), sep = "")
     if(is.matrix(centroids))
         colnames(centroids) <- names(eig)
     else
