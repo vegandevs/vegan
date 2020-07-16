@@ -55,11 +55,11 @@
         ##if (ncol(X) == 1 && nrow(X) == length(choices))
         ##    X <- t(X)
     }
-    if (is.null(rownames(X))) {
+    if (NROW(X) && is.null(rownames(X))) {
         root <- substr(display, 1, 4)
         rownames(X) <- paste(root, 1:nrow(X), sep = "")
     }
-    if (is.null(colnames(X)))
+    if (NCOL(X) && is.null(colnames(X)))
         colnames(X) <- paste("Dim", 1:ncol(X), sep = "")
     if (!missing(choices)) {
         choices <- choices[choices <= ncol(X)]
