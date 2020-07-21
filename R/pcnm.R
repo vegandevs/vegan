@@ -18,7 +18,8 @@
                 weights = mypcnm$weig)
     k <- ncol(mypcnm$points)
     res$vectors <- sweep(res$vectors, 2, sqrt(res$values[seq_len(k)]), "/")
-    colnames(res$vectors) <- paste("PCNM", 1:k, sep="")
+    if (NCOL(res$vectors))
+        colnames(res$vectors) <- paste("PCNM", 1:k, sep="")
     res$threshold <- threshold
     if (dist.ret) {
         attr(dis, "method") <- paste(attr(dis, "method"), "pcnm")

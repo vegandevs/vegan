@@ -2,10 +2,10 @@
 function(dist, ndim=10, ...)
 {
     dist <- isomapdist(dist, ...)
-    out <- cmdscale(dist, k=ndim, eig=TRUE)
+    out <- wcmdscale(dist, k=ndim, eig=TRUE)
     ## some versions of cmdscale may return NaN points corresponding
     ## to negative eigenvalues.
-    if ((naxes <- sum(out$eig > 0)) < ndim) {
+    if ((naxes <- sum(out$eig > 0)) < ndim && naxes) {
         out$points <- out$points[, seq(naxes), drop = FALSE]
         message(gettextf("isomap returns only %d axes with positive eigenvalues",
                          naxes))

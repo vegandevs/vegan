@@ -50,7 +50,8 @@
         if (any(e$values < 0))
             negaxes <- points[, e$values < 0, drop = FALSE]
     }
-    points <- points[, 1:k, drop=FALSE]
+    if (k) # there may be no positive eigenvalues
+        points <- points[, 1:k, drop=FALSE]
     points[!is.finite(points)] <- NA
     ## Goodness of fit
     ev <- e$values[1:k]
@@ -59,7 +60,8 @@
     GOF <- c(sum(ev)/sum(abs(e$values)),
              sum(ev)/sum(e$values[e$values > 0]))
     if (eig || x.ret) {
-        colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="")
+        if (NCOL(points) > 0)
+            colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="")
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = ac, add = add, GOF = GOF,
                     weights = w, negaxes = negaxes, call = match.call())
