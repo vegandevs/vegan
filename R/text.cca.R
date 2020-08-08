@@ -12,12 +12,12 @@
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
     cnam <- rownames(pts)
-    if (!missing(labels))
-        rownames(pts) <- labels
+    if (missing(labels))
+        labels <- cnam
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
-        text(pts, labels = rownames(pts), ...)
+        text(pts, labels = labels, ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
                       const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
@@ -33,7 +33,7 @@
         pts <- pts * arrow.mul
         arrows(0, 0, pts[, 1], pts[, 2], length = head.arrow,
                ...)
-        pts <- ordiArrowTextXY(pts, rownames(pts), rescale = FALSE, ...)
+        pts <- ordiArrowTextXY(pts, labels, rescale = FALSE, ...)
         if (axis.bp) {
             axis(side = 3, at = c(-arrow.mul, 0, arrow.mul),
                  labels = rep("", 3))
@@ -41,6 +41,6 @@
                  labels = c(-1, 0, 1))
         }
     }
-    text(pts, labels = rownames(pts), ...)
+    text(pts, labels = labels, ...)
     invisible()
 }
