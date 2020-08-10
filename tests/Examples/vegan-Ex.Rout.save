@@ -6194,7 +6194,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
 > ### Aliases: plot.cca text.cca points.cca scores.cca scores.rda summary.cca
-> ###   print.summary.cca head.summary.cca tail.summary.cca
+> ###   print.summary.cca head.summary.cca tail.summary.cca labels.cca
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
@@ -9067,7 +9067,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.655 1.156 25.361 0 0 
+Time elapsed:  23.406 1.205 25.191 0 0 
 > grDevices::dev.off()
 null device 
           1 

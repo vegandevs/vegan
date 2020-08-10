@@ -8,6 +8,7 @@
 \alias{print.summary.cca}
 \alias{head.summary.cca}
 \alias{tail.summary.cca}
+\alias{labels.cca}
 
 \title{Plot or Extract Results of Constrained Correspondence Analysis
   or Redundancy Analysis}
