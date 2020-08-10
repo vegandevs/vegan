@@ -67,7 +67,7 @@
            "wa" =,
            "sites" =,
            "lc" = rownames(object[[CCA]]$u),
-           "reg" =, # ?or colnames(object[[CCA]]$QR$qr)
+           "reg" = colnames(object[[CCA]]$QR$qr),
            "bp" = rownames(object[[CCA]]$biplot),
            "cn" = {cn <- rownames(object[[CCA]]$centroids)
                    bp <- rownames(object[[CCA]]$biplot)
