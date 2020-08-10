@@ -50,3 +50,27 @@
     text(pts, labels = labels, ...)
     invisible()
 }
+
+### utility function to extract labels used in CCA/RDA/dbRDA plots:
+### you may need this if you want to set your own labels=.
+
+`labels.cca` <-
+    function(object, display, ...)
+{
+    if (is.null(object$CCA))
+        CCA <- "CA"
+    else
+        CCA <- "CCA"
+    switch(display,
+           "sp" =,
+           "species" = rownames(object[[CCA]]$v),
+           "wa" =,
+           "sites" =,
+           "lc" = rownames(object[[CCA]]$u),
+           "reg" =, # ?or colnames(object[[CCA]]$QR$qr)
+           "bp" = rownames(object[[CCA]]$biplot),
+           "cn" = {cn <- rownames(object[[CCA]]$centroids)
+                   bp <- rownames(object[[CCA]]$biplot)
+                   c(cn, bp[!(bp %in% cn)]) }
+           )
+}
