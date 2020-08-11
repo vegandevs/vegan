@@ -12,12 +12,13 @@
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
     cnam <- rownames(pts)
-    if(nolabels <- missing(labels))
-        labels <- rownames(pts)
+    if (missing(labels))
+        labels <- labels.cca(x, display)
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
-        text(pts, labels = labels, ...)
+        cnlabs <- seq_len(nrow(pts))
+        text(pts, labels = labels[cnlabs], ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
                       const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
@@ -26,10 +27,7 @@
             return(invisible())
         else {
             display <- "bp"
-            if (nolabels)
-                labels <- rownames(pts)
-            else
-                labels <- labels[!(bnam %in% cnam)]
+            labels <- labels[-cnlabs]
         }
     }
     if (display %in% c("bp", "reg", "re", "r")) {
