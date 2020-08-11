@@ -16,6 +16,8 @@
         labels <- labels.cca(x, display)
     if (!missing(select))
         pts <- .checkSelect(select, pts)
+    ## centroids ("cn") have special treatment: also plot biplot
+    ## arrows ("bp") for continuous variables and ordered factors.
     if (display == "cn") {
         cnlabs <- seq_len(nrow(pts))
         text(pts, labels = labels[cnlabs], ...)
@@ -30,6 +32,7 @@
             labels <- labels[-cnlabs]
         }
     }
+    ## draw arrows before adding labels
     if (display %in% c("bp", "reg", "re", "r")) {
         if (missing(arrow.mul)) {
             arrow.mul <- ordiArrowMul(pts)
