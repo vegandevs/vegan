@@ -14,8 +14,10 @@
     cnam <- rownames(pts)
     if (missing(labels))
         labels <- labels.cca(x, display)
-    if (!missing(select))
+    if (!missing(select)) {
         pts <- .checkSelect(select, pts)
+        labels <- labels[select]
+    }
     ## centroids ("cn") have special treatment: also plot biplot
     ## arrows ("bp") for continuous variables and ordered factors.
     if (display == "cn") {
