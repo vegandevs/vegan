@@ -213,6 +213,7 @@ S3method(rev, hclust)
 # identify: graphics
 S3method(identify, ordiplot)
 # labels: base
+S3method(labels, cca)
 S3method(labels, envfit)
 # lines: graphics
 S3method(lines, fitspecaccum)

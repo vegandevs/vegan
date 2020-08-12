@@ -12,20 +12,29 @@
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
     cnam <- rownames(pts)
-    if (!missing(labels))
-        rownames(pts) <- labels
-    if (!missing(select))
+    if (missing(labels))
+        labels <- labels.cca(x, display)
+    if (!missing(select)) {
         pts <- .checkSelect(select, pts)
+        labels <- labels[select]
+    }
+    ## centroids ("cn") have special treatment: also plot biplot
+    ## arrows ("bp") for continuous variables and ordered factors.
     if (display == "cn") {
-        text(pts, labels = rownames(pts), ...)
+        cnlabs <- seq_len(nrow(pts))
+        text(pts, labels = labels[cnlabs], ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
                       const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
         pts <- pts[!(bnam %in% cnam), , drop = FALSE]
         if (nrow(pts) == 0)
             return(invisible())
-        else display <- "bp"
+        else {
+            display <- "bp"
+            labels <- labels[-cnlabs]
+        }
     }
+    ## draw arrows before adding labels
     if (display %in% c("bp", "reg", "re", "r")) {
         if (missing(arrow.mul)) {
             arrow.mul <- ordiArrowMul(pts)
@@ -33,7 +42,7 @@
         pts <- pts * arrow.mul
         arrows(0, 0, pts[, 1], pts[, 2], length = head.arrow,
                ...)
-        pts <- ordiArrowTextXY(pts, rownames(pts), rescale = FALSE, ...)
+        pts <- ordiArrowTextXY(pts, labels, rescale = FALSE, ...)
         if (axis.bp) {
             axis(side = 3, at = c(-arrow.mul, 0, arrow.mul),
                  labels = rep("", 3))
@@ -41,6 +50,30 @@
                  labels = c(-1, 0, 1))
         }
     }
-    text(pts, labels = rownames(pts), ...)
+    text(pts, labels = labels, ...)
     invisible()
+}
+
+### utility function to extract labels used in CCA/RDA/dbRDA plots:
+### you may need this if you want to set your own labels=.
+
+`labels.cca` <-
+    function(object, display, ...)
+{
+    if (is.null(object$CCA))
+        CCA <- "CA"
+    else
+        CCA <- "CCA"
+    switch(display,
+           "sp" =,
+           "species" = rownames(object[[CCA]]$v),
+           "wa" =,
+           "sites" =,
+           "lc" = rownames(object[[CCA]]$u),
+           "reg" = colnames(object[[CCA]]$QR$qr),
+           "bp" = rownames(object[[CCA]]$biplot),
+           "cn" = {cn <- rownames(object[[CCA]]$centroids)
+                   bp <- rownames(object[[CCA]]$biplot)
+                   c(cn, bp[!(bp %in% cn)]) }
+           )
 }

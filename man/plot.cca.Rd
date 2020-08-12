@@ -8,6 +8,7 @@
 \alias{print.summary.cca}
 \alias{head.summary.cca}
 \alias{tail.summary.cca}
+\alias{labels.cca}
 
 \title{Plot or Extract Results of Constrained Correspondence Analysis
   or Redundancy Analysis}
@@ -37,6 +38,7 @@
 \method{print}{summary.cca}(x, digits = x$digits, head = NA, tail = head, ...)
 \method{head}{summary.cca}(x, n = 6, tail = 0, ...)
 \method{tail}{summary.cca}(x, n = 6, head = 0, ...)
+\method{labels}{cca}(object, display, ...)
 }
 
 \arguments{
@@ -79,7 +81,9 @@
     setting frames only.  If omitted, \code{text} is selected for
     smaller data sets, and \code{points} for larger.}
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
-  \item{labels}{Optional text to be used instead of row names.}
+  \item{labels}{Optional text to be used instead of row names. If you
+    use this, it is good to check the default labels and their order
+    using \code{labels} command.}
   \item{arrow.mul}{Factor to expand arrows in the graph.  Arrows will be
     scaled automatically to fit the graph if this is missing.}
   \item{head.arrow}{Default length of arrow heads.}
@@ -154,7 +158,8 @@
   \code{type = "n"} and all needed scores in \code{display} and save
   this result. The \code{points} and \code{text} commands for
   \code{\link{ordiplot}} will allow full graphical control (see
-  section Examples).
+  section Examples). Utility function \code{labels} returns the default
+  labels in the order they are applied in \code{text}.
 
   Function \code{summary} lists all scores and the output can be very
   long.  You can suppress scores by setting \code{axes = 0} or
