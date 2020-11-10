@@ -1,6 +1,6 @@
 SSlomolino <-
     selfStart(~ Asym/(1 + slope^log(xmid/area)),
-              function(mCall, data, LHS)
+              function(mCall, data, LHS, ...)
 {
     xy <- sortedXyData(mCall[["area"]], LHS, data)
     ## approximate with Arrhenius model on log-log
