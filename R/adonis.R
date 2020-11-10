@@ -1,8 +1,11 @@
 `adonis` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
-             parallel = getOption("mc.cores"), na.action = na.fail, ...)
+             parallel = getOption("mc.cores"), na.action = na.fail,
+             strata, ...)
 {
+    if (!missing(strata))
+        stop("argument 'strata' is deprecated: define blocks in 'permutations'")
     ## handle missing data
     if (missing(data))
         data <- model.frame(delete.response(terms(formula)),
