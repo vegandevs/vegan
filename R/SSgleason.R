@@ -1,6 +1,6 @@
 SSgleason <-
     selfStart(~ k + slope*log(area),
-              function(mCall, data, LHS)
+              function(mCall, data, LHS, ...)
 {
     ## Gleason is a linear model: starting values are final ones
     xy <- sortedXyData(mCall[["area"]], LHS, data)
