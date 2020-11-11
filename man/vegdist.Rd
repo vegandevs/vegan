@@ -29,7 +29,8 @@
     \code{"clark"}, \code{"bray"}, \code{"kulczynski"},
     \code{"jaccard"}, \code{"gower"}, \code{"altGower"},
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
-    \code{"binomial"}, \code{"chao"}, \code{"cao"} or \code{"mahalanobis"}.}
+    \code{"binomial"}, \code{"chao"}, \code{"cao"}, \code{"mahalanobis"},
+    \code{"chisq"} or \code{"chord"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -231,6 +232,21 @@
   of rows (sampling units). When the transformation fails, the
   distances are nearly constant except for small numeric noise. Users
   must check that the returned Mahalanobis distances are meaningful.
+
+  Chi-square distances (\code{"chisq"}) are Euclidean distances of
+  Chi-square transformed data (see \code{\link{decostand}}). This is the
+  internal standardization used in correspondence analysis
+  (\code{\link{cca}}, \code{\link{decorana}}). Weighted principal
+  coordinates analysis of these distances with row sums as weights is
+  equal to correspondence analysis (see the Example in
+  \code{\link{wcmdscale}}).
+
+  Chord distances (\code{"chord"}) are Euclidean distance of a matrix
+  where rows are standardized to unit norm (their sums of squares are 1)
+  using \code{\link{decostand}}. Geometrically this standardization
+  moves row points to a surface of multidimensional unit hypersphere,
+  and distances are the chords across the hypersphere. The distances
+  have upper limit \eqn{\sqrt{2}}{sqrt(2)}.
 
   Euclidean and Manhattan dissimilarities are not good in gradient
   separation without proper standardization but are still included for
