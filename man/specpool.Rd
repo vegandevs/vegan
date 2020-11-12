@@ -199,7 +199,7 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
   \pkg{vegan} 2.2-0. It was not used in the older literature (Chao
   1987), but it is recommended recently (Chiu et al. 2014).
 
-  See \url{http://viceroy.eeb.uconn.edu/EstimateS} for a more complete
+  See \url{http://viceroy.eeb.uconn.edu/EstimateS/} for a more complete
   (and positive) discussion and alternative software for some platforms.
 }
 \seealso{\code{\link{veiledspec}}, \code{\link{diversity}}, \code{\link{beals}},
