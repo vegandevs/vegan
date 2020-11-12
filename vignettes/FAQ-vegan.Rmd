@@ -610,7 +610,7 @@ If there is a really high number of species or sites, the graphs often
 are congested and many labels are overwritten. It may be impossible to
 have complete readable graphics with some data sets. Below we give a
 brief overview of tricks you can use. Gavin Simpson’s blog [From the
-bottom of the heap](https://www.fromthebottomoftheheap.net) has a series
+bottom of the heap](https://fromthebottomoftheheap.net) has a series
 of articles on “decluttering ordination plots” with more detailed
 discussion and examples.
 
@@ -625,24 +625,24 @@ discussion and examples.
     background to the text. The labels still shadow each other, but the
     uppermost labels are readable. Argument `priority` will help in
     displaying the most interesting labels (see [Decluttering blog, part
-    1](https://www.fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/)).
+    1](https://fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/)).
 -   Use `orditorp` function that uses labels only if these can be added
     to a graph without overwriting other labels, and points otherwise,
     if you do not need to see all labels. You must first create an empty
     plot using `plot(..., type="n")`, and then add labels or points with
     `orditorp` (see [Decluttering
-    blog](https://www.fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/)).
+    blog](https://fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/)).
 -   Use `ordipointlabel` which uses points and text labels to the
     points, and tries to optimize the location of the text to minimize
     the overlap (see [Decluttering
-    blog](https://www.fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/)).
+    blog](https://fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/)).
 -   Ordination `text` and `points` functions have argument `select` that
     can be used for full control of selecting items plotted as text or
     points.
 -   Use interactive `orditkplot` function that lets you drag labels of
     points to better positions if you need to see all labels. Only one
     set of points can be used (see [Decluttering
-    blog](https://www.fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
+    blog](https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
 -   Most `plot` functions allow you to zoom to a part of the graph using
     `xlim` and `ylim` arguments to reduce clutter in congested areas.
 
