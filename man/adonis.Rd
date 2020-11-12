@@ -158,7 +158,7 @@ Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
 
   \code{adonis} and \code{adonis2} are different implementations and
   they do not share all arguments. If you use arguments of the
-  wrong function, they may silently ignored.
+  wrong function, they may be silently ignored.
 
 }
 
