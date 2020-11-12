@@ -143,27 +143,9 @@ humpfit(mass, spno, family = poisson, start)
     }
 }
 
-
 \seealso{\code{\link{fisherfit}}, \code{\link[MASS]{profile.glm}},
   \code{\link[MASS]{confint.glm}}. }
-\examples{
-##
-## Data approximated from Al-Mufti et al. (1977)
-##
-\donttest{
-mass <- c(140,230,310,310,400,510,610,670,860,900,1050,1160,1900,2480)
-spno <- c(1,  4,  3,  9, 18, 30, 20, 14,  3,  2,  3,  2,  5,  2)
-sol <- humpfit(mass, spno)
-summary(sol) # Almost infinite alpha...
-plot(sol)
-# confint is in MASS, and impicitly calls profile.humpfit.
-# Parameter 3 (alpha) is too extreme for profile and confint, and we
-# must use only "hump" and "scale".
-library(MASS)
-plot(profile(sol, parm=1:2))
-confint(sol, parm=c(1,2))
-}
-}
+
 \keyword{models }
 \keyword{regression }
 \keyword{nonlinear}
