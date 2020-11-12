@@ -3,8 +3,6 @@
              contr.unordered="contr.sum", contr.ordered="contr.poly",
              parallel = getOption("mc.cores"), ...)
 {
-    if (!missing(strata))
-        stop("argument 'strata' is deprecated: define blocks in 'permutations'")
     EPS <- sqrt(.Machine$double.eps) ## use with >= in permutation P-values
     ## formula is model formula such as Y ~ A + B*C where Y is a data
     ## frame or a matrix, and A, B, and C may be factors or continuous
