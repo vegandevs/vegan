@@ -2,6 +2,59 @@
 \title{vegan News}
 \encoding{UTF-8}
 
+\section{Changes in version 2.5-7}{
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item Several distance-based functions failed if all distances
+      were zero (\code{betadisper}, \code{capscale}, \code{isomap},
+      \code{monoMDS}, \code{pcnm}, \code{wcmdscale}.)
+
+      \item Non-linear self-starting regression models
+      \code{SSarrhenius}, \code{SSgitay}, \code{SSgleason} and
+      \code{SSlomolino} failed in future \R. The failure was caused by
+      internal changes in \R-devel.
+
+      \item Arrow labels were in wrong position in
+      \code{plot.envfit(..., add = FALSE}.
+
+      \item \code{rarecurve} does not add unnecessary names to the
+      results.
+
+      } % itemize
+  } % bugs
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item Chi-square and Chord distances were added to
+      \code{vegdist}. Both of these distances can be calculated as
+      Euclidean distances of transformed data, and actually were
+      available earlier, but many users did not notice this.
+
+      \item \code{monoMDS} (and hence \code{metaMDS}) uses stricter
+      convergence criteria. This improves possibilities to find the
+      stable solutions. However, users may still need to tweak
+      convergence criteria with their data.
+
+      \item \code{text} functions for constrained ordination plots
+      (\code{cca}, \code{rda}, \code{dbrda}, \code{capscale}) accept now
+      expression labels. This allows using subscripts, superscripts and
+      mathematical expressions. New support function \code{labels.cca}
+      returns the current text labels so that authors can change the
+      desired ones.
+
+      \item \code{vegemite} returns the final formatted table allowing
+      further processing.
+
+      \item \code{ordiplot} passes \code{cex} argument to
+      \code{linestack} and \code{decorana} plots.
+
+      } %itemize
+  } % features
+
+} % 2.5-7
+
 \section{Changes in version 2.5-6}{
 
   \subsection{BUG FIXES}{
