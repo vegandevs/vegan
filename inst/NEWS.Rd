@@ -8,18 +8,21 @@
 
       \item Several distance-based functions failed if all distances
       were zero (\code{betadisper}, \code{capscale}, \code{isomap},
-      \code{monoMDS}, \code{pcnm}, \code{wcmdscale}.)
+      \code{monoMDS}, \code{pcnm}, \code{wcmdscale}). Reported in github
+      issue \href{https://github.com/vegandevs/vegan/issues/372}{#372}.
 
       \item Non-linear self-starting regression models
       \code{SSarrhenius}, \code{SSgitay}, \code{SSgleason} and
       \code{SSlomolino} failed in future \R. The failure was caused by
-      internal changes in \R-devel.
+      internal changes in \R-devel. Github issue
+      \href{https://github.com/vegandevs/vegan/issues/382}{#382}.
 
       \item Arrow labels were in wrong position in
-      \code{plot.envfit(..., add = FALSE}.
+      \code{plot.envfit(..., add = FALSE)}.
 
       \item \code{rarecurve} does not add unnecessary names to the
-      results.
+      results. Github issue
+      \href{https://github.com/vegandevs/vegan/issues/352}{#352}.
 
       } % itemize
   } % bugs
@@ -33,16 +36,18 @@
       available earlier, but many users did not notice this.
 
       \item \code{monoMDS} (and hence \code{metaMDS}) uses stricter
-      convergence criteria. This improves possibilities to find the
-      stable solutions. However, users may still need to tweak
-      convergence criteria with their data.
+      convergence criteria. This improves possibilities to find stable
+      solutions. However, users may still need to tweak convergence
+      criteria with their data. See discussion in Github issue
+      \href{https://github.com/vegandevs/vegan/issues/354}{#354}.
 
       \item \code{text} functions for constrained ordination plots
       (\code{cca}, \code{rda}, \code{dbrda}, \code{capscale}) accept now
       expression labels. This allows using subscripts, superscripts and
       mathematical expressions. New support function \code{labels.cca}
       returns the current text labels so that authors can change the
-      desired ones.
+      desired ones. See github issue
+      \href{https://github.com/vegandevs/vegan/issues/374}{#374}.
 
       \item \code{vegemite} returns the final formatted table allowing
       further processing.
