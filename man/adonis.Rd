@@ -13,7 +13,7 @@
 \usage{
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
-    parallel = getOption("mc.cores"), ...)
+    parallel = getOption("mc.cores"), strata, ...)
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
@@ -41,23 +41,33 @@ adonis(formula, data, permutations = 999, method = "bray",
     calculate pairwise distances if the left hand side of the
     \code{formula} was a data frame or a matrix. }
   \item{sqrt.dist}{Take square root of dissimilarities. This often
-    euclidifies dissimilarities.}
+    euclidifies dissimilarities. Implemented in \code{adonis2}, ignored
+    in \code{adonis}.}
   \item{add}{Add a constant to the non-diagonal dissimilarities such
     that all eigenvalues are non-negative in the underlying Principal
     Co-ordinates Analysis (see \code{\link{wcmdscale}} for
     details). Choice \code{"lingoes"} (or \code{TRUE}) use the
-    recommended method of Legendre & Anderson (1999: \dQuote{method
-    1}) and \code{"cailliez"} uses their \dQuote{method 2}.}
+    recommended method of Legendre & Anderson (1999: \dQuote{method 1})
+    and \code{"cailliez"} uses their \dQuote{method 2}. Implemented
+    in \code{adonis2}, ignored in \code{adonis}.
+  }
   \item{by}{\code{by = "terms"} will assess significance for each term
     (sequentially from first to last), setting \code{by = "margin"}
     will assess the marginal effects of the terms (each marginal term
     analysed in a model with all other variables), and \code{by =
     NULL} will assess the overall significance of all terms
-    together. The arguments is passed on to \code{\link{anova.cca}}.}
-  \item{strata}{ groups (strata) within which to constrain permutations.  }
+    together. The arguments is passed on to \code{\link{anova.cca}}.
+    Implemented in \code{adonis2}, ignored in \code{adonis}.
+  }
+
+  \item{strata}{ groups (strata) within which to constrain permutations.
+    NB. argument \code{strata} is \bold{DEPRECATED} in \code{adonis2}:
+    you should define similar structure (\code{blocks}) in
+    \code{permutations}. See Examples for procedures in \code{adonis2}.}
+
   \item{contr.unordered, contr.ordered}{contrasts used for the design
     matrix (default in R is dummy or treatment contrasts for unordered
-    factors). }
+    factors). Ignored in \code{adonis2}. }
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -145,6 +155,11 @@ Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
   \code{\link{mrpp}}). Function \code{\link{betadisper}} is a sister
   function to \code{adonis} to study the differences in dispersion
   within the same geometric framework.
+
+  \code{adonis} and \code{adonis2} are different implementations and
+  they do not share all arguments. If you use arguments of the
+  wrong function, they may silently ignored.
+
 }
 
 \references{

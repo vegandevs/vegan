@@ -1,8 +1,10 @@
 `adonis2` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
-             parallel = getOption("mc.cores"), ...)
+             parallel = getOption("mc.cores"), strata, ...)
 {
+    if (!missing(strata))
+        stop("argument 'strata' is deprecated: define blocks in 'permutations'")
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin"))
