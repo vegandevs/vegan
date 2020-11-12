@@ -47,6 +47,8 @@
 #define CAO 15
 #define MAHALANOBIS 16
 #define CLARK 17
+#define CHISQUARE 18
+#define CHORD 19
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -676,6 +678,8 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	break;
     case EUCLIDEAN:
     case MAHALANOBIS:
+    case CHISQUARE:
+    case CHORD:
 	distfun = veg_euclidean;
 	break;
     case CANBERRA:
