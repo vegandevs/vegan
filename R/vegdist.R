@@ -28,8 +28,8 @@
     if (!method %in% c(1,2,6,16,18) && any(rowSums(x, na.rm = TRUE) == 0))
         warning("you have empty rows: their dissimilarities may be meaningless in method ",
                 dQuote(inm))
-    ## 1 manhattan, 2 euclidean, 3 canberra, 6 gower, 16 mahalanobis, 18 chisq
-    if (!method %in% c(1,2,3,6,16,18) && any(x < 0, na.rm = TRUE))
+    ## 1 manhattan, 2 euclidean, 3 canberra, 6 gower, 16 mahalanobis, 19 chord
+    if (!method %in% c(1,2,3,6,16,19) && any(x < 0, na.rm = TRUE))
         warning("results may be meaningless because data have negative entries in method ",
                 dQuote(inm))
     if (method %in% c(11,18) && any(colSums(x) == 0))
