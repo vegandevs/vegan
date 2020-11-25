@@ -105,7 +105,10 @@
 
     ## Process results
     F0 <- summary(mod)$fstatistic[1]
-    Fstats <- Pstats[, 1]    # allow empty dim to be dropped
+    if (!is.null(dim(Pstats)))
+        Fstats <- Pstats[, 1]    # allow empty dim to be dropped
+    else
+        Fstats <- Pstats
     statistic <- F0
     names(statistic) <- "Overall (F)"
 

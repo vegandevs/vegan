@@ -24,6 +24,11 @@
       results. Github issue
       \href{https://github.com/vegandevs/vegan/issues/352}{#352}.
 
+      \item \code{permutest} for \code{betadisper} failed in parallel
+      processing in Windows and in other systems if socket clusters were
+      used. Github issue
+      \href{https://github.com/vegandevs/vegan/issues/369}{#369}.
+
       } % itemize
   } % bugs
 
