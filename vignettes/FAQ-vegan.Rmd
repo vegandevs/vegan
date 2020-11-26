@@ -16,7 +16,7 @@ questions about R package **vegan**.
 > Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 > California, 94105, USA.
 >
-> Copyright © 2008-2016 vegan development team
+> Copyright © 2008-2020 vegan development team
 
 ------------------------------------------------------------------------
 
