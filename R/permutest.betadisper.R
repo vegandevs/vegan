@@ -93,8 +93,12 @@
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
             }
-            Pstats <- parRapply(parallel, permutations,
-                                          function(x) permFun(x))
+            Pstats <- parApply(parallel, permutations, 1,
+                               function(x) permFun(x))
+            if (is.null(dim(Pstats)))
+                Pstats <- matrix(Pstats) # one-column matrix
+            else
+                Pstats <- t(Pstats) # transpose statistics to columns
             if (!hasClus) {
                 stopCluster(parallel)
             }
@@ -105,7 +109,7 @@
 
     ## Process results
     F0 <- summary(mod)$fstatistic[1]
-    Fstats <- Pstats[, 1]    # allow empty dim to be dropped
+    Fstats <- Pstats[, 1, drop=TRUE]    # allow empty dim to be dropped
     statistic <- F0
     names(statistic) <- "Overall (F)"
 
