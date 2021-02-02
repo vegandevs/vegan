@@ -1,7 +1,7 @@
 
-R version 3.6.1 (2019-07-05) -- "Action of the Toes"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -2707,7 +2707,7 @@ Groups sizes
 > 
 > ### ** Examples
 > 
-> data(BCI)
+> data(BCI, BCI.env)
 > H <- diversity(BCI)
 > simp <- diversity(BCI, "simpson")
 > invsimp <- diversity(BCI, "inv")
@@ -2721,13 +2721,28 @@ Groups sizes
 > S <- specnumber(BCI) ## rowSums(BCI > 0) does the same...
 > J <- H/log(S)
 > ## beta diversity defined as gamma/alpha - 1:
-> data(dune)
-> data(dune.env)
-> alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
-> gamma <- with(dune.env, specnumber(dune, Management))
+> ## alpha is the average no. of species in a group, and gamma is the
+> ## total number of species in the group
+> (alpha <- with(BCI.env, tapply(specnumber(BCI), Habitat, mean)))
+ OldHigh   OldLow OldSlope    Swamp    Young 
+85.75000 91.76923 91.58333 94.00000 90.00000 
+> (gamma <- with(BCI.env, specnumber(BCI, Habitat)))
+ OldHigh   OldLow OldSlope    Swamp    Young 
+     158      210      183      128      117 
 > gamma/alpha - 1
-       BF        HF        NM        SF 
-0.5483871 0.6666667 1.6250000 1.2909091 
+  OldHigh    OldLow  OldSlope     Swamp     Young 
+0.8425656 1.2883487 0.9981802 0.3617021 0.3000000 
+> ## similar calculations with Shannon diversity
+> (alpha <- with(BCI.env, tapply(diversity(BCI), Habitat, mean))) # average
+ OldHigh   OldLow OldSlope    Swamp    Young 
+3.638598 3.876413 3.887122 4.003780 3.246729 
+> (gamma <- with(BCI.env, diversity(BCI, groups=Habitat))) # pooled
+ OldHigh   OldLow OldSlope    Swamp    Young 
+3.873186 4.284972 4.212098 4.164335 3.387536 
+> ## additive beta diversity based on Shannon index
+> gamma-alpha
+  OldHigh    OldLow  OldSlope     Swamp     Young 
+0.2345878 0.4085595 0.3249760 0.1605548 0.1408068 
 > 
 > 
 > 
@@ -5590,7 +5605,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-31. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -7042,7 +7057,7 @@ Sagiproc 0.02433 0.02215 1.09830 1.83300 0.66700  0.790 0.42
 Bellpere 0.01986 0.01709 1.16220 0.66700 1.66700  0.822 0.13   
 Eleopalu 0.01861 0.04296 0.43330 1.33300 0.00000  0.852 0.84   
 Anthodor 0.01754 0.02580 0.67980 0.00000 1.33300  0.880 0.79   
-Juncbufo 0.01603 0.02371 0.67620 1.16700 0.00000  0.906 0.53   
+Juncbufo 0.01603 0.02371 0.67620 1.16700 0.00000  0.905 0.53   
 Vicilath 0.01467 0.01331 1.10260 0.00000 1.00000  0.929 0.05 * 
 Hyporadi 0.01029 0.01520 0.67680 0.00000 0.66700  0.945 0.62   
 Ranuflam 0.00931 0.01360 0.68450 0.66700 0.00000  0.960 0.91   
@@ -7072,7 +7087,7 @@ Poatriv  0.02847 0.02152 1.32270 4.66700 4.80000  0.484 0.99
 Bracruta 0.02526 0.02104 1.20040 2.00000 2.80000  0.528 0.96   
 Eleopalu 0.02497 0.03888 0.64240 1.33300 0.80000  0.572 0.71   
 Poaprat  0.02393 0.01918 1.24780 2.50000 3.40000  0.614 0.96   
-Anthodor 0.02341 0.02143 1.09230 0.00000 1.80000  0.656 0.59   
+Anthodor 0.02341 0.02143 1.09230 0.00000 1.80000  0.655 0.59   
 Sagiproc 0.02314 0.02048 1.13010 1.83300 0.80000  0.696 0.51   
 Trifprat 0.02308 0.02343 0.98500 0.00000 1.80000  0.737 0.02 * 
 Juncarti 0.02285 0.02568 0.88990 0.50000 1.60000  0.777 0.38   
@@ -7189,7 +7204,7 @@ Ranuflam 0.02031 0.02275 0.89300 0.00000 1.33300  0.828 0.29
 Elymrepe 0.01999 0.02926 0.68300 1.33300 0.00000  0.855 0.87   
 Callcusp 0.01783 0.02681 0.66500 0.00000 1.16700  0.880 0.40   
 Juncarti 0.01769 0.02600 0.68100 0.00000 1.16700  0.904 0.73   
-Vicilath 0.01577 0.01447 1.09000 1.00000 0.16700  0.926 0.01 **
+Vicilath 0.01577 0.01447 1.09000 1.00000 0.16700  0.925 0.01 **
 Sagiproc 0.01543 0.01857 0.83100 0.66700 0.50000  0.947 0.87   
 Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.34   
 Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.46   
@@ -7224,7 +7239,7 @@ Alopgeni 0.02446 0.03240 0.75500 1.60000 0.00000  0.758 0.93
 Scorautu 0.02070 0.01412 1.46600 2.80000 3.16700  0.787 0.84   
 Ranuflam 0.01928 0.01994 0.96700 0.40000 1.33300  0.814 0.33   
 Juncbufo 0.01818 0.02465 0.73800 1.20000 0.00000  0.839 0.43   
-Hyporadi 0.01714 0.02655 0.64600 0.00000 1.16700  0.862 0.47   
+Hyporadi 0.01714 0.02655 0.64600 0.00000 1.16700  0.863 0.47   
 Callcusp 0.01683 0.02490 0.67600 0.00000 1.16700  0.886 0.46   
 Achimill 0.01656 0.01490 1.11100 1.20000 0.33300  0.909 0.61   
 Sagiproc 0.01528 0.01653 0.92400 0.80000 0.50000  0.930 0.89   
@@ -9067,7 +9082,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.406 1.205 25.191 0 0 
+Time elapsed:  23.622 1.064 25.161 0 0 
 > grDevices::dev.off()
 null device 
           1 
