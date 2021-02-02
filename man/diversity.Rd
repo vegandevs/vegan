@@ -10,7 +10,7 @@
   richness.  }
 
 \usage{
-diversity(x, index = "shannon", MARGIN = 1, base = exp(1))
+diversity(x, index = "shannon", groups, MARGIN = 1, base = exp(1))
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -21,7 +21,8 @@ specnumber(x, groups, MARGIN = 1)
     \code{"simpson"} or \code{"invsimpson"}.}
   \item{MARGIN}{Margin for which the index is computed. }
   \item{base}{ The logarithm \code{base} used in \code{shannon}.}
-  \item{groups}{A grouping factor: if given, finds the total number of
+  \item{groups}{A grouping factor: if given, finds the diversity of
+    communities pooled by the groups or the total number of
     species in each group.}
   \item{...}{Parameters passed to the function.}
 }
@@ -89,7 +90,7 @@ specnumber(x, groups, MARGIN = 1)
 \author{ Jari Oksanen  and  Bob O'Hara (\code{fisher.alpha}).}
 
 \examples{
-data(BCI)
+data(BCI, BCI.env)
 H <- diversity(BCI)
 simp <- diversity(BCI, "simpson")
 invsimp <- diversity(BCI, "inv")
@@ -103,11 +104,16 @@ pairs(cbind(H, simp, invsimp, unbias.simp, alpha), pch="+", col="blue")
 S <- specnumber(BCI) ## rowSums(BCI > 0) does the same...
 J <- H/log(S)
 ## beta diversity defined as gamma/alpha - 1:
-data(dune)
-data(dune.env)
-alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
-gamma <- with(dune.env, specnumber(dune, Management))
+## alpha is the average no. of species in a group, and gamma is the
+## total number of species in the group
+(alpha <- with(BCI.env, tapply(specnumber(BCI), Habitat, mean)))
+(gamma <- with(BCI.env, specnumber(BCI, Habitat)))
 gamma/alpha - 1
+## similar calculations with Shannon diversity
+(alpha <- with(BCI.env, tapply(diversity(BCI), Habitat, mean))) # average
+(gamma <- with(BCI.env, diversity(BCI, groups=Habitat))) # pooled
+## additive beta diversity based on Shannon index
+gamma-alpha
 }
 \keyword{ univar }
 

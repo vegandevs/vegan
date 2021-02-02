@@ -1,11 +1,23 @@
 `diversity` <-
-    function (x, index = "shannon", MARGIN = 1, base = exp(1))
+    function (x, index = "shannon", groups, MARGIN = 1, base = exp(1))
 {
     x <- drop(as.matrix(x))
     if (!is.numeric(x))
         stop("input data must be numeric")
     if (any(x < 0, na.rm = TRUE))
         stop("input data must be non-negative")
+    ## sum communities for groups
+    if (!missing(groups)) {
+        if (MARGIN == 2)
+            x <- t(x)
+        if (length(groups) == 1) # total for all SU
+            groups <- rep(groups, NROW(x))
+        x <- aggregate(x, list(groups), sum) # pool SUs by groups
+        rownames(x) <- x[,1]
+        x <- x[,-1, drop=FALSE]
+        if (MARGIN == 2)
+            x <- t(x)
+    }
     INDICES <- c("shannon", "simpson", "invsimpson")
     index <- match.arg(index, INDICES)
     if (length(dim(x)) > 1) {
