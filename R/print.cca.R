@@ -36,7 +36,7 @@
     if (!is.null(x$vdata))
         cat("Species scores projected from", sQuote(x$vdata), "\n")
     if (!is.null(x$CCA$alias))
-        cat("Some constraints were aliased because they were collinear (redundant)\n")
+        cat("Some constraints or conditions were aliased because they were redundant\n")
     ## Report removed observations and species
     if (!is.null(x$na.action))
         cat(naprint(x$na.action), "\n")
