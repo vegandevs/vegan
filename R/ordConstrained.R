@@ -141,6 +141,8 @@
     }
     ## QR decomposition
     Q <- qr(Z)
+    if (Q$rank == 0) # nothing partialled out
+        return(list(Y = Y, result = NULL))
     ## partialled out variation as a trace of Yfit
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -193,6 +195,9 @@
     Q <- qr(X)
     ## we need to see how much rank grows over rank of conditions
     rank <- sum(Q$pivot[seq_len(Q$rank)] > zcol)
+    ## nothing explained (e.g., constant constrain)
+    if (rank == 0)
+        return(list(Y = Y, result = NULL))
     ## check for aliased terms
     if (length(Q$pivot) > Q$rank)
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
