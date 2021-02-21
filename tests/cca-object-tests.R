@@ -49,7 +49,6 @@ zapsmall(head(cooks.distance(mcap, "canoco")))
 zapsmall(head(cooks.distance(mdb, "canoco")))
 zapsmall(head(cooks.distance(mancap, "canoco")))
 zapsmall(head(cooks.distance(mandb, "canoco")))
-zapsmall(head(cooks.distance(m0cca)))
 zapsmall(head(cooks.distance(m1rda)))
 
 head(goodness(mcca, display = "sites"))
@@ -70,7 +69,7 @@ head(inertcomp(mcap, display="sites"))
 head(inertcomp(mdb, display = "sites"))
 head(inertcomp(mancap, display = "sites"))
 head(inertcomp(mandb, display = "sites"))
-zapsmall(head(inertcomp(m0cca))) # numerical zeros
+zapsmall(head(inertcomp(m0cca)))
 inertcomp(m1rda)
 
 abs(zapsmall(intersetcor(mcca)))
@@ -89,13 +88,11 @@ vif.cca(mcca)
 vif.cca(mrda)
 vif.cca(mcap)
 vif.cca(mdb)
-vif.cca(m0cca)
 
 alias(mcca)
 alias(mrda)
 alias(mcap)
 alias(mdb)
-alias(m0cca)
 
 ## basic statistic
 
@@ -104,7 +101,6 @@ abs(coef(mrda))
 abs(coef(mrda1))
 abs(coef(mcap))
 abs(coef(mdb))
-abs(coef(m0cca))
 abs(coef(m1rda))
 
 eigenvals(mcca)
@@ -130,7 +126,6 @@ RsquareAdj(mrda)
 RsquareAdj(mrda1)
 RsquareAdj(mcap)
 RsquareAdj(mdb)
-RsquareAdj(m0cca)
 RsquareAdj(m1rda)
 
 head(model.frame(mcca))
@@ -159,9 +154,7 @@ permutest(mcap, per)
 permutest(mdb, per)
 permutest(mancap, per)
 permutest(mandb, per)
-permutest(m0cca, per)
 permutest(m1rda, per)
-
 
 drop1(mcca, test="permutation", permutations=per)
 drop1(mrda, test="permutation", permutations=per)
