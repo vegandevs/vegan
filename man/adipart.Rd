@@ -38,12 +38,16 @@ hiersimu(...)
     the hierarchy must decrease from left to right. If \code{x} is missing,
     function performs an overall decomposition into alpha, beta and
     gamma diversities.}
+  
   \item{formula}{A two sided model formula in the form \code{y ~ x},
     where \code{y} is the community data matrix with samples as rows and
     species as column. Right hand side (\code{x}) must be grouping variables
     referring to levels of sampling hierarchy, terms from right to left
     will be treated as nested (first column is the lowest, last is the
-    highest level, at least two levels specified). Interaction terms are
+    highest level). The formula will add a unique indentifier to rows and
+    constant for the rows to always produce estimates of row-level alpha
+    and overall gamma diversities. You must use non-formula
+    interface to avoid this behaviour. Interaction terms are
     not allowed.}
 
   \item{data}{A data frame where to look for variables defined in the
@@ -178,7 +182,7 @@ levsm <- with(mite.xy, data.frame(
     l1=1:nrow(mite),
     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
     l3=cutter(y, cut = seq(0, 10, by = 5)),
-    l4=cutter(y, cut = seq(0, 10, by = 10))))
+    l4=rep(1, nrow(mite))))
 ## Let's see in a map
 par(mfrow=c(1,3))
 plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1, asp = 1)
@@ -187,11 +191,13 @@ plot(mite.xy, main="l3", col=as.numeric(levsm$l3)+1, asp = 1)
 par(mfrow=c(1,1))
 ## Additive diversity partitioning
 adipart(mite, index="richness", nsimul=19)
-adipart(mite ~ ., levsm, index="richness", nsimul=19)
+## the next two define identical models
+adipart(mite, levsm, index="richness", nsimul=19)
+adipart(mite ~ l2 + l3, levsm, index="richness", nsimul=19)
 ## Hierarchical null model testing
 ## diversity analysis (similar to adipart)
 hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
-hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
+hiersimu(mite ~ l2 + l3, levsm, FUN=diversity, relative=TRUE, nsimul=19)
 ## Hierarchical testing with the Morisita index
 morfun <- function(x) dispindmorisita(x)$imst
 hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
