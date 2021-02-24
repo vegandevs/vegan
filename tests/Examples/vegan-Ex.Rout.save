@@ -2707,7 +2707,7 @@ Groups sizes
 > 
 > ### ** Examples
 > 
-> data(BCI)
+> data(BCI, BCI.env)
 > H <- diversity(BCI)
 > simp <- diversity(BCI, "simpson")
 > invsimp <- diversity(BCI, "inv")
@@ -2721,13 +2721,28 @@ Groups sizes
 > S <- specnumber(BCI) ## rowSums(BCI > 0) does the same...
 > J <- H/log(S)
 > ## beta diversity defined as gamma/alpha - 1:
-> data(dune)
-> data(dune.env)
-> alpha <- with(dune.env, tapply(specnumber(dune), Management, mean))
-> gamma <- with(dune.env, specnumber(dune, Management))
+> ## alpha is the average no. of species in a group, and gamma is the
+> ## total number of species in the group
+> (alpha <- with(BCI.env, tapply(specnumber(BCI), Habitat, mean)))
+ OldHigh   OldLow OldSlope    Swamp    Young 
+85.75000 91.76923 91.58333 94.00000 90.00000 
+> (gamma <- with(BCI.env, specnumber(BCI, Habitat)))
+ OldHigh   OldLow OldSlope    Swamp    Young 
+     158      210      183      128      117 
 > gamma/alpha - 1
-       BF        HF        NM        SF 
-0.5483871 0.6666667 1.6250000 1.2909091 
+  OldHigh    OldLow  OldSlope     Swamp     Young 
+0.8425656 1.2883487 0.9981802 0.3617021 0.3000000 
+> ## similar calculations with Shannon diversity
+> (alpha <- with(BCI.env, tapply(diversity(BCI), Habitat, mean))) # average
+ OldHigh   OldLow OldSlope    Swamp    Young 
+3.638598 3.876413 3.887122 4.003780 3.246729 
+> (gamma <- with(BCI.env, diversity(BCI, groups=Habitat))) # pooled
+ OldHigh   OldLow OldSlope    Swamp    Young 
+3.873186 4.284972 4.212098 4.164335 3.387536 
+> ## additive beta diversity based on Shannon index
+> gamma-alpha
+  OldHigh    OldLow  OldSlope     Swamp     Young 
+0.2345878 0.4085595 0.3249760 0.1605548 0.1408068 
 > 
 > 
 > 
@@ -9067,7 +9082,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.427 0.321 27.778 0 0 
+Time elapsed:  27.508 0.335 27.896 0 0 
 > grDevices::dev.off()
 null device 
           1 
