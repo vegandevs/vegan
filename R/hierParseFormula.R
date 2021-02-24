@@ -12,8 +12,12 @@
             u <- factor(u)
         u
     })
-    if (length(rhs) < 2)
-        stop("provide at least two-level hierarchy")
+    ## take care that the first column is a unique identifier for rows
+    ## and the last column is constant for pooling all rows together
+    if (length(unique(rhs[,1])) < nrow(rhs))
+        rhs <- cbind("unit" = factor(seq_len(nrow(rhs))), rhs)
+    if (length(unique(rhs[, ncol(rhs)])) > 1)
+        rhs <- cbind(rhs, "all" = factor(rep(1, nrow(rhs))))
     attr(rhs, "terms") <- NULL
     list(lhs=lhs, rhs=rhs)
 }
