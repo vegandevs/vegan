@@ -1,5 +1,6 @@
 `diversity` <-
-    function (x, index = "shannon", groups, MARGIN = 1, base = exp(1))
+    function (x, index = "shannon", groups, equalize.groups = FALSE,
+              MARGIN = 1, base = exp(1))
 {
     x <- drop(as.matrix(x))
     if (!is.numeric(x))
@@ -12,6 +13,8 @@
             x <- t(x)
         if (length(groups) == 1) # total for all SU
             groups <- rep(groups, NROW(x))
+        if (equalize.groups)
+            x <- decostand(x, "total")
         x <- aggregate(x, list(groups), sum) # pool SUs by groups
         rownames(x) <- x[,1]
         x <- x[,-1, drop=FALSE]

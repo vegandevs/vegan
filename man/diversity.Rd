@@ -10,7 +10,8 @@
   richness.  }
 
 \usage{
-diversity(x, index = "shannon", groups, MARGIN = 1, base = exp(1))
+diversity(x, index = "shannon", groups, equalize.groups = FALSE,
+   MARGIN = 1, base = exp(1))
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -22,8 +23,9 @@ specnumber(x, groups, MARGIN = 1)
   \item{MARGIN}{Margin for which the index is computed. }
   \item{base}{ The logarithm \code{base} used in \code{shannon}.}
   \item{groups}{A grouping factor: if given, finds the diversity of
-    communities pooled by the groups or the total number of
-    species in each group.}
+    communities pooled by the groups.}
+  \item{equalize.groups}{Instead of observed abundances, standardize all
+    communities to unit total.}
   \item{...}{Parameters passed to the function.}
 }
 \details{
@@ -37,6 +39,17 @@ specnumber(x, groups, MARGIN = 1)
   Both variants of Simpson's index are based on \eqn{D = \sum p_i^2}{D =
     sum p_i^2}. Choice \code{simpson} returns \eqn{1-D} and
   \code{invsimpson} returns \eqn{1/D}.
+
+  The \code{diversity} function can find the total (or gamma) diversity
+  of pooled communities with argument \code{groups}. The average alpha
+  diversity can be found as the mean of diversities by the same groups,
+  and their difference or ratio is an estimate of beta diversity (see
+  Examples). The pooling can be based either on the observed
+  abundancies, or all communities can be equalized to unit total before
+  pooling; see Jost (2007) for discussion. Functions
+  \code{\link{adipart}} and \code{\link{multipart}} provide canned
+  alternatives for estimating alpha, beta and gamma diversities in
+  hierarchical settings.
  
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
@@ -74,6 +87,9 @@ specnumber(x, groups, MARGIN = 1)
   
   Hurlbert, S.H. (1971). The nonconcept of species diversity: a critique
   and alternative parameters. \emph{Ecology} \strong{52}, 577--586.
+
+  Jost, L. (2007) Partitioning diversity into independent alpha and beta
+  components. \emph{Ecology} \strong{88}, 2427--2439.
  
 }
 
