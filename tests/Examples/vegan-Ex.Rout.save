@@ -540,7 +540,7 @@ Manure  3 85.762 1.1225  0.285
 +     l1=1:nrow(mite),
 +     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
 +     l3=cutter(y, cut = seq(0, 10, by = 5)),
-+     l4=cutter(y, cut = seq(0, 10, by = 10))))
++     l4=rep(1, nrow(mite))))
 > ## Let's see in a map
 > par(mfrow=c(1,3))
 > plot(mite.xy, main="l1", col=as.numeric(levsm$l1)+1, asp = 1)
@@ -563,11 +563,11 @@ gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00
 beta.1     19.886  38.43 12.656 12.392 12.700 12.968     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> adipart(mite ~ ., levsm, index="richness", nsimul=19)
+> ## the next two define identical models
+> adipart(mite, levsm, index="richness", nsimul=19)
 adipart object
 
-Call: adipart(formula = mite ~ ., data = levsm, index = "richness",
-nsimul = 19)
+Call: adipart(y = mite, x = levsm, index = "richness", nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index richness, weights unif
@@ -583,6 +583,26 @@ beta.2      3.250  13.1373  0.18421  0.00000  0.00000  0.6375     0.05 *
 beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> adipart(mite ~ l2 + l3, levsm, index="richness", nsimul=19)
+adipart object
+
+Call: adipart(formula = mite ~ l2 + l3, data = levsm, index =
+"richness", nsimul = 19)
+
+nullmodel method ‘r2dtable’ with 19 simulations
+options:  index richness, weights unif
+alternative hypothesis: statistic is less or greater than simulated values
+
+        statistic     SES     mean     2.5%      50%  97.5% Pr(sim.)  
+alpha.1    15.114 -42.859 22.37669 22.04071 22.40000 22.573     0.05 *
+alpha.2    29.750 -26.571 34.85526 34.50000 35.00000 35.000     0.05 *
+alpha.3    33.000   0.000 35.00000 35.00000 35.00000 35.000     0.05 *
+gamma      35.000   0.000 35.00000 35.00000 35.00000 35.000     1.00  
+beta.1     14.636   7.976 12.47857 12.07500 12.47143 12.959     0.05 *
+beta.2      3.250  16.162  0.14474  0.00000  0.00000  0.500     0.05 *
+beta.3      2.000   0.000  0.00000  0.00000  0.00000  0.000     0.05 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Hierarchical null model testing
 > ## diversity analysis (similar to adipart)
 > hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
@@ -595,25 +615,25 @@ nullmodel method ‘r2dtable’ with 19 simulations
 alternative hypothesis: statistic is less or greater than simulated values
 
         statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  
-level_1   0.76064 -71.195 0.93904 0.93487 0.93856 0.9444     0.05 *
+level_1   0.76064 -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
 leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> hiersimu(mite ~., levsm, FUN=diversity, relative=TRUE, nsimul=19)
+> hiersimu(mite ~ l2 + l3, levsm, FUN=diversity, relative=TRUE, nsimul=19)
 hiersimu object
 
-Call: hiersimu(formula = mite ~ ., data = levsm, FUN = diversity,
+Call: hiersimu(formula = mite ~ l2 + l3, data = levsm, FUN = diversity,
 relative = TRUE, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 
 alternative hypothesis: statistic is less or greater than simulated values
 
-   statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  
-l1   0.76064  -75.139 0.93833 0.93389 0.93819 0.9427     0.05 *
-l2   0.89736 -110.968 0.99811 0.99699 0.99814 0.9999     0.05 *
-l3   0.92791 -417.338 0.99940 0.99904 0.99943 0.9996     0.05 *
-l4   1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
+     statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  
+unit   0.76064  -83.007 0.93793 0.93363 0.93817 0.9408     0.05 *
+l2     0.89736 -129.886 0.99789 0.99660 0.99788 0.9991     0.05 *
+l3     0.92791 -463.547 0.99935 0.99902 0.99940 0.9996     0.05 *
+all    1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Hierarchical testing with the Morisita index
@@ -629,9 +649,9 @@ nullmodel method ‘r2dtable’ with 19 simulations
 alternative hypothesis: statistic is less or greater than simulated values
 
    statistic     SES      mean      2.5%       50%   97.5% Pr(sim.)  
-l1   0.52070  8.5216  0.353253  0.322624  0.351073  0.3848     0.05 *
-l2   0.60234 14.3854  0.153047  0.096700  0.150434  0.1969     0.05 *
-l3   0.67509 20.3162 -0.182473 -0.234793 -0.195937 -0.0988     0.05 *
+l1   0.52070  6.2507  0.359444  0.317812  0.364394  0.3973     0.05 *
+l2   0.60234 15.2219  0.146268  0.090822  0.148198  0.1948     0.05 *
+l3   0.67509 21.5181 -0.216038 -0.287581 -0.228599 -0.1523     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -4601,10 +4621,8 @@ Number of permutations: 99
 +     return(out)}
 > ## The hierarchy of sample aggregation
 > levsm <- with(mite.xy, data.frame(
-+     l1=1:nrow(mite),
 +     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
-+     l3=cutter(y, cut = seq(0, 10, by = 5)),
-+     l4=cutter(y, cut = seq(0, 10, by = 10))))
++     l3=cutter(y, cut = seq(0, 10, by = 5))))
 > ## Multiplicative diversity partitioning
 > multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 multipart object
@@ -4617,20 +4635,16 @@ options:  index renyi, scales 1, global FALSE
 alternative hypothesis: statistic is less or greater than simulated values
 
         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
-alpha.1    8.0555  -50.069 12.19396 12.06155 12.19041 12.3400     0.05 *
-alpha.2   11.2353  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
-alpha.3   12.0064 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
-gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  
-beta.1     1.3568   27.320  1.15770  1.14474  1.15859  1.1683     0.05 *
-beta.2     1.0710   30.431  1.00339  0.99912  1.00340  1.0059     0.05 *
-beta.3     1.1794  460.550  1.00148  1.00083  1.00148  1.0021     0.05 *
+alpha.1    11.235  -91.662 14.09161 14.05255 14.08685 14.1485     0.05 *
+gamma      12.006 -391.053 14.13939 14.13048 14.13932 14.1485     0.05 *
+beta.1      1.071   30.431  1.00339  0.99912  1.00340  1.0059     0.05 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+> multipart(mite ~ l2 + l3, levsm, index="renyi", scales=1, nsimul=19)
 multipart object
 
-Call: multipart(formula = mite ~ ., data = levsm, index = "renyi",
-scales = 1, nsimul = 19)
+Call: multipart(formula = mite ~ l2 + l3, data = levsm, index =
+"renyi", scales = 1, nsimul = 19)
 
 nullmodel method ‘r2dtable’ with 19 simulations
 options:  index renyi, scales 1, global FALSE
@@ -9082,7 +9096,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.508 0.335 27.896 0 0 
+Time elapsed:  27.744 0.34 28.114 0 0 
 > grDevices::dev.off()
 null device 
           1 
