@@ -27,11 +27,14 @@ multipart(...)
 
   \item{formula}{A two sided model formula in the form \code{y ~ x},
     where \code{y} is the community data matrix with samples as rows and
-    species as column. Right hand side (\code{x}) must be grouping variables
-    referring to levels of sampling hierarchy, terms from right to left will
-    be treated as nested (first column is the lowest,
-    last is the highest level, at least two levels specified).
-    Interaction terms are not allowed.}
+    species as column. Right hand side (\code{x}) must be grouping
+    variable(s) referring to levels of sampling hierarchy, terms from
+    right to left will be treated as nested (first column is the lowest,
+    last is the highest level). The formula will add a unique
+    indentifier to rows and constant for the rows to always produce
+    estimates of row-level alpha and overall gamma diversities. You must
+    use non-formula interface to avoid this behaviour. Interaction terms
+    are not allowed.}
 
   \item{data}{A data frame where to look for variables defined in the
     right hand side of \code{formula}. If missing, variables are looked
@@ -132,13 +135,11 @@ cutter <- function (x, cut = seq(0, 10, by = 2.5)) {
     return(out)}
 ## The hierarchy of sample aggregation
 levsm <- with(mite.xy, data.frame(
-    l1=1:nrow(mite),
     l2=cutter(y, cut = seq(0, 10, by = 2.5)),
-    l3=cutter(y, cut = seq(0, 10, by = 5)),
-    l4=cutter(y, cut = seq(0, 10, by = 10))))
+    l3=cutter(y, cut = seq(0, 10, by = 5))))
 ## Multiplicative diversity partitioning
 multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
-multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19)
+multipart(mite ~ l2 + l3, levsm, index="renyi", scales=1, nsimul=19)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
 }
