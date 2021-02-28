@@ -21,10 +21,12 @@
     ## centroids ("cn") have special treatment: also plot biplot
     ## arrows ("bp") for continuous variables and ordered factors.
     if (display == "cn") {
-        if (is.null(nrow(pts))) # no "cn"
-            return(invisible())
-        cnlabs <- seq_len(nrow(pts))
-        text(pts, labels = labels[cnlabs], ...)
+        if (!is.null(nrow(pts))) { # has "cn"
+            cnlabs <- seq_len(nrow(pts))
+            text(pts, labels = labels[cnlabs], ...)
+        } else {
+            cnlabs <- NULL
+        }
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
                       const, correlation = correlation, hill = hill)
         bnam <- rownames(pts)
@@ -33,7 +35,8 @@
             return(invisible())
         else {
             display <- "bp"
-            labels <- labels[-cnlabs]
+            if (!is.null(cnlabs))
+                labels <- labels[-cnlabs]
         }
     }
     ## draw arrows before adding labels
