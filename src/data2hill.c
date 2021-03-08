@@ -132,7 +132,7 @@ SEXP do_decorana(SEXP veg, SEXP ira, SEXP iresc, SEXP rshort, SEXP imk,
 		       rxeig, rxeig + nr, rxeig + 2*nr,
 		       ix, ix + nr, ix + 2*nr,
 		       REAL(aidot), REAL(adotj));
-	if (reig[i] < ZEROEIG) {
+	if (ISNAN(reig[i]) || reig[i] < ZEROEIG) {
 	    for(j = 0; j < nr; j++)
 		rxeig[i*nr + j] = 0;
 	    for(j = 0; j < nc; j++)
