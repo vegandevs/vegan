@@ -28,9 +28,9 @@
        scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
        axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
 \method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"),
-       scaling = "species", hill = FALSE, ...)
+       scaling = "species", hill = FALSE, ggplot = FALSE, ...)
 \method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"),
-       scaling = "species", const, correlation = FALSE, ...)
+       scaling = "species", const, correlation = FALSE, ggplot = FALSE, ...)
 \method{summary}{cca}(object, scaling = "species", axes = 6,
         display = c("sp", "wa", "lc", "bp", "cn"),
         digits = max(3, getOption("digits") - 3),
@@ -76,6 +76,13 @@
     are used to select the corresponding negative scaling type; either
     correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
     respectively. See argument \code{scaling} for details.}
+  \item{ggplot}{Return scores that are compatible with
+    \CRANpkg{ggplot2}: all scores are in a single \code{data.frame},
+    score type is identified by factor variable \code{group}, the names
+    by variable \code{label}, and weights (in CCA) are in variable
+    \code{weight}. These scores cannot be used with conventional
+    \code{plot}, but they are directly suitable for
+    \code{\link[ggplot2]{ggplot}}.}
   \item{type}{Type of plot: partial match to \code{text}
     for text labels, \code{points} for points, and \code{none} for
     setting frames only.  If omitted, \code{text} is selected for

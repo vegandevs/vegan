@@ -1,6 +1,6 @@
 `scores.cca` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-              scaling = "species", hill = FALSE, ...)
+              scaling = "species", hill = FALSE, ggplot = FALSE, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
@@ -112,6 +112,26 @@
                     rownames(sol[[i]], do.NULL = FALSE,
                              prefix = substr(names(sol)[i], 1, 3))
         }
+    }
+    ## ggplot scores
+    if (ggplot) {
+        group <- sapply(sol, nrow)
+        group <- rep(names(group), group)
+        sol <- do.call(rbind, sol)
+        label <- rownames(sol)
+        rw <- weights(x)
+        cw <- weights(x, "species")
+        w <- rep(NA, nrow(sol))
+        if (any(weighted <- group == "sites"))
+            w[weighted] <- rw
+        if (any(weighted <- group == "constraints"))
+            w[weighted] <- rw
+        if (any(weighted <- group == "species"))
+            w[weighted] <- cw
+        sol <- as.data.frame(sol)
+        sol$group <- as.factor(group)
+        sol$label <- label
+        sol$weight <- w
     }
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1)
