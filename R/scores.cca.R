@@ -115,6 +115,14 @@
     }
     ## ggplot scores
     if (ggplot) {
+        ## re-group biplot arrays duplicating factor centroids
+        if (!is.null(sol$biplot) && !is.null(sol$centroids)) {
+            dup <- rownames(sol$biplot) %in% rownames(sol$centroids)
+            if (any(dup)) {
+                sol$factorbiplot <- sol$biplot[dup,, drop=FALSE]
+                sol$biplot <- sol$biplot[!dup,, drop=FALSE]
+            }
+        }
         group <- sapply(sol, nrow)
         group <- rep(names(group), group)
         sol <- do.call(rbind, sol)
