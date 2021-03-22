@@ -3,7 +3,7 @@
                         correlation = FALSE, hill = FALSE, ...) {
     TYPES <- c("text", "points", "none")
     g <- scores(x, choices, display, scaling, const, correlation = correlation,
-                hill = hill)
+                hill = hill, ggplot = FALSE)
     if (length(g) == 0 || all(is.na(g)))
       stop("nothing to plot: requested scores do not exist")
     if (!is.list(g))

@@ -7,7 +7,7 @@
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
-                  const, correlation = correlation, hill = hill)
+                  const, correlation = correlation, hill = hill, ggplot=FALSE)
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
