@@ -1,5 +1,6 @@
 `scores.metaMDS` <-
-    function(x, display = c("sites", "species"), shrink = FALSE, choices, ...)
+    function(x, display = c("sites", "species"), shrink = FALSE, choices,
+             ggplot = FALSE, ...)
 {
     display <- match.arg(display, c("sites","species"), several.ok = TRUE)
     if (missing(choices))
@@ -31,6 +32,15 @@
     out <- list()
     out$sites <- sites
     out$species <- species
+    if (ggplot) {
+        group <- sapply(out, nrow)
+        group <- rep(names(group), group)
+        out <- do.call(rbind, out)
+        label <- rownames(out)
+        out <- as.data.frame(out)
+        out$group <- group
+        out$label <- label
+    }
     if (length(out) == 1)
         out <- out[[1]]
     out
