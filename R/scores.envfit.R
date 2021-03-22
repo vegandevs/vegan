@@ -1,5 +1,5 @@
 `scores.envfit` <-
-    function (x, display, choices, ...)
+    function (x, display, choices, ggplot = FALSE, ...)
 {
     display <- match.arg(display,
                          c("vectors", "bp", "factors", "cn"),
@@ -17,6 +17,15 @@
         if (!missing(choices))
             facts <- facts[, choices, drop=FALSE]
         out$factors <- facts
+    }
+    if (ggplot) {
+        group <- sapply(out, nrow)
+        group <- rep(names(group), group)
+        out <- do.call(rbind, out)
+        label <- rownames(out)
+        out <- as.data.frame(out)
+        out$group <- group
+        out$label <- label
     }
     if (length(out) == 1)
         out <- out[[1]]
