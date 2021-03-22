@@ -127,7 +127,7 @@
         group <- rep(names(group), group)
         sol <- do.call(rbind, sol)
         label <- rownames(sol)
-        rw <- weights(x)
+        rw <- x$rowsum # weights(x) can fail with na.action=na.exclude
         cw <- weights(x, "species")
         w <- rep(NA, nrow(sol))
         if (any(weighted <- group == "sites"))
