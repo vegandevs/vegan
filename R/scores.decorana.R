@@ -1,12 +1,37 @@
 `scores.decorana` <-
-    function (x, display=c("sites","species"), choices = 1:4, origin=TRUE, ...)
+    function (x, display="sites", choices = 1:4, origin=TRUE,
+              ggplot = FALSE, ...)
 {
-   display <- match.arg(display)
-   if(display == "sites")
-      X <- x$rproj
-   else if(display == "species")
-      X <- x$cproj
-   if (origin)
-      X <- sweep(X, 2, x$origin, "-")
-   X[,choices]
+    display <- match.arg(display, c("sites", "species", "both"), several.ok = TRUE)
+    out <- list()
+    if(any(c("sites", "both") %in% display)) {
+        sites <- x$rproj
+        if (origin)
+            sites <- sweep(sites, 2, x$origin, "-")
+        out$sites <- sites[, choices, drop=FALSE]
+    }
+    if(any(c("species", "both") %in% display)) {
+        species <- x$cproj
+        if (origin)
+            species <- sweep(species, 2, x$origin, "-")
+        out$species <- species[, choices]
+    }
+    if (ggplot) {
+        group <- sapply(out, nrow)
+        group <- rep(names(group), group)
+        out <- do.call(rbind, out)
+        label <- rownames(out)
+        out <- as.data.frame(out)
+        out$group <- group
+        out$label <- label
+        wts <- rep(NA, nrow(out))
+        if (any(take <- group == "sites"))
+            wts[take] <- weights(x, display="sites")
+        if (any(take <- group == "species"))
+            wts[take] <- weights(x, display="species")
+        out$weight <- wts
+    }
+    if (length(out) == 1)
+        out <- out[[1]]
+    out
 }
