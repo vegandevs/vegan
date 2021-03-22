@@ -1,5 +1,5 @@
 `scores.envfit` <-
-    function (x, display, choices, ggplot = FALSE, ...)
+    function (x, display, choices, arrow.mul = 1, ggplot = FALSE, ...)
 {
     display <- match.arg(display,
                          c("vectors", "bp", "factors", "cn"),
@@ -10,7 +10,7 @@
         if (!missing(choices))
             vects <- vects[, choices, drop=FALSE]
         if (!is.null(vects))
-            out$vectors <- sqrt(x$vectors$r) * vects
+            out$vectors <- arrow.mul * sqrt(x$vectors$r) * vects
     }
     if (any(display %in% c("factors", "cn"))) {
         facts <- x$factors$centroids[, , drop = FALSE]
