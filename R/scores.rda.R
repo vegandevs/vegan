@@ -145,7 +145,6 @@
         sol <- as.data.frame(sol)
         sol$group <- as.factor(group)
         sol$label <- label
-        sol$weight <- w
     }
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1)
