@@ -178,7 +178,8 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   
   The results can be accessed with \code{scores.envfit} function which
   returns either the fitted vectors scaled by correlation coefficient or
-  the centroids of the fitted environmental variables.
+  the centroids of the fitted environmental variables, or a named list
+  of both.
 }
 \value{
   Functions \code{vectorfit} and \code{factorfit} return lists of
