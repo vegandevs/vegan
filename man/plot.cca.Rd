@@ -27,9 +27,9 @@
 \method{points}{cca}(x, display = "sites", choices = c(1, 2),
        scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
        axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
-\method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","cn"),
+\method{scores}{cca}(x, choices = c(1,2), display = c("sp","wa","bp","cn"),
        scaling = "species", hill = FALSE, ggplot = FALSE, ...)
-\method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","cn"),
+\method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","bp","cn"),
        scaling = "species", const, correlation = FALSE, ggplot = FALSE, ...)
 \method{summary}{cca}(object, scaling = "species", axes = 6,
         display = c("sp", "wa", "lc", "bp", "cn"),

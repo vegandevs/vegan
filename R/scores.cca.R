@@ -1,5 +1,5 @@
 `scores.cca` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
+    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
               scaling = "species", hill = FALSE, ggplot = FALSE, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class

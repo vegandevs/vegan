@@ -2,7 +2,7 @@
 ### latter can have special features which are commented below. cca
 ### results are handled by scores.cca.
 `scores.rda` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
+    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
               scaling = "species", const, correlation = FALSE, ggplot = FALSE,
               ...)
 {
