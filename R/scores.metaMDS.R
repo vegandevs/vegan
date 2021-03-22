@@ -7,11 +7,11 @@
         choices <- seq_len(x$ndim)
     else
         choices <- choices[choices <= x$ndim]
-    sites <- NULL
-    species <- NULL
+    out <- list()
     if ("sites" %in% display) {
         sites <- x$points[, choices, drop=FALSE]
         colnames(sites) <- paste0("NMDS", choices)
+        out$sites <- sites
     }
     if ("species" %in% display && !is.null(x$species)) {
         species <- x$species[, choices, drop=FALSE]
@@ -28,10 +28,8 @@
                 X <- sweep(X, 2, cnt, "+")
             }
         }
+        out$species <- species
     }
-    out <- list()
-    out$sites <- sites
-    out$species <- species
     if (ggplot) {
         group <- sapply(out, nrow)
         group <- rep(names(group), group)
