@@ -113,7 +113,7 @@
     }
     if ("centroids" %in% take) {
         if (is.null(x$CCA$centroids))
-            sol$centroids <- NA
+            sol$centroids <- NULL
         else {
             cn <- matrix(0, nrow(x$CCA$centroids), length(choices))
             cn[, choices <= rnk] <- x$CCA$centroids[, choices[choices <= rnk]]
