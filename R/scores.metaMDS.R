@@ -36,7 +36,7 @@
         out <- do.call(rbind, out)
         label <- rownames(out)
         out <- as.data.frame(out)
-        out$group <- group
+        out$score <- group
         out$label <- label
     }
     if (length(out) == 1)

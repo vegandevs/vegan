@@ -151,7 +151,7 @@
         sol <- do.call(rbind, sol)
         label <- rownames(sol)
         sol <- as.data.frame(sol)
-        sol$group <- as.factor(group)
+        sol$score <- as.factor(group)
         sol$label <- label
     }
     ## Only one type of scores: return a matrix instead of a list

@@ -106,8 +106,10 @@ metaMDSredist(object, ...)
    originally.}
  \item{ggplot}{Return scores that are compatible with \CRANpkg{ggplot2}:
    all scores are in a single \code{data.frame}, score type is
-   identified by factor variable \code{group} (either \code{"sites"} or
-  \code{"species"}), the names by variable \code{label}.}
+   identified by factor variable \code{code} (\code{"sites"} or
+   \code{"species"}), the names by variable \code{label}. These scores
+   are incompatible with conventional \code{plot} functions, but they can
+   be used in \pkg{ggplot2}.}
  \item{labels}{Optional test to be used instead of row names.}
  \item{select}{Items to be displayed.  This can either be a logical
    vector which is \code{TRUE} for displayed items or a vector of indices

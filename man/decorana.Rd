@@ -66,9 +66,11 @@ downweight(veg, fraction = 5)
     species and site scores. Default \code{NA} prints all.}
   \item{fraction}{Abundance fraction where downweighting begins.}
   \item{ggplot}{Return scores that are compatible with \CRANpkg{ggplot2}:
-   all scores are in a single \code{data.frame}, score type is
-   identified by factor variable \code{group} (either \code{"sites"} or
-  \code{"species"}), the names by variable \code{label}.}
+    all scores are in a single \code{data.frame}, score type is
+    identified by factor variable \code{score} (\code{"sites"},
+    \code{"species"}), the names by variable \code{label}. These scores
+    are incompatible with conventional \code{plot} functions, but they can
+    be used in \pkg{ggplot2}.}
   \item{...}{Other arguments for \code{plot} function.}
   }
 

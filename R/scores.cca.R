@@ -137,7 +137,7 @@
         if (any(weighted <- group == "species"))
             w[weighted] <- cw
         sol <- as.data.frame(sol)
-        sol$group <- as.factor(group)
+        sol$score <- as.factor(group)
         sol$label <- label
         sol$weight <- w
     }

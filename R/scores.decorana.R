@@ -22,7 +22,7 @@
         out <- do.call(rbind, out)
         label <- rownames(out)
         out <- as.data.frame(out)
-        out$group <- group
+        out$score <- group
         out$label <- label
         wts <- rep(NA, nrow(out))
         if (any(take <- group == "sites"))
