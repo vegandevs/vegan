@@ -12,12 +12,14 @@
     if (is.null(x$CCA))
         tabula <- tabula[1:2]
     display <- match.arg(display, c("sites", "species", "wa",
-                                    "lc", "bp", "reg", "cn"),
+                                    "lc", "bp", "reg", "cn", "all"),
                          several.ok = TRUE)
     if("sites" %in% display)
         display[display == "sites"] <- "wa"
     if("species" %in% display)
         display[display == "species"] <- "sp"
+    if("all" %in% display)
+        display <- names(tabula)
     take <- tabula[display]
     slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices])
     rnk <- x$CCA$rank

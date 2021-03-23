@@ -22,6 +22,8 @@
       display[display == "sites"] <- "wa"
     if("species" %in% display)
       display[display == "species"] <- "sp"
+    if ("all" %in% display)
+        display <- names(tabula)
     take <- tabula[display]
     sumev <- x$tot.chi
     ## dbrda can have negative eigenvalues, but have scores only for
