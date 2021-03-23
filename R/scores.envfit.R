@@ -1,5 +1,5 @@
 `scores.envfit` <-
-    function (x, display, choices, arrow.mul = 1, ggplot = FALSE, ...)
+    function (x, display, choices, arrow.mul = 1, tidy = FALSE, ...)
 {
     display <- match.arg(display,
                          c("vectors", "bp", "factors", "cn"),
@@ -18,7 +18,7 @@
             facts <- facts[, choices, drop=FALSE]
         out$factors <- facts
     }
-    if (ggplot) {
+    if (tidy) {
         group <- sapply(out, nrow)
         group <- rep(names(group), group)
         out <- do.call(rbind, out)

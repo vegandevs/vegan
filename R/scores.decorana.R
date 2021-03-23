@@ -1,6 +1,6 @@
 `scores.decorana` <-
     function (x, display="sites", choices = 1:4, origin=TRUE,
-              ggplot = FALSE, ...)
+              tidy = FALSE, ...)
 {
     display <- match.arg(display, c("sites", "species", "both"), several.ok = TRUE)
     out <- list()
@@ -16,7 +16,7 @@
             species <- sweep(species, 2, x$origin, "-")
         out$species <- species[, choices]
     }
-    if (ggplot) {
+    if (tidy) {
         group <- sapply(out, nrow)
         group <- rep(names(group), group)
         out <- do.call(rbind, out)
