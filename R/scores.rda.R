@@ -3,7 +3,7 @@
 ### results are handled by scores.cca.
 `scores.rda` <-
     function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
-              scaling = "species", const, correlation = FALSE, ggplot = FALSE,
+              scaling = "species", const, correlation = FALSE, tidy = FALSE,
               ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
@@ -138,8 +138,8 @@
                              prefix = substr(names(sol)[i], 1, 3))
         }
     }
-    ## ggplot scores
-    if (ggplot) {
+    ## tidy scores
+    if (tidy) {
         ## re-group biplot arrays duplicating factor centroids
         if (!is.null(sol$biplot) && !is.null(sol$centroids)) {
             dup <- rownames(sol$biplot) %in% rownames(sol$centroids)
