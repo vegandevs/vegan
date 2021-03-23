@@ -32,7 +32,7 @@
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
    axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
-\method{scores}{envfit}(x, display, choices, ...)
+\method{scores}{envfit}(x, display, choices, arrow.mul=1, ggplot = FALSE, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 }
@@ -66,6 +66,12 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
     the \code{envfit} results.}
     
   \item{choices}{Axes to plotted.}
+  \item{ggplot}{Return scores that are compatible with \CRANpkg{ggplot2}:
+    all scores are in a single \code{data.frame}, score type is
+    identified by factor variable \code{scores} (\code{"vectors"} or
+    \code{"factors"}), the names by variable \code{label}. These scores
+    are incompatible with conventional \code{plot} functions, but they can
+    be used in \pkg{ggplot2}.}
     
   \item{labels}{Change plotting labels. The argument should be a list
     with elements \code{vectors} and \code{factors} which give the new
@@ -76,7 +82,9 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
     \code{labels} command.}
   \item{arrow.mul}{Multiplier for vector lengths. The arrows are
     automatically scaled similarly as in \code{\link{plot.cca}} if this
-    is not given and \code{add = TRUE}.}
+    is not given in \code{plot} and \code{add = TRUE}. However, in
+    \code{scores} it can be used to adjust arrow lengths when the
+    \code{plot} function is not used.}
   \item{at}{The origin of fitted arrows in the plot.  If you plot arrows
     in other places then origin, you probably have to specify
     \code{arrrow.mul}.}
@@ -178,7 +186,8 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   
   The results can be accessed with \code{scores.envfit} function which
   returns either the fitted vectors scaled by correlation coefficient or
-  the centroids of the fitted environmental variables.
+  the centroids of the fitted environmental variables, or a named list
+  of both.
 }
 \value{
   Functions \code{vectorfit} and \code{factorfit} return lists of

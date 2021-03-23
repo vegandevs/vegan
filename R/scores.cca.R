@@ -1,6 +1,6 @@
 `scores.cca` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-              scaling = "species", hill = FALSE, ...)
+    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
+              scaling = "species", hill = FALSE, ggplot = FALSE, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
@@ -12,12 +12,14 @@
     if (is.null(x$CCA))
         tabula <- tabula[1:2]
     display <- match.arg(display, c("sites", "species", "wa",
-                                    "lc", "bp", "reg", "cn"),
+                                    "lc", "bp", "reg", "cn", "all"),
                          several.ok = TRUE)
     if("sites" %in% display)
         display[display == "sites"] <- "wa"
     if("species" %in% display)
         display[display == "species"] <- "sp"
+    if("all" %in% display)
+        display <- names(tabula)
     take <- tabula[display]
     slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices])
     rnk <- x$CCA$rank
@@ -86,7 +88,7 @@
     }
     if ("centroids" %in% take) {
         if (is.null(x$CCA$centroids))
-            sol$centroids <- NA
+            sol$centroids <- NULL
         else {
             cn <- matrix(0, nrow(x$CCA$centroids), length(choices))
             cn[, choices <= rnk] <- x$CCA$centroids[, choices[choices <=
@@ -112,6 +114,34 @@
                     rownames(sol[[i]], do.NULL = FALSE,
                              prefix = substr(names(sol)[i], 1, 3))
         }
+    }
+    ## ggplot scores
+    if (ggplot) {
+        ## re-group biplot arrays duplicating factor centroids
+        if (!is.null(sol$biplot) && !is.null(sol$centroids)) {
+            dup <- rownames(sol$biplot) %in% rownames(sol$centroids)
+            if (any(dup)) {
+                sol$factorbiplot <- sol$biplot[dup,, drop=FALSE]
+                sol$biplot <- sol$biplot[!dup,, drop=FALSE]
+            }
+        }
+        group <- sapply(sol, nrow)
+        group <- rep(names(group), group)
+        sol <- do.call(rbind, sol)
+        label <- rownames(sol)
+        rw <- x$rowsum # weights(x) can fail with na.action=na.exclude
+        cw <- weights(x, "species")
+        w <- rep(NA, nrow(sol))
+        if (any(weighted <- group == "sites"))
+            w[weighted] <- rw
+        if (any(weighted <- group == "constraints"))
+            w[weighted] <- rw
+        if (any(weighted <- group == "species"))
+            w[weighted] <- cw
+        sol <- as.data.frame(sol)
+        sol$score <- as.factor(group)
+        sol$label <- label
+        sol$weight <- w
     }
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1)

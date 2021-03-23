@@ -30,13 +30,13 @@ metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20,
     noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
     trace = 1, plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
-    type = "p", shrink = FALSE,  ...)
+    type = "p", shrink = FALSE, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
     choices = c(1,2), shrink = FALSE, select, ...)
 \method{text}{metaMDS}(x, display = c("sites", "species"), labels, 
     choices = c(1,2), shrink = FALSE, select, ...)
 \method{scores}{metaMDS}(x, display = c("sites", "species"), shrink = FALSE, 
-    choices, ...)
+    choices, ggplot = FALSE, ...)
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, 
     noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
     distfun = vegdist, ...)
@@ -104,6 +104,12 @@ metaMDSredist(object, ...)
  \item{display}{Display \code{"sites"} or \code{"species"}.}
  \item{shrink}{Shrink back species scores if they were expanded
    originally.}
+ \item{ggplot}{Return scores that are compatible with \CRANpkg{ggplot2}:
+   all scores are in a single \code{data.frame}, score type is
+   identified by factor variable \code{code} (\code{"sites"} or
+   \code{"species"}), the names by variable \code{label}. These scores
+   are incompatible with conventional \code{plot} functions, but they can
+   be used in \pkg{ggplot2}.}
  \item{labels}{Optional test to be used instead of row names.}
  \item{select}{Items to be displayed.  This can either be a logical
    vector which is \code{TRUE} for displayed items or a vector of indices

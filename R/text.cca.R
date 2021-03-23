@@ -7,7 +7,7 @@
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
-                  const, correlation = correlation, hill = hill)
+                  const, correlation = correlation, hill = hill, ggplot=FALSE)
     ## store rownames of pts for use later, otherwise if user supplies
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
@@ -28,7 +28,8 @@
             cnlabs <- NULL
         }
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
-                      const, correlation = correlation, hill = hill)
+                      const, correlation = correlation, hill = hill,
+                      ggplot=FALSE)
         bnam <- rownames(pts)
         pts <- pts[!(bnam %in% cnam), , drop = FALSE]
         if (nrow(pts) == 0)

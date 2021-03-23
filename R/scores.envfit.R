@@ -1,22 +1,34 @@
 `scores.envfit` <-
-    function (x, display, choices, ...)
+    function (x, display, choices, arrow.mul = 1, ggplot = FALSE, ...)
 {
-    display <- match.arg(display, c("vectors", "bp", "factors",
-        "cn"))
-    if (display %in% c("vectors", "bp")) {
-        out <- x$vectors$arrows[, , drop = FALSE]
-        if (!is.null(out))
-            out <- sweep(out, 1, sqrt(x$vectors$r), "*")
+    display <- match.arg(display,
+                         c("vectors", "bp", "factors", "cn"),
+                         several.ok = TRUE)
+    out <- list()
+    if (any(display %in% c("vectors", "bp"))) {
+        vects <- x$vectors$arrows[, , drop = FALSE]
+        if (!missing(choices))
+            vects <- vects[, choices, drop=FALSE]
+        if (!is.null(vects))
+            out$vectors <- arrow.mul * sqrt(x$vectors$r) * vects
     }
-    else out <- x$factors$centroids[, , drop = FALSE]
-    if (!missing(choices) && !is.null(out)) {
-        if (length(choices) <= ncol(out))
-            out <- out[, choices, drop = FALSE]
-        else
-            stop(gettextf(
-                "you requested  %d dimensions, but 'envfit' only has %d",
-                length(choices), ncol(out)))
+    if (any(display %in% c("factors", "cn"))) {
+        facts <- x$factors$centroids[, , drop = FALSE]
+        if (!missing(choices))
+            facts <- facts[, choices, drop=FALSE]
+        out$factors <- facts
     }
+    if (ggplot) {
+        group <- sapply(out, nrow)
+        group <- rep(names(group), group)
+        out <- do.call(rbind, out)
+        label <- rownames(out)
+        out <- as.data.frame(out)
+        out$score <- group
+        out$label <- label
+    }
+    if (length(out) == 1)
+        out <- out[[1]]
     out
 }
 

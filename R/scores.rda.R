@@ -2,8 +2,9 @@
 ### latter can have special features which are commented below. cca
 ### results are handled by scores.cca.
 `scores.rda` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
-              scaling = "species", const, correlation = FALSE, ...)
+    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
+              scaling = "species", const, correlation = FALSE, ggplot = FALSE,
+              ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
@@ -21,6 +22,8 @@
       display[display == "sites"] <- "wa"
     if("species" %in% display)
       display[display == "species"] <- "sp"
+    if ("all" %in% display)
+        display <- names(tabula)
     take <- tabula[display]
     sumev <- x$tot.chi
     ## dbrda can have negative eigenvalues, but have scores only for
@@ -112,7 +115,7 @@
     }
     if ("centroids" %in% take) {
         if (is.null(x$CCA$centroids))
-            sol$centroids <- NA
+            sol$centroids <- NULL
         else {
             cn <- matrix(0, nrow(x$CCA$centroids), length(choices))
             cn[, choices <= rnk] <- x$CCA$centroids[, choices[choices <= rnk]]
@@ -134,6 +137,24 @@
                     rownames(sol[[i]], do.NULL = FALSE,
                              prefix = substr(names(sol)[i], 1, 3))
         }
+    }
+    ## ggplot scores
+    if (ggplot) {
+        ## re-group biplot arrays duplicating factor centroids
+        if (!is.null(sol$biplot) && !is.null(sol$centroids)) {
+            dup <- rownames(sol$biplot) %in% rownames(sol$centroids)
+            if (any(dup)) {
+                sol$factorbiplot <- sol$biplot[dup,, drop=FALSE]
+                sol$biplot <- sol$biplot[!dup,, drop=FALSE]
+            }
+        }
+        group <- sapply(sol, nrow)
+        group <- rep(names(group), group)
+        sol <- do.call(rbind, sol)
+        label <- rownames(sol)
+        sol <- as.data.frame(sol)
+        sol$score <- as.factor(group)
+        sol$label <- label
     }
     ## Only one type of scores: return a matrix instead of a list
     if (length(sol) == 1)

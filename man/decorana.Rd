@@ -34,8 +34,8 @@ decorana(veg, iweigh=0, iresc=4, ira=0, mk=26, short=0,
 
 downweight(veg, fraction = 5)
 
-\method{scores}{decorana}(x, display=c("sites","species"), choices=1:4,
-       origin=TRUE, ...)
+\method{scores}{decorana}(x, display="sites", choices=1:4,
+       origin=TRUE, ggplot=FALSE, ...)
 }
 
 \arguments{
@@ -65,6 +65,12 @@ downweight(veg, fraction = 5)
   \item{head, tail}{Number of rows printed from the head and tail of
     species and site scores. Default \code{NA} prints all.}
   \item{fraction}{Abundance fraction where downweighting begins.}
+  \item{ggplot}{Return scores that are compatible with \CRANpkg{ggplot2}:
+    all scores are in a single \code{data.frame}, score type is
+    identified by factor variable \code{score} (\code{"sites"},
+    \code{"species"}), the names by variable \code{label}. These scores
+    are incompatible with conventional \code{plot} functions, but they can
+    be used in \pkg{ggplot2}.}
   \item{...}{Other arguments for \code{plot} function.}
   }
 
