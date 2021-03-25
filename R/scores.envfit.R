@@ -19,6 +19,8 @@
         out$factors <- facts
     }
     if (tidy) {
+        if (length(out) == 0) # no scores
+            return(NULL)
         group <- sapply(out, nrow)
         group <- rep(names(group), group)
         out <- do.call(rbind, out)
@@ -27,8 +29,7 @@
         out$score <- group
         out$label <- label
     }
-    if (length(out) == 1)
-        out <- out[[1]]
-    out
+    ## only two kind of scores: return NULL, matrix or a list
+    switch(length(out), out[[1]], out)
 }
 
