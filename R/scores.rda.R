@@ -140,6 +140,8 @@
     }
     ## tidy scores
     if (tidy) {
+        if (length(sol) == 0) # no scores
+            return(NULL)
         ## re-group biplot arrays duplicating factor centroids
         if (!is.null(sol$biplot) && !is.null(sol$centroids)) {
             dup <- rownames(sol$biplot) %in% rownames(sol$centroids)
