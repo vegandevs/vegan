@@ -6,8 +6,9 @@
               plot = FALSE, previous.best,  ...)
 {
     engine <- match.arg(engine)
-    ## take care that trymax >= try
-    trymax <- max(trymax, try)
+    ## take care that try (minimum) is not larger than trymax (maximum)
+    if (try > trymax)
+        try <- trymax
     ## This could be a character vector of length > 1L
     commname <- deparse(substitute(comm), width.cutoff = 500L)
     if (length(commname) > 1L) {
