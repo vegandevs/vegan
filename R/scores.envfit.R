@@ -27,8 +27,7 @@
         out$score <- group
         out$label <- label
     }
-    if (length(out) == 1)
-        out <- out[[1]]
-    out
+    ## only two kind of scores: return NULL, matrix or a list
+    switch(length(out), out[[1]], out)
 }
 

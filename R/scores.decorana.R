@@ -31,7 +31,6 @@
             wts[take] <- weights(x, display="species")
         out$weight <- wts
     }
-    if (length(out) == 1)
-        out <- out[[1]]
-    out
+    ## two kind of scores: return NULL, matrix or a list
+    switch(length(out), out[[1]], out)
 }

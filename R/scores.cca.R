@@ -143,8 +143,7 @@
         sol$label <- label
         sol$weight <- w
     }
-    ## Only one type of scores: return a matrix instead of a list
-    if (length(sol) == 1)
-        sol <- sol[[1]]
-    sol
+    ## return NULL instead of list(), and matrix instead of a list of
+    ## one matrix
+    switch(min(2, length(sol)), sol[[1]], sol)
 }

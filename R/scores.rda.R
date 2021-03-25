@@ -156,12 +156,13 @@
         sol$score <- as.factor(group)
         sol$label <- label
     }
-    ## Only one type of scores: return a matrix instead of a list
-    if (length(sol) == 1)
-        sol <- sol[[1]]
     ## collapse const if both items identical
     if (identical(const[1], const[2]))
         const <- const[1]
-    attr(sol, "const") <- const
+    ## return NULL for list(), matrix for single scores, and a list
+    ## for several scores
+    sol <- switch(min(2, length(sol)), sol[[1]], sol)
+    if (!is.null(sol))
+        attr(sol, "const") <- const
     sol
 }
