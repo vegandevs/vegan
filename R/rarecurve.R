@@ -1,6 +1,6 @@
 `rarecurve` <-
     function(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
-             label = TRUE, col, lty, ...)
+             label = TRUE, col, lty, tidy = FALSE, ...)
 {
     ## matrix is faster than data.frame
     x <- as.matrix(x)
@@ -34,6 +34,17 @@
         }
         drop(rarefy(x[i,], n))
     })
+    ## instead of plotting a rarecurve, return a "tidy" data frame and
+    ## the let the user figure out how to display the results
+    if (tidy) {
+        len <- sapply(out, length)
+        nm <- rownames(x)
+        df <- data.frame(
+            "Site" = factor(rep(nm, len), levels=nm),
+            "Sample" = unlist(lapply(out, attr, which="Subsample")),
+            "Species" = unlist(out))
+        return(df) # exit with data.frame
+    }
     Nmax <- sapply(out, function(x) max(attr(x, "Subsample")))
     Smax <- sapply(out, max)
     ## set up plot
