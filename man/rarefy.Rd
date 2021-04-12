@@ -14,7 +14,7 @@ rarefy(x, sample, se = FALSE, MARGIN = 1)
 rrarefy(x, sample)
 drarefy(x, sample)
 rarecurve(x, step = 1, sample, xlab = "Sample Size", ylab = "Species",
-          label = TRUE, col, lty, ...)
+          label = TRUE, col, lty, tidy = FALSE, ...)
 rareslope(x, sample)
 }
 
@@ -31,6 +31,10 @@ rareslope(x, sample)
   \item{col, lty}{plotting colour and line type, see
     \code{\link{par}}. Can be a vector of length \code{nrow(x)}, one per
     sample, and will be extended to such a length internally.}
+  \item{tidy}{Instead of drawing a \code{plot}, return a \dQuote{tidy}
+    data frame than can be used in \CRANpkg{ggplot2} graphics. The data
+    frame has variables \code{Site} (factor), \code{Sample} and
+    \code{Species}.}
   \item{...}{Parameters passed to \code{\link{nlm}}, or to \code{\link{plot}},
     \code{\link{lines}} and \code{\link{ordilabel}} in \code{rarecurve}.}
 }
@@ -93,7 +97,9 @@ rareslope(x, sample)
   on consecutive lines.
 
   Function \code{rarecurve} returns \code{\link{invisible}} list of
-  \code{rarefy} results corresponding each drawn curve.
+  \code{rarefy} results corresponding each drawn curve. Alternatively,
+  with \code{tidy = TRUE} it returns a data frame that can be used in
+  \CRANpkg{ggplot2} graphics.
 }
 
 \references{
