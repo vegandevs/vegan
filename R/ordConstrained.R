@@ -384,6 +384,21 @@
                 "capscale" = initCAP(Y),
                 "dbrda" = initDBRDA(Y),
                 "pass" = Y)
+    ## sanity checks for the input
+    if (!is.numeric(Y))
+        stop("dependent data (community) must be numeric")
+    if (!is.null(X)) {
+        if (!is.numeric(X))
+            stop("constraints must be numeric or factors")
+        if (nrow(Y) != nrow(X))
+            stop("dependent data and constraints must have the same number of rows")
+    }
+    if (!is.null(Z)) {
+        if (!is.numeric(Z))
+            stop("conditions must be numeric or factors")
+        if (nrow(Y) != nrow(Z))
+            stop("dependent data and conditions must have the same number of rows")
+    }
     ## header info for the model
     head <- ordHead(Y)
     ## Partial
