@@ -64,7 +64,7 @@ as.preston(x, tiesplit = TRUE, ...)
   \eqn{f_n = \alpha x^n / n} (Fisher et al. 1943).
   The estimation is possible only for genuine
   counts of individuals. The parameter \eqn{\alpha} is used as a
-  diversity index, and \eqn{\alpha} and its standard error can be
+  diversity index which can be
   estimated with a separate function \code{\link{fisher.alpha}}. The
   parameter \eqn{x} is taken as a nuisance parameter which is not
   estimated separately but taken to be \eqn{n/(n+\alpha)}. Helper
