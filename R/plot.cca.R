@@ -2,6 +2,9 @@
                         scaling = "species", type, xlim, ylim, const,
                         correlation = FALSE, hill = FALSE, ...) {
     TYPES <- c("text", "points", "none")
+    ## take care that bp arrows are also returned if only cn given
+    if (any(display %in% c("c","cn")))
+        display <- c(display, "bp")
     g <- scores(x, choices, display, scaling, const, correlation = correlation,
                 hill = hill, tidy = FALSE)
     if (length(g) == 0 || all(is.na(g)))
@@ -15,15 +18,13 @@
                                          prefix = substr(names(g)[i], 1, 3))
     }
     if (!is.null(g$centroids)) {
-        if (is.null(g$biplot))
+        if (is.null(g$biplot)) # should never be null if g$centroids exist
             g$biplot <- scores(x, choices, "bp", scaling)
-        if (!is.na(g$centroids)[1]) {
-            bipnam <- rownames(g$biplot)
-            cntnam <- rownames(g$centroids)
-            g$biplot <- g$biplot[!(bipnam %in% cntnam), , drop = FALSE]
-            if (nrow(g$biplot) == 0)
-                g$biplot <- NULL
-        }
+        bipnam <- rownames(g$biplot)
+        cntnam <- rownames(g$centroids)
+        g$biplot <- g$biplot[!(bipnam %in% cntnam), , drop = FALSE]
+        if (nrow(g$biplot) == 0)
+            g$biplot <- NULL
     }
     if (missing(type)) {
         nitlimit <- 80
