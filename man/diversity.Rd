@@ -54,7 +54,11 @@ specnumber(x, groups, MARGIN = 1)
   \code{fisher.alpha} estimates the \eqn{\alpha} parameter of
   Fisher's logarithmic series (see \code{\link{fisherfit}}). 
   The estimation is possible only for genuine
-  counts of individuals. 
+  counts of individuals.
+
+  None of these diversity indices is usable for empty sampling units
+  without any species, but some of the indices can give a numeric
+  value. Filtering out these cases is left for the user.
   
   Function \code{specnumber} finds the number of species. With
   \code{MARGIN = 2}, it finds frequencies of species. If \code{groups}

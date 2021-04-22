@@ -59,17 +59,19 @@ as.preston(x, tiesplit = TRUE, ...)
     \code{prestondistr}. }
 }
 \details{
-  In Fisher's logarithmic series the expected
-  number of species \eqn{f} with \eqn{n} observed individuals is
-  \eqn{f_n = \alpha x^n / n} (Fisher et al. 1943).
-  The estimation is possible only for genuine
-  counts of individuals. The parameter \eqn{\alpha} is used as a
-  diversity index which can be
-  estimated with a separate function \code{\link{fisher.alpha}}. The
-  parameter \eqn{x} is taken as a nuisance parameter which is not
-  estimated separately but taken to be \eqn{n/(n+\alpha)}. Helper
-  function \code{as.fisher} transforms abundance data into Fisher
-  frequency table.
+
+  In Fisher's logarithmic series the expected number of species
+  \eqn{f} with \eqn{n} observed individuals is \eqn{f_n = \alpha x^n /
+  n} (Fisher et al. 1943).  The estimation is possible only for
+  genuine counts of individuals. The parameter \eqn{\alpha} is used as
+  a diversity index which can be estimated with a separate function
+  \code{\link{fisher.alpha}}. The parameter \eqn{x} is taken as a
+  nuisance parameter which is not estimated separately but taken to be
+  \eqn{n/(n+\alpha)}. Helper function \code{as.fisher} transforms
+  abundance data into Fisher frequency table. Diversity will be given
+  as \code{NA} for communities with one (or zero) species: there is no
+  reliable way of estimating their diversity, even if the equations
+  will return a bogus numeric value in some cases.
 
   Preston (1948) was not satisfied with Fisher's model which seemed to
   imply infinite species richness, and postulated that rare species is
