@@ -10,12 +10,12 @@
     ## Solve 'x' (Fisher alpha).
     d1fun <- function(x, S, N) x * log(1 + N/x) - S
 
-    ## 'extendInt' arg was added in R r63162 | maechler | 2013-07-03
-    ## 11:47:22 +0300 (Wed, 03 Jul 2013) and released in R 3.1.0
-    ## (2014-04-10).
-
-    sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
-
+    ## need at least 2 species to estimate Fisher alpha -- set to NA
+    ## (or 1?) for zero-species and one-species communities
+    if (S > 1)
+        sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
+    else
+        sol <- list(root = NA, iter = 0, estim.prec = NA)
     nuisance <- N/(N + sol$root)
     ## we used nlm() earlier, and the following output is compatible
     out <- list(estimate = sol$root, hessian = NA,
