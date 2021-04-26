@@ -3,13 +3,14 @@
 {
     rich <- apply(x, 2, function(taxa) length(unique(taxa)))
     S <- nrow(x)
+    ## check drops redundant levels (constant or non-repeating)
     if (check) {
         keep <- rich < S & rich > 1
         rich <- rich[keep]
-        x <- x[, keep]
+        x <- x[, keep, drop=FALSE]
     }
     i <- rev(order(rich))
-    x <- x[, i]
+    x <- x[, i, drop=FALSE]
     rich <- rich[i]
     if (varstep) {
         add <- -diff(c(nrow(x), rich, 1))
