@@ -15,10 +15,13 @@
     ## and it can make sense to have special treatment of S==N. With S
     ## == 0, we force alpha 0 whereas the function would give
     ## fisherfit(0) as 1 (which hardly makes sense).
-    if (S > 0)
+    if (S > 0) {
         sol <- uniroot(d1fun, c(1,50), extendInt = "yes", S = S, N = N, ...)
-    else
+        if (S == N)
+            warning("all species singletons: alpha arbitrarily high")
+    } else {
         sol <- list(root = 0, iter = 0, estim.prec = NA)
+    }
     nuisance <- N/(N + sol$root)
     ## we used nlm() earlier, and the following output is compatible
     out <- list(estimate = sol$root, hessian = NA,
