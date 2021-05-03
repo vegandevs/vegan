@@ -80,5 +80,7 @@
         }
         dimnames(out) <- dimnames(u)
     }
+    if (summarize)
+        out <- out[, ncol(out)]
     out/tot
 }
