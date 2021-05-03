@@ -48,9 +48,7 @@ vif.cca(object)
      when \code{statistic="explained"}. For \code{model = "CCA"} add
      conditioned (partialled out) variation, and for \code{model = "CA"}
      add both conditioned and constrained variation. This will give
-     cumulative explanation. The argument has no effect when
-     \code{statistic="distance"}, but this will always show the residual
-     distance after current axis and all previous components.
+     cumulative explanation with previous components.
    }
 
   \item{unity}{Scale inertia components to unit sum (sum of all items is
@@ -135,15 +133,6 @@ vif.cca(object)
 \author{Jari Oksanen. The \code{vif.cca} relies heavily on the code by
   W. N. Venables. \code{alias.cca} is a simplified version of
   \code{\link{alias.lm}}.}
-
-\note{
-
-  It is a common practise to use \code{goodness} statistics to remove
-  species from ordination plots, but this may not be a good idea, as the
-  total inertia is not a meaningful concept in \code{cca}, in particular
-  for rare species.
-
-}
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
   \code{\link{capscale}}. }
