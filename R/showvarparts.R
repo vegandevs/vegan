@@ -77,7 +77,7 @@
                       nlabs, length(labels)))
     switch(parts,
            text(0,0, labels[-nlabs], ...),
-           text(rbind(cp[1,], colMeans(cp), cp[2,]), labels[-nlabs], ...),
+           text(rbind(cp, colMeans(cp)), labels[-nlabs], ...),
            text(rbind(cp, colMeans(cp[1:2,]), colMeans(cp[2:3,]),
                       colMeans(cp[c(1,3),]), colMeans(cp)), labels[-nlabs], ...),
            text(cp, labels[-nlabs], ...)
