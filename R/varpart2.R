@@ -68,8 +68,8 @@
     rownames(fract) <- c("[a+c] = X1", "[b+c] = X2", "[a+b+c] = X1+X2")
     b <- ab + bc - abc
     Df <- c(m3-m2, m3-m1, 0, NA)
-    indfract <- data.frame(Df = Df, R.squared = rep(NA, 4),
-                           Adj.R.squared = c(ab - b, bc - b, b, 1 - abc),
+    indfract <- data.frame(Df = Df, R.square = rep(NA, 4),
+                           Adj.R.square = c(ab - b, bc - b, b, 1 - abc),
                            Testable = c(TRUE, TRUE, FALSE, FALSE) & Df)
     rownames(indfract) <- c("[a] = X1|X2", "[b] = X2|X1", "[c]",
                             "[d] = Residuals")
