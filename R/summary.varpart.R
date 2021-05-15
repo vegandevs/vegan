@@ -20,9 +20,24 @@
     ## returned components
     contrpart <- colSums(contr)
     uniqpart <- uniqpart[seq_len(nsets)]
+    names(uniqpart) <- names(contrpart)
     out <- list("uniqpart" = uniqpart,
                 "contribpart" = contrpart,
-                "contributions" = contr)
+                "contributions" = contr,
+                "setlabels" = object$tables)
     class(out) <- "summary.varpart"
     out
+}
+
+`print.summary.varpart` <-
+    function(x, digits = 3, zero.print = "", ...)
+{
+    ## collect table
+    df <- data.frame("Unique" = x$uniqpart, "Contributed" = x$contribpart,
+                     "Component" = x$setlabels)
+    cat("\nUnique fractions and total with shared fractions equally allocated:\n\n")
+    print(df, digits = digits)
+    cat("\nContributions of fractions to sets:\n\n")
+    print.table(x$contributions, digits = digits, zero.print = zero.print)
+    invisible(x)
 }
