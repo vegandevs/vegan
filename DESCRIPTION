@@ -7,7 +7,7 @@ Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
    Helene Wagner
 Maintainer: Jari Oksanen <jhoksane@gmail.com>
 Depends: permute (>= 0.9-0), lattice, R (>= 3.4.0)
-Suggests: parallel, tcltk, knitr
+Suggests: parallel, tcltk, knitr, markdown
 Imports: MASS, cluster, mgcv
 VignetteBuilder: utils, knitr
 Description: Ordination methods, diversity analysis and other
