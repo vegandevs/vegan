@@ -123,11 +123,3 @@
     class(sol) <- c("adonis2", "dbrda", "rda", "cca")
     sol
 }
-
-### synonymize old adonis
-
-`adonis` <- function(...)
-{
-    message("adonis() is deprecated: use adonis2() instead")
-    adonis2(...)
-}
