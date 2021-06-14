@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2019-04-23 r76417) -- "Unsuffered Consequences"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin18.5.0 (64-bit)
+R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -109,13 +109,13 @@ Residual  5   0.80011
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## adonis
-> adonis(fla, data = dune.env)
+> adonis2(fla, data = dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = fla, data = dune.env)
+adonis2(formula = fla, data = dune.env)
             Df SumOfSqs      R2      F Pr(>F)   
 Management   3   1.4686 0.34161 3.0480  0.003 **
 poly(A1, 2)  2   0.5829 0.13559 1.8146  0.057 . 
@@ -407,7 +407,7 @@ Eigenvalues for unconstrained axes:
 > ## adonis must be done with detached 'df' or it will be used instead
 > ## of with(dune.env, ...)
 > detach(df)
-> with(dune.env, foo("adonis", dune, Management))
+> with(dune.env, foo("adonis2", dune, Management))
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
@@ -420,17 +420,15 @@ Residual 16   2.8304 0.65839
 Total    19   4.2990 1.00000                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> ## the test case reported in github issue #285 by @ktmbiome (reported
-> ## there for adonis2, but in 2.6-0 this replaced old adonis that
-> ## became obsolete).
+> ## the test case reported in github issue #285 by @ktmbiome
 > var <- "Moisture"
-> adonis(dune ~ dune.env[, var])
+> adonis2(dune ~ dune.env[, var])
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ dune.env[, var])
+adonis2(formula = dune ~ dune.env[, var])
                 Df SumOfSqs      R2      F Pr(>F)    
 dune.env[, var]  3   1.7282 0.40199 3.5851  0.001 ***
 Residual        16   2.5709 0.59801                  
@@ -999,4 +997,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  3.533   0.235   3.761 
+  1.340   0.051   1.390 
