@@ -133,7 +133,7 @@ permustats(x, ...)
   \code{\link{pairs}}.
 
   The \code{permustats} can extract permutation statistics from the
-  results of \code{\link{adonis}},
+  results of \code{\link{adonis2}},
   \code{\link{anosim}}, \code{\link{anova.cca}}, \code{\link{mantel}},
   \code{\link{mantel.partial}}, \code{\link{mrpp}},
   \code{\link{oecosimu}}, \code{\link{ordiareatest}},
@@ -166,7 +166,7 @@ permustats(x, ...)
 
 \examples{
 data(dune, dune.env)
-mod <- adonis(dune ~ Management + A1, data = dune.env)
+mod <- adonis2(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
