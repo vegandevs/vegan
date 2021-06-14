@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{diversity}
 \alias{diversity}
+\alias{simpson.unb}
 \alias{fisher.alpha}
 \alias{specnumber}
 
@@ -12,6 +13,7 @@
 \usage{
 diversity(x, index = "shannon", groups, equalize.groups = FALSE,
    MARGIN = 1, base = exp(1))
+simpson.unb(x, inverse = FALSE)
 fisher.alpha(x, MARGIN = 1, ...)
 specnumber(x, groups, MARGIN = 1)
 }
@@ -22,6 +24,8 @@ specnumber(x, groups, MARGIN = 1)
     \code{"simpson"} or \code{"invsimpson"}.}
   \item{MARGIN}{Margin for which the index is computed. }
   \item{base}{ The logarithm \code{base} used in \code{shannon}.}
+  \item{inverse}{Use inverse Simpson similarly as in
+     \code{diversity(x, "invsimpson")}.}
   \item{groups}{A grouping factor: if given, finds the diversity of
     communities pooled by the groups.}
   \item{equalize.groups}{Instead of observed abundances, standardize all
@@ -39,6 +43,11 @@ specnumber(x, groups, MARGIN = 1)
   Both variants of Simpson's index are based on \eqn{D = \sum p_i^2}{D =
     sum p_i^2}. Choice \code{simpson} returns \eqn{1-D} and
   \code{invsimpson} returns \eqn{1/D}.
+
+  \code{simpson.unb} finds unbiased Simpson indices for discrete
+  samples (Hurlbert 1971, eq. 5). These are less sensitive to sample
+  size than the basic Simpson indices. The unbiased indices can be only
+  calculated for data of integer counts.
 
   The \code{diversity} function can find the total (or gamma) diversity
   of pooled communities with argument \code{groups}. The average alpha
@@ -114,8 +123,8 @@ data(BCI, BCI.env)
 H <- diversity(BCI)
 simp <- diversity(BCI, "simpson")
 invsimp <- diversity(BCI, "inv")
-## Unbiased Simpson (Hurlbert 1971, eq. 5) with rarefy:
-unbias.simp <- rarefy(BCI, 2) - 1
+## Unbiased Simpson
+unbias.simp <- simpson.unb(BCI)
 ## Fisher alpha
 alpha <- fisher.alpha(BCI)
 ## Plot all
