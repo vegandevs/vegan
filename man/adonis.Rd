@@ -12,7 +12,7 @@
   matrices; uses a permutation test with pseudo-\eqn{F} ratios.}
 
 \usage{
-adonis(formula, data, permutations = 999, method = "bray",
+adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
     parallel = getOption("mc.cores"), na.action = na.fail, strata, ...)
 }
@@ -67,13 +67,13 @@ adonis(formula, data, permutations = 999, method = "bray",
 
 \details{
 
-\code{adonis} is a function for the analysis and partitioning sums of
+\code{adonis2} is a function for the analysis and partitioning sums of
 squares using dissimilarities. The function is based on the principles
 of McArdle & Anderson (2001) and can perform sequential, marginal and
 overall tests. The function also allows using additive constants or
 squareroot of dissimilarities to avoid negative eigenvalues, but can
 also handle semimetric indices (such as Bray-Curtis) that produce
-negative eigenvalues. The \code{adonis} tests are identical to
+negative eigenvalues. The \code{adonis2} tests are identical to
 \code{\link{anova.cca}} of \code{\link{dbrda}}. With Euclidean
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
@@ -109,10 +109,10 @@ Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
   location and dispersion effects: significant differences may be caused
   by different within-group variation (dispersion) instead of different
   mean values of the groups (see Warton et al. 2012 for a general
-  analysis). However, it seems that \code{adonis} is less sensitive to
+  analysis). However, it seems that \code{adonis2} is less sensitive to
   dispersion effects than some of its alternatives (\code{\link{anosim}},
   \code{\link{mrpp}}). Function \code{\link{betadisper}} is a sister
-  function to \code{adonis} to study the differences in dispersion
+  function to \code{adonis2} to study the differences in dispersion
   within the same geometric framework.
 }
 
@@ -146,9 +146,9 @@ Ecology and Evolution}, 3, 89--101.
 data(dune)
 data(dune.env)
 ## default test by terms
-adonis(dune ~ Management*A1, data = dune.env)
+adonis2(dune ~ Management*A1, data = dune.env)
 ## overall tests
-adonis(dune ~ Management*A1, data = dune.env, by = NULL)
+adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
 
 ### Example of use with strata, for nested (e.g., block) designs.
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
@@ -169,11 +169,11 @@ with(dat, ordispider(mod, field, lty=3, col="red"))
 
 ### Incorrect (no strata)
 perm <- how(nperm = 199)
-adonis(Y ~ NO3, data = dat, permutations = perm)
+adonis2(Y ~ NO3, data = dat, permutations = perm)
 
 ## Correct with strata
 setBlocks(perm) <- with(dat, field)
-adonis(Y ~ NO3, data = dat, permutations = perm)
+adonis2(Y ~ NO3, data = dat, permutations = perm)
 }
 
 \keyword{multivariate }
