@@ -667,7 +667,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
-> ### Aliases: adonis adonis2
+> ### Aliases: adonis2
 > ### Keywords: multivariate nonparametric
 > 
 > ### ** Examples
@@ -675,13 +675,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > data(dune.env)
 > ## default test by terms
-> adonis(dune ~ Management*A1, data = dune.env)
+> adonis2(dune ~ Management*A1, data = dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management * A1, data = dune.env)
+adonis2(formula = dune ~ Management * A1, data = dune.env)
               Df SumOfSqs      R2      F Pr(>F)   
 Management     3   1.4686 0.34161 3.2629  0.002 **
 A1             1   0.4409 0.10256 2.9387  0.013 * 
@@ -691,12 +691,12 @@ Total         19   4.2990 1.00000
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## overall tests
-> adonis(dune ~ Management*A1, data = dune.env, by = NULL)
+> adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
 Permutation test for adonis under reduced model
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management * A1, data = dune.env, by = NULL)
+adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)
          Df SumOfSqs      R2      F Pr(>F)    
 Model     7   2.4987 0.58122 2.3792  0.001 ***
 Residual 12   1.8004 0.41878                  
@@ -736,13 +736,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Incorrect (no strata)
 > perm <- how(nperm = 199)
-> adonis(Y ~ NO3, data = dat, permutations = perm)
+> adonis2(Y ~ NO3, data = dat, permutations = perm)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 199
 
-adonis(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
          Df SumOfSqs      R2      F Pr(>F)
 NO3       1 0.020795 0.17606 2.1368   0.12
 Residual 10 0.097321 0.82394              
@@ -750,14 +750,14 @@ Total    11 0.118116 1.00000
 > 
 > ## Correct with strata
 > setBlocks(perm) <- with(dat, field)
-> adonis(Y ~ NO3, data = dat, permutations = perm)
+> adonis2(Y ~ NO3, data = dat, permutations = perm)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Blocks:  with(dat, field) 
 Permutation: free
 Number of permutations: 199
 
-adonis(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
          Df SumOfSqs      R2      F Pr(>F)   
 NO3       1 0.020795 0.17606 2.1368   0.01 **
 Residual 10 0.097321 0.82394                 
@@ -6076,7 +6076,7 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > ### ** Examples
 > 
 > data(dune, dune.env)
-> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> mod <- adonis2(dune ~ Management + A1, data = dune.env)
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
@@ -8568,13 +8568,13 @@ Estimated degrees of freedom:
 REML score: 3.00623     
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
-> adonis(dune ~ ., dune.env)
+> adonis2(dune ~ ., dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ ., data = dune.env)
+adonis2(formula = dune ~ ., data = dune.env)
            Df SumOfSqs      R2      F Pr(>F)    
 A1          1   0.7230 0.16817 5.2038  0.001 ***
 Moisture    3   1.1871 0.27613 2.8482  0.005 ** 
@@ -8585,13 +8585,13 @@ Residual    7   0.9725 0.22621
 Total      19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> adonis(dune ~ Management + Moisture, dune.env)
+> adonis2(dune ~ Management + Moisture, dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management + Moisture, data = dune.env)
+adonis2(formula = dune ~ Management + Moisture, data = dune.env)
            Df SumOfSqs      R2      F Pr(>F)   
 Management  3   1.4686 0.34161 3.7907  0.002 **
 Moisture    3   1.1516 0.26788 2.9726  0.003 **
@@ -9074,7 +9074,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.539 0.273 9.826 0 0 
+Time elapsed:  9.532 0.276 9.82 0 0 
 > grDevices::dev.off()
 null device 
           1 
