@@ -13,7 +13,8 @@
 \usage{
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = "terms",
-    parallel = getOption("mc.cores"), na.action = na.fail, strata, ...)
+    parallel = getOption("mc.cores"), na.action = na.fail,
+    strata = NULL, ...)
 }
 
 \arguments{
@@ -56,11 +57,12 @@ adonis2(formula, data, permutations = 999, method = "bray",
     of the formula (see \code{\link{na.fail}} for explanation and
     alternatives). Missing values are not allowed on the
     left-hand-side. NB, argument \code{subset} is not implemented.}
-  \item{strata}{DEPRECATED: define \sQuote{strata} in
-    \code{permutations}. The traditional non-movable strata are set by
-    argument \code{blocks} in the \code{\link[permute]{how}} function of
-    the \CRANpkg{permute} package, but some more flexible alternatives
-    may be more appropriate. See Examples for for setting \sQuote{strata}.}
+
+  \item{strata}{Groups within which to constrain permutations. The
+    traditional non-movable strata are set as Blocks in the
+    \CRANpkg{permute} package, but some more flexible alternatives may
+    be more appropriate.}
+
   \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
 }
 
