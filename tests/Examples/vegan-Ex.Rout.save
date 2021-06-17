@@ -735,29 +735,26 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > with(dat, ordispider(mod, field, lty=3, col="red"))
 > 
 > ### Incorrect (no strata)
-> perm <- how(nperm = 199)
-> adonis2(Y ~ NO3, data = dat, permutations = perm)
+> adonis2(Y ~ NO3, data = dat, permutations = 199)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 199
 
-adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = 199)
          Df SumOfSqs      R2      F Pr(>F)
 NO3       1 0.020795 0.17606 2.1368   0.12
 Residual 10 0.097321 0.82394              
 Total    11 0.118116 1.00000              
-> 
 > ## Correct with strata
-> setBlocks(perm) <- with(dat, field)
-> adonis2(Y ~ NO3, data = dat, permutations = perm)
+> with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
-Blocks:  with(dat, field) 
+Blocks:  strata 
 Permutation: free
 Number of permutations: 199
 
-adonis2(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)
          Df SumOfSqs      R2      F Pr(>F)   
 NO3       1 0.020795 0.17606 2.1368   0.01 **
 Residual 10 0.097321 0.82394                 
@@ -9074,7 +9071,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.532 0.276 9.82 0 0 
+Time elapsed:  9.516 0.296 9.828 0 0 
 > grDevices::dev.off()
 null device 
           1 
