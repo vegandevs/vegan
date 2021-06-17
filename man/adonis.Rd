@@ -169,12 +169,9 @@ with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
 with(dat, ordispider(mod, field, lty=3, col="red"))
 
 ### Incorrect (no strata)
-perm <- how(nperm = 199)
-adonis2(Y ~ NO3, data = dat, permutations = perm)
-
+adonis2(Y ~ NO3, data = dat, permutations = 199)
 ## Correct with strata
-setBlocks(perm) <- with(dat, field)
-adonis2(Y ~ NO3, data = dat, permutations = perm)
+with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 }
 
 \keyword{multivariate }
