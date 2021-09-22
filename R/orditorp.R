@@ -54,8 +54,8 @@
         cex <- (cex[ord])[tt]
     if (length(col) > 1)
         col <- (col[ord])[tt]
-    ordiArgAbsorber(x[tt, , drop = FALSE], labels[tt], cex = cex, col = col,
-                    FUN = text, ...)
+    ordiArgAbsorber(x[tt, , drop = FALSE], labels = labels[tt], cex = cex,
+                    col = col, FUN = text, ...)
     names(tt) <- labels
     invisible(tt[order(ord)])
 }
