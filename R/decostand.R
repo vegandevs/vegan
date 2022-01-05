@@ -5,12 +5,12 @@
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
-                 "log")
+                 "log", "clr")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank")) {
+                          "rrank", "clr")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
@@ -78,14 +78,21 @@
                          na.rm = na.rm)), sqrt(colSums(x, na.rm = na.rm)))
     }, hellinger = {
         x <- sqrt(decostand(x, "total", MARGIN = MARGIN, na.rm = na.rm))
-      }, log = {### Marti Anderson logs, after Etienne Laliberte
+    }, log = {### Marti Anderson logs, after Etienne Laliberte
         if (!isTRUE(all.equal(as.integer(x), as.vector(x)))) {
             x <- x / min(x[x > 0], na.rm = TRUE)
             warning("non-integer data: divided by smallest positive value",
                     call. = FALSE)
         }
         x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
-    })
+    }, clr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+            x <- t(.calc_clr(t(x)))
+	else x <- .calc_clr(x)
+    }
+    )
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical operation\n")
     if (wasDataFrame)
@@ -93,3 +100,33 @@
     attr(x, "decostand") <- method
     x
 }
+
+
+
+.calc_clr <- function(x){
+    x <- .calc_rel_abund(x)
+    # If there is negative values, gives an error.
+    if (any(x <= 0, na.rm = TRUE)) {
+        stop("Abundance table contains zero or negative values and ",
+             "clr-transformation is being applied without (suitable) ",
+             "pseudocount. \n",
+             "Try to add pseudocount (default choice pseudocount = 1 for ",
+             "count assay; or pseudocount = min(x[x>0]) with relabundance ",
+             "assay).",
+             call. = FALSE)
+    }
+    # In every sample, calculates the log of individual entries.
+    # After that calculates
+    # the sample-specific mean value and subtracts every entries'
+    # value with that.
+    clog <- log(x)
+    clogm <- colMeans(clog)
+    return(t(t(clog) - clogm))
+}
+
+# Same as decostand method "total" but faster
+.calc_rel_abund <- function(x){
+    sweep(x, 2, colSums(x, na.rm = TRUE), "/")
+}
+
+
