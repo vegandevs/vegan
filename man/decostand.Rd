@@ -67,7 +67,16 @@ wisconsin(x)
      Anderson et al. (2006) suggested this for their (strongly) modified
      Gower distance (implemented as \code{method = "altGower"} in 
      \code{\link{vegdist}}), but the standardization can be used 
-     independently of distance indices. 
+     independently of distance indices.
+
+    \item \code{clr}: centered log ratio (clr) transformation reduces the
+     data skewness and compositionality bias; see e.g. Gloor et al. (2017).
+     \deqn{clr = log_{10}\frac{x_{r}}{g(x_{r})} = log_{10}x_{r} - log_{10}µ_{r}}{%
+     clr = log10(x_r/g(x_r)) = log10 x_r - log10 µ_r},
+     where \eqn{x_{r}} is a single relative value, g(x_{r}) is the geometric mean
+     of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
+     relative values per sample. The method can operate only with positive data; a common
+     way to deal with zeroes is to add pseudocount. 
   }
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
@@ -102,6 +111,10 @@ wisconsin(x)
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
   \strong{9}, 683--693.
 
+  Gloor, G.B., Macklaim, J.M., Pawlowsky-Glahn, V. & Egozcue, J.J. (2017)
+  Microbiome Datasets Are Compositional: And This Is Not Optional.
+  \emph{Frontiers in Microbiology} \strong{8}, 2224. 
+
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
   \strong{129}, 271--280.
@@ -116,6 +129,9 @@ data(varespec)
 sptrans <- decostand(varespec, "max")
 apply(sptrans, 2, max)
 sptrans <- wisconsin(varespec)
+
+# CLR transformation for rows, with pseudocount
+varespec.clr <- decostand(varespec+1, "clr")
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.
