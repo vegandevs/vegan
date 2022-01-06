@@ -76,7 +76,8 @@ wisconsin(x)
      where \eqn{x_{r}} is a single relative value, g(x_{r}) is the geometric mean
      of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
      relative values per sample. The method can operate only with positive data; a common
-     way to deal with zeroes is to add pseudocount. 
+     way to deal with zeroes is to add pseudocount.
+     
   }
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.

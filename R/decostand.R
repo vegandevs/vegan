@@ -10,7 +10,7 @@
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank", "clr")) {
+                          "rrank", "clr", "rclr")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
@@ -91,8 +91,13 @@
         if (MARGIN == 1) 
             x <- t(.calc_clr(t(x)))
 	else x <- .calc_clr(x)
-    }
-    )
+    }, rclr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+            x <- t(.calc_rclr(t(x)))
+	else x <- .calc_rclr(x)
+    })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical operation\n")
     if (wasDataFrame)
@@ -123,6 +128,28 @@
     clogm <- colMeans(clog)
     return(t(t(clog) - clogm))
 }
+
+
+.calc_rclr <- function(x){
+   # Log transform
+   log_x <- log(x)
+   # zeros are converted into infinite values in clr
+   # They are converted to NAs for now
+   log_x[is.infinite(log_x)] <- NA
+   # Calculates means for every sample, does not take NAs into account
+   mean_log_x <- colMeans(log_x, na.rm = TRUE)
+   # Calculates exponential values from means, i.e., geometric means
+   geometric_means_of_samples <- exp(mean_log_x)
+   # Divides all values by their sample-wide geometric means
+   values_divided_by_geom_mean <- t(x)/geometric_means_of_samples
+   # Does logarithmic transform and transposes the table back to its original form
+   return_x <- t(log(values_divided_by_geom_mean))
+   # If there were zeros, there are infinite values after logarithmic transform. 
+   # They are converted to zero.
+   return_x[is.infinite(return_x)] <- 0
+   return_x
+}
+
 
 # Same as decostand method "total" but faster
 .calc_rel_abund <- function(x){
