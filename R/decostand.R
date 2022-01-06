@@ -89,8 +89,8 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1) 
-            x <- t(.calc_clr(t(x)))
-	else x <- .calc_clr(x)
+            x <- t(.calc_clr(t(x), ...))
+	else x <- .calc_clr(x, ...)
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
@@ -108,7 +108,10 @@
 
 
 
-.calc_clr <- function(x){
+.calc_clr <- function(x, pseudocount=0){
+    # Add pseudocount
+    x <- x + pseudocount
+    # Calculate relative abundance
     x <- .calc_rel_abund(x)
     # If there is negative values, gives an error.
     if (any(x <= 0, na.rm = TRUE)) {
