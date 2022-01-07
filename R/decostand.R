@@ -107,7 +107,7 @@
 }
 
 
-
+# Modified from the original version in mia R package
 .calc_clr <- function(x, pseudocount=0){
     # Add pseudocount
     x <- x + pseudocount
@@ -132,7 +132,7 @@
     return(t(t(clog) - clogm))
 }
 
-
+# Modified from the original version in mia R package
 .calc_rclr <- function(x){
    # Log transform
    log_x <- log(x)
@@ -153,7 +153,7 @@
    return_x
 }
 
-
+# Modified from the original version in mia R package
 # Same as decostand method "total" but faster
 .calc_rel_abund <- function(x){
     sweep(x, 2, colSums(x, na.rm = TRUE), "/")

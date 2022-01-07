@@ -17,7 +17,12 @@
   should be able to handle unknown (and variable) sample sizes. Most of
   these indices are discussed by Krebs (1999) and Legendre & Legendre
   (2012), and their properties further compared by Wolda (1981) and
-  Legendre & De \enc{Cáceres}{Caceres} (2012).
+  Legendre & De \enc{Cáceres}{Caceres} (2012). Aitchison (1986) distance 
+  is equivalent to Euclidean distance between CLR-transformed samples
+  (\code{"clr"}) and deals with positive compositional data.
+  Robust Aitchison distance by Martino et al. (2019) uses robust
+  CLR (\code{"rlcr"}), making it applicable to non-negative data
+  including zeroes (unlike the standard Aitchison).
 }
 
 \usage{vegdist(x, method="bray", binary=FALSE, diag=FALSE, upper=FALSE,
@@ -265,6 +270,13 @@
   metric, and probably should be preferred instead of the default
   Bray-Curtis which is semimetric. 
 
+  Aitchison distance (1986) and robust Aitchison distance
+  (Martino et al. 2019) are metrics. They can be useful to deal with
+  compositional, or relative data. Aitchison distance has been said to
+  outperform Jensen-Shannon divergence and Bray-Curtis dissimilarity,
+  due to a better stability to subsetting and aggregation, and it being a
+  linear distance (Aitchison et al., 2000).
+  
   The naming conventions vary. The one adopted here is traditional
   rather than truthful to priority. The function finds either
   quantitative or binary variants of the indices under the same name,
@@ -282,6 +294,15 @@
   return a distance object of the same type. 
 }
 \references{
+
+  Aitchison, J. The Statistical Analysis of Compositional Data (1986).
+  London, UK: Chapman & Hall.
+
+  Aitchison, J., \enc{Barceló-Vidal}{Barcelo-Vidal}, C.,
+  \enc{Martín-Fernández}{Martin-Fernandez}, J.A., Pawlowsky-Glahn, V. (2000).
+  Logratio analysis and compositional distance.
+  \emph{Math. Geol.} \strong{32}, 271–275.
+
   Anderson, M.J. and Millar, R.B. (2004). Spatial variation and effects
   of habitat on temperate reef fish assemblages in northeastern New
   Zealand.  \emph{Journal of Experimental Marine Biology and Ecology}
@@ -329,6 +350,10 @@
   Mardia, K.V., Kent, J.T. and Bibby, J.M. (1979). \emph{Multivariate analysis}.
   Academic Press.
 
+  Martino, C., Morton, J.T., Marotz, C.A., Thompson, L.R., Tripathi, A.,
+  Knight, R. & Zengler, K. (2019) A novel sparse compositional technique
+  reveals microbial perturbations. \emph{mSystems} \strong{4}, 1.
+  
   Mountford, M. D. (1962). An index of similarity and its application to
   classification problems. In: P.W.Murphy (ed.),
   \emph{Progress in Soil Zoology}, 43--50. Butterworths.
@@ -340,8 +365,9 @@
   diversity. \emph{Oecologia} 50, 296--302.
 }
 
-\author{ Jari Oksanen, with contributions from Tyler Smith (Gower index)
-  and Michael Bedward (Raup--Crick index). }
+\author{ Jari Oksanen, with contributions from Tyler Smith (Gower index),
+  Michael Bedward (Raup--Crick index), and
+  Leo Lahti (Aitchison and robust Aitchison distance). }
 
 \note{The function is an alternative to \code{\link{dist}} adding some
   ecologically meaningful indices.  Both methods should produce similar
