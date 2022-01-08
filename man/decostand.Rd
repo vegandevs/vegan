@@ -79,10 +79,16 @@ wisconsin(x)
      the geometric mean
      of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
      relative values per sample. The method can operate only with positive data;
-     a common way to deal with zeroes is to add pseudocount.
+     a common way to deal with zeroes is to add pseudocount, either by
+     adding it manually to the input data, or by using the argument
+     \code{pseudocount} as in
+     \code{vegan::decostand(x, method="clr", pseudocount=1)}. Adding
+     pseudocount will inevitably introduce some bias in the data; see
+     the \code{rclr} method for one available solution.
 
      \item \code{rclr}: robust clr ("rclr") is similar to regular clr
-     (see above) but allows data that contains zeroes.
+     (see above) but allows data that contains zeroes. This method
+     does not use pseudocounts, unlike the standard clr.
      Robust clr divides the values by geometric mean
      of the observed features; zero values are kept as zeroes, and not
      taken into account. In high dimensional data,
@@ -156,7 +162,7 @@ apply(sptrans, 2, max)
 sptrans <- wisconsin(varespec)
 
 # CLR transformation for rows, with pseudocount
-varespec.clr <- decostand(varespec+1, "clr")
+varespec.clr <- decostand(varespec, "clr", pseudocount=1)
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.

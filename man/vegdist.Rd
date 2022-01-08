@@ -35,7 +35,8 @@
     \code{"jaccard"}, \code{"gower"}, \code{"altGower"},
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
     \code{"binomial"}, \code{"chao"}, \code{"cao"}, \code{"mahalanobis"},
-    \code{"chisq"} or \code{"chord"}.}
+    \code{"chisq"}, \code{"chord"}, \code{"aitchison"}, or
+    \code{"aitchison_robust"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -44,7 +45,9 @@
     computing dissimilarities.}
   \item{\dots}{Other parameters.  These are ignored, except in
     \code{method ="gower"} which accepts \code{range.global} parameter of
-    \code{\link{decostand}}. .}
+    \code{\link{decostand}}, and in \code{method="aitchison"}, which
+    accepts \code{pseudocount} parameter of \code{\link{decostand}} used
+    in the \code{clr} transformation.}
 }
 
 \details{Jaccard (\code{"jaccard"}), Mountford (\code{"mountford"}),
@@ -271,18 +274,19 @@
   Bray-Curtis which is semimetric. 
 
   Aitchison distance (1986) and robust Aitchison distance
-  (Martino et al. 2019) are metrics. They can be useful to deal with
-  compositional, or relative data. Aitchison distance has been said to
+  (Martino et al. 2019) are metrics that deal with
+  compositional data. Aitchison distance has been said to
   outperform Jensen-Shannon divergence and Bray-Curtis dissimilarity,
   due to a better stability to subsetting and aggregation, and it being a
-  linear distance (Aitchison et al., 2000).
+  proper distance (Aitchison et al., 2000).
   
   The naming conventions vary. The one adopted here is traditional
   rather than truthful to priority. The function finds either
   quantitative or binary variants of the indices under the same name,
   which correctly may refer only to one of these alternatives For
   instance, the Bray
-  index is known also as Steinhaus, Czekanowski and \enc{Sørensen}{Sorensen} index.
+  index is known also as Steinhaus, Czekanowski and
+  \enc{Sørensen}{Sorensen} index.
   The quantitative version of Jaccard should probably called
   \enc{Ružička}{Ruzicka} index.
   The abbreviation \code{"horn"} for the Horn--Morisita index is
