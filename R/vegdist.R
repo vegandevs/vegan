@@ -44,14 +44,10 @@
         x <- decostand(x, "chi.square")
     if (method == 19) # chord
         x <- decostand(x, "normalize")
-    if (method == 20) { # aitchison
+    if (method == 20)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
-	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
-    }
-    if (method == 21) { # aitchison_robust
+    if (method == 21)  # aitchison_robust
         x <- decostand(x, "rclr") # No pseudocount for rclr
-	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
-    }
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
