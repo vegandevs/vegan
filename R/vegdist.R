@@ -44,19 +44,21 @@
         x <- decostand(x, "chi.square")
     if (method == 19) # chord
         x <- decostand(x, "normalize")
-    if (method == 20) # aitchison
+    if (method == 20) { # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
 	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
-    if (method == 21) # aitchison_robust
+    }
+    if (method == 21) { # aitchison_robust
         x <- decostand(x, "rclr") # No pseudocount for rclr
-	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now	
+	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
+    }
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
     if (method %in% c(7, 13, 15) && !identical(all.equal(x, round(x)), TRUE))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
-    d <- .Call(do_vegdist, x, as.integer(method))    
+    d <- .Call(do_vegdist, x, as.integer(method))
     if (method == 10)
         d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0
