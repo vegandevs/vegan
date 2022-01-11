@@ -67,8 +67,40 @@ wisconsin(x)
      Anderson et al. (2006) suggested this for their (strongly) modified
      Gower distance (implemented as \code{method = "altGower"} in 
      \code{\link{vegdist}}), but the standardization can be used 
-     independently of distance indices. 
+     independently of distance indices.
+
+     \item \code{clr}: centered log ratio ("clr") transformation proposed by
+     Aitchison (1986) reduces data skewness and compositionality bias.
+     This transformation has frequent applications in microbial ecology
+     (see e.g. Gloor et al., 2017).
+     \deqn{clr = log_{10}\frac{x_{r}}{g(x_{r})} = log_{10}x_{r} - log_{10}µ_{r}}{%
+     clr = log10(x_r/g(x_r)) = log10 x_r - log10 µ_r} ,
+     where \eqn{x_{r}} is a single relative value, \eqn{g(x_{r})} is
+     the geometric mean
+     of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
+     relative values per sample. The method can operate only with positive data;
+     a common way to deal with zeroes is to add pseudocount, either by
+     adding it manually to the input data, or by using the argument
+     \code{pseudocount} as in
+     \code{vegan::decostand(x, method="clr", pseudocount=1)}. Adding
+     pseudocount will inevitably introduce some bias in the data; see
+     the \code{rclr} method for one available solution.
+
+     \item \code{rclr}: robust clr ("rclr") is similar to regular clr
+     (see above) but allows data that contains zeroes. This method
+     does not use pseudocounts, unlike the standard clr.
+     Robust clr divides the values by geometric mean
+     of the observed features; zero values are kept as zeroes, and not
+     taken into account. In high dimensional data,
+     the geometric mean of rclr is a good approximation of the true
+     geometric mean; see e.g. Martino et al. (2019)
+     The \code{rclr} transformation is defined formally as follows:
+     \deqn{rclr = log_{10}\frac{x_{r}}{g(x_{r} > 0)}}{%
+     rclr = log10(x_r/g(x_r > 0))}
+     where \eqn{x_{r}} is a single relative value, and \eqn{g(x_{r} > 0)} is geometric 
+     mean of sample-wide relative values that are positive (over 0).  
   }
+  
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
 
@@ -93,18 +125,30 @@ wisconsin(x)
   \code{"method"}.
 }
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
-  (\code{method = "log"}).}
+  (\code{method = "log"}), Leo Lahti (\code{"clr"} and \code{"rclr"}).}
 \note{Common transformations can be made with standard \R functions.}
 
 \references{ 
-  
+
+  Aitchison, J. The Statistical Analysis of Compositional Data (1986).
+  London, UK: Chapman & Hall.
+
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
   \strong{9}, 683--693.
 
+  Gloor, G.B., Macklaim, J.M., Pawlowsky-Glahn, V. & Egozcue, J.J. (2017)
+  Microbiome Datasets Are Compositional: And This Is Not Optional.
+  \emph{Frontiers in Microbiology} \strong{8}, 2224. 
+
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
   \strong{129}, 271--280.
+
+  Martino, C., Morton, J.T., Marotz, C.A., Thompson, L.R., Tripathi, A.,
+  Knight, R. & Zengler, K. (2019) A novel sparse compositional technique
+  reveals microbial perturbations.
+  \emph{mSystems} \strong{4}, 1.
 
   Oksanen, J. (1983) Ordination of boreal heath-like vegetation with
   principal component analysis, correspondence analysis and
@@ -116,6 +160,9 @@ data(varespec)
 sptrans <- decostand(varespec, "max")
 apply(sptrans, 2, max)
 sptrans <- wisconsin(varespec)
+
+# CLR transformation for rows, with pseudocount
+varespec.clr <- decostand(varespec, "clr", pseudocount=1)
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.

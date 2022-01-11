@@ -10,7 +10,8 @@
     METHODS <- c("manhattan", "euclidean", "canberra", "bray", # 4
                  "kulczynski", "gower", "morisita", "horn", #8
                  "mountford", "jaccard", "raup", "binomial", "chao", #13
-                 "altGower", "cao", "mahalanobis", "clark", "chisq", "chord") #19
+                 "altGower", "cao", "mahalanobis", "clark", "chisq", "chord", #19
+		 "aitchison", "aitchison_robust") # 21
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
@@ -26,14 +27,17 @@
     if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
     if (!method %in% c(1,2,6,16,18) && any(rowSums(x, na.rm = TRUE) == 0))
-        warning("you have empty rows: their dissimilarities may be meaningless in method ",
-                dQuote(inm))
+        warning("you have empty rows: their dissimilarities may be 
+                 meaningless in method ",
+                 dQuote(inm))
     ## 1 manhattan, 2 euclidean, 3 canberra, 6 gower, 16 mahalanobis, 19 chord
     if (!method %in% c(1,2,3,6,16,19) && any(x < 0, na.rm = TRUE))
-        warning("results may be meaningless because data have negative entries in method ",
-                dQuote(inm))
+        warning("results may be meaningless because data have negative entries 
+                 in method ",
+                 dQuote(inm))
     if (method %in% c(11,18) && any(colSums(x) == 0))
-        warning("data have empty species which influence the results in method ",
+        warning("data have empty species which influence the results in 
+                 method ",
                 dQuote(inm))
     if (method == 6) # gower, but no altGower
         x <- decostand(x, "range", 2, na.rm = TRUE, ...)
@@ -43,13 +47,21 @@
         x <- decostand(x, "chi.square")
     if (method == 19) # chord
         x <- decostand(x, "normalize")
+    if (method == 20) { # aitchison
+        x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
+	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
+    }
+    if (method == 21) { # aitchison_robust
+        x <- decostand(x, "rclr") # No pseudocount for rclr
+	method <- 2 # Aitchison = CLR + Euclid; switch to Euclid now
+    }	
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
     if (method %in% c(7, 13, 15) && !identical(all.equal(x, round(x)), TRUE))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
-    d <- .Call(do_vegdist, x, as.integer(method))
+    d <- .Call(do_vegdist, x, as.integer(method))    
     if (method == 10)
         d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0
