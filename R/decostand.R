@@ -99,7 +99,8 @@
 	else x <- .calc_rclr(x)
     })
     if (any(is.nan(x)))
-        warning("result contains NaN, perhaps due to impossible mathematical operation\n")
+        warning("result contains NaN, perhaps due to impossible mathematical 
+                 operation\n")
     if (wasDataFrame)
         x <- as.data.frame(x)
     attr(x, "decostand") <- method
@@ -145,9 +146,10 @@
    geometric_means_of_samples <- exp(mean_log_x)
    # Divides all values by their sample-wide geometric means
    values_divided_by_geom_mean <- t(x)/geometric_means_of_samples
-   # Does logarithmic transform and transposes the table back to its original form
+   # Does logarithmic transform and transposes the table back to its original
+   # form
    return_x <- t(log(values_divided_by_geom_mean))
-   # If there were zeros, there are infinite values after logarithmic transform. 
+   # If there were zeros, there are infinite values after logarithmic transform.
    # They are converted to zero.
    return_x[is.infinite(return_x)] <- 0
    return_x
