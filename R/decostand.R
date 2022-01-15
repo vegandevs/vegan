@@ -110,7 +110,7 @@
         if (MARGIN == 1) 
           x <- .calc_rclr(x, ...)
 	else x <- t(.calc_rclr(t(x), ...))
-    )
+    })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical 
                  operation\n")
@@ -122,7 +122,7 @@
 
 
 # Modified from the original version in mia R package
-.calc_clr <- function(x, pseudocount=0){
+.calc_clr <- function(x, pseudocount=0, na.rm=TRUE){
     # Add pseudocount
     x <- x + pseudocount
     # If there are negative values, gives an error.
@@ -135,14 +135,18 @@
     # After that calculates
     # the sample-specific mean value and subtracts every entries'
     # value with that.
+    #clog <- t(log(x))
+    #t(clog - rowMeans(clog))
+
     clog <- log(x)
     clog - rowMeans(clog)
+    
 }
 
 # Modified from the original version in mia R package
-.calc_rclr <- function(x){
+.calc_rclr <- function(x, na.rm=TRUE){
     # If there are negative values, gives an error.
-    if (any(x < 0, na.rm = TRUE)) {
+    if (any(x < 0, na.rm = na.rm)) {
         stop("Abundance table contains negative values. The 
               rclr transformation assumes non-negative values.\n")
     }
@@ -152,13 +156,13 @@
    # They are converted to NAs for now
    clog[is.infinite(clog)] <- NA
    # Calculates means for every sample, does not take NAs into account
-   mean_clog <- colMeans(clog, na.rm = TRUE)
+   mean_clog <- rowMeans(clog, na.rm = TRUE)
    # Calculates exponential values from means, i.e., geometric means
    geometric_means_of_samples <- exp(mean_clog)
    # Divides all values by their sample-wide geometric means
    # Then does logarithmic transform and transposes the table back to its original
    # form
-   xx <- t(log(t(x)/geometric_means_of_samples))
+   xx <- log(x/geometric_means_of_samples)
    # If there were zeros, there are infinite values after logarithmic transform.
    # They are converted to zero.
    xx[is.infinite(xx)] <- 0
@@ -166,20 +170,19 @@
 }
 
 
-.calc_alr <- function (x, reference = NULL, na.rm=TRUE, pseudocount=0) {
+.calc_alr <- function (x, reference = 1, na.rm=TRUE, pseudocount=0) {
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
-    if (any(x < 0, na.rm = TRUE)) {
+    if (any(x < 0, na.rm = na.rm)) {
         stop("Abundance table contains negative values and ",
              "alr-transformation is being applied without (suitable) ",
              "pseudocount. \n")
     }    
     if (reference > nrow(x)) 
-        stop("The reference sample should be an index between 1 to", nrow(x))
-    clog <- t(log(x))
-    t(clog[, -reference]-clog[, reference])
-
+        stop("The reference should be a feature name, or index between 1 to", ncol(x))
+    clog <- log(x)
+    clog[, -reference]-clog[, reference]
 }
 
 
@@ -194,18 +197,17 @@
              "pseudocount. \n")
     }    
 
-    # Do the transformation per row
-    x <- t(x)
-    
+    # For a more efficient implementation ideas, check the packages
+    # compositions and philr for ilrBase
     x.ilr <- matrix(NA, nrow(x), ncol(x)-1)
     rownames(x.ilr) <- rownames(x)    
     for (i in seq_len(nrow(x))) {
         for (j in seq_len(ncol(x.ilr))) {
-            x.ilr[i, j] <- sqrt(j/(j + 1)) * log(((prod(x[i, seq_len(j)]))^(1/j))/x[i, j + 1])
+            x.ilr[i, j] <- -sqrt(j/(j + 1)) * log(((prod(x[i, seq_len(j)]))^(1/j))/x[i, j + 1])
         }
     }
     
-    t(x.ilr)
+    x.ilr
 
 }
 
