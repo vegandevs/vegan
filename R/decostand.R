@@ -5,12 +5,12 @@
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
-                 "log", "clr", "rclr", "alr")
+                 "log", "clr", "rclr", "alr", "ilr")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank", "clr", "rclr")) {
+                          "rrank", "clr", "rclr", "alr", "ilr")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
@@ -85,19 +85,32 @@
                     call. = FALSE)
         }
         x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
+
+    }, alr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+          x <- .calc_alr(x, ...)
+	else x <- t(.calc_alr(t(x), ...))
+    }, ilr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+          x <- .calc_ilr(x, ...)
+	else x <- t(.calc_ilr(t(x), ...))
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1) 
-            x <- t(.calc_clr(t(x), ...))
-	else x <- .calc_clr(x, ...)
+          x <- .calc_clr(x, ...)
+	else x <- t(.calc_clr(t(x), ...))
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1) 
-            x <- t(.calc_rclr(t(x)))
-	else x <- .calc_rclr(x)
-    })
+          x <- .calc_rclr(x, ...)
+	else x <- t(.calc_rclr(t(x), ...))
+    )
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical 
                  operation\n")
