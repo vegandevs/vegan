@@ -170,3 +170,30 @@
 }
 
 
+
+.calc_ilr <- function (x, pseudocount=0) {
+    # Add pseudocount
+    x <- x + pseudocount
+    # If there is negative values, gives an error.
+    if (any(x < 0, na.rm = TRUE)) {
+        stop("Abundance table contains negative values and ",
+             "alr-transformation is being applied without (suitable) ",
+             "pseudocount. \n")
+    }    
+
+    # Do the transformation per row
+    x <- t(x)
+    
+    x.ilr <- matrix(NA, nrow(x), ncol(x)-1)
+    rownames(x.ilr) <- rownames(x)    
+    for (i in seq_len(nrow(x))) {
+        for (j in seq_len(ncol(x.ilr))) {
+            x.ilr[i, j] <- sqrt(j/(j + 1)) * log(((prod(x[i, seq_len(j)]))^(1/j))/x[i, j + 1])
+        }
+    }
+    
+    t(x.ilr)
+
+}
+
+
