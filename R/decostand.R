@@ -5,7 +5,7 @@
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
-                 "log", "clr", "rclr")
+                 "log", "clr", "rclr", "alr")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
@@ -112,25 +112,18 @@
 .calc_clr <- function(x, pseudocount=0){
     # Add pseudocount
     x <- x + pseudocount
-    # Calculate relative abundance
-    x <- .calc_rel_abund(x)
     # If there is negative values, gives an error.
     if (any(x <= 0, na.rm = TRUE)) {
         stop("Abundance table contains zero or negative values and ",
              "clr-transformation is being applied without (suitable) ",
-             "pseudocount. \n",
-             "Try to add pseudocount (default choice pseudocount = 1 for ",
-             "count assay; or pseudocount = min(x[x>0]) with relabundance ",
-             "assay).",
-             call. = FALSE)
+             "pseudocount. \n")
     }
     # In every sample, calculates the log of individual entries.
     # After that calculates
     # the sample-specific mean value and subtracts every entries'
     # value with that.
     clog <- log(x)
-    clogm <- colMeans(clog)
-    return(t(t(clog) - clogm))
+    clog - rowMeans(clog)
 }
 
 # Modified from the original version in mia R package
@@ -155,10 +148,21 @@
    return_x
 }
 
-# Modified from the original version in mia R package
-# Same as decostand method "total" but faster
-.calc_rel_abund <- function(x){
-    sweep(x, 2, colSums(x, na.rm = TRUE), "/")
+
+.calc_alr <- function (x, reference = NULL, na.rm=TRUE, pseudocount=0) {
+    # Add pseudocount
+    x <- x + pseudocount
+    # If there is negative values, gives an error.
+    if (any(x < 0, na.rm = TRUE)) {
+        stop("Abundance table contains negative values and ",
+             "alr-transformation is being applied without (suitable) ",
+             "pseudocount. \n")
+    }    
+    if (reference > nrow(x)) 
+        stop("The reference sample should be an index between 1 to", nrow(x))
+    clog <- t(log(x))
+    t(clog[, -reference]-clog[, reference])
+
 }
 
 
