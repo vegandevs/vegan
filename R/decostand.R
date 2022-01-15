@@ -112,7 +112,7 @@
 .calc_clr <- function(x, pseudocount=0){
     # Add pseudocount
     x <- x + pseudocount
-    # If there is negative values, gives an error.
+    # If there are negative values, gives an error.
     if (any(x <= 0, na.rm = TRUE)) {
         stop("Abundance table contains zero or negative values and ",
              "clr-transformation is being applied without (suitable) ",
@@ -128,24 +128,28 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <- function(x){
+    # If there are negative values, gives an error.
+    if (any(x < 0, na.rm = TRUE)) {
+        stop("Abundance table contains negative values. The 
+              rclr transformation assumes non-negative values.\n")
+    }
    # Log transform
-   log_x <- log(x)
+   clog <- log(x)
    # zeros are converted into infinite values in clr
    # They are converted to NAs for now
-   log_x[is.infinite(log_x)] <- NA
+   clog[is.infinite(clog)] <- NA
    # Calculates means for every sample, does not take NAs into account
-   mean_log_x <- colMeans(log_x, na.rm = TRUE)
+   mean_clog <- colMeans(clog, na.rm = TRUE)
    # Calculates exponential values from means, i.e., geometric means
-   geometric_means_of_samples <- exp(mean_log_x)
+   geometric_means_of_samples <- exp(mean_clog)
    # Divides all values by their sample-wide geometric means
-   values_divided_by_geom_mean <- t(x)/geometric_means_of_samples
-   # Does logarithmic transform and transposes the table back to its original
+   # Then does logarithmic transform and transposes the table back to its original
    # form
-   return_x <- t(log(values_divided_by_geom_mean))
+   xx <- t(log(t(x)/geometric_means_of_samples))
    # If there were zeros, there are infinite values after logarithmic transform.
    # They are converted to zero.
-   return_x[is.infinite(return_x)] <- 0
-   return_x
+   xx[is.infinite(xx)] <- 0
+   xx
 }
 
 
