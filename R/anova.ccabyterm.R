@@ -63,7 +63,7 @@
     ## Condition() not considered marginal
     alltrms <- intersect(attr(terms(object$terminfo), "term.labels"),
                          attr(terms(object), "term.labels"))
-    trmlab <- trms[trms %in% alltrms]
+    trmlab <- intersect(alltrms, trms)
     if (length(trmlab) == 0)
         stop("the scope was empty: no available marginal terms")
     ## baseline: all terms
@@ -89,7 +89,7 @@
     if (is.null(ass))
         stop("old style result object: update() your model")
     ## analyse only terms of 'ass' thar are in scope
-    scopeterms <- which(alltrms %in% trms)
+    scopeterms <- which(alltrms %in% trmlab)
     mods <- lapply(scopeterms, function(i, ...)
            permutest(ordConstrained(Y, X[, ass != i, drop=FALSE], Z, "pass"),
                      permutations, ...), ...)
