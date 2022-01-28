@@ -46,6 +46,12 @@ jobs:
         run: |
           tlmgr install ae babel-english pdflscape pdfpages sidecap
           tlmgr list --only-installed
+      
+      - name: Install ghostscript
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install ghostscript
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
