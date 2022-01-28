@@ -44,7 +44,7 @@ jobs:
 
       - name: Install additional LaTeX packages
         run: |
-          tlmgr install ae babel-english pdfpages sidecap
+          tlmgr install ae babel-english pdflscape pdfpages sidecap
           tlmgr list --only-installed
 
       - uses: r-lib/actions/setup-r-dependencies@v2
