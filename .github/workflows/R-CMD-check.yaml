@@ -48,7 +48,7 @@ jobs:
           tlmgr list --only-installed
       
       - name: Install ghostscript
-        if: matrix.os == 'ubuntu-latest'
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get -y install ghostscript
