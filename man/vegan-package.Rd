@@ -87,8 +87,8 @@ with(dune.env, ordiellipse(mod, Management, label = TRUE))
 ordisurf(mod, diversity(dune), add = TRUE)
 ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 ### permutational anova
-adonis(dune ~ ., dune.env)
-adonis(dune ~ Management + Moisture, dune.env)
+adonis2(dune ~ ., dune.env)
+adonis2(dune ~ Management + Moisture, dune.env)
 }
 
 \keyword{ package }

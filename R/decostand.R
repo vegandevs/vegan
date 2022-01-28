@@ -5,12 +5,12 @@
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
-                 "log")
+                 "log", "clr", "rclr")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank")) {
+                          "rrank", "clr", "rclr")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
@@ -78,18 +78,87 @@
                          na.rm = na.rm)), sqrt(colSums(x, na.rm = na.rm)))
     }, hellinger = {
         x <- sqrt(decostand(x, "total", MARGIN = MARGIN, na.rm = na.rm))
-      }, log = {### Marti Anderson logs, after Etienne Laliberte
+    }, log = {### Marti Anderson logs, after Etienne Laliberte
         if (!isTRUE(all.equal(as.integer(x), as.vector(x)))) {
             x <- x / min(x[x > 0], na.rm = TRUE)
             warning("non-integer data: divided by smallest positive value",
                     call. = FALSE)
         }
         x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
+    }, clr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+            x <- t(.calc_clr(t(x), ...))
+	else x <- .calc_clr(x, ...)
+    }, rclr = {
+        if (missing(MARGIN))
+	    MARGIN <- 1
+        if (MARGIN == 1) 
+            x <- t(.calc_rclr(t(x)))
+	else x <- .calc_rclr(x)
     })
     if (any(is.nan(x)))
-        warning("result contains NaN, perhaps due to impossible mathematical operation\n")
+        warning("result contains NaN, perhaps due to impossible mathematical 
+                 operation\n")
     if (wasDataFrame)
         x <- as.data.frame(x)
     attr(x, "decostand") <- method
     x
 }
+
+
+# Modified from the original version in mia R package
+.calc_clr <- function(x, pseudocount=0){
+    # Add pseudocount
+    x <- x + pseudocount
+    # Calculate relative abundance
+    x <- .calc_rel_abund(x)
+    # If there is negative values, gives an error.
+    if (any(x <= 0, na.rm = TRUE)) {
+        stop("Abundance table contains zero or negative values and ",
+             "clr-transformation is being applied without (suitable) ",
+             "pseudocount. \n",
+             "Try to add pseudocount (default choice pseudocount = 1 for ",
+             "count assay; or pseudocount = min(x[x>0]) with relabundance ",
+             "assay).",
+             call. = FALSE)
+    }
+    # In every sample, calculates the log of individual entries.
+    # After that calculates
+    # the sample-specific mean value and subtracts every entries'
+    # value with that.
+    clog <- log(x)
+    clogm <- colMeans(clog)
+    return(t(t(clog) - clogm))
+}
+
+# Modified from the original version in mia R package
+.calc_rclr <- function(x){
+   # Log transform
+   log_x <- log(x)
+   # zeros are converted into infinite values in clr
+   # They are converted to NAs for now
+   log_x[is.infinite(log_x)] <- NA
+   # Calculates means for every sample, does not take NAs into account
+   mean_log_x <- colMeans(log_x, na.rm = TRUE)
+   # Calculates exponential values from means, i.e., geometric means
+   geometric_means_of_samples <- exp(mean_log_x)
+   # Divides all values by their sample-wide geometric means
+   values_divided_by_geom_mean <- t(x)/geometric_means_of_samples
+   # Does logarithmic transform and transposes the table back to its original
+   # form
+   return_x <- t(log(values_divided_by_geom_mean))
+   # If there were zeros, there are infinite values after logarithmic transform.
+   # They are converted to zero.
+   return_x[is.infinite(return_x)] <- 0
+   return_x
+}
+
+# Modified from the original version in mia R package
+# Same as decostand method "total" but faster
+.calc_rel_abund <- function(x){
+    sweep(x, 2, colSums(x, na.rm = TRUE), "/")
+}
+
+

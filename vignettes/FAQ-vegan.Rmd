@@ -460,7 +460,7 @@ terms are often regarded as similar to random effects, but they are
 still fitted in the same way as other terms and strictly speaking they
 are fixed terms.
 
-Function `adonis` evaluates terms sequentially. In a model with
+Function `adonis2` can evaluate terms sequentially. In a model with
 right-hand-side `~ A + B` the effects of `A` are evaluated first, and
 the effects of `B` after removing the effects of `A`. Sequential tests
 are also available in `anova` function for constrained ordination

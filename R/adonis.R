@@ -1,11 +1,9 @@
-`adonis` <-
+`adonis2` <-
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = "terms",
              parallel = getOption("mc.cores"), na.action = na.fail,
-             strata, ...)
+             strata = NULL, ...)
 {
-    if (!missing(strata))
-        stop("argument 'strata' is deprecated: define blocks in 'permutations'")
     ## handle missing data
     if (missing(data))
         data <- model.frame(delete.response(terms(formula)),
@@ -47,7 +45,9 @@
                             na.action = na.action)
     formula <- update(formula, lhs ~ .)
     sol <- adonis0(formula, data = data, method = method)
-    out <- anova(sol, permutations = permutations, by = by,
+    ## handle permutations
+    perm <- getPermuteMatrix(permutations, NROW(data), strata = strata)
+    out <- anova(sol, permutations = perm, by = by,
                  parallel = parallel)
     ## attributes will be lost when adding a new column
     att <- attributes(out)
@@ -122,12 +122,4 @@
     sol$CA <- CA
     class(sol) <- c("adonis2", "dbrda", "rda", "cca")
     sol
-}
-
-### synonymize old adonis
-
-`adonis2` <- function(...)
-{
-    message("adonis2() is a superfluous synonym of adonis()")
-    adonis(...)
 }

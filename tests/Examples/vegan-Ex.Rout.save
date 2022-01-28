@@ -1,7 +1,7 @@
 
-R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin17.0 (64-bit)
+Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -667,7 +667,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Name: adonis
 > ### Title: Permutational Multivariate Analysis of Variance Using Distance
 > ###   Matrices
-> ### Aliases: adonis adonis2
+> ### Aliases: adonis2
 > ### Keywords: multivariate nonparametric
 > 
 > ### ** Examples
@@ -675,13 +675,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > data(dune.env)
 > ## default test by terms
-> adonis(dune ~ Management*A1, data = dune.env)
+> adonis2(dune ~ Management*A1, data = dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management * A1, data = dune.env)
+adonis2(formula = dune ~ Management * A1, data = dune.env)
               Df SumOfSqs      R2      F Pr(>F)   
 Management     3   1.4686 0.34161 3.2629  0.002 **
 A1             1   0.4409 0.10256 2.9387  0.013 * 
@@ -691,12 +691,12 @@ Total         19   4.2990 1.00000
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## overall tests
-> adonis(dune ~ Management*A1, data = dune.env, by = NULL)
+> adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
 Permutation test for adonis under reduced model
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management * A1, data = dune.env, by = NULL)
+adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)
          Df SumOfSqs      R2      F Pr(>F)    
 Model     7   2.4987 0.58122 2.3792  0.001 ***
 Residual 12   1.8004 0.41878                  
@@ -735,29 +735,26 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > with(dat, ordispider(mod, field, lty=3, col="red"))
 > 
 > ### Incorrect (no strata)
-> perm <- how(nperm = 199)
-> adonis(Y ~ NO3, data = dat, permutations = perm)
+> adonis2(Y ~ NO3, data = dat, permutations = 199)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 199
 
-adonis(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = 199)
          Df SumOfSqs      R2      F Pr(>F)
 NO3       1 0.020795 0.17606 2.1368   0.12
 Residual 10 0.097321 0.82394              
 Total    11 0.118116 1.00000              
-> 
 > ## Correct with strata
-> setBlocks(perm) <- with(dat, field)
-> adonis(Y ~ NO3, data = dat, permutations = perm)
+> with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
-Blocks:  with(dat, field) 
+Blocks:  strata 
 Permutation: free
 Number of permutations: 199
 
-adonis(formula = Y ~ NO3, data = dat, permutations = perm)
+adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)
          Df SumOfSqs      R2      F Pr(>F)   
 NO3       1 0.020795 0.17606 2.1368   0.01 **
 Residual 10 0.097321 0.82394                 
@@ -809,7 +806,7 @@ NM       6 64.75 124.50 156.250 181.0  15
 SF       3 32.75  53.50  99.250 184.0  15
 
 > plot(dune.ano)
-Warning in bxp(list(stats = c(4, 58.5, 104, 145.5, 188, 5, 15.25, 25.5,  :
+Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE,  :
   some notches went outside hinges ('box'): maybe set notch=FALSE
 > 
 > 
@@ -1666,7 +1663,7 @@ with correlation  0.4004806
 
 > summary(sol)
                     size correlation
-P                      1      0.2513
+P                      1      0.2516
 P Al                   2      0.4004
 P Ca Al                3      0.4005
 P Ca pH Al             4      0.3619
@@ -2630,7 +2627,7 @@ RARD         6.0477 0.1653525 49      0.01 **
 SSTR         2.2619 0.4421053 49      0.01 **
 Protopl      5.4229 0.1844031 49      0.01 **
 MEGR         4.5354 0.2204860 67      0.01 **
-MPRO         1.2687 1.0000000 67      0.07 . 
+MPRO         1.2687 1.0000000 67      0.09 . 
 TVIE         2.5956 0.3852706 67      0.01 **
 HMIN        10.0714 0.0992906 67      0.01 **
 HMIN2        7.5674 0.1321466 49      0.01 **
@@ -2646,12 +2643,12 @@ Galumna1     2.8777 0.3474943 49      0.01 **
 Stgncrs2     3.8242 0.2614953 49      0.01 **
 HRUF         1.7575 0.5690021 67      0.01 **
 Trhypch1    14.9225 0.0670128 67      0.01 **
-PPEL         1.3628 1.0000000 49      0.07 . 
+PPEL         1.3628 0.7337770 49      0.05 * 
 NCOR         2.5875 0.3864771 67      0.01 **
 SLAT         2.7857 0.3589744 49      0.01 **
 FSET         4.8901 0.2044944 49      0.01 **
-Lepidzts     1.6577 0.6032360 49      0.02 * 
-Eupelops     1.4611 0.6844033 67      0.03 * 
+Lepidzts     1.6577 0.6032360 49      0.01 **
+Eupelops     1.4611 0.6844033 67      0.02 * 
 Miniglmn     1.6505 0.6058733 49      0.01 **
 LRUG        12.0658 0.0828790 67      0.01 **
 PLAG2        3.2403 0.3086090 67      0.01 **
@@ -2722,7 +2719,7 @@ Groups sizes
 > 
 > ### Name: diversity
 > ### Title: Ecological Diversity Indices
-> ### Aliases: diversity fisher.alpha specnumber
+> ### Aliases: diversity simpson.unb fisher.alpha specnumber
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -2731,8 +2728,8 @@ Groups sizes
 > H <- diversity(BCI)
 > simp <- diversity(BCI, "simpson")
 > invsimp <- diversity(BCI, "inv")
-> ## Unbiased Simpson (Hurlbert 1971, eq. 5) with rarefy:
-> unbias.simp <- rarefy(BCI, 2) - 1
+> ## Unbiased Simpson
+> unbias.simp <- simpson.unb(BCI)
 > ## Fisher alpha
 > alpha <- fisher.alpha(BCI)
 > ## Plot all
@@ -3156,37 +3153,14 @@ Vicilath 0.17824132 0.1784611 0.3762406 0.4279428
 Bracruta 0.15585567 0.1641095 0.1672797 0.2449864
 Callcusp 0.30771429 0.3143582 0.3308502 0.3518027
 > goodness(mod, addprevious = TRUE, summ = TRUE)
-               CCA1      CCA2      CCA3      CCA4
-Achimill 0.36630013 0.3822685 0.3838616 0.4934158
-Agrostol 0.67247051 0.6724758 0.6779597 0.7773267
-Airaprae 0.36213737 0.3698100 0.3816619 0.3908018
-Alopgeni 0.61547145 0.6966105 0.7042650 0.7212918
-Anthodor 0.24619147 0.2795001 0.3509172 0.3609709
-Bellpere 0.41185412 0.4179432 0.4847618 0.4849622
-Bromhord 0.33487622 0.3397416 0.3870032 0.5505037
-Chenalbu 0.23594716 0.2684323 0.2828928 0.2885321
-Cirsarve 0.29041563 0.3013655 0.3080671 0.3591280
-Comapalu 0.16338257 0.6836790 0.7390659 0.7963425
-Eleopalu 0.55132024 0.6099415 0.6193301 0.6259818
-Elymrepe 0.25239595 0.2710266 0.2761491 0.2882666
-Empenigr 0.27089495 0.3132399 0.3153052 0.3154203
-Hyporadi 0.31349648 0.3371809 0.3387669 0.3388716
-Juncarti 0.43923609 0.4492937 0.4871043 0.5224072
-Juncbufo 0.70439967 0.7226263 0.7228786 0.7257471
-Lolipere 0.48141171 0.5720410 0.5727299 0.6034007
-Planlanc 0.54969676 0.6084389 0.6802195 0.6826265
-Poaprat  0.40267189 0.4944813 0.5014516 0.5326546
-Poatriv  0.49694972 0.5409439 0.5468830 0.5594817
-Ranuflam 0.68677962 0.6983001 0.7020461 0.7064850
-Rumeacet 0.44788204 0.5211145 0.7673956 0.7691199
-Sagiproc 0.27039747 0.3497634 0.3553109 0.3613746
-Salirepe 0.64788354 0.7264891 0.7276110 0.7639711
-Scorautu 0.54312496 0.5510319 0.6078931 0.6140593
-Trifprat 0.37328840 0.4101104 0.6624199 0.6625703
-Trifrepe 0.03048149 0.2115857 0.3300132 0.4207437
-Vicilath 0.17824132 0.1784611 0.3762406 0.4279428
-Bracruta 0.15585567 0.1641095 0.1672797 0.2449864
-Callcusp 0.30771429 0.3143582 0.3308502 0.3518027
+ Achimill  Agrostol  Airaprae  Alopgeni  Anthodor  Bellpere  Bromhord  Chenalbu 
+0.4934158 0.7773267 0.3908018 0.7212918 0.3609709 0.4849622 0.5505037 0.2885321 
+ Cirsarve  Comapalu  Eleopalu  Elymrepe  Empenigr  Hyporadi  Juncarti  Juncbufo 
+0.3591280 0.7963425 0.6259818 0.2882666 0.3154203 0.3388716 0.5224072 0.7257471 
+ Lolipere  Planlanc   Poaprat   Poatriv  Ranuflam  Rumeacet  Sagiproc  Salirepe 
+0.6034007 0.6826265 0.5326546 0.5594817 0.7064850 0.7691199 0.3613746 0.7639711 
+ Scorautu  Trifprat  Trifrepe  Vicilath  Bracruta  Callcusp 
+0.6140593 0.6625703 0.4207437 0.4279428 0.2449864 0.3518027 
 > # Inertia components
 > inertcomp(mod, prop = TRUE)
                pCCA        CCA        CA
@@ -3632,7 +3606,7 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
 > range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
-[1] -2.775558e-16  2.498002e-16
+[1] -2.498002e-16  9.436896e-16
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -4064,29 +4038,27 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651375e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505924e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505932e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
 Run 13 stress 0.1886532 
 Run 14 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 1.088269e-06  max resid 3.328672e-06 
+... Procrustes: rmse 1.665347e-05  max resid 5.474507e-05 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 1.797821e-06  max resid 3.862713e-06 
+... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 6.241246e-06  max resid 1.34356e-05 
+... Procrustes: rmse 7.276517e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4112,41 +4084,42 @@ Species: expanded scores based on ‘dune’
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
-... Procrustes: rmse 4.788017e-06  max resid 1.519832e-05 
+... New best solution
+... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
 ... Similar to previous best
 Run 2 stress 0.1812935 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 2.196251e-06  max resid 6.801087e-06 
+... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
 ... Similar to previous best
 Run 4 stress 0.1192678 
 Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
-... Procrustes: rmse 7.034529e-06  max resid 2.236837e-05 
+... Procrustes: rmse 2.276086e-06  max resid 7.260292e-06 
 ... Similar to previous best
 Run 7 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 2.728661e-06  max resid 8.49573e-06 
+... Procrustes: rmse 2.111216e-06  max resid 6.785766e-06 
 ... Similar to previous best
 Run 8 stress 0.1192678 
 Run 9 stress 0.1183186 
-... Procrustes: rmse 8.200603e-06  max resid 2.1511e-05 
+... Procrustes: rmse 8.198219e-06  max resid 2.150265e-05 
 ... Similar to previous best
 Run 10 stress 0.1183186 
-... Procrustes: rmse 3.222731e-05  max resid 9.836386e-05 
+... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.840546e-06  max resid 3.276067e-05 
+... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
-... Procrustes: rmse 2.658646e-05  max resid 8.215503e-05 
+... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
 ... Similar to previous best
 Run 13 stress 0.1192678 
 Run 14 stress 0.1183186 
-... Procrustes: rmse 2.801593e-05  max resid 9.120261e-05 
+... Procrustes: rmse 2.801942e-05  max resid 9.121405e-05 
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 1.230384e-05  max resid 4.080807e-05 
+... Procrustes: rmse 1.230098e-05  max resid 4.079838e-05 
 ... Similar to previous best
 Run 17 stress 0.1192679 
 Run 18 stress 0.1192678 
@@ -4164,61 +4137,61 @@ Run 2 stress 0.1928476
 ... Procrustes: rmse 0.0003230671  max resid 0.0009395776 
 ... Similar to previous best
 Run 3 stress 0.192849 
-... Procrustes: rmse 0.000653679  max resid 0.001926441 
+... Procrustes: rmse 0.0006536789  max resid 0.001926441 
 ... Similar to previous best
 Run 4 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 7.245208e-05  max resid 0.0002138775 
+... Procrustes: rmse 7.245207e-05  max resid 0.0002138775 
 ... Similar to previous best
 Run 5 stress 0.1928478 
-... Procrustes: rmse 0.000352899  max resid 0.0009949857 
+... Procrustes: rmse 0.0003528988  max resid 0.000994985 
 ... Similar to previous best
 Run 6 stress 0.1928478 
-... Procrustes: rmse 0.0003262518  max resid 0.0009223792 
+... Procrustes: rmse 0.0003262433  max resid 0.0009223561 
 ... Similar to previous best
 Run 7 stress 0.1928476 
-... Procrustes: rmse 0.0001088032  max resid 0.0003261061 
+... Procrustes: rmse 0.0001088032  max resid 0.0003261059 
 ... Similar to previous best
 Run 8 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 0.0001255331  max resid 0.0003130878 
+... Procrustes: rmse 0.0001255324  max resid 0.0003130854 
 ... Similar to previous best
 Run 9 stress 0.1928479 
-... Procrustes: rmse 0.0002656517  max resid 0.0007825987 
+... Procrustes: rmse 0.0002657286  max resid 0.0007827887 
 ... Similar to previous best
 Run 10 stress 0.1928478 
-... Procrustes: rmse 0.0002328614  max resid 0.0006821753 
+... Procrustes: rmse 0.0002328617  max resid 0.0006821765 
 ... Similar to previous best
 Run 11 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 6.504978e-05  max resid 0.0001794633 
+... Procrustes: rmse 6.504858e-05  max resid 0.0001794597 
 ... Similar to previous best
 Run 12 stress 0.1928475 
-... Procrustes: rmse 4.196296e-05  max resid 0.0001142352 
+... Procrustes: rmse 4.196348e-05  max resid 0.0001142366 
 ... Similar to previous best
 Run 13 stress 0.1928475 
-... Procrustes: rmse 0.0001178629  max resid 0.0003459239 
+... Procrustes: rmse 0.0001178624  max resid 0.000345921 
 ... Similar to previous best
 Run 14 stress 0.1928475 
-... Procrustes: rmse 0.0001018608  max resid 0.0002984929 
+... Procrustes: rmse 0.0001018613  max resid 0.0002984941 
 ... Similar to previous best
 Run 15 stress 0.1928479 
-... Procrustes: rmse 0.000321311  max resid 0.000929565 
+... Procrustes: rmse 0.0003213105  max resid 0.0009295638 
 ... Similar to previous best
 Run 16 stress 0.1928476 
-... Procrustes: rmse 0.0001588211  max resid 0.0004590285 
+... Procrustes: rmse 0.0001588096  max resid 0.000458987 
 ... Similar to previous best
 Run 17 stress 0.1928479 
-... Procrustes: rmse 0.000329319  max resid 0.0009609323 
+... Procrustes: rmse 0.0003293185  max resid 0.000960931 
 ... Similar to previous best
-Run 18 stress 0.1928476 
-... Procrustes: rmse 0.000169362  max resid 0.0004958518 
+Run 18 stress 0.1928475 
+... Procrustes: rmse 0.0001481571  max resid 0.0004335513 
 ... Similar to previous best
 Run 19 stress 0.1928476 
-... Procrustes: rmse 0.0001803285  max resid 0.0005047989 
+... Procrustes: rmse 0.000180329  max resid 0.0005048001 
 ... Similar to previous best
 Run 20 stress 0.1928475 
-... Procrustes: rmse 1.07477e-05  max resid 3.58325e-05 
+... Procrustes: rmse 1.074795e-05  max resid 3.583309e-05 
 ... Similar to previous best
 *** Solution reached
 > sol2
@@ -4245,38 +4218,38 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
+... Procrustes: rmse 5.139266e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498595e-06  max resid 1.408341e-05 
+... Procrustes: rmse 4.498736e-06  max resid 1.408227e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1653484 
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
-... Procrustes: rmse 5.848174e-06  max resid 1.923175e-05 
+... Procrustes: rmse 5.848229e-06  max resid 1.923197e-05 
 ... Similar to previous best
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 4.371451e-06  max resid 1.067082e-05 
+... Procrustes: rmse 3.364996e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
 Run 14 stress 0.1073148 
 Run 15 stress 0.107471 
 Run 16 stress 0.1073148 
-Run 17 stress 0.1069787 
-... Procrustes: rmse 0.006797389  max resid 0.02397179 
+Run 17 stress 0.1069786 
+... Procrustes: rmse 0.006774349  max resid 0.02387355 
 Run 18 stress 0.1067169 
 ... New best solution
 ... Procrustes: rmse 3.536974e-06  max resid 1.241593e-05 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 4.131724e-06  max resid 9.650096e-06 
+... Procrustes: rmse 2.356111e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175769e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175565e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4401,14 +4374,14 @@ Run 1 stress 0.1192678
 ... Procrustes: rmse 3.027648e-05  max resid 9.262627e-05 
 ... Similar to previous best
 Run 2 stress 0.119268 
-... Procrustes: rmse 0.0002057221  max resid 0.0006282149 
+... Procrustes: rmse 0.0002057248  max resid 0.000628224 
 ... Similar to previous best
 Run 3 stress 0.1183186 
 ... New best solution
 ... Procrustes: rmse 0.02026982  max resid 0.06495764 
 Run 4 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 3.290177e-06  max resid 7.737989e-06 
+... Procrustes: rmse 3.290173e-06  max resid 7.737989e-06 
 ... Similar to previous best
 Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
@@ -4416,7 +4389,7 @@ Run 6 stress 0.1183186
 ... Similar to previous best
 Run 7 stress 0.1192678 
 Run 8 stress 0.1183186 
-... Procrustes: rmse 6.340026e-06  max resid 2.058872e-05 
+... Procrustes: rmse 6.340028e-06  max resid 2.058872e-05 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
@@ -5079,8 +5052,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-checkerboards      2767 0.89035 2696.7 2567.3 2691.0 2878.9    0.369
+              statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
+checkerboards      2767 0.89035 2696.7 2567.3 2691.0  2879    0.369
 > ## After this you can use as.mcmc() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
@@ -5550,7 +5523,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 5.64  total = 6.64 
 
-REML score: 92.95905     
+REML score: 92.95904     
 > 
 > ## as above but without the extra penalties on smooth terms,
 > ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
@@ -5573,11 +5546,11 @@ GCV score: 143.7761
 > ## Get fitted values
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
-21.260675  5.673306  3.677152  3.889980  9.618595  7.665832  7.763240  9.773191 
+21.260676  5.673306  3.677152  3.889980  9.618594  7.665831  7.763242  9.773191 
        28        13        14        20        25         7         5         6 
- 2.699161 29.765356 12.007288  8.286221  5.417316 24.914271 11.045769 25.390480 
+ 2.699161 29.765355 12.007288  8.286220  5.417317 24.914272 11.045769 25.390480 
         3         4         2         9        12        10        11        21 
- 6.510626  9.424402  4.492915  4.051451 11.563182  4.286884 11.683416 14.189292 
+ 6.510626  9.424401  4.492914  4.051451 11.563182  4.286884 11.683416 14.189292 
 > 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
@@ -5595,7 +5568,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 5.64  total = 6.64 
 
-REML score: 92.95905     
+REML score: 92.95904     
 > ##  - option 2: use a basis with shrinkage
 > ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
@@ -5619,7 +5592,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-35. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6100,7 +6073,7 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > ### ** Examples
 > 
 > data(dune, dune.env)
-> mod <- adonis(dune ~ Management + A1, data = dune.env)
+> mod <- adonis2(dune ~ Management + A1, data = dune.env)
 > ## use permustats
 > perm <- permustats(mod)
 > summary(perm)
@@ -6649,34 +6622,36 @@ procrustes(X = mds.alt, Y = mds.null)
 Number of objects: 24    Number of dimensions: 2 
 
 Procrustes sum of squares:  
- 13.14344 
+ 13.14345 
 Procrustes root mean squared error: 
- 0.7400292 
+ 0.7400296 
 Quantiles of Procrustes errors:
-      Min        1Q    Median        3Q       Max 
-0.0206655 0.2765963 0.3415901 0.6420556 2.2360422 
+       Min         1Q     Median         3Q        Max 
+0.02066503 0.27659692 0.34159096 0.64205431 2.23604561 
 
 Rotation matrix:
           [,1]       [,2]
-[1,] 0.9932434 -0.1160497
-[2,] 0.1160497  0.9932434
+[1,] 0.9932435 -0.1160491
+[2,] 0.1160491  0.9932435
 
 Translation of averages:
-             [,1]          [,2]
-[1,] 3.853555e-18 -2.463548e-18
+              [,1]          [,2]
+[1,] -4.770354e-17 -2.855179e-17
 
 Scaling of target:
-[1] 0.6725748
+[1] 0.6725743
 
 > plot(vare.proc)
 > plot(vare.proc, kind=2)
 > residuals(vare.proc)
-       18        15        24        27        23        19        22        16 
-0.2797688 0.1314075 1.7292429 0.6375208 0.3726501 0.1187909 0.3859464 0.2801511 
-       28        13        14        20        25         7         5         6 
-1.2289732 0.6556602 0.2670786 0.0206655 0.3578691 0.2864106 0.6962618 0.2021195 
-        3         4         2         9        12        10        11        21 
-0.2970201 0.5014819 2.2360422 0.3189630 0.2176967 0.3253111 0.5647893 0.7806887 
+        18         15         24         27         23         19         22 
+0.27976944 0.13140857 1.72924370 0.63751873 0.37264807 0.11879191 0.38594796 
+        16         28         13         14         20         25          7 
+0.28015244 1.22896982 0.65566108 0.26707936 0.02066503 0.35786951 0.28641010 
+         5          6          3          4          2          9         12 
+0.69626453 0.20211928 0.29701948 0.50148157 2.23604561 0.31896394 0.21769838 
+        10         11         21 
+0.32531240 0.56478951 0.78068916 
 > 
 > 
 > 
@@ -7080,11 +7055,11 @@ Callcusp 0.00698 0.01611 0.43330 0.50000 0.00000  0.983 0.85
 Rumeacet 0.00453 0.01044 0.43330 0.33300 0.00000  0.990 0.96   
 Cirsarve 0.00398 0.00918 0.43360 0.33300 0.00000  0.996 0.41   
 Chenalbu 0.00233 0.00537 0.43330 0.16700 0.00000  1.000 0.40   
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.73   
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.68   
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.46   
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.85   
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.85   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.73   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.68   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.46   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7115,12 +7090,12 @@ Bellpere 0.00999 0.01257 0.79480 0.66700 0.40000  0.978 0.92
 Callcusp 0.00662 0.01508 0.43930 0.50000 0.00000  0.989 0.94   
 Cirsarve 0.00381 0.00867 0.43940 0.33300 0.00000  0.996 0.61   
 Chenalbu 0.00221 0.00503 0.43930 0.16700 0.00000  1.000 0.58   
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.75   
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.83   
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.52   
-Hyporadi 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.92   
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.91   
-Vicilath 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.92   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.75   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.52   
+Hyporadi 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.91   
+Vicilath 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7156,7 +7131,7 @@ Empenigr 0.00523 0.01200 0.43540 0.00000 0.33300  0.986 0.28
 Cirsarve 0.00478 0.01089 0.43910 0.33300 0.00000  0.993 0.01 **
 Chenalbu 0.00289 0.00660 0.43820 0.16700 0.00000  0.996 0.01 **
 Vicilath 0.00279 0.00642 0.43450 0.00000 0.16700  1.000 0.72   
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.97   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.97   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7186,13 +7161,13 @@ Eleopalu 0.01017 0.02111 0.48170 0.00000 0.80000  0.955 0.97
 Hyporadi 0.00895 0.01312 0.68240 0.66700 0.00000  0.974 0.54  
 Poaprat  0.00720 0.01010 0.71330 4.00000 3.40000  0.989 1.00  
 Ranuflam 0.00508 0.01055 0.48170 0.00000 0.40000  1.000 0.99  
-Airaprae 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.54  
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.37  
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.44  
-Comapalu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.74  
-Empenigr 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.33  
-Salirepe 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.80  
-Callcusp 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.77  
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54  
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.37  
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.44  
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.74  
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.33  
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.80  
+Callcusp 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.77  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7224,11 +7199,11 @@ Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.34
 Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.46   
 Alopgeni 0.01000 0.01463 0.68300 0.66700 0.00000  0.993 0.99   
 Empenigr 0.00479 0.01105 0.43300 0.00000 0.33300  1.000 0.37   
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.38   
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.49   
-Juncbufo 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.95   
-Rumeacet 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.94   
-Trifprat 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.83   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.38   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.49   
+Juncbufo 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.95   
+Rumeacet 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.94   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7263,8 +7238,8 @@ Comapalu 0.01011 0.01456 0.69400 0.00000 0.66700  0.978 0.26
 Bellpere 0.00880 0.01373 0.64100 0.40000 0.33300  0.990 0.93   
 Empenigr 0.00454 0.01033 0.43900 0.00000 0.33300  0.997 0.59   
 Vicilath 0.00240 0.00546 0.43900 0.00000 0.16700  1.000 0.85   
-Chenalbu 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.54   
-Cirsarve 0.00000 0.00000      NA 0.00000 0.00000  1.000 0.53   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.53   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -8590,13 +8565,13 @@ Estimated degrees of freedom:
 REML score: 3.00623     
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
-> adonis(dune ~ ., dune.env)
+> adonis2(dune ~ ., dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ ., data = dune.env)
+adonis2(formula = dune ~ ., data = dune.env)
            Df SumOfSqs      R2      F Pr(>F)    
 A1          1   0.7230 0.16817 5.2038  0.001 ***
 Moisture    3   1.1871 0.27613 2.8482  0.005 ** 
@@ -8607,13 +8582,13 @@ Residual    7   0.9725 0.22621
 Total      19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> adonis(dune ~ Management + Moisture, dune.env)
+> adonis2(dune ~ Management + Moisture, dune.env)
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis(formula = dune ~ Management + Moisture, data = dune.env)
+adonis2(formula = dune ~ Management + Moisture, data = dune.env)
            Df SumOfSqs      R2      F Pr(>F)   
 Management  3   1.4686 0.34161 3.7907  0.002 **
 Moisture    3   1.1516 0.26788 2.9726  0.003 **
@@ -9061,13 +9036,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
- 2.220446e-16 -1.387779e-15 -1.054712e-15  2.498002e-16  1.110223e-16 
+-1.443290e-15 -1.165734e-15  2.220446e-16  1.110223e-16  4.440892e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.665335e-16 -1.387779e-17 -1.110223e-16  2.220446e-16  4.163336e-17 
+ 6.938894e-17  2.775558e-17 -1.526557e-16  1.249001e-16  1.387779e-17 
          CA11          CA12          CA13          CA14          CA15 
- 1.179612e-16 -5.551115e-17 -1.387779e-17  3.469447e-18 -6.938894e-18 
+ 6.938894e-17  6.938894e-17  6.245005e-17  3.122502e-17 -2.775558e-17 
          CA16          CA17          CA18          CA19 
--5.204170e-18  1.734723e-18 -4.683753e-17  3.989864e-17 
+-1.734723e-18  1.734723e-17 -3.642919e-17  8.283305e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9076,7 +9051,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--5.684e-14 
+-1.421e-14 
 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
@@ -9096,7 +9071,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  27.744 0.34 28.114 0 0 
+Time elapsed:  9.516 0.296 9.828 0 0 
 > grDevices::dev.off()
 null device 
           1 
