@@ -4,4 +4,4 @@ LICENSE
 ^travis-tool\.sh
 ^appveyor\.yml$
 ^Makefile$
-
+^\.github
