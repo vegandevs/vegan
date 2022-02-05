@@ -9,6 +9,7 @@ testdata <- testdata - 50
 testdata[testdata < 0] <- 0
 rownames(testdata) <- paste0("row", seq_len(nrow(testdata)))
 colnames(testdata) <- paste0("col", seq_len(ncol(testdata)))
+testdata.with.pseudo <- testdata + 1
 
 # Calculates relative abundance table
 relative <- vegan::decostand(testdata, "total")
