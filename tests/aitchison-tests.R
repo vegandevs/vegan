@@ -36,27 +36,28 @@ max(abs(a1-a2)) < 1e-6 # Tolerance
 
 
 # Compare the outcomes with an external package that also provides compositional transformations
-
-skip <- TRUE
-if (!skip) {
-
-    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr")) < 1e-6
-    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=1)) < 1e-6
-    # rgr and compositions packages differ in sign; vegan::decostand is aligned with the "compositions" package
-    sum(t(compositions::ilr(t(testdata.with.pseudo))) - (+vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6
-    sum(t(rgr::ilr(t(testdata.with.pseudo))) - (-vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6    
-
-    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr")) < 1e-6
-    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=1)) < 1e-6
-    sum(t(compositions::clr(t(testdata.with.pseudo))) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=2)) < 1e-6
-    sum(rgr::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr"))<1e-6
-
-    sum(compositions::alr(testdata.with.pseudo, ivar=1) - vegan::decostand(testdata.with.pseudo, "alr")) < 1e-6
-    sum(compositions::alr(testdata.with.pseudo, ivar=1) - vegan::decostand(testdata.with.pseudo, "alr", MARGIN=1)) < 1e-6
-    sum(t(compositions::alr(t(testdata.with.pseudo), ivar=1)) - vegan::decostand(testdata.with.pseudo, "alr", MARGIN=2)) < 1e-6
-    sum(rgr::alr(testdata.with.pseudo, j=1) - vegan::decostand(testdata.with.pseudo, "alr", reference=1))<1e-6
-
-}
+# Adding these would demand adding Suggested packages in DESCRIPTION; skipped for now but can be
+# useful for manual testing.
+#skip <- TRUE
+#if (!skip) {
+#
+#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr")) < 1e-6
+#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=1)) < 1e-6
+#    # rgr and compositions packages differ in sign; vegan::decostand is aligned with the "compositions" package
+#    sum(t(compositions::ilr(t(testdata.with.pseudo))) - (+vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6
+#    sum(t(rgr::ilr(t(testdata.with.pseudo))) - (-vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6    #
+#
+#    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr")) < 1e-6
+#    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=1)) < 1e-6
+#    sum(t(compositions::clr(t(testdata.with.pseudo))) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=2)) < 1e-6
+#    sum(rgr::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr"))<1e-6#
+#
+#    sum(compositions::alr(testdata.with.pseudo, ivar=1) - vegan::decostand(testdata.with.pseudo, "alr")) < 1e-6
+#    sum(compositions::alr(testdata.with.pseudo, ivar=1) - vegan::decostand(testdata.with.pseudo, "alr", MARGIN=1)) < 1e-6
+#    sum(t(compositions::alr(t(testdata.with.pseudo), ivar=1)) - vegan::decostand(testdata.with.pseudo, "alr", MARGIN=2)) < 1e-6
+#    sum(rgr::alr(testdata.with.pseudo, j=1) - vegan::decostand(testdata.with.pseudo, "alr", reference=1))<1e-6#
+#
+#}
 
 # --------------------------------------------------------------------------------------------------------------
 
