@@ -69,6 +69,30 @@ wisconsin(x)
      \code{\link{vegdist}}), but the standardization can be used 
      independently of distance indices.
 
+     \item \code{alr}: Additive log ratio ("alr") transformation
+     (Aitchison 1986) reduces data skewness and compositionality
+     bias. The transformation assumes positive values, pseudocounts
+     can be added with the argument \code{pseudocount}. One of the
+     samples is a reference, this sample (name or index) can be given
+     by \code{reference}. The first sample is used by default
+     (\code{reference=1}).
+     Note that this transformation drops one
+     feature from the transformed output data. The \code{alr}
+     transformation is defined formally as follows: \deqn{alr =
+     [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}, where the
+     denominator sample \deqn{x_D} can be chosen arbitrarily. This
+     transformation is often used with pH and other chemistry
+     measurenments. It is also commonly used as multinomial logistic
+     regression.
+
+     \item \code{ilr}: Isometric log ratio ("ilr") transformation
+     (Aitchison 1986) reduces data skewness and compositionality
+     bias. The transformation assumes positive values, pseudocounts
+     can be added with the argument \code{pseudocount}. Note that this
+     transformation drops one feature from the transformed output
+     data. For a formal definition, see e.g. Egozcue et al. (2003). The
+     calculation may be slow for data sets with many samples or features.
+
      \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) reduces data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
@@ -98,7 +122,8 @@ wisconsin(x)
      \deqn{rclr = log_{10}\frac{x_{r}}{g(x_{r} > 0)}}{%
      rclr = log10(x_r/g(x_r > 0))}
      where \eqn{x_{r}} is a single relative value, and \eqn{g(x_{r} > 0)} is geometric 
-     mean of sample-wide relative values that are positive (over 0).  
+     mean of sample-wide relative values that are positive (over 0).
+     
   }
   
   Standardization, as contrasted to transformation, means that the
@@ -125,7 +150,9 @@ wisconsin(x)
   \code{"method"}.
 }
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
-  (\code{method = "log"}), Leo Lahti (\code{"clr"} and \code{"rclr"}).}
+  (\code{method = "log"}), Leo Lahti (\code{alr}, \code{ilr},
+  \code{"clr"} and \code{"rclr"}).}
+  
 \note{Common transformations can be made with standard \R functions.}
 
 \references{ 
@@ -136,6 +163,11 @@ wisconsin(x)
   Anderson, M.J., Ellingsen, K.E. & McArdle, B.H. (2006) Multivariate
   dispersion as a measure of beta diversity. \emph{Ecology Letters} 
   \strong{9}, 683--693.
+
+  Egozcue, J.J., Pawlowsky-Glahn, V., Mateu-Figueras, G.,
+  Barcel'o-Vidal, C. (2003) Isometric logratio transformations for
+  compositional data analysis. \emph{Mathematical Geology}
+  \strong{35}, 279--300.
 
   Gloor, G.B., Macklaim, J.M., Pawlowsky-Glahn, V. & Egozcue, J.J. (2017)
   Microbiome Datasets Are Compositional: And This Is Not Optional.
@@ -163,6 +195,9 @@ sptrans <- wisconsin(varespec)
 
 # CLR transformation for rows, with pseudocount
 varespec.clr <- decostand(varespec, "clr", pseudocount=1)
+
+# ALR transformation for rows, with pseudocount and reference sample
+varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.

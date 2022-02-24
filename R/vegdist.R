@@ -11,7 +11,7 @@
                  "kulczynski", "gower", "morisita", "horn", #8
                  "mountford", "jaccard", "raup", "binomial", "chao", #13
                  "altGower", "cao", "mahalanobis", "clark", "chisq", "chord", #19
-		 "aitchison", "aitchison_robust") # 21
+		 "Aitchison", "rAitchison") # 21
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
@@ -47,9 +47,9 @@
         x <- decostand(x, "chi.square")
     if (method == 19) # chord
         x <- decostand(x, "normalize")
-    if (method == 20)  # aitchison
+    if (method == 20)  # Aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
-    if (method == 21)  # aitchison_robust
+    if (method == 21)  # rAitchison
         x <- decostand(x, "rclr") # No pseudocount for rclr
     if (binary)
         x <- decostand(x, "pa")
