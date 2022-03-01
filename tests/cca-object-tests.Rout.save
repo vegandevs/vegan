@@ -1,7 +1,7 @@
 
-R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin17.0 (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -17,6 +17,7 @@ Type 'q()' to quit R.
 
 > ## test the stability of cca object and its support functions
 > suppressPackageStartupMessages(require(vegan))
+> suppressPackageStartupMessages(require(parallel))
 > set.seed(4711)
 > op <- options(digits=5)
 > ## models
@@ -1003,7 +1004,7 @@ Permutation test for all constrained eigenvalues
 Model     1  0.0029 0.75   0.44
 Residual 18  0.0703            
 > 
-> drop1(mcca, test="permutation", permutations=per)
+> drop1(mcca,  test = "permutation", permutations = per)
                       Df  AIC    F Pr(>F)  
 <none>                   87.9              
 Condition(Management)  2 87.9              
@@ -1011,19 +1012,19 @@ Manure                 3 86.5 1.03   0.36
 A1                     1 89.0 2.00   0.06 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> drop1(mrda, test="permutation", permutations=per)
+> drop1(mrda,  test = "permutation", permutations = per)
                       Df  AIC    F Pr(>F)
 <none>                   87.8            
 Condition(Management)  2 89.2            
 Manure                 3 87.4 1.30   0.12
 A1                     1 87.5 1.09   0.40
-> drop1(mrda1, test="permutation", permutations=per)
+> drop1(mrda1, test = "permutation", permutations = per)
                       Df  AIC    F Pr(>F)
 <none>                   69.2            
 Condition(Management)  2 69.8            
 Manure                 3 68.2 1.12   0.22
 A1                     1 69.6 1.48   0.14
-> drop1(mcap, test="permutation", permutations=per)
+> drop1(mcap,  test = "permutation", permutations = per)
                       Df  AIC    F Pr(>F)  
 <none>                   29.1              
 Condition(Management)  2 29.4              
@@ -1031,7 +1032,7 @@ Manure                 3 28.4 1.24   0.22
 A1                     1 30.4 2.19   0.08 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> drop1(mdb, test="permutation", permutations=per)
+> drop1(mdb,   test = "permutation", permutations = per)
                       Df  AIC    F Pr(>F)  
 <none>                   26.7              
 Condition(Management)  2 27.2              
@@ -1039,7 +1040,7 @@ Manure                 3 26.4 1.32   0.18
 A1                     1 28.4 2.46   0.08 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-> drop1(m1rda, test="permutation", permutations=per)
+> drop1(m1rda, test = "permutation", permutations = per)
        Df   AIC    F Pr(>F)
 <none>    -50.1            
 A1      1 -51.3 0.75   0.44
@@ -1415,6 +1416,537 @@ Model: rda(formula = H ~ A1, data = dune.env)
 RDA1      1   0.0029 0.75   0.44
 Residual 18   0.0703            
 > 
+> ## permutation tests in parallel
+> clust <- makeCluster(2) # socket cluster: the only one that works in Windows
+> 
+> permutest(mcca,   per, parallel = clust) # use socket cluster
+
+Permutation test for cca under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
+dune.env)
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)
+Model     4    0.45 1.27   0.12
+Residual 12    1.06            
+> permutest(mrda,   per, parallel = clust) # use socket cluster
+
+Permutation test for rda under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
+dune.env)
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)  
+Model     4    16.8 1.32   0.08 .
+Residual 12    38.1              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> permutest(mrda1,  per, parallel = clust) # use socket cluster
+
+Permutation test for rda under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
+dune.env, scale = TRUE)
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)
+Model     4    6.14 1.22   0.16
+Residual 12   15.08            
+> permutest(mcap,   per, parallel = clust) # use socket cluster
+
+Permutation test for capscale under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
+data = dune.env, distance = "bray")
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)  
+Model     4    1.07 1.59   0.08 .
+Residual 12    2.02              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> permutest(mdb,    per, parallel = clust) # use socket cluster
+
+Permutation test for dbrda under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
+= dune.env, distance = "bray")
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)  
+Model     4    1.03 1.73   0.08 .
+Residual 12    1.80              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> permutest(mancap, per, parallel = clust) # use socket cluster
+
+Permutation test for capscale under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
+data = dune.env, distance = "manhattan")
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)
+Model     4     213 1.41   0.12
+Residual 12     452            
+> permutest(mandb,  per, parallel = clust) # use socket cluster
+
+Permutation test for dbrda under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
+= dune.env, distance = "manhattan")
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)  
+Model     4     203 1.57   0.08 .
+Residual 12     387              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> permutest(m1rda,  per, parallel = clust) # use socket cluster
+
+Permutation test for rda under reduced model 
+
+Permutation: free
+Number of permutations: 49
+ 
+Model: rda(formula = H ~ A1, data = dune.env)
+Permutation test for all constrained eigenvalues
+         Df Inertia    F Pr(>F)
+Model     1  0.0029 0.75   0.44
+Residual 18  0.0703            
+> 
+> 
+> drop1(mcca,  test = "permutation", permutations = per, parallel = clust)
+                      Df  AIC    F Pr(>F)  
+<none>                   87.9              
+Condition(Management)  2 87.9              
+Manure                 3 86.5 1.03   0.36  
+A1                     1 89.0 2.00   0.06 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> drop1(mrda,  test = "permutation", permutations = per, parallel = clust)
+                      Df  AIC    F Pr(>F)
+<none>                   87.8            
+Condition(Management)  2 89.2            
+Manure                 3 87.4 1.30   0.12
+A1                     1 87.5 1.09   0.40
+> drop1(mrda1, test = "permutation", permutations = per, parallel = clust)
+                      Df  AIC    F Pr(>F)
+<none>                   69.2            
+Condition(Management)  2 69.8            
+Manure                 3 68.2 1.12   0.22
+A1                     1 69.6 1.48   0.14
+> drop1(mcap,  test = "permutation", permutations = per, parallel = clust)
+                      Df  AIC    F Pr(>F)  
+<none>                   29.1              
+Condition(Management)  2 29.4              
+Manure                 3 28.4 1.24   0.22  
+A1                     1 30.4 2.19   0.08 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> drop1(mdb,   test = "permutation", permutations = per, parallel = clust)
+                      Df  AIC    F Pr(>F)  
+<none>                   26.7              
+Condition(Management)  2 27.2              
+Manure                 3 26.4 1.32   0.18  
+A1                     1 28.4 2.46   0.08 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> drop1(m1rda, test = "permutation", permutations = per, parallel = clust)
+       Df   AIC    F Pr(>F)
+<none>    -50.1            
+A1      1 -51.3 0.75   0.44
+> 
+> anova(mcca,   permutations = per, parallel = clust)
+Permutation test for cca under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df ChiSquare    F Pr(>F)
+Model     4      0.45 1.27   0.12
+Residual 12      1.06            
+> anova(mrda,   permutations = per, parallel = clust)
+Permutation test for rda under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df Variance    F Pr(>F)  
+Model     4     16.8 1.32   0.08 .
+Residual 12     38.1              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mrda1,  permutations = per, parallel = clust)
+Permutation test for rda under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
+         Df Variance    F Pr(>F)
+Model     4     6.14 1.22   0.16
+Residual 12    15.08            
+> anova(mcap,   permutations = per, parallel = clust)
+Permutation test for capscale under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Model     4     1.07 1.59   0.08 .
+Residual 12     2.02              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mdb,    permutations = per, parallel = clust)
+Permutation test for dbrda under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Model     4     1.03 1.73   0.08 .
+Residual 12     1.80              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mancap, permutations = per, parallel = clust)
+Permutation test for capscale under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+Model     4      213 1.41   0.12
+Residual 12      452            
+> anova(mandb,  permutations = per, parallel = clust)
+Permutation test for dbrda under reduced model
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)  
+Model     4      203 1.57   0.08 .
+Residual 12      387              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(m0cca,  permutations = per, parallel = clust)
+No constrained component
+
+Model: cca(formula = dune ~ Condition(Management) + Management, data = dune.env)
+         Df ChiSquare  F Pr(>F)
+Model     0      0.00  0       
+Residual 19      1.51          
+> 
+> anova(mcca,   permutations = per, by = "term", parallel = clust)
+Permutation test for cca under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df ChiSquare    F Pr(>F)  
+Manure    3     0.273 1.03   0.36  
+A1        1     0.177 2.00   0.06 .
+Residual 12     1.062              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mrda,   permutations = per, by = "term", parallel = clust)
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df Variance    F Pr(>F)
+Manure    3     13.3 1.40    0.1
+A1        1      3.5 1.09    0.4
+Residual 12     38.1            
+> anova(mrda1,  permutations = per, by = "term", parallel = clust)
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
+         Df Variance    F Pr(>F)
+Manure    3     4.28 1.14   0.20
+A1        1     1.86 1.48   0.14
+Residual 12    15.08            
+> anova(mcap,   permutations = per, by = "term", parallel = clust)
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Manure    3    0.703 1.39   0.12  
+A1        1    0.370 2.19   0.08 .
+Residual 12    2.021              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mdb,    permutations = per, by = "term", parallel = clust)
+Permutation test for dbrda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Manure    3    0.667 1.49   0.12  
+A1        1    0.367 2.46   0.08 .
+Residual 12    1.796              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mancap, permutations = per, by = "term", parallel = clust)
+Permutation test for capscale under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+Manure    3      173 1.53   0.14
+A1        1       40 1.07   0.34
+Residual 12      452            
+> anova(mandb,  permutations = per, by = "term", parallel = clust)
+Permutation test for dbrda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+Manure    3      163 1.68   0.14
+A1        1       39 1.22   0.26
+Residual 12      387            
+> anova(m1rda,  permutations = per, by = "term", parallel = clust)
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = H ~ A1, data = dune.env)
+         Df Variance    F Pr(>F)
+A1        1   0.0029 0.75   0.44
+Residual 18   0.0703            
+> 
+> anova(mcca,   permutations = per, by = "margin", parallel = clust)
+Permutation test for cca under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df ChiSquare    F Pr(>F)  
+Manure    3     0.274 1.03   0.36  
+A1        1     0.177 2.00   0.06 .
+Residual 12     1.062              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mrda,   permutations = per, by = "margin", parallel = clust)
+Permutation test for rda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df Variance    F Pr(>F)
+Manure    3     12.4 1.30   0.12
+A1        1      3.5 1.09   0.40
+Residual 12     38.1            
+> anova(mrda1,  permutations = per, by = "margin", parallel = clust)
+Permutation test for rda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
+         Df Variance    F Pr(>F)
+Manure    3     4.21 1.12   0.22
+A1        1     1.86 1.48   0.14
+Residual 12    15.08            
+> anova(mcap,   permutations = per, by = "margin", parallel = clust)
+Permutation test for capscale under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Manure    3    0.627 1.24   0.22  
+A1        1    0.370 2.19   0.08 .
+Residual 12    2.021              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mdb,    permutations = per, by = "margin", parallel = clust)
+Permutation test for dbrda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+Manure    3    0.594 1.32   0.18  
+A1        1    0.367 2.46   0.08 .
+Residual 12    1.796              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mancap, permutations = per, by = "margin", parallel = clust)
+Permutation test for capscale under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+Manure    3      165 1.46   0.12
+A1        1       40 1.07   0.34
+Residual 12      452            
+> anova(mandb,  permutations = per, by = "margin", parallel = clust)
+Permutation test for dbrda under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+Manure    3      155 1.60   0.12
+A1        1       39 1.22   0.26
+Residual 12      387            
+> anova(m1rda,  permutations = per, by = "margin", parallel = clust)
+Permutation test for rda under NA model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = H ~ A1, data = dune.env)
+         Df Variance    F Pr(>F)
+A1        1   0.0029 0.75   0.44
+Residual 18   0.0703            
+> 
+> anova(mcca,   permutations = per, by = "axis", parallel = clust)
+Permutation test for cca under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df ChiSquare    F Pr(>F)
+CCA1      1     0.223 2.52   0.16
+CCA2      1     0.123 1.39   0.56
+CCA3      1     0.064 0.72   0.96
+CCA4      1     0.041 0.46   0.96
+Residual 12     1.062            
+> anova(mrda,   permutations = per, by = "axis", parallel = clust)
+Permutation test for rda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env)
+         Df Variance    F Pr(>F)
+RDA1      1      8.5 2.69   0.10
+RDA2      1      4.3 1.36   0.62
+RDA3      1      2.2 0.69   0.98
+RDA4      1      1.7 0.54   0.94
+Residual 12     38.1            
+> anova(mrda1,  permutations = per, by = "axis", parallel = clust)
+Permutation test for rda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, scale = TRUE)
+         Df Variance    F Pr(>F)
+RDA1      1     2.61 2.08   0.22
+RDA2      1     1.70 1.35   0.62
+RDA3      1     1.10 0.88   0.94
+RDA4      1     0.73 0.58   0.98
+Residual 12    15.08            
+> anova(mcap,   permutations = per, by = "axis", parallel = clust)
+Permutation test for capscale under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)
+CAP1      1    0.674 4.00   0.12
+CAP2      1    0.243 1.44   0.66
+CAP3      1    0.105 0.62   0.98
+CAP4      1    0.051 0.30   0.96
+Residual 12    2.021            
+> anova(mdb,    permutations = per, by = "axis", parallel = clust)
+Permutation test for dbrda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+         Df SumOfSqs    F Pr(>F)  
+dbRDA1    1    0.667 4.45   0.08 .
+dbRDA2    1    0.238 1.59   0.58  
+dbRDA3    1    0.091 0.61   0.98  
+dbRDA4    1    0.038 0.26   0.94  
+Residual 12    1.796              
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> anova(mancap, permutations = per, by = "axis", parallel = clust)
+Permutation test for capscale under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+CAP1      1      126 3.33   0.18
+CAP2      1       49 1.31   0.74
+CAP3      1       24 0.64   0.98
+CAP4      1       14 0.37   0.98
+Residual 12      452            
+> anova(mandb,  permutations = per, by = "axis", parallel = clust)
+Permutation test for dbrda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "manhattan")
+         Df Variance    F Pr(>F)
+dbRDA1    1      123 3.81   0.18
+dbRDA2    1       47 1.47   0.68
+dbRDA3    1       22 0.68   0.98
+dbRDA4    1       10 0.31   0.94
+Residual 12      387            
+> anova(m1rda,  permutations = per, by = "axis", parallel = clust)
+Permutation test for rda under reduced model
+Forward tests for axes
+Permutation: free
+Number of permutations: 49
+
+Model: rda(formula = H ~ A1, data = dune.env)
+         Df Variance    F Pr(>F)
+RDA1      1   0.0029 0.75   0.44
+Residual 18   0.0703            
+> 
+> # stop the cluster as we are finished
+> stopCluster(clust)
+> 
 > ## the following do not all work with partial models
 > 
 > mcca <- cca(dune ~ Management + Manure + A1, dune.env)
@@ -1695,4 +2227,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  1.420   0.105   1.511 
+  1.782   0.131   5.387 
