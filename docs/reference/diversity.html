@@ -178,7 +178,7 @@
 <span class="r-in"><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu">fisher.alpha</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Plot all</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">H</span>, <span class="va">simp</span>, <span class="va">invsimp</span>, <span class="va">unbias.simp</span>, <span class="va">alpha</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="diversity-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="diversity-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Species richness (S) and Pielou's evenness (J):</span></span>
 <span class="r-in"><span class="va">S</span> <span class="op">&lt;-</span> <span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span> <span class="co">## rowSums(BCI &gt; 0) does the same...</span></span>
 <span class="r-in"><span class="va">J</span> <span class="op">&lt;-</span> <span class="va">H</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span></span>

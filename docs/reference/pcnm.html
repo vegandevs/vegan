@@ -186,7 +186,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML score: -103.4662     </span>
 <span class="r-in"><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">mite.xy</span>, <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">pcnm1</span>, choi<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, bubble <span class="op">=</span> <span class="fl">4</span>, main <span class="op">=</span> <span class="st">"PCNM 3"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="pcnm-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pcnm-1.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -201,7 +201,7 @@
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Plot first PCNMs against each other</span></span>
 <span class="r-in"><span class="fu"><a href="ordixyplot.html">ordisplom</a></span><span class="op">(</span><span class="va">pcnm1</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="pcnm-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pcnm-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Weighted PCNM for CCA</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
@@ -210,7 +210,7 @@
 <span class="r-in"><span class="co">## Multiscale ordination: residual variance should have no distance</span></span>
 <span class="r-in"><span class="co">## trend</span></span>
 <span class="r-in"><span class="fu"><a href="mso.html">msoplot</a></span><span class="op">(</span><span class="fu"><a href="mso.html">mso</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">mite.xy</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="pcnm-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pcnm-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

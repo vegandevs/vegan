@@ -474,7 +474,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225  </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span>, ci.type<span class="op">=</span><span class="st">"poly"</span>, col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span><span class="fl">2</span>, ci.lty<span class="op">=</span><span class="fl">0</span>, ci.col<span class="op">=</span><span class="st">"lightblue"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col<span class="op">=</span><span class="st">"yellow"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="st">"+"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="specaccum-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="specaccum-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Fit Lomolino model to the exact accumulation</span></span>
 <span class="r-in"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp1</span>, <span class="st">"lomolino"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
@@ -492,12 +492,12 @@
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Add Lomolino model using argument 'add'</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="fl">2</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="specaccum-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="specaccum-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Fit Arrhenius models to all random accumulations</span></span>
 <span class="r-in"><span class="va">mods</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp2</span>, <span class="st">"arrh"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mods</span>, col<span class="op">=</span><span class="st">"hotpink"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col <span class="op">=</span> <span class="st">"yellow"</span>, border <span class="op">=</span> <span class="st">"blue"</span>, lty<span class="op">=</span><span class="fl">1</span>, cex<span class="op">=</span><span class="fl">0.3</span>, add<span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="specaccum-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="specaccum-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Use nls() methods to the list of models</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">mods</span><span class="op">$</span><span class="va">models</span>, <span class="va">AIC</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 329.2456 321.8614 331.1568 352.1309 354.8606 323.3767 322.0897 347.7218</span>

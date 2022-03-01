@@ -486,7 +486,7 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Abundance values have such a wide range that they must be rescaled</span></span>
 <span class="r-in"><span class="fu">tabasco</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">dca</span>, scale<span class="op">=</span><span class="st">"Braun"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegemite-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegemite-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Classification trees for species</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.taxon</span><span class="op">)</span></span>
@@ -494,15 +494,15 @@
 <span class="r-in"><span class="va">plotree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, <span class="st">"average"</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Automatic reordering of clusters</span></span>
 <span class="r-in"><span class="fu">tabasco</span><span class="op">(</span><span class="va">dune</span>, <span class="va">plotree</span>, sp.ind <span class="op">=</span> <span class="va">taxontree</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegemite-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegemite-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## No reordering of taxonomy</span></span>
 <span class="r-in"><span class="fu">tabasco</span><span class="op">(</span><span class="va">dune</span>, <span class="va">plotree</span>, sp.ind <span class="op">=</span> <span class="va">taxontree</span>, Colv <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegemite-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegemite-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Species cluster: most dissimilarity indices do a bad job when</span></span>
 <span class="r-in"><span class="co">## comparing rare and common species, but Raup-Crick makes sense</span></span>
 <span class="r-in"><span class="va">sptree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, <span class="st">"raup"</span><span class="op">)</span>, <span class="st">"average"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">tabasco</span><span class="op">(</span><span class="va">dune</span>, <span class="va">plotree</span>, <span class="va">sptree</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegemite-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegemite-4.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

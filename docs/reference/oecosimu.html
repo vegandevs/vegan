@@ -330,7 +330,7 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 -24.173 8051.6 7595.8 8062.0 8439.8     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 -19.685 8035.0 7491.7 8003.0 8583.1     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## sequential model, one-sided test, a vector statistic</span></span>
@@ -359,23 +359,23 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths    2.9197 2.5442 2.7546 1.78074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic      SES    mean     50%    95% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA1  0.382249  2.12563 0.32412 0.32400 0.3667     0.01 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA2  0.261208  1.16899 0.22701 0.22465 0.2774     0.15   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA3  0.166788  0.18973 0.16297 0.16176 0.1944     0.42   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA4  0.087226 -2.14434 0.13105 0.13250 0.1632     1.00   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic      SES    mean     50%    95% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA1  0.382249  2.63249 0.31568 0.31358 0.3551     0.03 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA2  0.261208  1.46074 0.22268 0.22399 0.2635     0.08 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA3  0.166788  0.29747 0.15961 0.16015 0.1995     0.37  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA4  0.087226 -1.79710 0.12701 0.12705 0.1733     1.00  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## Inspect the swap sequence as a time series object</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="oecosimu-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="oecosimu-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/lag.plot.html" class="external-link">lag.plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="oecosimu-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="oecosimu-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="oecosimu-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="oecosimu-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Density plot</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, as.table <span class="op">=</span> <span class="cn">TRUE</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="oecosimu-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="oecosimu-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Use quantitative null models to compare</span></span>
 <span class="r-in"><span class="co">## mean Bray-Curtis dissimilarities</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
@@ -391,7 +391,7 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 13.556 0.46767 0.44384 0.46738 0.4913     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 14.403 0.46591 0.43996 0.46527 0.4905     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"></span>
@@ -414,8 +414,8 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 3.6261 0.63523 0.63060 0.63464 0.6417     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic   SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 3.218 0.63513 0.62964 0.63488 0.6415     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"></span>
@@ -433,8 +433,8 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> Checkerboard Units    : 2767 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.18762 2751.7 2598.9 2771.0  2868     0.97</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic    SES   mean   2.5%    50% 97.5% Pr(sim.)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 1.1172 2710.8 2607.9 2733.0  2772     0.23</span>
 <span class="r-in"><span class="co">## Several chains of a sequential model -- this can be generalized</span></span>
 <span class="r-in"><span class="co">## for parallel processing (see ?smbind)</span></span>
 <span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="st">"swap"</span><span class="op">)</span>, <span class="fl">99</span>,</span>
@@ -461,8 +461,8 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> Checkerboard Units    : 2767 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.73088 2702.1 2568.8 2689.0  2915   0.4093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.67423 2707.7 2571.7 2698.0 2893.9   0.4496</span>
 <span class="r-in"><span class="co">## After this you can use as.mcmc() and tools in the coda package to</span></span>
 <span class="r-in"><span class="co">## analyse the chains (these will show that thin, burnin and nsimul are</span></span>
 <span class="r-in"><span class="co">## all too low for real analysis).</span></span>

@@ -142,10 +142,10 @@ of species occurrences.</p></div>
 <span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">os</span><span class="op">$</span><span class="va">oecosimu</span><span class="op">$</span><span class="va">z</span></span>
 <span class="r-in"><span class="co">## p-value</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.495126</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.396256</span>
 <span class="r-in"><span class="co">## 'heterogeneity' measure</span></span>
 <span class="r-in"><span class="op">(</span><span class="va">chi2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">z</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 94.01803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 89.36847</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">pchisq</a></span><span class="op">(</span><span class="va">chi2</span>, df<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span class="co">## Halme et al.'s suggested output</span></span>
@@ -156,7 +156,7 @@ of species occurrences.</p></div>
 <span class="r-in">    varIP<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="fu">fun</span><span class="op">(</span><span class="va">dune</span>, i<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">out</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TIP.i.Achimill   significance  heterogeneity          minIP          varIP </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.3186250     -1.4951264     94.0180324      0.0000000      0.2142097 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.3186250     -1.3962559     89.3684715      0.0000000      0.2142097 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

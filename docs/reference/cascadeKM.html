@@ -252,20 +252,20 @@
 <span class="r-in"> <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,<span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">cascadeKM</span><span class="op">(</span><span class="va">mat</span>, <span class="fl">2</span>, <span class="fl">5</span>, iter <span class="op">=</span> <span class="fl">25</span>, criterion <span class="op">=</span> <span class="st">'calinski'</span><span class="op">)</span> </span>
 <span class="r-in"> <span class="va">toto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="cascadeKM-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="cascadeKM-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"> </span>
 <span class="r-in"> <span class="co"># Partitioning an autocorrelated time series</span></span>
 <span class="r-in"> <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>,<span class="fl">30</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">cascadeKM</span><span class="op">(</span><span class="va">vec</span>, <span class="fl">2</span>, <span class="fl">5</span>, iter <span class="op">=</span> <span class="fl">25</span>, criterion <span class="op">=</span> <span class="st">'calinski'</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">toto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="cascadeKM-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="cascadeKM-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"> </span>
 <span class="r-in"> <span class="co"># Partitioning a large autocorrelated time series</span></span>
 <span class="r-in"> <span class="co"># Note that we remove the grid lines</span></span>
 <span class="r-in"> <span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span>,<span class="fl">1000</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">cascadeKM</span><span class="op">(</span><span class="va">vec</span>, <span class="fl">2</span>, <span class="fl">7</span>, iter <span class="op">=</span> <span class="fl">10</span>, criterion <span class="op">=</span> <span class="st">'calinski'</span><span class="op">)</span></span>
 <span class="r-in"> <span class="va">toto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, gridcol<span class="op">=</span><span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="cascadeKM-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="cascadeKM-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"> </span>
 </code></pre></div>
     </div>

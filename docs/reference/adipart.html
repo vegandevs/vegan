@@ -241,7 +241,7 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l1"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l2"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l2</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l3"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l3</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="adipart-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="adipart-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Additive diversity partitioning</span></span>
 <span class="r-in"><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
@@ -254,9 +254,9 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -36.088 22.341 22.105 22.286 22.673     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -44.656 22.320 22.089 22.314 22.651     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.000 35.000 35.000 35.000 35.000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     19.886  36.088 12.659 12.327 12.714 12.895     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     19.886  44.656 12.680 12.349 12.686 12.911     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## the next two define identical models</span></span>
@@ -270,12 +270,12 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -47.0938 22.38120 22.17143 22.38571 22.6664     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -22.9498 34.82895 34.36250 35.00000 35.0000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -38.5574 22.32556 21.99429 22.35714 22.6014     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -22.7560 34.84211 34.36250 35.00000 35.0000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.0000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   7.8548 12.44774 11.91393 12.48571 12.8157     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  13.9126  0.17105  0.00000  0.00000  0.6375     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   7.2576 12.51654 12.01393 12.56429 12.9929     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  13.8182  0.15789  0.00000  0.00000  0.6375     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -289,14 +289,14 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> options:  index richness, weights unif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -56.0126 22.36617 22.17500 22.37143 22.6236     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -23.6438 34.76316 34.36250 34.75000 35.0000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.0000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   9.0513 12.39699 11.96250 12.45000 12.7857     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  14.2111  0.23684  0.00000  0.25000  0.6375     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%  97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -39.2335 22.38271 22.12071 22.40000 22.654     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -28.3345 34.80263 34.50000 34.75000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   7.6434 12.41992 11.86571 12.42857 12.879     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  17.1188  0.19737  0.00000  0.25000  0.500     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## Hierarchical null model testing</span></span>
@@ -311,7 +311,7 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> level_1   0.76064 -74.466 0.93885 0.93451 0.93938 0.9422     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> level_1   0.76064 -66.153 0.93850 0.93425 0.93825 0.9436     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -325,11 +325,11 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> unit   0.76064  -59.87 0.93838 0.93323 0.93805 0.9431     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l2     0.89736 -109.46 0.99815 0.99642 0.99829 0.9995     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l3     0.92791 -361.79 0.99930 0.99903 0.99929 0.9996     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> all    1.00000    0.00 1.00000 1.00000 1.00000 1.0000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> unit   0.76064  -44.253 0.93887 0.93041 0.93931 0.9443     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l2     0.89736 -169.594 0.99819 0.99747 0.99817 0.9994     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l3     0.92791 -523.055 0.99939 0.99919 0.99943 0.9996     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> all    1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## Hierarchical testing with the Morisita index</span></span>
@@ -345,9 +345,9 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    statistic     SES      mean      2.5%       50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l1   0.52070  5.3577  0.356742  0.300928  0.372279  0.3880     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l2   0.60234 12.6159  0.156945  0.103256  0.150239  0.2165     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l3   0.67509 17.1045 -0.188414 -0.291625 -0.182979 -0.0979     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l1   0.52070  5.7012  0.349139  0.297070  0.349162  0.3951     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l2   0.60234 11.9405  0.167462  0.096686  0.178633  0.2202     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l3   0.67509 19.3530 -0.196296 -0.268287 -0.197097 -0.1115     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
