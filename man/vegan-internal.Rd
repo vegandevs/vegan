@@ -29,7 +29,8 @@ ordiTerminfo(d, data)
 ordiNAexclude(x, excluded)
 ordiNApredict(omit, x)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
-                display, choices, const, truemean, FUN)
+                display, choices, const, truemean, length, angle, code,
+                FUN)
 centroids.cca(x, mf, wt)
 getPermuteMatrix(perm, N, strata = NULL)
 howHead(x, ...)
@@ -68,7 +69,9 @@ addCailliez(d)
   function of \pkg{vegan} so that these do not cause superfluous
   warnings in graphical function \code{FUN}. If you implement
   \code{scores} functions with new arguments, you should update
-  \code{ordiArgAbsorber}. 
+  \code{ordiArgAbsorber}. Also handles a few adjacent arguments that
+  cause the same warnings, such as \code{length}, \code{angle}, etc
+  of \code{\link{arrows}}.
 
   \code{centroids.cca} finds the weighted centroids of variables.
 
