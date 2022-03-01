@@ -1,0 +1,10 @@
+url: https://vegandevs.github.io/vegan/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left: [intro, reference, news]
+    right: [search, github]

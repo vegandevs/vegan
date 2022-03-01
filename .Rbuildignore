@@ -5,3 +5,4 @@ LICENSE
 ^appveyor\.yml$
 ^Makefile$
 ^\.github
+^_pkgdown\.yml$
