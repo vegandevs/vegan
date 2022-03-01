@@ -216,12 +216,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Interval (Upper - Lower) = 0.95)</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="permustats-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="permustats-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="permustats-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="permustats-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">perm</span>, scale<span class="op">=</span><span class="cn">TRUE</span>, lty<span class="op">=</span><span class="fl">1</span>, pch<span class="op">=</span><span class="fl">16</span>, cex<span class="op">=</span><span class="fl">0.6</span>, col<span class="op">=</span><span class="st">"hotpink"</span>, ylab<span class="op">=</span><span class="st">"SES"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span>, col<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="permustats-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="permustats-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## example of multiple types of statistic</span></span>
 <span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="betadisper.html">betadisper</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, <span class="va">Management</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pmod</span> <span class="op">&lt;-</span> <span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod</span>, nperm <span class="op">=</span> <span class="fl">99</span>, pairwise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>

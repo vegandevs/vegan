@@ -231,14 +231,14 @@ This set of function extracts influence statistics and some other
 <span class="r-out co"><span class="r-pr">#&gt;</span>         10         11         21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.12745850 0.10984996 0.14195559 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">hatvalues</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"h"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="influence.cca-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="influence.cca-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## ordination plot with leverages: points with high leverage have</span></span>
 <span class="r-in"><span class="co">## similar LC and WA scores</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="ordihull.html">ordispider</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>       <span class="co"># segment from LC to WA scores</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"si"</span>, cex<span class="op">=</span><span class="fl">5</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">hatvalues</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">21</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># WA scores</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"bp"</span>, col<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="influence.cca-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="influence.cca-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## deviation and influence</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">rstandard</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span>

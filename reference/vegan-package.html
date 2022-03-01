@@ -161,7 +161,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ef</span>, p.max <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegan-package-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegan-package-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">### Example 2: Constrained ordination (RDA)</span></span>
 <span class="r-in"><span class="co">## The example uses formula interface to define the model</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
@@ -182,7 +182,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 19 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod0</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegan-package-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegan-package-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## All environmental variables: Full model</span></span>
 <span class="r-in"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mod1</span></span>
@@ -207,7 +207,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6.627 4.309 3.549 2.546 2.340 0.934 0.612 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegan-package-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegan-package-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Automatic selection of variables by permutation P-values</span></span>
 <span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="ordistep.html">ordistep</a></span><span class="op">(</span><span class="va">mod0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -268,7 +268,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegan-package-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegan-package-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Permutation test for all variables</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
@@ -305,7 +305,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="ordihull.html">ordiellipse</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">Management</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## add fitted surface of diversity to the model</span></span>
 <span class="r-in"><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="vegan-package-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vegan-package-5.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>

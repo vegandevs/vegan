@@ -140,13 +140,13 @@
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"t"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="orditorp-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="orditorp-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co"># Now with orditorp and abbreviated species names</span></span>
 <span class="r-in"><span class="va">cnam</span> <span class="op">&lt;-</span> <span class="fu"><a href="make.cepnames.html">make.cepnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="orditorp-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="orditorp-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## show select in action</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
@@ -155,7 +155,7 @@
 <span class="r-in"><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, select <span class="op">=</span> <span class="va">take</span>,</span>
 <span class="r-in">         pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="orditorp-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="orditorp-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co"># \dontshow{</span></span>
 <span class="r-in"><span class="co">## example(orditorp) should not set random seed in the user session</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">.Random.seed</span><span class="op">)</span></span>

@@ -228,7 +228,7 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.4     2.699274 696.000000  -0.098605       0.02          0.08 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.5     3.427638 500.000000  -0.112682       0.02          0.10 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.6     4.156002 468.000000  -0.107603       0.02          0.12  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.022264       0.16          0.16  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.022264       0.10          0.14  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.8     5.612730 326.000000         NA         NA            NA  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.9     6.341094 260.000000         NA         NA            NA  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.10    7.069458 184.000000         NA         NA            NA  </span>
@@ -240,7 +240,7 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 <span class="r-in"><span class="co"># or: print(mite.correlog)</span></span>
 <span class="r-in"><span class="co"># or: print.mantel.correlog(mite.correlog)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.correlog</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="mantel.correlog-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="mantel.correlog-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Compute Mantel correlogram without cutoff, Spearman statistic</span></span>
 <span class="r-in"><span class="va">mite.correlog2</span> <span class="op">&lt;-</span> <span class="fu">mantel.correlog</span><span class="op">(</span><span class="va">mite.hel.D</span>, XY<span class="op">=</span><span class="va">mite.xy</span>, cutoff<span class="op">=</span><span class="cn">FALSE</span>, </span>
@@ -278,7 +278,7 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.correlog2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="mantel.correlog-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="mantel.correlog-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># NOTE: 'nperm' argument usually needs to be larger than 49.</span></span>
 <span class="r-in"><span class="co"># It was set to this low value for demonstration purposes.</span></span>
