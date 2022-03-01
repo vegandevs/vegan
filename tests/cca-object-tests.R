@@ -1,5 +1,6 @@
 ## test the stability of cca object and its support functions
 suppressPackageStartupMessages(require(vegan))
+suppressPackageStartupMessages(require(parallel))
 set.seed(4711)
 op <- options(digits=5)
 ## models
@@ -156,12 +157,12 @@ permutest(mancap, per)
 permutest(mandb, per)
 permutest(m1rda, per)
 
-drop1(mcca, test="permutation", permutations=per)
-drop1(mrda, test="permutation", permutations=per)
-drop1(mrda1, test="permutation", permutations=per)
-drop1(mcap, test="permutation", permutations=per)
-drop1(mdb, test="permutation", permutations=per)
-drop1(m1rda, test="permutation", permutations=per)
+drop1(mcca,  test = "permutation", permutations = per)
+drop1(mrda,  test = "permutation", permutations = per)
+drop1(mrda1, test = "permutation", permutations = per)
+drop1(mcap,  test = "permutation", permutations = per)
+drop1(mdb,   test = "permutation", permutations = per)
+drop1(m1rda, test = "permutation", permutations = per)
 
 anova(mcca, permutations = per)
 anova(mrda, permutations = per)
@@ -198,6 +199,65 @@ anova(mdb, permutations = per, by="axis")
 anova(mancap, permutations = per, by="axis")
 anova(mandb, permutations = per, by="axis")
 anova(m1rda, permutations = per, by="axis")
+
+## permutation tests in parallel
+clust <- makeCluster(2) # socket cluster: the only one that works in Windows
+
+permutest(mcca,   per, parallel = clust) # use socket cluster
+permutest(mrda,   per, parallel = clust) # use socket cluster
+permutest(mrda1,  per, parallel = clust) # use socket cluster
+permutest(mcap,   per, parallel = clust) # use socket cluster
+permutest(mdb,    per, parallel = clust) # use socket cluster
+permutest(mancap, per, parallel = clust) # use socket cluster
+permutest(mandb,  per, parallel = clust) # use socket cluster
+permutest(m1rda,  per, parallel = clust) # use socket cluster
+
+
+drop1(mcca,  test = "permutation", permutations = per, parallel = clust)
+drop1(mrda,  test = "permutation", permutations = per, parallel = clust)
+drop1(mrda1, test = "permutation", permutations = per, parallel = clust)
+drop1(mcap,  test = "permutation", permutations = per, parallel = clust)
+drop1(mdb,   test = "permutation", permutations = per, parallel = clust)
+drop1(m1rda, test = "permutation", permutations = per, parallel = clust)
+
+anova(mcca,   permutations = per, parallel = clust)
+anova(mrda,   permutations = per, parallel = clust)
+anova(mrda1,  permutations = per, parallel = clust)
+anova(mcap,   permutations = per, parallel = clust)
+anova(mdb,    permutations = per, parallel = clust)
+anova(mancap, permutations = per, parallel = clust)
+anova(mandb,  permutations = per, parallel = clust)
+anova(m0cca,  permutations = per, parallel = clust)
+
+anova(mcca,   permutations = per, by = "term", parallel = clust)
+anova(mrda,   permutations = per, by = "term", parallel = clust)
+anova(mrda1,  permutations = per, by = "term", parallel = clust)
+anova(mcap,   permutations = per, by = "term", parallel = clust)
+anova(mdb,    permutations = per, by = "term", parallel = clust)
+anova(mancap, permutations = per, by = "term", parallel = clust)
+anova(mandb,  permutations = per, by = "term", parallel = clust)
+anova(m1rda,  permutations = per, by = "term", parallel = clust)
+
+anova(mcca,   permutations = per, by = "margin", parallel = clust)
+anova(mrda,   permutations = per, by = "margin", parallel = clust)
+anova(mrda1,  permutations = per, by = "margin", parallel = clust)
+anova(mcap,   permutations = per, by = "margin", parallel = clust)
+anova(mdb,    permutations = per, by = "margin", parallel = clust)
+anova(mancap, permutations = per, by = "margin", parallel = clust)
+anova(mandb,  permutations = per, by = "margin", parallel = clust)
+anova(m1rda,  permutations = per, by = "margin", parallel = clust)
+
+anova(mcca,   permutations = per, by = "axis", parallel = clust)
+anova(mrda,   permutations = per, by = "axis", parallel = clust)
+anova(mrda1,  permutations = per, by = "axis", parallel = clust)
+anova(mcap,   permutations = per, by = "axis", parallel = clust)
+anova(mdb,    permutations = per, by = "axis", parallel = clust)
+anova(mancap, permutations = per, by = "axis", parallel = clust)
+anova(mandb,  permutations = per, by = "axis", parallel = clust)
+anova(m1rda,  permutations = per, by = "axis", parallel = clust)
+
+# stop the cluster as we are finished
+stopCluster(clust)
 
 ## the following do not all work with partial models
 
