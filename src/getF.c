@@ -14,7 +14,7 @@
 #include <R_ext/Lapack.h>  /* SVD, eigen */
 
 /* handle passing strings to Fortran from C */
-#ifndef FCONE              /* from WRExt section 6.6.1 */
+#ifndef FCONE              /* from Writing R Extensions section 6.6.1 */
 # define FCONE
 #endif
 
