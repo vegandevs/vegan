@@ -1,0 +1,5 @@
+"envfit" <-
+    function(...)
+{
+    UseMethod("envfit")
+}

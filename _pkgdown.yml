@@ -1,0 +1,18 @@
+url: https://vegandevs.github.io/vegan/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+navbar:
+  structure:
+    left: [intro, reference, vignettes, news]
+    right: [search, github]
+  components:
+    vignettes:
+     text: Vignettes
+     menu:
+     - text: Vegan FAQ
+       href: articles/FAQ-vegan.html
+
+

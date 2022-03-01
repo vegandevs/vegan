@@ -1,0 +1,17 @@
+Package: vegan
+Title: Community Ecology Package
+Version: 2.6-0
+Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
+   Pierre Legendre, Dan McGlinn, Peter R. Minchin, R. B. O'Hara,
+   Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs,
+   Helene Wagner
+Maintainer: Jari Oksanen <jhoksane@gmail.com>
+Depends: permute (>= 0.9-0), lattice, R (>= 3.4.0)
+Suggests: parallel, tcltk, knitr, markdown
+Imports: MASS, cluster, mgcv
+VignetteBuilder: utils, knitr
+Description: Ordination methods, diversity analysis and other
+  functions for community and vegetation ecologists.
+License: GPL-2
+BugReports: https://github.com/vegandevs/vegan/issues
+URL: https://github.com/vegandevs/vegan

@@ -1,0 +1,722 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{Design decisions and implementation}
+
+\documentclass[a4paper,10pt,twocolumn]{article}
+\usepackage{vegan} % package options and redefinitions
+
+\author{Jari Oksanen}
+\title{Design decisions and implementation details in vegan}
+
+\date{\footnotesize{
+  processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today}}
+
+%% need no \usepackage{Sweave}
+\begin{document}
+\bibliographystyle{jss}
+
+\SweaveOpts{strip.white=true}
+
+<<echo=false,results=hide>>=
+figset <- function() par(mar=c(4,4,1,1)+.1)
+options(SweaveHooks = list(fig = figset))
+options("prompt" = "> ", "continue" = "  ")
+options(width = 55)
+require(vegan)
+@
+\maketitle
+
+\begin{abstract}
+  This document describes design decisions, and discusses implementation
+and algorithmic details in some vegan functions. The proper FAQ is
+another document.
+\end{abstract}
+
+\tableofcontents
+
+\section{Parallel processing}
+
+Several \pkg{vegan} functions can perform parallel processing using
+the standard \R{} package \pkg{parallel}.
+The \pkg{parallel} package in \R{} implements
+the functionality of earlier contributed packages \pkg{multicore} and
+\pkg{snow}.  The \pkg{multicore} functionality forks the analysis to
+multiple cores, and \pkg{snow} functionality sets up a socket cluster
+of workers.  The \pkg{multicore} functionality only works in unix-like
+systems (such as MacOS and Linux), but \pkg{snow} functionality works
+in all operating systems.  \pkg{Vegan} can use either method, but
+defaults to \pkg{multicore} functionality when this is available,
+because its forked clusters are usually faster.  This chapter
+describes both the user interface and internal implementation for the
+developers.
+
+\subsection{User interface}
+\label{sec:parallel:ui}
+
+The functions that are capable of parallel processing have argument
+\code{parallel}.  The normal default is \code{parallel = 1} which
+means that no parallel processing is performed.  It is possible to set
+parallel processing as the default in \pkg{vegan} (see
+\S\,\ref{sec:parallel:default}).
+
+For parallel processing, the \code{parallel} argument can be either
+
+\begin{enumerate}
+\item An integer in which case the given number of parallel processes
+  will be launched (value $1$ launches non-parallel processing). In
+  unix-like systems (\emph{e.g.}, MacOS, Linux) these will be forked
+  \code{multicore} processes. In Windows socket clusters will be set up,
+  initialized and closed.
+\item A previously created socket cluster. This saves time as the
+  cluster is not set up and closed in the function.  If the argument is a
+  socket cluster, it will also be used in unix-like systems. Setting
+  up a socket cluster is discussed in \S\,\ref{sec:parallel:socket}.
+\end{enumerate}
+
+\subsubsection{Using parallel processing as default}
+\label{sec:parallel:default}
+
+If the user sets option \code{mc.cores}, its value will be used as the
+default value of the \code{parallel} argument in \pkg{vegan}
+functions.  The following command will set up parallel processing to
+all subsequent \pkg{vegan} commands:
+<<eval=false>>=
+options(mc.cores = 2)
+@
+
+The \code{mc.cores} option is defined in the \pkg{parallel} package,
+but it is usually unset in which case \pkg{vegan} will default to
+non-parallel computation.  The \code{mc.cores} option can be set by
+the environmental variable \code{MC_CORES} when the \pkg{parallel}
+package is loaded.
+
+\R{} allows setting up a default socket cluster
+(\code{setDefaultCluster}), but this will not be used in \pkg{vegan}.
+
+\subsubsection{Setting up socket clusters}
+\label{sec:parallel:socket}
+
+If socket clusters are used (and they are the only alternative in
+Windows), it is often wise to set up a cluster before calling
+parallelized code and give the pre-defined cluster as the value of
+the \code{parallel} argument in \pkg{vegan}.  If you want to use
+socket clusters in unix-like systems (MacOS, Linux), this can be only
+done with pre-defined clusters.
+
+If socket cluster is not set up in Windows, \pkg{vegan} will create and
+close the cluster within the function body. This involves following commands:
+\begin{Schunk}
+\begin{Soutput}
+clus <- makeCluster(4)
+## perform parallel processing
+stopCluster(clus)
+\end{Soutput}
+\end{Schunk}
+The first command sets up the cluster, in this case with four
+cores, and the second command stops the cluster.
+
+Most parallelized \pkg{vegan} functions work similarly in socket and
+fork clusters, but in \code{oecosimu} the parallel processing is used
+to evaluate user-defined functions, and their arguments and data must
+be made known to the socket cluster.  For example, if you want to run
+in parallel the \code{meandist} function of the \code{oecosimu}
+example with a pre-defined socket cluster, you must use:
+<<eval=false>>=
+## start up and define meandist()
+library(vegan)
+data(sipoo)
+meandist <-
+    function(x) mean(vegdist(x, "bray"))
+library(parallel)
+clus <- makeCluster(4)
+clusterEvalQ(clus, library(vegan))
+mbc1 <- oecosimu(dune, meandist, "r2dtable",
+                 parallel = clus)
+stopCluster(clus)
+@
+Socket clusters are used for parallel processing in Windows, but you
+do not need to pre-define the socket cluster in \code{oecosimu} if you
+only need \pkg{vegan} commands.  However, if you need some other
+contributed packages, you must pre-define the socket cluster also in
+Windows with appropriate \code{clusterEvalQ} calls.
+
+If you pre-set the cluster, you can also use \pkg{snow} style socket
+clusters in unix-like systems.
+
+\subsubsection{Random number generation}
+
+\pkg{Vegan} does not use parallel processing in random number
+generation, and you can set the seed for the standard random number
+generator. Setting the seed for the parallelized generator (L'Ecuyer)
+has no effect in \pkg{vegan}.
+
+\subsubsection{Does it pay off?}
+
+Parallelized processing has a considerable overhead, and the analysis
+is faster only if the non-parallel code is really slow (takes several
+seconds in wall clock time). The overhead is particularly large in
+socket clusters (in Windows). Creating a socket cluster and evaluating
+\code{library(vegan)} with \code{clusterEvalQ} can take two seconds or
+longer, and only pays off if the non-parallel analysis takes ten
+seconds or longer. Using pre-defined clusters will reduce the
+overhead. Fork clusters (in unix-likes operating systems) have a
+smaller overhead and can be faster, but they also have an overhead.
+
+Each parallel process needs memory, and for a large number of
+processes you need much memory.  If the memory is exhausted, the
+parallel processes can stall and  take much longer than
+non-parallel processes (minutes instead of seconds).
+
+If the analysis is fast, and function runs in, say, less than five
+seconds, parallel processing is rarely useful.  Parallel processing is
+useful only in slow analyses: large number of replications or
+simulations, slow evaluation of each simulation. The danger of memory
+exhaustion must always be remembered.
+
+The benefits and potential problems of parallel processing depend on
+your particular system: it is best to rely on your own experience.
+
+\subsection{Internals for developers}
+
+The implementation of the parallel processing should accord with the
+description of the user interface above (\S\,\ref{sec:parallel:ui}).
+Function \code{oecosimu} can be used as a reference implementation,
+and similar interpretation and order of interpretation of arguments
+should be followed.  All future implementations should be consistent
+and all must be changed if the call heuristic changes.
+
+The value of the \code{parallel} argument can be \code{NULL}, a
+positive integer or a socket cluster.  Integer $1$ means that no
+parallel processing is performed.  The ``normal'' default is
+\code{NULL} which in  the ``normal'' case is interpreted as $1$.  Here
+``normal'' means that \R{} is run with default settings without
+setting \code{mc.cores} or environmental variable \code{MC_CORES}.
+
+Function \code{oecosimu} interprets the \code{parallel} arguments in
+the following way:
+\begin{enumerate}
+\item \code{NULL}: The function is called with argument \code{parallel
+    = getOption("mc.cores")}. The option \code{mc.cores} is normally
+  unset and then the default is \code{parallel = NULL}.
+\item Integer: An integer value is taken as the number of created
+  parallel processes.  In unix-like systems this is the number of
+  forked multicore processes, and in Windows this is the number of
+  workers in socket clusters.  In Windows, the socket cluster is
+  created, and if needed \code{library(vegan)} is evaluated in the
+  cluster (this is not necessary if the function only uses internal
+  functions), and the cluster is stopped after parallel processing.
+\item Socket cluster: If a socket cluster is given, it will be used in
+  all operating systems, and  the cluster is not stopped
+  within the function.
+\end{enumerate}
+
+This gives the following precedence order for parallel processing
+(highest to lowest):
+\begin{enumerate}
+  \item Explicitly given argument value of \code{parallel} will always
+    be used.
+  \item If \code{mc.cores} is set, it will be used. In Windows this
+    means creating and stopping socket clusters. Please note
+    that the \code{mc.cores} is only set from the environmental
+    variable \code{MC_CORES} when you load the \pkg{parallel} package,
+    and it is always unset before first
+    \code{require(parallel)}.
+ \item The fall back behaviour is no parallel processing.
+\end{enumerate}
+
+\section{Nestedness and Null models}
+
+Some published indices of nestedness and null models of communities
+are only described in general terms, and they could be implemented in
+various ways. Here I discuss the implementation in \pkg{vegan}.
+
+\subsection{Matrix temperature}
+
+The matrix temperature is intuitively simple
+(Fig. \ref{fig:nestedtemp}), but the the exact calculations were not
+explained in the original publication \cite{AtmarPat93}.
+\begin{figure}
+<<fig=true,echo=false,results=hide>>=
+data(sipoo)
+mod <- nestedtemp(sipoo)
+plot(mod, "i")
+x <- mod$c["Falcsubb"]
+y <- 1 - mod$r["Svartholm"]
+points(x,y, pch=16, cex=1.5)
+abline(x+y, -1, lty=2)
+f <- function(x, p) (1-(1-x)^p)^(1/p)
+cross <- function(x, a, p) f(x,p) - a + x
+r <- uniroot(cross, c(0,1), a = x+y, p = mod$p)$root
+arrows(x,y, r, f(r, mod$p), lwd=4)
+@
+\caption{Matrix temperature for \emph{Falco subbuteo} on Sibbo
+  Svartholmen (dot). The curve is the fill line, and in a cold
+  matrix, all presences (red squares) should be in the upper left
+  corner behind the fill line. Dashed diagonal line of length $D$ goes
+  through the point, and an arrow of length $d$ connects the point to
+  the fill line. The ``surprise'' for this point is $u = (d/D)^2$ and
+  the matrix temperature is based on the sum of surprises: presences
+  outside the fill line or absences within the fill line.}
+\label{fig:nestedtemp}
+\end{figure}
+The function can be implemented in many ways following the general
+principles.  \citet{RodGir06} have seen the original code and reveal
+more details of calculations, and their explanation is the basis of
+the implementation in \pkg{vegan}.  However, there are still some open
+issues, and probably \pkg{vegan} function \code{nestedtemp} will never
+exactly reproduce results from other programs, although it is based on
+the same general principles.\footnote{function \code{nestedness} in
+  the \pkg{bipartite} package is a direct port of the original
+  \proglang{BINMATNEST} program of \citet{RodGir06}.}  I try to give
+main computation details in this document --- all details can be seen
+in the source code of \code{nestedtemp}.
+
+\begin{itemize}
+\item Species and sites are put into unit square \citep{RodGir06}. The
+  row and column coordinates will be $(k-0.5)/n$ for $k=1 \ldots n$,
+  so that there are no points in the corners or the margins of the
+  unit square, and a diagonal line can be drawn through any point. I
+  do not know how the rows and columns are converted to the unit
+  square in other software, and this may be a considerable source of
+  differences among implementations.
+  \item Species and sites are ordered alternately using indices
+    \citep{RodGir06}:
+    \begin{equation}
+    \begin{split}
+      s_j &= \sum_{i|x_{ij} = 1} i^2 \\
+      t_j &= \sum_{i|x_{ij} = 0} (n-i+1)^2
+    \end{split}
+    \end{equation}
+    Here $x$ is the data matrix, where $1$ is presence, and $0$ is
+    absence, $i$ and $j$ are row and column indices, and $n$ is the
+    number of rows. The equations give the indices for columns, but
+    the indices can be reversed for corresponding row indexing.
+    Ordering by $s$ packs presences to the top left corner, and
+    ordering by $t$ pack zeros away from the top left corner. The final
+    sorting should be ``a compromise'' \citep{RodGir06} between these
+    scores, and \pkg{vegan} uses $s+t$.  The result should be cool,
+    but the packing does not try to minimize the temperature
+    \citep{RodGir06}.  I do not know how the ``compromise'' is
+    defined, and this can cause some differences to other
+    implementations.
+  \item The following function is used to define the fill line:
+    \begin{equation}
+      y = (1-(1-x)^p)^{1/p}
+    \end{equation}
+    This is similar to the equation suggested by
+    \citet[eq. 4]{RodGir06}, but omits all terms dependent on the
+    numbers of species or sites, because I could not understand why
+    they were needed. The differences are visible only in small data
+    sets. The $y$ and $x$ are the coordinates in the unit square, and
+    the parameter $p$ is selected so that the curve covers the same
+    area as is the proportion of presences
+    (Fig. \ref{fig:nestedtemp}). The parameter $p$ is found
+    numerically using \proglang{R} functions \code{integrate} and
+    \code{uniroot}.  The fill line used in the original matrix
+    temperature software \citep{AtmarPat93} is supposed to be similar
+    \citep{RodGir06}. Small details in the fill line combined with
+    differences in scores used in the unit square (especially in the
+    corners) can cause large differences in the results.
+  \item A line with slope\,$= -1$ is drawn through the point and the $x$
+    coordinate of the intersection of this line and the fill line is
+    found using function \code{uniroot}. The difference of this
+    intersection and the row coordinate gives the argument $d$ of matrix
+    temperature (Fig. \ref{fig:nestedtemp}).
+  \item In other software, ``duplicated'' species occurring on every
+    site are removed, as well as empty sites and species after
+    reordering \cite{RodGir06}. This is not done in \pkg{vegan}.
+\end{itemize}
+
+
+\section{Scaling in redundancy analysis}
+
+This chapter discusses the scaling of scores (results) in redundancy
+analysis and principal component analysis performed by function
+\code{rda} in the \pkg{vegan} library.
+
+Principal component analysis decomposes a centred data matrix
+$\mathbf{X} = \{x_{ij}\}$ into $K$ orthogonal components so that
+$x_{ij} = \sqrt{n-1} \sum_{k=1}^K u_{ik} \sqrt{\lambda_k} v_{jk}$,
+where $u_{ik}$ and $v_{jk}$ are orthonormal coefficient matrices and
+$\lambda_k$ are eigenvalues. In \pkg{vegan} the eigenvalues sum up to
+variance of the data, and therefore we need to multiply with the
+square root of degrees of freedom $n-1$.  Orthonormality means that
+sums of squared columns is one and their cross-product is zero, or
+$\sum_i u_{ik}^2 = \sum_j v_{jk}^2 = 1$, and
+$\sum_i u_{ik} u_{il} = \sum_j v_{jk} v_{jl} = 0$ for $k \neq l$. This
+is a decomposition, and the original matrix is found exactly from the
+singular vectors and corresponding singular values, and first two
+singular components give the rank $=2$ least squares estimate of the
+original matrix.
+
+The coefficients $u_{ik}$ and $v_{jk}$ are scaled to unit length for all
+axes $k$. Eigenvalues $\lambda_k$ give
+the information of the importance of axes, or the `axis lengths.'
+Instead of the orthonormal coefficients, or equal length axes, it is
+customary to scale species (column) or site (row) scores or both by
+eigenvalues to display the importance of axes and to describe the true
+configuration of points.  Table \ref{tab:scales} shows some
+alternative scalings.  These alternatives apply to principal
+components analysis in all cases, and in redundancy analysis, they
+apply to species scores and constraints or linear combination scores;
+weighted averaging scores have somewhat wider dispersion.
+
+\begin{table*}[t]
+  \centering
+  \caption{\label{tab:scales} Alternative scalings for \textsc{rda} used
+    in the functions \code{prcomp} and \code{princomp}, and the
+    one used in the \pkg{vegan} function \code{rda}
+    and the proprietary software \proglang{Canoco}
+    scores in terms of orthonormal species ($v_{ik}$) and site scores
+    ($u_{jk}$), eigenvalues ($\lambda_k$), number of sites  ($n$) and
+    species standard deviations ($s_j$). In \code{rda},
+    $\mathrm{const} = \sqrt[4]{(n-1) \sum \lambda_k}$.  Corresponding
+    negative scaling in \pkg{vegan}
+   % and corresponding positive scaling in \texttt{Canoco 3}
+    is derived
+    dividing each  species by its standard deviation $s_j$ (possibly
+    with some additional constant multiplier).  }
+ \begin{tabular}{lcc}
+  \\
+  \toprule
+& \textbf{Site scores} $u_{ik}^*$ &
+\textbf{Species scores} $v_{jk}^*$ \\
+\midrule
+\code{prcomp, princomp} &
+$u_{ik} \sqrt{n-1} \sqrt{\lambda_k}$ &
+$v_{jk}$ \\
+\code{stats::biplot} &
+$u_{ik}$ &
+$v_{jk} \sqrt{n} \sqrt{\lambda_k}$ \\
+\code{stats::biplot, pc.biplot=TRUE} &
+$u_{ik} \sqrt{n-1}$ &
+$v_{jk} \sqrt{\lambda_k}$\\
+\code{rda, scaling="sites"} &
+$u_{ik} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
+$v_{jk} \times \mathrm{const}$
+\\
+\code{rda, scaling="species"} &
+$u_{ik} \times \mathrm{const}$ &
+$v_{jk} \sqrt{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$  \\
+\code{rda, scaling="symmetric"} &
+$u_{ik} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ &
+$v_{jk} \sqrt[4]{\lambda_k/ \sum \lambda_k} \times \mathrm{const}$ \\
+\code{rda, correlation=TRUE} &
+$u_{ik}^*$ &
+$\sqrt{\sum \lambda_k /(n-1)} s_j^{-1} v_{jk}^*$
+\\
+% \code{Canoco 3, scaling=-1} &
+% $u_{ik} \sqrt{n-1} \sqrt{\lambda_k / \sum \lambda_k}$ &
+% $v_{jk} \sqrt{n}$ \\
+% \code{Canoco 3, scaling=-2} &
+% $u_{ik} \sqrt{n-1}$ &
+% $v_{jk} \sqrt{n} \sqrt{\lambda_k / \sum \lambda_k}$
+% \\
+% \code{Canoco 3, scaling=-3} &
+% $u_{ik} \sqrt{n-1} \sqrt[4]{\lambda_k / \sum \lambda_k}$ &
+% $v_{jk} \sqrt{n} \sqrt[4]{\lambda_k / \sum \lambda_k}$
+\bottomrule
+\end{tabular}
+\end{table*}
+
+In community ecology, it is common to plot both species and sites in
+the same graph.  If this graph is a graphical display of \textsc{pca},
+or a graphical, low-dimensional approximation of the data, the graph
+is called a biplot.  The graph is a biplot if the transformed scores
+satisfy $x_{ij} = c \sum_k u_{ij}^* v_{jk}^*$ where $c$ is a scaling
+constant.  In functions \code{princomp}, \code{prcomp} and \code{rda}
+with \code{scaling = "sites"}, the plotted scores define a biplot so that
+the eigenvalues are expressed for sites, and species are left
+unscaled.
+% For \texttt{Canoco 3} $c = n^{-1} \sqrt{n-1}
+% \sqrt{\sum \lambda_k}$ with negative \proglang{Canoco} scaling
+% values. All these $c$ are constants for a matrix, so these are all
+% biplots with different internal scaling of species and site scores
+% with respect to each other.  For \proglang{Canoco} with positive scaling
+% values and \pkg{vegan} with negative scaling values, no constant
+% $c$ can be found, but the correction is dependent on species standard
+% deviations $s_j$, and these scores do not define a biplot.
+
+There is no natural way of scaling species and site scores to each
+other.  The eigenvalues in redundancy and principal components
+analysis are scale-dependent and change when the data are multiplied
+by a constant.  If we have percent cover data, the eigenvalues are
+typically very high, and the scores scaled by eigenvalues will have
+much wider dispersion than the orthonormal set.  If we express the
+percentages as proportions, and divide the matrix by $100$, the
+eigenvalues will be reduced by factor $100^2$, and the scores scaled
+by eigenvalues will have a narrower dispersion.  For graphical biplots
+we should be able to fix the relations of row and column scores to be
+invariant against scaling of data.  The solution in \proglang{R}
+standard function \code{biplot} is to scale site and species scores
+independently, and typically very differently
+(Table~\ref{tab:scales}), but plot each independently to fill the
+graph area.  The solution in \proglang{Canoco} and \code{rda} is to
+use proportional eigenvalues $\lambda_k / \sum \lambda_k$ instead of
+original eigenvalues.  These proportions are invariant with scale
+changes, and typically they have a nice range for plotting two data
+sets in the same graph.
+
+The \textbf{vegan} package uses a scaling constant $c = \sqrt[4]{(n-1)
+  \sum \lambda_k}$ in order to be able to use scaling by proportional
+eigenvalues (like in \proglang{Canoco}) and still be able to have a
+biplot scaling. Because of this, the scaling of \code{rda} scores is
+non-standard. However, the \code{scores} function lets you to set
+the scaling constant to any desired values. It is also possible to
+have two separate scaling constants: the first for the species, and
+the second for sites and friends, and this allows getting scores of
+other software or \proglang{R} functions (Table \ref{tab:rdaconst}).
+
+\begin{table*}[t]
+  \centering
+  \caption{\label{tab:rdaconst} Values of the \code{const} argument in
+    \textbf{vegan} to get the scores that are equal to those from
+    other functions and software. Number of sites (rows) is $n$,
+    the number of species (columns) is $m$, and the sum of all
+    eigenvalues is $\sum_k \lambda_k$ (this is saved as the item
+    \code{tot.chi} in the \code{rda} result)}.
+ \begin{tabular}{lccc}
+  \\
+  \toprule
+& \textbf{Scaling} &\textbf{Species constant} & \textbf{Site constant} \\
+\midrule
+\pkg{vegan} & any  & $\sqrt[4]{(n-1) \sum \lambda_k}$ & $\sqrt[4]{(n-1) \sum \lambda_k}$\\
+\code{prcomp}, \code{princomp} & \code{1} & $1$ & $\sqrt{(n-1) \sum_k \lambda_k}$\\
+\proglang{Canoco\,v3} & \code{-1, -2, -3} & $\sqrt{n-1}$ & $\sqrt{n}$\\
+\proglang{Canoco\,v4} & \code{-1, -2, -3} & $\sqrt{m}$ & $\sqrt{n}$\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The scaling is controlled by three arguments in the \code{scores}
+function in \pkg{vegan}:
+\begin{enumerate}
+  \item \code{scaling} with options \code{"sites"}, \code{"species"}
+    and \code{"symmetric"} defines the set of scores which is scaled
+    by eigenvalues (Table~\ref{tab:scales}).
+  \item \code{const} can be used to set the numeric scaling constant
+    to non-default values (Table~\ref{tab:rdaconst}).
+  \item \code{correlation} can be used to modify species scores so
+    that they show the relative change of species abundance, or their
+    correlation with the ordination (Table~\ref{tab:scales}). This is
+    no longer a biplot scaling.
+\end{enumerate}
+
+\section{Weighted average and linear combination scores}
+
+Constrained ordination methods such as Constrained Correspondence
+Analysis (CCA) and Redundancy Analysis (RDA) produce two kind of site
+scores \cite{Braak86, Palmer93}:
+\begin{itemize}
+\item
+LC or Linear Combination Scores which are linear combinations of
+constraining variables.
+\item
+WA or Weighted Averages Scores which are such weighted averages of
+species scores that are as similar to LC scores as possible.
+\end{itemize}
+Many computer programs for constrained ordinations give only or
+primarily LC scores following recommendation of
+\citet{Palmer93}.  However, functions \code{cca} and \code{rda} in
+the \pkg{vegan} package use primarily WA scores. This chapter
+explains the reasons for this choice.
+
+Briefly, the main reasons are that
+\begin{itemize}
+\item LC scores \emph{are} linear combinations, so they give us only
+  the (scaled) environmental variables. This means that they are
+  independent of vegetation and cannot be found from the species
+  composition.  Moreover, identical combinations of environmental
+  variables give identical LC scores irrespective of vegetation.
+\item \citet{McCune97} has demonstrated that noisy environmental
+  variables result in deteriorated LC scores whereas WA scores
+  tolerate some errors in environmental variables.  All environmental
+  measurements contain some errors, and therefore it is safer to use
+  WA scores.
+\end{itemize}
+This article studies mainly the first point.  The users of
+\pkg{vegan} have a choice of either LC or WA (default) scores, but
+after reading this article, I believe that most of them do not want to
+use LC scores, because they are not what they were looking for in
+ordination.
+
+\subsection{LC Scores are Linear Combinations}
+
+Let us perform a simple CCA analysis using only two environmental
+variables so that we can see the constrained solution completely in
+two dimensions:
+<<>>=
+library(vegan)
+data(varespec)
+data(varechem)
+orig <- cca(varespec ~ Al + K, varechem)
+@
+Function \code{cca} in \pkg{vegan} uses WA scores as
+default. So we must specifically ask for LC scores
+(Fig. \ref{fig:ccalc}).
+<<a,fig=false>>=
+plot(orig, dis=c("lc","bp"))
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{LC scores in CCA of the original data.}
+\label{fig:ccalc}
+\end{figure}
+
+What would happen to linear combinations of LC scores if we shuffle
+the ordering of sites in species data?  Function \code{sample()} below
+shuffles the indices.
+<<>>=
+i <- sample(nrow(varespec))
+shuff <- cca(varespec[i,] ~ Al + K, varechem)
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+plot(shuff, dis=c("lc","bp"))
+@
+\caption{LC scores of shuffled species data.}
+\label{fig:ccashuff}
+\end{figure}
+It seems that site scores are fairly similar, but oriented differently
+(Fig. \ref{fig:ccashuff}).  We can use Procrustes rotation to see how
+similar the site scores indeed are (Fig. \ref{fig:ccaproc}).
+<<a,fig=false>>=
+plot(procrustes(scores(orig, dis="lc"),
+                scores(shuff, dis="lc")))
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{Procrustes rotation of LC scores from CCA of original and shuffled data.}
+\label{fig:ccaproc}
+\end{figure}
+There is a small difference, but this will disappear if we use
+Redundancy Analysis (RDA) instead of CCA
+(Fig. \ref{fig:rdaproc}). Here we use a new shuffling as well.
+<<>>=
+tmp1 <- rda(varespec ~ Al + K, varechem)
+i <- sample(nrow(varespec)) # Different shuffling
+tmp2 <- rda(varespec[i,] ~ Al + K, varechem)
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+plot(procrustes(scores(tmp1, dis="lc"),
+                scores(tmp2, dis="lc")))
+@
+\caption{Procrustes rotation of LC scores in RDA of the original and shuffled data.}
+\label{fig:rdaproc}
+\end{figure}
+
+LC scores indeed are linear combinations of constraints (environmental
+variables) and \emph{independent of species data}: You can
+shuffle your species data, or change the data completely, but the LC
+scores will be unchanged in RDA.  In CCA the LC scores are
+\emph{weighted} linear combinations with site totals of species data
+as weights. Shuffling species data in CCA changes the weights, and
+this can cause changes in LC scores.  The magnitude of changes depends
+on the variability of site totals.
+
+The original data and shuffled data differ in their goodness of
+fit:
+<<>>=
+orig
+shuff
+@
+Similarly their WA scores will be (probably) very different
+(Fig. \ref{fig:ccawa}).
+\begin{figure}
+<<fig=true,echo=false>>=
+plot(procrustes(orig, shuff))
+@
+\caption{Procrustes rotation of WA scores of CCA with the original and
+  shuffled data.}
+\label{fig:ccawa}
+\end{figure}
+
+The example used only two environmental variables so that we can
+easily plot all constrained axes.  With a larger number of
+environmental variables the full configuration remains similarly
+unchanged, but its orientation may change, so that two-dimensional
+projections look different.  In the full space, the differences should
+remain within numerical accuracy:
+<<>>=
+tmp1 <- rda(varespec ~ ., varechem)
+tmp2 <- rda(varespec[i,] ~ ., varechem)
+proc <- procrustes(scores(tmp1, dis="lc", choi=1:14),
+                   scores(tmp2, dis="lc", choi=1:14))
+max(residuals(proc))
+@
+In \code{cca} the difference would be somewhat larger than now
+observed \Sexpr{format.pval(max(residuals(proc)))} because site
+weights used for environmental variables are shuffled with the species
+data.
+
+\subsection{Factor constraints}
+
+It seems that users often get confused when they perform constrained
+analysis using  only one factor (class variable) as constraint.  The
+following example uses the classical dune meadow data \cite{Jongman87}:
+<<>>=
+data(dune)
+data(dune.env)
+orig <- cca(dune ~ Moisture, dune.env)
+@
+When the results are plotted using LC scores, sample plots fall only
+in four alternative positions (Fig. \ref{fig:factorlc}).
+\begin{figure}
+<<fig=TRUE,echo=false>>=
+plot(orig, dis="lc")
+@
+\caption{LC scores of the dune meadow data using only one factor as a
+  constraint.}
+\label{fig:factorlc}
+\end{figure}
+In the previous chapter we saw that this happens because LC scores
+\emph{are} the environmental variables, and they can be distinct only
+if the environmental variables are distinct.  However, normally the user
+would like to see how well the environmental variables separate the
+vegetation, or inversely, how we could use the vegetation to
+discriminate the environmental conditions.  For this purpose we should
+plot WA scores, or LC scores and WA scores together:  The LC scores
+show where the site \emph{should} be, the WA scores shows where the
+site \emph{is}.
+
+Function \code{ordispider} adds line segments to connect each WA
+score with the corresponding LC (Fig.  \ref{fig:walcspider}).
+<<a,fig=false>>=
+plot(orig, display="wa", type="points")
+ordispider(orig, col="red")
+text(orig, dis="cn", col="blue")
+@
+\begin{figure}
+<<fig=TRUE,echo=false>>=
+<<a>>
+@
+\caption{A ``spider plot'' connecting WA scores to corresponding LC
+  scores. The shorter the web segments, the better the ordination.}
+\label{fig:walcspider}
+\end{figure}
+This is the standard way of displaying results of discriminant
+analysis, too.  Moisture classes \code{1} and \code{2} seem to be
+overlapping, and cannot be completely separated by their
+vegetation. Other classes are more distinct, but there seems to be a
+clear arc effect or a ``horseshoe'' despite using CCA.
+
+\subsection{Conclusion}
+
+LC scores are only the (weighted and scaled) constraints and
+independent of vegetation. If you plot them, you plot only your
+environmental variables. WA scores are based on vegetation data but
+are constrained to be as similar to the LC scores as only
+possible. Therefore \pkg{vegan} calls LC scores as
+\code{constraints} and WA scores as \code{site scores}, and uses
+primarily WA scores in plotting.  However, the user makes the ultimate
+choice, since both scores are available.
+
+\bibliography{vegan}
+
+\end{document}

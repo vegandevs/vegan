@@ -1,0 +1,80 @@
+%\VignetteIndexEntry{Partition of Variation}
+%% This file rewrites Pierre Legendre's introduction and takes pages
+%% of Pierre Legendre's pdf documents and puts them together.
+
+\documentclass[10pt]{article}
+\usepackage{vegan} %% vegan setup
+\usepackage{pdfpages}
+\setkeys{Gin}{width=0.6\linewidth}
+
+
+\title{Diagrams and Procedures for Partition of Variation}
+\author{Pierre Legendre}
+\date{\footnotesize{
+  processed with vegan \Sexpr{packageDescription("vegan", field="Version")}
+  in \Sexpr{R.version.string} on \today}}
+
+\begin{document}
+%% Sweave document
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+par(mfrow=c(1,1))
+figset <- function() par(mar=c(4,4,1,1)+.1)
+options(SweaveHooks = list(fig = figset))
+library(vegan)
+labs <- paste("Table", 1:4)
+cls <- c("hotpink", "skyblue", "orange", "limegreen")
+@
+
+\maketitle
+
+\noindent Diagrams describing the partitions of variation of a
+response data table by two (Fig.~\ref{fig:part2}), three
+(Fig.~\ref{fig:part3}) and four tables (Fig.~\ref{fig:part4}) of
+explanatory variables. The fraction names [a] to [p] in the output of
+\code{varpart} function follow the notation in these Venn diagrams,
+and the diagrams were produced using the \code{showvarparts} function.
+%%%%%%%%%%%%%%%
+\begin{figure}[!ht]
+<<echo=FALSE,fig=TRUE>>=
+showvarparts(2, bg = cls, Xnames=labs)
+@ 
+\caption{3 regression/ canonical analyses and 3 subtraction equations
+  are needed to estimate the $4\;(=2^2)$ fractions. 
+  
+  [a] and [c] can be tested for significance (3 canonical analyses per
+  permutation). Fraction [b] cannot be tested singly.}
+\label{fig:part2}
+\end{figure}
+%%%%%%%%%%%
+\begin{figure}[!ht]
+<<echo=FALSE,fig=TRUE>>=
+showvarparts(3, bg = cls, Xnames=labs)
+@ 
+\caption{7 regression/ canonical analyses and 10 subtraction equations
+  are needed to estimate the $8\;(=2^3)$ fractions. 
+  
+  [a] to [c] and subsets containing [a] to [c] can be tested for
+  significance (4 canonical analyses per permutation to test [a] to
+  [c]). Fractions [d] to [g] cannot be tested singly.}
+\label{fig:part3}
+\end{figure}
+%%%%%%%%%%%
+\begin{figure}[!ht]
+<<echo=FALSE,fig=TRUE>>=
+showvarparts(4, bg = cls, Xnames=labs)
+@ 
+\caption{15 regression/ canonical analyses and 27 subtraction equations
+  are needed to estimate the $16\;(=2^4)$ fractions. 
+  
+  [a] to [d] and subsets containing [a] to [d] can be tested for
+  significance (5 canonical analyses per permutation to test [a] to
+  [d]). Fractions [e] to [o] cannot be tested singly.}
+\label{fig:part4}
+\end{figure}
+\clearpage
+\setkeys{Gin}{width=\paperwidth}
+%% Add partitioning models 2-3 and 4.
+\includepdf[fitpaper=true,pages=-]{varpart23.pdf}
+\includepdf[fitpaper=true, pages=-]{varpart4.pdf}
+\end{document}

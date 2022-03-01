@@ -1,0 +1,5 @@
+hiersimu <-
+function (...) 
+{
+   UseMethod("hiersimu")
+}

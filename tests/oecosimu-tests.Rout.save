@@ -1,0 +1,176 @@
+
+R Under development (unstable) (2018-05-30 r74803) -- "Unsuffered Consequences"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ### oecosimu-tests: unit tests for vegan functions
+> 
+> ### This file contains basic unit tests for simulating null
+> ### models. Currently we just test the marginal properties of null
+> ### models using example(commsim).
+> 
+> ### We had more extensive tests that also displayed heads of simulated
+> ### matrices (not only the marginal sums), but these were unstable
+> ### when R was compiled as ./configure --disable-long-double because
+> ### some tests used R functions stats::rmultinom() which used long
+> ### doubles and gave different results when long double was not
+> ### available.
+> 
+> ### We also had specific permatfull/permatswap tests, but these only
+> ### tested the simple cases and were nothing but an alternative
+> ### interface to commsim nullmodels tested here.
+> 
+> ### <-- oecosimu/permat specifics -->
+> 
+> ###<--- BEGIN TESTS --->
+> suppressPackageStartupMessages(require(vegan))
+> set.seed(4711)
+> example(commsim)
+
+commsm> ## write the r00 algorithm
+commsm> f <- function(x, n, ...)
+commsm+     array(replicate(n, sample(x)), c(dim(x), n))
+
+commsm> (cs <- commsim("r00", fun=f, binary=TRUE,
+commsm+     isSeq=FALSE, mode="integer"))
+An object of class "commsim" 
+'r00' method (binary, non-sequential, integer mode)
+
+
+commsm> ## retrieving the sequential swap algorithm
+commsm> (cs <- make.commsim("swap"))
+An object of class "commsim" 
+'swap' method (binary, sequential, integer mode)
+
+
+commsm> ## feeding a commsim object as argument
+commsm> make.commsim(cs)
+An object of class "commsim" 
+'swap' method (binary, sequential, integer mode)
+
+
+commsm> ## making the missing c1 model using r1 as a template
+commsm> ##   non-sequential algorithm for binary matrices
+commsm> ##   that preserves the species (column) frequencies,
+commsm> ##   but uses row marginal frequencies
+commsm> ##   as probabilities of selecting sites
+commsm> f <- function (x, n, nr, nc, rs, cs, ...) {
+commsm+     out <- array(0L, c(nr, nc, n))
+commsm+     J <- seq_len(nc)
+commsm+     storage.mode(rs) <- "double"
+commsm+     for (k in seq_len(n))
+commsm+         for (j in J)
+commsm+             out[sample.int(nr, cs[j], prob = rs), j, k] <- 1L
+commsm+     out
+commsm+ }
+
+commsm> cs <- make.commsim("r1")
+
+commsm> cs$method <- "c1"
+
+commsm> cs$fun <- f
+
+commsm> ## structural constraints
+commsm> diagfun <- function(x, y) {
+commsm+     c(sum = sum(y) == sum(x),
+commsm+         fill = sum(y > 0) == sum(x > 0),
+commsm+         rowSums = all(rowSums(y) == rowSums(x)),
+commsm+         colSums = all(colSums(y) == colSums(x)),
+commsm+         rowFreq = all(rowSums(y > 0) == rowSums(x > 0)),
+commsm+         colFreq = all(colSums(y > 0) == colSums(x > 0)))
+commsm+ }
+
+commsm> evalfun <- function(meth, x, n) {
+commsm+     m <- nullmodel(x, meth)
+commsm+     y <- simulate(m, nsim=n)
+commsm+     out <- rowMeans(sapply(1:dim(y)[3],
+commsm+         function(i) diagfun(attr(y, "data"), y[,,i])))
+commsm+     z <- as.numeric(c(attr(y, "binary"), attr(y, "isSeq"),
+commsm+         attr(y, "mode") == "double"))
+commsm+     names(z) <- c("binary", "isSeq", "double")
+commsm+     c(z, out)
+commsm+ }
+
+commsm> x <- matrix(rbinom(10*12, 1, 0.5)*rpois(10*12, 3), 12, 10)
+
+commsm> algos <- make.commsim()
+
+commsm> a <- t(sapply(algos, evalfun, x=x, n=10))
+
+commsm> print(as.table(ifelse(a==1,1,0)), zero.print = ".")
+                binary isSeq double sum fill rowSums colSums rowFreq colFreq
+r00                  1     .      .   1    1       .       .       .       .
+c0                   1     .      .   1    1       .       1       .       1
+r0                   1     .      .   1    1       1       .       1       .
+r1                   1     .      .   1    1       1       .       1       .
+r2                   1     .      .   1    1       1       .       1       .
+quasiswap            1     .      .   1    1       1       1       1       1
+greedyqswap          1     .      .   1    1       1       1       1       1
+swap                 1     1      .   1    1       1       1       1       1
+tswap                1     1      .   1    1       1       1       1       1
+curveball            1     1      .   1    1       1       1       1       1
+backtrack            1     .      .   1    1       1       1       1       1
+r2dtable             .     .      .   1    .       1       1       .       .
+swap_count           .     1      .   1    1       1       1       .       .
+quasiswap_count      .     .      .   1    1       1       1       .       .
+swsh_samp            .     .      1   1    1       .       .       1       1
+swsh_both            .     .      .   1    1       .       .       1       1
+swsh_samp_r          .     .      1   1    1       1       .       1       1
+swsh_samp_c          .     .      1   1    1       .       1       1       1
+swsh_both_r          .     .      .   1    1       1       .       1       1
+swsh_both_c          .     .      .   1    1       .       1       1       1
+abuswap_r            .     1      1   1    1       1       .       1       1
+abuswap_c            .     1      1   1    1       .       1       1       1
+r00_samp             .     .      1   1    1       .       .       .       .
+c0_samp              .     .      1   1    1       .       1       .       1
+r0_samp              .     .      1   1    1       1       .       1       .
+r00_ind              .     .      .   1    .       .       .       .       .
+c0_ind               .     .      .   1    .       .       1       .       .
+r0_ind               .     .      .   1    .       1       .       .       .
+r00_both             .     .      .   1    1       .       .       .       .
+c0_both              .     .      .   1    1       .       1       .       1
+r0_both              .     .      .   1    1       1       .       1       .
+> 
+> ### clean
+> rm(list = ls())
+> 
+> ## end permatfull/swap
+> 
+> ## The following vegan functions depend on *oecosimu*: adipart
+> ## hiersimu multipart raupcrick. The following functions directly
+> ## depend on *commsimulator*: permatfull1 permatswap1.  All these have
+> ## derived and/or method functions. These should not be broken.
+> 
+> ## Do not break raupcrick:
+> set.seed(4711)
+> data(sipoo)
+> as.numeric(raupcrick(sipoo, nsimul = 99))
+  [1] 0.09 0.03 0.29 0.02 0.63 0.48 0.15 0.70 0.76 0.64 0.10 0.20 0.26 0.79 0.80
+ [16] 0.87 0.90 0.02 0.37 0.04 0.03 0.44 0.16 0.26 0.36 0.25 0.15 0.22 0.30 0.47
+ [31] 0.85 0.46 0.57 0.40 0.02 0.26 0.62 0.06 0.71 0.82 0.35 0.06 0.13 0.02 0.59
+ [46] 0.63 0.32 0.93 0.04 0.06 0.05 0.17 0.05 0.11 0.20 0.13 0.14 0.67 0.34 0.33
+ [61] 0.63 0.79 0.02 0.06 0.16 0.44 0.18 0.06 0.01 0.01 0.09 0.15 0.18 0.29 0.40
+ [76] 0.08 0.12 0.01 0.01 0.01 0.08 0.04 0.58 0.02 0.10 0.26 0.37 0.53 0.23 0.11
+ [91] 0.26 0.15 0.16 0.68 0.37 0.35 0.85 0.53 0.01 0.29 0.05 0.10 0.16 0.25 0.39
+[106] 0.79 0.37 0.98 0.02 0.04 0.12 0.04 0.91 0.02 0.12 0.27 0.38 0.07 0.31 0.43
+[121] 0.60 0.34 0.74 0.80 0.99 0.19 0.15 0.60 0.18 0.37 0.69 0.97 0.01 0.07 0.18
+[136] 0.20 0.08 0.55 0.27 0.01 0.01 0.25 0.18 0.63 0.65 0.61 1.00 0.09 0.49 0.15
+[151] 0.15 0.48 0.90
+> rm(list = ls())
+> ## end raupcrick
+> 
+> proc.time()
+   user  system elapsed 
+  1.185   0.045   1.221 

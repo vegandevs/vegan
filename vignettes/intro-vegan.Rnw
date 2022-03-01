@@ -1,0 +1,383 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{Introduction to ordination in vegan}
+\documentclass[a4paper,10pt]{article}
+\usepackage{vegan} % vegan settings
+
+\title{Vegan: an introduction to ordination}
+\author{Jari Oksanen}
+
+\date{\footnotesize{
+  processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today}}
+
+%% need no \usepackage{Sweave}
+\begin{document}
+
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+par(mfrow=c(1,1))
+options(width=72)
+figset <- function() par(mar=c(4,4,1,1)+.1)
+options(SweaveHooks = list(fig = figset))
+options("prompt" = "> ", "continue" = "  ")
+@
+
+\maketitle
+\begin{abstract}
+  The document describes typical, simple work pathways of
+  vegetation ordination. Unconstrained ordination uses as examples
+  detrended correspondence analysis and non-metric multidimensional
+  scaling, and shows how to interpret their results by fitting
+  environmental vectors and factors or smooth environmental surfaces
+  to the graph. The basic plotting command, and more advanced plotting
+  commands for congested plots are also discussed, as well as adding
+  items such as ellipses, convex hulls, and other items for
+  classes. The constrained ordination uses constrained (canonical)
+  correspondence analysis as an example. It is first shown how a model
+  is defined, then the document discusses model building and
+  significance tests of the whole analysis, single constraints and
+  axes.
+\end{abstract}
+\tableofcontents
+
+\vspace{3ex}
+\noindent \pkg{Vegan} is a package for community ecologists.  This
+documents explains how the commonly used ordination methods can be
+performed in \pkg{vegan}.  The document only is a very basic
+introduction.
+%Another document (\emph{vegan tutorial})
+%(\url{http://cc.oulu.fi/~jarioksa/opetus/method/vegantutor.pdf}) gives
+%a longer and more detailed introduction to ordination.
+The
+current document only describes a small part of all \pkg{vegan}
+functions.  For most functions, the canonical references are the
+\pkg{vegan} help pages, and some of the most important additional
+functions are listed at this document.
+
+\section{Ordination}
+
+The \pkg{vegan} package contains all common ordination methods:
+Principal component analysis (function \code{rda}, or \code{prcomp} in
+the base \proglang{R}), correspondence analysis (\code{cca}),
+detrended correspondence analysis (\code{decorana}) and a wrapper for
+non-metric multidimensional scaling (\code{metaMDS}).  Functions
+\code{rda} and \code{cca} mainly are designed for constrained
+ordination, and will be discussed later.  In this chapter I describe
+functions \code{decorana} and \code{metaMDS}.
+
+\subsection{Detrended correspondence analysis}
+
+
+Detrended correspondence analysis (\textsc{dca}) is done like this:
+<<>>=
+library(vegan)
+data(dune)
+ord <- decorana(dune)
+@
+This saves ordination results in \code{ord}:
+<<>>=
+ord
+@
+The display of results is very brief: only eigenvalues and used
+options are listed.  Actual ordination results are not shown, but you
+can see them with command \code{summary(ord)}, or extract the scores
+with command \code{scores}.  The \code{plot} function also
+automatically knows how to access the scores.
+
+\subsection{Non-metric multidimensional scaling}
+
+
+Function \code{metaMDS} is a bit special case.  The actual ordination
+is performed by function \pkg{vegan} function \code{monoMDS} (or
+alternatively using \code{isoMDS} of the \pkg{MASS} package).
+Function \code{metaMDS} is a wrapper to perform non-metric
+multidimensional scaling (\textsc{nmds}) like recommended in community
+ordination: it uses adequate dissimilarity measures (function
+\code{vegdist}), then it runs \textsc{nmds} several times with random
+starting configurations, compares results (function
+\code{procrustes}), and stops after finding twice a similar minimum
+stress solution.  Finally it scales and rotates the solution, and adds
+species scores to the configuration as weighted averages (function
+\code{wascores}):
+<<>>=
+ord <- metaMDS(dune)
+ord
+@
+
+\section{Ordination graphics}
+
+Ordination is nothing but a way of drawing graphs, and it is best to
+inspect ordinations only graphically (which also implies that they
+should not be taken too seriously).
+
+All ordination results of \pkg{vegan} can be displayed with a
+\code{plot} command (Fig. \ref{fig:plot}):
+<<a>>=
+plot(ord)
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{Default ordination plot.}
+\label{fig:plot}
+\end{figure}
+Default \code{plot} command uses either black circles for sites and
+red pluses for species, or black and red text for sites and species,
+resp.  The choices depend on the number of items in the plot and
+ordination method.  You can override the default choice by setting
+\code{type = "p"} for points, or \code{type = "t"} for text.  For
+a better control of ordination graphics you can first draw an empty
+plot (\code{type = "n"}) and then add species and sites separately
+using \code{points} or \code{text} functions.  In this way you can
+combine points and text, and you can select colours and character
+sizes freely (Fig. \ref{fig:plot.args}):
+<<a>>=
+plot(ord, type = "n")
+points(ord, display = "sites", cex = 0.8, pch=21, col="red", bg="yellow")
+text(ord, display = "spec", cex=0.7, col="blue")
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{A more colourful ordination plot where sites are points, and
+  species are text.}
+\label{fig:plot.args}
+\end{figure}
+
+All \pkg{vegan} ordination methods have a specific \code{plot}
+function.  In addition, \pkg{vegan} has an alternative plotting
+function \code{ordiplot} that also knows many non-\pkg{vegan}
+ordination methods, such as \code{prcomp}, \code{cmdscale} and
+\code{isoMDS}.  All \pkg{vegan} plot functions return invisibly
+an \code{ordiplot} object, so that you can use \code{ordiplot}
+support functions with the results (\code{points}, \code{text},
+\code{identify}).
+
+Function \code{ordirgl} (requires \pkg{rgl} package) provides
+dynamic three-dimensional graphics that can be spun around or zoomed
+into with your mouse.  Function \pkg{ordiplot3d} (requires package
+\code{scatterplot3d}) displays simple three-dimensional
+scatterplots.
+
+\subsection{Cluttered plots}
+
+Ordination plots are often congested: there is a large number of sites
+and species, and it may be impossible to display all clearly.  In
+particular, two or more species may have identical scores and are
+plotted over each other.  \pkg{Vegan} does not have (yet?)
+automatic tools for clean plotting in these cases, but here some
+methods you can try:
+\begin{itemize}
+\item Zoom into graph setting axis limits \code{xlim} and
+  \code{ylim}.  You must typically set both, because \pkg{vegan}
+  will maintain equal aspect ratio of axes.
+\item Use points and add label only to some points with \code{identify}
+  command.
+\item Use \code{select} argument in ordination \code{text} and
+  \code{points} functions to only show the specified items.
+\item Use \code{ordilabel} function that uses opaque background to
+  the text: some text labels will be covered, but the uppermost are
+  readable.
+\item Use automatic \code{orditorp} function that uses text only if
+  this can be done without overwriting previous labels, but points in
+  other cases.
+\item Use automatic \code{ordipointlabel} function that uses both
+  points and text labels, and tries to optimize the location of the
+  text to avoid overwriting.
+\item Use interactive \code{orditkplot} function that draws both
+  points and labels for ordination scores, and allows you to drag
+  labels to better positions. You can export the results of the edited
+  graph to encapsulated \proglang{postscript}, \proglang{pdf},
+  \proglang{png} or \proglang{jpeg} files, or copy directly to
+  encapsulated \proglang{postscript}, or return the edited positions
+  to \proglang{R} for further processing.
+\end{itemize}
+
+\subsection{Adding items to ordination plots}
+
+\pkg{Vegan} has a group of functions for adding information about
+classification or grouping of points onto ordination diagrams.
+Function \code{ordihull} adds convex hulls, \code{ordiellipse} adds
+ellipses enclosing all points in the group (ellipsoid hulls) or
+ellipses of standard deviation, standard error or confidence areas,
+and \code{ordispider} combines items to their centroid
+(Fig. \ref{fig:ordihull}):
+<<>>=
+data(dune.env)
+attach(dune.env)
+@
+<<a>>=
+plot(ord, disp="sites", type="n")
+ordihull(ord, Management, col=1:4, lwd=3)
+ordiellipse(ord, Management, col=1:4, kind = "ehull", lwd=3)
+ordiellipse(ord, Management, col=1:4, draw="polygon")
+ordispider(ord, Management, col=1:4, label = TRUE)
+points(ord, disp="sites", pch=21, col="red", bg="yellow", cex=1.3)
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{Convex hull, ellipsoid hull, standard error ellipse and a spider web diagram
+  for Management levels in ordination.}
+\label{fig:ordihull}
+\end{figure}
+In addition, you can overlay a cluster dendrogram from \code{hclust}
+using \code{ordicluster} or a minimum spanning tree from
+\code{spantree} with its \code{lines} function.  Segmented arrows
+can be added with \code{ordiarrows}, lines with
+\code{ordisegments} and regular grids with \code{ordigrid}.
+
+\section{Fitting environmental variables}
+
+\pkg{Vegan} provides two functions for fitting environmental
+variables onto ordination:
+\begin{itemize}
+\item \code{envfit} fits vectors of continuous variables and centroids
+  of levels of class variables (defined as \code{factor} in
+  \proglang{R}).  The arrow shows the direction of the (increasing)
+  gradient, and the length of the arrow is proportional to the
+  correlation between the variable and the ordination.
+\item \code{ordisurf} (which requires package \pkg{mgcv}) fits
+  smooth surfaces for continuous variables onto ordination using
+  thinplate splines with cross-validatory selection of smoothness.
+\end{itemize}
+
+Function \code{envfit} can be called with a \code{formula}
+interface, and it optionally can assess the ``significance'' of the
+variables using permutation tests:
+<<>>=
+ord.fit <- envfit(ord ~ A1 + Management, data=dune.env, perm=999)
+ord.fit
+@
+The result can be drawn directly or added to an ordination diagram
+(Fig. \ref{fig:envfit}):
+<<a>>=
+plot(ord, dis="site")
+plot(ord.fit)
+@
+
+Function \code{ordisurf} directly adds a fitted surface onto
+ordination, but it returns the result of the fitted thinplate spline
+\code{gam} (Fig. \ref{fig:envfit}):
+<<b,fig=false>>=
+ordisurf(ord, A1, add=TRUE)
+@
+\begin{figure}
+<<fig=true,echo=false,results=hide>>=
+<<a>>
+<<b>>
+@
+\caption{Fitted vector and smooth surface for the thickness of A1
+  horizon (\code{A1}, in cm), and centroids of Management levels.}
+\label{fig:envfit}
+\end{figure}
+
+\section{Constrained ordination}
+
+\pkg{Vegan} has three methods of constrained ordination:
+constrained or ``canonical'' correspondence analysis (function
+\code{cca}), redundancy analysis (function \code{rda}) and
+distance-based redundancy analysis (function \code{capscale}).  All
+these functions can have a conditioning term that is ``partialled
+out''.  I only demonstrate \code{cca}, but all functions accept
+similar commands and can be used in the same way.
+
+The preferred way is to use \code{formula} interface, where the left
+hand side gives the community data frame and the right hand side lists
+the constraining variables:
+<<>>=
+ord <- cca(dune ~ A1 + Management, data=dune.env)
+ord
+@
+The results can be plotted with (Fig. \ref{fig:cca}):
+<<a>>=
+plot(ord)
+@
+\begin{figure}
+<<fig=true,echo=false>>=
+<<a>>
+@
+\caption{Default plot from constrained correspondence analysis.}
+\label{fig:cca}
+\end{figure}
+There are three groups of items: sites, species and centroids (and
+biplot arrows) of environmental variables.  All these can be added
+individually to an empty plot, and all previously explained tricks of
+controlling graphics still apply.
+
+It is not recommended to perform constrained ordination with all
+environmental variables you happen to have: adding the number of
+constraints means slacker constraint, and you finally end up with
+solution similar to unconstrained ordination. In that case it is
+better to use unconstrained ordination with environmental fitting.
+However, if you really want to do so, it is possible with the
+following shortcut in \code{formula}:
+<<>>=
+cca(dune ~ ., data=dune.env)
+@
+
+\subsection{Significance tests}
+
+\pkg{vegan} provides permutation tests for the significance of
+constraints.  The test mimics standard analysis of variance function
+(\code{anova}), and the default test analyses all constraints
+simultaneously:
+<<>>=
+anova(ord)
+@
+The function actually used was \code{anova.cca}, but you do not need
+to give its name in full, because \proglang{R} automatically chooses the
+correct \code{anova} variant for the result of constrained
+ordination.
+
+It is also possible to analyse terms separately:
+<<>>=
+anova(ord, by="term", permutations=199)
+@
+This test is sequential: the terms are analysed
+in the order they happen to be in the model. You can also analyse
+significances of marginal effects (``Type III effects''):
+<<>>=
+anova(ord, by="mar", permutations=199)
+@
+
+Moreover, it is possible to analyse significance of each axis:
+<<a>>=
+anova(ord, by="axis", permutations=499)
+@
+
+\subsection{Conditioned or partial ordination}
+
+All constrained ordination methods can have terms that are partialled
+out from the analysis before constraints:
+<<>>=
+ord <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
+ord
+@
+This partials out the effect of \code{Moisture} before analysing the
+effects of \code{A1} and \code{Management}.  This also influences
+the significances of the terms:
+<<>>=
+anova(ord, by="term", permutations=499)
+@
+If we had a designed experiment, we may wish to restrict the
+permutations so that the observations only are permuted within levels
+of \code{Moisture}. Restricted permutation is based on the powerful
+\pkg{permute} package. Function \code{how()} can be used to define
+permutation schemes. In the following, we set the levels with
+\code{plots} argument:
+<<>>=
+how <- how(nperm=499, plots = Plots(strata=dune.env$Moisture))
+anova(ord, by="term", permutations = how)
+@
+
+%%%%%%%%%%%%%%%%%%%
+<<echo=false>>=
+detach(dune.env)
+@
+
+\end{document}

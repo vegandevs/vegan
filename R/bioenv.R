@@ -1,0 +1,5 @@
+"bioenv" <-
+    function(...)
+{
+    UseMethod("bioenv")
+}

@@ -1,0 +1,92 @@
+`anosim` <-
+    function (x, grouping, permutations = 999,
+              distance = "bray", strata = NULL, parallel = getOption("mc.cores"))
+{
+    EPS <- sqrt(.Machine$double.eps)
+    if (!inherits(x, "dist")) { # x is not "dist": try to change it
+        if ((is.matrix(x) || is.data.frame(x)) &&
+            isSymmetric(unname(as.matrix(x)))) {
+            x <- as.dist(x)
+            attr(x, "method") <- "user supplied square matrix"
+        }
+        else
+            x <- vegdist(x, method = distance)
+    }
+    if (any(x < -sqrt(.Machine$double.eps)))
+        warning("some dissimilarities are negative - is this intentional?")
+    sol <- c(call = match.call())
+    grouping <- as.factor(grouping)
+    ## check that dims match
+    if (length(grouping) != attr(x, "Size"))
+        stop(
+            gettextf("dissimilarities have %d observations, but grouping has %d",
+                     attr(x, "Size"), length(grouping)))
+    if (length(levels(grouping)) < 2)
+        stop("there should be more than one class level")
+    matched <- function(irow, icol, grouping) {
+        grouping[irow] == grouping[icol]
+    }
+    x.rank <- rank(x)
+    N <- attr(x, "Size")
+    div <- length(x)/2
+    irow <- as.vector(as.dist(row(matrix(nrow = N, ncol = N))))
+    icol <- as.vector(as.dist(col(matrix(nrow = N, ncol = N))))
+    within <- matched(irow, icol, grouping)
+    ## check that there is replication
+    if (!any(within))
+        stop("there should be replicates within groups")
+    aver <- tapply(x.rank, within, mean)
+    statistic <- -diff(aver)/div
+    cl.vec <- rep("Between", length(x))
+    take <- as.numeric(irow[within])
+    cl.vec[within] <- levels(grouping)[grouping[take]]
+    cl.vec <- factor(cl.vec, levels = c("Between", levels(grouping)))
+    ptest <- function(take, ...) {
+        cl.perm <- grouping[take]
+        tmp.within <- matched(irow, icol, cl.perm)
+        tmp.ave <- tapply(x.rank, tmp.within, mean)
+        -diff(tmp.ave)/div
+    }
+    permat <- getPermuteMatrix(permutations, N, strata = strata)
+    if (ncol(permat) != N)
+        stop(gettextf("'permutations' have %d columns, but data have %d rows",
+                      ncol(permat), N))
+    permutations <- nrow(permat)
+
+    if (permutations) {
+        ## Parallel processing
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if (hasClus || parallel > 1) {
+            if(.Platform$OS.type == "unix" && !hasClus) {
+                perm <- unlist(mclapply(1:permutations,
+                                                  function(i, ...)
+                                                  ptest(permat[i,]),
+                                                  mc.cores = parallel))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                }
+                perm <- parRapply(parallel, permat, ptest)
+                if (!hasClus)
+                    stopCluster(parallel)
+            }
+        } else {
+            perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
+        }
+        p.val <- (1 + sum(perm >= statistic - EPS))/(1 + permutations)
+    } else { # no permutations
+        p.val <- perm <- NA
+    }
+    sol$signif <- p.val
+    sol$perm <- perm
+    sol$permutations <- permutations
+    sol$statistic <- as.numeric(statistic)
+    sol$class.vec <- cl.vec
+    sol$dis.rank <- x.rank
+    sol$dissimilarity <- attr(x, "method")
+    sol$control <- attr(permat, "control")
+    class(sol) <- "anosim"
+    sol
+}
