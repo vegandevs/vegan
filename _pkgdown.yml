@@ -1,4 +1,13 @@
+home:
+  title: "vegan: an R package for community ecologists"
+  description: "Ordination methods, diversity analysis and other functions for community and vegetation ecologists."
+
 url: https://vegandevs.github.io/vegan/
+
+destination: docs/
+
+deploy:
+  install_metadata: true
 
 template:
   bootstrap: 5
@@ -15,4 +24,12 @@ navbar:
      - text: Vegan FAQ
        href: articles/FAQ-vegan.html
 
-
+figures:
+  dev: ragg::agg_png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618
