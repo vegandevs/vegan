@@ -50,7 +50,6 @@ static double getEV(double *x, int nr, int nc, int isDB)
 
 /* LAPACK function dgesdd for SVD. Returns first singular value */
 
-#ifdef FC_LEN_T
 static double svdfirst(double *x, int nr, int nc)
 {
     char jobz[2] = "N";
@@ -83,44 +82,10 @@ static double svdfirst(double *x, int nr, int nc)
 	error("error %d from Lapack dgesdd, pos 2", info);
     return sigma[0];
 }
-#else
-static double svdfirst(double *x, int nr, int nc)
-{
-    char jobz[2] = "N";
-    int minrc = (nr < nc) ? nr : nc;
-    int len = nr*nc, info, lwork;
-    double dummy = 0, query;
-
-    /* copy data: dgesdd will destroy the original */
-    double *xwork = (double *) R_alloc(len, sizeof(double));
-    memcpy(xwork, x, len * sizeof(double));
-
-    /* singular values */
-    double *sigma = (double *) R_alloc(minrc, sizeof(double));
-
-    int *iwork = (int *) R_alloc(8 * minrc, sizeof(int));
-    /* query and set optimal work array */
-    info = 0;
-    lwork = -1;
-
-    F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
-		     &nr, &dummy, &nc, &query, &lwork, iwork, &info);
-    if (info != 0)
-	error("error %d from Lapack dgesdd", info);
-    lwork = (int) query;
-    double *work = (double *) R_alloc(lwork, sizeof(double));
-    /* call svd */
-    F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
-		     &nr, &dummy, &nc, work, &lwork, iwork, &info);
-    if (info != 0)
-	error("error %d from Lapack dgesdd, pos 2", info);
-    return sigma[0];
-}
-#endif
 
 /* LAPACK function to return the first eigenvalue of symmetric
    matrix */
-#ifdef FC_LEN_T
+
 static double eigenfirst(double *x, int nr)
 {
     /* no eigenvectors (jobz), range of eigenvalus (range), lower
@@ -164,52 +129,6 @@ static double eigenfirst(double *x, int nr)
 	error("error %d in LAPACK routine dsyever", info);
     return eval[0];
 }
-#else
-
-static double eigenfirst(double *x, int nr)
-{
-    /* no eigenvectors (jobz), range of eigenvalus (range), lower
-       triagle (uplo) */
-    char jobz[2] = "N", range[2] = "I", uplo[2] = "L";
-    double vl = 0.0, vu = 0.0; /* range of ev magnitudes, not used */
-    double abstol = 0.0, dummy = 0.0;
-    /* il, iu: we want only largest eigenvalue, and they come in
-       *ascending* order */
-    int il = nr, iu = nr, naxes = 1;
-    double *eval = (double *) R_alloc(nr, sizeof(double));
-    int len = nr*nr;
-
-    /* work arrays, their sizes and info. */
-    int *isuppz = (int *) R_alloc(2 * nr, sizeof(int));
-    double *work, tmp;
-    int lwork, *iwork, liwork, info, itmp;
-
-    /* input will be destroyed: copy here */
-    double *rx = (double *) R_alloc(len, sizeof(double));
-    memcpy(rx, x, len * sizeof(double));
-
-    /* query and set optimal work arrays */
-    lwork = -1;
-    liwork = -1;
-    F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
-		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
-		     &tmp, &lwork, &itmp, &liwork, &info);
-    if (info != 0)
-	error("error %d in work query in LAPACK routine dsyevr", info);
-    lwork = (int) tmp;
-    liwork = itmp;
-    work = (double *) R_alloc(lwork, sizeof(double));
-    iwork = (int *) R_alloc(liwork, sizeof(int));
-
-    /* Finally run the eigenanalysis */
-    F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
-		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
-		     work, &lwork, iwork, &liwork, &info);
-    if (info != 0)
-	error("error %d in LAPACK routine dsyever", info);
-    return eval[0];
-}
-#endif
 
 /* function to test svdfirst & eigenfirst from R */
 SEXP test_ev(SEXP x, SEXP svd)
