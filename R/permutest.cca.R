@@ -34,8 +34,10 @@ permutest.default <- function(x, ...)
     isPartial <- !is.null(x$pCCA)   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
     ## C function to get the statististics in one loop
-    getF <- function(indx, ...)
+    getF <- function(indx, q, r)
     {
+        # q is the rank(s) of the effect(s) - 1
+        # r is the rank of the residual term - 1
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow=1)
         out <- .Call(do_getF, indx, E, Q, QZ, effects, first, isPartial, isDB)
@@ -148,21 +150,24 @@ permutest.default <- function(x, ...)
     if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- do.call(rbind,
-                           mclapply(1:nperm,
-                                    function(i) getF(permutations[i,]),
-                                    mc.cores = parallel))
+                           mclapply(seq_len(nperm),
+                                    function(i, q, r) getF(permutations[i,],
+                                                     q = q, r = r),
+                                    mc.cores = parallel, q = q, r = r))
         } else {
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
             }
-            tmp <- parRapply(parallel, permutations, function(i) getF(i))
+            tmp <- parRapply(parallel, permutations,
+                             function(i, q, r) getF(i, q = q, r = r),
+                             q = q, r = r)
             tmp <- matrix(tmp, nrow=nperm, byrow=TRUE)
             if (!hasClus)
                 stopCluster(parallel)
         }
     } else {
-        tmp <- getF(permutations)
+        tmp <- getF(permutations, q = q, r = r)
     }
     if ((p <- length(effects)) > 1) {
         num <- tmp[,seq_len(p)]
