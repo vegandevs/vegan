@@ -4,7 +4,7 @@ home:
 
 url: https://vegandevs.github.io/vegan/
 
-destination: docs/
+destination: .
 
 deploy:
   install_metadata: true
