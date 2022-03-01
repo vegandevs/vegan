@@ -1,0 +1,10 @@
+pandoc: 2.14.2
+pkgdown: 2.0.2
+pkgdown_sha: ~
+articles:
+  FAQ-vegan: FAQ-vegan.html
+last_built: 2022-03-01T18:07Z
+urls:
+  reference: https://vegandevs.github.io/vegan/reference
+  article: https://vegandevs.github.io/vegan/articles
+
