@@ -6,5 +6,11 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, news]
+    left: [intro, reference, vignettes, news]
     right: [search, github]
+  components:
+    vignettes:
+     text: Vignettes
+     menu:
+     - text: Vegan FAQ
+       href: articles/FAQ-vegan.html
