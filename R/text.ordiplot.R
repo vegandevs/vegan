@@ -15,6 +15,7 @@
         arrows(0, 0, sco[,1], sco[,2], ...)
         sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE)
     }
-    text(sco, labels = rownames(sco), ...)
+    # essentially this is calling text(sco, labels = rownames(sco), ...)
+    ordiArgAbsorber(FUN = text, sco, labels = rownames(sco), ...)
     invisible(x)
 }
