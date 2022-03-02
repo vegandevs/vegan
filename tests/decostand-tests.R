@@ -80,15 +80,8 @@ a1 <- vegan::decostand(testdata.with.pseudo, method = "alr")
 a2 <- vegan::decostand(relative.with.pseudo, method = "alr")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
-# ILR is identical with count and relative data
-a1 <- vegan::decostand(testdata.with.pseudo, method = "ilr")
-a2 <- vegan::decostand(relative.with.pseudo, method = "ilr")
-max(abs(a1-a2)) < 1e-6 # Tolerance
-
-
-####### # ALR and ILR transformations drop one feature ################
+####### # ALR transformation drops one feature ################
 ncol(vegan::decostand(testdata.with.pseudo, "alr")) == ncol(testdata.with.pseudo)-1
-ncol(vegan::decostand(testdata.with.pseudo, "ilr")) == ncol(testdata.with.pseudo)-1
 
 
 

@@ -85,14 +85,6 @@ wisconsin(x)
      measurenments. It is also commonly used as multinomial logistic
      regression.
 
-     \item \code{ilr}: Isometric log ratio ("ilr") transformation
-     (Aitchison 1986) reduces data skewness and compositionality
-     bias. The transformation assumes positive values, pseudocounts
-     can be added with the argument \code{pseudocount}. Note that this
-     transformation drops one feature from the transformed output
-     data. For a formal definition, see e.g. Egozcue et al. (2003). The
-     calculation may be slow for data sets with many samples or features.
-
      \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) reduces data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
@@ -150,7 +142,7 @@ wisconsin(x)
   \code{"method"}.
 }
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
-  (\code{method = "log"}), Leo Lahti (\code{alr}, \code{ilr},
+  (\code{method = "log"}), Leo Lahti (\code{alr}, 
   \code{"clr"} and \code{"rclr"}).}
   
 \note{Common transformations can be made with standard \R functions.}
