@@ -36,7 +36,7 @@
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
     \code{"binomial"}, \code{"chao"}, \code{"cao"}, \code{"mahalanobis"},
     \code{"chisq"}, \code{"chord"}, \code{"aitchison"}, or
-    \code{"aitchison_robust"}.}
+    \code{"robust.aitchison"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }

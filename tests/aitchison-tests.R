@@ -41,12 +41,6 @@ max(abs(a1-a2)) < 1e-6 # Tolerance
 #skip <- TRUE
 #if (!skip) {
 #
-#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr")) < 1e-6
-#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=1)) < 1e-6
-#    # rgr and compositions packages differ in sign; vegan::decostand is aligned with the "compositions" package
-#    sum(t(compositions::ilr(t(testdata.with.pseudo))) - (+vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6
-#    sum(t(rgr::ilr(t(testdata.with.pseudo))) - (-vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6    #
-#
 #    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr")) < 1e-6
 #    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=1)) < 1e-6
 #    sum(t(compositions::clr(t(testdata.with.pseudo))) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=2)) < 1e-6
