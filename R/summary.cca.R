@@ -8,7 +8,7 @@
     ## scaling is stored in return object so must be in numeric format
     scaling <- scalingType(scaling = scaling, correlation = correlation,
                            hill = hill)
-    if (axes && length(display) && (all(!is.na(display)) && !is.null(display)))
+    if (axes && length(display) && !anyNA(display) && !is.null(display))
         summ <- scores(object, scaling = scaling, choices = 1:axes, display = display,
                        ...)
     ## scores() drops list to a matrix if there is only one item: workaround below.
