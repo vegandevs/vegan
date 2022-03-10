@@ -15,11 +15,6 @@
     x <- x[, colSums(x) > 0, drop=FALSE]
     n <- nrow(x)
     p <- ncol(x)
-    if (p == 1) {
-        x <- t(x)
-        n <- nrow(x)
-        p <- ncol(x)
-    }
     accumulator <- function(x, ind) {
         rowSums(apply(x[ind, ], 2, cumsum) > 0)
     }
