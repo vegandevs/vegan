@@ -245,7 +245,7 @@
     ## de-weight
     if (!is.null(RW)) {
         u <- sweep(u, 1, sqrt(RW), "/")
-        if (anyNA(wa)) {
+        if (!anyNA(wa)) {
             wa <- sweep(wa, 1, sqrt(RW), "/")
         }
     }
