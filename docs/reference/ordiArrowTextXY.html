@@ -152,16 +152,16 @@
 <span class="r-in"></span>
 <span class="r-in">    <span class="co">## scaling factor for arrows to fill 80% of plot</span></span>
 <span class="r-in">    <span class="op">(</span><span class="va">mul</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">bip</span>, fill <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.56949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.092173</span>
 <span class="r-in">    <span class="va">bip.scl</span> <span class="op">&lt;-</span> <span class="va">bip</span> <span class="op">*</span> <span class="va">mul</span>                    <span class="co"># Scale the biplot scores</span></span>
 <span class="r-in">    <span class="va">labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">bip</span><span class="op">)</span>                   <span class="co"># Arrow labels</span></span>
 <span class="r-in"></span>
 <span class="r-in">    <span class="co">## calculate coordinate of labels for arrows</span></span>
 <span class="r-in">    <span class="op">(</span><span class="va">bip.lab</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowTextXY</span><span class="op">(</span><span class="va">bip.scl</span>, rescale <span class="op">=</span> <span class="cn">FALSE</span>, labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al  1.4214448 -0.2651363</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P  -0.6922012 -1.2396873</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K  -0.7467019 -0.2791752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al  1.9098765 -0.3562415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P  -0.9298005 -1.6652122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K  -1.0069931 -0.3764923</span>
 <span class="r-in"></span>
 <span class="r-in">    <span class="co">## draw arrows and text labels</span></span>
 <span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, length <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
