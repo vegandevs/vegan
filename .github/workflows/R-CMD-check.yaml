@@ -29,7 +29,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-      _R_CHECK_RD_XREFS_: FALSE
 
     steps:
       - uses: actions/checkout@v2
@@ -55,6 +54,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -y install ghostscript
+
+      - name: Set env vars before R 3.5
+        if: ${{ matrix.config.r == '3.5' || matrix.config.r == '3.4' }}
+        run: |
+          echo "_R_CHECK_RD_XREFS_=FALSE" >> $GITHUB_ENV
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
