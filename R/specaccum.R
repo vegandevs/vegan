@@ -15,19 +15,14 @@
     x <- x[, colSums(x) > 0, drop=FALSE]
     n <- nrow(x)
     p <- ncol(x)
-    if (p == 1) {
-        x <- t(x)
-        n <- nrow(x)
-        p <- ncol(x)
-    }
     accumulator <- function(x, ind) {
-        rowSums(apply(x[ind, ], 2, cumsum) > 0)
+        rowSums(apply(x[ind, , drop=FALSE], 2, cumsum) > 0)
     }
     specaccum <- sdaccum <- sites <- perm <- NULL
     if (n == 1 && method != "rarefaction")
         message("no actual accumulation since only one site provided")
     switch(method, collector = {
-        sites <- 1:n
+        sites <- seq_len(n)
         xout <- weights <- cumsum(w)
         specaccum <- accumulator(x, sites)
         perm <- as.matrix(specaccum)
@@ -37,7 +32,7 @@
         perm <- apply(permat, 1, accumulator, x = x)
         if (!is.null(w))
             weights <- as.matrix(apply(permat, 1, function(i) cumsum(w[i])))
-        sites <- 1:n
+        sites <- seq_len(n)
         if (is.null(w)) {
             specaccum <- apply(perm, 1, mean)
             sdaccum <- apply(perm, 1, sd)
@@ -99,7 +94,7 @@
             result[i, ] <- (1 - i/n)^freq
         }
         result <- 1 - result
-        sites <- 1:n
+        sites <- seq_len(n)
         specaccum <- rowSums(result)
         sdaccum <- sqrt(rowSums(result * (1 - result)))
     })

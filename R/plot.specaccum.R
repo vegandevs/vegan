@@ -26,9 +26,10 @@
     if (!add) {
         if (missing(ylim))
             if (random)
-                ylim <- c(1, max(x$perm, na.rm = TRUE))
+                ylim <- c(min(1, x$perm), max(x$perm, na.rm = TRUE))
             else
-                ylim <- c(1, max(x$richness, x$richness + ci*x$sd, na.rm = TRUE))
+                ylim <- c(min(1, x$richness),
+                          max(x$richness, x$richness + ci*x$sd, na.rm = TRUE))
         plot(xaxvar, x$richness, xlab=xlab, ylab=ylab, ylim=ylim,
              type="n", ...)
     }
