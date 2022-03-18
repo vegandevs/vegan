@@ -151,7 +151,7 @@ orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim,
   procedure with similar goals of avoiding overplotting, and its
   output can be edited with \code{orditkplot}.  See
   \code{\link{ordiplot}}, \code{\link{plot.cca}},
-  \code{\link[vegan3d]{ordirgl}} and \code{\link{orditorp}} for
+  and \code{\link{orditorp}} for
   alternative ordination plots, and \code{\link{scores}} for
   extracting ordination scores.  }
 

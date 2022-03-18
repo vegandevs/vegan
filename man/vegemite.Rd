@@ -128,8 +128,8 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   clustering or a \code{\link{dendrogram}}, and in that case the
   dendrogram is plotted on the left side of the
   \code{\link{heatmap}}. Phylogenetic trees cannot be directly used,
-  \code{\link[ape]{as.hclust.phylo}} (package \pkg{ape}) can transform
-  these to \code{\link{hclust}} trees.
+  but package \pkg{ape} has tools to transform these to
+  \code{\link{hclust}} trees.
 
   If \code{scale} is given, \code{vegemite} calls \code{coverscale} to
   transform percent cover scale or some other scales into traditional

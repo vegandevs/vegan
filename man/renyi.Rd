@@ -81,7 +81,7 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   in a separate panel.  In addition, it has a \code{persp} method to
   plot the diversity surface against scale and number and
   sites. Similar dynamic graphics can be made with
-  \code{\link[vegan3d]{rgl.renyiaccum}} in \pkg{vegan3d} package.
+  \code{rgl.renyiaccum} in \pkg{vegan3d} package.
 
 }
 \value{
@@ -111,9 +111,8 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
 
 \seealso{\code{\link{diversity}} for diversity indices, and
   \code{\link{specaccum}} for ordinary species accumulation curves, and
-  \code{\link[lattice]{xyplot}}, \code{\link{persp}} and
-  \code{\link[vegan3d]{rgl.renyiaccum}}.
-}
+  \code{\link[lattice]{xyplot}}, \code{\link{persp}}.}
+
 \examples{
 data(BCI)
 i <- sample(nrow(BCI), 12)

@@ -70,7 +70,7 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
   except that it adds text over net using \code{\link{ordilabel}}. The
   \code{plot} function passes extra arguments to these functions.  In
   addition, \pkg{vegan3d} package has function
-  \code{\link[vegan3d]{rgl.isomap}} to make dynamic 3D plots that can
+  \code{rgl.isomap} to make dynamic 3D plots that can
   be rotated on the screen.
 }
 

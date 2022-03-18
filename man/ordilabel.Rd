@@ -54,7 +54,7 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
 
 \seealso{ \code{\link{scores}}, \code{\link{polygon}},
  \code{\link{text}}. The function is modelled after
- \code{\link[ade4]{s.label}} in \pkg{ade4} package.} 
+ \code{s.label} in \pkg{ade4} package.} 
 \examples{
 data(dune)
 ord <- cca(dune)
