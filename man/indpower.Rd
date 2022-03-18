@@ -45,11 +45,6 @@ of an indicator species. \emph{Conservation Biology} 23: 1008--1016.
 }
 \author{Peter Solymos}
 
-\seealso{ \code{\link[labdsv]{indval}} (package \pkg{labdsv}) for the
-indicator species analysis of \enc{Dufrêne}{Dufrene} & Legendre. 
-Function \code{\link{beals}} estimates individual cell probabilities
-of species occurrences. }
-
 \examples{
 data(dune)
 ## IP values

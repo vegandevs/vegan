@@ -146,7 +146,7 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.
 
 \seealso{\code{\link{cor}}, \code{\link{friedman.test}},
 \code{\link{hclust}}, \code{\link{cutree}}, \code{\link{kmeans}},
-\code{\link{cascadeKM}}, \code{\link[labdsv]{indval}}}
+\code{\link{cascadeKM}}.}
 
 \author{ F. Guillaume Blanchet, University of Alberta, and Pierre
   Legendre, Université de Montréal }

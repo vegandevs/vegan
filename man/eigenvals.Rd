@@ -49,8 +49,8 @@ eigenvals(x, ...)
 \details{
   This is a generic function that has methods for \code{\link{cca}},
   \code{\link{wcmdscale}}, \code{\link{pcnm}}, \code{\link{prcomp}},
-  \code{\link{princomp}}, \code{\link[ade4]{dudi}} (of \pkg{ade4}), and 
-  \code{\link[labdsv]{pca}} and \code{\link[labdsv]{pco}} (of 
+  \code{\link{princomp}}, \code{dudi} (of \pkg{ade4}), and 
+  \code{pca} and \code{pco} (of 
   \pkg{labdsv}) result objects. The default method also
   extracts eigenvalues if the result looks like being from
   \code{\link{eigen}} or \code{\link{svd}}.  Functions

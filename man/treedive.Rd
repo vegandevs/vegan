@@ -73,8 +73,8 @@ treedist(x, tree, relative = TRUE, match.force = TRUE, ...)
   package \pkg{cluster}), and usually the recommended clustering method
   is UPGMA (\code{method = "average"} in function \code{\link{hclust}})
   (Podani and Schmera 2006). Phylogenetic trees can be changed into
-  dendrograms using \code{\link[ape]{as.hclust.phylo}} (package
-  \pkg{ape})
+  dendrograms using function \code{as.hclust.phylo} in the
+  \pkg{ape} package.
 
   It is possible to analyse the non-randomness of tree diversity
   using \code{\link{oecosimu}}. This needs specifying an adequate Null
@@ -107,13 +107,13 @@ treedist(x, tree, relative = TRUE, match.force = TRUE, ...)
 
 \seealso{
   Function \code{treedive} is similar to the phylogenetic
-  diversity function \code{\link[picante]{pd}} in \pkg{picante}, but
+  diversity function \code{pd} in the package \pkg{picante}, but
   excludes tree root if that is not needed to connect species. Function
   \code{treedist} is similar to the phylogenetic similarity
-  \code{\link[picante]{phylosor}} in \pkg{picante}, but excludes
+  \code{phylosor} in the package \pkg{picante}, but excludes
   unneeded tree root and returns distances instead of similarities.
 
-  \code{\link{taxondive}} is something very similar from another world.
+  \code{\link{taxondive}} is something very similar from another bubble.
 }
 
 \examples{

@@ -35,7 +35,7 @@ cIndexKM(y, x, index = "all")
     partition. The default value is \code{"calinski"}, which refers to
     the Calinski-Harabasz (1974) criterion. The simple structure index
     (\code{"ssi"}) is also available. Other indices are available in
-    function \code{\link[cclust]{clustIndex}} (package \pkg{cclust}). In
+    package \pkg{cclust}. In
     our experience, the two indices that work best and are most likely
     to return their maximum value at or near the optimal number of
     clusters are \code{"calinski"} and \code{"ssi"}. }
@@ -68,7 +68,7 @@ cIndexKM(y, x, index = "all")
   The function creates several partitions forming a cascade from a small
   to a large number of groups formed by \code{\link{kmeans}}.  Most
   of the work is performed by function \code{cIndex} which is based on the
-  \code{\link[cclust]{clustIndex}} function (package \pkg{cclust}). 
+  \code{clustIndex} in package \pkg{cclust}). 
   Some of the criteria were removed from this version because computation 
   errors were generated when only one object was found in a group.
   
@@ -181,7 +181,7 @@ cIndexKM(y, x, index = "all")
   \email{Pierre.Legendre@UMontreal.ca}. Parallel processing by Virgilio
   Gómez-Rubio.  Edited for \pkg{vegan} by Jari Oksanen.  }
 
-\seealso{\code{\link{kmeans}}, \code{\link[cclust]{clustIndex}}.}
+\seealso{\code{\link{kmeans}}.}
 
 \examples{
  # Partitioning a (10 x 10) data matrix of random numbers

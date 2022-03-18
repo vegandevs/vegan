@@ -91,7 +91,7 @@ uncontrolled covariates. The method is also analogous to distance-based
 redundancy analysis in functions \code{\link{dbrda}} and
 \code{\link{capscale}} (Legendre and Anderson 1999), and provides
 an alternative to AMOVA (nested analysis of molecular variance,
-Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
+Excoffier, Smouse, and Quattro, 1992; \code{amova} in the
 \pkg{ade4} package) for both crossed and nested factors.
 
 }

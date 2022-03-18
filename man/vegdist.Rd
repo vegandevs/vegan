@@ -402,14 +402,9 @@
   empty sites from community data.
 }
 
-\seealso{
- Function \code{\link{designdist}} can be used for defining your own
- dissimilarity index. Alternative dissimilarity functions include
- \code{\link{dist}} in base \R,
-  \code{\link[cluster]{daisy}} (package \pkg{cluster}), and
-  \code{\link[labdsv]{dsvdis}} (package \pkg{labdsv}).  Function
-  \code{\link{betadiver}} provides indices intended for the analysis of
-  beta diversity.}
+\seealso{ Function \code{\link{designdist}} can be used for defining
+ your own dissimilarity index.  Function \code{\link{betadiver}}
+ provides indices intended for the analysis of beta diversity.}
 
 \examples{
 data(varespec)
