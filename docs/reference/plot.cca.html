@@ -139,17 +139,17 @@
 <dt>tidy</dt>
 <dd><p>Return scores that are compatible with
     <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>: all scores are in a single <code>data.frame</code>,
-    score type is identified by factor variable <code>score</code>, the names
-    by variable <code>label</code>, and weights (in CCA) are in variable
-    <code>weight</code>. The possible values of <code>score</code> are
-    <code>species</code>, <code>sites</code> (for WA scores), <code>constraints</code> (LC
-    scores for sites calculated directly from the constraining
-    variables), <code>biplot</code> (for biplot arrows), <code>centroids</code> (for
-    levels of factor variables), <code>factorbiplot</code> (biplot arrows that
-    model centroids), <code>regression</code> (for regression coefficients to
-    find LC scores from constraints). These scores cannot be used with
-    conventional <code>plot</code>, but they are directly suitable for
-    <code>ggplot</code>.</p></dd>
+    score type is identified by factor variable <code>score</code>, the
+    names by variable <code>label</code>, and weights (in CCA) are in
+    variable <code>weight</code>. The possible values of <code>score</code> are
+    <code>species</code>, <code>sites</code> (for WA scores), <code>constraints</code>
+    (LC scores for sites calculated directly from the constraining
+    variables), <code>biplot</code> (for biplot arrows), <code>centroids</code>
+    (for levels of factor variables), <code>factorbiplot</code> (biplot
+    arrows that model centroids), <code>regression</code> (for regression
+    coefficients to find LC scores from constraints). These scores
+    cannot be used with conventional <code>plot</code>, but they are
+    directly suitable to be used with the <span class="pkg">ggplot2</span> package.</p></dd>
 <dt>type</dt>
 <dd><p>Type of plot: partial match to <code>text</code>
     for text labels, <code>points</code> for points, and <code>none</code> for
