@@ -12,7 +12,7 @@
       \item Cross-references to function in other packages were
       adapted to more stringent tests in CRAN
 
-    }   
+    }
   } %installation
 
   \subsection{NEW FEATURES}{
@@ -23,7 +23,7 @@
       \code{decostand}.
 
       \item Several functions can return \dQuote{tidy} data structures
-      than can be used in \pkg{ggplot2} graphics: \code{rarecurve},
+      that can be used in \pkg{ggplot2} graphics: \code{rarecurve},
       \code{scores} functions for constrained ordination (\code{cca}
       etc.), \code{decorana}, \code{envfit}, \code{metaMDS}.
 
@@ -52,7 +52,6 @@
 
       \item \code{adonis2} accepts \code{strata}. \code{adonis2} is
       the new main function that replaces old \code{adonis}.
-
 
     }
   } % new features
@@ -102,8 +101,8 @@
       \item Function \code{adonis2} will replace \code{adonis}.
 
       \item \code{humpfit} functions are defunct and removed. They are
-      available in non-CRAN package \pkg{natto} in
-      \href{https://github.com/jarioksa/natto}.
+      available in non-CRAN package \pkg{natto} at
+      \url{https://github.com/jarioksa/natto}.
 
       \item \code{commisimulator} is defunct. Use \code{simulate} for
       \code{nullmodel} objects.
@@ -114,8 +113,8 @@
       \item \code{as.mlm} is defunct. Use functions documented with
       \code{rstudent.cca}.
 
-      }     			
-  } % deprecated 
+    }
+  } % deprecated
 } % 2.6.0
 
 \section{Changes in version 2.5-7}{
