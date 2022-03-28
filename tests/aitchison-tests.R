@@ -13,25 +13,25 @@ relative <- vegan::decostand(testdata, "total")
 testdata.with.pseudo <- testdata + 1
 relative.with.pseudo <- vegan::decostand(testdata+1, "total")
 
-# Aitchison equals to CLR + Euclid (pseudocount is necessary with clr)
-a1 <- vegan::vegdist(testdata+1, method = "Aitchison")
+# aitchison equals to CLR + Euclid (pseudocount is necessary with clr)
+a1 <- vegan::vegdist(testdata+1, method = "aitchison")
 a2 <- vegan::vegdist(vegan::decostand(testdata+1, "clr"), method = "euclidean")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
-# Robust Aitchison equals to rCLR + Euclid
+# Robust aitchison equals to rCLR + Euclid
 # and works without pseudocount
-a1 <- vegan::vegdist(testdata, method = "rAitchison")
+a1 <- vegan::vegdist(testdata, method = "robust.aitchison")
 a2 <- vegan::vegdist(vegan::decostand(testdata, "rclr"), method = "euclidean")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
-# Robust Aitchison and Aitchison are equal when there are no zeroes
-a1 <- vegan::vegdist(testdata.with.pseudo, method = "rAitchison")
-a2 <- vegan::vegdist(testdata.with.pseudo, method = "Aitchison")
+# Robust aitchison and aitchison are equal when there are no zeroes
+a1 <- vegan::vegdist(testdata.with.pseudo, method = "robust.aitchison")
+a2 <- vegan::vegdist(testdata.with.pseudo, method = "aitchison")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
 # It is possible to pass pseudocount as a function argument to vegan::decostand
-a1 <- vegan::vegdist(testdata, method = "Aitchison", pseudocount=1)
-a2 <- vegan::vegdist(testdata+1, method = "Aitchison")
+a1 <- vegan::vegdist(testdata, method = "aitchison", pseudocount=1)
+a2 <- vegan::vegdist(testdata+1, method = "aitchison")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
 
@@ -40,12 +40,6 @@ max(abs(a1-a2)) < 1e-6 # Tolerance
 # useful for manual testing.
 #skip <- TRUE
 #if (!skip) {
-#
-#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr")) < 1e-6
-#    sum(compositions::ilr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=1)) < 1e-6
-#    # rgr and compositions packages differ in sign; vegan::decostand is aligned with the "compositions" package
-#    sum(t(compositions::ilr(t(testdata.with.pseudo))) - (+vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6
-#    sum(t(rgr::ilr(t(testdata.with.pseudo))) - (-vegan::decostand(testdata.with.pseudo, "ilr", MARGIN=2))) < 1e-6    #
 #
 #    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr")) < 1e-6
 #    sum(compositions::clr(testdata.with.pseudo) - vegan::decostand(testdata.with.pseudo, "clr", MARGIN=1)) < 1e-6
