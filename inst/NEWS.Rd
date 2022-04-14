@@ -27,6 +27,11 @@
       \code{scores} functions for constrained ordination (\code{cca}
       etc.), \code{decorana}, \code{envfit}, \code{metaMDS}.
 
+      \item \code{scores.envfit} gained argument
+      \code{arrow.mul}. \pkg{vegan} \code{plot} functions used this
+      automatically, but now it is easier to use \code{envfit} in
+      non-\pkg{vegan} plotting.
+
       \item Added function \code{simpson.unb} for unbiased Simpson
       diversity that is more robust to the variation in sample sizes.
 
@@ -51,7 +56,19 @@
       \url{https://stackoverflow.com/questions/66748605/}.
 
       \item \code{adonis2} accepts \code{strata}. \code{adonis2} is
-      the new main function that replaces old \code{adonis}.
+      the new main function that replaces old \code{adonis}. See issue
+      \href{https://github.com/vegandevs/vegan/issues/427}{#427}.
+
+      \item Fisher alpha (\code{fisherfit}) is badly suited for extreme
+      communities that do not fit Fisher's model. Now \code{fisherfit}
+      returns \code{NA} to communities that have 0 or 1 species, and
+      issues a warning with communities consisting of singletons and
+      having extreme Fisher alpha.
+
+      \item \code{adipart} and \code{multipart} formulae will
+      automatically add unique id and and constant. This will always
+      sandwich the requested grouping between alpha and gamma
+      diversities, but not change the results for requested groupings.
 
     }
   } % new features
@@ -107,7 +124,7 @@
       \item \code{commisimulator} is defunct. Use \code{simulate} for
       \code{nullmodel} objects.
 
-      \item \code{permuted} index is finally defunct (it was
+      \item \code{permuted.index} is finally defunct (it was
       deprecated in \pkg{vegan} 2.2-0).
 
       \item \code{as.mlm} is defunct. Use functions documented with
@@ -177,7 +194,7 @@
       \item \code{ordiplot} passes \code{cex} argument to
       \code{linestack} and \code{decorana} plots.
 
-      } %itemize
+    } %itemize
   } % features
 
 } % 2.5-7
