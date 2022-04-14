@@ -35,7 +35,7 @@
       \href{https://github.com/vegandevs/vegan/issues/393}{#393}.
 
       \item \code{simper} is much faster even though parallel processing
-      is disabled in the new code.
+      is not implemented in the new code.
 
       \item \code{pairs} function was added to plot \code{permustats}
       variables against each other.
@@ -48,7 +48,7 @@
       \item \code{metaMDS} adopted a more user-friendly policy, and
       \code{trymax} will always be the maximum number of tries. See
       dicussion in
-      \href{https://stackoverflow.com/questions/66748605/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/66748605/}.
 
       \item \code{adonis2} accepts \code{strata}. \code{adonis2} is
       the new main function that replaces old \code{adonis}.
@@ -82,14 +82,14 @@
 
       \item \code{orditorp} failed if numeric labels were
       supplied. Reported in
-      \href{https://stackoverflow.com/questions/69272366/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/69272366/}.
 
       \item Argument \code{summarize} was accidentally dropped from
       \code{goodness.cca} in 2017.
 
       \item \code{taxa2dist} failed if there was only one usable
       taxonomic level. See
-      \href{https://stackoverflow.com/questions/67231431/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/67231431/}.
 
     }
   } % bug fixes
@@ -111,7 +111,9 @@
       deprecated in \pkg{vegan} 2.2-0).
 
       \item \code{as.mlm} is defunct. Use functions documented with
-      \code{rstudent.cca}.
+      \code{influence.cca}, such as \code{hatvalues.cca},
+      \code{rstandard.cca}, \code{rstudent.cca},
+      \code{cooks.distance.cca} and others.
 
     }
   } % deprecated
