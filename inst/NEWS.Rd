@@ -1,4 +1,6 @@
-\name{NEWS} \title{vegan News} \encoding{UTF-8}
+\name{NEWS}
+\title{vegan News}
+\encoding{UTF-8}
 
 \section{Changes in version 2.6-0}{
   \subsection{INSTALLATION}{
