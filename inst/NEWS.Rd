@@ -1,4 +1,6 @@
-\name{NEWS} \title{vegan News} \encoding{UTF-8}
+\name{NEWS}
+\title{vegan News}
+\encoding{UTF-8}
 
 \section{Changes in version 2.6-0}{
   \subsection{INSTALLATION}{
@@ -27,6 +29,11 @@
       \code{scores} functions for constrained ordination (\code{cca}
       etc.), \code{decorana}, \code{envfit}, \code{metaMDS}.
 
+      \item \code{scores.envfit} gained argument
+      \code{arrow.mul}. \pkg{vegan} \code{plot} functions used this
+      automatically, but now it is easier to use \code{envfit} in
+      non-\pkg{vegan} plotting.
+
       \item Added function \code{simpson.unb} for unbiased Simpson
       diversity that is more robust to the variation in sample sizes.
 
@@ -35,7 +42,7 @@
       \href{https://github.com/vegandevs/vegan/issues/393}{#393}.
 
       \item \code{simper} is much faster even though parallel processing
-      is disabled in the new code.
+      is not implemented in the new code.
 
       \item \code{pairs} function was added to plot \code{permustats}
       variables against each other.
@@ -48,10 +55,22 @@
       \item \code{metaMDS} adopted a more user-friendly policy, and
       \code{trymax} will always be the maximum number of tries. See
       dicussion in
-      \href{https://stackoverflow.com/questions/66748605/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/66748605/}.
 
       \item \code{adonis2} accepts \code{strata}. \code{adonis2} is
-      the new main function that replaces old \code{adonis}.
+      the new main function that replaces old \code{adonis}. See issue
+      \href{https://github.com/vegandevs/vegan/issues/427}{#427}.
+
+      \item Fisher alpha (\code{fisherfit}) is badly suited for extreme
+      communities that do not fit Fisher's model. Now \code{fisherfit}
+      returns \code{NA} to communities that have 0 or 1 species, and
+      issues a warning with communities consisting of singletons and
+      having extreme Fisher alpha.
+
+      \item \code{adipart} and \code{multipart} formulae will
+      automatically add unique id and and constant. This will always
+      sandwich the requested grouping between alpha and gamma
+      diversities, but not change the results for requested groupings.
 
     }
   } % new features
@@ -82,14 +101,14 @@
 
       \item \code{orditorp} failed if numeric labels were
       supplied. Reported in
-      \href{https://stackoverflow.com/questions/69272366/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/69272366/}.
 
       \item Argument \code{summarize} was accidentally dropped from
       \code{goodness.cca} in 2017.
 
       \item \code{taxa2dist} failed if there was only one usable
       taxonomic level. See
-      \href{https://stackoverflow.com/questions/67231431/}{StackOverflow}.
+      \url{https://stackoverflow.com/questions/67231431/}.
 
     }
   } % bug fixes
@@ -107,11 +126,13 @@
       \item \code{commisimulator} is defunct. Use \code{simulate} for
       \code{nullmodel} objects.
 
-      \item \code{permuted} index is finally defunct (it was
+      \item \code{permuted.index} is finally defunct (it was
       deprecated in \pkg{vegan} 2.2-0).
 
       \item \code{as.mlm} is defunct. Use functions documented with
-      \code{rstudent.cca}.
+      \code{influence.cca}, such as \code{hatvalues.cca},
+      \code{rstandard.cca}, \code{rstudent.cca},
+      \code{cooks.distance.cca} and others.
 
     }
   } % deprecated
@@ -175,7 +196,7 @@
       \item \code{ordiplot} passes \code{cex} argument to
       \code{linestack} and \code{decorana} plots.
 
-      } %itemize
+    } %itemize
   } % features
 
 } % 2.5-7
