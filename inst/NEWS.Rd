@@ -2040,11 +2040,11 @@
       The abundance based \code{estimateR} uses bias corrected Chao
       extrapolation, but earlier it estimated its variance with classic
       Chao model. Now we use the widespread
-      \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{approximate
+      \href{https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{approximate
 	equation} for variance.
 
       With these changes these functions are more similar to
-            \href{http://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{EstimateS}.
+            \href{https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB}{EstimateS}.
 
       \item \code{tabasco} uses now \code{reorder.hclust} for
       \code{hclust} object for better ordering than previously when it
