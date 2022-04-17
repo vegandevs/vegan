@@ -16,7 +16,7 @@
     ## == 0, we force alpha 0 whereas the function would give
     ## fisherfit(0) as 1 (which hardly makes sense).
     if (S > 0) {
-        sol <- uniroot(d1fun, c(1,50), extendInt = "yes", S = S, N = N, ...)
+        sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
         if (S == N)
             warning("all species singletons: alpha arbitrarily high")
     } else {
