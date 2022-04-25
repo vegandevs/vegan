@@ -1,5 +1,5 @@
 
-R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.6-0
+This is vegan 2.6-3
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -2401,6 +2401,12 @@ Icmaeric Cladcerv Claddefo Cladphyl
        1        1        1        1 
 > sptrans <- wisconsin(varespec)
 > 
+> # CLR transformation for rows, with pseudocount
+> varespec.clr <- decostand(varespec, "clr", pseudocount=1)
+> 
+> # ALR transformation for rows, with pseudocount and reference sample
+> varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
+> 
 > ## Chi-square: PCA similar but not identical to CA.
 > ## Use wcmdscale for weighted analysis and identical results.
 > sptrans <- decostand(varespec, "chi.square")
@@ -3606,7 +3612,7 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
 > range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
-[1] -2.498002e-16  9.436896e-16
+[1] -2.498002e-16  1.526557e-15
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -4025,7 +4031,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Run 0 stress 0.1192678 
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
-... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
+... Procrustes: rmse 5.822835e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
 ... Procrustes: rmse 6.697234e-06  max resid 2.061976e-05 
@@ -4038,11 +4044,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651375e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505932e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505928e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4058,7 +4064,7 @@ Run 17 stress 0.2075713
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276517e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4085,11 +4091,11 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
+... Procrustes: rmse 6.592553e-06  max resid 2.026403e-05 
 ... Similar to previous best
 Run 2 stress 0.1812935 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
+... Procrustes: rmse 4.27681e-06  max resid 1.352647e-05 
 ... Similar to previous best
 Run 4 stress 0.1192678 
 Run 5 stress 0.1192678 
@@ -4108,7 +4114,7 @@ Run 10 stress 0.1183186
 ... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
+... Procrustes: rmse 9.836666e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
 ... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
@@ -4141,7 +4147,7 @@ Run 3 stress 0.192849
 ... Similar to previous best
 Run 4 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 7.245207e-05  max resid 0.0002138775 
+... Procrustes: rmse 7.245208e-05  max resid 0.0002138775 
 ... Similar to previous best
 Run 5 stress 0.1928478 
 ... Procrustes: rmse 0.0003528988  max resid 0.000994985 
@@ -4218,21 +4224,21 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 5.139266e-06  max resid 1.72906e-05 
+... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498736e-06  max resid 1.408227e-05 
+... Procrustes: rmse 4.498737e-06  max resid 1.408227e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1653484 
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
-... Procrustes: rmse 5.848229e-06  max resid 1.923197e-05 
+... Procrustes: rmse 5.848227e-06  max resid 1.923197e-05 
 ... Similar to previous best
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364996e-06  max resid 7.105337e-06 
+... Procrustes: rmse 3.364993e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
@@ -4243,13 +4249,13 @@ Run 17 stress 0.1069786
 ... Procrustes: rmse 0.006774349  max resid 0.02387355 
 Run 18 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 3.536974e-06  max resid 1.241593e-05 
+... Procrustes: rmse 3.536972e-06  max resid 1.241593e-05 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 2.356111e-06  max resid 5.608413e-06 
+... Procrustes: rmse 2.356116e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175565e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Solution reached
 > sol
@@ -4381,11 +4387,11 @@ Run 3 stress 0.1183186
 ... Procrustes: rmse 0.02026982  max resid 0.06495764 
 Run 4 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 3.290173e-06  max resid 7.737989e-06 
+... Procrustes: rmse 3.290172e-06  max resid 7.737989e-06 
 ... Similar to previous best
 Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
-... Procrustes: rmse 7.097047e-06  max resid 2.303315e-05 
+... Procrustes: rmse 7.097045e-06  max resid 2.303315e-05 
 ... Similar to previous best
 Run 7 stress 0.1192678 
 Run 8 stress 0.1183186 
@@ -5592,7 +5598,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-35. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -6215,8 +6221,6 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 > with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
-Warning in text.default(sco, labels = rownames(sco), ...) :
-  "length" is not a graphical parameter
 > with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
 > ## Limited output of 'summary'
 > head(summary(mod), tail=2)
@@ -6636,7 +6640,7 @@ Rotation matrix:
 
 Translation of averages:
               [,1]          [,2]
-[1,] -4.770354e-17 -2.855179e-17
+[1,] -4.387224e-17 -1.687662e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -8086,8 +8090,8 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > ### Name: varpart
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
-> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts plot.varpart
-> ###   plot.varpart234 simpleRDA2 simpleDBRDA
+> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts
+> ###   summary.varpart plot.varpart plot.varpart234 simpleRDA2 simpleDBRDA
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8115,16 +8119,30 @@ No. of observations: 70
 
 Partition table:
                      Df R.squared Adj.R.squared Testable
-[a+b] = X1           11   0.52650       0.43670     TRUE
+[a+c] = X1           11   0.52650       0.43670     TRUE
 [b+c] = X2           22   0.62300       0.44653     TRUE
 [a+b+c] = X1+X2      33   0.75893       0.53794     TRUE
 Individual fractions                                    
 [a] = X1|X2          11                 0.09141     TRUE
-[b]                   0                 0.34530    FALSE
-[c] = X2|X1          22                 0.10124     TRUE
+[b] = X2|X1          22                 0.10124     TRUE
+[c]                   0                 0.34530    FALSE
 [d] = Residuals                         0.46206    FALSE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed Component
+X1 0.0914       0.264  mite.env
+X2 0.1012       0.274 mite.pcnm
+
+Contributions of fractions to sets:
+
+        X1     X2
+[a] 0.0914       
+[b]        0.1012
+[c] 0.1726 0.1726
 > 
 > ## Use fill colours
 > showvarparts(2, bg = c("hotpink","skyblue"))
@@ -8169,13 +8187,13 @@ No. of observations: 70
 
 Partition table:
                      Df R.squared Adj.R.squared Testable
-[a+b] = X1           11   0.50512       0.41127     TRUE
+[a+c] = X1           11   0.50512       0.41127     TRUE
 [b+c] = X2           22   0.60144       0.41489     TRUE
 [a+b+c] = X1+X2      33   0.74631       0.51375     TRUE
 Individual fractions                                    
 [a] = X1|X2          11                 0.09887     TRUE
-[b]                   0                 0.31240    FALSE
-[c] = X2|X1          22                 0.10249     TRUE
+[b] = X2|X1          22                 0.10249     TRUE
+[c]                   0                 0.31240    FALSE
 [d] = Residuals                         0.48625    FALSE
 ---
 Use function ‘dbrda’ to test significance of fractions of interest
@@ -8226,6 +8244,25 @@ Controlling 1 table X
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed                 Component
+X1 0.0391       0.144      ~SubsDens + WatrCont
+X2 0.0382       0.148 ~Substrate + Shrub + Topo
+X3 0.1012       0.245                 mite.pcnm
+
+Contributions of fractions to sets:
+
+         X1      X2      X3
+[a] 0.03910                
+[b]         0.03824        
+[c]                 0.10124
+[d] 0.00703 0.00703        
+[e]         0.04590 0.04590
+[f] 0.04153         0.04153
+[g] 0.05682 0.05682 0.05682
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
 > 
@@ -8330,6 +8367,34 @@ Controlling 1 table X
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed                 Component
+X1 0.0391      0.1456      ~SubsDens + WatrCont
+X2 0.0382      0.1594 ~Substrate + Shrub + Topo
+X3 0.1024      0.2511         mite.pcnm[, 1:11]
+X4 0.0085     -0.0181        mite.pcnm[, 12:22]
+
+Contributions of fractions to sets:
+
+          X1       X2       X3       X4
+[a]  0.03910                           
+[b]           0.03824                  
+[c]                    0.10237         
+[d]                             0.00850
+[e]  0.00703  0.00703                  
+[f]           0.06600  0.06600         
+[g]  0.02678           0.02678         
+[h]  0.00110                    0.00110
+[i]          -0.00274          -0.00274
+[j]                   -0.00482 -0.00482
+[k] -0.00077 -0.00077          -0.00077
+[l]  0.08012  0.08012  0.08012         
+[m]          -0.01158 -0.01158 -0.01158
+[n]  0.00910           0.00910  0.00910
+[o] -0.01690 -0.01690 -0.01690 -0.01690
 > plot(mod, bg=2:5)
 > ## Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
@@ -9036,13 +9101,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--1.443290e-15 -1.165734e-15  2.220446e-16  1.110223e-16  4.440892e-16 
+-6.661338e-16  9.992007e-16 -2.220446e-16  0.000000e+00  5.551115e-17 
           CA6           CA7           CA8           CA9          CA10 
- 6.938894e-17  2.775558e-17 -1.526557e-16  1.249001e-16  1.387779e-17 
+ 2.775558e-16 -2.775558e-16 -1.110223e-16  2.775558e-17 -2.081668e-17 
          CA11          CA12          CA13          CA14          CA15 
- 6.938894e-17  6.938894e-17  6.245005e-17  3.122502e-17 -2.775558e-17 
+ 1.110223e-16  3.469447e-17  7.632783e-17  0.000000e+00 -3.642919e-17 
          CA16          CA17          CA18          CA19 
--1.734723e-18  1.734723e-17 -3.642919e-17  8.283305e-17 
+ 8.673617e-18  2.602085e-17 -3.556183e-17 -2.992398e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9071,7 +9136,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.516 0.296 9.828 0 0 
+Time elapsed:  8.312 0.275 8.618 0 0 
 > grDevices::dev.off()
 null device 
           1 
