@@ -4,6 +4,7 @@
 \alias{varpart3}
 \alias{varpart4}
 \alias{showvarparts}
+\alias{summary.varpart}
 \alias{plot.varpart}
 \alias{plot.varpart234}
 \alias{simpleRDA2}
@@ -26,6 +27,7 @@
 \usage{
 varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
     add = FALSE, sqrt.dist = FALSE, permutations)
+\method{summary}{varpart}(object, ...)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
@@ -107,7 +109,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{id.size}{A numerical value giving the character expansion factor
   for the names of circles or ellipses. }
 
-\item{x}{The \code{varpart} result.}
+\item{x, object}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
 \item{digits}{The number of significant digits; the number of decimal
   places is at least one higher.}
@@ -129,9 +131,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   \code{\link{dist}}. \pkg{Vegan} functions \code{\link{vegdist}},
   \code{\link{designdist}}, \code{\link{raupcrick}} and
   \code{\link{betadiver}} produce such objects, as do many other
-  dissimilarity functions in \R packages. However, symmetric square
-  matrices are not recognized as dissimilarities but must be
-  transformed with \code{\link{as.dist}}.  Partitioning will be made
+  dissimilarity functions in \R packages. Partitioning will be made
   to squared dissimilarities analogously to using variance with
   rectangular data -- unless \code{sqrt.dist = TRUE} was specified.
 
@@ -169,8 +169,8 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   With two explanatory tables, the fractions explained 
   uniquely by each of the two tables are \code{[a]} and
-  \code{[c]}, and their joint effect
-  is  \code{[b]} following Borcard et al. (1992).
+  \code{[b]}, and their joint effect
+  is  \code{[c]}.
 
   With three explanatory tables, the fractions explained uniquely
   by each of the three tables are  
@@ -184,6 +184,16 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   \code{[j]}, joint fractions between three variables are \code{[k]} to
   \code{[n]}, and the joint fraction between all four tables is
   \code{[o]}.
+
+  \code{summary} will give an overview of unique and and overall
+  contribution of each group of variables. The overall contribution
+  (labelled as \dQuote{Contributed}) consists of the unique contribution
+  of the variable and equal shares of each fraction where the variable
+  contributes. The summary tabulates how each fraction is divided
+  between the variables, and the contributed component is the sum of all
+  these divided fractions. The summary is based on the idea of Lai et
+  al. (2022), and is similar to the output of their \CRANpkg{rdacca.hp}
+  package.
 
   There is a \code{plot} function that displays the Venn diagram and
   labels each intersection (individual fraction) with the adjusted R
@@ -244,6 +254,11 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
 Borcard, D., P. Legendre & P. Drapeau. 1992. Partialling out the spatial
 component of ecological variation. Ecology 73: 1045--1055.
+
+Lai J., Y. Zou, J. Zhang & P. Peres-Neto. 2022. Generalizing
+hierarchical and variation partitioning in multiple regression and
+canonical analysis using the rdacca.hp R package. Methods in Ecology and
+Evolution, 13: 782--788.
 
 Legendre, P. & L. Legendre. 2012. Numerical ecology, 3rd English edition.
 Elsevier Science BV, Amsterdam.
@@ -327,6 +342,7 @@ data(mite.pcnm)
 # Two explanatory data frames -- Hellinger-transform Y
 mod <- varpart(mite, mite.env, mite.pcnm, transfo="hel")
 mod
+summary(mod)
 
 ## Use fill colours
 showvarparts(2, bg = c("hotpink","skyblue"))
@@ -344,6 +360,7 @@ varpart(vegdist(mite), mite.env, mite.pcnm)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~ Substrate + Shrub + Topo,
    mite.pcnm, data=mite.env, transfo="hel")
 mod
+summary(mod)
 showvarparts(3, bg=2:4)
 plot(mod, bg=2:4)
 
@@ -358,6 +375,7 @@ anova(rda.result)
 mod <- varpart(mite, ~ SubsDens + WatrCont, ~Substrate + Shrub + Topo,
   mite.pcnm[,1:11], mite.pcnm[,12:22], data=mite.env, transfo="hel")
 mod
+summary(mod)
 plot(mod, bg=2:5)
 ## Show values for all partitions by putting 'cutoff' low enough:
 plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
