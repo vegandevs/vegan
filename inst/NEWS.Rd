@@ -2,7 +2,26 @@
 \title{vegan News}
 \encoding{UTF-8}
 
-\section{Changes in version 2.6-0}{
+\section{Changes in version 2.6-3}{
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+
+      \item New \code{summary} function for \code{varpart} for a brief
+      overview. The summary shows unique and overall contributed
+      variation for each set of variables. The fractions shared by
+      several sets of variables are divided equally with all
+      contributing sets following Lai J, Zou Y, Zhang J, Peres-Neto P
+      (2022). Generalizing hierarchical and variation partitioning in
+      multiple regression and canonical analysis using the rdacca.hp R
+      package. Methods in Ecology and Evolution, 13: 782--788.
+
+    } % itemize
+  } % new features
+
+} % 2.6-3
+
+\section{Changes in version 2.6-2}{
   \subsection{INSTALLATION}{
     \itemize{
     
