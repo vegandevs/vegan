@@ -4,7 +4,7 @@ useDynLib(vegan, .registration = TRUE)
 ## Export regular function names (no dots)
 
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
-SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
+SSlomolino, adipart, adonis2, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim, cutreeord,
 dbrda, decorana, decostand, designdist,
@@ -36,8 +36,6 @@ wcmdscale, wisconsin)
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
-## alternative implementation of adonis: may be eliminated later
-export(adonis2)
 
 ## export regular functions with dot names
 
@@ -52,13 +50,14 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
-
-## Deprecated functions & methods
 export(as.mlm)
 S3method(as.mlm, cca)
 S3method(as.mlm, rda)
+
+## Deprecated functions & methods
 export(as.mcmc.oecosimu)
 export(as.mcmc.permat)
+export(adonis)
 
 ## do NOT export the following internal functions
 
