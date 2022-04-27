@@ -36,7 +36,6 @@ wcmdscale, wisconsin)
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
-export(as.mcmc.oecosimu, as.mcmc.permat)
 ## alternative implementation of adonis: may be eliminated later
 export(adonis2)
 
@@ -58,6 +57,8 @@ export(commsimulator)
 export(as.mlm)
 S3method(as.mlm, cca)
 S3method(as.mlm, rda)
+export(as.mcmc.oecosimu)
+export(as.mcmc.permat)
 
 ## do NOT export the following internal functions
 
@@ -108,11 +109,10 @@ S3method(anova, cca)
 S3method(anova, prc)
 # as.hclust: stats
 S3method(as.hclust, spantree)
-## Do not export as.mcmc now: would need import(coda)
-# as.mcmc: coda <======= rare
-#S3method(as.mcmc, oecosimu)
-#S3method(as.mcmc, permat)
-
+## toCoda (used to be unexported & dysfunctional as.mcmc)
+export(toCoda)
+S3method(toCoda, oecosimu)
+S3method(toCoda, permat)
 # as.ts: stats
 S3method(as.ts, oecosimu)
 S3method(as.ts, permat)

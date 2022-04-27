@@ -1,13 +1,12 @@
-`as.mcmc.oecosimu` <-
+`toCoda` <-
+    function(x) UseMethod("toCoda")
+
+`toCoda.oecosimu` <-
     function(x)
 {
-    ## Deprecated in favour of toCoda: using as an S3 method would
-    ## need importFrom(coda, as.mcmc) and that would add dependence on
-    ## coda
-    .Deprecated("toCoda", package = "vegan")
     ## mcmc only for sequential methods
     if (!x$oecosimu$isSeq)
-        stop("as.mcmc available only for sequential null models")
+        stop("'toCoda' is only available for sequential null models")
     ## named variables
     rownames(x$oecosimu$simulated) <- names(x$oecosimu$z)
     chains <- attr(x$oecosimu$simulated, "chains")
@@ -40,4 +39,4 @@
     x
 }
 
-`as.mcmc.permat` <- as.mcmc.oecosimu
+`toCoda.permat` <- toCoda.oecosimu

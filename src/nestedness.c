@@ -186,17 +186,19 @@ static void trialswap(int *m, int *nr, int *nc, int *thin)
 	do {col[1] = IRAND((*nc) - 1);} while (col[1] == col[0]);
 	b = INDX(row[0], col[1], *nr);
 	d = INDX(row[1], col[1], *nr);
-        /* there are 16 possible matrices, but only two can be
-	 * swapped. Find signature of each matrix with bitwise shift
-	 * and OR. */
-	switch(m[a] | m[b] << 1 | m[c] << 2 | m[d] << 3) {
-	case 6: /* 0110 -> 1001 */
+        /* there are 16 possible matrices, but if we are here m[a] !=
+	 * m[c] and we only have 8, and only two of these can be
+	 * swapped. Find signature of each possible matrix with
+	 * bitwise shift and OR, and we can skip m[a] because we know
+	 * it when we know m[c]. */
+	switch(m[b] | m[c] << 1 | m[d] << 2) {
+	case 3: /* 6 with m[a]: 0110 -> 1001 */
 	    m[a] = 1;
 	    m[b] = 0;
 	    m[c] = 0;
 	    m[d] = 1;
 	    break;
-	case 9: /* 1001 -> 0110 */
+	case 4: /* 9 with m[a]: 1001 -> 0110 */
 	    m[a] = 0;
 	    m[b] = 1;
 	    m[c] = 1;

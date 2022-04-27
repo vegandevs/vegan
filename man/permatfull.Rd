@@ -8,7 +8,7 @@
 \alias{plot.permat}
 \alias{lines.permat}
 \alias{as.ts.permat}
-\alias{as.mcmc.permat}
+\alias{toCoda.permat}
 
 \title{Matrix Permutation Algorithms for Presence-Absence and Count Data}
 
@@ -32,7 +32,7 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
     lowess = TRUE, plot = TRUE, text = TRUE, ...)
 \method{lines}{permat}(x, type = "bray", ...)
 \method{as.ts}{permat}(x, type = "bray", ...)
-\method{as.mcmc}{permat}(x)
+\method{toCoda}{permat}(x)
 }
 \arguments{
   \item{m}{A community data matrix with plots (samples) as rows and
@@ -180,8 +180,8 @@ permatswap(m, method = "quasiswap", fixedmar="both", shuffle = "both",
 
   The \code{as.ts} method can be used to extract Bray-Curtis
   dissimilarities or Chi-squared values as time series. This can further
-  used in testing independence (see Examples). The method \code{as.mcmc}
-  is useful for accessing diagnostic tools available in the \pkg{coda}
+  used in testing independence (see Examples). The method \code{toCoda}
+  is useful for accessing diagnostic tools available in the \CRANpkg{coda}
   package.  }
 
 \value{Functions \code{permatfull} and \code{permatswap} return an
