@@ -16,8 +16,26 @@
       multiple regression and canonical analysis using the rdacca.hp R
       package. Methods in Ecology and Evolution, 13: 782--788.
 
+      \item New \code{toCoda} function to transform sequential null
+      model objects from \code{oecosimu} to an object that can be
+      analysed with \CRANpkg{coda} as an MCMC model. Function will
+      replace \code{as.mcmc.oecosimu} and \code{as.mcmc.permat}.
+
     } % itemize
   } % new features
+
+  \subsection{DEPRECATED AND DEFUNCT}{
+    \itemize{
+
+      \item \code{adonis} is finally deprecated. Use \code{adonis2}
+      instead.
+
+      \item \code{as.mcmc.oecosimu} and \code{as.mcmc.permat} were
+      deprecated: these could not be used as S3 methods without
+      depending on \pkg{coda} package. Use \code{toCoda} instead.
+
+    } %itemize
+  } % deprecated & defunct
 
 } % 2.6-3
 
