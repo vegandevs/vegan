@@ -57,6 +57,8 @@ export(commsimulator)
 export(as.mlm)
 S3method(as.mlm, cca)
 S3method(as.mlm, rda)
+export(as.mcmc.oecosimu)
+export(as.mcmc.permat)
 
 ## do NOT export the following internal functions
 
