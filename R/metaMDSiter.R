@@ -55,7 +55,7 @@
         } else {
             init <- as.matrix(previous.best)
             bestry <- 0
-            trybase <- NA
+            trybase <- 0
         }
         ## evaluate stress
         s0 <- switch(engine,
