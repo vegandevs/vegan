@@ -60,7 +60,7 @@ metaMDSredist(object, ...)
     global non-metric MDS, and still higher in local NMDS.}
   \item{try, trymax}{Minimum and maximum numbers of random starts in
     search of stable solution. After \code{try} has been reached, the
-    iteration will stop when two convergent solutions were found or
+    iteration will stop when similar solutions were repeated or
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
     \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
@@ -314,7 +314,7 @@ metaMDSredist(object, ...)
 
     In addition to slack convergence criteria and too low number
     of random starts, wrong number of dimensions (argument \code{k})
-    is the most common reason for not finding convergent
+    is the most common reason for not being able to repeat similar
     solutions. NMDS is usually run with a low number dimensions
     (\code{k=2} or \code{k=3}), and for complex data increasing
     \code{k} by one may help. If you run NMDS with much higher number
