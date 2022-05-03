@@ -40,6 +40,8 @@
             ## configuration with 'maxit = 0' to evaluate the stress
             ## in current case, or take a matrix as configuration.
             init <- previous.best$points
+            bestry <- previous.best$bestry
+            trybase <- previous.best$tries
             nc <- NCOL(init)
             if (nc > k)
                 init <- init[, 1:k, drop = FALSE]
@@ -51,6 +53,8 @@
                             nc))
         } else {
             init <- as.matrix(previous.best)
+            bestry <- 0
+            trybase <- NA
         }
         ## evaluate stress
         s0 <- switch(engine,
@@ -69,7 +73,9 @@
                  "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k,
                  maxit = maxit, ...),
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
-                 maxit = maxit))
+                                   maxit = maxit))
+        bestry <- 0
+        trybase <- 0
     }
     if (trace)
         cat("Run 0 stress", s0$stress, "\n")
@@ -140,6 +146,7 @@
                     ## New best solution has not converged unless
                     ## proved later
                     converged <- FALSE
+                    bestry <- tries + trybase
                     if (trace)
                         cat("... New best solution\n")
                 }
@@ -180,6 +187,7 @@
     out$distance <- attr(dist, "method")
     out$converged <- converged
     out$tries <- tries
+    out$bestry <- bestry
     out$engine <- engine
     out
 }
