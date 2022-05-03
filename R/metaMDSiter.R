@@ -10,7 +10,7 @@
     RESLIM <- 0.01
     RMSELIM <- 0.005
     SOL <- FALSE
-    converged <- FALSE
+    converged <- 0
     ## set tracing for engines
     isotrace <- max(0, trace - 1)
     monotrace <- engine == "monoMDS" && trace > 1
@@ -42,6 +42,7 @@
             init <- previous.best$points
             bestry <- previous.best$bestry
             trybase <- previous.best$tries
+            converged <- previous.best$converged
             nc <- NCOL(init)
             if (nc > k)
                 init <- init[, 1:k, drop = FALSE]
@@ -98,7 +99,7 @@
     else
         nclus <- parallel
     ## proper iterations
-    while(tries < try || tries < trymax && !converged) {
+    while(tries < try || tries < trymax && converged == 0) {
         init <- replicate(nclus, initMDS(dist, k = k))
         if (nclus > 1) isotrace <- FALSE
         if (isParal) {
@@ -145,7 +146,7 @@
                     s0 <- stry[[i]]
                     ## New best solution has not converged unless
                     ## proved later
-                    converged <- FALSE
+                    converged <- 0
                     bestry <- tries + trybase
                     if (trace)
                         cat("... New best solution\n")
@@ -157,18 +158,18 @@
                 if (summ$rmse < RMSELIM && max(summ$resid) < RESLIM) {
                     if (trace)
                         cat("... Similar to previous best\n")
-                    converged <- TRUE
+                    converged <- converged + 1
                 }
             }
             flush.console()
         }
     }
     if (trace) {
-        if (converged)
-            cat("*** Solution reached\n")
+        if (converged > 0)
+            cat("*** Best solution repeated", converged, "times\n")
         else if (engine == "monoMDS") {
             cat(sprintf(
-                "*** No convergence -- %s stopping criteria:\n",
+                "*** Best solution was not repeated -- %s stopping criteria:\n",
                 engine))
             for (i in seq_along(stopcoz))
                 if (stopcoz[i] > 0)

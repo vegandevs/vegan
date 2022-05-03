@@ -18,13 +18,16 @@
         cat("\n")
     }
     if (x$converged) {
-        cat("Best solution was replicated after", x$tries,
+        cat("Best solution was repeated", x$converged, "time(s) in", x$tries,
             "tries\n")
     } else {
-        cat("Best solution could not be repeated after",
+        cat("Best solution was not be repeated after",
             x$tries, "tries\n")
     }
-    cat("Returns the solution of try", x$bestry, "\n")
+    if (x$bestry > 0)
+        cat("The best solution was from random start, try", x$bestry, "\n")
+    else
+        cat("The best solution started from metric scaling (try 0)\n")
     z <- x$points
     scal <- c(if (attr(z, "centre")) "centring",
               if (attr(z, "pc")) "PC rotation",
