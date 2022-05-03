@@ -21,6 +21,10 @@
       analysed with \CRANpkg{coda} as an MCMC model. Function will
       replace \code{as.mcmc.oecosimu} and \code{as.mcmc.permat}.
 
+      \item \code{metaMDS} is more informative about finding similar
+      repeated results with random starts and uses less confusing
+      language when reporting the results.
+
     } % itemize
   } % new features
 
