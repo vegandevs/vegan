@@ -126,8 +126,8 @@
     <code>"jaccard"</code>, <code>"gower"</code>, <code>"altGower"</code>,
     <code>"morisita"</code>, <code>"horn"</code>, <code>"mountford"</code>, <code>"raup"</code>,
     <code>"binomial"</code>, <code>"chao"</code>, <code>"cao"</code>, <code>"mahalanobis"</code>,
-    <code>"chisq"</code>, <code>"chord"</code>, <code>"aitchison"</code>, or
-    <code>"robust.aitchison"</code>.</p></dd>
+    <code>"chisq"</code>, <code>"chord"</code>, <code>"hellinger"</code>,
+    <code>"aitchison"</code>, or <code>"robust.aitchison"</code>.</p></dd>
 <dt>binary</dt>
 <dd><p>Perform presence/absence standardization before analysis
     using <code><a href="decostand.html">decostand</a></code>.</p></dd>
@@ -274,14 +274,14 @@
   be calculated as long as all margin sums are positive, but warning
   is issued on negative data entries.</p>
 <p>Chord distances (<code>"chord"</code>) are Euclidean distance of a matrix
-  where rows are standardized to unit norm (their sums of squares are
-  1) using <code><a href="decostand.html">decostand</a></code>. Geometrically this standardization
+  where rows are standardized to unit norm (their sums of squares are 1)
+  using <code><a href="decostand.html">decostand</a></code>. Geometrically this standardization
   moves row points to a surface of multidimensional unit sphere, and
-  distances are the chords across the hypersphere. Community data are
-  non-negative, and all points will be on the positive quadrant of the
-  hypersphere, and the distances have upper limit
-  \(\sqrt{2}\). If data can have negative values, the upper
-  limit is 2.</p>
+  distances are the chords across the hypersphere. Hellinger distances
+  (<code>"hellinger"</code>) are related to Chord distances, but data are
+  standardized to unit total (row sums are 1) using
+  <code><a href="decostand.html">decostand</a></code>, and then square root transformed. These
+  distances have upper limit of \(\sqrt{2}\).</p>
 <p>Bray--Curtis and Jaccard indices are rank-order similar, and some
   other indices become identical or rank-order similar after some 
   standardizations, especially with presence/absence transformation of
