@@ -11,7 +11,7 @@
                  "kulczynski", "gower", "morisita", "horn", #8
                  "mountford", "jaccard", "raup", "binomial", "chao", #13
                  "altGower", "cao", "mahalanobis", "clark", "chisq", "chord", #19
-		 "aitchison", "robust.aitchison") # 21
+		 "hellinger", "aitchison", "robust.aitchison") # 22
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
@@ -31,7 +31,7 @@
                  meaningless in method ",
                  dQuote(inm))
     ## 1 manhattan, 2 euclidean, 3 canberra, 6 gower, 16 mahalanobis, 19 chord
-    if (!method %in% c(1,2,3,6,16,19) && any(x < 0, na.rm = TRUE))
+    if (!method %in% c(1,2,3,6,16,19,20) && any(x < 0, na.rm = TRUE))
         warning("results may be meaningless because data have negative entries
                  in method ",
                  dQuote(inm))
@@ -45,11 +45,11 @@
         x <- veganMahatrans(scale(x, scale = FALSE))
     if (method == 18) # chisq
         x <- decostand(x, "chi.square")
-    if (method == 19) # chord
-        x <- decostand(x, "normalize")
-    if (method == 20)  # aitchison
+    if (method == 20) # hellinger
+        x <- sqrt(x)
+    if (method == 21)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
-    if (method == 21)  # robust.aitchison
+    if (method == 22)  # robust.aitchison
         x <- decostand(x, "rclr") # No pseudocount for rclr
     if (binary)
         x <- decostand(x, "pa")

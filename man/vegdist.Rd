@@ -35,8 +35,8 @@
     \code{"jaccard"}, \code{"gower"}, \code{"altGower"},
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
     \code{"binomial"}, \code{"chao"}, \code{"cao"}, \code{"mahalanobis"},
-    \code{"chisq"}, \code{"chord"}, \code{"aitchison"}, or
-    \code{"robust.aitchison"}.}
+    \code{"chisq"}, \code{"chord"}, \code{"hellinger"},
+    \code{"aitchison"}, or \code{"robust.aitchison"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -257,14 +257,14 @@
   is issued on negative data entries.
 
   Chord distances (\code{"chord"}) are Euclidean distance of a matrix
-  where rows are standardized to unit norm (their sums of squares are
-  1) using \code{\link{decostand}}. Geometrically this standardization
+  where rows are standardized to unit norm (their sums of squares are 1)
+  using \code{\link{decostand}}. Geometrically this standardization
   moves row points to a surface of multidimensional unit sphere, and
-  distances are the chords across the hypersphere. Community data are
-  non-negative, and all points will be on the positive quadrant of the
-  hypersphere, and the distances have upper limit
-  \eqn{\sqrt{2}}{sqrt(2)}. If data can have negative values, the upper
-  limit is 2.
+  distances are the chords across the hypersphere. Hellinger distances
+  (\code{"hellinger"}) are related to Chord distances, but data are
+  standardized to unit total (row sums are 1) using
+  \code{\link{decostand}}, and then square root transformed. These
+  distances have upper limit of \eqn{\sqrt{2}}{sqrt(2)}.
 
   Bray--Curtis and Jaccard indices are rank-order similar, and some
   other indices become identical or rank-order similar after some 
