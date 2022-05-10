@@ -188,7 +188,7 @@ static double veg_chord(double *x, int nr, int nc, int i1, int i2)
 
     if (count == 0) return NA_REAL;
     dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
-    return dist;
+    return sqrt(dist);
 }
 
 /* Canberra distance: duplicates R base, but is scaled into range
@@ -716,11 +716,13 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     case EUCLIDEAN:
     case MAHALANOBIS:
     case CHISQUARE:
-    case CHORD:
-    case HELLINGER:
     case AITCHISON:
     case RAITCHISON:
 	distfun = veg_euclidean;
+	break;
+    case CHORD:
+    case HELLINGER:
+	distfun = veg_chord;
 	break;
     case CANBERRA:
 	distfun = veg_canberra;
