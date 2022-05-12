@@ -45,8 +45,6 @@
         x <- veganMahatrans(scale(x, scale = FALSE))
     if (method == 18) # chisq
         x <- decostand(x, "chi.square")
-    if (method == 20) # hellinger
-        x <- sqrt(x)
     if (method == 21)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
     if (method == 22)  # robust.aitchison
