@@ -191,6 +191,35 @@ static double veg_chord(double *x, int nr, int nc, int i1, int i2)
     return sqrt(dist);
 }
 
+/* It may not make sense to use direct formula to Chord distance as
+* this involves getting sums of squares which may be numerically
+* unstable. It makes even less sense to find Hellinger distance via
+* Chord of sqrt-transformed data (sqrt(2)*sqrt(2) != 2), but it makes
+* perfect sense to calculate Hellinger distance directly: this is more
+* stable than working via sqrt(x) data.
+*/
+
+static double veg_hellinger(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, cp = 0.0, ss1 = 0.0, ss2 = 0.0;
+    int count = 0, j;
+
+    for (j = 0; j < nc; j++) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
+	    count++;
+	    cp += sqrt(x[i1] * x[i2]);
+	    ss1 += x[i1];
+	    ss2 += x[i2];
+	}
+	i1 += nr;
+	i2 += nr;
+    }
+
+    if (count == 0) return NA_REAL;
+    dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
+    return sqrt(dist);
+}
+
 /* Canberra distance: duplicates R base, but is scaled into range
  * 0...1  
 */
@@ -721,8 +750,10 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	distfun = veg_euclidean;
 	break;
     case CHORD:
-    case HELLINGER:
 	distfun = veg_chord;
+	break;
+    case HELLINGER:
+	distfun = veg_hellinger;
 	break;
     case CANBERRA:
 	distfun = veg_canberra;
