@@ -98,9 +98,8 @@
     significance for each term (sequentially from first to last), and
     setting <code>by = "margin"</code> will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
-    variables). Function <code>permutest</code> accepts choices
-    <code>"terms"</code> for sequential test of terms, and <code>"onedf"</code>
-    for sequential test of one-degree-of-freedom contrasts.</p></dd>
+    variables), and <code>by = "onedf"</code> will assess sequentially
+    one-degree-of-freedom contrasts of split factors.</p></dd>
 <dt>model</dt>
 <dd><p>Permutation model: <code>model="direct"</code> permutes
     community data, <code>model="reduced"</code> permutes residuals
@@ -152,28 +151,28 @@
   constrained eigenvalue.  Argument <code>first</code> can be set either in
   <code>anova.cca</code> or in <code>permutest.cca</code>.  It is also possible to
   perform significance tests for each axis or for each term
-  (constraining variable) using argument <code>by</code> in
-  <code>anova.cca</code>.  Setting <code>by = "axis"</code> will perform separate
-  significance tests for each constrained axis.  All previous
-  constrained axes will be used as conditions (“partialled
-  out”) and a test for the first constrained eigenvalues is
-  performed (Legendre et al. 2011).
-  You can stop permutation tests after exceeding a given
-  significance level with argument <code>cutoff</code> to speed up
-  calculations in large models. Setting <code>by = "terms"</code> will
-  perform separate significance test for each term (constraining
-  variable). The terms are assessed sequentially from first to last,
-  and the order of the terms will influence their
-  significances. Setting <code>by = "margin"</code> will perform separate
-  significance test for each marginal term in a model with all other
-  terms. The marginal test also accepts a <code>scope</code> argument for
-  the <code><a href="https://rdrr.io/r/stats/factor.scope.html" class="external-link">drop.scope</a></code> which can be a character vector of term
-  labels that are analysed, or a fitted model of lower scope.  The
-  marginal effects are also known as “Type III” effects, but
-  the current function only evaluates marginal terms. It will, for
-  instance, ignore main effects that are included in interaction
-  terms. In calculating pseudo-\(F\), all terms are compared to the
-  same residual of the full model.</p>
+  (constraining variable) using argument <code>by</code> in <code>anova.cca</code>.
+  Setting <code>by = "axis"</code> will perform separate significance tests
+  for each constrained axis.  All previous constrained axes will be used
+  as conditions (“partialled out”) and a test for the first
+  constrained eigenvalues is performed (Legendre et al. 2011).  You can
+  stop permutation tests after exceeding a given significance level with
+  argument <code>cutoff</code> to speed up calculations in large
+  models. Setting <code>by = "terms"</code> will perform separate significance
+  test for each term (constraining variable). The terms are assessed
+  sequentially from first to last, and the order of the terms will
+  influence their significances. Setting <code>by = "onedf"</code> will
+  perform a similar sequential test for one-degree-of-freedom effects,
+  where multi-level factors are split in their contrasts. Setting
+  <code>by = "margin"</code> will perform separate significance test for each
+  marginal term in a model with all other terms. The marginal test also
+  accepts a <code>scope</code> argument for the <code><a href="https://rdrr.io/r/stats/factor.scope.html" class="external-link">drop.scope</a></code> which
+  can be a character vector of term labels that are analysed, or a
+  fitted model of lower scope.  The marginal effects are also known as
+  “Type III” effects, but the current function only evaluates
+  marginal terms. It will, for instance, ignore main effects that are
+  included in interaction terms. In calculating pseudo-\(F\), all
+  terms are compared to the same residual of the full model.</p>
 <p>Community data are permuted with choice <code>model="direct"</code>, and
   residuals after partial CCA/ RDA/ dbRDA with choice
   <code>model="reduced"</code> (default).  If there is no partial CCA/ RDA/
@@ -213,7 +212,7 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>anova.cca</code>, <code><a href="cca.html">cca</a></code>,
-  <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">capscale</a></code> to get something to
+  <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code> to get something to
   analyse. Function <code><a href="add1.cca.html">drop1.cca</a></code> calls <code>anova.cca</code>
   with <code>by = "margin"</code>, and <code><a href="add1.cca.html">add1.cca</a></code> an analysis
   for single terms additions, which can be used in automatic or
@@ -222,18 +221,18 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## overall test</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = varespec ~ Al + P + K, data = varechem)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare     F Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     3   0.64413 2.984  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 20   1.43906                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6    1.0024 1.9515  0.002 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13    1.1129                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## tests for individual terms</span></span>
@@ -243,12 +242,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = varespec ~ Al + P + K, data = varechem)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare      F Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al        1   0.29817 4.1440  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         1   0.18991 2.6393  0.010 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         1   0.15605 2.1688  0.017 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 20   1.43906                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.62831 2.4465  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.073 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by<span class="op">=</span><span class="st">"margin"</span><span class="op">)</span></span>
@@ -257,25 +255,42 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = varespec ~ Al + P + K, data = varechem)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare      F Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al        1   0.31184 4.3340  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         1   0.16810 2.3362  0.013 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         1   0.15605 2.1688  0.033 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 20   1.43906                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.39854 1.5518  0.039 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.051 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span class="co">## sequential test for contrasts</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by <span class="op">=</span> <span class="st">"onedf"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sequential test for contrasts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df ChiSquare      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.L    1   0.41081 4.7988  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q    1   0.11261 1.3154  0.188    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C    1   0.10489 1.2253  0.263    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  1   0.08849 1.0337  0.401    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM  1   0.20326 2.3744  0.014 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF  1   0.08231 0.9615  0.459    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual     13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## test for adding all environmental variables</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">varechem</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation tests for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: varespec ~ Al + P + K</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: varespec ~ N + P + K + Ca + Mg + S + Al + Fe + Mn + Zn + Mo + Baresoil + Humdepth + pH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: dune ~ Moisture + Management</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: dune ~ A1 + Moisture + Management + Use + Manure</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ResDf ResChiSquare Df ChiSquare      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    20      1.43906                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     9      0.64171 11   0.79735 1.0166  0.466</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    13       1.1129                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     7       0.6121  6   0.50079 0.9545  0.574</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
