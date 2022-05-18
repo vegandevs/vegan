@@ -52,10 +52,9 @@
                       permutations = permutations,
                       model = model, parallel = parallel,
                       cutoff = cutoff),
-                      "onedf" = permutest.cca(object,
+                      "onedf" = anova.ccaby1df(object,
                        permutations = permutations,
-                       model = model, parallel = parallel,
-                       by = "onedf")
+                       model = model, parallel = parallel)
                       )
         attr(sol, "Random.seed") <- seed
         attr(sol, "control") <- control
