@@ -49,9 +49,8 @@
     significance for each term (sequentially from first to last), and
     setting \code{by = "margin"} will assess the marginal effects of
     the terms (each marginal term analysed in a model with all other
-    variables). Function \code{permutest} accepts choices
-    \code{"terms"} for sequential test of terms, and \code{"onedf"}
-    for sequential test of one-degree-of-freedom contrasts.}
+    variables), and \code{by = "onedf"} will assess sequentially
+    one-degree-of-freedom contrasts of split factors.}
 
   \item{model}{Permutation model: \code{model="direct"} permutes
     community data, \code{model="reduced"} permutes residuals
@@ -104,28 +103,28 @@
   constrained eigenvalue.  Argument \code{first} can be set either in
   \code{anova.cca} or in \code{permutest.cca}.  It is also possible to
   perform significance tests for each axis or for each term
-  (constraining variable) using argument \code{by} in
-  \code{anova.cca}.  Setting \code{by = "axis"} will perform separate
-  significance tests for each constrained axis.  All previous
-  constrained axes will be used as conditions (\dQuote{partialled
-  out}) and a test for the first constrained eigenvalues is
-  performed (Legendre et al. 2011).
-  You can stop permutation tests after exceeding a given
-  significance level with argument \code{cutoff} to speed up
-  calculations in large models. Setting \code{by = "terms"} will
-  perform separate significance test for each term (constraining
-  variable). The terms are assessed sequentially from first to last,
-  and the order of the terms will influence their
-  significances. Setting \code{by = "margin"} will perform separate
-  significance test for each marginal term in a model with all other
-  terms. The marginal test also accepts a \code{scope} argument for
-  the \code{\link{drop.scope}} which can be a character vector of term
-  labels that are analysed, or a fitted model of lower scope.  The
-  marginal effects are also known as \dQuote{Type III} effects, but
-  the current function only evaluates marginal terms. It will, for
-  instance, ignore main effects that are included in interaction
-  terms. In calculating pseudo-\eqn{F}, all terms are compared to the
-  same residual of the full model.
+  (constraining variable) using argument \code{by} in \code{anova.cca}.
+  Setting \code{by = "axis"} will perform separate significance tests
+  for each constrained axis.  All previous constrained axes will be used
+  as conditions (\dQuote{partialled out}) and a test for the first
+  constrained eigenvalues is performed (Legendre et al. 2011).  You can
+  stop permutation tests after exceeding a given significance level with
+  argument \code{cutoff} to speed up calculations in large
+  models. Setting \code{by = "terms"} will perform separate significance
+  test for each term (constraining variable). The terms are assessed
+  sequentially from first to last, and the order of the terms will
+  influence their significances. Setting \code{by = "onedf"} will
+  perform a similar sequential test for one-degree-of-freedom effects,
+  where multi-level factors are split in their contrasts. Setting
+  \code{by = "margin"} will perform separate significance test for each
+  marginal term in a model with all other terms. The marginal test also
+  accepts a \code{scope} argument for the \code{\link{drop.scope}} which
+  can be a character vector of term labels that are analysed, or a
+  fitted model of lower scope.  The marginal effects are also known as
+  \dQuote{Type III} effects, but the current function only evaluates
+  marginal terms. It will, for instance, ignore main effects that are
+  included in interaction terms. In calculating pseudo-\eqn{F}, all
+  terms are compared to the same residual of the full model.
 
   Community data are permuted with choice \code{model="direct"}, and
   residuals after partial CCA/ RDA/ dbRDA with choice
@@ -164,22 +163,24 @@
 \author{Jari Oksanen}
 
 \seealso{\code{\link{anova.cca}}, \code{\link{cca}},
-  \code{\link{rda}}, \code{\link{capscale}} to get something to
+  \code{\link{rda}}, \code{\link{dbrda}} to get something to
   analyse. Function \code{\link{drop1.cca}} calls \code{anova.cca}
   with \code{by = "margin"}, and \code{\link{add1.cca}} an analysis
   for single terms additions, which can be used in automatic or
   semiautomatic model building (see \code{\link{deviance.cca}}). }
 
 \examples{
-data(varespec, varechem)
-mod <- cca(varespec ~ Al + P + K, varechem)
+data(dune, dune.env)
+mod <- cca(dune ~ Moisture + Management, dune.env)
 ## overall test
 anova(mod)
 ## tests for individual terms
 anova(mod, by="term")
 anova(mod, by="margin")
+## sequential test for contrasts
+anova(mod, by = "onedf")
 ## test for adding all environmental variables
-anova(mod, cca(varespec ~ ., varechem))
+anova(mod, cca(dune ~ ., dune.env))
 }
 \keyword{ multivariate }
 \keyword{ htest }
