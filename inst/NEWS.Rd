@@ -7,6 +7,11 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
+      \item \code{anova} for constrained ordination results can perform
+      a sequential test of one-degree-of-freedom effects where
+      multi-level factors are split to their contrasts. Previously the
+      test was available only in \code{permutest}.
+
       \item New \code{summary} function for \code{varpart} for a brief
       overview. The summary shows unique and overall contributed
       variation for each set of variables. The fractions shared by
@@ -24,6 +29,8 @@
       \item \code{metaMDS} is more informative about finding similar
       repeated results with random starts and uses less confusing
       language when reporting the results.
+
+      \item Hellinger distance is directly available in \code{vegdist}.
 
     } % itemize
   } % new features
