@@ -293,10 +293,15 @@
   misleading, since there is a separate Horn index. The abbreviation
   will be changed if that index is implemented in \code{vegan}. 
 }
+
 \value{
-  Should provide a drop-in replacement for \code{\link{dist}} and
-  return a distance object of the same type. 
+  Function is a drop-in replacement for \code{\link{dist}} function and
+  returns a distance object of the same type. The result object adds
+  attribute \code{maxdist} that gives the theoretical maximum of the
+  index for sampling units that share no species, or \code{NA} when
+  there is no such maximum.
 }
+
 \references{
 
   Aitchison, J. The Statistical Analysis of Compositional Data (1986).
