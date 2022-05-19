@@ -63,10 +63,12 @@
         warning("missing values in results")
     ## add attribute maxdist: the maximum value of the distance function
     attr(d, "maxdist") <-
-        if(method %in% c(3,4,5,7,8,9,10,11,13,17)) # index in 0..1
+        if(method %in% c(3,4,5,7,8,10,11,13,17)) # index in 0..1
             1
         else if (method %in% c(19,20)) # chord, hellinger
             sqrt(2)
+        else if (method == 9) # Mountford
+            log(2)
         else # no fixed upper limit
             NA
     attr(d, "Size") <- N

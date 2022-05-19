@@ -183,9 +183,7 @@
   communities could be a subset of other, and the dissimilarity is
   \eqn{0} meaning that non-identical objects may be regarded as
   similar and the index is non-metric. The Mountford index is in the
-  range \eqn{0 \dots \log(2)}{0 \dots log(2)}, but the dissimilarities
-  are divided by \eqn{\log(2)}{log(2)} so that the results will be in
-  the conventional range \eqn{0 \dots 1}.
+  range \eqn{0 \dots \log(2)}{0 \dots log(2)}.
 
   Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
   index based on presence/absence data.  It is defined as \eqn{1 -
