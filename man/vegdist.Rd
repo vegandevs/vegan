@@ -183,9 +183,7 @@
   communities could be a subset of other, and the dissimilarity is
   \eqn{0} meaning that non-identical objects may be regarded as
   similar and the index is non-metric. The Mountford index is in the
-  range \eqn{0 \dots \log(2)}{0 \dots log(2)}, but the dissimilarities
-  are divided by \eqn{\log(2)}{log(2)} so that the results will be in
-  the conventional range \eqn{0 \dots 1}.
+  range \eqn{0 \dots \log(2)}{0 \dots log(2)}.
 
   Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
   index based on presence/absence data.  It is defined as \eqn{1 -
@@ -293,10 +291,15 @@
   misleading, since there is a separate Horn index. The abbreviation
   will be changed if that index is implemented in \code{vegan}. 
 }
+
 \value{
-  Should provide a drop-in replacement for \code{\link{dist}} and
-  return a distance object of the same type. 
+  Function is a drop-in replacement for \code{\link{dist}} function and
+  returns a distance object of the same type. The result object adds
+  attribute \code{maxdist} that gives the theoretical maximum of the
+  index for sampling units that share no species, or \code{NA} when
+  there is no such maximum.
 }
+
 \references{
 
   Aitchison, J. The Statistical Analysis of Compositional Data (1986).

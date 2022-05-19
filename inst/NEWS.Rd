@@ -32,6 +32,27 @@
 
       \item Hellinger distance is directly available in \code{vegdist}.
 
+      \item \code{vegdist} sets attribute \code{maxdist} giving the
+      numeric value of theoretical maximum of the dissimilarity
+      index. For many dissimilarities this is 1, but
+      \eqn{\sqrt{2}}{sqrt(2)} for Chord and Hellinger distances, for
+      instance. The attribute is \code{NA} for open indices that do
+      not have such a ceiling.
+
+      \item \code{metaMDS} defaults to halfchange scaling when the
+      dissimilarities have a numeric \code{maxdist} attribute, and
+      adapt the threshold to the ceiling value. For open indices
+      without ceiling, the threshold will be in the scale of
+      dissimilarities. \code{metaMDS} used a simple test to detect
+      index ceiling 1, but the test is now more robust and can also
+      find other maximum values. If such inference is made, the
+      function will broadcast a message of assumed value of the
+      ceiling.
+
+      \item Mountford index in \code{vegdist} is now scaled to maximum
+      value log(2). Earlier Mountford distances were divided by log(2)
+      to give maximum 1.
+
     } % itemize
   } % new features
 

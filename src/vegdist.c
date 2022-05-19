@@ -476,7 +476,8 @@ static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
 		    break;
 	  }
      }
-     return 1 - dist/M_LN2;
+     /* index in range 0..log(2) */
+     return M_LN2 - dist;
 }
 
 #undef MAXIT
