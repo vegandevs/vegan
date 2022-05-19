@@ -143,12 +143,20 @@ metaMDSredist(object, ...)
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
   \item{pc}{Rotate to principal components. }
   \item{center}{Centre the configuration. }
+  
  \item{halfchange}{Scale axes to half-change units. This defaults
-  \code{TRUE} when dissimilarities were evaluated within
-  \code{metaMDS} and the dissimilarity index has an upper limit of
-  \eqn{1}. If \code{FALSE}, the ordination dissimilarities are scaled
-  to the same range as the input dissimilarities.}
- \item{threshold}{Largest dissimilarity used in half-change scaling. }
+  \code{TRUE} when dissimilarities are known to have a theoretical
+  maximum value (ceiling). Function \code{vegdist} will have that
+  information in attribute \code{maxdist}, and for other \code{distfun}
+  this is interpreted in a simple test (that can fail), and the
+  information may not available when input data are distances. If
+  \code{FALSE}, the ordination dissimilarities are scaled to the same
+  range as the input dissimilarities.}
+
+ \item{threshold}{Largest dissimilarity used in half-change scaling. If
+   dissimilarities have a known (or inferred) ceiling, \code{threshold}
+   is relative to that ceiling (see \code{halfchange}).}
+
  \item{nthreshold}{ Minimum number of points in half-change scaling. }
  \item{object}{A result object from \code{metaMDS}.}
 
