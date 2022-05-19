@@ -207,9 +207,7 @@
   communities could be a subset of other, and the dissimilarity is
   \(0\) meaning that non-identical objects may be regarded as
   similar and the index is non-metric. The Mountford index is in the
-  range \(0 \dots \log(2)\), but the dissimilarities
-  are divided by \(\log(2)\) so that the results will be in
-  the conventional range \(0 \dots 1\).</p>
+  range \(0 \dots \log(2)\).</p>
 <p>Raup--Crick dissimilarity (<code>method = "raup"</code>) is a probabilistic
   index based on presence/absence data.  It is defined as \(1 -
   prob(j)\), or based on the probability of observing at least \(j\)
@@ -309,8 +307,11 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Should provide a drop-in replacement for <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> and
-  return a distance object of the same type.</p>
+    <p>Function is a drop-in replacement for <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> function and
+  returns a distance object of the same type. The result object adds
+  attribute <code>maxdist</code> that gives the theoretical maximum of the
+  index for sampling units that share no species, or <code>NA</code> when
+  there is no such maximum.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
