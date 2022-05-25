@@ -7,10 +7,11 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
-      \item \code{anova} for constrained ordination results can perform
-      a sequential test of one-degree-of-freedom effects where
-      multi-level factors are split to their contrasts. Previously the
-      test was available only in \code{permutest}.
+      \item \code{adonis2} and \code{anova} for constrained ordination
+      results can perform a sequential test of one-degree-of-freedom
+      effects where multi-level factors are split to their
+      contrasts. Previously the test was available only in
+      \code{permutest}.
 
       \item New \code{summary} function for \code{varpart} for a brief
       overview. The summary shows unique and overall contributed
