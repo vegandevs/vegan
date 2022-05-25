@@ -10,7 +10,7 @@
                             na.action = na.action)
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
-        by <- match.arg(by, c("terms", "margin"))
+        by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs
     YVAR <- formula[[2]]
     lhs <- eval(YVAR, environment(formula), globalenv())
