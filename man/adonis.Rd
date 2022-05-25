@@ -46,7 +46,8 @@ adonis2(formula, data, permutations = 999, method = "bray",
   \item{by}{\code{by = "terms"} will assess significance for each term
     (sequentially from first to last), setting \code{by = "margin"}
     will assess the marginal effects of the terms (each marginal term
-    analysed in a model with all other variables), and \code{by =
+    analysed in a model with all other variables), \code{by = "onedf"}
+    will analyse one-degree-of-freedom contrasts sequentially, \code{by =
     NULL} will assess the overall significance of all terms
     together. The arguments is passed on to \code{\link{anova.cca}}.}
   \item{parallel}{Number of parallel processes or a predefined socket
