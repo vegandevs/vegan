@@ -3,7 +3,7 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   FAQ-vegan: FAQ-vegan.html
-last_built: 2022-05-19T10:50Z
+last_built: 2022-05-25T10:43Z
 urls:
   reference: https://vegandevs.github.io/vegan/reference
   article: https://vegandevs.github.io/vegan/articles
