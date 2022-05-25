@@ -120,7 +120,7 @@
     dimnames(out) <- list(c(trmlab, "Residual"),
                           c("Df", varname, "F", "Pr(>F)"))
     head <- paste0("Permutation test for ", object$method, " under ",
-                   mods[[1]]$model, " model\n",
+                   big$model, " model\n",
                    "Marginal effects of terms\n",
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
