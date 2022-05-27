@@ -27,9 +27,9 @@
         if ("sites" %in% display)
             X <- scores(ord, choices = choices, display = "sites")
         if ("species" %in% display) {
-            options(show.error.messages = FALSE)
+            op <- options(show.error.messages = FALSE)
             Y <- try(scores(ord, choices = choices, display = "species"))
-            options(show.error.messages = TRUE)
+            options(op)
             if (inherits(Y, "try-error")) {
                 message("species scores not available")
                 Y <- NULL
