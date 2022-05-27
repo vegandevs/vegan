@@ -14,7 +14,7 @@
 {
     ## We do not handle missing values (yet?)
     op <- options(na.action = "na.fail")
-    on.exit(op)
+    on.exit(options(op))
     ## extract response data
     comm <- eval(formula[[2]])
     ## extract rhs
