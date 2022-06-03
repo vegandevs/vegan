@@ -57,6 +57,16 @@
     } % itemize
   } % new features
 
+  \subsection{BUG FIXES}{
+    \itemize{
+
+      \item `scores` failed when `metaMDS` result had no species
+      scores. Bug was introduced in release 2.6-2. Issue raised in
+      \url{https://stackoverflow.com/questions/72483924/}
+
+    } %itemize
+  } %bugs
+
   \subsection{DEPRECATED AND DEFUNCT}{
     \itemize{
 
