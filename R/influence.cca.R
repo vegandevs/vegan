@@ -23,13 +23,19 @@
 `hatvalues.cca` <-
     function(model, ...)
 {
-    rowSums(qr.Q(qr(model))^2) + weights(model)
+    hat <- rowSums(qr.Q(qr(model))^2) + weights(model)
+    ## it can be be that hat > 1: the trick below is the same as used
+    ## in stats::lm.influence()
+    hat[hat > 1 - 10 * .Machine$double.eps] <- 1
+    hat
 }
 
 `hatvalues.rda` <-
     function(model, ...)
 {
-    rowSums(qr.Q(qr(model))^2) + 1/nrow(qr(model)$qr)
+    hat <- rowSums(qr.Q(qr(model))^2) + 1/nrow(qr(model)$qr)
+    hat[hat > 1 - 10 * .Machine$double.eps] <- 1
+    hat
 }
 
 ## sigma gives the residual standard deviation. The only unambiguous
@@ -77,6 +83,7 @@
                   "canoco" = w * (model$CCA$wa - model$CCA$u))
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
+    res[is.infinite(res)] <- NaN
     res
 }
 
@@ -88,7 +95,9 @@
     type <- match.arg(type)
     np <- df.residual(model)
     res <- rstandard(model, type = type)
-    res / sqrt(pmax(np-res^2, 0)/(np-1))
+    res <- res / sqrt(pmax(np-res^2, 0)/(np-1))
+    res[is.infinite(res)] <- NaN
+    res
 }
 
 ## Cook's distance depends on meaningful sigma
@@ -98,7 +107,9 @@
 {
     hat <- hatvalues(model)
     p <- model$CCA$qrank
-    rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
+    d <- rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
+    d[is.infinite(d)] <- NaN
+    d
 }
 
 ## residual sums of squares and products
