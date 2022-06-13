@@ -3,6 +3,9 @@
               tidy = FALSE, ...)
 {
     display <- match.arg(display, c("sites", "species", "both"), several.ok = TRUE)
+    ## return "both" in tidy scores
+    if(tidy)
+        display <- "both"
     out <- list()
     if(any(c("sites", "both") %in% display)) {
         sites <- x$rproj
@@ -34,5 +37,8 @@
         out$weight <- wts
     }
     ## two kind of scores: return NULL, matrix or a list
-    switch(length(out), out[[1]], out)
+    if (length(out) == 1)
+        out[[1]]
+    else
+        out
 }
