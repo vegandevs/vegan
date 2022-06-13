@@ -16,7 +16,7 @@
     if (is.null(x$CCA))
         tabula <- tabula[1:2]
     display <- match.arg(display, c("sites", "species", "wa",
-                                    "lc", "bp", "cn", "reg"),
+                                    "lc", "bp", "cn", "reg", "all"),
                          several.ok = TRUE)
     if("sites" %in% display)
       display[display == "sites"] <- "wa"
