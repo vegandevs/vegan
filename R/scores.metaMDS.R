@@ -42,5 +42,8 @@
         out$label <- label
     }
     ## only two kind of scores, return NULL, matrix, or a list of scores
-    switch(length(out), out[[1]], out)
+    if (length(out) == 1)
+        out[[1]]
+    else
+        out
 }
