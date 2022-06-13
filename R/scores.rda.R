@@ -18,6 +18,9 @@
     display <- match.arg(display, c("sites", "species", "wa",
                                     "lc", "bp", "cn", "reg", "all"),
                          several.ok = TRUE)
+    ## set "all" for tidy scores
+    if (tidy)
+        display <- "all"
     if("sites" %in% display)
       display[display == "sites"] <- "wa"
     if("species" %in% display)
