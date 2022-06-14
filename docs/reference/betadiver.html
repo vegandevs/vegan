@@ -141,24 +141,30 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>With <code>method = NA</code>, the function returns an object of
-  class <code>"betadisper"</code> with elements <code>a</code>, <code>b</code>, and</p>
+    <p>With <code>method = NA</code>, the function returns an object of class</p>
 <p></p>
-<p><code>c</code>. If <code>method</code> is specified, the function returns a</p>
+<p><code>"betadisper"</code> with elements <code>a</code>, <code>b</code>, and <code>c</code>. If</p>
 <p></p>
-<p><code>"dist"</code> object which can be used in any function analysing
-  dissimilarities. For beta diversity, particularly useful functions
-  are <code><a href="betadisper.html">betadisper</a></code> to study the betadiversity in groups,</p>
+<p><code>method</code> is specified, the function returns a <code>"dist"</code></p>
+
+
+<p>object which can be used in any function analysing
+  dissimilarities. For beta diversity, particularly useful functions are</p>
+<p></p>
+<p><code><a href="betadisper.html">betadisper</a></code> to study the betadiversity in groups,</p>
 <p></p>
 <p><code><a href="adonis.html">adonis2</a></code> for any model, and <code><a href="mantel.html">mantel</a></code> to
   compare beta diversities to other dissimilarities or distances
-  (including geographical distances). Although <code>betadiver</code></p>
+  (including geographical distances). Although <code>betadiver</code> returns
+  a <code>"dist"</code> object, some indices are similarities and cannot be
+  used as such in place of dissimilarities, but that is a user
+  error. Functions 10 (<code>"j"</code>), 11 (<code>"sor"</code>) and 21
+  (<code>"rlb"</code>) are similarity indices. Function sets argument</p>
+<p></p>
+<p><code>"maxdist"</code> similarly as <code><a href="vegdist.html">vegdist</a></code>, using <code>NA</code></p>
 
 
-<p>returns a <code>"dist"</code> object, some indices are similarities and
-  cannot be used as such in place of dissimilarities, but that is a
-  severe user error. Functions 10 (<code>"j"</code>) and 11 (<code>"sor"</code>)
-  are two such similarity indices.</p>
+<p>when there is no fixed upper limit, and 0 for similarities.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
