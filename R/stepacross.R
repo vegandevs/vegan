@@ -12,6 +12,8 @@
                   out = double(length(dis)), NAOK = TRUE)$out
     else dis <- .C(C_stepacross, dis = as.double(dis), as.integer(n),
                    as.double(toolong), as.integer(trace), NAOK = TRUE)$dis
+    if("maxdist" %in% oldatt)
+        oldatt$maxdist <- NA
     attributes(dis) <- oldatt
     attr(dis, "method") <- paste(attr(dis, "method"), path)
     dis
