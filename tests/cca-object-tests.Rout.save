@@ -1,7 +1,7 @@
 
 R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1302,7 +1302,7 @@ Manure    3      155 1.60   0.12
 A1        1       39 1.22   0.26
 Residual 12      387            
 > anova(m1rda, permutations = per, by="margin")
-Permutation test for rda under NA model
+Permutation test for rda under reduced model
 Marginal effects of terms
 Permutation: free
 Number of permutations: 49
@@ -1830,7 +1830,7 @@ Manure    3      155 1.60   0.12
 A1        1       39 1.22   0.26
 Residual 12      387            
 > anova(m1rda,  permutations = per, by = "margin", parallel = clust)
-Permutation test for rda under NA model
+Permutation test for rda under reduced model
 Marginal effects of terms
 Permutation: free
 Number of permutations: 49
@@ -2227,4 +2227,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  1.782   0.131   5.387 
+  0.951   0.081   1.673 

@@ -1708,6 +1708,14 @@ log(N) P K Ca pH Al    6      0.2822
 > ## different type for species and site scores
 > biplot(mod, scaling = "symmetric", type = c("text", "points"))
 > 
+> ## We can use ordiplot pipes in R 4.1 to build similar plots with
+> ## flexible control
+> if (getRversion() >= "4.1") {
++ plot(mod, scaling = "symmetric", type="n") |>
++    text("sites", cex=0.8) |>
++    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
++ }
+> 
 > 
 > 
 > cleanEx()
@@ -4237,6 +4245,7 @@ Species: expanded scores based on ‘dune’
 
 > ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 > sol <- metaMDS(dune, distfun = betadiver, distance = "z")
+assuming that theoretical maximum distance is 1
 Run 0 stress 0.1067169 
 Run 1 stress 0.1073148 
 Run 2 stress 0.1073148 
@@ -5262,7 +5271,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > 
 > ### ** Examples
 > 
-> # Draw a plot for a non-vegan ordination (cmdscale).
+> ## Draw a plot for a non-vegan ordination (cmdscale).
 > data(dune)
 > dune.dis <- vegdist(wisconsin(dune))
 > dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -5270,7 +5279,20 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
-> # Default plot of the previous using identify to label selected points
+> ## same plot using pipes (pipes |> are available from R version 4.1.0)
+> if (getRversion() >= "4.1") {
++ ordiplot(dune.mds, type="n") |>
++   points("sites", pch=21, col="red", bg="yellow") |>
++   text("species", col="blue", cex=0.9)
++ ## Some people think that species should be shown with arrows in PCA.
++ ## Other ordination methods also return an invisible ordiplot object and
++ ## we can use pipes to draw those arrows.
++ mod <- rda(dune)
++ plot(mod, type="n") |>
++   points("sites", pch=16, col="red") |>
++   text("species", arrows = TRUE, length=0.05, col="blue")
++ }
+> ## Default plot of the previous using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
 > ##D identify(pl, "spec")
@@ -9155,7 +9177,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.348 0.296 8.67 0 0 
+Time elapsed:  8.647 0.318 8.981 0 0 
 > grDevices::dev.off()
 null device 
           1 

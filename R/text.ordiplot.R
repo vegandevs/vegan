@@ -1,5 +1,5 @@
 `text.ordiplot`  <-
-    function (x, what, labels, select, arrows = FALSE, ...)
+    function (x, what, labels, select, arrows = FALSE, length = 0.05, ...)
 {
     sco <- scores(x, what)
     if (!missing(labels))
@@ -12,10 +12,9 @@
         sco <- sco * ordiArrowMul(sco)
     }
     if (arrows) {
-        arrows(0, 0, sco[,1], sco[,2], ...)
+        arrows(0, 0, sco[,1], sco[,2], length = length, ...)
         sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE)
     }
-    # essentially this is calling text(sco, labels = rownames(sco), ...)
-    ordiArgAbsorber(FUN = text, sco, labels = rownames(sco), ...)
+    text(sco, labels = rownames(sco), ...)
     invisible(x)
 }
