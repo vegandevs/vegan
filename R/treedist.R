@@ -31,9 +31,6 @@
         out <- out/ABJ
     out[ABJ==0] <- 0
     attr(out, "method") <- if (relative) "treedist" else "raw treeedist"
-    ## if(relative) maxdist <- 2, but can be attained only in very
-    ## special cases, so put it always NA
-    attr(out, "maxdist") <- NA
     attr(out, "call") <- match.call()
     attr(out, "Labels") <- row.names(x)
     out
