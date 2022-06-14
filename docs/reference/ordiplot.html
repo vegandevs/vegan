@@ -82,7 +82,8 @@
 <span class="co"># S3 method for ordiplot</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">select</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
 <span class="co"># S3 method for ordiplot</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">labels</span>, <span class="va">select</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">labels</span>, <span class="va">select</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>,
+    length <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -133,7 +134,10 @@
     <code>TRUE</code> for biplot scores and its value will be ignored. Setting
     this <code>TRUE</code> will draw arrows for any type of scores. This
     allows, e.g, using biplot arrows for species. The arrow head will be
-  at the value of scores, and possible text is moved outwards.</p></dd>
+    at the value of scores, and possible text is moved outwards.</p></dd>
+
+  <dt>length</dt>
+<dd><p>Length of arrow heads (see <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code>).</p></dd>
 
   <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
@@ -160,7 +164,8 @@
   with <code>type = "none"</code> and save the result, and then add sites and
   species using <code>points.ordiplot</code> or <code>text.ordiplot</code> which
   both pass all their arguments to the corresponding default graphical
-  functions.</p>
+  functions. The functions can be chained with pipes which allows an
+  alternative intuitive way of building up plots.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -180,9 +185,8 @@
   originally, the plot is empty, and items can be added with the
   invisible object. Functions <code>points</code> and <code>text</code> will return
   their input object without modification, which allows chaining these
-  commands, for instance with <span class="pkg">magrittr</span> pipes. Function</p>
-<p></p>
-<p><code>identify.ordiplot</code> uses this object to label the point.</p>
+  commands with pipes. Function <code>identify.ordiplot</code> uses this
+  object to label the point.</p>
 
 
     </div>
@@ -209,7 +213,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Draw a plot for a non-vegan ordination (cmdscale).</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Draw a plot for a non-vegan ordination (cmdscale).</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">dune.dis</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">dune.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></span><span class="op">(</span><span class="va">dune.dis</span>, eig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -217,8 +221,22 @@
 <span class="r-in"><span class="va">pl</span> <span class="op">&lt;-</span> <span class="fu">ordiplot</span><span class="op">(</span><span class="va">dune.mds</span>, type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span></span>
+<span class="r-in"><span class="co">## same plot using pipes (pipes |&gt; are available from R version 4.1.0)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="st">"4.1"</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu">ordiplot</span><span class="op">(</span><span class="va">dune.mds</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.9</span><span class="op">)</span></span>
+<span class="r-in"><span class="co">## Some people think that species should be shown with arrows in PCA.</span></span>
+<span class="r-in"><span class="co">## Other ordination methods also return an invisible ordiplot object and</span></span>
+<span class="r-in"><span class="co">## we can use pipes to draw those arrows.</span></span>
+<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">16</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> |&gt;</span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, arrows <span class="op">=</span> <span class="cn">TRUE</span>, length<span class="op">=</span><span class="fl">0.05</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-plt img"><img src="ordiplot-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co"># Default plot of the previous using identify to label selected points</span></span>
+<span class="r-plt img"><img src="ordiplot-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span class="co">## Default plot of the previous using identify to label selected points</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="va">pl</span> <span class="op">&lt;-</span> <span class="fu">ordiplot</span><span class="op">(</span><span class="va">dune.mds</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"spec"</span><span class="op">)</span><span class="op">}</span></span>
