@@ -76,19 +76,21 @@ betadiver(x, method = NA, order = FALSE, help = FALSE, ...)
   object. 
 }
 
-\value{ With \code{method = NA}, the function returns an object of
-  class \code{"betadisper"} with elements \code{a}, \code{b}, and
-  \code{c}. If \code{method} is specified, the function returns a
-  \code{"dist"} object which can be used in any function analysing
-  dissimilarities. For beta diversity, particularly useful functions
-  are \code{\link{betadisper}} to study the betadiversity in groups,
+\value{ With \code{method = NA}, the function returns an object of class
+  \code{"betadisper"} with elements \code{a}, \code{b}, and \code{c}. If
+  \code{method} is specified, the function returns a \code{"dist"}
+  object which can be used in any function analysing
+  dissimilarities. For beta diversity, particularly useful functions are
+  \code{\link{betadisper}} to study the betadiversity in groups,
   \code{\link{adonis2}} for any model, and \code{\link{mantel}} to
   compare beta diversities to other dissimilarities or distances
-  (including geographical distances). Although \code{betadiver}
-  returns a \code{"dist"} object, some indices are similarities and
-  cannot be used as such in place of dissimilarities, but that is a
-  severe user error. Functions 10 (\code{"j"}) and 11 (\code{"sor"})
-  are two such similarity indices.
+  (including geographical distances). Although \code{betadiver} returns
+  a \code{"dist"} object, some indices are similarities and cannot be
+  used as such in place of dissimilarities, but that is a user
+  error. Functions 10 (\code{"j"}), 11 (\code{"sor"}) and 21
+  (\code{"rlb"}) are similarity indices. Function sets argument
+  \code{"maxdist"} similarly as \code{\link{vegdist}}, using \code{NA}
+  when there is no fixed upper limit, and 0 for similarities.
 }
 
 \references{

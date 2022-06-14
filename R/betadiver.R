@@ -41,6 +41,9 @@
     }
     out <- eval(parse(text=beta[[method]]))
     out <- as.dist(out)
+    mxdist <- c(1,1,NA,NA,1,log(2),1,1,1,0,0,NA,1,1,1,1,NA,NA,NA,1,0,1,NA,1)
+    names(mxdist) <- names(beta)
+    attr(out, "maxdist") <- unname(mxdist[method])
     attr(out, "method") <- paste("beta", names(beta[method]), sep=".")
     attr(out, "call") <- match.call()
     out
