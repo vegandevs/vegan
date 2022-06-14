@@ -23,7 +23,8 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
      cex = 0.7, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
 \method{points}{ordiplot}(x, what, select, arrows = FALSE, ...)
-\method{text}{ordiplot}(x, what, labels, select, arrows = FALSE, ...)
+\method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
+    length = 0.05, ...)
 }
 
 \arguments{
@@ -52,7 +53,8 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     \code{TRUE} for biplot scores and its value will be ignored. Setting
     this \code{TRUE} will draw arrows for any type of scores. This
     allows, e.g, using biplot arrows for species. The arrow head will be
-  at the value of scores, and possible text is moved outwards.}
+    at the value of scores, and possible text is moved outwards.}
+  \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
