@@ -33,12 +33,13 @@
 
       \item Hellinger distance is directly available in \code{vegdist}.
 
-      \item \code{vegdist} sets attribute \code{maxdist} giving the
-      numeric value of theoretical maximum of the dissimilarity
-      index. For many dissimilarities this is 1, but
+      \item \code{vegdist} and \code{betadiver} set attribute
+      \code{maxdist} giving the numeric value of theoretical maximum of
+      the dissimilarity index. For many dissimilarities this is 1, but
       \eqn{\sqrt{2}}{sqrt(2)} for Chord and Hellinger distances, for
-      instance. The attribute is \code{NA} for open indices that do
-      not have such a ceiling.
+      instance. The attribute is \code{NA} for open indices that do not
+      have such a ceiling. \code{betadiver} has three similarity indices
+      which set \code{maxdist} 0.
 
       \item \code{metaMDS} defaults to halfchange scaling when the
       dissimilarities have a numeric \code{maxdist} attribute, and

@@ -4245,7 +4245,6 @@ Species: expanded scores based on ‘dune’
 
 > ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 > sol <- metaMDS(dune, distfun = betadiver, distance = "z")
-assuming that theoretical maximum distance is 1
 Run 0 stress 0.1067169 
 Run 1 stress 0.1073148 
 Run 2 stress 0.1073148 
@@ -9177,7 +9176,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.647 0.318 8.981 0 0 
+Time elapsed:  8.692 0.303 9.008 0 0 
 > grDevices::dev.off()
 null device 
           1 
