@@ -54,6 +54,22 @@
       value log(2). Earlier Mountford distances were divided by log(2)
       to give maximum 1.
 
+      \item The support of scores for \CRANpkg{ggplot2} graphics is
+      improved and extended for ordination functions. Suitable scores
+      can be requested with argument \code{tidy = TRUE}, and in
+      general all available types of scores are returned in a data
+      frame with variable \code{score} labelling the type. The option
+      was implemented in default method of \code{scores} and for
+      structured \code{wcmdscale} objects, and glitches were fixed for
+      \code{rda} family and \code{decorana}.
+
+      \item \code{hatvalues} of constrained ordination objects can
+      sometimes be practically 1 or above 1, and in these cases they
+      will be given as exactly 1. In those cases \code{rstandard},
+      \code{rstudent} and \code{cooks.distance} will be
+      \code{NaN}. The behaviour is similar as in
+      \code{stats::lm.influence} functions.
+
     } % itemize
   } % new features
 
