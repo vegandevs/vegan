@@ -46,14 +46,20 @@
 }
 
 `scores.wcmdscale` <-
-    function(x, choices = NA, ...)
+    function(x, choices = NA, tidy = FALSE, ...)
 {
-    if (any(is.na(choices)))
-        x$points
-    else {
-        choices <- choices[choices <= NCOL(x$points)]
-        x$points[, choices, drop = FALSE]
+    p <-
+        if (any(is.na(choices))) {
+            x$points
+        } else {
+            choices <- choices[choices <= NCOL(x$points)]
+            x$points[, choices, drop = FALSE]
+        }
+    if (tidy) {
+        p <- data.frame(p, "scores" = "sites", "label" = rownames(p),
+                        "weight" = weights(x))
     }
+    p
 }
 
 `plot.wcmdscale` <-
