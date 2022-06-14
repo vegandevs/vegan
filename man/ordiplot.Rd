@@ -77,7 +77,8 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
   with \code{type = "none"} and save the result, and then add sites and
   species using \code{points.ordiplot} or \code{text.ordiplot} which
   both pass all their arguments to the corresponding default graphical
-  functions.
+  functions. The functions can be chained with pipes which allows an
+  alternative intuitive way of building up plots. 
 }
 \value{
   
@@ -88,8 +89,8 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
   originally, the plot is empty, and items can be added with the
   invisible object. Functions \code{points} and \code{text} will return
   their input object without modification, which allows chaining these
-  commands, for instance with \pkg{magrittr} pipes. Function
-  \code{identify.ordiplot} uses this object to label the point.
+  commands with pipes. Function \code{identify.ordiplot} uses this
+  object to label the point.
 
 }
 
@@ -108,11 +109,11 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
   \code{\link{plot.decorana}}, \code{\link{plot.procrustes}} which also
   produce objects for
   \code{identify.ordiplot} and \code{\link{scores}} for extracting
-  scores from non-\code{vegan} ordinations.   
+  scores from non-\code{vegan} ordinations. 
 }
 
 \examples{
-# Draw a plot for a non-vegan ordination (cmdscale).
+## Draw a plot for a non-vegan ordination (cmdscale).
 data(dune)
 dune.dis <- vegdist(wisconsin(dune))
 dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -120,7 +121,20 @@ dune.mds$species <- wascores(dune.mds$points, dune, expand = TRUE)
 pl <- ordiplot(dune.mds, type = "none")
 points(pl, "sites", pch=21, col="red", bg="yellow")
 text(pl, "species", col="blue", cex=0.9)
-# Default plot of the previous using identify to label selected points
+## same plot using pipes (pipes |> are available from R version 4.1.0)
+if (getRversion() >= "4.1") {
+ordiplot(dune.mds, type="n") |>
+  points("sites", pch=21, col="red", bg="yellow") |>
+  text("species", col="blue", cex=0.9)
+## Some people think that species should be shown with arrows in PCA.
+## Other ordination methods also return an invisible ordiplot object and
+## we can use pipes to draw those arrows.
+mod <- rda(dune)
+plot(mod, type="n") |>
+  points("sites", pch=16, col="red") |>
+  text("species", arrows = TRUE, length=0.05, col="blue")
+}
+## Default plot of the previous using identify to label selected points
 \dontrun{
 pl <- ordiplot(dune.mds)
 identify(pl, "spec")}
