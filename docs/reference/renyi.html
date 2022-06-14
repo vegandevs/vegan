@@ -78,42 +78,56 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data matrix or plotting object.</p></dd>
-<dt>scales</dt>
+
+  <dt>scales</dt>
 <dd><p>Scales of Rényi diversity.</p></dd>
-<dt>hill</dt>
+
+  <dt>hill</dt>
 <dd><p>Calculate Hill numbers.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>Usually an integer giving the number
     permutations, but can also be a list of control values for the
     permutations as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>,
     or a permutation matrix where each row gives the permuted indices.</p></dd>
-<dt>raw</dt>
+
+  <dt>raw</dt>
 <dd><p>if <code>FALSE</code> then return summary statistics of
     permutations, and if <code>TRUE</code> then returns the individual
     permutations.</p></dd>
-<dt>collector</dt>
+
+  <dt>collector</dt>
 <dd><p>Accumulate the diversities in the order the sites are
     in the data set, and the collector curve can be plotted against
     summary of permutations. The argument is ignored if <code>raw = TRUE</code>.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>logical expression indicating sites (rows) to keep: missing
     values are taken as <code>FALSE</code>.</p></dd>
-<dt>what</dt>
+
+  <dt>what</dt>
 <dd><p>Items to be plotted.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of plot, where <code>type = "l"</code> means lines.</p></dd>
-<dt>theta</dt>
+
+  <dt>theta</dt>
 <dd><p>Angle defining the viewing direction (azimuthal) in
     <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code>.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>Colours used for surface. Single colour will be passed on,
     and vector colours will be
     selected by the midpoint of a rectangle in <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code>.</p></dd>
-<dt>zlim</dt>
+
+  <dt>zlim</dt>
 <dd><p>Limits of vertical axis.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments which are passed to <code>renyi</code> and
     to graphical functions.</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -144,11 +158,17 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>renyi</code> returns a data frame of selected
-  indices.  Function <code>renyiaccum</code> with argument <code>raw = FALSE</code>  returns a three-dimensional array, where the first dimension are the
+    
+
+<p>Function <code>renyi</code> returns a data frame of selected
+  indices.  Function <code>renyiaccum</code> with argument <code>raw = FALSE</code></p>
+
+
+<p>returns a three-dimensional array, where the first dimension are the
   accumulated sites, second dimension are the diversity scales, and
-  third dimension are the summary statistics <code>mean</code>, <code>stdev</code>,
-<code>min</code>, <code>max</code>, <code>Qnt 0.025</code> and <code>Qnt 0.975</code>.  With
+  third dimension are the summary statistics <code>mean</code>, <code>stdev</code>,</p>
+<p></p>
+<p><code>min</code>, <code>max</code>, <code>Qnt 0.025</code> and <code>Qnt 0.975</code>.  With
   argument <code>raw = TRUE</code> the statistics on the third dimension are
   replaced with individual permutation results.</p>
     </div>
@@ -198,7 +218,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

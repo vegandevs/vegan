@@ -74,16 +74,20 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt> data </dt>
 <dd><p>The data matrix. The objects (samples) are the rows.</p></dd>
-<dt> inf.gr </dt>
+
+  <dt> inf.gr </dt>
 <dd><p>The number of groups for the partition with the 
     smallest number of groups of the cascade (min).</p></dd>
-<dt> sup.gr </dt>
+
+  <dt> sup.gr </dt>
 <dd><p>The number of groups for the partition with the largest 	
     number of groups of the cascade (max).</p></dd>
-<dt> iter </dt>
+
+  <dt> iter </dt>
 <dd><p>The number of random starting configurations for each value
     of \(K\).</p></dd>
-<dt> criterion </dt>
+
+  <dt> criterion </dt>
 <dd><p>The criterion that will be used to select the best
     partition. The default value is <code>"calinski"</code>, which refers to
     the Calinski-Harabasz (1974) criterion. The simple structure index
@@ -92,38 +96,49 @@
     our experience, the two indices that work best and are most likely
     to return their maximum value at or near the optimal number of
     clusters are <code>"calinski"</code> and <code>"ssi"</code>.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>Object of class <code>"kmeans"</code> returned by a clustering algorithm
     such as <code><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">kmeans</a></code></p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>Data matrix where columns correspond to variables and rows to
     observations, or the plotting object in <code>plot</code></p></dd>
-<dt>index</dt>
+
+  <dt>index</dt>
 <dd><p>The available indices are: <code>"calinski"</code> and <code>"ssi"</code>. 
     Type <code>"all"</code> to obtain both indices. 
     Abbreviations of these names are also accepted.</p></dd>
-<dt>min.g, max.g</dt>
+
+  <dt>min.g, max.g</dt>
 <dd><p>The minimum and maximum numbers of groups to be
     displayed.</p></dd>
-<dt>grpmts.plot</dt>
+
+  <dt>grpmts.plot</dt>
 <dd><p>Show the plot (<code>TRUE</code> or <code>FALSE</code>).</p></dd>
-<dt>sortg</dt>
+
+  <dt>sortg</dt>
 <dd><p>Sort the objects as a function of their group membership
     to produce a more easily interpretable graph. See Details. The
     original object names are kept; they are used as labels in the
     output table <code>x</code>, although not in the graph.  If there were no
     row names, sequential row numbers are used to keep track of the
     original order of the objects.</p></dd>
-<dt>gridcol</dt>
+
+  <dt>gridcol</dt>
 <dd><p>The colour of the grid lines in the plots. <code>NA</code>,
     which is the default value, removes the grid lines.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters to the functions (ignored).</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
+
+    
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -189,20 +204,26 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>cascadeKM</code> returns an object of class
-<code>cascadeKM</code> with items:</p>
+    <p>Function <code>cascadeKM</code> returns an object of class</p>
+<p></p>
+<p><code>cascadeKM</code> with items:</p>
 <dl><dt> partition </dt>
 <dd><p>Table with the partitions found for different numbers 
     of groups \(K\), from \(K\) = <code>inf.gr</code> to \(K\) =
     <code>sup.gr</code>.</p></dd>
-<dt> results </dt>
+ 
+  <dt> results </dt>
 <dd><p>Values of the criterion to select the best
     partition.</p></dd>
-<dt> criterion </dt>
+ 
+  <dt> criterion </dt>
 <dd><p>The name of the criterion used.</p></dd>
-<dt> size </dt>
+
+  <dt> size </dt>
 <dd><p>The number of objects found in each group, for all 
     partitions (columns).</p></dd>
+
+
 </dl><p>Function <code>cIndex</code> returns a vector with the index values. The
   maximum value of these indices is supposed to indicate the best
   partition. These indices work best with groups of equal sizes. When
@@ -278,7 +299,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

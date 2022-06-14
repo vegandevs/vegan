@@ -91,16 +91,21 @@
 <dd><p>Multivariate response data. Typically these are
     community (species) data. If the data are counts, they probably
     should be log transformed prior to the analysis.</p></dd>
-<dt>treatment</dt>
+
+  <dt>treatment</dt>
 <dd><p>A factor for treatments.</p></dd>
-<dt>time</dt>
+
+  <dt>time</dt>
 <dd><p>An unordered factor defining the observations times in
     the repeated design.</p></dd>
-<dt>object, x</dt>
+
+  <dt>object, x</dt>
 <dd><p>An <code>prc</code> result object.</p></dd>
-<dt>axis</dt>
+
+  <dt>axis</dt>
 <dd><p>Axis shown (only one axis can be selected).</p></dd>
-<dt>scaling</dt>
+
+  <dt>scaling</dt>
 <dd><p>Scaling of species scores, identical to the
     <code>scaling</code> in <code><a href="plot.cca.html">scores.rda</a></code>.</p>
 <p>The type of scores can also be specified as one of <code>"none"</code>,
@@ -109,41 +114,54 @@
     respectively. Argument <code>correlation</code> can be used in combination
     with these character descriptions to get the corresponding negative
     value.</p></dd>
-<dt>const</dt>
+
+  <dt>const</dt>
 <dd><p>General scaling constant for species scores (see
     <code><a href="plot.cca.html">scores.rda</a></code> for details). Lower values will reduce the
     range of species scores, but will not influence the regression
     coefficients.</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>Number of significant digits displayed.</p></dd>
-<dt>correlation</dt>
+
+  <dt>correlation</dt>
 <dd><p>logical; if <code>scaling</code> is a character
     description of the scaling type, <code>correlation</code> can be used to
     select correlation-like scores for PCA. See argument <code>scaling</code>
     for details.</p></dd>
-<dt>species</dt>
+
+  <dt>species</dt>
 <dd><p>Display species scores.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Vector to select displayed species. This can be a vector
     of indices or a logical vector which is <code>TRUE</code> for the selected
     species</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of plot: <code>"l"</code> for lines, <code>"p"</code> for points
     or <code>"b"</code> for both.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Text to replace default axis labels.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>Limits for the vertical axis.</p></dd>
-<dt>lty, col, pch</dt>
+
+  <dt>lty, col, pch</dt>
 <dd><p>Line type, colour and plotting characters
     (defaults supplied).</p></dd>
-<dt>legpos</dt>
+
+  <dt>legpos</dt>
 <dd><p>The position of the <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></code>. A guess is
     made if this is not supplied, and <code>NA</code> will suppress legend.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>Character expansion for symbols and species labels.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -182,9 +200,12 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function is a special case of <code><a href="cca.html">rda</a></code> and returns its
-  result object (see <code><a href="cca.object.html">cca.object</a></code>). However, a special
-<code>summary</code> and <code>plot</code> methods display returns differently
+    
+
+<p>The function is a special case of <code><a href="cca.html">rda</a></code> and returns its
+  result object (see <code><a href="cca.object.html">cca.object</a></code>). However, a special</p>
+<p></p>
+<p><code>summary</code> and <code>plot</code> methods display returns differently
   than in <code><a href="cca.html">rda</a></code>.</p>
     </div>
     <div class="section level2">
@@ -343,7 +364,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

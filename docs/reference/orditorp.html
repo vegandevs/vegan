@@ -76,36 +76,47 @@
     <dl><dt>x</dt>
 <dd><p>A result object from ordination or an <code><a href="ordiplot.html">ordiplot</a></code>
     result.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Items to be displayed in the plot.  Only one
     alternative is allowed. Typically this is <code>"sites"</code> or
     <code>"species"</code>.</p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>Optional text used for labels. Row names will be used if
   this is missing.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>Axes shown.</p></dd>
-<dt>priority</dt>
+
+  <dt>priority</dt>
 <dd><p>Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same
     length as the number of items plotted.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
     vector which is <code>TRUE</code> for displayed items or a vector of indices
     of displayed items. If a logical vector is used, it must have the
     same length as the scores plotted.</p></dd>
-<dt>cex, pcex</dt>
+
+  <dt>cex, pcex</dt>
 <dd><p>Text and point sizes, see <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code>..</p></dd>
-<dt>col, pcol</dt>
+
+  <dt>col, pcol</dt>
 <dd><p>Text and point colours, see <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code>.</p></dd>
-<dt>pch</dt>
+
+  <dt>pch</dt>
 <dd><p>Plotting character, see <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>.</p></dd>
-<dt>air</dt>
+
+  <dt>air</dt>
 <dd><p>Amount of empty space between text labels. Values &lt;1 allow
     overlapping text.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments to <code><a href="scores.html">scores</a></code> (and its various
     methods), <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code> and <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -125,9 +136,18 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns invisibly a logical vector where <code>TRUE</code>  means that item was labelled with text and <code>FALSE</code> means that it
-  was marked with a point. The returned vector can be used as the
-<code>select</code> argument in ordination <code>text</code> and <code>points</code>  functions.</p>
+    
+
+<p>The function returns invisibly a logical vector where <code>TRUE</code></p>
+
+
+<p>means that item was labelled with text and <code>FALSE</code> means that it
+  was marked with a point. The returned vector can be used as the</p>
+<p></p>
+<p><code>select</code> argument in ordination <code>text</code> and <code>points</code></p>
+
+
+<p>functions.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -172,7 +192,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

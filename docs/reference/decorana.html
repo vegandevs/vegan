@@ -91,61 +91,84 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>veg</dt>
 <dd><p>Community data, a matrix-like object.</p></dd>
-<dt>iweigh</dt>
+
+  <dt>iweigh</dt>
 <dd><p>Downweighting of rare species (0: no).</p></dd>
-<dt>iresc</dt>
+
+  <dt>iresc</dt>
 <dd><p>Number of rescaling cycles (0: no rescaling).</p></dd>
-<dt>ira</dt>
+
+  <dt>ira</dt>
 <dd><p>Type of analysis (0: detrended, 1: basic reciprocal averaging).</p></dd>
-<dt>mk</dt>
+
+  <dt>mk</dt>
 <dd><p>Number of segments in rescaling.</p></dd>
-<dt>short</dt>
+
+  <dt>short</dt>
 <dd><p>Shortest gradient to be rescaled.</p></dd>
-<dt>before</dt>
+
+  <dt>before</dt>
 <dd><p>Hill's piecewise transformation: values before transformation.</p></dd>
-<dt>after</dt>
+
+  <dt>after</dt>
 <dd><p>Hill's piecewise transformation: values after
   transformation -- these must correspond to values in <code>before</code>.</p></dd>
-<dt>x, object</dt>
+
+  <dt>x, object</dt>
 <dd><p>A <code>decorana</code> result object.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>Axes shown.</p></dd>
-<dt>origin</dt>
+
+  <dt>origin</dt>
 <dd><p>Use true origin even in detrended correspondence analysis.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Display only sites, only species, both or neither.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>Plot character size.</p></dd>
-<dt>cols</dt>
+
+  <dt>cols</dt>
 <dd><p>Colours used for sites and species.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of plots, partial match to <code>"text"</code>,
     <code>"points"</code> or <code>"none"</code>.</p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>Optional text to be used instead of row names.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
     vector which is <code>TRUE</code> for displayed items or a vector of indices
     of displayed items.</p></dd>
-<dt>xlim, ylim</dt>
+
+  <dt>xlim, ylim</dt>
 <dd><p>the x and y limits (min,max) of the plot.</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>Number of digits in summary output.</p></dd>
-<dt>head, tail</dt>
+
+  <dt>head, tail</dt>
 <dd><p>Number of rows printed from the head and tail of
     species and site scores. Default <code>NA</code> prints all.</p></dd>
-<dt>fraction</dt>
+
+  <dt>fraction</dt>
 <dd><p>Abundance fraction where downweighting begins.</p></dd>
-<dt>tidy</dt>
+
+  <dt>tidy</dt>
 <dd><p>Return scores that are compatible with <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>:
     all scores are in a single <code>data.frame</code>, score type is
     identified by factor variable <code>score</code> (<code>"sites"</code>,
     <code>"species"</code>), the names by variable <code>label</code>. These scores
     are incompatible with conventional <code>plot</code> functions, but they can
     be used in <span class="pkg">ggplot2</span>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments for <code>plot</code> function.</p></dd>
-</dl></div>
+
+  </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>In late 1970s, correspondence analysis became the method of choice for
@@ -205,8 +228,10 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>decorana</code> returns an object of class <code>"decorana"</code>, which has
-<code>print</code>, <code>summary</code> and <code>plot</code> methods.</p>
+    <p></p>
+<p><code>decorana</code> returns an object of class <code>"decorana"</code>, which has</p>
+<p></p>
+<p><code>print</code>, <code>summary</code> and <code>plot</code> methods.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -403,7 +428,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

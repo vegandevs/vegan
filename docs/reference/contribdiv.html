@@ -70,25 +70,33 @@ partitioning and unit distinctiveness.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>comm</dt>
 <dd><p>The community data matrix with samples as rows and species as column.</p></dd>
-<dt>index</dt>
+
+  <dt>index</dt>
 <dd><p>Character, the diversity index to be calculated.</p></dd>
-<dt>relative</dt>
+
+  <dt>relative</dt>
 <dd><p>Logical, if <code>TRUE</code> then contribution diversity
     values are expressed as their signed deviation from their mean. See details.</p></dd>
-<dt>scaled</dt>
+
+  <dt>scaled</dt>
 <dd><p>Logical, if <code>TRUE</code> then relative contribution diversity
     values are scaled by the sum of gamma values (if <code>index = "richness"</code>)
     or by sum of gamma values times the number of rows in <code>comm</code>
     (if <code>index = "simpson"</code>). See details.</p></dd>
-<dt>drop.zero</dt>
+
+  <dt>drop.zero</dt>
 <dd><p>Logical, should empty rows dropped from the result?
     If empty rows are not dropped, their corresponding results will be <code>NA</code>s.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>An object of class <code>"contribdiv"</code>.</p></dd>
-<dt>sub, xlab, ylab, ylim, col</dt>
+
+  <dt>sub, xlab, ylab, ylim, col</dt>
 <dd><p>Graphical arguments passed to plot.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to plot.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -116,8 +124,12 @@ equation contains a typo, \(n\) is without index). For the Simpson index:
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>"contribdiv"</code> inheriting from data frame.
-Returned values are alpha, beta and gamma components for each sites (rows)
+    
+
+<p>An object of class <code>"contribdiv"</code> inheriting from data frame.</p>
+
+
+<p>Returned values are alpha, beta and gamma components for each sites (rows)
 of the community matrix. The <code>"diff.coef"</code> attribute gives the
 differentiation coefficient (see Examples).</p>
     </div>
@@ -198,7 +210,7 @@ approach to evaluate species diversity.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

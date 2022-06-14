@@ -83,28 +83,34 @@
     defines the independent variables. These can be continuous variables
     or factors, they can be transformed within the formula, and they can
     have interactions as in a typical <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>the data frame for the independent variables.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>the name of any method used in <code><a href="vegdist.html">vegdist</a></code> to
     calculate pairwise distances if the left hand side of the
     <code>formula</code> was a data frame or a matrix.</p></dd>
-<dt>sqrt.dist</dt>
+
+  <dt>sqrt.dist</dt>
 <dd><p>Take square root of dissimilarities. This often
     euclidifies dissimilarities.</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add a constant to the non-diagonal dissimilarities such
     that all eigenvalues are non-negative in the underlying Principal
     Co-ordinates Analysis (see <code><a href="wcmdscale.html">wcmdscale</a></code> for
     details). Choice <code>"lingoes"</code> (or <code>TRUE</code>) use the
     recommended method of Legendre &amp; Anderson (1999: “method
     1”) and <code>"cailliez"</code> uses their “method 2”.</p></dd>
-<dt>by</dt>
+
+  <dt>by</dt>
 <dd><p><code>by = "terms"</code> will assess significance for each term
     (sequentially from first to last), setting <code>by = "margin"</code>
     will assess the marginal effects of the terms (each marginal term
@@ -112,23 +118,30 @@
     will analyse one-degree-of-freedom contrasts sequentially, <code>by =
     NULL</code> will assess the overall significance of all terms
     together. The arguments is passed on to <code><a href="anova.cca.html">anova.cca</a></code>.</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>Handling of missing values on the right-hand-side
     of the formula (see <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></code> for explanation and
     alternatives). Missing values are not allowed on the
     left-hand-side. NB, argument <code>subset</code> is not implemented.</p></dd>
-<dt>strata</dt>
+
+
+  <dt>strata</dt>
 <dd><p>Groups within which to constrain permutations. The
     traditional non-movable strata are set as Blocks in the
     <a href="https://CRAN.R-project.org/package=permute" class="external-link"><span class="pkg">permute</span></a> package, but some more flexible alternatives may
     be more appropriate.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="vegdist.html">vegdist</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -161,11 +174,16 @@ Excoffier, Smouse, and Quattro, 1992; <code>amova</code> in the
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns an <code><a href="anova.cca.html">anova.cca</a></code> result object with a
+    
+
+
+<p>The function returns an <code><a href="anova.cca.html">anova.cca</a></code> result object with a
   new column for partial \(R^2\): This is the proportion
   of sum of squares from the total, and in marginal models
   (<code>by = "margin"</code>) the \(R^2\) terms do not add up to
   1.</p>
+
+
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -219,12 +237,12 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.004 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.019 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.230   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.015 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.189    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="co">## overall tests</span></span>
@@ -282,10 +300,10 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1  0.02161 0.08818 0.9671   0.37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10  0.22344 0.91182              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11  0.24505 1.00000              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs     R2      F Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.017911 0.1089 1.2221   0.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.146563 0.8911              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.164474 1.0000              </span>
 <span class="r-in"><span class="co">## Correct with strata</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu">adonis2</span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">NO3</span>, data <span class="op">=</span> <span class="va">dat</span>, permutations <span class="op">=</span> <span class="fl">199</span>, strata <span class="op">=</span> <span class="va">field</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
@@ -295,10 +313,10 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1  0.02161 0.08818 0.9671   0.02 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10  0.22344 0.91182                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11  0.24505 1.00000                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs     R2      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.017911 0.1089 1.2221   0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.146563 0.8911                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.164474 1.0000                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
@@ -312,7 +330,7 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

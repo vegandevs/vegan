@@ -81,28 +81,35 @@
 <dd><p>Dissimilarity matrices or<code>dist</code>
     objects. The first object <code>xdis</code> will be permuted in
     permutation tests.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Correlation method, as accepted by <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>:
     <code>"pearson"</code>, <code>"spearman"</code> or <code>"kendall"</code>.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>strata</dt>
+
+  <dt>strata</dt>
 <dd><p>An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>Remove missing values in calculation of Mantel
     correlation. Use this option with care: Permutation tests can
     be biased, in particular if two matrices had missing values in
     matching positions.</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -127,26 +134,35 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a list of class <code>mantel</code> with following
+    
+
+<p>The function returns a list of class <code>mantel</code> with following
   components:</p>
 <dl><dt>Call </dt>
 <dd><p>Function call.</p></dd>
-<dt>method </dt>
+
+  <dt>method </dt>
 <dd><p>Correlation method used, as returned by
     <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code>.</p></dd>
-<dt>statistic</dt>
+
+  <dt>statistic</dt>
 <dd><p>The Mantel statistic.</p></dd>
-<dt>signif</dt>
+
+  <dt>signif</dt>
 <dd><p>Empirical significance level from permutations.</p></dd>
-<dt>perm</dt>
+
+  <dt>perm</dt>
 <dd><p>A vector of permuted values. The distribution of
     permuted values can be inspected with <code><a href="permustats.html">permustats</a></code> 
     function.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>Number of permutations.</p></dd>
-<dt>control</dt>
+
+  <dt>control</dt>
 <dd><p>A list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -194,7 +210,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.113 0.148 0.172 0.207 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.123 0.161 0.189 0.223 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -206,11 +222,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> mantel(xdis = veg.dist, ydis = env.dist, method = "spear") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mantel statistic r: 0.2838 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.003 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.005 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.114 0.153 0.182 0.209 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.124 0.154 0.179 0.240 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -225,7 +241,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -70,27 +70,33 @@
 <dd><p>Data matrix or data frame in which rows are samples and
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.</p></dd>
-<dt>grouping</dt>
+
+  <dt>grouping</dt>
 <dd><p>Factor for grouping observations.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>distance</dt>
+
+  <dt>distance</dt>
 <dd><p>Choice of distance metric that measures the
     dissimilarity between two observations. See <code><a href="vegdist.html">vegdist</a></code> for
     options.  This will be used if <code>x</code> was not a dissimilarity
     structure or a symmetric square matrix.</p></dd>
-<dt>strata</dt>
+  
+  <dt>strata</dt>
 <dd><p>An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -126,29 +132,39 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a list of class <code>"anosim"</code> with following
+    
+
+<p>The function returns a list of class <code>"anosim"</code> with following
   items:</p>
 <dl><dt>call </dt>
 <dd><p>Function call.</p></dd>
-<dt>statistic</dt>
+
+  <dt>statistic</dt>
 <dd><p>The value of ANOSIM statistic \(R\)</p></dd>
-<dt>signif</dt>
+
+  <dt>signif</dt>
 <dd><p>Significance from permutation.</p></dd>
-<dt>perm</dt>
+
+  <dt>perm</dt>
 <dd><p>Permutation values of \(R\). The distribution of
     permutation values can be inspected with function <code><a href="permustats.html">permustats</a></code>.</p></dd>
-<dt>class.vec</dt>
+
+  <dt>class.vec</dt>
 <dd><p>Factor with value <code>Between</code> for dissimilarities
     between classes and class name for corresponding dissimilarity
     within class.</p></dd>
-<dt>dis.rank</dt>
+
+  <dt>dis.rank</dt>
 <dd><p>Rank of dissimilarity entry.</p></dd>
-<dt>dissimilarity</dt>
+
+  <dt>dissimilarity</dt>
 <dd><p>The name of the dissimilarity index: the
     <code>"method"</code> entry of the <code>dist</code> object.</p></dd>
-<dt>control</dt>
+
+  <dt>control</dt>
 <dd><p>A list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -198,14 +214,14 @@ dissimilarities instead of their ranks.
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dissimilarity: bray </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANOSIM statistic R: 0.2579 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.008 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.015 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.121 0.161 0.191 0.231 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.119 0.167 0.209 0.272 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dissimilarity ranks between and within classes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0%   25%    50%     75%  100%   N</span>
@@ -229,7 +245,7 @@ dissimilarities instead of their ranks.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

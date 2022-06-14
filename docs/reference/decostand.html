@@ -65,22 +65,29 @@ methods for community ecologists.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data, a matrix-like object.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Standardization method. See Details for available options.</p></dd>
-<dt>MARGIN</dt>
+
+  <dt>MARGIN</dt>
 <dd><p>Margin, if default is not acceptable. <code>1</code> = rows,
     and <code>2</code> = columns of <code>x</code>.</p></dd>
-<dt>range.global</dt>
+
+  <dt>range.global</dt>
 <dd><p>Matrix from which the range is found in
     <code>method = "range"</code>.  This allows using same ranges across
     subsets of data.  The dimensions of <code>MARGIN</code> must match with
     <code>x</code>.</p></dd>
-<dt>logbase</dt>
+
+  <dt>logbase</dt>
 <dd><p>The logarithm base used in <code>method = "log"</code>.</p></dd>
-<dt>na.rm</dt>
+
+  <dt>na.rm</dt>
 <dd><p>Ignore missing values in row or column standardizations.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments to the function (ignored).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -180,9 +187,13 @@ methods for community ecologists.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns the standardized data frame, and adds an attribute
-<code>"decostand"</code> giving the name of applied standardization
-<code>"method"</code>.</p>
+    
+
+<p>Returns the standardized data frame, and adds an attribute</p>
+<p></p>
+<p><code>"decostand"</code> giving the name of applied standardization</p>
+<p></p>
+<p><code>"method"</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -263,7 +274,7 @@ methods for community ecologists.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

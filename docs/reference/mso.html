@@ -81,43 +81,54 @@ of cca or rda results</h1>
     <dl><dt>object.cca</dt>
 <dd><p>An object of class cca, created by the <code><a href="cca.html">cca</a></code> or
     <code><a href="cca.html">rda</a></code> function.</p></dd>
-<dt>object.xy</dt>
+
+   <dt>object.xy</dt>
 <dd><p>A vector, matrix or data frame with the spatial
     coordinates of the data represented by <code>object.cca</code>. The
     number of rows must match the number of observations (as given by
     <code>nobs</code>) in <code>cca.object</code>. Alternatively, interpoint
     distances can be supplied as a <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> object.</p></dd>
-<dt>grain</dt>
+
+   <dt>grain</dt>
 <dd><p>Interval size for distance classes.</p></dd>
-<dt>round.up</dt>
+
+  <dt>round.up</dt>
 <dd><p>Determines the choice of breaks. If false, distances
     are rounded to the nearest multiple of grain. If true, distances are
     rounded to the upper multiple of grain.</p></dd>
-<dt>permutations</dt>
+ 
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>A result object of <code>mso</code>.</p></dd>
-<dt>alpha</dt>
+
+  <dt>alpha</dt>
 <dd><p>Significance level for the two-sided permutation test of
     the Mantel statistic for spatial independence of residual inertia
     and for the point-wise envelope of the variogram of the total
     variance. A Bonferroni-type correction can be achieved by dividing
     the overall significance value (e.g. 0.05) by the number of distance
     classes.</p></dd>
-<dt>explained</dt>
+ 
+  <dt>explained</dt>
 <dd><p>If false, suppresses the plotting of the variogram
     of explained variance.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>Limits for y-axis.</p></dd>
-<dt>legend</dt>
+
+  <dt>legend</dt>
 <dd><p>The x and y co-ordinates to be used to position the legend. 
     They can be specified by keyword or in any way which is accepted 
     by <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -134,19 +145,28 @@ of cca or rda results</h1>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>mso</code> returns an amended <code>cca</code> or <code>rda</code>  object with the additional attributes <code>grain</code>, <code>H</code>,
-<code>H.test</code> and <code>vario</code>.</p>
+    
+
+<p>The function <code>mso</code> returns an amended <code>cca</code> or <code>rda</code></p>
+
+
+<p>object with the additional attributes <code>grain</code>, <code>H</code>,</p>
+<p></p>
+<p><code>H.test</code> and <code>vario</code>.</p>
 <dl><dt>grain</dt>
 <dd><p>The grain attribute defines the interval size of the
     distance classes .</p></dd>
-<dt>H </dt>
+ 
+  <dt>H </dt>
 <dd><p>H is an object of class 'dist' and contains the geographic
     distances between observations.</p></dd>
-<dt>H.test </dt>
+ 
+  <dt>H.test </dt>
 <dd><p>H.test contains a set of dummy variables that describe
     which pairs of observations (rows = elements of <code>object$H</code>) fall in
     which distance class (columns).</p></dd>
-<dt>vario </dt>
+ 
+  <dt>vario </dt>
 <dd><p>The vario attribute is a data frame that contains some
     or all of the following components for the rda case (cca case in
       brackets):</p><dl><dt><code>H</code></dt>
@@ -189,6 +209,7 @@ of cca or rda results</h1>
  
     
 </dl><p></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -305,12 +326,12 @@ of cca or rda results</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     H   Dist   n    All    Sum     CA    CCA      se CA.signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
@@ -326,7 +347,7 @@ of cca or rda results</h1>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -87,58 +87,90 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dist</dt>
 <dd><p>Input dissimilarities.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>Starting configuration. A random configuration will be
     generated if this is missing.</p></dd>
-<dt>k</dt>
+
+
+  <dt>k</dt>
 <dd><p>Number of dimensions. NB., the number of points \(n\)
     should be \(n &gt; 2k + 1\), and preferably higher in
     non-metric MDS.</p></dd>
-<dt>model</dt>
+
+
+  <dt>model</dt>
 <dd><p>MDS model: <code>"global"</code> is normal non-metric MDS
     with a monotone regression, <code>"local"</code> is non-metric MDS with
     separate regressions for each point, <code>"linear"</code> uses linear
     regression, and <code>"hybrid"</code> uses linear regression for
     dissimilarities below a threshold in addition to monotone
     regression. See Details.</p></dd>
-<dt>threshold</dt>
+
+
+  <dt>threshold</dt>
 <dd><p>Dissimilarity below which linear regression is
     used alternately with monotone regression.</p></dd>
-<dt>maxit</dt>
+
+
+  <dt>maxit</dt>
 <dd><p>Maximum number of iterations.</p></dd>
-<dt>weakties</dt>
+
+
+  <dt>weakties</dt>
 <dd><p>Use primary or weak tie treatment, where equal
     observed dissimilarities are allowed to have different fitted
     values. if <code>FALSE</code>, then secondary (strong) tie treatment is
     used, and tied values are not broken.</p></dd>
-<dt>stress</dt>
+
+
+  <dt>stress</dt>
 <dd><p>Use stress type 1 or 2 (see Details).</p></dd>
-<dt>scaling</dt>
+
+
+  <dt>scaling</dt>
 <dd><p>Scale final scores to unit root mean squares.</p></dd>
-<dt>pc</dt>
+
+
+  <dt>pc</dt>
 <dd><p>Rotate final scores to principal components.</p></dd>
-<dt>smin, sfgrmin, sratmax</dt>
+
+
+  <dt>smin, sfgrmin, sratmax</dt>
 <dd><p>Convergence criteria: iterations stop
     when stress drops below <code>smin</code>, scale factor of the gradient
     drops below <code>sfgrmin</code>, or stress ratio between two iterations
     goes over <code>sratmax</code> (but is still \(&lt; 1\)).</p></dd>
-<dt>x</dt>
+
+
+  <dt>x</dt>
 <dd><p>A <code>monoMDS</code> result.</p></dd>
-<dt>choices</dt>
+
+
+  <dt>choices</dt>
 <dd><p>Dimensions returned or plotted. The default <code>NA</code>
     returns all dimensions.</p></dd>
-<dt>type</dt>
+
+
+  <dt>type</dt>
 <dd><p>The type of the plot: <code>"t"</code> for text, <code>"p"</code>
     for points, and <code>"n"</code> for none.</p></dd>
-<dt>select</dt>
+
+
+  <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
           vector which is <code>TRUE</code> for displayed items or a vector of
           indices of displayed items.</p></dd>
-<dt>labels</dt>
+
+
+  <dt>labels</dt>
 <dd><p>Labels to be use used instead of row names.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other parameters to the functions (ignored in
     <code>monoMDS</code>, passed to graphical functions in <code>plot</code>.).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -303,7 +335,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress:     0.07626804 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress type 1, weak ties</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scores scaled to unit root mean square, rotated to principal components</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Stopped after 60 iterations: Stress nearly unchanged (ratio &gt; sratmax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Stopped after 49 iterations: Stress nearly unchanged (ratio &gt; sratmax)</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="monoMDS-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
@@ -317,7 +349,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

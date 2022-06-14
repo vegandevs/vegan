@@ -89,71 +89,93 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>X</dt>
 <dd><p>Target matrix</p></dd>
-<dt>Y</dt>
+
+  <dt>Y</dt>
 <dd><p>Matrix to be rotated.</p></dd>
-<dt>scale</dt>
+
+  <dt>scale</dt>
 <dd><p>Allow scaling of axes of <code>Y</code>.</p></dd>
-<dt>symmetric</dt>
+
+  <dt>symmetric</dt>
 <dd><p>Use symmetric Procrustes statistic (the rotation will
     still be non-symmetric).</p></dd>
-<dt>scores</dt>
+
+  <dt>scores</dt>
 <dd><p>Kind of scores used. This is the <code>display</code> argument
   used with the corresponding <code>scores</code> function: see
   <code><a href="scores.html">scores</a></code>, <code><a href="plot.cca.html">scores.cca</a></code> and
   <code><a href="plot.cca.html">scores.cca</a></code> for alternatives.</p></dd>
-<dt>x, object</dt>
+
+  <dt>x, object</dt>
 <dd><p>An object of class <code>procrustes</code>.</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>Number of digits in the output.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>For <code>plot</code> function, the kind of plot produced:
     <code>kind = 1</code> plots shifts in two configurations, <code>kind = 0</code>
     draws a corresponding empty plot, and <code>kind = 2</code>
     plots an impulse diagram of residuals.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>Axes (dimensions) plotted.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Axis labels, if defaults unacceptable.</p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>Plot title, if default unacceptable.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Show only the <code>"target"</code> or <code>"rotated"</code>
     matrix as points.</p></dd>
-<dt>to.target</dt>
+
+  <dt>to.target</dt>
 <dd><p>Draw arrows to point to target.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>The type of plot drawn. In <code>plot</code>, the <code>type</code>
     can be <code>"points"</code> or <code>"text"</code> to select the marker for
     the tail of the arrow, or <code>"none"</code> for drawing an empty
     plot. In <code>lines</code> the <code>type</code> selects either
     <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code> or line <code><a href="https://rdrr.io/r/graphics/segments.html" class="external-link">segments</a></code> to connect
     target and rotated configuration.</p></dd>
-<dt>truemean</dt>
+
+  <dt>truemean</dt>
 <dd><p>Use the original range of target matrix instead of
     centring the fitted values. Function <code>plot.procrustes</code> needs
     <code>truemean = FALSE</code>, and adding graphical items to the plots
     from the original results may need <code>truemean = TRUE</code>.</p></dd>
-<dt>newdata</dt>
+
+  <dt>newdata</dt>
 <dd><p>Matrix of coordinates to be rotated and translated to
      the target.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>ar.col</dt>
+
+  <dt>ar.col</dt>
 <dd><p>Arrow colour.</p></dd>
-<dt>len</dt>
+
+  <dt>len</dt>
 <dd><p>Width of the arrow head.</p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>Character vector of text labels. Rownames of the result 
     object are used as default.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>Character expansion for points or text.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions. In <code>procrustes</code>
     and <code>protest</code> parameters are passed to <code><a href="scores.html">scores</a></code>, in
     graphical functions to underlying graphical functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -221,44 +243,63 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>procrustes</code> returns an object of class
-<code>procrustes</code> with items. Function <code>protest</code> inherits from
-<code>procrustes</code>, but amends that with some new items:</p>
+    
+
+<p>Function <code>procrustes</code> returns an object of class</p>
+<p></p>
+<p><code>procrustes</code> with items. Function <code>protest</code> inherits from</p>
+<p></p>
+<p><code>procrustes</code>, but amends that with some new items:</p>
 <dl><dt>Yrot </dt>
 <dd><p>Rotated matrix <code>Y</code>.</p></dd>
-<dt>X</dt>
+
+  <dt>X</dt>
 <dd><p>Target matrix.</p></dd>
-<dt>ss </dt>
+
+  <dt>ss </dt>
 <dd><p>Sum of squared differences between <code>X</code> and <code>Yrot</code>.</p></dd>
-<dt>rotation</dt>
+
+  <dt>rotation</dt>
 <dd><p>Orthogonal rotation matrix.</p></dd>
-<dt>translation</dt>
+
+  <dt>translation</dt>
 <dd><p>Translation of the origin.</p></dd>
-<dt>scale</dt>
+
+  <dt>scale</dt>
 <dd><p>Scaling factor.</p></dd>
-<dt>xmean</dt>
+
+  <dt>xmean</dt>
 <dd><p>The centroid of the target.</p></dd>
-<dt>symmetric</dt>
+
+  <dt>symmetric</dt>
 <dd><p>Type of <code>ss</code> statistic.</p></dd>
-<dt>call</dt>
+
+  <dt>call</dt>
 <dd><p>Function call.</p></dd>
-<dt>t0</dt>
+
+  <dt>t0</dt>
 <dd><p>This and the following items are only in class
     <code>protest</code>:  Procrustes correlation from non-permuted solution.</p></dd>
-<dt>t</dt>
+
+  <dt>t</dt>
 <dd><p>Procrustes correlations from permutations. The distribution
     of these correlations can be inspected with <code><a href="permustats.html">permustats</a></code>
     function.</p></dd>
-<dt>signif</dt>
+
+  <dt>signif</dt>
 <dd><p>Significance of <code>t</code></p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>Number of permutations.</p></dd>
-<dt>control</dt>
+
+  <dt>control</dt>
 <dd><p>A list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>.</p></dd>
-<dt>control</dt>
+
+  <dt>control</dt>
 <dd><p>the list passed to argument <code>control</code> describing
     the permutation design.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -351,7 +392,7 @@ permutation required.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

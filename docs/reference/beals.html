@@ -77,27 +77,34 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data frame or matrix.</p></dd>
-<dt>species</dt>
+
+  <dt>species</dt>
 <dd><p>Column index used to compute Beals function for a single species. 
   The default (<code>NA</code>) indicates that the function will be computed for all species.</p></dd>
-<dt>reference</dt>
+ 
+  <dt>reference</dt>
 <dd><p>Community data frame or matrix to be used to compute
   joint occurrences. By default, <code>x</code> is used as reference to
   compute the joint occurrences.</p></dd>
-<dt>type</dt>
+ 
+  <dt>type</dt>
 <dd><p>Numeric. Specifies if and how abundance values have to be 
   used in function <code>beals</code>. See details for more explanation.</p></dd>
-<dt>include</dt>
+  
+  <dt>include</dt>
 <dd><p>This logical flag indicates whether the target species has to be
   included when computing the mean of the conditioned probabilities. The
   original Beals (1984) definition is equivalent to <code>include=TRUE</code>,
   while the formulation of Münzbergová and Herben is
   equal to <code>include=FALSE</code>.</p></dd>
-<dt>maxit</dt>
+
+
+  <dt>maxit</dt>
 <dd><p>Maximum number of iterations. The default <code>Inf</code>
     means that iterations are continued until there are no zeros or
     the number of zeros does not change. Probably only 
     <code>maxit = 1</code> makes sense in addition to the default.</p></dd>
+  
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -146,7 +153,9 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a transformed data matrix or a vector if Beals smoothing 
+    
+
+<p>The function returns a transformed data matrix or a vector if Beals smoothing 
   is requested for a single species.</p>
     </div>
     <div class="section level2">
@@ -321,7 +330,7 @@ simulated vegetational data. <em>Ecology</em> 51: 89--102.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

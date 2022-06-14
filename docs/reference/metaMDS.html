@@ -116,28 +116,36 @@
     a <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> structure or as a symmetric square matrix. 
     In the latter case all other stages are skipped except random 
     starts and centring and pc rotation of axes.</p></dd>
-<dt>distance</dt>
+
+  <dt>distance</dt>
 <dd><p>Dissimilarity index used in <code><a href="vegdist.html">vegdist</a></code>.</p></dd>
-<dt>k</dt>
+
+  <dt>k</dt>
 <dd><p>Number of dimensions.  NB., the number of points \(n\)
     should be \(n &gt; 2k + 1\), and preferably higher in
     global non-metric MDS, and still higher in local NMDS.</p></dd>
-<dt>try, trymax</dt>
+
+  <dt>try, trymax</dt>
 <dd><p>Minimum and maximum numbers of random starts in
     search of stable solution. After <code>try</code> has been reached, the
     iteration will stop when similar solutions were repeated or
     <code>trymax</code> was reached.</p></dd>
-<dt>engine</dt>
+
+  <dt>engine</dt>
 <dd><p>The function used for MDS. The default is to use the
     <code><a href="monoMDS.html">monoMDS</a></code> function in <span class="pkg">vegan</span>, but for backward
     compatibility it is also possible to use <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> of
     <span class="pkg">MASS</span>.</p></dd>
-<dt>autotransform</dt>
+
+
+  <dt>autotransform</dt>
 <dd><p>Use simple heuristics for possible data
     transformation of typical community data (see below). If you do
     not have community data, you should probably set
     <code>autotransform = FALSE</code>.</p></dd>
-<dt>noshare</dt>
+
+
+  <dt>noshare</dt>
 <dd><p>Triggering of calculation step-across or extended
     dissimilarities with function <code><a href="stepacross.html">stepacross</a></code>. The
     argument can be logical or a numerical value greater than zero
@@ -150,66 +158,92 @@
     found with <code><a href="distconnected.html">no.shared</a></code> function, and <code>noshare</code>
     has no effect if input data were dissimilarities instead of
     community data.</p></dd>
-<dt>wascores</dt>
+
+
+  <dt>wascores</dt>
 <dd><p>Calculate species scores using function
     <code><a href="wascores.html">wascores</a></code>.</p></dd>
-<dt>expand</dt>
+
+  <dt>expand</dt>
 <dd><p>Expand weighted averages of species in
     <code><a href="wascores.html">wascores</a></code>.</p></dd>
-<dt>trace</dt>
+
+  <dt>trace</dt>
 <dd><p>Trace the function; <code>trace = 2</code> or higher will be
     more voluminous.</p></dd>
-<dt>plot</dt>
+
+  <dt>plot</dt>
 <dd><p>Graphical tracing: plot interim results. You may want to set
     <code>par(ask = TRUE)</code> with this option.</p></dd>
-<dt>previous.best</dt>
+
+  <dt>previous.best</dt>
 <dd><p>Start searches from a previous solution.</p></dd>
-<dt>x</dt>
+
+
+  <dt>x</dt>
 <dd><p><code>metaMDS</code> result (or a dissimilarity structure for
   <code>initMDS</code>).</p></dd>
-<dt>choices</dt>
+
+
+  <dt>choices</dt>
 <dd><p>Axes shown.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Plot type: <code>"p"</code> for points, <code>"t"</code> for text, and
    <code>"n"</code> for axes only.</p></dd>
-<dt>display</dt>
+
+ <dt>display</dt>
 <dd><p>Display <code>"sites"</code> or <code>"species"</code>.</p></dd>
-<dt>shrink</dt>
+
+ <dt>shrink</dt>
 <dd><p>Shrink back species scores if they were expanded
    originally.</p></dd>
-<dt>tidy</dt>
+
+ <dt>tidy</dt>
 <dd><p>Return scores that are compatible with <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>:
    all scores are in a single <code>data.frame</code>, score type is
    identified by factor variable <code>code</code> (<code>"sites"</code> or
    <code>"species"</code>), the names by variable <code>label</code>. These scores
    are incompatible with conventional <code>plot</code> functions, but they can
    be used in <span class="pkg">ggplot2</span>.</p></dd>
-<dt>labels</dt>
+
+ <dt>labels</dt>
 <dd><p>Optional test to be used instead of row names.</p></dd>
-<dt>select</dt>
+
+ <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
    vector which is <code>TRUE</code> for displayed items or a vector of indices
    of displayed items.</p></dd>
-<dt>X</dt>
+
+ <dt>X</dt>
 <dd><p>Configuration from multidimensional scaling.</p></dd>
-<dt>commname</dt>
+
+ <dt>commname</dt>
 <dd><p>The name of <code>comm</code>: should not be given if the
    function is called directly.</p></dd>
-<dt>zerodist</dt>
+
+
+ <dt>zerodist</dt>
 <dd><p>Handling of zero dissimilarities: either
    <code>"fail"</code> or <code>"add"</code> a small positive value, or
    <code>"ignore"</code>. <code><a href="monoMDS.html">monoMDS</a></code> accepts zero dissimilarities
    and the default is <code>zerodist = "ignore"</code>, but with
    <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> you may need to set <code>zerodist = "add"</code>.</p></dd>
-<dt>distfun</dt>
+
+
+ <dt>distfun</dt>
 <dd><p>Dissimilarity function. Any function returning a
    <code>dist</code> object and accepting argument <code>method</code> can be used
    (but some extra arguments may cause name conflicts).</p></dd>
-<dt>maxit</dt>
+
+
+ <dt>maxit</dt>
 <dd><p>Maximum number of iterations in the single NMDS run;
    passed to the <code>engine</code> function <code><a href="monoMDS.html">monoMDS</a></code> or
    <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.</p></dd>
-<dt>parallel</dt>
+
+
+ <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
    cluster.  If you use pre-defined socket clusters (say,
    <code>clus</code>), you must issue <code>clusterEvalQ(clus,
@@ -217,13 +251,19 @@
    functions. With <code>parallel = 1</code> uses ordinary, non-parallel
    processing. The parallel processing is done with <span class="pkg">parallel</span>
    package.</p></dd>
-<dt>dist</dt>
+
+
+ <dt>dist</dt>
 <dd><p>Dissimilarity matrix used in multidimensional scaling.</p></dd>
-<dt>pc</dt>
+
+  <dt>pc</dt>
 <dd><p>Rotate to principal components.</p></dd>
-<dt>center</dt>
+
+  <dt>center</dt>
 <dd><p>Centre the configuration.</p></dd>
-<dt>halfchange</dt>
+
+  
+ <dt>halfchange</dt>
 <dd><p>Scale axes to half-change units. This defaults
   <code>TRUE</code> when dissimilarities are known to have a theoretical
   maximum value (ceiling). Function <code>vegdist</code> will have that
@@ -232,20 +272,27 @@
   information may not available when input data are distances. If
   <code>FALSE</code>, the ordination dissimilarities are scaled to the same
   range as the input dissimilarities.</p></dd>
-<dt>threshold</dt>
+
+
+ <dt>threshold</dt>
 <dd><p>Largest dissimilarity used in half-change scaling. If
    dissimilarities have a known (or inferred) ceiling, <code>threshold</code>
    is relative to that ceiling (see <code>halfchange</code>).</p></dd>
-<dt>nthreshold</dt>
+
+
+ <dt>nthreshold</dt>
 <dd><p>Minimum number of points in half-change scaling.</p></dd>
-<dt>object</dt>
+
+ <dt>object</dt>
 <dd><p>A result object from <code>metaMDS</code>.</p></dd>
-<dt>...</dt>
+
+
+ <dt>...</dt>
 <dd><p>Other parameters passed to functions. Function
    <code>metaMDS</code> passes all arguments to its component functions
    <code>metaMDSdist</code>, <code>metaMDSiter</code>, <code>postMDS</code>, and to
    <code>distfun</code> and <code>engine</code>.</p></dd>
-</dl></div>
+  </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Non-metric Multidimensional Scaling (NMDS) is commonly
@@ -443,20 +490,26 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>metaMDS</code> returns an object of class
-<code>metaMDS</code>. The final site ordination is stored in the item
-<code>points</code>, and species ordination in the item <code>species</code>,
+    <p>Function <code>metaMDS</code> returns an object of class</p>
+<p></p>
+<p><code>metaMDS</code>. The final site ordination is stored in the item</p>
+<p></p>
+<p><code>points</code>, and species ordination in the item <code>species</code>,
   and the stress in item <code>stress</code> (NB, the scaling of the stress
   depends on the <code>engine</code>: <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> uses
   percents, and <code><a href="monoMDS.html">monoMDS</a></code> proportions in the range \(0
   \ldots 1\)). The other items store the information on the steps taken
-  and the items returned by the <code>engine</code> function. The object has
-<code>print</code>, <code>plot</code>, <code>points</code> and <code>text</code> methods.
-  Functions <code>metaMDSdist</code> and <code>metaMDSredist</code> return
-<code><a href="vegdist.html">vegdist</a></code> objects.  Function <code>initMDS</code> returns a
-  random configuration which is intended to be used within
-<code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> only.  Functions <code>metaMDSiter</code> and
-<code>postMDS</code> returns the result of NMDS with updated
+  and the items returned by the <code>engine</code> function. The object has</p>
+<p></p>
+<p><code>print</code>, <code>plot</code>, <code>points</code> and <code>text</code> methods.
+  Functions <code>metaMDSdist</code> and <code>metaMDSredist</code> return</p>
+<p></p>
+<p><code><a href="vegdist.html">vegdist</a></code> objects.  Function <code>initMDS</code> returns a
+  random configuration which is intended to be used within</p>
+<p></p>
+<p><code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> only.  Functions <code>metaMDSiter</code> and</p>
+<p></p>
+<p><code>postMDS</code> returns the result of NMDS with updated
   configuration.</p>
     </div>
     <div class="section level2">
@@ -530,50 +583,45 @@
 <span class="r-in"><span class="co"># Global NMDS using monoMDS</span></span>
 <span class="r-in"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu">metaMDS</span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 9.250499e-06  max resid 2.826197e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1183186 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.02027003  max resid 0.06496073 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1809578 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.02027099  max resid 0.06496514 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.467181e-06  max resid 2.06377e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.462141e-05  max resid 0.0001450164 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1192678 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.614773e-06  max resid 1.986445e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.460861e-06  max resid 3.055172e-06 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.299087e-06  max resid 2.446261e-06 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1183186 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.611987e-06  max resid 7.773519e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.57848e-05  max resid 4.968328e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1808911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1808911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 9.991527e-06  max resid 3.39754e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.044052e-05  max resid 6.754615e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2075713 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.102119e-06  max resid 1.291901e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.684143e-06  max resid 2.133651e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1812933 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.676064e-06  max resid 7.992553e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1812933 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 7.117184e-06  max resid 2.260637e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.2253072 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.468988e-06  max resid 1.23429e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.12334e-06  max resid 1.391241e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.348713e-06  max resid 1.688091e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 6 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1809577 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 2 times</span>
 <span class="r-in"><span class="va">sol</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -587,8 +635,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimensions: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress:     0.1183186 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress type 1, weak ties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 6 time(s) in 20 tries</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution was from random start, try 10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 2 time(s) in 20 tries</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution was from random start, try 12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling: centring, PC rotation, halfchange scaling </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species: expanded scores based on ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -599,105 +647,111 @@
 <span class="r-in"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu">metaMDS</span><span class="op">(</span><span class="va">dune</span>, previous.best <span class="op">=</span> <span class="va">sol</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Starting from 2-dimensional configuration</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1980521 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.793302e-06  max resid 8.313754e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.863943e-05  max resid 9.657147e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.617332e-06  max resid 1.321727e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1808911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.186663e-06  max resid 1.982706e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 7.877586e-06  max resid 2.446649e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 8.479991e-07  max resid 1.744411e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1192678 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 9.397071e-06  max resid 2.980417e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.896058e-06  max resid 5.297003e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1192678 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1980521 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.71434e-06  max resid 5.062048e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1808911 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1808911 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.587194e-06  max resid 1.466584e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.110077e-06  max resid 2.373498e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.119268 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.884213e-05  max resid 4.237328e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 11 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1812933 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1808911 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2361935 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 3 times</span>
 <span class="r-in"><span class="co">## Local NMDS and stress 2 of monoMDS</span></span>
 <span class="r-in"><span class="va">sol2</span> <span class="op">&lt;-</span> <span class="fu">metaMDS</span><span class="op">(</span><span class="va">dune</span>, model <span class="op">=</span> <span class="st">"local"</span>, stress<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1928478 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1928486 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000737423  max resid 0.002144478 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1928477 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0003693886  max resid 0.001067133 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.852838e-05  max resid 0.0001527273 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1928477 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000430176  max resid 0.001233661 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1928477 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.534702e-05  max resid 4.826267e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1928475 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 8.866049e-05  max resid 0.0002591923 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001361923  max resid 0.0004011339 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1928479 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000282694  max resid 0.0008351469 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1928477 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001693686  max resid 0.0004994727 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1928475 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 7.23685e-05  max resid 0.0001927037 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001809131  max resid 0.0004990484 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1928476 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001687896  max resid 0.0004914149 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.192848 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0004115867  max resid 0.00119379 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1928477 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001563766  max resid 0.0004723824 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1928483 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0004804561  max resid 0.001388269 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1928475 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 9.368659e-06  max resid 2.372688e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002141777  max resid 0.0006008529 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1928484 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0004053477  max resid 0.001187672 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1928477 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000249554  max resid 0.0007016928 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.192848 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000304537  max resid 0.0008866311 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1928477 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001788132  max resid 0.0005226487 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1928483 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0004756653  max resid 0.001357567 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1928478 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.00026027  max resid 0.0007493864 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0003191843  max resid 0.0009266902 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.192848 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002932057  max resid 0.0008550621 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1928479 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002728493  max resid 0.0008116056 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1928476 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.000228879  max resid 0.0006516992 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1928475 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.832779e-05  max resid 5.128389e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1928476 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002202879  max resid 0.0006227584 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1928477 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001724314  max resid 0.0005056205 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1928475 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.657353e-05  max resid 0.0001637495 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.210657e-05  max resid 9.597264e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1928484 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0004110564  max resid 0.00117989 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.921293e-05  max resid 0.0001524027 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 2 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.192848 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002187005  max resid 0.0006172961 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1928478 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002301623  max resid 0.0006730702 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1928478 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0002407019  max resid 0.0006966209 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1928475 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.896136e-06  max resid 1.048493e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1928482 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0003829188  max resid 0.001127766 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1928476 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0001868366  max resid 0.000524051 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 7 times</span>
 <span class="r-in"><span class="va">sol2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -711,8 +765,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimensions: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress:     0.1928475 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress type 2, weak ties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 2 time(s) in 20 tries</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution was from random start, try 19 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 7 time(s) in 20 tries</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution was from random start, try 14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling: centring, PC rotation, halfchange scaling </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species: expanded scores based on ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -720,41 +774,41 @@
 <span class="r-in"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu">metaMDS</span><span class="op">(</span><span class="va">dune</span>, distfun <span class="op">=</span> <span class="va">betadiver</span>, distance <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> assuming that theoretical maximum distance is 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1069785 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.006749258  max resid 0.0237556 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1712445 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1073148 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.107471 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2130618 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.107471 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1067169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.724165e-06  max resid 1.282806e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1067169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.79439e-06  max resid 1.380437e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1073148 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.107471 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1657251 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.49717e-06  max resid 3.236156e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1921419 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1067169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.68408e-06  max resid 1.526038e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 8.664017e-06  max resid 2.102346e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.161117 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1069788 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.006829144  max resid 0.02411478 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.061106e-05  max resid 2.941609e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.905404e-06  max resid 7.745531e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.404466e-05  max resid 4.144898e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1073148 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1067169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.491382e-06  max resid 1.704535e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1822664 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1073148 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.908079e-06  max resid 3.818394e-06 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1069787 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.006810376  max resid 0.02403018 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1736425 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.107471 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.107471 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1073148 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.107471 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.107471 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.107471 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1067169 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.642408e-06  max resid 1.946545e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1073148 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1067169 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 3.736706e-06  max resid 9.624777e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1073148 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 6 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 1 times</span>
 <span class="r-in"><span class="va">sol</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -768,8 +822,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimensions: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress:     0.1067169 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Stress type 1, weak ties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 6 time(s) in 20 tries</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution started from metric scaling (try 0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Best solution was repeated 1 time(s) in 20 tries</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The best solution was from random start, try 20 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling: centring, PC rotation, halfchange scaling </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species: expanded scores based on ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -784,7 +838,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -71,18 +71,26 @@
     <dl><dt>object</dt>
 <dd><p>A result object from <code><a href="metaMDS.html">metaMDS</a></code> or
     <code><a href="monoMDS.html">monoMDS</a></code>.</p></dd>
-<dt>vec</dt>
+
+
+  <dt>vec</dt>
 <dd><p>An environmental variable or a matrix of such
     variables. The number of variables must be lower than the number
     of dimensions, and the solution is rotated to these variables in
     the order they appear in the matrix. Alternatively <code>vec</code> can
     be a factor, and the solution is rotated to optimal separation of
     factor levels using <code><a href="https://rdrr.io/pkg/MASS/man/lda.html" class="external-link">lda</a></code>.</p></dd>
-<dt>na.rm</dt>
+
+
+  <dt>na.rm</dt>
 <dd><p>Remove missing values from the continuous variable
     <code>vec</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other arguments (ignored).</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -115,8 +123,9 @@
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Function returns the original ordination result, but with
-  rotated scores (both site and species if available), and the
-<code>pc</code> attribute of scores set to <code>FALSE</code>.</p>
+  rotated scores (both site and species if available), and the</p>
+<p></p>
+<p><code>pc</code> attribute of scores set to <code>FALSE</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -153,7 +162,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ poly(x1, 1) + poly(x2, 1)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total model degrees of freedom 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: -2.736104     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: -2.736067     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -165,7 +174,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

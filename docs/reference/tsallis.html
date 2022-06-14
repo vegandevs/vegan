@@ -65,37 +65,56 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data matrix or plotting object.</p></dd>
-<dt>scales</dt>
+
+  <dt>scales</dt>
 <dd><p>Scales of Tsallis diversity.</p></dd>
-<dt>norm</dt>
+
+
+  <dt>norm</dt>
 <dd><p>Logical, if <code>TRUE</code> diversity values are normalized
     by their maximum (diversity value at equiprobability conditions).</p></dd>
-<dt>hill</dt>
+
+
+  <dt>hill</dt>
 <dd><p>Calculate Hill numbers.</p></dd>
-<dt>permutations</dt>
+
+
+  <dt>permutations</dt>
 <dd><p>Usually an integer giving the number
     permutations, but can also be a list of control values for the
     permutations as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, 
     or a permutation matrix where each row gives the permuted indices.</p></dd>
-<dt>raw</dt>
+
+
+  <dt>raw</dt>
 <dd><p>If <code>FALSE</code> then return summary statistics of
     permutations, and if TRUE then returns the individual
     permutations.</p></dd>
-<dt>subset</dt>
+
+
+  <dt>subset</dt>
 <dd><p>logical expression indicating sites (rows) to keep:
     missing values are taken as <code>FALSE</code>.</p></dd>
-<dt>theta, phi</dt>
+
+
+  <dt>theta, phi</dt>
 <dd><p>angles defining the viewing
     direction. <code>theta</code> gives the azimuthal direction and
     <code>phi</code> the colatitude.</p></dd>
-<dt>col</dt>
+
+  
+  <dt>col</dt>
 <dd><p>Colours used for surface.</p></dd>
-<dt>zlim</dt>
+  <dt>zlim</dt>
 <dd><p>Limits of
   vertical axis.</p></dd>
-<dt>...</dt>
+  
+
+  <dt>...</dt>
 <dd><p>Other arguments which are passed to <code>tsallis</code> and
     to graphical functions.</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -123,8 +142,13 @@ the help pages of the functions <code><a href="renyi.html">renyi</a></code> and
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>tsallis</code> returns a data frame of selected
-indices. Function <code>tsallisaccum</code> with argument <code>raw = FALSE</code>returns a three-dimensional array, where the first dimension are the
+     
+
+<p>Function <code>tsallis</code> returns a data frame of selected
+indices. Function <code>tsallisaccum</code> with argument <code>raw = FALSE</code></p>
+
+
+<p>returns a three-dimensional array, where the first dimension are the
 accumulated sites, second dimension are the diversity scales, and
 third dimension are the summary statistics <code>mean</code>, <code>stdev</code>,
 <code>min</code>, <code>max</code>, <code>Qnt 0.025</code> and <code>Qnt 0.975</code>. With
@@ -248,7 +272,7 @@ of class <code>tsallisaccum</code> can be displayed with dynamic 3D function
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

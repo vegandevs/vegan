@@ -82,37 +82,49 @@
     <dl><dt>x</dt>
 <dd><p>Data frame or matrix with species data or the analysis result 
     for <code>plot</code> function.</p></dd>
-<dt>pool</dt>
+
+  <dt>pool</dt>
 <dd><p>A vector giving a classification for pooling the sites in
     the species data. If missing, all sites are pooled together.</p></dd>
-<dt>smallsample</dt>
+
+  <dt>smallsample</dt>
 <dd><p>Use small sample correction \((N-1)/N\), where
     \(N\) is the number of sites within the <code>pool</code>.</p></dd>
-<dt>X, object</dt>
+
+  <dt>X, object</dt>
 <dd><p>A <code>specpool</code> result object.</p></dd>
-<dt>index</dt>
+
+  <dt>index</dt>
 <dd><p>The selected index of extrapolated richness.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>Usually an integer giving the number
     permutations, but can also be a list of control values for the
     permutations as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, 
     or a permutation matrix where each row gives the permuted indices.</p></dd>
-<dt>minsize</dt>
+
+  <dt>minsize</dt>
 <dd><p>Smallest number of sampling units reported.</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Indices to be displayed.</p></dd>
-<dt>alpha</dt>
+
+  <dt>alpha</dt>
 <dd><p>Level of quantiles shown. This proportion will be left outside
     symmetric limits.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of graph produced in <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters (not used).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -182,11 +194,18 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>specpool</code> returns a data frame with entries for
-  observed richness and each of the indices for each class in
-<code>pool</code> vector.  The utility function <code>specpool2vect</code> maps
-  the pooled values into a vector giving the value of selected
-<code>index</code> for each original site. Function <code>estimateR</code>  returns the estimates and their standard errors for each
+    
+
+<p>Function <code>specpool</code> returns a data frame with entries for
+  observed richness and each of the indices for each class in</p>
+<p></p>
+<p><code>pool</code> vector.  The utility function <code>specpool2vect</code> maps
+  the pooled values into a vector giving the value of selected</p>
+<p></p>
+<p><code>index</code> for each original site. Function <code>estimateR</code></p>
+
+
+<p>returns the estimates and their standard errors for each
   site. Functions <code>poolaccum</code> and <code>estimateR</code> return
   matrices of permutation results for each richness estimator, the
   vector of sample sizes and a table of <code>means</code> of permutations
@@ -330,7 +349,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -91,12 +91,16 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>ord</dt>
 <dd><p>An ordination object or an <code><a href="ordiplot.html">ordiplot</a></code> object.</p></dd>
-<dt>groups</dt>
+
+  <dt>groups</dt>
 <dd><p>Factor giving the groups for which the graphical item is
     drawn.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Item to displayed.</p></dd>
-<dt>draw</dt>
+
+
+  <dt>draw</dt>
 <dd><p>character; how should objects be represented on the plot?
     For <code>ordihull</code> and <code>ordiellipse</code> use either
     <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> or <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code> to draw the
@@ -106,7 +110,9 @@
     difference is that <code>polygon</code>s may be filled and
     non-transparent. With <code>none</code> nothing is drawn, but the function
     returns the <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code> plotting.</p></dd>
-<dt>col</dt>
+
+
+  <dt>col</dt>
 <dd><p>Colour of hull or ellipse lines (if <code>draw = "lines"</code>)
     or their fills (if <code>draw = "polygon"</code>) in <code>ordihull</code> and
     <code>ordiellipse</code>.  When <code>draw = "polygon"</code>, the colour of
@@ -119,75 +125,108 @@
     no <code>groups</code>, and there the argument will be recycled for
     points, and the colour of connecting lines is a mixture of point
     s in the cluster.</p></dd>
-<dt>alpha</dt>
+
+
+  <dt>alpha</dt>
 <dd><p>Transparency of the fill <code>col</code>our with <code>draw
     = "polygon"</code> in <code>ordihull</code> and <code>ordiellipse</code>.  The
     argument takes precedence over possible transparency definitions
     of the colour. The value must be in range \(0...255\), and low
     values are more transparent.  Transparency is not available in all
     graphics devices or file formats.</p></dd>
-<dt>show.groups</dt>
+
+
+  <dt>show.groups</dt>
 <dd><p>Show only given groups. This can be a vector, or
     <code>TRUE</code> if you want to show items for which condition is
     <code>TRUE</code>. This argument makes it possible to use different
     colours and line types for groups. The default is to show all groups.</p></dd>
-<dt>label</dt>
+
+
+  <dt>label</dt>
 <dd><p>Label the <code>groups</code> by their names in the centroid
     of the object. <code>ordiellipse</code> and <code>ordihull</code> use standard
     <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>, and others use <code><a href="ordilabel.html">ordilabel</a></code>.</p></dd>
-<dt>w</dt>
+
+
+  <dt>w</dt>
 <dd><p>Weights used to find the average within group. Weights are
     used automatically for <code><a href="cca.html">cca</a></code>
     and <code><a href="decorana.html">decorana</a></code> results, unless undone by the
     user. <code>w=NULL</code> sets equal weights to all points.</p></dd>
-<dt>kind</dt>
+
+
+  <dt>kind</dt>
 <dd><p>Draw standard deviations of points (<code>sd</code>), standard
     errors (<code>se</code>) or ellipsoid hulls that enclose all points in
     the group (<code>ehull</code>).</p></dd>
-<dt>conf</dt>
+
+
+  <dt>conf</dt>
 <dd><p>Confidence limit for ellipses, e.g. 0.95. If given, the
     corresponding <code>sd</code> or <code>se</code> is multiplied with the
     corresponding value found from the Chi-squared distribution with
     2df.</p></dd>
-<dt>spiders</dt>
+
+
+  <dt>spiders</dt>
 <dd><p>Are centres or spider bodies calculated either as
     centroids (averages) or spatial medians.</p></dd>
-<dt>cluster</dt>
+
+
+  <dt>cluster</dt>
 <dd><p>Result of hierarchic cluster analysis, such as
     <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code> or <code><a href="https://rdrr.io/pkg/cluster/man/agnes.html" class="external-link">agnes</a></code>.</p></dd>
-<dt>prune</dt>
+
+
+  <dt>prune</dt>
 <dd><p>Number of upper level hierarchies removed from the
     dendrogram. If <code>prune</code> \(&gt;0\), dendrogram will be
     disconnected.</p></dd>
-<dt>object</dt>
+
+
+  <dt>object</dt>
 <dd><p>A result object from <code>ordihull</code> or
     <code>ordiellipse</code>. The result is <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code>, but it
     can be saved, and used for summaries (areas etc. of hulls and
     ellipses).</p></dd>
-<dt>area</dt>
+
+
+  <dt>area</dt>
 <dd><p>Evaluate the area of convex hulls of <code>ordihull</code>, or of
     ellipses of <code>ordiellipse</code>.</p></dd>
-<dt>permutations</dt>
+
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>parallel</dt>
+
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
-<dt>lty, lwd, border</dt>
+
+
+  <dt>lty, lwd, border</dt>
 <dd><p>Vectors of these parameters can be supplied
     and will be applied (if appropriate) for each element of
     <code>names(table(groups))</code> (in that order). Shorter vectors will be
     recycled.</p></dd>
-<dt>length</dt>
+
+
+  <dt>length</dt>
 <dd><p>Width (in inches) of the small (“caps”) at the
     ends of the bar segment (passed to <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code>).</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Parameters passed to graphical functions or to
     <code><a href="scores.html">scores</a></code> to select axes and scaling etc.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -247,14 +286,27 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Functions <code>ordihull</code>, <code>ordiellipse</code> and <code>ordispider</code>  return the <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code> plotting structure.
-  Function <code>ordispider</code> return the coordinates to which each
-  point is connected (centroids or ‘LC’ scores).
-  Function <code>ordihull</code> and <code>ordiellipse</code> return invisibly an
+    
+
+
+<p>Functions <code>ordihull</code>, <code>ordiellipse</code> and <code>ordispider</code></p>
+
+
+<p>return the <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code> plotting structure.</p>
+
+
+<p>Function <code>ordispider</code> return the coordinates to which each
+  point is connected (centroids or ‘LC’ scores).</p>
+
+
+<p>Function <code>ordihull</code> and <code>ordiellipse</code> return invisibly an
   object that has a <code>summary</code> method that returns the coordinates
-  of centroids and areas of the hulls or ellipses. Function
-<code>ordiareatest</code> studies the one-sided hypothesis that these
+  of centroids and areas of the hulls or ellipses. Function</p>
+<p></p>
+<p><code>ordiareatest</code> studies the one-sided hypothesis that these
   areas are smaller than with randomized <code>groups</code>.</p>
+
+
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -332,7 +384,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

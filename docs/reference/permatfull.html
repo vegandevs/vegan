@@ -96,53 +96,68 @@ Details section.</p>
     <dl><dt>m</dt>
 <dd><p>A community data matrix with plots (samples) as rows and
     species (taxa) as columns.</p></dd>
-<dt>fixedmar</dt>
+ 
+  <dt>fixedmar</dt>
 <dd><p>character, stating which of the row/column sums should
     be preserved (<code>"none", "rows", "columns", "both"</code>).</p></dd>
-<dt>strata</dt>
+ 
+  <dt>strata</dt>
 <dd><p>Numeric vector or factor with length same as
     <code>nrow(m)</code> for grouping rows within strata for restricted
     permutations. Unique values or levels are used.</p></dd>
-<dt>mtype</dt>
+ 
+  <dt>mtype</dt>
 <dd><p>Matrix data type, either <code>"count"</code> for count data,
     or <code>"prab"</code> for presence-absence type incidence data.</p></dd>
-<dt>times</dt>
+ 
+  <dt>times</dt>
 <dd><p>Number of permuted matrices.</p></dd>
-<dt>method</dt>
+ 
+  <dt>method</dt>
 <dd><p>Character for method used for the swap algorithm
     (<code>"swap"</code>, <code>"tswap"</code>, <code>"quasiswap"</code>,
     <code>"backtrack"</code>) as described for function
     <code><a href="commsim.html">make.commsim</a></code>. If <code>mtype="count"</code> the
     <code>"quasiswap"</code>, <code>"swap"</code>, <code>"swsh"</code> and
     <code>"abuswap"</code> methods are available (see details).</p></dd>
-<dt>shuffle</dt>
+ 
+  <dt>shuffle</dt>
 <dd><p>Character, indicating whether individuals
     (<code>"ind"</code>), samples (<code>"samp"</code>) or both (<code>"both"</code>)
     should be shuffled, see details.</p></dd>
-<dt>burnin</dt>
+ 
+  <dt>burnin</dt>
 <dd><p>Number of null communities discarded before proper
     analysis in sequential (<code>"swap", "tswap"</code>) methods.</p></dd>
-<dt>thin</dt>
+ 
+  <dt>thin</dt>
 <dd><p>Number of discarded permuted matrices between two
     evaluations in sequential (<code>"swap", "tswap"</code>) methods.</p></dd>
-<dt>x, object</dt>
+ 
+  <dt>x, object</dt>
 <dd><p>Object of class <code>"permat"</code></p></dd>
-<dt>digits</dt>
+ 
+  <dt>digits</dt>
 <dd><p>Number of digits used for rounding.</p></dd>
-<dt>ylab, xlab, col, lty</dt>
+
+  <dt>ylab, xlab, col, lty</dt>
 <dd><p>graphical parameters for the <code>plot</code>
     method.</p></dd>
-<dt>type</dt>
+ 
+  <dt>type</dt>
 <dd><p>Character, type of plot to be displayed: <code>"bray"</code> for
     Bray-Curtis dissimilarities, <code>"chisq"</code> for Chi-squared values.</p></dd>
-<dt>lowess, plot, text</dt>
+ 
+  <dt>lowess, plot, text</dt>
 <dd><p>Logical arguments for the <code>plot</code>
     method, whether a locally weighted regression curve should be drawn,
     the plot should be drawn, and statistic values should be printed on
     the plot.</p></dd>
-<dt>...</dt>
+ 
+  <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="nullmodel.html">simulate.nullmodel</a></code> 
     or methods.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -252,15 +267,25 @@ Details section.</p>
     <p>Functions <code>permatfull</code> and <code>permatswap</code> return an
   object of class <code>"permat"</code> containing the the function call
   (<code>call</code>), the original data matrix used for permutations
-  (<code>orig</code>) and a list of permuted matrices with length <code>times</code>  (<code>perm</code>).
-  The <code>summary</code> method returns various statistics as a list
+  (<code>orig</code>) and a list of permuted matrices with length <code>times</code></p>
+
+
+<p>(<code>perm</code>).</p>
+
+
+<p>The <code>summary</code> method returns various statistics as a list
   (including mean Bray-Curtis dissimilarities calculated pairwise among
   original and permuted matrices, Chi-square statistics, and check
-  results of the constraints; see Examples). Note that when
-<code>strata</code> is used in the original call, summary calculation may
-  take longer.
-  The <code>plot</code> creates a plot as a side effect.
-  The <code>as.ts</code> method returns an object of class <code>"ts"</code>.</p>
+  results of the constraints; see Examples). Note that when</p>
+<p></p>
+<p><code>strata</code> is used in the original call, summary calculation may
+  take longer.</p>
+
+
+<p>The <code>plot</code> creates a plot as a side effect.</p>
+
+
+<p>The <code>as.ts</code> method returns an object of class <code>"ts"</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -505,7 +530,7 @@ Details section.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

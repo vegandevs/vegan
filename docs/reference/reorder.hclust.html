@@ -89,19 +89,25 @@ Function takes a hierarchical clustering tree from
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x, tree</dt>
 <dd><p>hierarchical clustering from <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code>.</p></dd>
-<dt>wts</dt>
+
+  <dt>wts</dt>
 <dd><p>numeric vector for reordering.</p></dd>
-<dt>agglo.FUN</dt>
+
+  <dt>agglo.FUN</dt>
 <dd><p>a function for weights agglomeration, see below.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>return <code>"internal"</code> nodes or <code>"terminal"</code> nodes (also
   called <code>"leaves"</code>).</p></dd>
+
 <dt>k, h</dt>
 <dd><p>scalars or vectors giving the numbers of desired groups or the heights
   where the tree should be cut (passed to function
   <code><a href="https://rdrr.io/r/stats/cutree.html" class="external-link">cutree</a></code>).</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>additional arguments (ignored).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -133,8 +139,11 @@ Function takes a hierarchical clustering tree from
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Reordered <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code> result object with added item
-<code>value</code> that gives the value of the statistic at each merge
+    
+
+<p>Reordered <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code> result object with added item</p>
+<p></p>
+<p><code>value</code> that gives the value of the statistic at each merge
   level.</p>
     </div>
     <div class="section level2">
@@ -188,7 +197,7 @@ Function takes a hierarchical clustering tree from
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

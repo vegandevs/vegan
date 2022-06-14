@@ -71,14 +71,17 @@ section 13.3.4).</p>
     <dl><dt>mat</dt>
 <dd><p>Data frame or matrix containing a community composition
     data table (species presence-absence or abundance data).</p></dd>
-<dt>PAonly</dt>
+
+  <dt>PAonly</dt>
 <dd><p><code>FALSE</code> if the four types of coefficients, DD1 to
     DD4, are requested; <code>TRUE</code> if <code>DD1</code> and <code>DD2</code> only are
     sought (see Details).</p></dd>
-<dt>abc</dt>
+
+  <dt>abc</dt>
 <dd><p>If <code>TRUE</code>, return tables <code>a</code>, <code>b</code> and <code>c</code>
     used in <code>DD1</code> and <code>DD2</code>.</p></dd>
-</dl></div>
+
+  </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The signs of the DD coefficients indicate the 
@@ -104,31 +107,41 @@ and DD2 only are sought.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>bgdispersal</code> returns a list containing the following matrices:</p>
+    
+
+<p>Function <code>bgdispersal</code> returns a list containing the following matrices:</p>
 <dl><dt> DD1 </dt>
 <dd><p>\(DD1_{j,k} = (a(b - c))/((a + b + c)^2)\)</p></dd>
+
 <dt> DD2 </dt>
 <dd><p>\(DD2_{j,k} = (2 a (b - c))/((2a + b + c)  (a + b +
     c))\)
   where \(a\), \(b\), and \(c\) have the 
 same meaning as in the computation of binary 
 similarity coefficients.</p></dd>
+
 <dt> DD3 </dt>
 <dd><p>\(DD3_{j,k} = {W(A-B) / (A+B-W)^2} \)</p></dd>
+
 <dt> DD4 </dt>
 <dd><p>\(DD4_{j,k} = 2W(A-B) / ((A+B)(A+B-W))\)
 where <code>W = sum(pmin(vector1, vector2))</code>, <code>A = sum(vector1)</code>,
 <code>B = sum(vector2)</code></p></dd>
+
+
 <dt> McNemar </dt>
 <dd><p>McNemar chi-square statistic of asymmetry (Sokal and
   Rohlf 1995):
   \(2(b \log(b) + c \log(c) - (b+c) \log((b+c)/2)) / q\),
   where \(q = 1 + 1/(2(b+c))\)
   (Williams correction for continuity)</p></dd>
+
 <dt> prob.McNemar </dt>
 <dd><p>probabilities associated 
 with McNemar statistics, chi-square test. H0: no 
 asymmetry in \((b-c)\).</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -217,7 +230,7 @@ asymmetry in \((b-c)\).</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

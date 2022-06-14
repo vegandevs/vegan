@@ -77,34 +77,43 @@
     <dl><dt>x</dt>
 <dd><p>An ordination result that <code><a href="scores.html">scores</a></code> knows: any
     ordination result in <span class="pkg">vegan</span> and many others.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>Optional data to amend ordination results. The ordination
     results are found from <code>x</code>, but you may give here data for other
     variables needed in plots. Typically these are environmental data.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>Formula to define the plots. A default formula will be
     used if this is omitted. The
     ordination axes must be called by the same names as in the
     ordination results (and these names vary among methods). In
     <code>ordisplom</code>, special character <code>.</code> refers to the
     ordination result.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>The kind of scores: an argument passed to
     <code><a href="scores.html">scores</a></code>.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>The axes selected: an argument passed to
     <code><a href="scores.html">scores</a></code>.</p></dd>
-<dt>panel, prepanel</dt>
+ 
+  <dt>panel, prepanel</dt>
 <dd><p>The names of the panel and prepanel
     functions.</p></dd>
-<dt>aspect</dt>
+ 
+  <dt>aspect</dt>
 <dd><p>The aspect of the plot (passed to the <span class="pkg">lattice</span>
     function).</p></dd>
-<dt>envfit</dt>
+
+  <dt>envfit</dt>
 <dd><p>Result of <code><a href="envfit.html">envfit</a></code> function displayed in
     <code>ordixyplot</code>. Please note that this needs same <code>choices</code>
     as <code>ordixyplot</code>.</p></dd>
-<dt>type</dt>
+
+
+  <dt>type</dt>
 <dd><p>The type of plot. This knows the same alternatives as
     <code><a href="https://rdrr.io/pkg/lattice/man/panel.xyplot.html" class="external-link">panel.xyplot</a></code>. In addition <code>ordixyplot</code>
     has alternatives <code>"biplot"</code>, <code>"arrows"</code> and
@@ -122,9 +131,12 @@
     overall polygon is controlled by
     <code><a href="https://rdrr.io/pkg/lattice/man/trellis.par.get.html" class="external-link">trellis.par.set</a></code> for <code>plot.polygon</code>,
     and each panel polygon is controlled by <code>superpose.polygon</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Arguments passed to <code><a href="scores.html">scores</a></code> methods or
     <span class="pkg">lattice</span> functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -166,8 +178,11 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function return <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> objects of class
-<code>"trellis"</code>.</p>
+    
+
+<p>The function return <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> objects of class</p>
+<p></p>
+<p><code>"trellis"</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -225,7 +240,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

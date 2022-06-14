@@ -76,20 +76,30 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">scores</span><span class="op">(</span><span class="va">x</span>, <span class="va">choices</span>, display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">scores</span><span class="op">(</span><span class="va">x</span>, <span class="va">choices</span>,
+    display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span>, <span class="st">"both"</span><span class="op">)</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>An ordination result.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>Ordination axes.  If missing, default method returns all axes.</p></dd>
-<dt>display</dt>
-<dd><p>Partial match to access scores for <code>sites</code> or
-    <code>species</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>display</dt>
+<dd><p>Partial match to access scores for <code>"sites"</code> or
+    <code>"species"</code> of for <code>"both"</code>.</p></dd>
+
+  <dt>tidy</dt>
+<dd><p>Return <code>"both"</code> scores in data frame that is
+    compatible with <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>, with variable <code>score</code>
+    labelling the scores as <code>"sites"</code> or <code>"species"</code>.</p></dd>
+ 
+  <dt>...</dt>
 <dd><p>Other parameters (unused).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -122,7 +132,12 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a matrix of scores.</p>
+    
+
+<p>The function returns a matrix of scores if one type is requested, or a
+  named list of matrices if <code>display = "both"</code>, or a</p>
+<p></p>
+<p><a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> compatible data frame if <code>tidy = TRUE</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -182,7 +197,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

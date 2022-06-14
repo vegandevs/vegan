@@ -68,33 +68,40 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>comm</dt>
 <dd><p>Community data.</p></dd>
-<dt>dis</dt>
+
+  <dt>dis</dt>
 <dd><p>Taxonomic distances among taxa in <code>comm</code>. This should
     be a <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> object or a symmetric square matrix.</p></dd>
-<dt>match.force</dt>
+
+  <dt>match.force</dt>
 <dd><p>Force matching of column names in <code>comm</code> and
     labels in <code>dis</code>. If <code>FALSE</code>, matching only happens when
     dimensions differ, and in that case the species must be in identical
     order in both.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>Classification table with a row for each species or other
     basic taxon, and columns
     for identifiers of its classification at higher levels.</p></dd>
-<dt>varstep</dt>
+
+  <dt>varstep</dt>
 <dd><p>Vary step lengths between successive levels
     relative to proportional loss of the number of distinct classes.</p></dd>
-<dt>check</dt>
+
+  <dt>check</dt>
 <dd><p>If <code>TRUE</code>, remove all redundant levels which are
     different for all rows or constant for all rows and regard each row
     as a different basal taxon (species). If <code>FALSE</code> all
     levels are retained and basal taxa (species) also must be coded as
     variables (columns). You will get a warning if species are not
     coded, but you can ignore this if that was your intention.</p></dd>
-<dt>labels</dt>
+
+  <dt>labels</dt>
 <dd><p>The <code>labels</code> attribute of taxonomic distances. Row
     names will be used if this is not given. Species will be matched by
     these labels in <code>comm</code> and <code>dis</code> in <code>taxondive</code> if
     these have different dimensions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -134,18 +141,25 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function returns an object of class <code>taxondive</code> with following items:</p>
+    
+
+<p>Function returns an object of class <code>taxondive</code> with following items:</p>
 <dl><dt>Species </dt>
 <dd><p>Number of species for each site.</p></dd>
-<dt>D, Dstar, Dplus, SDplus, Lambda</dt>
+
+  <dt>D, Dstar, Dplus, SDplus, Lambda</dt>
 <dd><p>\(\Delta\), \(\Delta^*\),
     \(\Delta^+\),  \(s\Delta^+\) and \(\Lambda^+\) 
     for each site.</p></dd>
-<dt>sd.Dplus</dt>
+
+  <dt>sd.Dplus</dt>
 <dd><p>Standard deviation of \(\Delta^+\).</p></dd>
-<dt>ED, EDstar, EDplus</dt>
+
+  <dt>ED, EDstar, EDplus</dt>
 <dd><p>Expected values of corresponding
     statistics.</p></dd>
+
+
 </dl><p>Function <code>taxa2dist</code> returns an object of class <code>"dist"</code>, with
   an attribute <code>"steps"</code> for the step lengths between successive levels.</p>
     </div>
@@ -250,7 +264,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

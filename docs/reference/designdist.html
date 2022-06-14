@@ -97,7 +97,8 @@ Function designdist lets you define your own dissimilarities
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Input data.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Equation for your dissimilarities. This can use terms
     <code>J</code> for shared quantity, <code>A</code> and <code>B</code> for totals,
     <code>N</code> for the number of rows (sites) and <code>P</code> for the
@@ -105,7 +106,8 @@ Function designdist lets you define your own dissimilarities
     <code>U</code> and <code>V</code>. The equation can also contain any <span style="R">R</span>
     functions that accepts vector arguments and returns vectors of the
     same length.</p></dd>
-<dt>terms</dt>
+
+  <dt>terms</dt>
 <dd><p>How shared and total components are found. For vectors
     <code>x</code> and <code>y</code> the  <code>"quadratic"</code> terms are <code>J = sum(x*y)</code>,
     <code>A = sum(x^2)</code>, <code>B = sum(y^2)</code>, and <code>"minimum"</code> terms
@@ -113,21 +115,25 @@ Function designdist lets you define your own dissimilarities
     and <code>"binary"</code> terms are either of these after transforming
     data into binary form (shared number of species, and number of
     species for each row).</p></dd>
-<dt>abcd</dt>
+
+  <dt>abcd</dt>
 <dd><p>Use 2x2 contingency table notation for binary data:
     \(a\) is the number of shared species, \(b\) and \(c\) are the
     numbers of species occurring only one of the sites but not in both,
     and \(d\) is the number of species that occur on neither of the sites.</p></dd>
-<dt>alphagamma</dt>
+
+  <dt>alphagamma</dt>
 <dd><p>Use beta diversity notation with terms
     <code>alpha</code> for average alpha diversity for compared sites,
     <code>gamma</code> for diversity in pooled sites, and <code>delta</code> for the
     absolute value of difference of average <code>alpha</code> and alpha
     diversities of compared sites. Terms <code>A</code> and
     <code>B</code> refer to alpha diversities of compared sites.</p></dd>
-<dt>name</dt>
+
+  <dt>name</dt>
 <dd><p>The name you want to use for your index. The default is to
     combine the <code>method</code> equation and <code>terms</code> argument.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -170,7 +176,8 @@ Function designdist lets you define your own dissimilarities
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>designdist</code> returns an object of class <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.</p>
+    <p></p>
+<p><code>designdist</code> returns an object of class <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -244,7 +251,7 @@ Function designdist lets you define your own dissimilarities
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

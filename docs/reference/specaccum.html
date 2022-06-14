@@ -84,7 +84,8 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>comm</dt>
 <dd><p>Community data set.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Species accumulation method (partial match). Method
     <code>"collector"</code>
     adds sites in the order they happen to be in the data,
@@ -93,75 +94,104 @@
     expected richness following
     Coleman et al. 1982, and <code>"rarefaction"</code> finds the mean when
     accumulating individuals instead of sites.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>Number of permutations with <code>method = "random"</code>.
     Usually an integer giving the number permutations, but can also be a
     list of control values for the permutations as returned by the
     function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or a permutation matrix where
     each row gives the permuted indices.</p></dd>
-<dt>conditioned</dt>
+
+  <dt>conditioned</dt>
 <dd><p>Estimation of standard deviation is conditional on
     the empirical dataset for the exact SAC</p></dd>
-<dt>gamma</dt>
+
+  <dt>gamma</dt>
 <dd><p>Method for estimating the total extrapolated number of species in the
     survey area by function <code><a href="specpool.html">specpool</a></code></p></dd>
-<dt>w</dt>
+
+  <dt>w</dt>
 <dd><p>Weights giving the sampling effort.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>logical expression indicating sites (rows) to keep: missing
     values are taken as <code>FALSE</code>.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>A <code>specaccum</code> result object</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add to an existing graph.</p></dd>
-<dt>random</dt>
+
+  <dt>random</dt>
 <dd><p>Draw each random simulation separately instead of
     drawing their average and confidence intervals.</p></dd>
-<dt>ci</dt>
+
+  <dt>ci</dt>
 <dd><p>Multiplier used to get confidence intervals from standard
     deviation (standard error of the estimate). Value <code>ci = 0</code>
     suppresses drawing confidence intervals.</p></dd>
-<dt>ci.type</dt>
+
+  <dt>ci.type</dt>
 <dd><p>Type of confidence intervals in the graph: <code>"bar"</code>
     draws vertical bars, <code>"line"</code> draws lines, and
     <code>"polygon"</code> draws a shaded area.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>Colour for drawing lines.</p></dd>
-<dt>lty</dt>
+
+  <dt>lty</dt>
 <dd><p>line type (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code>).</p></dd>
-<dt>ci.col</dt>
+
+  <dt>ci.col</dt>
 <dd><p>Colour for drawing lines or filling the
     <code>"polygon"</code>.</p></dd>
-<dt>ci.lty</dt>
+
+  <dt>ci.lty</dt>
 <dd><p>Line type for confidence intervals or border of the
     <code>"polygon"</code>.</p></dd>
-<dt>ci.length</dt>
+
+  <dt>ci.length</dt>
 <dd><p>Length of horizontal bars (in inches) at the end of
     vertical bars with <code>ci.type = "bar"</code>.</p></dd>
-<dt>xlab,ylab</dt>
+
+  <dt>xlab,ylab</dt>
 <dd><p>Labels for <code>x</code> (defaults <code>xvar</code>) and
     <code>y</code> axis.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>the y limits of the plot.</p></dd>
-<dt>xvar</dt>
+
+  <dt>xvar</dt>
 <dd><p>Variable used for the horizontal axis:
     <code>"individuals"</code> can be used only with
     <code>method = "rarefaction"</code>.</p></dd>
-<dt>object</dt>
+
+  <dt>object</dt>
 <dd><p>Either a community data set or fitted <code>specaccum</code> model.</p></dd>
-<dt>model</dt>
+
+  <dt>model</dt>
 <dd><p>Nonlinear regression model (<code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code>). See Details.</p></dd>
-<dt>newdata</dt>
+
+  
+  <dt>newdata</dt>
 <dd><p>Optional data used in prediction interpreted as
     number of sampling units (sites). If missing, fitted values are
     returned.</p></dd>
-<dt>interpolation</dt>
+
+  
+  <dt>interpolation</dt>
 <dd><p>Interpolation method used with <code>newdata</code>.</p></dd>
-<dt>at</dt>
+
+
+  <dt>at</dt>
 <dd><p>Number of plots where the slope is evaluated. Can be a
     real number.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other parameters to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -258,47 +288,62 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>specaccum</code> returns an object of class
-<code>"specaccum"</code>, and <code>fitspecaccum</code> a model of class
-<code>"fitspecaccum"</code> that adds a few items to the
-<code>"specaccum"</code> (see the end of the list below):</p>
+    <p>Function <code>specaccum</code> returns an object of class</p>
+<p></p>
+<p><code>"specaccum"</code>, and <code>fitspecaccum</code> a model of class</p>
+<p></p>
+<p><code>"fitspecaccum"</code> that adds a few items to the</p>
+<p></p>
+<p><code>"specaccum"</code> (see the end of the list below):</p>
 <dl><dt>call </dt>
 <dd><p>Function call.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Accumulator method.</p></dd>
-<dt>sites</dt>
+
+  <dt>sites</dt>
 <dd><p>Number of sites.  For <code>method = "rarefaction"</code> this
     is the number of sites corresponding to a certain number of
     individuals and generally not an integer, and the average
     number of individuals is also returned in item <code>individuals</code>.</p></dd>
-<dt>effort</dt>
+ 
+  <dt>effort</dt>
 <dd><p>Average sum of weights corresponding to the number of
     sites when model was fitted with argument <code>w</code></p></dd>
-<dt>richness</dt>
+
+  <dt>richness</dt>
 <dd><p>The number of species corresponding to number of
     sites.  With <code>method = "collector"</code> this is the observed
     richness, for other methods the average or expected richness.</p></dd>
-<dt>sd</dt>
+
+  <dt>sd</dt>
 <dd><p>The standard deviation of SAC (or its standard error). This
     is <code>NULL</code> in <code>method = "collector"</code>, and it
     is estimated from permutations in <code>method = "random"</code>, and from
     analytic equations in other methods.</p></dd>
-<dt>perm</dt>
+
+  <dt>perm</dt>
 <dd><p>Permutation results with <code>method = "random"</code> and
     <code>NULL</code> in other cases. Each column in <code>perm</code> holds one
     permutation.</p></dd>
-<dt>weights</dt>
+
+  <dt>weights</dt>
 <dd><p>Matrix of accumulated weights corresponding to the
     columns of the <code>perm</code> matrix when model was fitted with
     argument <code>w</code>.</p></dd>
-<dt>fitted, residuals, coefficients</dt>
+
+  <dt>fitted, residuals, coefficients</dt>
 <dd><p>Only in <code>fitspecacum</code>:
      fitted values, residuals and nonlinear model coefficients. For
      <code>method = "random"</code> these are matrices with a column for
      each random accumulation.</p></dd>
-<dt>models</dt>
+
+
+  <dt>models</dt>
 <dd><p>Only in <code>fitspecaccum</code>: list of fitted
     <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code> models (see Examples on accessing these models).</p></dd>
+ 
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -524,7 +569,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -81,7 +81,9 @@
     <dl><dt>object</dt>
 <dd><p>In <code>ordistep</code>, an ordination object inheriting from
   <code><a href="cca.html">cca</a></code> or <code><a href="cca.html">rda</a></code>.</p></dd>
-<dt>scope</dt>
+
+
+  <dt>scope</dt>
 <dd><p>Defines the range of models examined in the stepwise
   search.  This can be a list containing components <code>upper</code> and
   <code>lower</code>, both formulae. If it is a single item, it is interpreted
@@ -91,38 +93,53 @@
   the <code>lower</code> scope.  See <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></code> for details. In
   <code>ordiR2step</code>, this defines the upper scope; it can also be an
   ordination object from with the model is extracted.</p></dd>
-<dt>direction</dt>
+
+
+  <dt>direction</dt>
 <dd><p>The mode of stepwise search, can be one of <code>"both"</code>,
   <code>"backward"</code>, or <code>"forward"</code>, with a default of
   <code>"both"</code>.  If the <code>scope</code> argument is missing, the default
   for <code>direction</code> is <code>"backward"</code> in <code>ordistep</code> (and
   <code>ordiR2step</code> does not have this argument, but only works
   forward).</p></dd>
-<dt>Pin, Pout</dt>
+
+  <dt>Pin, Pout</dt>
 <dd><p>Limits of permutation \(P\)-values for adding (<code>Pin</code>) a term to
   the model, or dropping (<code>Pout</code>) from the model. Term is added if
   \(P \le\) <code>Pin</code>, and removed if \(P &gt;\) <code>Pout</code>.</p></dd>
-<dt>R2scope</dt>
+
+
+  <dt>R2scope</dt>
 <dd><p>Use adjusted \(R^2\) as the stopping criterion: only models with
   lower adjusted \(R^2\) than scope are accepted.</p></dd>
-<dt>permutations</dt>
+
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations as
     returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the number
     of permutations required, or a permutation matrix where each row
     gives the permuted indices. This is passed to
     <code><a href="anova.cca.html">anova.cca</a></code>: see there for details.</p></dd>
-<dt>steps</dt>
+
+
+  <dt>steps</dt>
 <dd><p>Maximum number of iteration steps of dropping and adding terms.</p></dd>
-<dt>trace</dt>
+
+  <dt>trace</dt>
 <dd><p>If positive, information is printed during the model building. Larger
   values may give more information.</p></dd>
+
+
 <dt>R2permutations</dt>
 <dd><p>Number of permutations used in the estimation of
   adjusted \(R^2\) for <code><a href="cca.html">cca</a></code> using
   <code><a href="RsquareAdj.html">RsquareAdj</a></code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Any additional arguments to <code><a href="add1.cca.html">add1.cca</a></code> and
   <code><a href="add1.cca.html">drop1.cca</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -165,7 +182,9 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Functions return the selected model with one additional
+    
+
+<p>Functions return the selected model with one additional
   component, <code>anova</code>, which contains brief information of steps
   taken. You can suppress voluminous output during model building by
   setting <code>trace = FALSE</code>, and find the summary of model history
@@ -212,9 +231,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.075 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.275   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.010 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.070 . </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.295   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -228,23 +247,23 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.010 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.095 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.175   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.385   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.200   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.400   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management + Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.020 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764  0.015 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764  0.010 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.375</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225   0.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359   0.63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027   0.78</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="va">mod</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
@@ -280,27 +299,27 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.070 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.240   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.035 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.270   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.120   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.225   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.430   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.015 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.095 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.160  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.395  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management + Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.720</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -379,7 +398,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

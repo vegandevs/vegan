@@ -87,23 +87,28 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data.</p></dd>
-<dt>use</dt>
+
+  <dt>use</dt>
 <dd><p>Either a vector, or an object from <code>cca</code>,
     <code>decorana</code> <em>etc.</em> or <code>hclust</code> or a
     <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code> for ordering sites and species.</p></dd>
-<dt>sp.ind, site.ind</dt>
+
+  <dt>sp.ind, site.ind</dt>
 <dd><p>Species and site indices. In <code>tabasco</code>,
     these can also be <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code> tree,
     <code><a href="https://rdrr.io/pkg/cluster/man/agnes.html" class="external-link">agnes</a></code> clusterings or
     <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code>s.</p></dd>
-<dt>zero</dt>
+
+  <dt>zero</dt>
 <dd><p>Character used for zeros.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Select a subset of sites.  This can be a logical vector
     (<code>TRUE</code> for selected sites), or a vector of indices of selected
     sites.  The order of indices does not influence results, but you
     must specify <code>use</code> or <code>site.ind</code> to reorder sites.</p></dd>
-<dt>Rowv, Colv</dt>
+
+  <dt>Rowv, Colv</dt>
 <dd><p>Re-order dendrograms for the rows (sites) or
     columns (species) of <code>x</code>.  If the <code>Rowv = TRUE</code>, row
     dendrograms are ordered by the first axis of correspondence
@@ -111,12 +116,16 @@
     weighted average (<code><a href="wascores.html">wascores</a></code>) of the row order.
     Alternatively, the arguments can be vectors that are used to
     reorder the dendrogram.</p></dd>
-<dt>labRow, labCol</dt>
+
+
+  <dt>labRow, labCol</dt>
 <dd><p>character vectors with row and column labels
     used in the <code><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></code> instead of the default. NB., the
     input matrix is transposed so that row labels will be used for data
     columns.</p></dd>
-<dt>scale</dt>
+
+
+  <dt>scale</dt>
 <dd><p>In <code>vegemite</code> and <code>coverscale</code>: cover scale
     used (can be abbreviated). In <code>tabasco</code>: scaling of colours
     in <code><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></code>. The alternatives of <code>coverscale</code>
@@ -124,19 +133,28 @@
     <code>"row"</code> scale columns or rows to equal maxima (NB., these
     refer to the transposed data of the <code><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></code>), while
     <code>"none"</code> uses original values.</p></dd>
-<dt>col</dt>
+
+
+  <dt>col</dt>
 <dd><p>A vector of colours used for above-zero abundance values.</p></dd>
-<dt>maxabund</dt>
+
+
+  <dt>maxabund</dt>
 <dd><p>Maximum abundance used with <code>scale = "log"</code>.
     Data maximum in the <code>select</code>ed subset will be used if this is
     missing.</p></dd>
-<dt>character</dt>
+
+
+  <dt>character</dt>
 <dd><p>Return character codes suitable for
     <code>vegemite</code>. If <code>FALSE</code>, returns corresponding
     integers.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Arguments passed to <code>coverscale</code> (i.e., <code>maxabund</code>) in
     <code>vegemite</code> and to <code><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></code> in <code>tabasco</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -220,8 +238,13 @@
     <p>The functions are used mainly to display a table, but they return
   (invisibly) a list with items <code>species</code> for ordered species
   index, <code>sites</code> for ordered site index, and <code>table</code> for the
-  final ordered community table.
-  These items can be used as arguments <code>sp.ind</code> and <code>site.ind</code>  to reproduce the table, or the <code>table</code> can be further edited. In
+  final ordered community table.</p>
+
+
+<p>These items can be used as arguments <code>sp.ind</code> and <code>site.ind</code></p>
+
+
+<p>to reproduce the table, or the <code>table</code> can be further edited. In
   addition to the table, <code>vegemite</code> prints the numbers of species
   and sites and the name of the used cover scale.</p>
     </div>
@@ -514,7 +537,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

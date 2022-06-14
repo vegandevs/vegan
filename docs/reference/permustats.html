@@ -82,34 +82,44 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object, x, y</dt>
 <dd><p>The object to be handled.</p></dd>
-<dt>interval</dt>
+
+  <dt>interval</dt>
 <dd><p>numeric; the coverage interval reported.</p></dd>
-<dt>alternative</dt>
+
+  <dt>alternative</dt>
 <dd><p>A character string specifying the limits used for
     the <code>interval</code> and the direction of the test when evaluating
     the \(p\)-values. Must be one of <code>"two.sided"</code> (both upper
     and lower limit), <code>"greater"</code> (upper limit), <code>"less"</code>
     (lower limit). Usually <code>alternative</code> is given in the result
     object, but it can be specified with this argument.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Arguments of
     <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code> and
     <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code> functions.</p></dd>
-<dt>observed</dt>
+
+  <dt>observed</dt>
 <dd><p>Add observed statistic among permutations.</p></dd>
-<dt>sd.scale</dt>
+
+  <dt>sd.scale</dt>
 <dd><p>Scale permutations to unit standard deviation and observed
     statistic to standardized effect size.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>Ignored.</p></dd>
-<dt>scale</dt>
+
+  <dt>scale</dt>
 <dd><p>Use standardized effect size (SES).</p></dd>
-<dt>names</dt>
+
+  <dt>names</dt>
 <dd><p>Names of boxes (default: names of statistics).</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to the function. In
     <code>density</code> these are passed to <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density.default</a></code>,
     and in <code>boxplot</code> to <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot.default</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -179,13 +189,18 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The <code>permustats</code> function returns an object of class
-<code>"permustats"</code>. This is a list of items <code>"statistic"</code> for
+    
+
+<p>The <code>permustats</code> function returns an object of class</p>
+<p></p>
+<p><code>"permustats"</code>. This is a list of items <code>"statistic"</code> for
   observed statistics, <code>permutations</code> which contains permuted
   values, and <code>alternative</code> which contains text defining the
-  character of the test (<code>"two.sided"</code>, <code>"less"</code> or
-<code>"greater"</code>). The <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code> and
-<code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code> methods return their standard result objects.</p>
+  character of the test (<code>"two.sided"</code>, <code>"less"</code> or</p>
+<p></p>
+<p><code>"greater"</code>). The <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code> and</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code> methods return their standard result objects.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -251,7 +266,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

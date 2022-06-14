@@ -72,21 +72,27 @@
     <dl><dt>object</dt>
 <dd><p>A result object from <code><a href="metaMDS.html">metaMDS</a></code>, 
     <code><a href="monoMDS.html">monoMDS</a></code> or <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.</p></dd>
-<dt>dis</dt>
+
+  <dt>dis</dt>
 <dd><p>Dissimilarities.  This should not be used with
     <code><a href="metaMDS.html">metaMDS</a></code> or <code><a href="monoMDS.html">monoMDS</a></code>, but must be used with
     <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.</p></dd>
-<dt>pch</dt>
+
+  <dt>pch</dt>
 <dd><p>Plotting character for points.  Default is dependent on the
     number of points.</p></dd>
-<dt>p.col, l.col</dt>
+
+  <dt>p.col, l.col</dt>
 <dd><p>Point and line colours.</p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>Line width. For <code><a href="monoMDS.html">monoMDS</a></code> the default is
     <code>lwd = 1</code> if more than two lines are drawn, and <code>lwd = 2</code> 
     otherwise.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters to functions, e.g. graphical parameters.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -122,8 +128,9 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>goodness</code> returns a vector of values. Function
-<code>stressplot</code> returns invisibly an object with items for
+    <p>Function <code>goodness</code> returns a vector of values. Function</p>
+<p></p>
+<p><code>stressplot</code> returns invisibly an object with items for
   original dissimilarities, ordination distances and fitted values.</p>
     </div>
     <div class="section level2">
@@ -146,30 +153,29 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2291372 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.2166093 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2109002 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.18458 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0493733  max resid 0.157615 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2028828 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.2201183 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1982376 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2109611 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.2115175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2005512 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1985584 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1948413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1975409 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1869637 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2200285 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2048307 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.2069724 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2048307 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1974244 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1948413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1858401 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.18458 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04935416  max resid 0.1575099 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.2048307 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1967393 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1852397 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1969805 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1948413 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1955836 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2218502 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.2100102 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.2499289 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.208071 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1869637 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.2143612 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution was not repeated -- monoMDS stopping criteria:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     20: stress ratio &gt; sratmax</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     18: stress ratio &gt; sratmax</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2: scale factor of the gradient &lt; sfgrmin</span>
 <span class="r-in"><span class="fu">stressplot</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="goodness.metaMDS-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="va">gof</span> <span class="op">&lt;-</span> <span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
@@ -192,7 +198,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

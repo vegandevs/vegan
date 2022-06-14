@@ -95,6 +95,8 @@ The function partitions the variation in community data or community
   dissimilarity structure inheriting from <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>. In
   community ecology, that table is often a site-by-species table or a
   dissimilarity object.</p></dd>
+
+
 <dt>X</dt>
 <dd><p>Two to four explanatory models, variables or tables.  These can
   be defined in three alternative ways: (1) one-sided model formulae
@@ -109,24 +111,36 @@ The function partitions the variation in community data or community
   (<code>data</code> or <code>transfo</code>) are interpreted as explanatory models,
   and the names of these extra arguments cannot be abbreviated nor
   omitted.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters passed to functions. NB, arguments after
   dots cannot be abbreviated but they must be spelt out completely.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data frame with the variables used in the formulae in
   <code>X</code>.</p></dd>
+
+
 <dt>chisquare</dt>
 <dd><p>Partition Chi-square or the inertia of Correspondence
   Analysis (<code><a href="cca.html">cca</a></code>).</p></dd>
+
+
 <dt>transfo</dt>
 <dd><p>Transformation for <code>Y</code> (community data) using
   <code><a href="decostand.html">decostand</a></code>.  All alternatives in <code>decostand</code> can
   be used, and those preserving Euclidean metric include
   <code>"hellinger"</code>, <code>"chi.square"</code>, <code>"total"</code>,
   <code>"norm"</code>. Ignored if <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>scale</dt>
 <dd><p>Should the columns of <code>Y</code> be standardized to unit
   variance. Ignored if <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>add</dt>
 <dd><p>Add a constant to the non-diagonal values to euclidify
   dissimilarities (see <code><a href="wcmdscale.html">wcmdscale</a></code> for details). Choice
@@ -134,11 +148,15 @@ The function partitions the variation in community data or community
   Legendre &amp; Anderson (1999: “method 1”) and <code>"cailliez"</code>
   uses their “method 2”. The argument has an effect only when
   <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>sqrt.dist</dt>
 <dd><p>Take square root of dissimilarities. This often
   euclidifies dissimilarities. NB., the argument name cannot be
   abbreviated. The argument has an effect only when <code>Y</code> are
   dissimilarities.</p></dd>
+
+
 <dt>permutations</dt>
 <dd><p>If <code>chisquare = TRUE</code>, the adjusted
     \(R^2\) is estimated by permutations, and this
@@ -146,34 +164,48 @@ The function partitions the variation in community data or community
     returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the number
     of permutations required, or a permutation matrix where each row
     gives the permuted indices.</p></dd>
+
+
 <dt>parts</dt>
 <dd><p>Number of explanatory tables (circles) displayed.</p></dd>
+
 <dt>labels</dt>
 <dd><p>Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.</p></dd>
+
 <dt>bg</dt>
 <dd><p>Fill colours of circles or ellipses.</p></dd>
+
 <dt>alpha</dt>
 <dd><p>Transparency of the fill colour.  The argument takes
     precedence over possible transparency definitions of the
     colour. The value must be in range \(0...255\), and low values
     are more transparent.  Transparency is not available in all
     graphics devices or file formats.</p></dd>
+
+  
 <dt>Xnames</dt>
 <dd><p>Names for sources of variation. Default names are <code>X1</code>,
   <code>X2</code>, <code>X3</code> and <code>X4</code>. <code>Xnames=NA</code>,
   <code>Xnames=NULL</code> and <code>Xnames=""</code> produce no names. The names
   can be changed to other names. It is often best to use short names.</p></dd>
+
+
 <dt>id.size</dt>
 <dd><p>A numerical value giving the character expansion factor
   for the names of circles or ellipses.</p></dd>
+
+
 <dt>x, object</dt>
 <dd><p>The <code>varpart</code> result.</p></dd>
+
 <dt>cutoff</dt>
 <dd><p>The values below <code>cutoff</code> will not be displayed.</p></dd>
+
 <dt>digits</dt>
 <dd><p>The number of significant digits; the number of decimal
   places is at least one higher.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -262,34 +294,47 @@ The function partitions the variation in community data or community
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>varpart</code> returns an
-  object of class <code>"varpart"</code> with items <code>scale</code> and
-<code>transfo</code> (can be missing) which hold information on
+    
+
+<p>Function <code>varpart</code> returns an
+  object of class <code>"varpart"</code> with items <code>scale</code> and</p>
+<p></p>
+<p><code>transfo</code> (can be missing) which hold information on
   standardizations, <code>tables</code> which contains names of explanatory
   tables, and <code>call</code> with the function <code><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a></code>. The
-  function <code>varpart</code> calls function <code>varpart2</code>,
-<code>varpart3</code> or <code>varpart4</code> which return an object of class
-<code>"varpart234"</code> and saves its result in the item <code>part</code>.
+  function <code>varpart</code> calls function <code>varpart2</code>,</p>
+<p></p>
+<p><code>varpart3</code> or <code>varpart4</code> which return an object of class</p>
+<p></p>
+<p><code>"varpart234"</code> and saves its result in the item <code>part</code>.
   The items in this object are:</p>
 <dl><dt>SS.Y</dt>
 <dd><p>Sum of squares of matrix <code>Y</code>.</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>Number of observations (rows).</p></dd>
-<dt>nsets</dt>
+
+  <dt>nsets</dt>
 <dd><p>Number of explanatory tables</p></dd>
-<dt>bigwarning</dt>
+
+  <dt>bigwarning</dt>
 <dd><p>Warnings on collinearity.</p></dd>
-<dt>fract</dt>
+
+  <dt>fract</dt>
 <dd><p>Basic fractions from all estimated constrained models.</p></dd>
-<dt>indfract</dt>
+
+  <dt>indfract</dt>
 <dd><p>Individual fractions or all possible subsections in
     the Venn diagram (see <code>showvarparts</code>).</p></dd>
-<dt>contr1</dt>
+
+  <dt>contr1</dt>
 <dd><p>Fractions that can be found after conditioning on single
     explanatory table in models with three or four explanatory tables.</p></dd>
-<dt>contr2</dt>
+
+  <dt>contr2</dt>
 <dd><p>Fractions that can be found after conditioning on two
     explanatory tables in models with four explanatory tables.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="fraction-data-frames">Fraction Data Frames<a class="anchor" aria-label="anchor" href="#fraction-data-frames"></a></h2>
@@ -703,7 +748,7 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

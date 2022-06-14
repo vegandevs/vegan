@@ -79,50 +79,63 @@ and between block dissimilarities.</p>
 <dd><p>data matrix or data frame in which rows are samples and
     columns are response variable(s), or a dissimilarity object or a
     symmetric square matrix of dissimilarities.</p></dd>
-<dt>grouping</dt>
+ 
+  <dt>grouping</dt>
 <dd><p>Factor or numeric index for grouping observations.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices. These are used to assess
     the significance of the MRPP statistic, \(delta\).</p></dd>
-<dt>distance</dt>
+ 
+  <dt>distance</dt>
 <dd><p>Choice of distance metric that measures the
     dissimilarity between two observations . See <code><a href="vegdist.html">vegdist</a></code> for
     options.  This will be used if <code>dat</code> was not a dissimilarity
     structure of a symmetric square matrix.</p></dd>
-<dt>weight.type</dt>
+  
+  <dt>weight.type</dt>
 <dd><p>choice of group weights. See Details below for options.</p></dd>
-<dt>strata</dt>
+
+  <dt>strata</dt>
 <dd><p>An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.</p></dd>
-<dt>parallel</dt>
+
+  <dt>parallel</dt>
 <dd><p>Number of parallel processes or a predefined socket
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
-<dt>dist</dt>
+
+  <dt>dist</dt>
 <dd><p>A <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> object of dissimilarities, such as
     produced by functions <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>, <code><a href="vegdist.html">vegdist</a></code> or
     <code><a href="designdist.html">designdist</a></code>.</p></dd>
 </dl><p>.</p>
 <dl><dt>object, x</dt>
 <dd><p>A <code>meandist</code> result object.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>Draw a dendrogram or a histogram; see Details.</p></dd>
-<dt>cluster</dt>
+
+  <dt>cluster</dt>
 <dd><p>A clustering method for the <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code>
     function for <code>kind = "dendrogram"</code>. 
     Any <code>hclust</code> method can be used, but perhaps only
     <code>"average"</code> and <code>"single"</code> make sense.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>Limits for vertical axes (optional).</p></dd>
-<dt>axes</dt>
+
+  <dt>axes</dt>
 <dd><p>Draw scale for the vertical axis.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Further arguments passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -193,44 +206,58 @@ and between block dissimilarities.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a list of class mrpp with following items:</p>
+    
+
+<p>The function returns a list of class mrpp with following items:</p>
 <dl><dt>call </dt>
 <dd><p>Function call.</p></dd>
-<dt>delta </dt>
+
+  <dt>delta </dt>
 <dd><p>The overall weighted mean of group mean distances.</p></dd>
-<dt>E.delta</dt>
+
+  <dt>E.delta</dt>
 <dd><p>expected delta, under the null hypothesis of no group
     structure. This is the mean of original dissimilarities.</p></dd>
-<dt>CS</dt>
+
+  <dt>CS</dt>
 <dd><p>Classification strength (Van Sickle and Hughes,
     2000). Currently not implemented and always <code>NA</code>.</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>Number of observations in each class.</p></dd>
-<dt>classdelta</dt>
+
+  <dt>classdelta</dt>
 <dd><p>Mean dissimilarities within classes. The overall
     \(\delta\) is the weighted average of these values with given
     <code>weight.type</code></p></dd>
 </dl><p>.</p>
 <dl><dt>Pvalue</dt>
 <dd><p>Significance of the test.</p></dd>
-<dt>A</dt>
+
+  <dt>A</dt>
 <dd><p>A chance-corrected estimate of the proportion of the distances
     explained by group identity; a value analogous to a coefficient of 
     determination in a linear model.</p></dd>
-<dt>distance</dt>
+ 
+  <dt>distance</dt>
 <dd><p>Choice of distance metric used; the "method" entry of
     the dist object.</p></dd>
-<dt>weight.type</dt>
+
+  <dt>weight.type</dt>
 <dd><p>The choice of group weights used.</p></dd>
-<dt>boot.deltas</dt>
+
+  <dt>boot.deltas</dt>
 <dd><p>The vector of "permuted deltas," the deltas
     calculated from each of the permuted datasets. The distribution of
     this item can be inspected with <code><a href="permustats.html">permustats</a></code> function.</p></dd>
-<dt>permutations</dt>
+
+  <dt>permutations</dt>
 <dd><p>The number of permutations used.</p></dd>
-<dt>control</dt>
+
+  <dt>control</dt>
 <dd><p>A list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -291,7 +318,7 @@ alternative.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chance corrected within-group agreement A: 0.1246 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Based on observed delta 11.15 and expected delta 12.74 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Significance of delta: 0.002 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Significance of delta: 0.001 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -302,51 +329,47 @@ alternative.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"text"</span>, display<span class="op">=</span><span class="st">"sites"</span> <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1796764 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.02027025  max resid 0.06496167 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.02027016  max resid 0.06496027 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1886532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.227519e-06  max resid 6.999018e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1922241 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 8.446552e-06  max resid 2.911722e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.051958e-06  max resid 5.993277e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.400784e-06  max resid 1.800435e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1886532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.584259e-07  max resid 1.837368e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1192678 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2075713 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.370499e-06  max resid 1.719363e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.098578e-05  max resid 3.502767e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 3.706298e-06  max resid 1.309485e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.653409e-06  max resid 1.490582e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 3.835221e-06  max resid 7.497108e-06 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.522888e-06  max resid 2.260132e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1192678 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1192679 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.188964 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1183186 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.757147e-07  max resid 1.922239e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.329705e-05  max resid 4.442057e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.099116e-06  max resid 2.743701e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.057515e-06  max resid 1.432003e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.779865e-07  max resid 1.58246e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.393921e-06  max resid 1.155283e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.715631e-06  max resid 1.568901e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1183186 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.764688e-06  max resid 1.123985e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 8 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1886532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1192679 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1192678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 9 times</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="ordihull.html">ordihull</a></span><span class="op">(</span><span class="va">dune.ord</span>, <span class="va">Management</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.mrpp</span>, <span class="op">{</span></span>
@@ -401,7 +424,7 @@ alternative.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

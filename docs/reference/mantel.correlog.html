@@ -74,55 +74,80 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
     <dl><dt>D.eco</dt>
 <dd><p>An ecological distance matrix, with class
   either <code>dist</code> or <code>matrix</code>.</p></dd>
-<dt>D.geo</dt>
+
+  
+  <dt>D.geo</dt>
 <dd><p>A geographic distance matrix, with class either
   <code>dist</code> or <code>matrix</code>. Provide either <code>D.geo</code> or
   <code>XY</code>. Default: <code>D.geo=NULL</code>.</p></dd>
-<dt>XY</dt>
+
+
+  <dt>XY</dt>
 <dd><p>A file of Cartesian geographic coordinates of the
   points. Default: <code>XY=NULL</code>.</p></dd>
-<dt>n.class</dt>
+
+
+  <dt>n.class</dt>
 <dd><p>Number of classes. If <code>n.class=0</code>, the Sturges
   equation will be used unless break points are provided.</p></dd>
-<dt>break.pts</dt>
+
+
+  <dt>break.pts</dt>
 <dd><p>Vector containing the break points of the distance
   distribution. Provide (n.class+1) breakpoints, that is, a list with
   a beginning and an ending point. Default: <code>break.pts=NULL</code>.</p></dd>
-<dt>cutoff</dt>
+
+
+  <dt>cutoff</dt>
 <dd><p>For the second half of the distance classes,
   <code>cutoff = TRUE</code> limits the correlogram to the distance classes
   that include all points. If <code>cutoff = FALSE</code>, the correlogram
   includes all distance classes.</p></dd>
-<dt>r.type</dt>
+
+
+  <dt>r.type</dt>
 <dd><p>Type of correlation in calculation of the Mantel
   statistic. Default: <code>r.type="pearson"</code>.  Other choices are
   <code>r.type="spearman"</code> and <code>r.type="kendall"</code>, as in functions
   <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code> and <code><a href="mantel.html">mantel</a></code>.</p></dd>
-<dt>nperm</dt>
+
+
+  <dt>nperm</dt>
 <dd><p>Number of permutations for the tests of
   significance. Default: <code>nperm=999</code>. For large data files,
   permutation tests are rather slow.</p></dd>
-<dt>mult</dt>
+
+
+  <dt>mult</dt>
 <dd><p>Correct P-values for multiple testing. The correction
   methods are <code>"holm"</code> (default), <code>"hochberg"</code>,
   <code>"sidak"</code>, and other methods available in the
   <code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></code> function: <code>"bonferroni"</code> (best known, but
   not recommended because it is overly conservative), <code>"hommel"</code>,
   <code>"BH"</code>, <code>"BY"</code>, <code>"fdr"</code>, and <code>"none"</code>.</p></dd>
-<dt>progressive</dt>
+
+
+  <dt>progressive</dt>
 <dd><p>Default: <code>progressive=TRUE</code> for progressive
   correction of multiple-testing, as described in Legendre and Legendre
   (1998, p. 721). Test of the first distance class: no correction;
   second distance class: correct for 2 simultaneous tests; distance
   class k: correct for k simultaneous tests. <code>progressive=FALSE</code>:
   correct all tests for <code>n.class</code> simultaneous tests.</p></dd>
-<dt>x</dt>
+
+
+  <dt>x</dt>
 <dd><p>Output of <code>mantel.correlog</code>.</p></dd>
-<dt>alpha</dt>
+
+
+  <dt>alpha</dt>
 <dd><p>Significance level for the points drawn with black
   symbols in the correlogram. Default: <code>alpha=0.05</code>.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other parameters passed from other functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -150,23 +175,36 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
   p-values as columns. A positive Mantel statistic indicates positive
   spatial correlation. An additional column with p-values corrected for
   multiple testing is added unless <code>mult="none"</code>.</p></dd>
-<dt>n.class </dt>
+
+
+  <dt>n.class </dt>
 <dd><p>The n umber of distance classes.</p></dd>
-<dt>break.pts </dt>
+
+  
+  <dt>break.pts </dt>
 <dd><p>The break points provided by the user or computed by
     the program.</p></dd>
-<dt>mult </dt>
+
+
+  <dt>mult </dt>
 <dd><p>The name of the correction for multiple testing. No
     correction: <code>mult="none"</code>.</p></dd>
-<dt>progressive </dt>
+  
+
+  <dt>progressive </dt>
 <dd><p>A logical (<code>TRUE</code>, <code>FALSE</code>) value
   indicating whether or not a progressive correction for multiple
   testing was requested.</p></dd>
-<dt>n.tests </dt>
+ 
+
+  <dt>n.tests </dt>
 <dd><p>The number of distance classes for which Mantel
   tests have been computed and tested for significance.</p></dd>
-<dt>call </dt>
+
+
+  <dt>call </dt>
 <dd><p>The function call.</p></dd>
+  
 </dl></div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -224,11 +262,11 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 <span class="r-out co"><span class="r-pr">#&gt;</span>         class.index     n.dist Mantel.cor Pr(Mantel) Pr(corrected)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.1     0.514182 358.000000   0.135713       0.02          0.02 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.2     1.242546 650.000000   0.118174       0.02          0.04 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.3     1.970910 796.000000   0.037820       0.06          0.06 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.3     1.970910 796.000000   0.037820       0.10          0.10 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.4     2.699274 696.000000  -0.098605       0.02          0.08 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.5     3.427638 500.000000  -0.112682       0.02          0.10 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.6     4.156002 468.000000  -0.107603       0.02          0.12  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.022264       0.12          0.14  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.022264       0.12          0.20  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.8     5.612730 326.000000         NA         NA            NA  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.9     6.341094 260.000000         NA         NA            NA  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.10    7.069458 184.000000         NA         NA            NA  </span>
@@ -264,17 +302,17 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 <span class="r-out co"><span class="r-pr">#&gt;</span>         class.index     n.dist Mantel.cor Pr(Mantel) Pr(corrected)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.1     0.514182 358.000000   0.134229       0.02          0.02 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.2     1.242546 650.000000   0.121270       0.02          0.04 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.3     1.970910 796.000000   0.035413       0.06          0.06 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.3     1.970910 796.000000   0.035413       0.12          0.12  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.4     2.699274 696.000000  -0.095899       0.02          0.08 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.5     3.427638 500.000000  -0.118692       0.02          0.10 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.6     4.156002 468.000000  -0.117148       0.02          0.12  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.031123       0.08          0.14  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.8     5.612730 326.000000   0.026064       0.12          0.18  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.9     6.341094 260.000000   0.050573       0.04          0.18  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.7     4.884366 364.000000  -0.031123       0.10          0.20  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.8     5.612730 326.000000   0.026064       0.24          0.30  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.9     6.341094 260.000000   0.050573       0.02          0.18  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.10    7.069458 184.000000   0.057017       0.02          0.20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.11    7.797822 130.000000   0.036195       0.06          0.24  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.12    8.526186  66.000000  -0.054242       0.02          0.24  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.13    9.254550  32.000000  -0.066677       0.02          0.26  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.11    7.797822 130.000000   0.036195       0.08          0.32  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.12    8.526186  66.000000  -0.054242       0.10          0.40  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D.cl.13    9.254550  32.000000  -0.066677       0.04          0.26  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.correlog2</span><span class="op">)</span></span>
@@ -294,7 +332,7 @@ cutoff<span class="op">=</span><span class="cn">TRUE</span>, r.type<span class="
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

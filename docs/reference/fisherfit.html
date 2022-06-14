@@ -91,34 +91,45 @@
     <dl><dt>x</dt>
 <dd><p>Community data vector for fitting functions or their result
     object for <code>plot</code> functions.</p></dd>
-<dt>tiesplit</dt>
+
+  <dt>tiesplit</dt>
 <dd><p>Split frequencies \(1, 2, 4, 8\) etc between adjacent 
     octaves.</p></dd>
-<dt>truncate</dt>
+
+  <dt>truncate</dt>
 <dd><p>Truncation point for log-Normal model, in log2
     units. Default value \(-1\) corresponds to the left border of zero
     Octave. The choice strongly influences the fitting results.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Labels for <code>x</code> and <code>y</code> axes.</p></dd>
-<dt>bar.col</dt>
+
+  <dt>bar.col</dt>
 <dd><p>Colour of data bars.</p></dd>
-<dt>line.col</dt>
+
+  <dt>line.col</dt>
 <dd><p>Colour of fitted line.</p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>Width of fitted line.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>Kind of plot to drawn: <code>"bar"</code> is similar bar plot
     as in <code>plot.fisherfit</code>, <code>"hiplot"</code> draws vertical lines
     as with <code class="command">plot(..., type="h")</code>, and <code>"points"</code> and
     <code>"lines"</code> are obvious.</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add to an existing plot.</p></dd>
-<dt>xadjust</dt>
+
+  <dt>xadjust</dt>
 <dd><p>Adjustment of horizontal positions in octaves.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions. Ignored in 
     <code>prestonfit</code> and <code>tiesplit</code> passed to <code>as.preston</code> in
     <code>prestondistr</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -192,14 +203,21 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>prestonfit</code> returns an object with fitted
-<code>coefficients</code>, and with observed (<code>freq</code>) and fitted
-  (<code>fitted</code>) frequencies, and a string describing the fitting
-<code>method</code>. Function <code>prestondistr</code> omits the entry
-<code>fitted</code>.  The function <code>fisherfit</code> returns the result of
-<code><a href="https://rdrr.io/r/stats/nlm.html" class="external-link">nlm</a></code>, where item <code>estimate</code> is \(\alpha\). The
-  result object is amended with the <code>nuisance</code> parameter and item
-<code>fisher</code> for the observed data from <code>as.fisher</code></p>
+    <p>The function <code>prestonfit</code> returns an object with fitted</p>
+<p></p>
+<p><code>coefficients</code>, and with observed (<code>freq</code>) and fitted
+  (<code>fitted</code>) frequencies, and a string describing the fitting</p>
+<p></p>
+<p><code>method</code>. Function <code>prestondistr</code> omits the entry</p>
+<p></p>
+<p><code>fitted</code>.  The function <code>fisherfit</code> returns the result of</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/nlm.html" class="external-link">nlm</a></code>, where item <code>estimate</code> is \(\alpha\). The
+  result object is amended with the <code>nuisance</code> parameter and item</p>
+<p></p>
+<p><code>fisher</code> for the observed data from <code>as.fisher</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -299,7 +317,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

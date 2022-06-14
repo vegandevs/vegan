@@ -79,15 +79,21 @@
     <dl><dt>object</dt>
 <dd><p>an object representing a fitted <code><a href="cca.html">rda</a></code>,
     <code><a href="cca.html">cca</a></code> or <code><a href="capscale.html">capscale</a></code> model.</p></dd>
-<dt>nsim</dt>
+
+
+  <dt>nsim</dt>
 <dd><p>number of response matrices to be simulated. Only one
     dissimilarity matrix is returned for <code><a href="capscale.html">capscale</a></code>, and
     larger <code>nsim</code> is an error.</p></dd>
-<dt>seed</dt>
+
+
+  <dt>seed</dt>
 <dd><p>an object specifying if and how the random number
     generator should be initialized (‘seeded’). See 
     <code><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></code> for details.</p></dd>
-<dt>indx</dt>
+
+
+  <dt>indx</dt>
 <dd><p>Index of residuals added to the fitted values, such as
     produced by <code><a href="https://rdrr.io/pkg/permute/man/shuffleSet.html" class="external-link">shuffleSet</a></code> or
     <code><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></code>.  The index can have duplicate entries so
@@ -98,18 +104,25 @@
     simulations, but if <code>nsim</code> is given, it should match number
     of rows in <code>indx</code>. If null, parametric simulation is used and
     Gaussian error is added to the fitted values.</p></dd>
-<dt>rank</dt>
+
+
+  <dt>rank</dt>
 <dd><p>The rank of the constrained component: passed to
     <code><a href="predict.cca.html">predict.rda</a></code> or <code><a href="predict.cca.html">predict.cca</a></code>.</p></dd>
-<dt>correlated</dt>
+
+
+  <dt>correlated</dt>
 <dd><p>Are species regarded as correlated in parametric
     simulation or when <code>indx</code> is not given? If
     <code>correlated = TRUE</code>, multivariate Gaussian random error is
     generated, and if <code>FALSE</code>, Gaussian random error is generated
     separately for each species. The argument has no effect in
     <code><a href="capscale.html">capscale</a></code> which has no information on species.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>additional optional arguments (ignored).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -132,8 +145,9 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>If <code>nsim = 1</code>, returns a matrix or dissimilarities (in
-<code><a href="capscale.html">capscale</a></code>) with similar additional arguments on random
+    <p>If <code>nsim = 1</code>, returns a matrix or dissimilarities (in</p>
+<p></p>
+<p><code><a href="capscale.html">capscale</a></code>) with similar additional arguments on random
   number seed as <code><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></code>. If <code>nsim &gt; 1</code>, returns a
   similar array as returned by <code><a href="nullmodel.html">simulate.nullmodel</a></code> with
   similar attributes.</p>
@@ -198,7 +212,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

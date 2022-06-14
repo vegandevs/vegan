@@ -87,21 +87,25 @@ object without sampling (effective for sequential algorithms).
     <dl><dt>x</dt>
 <dd><p>A community matrix.
 For the <code>print</code> method, it is an object to be printed.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Character, specifying one of the null model algorithms
 listed on the help page of <code><a href="commsim.html">commsim</a></code>.
 It can be a user supplied object of class <code>commsim</code>.</p></dd>
-<dt>object</dt>
+
+  <dt>object</dt>
 <dd><p>An object of class <code>nullmodel</code> returned by
 the function <code>nullmodel</code>.
 In case of <code>smbind</code> it is a <code>simmat</code> object
 as returned by the <code>update</code> or <code>simulate</code> methods.</p></dd>
-<dt>nsim</dt>
+
+  <dt>nsim</dt>
 <dd><p>Positive integer, the number of simulated matrices to return.
 For the <code>update</code> method, it is the number of
 burnin steps made for sequential algorithms
 to update the status of the input model <code>object</code>.</p></dd>
-<dt>seed</dt>
+
+  <dt>seed</dt>
 <dd><p>An object specifying if and how the random number
 generator should be initialized ("seeded").
 Either <code>NULL</code> or an integer that will be
@@ -113,32 +117,38 @@ The default, <code>NULL</code> will not change the
 random generator state, and return
 <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">.Random.seed</a></code> as the <code>"seed"</code>
  attribute, see Value.</p></dd>
-<dt>burnin</dt>
+
+  <dt>burnin</dt>
 <dd><p>Nonnegative integer, specifying the number of steps
 discarded before starting simulation.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.</p></dd>
-<dt>thin</dt>
+
+  <dt>thin</dt>
 <dd><p>Positive integer, number of simulation steps
 made between each returned matrix.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.</p></dd>
-<dt>MARGIN</dt>
+
+  <dt>MARGIN</dt>
 <dd><p>Integer, indicating the dimension over which multiple
 <code>simmat</code> objects are to be bound together by <code>smbind</code>.
 1: matrices are stacked (row bound), 2: matrices are column bound,
 3: iterations are combined. Needs to be of length 1.
 The other dimensions are expected to match across the objects.</p></dd>
-<dt>strict</dt>
+
+  <dt>strict</dt>
 <dd><p>Logical, if consistency of the time series attributes
 (<code>"start"</code>, <code>"end"</code>, <code>"thin"</code>, and number of simulated matrices)
 of <code>simmat</code> objects are strictly enforced when
 binding multiple objects together using <code>smbind</code>.
 Applies only to input objects based on sequential
 null model algorithms.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Additional arguments supplied to algorithms.
 In case of <code>smbind</code> it can contain multiple <code>simmat</code> objects.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -185,7 +195,9 @@ for sequential null models.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>nullmodel</code> returns an object of class <code>nullmodel</code>.
+    
+
+<p>The function <code>nullmodel</code> returns an object of class <code>nullmodel</code>.
 It is a set of objects sharing the same environment:</p><ul><li><p><code>data</code>: original matrix in integer mode.</p></li>
 <li><p><code>nrow</code>: number of rows.</p></li>
 <li><p><code>ncol</code>: number of columns.</p></li>
@@ -205,11 +217,15 @@ It is a set of objects sharing the same environment:</p><ul><li><p><code>data</c
     It is <code>NULL</code> for non-sequential algorithms.</p></li>
 </ul><p>The <code>simulate</code> method returns an object of class <code>simmat</code>.
 It is an array of simulated matrices (third dimension
-corresponding to <code>nsim</code> argument).
-The <code>update</code> method returns the current state (last updated matrix)
+corresponding to <code>nsim</code> argument).</p>
+
+
+<p>The <code>update</code> method returns the current state (last updated matrix)
 invisibly, and update the input object for sequential algorithms.
-For non sequential algorithms, it returns <code>NULL</code>.
-The <code>smbind</code> function returns an object of class <code>simmat</code>.</p>
+For non sequential algorithms, it returns <code>NULL</code>.</p>
+
+
+<p>The <code>smbind</code> function returns an object of class <code>simmat</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -381,7 +397,7 @@ This also applies to cases when the input is stratified into subsets.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -70,13 +70,17 @@ hierarchy are compared to the total diversity in the entire data set or the pool
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>y</dt>
 <dd><p>A community matrix.</p></dd>
-<dt>x</dt>
+
+
+  <dt>x</dt>
 <dd><p>A matrix with same number of rows as in <code>y</code>, columns
     coding the levels of sampling hierarchy. The number of groups within
     the hierarchy must decrease from left to right. If <code>x</code> is missing,
     two levels are assumed: each row is a group in the first level, and
     all rows are in the same group in the second level.</p></dd>
-<dt>formula</dt>
+
+
+  <dt>formula</dt>
 <dd><p>A two sided model formula in the form <code>y ~ x</code>,
     where <code>y</code> is the community data matrix with samples as rows and
     species as column. Right hand side (<code>x</code>) must be grouping
@@ -87,35 +91,52 @@ hierarchy are compared to the total diversity in the entire data set or the pool
     estimates of row-level alpha and overall gamma diversities. You must
     use non-formula interface to avoid this behaviour. Interaction terms
     are not allowed.</p></dd>
-<dt>data</dt>
+
+
+  <dt>data</dt>
 <dd><p>A data frame where to look for variables defined in the
     right hand side of <code>formula</code>. If missing, variables are looked
     in the global environment.</p></dd>
-<dt>index</dt>
+
+
+  <dt>index</dt>
 <dd><p>Character, the entropy index to be calculated (see Details).</p></dd>
-<dt>relative</dt>
+
+
+  <dt>relative</dt>
 <dd><p>Logical, if <code>TRUE</code> then beta diversity is
     standardized by its maximum (see Details).</p></dd>
-<dt>scales</dt>
+
+
+  <dt>scales</dt>
 <dd><p>Numeric, of length 1, the order of the generalized
     diversity index to be used.</p></dd>
-<dt>global</dt>
+
+
+  <dt>global</dt>
 <dd><p>Logical, indicates the calculation of beta diversity values,
     see Details.</p></dd>
-<dt>nsimul</dt>
+
+
+  <dt>nsimul</dt>
 <dd><p>Number of permutations to use.  If <code>nsimul = 0</code>,
     only the <code>FUN</code> argument is evaluated.
     It is thus possible to reuse the statistic values
     without a null model.</p></dd>
-<dt>method</dt>
+
+
+  <dt>method</dt>
 <dd><p>Null model method: either a name (character string) of
     a method defined in <code><a href="commsim.html">make.commsim</a></code> or a
     <code><a href="commsim.html">commsim</a></code> function.
     The default <code>"r2dtable"</code> keeps row sums and column sums fixed.
     See <code><a href="oecosimu.html">oecosimu</a></code> for Details and Examples.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="oecosimu.html">oecosimu</a></code>, i.e.
     <code>method</code>, <code>thin</code> or <code>burnin</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -153,7 +174,9 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>"multipart"</code> with same structure as
+    
+
+<p>An object of class <code>"multipart"</code> with same structure as
 <code>"oecosimu"</code> objects.</p>
     </div>
     <div class="section level2">
@@ -205,10 +228,10 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
 <span class="r-out co"><span class="r-pr">#&gt;</span> options:  index renyi, scales 1, global FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    11.235 -101.187 14.09416 14.04862 14.09704 14.1457     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      12.006 -389.023 14.13756 14.12903 14.13857 14.1457     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1      1.071   37.566  1.00308  0.99989  1.00323  1.0059     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    11.235  -89.925 14.0879 14.0377 14.0946 14.1396     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      12.006 -516.738 14.1388 14.1309 14.1405 14.1439     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1      1.071   30.149  1.0036  1.0001  1.0032  1.0073     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu">multipart</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">l2</span> <span class="op">+</span> <span class="va">l3</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"renyi"</span>, scales<span class="op">=</span><span class="fl">1</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
@@ -222,13 +245,13 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    8.0555  -57.308 12.20484 12.09459 12.22463 12.3097     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2   11.2353 -111.982 14.08174 14.04612 14.08274 14.1362     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3   12.0064 -307.584 14.13403 14.12203 14.13531 14.1446     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    8.0555  -50.907 12.18134 12.01786 12.18528 12.2928     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2   11.2353  -87.010 14.07970 14.03364 14.07729 14.1405     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3   12.0064 -368.188 14.13565 14.12336 14.13643 14.1439     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma     14.1603    0.000 14.16027 14.16027 14.16027 14.1603     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     1.3568   27.097  1.15631  1.14642  1.15359  1.1672     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2     1.0710   36.861  1.00373  0.99996  1.00387  1.0068     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3     1.1794  362.037  1.00186  1.00111  1.00177  1.0027     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     1.3568   21.320  1.15958  1.14714  1.15773  1.1761     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2     1.0710   28.302  1.00398  0.99967  1.00410  1.0074     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3     1.1794  433.360  1.00174  1.00115  1.00169  1.0026     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu">multipart</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"renyi"</span>, scales<span class="op">=</span><span class="fl">1</span>, nsimul<span class="op">=</span><span class="fl">19</span>, relative<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -242,13 +265,13 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES      mean      2.5%       50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1  8.055481  -55.160 12.187124 12.059009 12.183445 12.3297     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2 11.235261  -97.503 14.090896 14.041352 14.098092 14.1263     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3 12.006443 -526.328 14.135338 14.127390 14.135444 14.1407     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1  8.055481  -57.019 12.194624 12.070029 12.205986 12.3066     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2 11.235261  -87.243 14.087083 14.033408 14.094441 14.1444     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3 12.006443 -314.314 14.136140 14.122654 14.138053 14.1450     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma   14.160271    0.000 14.160271 14.160271 14.160271 14.1603     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1   0.078594   21.017  0.068289  0.067537  0.068308  0.0692     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2   0.535514   33.245  0.501579  0.500362  0.501249  0.5033     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3   0.589695  619.517  0.500882  0.500693  0.500878  0.5012     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1   0.078594   26.029  0.068324  0.067676  0.068237  0.0690     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2   0.535514   27.956  0.501743  0.499584  0.501495  0.5038     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3   0.589695  369.929  0.500854  0.500541  0.500786  0.5013     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu">multipart</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"renyi"</span>, scales<span class="op">=</span><span class="fl">1</span>, nsimul<span class="op">=</span><span class="fl">19</span>, global<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -262,13 +285,13 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    8.0555  -59.529 12.1996 12.0908 12.1899 12.3487     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2   11.2353 -102.650 14.0740 14.0181 14.0808 14.1116     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3   12.0064 -362.129 14.1355 14.1271 14.1361 14.1462     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    8.0555  -59.062 12.2051 12.0661 12.2002 12.3227     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2   11.2353 -101.798 14.0778 14.0367 14.0744 14.1268     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3   12.0064 -520.061 14.1374 14.1312 14.1380 14.1444     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma     14.1603    0.000 14.1603 14.1603 14.1603 14.1603     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     1.7578   90.452  1.1608  1.1467  1.1616  1.1712     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2     1.2603  128.352  1.0061  1.0034  1.0056  1.0101     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3     1.1794  426.389  1.0017  1.0010  1.0017  1.0024     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     1.7578   89.314  1.1602  1.1491  1.1607  1.1736     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2     1.2603  127.613  1.0059  1.0024  1.0061  1.0088     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3     1.1794  612.379  1.0016  1.0011  1.0016  1.0021     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
@@ -282,7 +305,7 @@ This is done by the <code>"r2dtable"</code> method in <code><a href="oecosimu.ht
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -113,17 +113,22 @@
     special term <code>Condition</code> that defines variables to be
     “partialled out” before constraints, just like in <code><a href="cca.html">rda</a></code>
     or <code><a href="cca.html">cca</a></code>. This allows the use of partial dbRDA.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>Data frame containing the variables on the right hand side of
     the model formula.</p></dd>
-<dt>distance</dt>
+
+  <dt>distance</dt>
 <dd><p>The name of the dissimilarity (or distance) index if
     the LHS of the <code>formula</code> is a data frame instead of
     dissimilarity matrix.</p></dd>
-<dt>sqrt.dist</dt>
+
+  <dt>sqrt.dist</dt>
 <dd><p>Take square roots of dissimilarities. See section
     <code>Details</code> below.</p></dd>
-<dt>comm</dt>
+
+
+  <dt>comm</dt>
 <dd><p>Community data frame which will be used for finding
     species scores when the LHS of the <code>formula</code> was a
     dissimilarity matrix. This is not used if the LHS is a data
@@ -132,7 +137,9 @@
     only available in <code>capscale</code>: <code>dbrda</code> does not return
     species scores. Function <code><a href="sppscores.html">sppscores</a></code> can be used to add
     species scores if they are missing.</p></dd>
-<dt>add</dt>
+
+
+  <dt>add</dt>
 <dd><p>Add a constant to the non-diagonal dissimilarities such
      that all eigenvalues are non-negative in the underlying Principal
      Co-ordinates Analysis (see <code><a href="wcmdscale.html">wcmdscale</a></code> for
@@ -140,17 +147,20 @@
      recommended method of Legendre &amp; Anderson (1999: “method
      1”) and <code>"cailliez"</code> uses their “method 2”. The
      latter is the only one in <code><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></code>.</p></dd>
-<dt>dfun</dt>
+
+  <dt>dfun</dt>
 <dd><p>Distance or dissimilarity function used. Any function
      returning standard <code>"dist"</code> and taking the index name as the
      first argument can be used.</p></dd>
-<dt>metaMDSdist</dt>
+
+   <dt>metaMDSdist</dt>
 <dd><p>Use <code><a href="metaMDS.html">metaMDSdist</a></code> similarly as in
      <code><a href="metaMDS.html">metaMDS</a></code>. This means automatic data transformation and
      using extended flexible shortest path dissimilarities (function
      <code><a href="stepacross.html">stepacross</a></code>) when there are many dissimilarities based on
      no shared species.</p></dd>
-<dt>na.action</dt>
+
+   <dt>na.action</dt>
 <dd><p>Handling of missing values in constraints or
      conditions. The default (<code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></code>) is to stop
      with missing values. Choices <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></code> and
@@ -160,15 +170,18 @@
      <code>NA</code> for scores of missing observations. Unlike in
      <code><a href="cca.html">rda</a></code>, no WA scores are available for missing
      constraints or conditions.</p></dd>
-<dt>subset</dt>
+
+   <dt>subset</dt>
 <dd><p>Subset of data rows. This can be a logical vector
      which is <code>TRUE</code> for kept observations, or a logical
      expression which can contain variables in the working
      environment, <code>data</code> or species names of the community data
      (if given in the formula or as <code>comm</code> argument).</p></dd>
-<dt>...</dt>
+
+   <dt>...</dt>
 <dd><p>Other parameters passed to underlying functions (e.g.,
      <code><a href="metaMDS.html">metaMDSdist</a></code>).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -224,9 +237,16 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The functions return an object of class <code>capscale</code> or
-<code>dbrda</code> which inherits from <code><a href="cca.html">rda</a></code>. See
-<code><a href="cca.object.html">cca.object</a></code> for description of the result object.</p>
+    
+
+
+<p>The functions return an object of class <code>capscale</code> or</p>
+<p></p>
+<p><code>dbrda</code> which inherits from <code><a href="cca.html">rda</a></code>. See</p>
+<p></p>
+<p><code><a href="cca.object.html">cca.object</a></code> for description of the result object.</p>
+
+
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -450,7 +470,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

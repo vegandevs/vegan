@@ -85,12 +85,15 @@
     matrix or a result known by <code><a href="scores.html">scores</a></code>. For
     <code>plot.ordisurf</code> an object of class <code>"ordisurf"</code> as
     returned by <code>ordisurf</code>.</p></dd>
-<dt>y</dt>
+
+  <dt>y</dt>
 <dd><p>Variable to be plotted / modelled as a function of the
     ordination scores.</p></dd>
-<dt>choices</dt>
+
+  <dt>choices</dt>
 <dd><p>Ordination axes.</p></dd>
-<dt>knots</dt>
+
+  <dt>knots</dt>
 <dd><p>Number of initial knots in <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> (one
     more than degrees of freedom). If <code>knots = 0</code> or
     <code>knots = 1</code>  the function will fit a linear trend surface, and
@@ -99,23 +102,28 @@
     <code>isotropic = FALSE</code>, with the first and second elements of
     <code>knots</code> referring to the first and second of ordination
     dimensions (as indicated by <code>choices</code>) respectively.</p></dd>
-<dt>family</dt>
+
+  <dt>family</dt>
 <dd><p>Error distribution in <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>Colour of contours.</p></dd>
-<dt>isotropic, thinplate</dt>
+
+  <dt>isotropic, thinplate</dt>
 <dd><p>Fit an isotropic smooth surface (i.e. same
     smoothness in both ordination dimensions) via
     <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>. Use of <code>thinplate</code> is deprecated and
     will be removed in a future version of the package.</p></dd>
-<dt>bs</dt>
+
+  <dt>bs</dt>
 <dd><p>a two letter character string indicating the smoothing basis
     to use. (e.g. <code>"tp"</code> for thin plate regression spline,
     <code>"cr"</code> for cubic regression spline). One of <code>c("tp", "ts",
       "cr", "cs", "ds", "ps", "ad")</code>. See
     <code><a href="https://rdrr.io/pkg/mgcv/man/smooth.terms.html" class="external-link">smooth.terms</a></code> for an over view of what these
     refer to. The default is to use thin plate splines: <code>bs = "tp"</code>.</p></dd>
-<dt>fx</dt>
+
+  <dt>fx</dt>
 <dd><p>indicates whether the smoothers are fixed degree of freedom
     regression splines (<code>fx = FALSE</code>) or penalised regression
     splines (<code>fx = TRUE</code>). Can be a vector of length 2 for
@@ -124,38 +132,48 @@
     it is an <strong>error</strong> to do so. A warning is issued if you specify
     <code>fx = TRUE</code> and forget to use <code>select = FALSE</code> though
     fitting continues using <code>select = FALSE</code>.</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add contours to an existing diagram or draw a new plot?</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>Type of scores known by <code><a href="scores.html">scores</a></code>: typically
     "sites" for ordinary site scores or "lc" for linear combination scores.</p></dd>
-<dt>w</dt>
+
+  <dt>w</dt>
 <dd><p>Prior weights on the data. Concerns mainly <code><a href="cca.html">cca</a></code>
     and <code><a href="decorana.html">decorana</a></code> results which have nonconstant weights.</p></dd>
-<dt>main</dt>
+
+  <dt>main</dt>
 <dd><p>The main title for the plot, or as default the name of
     plotted variable in a new plot.</p></dd>
-<dt>nlevels, levels</dt>
+
+  <dt>nlevels, levels</dt>
 <dd><p>Either a vector of <code>levels</code> for which contours
     are drawn, or suggested number of contours in <code>nlevels</code> if
     <code>levels</code> are not supplied.</p></dd>
-<dt>npoints</dt>
+
+  <dt>npoints</dt>
 <dd><p>numeric; the number of locations at which to evaluate
     the fitted surface. This represents the number of locations in each
     dimension.</p></dd>
-<dt>labcex</dt>
+
+  <dt>labcex</dt>
 <dd><p>Label size in contours.  Setting this zero will suppress
     labels.</p></dd>
-<dt>bubble</dt>
+
+  <dt>bubble</dt>
 <dd><p>Use a “bubble plot” for points, or vary the point
     diameter by the value of the plotted variable. If <code>bubble</code> is
     numeric, its value is used for the maximum symbol size (as in
     <code>cex</code>), or if <code>bubble = TRUE</code>, the value of <code>cex</code> gives
     the maximum. The minimum size will always be <code>cex = 0.4</code>.  The
     option only has an effect if <code>add = FALSE</code>.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>Character expansion of plotting symbols.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Logical; specify <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> argument
     <code>"select"</code>. If this is <code>TRUE</code> then <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> can
     add an extra  penalty to each term so that it can be penalized to
@@ -163,7 +181,8 @@
     of fitting can completely remove terms from the model. If the
     corresponding smoothing parameter is estimated as zero then the extra
     penalty has no effect.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>character; the smoothing parameter estimation
     method. Options allowed are: <code>"GCV.Cp"</code> uses GCV for models with
     unknown scale parameter and Mallows' Cp/UBRE/AIC for models with
@@ -173,30 +192,37 @@
     estimation for both known and unknown scale; and <code>"P-REML"</code> and
     <code>"P-ML"</code> use REML or ML estimation but use a Pearson estimate
     of the scale.</p></dd>
-<dt>gamma</dt>
+
+  <dt>gamma</dt>
 <dd><p>Multiplier to inflate model degrees of freedom in GCV or
     UBRE/AIC score by. This effectively places an extra penalty on
     complex models. An oft-used value is <code>gamma = 1.4</code>.</p></dd>
-<dt>plot</dt>
+
+  <dt>plot</dt>
 <dd><p>logical; should any plotting be done by
     <code>ordisurf</code>? Useful if all you want is the fitted response
     surface model.</p></dd>
-<dt>lwd.cl</dt>
+
+  <dt>lwd.cl</dt>
 <dd><p>numeric; the <code>lwd</code> (line width) parameter to use
     when drawing the contour lines.</p></dd>
-<dt>formula, data</dt>
+
+  <dt>formula, data</dt>
 <dd><p>Alternative definition of the fitted model as
     <code>x ~ y</code>, where left-hand side is the ordination <code>x</code> and
     right-hand side the single fitted continuous variable
     <code>y</code>. The variable <code>y</code> must be in the working environment
     or in the data frame or environment given by <code>data</code>. All
     other arguments of are passed to the default method.</p></dd>
-<dt>object</dt>
+
+  <dt>object</dt>
 <dd><p>An <code>ordisurf</code> result object.</p></dd>
-<dt>newdata</dt>
+
+  <dt>newdata</dt>
 <dd><p>Coordinates in two-dimensional ordination for new
     points.</p></dd>
-<dt>what</dt>
+
+  <dt>what</dt>
 <dd><p>character; what type of plot to produce. <code>"contour"</code>
     produces a contour plot of the response surface, see
     <code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></code> for details. <code>"persp"</code> produces a
@@ -204,9 +230,11 @@
     details. <code>"gam"</code> plots the fitted GAM model, an object that
     inherits from class <code>"gam"</code> returned by <code>ordisurf</code>, see
     <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to <code><a href="scores.html">scores</a></code>, or
     to the graphical functions. See Note below for exceptions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -256,18 +284,23 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>ordisurf</code> is usually called for its side effect of drawing the
-  contour plot. The function returns a result object of class
-<code>"ordisurf"</code> that inherits from <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> used
+    <p></p>
+<p><code>ordisurf</code> is usually called for its side effect of drawing the
+  contour plot. The function returns a result object of class</p>
+<p></p>
+<p><code>"ordisurf"</code> that inherits from <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> used
   internally to fit the surface, but adds an item <code>grid</code> that
   contains the data for the grid surface. The item <code>grid</code> has
   elements <code>x</code> and <code>y</code> which are vectors of axis coordinates,
-  and element <code>z</code> that is a matrix of fitted values for
-<code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></code>. The values outside the convex hull of observed
-  points are indicated as <code>NA</code> in <code>z</code>. The
-<code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> component of the result can be used for
-  further analysis like predicting new values (see
-<code><a href="https://rdrr.io/pkg/mgcv/man/predict.gam.html" class="external-link">predict.gam</a></code>).</p>
+  and element <code>z</code> that is a matrix of fitted values for</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></code>. The values outside the convex hull of observed
+  points are indicated as <code>NA</code> in <code>z</code>. The</p>
+<p></p>
+<p><code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> component of the result can be used for
+  further analysis like predicting new values (see</p>
+<p></p>
+<p><code><a href="https://rdrr.io/pkg/mgcv/man/predict.gam.html" class="external-link">predict.gam</a></code>).</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -351,9 +384,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.15  total = 6.15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.24674     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94138     </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## as above but without the extra penalties on smooth terms,</span></span>
 <span class="r-in"><span class="co">## and using GCV smoothness selection (old behaviour of `ordisurf()`):</span></span>
@@ -368,21 +401,23 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.46  total = 7.46 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7.34  total = 8.34 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 166.1215     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 154.2832     </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Cover of Cladina arbuscula</span></span>
 <span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladarbu</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="ordisurf-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span class="co">## Get fitted values</span></span>
 <span class="r-in"><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        18        15        24        27        23        19        22        16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19.196573  8.087038  3.317533  2.478825  6.018191  6.594744  7.225560 12.492667 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        28        13        14        20        25         7         5         6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2.813403 31.959963 13.557009 10.089451  5.324858 34.230924  8.669527 26.871632 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         3         4         2         9        12        10        11        21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5.982190 13.128238  4.454115  4.770097  6.911280  4.298863 10.837822  5.739498 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         18         15         24         27         23         19         22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21.6239967  8.0344909  3.8614549  2.4596245  6.3957778  5.4260319  6.7156954 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         16         28         13         14         20         25          7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11.6760188  0.8042840 31.1729554 16.1943628  9.5898410  5.4218030 29.8217678 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          5          6          3          4          2          9         12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22.8496887 29.9938163  7.1652621 15.5308872  2.8468961  0.9051268  3.5543485 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         10         11         21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.3099304 10.7781632  0.9177758 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Variable selection via additional shrinkage penalties</span></span>
 <span class="r-in"><span class="co">## This allows non-significant smooths to be selected out</span></span>
@@ -399,9 +434,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.15  total = 6.15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.24674     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94138     </span>
 <span class="r-in"><span class="co">##  - option 2: use a basis with shrinkage</span></span>
 <span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, bs <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="ordisurf-4.png" alt="" width="700" height="1133"></span>
@@ -413,9 +448,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.45  total = 6.45 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.26  total = 7.26 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.44803     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.83938     </span>
 <span class="r-in"><span class="co">## or bs = "cs" with `isotropic = FALSE`</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Plot method</span></span>
@@ -445,9 +480,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.15  total = 6.15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.24675     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94139     </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## A fixed degrees of freedom smooth, must use 'select = FALSE'</span></span>
 <span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -463,7 +498,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  total = 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 89.45291     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 85.55097     </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## An anisotropic smoother with cubic regression spline bases</span></span>
 <span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -478,9 +513,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     FALSE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  total = 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.08  total = 4.08 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.23757     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.02833     </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## An anisotropic smoother with cubic regression spline with</span></span>
 <span class="r-in"><span class="co">## shrinkage bases &amp; different degrees of freedom in each dimension</span></span>
@@ -499,7 +534,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  total = 12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 44.96788     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 42.98307     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -511,7 +546,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

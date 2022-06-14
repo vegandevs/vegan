@@ -78,39 +78,51 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dist</dt>
 <dd><p>Dissimilarities.</p></dd>
-<dt>ndim</dt>
+
+  <dt>ndim</dt>
 <dd><p>Number of axes in metric scaling (argument <code>k</code> in 
    <code><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></code>).</p></dd>
-<dt>epsilon</dt>
+
+  <dt>epsilon</dt>
 <dd><p>Shortest dissimilarity retained.</p></dd>
-<dt>k</dt>
+
+  <dt>k</dt>
 <dd><p>Number of shortest dissimilarities retained for a point. If
    both <code>epsilon</code> and <code>k</code> are given, <code>epsilon</code> will be used.</p></dd>
-<dt>path</dt>
+
+  <dt>path</dt>
 <dd><p>Method used in <code><a href="stepacross.html">stepacross</a></code> to estimate the
     shortest path, with alternatives <code>"shortest"</code> and <code>"extended"</code>.</p></dd>
-<dt>fragmentedOK</dt>
+
+  <dt>fragmentedOK</dt>
 <dd><p>What to do if dissimilarity matrix is
     fragmented. If <code>TRUE</code>, analyse the largest connected group,
     otherwise stop with error.</p></dd>
-<dt>x, object</dt>
+
+  <dt>x, object</dt>
 <dd><p>An <code>isomap</code> result object.</p></dd>
-<dt>axes</dt>
+
+  <dt>axes</dt>
 <dd><p>Number of axes displayed.</p></dd>
-<dt>net</dt>
+
+  <dt>net</dt>
 <dd><p>Draw the net of retained dissimilarities.</p></dd>
-<dt>n.col</dt>
+
+  <dt>n.col</dt>
 <dd><p>Colour of drawn net segments. This can also be a vector
     that is recycled for points, and the colour of the net segment is
     a mixture of joined points.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Plot observations either as <code>"points"</code>,
     <code>"text"</code> or use <code>"none"</code> to plot no observations. The
     <code>"text"</code> will use <code><a href="ordilabel.html">ordilabel</a></code> if <code>net = TRUE</code> 
     and <code><a href="ordiplot.html">ordiplot</a></code> if <code>net = FALSE</code>, and pass
     extra arguments to these functions.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -141,11 +153,17 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>isomapdist</code> returns a dissimilarity object similar to
-<code>dist</code>. Function <code>isomap</code> returns an object of class
-<code>isomap</code> with <code>plot</code> and <code>summary</code> methods. The
-<code>plot</code> function returns invisibly an object of class
-<code><a href="ordiplot.html">ordiplot</a></code>. Function <code><a href="scores.html">scores</a></code> can extract
+    
+
+<p>Function <code>isomapdist</code> returns a dissimilarity object similar to</p>
+<p></p>
+<p><code>dist</code>. Function <code>isomap</code> returns an object of class</p>
+<p></p>
+<p><code>isomap</code> with <code>plot</code> and <code>summary</code> methods. The</p>
+<p></p>
+<p><code>plot</code> function returns invisibly an object of class</p>
+<p></p>
+<p><code><a href="ordiplot.html">ordiplot</a></code>. Function <code><a href="scores.html">scores</a></code> can extract
   the ordination scores.</p>
     </div>
     <div class="section level2">
@@ -228,7 +246,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

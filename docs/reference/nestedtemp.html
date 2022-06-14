@@ -81,27 +81,37 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>comm</dt>
 <dd><p>Community data.</p></dd>
-<dt>niter</dt>
+
+  <dt>niter</dt>
 <dd><p>Number of iterations to reorder tied columns.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>Result object for a <code>plot</code>.</p></dd>
-<dt>col</dt>
+
+  <dt>col</dt>
 <dd><p>Colour scheme for matrix temperatures.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>The kind of plot produced.</p></dd>
-<dt>names</dt>
+
+  <dt>names</dt>
 <dd><p>Label columns and rows in the plot using names in <code>comm</code>.
     If it is a logical vector of length 2, row and column labels are
     returned accordingly.</p></dd>
-<dt>order</dt>
+
+  <dt>order</dt>
 <dd><p>Order rows and columns by frequencies.</p></dd>
-<dt>weighted</dt>
+
+  <dt>weighted</dt>
 <dd><p>Use species abundances as weights of interactions.</p></dd>
-<dt>wbinary</dt>
+
+  <dt>wbinary</dt>
 <dd><p>Modify original method so that binary data give the same
     result in weighted and and unweighted analysis.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -194,10 +204,14 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The result returned by a nestedness function contains an item called
-<code>statistic</code>, but the other components differ among functions. The
-  functions are constructed so that they can be handled by
-<code><a href="oecosimu.html">oecosimu</a></code>.</p>
+    
+
+<p>The result returned by a nestedness function contains an item called</p>
+<p></p>
+<p><code>statistic</code>, but the other components differ among functions. The
+  functions are constructed so that they can be handled by</p>
+<p></p>
+<p><code><a href="oecosimu.html">oecosimu</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -247,7 +261,7 @@
 <span class="r-in"><span class="co">## Matrix temperature</span></span>
 <span class="r-in"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">nestedtemp</span><span class="op">(</span><span class="va">sipoo</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">out</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> nestedness temperature: 10.23808 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nestedness temperature: 10.29671 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> with matrix fill 0.2233333 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="nestedtemp-1.png" alt="" width="700" height="1133"></span>
@@ -271,7 +285,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.71442 2703.5 2589.4 2685.0 2922.8     0.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.49181 2719.5 2576.0 2707.0 2922.2     0.55</span>
 <span class="r-in"><span class="co">## Another Null model and standardized checkerboard score</span></span>
 <span class="r-in"><span class="fu"><a href="oecosimu.html">oecosimu</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="va">nestedchecker</span>, <span class="st">"r00"</span>, statistic <span class="op">=</span> <span class="st">"C.score"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
@@ -287,7 +301,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C.score    2.2588 -26.996 9.2088 8.7398 9.2465 9.6505     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C.score    2.2588 -25.195 9.2199 8.5191 9.2400 9.6525     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
@@ -301,7 +315,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

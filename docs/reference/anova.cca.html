@@ -85,14 +85,20 @@
     there are several result objects, they are compared against each
     other in the order they were supplied. For a single object, a test
     specified in <code>by</code> or an overall test is given.</p></dd>
-<dt>x</dt>
+
+
+  <dt>x</dt>
 <dd><p>A single ordination result object.</p></dd>
-<dt>permutations</dt>
+
+
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>by</dt>
+
+
+  <dt>by</dt>
 <dd><p>Setting <code>by = "axis"</code> will assess significance for
     each constrained axis, and setting <code>by = "terms"</code> will assess
     significance for each term (sequentially from first to last), and
@@ -100,16 +106,22 @@
     the terms (each marginal term analysed in a model with all other
     variables), and <code>by = "onedf"</code> will assess sequentially
     one-degree-of-freedom contrasts of split factors.</p></dd>
-<dt>model</dt>
+
+
+  <dt>model</dt>
 <dd><p>Permutation model: <code>model="direct"</code> permutes
     community data, <code>model="reduced"</code> permutes residuals
     of the community data after Conditions (partial model),
     <code>model = "full"</code> permutes residuals after Conditions and
     Constraints.</p></dd>
-<dt>parallel</dt>
+
+
+  <dt>parallel</dt>
 <dd><p>Use parallel processing with the given number of
     cores.</p></dd>
-<dt>strata</dt>
+
+
+  <dt>strata</dt>
 <dd><p>An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within
     the specified strata. It is an error to use this when
@@ -117,21 +129,30 @@
     defines <code>blocks</code>. This is a legacy argument that will be
     deprecated in the future: use
     <code>permutations = how(..., blocks)</code> instead.</p></dd>
-<dt>cutoff</dt>
+
+
+  <dt>cutoff</dt>
 <dd><p>Only effective with <code>by="axis"</code> where stops
     permutations after an axis exceeds the <code>cutoff</code> \(p\)-value.</p></dd>
-<dt>scope</dt>
+
+
+  <dt>scope</dt>
 <dd><p>Only effective with <code>by="margin"</code> where it can be
     used to select the marginal terms for testing. The default is to
     test all marginal terms in <code><a href="https://rdrr.io/r/stats/factor.scope.html" class="external-link">drop.scope</a></code>.</p></dd>
-<dt>first</dt>
+
+
+  <dt>first</dt>
 <dd><p>Analyse only significance of the first axis.</p></dd>
-<dt>...</dt>
+
+
+  <dt>...</dt>
 <dd><p>Parameters passed to other functions.  <code>anova.cca</code>
     passes all arguments to <code>permutest.cca</code>. In <code>anova</code> with
     <code>by = "axis"</code> you can use argument <code>cutoff</code> (defaults
     <code>1</code>) which stops permutations after exceeding the given
     level.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -191,11 +212,17 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>anova.cca</code> calls <code>permutest.cca</code> and fills an
-<code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></code> table. Additional attributes are
-<code>Random.seed</code> (the random seeds used),
-<code>control</code> (the permutation design, see <a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a>) and
-<code>F.perm</code> (the permuted test statistics).</p>
+    
+
+<p>The function <code>anova.cca</code> calls <code>permutest.cca</code> and fills an</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></code> table. Additional attributes are</p>
+<p></p>
+<p><code>Random.seed</code> (the random seeds used),</p>
+<p></p>
+<p><code>control</code> (the permutation design, see <a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a>) and</p>
+<p></p>
+<p><code>F.perm</code> (the permuted test statistics).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -243,10 +270,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.62831 2.4465  0.002 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.055 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.62831 2.4465  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.053 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by<span class="op">=</span><span class="st">"margin"</span><span class="op">)</span></span>
@@ -257,8 +284,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.39854 1.5518  0.044 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.066 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.39854 1.5518  0.039 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.077 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -272,11 +299,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df ChiSquare      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.L    1   0.41081 4.7988  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q    1   0.11261 1.3154  0.201    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C    1   0.10489 1.2253  0.255    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  1   0.08849 1.0337  0.410    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM  1   0.20326 2.3744  0.014 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF  1   0.08231 0.9615  0.478    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q    1   0.11261 1.3154  0.217    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C    1   0.10489 1.2253  0.253    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  1   0.08849 1.0337  0.369    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM  1   0.20326 2.3744  0.012 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF  1   0.08231 0.9615  0.471    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual     13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -290,7 +317,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: dune ~ A1 + Moisture + Management + Use + Manure</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ResDf ResChiSquare Df ChiSquare      F Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    13       1.1129                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     7       0.6121  6   0.50079 0.9545  0.578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     7       0.6121  6   0.50079 0.9545  0.568</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -302,7 +329,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

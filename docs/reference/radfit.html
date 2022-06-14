@@ -91,49 +91,68 @@
     <dl><dt>x</dt>
 <dd><p>Data frame, matrix or a vector giving species abundances, or an object to
     be plotted.</p></dd>
-<dt>family</dt>
+
+
+  <dt>family</dt>
 <dd><p>Error distribution (passed to <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>). All
     alternatives accepting <code>link = "log"</code> in <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">family</a></code>
     can be used, although not all make sense.</p></dd>
-<dt>object</dt>
+
+
+  <dt>object</dt>
 <dd><p>A fitted result object.</p></dd>
-<dt>newdata</dt>
+
+
+  <dt>newdata</dt>
 <dd><p>Ranks used for ordinations. All models can
     interpolate to non-integer “ranks” (although this may be
     approximate), but extrapolation may fail</p></dd>
-<dt>total</dt>
+
+
+  <dt>total</dt>
 <dd><p>The new total used for predicting abundance. Observed
     total count is used if this is omitted.</p></dd>
-<dt>order.by</dt>
+
+
+  <dt>order.by</dt>
 <dd><p>A vector used for ordering sites in plots.</p></dd>
-<dt>BIC</dt>
+
+  <dt>BIC</dt>
 <dd><p>Use Bayesian Information Criterion, BIC, instead of
     Akaike's AIC. The penalty in BIC is \(k = \log(S)\)  where \(S\) is the number of species, whereas AIC uses
     \(k = 2\).</p></dd>
-<dt>model</dt>
+
+  <dt>model</dt>
 <dd><p>Show only the specified model. If missing, AIC is used
     to select the model. The model names (which can be abbreviated)
     are <code>Null</code>, <code>Preemption</code>, <code>Lognormal</code>, <code>Zipf</code>,
     <code>Mandelbrot</code>.</p></dd>
-<dt>legend</dt>
+
+  <dt>legend</dt>
 <dd><p>Add legend of line colours.</p></dd>
-<dt>as.table</dt>
+
+  <dt>as.table</dt>
 <dd><p>Arrange panels starting from upper left corner (passed
     to <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code>).</p></dd>
-<dt>xlab,ylab</dt>
+
+  <dt>xlab,ylab</dt>
 <dd><p>Labels for <code>x</code> and <code>y</code> axes.</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of the plot, <code>"b"</code> for plotting both observed points
     and fitted lines, <code>"p"</code> for only points, <code>"l"</code> for only
     fitted lines, and <code>"n"</code> for only setting the frame.</p></dd>
-<dt>log</dt>
+
+  <dt>log</dt>
 <dd><p>Use logarithmic scale for given axis. The default
     <code>log = "y"</code> gives the traditional plot of community ecology
     where the preemption model is a straight line, and with
     <code>log = "xy"</code> Zipf model is a straight line. With
     <code>log = ""</code> both axes are in the original arithmetic scale.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -210,25 +229,46 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Functions <code>rad.null</code>, <code>rad.preempt</code>, <code>rad.lognormal</code>,
-<code>zipf</code> and <code>zipfbrot</code> fit each a single RAD model to a
+    
+
+
+<p>Functions <code>rad.null</code>, <code>rad.preempt</code>, <code>rad.lognormal</code>,</p>
+<p></p>
+<p><code>zipf</code> and <code>zipfbrot</code> fit each a single RAD model to a
   single site. The result object has class <code>"radline"</code> and
   inherits from <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>, and can be handled by some (but not
-  all) <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code> methods.
-  Function <code>radfit</code> fits all models either to a single site or to
+  all) <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code> methods.</p>
+
+
+<p>Function <code>radfit</code> fits all models either to a single site or to
   all rows of a data frame or a matrix. When fitted to a single site,
-  the function returns an object of class <code>"radfit"</code> with items
-<code>y</code> (observed values), <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">family</a></code>, and <code>models</code>  which is a list of fitted <code>"radline"</code> models.  When applied for a
+  the function returns an object of class <code>"radfit"</code> with items</p>
+<p></p>
+<p><code>y</code> (observed values), <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">family</a></code>, and <code>models</code></p>
+
+
+<p>which is a list of fitted <code>"radline"</code> models.  When applied for a
   data frame or matrix, <code>radfit</code> function returns an object of
-  class <code>"radfit.frame"</code> which is a list of <code>"radfit"</code>  objects, each item names by the corresponding row name.
-  All result objects (<code>"radline"</code>, <code>"radfit"</code>,
-<code>"radfit.frame"</code>) can be accessed with same method functions.
-  The following methods are available: <code><a href="https://rdrr.io/r/stats/AIC.html" class="external-link">AIC</a></code>,
-<code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></code>, <code><a href="https://rdrr.io/r/stats/deviance.html" class="external-link">deviance</a></code>, <code><a href="https://rdrr.io/r/stats/logLik.html" class="external-link">logLik</a></code>. In
-  addition the fit results can be accessed with <code><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></code>,
-<code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></code> (inheriting from
-<code><a href="https://rdrr.io/r/stats/glm.summaries.html" class="external-link">residuals.glm</a></code>). The graphical functions were discussed
+  class <code>"radfit.frame"</code> which is a list of <code>"radfit"</code></p>
+
+
+<p>objects, each item names by the corresponding row name.</p>
+
+
+<p>All result objects (<code>"radline"</code>, <code>"radfit"</code>,</p>
+<p></p>
+<p><code>"radfit.frame"</code>) can be accessed with same method functions.
+  The following methods are available: <code><a href="https://rdrr.io/r/stats/AIC.html" class="external-link">AIC</a></code>,</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></code>, <code><a href="https://rdrr.io/r/stats/deviance.html" class="external-link">deviance</a></code>, <code><a href="https://rdrr.io/r/stats/logLik.html" class="external-link">logLik</a></code>. In
+  addition the fit results can be accessed with <code><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></code>,</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></code> (inheriting from</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/glm.summaries.html" class="external-link">residuals.glm</a></code>). The graphical functions were discussed
   above in Details.</p>
+
+
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -328,7 +368,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

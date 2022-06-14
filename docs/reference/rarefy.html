@@ -66,32 +66,42 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data, a matrix-like object or a vector.</p></dd>
-<dt>MARGIN</dt>
+
+  <dt>MARGIN</dt>
 <dd><p>Margin for which the index is computed.</p></dd>
-<dt>sample</dt>
+
+  <dt>sample</dt>
 <dd><p>Subsample size for rarefying community, either a single
     value or a vector.</p></dd>
-<dt>se</dt>
+
+  <dt>se</dt>
 <dd><p>Estimate standard errors.</p></dd>
-<dt>step</dt>
+
+  <dt>step</dt>
 <dd><p>Step size for sample sizes in rarefaction curves.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Axis labels in plots of rarefaction curves.</p></dd>
-<dt>label</dt>
+
+  <dt>label</dt>
 <dd><p>Label rarefaction curves by rownames of <code>x</code>
     (logical).</p></dd>
-<dt>col, lty</dt>
+
+  <dt>col, lty</dt>
 <dd><p>plotting colour and line type, see
     <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code>. Can be a vector of length <code>nrow(x)</code>, one per
     sample, and will be extended to such a length internally.</p></dd>
-<dt>tidy</dt>
+
+  <dt>tidy</dt>
 <dd><p>Instead of drawing a <code>plot</code>, return a “tidy”
     data frame than can be used in <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> graphics. The data
     frame has variables <code>Site</code> (factor), <code>Sample</code> and
     <code>Species</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Parameters passed to <code><a href="https://rdrr.io/r/stats/nlm.html" class="external-link">nlm</a></code>, or to <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></code>,
     <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> and <code><a href="ordilabel.html">ordilabel</a></code> in <code>rarecurve</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -140,17 +150,24 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector of rarefied species richness values. With a single
-<code>sample</code> and <code>se = TRUE</code>, function <code>rarefy</code> returns a
+    
+
+<p>A vector of rarefied species richness values. With a single</p>
+<p></p>
+<p><code>sample</code> and <code>se = TRUE</code>, function <code>rarefy</code> returns a
   2-row matrix with rarefied richness (<code>S</code>) and its standard error
   (<code>se</code>). If <code>sample</code> is a vector in <code>rarefy</code>, the
   function returns a matrix with a column for each <code>sample</code> size,
   and if <code>se = TRUE</code>, rarefied richness and its standard error are
-  on consecutive lines.
-  Function <code>rarecurve</code> returns <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code> list of
-<code>rarefy</code> results corresponding each drawn curve. Alternatively,
-  with <code>tidy = TRUE</code> it returns a data frame that can be used in
-<a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> graphics.</p>
+  on consecutive lines.</p>
+
+
+<p>Function <code>rarecurve</code> returns <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code> list of</p>
+<p></p>
+<p><code>rarefy</code> results corresponding each drawn curve. Alternatively,
+  with <code>tidy = TRUE</code> it returns a data frame that can be used in</p>
+<p></p>
+<p><a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> graphics.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -198,7 +215,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

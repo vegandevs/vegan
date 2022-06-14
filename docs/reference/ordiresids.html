@@ -85,26 +85,32 @@
     <dl><dt>x</dt>
 <dd><p>Ordination result from <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>
     or <code><a href="capscale.html">capscale</a></code>.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>The type of plot: <code>"residuals"</code> plot residuals
     against fitted values, <code>"scale"</code> the square root of absolute
     residuals against fitted values, and <code>"qqmath"</code> the residuals
     against expected distribution (defaults <code><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">qnorm</a></code>),
     unless defined differently in the <code>formula</code>  argument.</p></dd>
-<dt>residuals</dt>
+
+  <dt>residuals</dt>
 <dd><p>The kind of residuals and fitted values, with alternatives
     <code>"working"</code>, <code>"response"</code>, <code>"standardized"</code> and
     <code>"studentized"</code> (see Details).</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>The type of plot. The argument is passed on to
     <span class="pkg">lattice</span> functions.</p></dd>
-<dt>formula</dt>
+
+  <dt>formula</dt>
 <dd><p>Formula to override the default plot. The formula can
     contain items <code>Fitted</code>, <code>Residuals</code>, <code>Species</code> and
     <code>Sites</code> (provided that names of species and sites are available
     in the ordination result).</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to <span class="pkg">lattice</span> functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -124,7 +130,9 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> object that can
+    
+
+<p>The function returns a <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> object that can
   displayed as plot.</p>
     </div>
     <div class="section level2">
@@ -163,7 +171,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
