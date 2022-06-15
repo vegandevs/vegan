@@ -24,10 +24,11 @@
         cat("Best solution was not be repeated after",
             x$tries, "tries\n")
     }
-    if (x$bestry > 0)
-        cat("The best solution was from random start, try", x$bestry, "\n")
+    cat("The best solution was from try", x$bestry)
+    if (x$bestry == 0)
+        cat(" (metric scaling or null solution)\n")
     else
-        cat("The best solution started from metric scaling (try 0)\n")
+        cat(" (random start)\n")
     z <- x$points
     scal <- c(if (attr(z, "centre")) "centring",
               if (attr(z, "pc")) "PC rotation",
