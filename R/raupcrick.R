@@ -21,8 +21,8 @@
         out <- sol$oecosimu$pval
     ## set attributes of a "dist" object
     attributes(out) <- list("class"=c("raupcrick", "dist"), "Size"=N,
-                            "Labels" = rownames(comm), "call" =
-                            match.call(), "Diag" = FALSE, "Upper" = FALSE,
-                            "method" = "raupcrick")
+                            "Labels" = rownames(comm), "maxdist" = 1,
+                            "call" = match.call(), "Diag" = FALSE,
+                            "Upper" = FALSE, "method" = "raupcrick")
     out
 }

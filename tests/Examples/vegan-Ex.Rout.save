@@ -4105,7 +4105,7 @@ Dimensions: 2
 Stress:     0.1183186 
 Stress type 1, weak ties
 Best solution was repeated 5 time(s) in 20 tries
-The best solution was from random start, try 8 
+The best solution was from try 8 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -4239,7 +4239,7 @@ Dimensions: 2
 Stress:     0.1928475 
 Stress type 2, weak ties
 Best solution was repeated 10 time(s) in 20 tries
-The best solution was from random start, try 11 
+The best solution was from try 11 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -4298,7 +4298,7 @@ Dimensions: 2
 Stress:     0.1067169 
 Stress type 1, weak ties
 Best solution was repeated 3 time(s) in 20 tries
-The best solution was from random start, try 18 
+The best solution was from try 18 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -9176,7 +9176,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.692 0.303 9.008 0 0 
+Time elapsed:  8.685 0.301 9.027 0 0 
 > grDevices::dev.off()
 null device 
           1 

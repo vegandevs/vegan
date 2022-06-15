@@ -888,7 +888,7 @@ Dimensions: 2
 Stress:     0.1825658 
 Stress type 1, weak ties
 Best solution was not be repeated after 20 tries
-The best solution was from random start, try 17 
+The best solution was from try 17 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0)))' 
 
@@ -998,4 +998,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.329   0.062   1.389 
+  1.320   0.056   1.375 
