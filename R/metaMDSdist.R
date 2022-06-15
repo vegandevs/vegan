@@ -66,7 +66,17 @@
             attr(dis, "maxdist") <- NA
         }
     }
-
+    ## sanity check of dissimilarities: either similarities or failed
+    ## logic above
+    maxdis <- attr(dis, "maxdist")
+    if (!is.null(maxdis) && is.numeric(maxdis)) {
+        if (max(dis) > maxdis + sqrt(.Machine$double.eps)) {
+            warning("some dissimilarities exceed expected maximum ", maxdis)
+            attr(dis, "maxdist") <- NA
+        }
+        if(maxdis < sqrt(.Machine$double.eps))
+            warning("perhaps you have similarities instead of dissimilarities?")
+    }
     if ((isTRUE(noshare) && any(tmp <- no.shared(comm))) ||
         (!is.logical(noshare) && noshare >= 0 &&
          sum(tmp <- no.shared(comm))/length(dis) > noshare)) {

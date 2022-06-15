@@ -31,8 +31,12 @@
         ## adjust threshold to maxdist if available
         if (!is.numeric(maxdist))
             warning("halfchange requested, but ceiling distance is unknown, using ", threshold)
-        else
+        else {
             threshold <- maxdist * threshold
+            ## something fishy - similarities instead of distances?
+            if (threshold < sqrt(.Machine$double.eps))
+                warning("dubious maxdist ", maxdist, ": similarities instead of dissimilarities?")
+        }
         take <- dist < threshold
         if (sum(take) < nthreshold) {
             warning("skipping half-change scaling: too few points below threshold")
