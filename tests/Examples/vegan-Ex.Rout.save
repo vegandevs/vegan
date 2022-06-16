@@ -205,7 +205,8 @@ REML score: -3.187414
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: MOStest
-> ### Title: Mitchell-Olds & Shaw Test for the Location of Quadratic Extreme
+> ### Title: Mitchell-Olds and Shaw Test for the Location of Quadratic
+> ###   Extreme
 > ### Aliases: MOStest plot.MOStest fieller.MOStest profile.MOStest
 > ###   confint.MOStest
 > ### Keywords: models regression
@@ -1710,11 +1711,13 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ## We can use ordiplot pipes in R 4.1 to build similar plots with
 > ## flexible control
-> if (getRversion() >= "4.1") {
-+ plot(mod, scaling = "symmetric", type="n") |>
-+    text("sites", cex=0.8) |>
-+    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
-+ }
+> ## Not run: 
+> ##D if (getRversion() >= "4.1") {
+> ##D plot(mod, scaling = "symmetric", type="n") |>
+> ##D    text("sites", cex=0.8) |>
+> ##D    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
+> ##D }
+> ## End(Not run)
 > 
 > 
 > 
@@ -5278,25 +5281,26 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
-> ## same plot using pipes (pipes |> are available from R version 4.1.0)
-> if (getRversion() >= "4.1") {
-+ ordiplot(dune.mds, type="n") |>
-+   points("sites", pch=21, col="red", bg="yellow") |>
-+   text("species", col="blue", cex=0.9)
-+ ## Some people think that species should be shown with arrows in PCA.
-+ ## Other ordination methods also return an invisible ordiplot object and
-+ ## we can use pipes to draw those arrows.
-+ mod <- rda(dune)
-+ plot(mod, type="n") |>
-+   points("sites", pch=16, col="red") |>
-+   text("species", arrows = TRUE, length=0.05, col="blue")
-+ }
+> ## Not run: 
+> ##D ## same plot using pipes (pipes |> are available from R version 4.1.0)
+> ##D if (getRversion() >= "4.1") {
+> ##D ordiplot(dune.mds, type="n") |>
+> ##D   points("sites", pch=21, col="red", bg="yellow") |>
+> ##D   text("species", col="blue", cex=0.9)
+> ##D ## Some people think that species should be shown with arrows in PCA.
+> ##D ## Other ordination methods also return an invisible ordiplot object and
+> ##D ## we can use pipes to draw those arrows.
+> ##D mod <- rda(dune)
+> ##D plot(mod, type="n") |>
+> ##D   points("sites", pch=16, col="red") |>
+> ##D   text("species", arrows = TRUE, length=0.05, col="blue")
+> ##D }
+> ## End(Not run)
 > ## Default plot of the previous using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
 > ##D identify(pl, "spec")
 > ## End(Not run)
-> 
 > 
 > 
 > 
@@ -9176,7 +9180,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.685 0.301 9.027 0 0 
+Time elapsed:  8.646 0.295 8.955 0 0 
 > grDevices::dev.off()
 null device 
           1 
