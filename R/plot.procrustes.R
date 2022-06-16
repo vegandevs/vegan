@@ -1,7 +1,7 @@
 "plot.procrustes" <-
     function (x, kind = 1, choices = c(1,2), to.target = TRUE,
               type = "p", xlab, ylab, main, ar.col = "blue",
-              len = 0.05, cex = 0.7,  ...) 
+              length = 0.05, cex = 0.7,  ...)
 {
     type <- match.arg(type, c("points", "text", "none"))
     if (to.target) {
@@ -11,17 +11,16 @@
         tails <- x$X[, choices]
         heads <- x$Yrot[, choices]
     }
-    if (missing(main)) 
+    if (missing(main))
         main <- "Procrustes errors"
     if (kind <= 1) {
-        formals(arrows) <- c(formals(arrows), alist(... = ))
-        if (missing(xlab)) 
+        if (missing(xlab))
             xlab <- paste("Dimension", choices[1])
-        if (missing(ylab)) 
+        if (missing(ylab))
             ylab <- paste("Dimension", choices[2])
         xrange <- range(tails[, 1], heads[, 1])
         yrange <- range(tails[, 2], heads[, 2])
-        plot(xrange, yrange, xlab = xlab, ylab = ylab, main = main, 
+        plot(xrange, yrange, xlab = xlab, ylab = ylab, main = main,
              type = "n", asp = 1, ...)
         if (kind > 0) {
             abline(v = 0, lty = 2)
@@ -52,7 +51,7 @@
             if (type != "none") {
                 ow <- options(warn = -1)
                 arrows(tails[, 1], tails[, 2], heads[, 1], heads[, 2],
-                       col = ar.col, len = len, ...)
+                       col = ar.col, length = length, ...)
                 options(ow)
                 if (type == "text" && !is.null(rownames(tails)))
                     ordilabel(tails, cex = cex, ...)
@@ -64,13 +63,13 @@
         class(out) <- "ordiplot"
     }
     else if (kind == 2) {
-        if (missing(xlab)) 
+        if (missing(xlab))
             xlab <- "Index"
-        if (missing(ylab)) 
+        if (missing(ylab))
             ylab <- "Procrustes residual"
         res <- residuals(x)
         q <- quantile(res)
-        plot(res, type = "h", xlab = xlab, ylab = ylab, main = main, 
+        plot(res, type = "h", xlab = xlab, ylab = ylab, main = main,
              ...)
         abline(h = q[2:4], lty = c(2, 1, 2))
         out <- list(sites = cbind(seq(along = res), res))
