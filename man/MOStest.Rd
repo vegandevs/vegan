@@ -6,7 +6,7 @@
 \alias{profile.MOStest}
 \alias{confint.MOStest}
 
-\title{ Mitchell-Olds \& Shaw Test for the Location of Quadratic Extreme }
+\title{ Mitchell-Olds and Shaw Test for the Location of Quadratic Extreme }
 \description{
   Mitchell-Olds & Shaw test concerns the location of the highest (hump)
   or lowest (pit) value of a quadratic curve at given points. Typically,
