@@ -28,7 +28,6 @@
     n2 <- nrow(X2)
     n3 <- nrow(X3)
     n4 <- nrow(X4)
-    p <- ncol(Y)
     mm1 <- ncol(X1)
     mm2 <- ncol(X2)
     mm3 <- ncol(X3)
