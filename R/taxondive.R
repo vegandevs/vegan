@@ -25,7 +25,7 @@
         if (length(unique(labels(dis))) != attr(dis, "Size"))
             warning("labels not unique in 'dis': matching probably wrong")
     }
-    del <- dstar <- dplus <- Ed <- Edstar <- edplus <- NULL
+    del <- dstar <- dplus <- Ed <- Edstar <- NULL
     if (!binary) {
         del <- apply(comm, 1, function(x) sum(as.dist(outer(x,
                                                             x)) * dis))
