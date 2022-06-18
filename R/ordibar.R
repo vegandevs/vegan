@@ -11,7 +11,6 @@
 {
     weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
-    draw <- TRUE
     pts <- scores(ord, display = display, ...)
     ## ordibar only works with 2D data (2 columns)
     pts <- as.matrix(pts)
