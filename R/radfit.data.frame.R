@@ -13,7 +13,6 @@
     if (length(out) == 1)
         out <- out[[1]]
     else {
-        Call <- match.call()
         class(out) <- "radfit.frame"
     }
     out
