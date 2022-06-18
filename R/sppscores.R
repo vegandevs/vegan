@@ -18,6 +18,7 @@
     object$vdata <- deparse(substitute(value))
     value <- scale(value, center = TRUE, scale = FALSE)
     object$colsum <- apply(value, 2, sd)
+    ## pCCA step looks redundant: see comments in commit d915763d
     if (!is.null(object$pCCA) && object$pCCA$rank > 0) {
         value <- qr.resid(object$pCCA$QR, value)
     }
