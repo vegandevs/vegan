@@ -11,7 +11,6 @@
 
     ##CC# Make sure Y is a matrix and find number of rows and columns of Y
     Y <- as.matrix(Y)
-    n <- nrow(Y)
     p <- ncol(Y)
     if(p < 2) stop("there is only one variable in the data matrix")
 

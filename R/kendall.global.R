@@ -41,7 +41,6 @@
     prob.F.gr <- vector("numeric",ngr)
     Chi2.gr <- vector("numeric",ngr)
     prob.perm.gr <- vector("numeric",ngr)
-    vec <- NA
 
     for(i in 1:ngr){
         p.i <- n.per.gr[i]
