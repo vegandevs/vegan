@@ -19,7 +19,7 @@
     value <- scale(value, center = TRUE, scale = FALSE)
     object$colsum <- apply(value, 2, sd)
     if (!is.null(object$pCCA) && object$pCCA$rank > 0) {
-        comm <- qr.resid(object$pCCA$QR, value)
+        value <- qr.resid(object$pCCA$QR, value)
     }
     if (!is.null(object$CCA) && object$CCA$rank > 0) {
         v <- crossprod(value, object$CCA$u)
