@@ -91,7 +91,7 @@
             plot.window(xlim = range(x$factors$centroids[,1], at[1]),
                         ylim = range(x$factors$centroids[,2], at[2]),
                         asp = 1, ...)
-            vfill <- 0.75
+            ## vfill <- 0.75
             arrow.mul <- ordiArrowMul(vect, at = at, fill = 1)
             vect <- arrow.mul * vect
         }
