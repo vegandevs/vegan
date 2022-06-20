@@ -1,12 +1,10 @@
 `cIndexKM` <-
-    function (y, x, index = "all") 
+    function (y, x, index = "all")
 {
     kmeans_res <- y
 #############################################
-    gss <- function(x, clsize, withins) 
+    gss <- function(x, clsize, withins)
     {
-        n <- sum(clsize)
-        k <- length(clsize)
         allmean <- colMeans(x)
         dmean <- sweep(x, 2, allmean, "-")
         allmeandist <- sum(dmean^2)
@@ -16,13 +14,13 @@
     }
 #############################################
 
-### Function modified by SD and PL from the original "cIndexKM" in "cclust" 
+### Function modified by SD and PL from the original "cIndexKM" in "cclust"
 ### to accommodate a single response variable as well as singleton groups
 ### and remove unwanted index.
-		
+
 ###  The index
 ################################################
-    calinski <- function(zgss, clsize) 
+    calinski <- function(zgss, clsize)
     {
         n <- sum(clsize)
         k <- length(clsize)
@@ -33,11 +31,10 @@
             zgss$bgss/(k - 1)/(zgss$wgss/(n - k))
     }
 ################################################
-    ssi <- function(centers, clsize) 
+    ssi <- function(centers, clsize)
     {
         ncl <- dim(centers)[1]
         nvar <- dim(centers)[2]
-        n <- sum(clsize)
         cmax <- apply(centers, 2, max)
         cmin <- apply(centers, 2, min)
         cord <- apply(centers, 2, order)
@@ -56,21 +53,21 @@
         list(ssi = sist, ssiw = sistw)
     }
 ################################################
-		
+
     zgss <- gss(x, kmeans_res$size, kmeans_res$withinss)
-		
+
     index <- pmatch(index, c("calinski", "ssi", "all"))
-    if (is.na(index)) 
+    if (is.na(index))
         stop("invalid clustering index")
-    if (index == -1) 
+    if (index == -1)
         stop("ambiguous index")
     vecallindex <- numeric(3)
-    if (any(index == 1) || (index == 3)) 
+    if (any(index == 1) || (index == 3))
         vecallindex[1] <- calinski(zgss, kmeans_res$size)
-    if (any(index == 2) || (index == 3)) 
+    if (any(index == 2) || (index == 3))
         vecallindex[2] <- ssi(kmeans_res$centers, kmeans_res$size)$ssiw
     names(vecallindex) <- c("calinski", "ssi")
-    if (index < 3) 
+    if (index < 3)
         vecallindex <- vecallindex[index]
     vecallindex
 }
