@@ -2,7 +2,6 @@
     function (veg, iweigh = 0, iresc = 4, ira = 0, mk = 26, short = 0,
               before = NULL, after = NULL)
 {
-    Const1 <- 1e-10
     Const2 <- 5
     Const3 <- 1e-11
     veg <- as.matrix(veg)
