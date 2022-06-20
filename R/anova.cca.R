@@ -11,7 +11,6 @@
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
     seed <- attr(permutations, "seed")
     control <- attr(permutations, "control")
-    nperm <- nrow(permutations)
     ## see if this was a list of ordination objects
     dotargs <- list(...)
     ## we do not want to give dotargs to anova.ccalist, but we

@@ -195,7 +195,6 @@
 
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
-    axnams <- colnames(LC)
     for (i in seq_along(eig)) {
         if (i > 1) {
             object <- ordConstrained(Y, X, cbind(Z, LC[, seq_len(i-1)]), "pass")
