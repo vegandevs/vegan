@@ -11,11 +11,11 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
         if (PAonly == FALSE) mat2 <- mat
     }
     n <- nrow(mat)
-    p <- ncol(mat)
+    ## p <- ncol(mat) # unused
     a <- mat1 %*% t(mat1)
     b <- mat1 %*% (1 - t(mat1))
     c <- (1 - mat1) %*% t(mat1)
-    d <- ncol(mat1) - a - b - c
+    ## d <- ncol(mat1) - a - b - c # unused
     DD1 <- (a * (b - c))/((a + b + c)^2)
     DD2 <- (2 * a * (b - c))/((2 * a + b + c) * (a + b + c))
     ## McNemar <- (abs(b - c) - 1)^2/(b + c)     # Old code
