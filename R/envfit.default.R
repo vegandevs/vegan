@@ -6,7 +6,6 @@
     w < eval(w)
     vectors <- NULL
     factors <- NULL
-    seed <- NULL
     X <- scores(ord, display = display, choices = choices, ...)
     keep <- complete.cases(X) & complete.cases(env)
     if (any(!keep)) {

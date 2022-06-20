@@ -5,7 +5,6 @@
     x <- object
     ## calculations are much faster if x$orig is matrix instead of data.frame
     x$orig <- data.matrix(x$orig)
-    n <- attr(x, "times")
     ss <- sum(x$orig)
     fi <- sum(x$orig > 0)
     rs <- rowSums(x$orig)
@@ -38,7 +37,7 @@
     seqmethods <- names(seqmethods)[seqmethods]
 #    seqmethods <- c("swap", "tswap", "abuswap")
     if (attr(x, "method") %in% seqmethods) {
-        startval <- attr(x, "burnin") + 1 
+        startval <- attr(x, "burnin") + 1
         dtime <- max(1, attr(x, "thin"))
         bray <- ts(bray, start = startval, deltat = dtime)
         chisq <- ts(chisq, start = startval, deltat = dtime)

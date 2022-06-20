@@ -9,7 +9,6 @@
         EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
     RESLIM <- 0.01
     RMSELIM <- 0.005
-    SOL <- FALSE
     converged <- 0
     ## set tracing for engines
     isotrace <- max(0, trace - 1)

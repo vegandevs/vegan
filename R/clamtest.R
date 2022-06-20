@@ -109,8 +109,6 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
     gen <- !sr & !specX & !specY
     ## crosstable
     tmp <- ifelse(cbind(gen, specY, specX, sr), 1, 0)
-    types <- c("Generalist", paste("Specialist", glabel[1], sep="_"),
-        paste("Specialist", glabel[2], sep="_"), "Too_rare")
     classes <- factor((1:4)[rowSums(tmp*col(tmp))], levels=1:4)
     levels(classes) <- c("Generalist", paste("Specialist", glabel[1], sep="_"),
         paste("Specialist", glabel[2], sep="_"), "Too_rare")

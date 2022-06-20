@@ -5,7 +5,6 @@
         dis <- as.dist(dis)
     if (!inherits(dis, "dist"))
         stop("'dis' does not appear to be distances")
-    EPS <- sqrt(.Machine$double.eps)
     if (missing(threshold)) {
         threshold <- max(spantree(dis)$dist)
     }

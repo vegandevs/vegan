@@ -36,7 +36,8 @@
     attr(dist, "method") <- method
     dist <- stepacross(dist, path = path, toolong = 0, trace = FALSE)
     if (any(is.na(dist))) {
-        grps <- distconnected(dist, toolong=0)
+        ## never get here: we selected non-fragmented subset
+        stop("dissimilarities contain NA and cannot be analysed: file a bug report")
     }
     if (missing(epsilon)) {
         attr(dist, "criterion") <-"k"

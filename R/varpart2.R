@@ -24,7 +24,6 @@
     n <- nrow(Y)
     n1 <- nrow(X1)
     n2 <- nrow(X2)
-    p <- ncol(Y)
     mm1 <- ncol(X1)
     mm2 <- ncol(X2)
     if (n1 != n)

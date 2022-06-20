@@ -33,7 +33,7 @@
     if (!is.integer(x))
         x <- round(x)
     X <- x[x > 0]
-    N <- sum(X)
+    ## N <- sum(X)     # do NOT use small-sample correction
     SSC <- 1 # (N-1)/N # do NOT use small-sample correction
     T.X <- table(X)
     S.obs <- length(X)
@@ -45,7 +45,6 @@
         length(counts[counts == i])
     }
     a <- sapply(i, COUNT, X)
-    G <- a[1]/a[2]
     ## EstimateS uses basic Chao only if a[2] > 0, and switches to
     ## bias-corrected version only if a[2] == 0. However, we always
     ## use bias-corrected form. The switchin code is commented out so

@@ -11,8 +11,6 @@
     if (any(!sapply(P, is.factor)))
         stop("all non-numeric variables must be factors")
     NR <- nrow(X)
-    NC <- ncol(X)
-    NF <- ncol(P)
     if (missing(w) || is.null(w))
         w <- 1
     if (length(w) == 1)
