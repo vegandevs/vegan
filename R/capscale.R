@@ -3,7 +3,6 @@
               comm = NULL, add = FALSE, dfun = vegdist,
               metaMDSdist = FALSE, na.action = na.fail, subset = NULL, ...)
 {
-    EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula"))
         stop("needs a model formula")
     if (missing(data)) {
@@ -99,7 +98,6 @@
     sol <- ordConstrained(X$points, d$Y, d$Z, method = "capscale")
 
     ## update for negative eigenvalues
-    poseig <- length(sol$CA$eig)
     if (any(X$eig < 0)) {
         negax <- X$eig[X$eig < 0]
         sol$CA$imaginary.chi <- sum(negax)
