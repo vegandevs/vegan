@@ -3,6 +3,12 @@
 {
     if (inherits(x, "rad"))
         return(x)
+    ## recursive call for several observations
+    if (isTRUE(nrow(x) > 1)) {
+        comm <- apply(x, 1, as.rad)
+        class(comm) <- "rad.frame"
+        return(comm)
+    }
     take <- x > 0
     nm <- names(x)
     comm <- x[take]
