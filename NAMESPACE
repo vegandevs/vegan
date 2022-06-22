@@ -67,14 +67,45 @@ export(adonis)
 ## varpart3, varpart4, veganCovEllipse, veganMahatrans)
 
 ## Imports
-import(stats)
-import(graphics)
-import(permute)
+
+## define S3 methods for these stats functions
+importFrom(stats, AIC, TukeyHSD, add1, alias, anova, as.hclust, as.ts,
+           biplot, coef, confint, cooks.distance, cophenetic, density,
+           deviance, df.residual, drop1, extractAIC, fitted,
+           hatvalues, logLik, model.frame, model.matrix, nobs,
+           predict, profile, qqnorm, reorder, residuals, rstandard,
+           rstudent, screeplot, sigma, simulate, SSD, update, vcov,
+           weights)
+## direct calls
+importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
+           as.dendrogram, as.dist, as.formula, cmdscale, coefficients,
+           complete.cases, cor, cov, cov.wt, cutree, delete.response,
+           dendrapply, dist, dnorm, drop.scope, estVar, factor.scope,
+           family, formula, glm, glm.fit, hclust, heatmap, integrate,
+           is.ts, kmeans, lm, median, na.action, na.fail, na.pass,
+           napredict, naprint, nlm, nls, optim, optimize, p.adjust,
+           p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
+           ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
+           qnorm, quantile, quasipoisson, r2dtable, reformulate,
+           rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
+           uniroot, update.formula, var, weighted.mean)
+## S3methods for these
+importFrom(graphics, boxplot, identify, lines, pairs, persp, plot,
+           points, text)
+## direct calls
+importFrom(graphics, abline, arrows, axis, barplot, box, contour,
+           curve, grid, image, layout, legend, matlines, matplot,
+           mtext, par, plot.new, plot.window, polygon, rect, rug,
+           segments, strheight, strwidth, symbols, title)
+import(permute) ## vegan depends on permute: import everything
 importFrom(utils, news, vignette, combn, flush.console, head, object.size,
            read.fortran, read.fwf, tail, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
-import(grDevices) ## too many functions to be listed separately
-import(lattice)
+importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
+           heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
+           rgb, svg, tiff, xfig, xy.coords)
+## import(grDevices) ## too many functions to be listed separately
+import(lattice) # vegan depends on lattice: import all
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply)
 importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm, lda)
