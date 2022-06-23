@@ -33,13 +33,13 @@
 
       \item Hellinger distance is directly available in \code{vegdist}.
 
-      \item \code{vegdist} and \code{betadiver} set attribute
-      \code{maxdist} giving the numeric value of theoretical maximum of
-      the dissimilarity index. For many dissimilarities this is 1, but
-      \eqn{\sqrt{2}}{sqrt(2)} for Chord and Hellinger distances, for
-      instance. The attribute is \code{NA} for open indices that do not
-      have such a ceiling. \code{betadiver} has three similarity indices
-      which set \code{maxdist} 0.
+      \item \code{vegdist}, \code{betadiver} and \code{raupcrick} set
+      attribute \code{maxdist} giving the numeric value of theoretical
+      maximum of the dissimilarity index. For many dissimilarities this
+      is 1, but \eqn{\sqrt{2}}{sqrt(2)} for Chord and Hellinger
+      distances, for instance. The attribute is \code{NA} for open
+      indices that do not have such a ceiling. \code{betadiver} has
+      three similarity indices which set \code{maxdist} 0.
 
       \item \code{metaMDS} defaults to halfchange scaling when the
       dissimilarities have a numeric \code{maxdist} attribute, and
@@ -70,6 +70,10 @@
       \code{rstudent} and \code{cooks.distance} will be
       \code{NaN}. The behaviour is similar as in
       \code{stats::lm.influence} functions.
+
+      \item \code{as.rad} can handle multi-row data frames or matrices
+      and return a list of Rank-Abundance data for each row. Earlier
+      only one site was handled.
 
     } % itemize
   } % new features
