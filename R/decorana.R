@@ -49,6 +49,7 @@
     origin <- apply(CA$rproj, 2, weighted.mean, aidot)
     if (ira) {
         evals.decorana <- NULL
+        evals.ortho <- NULL
     }
     else {
         evals.decorana <- CA$evals
@@ -57,8 +58,22 @@
         CA$evals <- var.r/var.c
         if (any(ze <- evals.decorana <= 0))
             CA$evals[ze] <- 0
+        ## orthogonalize eigenvalues: these are additive
+        x0 <- scale(CA$rproj, center = origin, scale = FALSE)
+        w0 <- sqrt(aidot/sum(aidot))
+        x0 <- w0 * x0
+        ## Gram-Schmidt orthogonalization
+        for (i in seq_len(3)) {
+            for(k in seq_len(i)) {
+                x0[,i+1] <- x0[,i+1] -
+                    drop(crossprod(x0[,k], x0[,i+1])/
+                    crossprod(x0[,k], x0[,k])) * x0[,k]
+                }
+        }
+        evals.ortho <- diag(cov.wt(x0/w0, aidot, method="ML")$cov) / var.c
     }
-    additems <- list(evals.decorana = evals.decorana, origin = origin,
+    additems <- list(evals.ortho = evals.ortho,
+                     evals.decorana = evals.decorana, origin = origin,
                      v = v, fraction = v.fraction, iweigh = iweigh,
                      before = before, after = after,
                      call = match.call())
