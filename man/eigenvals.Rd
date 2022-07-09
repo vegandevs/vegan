@@ -10,6 +10,7 @@
 \alias{eigenvals.dudi}
 \alias{eigenvals.pca}
 \alias{eigenvals.pco}
+\alias{eigenvals.decorana}
 \alias{summary.eigenvals}
 
 \title{
@@ -23,6 +24,8 @@
 eigenvals(x, ...)
 \method{eigenvals}{cca}(x, model = c("all", "unconstrained", "constrained"),
           constrained = NULL, ...)
+\method{eigenvals}{decorana}(x, kind = c("additive", "axiswise", "decorana"),
+           ...)
 \method{summary}{eigenvals}(object, ...)
 }
 
@@ -40,6 +43,13 @@ eigenvals(x, ...)
   \item{constrained}{
     Return only constrained eigenvalues. Deprecated as of vegan
     2.5-0. Use \code{model} instead.
+  }
+  \item{kind}{
+    Kind of eigenvalues returned for \code{\link{decorana}}. Only
+    \code{"additive"} eigenvalues can be used for reporting importances
+    of components in \code{summary}. \code{"axiswise"} gives the
+    non-additive eigenvalues, and \code{"decorana"} the decorana values
+    (see \code{\link{decorana}} for details).
   }
   \item{\dots}{
     Other arguments to the functions (usually ignored)
@@ -73,7 +83,10 @@ eigenvals(x, ...)
   (Gower 1985). In these cases, the sum of absolute values of
   eigenvalues is used in calculating the proportions explained, and
   real axes (corresponding to positive eigenvalues) will only explain
-  a part of total variation (Mardia et al. 1979, Gower 1985).  
+  a part of total variation (Mardia et al. 1979, Gower 1985). For
+  \code{\link{decorana}} the importances and cumulative proportions are
+  only reported for \code{kind = "additive"}, because other alternatives
+  do not add up to total inertia of the input data.
 }
 
 \value{
