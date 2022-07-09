@@ -27,7 +27,7 @@
          npcs = 4,
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)),
+         main = deparse(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{prcomp}(x, bstick = FALSE, type = c("barplot", "lines"),
