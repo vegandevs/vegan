@@ -120,25 +120,32 @@ downweight(veg, fraction = 5)
   negative), but \code{summary}, \code{plot} and
   \code{scores} use the true origin, unless \code{origin = FALSE}.
 
-  In addition to proper eigenvalues, the function also reports
+  In addition to proper eigenvalues, the function reports
   \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
   values} are the values that the legacy code of \code{decorana} returns
-  as eigenvalues.  They are estimated internally during iteration, and
-  it seems that detrending interferes the estimation so that these
-  values are generally too low and have unclear
-  interpretation. Moreover, \sQuote{decorana values} are estimated
-  before rescaling which will change the eigenvalues. The proper
-  eigenvalues are estimated after extraction of the axes and they are
-  the ratio of biased weighted variances of site and species scores even
-  in detrended and rescaled solutions. The \sQuote{decorana values} are
-  provided only for the compatibility with legacy software, and they
-  should not be used.
+  as eigenvalues. They are estimated during iteration, and describe the
+  joint effect of eigenvalues and the effect of detrending. The
+  \sQuote{decorana values} are estimated before rescaling and do not
+  show its effect on eigenvalues. The proper eigenvalues are estimated
+  after extraction of the axes and they are the ratio of biased weighted
+  variances of site and species scores even in detrended and rescaled
+  solutions. These eigenvalues are estimated for each axis separately,
+  but they are not additive, because higher \code{decorana} axes can
+  show effects already explained by prior axes. \sQuote{Additive
+  eigenvalues} are cleansed from the effects of prior axes, and they can
+  be assumed to add up to total inertia (scaled Chi-square), although
+  detrending does not allow complete decomposition of the data.
 
 }
 \value{
-  \code{decorana} returns an object of class \code{"decorana"}, which has
-  \code{print}, \code{summary} and \code{plot} methods.
+  \code{decorana} returns an object of class \code{"decorana"}, which
+  has \code{print}, \code{summary}, \code{scores}, \code{plot},
+  \code{points} and \code{text} methods, and support functions
+  \code{\link{bstick}}, \code{screeplot} and
+  \code{predict}. \code{downweight} is an independent function that can
+  also be used with other methods than \code{decorana}.
 }
+
 \references{
   Hill, M.O. and Gauch, H.G. (1980). Detrended correspondence analysis:
   an improved ordination technique. \emph{Vegetatio} \strong{42},
@@ -168,21 +175,21 @@ downweight(veg, fraction = 5)
   \code{downweight} indeed can be applied prior to correspondence
   analysis, and so it can be used together with \code{\link{cca}}, too.
 
-  The function finds only four axes: this is not easily changed.
+  The function finds only four axes.
 }
 
 \seealso{
+
   For unconstrained ordination, non-metric multidimensional scaling in
   \code{\link{monoMDS}} may be more robust (see also
   \code{\link{metaMDS}}).  Constrained (or \sQuote{canonical})
   correspondence analysis can be made with \code{\link{cca}}.
-  Orthogonal correspondence analysis can be made with
-  \code{\link[MASS]{corresp}}, or with \code{decorana} or
+  Orthogonal correspondence analysis can be made with \code{decorana} or
   \code{\link{cca}}, but the scaling of results vary (and the one in
-  \code{decorana} corresponds to \code{scaling = "sites"} and
-  \code{hill = TRUE} in \code{\link{cca}}.).  See
-  \code{\link{predict.decorana}} for adding new points to an
-  ordination.
+  \code{decorana} corresponds to \code{scaling = "sites"} and \code{hill
+  = TRUE} in \code{\link{cca}}.).  See \code{\link{predict.decorana}}
+  for adding new points to an ordination.
+
 }
 
 \examples{
