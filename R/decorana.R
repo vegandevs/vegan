@@ -4,6 +4,7 @@
 {
     Const2 <- 5
     Const3 <- 1e-11
+    ZEROEIG <- 1e-7 # same limit as in the C function do_decorana
     veg <- as.matrix(veg)
     aidot <- rowSums(veg)
     if (any(aidot <= 0))
@@ -56,7 +57,9 @@
         evals.decorana <- CA$evals
         var.r <- diag(cov.wt(CA$rproj, aidot, method = "ML")$cov)
         var.c <- diag(cov.wt(CA$cproj, adotj, method = "ML")$cov)
-        CA$evals <- var.r/var.c
+        evals <- var.r/var.c
+        evals[evals < ZEROEIG] <- 0
+        CA$evals <- evals
         if (any(ze <- evals.decorana <= 0))
             CA$evals[ze] <- 0
         ## orthogonalize eigenvalues: these are additive
@@ -72,6 +75,7 @@
                 }
         }
         evals.ortho <- diag(cov.wt(x0/w0, aidot, method="ML")$cov) / var.c
+        evals.ortho[evals.ortho < ZEROEIG] <- 0
     }
     additems <- list(totchi = totchi, evals.ortho = evals.ortho,
                      evals.decorana = evals.decorana, origin = origin,
