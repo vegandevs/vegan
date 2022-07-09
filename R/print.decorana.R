@@ -18,13 +18,14 @@
         cat("Piecewise transformation of above-zero abundances:\n")
         print(rbind(before = x$before, after = x$after))
     }
+    cat("Total inertia (scaled Chi-square):", round(x$totchi, digits), "\n")
     axlen <- NULL
     if (!x$ira && x$iresc) {
         axlen <- apply(x$rproj, 2, max)
     }
     cat("\n")
     print(rbind("Eigenvalues" = x$evals,
-                "Additive Eigenvals" = x$evals.ortho,
+                "Additive Eigenvalues" = x$evals.ortho,
                 "Decorana values" = x$evals.decorana,
                 "Axis lengths" = axlen), digits = digits)
     cat("\n")

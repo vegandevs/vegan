@@ -37,6 +37,7 @@
     }
     v <- attr(veg, "v")
     v.fraction <- attr(veg, "fraction")
+    totchi <- sum(initCA(veg)^2)
     adotj[adotj < Const3] <- Const3
     CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
                 as.double(adotj))
@@ -72,7 +73,7 @@
         }
         evals.ortho <- diag(cov.wt(x0/w0, aidot, method="ML")$cov) / var.c
     }
-    additems <- list(evals.ortho = evals.ortho,
+    additems <- list(totchi = totchi, evals.ortho = evals.ortho,
                      evals.decorana = evals.decorana, origin = origin,
                      v = v, fraction = v.fraction, iweigh = iweigh,
                      before = before, after = after,
