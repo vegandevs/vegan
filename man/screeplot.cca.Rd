@@ -96,9 +96,8 @@ bstick(n, \dots)
   strictly valid for correspondence analysis (CA), because eigenvalues
   of CA are defined to be \eqn{\leq 1}{<=1}, whereas brokenstick
   components have no such restrictions. The brokenstick components are not
-  available for \code{\link{decorana}} where the sum of eigenvalues
-  (total inertia) is unknown, and the eigenvalues of single axes are not
-  additive in detrended analysis.
+  available for \code{\link{decorana}} where the rank of the solution is
+  unknown. Additive eigenvalues are used in detrended analysis.
   }
 \value{
   Function \code{screeplot} draws a plot on the currently active device, 

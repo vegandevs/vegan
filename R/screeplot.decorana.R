@@ -6,7 +6,7 @@
 {
     if (bstick)
         warning("'bstick' not available for 'decorana'")
-    eig.vals <- x$evals
+    eig.vals <- if (x$ira == 1) x$evals else x$evals.ortho
     comps <- seq(len=npcs)
     type <- match.arg(type)
     if(type=="barplot") {
