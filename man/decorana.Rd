@@ -133,8 +133,7 @@ downweight(veg, fraction = 5)
   but they are not additive, because higher \code{decorana} axes can
   show effects already explained by prior axes. \sQuote{Additive
   eigenvalues} are cleansed from the effects of prior axes, and they can
-  be assumed to add up to total inertia (scaled Chi-square), although
-  detrending does not allow complete decomposition of the data.
+  be assumed to add up to total inertia (scaled Chi-square).
 
 }
 \value{
