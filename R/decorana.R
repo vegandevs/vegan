@@ -66,14 +66,9 @@
         x0 <- scale(CA$rproj, center = origin, scale = FALSE)
         w0 <- sqrt(aidot/sum(aidot))
         x0 <- w0 * x0
-        ## Gram-Schmidt orthogonalization
-        for (i in seq_len(3)) {
-            for(k in seq_len(i)) {
-                x0[,i+1] <- x0[,i+1] -
-                    drop(crossprod(x0[,k], x0[,i+1])/
-                    crossprod(x0[,k], x0[,k])) * x0[,k]
-                }
-        }
+        ## orthogonalization
+        for (i in seq_len(3))
+            x0[, i+1] <- qr.resid(qr(x0[, seq_len(i), drop=FALSE]), x0[,i+1])
         evals.ortho <- diag(cov.wt(x0/w0, aidot, method="ML")$cov) / var.c
         evals.ortho[evals.ortho < ZEROEIG] <- 0
     }
