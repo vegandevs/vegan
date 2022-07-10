@@ -55,21 +55,22 @@
     }
     else {
         evals.decorana <- CA$evals
-        var.r <- diag(cov.wt(CA$rproj, aidot, method = "ML")$cov)
-        var.c <- diag(cov.wt(CA$cproj, adotj, method = "ML")$cov)
-        evals <- var.r/var.c
-        evals[evals < ZEROEIG] <- 0
-        CA$evals <- evals
         if (any(ze <- evals.decorana <= 0))
             CA$evals[ze] <- 0
-        ## orthogonalize eigenvalues: these are additive
         x0 <- scale(CA$rproj, center = origin, scale = FALSE)
-        w0 <- sqrt(aidot/sum(aidot))
-        x0 <- w0 * x0
-        ## orthogonalization
-        for (i in seq_len(3))
-            x0[, i+1] <- qr.resid(qr(x0[, seq_len(i), drop=FALSE]), x0[,i+1])
-        evals.ortho <- diag(cov.wt(x0/w0, aidot, method="ML")$cov) / var.c
+        x0 <- sqrt(aidot/sum(aidot)) * x0
+        y0 <- scale(CA$cproj, center = origin, scale = FALSE)
+        y0 <- sqrt(adotj/sum(adotj)) * y0
+        evals <- colSums(x0^2)/colSums(y0^2)
+        evals[evals < ZEROEIG] <- 0
+        CA$evals <- evals
+        ## decorana finds row scores from species scores, and for
+        ## additive eigenvalues we need orthogonalized species
+        ## scores. Q of QR decomposition will be orthonormal and if we
+        ## use it for calculating row scores, these directly give
+        ## additive eigenvalues.
+        qy <- qr.Q(qr(y0))
+        evals.ortho <- colSums(crossprod(t(initCA(veg)), qy)^2)
         evals.ortho[evals.ortho < ZEROEIG] <- 0
     }
     additems <- list(totchi = totchi, evals.ortho = evals.ortho,
