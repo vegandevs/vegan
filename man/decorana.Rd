@@ -124,23 +124,24 @@ downweight(veg, fraction = 5)
   \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
   values} are the values that the legacy code of \code{decorana} returns
   as eigenvalues. They are estimated during iteration, and describe the
-  joint effect of eigenvalues and the effect of detrending. The
-  \sQuote{decorana values} are estimated before rescaling and do not
-  show its effect on eigenvalues. The proper eigenvalues are estimated
-  after extraction of the axes and they are the ratio of biased weighted
-  variances of site and species scores even in detrended and rescaled
-  solutions. These eigenvalues are estimated for each axis separately,
-  but they are not additive, because higher \code{decorana} axes can
-  show effects already explained by prior axes. \sQuote{Additive
-  eigenvalues} are cleansed from the effects of prior axes, and they can
-  be assumed to add up to total inertia (scaled Chi-square).
+  joint effects of axes and detrending. The \sQuote{decorana values} are
+  estimated before rescaling and do not show its effect on
+  eigenvalues. The proper eigenvalues are estimated after extraction of
+  the axes and they are the ratio of weighted sum of squares of site and
+  species scores even in detrended and rescaled solutions. These
+  eigenvalues are estimated for each axis separately, but they are not
+  additive, because higher \code{decorana} axes can show effects already
+  explained by prior axes. \sQuote{Additive eigenvalues} are cleansed
+  from the effects of prior axes, and they can be assumed to add up to
+  total inertia (scaled Chi-square). For proportions and cumulative
+  proportions explained you can use \code{\link{eigenvals.decorana}}.
 
 }
 \value{
   \code{decorana} returns an object of class \code{"decorana"}, which
   has \code{print}, \code{summary}, \code{scores}, \code{plot},
   \code{points} and \code{text} methods, and support functions
-  \code{\link{bstick}}, \code{screeplot} and
+  \code{\link{eigenvals}}, \code{\link{bstick}}, \code{screeplot} and
   \code{predict}. \code{downweight} is an independent function that can
   also be used with other methods than \code{decorana}.
 }
