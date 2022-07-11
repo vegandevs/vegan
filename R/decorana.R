@@ -76,6 +76,7 @@
         evals.ortho <- numeric(4) # qy can have < 4 columns
         evals.ortho[seq_len(ncol(qy))] <- colSums(crossprod(t(vegChi), qy)^2)
         evals.ortho[evals.ortho < ZEROEIG | !is.finite(evals.ortho)] <- 0
+        names(evals.ortho) <- names(evals.decorana)
     }
     additems <- list(totchi = totchi, evals.ortho = evals.ortho,
                      evals.decorana = evals.decorana, origin = origin,
