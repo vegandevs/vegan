@@ -2274,11 +2274,13 @@ decorana(veg = varespec)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.0832 
 
-                  DCA1   DCA2    DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.20010 0.19176
-Decorana values 0.5249 0.1572 0.09669 0.06075
-Axis lengths    2.8161 2.2054 1.54650 1.64864
+                       DCA1   DCA2    DCA3    DCA4
+Eigenvalues          0.5235 0.3253 0.20010 0.19176
+Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
+Decorana values      0.5249 0.1572 0.09669 0.06075
+Axis lengths         2.8161 2.2054 1.54650 1.64864
 
 > summary(vare.dca)
 
@@ -2287,11 +2289,13 @@ decorana(veg = varespec)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.0832 
 
-                  DCA1   DCA2    DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.20010 0.19176
-Decorana values 0.5249 0.1572 0.09669 0.06075
-Axis lengths    2.8161 2.2054 1.54650 1.64864
+                       DCA1   DCA2    DCA3    DCA4
+Eigenvalues          0.5235 0.3253 0.20010 0.19176
+Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
+Decorana values      0.5249 0.1572 0.09669 0.06075
+Axis lengths         2.8161 2.2054 1.54650 1.64864
 
 Species scores:
 
@@ -2842,7 +2846,8 @@ Groups sizes
 > ### Title: Extract Eigenvalues from an Ordination Object
 > ### Aliases: eigenvals eigenvals.default eigenvals.prcomp
 > ###   eigenvals.princomp eigenvals.cca eigenvals.wcmdscale eigenvals.pcnm
-> ###   eigenvals.dudi eigenvals.pca eigenvals.pco summary.eigenvals
+> ###   eigenvals.dudi eigenvals.pca eigenvals.pco eigenvals.decorana
+> ###   summary.eigenvals
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4983,11 +4988,13 @@ nestfun(veg = comm)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.4436 
 
-                  DCA1   DCA2   DCA3    DCA4
-Eigenvalues     0.3822 0.2612 0.1668 0.08723
-Decorana values 0.4154 0.2465 0.1391 0.04992
-Axis lengths    2.9197 2.5442 2.7546 1.78074
+                       DCA1   DCA2   DCA3    DCA4
+Eigenvalues          0.3822 0.2612 0.1668 0.08723
+Additive Eigenvalues 0.3822 0.2609 0.1631 0.07650
+Decorana values      0.4154 0.2465 0.1391 0.04992
+Axis lengths         2.9197 2.5442 2.7546 1.78074
 
 
      statistic      SES    mean     50%    95% Pr(sim.)   
@@ -9180,7 +9187,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.646 0.295 8.955 0 0 
+Time elapsed:  8.621 0.294 8.929 0 0 
 > grDevices::dev.off()
 null device 
           1 
