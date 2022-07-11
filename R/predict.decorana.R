@@ -1,3 +1,9 @@
+### prediction mainly fails with detrended (and rescaled) analysis
+### beyond axis 1 or with 'newdata'. It could be possible to work out
+### approximate prediction, but that would require orthogonalizing the
+### scores and using additive eigenvalues (evals.ortho): see
+### decorana() for orthogonalization.
+
 `predict.decorana` <-
     function (object, newdata, type = c("response", "sites", "species"),
               rank = 4, ...)

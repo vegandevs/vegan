@@ -27,7 +27,7 @@
          npcs = 4,
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)),
+         main = deparse(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{prcomp}(x, bstick = FALSE, type = c("barplot", "lines"),
@@ -95,11 +95,12 @@ bstick(n, \dots)
   method for \code{\link{cca}}.  However, the broken stick model is not
   strictly valid for correspondence analysis (CA), because eigenvalues
   of CA are defined to be \eqn{\leq 1}{<=1}, whereas brokenstick
-  components have no such restrictions. The brokenstick components are not
-  available for \code{\link{decorana}} where the sum of eigenvalues
-  (total inertia) is unknown, and the eigenvalues of single axes are not
-  additive in detrended analysis.
-  }
+  components have no such restrictions. The brokenstick components in
+  detrended correspondence analysis (DCA) assume that input data are of
+  full rank, and additive eigenvalues are used in \code{screeplot} (see
+  \code{\link{decorana}}).
+}
+
 \value{
   Function \code{screeplot} draws a plot on the currently active device, 
   and returns invisibly the \code{\link{xy.coords}} of the points or
