@@ -72,8 +72,8 @@ of cca or rda results</h1>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mso</span><span class="op">(</span><span class="va">object.cca</span>, <span class="va">object.xy</span>, grain <span class="op">=</span> <span class="fl">1</span>, round.up <span class="op">=</span> <span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu">msoplot</span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, explained <span class="op">=</span> <span class="cn">FALSE</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>, legend <span class="op">=</span> <span class="st">"topleft"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mso</span><span class="op">(</span><span class="va">object.cca</span>, <span class="va">object.xy</span>, grain <span class="op">=</span> <span class="fl">1</span>, round.up <span class="op">=</span> <span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu">msoplot</span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, explained <span class="op">=</span> <span class="cn">FALSE</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>, legend <span class="op">=</span> <span class="st">"topleft"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -234,38 +234,38 @@ of cca or rda results</h1>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Reconstruct worked example of Wagner (submitted):</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Canonical correspondence analysis (cca):</span></span>
-<span class="r-in"><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">Example.cca</span>, <span class="va">tmat</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Reconstruct worked example of Wagner (submitted):</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Canonical correspondence analysis (cca):</span></span></span>
+<span class="r-in"><span><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">Example.cca</span>, <span class="va">tmat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Set of permutations &lt; 'minperm'. Generating entire set.</span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">Example.cca</span><span class="op">$</span><span class="va">vario</span></span>
+<span class="r-in"><span><span class="va">Example.cca</span><span class="op">$</span><span class="va">vario</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H Dist n  All       Sum         CA       CCA se</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1    1 2 0.25 0.3456633 0.07461735 0.2710459  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 2    2 1 1.00 0.8086735 0.01147959 0.7971939 NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Correspondence analysis (ca):</span></span>
-<span class="r-in"><span class="va">Example.ca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, <span class="va">tmat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Correspondence analysis (ca):</span></span></span>
+<span class="r-in"><span><span class="va">Example.ca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, <span class="va">tmat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Set of permutations &lt; 'minperm'. Generating entire set.</span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.ca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.ca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Unconstrained ordination with test for autocorrelation</span></span>
-<span class="r-in"><span class="co">## using oribatid mite data set as in Wagner (2004)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, grain <span class="op">=</span>  <span class="fl">1</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Unconstrained ordination with test for autocorrelation</span></span></span>
+<span class="r-in"><span><span class="co">## using oribatid mite data set as in Wagner (2004)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, grain <span class="op">=</span>  <span class="fl">1</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">mite.cca</span></span>
+<span class="r-in"><span><span class="va">mite.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> permutations = 99)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -293,15 +293,15 @@ of cca or rda results</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Constrained ordination with test for residual autocorrelation</span></span>
-<span class="r-in"><span class="co">## and scale-invariance of species-environment relationships</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>, <span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Constrained ordination with test for residual autocorrelation</span></span></span>
+<span class="r-in"><span><span class="co">## and scale-invariance of species-environment relationships</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>, <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-4.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error variance of regression model underestimated by 0.4 percent </span>
-<span class="r-in"><span class="va">mite.cca</span></span>
+<span class="r-in"><span><span class="va">mite.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -326,12 +326,12 @@ of cca or rda results</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     H   Dist   n    All    Sum     CA    CCA      se CA.signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.72</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.69</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.97</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
@@ -347,7 +347,7 @@ of cca or rda results</h1>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

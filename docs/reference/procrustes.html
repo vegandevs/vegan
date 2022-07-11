@@ -60,29 +60,29 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">procrustes</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, scale <span class="op">=</span> <span class="cn">TRUE</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span>, scores <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, kind<span class="op">=</span><span class="fl">1</span>, choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, to.target <span class="op">=</span> <span class="cn">TRUE</span>, 
-    type <span class="op">=</span> <span class="st">"p"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">main</span>, ar.col <span class="op">=</span> <span class="st">"blue"</span>, length<span class="op">=</span><span class="fl">0.05</span>, 
-    cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"target"</span>, <span class="st">"rotated"</span><span class="op">)</span>,
-    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"target"</span>, <span class="st">"rotated"</span><span class="op">)</span>,
-    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"segments"</span>, <span class="st">"arrows"</span><span class="op">)</span>,
-    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">object</span>, truemean <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for procrustes</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, truemean <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">protest</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, scores <span class="op">=</span> <span class="st">"sites"</span>, permutations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>nperm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">procrustes</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, scale <span class="op">=</span> <span class="cn">TRUE</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span>, scores <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, kind<span class="op">=</span><span class="fl">1</span>, choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, to.target <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>    type <span class="op">=</span> <span class="st">"p"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">main</span>, ar.col <span class="op">=</span> <span class="st">"blue"</span>, length<span class="op">=</span><span class="fl">0.05</span>, </span>
+<span>    cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"target"</span>, <span class="st">"rotated"</span><span class="op">)</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"target"</span>, <span class="st">"rotated"</span><span class="op">)</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"segments"</span>, <span class="st">"arrows"</span><span class="op">)</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, truemean <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">object</span>, truemean <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for procrustes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, truemean <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">protest</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, scores <span class="op">=</span> <span class="st">"sites"</span>, permutations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>nperm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -330,12 +330,12 @@ permutation required.</p></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mds.null</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mds.alt</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.proc</span> <span class="op">&lt;-</span> <span class="fu">procrustes</span><span class="op">(</span><span class="va">mds.alt</span>, <span class="va">mds.null</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.proc</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mds.null</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mds.alt</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.proc</span> <span class="op">&lt;-</span> <span class="fu">procrustes</span><span class="op">(</span><span class="va">mds.alt</span>, <span class="va">mds.null</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.proc</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> procrustes(X = mds.alt, Y = mds.null) </span>
@@ -343,7 +343,7 @@ permutation required.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Procrustes sum of squares:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11.17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> procrustes(X = mds.alt, Y = mds.null) </span>
@@ -370,11 +370,11 @@ permutation required.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling of target:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7310245</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="procrustes-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span>, kind<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span>, kind<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="procrustes-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        18        15        24        27        23        19        22        16 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2734040 0.2032392 0.4708118 0.4420710 0.3547337 0.1642438 0.2515286 0.2611623 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        28        13        14        20        25         7         5         6 </span>
@@ -392,7 +392,7 @@ permutation required.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

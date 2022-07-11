@@ -69,26 +69,26 @@ Details section.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, fixedmar <span class="op">=</span> <span class="st">"both"</span>, shuffle <span class="op">=</span> <span class="st">"both"</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, 
-    mtype <span class="op">=</span> <span class="st">"count"</span>, times <span class="op">=</span> <span class="fl">99</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">permatswap</span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"quasiswap"</span>, fixedmar<span class="op">=</span><span class="st">"both"</span>, shuffle <span class="op">=</span> <span class="st">"both"</span>,
-    strata <span class="op">=</span> <span class="cn">NULL</span>, mtype <span class="op">=</span> <span class="st">"count"</span>, times <span class="op">=</span> <span class="fl">99</span>, 
-    burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for summary.permat</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">ylab</span>, <span class="va">xlab</span>, <span class="va">col</span>, <span class="va">lty</span>,
-    lowess <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for permat</span>
-<span class="fu"><a href="oecosimu.html">toCoda</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, fixedmar <span class="op">=</span> <span class="st">"both"</span>, shuffle <span class="op">=</span> <span class="st">"both"</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>    mtype <span class="op">=</span> <span class="st">"count"</span>, times <span class="op">=</span> <span class="fl">99</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">permatswap</span><span class="op">(</span><span class="va">m</span>, method <span class="op">=</span> <span class="st">"quasiswap"</span>, fixedmar<span class="op">=</span><span class="st">"both"</span>, shuffle <span class="op">=</span> <span class="st">"both"</span>,</span>
+<span>    strata <span class="op">=</span> <span class="cn">NULL</span>, mtype <span class="op">=</span> <span class="st">"count"</span>, times <span class="op">=</span> <span class="fl">99</span>, </span>
+<span>    burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for summary.permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">ylab</span>, <span class="va">xlab</span>, <span class="va">col</span>, <span class="va">lty</span>,</span>
+<span>    lowess <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, text <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for permat</span></span>
+<span><span class="fu"><a href="oecosimu.html">toCoda</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -320,18 +320,18 @@ Details section.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## A simple artificial community data matrix.</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">1</span>,</span>
-<span class="r-in">    <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>,</span>
-<span class="r-in">    <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,</span>
-<span class="r-in">    <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span></span>
-<span class="r-in">    <span class="op">)</span>, <span class="fl">4</span>, <span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Using the quasiswap algorithm to create a </span></span>
-<span class="r-in"><span class="co">## list of permuted matrices, where</span></span>
-<span class="r-in"><span class="co">## row/columns sums and matrix fill are preserved:</span></span>
-<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">m</span>, <span class="st">"quasiswap"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## A simple artificial community data matrix.</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,<span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">3</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>, <span class="fl">4</span>, <span class="fl">6</span>, byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Using the quasiswap algorithm to create a </span></span></span>
+<span class="r-in"><span><span class="co">## list of permuted matrices, where</span></span></span>
+<span class="r-in"><span><span class="co">## row/columns sums and matrix fill are preserved:</span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">m</span>, <span class="st">"quasiswap"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary of object of class 'permat'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: permatswap(m = m, method = "quasiswap")</span>
@@ -362,10 +362,10 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   16.27   19.59   21.10   21.51   23.36   31.69 </span>
-<span class="r-in"><span class="co">## Unrestricted permutation retaining</span></span>
-<span class="r-in"><span class="co">## row/columns sums but not matrix fill:</span></span>
-<span class="r-in"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Unrestricted permutation retaining</span></span></span>
+<span class="r-in"><span><span class="co">## row/columns sums but not matrix fill:</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary of object of class 'permat'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: permatfull(m = m)</span>
@@ -396,16 +396,16 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   7.824  12.046  15.660  16.015  19.413  28.132 </span>
-<span class="r-in"><span class="co">## Unrestricted permutation of presence-absence type</span></span>
-<span class="r-in"><span class="co">## not retaining row/columns sums:</span></span>
-<span class="r-in"><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, <span class="st">"none"</span>, mtype<span class="op">=</span><span class="st">"prab"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x3</span><span class="op">$</span><span class="va">orig</span>  <span class="co">## note: original matrix is binarized!</span></span>
+<span class="r-in"><span><span class="co">## Unrestricted permutation of presence-absence type</span></span></span>
+<span class="r-in"><span><span class="co">## not retaining row/columns sums:</span></span></span>
+<span class="r-in"><span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, <span class="st">"none"</span>, mtype<span class="op">=</span><span class="st">"prab"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x3</span><span class="op">$</span><span class="va">orig</span>  <span class="co">## note: original matrix is binarized!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1    0    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    1    0    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1    1    0    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    0    0    0    1    1    1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary of object of class 'permat'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: permatfull(m = m, fixedmar = "none", mtype = "prab")</span>
@@ -437,10 +437,10 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   8.812  13.583  15.208  15.295  17.083  21.896 </span>
-<span class="r-in"><span class="co">## Restricted permutation,</span></span>
-<span class="r-in"><span class="co">## check sums within strata:</span></span>
-<span class="r-in"><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, strata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Restricted permutation,</span></span></span>
+<span class="r-in"><span><span class="co">## check sums within strata:</span></span></span>
+<span class="r-in"><span><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, strata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Summary of object of class 'permat'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: permatfull(m = m, strata = c(1, 1, 2, 2))</span>
@@ -472,32 +472,32 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   14.21   18.68   21.05   22.09   25.26   36.50 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## NOTE: 'times' argument usually needs to be &gt;= 99</span></span>
-<span class="r-in"><span class="co">## here much lower value is used for demonstration</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Not sequential algorithm</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"quasiswap"</span>, times<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Sequential algorithm</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"abuswap"</span>, fixedmar<span class="op">=</span><span class="st">"col"</span>,</span>
-<span class="r-in">    burnin<span class="op">=</span><span class="fl">0</span>, thin<span class="op">=</span><span class="fl">100</span>, times<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">a</span>, main<span class="op">=</span><span class="st">"Not sequential"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, main<span class="op">=</span><span class="st">"Sequential"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">a</span>, <span class="st">"chisq"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"chisq"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## NOTE: 'times' argument usually needs to be &gt;= 99</span></span></span>
+<span class="r-in"><span><span class="co">## here much lower value is used for demonstration</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Not sequential algorithm</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"quasiswap"</span>, times<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Sequential algorithm</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">permatswap</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"abuswap"</span>, fixedmar<span class="op">=</span><span class="st">"col"</span>,</span></span>
+<span class="r-in"><span>    burnin<span class="op">=</span><span class="fl">0</span>, thin<span class="op">=</span><span class="fl">100</span>, times<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">a</span>, main<span class="op">=</span><span class="st">"Not sequential"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, main<span class="op">=</span><span class="st">"Sequential"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">a</span>, <span class="st">"chisq"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">b</span>, <span class="st">"chisq"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permatfull-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Extract Bray-Curtis dissimilarities</span></span>
-<span class="r-in"><span class="co">## as time series</span></span>
-<span class="r-in"><span class="va">bc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Lag plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/lag.plot.html" class="external-link">lag.plot</a></span><span class="op">(</span><span class="va">bc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Extract Bray-Curtis dissimilarities</span></span></span>
+<span class="r-in"><span><span class="co">## as time series</span></span></span>
+<span class="r-in"><span><span class="va">bc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Lag plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lag.plot.html" class="external-link">lag.plot</a></span><span class="op">(</span><span class="va">bc</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permatfull-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## First order autoregressive model</span></span>
-<span class="r-in"><span class="va">mar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.html" class="external-link">arima</a></span><span class="op">(</span><span class="va">bc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mar</span></span>
+<span class="r-in"><span><span class="co">## First order autoregressive model</span></span></span>
+<span class="r-in"><span><span class="va">mar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.html" class="external-link">arima</a></span><span class="op">(</span><span class="va">bc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mar</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> arima(x = bc, order = c(1, 0, 0))</span>
@@ -508,16 +508,16 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> s.e.  0.0120     0.1374</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sigma^2 estimated as 0.000346:  log likelihood = 46.71,  aic = -87.42</span>
-<span class="r-in"><span class="co">## Ljung-Box test of residuals</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html" class="external-link">Box.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Ljung-Box test of residuals</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html" class="external-link">Box.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Box-Pierce test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  residuals(mar)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.35725, df = 1, p-value = 0.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## Graphical diagnostics</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/tsdiag.html" class="external-link">tsdiag</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Graphical diagnostics</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/tsdiag.html" class="external-link">tsdiag</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permatfull-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -530,7 +530,7 @@ Details section.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

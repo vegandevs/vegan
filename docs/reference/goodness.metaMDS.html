@@ -60,11 +60,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for metaMDS</span>
-<span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">dis</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">stressplot</span><span class="op">(</span><span class="va">object</span>, <span class="va">dis</span>, <span class="va">pch</span>, p.col <span class="op">=</span> <span class="st">"blue"</span>, l.col <span class="op">=</span> <span class="st">"red"</span>, 
-    lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for metaMDS</span></span>
+<span><span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">dis</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">stressplot</span><span class="op">(</span><span class="va">object</span>, <span class="va">dis</span>, <span class="va">pch</span>, p.col <span class="op">=</span> <span class="st">"blue"</span>, l.col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -148,46 +148,48 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1974406 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.2137688 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2275223 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.2143731 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1825658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.18458 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04933631  max resid 0.1574131 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.2389112 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.2069724 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1985581 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1948413 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1948413 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2092457 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2070196 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1825658 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04162843  max resid 0.1518145 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1825658 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.379237e-06  max resid 1.241248e-05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04163576  max resid 0.1518431 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2614443 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1967393 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2297361 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1976151 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.18458 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1825658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 5.191783e-05  max resid 0.0001631877 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.198558 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.195049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1982376 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2805803 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.2102718 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2404051 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2233446 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.2254448 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.198558 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.2032569 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.2200285 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.2028828 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1858402 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.2028828 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2154149 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.195049 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 1 times</span>
-<span class="r-in"><span class="fu">stressplot</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">stressplot</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="goodness.metaMDS-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">gof</span> <span class="op">&lt;-</span> <span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gof</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.02984514 0.03513708 0.04189112 0.04598267 0.04003133 0.03441472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.03294847 0.03050073 0.03060738 0.02994079 0.03526365 0.02621417</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.03831056 0.02980901 0.03369652 0.02225860 0.03561557 0.03505237</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.06577474 0.03268422 0.03503133 0.02956647 0.05167959 0.04602032</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">gof</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">gof</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">gof</span> <span class="op">&lt;-</span> <span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gof</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.02984387 0.03513743 0.04190134 0.04597761 0.04003393 0.03441263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.03295063 0.03050022 0.03060912 0.02994035 0.03525743 0.02621429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.03831301 0.02980768 0.03369079 0.02226187 0.03561666 0.03505296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.06577432 0.03268197 0.03502724 0.02956589 0.05168780 0.04601518</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">gof</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">gof</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="goodness.metaMDS-2.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -200,7 +202,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

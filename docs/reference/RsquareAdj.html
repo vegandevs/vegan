@@ -54,12 +54,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">m</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for rda</span>
-<span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for cca</span>
-<span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">m</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for rda</span></span>
+<span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for cca</span></span>
+<span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">1000</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -123,28 +123,28 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## rda</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span>  <span class="va">.</span>, <span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## rda</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span>  <span class="va">.</span>, <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5265047</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $adj.r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4367038</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## cca</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span>  <span class="va">.</span>, <span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## cca</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span>  <span class="va">.</span>, <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4471676</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $adj.r.squared</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3421112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3421648</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## default method</span></span>
-<span class="r-in"><span class="fu">RsquareAdj</span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## default method</span></span></span>
+<span class="r-in"><span><span class="fu">RsquareAdj</span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7285714</span>
 </code></pre></div>
     </div>
@@ -157,7 +157,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

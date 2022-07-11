@@ -60,24 +60,24 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">specaccum</span><span class="op">(</span><span class="va">comm</span>, method <span class="op">=</span> <span class="st">"exact"</span>, permutations <span class="op">=</span> <span class="fl">100</span>,
-          conditioned <span class="op">=</span><span class="cn">TRUE</span>, gamma <span class="op">=</span> <span class="st">"jack1"</span>,  w <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for specaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, random <span class="op">=</span> <span class="cn">FALSE</span>, ci <span class="op">=</span> <span class="fl">2</span>, 
-    ci.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="st">"line"</span>, <span class="st">"polygon"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span>,
-    ci.col <span class="op">=</span> <span class="va">col</span>, ci.lty <span class="op">=</span> <span class="fl">1</span>, ci.length <span class="op">=</span> <span class="fl">0</span>, <span class="va">xlab</span>, ylab <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">method</span>, <span class="va">ylim</span>,
-    xvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"individuals"</span>, <span class="st">"effort"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for specaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">object</span>, <span class="va">model</span>, method <span class="op">=</span> <span class="st">"random"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for fitspecaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span>, xlab <span class="op">=</span> <span class="st">"Sites"</span>, 
-    ylab <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">method</span>, <span class="va">...</span><span class="op">)</span> 
-<span class="co"># S3 method for specaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, interpolation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"linear"</span>, <span class="st">"spline"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for fitspecaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">specslope</span><span class="op">(</span><span class="va">object</span>, <span class="va">at</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specaccum</span><span class="op">(</span><span class="va">comm</span>, method <span class="op">=</span> <span class="st">"exact"</span>, permutations <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>          conditioned <span class="op">=</span><span class="cn">TRUE</span>, gamma <span class="op">=</span> <span class="st">"jack1"</span>,  w <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for specaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, random <span class="op">=</span> <span class="cn">FALSE</span>, ci <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>    ci.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="st">"line"</span>, <span class="st">"polygon"</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    ci.col <span class="op">=</span> <span class="va">col</span>, ci.lty <span class="op">=</span> <span class="fl">1</span>, ci.length <span class="op">=</span> <span class="fl">0</span>, <span class="va">xlab</span>, ylab <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">method</span>, <span class="va">ylim</span>,</span>
+<span>    xvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"individuals"</span>, <span class="st">"effort"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for specaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">object</span>, <span class="va">model</span>, method <span class="op">=</span> <span class="st">"random"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for fitspecaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"fg"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span>, xlab <span class="op">=</span> <span class="st">"Sites"</span>, </span>
+<span>    ylab <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">method</span>, <span class="va">...</span><span class="op">)</span> </span>
+<span><span class="co"># S3 method for specaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, interpolation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"linear"</span>, <span class="st">"spline"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for fitspecaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">specslope</span><span class="op">(</span><span class="va">object</span>, <span class="va">at</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -391,11 +391,11 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sp1</span> <span class="op">&lt;-</span> <span class="fu">specaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sp1</span> <span class="op">&lt;-</span> <span class="fu">specaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>the standard deviation is zero</span>
-<span class="r-in"><span class="va">sp2</span> <span class="op">&lt;-</span> <span class="fu">specaccum</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"random"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sp2</span></span>
+<span class="r-in"><span><span class="va">sp2</span> <span class="op">&lt;-</span> <span class="fu">specaccum</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"random"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sp2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species Accumulation Curve</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Accumulation method: random, with 100 permutations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: specaccum(comm = BCI, method = "random") </span>
@@ -432,7 +432,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sites     50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Richness 225</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sd         0</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sp2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sp2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1 sites          2 sites         3 sites         4 sites        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   : 77.00   Min.   :105.0   Min.   :119.0   Min.   :132.0  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.: 85.00   1st Qu.:115.8   1st Qu.:134.0   1st Qu.:146.0  </span>
@@ -517,15 +517,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :223.3   Mean   :223.7   Mean   :224.1   Mean   :224.6   Mean   :225  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:224.0   3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225.0   3rd Qu.:225  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225.0   Max.   :225  </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span>, ci.type<span class="op">=</span><span class="st">"poly"</span>, col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span><span class="fl">2</span>, ci.lty<span class="op">=</span><span class="fl">0</span>, ci.col<span class="op">=</span><span class="st">"lightblue"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col<span class="op">=</span><span class="st">"yellow"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="st">"+"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span>, ci.type<span class="op">=</span><span class="st">"poly"</span>, col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span><span class="fl">2</span>, ci.lty<span class="op">=</span><span class="fl">0</span>, ci.col<span class="op">=</span><span class="st">"lightblue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col<span class="op">=</span><span class="st">"yellow"</span>, add<span class="op">=</span><span class="cn">TRUE</span>, pch<span class="op">=</span><span class="st">"+"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="specaccum-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Fit Lomolino model to the exact accumulation</span></span>
-<span class="r-in"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp1</span>, <span class="st">"lomolino"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Fit Lomolino model to the exact accumulation</span></span></span>
+<span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp1</span>, <span class="st">"lomolino"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Asym       xmid      slope </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 258.440682   2.442061   1.858694 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  94.34749 121.23271 137.45031 148.83053 157.45735 164.31866 169.95946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 174.71115 178.78954 182.34254 185.47566 188.26658 190.77402 193.04337</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15] 195.11033 197.00350 198.74606 200.35705 201.85227 203.24499 204.54643</span>
@@ -534,17 +534,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [36] 217.42437 218.00703 218.56767 219.10762 219.62811 220.13027 220.61514</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [43] 221.08369 221.53679 221.97528 222.39991 222.81138 223.21037 223.59747</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [50] 223.97327</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Add Lomolino model using argument 'add'</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="fl">2</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Add Lomolino model using argument 'add'</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col<span class="op">=</span><span class="fl">2</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="specaccum-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Fit Arrhenius models to all random accumulations</span></span>
-<span class="r-in"><span class="va">mods</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp2</span>, <span class="st">"arrh"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mods</span>, col<span class="op">=</span><span class="st">"hotpink"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col <span class="op">=</span> <span class="st">"yellow"</span>, border <span class="op">=</span> <span class="st">"blue"</span>, lty<span class="op">=</span><span class="fl">1</span>, cex<span class="op">=</span><span class="fl">0.3</span>, add<span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Fit Arrhenius models to all random accumulations</span></span></span>
+<span class="r-in"><span><span class="va">mods</span> <span class="op">&lt;-</span> <span class="fu">fitspecaccum</span><span class="op">(</span><span class="va">sp2</span>, <span class="st">"arrh"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mods</span>, col<span class="op">=</span><span class="st">"hotpink"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">sp2</span>, col <span class="op">=</span> <span class="st">"yellow"</span>, border <span class="op">=</span> <span class="st">"blue"</span>, lty<span class="op">=</span><span class="fl">1</span>, cex<span class="op">=</span><span class="fl">0.3</span>, add<span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="specaccum-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Use nls() methods to the list of models</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">mods</span><span class="op">$</span><span class="va">models</span>, <span class="va">AIC</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Use nls() methods to the list of models</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">mods</span><span class="op">$</span><span class="va">models</span>, <span class="va">AIC</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] 329.2456 321.8614 331.1568 352.1309 354.8606 323.3767 322.0897 347.7218</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [9] 327.6283 327.3510 335.4843 308.5300 373.4959 334.3691 320.6975 338.1084</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [17] 330.2018 343.5560 348.5827 300.2513 315.7909 310.7837 305.5217 295.1005</span>
@@ -569,7 +569,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

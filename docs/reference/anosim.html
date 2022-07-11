@@ -60,8 +60,8 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">anosim</span><span class="op">(</span><span class="va">x</span>, <span class="va">grouping</span>, permutations <span class="op">=</span> <span class="fl">999</span>, distance <span class="op">=</span> <span class="st">"bray"</span>, strata <span class="op">=</span> <span class="cn">NULL</span>,
-    parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">anosim</span><span class="op">(</span><span class="va">x</span>, <span class="va">grouping</span>, permutations <span class="op">=</span> <span class="fl">999</span>, distance <span class="op">=</span> <span class="st">"bray"</span>, strata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -203,25 +203,25 @@ dissimilarities instead of their ranks.
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dune.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dune.ano</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu">anosim</span><span class="op">(</span><span class="va">dune.dist</span>, <span class="va">Management</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">dune.ano</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dune.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dune.ano</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu">anosim</span><span class="op">(</span><span class="va">dune.dist</span>, <span class="va">Management</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">dune.ano</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> anosim(x = dune.dist, grouping = Management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dissimilarity: bray </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANOSIM statistic R: 0.2579 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Significance: 0.011 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.125 0.167 0.200 0.244 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.124 0.169 0.213 0.253 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dissimilarity ranks between and within classes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0%   25%    50%     75%  100%   N</span>
@@ -231,7 +231,7 @@ dissimilarities instead of their ranks.
 <span class="r-out co"><span class="r-pr">#&gt;</span> NM       6 64.75 124.50 156.250 181.0  15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SF       3 32.75  53.50  99.250 184.0  15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.ano</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.ano</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>some notches went outside hinges ('box'): maybe set notch=FALSE</span>
 <span class="r-plt img"><img src="anosim-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
@@ -245,7 +245,7 @@ dissimilarities instead of their ranks.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

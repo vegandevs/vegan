@@ -63,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MDSrotate</span><span class="op">(</span><span class="va">object</span>, <span class="va">vec</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MDSrotate</span><span class="op">(</span><span class="va">object</span>, <span class="va">vec</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -145,14 +145,14 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">varechem</span>, <span class="fu">MDSrotate</span><span class="op">(</span><span class="va">mod</span>, <span class="va">pH</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="envfit.html">envfit</a></span><span class="op">(</span><span class="va">mod</span> <span class="op">~</span> <span class="va">pH</span>, <span class="va">varechem</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ef</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">mod</span> <span class="op">~</span> <span class="va">pH</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">varechem</span>, <span class="fu">MDSrotate</span><span class="op">(</span><span class="va">mod</span>, <span class="va">pH</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="envfit.html">envfit</a></span><span class="op">(</span><span class="va">mod</span> <span class="op">~</span> <span class="va">pH</span>, <span class="va">varechem</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ef</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">mod</span> <span class="op">~</span> <span class="va">pH</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="MDSrotate-1.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -162,7 +162,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ poly(x1, 1) + poly(x2, 1)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total model degrees of freedom 3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: -2.736059     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: -2.377646     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -174,7 +174,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

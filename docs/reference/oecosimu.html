@@ -96,13 +96,13 @@ Function evaluates a statistic or a vector of statistics in
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">oecosimu</span><span class="op">(</span><span class="va">comm</span>, <span class="va">nestfun</span>, <span class="va">method</span>, nsimul <span class="op">=</span> <span class="fl">99</span>, burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>,
-   statistic <span class="op">=</span> <span class="st">"statistic"</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>, 
-   batchsize <span class="op">=</span> <span class="cn">NA</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for oecosimu</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for oecosimu</span>
-<span class="fu">toCoda</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oecosimu</span><span class="op">(</span><span class="va">comm</span>, <span class="va">nestfun</span>, <span class="va">method</span>, nsimul <span class="op">=</span> <span class="fl">99</span>, burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>   statistic <span class="op">=</span> <span class="st">"statistic"</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>, </span>
+<span>   batchsize <span class="op">=</span> <span class="cn">NA</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for oecosimu</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for oecosimu</span></span>
+<span><span class="fu">toCoda</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -341,11 +341,11 @@ Function evaluates a statistic or a vector of statistics in
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Use the first eigenvalue of correspondence analysis as an index</span></span>
-<span class="r-in"><span class="co">## of structure: a model for making your own functions.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sipoo</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Traditional nestedness statistics (number of checkerboard units)</span></span>
-<span class="r-in"><span class="fu">oecosimu</span><span class="op">(</span><span class="va">sipoo</span>, <span class="va">nestedchecker</span>, <span class="st">"r0"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Use the first eigenvalue of correspondence analysis as an index</span></span></span>
+<span class="r-in"><span><span class="co">## of structure: a model for making your own functions.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sipoo</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Traditional nestedness statistics (number of checkerboard units)</span></span></span>
+<span class="r-in"><span><span class="fu">oecosimu</span><span class="op">(</span><span class="va">sipoo</span>, <span class="va">nestedchecker</span>, <span class="st">"r0"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = sipoo, nestfun = nestedchecker, method = "r0")</span>
@@ -357,14 +357,14 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> Checkerboard Units    : 2767 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 -18.279 8029.2 7489.9 8030.0 8523.9     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 -16.077 8043.9 7390.1 8093.0  8546     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## sequential model, one-sided test, a vector statistic</span></span>
-<span class="r-in"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">oecosimu</span><span class="op">(</span><span class="va">sipoo</span>, <span class="va">decorana</span>, <span class="st">"swap"</span>, burnin<span class="op">=</span><span class="fl">100</span>, thin<span class="op">=</span><span class="fl">10</span>, </span>
-<span class="r-in">   statistic<span class="op">=</span><span class="st">"evals"</span>, alt <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out</span></span>
+<span class="r-in"><span><span class="co">## sequential model, one-sided test, a vector statistic</span></span></span>
+<span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">oecosimu</span><span class="op">(</span><span class="va">sipoo</span>, <span class="va">decorana</span>, <span class="st">"swap"</span>, burnin<span class="op">=</span><span class="fl">100</span>, thin<span class="op">=</span><span class="fl">10</span>, </span></span>
+<span class="r-in"><span>   statistic<span class="op">=</span><span class="st">"evals"</span>, alt <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = sipoo, nestfun = decorana, method = "swap",</span>
@@ -380,36 +380,38 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Detrended correspondence analysis with 26 segments.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rescaling of axes with 4 iterations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total inertia (scaled Chi-square): 2.4436 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   DCA1   DCA2   DCA3    DCA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues     0.3822 0.2612 0.1668 0.08723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values 0.4154 0.2465 0.1391 0.04992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths    2.9197 2.5442 2.7546 1.78074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        DCA1   DCA2   DCA3    DCA4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues          0.3822 0.2612 0.1668 0.08723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Additive Eigenvalues 0.3822 0.2609 0.1631 0.07650</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values      0.4154 0.2465 0.1391 0.04992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths         2.9197 2.5442 2.7546 1.78074</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      statistic      SES    mean     50%    95% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA1  0.382249  2.30693 0.32820 0.32746 0.3655     0.03 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA2  0.261208  1.68227 0.21588 0.21532 0.2634     0.07 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA3  0.166788  0.15071 0.16301 0.16096 0.2012     0.43  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DCA4  0.087226 -2.09859 0.12878 0.12832 0.1613     0.98  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA1  0.382249  2.67878 0.32319 0.32187 0.3593     0.02 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA2  0.261208  1.62706 0.21705 0.21797 0.2600     0.06 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA3  0.166788  0.37852 0.15885 0.15786 0.1921     0.38  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCA4  0.087226 -1.58834 0.12393 0.12236 0.1641     0.93  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## Inspect the swap sequence as a time series object</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Inspect the swap sequence as a time series object</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="oecosimu-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/lag.plot.html" class="external-link">lag.plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lag.plot.html" class="external-link">lag.plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="oecosimu-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="oecosimu-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Density plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, as.table <span class="op">=</span> <span class="cn">TRUE</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Density plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, as.table <span class="op">=</span> <span class="cn">TRUE</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="oecosimu-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Use quantitative null models to compare</span></span>
-<span class="r-in"><span class="co">## mean Bray-Curtis dissimilarities</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">meandist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"bray"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mbc1</span> <span class="op">&lt;-</span> <span class="fu">oecosimu</span><span class="op">(</span><span class="va">dune</span>, <span class="va">meandist</span>, <span class="st">"r2dtable"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mbc1</span></span>
+<span class="r-in"><span><span class="co">## Use quantitative null models to compare</span></span></span>
+<span class="r-in"><span><span class="co">## mean Bray-Curtis dissimilarities</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">meandist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"bray"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mbc1</span> <span class="op">&lt;-</span> <span class="fu">oecosimu</span><span class="op">(</span><span class="va">dune</span>, <span class="va">meandist</span>, <span class="st">"r2dtable"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mbc1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = dune, nestfun = meandist, method = "r2dtable")</span>
@@ -418,22 +420,22 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 12.471 0.46680 0.43692 0.46714 0.4945     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic   SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 12.07 0.46676 0.43886 0.46518 0.4938     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Define your own null model as a 'commsim' function: shuffle cells</span></span>
-<span class="r-in"><span class="co">## in each row</span></span>
-<span class="r-in"><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">nr</span>, <span class="va">nc</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">   <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">nc</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">      <span class="va">out</span><span class="op">[</span>,,<span class="va">k</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">z</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">   <span class="va">out</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="commsim.html">commsim</a></span><span class="op">(</span><span class="st">"myshuffle"</span>, <span class="va">foo</span>, isSeq <span class="op">=</span> <span class="cn">FALSE</span>, binary <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span class="r-in">   mode <span class="op">=</span> <span class="st">"double"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">oecosimu</span><span class="op">(</span><span class="va">dune</span>, <span class="va">meandist</span>, <span class="va">cf</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Define your own null model as a 'commsim' function: shuffle cells</span></span></span>
+<span class="r-in"><span><span class="co">## in each row</span></span></span>
+<span class="r-in"><span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">nr</span>, <span class="va">nc</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">nc</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>      <span class="va">out</span><span class="op">[</span>,,<span class="va">k</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">z</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="va">out</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="commsim.html">commsim</a></span><span class="op">(</span><span class="st">"myshuffle"</span>, <span class="va">foo</span>, isSeq <span class="op">=</span> <span class="cn">FALSE</span>, binary <span class="op">=</span> <span class="cn">FALSE</span>, </span></span>
+<span class="r-in"><span>   mode <span class="op">=</span> <span class="st">"double"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">oecosimu</span><span class="op">(</span><span class="va">dune</span>, <span class="va">meandist</span>, <span class="va">cf</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = dune, nestfun = meandist, method = cf)</span>
@@ -442,14 +444,14 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic   SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 3.365 0.63522 0.62975 0.63493 0.6423     0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistic   0.64565 2.8692 0.63564 0.62974 0.63515 0.6431     0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use pre-built null model</span></span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="st">"curveball"</span><span class="op">)</span>, <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">oecosimu</span><span class="op">(</span><span class="va">nm</span>, <span class="va">nestedchecker</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use pre-built null model</span></span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="st">"curveball"</span><span class="op">)</span>, <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">oecosimu</span><span class="op">(</span><span class="va">nm</span>, <span class="va">nestedchecker</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = nm, nestfun = nestedchecker)</span>
@@ -461,23 +463,23 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> Checkerboard Units    : 2767 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.12136 2757.1 2625.6 2750.0  2870     0.83</span>
-<span class="r-in"><span class="co">## Several chains of a sequential model -- this can be generalized</span></span>
-<span class="r-in"><span class="co">## for parallel processing (see ?smbind)</span></span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="st">"swap"</span><span class="op">)</span>, <span class="fl">99</span>,</span>
-<span class="r-in">   thin<span class="op">=</span><span class="fl">10</span>, burnin<span class="op">=</span><span class="fl">100</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## nm is now a list of nullmodels: use smbind to combine these into one</span></span>
-<span class="r-in"><span class="co">## nullmodel with several chains</span></span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="nullmodel.html">smbind</a></span><span class="op">(</span><span class="va">nm</span>, MARGIN <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">nm</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 -0.38333 2801.5 2625.0 2810.0 2952.7     0.65</span>
+<span class="r-in"><span><span class="co">## Several chains of a sequential model -- this can be generalized</span></span></span>
+<span class="r-in"><span><span class="co">## for parallel processing (see ?smbind)</span></span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">sipoo</span>, <span class="st">"swap"</span><span class="op">)</span>, <span class="fl">99</span>,</span></span>
+<span class="r-in"><span>   thin<span class="op">=</span><span class="fl">10</span>, burnin<span class="op">=</span><span class="fl">100</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## nm is now a list of nullmodels: use smbind to combine these into one</span></span></span>
+<span class="r-in"><span><span class="co">## nullmodel with several chains</span></span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="nullmodel.html">smbind</a></span><span class="op">(</span><span class="va">nm</span>, MARGIN <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nm</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18 x 50 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 495 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 110, End = 1090, Thin = 10 (5 chains)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">oecosimu</span><span class="op">(</span><span class="va">nm</span>, <span class="va">nestedchecker</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">oecosimu</span><span class="op">(</span><span class="va">nm</span>, <span class="va">nestedchecker</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: oecosimu(comm = nm, nestfun = nestedchecker)</span>
@@ -490,10 +492,10 @@ Function evaluates a statistic or a vector of statistics in
 <span class="r-out co"><span class="r-pr">#&gt;</span> C-score (species mean): 2.258776 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.64093 2705.8 2566.1 2688.0  2931   0.4577</span>
-<span class="r-in"><span class="co">## After this you can use toCoda() and tools in the coda package to</span></span>
-<span class="r-in"><span class="co">## analyse the chains (these will show that thin, burnin and nsimul are</span></span>
-<span class="r-in"><span class="co">## all too low for real analysis).</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> checkerboards      2767 0.91091 2691.1 2564.0 2679.0  2874   0.3569</span>
+<span class="r-in"><span><span class="co">## After this you can use toCoda() and tools in the coda package to</span></span></span>
+<span class="r-in"><span><span class="co">## analyse the chains (these will show that thin, burnin and nsimul are</span></span></span>
+<span class="r-in"><span><span class="co">## all too low for real analysis).</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -505,7 +507,7 @@ Function evaluates a statistic or a vector of statistics in
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

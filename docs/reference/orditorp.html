@@ -66,9 +66,9 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">orditorp</span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">labels</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">priority</span>,
-    <span class="va">select</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">pcex</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"col"</span><span class="op">)</span>, <span class="va">pcol</span>,
-    pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"pch"</span><span class="op">)</span>, air <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">orditorp</span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">labels</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">priority</span>,</span>
+<span>    <span class="va">select</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">pcex</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"col"</span><span class="op">)</span>, <span class="va">pcol</span>,</span>
+<span>    pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"pch"</span><span class="op">)</span>, air <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -156,31 +156,31 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## A cluttered ordination plot :</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"t"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## A cluttered ordination plot :</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"t"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="orditorp-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co"># Now with orditorp and abbreviated species names</span></span>
-<span class="r-in"><span class="va">cnam</span> <span class="op">&lt;-</span> <span class="fu"><a href="make.cepnames.html">make.cepnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Now with orditorp and abbreviated species names</span></span></span>
+<span class="r-in"><span><span class="va">cnam</span> <span class="op">&lt;-</span> <span class="fu"><a href="make.cepnames.html">make.cepnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="orditorp-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## show select in action</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">take</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, select <span class="op">=</span> <span class="va">take</span>,</span>
-<span class="r-in">         pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## show select in action</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">take</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"sp"</span>, type<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stems</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">orditorp</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"sp"</span>, label <span class="op">=</span> <span class="va">cnam</span>, priority<span class="op">=</span><span class="va">stems</span>, select <span class="op">=</span> <span class="va">take</span>,</span></span>
+<span class="r-in"><span>         pch<span class="op">=</span><span class="st">"+"</span>, pcol<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="orditorp-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co"># \dontshow{</span></span>
-<span class="r-in"><span class="co">## example(orditorp) should not set random seed in the user session</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">.Random.seed</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span><span class="co">## example(orditorp) should not set random seed in the user session</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">.Random.seed</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>object '.Random.seed' not found</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -192,7 +192,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

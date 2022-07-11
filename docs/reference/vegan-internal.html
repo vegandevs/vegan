@@ -57,23 +57,23 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ordiParseFormula</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, xlev <span class="op">=</span> <span class="cn">NULL</span>,  na.action <span class="op">=</span> <span class="va">na.fail</span>,
-    subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">X</span><span class="op">)</span>
-<span class="fu">ordiTerminfo</span><span class="op">(</span><span class="va">d</span>, <span class="va">data</span><span class="op">)</span>
-<span class="fu">ordiNAexclude</span><span class="op">(</span><span class="va">x</span>, <span class="va">excluded</span><span class="op">)</span>
-<span class="fu">ordiNApredict</span><span class="op">(</span><span class="va">omit</span>, <span class="va">x</span><span class="op">)</span>
-<span class="fu">ordiArgAbsorber</span><span class="op">(</span><span class="va">...</span>, <span class="va">shrink</span>, <span class="va">origin</span>, <span class="va">scaling</span>, <span class="va">triangular</span>,
-                <span class="va">display</span>, <span class="va">choices</span>, <span class="va">const</span>, <span class="va">truemean</span>, <span class="va">FUN</span><span class="op">)</span>
-<span class="fu">centroids.cca</span><span class="op">(</span><span class="va">x</span>, <span class="va">mf</span>, <span class="va">wt</span><span class="op">)</span>
-<span class="fu">getPermuteMatrix</span><span class="op">(</span><span class="va">perm</span>, <span class="va">N</span>, strata <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="fu">howHead</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">pasteCall</span><span class="op">(</span><span class="va">call</span>, prefix <span class="op">=</span> <span class="st">"Call:"</span><span class="op">)</span>
-<span class="fu">veganCovEllipse</span><span class="op">(</span><span class="va">cov</span>, center <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, scale <span class="op">=</span> <span class="fl">1</span>, npoints <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="fu">veganMahatrans</span><span class="op">(</span><span class="va">x</span>, <span class="va">s2</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">hierParseFormula</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span>
-<span class="fu">GowerDblcen</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">addLingoes</span><span class="op">(</span><span class="va">d</span><span class="op">)</span>
-<span class="fu">addCailliez</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ordiParseFormula</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, xlev <span class="op">=</span> <span class="cn">NULL</span>,  na.action <span class="op">=</span> <span class="va">na.fail</span>,</span>
+<span>    subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">X</span><span class="op">)</span></span>
+<span><span class="fu">ordiTerminfo</span><span class="op">(</span><span class="va">d</span>, <span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">ordiNAexclude</span><span class="op">(</span><span class="va">x</span>, <span class="va">excluded</span><span class="op">)</span></span>
+<span><span class="fu">ordiNApredict</span><span class="op">(</span><span class="va">omit</span>, <span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">ordiArgAbsorber</span><span class="op">(</span><span class="va">...</span>, <span class="va">shrink</span>, <span class="va">origin</span>, <span class="va">scaling</span>, <span class="va">triangular</span>,</span>
+<span>                <span class="va">display</span>, <span class="va">choices</span>, <span class="va">const</span>, <span class="va">truemean</span>, <span class="va">FUN</span><span class="op">)</span></span>
+<span><span class="fu">centroids.cca</span><span class="op">(</span><span class="va">x</span>, <span class="va">mf</span>, <span class="va">wt</span><span class="op">)</span></span>
+<span><span class="fu">getPermuteMatrix</span><span class="op">(</span><span class="va">perm</span>, <span class="va">N</span>, strata <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">howHead</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">pasteCall</span><span class="op">(</span><span class="va">call</span>, prefix <span class="op">=</span> <span class="st">"Call:"</span><span class="op">)</span></span>
+<span><span class="fu">veganCovEllipse</span><span class="op">(</span><span class="va">cov</span>, center <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, scale <span class="op">=</span> <span class="fl">1</span>, npoints <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu">veganMahatrans</span><span class="op">(</span><span class="va">x</span>, <span class="va">s2</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">hierParseFormula</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span></span>
+<span><span class="fu">GowerDblcen</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">addLingoes</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="fu">addCailliez</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -149,7 +149,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

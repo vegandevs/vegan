@@ -63,25 +63,25 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">adipart</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">adipart</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"richness"</span>, <span class="st">"shannon"</span>, <span class="st">"simpson"</span><span class="op">)</span>,
-    weights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unif"</span>, <span class="st">"prop"</span><span class="op">)</span>, relative <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,
-    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">adipart</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"richness"</span>, <span class="st">"shannon"</span>, <span class="st">"simpson"</span><span class="op">)</span>,
-    weights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unif"</span>, <span class="st">"prop"</span><span class="op">)</span>, relative <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,
-    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">hiersimu</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">hiersimu</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, <span class="va">FUN</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"median"</span><span class="op">)</span>,
-    relative <span class="op">=</span> <span class="cn">FALSE</span>, drop.highest <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,
-    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">hiersimu</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">FUN</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"median"</span><span class="op">)</span>,
-    relative <span class="op">=</span> <span class="cn">FALSE</span>, drop.highest <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,
-    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">adipart</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">adipart</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"richness"</span>, <span class="st">"shannon"</span>, <span class="st">"simpson"</span><span class="op">)</span>,</span>
+<span>    weights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unif"</span>, <span class="st">"prop"</span><span class="op">)</span>, relative <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">adipart</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, index<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"richness"</span>, <span class="st">"shannon"</span>, <span class="st">"simpson"</span><span class="op">)</span>,</span>
+<span>    weights<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unif"</span>, <span class="st">"prop"</span><span class="op">)</span>, relative <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, <span class="va">FUN</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"median"</span><span class="op">)</span>,</span>
+<span>    relative <span class="op">=</span> <span class="cn">FALSE</span>, drop.highest <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">FUN</span>, location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"median"</span><span class="op">)</span>,</span>
+<span>    relative <span class="op">=</span> <span class="cn">FALSE</span>, drop.highest <span class="op">=</span> <span class="cn">FALSE</span>, nsimul<span class="op">=</span><span class="fl">99</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"r2dtable"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -247,33 +247,33 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## NOTE: 'nsimul' argument usually needs to be &gt;= 99</span></span>
-<span class="r-in"><span class="co">## here much lower value is used for demonstration</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Function to get equal area partitions of the mite data</span></span>
-<span class="r-in"><span class="va">cutter</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">cut</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">        <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="va">cut</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="va">cut</span><span class="op">[</span><span class="op">(</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
-<span class="r-in">    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">}</span></span>
-<span class="r-in"><span class="co">## The hierarchy of sample aggregation</span></span>
-<span class="r-in"><span class="va">levsm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">mite.xy</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">    l1<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,</span>
-<span class="r-in">    l2<span class="op">=</span><span class="fu">cutter</span><span class="op">(</span><span class="va">y</span>, cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    l3<span class="op">=</span><span class="fu">cutter</span><span class="op">(</span><span class="va">y</span>, cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">    l4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Let's see in a map</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l1"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l2"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l2</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l3"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l3</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## NOTE: 'nsimul' argument usually needs to be &gt;= 99</span></span></span>
+<span class="r-in"><span><span class="co">## here much lower value is used for demonstration</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Function to get equal area partitions of the mite data</span></span></span>
+<span class="r-in"><span><span class="va">cutter</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">cut</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="va">cut</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="va">cut</span><span class="op">[</span><span class="op">(</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span></span>
+<span class="r-in"><span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## The hierarchy of sample aggregation</span></span></span>
+<span class="r-in"><span><span class="va">levsm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">mite.xy</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    l1<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    l2<span class="op">=</span><span class="fu">cutter</span><span class="op">(</span><span class="va">y</span>, cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    l3<span class="op">=</span><span class="fu">cutter</span><span class="op">(</span><span class="va">y</span>, cut <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    l4<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Let's see in a map</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l1"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l1</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l2"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l2</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mite.xy</span>, main<span class="op">=</span><span class="st">"l3"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">levsm</span><span class="op">$</span><span class="va">l3</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="adipart-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Additive diversity partitioning</span></span>
-<span class="r-in"><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Additive diversity partitioning</span></span></span>
+<span class="r-in"><span><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adipart object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: adipart(y = mite, index = "richness", nsimul = 19)</span>
@@ -283,13 +283,13 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -38.216 22.384 22.070 22.400 22.709     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -39.933 22.331 22.070 22.329 22.624     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.000 35.000 35.000 35.000 35.000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     19.886  38.216 12.616 12.291 12.600 12.930     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     19.886  39.933 12.669 12.376 12.671 12.930     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## the next two define identical models</span></span>
-<span class="r-in"><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## the next two define identical models</span></span></span>
+<span class="r-in"><span><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adipart object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: adipart(y = mite, x = levsm, index = "richness", nsimul = 19)</span>
@@ -298,17 +298,17 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> options:  index richness, weights unif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -41.9621 22.33985 22.02500 22.31429 22.5886     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -23.6438 34.76316 34.36250 34.75000 35.0000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.0000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.0000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   7.5083 12.42331 11.86607 12.45000 12.8332     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  14.2111  0.23684  0.00000  0.25000  0.6375     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.0000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%  97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -35.5861 22.39173 22.01643 22.40000 22.741     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -24.8427 34.77632 34.50000 34.75000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   9.0948 12.38459 11.84286 12.36429 12.720     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  14.9576  0.22368  0.00000  0.25000  0.500     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">l2</span> <span class="op">+</span> <span class="va">l3</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">adipart</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">l2</span> <span class="op">+</span> <span class="va">l3</span>, <span class="va">levsm</span>, index<span class="op">=</span><span class="st">"richness"</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adipart object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: adipart(formula = mite ~ l2 + l3, data = levsm, index =</span>
@@ -318,19 +318,19 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> options:  index richness, weights unif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic      SES     mean     2.5%      50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -36.3284 22.34662 21.96143 22.38571 22.654     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -29.7790 34.84211 34.50000 34.75000 35.000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.000     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.000     1.00  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636   8.0892 12.49549 12.00393 12.52143 12.903     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  18.0829  0.15789  0.00000  0.25000  0.500     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES     mean     2.5%      50%  97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.1    15.114 -58.587 22.35714 22.17000 22.35714 22.591     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.2    29.750 -30.275 34.82895 34.50000 34.75000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha.3    33.000   0.000 35.00000 35.00000 35.00000 35.000     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gamma      35.000   0.000 35.00000 35.00000 35.00000 35.000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.1     14.636  10.244 12.47180 12.13607 12.55000 12.804     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.2      3.250  18.353  0.17105  0.00000  0.25000  0.500     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> beta.3      2.000   0.000  0.00000  0.00000  0.00000  0.000     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## Hierarchical null model testing</span></span>
-<span class="r-in"><span class="co">## diversity analysis (similar to adipart)</span></span>
-<span class="r-in"><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span>, FUN<span class="op">=</span><span class="va">diversity</span>, relative<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Hierarchical null model testing</span></span></span>
+<span class="r-in"><span><span class="co">## diversity analysis (similar to adipart)</span></span></span>
+<span class="r-in"><span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span>, FUN<span class="op">=</span><span class="va">diversity</span>, relative<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hiersimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: hiersimu(y = mite, FUN = diversity, relative = TRUE, nsimul = 19)</span>
@@ -339,12 +339,12 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> level_1   0.76064 -110.61 0.93851 0.93559 0.93821 0.9411     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> leve_2    1.00000    0.00 1.00000 1.00000 1.00000 1.0000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         statistic     SES    mean    2.5%     50% 97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> level_1   0.76064 -66.106 0.93858 0.93466 0.93790 0.944     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.000     1.00  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">l2</span> <span class="op">+</span> <span class="va">l3</span>, <span class="va">levsm</span>, FUN<span class="op">=</span><span class="va">diversity</span>, relative<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span> <span class="va">l2</span> <span class="op">+</span> <span class="va">l3</span>, <span class="va">levsm</span>, FUN<span class="op">=</span><span class="va">diversity</span>, relative<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hiersimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: hiersimu(formula = mite ~ l2 + l3, data = levsm, FUN = diversity,</span>
@@ -354,16 +354,16 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> unit   0.76064  -84.681 0.94051 0.93645 0.94059 0.9439     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l2     0.89736 -104.822 0.99767 0.99599 0.99751 0.9993     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l3     0.92791 -535.141 0.99930 0.99911 0.99930 0.9995     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> all    1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> unit   0.76064  -62.60 0.93798 0.93333 0.93811 0.9431     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l2     0.89736 -135.17 0.99767 0.99646 0.99762 0.9991     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l3     0.92791 -476.03 0.99929 0.99902 0.99930 0.9995     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> all    1.00000    0.00 1.00000 1.00000 1.00000 1.0000     1.00  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## Hierarchical testing with the Morisita index</span></span>
-<span class="r-in"><span class="va">morfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="dispindmorisita.html">dispindmorisita</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">imst</span></span>
-<span class="r-in"><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span><span class="va">.</span>, <span class="va">levsm</span>, <span class="va">morfun</span>, drop.highest<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Hierarchical testing with the Morisita index</span></span></span>
+<span class="r-in"><span><span class="va">morfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="dispindmorisita.html">dispindmorisita</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">imst</span></span></span>
+<span class="r-in"><span><span class="fu">hiersimu</span><span class="op">(</span><span class="va">mite</span> <span class="op">~</span><span class="va">.</span>, <span class="va">levsm</span>, <span class="va">morfun</span>, drop.highest<span class="op">=</span><span class="cn">TRUE</span>, nsimul<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hiersimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: hiersimu(formula = mite ~ ., data = levsm, FUN = morfun,</span>
@@ -374,9 +374,9 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> alternative hypothesis: statistic is less or greater than simulated values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    statistic     SES      mean      2.5%       50%   97.5% Pr(sim.)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l1   0.52070  5.0643  0.359252  0.315758  0.355566  0.4178     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l2   0.60234 14.1635  0.142033  0.092425  0.137164  0.1987     0.05 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> l3   0.67509 16.2620 -0.198983 -0.288013 -0.191229 -0.1189     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l1   0.52070  6.7335  0.363990  0.321615  0.366167  0.4001     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l2   0.60234 13.0219  0.162981  0.095332  0.170346  0.2124     0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> l3   0.67509 14.6636 -0.190052 -0.275536 -0.202769 -0.0684     0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
@@ -390,7 +390,7 @@ according to a nested hierarchical sampling design (<code>hiersimu</code>).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

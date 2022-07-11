@@ -57,11 +57,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, <span class="va">k</span>, eig <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, x.ret <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">w</span><span class="op">)</span>
-<span class="co"># S3 method for wcmdscale</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"t"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for wcmdscale</span>
-<span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="cn">NA</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, <span class="va">k</span>, eig <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, x.ret <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">w</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for wcmdscale</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"t"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for wcmdscale</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="cn">NA</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -209,16 +209,16 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Correspondence analysis as a weighted principal coordinates</span></span>
-<span class="r-in"><span class="co">## analysis of Euclidean distances of Chi-square transformed data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">dune</span>, <span class="st">"chi"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, w <span class="op">=</span> <span class="va">rs</span>, eig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Ordinary CA</span></span>
-<span class="r-in"><span class="va">ca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Eigevalues are numerically similar</span></span>
-<span class="r-in"><span class="va">ca</span><span class="op">$</span><span class="va">CA</span><span class="op">$</span><span class="va">eig</span> <span class="op">-</span> <span class="va">ord</span><span class="op">$</span><span class="va">eig</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Correspondence analysis as a weighted principal coordinates</span></span></span>
+<span class="r-in"><span><span class="co">## analysis of Euclidean distances of Chi-square transformed data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">dune</span>, <span class="st">"chi"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, w <span class="op">=</span> <span class="va">rs</span>, eig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Ordinary CA</span></span></span>
+<span class="r-in"><span><span class="va">ca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Eigevalues are numerically similar</span></span></span>
+<span class="r-in"><span><span class="va">ca</span><span class="op">$</span><span class="va">CA</span><span class="op">$</span><span class="va">eig</span> <span class="op">-</span> <span class="va">ord</span><span class="op">$</span><span class="va">eig</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           CA1           CA2           CA3           CA4           CA5 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2.220446e-16 -1.387779e-15 -1.054712e-15  2.498002e-16  1.110223e-16 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           CA6           CA7           CA8           CA9          CA10 </span>
@@ -227,9 +227,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1.179612e-16 -5.551115e-17 -1.387779e-17  3.469447e-18 -6.938894e-18 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          CA16          CA17          CA18          CA19 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -5.204170e-18  1.734723e-18 -4.683753e-17  3.989864e-17 </span>
-<span class="r-in"><span class="co">## Configurations are similar when site scores are scaled by</span></span>
-<span class="r-in"><span class="co">## eigenvalues in CA</span></span>
-<span class="r-in"><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">ca</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Configurations are similar when site scores are scaled by</span></span></span>
+<span class="r-in"><span><span class="co">## eigenvalues in CA</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">ca</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") </span>
@@ -237,16 +237,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Procrustes sum of squares:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -5.684e-14 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">ca</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">ca</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="wcmdscale-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Reconstruction of non-Euclidean distances with negative eigenvalues</span></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, eig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Only positive eigenvalues:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">points</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Reconstruction of non-Euclidean distances with negative eigenvalues</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu">wcmdscale</span><span class="op">(</span><span class="va">d</span>, eig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Only positive eigenvalues:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">points</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9975185</span>
-<span class="r-in"><span class="co">## Correction with negative eigenvalues:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">points</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">negaxes</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Correction with negative eigenvalues:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">points</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">ord</span><span class="op">$</span><span class="va">negaxes</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 </code></pre></div>
     </div>
@@ -259,7 +259,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

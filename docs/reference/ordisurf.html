@@ -57,25 +57,25 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">ordisurf</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, knots <span class="op">=</span> <span class="fl">10</span>,
-         family <span class="op">=</span> <span class="st">"gaussian"</span>, col <span class="op">=</span> <span class="st">"red"</span>, isotropic <span class="op">=</span> <span class="cn">TRUE</span>,
-         thinplate <span class="op">=</span> <span class="cn">TRUE</span>, bs <span class="op">=</span> <span class="st">"tp"</span>, fx <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>,
-         display <span class="op">=</span> <span class="st">"sites"</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weights.html" class="external-link">weights</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span><span class="op">)</span>, <span class="va">main</span>, nlevels <span class="op">=</span> <span class="fl">10</span>,
-         <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">31</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>,
-         cex <span class="op">=</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"REML"</span>, gamma <span class="op">=</span> <span class="fl">1</span>,
-         plot <span class="op">=</span> <span class="cn">TRUE</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for formula</span>
-<span class="fu">ordisurf</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ordisurf</span>
-<span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ordisurf</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contour"</span>,<span class="st">"persp"</span>,<span class="st">"gam"</span><span class="op">)</span>,
-     add <span class="op">=</span> <span class="cn">FALSE</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">1</span>,
-     nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, knots <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>         family <span class="op">=</span> <span class="st">"gaussian"</span>, col <span class="op">=</span> <span class="st">"red"</span>, isotropic <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>         thinplate <span class="op">=</span> <span class="cn">TRUE</span>, bs <span class="op">=</span> <span class="st">"tp"</span>, fx <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         display <span class="op">=</span> <span class="st">"sites"</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weights.html" class="external-link">weights</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span><span class="op">)</span>, <span class="va">main</span>, nlevels <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>         <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">31</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         cex <span class="op">=</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"REML"</span>, gamma <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>         plot <span class="op">=</span> <span class="cn">TRUE</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ordisurf</span></span>
+<span><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ordisurf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contour"</span>,<span class="st">"persp"</span>,<span class="st">"gam"</span><span class="op">)</span>,</span>
+<span>     add <span class="op">=</span> <span class="cn">FALSE</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -371,11 +371,11 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bubble <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bubble <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -384,14 +384,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.68  total = 7.68 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94129     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## as above but without the extra penalties on smooth terms,</span></span>
-<span class="r-in"><span class="co">## and using GCV smoothness selection (old behaviour of `ordisurf()`):</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                        select <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="st">"GCV.Cp"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.18621     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## as above but without the extra penalties on smooth terms,</span></span></span>
+<span class="r-in"><span><span class="co">## and using GCV smoothness selection (old behaviour of `ordisurf()`):</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                        select <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="st">"GCV.Cp"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-1.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -401,30 +401,28 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7.34  total = 8.34 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8.2  total = 9.2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 154.2868     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Cover of Cladina arbuscula</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladarbu</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 119.2593     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Cover of Cladina arbuscula</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladarbu</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Get fitted values</span></span>
-<span class="r-in"><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         18         15         24         27         23         19         22 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21.6243388  8.0345008  3.8614237  2.4595991  6.3958051  5.4260366  6.7157181 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         16         28         13         14         20         25          7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11.6760003  0.8042353 31.1728022 16.1942729  9.5898398  5.4218680 29.8218208 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          5          6          3          4          2          9         12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22.8496319 29.9936897  7.1654045 15.5308681  2.8468316  0.9051347  3.5541516 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         10         11         21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.3099277 10.7783132  0.9177855 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Variable selection via additional shrinkage penalties</span></span>
-<span class="r-in"><span class="co">## This allows non-significant smooths to be selected out</span></span>
-<span class="r-in"><span class="co">## of the model not just to a linear surface. There are 2</span></span>
-<span class="r-in"><span class="co">## options available:</span></span>
-<span class="r-in"><span class="co">##  - option 1: `select = TRUE` --- the *default*</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, select <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Get fitted values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        18        15        24        27        23        19        22        16 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21.740782  7.311545  2.697333  3.598510  9.268245  5.582577  7.490980  9.686252 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        28        13        14        20        25         7         5         6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.067533 29.589424  8.411301  8.202753  5.564973 27.953371 22.307307 28.804774 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         3         4         2         9        12        10        11        21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7.581807 15.360802  3.340653  1.423737  4.318695  1.912799  9.854775 10.979074 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Variable selection via additional shrinkage penalties</span></span></span>
+<span class="r-in"><span><span class="co">## This allows non-significant smooths to be selected out</span></span></span>
+<span class="r-in"><span><span class="co">## of the model not just to a linear surface. There are 2</span></span></span>
+<span class="r-in"><span><span class="co">## options available:</span></span></span>
+<span class="r-in"><span><span class="co">##  - option 1: `select = TRUE` --- the *default*</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, select <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-3.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -434,11 +432,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.68  total = 7.68 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94129     </span>
-<span class="r-in"><span class="co">##  - option 2: use a basis with shrinkage</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, bs <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.18621     </span>
+<span class="r-in"><span><span class="co">##  - option 2: use a basis with shrinkage</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, bs <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-4.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -448,29 +446,29 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.26  total = 7.26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4.9  total = 5.9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.83938     </span>
-<span class="r-in"><span class="co">## or bs = "cs" with `isotropic = FALSE`</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Plot method</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"contour"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 95.96151     </span>
+<span class="r-in"><span><span class="co">## or bs = "cs" with `isotropic = FALSE`</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plot method</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"contour"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-5.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Plotting the "gam" object</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"gam"</span><span class="op">)</span> <span class="co">## 'col' and 'cex' not passed on</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plotting the "gam" object</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"gam"</span><span class="op">)</span> <span class="co">## 'col' and 'cex' not passed on</span></span></span>
 <span class="r-plt img"><img src="ordisurf-6.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## or via plot.gam directly</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## or via plot.gam directly</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: nlme</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></span><span class="op">(</span><span class="va">fit</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></span><span class="op">(</span><span class="va">fit</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-7.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## 'col' effects all objects drawn...</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### controlling the basis functions used</span></span>
-<span class="r-in"><span class="co">## Use Duchon splines</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bs <span class="op">=</span> <span class="st">"ds"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 'col' effects all objects drawn...</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### controlling the basis functions used</span></span></span>
+<span class="r-in"><span><span class="co">## Use Duchon splines</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bs <span class="op">=</span> <span class="st">"ds"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-8.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -480,13 +478,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.74  total = 7.74 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.9413     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## A fixed degrees of freedom smooth, must use 'select = FALSE'</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">                        fx <span class="op">=</span> <span class="cn">TRUE</span>, select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.12595     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## A fixed degrees of freedom smooth, must use 'select = FALSE'</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>                        fx <span class="op">=</span> <span class="cn">TRUE</span>, select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-9.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -498,11 +496,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  total = 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 85.55103     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## An anisotropic smoother with cubic regression spline bases</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">                        bs <span class="op">=</span> <span class="st">"cr"</span>, knots <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 80.57119     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline bases</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                        bs <span class="op">=</span> <span class="st">"cr"</span>, knots <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-10.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -513,15 +511,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     FALSE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3.08  total = 4.08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.83  total = 4.83 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.02808     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## An anisotropic smoother with cubic regression spline with</span></span>
-<span class="r-in"><span class="co">## shrinkage bases &amp; different degrees of freedom in each dimension</span></span>
-<span class="r-in"><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">                        bs <span class="op">=</span> <span class="st">"cs"</span>, knots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, fx <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                        select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.37421     </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline with</span></span></span>
+<span class="r-in"><span><span class="co">## shrinkage bases &amp; different degrees of freedom in each dimension</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>                        bs <span class="op">=</span> <span class="st">"cs"</span>, knots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, fx <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                        select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-11.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
@@ -534,7 +532,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  total = 12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 42.98327     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 41.1393     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -546,7 +544,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -63,11 +63,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">x</span>, pairwise <span class="op">=</span> <span class="cn">FALSE</span>,
-          permutations <span class="op">=</span> <span class="fl">999</span>,
-          parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>,
-          <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">x</span>, pairwise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>          permutations <span class="op">=</span> <span class="fl">999</span>,</span>
+<span>          parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>,</span>
+<span>          <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -154,17 +154,17 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Bray-Curtis distances between samples</span></span>
-<span class="r-in"><span class="va">dis</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## First 16 sites grazed, remaining 8 sites ungrazed</span></span>
-<span class="r-in"><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grazed"</span>,<span class="st">"ungrazed"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Calculate multivariate dispersions</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="betadisper.html">betadisper</a></span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Bray-Curtis distances between samples</span></span></span>
+<span class="r-in"><span><span class="va">dis</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## First 16 sites grazed, remaining 8 sites ungrazed</span></span></span>
+<span class="r-in"><span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grazed"</span>,<span class="st">"ungrazed"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Calculate multivariate dispersions</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="betadisper.html">betadisper</a></span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -181,9 +181,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 23 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Perform test</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Perform test</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
@@ -192,12 +192,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Permutation test for F</span></span>
-<span class="r-in"><span class="va">pmod</span> <span class="op">&lt;-</span> <span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="fl">99</span>, pairwise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Tukey's Honest Significant Differences</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">mod.HSD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Permutation test for F</span></span></span>
+<span class="r-in"><span><span class="va">pmod</span> <span class="op">&lt;-</span> <span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="fl">99</span>, pairwise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Tukey's Honest Significant Differences</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">mod.HSD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Tukey multiple comparisons of means</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -207,14 +207,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       diff        lwr          upr     p adj</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.HSD</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.HSD</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permutest.betadisper-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Has permustats() method</span></span>
-<span class="r-in"><span class="va">pstat</span> <span class="op">&lt;-</span> <span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">pmod</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="va">pstat</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>relation <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Has permustats() method</span></span></span>
+<span class="r-in"><span><span class="va">pstat</span> <span class="op">&lt;-</span> <span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">pmod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="va">pstat</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>relation <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permutest.betadisper-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></span><span class="op">(</span><span class="va">pstat</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>relation <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></span><span class="op">(</span><span class="va">pstat</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>relation <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permutest.betadisper-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -227,7 +227,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

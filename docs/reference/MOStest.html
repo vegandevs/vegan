@@ -90,14 +90,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">MOStest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">interval</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for MOStest</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">fieller.MOStest</span><span class="op">(</span><span class="va">object</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
-<span class="co"># S3 method for MOStest</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile</a></span><span class="op">(</span><span class="va">fitted</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, maxsteps <span class="op">=</span> <span class="fl">10</span>, del <span class="op">=</span> <span class="va">zmax</span><span class="op">/</span><span class="fl">5</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for MOStest</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">object</span>, parm <span class="op">=</span> <span class="fl">1</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MOStest</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">interval</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for MOStest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">6</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">fieller.MOStest</span><span class="op">(</span><span class="va">object</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for MOStest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile</a></span><span class="op">(</span><span class="va">fitted</span>, alpha <span class="op">=</span> <span class="fl">0.01</span>, maxsteps <span class="op">=</span> <span class="fl">10</span>, del <span class="op">=</span> <span class="va">zmax</span><span class="op">/</span><span class="fl">5</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for MOStest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">object</span>, parm <span class="op">=</span> <span class="fl">1</span>, level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -257,12 +257,12 @@ the <span class="pkg">MASS</span> package.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## The Al-Mufti data analysed in humpfit():</span></span>
-<span class="r-in"><span class="va">mass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">140</span>,<span class="fl">230</span>,<span class="fl">310</span>,<span class="fl">310</span>,<span class="fl">400</span>,<span class="fl">510</span>,<span class="fl">610</span>,<span class="fl">670</span>,<span class="fl">860</span>,<span class="fl">900</span>,<span class="fl">1050</span>,<span class="fl">1160</span>,<span class="fl">1900</span>,<span class="fl">2480</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">spno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,  <span class="fl">4</span>,  <span class="fl">3</span>,  <span class="fl">9</span>, <span class="fl">18</span>, <span class="fl">30</span>, <span class="fl">20</span>, <span class="fl">14</span>,  <span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">5</span>,  <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MOStest</span><span class="op">(</span><span class="va">mass</span>, <span class="va">spno</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Insignificant</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## The Al-Mufti data analysed in humpfit():</span></span></span>
+<span class="r-in"><span><span class="va">mass</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">140</span>,<span class="fl">230</span>,<span class="fl">310</span>,<span class="fl">310</span>,<span class="fl">400</span>,<span class="fl">510</span>,<span class="fl">610</span>,<span class="fl">670</span>,<span class="fl">860</span>,<span class="fl">900</span>,<span class="fl">1050</span>,<span class="fl">1160</span>,<span class="fl">1900</span>,<span class="fl">2480</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,  <span class="fl">4</span>,  <span class="fl">3</span>,  <span class="fl">9</span>, <span class="fl">18</span>, <span class="fl">30</span>, <span class="fl">20</span>, <span class="fl">14</span>,  <span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">3</span>,  <span class="fl">2</span>,  <span class="fl">5</span>,  <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MOStest</span><span class="op">(</span><span class="va">mass</span>, <span class="va">spno</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Insignificant</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mitchell-Olds and Shaw test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null: hump of a quadratic linear predictor is at min or max</span>
@@ -278,13 +278,13 @@ the <span class="pkg">MASS</span> package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hump at min     140 0.0006 0.9816</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> hump at max    2480 0.3161 0.5852</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Combined                   0.9924</span>
-<span class="r-in"><span class="co">## ... but inadequate shape of the curve</span></span>
-<span class="r-in"><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">+</span><span class="fl">.1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## ... but inadequate shape of the curve</span></span></span>
+<span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">+</span><span class="fl">.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="MOStest-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Looks rather like log-link with Poisson error and logarithmic biomass</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MOStest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mass</span><span class="op">)</span>, <span class="va">spno</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+<span class="r-in"><span><span class="co">## Looks rather like log-link with Poisson error and logarithmic biomass</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MOStest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mass</span><span class="op">)</span>, <span class="va">spno</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mitchell-Olds and Shaw test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Null: hump of a quadratic linear predictor is at min or max</span>
@@ -301,17 +301,17 @@ the <span class="pkg">MASS</span> package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Combined                   0.03338 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="MOStest-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Confidence Limits</span></span>
-<span class="r-in"><span class="fu">fieller.MOStest</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Confidence Limits</span></span></span>
+<span class="r-in"><span><span class="fu">fieller.MOStest</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2.5 %   97.5 % </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.255827 6.782979 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    2.5 %   97.5 % </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.816021 6.574378 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="MOStest-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -324,7 +324,7 @@ the <span class="pkg">MASS</span> package.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -84,8 +84,8 @@ If several groups of judges are identified in the data table,
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">kendall.global</span><span class="op">(</span><span class="va">Y</span>, <span class="va">group</span>, nperm <span class="op">=</span> <span class="fl">999</span>, mult <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span>
-<span class="fu">kendall.post</span><span class="op">(</span><span class="va">Y</span>, <span class="va">group</span>, nperm <span class="op">=</span> <span class="fl">999</span>, mult <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">kendall.global</span><span class="op">(</span><span class="va">Y</span>, <span class="va">group</span>, nperm <span class="op">=</span> <span class="fl">999</span>, mult <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span>
+<span><span class="fu">kendall.post</span><span class="op">(</span><span class="va">Y</span>, <span class="va">group</span>, nperm <span class="op">=</span> <span class="fl">999</span>, mult <span class="op">=</span> <span class="st">"holm"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -244,39 +244,39 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.hel</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Reproduce the results shown in Table 2 of Legendre (2005), a single group</span></span>
-<span class="r-in"><span class="va">mite.small</span> <span class="op">&lt;-</span> <span class="va">mite.hel</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">22</span>,<span class="fl">31</span>,<span class="fl">34</span>,<span class="fl">45</span>,<span class="fl">53</span>,<span class="fl">61</span>,<span class="fl">69</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span><span class="op">:</span><span class="fl">15</span>,<span class="fl">23</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">kendall.global</span><span class="op">(</span><span class="va">mite.small</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.hel</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Reproduce the results shown in Table 2 of Legendre (2005), a single group</span></span></span>
+<span class="r-in"><span><span class="va">mite.small</span> <span class="op">&lt;-</span> <span class="va">mite.hel</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">9</span>,<span class="fl">14</span>,<span class="fl">22</span>,<span class="fl">31</span>,<span class="fl">34</span>,<span class="fl">45</span>,<span class="fl">53</span>,<span class="fl">61</span>,<span class="fl">69</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span><span class="op">:</span><span class="fl">15</span>,<span class="fl">23</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">kendall.global</span><span class="op">(</span><span class="va">mite.small</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Concordance_analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Group.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W          0.44160305</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F          2.37252221</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Prob.F     0.04403791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi2      15.89770992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob.perm  0.06000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob.perm  0.08000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "kendall.global"</span>
-<span class="r-in"><span class="fu">kendall.post</span><span class="op">(</span><span class="va">mite.small</span>, mult<span class="op">=</span><span class="st">"holm"</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">kendall.post</span><span class="op">(</span><span class="va">mite.small</span>, mult<span class="op">=</span><span class="st">"holm"</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A_posteriori_tests</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     TVEL      ONOV      SUCT   Trhypch1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.3265678 0.3965503 0.4570402 -0.1681251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W.per.species  0.4949258 0.5474127 0.5927802  0.1239061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.1000000 0.0400000 0.0200000  0.6800000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.2000000 0.1200000 0.0800000  0.6800000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0800000 0.0600000 0.0200000  0.6400000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.1800000 0.1800000 0.0800000  0.6400000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Correction.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "holm"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "kendall.post"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Reproduce the results shown in Tables 3 and 4 of Legendre (2005), 2 groups</span></span>
-<span class="r-in"><span class="va">group</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">kendall.global</span><span class="op">(</span><span class="va">mite.hel</span>, group<span class="op">=</span><span class="va">group</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Reproduce the results shown in Tables 3 and 4 of Legendre (2005), 2 groups</span></span></span>
+<span class="r-in"><span><span class="va">group</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">kendall.global</span><span class="op">(</span><span class="va">mite.hel</span>, group<span class="op">=</span><span class="va">group</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Concordance_analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                          Group.1      Group.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W                   3.097870e-01 2.911888e-01</span>
@@ -292,7 +292,7 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "kendall.global"</span>
-<span class="r-in"><span class="fu">kendall.post</span><span class="op">(</span><span class="va">mite.hel</span>, group<span class="op">=</span><span class="va">group</span>, mult<span class="op">=</span><span class="st">"holm"</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">kendall.post</span><span class="op">(</span><span class="va">mite.hel</span>, group<span class="op">=</span><span class="va">group</span>, mult<span class="op">=</span><span class="st">"holm"</span>, nperm<span class="op">=</span><span class="fl">49</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A_posteriori_tests_Group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A_posteriori_tests_Group[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   Brachy      PHTH     RARD      SSTR   Protopl      MEGR</span>
@@ -303,24 +303,24 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      MPRO      HMIN     HMIN2      NPRA      TVEL      ONOV</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.09248024 0.2444656 0.4138494 0.1263751 0.4177343 0.3301159</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W.per.species  0.13029357 0.2759462 0.4382723 0.1627761 0.4419954 0.3580278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.12000000 0.0200000 0.0200000 0.1000000 0.0200000 0.0200000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.08000000 0.0200000 0.0200000 0.0400000 0.0200000 0.0200000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.70000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     SUCT Oribatl1      PWIL  Galumna1  Stgncrs2      HRUF</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.2185421 0.421216 0.2574779 0.4180699 0.3623428 0.1250230</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W.per.species  0.2511028 0.445332 0.2884163 0.4423170 0.3889118 0.1614804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0200000 0.020000 0.0200000 0.0200000 0.0200000 0.1000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0200000 0.020000 0.0200000 0.0200000 0.0200000 0.0400000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.7000000 0.700000 0.7000000 0.7000000 0.7000000 0.7000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     PPEL      SLAT      FSET  Lepidzts  Eupelops  Miniglmn</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.2188216 0.3016159 0.4217606 0.2577037 0.1108022 0.2301430</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W.per.species  0.2513707 0.3307153 0.4458539 0.2886327 0.1478521 0.2622203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0400000 0.0200000 0.0200000 0.0200000 0.1000000 0.0200000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0200000 0.0200000 0.0200000 0.0200000 0.0200000 0.0200000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A_posteriori_tests_Group[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     HPAV      TVIE      LCIL  Ceratoz1  Trhypch1      NCOR</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.1222579 0.2712078 0.1906408 0.1375601 0.1342409 0.3342345</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> W.per.species  0.2020527 0.3374616 0.2642189 0.2159637 0.2129463 0.3947586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0200000 0.0200000 0.0200000 0.0400000 0.0400000 0.0200000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Prob           0.0200000 0.0200000 0.0200000 0.0400000 0.0600000 0.0200000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Corrected prob 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000 0.7000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     LRUG     PLAG2  Ceratoz3  Oppiminu  Trimalc2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spearman.mean  0.3446561 0.1833099 0.3188922 0.1764232 0.2498877</span>
@@ -334,9 +334,9 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "kendall.post"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># NOTE: 'nperm' argument usually needs to be larger than 49.</span></span>
-<span class="r-in"><span class="co"># It was set to this low value for demonstration purposes.</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># NOTE: 'nperm' argument usually needs to be larger than 49.</span></span></span>
+<span class="r-in"><span><span class="co"># It was set to this low value for demonstration purposes.</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -348,7 +348,7 @@ the behavioral sciences. 2nd edition. McGraw-Hill, New York.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

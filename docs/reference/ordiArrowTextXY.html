@@ -69,10 +69,10 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ordiArrowTextXY</span><span class="op">(</span><span class="va">x</span>, <span class="va">labels</span>, <span class="va">display</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,
-                rescale <span class="op">=</span> <span class="cn">TRUE</span>, fill <span class="op">=</span> <span class="fl">0.75</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fl">0.75</span>,
-             <span class="va">display</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ordiArrowTextXY</span><span class="op">(</span><span class="va">x</span>, <span class="va">labels</span>, <span class="va">display</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                rescale <span class="op">=</span> <span class="cn">TRUE</span>, fill <span class="op">=</span> <span class="fl">0.75</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">x</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>             <span class="va">display</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -160,36 +160,36 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in">    <span class="co">## Scale arrows by hand to fill 80% of the plot</span></span>
-<span class="r-in">    <span class="co">## Biplot arrows by hand</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## biplot scores</span></span>
-<span class="r-in">    <span class="va">bip</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">ord</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, display <span class="op">=</span> <span class="st">"bp"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## scaling factor for arrows to fill 80% of plot</span></span>
-<span class="r-in">    <span class="op">(</span><span class="va">mul</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">bip</span>, fill <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>    <span class="co">## Scale arrows by hand to fill 80% of the plot</span></span></span>
+<span class="r-in"><span>    <span class="co">## Biplot arrows by hand</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## biplot scores</span></span></span>
+<span class="r-in"><span>    <span class="va">bip</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">ord</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, display <span class="op">=</span> <span class="st">"bp"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## scaling factor for arrows to fill 80% of plot</span></span></span>
+<span class="r-in"><span>    <span class="op">(</span><span class="va">mul</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">bip</span>, fill <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.092173</span>
-<span class="r-in">    <span class="va">bip.scl</span> <span class="op">&lt;-</span> <span class="va">bip</span> <span class="op">*</span> <span class="va">mul</span>                    <span class="co"># Scale the biplot scores</span></span>
-<span class="r-in">    <span class="va">labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">bip</span><span class="op">)</span>                   <span class="co"># Arrow labels</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## calculate coordinate of labels for arrows</span></span>
-<span class="r-in">    <span class="op">(</span><span class="va">bip.lab</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowTextXY</span><span class="op">(</span><span class="va">bip.scl</span>, rescale <span class="op">=</span> <span class="cn">FALSE</span>, labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span>    <span class="va">bip.scl</span> <span class="op">&lt;-</span> <span class="va">bip</span> <span class="op">*</span> <span class="va">mul</span>                    <span class="co"># Scale the biplot scores</span></span></span>
+<span class="r-in"><span>    <span class="va">labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">bip</span><span class="op">)</span>                   <span class="co"># Arrow labels</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## calculate coordinate of labels for arrows</span></span></span>
+<span class="r-in"><span>    <span class="op">(</span><span class="va">bip.lab</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowTextXY</span><span class="op">(</span><span class="va">bip.scl</span>, rescale <span class="op">=</span> <span class="cn">FALSE</span>, labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]       [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Al  1.9098765 -0.3562415</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P  -0.9298005 -1.6652122</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> K  -1.0069931 -0.3764923</span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## draw arrows and text labels</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, length <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">bip.lab</span>, labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## draw arrows and text labels</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, <span class="va">bip.scl</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, length <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">bip.lab</span>, labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordiArrowTextXY-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Handling of ordination objects directly</span></span>
-<span class="r-in">    <span class="va">mul2</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="st">"bp"</span>, fill <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">mul</span>, <span class="va">mul2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Handling of ordination objects directly</span></span></span>
+<span class="r-in"><span>    <span class="va">mul2</span> <span class="op">&lt;-</span> <span class="fu">ordiArrowMul</span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="st">"bp"</span>, fill <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">mul</span>, <span class="va">mul2</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -201,7 +201,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -57,11 +57,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">diversity</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="st">"shannon"</span>, <span class="va">groups</span>, equalize.groups <span class="op">=</span> <span class="cn">FALSE</span>,
-   MARGIN <span class="op">=</span> <span class="fl">1</span>, base <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">simpson.unb</span><span class="op">(</span><span class="va">x</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">fisher.alpha</span><span class="op">(</span><span class="va">x</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">specnumber</span><span class="op">(</span><span class="va">x</span>, <span class="va">groups</span>, MARGIN <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">diversity</span><span class="op">(</span><span class="va">x</span>, index <span class="op">=</span> <span class="st">"shannon"</span>, <span class="va">groups</span>, equalize.groups <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>   MARGIN <span class="op">=</span> <span class="fl">1</span>, base <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">simpson.unb</span><span class="op">(</span><span class="va">x</span>, inverse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">fisher.alpha</span><span class="op">(</span><span class="va">x</span>, MARGIN <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">specnumber</span><span class="op">(</span><span class="va">x</span>, <span class="va">groups</span>, MARGIN <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -178,41 +178,41 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span>, <span class="va">BCI.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">simp</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"simpson"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">invsimp</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"inv"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Unbiased Simpson</span></span>
-<span class="r-in"><span class="va">unbias.simp</span> <span class="op">&lt;-</span> <span class="fu">simpson.unb</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Fisher alpha</span></span>
-<span class="r-in"><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu">fisher.alpha</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Plot all</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">H</span>, <span class="va">simp</span>, <span class="va">invsimp</span>, <span class="va">unbias.simp</span>, <span class="va">alpha</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span>, <span class="va">BCI.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">simp</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"simpson"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">invsimp</span> <span class="op">&lt;-</span> <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, <span class="st">"inv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Unbiased Simpson</span></span></span>
+<span class="r-in"><span><span class="va">unbias.simp</span> <span class="op">&lt;-</span> <span class="fu">simpson.unb</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Fisher alpha</span></span></span>
+<span class="r-in"><span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu">fisher.alpha</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Plot all</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">H</span>, <span class="va">simp</span>, <span class="va">invsimp</span>, <span class="va">unbias.simp</span>, <span class="va">alpha</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="diversity-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Species richness (S) and Pielou's evenness (J):</span></span>
-<span class="r-in"><span class="va">S</span> <span class="op">&lt;-</span> <span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span> <span class="co">## rowSums(BCI &gt; 0) does the same...</span></span>
-<span class="r-in"><span class="va">J</span> <span class="op">&lt;-</span> <span class="va">H</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## beta diversity defined as gamma/alpha - 1:</span></span>
-<span class="r-in"><span class="co">## alpha is the average no. of species in a group, and gamma is the</span></span>
-<span class="r-in"><span class="co">## total number of species in the group</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="va">Habitat</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Species richness (S) and Pielou's evenness (J):</span></span></span>
+<span class="r-in"><span><span class="va">S</span> <span class="op">&lt;-</span> <span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span> <span class="co">## rowSums(BCI &gt; 0) does the same...</span></span></span>
+<span class="r-in"><span><span class="va">J</span> <span class="op">&lt;-</span> <span class="va">H</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## beta diversity defined as gamma/alpha - 1:</span></span></span>
+<span class="r-in"><span><span class="co">## alpha is the average no. of species in a group, and gamma is the</span></span></span>
+<span class="r-in"><span><span class="co">## total number of species in the group</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="va">Habitat</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  OldHigh   OldLow OldSlope    Swamp    Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 85.75000 91.76923 91.58333 94.00000 90.00000 </span>
-<span class="r-in"><span class="op">(</span><span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span>, <span class="va">Habitat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu">specnumber</span><span class="op">(</span><span class="va">BCI</span>, <span class="va">Habitat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  OldHigh   OldLow OldSlope    Swamp    Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      158      210      183      128      117 </span>
-<span class="r-in"><span class="va">gamma</span><span class="op">/</span><span class="va">alpha</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span class="r-in"><span><span class="va">gamma</span><span class="op">/</span><span class="va">alpha</span> <span class="op">-</span> <span class="fl">1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   OldHigh    OldLow  OldSlope     Swamp     Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.8425656 1.2883487 0.9981802 0.3617021 0.3000000 </span>
-<span class="r-in"><span class="co">## similar calculations with Shannon diversity</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="va">Habitat</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># average</span></span>
+<span class="r-in"><span><span class="co">## similar calculations with Shannon diversity</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="va">Habitat</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># average</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  OldHigh   OldLow OldSlope    Swamp    Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.638598 3.876413 3.887122 4.003780 3.246729 </span>
-<span class="r-in"><span class="op">(</span><span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, groups<span class="op">=</span><span class="va">Habitat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># pooled</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">BCI.env</span>, <span class="fu">diversity</span><span class="op">(</span><span class="va">BCI</span>, groups<span class="op">=</span><span class="va">Habitat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># pooled</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  OldHigh   OldLow OldSlope    Swamp    Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.873186 4.284972 4.212098 4.164335 3.387536 </span>
-<span class="r-in"><span class="co">## additive beta diversity based on Shannon index</span></span>
-<span class="r-in"><span class="va">gamma</span><span class="op">-</span><span class="va">alpha</span></span>
+<span class="r-in"><span><span class="co">## additive beta diversity based on Shannon index</span></span></span>
+<span class="r-in"><span><span class="va">gamma</span><span class="op">-</span><span class="va">alpha</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   OldHigh    OldLow  OldSlope     Swamp     Young </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2345878 0.4085595 0.3249760 0.1605548 0.1408068 </span>
 </code></pre></div>
@@ -226,7 +226,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

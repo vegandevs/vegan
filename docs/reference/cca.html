@@ -72,16 +72,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for formula</span>
-<span class="fu">cca</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>, subset <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">rda</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>,
-  subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">cca</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">cca</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>, subset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">rda</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>,</span>
+<span>  subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">cca</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -325,12 +325,12 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Common but bad way: use all variables you happen to have in your</span></span>
-<span class="r-in"><span class="co">## environmental data matrix</span></span>
-<span class="r-in"><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.cca</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Common but bad way: use all variables you happen to have in your</span></span></span>
+<span class="r-in"><span><span class="co">## environmental data matrix</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = varespec, Y = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -349,11 +349,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Formula interface and a better model</span></span>
-<span class="r-in"><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.cca</span></span>
+<span class="r-in"><span><span class="co">## Formula interface and a better model</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -372,10 +372,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.27577 0.15411 0.13536 0.11803 0.08887 0.05511 0.04919 0.03781 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 17 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Partialling out and negative components of variance</span></span>
-<span class="r-in"><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Partialling out and negative components of variance</span></span></span>
+<span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca, data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -393,7 +393,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.4745 0.2939 0.2140 0.1954 0.1748 0.1171 0.1121 0.0880 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 22 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">pH</span><span class="op">)</span>, <span class="va">varechem</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">pH</span><span class="op">)</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -412,11 +412,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3834 0.2749 0.2123 0.1760 0.1701 0.1161 0.1089 0.0880 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 21 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## RDA</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dune.Manure</span> <span class="op">&lt;-</span> <span class="fu">rda</span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="co">## RDA</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dune.Manure</span> <span class="op">&lt;-</span> <span class="fu">rda</span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span><span class="op">)</span> </span></span>
 <span class="r-plt img"><img src="cca-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -429,7 +429,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

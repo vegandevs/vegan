@@ -54,7 +54,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">x</span>, unique.rm <span class="op">=</span> <span class="cn">FALSE</span>, crit <span class="op">=</span> <span class="fl">0.05</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">x</span>, unique.rm <span class="op">=</span> <span class="cn">FALSE</span>, crit <span class="op">=</span> <span class="fl">0.05</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -154,9 +154,9 @@ for the book (Page 217,
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                imor      mclu         muni        imst       pchisq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achimill  2.1666667  1.923488  0.327101099  0.50672636 9.157890e-03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agrostol  1.8085106  1.294730  0.785245032  0.51373357 1.142619e-05</span>
@@ -188,8 +188,8 @@ for the book (Page 217,
 <span class="r-out co"><span class="r-pr">#&gt;</span> Vicilath  3.3333333  5.617442 -2.364494506  0.25266513 1.301890e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bracruta  1.1904762  1.288590  0.789719093  0.33001160 8.071762e-02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Callcusp  5.3333333  2.539147 -0.121498169  0.58001287 7.982634e-06</span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">dune</span>, unique.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">dispindmorisita</span><span class="op">(</span><span class="va">dune</span>, unique.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               imor     mclu         muni        imst       pchisq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achimill 2.1666667 1.923488  0.327101099  0.50672636 9.157890e-03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Agrostol 1.8085106 1.294730  0.785245032  0.51373357 1.142619e-05</span>
@@ -218,9 +218,9 @@ for the book (Page 217,
 <span class="r-out co"><span class="r-pr">#&gt;</span> Vicilath 3.3333333 5.617442 -2.364494506  0.25266513 1.301890e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bracruta 1.1904762 1.288590  0.789719093  0.33001160 8.071762e-02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">## with unique species</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">## with unique species</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 30  5</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="co">## unique species removed</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="co">## unique species removed</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 27  5</span>
 </code></pre></div>
     </div>
@@ -233,7 +233,7 @@ for the book (Page 217,
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -57,13 +57,13 @@ specialists in two distinct habitats is described in Chazdon et al. (2011).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">clamtest</span><span class="op">(</span><span class="va">comm</span>, <span class="va">groups</span>, coverage.limit <span class="op">=</span> <span class="fl">10</span>, specialization <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span>, 
-   npoints <span class="op">=</span> <span class="fl">20</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">/</span><span class="fl">20</span><span class="op">)</span>
-<span class="co"># S3 method for clamtest</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for clamtest</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">main</span>,  pch <span class="op">=</span> <span class="fl">21</span><span class="op">:</span><span class="fl">24</span>, col.points <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, 
-   col.lines <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, position <span class="op">=</span> <span class="st">"bottomright"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">clamtest</span><span class="op">(</span><span class="va">comm</span>, <span class="va">groups</span>, coverage.limit <span class="op">=</span> <span class="fl">10</span>, specialization <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span>, </span>
+<span>   npoints <span class="op">=</span> <span class="fl">20</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">/</span><span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for clamtest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for clamtest</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">main</span>,  pch <span class="op">=</span> <span class="fl">21</span><span class="op">:</span><span class="fl">24</span>, col.points <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, </span>
+<span>   col.lines <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, position <span class="op">=</span> <span class="st">"bottomright"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -194,10 +194,10 @@ root finding for iso-lines instead of iterative search.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">mite.env</span>, <span class="fu">clamtest</span><span class="op">(</span><span class="va">mite</span>, <span class="va">Shrub</span><span class="op">==</span><span class="st">"None"</span>, alpha<span class="op">=</span><span class="fl">0.005</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">mite.env</span>, <span class="fu">clamtest</span><span class="op">(</span><span class="va">mite</span>, <span class="va">Shrub</span><span class="op">==</span><span class="st">"None"</span>, alpha<span class="op">=</span><span class="fl">0.005</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Two Groups Species Classification Method (CLAM)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Specialization threshold = 0.6666667</span>
@@ -216,7 +216,7 @@ root finding for iso-lines instead of iterative search.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Specialist_FALSE      14      0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Specialist_TRUE        4      0.114</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Too_rare               7      0.200</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Species Total_FALSE Total_TRUE          Classes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Brachy         534         77       Generalist</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    PHTH          89          0 Specialist_FALSE</span>
@@ -224,7 +224,7 @@ root finding for iso-lines instead of iterative search.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    RARD          85          0 Specialist_FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    SSTR          22          0         Too_rare</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 Protopl          26          0         Too_rare</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="clamtest-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -237,7 +237,7 @@ root finding for iso-lines instead of iterative search.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

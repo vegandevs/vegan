@@ -54,11 +54,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tsallis</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>, norm <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>, permutations <span class="op">=</span> <span class="fl">100</span>, 
-   raw <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for tsallisaccum</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">x</span>, theta <span class="op">=</span> <span class="fl">220</span>, phi <span class="op">=</span> <span class="fl">15</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="va">zlim</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tsallis</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>, norm <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0.2</span><span class="op">)</span>, permutations <span class="op">=</span> <span class="fl">100</span>, </span>
+<span>   raw <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for tsallisaccum</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">x</span>, theta <span class="op">=</span> <span class="fl">220</span>, phi <span class="op">=</span> <span class="fl">15</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="va">zlim</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -188,10 +188,10 @@ of class <code>tsallisaccum</code> can be displayed with dynamic 3D function
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      0      0.2      0.4      0.6      0.8        1      1.2      1.4      1.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   87 39.98200 19.77567 10.60391 6.181934 3.908381 2.659907 1.928610 1.473408</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10  93 41.50369 20.10059 10.63988 6.164157 3.889803 2.648176 1.922207 1.470121</span>
@@ -218,13 +218,13 @@ of class <code>tsallisaccum</code> can be displayed with dynamic 3D function
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.173083 0.9672014</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 1.178152 0.9694268</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22 1.153640 0.9548316</span>
-<span class="r-in"><span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="st">"simpson"</span><span class="op">)</span> <span class="op">==</span> <span class="va">x1</span><span class="op">[[</span><span class="st">"2"</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="st">"simpson"</span><span class="op">)</span> <span class="op">==</span> <span class="va">x1</span><span class="op">[[</span><span class="st">"2"</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    8   10    5   17   19   13   46   16   36    7   24   22 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tsallis-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x2</span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    0       0.2       0.4       0.6       0.8         1       1.2       1.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8  1 0.9154260 0.8674322 0.8491531 0.8535754 0.8729254 0.8992501 0.9258854</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 1 0.9001004 0.8450759 0.8255446 0.8324355 0.8561634 0.8872568 0.9180261</span>
@@ -251,15 +251,15 @@ of class <code>tsallisaccum</code> can be displayed with dynamic 3D function
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.9493990 0.9669335 0.9791421</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.9507028 0.9678509 0.9797399</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.9256369 0.9486075 0.9654409</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tsallis-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span>, as.table<span class="op">=</span><span class="cn">TRUE</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span>, as.table<span class="op">=</span><span class="cn">TRUE</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tsallis-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tsallis-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>, norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod2</span>,theta<span class="op">=</span><span class="fl">100</span>,phi<span class="op">=</span><span class="fl">30</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>, norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod2</span>,theta<span class="op">=</span><span class="fl">100</span>,phi<span class="op">=</span><span class="fl">30</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tsallis-5.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -272,7 +272,7 @@ of class <code>tsallisaccum</code> can be displayed with dynamic 3D function
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

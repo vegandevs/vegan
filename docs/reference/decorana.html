@@ -57,34 +57,34 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">decorana</span><span class="op">(</span><span class="va">veg</span>, iweigh<span class="op">=</span><span class="fl">0</span>, iresc<span class="op">=</span><span class="fl">4</span>, ira<span class="op">=</span><span class="fl">0</span>, mk<span class="op">=</span><span class="fl">26</span>, short<span class="op">=</span><span class="fl">0</span>,
-         before<span class="op">=</span><span class="cn">NULL</span>, after<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># S3 method for decorana</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,
-     display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>,<span class="st">"sites"</span>,<span class="st">"species"</span>,<span class="st">"none"</span><span class="op">)</span>,
-     cex <span class="op">=</span> <span class="fl">0.8</span>, cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">type</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for decorana</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>, <span class="va">labels</span>,
-     choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>,  <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for decorana</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>,
-       choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for decorana</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits<span class="op">=</span><span class="fl">3</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,
-        display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"species"</span>,<span class="st">"sites"</span>,<span class="st">"none"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for summary.decorana</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, head <span class="op">=</span> <span class="cn">NA</span>, tail <span class="op">=</span> <span class="va">head</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">downweight</span><span class="op">(</span><span class="va">veg</span>, fraction <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-
-<span class="co"># S3 method for decorana</span>
-<span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display<span class="op">=</span><span class="st">"sites"</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,
-       origin<span class="op">=</span><span class="cn">TRUE</span>, tidy<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">decorana</span><span class="op">(</span><span class="va">veg</span>, iweigh<span class="op">=</span><span class="fl">0</span>, iresc<span class="op">=</span><span class="fl">4</span>, ira<span class="op">=</span><span class="fl">0</span>, mk<span class="op">=</span><span class="fl">26</span>, short<span class="op">=</span><span class="fl">0</span>,</span>
+<span>         before<span class="op">=</span><span class="cn">NULL</span>, after<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>     display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>,<span class="st">"sites"</span>,<span class="st">"species"</span>,<span class="st">"none"</span><span class="op">)</span>,</span>
+<span>     cex <span class="op">=</span> <span class="fl">0.8</span>, cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">type</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>, <span class="va">labels</span>,</span>
+<span>     choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>,  <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>,</span>
+<span>       choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits<span class="op">=</span><span class="fl">3</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>        display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"species"</span>,<span class="st">"sites"</span>,<span class="st">"none"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for summary.decorana</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, head <span class="op">=</span> <span class="cn">NA</span>, tail <span class="op">=</span> <span class="va">head</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">downweight</span><span class="op">(</span><span class="va">veg</span>, fraction <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display<span class="op">=</span><span class="st">"sites"</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>       origin<span class="op">=</span><span class="cn">TRUE</span>, tidy<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -212,26 +212,34 @@
   so that smallest site score was 0 (and smallest species score was
   negative), but <code>summary</code>, <code>plot</code> and
   <code>scores</code> use the true origin, unless <code>origin = FALSE</code>.</p>
-<p>In addition to proper eigenvalues, the function also reports
+<p>In addition to proper eigenvalues, the function reports
   ‘decorana values’ in detrended analysis. These ‘decorana
   values’ are the values that the legacy code of <code>decorana</code> returns
-  as eigenvalues.  They are estimated internally during iteration, and
-  it seems that detrending interferes the estimation so that these
-  values are generally too low and have unclear
-  interpretation. Moreover, ‘decorana values’ are estimated
-  before rescaling which will change the eigenvalues. The proper
-  eigenvalues are estimated after extraction of the axes and they are
-  the ratio of biased weighted variances of site and species scores even
-  in detrended and rescaled solutions. The ‘decorana values’ are
-  provided only for the compatibility with legacy software, and they
-  should not be used.</p>
+  as eigenvalues. They are estimated during iteration, and describe the
+  joint effects of axes and detrending. The ‘decorana values’ are
+  estimated before rescaling and do not show its effect on
+  eigenvalues. The proper eigenvalues are estimated after extraction of
+  the axes and they are the ratio of weighted sum of squares of site and
+  species scores even in detrended and rescaled solutions. These
+  eigenvalues are estimated for each axis separately, but they are not
+  additive, because higher <code>decorana</code> axes can show effects already
+  explained by prior axes. ‘Additive eigenvalues’ are cleansed
+  from the effects of prior axes, and they can be assumed to add up to
+  total inertia (scaled Chi-square). For proportions and cumulative
+  proportions explained you can use <code><a href="eigenvals.html">eigenvals.decorana</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p></p>
-<p><code>decorana</code> returns an object of class <code>"decorana"</code>, which has</p>
+<p><code>decorana</code> returns an object of class <code>"decorana"</code>, which
+  has <code>print</code>, <code>summary</code>, <code>scores</code>, <code>plot</code>,</p>
 <p></p>
-<p><code>print</code>, <code>summary</code> and <code>plot</code> methods.</p>
+<p><code>points</code> and <code>text</code> methods, and support functions</p>
+<p></p>
+<p><code><a href="eigenvals.html">eigenvals</a></code>, <code><a href="screeplot.cca.html">bstick</a></code>, <code>screeplot</code> and</p>
+<p></p>
+<p><code>predict</code>. <code>downweight</code> is an independent function that can
+  also be used with other methods than <code>decorana</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -264,52 +272,56 @@
   <code>downweight</code> must be applied before <code>decorana</code>.  Function
   <code>downweight</code> indeed can be applied prior to correspondence
   analysis, and so it can be used together with <code><a href="cca.html">cca</a></code>, too.</p>
-<p>The function finds only four axes: this is not easily changed.</p>
+<p>The function finds only four axes.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>For unconstrained ordination, non-metric multidimensional scaling in
+    <div class="dont-index">
+
+<p>For unconstrained ordination, non-metric multidimensional scaling in
   <code><a href="monoMDS.html">monoMDS</a></code> may be more robust (see also
   <code><a href="metaMDS.html">metaMDS</a></code>).  Constrained (or ‘canonical’)
   correspondence analysis can be made with <code><a href="cca.html">cca</a></code>.
-  Orthogonal correspondence analysis can be made with
-  <code><a href="https://rdrr.io/pkg/MASS/man/corresp.html" class="external-link">corresp</a></code>, or with <code>decorana</code> or
+  Orthogonal correspondence analysis can be made with <code>decorana</code> or
   <code><a href="cca.html">cca</a></code>, but the scaling of results vary (and the one in
-  <code>decorana</code> corresponds to <code>scaling = "sites"</code> and
-  <code>hill = TRUE</code> in <code><a href="cca.html">cca</a></code>.).  See
-  <code><a href="predict.cca.html">predict.decorana</a></code> for adding new points to an
-  ordination.</p></div>
+  <code>decorana</code> corresponds to <code>scaling = "sites"</code> and <code>hill
+  = TRUE</code> in <code><a href="cca.html">cca</a></code>.).  See <code><a href="predict.cca.html">predict.decorana</a></code>
+  for adding new points to an ordination.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.dca</span> <span class="op">&lt;-</span> <span class="fu">decorana</span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.dca</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.dca</span> <span class="op">&lt;-</span> <span class="fu">decorana</span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.dca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> decorana(veg = varespec) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Detrended correspondence analysis with 26 segments.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rescaling of axes with 4 iterations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total inertia (scaled Chi-square): 2.0832 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   DCA1   DCA2    DCA3    DCA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues     0.5235 0.3253 0.20010 0.19176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values 0.5249 0.1572 0.09669 0.06075</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths    2.8161 2.2054 1.54650 1.64864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        DCA1   DCA2    DCA3    DCA4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues          0.5235 0.3253 0.20010 0.19176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values      0.5249 0.1572 0.09669 0.06075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths         2.8161 2.2054 1.54650 1.64864</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> decorana(veg = varespec) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Detrended correspondence analysis with 26 segments.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rescaling of axes with 4 iterations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total inertia (scaled Chi-square): 2.0832 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   DCA1   DCA2    DCA3    DCA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues     0.5235 0.3253 0.20010 0.19176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values 0.5249 0.1572 0.09669 0.06075</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths    2.8161 2.2054 1.54650 1.64864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        DCA1   DCA2    DCA3    DCA4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues          0.5235 0.3253 0.20010 0.19176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values      0.5249 0.1572 0.09669 0.06075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths         2.8161 2.2054 1.54650 1.64864</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species scores:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -387,36 +399,36 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 -0.4134  0.0260  0.0107 -0.0682  112.8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21  0.3210  1.2450 -0.2541 -0.5253   99.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### the detrending rationale:</span></span>
-<span class="r-in"><span class="va">gaussresp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">u</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">u</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span>,length<span class="op">=</span><span class="fl">15</span><span class="op">)</span> <span class="co">## The gradient</span></span>
-<span class="r-in"><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">8</span>,len<span class="op">=</span><span class="fl">23</span><span class="op">)</span>   <span class="co">## The optima</span></span>
-<span class="r-in"><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">u</span>,<span class="va">gaussresp</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pack</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Species packing"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### the detrending rationale:</span></span></span>
+<span class="r-in"><span><span class="va">gaussresp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">u</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">u</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">6</span>,length<span class="op">=</span><span class="fl">15</span><span class="op">)</span> <span class="co">## The gradient</span></span></span>
+<span class="r-in"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">8</span>,len<span class="op">=</span><span class="fl">23</span><span class="op">)</span>   <span class="co">## The optima</span></span></span>
+<span class="r-in"><span><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">u</span>,<span class="va">gaussresp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pack</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Species packing"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">pack</span>, ira<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CA"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"DCA"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">pack</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>, dis<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CCA"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">opar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">pack</span>, ira<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CA"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"DCA"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">pack</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>, dis<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CCA"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### Let's add some noise:</span></span>
-<span class="r-in"><span class="va">noisy</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">pack</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pack</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Ideal model"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">noisy</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Noisy model"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### Let's add some noise:</span></span></span>
+<span class="r-in"><span><span class="va">noisy</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">pack</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">pack</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Ideal model"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/matplot.html" class="external-link">matplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">noisy</span>, type<span class="op">=</span><span class="st">"l"</span>, main<span class="op">=</span><span class="st">"Noisy model"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="va">noisy</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"PCA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">noisy</span>, ira<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">noisy</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"DCA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">noisy</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>, dis<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CCA"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="va">noisy</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"PCA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">noisy</span>, ira<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu">decorana</span><span class="op">(</span><span class="va">noisy</span><span class="op">)</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"DCA"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">noisy</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span>, dis<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span>, asp<span class="op">=</span><span class="fl">1</span>, type<span class="op">=</span><span class="st">"b"</span>, main<span class="op">=</span><span class="st">"CCA"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-5.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -428,7 +440,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

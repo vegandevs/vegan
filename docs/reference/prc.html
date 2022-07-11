@@ -75,14 +75,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prc</span><span class="op">(</span><span class="va">response</span>, <span class="va">treatment</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prc</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, axis <span class="op">=</span> <span class="fl">1</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>, <span class="va">const</span>,
-        digits <span class="op">=</span> <span class="fl">4</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prc</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, species <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>,
-     axis <span class="op">=</span> <span class="fl">1</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">const</span>, type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">ylim</span>,
-     lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">pch</span>, <span class="va">legpos</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prc</span><span class="op">(</span><span class="va">response</span>, <span class="va">treatment</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, axis <span class="op">=</span> <span class="fl">1</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>, <span class="va">const</span>,</span>
+<span>        digits <span class="op">=</span> <span class="fl">4</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, species <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>,</span>
+<span>     axis <span class="op">=</span> <span class="fl">1</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">const</span>, type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">ylim</span>,</span>
+<span>     lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">pch</span>, <span class="va">legpos</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -235,16 +235,16 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Chlorpyrifos experiment and experimental design: Pesticide</span></span>
-<span class="r-in"><span class="co">## treatment in ditches (replicated) and followed over from 4 weeks</span></span>
-<span class="r-in"><span class="co">## before to 24 weeks after exposure </span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">12</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">15</span>, <span class="fl">19</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">44</span>, <span class="fl">6</span>, <span class="fl">0.1</span>, <span class="fl">44</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ditch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">1</span>, length<span class="op">=</span><span class="fl">132</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># PRC</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">prc</span><span class="op">(</span><span class="va">pyrifos</span>, <span class="va">dose</span>, <span class="va">week</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span>            <span class="co"># RDA</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Chlorpyrifos experiment and experimental design: Pesticide</span></span></span>
+<span class="r-in"><span><span class="co">## treatment in ditches (replicated) and followed over from 4 weeks</span></span></span>
+<span class="r-in"><span><span class="co">## before to 24 weeks after exposure </span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">12</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">15</span>, <span class="fl">19</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">44</span>, <span class="fl">6</span>, <span class="fl">0.1</span>, <span class="fl">44</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ditch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">1</span>, length<span class="op">=</span><span class="fl">132</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># PRC</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">prc</span><span class="op">(</span><span class="va">pyrifos</span>, <span class="va">dose</span>, <span class="va">week</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span>            <span class="co"># RDA</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: prc(response = pyrifos, treatment = dose, time = week)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Inertia Proportion Rank</span>
@@ -269,7 +269,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17.156  9.189  7.585  6.064  5.730  4.843  4.518  4.105 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 77 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>   <span class="co"># PRC</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>   <span class="co"># PRC</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> prc(response = pyrifos, treatment = dose, time = week) </span>
@@ -334,14 +334,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 0.03249 0.02857</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.06091 0.03372</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44  0.10672 0.05739</span>
-<span class="r-in"><span class="va">logabu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, select <span class="op">=</span> <span class="va">logabu</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">logabu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, select <span class="op">=</span> <span class="va">logabu</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="prc-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Ditches are randomized, we have a time series, and are only</span></span>
-<span class="r-in"><span class="co">## interested in the first axis</span></span>
-<span class="r-in"><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>plots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Plots</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="va">ditch</span>,type <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span>
-<span class="r-in">    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Within</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"series"</span><span class="op">)</span>, nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="va">ctrl</span>, first<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Ditches are randomized, we have a time series, and are only</span></span></span>
+<span class="r-in"><span><span class="co">## interested in the first axis</span></span></span>
+<span class="r-in"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>plots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Plots</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="va">ditch</span>,type <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Within</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"series"</span><span class="op">)</span>, nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="va">ctrl</span>, first<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Plots: ditch, plot permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: series</span>
@@ -364,7 +364,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

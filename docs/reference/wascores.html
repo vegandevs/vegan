@@ -57,8 +57,8 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">wascores</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, expand<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">eigengrad</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wascores</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, expand<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -113,22 +113,22 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.points</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">postMDS</a></span><span class="op">(</span><span class="va">vare.mds</span><span class="op">$</span><span class="va">points</span>, <span class="va">vare.dist</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.wa</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">vare.points</span>, <span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">0.8</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.points</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">postMDS</a></span><span class="op">(</span><span class="va">vare.mds</span><span class="op">$</span><span class="va">points</span>, <span class="va">vare.dist</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.wa</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">vare.points</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">0.8</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="wascores-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Omit rare species (frequency &lt;= 4)</span></span>
-<span class="r-in"><span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span>,<span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">]</span>,cex<span class="op">=</span><span class="fl">0.8</span>,col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Omit rare species (frequency &lt;= 4)</span></span></span>
+<span class="r-in"><span><span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span>,<span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">]</span>,cex<span class="op">=</span><span class="fl">0.8</span>,col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="wascores-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Works for environmental variables, too.</span></span>
-<span class="r-in"><span class="fu">wascores</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Works for environmental variables, too.</span></span></span>
+<span class="r-in"><span><span class="fu">wascores</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 N        P         K       Ca        Mg        S        Al</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Callvulg 25.12401 41.66188 246.92383 572.3431  99.40828 49.10552 245.15751</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Empenigr 21.61371 44.17350 158.92517 580.8403  89.20628 35.75327 107.05670</span>
@@ -219,8 +219,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cladcerv 111.090000  52.04000  8.530000 0.6800000 15.393000 1.870000 2.900000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Claddefo  25.116325  48.81105  7.599609 0.4096285 33.814545 2.468133 2.823656</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250</span>
-<span class="r-in"><span class="co">## And the strengths of these variables are:</span></span>
-<span class="r-in"><span class="fu">eigengrad</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## And the strengths of these variables are:</span></span></span>
+<span class="r-in"><span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          N          P          K         Ca         Mg          S         Al </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.13000842 0.18880078 0.16246365 0.15722067 0.16359171 0.13391967 0.29817406 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Fe         Mn         Zn         Mo   Baresoil   Humdepth         pH </span>
@@ -236,7 +236,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

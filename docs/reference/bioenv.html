@@ -63,14 +63,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">bioenv</span><span class="op">(</span><span class="va">comm</span>, <span class="va">env</span>, method <span class="op">=</span> <span class="st">"spearman"</span>, index <span class="op">=</span> <span class="st">"bray"</span>,
-       upto <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span>, partial <span class="op">=</span> <span class="cn">NULL</span>, 
-       metric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"mahalanobis"</span>, <span class="st">"manhattan"</span>, <span class="st">"gower"</span><span class="op">)</span>,
-       parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">bioenv</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">bioenvdist</span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">bioenv</span><span class="op">(</span><span class="va">comm</span>, <span class="va">env</span>, method <span class="op">=</span> <span class="st">"spearman"</span>, index <span class="op">=</span> <span class="st">"bray"</span>,</span>
+<span>       upto <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span>, partial <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>       metric <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"euclidean"</span>, <span class="st">"mahalanobis"</span>, <span class="st">"manhattan"</span>, <span class="st">"gower"</span><span class="op">)</span>,</span>
+<span>       parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">bioenv</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">bioenvdist</span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -220,12 +220,12 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># The method is very slow for large number of possible subsets.</span></span>
-<span class="r-in"><span class="co"># Therefore only 6 variables in this example.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu">bioenv</span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="va">Ca</span> <span class="op">+</span> <span class="va">pH</span> <span class="op">+</span> <span class="va">Al</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sol</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># The method is very slow for large number of possible subsets.</span></span></span>
+<span class="r-in"><span><span class="co"># Therefore only 6 variables in this example.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu">bioenv</span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="va">Ca</span> <span class="op">+</span> <span class="va">pH</span> <span class="op">+</span> <span class="va">Al</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sol</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> bioenv(formula = wisconsin(varespec) ~ log(N) + P + K + Ca +      pH + Al, data = varechem) </span>
@@ -240,7 +240,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> P Ca Al</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> with correlation  0.4004806 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     size correlation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P                      1      0.2513</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P Al                   2      0.4004</span>
@@ -259,7 +259,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

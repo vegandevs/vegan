@@ -57,12 +57,15 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eigenvals</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for cca</span>
-<span class="fu">eigenvals</span><span class="op">(</span><span class="va">x</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"unconstrained"</span>, <span class="st">"constrained"</span><span class="op">)</span>,
-          constrained <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for eigenvals</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eigenvals</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for cca</span></span>
+<span><span class="fu">eigenvals</span><span class="op">(</span><span class="va">x</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"unconstrained"</span>, <span class="st">"constrained"</span><span class="op">)</span>,</span>
+<span>          constrained <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu">eigenvals</span><span class="op">(</span><span class="va">x</span>, kind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"additive"</span>, <span class="st">"axiswise"</span>, <span class="st">"decorana"</span><span class="op">)</span>,</span>
+<span>           <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for eigenvals</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -80,6 +83,13 @@
   <dt>constrained</dt>
 <dd><p>Return only constrained eigenvalues. Deprecated as of vegan
     2.5-0. Use <code>model</code> instead.</p></dd>
+
+  <dt>kind</dt>
+<dd><p>Kind of eigenvalues returned for <code><a href="decorana.html">decorana</a></code>. Only
+    <code>"additive"</code> eigenvalues can be used for reporting importances
+    of components in <code>summary</code>. <code>"axiswise"</code> gives the
+    non-additive eigenvalues, and <code>"decorana"</code> the decorana values
+    (see <code><a href="decorana.html">decorana</a></code> for details).</p></dd>
 
   <dt>...</dt>
 <dd><p>Other arguments to the functions (usually ignored)</p></dd>
@@ -112,7 +122,10 @@
   (Gower 1985). In these cases, the sum of absolute values of
   eigenvalues is used in calculating the proportions explained, and
   real axes (corresponding to positive eigenvalues) will only explain
-  a part of total variation (Mardia et al. 1979, Gower 1985).</p>
+  a part of total variation (Mardia et al. 1979, Gower 1985). For
+  <code><a href="decorana.html">decorana</a></code> the importances and cumulative proportions are
+  only reported for <code>kind = "additive"</code>, because other alternatives
+  do not add up to total inertia of the input data.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -148,18 +161,18 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu">eigenvals</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ev</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu">eigenvals</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ev</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      CCA1      CCA2      CCA3       CA1       CA2       CA3       CA4       CA5 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3615566 0.1699600 0.1126167 0.3500372 0.2200788 0.1850741 0.1551179 0.1351054 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       CA6       CA7       CA8       CA9      CA10      CA11      CA12      CA13 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1002670 0.0772991 0.0536938 0.0365603 0.0350887 0.0282291 0.0170651 0.0122474 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      CA14      CA15      CA16      CA17      CA18      CA19      CA20 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.0101910 0.0094701 0.0055090 0.0030529 0.0025118 0.0019485 0.0005178 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ev</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ev</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Importance of components:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         CCA1    CCA2    CCA3    CA1    CA2     CA3     CA4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalue            0.3616 0.16996 0.11262 0.3500 0.2201 0.18507 0.15512</span>
@@ -177,9 +190,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalue            0.002512 0.0019485 0.0005178</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Proportion Explained  0.001206 0.0009353 0.0002486</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cumulative Proportion 0.998816 0.9997514 1.0000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## choose which eignevalues to return</span></span>
-<span class="r-in"><span class="fu">eigenvals</span><span class="op">(</span><span class="va">mod</span>, model <span class="op">=</span> <span class="st">"unconstrained"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## choose which eignevalues to return</span></span></span>
+<span class="r-in"><span><span class="fu">eigenvals</span><span class="op">(</span><span class="va">mod</span>, model <span class="op">=</span> <span class="st">"unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       CA1       CA2       CA3       CA4       CA5       CA6       CA7       CA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3500372 0.2200788 0.1850741 0.1551179 0.1351054 0.1002670 0.0772991 0.0536938 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       CA9      CA10      CA11      CA12      CA13      CA14      CA15      CA16 </span>
@@ -197,7 +210,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -322,10 +322,10 @@
 <p>If you want change the scaling of the arrows, you can use <code>text</code> (plotting arrows and text) or <code>points</code> (plotting only arrows) functions for constrained ordination. These functions have argument <code>arrow.mul</code> which sets the multiplier. The <code>plot</code> function for <code>envfit</code> also has the <code>arrow.mul</code> argument to set the arrow multiplier. If you save the invisible result of the constrained ordination <code>plot</code> command, you can see the value of the currently used <code>arrow.mul</code> which is saved as an attribute of <code>biplot</code> scores.</p>
 <p>Function <code>ordiArrowMul</code> is used to find the scaling for the current plot. You can use this function to see how arrows would be scaled:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span>
-<span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/envfit.html">envfit</a></span><span class="op">(</span><span class="va">sol</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">varechem</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span>
-<span class="fu"><a href="../reference/ordiArrowTextXY.html">ordiArrowMul</a></span><span class="op">(</span><span class="fu"><a href="../reference/scores.html">scores</a></span><span class="op">(</span><span class="va">ef</span>, display<span class="op">=</span><span class="st">"vectors"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
+<span><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/envfit.html">envfit</a></span><span class="op">(</span><span class="va">sol</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">varechem</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ordiArrowTextXY.html">ordiArrowMul</a></span><span class="op">(</span><span class="fu"><a href="../reference/scores.html">scores</a></span><span class="op">(</span><span class="va">ef</span>, display<span class="op">=</span><span class="st">"vectors"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level4">
@@ -427,7 +427,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>

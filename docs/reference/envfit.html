@@ -87,19 +87,19 @@ The function fits environmental vectors or factors onto an
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for default</span>
-<span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">env</span>, permutations <span class="op">=</span> <span class="fl">999</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, 
-   choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,  display <span class="op">=</span> <span class="st">"sites"</span>, w  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weights.html" class="external-link">weights</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">display</span><span class="op">)</span>,
-   na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">envfit</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for envfit</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, <span class="va">arrow.mul</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, 
-   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for envfit</span>
-<span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">choices</span>, arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">vectorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">factorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">env</span>, permutations <span class="op">=</span> <span class="fl">999</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>   choices<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,  display <span class="op">=</span> <span class="st">"sites"</span>, w  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/weights.html" class="external-link">weights</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">display</span><span class="op">)</span>,</span>
+<span>   na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">envfit</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for envfit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, <span class="va">arrow.mul</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
+<span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for envfit</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">choices</span>, arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">vectorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">factorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -355,126 +355,123 @@ The function fits environmental vectors or factors onto an
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1869637 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1948413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1948413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1969805 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.2354615 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2028828 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2265716 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2419514 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.2512805 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1843196 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2085949 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.2391917 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2164106 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1843196 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.239611e-05  max resid 0.0001716081 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.378815e-06  max resid 1.06558e-05 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.18458 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04931795  max resid 0.1573235 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 6.641508e-05  max resid 0.0002648448 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.2126568 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1955837 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.2117352 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1825658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2290115 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.1982376 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.2114454 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2099415 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2066024 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1825658 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04159661  max resid 0.1516714 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1955836 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04164045  max resid 0.1518901 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1969805 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2085514 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2284493 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1955836 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1962452 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.18584 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.18458 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.18458 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution was not repeated -- monoMDS stopping criteria:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     14: stress ratio &gt; sratmax</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      6: scale factor of the gradient &lt; sfgrmin</span>
-<span class="r-in"><span class="op">(</span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     19: stress ratio &gt; sratmax</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1: scale factor of the gradient &lt; sfgrmin</span>
+<span class="r-in"><span><span class="op">(</span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">999</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ***VECTORS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             NMDS1    NMDS2     r2 Pr(&gt;r)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05727 -0.99836 0.2536  0.052 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.61969  0.78485 0.1938  0.117    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.76642  0.64235 0.1809  0.132    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.68516  0.72839 0.4119  0.006 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.63249  0.77457 0.4270  0.002 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.19134  0.98152 0.1752  0.137    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.87162  0.49018 0.5269  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.93605  0.35187 0.4451  0.003 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.79871 -0.60171 0.5231  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.61754  0.78654 0.1879  0.113    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.90307  0.42950 0.0609  0.527    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.92492 -0.38016 0.2508  0.048 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.93285 -0.36028 0.5200  0.002 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.64800  0.76164 0.2308  0.059 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05726 -0.99836 0.2537  0.046 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.61969  0.78485 0.1938  0.107    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.76641  0.64236 0.1809  0.135    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.68513  0.72842 0.4119  0.004 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.63247  0.77458 0.4271  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.19135  0.98152 0.1752  0.138    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.87163  0.49016 0.5269  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.93608  0.35179 0.4451  0.003 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.79869 -0.60175 0.5231  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.61753  0.78655 0.1879  0.121    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.90303  0.42958 0.0609  0.547    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.92495 -0.38009 0.2508  0.055 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.93285 -0.36027 0.5200  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.64799  0.76164 0.2308  0.062 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"vectors"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"vectors"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                NMDS1      NMDS2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.02884566 -0.5028095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.27282382  0.3455348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.32599762  0.2732240</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.43970942  0.4674555</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.41331893  0.5061658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.08008915  0.4108292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.63271404  0.3558225</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.62445736  0.2347409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.57765734 -0.4351817</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.26770220  0.3409633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.22294030  0.1060300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.46317645 -0.1903747</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.67271101 -0.2598105</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.31130717  0.3658978</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, p.max <span class="op">=</span> <span class="fl">0.05</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.02883945 -0.5028260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.27281337  0.3455242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.32599263  0.2732273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.43969020  0.4674665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.41331433  0.5061830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.08009138  0.4108337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.63271600  0.3558062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.62448092  0.2346844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.57763839 -0.4352054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.26769429  0.3409629</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.22291441  0.1060431</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.46319625 -0.1903410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.67271793 -0.2598050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.31131138  0.3659114</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, p.max <span class="op">=</span> <span class="fl">0.05</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="envfit-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Adding fitted arrows to CCA. We use "lc" scores, and hope</span></span>
-<span class="r-in"><span class="co">## that arrows are scaled similarly in cca and envfit plots</span></span>
-<span class="r-in"><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type<span class="op">=</span><span class="st">"p"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">999</span>, display <span class="op">=</span> <span class="st">"lc"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, p.max <span class="op">=</span> <span class="fl">0.05</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Adding fitted arrows to CCA. We use "lc" scores, and hope</span></span></span>
+<span class="r-in"><span><span class="co">## that arrows are scaled similarly in cca and envfit plots</span></span></span>
+<span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type<span class="op">=</span><span class="st">"p"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">999</span>, display <span class="op">=</span> <span class="st">"lc"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, p.max <span class="op">=</span> <span class="fl">0.05</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="envfit-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## 'scaling' must be set similarly in envfit and in ordination plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type <span class="op">=</span> <span class="st">"p"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">0</span>, display <span class="op">=</span> <span class="st">"lc"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## 'scaling' must be set similarly in envfit and in ordination plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type <span class="op">=</span> <span class="st">"p"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span>, perm <span class="op">=</span> <span class="fl">0</span>, display <span class="op">=</span> <span class="st">"lc"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="envfit-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Class variables, formula interface, and displaying the</span></span>
-<span class="r-in"><span class="co">## inter-class variability with ordispider, and semitransparent</span></span>
-<span class="r-in"><span class="co">## white background for labels (semitransparent colours are not</span></span>
-<span class="r-in"><span class="co">## supported by all graphics devices)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">A1</span>, <span class="va">dune.env</span>, perm <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="ordihull.html">ordispider</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">Moisture</span>, col<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="st">"sites"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">Moisture</span><span class="op">)</span>,</span>
-<span class="r-in">                      pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, cex<span class="op">=</span><span class="fl">1.2</span>, axis<span class="op">=</span><span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Class variables, formula interface, and displaying the</span></span></span>
+<span class="r-in"><span><span class="co">## inter-class variability with ordispider, and semitransparent</span></span></span>
+<span class="r-in"><span><span class="co">## white background for labels (semitransparent colours are not</span></span></span>
+<span class="r-in"><span><span class="co">## supported by all graphics devices)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">envfit</span><span class="op">(</span><span class="va">ord</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">A1</span>, <span class="va">dune.env</span>, perm <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="ordihull.html">ordispider</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">Moisture</span>, col<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">ord</span>, display <span class="op">=</span> <span class="st">"sites"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">Moisture</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      pch<span class="op">=</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, cex<span class="op">=</span><span class="fl">1.2</span>, axis<span class="op">=</span><span class="cn">TRUE</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="envfit-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Use shorter labels for factor centroids</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Use shorter labels for factor centroids</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $vectors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $factors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>factors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">   bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>factors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="envfit-5.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -487,7 +484,7 @@ The function fits environmental vectors or factors onto an
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -63,11 +63,11 @@ permutation test of Pillai's trace statistic.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CCorA</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, stand.Y<span class="op">=</span><span class="cn">FALSE</span>, stand.X<span class="op">=</span><span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for CCorA</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">x</span>, plot.type<span class="op">=</span><span class="st">"ov"</span>, <span class="va">xlabs</span>, plot.axes <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, int<span class="op">=</span><span class="fl">0.5</span>, 
-   col.Y<span class="op">=</span><span class="st">"red"</span>, col.X<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.9</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CCorA</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, stand.Y<span class="op">=</span><span class="cn">FALSE</span>, stand.X<span class="op">=</span><span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for CCorA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">x</span>, plot.type<span class="op">=</span><span class="st">"ov"</span>, <span class="va">xlabs</span>, plot.axes <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, int<span class="op">=</span><span class="fl">0.5</span>, </span>
+<span>   col.Y<span class="op">=</span><span class="st">"red"</span>, col.X<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.9</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -242,18 +242,18 @@ to <code><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">bip
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Example using two mite groups. The mite data are available in vegan</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Two mite species associations (Legendre 2005, Fig. 4)</span></span>
-<span class="r-in"><span class="va">group.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">8</span>,<span class="fl">10</span><span class="op">:</span><span class="fl">15</span>,<span class="fl">17</span>,<span class="fl">19</span><span class="op">:</span><span class="fl">22</span>,<span class="fl">24</span>,<span class="fl">26</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">group.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">9</span>,<span class="fl">16</span>,<span class="fl">18</span>,<span class="fl">23</span>,<span class="fl">25</span>,<span class="fl">31</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Separate Hellinger transformations of the two groups of species </span></span>
-<span class="r-in"><span class="va">mite.hel.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span>,<span class="va">group.1</span><span class="op">]</span>, <span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.hel.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span>,<span class="va">group.2</span><span class="op">]</span>, <span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mite.hel.1</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mite.hel.2</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">CCorA</span><span class="op">(</span><span class="va">mite.hel.1</span>, <span class="va">mite.hel.2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example using two mite groups. The mite data are available in vegan</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Two mite species associations (Legendre 2005, Fig. 4)</span></span></span>
+<span class="r-in"><span><span class="va">group.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">8</span>,<span class="fl">10</span><span class="op">:</span><span class="fl">15</span>,<span class="fl">17</span>,<span class="fl">19</span><span class="op">:</span><span class="fl">22</span>,<span class="fl">24</span>,<span class="fl">26</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">group.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">9</span>,<span class="fl">16</span>,<span class="fl">18</span>,<span class="fl">23</span>,<span class="fl">25</span>,<span class="fl">31</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Separate Hellinger transformations of the two groups of species </span></span></span>
+<span class="r-in"><span><span class="va">mite.hel.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span>,<span class="va">group.1</span><span class="op">]</span>, <span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.hel.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span><span class="op">[</span>,<span class="va">group.2</span><span class="op">]</span>, <span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mite.hel.1</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mite.hel.2</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"S"</span>,<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>,sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">CCorA</span><span class="op">(</span><span class="va">mite.hel.1</span>, <span class="va">mite.hel.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Canonical Correlation Analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -276,24 +276,24 @@ to <code><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">bip
 <span class="r-out co"><span class="r-pr">#&gt;</span> RDA R squares      0.33224 0.5376</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adj. RDA R squares 0.20560 0.2910</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"ob"</span><span class="op">)</span>                 <span class="co"># Two plots of objects</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"ob"</span><span class="op">)</span>                 <span class="co"># Two plots of objects</span></span></span>
 <span class="r-plt img"><img src="CCorA-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"v"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Two plots of variables</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"v"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Two plots of variables</span></span></span>
 <span class="r-plt img"><img src="CCorA-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"ov"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="co"># Four plots (2 for objects, 2 for variables)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"ov"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span> <span class="co"># Four plots (2 for objects, 2 for variables)</span></span></span>
 <span class="r-plt img"><img src="CCorA-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"b"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Two biplots</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"b"</span>, cex<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.6</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Two biplots</span></span></span>
 <span class="r-plt img"><img src="CCorA-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, xlabs <span class="op">=</span> <span class="cn">NA</span>, plot.axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>    <span class="co"># Plot axes 3, 5. No object names</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, xlabs <span class="op">=</span> <span class="cn">NA</span>, plot.axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>    <span class="co"># Plot axes 3, 5. No object names</span></span></span>
 <span class="r-plt img"><img src="CCorA-5.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, plot.type<span class="op">=</span><span class="st">"biplots"</span>, xlabs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="co"># Replace object names by numbers</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out</span>, plot.type<span class="op">=</span><span class="st">"biplots"</span>, xlabs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="co"># Replace object names by numbers</span></span></span>
 <span class="r-plt img"><img src="CCorA-6.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Example using random numbers. No significant relationship is expected</span></span>
-<span class="r-in"><span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span>,<span class="fl">20</span>,<span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,<span class="fl">20</span>,<span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out2</span> <span class="op">=</span> <span class="fu">CCorA</span><span class="op">(</span><span class="va">mat1</span>, <span class="va">mat2</span>, permutations<span class="op">=</span><span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">out2</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example using random numbers. No significant relationship is expected</span></span></span>
+<span class="r-in"><span><span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span>,<span class="fl">20</span>,<span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,<span class="fl">20</span>,<span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out2</span> <span class="op">=</span> <span class="fu">CCorA</span><span class="op">(</span><span class="va">mat1</span>, <span class="va">mat2</span>, permutations<span class="op">=</span><span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">out2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Canonical Correlation Analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -303,22 +303,22 @@ to <code><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">bip
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Y X</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix Ranks 3 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pillai's trace:  0.5995537 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pillai's trace:  1.044247 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Significance of Pillai's trace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> from F-distribution:   0.77052 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> based on permutations: 0.83 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> from F-distribution:   0.15116 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> based on permutations: 0.1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        CanAxis1 CanAxis2 CanAxis3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Canonical Correlations  0.66199  0.32283    0.239</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Canonical Correlations  0.72120  0.62261   0.3694</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       Y | X   X | Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> RDA R squares       0.16593  0.1515</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> adj. RDA R squares -0.13195 -0.0075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      Y | X  X | Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RDA R squares      0.36607 0.2159</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> adj. RDA R squares 0.13967 0.0689</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out2</span>, <span class="st">"b"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span><span class="va">out2</span>, <span class="st">"b"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCorA-7.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -331,7 +331,7 @@ to <code><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">bip
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -66,9 +66,9 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">treedive</span><span class="op">(</span><span class="va">comm</span>, <span class="va">tree</span>, match.force <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">treeheight</span><span class="op">(</span><span class="va">tree</span><span class="op">)</span>
-<span class="fu">treedist</span><span class="op">(</span><span class="va">x</span>, <span class="va">tree</span>, relative <span class="op">=</span> <span class="cn">TRUE</span>, match.force <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">treedive</span><span class="op">(</span><span class="va">comm</span>, <span class="va">tree</span>, match.force <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">treeheight</span><span class="op">(</span><span class="va">tree</span><span class="op">)</span></span>
+<span><span class="fu">treedist</span><span class="op">(</span><span class="va">x</span>, <span class="va">tree</span>, relative <span class="op">=</span> <span class="cn">TRUE</span>, match.force <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -181,13 +181,13 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## There is no data set on species properties yet, and we demonstrate</span></span>
-<span class="r-in"><span class="co">## the methods using phylogenetic trees</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.phylodis</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dune.phylodis</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">treedive</span><span class="op">(</span><span class="va">dune</span>, <span class="va">cl</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## There is no data set on species properties yet, and we demonstrate</span></span></span>
+<span class="r-in"><span><span class="co">## the methods using phylogenetic trees</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.phylodis</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dune.phylodis</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">treedive</span><span class="op">(</span><span class="va">dune</span>, <span class="va">cl</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> forced matching of 'tree' labels and 'comm' names</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         1         2         3         4         5         6         7         8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  384.0913  568.8791 1172.9455 1327.9317 1426.9067 1391.1628 1479.5062 1523.0792 </span>
@@ -195,10 +195,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1460.0423 1316.4832 1366.9960 1423.5582  895.1120 1457.2705 1505.9501 1187.5165 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        17        18        19        20 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  517.6920 1394.5162 1470.4671 1439.5571 </span>
-<span class="r-in"><span class="co">## Significance test using Null model communities.</span></span>
-<span class="r-in"><span class="co">## The current choice fixes numbers of species and picks species</span></span>
-<span class="r-in"><span class="co">## proportionally to their overall frequency</span></span>
-<span class="r-in"><span class="fu"><a href="oecosimu.html">oecosimu</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">treedive</span>, <span class="st">"r1"</span>, tree <span class="op">=</span> <span class="va">cl</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Significance test using Null model communities.</span></span></span>
+<span class="r-in"><span><span class="co">## The current choice fixes numbers of species and picks species</span></span></span>
+<span class="r-in"><span><span class="co">## proportionally to their overall frequency</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="oecosimu.html">oecosimu</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">treedive</span>, <span class="st">"r1"</span>, tree <span class="op">=</span> <span class="va">cl</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nullmodel transformed 'comm' to binary data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> oecosimu object</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -232,12 +232,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20   1439.56  1.160566 1104.59  629.08 1244.20 1467.4     0.17   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## Phylogenetically ordered community table</span></span>
-<span class="r-in"><span class="va">dtree</span> <span class="op">&lt;-</span> <span class="fu">treedist</span><span class="op">(</span><span class="va">dune</span>, <span class="va">cl</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="vegemite.html">tabasco</a></span><span class="op">(</span><span class="va">dune</span>, <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dtree</span><span class="op">)</span>, <span class="va">cl</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Phylogenetically ordered community table</span></span></span>
+<span class="r-in"><span><span class="va">dtree</span> <span class="op">&lt;-</span> <span class="fu">treedist</span><span class="op">(</span><span class="va">dune</span>, <span class="va">cl</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="vegemite.html">tabasco</a></span><span class="op">(</span><span class="va">dune</span>, <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dtree</span><span class="op">)</span>, <span class="va">cl</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="treedive-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Use tree distances  in capscale</span></span>
-<span class="r-in"><span class="fu"><a href="capscale.html">capscale</a></span><span class="op">(</span><span class="va">dtree</span> <span class="op">~</span> <span class="fl">1</span>, comm<span class="op">=</span><span class="va">dune</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Use tree distances  in capscale</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="capscale.html">capscale</a></span><span class="op">(</span><span class="va">dtree</span> <span class="op">~</span> <span class="fl">1</span>, comm<span class="op">=</span><span class="va">dune</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: capscale(formula = dtree ~ 1, comm = dune)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
@@ -262,7 +262,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
