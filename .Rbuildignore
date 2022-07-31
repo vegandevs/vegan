@@ -1,4 +1,5 @@
 LICENSE
+^NEWS\.html$
 ^README\.md$
 ^\.travis\.yml$
 ^travis-tool\.sh
