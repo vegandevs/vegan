@@ -182,29 +182,26 @@
 <p>The curvature is removed by replacing the orthogonalization of axes
   with detrending.  In orthogonalization successive axes are made
   non-correlated, but detrending should remove all systematic dependence
-  between axes.  Detrending is performed using a five-segment smoothing
-  window with weights (1,2,3,2,1) on <code>mk</code> segments --- which indeed
-  is more robust than the suggested alternative of detrending by
-  polynomials. The packing of sites at the ends of the gradient is
-  undone by rescaling the axes after extraction.  After rescaling, the
-  axis is supposed to be scaled by ‘SD’ units, so that the average width
-  of Gaussian species responses is supposed to be one over whole axis.
-  Other innovations were the piecewise linear transformation of species
-  abundances and downweighting of rare species which were regarded to
-  have an unduly high influence on ordination axes.</p>
+  between axes.  Detrending is performed using a smoothing window on
+  <code>mk</code> segments.  The packing of sites at the ends of the gradient
+  is undone by rescaling the axes after extraction.  After rescaling,
+  the axis is supposed to be scaled by ‘SD’ units, so that the
+  average width of Gaussian species responses is supposed to be one over
+  whole axis. Other innovations were the piecewise linear transformation
+  of species abundances and downweighting of rare species which were
+  regarded to have an unduly high influence on ordination axes.</p>
 <p>It seems that detrending actually works by twisting the ordination
-  space, so that the results look non-curved in two-dimensional projections
-  (‘lolly paper effect’).  As a result, the points usually have an
-  easily recognized triangular or diamond shaped pattern, obviously an
-  artefact of detrending.  Rescaling works differently than commonly
-  presented, too. <code>decorana</code> does not use, or even evaluate, the
-  widths of species responses.  Instead, it tries to equalize the
-  weighted variance of species scores on axis segments (parameter
-  <code>mk</code> has only a small effect, since <code>decorana</code> finds the
-  segment number from the current estimate of axis length).  This 
-  equalizes response widths only for the idealized species packing
-  model, where all species initially have unit width responses and
-  equally spaced modes.</p>
+  space, so that the results look non-curved in two-dimensional
+  projections (‘lolly paper effect’).  As a result, the points
+  usually have an easily recognized triangular or diamond shaped
+  pattern, obviously an artefact of detrending.  Rescaling works
+  differently than commonly presented, too. <code>decorana</code> does not
+  use, or even evaluate, the widths of species responses.  Instead, it
+  tries to equalize the weighted standard deviation of species scores on
+  axis segments (parameter <code>mk</code> has no effect, since
+  <code>decorana</code> finds the segments internally). Function
+  <code><a href="tolerance.html">tolerance</a></code> returns this internal criterion and can be
+  used to assess the success of rescaling.</p>
 <p>The <code>summary</code> method prints the ordination scores,
   possible prior weights used in downweighting, and the marginal totals
   after applying these weights. The <code>plot</code> method plots
@@ -236,10 +233,12 @@
 <p></p>
 <p><code>points</code> and <code>text</code> methods, and support functions</p>
 <p></p>
-<p><code><a href="eigenvals.html">eigenvals</a></code>, <code><a href="screeplot.cca.html">bstick</a></code>, <code>screeplot</code> and</p>
+<p><code><a href="eigenvals.html">eigenvals</a></code>, <code><a href="screeplot.cca.html">bstick</a></code>, <code>screeplot</code>,</p>
 <p></p>
-<p><code>predict</code>. <code>downweight</code> is an independent function that can
-  also be used with other methods than <code>decorana</code>.</p>
+<p><code>predict</code> and <code><a href="tolerance.html">tolerance</a></code>. <code>downweight</code> is an
+  independent function that can also be used with other methods than</p>
+<p></p>
+<p><code>decorana</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -272,7 +271,9 @@
   <code>downweight</code> must be applied before <code>decorana</code>.  Function
   <code>downweight</code> indeed can be applied prior to correspondence
   analysis, and so it can be used together with <code><a href="cca.html">cca</a></code>, too.</p>
-<p>The function finds only four axes.</p>
+<p>Github package <span class="pkg">natto</span> has an <span style="R">R</span> implementation of
+  <code>decorana</code> which allows easier inspection of the
+  algorithm and also easier development of the function.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

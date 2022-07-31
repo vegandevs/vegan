@@ -58,7 +58,11 @@
 <span></span>
 <span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu">tolerance</span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"sites"</span><span class="op">)</span>,</span>
-<span>          scaling <span class="op">=</span> <span class="st">"species"</span>, useN2 <span class="op">=</span> <span class="cn">TRUE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>          scaling <span class="op">=</span> <span class="st">"species"</span>, useN2 <span class="op">=</span> <span class="cn">TRUE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for decorana</span></span>
+<span><span class="fu">tolerance</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>          which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>, useN2 <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,11 +77,12 @@
 
 <p>Matrix of tolerances/heterogeneities with some additional
   attributes: <code>which</code>, <code>scaling</code>, and <code>N2</code>, the latter of
-  which will be <code>NA</code> if <code>useN2 = FALSE</code>.</p>
+  which will be <code>NA</code> if <code>useN2 = FALSE</code> or <code>N2</code> could not
+  be estimated.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Gavin L. Simpson</p>
+    <p>Gavin L. Simpson and Jari Oksanen (<code>decorana</code> method).</p>
     </div>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
@@ -105,6 +110,9 @@
   <dt>useN2</dt>
 <dd><p>logical; should the bias in the tolerances /
     heterogeneities be reduced via scaling by Hill's N2?</p></dd>
+
+  <dt>data</dt>
+<dd><p>Original input data used in <code><a href="decorana.html">decorana</a></code>.</p></dd>
 
   <dt>...</dt>
 <dd><p>arguments passed to other methods.</p></dd>
@@ -186,6 +194,23 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 1.1330387 0.9816332 1.1242398 0.7238920 0.5577662 0.7036044</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.6737757 1.4458326 1.4380928 1.0959027 0.4142423 0.5332460</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co">## average should be 1 with scaling = "sites", hill = TRUE</span></span></span>
+<span class="r-in"><span><span class="va">tol</span> <span class="op">&lt;-</span> <span class="fu">tolerance</span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="st">"sites"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, hill <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>   choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">tol</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CCA1     CCA2     CCA3     CCA4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.059199 1.048823 1.000551 1.077612 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tol</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      CCA1      CCA2      CCA3      CCA4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3174462 0.2793521 0.3714540 0.2681931 </span>
+<span class="r-in"><span><span class="co">## Rescaling tries to set all tolerances to 1</span></span></span>
+<span class="r-in"><span><span class="va">tol</span> <span class="op">&lt;-</span> <span class="fu">tolerance</span><span class="op">(</span><span class="fu"><a href="decorana.html">decorana</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">tol</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      DCA1      DCA2      DCA3      DCA4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9817657 0.9249544 0.9444811 0.9821666 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tol</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      DCA1      DCA2      DCA3      DCA4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1977777 0.3204058 0.2646872 0.1210543 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
