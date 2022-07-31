@@ -22,6 +22,17 @@
       multiple regression and canonical analysis using the rdacca.hp R
       package. Methods in Ecology and Evolution, 13: 782--788.
 
+      \item \code{decorana} estimates orthogonalized eigenvalues and
+      the total inertia (scaled Chi-square). Orthogonalized
+      eigenvalues can add up to the total inertia. Together these
+      enable implementing \code{eigenvals}, \code{bstick} and
+      \code{screeplot} methods for \code{decorana}.
+
+      \item Implemented \code{tolerance} method for
+      \code{decorana}. This returns for sites the criterion that was
+      used in rescaling DCA, and can be used to inspect the success of
+      detrending: it should be constant 1 over the whole axis.
+
       \item New \code{toCoda} function to transform sequential null
       model objects from \code{oecosimu} to an object that can be
       analysed with \CRANpkg{coda} as an MCMC model. Function will
