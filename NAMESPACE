@@ -544,8 +544,9 @@ S3method(text, monoMDS)
 S3method(text, ordiplot)
 S3method(text, orditkplot)
 S3method(text, procrustes)
-# tolerance: vegan -- or analogue?? Gav?
+# tolerance
 S3method(tolerance, cca)
+S3method(tolerance, decorana)
 # update: stats
 S3method(update, nullmodel)
 # vif: car -- but not used as a S3method within vegan
