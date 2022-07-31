@@ -384,9 +384,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.26  total = 7.26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.27  total = 7.27 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.80377     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.80315     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## as above but without the extra penalties on smooth terms,</span></span></span>
 <span class="r-in"><span><span class="co">## and using GCV smoothness selection (old behaviour of `ordisurf()`):</span></span></span>
@@ -403,7 +403,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7.59  total = 8.59 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 137.1127     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 137.088     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Cover of Cladina arbuscula</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladarbu</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span></span>
@@ -411,11 +411,11 @@
 <span class="r-in"><span><span class="co">## Get fitted values</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        18        15        24        27        23        19        22        16 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.691495  7.193817  4.472857  6.821580  9.033270  8.210467  6.451654  8.807656 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.689069  7.192810  4.473193  6.822115  9.032715  8.210434  6.451864  8.806734 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        28        13        14        20        25         7         5         6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.505417 31.329252  8.101521  9.943819  5.551070 29.028180 21.759978 31.121153 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.505959 31.330565  8.102570  9.942750  5.551203 29.031915 21.755405 31.123645 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         3         4         2         9        12        10        11        21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6.535757 15.386449  2.624643  1.149320  3.396834  1.379700 11.481863  3.072247 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6.535208 15.387167  2.624243  1.149336  3.396792  1.379637 11.481042  3.073631 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Variable selection via additional shrinkage penalties</span></span></span>
 <span class="r-in"><span><span class="co">## This allows non-significant smooths to be selected out</span></span></span>
@@ -432,9 +432,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.26  total = 7.26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.27  total = 7.27 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.80377     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.80315     </span>
 <span class="r-in"><span><span class="co">##  - option 2: use a basis with shrinkage</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, bs <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-4.png" alt="" width="700" height="1133"></span>
@@ -448,7 +448,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6.61  total = 7.61 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.11279     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.11233     </span>
 <span class="r-in"><span><span class="co">## or bs = "cs" with `isotropic = FALSE`</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Plot method</span></span></span>
@@ -480,7 +480,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6.19  total = 7.19 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.81226     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.81172     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A fixed degrees of freedom smooth, must use 'select = FALSE'</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">4</span>,</span></span>
@@ -496,7 +496,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  total = 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 85.08763     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 85.08734     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline bases</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
@@ -513,7 +513,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.65  total = 3.65 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.69427     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 92.69382     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline with</span></span></span>
 <span class="r-in"><span><span class="co">## shrinkage bases &amp; different degrees of freedom in each dimension</span></span></span>
@@ -532,7 +532,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  total = 12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 41.84061     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 41.84151     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
