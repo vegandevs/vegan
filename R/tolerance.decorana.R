@@ -10,7 +10,8 @@
         stop("original response data must be given")
     which <- match.arg(which)
     ## Native decorana scaling (sites are WA of species) does not
-    ## allow useN2
+    ## allow useN2 with species (but this can be done after scaling of
+    ## results, and therefore the code below is ready for this).
     if (useN2 && which == "species")
         warning("useN2 is not implemented for species")
     EPS <- sqrt(.Machine$double.eps)
@@ -30,8 +31,6 @@
     if (!isTRUE(all.equal(ev0, ev1, check.attributes=FALSE)))
         stop("'data' are not plausible given 'decorana' result")
     ## preliminaries over: start working
-    u <- x$rproj
-    v <- x$cproj
     res <- switch(which,
                   "sites" = x$rproj,
                   "species" = x$cproj)
@@ -51,7 +50,7 @@
     }
     ## go over axes
     for(i in choices) {
-        X <- data * outer(u[,i], v[,i], "-")^2
+        X <- data * outer(x$rproj[,i], x$cproj[,i], "-")^2
         X[X < 0] <- 0
         if (which == "species")
             X <- t(X)
