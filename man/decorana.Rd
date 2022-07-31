@@ -87,30 +87,27 @@ downweight(veg, fraction = 5)
   The curvature is removed by replacing the orthogonalization of axes
   with detrending.  In orthogonalization successive axes are made
   non-correlated, but detrending should remove all systematic dependence
-  between axes.  Detrending is performed using a five-segment smoothing
-  window with weights (1,2,3,2,1) on \code{mk} segments --- which indeed
-  is more robust than the suggested alternative of detrending by
-  polynomials. The packing of sites at the ends of the gradient is
-  undone by rescaling the axes after extraction.  After rescaling, the
-  axis is supposed to be scaled by \sQuote{SD} units, so that the average width
-  of Gaussian species responses is supposed to be one over whole axis.
-  Other innovations were the piecewise linear transformation of species
-  abundances and downweighting of rare species which were regarded to
-  have an unduly high influence on ordination axes.
+  between axes.  Detrending is performed using a smoothing window on
+  \code{mk} segments.  The packing of sites at the ends of the gradient
+  is undone by rescaling the axes after extraction.  After rescaling,
+  the axis is supposed to be scaled by \sQuote{SD} units, so that the
+  average width of Gaussian species responses is supposed to be one over
+  whole axis. Other innovations were the piecewise linear transformation
+  of species abundances and downweighting of rare species which were
+  regarded to have an unduly high influence on ordination axes.
 
   It seems that detrending actually works by twisting the ordination
-  space, so that the results look non-curved in two-dimensional projections
-  (\sQuote{lolly paper effect}).  As a result, the points usually have an
-  easily recognized triangular or diamond shaped pattern, obviously an
-  artefact of detrending.  Rescaling works differently than commonly
-  presented, too. \code{decorana} does not use, or even evaluate, the
-  widths of species responses.  Instead, it tries to equalize the
-  weighted variance of species scores on axis segments (parameter
-  \code{mk} has only a small effect, since \code{decorana} finds the
-  segment number from the current estimate of axis length).  This 
-  equalizes response widths only for the idealized species packing
-  model, where all species initially have unit width responses and
-  equally spaced modes.
+  space, so that the results look non-curved in two-dimensional
+  projections (\sQuote{lolly paper effect}).  As a result, the points
+  usually have an easily recognized triangular or diamond shaped
+  pattern, obviously an artefact of detrending.  Rescaling works
+  differently than commonly presented, too. \code{decorana} does not
+  use, or even evaluate, the widths of species responses.  Instead, it
+  tries to equalize the weighted standard deviation of species scores on
+  axis segments (parameter \code{mk} has no effect, since
+  \code{decorana} finds the segments internally). Function
+  \code{\link{tolerance}} returns this internal criterion and can be
+  used to assess the success of rescaling.
 
   The \code{summary} method prints the ordination scores,
   possible prior weights used in downweighting, and the marginal totals
@@ -141,9 +138,10 @@ downweight(veg, fraction = 5)
   \code{decorana} returns an object of class \code{"decorana"}, which
   has \code{print}, \code{summary}, \code{scores}, \code{plot},
   \code{points} and \code{text} methods, and support functions
-  \code{\link{eigenvals}}, \code{\link{bstick}}, \code{screeplot} and
-  \code{predict}. \code{downweight} is an independent function that can
-  also be used with other methods than \code{decorana}.
+  \code{\link{eigenvals}}, \code{\link{bstick}}, \code{screeplot},
+  \code{predict} and \code{\link{tolerance}}. \code{downweight} is an
+  independent function that can also be used with other methods than
+  \code{decorana}.
 }
 
 \references{
@@ -175,7 +173,9 @@ downweight(veg, fraction = 5)
   \code{downweight} indeed can be applied prior to correspondence
   analysis, and so it can be used together with \code{\link{cca}}, too.
 
-  The function finds only four axes.
+  Github package \pkg{natto} has an \R{} implementation of
+  \code{decorana} which allows easier inspection of the
+  algorithm and also easier development of the function.
 }
 
 \seealso{
