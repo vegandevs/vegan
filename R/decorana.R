@@ -21,15 +21,7 @@
     if (ira)
         iresc <- 0
     if (!is.null(before)) {
-        if (is.unsorted(before))
-            stop("'before' must be sorted")
-        if (length(before) != length(after))
-            stop("'before' and 'after' must have same lengths")
-        for (i in seq_len(nrow(veg))) {
-            tmp <- veg[i, ] > 0
-            veg[i, tmp] <- approx(before, after, veg[i, tmp],
-                                  rule = 2)$y
-        }
+        veg <- beforeafter(veg, before, after)
     }
     if (iweigh) {
         veg <- downweight(veg, Const2)

@@ -19,10 +19,10 @@
         warning("useN2 is not implemented for species")
     EPS <- sqrt(.Machine$double.eps)
     ## transform data like decorana did
+    if (!is.null(x$before))
+        data <- beforeafter(data, x$before, x$after)
     if (x$iweigh)
         data <- downweight(data, x$fraction)
-    if (!is.null(x$before))
-        stop("before/after not yet implemented")
     ## see if data are plausible given decorana solution
     if (nrow(data) != nrow(x$rproj))
         stop("'data' have wrong row dimension")
