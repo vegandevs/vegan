@@ -43,7 +43,9 @@ tolerance(x, \dots)
     respectively. See \code{\link{scores.cca}} for details.}
   \item{useN2}{logical; should the bias in the tolerances /
     heterogeneities be reduced via scaling by Hill's N2?}
-  \item{data}{Original input data used in \code{\link{decorana}}.}
+  \item{data}{Original input data used in \code{\link{decorana}}.  If
+    missing, the function tries to get the same data as used in
+    \code{decorana} call.}
   \item{\dots}{arguments passed to other methods.}
 }
 \examples{
