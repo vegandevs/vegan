@@ -6,8 +6,11 @@
     function(x, data, choices = 1:4, which = c("sites", "species"),
              useN2 = TRUE, ...)
 {
+    ## community data cannot be reconstructed from the result x. We
+    ## use either the one supplied in 'data' or try to find data used
+    ## in decorana, but then we check the plausibility.
     if (missing(data))
-        stop("original response data must be given")
+        data <- eval(x$call$veg)
     which <- match.arg(which)
     ## Native decorana scaling (sites are WA of species) does not
     ## allow useN2 with species (but this can be done after scaling of
@@ -16,10 +19,10 @@
         warning("useN2 is not implemented for species")
     EPS <- sqrt(.Machine$double.eps)
     ## transform data like decorana did
+    if (!is.null(x$before))
+        data <- beforeafter(data, x$before, x$after)
     if (x$iweigh)
         data <- downweight(data, x$fraction)
-    if (!is.null(x$before))
-        stop("before/after not yet implemented")
     ## see if data are plausible given decorana solution
     if (nrow(data) != nrow(x$rproj))
         stop("'data' have wrong row dimension")
@@ -28,7 +31,7 @@
     ## check the first eigenvalue
     ev1 <- svd(initCA(data), nv=0, nu=0)$d[1]^2
     ev0 <- if (x$ira) x$evals[1] else x$evals.decorana[1]
-    if (!isTRUE(all.equal(ev0, ev1, check.attributes=FALSE)))
+    if (abs(ev1 - ev0) > 100 * EPS)
         stop("'data' are not plausible given 'decorana' result")
     ## preliminaries over: start working
     res <- switch(which,

@@ -2,43 +2,39 @@
     function (veg, iweigh = 0, iresc = 4, ira = 0, mk = 26, short = 0,
               before = NULL, after = NULL)
 {
+    ## constants
     Const2 <- 5
     Const3 <- 1e-11
     ZEROEIG <- 1e-7 # same limit as in the C function do_decorana
+    ## data
     veg <- as.matrix(veg)
+    if (any(veg < 0))
+        stop("'decorana' cannot handle negative data entries")
+    ## optional data transformation
+    if (!is.null(before)) {
+        veg <- beforeafter(veg, before, after)
+    }
+    if (iweigh) {
+        veg <- downweight(veg, Const2)
+    }
+    v <- attr(veg, "v")
+    v.fraction <- attr(veg, "fraction")
+    ## marginal sums after optional data transformations
     aidot <- rowSums(veg)
     if (any(aidot <= 0))
         stop("all row sums must be >0 in the community matrix: remove empty sites")
-    if (any(veg < 0))
-        stop("'decorana' cannot handle negative data entries")
     adotj <- colSums(veg)
     if (any(adotj <= 0))
         warning("some species were removed because they were missing in the data")
+    adotj[adotj < Const3] <- Const3
+    ## check arguments
     if (mk < 10)
         mk <- 10
     if (mk > 46)
         mk <- 46
     if (ira)
         iresc <- 0
-    if (!is.null(before)) {
-        if (is.unsorted(before))
-            stop("'before' must be sorted")
-        if (length(before) != length(after))
-            stop("'before' and 'after' must have same lengths")
-        for (i in seq_len(nrow(veg))) {
-            tmp <- veg[i, ] > 0
-            veg[i, tmp] <- approx(before, after, veg[i, tmp],
-                                  rule = 2)$y
-        }
-    }
-    if (iweigh) {
-        veg <- downweight(veg, Const2)
-        aidot <- rowSums(veg)
-        adotj <- colSums(veg)
-    }
-    v <- attr(veg, "v")
-    v.fraction <- attr(veg, "fraction")
-    adotj[adotj < Const3] <- Const3
+    ## Start analysis
     CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
                 as.double(adotj))
     if (ira)

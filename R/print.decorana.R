@@ -16,7 +16,9 @@
         cat("Downweighting of rare species from fraction 1/", x$fraction, ".\n", sep="")
     if (!is.null(x$before)) {
         cat("Piecewise transformation of above-zero abundances:\n")
-        print(rbind(before = x$before, after = x$after))
+        print(as.data.frame(rbind(before = x$before, after = x$after),
+                 optional=TRUE))
+        cat("\n") # print adds stupid blank above, add symmetric blank below
     }
     cat("Total inertia (scaled Chi-square):", round(x$totchi, digits), "\n")
     axlen <- NULL
