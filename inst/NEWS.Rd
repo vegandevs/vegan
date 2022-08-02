@@ -92,9 +92,16 @@
   \subsection{BUG FIXES}{
     \itemize{
 
-      \item `scores` failed when `metaMDS` result had no species
-      scores. Bug was introduced in release 2.6-2. Issue raised in
-      \url{https://stackoverflow.com/questions/72483924/}
+      \item \code{decorana} returned wrong results when Hill's
+      piecewise transformation (arguments \code{before}/\code{after})
+      were used, unless downweighting was also used.
+
+      \item \code{scores} failed when \code{metaMDS} result had no
+      species scores. Bug was introduced in release 2.6-2. Issue
+      raised in \url{https://stackoverflow.com/questions/72483924/}
+
+      \item \code{tolerance.cca} failed when only one axis
+      (\code{choice}) was requested.
 
     } %itemize
   } %bugs
