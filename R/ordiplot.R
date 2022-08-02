@@ -41,7 +41,9 @@
                 message("species scores not available")
             }
         }
-        ## Use linestack and exit if there is only one variable
+        if (is.null(X) && is.null(Y))
+            stop("no scores found: nothing to plot")
+        ## Use linestack and exit if there is only one dimension
         if (NCOL(X) == 1 && NCOL(Y) == 1) {
             pl <- linestack(X, ylim = range(c(X,Y), na.rm=TRUE), cex = cex, ...)
             if (!is.null(Y))
