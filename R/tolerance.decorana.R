@@ -40,8 +40,15 @@
     tot <- switch(which,
                   "sites" = rowSums(data),
                   "species" = colSums(data))
-    ## N2 is constant for axes. Here and elsewhere we still handle
-    ## species, since support can be added later.
+    ## go over axes
+    for(i in choices) {
+        X <- data * outer(x$rproj[,i], x$cproj[,i], "-")^2
+        if (which == "species")
+            X <- t(X)
+        res[,i] <- sqrt(rowSums(X)/tot)
+    }
+    ## N2 depends only on rows. Here and we still handle species,
+    ## since support can be added later, though skipped now.
     if (useN2 && which != "species") {
         y <- switch(which,
                     "sites" = data,
@@ -49,17 +56,7 @@
         y <- (y / rowSums(y))^2
         N2 <- 1 / rowSums(y, na.rm = TRUE) # 1/H
         N2[abs(N2 - 1) < EPS] <- 1
-        N2scaling <- sqrt(pmax(1 - 1/N2, 0))
-    }
-    ## go over axes
-    for(i in choices) {
-        X <- data * outer(x$rproj[,i], x$cproj[,i], "-")^2
-        X[X < 0] <- 0
-        if (which == "species")
-            X <- t(X)
-        res[,i] <- sqrt(rowSums(X)/tot)
-        if (useN2 && which == "sites")
-            res[,i] <- res[,i] / N2scaling
+        res <- res / sqrt(pmax(1 - 1/N2, 0))
     }
     res <- res[,choices, drop=FALSE]
     res[!is.finite(res) | res < EPS] <- 0
