@@ -64,7 +64,7 @@ tol <- tolerance(mod, which = "sites", scaling = "sites", hill = TRUE,
 colMeans(tol)
 apply(tol, 2, sd)
 ## Rescaling tries to set all tolerances to 1
-tol <- tolerance(decorana(dune), data = dune)
+tol <- tolerance(decorana(dune))
 colMeans(tol)
 apply(tol, 2, sd)
 }

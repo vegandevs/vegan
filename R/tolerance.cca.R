@@ -57,6 +57,9 @@ tolerance.cca <- function(x, choices = 1:2,
         Ytot <- rowSums(Y)
         for (i in seq_len(NROW(res))) {
             XiUk <- apply(scrs[["species"]], 1L, `-`, scrs[[siteScrs]][i,])
+            ## with only one 'choice' drops dimensions
+            if (!is.matrix(XiUk))
+                XiUk <- t(XiUk) # 1-row matrix
             YXiUk <- sweep(XiUk^2, 2L, Y[i,], "*")
             if(any(neg <- YXiUk < 0)) {
                 YXiUk[neg] <- 0
@@ -79,6 +82,9 @@ tolerance.cca <- function(x, choices = 1:2,
         Ytot <- colSums(Y)
         for (i in seq_len(NROW(res))) {
             XiUk <- apply(scrs[[siteScrs]], 1L, `-`, scrs[["species"]][i,])
+            ## may drop dimensions
+            if (!is.matrix(XiUk))
+                XiUk <- t(XiUk)
             YXiUk <- sweep(XiUk^2, 2L, Y[,i], "*")
             if (any(neg <- YXiUk < 0)) {
                 YXiUk[neg] <- 0

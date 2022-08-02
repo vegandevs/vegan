@@ -7951,7 +7951,7 @@ Scaling: 2
      CCA1      CCA2      CCA3      CCA4 
 0.3174462 0.2793521 0.3714540 0.2681931 
 > ## Rescaling tries to set all tolerances to 1
-> tol <- tolerance(decorana(dune), data = dune)
+> tol <- tolerance(decorana(dune))
 > colMeans(tol)
      DCA1      DCA2      DCA3      DCA4 
 0.9817657 0.9249544 0.9444811 0.9821666 
@@ -9204,7 +9204,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.697 0.279 8.988 0 0 
+Time elapsed:  8.732 0.275 9.018 0 0 
 > grDevices::dev.off()
 null device 
           1 
