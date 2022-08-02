@@ -239,8 +239,8 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.019 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.204    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.023 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.205    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -253,7 +253,7 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     7   2.4987 0.58122 2.3792  0.003 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     7   2.4987 0.58122 2.3792  0.004 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual 12   1.8004 0.41878                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total    19   4.2990 1.00000                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -300,9 +300,9 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.039463 0.20977 2.6545    0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.148666 0.79023              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.188129 1.00000              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.020445 0.08271 0.9016   0.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.226753 0.91729              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.247198 1.00000              </span>
 <span class="r-in"><span><span class="co">## Correct with strata</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu">adonis2</span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">NO3</span>, data <span class="op">=</span> <span class="va">dat</span>, permutations <span class="op">=</span> <span class="fl">199</span>, strata <span class="op">=</span> <span class="va">field</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
@@ -313,9 +313,9 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.039463 0.20977 2.6545   0.02 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.148666 0.79023                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.188129 1.00000                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.020445 0.08271 0.9016   0.04 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.226753 0.91729                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.247198 1.00000                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
