@@ -20,10 +20,7 @@
                  optional=TRUE))
     }
     cat("Total inertia (scaled Chi-square):", round(x$totchi, digits), "\n")
-    axlen <- NULL
-    if (!x$ira && x$iresc) {
-        axlen <- apply(x$rproj, 2, max)
-    }
+    axlen <- apply(x$rproj, 2, function(z) diff(range(z)))
     cat("\n")
     print(rbind("Eigenvalues" = x$evals,
                 "Additive Eigenvalues" = x$evals.ortho,
