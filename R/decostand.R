@@ -15,16 +15,19 @@
         }
     }
     else k <- .Machine$double.eps
+    attr <- NULL
     switch(method, total = {
         if (missing(MARGIN))
             MARGIN <- 1
         tmp <- pmax(k, apply(x, MARGIN, sum, na.rm = na.rm))
         x <- sweep(x, MARGIN, tmp, "/")
+        attr <- list("total" = tmp, "margin" = MARGIN)
     }, max = {
         if (missing(MARGIN))
             MARGIN <- 2
         tmp <- pmax(k, apply(x, MARGIN, max, na.rm = na.rm))
         x <- sweep(x, MARGIN, tmp, "/")
+        attr <- list("max" = tmp, "margin" = MARGIN)
     }, frequency = {
         if (missing(MARGIN))
             MARGIN <- 2
@@ -32,12 +35,14 @@
         fre <- apply(x > 0, MARGIN, sum, na.rm = na.rm)
         tmp <- fre/tmp
         x <- sweep(x, MARGIN, tmp, "*")
+        attr <- list("scale" = tmp, "margin" = MARGIN)
     }, normalize = {
         if (missing(MARGIN))
             MARGIN <- 1
         tmp <- apply(x^2, MARGIN, sum, na.rm = na.rm)
         tmp <- pmax(.Machine$double.eps, sqrt(tmp))
         x <- sweep(x, MARGIN, tmp, "/")
+        attr <- list("norm" = tmp, "margin" = MARGIN)
     }, range = {
         if (missing(MARGIN))
             MARGIN <- 2
@@ -54,6 +59,7 @@
         ran <- pmax(k, ran, na.rm = na.rm)
         x <- sweep(x, MARGIN, tmp, "-")
         x <- sweep(x, MARGIN, ran, "/")
+        attr <- list("min" = tmp, "range" = ran, "margin" = MARGIN)
     }, rank = {
         if (missing(MARGIN)) MARGIN <- 1
         x[x==0] <- NA
@@ -68,7 +74,13 @@
     }, standardize = {
         if (!missing(MARGIN) && MARGIN == 1)
             x <- t(scale(t(x)))
-        else x <- scale(x)
+        else {
+            x <- scale(x)
+            MARGIN <- 2
+        }
+        attr <- list("center" = attr(x, "scaled:center"),
+                     "scale" = attr(x, "scaled:scale"),
+                     "margin" = MARGIN)
     }, pa = {
         x <- ifelse(x > 0, 1, 0)
     }, chi.square = {
@@ -78,6 +90,7 @@
                          na.rm = na.rm)), sqrt(colSums(x, na.rm = na.rm)))
     }, hellinger = {
         x <- sqrt(decostand(x, "total", MARGIN = MARGIN, na.rm = na.rm))
+        attr <- attr(x, "parameters")
     }, log = {### Marti Anderson logs, after Etienne Laliberte
         if (!isTRUE(all.equal(as.integer(x), as.vector(x)))) {
             x <- x / min(x[x > 0], na.rm = TRUE)
@@ -85,31 +98,31 @@
                     call. = FALSE)
         }
         x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
-
     }, alr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
-        if (MARGIN == 1) 
+        if (MARGIN == 1)
           x <- .calc_alr(x, ...)
 	else x <- t(.calc_alr(t(x), ...))
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
-        if (MARGIN == 1) 
+        if (MARGIN == 1)
           x <- .calc_clr(x, ...)
 	else x <- t(.calc_clr(t(x), ...))
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
-        if (MARGIN == 1) 
+        if (MARGIN == 1)
           x <- .calc_rclr(x, ...)
 	else x <- t(.calc_rclr(t(x), ...))
     })
     if (any(is.nan(x)))
-        warning("result contains NaN, perhaps due to impossible mathematical 
+        warning("result contains NaN, perhaps due to impossible mathematical
                  operation\n")
     if (wasDataFrame)
         x <- as.data.frame(x)
+    attr(x, "parameters") <- attr
     attr(x, "decostand") <- method
     x
 }
@@ -131,21 +144,21 @@
     # value with that.
     clog <- log(x)
     clog - rowMeans(clog)
-    
+
 }
 
 # Modified from the original version in mia R package
 .calc_rclr <- function(x, na.rm=TRUE){
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
-        stop("Matrix has negative values but the 
+        stop("Matrix has negative values but the
               rclr transformation assumes non-negative values.\n")
     }
    # Log transform
    clog <- log(x)
    # Convert zeros to NAs in rclr
    clog[is.infinite(clog)] <- NA
-   # Calculate mean for every sample, ignoring the NAs 
+   # Calculate mean for every sample, ignoring the NAs
    mean_clog <- rowMeans(clog, na.rm = TRUE)
    # Calculate geometric means per sample
    geom_mean <- exp(mean_clog)
@@ -167,12 +180,34 @@
         stop("Abundance table contains negative values and ",
              "alr-transformation is being applied without (suitable) ",
              "pseudocount. \n")
-    }    
-    if (reference > nrow(x)) 
+    }
+    if (reference > nrow(x))
         stop("The reference should be a feature name, or index between 1 to", ncol(x))
     clog <- log(x)
     clog[, -reference]-clog[, reference]
 }
 
-
-
+`decobackstand` <-
+    function(x, zap = TRUE)
+{
+    method <- attr(x, "decostand")
+    if (is.null(method))
+        stop("function can be used only with 'decostand' standardized data")
+    para <- attr(x, "parameters")
+    x <- switch(method,
+                "total" = sweep(x, para$margin, para$total, "*"),
+                "max" = sweep(x, para$margin, para$max, "*"),
+                "frequency" = sweep(x, para$margin, para$scale, "/"),
+                "normalize" = sweep(x, para$margin, para$norm, "*"),
+                "range" = { x <- sweep(x, para$margin, para$range, "*")
+                            sweep(x, para$margin, para$min, "+")},
+                "standardize" = {x <- sweep(x, para$margin, para$scale, "*")
+                                 sweep(x, para$margin, para$center, "+") },
+                "hellinger" = sweep(x^2, para$margin, para$total, "*"),
+                stop("no back-transformation available for method ",
+                     sQuote(method))
+                )
+    if (zap)
+        x[abs(x) < sqrt(.Machine$double.eps)] <- 0
+    x
+}
