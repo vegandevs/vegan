@@ -84,20 +84,30 @@
     }, pa = {
         x <- ifelse(x > 0, 1, 0)
     }, chi.square = {
-        if (!missing(MARGIN) && MARGIN == 2)
+        if (missing(MARGIN))
+            MARGIN <- 1
+        ## MARGIN 2 transposes the result!
+        if (MARGIN == 2)
             x <- t(x)
-        x <- sqrt(sum(x, na.rm = na.rm)) * x/outer(pmax(k, rowSums(x,
-                         na.rm = na.rm)), sqrt(colSums(x, na.rm = na.rm)))
+        rs <- pmax(k, rowSums(x, na.rm = na.rm))
+        cs <- pmax(k, colSums(x, na.rm = na.rm))
+        tot <- sum(x, na.rm = na.rm)
+        x <- sqrt(tot) * x/outer(rs, sqrt(cs))
+        attr <- list("tot" = tot, "rsum" = rs, "csum" = cs, margin = MARGIN)
     }, hellinger = {
         x <- sqrt(decostand(x, "total", MARGIN = MARGIN, na.rm = na.rm))
         attr <- attr(x, "parameters")
     }, log = {### Marti Anderson logs, after Etienne Laliberte
         if (!isTRUE(all.equal(as.integer(x), as.vector(x)))) {
-            x <- x / min(x[x > 0], na.rm = TRUE)
+            minpos <- min(x[x > 0], na.rm = TRUE)
+            x <- x / minpos
             warning("non-integer data: divided by smallest positive value",
                     call. = FALSE)
+        } else {
+            minpos <- 1
         }
         x[x > 0 & !is.na(x)] <- log(x[x > 0 & !is.na(x)], base = logbase) + 1
+        attr <- list("logbase" = logbase, minpos = minpos)
     }, alr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
@@ -204,6 +214,12 @@
                 "standardize" = {x <- sweep(x, para$margin, para$scale, "*")
                                  sweep(x, para$margin, para$center, "+") },
                 "hellinger" = sweep(x^2, para$margin, para$total, "*"),
+                "chi.square" = { rc <- outer(para$rsum, sqrt(para$csum))
+                                 x <- x * rc /sqrt(para$tot)
+                                 if (para$margin == 1) x else t(x) },
+                "log" = { x[x > 0 & !is.na(x)] <-
+                              para$logbase^(x[x > 0 & !is.na(x)] - 1)
+                          x * para$minpos},
                 stop("no back-transformation available for method ",
                      sQuote(method))
                 )
