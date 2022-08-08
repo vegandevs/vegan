@@ -154,7 +154,6 @@
     # value with that.
     clog <- log(x)
     clog - rowMeans(clog)
-
 }
 
 # Modified from the original version in mia R package
@@ -219,7 +218,9 @@
                                  if (para$margin == 1) x else t(x) },
                 "log" = { x[x > 0 & !is.na(x)] <-
                               para$logbase^(x[x > 0 & !is.na(x)] - 1)
-                          x * para$minpos},
+                              x * para$minpos},
+                "wisconsin" = { x <- sweep(x, 1, para$total, "*")
+                                sweep(x, 2, para$max, "*") },
                 stop("no back-transformation available for method ",
                      sQuote(method))
                 )
