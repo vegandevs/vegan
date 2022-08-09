@@ -71,19 +71,19 @@ wisconsin(x)
 
      \item \code{alr}: Additive log ratio ("alr") transformation
      (Aitchison 1986) reduces data skewness and compositionality
-     bias. The transformation assumes positive values, pseudocounts
-     can be added with the argument \code{pseudocount}. One of the
-     samples is a reference, this sample (name or index) can be given
-     by \code{reference}. The first sample is used by default
-     (\code{reference=1}).
-     Note that this transformation drops one
-     feature from the transformed output data. The \code{alr}
-     transformation is defined formally as follows: \deqn{alr =
-     [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}, where the
-     denominator sample \deqn{x_D} can be chosen arbitrarily. This
-     transformation is often used with pH and other chemistry
-     measurenments. It is also commonly used as multinomial logistic
-     regression.
+     bias. The transformation assumes positive values, pseudocounts can
+     be added with the argument \code{pseudocount}. One of the
+     rows/columns is a reference that can be given by \code{reference}
+     (name of index). The first row/column is used by default
+     (\code{reference = 1}).  Note that this transformation drops one
+     row or column from the transformed output data. The \code{alr}
+     transformation is defined formally as follows:
+     \deqn{alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}{log(x[i]/x[D), ..., log(x[-D]/x[D])}
+     where the denominator sample \eqn{x_D}{x[D]} can be chosen
+     arbitrarily. This transformation is often used with pH and other
+     chemistry measurenments. It is also commonly used as multinomial
+     logistic regression. Default \code{MARGIN = 1} uses row as the
+     \code{reference}.
 
      \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) reduces data skewness and compositionality bias.

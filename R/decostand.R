@@ -10,8 +10,8 @@
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank", "clr", "rclr", "alr")) {
-            warning("input data contains negative entries: result may be non-sense\n")
+                          "rrank", "clr", "rclr")) {
+            warning("input data contains negative entries: result may be non-sense")
         }
     }
     else k <- .Machine$double.eps
@@ -112,7 +112,7 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-          x <- .calc_alr(x, ...)
+            x <- .calc_alr(x, ...)
 	else x <- t(.calc_alr(t(x), ...))
     }, clr = {
         if (missing(MARGIN))
@@ -181,19 +181,26 @@
 }
 
 
-.calc_alr <- function (x, reference = 1, na.rm=TRUE, pseudocount=0) {
+.calc_alr <- function (x, reference = 1, na.rm = TRUE, pseudocount = 0)
+{
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
     if (any(x < 0, na.rm = na.rm)) {
-        stop("Abundance table contains negative values and ",
-             "alr-transformation is being applied without (suitable) ",
-             "pseudocount. \n")
+        stop("cannot be used with negative data: use pseudocount > ",
+             abs(max(x[x < 0], na.rm = na.rm)), call. = FALSE)
     }
-    if (reference > nrow(x))
-        stop("The reference should be a feature name, or index between 1 to", ncol(x))
+    ## name must be changed to numeric index for [-reference,] to work
+    if (is.character(reference)) {
+        reference <- which(reference == rownames(x))
+        if (!length(reference)) # found it?
+            stop("'reference' name was not found in data", call. = FALSE)
+    }
+    if (is.numeric(reference) && (reference > nrow(x) || reference < 1) )
+        stop("'reference' should be a name, or index 1 to ",
+             nrow(x), call. = FALSE)
     clog <- log(x)
-    clog[, -reference]-clog[, reference]
+    clog[-reference, ] - clog[reference, ]
 }
 
 `decobackstand` <-
