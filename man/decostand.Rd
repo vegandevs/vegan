@@ -78,8 +78,9 @@ wisconsin(x)
      (\code{reference = 1}).  Note that this transformation drops one
      row or column from the transformed output data. The \code{alr}
      transformation is defined formally as follows:
-     \deqn{alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}{log(x[i]/x[D), ..., log(x[-D]/x[D])}
-     where the denominator sample \eqn{x_D}{x[D]} can be chosen
+     \deqn{alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}{%
+       alr = [log(x_i/x_D), ..., log(x_{-D}/x_D)]}
+     where the denominator sample \eqn{x_D} can be chosen
      arbitrarily. This transformation is often used with pH and other
      chemistry measurenments. It is also commonly used as multinomial
      logistic regression. Default \code{MARGIN = 1} uses row as the
@@ -89,8 +90,8 @@ wisconsin(x)
      Aitchison (1986) reduces data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017).
-     \deqn{clr = log_{10}\frac{x_{r}}{g(x_{r})} = log_{10}x_{r} - log_{10}µ_{r}}{%
-     clr = log10(x_r/g(x_r)) = log10 x_r - log10 µ_r} ,
+     \deqn{clr = log\frac{x_{r}}{g(x_{r})} = log x_{r} - log µ_{r}}{%
+     clr = log(x_r/g(x_r)) = log x_r - log µ_r}
      where \eqn{x_{r}} is a single relative value, \eqn{g(x_{r})} is
      the geometric mean
      of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
@@ -98,8 +99,8 @@ wisconsin(x)
      a common way to deal with zeroes is to add pseudocount, either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{vegan::decostand(x, method="clr", pseudocount=1)}. Adding
-     pseudocount will inevitably introduce some bias in the data; see
+     \code{decostand(x, method="clr", pseudocount=1)}. Adding
+     pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for one available solution.
 
      \item \code{rclr}: robust clr ("rclr") is similar to regular clr
@@ -111,11 +112,11 @@ wisconsin(x)
      the geometric mean of rclr is a good approximation of the true
      geometric mean; see e.g. Martino et al. (2019)
      The \code{rclr} transformation is defined formally as follows:
-     \deqn{rclr = log_{10}\frac{x_{r}}{g(x_{r} > 0)}}{%
-     rclr = log10(x_r/g(x_r > 0))}
-     where \eqn{x_{r}} is a single relative value, and \eqn{g(x_{r} > 0)} is geometric 
-     mean of sample-wide relative values that are positive (over 0).
-     
+     \deqn{rclr = log\frac{x_{r}}{g(x_{r} > 0)}}{%
+     rclr = log(x_r/g(x_r > 0))}
+     where \eqn{x_{r}} is a single relative value, and \eqn{g(x_{r} > 0)}
+     is geometric  mean of sample-wide relative values that are positive
+     (over 0).
   }
   
   Standardization, as contrasted to transformation, means that the

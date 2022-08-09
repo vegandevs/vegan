@@ -7,10 +7,10 @@
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
                  "log", "clr", "rclr", "alr")
     method <- match.arg(method, METHODS)
-    if (any(x < 0, na.rm = na.rm)) {
-        k <- min(x, na.rm = na.rm)
+    if (any(x < 0, na.rm = TRUE)) {
+        k <- min(x, na.rm = TRUE)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank", "clr", "rclr")) {
+                          "rrank", "rclr")) {
             warning("input data contains negative entries: result may be non-sense")
         }
     }
@@ -137,16 +137,16 @@
     x
 }
 
-
-# Modified from the original version in mia R package
-.calc_clr <- function(x, pseudocount=0, na.rm=TRUE){
+## Modified from the original version in mia R package
+.calc_clr <-
+    function(x, pseudocount=0, na.rm = TRUE)
+{
     # Add pseudocount
     x <- x + pseudocount
     # Error with negative values
-    if (any(x <= 0, na.rm = TRUE)) {
-        stop("Abundance table contains zero or negative values and ",
-             "clr-transformation is being applied without (suitable) ",
-             "pseudocount. \n")
+    if (any(x <= 0, na.rm = na.rm)) {
+        stop("cannot be used with non-positive data: use pseudocount > ",
+             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     # In every sample, calculate the log of individual entries.
     # Then calculate
@@ -157,18 +157,19 @@
 }
 
 # Modified from the original version in mia R package
-.calc_rclr <- function(x, na.rm=TRUE){
+.calc_rclr <-
+    function(x, na.rm = TRUE)
+{
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
-        stop("Matrix has negative values but the
-              rclr transformation assumes non-negative values.\n")
+        stop("cannot be used with negative data" call. = FALSE)
     }
    # Log transform
    clog <- log(x)
    # Convert zeros to NAs in rclr
    clog[is.infinite(clog)] <- NA
    # Calculate mean for every sample, ignoring the NAs
-   mean_clog <- rowMeans(clog, na.rm = TRUE)
+   mean_clog <- rowMeans(clog, na.rm = na.rm)
    # Calculate geometric means per sample
    geom_mean <- exp(mean_clog)
    # Divide all values by their sample-wide geometric means
@@ -181,14 +182,15 @@
 }
 
 
-.calc_alr <- function (x, reference = 1, na.rm = TRUE, pseudocount = 0)
+.calc_alr <-
+    function (x, reference = 1, pseudocount = 0, na.rm = TRUE)
 {
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
     if (any(x < 0, na.rm = na.rm)) {
-        stop("cannot be used with negative data: add pseudocount > ",
-             abs(max(x[x < 0], na.rm = na.rm)), call. = FALSE)
+        stop("cannot be used with negative data: use pseudocount >= ",
+             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
