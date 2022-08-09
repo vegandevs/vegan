@@ -99,7 +99,7 @@ wisconsin(x)
      a common way to deal with zeroes is to add pseudocount, either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{decostand(x, method="clr", pseudocount=1)}. Adding
+     \code{decostand(x, method = "clr", pseudocount = 1)}. Adding
      pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for one available solution.
 

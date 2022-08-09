@@ -145,7 +145,7 @@
     x <- x + pseudocount
     # Error with negative values
     if (any(x <= 0, na.rm = na.rm)) {
-        stop("cannot be used with non-positive data: use pseudocount > ",
+        stop("'clr' cannot be used with non-positive data: use pseudocount > ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     # In every sample, calculate the log of individual entries.
@@ -162,7 +162,7 @@
 {
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
-        stop("cannot be used with negative data" call. = FALSE)
+        stop("'rclr' cannot be used with negative data", call. = FALSE)
     }
    # Log transform
    clog <- log(x)
@@ -189,7 +189,7 @@
     x <- x + pseudocount
     # If there is negative values, gives an error.
     if (any(x < 0, na.rm = na.rm)) {
-        stop("cannot be used with negative data: use pseudocount >= ",
+        stop("'alr' cannot be used with negative data: use pseudocount >= ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
