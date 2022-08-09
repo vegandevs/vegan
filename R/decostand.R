@@ -112,19 +112,19 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_alr(x, ...)
-	else x <- t(.calc_alr(t(x), ...))
+            x <- t(.calc_alr(t(x), ...))
+	else x <- .calc_alr(x, ...)
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-          x <- .calc_clr(x, ...)
+            x <- .calc_clr(x, ...)
 	else x <- t(.calc_clr(t(x), ...))
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-          x <- .calc_rclr(x, ...)
+            x <- .calc_rclr(x, ...)
 	else x <- t(.calc_rclr(t(x), ...))
     })
     if (any(is.nan(x)))
@@ -187,20 +187,20 @@
     x <- x + pseudocount
     # If there is negative values, gives an error.
     if (any(x < 0, na.rm = na.rm)) {
-        stop("cannot be used with negative data: use pseudocount > ",
+        stop("cannot be used with negative data: add pseudocount > ",
              abs(max(x[x < 0], na.rm = na.rm)), call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
-        reference <- which(reference == rownames(x))
+        reference <- which(reference == colnames(x))
         if (!length(reference)) # found it?
             stop("'reference' name was not found in data", call. = FALSE)
     }
-    if (is.numeric(reference) && (reference > nrow(x) || reference < 1) )
-        stop("'reference' should be a name, or index 1 to ",
-             nrow(x), call. = FALSE)
+    if (reference > ncol(x) || reference < 1)
+        stop("'reference' should be a name or index 1 to ",
+             ncol(x), call. = FALSE)
     clog <- log(x)
-    clog[-reference, ] - clog[reference, ]
+    clog[, -reference] - clog[, reference]
 }
 
 `decobackstand` <-
