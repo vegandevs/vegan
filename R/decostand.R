@@ -114,18 +114,24 @@
         if (MARGIN == 1)
             x <- t(.calc_alr(t(x), ...))
 	else x <- .calc_alr(x, ...)
+        attr <- attr(x, "parameters")
+        attr$margin <- MARGIN
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
             x <- .calc_clr(x, ...)
 	else x <- t(.calc_clr(t(x), ...))
+        attr <- attr(x, "parameters")
+        attr$margin <- MARGIN
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
             x <- .calc_rclr(x, ...)
 	else x <- t(.calc_rclr(t(x), ...))
+        attr <- attr(x, "parameters")
+        attr$margin <- MARGIN
     })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical
@@ -153,7 +159,11 @@
     # the sample-specific mean value and subtract every entries'
     # value with that.
     clog <- log(x)
-    clog - rowMeans(clog)
+    means <- rowMeans(clog)
+    clog <- clog - means
+    attr(clog, "parameters") <- list("means" = means,
+                                     "pseudocount" = pseudocount)
+    clog
 }
 
 # Modified from the original version in mia R package
@@ -168,16 +178,15 @@
    clog <- log(x)
    # Convert zeros to NAs in rclr
    clog[is.infinite(clog)] <- NA
-   # Calculate mean for every sample, ignoring the NAs
+   # Calculate log of geometric mean for every sample, ignoring the NAs
    mean_clog <- rowMeans(clog, na.rm = na.rm)
-   # Calculate geometric means per sample
-   geom_mean <- exp(mean_clog)
    # Divide all values by their sample-wide geometric means
    # Log and transpose back to original shape
-   xx <- log(x/geom_mean)
+   xx <- log(x) - mean_clog
    # If there were zeros, there are infinite values after logarithmic transform.
    # Convert those to zero.
    xx[is.infinite(xx)] <- 0
+   attr(xx, "parameters") <- list("means" = mean_clog)
    xx
 }
 
@@ -202,7 +211,12 @@
         stop("'reference' should be a name or index 1 to ",
              ncol(x), call. = FALSE)
     clog <- log(x)
-    clog[, -reference] - clog[, reference]
+    refvector <- clog[, reference]
+    clog <- clog[, -reference] - refvector
+    attr(clog, "parameters") <- list("reference" = refvector,
+                                     "index" = reference,
+                                     "pseudocount" = pseudocount)
+    clog
 }
 
 `decobackstand` <-
@@ -212,6 +226,8 @@
     if (is.null(method))
         stop("function can be used only with 'decostand' standardized data")
     para <- attr(x, "parameters")
+    if(is.null(para))
+        stop("object has no information to backtransform data")
     x <- switch(method,
                 "total" = sweep(x, para$margin, para$total, "*"),
                 "max" = sweep(x, para$margin, para$max, "*"),
@@ -228,6 +244,8 @@
                 "log" = { x[x > 0 & !is.na(x)] <-
                               para$logbase^(x[x > 0 & !is.na(x)] - 1)
                               x * para$minpos},
+                "clr" = exp(sweep(x, para$margin, para$means, "+")) -
+                    para$pseudocount,
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
                 stop("no back-transformation available for method ",
