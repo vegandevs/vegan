@@ -1,6 +1,6 @@
 
-R version 4.1.2 (2021-11-01) -- "Bird Hippie"
-Copyright (C) 2021 The R Foundation for Statistical Computing
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -2410,7 +2410,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin
+> ### Aliases: decostand wisconsin decobackstand
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -9204,7 +9204,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.732 0.275 9.018 0 0 
+Time elapsed:  10.653 0.413 11.114 0 0 
 > grDevices::dev.off()
 null device 
           1 
