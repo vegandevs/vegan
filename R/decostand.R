@@ -246,6 +246,8 @@
                               x * para$minpos},
                 "clr" = exp(sweep(x, para$margin, para$means, "+")) -
                     para$pseudocount,
+                "rclr" = { x[x == 0] <- -Inf # x==0 was set: should be safe
+                           exp(sweep(x, para$margin, para$means, "+"))},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
                 stop("no back-transformation available for method ",
