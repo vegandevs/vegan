@@ -67,10 +67,12 @@
         if (MARGIN == 1) # gives transposed x
             x <- t(x)
         x[is.na(x)] <- 0
+        attr <- list("margin" = MARGIN)
     }, rrank = {
         if (missing(MARGIN)) MARGIN <- 1
         x <- decostand(x, "rank", MARGIN = MARGIN)
         x <- sweep(x, MARGIN, specnumber(x, MARGIN = MARGIN), "/")
+        attr <- list("margin" = MARGIN)
     }, standardize = {
         if (!missing(MARGIN) && MARGIN == 1)
             x <- t(scale(t(x)))
@@ -226,7 +228,7 @@
     if (is.null(method))
         stop("function can be used only with 'decostand' standardized data")
     para <- attr(x, "parameters")
-    if(is.null(para))
+    if(is.null(para)) # for old results & "pa"
         stop("object has no information to backtransform data")
     x <- switch(method,
                 "total" = sweep(x, para$margin, para$total, "*"),
@@ -250,7 +252,7 @@
                            exp(sweep(x, para$margin, para$means, "+"))},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
-                stop("no back-transformation available for method ",
+                stop("no backtransformation available for method ",
                      sQuote(method))
                 )
     if (zap)
