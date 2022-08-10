@@ -58,13 +58,15 @@ methods for community ecologists.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">decostand</span><span class="op">(</span><span class="va">x</span>, <span class="va">method</span>, <span class="va">MARGIN</span>, <span class="va">range.global</span>, logbase <span class="op">=</span> <span class="fl">2</span>, na.rm<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="fu">wisconsin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">wisconsin</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">decobackstand</span><span class="op">(</span><span class="va">x</span>, zap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>Community data, a matrix-like object.</p></dd>
+<dd><p>Community data, a matrix-like object. For
+    <code>decobackstand</code> standardized data.</p></dd>
 
   <dt>method</dt>
 <dd><p>Standardization method. See Details for available options.</p></dd>
@@ -84,6 +86,10 @@ methods for community ecologists.</p>
 
   <dt>na.rm</dt>
 <dd><p>Ignore missing values in row or column standardizations.</p></dd>
+
+  <dt>zap</dt>
+<dd><p>Make near-zero values exact zeros to avoid negative
+    values and exaggerated estimates of species richness.</p></dd>
 
   <dt>...</dt>
 <dd><p>Other arguments to the function (ignored).</p></dd>
@@ -130,24 +136,24 @@ methods for community ecologists.</p>
      independently of distance indices.</p></li>
 <li><p><code>alr</code>: Additive log ratio ("alr") transformation
      (Aitchison 1986) reduces data skewness and compositionality
-     bias. The transformation assumes positive values, pseudocounts
-     can be added with the argument <code>pseudocount</code>. One of the
-     samples is a reference, this sample (name or index) can be given
-     by <code>reference</code>. The first sample is used by default
-     (<code>reference=1</code>).
-     Note that this transformation drops one
-     feature from the transformed output data. The <code>alr</code>
-     transformation is defined formally as follows: $$alr =
-     [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]$$, where the
-     denominator sample $$x_D$$ can be chosen arbitrarily. This
-     transformation is often used with pH and other chemistry
-     measurenments. It is also commonly used as multinomial logistic
-     regression.</p></li>
+     bias. The transformation assumes positive values, pseudocounts can
+     be added with the argument <code>pseudocount</code>. One of the
+     rows/columns is a reference that can be given by <code>reference</code>
+     (name of index). The first row/column is used by default
+     (<code>reference = 1</code>).  Note that this transformation drops one
+     row or column from the transformed output data. The <code>alr</code>
+     transformation is defined formally as follows:
+     $$alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]$$
+     where the denominator sample \(x_D\) can be chosen
+     arbitrarily. This transformation is often used with pH and other
+     chemistry measurenments. It is also commonly used as multinomial
+     logistic regression. Default <code>MARGIN = 1</code> uses row as the
+     <code>reference</code>.</p></li>
 <li><p><code>clr</code>: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) reduces data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017).
-     $$clr = log_{10}\frac{x_{r}}{g(x_{r})} = log_{10}x_{r} - log_{10}µ_{r}$$ ,
+     $$clr = log\frac{x_{r}}{g(x_{r})} = log x_{r} - log µ_{r}$$
      where \(x_{r}\) is a single relative value, \(g(x_{r})\) is
      the geometric mean
      of relative values per sample, and \(\mu_{r}\) is the arithmetic mean of 
@@ -155,8 +161,8 @@ methods for community ecologists.</p>
      a common way to deal with zeroes is to add pseudocount, either by
      adding it manually to the input data, or by using the argument
      <code>pseudocount</code> as in
-     <code>vegan::decostand(x, method="clr", pseudocount=1)</code>. Adding
-     pseudocount will inevitably introduce some bias in the data; see
+     <code>decostand(x, method = "clr", pseudocount = 1)</code>. Adding
+     pseudocount will inevitably introduce some bias; see
      the <code>rclr</code> method for one available solution.</p></li>
 <li><p><code>rclr</code>: robust clr ("rclr") is similar to regular clr
      (see above) but allows data that contains zeroes. This method
@@ -167,9 +173,10 @@ methods for community ecologists.</p>
      the geometric mean of rclr is a good approximation of the true
      geometric mean; see e.g. Martino et al. (2019)
      The <code>rclr</code> transformation is defined formally as follows:
-     $$rclr = log_{10}\frac{x_{r}}{g(x_{r} &gt; 0)}$$
-     where \(x_{r}\) is a single relative value, and \(g(x_{r} &gt; 0)\) is geometric 
-     mean of sample-wide relative values that are positive (over 0).</p></li>
+     $$rclr = log\frac{x_{r}}{g(x_{r} &gt; 0)}$$
+     where \(x_{r}\) is a single relative value, and \(g(x_{r} &gt; 0)\)
+     is geometric  mean of sample-wide relative values that are positive
+     (over 0).</p></li>
 </ul><p>Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.</p>
 <p>All methods have a default margin. <code>MARGIN=1</code> means rows (sites
@@ -184,6 +191,12 @@ methods for community ecologists.</p>
   data. If there are empty sites or species (or constant with
   <code>method =  "range"</code>), many standardization will change these into
   <code>NaN</code>.</p>
+<p>Function <code>decobackstand</code> can be used to transform standardized
+  data back to original. This is not possible for all standardization
+  and may not be implemented to all cases where it would be
+  possible. There are round-off errors and back-transformation is not
+  exact, and it is wise not to overwrite the original data. With
+  <code>zap=TRUE</code> original zeros should be exact.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -193,7 +206,8 @@ methods for community ecologists.</p>
 <p></p>
 <p><code>"decostand"</code> giving the name of applied standardization</p>
 <p></p>
-<p><code>"method"</code>.</p>
+<p><code>"method"</code> and attribute <code>"parameters"</code> with appropriate
+  transformation parameters.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

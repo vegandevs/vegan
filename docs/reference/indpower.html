@@ -139,12 +139,12 @@ of an indicator species. <em>Conservation Biology</em> 23: 1008--1016.</p>
 <span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">os</span><span class="op">$</span><span class="va">oecosimu</span><span class="op">$</span><span class="va">z</span></span></span>
 <span class="r-in"><span><span class="co">## p-value</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.311162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.880829</span>
 <span class="r-in"><span><span class="co">## 'heterogeneity' measure</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">chi2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">z</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 81.6173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 98.09192</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">pchisq</a></span><span class="op">(</span><span class="va">chi2</span>, df<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9999996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span><span class="co">## Halme et al.'s suggested output</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>TIP<span class="op">=</span><span class="va">TIP</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, </span></span>
 <span class="r-in"><span>    significance<span class="op">=</span><span class="va">p</span>,</span></span>
@@ -153,7 +153,7 @@ of an indicator species. <em>Conservation Biology</em> 23: 1008--1016.</p>
 <span class="r-in"><span>    varIP<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="fu">fun</span><span class="op">(</span><span class="va">dune</span>, i<span class="op">=</span><span class="va">i</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">out</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TIP.i.Achimill   significance  heterogeneity          minIP          varIP </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.3186250     -1.3111621     81.6173049      0.0000000      0.2142097 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.3186250     -1.8808291     98.0919151      0.0000000      0.2142097 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
