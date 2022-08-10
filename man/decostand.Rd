@@ -2,6 +2,7 @@
 \name{decostand}
 \alias{decostand}
 \alias{wisconsin}
+\alias{decobackstand}
 
 \title{Standardization Methods for Community Ecology}
 \description{
@@ -11,10 +12,12 @@ methods for community ecologists.
 \usage{
 decostand(x, method, MARGIN, range.global, logbase = 2, na.rm=FALSE, ...)
 wisconsin(x)
+decobackstand(x, zap = TRUE)
 }
 
 \arguments{
-  \item{x}{Community data, a matrix-like object.}
+  \item{x}{Community data, a matrix-like object. For
+    \code{decobackstand} standardized data. }
   \item{method}{Standardization method. See Details for available options.}
   \item{MARGIN}{Margin, if default is not acceptable. \code{1} = rows,
     and \code{2} = columns of \code{x}.}
@@ -24,6 +27,8 @@ wisconsin(x)
     \code{x}. }
   \item{logbase}{The logarithm base used in \code{method = "log"}.}
   \item{na.rm}{Ignore missing values in row or column standardizations.}
+  \item{zap}{Make near-zero values exact zeros to avoid negative
+    values and exaggerated estimates of species richness.}
   \item{\dots}{Other arguments to the function (ignored).}
 }
 \details{
@@ -135,13 +140,22 @@ wisconsin(x)
   negative data entries that normally should not occur in the community
   data. If there are empty sites or species (or constant with
   \code{method =  "range"}), many standardization will change these into
-  \code{NaN}.  
+  \code{NaN}.
+
+  Function \code{decobackstand} can be used to transform standardized
+  data back to original. This is not possible for all standardization
+  and may not be implemented to all cases where it would be
+  possible. There are round-off errors and back-transformation is not
+  exact, and it is wise not to overwrite the original data. With
+  \code{zap=TRUE} original zeros should be exact.
 }
+
 \value{
   Returns the standardized data frame, and adds an attribute
   \code{"decostand"} giving the name of applied standardization
-  \code{"method"}.
-}
+  \code{"method"} and attribute \code{"parameters"} with appropriate
+  transformation parameters.  }
+
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
   (\code{method = "log"}), Leo Lahti (\code{alr}, 
   \code{"clr"} and \code{"rclr"}).}
