@@ -36,15 +36,16 @@
       \code{screeplot} methods for \code{decorana}. Axis lengths are
       reported for all \code{decorana} methods.
 
-      \item Implemented \code{tolerance} method for
-      \code{decorana}. This returns for sites the criterion that was
-      used in rescaling DCA, and can be used to inspect the success of
-      detrending: it should be constant 1 over the whole axis.
+      \item Implemented \code{tolerance} method for \code{decorana}.
+      This returns the criterion that was used in rescaling DCA, and
+      can be used to inspect the success of rescaling: it should be
+      constant 1 over the whole axis.
 
       \item New \code{toCoda} function to transform sequential null
-      model objects from \code{oecosimu} to an object that can be
-      analysed with \CRANpkg{coda} as an MCMC model. Function will
-      replace \code{as.mcmc.oecosimu} and \code{as.mcmc.permat}.
+      model results from \code{oecosimu} to an object that can be
+      analysed with \CRANpkg{coda} for convergence and independence as
+      an MCMC model. Function replaces \code{as.mcmc.oecosimu} and
+      \code{as.mcmc.permat}.
 
       \item \code{metaMDS} is more informative about finding similar
       repeated results with random starts and uses less confusing
@@ -58,7 +59,7 @@
       is 1, but \eqn{\sqrt{2}}{sqrt(2)} for Chord and Hellinger
       distances, for instance. The attribute is \code{NA} for open
       indices that do not have such a ceiling. \code{betadiver} has
-      three similarity indices which set \code{maxdist} 0.
+      three similarity indices and these set \code{maxdist} 0.
 
       \item \code{metaMDS} defaults to halfchange scaling when the
       dissimilarities have a numeric \code{maxdist} attribute, and
@@ -76,10 +77,9 @@
 
       \item \code{hatvalues} of constrained ordination objects can
       sometimes be practically 1 or above 1, but now these cases will
-      be given as exactly 1. In those cases \code{rstandard},
-      \code{rstudent} and \code{cooks.distance} will be
-      \code{NaN}. The behaviour is similar as in
-      \code{stats::lm.influence} functions.
+      be exactly 1. In those cases \code{rstandard}, \code{rstudent}
+      and \code{cooks.distance} will be \code{NaN}. The behaviour is
+      similar as in \code{stats::lm.influence} functions.
 
       \item \code{as.rad} can handle multi-row data frames or matrices
       and return a list of Rank-Abundance data for each row. Earlier
@@ -92,7 +92,8 @@
       but has round-off errors, although there is an attempt to keep
       original zeros exact. Back-transformation is not possible for
       methods \code{pa}, \code{rank} and \code{rrank} and it is not
-      implemented for \code{alr}, and not guaranteed in \code{rclr}.
+      implemented for \code{alr}. Back-transformation queried in
+      \url{https://stackoverflow.com/questions/73263526/}
 
     } % itemize
   } % new features
