@@ -7,6 +7,15 @@
   \subsection{NEW FEATURES}{
     \itemize{
 
+      \item Support of \code{scores} for \CRANpkg{ggplot2} graphics is
+      improved and extended for ordination functions. Suitable scores
+      can be requested with argument \code{tidy = TRUE}, and in
+      general all available types of scores are returned in a data
+      frame with variable \code{score} labelling the type. The option
+      was implemented in default method of \code{scores} and for
+      structured \code{wcmdscale} objects, and glitches were fixed for
+      \code{rda} family and \code{decorana}.
+
       \item \code{adonis2} and \code{anova} for constrained ordination
       results can perform a sequential test of one-degree-of-freedom
       effects where multi-level factors are split to their
@@ -18,15 +27,14 @@
       variation for each set of variables. The fractions shared by
       several sets of variables are divided equally with all
       contributing sets following Lai J, Zou Y, Zhang J, Peres-Neto P
-      (2022). Generalizing hierarchical and variation partitioning in
-      multiple regression and canonical analysis using the rdacca.hp R
-      package. Methods in Ecology and Evolution, 13: 782--788.
+      (2022) \emph{Methods in Ecology and Evolution}, 13: 782--788.
 
       \item \code{decorana} estimates orthogonalized eigenvalues and
       the total inertia (scaled Chi-square). Orthogonalized
       eigenvalues can add up to the total inertia. Together these
-      enable implementing \code{eigenvals}, \code{bstick} and
-      \code{screeplot} methods for \code{decorana}.
+      enabled implementing \code{eigenvals}, \code{bstick} and
+      \code{screeplot} methods for \code{decorana}. Axis lengths are
+      reported for all \code{decorana} methods.
 
       \item Implemented \code{tolerance} method for
       \code{decorana}. This returns for sites the criterion that was
@@ -63,21 +71,12 @@
       ceiling.
 
       \item Mountford index in \code{vegdist} is now scaled to maximum
-      value log(2). Earlier Mountford distances were divided by log(2)
-      to give maximum 1.
-
-      \item The support of scores for \CRANpkg{ggplot2} graphics is
-      improved and extended for ordination functions. Suitable scores
-      can be requested with argument \code{tidy = TRUE}, and in
-      general all available types of scores are returned in a data
-      frame with variable \code{score} labelling the type. The option
-      was implemented in default method of \code{scores} and for
-      structured \code{wcmdscale} objects, and glitches were fixed for
-      \code{rda} family and \code{decorana}.
+      value \eqn{\log 2}{log(2)}. Earlier Mountford distances were
+      scaled to maximum 1.
 
       \item \code{hatvalues} of constrained ordination objects can
-      sometimes be practically 1 or above 1, and in these cases they
-      will be given as exactly 1. In those cases \code{rstandard},
+      sometimes be practically 1 or above 1, but now these cases will
+      be given as exactly 1. In those cases \code{rstandard},
       \code{rstudent} and \code{cooks.distance} will be
       \code{NaN}. The behaviour is similar as in
       \code{stats::lm.influence} functions.
@@ -85,6 +84,15 @@
       \item \code{as.rad} can handle multi-row data frames or matrices
       and return a list of Rank-Abundance data for each row. Earlier
       only one site was handled.
+
+      \item \code{decostand} returns attribute \code{parameters} of
+      settings and variables used in standardization. New function
+      \code{decobackstand} can use \code{parameters} to reconstruct
+      original non-standardized data. Back-transformation is not exact
+      but has round-off errors, although there is an attempt to keep
+      original zeros exact. Back-transformation is not possible for
+      methods \code{pa}, \code{rank} and \code{rrank} and it is not
+      implemented for \code{alr}, and not guaranteed in \code{rclr}.
 
     } % itemize
   } % new features
@@ -102,6 +110,9 @@
 
       \item \code{tolerance.cca} failed when only one axis
       (\code{choice}) was requested.
+
+      \item \code{decostand(..., method="alr")} did not accept name as
+      a \code{reference}, and could fail in some cases.
 
     } %itemize
   } %bugs
