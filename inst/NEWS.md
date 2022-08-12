@@ -58,7 +58,7 @@
 
 * `vegdist`, `betadiver` and `raupcrick` set attribute `maxdist` giving
   the numeric value of theoretical maximum of the dissimilarity index.
-  For many dissimilarities this is 1, but `\sqrt{2}` for Chord and
+  For many dissimilarities this is 1, but `sqrt{2}` for Chord and
   Hellinger distances, for instance. The attribute is `NA` for open
   indices that do not have such a ceiling. `betadiver` has three
   similarity indices and these set `maxdist` 0\.
@@ -71,7 +71,7 @@
   maximum values. If such inference is made, the function will broadcast
   a message of assumed value of the ceiling.
 
-* Mountford index in `vegdist` is now scaled to maximum value `\log 2`.
+* Mountford index in `vegdist` is now scaled to maximum value `log 2`.
   Earlier Mountford distances were scaled to maximum 1\.
 
 * `hatvalues` of constrained ordination objects can sometimes be
@@ -611,8 +611,8 @@
 #### NEW FEATURES IN NULL MODEL COMMUNITIES
 
 * The C code for swap-based binary null models was made more efficients,
-  and the models are all faster. Many of these models selected a `2
-  \times 2` submatrix, and for this they generated four random numbers
+  and the models are all faster. Many of these models selected a 2
+  times 2 submatrix, and for this they generated four random numbers
   (two rows, two columns). Now we skip selecting third or fourth random
   number if it is obvious that the matrix cannot be swapped. Since most
   of time was used in generating random numbers in these functions, and
@@ -1727,7 +1727,7 @@
 #### NEW FEATURES
 
 * The Kempton and Taylor algorithm was found unreliable in `fisherfit`
-  and `fisher.alpha`, and now the estimation of Fisher `\alpha` is only
+  and `fisher.alpha`, and now the estimation of Fisher `alpha` is only
   based on the number of species and the number of individuals. The
   estimation of standard errors and profile confidence intervals also
   had to be scrapped.
@@ -1888,9 +1888,9 @@
 * `orditorp()` gained argument `select` to select the rows or columns of
   the results to display.
 
-* `protest()` prints the standardized residual statistic `m_{12}^2` in
-  addition to the squared Procrustes correlation `R^2`. Both were
-  calculated, but only the latter was displayed.
+* `protest()` prints the standardized residual statistic squared m12
+  in addition to the squared Procrustes correlation R-squared. Both
+  were calculated, but only the latter was displayed.
   
   Permutation tests are much faster in `protest()`. Instead of calling
   repeatedly `procrustes()`, the goodness of fit statistic is evaluated
@@ -2174,7 +2174,7 @@
   `previous.best` solution from a different model.
 
 * Function `permatswap` for community null models using quantitative
-  swap never swapped items in a `2 \times 2` submatrix if all cells were
+  swap never swapped items in a 2x2 submatrix if all cells were
   filled.
 
 * The result from `permutest.cca` could not be `update`d because of a
