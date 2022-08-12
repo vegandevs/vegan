@@ -58,7 +58,7 @@
 
 * `vegdist`, `betadiver` and `raupcrick` set attribute `maxdist` giving
   the numeric value of theoretical maximum of the dissimilarity index.
-  For many dissimilarities this is 1, but `sqrt{2}` for Chord and
+  For many dissimilarities this is 1, but sqrt(2) for Chord and
   Hellinger distances, for instance. The attribute is `NA` for open
   indices that do not have such a ceiling. `betadiver` has three
   similarity indices and these set `maxdist` 0\.
@@ -71,7 +71,7 @@
   maximum values. If such inference is made, the function will broadcast
   a message of assumed value of the ceiling.
 
-* Mountford index in `vegdist` is now scaled to maximum value `log 2`.
+* Mountford index in `vegdist` is now scaled to maximum value log(2).
   Earlier Mountford distances were scaled to maximum 1\.
 
 * `hatvalues` of constrained ordination objects can sometimes be
