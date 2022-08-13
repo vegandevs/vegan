@@ -1,12 +1,3 @@
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">NEWS</td>
-<td align="left">R Documentation</td>
-</tr>
-</tbody>
-</table>
-
 ## vegan News
 
 ### Changes in version 2\.6-3
@@ -37,8 +28,9 @@
 * `decorana` estimates orthogonalized eigenvalues and the total inertia
   (scaled Chi-square). Orthogonalized eigenvalues can add up to the
   total inertia. Together these enabled implementing `eigenvals`,
-  `bstick` and `screeplot` methods for `decorana`. Axis lengths are
-  reported for all `decorana` methods.
+  `bstick` and `screeplot` methods for `decorana`.
+
+  Axis lengths are reported for all `decorana` methods.
 
 * Implemented `tolerance` method for `decorana`. This returns the
   criterion that was used in rescaling DCA, and can be used to inspect
@@ -58,7 +50,7 @@
 
 * `vegdist`, `betadiver` and `raupcrick` set attribute `maxdist` giving
   the numeric value of theoretical maximum of the dissimilarity index.
-  For many dissimilarities this is 1, but sqrt(2) for Chord and
+  For many dissimilarities this is 1, but &radic;2 for Chord and
   Hellinger distances, for instance. The attribute is `NA` for open
   indices that do not have such a ceiling. `betadiver` has three
   similarity indices and these set `maxdist` 0\.
@@ -165,7 +157,7 @@
   [\#427](https://github.com/vegandevs/vegan/issues/427).
 
 * Fisher alpha (`fisherfit`) is badly suited for extreme communities
-  that do not fit Fisher's model. Now `fisherfit` returns `NA` to
+  that do not follow Fisher's model. Now `fisherfit` returns `NA` to
   communities that have 0 or 1 species, and issues a warning with
   communities consisting of singletons and having extreme Fisher alpha.
 
@@ -364,7 +356,7 @@
 
 #### NEW FEATURES
 
-* Adjusted `R^2` is enabled for partial RDA models (functions `rda` and
+* Adjusted _R_<sup>2</sup> is enabled for partial RDA models (functions `rda` and
   `dbrda`) and partial CCA models (function `cca`) in function
   `RsquareAdj`. The feature was disabled in vegan 2\.5-1 for both. For
   RDA, the calculation is similar as in vegan 2\.4-6 and earlier.
@@ -584,7 +576,7 @@
 * `summary.eigenvals` returns a matrix instead of a list containing only
   that matrix.
 
-* Adjusted `R^2` is not calculated for partial ordination, because it is
+* Adjusted _R_<sup>2</sup> is not calculated for partial ordination, because it is
   unclear how this should be done (function `RsquareAdj`).
 
 * `ordiresids` can display standardized and studentized residuals.
@@ -634,7 +626,7 @@
 
 #### NEW FEATURES IN OTHER FUNCTIONS
 
-* `adonis2` gained a column of `R^2` similarly as old `adonis`.
+* `adonis2` gained a column of _R_<sup>2</sup> similarly as old `adonis`.
 
 * Great part of **R** code for `decorana` is written in C which makes it
   faster and reduces the memory footprint.
@@ -685,10 +677,10 @@
   integers for numerical analysis instead of returning characters for
   printing.
 
-* `varpart` can partition `\chi^2` inertia of correspondence analysis
-  with new argument `chisquare`. The adjusted `R^2` is based on
-  permutation tests, and the replicate analysis will have random
-  variation.
+* `varpart` can partition Chi-squared inertia of correspondence
+  analysis with new argument `chisquare`. The adjusted _R_<sup>2</sup>
+  is based on permutation tests, and the replicate analysis will have
+  random variation.
 
 * The explanatory tables can be data frames with factors or single
   factors in `varpart` and these will be automatically expanded to model
@@ -1727,7 +1719,7 @@
 #### NEW FEATURES
 
 * The Kempton and Taylor algorithm was found unreliable in `fisherfit`
-  and `fisher.alpha`, and now the estimation of Fisher `alpha` is only
+  and `fisher.alpha`, and now the estimation of Fisher &alpha; is only
   based on the number of species and the number of individuals. The
   estimation of standard errors and profile confidence intervals also
   had to be scrapped.
@@ -1879,7 +1871,7 @@
 
 * `ordiR2step()` gained new argument `R2scope` (defaults `TRUE`) which
   can be used to turn off the criterion of stopping when the adjusted
-  `R^2` of the current model exceeds that of the scope. This option
+  _R_<sup>2</sup> of the current model exceeds that of the scope. This option
   allows model building when the `scope` would be overdetermined (number
   of predictors higher than number of observations).
   
@@ -1889,7 +1881,7 @@
   the results to display.
 
 * `protest()` prints the standardized residual statistic squared m12
-  in addition to the squared Procrustes correlation R-squared. Both
+  in addition to the squared Procrustes correlation _R_<sup>2</sup>. Both
   were calculated, but only the latter was displayed.
   
   Permutation tests are much faster in `protest()`. Instead of calling
@@ -2093,10 +2085,10 @@
 * `oecosimu` displays the mean of simulations and describes alternative
   hypothesis more clearly in the printed output.
 
-* Implemented adjusted `R^2` for partial RDA. For partial model `rda(Y ~
+* Implemented adjusted _R_<sup>2</sup> for partial RDA. For partial model `rda(Y ~
   X1 + Condition(X2))` this is the same as the component `[a] = X1|X2`
   in variance partition in `varpart` and describes the marginal (unique)
-  effect of constraining term to adjusted `R^2`.
+  effect of constraining term to adjusted _R_<sup>2</sup>.
 
 * Added Cao dissimilarity (CYd) as a new dissimilarity method in
   `vegdist` following Cao et al., *Water Envir Res* 69, 95–106 (1997\).
