@@ -1,5 +1,5 @@
 `ordiarrows` <-
-    function (ord, groups, levels, replicates, order.by, 
+    function (ord, groups, levels, replicates, order.by,
               display = "sites", col = 1, show.groups, startmark,
               label = FALSE, length = 0.1, ...)
 {
@@ -31,6 +31,12 @@
         gr <- out[groups == is]
         if (length(gr) > 1) {
             X <- pts[gr, , drop = FALSE]
+            ## zero length arrows will give warning and miss arrowhead
+            nonzeroarrow <- rowSums(diff(X)^2) > 100*sqrt(.Machine$double.eps)
+            if (!all(nonzeroarrow))
+                X <- X[c(TRUE, nonzeroarrow),, drop=FALSE]
+            if (nrow(X) < 2)
+                next
             X0 <- X[-nrow(X), , drop = FALSE]
             X1 <- X[-1, , drop = FALSE]
             nseg <- nrow(X0)
