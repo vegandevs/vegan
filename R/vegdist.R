@@ -11,7 +11,7 @@
                  "kulczynski", "gower", "morisita", "horn", #8
                  "mountford", "jaccard", "raup", "binomial", "chao", #13
                  "altGower", "cao", "mahalanobis", "clark", "chisq", "chord", #19
-		 "Aitchison", "rAitchison") # 21
+		 "Aitchison", "rAitchison", "yueclayton") # 22
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
@@ -51,6 +51,8 @@
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
     if (method == 21)  # rAitchison
         x <- decostand(x, "rclr") # No pseudocount for rclr
+    if (method == 22)  # yueclayton
+        x <- decostand(x, "yueclayton") 
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)

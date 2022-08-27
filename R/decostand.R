@@ -5,12 +5,12 @@
     x <- as.matrix(x)
     METHODS <- c("total", "max", "frequency", "normalize", "range", "rank",
                  "rrank", "standardize", "pa", "chi.square", "hellinger",
-                 "log", "clr", "rclr", "alr", "ilr")
+                 "log", "clr", "rclr", "alr", "ilr", "yueclayton")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = na.rm)) {
         k <- min(x, na.rm = na.rm)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
-                          "rrank", "clr", "rclr", "alr", "ilr")) {
+                          "rrank", "clr", "rclr", "alr", "ilr", "yueclayton")) {
             warning("input data contains negative entries: result may be non-sense\n")
         }
     }
