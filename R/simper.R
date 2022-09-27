@@ -18,7 +18,7 @@
     rs <- rowSums(comm)
     rs <- outer(rs, rs, "+")[tri]
     spcontr <- sapply(seq_len(ncol(comm)),
-                      function(i) vegdist(comm[,i,drop=FALSE], "man"))
+        function(i) as.vector(vegdist(comm[, i, drop = FALSE], "man")))
     ## Bray-Curtis
     spcontr <- sweep(spcontr, 1, rs, "/")
     colnames(spcontr) <- colnames(comm)
