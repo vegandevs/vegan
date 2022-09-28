@@ -186,8 +186,8 @@ TukeyHSD.betadisper creates a set of confidence intervals on
     the number of groups.</p></dd>
 
   <dt>col</dt>
-<dd><p>colors for the plot symbols for the groups, a vector of
-    length equal to the number of groups.</p></dd>
+<dd><p>colors for the plot symbols and centroid labels for the groups,
+    a vector of length equal to the number of groups.</p></dd>
 
   <dt>lty, lwd</dt>
 <dd><p>linetype, linewidth for convex hulls and confidence
@@ -457,7 +457,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.03 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.04 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -465,7 +465,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pairwise comparisons:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Observed p-value below diagonal, permuted p-value above diagonal)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           grazed ungrazed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed 0.04295         </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Tukey's Honest Significant Differences</span></span></span>
@@ -493,13 +493,18 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span>, conf <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span> <span class="co"># 90% data ellipse</span></span></span>
 <span class="r-plt img"><img src="betadisper-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot with manual colour specification</span></span></span>
+<span class="r-in"><span><span class="va">my_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1b9e77"</span>, <span class="st">"#7570b3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, col <span class="op">=</span> <span class="va">my_cols</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>,<span class="fl">17</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-5.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## can also specify which axes to plot, ordering respected</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, seg.col <span class="op">=</span> <span class="st">"forestgreen"</span>, seg.lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="betadisper-5.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="betadisper-6.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Draw a boxplot of the distances to centroid for each group</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="betadisper-6.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="betadisper-7.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## `scores` and `eigenvals` also work</span></span></span>
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -573,7 +578,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.06 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -646,11 +651,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.09 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99    0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -659,11 +662,11 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979  2.4237 0.1369</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495               </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="betadisper-7.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-8.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-9.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-10.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Using group centroids</span></span></span>
 <span class="r-in"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span>, type <span class="op">=</span> <span class="st">"centroid"</span><span class="op">)</span></span></span>
@@ -706,11 +709,11 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="betadisper-10.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-11.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-12.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-13.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
