@@ -30,7 +30,7 @@
   total inertia. Together these enabled implementing `eigenvals`,
   `bstick` and `screeplot` methods for `decorana`.
 
-  Axis lengths are reported for all `decorana` methods.
+* Axis lengths are reported for all `decorana` methods.
 
 * Implemented `tolerance` method for `decorana`. This returns the
   criterion that was used in rescaling DCA, and can be used to inspect
@@ -84,6 +84,9 @@
   implemented for `alr`. Back-transformation queried in
   <https://stackoverflow.com/questions/73263526/>
 
+* `betadisper` plots accept `col` argument
+  ([PR \#300](https://github.com/vegandevs/vegan/pull/300)).
+
 #### BUG FIXES
 
 * `decorana` returned wrong results when Hill's piecewise transformation
@@ -98,6 +101,10 @@
 
 * `decostand(..., method="alr")` did not accept name as a `reference`,
   and could fail in some cases.
+
+* CRAN package **proxy** interfered with `simper` and caused an
+  obscure error (github issue
+  [\#528](https://github.com/vegandevs/vegan/issues/528)).
 
 #### DEPRECATED AND DEFUNCT
 
