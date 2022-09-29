@@ -5,13 +5,15 @@
 #### NEW FEATURES
 
 * Support of `scores` for
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2) graphics is
+  [**ggplot2**](https://CRAN.R-project.org/package=ggplot2) graphics is
   improved and extended for ordination functions. Suitable scores can be
   requested with argument `tidy = TRUE`, and in general all available
   types of scores are returned in a data frame with variable `score`
   labelling the type. The option was implemented in default method of
   `scores` and for structured `wcmdscale` objects, and glitches were
-  fixed for `rda` family and `decorana`.
+  fixed for `rda` family and `decorana`. Previously `tidy` scores were
+  implemented for `cca`, `rda`, `dbrda` family of methods, `metaMDS`,
+  `envfit` and `rarecurve`.
 
 * `adonis2` and `anova` for constrained ordination results can perform a
   sequential test of one-degree-of-freedom effects where multi-level
@@ -36,11 +38,11 @@
   criterion that was used in rescaling DCA, and can be used to inspect
   the success of rescaling: it should be constant 1 over the whole axis.
 
-* New `toCoda` function to transform sequential null model results from
-  `oecosimu` to an object that can be analysed with
-  [coda](https://CRAN.R-project.org/package=coda) for convergence and
-  independence as an MCMC model. Function replaces `as.mcmc.oecosimu`
-  and `as.mcmc.permat`.
+* New `toCoda` function to transform sequential null model results
+  from `oecosimu` to an object that can be analysed with
+  [**coda**](https://CRAN.R-project.org/package=coda) for convergence
+  and independence as an MCMC model. Function replaces
+  `as.mcmc.oecosimu` and `as.mcmc.permat`.
 
 * `metaMDS` is more informative about finding similar repeated results
   with random starts and uses less confusing language when reporting the
@@ -108,7 +110,7 @@
 
 #### DEPRECATED AND DEFUNCT
 
-* `adonis` is finally deprecated. Use `adonis2` instead.
+* `adonis` is on way to deprecation. Use `adonis2` instead.
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` were deprecated: these could
   not be used as S3 methods without depending on coda package. Use
