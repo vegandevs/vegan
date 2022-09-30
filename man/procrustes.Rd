@@ -196,6 +196,7 @@ alternative to \code{protest} without need of dimension reduction. See
 permutation required.} 
 
 \examples{
+## IGNORE_RDIFF_BEGIN
 data(varespec)
 vare.dist <- vegdist(wisconsin(varespec))
 mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
@@ -206,6 +207,7 @@ summary(vare.proc)
 plot(vare.proc)
 plot(vare.proc, kind=2)
 residuals(vare.proc)
+## IGNORE_RDIFF_END
 }
 \keyword{multivariate }
 \keyword{htest}

@@ -279,7 +279,9 @@ ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
 ## Cover of Cladina arbuscula
 fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 ## Get fitted values
+## IGNORE_RDIFF_BEGIN
 calibrate(fit)
+## IGNORE_RDIFF_END
 
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
