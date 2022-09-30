@@ -1657,8 +1657,7 @@
   equation](https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB)
   for variance.
   
-  With these changes these functions are more similar to
-  [EstimateS](https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB).
+  With these changes these functions are more similar to **EstimateS**
 
 * `tabasco` uses now `reorder.hclust` for `hclust` object for better
   ordering than previously when it cast trees to `dendrogram` objects.
