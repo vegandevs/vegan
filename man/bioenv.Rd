@@ -140,7 +140,9 @@ data(varespec)
 data(varechem)
 sol <- bioenv(wisconsin(varespec) ~ log(N) + P + K + Ca + pH + Al, varechem)
 sol
+## IGNORE_RDIFF_BEGIN
 summary(sol)
+## IGNORE_RDIFF_END
 }
 \keyword{ multivariate }
 

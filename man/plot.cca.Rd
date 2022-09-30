@@ -221,8 +221,11 @@ pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-## Limited output of 'summary'
+## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
+## when the command is run repeatedly).
+## IGNORE_RDIFF_BEGIN
 head(summary(mod), tail=2)
+## IGNORE_RDIFF_END
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)

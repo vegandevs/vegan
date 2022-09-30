@@ -155,8 +155,10 @@ vif.cca(mod)
 alias(mod)
 with(dune.env, table(Management, Manure))
 # The standard correlations (not recommended)
+## IGNORE_RDIFF_BEGIN
 spenvcor(mod)
 intersetcor(mod)
+## IGNORE_RDIFF_END
 }
 \keyword{ multivariate }
 

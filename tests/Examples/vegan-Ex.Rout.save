@@ -1682,6 +1682,7 @@ Best model has 3 parameters (max. 6 allowed):
 P Ca Al
 with correlation  0.4004806 
 
+> ## IGNORE_RDIFF_BEGIN
 > summary(sol)
                     size correlation
 P                      1      0.2516
@@ -1690,6 +1691,7 @@ P Ca Al                3      0.4005
 P Ca pH Al             4      0.3619
 log(N) P Ca pH Al      5      0.3216
 log(N) P K Ca pH Al    6      0.2822
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -3324,6 +3326,7 @@ Management 0 1 2 3 4
         NM 6 0 0 0 0
         SF 0 0 1 2 3
 > # The standard correlations (not recommended)
+> ## IGNORE_RDIFF_BEGIN
 > spenvcor(mod)
      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 
 0.9636709 0.9487249 0.9330741 0.8734876 0.9373716 0.8362687 0.9748793 0.8392720 
@@ -3372,6 +3375,7 @@ Manure.L     -0.02396993 -0.13049087
 Manure.Q     -0.12987366 -0.07137031
 Manure.C     -0.05176927  0.41550238
 Manure^4      0.41603287 -0.01661279
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -5046,6 +5050,7 @@ checkerboards      2767 0.36404 2732.4 2585.0 2710.0  3007     0.57
 +    thin=10, burnin=100), simplify = FALSE)
 > ## nm is now a list of nullmodels: use smbind to combine these into one
 > ## nullmodel with several chains
+> ## IGNORE_RDIFF_BEGIN
 > nm <- smbind(nm, MARGIN = 3)
 > nm
 An object of class “simmat” 
@@ -5068,6 +5073,7 @@ C-score (species mean): 2.258776
 
               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
 checkerboards      2767 0.89035 2696.7 2567.3 2691.0  2879    0.369
+> ## IGNORE_RDIFF_END
 > ## After this you can use toCoda() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
@@ -6246,7 +6252,9 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 > with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-> ## Limited output of 'summary'
+> ## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
+> ## when the command is run repeatedly).
+> ## IGNORE_RDIFF_BEGIN
 > head(summary(mod), tail=2)
 
 Call:
@@ -6352,6 +6360,7 @@ ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
 ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
 ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 
+> ## IGNORE_RDIFF_END
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -6382,7 +6391,9 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 > dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ditch <- gl(12, 1, length=132)
-> # PRC
+> 
+> ## IGNORE_RDIFF_BEGIN
+> ## PRC
 > mod <- prc(pyrifos, dose, week)
 > mod            # RDA
 Call: prc(response = pyrifos, treatment = dose, time = week)
@@ -6476,6 +6487,7 @@ rows are dose, columns are week
 44  0.10672 0.05739
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
+> ## IGNORE_RDIFF_END
 > ## Ditches are randomized, we have a time series, and are only
 > ## interested in the first axis
 > ctrl <- how(plots = Plots(strata = ditch,type = "free"),
@@ -9183,7 +9195,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.947 0.252 8.214 0 0 
+Time elapsed:  7.907 0.233 8.156 0 0 
 > grDevices::dev.off()
 null device 
           1 
