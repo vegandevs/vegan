@@ -20,7 +20,7 @@
         # samples that do not meet the threshold.
         inputcast <- suppressWarnings(rrarefy(inputcast, sample = sample))
         # Remove those that did not meet the depth cutoff
-        inputcast <- inputcast[c(rowSums(inputcast) >= sample),]
+        inputcast <- inputcast[c(rowSums(inputcast) >= sample), ]
         if (!is.null(transf)) {
             inputcast <- transf(inputcast)
         }
@@ -40,12 +40,11 @@
     # Set the names on the matrix
     colnames(output) <- rownames(output) <- rnames
     # Print any samples that were removed, if they were removed
-    if (nrow(x) != nrow(output)) {
-        dropsamples <- setdiff(row.names(inputcast), row.names(output))
-        warning(
-            gettextf(
-                "The following sampling units were removed because they were below sampling depth: %s",
-                paste(dropsamples, collapse = ", ")))
+    dropsamples <- setdiff(row.names(inputcast), row.names(output))
+    if (length(dropsamples) > 0L) {
+        warning(gettextf(
+            "The following sampling units were removed because they were below sampling depth: %s",
+                         paste(dropsamples, collapse = ", ")))
     }
     output <- as.dist(output, diag = TRUE, upper = TRUE)
     attr(output, "call") <- match.call()
