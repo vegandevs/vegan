@@ -330,7 +330,8 @@ permutation required.</p></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mds.null</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mds.alt</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
@@ -381,6 +382,7 @@ permutation required.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.7773604 0.3075051 0.2833167 0.1749943 0.2684784 0.5167965 0.9747233 0.2437827 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         3         4         2         9        12        10        11        21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.2252071 0.7586954 2.4447632 0.2389659 0.2093104 0.2597721 0.4922646 1.0884414 </span>
+<span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

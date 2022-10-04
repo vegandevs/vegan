@@ -319,7 +319,9 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"sp"</span>, arrow<span class="op">=</span><span class="cn">TRUE</span>, length<span class="op">=</span><span class="fl">0.05</span>, col<span class="op">=</span><span class="fl">4</span>, cex<span class="op">=</span><span class="fl">0.6</span>, xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">Management</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">21</span>, pt.bg<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.cca-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Limited output of 'summary'</span></span></span>
+<span class="r-in"><span><span class="co">## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change</span></span></span>
+<span class="r-in"><span><span class="co">## when the command is run repeatedly).</span></span></span>
+<span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, tail<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -425,6 +427,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
 <span class="r-in"><span><span class="co">## Scaling can be numeric or more user-friendly names</span></span></span>
 <span class="r-in"><span><span class="co">## e.g. Hill's scaling for (C)CA</span></span></span>
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, hill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
