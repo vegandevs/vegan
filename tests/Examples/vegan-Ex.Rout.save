@@ -5586,8 +5586,6 @@ GCV score: 143.7761
  2.699161 29.765355 12.007288  8.286220  5.417317 24.914272 11.045769 25.390480 
         3         4         2         9        12        10        11        21 
  6.510626  9.424401  4.492914  4.051451 11.563182  4.286884 11.683416 14.189292 
-> ## IGNORE_RDIFF_END
-> 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
 > ## of the model not just to a linear surface. There are 2
@@ -5619,7 +5617,7 @@ Estimated degrees of freedom:
 
 REML score: 96.22088     
 > ## or bs = "cs" with `isotropic = FALSE`
-> 
+> ## IGNORE_RDIFF_END
 > ## Plot method
 > plot(fit, what = "contour")
 > 
@@ -9195,7 +9193,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.907 0.233 8.156 0 0 
+Time elapsed:  7.961 0.243 8.214 0 0 
 > grDevices::dev.off()
 null device 
           1 
