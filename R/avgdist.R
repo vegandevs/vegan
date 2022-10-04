@@ -3,10 +3,14 @@
              transf = NULL, iterations = 100, dmethod = "bray", ...)
 {
     if (missing(sample)) {
-        stop("invalid subsampling depth")
+        stop("Subsampling depth must be supplied via argument 'sample'")
+    } else {
+        if (!(is.numeric(sample) && sample > 0L)) {
+            stop("Invalid subsampling depth; 'sample' must be positive & numeric")
+        }
     }
-    if (missing(iterations)) {
-        stop("invalid iteration count")
+    if (!is.numeric(iterations)) {
+        stop("Invalid iteration count; must be numeric")
     }
     inputcast <- x
     distfun <- match.fun(distfun)
