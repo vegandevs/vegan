@@ -1682,6 +1682,7 @@ Best model has 3 parameters (max. 6 allowed):
 P Ca Al
 with correlation  0.4004806 
 
+> ## IGNORE_RDIFF_BEGIN
 > summary(sol)
                     size correlation
 P                      1      0.2516
@@ -1690,6 +1691,7 @@ P Ca Al                3      0.4005
 P Ca pH Al             4      0.3619
 log(N) P Ca pH Al      5      0.3216
 log(N) P K Ca pH Al    6      0.2822
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -2659,6 +2661,7 @@ Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
 > data(mite, mite.env)
 > ## dispweight and its summary
 > mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+> ## IGNORE_RDIFF_BEGIN
 > summary(mite.dw)
          Dispersion    Weight Df Pr(Disp.)   
 Brachy       9.6908 0.1031909 67      0.01 **
@@ -2699,6 +2702,7 @@ Trimalc2    10.5927 0.0944046 67      0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Based on 99 simulations on 'c0_ind' nullmodel
+> ## IGNORE_RDIFF_END
 > ## generalized dispersion weighting
 > mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
 > rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
@@ -3322,6 +3326,7 @@ Management 0 1 2 3 4
         NM 6 0 0 0 0
         SF 0 0 1 2 3
 > # The standard correlations (not recommended)
+> ## IGNORE_RDIFF_BEGIN
 > spenvcor(mod)
      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 
 0.9636709 0.9487249 0.9330741 0.8734876 0.9373716 0.8362687 0.9748793 0.8392720 
@@ -3370,6 +3375,7 @@ Manure.L     -0.02396993 -0.13049087
 Manure.Q     -0.12987366 -0.07137031
 Manure.C     -0.05176927  0.41550238
 Manure^4      0.41603287 -0.01661279
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -3647,8 +3653,10 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > y1 <- with(y, Cladstel)         # take one species for lm
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
+> ## IGNORE_RDIFF_BEGIN
 > range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
 [1] -2.498002e-16  1.526557e-15
+> ## IGNORE_RDIFF_END
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -4062,7 +4070,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## The recommended way of running NMDS (Minchin 1987)
 > ##
 > data(dune)
-> # Global NMDS using monoMDS
+> ## IGNORE_RDIFF_BEGIN
+> ## Global NMDS using monoMDS
 > sol <- metaMDS(dune)
 Run 0 stress 0.1192678 
 Run 1 stress 0.1886532 
@@ -4314,6 +4323,7 @@ The best solution was from try 18 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -4413,46 +4423,7 @@ Number of permutations: 999
 > def.par <- par(no.readonly = TRUE)
 > layout(matrix(1:2,nr=1))
 > 
-> plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-Run 0 stress 0.1192678 
-Run 1 stress 0.1192678 
-... Procrustes: rmse 3.027648e-05  max resid 9.262627e-05 
-... Similar to previous best
-Run 2 stress 0.119268 
-... Procrustes: rmse 0.0002057248  max resid 0.000628224 
-... Similar to previous best
-Run 3 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 0.02026982  max resid 0.06495764 
-Run 4 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 3.290172e-06  max resid 7.737989e-06 
-... Similar to previous best
-Run 5 stress 0.1192678 
-Run 6 stress 0.1183186 
-... Procrustes: rmse 7.097045e-06  max resid 2.303315e-05 
-... Similar to previous best
-Run 7 stress 0.1192678 
-Run 8 stress 0.1183186 
-... Procrustes: rmse 6.340028e-06  max resid 2.058872e-05 
-... Similar to previous best
-Run 9 stress 0.1192678 
-Run 10 stress 0.1183186 
-... Procrustes: rmse 3.001704e-05  max resid 8.927845e-05 
-... Similar to previous best
-Run 11 stress 0.1808911 
-Run 12 stress 0.1808911 
-Run 13 stress 0.1192678 
-Run 14 stress 0.1809577 
-Run 15 stress 0.1183186 
-... Procrustes: rmse 1.356528e-05  max resid 4.110144e-05 
-... Similar to previous best
-Run 16 stress 0.1808911 
-Run 17 stress 0.1192678 
-Run 18 stress 0.1192678 
-Run 19 stress 0.1192678 
-Run 20 stress 0.1812936 
-*** Best solution repeated 5 times
+> plot(dune.ord <- metaMDS(dune, trace=0), type="text", display="sites" )
 > with(dune.env, ordihull(dune.ord, Management))
 > 
 > with(dune.mrpp, {
@@ -5079,6 +5050,7 @@ checkerboards      2767 0.36404 2732.4 2585.0 2710.0  3007     0.57
 +    thin=10, burnin=100), simplify = FALSE)
 > ## nm is now a list of nullmodels: use smbind to combine these into one
 > ## nullmodel with several chains
+> ## IGNORE_RDIFF_BEGIN
 > nm <- smbind(nm, MARGIN = 3)
 > nm
 An object of class “simmat” 
@@ -5101,6 +5073,7 @@ C-score (species mean): 2.258776
 
               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
 checkerboards      2767 0.89035 2696.7 2567.3 2691.0  2879    0.369
+> ## IGNORE_RDIFF_END
 > ## After this you can use toCoda() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
@@ -5605,6 +5578,7 @@ GCV score: 143.7761
 > ## Cover of Cladina arbuscula
 > fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 > ## Get fitted values
+> ## IGNORE_RDIFF_BEGIN
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
 21.260676  5.673306  3.677152  3.889980  9.618594  7.665831  7.763242  9.773191 
@@ -5612,7 +5586,6 @@ GCV score: 143.7761
  2.699161 29.765355 12.007288  8.286220  5.417317 24.914272 11.045769 25.390480 
         3         4         2         9        12        10        11        21 
  6.510626  9.424401  4.492914  4.051451 11.563182  4.286884 11.683416 14.189292 
-> 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
 > ## of the model not just to a linear surface. There are 2
@@ -5644,7 +5617,7 @@ Estimated degrees of freedom:
 
 REML score: 96.22088     
 > ## or bs = "cs" with `isotropic = FALSE`
-> 
+> ## IGNORE_RDIFF_END
 > ## Plot method
 > plot(fit, what = "contour")
 > 
@@ -6277,7 +6250,9 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 > with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-> ## Limited output of 'summary'
+> ## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
+> ## when the command is run repeatedly).
+> ## IGNORE_RDIFF_BEGIN
 > head(summary(mod), tail=2)
 
 Call:
@@ -6383,6 +6358,7 @@ ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
 ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
 ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 
+> ## IGNORE_RDIFF_END
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -6413,7 +6389,9 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 > dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ditch <- gl(12, 1, length=132)
-> # PRC
+> 
+> ## IGNORE_RDIFF_BEGIN
+> ## PRC
 > mod <- prc(pyrifos, dose, week)
 > mod            # RDA
 Call: prc(response = pyrifos, treatment = dose, time = week)
@@ -6507,6 +6485,7 @@ rows are dose, columns are week
 44  0.10672 0.05739
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
+> ## IGNORE_RDIFF_END
 > ## Ditches are randomized, we have a time series, and are only
 > ## interested in the first axis
 > ctrl <- how(plots = Plots(strata = ditch,type = "free"),
@@ -6660,6 +6639,7 @@ Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
 > 
 > ### ** Examples
 > 
+> ## IGNORE_RDIFF_BEGIN
 > data(varespec)
 > vare.dist <- vegdist(wisconsin(varespec))
 > mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
@@ -6711,6 +6691,7 @@ Scaling of target:
 0.69626453 0.20211928 0.29701948 0.50148157 2.23604561 0.31896394 0.21769838 
         10         11         21 
 0.32531240 0.56478951 0.78068916 
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -9170,6 +9151,8 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ord <- wcmdscale(d, w = rs, eig = TRUE)
 > ## Ordinary CA
 > ca <- cca(dune)
+> 
+> ## IGNORE_RDIFF_BEGIN
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
@@ -9190,6 +9173,8 @@ procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites")
 Procrustes sum of squares:
 -1.421e-14 
 
+> ## IGNORE_RDIFF_END
+> 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
 > d <- vegdist(dune)
@@ -9208,7 +9193,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.962 0.311 9.291 0 0 
+Time elapsed:  7.961 0.243 8.214 0 0 
 > grDevices::dev.off()
 null device 
           1 

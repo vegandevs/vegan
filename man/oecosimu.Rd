@@ -275,9 +275,11 @@ nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
    thin=10, burnin=100), simplify = FALSE)
 ## nm is now a list of nullmodels: use smbind to combine these into one
 ## nullmodel with several chains
+## IGNORE_RDIFF_BEGIN
 nm <- smbind(nm, MARGIN = 3)
 nm
 oecosimu(nm, nestedchecker)
+## IGNORE_RDIFF_END
 ## After this you can use toCoda() and tools in the coda package to
 ## analyse the chains (these will show that thin, burnin and nsimul are
 ## all too low for real analysis).
