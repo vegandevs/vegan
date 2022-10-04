@@ -2,14 +2,17 @@
     function(x, sample, distfun = vegdist, meanfun = mean,
              transf = NULL, iterations = 100, dmethod = "bray", ...)
 {
-    if (is.na(sample))
+    if (missing(sample)) {
         stop("invalid subsampling depth")
-    if (is.na(iterations))
+    }
+    if (missing(iterations)) {
         stop("invalid iteration count")
+    }
     inputcast <- x
     distfun <- match.fun(distfun)
-    if (!is.null(transf))
+    if (!is.null(transf)) {
         transf <- match.fun(transf)
+    }
     # Get the list of iteration matrices
     distlist <- lapply(seq_len(iterations), function(i) {
         # Suppress warnings because it will otherwise return many warnings about
@@ -37,7 +40,7 @@
     # Set the names on the matrix
     colnames(output) <- rownames(output) <- rnames
     # Print any samples that were removed, if they were removed
-    if(nrow(x) != nrow(output)) {
+    if (nrow(x) != nrow(output)) {
         dropsamples <- setdiff(row.names(inputcast), row.names(output))
         warning(
             gettextf(
