@@ -20,7 +20,7 @@
         # samples that do not meet the threshold.
         inputcast <- suppressWarnings(rrarefy(inputcast, sample = sample))
         # Remove those that did not meet the depth cutoff
-        inputcast <- inputcast[c(rowSums(inputcast) %in% sample),]
+        inputcast <- inputcast[c(rowSums(inputcast) >= sample),]
         if (!is.null(transf)) {
             inputcast <- transf(inputcast)
         }
