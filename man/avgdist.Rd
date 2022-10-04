@@ -34,7 +34,7 @@ avgdist(x, sample, distfun = vegdist, meanfun = mean,
   mean/median function specified.}
 }
 
-\author{ Geoffrey Hannigan. }
+\author{ Geoffrey Hannigan, with some minor tweaks by Gavin L. Simpson. }
 
 \note{
 
