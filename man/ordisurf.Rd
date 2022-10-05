@@ -269,6 +269,7 @@ data(varespec)
 data(varechem)
 vare.dist <- vegdist(varespec)
 vare.mds <- monoMDS(vare.dist)
+## IGNORE_RDIFF_BEGIN
 ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 ## as above but without the extra penalties on smooth terms,
@@ -279,7 +280,6 @@ ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
 ## Cover of Cladina arbuscula
 fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 ## Get fitted values
-## IGNORE_RDIFF_BEGIN
 calibrate(fit)
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
