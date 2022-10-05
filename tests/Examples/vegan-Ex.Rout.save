@@ -3653,10 +3653,8 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > y1 <- with(y, Cladstel)         # take one species for lm
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
-> ## IGNORE_RDIFF_BEGIN
-> range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
-[1] -2.498002e-16  1.526557e-15
-> ## IGNORE_RDIFF_END
+> all(abs(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"]) < 1e-8)
+[1] TRUE
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -5546,6 +5544,7 @@ Eigenvalues for unconstrained axes:
 > data(varechem)
 > vare.dist <- vegdist(varespec)
 > vare.mds <- monoMDS(vare.dist)
+> ## IGNORE_RDIFF_BEGIN
 > ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 Family: gaussian 
@@ -5578,7 +5577,6 @@ GCV score: 143.7761
 > ## Cover of Cladina arbuscula
 > fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 > ## Get fitted values
-> ## IGNORE_RDIFF_BEGIN
 > calibrate(fit)
        18        15        24        27        23        19        22        16 
 21.260676  5.673306  3.677152  3.889980  9.618594  7.665831  7.763242  9.773191 
@@ -6585,6 +6583,7 @@ Lolipere Planlanc  Poaprat  Poatriv Ranuflam Rumeacet Sagiproc Salirepe
 Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp 
       18        3       16        3       15        3 
 > mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
+> ## IGNORE_RDIFF_BEGIN
 > predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
                CCA1       CCA2       CCA3       CCA4
 Chenalbu  1.5737337 -0.7842538  0.5503660 0.35108333
@@ -6619,6 +6618,7 @@ Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
 18  3.1680733 -0.41737900  1.03352732 -0.236938282
 19 -1.2003506  0.57033354  0.72777285  0.509955590
 20  4.7876770  1.00324330  1.49898460  0.009202396
+> ## IGNORE_RDIFF_END
 > with(dune.env, plot(A1, pred[,"A1"] - A1, ylab="Prediction Error"))
 > abline(h=0)
 > 
@@ -9193,7 +9193,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.961 0.243 8.214 0 0 
+Time elapsed:  7.963 0.254 8.227 0 0 
 > grDevices::dev.off()
 null device 
           1 
