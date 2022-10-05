@@ -1653,8 +1653,7 @@
   
   The abundance based `estimateR` uses bias corrected Chao
   extrapolation, but earlier it estimated its variance with classic Chao
-  model. Now we use the widespread [approximate
-  equation](https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB)
+  model. Now we use the widespread approximate estimate from EstimateS
   for variance.
   
   With these changes these functions are more similar to **EstimateS**
