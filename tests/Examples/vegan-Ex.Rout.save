@@ -7065,6 +7065,7 @@ $HF_NM
   Agrostol   Trifrepe   Elymrepe   Anthodor   Juncarti   Trifprat   Salirepe 
 0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 0.68921695 0.72432408 
 
+> ## IGNORE_RDIFF_BEGIN
 > summary(sim)
 
 Contrast: SF_BF 
@@ -7284,6 +7285,7 @@ Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.53
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
 Number of permutations: 99
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -9193,7 +9195,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.963 0.254 8.227 0 0 
+Time elapsed:  7.992 0.273 8.287 0 0 
 > grDevices::dev.off()
 null device 
           1 
