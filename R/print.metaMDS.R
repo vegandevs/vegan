@@ -21,7 +21,7 @@
         cat("Best solution was repeated", x$converged, "time(s) in", x$tries,
             "tries\n")
     } else {
-        cat("Best solution was not be repeated after",
+        cat("Best solution was not repeated after",
             x$tries, "tries\n")
     }
     cat("The best solution was from try", x$bestry)
