@@ -18,11 +18,12 @@
         cat("\n")
     }
     if (x$converged) {
-        cat("Best solution was repeated", x$converged, "time(s) in", x$tries,
-            "tries\n")
+        cat(sprintf(ngettext(x$converged,
+                     "Best solution was repeated %d time in %d tries\n",
+                     "Best solution was repeated %d times in %d tries\n"),
+                     x$converged, x$tries))
     } else {
-        cat("Best solution was not repeated after",
-            x$tries, "tries\n")
+        cat("Best solution was not repeated after", x$tries, "tries\n")
     }
     cat("The best solution was from try", x$bestry)
     if (x$bestry == 0)
