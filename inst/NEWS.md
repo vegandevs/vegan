@@ -86,6 +86,21 @@
   implemented for `alr`. Back-transformation queried in
   <https://stackoverflow.com/questions/73263526/>
 
+* Rarefaction and rarefaction-based methods make sense only with
+  original observed counts and give misleading results if data are
+  multiplied or rare species are removed. Observed counts usually have
+  singletons (species with count one), and these method issue a
+  warning if minimum count is higher than one (which may be a false
+  positive, but inspect your data). Concerns functions `rarefy`,
+  `drarefy`, `rrarefy`, `rarecurve`,
+  `specaccum(..., method="rarefy")`, `rareslope` and `avgdist`.
+  See github
+  [discussion #537](https://github.com/vegandevs/vegan/discussions/537).
+
+* `avgdist` exposes `as.dist` arguments and can return `"dist"`ance
+  objects that appear as lower triangles instead of appearing as
+  symmetric matrices.
+
 * `betadisper` plots accept `col` argument
   ([PR \#300](https://github.com/vegandevs/vegan/pull/300)).
 
