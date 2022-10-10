@@ -1,6 +1,7 @@
 `avgdist` <-
     function(x, sample, distfun = vegdist, meanfun = mean,
-             transf = NULL, iterations = 100, dmethod = "bray", ...)
+             transf = NULL, iterations = 100, dmethod = "bray",
+             diag = TRUE, upper = TRUE, ...)
 {
     if (missing(sample)) {
         stop("Subsampling depth must be supplied via argument 'sample'")
@@ -54,7 +55,7 @@
             "The following sampling units were removed because they were below sampling depth: %s",
                          paste(dropsamples, collapse = ", ")))
     }
-    output <- as.dist(output, diag = TRUE, upper = TRUE)
+    output <- as.dist(output, diag = diag, upper = upper)
     attr(output, "call") <- match.call()
     attr(output, "method") <- "avgdist"
     output
