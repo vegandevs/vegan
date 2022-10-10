@@ -128,7 +128,7 @@
 * `adonis` is on way to deprecation. Use `adonis2` instead.
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` were deprecated: these could
-  not be used as S3 methods without depending on coda package. Use
+  not be used as S3 methods without depending on **coda** package. Use
   `toCoda` instead.
 
 ### Changes in version 2\.6-2
