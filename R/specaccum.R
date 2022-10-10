@@ -76,13 +76,20 @@
             sdaccum <- sqrt(sdaccum1 - sdaccum2)
         }
     }, rarefaction = {
+        ## rarefaction should be done on observed counts that usually
+        ## have singletons. Warn here but not on every row when
+        ## calling rarefy().
+        minobs <- min(x[x > 0])
+        if (minobs > 1)
+            warning(
+                gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
         freq <- colSums(x)
         freq <- freq[freq > 0]
         tot <- sum(freq)
         ind <- round(seq(tot/n, tot, length = n))
         result <- matrix(NA, nrow = 2, ncol = n)
         for (i in 1:n) {
-            result[, i] <- rarefy(t(freq), ind[i], se = TRUE)
+            result[, i] <- suppressWarnings(rarefy(t(freq), ind[i], se = TRUE))
         }
         specaccum <- result[1, ]
         sdaccum <- result[2, ]

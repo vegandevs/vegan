@@ -9,7 +9,7 @@
         stop("function accepts only integers (counts)")
     minobs <- min(x[x > 0])
     if (minobs > 1)
-        warning(gettextf("function should be used for observed counts, but smallest count is %d", minobs))
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     minsample <- min(apply(x, MARGIN, sum))
     if (missing(sample)) {
         stop(
