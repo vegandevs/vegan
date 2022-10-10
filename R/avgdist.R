@@ -17,6 +17,10 @@
     if (!is.null(transf)) {
         transf <- match.fun(transf)
     }
+    ## warn here if data do not look observed counts with singletons
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     # Get the list of iteration matrices
     distlist <- lapply(seq_len(iterations), function(i) {
         # Suppress warnings because it will otherwise return many warnings about
