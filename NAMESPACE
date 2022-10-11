@@ -52,7 +52,6 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 export(commsimulator)
 export(as.mlm)
 S3method(as.mlm, cca)
-S3method(as.mlm, rda)
 
 ## Deprecated functions & methods
 export(as.mcmc.oecosimu)

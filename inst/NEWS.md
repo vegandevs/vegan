@@ -2,8 +2,17 @@
 
 ### Changes in version 2\.6-5
 
-* CRAN release of vegan 2.6-4 was made on Oct 11, 2022. With this the
-  development version was labelled as 2.6-5.
+#### DEPRECATED AND DEFUNCT
+
+* `adonis` is deprecated: use `adonis2`. There are several CRAN
+  packages that still use `adonis` although we have contacted all
+  their authors in June 2022 and printed a message of forthcoming
+  deprecation since **vegan** 2.6-2. See
+  [issue #523](https://github.com/vegandevs/vegan/issues/523).
+
+* `as.mcmc.oecosimu` and `as.mcmc.permat` are defunct: use `toCoda`.
+
+* Code of defunct functions was completely removed.
 
 ### Changes in version 2\.6-4
 
