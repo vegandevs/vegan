@@ -1,6 +1,11 @@
 ## vegan News
 
-### Changes in version 2\.6-3
+### Changes in version 2\.6-5
+
+* CRAN release of vegan 2.6-4 was made on Oct 11, 2022. With this the
+  development version was labelled as 2.6-5.
+
+### Changes in version 2\.6-4
 
 #### NEW FEATURES
 
