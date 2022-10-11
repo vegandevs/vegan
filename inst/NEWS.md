@@ -1,6 +1,6 @@
 ## vegan News
 
-### Changes in version 2\.6-3
+### Changes in version 2\.6-4
 
 #### NEW FEATURES
 
