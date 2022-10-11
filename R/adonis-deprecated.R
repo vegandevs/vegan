@@ -5,9 +5,7 @@
              contr.unordered="contr.sum", contr.ordered="contr.poly",
              parallel = getOption("mc.cores"), ...)
 {
-    ## nobodody seems to believe that adonis is deprecated: give up
-    ## .Deprecated("adonis2", package="vegan")
-    message("'adonis' will be deprecated: use 'adonis2' instead")
+    .Deprecated("adonis2", package="vegan")
     EPS <- sqrt(.Machine$double.eps) ## use with >= in permutation P-values
     ## formula is model formula such as Y ~ A + B*C where Y is a data
     ## frame or a matrix, and A, B, and C may be factors or continuous
