@@ -154,7 +154,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
   examples). Function \code{toCoda} transforms the simulated results
-  of sequential methods into an \code{\link[coda]{mcmc}} object of the
+  of sequential methods into an \code{"mcmc"} object of the
   \CRANpkg{coda} package. The \pkg{coda} package provides functions for
   the analysis of stationarity, adequacy of sample size,
   autocorrelation, need of burn-in and much more for sequential
