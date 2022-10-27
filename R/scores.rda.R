@@ -34,7 +34,6 @@
     eigval <- eigenvals(x)
     if (inherits(x, "dbrda") && any(eigval < 0))
         eigval <- eigval[eigval > 0]
-    slam <- sqrt(eigval[choices]/sumev)
     nr <- if (is.null(x$CCA))
         nrow(x$CA$u)
     else
@@ -56,6 +55,10 @@
         rnk <- x$CCA$poseig
     else
         rnk <- x$CCA$rank
+    if (is.null(rnk))
+        rnk <- 0
+    choices <- choices[choices %in% seq_len(rnk + x$CA$rank)]
+    slam <- sqrt(eigval[choices]/sumev)
     sol <- list()
     ## process scaling; numeric scaling will just be returned as is
     scaling <- scalingType(scaling = scaling, correlation = correlation)
