@@ -2,6 +2,12 @@
 
 ### Changes in version 2\.6-5
 
+### BUG FIXES
+
+* `plot` and `scores` for `cca` and `rda` family of methods gave an
+  error when non-existing axes were requested. Now ignores requests to
+  axes numbers that are higher than in the result object.
+
 #### DEPRECATED AND DEFUNCT
 
 * `adonis` is deprecated: use `adonis2`. There are several CRAN
