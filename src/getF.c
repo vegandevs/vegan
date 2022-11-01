@@ -292,7 +292,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     if (ncols(perms) != nr)
 	error("\'permutations\' matrix should have %d columns, but it has %d",
 	      nr, ncols(perms));
-    double ev1, ev0, ev;
+    double ev1, ev0, ev, *iw;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);
     memset(rans, 0, nperm * (nterms + 1) * sizeof(double));
@@ -342,7 +342,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	pivot = (int *) R_alloc(nx > nz ? nx : nz, sizeof(int));
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
-	qrXw(qr, qrank, qraux, Xorig, REAL(w), nr, nx);
+	iw = (double *) R_alloc(nr, sizeof(double));
+	for (i=0; i < nr; i++)
+	    iw[i] = 1/REAL(w)[i];
+	qrXw(qr, qrank, qraux, Xorig, iw, nr, nx);
 	pivot = (int *) R_alloc(nx, sizeof(int));
 	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
     }
