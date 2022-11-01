@@ -40,7 +40,8 @@ permutest.default <- function(x, ...)
         # r is the rank of the residual term - 1
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow = 1)
-        out <- .Call(do_getF, indx, E, Q, QZ, effects, first, isPartial, isDB)
+        out <- .Call(do_getF, indx, E, Q, QZ, w, effects, first, isPartial,
+                     isCCA, isDB)
         p <- length(effects)
         if (!isPartial && !first)
             out[, p + 1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])
