@@ -63,7 +63,7 @@ permutest.default <- function(x, ...)
     }
     ## end getF
     ## wrapper to getF for mcapply
-    getFmcapply <- function(i, permutations, E, Q, QZ, w, effects, first,
+    getFmcapply <- function(i, permutations, E, Q, QZ, effects, w, first,
                             isPartial, isCCA, isDB, q, r) {
         getF(permutations[i,], E = E, Q = Q, QZ = QZ, effects = effects, w = w,
              first = first, isPartial = isPartial, isCCA = isCCA, isDB = isDB,
@@ -72,7 +72,7 @@ permutest.default <- function(x, ...)
     ## wrapper to getF for parRapply
     getFparRapply <- function(i, E, Q, QZ, effects, w, first, isPartial,
                               isCCA, isDB, q, r) {
-        getF(i, E = E, Q = Q, QZ = QZ, w = w, effects = effects, first = first,
+        getF(i, E = E, Q = Q, QZ = QZ, effects = effects, w = w, first = first,
              isPartial = isPartial, isCCA = isCCA, isDB = isDB, q = q, r = r)
     }
     ## QR decomposition
