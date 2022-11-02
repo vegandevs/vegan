@@ -38,7 +38,7 @@ permutest.default <- function(x, ...)
     isPartial <- !is.null(x$pCCA)   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
     ## C function to get the statististics in one loop
-    getF <- function(indx, E, Q, QZ, w, effects, first, isPartial, isCCA,
+    getF <- function(indx, E, Q, QZ, effects, w, first, isPartial, isCCA,
                      isDB, q, r)
     {
         # q is the rank(s) of the effect(s) - 1

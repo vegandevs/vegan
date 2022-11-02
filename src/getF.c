@@ -373,8 +373,9 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		else   /* shuffle rows */
 		    rY[i + nr*j] = REAL(E)[ki + nr*j];
 	    }
-	    if (WEIGHTED)
+	    if (WEIGHTED) {
 		wperm[i] = REAL(w)[ki];
+	    }
 	}
 
 	/* Partial model: qr.resid(QZ, Y) with LINPACK */
@@ -406,11 +407,11 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 
 	/* CONSTRAINED COMPONENT */
 
-	/* Re-weight constraints are re-do QR */
+	/* Re-weight constraints and re-do QR */
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
 	    wcentre(qr, wperm, &nr, &nx);
-	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
+	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
 			     qraux, pivot, qrwork);  
 	}
 	
