@@ -79,7 +79,7 @@ SEXP do_wcentre(SEXP x, SEXP w)
     if (TYPEOF(x) != REALSXP)
 	x  = coerceVector(x, REALSXP);
     SEXP rx = PROTECT(duplicate(x));
-    if (TYPEOF(x) != REALSXP)
+    if (TYPEOF(w) != REALSXP)
 	w = coerceVector(w, REALSXP);
     PROTECT(w);
     wcentre(REAL(rx), REAL(w), &nr, &nc);
