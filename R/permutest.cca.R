@@ -62,18 +62,19 @@ permutest.default <- function(x, ...)
         out
     }
     ## end getF
-    ## wrapper to getF for mcapply
-    getFmcapply <- function(i, permutations, E, Q, QZ, effects, w, first,
+    ## wrapper to getF for in parallel lapply
+    getFlapply <- function(i, permutations, E, Q, QZ, effects, w, first,
                             isPartial, isCCA, isDB, q, r) {
         getF(permutations[i,], E = E, Q = Q, QZ = QZ, effects = effects, w = w,
              first = first, isPartial = isPartial, isCCA = isCCA, isDB = isDB,
              q = q, r = r)
     }
     ## wrapper to getF for parRapply
-    getFparRapply <- function(i, E, Q, QZ, effects, w, first, isPartial,
-                              isCCA, isDB, q, r) {
-        getF(i, E = E, Q = Q, QZ = QZ, effects = effects, w = w, first = first,
-             isPartial = isPartial, isCCA = isCCA, isDB = isDB, q = q, r = r)
+    getFparRapply <- function(i, permutations, E, Q, QZ, effects, w, first,
+                              isPartial, isCCA, isDB, q, r) {
+        getF(permutations[i,], E = E, Q = Q, QZ = QZ, effects = effects, w = w,
+             first = first, isPartial = isPartial, isCCA = isCCA, isDB = isDB,
+             q = q, r = r)
     }
     ## QR decomposition
         Q <- x$CCA$QR
@@ -169,7 +170,8 @@ permutest.default <- function(x, ...)
     if (hasClus || parallel > 1) {
         if(.Platform$OS.type == "unix" && !hasClus) {
             tmp <- do.call(rbind,
-                           mclapply(seq_len(nperm), getFmcapply,
+                           mclapply(splitIndices(nperm, parallel),
+                                    getFlapply,
                                     mc.cores = parallel,
                                     permutations = permutations,
                                     E = E, Q = Q, QZ = QZ,
@@ -181,11 +183,14 @@ permutest.default <- function(x, ...)
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
             }
-            tmp <- parRapply(parallel, permutations,
-                             getFparRapply,
-                             E = E, Q = Q, QZ = QZ, effects = effects, w = w,
-                             first = first, isPartial = isPartial,
-                             isCCA = isCCA, isDB = isDB, q = q, r = r)
+            tmp <- do.call(rbind,
+                           parLapply(parallel,
+                                     splitIndices(nperm, length(parallel)),
+                                     getFparRapply,
+                                     permutations=permutations,
+                                     E = E, Q = Q, QZ = QZ, effects = effects, w = w,
+                                     first = first, isPartial = isPartial,
+                                     isCCA = isCCA, isDB = isDB, q = q, r = r))
             tmp <- matrix(tmp, nrow = nperm, byrow = TRUE)
             if (!hasClus)
                 stopCluster(parallel)
