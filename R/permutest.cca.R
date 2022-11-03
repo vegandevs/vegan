@@ -191,7 +191,6 @@ permutest.default <- function(x, ...)
                                      E = E, Q = Q, QZ = QZ, effects = effects, w = w,
                                      first = first, isPartial = isPartial,
                                      isCCA = isCCA, isDB = isDB, q = q, r = r))
-            tmp <- matrix(tmp, nrow = nperm, byrow = TRUE)
             if (!hasClus)
                 stopCluster(parallel)
         }
