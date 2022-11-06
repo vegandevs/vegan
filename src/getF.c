@@ -25,7 +25,7 @@
 
 /* The following file is in goffactor.c file in vegan */
 extern
-void wcentre(double *, double *, int *, int *);
+void wcentre(double *, double *, double *, int *, int *);
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -311,7 +311,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     double *Zqr, *Zqraux;
     int Zqrank;
     if (PARTIAL) {
-	Zqr = REAL(VECTOR_ELT(QZ, 0));
+	Zqr = REAL(VECTOR_ELT(QZ, 0)); 
 	Zqrank = asInteger(VECTOR_ELT(QZ, 1));
 	Zqraux = REAL(VECTOR_ELT(QZ, 2));
     }
@@ -329,7 +329,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
        decomposition (probably changed in the future, but now for the
        compatibility with the current code). For this we need to
        reconstruct constraints and conditions. */
-    int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *pivot, *zpivot;
+    int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *pivot, *zpivot, npivot;
     double *wperm, *Xorig, *Zorig, *qrwork, *zqrwork, qrtol=1e-7; 
     if (WEIGHTED) {
 	if (PARTIAL) {
@@ -339,7 +339,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    zpivot = (int *) R_alloc(nz, sizeof(int));
 	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
 	}
-	pivot = (int *) R_alloc(nx > nz ? nx : nz, sizeof(int));
+	npivot = nx > nz ? nx: nz;
+	pivot = (int *) R_alloc(npivot, sizeof(int));
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
 	qrXw(qr, qrank, qraux, Xorig, REAL(w), nr, nx);
@@ -384,8 +385,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    if (WEIGHTED) {
 	        memcpy(Zqr, Zorig, nr * nz * sizeof(double));
 		/* wcentre is in goffactor.c file */
-		wcentre(Zqr, wperm, &nr, &nz);
+		wcentre(Zorig, Zqr, wperm, &nr, &nz);
 		/* dqrdc2 is not in R API */
+		for (i = 0; i < nz; i++)
+		    zpivot[i] = i + 1;
 		F77_CALL(dqrdc2)(Zqr, &nr, &nr, &nz, &qrtol, &Zqrank,
 	                         Zqraux, zpivot, zqrwork);
 	    }
@@ -410,7 +413,9 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	/* Re-weight constraints and re-do QR */
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
-	    wcentre(qr, wperm, &nr, &nx);
+	    wcentre(Xorig, qr, wperm, &nr, &nx);
+	    for(i = 0; i < npivot; i++)
+		pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
 			     qraux, pivot, qrwork);  
 	}
