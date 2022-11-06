@@ -47,7 +47,7 @@ static void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim,
 
 #include <math.h> /* sqrt */
 
-void wcentre(double *x, double *w, int *nr, int *nc)
+void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
 {
      int i, j, ij;
      double sw, swx;
@@ -65,8 +65,8 @@ void wcentre(double *x, double *w, int *nr, int *nc)
 	  }
 
 	  for (i = 0,  ij = (*nr)*j; i < (*nr); i++, ij++) {
-	       x[ij] -= swx;
-	       x[ij] *= sqrt(w[i]);
+	       retx[ij] = x[ij] - swx;
+	       retx[ij] = x[ij] * sqrt(w[i]);
 	  }
      }
 }
@@ -86,9 +86,10 @@ SEXP do_wcentre(SEXP x, SEXP w)
     if (TYPEOF(w) != REALSXP)
 	w = coerceVector(w, REALSXP);
     w = PROTECT(duplicate(w));
-    wcentre(REAL(rx), REAL(w), &nr, &nc);
-    UNPROTECT(2);
-    return rx;
+    SEXP retx = PROTECT(allocMatrix(REALSXP, nr, nc));
+    wcentre(REAL(rx), REAL(retx), REAL(w), &nr, &nc);
+    UNPROTECT(3);
+    return retx;
 }
 
 SEXP do_goffactor(SEXP x, SEXP factor, SEXP nlevels, SEXP w)
