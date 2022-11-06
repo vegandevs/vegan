@@ -297,6 +297,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     double *rans = REAL(ans);
     memset(rans, 0, nperm * (nterms + 1) * sizeof(double));
     SEXP Y = PROTECT(duplicate(E));
+    QR = PROTECT(duplicate(QR));
+    QZ = PROTECT(duplicate(QZ));
     double *rY = REAL(Y);
     if (TYPEOF(effects) != INTSXP)
 	effects = coerceVector(effects, INTSXP);
@@ -475,6 +477,6 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 
     } /* end permutation loop */
 
-    UNPROTECT(4);
+    UNPROTECT(6);
     return ans;
 }
