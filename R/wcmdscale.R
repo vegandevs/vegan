@@ -30,7 +30,10 @@
     m <- as.matrix(d^2)
     n <- nrow(m)
     if (missing(w))
-        w <- rep(1, n)
+        w <- rep(1/n, n)
+    ## take care that weights sum up to 1
+    w <- w/sum(w)
+    ## weighted Gower double centring
     m <- .Call(do_wcentre, m, w)
     m <- t(.Call(do_wcentre, t(m), w))
     e <- eigen(-m/2, symmetric = TRUE)
