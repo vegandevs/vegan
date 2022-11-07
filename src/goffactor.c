@@ -66,7 +66,7 @@ void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
 
 	  for (i = 0,  ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       retx[ij] = x[ij] - swx;
-	       retx[ij] = x[ij] * sqrt(w[i]);
+	       retx[ij] *= sqrt(w[i]);
 	  }
      }
 }
