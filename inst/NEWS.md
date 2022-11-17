@@ -2,7 +2,13 @@
 
 ### Changes in version 2\.6-5
 
-### BUG FIXES
+#### NEW FEATURES
+
+* Scaling of coefficients of effects in `prc` models are scaled
+  similarly as they were scaled in **vegan** pre 2\.5-1. The change
+  was suggested by Cajo ter Braak.
+
+#### BUG FIXES
 
 * `plot` and `scores` for `cca` and `rda` family of methods gave an
   error when non-existing axes were requested. Now ignores requests to
