@@ -208,7 +208,7 @@
         }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         F.perm[ , i] <- mod$F.perm
-        if (Pvals[i] > cutoff)
+        if (Pvals[i] >= cutoff)
             break
     }
     out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),

@@ -70,7 +70,8 @@
     \code{permutations = how(\dots, blocks)} instead. }
 
   \item{cutoff}{Only effective with \code{by="axis"} where stops
-    permutations after an axis exceeds the \code{cutoff} \eqn{p}-value.}
+    permutations after an axis equals or exceeds the \code{cutoff}
+    \eqn{p}-value.}
 
   \item{scope}{Only effective with \code{by="margin"} where it can be
     used to select the marginal terms for testing. The default is to
