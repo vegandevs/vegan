@@ -207,6 +207,10 @@
                              parallel = parallel, first = TRUE)
         }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
+        ## follow Canoco: P-values of later axes cannot be lower than
+        ## previous axes (usually no effect as P-values are increasing).
+        if (i > 1 && Pvals[i] < Pvals[i-1])
+            Pvals[i] <- Pvals[i-1]
         F.perm[ , i] <- mod$F.perm
         if (Pvals[i] >= cutoff)
             break
