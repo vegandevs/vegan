@@ -4,9 +4,21 @@
 
 #### NEW FEATURES
 
-* Scaling of coefficients of effects in `prc` models are scaled
-  similarly as they were scaled in **vegan** pre 2\.5-1. The change
-  was suggested by Cajo ter Braak.
+* Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
+  without formula interface can have permutation tests (`anova`) by
+  "axis" and by "onedf". Models by "terms" and "margin" are only
+  possible with formula interface.
+
+* Permutation tests for constrained ordination objects (`cca`, `rda`,
+  `dbrda`) with `by = "axis"` stop permutations of later axis once the
+  `cutoff` limit is reached. Earlier `cutoff` had to be exceeded. The
+  default is to stop permutations once _P_-value 1 is reached. The
+  analysis takes care that _P_-values of axes are increasing following
+  Canoco.
+
+* Coefficients of effects in `prc` models are scaled similarly as they
+  were scaled in **vegan** pre 2\.5-1. The change was suggested by
+  Cajo ter Braak.
 
 #### BUG FIXES
 
