@@ -2,9 +2,12 @@
 
 #' Inspect changing getF.c
 #'
-#' This version permutes Y but does not permute Z or reweight Z &
-#' X. This is the original implementation of getF.c in vegan since
-#' 2.5-1.
+#' This version permutes Y & w, does not permute Z, but reweights Z &
+#' X. This is the first version in this branch that fixes problems
+#' with weights in most cases, but fails in the most extreme of Cajo's
+#' tests (Pinho). This is point-to-point identical to C code as
+#' implemement in branch biased-anova-cca v2.6-3-29-gaaf6f700. This is
+#' similar to vegan tests prior to 2.5-1.
 #'
 #' @examples
 #' library(vegan)
@@ -27,6 +30,12 @@
     Y <- ordiYbar(m, "partial") # reduced model
     QZ <- m$pCCA$QR
     QR <- m$CCA$QR
+    w <- weights(m)
+
+    ## Set up before the loop
+    Z <- .Call(vegan:::test_qrXw, QZ, w)
+    X <- .Call(vegan:::test_qrXw, QR, w)
+
     ## permutations
     if (missing(p))
         p <- matrix(seq_len(nrow(Y)), nrow = 1)
@@ -34,9 +43,16 @@
     ss <- numeric(niter)
 
     for (iter in seq_len(niter)) {
-        ## permute Y, Z & w
+        ## permute Y & w
         Yperm <- Y[p[iter,],]
+        wperm <- w[p[iter,]]
+        ## Partial
+        Zrew <- .Call(vegan:::do_wcentre, Z, wperm)
+        QZ <- qr(Zrew)
         Yperm <- qr.resid(QZ, Yperm)
+        ## Constrained
+        Xrew <- .Call(vegan:::do_wcentre, X, wperm)
+        QR <- qr(Xrew)
         Yfit <- qr.fitted(QR, Yperm)
         Yres <- qr.resid(QR, Yperm)
         ss[iter] <- sum(Yfit^2)/sum(Yres^2)
