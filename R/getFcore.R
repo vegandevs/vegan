@@ -42,16 +42,22 @@
     niter <- nrow(p)
     ss <- numeric(niter)
 
+    ## Set up before the loop
+    Z <- qr.X(QZ) # weighted Z
+    X <- .Call(vegan:::test_qrXw, QR, w) # unweighted [ZX]
+    X <- X[, -seq_len(ncol(Z)), drop = FALSE] # remove Z, leaves X
+
     for (iter in seq_len(niter)) {
         ## permute Y & w
         Yperm <- Y[p[iter,],]
+        Zperm <- Z[p[iter,],, drop = FALSE]
         wperm <- w[p[iter,]]
         ## Partial
-        Zrew <- .Call(vegan:::do_wcentre, Z, wperm)
-        QZ <- qr(Zrew)
+        QZ <- qr(Zperm)
         Yperm <- qr.resid(QZ, Yperm)
         ## Constrained
         Xrew <- .Call(vegan:::do_wcentre, X, wperm)
+        Xrew <- qr.resid(QZ, Xrew) # "residualized predictor" X
         QR <- qr(Xrew)
         Yfit <- qr.fitted(QR, Yperm)
         Yres <- qr.resid(QR, Yperm)
