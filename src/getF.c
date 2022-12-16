@@ -176,26 +176,32 @@ SEXP test_trans(SEXP x)
    need the original unweighted data. So we do here both qrX and
    de-weighting. */
 
-static void qrXw(double *qr, int rank, double *qraux, double *X, double *w,
-		 int nr, int nc)
+static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
+    double *w, int nr, int nc)
 {
     int i, j, ij, len = nr*nc, info = 0, qrkind;
     double dummy = 0, wsqrt;
+    double *xwork = (double *) R_alloc(len, sizeof(double));
     /* Extract  R from qr into upper triangle of X */
     for(i = 0; i < len; i++)
-	X[i] = 0;
+	xwork[i] = 0;
     for(j = 0; j < nc; j++)
 	for(i = 0; i <= j; i++) {
 	    ij = i + nr*j;
-	    X[ij] = qr[ij];
+	    xwork[ij] = qr[ij];
 	}
+    /* pivot to zero-base */
+    for(j = 0; j < nc; j++)
+        pivot[j] = pivot[j] - 1;
     /* Find data as Qy: if y = R then X = QR. The data will over-write
        R. No pivoting, and aliased variables will be moved to last
        columns. Uses Linpack. */
     qrkind = QY;
+    /* fill X in the order of the pivot */
     for(j = 0; j < nc; j++)
-	F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, X + j*nr, X + j*nr,
-			&dummy, &dummy, &dummy, &dummy, &qrkind, &info);
+	F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, xwork + j*nr,
+	                X + pivot[j]*nr, &dummy, &dummy, &dummy, &dummy,
+			&qrkind, &info);
 
     /* de-weight X */
     for(i = 0; i < nr; i++) {
@@ -214,10 +220,11 @@ SEXP test_qrXw(SEXP QR, SEXP w)
     double *qr = REAL(VECTOR_ELT(QR, 0));
     int rank = asInteger(VECTOR_ELT(QR, 1));
     double *qraux = REAL(VECTOR_ELT(QR, 2));
+    int *pivot = INTEGER(VECTOR_ELT(QR, 3));
     nr = nrows(VECTOR_ELT(QR, 0));
     nc = ncols(VECTOR_ELT(QR, 0));
     SEXP X = PROTECT(allocMatrix(REALSXP, nr, nc));
-    qrXw(qr, rank, qraux, REAL(X), REAL(w), nr, nc);
+    qrXw(qr, rank, qraux, pivot, REAL(X), REAL(w), nr, nc);
     UNPROTECT(1);
     return X;
 }
@@ -286,7 +293,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	DISTBASED = asInteger(isDB), WEIGHTED = asInteger(isCCA);
     /* check that we got terms */
     if (nterms == 0)
-	error("model has no terms to test");
+        error("model has no terms to test");
     /* check that permutations matrix has correct number of
      * observations */
     if (ncols(perms) != nr)
@@ -310,6 +317,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     double *qr = REAL(VECTOR_ELT(QR, 0));
     int qrank = asInteger(VECTOR_ELT(QR, 1));
     double *qraux = REAL(VECTOR_ELT(QR, 2));
+    int *pivot = INTEGER(VECTOR_ELT(QR, 3));
     double *Zqr, *Zqraux;
     int Zqrank;
     if (PARTIAL) {
@@ -331,22 +339,19 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
        decomposition (probably changed in the future, but now for the
        compatibility with the current code). For this we need to
        reconstruct constraints and conditions. */
-    int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *pivot, *zpivot, npivot;
+    int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *zpivot;
     double *wperm, *Xorig, *Zorig, *qrwork, *zqrwork, qrtol=1e-7; 
     if (WEIGHTED) {
 	if (PARTIAL) {
 	    nz = ncols(VECTOR_ELT(QZ, 0));
+	    zpivot = INTEGER(VECTOR_ELT(QZ, 3));
 	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
-	    qrXw(Zqr, Zqrank, Zqraux, Zorig, REAL(w), nr, nz);
-	    zpivot = (int *) R_alloc(nz, sizeof(int));
+	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, REAL(w), nr, nz);
 	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
 	}
-	npivot = nx > nz ? nx: nz;
-	pivot = (int *) R_alloc(npivot, sizeof(int));
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
-	qrXw(qr, qrank, qraux, Xorig, REAL(w), nr, nx);
-	pivot = (int *) R_alloc(nx, sizeof(int));
+	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx);
 	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
     }
 
@@ -416,7 +421,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
 	    wcentre(Xorig, qr, wperm, &nr, &nx);
-	    for(i = 0; i < npivot; i++)
+	    for(i = 0; i < nx; i++)
 		pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
 			     qraux, pivot, qrwork);  
