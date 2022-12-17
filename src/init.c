@@ -32,7 +32,7 @@ extern SEXP do_swap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_vegdist(SEXP, SEXP);
 extern SEXP do_wcentre(SEXP, SEXP);
 
-extern SEXP test_qrXw(SEXP, SEXP);
+extern SEXP test_qrXw(SEXP, SEXP, SEXP);
 extern SEXP do_QR(SEXP);
 
 /* .Fortran calls */
@@ -65,7 +65,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_swap",      (DL_FUNC) &do_swap,      4},
     {"do_vegdist",   (DL_FUNC) &do_vegdist,   2},
     {"do_wcentre",   (DL_FUNC) &do_wcentre,   2},
-    {"test_qrXw",    (DL_FUNC) &test_qrXw,    2},
+    {"test_qrXw",    (DL_FUNC) &test_qrXw,    3},
     {"do_QR",        (DL_FUNC) &do_QR,        1},
     {NULL, NULL, 0}
 };

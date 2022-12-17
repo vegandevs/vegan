@@ -177,7 +177,7 @@ SEXP test_trans(SEXP x)
    de-weighting. */
 
 static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
-    double *w, int nr, int nc)
+    double *w, int nr, int nc, int discard)
 {
     int i, j, ij, len = nr*nc, info = 0, qrkind;
     double dummy = 0, wsqrt;
@@ -190,18 +190,20 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
 	    ij = i + nr*j;
 	    xwork[ij] = qr[ij];
 	}
-    /* pivot to zero-base */
+    /* pivot to zero-base with option to discard first columns */
     for(j = 0; j < nc; j++)
-        pivot[j] = pivot[j] - 1;
+        pivot[j] = pivot[j] - 1 - discard;
     /* Find data as Qy: if y = R then X = QR. The data will over-write
        R. No pivoting, and aliased variables will be moved to last
        columns. Uses Linpack. */
     qrkind = QY;
     /* fill X in the order of the pivot */
-    for(j = 0; j < nc; j++)
-	F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, xwork + j*nr,
-	                X + pivot[j]*nr, &dummy, &dummy, &dummy, &dummy,
-			&qrkind, &info);
+    for(j = 0; j < nc; j++) {
+	if (pivot[j] >= 0)
+	    F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, xwork + j*nr,
+			    X + pivot[j]*nr, &dummy, &dummy, &dummy, &dummy,
+			    &qrkind, &info);
+    }
 
     /* de-weight X */
     for(i = 0; i < nr; i++) {
@@ -214,9 +216,10 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
 /* function to test qrX from R. Use with CCA model 'm' as
    .Call("test_qrXw", m$CCA$QR, weights(m)) */
 
-SEXP test_qrXw(SEXP QR, SEXP w)
+SEXP test_qrXw(SEXP QR, SEXP w, SEXP discard)
 {
     int nc, nr;
+    QR = PROTECT(duplicate(QR));
     double *qr = REAL(VECTOR_ELT(QR, 0));
     int rank = asInteger(VECTOR_ELT(QR, 1));
     double *qraux = REAL(VECTOR_ELT(QR, 2));
@@ -224,8 +227,8 @@ SEXP test_qrXw(SEXP QR, SEXP w)
     nr = nrows(VECTOR_ELT(QR, 0));
     nc = ncols(VECTOR_ELT(QR, 0));
     SEXP X = PROTECT(allocMatrix(REALSXP, nr, nc));
-    qrXw(qr, rank, qraux, pivot, REAL(X), REAL(w), nr, nc);
-    UNPROTECT(1);
+    qrXw(qr, rank, qraux, pivot, REAL(X), REAL(w), nr, nc, asInteger(discard));
+    UNPROTECT(2);
     return X;
 }
 
@@ -346,12 +349,12 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    nz = ncols(VECTOR_ELT(QZ, 0));
 	    zpivot = INTEGER(VECTOR_ELT(QZ, 3));
 	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
-	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, REAL(w), nr, nz);
+	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, REAL(w), nr, nz, 0);
 	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
 	}
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
-	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx);
+	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, 0);
 	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
     }
 
