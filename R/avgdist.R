@@ -1,15 +1,27 @@
 `avgdist` <-
     function(x, sample, distfun = vegdist, meanfun = mean,
-             transf = NULL, iterations = 100, dmethod = "bray", ...)
+             transf = NULL, iterations = 100, dmethod = "bray",
+             diag = TRUE, upper = TRUE, ...)
 {
-    if (is.na(sample))
-        stop("invalid subsampling depth")
-    if (is.na(iterations))
-        stop("invalid iteration count")
+    if (missing(sample)) {
+        stop("Subsampling depth must be supplied via argument 'sample'")
+    } else {
+        if (!(is.numeric(sample) && sample > 0L)) {
+            stop("Invalid subsampling depth; 'sample' must be positive & numeric")
+        }
+    }
+    if (!is.numeric(iterations)) {
+        stop("Invalid iteration count; must be numeric")
+    }
     inputcast <- x
     distfun <- match.fun(distfun)
-    if (!is.null(transf))
+    if (!is.null(transf)) {
         transf <- match.fun(transf)
+    }
+    ## warn here if data do not look observed counts with singletons
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     # Get the list of iteration matrices
     distlist <- lapply(seq_len(iterations), function(i) {
         # Suppress warnings because it will otherwise return many warnings about
@@ -17,7 +29,7 @@
         # samples that do not meet the threshold.
         inputcast <- suppressWarnings(rrarefy(inputcast, sample = sample))
         # Remove those that did not meet the depth cutoff
-        inputcast <- inputcast[c(rowSums(inputcast) %in% sample),]
+        inputcast <- inputcast[c(rowSums(inputcast) >= sample), ]
         if (!is.null(transf)) {
             inputcast <- transf(inputcast)
         }
@@ -37,14 +49,13 @@
     # Set the names on the matrix
     colnames(output) <- rownames(output) <- rnames
     # Print any samples that were removed, if they were removed
-    if(nrow(x) != nrow(output)) {
-        dropsamples <- setdiff(row.names(inputcast), row.names(output))
-        warning(
-            gettextf(
-                "The following sampling units were removed because they were below sampling depth: %s",
-                paste(dropsamples, collapse = ", ")))
+    dropsamples <- setdiff(row.names(inputcast), row.names(output))
+    if (length(dropsamples) > 0L) {
+        warning(gettextf(
+            "The following sampling units were removed because they were below sampling depth: %s",
+                         paste(dropsamples, collapse = ", ")))
     }
-    output <- as.dist(output, diag = TRUE, upper = TRUE)
+    output <- as.dist(output, diag = diag, upper = upper)
     attr(output, "call") <- match.call()
     attr(output, "method") <- "avgdist"
     output

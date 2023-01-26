@@ -60,7 +60,7 @@ metaMDSredist(object, ...)
     global non-metric MDS, and still higher in local NMDS.}
   \item{try, trymax}{Minimum and maximum numbers of random starts in
     search of stable solution. After \code{try} has been reached, the
-    iteration will stop when two convergent solutions were found or
+    iteration will stop when similar solutions were repeated or
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
     \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
@@ -143,12 +143,20 @@ metaMDSredist(object, ...)
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
   \item{pc}{Rotate to principal components. }
   \item{center}{Centre the configuration. }
+  
  \item{halfchange}{Scale axes to half-change units. This defaults
-  \code{TRUE} when dissimilarities were evaluated within
-  \code{metaMDS} and the dissimilarity index has an upper limit of
-  \eqn{1}. If \code{FALSE}, the ordination dissimilarities are scaled
-  to the same range as the input dissimilarities.}
- \item{threshold}{Largest dissimilarity used in half-change scaling. }
+  \code{TRUE} when dissimilarities are known to have a theoretical
+  maximum value (ceiling). Function \code{vegdist} will have that
+  information in attribute \code{maxdist}, and for other \code{distfun}
+  this is interpreted in a simple test (that can fail), and the
+  information may not available when input data are distances. If
+  \code{FALSE}, the ordination dissimilarities are scaled to the same
+  range as the input dissimilarities.}
+
+ \item{threshold}{Largest dissimilarity used in half-change scaling. If
+   dissimilarities have a known (or inferred) ceiling, \code{threshold}
+   is relative to that ceiling (see \code{halfchange}).}
+
  \item{nthreshold}{ Minimum number of points in half-change scaling. }
  \item{object}{A result object from \code{metaMDS}.}
 
@@ -231,9 +239,9 @@ metaMDSredist(object, ...)
     (function \code{\link{procrustes}} with option
     \code{symmetric = TRUE}). If the solutions are very similar in their
     Procrustes \code{rmse} and the largest residual is very small, the
-    solutions are regarded as convergent and the better one is taken
+    solutions are regarded as repeated and the better one is taken
     as the new standard.  The conditions are stringent, and you may
-    have found good and relatively stable solutions although the
+    have found good and relatively similar solutions although the
     function is not yet satisfied. Setting \code{trace = TRUE} will
     monitor the final stresses, and \code{plot = TRUE} will display
     Procrustes overlay plots from each comparison. This step is
@@ -284,10 +292,25 @@ metaMDSredist(object, ...)
 } 
 }
 
-\section{Convergence Problems}{
+\section{Results Could Not Be Repeated}{
 
-    The function tries hard to find two convergent solutions, but it
-    may fail. With default \code{engine = "monoMDS"} the function will
+  Non-linear optimization is a hard task, and the best possible solution
+  (\dQuote{global optimum}) may not be found from a random starting
+  configuration. Most software solve this by starting from the result of
+  metric scaling (\code{\link{cmdscale}}). This will probably give a
+  good result, but not necessarily the \dQuote{global
+  optimum}. \pkg{Vegan} does the same, but \code{metaMDS} tries to
+  verify or improve this first solution (\dQuote{try 0}) using several
+  random starts and seeing if the result can be repeated or improved and
+  the improved solution repeated. If this does not succeed, you get a
+  message that the result could not be repeated. However, the result
+  will be at least as good as the usual standard strategy of starting
+  from metric scaling or it may be improved. You may not need to do
+  anything after such a message, but you can be satisfied with the
+  result. If you want to be sure that you probably have a \dQuote{global
+  optimum} you may try the following instructions.
+
+    With default \code{engine = "monoMDS"} the function will
     tabulate the stopping criteria used, so that you can see which
     criterion should be made more stringent. The criteria can be given
     as arguments to \code{metaMDS} and their current values are
@@ -297,9 +320,9 @@ metaMDSredist(object, ...)
     without losing the old ones giving the previous solution in
     argument \code{previous.best}.
 
-    In addition to too slack convergence criteria and too low number
+    In addition to slack convergence criteria and too low number
     of random starts, wrong number of dimensions (argument \code{k})
-    is the most common reason for not finding convergent
+    is the most common reason for not being able to repeat similar
     solutions. NMDS is usually run with a low number dimensions
     (\code{k=2} or \code{k=3}), and for complex data increasing
     \code{k} by one may help. If you run NMDS with much higher number
@@ -335,11 +358,14 @@ metaMDSredist(object, ...)
     The ordination configuration is usually rotated to principal
     components in \code{metaMDS}. The rotation is performed after
     finding the result, and it only changes the direction of the
-    reference axes. The only invariant feature in the NMDS solution is
-    the rank order of Euclidean ordination distances, and this does
-    not change in rotation. Similarly, the rank order of distances
-    does not change in uniform scaling or centring of configuration of
-    points.
+    reference axes. The only important feature in the NMDS solution are
+    the ordination distances, and these do not change in
+    rotation. Similarly, the rank order of distances does not change in
+    uniform scaling or centring of configuration of points. You can also
+    rotate the NMDS solution to external environmental variables with
+    \code{\link{MDSrotate}}. This rotation will also only change the
+    orientation of axes, but will not change the configuration of points
+    or distances between points in ordination space.
 
     Function \code{\link{stressplot}} displays the method graphically:
     it plots the observed dissimilarities against distances in
@@ -429,7 +455,8 @@ metaMDSredist(object, ...)
 ## The recommended way of running NMDS (Minchin 1987)
 ##
 data(dune)
-# Global NMDS using monoMDS
+## IGNORE_RDIFF_BEGIN
+## Global NMDS using monoMDS
 sol <- metaMDS(dune)
 sol
 plot(sol, type="t")
@@ -441,5 +468,6 @@ sol2
 ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
+## IGNORE_RDIFF_END
 }
 \keyword{ multivariate }

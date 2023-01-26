@@ -18,7 +18,7 @@
     rs <- rowSums(comm)
     rs <- outer(rs, rs, "+")[tri]
     spcontr <- sapply(seq_len(ncol(comm)),
-                      function(i) vegdist(comm[,i,drop=FALSE], "man"))
+        function(i) as.vector(vegdist(comm[, i, drop = FALSE], "man")))
     ## Bray-Curtis
     spcontr <- sweep(spcontr, 1, rs, "/")
     colnames(spcontr) <- colnames(comm)
@@ -64,7 +64,7 @@
                 Pval <- rep(1, ncol(comm))
                 for (k in seq_len(nperm)) {
                     take <- tmat[permat[k,],permat[k,]][tri]
-                    Pval <- Pval + ((colMeans(spcontr[take,]) - EPS) >= average)
+                    Pval <- Pval + ((colMeans(spcontr[take,,drop = FALSE]) - EPS) >= average)
                 }
                 Pval <- Pval/(nperm+1)
             } else {

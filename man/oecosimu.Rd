@@ -2,7 +2,8 @@
 \name{oecosimu}
 \alias{oecosimu}
 \alias{as.ts.oecosimu}
-\alias{as.mcmc.oecosimu}
+\alias{toCoda}
+\alias{toCoda.oecosimu}
 
 \title{Evaluate Statistics with Null Models of Biological Communities }
 
@@ -29,7 +30,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
    batchsize = NA, parallel = getOption("mc.cores"), ...)
 \method{as.ts}{oecosimu}(x, ...)
-\method{as.mcmc}{oecosimu}(x)
+\method{toCoda}{oecosimu}(x)
 }
 
 \arguments{
@@ -152,9 +153,9 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows
   using analytic tools for time series in studying the sequences (see
-  examples). Function \code{as.mcmc} transforms the simulated results
-  of sequential methods into an \code{\link[coda]{mcmc}} object of the
-  \pkg{coda} package. The \pkg{coda} package provides functions for
+  examples). Function \code{toCoda} transforms the simulated results
+  of sequential methods into an \code{"mcmc"} object of the
+  \CRANpkg{coda} package. The \pkg{coda} package provides functions for
   the analysis of stationarity, adequacy of sample size,
   autocorrelation, need of burn-in and much more for sequential
   methods, and summary of the results. Please consult the
@@ -274,10 +275,12 @@ nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
    thin=10, burnin=100), simplify = FALSE)
 ## nm is now a list of nullmodels: use smbind to combine these into one
 ## nullmodel with several chains
+## IGNORE_RDIFF_BEGIN
 nm <- smbind(nm, MARGIN = 3)
 nm
 oecosimu(nm, nestedchecker)
-## After this you can use as.mcmc() and tools in the coda package to
+## IGNORE_RDIFF_END
+## After this you can use toCoda() and tools in the coda package to
 ## analyse the chains (these will show that thin, burnin and nsimul are
 ## all too low for real analysis).
 }

@@ -2,7 +2,6 @@
     function (x, choices = c(1, 2), labels, arrow.mul, at = c(0, 0),
               axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 {
-    formals(arrows) <- c(formals(arrows), alist(... = ))
     ## get labels
     labs <- list("v" = rownames(x$vectors$arrows),
                  "f" = rownames(x$factors$centroids))
@@ -92,7 +91,7 @@
             plot.window(xlim = range(x$factors$centroids[,1], at[1]),
                         ylim = range(x$factors$centroids[,2], at[2]),
                         asp = 1, ...)
-            vfill <- 0.75
+            ## vfill <- 0.75
             arrow.mul <- ordiArrowMul(vect, at = at, fill = 1)
             vect <- arrow.mul * vect
         }
@@ -124,7 +123,7 @@
     }
 
     if (!is.null(vect)) {
-        arrows(at[1], at[2], vect[, 1], vect[, 2], len = 0.05,
+        arrows(at[1], at[2], vect[, 1], vect[, 2], length = 0.05,
                col = col)
         if (missing(bg))
             text(vtext, labs$v, col = col, ...)

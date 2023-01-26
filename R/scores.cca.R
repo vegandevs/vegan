@@ -14,6 +14,9 @@
     display <- match.arg(display, c("sites", "species", "wa",
                                     "lc", "bp", "reg", "cn", "all"),
                          several.ok = TRUE)
+    ## set "all" for tidy scores
+    if (tidy)
+        display <- "all"
     if("sites" %in% display)
         display[display == "sites"] <- "wa"
     if("species" %in% display)
@@ -21,9 +24,12 @@
     if("all" %in% display)
         display <- names(tabula)
     take <- tabula[display]
-    slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices])
     rnk <- x$CCA$rank
+    if (is.null(rnk))
+        rnk <- 0
+    choices <- choices[choices %in% seq_len(x$CA$rank + rnk)]
     sol <- list()
+    slam <- sqrt(c(x$CCA$eig, x$CA$eig)[choices])
     ## process scaling; numeric scaling will just be returned as is
     scaling <- scalingType(scaling = scaling, hill = hill)
     if ("species" %in% take) {

@@ -4,7 +4,6 @@
               metaMDSdist = FALSE, na.action = na.fail,
               subset = NULL, ...)
 {
-    EPS <- sqrt(.Machine$double.eps)
     if (!inherits(formula, "formula"))
         stop("needs a model formula")
     if (missing(data)) {
@@ -97,7 +96,6 @@
     else {
         adjust <- 1
     }
-    nm <- attr(X, "Labels")
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use

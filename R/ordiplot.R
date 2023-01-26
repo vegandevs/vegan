@@ -27,9 +27,9 @@
         if ("sites" %in% display)
             X <- scores(ord, choices = choices, display = "sites")
         if ("species" %in% display) {
-            options(show.error.messages = FALSE)
+            op <- options(show.error.messages = FALSE)
             Y <- try(scores(ord, choices = choices, display = "species"))
-            options(show.error.messages = TRUE)
+            options(op)
             if (inherits(Y, "try-error")) {
                 message("species scores not available")
                 Y <- NULL
@@ -41,7 +41,9 @@
                 message("species scores not available")
             }
         }
-        ## Use linestack and exit if there is only one variable
+        if (is.null(X) && is.null(Y))
+            stop("no scores found: nothing to plot")
+        ## Use linestack and exit if there is only one dimension
         if (NCOL(X) == 1 && NCOL(Y) == 1) {
             pl <- linestack(X, ylim = range(c(X,Y), na.rm=TRUE), cex = cex, ...)
             if (!is.null(Y))

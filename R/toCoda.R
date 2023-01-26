@@ -1,9 +1,12 @@
-`as.mcmc.oecosimu` <-
+`toCoda` <-
+    function(x) UseMethod("toCoda")
+
+`toCoda.oecosimu` <-
     function(x)
 {
     ## mcmc only for sequential methods
     if (!x$oecosimu$isSeq)
-        stop("as.mcmc available only for sequential null models")
+        stop("'toCoda' is only available for sequential null models")
     ## named variables
     rownames(x$oecosimu$simulated) <- names(x$oecosimu$z)
     chains <- attr(x$oecosimu$simulated, "chains")
@@ -35,3 +38,5 @@
     }
     x
 }
+
+`toCoda.permat` <- toCoda.oecosimu

@@ -1,6 +1,6 @@
 
-R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
-Copyright (C) 2021 The R Foundation for Statistical Computing
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -715,7 +715,7 @@ Residual 18   76.748
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > (am <- anova(mod, permutations=p, by="margin"))
-Permutation test for rda under NA model
+Permutation test for rda under reduced model
 Marginal effects of terms
 Permutation: free
 Number of permutations: 99
@@ -887,7 +887,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.1825658 
 Stress type 1, weak ties
-No convergent solutions - best solution after 20 tries
+Best solution was not repeated after 20 tries
+The best solution was from try 17 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on 'wisconsin(sqrt(subset(varespec, select = colSums(varespec) > 0, subset = rowSums(varespec) > 0)))' 
 
@@ -997,4 +998,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.340   0.051   1.390 
+  1.448   0.051   1.496 

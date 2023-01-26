@@ -46,7 +46,8 @@ adonis2(formula, data, permutations = 999, method = "bray",
   \item{by}{\code{by = "terms"} will assess significance for each term
     (sequentially from first to last), setting \code{by = "margin"}
     will assess the marginal effects of the terms (each marginal term
-    analysed in a model with all other variables), and \code{by =
+    analysed in a model with all other variables), \code{by = "onedf"}
+    will analyse one-degree-of-freedom contrasts sequentially, \code{by =
     NULL} will assess the overall significance of all terms
     together. The arguments is passed on to \code{\link{anova.cca}}.}
   \item{parallel}{Number of parallel processes or a predefined socket
@@ -91,7 +92,7 @@ uncontrolled covariates. The method is also analogous to distance-based
 redundancy analysis in functions \code{\link{dbrda}} and
 \code{\link{capscale}} (Legendre and Anderson 1999), and provides
 an alternative to AMOVA (nested analysis of molecular variance,
-Excoffier, Smouse, and Quattro, 1992; \code{\link[ade4]{amova}} in the
+Excoffier, Smouse, and Quattro, 1992; \code{amova} in the
 \pkg{ade4} package) for both crossed and nested factors.
 
 }

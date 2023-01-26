@@ -1,6 +1,6 @@
 
-R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
-Copyright (C) 2021 The R Foundation for Statistical Computing
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.6-0
+This is vegan 2.6-3
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -205,7 +205,8 @@ REML score: -3.187414
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: MOStest
-> ### Title: Mitchell-Olds & Shaw Test for the Location of Quadratic Extreme
+> ### Title: Mitchell-Olds and Shaw Test for the Location of Quadratic
+> ###   Extreme
 > ### Aliases: MOStest plot.MOStest fieller.MOStest profile.MOStest
 > ###   confint.MOStest
 > ### Keywords: models regression
@@ -825,18 +826,18 @@ Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE,  :
 > 
 > ### ** Examples
 > 
-> data(varespec, varechem)
-> mod <- cca(varespec ~ Al + P + K, varechem)
+> data(dune, dune.env)
+> mod <- cca(dune ~ Moisture + Management, dune.env)
 > ## overall test
 > anova(mod)
 Permutation test for cca under reduced model
 Permutation: free
 Number of permutations: 999
 
-Model: cca(formula = varespec ~ Al + P + K, data = varechem)
-         Df ChiSquare     F Pr(>F)    
-Model     3   0.64413 2.984  0.001 ***
-Residual 20   1.43906                 
+Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
+         Df ChiSquare      F Pr(>F)    
+Model     6    1.0024 1.9515  0.001 ***
+Residual 13    1.1129                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## tests for individual terms
@@ -846,12 +847,11 @@ Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-Model: cca(formula = varespec ~ Al + P + K, data = varechem)
-         Df ChiSquare      F Pr(>F)    
-Al        1   0.29817 4.1440  0.001 ***
-P         1   0.18991 2.6393  0.010 ** 
-K         1   0.15605 2.1688  0.020 *  
-Residual 20   1.43906                  
+Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
+           Df ChiSquare      F Pr(>F)    
+Moisture    3   0.62831 2.4465  0.001 ***
+Management  3   0.37407 1.4565  0.066 .  
+Residual   13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > anova(mod, by="margin")
@@ -860,25 +860,42 @@ Marginal effects of terms
 Permutation: free
 Number of permutations: 999
 
-Model: cca(formula = varespec ~ Al + P + K, data = varechem)
-         Df ChiSquare      F Pr(>F)    
-Al        1   0.31184 4.3340  0.001 ***
-P         1   0.16810 2.3362  0.017 *  
-K         1   0.15605 2.1688  0.034 *  
-Residual 20   1.43906                  
+Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
+           Df ChiSquare      F Pr(>F)  
+Moisture    3   0.39854 1.5518  0.034 *
+Management  3   0.37407 1.4565  0.063 .
+Residual   13   1.11289                
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## sequential test for contrasts
+> anova(mod, by = "onedf")
+Permutation test for cca under reduced model
+Sequential test for contrasts
+Permutation: free
+Number of permutations: 999
+
+Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
+             Df ChiSquare      F Pr(>F)    
+Moisture.L    1   0.41081 4.7988  0.001 ***
+Moisture.Q    1   0.11261 1.3154  0.198    
+Moisture.C    1   0.10489 1.2253  0.240    
+ManagementHF  1   0.08849 1.0337  0.415    
+ManagementNM  1   0.20326 2.3744  0.014 *  
+ManagementSF  1   0.08231 0.9615  0.440    
+Residual     13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## test for adding all environmental variables
-> anova(mod, cca(varespec ~ ., varechem))
+> anova(mod, cca(dune ~ ., dune.env))
 Permutation tests for cca under reduced model
 Permutation: free
 Number of permutations: 999
 
-Model 1: varespec ~ Al + P + K
-Model 2: varespec ~ N + P + K + Ca + Mg + S + Al + Fe + Mn + Zn + Mo + Baresoil + Humdepth + pH
+Model 1: dune ~ Moisture + Management
+Model 2: dune ~ A1 + Moisture + Management + Use + Manure
   ResDf ResChiSquare Df ChiSquare      F Pr(>F)
-1    20      1.43906                           
-2     9      0.64171 11   0.79735 1.0166  0.464
+1    13       1.1129                           
+2     7       0.6121  6   0.50079 0.9545  0.565
 > 
 > 
 > 
@@ -1297,6 +1314,10 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > plot(mod, ellipse = TRUE, hull = FALSE) # 1 sd data ellipse
 > plot(mod, ellipse = TRUE, hull = FALSE, conf = 0.90) # 90% data ellipse
 > 
+> # plot with manual colour specification
+> my_cols <- c("#1b9e77", "#7570b3")
+> plot(mod, col = my_cols, pch = c(16,17), cex = 1.1)
+> 
 > ## can also specify which axes to plot, ordering respected
 > plot(mod, axes = c(3,1), seg.col = "forestgreen", seg.lty = "dashed")
 > 
@@ -1661,6 +1682,7 @@ Best model has 3 parameters (max. 6 allowed):
 P Ca Al
 with correlation  0.4004806 
 
+> ## IGNORE_RDIFF_BEGIN
 > summary(sol)
                     size correlation
 P                      1      0.2516
@@ -1669,6 +1691,7 @@ P Ca Al                3      0.4005
 P Ca pH Al             4      0.3619
 log(N) P Ca pH Al      5      0.3216
 log(N) P K Ca pH Al    6      0.2822
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -1691,6 +1714,16 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ## different type for species and site scores
 > biplot(mod, scaling = "symmetric", type = c("text", "points"))
+> 
+> ## We can use ordiplot pipes in R 4.1 to build similar plots with
+> ## flexible control
+> ## Not run: 
+> ##D if (getRversion() >= "4.1") {
+> ##D plot(mod, scaling = "symmetric", type="n") |>
+> ##D    text("sites", cex=0.8) |>
+> ##D    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
+> ##D }
+> ## End(Not run)
 > 
 > 
 > 
@@ -2247,11 +2280,13 @@ decorana(veg = varespec)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.0832 
 
-                  DCA1   DCA2    DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.20010 0.19176
-Decorana values 0.5249 0.1572 0.09669 0.06075
-Axis lengths    2.8161 2.2054 1.54650 1.64864
+                       DCA1   DCA2    DCA3    DCA4
+Eigenvalues          0.5235 0.3253 0.20010 0.19176
+Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
+Decorana values      0.5249 0.1572 0.09669 0.06075
+Axis lengths         2.8161 2.2054 1.54650 1.64864
 
 > summary(vare.dca)
 
@@ -2260,11 +2295,13 @@ decorana(veg = varespec)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.0832 
 
-                  DCA1   DCA2    DCA3    DCA4
-Eigenvalues     0.5235 0.3253 0.20010 0.19176
-Decorana values 0.5249 0.1572 0.09669 0.06075
-Axis lengths    2.8161 2.2054 1.54650 1.64864
+                       DCA1   DCA2    DCA3    DCA4
+Eigenvalues          0.5235 0.3253 0.20010 0.19176
+Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
+Decorana values      0.5249 0.1572 0.09669 0.06075
+Axis lengths         2.8161 2.2054 1.54650 1.64864
 
 Species scores:
 
@@ -2379,7 +2416,7 @@ Site scores:
 > 
 > ### Name: decostand
 > ### Title: Standardization Methods for Community Ecology
-> ### Aliases: decostand wisconsin
+> ### Aliases: decostand wisconsin decobackstand
 > ### Keywords: multivariate manip
 > 
 > ### ** Examples
@@ -2400,6 +2437,12 @@ Cladamau   Cladsp Cetreric Cetrisla Flavniva Nepharct   Stersp Peltapht
 Icmaeric Cladcerv Claddefo Cladphyl 
        1        1        1        1 
 > sptrans <- wisconsin(varespec)
+> 
+> # CLR transformation for rows, with pseudocount
+> varespec.clr <- decostand(varespec, "clr", pseudocount=1)
+> 
+> # ALR transformation for rows, with pseudocount and reference sample
+> varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
 > 
 > ## Chi-square: PCA similar but not identical to CA.
 > ## Use wcmdscale for weighted analysis and identical results.
@@ -2618,6 +2661,7 @@ Callcusp 5.3333333 2.539147 -0.121498169  0.58001287 7.982634e-06
 > data(mite, mite.env)
 > ## dispweight and its summary
 > mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+> ## IGNORE_RDIFF_BEGIN
 > summary(mite.dw)
          Dispersion    Weight Df Pr(Disp.)   
 Brachy       9.6908 0.1031909 67      0.01 **
@@ -2658,6 +2702,7 @@ Trimalc2    10.5927 0.0944046 67      0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Based on 99 simulations on 'c0_ind' nullmodel
+> ## IGNORE_RDIFF_END
 > ## generalized dispersion weighting
 > mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
 > rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
@@ -2809,7 +2854,8 @@ Groups sizes
 > ### Title: Extract Eigenvalues from an Ordination Object
 > ### Aliases: eigenvals eigenvals.default eigenvals.prcomp
 > ###   eigenvals.princomp eigenvals.cca eigenvals.wcmdscale eigenvals.pcnm
-> ###   eigenvals.dudi eigenvals.pca eigenvals.pco summary.eigenvals
+> ###   eigenvals.dudi eigenvals.pca eigenvals.pco eigenvals.decorana
+> ###   summary.eigenvals
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2897,7 +2943,7 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843196 
 Run 19 stress 0.2570114 
 Run 20 stress 0.3760489 
-*** No convergence -- monoMDS stopping criteria:
+*** Best solution was not repeated -- monoMDS stopping criteria:
     20: stress ratio > sratmax
 > (fit <- envfit(ord, varechem, perm = 999))
 
@@ -3280,6 +3326,7 @@ Management 0 1 2 3 4
         NM 6 0 0 0 0
         SF 0 0 1 2 3
 > # The standard correlations (not recommended)
+> ## IGNORE_RDIFF_BEGIN
 > spenvcor(mod)
      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 
 0.9636709 0.9487249 0.9330741 0.8734876 0.9373716 0.8362687 0.9748793 0.8392720 
@@ -3328,6 +3375,7 @@ Manure.L     -0.02396993 -0.13049087
 Manure.Q     -0.12987366 -0.07137031
 Manure.C     -0.05176927  0.41550238
 Manure^4      0.41603287 -0.01661279
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -3373,7 +3421,7 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843196 
 Run 19 stress 0.2570114 
 Run 20 stress 0.3760489 
-*** No convergence -- monoMDS stopping criteria:
+*** Best solution was not repeated -- monoMDS stopping criteria:
     20: stress ratio > sratmax
 > stressplot(mod)
 > gof <- goodness(mod)
@@ -3605,8 +3653,8 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > y1 <- with(y, Cladstel)         # take one species for lm
 > lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 > ## numerically identical within 2e-15
-> range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
-[1] -2.498002e-16  9.436896e-16
+> all(abs(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"]) < 1e-8)
+[1] TRUE
 > 
 > ## t-values of regression coefficients based on type = "canoco"
 > ## residuals
@@ -4020,12 +4068,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## The recommended way of running NMDS (Minchin 1987)
 > ##
 > data(dune)
-> # Global NMDS using monoMDS
+> ## IGNORE_RDIFF_BEGIN
+> ## Global NMDS using monoMDS
 > sol <- metaMDS(dune)
 Run 0 stress 0.1192678 
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
-... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
+... Procrustes: rmse 5.822835e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
 ... Procrustes: rmse 6.697234e-06  max resid 2.061976e-05 
@@ -4038,11 +4087,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651375e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505932e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505928e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4058,9 +4107,9 @@ Run 17 stress 0.2075713
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276517e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
 ... Similar to previous best
-*** Solution reached
+*** Best solution repeated 5 times
 > sol
 
 Call:
@@ -4074,7 +4123,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.1183186 
 Stress type 1, weak ties
-Two convergent solutions found after 20 tries
+Best solution was repeated 5 time(s) in 20 tries
+The best solution was from try 8 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -4085,11 +4135,11 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
+... Procrustes: rmse 6.592553e-06  max resid 2.026403e-05 
 ... Similar to previous best
 Run 2 stress 0.1812935 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
+... Procrustes: rmse 4.27681e-06  max resid 1.352647e-05 
 ... Similar to previous best
 Run 4 stress 0.1192678 
 Run 5 stress 0.1192678 
@@ -4108,7 +4158,7 @@ Run 10 stress 0.1183186
 ... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
+... Procrustes: rmse 9.836666e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
 ... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
@@ -4125,7 +4175,7 @@ Run 17 stress 0.1192679
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1809577 
-*** Solution reached
+*** Best solution repeated 7 times
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
 Run 0 stress 0.1928478 
@@ -4141,7 +4191,7 @@ Run 3 stress 0.192849
 ... Similar to previous best
 Run 4 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 7.245207e-05  max resid 0.0002138775 
+... Procrustes: rmse 7.245208e-05  max resid 0.0002138775 
 ... Similar to previous best
 Run 5 stress 0.1928478 
 ... Procrustes: rmse 0.0003528988  max resid 0.000994985 
@@ -4193,7 +4243,7 @@ Run 19 stress 0.1928476
 Run 20 stress 0.1928475 
 ... Procrustes: rmse 1.074795e-05  max resid 3.583309e-05 
 ... Similar to previous best
-*** Solution reached
+*** Best solution repeated 10 times
 > sol2
 
 Call:
@@ -4207,7 +4257,8 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.1928475 
 Stress type 2, weak ties
-Two convergent solutions found after 20 tries
+Best solution was repeated 10 time(s) in 20 tries
+The best solution was from try 11 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -4218,21 +4269,21 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 5.139266e-06  max resid 1.72906e-05 
+... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498736e-06  max resid 1.408227e-05 
+... Procrustes: rmse 4.498737e-06  max resid 1.408227e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1653484 
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
-... Procrustes: rmse 5.848229e-06  max resid 1.923197e-05 
+... Procrustes: rmse 5.848227e-06  max resid 1.923197e-05 
 ... Similar to previous best
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364996e-06  max resid 7.105337e-06 
+... Procrustes: rmse 3.364993e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
@@ -4243,15 +4294,15 @@ Run 17 stress 0.1069786
 ... Procrustes: rmse 0.006774349  max resid 0.02387355 
 Run 18 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 3.536974e-06  max resid 1.241593e-05 
+... Procrustes: rmse 3.536972e-06  max resid 1.241593e-05 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 2.356111e-06  max resid 5.608413e-06 
+... Procrustes: rmse 2.356116e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175565e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
 ... Similar to previous best
-*** Solution reached
+*** Best solution repeated 3 times
 > sol
 
 Call:
@@ -4265,10 +4316,12 @@ Distance: beta.z
 Dimensions: 2 
 Stress:     0.1067169 
 Stress type 1, weak ties
-Two convergent solutions found after 20 tries
+Best solution was repeated 3 time(s) in 20 tries
+The best solution was from try 18 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -4368,46 +4421,7 @@ Number of permutations: 999
 > def.par <- par(no.readonly = TRUE)
 > layout(matrix(1:2,nr=1))
 > 
-> plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
-Run 0 stress 0.1192678 
-Run 1 stress 0.1192678 
-... Procrustes: rmse 3.027648e-05  max resid 9.262627e-05 
-... Similar to previous best
-Run 2 stress 0.119268 
-... Procrustes: rmse 0.0002057248  max resid 0.000628224 
-... Similar to previous best
-Run 3 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 0.02026982  max resid 0.06495764 
-Run 4 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 3.290173e-06  max resid 7.737989e-06 
-... Similar to previous best
-Run 5 stress 0.1192678 
-Run 6 stress 0.1183186 
-... Procrustes: rmse 7.097047e-06  max resid 2.303315e-05 
-... Similar to previous best
-Run 7 stress 0.1192678 
-Run 8 stress 0.1183186 
-... Procrustes: rmse 6.340028e-06  max resid 2.058872e-05 
-... Similar to previous best
-Run 9 stress 0.1192678 
-Run 10 stress 0.1183186 
-... Procrustes: rmse 3.001704e-05  max resid 8.927845e-05 
-... Similar to previous best
-Run 11 stress 0.1808911 
-Run 12 stress 0.1808911 
-Run 13 stress 0.1192678 
-Run 14 stress 0.1809577 
-Run 15 stress 0.1183186 
-... Procrustes: rmse 1.356528e-05  max resid 4.110144e-05 
-... Similar to previous best
-Run 16 stress 0.1808911 
-Run 17 stress 0.1192678 
-Run 18 stress 0.1192678 
-Run 19 stress 0.1192678 
-Run 20 stress 0.1812936 
-*** Solution reached
+> plot(dune.ord <- metaMDS(dune, trace=0), type="text", display="sites" )
 > with(dune.env, ordihull(dune.ord, Management))
 > 
 > with(dune.mrpp, {
@@ -4903,7 +4917,7 @@ Start = 55, End = 100, Thin = 5 (3 chains)
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu as.mcmc.oecosimu
+> ### Aliases: oecosimu as.ts.oecosimu toCoda toCoda.oecosimu
 > ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
@@ -4947,11 +4961,13 @@ nestfun(veg = comm)
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
+Total inertia (scaled Chi-square): 2.4436 
 
-                  DCA1   DCA2   DCA3    DCA4
-Eigenvalues     0.3822 0.2612 0.1668 0.08723
-Decorana values 0.4154 0.2465 0.1391 0.04992
-Axis lengths    2.9197 2.5442 2.7546 1.78074
+                       DCA1   DCA2   DCA3    DCA4
+Eigenvalues          0.3822 0.2612 0.1668 0.08723
+Additive Eigenvalues 0.3822 0.2609 0.1631 0.07650
+Decorana values      0.4154 0.2465 0.1391 0.04992
+Axis lengths         2.9197 2.5442 2.7546 1.78074
 
 
      statistic      SES    mean     50%    95% Pr(sim.)   
@@ -5032,6 +5048,7 @@ checkerboards      2767 0.36404 2732.4 2585.0 2710.0  3007     0.57
 +    thin=10, burnin=100), simplify = FALSE)
 > ## nm is now a list of nullmodels: use smbind to combine these into one
 > ## nullmodel with several chains
+> ## IGNORE_RDIFF_BEGIN
 > nm <- smbind(nm, MARGIN = 3)
 > nm
 An object of class “simmat” 
@@ -5054,7 +5071,8 @@ C-score (species mean): 2.258776
 
               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
 checkerboards      2767 0.89035 2696.7 2567.3 2691.0  2879    0.369
-> ## After this you can use as.mcmc() and tools in the coda package to
+> ## IGNORE_RDIFF_END
+> ## After this you can use toCoda() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
 > ## all too low for real analysis).
 > 
@@ -5237,7 +5255,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > 
 > ### ** Examples
 > 
-> # Draw a plot for a non-vegan ordination (cmdscale).
+> ## Draw a plot for a non-vegan ordination (cmdscale).
 > data(dune)
 > dune.dis <- vegdist(wisconsin(dune))
 > dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -5245,12 +5263,26 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
-> # Default plot of the previous using identify to label selected points
+> ## Not run: 
+> ##D ## same plot using pipes (pipes |> are available from R version 4.1.0)
+> ##D if (getRversion() >= "4.1") {
+> ##D ordiplot(dune.mds, type="n") |>
+> ##D   points("sites", pch=21, col="red", bg="yellow") |>
+> ##D   text("species", col="blue", cex=0.9)
+> ##D ## Some people think that species should be shown with arrows in PCA.
+> ##D ## Other ordination methods also return an invisible ordiplot object and
+> ##D ## we can use pipes to draw those arrows.
+> ##D mod <- rda(dune)
+> ##D plot(mod, type="n") |>
+> ##D   points("sites", pch=16, col="red") |>
+> ##D   text("species", arrows = TRUE, length=0.05, col="blue")
+> ##D }
+> ## End(Not run)
+> ## Default plot of the previous using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
 > ##D identify(pl, "spec")
 > ## End(Not run)
-> 
 > 
 > 
 > 
@@ -5512,6 +5544,7 @@ Eigenvalues for unconstrained axes:
 > data(varechem)
 > vare.dist <- vegdist(varespec)
 > vare.mds <- monoMDS(vare.dist)
+> ## IGNORE_RDIFF_BEGIN
 > ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 Family: gaussian 
@@ -5551,7 +5584,6 @@ GCV score: 143.7761
  2.699161 29.765355 12.007288  8.286220  5.417317 24.914272 11.045769 25.390480 
         3         4         2         9        12        10        11        21 
  6.510626  9.424401  4.492914  4.051451 11.563182  4.286884 11.683416 14.189292 
-> 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
 > ## of the model not just to a linear surface. There are 2
@@ -5583,7 +5615,7 @@ Estimated degrees of freedom:
 
 REML score: 96.22088     
 > ## or bs = "cs" with `isotropic = FALSE`
-> 
+> ## IGNORE_RDIFF_END
 > ## Plot method
 > plot(fit, what = "contour")
 > 
@@ -5592,7 +5624,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-35. For overview type 'help("mgcv-package")'.
+This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5847,7 +5879,7 @@ REML score: -94.19053
 > ### Title: Matrix Permutation Algorithms for Presence-Absence and Count
 > ###   Data
 > ### Aliases: permatfull permatswap summary.permat print.summary.permat
-> ###   print.permat plot.permat lines.permat as.ts.permat as.mcmc.permat
+> ###   print.permat plot.permat lines.permat as.ts.permat toCoda.permat
 > ### Keywords: multivariate datagen
 > 
 > ### ** Examples
@@ -6215,10 +6247,10 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 > with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
-Warning in text.default(sco, labels = rownames(sco), ...) :
-  "length" is not a graphical parameter
 > with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-> ## Limited output of 'summary'
+> ## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
+> ## when the command is run repeatedly).
+> ## IGNORE_RDIFF_BEGIN
 > head(summary(mod), tail=2)
 
 Call:
@@ -6324,6 +6356,7 @@ ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
 ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
 ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 
+> ## IGNORE_RDIFF_END
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -6354,7 +6387,9 @@ ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
 > week <- gl(11, 12, labels=c(-4, -1, 0.1, 1, 2, 4, 8, 12, 15, 19, 24))
 > dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ditch <- gl(12, 1, length=132)
-> # PRC
+> 
+> ## IGNORE_RDIFF_BEGIN
+> ## PRC
 > mod <- prc(pyrifos, dose, week)
 > mod            # RDA
 Call: prc(response = pyrifos, treatment = dose, time = week)
@@ -6448,6 +6483,7 @@ rows are dose, columns are week
 44  0.10672 0.05739
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
+> ## IGNORE_RDIFF_END
 > ## Ditches are randomized, we have a time series, and are only
 > ## interested in the first axis
 > ctrl <- how(plots = Plots(strata = ditch,type = "free"),
@@ -6547,6 +6583,7 @@ Lolipere Planlanc  Poaprat  Poatriv Ranuflam Rumeacet Sagiproc Salirepe
 Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp 
       18        3       16        3       15        3 
 > mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
+> ## IGNORE_RDIFF_BEGIN
 > predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
                CCA1       CCA2       CCA3       CCA4
 Chenalbu  1.5737337 -0.7842538  0.5503660 0.35108333
@@ -6581,6 +6618,7 @@ Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
 18  3.1680733 -0.41737900  1.03352732 -0.236938282
 19 -1.2003506  0.57033354  0.72777285  0.509955590
 20  4.7876770  1.00324330  1.49898460  0.009202396
+> ## IGNORE_RDIFF_END
 > with(dune.env, plot(A1, pred[,"A1"] - A1, ylab="Prediction Error"))
 > abline(h=0)
 > 
@@ -6601,6 +6639,7 @@ Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
 > 
 > ### ** Examples
 > 
+> ## IGNORE_RDIFF_BEGIN
 > data(varespec)
 > vare.dist <- vegdist(wisconsin(varespec))
 > mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
@@ -6636,7 +6675,7 @@ Rotation matrix:
 
 Translation of averages:
               [,1]          [,2]
-[1,] -4.770354e-17 -2.855179e-17
+[1,] -4.387224e-17 -1.687662e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -6652,6 +6691,7 @@ Scaling of target:
 0.69626453 0.20211928 0.29701948 0.50148157 2.23604561 0.31896394 0.21769838 
         10         11         21 
 0.32531240 0.56478951 0.78068916 
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -7025,6 +7065,7 @@ $HF_NM
   Agrostol   Trifrepe   Elymrepe   Anthodor   Juncarti   Trifprat   Salirepe 
 0.49226546 0.53434466 0.57564661 0.61543243 0.65341300 0.68921695 0.72432408 
 
+> ## IGNORE_RDIFF_BEGIN
 > summary(sim)
 
 Contrast: SF_BF 
@@ -7244,6 +7285,7 @@ Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.53
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
 Number of permutations: 99
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -7809,7 +7851,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### Name: tolerance
 > ### Title: Species tolerances and sample heterogeneities
-> ### Aliases: tolerance tolerance.cca
+> ### Aliases: tolerance tolerance.cca tolerance.decorana
 > 
 > ### ** Examples
 > 
@@ -7886,6 +7928,23 @@ Scaling: 2
 19 1.1330387 0.9816332 1.1242398 0.7238920 0.5577662 0.7036044
 20 0.6737757 1.4458326 1.4380928 1.0959027 0.4142423 0.5332460
 
+> ## average should be 1 with scaling = "sites", hill = TRUE
+> tol <- tolerance(mod, which = "sites", scaling = "sites", hill = TRUE,
++    choices = 1:4)
+> colMeans(tol)
+    CCA1     CCA2     CCA3     CCA4 
+1.059199 1.048823 1.000551 1.077612 
+> apply(tol, 2, sd)
+     CCA1      CCA2      CCA3      CCA4 
+0.3174462 0.2793521 0.3714540 0.2681931 
+> ## Rescaling tries to set all tolerances to 1
+> tol <- tolerance(decorana(dune))
+> colMeans(tol)
+     DCA1      DCA2      DCA3      DCA4 
+0.9817657 0.9249544 0.9444811 0.9821666 
+> apply(tol, 2, sd)
+     DCA1      DCA2      DCA3      DCA4 
+0.1977777 0.3204058 0.2646872 0.1210543 
 > 
 > 
 > 
@@ -8086,8 +8145,8 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 > ### Name: varpart
 > ### Title: Partition the Variation of Community Matrix by 2, 3, or 4
 > ###   Explanatory Matrices
-> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts plot.varpart
-> ###   plot.varpart234 simpleRDA2 simpleDBRDA
+> ### Aliases: varpart varpart2 varpart3 varpart4 showvarparts
+> ###   summary.varpart plot.varpart plot.varpart234 simpleRDA2 simpleDBRDA
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -8115,16 +8174,30 @@ No. of observations: 70
 
 Partition table:
                      Df R.squared Adj.R.squared Testable
-[a+b] = X1           11   0.52650       0.43670     TRUE
+[a+c] = X1           11   0.52650       0.43670     TRUE
 [b+c] = X2           22   0.62300       0.44653     TRUE
 [a+b+c] = X1+X2      33   0.75893       0.53794     TRUE
 Individual fractions                                    
 [a] = X1|X2          11                 0.09141     TRUE
-[b]                   0                 0.34530    FALSE
-[c] = X2|X1          22                 0.10124     TRUE
+[b] = X2|X1          22                 0.10124     TRUE
+[c]                   0                 0.34530    FALSE
 [d] = Residuals                         0.46206    FALSE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed Component
+X1 0.0914       0.264  mite.env
+X2 0.1012       0.274 mite.pcnm
+
+Contributions of fractions to sets:
+
+        X1     X2
+[a] 0.0914       
+[b]        0.1012
+[c] 0.1726 0.1726
 > 
 > ## Use fill colours
 > showvarparts(2, bg = c("hotpink","skyblue"))
@@ -8169,13 +8242,13 @@ No. of observations: 70
 
 Partition table:
                      Df R.squared Adj.R.squared Testable
-[a+b] = X1           11   0.50512       0.41127     TRUE
+[a+c] = X1           11   0.50512       0.41127     TRUE
 [b+c] = X2           22   0.60144       0.41489     TRUE
 [a+b+c] = X1+X2      33   0.74631       0.51375     TRUE
 Individual fractions                                    
 [a] = X1|X2          11                 0.09887     TRUE
-[b]                   0                 0.31240    FALSE
-[c] = X2|X1          22                 0.10249     TRUE
+[b] = X2|X1          22                 0.10249     TRUE
+[c]                   0                 0.31240    FALSE
 [d] = Residuals                         0.48625    FALSE
 ---
 Use function ‘dbrda’ to test significance of fractions of interest
@@ -8226,6 +8299,25 @@ Controlling 1 table X
 [c+f] = X3 | X2       22               0.18429     TRUE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed                 Component
+X1 0.0391       0.144      ~SubsDens + WatrCont
+X2 0.0382       0.148 ~Substrate + Shrub + Topo
+X3 0.1012       0.245                 mite.pcnm
+
+Contributions of fractions to sets:
+
+         X1      X2      X3
+[a] 0.03910                
+[b]         0.03824        
+[c]                 0.10124
+[d] 0.00703 0.00703        
+[e]         0.04590 0.04590
+[f] 0.04153         0.04153
+[g] 0.05682 0.05682 0.05682
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
 > 
@@ -8330,6 +8422,34 @@ Controlling 1 table X
 [dhik] = X4 | X3            11               0.00292     TRUE
 ---
 Use function ‘rda’ to test significance of fractions of interest
+> summary(mod)
+
+Unique fractions and total with shared fractions equally allocated:
+
+   Unique Contributed                 Component
+X1 0.0391      0.1456      ~SubsDens + WatrCont
+X2 0.0382      0.1594 ~Substrate + Shrub + Topo
+X3 0.1024      0.2511         mite.pcnm[, 1:11]
+X4 0.0085     -0.0181        mite.pcnm[, 12:22]
+
+Contributions of fractions to sets:
+
+          X1       X2       X3       X4
+[a]  0.03910                           
+[b]           0.03824                  
+[c]                    0.10237         
+[d]                             0.00850
+[e]  0.00703  0.00703                  
+[f]           0.06600  0.06600         
+[g]  0.02678           0.02678         
+[h]  0.00110                    0.00110
+[i]          -0.00274          -0.00274
+[j]                   -0.00482 -0.00482
+[k] -0.00077 -0.00077          -0.00077
+[l]  0.08012  0.08012  0.08012         
+[m]          -0.01158 -0.01158 -0.01158
+[n]  0.00910           0.00910  0.00910
+[o] -0.01690 -0.01690 -0.01690 -0.01690
 > plot(mod, bg=2:5)
 > ## Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
@@ -8381,7 +8501,7 @@ Run 17 stress 0.1825658
 Run 18 stress 0.1843196 
 Run 19 stress 0.2570114 
 Run 20 stress 0.3760489 
-*** No convergence -- monoMDS stopping criteria:
+*** Best solution was not repeated -- monoMDS stopping criteria:
     20: stress ratio > sratmax
 > plot(ord, type = "t")
 > ## Fit environmental variables
@@ -9033,16 +9153,18 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ord <- wcmdscale(d, w = rs, eig = TRUE)
 > ## Ordinary CA
 > ca <- cca(dune)
+> 
+> ## IGNORE_RDIFF_BEGIN
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--1.443290e-15 -1.165734e-15  2.220446e-16  1.110223e-16  4.440892e-16 
+-6.661338e-16  9.992007e-16 -2.220446e-16  0.000000e+00  5.551115e-17 
           CA6           CA7           CA8           CA9          CA10 
- 6.938894e-17  2.775558e-17 -1.526557e-16  1.249001e-16  1.387779e-17 
+ 2.775558e-16 -2.775558e-16 -1.110223e-16  2.775558e-17 -2.081668e-17 
          CA11          CA12          CA13          CA14          CA15 
- 6.938894e-17  6.938894e-17  6.245005e-17  3.122502e-17 -2.775558e-17 
+ 1.110223e-16  3.469447e-17  7.632783e-17  0.000000e+00 -3.642919e-17 
          CA16          CA17          CA18          CA19 
--1.734723e-18  1.734723e-17 -3.642919e-17  8.283305e-17 
+ 8.673617e-18  2.602085e-17 -3.556183e-17 -2.992398e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9053,6 +9175,8 @@ procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites")
 Procrustes sum of squares:
 -1.421e-14 
 
+> ## IGNORE_RDIFF_END
+> 
 > plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 > ## Reconstruction of non-Euclidean distances with negative eigenvalues
 > d <- vegdist(dune)
@@ -9071,7 +9195,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.516 0.296 9.828 0 0 
+Time elapsed:  7.992 0.273 8.287 0 0 
 > grDevices::dev.off()
 null device 
           1 

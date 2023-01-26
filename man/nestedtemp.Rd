@@ -94,7 +94,7 @@ nestedbetajac(comm)
   explained in the \code{\link{vignette}} \emph{Design decisions and
   implementation} that you can read using functions
   \code{\link{browseVignettes}}. Function
-  \code{\link[bipartite]{nestedness}} in the \pkg{bipartite} package is
+  \code{nestedness} in the \pkg{bipartite} package is
   a direct port of the BINMATNEST programme of
   \enc{Rodríguez-Gironés}{Rodriguez-Girones} & Santamaria (2006).
 

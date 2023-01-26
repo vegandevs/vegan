@@ -162,7 +162,7 @@ y <- decostand(varespec, "chi.square") # needed in cca
 y1 <- with(y, Cladstel)         # take one species for lm
 lmod1 <- lm(y1 ~ Al + P + K, varechem, weights = rowSums(varespec))
 ## numerically identical within 2e-15
-range(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"])
+all(abs(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"]) < 1e-8)
 
 ## t-values of regression coefficients based on type = "canoco"
 ## residuals

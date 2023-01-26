@@ -54,7 +54,7 @@ void C_stepacross(double *dist, int *n, double *toolong, int *trace)
 	  for (i = 0, ind = 0; i < *n; i++) {
 	       for (j = i + 1; j < *n; j++) {
 		    if (ISNA(dist[ind])) {
-			 stepdis = DOUBLE_XMAX;
+			 stepdis = DBL_MAX;
 			 for (k = 0; k < *n; k++) {
 			      if (k == i || k == j) continue;
 			      ki = (k > i) ? IND(*n, i, k) : IND(*n, k, i);
@@ -65,7 +65,7 @@ void C_stepacross(double *dist, int *n, double *toolong, int *trace)
 			      if (steptry < stepdis)
 				   stepdis = steptry;
 			 }
-			 if (stepdis < DOUBLE_XMAX) {
+			 if (stepdis < DBL_MAX) {
 			      newdist[inew] = stepdis;
 			      newind[inew] = ind;
 			      nacount--;

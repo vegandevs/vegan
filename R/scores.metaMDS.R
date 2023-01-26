@@ -13,19 +13,21 @@
         colnames(sites) <- paste0("NMDS", choices)
         out$sites <- sites
     }
-    if ("species" %in% display && !is.null(x$species)) {
+    if ("species" %in% display && !is.null(x$species) && !all(is.na(x$species))) {
         species <- x$species[, choices, drop=FALSE]
         colnames(species) <- paste0("NMDS", choices)
         if (shrink) {
-            mul <- sqrt(attr(X, "shrinkage"))
+            ## [,choices] drops attributes
+            mul <- sqrt(attr(x$species, "shrinkage"))
+            cnt <- attr(x$species, "centre")
             if (is.null(mul))
-                warning("species cannot be shrunken, because they were not expanded")
+                message("species are not shrunken, because they were not expanded")
             else {
                 mul <- mul[choices]
-                cnt <- attr(X, "centre")
-                X <- sweep(X, 2, cnt, "-")
-                X <- sweep(X, 2, mul, "*")
-                X <- sweep(X, 2, cnt, "+")
+                cnt <- cnt[choices]
+                species <- sweep(species, 2, cnt, "-")
+                species <- sweep(species, 2, mul, "*")
+                species <- sweep(species, 2, cnt, "+")
             }
         }
         out$species <- species
@@ -42,5 +44,8 @@
         out$label <- label
     }
     ## only two kind of scores, return NULL, matrix, or a list of scores
-    switch(length(out), out[[1]], out)
+    if (length(out) == 1)
+        out[[1]]
+    else
+        out
 }

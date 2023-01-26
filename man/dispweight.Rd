@@ -108,7 +108,9 @@ assemblage analyses. \emph{Marine Ecology Progress Series}, 320,
 data(mite, mite.env)
 ## dispweight and its summary
 mite.dw <- with(mite.env, dispweight(mite, Shrub, nsimul = 99))
+## IGNORE_RDIFF_BEGIN
 summary(mite.dw)
+## IGNORE_RDIFF_END
 ## generalized dispersion weighting
 mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
 rda(mite.dw ~ Shrub + WatrCont, data = mite.env)

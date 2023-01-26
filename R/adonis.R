@@ -10,7 +10,7 @@
                             na.action = na.action)
     ## we accept only by = "terms", "margin" or NULL
     if (!is.null(by))
-        by <- match.arg(by, c("terms", "margin"))
+        by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs
     YVAR <- formula[[2]]
     lhs <- eval(YVAR, environment(formula), globalenv())
@@ -74,7 +74,6 @@
                 terminfo = list(terms = Trms))
     sol$call$formula <- formula(Trms)
     TOL <- 1e-7
-    Terms <- terms(formula, data = data)
     lhs <- formula[[2]]
     lhs <- eval(lhs, environment(formula)) # to force evaluation
     formula[[2]] <- NULL                # to remove the lhs

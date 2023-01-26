@@ -13,20 +13,34 @@
 
 \usage{
 avgdist(x, sample, distfun = vegdist, meanfun = mean,
-    transf = NULL, iterations = 100, dmethod = "bray", ...)
+    transf = NULL, iterations = 100, dmethod = "bray",
+    diag = TRUE, upper = TRUE, ...)
 }
 \arguments{
   \item{x}{Community data matrix.}
-  \item{sample}{The subsampling depth to be used in each iteration. Samples that do not meet this threshold will be removed from the analysis, and their identify returned to the user in stdout.}
-  \item{distfun}{The dissimilarity matrix function to be used. Default is the vegan \code{\link{vegdist}}}
+  \item{sample}{The subsampling depth to be used in each iteration. Samples that
+  do not meet this threshold will be removed from the analysis, and their
+  identity returned to the user in stdout.}
+  \item{distfun}{The dissimilarity matrix function to be used. Default is the
+  vegan \code{\link{vegdist}}}
   \item{meanfun}{The calculation to use for the average (mean or median).}
-  \item{transf}{Option for transforming the count data before calculating the distance matrix. Any base transformation option can be used (e.g. \code{\link{sqrt}})}
-  \item{iterations}{The number of random iterations to perform before averaging. Default is 100 iterations.}
-  \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity matrix function. Default is Bray-Curtis}
-  \item{...}{Any additional arguments to add to the distance function or mean/median function specified.}
+  \item{transf}{Option for transforming the count data before calculating the
+  distance matrix. Any base transformation option can be used (e.g.
+  \code{\link{sqrt}})}
+  \item{iterations}{The number of random iterations to perform before averaging.
+  Default is 100 iterations.}
+  \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity
+    matrix function. Default is Bray-Curtis}
+  \item{diag, upper}{Return dissimilarities with diagonal and upper
+    triangle. NB. the default differs from \code{\link[vegan]{vegdist}}
+    and returns symmetric \code{"dist"} structure instead of lower
+    diagonal. However, the object cannot be accessed with matrix
+    indices unless cast to matrix with \code{\link{as.matrix}}.}
+  \item{...}{Any additional arguments to add to the distance function or
+  mean/median function specified.}
 }
 
-\author{ Geoffrey Hannigan. }
+\author{ Geoffrey Hannigan, with some minor tweaks by Gavin L. Simpson. }
 
 \note{
 

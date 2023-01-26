@@ -1,6 +1,8 @@
 \name{vegan-deprecated}
 
 \alias{adonis}
+\alias{as.mcmc.oecosimu}
+\alias{as.mcmc.permat}
 \alias{vegan-deprecated}
 
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
@@ -17,6 +19,9 @@
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
+## use toCoda instead
+as.mcmc.oecosimu(x)
+as.mcmc.permat(x)
 }
 
 \arguments{
@@ -24,6 +29,7 @@ adonis(formula, data, permutations = 999, method = "bray",
     \code{\link{adonis2}}.}
   \item{strata}{groups (strata) within which to constrain permutations.}
   \item{contr.unordered, contr.ordered}{contrasts used for design matrix.}
+  \item{x}{object to be tranformed.}
 }
 
 \details{

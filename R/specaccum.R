@@ -15,19 +15,14 @@
     x <- x[, colSums(x) > 0, drop=FALSE]
     n <- nrow(x)
     p <- ncol(x)
-    if (p == 1) {
-        x <- t(x)
-        n <- nrow(x)
-        p <- ncol(x)
-    }
     accumulator <- function(x, ind) {
-        rowSums(apply(x[ind, ], 2, cumsum) > 0)
+        rowSums(apply(x[ind, , drop=FALSE], 2, cumsum) > 0)
     }
     specaccum <- sdaccum <- sites <- perm <- NULL
     if (n == 1 && method != "rarefaction")
         message("no actual accumulation since only one site provided")
     switch(method, collector = {
-        sites <- 1:n
+        sites <- seq_len(n)
         xout <- weights <- cumsum(w)
         specaccum <- accumulator(x, sites)
         perm <- as.matrix(specaccum)
@@ -37,7 +32,7 @@
         perm <- apply(permat, 1, accumulator, x = x)
         if (!is.null(w))
             weights <- as.matrix(apply(permat, 1, function(i) cumsum(w[i])))
-        sites <- 1:n
+        sites <- seq_len(n)
         if (is.null(w)) {
             specaccum <- apply(perm, 1, mean)
             sdaccum <- apply(perm, 1, sd)
@@ -81,13 +76,20 @@
             sdaccum <- sqrt(sdaccum1 - sdaccum2)
         }
     }, rarefaction = {
+        ## rarefaction should be done on observed counts that usually
+        ## have singletons. Warn here but not on every row when
+        ## calling rarefy().
+        minobs <- min(x[x > 0])
+        if (minobs > 1)
+            warning(
+                gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
         freq <- colSums(x)
         freq <- freq[freq > 0]
         tot <- sum(freq)
         ind <- round(seq(tot/n, tot, length = n))
         result <- matrix(NA, nrow = 2, ncol = n)
         for (i in 1:n) {
-            result[, i] <- rarefy(t(freq), ind[i], se = TRUE)
+            result[, i] <- suppressWarnings(rarefy(t(freq), ind[i], se = TRUE))
         }
         specaccum <- result[1, ]
         sdaccum <- result[2, ]
@@ -99,7 +101,7 @@
             result[i, ] <- (1 - i/n)^freq
         }
         result <- 1 - result
-        sites <- 1:n
+        sites <- seq_len(n)
         specaccum <- rowSums(result)
         sdaccum <- sqrt(rowSums(result * (1 - result)))
     })

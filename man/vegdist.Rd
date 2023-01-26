@@ -35,8 +35,8 @@
     \code{"jaccard"}, \code{"gower"}, \code{"altGower"},
     \code{"morisita"}, \code{"horn"}, \code{"mountford"}, \code{"raup"},
     \code{"binomial"}, \code{"chao"}, \code{"cao"}, \code{"mahalanobis"},
-    \code{"chisq"}, \code{"chord"}, \code{"aitchison"}, or
-    \code{"aitchison_robust"}.}
+    \code{"chisq"}, \code{"chord"}, \code{"hellinger"},
+    \code{"aitchison"}, or \code{"robust.aitchison"}.}
   \item{binary}{Perform presence/absence standardization before analysis
     using \code{\link{decostand}}.}
   \item{diag}{Compute diagonals. }
@@ -183,9 +183,7 @@
   communities could be a subset of other, and the dissimilarity is
   \eqn{0} meaning that non-identical objects may be regarded as
   similar and the index is non-metric. The Mountford index is in the
-  range \eqn{0 \dots \log(2)}{0 \dots log(2)}, but the dissimilarities
-  are divided by \eqn{\log(2)}{log(2)} so that the results will be in
-  the conventional range \eqn{0 \dots 1}.
+  range \eqn{0 \dots \log(2)}{0 \dots log(2)}.
 
   Raup--Crick dissimilarity (\code{method = "raup"}) is a probabilistic
   index based on presence/absence data.  It is defined as \eqn{1 -
@@ -257,14 +255,14 @@
   is issued on negative data entries.
 
   Chord distances (\code{"chord"}) are Euclidean distance of a matrix
-  where rows are standardized to unit norm (their sums of squares are
-  1) using \code{\link{decostand}}. Geometrically this standardization
+  where rows are standardized to unit norm (their sums of squares are 1)
+  using \code{\link{decostand}}. Geometrically this standardization
   moves row points to a surface of multidimensional unit sphere, and
-  distances are the chords across the hypersphere. Community data are
-  non-negative, and all points will be on the positive quadrant of the
-  hypersphere, and the distances have upper limit
-  \eqn{\sqrt{2}}{sqrt(2)}. If data can have negative values, the upper
-  limit is 2.
+  distances are the chords across the hypersphere. Hellinger distances
+  (\code{"hellinger"}) are related to Chord distances, but data are
+  standardized to unit total (row sums are 1) using
+  \code{\link{decostand}}, and then square root transformed. These
+  distances have upper limit of \eqn{\sqrt{2}}{sqrt(2)}.
 
   Bray--Curtis and Jaccard indices are rank-order similar, and some
   other indices become identical or rank-order similar after some 
@@ -293,10 +291,15 @@
   misleading, since there is a separate Horn index. The abbreviation
   will be changed if that index is implemented in \code{vegan}. 
 }
+
 \value{
-  Should provide a drop-in replacement for \code{\link{dist}} and
-  return a distance object of the same type. 
+  Function is a drop-in replacement for \code{\link{dist}} function and
+  returns a distance object of the same type. The result object adds
+  attribute \code{maxdist} that gives the theoretical maximum of the
+  index for sampling units that share no species, or \code{NA} when
+  there is no such maximum.
 }
+
 \references{
 
   Aitchison, J. The Statistical Analysis of Compositional Data (1986).
@@ -402,14 +405,9 @@
   empty sites from community data.
 }
 
-\seealso{
- Function \code{\link{designdist}} can be used for defining your own
- dissimilarity index. Alternative dissimilarity functions include
- \code{\link{dist}} in base \R,
-  \code{\link[cluster]{daisy}} (package \pkg{cluster}), and
-  \code{\link[labdsv]{dsvdis}} (package \pkg{labdsv}).  Function
-  \code{\link{betadiver}} provides indices intended for the analysis of
-  beta diversity.}
+\seealso{ Function \code{\link{designdist}} can be used for defining
+ your own dissimilarity index.  Function \code{\link{betadiver}}
+ provides indices intended for the analysis of beta diversity.}
 
 \examples{
 data(varespec)

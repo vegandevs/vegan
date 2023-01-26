@@ -94,7 +94,8 @@
     }
     points(g$sites, pch = pch[x$group], cex = cex, col = col[x$group], ...)
     if (label) {
-        ordilabel(x, display = "centroids", choices = axes, cex = label.cex)
+        ordilabel(x, display = "centroids", choices = axes, cex = label.cex,
+            col = col)
     }
     localTitle(main = main, xlab = xlab, ylab = ylab, sub = sub, ...)
     localAxis(1, ...)

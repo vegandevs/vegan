@@ -572,10 +572,20 @@ c     takes a vector z and does (1,2,1)-smoothing until no blanks left
 c     and then 2 more iterations of (1,2,1)-smoothing.  if no blanks to
 c     begin with, then does 3 smoothings, i.e. effectively (1,6,15,20,
 c     15,6,1)-smoothing.
+
+c     NB: the description above deviates from actual behaviour.
+c     Subroutine does so many smoothings that no blanks are left, and
+c     after that 3 more iterations (instead of 2). If no blanks to begin
+c     with then does 3 smoothings like said above, but one more
+c     smoothing than claimed if there were blanks.  Code not changed,
+c     because there is no theoretical argument for either behaviour.
+c     Note added by J.Oksanen on 26/7/2022.
+
       istop=1
       do 20 icount=1,50
          az2=z(1)
          az3=z(2)
+c     set istop=1 for the documented behaviour
          if(az3.eq.0.0) istop=0
          z(1)=0.75*az2+0.25*az3
          do 10 k3=3,mk
@@ -584,6 +594,7 @@ c     15,6,1)-smoothing.
             az3=z(k3)
 c---  bug in next line fixed by p.minchin jan 1997
 c     if(az3.lt.0.0) istop=0
+c---  also here: set istop=1 for documented behaviour
             if(az3.le.0.0) istop=0
             z(k3-1)=0.5*(az2+0.5*(az1+az3))
  10      continue

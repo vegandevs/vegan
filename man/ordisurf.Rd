@@ -269,6 +269,7 @@ data(varespec)
 data(varechem)
 vare.dist <- vegdist(varespec)
 vare.mds <- monoMDS(vare.dist)
+## IGNORE_RDIFF_BEGIN
 ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 ## as above but without the extra penalties on smooth terms,
@@ -280,7 +281,6 @@ ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
 fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
 ## Get fitted values
 calibrate(fit)
-
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
 ## of the model not just to a linear surface. There are 2
@@ -290,7 +290,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", select = TRUE)
 ##  - option 2: use a basis with shrinkage
 ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 ## or bs = "cs" with `isotropic = FALSE`
-
+## IGNORE_RDIFF_END
 ## Plot method
 plot(fit, what = "contour")
 

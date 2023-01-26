@@ -2,43 +2,39 @@
     function (veg, iweigh = 0, iresc = 4, ira = 0, mk = 26, short = 0,
               before = NULL, after = NULL)
 {
-    Const1 <- 1e-10
+    ## constants
     Const2 <- 5
     Const3 <- 1e-11
+    ZEROEIG <- 1e-7 # same limit as in the C function do_decorana
+    ## data
     veg <- as.matrix(veg)
+    if (any(veg < 0))
+        stop("'decorana' cannot handle negative data entries")
+    ## optional data transformation
+    if (!is.null(before)) {
+        veg <- beforeafter(veg, before, after)
+    }
+    if (iweigh) {
+        veg <- downweight(veg, Const2)
+    }
+    v <- attr(veg, "v")
+    v.fraction <- attr(veg, "fraction")
+    ## marginal sums after optional data transformations
     aidot <- rowSums(veg)
     if (any(aidot <= 0))
         stop("all row sums must be >0 in the community matrix: remove empty sites")
-    if (any(veg < 0))
-        stop("'decorana' cannot handle negative data entries")
     adotj <- colSums(veg)
     if (any(adotj <= 0))
         warning("some species were removed because they were missing in the data")
+    adotj[adotj < Const3] <- Const3
+    ## check arguments
     if (mk < 10)
         mk <- 10
     if (mk > 46)
         mk <- 46
     if (ira)
         iresc <- 0
-    if (!is.null(before)) {
-        if (is.unsorted(before))
-            stop("'before' must be sorted")
-        if (length(before) != length(after))
-            stop("'before' and 'after' must have same lengths")
-        for (i in seq_len(nrow(veg))) {
-            tmp <- veg[i, ] > 0
-            veg[i, tmp] <- approx(before, after, veg[i, tmp],
-                                  rule = 2)$y
-        }
-    }
-    if (iweigh) {
-        veg <- downweight(veg, Const2)
-        aidot <- rowSums(veg)
-        adotj <- colSums(veg)
-    }
-    v <- attr(veg, "v")
-    v.fraction <- attr(veg, "fraction")
-    adotj[adotj < Const3] <- Const3
+    ## Start analysis
     CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
                 as.double(adotj))
     if (ira)
@@ -48,18 +44,38 @@
     dimnames(CA$cproj) <- list(colnames(veg), dnames)
     names(CA$evals) <- dnames
     origin <- apply(CA$rproj, 2, weighted.mean, aidot)
+    vegChi <- initCA(veg) # needed for eigenvalues & their sum
+    totchi <- sum(vegChi^2)
     if (ira) {
         evals.decorana <- NULL
+        evals.ortho <- NULL
     }
     else {
         evals.decorana <- CA$evals
-        var.r <- diag(cov.wt(CA$rproj, aidot, method = "ML")$cov)
-        var.c <- diag(cov.wt(CA$cproj, adotj, method = "ML")$cov)
-        CA$evals <- var.r/var.c
         if (any(ze <- evals.decorana <= 0))
             CA$evals[ze] <- 0
+        ## centred and weighted scores
+        x0 <- scale(CA$rproj, center = origin, scale = FALSE)
+        x0 <- sqrt(aidot/sum(aidot)) * x0
+        y0 <- scale(CA$cproj, center = origin, scale = FALSE)
+        y0 <- sqrt(adotj/sum(adotj)) * y0
+        ## eigenvalue: shrinking of scores y0 --WA--> x0
+        evals <- colSums(x0^2)/colSums(y0^2)
+        evals[evals < ZEROEIG | !is.finite(evals)] <- 0
+        CA$evals <- evals
+        ## decorana finds row scores from species scores, and for
+        ## additive eigenvalues we need orthogonalized species
+        ## scores. Q of QR decomposition will be orthonormal and if we
+        ## use it for calculating row scores, these directly give
+        ## additive eigenvalues.
+        qy <- qr.Q(qr(y0))
+        evals.ortho <- numeric(4) # qy can have < 4 columns
+        evals.ortho[seq_len(ncol(qy))] <- colSums(crossprod(t(vegChi), qy)^2)
+        evals.ortho[evals.ortho < ZEROEIG | !is.finite(evals.ortho)] <- 0
+        names(evals.ortho) <- names(evals.decorana)
     }
-    additems <- list(evals.decorana = evals.decorana, origin = origin,
+    additems <- list(totchi = totchi, evals.ortho = evals.ortho,
+                     evals.decorana = evals.decorana, origin = origin,
                      v = v, fraction = v.fraction, iweigh = iweigh,
                      before = before, after = after,
                      call = match.call())

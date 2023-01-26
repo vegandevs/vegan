@@ -5,10 +5,18 @@
  * considerable impact in running time.
  */
 
+/* handle passing strings to Fortran from C */
+#define USE_FC_LEN_T       /* from WRExt section 6.6.1 */
+
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Linpack.h> /* QR */
 #include <R_ext/Lapack.h>  /* SVD, eigen */
+
+/* handle passing strings to Fortran from C */
+#ifndef FCONE              /* from Writing R Extensions section 6.6.1 */
+# define FCONE
+#endif
 
 #include <math.h> /* sqrt */
 #include <string.h> /* memcpy, memset */
@@ -60,15 +68,16 @@ static double svdfirst(double *x, int nr, int nc)
     /* query and set optimal work array */
     info = 0;
     lwork = -1;
+
     F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
-		     &nr, &dummy, &nc, &query, &lwork, iwork, &info);
+		     &nr, &dummy, &nc, &query, &lwork, iwork, &info FCONE);
     if (info != 0)
 	error("error %d from Lapack dgesdd", info);
     lwork = (int) query;
     double *work = (double *) R_alloc(lwork, sizeof(double));
     /* call svd */
     F77_CALL(dgesdd)(jobz, &nr, &nc, xwork, &nr, sigma, &dummy,
-		     &nr, &dummy, &nc, work, &lwork, iwork, &info);
+		     &nr, &dummy, &nc, work, &lwork, iwork, &info FCONE);
     if (info != 0)
 	error("error %d from Lapack dgesdd, pos 2", info);
     return sigma[0];
@@ -104,7 +113,7 @@ static double eigenfirst(double *x, int nr)
     liwork = -1;
     F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
 		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
-		     &tmp, &lwork, &itmp, &liwork, &info);
+		     &tmp, &lwork, &itmp, &liwork, &info FCONE FCONE FCONE);
     if (info != 0)
 	error("error %d in work query in LAPACK routine dsyevr", info);
     lwork = (int) tmp;
@@ -115,7 +124,7 @@ static double eigenfirst(double *x, int nr)
     /* Finally run the eigenanalysis */
     F77_CALL(dsyevr)(jobz, range, uplo, &nr, rx, &nr, &vl, &vu, &il, &iu,
 		     &abstol, &naxes, eval, &dummy, &nr, isuppz,
-		     work, &lwork, iwork, &liwork, &info);
+		     work, &lwork, iwork, &liwork, &info FCONE FCONE FCONE);
     if (info != 0)
 	error("error %d in LAPACK routine dsyever", info);
     return eval[0];

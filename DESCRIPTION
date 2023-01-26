@@ -1,11 +1,41 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 2.6-0
-Author: Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
-   Pierre Legendre, Dan McGlinn, Peter R. Minchin, R. B. O'Hara,
-   Gavin L. Simpson, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs,
-   Helene Wagner
-Maintainer: Jari Oksanen <jhoksane@gmail.com>
+Version: 2.6-5
+Authors@R: c(person("Jari", "Oksanen", role=c("aut","cre"),
+                    email="jhoksane@gmail.com"),
+	   person("Gavin L.", "Simpson", role="aut",
+	            email="ucfagls@gmail.com"),
+	   person("F. Guillaume", "Blanchet", role="aut"),
+	   person("Roeland", "Kindt", role="aut"),
+	   person("Pierre", "Legendre", role="aut"),
+	   person("Peter R.", "Minchin", role="aut"),
+	   person("R.B.", "O'Hara", role="aut"),
+	   person("Peter", "Solymos", role="aut"),
+	   person("M. Henry H.", "Stevens", role="aut"),
+	   person("Eduard", "Szoecs", role="aut"),
+	   person("Helene", "Wagner", role="aut"),
+	   person("Matt", "Barbour", role="aut"),
+	   person("Michael", "Bedward", role="aut"),
+	   person("Ben", "Bolker", role="aut"),
+	   person("Daniel", "Borcard", role="aut"),
+	   person("Gustavo", "Carvalho", role="aut"),
+	   person("Michael", "Chirico", role="aut"),
+	   person("Miquel", "De Caceres", role="aut"),
+	   person("Sebastien", "Durand", role="aut"),
+	   person("Heloisa Beatriz Antoniazi", "Evangelista", role="aut"),
+	   person("Rich", "FitzJohn", role="aut"),
+	   person("Michael", "Friendly", role="aut"),
+	   person("Brendan","Furneaux", role="aut"),
+	   person("Geoffrey", "Hannigan", role="aut"),
+	   person("Mark O.", "Hill", role="aut"),
+	   person("Leo", "Lahti", role="aut"),
+	   person("Dan", "McGlinn", role="aut"),
+	   person("Marie-Helene", "Ouellette", role="aut"),
+	   person("Eduardo", "Ribeiro Cunha", role="aut"),
+	   person("Tyler", "Smith", role="aut"),
+	   person("Adrian", "Stier", role="aut"),
+	   person("Cajo J.F.", "Ter Braak", role="aut"),
+	   person("James", "Weedon", role="aut"))
 Depends: permute (>= 0.9-0), lattice, R (>= 3.4.0)
 Suggests: parallel, tcltk, knitr, markdown
 Imports: MASS, cluster, mgcv

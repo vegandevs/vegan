@@ -211,6 +211,7 @@ cca(residuals(mod))
 freq <- specnumber(dune, MARGIN=2)
 freq
 mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
+## IGNORE_RDIFF_BEGIN
 predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
 # New sites
 predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
@@ -218,6 +219,7 @@ predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), s
 mod <- cca(dune ~ A1 + Moisture, dune.env)
 pred <- calibrate(mod)
 pred
+## IGNORE_RDIFF_END
 with(dune.env, plot(A1, pred[,"A1"] - A1, ylab="Prediction Error"))
 abline(h=0)
 }

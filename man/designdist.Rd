@@ -21,7 +21,7 @@
 \usage{
 designdist(x, method = "(A+B-2*J)/(A+B)",
            terms = c("binary", "quadratic", "minimum"), 
-           abcd = FALSE, alphagamma = FALSE, name)
+           abcd = FALSE, alphagamma = FALSE, name, maxdist)
 chaodist(x, method = "1 - 2*U*V/(U+V)", name)
 }
 
@@ -53,6 +53,10 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
     \code{B} refer to alpha diversities of compared sites.}
   \item{name}{The name you want to use for your index. The default is to
     combine the \code{method} equation and \code{terms} argument.}
+  \item{maxdist}{Theoretical maximum of the dissimilarity, or \code{NA}
+    if index is open and has no absolute maximum. This is not a necessary
+    argument, but only used in some \pkg{vegan} functions, and if you are
+    not certain about the maximum, it is better not supply any value.}
 }
 \details{
   Most popular dissimilarity measures in ecology can be expressed with

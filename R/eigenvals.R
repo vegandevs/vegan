@@ -142,6 +142,27 @@
     out
 }
 
+`eigenvals.decorana` <-
+    function(x, kind = c("additive", "axiswise", "decorana"), ...)
+{
+    kind <- match.arg(kind)
+    if (x$ira == 1) {
+        out <- x$evals
+        attr(out, "sumev") <- x$totchi
+    } else {
+        out <- switch(kind,
+                      "additive" = x$evals.ortho,
+                      "axiswise" = x$evals,
+                      "decorana" = x$evals.decorana)
+        if (kind == "additive")
+            attr(out, "sumev") <- x$totchi
+        else
+            attr(out, "sumev") <- NA
+    }
+    class(out) <- "eigenvals"
+    out
+}
+
 
 `print.eigenvals` <-
     function(x, ...)
@@ -159,7 +180,7 @@
         sumev <- sum(object)
     }
     vars <- object/sumev
-    cumvars <- if (all(vars >= 0)) {
+    cumvars <- if (!anyNA(vars) && all(vars >= 0)) {
         cumsum(vars)
     } else {
         NA

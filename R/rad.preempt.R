@@ -1,11 +1,11 @@
 "rad.preempt" <-
-    function (x, family = poisson, ...) 
+    function (x, family = poisson, ...)
 {
     canfun <- function(p, x, ...) {
         if (length(x) <= 1)
             return(0)
         p <- plogis(p)
-        if (p == 1) 
+        if (p == 1)
             p <- 1 - .Machine$double.eps
         fv <- linkinv(logJ + log(p) + log(1 - p) * rnk)
         n <- rep(1, length(fv))
@@ -22,12 +22,12 @@
     wt <- rep(1, length(x))
     logJ <- log(sum(x))
     p <- qlogis(0.1)
-    canon <- try(nlm(canfun, p = p, x = x, rnk = rnk, logJ = logJ, 
+    canon <- try(nlm(canfun, p = p, x = x, rnk = rnk, logJ = logJ,
                      wt = wt, hessian = TRUE, ...))
     if (inherits(canon, "try-error")) {
         aic <- rdf <- deviance <- NA
         p <- rep(NA, 1)
-        fit <- residuals <- prior.weights <- rep(NA, length(x))
+        fit <- residuals <- wt <- rep(NA, length(x))
     } else {
         if (nsp > 1) {
             p <- plogis(canon$estimate)
@@ -47,8 +47,8 @@
     }
     names(fit) <- names(x)
     names(p) <- c("alpha")
-    out <- list(model = "Preemption", family = fam, y = x, coefficients = p, 
-                fitted.values = fit, aic = aic, rank = 1, df.residual = rdf, 
+    out <- list(model = "Preemption", family = fam, y = x, coefficients = p,
+                fitted.values = fit, aic = aic, rank = 1, df.residual = rdf,
                 deviance = deviance, residuals = residuals, prior.weights = wt)
     class(out) <- c("radline", "glm")
     out

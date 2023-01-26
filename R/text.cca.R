@@ -3,7 +3,6 @@
               arrow.mul, head.arrow = 0.05, select, const, axis.bp = FALSE,
               correlation = FALSE, hill = FALSE, ...)
 {
-    formals(arrows) <- c(formals(arrows), alist(... = ))
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,

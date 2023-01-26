@@ -3,7 +3,7 @@
 `designdist` <-
     function (x, method = "(A+B-2*J)/(A+B)",
               terms = c("binary", "quadratic", "minimum"),
-              abcd = FALSE, alphagamma = FALSE, name)
+              abcd = FALSE, alphagamma = FALSE, name, maxdist)
 {
     terms <- match.arg(terms)
     if ((abcd || alphagamma) && terms != "binary")
@@ -43,6 +43,13 @@
     if (missing(name))
         attr(dis, "method") <- paste(terms, method)
     else attr(dis, "method") <- name
+    if (!missing(maxdist)) {
+        if (!is.na(maxdist) && any(dis > maxdist)) {
+            warning("'maxdist' was lower than some distances: setting to NA")
+            maxdist <- NA
+        }
+        attr(dis, "maxdist") <- maxdist
+    }
     dis
 }
 

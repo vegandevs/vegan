@@ -87,30 +87,27 @@ downweight(veg, fraction = 5)
   The curvature is removed by replacing the orthogonalization of axes
   with detrending.  In orthogonalization successive axes are made
   non-correlated, but detrending should remove all systematic dependence
-  between axes.  Detrending is performed using a five-segment smoothing
-  window with weights (1,2,3,2,1) on \code{mk} segments --- which indeed
-  is more robust than the suggested alternative of detrending by
-  polynomials. The packing of sites at the ends of the gradient is
-  undone by rescaling the axes after extraction.  After rescaling, the
-  axis is supposed to be scaled by \sQuote{SD} units, so that the average width
-  of Gaussian species responses is supposed to be one over whole axis.
-  Other innovations were the piecewise linear transformation of species
-  abundances and downweighting of rare species which were regarded to
-  have an unduly high influence on ordination axes.
+  between axes.  Detrending is performed using a smoothing window on
+  \code{mk} segments.  The packing of sites at the ends of the gradient
+  is undone by rescaling the axes after extraction.  After rescaling,
+  the axis is supposed to be scaled by \sQuote{SD} units, so that the
+  average width of Gaussian species responses is supposed to be one over
+  whole axis. Other innovations were the piecewise linear transformation
+  of species abundances and downweighting of rare species which were
+  regarded to have an unduly high influence on ordination axes.
 
   It seems that detrending actually works by twisting the ordination
-  space, so that the results look non-curved in two-dimensional projections
-  (\sQuote{lolly paper effect}).  As a result, the points usually have an
-  easily recognized triangular or diamond shaped pattern, obviously an
-  artefact of detrending.  Rescaling works differently than commonly
-  presented, too. \code{decorana} does not use, or even evaluate, the
-  widths of species responses.  Instead, it tries to equalize the
-  weighted variance of species scores on axis segments (parameter
-  \code{mk} has only a small effect, since \code{decorana} finds the
-  segment number from the current estimate of axis length).  This 
-  equalizes response widths only for the idealized species packing
-  model, where all species initially have unit width responses and
-  equally spaced modes.
+  space, so that the results look non-curved in two-dimensional
+  projections (\sQuote{lolly paper effect}).  As a result, the points
+  usually have an easily recognized triangular or diamond shaped
+  pattern, obviously an artefact of detrending.  Rescaling works
+  differently than commonly presented, too. \code{decorana} does not
+  use, or even evaluate, the widths of species responses.  Instead, it
+  tries to equalize the weighted standard deviation of species scores on
+  axis segments (parameter \code{mk} has no effect, since
+  \code{decorana} finds the segments internally). Function
+  \code{\link{tolerance}} returns this internal criterion and can be
+  used to assess the success of rescaling.
 
   The \code{summary} method prints the ordination scores,
   possible prior weights used in downweighting, and the marginal totals
@@ -120,25 +117,33 @@ downweight(veg, fraction = 5)
   negative), but \code{summary}, \code{plot} and
   \code{scores} use the true origin, unless \code{origin = FALSE}.
 
-  In addition to proper eigenvalues, the function also reports
+  In addition to proper eigenvalues, the function reports
   \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
   values} are the values that the legacy code of \code{decorana} returns
-  as eigenvalues.  They are estimated internally during iteration, and
-  it seems that detrending interferes the estimation so that these
-  values are generally too low and have unclear
-  interpretation. Moreover, \sQuote{decorana values} are estimated
-  before rescaling which will change the eigenvalues. The proper
-  eigenvalues are estimated after extraction of the axes and they are
-  the ratio of biased weighted variances of site and species scores even
-  in detrended and rescaled solutions. The \sQuote{decorana values} are
-  provided only for the compatibility with legacy software, and they
-  should not be used.
+  as eigenvalues. They are estimated during iteration, and describe the
+  joint effects of axes and detrending. The \sQuote{decorana values} are
+  estimated before rescaling and do not show its effect on
+  eigenvalues. The proper eigenvalues are estimated after extraction of
+  the axes and they are the ratio of weighted sum of squares of site and
+  species scores even in detrended and rescaled solutions. These
+  eigenvalues are estimated for each axis separately, but they are not
+  additive, because higher \code{decorana} axes can show effects already
+  explained by prior axes. \sQuote{Additive eigenvalues} are cleansed
+  from the effects of prior axes, and they can be assumed to add up to
+  total inertia (scaled Chi-square). For proportions and cumulative
+  proportions explained you can use \code{\link{eigenvals.decorana}}.
 
 }
 \value{
-  \code{decorana} returns an object of class \code{"decorana"}, which has
-  \code{print}, \code{summary} and \code{plot} methods.
+  \code{decorana} returns an object of class \code{"decorana"}, which
+  has \code{print}, \code{summary}, \code{scores}, \code{plot},
+  \code{points} and \code{text} methods, and support functions
+  \code{\link{eigenvals}}, \code{\link{bstick}}, \code{screeplot},
+  \code{predict} and \code{\link{tolerance}}. \code{downweight} is an
+  independent function that can also be used with other methods than
+  \code{decorana}.
 }
+
 \references{
   Hill, M.O. and Gauch, H.G. (1980). Detrended correspondence analysis:
   an improved ordination technique. \emph{Vegetatio} \strong{42},
@@ -168,21 +173,23 @@ downweight(veg, fraction = 5)
   \code{downweight} indeed can be applied prior to correspondence
   analysis, and so it can be used together with \code{\link{cca}}, too.
 
-  The function finds only four axes: this is not easily changed.
+  Github package \pkg{natto} has an \R{} implementation of
+  \code{decorana} which allows easier inspection of the
+  algorithm and also easier development of the function.
 }
 
 \seealso{
+
   For unconstrained ordination, non-metric multidimensional scaling in
   \code{\link{monoMDS}} may be more robust (see also
   \code{\link{metaMDS}}).  Constrained (or \sQuote{canonical})
   correspondence analysis can be made with \code{\link{cca}}.
-  Orthogonal correspondence analysis can be made with
-  \code{\link[MASS]{corresp}}, or with \code{decorana} or
+  Orthogonal correspondence analysis can be made with \code{decorana} or
   \code{\link{cca}}, but the scaling of results vary (and the one in
-  \code{decorana} corresponds to \code{scaling = "sites"} and
-  \code{hill = TRUE} in \code{\link{cca}}.).  See
-  \code{\link{predict.decorana}} for adding new points to an
-  ordination.
+  \code{decorana} corresponds to \code{scaling = "sites"} and \code{hill
+  = TRUE} in \code{\link{cca}}.).  See \code{\link{predict.decorana}}
+  for adding new points to an ordination.
+
 }
 
 \examples{

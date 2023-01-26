@@ -13,7 +13,7 @@
 \usage{
 wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
 \method{plot}{wcmdscale}(x, choices = c(1, 2), type = "t", ...)
-\method{scores}{wcmdscale}(x, choices = NA, ...)
+\method{scores}{wcmdscale}(x, choices = NA, tidy = FALSE, ...)
 }
 \description{
   Weighted classical multidimensional scaling,
@@ -41,6 +41,10 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \item{choices}{Axes to be returned; \code{NA} returns all real axes.}
   \item{type}{Type of graph which may be \code{"t"}ext, \code{"p"}oints
     or \code{"n"}one.}
+  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+    scores are in a \code{\link{data.frame}}, score type is in the
+    variable \code{score} labelled as \code{"sites"}, weights in
+    variable \code{weigth}, and names in variable \code{label}.}
   \item{\dots}{Other arguments passed to graphical functions.}
 }
 \details{
@@ -129,11 +133,15 @@ d <- dist(decostand(dune, "chi"))
 ord <- wcmdscale(d, w = rs, eig = TRUE)
 ## Ordinary CA
 ca <- cca(dune)
+
+## IGNORE_RDIFF_BEGIN
 ## Eigevalues are numerically similar
 ca$CA$eig - ord$eig
 ## Configurations are similar when site scores are scaled by
 ## eigenvalues in CA
 procrustes(ord, ca, choices=1:19, scaling = "sites")
+## IGNORE_RDIFF_END
+
 plot(procrustes(ord, ca, choices=1:2, scaling="sites"))
 ## Reconstruction of non-Euclidean distances with negative eigenvalues
 d <- vegdist(dune)

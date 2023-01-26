@@ -117,7 +117,7 @@
         biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression))
         text(biplabs, rownames(g$regression), col = rcol)
     }
-    if (!is.null(g$centroids) && all(!is.na(g$centroids)) && type !=
+    if (!is.null(g$centroids) && !anyNA(g$centroids) && type !=
         "none") {
         if (type == "text")
             text(g$centroids, rownames(g$centroids), col = "blue")

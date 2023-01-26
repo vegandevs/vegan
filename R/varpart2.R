@@ -24,7 +24,6 @@
     n <- nrow(Y)
     n1 <- nrow(X1)
     n2 <- nrow(X2)
-    p <- ncol(Y)
     mm1 <- ncol(X1)
     mm2 <- ncol(X2)
     if (n1 != n)
@@ -56,17 +55,22 @@
         bigwarning <- c("X1, X2")
     else bigwarning <- NULL
     Df <- c(m1, m2, m3)
+    ## labels and variable names are inconsistent below: the var names
+    ## are from the old model where independent fractions were [a] and
+    ## [c] and shared fraction was [b], but this was made consistent
+    ## with other models where independent fractions are [a], [b],
+    ## [c], [d] and listed before shared fractions.
     fract <- data.frame(Df = Df,
                         R.squared = c(ab.ua, bc.ua, abc.ua),
                         Adj.R.squared = c(ab, bc, abc),
                         Testable = rep(TRUE, 3) & Df)
-    rownames(fract) <- c("[a+b] = X1", "[b+c] = X2", "[a+b+c] = X1+X2")
+    rownames(fract) <- c("[a+c] = X1", "[b+c] = X2", "[a+b+c] = X1+X2")
     b <- ab + bc - abc
-    Df <- c(m3-m2, 0, m3-m1, NA)
+    Df <- c(m3-m2, m3-m1, 0, NA)
     indfract <- data.frame(Df = Df, R.squared = rep(NA, 4),
-                           Adj.R.squared = c(ab - b, b, bc - b, 1 - abc),
-                           Testable = c(TRUE, FALSE, TRUE, FALSE) & Df)
-    rownames(indfract) <- c("[a] = X1|X2", "[b]", "[c] = X2|X1",
+                           Adj.R.squared = c(ab - b, bc - b, b, 1 - abc),
+                           Testable = c(TRUE, TRUE, FALSE, FALSE) & Df)
+    rownames(indfract) <- c("[a] = X1|X2", "[b] = X2|X1", "[c]",
                             "[d] = Residuals")
     out <- list(SS.Y = SS.Y, fract = fract, indfract = indfract,
                 nsets = 2, bigwarning = bigwarning, n = n1)

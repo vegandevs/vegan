@@ -17,14 +17,18 @@
 }
 
 \usage{
-\method{scores}{default}(x, choices, display=c("sites", "species"), ...)
+\method{scores}{default}(x, choices,
+    display=c("sites", "species", "both"), tidy = FALSE, ...)
 }
 
 \arguments{
   \item{x}{ An ordination result. }
   \item{choices}{ Ordination axes.  If missing, default method returns all axes.}
-  \item{display}{ Partial match to access scores for \code{sites} or
-    \code{species}.}
+  \item{display}{ Partial match to access scores for \code{"sites"} or
+    \code{"species"} of for \code{"both"}.}
+  \item{tidy}{Return \code{"both"} scores in data frame that is
+    compatible with \CRANpkg{ggplot2}, with variable \code{score}
+    labelling the scores as \code{"sites"} or \code{"species"}.} 
   \item{...}{ Other parameters (unused). }
 }
 \details{
@@ -59,7 +63,9 @@
   It may work in other cases or fail mysteriously.
 }
 \value{
-  The function returns a matrix of scores.
+  The function returns a matrix of scores if one type is requested, or a
+  named list of matrices if \code{display = "both"}, or a
+  \CRANpkg{ggplot2} compatible data frame if \code{tidy = TRUE}.
 }
 \author{Jari Oksanen }
 

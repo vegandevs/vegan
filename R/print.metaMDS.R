@@ -18,12 +18,18 @@
         cat("\n")
     }
     if (x$converged) {
-        cat("Two convergent solutions found after", x$tries,
-            "tries\n")
+        cat(sprintf(ngettext(x$converged,
+                     "Best solution was repeated %d time in %d tries\n",
+                     "Best solution was repeated %d times in %d tries\n"),
+                     x$converged, x$tries))
     } else {
-        cat("No convergent solutions - best solution after",
-            x$tries, "tries\n")
+        cat("Best solution was not repeated after", x$tries, "tries\n")
     }
+    cat("The best solution was from try", x$bestry)
+    if (x$bestry == 0)
+        cat(" (metric scaling or null solution)\n")
+    else
+        cat(" (random start)\n")
     z <- x$points
     scal <- c(if (attr(z, "centre")) "centring",
               if (attr(z, "pc")) "PC rotation",

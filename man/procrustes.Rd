@@ -20,7 +20,7 @@
 procrustes(X, Y, scale = TRUE, symmetric = FALSE, scores = "sites", ...)
 \method{summary}{procrustes}(object, digits = getOption("digits"), ...)
 \method{plot}{procrustes}(x, kind=1, choices=c(1,2), to.target = TRUE, 
-    type = "p", xlab, ylab, main, ar.col = "blue", len=0.05, 
+    type = "p", xlab, ylab, main, ar.col = "blue", length=0.05, 
     cex = 0.7, ...)
 \method{points}{procrustes}(x, display = c("target", "rotated"),
     choices = c(1,2), truemean = FALSE, ...)
@@ -73,7 +73,7 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
   \item{ar.col}{Arrow colour.}
-  \item{len}{Width of the arrow head.}
+  \item{length}{Width of the arrow head.}
   \item{labels}{Character vector of text labels. Rownames of the result 
     object are used as default.}
   \item{cex}{Character expansion for points or text.}
@@ -196,6 +196,7 @@ alternative to \code{protest} without need of dimension reduction. See
 permutation required.} 
 
 \examples{
+## IGNORE_RDIFF_BEGIN
 data(varespec)
 vare.dist <- vegdist(wisconsin(varespec))
 mds.null <- monoMDS(vare.dist, y = cmdscale(vare.dist))
@@ -206,6 +207,7 @@ summary(vare.proc)
 plot(vare.proc)
 plot(vare.proc, kind=2)
 residuals(vare.proc)
+## IGNORE_RDIFF_END
 }
 \keyword{multivariate }
 \keyword{htest}

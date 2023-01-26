@@ -85,5 +85,15 @@ biplot(mod, scaling = "symmetric")
 
 ## different type for species and site scores
 biplot(mod, scaling = "symmetric", type = c("text", "points"))
+
+## We can use ordiplot pipes in R 4.1 to build similar plots with
+## flexible control
+\dontrun{
+if (getRversion() >= "4.1") {
+plot(mod, scaling = "symmetric", type="n") |>
+   text("sites", cex=0.8) |>
+   text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
+}
+}
 }
 \keyword{hplot}

@@ -89,8 +89,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
     to provide the requested coverage (probability contour).}
   \item{pch}{plot symbols for the groups, a vector of length equal to
     the number of groups.}
-  \item{col}{colors for the plot symbols for the groups, a vector of
-    length equal to the number of groups.}
+  \item{col}{colors for the plot symbols and centroid labels for the groups,
+    a vector of length equal to the number of groups.}
   \item{lty, lwd}{linetype, linewidth for convex hulls and confidence
     ellipses.}
   \item{segments}{logical; should segments joining points to their
@@ -292,6 +292,10 @@ plot(mod)
 ## with data ellipses instead of hulls
 plot(mod, ellipse = TRUE, hull = FALSE) # 1 sd data ellipse
 plot(mod, ellipse = TRUE, hull = FALSE, conf = 0.90) # 90% data ellipse
+
+# plot with manual colour specification
+my_cols <- c("#1b9e77", "#7570b3")
+plot(mod, col = my_cols, pch = c(16,17), cex = 1.1)
 
 ## can also specify which axes to plot, ordering respected
 plot(mod, axes = c(3,1), seg.col = "forestgreen", seg.lty = "dashed")

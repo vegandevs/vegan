@@ -255,9 +255,6 @@
   on \dQuote{Design decisions} which can be accessed with
   \code{browseVignettes("vegan")}.
 
-  Package \pkg{ade4} provides alternative constrained ordination
-  function \code{\link[ade4]{pcaiv}}.
-
 }
 
 \examples{

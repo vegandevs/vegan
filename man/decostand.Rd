@@ -2,6 +2,7 @@
 \name{decostand}
 \alias{decostand}
 \alias{wisconsin}
+\alias{decobackstand}
 
 \title{Standardization Methods for Community Ecology}
 \description{
@@ -11,10 +12,12 @@ methods for community ecologists.
 \usage{
 decostand(x, method, MARGIN, range.global, logbase = 2, na.rm=FALSE, ...)
 wisconsin(x)
+decobackstand(x, zap = TRUE)
 }
 
 \arguments{
-  \item{x}{Community data, a matrix-like object.}
+  \item{x}{Community data, a matrix-like object. For
+    \code{decobackstand} standardized data. }
   \item{method}{Standardization method. See Details for available options.}
   \item{MARGIN}{Margin, if default is not acceptable. \code{1} = rows,
     and \code{2} = columns of \code{x}.}
@@ -24,6 +27,8 @@ wisconsin(x)
     \code{x}. }
   \item{logbase}{The logarithm base used in \code{method = "log"}.}
   \item{na.rm}{Ignore missing values in row or column standardizations.}
+  \item{zap}{Make near-zero values exact zeros to avoid negative
+    values and exaggerated estimates of species richness.}
   \item{\dots}{Other arguments to the function (ignored).}
 }
 \details{
@@ -71,27 +76,20 @@ wisconsin(x)
 
      \item \code{alr}: Additive log ratio ("alr") transformation
      (Aitchison 1986) reduces data skewness and compositionality
-     bias. The transformation assumes positive values, pseudocounts
-     can be added with the argument \code{pseudocount}. One of the
-     samples is a reference, this sample (name or index) can be given
-     by \code{reference}. The first sample is used by default
-     (\code{reference=1}).
-     Note that this transformation drops one
-     feature from the transformed output data. The \code{alr}
-     transformation is defined formally as follows: \deqn{alr =
-     [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}, where the
-     denominator sample \deqn{x_D} can be chosen arbitrarily. This
-     transformation is often used with pH and other chemistry
-     measurenments. It is also commonly used as multinomial logistic
-     regression.
-
-     \item \code{ilr}: Isometric log ratio ("ilr") transformation
-     (Aitchison 1986) reduces data skewness and compositionality
-     bias. The transformation assumes positive values, pseudocounts
-     can be added with the argument \code{pseudocount}. Note that this
-     transformation drops one feature from the transformed output
-     data. For a formal definition, see e.g. Egozcue et al. (2003). The
-     calculation may be slow for data sets with many samples or features.
+     bias. The transformation assumes positive values, pseudocounts can
+     be added with the argument \code{pseudocount}. One of the
+     rows/columns is a reference that can be given by \code{reference}
+     (name of index). The first row/column is used by default
+     (\code{reference = 1}).  Note that this transformation drops one
+     row or column from the transformed output data. The \code{alr}
+     transformation is defined formally as follows:
+     \deqn{alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}{%
+       alr = [log(x_i/x_D), ..., log(x_{-D}/x_D)]}
+     where the denominator sample \eqn{x_D} can be chosen
+     arbitrarily. This transformation is often used with pH and other
+     chemistry measurenments. It is also commonly used as multinomial
+     logistic regression. Default \code{MARGIN = 1} uses row as the
+     \code{reference}.
 
      \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
@@ -106,8 +104,8 @@ wisconsin(x)
      (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{vegan::decostand(x, method="clr", pseudocount=1)}. Adding
-     pseudocount will inevitably introduce some bias in the data; see
+     \code{decostand(x, method = "clr", pseudocount = 1)}. Adding
+     pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for one available solution.
 
      \item \code{rclr}: robust clr ("rclr") is similar to regular clr
@@ -120,10 +118,9 @@ wisconsin(x)
      geometric mean; see e.g. Martino et al. (2019)
      The \code{rclr} transformation is defined formally as follows:
      \deqn{rclr = log\frac{x}{g(x > 0)}}{%
-     rclr = log10(x/g(x > 0))}
+     rclr = log(x/g(x > 0))}
      where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
-     mean of sample-wide values \eqn(x) that are positive (> 0).
-     
+     mean of sample-wide values \eqn{x} that are positive (> 0).
   }
   
   Standardization, as contrasted to transformation, means that the
@@ -142,15 +139,24 @@ wisconsin(x)
   negative data entries that normally should not occur in the community
   data. If there are empty sites or species (or constant with
   \code{method =  "range"}), many standardization will change these into
-  \code{NaN}.  
+  \code{NaN}.
+
+  Function \code{decobackstand} can be used to transform standardized
+  data back to original. This is not possible for all standardization
+  and may not be implemented to all cases where it would be
+  possible. There are round-off errors and back-transformation is not
+  exact, and it is wise not to overwrite the original data. With
+  \code{zap=TRUE} original zeros should be exact.
 }
+
 \value{
   Returns the standardized data frame, and adds an attribute
   \code{"decostand"} giving the name of applied standardization
-  \code{"method"}.
-}
+  \code{"method"} and attribute \code{"parameters"} with appropriate
+  transformation parameters.  }
+
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
-  (\code{method = "log"}), Leo Lahti (\code{alr}, \code{ilr},
+  (\code{method = "log"}), Leo Lahti (\code{alr}, 
   \code{"clr"} and \code{"rclr"}).}
   
 \note{Common transformations can be made with standard \R functions.}

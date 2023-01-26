@@ -9,8 +9,7 @@
         EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
     RESLIM <- 0.01
     RMSELIM <- 0.005
-    SOL <- FALSE
-    converged <- FALSE
+    converged <- 0
     ## set tracing for engines
     isotrace <- max(0, trace - 1)
     monotrace <- engine == "monoMDS" && trace > 1
@@ -40,6 +39,9 @@
             ## configuration with 'maxit = 0' to evaluate the stress
             ## in current case, or take a matrix as configuration.
             init <- previous.best$points
+            bestry <- previous.best$bestry
+            trybase <- previous.best$tries
+            converged <- previous.best$converged
             nc <- NCOL(init)
             if (nc > k)
                 init <- init[, 1:k, drop = FALSE]
@@ -51,6 +53,8 @@
                             nc))
         } else {
             init <- as.matrix(previous.best)
+            bestry <- 0
+            trybase <- 0
         }
         ## evaluate stress
         s0 <- switch(engine,
@@ -69,7 +73,9 @@
                  "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k,
                  maxit = maxit, ...),
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
-                 maxit = maxit))
+                                   maxit = maxit))
+        bestry <- 0
+        trybase <- 0
     }
     if (trace)
         cat("Run 0 stress", s0$stress, "\n")
@@ -92,7 +98,7 @@
     else
         nclus <- parallel
     ## proper iterations
-    while(tries < try || tries < trymax && !converged) {
+    while(tries < try || tries < trymax && converged == 0) {
         init <- replicate(nclus, initMDS(dist, k = k))
         if (nclus > 1) isotrace <- FALSE
         if (isParal) {
@@ -139,7 +145,8 @@
                     s0 <- stry[[i]]
                     ## New best solution has not converged unless
                     ## proved later
-                    converged <- FALSE
+                    converged <- 0
+                    bestry <- tries + trybase
                     if (trace)
                         cat("... New best solution\n")
                 }
@@ -150,18 +157,18 @@
                 if (summ$rmse < RMSELIM && max(summ$resid) < RESLIM) {
                     if (trace)
                         cat("... Similar to previous best\n")
-                    converged <- TRUE
+                    converged <- converged + 1
                 }
             }
             flush.console()
         }
     }
     if (trace) {
-        if (converged)
-            cat("*** Solution reached\n")
+        if (converged > 0)
+            cat("*** Best solution repeated", converged, "times\n")
         else if (engine == "monoMDS") {
             cat(sprintf(
-                "*** No convergence -- %s stopping criteria:\n",
+                "*** Best solution was not repeated -- %s stopping criteria:\n",
                 engine))
             for (i in seq_along(stopcoz))
                 if (stopcoz[i] > 0)
@@ -180,6 +187,7 @@
     out$distance <- attr(dist, "method")
     out$converged <- converged
     out$tries <- tries
+    out$bestry <- bestry
     out$engine <- engine
     out
 }

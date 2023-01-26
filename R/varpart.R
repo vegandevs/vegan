@@ -7,9 +7,14 @@
     X <- list(X, ...)
     if ((length(X) < 2 || length(X) > 4))
         stop("needs two to four explanatory tables")
+    ## see if distances were given in non-canonical form as a symmetric matrix
+    if ((is.matrix(Y) || is.data.frame(Y)) && isSymmetric(unname(as.matrix(Y))))
+        Y <- as.dist(Y)
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
         inert <- attr(Y, "method")
+        if (is.null(inert))
+            inert <- "unknown user-supplied"
         inert <- paste(paste0(toupper(substring(inert, 1, 1)),
                               substring(inert, 2)), "distance")
         ## sqrt of distances?

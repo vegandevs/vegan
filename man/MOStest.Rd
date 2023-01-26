@@ -6,7 +6,7 @@
 \alias{profile.MOStest}
 \alias{confint.MOStest}
 
-\title{ Mitchell-Olds \& Shaw Test for the Location of Quadratic Extreme }
+\title{ Mitchell-Olds and Shaw Test for the Location of Quadratic Extreme }
 \description{
   Mitchell-Olds & Shaw test concerns the location of the highest (hump)
   or lowest (pit) value of a quadratic curve at given points. Typically,
@@ -142,7 +142,7 @@ regression and the Gaussian response model. \emph{Vegetatio} 65,
 \note{ 
 Function \code{fieller.MOStest} is based on package \pkg{optgrad} in
 the Ecological Archives
-(\url{https://figshare.com/articles/Full_Archive/3521975})
+(\url{https://figshare.com/articles/dataset/Full_Archive/3521975})
 accompanying Oksanen et al. (2001). The Ecological Archive package
 \pkg{optgrad} also contains profile deviance method for the location
 of the hump or pit, but the current implementation of \code{profile}

@@ -12,7 +12,6 @@
     NALL <- 7
     allperm <- factorial(NALL)
     ties <- FALSE
-    trace <- FALSE
     ## Code
     comm <- ifelse(comm > 0, 1, 0)
     cs <- colSums(comm)

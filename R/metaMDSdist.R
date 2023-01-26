@@ -43,12 +43,40 @@
                 cat("Zero dissimilarities changed into ", zero,"\n")
         }
     }
-    ## We actually used maxdis to decide whether index has a closed
-    ## upper limit, but simple maximum does not give that info.
-    ## Therefore we see if an arbitrary matrix with no shared species
-    ## has distance = 1.
-    maxdis <- abs(distfun(matrix(c(7,0,0,3), 2, 2),
-                      method = distance, ...) - 1) < 1e-4
+    ## We actually used maxdiss to decide whether index has a closed
+    ## upper limit, but data maximum does not give that
+    ## info. vegan::vegdist returns the info as an attribute of dis,
+    ## but for other distance functions we guess constant maximum with
+    ## arbitrary data matrix. This test is known to fail in some
+    ## cases, but better so than assuming wrong maxdist: for instance,
+    ## stats::dist(x, method="canberra") has maxdist ncol(x) --
+    ## vegan::vegdist(x, "canberra") has maxdist 1, and we voluntarily
+    ## fail here with stats::dist.
+    if (is.null(attr(dis, "maxdist"))) {
+        mat <- matrix(c(1,0,0, 1,0,0, 0,7,0, 0,3,0, 0,0,0.2,0,0,10),
+                      nrow=3)
+        dmat <- distfun(mat, method = distance, ...)
+        if (sd(dmat) < sqrt(.Machine$double.eps) &&
+            max(dis) - max(dmat) < sqrt(.Machine$double.eps))
+        {
+            maxdis <- max(dmat)
+            attr(dis, "maxdist") <- maxdis
+            message("assuming that theoretical maximum distance is ", maxdis)
+        } else {
+            attr(dis, "maxdist") <- NA
+        }
+    }
+    ## sanity check of dissimilarities: either similarities or failed
+    ## logic above
+    maxdis <- attr(dis, "maxdist")
+    if (!is.null(maxdis) && is.numeric(maxdis)) {
+        if (max(dis) > maxdis + sqrt(.Machine$double.eps)) {
+            warning("some dissimilarities exceed expected maximum ", maxdis)
+            attr(dis, "maxdist") <- NA
+        }
+        if(maxdis < sqrt(.Machine$double.eps))
+            warning("perhaps you have similarities instead of dissimilarities?")
+    }
     if ((isTRUE(noshare) && any(tmp <- no.shared(comm))) ||
         (!is.logical(noshare) && noshare >= 0 &&
          sum(tmp <- no.shared(comm))/length(dis) > noshare)) {
@@ -63,7 +91,6 @@
         if (length(unique(distconnected(tmp, trace = trace))) > 1)
             warning("data are disconnected, results may be meaningless")
     }
-    attr(dis, "maxdis") <- maxdis
     attr(dis, "commname") <- commname
     attr(dis, "comm") <- comm
     attr(dis, "function") <- distname

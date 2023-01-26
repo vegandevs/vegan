@@ -11,7 +11,6 @@
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
     seed <- attr(permutations, "seed")
     control <- attr(permutations, "control")
-    nperm <- nrow(permutations)
     ## see if this was a list of ordination objects
     dotargs <- list(...)
     ## we do not want to give dotargs to anova.ccalist, but we
@@ -37,8 +36,8 @@
         return(anova.ccanull(object))
     ## by cases
     if (!is.null(by)) {
-        by <- match.arg(by, c("terms", "margin", "axis"))
-        if (is.null(object$terms))
+        by <- match.arg(by, c("terms", "margin", "axis", "onedf"))
+        if (by %in% c("terms", "margin") && is.null(object$terms))
             stop("model must be fitted with formula interface")
         sol <- switch(by,
                       "terms" = anova.ccabyterm(object,
@@ -51,7 +50,11 @@
                       "axis" = anova.ccabyaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
-                      cutoff = cutoff))
+                      cutoff = cutoff),
+                      "onedf" = anova.ccaby1df(object,
+                       permutations = permutations,
+                       model = model, parallel = parallel)
+                      )
         attr(sol, "Random.seed") <- seed
         attr(sol, "control") <- control
         return(sol)

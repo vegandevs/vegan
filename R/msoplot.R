@@ -4,7 +4,6 @@
 {
     if (is.data.frame(x$vario)) {
         vario <- x$vario
-        grain <- x$grain
         hasSig <- is.numeric(x$vario$CA.signif)
         z <- qnorm(alpha/2)
         if (is.numeric(vario$CA.signif)) {

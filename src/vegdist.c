@@ -49,8 +49,9 @@
 #define CLARK 17
 #define CHISQUARE 18
 #define CHORD 19
-#define AITCHISON 20
-#define RAITCHISON 21
+#define HELLINGER 20
+#define AITCHISON 21
+#define RAITCHISON 22
 #define MATCHING 50
 #define NOSHARED 99
 
@@ -132,9 +133,12 @@ static double veg_gowerDZ(double *x, int nr, int nc, int i1, int i2)
      return dist;
 }
 
-/* Euclidean distance: duplicates base R. If Mahalanobis
- * transformation was performred in the calling routine, this will
- * give Mahalanobis distances. */
+/* Euclidean distance: duplicates base R. This function can be (and will be)
+* used for many named distance indices with transforming & standardizing input
+* data in the calling R code (vegdist): Chord, Hellinger, Chi-square,
+* Aitchison, Mahalanobis -- see veg_distance() below for actual list at the
+* moment.
+*/
 
 static double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
 {
@@ -154,6 +158,66 @@ static double veg_euclidean(double *x, int nr, int nc, int i1, int i2)
      }
      if (count == 0) return NA_REAL;
      return sqrt(dist);
+}
+
+/* Chord & Hellinger distances can be calculated after appropriate
+* standardization in veg_euclidean, but it is also possible to use
+* this function for non-standardized (Chord) data or square root
+* transformed (Hellinger) data. It may be that veg_euclidean() is
+* numerically more stable: the current function collects sum of
+* squares and cross-products which can have loss of precision. See
+* driver routine veg_distance() to see which function currently is
+* used for Chord and Hellinger distances.
+*/
+
+static double veg_chord(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, cp = 0.0, ss1 = 0.0, ss2 = 0.0;
+    int count = 0, j;
+
+    for (j = 0; j < nc; j++) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
+	    count++;
+	    cp += x[i1] * x[i2];  /* cross products */
+	    ss1 += x[i1] * x[i1]; /* sum of squares */
+	    ss2 += x[i2] * x[i2];
+	}
+	i1 += nr;
+	i2 += nr;
+    }
+
+    if (count == 0) return NA_REAL;
+    dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
+    return sqrt(dist);
+}
+
+/* It may not make sense to use direct formula to Chord distance as
+* this involves getting sums of squares which may be numerically
+* unstable. It makes even less sense to find Hellinger distance via
+* Chord of sqrt-transformed data (sqrt(2)*sqrt(2) != 2), but it makes
+* perfect sense to calculate Hellinger distance directly: this is more
+* stable than working via sqrt(x) data.
+*/
+
+static double veg_hellinger(double *x, int nr, int nc, int i1, int i2)
+{
+    double dist, cp = 0.0, ss1 = 0.0, ss2 = 0.0;
+    int count = 0, j;
+
+    for (j = 0; j < nc; j++) {
+	if (!ISNAN(x[i1]) && !ISNAN(x[i2])) {
+	    count++;
+	    cp += sqrt(x[i1] * x[i2]);
+	    ss1 += x[i1];
+	    ss2 += x[i2];
+	}
+	i1 += nr;
+	i2 += nr;
+    }
+
+    if (count == 0) return NA_REAL;
+    dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
+    return sqrt(dist);
 }
 
 /* Canberra distance: duplicates R base, but is scaled into range
@@ -412,7 +476,8 @@ static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
 		    break;
 	  }
      }
-     return 1 - dist/M_LN2;
+     /* index in range 0..log(2) */
+     return M_LN2 - dist;
 }
 
 #undef MAXIT
@@ -681,10 +746,15 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
     case EUCLIDEAN:
     case MAHALANOBIS:
     case CHISQUARE:
-    case CHORD:
     case AITCHISON:
     case RAITCHISON:
 	distfun = veg_euclidean;
+	break;
+    case CHORD:
+	distfun = veg_chord;
+	break;
+    case HELLINGER:
+	distfun = veg_hellinger;
 	break;
     case CANBERRA:
 	distfun = veg_canberra;

@@ -16,8 +16,11 @@
     if (is.null(x$CCA))
         tabula <- tabula[1:2]
     display <- match.arg(display, c("sites", "species", "wa",
-                                    "lc", "bp", "cn", "reg"),
+                                    "lc", "bp", "cn", "reg", "all"),
                          several.ok = TRUE)
+    ## set "all" for tidy scores
+    if (tidy)
+        display <- "all"
     if("sites" %in% display)
       display[display == "sites"] <- "wa"
     if("species" %in% display)
@@ -31,7 +34,6 @@
     eigval <- eigenvals(x)
     if (inherits(x, "dbrda") && any(eigval < 0))
         eigval <- eigval[eigval > 0]
-    slam <- sqrt(eigval[choices]/sumev)
     nr <- if (is.null(x$CCA))
         nrow(x$CA$u)
     else
@@ -53,6 +55,10 @@
         rnk <- x$CCA$poseig
     else
         rnk <- x$CCA$rank
+    if (is.null(rnk))
+        rnk <- 0
+    choices <- choices[choices %in% seq_len(rnk + x$CA$rank)]
+    slam <- sqrt(eigval[choices]/sumev)
     sol <- list()
     ## process scaling; numeric scaling will just be returned as is
     scaling <- scalingType(scaling = scaling, correlation = correlation)

@@ -46,7 +46,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     upto <- min(upto, n)
     if (n > 8 || trace) {
         if (upto < n)
-            cat("Studying", nall <- sum(choose(n, 1:upto)), "of ")
+            cat("Studying", sum(choose(n, 1:upto)), "of ")
         cat(ntake, "possible subsets (this may take time...)\n")
         flush.console()
     }

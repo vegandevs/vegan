@@ -11,7 +11,7 @@
                  "kulczynski", "gower", "morisita", "horn", #8
                  "mountford", "jaccard", "raup", "binomial", "chao", #13
                  "altGower", "cao", "mahalanobis", "clark", "chisq", "chord", #19
-		 "Aitchison", "rAitchison", "yueclayton") # 22
+		 "hellinger", "aitchison", "robust.aitchison") # 22
     method <- pmatch(method, METHODS)
     inm <- METHODS[method]
     if (is.na(method))
@@ -31,7 +31,7 @@
                  meaningless in method ",
                  dQuote(inm))
     ## 1 manhattan, 2 euclidean, 3 canberra, 6 gower, 16 mahalanobis, 19 chord
-    if (!method %in% c(1,2,3,6,16,19) && any(x < 0, na.rm = TRUE))
+    if (!method %in% c(1,2,3,6,16,19,20) && any(x < 0, na.rm = TRUE))
         warning("results may be meaningless because data have negative entries
                  in method ",
                  dQuote(inm))
@@ -45,14 +45,10 @@
         x <- veganMahatrans(scale(x, scale = FALSE))
     if (method == 18) # chisq
         x <- decostand(x, "chi.square")
-    if (method == 19) # chord
-        x <- decostand(x, "normalize")
-    if (method == 20)  # Aitchison
+    if (method == 21)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
-    if (method == 21)  # rAitchison
+    if (method == 22)  # robust.aitchison
         x <- decostand(x, "rclr") # No pseudocount for rclr
-    if (method == 22)  # yueclayton
-        x <- decostand(x, "yueclayton") 
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
@@ -65,6 +61,16 @@
     d[d < ZAP] <- 0
     if (any(is.na(d)))
         warning("missing values in results")
+    ## add attribute maxdist: the maximum value of the distance function
+    attr(d, "maxdist") <-
+        if(method %in% c(3,4,5,7,8,10,11,13,17)) # index in 0..1
+            1
+        else if (method %in% c(19,20)) # chord, hellinger
+            sqrt(2)
+        else if (method == 9) # Mountford
+            log(2)
+        else # no fixed upper limit
+            NA
     attr(d, "Size") <- N
     attr(d, "Labels") <- dimnames(x)[[1]]
     attr(d, "Diag") <- diag

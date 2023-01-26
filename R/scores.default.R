@@ -1,11 +1,15 @@
 "scores.default" <-
-    function (x, choices, display = c("sites", "species"), ...)
+    function (x, choices, display = c("sites", "species", "both"),
+              tidy = FALSE, ...)
 {
     display <- match.arg(display)
+    X <- Y <- NULL
+    if (tidy)
+        display <- "both"
     att <- names(x)
     if (is.data.frame(x) && all(sapply(x, is.numeric)))
         x <- as.matrix(x)
-    if (is.list(x) && display == "sites") {
+    if (is.list(x) && display %in% c("sites", "both")) {
         if ("points" %in% att)
             X <- x$points
         else if ("rproj" %in% att)
@@ -22,20 +26,25 @@
             X <- x$l1
         else stop("cannot find scores")
     }
-    else if (is.list(x) && display == "species") {
+    if (is.list(x) && display %in% c("species", "both")) {
         if ("species" %in% att)
-            X <- x$species
+            Y <- x$species
         else if ("cproj" %in% att)
-            X <- x$cproj
+            Y <- x$cproj
         else if ("rotation" %in% att)
-            X <- x$rotation
+            Y <- x$rotation
         else if ("loadings" %in% att)
-            X <- x$loadings
+            Y <- x$loadings
         else if ("co" %in% att)
-            X <- x$co
+            Y <- x$co
         else if ("c1" %in% att)
-            X <- x$c1
-        else stop("cannot find scores")
+            Y <- x$c1
+        else if (display == "species") # fail if species explicitly requested
+            stop("cannot find species scores")
+        else { # "both" may be non-chalant: only warn
+            warning("cannot find species scores")
+        }
+
     }
     else if (is.numeric(x)) {
         X <- as.matrix(x)
@@ -55,15 +64,35 @@
         ##if (ncol(X) == 1 && nrow(X) == length(choices))
         ##    X <- t(X)
     }
-    if (NROW(X) && is.null(rownames(X))) {
-        root <- substr(display, 1, 4)
-        rownames(X) <- paste(root, 1:nrow(X), sep = "")
+    if (!is.null(X) && NROW(X) && is.null(rownames(X))) {
+        rownames(X) <- paste0("site", 1:nrow(X))
     }
-    if (NCOL(X) && is.null(colnames(X)))
-        colnames(X) <- paste("Dim", 1:ncol(X), sep = "")
+    if (!is.null(Y) && NROW(Y) && is.null(rownames(Y))) {
+        rownames(Y) <- paste0("spec", 1:nrow(Y))
+    }
+    if (!is.null(X) && NCOL(X) && is.null(colnames(X))) {
+        colnames(X) <- paste0("Dim", 1:ncol(X))
+    }
+    if (!is.null(Y) && NCOL(Y) && is.null(colnames(Y))) {
+        colnames(Y) <- paste0("Dim", 1:ncol(Y))
+    }
     if (!missing(choices)) {
-        choices <- choices[choices <= ncol(X)]
-        X <- X[, choices, drop = FALSE]
+        if (!is.null(X))
+            X <- X[, choices[choices <= NCOL(X)], drop = FALSE]
+        if (!is.null(Y))
+            Y <- Y[, choices[choices <= NCOL(Y)], drop = FALSE]
     }
-    as.matrix(X)
+    out <- list("sites" = X, "species" = Y)
+    if (tidy) {
+        score <- sapply(out, NROW)
+        out <- data.frame(do.call(rbind, out),
+                          "scores" = rep(names(score), score))
+        out$label <- rownames(out)
+    }
+    if (any(drop <- sapply(out, is.null))) {
+        out <- out[!drop]
+        if (is.list(out) && length(out) == 1)
+            out <- out[[1]]
+    }
+    out
 }

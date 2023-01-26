@@ -15,6 +15,9 @@
     ## 'x' must be integers ('sample' need not be)
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("community data 'x' must be integers (counts)")
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     slope <- function(x, sample) {
         x <- x[x>0]
         J <- sum(x)

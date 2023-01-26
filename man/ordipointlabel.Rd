@@ -49,9 +49,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   long time in difficult cases with a high number of potential
   overlaps. Several sets of scores can be displayed in one plot. 
 
-  The function is modelled after \code{\link[maptools]{pointLabel}} in
-  \pkg{maptools} package (which has chained dependencies of \code{S4}
-  packages). 
+  The function is modelled after \code{pointLabel} in the
+  \pkg{maptools} package.
 }
 \value{
   The function returns invisibly an object of class
@@ -73,14 +72,13 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   necessary that the points span the whole horizontal axis without empty
   margins. 
 }
-\references{ See \code{\link[maptools]{pointLabel}} for references. }
+
 \author{ Jari Oksanen }
 \note{ 
   The function is designed for ordination graphics, and the
   optimization works properly with plots of isometric aspect ratio.
 }
-\seealso{ \code{\link[maptools]{pointLabel}} for the model
-  implementation, and \code{\link{optim}} for the optimization. }
+
 \examples{
 data(dune)
 ord <- cca(dune)

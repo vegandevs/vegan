@@ -4,10 +4,10 @@ useDynLib(vegan, .registration = TRUE)
 ## Export regular function names (no dots)
 
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
-SSlomolino, adipart, adonis, anosim, beals, betadisper, betadiver,
+SSlomolino, adipart, adonis2, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim, cutreeord,
-dbrda, decorana, decostand, designdist,
+dbrda, decobackstand, decorana, decostand, designdist,
 coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
@@ -36,9 +36,6 @@ wcmdscale, wisconsin)
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there
 export(anova.cca)
-export(as.mcmc.oecosimu, as.mcmc.permat)
-## alternative implementation of adonis: may be eliminated later
-export(adonis2)
 
 ## export regular functions with dot names
 
@@ -53,11 +50,13 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
-
-## Deprecated functions & methods
 export(as.mlm)
 S3method(as.mlm, cca)
-S3method(as.mlm, rda)
+
+## Deprecated functions & methods
+export(as.mcmc.oecosimu)
+export(as.mcmc.permat)
+export(adonis)
 
 ## do NOT export the following internal functions
 
@@ -67,14 +66,50 @@ S3method(as.mlm, rda)
 ## varpart3, varpart4, veganCovEllipse, veganMahatrans)
 
 ## Imports
-import(stats)
-import(graphics)
-import(permute)
+
+## define S3 methods for these stats functions
+importFrom(stats, AIC, TukeyHSD, add1, alias, anova, as.hclust, as.ts,
+           biplot, coef, confint, cooks.distance, cophenetic, density,
+           deviance, df.residual, drop1, extractAIC, fitted,
+           hatvalues, logLik, model.frame, model.matrix, nobs,
+           predict, profile, qqnorm, reorder, residuals, rstandard,
+           rstudent, screeplot, sigma, simulate, SSD, update, vcov,
+           weights)
+## direct calls
+importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
+           as.dendrogram, as.dist, as.formula, cmdscale, coefficients,
+           complete.cases, cor, cov, cov.wt, cutree, delete.response,
+           dendrapply, dist, dnorm, drop.scope, estVar, factor.scope,
+           family, formula, glm, glm.fit, hclust, heatmap, integrate,
+           is.ts, kmeans, lm, median, na.action, na.fail, na.pass,
+           napredict, naprint, nlm, nls, optim, optimize, p.adjust,
+           p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
+           ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
+           qnorm, quantile, quasipoisson, r2dtable, reformulate,
+           rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
+           uniroot, update.formula, var, weighted.mean)
+## S3methods for these
+importFrom(graphics, boxplot, identify, lines, pairs, persp, plot,
+           points, text)
+## direct calls
+importFrom(graphics, abline, arrows, axis, barplot, box, contour,
+           curve, grid, image, layout, legend, matlines, matplot,
+           mtext, par, plot.new, plot.window, polygon, rect, rug,
+           segments, strheight, strwidth, symbols, title)
+import(permute) ## vegan depends on permute: import everything
 importFrom(utils, news, vignette, combn, flush.console, head, object.size,
            read.fortran, read.fwf, tail, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
-import(grDevices) ## too many functions to be listed separately
-import(lattice)
+importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
+           heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
+           rgb, svg, tiff, xfig, xy.coords)
+## import(grDevices) ## too many functions to be listed separately
+## import(lattice) # vegan depends on lattice: import all
+importFrom(lattice, densityplot, qqmath, bwplot, cloud, lpolygon, panel.abline,
+           panel.arrows, panel.cloud, panel.densityplot, panel.lines,
+           panel.number, panel.qqmath, panel.superpose, panel.text,
+           panel.xyplot,prepanel.default.cloud, splom, xyplot,
+           trellis.par.get)
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply)
 importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm, lda)
@@ -108,11 +143,10 @@ S3method(anova, cca)
 S3method(anova, prc)
 # as.hclust: stats
 S3method(as.hclust, spantree)
-## Do not export as.mcmc now: would need import(coda)
-# as.mcmc: coda <======= rare
-#S3method(as.mcmc, oecosimu)
-#S3method(as.mcmc, permat)
-
+## toCoda (used to be unexported & dysfunctional as.mcmc)
+export(toCoda)
+S3method(toCoda, oecosimu)
+S3method(toCoda, permat)
 # as.ts: stats
 S3method(as.ts, oecosimu)
 S3method(as.ts, permat)
@@ -170,6 +204,7 @@ S3method(drop1, cca)
 # eigenvals: vegan
 S3method(eigenvals, betadisper)
 S3method(eigenvals, cca)
+S3method(eigenvals, decorana)
 S3method(eigenvals, default)
 S3method(eigenvals, dudi)
 S3method(eigenvals, pca)
@@ -402,6 +437,7 @@ S3method(print, summary.prc)
 S3method(print, summary.procrustes)
 S3method(print, summary.simper)
 S3method(print, summary.taxondive)
+S3method(print, summary.varpart)
 S3method(print, taxondive)
 S3method(print, tolerance.cca)
 S3method(print, varpart)
@@ -501,6 +537,7 @@ S3method(summary, radfit.frame)
 S3method(summary, simper)
 S3method(summary, specaccum)
 S3method(summary, taxondive)
+S3method(summary, varpart)
 # tail: utils
 S3method(tail, summary.cca)
 # text: graphics
@@ -511,8 +548,9 @@ S3method(text, monoMDS)
 S3method(text, ordiplot)
 S3method(text, orditkplot)
 S3method(text, procrustes)
-# tolerance: vegan -- or analogue?? Gav?
+# tolerance
 S3method(tolerance, cca)
+S3method(tolerance, decorana)
 # update: stats
 S3method(update, nullmodel)
 # vif: car -- but not used as a S3method within vegan

@@ -7,6 +7,10 @@
     ## check input data: must be counts
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    ## should be observed counts
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     ## sort out col and lty
     if (missing(col))
         col <- par("col")
@@ -32,7 +36,9 @@
             ## don't want names on n an `c` adds a name from `tot[i]`)
             n <- c(n, tot[i], use.names = FALSE)
         }
-        drop(rarefy(x[i,], n))
+        ## already warned on possibly non-observed counts: do not
+        ## repeat warnings for every row
+        drop(suppressWarnings(rarefy(x[i,], n)))
     })
     ## instead of plotting a rarecurve, return a "tidy" data frame and
     ## the let the user figure out how to display the results
