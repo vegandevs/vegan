@@ -131,12 +131,6 @@
              "clr-transformation is being applied without (suitable) ",
              "pseudocount. \n")
     }
-    # In every sample, calculates the log of individual entries.
-    # After that calculates
-    # the sample-specific mean value and subtracts every entries'
-    # value with that.
-    #clog <- t(log(x))
-    #t(clog - rowMeans(clog))
 
     clog <- log(x)
     clog - rowMeans(clog)
