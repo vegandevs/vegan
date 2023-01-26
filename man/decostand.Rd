@@ -92,16 +92,16 @@ decobackstand(x, zap = TRUE)
      \code{reference}.
 
      \item \code{clr}: centered log ratio ("clr") transformation proposed by
-     Aitchison (1986) reduces data skewness and compositionality bias.
+     Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
-     (see e.g. Gloor et al., 2017).
-     \deqn{clr = log\frac{x_{r}}{g(x_{r})} = log x_{r} - log µ_{r}}{%
-     clr = log(x_r/g(x_r)) = log x_r - log µ_r}
-     where \eqn{x_{r}} is a single relative value, \eqn{g(x_{r})} is
-     the geometric mean
-     of relative values per sample, and \eqn{\mu_{r}} is the arithmetic mean of 
-     relative values per sample. The method can operate only with positive data;
-     a common way to deal with zeroes is to add pseudocount, either by
+     (see e.g. Gloor et al., 2017). The clr transformation is defined as:
+     \deqn{clr = log\frac{x}{g(x)} = log x - log g(x)}{%
+           clr = log(x/g(x)) = log x - log g(x)}     
+     where \eqn{x} is a single value, and g(x) is the geometric mean of
+     \eqn{x}.
+     The method can operate only with positive data;
+     a common way to deal with zeroes is to add pseudocount
+     (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
      \code{decostand(x, method = "clr", pseudocount = 1)}. Adding
@@ -111,17 +111,16 @@ decobackstand(x, zap = TRUE)
      \item \code{rclr}: robust clr ("rclr") is similar to regular clr
      (see above) but allows data that contains zeroes. This method
      does not use pseudocounts, unlike the standard clr.
-     Robust clr divides the values by geometric mean
+     The robust clr (rclr) divides the values by geometric mean
      of the observed features; zero values are kept as zeroes, and not
      taken into account. In high dimensional data,
-     the geometric mean of rclr is a good approximation of the true
+     the geometric mean of rclr approximates the true
      geometric mean; see e.g. Martino et al. (2019)
      The \code{rclr} transformation is defined formally as follows:
-     \deqn{rclr = log\frac{x_{r}}{g(x_{r} > 0)}}{%
-     rclr = log(x_r/g(x_r > 0))}
-     where \eqn{x_{r}} is a single relative value, and \eqn{g(x_{r} > 0)}
-     is geometric  mean of sample-wide relative values that are positive
-     (over 0).
+     \deqn{rclr = log\frac{x}{g(x > 0)}}{%
+     rclr = log(x/g(x > 0))}
+     where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
+     mean of sample-wide values \eqn{x} that are positive (> 0).
   }
   
   Standardization, as contrasted to transformation, means that the
