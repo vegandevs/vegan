@@ -165,9 +165,9 @@ Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y, trace = FALSE)
 plot(mod)
 ### Ellipsoid hulls show treatment
-with(dat, ordiellipse(mod, field, kind = "ehull", label = TRUE))
+with(dat, ordiellipse(mod, NO3, kind = "ehull", label = TRUE))
 ### Spider shows fields
-with(dat, ordispider(mod, field, lty=3, col="red"))
+with(dat, ordispider(mod, field, lty=3, col="red", label = TRUE))
 
 ### Incorrect (no strata)
 adonis2(Y ~ NO3, data = dat, permutations = 199)
