@@ -227,6 +227,7 @@ SEXP test_qrXw(SEXP QR, SEXP w, SEXP discard)
     nr = nrows(VECTOR_ELT(QR, 0));
     nc = ncols(VECTOR_ELT(QR, 0));
     SEXP X = PROTECT(allocMatrix(REALSXP, nr, nc));
+    memset(REAL(X), 0, nr * nc * sizeof(double));
     qrXw(qr, rank, qraux, pivot, REAL(X), REAL(w), nr, nc, asInteger(discard));
     UNPROTECT(2);
     return X;
@@ -343,18 +344,25 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
        compatibility with the current code). For this we need to
        reconstruct constraints and conditions. */
     int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *zpivot;
-    double *wperm, *Xorig, *Zorig, *qrwork, *zqrwork, qrtol=1e-7; 
+    double *wperm, *Xorig, *Zorig, *Zperm, *qrwork, *zqrwork, qrtol=1e-7;
     if (WEIGHTED) {
 	if (PARTIAL) {
 	    nz = ncols(VECTOR_ELT(QZ, 0));
+	    /* want to have weighted Z: set all weights = 1 */
+	    double *w1 = (double *) R_alloc(nr, sizeof(double));
+	    for(i = 0; i < nr; i++)
+		w1[i] = 1;
 	    zpivot = INTEGER(VECTOR_ELT(QZ, 3));
 	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
-	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, REAL(w), nr, nz, 0);
+	    memset(Zorig, 0, nr * nz * sizeof(double));
+	    Zperm = (double *) R_alloc(nr * nz, sizeof(double));
+	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, w1, nr, nz, 0);
 	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
 	}
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
-	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, 0);
+	memset(Xorig, 0, nr * nx * sizeof(double));
+	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
 	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
     }
 
@@ -384,6 +392,9 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		else   /* shuffle rows */
 		    rY[i + nr*j] = REAL(E)[ki + nr*j];
 	    }
+	    if (PARTIAL)
+		for(j = 0; j < nz; j++)
+		    Zperm[i + nr*j] = Zorig[ki + nr*j];
 	    if (WEIGHTED) {
 		wperm[i] = REAL(w)[ki];
 	    }
@@ -393,9 +404,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	if (PARTIAL) {
 	    /* Re-do QR decomposition with changed weights */
 	    if (WEIGHTED) {
-	        memcpy(Zqr, Zorig, nr * nz * sizeof(double));
-		/* wcentre is in goffactor.c file */
-		wcentre(Zorig, Zqr, wperm, &nr, &nz);
+	        memcpy(Zqr, Zperm, nr * nz * sizeof(double));
 		/* dqrdc2 is not in R API */
 		for (i = 0; i < nz; i++)
 		    zpivot[i] = i + 1;
@@ -416,14 +425,20 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 				    transY + i*nr, &dummy, qty, &dummy,
 				    rY + i*nr, &dummy, &qrkind, &info);
 	    }
+
 	}
 
 	/* CONSTRAINED COMPONENT */
 
-	/* Re-weight constraints and re-do QR */
+	/* Re-weight & residualize constraints and re-do QR */
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
 	    wcentre(Xorig, qr, wperm, &nr, &nx);
+	    qrkind = RESID;
+	    for (i = 0; i < nx; i++)
+		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+		    qr + i*nr, &dummy, qty, &dummy, qr + i*nr,
+		    &dummy, &qrkind, &info);
 	    for(i = 0; i < nx; i++)
 		pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
