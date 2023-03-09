@@ -33,8 +33,8 @@
     w <- weights(m)
 
     ## Set up before the loop
-    Z <- .Call(vegan:::test_qrXw, QZ, w)
-    X <- .Call(vegan:::test_qrXw, QR, w)
+    ## Z <- .Call(vegan:::test_qrXw, QZ, w, 0)
+    ## X <- .Call(vegan:::test_qrXw, QR, w, ncol(Z))
 
     ## permutations
     if (missing(p))
@@ -44,8 +44,7 @@
 
     ## Set up before the loop
     Z <- qr.X(QZ) # weighted Z
-    X <- .Call(vegan:::test_qrXw, QR, w) # unweighted [ZX]
-    X <- X[, -seq_len(ncol(Z)), drop = FALSE] # remove Z, leaves X
+    X <- .Call(vegan:::test_qrXw, QR, w, ncol(Z)) # unweighted [ZX]
 
     for (iter in seq_len(niter)) {
         ## permute Y & w
