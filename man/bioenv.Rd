@@ -63,7 +63,7 @@ bioenvdist(x, which = "best")
   calculated. With \code{metric = "mahalanobis"}, the Mahalanobis
   distances are calculated: in addition to scaling to unit variance,
   the matrix of the current set of environmental variables is also
-  made orthogonal (uncorrelated). With \code{metric = "manhanttan"},
+  made orthogonal (uncorrelated). With \code{metric = "manhattan"},
   the variables are scaled to unit range and Manhattan distances are
   calculated, so that the distances are sums of differences of
   environmental variables.  With \code{metric = "gower"}, the Gower
