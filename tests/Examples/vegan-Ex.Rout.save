@@ -386,7 +386,7 @@ Achieved convergence tolerance: 9.715e-07
 > lines(xtmp, predict(mlom, newdata=data.frame(area=xtmp)),
 +   lwd=2, col = 4)
 > ## One canned model of standard R:
-> mmic <- nls(S ~ SSmicmen(area, slope, Asym), sipoo.map)
+> mmic <- nls(S ~ SSmicmen(area, Asym, slope), sipoo.map)
 > lines(xtmp, predict(mmic, newdata = data.frame(area=xtmp)),
 +   lwd =2, col = 5)
 > legend("bottomright", c("Arrhenius", "log-log linear", "Gleason", "Gitay", 
@@ -9195,7 +9195,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.037 0.324 9.396 0 0 
+Time elapsed:  8.996 0.284 9.293 0 0 
 > grDevices::dev.off()
 null device 
           1 
