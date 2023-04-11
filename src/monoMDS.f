@@ -382,7 +382,7 @@ C
       IF (N.LT.2) RETURN
       FN=REAL(N)
       NLOOPS=MAX(NINT(LOG(FN)/LOG(2.)),1)
-      M=ISHFT(1,NLOOPS-1)
+      M=ISHFT(1,NLOOPS-1) ! i.e., 2^(N_LOOPS-1) using bit shifts
       DO II=1,NLOOPS
         FM=M
         DO I=1,MAX(1,N-M)
