@@ -434,11 +434,13 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
 	    wcentre(Xorig, qr, wperm, &nr, &nx);
-	    qrkind = RESID;
-	    for (i = 0; i < nx; i++)
-		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-		    qr + i*nr, &dummy, qty, &dummy, qr + i*nr,
-		    &dummy, &qrkind, &info);
+	    if (PARTIAL) {
+		qrkind = RESID;
+		for (i = 0; i < nx; i++)
+	            F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+	                qr + i*nr, &dummy, qty, &dummy, qr + i*nr,
+	                &dummy, &qrkind, &info);
+	    }
 	    for(i = 0; i < nx; i++)
 		pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
