@@ -1,6 +1,44 @@
 ## vegan News
 
-### Changes in version 2\.6-3
+### Changes in version 2\.6-5
+
+#### NEW FEATURES
+
+* Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
+  without formula interface can have permutation tests (`anova`) by
+  "axis" and by "onedf". Models by "terms" and "margin" are only
+  possible with formula interface.
+
+* Permutation tests for constrained ordination objects (`cca`, `rda`,
+  `dbrda`) with `by = "axis"` stop permutations of later axis once the
+  `cutoff` limit is reached. Earlier `cutoff` had to be exceeded. The
+  default is to stop permutations once _P_-value 1 is reached. The
+  analysis takes care that _P_-values of axes are increasing following
+  Canoco.
+
+* Coefficients of effects in `prc` models are scaled similarly as they
+  were scaled in **vegan** pre 2\.5-1. The change was suggested by
+  Cajo ter Braak.
+
+#### BUG FIXES
+
+* `plot` and `scores` for `cca` and `rda` family of methods gave an
+  error when non-existing axes were requested. Now ignores requests to
+  axes numbers that are higher than in the result object.
+
+#### DEPRECATED AND DEFUNCT
+
+* `adonis` is deprecated: use `adonis2`. There are several CRAN
+  packages that still use `adonis` although we have contacted all
+  their authors in June 2022 and printed a message of forthcoming
+  deprecation since **vegan** 2.6-2. See
+  [issue #523](https://github.com/vegandevs/vegan/issues/523).
+
+* `as.mcmc.oecosimu` and `as.mcmc.permat` are defunct: use `toCoda`.
+
+* Code of defunct functions was completely removed.
+
+### Changes in version 2\.6-4
 
 #### NEW FEATURES
 
@@ -86,6 +124,21 @@
   implemented for `alr`. Back-transformation queried in
   <https://stackoverflow.com/questions/73263526/>
 
+* Rarefaction and rarefaction-based methods make sense only with
+  original observed counts and give misleading results if data are
+  multiplied or rare species are removed. Observed counts usually have
+  singletons (species with count one), and these method issue a
+  warning if minimum count is higher than one (which may be a false
+  positive, but inspect your data). Concerns functions `rarefy`,
+  `drarefy`, `rrarefy`, `rarecurve`,
+  `specaccum(..., method="rarefy")`, `rareslope` and `avgdist`.
+  See github
+  [discussion #537](https://github.com/vegandevs/vegan/discussions/537).
+
+* `avgdist` exposes `as.dist` arguments and can return `"dist"`ance
+  objects that appear as lower triangles instead of appearing as
+  symmetric matrices.
+
 * `betadisper` plots accept `col` argument
   ([PR \#300](https://github.com/vegandevs/vegan/pull/300)).
 
@@ -113,7 +166,7 @@
 * `adonis` is on way to deprecation. Use `adonis2` instead.
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` were deprecated: these could
-  not be used as S3 methods without depending on coda package. Use
+  not be used as S3 methods without depending on **coda** package. Use
   `toCoda` instead.
 
 ### Changes in version 2\.6-2
@@ -1653,8 +1706,7 @@
   
   The abundance based `estimateR` uses bias corrected Chao
   extrapolation, but earlier it estimated its variance with classic Chao
-  model. Now we use the widespread [approximate
-  equation](https://viceroy.eeb.uconn.edu/EstimateS/EstimateSPages/EstSUsersGuide/EstimateSUsersGuide.htm#AppendixB)
+  model. Now we use the widespread approximate estimate from EstimateS
   for variance.
   
   With these changes these functions are more similar to **EstimateS**

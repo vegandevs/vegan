@@ -1,6 +1,7 @@
 `avgdist` <-
     function(x, sample, distfun = vegdist, meanfun = mean,
-             transf = NULL, iterations = 100, dmethod = "bray", ...)
+             transf = NULL, iterations = 100, dmethod = "bray",
+             diag = TRUE, upper = TRUE, ...)
 {
     if (missing(sample)) {
         stop("Subsampling depth must be supplied via argument 'sample'")
@@ -17,6 +18,10 @@
     if (!is.null(transf)) {
         transf <- match.fun(transf)
     }
+    ## warn here if data do not look observed counts with singletons
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     # Get the list of iteration matrices
     distlist <- lapply(seq_len(iterations), function(i) {
         # Suppress warnings because it will otherwise return many warnings about
@@ -50,7 +55,7 @@
             "The following sampling units were removed because they were below sampling depth: %s",
                          paste(dropsamples, collapse = ", ")))
     }
-    output <- as.dist(output, diag = TRUE, upper = TRUE)
+    output <- as.dist(output, diag = diag, upper = upper)
     attr(output, "call") <- match.call()
     attr(output, "method") <- "avgdist"
     output

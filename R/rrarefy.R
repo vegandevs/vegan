@@ -9,6 +9,9 @@
     ## x may not be exactly integer, since, e.g., sqrt(2)^2 != 2
     if (!is.integer(x))
         x <- round(x)
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("function should be used for observed counts, but smallest count is %d", minobs))
     if (ncol(x) == 1)
         x <- t(x)
     if (length(sample) > 1 && length(sample) != nrow(x))
@@ -31,6 +34,9 @@
 {
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     if (length(sample) > 1 &&  length(sample) != nrow(x))
         stop(gettextf(
              "length of 'sample' and number of rows of 'x' do not match"))

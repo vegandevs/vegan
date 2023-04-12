@@ -156,6 +156,7 @@
         stop("'clr' cannot be used with non-positive data: use pseudocount > ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
+
     # In every sample, calculate the log of individual entries.
     # Then calculate
     # the sample-specific mean value and subtract every entries'

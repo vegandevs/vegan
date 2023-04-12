@@ -71,7 +71,7 @@ rareslope(x, sample)
   Function \code{drarefy} returns probabilities that species occur in
   a rarefied community of size \code{sample}. The \code{sample} can be
   a vector giving the sample sizes for each row. If the \code{sample}
-  is equal to or smaller than the observed number of individuals, all
+  is equal to or larger than the observed number of individuals, all
   observed species will have sampling probability 1.
 
   Function \code{rarecurve} draws a rarefaction curve for each row of
@@ -84,6 +84,15 @@ rareslope(x, sample)
   Function \code{rareslope} calculates the slope of \code{rarecurve}
   (derivative of \code{rarefy}) at given \code{sample} size; the
   \code{sample} need not be an integer.
+
+  Rarefaction functions should be used for observed counts. If you
+  think it is necessary to use a multiplier to data, rarefy first and
+  then multiply. Removing rare species before rarefaction can also
+  give biased results. Observed count data normally include singletons
+  (species with count 1), and if these are missing, functions issue
+  warnings. These may be false positives, but it is recommended to
+  check that the observed counts are not multiplied or rare taxa are
+  not removed.
 
 }
 

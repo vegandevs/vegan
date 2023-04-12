@@ -7,6 +7,9 @@
         x <- t(x)
     if (!identical(all.equal(x, round(x)), TRUE))
         stop("function accepts only integers (counts)")
+    minobs <- min(x[x > 0])
+    if (minobs > 1)
+        warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))
     minsample <- min(apply(x, MARGIN, sum))
     if (missing(sample)) {
         stop(

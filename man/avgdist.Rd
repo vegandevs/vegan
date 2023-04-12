@@ -13,7 +13,8 @@
 
 \usage{
 avgdist(x, sample, distfun = vegdist, meanfun = mean,
-    transf = NULL, iterations = 100, dmethod = "bray", ...)
+    transf = NULL, iterations = 100, dmethod = "bray",
+    diag = TRUE, upper = TRUE, ...)
 }
 \arguments{
   \item{x}{Community data matrix.}
@@ -29,7 +30,12 @@ avgdist(x, sample, distfun = vegdist, meanfun = mean,
   \item{iterations}{The number of random iterations to perform before averaging.
   Default is 100 iterations.}
   \item{dmethod}{Dissimilarity index to be used with the specified dissimilarity
-  matrix function. Default is Bray-Curtis}
+    matrix function. Default is Bray-Curtis}
+  \item{diag, upper}{Return dissimilarities with diagonal and upper
+    triangle. NB. the default differs from \code{\link[vegan]{vegdist}}
+    and returns symmetric \code{"dist"} structure instead of lower
+    diagonal. However, the object cannot be accessed with matrix
+    indices unless cast to matrix with \code{\link{as.matrix}}.}
   \item{...}{Any additional arguments to add to the distance function or
   mean/median function specified.}
 }

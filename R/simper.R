@@ -64,7 +64,7 @@
                 Pval <- rep(1, ncol(comm))
                 for (k in seq_len(nperm)) {
                     take <- tmat[permat[k,],permat[k,]][tri]
-                    Pval <- Pval + ((colMeans(spcontr[take,]) - EPS) >= average)
+                    Pval <- Pval + ((colMeans(spcontr[take,,drop = FALSE]) - EPS) >= average)
                 }
                 Pval <- Pval/(nperm+1)
             } else {

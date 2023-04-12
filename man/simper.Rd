@@ -112,7 +112,9 @@ simper(comm, group, permutations = 999, parallel = 1, ...)
 data(dune)
 data(dune.env)
 (sim <- with(dune.env, simper(dune, Management, permutations = 99)))
+## IGNORE_RDIFF_BEGIN
 summary(sim)
+## IGNORE_RDIFF_END
 }
 \author{
   Eduard Szöcs and Jari Oksanen.

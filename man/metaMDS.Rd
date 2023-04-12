@@ -455,7 +455,8 @@ metaMDSredist(object, ...)
 ## The recommended way of running NMDS (Minchin 1987)
 ##
 data(dune)
-# Global NMDS using monoMDS
+## IGNORE_RDIFF_BEGIN
+## Global NMDS using monoMDS
 sol <- metaMDS(dune)
 sol
 plot(sol, type="t")
@@ -467,5 +468,6 @@ sol2
 ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
+## IGNORE_RDIFF_END
 }
 \keyword{ multivariate }

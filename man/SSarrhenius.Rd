@@ -130,7 +130,7 @@ mlom
 lines(xtmp, predict(mlom, newdata=data.frame(area=xtmp)),
   lwd=2, col = 4)
 ## One canned model of standard R:
-mmic <- nls(S ~ SSmicmen(area, slope, Asym), sipoo.map)
+mmic <- nls(S ~ SSmicmen(area, Asym, slope), sipoo.map)
 lines(xtmp, predict(mmic, newdata = data.frame(area=xtmp)),
   lwd =2, col = 5)
 legend("bottomright", c("Arrhenius", "log-log linear", "Gleason", "Gitay", 

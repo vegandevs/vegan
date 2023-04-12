@@ -197,7 +197,7 @@ dune.mrpp
 def.par <- par(no.readonly = TRUE)
 layout(matrix(1:2,nr=1))
 
-plot(dune.ord <- metaMDS(dune), type="text", display="sites" )
+plot(dune.ord <- metaMDS(dune, trace=0), type="text", display="sites" )
 with(dune.env, ordihull(dune.ord, Management))
 
 with(dune.mrpp, {
