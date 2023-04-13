@@ -4,6 +4,22 @@
 
 #### NEW FEATURES
 
+* Permutation tests for CCA were completely redesigned to follow C.J.F
+  ter Braak & D.E. te Beest: Environ Ecol Stat 29, 849–868 (2022)
+  (https://doi.org/10.1007/s10651-022-00545-4). The constraints are
+  now re-weighted for the permuted response data, and in partial model
+  they are also residualized by conditions (partial terms). In
+  **vegan** (after release 2.4-6) the tests were identical to Canoco,
+  but ter Braak & te Beest demonstrated that the results are biased.
+  In old **vegan** (release 2.4-2 and earlier) the predictors were
+  re-weighted but not residualized. Re-weighting was sufficient to
+  remove bias with moderate variation of weights, but residualizing of
+  predictors is necessary with strongly varying weights. See
+  discussion in
+  [issue #542](https://github.com/vegandevs/vegan/issues/542).
+  The new scheme only concern CCA which is a weighted method, and RDA
+  and dbRDA permutation is unchanged.
+
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
   without formula interface can have permutation tests (`anova`) by
   "axis" and by "onedf". Models by "terms" and "margin" are only
@@ -13,14 +29,17 @@
   `dbrda`) with `by = "axis"` stop permutations of later axis once the
   `cutoff` limit is reached. Earlier `cutoff` had to be exceeded. The
   default is to stop permutations once _P_-value 1 is reached. The
-  analysis takes care that _P_-values of axes are increasing following
-  Canoco.
+  analysis takes care that _P_-values of axes are non-decreasing
+  similarly as in Canoco.
 
 * Coefficients of effects in `prc` models are scaled similarly as they
   were scaled in **vegan** pre 2\.5-1. The change was suggested by
   Cajo ter Braak.
 
 #### BUG FIXES
+
+* `anova.cca` with parallel processing could slow down in parallel
+  processing, and actually be slower than non-parallel analysis.
 
 * `plot` and `scores` for `cca` and `rda` family of methods gave an
   error when non-existing axes were requested. Now ignores requests to
