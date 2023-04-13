@@ -44,7 +44,7 @@
 
     ## Set up before the loop
     Z <- qr.X(QZ) # weighted Z
-    X <- .Call(vegan:::test_qrXw, QR, w, ncol(Z)) # unweighted [ZX]
+    X <- .Call(test_qrXw, QR, w, ncol(Z)) # unweighted [ZX]
 
     for (iter in seq_len(niter)) {
         ## permute Y & w
@@ -55,7 +55,7 @@
         QZ <- qr(Zperm)
         Yperm <- qr.resid(QZ, Yperm)
         ## Constrained
-        Xrew <- .Call(vegan:::do_wcentre, X, wperm)
+        Xrew <- .Call(do_wcentre, X, wperm)
         Xrew <- qr.resid(QZ, Xrew) # "residualized predictor" X
         QR <- qr(Xrew)
         Yfit <- qr.fitted(QR, Yperm)
