@@ -27,7 +27,9 @@ adonis2(formula, data, permutations = 999, method = "bray",
     defines the independent variables. These can be continuous variables
     or factors, they can be transformed within the formula, and they can
     have interactions as in a typical \code{\link{formula}}.}
-  \item{data}{ the data frame for the independent variables.}
+  \item{data}{ the data frame for the independent variables, with rows
+    in the same order as the community data matrix or dissimilarity
+    matrix named on the LHS of \code{formula}.}
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
     number of permutations required, or a permutation matrix where each
